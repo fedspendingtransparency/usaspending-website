@@ -1,0 +1,290 @@
+@import "variables";
+@import "mixins";
+
+.datepicker {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    background-color: #fff;
+    color: $text-color;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    display: inline-block;
+    position: relative;
+}
+
+.datepicker__triangle {
+    position: absolute;
+    left: 50px;
+}
+
+.datepicker__tether-element-attached-top .datepicker__triangle {
+    @extend %triangle-arrow-up;
+}
+
+.datepicker__tether-element-attached-bottom .datepicker__triangle {
+    @extend %triangle-arrow-down;
+}
+
+.datepicker__tether-element-attached-bottom.datepicker__tether-element {
+    margin-top: -20px;
+}
+
+.datepicker__header {
+    text-align: center;
+    background-color: $background-color;
+    border-bottom: 1px solid $border-color;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    padding-top: 8px;
+    position: relative;
+}
+
+.datepicker__current-month {
+    margin-top: 0;
+    color: #000;
+    font-weight: bold;
+    font-size: 13px;
+
+    &--hasYearDropdown {
+        margin-bottom: 16px;
+    }
+}
+
+.datepicker__navigation {
+    line-height: $item-size;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    width: 0;
+    border: $navigation-size solid transparent;
+
+    &--previous {
+        left: 10px;
+        border-right-color: $muted-color;
+
+        &:hover {
+            border-right-color: darken($muted-color, 10%);
+        }
+    }
+
+    &--next {
+        right: 10px;
+        border-left-color: $muted-color;
+
+        &:hover {
+            border-left-color: darken($muted-color, 10%);
+        }
+    }
+
+    &--years {
+        position: relative;
+        top: 0;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+
+        &-previous {
+            top: 4px;
+            border-top-color: $muted-color;
+
+            &:hover {
+                border-top-color: darken($muted-color, 10%);
+            }
+        }
+
+        &-upcoming {
+            top: -4px;
+            border-bottom-color: $muted-color;
+
+            &:hover {
+                border-bottom-color: darken($muted-color, 10%);
+            }
+        }
+    }
+}
+
+.datepicker__week-day {
+    color: $muted-color;
+    display: inline-block;
+    width: $item-size + (2 * $day-margin);
+    line-height: $item-size;
+}
+
+.datepicker__month {
+    margin: $datepicker__margin;
+    text-align: center;
+}
+
+.datepicker__day {
+    color: $text-color;
+    display: inline-block;
+    width: $item-size;
+    line-height: $item-size;
+    text-align: center;
+    margin: $day-margin;
+    cursor: pointer;
+
+    &:hover {
+        border-radius: $border-radius;
+        background-color: $background-color;
+    }
+
+    &--today {
+        font-weight: bold;
+    }
+
+    &--selected,
+    &--in-range {
+        border-radius: $border-radius;
+        background-color: $selected-color;
+        color: #fff;
+
+        &:hover {
+            background-color: darken($selected-color, 5%);
+        }
+    }
+
+    &--disabled {
+        cursor: default;
+        color: $muted-color;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+}
+
+.datepicker__input-container {
+    position: relative;
+}
+
+.datepicker__year-read-view {
+    width: 50%;
+    left: 25%;
+    position: absolute;
+    bottom: 25px;
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+
+    &:hover {
+        cursor: pointer;
+
+        .datepicker__year-read-view--down-arrow {
+            border-top-color: darken($muted-color, 10%);
+        }
+    }
+
+    &--down-arrow {
+        @extend %triangle-arrow-down;
+        border-top-color: $muted-color;
+        margin-bottom: 3px;
+        left: 5px;
+        top: 9px;
+        position: relative;
+        border-width: $navigation-size;
+    }
+
+    &--selected-year {
+        right: $navigation-size;
+        position: relative;
+    }
+}
+
+.datepicker__year-dropdown {
+    background-color: $background-color;
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    top: 30px;
+    text-align: center;
+    border-radius: $border-radius;
+    border: 1px solid $border-color;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.datepicker__year-option {
+    line-height: 20px;
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    &:first-of-type {
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+    }
+
+    &:last-of-type {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+    }
+
+    &:hover {
+        background-color: $muted-color;
+
+        .datepicker__navigation--years-upcoming {
+            border-bottom-color: darken($muted-color, 10%);
+        }
+
+        .datepicker__navigation--years-previous {
+            border-top-color: darken($muted-color, 10%);
+        }
+    }
+
+    &--selected {
+        position: absolute;
+        left: 30px;
+    }
+}
+
+.datepicker__close-icon {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    height: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: middle;
+
+    &::after {
+        background-color: $selected-color;
+        border-radius: 50%;
+        bottom: 0;
+        box-sizing: border-box;
+        color: #fff;
+        content: "\00d7";
+        cursor: pointer;
+        font-size: 12px;
+        height: 16px;
+        width: 16px;
+        line-height: 1;
+        margin: -8px auto 0;
+        padding: 2px;
+        position: absolute;
+        right: 7px;
+        text-align: center;
+        top: 50%;
+    }
+}
+
+.datepicker__today-button {
+    background: $background-color;
+    border-top: 1px solid $border-color;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 0;
+}
+
+.datepicker__tether-element {
+    z-index: 2147483647;
+}

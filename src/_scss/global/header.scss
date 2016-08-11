@@ -1,0 +1,181 @@
+/* Header */
+
+.usa-da-header {
+    background-color: $color-gray-dark;
+    border: none;
+    height: $header-height;
+    border-radius: 0;
+    margin-bottom: 0;
+    & .usa-da-top-head {
+        background: $color-base;
+        height: $top-header-height;
+        ul.usa-da-top-head-menu {
+            list-style: none;
+            padding: 0;
+            display: block;
+            float: right;
+            height: $top-header-height;
+        }
+        li.usa-da-top-head-menu-item {
+            list-style: none;
+            font-size: 1.2rem;
+            display: inline-block;
+            padding-left: 25px;
+            margin-top: 0.4rem;
+            margin-bottom: 0.4rem;
+            & a:hover,
+            & a:active,
+            & a:focus {
+                color: $color-gray-light;
+                text-decoration: none;
+                & .usa-da-icon-user,
+                & .usa-da-icon-cog {
+                    fill: $color-gray-light;
+                }
+            }
+            &:before {
+                content: '';
+            }
+            & a {
+                color: #777b86;
+                & .usa-da-icon-user,
+                & .usa-da-icon-cog {
+                    height: 14px;
+                    width: 15px;
+                    position: relative;
+                    top: 3px;
+                    left: -5px;
+                    fill: #777b86;
+                }
+                & .usa-da-icon-cog {
+                    height: 15px;
+                    width: 15px;
+                    left: -4px;
+                }
+            }
+            & .header-dropdown {
+                background: $color-base;
+                position: absolute;
+                z-index: 999999;
+                min-width: 100px;
+                max-width: 200px;
+                & li {
+                    float: left;
+                    padding: 0 10px;
+                    & a {
+                        color: $color-white;
+                        font-size: 1.2rem;
+                    }
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.usa-da-header-container {
+    height: 100%;
+    .usa-da-header-navbar {
+        display: table;
+    }
+    .usa-da-header-brand,
+    .usa-da-header-brand:hover,
+    .usa-da-header-brand:visited {
+        font-size: 2.5rem;
+        line-height: ($header-height - $top-header-height);
+        font-weight: $font-light;
+        height: ($header-height - $top-header-height);
+        color: $color-white;
+        display: table-cell;
+        vertical-align: middle;
+        padding: 0;
+        &:after {
+            @include alphaMark;
+        }
+    }
+    #usa-da-header-link-holder {
+        padding: 0 12px;
+        height: 100%;
+        line-height: ($header-height - $top-header-height);
+        font-size: 15px;
+        font-weight: $font-normal;
+        & li {
+            height: 100%;
+            display: table;
+            margin: 0;
+            border-left: 1px solid #3b4452;
+            &:before {
+                padding: 0;
+                display: none;
+            }
+            &:first-child {
+                border-left: 1px solid #3b4452;
+            }
+        }
+    }
+    #usa-da-header-link-holder > li > a {
+        background-color: $color-gray-dark;
+        color: $color-white;
+        height: ($header-height - $top-header-height);
+        display: table-cell;
+        vertical-align: middle;
+        padding: 1.5rem 2.0rem;
+        font-size: 1.4rem;
+        &:hover {
+            background-color: $color-gray;
+        }
+        &.disabled {
+            cursor: default;
+            color: #71747c;
+            & .comingSoon {
+                text-align: center;
+                font-size: 1.3rem;
+                background: url('../graphics/coming_soon_ribbon.png');
+                height: 61px;
+                width: 91px;
+                display: block;
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 9999;
+            }
+            &:hover {
+                background-color: $color-gray-dark;
+            }
+        }
+    }
+    #usa-da-header-link-holder > li.active > * {
+        background-color: $color-darkest;
+        color: $color-gold-lighter;
+    }
+    #usa-da-header-link-holder > li > .usa-da-user-info {
+        background-color: $color-gray-dark;
+        color: $color-primary-alt-light;
+    }
+    #usa-da-header-link-holder > li > .header-dropdown {
+        @extend .dropdown-menu !optional;
+        display: block;
+        border-radius: 0;
+        background-color: $color-gray-dark;
+        border: 1px solid #3b4452;
+        li {
+            border: none;
+            width: 100%;
+            &::before {
+                display: none;
+            }
+            a {
+                color: $color-primary-alt;
+                vertical-align: middle;
+                padding: 1.5rem 1.0rem;
+                font-size: 1.4rem;
+                &:hover {
+                    background-color: $color-darkest;
+                    color: $color-primary-alt;
+                }
+            }
+        }
+    }
+}
