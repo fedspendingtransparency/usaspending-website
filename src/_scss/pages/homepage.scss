@@ -26,12 +26,12 @@
     }
 
     & .top-alert-text {
-      @include span-columns(11);
+      @include span-columns(15);
     }
 }
 
 .usa-da-page-title {
-  @include span-columns(12);
+  @include span-columns(16);
 
   & h1 {
     padding: 15px;

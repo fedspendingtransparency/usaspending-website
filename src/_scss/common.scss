@@ -2,18 +2,20 @@
 
 html, body {
 	height: 100%;
-	font-size:10px;
+	font-size: $em-base;
 }
 
 body{
 	-webkit-font-smoothing: antialiased;
 	font-smooth: always;
 	background: #f5f5f5;
+	  font-family: $font-sans;
 }
 
 .usa-da-site_wrap{
 	@include display(flex);
     @include flex-direction(column);
+		@include outer-container(100%);
     min-height: 100vh;
     padding-bottom:55px;
 }
@@ -377,9 +379,6 @@ pre {
        				border-right: 1px solid #ddd;
        				&:last-child{
        					border-right:none;
-       					& .usa-da-table-sorter{
-       						width: 50px;
-       					}
        				}
        			}
     		}
@@ -417,13 +416,13 @@ a.list-group-item {
 
 .usa-da-table-sorter {
     position: absolute;
-    top: 0;
+    top: 2;
     right: 15px;
     height: 100%;
-    width: 33px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    width: 40px;
+		@include display(flex);
+		@include flex-direction(row);
+		@include align-items(center);
 
     & .usa-da-icon {
     	height: 2.4rem;
@@ -524,136 +523,6 @@ a.list-group-item {
 	}
 }
 
-/* Progress Bar */
-.usa-da-progress-bar {
-	margin: 0 auto;
-	font-size: 1.3em;
-	font-weight: $font-bold;
-	padding: 4rem 0;
-
-	/* Progress Tracker v2 */
-	.usa-da-progress-bar-holder[data-steps="2"] li { width: 49%; }
-	.usa-da-progress-bar-holder[data-steps="3"] li { width: 33%; }
-	.usa-da-progress-bar-holder[data-steps="4"] li { width: 24%; }
-	.usa-da-progress-bar-holder[data-steps="5"] li { width: 19%; }
-	.usa-da-progress-bar-holder[data-steps="6"] li { width: 16%; }
-	.usa-da-progress-bar-holder[data-steps="7"] li { width: 14%; }
-	.usa-da-progress-bar-holder[data-steps="8"] li { width: 12%; }
-	.usa-da-progress-bar-holder[data-steps="9"] li { width: 11%; }
-
-	.usa-da-progress-bar-holder {
-		width: 100%;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-
-		&:last-child {
-			font-size: $base-font-size;
-			font-family: $font-sans;
-		}
-	}
-
-	.usa-da-progress-bar-holder li {
-		float: left;
-		text-align: center;
-		position: relative;
-		z-index:5;
-		margin: 0.5rem 0 0;
-		font-size: 1.4rem;
-
-		&::before {
-			display: none;
-		}
-
-		&::after {
-			display: none;
-		}
-	}
-
-	.usa-da-progress-bar-holder .name {
-		display: block;
-		vertical-align: bottom;
-		text-align: center;
-		color: $color-gray-dark;
-		opacity: 0.3;
-	}
-
-	.usa-da-progress-bar-holder .step {
-		color: $color-gray-cool-light;
-		background-color: $color-white;
-		border-radius: 100%;
-		line-height: 1.2;
-		width: 2.4em;
-		height: 2.4em;
-		padding-top: 0.6em;
-		display: inline-block;
-		z-index: 0;
-	}
-
-	.usa-da-progress-bar-holder .step span {
-		opacity: 0.3;
-	}
-
-	.usa-da-progress-bar-holder .usa-da-progress-bar-step-current .name,
-	.usa-da-progress-bar-holder .usa-da-progress-bar-step-current .step span {
-		opacity: 1;
-	}
-
-	.usa-da-progress-bar-holder .step:before {
-		content: "";
-		display: block;
-		background-color: $color-white;
-		height: 0.4em;
-		width: 50%;
-		position: absolute;
-		bottom: 0.9em;
-		left: 0;
-		z-index: -1;
-	}
-
-	.usa-da-progress-bar-holder .step:after {
-		content: "";
-		display: block;
-		background-color: $color-white;
-		height: 0.4em;
-		width: 50%;
-		position: absolute;
-		bottom: 0.9em;
-		right: 0;
-		z-index: -1;
-	}
-
-	.usa-da-progress-bar-holder li:first-of-type .step:before {
-		display: none;
-	}
-
-	.usa-da-progress-bar-holder li:last-of-type .step:after {
-		display: none;
-	}
-
-	.usa-da-progress-bar-holder .usa-da-progress-bar-step-done .step,
-	.usa-da-progress-bar-holder .usa-da-progress-bar-step-current .step {
-		border: 1px solid $color-focus;
-		background-color: $color-focus;
-		color: $color-white;
-	}
-
-	.usa-da-progress-bar-holder .usa-da-progress-bar-step-done .step:before,
-	.usa-da-progress-bar-holder .usa-da-progress-bar-step-done .step:after,
-	.usa-da-progress-bar-holder .usa-da-progress-bar-step-current .step:before {
-		background-color: $color-focus;
-		z-index: -1;
-		bottom: 0.9em;
-	}
-
-	.usa-da-progress-bar-holder .usa-da-progress-bar-step-done .step,
-	.usa-da-progress-bar-holder .usa-da-progress-bar-step-current .step {
-		border: 1px solid $color-focus;
-	}
-}
-
-
-
 /* Inputs */
 
 .usa-da-input-container {
@@ -707,6 +576,8 @@ a.list-group-item {
 
 	p, ul {
         margin: 5px 0 5px 48px;
+				text-align: left;
+        max-width: none;
     }
 
 	.usa-da-icon {
@@ -744,10 +615,19 @@ a.list-group-item {
     .usa-da-icon {
 	    svg{
         	fill: #d9534f;
-        	}
-        }
-    }
+    	}
+		}
+}
 
+		.alert {
+		    .alert-header-text {
+		        font-family: $font-sans;
+		        color: #555;
+		        font-size: 2.4rem;
+		        font-weight: 700;
+		        margin: 0 0 5px 48px;
+		    }
+		}
 .alert-block{
     border: 1px solid #ccc;
     padding: 15px 15px 0;
@@ -838,6 +718,26 @@ opacity: 0.4;
     fill: currentColor;
 }
 
+.usa-da-form-icon {
+    & svg {
+        position: absolute;
+        top: 14px;
+        right: 25px;
+        z-index: 9;
+        fill: #ccc;
+        height: 21px;
+        width: 21px;
+    }
+    &.error {
+        & svg {
+            fill: $color-secondary;
+        }
+    }
+    &.date svg {
+        top: 12px;
+    }
+
+}
 
 /***** BUTTONS *****/
 
@@ -864,6 +764,7 @@ button,
     display: inline-block;
     text-align: center;
     text-decoration: none!important;
+		cursor: pointer;
     &.btn-lg {
         padding: 16px 24px 15px;
         font-size: 1.6rem;
@@ -939,10 +840,31 @@ button,
             box-shadow: inset 0 0 0 1px $color-gray;
         }
     }
+		&.btn-optional {
+				@include btnBase($color-gray, transparent);
+				box-shadow: inset 0 0 0 1px $color-gray-light;
+				&:active {
+						@include btnBase($color-primary-darkest, transparent);
+				}
+				&:hover {
+						@include btnBase($color-primary-darkest, $color-primary-alt-lightest);
+				}
+		}
+
+		&.btn-staged-upload {
+				@include btnBase($color-green, $color-green-lightest);
+				box-shadow: inset 0 0 0 1px $color-green-lighter;
+				&:active {
+						@include btnBase($color-white, $color-green-light);
+				}
+				&:hover {
+						@include btnBase($color-white, $color-green-light);
+				}
+		}
 
     &.btn-disabled, &[disabled], & fieldset[disabled]{
         cursor: not-allowed;
-        opacity: 0.65;
+        opacity: 0.55;
         background:$color-gray-lighter;
         -webkit-box-shadow: none;
         box-shadow: none;
@@ -962,6 +884,31 @@ button,
     }
 }
 
+.usa-da-download {
+    font-size: 1.2rem;
+    margin-top: 0.7rem;
+    color: $color-gray;
+    & .usa-da-icon.usa-da-download-report {
+        & svg {
+            fill: $color-gray-light;
+            height: 1.8rem;
+            margin: 3px 0 0 0;
+            position: relative;
+            top: 0.5rem;
+            left: -0.2rem;
+            padding: 0 3px;
+        }
+    }
+    &:hover{
+        cursor: pointer;
+        color: $color-gray-dark;
+        & .usa-da-icon.usa-da-download-report {
+            & svg {
+            fill: $color-gray-dark;
+        }
+    }
+    }
+}
 
 
 .navbar-toggle{
@@ -973,6 +920,11 @@ button,
     padding: 30px;
 }
 
+.hidden-screen-reader {
+    position: absolute;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+}
 
 
 /*****  RELATIVELY POSITION ELEMENTS *****/
@@ -1045,6 +997,14 @@ button,
             clip: rect(0, 0, 0, 0);
         }
     }
+		.error-icon {
+				svg {
+						fill: $color-secondary !important;
+						height: 45px !important;
+						width: 45px !important;
+						right: 0px !important;
+				}
+		}
     ul.typeahead-selector,
     .awesomplete ul {
         text-align: left;
