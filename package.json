@@ -35,6 +35,9 @@
   },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fedspendingtransparency/usaspending-website/issues"
+  },
   "devDependencies": {
     "babel-core": "^6.11.4",
     "babel-jest": "*",
