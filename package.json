@@ -89,6 +89,7 @@
     "stats-webpack-plugin": "^0.4.0",
     "style-loader": "^0.13.1",
     "transform-loader": "^0.2.3",
+    "uswds": "^0.11.1",
     "vinyl-paths": "^2.1.0",
     "webpack": "^1.13.1",
     "webpack-stream": "^3.2.0"
