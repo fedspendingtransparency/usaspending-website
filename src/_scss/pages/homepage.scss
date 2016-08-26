@@ -1,6 +1,7 @@
 .usa-da-top-banner {
     @include align-self(stretch);
     background: as-alpha($color-gold-lightest, 0.95);
+    height:6rem;
     padding: 15px 0;
     width: 100%;
     border-bottom: 1px solid $color-gold-lighter;
