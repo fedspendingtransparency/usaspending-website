@@ -1,0 +1,62 @@
+/**
+ * SearchResults.jsx
+ * Created by Kevin Li 3/16/15
+ **/
+import { hashHistory } from 'react-router';
+
+import StoreSingleton from '../../redux/storeSingleton.js';
+import HomePage from '../../components/HomePage.jsx';
+import SearchPage from '../../components/search/SearchPage.jsx';
+
+let instance = null;
+let store = new StoreSingleton().store;
+let storeListener = null;
+
+const getStore = () => {
+    if (!store) {
+        store = new StoreSingleton().store;
+    }
+    return store;
+}
+
+const goToPage = (location, replace) => {
+    getStore();
+
+    const path = location.pathname;
+
+    let pushMethod = hashHistory.push;
+    if (replace) {
+        pushMethod = replace;
+    }
+
+	pushMethod(path);
+}
+
+
+// defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
+const routeDefinitions = {
+    path: '/',
+    indexRoute: {
+        component: HomePage
+    },
+    childRoutes: [
+        {
+            path: 'search',
+            component: SearchPage
+        }
+    ]
+}
+
+export default class RouterRoutes {
+    constructor() {
+        if (!instance) {
+            instance = this;
+        }
+
+        instance.routes = () => routeDefinitions;
+        instance.goTo = (location) => goToPage(location);
+
+        return instance;
+    }
+
+}
