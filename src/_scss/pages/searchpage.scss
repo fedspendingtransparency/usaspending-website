@@ -1,0 +1,13 @@
+.search-page {
+
+	@include span-columns(16);
+
+	.search-sidebar{
+		@include span-columns(4);
+	}
+
+	.search-results{
+		@include span-columns(11);
+	}
+
+}
