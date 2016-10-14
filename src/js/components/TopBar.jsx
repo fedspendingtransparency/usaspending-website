@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Icons from './icons/Icons.jsx';
 
-export default class Header extends React.Component {
+export default class TopBar extends React.Component {
 
   render(){
     return (
