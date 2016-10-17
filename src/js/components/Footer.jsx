@@ -1,6 +1,6 @@
 /**
  * FooterComponent.jsx
- * Created by Mike Bray 12/26/15
+ * Created by Emily Gullo 10/14/2016
  **/
 
 import React from 'react';

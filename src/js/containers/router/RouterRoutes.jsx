@@ -1,6 +1,6 @@
 /**
  * SearchResults.jsx
- * Created by Kevin Li 3/16/15
+ * Created by Emily Gullo 10/14/2016
  **/
 import { hashHistory } from 'react-router';
 

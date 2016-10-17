@@ -1,6 +1,6 @@
 // Buttons variables
 
-$button-stroke: inset 0 0 0 2px;
+$button-stroke: inset 0 0 0 1px;
 
 // Buttons
 
@@ -18,12 +18,12 @@ button,
   appearance: none;
   background-color: $color-primary;
   border: 0;
-  border-radius: $border-radius;
+  border-radius: 0;
   color: $color-white;
   cursor: pointer;
   display: inline-block;
   font-family: $font-sans;
-  font-size: $base-font-size;
+  font-size: $small-font-size;
   font-weight: $font-bold;
   line-height: 1;
   outline: none;
@@ -85,6 +85,26 @@ button,
     }
   }
 
+  &.usa-button-secondary-danger {
+	  background: transparent;
+      box-shadow: $button-stroke $color-secondary-dark;
+      color: $color-secondary-dark;
+
+      &:hover,
+      &.usa-button-hover {
+        background-color:$color-secondary;
+		box-shadow: $button-stroke $color-secondary;
+        color: $color-white;
+      }
+
+	  &:active,
+      &.usa-button-active {
+        background-color: $color-secondary-darkest;
+		box-shadow: $button-stroke $color-secondary-darkest;
+		color: $color-white;
+      }
+    }
+
   &.usa-button-gray {
     background-color: $color-gray;
 
@@ -100,12 +120,13 @@ button,
   }
 
   &.usa-button-outline {
-    background-color: $color-white;
+    background-color: transparent;
     box-shadow: $button-stroke $color-primary;
     color: $color-primary;
 
     &:hover,
     &.usa-button-hover {
+	  background:$color-primary-alt-lightest;
       box-shadow: $button-stroke $color-primary-darker;
       color: $color-primary-darker;
     }
@@ -129,8 +150,9 @@ button,
 
     &:hover,
     &.usa-button-hover {
-      box-shadow: $button-stroke $color-gray-lighter;
-      color: $color-gray-lighter;
+	  background: $color-gray;
+      box-shadow: $button-stroke $color-gray;
+      color: $color-white;
     }
 
     &:active,
@@ -138,16 +160,12 @@ button,
       box-shadow: $button-stroke $color-gray-light;
       color: $color-gray-lighter;
     }
-
-    &:focus,
-    &.usa-button-focus {
-      box-shadow: $button-stroke $color-gray-light, $focus-shadow;
-    }
   }
 
   &.usa-button-big {
-    font-size: 1.9rem;
-    padding: 1.5rem 3rem;
+    font-size: 1.6rem;
+	line-height: 1.3rem;
+    padding: 16px 24px 15px;
   }
 }
 // scss-lint:enable PropertyCount
@@ -155,8 +173,10 @@ button,
 [type="submit"]:disabled,
 .usa-button-disabled {
   background-color: $color-gray-lighter;
-  color: $color-gray-dark;
+  color: $color-gray;
   pointer-events: none;
+  cursor: not-allowed;
+  opacity: .65;
 
   &:hover,
   &.usa-button-hover,

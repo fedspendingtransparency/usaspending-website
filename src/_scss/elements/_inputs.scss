@@ -34,6 +34,7 @@ input[type="week"],
 textarea,
 select {
   appearance: none;
+  background-color: $color-white;
   border: $input-border-width solid $color-gray;
   border-radius: 0;
   box-sizing: border-box;
@@ -47,6 +48,7 @@ select {
   outline: none;
   padding: $input-padding-vertical 0.7em;
   width: 100%;
+  min-height:4.4rem;
 
   &:focus,
   &.usa-input-focus {
@@ -123,6 +125,9 @@ select {
   background-position: right 1.3rem center;
   background-repeat: no-repeat;
   background-size: 1.3rem;
+  border: 1px solid $color-gray-light;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  color: $color-primary;
 }
 
 legend {
@@ -148,7 +153,7 @@ legend {
 
 input[type="checkbox"],
 input[type="radio"] {
-  margin-left: -2rem;
+  margin: 4px .5rem 0 0;
   opacity: 0;
   position: absolute;
 
@@ -225,6 +230,13 @@ input[type="radio"]:disabled + label::before {
   background: $color-gray-lighter;
   box-shadow: 0 0 0 1px $color-gray-light;
   cursor: not-allowed;
+}
+
+// File Input
+input[type="file"] {
+	border: 2px dashed $color-gray-light;
+	padding: $base-font-size;
+	line-height: $base-line-height;
 }
 
 // Range inputs

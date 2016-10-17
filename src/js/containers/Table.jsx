@@ -4,25 +4,31 @@
  **/
 import React from 'react';
 import reactable from 'reactable';
-// import { kGlobalConstants } from '../GlobalConstants.js';
 
 export default class Table extends React.Component {
 
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			data: []
+		}
 	}
 
+	componentDidMount(){
+		this.setState({
+			data: [
+  		  { Name: 'Griffin Smith', Age: 18 },
+  		  { Age: 23,  Name: 'Lee Salminen' },
+  		  { Age: 28, Position: 'Developer' },
+  		  ]
+		})
+	}
 
 	render() {
-	    var Table = Reactable.Table;
-
-    return  (
-      //pass in appropriate vars + styles
-	  <Table className="table" data={[
-	  { Name: 'Griffin Smith', Age: 18 },
-	  { Age: 23,  Name: 'Lee Salminen' },
-	  { Age: 28, Position: 'Developer' },
-  	  ]} />
-    );
+	    return  (
+	      //pass in appropriate vars + styles
+		  <Reactable.Table className="table" data={this.state.data} />
+	    );
 	}
 }
