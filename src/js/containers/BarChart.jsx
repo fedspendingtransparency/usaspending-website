@@ -7,7 +7,9 @@ import React from 'react';
 // import { kGlobalConstants } from '../GlobalConstants.js';
 
 export default class BarChart extends React.Component {
-
+	constructor(props) {
+		super(props);
+	}
 
 
   render() {
@@ -44,12 +46,12 @@ export default class BarChart extends React.Component {
     return  (
       //pass in appropriate vars + styles
     	<BarChart
-      data={barData}
-      width={500}
-      height={300}
-      title="Bar Chart"
-      xAxisLabel="Value"
-      yAxisLabel="Label"
+	      data={barData}
+	      width={500}
+	      height={300}
+	      title="Bar Chart"
+	      xAxisLabel="Value"
+	      yAxisLabel="Label"
       />
   );}
 }

@@ -10,16 +10,19 @@ import SearchSidebar from './SearchSidebar.jsx'
 import SearchResults from './SearchResults.jsx'
 
 export default class SearchPage extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-  render() {
-      return (
-      <div className="flex-wrapper search-page">
-          <Header/>
-          <SearchSidebar/>
-          <SearchResults/>
-		  <Footer/>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="flex-wrapper search-page">
+                <Header/>
+                <SearchSidebar/>
+                <SearchResults/>
+                <Footer/>
+            </div>
+        );
+    }
 
 }

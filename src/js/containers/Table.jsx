@@ -8,12 +8,13 @@ import reactable from 'reactable';
 
 export default class Table extends React.Component {
 
+	constructor(props) {
+		super(props);
+	}
 
 
-  render() {
-
-    var Table = Reactable.Table;
-
+	render() {
+	    var Table = Reactable.Table;
 
     return  (
       //pass in appropriate vars + styles
@@ -21,7 +22,7 @@ export default class Table extends React.Component {
 	  { Name: 'Griffin Smith', Age: 18 },
 	  { Age: 23,  Name: 'Lee Salminen' },
 	  { Age: 28, Position: 'Developer' },
-  ]} />
-  );
-}
+  	  ]} />
+    );
+	}
 }

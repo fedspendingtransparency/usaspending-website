@@ -6,12 +6,31 @@
 import React from 'react';
 import SearchOption from './SearchOption.jsx';
 
-export default class Footer extends React.Component {
+export default class SearchSidebar extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
-        const year = new Date().getFullYear();
+        let options = [
+            'Keywords',
+            'Award Type',
+            'Time Period',
+            'Primary Place of Performance',
+            'Agencies',
+            'Recipient Information',
+            'Award ID',
+            'Award Amount',
+            'Appropriations Account',
+            'CFDA Program',
+            'Contract Specific Details'
+        ];
         return (
             <div className="search-sidebar">
-            	<SearchOption />
+                <h2>Narrow By</h2>
+                {options.map(function(name) {
+                    return <SearchOption name={name}/>;
+                })}
             </div>
         );
     }

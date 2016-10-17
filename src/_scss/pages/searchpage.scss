@@ -10,4 +10,12 @@
 		@include span-columns(11);
 	}
 
+	.search-option {
+		margin-bottom:1rem;
+	}
+
+	.search-option::after {
+		content: ' \02193';
+	}
+
 }

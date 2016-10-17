@@ -5,12 +5,15 @@
 
 import React from 'react';
 
-export default class Footer extends React.Component {
+export default class SearchOption extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
-        const year = new Date().getFullYear();
         return (
-            <div>
-            	Search Option
+            <div className="search-option">
+                {this.props.name}
             </div>
         );
     }
