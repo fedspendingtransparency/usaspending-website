@@ -15,6 +15,10 @@ $z-index-nav:     9000;
   width: 100%;
   z-index: $z-index-header;
 
+  h2 {
+	  padding-left:1rem;
+  }
+
   @include media($nav-width) {
     border-bottom: 1px solid $color-gray-light;
   }
@@ -218,6 +222,9 @@ $z-index-nav:     9000;
 .usa-nav-primary {
   @include usa-sidenav-list;
   order: 2;
+  float:right;
+  position:relative;
+  bottom:5rem;
 
   @include media($nav-width) {
     display: inline;

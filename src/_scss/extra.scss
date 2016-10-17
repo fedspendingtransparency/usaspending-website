@@ -31,9 +31,3 @@
       @include span-columns(15);
     }
 }
-
-.usa-da-footer {
-	@include span-columns(16);
-	margin-top:5rem;
-	text-align:center;
-}

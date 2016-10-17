@@ -9,9 +9,9 @@ export default class Footer extends React.Component {
     render() {
         const year = new Date().getFullYear();
         return (
-            <div className="usa-da-footer">
-                {year}
-                USAspending.gov
+            <div className="usa-footer">
+                <span className="usa-footer-primary-section">{year}
+                    USAspending.gov</span>
             </div>
         );
     }
