@@ -8,7 +8,7 @@ export default class NavBar extends React.Component {
 
     render() {
         return (
-			<div className="usa-header">
+		<div className="usa-header">
                 <h2>USAspending.gov</h2>
 				<ul className="usa-nav-primary">
 					<li><a href="#">The Data</a></li>
