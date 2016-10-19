@@ -18,13 +18,13 @@ export default class SearchResults extends React.Component {
         return (
             <div className="search-results">
                 <SearchSummary/>
-                <h2>View All: Prime Awards</h2>
+                <h3>View All: Prime Awards</h3>
                 <Table/>
-                <h2>Historical Spending</h2>
+                <h3>Historical Spending</h3>
                 <BarChart/>
-                <h2>Spending by Geography</h2>
+                <h3>Spending by Geography</h3>
                 <Map/>
-                <h2>Top 5</h2>
+                <h3>Top 5</h3>
                 <BarChart/>
             </div>
         );

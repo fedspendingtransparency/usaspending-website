@@ -248,7 +248,7 @@ $z-index-nav:     9000;
       @include media($nav-width) {
         @include padding(1.3rem 1.5rem 1.7rem 1.5rem);
         color: $color-gray;
-        font-size: $h5-font-size;
+        font-size: $h6-font-size;
         font-weight: $font-bold;
         line-height: 1.2;
       }
@@ -261,6 +261,16 @@ $z-index-nav:     9000;
     }
   }
 
+  .usa-da-icon {
+  	height: 52px;
+  	width: 52px;
+  	& svg {
+  		fill: $color-gray;
+  		height: 22px;
+  		width: 22px;
+  	}
+  }
+
   button {
     @include button-unstyled;
     font-weight: $font-normal;
@@ -271,7 +281,7 @@ $z-index-nav:     9000;
     @include media($nav-width) {
       @include padding(null 3rem 1.9rem 1.5rem);
       color: $color-gray;
-      font-size: $h5-font-size;
+      font-size: $h6-font-size;
       font-weight: $font-bold;
       width: initial;
     }
@@ -464,7 +474,7 @@ $z-index-nav:     9000;
   .usa-header-search-button {
     color: $color-gray;
     display: inline-block;
-    font-size: $h5-font-size;
+    font-size: $h6-font-size;
     text-decoration: none;
 
     &:hover {
@@ -536,6 +546,7 @@ $z-index-nav:     9000;
 
   li {
     margin-bottom: 0;
+	font-size:$h6-font-size;
   }
 }
 

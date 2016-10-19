@@ -4,7 +4,7 @@
  **/
 
 import React from 'react'
-import Header from './Header.jsx'
+import Header from './sharedComponents/Header.jsx'
 import Welcome from './Welcome.jsx'
 
 export default class HomePage extends React.Component {

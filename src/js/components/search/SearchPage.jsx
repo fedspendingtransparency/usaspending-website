@@ -4,9 +4,9 @@
  **/
 
 import React from 'react'
-import Header from '../Header.jsx'
-import Footer from '../Footer.jsx'
-import NavBar from '../NavBar.jsx'
+import Header from '../sharedComponents/Header.jsx'
+import Footer from '../sharedComponents/Footer.jsx'
+import NavBar from '../sharedComponents/NavBar.jsx'
 import SearchSidebar from './SearchSidebar.jsx'
 import SearchResults from './SearchResults.jsx'
 

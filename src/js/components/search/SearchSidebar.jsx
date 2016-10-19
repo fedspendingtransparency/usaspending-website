@@ -6,42 +6,37 @@
 import React from 'react';
 import SearchOption from './SearchOption.jsx';
 
+const defaultProps = {
+	options: [
+		'Keywords',
+		'Award Type',
+		'Time Period',
+		'Primary Place of Performance',
+		'Agencies',
+		'Recipient Information',
+		'Award ID',
+		'Award Amount',
+		'Appropriations Account',
+		'CFDA Program',
+		'Contract Specific Details'
+	]
+};
+
 export default class SearchSidebar extends React.Component {
     constructor(props) {
         super(props);
-
-		this.state = {
-			options: []
-		}
     }
-
-	componentDidMount(){
-		this.setState({
-			options: [
-				'Keywords',
-				'Award Type',
-				'Time Period',
-				'Primary Place of Performance',
-				'Agencies',
-				'Recipient Information',
-				'Award ID',
-				'Award Amount',
-				'Appropriations Account',
-				'CFDA Program',
-				'Contract Specific Details'
-			]
-		})
-	}
-
 
     render() {
         return (
             <div className="search-sidebar">
-                <h2>Narrow By</h2>
-                {this.state.options.map(function(name) {
-                    return <SearchOption name={name}/>;
+                <h3>Narrow By</h3>
+                {this.props.options.map(function(name, i) {
+                    return <SearchOption name={name} key={i}/>;
                 })}
             </div>
         );
     }
 }
+
+SearchSidebar.defaultProps = defaultProps;

@@ -13,7 +13,7 @@ export default class SearchSummary extends React.Component {
     render() {
         return (
             <div>
-                <h2>Search Summary Bar</h2>
+                <h3>Search Summary Bar</h3>
             </div>
         );
     }
