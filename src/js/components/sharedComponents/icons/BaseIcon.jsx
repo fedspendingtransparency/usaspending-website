@@ -8,7 +8,7 @@ import svg4everybody from 'svg4everybody';
 import Request from 'superagent';
 import xmldoc from 'xmldoc';
 import EventEmitter from 'eventemitter2';
-import { kGlobalConstants } from '../../GlobalConstants.js'; 
+import { kGlobalConstants } from '../../../GlobalConstants.js';
 
 const svgData = {};
 let loadingState = 0;
@@ -29,7 +29,7 @@ export default class BaseIcon extends React.Component {
 		this.state = {
 			icon: {
 				data: '',
-				viewBox: ''
+				viewBox: '0 0 0 0'
 			}
 		};
 	}

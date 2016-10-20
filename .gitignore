@@ -33,7 +33,6 @@ public
 .tern-port
 
 # Ignore generated constants file
-src/js/GlobalConstants.js
 GlobalConstants_dev.js
 GlobalConstants_local.js
 GlobalConstants_prod.js

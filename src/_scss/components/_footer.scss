@@ -1,4 +1,6 @@
 .usa-footer {
+	@include span-columns(16);
+	
   .usa-unstyled-list {
     display: block;
   }
