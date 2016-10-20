@@ -33,19 +33,19 @@ export default class NavBar extends React.Component {
                             <a className="usa-nav-link" href="#">
                                 <span>Get the Data</span>
                             </a>
-						</li>
-                            <li>
-                                <a className="usa-nav-link" href="#">
-                                    <span>Help</span>
-                                </a>
-                            </li>
-							<li>
-								<button className="usa-nav-link usa-da-icon usa-header-search-button" href="#">
-									<Icons.Search />
-								</button>
-							</li>
-						</ul>
-                    </nav>
-                </div> );
-			}
-		}
+                        </li>
+                        <li>
+                            <a className="usa-nav-link" href="#">
+                                <span>Help</span>
+                            </a>
+                        </li>
+                        <li>
+                            <button className="usa-nav-link usa-da-icon usa-header-search-button" href="#">
+                                <Icons.Search />
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div> );
+        }
+    }
