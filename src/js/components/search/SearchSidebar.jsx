@@ -28,12 +28,14 @@ export default class SearchSidebar extends React.Component {
     }
 
     render() {
+		const optionsList = this.props.options.map((name, i) => {
+			return <SearchOption name={name} key={i}/>;
+		});
+		
         return (
             <div className="search-sidebar">
                 <h3>Narrow By</h3>
-                {this.props.options.map(function(name, i) {
-                    return <SearchOption name={name} key={i}/>;
-                })}
+                {optionsList}
             </div>
         );
     }
