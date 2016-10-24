@@ -17,6 +17,7 @@ export default class Table extends React.Component {
 
 	componentDidMount(){
 		this.setState({
+			//pass in data from API when available
 			data: [
   		  { Name: 'Griffin Smith', Age: 18 },
   		  { Age: 23,  Name: 'Lee Salminen' },

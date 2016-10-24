@@ -17,6 +17,7 @@ export default class BarChart extends React.Component {
 
 	componentDidMount(){
 		this.setState({
+			// replace with API input when available
 			barData: [
 		      {
 		        "name": "Series A",
