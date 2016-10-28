@@ -4,18 +4,20 @@
  **/
 
 import React from 'react';
-import SearchBox from '../sharedComponents/SearchBox.jsx';
+import SearchBox from '../sharedComponents/SearchBox';
+
+const propTypes = {
+    name: React.PropTypes.string
+};
 
 export default class SearchOption extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="search-option">
-                {this.props.name == 'Keywords' ? <SearchBox /> : <label>{this.props.name}</label>}
+                {this.props.name === 'Keywords' ? <SearchBox /> : <label>{this.props.name}</label>}
             </div>
         );
     }
 }
+
+SearchOption.propTypes = propTypes;

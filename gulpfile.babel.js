@@ -18,6 +18,9 @@ import header from 'gulp-header';
 import moment from 'moment-timezone';
 import mocha from 'gulp-mocha';
 
+// linting
+import eslint from 'gulp-eslint';
+
 // for debugging webpack
 //import StatsPlugin from 'stats-webpack-plugin';
 
@@ -206,6 +209,9 @@ gulp.task('webpackCore', ['sass'], (callback) => {
             filename: 'core.js',
             library: '[name]_[hash]'
         },
+        resolve: {
+            extensions: ['', '.js', '.jsx']
+        },
         module: {
             loaders: [{
                 test: /\.jsx?$/,
@@ -268,6 +274,9 @@ gulp.task('webpack', ['webpackCore'], () => {
             publicPath: 'js/',
             filename: 'app.js',
             chunkFilename: 'chunk.[chunkhash].js' // including the hash in chunk filenames allows the client to cache them, but discard the cache when the chunk is updated
+        },
+        resolve: {
+            extensions: ['', '.js', '.jsx']
         },
         module: {
             loaders: [{
@@ -399,6 +408,14 @@ gulp.task('serve', serverDeps, () => {
         port: 3000,
         livereload: reload
     });
+});
+
+// lint the codebase
+gulp.task('lint', () => {
+    return gulp.src(['src/**/*.js', 'src/**/*.jsx', '!node_modules/**'])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });
 
 

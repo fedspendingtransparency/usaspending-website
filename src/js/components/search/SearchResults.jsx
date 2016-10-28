@@ -4,28 +4,24 @@
  **/
 
 import React from 'react';
-import SearchSummary from './SearchSummary.jsx';
-import BarChart from '../../containers/BarChart.jsx';
-import Table from '../../containers/Table.jsx';
-import Map from '../../containers/Map.jsx';
+import SearchSummary from './SearchSummary';
+import BarChart from '../../containers/BarChart';
+import Table from '../../containers/Table';
+import Map from '../../containers/Map';
 
 export default class SearchResults extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="search-results">
-                <SearchSummary/>
+                <SearchSummary />
                 <h3>View All: Prime Awards</h3>
-                <Table/>
+                <Table />
                 <h3>Historical Spending</h3>
-                <BarChart/>
+                <BarChart />
                 <h3>Spending by Geography</h3>
-                <Map/>
+                <Map />
                 <h3>Top 5</h3>
-                <BarChart/>
+                <BarChart />
             </div>
         );
     }

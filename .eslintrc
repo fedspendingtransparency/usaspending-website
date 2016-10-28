@@ -1,0 +1,46 @@
+// Use this file as a starting point for your project's .eslintrc.
+// Copy this file, and add rule overrides as needed.
+// the base style guide for this project is Airbnb
+// see: https://github.com/airbnb/javascript
+{
+    "extends": "airbnb",
+    "env": {
+        "es6": true
+    },
+    "globals": {
+        "window": true,
+        "document": true
+    },
+    // overrides to the Airbnb style follow
+    "rules": {
+        // indentation should be 4 spaces (use soft tabs) and switch cases should be indented
+        "indent": ["error", 4, {
+            "SwitchCase": 1
+        }],
+        // require 4 spaces in JSX as well
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        // closing brackets should be aligned with the final prop (props.. />)
+        "react/jsx-closing-bracket-location": ["error", "after-props"],
+        // also set the tab width for the max line width with a max length of 100
+        "max-len": ["warn", 100, {"tabWidth": 4}],
+        // do not allow dangling commas at the end of arrays, objects, etc.
+        "comma-dangle": ["error", "never"],
+        // downgrade extra semicolons to warnings
+        "no-extra-semi": ["warn"],
+        // require parens in arrow functions with single arguments for improved readability
+        "arrow-parens": ["error", "always"],
+        // allow double-quoted strings
+        "quotes": ["off"],
+        // allow for loops
+        "no-restricted-syntax": ["error", "LabeledStatement", "WithStatement"],
+        // require stroustrup brace styles
+        "brace-style": ["warn", "stroustrup"],
+        // disallow stateless functions in place of fully declared React components
+        "react/prefer-stateless-function": ["off"],
+        // allow binding in React props because we don't have autobind in ES6
+        "react/jsx-no-bind": ["off"],
+        // warn instead of erroring on hash links
+        "jsx-a11y/href-no-hash": ["warn"]
+    }
+}
