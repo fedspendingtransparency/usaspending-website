@@ -10,7 +10,10 @@ export default class SearchBox extends React.Component {
 
         return (
             <div className="">
-                <label>Search</label> <input type="text" className="" /> <input type="submit" />
+                <label htmlFor="search">
+                    Search
+                </label>
+                <input id="search" type="text" className="" />
             </div>
         );
     }

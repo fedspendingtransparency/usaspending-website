@@ -4,7 +4,12 @@
  **/
 
 import React from 'react';
-import SearchBox from '../sharedComponents/SearchBox.jsx';
+import SearchBox from '../sharedComponents/SearchBox';
+import AwardType from '../sharedComponents/AwardType';
+
+const propTypes = {
+    name: React.PropTypes.string
+};
 
 export default class SearchOption extends React.Component {
     constructor(props) {
@@ -12,10 +17,15 @@ export default class SearchOption extends React.Component {
     }
 
     render() {
-        return (
-            <div className="search-option">
-                {this.props.name == 'Keywords' ? <SearchBox /> : <label>{this.props.name}</label>}
-            </div>
-        );
-    }
+        switch (this.props.name) {
+            case 'Keywords':
+                return (<div className="search-option"><SearchBox /></div>);
+                break;
+            case 'AwardType':
+                return (<div className="search-option"><AwardType /></div>);
+                break;
+            default:
+                return (<div className="search-option"><b>{this.props.name}</b></div>);
+        }
+}
 }
