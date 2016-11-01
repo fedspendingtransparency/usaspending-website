@@ -16,10 +16,8 @@ export default class SearchOption extends React.Component {
         switch (this.props.name) {
             case 'Keywords':
                 return (<div className="search-option"><SearchBox /></div>);
-                break;
             case 'AwardType':
                 return (<div className="search-option"><AwardType /></div>);
-                break;
             default:
                 return (<div className="search-option"><b>{this.props.name}</b></div>);
         }

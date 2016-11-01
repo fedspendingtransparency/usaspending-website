@@ -43,16 +43,18 @@ const propTypes = {
 };
 
 export default class AwardType extends React.Component {
+
     render() {
-        const awardList = this.props.awardTypes.map((al) => {
-            const subList = al.subValues.map((j) =>
-                <div><input type="checkbox" id={j} value={j} />
+        const awardList = this.props.awardTypes.map((al, i) => {
+            const subList = al.subValues.map((j, k) =>
+                <div key={k} className="subList"><input type="checkbox" id={j} value={j} />
                     <label htmlFor={j}>{j}</label>
                 </div>
             );
-            return (<div><input type="checkbox" id={al.name} value={al.name} />
+            return (<div key={i} className="awardTypeOption">
+                <input type="checkbox" id={al.name} value={al.name} />
                 <label htmlFor={al.name}>{al.name}</label>
-                {subList}</div>);
+                { subList }</div>);
         });
 
         return (
