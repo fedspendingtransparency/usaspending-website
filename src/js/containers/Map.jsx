@@ -5,14 +5,10 @@
 import React from 'react';
 
 export default class Map extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
-
         return (
-        //pass in appropriate vars + styles
-		<p> This is a map </p>
-  );}
+            // pass in appropriate vars + styles
+            <p> This is a map </p>
+        );
+    }
 }

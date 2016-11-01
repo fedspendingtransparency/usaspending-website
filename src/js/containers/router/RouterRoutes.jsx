@@ -4,20 +4,19 @@
  **/
 import { hashHistory } from 'react-router';
 
-import StoreSingleton from '../../redux/storeSingleton.js';
-import HomePage from '../../components/HomePage.jsx';
-import SearchPage from '../../components/search/SearchPage.jsx';
+import StoreSingleton from '../../redux/storeSingleton';
+import HomePage from '../../components/HomePage';
+import SearchPage from '../../components/search/SearchPage';
 
 let instance = null;
 let store = new StoreSingleton().store;
-let storeListener = null;
 
 const getStore = () => {
     if (!store) {
         store = new StoreSingleton().store;
     }
     return store;
-}
+};
 
 const goToPage = (location, replace) => {
     getStore();
@@ -29,11 +28,12 @@ const goToPage = (location, replace) => {
         pushMethod = replace;
     }
 
-	pushMethod(path);
-}
+    pushMethod(path);
+};
 
 
-// defining the routes outside of the component because React Router cannot handle state/prop changes that Redux causes
+// defining the routes outside of the component because React Router cannot handle state/prop
+// changes that Redux causes
 const routeDefinitions = {
     path: '/',
     indexRoute: {
@@ -45,7 +45,7 @@ const routeDefinitions = {
             component: SearchPage
         }
     ]
-}
+};
 
 export default class RouterRoutes {
     constructor() {

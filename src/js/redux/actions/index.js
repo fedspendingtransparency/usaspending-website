@@ -1,7 +1,6 @@
-export function foo(bar){
-  return {
+const foo = (bar) => ({
     type: 'foobar',
     bar
-  }
-}
-}
+});
+
+export default foo;

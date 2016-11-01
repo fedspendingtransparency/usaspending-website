@@ -12,10 +12,6 @@ const propTypes = {
 };
 
 export default class SearchOption extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         switch (this.props.name) {
             case 'Keywords':
@@ -27,5 +23,7 @@ export default class SearchOption extends React.Component {
             default:
                 return (<div className="search-option"><b>{this.props.name}</b></div>);
         }
+    }
 }
-}
+
+SearchOption.propTypes = propTypes;

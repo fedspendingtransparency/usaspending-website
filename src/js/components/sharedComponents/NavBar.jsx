@@ -1,11 +1,7 @@
-import React from 'react'
-import * as Icons from './icons/Icons.jsx';
+import React from 'react';
+import * as Icons from './icons/Icons';
 
 export default class NavBar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="usa-nav-container">
@@ -40,12 +36,15 @@ export default class NavBar extends React.Component {
                             </a>
                         </li>
                         <li>
-                            <button className="usa-nav-link usa-da-icon usa-header-search-button" href="#">
+                            <button
+                                className="usa-nav-link usa-da-icon
+                                usa-header-search-button" href="#">
                                 <Icons.Search />
                             </button>
                         </li>
                     </ul>
                 </nav>
-            </div> );
-        }
+            </div>
+        );
     }
+}

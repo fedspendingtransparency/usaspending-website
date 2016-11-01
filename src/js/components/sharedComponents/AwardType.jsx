@@ -7,26 +7,57 @@ import React from 'react';
 
 const defaultProps = {
     awardTypes: [
-        'Contracts',
-        'Grants',
-        'Direct Payments',
-        'Loans'
+        {
+            name: 'Contracts',
+            subValues: [
+                'Subtype1',
+                'Subtype2'
+            ]
+        },
+        {
+            name: 'Grants',
+            subValues: [
+                'Subtype1',
+                'Subtype2'
+            ]
+        },
+        {
+            name: 'Direct Payments',
+            subValues: [
+                'Subtype1',
+                'Subtype2'
+            ]
+        },
+        {
+            name: 'Loans',
+            subValues: [
+                'Subtype1',
+                'Subtype2'
+            ]
+        }
     ]
 };
 
 const propTypes = {
-    awardTypes: React.PropTypes.arrayOf(React.PropTypes.string)
+    awardTypes: React.PropTypes.arrayOf(React.PropTypes.object)
 };
 
 export default class AwardType extends React.Component {
     render() {
-        const awardList = this.props.awardTypes.map((name, i) =>
-            <checkbox type="checkbox" name={name} value={name} key={i} />
-        );
+        const awardList = this.props.awardTypes.map((al) => {
+            const subList = al.subValues.map((j) =>
+                <div><input type="checkbox" id={j} value={j} />
+                    <label htmlFor={j}>{j}</label>
+                </div>
+            );
+            return (<div><input type="checkbox" id={al.name} value={al.name} />
+                <label htmlFor={al.name}>{al.name}</label>
+                {subList}</div>);
+        });
 
         return (
             <div>
-                <h4>Award Type</h4>
+                <b>Award Type</b>
                 <form>
                     {awardList}
                 </form>
