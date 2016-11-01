@@ -13,6 +13,9 @@ env:
   - CXX=g++-4.8
 before_script:
   - npm install -g gulp
-  - cp sampleGlobalConstants_local.js GlobalConstants_local.js
+  - cp sampleGlobalConstants_dev.js GlobalConstants_dev.js
 script:
   - gulp buildDev
+notifications:
+  # no emails please
+  email: false
