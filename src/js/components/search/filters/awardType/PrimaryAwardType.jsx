@@ -35,9 +35,9 @@ export default class PrimaryAwardType extends React.Component {
         const primaryAwardList = (<div className="primaryAwardTypeOption">
             <input type="checkbox" id={this.props.name} value={this.props.name} />
             <label htmlFor={this.props.name}>{this.props.name}</label>
-            <div className="toggle" onClick={this.toggleSubItems.bind(this)}>
+            <a className="toggle" href="#null" onClick={this.toggleSubItems.bind(this)}>
                 <Icons.AngleDown />
-            </div>
+            </a>
             {this.state.showSubItems === true ?
                 <SecondaryAwardType subList={this.props.subList} /> : null }
         </div>);
