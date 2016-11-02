@@ -1,25 +1,6 @@
-.search-page {
+.awardTypeFilter {
 
-	@include span-columns(16);
-
-	.search-sidebar{
-		@include span-columns(4);
-		padding-left:1rem;
-	}
-
-	.search-results{
-		@include span-columns(11);
-	}
-
-	.search-option {
-		margin-bottom:1rem;
-	}
-
-	.search-option b::after {
-		content: ' \02193';
-	}
-
-    .primaryAwardTypeOption .subList {
+    .subList {
         margin-left: 2rem;
     }
 
@@ -59,5 +40,4 @@
     .primaryAwardTypeOption .toggle {
         display: inline-block;
     }
-
 }

@@ -4,8 +4,8 @@
  **/
 
 import React from 'react';
-import * as Icons from '../../../sharedComponents/icons/Icons';
 import SecondaryAwardType from './SecondaryAwardType';
+import CollapsedAwardType from './CollapsedAwardType';
 
 const propTypes = {
     name: React.PropTypes.string,
@@ -13,7 +13,6 @@ const propTypes = {
 };
 
 export default class PrimaryAwardType extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -23,29 +22,31 @@ export default class PrimaryAwardType extends React.Component {
     }
 
     toggleSubItems() {
-        if (this.state.showSubItems === false) {
-            this.setState({ showSubItems: true });
-        }
-        else {
-            this.setState({ showSubItems: false });
-        }
+        this.setState({
+            showSubItems: !this.state.showSubItems
+        });
     }
 
     render() {
-        const primaryAwardList = (<div className="primaryAwardTypeOption">
-            <input type="checkbox" id={this.props.name} value={this.props.name} />
-            <label htmlFor={this.props.name}>{this.props.name}</label>
-            <a className="toggle" href="#null" onClick={this.toggleSubItems.bind(this)}>
-                <Icons.AngleDown />
-            </a>
-            {this.state.showSubItems === true ?
-                <SecondaryAwardType subList={this.props.subList} /> : null }
-        </div>);
+        let primaryAward = (<CollapsedAwardType
+            name={this.props.name}
+            click={this.toggleSubItems.bind(this)} />);
+
+        const secondaryAwardTypes = this.props.subList.map((subList, index) =>
+            <SecondaryAwardType subListValue={this.props.subList[index]} key={index} />);
+
+        if (this.state.showSubItems) {
+            primaryAward = (
+                <div className="primaryAward">
+                    <CollapsedAwardType
+                        name={this.props.name}
+                        click={this.toggleSubItems.bind(this)} />
+                    {secondaryAwardTypes}
+                </div>);
+        }
 
         return (
-            <div>
-                {primaryAwardList}
-            </div>
+            <div>{ primaryAward }</div>
         );
     }
 }

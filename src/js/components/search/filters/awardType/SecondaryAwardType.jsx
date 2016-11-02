@@ -6,22 +6,19 @@
 import React from 'react';
 
 const propTypes = {
-    subList: React.PropTypes.array
+    subListValue: React.PropTypes.string,
+    key: React.PropTypes.number
 };
 
 export default class SecondaryAwardType extends React.Component {
 
-
     render() {
-        const secondaryAwardList = (this.props.subList.map((subList, index) =>
-            <div key={index} className="secondaryAwardTypeOption subList">
-                <input type="checkbox" id={subList} value={subList} />
-                <label htmlFor={subList}>{subList}</label>
-            </div>));
-
         return (
-            <div>
-                { secondaryAwardList }
+            <div key={this.props.key} className="secondaryAwardTypeOption subList">
+                <input
+                    type="checkbox"
+                    id={this.props.subListValue} value={this.props.subListValue} />
+                <label htmlFor={this.props.subListValue}>{this.props.subListValue}</label>
             </div>
         );
     }

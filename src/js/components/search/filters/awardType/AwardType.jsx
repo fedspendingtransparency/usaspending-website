@@ -51,7 +51,7 @@ export default class AwardType extends React.Component {
         );
 
         return (
-            <div>
+            <div className="awardTypeFilter">
                 <b>Award Type</b>
                 <form>
                     {awardTypes}
