@@ -108,7 +108,7 @@ select {
 
 label {
   display: block;
-  margin-top: 1rem;
+  margin-top: 3rem;
   max-width: $input-max-width;
 }
 
@@ -154,7 +154,7 @@ legend {
 
 input[type="checkbox"],
 input[type="radio"] {
-  margin: 4px 0 0 0;
+  margin: 4px .5rem 0 0;
   opacity: 0;
   position: absolute;
 
@@ -181,12 +181,12 @@ input[type="radio"] + label::before {
   box-shadow: 0 0 0 1px $color-gray-medium;
   content: '\a0';
   display: inline-block;
-  height: 1.2rem;
-  line-height: 1.2rem;
+  height: 1.8rem;
+  line-height: 1.8rem;
   margin-right: 0.6em;
   text-indent: 0.15em;
   vertical-align: middle\0; // Target IE 11 and below to vertically center inputs
-  width: 1.2rem;
+  width: 1.8rem;
 }
 
 input[type="radio"] + label::before {
