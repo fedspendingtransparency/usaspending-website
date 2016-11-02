@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PrimaryAwardType from './PrimaryAwardType';
 
 const defaultProps = {
     awardTypes: [
@@ -45,23 +46,15 @@ const propTypes = {
 export default class AwardType extends React.Component {
 
     render() {
-        const awardList = this.props.awardTypes.map((al, i) => {
-            const subList = al.subValues.map((j, k) =>
-                <div key={k} className="subList"><input type="checkbox" id={j} value={j} />
-                    <label htmlFor={j}>{j}</label>
-                </div>
-            );
-            return (<div key={i} className="awardTypeOption">
-                <input type="checkbox" id={al.name} value={al.name} />
-                <label htmlFor={al.name}>{al.name}</label>
-                { subList }</div>);
-        });
+        const awardTypes = this.props.awardTypes.map((type, index) =>
+            <PrimaryAwardType name={type.name} subList={type.subValues} key={index} />
+        );
 
         return (
             <div>
                 <b>Award Type</b>
                 <form>
-                    {awardList}
+                    {awardTypes}
                 </form>
             </div>
         );

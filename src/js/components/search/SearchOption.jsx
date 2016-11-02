@@ -5,7 +5,7 @@
 
 import React from 'react';
 import SearchBox from '../sharedComponents/SearchBox';
-import AwardType from '../sharedComponents/AwardType';
+import AwardType from './filters/awardType/AwardType';
 
 const propTypes = {
     name: React.PropTypes.string
