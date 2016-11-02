@@ -3,7 +3,7 @@
   * Created by Kevin Li 7/19/16
   **/
 
-import Request from 'superagent';
+import Axios from 'Axios';
 import xmldoc from 'xmldoc';
 import uuid from 'node-uuid';
 
@@ -17,19 +17,16 @@ class IconSingleton {
 
     downloadIcons() {
         this.svgRequested = true;
-        Request.get("graphics/icons.svg")
-            .send()
-            .end((err, res) => {
-                if (!err) {
-                    // parse the response
-                    this.parseSvg(res.text);
+        Axios.get("graphics/icons.svg")
+            .then((res) => {
+                // parse the response
+                this.parseSvg(res.data);
 
-                    // mark the SVG as loaded
-                    this.svgLoaded = true;
+                // mark the SVG as loaded
+                this.svgLoaded = true;
 
-                    // notify any other icon components that the SVG data is ready
-                    this.notifySubscribers('usa-da-icons.loaded');
-                }
+                // notify any other icon components that the SVG data is ready
+                this.notifySubscribers('usa-da-icons.loaded');
             });
     }
 

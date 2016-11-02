@@ -5,11 +5,8 @@
 
 import React from 'react';
 import { Router, hashHistory } from 'react-router';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import kGlobalConstants from '../../GlobalConstants';
 
-import * as sessionActions from '../../redux/actions/sessionActions';
+import kGlobalConstants from '../../GlobalConstants';
 
 import RouterRoutes from './RouterRoutes';
 
@@ -19,7 +16,7 @@ const GA_OPTIONS = { debug: false };
 
 const Routes = new RouterRoutes();
 
-class RouterContainer extends React.Component {
+export default class RouterContainer extends React.Component {
     static logPageView(path) {
         ga.pageview(path);
     }
@@ -46,11 +43,3 @@ class RouterContainer extends React.Component {
         );
     }
 }
-
-
-export default connect(
-    (state) => ({
-        session: state.session
-    }),
-    (dispatch) => bindActionCreators(sessionActions, dispatch)
-)(RouterContainer);

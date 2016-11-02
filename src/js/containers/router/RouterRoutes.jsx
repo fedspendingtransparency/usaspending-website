@@ -42,7 +42,11 @@ const routeDefinitions = {
     childRoutes: [
         {
             path: 'search',
-            component: SearchPage
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../search/SearchContainer').default);
+                });
+            }
         }
     ]
 };
