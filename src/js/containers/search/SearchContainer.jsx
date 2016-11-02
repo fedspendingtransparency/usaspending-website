@@ -7,6 +7,8 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import _ from 'lodash';
+
 import SearchPage from '../../components/search/SearchPage';
 
 import SearchOperation from '../../models/search/SearchOperation';
@@ -19,20 +21,61 @@ import * as searchResultActions from '../../redux/actions/search/searchResultAct
 const combinedActions = Object.assign({}, searchFilterActions, searchResultActions);
 
 const propTypes = {
-    setSearchResults: React.PropTypes.func
+    setSearchResults: React.PropTypes.func,
+    setSearchResultMeta: React.PropTypes.func,
+    search: React.PropTypes.object
 };
 
 class SearchContainer extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            searchParams: new SearchOperation(),
+            page: 0
+        };
+    }
     componentDidMount() {
-        this.performSearch();
+        this.updateFilters();
     }
 
-    performSearch(parameters) {
-        const operation = new SearchOperation();
-        operation.awardType = ['04', '02'];
-        operation.timePeriodRange = ['2016-01-01', '2016-06-30'];
+    componentDidUpdate(prevProps) {
+        if (!_.isEqual(prevProps.search.filters, this.props.search.filters)) {
+            // filters changed, update the search object
+            this.updateFilters();
+        }
+    }
 
-        SearchHelper.performPagedSearch(operation.toParams());
+    updateFilters() {
+        const newSearch = new SearchOperation();
+        newSearch.fromState(this.props.search.filters);
+        this.setState({
+            searchParams: newSearch
+        }, () => {
+            this.performSearch();
+        });
+    }
+
+    performSearch() {
+        SearchHelper.performPagedSearch(this.state.searchParams.toParams())
+            .then((res) => {
+                const data = res.data;
+                this.props.setSearchResults(data.results);
+                this.props.setSearchResultMeta({
+                    page: data.page_metadata,
+                    total: data.total_metadata
+                });
+            })
+            .catch((err) => {
+                if (err.response) {
+                    // server responded with something
+
+                }
+                else {
+                    // request never made it out
+                    console.log(err.message);
+                }
+            });
     }
 
     render() {

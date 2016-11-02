@@ -9,7 +9,7 @@ import kGlobalConstants from '../GlobalConstants';
 
 export const performSearch = (searchParams) =>
     Axios.request({
-        url: 'awards/summary',
+        url: 'awards/summary/',
         baseURL: kGlobalConstants.API,
         method: 'post',
         data: searchParams

@@ -16,3 +16,5 @@ before_script:
   - cp sampleGlobalConstants_dev.js GlobalConstants_dev.js
 script:
   - gulp buildDev
+notifications:
+  email: false
