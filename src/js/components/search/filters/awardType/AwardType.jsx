@@ -11,29 +11,29 @@ const defaultProps = {
         {
             name: 'Contracts',
             subValues: [
-                'Subtype1',
-                'Subtype2'
+                'Subtype 1',
+                'Subtype 2'
             ]
         },
         {
             name: 'Grants',
             subValues: [
-                'Subtype1',
-                'Subtype2'
+                'Subtype 1',
+                'Subtype 2'
             ]
         },
         {
             name: 'Direct Payments',
             subValues: [
-                'Subtype1',
-                'Subtype2'
+                'Subtype 1',
+                'Subtype 2'
             ]
         },
         {
             name: 'Loans',
             subValues: [
-                'Subtype1',
-                'Subtype2'
+                'Subtype 1',
+                'Subtype 2'
             ]
         }
     ]

@@ -13,12 +13,14 @@ const propTypes = {
 export default class SecondaryAwardType extends React.Component {
 
     render() {
+        const subListValueShort = this.props.subListValue.replace(/\s+/g, '').toLowerCase();
+
         return (
             <div key={this.props.key} className="secondaryAwardTypeOption subList">
                 <input
                     type="checkbox"
-                    id={this.props.subListValue} value={this.props.subListValue} />
-                <label htmlFor={this.props.subListValue}>{this.props.subListValue}</label>
+                    id={subListValueShort} value={this.props.subListValue} />
+                <label htmlFor={subListValueShort}>{this.props.subListValue}</label>
             </div>
         );
     }
