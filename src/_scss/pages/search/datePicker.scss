@@ -1,0 +1,52 @@
+.generate-datepicker-wrap {
+	flex: 1 1 auto;
+	position: relative;
+
+	.generate-datepicker {
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	input {
+		@import "../../elements/_inputs";
+	}
+
+	a.picker-icon {
+	    display: block;
+
+	    position: absolute;
+	    top: 14px;
+	    right: 25px;
+	    height: 21px;
+	    max-width: 21px;
+
+	    & svg {
+	        z-index: 9;
+	        fill: #ccc;
+	        height: 21px;
+	        width: 21px;
+	    }
+	    &.error {
+	        & svg {
+	            fill: $color-secondary;
+	        }
+	    }
+	    &.date svg {
+	        top: 12px;
+	    }
+
+	}
+
+	.floating-datepicker {
+		position: absolute;
+		top: 50px;
+		right: 0px;
+		z-index: 9999;
+
+		background-color: $color-gray-lightest;
+		border: 1px solid $color-gray-light;
+
+		// import day picker library styling
+		@import "../../lib/react-day-picker/_daypicker.scss";
+	}
+}
