@@ -3,7 +3,7 @@
   * Created by Kevin Li 7/19/16
   **/
 
-import Axios from 'Axios';
+import Axios from 'axios';
 import xmldoc from 'xmldoc';
 import uuid from 'node-uuid';
 
