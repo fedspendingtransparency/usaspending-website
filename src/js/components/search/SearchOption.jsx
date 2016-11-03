@@ -5,6 +5,7 @@
 
 import React from 'react';
 import SearchBox from '../sharedComponents/SearchBox';
+import AwardType from './filters/awardType/AwardType';
 
 const propTypes = {
     name: React.PropTypes.string
@@ -12,11 +13,14 @@ const propTypes = {
 
 export default class SearchOption extends React.Component {
     render() {
-        return (
-            <div className="search-option">
-                {this.props.name === 'Keywords' ? <SearchBox /> : <label>{this.props.name}</label>}
-            </div>
-        );
+        switch (this.props.name) {
+            case 'Keywords':
+                return (<div className="search-option"><SearchBox /></div>);
+            case 'AwardType':
+                return (<div className="search-option"><AwardType /></div>);
+            default:
+                return (<div className="search-option"><b>{this.props.name}</b></div>);
+        }
     }
 }
 

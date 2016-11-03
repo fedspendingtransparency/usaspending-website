@@ -9,7 +9,7 @@ import SearchOption from './SearchOption';
 const defaultProps = {
     options: [
         'Keywords',
-        'Award Type',
+        'AwardType',
         'Time Period',
         'Primary Place of Performance',
         'Agencies',

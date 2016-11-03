@@ -1,0 +1,11 @@
+.search-sidebar {
+
+	.search-option {
+		margin-bottom:1rem;
+	}
+
+	.search-option b::after {
+		content: ' \02193';
+	}
+
+}

@@ -1,0 +1,43 @@
+.awardTypeFilter {
+
+    .subList {
+        margin-left: 2rem;
+    }
+
+    .primaryAwardTypeOption input, .secondaryAwardTypeOption input {
+        height:1.2rem;
+    }
+
+    .primaryAwardTypeOption span, .secondaryAwardTypeOption span {
+        cursor: pointer;
+        margin-left: 1rem;
+        top: 1rem;
+        position:relative;
+    }
+
+    .primaryAwardTypeOption label, .secondaryAwardTypeOption label {
+        display: inline-block;
+        font-size: $small-font-size;
+        line-height: $small-font-size;
+        margin:1rem 0 0 0;
+    }
+
+    .primaryAwardTypeOption label::before, .secondaryAwardTypeOption label::before {
+        width: 1.4rem;
+        height: 1.4rem;
+        position: relative;
+        top: .25rem;
+    }
+
+    .primaryAwardTypeOption svg {
+        height: 20px !important;
+        width: 20px !important;
+        position:relative;
+        top:.5rem;
+        cursor: pointer;
+    }
+
+    .primaryAwardTypeOption .toggle {
+        display: inline-block;
+    }
+}
