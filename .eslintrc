@@ -14,33 +14,33 @@
     // overrides to the Airbnb style follow
     "rules": {
         // indentation should be 4 spaces (use soft tabs) and switch cases should be indented
-        "indent": ["error", 4, {
+        "indent": [2, 4, {
             "SwitchCase": 1
         }],
         // require 4 spaces in JSX as well
-        "react/jsx-indent": ["error", 4],
-        "react/jsx-indent-props": ["error", 4],
+        "react/jsx-indent": [2, 4],
+        "react/jsx-indent-props": [2, 4],
         // closing brackets should be aligned with the final prop (props.. />)
-        "react/jsx-closing-bracket-location": ["error", "after-props"],
+        "react/jsx-closing-bracket-location": [2, "after-props"],
         // also set the tab width for the max line width with a max length of 100
-        "max-len": ["warn", 100, {"tabWidth": 4}],
+        "max-len": [1, 100, {"tabWidth": 4}],
         // do not allow dangling commas at the end of arrays, objects, etc.
-        "comma-dangle": ["error", "never"],
+        "comma-dangle": [2, "never"],
         // downgrade extra semicolons to warnings
-        "no-extra-semi": ["warn"],
+        "no-extra-semi": [1],
         // require parens in arrow functions with single arguments for improved readability
-        "arrow-parens": ["error", "always"],
+        "arrow-parens": [2, "always"],
         // allow double-quoted strings
-        "quotes": ["off"],
+        "quotes": [0],
         // allow for loops
-        "no-restricted-syntax": ["error", "LabeledStatement", "WithStatement"],
+        "no-restricted-syntax": [2, "LabeledStatement", "WithStatement"],
         // require stroustrup brace styles
-        "brace-style": ["warn", "stroustrup"],
+        "brace-style": [1, "stroustrup"],
         // disallow stateless functions in place of fully declared React components
-        "react/prefer-stateless-function": ["off"],
+        "react/prefer-stateless-function": [0],
         // allow binding in React props because we don't have autobind in ES6
-        "react/jsx-no-bind": ["off"],
+        "react/jsx-no-bind": [0],
         // warn instead of erroring on hash links
-        "jsx-a11y/href-no-hash": ["warn"]
+        "jsx-a11y/href-no-hash": [1]
     }
 }
