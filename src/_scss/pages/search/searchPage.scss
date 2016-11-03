@@ -1,5 +1,8 @@
 .search-page {
 
+    @import './searchSidebar';
+    @import './awardTypeFilter';
+
 	@include span-columns(16);
 
 	.search-sidebar{
@@ -9,14 +12,6 @@
 
 	.search-results{
 		@include span-columns(11);
-	}
-
-	.search-option {
-		margin-bottom:1rem;
-	}
-
-	.search-option label::after {
-		content: ' \02193';
 	}
 
 }

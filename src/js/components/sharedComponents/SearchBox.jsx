@@ -13,7 +13,6 @@ export default class SearchBox extends React.Component {
                     Search
                 </label>
                 <input id="search" type="text" className="" />
-                <input type="submit" />
             </div>
         );
     }
