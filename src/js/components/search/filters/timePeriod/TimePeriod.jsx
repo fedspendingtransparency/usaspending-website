@@ -33,7 +33,7 @@ export default class TimePeriod extends React.Component {
 
         this.state = {
             state: 'loading',
-            file: {
+            range: {
                 startDate: null,
                 endDate: null,
                 error: {
@@ -52,34 +52,35 @@ export default class TimePeriod extends React.Component {
             [dateType]: moment(date)
         };
         this.setState({
-            file: newState
+            range: newState
         }, () => {
             this.validateDates();
         });
+
     }
 
     validateDates() {
         // validate that dates are provided for both fields and the end dates
         // don't come before the start dates
 
-        const file = Object.assign({}, this.state.file);
+        const range = Object.assign({}, this.state.range);
 
         const output = {
-            file: file
+            range: range
         };
 
         let isValid = true;
 
         // validate the date ranges
-        const start = this.state.file.startDate;
-        const end = this.state.file.endDate;
+        const start = this.state.range.startDate;
+        const end = this.state.range.endDate;
         if (start && end) {
             // both sets of dates exist
             if (!end.isSameOrAfter(start)) {
                 // end date comes before start date, invalid
                 isValid = false;
                 // show an error message
-                output.file.error = {
+                output.range.error = {
                     show: true,
                     header: 'Invalid Dates',
                     description: 'The end date cannot be earlier than the start date.'
@@ -87,7 +88,7 @@ export default class TimePeriod extends React.Component {
             }
             else {
                 // valid!
-                output.file.error = {
+                output.range.error = {
                     show: false,
                     header: '',
                     description: ''
@@ -97,7 +98,7 @@ export default class TimePeriod extends React.Component {
         else {
             // not all dates exist yet
             isValid = false;
-            output.file.error = {
+            output.range.error = {
                 show: false,
                 header: '',
                 description: ''
@@ -109,7 +110,7 @@ export default class TimePeriod extends React.Component {
 
     showError(header, description) {
         this.setState({
-            file: Object.assign(this.state.file, {
+            range: Object.assign(this.state.range, {
                 error: {
                     show: true,
                     header: header,
@@ -121,7 +122,7 @@ export default class TimePeriod extends React.Component {
 
     hideError() {
         this.setState({
-            file: Object.assign(this.state.file, {
+            range: Object.assign(this.state.range, {
                 error: {
                     show: false,
                     header: '',
