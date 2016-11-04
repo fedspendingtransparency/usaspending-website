@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import * as Icons from '../../../sharedComponents/icons/Icons';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     click: React.PropTypes.func,
@@ -14,11 +14,10 @@ const propTypes = {
 export default class CollapsedAwardType extends React.Component {
 
     render() {
-        const nameShort = this.props.name.replace(/\s+/g, '').toLowerCase();
         return (
             <div className="primaryAwardTypeOption">
-                <input type="checkbox" id={nameShort} value={this.props.name} />
-                <label htmlFor={nameShort}>{this.props.name}</label>
+                <input type="checkbox" id={this.props.id} value={this.props.name} />
+                <label htmlFor={this.props.id}>{this.props.name}</label>
                 <a className="toggle" href="#null" onClick={this.props.click}>
                     <Icons.AngleDown />
                 </a>

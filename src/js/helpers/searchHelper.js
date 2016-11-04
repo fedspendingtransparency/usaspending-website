@@ -5,7 +5,7 @@
 
 import Axios from 'axios';
 
-import kGlobalConstants from '../GlobalConstants';
+import kGlobalConstants from 'GlobalConstants';
 
 export const performSearch = (searchParams) =>
     Axios.request({

@@ -5,9 +5,9 @@
 
 import React from 'react';
 import SearchSummary from './SearchSummary';
-import BarChart from '../../containers/BarChart';
-import Table from '../../containers/Table';
-import Map from '../../containers/Map';
+import BarChart from 'containers/BarChart';
+import Table from 'containers/Table';
+import Map from 'containers/Map';
 
 export default class SearchResults extends React.Component {
     render() {

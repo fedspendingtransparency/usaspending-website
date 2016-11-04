@@ -17,6 +17,7 @@ import git from 'gulp-git';
 import header from 'gulp-header';
 import moment from 'moment-timezone';
 import mocha from 'gulp-mocha';
+import path from 'path';
 
 // linting
 import eslint from 'gulp-eslint';
@@ -268,7 +269,7 @@ gulp.task('webpack', ['webpackCore'], () => {
     // to reduce the initial load time of the application, files are chunked and the chunks are loaded dynamically as required
 
     const jsFile = 'app.' + commitHash + '.js';
-
+    
     const config = {
         output: {
             publicPath: 'js/',
@@ -276,6 +277,9 @@ gulp.task('webpack', ['webpackCore'], () => {
             chunkFilename: 'chunk.[chunkhash].js' // including the hash in chunk filenames allows the client to cache them, but discard the cache when the chunk is updated
         },
         resolve: {
+            root: [
+                path.resolve('./src/js')
+            ],
             extensions: ['', '.js', '.jsx']
         },
         module: {

@@ -4,8 +4,8 @@
  **/
 import { hashHistory } from 'react-router';
 
-import StoreSingleton from '../../redux/storeSingleton';
-import HomePage from '../../components/HomePage';
+import StoreSingleton from 'redux/storeSingleton';
+import HomePage from 'components/HomePage';
 
 let instance = null;
 let store = new StoreSingleton().store;

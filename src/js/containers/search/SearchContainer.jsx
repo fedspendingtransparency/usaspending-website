@@ -9,13 +9,13 @@ import { connect } from 'react-redux';
 
 import _ from 'lodash';
 
-import SearchPage from '../../components/search/SearchPage';
+import SearchPage from 'components/search/SearchPage';
 
-import SearchOperation from '../../models/search/SearchOperation';
-import * as SearchHelper from '../../helpers/searchHelper';
+import SearchOperation from 'models/search/SearchOperation';
+import * as SearchHelper from 'helpers/searchHelper';
 
-import * as searchFilterActions from '../../redux/actions/search/searchFilterActions';
-import * as searchResultActions from '../../redux/actions/search/searchResultActions';
+import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import * as searchResultActions from 'redux/actions/search/searchResultActions';
 
 // combine the filter and result Redux actions into one object for the React-Redux connector
 const combinedActions = Object.assign({}, searchFilterActions, searchResultActions);
@@ -57,6 +57,7 @@ class SearchContainer extends React.Component {
     }
 
     performSearch() {
+        this.state.searchParams.timePeriodRange = ['2016-01-01', '2016-06-30'];
         SearchHelper.performPagedSearch(this.state.searchParams.toParams())
             .then((res) => {
                 const data = res.data;

@@ -6,7 +6,7 @@
 import React from 'react';
 import { Router, hashHistory } from 'react-router';
 
-import kGlobalConstants from '../../GlobalConstants';
+import kGlobalConstants from 'GlobalConstants';
 
 import RouterRoutes from './RouterRoutes';
 

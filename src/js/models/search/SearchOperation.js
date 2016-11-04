@@ -75,12 +75,12 @@ class SearchOperation {
                 filters: [
                     {
                         field: 'period_of_performance_start_date',
-                        operation: 'range',
+                        operation: 'greater_than_or_equal',
                         value: this.timePeriodRange
                     },
                     {
                         field: 'period_of_performance_current_end_date',
-                        operation: 'range',
+                        operation: 'less_than_or_equal',
                         value: this.timePeriodRange
                     }
                 ]

@@ -4,23 +4,30 @@
  **/
 
 import React from 'react';
+import _ from 'lodash';
 
 const propTypes = {
-    subListValue: React.PropTypes.string,
-    key: React.PropTypes.number
+    id: React.PropTypes.string,
+    code: React.PropTypes.string,
+    name: React.PropTypes.string,
+    setAwardType: React.PropTypes.func,
+    containerFilters: React.PropTypes.object
 };
 
 export default class SecondaryAwardType extends React.Component {
-
+    toggleFilter() {
+        const currentAwardTypes = _.concat([], this.props.containerFilters.awardType, this.props.code);
+        this.props.setAwardType(currentAwardTypes);
+    }
     render() {
-        const subListValueShort = this.props.subListValue.replace(/\s+/g, '').toLowerCase();
-
         return (
-            <div key={this.props.key} className="secondaryAwardTypeOption subList">
+            <div key={this.props.id} className="secondaryAwardTypeOption subList">
                 <input
                     type="checkbox"
-                    id={subListValueShort} value={this.props.subListValue} />
-                <label htmlFor={subListValueShort}>{this.props.subListValue}</label>
+                    id={this.props.id}
+                    value={this.props.code}
+                    onChange={this.toggleFilter.bind(this)} />
+                <label htmlFor={this.props.id}>{this.props.name}</label>
             </div>
         );
     }
