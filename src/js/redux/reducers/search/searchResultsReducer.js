@@ -5,9 +5,6 @@
 
 import _ from 'lodash';
 
-/* eslint-disable new-cap */
-// this is a correct usage of capitalized functions because
-// we are, in fact, using List as a constructor
 const initialState = {
     rows: [],
     meta: {
@@ -23,7 +20,6 @@ const initialState = {
         }
     }
 };
-/* eslint-enable new-cap */
 
 const searchResultsReducer = (state = initialState, action) => {
     switch (action.type) {
