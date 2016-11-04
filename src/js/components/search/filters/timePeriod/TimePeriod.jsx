@@ -33,14 +33,12 @@ export default class TimePeriod extends React.Component {
 
         this.state = {
             state: 'loading',
-            range: {
-                startDate: null,
-                endDate: null,
-                error: {
-                    show: false,
-                    header: '',
-                    description: ''
-                }
+            startDate: null,
+            endDate: null,
+            error: {
+                show: false,
+                header: '',
+                description: ''
             },
             errorDetails: ""
         };
@@ -48,22 +46,18 @@ export default class TimePeriod extends React.Component {
 
     handleDateChange(date, dateType) {
     // merge the new date into the file's state without affecting the other keys
-        const newState = {
-            [dateType]: moment(date)
-        };
         this.setState({
-            range: newState
+            [dateType]: moment(date)
         }, () => {
             this.validateDates();
         });
-
     }
 
     validateDates() {
         // validate that dates are provided for both fields and the end dates
         // don't come before the start dates
 
-        const range = Object.assign({}, this.state.range);
+        const range = Object.assign({}, this.state);
 
         const output = {
             range: range
@@ -72,15 +66,15 @@ export default class TimePeriod extends React.Component {
         let isValid = true;
 
         // validate the date ranges
-        const start = this.state.range.startDate;
-        const end = this.state.range.endDate;
+        const start = this.state.startDate;
+        const end = this.state.endDate;
         if (start && end) {
             // both sets of dates exist
             if (!end.isSameOrAfter(start)) {
                 // end date comes before start date, invalid
                 isValid = false;
                 // show an error message
-                output.range.error = {
+                output.error = {
                     show: true,
                     header: 'Invalid Dates',
                     description: 'The end date cannot be earlier than the start date.'
@@ -88,7 +82,7 @@ export default class TimePeriod extends React.Component {
             }
             else {
                 // valid!
-                output.range.error = {
+                output.error = {
                     show: false,
                     header: '',
                     description: ''
@@ -98,7 +92,7 @@ export default class TimePeriod extends React.Component {
         else {
             // not all dates exist yet
             isValid = false;
-            output.range.error = {
+            output.error = {
                 show: false,
                 header: '',
                 description: ''
@@ -110,24 +104,20 @@ export default class TimePeriod extends React.Component {
 
     showError(header, description) {
         this.setState({
-            range: Object.assign(this.state.range, {
-                error: {
-                    show: true,
-                    header: header,
-                    description: description
-                }
+            error: Object.assign(this.state.error, {
+                show: true,
+                header: header,
+                description: description
             })
         });
     }
 
     hideError() {
         this.setState({
-            range: Object.assign(this.state.range, {
-                error: {
-                    show: false,
-                    header: '',
-                    description: ''
-                }
+            error: Object.assign(this.state.error, {
+                show: false,
+                header: '',
+                description: ''
             })
         });
     }
@@ -146,6 +136,8 @@ export default class TimePeriod extends React.Component {
                     label={this.props.label}
                     datePlaceholder=""
                     startingTab={1}
+                    startDate={this.state.startDate}
+                    endDate={this.state.endDate}
                     onDateChange={this.handleDateChange.bind(this)}
                     showError={this.showError.bind(this)}
                     hideError={this.hideError.bind(this)} />

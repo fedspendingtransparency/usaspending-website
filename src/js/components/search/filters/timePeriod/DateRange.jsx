@@ -7,19 +7,18 @@ import React from 'react';
 import DatePicker from '../../../sharedComponents/DatePicker';
 
 const defaultProps = {
-    value: [{
-        startDate: '01/01/2016',
-        endDate: '12/31/2016'
-    }],
+    startDate: '01/01/2016',
+    endDate: '12/31/2016',
     startingTab: 1
 };
 
 const propTypes = {
     startingTab: React.PropTypes.number,
-    value: React.PropTypes.array,
     showError: React.PropTypes.func,
     onDateChange: React.PropTypes.func,
-    hideError: React.PropTypes.func
+    hideError: React.PropTypes.func,
+    startDate: React.PropTypes.object,
+    endDate: React.PropTypes.object
 };
 
 export default class DateRange extends React.Component {
@@ -32,16 +31,16 @@ export default class DateRange extends React.Component {
                         <DatePicker
                             type="startDate" title="Start Date" tabIndex={this.props.startingTab}
                             onDateChange={this.props.onDateChange}
-                            value={this.props.value.startDate}
-                            opposite={this.props.value.endDate} showError={this.props.showError}
+                            value={this.props.startDate}
+                            opposite={this.props.endDate} showError={this.props.showError}
                             hideError={this.props.hideError} />
                         <div className="through-text">
                             through
                         </div>
                         <DatePicker
                             type="endDate" title="End Date" tabIndex={this.props.startingTab + 4}
-                            onDateChange={this.props.onDateChange} value={this.props.value.endDate}
-                            opposite={this.props.value.startDate} showError={this.props.showError}
+                            onDateChange={this.props.onDateChange} value={this.props.endDate}
+                            opposite={this.props.startDate} showError={this.props.showError}
                             hideError={this.props.hideError} />
                     </div>
                 </div>
