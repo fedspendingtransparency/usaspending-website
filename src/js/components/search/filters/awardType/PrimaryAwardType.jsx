@@ -27,30 +27,29 @@ export default class PrimaryAwardType extends React.Component {
         });
     }
 
-    render() {
-        let primaryAward = (<CollapsedAwardType
-            name={this.props.name}
-            click={this.toggleSubItems.bind(this)} />);
-
+    showSecondaryAward() {
         if (this.state.showSubItems) {
-            const secondaryAwardTypes = this.props.subList.map((subList, index) =>
-                <SecondaryAwardType subListValue={this.props.subList[index]} key={index} />);
-
-            primaryAward = (
-                <div className="awardSet">
-                    <div className="primaryAward">
-                        <CollapsedAwardType
-                            name={this.props.name}
-                            click={this.toggleSubItems.bind(this)} />
-                    </div>
-                    <div className="secondaryAwardSet">
-                        {secondaryAwardTypes}
-                    </div>
-                </div>);
+            return (<div className="secondaryAwardSet">
+                {this.props.subList.map((subList, index) =>
+                    <SecondaryAwardType
+                        subListValue={this.props.subList[index]}
+                        key={index} />)}</div>);
         }
 
+        return ('');
+    }
+
+    render() {
         return (
-            <div>{ primaryAward }</div>
+            <div className="awardSet">
+                <div className="primaryAward">
+                    <CollapsedAwardType
+                        name={this.props.name}
+                        click={this.toggleSubItems.bind(this)}
+                        subList={this.props.subList != null ? 'true' : 'false'} />
+                </div>
+                {this.showSecondaryAward()}
+            </div>
         );
     }
 }

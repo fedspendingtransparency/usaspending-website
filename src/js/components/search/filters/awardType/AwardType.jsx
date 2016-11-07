@@ -30,11 +30,7 @@ const defaultProps = {
             ]
         },
         {
-            name: 'Loans',
-            subValues: [
-                'Subtype 1',
-                'Subtype 2'
-            ]
+            name: 'Loans'
         }
     ]
 };
