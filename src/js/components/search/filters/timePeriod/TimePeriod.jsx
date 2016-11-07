@@ -57,13 +57,11 @@ export default class TimePeriod extends React.Component {
         // validate that dates are provided for both fields and the end dates
         // don't come before the start dates
 
-        const range = Object.assign({}, this.state);
+        const rng = Object.assign({}, this.state);
 
         const output = {
-            range: range
+            range: rng
         };
-
-        let isValid = true;
 
         // validate the date ranges
         const start = this.state.startDate;
@@ -72,7 +70,6 @@ export default class TimePeriod extends React.Component {
             // both sets of dates exist
             if (!end.isSameOrAfter(start)) {
                 // end date comes before start date, invalid
-                isValid = false;
                 // show an error message
                 output.error = {
                     show: true,
@@ -91,7 +88,6 @@ export default class TimePeriod extends React.Component {
         }
         else {
             // not all dates exist yet
-            isValid = false;
             output.error = {
                 show: false,
                 header: '',
@@ -102,12 +98,12 @@ export default class TimePeriod extends React.Component {
         this.setState(output);
     }
 
-    showError(header, description) {
+    showError(head, desc) {
         this.setState({
             error: Object.assign(this.state.error, {
                 show: true,
-                header: header,
-                description: description
+                header: head,
+                description: desc
             })
         });
     }

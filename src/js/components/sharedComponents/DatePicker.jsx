@@ -14,12 +14,12 @@ const defaultProps = {
 };
 
 const propTypes = {
-    value: React.PropTypes.string,
+    value: React.PropTypes.object,
     type: React.PropTypes.string,
     onDateChange: React.PropTypes.func,
     showError: React.PropTypes.func,
     hideError: React.PropTypes.func,
-    opposite: React.PropTypes.string,
+    opposite: React.PropTypes.object,
     title: React.PropTypes.string,
     tabIndex: React.PropTypes.number
 };
@@ -51,9 +51,9 @@ export default class DatePicker extends React.Component {
     parseValueForInput() {
         // convert the date to something typeable
         if (this.props.value != null) {
-            const inputValue = this.props.value.format('MM/DD/YYYY');
+            const iV = this.props.value.format('MM/DD/YYYY');
             this.setState({
-                inputValue: inputValue
+                inputValue: iV
             });
         }
     }
@@ -69,7 +69,7 @@ export default class DatePicker extends React.Component {
     datePickerChangeEvent() {
         if (this.state.showDatePicker) {
             // focus on the date picker
-            //this.refs.datepicker.refs.dayPicker.querySelector('.DayPicker-Day--selected').focus();
+            this.datepicker.dayPicker.querySelector('.DayPicker-Day--selected').focus();
 
             // we want to close the date picker on escape key
             // have to hold a reference to the bound function in order to cancel the listener later
@@ -80,7 +80,7 @@ export default class DatePicker extends React.Component {
             // date picker is now closed, stop listening for this event
             window.removeEventListener('keyup', this.escapeEvent);
             // return focus to the input field
-            this.refs.text.focus();
+            this.text.focus();
         }
     }
 
@@ -208,19 +208,23 @@ export default class DatePicker extends React.Component {
                         placeholder={this.props.title}
                         value={this.state.inputValue}
                         tabIndex={this.props.tabIndex}
-                        ref="text"
+                        ref={(input) => {
+                            this.text = input;
+                        }}
                         onChange={this.handleTypedDate.bind(this)}
                         onBlur={this.handleInputBlur.bind(this)} />
                     <a
                         href="#null" onClick={this.toggleDatePicker.bind(this)}
                         tabIndex={this.props.tabIndex + 1}
-                        className="usa-da-icon picker-icon date" aria-haspopup={true}>
+                        className="usa-da-icon picker-icon date" aria-haspopup="true">
                         <Icons.Calendar alt="Date picker" />
                     </a>
                 </div>
-                <div className={"floating-datepicker" + showDatePicker} role="dialog">
+                <div className={`floating-datepicker ${showDatePicker}`} role="dialog">
                     <DayPicker
-                        ref="datepicker"
+                        ref={(daypicker) => {
+                            this.datepicker = daypicker;
+                        }}
                         initialMonth={pickedDay}
                         disabledDays={cutoffFunc}
                         selectedDays={(day) => DateUtils.isSameDay(pickedDay, day)}
