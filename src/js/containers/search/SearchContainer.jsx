@@ -57,7 +57,7 @@ class SearchContainer extends React.Component {
     }
 
     performSearch() {
-        this.state.searchParams.timePeriodRange = ['2016-01-01', '2016-06-30'];
+        // this.state.searchParams.timePeriodRange = ['2016-01-01', '2016-06-30'];
         SearchHelper.performPagedSearch(this.state.searchParams.toParams())
             .then((res) => {
                 const data = res.data;

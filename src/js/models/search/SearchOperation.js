@@ -1,21 +1,20 @@
+/**
+  * SearchOperation.js
+  * Created by Kevin Li 11/4/16
+  **/
+
+import * as AwardTypeQuery from './queryBuilders/AwardTypeQuery';
+
 class SearchOperation {
-    constructor(data) {
+    constructor() {
         this.awardType = [];
         this.timePeriodFY = [];
         this.timePeriodRange = [];
-
-        if (data) {
-            // populate the object
-            Object.keys(data).forEach((key) => {
-                this[key] = data[key];
-            });
-        }
     }
 
     fromState(state) {
-        this.awardType = state.awardType;
+        this.awardType = state.awardType.toArray();
         this.timePeriodFY = state.timePeriodFY;
-
         this.timePeriodRange = [];
         if (state.timePeriodStart && state.timePeriodEnd) {
             this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
@@ -28,13 +27,7 @@ class SearchOperation {
 
         // add award types
         if (this.awardType.length > 0) {
-            const awardTypeFilter = {
-                field: 'type',
-                operation: 'in',
-                value: this.awardType
-            };
-
-            filters.push(awardTypeFilter);
+            filters.push(AwardTypeQuery.buildQuery(this.awardType));
         }
 
         // add FY time periods

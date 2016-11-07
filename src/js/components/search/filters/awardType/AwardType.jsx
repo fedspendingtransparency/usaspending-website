@@ -12,7 +12,7 @@ const defaultProps = {
         {
             id: 'award-contracts',
             name: 'Contracts',
-            filters: ['A', 'D', 'C', 'B'],
+            filters: ['A', 'D', 'C', 'B']
         },
         {
             id: 'award-grants',

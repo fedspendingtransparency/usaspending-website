@@ -11,6 +11,13 @@
         "window": true,
         "document": true
     },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "moduleDirectory": ["node_modules", "src/js"]
+            }
+        }
+    },
     // overrides to the Airbnb style follow
     "rules": {
         // indentation should be 4 spaces (use soft tabs) and switch cases should be indented

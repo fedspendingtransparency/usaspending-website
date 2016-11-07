@@ -7,16 +7,9 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import _ from 'lodash';
-
 import AwardType from 'components/search/filters/awardType/AwardType';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-
-const propTypes = {
-    setAwardType: React.PropTypes.func,
-    search: React.PropTypes.object
-};
 
 class AwardTypeContainer extends React.Component {
     render() {
@@ -27,8 +20,6 @@ class AwardTypeContainer extends React.Component {
 }
 
 export default connect(
-    (state) => ({ containerFilters: state.search.filters }),
+    (state) => ({ reduxFilters: state.search.filters.awardType }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(AwardTypeContainer);
-
-AwardTypeContainer.propTypes = propTypes;

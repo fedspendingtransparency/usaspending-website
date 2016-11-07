@@ -6,7 +6,13 @@
 import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
+const defaultProps = {
+    id: '',
+    name: ''
+};
+
 const propTypes = {
+    id: React.PropTypes.string,
     click: React.PropTypes.func,
     name: React.PropTypes.string
 };
@@ -25,4 +31,6 @@ export default class CollapsedAwardType extends React.Component {
         );
     }
 }
+
 CollapsedAwardType.propTypes = propTypes;
+CollapsedAwardType.defaultProps = defaultProps;

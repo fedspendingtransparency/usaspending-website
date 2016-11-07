@@ -3,8 +3,8 @@
   * Created by Kevin Li 11/1/16
   **/
 
-export const setAwardType = (state) => ({
-    type: 'SET_SEARCH_FILTER_AWARD_TYPE',
+export const toggleAwardType = (state) => ({
+    type: 'TOGGLE_SEARCH_FILTER_AWARD_TYPE',
     awardType: state
 });
 

@@ -4,8 +4,9 @@
  **/
 
 import React from 'react';
-import SearchBox from '../sharedComponents/SearchBox';
+
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
+import SearchBox from '../sharedComponents/SearchBox';
 
 const propTypes = {
     name: React.PropTypes.string
