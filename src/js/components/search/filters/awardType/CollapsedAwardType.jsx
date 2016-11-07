@@ -29,8 +29,7 @@ export default class CollapsedAwardType extends React.Component {
         return (
             <div className="primaryAwardTypeOption">
                 <input type="checkbox" id={nameShort} value={this.props.name} />
-                <label htmlFor={nameShort}>{this.props.name}</label>
-                { this.showToggle() }
+                <label htmlFor={nameShort}><div>{this.props.name}</div>{ this.showToggle() }</label>
             </div>
         );
     }

@@ -4,10 +4,6 @@
         margin-left: 2rem;
     }
 
-    .primaryAwardTypeOption input, .secondaryAwardTypeOption input {
-        height:1.2rem;
-    }
-
     .primaryAwardTypeOption span, .secondaryAwardTypeOption span {
         cursor: pointer;
         margin-left: 1rem;
@@ -18,8 +14,9 @@
     .primaryAwardTypeOption label, .secondaryAwardTypeOption label {
         display: inline-block;
         font-size: $small-font-size;
-        line-height: $small-font-size;
-        margin:1rem 0 0 0;
+        line-height: $small-font-size+1;
+        margin: 1rem 0 0 3rem;
+        text-indent: -2rem;
     }
 
     .primaryAwardTypeOption label::before, .secondaryAwardTypeOption label::before {
@@ -27,6 +24,10 @@
         height: 1.4rem;
         position: relative;
         top: .25rem;
+    }
+
+    .primaryAwardTypeOption label div, .secondaryAwardTypeOption label div {
+        display:inline;
     }
 
     .primaryAwardTypeOption svg {
@@ -39,5 +40,6 @@
 
     .primaryAwardTypeOption .toggle {
         display: inline-block;
+        margin-left: 2.2rem;
     }
 }
