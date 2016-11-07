@@ -7,9 +7,26 @@ import { Set } from 'immutable';
 
 const initialState = {
     awardType: new Set(),
-    timePeriodFY: [],
+    timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null
+};
+
+const immutableSetToggle = (set, value) => {
+    // as an ImmutableJS set, any modifications to the set creates a new instance
+    // this will hold the new instance
+    let updatedSet;
+    // check to see if the value currently exists within the set
+    if (set.includes(value)) {
+        // it exists, so remove it from the set
+        updatedSet = set.delete(value);
+    }
+    else {
+        // it doesn't exist, so add it to the set
+        updatedSet = set.add(value);
+    }
+    // return the new instance with updated values
+    return updatedSet;
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -17,36 +34,27 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'TOGGLE_SEARCH_FILTER_AWARD_TYPE': {
             // this redux state is stored in an ImmutableJS set, which returns new instances
             // whenever it is modified; updatedAwards will hold the modified instance
-            let updatedAwards;
-            // check to see if the selected award type should be added or removed
-            if (state.awardType.includes(action.awardType)) {
-                // award type exists, so remove it
-                updatedAwards = state.awardType.delete(action.awardType);
-            }
-            else {
-                // award type does not yet exist, add it
-                updatedAwards = state.awardType.add(action.awardType);
-            }
-
             return Object.assign({}, state, {
-                awardType: updatedAwards
+                awardType: immutableSetToggle(state.awardType, action.awardType)
             });
         }
-        case 'SET_SEARCH_FILTER_TIME_PERIOD_FY':
+        case 'UPDATE_SEARCH_FILTER_TIME_PERIOD_FY': {
+            // FY time period is stored as an ImmutableJS set
             return Object.assign({}, state, {
                 timePeriodStart: null,
                 timePeriodEnd: null,
-                timePeriodFY: action.fy
+                timePeriodFY: immutableSetToggle(state.timePeriodFY, action.fy)
             });
+        }
         case 'SET_SEARCH_FILTER_TIME_PERIOD_START':
             return Object.assign({}, state, {
                 timePeriodStart: action.start,
-                timePeriodFY: []
+                timePeriodFY: state.timePeriodFY.clear()
             });
         case 'SET_SEARCH_FILTER_TIME_PERIOD_END':
             return Object.assign({}, state, {
                 timePeriodEnd: action.end,
-                timePeriodFY: []
+                timePeriodFY: state.timePeriodFY.clear()
             });
         default:
             return state;

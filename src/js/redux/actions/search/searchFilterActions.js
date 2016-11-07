@@ -8,8 +8,8 @@ export const toggleAwardType = (state) => ({
     awardType: state
 });
 
-export const setTimePeriodFY = (state) => ({
-    type: 'SET_SEARCH_FILTER_TIME_PERIOD_FY',
+export const updateTimePeriodFY = (state) => ({
+    type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD_FY',
     fy: state
 });
 
