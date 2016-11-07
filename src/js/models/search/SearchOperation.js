@@ -4,6 +4,7 @@
   **/
 
 import * as AwardTypeQuery from './queryBuilders/AwardTypeQuery';
+import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 
 class SearchOperation {
     constructor() {
@@ -14,7 +15,7 @@ class SearchOperation {
 
     fromState(state) {
         this.awardType = state.awardType.toArray();
-        this.timePeriodFY = state.timePeriodFY;
+        this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
         if (state.timePeriodStart && state.timePeriodEnd) {
             this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
@@ -30,56 +31,9 @@ class SearchOperation {
             filters.push(AwardTypeQuery.buildQuery(this.awardType));
         }
 
-        // add FY time periods
-        if (this.timePeriodFY.length > 0) {
-            const fyPeriods = [];
-
-            // iterate through each period and create an OR query for start and end date
-            this.timePeriodFY.forEach((period) => {
-                const filter = {
-                    combine_method: 'OR',
-                    filters: [
-                        {
-                            field: 'period_of_performance_start_date',
-                            operation: 'fy',
-                            value: period
-                        },
-                        {
-                            field: 'period_of_performance_current_end_date',
-                            operation: 'fy',
-                            value: period
-                        }
-                    ]
-                };
-
-                fyPeriods.push(filter);
-            });
-
-            const combinedFilter = {
-                combine_method: 'OR',
-                filters: fyPeriods
-            };
-            filters.push(combinedFilter);
-        }
-        else if (this.timePeriodRange.length === 2) {
-            // add time period range as an OR filter
-            const periodRange = {
-                combine_method: 'OR',
-                filters: [
-                    {
-                        field: 'period_of_performance_start_date',
-                        operation: 'greater_than_or_equal',
-                        value: this.timePeriodRange
-                    },
-                    {
-                        field: 'period_of_performance_current_end_date',
-                        operation: 'less_than_or_equal',
-                        value: this.timePeriodRange
-                    }
-                ]
-            };
-
-            filters.push(periodRange);
+        // add time period queries
+        if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
+            filters.push(TimePeriodQuery.buildQuery(this.timePeriodFY, this.timePeriodRange));
         }
 
         return filters;

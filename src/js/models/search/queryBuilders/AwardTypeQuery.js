@@ -21,8 +21,6 @@ const buildCompoundQuery = (contracts, other) => ({
     ]
 });
 
-/* eslint-disable import/prefer-default-export */
-// temporarily disable prefer-default-export because there may be more functions later
 export const buildQuery = (awardType) => {
     let awardQuery = {};
 
@@ -53,4 +51,3 @@ export const buildQuery = (awardType) => {
 
     return awardQuery;
 };
-/* eslint-enable import/prefer-default-export */
