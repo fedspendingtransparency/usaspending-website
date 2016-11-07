@@ -5,10 +5,10 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import kGlobalConstants from '../GlobalConstants';
+import kGlobalConstants from 'GlobalConstants';
 
-import reducers from '../redux/reducers/index';
-import HomePage from '../components/HomePage';
+import reducers from 'redux/reducers/index';
+import HomePage from 'components/HomePage';
 
 import RouterContainer from './router/RouterContainer';
 

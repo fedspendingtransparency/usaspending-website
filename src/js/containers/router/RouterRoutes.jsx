@@ -4,9 +4,8 @@
  **/
 import { hashHistory } from 'react-router';
 
-import StoreSingleton from '../../redux/storeSingleton';
-import HomePage from '../../components/HomePage';
-import SearchPage from '../../components/search/SearchPage';
+import StoreSingleton from 'redux/storeSingleton';
+import HomePage from 'components/HomePage';
 
 let instance = null;
 let store = new StoreSingleton().store;
@@ -42,7 +41,11 @@ const routeDefinitions = {
     childRoutes: [
         {
             path: 'search',
-            component: SearchPage
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../search/SearchContainer').default);
+                });
+            }
         }
     ]
 };

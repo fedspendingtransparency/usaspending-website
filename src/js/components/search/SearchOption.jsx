@@ -4,8 +4,9 @@
  **/
 
 import React from 'react';
+
+import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import SearchBox from '../sharedComponents/SearchBox';
-import AwardType from './filters/awardType/AwardType';
 
 const propTypes = {
     name: React.PropTypes.string
@@ -17,7 +18,7 @@ export default class SearchOption extends React.Component {
             case 'Keywords':
                 return (<div className="search-option"><SearchBox /></div>);
             case 'AwardType':
-                return (<div className="search-option"><AwardType /></div>);
+                return (<div className="search-option"><AwardTypeContainer /></div>);
             default:
                 return (<div className="search-option"><b>{this.props.name}</b></div>);
         }

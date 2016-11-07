@@ -16,8 +16,8 @@ export default class SearchPage extends React.Component {
             <div className="flex-wrapper search-page">
                 <Header />
                 <NavBar />
-                <SearchSidebar />
-                <SearchResults />
+                <SearchSidebar {...this.props} />
+                <SearchResults {...this.props} />
                 <Footer />
             </div>
         );

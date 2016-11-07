@@ -36,6 +36,7 @@ public
 GlobalConstants_dev.js
 GlobalConstants_local.js
 GlobalConstants_prod.js
+src/js/GlobalConstants.js
 
 # Ignore Jest Test Results
 __tests__/test-results
