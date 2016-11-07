@@ -412,6 +412,11 @@
         }
       }
     },
+    "immutable": {
+      "version": "3.8.1",
+      "from": "immutable@latest",
+      "resolved": "https://registry.npmjs.org/immutable/-/immutable-3.8.1.tgz"
+    },
     "jquery": {
       "version": "2.2.4",
       "from": "https://registry.npmjs.org/jquery/-/jquery-2.2.4.tgz",
