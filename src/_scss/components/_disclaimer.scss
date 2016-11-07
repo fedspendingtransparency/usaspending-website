@@ -1,4 +1,4 @@
-.usa-disclaimer {
+@mixin usa-disclaimer {
   background-color: $color-gray-lightest;
   font-size: 1.2rem;
   height: 2.3rem;
@@ -8,7 +8,7 @@
   }
 }
 
-.usa-disclaimer-inner {
+@mixin usa-disclaimer-inner {
   @include outer-container();
   @include padding(null $site-margins-mobile);
   max-width: $site-max-width;
@@ -18,7 +18,7 @@
   }
 }
 
-.usa-disclaimer-official {
+@mixin usa-disclaimer-official {
   display: inline-block;
 
   p {
@@ -40,7 +40,7 @@
 
 // This hides the stage note (i.e. alpha, beta, etc) of the disclaimer for
 // anything smaller than large screen sizes
-.usa-disclaimer-stage {
+@mixin usa-disclaimer-stage {
   @include margin(2px null);
   display: none;
   float: right;

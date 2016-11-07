@@ -1,3 +1,4 @@
+@import './sidenav/_sidenavList.scss';
 @mixin usa-sidenav-list {
   @include unstyled-list();
 
@@ -55,8 +56,7 @@
     padding-left: 2.8rem;
     line-height: $heading-line-height;
 
-    &:hover,
-    &.usa-current {
+    &:hover {
       border: none;
       padding-left: 2.8rem;
     }
@@ -71,12 +71,4 @@
       }
     }
   }
-}
-
-.usa-sidenav-list {
-  @include usa-sidenav-list;
-}
-
-.usa-sidenav-sub_list {
-  @include usa-sidenav-sublist;
 }
