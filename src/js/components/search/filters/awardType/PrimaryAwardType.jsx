@@ -4,12 +4,25 @@
  **/
 
 import React from 'react';
+
+import awardTypeCodes from 'dataMapping/search/awardType';
+
 import SecondaryAwardType from './SecondaryAwardType';
 import CollapsedAwardType from './CollapsedAwardType';
+import SingleAwardType from './SingleAwardType';
 
 const propTypes = {
+    id: React.PropTypes.string,
     name: React.PropTypes.string,
-    subList: React.PropTypes.array
+    filters: React.PropTypes.array,
+    value: React.PropTypes.string
+};
+
+const defaultProps = {
+    id: '',
+    name: '',
+    filters: [],
+    value: null
 };
 
 export default class PrimaryAwardType extends React.Component {
@@ -21,36 +34,54 @@ export default class PrimaryAwardType extends React.Component {
         };
     }
 
-    toggleSubItems() {
+    toggleSubItems(e) {
+        e.preventDefault();
+
         this.setState({
             showSubItems: !this.state.showSubItems
         });
     }
 
-    showSecondaryAward() {
+    render() {
+        let primaryAward = (<CollapsedAwardType
+            id={this.props.id}
+            name={this.props.name}
+            code={this.props.value}
+            click={this.toggleSubItems.bind(this)} />);
+
+        let secondaryAwardTypes = null;
+
         if (this.state.showSubItems) {
-            return (<div className="secondaryAwardSet">
-                {this.props.subList.map((subList, index) =>
-                    <SecondaryAwardType
-                        subListValue={this.props.subList[index]}
-                        key={index} />)}</div>);
+            secondaryAwardTypes = this.props.filters.map((code) =>
+                <SecondaryAwardType
+                    {...this.props}
+                    code={code}
+                    name={awardTypeCodes[code]}
+                    key={`${this.props.id} - ${code}`}
+                    id={`${this.props.id} - ${code}`} />);
         }
 
-        return ('');
-    }
+        if (this.props.filters.length === 0) {
+            primaryAward = (<SingleAwardType
+                {...this.props}
+                code={this.props.value}
+                name={this.props.name}
+                key={`${this.props.id} - ${this.props.value}`}
+                id={`${this.props.id} - ${this.props.value}`} />);
+        }
 
-    render() {
         return (
             <div className="awardSet">
                 <div className="primaryAward">
-                    <CollapsedAwardType
-                        name={this.props.name}
-                        click={this.toggleSubItems.bind(this)}
-                        subList={this.props.subList != null ? 'true' : 'false'} />
+                    {primaryAward}
                 </div>
-                {this.showSecondaryAward()}
+                <div className="secondaryAwardSet">
+                    {secondaryAwardTypes}
+                </div>
             </div>
         );
     }
 }
+
 PrimaryAwardType.propTypes = propTypes;
+PrimaryAwardType.defaultProps = defaultProps;

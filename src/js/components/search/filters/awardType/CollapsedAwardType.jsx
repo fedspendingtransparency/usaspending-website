@@ -4,34 +4,34 @@
  **/
 
 import React from 'react';
-import * as Icons from '../../../sharedComponents/icons/Icons';
+import * as Icons from 'components/sharedComponents/icons/Icons';
+
+const defaultProps = {
+    id: '',
+    name: ''
+};
 
 const propTypes = {
+    id: React.PropTypes.string,
     click: React.PropTypes.func,
-    name: React.PropTypes.string,
-    subList: React.PropTypes.string
+    name: React.PropTypes.string
 };
 
 export default class CollapsedAwardType extends React.Component {
 
-    showToggle() {
-        if (this.props.subList === 'true') {
-            return (
-                <a className="toggle" href="#null" onClick={this.props.click}>
-                    <Icons.AngleDown /></a>
-            );
-        }
-        return ('');
-    }
-
     render() {
-        const nameShort = this.props.name.replace(/\s+/g, '').toLowerCase();
         return (
             <div className="primaryAwardTypeOption">
-                <input type="checkbox" id={nameShort} value={this.props.name} />
-                <label htmlFor={nameShort}><div>{this.props.name}</div>{ this.showToggle() }</label>
+                <input type="checkbox" id={this.props.id} value={this.props.name} />
+                <label htmlFor={this.props.id}>{this.props.name}</label>
+                <a className="toggle" href="#null" onClick={this.props.click}>
+                    <Icons.AngleDown />
+                </a>
             </div>
         );
     }
+
 }
+
 CollapsedAwardType.propTypes = propTypes;
+CollapsedAwardType.defaultProps = defaultProps;
