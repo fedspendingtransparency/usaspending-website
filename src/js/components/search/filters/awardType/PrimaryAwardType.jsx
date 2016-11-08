@@ -15,6 +15,8 @@ const propTypes = {
     id: React.PropTypes.string,
     name: React.PropTypes.string,
     filters: React.PropTypes.array,
+    reduxFilters: React.PropTypes.object,
+    bulkAwardTypeChange: React.PropTypes.func,
     value: React.PropTypes.string
 };
 
@@ -30,8 +32,36 @@ export default class PrimaryAwardType extends React.Component {
         super(props);
 
         this.state = {
-            showSubItems: false
+            showSubItems: false,
+            selectedChildren: false,
+            allChildren: false
         };
+    }
+
+    componentDidMount() {
+        this.compareFiltersToChildren();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.reduxFilters.hashCode() !== this.props.reduxFilters.hashCode()) {
+            this.compareFiltersToChildren();
+        }
+    }
+
+    compareFiltersToChildren() {
+        // check to see if the children are all selected or not
+        let allSelected = true;
+
+        for (const code of this.props.filters) {
+            if (!this.props.reduxFilters.has(code)) {
+                allSelected = false;
+                break;
+            }
+        }
+
+        this.setState({
+            allChildren: allSelected
+        });
     }
 
     toggleSubItems(e) {
@@ -42,12 +72,40 @@ export default class PrimaryAwardType extends React.Component {
         });
     }
 
+    toggleChildren() {
+        let showChildren = true;
+
+        if (this.state.allChildren) {
+            // all the children are selected, deselect them
+            this.props.bulkAwardTypeChange({
+                awardTypes: this.props.filters,
+                direction: 'remove'
+            });
+            // collapse the children
+            showChildren = false;
+        }
+        else {
+            // not all the children are selected, select them all
+            this.props.bulkAwardTypeChange({
+                awardTypes: this.props.filters,
+                direction: 'add'
+            });
+        }
+
+        this.setState({
+            showSubItems: showChildren
+        });
+    }
+
     render() {
         let primaryAward = (<CollapsedAwardType
             id={this.props.id}
             name={this.props.name}
             code={this.props.value}
-            click={this.toggleSubItems.bind(this)} />);
+            selected={this.state.allChildren}
+            toggleExpand={this.toggleSubItems.bind(this)}
+            toggleChildren={this.toggleChildren.bind(this)}
+            hideArrow={this.state.allChildren} />);
 
         let secondaryAwardTypes = null;
 
