@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import DatePicker from '../../../sharedComponents/DatePicker';
+import DatePicker from 'components/sharedComponents/DatePicker';
 
 const defaultProps = {
     startDate: '01/01/2016',

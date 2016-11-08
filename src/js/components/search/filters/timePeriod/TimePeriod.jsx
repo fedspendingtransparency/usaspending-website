@@ -10,14 +10,14 @@ import FiscalYear from './FiscalYear';
 
 const defaultProps = {
     timePeriods: [
-        'FY 2016',
-        'FY 2015',
-        'FY 2014',
-        'FY 2013',
-        'FY 2012',
-        'FY 2011',
-        'FY 2010',
-        'FY 2009'
+        '2016',
+        '2015',
+        '2014',
+        '2013',
+        '2012',
+        '2011',
+        '2010',
+        '2009'
     ]
 };
 
@@ -32,7 +32,6 @@ export default class TimePeriod extends React.Component {
         super(props);
 
         this.state = {
-            state: 'loading',
             startDate: null,
             endDate: null,
             error: {
@@ -57,10 +56,10 @@ export default class TimePeriod extends React.Component {
         // validate that dates are provided for both fields and the end dates
         // don't come before the start dates
 
-        const rng = Object.assign({}, this.state);
+        const err = Object.assign({}, this.state);
 
         const output = {
-            range: rng
+            error: err
         };
 
         // validate the date ranges
@@ -121,13 +120,13 @@ export default class TimePeriod extends React.Component {
 
     render() {
         const fiscalYears = this.props.timePeriods.map((year, index) =>
-            <FiscalYear name={year} key={index} />
+            <FiscalYear year={year} key={index} />
         );
 
         return (
             <div className="timePeriodFilter">
                 <b>Time Period</b>
-                <div className="fiscalYears">{fiscalYears}</div>
+                <ul className="fiscalYears">{fiscalYears}</ul>
                 <DateRange
                     label={this.props.label}
                     datePlaceholder=""

@@ -6,17 +6,17 @@
 import React from 'react';
 
 const propTypes = {
-    name: React.PropTypes.string
+    year: React.PropTypes.string
 };
 
 export default class FiscalYear extends React.Component {
 
     render() {
         return (
-            <div className="fiscalYearOption">
-                <input type="checkbox" id={this.props.name} value={this.props.name} />
-                <label htmlFor={this.props.name}>{this.props.name}</label>
-            </div>
+            <li className="fiscalYearOption">
+                <input type="checkbox" id={`fy${this.props.year}`} value={`FY ${this.props.year}`} />
+                <label htmlFor={`fy${this.props.year}`}>{`FY ${this.props.year}`}</label>
+            </li>
         );
     }
 }

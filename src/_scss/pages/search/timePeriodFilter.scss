@@ -1,38 +1,41 @@
 .timePeriodFilter {
 
+    @include outer-container;
+
     @import './datePicker';
 
-    .fiscalYears {
-        margin: 1.5rem 0 3rem 0;
+    ul.fiscalYears {
+        @include row();
+        margin: 1.5rem 0 0 -2rem;
+        list-style-type: none;
     }
 
     label {
         font-size: $small-font-size;
-        margin:0;
+        margin: 0;
     }
 
-    .fiscalYearOption {
-        width:16rem;
-        max-width:160px;
-        margin:0;
-        display:table-cell;
-        height:2.5rem;
-    }
+    li.fiscalYearOption {
+        margin: 0;
+        height: 2.5rem;
+        @include span-columns(7);
 
-    .fiscalYearOption input {
-        max-height:1.5rem;
-    }
-
-    .fiscalYearOption label::before {
-        height:1.2rem;
-        width:1.2rem;
-    }
-
-    .fiscalYearOption:nth-child(odd){
-        float:left;
+        label {
+            &::before {
+                height: 1.4rem;
+                width: 1.4rem;
+                position: relative;
+                top: .25rem;
+            }
+        }
     }
 
     .dateRangeOption {
-        margin-top:5rem;
+        margin-top: 3rem;
+
+        .through-text {
+            font-size: $small-font-size;
+        }
     }
+
 }

@@ -4,42 +4,41 @@
         margin-left: 2rem;
     }
 
-    .primaryAwardTypeOption span, .secondaryAwardTypeOption span {
-        cursor: pointer;
-        margin-left: 1rem;
-        top: 1rem;
-        position:relative;
+    .primaryAwardTypeOption, .secondaryAwardTypeOption {
+        label {
+            display: inline-block;
+            font-size: $small-font-size;
+            line-height: $small-font-size+1;
+            margin: 1rem 0 0 3rem;
+            text-indent: -2rem;
+
+            &:before {
+                width: 1.4rem;
+                height: 1.4rem;
+                position: relative;
+                top: .25rem;
+            }
+            div {
+                display: inline;
+            }
+        }
+        span {
+            cursor: pointer;
+            margin-left: 1rem;
+            top: 1rem;
+            position:relative;
+        }
+        svg {
+            height: 20px !important;
+            width: 20px !important;
+            position:relative;
+            top:.5rem;
+            cursor: pointer;
+        }
+        .toggle {
+            display: inline-block;
+            margin-left: 1rem;
+        }
     }
 
-    .primaryAwardTypeOption label, .secondaryAwardTypeOption label {
-        display: inline-block;
-        font-size: $small-font-size;
-        line-height: $small-font-size+1;
-        margin: 1rem 0 0 3rem;
-        text-indent: -2rem;
-    }
-
-    .primaryAwardTypeOption label::before, .secondaryAwardTypeOption label::before {
-        width: 1.4rem;
-        height: 1.4rem;
-        position: relative;
-        top: .25rem;
-    }
-
-    .primaryAwardTypeOption label div, .secondaryAwardTypeOption label div {
-        display:inline;
-    }
-
-    .primaryAwardTypeOption svg {
-        height: 20px !important;
-        width: 20px !important;
-        position:relative;
-        top:.5rem;
-        cursor: pointer;
-    }
-
-    .primaryAwardTypeOption .toggle {
-        display: inline-block;
-        margin-left: 2.2rem;
-    }
 }
