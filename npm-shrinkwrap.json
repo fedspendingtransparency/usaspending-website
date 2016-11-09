@@ -412,6 +412,11 @@
         }
       }
     },
+    "griddle-react": {
+      "version": "0.7.0",
+      "from": "griddle-react@latest",
+      "resolved": "https://registry.npmjs.org/griddle-react/-/griddle-react-0.7.0.tgz"
+    },
     "immutable": {
       "version": "3.8.1",
       "from": "immutable@latest",

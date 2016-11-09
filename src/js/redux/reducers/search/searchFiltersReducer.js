@@ -5,6 +5,8 @@
 
 import { Set } from 'immutable';
 
+import * as AwardFilterFunctions from './filters/awardFilterFunctions';
+
 const initialState = {
     awardType: new Set(),
     timePeriodFY: new Set(),
@@ -12,30 +14,20 @@ const initialState = {
     timePeriodEnd: null
 };
 
-const immutableSetToggle = (set, value) => {
-    // as an ImmutableJS set, any modifications to the set creates a new instance
-    // this will hold the new instance
-    let updatedSet;
-    // check to see if the value currently exists within the set
-    if (set.includes(value)) {
-        // it exists, so remove it from the set
-        updatedSet = set.delete(value);
-    }
-    else {
-        // it doesn't exist, so add it to the set
-        updatedSet = set.add(value);
-    }
-    // return the new instance with updated values
-    return updatedSet;
-};
-
 const searchFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'TOGGLE_SEARCH_FILTER_AWARD_TYPE': {
             // this redux state is stored in an ImmutableJS set, which returns new instances
-            // whenever it is modified; updatedAwards will hold the modified instance
+            // whenever it is modified
             return Object.assign({}, state, {
-                awardType: immutableSetToggle(state.awardType, action.awardType)
+                awardType: AwardFilterFunctions.immutableSetToggle(
+                    state.awardType, action.awardType)
+            });
+        }
+        case 'BULK_SEARCH_FILTER_AWARD_TYPE': {
+            return Object.assign({}, state, {
+                awardType: AwardFilterFunctions.bulkAwardTypeChange(
+                    state.awardType, action.awardTypes, action.direction)
             });
         }
         case 'UPDATE_SEARCH_FILTER_TIME_PERIOD_FY': {
@@ -43,7 +35,8 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 timePeriodStart: null,
                 timePeriodEnd: null,
-                timePeriodFY: immutableSetToggle(state.timePeriodFY, action.fy)
+                timePeriodFY: AwardFilterFunctions.immutableSetToggle(
+                    state.timePeriodFY, action.fy)
             });
         }
         case 'SET_SEARCH_FILTER_TIME_PERIOD_START':

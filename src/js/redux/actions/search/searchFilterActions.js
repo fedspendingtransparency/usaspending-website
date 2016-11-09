@@ -8,6 +8,12 @@ export const toggleAwardType = (state) => ({
     awardType: state
 });
 
+export const bulkAwardTypeChange = (state) => ({
+    type: 'BULK_SEARCH_FILTER_AWARD_TYPE',
+    awardTypes: state.awardTypes,
+    direction: state.direction
+});
+
 export const updateTimePeriodFY = (state) => ({
     type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD_FY',
     fy: state
