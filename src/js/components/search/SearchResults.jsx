@@ -6,7 +6,7 @@
 import React from 'react';
 
 import BarChart from 'containers/BarChart';
-import Table from 'containers/Table';
+import ResultsTableContainer from 'containers/search/table/ResultsTableContainer';
 import Map from 'containers/Map';
 
 import SearchSummary from './SearchSummary';
@@ -17,7 +17,7 @@ export default class SearchResults extends React.Component {
             <div className="search-results">
                 <SearchSummary />
                 <h3>View All: Prime Awards</h3>
-                <Table />
+                <ResultsTableContainer />
                 <h3>Historical Spending</h3>
                 <BarChart />
                 <h3>Spending by Geography</h3>
