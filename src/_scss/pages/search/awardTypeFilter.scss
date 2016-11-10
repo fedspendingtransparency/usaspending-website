@@ -6,18 +6,10 @@
 
     .primaryAwardTypeOption, .secondaryAwardTypeOption {
         label {
-            display: inline-block;
+            display: inline;
             font-size: $small-font-size;
             line-height: $small-font-size+1;
-            margin: 1rem 0 0 3rem;
-            text-indent: -2rem;
-
-            &:before {
-                width: 1.4rem;
-                height: 1.4rem;
-                position: relative;
-                top: .25rem;
-            }
+            margin: 1rem 0 0 1rem;
             div {
                 display: inline;
             }
@@ -37,7 +29,6 @@
         }
         .toggle {
             display: inline-block;
-            margin-left: 1rem;
         }
     }
 

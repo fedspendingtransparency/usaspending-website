@@ -6,23 +6,11 @@
 import React from 'react';
 import moment from 'moment';
 import DateRange from './DateRange';
-import FiscalYear from './FiscalYear';
+import AllFiscalYears from './AllFiscalYears';
+import DateRangeError from './DateRangeError';
 
-const defaultProps = {
-    timePeriods: [
-        '2016',
-        '2015',
-        '2014',
-        '2013',
-        '2012',
-        '2011',
-        '2010',
-        '2009'
-    ]
-};
 
 const propTypes = {
-    timePeriods: React.PropTypes.array,
     label: React.PropTypes.string
 };
 
@@ -34,13 +22,18 @@ export default class TimePeriod extends React.Component {
         this.state = {
             startDate: null,
             endDate: null,
-            error: {
-                show: false,
-                header: '',
-                description: ''
-            },
-            errorDetails: ""
+            showError: false,
+            shownFilter: 'fy',
+            header: '',
+            description: '',
+            isActive: false
         };
+    }
+
+    toggleFilters(filter) {
+        this.setState({
+            shownFilter: filter
+        });
     }
 
     handleDateChange(date, dateType) {
@@ -56,12 +49,6 @@ export default class TimePeriod extends React.Component {
         // validate that dates are provided for both fields and the end dates
         // don't come before the start dates
 
-        const err = Object.assign({}, this.state);
-
-        const output = {
-            error: err
-        };
-
         // validate the date ranges
         const start = this.state.startDate;
         const end = this.state.endDate;
@@ -70,75 +57,79 @@ export default class TimePeriod extends React.Component {
             if (!end.isSameOrAfter(start)) {
                 // end date comes before start date, invalid
                 // show an error message
-                output.error = {
-                    show: true,
+                this.setState({
+                    showError: true,
                     header: 'Invalid Dates',
-                    description: 'The end date cannot be earlier than the start date.'
-                };
+                    errorMessage: 'The end date cannot be earlier than the start date.'
+                });
             }
             else {
                 // valid!
-                output.error = {
-                    show: false,
+                this.setState({
+                    showError: false,
                     header: '',
-                    description: ''
-                };
+                    errorMessage: ''
+                });
             }
         }
         else {
             // not all dates exist yet
-            output.error = {
-                show: false,
+            this.setState({
+                showError: false,
                 header: '',
-                description: ''
-            };
+                errorMessage: ''
+            });
         }
-
-        this.setState(output);
     }
-
-    showError(head, desc) {
-        this.setState({
-            error: Object.assign(this.state.error, {
-                show: true,
-                header: head,
-                description: desc
-            })
-        });
-    }
-
-    hideError() {
-        this.setState({
-            error: Object.assign(this.state.error, {
-                show: false,
-                header: '',
-                description: ''
-            })
-        });
-    }
-
 
     render() {
-        const fiscalYears = this.props.timePeriods.map((year, index) =>
-            <FiscalYear year={year} key={index} />
-        );
+        let errorDetails = null;
+        let showFilter = <AllFiscalYears />;
+        let activeClassFY = '';
+        let activeClassDR = 'inactive';
+
+        if (this.state.showError) {
+            errorDetails = (<DateRangeError
+                header={this.state.header} message={this.state.errorMessage} />);
+        }
+
+        if (this.state.shownFilter === 'fy') {
+            showFilter = <AllFiscalYears />;
+            activeClassFY = '';
+            activeClassDR = 'inactive';
+        }
+        else {
+            showFilter = (<DateRange
+                label={this.props.label}
+                datePlaceholder=""
+                startingTab={1}
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                onDateChange={this.handleDateChange.bind(this)} />);
+            activeClassFY = 'inactive';
+            activeClassDR = '';
+        }
 
         return (
             <div className="timePeriodFilter">
                 <b>Time Period</b>
-                <ul className="fiscalYears">{fiscalYears}</ul>
-                <DateRange
-                    label={this.props.label}
-                    datePlaceholder=""
-                    startingTab={1}
-                    startDate={this.state.startDate}
-                    endDate={this.state.endDate}
-                    onDateChange={this.handleDateChange.bind(this)}
-                    showError={this.showError.bind(this)}
-                    hideError={this.hideError.bind(this)} />
+                <div className="toggleButtons">
+                    <button
+                        className={`toggle ${activeClassFY}`}
+                        onClick={() => {
+                            this.toggleFilters('fy');
+                        }}>Fiscal Year</button>
+                    <button
+                        className={`toggle ${activeClassDR}`}
+                        onClick={() => {
+                            this.toggleFilters('dr');
+                        }}>Date Range</button>
+                </div>
+                { showFilter }
+                { errorDetails }
             </div>
         );
     }
 }
-TimePeriod.defaultProps = defaultProps;
+
 TimePeriod.propTypes = propTypes;

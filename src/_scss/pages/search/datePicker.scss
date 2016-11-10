@@ -1,22 +1,26 @@
 .generate-datepicker-wrap {
 	flex: 1 1 auto;
 	position: relative;
+    @include span-columns(7);
 
 	.generate-datepicker {
 		margin-left: auto;
 		margin-right: auto;
-	}
 
-	input {
-		@import "../../elements/_inputs";
+        input {
+    		@import "../../elements/_inputs";
+            @include usa-input;
+            font-size:$smallest-font-size;
+            width: 100%;
+    	}
 	}
 
 	a.picker-icon {
 	    display: block;
 
 	    position: absolute;
-	    top: 14px;
-	    right: 25px;
+	    top: 30px;
+	    right: 10px;
 	    height: 21px;
 	    max-width: 21px;
 

@@ -20,11 +20,12 @@ const propTypes = {
     showError: React.PropTypes.func,
     hideError: React.PropTypes.func,
     opposite: React.PropTypes.object,
-    title: React.PropTypes.string,
-    tabIndex: React.PropTypes.number
+    tabIndex: React.PropTypes.number,
+    title: React.PropTypes.string
 };
 
 export default class DatePicker extends React.Component {
+
     constructor(props) {
         super(props);
 
@@ -138,6 +139,7 @@ export default class DatePicker extends React.Component {
             // user entered something into the input field and no date has been set yet,
             // input must have been invalid
             this.props.showError('Invalid Date', 'The date entered is not a valid date.');
+            this.state.inputValue = '';
         }
         else if (this.state.inputValue.length > 0) {
             this.parseValueForInput();
@@ -203,9 +205,11 @@ export default class DatePicker extends React.Component {
         return (
             <div className="generate-datepicker-wrap">
                 <div className="generate-datepicker">
+                    <label htmlFor={this.props.type}>{this.props.title}</label>
                     <input
+                        id={this.props.type}
                         type="text"
-                        placeholder={this.props.title}
+                        placeholder="MM/DD/YYYY"
                         value={this.state.inputValue}
                         tabIndex={this.props.tabIndex}
                         ref={(input) => {

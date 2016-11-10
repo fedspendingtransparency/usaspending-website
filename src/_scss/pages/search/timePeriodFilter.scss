@@ -1,40 +1,59 @@
 .timePeriodFilter {
+    @import '../../elements/_inputs';
+    @import '../../elements/_labels';
+    @import './datePicker';
 
     @include outer-container;
 
-    @import './datePicker';
+    .toggleButtons {
+        border-bottom: 1px solid $color-gray-lighter;
+    }
+
+    button.toggle {
+        border-left: 1px solid $color-gray-lighter;
+        border-right: 1px solid $color-gray-lighter;
+        border-top: 1px solid $color-gray-lighter;
+        background-color: $color-white;
+        color: $color-gray;
+        margin-bottom: 0;
+    }
+
+    button.inactive {
+        background-color: $color-primary-alt-lightest;
+    }
 
     ul.fiscalYears {
         @include row();
-        margin: 1.5rem 0 0 -2rem;
         list-style-type: none;
-    }
+        margin-left: -2rem;
 
-    label {
-        font-size: $small-font-size;
-        margin: 0;
-    }
+        li {
+            margin: 0;
+            height: 2.5rem;
+            @include span-columns(7);
 
-    li.fiscalYearOption {
-        margin: 0;
-        height: 2.5rem;
-        @include span-columns(7);
-
-        label {
-            &::before {
-                height: 1.4rem;
-                width: 1.4rem;
-                position: relative;
-                top: .25rem;
+            input {
+                @include usa-input-checkbox;
+                margin-right:.5rem !important;
             }
+
+            label {
+                @include usa-label;
+            }
+        }
+
+        li.fiscalYearOptionAll {
+            @include span-columns(16);
+
         }
     }
 
     .dateRangeOption {
         margin-top: 3rem;
 
-        .through-text {
-            font-size: $small-font-size;
+        input {
+            @include usa-input;
+            display:inline;
         }
     }
 

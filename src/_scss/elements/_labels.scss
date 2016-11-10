@@ -1,18 +1,11 @@
-.usa-label {
-  background-color: $color-primary;
-  border-radius: $border-radius;
-  color: $color-white;
-  font-size: $h5-font-size;
-  margin-right: 0.5rem;
+@mixin usa-label {
+  color: $color-gray;
+  font-size: $small-font-size;
+  margin: 0;
   padding: 0.1rem 0.7rem;
-  text-transform: uppercase;
-
-  &:only-of-type {
-    margin-right: 0;
-  }
 }
 
-.usa-label-big {
+@mixin usa-label-big {
   @extend .usa-label;
   font-size: $base-font-size;
   padding-left: 0.9rem;
