@@ -1,0 +1,25 @@
+@mixin headerPositioning {
+    .nav-container {
+        @include outer-container();
+        max-width: 100%;
+
+        @include media($nav-width) {
+            @include pad(1rem 6rem);
+        }
+
+        .logo {
+            margin-left: 0;
+            @include span-columns(16);
+            @include media($nav-width) {
+                @include span-columns(4);
+            }
+        }
+        nav {
+            display: none;
+            @include media($nav-width) {
+                @include span-columns(12);
+                display: table;
+            }
+        }
+    }
+}

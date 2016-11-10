@@ -1,0 +1,23 @@
+@import "./_warning";
+@import "./_positioning";
+
+@import "./nav/headerNav";
+
+@import "./_logo";
+
+@mixin defaultHeader {
+    .skip-nav {
+        @include skipNav;
+    }
+    .warning-banner {
+        @include defaultHeaderWarning;
+    }
+
+    @include headerPositioning;
+    @include headerNav;
+
+    .logo {
+        @include headerLogo;
+    }
+
+}

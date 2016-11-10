@@ -1,0 +1,10 @@
+@import "../default/default";
+@import "./searchHeader/searchHeader";
+
+@mixin searchLayout {
+    @include defaultLayout;
+
+    .search-header {
+        @include searchHeader;
+    }
+}

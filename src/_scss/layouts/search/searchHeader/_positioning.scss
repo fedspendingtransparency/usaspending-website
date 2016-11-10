@@ -1,0 +1,21 @@
+@mixin searchHeaderPositioning {
+    @include outer-container();
+    max-width: 100%;
+    @include pad(2rem 2rem);
+    @include media($nav-width) {
+        @include pad(2rem 6rem);
+    }
+
+    .search-title {
+        @include media($nav-width) {
+            @include span-columns(8);
+        }
+    }
+
+    .search-options {
+        @include media($nav-width) {
+            @include span-columns(8);
+        }
+    }
+
+}

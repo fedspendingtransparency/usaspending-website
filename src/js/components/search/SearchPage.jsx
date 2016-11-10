@@ -4,20 +4,22 @@
  **/
 
 import React from 'react';
-import Header from '../sharedComponents/Header';
+import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
-import NavBar from '../sharedComponents/NavBar';
+import SearchHeader from './header/SearchHeader';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 
 export default class SearchPage extends React.Component {
     render() {
         return (
-            <div className="flex-wrapper search-page">
+            <div className="usa-da-search-page">
                 <Header />
-                <NavBar />
-                <SearchSidebar {...this.props} />
-                <SearchResults {...this.props} />
+                <main id="main-content">
+                    <SearchHeader />
+                    <SearchSidebar {...this.props} />
+                    <SearchResults {...this.props} />
+                </main>
                 <Footer />
             </div>
         );

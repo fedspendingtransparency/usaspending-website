@@ -1,0 +1,12 @@
+@import "./_menuButton";
+@import "./_menu";
+
+@mixin headerNav {
+    .usa-menu-btn {
+        @include headerNavMenuButton;
+    }
+
+    nav {
+        @include headerNavMenu;
+    }
+}

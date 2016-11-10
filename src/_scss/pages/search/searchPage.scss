@@ -1,4 +1,7 @@
-.search-page {
+.usa-da-search-page {
+
+    @import "../../layouts/search/search";
+    @include searchLayout;
 
     @import './searchSidebar';
     @import './awardTypeFilter';

@@ -1,0 +1,29 @@
+@import "./_menuItem";
+@import "./_menuSearchButton";
+
+@mixin headerNavMenu {
+    display: table;
+    ul.nav-menu {
+        @include clearfix;
+        @include unstyled-list;
+
+        display: table-cell;
+        text-align: right;
+
+        list-style-type: none;
+
+        li {
+            display: inline-block;
+            margin-left: 30px;
+            @include headerNavMenuItem;
+
+            &:first-child {
+                margin-left: 0px;
+            }
+        }
+
+        .search-button {
+            @include headerNavMenuSearchButton;
+        }
+    }
+}
