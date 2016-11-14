@@ -1,3 +1,5 @@
+@import '../../components/_alerts';
+
 @mixin usa-input-error {
   border-left: 4px solid $color-secondary-dark;
   margin-top: 3rem;
@@ -26,10 +28,8 @@
 }
 
 @mixin usa-input-error-message {
-  color: $color-secondary-dark;
-  display: block;
-  font-size: $base-font-size;
-  font-weight: $font-bold;
-  padding-bottom: 3px;
-  padding-top: 3px;
+    @include usa-alert;
+    @include usa-alert-error;
+    padding-bottom: 3px;
+    padding-top: 3px;
 }

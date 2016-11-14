@@ -5,13 +5,27 @@
 
 import React from 'react';
 import moment from 'moment';
+import { Set } from 'immutable';
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
 
+const defaultProps = {
+    timePeriods: [
+        '2016',
+        '2015',
+        '2014',
+        '2013',
+        '2012',
+        '2011',
+        '2010',
+        '2009'
+    ]
+};
 
 const propTypes = {
-    label: React.PropTypes.string
+    label: React.PropTypes.string,
+    timePeriods: React.PropTypes.array
 };
 
 export default class TimePeriod extends React.Component {
@@ -26,7 +40,9 @@ export default class TimePeriod extends React.Component {
             shownFilter: 'fy',
             header: '',
             description: '',
-            isActive: false
+            isActive: false,
+            selectedFY: new Set(),
+            allFY: false
         };
     }
 
@@ -82,9 +98,28 @@ export default class TimePeriod extends React.Component {
         }
     }
 
+    saveSelected(arrayFY, allSelected) {
+        this.setState({
+            selectedFY: arrayFY,
+            allFY: allSelected
+        });
+    }
+
+    saveAll(arrayFY, allFY) {
+        this.setState({
+            selectedFY: arrayFY,
+            allFY: !allFY
+        });
+    }
+
     render() {
         let errorDetails = null;
-        let showFilter = <AllFiscalYears />;
+        let showFilter = (<AllFiscalYears
+            saveSelected={this.saveSelected.bind(this)}
+            saveAll={this.saveAll.bind(this)}
+            timePeriods={this.props.timePeriods}
+            allFY={this.state.allFY}
+            selectedFY={this.state.selectedFY} />);
         let activeClassFY = '';
         let activeClassDR = 'inactive';
 
@@ -94,7 +129,12 @@ export default class TimePeriod extends React.Component {
         }
 
         if (this.state.shownFilter === 'fy') {
-            showFilter = <AllFiscalYears />;
+            showFilter = (<AllFiscalYears
+                saveSelected={this.saveSelected.bind(this)}
+                saveAll={this.saveAll.bind(this)}
+                timePeriods={this.props.timePeriods}
+                allFY={this.state.allFY}
+                selectedFY={this.state.selectedFY} />);
             activeClassFY = '';
             activeClassDR = 'inactive';
         }
@@ -133,3 +173,4 @@ export default class TimePeriod extends React.Component {
 }
 
 TimePeriod.propTypes = propTypes;
+TimePeriod.defaultProps = defaultProps;

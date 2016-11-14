@@ -8,37 +8,19 @@ import { Set } from 'immutable';
 
 import FiscalYear from './FiscalYear';
 
-const defaultProps = {
-    timePeriods: [
-        '2016',
-        '2015',
-        '2014',
-        '2013',
-        '2012',
-        '2011',
-        '2010',
-        '2009'
-    ]
-};
-
 const propTypes = {
-    timePeriods: React.PropTypes.array
+    timePeriods: React.PropTypes.array,
+    saveSelected: React.PropTypes.func,
+    saveAll: React.PropTypes.func,
+    allFY: React.PropTypes.bool,
+    selectedFY: React.PropTypes.object
 };
 
 export default class AllFiscalYears extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedFY: new Set(),
-            allFY: false
-        };
-    }
-
-
     saveSelectedYear(year) {
         // copy array
-        let arrayFY = new Set(this.state.selectedFY);
+        let arrayFY = this.props.selectedFY;
         let allSelected = false;
 
         // if already in array, it's being unselected and needs to be removed
@@ -58,15 +40,12 @@ export default class AllFiscalYears extends React.Component {
             allSelected = false;
         }
 
-        this.setState({
-            selectedFY: arrayFY,
-            allFY: allSelected
-        });
+        this.props.saveSelected(arrayFY, allSelected);
     }
 
     saveAllYears() {
-        let arrayFY = new Set(this.state.selectedFY);
-        const allFY = this.state.allFY;
+        let arrayFY = new Set(this.props.selectedFY);
+        const allFY = this.props.allFY;
         const allYears = new Set(this.props.timePeriods);
         // if the there are years in the array, clear them out, we're unticking
         if (!arrayFY.isEmpty()) {
@@ -76,23 +55,22 @@ export default class AllFiscalYears extends React.Component {
         else {
             arrayFY = arrayFY.merge(allYears);
         }
-        // set state
-        this.setState({
-            selectedFY: arrayFY,
-            allFY: !allFY
-        });
+
+        this.props.saveAll(arrayFY, allFY);
     }
 
     render() {
+        const selectedFY = new Set(this.props.selectedFY);
+
         const parentFY = (<FiscalYear
-            checked={this.state.allFY}
+            checked={this.props.allFY}
             year="all"
             key="all"
             saveAllYears={this.saveAllYears.bind(this)} />);
 
         const fiscalYears = this.props.timePeriods.map((year, index) =>
             <FiscalYear
-                checked={this.state.selectedFY.has(year)}
+                checked={selectedFY.has(year)}
                 year={year}
                 key={index}
                 saveSelectedYear={this.saveSelectedYear.bind(this)} />);
@@ -105,5 +83,5 @@ export default class AllFiscalYears extends React.Component {
         );
     }
 }
-AllFiscalYears.defaultProps = defaultProps;
+
 AllFiscalYears.propTypes = propTypes;
