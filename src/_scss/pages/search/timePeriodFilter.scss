@@ -1,4 +1,4 @@
-.timePeriodFilter {
+.time-period-filter {
     @import '../../elements/_inputs';
     @import '../../elements/_labels';
     @import '../../elements/inputs/_errors';
@@ -7,7 +7,7 @@
 
     @include outer-container;
 
-    .toggleButtons {
+    .toggle-buttons {
         border-bottom: 1px solid $color-gray-lighter;
     }
 
@@ -24,7 +24,7 @@
         background-color: $color-primary-alt-lightest;
     }
 
-    ul.fiscalYears {
+    ul.fiscal-years {
         @include row();
         list-style-type: none;
         margin-left: -2rem;
@@ -44,53 +44,51 @@
             }
         }
 
-        li.fiscalYearOptionAll {
+        li.fiscal-year-option-all {
             @include span-columns(16);
 
         }
     }
 
-    .dateRangeOption {
+    .date-range-option {
         margin-top: 3rem;
 
         input {
             @include usa-input;
             display:inline;
         }
-        .date-range-wrapper {
 
-            .errorMessage {
-                @include usa-input-error-message;
-                @include span-columns(16);
-                padding: 15px;
-                border: 1px solid $color-secondary-dark;
+        .error-message {
+            @include usa-input-error-message;
+            @include span-columns(16);
+            padding: 15px;
+            border: 1px solid $color-secondary-dark;
 
-                .errorTitle {
-                    height: 30px;
-                    display: block;
-                    max-height: 30px;
+            .error-title {
+                height: 30px;
+                display: block;
+                max-height: 30px;
 
-                    .heading {
-                        font-weight: bold;
-                        font-size: 24px;
-                        margin-left: .5rem;
-                        margin-top: .2rem;
-                        display: inline-block;
-                        vertical-align: top;
-                    }
-
-                    svg {
-                        width: 30px;
-                        fill: $color-secondary-dark;
-                    }
-
+                .heading {
+                    font-weight: bold;
+                    font-size: 24px;
+                    margin-left: .5rem;
+                    margin-top: .2rem;
+                    display: inline-block;
+                    vertical-align: top;
                 }
 
-                .message {
-                    font-size: 14px;
-                    line-height: 1.2;
-                    margin-bottom: 0;
+                svg {
+                    width: 30px;
+                    fill: $color-secondary-dark;
                 }
+
+            }
+
+            .message {
+                font-size: 14px;
+                line-height: 1.2;
+                margin-bottom: 0;
             }
         }
     }

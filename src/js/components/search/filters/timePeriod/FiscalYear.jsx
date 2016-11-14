@@ -30,7 +30,7 @@ export default class FiscalYear extends React.Component {
         let yearOption = null;
 
         if (this.props.year === "all") {
-            yearOption = (<li className="fiscalYearOptionAll">
+            yearOption = (<li className="fiscal-year-option-all">
                 <input
                     type="checkbox"
                     id={`fy${this.props.year}`}
@@ -41,7 +41,7 @@ export default class FiscalYear extends React.Component {
             </li>);
         }
         else {
-            yearOption = (<li className="fiscalYearOption">
+            yearOption = (<li className="fiscal-year-option">
                 <input
                     type="checkbox"
                     id={`fy${this.props.year}`}

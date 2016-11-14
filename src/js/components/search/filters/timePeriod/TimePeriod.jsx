@@ -105,18 +105,10 @@ export default class TimePeriod extends React.Component {
         });
     }
 
-    saveAll(arrayFY, allFY) {
-        this.setState({
-            selectedFY: arrayFY,
-            allFY: !allFY
-        });
-    }
-
     render() {
         let errorDetails = null;
         let showFilter = (<AllFiscalYears
             saveSelected={this.saveSelected.bind(this)}
-            saveAll={this.saveAll.bind(this)}
             timePeriods={this.props.timePeriods}
             allFY={this.state.allFY}
             selectedFY={this.state.selectedFY} />);
@@ -131,7 +123,6 @@ export default class TimePeriod extends React.Component {
         if (this.state.shownFilter === 'fy') {
             showFilter = (<AllFiscalYears
                 saveSelected={this.saveSelected.bind(this)}
-                saveAll={this.saveAll.bind(this)}
                 timePeriods={this.props.timePeriods}
                 allFY={this.state.allFY}
                 selectedFY={this.state.selectedFY} />);
@@ -151,9 +142,9 @@ export default class TimePeriod extends React.Component {
         }
 
         return (
-            <div className="timePeriodFilter">
+            <div className="time-period-filter">
                 <b>Time Period</b>
-                <div className="toggleButtons">
+                <div className="toggle-buttons">
                     <button
                         className={`toggle ${activeClassFY}`}
                         onClick={() => {

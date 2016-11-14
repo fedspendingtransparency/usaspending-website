@@ -53,7 +53,7 @@ export default class DateRange extends React.Component {
                 header={this.state.header} message={this.state.errorMessage} />);
         }
         return (
-            <div className="dateRangeOption">
+            <div className="date-range-option">
                 <div className="date-range-wrapper">
                     <DatePicker
                         type="startDate" title="Start Date" tabIndex={this.props.startingTab}

@@ -11,7 +11,6 @@ import FiscalYear from './FiscalYear';
 const propTypes = {
     timePeriods: React.PropTypes.array,
     saveSelected: React.PropTypes.func,
-    saveAll: React.PropTypes.func,
     allFY: React.PropTypes.bool,
     selectedFY: React.PropTypes.object
 };
@@ -45,18 +44,17 @@ export default class AllFiscalYears extends React.Component {
 
     saveAllYears() {
         let arrayFY = new Set(this.props.selectedFY);
-        const allFY = this.props.allFY;
+        const allFY = !this.props.allFY;
         const allYears = new Set(this.props.timePeriods);
-        // if the there are years in the array, clear them out, we're unticking
-        if (!arrayFY.isEmpty()) {
+
+        if (allFY === false) {
             arrayFY = arrayFY.clear();
         }
-        // otherwise add all available years to the array
         else {
-            arrayFY = arrayFY.merge(allYears);
+            arrayFY = allYears;
         }
 
-        this.props.saveAll(arrayFY, allFY);
+        this.props.saveSelected(arrayFY, allFY);
     }
 
     render() {
@@ -76,7 +74,7 @@ export default class AllFiscalYears extends React.Component {
                 saveSelectedYear={this.saveSelectedYear.bind(this)} />);
 
         return (
-            <ul className="fiscalYears">
+            <ul className="fiscal-years">
                 { parentFY }
                 {fiscalYears}
             </ul>

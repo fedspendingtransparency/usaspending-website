@@ -20,8 +20,8 @@ export default class DateRangeError extends React.Component {
 
     render() {
         return (
-            <div className="errorMessage">
-                <div className="errorTitle">
+            <div className="error-message">
+                <div className="error-title">
                     <Icons.ExclamationCircle />
                     <div className="heading">{this.props.header}</div>
                 </div>
