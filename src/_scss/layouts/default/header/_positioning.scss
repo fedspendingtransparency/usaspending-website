@@ -3,8 +3,10 @@
         @include outer-container();
         max-width: 100%;
 
+        @include pad(1rem 0);
         @include media($nav-width) {
-            @include pad(1rem 6rem);
+            // @include pad(1rem 6rem);
+            margin: 0px 6rem;
         }
 
         .logo {

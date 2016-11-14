@@ -1,0 +1,17 @@
+.award-type-filter {
+
+    ul.award-types {
+        @include unstyled-list;
+    }
+
+    @import "./_primaryType";
+
+    ul.secondary-award-set {
+        @include unstyled-list;
+        @import "./_secondaryType";
+    }
+
+    .sub-list {
+        margin-left: 2rem;
+    }
+}

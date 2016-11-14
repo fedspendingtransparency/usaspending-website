@@ -1,0 +1,22 @@
+.primary-award-type {
+    @import "./_sharedAwardStyle";
+    @include sharedAwardStyle;
+
+    svg {
+        height: 2rem;
+        width: 2rem;
+        position:relative;
+        cursor: pointer;
+    }
+
+    .toggle {
+        @include button-unstyled;
+        display: inline-block;
+        height: 2rem;
+        vertical-align: middle;
+
+        &.hide {
+            display: none;
+        }
+    }
+}

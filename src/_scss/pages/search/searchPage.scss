@@ -4,7 +4,6 @@
     @include searchLayout;
 
     @import './searchSidebar';
-    @import './awardTypeFilter';
 
 	@include span-columns(16);
 

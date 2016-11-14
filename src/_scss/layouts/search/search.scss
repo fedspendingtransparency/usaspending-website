@@ -4,13 +4,14 @@
 @mixin searchLayout {
     @include defaultLayout;
 
-    .search-header {
+    .search-header-wrapper {
         @include searchHeader;
     }
 
     .search-contents {
         @include outer-container();
-        max-width: $site-max-width;
+        width: 100%;
+        margin: 0px $outer-gutter;
     }
 
 }

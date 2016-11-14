@@ -1,9 +1,13 @@
 @mixin searchHeaderPositioning {
-    @include outer-container();
-    max-width: 100%;
-    @include pad(2rem 2rem);
-    @include media($nav-width) {
-        @include pad(2rem 6rem);
+    
+
+    .search-header {
+        @include outer-container();
+        max-width: 100%;
+        @include pad(2rem 0rem);
+        @include media($nav-width) {
+            margin: 0px $outer-gutter;
+        }
     }
 
     .search-title {

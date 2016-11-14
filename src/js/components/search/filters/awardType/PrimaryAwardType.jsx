@@ -33,6 +33,7 @@ export default class PrimaryAwardType extends React.Component {
 
         this.state = {
             showSubItems: false,
+            arrowState: 'collapsed',
             selectedChildren: false,
             allChildren: false
         };
@@ -67,8 +68,15 @@ export default class PrimaryAwardType extends React.Component {
     toggleSubItems(e) {
         e.preventDefault();
 
+        let newShowState = !this.state.showSubItems;
+        let newArrowState = 'collapsed';
+        if (newShowState) {
+            newArrowState = 'expanded';
+        }
+
         this.setState({
-            showSubItems: !this.state.showSubItems
+            showSubItems: newShowState,
+            arrowState: newArrowState
         });
     }
 
@@ -103,6 +111,7 @@ export default class PrimaryAwardType extends React.Component {
             name={this.props.name}
             code={this.props.value}
             selected={this.state.allChildren}
+            arrowState={this.state.arrowState}
             toggleExpand={this.toggleSubItems.bind(this)}
             toggleChildren={this.toggleChildren.bind(this)}
             hideArrow={this.state.allChildren} />);
@@ -129,14 +138,14 @@ export default class PrimaryAwardType extends React.Component {
         }
 
         return (
-            <div className="awardSet">
-                <div className="primaryAward">
+            <li className="award-set">
+                <div className="primary-award">
                     {primaryAward}
                 </div>
-                <div className="secondaryAwardSet">
+                <ul className="secondary-award-set">
                     {secondaryAwardTypes}
-                </div>
-            </div>
+                </ul>
+            </li>
         );
     }
 }

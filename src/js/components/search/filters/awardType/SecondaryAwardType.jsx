@@ -21,15 +21,17 @@ export default class SecondaryAwardType extends React.Component {
     render() {
         const checked = this.props.reduxFilters.includes(this.props.code);
         return (
-            <div key={this.props.id} className="secondaryAwardTypeOption subList">
-                <input
-                    type="checkbox"
-                    id={this.props.id}
-                    value={this.props.code}
-                    checked={checked}
-                    onChange={this.toggleFilter.bind(this)} />
-                <label htmlFor={this.props.id}>{this.props.name}</label>
-            </div>
+            <li key={this.props.id} className="secondary-award-type sub-list">
+                <div className="award-type-item-wrapper">
+                    <input
+                        type="checkbox"
+                        id={this.props.id}
+                        value={this.props.code}
+                        checked={checked}
+                        onChange={this.toggleFilter.bind(this)} />
+                    <label htmlFor={this.props.id}>{this.props.name}</label>
+                </div>
+            </li>
         );
     }
 }

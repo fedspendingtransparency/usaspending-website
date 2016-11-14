@@ -1,0 +1,34 @@
+@mixin sharedAwardStyle {
+
+    display: block;
+
+    .award-type-item-wrapper {
+        display: table-cell;
+        input {
+            height: 0;
+            width: 0;
+        }
+
+        span {
+            cursor: pointer;
+            margin-left: 1rem;
+            top: 1rem;
+            position: relative;
+        }
+
+        label {
+            display: inline-block;
+            font-size: $small-font-size;
+            line-height: $small-font-size;
+            margin: 1rem 0 0 0;
+            vertical-align: middle;
+
+            &:before {
+                width: 1.4rem;
+                height: 1.4rem;
+                position: relative;
+                top: 0.25rem;
+            }
+        }
+    }
+}
