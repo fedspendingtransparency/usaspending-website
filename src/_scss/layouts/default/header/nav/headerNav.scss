@@ -2,6 +2,8 @@
 @import "./_menu";
 
 @mixin headerNav {
+    background-color: $color-white;
+    
     .usa-menu-btn {
         @include headerNavMenuButton;
     }

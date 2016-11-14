@@ -1,5 +1,5 @@
 @import "../default/default";
-@import "./searchHeader/searchHeader";
+@import "./header/header";
 
 @mixin searchLayout {
     @include defaultLayout;
@@ -7,4 +7,10 @@
     .search-header {
         @include searchHeader;
     }
+
+    .search-contents {
+        @include outer-container();
+        max-width: $site-max-width;
+    }
+
 }

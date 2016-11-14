@@ -13,8 +13,10 @@
         @include defaultHeaderWarning;
     }
 
-    @include headerPositioning;
-    @include headerNav;
+    header {
+        @include headerPositioning;
+        @include headerNav;
+    }
 
     .logo {
         @include headerLogo;

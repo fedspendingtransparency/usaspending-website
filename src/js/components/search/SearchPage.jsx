@@ -17,8 +17,10 @@ export default class SearchPage extends React.Component {
                 <Header />
                 <main id="main-content">
                     <SearchHeader />
-                    <SearchSidebar {...this.props} />
-                    <SearchResults {...this.props} />
+                    <div className="search-contents">
+                        <SearchSidebar {...this.props} />
+                        <SearchResults {...this.props} />
+                    </div>
                 </main>
                 <Footer />
             </div>
