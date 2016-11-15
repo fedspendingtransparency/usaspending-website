@@ -115,7 +115,7 @@ export default class TimePeriod extends React.Component {
         let activeClassFY = '';
         let activeClassDR = 'inactive';
 
-        if (this.state.showError) {
+        if (this.state.showError && this.state.shownFilter === 'dr') {
             errorDetails = (<DateRangeError
                 header={this.state.header} message={this.state.errorMessage} />);
         }
