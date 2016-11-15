@@ -48,26 +48,18 @@
 
 @mixin usa-alert-success {
   background-color: $color-green-lightest;
-  background-image: url('#{$image-path}/alerts/success.png');
-  background-image: url('#{$image-path}/alerts/success.svg');
 }
 
 @mixin usa-alert-warning {
   background-color: $color-gold-lightest;
-  background-image: url('#{$image-path}/alerts/warning.png');
-  background-image: url('#{$image-path}/alerts/warning.svg');
 }
 
 @mixin usa-alert-error {
   background-color: $color-secondary-lightest;
-  background-image: url('#{$image-path}/alerts/error.png');
-  background-image: url('#{$image-path}/alerts/error.svg');
 }
 
 @mixin usa-alert-info {
   background-color: $color-primary-alt-lightest;
-  background-image: url('#{$image-path}/alerts/info.png');
-  background-image: url('#{$image-path}/alerts/info.svg');
 }
 
 @mixin usa-alert-no_icon {
