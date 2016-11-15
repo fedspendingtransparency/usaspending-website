@@ -114,7 +114,7 @@
     "q": "^1.4.1",
     "rd3": "^0.7.1",
     "react": "0.14.7",
-    "react-addons-css-transition-group": "0.14.7",
+    "react-addons-css-transition-group": "^0.14.7",
     "react-addons-test-utils": "0.14.7",
     "react-aria-modal": "^2.3.1",
     "react-datepicker": "^0.24.0",

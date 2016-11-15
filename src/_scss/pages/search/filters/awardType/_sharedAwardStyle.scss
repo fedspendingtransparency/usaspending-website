@@ -1,12 +1,13 @@
 @mixin sharedAwardStyle {
-
-    display: block;
+    display: table;
+    width: 100%;
 
     .award-type-item-wrapper {
         display: table-cell;
-        input {
-            height: 0;
-            width: 0;
+
+        input[type=checkbox] {
+            @include usa-input-checkbox;
+            margin-right: 6px;
         }
 
         span {
@@ -17,11 +18,12 @@
         }
 
         label {
+            @include usa-label;
+
             display: inline-block;
             font-size: $small-font-size;
             line-height: $small-font-size;
             margin: 1rem 0 0 0;
-            vertical-align: middle;
 
             &:before {
                 width: 1.4rem;

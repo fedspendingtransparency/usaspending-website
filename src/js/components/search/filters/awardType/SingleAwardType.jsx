@@ -21,7 +21,7 @@ export default class SingleAwardType extends React.Component {
     render() {
         const checked = this.props.reduxFilters.includes(this.props.code);
         return (
-            <div className="primary-award-type">
+            <div className="primary-award-type single-item">
                 <div className="award-type-item-wrapper">
                     <input
                         type="checkbox"

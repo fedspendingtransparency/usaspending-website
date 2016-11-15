@@ -2,7 +2,12 @@
     @import "./_sharedAwardStyle";
     @include sharedAwardStyle;
 
+    &.single-item {
+        padding-left: 2.7rem;
+    }
+
     svg {
+        fill: $color-gray;
         height: 2rem;
         width: 2rem;
         position:relative;
@@ -14,9 +19,24 @@
         display: inline-block;
         height: 2rem;
         vertical-align: middle;
+        margin-right: 7px;
+
+        &.closed {
+
+        }
+
+        &.open {
+
+        }
 
         &.hide {
             display: none;
+        }
+
+        span {
+            // this is for the animation group
+            margin: 0;
+            top: 0;
         }
     }
 }
