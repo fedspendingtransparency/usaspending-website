@@ -1,0 +1,4 @@
+.secondary-award-type {
+    @import "./_sharedAwardStyle";
+    @include sharedAwardStyle;
+}

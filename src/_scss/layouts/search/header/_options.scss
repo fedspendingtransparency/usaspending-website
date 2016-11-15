@@ -1,0 +1,28 @@
+@import "./_formatItem";
+@import "./_downloadButton";
+
+@mixin searchHeaderOptions {
+    display: table;
+    ul.search-formats {
+        @include unstyled-list;
+        display: table-cell;
+        text-align: right;
+
+        li {
+            display: inline-block;
+            margin-left: 50px;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            .format-item {
+                @include searchHeaderFormatItem;
+            }
+
+            .download-button {
+                @include searchHeaderDownloadButton;
+            }
+        }
+    }
+}

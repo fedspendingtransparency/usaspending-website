@@ -1,4 +1,5 @@
 .search-sidebar {
+    background-color: $color-white;
     @import '../../elements/_inputs';
     @import '../../elements/_labels';
 
@@ -13,5 +14,7 @@
 	.search-option b::after {
 		content: ' \02193';
 	}
+
+    @import "./_filters";
 
 }

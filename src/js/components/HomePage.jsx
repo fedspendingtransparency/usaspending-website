@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import Header from './sharedComponents/Header';
+import Header from './sharedComponents/header/Header';
 import Welcome from './Welcome';
 
 export default class HomePage extends React.Component {
@@ -12,7 +12,9 @@ export default class HomePage extends React.Component {
         return (
             <div className="flex-wrapper home-page">
                 <Header />
-                <Welcome />
+                <main id="main-content">
+                    <Welcome />
+                </main>
             </div>
         );
     }

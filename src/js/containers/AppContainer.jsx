@@ -11,6 +11,7 @@ import reducers from 'redux/reducers/index';
 import HomePage from 'components/HomePage';
 
 import RouterContainer from './router/RouterContainer';
+// import Router from './router2/Router';
 
 let devExtension;
 if (kGlobalConstants.DEV) {
@@ -34,6 +35,7 @@ export default class AppContainer extends React.Component {
         let appContents = <HomePage />;
         if (this.state.appReady || !this.state.showPending) {
             appContents = <RouterContainer store={store} />;
+            // appContents = <Router store={store} />;
         }
 
         return (

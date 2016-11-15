@@ -51,6 +51,8 @@
         "jsx-a11y/href-no-hash": [1],
         // downgrading export default preference to warning, since we may add additional exports
         // to files in the future
-        "import/prefer-default-export": [1]
+        "import/prefer-default-export": [1],
+        // disabling class method "this" requirement to avoid React conflicts
+        "class-methods-use-this": [0]
     }
 }

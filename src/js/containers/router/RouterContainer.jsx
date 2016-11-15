@@ -22,12 +22,17 @@ export default class RouterContainer extends React.Component {
     }
 
     componentDidMount() {
-        ga.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
+        // don't initialize Google Analytics if no tracking ID is provided
+        if (kGlobalConstants.GA_TRACKING_ID !== '') {
+            ga.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
+        }
     }
 
     handleRouteChange() {
         const path = this.router.state.location.pathname;
         RouterContainer.logPageView(path);
+        // scroll to top of page
+        window.scrollTo(0, 0);
     }
 
     render() {

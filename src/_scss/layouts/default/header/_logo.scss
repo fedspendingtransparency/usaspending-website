@@ -1,0 +1,19 @@
+@mixin headerLogo {
+    .usa-logo {
+        @include fill-parent();
+        
+        a {
+            height: 4.8rem;
+            display: block;
+            background-color: #E91E63;
+
+            @include media($nav-width) {
+                @include fill-parent();
+            }
+
+            .logo-sr {
+                @include sr-only();
+            }
+        }
+    }
+}
