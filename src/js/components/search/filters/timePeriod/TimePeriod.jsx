@@ -8,6 +8,7 @@ import moment from 'moment';
 import { Set } from 'immutable';
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
+import DateRangeError from './DateRangeError';
 
 const defaultProps = {
     timePeriods: [
@@ -72,29 +73,33 @@ export default class TimePeriod extends React.Component {
             if (!end.isSameOrAfter(start)) {
                 // end date comes before start date, invalid
                 // show an error message
-                this.setState({
-                    showError: true,
-                    header: 'Invalid Dates',
-                    errorMessage: 'The end date cannot be earlier than the start date.'
-                });
+                this.showError('Invalid Dates',
+                'The end date cannot be earlier than the start date.');
             }
             else {
                 // valid!
-                this.setState({
-                    showError: false,
-                    header: '',
-                    errorMessage: ''
-                });
+                this.hideError();
             }
         }
         else {
             // not all dates exist yet
-            this.setState({
-                showError: false,
-                header: '',
-                errorMessage: ''
-            });
+            this.hideError();
         }
+    }
+
+    showError(error, message) {
+        this.setState({
+            showError: true,
+            header: error,
+            errorMessage: message
+        });
+    }
+    hideError() {
+        this.setState({
+            showError: false,
+            header: '',
+            errorMessage: ''
+        });
     }
 
     saveSelected(arrayFY, allSelected) {
@@ -105,9 +110,15 @@ export default class TimePeriod extends React.Component {
     }
 
     render() {
+        let errorDetails = null;
         let showFilter = null;
         let activeClassFY = null;
         let activeClassDR = null;
+
+        if (this.state.showError && this.state.shownFilter === 'dr') {
+            errorDetails = (<DateRangeError
+                header={this.state.header} message={this.state.errorMessage} />);
+        }
 
         if (this.state.shownFilter === 'fy') {
             showFilter = (<AllFiscalYears
@@ -125,7 +136,9 @@ export default class TimePeriod extends React.Component {
                 startingTab={1}
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
-                onDateChange={this.handleDateChange.bind(this)} />);
+                onDateChange={this.handleDateChange.bind(this)}
+                showError={this.showError.bind(this)}
+                hideError={this.hideError.bind(this)} />);
             activeClassFY = 'inactive';
             activeClassDR = '';
         }
@@ -146,6 +159,7 @@ export default class TimePeriod extends React.Component {
                         }}>Date Range</button>
                 </div>
                 { showFilter }
+                { errorDetails }
             </div>
         );
     }

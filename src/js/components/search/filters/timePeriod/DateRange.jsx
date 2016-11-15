@@ -5,7 +5,6 @@
 
 import React from 'react';
 import DatePicker from 'components/sharedComponents/DatePicker';
-import DateRangeError from './DateRangeError';
 
 const defaultProps = {
     startDate: '01/01/2016',
@@ -17,7 +16,9 @@ const propTypes = {
     startingTab: React.PropTypes.number,
     onDateChange: React.PropTypes.func,
     startDate: React.PropTypes.object,
-    endDate: React.PropTypes.object
+    endDate: React.PropTypes.object,
+    showError: React.PropTypes.func,
+    hideError: React.PropTypes.func
 };
 
 export default class DateRange extends React.Component {
@@ -31,27 +32,7 @@ export default class DateRange extends React.Component {
         };
     }
 
-    showError(error, message) {
-        this.setState({
-            showError: true,
-            header: error,
-            errorMessage: message
-        });
-    }
-    hideError() {
-        this.setState({
-            showError: false,
-            header: '',
-            errorMessage: ''
-        });
-    }
-
     render() {
-        let errorDetails = null;
-        if (this.state.showError) {
-            errorDetails = (<DateRangeError
-                header={this.state.header} message={this.state.errorMessage} />);
-        }
         return (
             <div className="date-range-option">
                 <div className="date-range-wrapper">
@@ -59,15 +40,14 @@ export default class DateRange extends React.Component {
                         type="startDate" title="Start Date" tabIndex={this.props.startingTab}
                         onDateChange={this.props.onDateChange}
                         value={this.props.startDate}
-                        opposite={this.props.endDate} showError={this.showError.bind(this)}
-                        hideError={this.hideError.bind(this)} />
+                        opposite={this.props.endDate} showError={this.props.showError.bind(this)}
+                        hideError={this.props.hideError.bind(this)} />
                     <DatePicker
                         type="endDate" title="End Date" tabIndex={this.props.startingTab + 4}
                         onDateChange={this.props.onDateChange} value={this.props.endDate}
-                        opposite={this.props.startDate} showError={this.showError.bind(this)}
-                        hideError={this.hideError.bind(this)} />
+                        opposite={this.props.startDate} showError={this.props.showError.bind(this)}
+                        hideError={this.props.hideError.bind(this)} />
                 </div>
-                { errorDetails }
             </div>
         );
     }
