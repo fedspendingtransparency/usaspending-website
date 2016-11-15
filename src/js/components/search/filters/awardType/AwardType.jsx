@@ -4,37 +4,36 @@
  **/
 
 import React from 'react';
+
 import PrimaryAwardType from './PrimaryAwardType';
 
 const defaultProps = {
     awardTypes: [
         {
+            id: 'award-contracts',
             name: 'Contracts',
-            subValues: [
-                'Subtype 1',
-                'Subtype 2'
-            ]
+            filters: ['A', 'D', 'C', 'B']
         },
         {
+            id: 'award-grants',
             name: 'Grants',
-            subValues: [
-                'Subtype 1',
-                'Subtype 2'
-            ]
+            filters: ['02', '03', '04', '05']
         },
         {
+            id: 'award-direct-payments',
             name: 'Direct Payments',
-            subValues: [
-                'Subtype 1',
-                'Subtype 2'
-            ]
+            filters: ['06', '10']
         },
         {
+            id: 'award-loans',
             name: 'Loans',
-            subValues: [
-                'Subtype 1',
-                'Subtype 2'
-            ]
+            filters: ['07', '08']
+        },
+        {
+            id: 'award-insurance',
+            name: 'Insurance',
+            filters: [],
+            value: '09'
         }
     ]
 };
@@ -47,7 +46,7 @@ export default class AwardType extends React.Component {
 
     render() {
         const awardTypes = this.props.awardTypes.map((type, index) =>
-            <PrimaryAwardType name={type.name} subList={type.subValues} key={index} />
+            <PrimaryAwardType {...type} {...this.props} key={index} />
         );
 
         return (

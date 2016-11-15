@@ -1,6 +1,6 @@
 /**
- * SecondaryAwardType.jsx
- * Created by Emily Gullo 11/02/2016
+ * SingleAwardType.jsx
+ * Created by Kevin Li 11/7/16
  **/
 
 import React from 'react';
@@ -13,7 +13,7 @@ const propTypes = {
     reduxFilters: React.PropTypes.object
 };
 
-export default class SecondaryAwardType extends React.Component {
+export default class SingleAwardType extends React.Component {
     toggleFilter() {
         // indicate to Redux that this field needs to toggle
         this.props.toggleAwardType(this.props.code);
@@ -21,7 +21,7 @@ export default class SecondaryAwardType extends React.Component {
     render() {
         const checked = this.props.reduxFilters.includes(this.props.code);
         return (
-            <div key={this.props.id} className="secondaryAwardTypeOption subList">
+            <div className="primaryAwardTypeOption">
                 <input
                     type="checkbox"
                     id={this.props.id}
@@ -33,4 +33,4 @@ export default class SecondaryAwardType extends React.Component {
         );
     }
 }
-SecondaryAwardType.propTypes = propTypes;
+SingleAwardType.propTypes = propTypes;
