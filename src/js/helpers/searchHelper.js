@@ -16,5 +16,5 @@ export const performSearch = (searchParams) =>
     });
 
 // convenience function for performing paged searches
-export const performPagedSearch = (filters = [], page = 1, limit = 30) =>
+export const performPagedSearch = (filters = [], page = 1, limit = 5) =>
     performSearch({ filters, page, limit });
