@@ -5,6 +5,8 @@
 
     @import './searchSidebar';
 
+    @import './timePeriodFilter';
+
 	@include span-columns(16);
 
 	.search-sidebar{

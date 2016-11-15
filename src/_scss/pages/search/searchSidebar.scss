@@ -1,8 +1,14 @@
 .search-sidebar {
     background-color: $color-white;
+    @import '../../elements/_inputs';
+    @import '../../elements/_labels';
 
 	.search-option {
 		margin-bottom:1rem;
+
+        label {
+            @include usa-label;
+        }
 	}
 
 	.search-option b::after {

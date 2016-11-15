@@ -10,7 +10,7 @@ const defaultProps = {
     options: [
         'Keywords',
         'AwardType',
-        'Time Period',
+        'TimePeriod',
         'Primary Place of Performance',
         'Agencies',
         'Recipient Information',

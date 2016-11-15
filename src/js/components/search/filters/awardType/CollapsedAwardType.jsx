@@ -43,6 +43,7 @@ export default class CollapsedAwardType extends React.Component {
             </div>
         );
     }
+
 }
 
 CollapsedAwardType.propTypes = propTypes;
