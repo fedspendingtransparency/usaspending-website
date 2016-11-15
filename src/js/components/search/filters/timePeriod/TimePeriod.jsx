@@ -8,7 +8,6 @@ import moment from 'moment';
 import { Set } from 'immutable';
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
-import DateRangeError from './DateRangeError';
 
 const defaultProps = {
     timePeriods: [
@@ -106,19 +105,9 @@ export default class TimePeriod extends React.Component {
     }
 
     render() {
-        let errorDetails = null;
-        let showFilter = (<AllFiscalYears
-            saveSelected={this.saveSelected.bind(this)}
-            timePeriods={this.props.timePeriods}
-            allFY={this.state.allFY}
-            selectedFY={this.state.selectedFY} />);
-        let activeClassFY = '';
-        let activeClassDR = 'inactive';
-
-        if (this.state.showError && this.state.shownFilter === 'dr') {
-            errorDetails = (<DateRangeError
-                header={this.state.header} message={this.state.errorMessage} />);
-        }
+        let showFilter = null;
+        let activeClassFY = null;
+        let activeClassDR = null;
 
         if (this.state.shownFilter === 'fy') {
             showFilter = (<AllFiscalYears
@@ -157,7 +146,6 @@ export default class TimePeriod extends React.Component {
                         }}>Date Range</button>
                 </div>
                 { showFilter }
-                { errorDetails }
             </div>
         );
     }

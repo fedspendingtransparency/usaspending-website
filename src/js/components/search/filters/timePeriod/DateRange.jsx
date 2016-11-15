@@ -66,8 +66,8 @@ export default class DateRange extends React.Component {
                         onDateChange={this.props.onDateChange} value={this.props.endDate}
                         opposite={this.props.startDate} showError={this.showError.bind(this)}
                         hideError={this.hideError.bind(this)} />
-                    { errorDetails }
                 </div>
+                { errorDetails }
             </div>
         );
     }
