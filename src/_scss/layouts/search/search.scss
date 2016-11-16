@@ -1,0 +1,17 @@
+@import "../default/default";
+@import "./header/header";
+
+@mixin searchLayout {
+    @include defaultLayout;
+
+    .search-header-wrapper {
+        @include searchHeader;
+    }
+
+    .search-contents {
+        @include outer-container();
+        width: 100%;
+        margin: 0px $outer-gutter;
+    }
+
+}

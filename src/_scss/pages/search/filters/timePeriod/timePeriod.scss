@@ -1,9 +1,9 @@
 .time-period-filter {
-    @import '../../elements/_inputs';
-    @import '../../elements/_labels';
-    @import '../../elements/inputs/_errors';
-    @import '../../components/_alerts';
-    @import './datePicker';
+    @import '../../../../elements/_inputs';
+    @import '../../../../elements/_labels';
+    @import '../../../../elements/inputs/_errors';
+    @import '../../../../components/_alerts';
+    @import '../../../../components/datePicker/_datePicker';
 
     @include outer-container;
 

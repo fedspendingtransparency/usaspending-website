@@ -1,0 +1,34 @@
+.primary-award-type {
+    @import "./_sharedAwardStyle";
+    @include sharedAwardStyle;
+
+    &.single-item {
+        padding-left: 2.7rem;
+    }
+
+    svg {
+        fill: $color-gray;
+        height: 2rem;
+        width: 2rem;
+        position:relative;
+    }
+
+    .toggle {
+        @include button-unstyled;
+        display: inline-block;
+        height: 2rem;
+        vertical-align: middle;
+        margin-right: 7px;
+
+        &.hidden-button {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        span {
+            // this is for the animation group
+            margin: 0;
+            top: 0;
+        }
+    }
+}

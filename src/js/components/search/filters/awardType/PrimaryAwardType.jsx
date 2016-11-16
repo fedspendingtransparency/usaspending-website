@@ -33,6 +33,7 @@ export default class PrimaryAwardType extends React.Component {
 
         this.state = {
             showSubItems: false,
+            arrowState: 'collapsed',
             selectedChildren: false,
             allChildren: false
         };
@@ -51,29 +52,41 @@ export default class PrimaryAwardType extends React.Component {
     compareFiltersToChildren() {
         // check to see if the children are all selected or not
         let allSelected = true;
+        let someSelected = false;
 
         for (const code of this.props.filters) {
             if (!this.props.reduxFilters.has(code)) {
                 allSelected = false;
-                break;
+            }
+            else {
+                someSelected = true;
             }
         }
 
         this.setState({
-            allChildren: allSelected
+            allChildren: allSelected,
+            selectedChildren: someSelected
         });
     }
 
     toggleSubItems(e) {
         e.preventDefault();
 
+        const newShowState = !this.state.showSubItems;
+        let newArrowState = 'collapsed';
+        if (newShowState) {
+            newArrowState = 'expanded';
+        }
+
         this.setState({
-            showSubItems: !this.state.showSubItems
+            showSubItems: newShowState,
+            arrowState: newArrowState
         });
     }
 
     toggleChildren() {
         let showChildren = true;
+        let arrowState = 'expanded';
 
         if (this.state.allChildren) {
             // all the children are selected, deselect them
@@ -83,6 +96,7 @@ export default class PrimaryAwardType extends React.Component {
             });
             // collapse the children
             showChildren = false;
+            arrowState = 'collapsed';
         }
         else {
             // not all the children are selected, select them all
@@ -91,9 +105,9 @@ export default class PrimaryAwardType extends React.Component {
                 direction: 'add'
             });
         }
-
         this.setState({
-            showSubItems: showChildren
+            showSubItems: showChildren,
+            arrowState
         });
     }
 
@@ -103,9 +117,10 @@ export default class PrimaryAwardType extends React.Component {
             name={this.props.name}
             code={this.props.value}
             selected={this.state.allChildren}
+            arrowState={this.state.arrowState}
             toggleExpand={this.toggleSubItems.bind(this)}
             toggleChildren={this.toggleChildren.bind(this)}
-            hideArrow={this.state.allChildren} />);
+            hideArrow={this.state.selectedChildren} />);
 
         let secondaryAwardTypes = null;
 
@@ -129,14 +144,14 @@ export default class PrimaryAwardType extends React.Component {
         }
 
         return (
-            <div className="awardSet">
-                <div className="primaryAward">
+            <li className="award-set">
+                <div className="primary-award">
                     {primaryAward}
                 </div>
-                <div className="secondaryAwardSet">
+                <ul className="secondary-award-set">
                     {secondaryAwardTypes}
-                </div>
-            </div>
+                </ul>
+            </li>
         );
     }
 }

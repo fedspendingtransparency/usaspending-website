@@ -1,0 +1,17 @@
+@import "./_positioning";
+@import "./_title";
+@import "./_options";
+
+@mixin searchHeader {
+    @include searchHeaderPositioning;
+    background-color: $color-gray;
+    color: $color-white;
+
+    .search-title {
+        @include searchHeaderTitle;
+    }
+
+    .search-options {
+        @include searchHeaderOptions;
+    }
+}
