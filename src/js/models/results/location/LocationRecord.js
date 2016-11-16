@@ -1,5 +1,5 @@
 /**
-  * ProcurementRecord.js
+  * LocationRecord.js
   * Created by Kevin Li 11/16/16
   **/
 
@@ -8,10 +8,10 @@ import fieldNames from './fieldNames';
 
 const recordType = 'procurement';
 
-class ProcurementRecord extends GenericRecord {
+class LocationRecord extends GenericRecord {
     constructor(data) {
         super(recordType, fieldNames, data);
     }
 }
 
-export default ProcurementRecord;
+export default LocationRecord;

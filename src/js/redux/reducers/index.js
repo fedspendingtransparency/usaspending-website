@@ -6,9 +6,11 @@
 import { combineReducers } from 'redux';
 
 import searchReducer from './searchReducer';
+import recordReducer from './records/recordReducer';
 
 const appReducer = combineReducers({
-    search: searchReducer
+    search: searchReducer,
+    records: recordReducer
 });
 
 export default appReducer;
