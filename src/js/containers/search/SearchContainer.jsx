@@ -17,6 +17,8 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as searchResultActions from 'redux/actions/search/searchResultActions';
 
+import AwardRecord from 'models/results/award/AwardRecord';
+
 // combine the filter and result Redux actions into one object for the React-Redux connector
 const combinedActions = Object.assign({}, searchFilterActions, searchResultActions);
 
@@ -62,6 +64,11 @@ class SearchContainer extends React.Component {
         SearchHelper.performPagedSearch(this.state.searchParams.toParams())
             .then((res) => {
                 const data = res.data;
+                // data.results.forEach((award) => {
+                //     const thing = new AwardRecord(award);
+                //     console.log(thing);
+                // });
+
                 this.props.setSearchResults(data.results);
                 this.props.setSearchResultMeta({
                     page: data.page_metadata,
