@@ -7,8 +7,7 @@ $accordion-border: 3px solid $color-gray-lightest;
 @import './accordions/_accordionButtons.scss';
 @import './accordions/_accordionLists.scss';
 
-@mixin usa-accordion,
-@mixin usa-accordion-bordered {
+@mixin usa-accordion {
   @include accordion-list-styles;
     margin-top: 1rem;
 

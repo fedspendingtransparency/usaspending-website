@@ -10,18 +10,7 @@ $z-index-nav:     9000;
 
 
 // Header ------------- //
-@import './header/headerExtended';
-@import './header/headerLogo';
-@import './header/headerMegaMenu';
-@import './header/headerMenuButton';
-@import './header/headerNav';
-@import './header/headerNavClose';
-@import './header/headerOverlay';
-@import './header/headerPrimaryNav';
-@import './header/headerSecondaryNav';
-@import './header/headerSubMenu';
 
-@mixin usa-header {
 /*
 .usa-header {
   width: 100%;

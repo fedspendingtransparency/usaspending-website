@@ -3,7 +3,7 @@
   max-width: none;
   position: relative;
 
-  @mixin usa-search-input {
+  .usa-search-input {
     -webkit-appearance: none;
     border-bottom-right-radius: 0;
     border-right: none;
@@ -21,7 +21,7 @@
     }
   }
 
-  @mixin usa-search-submit {
+  .usa-search-submit {
     @include search-icon;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
@@ -36,7 +36,7 @@
     }
   }
 
-  @mixin usa-search-submit-text {
+  .usa-search-submit-text {
     display: none;
 
     @include media($small-screen) {

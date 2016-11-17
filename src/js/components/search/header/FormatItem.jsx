@@ -34,4 +34,5 @@ export default class FormatItem extends React.Component {
     }
 }
 
+FormatItem.defaultProps = defaultProps;
 FormatItem.propTypes = propTypes;

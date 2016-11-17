@@ -28,7 +28,7 @@ padding-top: 2rem;
 @mixin usa-footer-primary-section {
 background-color: $color-gray-lightest;
 
-    @mixin usa-footer-primary-content {
+    .usa-footer-primary-content {
       padding-left: 2.5rem;
       padding-right: 2.5rem;
 
@@ -46,7 +46,7 @@ background-color: $color-gray-lightest;
       }
     }
 
-    @mixin usa-grid-full {
+    .usa-grid-full {
       @include media($medium-screen) {
         padding-left: 2.5rem;
         padding-right: 2.5rem;
@@ -55,7 +55,6 @@ background-color: $color-gray-lightest;
 }
 
 ul.usa-footer-primary-content,
-li.usa-footer-primary-content,
 li.usa-footer-primary-content {
   border-top: 1px solid $color-base;
 

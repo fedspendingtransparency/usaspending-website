@@ -1,5 +1,5 @@
 @mixin usa-footer-medium {
-  @mixin usa-footer-primary-section {
+  .usa-footer-primary-section {
     padding: 0;
 
     @include media($medium-screen) {

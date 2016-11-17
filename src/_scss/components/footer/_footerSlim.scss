@@ -16,7 +16,7 @@
     }
   }
 
-  @mixin usa-footer-contact_info {
+  .usa-footer-contact_info {
     > * {
       @include media($medium-screen) {
         margin: 0;
@@ -36,7 +36,7 @@
     }
   }
 
-  @mixin usa-footer-slim-logo-heading {
+  .usa-footer-slim-logo-heading {
     display: block;
     padding-top: 1rem;
 
@@ -46,7 +46,7 @@
     }
   }
 
-  @mixin usa-footer-slim-logo-img {
+  .usa-footer-slim-logo-img {
     float: left;
     max-width: 10rem;
   }

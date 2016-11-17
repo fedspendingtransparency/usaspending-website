@@ -68,7 +68,7 @@ export default class PrimaryAwardType extends React.Component {
     toggleSubItems(e) {
         e.preventDefault();
 
-        let newShowState = !this.state.showSubItems;
+        const newShowState = !this.state.showSubItems;
         let newArrowState = 'collapsed';
         if (newShowState) {
             newArrowState = 'expanded';
@@ -82,6 +82,7 @@ export default class PrimaryAwardType extends React.Component {
 
     toggleChildren() {
         let showChildren = true;
+        let arrowState = 'expanded';
 
         if (this.state.allChildren) {
             // all the children are selected, deselect them
@@ -91,6 +92,7 @@ export default class PrimaryAwardType extends React.Component {
             });
             // collapse the children
             showChildren = false;
+            arrowState = 'collapsed';
         }
         else {
             // not all the children are selected, select them all
@@ -99,9 +101,9 @@ export default class PrimaryAwardType extends React.Component {
                 direction: 'add'
             });
         }
-
         this.setState({
-            showSubItems: showChildren
+            showSubItems: showChildren,
+            arrowState
         });
     }
 
