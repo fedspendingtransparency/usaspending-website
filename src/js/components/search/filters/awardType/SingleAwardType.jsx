@@ -21,14 +21,16 @@ export default class SingleAwardType extends React.Component {
     render() {
         const checked = this.props.reduxFilters.includes(this.props.code);
         return (
-            <div className="primaryAwardTypeOption">
-                <input
-                    type="checkbox"
-                    id={this.props.id}
-                    value={this.props.code}
-                    checked={checked}
-                    onChange={this.toggleFilter.bind(this)} />
-                <label htmlFor={this.props.id}>{this.props.name}</label>
+            <div className="primary-award-type single-item">
+                <div className="award-type-item-wrapper">
+                    <input
+                        type="checkbox"
+                        id={this.props.id}
+                        value={this.props.code}
+                        checked={checked}
+                        onChange={this.toggleFilter.bind(this)} />
+                    <label htmlFor={this.props.id}>{this.props.name}</label>
+                </div>
             </div>
         );
     }

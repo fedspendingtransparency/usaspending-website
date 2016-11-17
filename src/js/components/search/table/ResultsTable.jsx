@@ -50,7 +50,7 @@ export default class ResultsTable extends React.Component {
     render() {
         return (
             <Griddle
-                results={this.props.results.rows}
+                results={[]}
                 columns={columns}
                 columnMetadata={columnMetadata}
                 resultsPerPage={30} />

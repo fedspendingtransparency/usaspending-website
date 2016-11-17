@@ -1,4 +1,5 @@
 .search-sidebar {
+    background-color: $color-white;
     @import '../../elements/_inputs';
     @import '../../elements/_labels';
 
@@ -59,5 +60,7 @@
             }
         }
 	}
+
+    @import "./_filters";
 
 }

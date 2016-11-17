@@ -68,11 +68,9 @@ export default class AwardType extends React.Component {
                     toggleFilter={this.props.toggleFilter}
                     arrowState={this.props.arrowState} />
                 <h6 className="filter-header">Award Type</h6>
-                <form>
-                    <ul className="award-types">
-                        {awardTypes}
-                    </ul>
-                </form>
+                <ul className="award-types">
+                    {awardTypes}
+                </ul>
             </div>
         );
     }
