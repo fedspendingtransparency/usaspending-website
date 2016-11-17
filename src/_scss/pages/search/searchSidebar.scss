@@ -2,16 +2,62 @@
     @import '../../elements/_inputs';
     @import '../../elements/_labels';
 
+    .filter-header {
+        font-size: $base-font-size;
+        font-weight: bold;
+        padding-bottom: 1rem;
+        padding-left: 1rem;
+        display: inline-block;
+    }
+
 	.search-option {
 		margin-bottom:1rem;
 
         label {
             @include usa-label;
         }
-	}
 
-	.search-option b::after {
-		content: ' \02193';
+        svg {
+            fill: $color-gray;
+            height: 2rem;
+            width: 2rem;
+            position:relative;
+            cursor: pointer;
+        }
+
+        .toggle {
+            @include button-unstyled;
+            display: inline-block;
+            vertical-align: middle;
+
+            &.closed {
+
+            }
+
+            &.open {
+
+            }
+
+            &.hide {
+                display: none;
+            }
+
+            span {
+                // this is for the animation group
+                margin: 0;
+                top: 0;
+            }
+        }
+
+        .search-filter {
+            padding-left: 1.5rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid $color-gray-lighter;
+
+            .filter-header {
+                padding-left: 0;
+            }
+        }
 	}
 
 }
