@@ -34,7 +34,7 @@ export default class SearchSidebar extends React.Component {
 
         return (
             <div className="search-sidebar">
-                <h3>Narrow By</h3>
+                <h6 className="filter-header">Filter by:</h6>
                 <div className="search-filters-wrapper">
                     {optionsList}
                 </div>

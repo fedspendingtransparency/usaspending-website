@@ -9,6 +9,7 @@ import { Set } from 'immutable';
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
+import FilterExpandButton from '../../FilterExpandButton';
 
 const defaultProps = {
     timePeriods: [
@@ -25,7 +26,11 @@ const defaultProps = {
 
 const propTypes = {
     label: React.PropTypes.string,
-    timePeriods: React.PropTypes.array
+    timePeriods: React.PropTypes.array,
+    toggleFilter: React.PropTypes.func,
+    hideArrow: React.PropTypes.bool,
+    arrowState: React.PropTypes.string,
+    showFilter: React.PropTypes.bool
 };
 
 export default class TimePeriod extends React.Component {
@@ -143,23 +148,34 @@ export default class TimePeriod extends React.Component {
             activeClassDR = '';
         }
 
-        return (
-            <div className="time-period-filter">
-                <b>Time Period</b>
+        let timePeriod = null;
+        if (this.props.showFilter === true) {
+            timePeriod = (<div>
                 <div className="toggle-buttons">
                     <button
-                        className={`toggle ${activeClassFY}`}
+                        className={`date-toggle ${activeClassFY}`}
                         onClick={() => {
                             this.toggleFilters('fy');
                         }}>Fiscal Year</button>
                     <button
-                        className={`toggle ${activeClassDR}`}
+                        className={`date-toggle ${activeClassDR}`}
                         onClick={() => {
                             this.toggleFilters('dr');
                         }}>Date Range</button>
                 </div>
                 { showFilter }
                 { errorDetails }
+            </div>);
+        }
+
+        return (
+            <div className="time-period-filter search-filter">
+                <FilterExpandButton
+                    hidden={this.props.hideArrow}
+                    toggleFilter={this.props.toggleFilter}
+                    arrowState={this.props.arrowState} />
+                <h6 className="filter-header">Time Period</h6>
+                { timePeriod }
             </div>
         );
     }

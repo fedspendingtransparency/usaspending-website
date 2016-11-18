@@ -52,16 +52,20 @@ export default class PrimaryAwardType extends React.Component {
     compareFiltersToChildren() {
         // check to see if the children are all selected or not
         let allSelected = true;
+        let someSelected = false;
 
         for (const code of this.props.filters) {
             if (!this.props.reduxFilters.has(code)) {
                 allSelected = false;
-                break;
+            }
+            else {
+                someSelected = true;
             }
         }
 
         this.setState({
-            allChildren: allSelected
+            allChildren: allSelected,
+            selectedChildren: someSelected
         });
     }
 
@@ -116,7 +120,7 @@ export default class PrimaryAwardType extends React.Component {
             arrowState={this.state.arrowState}
             toggleExpand={this.toggleSubItems.bind(this)}
             toggleChildren={this.toggleChildren.bind(this)}
-            hideArrow={this.state.allChildren} />);
+            hideArrow={this.state.selectedChildren} />);
 
         let secondaryAwardTypes = null;
 

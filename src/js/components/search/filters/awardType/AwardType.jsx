@@ -6,6 +6,7 @@
 import React from 'react';
 
 import PrimaryAwardType from './PrimaryAwardType';
+import FilterExpandButton from '../../FilterExpandButton';
 
 const defaultProps = {
     awardTypes: [
@@ -39,19 +40,32 @@ const defaultProps = {
 };
 
 const propTypes = {
-    awardTypes: React.PropTypes.arrayOf(React.PropTypes.object)
+    awardTypes: React.PropTypes.arrayOf(React.PropTypes.object),
+    toggleFilter: React.PropTypes.func,
+    hideArrow: React.PropTypes.bool,
+    arrowState: React.PropTypes.string,
+    showFilter: React.PropTypes.bool
 };
 
 export default class AwardType extends React.Component {
 
     render() {
-        const awardTypes = this.props.awardTypes.map((type, index) =>
-            <PrimaryAwardType {...type} {...this.props} key={index} />
-        );
+        let awardTypes = null;
+        if (this.props.showFilter === true) {
+            awardTypes = (
+                this.props.awardTypes.map((type, index) =>
+                    <PrimaryAwardType {...type} {...this.props} key={index} />
+            ));
+        }
+
 
         return (
-            <div className="award-type-filter">
-                <b>Award Type</b>
+            <div className="award-type-filter search-filter">
+                <FilterExpandButton
+                    hidden={this.props.hideArrow}
+                    toggleFilter={this.props.toggleFilter}
+                    arrowState={this.props.arrowState} />
+                <h6 className="filter-header">Award Type</h6>
                 <ul className="award-types">
                     {awardTypes}
                 </ul>
