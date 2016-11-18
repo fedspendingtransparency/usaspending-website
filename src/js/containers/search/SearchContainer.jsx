@@ -25,12 +25,13 @@ import RecipientRecord from 'models/results/recipient/RecipientRecord';
 import LocationRecord from 'models/results/location/LocationRecord';
 
 // combine the filter and result Redux actions into one object for the React-Redux connector
-const combinedActions = Object.assign({}, searchFilterActions, searchResultActions, recordBulkActions);
+const combinedActions = Object.assign(
+    {}, searchFilterActions, searchResultActions, recordBulkActions);
 
 const propTypes = {
-    setSearchResults: React.PropTypes.func,
-    setSearchResultMeta: React.PropTypes.func,
-    search: React.PropTypes.object
+    search: React.PropTypes.object,
+    clearRecords: React.PropTypes.func,
+    bulkInsertRecords: React.PropTypes.func
 };
 
 class SearchContainer extends React.Component {
@@ -64,6 +65,7 @@ class SearchContainer extends React.Component {
     }
 
     performSearch() {
+        // worker.postMessage('b');
         // this.state.searchParams.timePeriodRange = ['2016-01-01', '2016-06-30'];
         // this.state.searchParams.timePeriodFY = ['2015', '2016'];
         SearchHelper.performPagedSearch(this.state.searchParams.toParams())
@@ -71,12 +73,11 @@ class SearchContainer extends React.Component {
                 this.props.clearRecords();
                 const data = res.data;
                 this.saveData(data.results);
-
-                // this.props.setSearchResults(data.results);
-                // this.props.setSearchResultMeta({
-                //     page: data.page_metadata,
-                //     total: data.total_metadata
-                // });
+                
+                this.props.setSearchResultMeta({
+                    page: data.page_metadata,
+                    total: data.total_metadata
+                });
             })
             .catch((err) => {
                 if (err.response) {
@@ -91,7 +92,8 @@ class SearchContainer extends React.Component {
     }
 
     saveData(data) {
-        console.log(Math.floor(new Date()/1000));
+        const start = performance.now();
+        window.startPerf = performance.now();
         // iterate through the result set and create model instances
         // save each model to Redux
         const awards = {};
@@ -154,7 +156,7 @@ class SearchContainer extends React.Component {
             type: 'locations',
             data: locations
         });
-        console.log(Math.floor(new Date()/1000));
+        console.log(`time: ${performance.now() - start}ms`);
     }
 
     render() {

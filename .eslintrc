@@ -54,6 +54,8 @@
         "import/prefer-default-export": [1],
         // disabling class method "this" requirement to avoid React conflicts
         "class-methods-use-this": [0],
-        "no-underscore-dangle": [0, "allowAfterThis"]
+        "no-underscore-dangle": [0, {
+            "allowAfterThis": true
+        }]
     }
 }

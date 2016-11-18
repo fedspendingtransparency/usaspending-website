@@ -8,7 +8,7 @@ import _ from 'lodash';
 class GenericRecord {
     constructor(recordType, fieldNames, data, excludedFields = new Set()) {
         // construct the object with either null values or provided data for each expected key
-        let providedData = _.isObject(data);
+        const providedData = _.isObject(data);
         fieldNames.forEach((field) => {
             this[field] = null;
             if (providedData && {}.hasOwnProperty.call(data, field)) {
