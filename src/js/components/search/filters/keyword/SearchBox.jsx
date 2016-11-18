@@ -13,11 +13,6 @@ const propTypes = {
     showFilter: React.PropTypes.bool
 };
 
-const defaultProps = {
-    hideArrow: true,
-    arrowState: 'collapsed'
-};
-
 export default class SearchBox extends React.Component {
 
     render() {
@@ -39,5 +34,4 @@ export default class SearchBox extends React.Component {
         );
     }
 }
-SearchBox.defaultProps = defaultProps;
 SearchBox.propTypes = propTypes;

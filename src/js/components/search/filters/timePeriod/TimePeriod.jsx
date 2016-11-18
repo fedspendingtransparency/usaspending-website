@@ -21,9 +21,7 @@ const defaultProps = {
         '2011',
         '2010',
         '2009'
-    ],
-    hideArrow: true,
-    arrowState: 'collapsed'
+    ]
 };
 
 const propTypes = {

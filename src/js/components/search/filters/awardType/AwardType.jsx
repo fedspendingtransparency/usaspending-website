@@ -36,9 +36,7 @@ const defaultProps = {
             filters: [],
             value: '09'
         }
-    ],
-    hideArrow: true,
-    arrowState: 'collapsed'
+    ]
 };
 
 const propTypes = {
