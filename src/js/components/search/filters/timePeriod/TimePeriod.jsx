@@ -155,12 +155,12 @@ export default class TimePeriod extends React.Component {
             timePeriod = (<div>
                 <div className="toggle-buttons">
                     <button
-                        className={`dateToggle ${activeClassFY}`}
+                        className={`date-toggle ${activeClassFY}`}
                         onClick={() => {
                             this.toggleFilters('fy');
                         }}>Fiscal Year</button>
                     <button
-                        className={`dateToggle ${activeClassDR}`}
+                        className={`date-toggle ${activeClassDR}`}
                         onClick={() => {
                             this.toggleFilters('dr');
                         }}>Date Range</button>
