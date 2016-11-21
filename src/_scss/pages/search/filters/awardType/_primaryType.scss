@@ -11,7 +11,6 @@
         height: 2rem;
         width: 2rem;
         position:relative;
-        cursor: pointer;
     }
 
     .toggle {
@@ -21,16 +20,9 @@
         vertical-align: middle;
         margin-right: 7px;
 
-        &.closed {
-
-        }
-
-        &.open {
-
-        }
-
-        &.hide {
-            display: none;
+        &.hidden-button {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
 
         span {

@@ -14,7 +14,6 @@ import HomePage from 'components/HomePage';
 
 import RouterContainer from './router/RouterContainer';
 
-
 let devExtension;
 if (kGlobalConstants.DEV) {
     // only enable Redux debugging in dev mode
@@ -42,7 +41,6 @@ export default class AppContainer extends React.Component {
         let appContents = <HomePage />;
         if (this.state.appReady || !this.state.showPending) {
             appContents = <RouterContainer store={store} />;
-            // appContents = <Router store={store} />;
         }
 
         return (
