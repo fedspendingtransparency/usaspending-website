@@ -43,29 +43,32 @@ export default class SearchOption extends React.Component {
         let searchOption = null;
         switch (this.props.name) {
             case 'Keywords':
-                searchOption = (<SearchBox
-                    showFilter={this.state.showFilter} />);
+                searchOption = (<SearchBox />);
                 break;
             case 'Award Type':
-                searchOption = (<AwardTypeContainer
-                    showFilter={this.state.showFilter} />);
+                searchOption = (<AwardTypeContainer />);
                 break;
             case 'Time Period':
-                searchOption = (<TimePeriod
-                    showFilter={this.state.showFilter} />);
+                searchOption = (<TimePeriod />);
                 break;
             default:
                 searchOption = null;
         }
 
-        return (<div className="search-option">
-            <FilterExpandButton
-                hidden={this.state.showFilter}
-                toggleFilter={this.toggleFilter.bind(this)}
-                arrowState={this.state.arrowState} />
-            <h6 className="filter-header">{this.props.name}</h6>
-            {searchOption}
-        </div>);
+        if (this.state.showFilter !== true) {
+            searchOption = null;
+        }
+
+        return (
+            <div className="search-option">
+                <FilterExpandButton
+                    hidden={this.state.showFilter}
+                    toggleFilter={this.toggleFilter.bind(this)}
+                    arrowState={this.state.arrowState}
+                    name={this.props.name} />
+                {searchOption}
+            </div>
+        );
     }
 }
 

@@ -1,21 +1,13 @@
 .search-sidebar {
+    @import "./_filters";
+    @import "./_searchOption";
+
     background-color: $color-white;
     @import '../../elements/_inputs';
     @import '../../elements/_labels';
-
+    
     .sidebar-header {
         margin-left: 1.5rem;
     }
-
-    .filter-header {
-        font-size: $base-font-size;
-        font-weight: normal;
-        padding-bottom: 1rem;
-        display: inline-block;
-        line-height: auto;
-    }
-
-    @import "./_filters";
-    @import "./searchOption";
 
 }

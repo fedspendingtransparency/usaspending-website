@@ -1,7 +1,7 @@
 @mixin headerLogo {
     .usa-logo {
         @include fill-parent();
-        
+
         a {
             height: 4.8rem;
             display: block;

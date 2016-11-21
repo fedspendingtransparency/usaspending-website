@@ -5,16 +5,9 @@
 
 import React from 'react';
 
-const propTypes = {
-    showFilter: React.PropTypes.bool
-};
-
 export default class SearchBox extends React.Component {
 
     render() {
-        if (this.props.showFilter === false) {
-            return false;
-        }
         return (
             <div className="keyword-filter search-filter">
                 <div>
@@ -24,4 +17,3 @@ export default class SearchBox extends React.Component {
         );
     }
 }
-SearchBox.propTypes = propTypes;

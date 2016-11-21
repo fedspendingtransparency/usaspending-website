@@ -39,8 +39,7 @@ const defaultProps = {
 };
 
 const propTypes = {
-    awardTypes: React.PropTypes.arrayOf(React.PropTypes.object),
-    showFilter: React.PropTypes.bool
+    awardTypes: React.PropTypes.arrayOf(React.PropTypes.object)
 };
 
 export default class AwardType extends React.Component {
@@ -51,15 +50,12 @@ export default class AwardType extends React.Component {
                 <PrimaryAwardType {...type} {...this.props} key={index} />
         ));
 
-        if (this.props.showFilter === false) {
-            return null;
-        }
-
-        return (<div className="award-type-filter search-filter">
-            <ul className="award-types">
-                {awardTypes}
-            </ul>
-        </div>
+        return (
+            <div className="award-type-filter search-filter">
+                <ul className="award-types">
+                    {awardTypes}
+                </ul>
+            </div>
         );
     }
 }

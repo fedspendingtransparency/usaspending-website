@@ -6,7 +6,7 @@ $usa-form-width: 32rem;
 
 @mixin usa-form {
     @include media($medium-screen) {
-      max-width: $usa-form-width;
+        max-width: $usa-form-width;
     }
 
     a {
@@ -39,9 +39,9 @@ $usa-form-width: 32rem;
 }
 
 @mixin usa-form-large {
-  @include media($medium-screen) {
-    max-width: 46rem;
-  }
+    @include media($medium-screen) {
+        max-width: 46rem;
+    }
 }
 
 @mixin usa-form-note {
@@ -55,8 +55,8 @@ $usa-form-width: 32rem;
     }
 }
 
-@mixin usa-additional_text {
-  float: right;
-  font-style: italic;
-  font-weight: normal;
+@mixin usa-additional-text {
+    float: right;
+    font-style: italic;
+    font-weight: normal;
 }

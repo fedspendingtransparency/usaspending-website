@@ -1,53 +1,53 @@
 @mixin border-image($borders...) {
-  $webkit-borders: ();
-  $spec-borders: ();
+    $webkit-borders: ();
+    $spec-borders: ();
 
-  @each $border in $borders {
-    $webkit-border: ();
-    $spec-border: ();
-    $border-type: type-of($border);
+    @each $border in $borders {
+        $webkit-border: ();
+        $spec-border: ();
+        $border-type: type-of($border);
 
-    @if $border-type == string or list {
-      $border-str: if($border-type == list, nth($border, 1), $border);
+        @if $border-type == string or list {
+            $border-str: if($border-type == list, nth($border, 1), $border);
 
-      $url-str:       str-slice($border-str, 0, 3);
-      $gradient-type: str-slice($border-str, 0, 6);
+            $url-str:       str-slice($border-str, 0, 3);
+            $gradient-type: str-slice($border-str, 0, 6);
 
-      @if $url-str == "url" {
-        $webkit-border: $border;
-        $spec-border:   $border;
-      }
+            @if $url-str == "url" {
+                $webkit-border: $border;
+                $spec-border:   $border;
+            }
 
-      @else if $gradient-type == "linear" {
-        $gradients: _linear-gradient-parser("#{$border}");
-        $webkit-border: map-get($gradients, webkit-image);
-        $spec-border:   map-get($gradients, spec-image);
-      }
+            @else if $gradient-type == "linear" {
+                $gradients: _linear-gradient-parser("#{$border}");
+                $webkit-border: map-get($gradients, webkit-image);
+                $spec-border:   map-get($gradients, spec-image);
+            }
 
-      @else if $gradient-type == "radial" {
-        $gradients: _radial-gradient-parser("#{$border}");
-        $webkit-border: map-get($gradients, webkit-image);
-        $spec-border:   map-get($gradients, spec-image);
-      }
+            @else if $gradient-type == "radial" {
+                $gradients: _radial-gradient-parser("#{$border}");
+                $webkit-border: map-get($gradients, webkit-image);
+                $spec-border:   map-get($gradients, spec-image);
+            }
 
-      @else {
-        $webkit-border: $border;
-        $spec-border:   $border;
-      }
+            @else {
+                $webkit-border: $border;
+                $spec-border:   $border;
+            }
+        }
+
+        @else {
+            $webkit-border: $border;
+            $spec-border:   $border;
+        }
+
+        $webkit-borders: append($webkit-borders, $webkit-border, comma);
+        $spec-borders:   append($spec-borders,   $spec-border,   comma);
     }
 
-    @else {
-      $webkit-border: $border;
-      $spec-border:   $border;
-    }
-
-    $webkit-borders: append($webkit-borders, $webkit-border, comma);
-    $spec-borders:   append($spec-borders,   $spec-border,   comma);
-  }
-
-  -webkit-border-image: $webkit-borders;
-          border-image: $spec-borders;
-          border-style: solid;
+    -webkit-border-image: $webkit-borders;
+    border-image: $spec-borders;
+    border-style: solid;
 }
 
 //Examples:

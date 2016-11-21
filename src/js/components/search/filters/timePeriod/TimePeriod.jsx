@@ -25,8 +25,7 @@ const defaultProps = {
 
 const propTypes = {
     label: React.PropTypes.string,
-    timePeriods: React.PropTypes.array,
-    showFilter: React.PropTypes.bool
+    timePeriods: React.PropTypes.array
 };
 
 export default class TimePeriod extends React.Component {
@@ -144,9 +143,6 @@ export default class TimePeriod extends React.Component {
             activeClassDR = '';
         }
 
-        if (this.props.showFilter === false) {
-            return null;
-        }
         return (
             <div className="time-period-filter search-filter">
                 <div className="toggle-buttons">

@@ -5,8 +5,8 @@ $usa-btn-big-width:     11.6rem;
 @import './search/_searchForm';
 
 @mixin search-icon {
-  background-image: url('#{$image-path}/search.png');
-  background-image: url('#{$image-path}/search.svg');
-  background-position: 50%;
-  background-repeat: no-repeat;
+    background-image: url('#{$image-path}/search.png');
+    background-image: url('#{$image-path}/search.svg');
+    background-position: 50%;
+    background-repeat: no-repeat;
 }

@@ -6,36 +6,36 @@
 @import './footer/_footerSocial';
 
 @mixin usa-footer {
-	@include span-columns(16);
+    @include span-columns(16);
 }
 
 @mixin usa-unstyled-list {
-  display: block;
+    display: block;
 }
 
 @mixin usa-footer-topic {
-  margin: 0;
-  padding: 2rem 0;
+    margin: 0;
+    padding: 2rem 0;
 }
 
 @mixin usa-footer-logo-img {
-  max-width: 14rem;
+    max-width: 14rem;
 }
 
 @mixin usa-footer-logo-heading {
-  margin-top: 2rem;
+    margin-top: 2rem;
 }
 
 @mixin usa-footer-contact-heading {
-  margin-top: 0;
+    margin-top: 0;
 
-  @include media($medium-screen) {
-    margin-top: 1rem;
-  }
+    @include media($medium-screen) {
+        margin-top: 1rem;
+    }
 }
 
 @mixin usa-footer-contact-links {
-  @include media($medium-screen) {
-    text-align: right;
-  }
+    @include media($medium-screen) {
+        text-align: right;
+    }
 }

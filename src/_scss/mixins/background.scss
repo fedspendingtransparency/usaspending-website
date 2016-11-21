@@ -4,12 +4,12 @@
 }
 
 @mixin border-radius($radius) {
-	@include prefixer(border-radius, $radius, webkit moz spec);
+    @include prefixer(border-radius, $radius, webkit moz spec);
 }
 
 @function as-alpha($hex-color, $alpha) {
-	$-local-red: red(rgba($hex-color, 1));
-	$-local-green: green(rgba($hex-color, 1));
-	$-local-blue: blue(rgba($hex-color, 1));
-	@return rgba($-local-red, $-local-green, $-local-blue,$alpha);
+    $-local-red: red(rgba($hex-color, 1));
+    $-local-green: green(rgba($hex-color, 1));
+    $-local-blue: blue(rgba($hex-color, 1));
+    @return rgba($-local-red, $-local-green, $-local-blue,$alpha);
 }

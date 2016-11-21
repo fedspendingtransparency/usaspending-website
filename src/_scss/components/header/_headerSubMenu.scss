@@ -10,10 +10,6 @@
     position: absolute;
   }
 
-  &[aria-hidden=true] {
-    display: none;
-  }
-
   a {
     @include media($nav-width) {
       color: $color-white;

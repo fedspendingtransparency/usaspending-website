@@ -8,65 +8,56 @@ $accordion-border: 3px solid $color-gray-lightest;
 @import './accordions/_accordionLists.scss';
 
 @mixin usa-accordion {
-  @include accordion-list-styles;
+    @include accordion-list-styles;
     margin-top: 1rem;
 
-  // TODO deprecated ruleset based on old accordion.
-  > ul {
-    @include accordion-list-styles;
-
     // TODO deprecated ruleset based on old accordion.
+    > ul {
+        @include accordion-list-styles;
+
+        // TODO deprecated ruleset based on old accordion.
+        > li {
+            @include accordion-list-item-styles;
+        }
+
+        // TODO deprecated ruleset based on old accordion.
+        button {
+            @include accordion-button-styles;
+        }
+    }
+
     > li {
-      @include accordion-list-item-styles;
+        @include accordion-list-item-styles;
     }
-
-    // TODO deprecated ruleset based on old accordion.
-    button {
-      @include accordion-button-styles;
-    }
-
-    // TODO deprecated ruleset based on old accordion.
-    [aria-expanded=false] {
-      @include accordion-button-unopened-styles;
-    }
-  }
-
-  > li {
-    @include accordion-list-item-styles;
-  }
 
 }
 
 @mixin usa-accordion-bordered {
-  .usa-accordion-content {
-    border-bottom: $accordion-border;
-    border-left: $accordion-border;
-    border-right: $accordion-border;
-  }
+    .usa-accordion-content {
+        border-bottom: $accordion-border;
+        border-left: $accordion-border;
+        border-right: $accordion-border;
+    }
 }
 
 @mixin usa-accordion-content {
-  background-color: $color-white;
-  display: block;
-  overflow: auto;
-  padding: 3rem;
+    background-color: $color-white;
+    display: block;
+    overflow: auto;
+    padding: 3rem;
 
-  > *:first-child {
-    margin-top: 0;
-  }
+    > *:first-child {
+        margin-top: 0;
+    }
 
-  > *:last-child {
-    margin-bottom: 0;
-  }
+    > *:last-child {
+        margin-bottom: 0;
+    }
 
-  @include accessibly-hidden();
+    @include accessibly-hidden();
 }
 
 @mixin usa-accordion-button {
-  @include accordion-button-styles;
-
-  [aria-expanded=false] {
-      @include accordion-button-unopened-styles;
-  }
+    @include accordion-button-styles;
 
 }
