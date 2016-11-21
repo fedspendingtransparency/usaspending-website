@@ -9,7 +9,6 @@ import { Set } from 'immutable';
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
-import FilterExpandButton from '../../FilterExpandButton';
 
 const defaultProps = {
     timePeriods: [
@@ -27,9 +26,6 @@ const defaultProps = {
 const propTypes = {
     label: React.PropTypes.string,
     timePeriods: React.PropTypes.array,
-    toggleFilter: React.PropTypes.func,
-    hideArrow: React.PropTypes.bool,
-    arrowState: React.PropTypes.string,
     showFilter: React.PropTypes.bool
 };
 
@@ -148,9 +144,11 @@ export default class TimePeriod extends React.Component {
             activeClassDR = '';
         }
 
-        let timePeriod = null;
-        if (this.props.showFilter === true) {
-            timePeriod = (<div>
+        if (this.props.showFilter === false) {
+            return null;
+        }
+        return (
+            <div className="time-period-filter search-filter">
                 <div className="toggle-buttons">
                     <button
                         className={`date-toggle ${activeClassFY}`}
@@ -165,17 +163,6 @@ export default class TimePeriod extends React.Component {
                 </div>
                 { showFilter }
                 { errorDetails }
-            </div>);
-        }
-
-        return (
-            <div className="time-period-filter search-filter">
-                <FilterExpandButton
-                    hidden={this.props.hideArrow}
-                    toggleFilter={this.props.toggleFilter}
-                    arrowState={this.props.arrowState} />
-                <h6 className="filter-header">Time Period</h6>
-                { timePeriod }
             </div>
         );
     }

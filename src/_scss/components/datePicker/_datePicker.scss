@@ -17,10 +17,9 @@
 
 	a.picker-icon {
 	    display: block;
-
 	    position: absolute;
-	    top: 30px;
-	    right: 10px;
+	    top: 18px;
+	    right: 8px;
 	    height: 21px;
 	    max-width: 21px;
 
@@ -43,7 +42,7 @@
 
 	.floating-datepicker {
 		position: absolute;
-		top: 50px;
+		top: 65px;
 		z-index: 9999;
 
 		background-color: $color-gray-lightest;

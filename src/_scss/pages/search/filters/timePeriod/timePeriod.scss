@@ -17,7 +17,12 @@
         border-top: 1px solid $color-gray-lighter;
         background-color: $color-white;
         color: $color-gray;
+        font-size: $small-font-size;
+        font-weight:normal;
+        height: 31px;
         margin-bottom: 0;
+        padding: 0;
+        width: 97px;
     }
 
     button.inactive {
@@ -36,11 +41,14 @@
 
             input {
                 @include usa-input-checkbox;
-                margin-right:.5rem !important;
+                margin-right: .5rem;
+                height: $small-font-size;
+                width: $small-font-size;
             }
 
             label {
                 @include usa-label;
+                font-weight: normal;
             }
         }
 

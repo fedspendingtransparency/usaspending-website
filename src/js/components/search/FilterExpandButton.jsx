@@ -26,7 +26,7 @@ export default class FilterExpandButton extends React.Component {
 
         return (
             <button
-                className={`toggle ${hiddenClass}`}
+                className={`filter-toggle ${hiddenClass}`}
                 onClick={this.props.toggleFilter}>
                 {icon}
             </button>

@@ -19,7 +19,6 @@ const propTypes = {
 export default class AwardExpandButton extends React.Component {
     render() {
         let hiddenClass = '';
-
         if (this.props.hidden) {
             hiddenClass = 'hidden-button';
         }

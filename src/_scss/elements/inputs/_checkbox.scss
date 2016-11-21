@@ -1,5 +1,6 @@
 @mixin usa-input-checkbox {
   margin: 0;
+  border-radius: 0 !important;
 
   &:disabled {
       cursor: not-allowed;
@@ -11,7 +12,6 @@
 
   + label {
       cursor: pointer;
-      font-weight: 400;
       margin-bottom: 0.5em;
   }
 }

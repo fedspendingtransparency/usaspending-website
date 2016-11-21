@@ -1,0 +1,14 @@
+svg {
+    fill: $color-gray;
+    height: 2rem;
+    width: 2rem;
+    position:relative;
+    cursor: pointer;
+}
+
+.filter-toggle {
+    @include button-unstyled;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 1rem;
+}

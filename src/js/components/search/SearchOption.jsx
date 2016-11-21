@@ -8,6 +8,7 @@ import React from 'react';
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import SearchBox from './filters/keyword/SearchBox';
 import TimePeriod from './filters/timePeriod/TimePeriod';
+import FilterExpandButton from './FilterExpandButton';
 
 const propTypes = {
     name: React.PropTypes.string
@@ -39,27 +40,32 @@ export default class SearchOption extends React.Component {
     }
 
     render() {
+        let searchOption = null;
         switch (this.props.name) {
             case 'Keywords':
-                return (<div className="search-option">
-                    <SearchBox
-                        toggleFilter={this.toggleFilter.bind(this)}
-                        showFilter={this.state.showFilter}
-                        arrowState={this.state.arrowState} />
-                </div>);
-            case 'AwardType':
-                return (<div className="search-option"><AwardTypeContainer
-                    toggleFilter={this.toggleFilter.bind(this)}
-                    showFilter={this.state.showFilter}
-                    arrowState={this.state.arrowState} /></div>);
-            case 'TimePeriod':
-                return (<div className="search-option"><TimePeriod
-                    toggleFilter={this.toggleFilter.bind(this)}
-                    showFilter={this.state.showFilter}
-                    arrowState={this.state.arrowState} /></div>);
+                searchOption = (<SearchBox
+                    showFilter={this.state.showFilter} />);
+                break;
+            case 'Award Type':
+                searchOption = (<AwardTypeContainer
+                    showFilter={this.state.showFilter} />);
+                break;
+            case 'Time Period':
+                searchOption = (<TimePeriod
+                    showFilter={this.state.showFilter} />);
+                break;
             default:
-                return (<div className="search-option"><b>{this.props.name}</b></div>);
+                searchOption = null;
         }
+
+        return (<div className="search-option">
+            <FilterExpandButton
+                hidden={this.state.showFilter}
+                toggleFilter={this.toggleFilter.bind(this)}
+                arrowState={this.state.arrowState} />
+            <h6 className="filter-header">{this.props.name}</h6>
+            {searchOption}
+        </div>);
     }
 }
 

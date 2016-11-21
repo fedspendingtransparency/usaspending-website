@@ -10,6 +10,7 @@ $z-index-nav:     9000;
 
 
 // Header ------------- //
+
 /*
 .usa-header {
   width: 100%;
@@ -27,7 +28,7 @@ $z-index-nav:     9000;
     border-bottom: none;
   }
 
-  .usa-search {
+  @mixin usa-search {
     margin-bottom: 1.5rem;
 
     @include media($nav-width) {
