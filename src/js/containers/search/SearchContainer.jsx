@@ -31,7 +31,8 @@ const combinedActions = Object.assign(
 const propTypes = {
     search: React.PropTypes.object,
     clearRecords: React.PropTypes.func,
-    bulkInsertRecords: React.PropTypes.func
+    bulkInsertRecords: React.PropTypes.func,
+    setSearchResultMeta: React.PropTypes.func
 };
 
 class SearchContainer extends React.Component {
@@ -73,7 +74,7 @@ class SearchContainer extends React.Component {
                 this.props.clearRecords();
                 const data = res.data;
                 this.saveData(data.results);
-                
+
                 this.props.setSearchResultMeta({
                     page: data.page_metadata,
                     total: data.total_metadata
@@ -92,8 +93,6 @@ class SearchContainer extends React.Component {
     }
 
     saveData(data) {
-        const start = performance.now();
-        window.startPerf = performance.now();
         // iterate through the result set and create model instances
         // save each model to Redux
         const awards = {};
@@ -136,6 +135,7 @@ class SearchContainer extends React.Component {
             awards[award._jsid] = award;
         });
 
+        // write all records into Redux
         this.props.bulkInsertRecords({
             type: 'awards',
             data: awards
@@ -156,7 +156,6 @@ class SearchContainer extends React.Component {
             type: 'locations',
             data: locations
         });
-        console.log(`time: ${performance.now() - start}ms`);
     }
 
     render() {
