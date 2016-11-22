@@ -7,7 +7,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import _ from 'lodash';
 
 import SearchPage from 'components/search/SearchPage';
 
