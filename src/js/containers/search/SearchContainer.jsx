@@ -44,7 +44,7 @@ class SearchContainer extends React.Component {
             page: 0
         };
 
-        this.lastRequest = null;
+        this.searchRequest = null;
     }
     componentDidMount() {
         this.updateFilters();
@@ -68,13 +68,13 @@ class SearchContainer extends React.Component {
     }
 
     performSearch() {
-        if (this.lastRequest) {
+        if (this.searchRequest) {
             // a request is currently in-flight, cancel it
-            this.lastRequest.cancel();
+            this.searchRequest.cancel();
         }
 
-        const search = SearchHelper.performPagedSearch(this.state.searchParams.toParams());
-        search.promise
+        this.searchRequest = SearchHelper.performPagedSearch(this.state.searchParams.toParams());
+        this.searchRequest.promise
             .then((res) => {
                 this.props.clearRecords();
                 const data = res.data;
@@ -86,26 +86,22 @@ class SearchContainer extends React.Component {
                 });
 
                 // request is done
-                this.lastRequest = null;
+                this.searchRequest = null;
             })
             .catch((err) => {
-                // request is done
-                this.lastRequest = null;
-
                 if (isCancel(err)) {
                     // the request was cancelled
                 }
                 else if (err.response) {
                     // server responded with something
-
+                    this.searchRequest = null;
                 }
                 else {
                     // request never made it out
+                    this.searchRequest = null;
                     console.log(err.message);
                 }
             });
-
-        this.lastRequest = search;
     }
 
     saveData(data) {
