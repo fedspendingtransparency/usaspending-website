@@ -6,6 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isCancel } from 'axios';
 import _ from 'lodash';
 
 import SearchPage from 'components/search/SearchPage';
@@ -42,6 +43,8 @@ class SearchContainer extends React.Component {
             searchParams: new SearchOperation(),
             page: 0
         };
+
+        this.lastRequest = null;
     }
     componentDidMount() {
         this.updateFilters();
@@ -65,7 +68,13 @@ class SearchContainer extends React.Component {
     }
 
     performSearch() {
-        SearchHelper.performPagedSearch(this.state.searchParams.toParams())
+        if (this.lastRequest) {
+            // a request is currently in-flight, cancel it
+            this.lastRequest.cancel();
+        }
+
+        const search = SearchHelper.performPagedSearch(this.state.searchParams.toParams());
+        search.promise
             .then((res) => {
                 this.props.clearRecords();
                 const data = res.data;
@@ -75,9 +84,18 @@ class SearchContainer extends React.Component {
                     page: data.page_metadata,
                     total: data.total_metadata
                 });
+
+                // request is done
+                this.lastRequest = null;
             })
             .catch((err) => {
-                if (err.response) {
+                // request is done
+                this.lastRequest = null;
+
+                if (isCancel(err)) {
+                    // the request was cancelled
+                }
+                else if (err.response) {
                     // server responded with something
 
                 }
@@ -86,6 +104,8 @@ class SearchContainer extends React.Component {
                     console.log(err.message);
                 }
             });
+
+        this.lastRequest = search;
     }
 
     saveData(data) {
