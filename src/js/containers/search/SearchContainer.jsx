@@ -35,7 +35,7 @@ const propTypes = {
     setSearchResultMeta: React.PropTypes.func
 };
 
-class SearchContainer extends React.Component {
+class SearchContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
@@ -46,12 +46,22 @@ class SearchContainer extends React.Component {
 
         this.searchRequest = null;
     }
+
     componentDidMount() {
         this.updateFilters();
     }
 
+    shouldComponentUpdate(nextProps) {
+        if (nextProps.filters !== this.props.filters) {
+            // filters changed
+            return true;
+        }
+        // something may have changed, but it is out of scope for this component
+        return false;
+    }
+
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.filters, this.props.filters)) {
+        if (prevProps.filters !== this.props.filters) {
             // filters changed, update the search object
             this.updateFilters();
         }
@@ -171,7 +181,7 @@ class SearchContainer extends React.Component {
 
     render() {
         return (
-            <SearchPage {...this.props} />
+            <SearchPage />
         );
     }
 }
