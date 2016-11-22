@@ -23,6 +23,9 @@ export default class SearchOption extends React.Component {
             showFilter: false,
             arrowState: 'collapsed'
         };
+
+        // bind functions
+        this.toggleFilter = this.toggleFilter.bind(this);
     }
 
     toggleFilter(e) {
@@ -63,7 +66,7 @@ export default class SearchOption extends React.Component {
             <div className="search-option">
                 <FilterExpandButton
                     hidden={this.state.showFilter}
-                    toggleFilter={this.toggleFilter.bind(this)}
+                    toggleFilter={this.toggleFilter}
                     arrowState={this.state.arrowState}
                     name={this.props.name} />
                 {searchOption}

@@ -37,6 +37,12 @@ export default class TimePeriod extends React.Component {
             selectedFY: new Set(),
             allFY: false
         };
+
+        // bind functions
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.saveSelected = this.saveSelected.bind(this);
+        this.showError = this.showError.bind(this);
+        this.hideError = this.hideError.bind(this);
     }
 
     toggleFilters(filter) {
@@ -122,7 +128,7 @@ export default class TimePeriod extends React.Component {
 
         if (this.props.activeTab === 'fy') {
             showFilter = (<AllFiscalYears
-                saveSelected={this.saveSelected.bind(this)}
+                saveSelected={this.saveSelected}
                 timePeriods={this.props.timePeriods}
                 allFY={this.state.allFY}
                 selectedFY={this.state.selectedFY} />);
@@ -136,9 +142,9 @@ export default class TimePeriod extends React.Component {
                 startingTab={1}
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
-                onDateChange={this.handleDateChange.bind(this)}
-                showError={this.showError.bind(this)}
-                hideError={this.hideError.bind(this)} />);
+                onDateChange={this.handleDateChange}
+                showError={this.showError}
+                hideError={this.hideError} />);
             activeClassFY = 'inactive';
             activeClassDR = '';
         }

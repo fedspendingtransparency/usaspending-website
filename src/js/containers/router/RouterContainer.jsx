@@ -21,6 +21,12 @@ export default class RouterContainer extends React.Component {
         ga.pageview(path);
     }
 
+    constructor(props) {
+        super(props);
+        // bind functions
+        this.handleRouteChange = this.handleRouteChange.bind(this);
+    }
+
     componentDidMount() {
         // don't initialize Google Analytics if no tracking ID is provided
         if (kGlobalConstants.GA_TRACKING_ID !== '') {
@@ -40,7 +46,7 @@ export default class RouterContainer extends React.Component {
             <Router
                 routes={Routes.routes()}
                 history={hashHistory}
-                onUpdate={this.handleRouteChange.bind(this)}
+                onUpdate={this.handleRouteChange}
                 ref={(router) => {
                     this.router = router;
                     return this.router;

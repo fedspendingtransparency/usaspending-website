@@ -37,6 +37,10 @@ export default class PrimaryAwardType extends React.Component {
             selectedChildren: false,
             allChildren: false
         };
+
+        // bind functions
+        this.toggleSubItems = this.toggleSubItems.bind(this);
+        this.toggleChildren = this.toggleChildren.bind(this);
     }
 
     componentDidMount() {
@@ -116,8 +120,8 @@ export default class PrimaryAwardType extends React.Component {
             code={this.props.value}
             selected={this.state.allChildren}
             arrowState={this.state.arrowState}
-            toggleExpand={this.toggleSubItems.bind(this)}
-            toggleChildren={this.toggleChildren.bind(this)}
+            toggleExpand={this.toggleSubItems}
+            toggleChildren={this.toggleChildren}
             hideArrow={this.state.selectedChildren} />);
 
         let secondaryAwardTypes = null;

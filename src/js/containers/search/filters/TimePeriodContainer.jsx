@@ -31,6 +31,10 @@ class TimePeriodContainer extends React.Component {
                 endDate: null
             }
         };
+
+        // bind functions
+        this.updateFilter = this.updateFilter.bind(this);
+        this.changeTab = this.changeTab.bind(this);
     }
 
     componentDidMount() {
@@ -97,8 +101,8 @@ class TimePeriodContainer extends React.Component {
                 {...this.props}
                 activeTab={this.state.activeTab}
                 timePeriods={this.state.timePeriods}
-                updateFilter={this.updateFilter.bind(this)}
-                changeTab={this.changeTab.bind(this)} />
+                updateFilter={this.updateFilter}
+                changeTab={this.changeTab} />
         );
     }
 }
