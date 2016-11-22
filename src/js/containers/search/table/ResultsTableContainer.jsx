@@ -20,6 +20,6 @@ class ResultsTableContainer extends React.Component {
 }
 
 export default connect(
-    (state) => ({ results: state.search.results }),
+    (state) => ({ records: state.records }),
     (dispatch) => bindActionCreators(searchResultActions, dispatch)
 )(ResultsTableContainer);

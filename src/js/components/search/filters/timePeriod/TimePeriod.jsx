@@ -11,21 +11,15 @@ import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
 
 const defaultProps = {
-    timePeriods: [
-        '2016',
-        '2015',
-        '2014',
-        '2013',
-        '2012',
-        '2011',
-        '2010',
-        '2009'
-    ]
+    activeTab: 'fy'
 };
 
 const propTypes = {
     label: React.PropTypes.string,
-    timePeriods: React.PropTypes.array
+    timePeriods: React.PropTypes.array,
+    activeTab: React.PropTypes.string,
+    updateFilter: React.PropTypes.func,
+    changeTab: React.PropTypes.func
 };
 
 export default class TimePeriod extends React.Component {
@@ -37,7 +31,6 @@ export default class TimePeriod extends React.Component {
             startDate: null,
             endDate: null,
             showError: false,
-            shownFilter: 'fy',
             header: '',
             description: '',
             isActive: false,
@@ -47,9 +40,7 @@ export default class TimePeriod extends React.Component {
     }
 
     toggleFilters(filter) {
-        this.setState({
-            shownFilter: filter
-        });
+        this.props.changeTab(filter);
     }
 
     handleDateChange(date, dateType) {
@@ -79,6 +70,11 @@ export default class TimePeriod extends React.Component {
             else {
                 // valid!
                 this.hideError();
+                // update the filter parameters
+                this.props.updateFilter({
+                    startDate: start.format('YYYY-MM-DD'),
+                    endDate: end.format('YYYY-MM-DD')
+                });
             }
         }
         else {
@@ -106,6 +102,10 @@ export default class TimePeriod extends React.Component {
         this.setState({
             selectedFY: arrayFY,
             allFY: allSelected
+        }, () => {
+            this.props.updateFilter({
+                fy: [...this.state.selectedFY]
+            });
         });
     }
 
@@ -115,12 +115,12 @@ export default class TimePeriod extends React.Component {
         let activeClassFY = null;
         let activeClassDR = null;
 
-        if (this.state.showError && this.state.shownFilter === 'dr') {
+        if (this.state.showError && this.props.activeTab === 'dr') {
             errorDetails = (<DateRangeError
                 header={this.state.header} message={this.state.errorMessage} />);
         }
 
-        if (this.state.shownFilter === 'fy') {
+        if (this.props.activeTab === 'fy') {
             showFilter = (<AllFiscalYears
                 saveSelected={this.saveSelected.bind(this)}
                 timePeriods={this.props.timePeriods}

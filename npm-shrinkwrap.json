@@ -1172,6 +1172,18 @@
         }
       }
     },
+    "redux-perf-middleware": {
+      "version": "1.2.2",
+      "from": "redux-perf-middleware@latest",
+      "resolved": "https://registry.npmjs.org/redux-perf-middleware/-/redux-perf-middleware-1.2.2.tgz",
+      "dependencies": {
+        "present": {
+          "version": "1.0.0",
+          "from": "present@>=1.0.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/present/-/present-1.0.0.tgz"
+        }
+      }
+    },
     "superagent-use": {
       "version": "0.0.1",
       "from": "https://registry.npmjs.org/superagent-use/-/superagent-use-0.0.1.tgz",
