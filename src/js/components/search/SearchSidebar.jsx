@@ -9,8 +9,8 @@ import SearchOption from './SearchOption';
 const defaultProps = {
     options: [
         'Keywords',
-        'AwardType',
-        'TimePeriod',
+        'Award Type',
+        'Time Period',
         'Primary Place of Performance',
         'Agencies',
         'Recipient Information',
@@ -34,7 +34,7 @@ export default class SearchSidebar extends React.Component {
 
         return (
             <div className="search-sidebar">
-                <h3>Narrow By</h3>
+                <h6 className="sidebar-header">Filter by:</h6>
                 <div className="search-filters-wrapper">
                     {optionsList}
                 </div>

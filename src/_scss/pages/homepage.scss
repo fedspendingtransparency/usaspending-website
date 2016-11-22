@@ -1,12 +1,12 @@
 .home-page {
 
-	.usa-da-page-title {
-	  @include span-columns(16);
+    .usa-da-page-title {
+        @include span-columns(16);
 
-	  & h1 {
-	    padding: 15px;
-	  }
+        & h1 {
+            padding: 15px;
+        }
+        
+    }
 
-	}
-	
 }

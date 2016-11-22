@@ -1,5 +1,5 @@
 @mixin searchHeaderPositioning {
-    
+
 
     .search-header {
         @include outer-container();
@@ -9,7 +9,7 @@
             margin: 0px $outer-gutter;
         }
     }
-
+    
     .search-title {
         @include media($nav-width) {
             @include span-columns(8);

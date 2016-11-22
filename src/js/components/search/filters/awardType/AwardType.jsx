@@ -45,13 +45,13 @@ const propTypes = {
 export default class AwardType extends React.Component {
 
     render() {
-        const awardTypes = this.props.awardTypes.map((type, index) =>
-            <PrimaryAwardType {...type} {...this.props} key={index} />
-        );
+        const awardTypes = (
+            this.props.awardTypes.map((type, index) =>
+                <PrimaryAwardType {...type} {...this.props} key={index} />
+        ));
 
         return (
-            <div className="award-type-filter">
-                <b>Award Type</b>
+            <div className="award-type-filter search-filter">
                 <ul className="award-types">
                     {awardTypes}
                 </ul>

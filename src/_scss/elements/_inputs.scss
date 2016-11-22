@@ -3,9 +3,9 @@ $input-border-width: 1px;
 $input-padding-vertical: 1rem;
 
 $input-height-exact: (
-  ($base-font-size * $input-line-height) +
-  ($input-padding-vertical * 2) +
-  (rem($input-border-width * 2))
+    ($base-font-size * $input-line-height) +
+    ($input-padding-vertical * 2) +
+    (rem($input-border-width * 2))
 );
 
 // truncated to 1 decimal place
@@ -30,7 +30,7 @@ $input-height: floor($input-height-exact * 10) / 10;
     padding: $input-padding-vertical 0.7em;
 
     &:focus {
-      box-shadow: $focus-shadow;
+        box-shadow: $focus-shadow;
     }
 }
 
@@ -41,16 +41,16 @@ $input-height: floor($input-height-exact * 10) / 10;
 @import './inputs/select';
 
 @mixin usa-input-success {
-   border: 3px solid $color-green-light;
- }
+    border: 3px solid $color-green-light;
+}
 
 @mixin usa-input-label {
-  display: block;
-  margin-top: 3rem;
-  max-width: $input-max-width;
+    display: block;
+    margin-top: 3rem;
+    max-width: $input-max-width;
 }
 
 @mixin usa-legend {
-  font-size: $h2-font-size;
-  font-weight: $font-bold;
+    font-size: $h2-font-size;
+    font-weight: $font-bold;
 }

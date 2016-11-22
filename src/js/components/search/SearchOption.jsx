@@ -6,25 +6,69 @@
 import React from 'react';
 
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
-import SearchBox from '../sharedComponents/SearchBox';
+import SearchBox from './filters/keyword/SearchBox';
 import TimePeriod from './filters/timePeriod/TimePeriod';
+import FilterExpandButton from './FilterExpandButton';
 
 const propTypes = {
     name: React.PropTypes.string
 };
 
 export default class SearchOption extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showFilter: false,
+            arrowState: 'collapsed'
+        };
+    }
+
+    toggleFilter(e) {
+        e.preventDefault();
+
+        const newShowState = !this.state.showFilter;
+        let newArrowState = 'collapsed';
+        if (newShowState) {
+            newArrowState = 'expanded';
+        }
+        this.setState({
+            showFilter: newShowState,
+            arrowState: newArrowState
+        });
+    }
+
     render() {
+        let searchOption = null;
         switch (this.props.name) {
             case 'Keywords':
-                return (<div className="search-option"><SearchBox /></div>);
-            case 'AwardType':
-                return (<div className="search-option"><AwardTypeContainer /></div>);
-            case 'TimePeriod':
-                return (<div className="search-option"><TimePeriod /></div>);
+                searchOption = (<SearchBox />);
+                break;
+            case 'Award Type':
+                searchOption = (<AwardTypeContainer />);
+                break;
+            case 'Time Period':
+                searchOption = (<TimePeriod />);
+                break;
             default:
-                return (<div className="search-option"><b>{this.props.name}</b></div>);
+                searchOption = null;
         }
+
+        if (this.state.showFilter !== true) {
+            searchOption = null;
+        }
+
+        return (
+            <div className="search-option">
+                <FilterExpandButton
+                    hidden={this.state.showFilter}
+                    toggleFilter={this.toggleFilter.bind(this)}
+                    arrowState={this.state.arrowState}
+                    name={this.props.name} />
+                {searchOption}
+            </div>
+        );
     }
 }
 

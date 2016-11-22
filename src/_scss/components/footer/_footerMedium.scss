@@ -1,0 +1,16 @@
+@mixin usa-footer-medium {
+    .usa-footer-primary-section {
+        padding: 0;
+
+        @include media($medium-screen) {
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+        }
+    }
+
+    .usa-footer-nav ul {
+        @include media($medium-screen) {
+            align-items: center;
+        }
+    }
+}

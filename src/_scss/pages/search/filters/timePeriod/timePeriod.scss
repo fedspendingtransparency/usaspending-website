@@ -11,13 +11,18 @@
         border-bottom: 1px solid $color-gray-lighter;
     }
 
-    button.toggle {
+    button.date-toggle {
         border-left: 1px solid $color-gray-lighter;
         border-right: 1px solid $color-gray-lighter;
         border-top: 1px solid $color-gray-lighter;
         background-color: $color-white;
         color: $color-gray;
+        font-size: $small-font-size;
+        font-weight:normal;
+        height: 31px;
         margin-bottom: 0;
+        padding: 0;
+        width: 97px;
     }
 
     button.inactive {
@@ -36,11 +41,14 @@
 
             input {
                 @include usa-input-checkbox;
-                margin-right:.5rem !important;
+                margin-right: .5rem;
+                height: $small-font-size;
+                width: $small-font-size;
             }
 
             label {
                 @include usa-label;
+                font-weight: normal;
             }
         }
 
@@ -61,7 +69,7 @@
 
     .error-message {
         @include usa-input-error-message;
-        @include span-columns(16);
+        @include span-columns(15);
         padding: 15px;
         border: 1px solid $color-secondary-dark;
         margin-bottom: 1rem;
