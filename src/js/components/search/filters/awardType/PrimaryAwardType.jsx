@@ -69,9 +69,7 @@ export default class PrimaryAwardType extends React.Component {
         });
     }
 
-    toggleSubItems(e) {
-        e.preventDefault();
-
+    toggleSubItems() {
         const newShowState = !this.state.showSubItems;
         let newArrowState = 'collapsed';
         if (newShowState) {
