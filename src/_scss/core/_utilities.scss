@@ -15,6 +15,13 @@
     @include sr-only();
 }
 
+// Aria hidden helper
+@mixin accessibly-hidden() {
+    &[aria-hidden=true] {
+        display: none;
+    }
+}
+
 // Unstyled list helper
 
 @mixin unstyled-list() {

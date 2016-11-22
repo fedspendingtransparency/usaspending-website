@@ -10,7 +10,6 @@ $z-index-nav:     9000;
 
 
 // Header ------------- //
-
 /*
 .usa-header {
     width: 100%;
@@ -28,7 +27,7 @@ $z-index-nav:     9000;
         border-bottom: none;
     }
 
-    @mixin usa-search {
+    .usa-search {
         margin-bottom: 1.5rem;
 
         @include media($nav-width) {
@@ -300,6 +299,44 @@ $z-index-nav:     9000;
                 background-color: transparent;
             }
         }
+
+        &[aria-expanded=false] {
+            background-image: url('#{$image-path}/plus-alt.png');
+            background-image: url('#{$image-path}/plus-alt.svg');
+            background-repeat: no-repeat;
+            background-position: right 0 center;
+            background-size: 1rem;
+
+            @include media($nav-width) {
+                background-image: url('#{$image-path}/angle-arrow-down.png');
+                background-image: url('#{$image-path}/angle-arrow-down.svg');
+                background-position: 88% 44%;
+            }
+        }
+
+        &[aria-expanded=true] {
+            background-image: url('#{$image-path}/minus-alt.png');
+            background-image: url('#{$image-path}/minus-alt.svg');
+            background-repeat: no-repeat;
+            background-position: right 0 center;
+            background-size: 1rem;
+
+            @include media($nav-width) {
+                background-color: $color-primary-darkest;
+                color: $color-white;
+                background-image: url('#{$image-path}/angle-arrow-down-hover.png');
+                background-image: url('#{$image-path}/angle-arrow-down-hover.svg');
+                background-position: 88% 44%;
+
+                &:hover {
+                    background-color: $color-primary-darkest;
+                }
+
+                span {
+                    @include nav-border;
+                }
+            }
+        }
     }
 }
 
@@ -357,6 +394,15 @@ $z-index-nav:     9000;
     .usa-nav-primary {
         @include media($nav-width) {
             @include clearfix;
+        }
+
+        button {
+            &[aria-expanded=false],
+            &[aria-expanded=true] {
+                @include media($nav-width) {
+                    background-position: 88% 50%;
+                }
+            }
         }
     }
 
@@ -472,6 +518,10 @@ $z-index-nav:     9000;
         position: absolute;
     }
 
+    &[aria-hidden=true] {
+        display: none;
+    }
+
     a {
         @include media($nav-width) {
             color: $color-white;
@@ -519,7 +569,7 @@ $z-index-nav:     9000;
     }
 }
 
-.usa-mobile-nav-active {
+.usa-mobile_nav-active {
     overflow: hidden;
 }
 

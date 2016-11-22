@@ -24,6 +24,11 @@ $accordion-border: 3px solid $color-gray-lightest;
         button {
             @include accordion-button-styles;
         }
+
+        // TODO deprecated ruleset based on old accordion.
+        [aria-expanded=false] {
+          @include accordion-button-unopened-styles;
+        }
     }
 
     > li {
@@ -60,4 +65,8 @@ $accordion-border: 3px solid $color-gray-lightest;
 @mixin usa-accordion-button {
     @include accordion-button-styles;
 
+    &[aria-expanded=false] {
+      @include accordion-button-unopened-styles;
+    }
 }
+

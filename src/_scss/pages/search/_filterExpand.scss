@@ -1,23 +1,27 @@
 .filter-toggle {
     @include button-unstyled;
     display: inline-block;
+    padding-left: 1rem;
     vertical-align: middle;
-    margin-left: 1rem;
+    width: 100%;
 
     svg {
+        cursor: pointer;
         fill: $color-gray;
         height: 2rem;
+        position: relative;
+        top: .25rem;
+        vertical-align: middle;
         width: 2rem;
-        position:relative;
-        cursor: pointer;
     }
 
     .filter-header {
         color: $color-gray-dark;
+        display: inline-block;
         font-size: $base-font-size;
         font-weight: normal;
-        padding-bottom: 1rem;
-        display: inline-block;
         line-height: auto;
+        padding-bottom: 1rem;
+        vertical-align: middle;
     }
 }
