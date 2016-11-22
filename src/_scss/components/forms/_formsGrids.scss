@@ -1,0 +1,57 @@
+@mixin usa-input-grid {
+    @include media($medium-screen) {
+        padding-right: 5%;
+    }
+
+    :last-of-type {
+        @include media($medium-screen) {
+            padding-right: 0;
+        }
+    }
+
+}
+
+@mixin usa-input-grid-small {
+    @include media($medium-screen) {
+        float: left;
+        width: 35%;
+    }
+
+    input {
+        margin-bottom: 3rem;
+    }
+
+    select {
+        margin-bottom: 3rem;
+    }
+}
+
+@mixin usa-input-grid-medium {
+    @include media($medium-screen) {
+        float: left;
+        width: 65%;
+    }
+
+    input {
+        margin-bottom: 3rem;
+    }
+
+    select {
+        margin-bottom: 3rem;
+    }
+}
+
+@mixin usa-input-grid-large {
+    @include media($medium-screen) {
+        float: left;
+        width: 100%;
+    }
+
+    input {
+        margin-bottom: 3rem;
+    }
+
+    select {
+        margin-bottom: 3rem;
+    }
+}

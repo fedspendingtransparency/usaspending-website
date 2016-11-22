@@ -20,8 +20,7 @@ const propTypes = {
     toggleChildren: React.PropTypes.func,
     name: React.PropTypes.string,
     selected: React.PropTypes.bool,
-    hideArrow: React.PropTypes.bool,
-    arrowState: React.PropTypes.string
+    hideArrow: React.PropTypes.bool
 };
 
 export default class CollapsedAwardType extends React.Component {
@@ -32,8 +31,7 @@ export default class CollapsedAwardType extends React.Component {
                 <div className="award-type-item-wrapper">
                     <AwardExpandButton
                         hidden={this.props.hideArrow}
-                        toggleExpand={this.props.toggleExpand}
-                        arrowState={this.props.arrowState} />
+                        toggleExpand={this.props.toggleExpand} />
                     <input
                         type="checkbox"
                         id={this.props.id}

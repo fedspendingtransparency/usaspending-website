@@ -17,11 +17,11 @@
 /// @todo Remove height argument in v5.0.0
 
 @mixin hide-text($height: null) {
-  overflow: hidden;
-  text-indent: 101%;
-  white-space: nowrap;
+    overflow: hidden;
+    text-indent: 101%;
+    white-space: nowrap;
 
-  @if $height {
-    @warn "The `hide-text` mixin has changed and no longer requires a height. The height argument will no longer be accepted in v5.0.0";
-  }
+    @if $height {
+        @warn "The `hide-text` mixin has changed and no longer requires a height. The height argument will no longer be accepted in v5.0.0";
+    }
 }

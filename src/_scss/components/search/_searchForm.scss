@@ -1,0 +1,80 @@
+    @mixin usa-search {
+      @include clearfix;
+      max-width: none;
+      position: relative;
+
+      .usa-search-input {
+        -webkit-appearance: none;
+        border-bottom-right-radius: 0;
+        border-right: none;
+        border-top-right-radius: 0;
+        float: left;
+        font-size: $small-font-size;
+        height: 3.3rem;
+        margin: 0;
+        padding-bottom: 0;
+        padding-top: 0;
+        width: calc(100% - #{$usa-btn-small-width});
+
+        @include media($small-screen) {
+          width: calc(100% - #{$usa-btn-medium-width});
+        }
+      }
+
+      .usa-search-submit {
+        @include search-icon;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        height: 3.3rem;
+        margin: 0;
+        padding: 0;
+        width: $usa-btn-small-width;
+
+        @include media($small-screen) {
+          background-image: none;
+          width: $usa-btn-medium-width;
+        }
+      }
+
+      .usa-search-submit-text {
+        display: none;
+
+        @include media($small-screen) {
+          display: block;
+        }
+      }
+
+      &.usa-search-big {
+        @include media($small-screen) {
+          $height: 4.4rem;
+          $width: $usa-btn-big-width;
+
+          [type="search"] {
+            font-size: $base-font-size;
+            height: $height;
+            width: calc(100% - #{$width});
+          }
+
+          [type="submit"] {
+            font-size: $h3-font-size;
+            height: $height;
+            width: $width;
+          }
+        }
+      }
+
+      &.usa-search-small {
+        @include media($small-screen) {
+          $width: $usa-btn-small-width;
+
+          [type="search"] {
+            width: calc(100% - #{$width});
+          }
+
+          [type="submit"] {
+            @include search-icon;
+            width: $width;
+          }
+        }
+      }
+    }

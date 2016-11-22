@@ -3,13 +3,13 @@
 // Assumes $em-base is the font-size of <html>
 
 @function rem($pxval) {
-  @if not unitless($pxval) {
-    $pxval: strip-units($pxval);
-  }
+    @if not unitless($pxval) {
+        $pxval: strip-units($pxval);
+    }
 
-  $base: $em-base;
-  @if not unitless($base) {
-    $base: strip-units($base);
-  }
-  @return ($pxval / $base) * 1rem;
+    $base: $em-base;
+    @if not unitless($base) {
+        $base: strip-units($base);
+    }
+    @return ($pxval / $base) * 1rem;
 }

@@ -1,0 +1,32 @@
+@mixin usa-checklist {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+
+    li {
+        display: inline-block;
+        list-style: none;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding-left: 3em;
+        text-indent: -2em;
+        
+        &::before {
+            content: ' ';
+            display: inline-block;
+            height: .8em;
+            margin-right: .2em;
+            width: 1.8em;
+        }
+    }
+}
+
+@mixin usa-checklist-checked {
+    &::before {
+        background-image: url('#{$image-path}/correct9.png');
+        background-image: url('#{$image-path}/correct9.svg');
+        background-position: 100%;
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+}

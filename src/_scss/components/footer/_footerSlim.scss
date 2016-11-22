@@ -1,0 +1,54 @@
+@mixin usa-footer-slim {
+    .usa-footer-nav a {
+        display: block;
+    }
+
+    .usa-footer-primary-section {
+        padding-bottom: 2rem;
+
+        @include media($medium-screen) {
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+
+            .usa-grid-full {
+                align-items: center;
+            }
+        }
+    }
+
+    .usa-footer-contact-info {
+        > * {
+            @include media($medium-screen) {
+                margin: 0;
+            }
+        }
+
+        @include media($medium-screen) {
+            @include padding (2rem null);
+        }
+
+        @include media($medium-screen) {
+            width: 100%;
+        }
+
+        @include media($large-screen) {
+            @include span-columns(6);
+        }
+    }
+
+    .usa-footer-slim-logo-heading {
+        display: block;
+        padding-top: 1rem;
+
+        @include media($medium-screen) {
+            display: inline-block;
+            padding-left: 1em;
+        }
+    }
+
+    .usa-footer-slim-logo-img {
+        float: left;
+        max-width: 10rem;
+    }
+
+}

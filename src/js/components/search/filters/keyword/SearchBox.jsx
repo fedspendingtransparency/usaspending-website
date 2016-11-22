@@ -6,13 +6,13 @@
 import React from 'react';
 
 export default class SearchBox extends React.Component {
+
     render() {
         return (
-            <div className="">
-                <label htmlFor="search">
-                    Search
-                </label>
-                <input id="search" type="text" className="" />
+            <div className="keyword-filter search-filter">
+                <div>
+                    <input id="search" type="text" className="" />
+                </div>
             </div>
         );
     }

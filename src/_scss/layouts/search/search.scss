@@ -7,7 +7,7 @@
     .search-header-wrapper {
         @include searchHeader;
     }
-
+    
     .search-contents {
         @include outer-container();
         width: 100%;

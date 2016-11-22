@@ -1,0 +1,75 @@
+@mixin outer-megamenu {
+    background-color: $color-primary-darkest;
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 1000%;
+}
+
+@mixin usa-megamenu {
+    @include media($nav-width) {
+        @include padding(3.15rem null);
+        left: -1.8rem;
+        width: 100%;
+    }
+    
+    &::before {
+        @include media($nav-width) {
+            @include outer-megamenu;
+            right: 100%;
+        }
+    }
+
+    &::after {
+        @include media($nav-width) {
+            @include outer-megamenu;
+            left: 100%;
+        }
+    }
+}
+
+@mixin usa-header-basic-megamenu {
+    .usa-nav {
+        @include media($nav-width) {
+            padding-top: 0;
+            width: 100%;
+        }
+    }
+    .usa-nav-inner {
+        display: flex;
+        flex-direction: column;
+
+        @include media($nav-width) {
+            display: initial;
+            float: right;
+            margin-top: -4.8rem;
+        }
+    }
+    .usa-nav-submenu {
+        .usa-grid-full {
+            @include media($nav-width) {
+                margin-left: -1.8rem;
+            }
+        }
+    }
+}
+
+@mixin usa-megamenu-col {
+    @include media($nav-width) {
+        @include span-columns(3);
+
+        &:nth-child(2n) {
+            @include span-columns(3);
+        }
+
+        &:nth-child(4n) {
+            margin-right: 0;
+        }
+    }
+
+    > ul {
+        @include unstyled-list;
+    }
+}

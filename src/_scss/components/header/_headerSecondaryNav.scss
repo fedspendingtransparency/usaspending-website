@@ -1,0 +1,74 @@
+@mixin usa-nav-secondary {
+    @include media($nav-width) {
+        position: absolute;
+        right: $site-margins;
+        top: -5.7rem;
+    }
+
+    .usa-search {
+        @include margin(3rem null);
+
+        @include media($nav-width) {
+            @include margin(-0.2rem null 0 0);
+            display: none;
+            float: left;
+
+            &.is-visible {
+                display: block;
+            }
+        }
+    }
+}
+
+@mixin usa-nav-secondary-links {
+    @include media($nav-width) {
+        float: left;
+    }
+
+    li {
+        @include media($nav-width) {
+            display: inline;
+            padding-left: 1rem;
+        }
+
+        &:not(:last-child)::after {
+            @include media($nav-width) {
+                content: '|';
+                padding-left: 1rem;
+            }
+        }
+    }
+
+    a,
+    .usa-header-search-button {
+        color: $color-gray;
+        display: inline-block;
+        font-size: $h6-font-size;
+        text-decoration: none;
+
+        &:hover {
+            color: $color-primary;
+        }
+    }
+
+    .usa-header-search-button {
+        @include button-unstyled;
+        display: none;
+
+        @include media($nav-width) {
+            background-image: url('#{$image-path}/search-alt.png');
+            background-image: url('#{$image-path}/search-alt.svg');
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-size: 2.2rem;
+            display: inline-block;
+            padding-left: 2.3rem;
+        }
+
+        &.is-hidden {
+            @include media($nav-width) {
+                display: none;
+            }
+        }
+    }
+}

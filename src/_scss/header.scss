@@ -5,7 +5,7 @@
     padding: 15px 0;
     width: 100%;
     border-bottom: 1px solid $color-gold-lighter;
-	margin-bottom:2rem;
+    margin-bottom:2rem;
     & p {
         max-width: 100%;
         margin: 5px 0;
@@ -24,10 +24,10 @@
     }
 
     & .top-alert-icon {
-      @include span-columns(1);
+        @include span-columns(1);
     }
 
     & .top-alert-text {
-      @include span-columns(15);
+        @include span-columns(15);
     }
 }
