@@ -13,6 +13,8 @@ import SearchPage from 'components/search/SearchPage';
 import SearchOperation from 'models/search/SearchOperation';
 import * as SearchHelper from 'helpers/searchHelper';
 
+import TableSearchFields from 'dataMapping/search/tableSearchFields';
+
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as searchResultActions from 'redux/actions/search/searchResultActions';
 import * as recordBulkActions from 'redux/actions/records/recordBulkActions';
@@ -29,6 +31,7 @@ const combinedActions = Object.assign(
 
 const propTypes = {
     filters: React.PropTypes.object,
+    tableType: React.PropTypes.string,
     clearRecords: React.PropTypes.func,
     bulkInsertRecords: React.PropTypes.func,
     setSearchResultMeta: React.PropTypes.func
@@ -53,6 +56,10 @@ class SearchContainer extends React.PureComponent {
     shouldComponentUpdate(nextProps) {
         if (nextProps.filters !== this.props.filters) {
             // filters changed
+            return true;
+        }
+        else if (nextProps.metaType !== this.props.metaType) {
+            // table type has changed
             return true;
         }
         // something may have changed, but it is out of scope for this component
@@ -82,7 +89,8 @@ class SearchContainer extends React.PureComponent {
             this.searchRequest.cancel();
         }
 
-        this.searchRequest = SearchHelper.performPagedSearch(this.state.searchParams.toParams());
+        this.searchRequest = SearchHelper.performPagedSearch(this.state.searchParams.toParams(), 1,
+            30, TableSearchFields[this.props.metaType]._order);
         this.searchRequest.promise
             .then((res) => {
                 this.props.clearRecords();
@@ -186,7 +194,11 @@ class SearchContainer extends React.PureComponent {
 }
 
 export default connect(
-    (state) => ({ filters: state.filters }),
+    (state) => ({
+        filters: state.filters,
+        metaPage: state.resultsMeta.page.page_number,
+        metaType: state.resultsMeta.tableType
+    }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(SearchContainer);
 

@@ -13,7 +13,8 @@ const initialState = {
     total: {
         count: 0,
         total_obligation_sum: 0
-    }
+    },
+    tableType: 'contracts'
 };
 
 const searchResultsReducer = (state = initialState, action) => {
@@ -21,6 +22,10 @@ const searchResultsReducer = (state = initialState, action) => {
         case 'SET_SEARCH_RESULT_META':
             // set the search result metadata
             return Object.assign({}, state, action.meta);
+        case 'SET_SEARCH_TABLE_TYPE':
+            return Object.assign({}, state, {
+                tableType: action.tableType
+            });
         default:
             return state;
     }
