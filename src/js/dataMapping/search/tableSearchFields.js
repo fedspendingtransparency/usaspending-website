@@ -4,15 +4,15 @@ const tableSearchFields = {
             'piid',
             'recipient_name',
             'period_of_performance_start_date',
-            'period_of_performance_end_date',
-            'total_obligations',
+            'period_of_performance_current_end_date',
+            'total_obligation',
             'contract_award_type',
             'awarding_agency_name'
         ],
         piid: 'Award ID',
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
-        period_of_performance_end_date: 'End Date',
+        period_of_performance_current_end_date: 'End Date',
         total_obligations: 'Total Funded To-Date',
         contract_award_type: 'Award Type',
         awarding_agency_name: 'Awarding Agency'

@@ -1,0 +1,9 @@
+.search-results {
+    background-color: $color-white;
+    box-shadow: $container-shadow;
+
+    @import "./_typography";
+    @import "./_divider";
+
+    @import "./table/resultsTable";
+}

@@ -12,10 +12,11 @@ import SearchSummary from './SearchSummary';
 export default class SearchResults extends React.Component {
     render() {
         return (
-            <div className="search-results">
+            <div className="search-results-wrapper">
                 <SearchSummary />
-                <h3>View All: Prime Awards</h3>
-                <ResultsTableContainer />
+                <div className="search-results">
+                    <ResultsTableContainer />
+                </div>
             </div>
         );
     }
