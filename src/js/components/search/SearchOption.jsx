@@ -42,7 +42,7 @@ export default class SearchOption extends React.Component {
     render() {
         let searchOption = null;
         switch (this.props.name) {
-            case 'Keywords':
+            case 'Search':
                 searchOption = (<SearchBox />);
                 break;
             case 'Award Type':

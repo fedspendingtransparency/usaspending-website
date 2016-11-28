@@ -34,10 +34,10 @@ export default class FiscalYear extends React.Component {
                 <input
                     type="checkbox"
                     id={`fy${this.props.year}`}
-                    value="All Years"
+                    value="All Fiscal Years"
                     checked={this.props.checked}
                     onChange={this.allYears.bind(this)} />
-                <label htmlFor={`fy${this.props.year}`}>All Years</label>
+                <label htmlFor={`fy${this.props.year}`}>All Fiscal Years</label>
             </li>);
         }
         else {

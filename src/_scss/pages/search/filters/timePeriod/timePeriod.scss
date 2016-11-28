@@ -4,40 +4,23 @@
     @import '../../../../elements/inputs/_errors';
     @import '../../../../components/_alerts';
     @import '../../../../components/datePicker/_datePicker';
+    @import './_toggleButtons';
+    @import './_errorMessage';
 
     @include outer-container;
-
-    .toggle-buttons {
-        border-bottom: 1px solid $color-gray-lighter;
-    }
-
-    button.date-toggle {
-        border-left: 1px solid $color-gray-lighter;
-        border-right: 1px solid $color-gray-lighter;
-        border-top: 1px solid $color-gray-lighter;
-        background-color: $color-white;
-        color: $color-gray;
-        font-size: $small-font-size;
-        font-weight:normal;
-        height: 31px;
-        margin-bottom: 0;
-        padding: 0;
-        width: 97px;
-    }
-
-    button.inactive {
-        background-color: $color-primary-alt-lightest;
-    }
+    padding-left: 0;
+    margin-top: 0 !important;
 
     ul.fiscal-years {
         @include row();
         list-style-type: none;
-        margin-left: -2rem;
+        padding-left: 1.5rem;
+        padding-top: 1.5rem;
 
         li {
             margin: 0;
             height: 2.5rem;
-            @include span-columns(7);
+            @include span-columns(8);
 
             input {
                 @include usa-input-checkbox;
@@ -52,10 +35,7 @@
             }
         }
 
-        li.fiscal-year-option-all {
-            @include span-columns(16);
 
-        }
     }
 
     .date-range-option {
@@ -67,40 +47,12 @@
         }
     }
 
-    .error-message {
-        @include usa-input-error-message;
-        @include span-columns(15);
-        padding: 15px;
-        border: 1px solid $color-secondary-dark;
-        margin-bottom: 1rem;
-        margin-top: 1rem;
-
-        .error-title {
-            height: 30px;
-            display: block;
-            max-height: 30px;
-
-            .heading {
-                font-weight: bold;
-                font-size: 24px;
-                margin-left: .5rem;
-                margin-top: .2rem;
-                display: inline-block;
-                vertical-align: top;
-            }
-
-            svg {
-                width: 30px;
-                fill: $color-secondary-dark;
-            }
-
-        }
-
-        .message {
-            font-size: 14px;
-            line-height: 1.2;
-            margin-bottom: 0;
-        }
+    .fiscal-years, .date-range-option {
+        border-top: 1px solid $color-gray-lighter;
+        width: 90%;
+        margin-left: .5rem;
+        margin-top: -1px;
+        z-index: 1;
     }
 
 }
