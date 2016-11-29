@@ -14,6 +14,11 @@ const propTypes = {
 };
 
 export default class SingleAwardType extends React.Component {
+    constructor(props) {
+        super(props);
+        // bind functions
+        this.toggleFilter = this.toggleFilter.bind(this);
+    }
     toggleFilter() {
         // indicate to Redux that this field needs to toggle
         this.props.toggleAwardType(this.props.code);
@@ -28,7 +33,7 @@ export default class SingleAwardType extends React.Component {
                         id={this.props.id}
                         value={this.props.code}
                         checked={checked}
-                        onChange={this.toggleFilter.bind(this)} />
+                        onChange={this.toggleFilter} />
                     <label htmlFor={this.props.id}>{this.props.name}</label>
                 </div>
             </div>

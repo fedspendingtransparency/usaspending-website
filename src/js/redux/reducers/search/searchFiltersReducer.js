@@ -30,25 +30,14 @@ const searchFiltersReducer = (state = initialState, action) => {
                     state.awardType, action.awardTypes, action.direction)
             });
         }
-        case 'UPDATE_SEARCH_FILTER_TIME_PERIOD_FY': {
+        case 'UPDATE_SEARCH_FILTER_TIME_PERIOD': {
             // FY time period is stored as an ImmutableJS set
             return Object.assign({}, state, {
-                timePeriodStart: null,
-                timePeriodEnd: null,
-                timePeriodFY: AwardFilterFunctions.immutableSetToggle(
-                    state.timePeriodFY, action.fy)
+                timePeriodStart: action.start,
+                timePeriodEnd: action.end,
+                timePeriodFY: new Set(action.fy)
             });
         }
-        case 'SET_SEARCH_FILTER_TIME_PERIOD_START':
-            return Object.assign({}, state, {
-                timePeriodStart: action.start,
-                timePeriodFY: state.timePeriodFY.clear()
-            });
-        case 'SET_SEARCH_FILTER_TIME_PERIOD_END':
-            return Object.assign({}, state, {
-                timePeriodEnd: action.end,
-                timePeriodFY: state.timePeriodFY.clear()
-            });
         default:
             return state;
     }

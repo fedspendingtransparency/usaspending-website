@@ -56,6 +56,10 @@
         "class-methods-use-this": [0],
         "no-underscore-dangle": [0, {
             "allowAfterThis": true
+        }],
+        // allow ++ and -- in for loops
+        "no-plusplus": [2, {
+            "allowForLoopAfterthoughts": true
         }]
     }
 }
