@@ -1,5 +1,5 @@
 /**
-  * searchResultActions.js
+  * resultsMetaActions.js
   * Created by Kevin Li 11/1/16
   **/
 

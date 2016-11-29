@@ -1,9 +1,11 @@
 /**
- * searchResultsReducer.js
+ * rseultsMetaReducer.js
  * Created by Kevin Li 11/1/16
  **/
 
-const initialState = {
+import { Record } from 'immutable';
+
+const initialValues = {
     page: {
         count: 0,
         num_pages: 0,
@@ -17,13 +19,15 @@ const initialState = {
     tableType: 'contracts'
 };
 
-const searchResultsReducer = (state = initialState, action) => {
+const MetaRecord = Record(initialValues);
+
+const resultsMetaReducer = (state = new MetaRecord(), action) => {
     switch (action.type) {
         case 'SET_SEARCH_RESULT_META':
             // set the search result metadata
-            return Object.assign({}, state, action.meta);
+            return state.merge(action.meta);
         case 'SET_SEARCH_TABLE_TYPE':
-            return Object.assign({}, state, {
+            return state.merge({
                 tableType: action.tableType
             });
         default:
@@ -31,4 +35,4 @@ const searchResultsReducer = (state = initialState, action) => {
     }
 };
 
-export default searchResultsReducer;
+export default resultsMetaReducer;

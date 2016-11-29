@@ -1,0 +1,21 @@
+.table-types {
+    border-bottom: 1px solid $color-gray-lighter;
+
+    button.table-type-toggle {
+        // @include button-unstyled();
+        border-left: 1px solid $color-gray-lighter;
+        border-right: 1px solid $color-gray-lighter;
+        border-top: 1px solid $color-gray-lighter;
+        background-color: $color-white;
+        color: $color-gray;
+        font-size: $small-font-size;
+        font-weight:normal;
+        height: 31px;
+        margin-bottom: 0;
+        padding: 0;
+        width: 97px;
+        height: 4rem;
+
+        vertical-align: middle;
+    }
+}

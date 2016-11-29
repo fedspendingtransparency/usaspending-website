@@ -6,6 +6,8 @@
 import React from 'react';
 import Griddle from 'griddle-react';
 
+import ResultsTableTabs from './ResultsTableTabs';
+
 const propTypes = {
     results: React.PropTypes.array
 };
@@ -47,13 +49,18 @@ const propTypes = {
 // ];
 
 export default class ResultsTable extends React.Component {
+
     render() {
+        console.log("RENDER TABLE");
         return (
             <div className="search-results-table">
                 <h3>Spending by Award Type</h3>
                 <hr className="results-divider" />
+                <ResultsTableTabs types={this.props.tableTypes} />
                 <Griddle
                     results={this.props.results}
+                    columns={this.props.columns}
+                    columnMetadata={this.props.columnMeta}
                     resultsPerPage={30} />
             </div>
         );

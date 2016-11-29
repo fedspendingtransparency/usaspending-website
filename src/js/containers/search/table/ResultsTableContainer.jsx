@@ -6,120 +6,112 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import Immutable from 'immutable';
 
 import TableSearchFields from 'dataMapping/search/tableSearchFields';
 
 import ResultsTable from 'components/search/table/ResultsTable';
 
-import * as searchResultActions from 'redux/actions/search/searchResultActions';
+import SearchActions from 'redux/actions/searchActions';
 
-class ResultsTableContainer extends React.Component {
+const propTypes = {
+    rows: React.PropTypes.instanceOf(Immutable.Set),
+    meta: React.PropTypes.instanceOf(Immutable.Record),
+    batch: React.PropTypes.instanceOf(Immutable.Record)
+};
+
+const tableTypes = [
+    {
+        label: 'Contracts',
+        internal: 'contracts'
+    },
+    {
+        label: 'Grants',
+        internal: 'grants'
+    },
+    {
+        label: 'Direct Payments',
+        internal: 'direct_payments'
+    },
+    {
+        label: 'Loans',
+        internal: 'loans'
+    },
+    {
+        label: 'Insurance',
+        internal: 'insurance'
+    }
+];
+
+class ResultsTableContainer extends React.PureComponent {
     constructor(props) {
         super(props);
+
         this.state = {
-            results: []
+            columns: [],
+            columnMeta: []
         };
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.meta !== this.props.meta) {
-            console.log("UPDATE");
-            this.parseResults();
-        }
+    componentWillMount() {
+        this.setColumns(this.props.meta.tableType);
     }
 
-    parseResults() {
-
-        if (typeof Worker) {
-            // web workers are supported
-            window.start = performance.now();
-            const stringValue = {
-                results: this.props.records.awards.toObject(),
-                type: this.props.meta.tableType
-            };
-            const ResultsParserWorker = require('worker-loader?inline!workers/ResultsParserWorker');
-            const worker = new ResultsParserWorker();
-            worker.postMessage(stringValue);
-            worker.onmessage = (raw) => {
-                this.setState({
-                    results: raw.data
-                }, () => {
-                    console.log(performance.now() - window.start);
-                });
-            };
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.meta.tableType !== this.props.meta.tableType) {
+            // table type changed, update columns
+            this.setColumns(nextProps.meta.tableType);
         }
-        else {
-            window.start = performance.now();
-            const ResultsParserWorker = require('workers/ResultsParserWorker').default;
-
-            const results = ResultsParserWorker({
-                results: this.props.records.awards.toObject(),
-                type: this.props.meta.tableType
-            });
-            this.setState({
-                results
-            }, () => {
-                console.log(performance.now() - window.start);
-            });
+    }
+    shouldComponentUpdate(nextProps) {
+        // to reduce the frequency of re-renders, this component will only monitor for
+        // batch triggers
+        if (!Immutable.is(nextProps.batch, this.props.batch)) {
+            return true;
         }
+        return false;
+    }
 
+    setColumns(tableType) {
+         // calculate the column metadata to display in the table
+        const columnMeta = [];
+        const columns = [];
 
-        // const results = [];
+        const tableSettings = TableSearchFields[tableType];
 
-        // const relevantKeys = TableSearchFields[this.props.meta.tableType]._order;
-        // this.props.records.awards.forEach((award) => {
-        //     const row = _.pick(award, relevantKeys);
-        //     results.push(row);
-        // });
+        tableSettings._order.forEach((col) => {
+            const column = {
+                columnName: col,
+                displayName: tableSettings[col]
+            };
+            columnMeta.push(column);
+            columns.push(col);
+        });
 
-        // console.log(results);
-        // this.setState({
-        //     results
-        // });
-    
-
-        
-
-        // const data = JSON.parse(stringValue);
-        // const results = [];
-
-        // const relevantKeys = TableSearchFields[data.type]._order;
-        // relevantKeys.push('_jsid');
-
-        // for (const awardKey of Object.keys(data.results)) {
-        //     const row = _.pick(data.results[awardKey], relevantKeys);
-        //     results.push(row);
-        // }
-        
-        // this.setState({
-        //     results
-        // });
-
-        // const results = [];
-        // for (const award of this.props.records.awards) {
-
-        //     // strip the award object to just the fields we care about
-
-        //     results.push(award);
-        // }
-
-        // this.setState({
-        //     results
-        // });
+        this.setState({ columns, columnMeta }, () => {
+            console.log("updated state");
+        });
     }
 
     render() {
+        console.log("CONTAINER RENDER");
         return (
-            <ResultsTable results={this.state.results} />
+            <ResultsTable
+                results={this.props.rows.toArray()}
+                columns={this.state.columns}
+                columnMeta={this.state.columnMeta}
+                tableTypes={tableTypes} />
         );
     }
 }
 
+ResultsTableContainer.propTypes = propTypes;
+
 export default connect(
     (state) => ({
-        records: state.records,
-        meta: state.resultsMeta
+        rows: state.records.awards,
+        meta: state.resultsMeta,
+        batch: state.resultsBatch
     }),
-    (dispatch) => bindActionCreators(searchResultActions, dispatch)
+    (dispatch) => bindActionCreators(SearchActions, dispatch)
 )(ResultsTableContainer);

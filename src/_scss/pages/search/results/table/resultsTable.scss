@@ -1,3 +1,9 @@
 .search-results-table {
     padding: 3rem 3.5rem;
+    
+    @import "_tableTypes";
+    
+    .griddle-container  {
+        border: none !important;
+    }   
 }
