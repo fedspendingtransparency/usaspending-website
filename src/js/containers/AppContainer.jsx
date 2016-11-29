@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import kGlobalConstants from 'GlobalConstants';
 
+import StoreSingleton from 'redux/storeSingleton';
+
 import reducers from 'redux/reducers/index';
 import HomePage from 'components/HomePage';
 
@@ -19,6 +21,11 @@ if (kGlobalConstants.DEV) {
 }
 
 const store = createStore(reducers, {}, devExtension);
+
+// hold a reference to the store from the store singleton
+const storeSingleton = new StoreSingleton();
+storeSingleton.setStore(store);
+
 export default class AppContainer extends React.Component {
     constructor(props) {
         super(props);

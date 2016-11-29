@@ -732,7 +732,7 @@
     },
     "react-addons-css-transition-group": {
       "version": "0.14.7",
-      "from": "https://registry.npmjs.org/react-addons-css-transition-group/-/react-addons-css-transition-group-0.14.7.tgz",
+      "from": "react-addons-css-transition-group@0.14.7",
       "resolved": "https://registry.npmjs.org/react-addons-css-transition-group/-/react-addons-css-transition-group-0.14.7.tgz"
     },
     "react-addons-test-utils": {
