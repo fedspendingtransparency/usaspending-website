@@ -6,8 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import _ from 'lodash';
+import { isCancel } from 'axios';
 
 import SearchPage from 'components/search/SearchPage';
 
@@ -29,13 +28,13 @@ const combinedActions = Object.assign(
     {}, searchFilterActions, searchResultActions, recordBulkActions);
 
 const propTypes = {
-    search: React.PropTypes.object,
+    filters: React.PropTypes.object,
     clearRecords: React.PropTypes.func,
     bulkInsertRecords: React.PropTypes.func,
     setSearchResultMeta: React.PropTypes.func
 };
 
-class SearchContainer extends React.Component {
+class SearchContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
@@ -43,13 +42,25 @@ class SearchContainer extends React.Component {
             searchParams: new SearchOperation(),
             page: 0
         };
+
+        this.searchRequest = null;
     }
+
     componentDidMount() {
         this.updateFilters();
     }
 
+    shouldComponentUpdate(nextProps) {
+        if (nextProps.filters !== this.props.filters) {
+            // filters changed
+            return true;
+        }
+        // something may have changed, but it is out of scope for this component
+        return false;
+    }
+
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.search.filters, this.props.search.filters)) {
+        if (prevProps.filters !== this.props.filters) {
             // filters changed, update the search object
             this.updateFilters();
         }
@@ -57,7 +68,7 @@ class SearchContainer extends React.Component {
 
     updateFilters() {
         const newSearch = new SearchOperation();
-        newSearch.fromState(this.props.search.filters);
+        newSearch.fromState(this.props.filters);
         this.setState({
             searchParams: newSearch
         }, () => {
@@ -66,10 +77,13 @@ class SearchContainer extends React.Component {
     }
 
     performSearch() {
-        // worker.postMessage('b');
-        // this.state.searchParams.timePeriodRange = ['2016-01-01', '2016-06-30'];
-        // this.state.searchParams.timePeriodFY = ['2015', '2016'];
-        SearchHelper.performPagedSearch(this.state.searchParams.toParams())
+        if (this.searchRequest) {
+            // a request is currently in-flight, cancel it
+            this.searchRequest.cancel();
+        }
+
+        this.searchRequest = SearchHelper.performPagedSearch(this.state.searchParams.toParams());
+        this.searchRequest.promise
             .then((res) => {
                 this.props.clearRecords();
                 const data = res.data;
@@ -79,14 +93,21 @@ class SearchContainer extends React.Component {
                     page: data.page_metadata,
                     total: data.total_metadata
                 });
+
+                // request is done
+                this.searchRequest = null;
             })
             .catch((err) => {
-                if (err.response) {
+                if (isCancel(err)) {
+                    // the request was cancelled
+                }
+                else if (err.response) {
                     // server responded with something
-
+                    this.searchRequest = null;
                 }
                 else {
                     // request never made it out
+                    this.searchRequest = null;
                     console.log(err.message);
                 }
             });
@@ -134,7 +155,6 @@ class SearchContainer extends React.Component {
             award.recipient = recipient._jsid;
             awards[award._jsid] = award;
         });
-
         // write all records into Redux
         this.props.bulkInsertRecords({
             type: 'awards',
@@ -160,13 +180,13 @@ class SearchContainer extends React.Component {
 
     render() {
         return (
-            <SearchPage {...this.props} />
+            <SearchPage />
         );
     }
 }
 
 export default connect(
-    (state) => ({ search: state.search }),
+    (state) => ({ filters: state.filters }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(SearchContainer);
 

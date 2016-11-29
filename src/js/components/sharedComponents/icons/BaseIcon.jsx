@@ -32,6 +32,7 @@ export default class BaseIcon extends React.Component {
 
         this.iconSingleton = IconSingleton;
         this.subscription = null;
+        this.svgEvent = this.svgEvent.bind(this);
     }
     componentDidMount() {
         // download icons if necessary, otherwise populate the correct state
@@ -53,7 +54,7 @@ export default class BaseIcon extends React.Component {
         // check to see if anyone has started the download process
         if (!this.iconSingleton.svgLoaded) {
             // no icons available, subscribe to the singleton to be notified when they are ready
-            this.subscription = this.iconSingleton.subscribe(this.svgEvent.bind(this));
+            this.subscription = this.iconSingleton.subscribe(this.svgEvent);
             // check to see if they are in the process of being downloaded
             if (!this.iconSingleton.svgRequested) {
                 // not requested either, let's request it now

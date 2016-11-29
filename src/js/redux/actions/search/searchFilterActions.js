@@ -14,17 +14,9 @@ export const bulkAwardTypeChange = (state) => ({
     direction: state.direction
 });
 
-export const updateTimePeriodFY = (state) => ({
-    type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD_FY',
-    fy: state
-});
-
-export const setTimePeriodStart = (state) => ({
-    type: 'SET_SEARCH_FILTER_TIME_PERIOD_START',
-    start: state
-});
-
-export const setTimePeriodEnd = (state) => ({
-    type: 'SET_SEARCH_FILTER_TIME_PERIOD_END',
-    end: state
+export const updateTimePeriod = (state) => ({
+    type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
+    fy: state.fy,
+    start: state.startDate,
+    end: state.endDate
 });

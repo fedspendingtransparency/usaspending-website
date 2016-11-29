@@ -4,6 +4,11 @@ import WarningBanner from './WarningBanner';
 import NavBar from './NavBar';
 
 export default class Header extends React.Component {
+    constructor(props) {
+        super(props);
+        // bind functions
+        this.skippedNav = this.skippedNav.bind(this);
+    }
     skippedNav(e) {
         // don't update the URL due to potential React Router conflicts
         e.preventDefault();
@@ -17,7 +22,7 @@ export default class Header extends React.Component {
                 <a
                     href="#main-content"
                     className="skip-nav"
-                    onClick={this.skippedNav.bind(this)}>
+                    onClick={this.skippedNav}>
                         Skip to main content
                 </a>
                 <header>

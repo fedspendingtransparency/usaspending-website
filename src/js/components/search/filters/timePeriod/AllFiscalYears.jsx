@@ -16,7 +16,12 @@ const propTypes = {
 };
 
 export default class AllFiscalYears extends React.Component {
-
+    constructor(props) {
+        super(props);
+        // bind functions
+        this.saveAllYears = this.saveAllYears.bind(this);
+        this.saveSelectedYear = this.saveSelectedYear.bind(this);
+    }
     saveSelectedYear(year) {
         // copy array
         let arrayFY = this.props.selectedFY;
@@ -64,14 +69,14 @@ export default class AllFiscalYears extends React.Component {
             checked={this.props.allFY}
             year="all"
             key="all"
-            saveAllYears={this.saveAllYears.bind(this)} />);
+            saveAllYears={this.saveAllYears} />);
 
         const fiscalYears = this.props.timePeriods.map((year, index) =>
             <FiscalYear
                 checked={selectedFY.has(year)}
                 year={year}
                 key={index}
-                saveSelectedYear={this.saveSelectedYear.bind(this)} />);
+                saveSelectedYear={this.saveSelectedYear} />);
 
         return (
             <ul className="fiscal-years">
