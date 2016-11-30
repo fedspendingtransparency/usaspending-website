@@ -4,8 +4,11 @@
  **/
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import perflogger from 'redux-perf-middleware';
 import kGlobalConstants from 'GlobalConstants';
+
+import StoreSingleton from 'redux/storeSingleton';
 
 import reducers from 'redux/reducers/index';
 import HomePage from 'components/HomePage';
@@ -13,12 +16,25 @@ import HomePage from 'components/HomePage';
 import RouterContainer from './router/RouterContainer';
 
 let devExtension;
+let store;
 if (kGlobalConstants.DEV) {
     // only enable Redux debugging in dev mode
     devExtension = window.devToolsExtension ? window.devToolsExtension() : undefined;
 }
 
-const store = createStore(reducers, {}, devExtension);
+if (kGlobalConstants.PERF_LOG) {
+    // enable performance logging
+    const createStoreWithMiddleware = applyMiddleware(perflogger)(createStore);
+    store = createStoreWithMiddleware(reducers, devExtension);
+}
+else {
+    store = createStore(reducers, {}, devExtension);
+}
+
+// hold a reference to the store from the store singleton
+const storeSingleton = new StoreSingleton();
+storeSingleton.setStore(store);
+
 export default class AppContainer extends React.Component {
     constructor(props) {
         super(props);

@@ -11,21 +11,15 @@ import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
 
 const defaultProps = {
-    timePeriods: [
-        '2016',
-        '2015',
-        '2014',
-        '2013',
-        '2012',
-        '2011',
-        '2010',
-        '2009'
-    ]
+    activeTab: 'fy'
 };
 
 const propTypes = {
     label: React.PropTypes.string,
-    timePeriods: React.PropTypes.array
+    timePeriods: React.PropTypes.array,
+    activeTab: React.PropTypes.string,
+    updateFilter: React.PropTypes.func,
+    changeTab: React.PropTypes.func
 };
 
 export default class TimePeriod extends React.Component {
@@ -37,19 +31,23 @@ export default class TimePeriod extends React.Component {
             startDate: null,
             endDate: null,
             showError: false,
-            shownFilter: 'fy',
             header: '',
             description: '',
             isActive: false,
             selectedFY: new Set(),
             allFY: false
         };
+
+        // bind functions
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.saveSelected = this.saveSelected.bind(this);
+        this.showError = this.showError.bind(this);
+        this.hideError = this.hideError.bind(this);
+        this.toggleFilters = this.toggleFilters.bind(this);
     }
 
-    toggleFilters(filter) {
-        this.setState({
-            shownFilter: filter
-        });
+    toggleFilters(e) {
+        this.props.changeTab(e.target.value);
     }
 
     handleDateChange(date, dateType) {
@@ -79,6 +77,11 @@ export default class TimePeriod extends React.Component {
             else {
                 // valid!
                 this.hideError();
+                // update the filter parameters
+                this.props.updateFilter({
+                    startDate: start.format('YYYY-MM-DD'),
+                    endDate: end.format('YYYY-MM-DD')
+                });
             }
         }
         else {
@@ -106,6 +109,10 @@ export default class TimePeriod extends React.Component {
         this.setState({
             selectedFY: arrayFY,
             allFY: allSelected
+        }, () => {
+            this.props.updateFilter({
+                fy: [...this.state.selectedFY]
+            });
         });
     }
 
@@ -115,14 +122,14 @@ export default class TimePeriod extends React.Component {
         let activeClassFY = null;
         let activeClassDR = null;
 
-        if (this.state.showError && this.state.shownFilter === 'dr') {
+        if (this.state.showError && this.props.activeTab === 'dr') {
             errorDetails = (<DateRangeError
                 header={this.state.header} message={this.state.errorMessage} />);
         }
 
-        if (this.state.shownFilter === 'fy') {
+        if (this.props.activeTab === 'fy') {
             showFilter = (<AllFiscalYears
-                saveSelected={this.saveSelected.bind(this)}
+                saveSelected={this.saveSelected}
                 timePeriods={this.props.timePeriods}
                 allFY={this.state.allFY}
                 selectedFY={this.state.selectedFY} />);
@@ -136,9 +143,9 @@ export default class TimePeriod extends React.Component {
                 startingTab={1}
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
-                onDateChange={this.handleDateChange.bind(this)}
-                showError={this.showError.bind(this)}
-                hideError={this.hideError.bind(this)} />);
+                onDateChange={this.handleDateChange}
+                showError={this.showError}
+                hideError={this.hideError} />);
             activeClassFY = 'inactive';
             activeClassDR = '';
         }
@@ -149,16 +156,14 @@ export default class TimePeriod extends React.Component {
                     <li>
                         <button
                             className={`date-toggle ${activeClassFY}`}
-                            onClick={() => {
-                                this.toggleFilters('fy');
-                            }}>Fiscal Year</button>
+                            value="fy"
+                            onClick={this.toggleFilters}>Fiscal Year</button>
                     </li>
                     <li>
                         <button
                             className={`date-toggle ${activeClassDR}`}
-                            onClick={() => {
-                                this.toggleFilters('dr');
-                            }}>Date Range</button>
+                            value="dr"
+                            onClick={this.toggleFilters}>Date Range</button>
                     </li>
                 </ul>
                 { showFilter }

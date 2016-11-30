@@ -9,7 +9,7 @@ import searchResultsReducer from './search/searchResultsReducer';
 import searchFiltersReducer from './search/searchFiltersReducer';
 
 const searchReducer = combineReducers({
-    results: searchResultsReducer,
+    resultsMeta: searchResultsReducer,
     filters: searchFiltersReducer
 });
 

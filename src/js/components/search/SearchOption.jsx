@@ -6,8 +6,8 @@
 import React from 'react';
 
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
+import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import SearchBox from './filters/keyword/SearchBox';
-import TimePeriod from './filters/timePeriod/TimePeriod';
 import FilterExpandButton from './FilterExpandButton';
 
 const propTypes = {
@@ -23,6 +23,9 @@ export default class SearchOption extends React.Component {
             showFilter: false,
             arrowState: 'collapsed'
         };
+
+        // bind functions
+        this.toggleFilter = this.toggleFilter.bind(this);
     }
 
     toggleFilter(e) {
@@ -49,7 +52,7 @@ export default class SearchOption extends React.Component {
                 searchOption = (<AwardTypeContainer />);
                 break;
             case 'Time Period':
-                searchOption = (<TimePeriod />);
+                searchOption = (<TimePeriodContainer />);
                 break;
             default:
                 searchOption = null;
@@ -63,7 +66,7 @@ export default class SearchOption extends React.Component {
             <div className="search-option">
                 <FilterExpandButton
                     hidden={this.state.showFilter}
-                    toggleFilter={this.toggleFilter.bind(this)}
+                    toggleFilter={this.toggleFilter}
                     arrowState={this.state.arrowState}
                     name={this.props.name} />
                 {searchOption}

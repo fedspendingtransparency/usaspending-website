@@ -17,6 +17,17 @@ const propTypes = {
 };
 
 export default class AwardExpandButton extends React.Component {
+    constructor(props) {
+        super(props);
+        this.clickedButton = this.clickedButton.bind(this);
+    }
+    clickedButton() {
+        if (this.props.hidden) {
+            // button is disabled
+            return;
+        }
+        this.props.toggleExpand();
+    }
     render() {
         let hiddenClass = '';
         if (this.props.hidden) {
@@ -31,7 +42,7 @@ export default class AwardExpandButton extends React.Component {
         return (
             <button
                 className={`toggle ${hiddenClass}`}
-                onClick={this.props.toggleExpand}
+                onClick={this.clickedButton}
                 title={`child filters`}
                 disabled={this.props.hidden}>
                 {icon}

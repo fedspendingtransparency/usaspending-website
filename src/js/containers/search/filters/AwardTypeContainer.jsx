@@ -20,6 +20,6 @@ class AwardTypeContainer extends React.Component {
 }
 
 export default connect(
-    (state) => ({ reduxFilters: state.search.filters.awardType }),
+    (state) => ({ reduxFilters: state.filters.awardType }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(AwardTypeContainer);

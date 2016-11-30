@@ -37,16 +37,23 @@ export default class DateRange extends React.Component {
             <div className="date-range-option">
                 <div className="date-range-wrapper">
                     <DatePicker
-                        type="startDate" title="Start Date" tabIndex={this.props.startingTab}
+                        type="startDate"
+                        title="Start Date"
+                        tabIndex={this.props.startingTab}
                         onDateChange={this.props.onDateChange}
                         value={this.props.startDate}
-                        opposite={this.props.endDate} showError={this.props.showError.bind(this)}
-                        hideError={this.props.hideError.bind(this)} />
+                        opposite={this.props.endDate}
+                        showError={this.props.showError}
+                        hideError={this.props.hideError} />
                     <DatePicker
-                        type="endDate" title="End Date" tabIndex={this.props.startingTab + 4}
-                        onDateChange={this.props.onDateChange} value={this.props.endDate}
-                        opposite={this.props.startDate} showError={this.props.showError.bind(this)}
-                        hideError={this.props.hideError.bind(this)} />
+                        type="endDate"
+                        title="End Date"
+                        tabIndex={this.props.startingTab + 4}
+                        onDateChange={this.props.onDateChange}
+                        value={this.props.endDate}
+                        opposite={this.props.startDate}
+                        showError={this.props.showError}
+                        hideError={this.props.hideError} />
                 </div>
             </div>
         );

@@ -17,7 +17,12 @@ const defaultProps = {
 };
 
 export default class FiscalYear extends React.Component {
-
+    constructor(props) {
+        super(props);
+        // bind functions
+        this.allYears = this.allYears.bind(this);
+        this.saveYear = this.saveYear.bind(this);
+    }
     saveYear() {
         this.props.saveSelectedYear(this.props.year);
     }
@@ -36,7 +41,7 @@ export default class FiscalYear extends React.Component {
                     id={`fy${this.props.year}`}
                     value="All Fiscal Years"
                     checked={this.props.checked}
-                    onChange={this.allYears.bind(this)} />
+                    onChange={this.allYears} />
                 <label htmlFor={`fy${this.props.year}`}>All Fiscal Years</label>
             </li>);
         }
@@ -47,7 +52,7 @@ export default class FiscalYear extends React.Component {
                     id={`fy${this.props.year}`}
                     value={`FY ${this.props.year}`}
                     checked={this.props.checked}
-                    onChange={this.saveYear.bind(this)} />
+                    onChange={this.saveYear} />
                 <label htmlFor={`fy${this.props.year}`}>{`FY ${this.props.year}`}</label>
             </li>);
         }

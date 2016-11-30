@@ -37,6 +37,16 @@ export default class DatePicker extends React.Component {
 
         this.delayedBlur = false;
         this.escapeEvent = '';
+
+        // bind functions
+        this.datePickerChangeEvent = this.datePickerChangeEvent.bind(this);
+        this.handleTypedDate = this.handleTypedDate.bind(this);
+        this.handleInputBlur = this.handleInputBlur.bind(this);
+        this.toggleDatePicker = this.toggleDatePicker.bind(this);
+        this.handleDatePick = this.handleDatePick.bind(this);
+        this.handleDateFocus = this.handleDateFocus.bind(this);
+        this.handleDateBlur = this.handleDateBlur.bind(this);
+        this.escapeEvent = this.escapeDatePicker.bind(this);
     }
 
     componentDidMount() {
@@ -64,7 +74,7 @@ export default class DatePicker extends React.Component {
 
         this.setState({
             showDatePicker: !this.state.showDatePicker
-        }, this.datePickerChangeEvent.bind(this));
+        }, this.datePickerChangeEvent);
     }
 
     datePickerChangeEvent() {
@@ -74,7 +84,6 @@ export default class DatePicker extends React.Component {
 
             // we want to close the date picker on escape key
             // have to hold a reference to the bound function in order to cancel the listener later
-            this.escapeEvent = this.escapeDatePicker.bind(this);
             window.addEventListener('keyup', this.escapeEvent);
         }
         else {
@@ -153,7 +162,7 @@ export default class DatePicker extends React.Component {
         this.delayedBlur = window.setTimeout(() => {
             this.setState({
                 showDatePicker: false
-            }, this.datePickerChangeEvent.bind(this));
+            }, this.datePickerChangeEvent);
         }, 20);
     }
 
@@ -215,10 +224,10 @@ export default class DatePicker extends React.Component {
                         ref={(input) => {
                             this.text = input;
                         }}
-                        onChange={this.handleTypedDate.bind(this)}
-                        onBlur={this.handleInputBlur.bind(this)} />
+                        onChange={this.handleTypedDate}
+                        onBlur={this.handleInputBlur} />
                     <a
-                        href="#null" onClick={this.toggleDatePicker.bind(this)}
+                        href="#null" onClick={this.toggleDatePicker}
                         tabIndex={this.props.tabIndex + 1}
                         className="usa-da-icon picker-icon date" aria-haspopup="true">
                         <Icons.Calendar alt="Date picker" />
@@ -232,9 +241,9 @@ export default class DatePicker extends React.Component {
                         initialMonth={pickedDay}
                         disabledDays={cutoffFunc}
                         selectedDays={(day) => DateUtils.isSameDay(pickedDay, day)}
-                        onDayClick={this.handleDatePick.bind(this)}
-                        onFocus={this.handleDateFocus.bind(this)}
-                        onBlur={this.handleDateBlur.bind(this)} />
+                        onDayClick={this.handleDatePick}
+                        onFocus={this.handleDateFocus}
+                        onBlur={this.handleDateBlur} />
                 </div>
             </div>
         );

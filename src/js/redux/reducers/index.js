@@ -5,10 +5,14 @@
 
 import { combineReducers } from 'redux';
 
-import searchReducer from './searchReducer';
+import resultsMetaReducer from './search/searchResultsReducer';
+import filtersReducer from './search/searchFiltersReducer';
+import recordReducer from './records/recordReducer';
 
 const appReducer = combineReducers({
-    search: searchReducer
+    resultsMeta: resultsMetaReducer,
+    filters: filtersReducer,
+    records: recordReducer
 });
 
 export default appReducer;

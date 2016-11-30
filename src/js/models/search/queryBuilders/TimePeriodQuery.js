@@ -9,22 +9,12 @@ const endDateField = 'period_of_performance_current_end_date';
 const buildFYRangeQuery = (fyRange) => {
     const fyFilters = [];
     fyRange.forEach((fy) => {
-        // iterate through each FY and generate a pair of OR queries for start and end date
-        // that matches the FY period
+        // iterate through each FY and generate a range_intersect filter for the FY
         const fyQuery = {
-            combine_method: 'OR',
-            filters: [
-                {
-                    field: startDateField,
-                    operation: 'fy',
-                    value: fy
-                },
-                {
-                    field: endDateField,
-                    operation: 'fy',
-                    value: fy
-                }
-            ]
+            field: [startDateField, endDateField],
+            operation: 'range_intersect',
+            value: fy,
+            value_format: 'fy'
         };
         fyFilters.push(fyQuery);
     });
@@ -40,19 +30,9 @@ const buildFYRangeQuery = (fyRange) => {
 // build an OR query to search for start dates on or after the start of the range
 // or end dates before or on the end of the range
 const buildDateRangeQuery = (dateRange) => ({
-    combine_method: 'OR',
-    filters: [
-        {
-            field: startDateField,
-            operation: 'greater_than_or_equal',
-            value: dateRange[0]
-        },
-        {
-            field: endDateField,
-            operation: 'less_than_or_equal',
-            value: dateRange[1]
-        }
-    ]
+    field: [startDateField, endDateField],
+    operation: 'range_intersect',
+    value: dateRange
 });
 
 export const buildQuery = (fyRange, dateRange) => {
