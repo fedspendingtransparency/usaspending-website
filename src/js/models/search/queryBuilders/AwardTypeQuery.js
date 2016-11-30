@@ -3,7 +3,9 @@
   * Created by Kevin Li 11/7/16
   **/
 
-const contractValues = new Set(['A', 'B', 'C', 'D']);
+import { awardTypeGroups } from 'dataMapping/search/awardType';
+
+const contractValues = new Set(awardTypeGroups.contracts);
 const contractFieldName = 'procurement__contract_award_type';
 const otherFieldName = 'type';
 

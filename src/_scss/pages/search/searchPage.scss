@@ -12,7 +12,7 @@
     }
 
     .search-results-wrapper {
-        @include span-columns(11);
+        @include span-columns(12);
         @import "./results/searchResults";
     }
 

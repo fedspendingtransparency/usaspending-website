@@ -5,64 +5,35 @@
 
 import React from 'react';
 import Griddle from 'griddle-react';
-
-import ResultsTableTabs from './ResultsTableTabs';
+import Immutable from 'immutable';
 
 const propTypes = {
-    results: React.PropTypes.array
+    results: React.PropTypes.array,
+    batch: React.PropTypes.object,
+    columns: React.PropTypes.array,
+    columnMeta: React.PropTypes.array
 };
 
-// const columns = [
-//     'id',
-//     'recipient',
-//     'period_of_performance_start_date',
-//     'period_of_performance_current_end_date',
-//     'total_obligation'
-// ];
+export default class ResultsTable extends React.PureComponent {
 
-// const columnMetadata = [
-//     {
-//         columnName: 'id',
-//         order: 1,
-//         displayName: 'ID'
-//     },
-//     {
-//         columnName: 'recipient',
-//         order: 2,
-//         displayName: 'Recipient'
-//     },
-//     {
-//         columnName: 'period_of_performance_start_date',
-//         order: 3,
-//         displayName: 'Start Date'
-//     },
-//     {
-//         columnName: 'period_of_performance_current_end_date',
-//         order: 4,
-//         displayName: 'End Date'
-//     },
-//     {
-//         columnName: 'total_obligation',
-//         order: 5,
-//         displayName: 'Total Obligated'
-//     }
-// ];
-
-export default class ResultsTable extends React.Component {
+    shouldComponentUpdate(nextProps) {
+        // to reduce the frequency of re-renders, this component will only monitor for
+        // batch triggers
+        if (!Immutable.is(nextProps.batch, this.props.batch)) {
+            return true;
+        }
+        return false;
+    }
 
     render() {
         console.log("RENDER TABLE");
         return (
-            <div className="search-results-table">
-                <h3>Spending by Award Type</h3>
-                <hr className="results-divider" />
-                <ResultsTableTabs types={this.props.tableTypes} />
-                <Griddle
-                    results={this.props.results}
-                    columns={this.props.columns}
-                    columnMetadata={this.props.columnMeta}
-                    resultsPerPage={30} />
-            </div>
+            <Griddle
+                results={this.props.results}
+                columns={this.props.columns}
+                columnMetadata={this.props.columnMeta}
+                resultsPerPage={15}
+                useGriddleStyles={false} />
         );
     }
 }

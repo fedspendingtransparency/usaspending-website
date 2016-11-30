@@ -1,21 +1,30 @@
 .table-types {
-    border-bottom: 1px solid $color-gray-lighter;
+    border-bottom: 1px solid $color-gray-light;
+    padding-left: 15px;
 
     button.table-type-toggle {
-        // @include button-unstyled();
-        border-left: 1px solid $color-gray-lighter;
-        border-right: 1px solid $color-gray-lighter;
-        border-top: 1px solid $color-gray-lighter;
-        background-color: $color-white;
-        color: $color-gray;
-        font-size: $small-font-size;
+        border-left: 1px solid $color-gray-light;
+        border-right: 1px solid $color-gray-light;
+        border-top: 1px solid $color-gray-light;
+        color: $color-white;
+        background-color: $color-gray-light;
+        font-size: $base-font-size;
         font-weight:normal;
         height: 31px;
         margin-bottom: 0;
-        padding: 0;
-        width: 97px;
-        height: 4rem;
+        margin-right: 2px;
+        padding: 1.5rem;
+        min-width: 97px;
+        height: 5rem;
 
         vertical-align: middle;
+
+        position: relative;
+        top: 1px;
+
+        &.active {
+            background-color: $color-white;
+            color: $color-black;
+        }
     }
 }

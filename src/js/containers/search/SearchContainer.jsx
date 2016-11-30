@@ -14,6 +14,7 @@ import SearchOperation from 'models/search/SearchOperation';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import TableSearchFields from 'dataMapping/search/tableSearchFields';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 import SearchActions from 'redux/actions/searchActions';
 import AwardSummary from 'models/results/award/AwardSummary';
@@ -24,6 +25,7 @@ const propTypes = {
     clearRecords: React.PropTypes.func,
     bulkInsertRecordSet: React.PropTypes.func,
     setSearchResultMeta: React.PropTypes.func,
+    setSearchInFlight: React.PropTypes.func,
     triggerBatchUpdate: React.PropTypes.func
 };
 
@@ -61,6 +63,10 @@ class SearchContainer extends React.PureComponent {
             // filters changed, update the search object
             this.updateFilters();
         }
+        else if (prevProps.metaType !== this.props.metaType) {
+            // table type has changed
+            this.updateFilters();
+        }
     }
 
     updateFilters() {
@@ -79,10 +85,19 @@ class SearchContainer extends React.PureComponent {
             this.searchRequest.cancel();
         }
 
-        this.searchRequest = SearchHelper.performPagedSearch(this.state.searchParams.toParams(), 1,
-            30, TableSearchFields[this.props.metaType]._api);
+        // append the table type to the current search params
+        const searchParams = Object.assign(new SearchOperation(), this.state.searchParams);
+        const tableAwardTypes = awardTypeGroups[this.props.metaType];
+        searchParams.resultAwardType = tableAwardTypes;
+
+        // indicate the request is about to start
+        this.props.setSearchInFlight(true);
+
+        this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(), 1,
+            1, TableSearchFields[this.props.metaType]._api);
         this.searchRequest.promise
             .then((res) => {
+                this.props.setSearchInFlight(false);
                 this.props.clearRecords();
                 const data = res.data;
                 this.saveData(data.results);

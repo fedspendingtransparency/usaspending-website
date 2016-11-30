@@ -1,0 +1,13 @@
+.griddle-container {
+    table {
+        display: table;
+
+        tr.standard-row {
+            display: table-row;
+
+            td {
+                display: table-cell;
+            }
+        }
+    }
+}

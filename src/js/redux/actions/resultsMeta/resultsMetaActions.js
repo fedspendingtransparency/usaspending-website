@@ -12,3 +12,8 @@ export const setSearchTableType = (state) => ({
     type: 'SET_SEARCH_TABLE_TYPE',
     tableType: state
 });
+
+export const setSearchInFlight = (state) => ({
+    type: 'SET_SEARCH_INFLIGHT',
+    inFlight: state
+});

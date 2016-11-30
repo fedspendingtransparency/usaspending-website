@@ -16,7 +16,8 @@ const initialValues = {
         count: 0,
         total_obligation_sum: 0
     },
-    tableType: 'contracts'
+    tableType: 'contracts',
+    inFlight: false
 };
 
 const MetaRecord = Record(initialValues);
@@ -26,6 +27,10 @@ const resultsMetaReducer = (state = new MetaRecord(), action) => {
         case 'SET_SEARCH_RESULT_META':
             // set the search result metadata
             return state.merge(action.meta);
+        case 'SET_SEARCH_INFLIGHT':
+            return state.merge({
+                inFlight: action.inFlight
+            });
         case 'SET_SEARCH_TABLE_TYPE':
             return state.merge({
                 tableType: action.tableType

@@ -25,7 +25,7 @@ export const performSearch = (searchParams) => {
 };
 
 // convenience function for performing paged searches
-export const performPagedSearch = (filters = [], page = 1, limit = 30, fields = null,
+export const performPagedSearch = (filters = [], page = 1, limit = 15, fields = null,
         exclude = null) => {
     const params = { filters, page, limit };
     if (fields != null) {

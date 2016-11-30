@@ -10,7 +10,8 @@ import Immutable from 'immutable';
 
 import TableSearchFields from 'dataMapping/search/tableSearchFields';
 
-import ResultsTable from 'components/search/table/ResultsTable';
+import ResultsTableContent from 'components/search/table/ResultsTableContent';
+import ResultsTableCell from 'components/search/table/ResultsTableCell';
 
 import SearchActions from 'redux/actions/searchActions';
 
@@ -43,7 +44,7 @@ const tableTypes = [
     }
 ];
 
-class ResultsTableContainer extends React.PureComponent {
+class ResultsTableContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -51,6 +52,8 @@ class ResultsTableContainer extends React.PureComponent {
             columns: [],
             columnMeta: []
         };
+
+        this.switchTab = this.switchTab.bind(this);
     }
 
     componentWillMount() {
@@ -63,14 +66,6 @@ class ResultsTableContainer extends React.PureComponent {
             this.setColumns(nextProps.meta.tableType);
         }
     }
-    shouldComponentUpdate(nextProps) {
-        // to reduce the frequency of re-renders, this component will only monitor for
-        // batch triggers
-        if (!Immutable.is(nextProps.batch, this.props.batch)) {
-            return true;
-        }
-        return false;
-    }
 
     setColumns(tableType) {
          // calculate the column metadata to display in the table
@@ -82,25 +77,32 @@ class ResultsTableContainer extends React.PureComponent {
         tableSettings._order.forEach((col) => {
             const column = {
                 columnName: col,
-                displayName: tableSettings[col]
+                displayName: tableSettings[col],
+                customComponent: ResultsTableCell
             };
             columnMeta.push(column);
             columns.push(col);
         });
 
-        this.setState({ columns, columnMeta }, () => {
-            console.log("updated state");
-        });
+        this.setState({ columns, columnMeta });
+    }
+
+    switchTab(tab) {
+        this.props.setSearchTableType(tab);
     }
 
     render() {
         console.log("CONTAINER RENDER");
         return (
-            <ResultsTable
+            <ResultsTableContent
+                batch={this.props.batch}
+                inFlight={this.props.meta.inFlight}
                 results={this.props.rows.toArray()}
                 columns={this.state.columns}
                 columnMeta={this.state.columnMeta}
-                tableTypes={tableTypes} />
+                tableTypes={tableTypes}
+                currentType={this.props.meta.tableType}
+                switchTab={this.switchTab} />
         );
     }
 }

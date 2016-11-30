@@ -18,6 +18,7 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type',
+            'procurement_set',
             'awarding_agency'
         ],
         id: 'Award ID',
@@ -106,6 +107,7 @@ const tableSearchFields = {
             'type',
             'awarding_agency'
         ],
+        _type: ['07', '08'],
         id: 'Award ID',
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
