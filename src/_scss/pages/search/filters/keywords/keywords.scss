@@ -1,7 +1,9 @@
 .keyword-filter {
-    input {
-        width: 90%;
+    .keyword-input {
+        font-size: $small-font-size;
         height: 4rem;
         margin: 0 auto;
+        padding:  11px 8px 11px 8px;
+        width: 90%;
     }
 }

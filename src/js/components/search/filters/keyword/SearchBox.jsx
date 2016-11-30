@@ -11,7 +11,11 @@ export default class SearchBox extends React.Component {
         return (
             <div className="keyword-filter search-filter">
                 <div>
-                    <input id="search" type="text" className="" />
+                    <input
+                        id="search"
+                        type="text"
+                        className="keyword-input"
+                        placeholder="eg: Education" />
                 </div>
             </div>
         );

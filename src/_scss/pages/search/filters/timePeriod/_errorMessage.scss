@@ -1,0 +1,35 @@
+.error-message {
+    @include usa-input-error-message;
+    @include span-columns(15);
+    padding: 15px;
+    border: 1px solid $color-secondary-dark;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+
+    .error-title {
+        height: 30px;
+        display: block;
+        max-height: 30px;
+
+        .heading {
+            font-weight: bold;
+            font-size: 24px;
+            margin-left: .5rem;
+            margin-top: .2rem;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        svg {
+            width: 30px;
+            fill: $color-secondary-dark;
+        }
+
+    }
+
+    .message {
+        font-size: 14px;
+        line-height: 1.2;
+        margin-bottom: 0;
+    }
+}

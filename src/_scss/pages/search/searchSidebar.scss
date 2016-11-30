@@ -5,9 +5,18 @@
     background-color: $color-white;
     @import '../../elements/_inputs';
     @import '../../elements/_labels';
-    
+
+
+    margin-top: 3.2rem;
+    box-shadow: $container-shadow;
+
     .sidebar-header {
-        margin-left: 1.5rem;
+        border-bottom: 1px solid $color-gray-lighter;
+        font-size: 1.6rem;
+        padding: 0 0 0 2rem;
+        line-height: 5.7rem;
+        margin: 0;
+        vertical-align: middle;
     }
 
 }
