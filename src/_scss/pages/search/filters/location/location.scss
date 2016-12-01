@@ -1,0 +1,23 @@
+.location-filter {
+
+    .location-radio, .location-autocomplete {
+        p {
+            font-size: $small-font-size;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    .location-input {
+        font-size: $small-font-size;
+        height: 4rem;
+        margin: 0 auto;
+        padding:  11px 8px 11px 8px;
+        width: 90%;
+    }
+
+    .location-autocomplete {
+        margin-top: 2rem;
+    }
+
+}

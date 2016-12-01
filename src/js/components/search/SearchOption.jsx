@@ -7,6 +7,7 @@ import React from 'react';
 
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
+import LocationSearchContainer from 'containers/search/filters/LocationSearchContainer';
 import SearchBox from './filters/keyword/SearchBox';
 import FilterExpandButton from './FilterExpandButton';
 
@@ -53,6 +54,9 @@ export default class SearchOption extends React.Component {
                 break;
             case 'Time Period':
                 searchOption = (<TimePeriodContainer />);
+                break;
+            case 'Location':
+                searchOption = (<LocationSearchContainer />);
                 break;
             default:
                 searchOption = null;
