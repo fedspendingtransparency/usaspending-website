@@ -152,16 +152,20 @@ export default class TimePeriod extends React.Component {
 
         return (
             <div className="time-period-filter search-filter">
-                <div className="toggle-buttons">
-                    <button
-                        className={`date-toggle ${activeClassFY}`}
-                        value="fy"
-                        onClick={this.toggleFilters}>Fiscal Year</button>
-                    <button
-                        className={`date-toggle ${activeClassDR}`}
-                        value="dr"
-                        onClick={this.toggleFilters}>Date Range</button>
-                </div>
+                <ul className="toggle-buttons">
+                    <li>
+                        <button
+                            className={`date-toggle ${activeClassFY}`}
+                            value="fy"
+                            onClick={this.toggleFilters}>Fiscal Year</button>
+                    </li>
+                    <li>
+                        <button
+                            className={`date-toggle ${activeClassDR}`}
+                            value="dr"
+                            onClick={this.toggleFilters}>Date Range</button>
+                    </li>
+                </ul>
                 { showFilter }
                 { errorDetails }
             </div>

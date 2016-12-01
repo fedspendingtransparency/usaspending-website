@@ -8,16 +8,15 @@ import SearchOption from './SearchOption';
 
 const defaultProps = {
     options: [
-        'Keywords',
-        'Award Type',
+        'Search',
         'Time Period',
-        'Primary Place of Performance',
+        'Location',
+        'Budget Categories',
         'Agencies',
         'Recipient Information',
+        'Award Type',
         'Award ID',
         'Award Amount',
-        'Appropriations Account',
-        'CFDA Program',
         'Contract Specific Details'
     ]
 };
