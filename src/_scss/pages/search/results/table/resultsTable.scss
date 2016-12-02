@@ -1,13 +1,12 @@
-.search-results-table {
+.search-results-table-section {
     padding: 3rem 3.5rem;
     transition: opacity 0.25s ease;
     
     @import "_tableTypes";
     @import "_tableStyle";
-    @import "_tableWidths";
 
     .loading-table {
-        opacity: 0.2;
+        opacity: 0.5;
         @include transition(opacity 0.25s ease-in);
     }
 

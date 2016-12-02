@@ -7,7 +7,7 @@
         border-right: 1px solid $color-gray-light;
         border-top: 1px solid $color-gray-light;
         color: $color-white;
-        background-color: $color-gray-light;
+        background-color: $color-gray;
         font-size: $base-font-size;
         font-weight:normal;
         height: 31px;
@@ -24,7 +24,7 @@
 
         &.active {
             background-color: $color-white;
-            color: $color-black;
+            color: $color-gray-dark;
         }
     }
 }

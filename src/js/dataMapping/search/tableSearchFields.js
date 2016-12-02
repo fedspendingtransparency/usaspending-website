@@ -1,4 +1,13 @@
 const tableSearchFields = {
+    columnWidths: {
+        id: 130,
+        recipient_name: 280,
+        period_of_performance_start_date: 120,
+        period_of_performance_current_end_date: 120,
+        total_obligation: 180,
+        type: 200,
+        awarding_agency_name: 250
+    },
     contracts: {
         _order: [
             'id',
@@ -18,7 +27,6 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type',
-            'procurement_set',
             'awarding_agency'
         ],
         id: 'Award ID',
@@ -34,7 +42,7 @@ const tableSearchFields = {
             'id',
             'recipient_name',
             'period_of_performance_start_date',
-            'period_of_performance_end_date',
+            'period_of_performance_current_end_date',
             'total_obligation',
             'type',
             'awarding_agency_name'
@@ -53,7 +61,7 @@ const tableSearchFields = {
         id: 'Award ID',
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
-        period_of_performance_end_date: 'End Date',
+        period_of_performance_current_end_date: 'End Date',
         total_obligation: 'Total Funded To-Date',
         type: 'Award Type',
         awarding_agency_name: 'Awarding Agency'
@@ -63,7 +71,7 @@ const tableSearchFields = {
             'id',
             'recipient_name',
             'period_of_performance_start_date',
-            'period_of_performance_end_date',
+            'period_of_performance_current_end_date',
             'total_obligation',
             'type',
             'awarding_agency_name'
@@ -82,7 +90,7 @@ const tableSearchFields = {
         id: 'Award ID',
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
-        period_of_performance_end_date: 'End Date',
+        period_of_performance_current_end_date: 'End Date',
         total_obligation: 'Total Funded To-Date',
         type: 'Award Type',
         awarding_agency_name: 'Awarding Agency'
@@ -92,7 +100,7 @@ const tableSearchFields = {
             'id',
             'recipient_name',
             'period_of_performance_start_date',
-            'period_of_performance_end_date',
+            'period_of_performance_current_end_date',
             'type',
             'awarding_agency_name'
         ],
@@ -111,7 +119,7 @@ const tableSearchFields = {
         id: 'Award ID',
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
-        period_of_performance_end_date: 'End Date',
+        period_of_performance_current_end_date: 'End Date',
         type: 'Award Type',
         awarding_agency_name: 'Awarding Agency'
     },
@@ -120,7 +128,7 @@ const tableSearchFields = {
             'id',
             'recipient_name',
             'period_of_performance_start_date',
-            'period_of_performance_end_date',
+            'period_of_performance_current_end_date',
             'total_obligation',
             'type',
             'awarding_agency_name'
@@ -139,7 +147,7 @@ const tableSearchFields = {
         id: 'Award ID',
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
-        period_of_performance_end_date: 'End Date',
+        period_of_performance_current_end_date: 'End Date',
         total_obligation: 'Total Funded To-Date',
         type: 'Award Type',
         awarding_agency_name: 'Awarding Agency'

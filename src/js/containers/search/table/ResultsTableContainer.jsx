@@ -11,14 +11,14 @@ import Immutable from 'immutable';
 import TableSearchFields from 'dataMapping/search/tableSearchFields';
 
 import ResultsTableContent from 'components/search/table/ResultsTableContent';
-import ResultsTableCell from 'components/search/table/ResultsTableCell';
 
 import SearchActions from 'redux/actions/searchActions';
 
 const propTypes = {
     rows: React.PropTypes.instanceOf(Immutable.Set),
     meta: React.PropTypes.instanceOf(Immutable.Record),
-    batch: React.PropTypes.instanceOf(Immutable.Record)
+    batch: React.PropTypes.instanceOf(Immutable.Record),
+    setSearchTableType: React.PropTypes.func
 };
 
 const tableTypes = [
@@ -49,8 +49,7 @@ class ResultsTableContainer extends React.Component {
         super(props);
 
         this.state = {
-            columns: [],
-            columnMeta: []
+            columns: []
         };
 
         this.switchTab = this.switchTab.bind(this);
@@ -69,7 +68,6 @@ class ResultsTableContainer extends React.Component {
 
     setColumns(tableType) {
          // calculate the column metadata to display in the table
-        const columnMeta = [];
         const columns = [];
 
         const tableSettings = TableSearchFields[tableType];
@@ -78,13 +76,12 @@ class ResultsTableContainer extends React.Component {
             const column = {
                 columnName: col,
                 displayName: tableSettings[col],
-                customComponent: ResultsTableCell
+                width: TableSearchFields.columnWidths[col]
             };
-            columnMeta.push(column);
-            columns.push(col);
+            columns.push(column);
         });
 
-        this.setState({ columns, columnMeta });
+        this.setState({ columns });
     }
 
     switchTab(tab) {
@@ -98,8 +95,8 @@ class ResultsTableContainer extends React.Component {
                 batch={this.props.batch}
                 inFlight={this.props.meta.inFlight}
                 results={this.props.rows.toArray()}
+                resultsMeta={this.props.meta.toJS()}
                 columns={this.state.columns}
-                columnMeta={this.state.columnMeta}
                 tableTypes={tableTypes}
                 currentType={this.props.meta.tableType}
                 switchTab={this.switchTab} />

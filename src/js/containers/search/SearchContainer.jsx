@@ -94,7 +94,7 @@ class SearchContainer extends React.PureComponent {
         this.props.setSearchInFlight(true);
 
         this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(), 1,
-            1, TableSearchFields[this.props.metaType]._api);
+            15, TableSearchFields[this.props.metaType]._api);
         this.searchRequest.promise
             .then((res) => {
                 this.props.setSearchInFlight(false);

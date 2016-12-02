@@ -22,7 +22,7 @@ export default class ResultsTableContent extends React.Component {
         }
 
         return (
-            <div className="search-results-table">
+            <div className="search-results-table-section">
                 <h3>Spending by Award Type</h3>
                 <hr className="results-divider" />
                 <ResultsTableTabs

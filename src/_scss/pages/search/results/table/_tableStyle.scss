@@ -1,13 +1,35 @@
-.griddle-container {
-    table {
-        display: table;
+.award-results-table {
+    @import "_fixedDataTableOverrides";
 
-        tr.standard-row {
-            display: table-row;
+    margin-top: 2em;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
 
-            td {
-                display: table-cell;
-            }
+    border: 1px solid $color-gray;
+
+    @import "cells/_genericPositioning";
+
+    .award-result-generic-cell {
+        @import "cells/_genericCell";
+        @include genericCell();
+
+        &.column-awarding_agency_name {
+            border-right: none;
         }
+    }
+
+    .award-result-header-cell {
+        @import "cells/_genericHeader";
+        @include genericHeader();
+
+         &.column-awarding_agency_name {
+            border-right: none;
+        }
+    }
+
+    // gray out even rows
+    .award-results-row-even {
+        background-color: $color-gray-lightest;
     }
 }
