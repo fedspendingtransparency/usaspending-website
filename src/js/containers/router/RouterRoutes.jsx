@@ -35,8 +35,11 @@ const goToPage = (location, replace) => {
 // changes that Redux causes
 const routeDefinitions = {
     path: '/',
+    // indexRoute: {
+    //     component: HomePage
+    // },
     indexRoute: {
-        component: HomePage
+        onEnter: (nextState, replace) => replace('/search')
     },
     childRoutes: [
         {
