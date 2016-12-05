@@ -9,6 +9,12 @@ export const bulkInsertRecords = (state) => ({
     data: state.data
 });
 
+export const bulkInsertRecordSet = (state) => ({
+    type: 'BULK_INSERT_RECORD_SET',
+    field: state.type,
+    data: state.data
+});
+
 export const clearRecords = () => ({
     type: 'CLEAR_RECORDS'
 });

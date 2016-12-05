@@ -5,6 +5,7 @@
 
 import React from 'react';
 
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 import PrimaryAwardType from './PrimaryAwardType';
 
 const defaultProps = {
@@ -12,28 +13,28 @@ const defaultProps = {
         {
             id: 'award-contracts',
             name: 'Contracts',
-            filters: ['A', 'D', 'C', 'B']
+            filters: awardTypeGroups.contracts
         },
         {
             id: 'award-grants',
             name: 'Grants',
-            filters: ['02', '03', '04', '05']
+            filters: awardTypeGroups.grants
         },
         {
             id: 'award-direct-payments',
             name: 'Direct Payments',
-            filters: ['06', '10']
+            filters: awardTypeGroups.direct_payments
         },
         {
             id: 'award-loans',
             name: 'Loans',
-            filters: ['07', '08']
+            filters: awardTypeGroups.loans
         },
         {
             id: 'award-insurance',
             name: 'Insurance',
             filters: [],
-            value: '09'
+            value: awardTypeGroups.insurance[0]
         }
     ]
 };

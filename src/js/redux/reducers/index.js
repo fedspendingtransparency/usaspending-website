@@ -5,12 +5,14 @@
 
 import { combineReducers } from 'redux';
 
-import resultsMetaReducer from './search/searchResultsReducer';
+import resultsMetaReducer from './resultsMeta/resultsMetaReducer';
+import resultsBatchReducer from './resultsMeta/resultsBatchReducer';
 import filtersReducer from './search/searchFiltersReducer';
 import recordReducer from './records/recordReducer';
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
+    resultsBatch: resultsBatchReducer,
     filters: filtersReducer,
     records: recordReducer
 });

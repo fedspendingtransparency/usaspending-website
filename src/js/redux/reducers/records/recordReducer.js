@@ -3,14 +3,10 @@
  * Created by Kevin Li 11/16/16
  **/
 
-import { Map } from 'immutable';
+import { Set } from 'immutable';
 
 const initialState = {
-    awards: new Map(),
-    finAssists: new Map(),
-    procurements: new Map(),
-    recipients: new Map(),
-    locations: new Map()
+    awards: new Set()
 };
 
 const recordReducer = (state = initialState, action) => {
@@ -18,6 +14,11 @@ const recordReducer = (state = initialState, action) => {
         case 'BULK_INSERT_RECORDS': {
             return Object.assign({}, state, {
                 [action.field]: state[action.field].merge(action.data)
+            });
+        }
+        case 'BULK_INSERT_RECORD_SET': {
+            return Object.assign({}, state, {
+                [action.field]: state[action.field].union(action.data)
             });
         }
         case 'CLEAR_RECORDS': {
