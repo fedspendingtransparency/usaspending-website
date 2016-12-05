@@ -72,10 +72,6 @@ export default class ResultsTable extends React.PureComponent {
         return `award-results-row-${evenOdd}`;
     }
 
-    prepareVisibleCells() {
-
-    }
-
     prepareTable() {
         let totalWidth = 0;
 
