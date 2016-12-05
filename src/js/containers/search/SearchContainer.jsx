@@ -150,7 +150,6 @@ class SearchContainer extends React.PureComponent {
                     // request never made it out
                     console.log(err);
                     this.searchRequest = null;
-                    // console.log(err.message);
                 }
             });
     }
