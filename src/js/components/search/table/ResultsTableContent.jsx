@@ -9,8 +9,10 @@ import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
 
 const propTypes = {
-    results: React.PropTypes.array,
-    inFlight: React.PropTypes.bool
+    inFlight: React.PropTypes.bool,
+    tableTypes: React.PropTypes.array,
+    currentType: React.PropTypes.string,
+    switchTab: React.PropTypes.func
 };
 
 export default class ResultsTableContent extends React.Component {

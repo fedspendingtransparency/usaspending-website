@@ -16,9 +16,10 @@ import SearchActions from 'redux/actions/searchActions';
 
 const propTypes = {
     rows: React.PropTypes.instanceOf(Immutable.Set),
-    meta: React.PropTypes.instanceOf(Immutable.Record),
+    meta: React.PropTypes.object,
     batch: React.PropTypes.instanceOf(Immutable.Record),
-    setSearchTableType: React.PropTypes.func
+    setSearchTableType: React.PropTypes.func,
+    setSearchPageNumber: React.PropTypes.func
 };
 
 const tableTypes = [
@@ -53,6 +54,7 @@ class ResultsTableContainer extends React.Component {
         };
 
         this.switchTab = this.switchTab.bind(this);
+        this.loadNextPage = this.loadNextPage.bind(this);
     }
 
     componentWillMount() {
@@ -88,18 +90,31 @@ class ResultsTableContainer extends React.Component {
         this.props.setSearchTableType(tab);
     }
 
+    loadNextPage() {
+        // check if request is already in-flight
+        if (this.props.meta.inFlight) {
+            // in-flight, ignore this request
+            return;
+        }
+        // check if more pages are available
+        if (this.props.meta.page.page_number < this.props.meta.page.num_pages) {
+            // more pages are available, load them
+            this.props.setSearchPageNumber(this.props.meta.page.page_number + 1);
+        }
+    }
+
     render() {
-        console.log("CONTAINER RENDER");
         return (
             <ResultsTableContent
                 batch={this.props.batch}
                 inFlight={this.props.meta.inFlight}
                 results={this.props.rows.toArray()}
-                resultsMeta={this.props.meta.toJS()}
+                resultsMeta={this.props.meta}
                 columns={this.state.columns}
                 tableTypes={tableTypes}
                 currentType={this.props.meta.tableType}
-                switchTab={this.switchTab} />
+                switchTab={this.switchTab}
+                loadNextPage={this.loadNextPage} />
         );
     }
 }
@@ -109,7 +124,7 @@ ResultsTableContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         rows: state.records.awards,
-        meta: state.resultsMeta,
+        meta: state.resultsMeta.toJS(),
         batch: state.resultsBatch
     }),
     (dispatch) => bindActionCreators(SearchActions, dispatch)

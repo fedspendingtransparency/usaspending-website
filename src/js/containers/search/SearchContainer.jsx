@@ -21,7 +21,7 @@ import AwardSummary from 'models/results/award/AwardSummary';
 
 const propTypes = {
     filters: React.PropTypes.object,
-    metaType: React.PropTypes.string,
+    meta: React.PropTypes.object,
     clearRecords: React.PropTypes.func,
     bulkInsertRecordSet: React.PropTypes.func,
     setSearchResultMeta: React.PropTypes.func,
@@ -50,9 +50,17 @@ class SearchContainer extends React.PureComponent {
             // filters changed
             return true;
         }
-        else if (nextProps.metaType !== this.props.metaType) {
-            // table type has changed
-            return true;
+        else if (!Object.is(nextProps.meta, this.props.meta)) {
+            // something in the results metadata has changed
+            if (nextProps.meta.tableType !== this.props.meta.tableType) {
+                // table type has changed
+                return true;
+            }
+            else if (nextProps.meta.page.page_number !==
+                this.props.meta.page.page_number) {
+                // page number has changed
+                return true;
+            }
         }
         // something may have changed, but it is out of scope for this component
         return false;
@@ -63,9 +71,14 @@ class SearchContainer extends React.PureComponent {
             // filters changed, update the search object
             this.updateFilters();
         }
-        else if (prevProps.metaType !== this.props.metaType) {
+        else if (prevProps.meta.tableType !== this.props.meta.tableType) {
             // table type has changed
             this.updateFilters();
+        }
+        else if (prevProps.meta.page.page_number !==
+            this.props.meta.page.page_number) {
+            // page number has changed
+            this.performSearch();
         }
     }
 
@@ -85,20 +98,32 @@ class SearchContainer extends React.PureComponent {
             this.searchRequest.cancel();
         }
 
+        const tableType = this.props.meta.tableType;
+
         // append the table type to the current search params
         const searchParams = Object.assign(new SearchOperation(), this.state.searchParams);
-        const tableAwardTypes = awardTypeGroups[this.props.metaType];
+        const tableAwardTypes = awardTypeGroups[tableType];
         searchParams.resultAwardType = tableAwardTypes;
 
         // indicate the request is about to start
         this.props.setSearchInFlight(true);
 
-        this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(), 1,
-            15, TableSearchFields[this.props.metaType]._api);
+        const pageNumber = this.props.meta.page.page_number;
+        const resultLimit = 60;
+
+        this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(),
+            pageNumber, resultLimit, TableSearchFields[tableType]._api);
+
         this.searchRequest.promise
             .then((res) => {
                 this.props.setSearchInFlight(false);
-                this.props.clearRecords();
+
+                // don't clear records if we're appending (not the first page)
+                if (pageNumber <= 1) {
+                    this.props.clearRecords();
+                }
+
+                // parse the response
                 const data = res.data;
                 this.saveData(data.results);
 
@@ -123,8 +148,9 @@ class SearchContainer extends React.PureComponent {
                 }
                 else {
                     // request never made it out
+                    console.log(err);
                     this.searchRequest = null;
-                    console.log(err.message);
+                    // console.log(err.message);
                 }
             });
     }
@@ -156,8 +182,7 @@ class SearchContainer extends React.PureComponent {
 export default connect(
     (state) => ({
         filters: state.filters,
-        metaPage: state.resultsMeta.page.page_number,
-        metaType: state.resultsMeta.tableType
+        meta: state.resultsMeta.toJS()
     }),
     (dispatch) => bindActionCreators(SearchActions, dispatch)
 )(SearchContainer);

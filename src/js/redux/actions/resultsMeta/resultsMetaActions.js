@@ -17,3 +17,8 @@ export const setSearchInFlight = (state) => ({
     type: 'SET_SEARCH_INFLIGHT',
     inFlight: state
 });
+
+export const setSearchPageNumber = (state) => ({
+    type: 'SET_SEARCH_RESULT_PAGE_NUMBER',
+    pageNumber: state
+});

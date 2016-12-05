@@ -9,7 +9,7 @@ const initialValues = {
     page: {
         count: 0,
         num_pages: 0,
-        page_number: 0,
+        page_number: 1,
         total_obligation_sum: 0
     },
     total: {
@@ -26,7 +26,10 @@ const resultsMetaReducer = (state = new MetaRecord(), action) => {
     switch (action.type) {
         case 'SET_SEARCH_RESULT_META':
             // set the search result metadata
-            return state.merge(action.meta);
+            return state.merge({
+                page: action.meta.page,
+                total: action.meta.total
+            });
         case 'SET_SEARCH_INFLIGHT':
             return state.merge({
                 inFlight: action.inFlight
@@ -34,6 +37,12 @@ const resultsMetaReducer = (state = new MetaRecord(), action) => {
         case 'SET_SEARCH_TABLE_TYPE':
             return state.merge({
                 tableType: action.tableType
+            });
+        case 'SET_SEARCH_RESULT_PAGE_NUMBER':
+            return state.mergeDeep({
+                page: {
+                    page_number: action.pageNumber
+                }
             });
         default:
             return state;

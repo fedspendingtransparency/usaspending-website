@@ -13,15 +13,24 @@ import ResultsTableGenericCell from './cells/ResultsTableGenericCell';
 const propTypes = {
     results: React.PropTypes.array,
     batch: React.PropTypes.object,
-    columns: React.PropTypes.array
+    columns: React.PropTypes.array,
+    loadNextPage: React.PropTypes.func
 };
 
+const rowHeight = 40;
+const tableHeight = 13 * rowHeight;
 
 export default class ResultsTable extends React.PureComponent {
     constructor(props) {
         super(props);
 
+        this.state = {
+            yPos: 0,
+            xPos: 0
+        };
+
         this.rowClassName = this.rowClassName.bind(this);
+        this.tableScrolled = this.tableScrolled.bind(this);
     }
     shouldComponentUpdate(nextProps) {
         // to reduce the frequency of re-renders, this component will only monitor for
@@ -32,8 +41,27 @@ export default class ResultsTable extends React.PureComponent {
         return false;
     }
 
-    loadNextPage() {
-        console.log("next page");
+    tableScrolled(xPos, yPos) {
+        // determine the table position
+        const rowNumber = this.rowAtYPosition(yPos);
+
+        if (rowNumber >= this.props.results.length) {
+            // we have reached the bottom of the table, load next page
+            this.props.loadNextPage();
+        }
+
+        // save the scroll position
+        this.setState({ xPos, yPos });
+    }
+
+    rowAtYPosition(yPos, returnTop = false) {
+        // determine the table position
+        let yPosition = yPos;
+        if (!returnTop) {
+            // return the bottom row
+            yPosition += tableHeight;
+        }
+        return Math.floor(yPosition / rowHeight);
     }
 
     rowClassName(index) {
@@ -42,6 +70,10 @@ export default class ResultsTable extends React.PureComponent {
             evenOdd = 'even';
         }
         return `award-results-row-${evenOdd}`;
+    }
+
+    prepareVisibleCells() {
+
     }
 
     prepareTable() {
@@ -54,7 +86,7 @@ export default class ResultsTable extends React.PureComponent {
                 width={column.width}
                 key={column.columnName}
                 rowClassName={this.rowClassName}
-                className="test-class"
+                allowCellsRecycling
                 header={
                     <ResultsTableHeaderCell
                         label={column.displayName}
@@ -74,19 +106,18 @@ export default class ResultsTable extends React.PureComponent {
     }
 
     render() {
-        console.log("RENDER TABLE");
-
         const calculatedValues = this.prepareTable();
 
         return (
             <div className="award-results-table">
                 <Table
-                    rowHeight={40}
+                    rowHeight={rowHeight}
                     rowsCount={this.props.results.length}
                     headerHeight={50}
                     width={calculatedValues.width}
-                    maxHeight={13 * 40}
-                    rowClassNameGetter={this.rowClassName}>
+                    maxHeight={tableHeight}
+                    rowClassNameGetter={this.rowClassName}
+                    onScrollEnd={this.tableScrolled}>
 
                     {calculatedValues.columns}
 

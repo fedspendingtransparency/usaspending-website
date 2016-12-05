@@ -59,7 +59,6 @@ const remapData = (data) => {
 class AwardSummary extends GenericRecord {
     constructor(data) {
         const remappedData = remapData(data);
-        
         // create the object
         super(recordType, fields, remappedData);
     }
