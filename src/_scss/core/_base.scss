@@ -2,24 +2,24 @@
 // change
 
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 body {
-  background-color: $color-white;
-  overflow-x: hidden;
+    background-color: $color-gray-lightest;
+    overflow-x: hidden;
 }
 
 // Hack for clearfixes
 .lt-ie9 {
-  * {
-    // scss-lint:disable ImportantRule
-    filter: none !important;
-  }
+    * {
+        // scss-lint:disable ImportantRule
+        filter: none !important;
+    }
 }

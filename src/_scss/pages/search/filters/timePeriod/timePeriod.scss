@@ -1,0 +1,56 @@
+.time-period-filter {
+    @import '../../../../elements/_inputs';
+    @import '../../../../elements/_labels';
+    @import '../../../../elements/inputs/_errors';
+    @import '../../../../components/_alerts';
+    @import '../../../../components/datePicker/_datePicker';
+    @import './_toggleButtons';
+    @import './_errorMessage';
+
+    @include outer-container;
+    padding-left: 0;
+    margin-top: 0 !important;
+
+    ul.fiscal-years {
+        @include row();
+        list-style-type: none;
+        padding-left: 0;
+        padding-top: 1.5rem;
+
+        li {
+            margin: 0;
+            height: 2.5rem;
+            @include span-columns(8);
+
+            input {
+                @include usa-input-checkbox;
+                margin-right: .5rem;
+                height: $small-font-size;
+                width: $small-font-size;
+            }
+
+            label {
+                @include usa-label;
+                font-weight: normal;
+            }
+        }
+    }
+
+    .date-range-option {
+        margin-top: 3rem;
+
+        input {
+            @include usa-input;
+            display:inline;
+        }
+    }
+
+    .fiscal-years, .date-range-option {
+        border-top: 1px solid $color-gray-lighter;
+        width: 90%;
+        margin-left: .5rem;
+        margin-top: -1px;
+        z-index: 1;
+    }
+
+}

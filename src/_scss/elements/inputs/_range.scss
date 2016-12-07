@@ -1,0 +1,88 @@
+@mixin usa-input-range {
+    -webkit-appearance: none;
+    border: none;
+    padding-left: 0;
+    width: 100%;
+
+    &:focus {
+        box-shadow: none;
+        outline: none;
+    }
+
+    &::-webkit-slider-runnable-track {
+        background: $color-gray-light;
+        border: 1px solid $color-gray-medium;
+        cursor: pointer;
+        height: 1.2rem;
+        width: 100%;
+    }
+
+    &::-moz-range-track {
+        background: $color-primary;
+        border: 1px solid $color-gray-medium;
+        cursor: pointer;
+        height: 1.2rem;
+        width: 100%;
+    }
+
+    &::-ms-track {
+        background: transparent;
+        color: transparent;
+        cursor: pointer;
+        height: 1.2rem;
+        width: 100%;
+    }
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: 1px solid $color-gray-medium;
+        height: 2.2rem;
+        border-radius: 1.5rem;
+        background: $color-gray-lightest;
+        cursor: pointer;
+        margin-top: -.65rem;
+        width: 2.2rem;
+    }
+
+    &::-moz-range-thumb {
+        background: $color-gray-lightest;
+        border: 1px solid $color-gray-medium;
+        border-radius: 1.5rem;
+        cursor: pointer;
+        height: 2.2rem;
+        width: 2.2rem;
+    }
+
+    &::-ms-thumb {
+        background: $color-gray-lightest;
+        border: 1px solid $color-gray-medium;
+        border-radius: 1.5rem;
+        cursor: pointer;
+        height: 2.2rem;
+        width: 2.2rem;
+    }
+
+    &::-ms-fill-lower {
+        background: $color-gray-light;
+        border: 1px solid $color-gray-medium;
+        border-radius: 2rem;
+    }
+
+    &::-ms-fill-upper {
+        background: $color-gray-light;
+        border: 1px solid $color-gray-medium;
+        border-radius: 2rem;
+    }
+
+    &:focus::-webkit-slider-thumb {
+        border: 2px solid $color-focus;
+    }
+
+    &:focus::-moz-range-thumb {
+        border: 2px solid $color-focus;
+    }
+
+    &:focus::-ms-thumb {
+        border: 2px solid $color-focus;
+    }
+}

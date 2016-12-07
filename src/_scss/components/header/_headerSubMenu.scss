@@ -1,0 +1,39 @@
+@mixin usa-nav-submenu {
+  @include usa-sidenav-sublist;
+
+  @include media($nav-width) {
+    @include unstyled-list;
+    @include padding(1.15rem null);
+    background-color: $color-primary-darkest;
+    min-width: 21.5rem;
+    width: auto;
+    position: absolute;
+  }
+
+  a {
+    @include media($nav-width) {
+      color: $color-white;
+      padding-left: 1.8rem;
+    }
+
+    &:hover {
+      @include media($nav-width) {
+        background-color: $color-primary-darkest;
+        color: $color-white;
+        text-decoration: underline;
+      }
+    }
+
+    &:hover,
+    &.usa-current {
+      @include media($nav-width) {
+        padding-left: 1.8rem;
+      }
+    }
+  }
+
+  li {
+    margin-bottom: 0;
+	font-size:$h6-font-size;
+  }
+}

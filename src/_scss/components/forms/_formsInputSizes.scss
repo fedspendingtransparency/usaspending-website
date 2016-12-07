@@ -1,0 +1,15 @@
+@mixin usa-input-tiny {
+    input {
+        @include media($medium-screen) {
+            max-width: 6rem;
+        }
+    }
+}
+
+@mixin usa-input-medium {
+    input {
+        @include media($medium-screen) {
+            max-width: 12rem;
+        }
+    }
+}

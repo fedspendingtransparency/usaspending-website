@@ -1,0 +1,5 @@
+.search-filters-wrapper {
+    @import "./filters/awardType/awardType";
+    @import "./filters/timePeriod/timePeriod";
+    @import "./filters/keywords/keywords";
+}

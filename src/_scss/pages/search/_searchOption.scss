@@ -1,0 +1,16 @@
+.search-option {
+    border-bottom: 1px solid $color-gray-lighter;
+
+    label {
+        @include usa-label;
+    }
+
+    .search-filter {
+        padding-left: 3rem;
+        padding-bottom: 1rem;
+        margin-top: .75rem;
+        margin-bottom: 1rem;
+    }
+
+    @import "./_filterExpand";
+}

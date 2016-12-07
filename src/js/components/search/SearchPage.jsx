@@ -3,26 +3,26 @@
  * Created by Emily Gullo 10/14/2016
  **/
 
-import React from 'react'
-import Header from '../sharedComponents/Header.jsx'
-import Footer from '../sharedComponents/Footer.jsx'
-import NavBar from '../sharedComponents/NavBar.jsx'
-import SearchSidebar from './SearchSidebar.jsx'
-import SearchResults from './SearchResults.jsx'
+import React from 'react';
+import Header from '../sharedComponents/header/Header';
+import Footer from '../sharedComponents/Footer';
+import SearchHeader from './header/SearchHeader';
+import SearchSidebar from './SearchSidebar';
+import SearchResults from './SearchResults';
 
 export default class SearchPage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
-            <div className="flex-wrapper search-page">
-                <Header/>
-                <NavBar/>
-                <SearchSidebar/>
-                <SearchResults/>
-                <Footer/>
+            <div className="usa-da-search-page">
+                <Header />
+                <main id="main-content">
+                    <SearchHeader />
+                    <div className="search-contents">
+                        <SearchSidebar />
+                        <SearchResults />
+                    </div>
+                </main>
+                <Footer />
             </div>
         );
     }

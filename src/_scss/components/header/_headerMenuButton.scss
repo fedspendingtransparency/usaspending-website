@@ -1,0 +1,27 @@
+@mixin usa-menu-btn {
+    @include button-unstyled;
+    background-color: $color-primary;
+    color: $color-white;
+    display: inline;
+    float: right;
+    font-size: $h6-font-size;
+    height: 4rem;
+    line-height: 4rem;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 5.8rem;
+
+    @include media($nav-width) {
+        display: none;
+    }
+
+    &:hover {
+        color: $color-white;
+        background-color: $color-primary-darker;
+    }
+
+    &:visited {
+        color: $color-white;
+    }
+}

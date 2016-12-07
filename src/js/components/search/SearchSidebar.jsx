@@ -4,41 +4,43 @@
  **/
 
 import React from 'react';
-import SearchOption from './SearchOption.jsx';
+import SearchOption from './SearchOption';
 
 const defaultProps = {
-	options: [
-		'Keywords',
-		'Award Type',
-		'Time Period',
-		'Primary Place of Performance',
-		'Agencies',
-		'Recipient Information',
-		'Award ID',
-		'Award Amount',
-		'Appropriations Account',
-		'CFDA Program',
-		'Contract Specific Details'
-	]
+    options: [
+        'Search',
+        'Time Period',
+        'Location',
+        'Budget Categories',
+        'Agencies',
+        'Recipient Information',
+        'Award Type',
+        'Award ID',
+        'Award Amount',
+        'Contract Specific Details'
+    ]
+};
+
+const propTypes = {
+    options: React.PropTypes.arrayOf(React.PropTypes.string)
 };
 
 export default class SearchSidebar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
-		const optionsList = this.props.options.map((name, i) => {
-			return <SearchOption name={name} key={i}/>;
-		});
-		
+        const optionsList = this.props.options.map((name, i) =>
+            <SearchOption name={name} key={i} />
+        );
+
         return (
             <div className="search-sidebar">
-                <h3>Narrow By</h3>
-                {optionsList}
+                <h6 className="sidebar-header">Filter by:</h6>
+                <div className="search-filters-wrapper">
+                    {optionsList}
+                </div>
             </div>
         );
     }
 }
 
 SearchSidebar.defaultProps = defaultProps;
+SearchSidebar.propTypes = propTypes;

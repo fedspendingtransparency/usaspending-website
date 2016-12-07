@@ -22,5 +22,5 @@
 /// @output `margin`
 
 @mixin margin($vals...) {
-  @include directional-property(margin, false, $vals...);
+    @include directional-property(margin, false, $vals...);
 }

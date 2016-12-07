@@ -4,50 +4,53 @@
 **/
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { kGlobalConstants } from '../../GlobalConstants.js';
-import { Router, Route, Link, hashHistory } from 'react-router';
+import { Router, hashHistory } from 'react-router';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as sessionActions from '../../redux/actions/sessionActions.js';
+import kGlobalConstants from 'GlobalConstants';
 
-import RouterRoutes from './RouterRoutes.jsx';
+import RouterRoutes from './RouterRoutes';
 
 const ga = require('react-ga');
+
 const GA_OPTIONS = { debug: false };
 
 const Routes = new RouterRoutes();
 
-let sessionChecker;
-
-class RouterContainer extends React.Component {
-    componentDidMount() {
-        ga.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
-    }
-
-    handleRouteChange() {
-        let path = this.refs.router.state.location.pathname;
-        this.logPageView(path);
-    }
-
-    logPageView(path) {
+export default class RouterContainer extends React.Component {
+    static logPageView(path) {
         ga.pageview(path);
     }
 
+    constructor(props) {
+        super(props);
+        // bind functions
+        this.handleRouteChange = this.handleRouteChange.bind(this);
+    }
+
+    componentDidMount() {
+        // don't initialize Google Analytics if no tracking ID is provided
+        if (kGlobalConstants.GA_TRACKING_ID !== '') {
+            ga.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
+        }
+    }
+
+    handleRouteChange() {
+        const path = this.router.state.location.pathname;
+        RouterContainer.logPageView(path);
+        // scroll to top of page
+        window.scrollTo(0, 0);
+    }
 
     render() {
         return (
-            <Router routes={Routes.routes()} history={hashHistory} onUpdate={this.handleRouteChange.bind(this)} ref="router" />
+            <Router
+                routes={Routes.routes()}
+                history={hashHistory}
+                onUpdate={this.handleRouteChange}
+                ref={(router) => {
+                    this.router = router;
+                    return this.router;
+                }} />
         );
-
     }
 }
-
-
-export default connect(
-    state => ({
-        session: state.session
-    }),
-    dispatch => bindActionCreators(sessionActions, dispatch)
-)(RouterContainer)

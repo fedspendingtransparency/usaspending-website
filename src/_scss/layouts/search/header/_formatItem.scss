@@ -1,0 +1,35 @@
+@mixin searchHeaderFormatItem {
+    @include button-unstyled;
+    vertical-align: middle;
+    width: 5rem;
+    height: 5rem;
+
+    .item-icon {
+        text-align: center;
+        margin-bottom: 5px;
+        svg {
+            fill: $color-gray-light;
+            height: 22px;
+            width: 22px;
+        }
+    }
+
+    .item-label {
+        color: $color-gray-light;
+        text-align: center;
+        padding-bottom: 5px;
+        border-bottom: 4px solid $color-gray;
+    }
+
+    &.active, &:hover, &:active {
+        .item-icon {
+            svg {
+                fill: $color-white;
+            }
+        }
+        .item-label {
+            color: $color-white;
+            border-bottom: 4px solid $color-gold;
+        }
+    }
+}

@@ -1,0 +1,42 @@
+@import './headerUsaNav';
+
+@mixin usa-navbar {
+    border-bottom: 1px solid $color-gray-light;
+    height: 4rem;
+
+    @include media($nav-width) {
+        border-bottom: none;
+        display: inline-block;
+        height: 10.3rem;
+    }
+}
+
+@mixin nav-border {
+    border-bottom: 0.7rem solid $color-primary;
+    padding-bottom: 1rem;
+}
+
+@mixin usa-nav-link {
+    -moz-osx-font-smoothing: grayscale; // Antialiased font smoothing for light text on dark background
+    -webkit-font-smoothing: antialiased;
+
+    &:hover {
+        span {
+            @include media($nav-width) {
+                @include nav-border;
+            }
+        }
+    }
+}
+
+@mixin usa-nav-container {
+    @include media($nav-width) {
+        @include outer-container();
+        @include padding(null $site-margins);
+        max-width: $site-max-width;
+    }
+}
+
+@mixin usa-mobile-nav-active {
+    overflow: hidden;
+}

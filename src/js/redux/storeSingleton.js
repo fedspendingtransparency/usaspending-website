@@ -3,18 +3,18 @@ let instance = null;
 let store = null;
 
 const setStore = (parentStore) => {
-	store = parentStore;
-}
+    store = parentStore;
+};
 
 export default class StoreSingleton {
-	constructor() {
-		if (!instance) {
-			instance = this;
-		}
+    constructor() {
+        if (!instance) {
+            instance = this;
+        }
 
-		instance.setStore = setStore;
-		instance.store = store;
+        instance.setStore = setStore;
+        instance.store = store;
 
-		return instance;
-	}
+        return instance;
+    }
 }

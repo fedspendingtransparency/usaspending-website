@@ -1,0 +1,5 @@
+@import "./header/header";
+
+@mixin defaultLayout {
+    @include defaultHeader;
+}

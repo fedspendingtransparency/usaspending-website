@@ -1,0 +1,17 @@
+@mixin usa-input-checkbox {
+    margin: 0;
+    border-radius: 0 !important;
+
+    &:disabled {
+        cursor: not-allowed;
+
+        + label {
+            color: $color-gray;
+        }
+    }
+
+    + label {
+        cursor: pointer;
+        margin-bottom: 0.5em;
+    }
+}

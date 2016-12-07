@@ -1,0 +1,14 @@
+@mixin usa-select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: $color-white;
+    background-image: url('#{$image-path}/arrow-down.png');
+    background-image: url('#{$image-path}/arrow-down.svg');
+    background-position: right 1.3rem center;
+    background-repeat: no-repeat;
+    background-size: 1.3rem;
+    border: 1px solid $color-gray-light;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    color: $color-primary;
+}

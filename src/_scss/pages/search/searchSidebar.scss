@@ -1,0 +1,23 @@
+.search-sidebar {
+    @import "./_filters";
+    @import "./_searchOption";
+
+    background-color: $color-white;
+    @import '../../elements/_inputs';
+    @import '../../elements/_labels';
+
+
+    margin-top: 3.2rem;
+    box-shadow: $container-shadow;
+
+    .sidebar-header {
+        border-bottom: 1px solid $color-gray-lighter;
+        font-size: 1.6rem;
+        color: $color-base;
+        padding: 0 0 0 2rem;
+        line-height: 5.7rem;
+        margin: 0;
+        vertical-align: middle;
+    }
+
+}

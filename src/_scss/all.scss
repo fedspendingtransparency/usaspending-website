@@ -3,6 +3,7 @@
 @import 'lib/bourbon/bourbon';
 @import 'lib/neat/neat';
 @import 'lib/normalize';
+@import 'lib/fixed-data-table/fixed-data-table';
 
 
 // Core -------------- //
@@ -15,7 +16,6 @@
 
 // Elements -------------- //
 // Styles basic HTML elements
-
 @import 'elements/buttons';
 @import 'elements/figure';
 @import 'elements/inputs';

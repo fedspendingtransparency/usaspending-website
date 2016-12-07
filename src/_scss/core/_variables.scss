@@ -2,6 +2,7 @@
 $em-base:             10px;
 $base-font-size:      rem(16px);
 $small-font-size:     rem(14px);
+$smallest-font-size:  rem(11px);
 $lead-font-size:      rem(20px);
 $title-font-size:     rem(52px);
 $h1-font-size:        rem(59px);
@@ -92,7 +93,9 @@ $input-max-width:     46rem;
 $border-radius:       rem(3px);
 $box-shadow:          0 0 2px $color-shadow;
 $focus-shadow:        0 0 3px $color-focus, 0 0 7px $color-focus;
+$container-shadow:    0 0 0.9px 0.3px rgba(0,0,0,0.3);
 $nav-width:           951px;
+$outer-gutter:        60px;
 
 // 44 x 44 pixels hit target following Apple iOS Human Interface Guidelines
 $hit-area:          4.4rem;
