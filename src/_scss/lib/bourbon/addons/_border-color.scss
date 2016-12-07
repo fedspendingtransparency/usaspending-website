@@ -22,5 +22,5 @@
 /// @output `border-color`
 
 @mixin border-color($vals...) {
-  @include directional-property(border, color, $vals...);
+    @include directional-property(border, color, $vals...);
 }

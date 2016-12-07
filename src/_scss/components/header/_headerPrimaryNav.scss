@@ -1,0 +1,84 @@
+// Primary navigation ------------- //
+
+@mixin usa-nav-primary {
+    @include usa-sidenav-list;
+    order: 2;
+    float:right;
+    position:relative;
+    bottom:5rem;
+    
+    @include media($nav-width) {
+        display: inline;
+    }
+
+    li {
+        @include media($nav-width) {
+            border-top: none;
+        }
+    }
+
+    > li {
+        width: auto;
+
+        @include media($nav-width) {
+            display: inline-block;
+            margin-left: -4px;
+        }
+
+        > a {
+            @include media($nav-width) {
+                @include padding(1.3rem 1.5rem 1.7rem 1.5rem);
+                color: $color-gray;
+                font-size: $h6-font-size;
+                font-weight: $font-bold;
+                line-height: 1.2;
+            }
+
+            &:hover {
+                @include media($nav-width) {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+
+    .usa-da-icon {
+        height: 52px;
+        width: 52px;
+        & svg {
+            fill: $color-gray;
+            height: 22px;
+            width: 22px;
+        }
+    }
+
+    button {
+        @include button-unstyled;
+        font-weight: $font-normal;
+        padding: 1.4rem 1.5rem 1rem 1.8rem;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+
+        @include media($nav-width) {
+            @include padding(null 3rem 1.9rem 1.5rem);
+            color: $color-gray;
+            font-size: $h6-font-size;
+            font-weight: $font-bold;
+            width: initial;
+        }
+
+        &:focus,
+        &:active {
+            box-shadow: $focus-shadow;
+        }
+
+        &:hover {
+            background-color: $color-gray-lightest;
+            color: $color-primary;
+
+            @include media($nav-width) {
+                background-color: transparent;
+            }
+        }
+    }
+}

@@ -1,0 +1,35 @@
+@import '../../components/_alerts';
+
+@mixin usa-input-error {
+    border-left: 4px solid $color-secondary-dark;
+    margin-top: 3rem;
+    padding-bottom: 0.8rem;
+    padding-left: 1.5rem;
+    padding-top: 0.8rem;
+    position: relative;
+    right: 1.9rem;
+
+    input,
+    textarea,
+    select {
+        border: 3px solid $color-secondary-dark;
+        width: calc(100% + 1.9rem); // 1.5rem left padding + 4px border from input error spacing
+    }
+
+    label {
+        margin-top: 0;
+    }
+}
+
+@mixin usa-input-error-label {
+    display: block;
+    font-size: $base-font-size;
+    font-weight: $font-bold;
+}
+
+@mixin usa-input-error-message {
+    @include usa-alert;
+    @include usa-alert-error;
+    padding-bottom: 3px;
+    padding-top: 3px;
+}

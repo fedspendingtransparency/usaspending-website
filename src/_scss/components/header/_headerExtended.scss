@@ -1,0 +1,75 @@
+@mixin usa-header-extended {
+    .usa-header {
+        @include media($nav-width) {
+            border-bottom: none;
+        }
+    }
+
+    .usa-logo {
+        @include media($nav-width) {
+            @include margin(3rem null);
+        }
+    }
+
+    em {
+        @include media($nav-width) {
+            font-size: 3.2rem;
+            line-height: 1;
+        }
+    }
+
+    .usa-navbar {
+        @include media($nav-width) {
+            @include outer-container();
+            @include padding(null $site-margins);
+            display: block;
+            height: auto;
+            max-width: $site-max-width;
+        }
+    }
+
+    .usa-nav {
+        @include media($nav-width) {
+            border-bottom: 1px solid $color-gray-light;
+            border-top: 1px solid $color-gray-light;
+            padding: 0;
+            width: 100%;
+        }
+    }
+
+    .usa-nav-inner {
+        @include media($nav-width) {
+            @include outer-container();
+            @include padding(null $site-margins null 2rem);
+            margin-top: -1px;
+            max-width: $site-max-width;
+            position: relative;
+        }
+    }
+
+    .usa-nav-primary {
+        @include media($nav-width) {
+            @include clearfix;
+        }
+    }
+
+    .usa-nav-link {
+        @include media($nav-width) {
+            padding-top: 1.9rem;
+        }
+    }
+
+    .usa-nav-submenu {
+        .usa-grid-full {
+            @include media($nav-width) {
+                padding-left: 1.2rem;
+            }
+        }
+    }
+
+    .usa-megamenu {
+        @include media($nav-width) {
+            padding-left: $site-margins;
+        }
+    }
+}

@@ -1,0 +1,30 @@
+.table-types {
+    border-bottom: 1px solid $color-gray-light;
+    padding-left: 15px;
+
+    button.table-type-toggle {
+        border-left: 1px solid $color-gray-light;
+        border-right: 1px solid $color-gray-light;
+        border-top: 1px solid $color-gray-light;
+        color: $color-white;
+        background-color: $color-gray;
+        font-size: $base-font-size;
+        font-weight:normal;
+        height: 31px;
+        margin-bottom: 0;
+        margin-right: 2px;
+        padding: 1.5rem;
+        min-width: 97px;
+        height: 5rem;
+
+        vertical-align: middle;
+
+        position: relative;
+        top: 1px;
+
+        &.active {
+            background-color: $color-white;
+            color: $color-base;
+        }
+    }
+}

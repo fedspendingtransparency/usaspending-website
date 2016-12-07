@@ -17,6 +17,10 @@ import git from 'gulp-git';
 import header from 'gulp-header';
 import moment from 'moment-timezone';
 import mocha from 'gulp-mocha';
+import path from 'path';
+
+// linting
+import eslint from 'gulp-eslint';
 
 // for debugging webpack
 //import StatsPlugin from 'stats-webpack-plugin';
@@ -172,7 +176,9 @@ gulp.task('sass', ['copyAssets'], () => {
             .on('change', () => {
                 gutil.log(chalk.green('Starting SASS recompile...'));
                 return gulp.src('./src/css/**/*.scss')
+                    .pipe(sourcemaps.init())
                     .pipe(sass.sync().on('error', sass.logError))
+                    .pipe(sourcemaps.write())
                     .pipe(gulp.dest('./public/css'))
                     // auto reload the browser
                     .pipe(connect.reload())
@@ -205,6 +211,9 @@ gulp.task('webpackCore', ['sass'], (callback) => {
             publicPath: 'js/',
             filename: 'core.js',
             library: '[name]_[hash]'
+        },
+        resolve: {
+            extensions: ['', '.js', '.jsx']
         },
         module: {
             loaders: [{
@@ -262,12 +271,18 @@ gulp.task('webpack', ['webpackCore'], () => {
     // to reduce the initial load time of the application, files are chunked and the chunks are loaded dynamically as required
 
     const jsFile = 'app.' + commitHash + '.js';
-
+    
     const config = {
         output: {
             publicPath: 'js/',
             filename: 'app.js',
             chunkFilename: 'chunk.[chunkhash].js' // including the hash in chunk filenames allows the client to cache them, but discard the cache when the chunk is updated
+        },
+        resolve: {
+            root: [
+                path.resolve('./src/js')
+            ],
+            extensions: ['', '.js', '.jsx']
         },
         module: {
             loaders: [{
@@ -399,6 +414,14 @@ gulp.task('serve', serverDeps, () => {
         port: 3000,
         livereload: reload
     });
+});
+
+// lint the codebase
+gulp.task('lint', () => {
+    return gulp.src(['src/**/*.js', 'src/**/*.jsx', '!node_modules/**'])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });
 
 

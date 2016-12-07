@@ -1,0 +1,19 @@
+.usa-da-search-page {
+
+    @import "../../layouts/search/search";
+    @include searchLayout;
+
+    @import './searchSidebar';
+
+    @include span-columns(16);
+
+    .search-sidebar {
+        @include span-columns(4);
+    }
+
+    .search-results-wrapper {
+        @include span-columns(12);
+        @import "./results/searchResults";
+    }
+
+}

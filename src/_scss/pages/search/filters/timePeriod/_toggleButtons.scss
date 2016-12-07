@@ -1,0 +1,34 @@
+ul.toggle-buttons {
+    list-style-type: none;
+    margin-bottom: 0;
+    margin-left: -2rem;
+    margin-top: 0 !important;
+
+    li {
+        display: inline;
+
+        button.date-toggle {
+            border-left: 1px solid $color-gray-lighter;
+            border-right: 1px solid $color-gray-lighter;
+            border-top: 1px solid $color-gray-lighter;
+            border-bottom: 1px solid $color-white;
+            background-color: $color-white;
+            color: $color-gray;
+            font-size: $small-font-size;
+            font-weight:normal;
+            height: 31px;
+            margin-bottom: 0;
+            padding: 0;
+            width: 97px;
+            z-index: 9000;
+        }
+
+        button.inactive {
+            background-color: $color-primary-alt-lightest;
+            border-left: 1px solid $color-primary-alt-lightest;
+            border-right: 1px solid $color-primary-alt-lightest;
+            border-top: 1px solid $color-primary-alt-lightest;
+            border-bottom: 1px solid $color-gray-lighter;
+        }
+    }
+}

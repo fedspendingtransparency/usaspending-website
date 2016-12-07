@@ -1,25 +1,51 @@
-.usa-disclaimer {
-  @include media($small-screen) {
-    font-size: $h5-font-size;
-  }
-  background-color: $color-gray-lightest;
-  font-size: $h6-font-size;
-  padding: {
-    bottom: .5rem;
-    top: .5rem;
-  }
+@mixin usa-disclaimer {
+    background-color: $color-gray-lightest;
+    font-size: 1.2rem;
+    height: 2.3rem;
+
+    @include media($small-screen) {
+        font-size: $h6-font-size;
+    }
 }
 
-// This hides the stage note (i.e. alpha, beta, etc) of the disclaimer for 
+@mixin usa-disclaimer-inner {
+    @include outer-container();
+    @include padding(null $site-margins-mobile);
+    max-width: $site-max-width;
+
+    @include media($nav-width) {
+        @include padding(null $site-margins);
+    }
+}
+
+@mixin usa-disclaimer-official {
+    display: inline-block;
+
+    p {
+        @include margin(3px 0);
+        display: inline-block;
+
+        @include media($small-screen) {
+            @include margin(2px null);
+        }
+    }
+
+    img {
+        float: left;
+        margin-right: 0.7rem;
+        margin-top: 1px;
+        width: 2rem;
+    }
+}
+
+// This hides the stage note (i.e. alpha, beta, etc) of the disclaimer for
 // anything smaller than large screen sizes
-.usa-disclaimer-stage {
-  @include media($large-screen) {
-    display: block;
-  }
-  display: none;
-  float: right;
-}
+@mixin usa-disclaimer-stage {
+    @include margin(2px null);
+    display: none;
+    float: right;
 
-.usa-flag_icon {
-  margin-right: .2rem;
+    @include media($large-screen) {
+        display: block;
+    }
 }

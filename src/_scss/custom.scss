@@ -1,12 +1,12 @@
-@import './common';
+// imports
 
 // ***** GLOBAL
-@import './global/header';
-@import './global/footer';
+@import './mixins/background';
+
 
 // ***** PAGES
 @import './pages/homepage';
+@import './pages/search/searchPage';
 
 
 // ***** COMPONENTS
-@import './components/datepicker/datepicker';

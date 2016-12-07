@@ -10,11 +10,11 @@
 /// @return {Bool}
 
 @function contains-falsy($list) {
-  @each $item in $list {
-    @if not $item {
-      @return true;
+    @each $item in $list {
+        @if not $item {
+            @return true;
+        }
     }
-  }
 
-  @return false;
+    @return false;
 }

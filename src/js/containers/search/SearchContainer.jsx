@@ -1,0 +1,189 @@
+/**
+  * SearchContainer.jsx
+  * Created by Kevin Li 11/1/16
+  **/
+
+import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { isCancel } from 'axios';
+
+import SearchPage from 'components/search/SearchPage';
+
+import SearchOperation from 'models/search/SearchOperation';
+import * as SearchHelper from 'helpers/searchHelper';
+
+import TableSearchFields from 'dataMapping/search/tableSearchFields';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
+
+import SearchActions from 'redux/actions/searchActions';
+import AwardSummary from 'models/results/award/AwardSummary';
+
+const propTypes = {
+    filters: React.PropTypes.object,
+    meta: React.PropTypes.object,
+    clearRecords: React.PropTypes.func,
+    bulkInsertRecordSet: React.PropTypes.func,
+    setSearchResultMeta: React.PropTypes.func,
+    setSearchInFlight: React.PropTypes.func,
+    triggerBatchUpdate: React.PropTypes.func
+};
+
+class SearchContainer extends React.PureComponent {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            searchParams: new SearchOperation(),
+            page: 0
+        };
+
+        this.searchRequest = null;
+    }
+
+    componentDidMount() {
+        this.updateFilters();
+    }
+
+    shouldComponentUpdate(nextProps) {
+        if (nextProps.filters !== this.props.filters) {
+            // filters changed
+            return true;
+        }
+        else if (!Object.is(nextProps.meta, this.props.meta)) {
+            // something in the results metadata has changed
+            if (nextProps.meta.tableType !== this.props.meta.tableType) {
+                // table type has changed
+                return true;
+            }
+            else if (nextProps.meta.page.page_number !==
+                this.props.meta.page.page_number) {
+                // page number has changed
+                return true;
+            }
+        }
+        // something may have changed, but it is out of scope for this component
+        return false;
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.filters !== this.props.filters) {
+            // filters changed, update the search object
+            this.updateFilters();
+        }
+        else if (prevProps.meta.tableType !== this.props.meta.tableType) {
+            // table type has changed
+            this.updateFilters();
+        }
+        else if (prevProps.meta.page.page_number !==
+            this.props.meta.page.page_number) {
+            // page number has changed
+            this.performSearch();
+        }
+    }
+
+    updateFilters() {
+        const newSearch = new SearchOperation();
+        newSearch.fromState(this.props.filters);
+        this.setState({
+            searchParams: newSearch
+        }, () => {
+            this.performSearch();
+        });
+    }
+
+    performSearch() {
+        if (this.searchRequest) {
+            // a request is currently in-flight, cancel it
+            this.searchRequest.cancel();
+        }
+
+        const tableType = this.props.meta.tableType;
+
+        // append the table type to the current search params
+        const searchParams = Object.assign(new SearchOperation(), this.state.searchParams);
+        const tableAwardTypes = awardTypeGroups[tableType];
+        searchParams.resultAwardType = tableAwardTypes;
+
+        // indicate the request is about to start
+        this.props.setSearchInFlight(true);
+
+        const pageNumber = this.props.meta.page.page_number;
+        const resultLimit = 60;
+
+        this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(),
+            pageNumber, resultLimit, TableSearchFields[tableType]._api);
+
+        this.searchRequest.promise
+            .then((res) => {
+                this.props.setSearchInFlight(false);
+
+                // don't clear records if we're appending (not the first page)
+                if (pageNumber <= 1) {
+                    this.props.clearRecords();
+                }
+
+                // parse the response
+                const data = res.data;
+                this.saveData(data.results);
+
+                this.props.setSearchResultMeta({
+                    page: data.page_metadata,
+                    total: data.total_metadata
+                });
+
+                // request is done
+                this.searchRequest = null;
+
+                // trigger a batch update
+                this.props.triggerBatchUpdate();
+            })
+            .catch((err) => {
+                if (isCancel(err)) {
+                    // the request was cancelled
+                }
+                else if (err.response) {
+                    // server responded with something
+                    this.searchRequest = null;
+                }
+                else {
+                    // request never made it out
+                    console.log(err);
+                    this.searchRequest = null;
+                }
+            });
+    }
+
+    saveData(data) {
+        // iterate through the result set and create model instances
+        // save each model to Redux
+        const awards = [];
+
+        data.forEach((awardData) => {
+            // convert the data record to a model object
+            const award = new AwardSummary(awardData);
+            awards.push(award);
+        });
+        // write all records into Redux
+        this.props.bulkInsertRecordSet({
+            type: 'awards',
+            data: awards
+        });
+    }
+
+    render() {
+        return (
+            <SearchPage />
+        );
+    }
+}
+
+export default connect(
+    (state) => ({
+        filters: state.filters,
+        meta: state.resultsMeta.toJS()
+    }),
+    (dispatch) => bindActionCreators(SearchActions, dispatch)
+)(SearchContainer);
+
+SearchContainer.propTypes = propTypes;

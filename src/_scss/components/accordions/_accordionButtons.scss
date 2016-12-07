@@ -1,0 +1,42 @@
+@mixin accordion-button-styles {
+	@include button-unstyled;
+	background-color: $color-gray-lightest;
+	background-image: url('#{$image-path}/minus.png');
+	background-image: url('#{$image-path}/minus.svg');
+	background-position: right 3rem center;
+	background-repeat: no-repeat;
+	background-size: 13px;
+	color: $color-base;
+	cursor: pointer;
+	display: inline-block;
+	font-family: $font-sans;
+	font-weight: $font-bold;
+	margin: 0;
+	padding: 1.5rem 5.5rem 1.5rem 3rem;
+	width: 100%;
+
+	&:focus {
+		box-shadow: $focus-shadow;
+	}
+
+	&:hover {
+		background-color: $color-gray-lighter;
+		color: $color-base;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin: 0;
+	}
+}
+
+@mixin accordion-button-unopened-styles {
+	background-image: url('#{$image-path}/plus.png');
+	background-image: url('#{$image-path}/plus.svg');
+	background-repeat: no-repeat;
+	background-size: 1.3rem;
+}

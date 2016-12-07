@@ -49,9 +49,9 @@
 /// @todo Remove double assigned variables (Lines 59–62) in v5.0.0
 
 $buttons-list: 'button',
-               'input[type="button"]',
-               'input[type="reset"]',
-               'input[type="submit"]';
+'input[type="button"]',
+'input[type="reset"]',
+'input[type="submit"]';
 
 $all-buttons:        assign-inputs($buttons-list);
 $all-buttons-active: assign-inputs($buttons-list, active);

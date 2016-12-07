@@ -1,9 +1,10 @@
-import React from 'react'
-import { render, ReactDOM } from 'react-dom'
-import AppContainer from './containers/AppContainer.jsx'
+import React from 'react';
+import { render } from 'react-dom';
+import AppContainer from './containers/AppContainer';
 
-let appDiv = document.getElementById('app')
+const appDiv = document.getElementById('app');
 render(
     <AppContainer />,
-  appDiv
-)
+    appDiv
+);
+

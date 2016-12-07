@@ -1,0 +1,15 @@
+@mixin contentBlockWrapper() {
+    background-color: $color-white;
+    box-shadow: 0 1px 2px rgba(43,59,93,.29);
+}
+
+@mixin border-radius($radius) {
+    @include prefixer(border-radius, $radius, webkit moz spec);
+}
+
+@function as-alpha($hex-color, $alpha) {
+    $-local-red: red(rgba($hex-color, 1));
+    $-local-green: green(rgba($hex-color, 1));
+    $-local-blue: blue(rgba($hex-color, 1));
+    @return rgba($-local-red, $-local-green, $-local-blue,$alpha);
+}

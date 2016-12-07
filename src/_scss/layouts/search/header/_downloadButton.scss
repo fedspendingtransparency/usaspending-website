@@ -1,0 +1,12 @@
+@mixin searchHeaderDownloadButton {
+    @include button-unstyled;
+    text-transform: uppercase;
+    font-size: 1em;
+    letter-spacing: 0.075em;
+    padding: 10px 20px;
+    border: 1px solid $color-white;
+
+    &:hover, &:active {
+        background-color: $color-gray-medium;
+    }
+}

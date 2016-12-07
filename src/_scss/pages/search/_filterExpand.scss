@@ -1,0 +1,34 @@
+.filter-toggle {
+    @include button-unstyled;
+    display: inline-block;
+    height: 5rem;
+    padding-left: .5rem;
+    vertical-align: middle;
+    width: 100%;
+
+    svg {
+        cursor: pointer;
+        fill: $color-gray;
+        height: 2rem;
+        vertical-align: middle;
+        width: 2rem;
+    }
+
+    .filter-header {
+        color: $color-base;
+        display: inline-block;
+        font-size: $base-font-size;
+        font-weight: normal;
+        height: 100%;
+        line-height: 5rem;
+        margin: 0;
+        padding-left: .25rem;
+        vertical-align: middle;
+    }
+
+    .usa-da-icon-info-circle {
+        float: right;
+        margin: 1.5rem;
+        fill: $color-gray-lighter;
+    }
+}

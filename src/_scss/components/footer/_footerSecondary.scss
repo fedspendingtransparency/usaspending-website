@@ -1,0 +1,15 @@
+@mixin usa-footer-secondary-section {
+    background-color: $color-gray-lighter;
+    padding-bottom: 3rem;
+    padding-top: 3rem;
+
+    a {
+        color: $color-base;
+    }
+}
+
+@mixin usa-footer-big-secondary-section {
+    @include media($medium-screen) {
+        padding-top: 5rem;
+    }
+}

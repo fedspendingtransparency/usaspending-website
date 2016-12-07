@@ -1,0 +1,16 @@
+@mixin genericHeader() {
+
+    @include genericCellPositioning();
+
+    border-right: 1px solid $color-gray;
+
+    .cell-content {
+        background-color: $color-gray-lighter;
+        font-weight: $font-semibold;
+        font-size: 14px;
+        color: $color-base;
+
+        padding: 16px;
+        white-space: normal;
+    } 
+}

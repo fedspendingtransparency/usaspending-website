@@ -1,0 +1,15 @@
+@mixin accordion-list-styles {
+    @include unstyled-list;
+    color: $color-base;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+@mixin accordion-list-item-styles {
+    background-color: $color-gray-lightest;
+    font-family: $font-sans;
+    list-style: none;
+    margin-bottom: 6px;
+    width: 100%;
+}

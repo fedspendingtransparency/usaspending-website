@@ -22,5 +22,5 @@
 /// @output `padding`
 
 @mixin padding($vals...) {
-  @include directional-property(padding, false, $vals...);
+    @include directional-property(padding, false, $vals...);
 }
