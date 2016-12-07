@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import ResultsTable from './ResultsTable';
+import ResultsTable from './ResultsTableCustom';
 import ResultsTableTabs from './ResultsTableTabs';
 
 const propTypes = {
@@ -16,6 +16,31 @@ const propTypes = {
 };
 
 export default class ResultsTableContent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            tableWidth: 0
+        };
+
+        this.setTableWidth = this.setTableWidth.bind(this);
+    }
+    componentDidMount() {
+        // set the initial table width
+        this.setTableWidth();
+        // watch the window for size changes
+        window.addEventListener('resize', this.setTableWidth);
+    }
+
+    componentWillUnmount() {
+        // stop watching for size changes
+        window.removeEventListener('resize', this.setTableWidth);
+    }
+
+    setTableWidth() {
+        const tableWidth = this.tableWidthController.clientWidth - 2;
+        this.setState({ tableWidth });
+    }
 
     render() {
         let loadingWrapper = 'loaded-table';
@@ -32,7 +57,12 @@ export default class ResultsTableContent extends React.Component {
                     active={this.props.currentType}
                     switchTab={this.props.switchTab} />
                 <div className={loadingWrapper}>
-                    <ResultsTable {...this.props} />
+                    <div
+                        className="results-table-width-master"
+                        ref={(div) => {
+                            this.tableWidthController = div;
+                        }} />
+                    <ResultsTable {...this.props} visibleWidth={this.state.tableWidth} />
                 </div>
             </div>
         );

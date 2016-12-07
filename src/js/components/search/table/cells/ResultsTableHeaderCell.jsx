@@ -14,13 +14,11 @@ const propTypes = {
 export default class ResultsTableHeaderCell extends React.Component {
     render() {
         return (
-            <Cell>
-                <div className={`award-result-header-cell column-${this.props.column}`}>
-                    <div className="cell-content">
-                        {this.props.label}
-                    </div>
+            <div className={`award-result-header-cell column-${this.props.column}`}>
+                <div className="cell-content">
+                    {this.props.label}
                 </div>
-            </Cell>
+            </div>
         );
     }
 }

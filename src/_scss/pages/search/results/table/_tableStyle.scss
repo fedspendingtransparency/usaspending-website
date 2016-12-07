@@ -1,14 +1,16 @@
 .award-results-table {
-    @import "_fixedDataTableOverrides";
+    // @import "_fixedDataTableOverrides";
 
     margin-top: 2em;
     display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+    // overflow-x: auto;
+    // white-space: nowrap;
 
     border: 1px solid $color-gray;
 
-    @import "cells/_genericPositioning";
+    @import "_customTable";
+
+    // @import "cells/_genericPositioning";
 
     .award-result-generic-cell {
         @import "cells/_genericCell";
@@ -29,7 +31,7 @@
     }
 
     // gray out even rows
-    .award-results-row-even {
+    .row-even {
         background-color: $color-gray-lightest;
     }
 }

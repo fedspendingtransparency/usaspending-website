@@ -1,6 +1,6 @@
 @mixin genericHeader() {
 
-    @include genericCellPositioning();
+    // @include genericCellPositioning();
 
     border-right: 1px solid $color-gray;
 

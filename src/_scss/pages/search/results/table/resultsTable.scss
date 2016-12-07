@@ -14,4 +14,8 @@
         opacity: 1;
         @include transition(opacity 0.25s ease-in);
     }
+
+    .results-table-width-master {
+        width: 100%;
+    }
 }

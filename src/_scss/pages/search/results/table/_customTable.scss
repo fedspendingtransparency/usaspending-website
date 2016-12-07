@@ -1,0 +1,33 @@
+
+.table-header {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+
+    .table-header-row {
+        display: table;
+        position: relative;
+
+        .table-header-cell {
+            display: table-cell;
+        }
+    }
+
+}
+
+.table-body-container {
+    display: block;
+    overflow-y: auto;
+
+    .table-body {
+        display: table;    
+
+        .table-row {
+            display: table-row;
+
+            .table-cell {
+                display: table-cell;
+            }
+        }
+    }
+}
