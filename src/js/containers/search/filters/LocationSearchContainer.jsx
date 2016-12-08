@@ -39,7 +39,6 @@ class LocationSearchContainer extends React.Component {
     }
 
     handleTextInput(locationName, isValid) {
-
         if (locationName !== '' && isValid) {
             this.setState({
                 filter: {

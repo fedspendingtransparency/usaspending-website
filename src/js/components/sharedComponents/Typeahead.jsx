@@ -65,7 +65,6 @@ export default class Typeahead extends React.Component {
         this.props.values.forEach((value) => {
             this.dataDictionary[value] = value;
         });
-        console.log(this.dataDictionary);
     }
 
     mountAwesomeplete() {

@@ -6,6 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Set } from 'immutable';
 
 import * as searchFilterActions from '../../redux/actions/search/searchFilterActions';
 import * as LocationHelper from '../../helpers/locationHelper';
@@ -13,12 +14,17 @@ import * as LocationHelper from '../../helpers/locationHelper';
 import Typeahead from '../../components/sharedComponents/Typeahead';
 
 const defaultProps = {
-    locationsList: [
-        { location_code: 1, location_name: '20902' },
-        { location_code: 2, location_name: 'Silver Spring' },
-        { location_code: 3, location_name: 'Maryland' },
-        { location_code: 4, location_name: 'Montgomery County' }
-    ]
+    locationsList: {
+        recipient__location__location_state_name: [
+            "Texas",
+            "California",
+            "Georgia"
+        ],
+        recipient__location__location_state_code: [
+            "CA",
+            "GA"
+        ]
+    }
 };
 
 const propTypes = {
@@ -61,17 +67,26 @@ class LocationListContainer extends React.Component {
         }
         , () => {
             // LocationHelper.fetchLocations(JSON CALL WILL GO HERE);
-
             // set store with dummy values
             const list = {};
             list.locationArray = this.state.filter.locationArray;
             this.props.setLocationList(list);
 
             // setting dummy values in state in a new array (to go to Typeahead)
+            // const stateList = [];
+            // this.state.filter.locationArray.map((loc) =>
+            //     stateList.push(loc.location_name)
+            // );
             const stateList = [];
-            this.state.filter.locationArray.map((loc) =>
-                stateList.push(loc.location_name)
-            );
+            const locations = this.props.locationsList;
+
+            for (const loc of Object.keys(locations)) {
+                if ({}.hasOwnProperty.call(locations, loc)) {
+                    locations[loc].forEach((location) => stateList.push(location));
+                }
+            }
+
+
             this.setState({
                 locationNames: stateList
             });
