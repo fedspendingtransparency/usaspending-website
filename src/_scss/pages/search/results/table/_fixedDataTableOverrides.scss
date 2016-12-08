@@ -1,0 +1,12 @@
+// override the default library stylings
+.fixedDataTableLayout_main {
+    border: none;
+}
+
+.fixedDataTableLayout_header {
+    border-bottom: 1px solid $color-gray;
+}
+
+.fixedDataTableCellLayout_main {
+    border-right: none;
+}

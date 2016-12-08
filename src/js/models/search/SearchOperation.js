@@ -11,6 +11,10 @@ class SearchOperation {
         this.awardType = [];
         this.timePeriodFY = [];
         this.timePeriodRange = [];
+
+        // special filter for filtering results to only display those that match certain award types
+        // this is used by the search results table "award type" tabs
+        this.resultAwardType = [];
     }
 
     fromState(state) {
@@ -29,6 +33,13 @@ class SearchOperation {
         // add award types
         if (this.awardType.length > 0) {
             filters.push(AwardTypeQuery.buildQuery(this.awardType));
+        }
+
+        if (this.resultAwardType.length > 0) {
+            // an award type subfilter is being applied to the search results (usually from
+            // a results table tab)
+            // treat this as an AND query for another set of award filters
+            filters.push(AwardTypeQuery.buildQuery(this.resultAwardType));
         }
 
         // add time period queries

@@ -13,25 +13,20 @@ import SearchPage from 'components/search/SearchPage';
 import SearchOperation from 'models/search/SearchOperation';
 import * as SearchHelper from 'helpers/searchHelper';
 
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import * as searchResultActions from 'redux/actions/search/searchResultActions';
-import * as recordBulkActions from 'redux/actions/records/recordBulkActions';
+import TableSearchFields from 'dataMapping/search/tableSearchFields';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 
-import AwardRecord from 'models/results/award/AwardRecord';
-import FinAssistAwardRecord from 'models/results/finAssist/FinAssistAwardRecord';
-import ProcurementRecord from 'models/results/procurement/ProcurementRecord';
-import RecipientRecord from 'models/results/recipient/RecipientRecord';
-import LocationRecord from 'models/results/location/LocationRecord';
-
-// combine the filter and result Redux actions into one object for the React-Redux connector
-const combinedActions = Object.assign(
-    {}, searchFilterActions, searchResultActions, recordBulkActions);
+import SearchActions from 'redux/actions/searchActions';
+import AwardSummary from 'models/results/award/AwardSummary';
 
 const propTypes = {
     filters: React.PropTypes.object,
+    meta: React.PropTypes.object,
     clearRecords: React.PropTypes.func,
-    bulkInsertRecords: React.PropTypes.func,
-    setSearchResultMeta: React.PropTypes.func
+    bulkInsertRecordSet: React.PropTypes.func,
+    setSearchResultMeta: React.PropTypes.func,
+    setSearchInFlight: React.PropTypes.func,
+    triggerBatchUpdate: React.PropTypes.func
 };
 
 class SearchContainer extends React.PureComponent {
@@ -55,6 +50,18 @@ class SearchContainer extends React.PureComponent {
             // filters changed
             return true;
         }
+        else if (!Object.is(nextProps.meta, this.props.meta)) {
+            // something in the results metadata has changed
+            if (nextProps.meta.tableType !== this.props.meta.tableType) {
+                // table type has changed
+                return true;
+            }
+            else if (nextProps.meta.page.page_number !==
+                this.props.meta.page.page_number) {
+                // page number has changed
+                return true;
+            }
+        }
         // something may have changed, but it is out of scope for this component
         return false;
     }
@@ -63,6 +70,15 @@ class SearchContainer extends React.PureComponent {
         if (prevProps.filters !== this.props.filters) {
             // filters changed, update the search object
             this.updateFilters();
+        }
+        else if (prevProps.meta.tableType !== this.props.meta.tableType) {
+            // table type has changed
+            this.updateFilters();
+        }
+        else if (prevProps.meta.page.page_number !==
+            this.props.meta.page.page_number) {
+            // page number has changed
+            this.performSearch();
         }
     }
 
@@ -82,10 +98,32 @@ class SearchContainer extends React.PureComponent {
             this.searchRequest.cancel();
         }
 
-        this.searchRequest = SearchHelper.performPagedSearch(this.state.searchParams.toParams());
+        const tableType = this.props.meta.tableType;
+
+        // append the table type to the current search params
+        const searchParams = Object.assign(new SearchOperation(), this.state.searchParams);
+        const tableAwardTypes = awardTypeGroups[tableType];
+        searchParams.resultAwardType = tableAwardTypes;
+
+        // indicate the request is about to start
+        this.props.setSearchInFlight(true);
+
+        const pageNumber = this.props.meta.page.page_number;
+        const resultLimit = 60;
+
+        this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(),
+            pageNumber, resultLimit, TableSearchFields[tableType]._api);
+
         this.searchRequest.promise
             .then((res) => {
-                this.props.clearRecords();
+                this.props.setSearchInFlight(false);
+
+                // don't clear records if we're appending (not the first page)
+                if (pageNumber <= 1) {
+                    this.props.clearRecords();
+                }
+
+                // parse the response
                 const data = res.data;
                 this.saveData(data.results);
 
@@ -96,6 +134,9 @@ class SearchContainer extends React.PureComponent {
 
                 // request is done
                 this.searchRequest = null;
+
+                // trigger a batch update
+                this.props.triggerBatchUpdate();
             })
             .catch((err) => {
                 if (isCancel(err)) {
@@ -107,8 +148,8 @@ class SearchContainer extends React.PureComponent {
                 }
                 else {
                     // request never made it out
+                    console.log(err);
                     this.searchRequest = null;
-                    console.log(err.message);
                 }
             });
     }
@@ -116,65 +157,17 @@ class SearchContainer extends React.PureComponent {
     saveData(data) {
         // iterate through the result set and create model instances
         // save each model to Redux
-        const awards = {};
-        const finAssists = {};
-        const procurements = {};
-        const recipients = {};
-        const locations = {};
+        const awards = [];
 
         data.forEach((awardData) => {
-            const award = new AwardRecord(awardData);
-
-            const finIds = [];
-            const procurementIds = [];
-            awardData.financialassistanceaward_set.forEach((item) => {
-                const finAssist = new FinAssistAwardRecord(item);
-                finAssists[finAssist._jsid] = finAssist;
-                finIds.push(finAssist._jsid);
-            });
-
-            awardData.procurement_set.forEach((item) => {
-                const procurement = new ProcurementRecord(item);
-                procurements[procurement._jsid] = procurement;
-                procurementIds.push(procurement._jsid);
-            });
-
-            const recipient = new RecipientRecord(awardData.recipient);
-
-            let rawLocation = null;
-            if (awardData.recipient) {
-                rawLocation = awardData.recipient.location;
-            }
-            const location = new LocationRecord(rawLocation);
-            locations[location._jsid] = location;
-            recipient.location = location._jsid;
-            recipients[recipient._jsid] = recipient;
-
-            award.financialassistanceaward_set = finIds;
-            award.procurement_set = procurementIds;
-            award.recipient = recipient._jsid;
-            awards[award._jsid] = award;
+            // convert the data record to a model object
+            const award = new AwardSummary(awardData);
+            awards.push(award);
         });
         // write all records into Redux
-        this.props.bulkInsertRecords({
+        this.props.bulkInsertRecordSet({
             type: 'awards',
             data: awards
-        });
-        this.props.bulkInsertRecords({
-            type: 'finAssists',
-            data: finAssists
-        });
-        this.props.bulkInsertRecords({
-            type: 'procurements',
-            data: procurements
-        });
-        this.props.bulkInsertRecords({
-            type: 'recipients',
-            data: recipients
-        });
-        this.props.bulkInsertRecords({
-            type: 'locations',
-            data: locations
         });
     }
 
@@ -186,8 +179,11 @@ class SearchContainer extends React.PureComponent {
 }
 
 export default connect(
-    (state) => ({ filters: state.filters }),
-    (dispatch) => bindActionCreators(combinedActions, dispatch)
+    (state) => ({
+        filters: state.filters,
+        meta: state.resultsMeta.toJS()
+    }),
+    (dispatch) => bindActionCreators(SearchActions, dispatch)
 )(SearchContainer);
 
 SearchContainer.propTypes = propTypes;

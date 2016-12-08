@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import awardTypeCodes from 'dataMapping/search/awardType';
+import { awardTypeCodes } from 'dataMapping/search/awardType';
 
 import SecondaryAwardType from './SecondaryAwardType';
 import CollapsedAwardType from './CollapsedAwardType';

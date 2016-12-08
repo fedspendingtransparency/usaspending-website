@@ -9,8 +9,7 @@
     }
     
     .search-contents {
-        @include outer-container();
-        width: 100%;
+        @include outer-container(100%);
         margin: 0px $outer-gutter;
     }
 

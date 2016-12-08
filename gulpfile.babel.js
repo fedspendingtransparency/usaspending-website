@@ -18,6 +18,8 @@ import header from 'gulp-header';
 import moment from 'moment-timezone';
 import mocha from 'gulp-mocha';
 import path from 'path';
+import fs from 'fs';
+import emoji from 'node-emoji';
 
 // linting
 import eslint from 'gulp-eslint';
@@ -86,9 +88,45 @@ gulp.task('setLocal', () => {
     gutil.log('You are running in ' + chalk.black.bgGreen(' PRODUCTION (LOCAL) ') + ' mode.');
 });
 
+// check for version changes of critical libraries
+gulp.task('criticalVersionCheck', () => {
+    // get the current expected versions
+    const criticalLibs = JSON.parse(fs.readFileSync('./criticalVersions.json'));
+        
+    let requiresReinstall = false;
+    const misalignedLibs = [];
+
+    // iterate through the libraries and check the node_modules directory
+    Object.keys(criticalLibs).forEach((lib) => {
+        const expectedVersion = criticalLibs[lib];
+        const packagePath = `./node_modules/${lib}/package.json`;
+        // read the package.json file
+        const packageData = JSON.parse(fs.readFileSync(packagePath));
+        const packageVersion = packageData.version;
+        
+        if (packageVersion !== expectedVersion) {
+            requiresReinstall = true;
+            misalignedLibs.push(lib);
+        }
+    });
+
+    if (requiresReinstall) {
+        let message = `\n${emoji.get(':warning:')}  ${chalk.white.bgRed('WARNING WARNING WARNING')} ${emoji.get(':warning:')}\nThe following critical libraries are not aligned with the versions required by the codebase:\n`;
+        misalignedLibs.forEach((lib) => {
+            message += `\n- ${lib}`;
+        });
+        message += `\n\nPerform a clean install by deleting your ${chalk.bold('node_modules')} folder and then running ${chalk.bold('npm install')}\n${emoji.get(':warning:')}  ${chalk.white.bgRed('WARNING WARNING WARNING')} ${emoji.get(':warning:')}`;
+
+        gutil.log(message);
+
+        // do not continue
+        process.exit(1);
+    }
+});
+
 // clear out the existing folder contents and also the webpack build cache
 // NOTE: this will make the build take a long time
-gulp.task('clean', () => {
+gulp.task('clean', ['criticalVersionCheck'], () => {
     return del(['./public/**/*', './cache/**/*']);
 });
 

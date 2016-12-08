@@ -1,0 +1,8 @@
+hr.results-divider {
+    border: none;
+    height: 8px;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    @include background-image(url('../img/border-stripe.png'));
+    background-repeat: repeat;
+}

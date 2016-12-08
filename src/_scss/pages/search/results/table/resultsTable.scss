@@ -1,0 +1,17 @@
+.search-results-table-section {
+    padding: 3rem 3.5rem;
+    transition: opacity 0.25s ease;
+    
+    @import "_tableTypes";
+    @import "_tableStyle";
+
+    .loading-table {
+        opacity: 0.5;
+        @include transition(opacity 0.25s ease-in);
+    }
+
+    .loaded-table {
+        opacity: 1;
+        @include transition(opacity 0.25s ease-in);
+    }
+}
