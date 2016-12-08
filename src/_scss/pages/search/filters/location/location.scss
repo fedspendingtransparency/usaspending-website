@@ -1,6 +1,8 @@
 .location-filter {
 
-    .location-radio, .location-autocomplete {
+    @import './_errorMessage';
+
+    .location-radio {
         p {
             font-size: $small-font-size;
             margin-top: 0;
@@ -8,16 +10,24 @@
         }
     }
 
-    .location-input {
-        font-size: $small-font-size;
-        height: 4rem;
-        margin: 0 auto;
-        padding:  11px 8px 11px 8px;
-        width: 90%;
+    .shown {
+        height: 18rem;
     }
 
-    .location-autocomplete {
+    .visually-hidden {
+        display: none;
+    }
+
+    .usa-da-typeahead {
         margin-top: 2rem;
+
+        input {
+            font-size: $small-font-size;
+            height: 4rem;
+            margin: 0 auto;
+            padding:  11px 8px 11px 8px;
+            width: 90%;
+        }
     }
 
 }

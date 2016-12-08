@@ -21,8 +21,11 @@ class LocationSearchContainer extends React.Component {
         super(props);
 
         this.state = {
-            locationOption: null,
-            locationText: null
+            filter: {
+                selectedLocation: []
+            },
+            locationError: false,
+            errorMessage: ''
         };
         // bind function
         this.toggleCountry = this.toggleCountry.bind(this);
@@ -30,31 +33,57 @@ class LocationSearchContainer extends React.Component {
     }
 
     toggleCountry(e) {
-        this.setState({
+        this.updateFilter({
             locationOption: e.target.value
         });
     }
 
-    handleTextInput(e) {
+    handleTextInput(locationName, isValid) {
+
+        if (locationName !== '' && isValid) {
+            this.setState({
+                filter: {
+                    selectedLocation: locationName
+                },
+                locationError: false
+            }, this.checkComplete);
+        }
+        else {
+            this.setState({
+                filter: {
+                    selectedLocation: ''
+                },
+                locationError: true
+            }, this.checkComplete);
+        }
+
+        // perform search when API is connected
+        // this.updateFilter({
+        //     locationText: e.target.value
+        // });
+    }
+
+    checkComplete() {
+        if (this.state.filter.selectedLocation === '') {
+            this.setState({
+                errorMessage: 'You need to provide a valid location in order to continue.'
+            });
+        }
+    }
+
+    updateFilter(params) {
+        // set the state to a clone of the filter subobject merged with the param object
+        const newFilter = Object.assign({}, this.state.filter, params);
         this.setState({
-            locationText: e.target.value
+            filter: newFilter
+        }, () => {
+            this.performSearch();
         });
     }
 
     performSearch() {
         const searchParams = {};
-        if (this.state.locationOption === 'usa') {
-            // use only usa values
-            searchParams.usa = this.state.filter.usa;
-        }
-        else if (this.state.locationOption === 'foreign') {
-            // use only Foreign values
-            searchParams.foreign = this.state.filter.foreign;
-        }
-        else {
-            // use all values
-            searchParams.all = this.state.filter.all;
-        }
+        searchParams.locationArray = this.state.filter.locationArray;
 
         this.props.updateLocation(searchParams);
     }
@@ -72,6 +101,6 @@ class LocationSearchContainer extends React.Component {
 LocationSearchContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.filters.locationSearch }),
+    (state) => ({ reduxFilters: state.filters.locations }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(LocationSearchContainer);

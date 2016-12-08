@@ -20,3 +20,13 @@ export const updateTimePeriod = (state) => ({
     start: state.startDate,
     end: state.endDate
 });
+
+export const setLocationList = (state) => ({
+    type: 'SET_LOCATION_LIST',
+    locations: state.locationArray
+});
+
+export const updateLocation = (state) => ({
+    type: 'UPDATE_SEARCH_FILTER_LOCATION',
+    locationSelected: state.selectedLocation
+});

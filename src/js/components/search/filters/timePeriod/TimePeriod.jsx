@@ -43,10 +43,11 @@ export default class TimePeriod extends React.Component {
         this.saveSelected = this.saveSelected.bind(this);
         this.showError = this.showError.bind(this);
         this.hideError = this.hideError.bind(this);
+        this.toggleFilters = this.toggleFilters.bind(this);
     }
 
-    toggleFilters(filter) {
-        this.props.changeTab(filter);
+    toggleFilters(e) {
+        this.props.changeTab(e.target.value);
     }
 
     handleDateChange(date, dateType) {
@@ -151,18 +152,20 @@ export default class TimePeriod extends React.Component {
 
         return (
             <div className="time-period-filter search-filter">
-                <div className="toggle-buttons">
-                    <button
-                        className={`date-toggle ${activeClassFY}`}
-                        onClick={() => {
-                            this.toggleFilters('fy');
-                        }}>Fiscal Year</button>
-                    <button
-                        className={`date-toggle ${activeClassDR}`}
-                        onClick={() => {
-                            this.toggleFilters('dr');
-                        }}>Date Range</button>
-                </div>
+                <ul className="toggle-buttons">
+                    <li>
+                        <button
+                            className={`date-toggle ${activeClassFY}`}
+                            value="fy"
+                            onClick={this.toggleFilters}>Fiscal Year</button>
+                    </li>
+                    <li>
+                        <button
+                            className={`date-toggle ${activeClassDR}`}
+                            value="dr"
+                            onClick={this.toggleFilters}>Date Range</button>
+                    </li>
+                </ul>
                 { showFilter }
                 { errorDetails }
             </div>

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import CountryType from './CountryType';
-import PerformancePlace from './PerformancePlace';
+import LocationListContainer from '../../../../containers/sharedContainers/LocationListContainer';
 
 const propTypes = {
     toggleCountry: React.PropTypes.func,
@@ -18,7 +18,7 @@ export default class LocationSearch extends React.Component {
         return (
             <div className="location-filter search-filter">
                 <CountryType toggleCountry={this.props.toggleCountry} />
-                <PerformancePlace handleTextInput={this.props.handleTextInput} />
+                <LocationListContainer handleTextInput={this.props.handleTextInput} />
             </div>
         );
     }

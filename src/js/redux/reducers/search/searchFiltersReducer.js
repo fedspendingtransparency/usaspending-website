@@ -11,7 +11,8 @@ const initialState = {
     awardType: new Set(),
     timePeriodFY: new Set(),
     timePeriodStart: null,
-    timePeriodEnd: null
+    timePeriodEnd: null,
+    locations: []
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -36,6 +37,11 @@ const searchFiltersReducer = (state = initialState, action) => {
                 timePeriodStart: action.start,
                 timePeriodEnd: action.end,
                 timePeriodFY: new Set(action.fy)
+            });
+        }
+        case 'SET_LOCATION_LIST': {
+            return Object.assign({}, state, {
+                locations: action.locations
             });
         }
         default:
