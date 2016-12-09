@@ -29,6 +29,17 @@
             padding:  11px 8px 11px 8px;
             width: 90%;
         }
+
+        .awesomplete ul li {
+            line-height: 2rem;
+            font-size: $small-font-size;
+            padding: 1rem 2rem;
+            color: #555555;
+
+            &:hover {
+                background-color: $color-primary-alt-lightest;
+            }
+        }
     }
 
 }

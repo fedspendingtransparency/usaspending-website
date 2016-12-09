@@ -7,24 +7,28 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Set } from 'immutable';
+import _ from 'lodash';
 
 import * as searchFilterActions from '../../redux/actions/search/searchFilterActions';
 import * as LocationHelper from '../../helpers/locationHelper';
 
 import Typeahead from '../../components/sharedComponents/Typeahead';
+import PlaceOfPerformanceTypeahead from '../../components/search/filters/location/PlaceOfPerformanceTypeahead';
 
 const defaultProps = {
-    locationsList: {
-        recipient__location__location_state_name: [
-            "Texas",
-            "California",
-            "Georgia"
-        ],
-        recipient__location__location_state_code: [
-            "CA",
-            "GA"
-        ]
-    }
+    locationsList: [
+        {
+            matchedID: [1],
+            place: "Arlington",
+            type: "City",
+            parent: "Texas"
+        }, {
+            matchedID: [2, 3],
+            place: "Arlington",
+            type: "County",
+            parent: "Virginia"
+        }
+    ]
 };
 
 const propTypes = {
@@ -58,6 +62,13 @@ class LocationListContainer extends React.Component {
         });
     }
 
+    dataFormatter(item) {
+        return {
+            label: `<strong>${item.place}</strong><br>${_.upperCase(item.type)} in ${item.parent}`,
+            value: item.place
+        };
+    }
+
     updateFilter(params) {
         // fetch list of locations for autocomplete
         // set the state to a clone of the filter subobject merged with the param object
@@ -72,33 +83,20 @@ class LocationListContainer extends React.Component {
             list.locationArray = this.state.filter.locationArray;
             this.props.setLocationList(list);
 
-            // setting dummy values in state in a new array (to go to Typeahead)
-            // const stateList = [];
-            // this.state.filter.locationArray.map((loc) =>
-            //     stateList.push(loc.location_name)
-            // );
-            const stateList = [];
-            const locations = this.props.locationsList;
-
-            for (const loc of Object.keys(locations)) {
-                if ({}.hasOwnProperty.call(locations, loc)) {
-                    locations[loc].forEach((location) => stateList.push(location));
-                }
-            }
-
-
             this.setState({
-                locationNames: stateList
+                locationNames: this.props.locationsList
             });
         });
     }
 
     render() {
         return (
-            <Typeahead
+            <PlaceOfPerformanceTypeahead
                 {...this.props}
                 values={this.state.locationNames}
-                onSelect={this.props.handleTextInput} />
+                formatter={this.dataFormatter}
+                onSelect={this.props.handleTextInput}
+                placeHolder="State, City, County, Zip or District"/>
         );
     }
 

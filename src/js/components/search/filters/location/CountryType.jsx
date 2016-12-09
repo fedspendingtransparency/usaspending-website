@@ -20,6 +20,7 @@ export default class CountryType extends React.Component {
                     id="location-all"
                     name="location"
                     value="all"
+                    defaultChecked="true"
                     onClick={this.props.toggleCountry} />
                 <label htmlFor="location-all">All |</label>
                 <input
