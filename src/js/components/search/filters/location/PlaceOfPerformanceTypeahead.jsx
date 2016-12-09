@@ -5,7 +5,6 @@
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import Awesomplete from 'awesomplete';
 
 import Typeahead from '../../../../components/sharedComponents/Typeahead';
 import TypeaheadWarning from '../../../../components/sharedComponents/TypeaheadWarning';
