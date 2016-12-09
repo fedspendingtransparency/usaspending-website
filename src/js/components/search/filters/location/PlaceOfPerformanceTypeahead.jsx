@@ -43,9 +43,12 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
         this.typeahead.list = this.props.values;
 
         this.props.values.forEach((value) => {
-            const key = `<strong>${value.place}</strong>
-                <br>${_.upperCase(value.type)} in ${value.parent}`;
-            const val = value.matchedID.join(",");
+            let key = `<strong>${value.place}</strong><br>${_.upperCase(value.place_type)}`;
+            if (value.parent !== null) {
+                key += ` in ${value.parent}`;
+            }
+
+            const val = value.matched_ids.join(",");
 
             this.dataDictionary[key] = val;
         });

@@ -18,15 +18,156 @@ import PlaceOfPerformanceTypeahead from '../../components/search/filters/locatio
 const defaultProps = {
     locationsList: [
         {
-            matchedID: [1],
-            place: "Arlington",
-            type: "City",
-            parent: "Texas"
-        }, {
-            matchedID: [2, 3],
-            place: "Arlington",
-            type: "County",
-            parent: "Virginia"
+            "place": "Ramsey",
+            "parent": "Minnesota",
+            "matched_ids": [
+                5
+            ],
+            "place_type": "COUNTY"
+        },
+        {
+            "place": "Ouachita",
+            "parent": "Louisiana",
+            "matched_ids": [
+                7,
+                8
+            ],
+            "place_type": "COUNTY"
+        },
+        {
+            "place": "Cache",
+            "parent": "Utah",
+            "matched_ids": [
+                9,
+                10
+            ],
+            "place_type": "COUNTY"
+        },
+        {
+            "place": "Fairfax",
+            "parent": "Virginia",
+            "matched_ids": [
+                1
+            ],
+            "place_type": "COUNTY"
+        },
+        {
+            "place": "Utah",
+            "parent": "UNITED STATES",
+            "matched_ids": [
+                9,
+                10
+            ],
+            "place_type": "STATE"
+        },
+        {
+            "place": "Minnesota",
+            "parent": "UNITED STATES",
+            "matched_ids": [
+                5,
+                6
+            ],
+            "place_type": "STATE"
+        },
+        {
+            "place": "Virginia",
+            "parent": "UNITED STATES",
+            "matched_ids": [
+                1,
+                2
+            ],
+            "place_type": "STATE"
+        },
+        {
+            "place": "South Dakota",
+            "parent": "UNITED STATES",
+            "matched_ids": [
+                3,
+                4
+            ],
+            "place_type": "STATE"
+        },
+        {
+            "place": "Louisiana",
+            "parent": "UNITED STATES",
+            "matched_ids": [
+                7,
+                8
+            ],
+            "place_type": "STATE"
+        },
+        {
+            "place": "VA",
+            "parent": "UNITED STATES",
+            "matched_ids": [
+                1
+            ],
+            "place_type": "STATE"
+        },
+        {
+            "place": "LA",
+            "parent": "UNITED STATES",
+            "matched_ids": [
+                7
+            ],
+            "place_type": "STATE"
+        },
+        {
+            "place": "Logan",
+            "parent": "Cache",
+            "matched_ids": [
+                9
+            ],
+            "place_type": "CITY"
+        },
+        {
+            "place": "Saint Paul",
+            "parent": "Ramsey",
+            "matched_ids": [
+                5
+            ],
+            "place_type": "CITY"
+        },
+        {
+            "place": "St. Paul",
+            "parent": null,
+            "matched_ids": [
+                6
+            ],
+            "place_type": "CITY"
+        },
+        {
+            "place": "Rapid City",
+            "parent": null,
+            "matched_ids": [
+                4
+            ],
+            "place_type": "CITY"
+        },
+        {
+            "place": "Rapid City",
+            "parent": "Pennington",
+            "matched_ids": [
+                3
+            ],
+            "place_type": "CITY"
+        },
+        {
+            "place": "UNITED STATES",
+            "parent": "USA",
+            "matched_ids": [
+                7,
+                5,
+                3,
+                9,
+                1,
+                8,
+                6,
+                4,
+                10,
+                2
+            ],
+            "place_type": "COUNTRY"
         }
     ]
 };
@@ -63,8 +204,13 @@ class LocationListContainer extends React.Component {
     }
 
     dataFormatter(item) {
+        let itemLabel = `<strong>${item.place}</strong><br>${_.upperCase(item.place_type)}`;
+        if (item.parent !== null) {
+            itemLabel += ` in ${item.parent}`;
+        }
+
         return {
-            label: `<strong>${item.place}</strong><br>${_.upperCase(item.type)} in ${item.parent}`,
+            label: itemLabel,
             value: item.place
         };
     }
