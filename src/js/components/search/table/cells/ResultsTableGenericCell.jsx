@@ -20,6 +20,7 @@ export default class ResultsTableGenericCell extends React.Component {
             content = "\u00A0";
         }
 
+        // calculate even-odd class names
         let rowClass = "row-even";
         if (this.props.rowIndex % 2 === 0) {
             // row index is zero-based

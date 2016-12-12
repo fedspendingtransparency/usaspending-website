@@ -1,21 +1,23 @@
 /**
-  * ResultsTable.jsx
+  * ResultsTableSection.jsx
   * Created by Kevin Li 11/8/16
   **/
 
 import React from 'react';
 
-import ResultsTable from './ResultsTableCustom';
+import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
+import ResultsTableMessage from './ResultsTableMessage';
 
 const propTypes = {
     inFlight: React.PropTypes.bool,
     tableTypes: React.PropTypes.array,
     currentType: React.PropTypes.string,
-    switchTab: React.PropTypes.func
+    switchTab: React.PropTypes.func,
+    results: React.PropTypes.array
 };
 
-export default class ResultsTableContent extends React.Component {
+export default class ResultsTableSection extends React.Component {
     constructor(props) {
         super(props);
 
@@ -44,8 +46,14 @@ export default class ResultsTableContent extends React.Component {
 
     render() {
         let loadingWrapper = 'loaded-table';
+        let message = null;
         if (this.props.inFlight) {
             loadingWrapper = 'loading-table';
+            message = <ResultsTableMessage message="Loading data..." />;
+        }
+        else if (this.props.results.length === 0) {
+            // no results
+            message = <ResultsTableMessage message="No results matched your criteria." />;
         }
 
         return (
@@ -60,13 +68,16 @@ export default class ResultsTableContent extends React.Component {
                     <div
                         className="results-table-width-master"
                         ref={(div) => {
+                            // this is an empty div that scales via CSS
+                            // the results table width will follow this div's width
                             this.tableWidthController = div;
                         }} />
                     <ResultsTable {...this.props} visibleWidth={this.state.tableWidth} />
                 </div>
+                {message}
             </div>
         );
     }
 }
 
-ResultsTableContent.propTypes = propTypes;
+ResultsTableSection.propTypes = propTypes;

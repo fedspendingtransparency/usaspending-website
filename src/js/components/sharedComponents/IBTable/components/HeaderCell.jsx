@@ -4,7 +4,12 @@
   **/
 
 import React from 'react';
-import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
+
+const propTypes = {
+    height: React.PropTypes.number,
+    width: React.PropTypes.number,
+    header: React.PropTypes.node
+};
 
 export default class HeaderCell extends React.Component {
     render() {
@@ -16,9 +21,11 @@ export default class HeaderCell extends React.Component {
         };
 
         return (
-            <div className="table-header-cell" style={style}>
+            <div className="ibt-header-cell" style={style}>
                 {this.props.header}
             </div>
         );
     }
 }
+
+HeaderCell.propTypes = propTypes;

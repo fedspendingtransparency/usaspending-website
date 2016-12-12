@@ -286,11 +286,6 @@
         }
       }
     },
-    "fixed-data-table": {
-      "version": "0.6.3",
-      "from": "https://registry.npmjs.org/fixed-data-table/-/fixed-data-table-0.6.3.tgz",
-      "resolved": "https://registry.npmjs.org/fixed-data-table/-/fixed-data-table-0.6.3.tgz"
-    },
     "immutable": {
       "version": "3.8.1",
       "from": "https://registry.npmjs.org/immutable/-/immutable-3.8.1.tgz",
@@ -424,6 +419,11 @@
       "version": "15.4.0",
       "from": "https://registry.npmjs.org/react-addons-css-transition-group/-/react-addons-css-transition-group-15.4.0.tgz",
       "resolved": "https://registry.npmjs.org/react-addons-css-transition-group/-/react-addons-css-transition-group-15.4.0.tgz"
+    },
+    "react-addons-perf": {
+      "version": "15.4.0",
+      "from": "react-addons-perf@15.4.0",
+      "resolved": "https://registry.npmjs.org/react-addons-perf/-/react-addons-perf-15.4.0.tgz"
     },
     "react-addons-test-utils": {
       "version": "15.4.0",

@@ -4,7 +4,6 @@
   **/
 
 import React from 'react';
-import { Cell } from 'fixed-data-table';
 
 const propTypes = {
     label: React.PropTypes.string,
