@@ -234,3 +234,17 @@ Bell.defaultProps = {
     iconClass: 'usa-da-icon-bell-o',
     alt: 'Notify'
 };
+
+export class MapMarker extends BaseIcon {}
+MapMarker.defaultProps = {
+    iconName: 'usa-da-icon-map-marker',
+    iconClass: 'usa-da-icon-map-marker',
+    alt: 'Map Marker Icon'
+};
+
+export class Table extends BaseIcon {}
+Table.defaultProps = {
+    iconName: 'usa-da-icon-table',
+    iconClass: 'usa-da-icon-table',
+    alt: 'Table Icon'
+};

@@ -28,7 +28,7 @@ export default class SearchHeader extends React.Component {
                             <li>
                                 <FormatItem
                                     label="Map"
-                                    icon={<Icons.ExclamationCircle alt="Map" />} />
+                                    icon={<Icons.MapMarker alt="Map Marker" />} />
                             </li>
                             <li>
                                 <FormatItem
@@ -38,7 +38,7 @@ export default class SearchHeader extends React.Component {
                             <li>
                                 <FormatItem
                                     label="Table"
-                                    icon={<Icons.ExclamationCircle alt="Table" />} />
+                                    icon={<Icons.Table alt="Table Icon" />} />
                             </li>
                             <li>
                                 <DownloadButton />
