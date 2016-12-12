@@ -203,7 +203,6 @@ export default class Typeahead extends React.Component {
                         placeholder={placeholder}
                         value={this.props.value}
                         onChange={this.changedText.bind(this)}
-                        onBlur={this.props.handleTextInput}
                         tabIndex={this.props.tabIndex}
                         disabled={disabled}
                         aria-required={this.props.isRequired} />

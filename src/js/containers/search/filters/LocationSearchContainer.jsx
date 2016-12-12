@@ -21,9 +21,7 @@ class LocationSearchContainer extends React.Component {
         super(props);
 
         this.state = {
-            filter: {
-                selectedLocation: []
-            },
+            selectedLocation: [],
             locationError: false,
             errorMessage: ''
         };
@@ -39,19 +37,24 @@ class LocationSearchContainer extends React.Component {
     }
 
     handleTextInput(locationName, isValid) {
+        // Make copy of array to alter
+        const newSelectedArray = this.state.selectedLocation;
+
+        // If location name exists and is valid
         if (locationName !== '' && isValid) {
+            // if it's also not present in the existing array, add it
+            if (!newSelectedArray.includes(locationName)) {
+                newSelectedArray.push(locationName);
+            }
+            // finally, set state.
             this.setState({
-                filter: {
-                    selectedLocation: locationName
-                },
+                selectedLocation: newSelectedArray,
                 locationError: false
             }, this.checkComplete);
         }
         else {
             this.setState({
-                filter: {
-                    selectedLocation: ''
-                },
+                selectedLocation: newSelectedArray,
                 locationError: true
             }, this.checkComplete);
         }
@@ -63,7 +66,7 @@ class LocationSearchContainer extends React.Component {
     }
 
     checkComplete() {
-        if (this.state.filter.selectedLocation === '') {
+        if (this.state.selectedLocation === '') {
             this.setState({
                 errorMessage: 'You need to provide a valid location in order to continue.'
             });
@@ -92,7 +95,8 @@ class LocationSearchContainer extends React.Component {
             <LocationSearch
                 {...this.props}
                 toggleCountry={this.toggleCountry}
-                handleTextInput={this.handleTextInput} />
+                handleTextInput={this.handleTextInput}
+                selectedLocation={this.state.selectedLocation} />
         );
     }
 }
