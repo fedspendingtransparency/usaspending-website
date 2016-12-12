@@ -37,24 +37,16 @@ class LocationSearchContainer extends React.Component {
     }
 
     handleTextInput(locationName, isValid) {
-        // Make copy of array to alter
-        const newSelectedArray = this.state.selectedLocation;
-
         // If location name exists and is valid
         if (locationName !== '' && isValid) {
-            // if it's also not present in the existing array, add it
-            if (!newSelectedArray.includes(locationName)) {
-                newSelectedArray.push(locationName);
-            }
-            // finally, set state.
             this.setState({
-                selectedLocation: newSelectedArray,
+                selectedLocation: locationName,
                 locationError: false
             }, this.checkComplete);
         }
         else {
             this.setState({
-                selectedLocation: newSelectedArray,
+                selectedLocation: locationName,
                 locationError: true
             }, this.checkComplete);
         }
@@ -95,8 +87,7 @@ class LocationSearchContainer extends React.Component {
             <LocationSearch
                 {...this.props}
                 toggleCountry={this.toggleCountry}
-                handleTextInput={this.handleTextInput}
-                selectedLocation={this.state.selectedLocation} />
+                handleTextInput={this.handleTextInput} />
         );
     }
 }

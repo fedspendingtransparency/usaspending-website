@@ -2,12 +2,20 @@
 
     @import './_errorMessage';
     @import './_autocomplete';
+    @import './_selectedButtons';
+    @import './_typeahead';
 
     .location-radio {
         p {
+            color: $color-gray;
             font-size: $small-font-size;
             margin-top: 0;
             margin-bottom: 0;
+        }
+
+        label {
+            color: $color-gray;
+            font-weight: normal;
         }
     }
 
@@ -17,29 +25,6 @@
 
     .visually-hidden {
         display: none;
-    }
-
-    .usa-da-typeahead {
-        margin-top: 2rem;
-
-        input {
-            font-size: $small-font-size;
-            height: 4rem;
-            margin: 0 auto;
-            padding:  11px 8px 11px 8px;
-            width: 90%;
-        }
-
-        .awesomplete ul li {
-            line-height: 2rem;
-            font-size: $small-font-size;
-            padding: 1rem 2rem;
-            color: #555555;
-
-            &:hover {
-                background-color: $color-primary-alt-lightest;
-            }
-        }
     }
 
 }

@@ -6,7 +6,8 @@
 import React from 'react';
 
 const propTypes = {
-    value: React.PropTypes.string
+    value: React.PropTypes.string,
+    removeLocation: React.PropTypes.func
 };
 
 export default class ShownLocation extends React.Component {
@@ -15,8 +16,9 @@ export default class ShownLocation extends React.Component {
         return (
             <button
                 className="shown-location-button"
-                value={this.props.value}>
-                {this.props.value}
+                value={this.props.value}
+                onClick={this.props.removeLocation}>
+                {this.props.value} <span className="close">x</span>
             </button>
         );
     }
