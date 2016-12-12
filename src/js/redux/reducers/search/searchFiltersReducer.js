@@ -6,13 +6,14 @@
 import { Set } from 'immutable';
 
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
+import * as LocationFilterFunctions from './filters/locationFilterFunctions';
 
 const initialState = {
     awardType: new Set(),
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
-    locations: []
+    selectedLocations: new Set()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -39,9 +40,10 @@ const searchFiltersReducer = (state = initialState, action) => {
                 timePeriodFY: new Set(action.fy)
             });
         }
-        case 'SET_LOCATION_LIST': {
+        case 'UPDATE_SELECTED_LOCATIONS': {
             return Object.assign({}, state, {
-                locations: action.locations
+                selectedLocations: LocationFilterFunctions.updateSelectedLocations(
+                    state.selectedLocations, action.location, action.direction)
             });
         }
         default:

@@ -11,34 +11,19 @@ import LocationListContainer from '../../../../containers/sharedContainers/Locat
 const propTypes = {
     toggleCountry: React.PropTypes.func,
     handleTextInput: React.PropTypes.func,
-    selectedLocation: React.PropTypes.array
-};
-
-const defaultProps = {
-    selectedLocation: [
-        'Utah',
-        '20902',
-        'Orlando',
-        'Fairfax County'
-    ]
+    removeLocation: React.PropTypes.func,
+    selectedLocations: React.PropTypes.object
 };
 
 export default class LocationSearch extends React.Component {
-
-    removeLocation(e) {
-        // Remove location from selected list
-        console.log(e.target.value);
-    }
-
     render() {
         return (
             <div className="location-filter search-filter">
                 <CountryType toggleCountry={this.props.toggleCountry} />
-                <LocationListContainer handleTextInput={this.props.handleTextInput} />
-                <SelectedLocations selectedLocation={this.props.selectedLocation} removeLocation={this.removeLocation.bind(this)} />
+                <LocationListContainer selectedLocations={this.props.selectedLocations} selectLocation={this.props.selectLocation} />
+                <SelectedLocations selectedLocations={this.props.selectedLocations} removeLocation={this.props.removeLocation} />
             </div>
         );
     }
 }
 LocationSearch.propTypes = propTypes;
-LocationSearch.defaultProps = defaultProps;

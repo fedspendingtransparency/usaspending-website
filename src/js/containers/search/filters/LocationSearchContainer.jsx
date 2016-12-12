@@ -11,7 +11,6 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import LocationSearch from 'components/search/filters/location/LocationSearch';
 
-
 const propTypes = {
     updateLocation: React.PropTypes.func
 };
@@ -21,13 +20,14 @@ class LocationSearchContainer extends React.Component {
         super(props);
 
         this.state = {
-            selectedLocation: [],
             locationError: false,
             errorMessage: ''
         };
-        // bind function
+
+        // Bind functions
         this.toggleCountry = this.toggleCountry.bind(this);
-        this.handleTextInput = this.handleTextInput.bind(this);
+        this.selectLocation = this.selectLocation.bind(this);
+        this.removeLocation = this.removeLocation.bind(this);
     }
 
     toggleCountry(e) {
@@ -36,25 +36,31 @@ class LocationSearchContainer extends React.Component {
         });
     }
 
-    handleTextInput(locationName, isValid) {
+    selectLocation(location, isValid) {
         // If location name exists and is valid
-        if (locationName !== '' && isValid) {
+        if (location !== null && isValid) {
+            const updateParams = {};
+            updateParams.location = location;
+            updateParams.direction = 'add';
+
+            this.props.updateSelectedLocations(updateParams);
+
             this.setState({
-                selectedLocation: locationName,
                 locationError: false
             }, this.checkComplete);
         }
         else {
             this.setState({
-                selectedLocation: locationName,
                 locationError: true
             }, this.checkComplete);
         }
+    }
 
-        // perform search when API is connected
-        // this.updateFilter({
-        //     locationText: e.target.value
-        // });
+    removeLocation(location){
+        let updateParams = {};
+        updateParams.location = location;
+        updateParams.direction = 'remove';
+        this.props.updateSelectedLocations(updateParams);
     }
 
     checkComplete() {
@@ -87,7 +93,8 @@ class LocationSearchContainer extends React.Component {
             <LocationSearch
                 {...this.props}
                 toggleCountry={this.toggleCountry}
-                handleTextInput={this.handleTextInput} />
+                selectLocation={this.selectLocation}
+                removeLocation={this.removeLocation}/>
         );
     }
 }
@@ -95,6 +102,6 @@ class LocationSearchContainer extends React.Component {
 LocationSearchContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.filters.locations }),
+    (state) => ({ selectedLocations: state.filters.selectedLocations }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(LocationSearchContainer);

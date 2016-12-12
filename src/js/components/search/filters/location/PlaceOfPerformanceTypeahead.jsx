@@ -5,12 +5,12 @@
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
+import Awesomplete from 'awesomplete';
 
 import Typeahead from '../../../../components/sharedComponents/Typeahead';
 import TypeaheadWarning from '../../../../components/sharedComponents/TypeaheadWarning';
 
 const propTypes = {
-    values: PropTypes.array.isRequired,
     placeholder: PropTypes.string,
     onSelect: PropTypes.func.isRequired,
     customClass: PropTypes.string,
@@ -25,7 +25,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-    values: [],
     placeholder: 'State, City, County, Zip or District',
     customClass: '',
     formatter: null,
@@ -39,52 +38,53 @@ const defaultProps = {
 
 export default class PlaceOfPerformanceTypeahead extends Typeahead {
     loadValues() {
-        this.typeahead.list = this.props.values;
+        this.typeahead.list = this.props.autocompleteLocations;
 
-        this.props.values.forEach((value) => {
+        this.props.autocompleteLocations.forEach((value) => {
             let key = `<strong>${value.place}</strong><br>${_.upperCase(value.place_type)}`;
             if (value.parent !== null) {
                 key += ` in ${value.parent}`;
             }
 
-            const val = value.matched_ids.join(",");
-
-            this.dataDictionary[key] = val;
+            this.dataDictionary[key] = value.matched_ids.join(",");
         });
+
+        this.typeahead.replace = (text) => {
+            this.typeahead.input.value = "";
+        };
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (!_.isEqual(prevProps.autocompleteLocations, this.props.autocompleteLocations)
+            && this.typeahead) {
+            this.loadValues();
+        }
     }
 
     bubbleUpChange() {
-        // force the change up into the parent components
-        // validate the current value is on the autocomplete list
+        // Force the change up into the parent components
+        // Validate the current value is on the autocomplete list
         const validity = {}.hasOwnProperty.call(this.dataDictionary, this.state.value);
-        this.props.onSelect(this.dataDictionary[this.state.value], validity);
+
+        if (validity){
+            const key = this.dataDictionary[this.state.value];
+            let selectedLocation = null;
+
+            // Find matching location object from redux store based on Matched IDs key
+            for (let i = 0; i < this.props.autocompleteLocations.length; i++){
+                if (_.isEqual(this.props.autocompleteLocations[i]['matched_ids'].join(","),key)){
+                    selectedLocation = this.props.autocompleteLocations[i];
+                    break;
+                }
+            }
+
+            this.props.onSelect(selectedLocation, validity);
+        }
     }
 
     render() {
-        let disabled = null;
-        let placeholder = this.props.placeholder;
-        if (this.props.values.length === 0) {
-            disabled = 'disabled';
-            placeholder = 'Loading list...';
-        }
-
-        let warning = null;
-        let shownError = "";
-        if (this.state.showWarning) {
-            shownError = "shown";
-            const errorProps = {};
-            if (this.props.errorHeader) {
-                errorProps.header = this.props.errorHeader;
-            }
-            if (this.props.errorMessage) {
-                errorProps.description = this.props.errorMessage;
-            }
-
-            warning = <TypeaheadWarning {...errorProps} />;
-        }
-
         return (
-            <div className={shownError}>
+            <div>
                 <div className="usa-da-typeahead">
                     <p>Primary Place of Performance</p>
                     <input
@@ -93,11 +93,9 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
                         id="location-input"
                         type="text"
                         className="location-input awesomplete"
-                        placeholder={placeholder}
-                        disabled={disabled}
+                        placeholder={this.props.placeholder}
                         onChange={this.props.handleTextInput} />
                 </div>
-                {warning}
             </div>
         );
     }

@@ -12,10 +12,10 @@ const propTypes = {
 };
 
 export default class SelectedLocations extends React.Component {
-
     render() {
-        const shownLocations = this.props.selectedLocation.map((location, key) => (
-            <ShownLocation value={location} id={key} removeLocation={this.props.removeLocation} />
+        const shownLocations = this.props.selectedLocations.map((location, key) => (
+            <ShownLocation value={location.place} id={key} key={key.matched_ids.join(',')}
+                removeLocation={this.props.removeLocation.bind(null, location)} />
         ));
 
         return (

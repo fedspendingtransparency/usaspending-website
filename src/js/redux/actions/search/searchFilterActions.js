@@ -21,12 +21,13 @@ export const updateTimePeriod = (state) => ({
     end: state.endDate
 });
 
-export const setLocationList = (state) => ({
-    type: 'SET_LOCATION_LIST',
-    locations: state.locationArray
+export const updateSelectedLocations = (state) => ({
+    type: 'UPDATE_SELECTED_LOCATIONS',
+    location: state.location,
+    direction: state.direction
 });
 
-export const updateLocation = (state) => ({
-    type: 'UPDATE_SEARCH_FILTER_LOCATION',
-    locationSelected: state.selectedLocation
+export const setAutocompleteLocations = (state) => ({
+    type: 'SET_AUTOCOMPLETE_LOCATIONS',
+    locations: state
 });
