@@ -9,10 +9,23 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import FormatItem from './FormatItem';
 import DownloadButton from './DownloadButton';
 
+const propTypes = {
+    isSticky: React.PropTypes.bool,
+    currentSection: React.PropTypes.string
+};
+
 export default class SearchHeader extends React.Component {
     render() {
+        let stickyClass = '';
+        if (this.props.isSticky) {
+            stickyClass = ' sticky';
+        }
         return (
-            <div className="search-header-wrapper">
+            <div
+                className={`search-header-wrapper${stickyClass}`}
+                ref={(div) => {
+                    this.headerDiv = div;
+                }}>
                 <div className="search-header">
                     <div className="search-title">
                         <h1>Search &amp; Download Your Data</h1>
@@ -21,23 +34,34 @@ export default class SearchHeader extends React.Component {
                         <ul className="search-formats">
                             <li>
                                 <FormatItem
-                                    isActive
+                                    code="time"
+                                    currentSection={this.props.currentSection}
                                     label="Time"
+                                    accessibleLabel="Organize spending by time periods"
                                     icon={<Icons.Calendar alt="Time" />} />
                             </li>
                             <li>
                                 <FormatItem
+                                    code="map"
+                                    currentSection={this.props.currentSection}
                                     label="Map"
+                                    accessibleLabel="View spending on a map"
                                     icon={<Icons.MapMarker alt="Map Marker" />} />
                             </li>
                             <li>
                                 <FormatItem
+                                    code="rank"
+                                    currentSection={this.props.currentSection}
                                     label="Rank"
+                                    accessibleLabel="Rank spending by category"
                                     icon={<Icons.ExclamationCircle alt="Rank" />} />
                             </li>
                             <li>
                                 <FormatItem
+                                    code="table"
+                                    currentSection={this.props.currentSection}
                                     label="Table"
+                                    accessibleLabel="View spending by award type in a table"
                                     icon={<Icons.Table alt="Table Icon" />} />
                             </li>
                             <li>
@@ -50,3 +74,5 @@ export default class SearchHeader extends React.Component {
         );
     }
 }
+
+SearchHeader.propTypes = propTypes;

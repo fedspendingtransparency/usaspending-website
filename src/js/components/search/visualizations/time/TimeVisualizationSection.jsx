@@ -8,7 +8,9 @@ import React from 'react';
 export default class TimeVisualizationSection extends React.Component {
     render() {
         return (
-            <div className="results-visualization-time-section">
+            <div
+                className="results-visualization-time-section"
+                id="results-section-time">
                 <h3>Spending Over Time</h3>
                 <hr className="results-divider" />
             </div>

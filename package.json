@@ -99,6 +99,7 @@
   "dependencies": {
     "awesomplete": "^1.1.0",
     "axios": "^0.15.2",
+    "babel-polyfill": "^6.20.0",
     "d3": "^3.5.16",
     "fixed-data-table": "0.6.3",
     "immutable": "^3.8.1",
@@ -111,6 +112,7 @@
     "q": "^1.4.1",
     "react": "15.4.0",
     "react-addons-css-transition-group": "15.4.0",
+    "react-addons-perf": "^15.4.0",
     "react-addons-test-utils": "15.4.0",
     "react-aria-modal": "^2.3.1",
     "react-day-picker": "^3.1.1",
