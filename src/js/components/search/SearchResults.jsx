@@ -6,15 +6,17 @@
 import React from 'react';
 
 import ResultsTableContainer from 'containers/search/table/ResultsTableContainer';
+import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarContainer';
 
-import SearchSummary from './SearchSummary';
+import TimeVisualizationSection from './visualizations/time/TimeVisualizationSection';
 
 export default class SearchResults extends React.Component {
     render() {
         return (
             <div className="search-results-wrapper">
-                <SearchSummary />
+                <TopFilterBarContainer />
                 <div className="search-results">
+                    <TimeVisualizationSection />
                     <ResultsTableContainer />
                 </div>
             </div>

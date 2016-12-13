@@ -1,0 +1,43 @@
+.search-top-filter-bar {
+    margin-bottom: 3rem;
+
+    $top-background-color: #DDDDDD;
+    $top-text-color: #4A4A4A;
+    $top-item-border-color: #CACACA;
+    $top-clear-button-background-color: #CBCCCE;
+    $top-clear-button-color: #5B616B;
+
+    border: 1px solid $color-gray-light;
+    background-color: $top-background-color;
+
+    display: table;
+    width: 100%;
+
+    font-size: 12px;
+
+    .search-top-filters {
+        display: table-cell;
+        vertical-align: middle;
+
+        .search-top-filters-content {
+            display: block;
+            padding-right: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .filter-group-container {
+            display: inline-block;
+            margin-left: 20px;
+
+            .filter-group {
+                display: table;
+
+                @import "./_title";
+                @import "./_tag";
+            }
+        }
+    }
+
+    @import "./_clearAllButton";
+}
