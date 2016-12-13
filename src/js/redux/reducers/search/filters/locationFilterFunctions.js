@@ -4,7 +4,7 @@
 
 import { Set } from 'immutable';
 
-export const updateSelectedLocations = (state, value, direction) => {
+const updateSelectedLocations = (state, value, direction) => {
     let updatedSet = new Set(state);
 
     if (updatedSet.includes(value) && direction === 'remove') {
@@ -16,3 +16,5 @@ export const updateSelectedLocations = (state, value, direction) => {
 
     return updatedSet;
 };
+
+export default updateSelectedLocations;
