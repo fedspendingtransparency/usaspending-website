@@ -6,7 +6,7 @@
 import { Set } from 'immutable';
 
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
-import * as LocationFilterFunctions from './filters/locationFilterFunctions';
+import updateSelectedLocations from './filters/locationFilterFunctions';
 
 const initialState = {
     awardType: new Set(),
@@ -42,7 +42,7 @@ const searchFiltersReducer = (state = initialState, action) => {
         }
         case 'UPDATE_SELECTED_LOCATIONS': {
             return Object.assign({}, state, {
-                selectedLocations: LocationFilterFunctions.updateSelectedLocations(
+                selectedLocations: updateSelectedLocations(
                     state.selectedLocations, action.location, action.direction)
             });
         }
