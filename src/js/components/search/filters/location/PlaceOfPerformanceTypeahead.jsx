@@ -7,6 +7,7 @@ import React, { PropTypes } from 'react';
 import _ from 'lodash';
 
 import Typeahead from '../../../../components/sharedComponents/Typeahead';
+import TypeaheadWarning from '../../../../components/sharedComponents/TypeaheadWarning';
 
 const propTypes = {
     placeholder: PropTypes.string,
@@ -15,11 +16,8 @@ const propTypes = {
     keyValue: PropTypes.string,
     internalValue: PropTypes.string,
     formatter: React.PropTypes.func,
-    errorHeader: PropTypes.string,
-    errorMessage: PropTypes.string,
     tabIndex: PropTypes.number,
     handleTextInput: PropTypes.func,
-    showWarning: PropTypes.bool,
     isRequired: PropTypes.bool
 };
 
@@ -36,6 +34,14 @@ const defaultProps = {
 };
 
 export default class PlaceOfPerformanceTypeahead extends Typeahead {
+    constructor(props) {
+        super(props);
+        this.state = {
+            validity: true
+        };
+        this.checkValidity = this.checkValidity.bind(this);
+    }
+
     loadValues() {
         this.typeahead.list = this.props.autocompleteLocations;
 
@@ -63,12 +69,9 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
     bubbleUpChange() {
         // Force the change up into the parent components
         // Validate the current value is on the autocomplete list
-        const validity = {}.hasOwnProperty.call(this.dataDictionary, this.state.value);
-
-        if (validity) {
-            const key = this.dataDictionary[this.state.value];
-            let selectedLocation = null;
-
+        let selectedLocation = '';
+        if (this.state.valid) {
+            const key = this.dataDictionary[this.state.value.place];
             // Find matching location object from redux store based on Matched IDs key
             for (let i = 0; i < this.props.autocompleteLocations.length; i++) {
                 if (_.isEqual(this.props.autocompleteLocations[i].matched_ids.join(","), key)) {
@@ -76,21 +79,65 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
                     break;
                 }
             }
-            this.props.onSelect(selectedLocation, validity);
         }
+        this.props.onSelect(selectedLocation, this.state.valid);
+    }
+
+    checkValidity(input) {
+        const validity = {}.hasOwnProperty.call(this.dataDictionary, input);
+        this.setState({
+            valid: validity
+        });
+    }
+
+    onChange(e) {
+        const inputValue = e.target.value;
+        this.checkValidity(inputValue);
+
+        if (inputValue.length === 1) {
+            if (!this.state.showWarning) {
+                setTimeout(() => {
+                    this.setState({
+                        showWarning: true,
+                        errorMessage: 'You must enter at least 2 characters in the search box.',
+                        errorHeader: 'Location Error'
+                    });
+                }, 500);
+            }
+            return;
+        }
+
+        if (!this.state.validity) {
+            setTimeout(() => {
+                this.setState({
+                    showWarning: true,
+                    errorMessage: 'This location is not available, please try another.',
+                    errorHeader: 'Location Error'
+                });
+            }, 500);
+        }
+
+        // otherwise hide the warning
+        if (this.state.showWarning) {
+            this.setState({
+                showWarning: false
+            });
+        }
+
+        this.props.handleTextInput(e);
     }
 
     render() {
         let warning = null;
         let shownError = "";
-        if (this.props.showWarning) {
+        if (this.state.showWarning) {
             shownError = "shown";
             const errorProps = {};
-            if (this.props.errorHeader) {
-                errorProps.header = this.props.errorHeader;
+            if (this.state.errorHeader) {
+                errorProps.header = this.state.errorHeader;
             }
-            if (this.props.errorMessage) {
-                errorProps.description = this.props.errorMessage;
+            if (this.state.errorMessage) {
+                errorProps.description = this.state.errorMessage;
             }
 
             warning = <TypeaheadWarning {...errorProps} />;
@@ -107,7 +154,7 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
                         type="text"
                         className="location-input awesomplete"
                         placeholder={this.props.placeholder}
-                        onChange={this.props.handleTextInput} />
+                        onChange={this.onChange} />
                 </div>
                 {warning}
             </div>

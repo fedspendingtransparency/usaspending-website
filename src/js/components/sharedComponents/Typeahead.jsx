@@ -45,8 +45,7 @@ export default class Typeahead extends React.Component {
         this.dataDictionary = {};
 
         this.state = {
-            value: "",
-            showWarning: false
+            value: ""
         };
     }
     componentDidMount() {

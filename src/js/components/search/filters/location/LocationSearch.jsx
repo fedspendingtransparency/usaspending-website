@@ -22,10 +22,7 @@ export default class LocationSearch extends React.Component {
                 <CountryType toggleCountry={this.props.toggleCountry} />
                 <LocationListContainer
                     selectedLocations={this.props.selectedLocations}
-                    selectLocation={this.props.selectLocation}
-                    errorMessage={this.props.errorMessage}
-                    errorHeader={this.props.errorHeader}
-                    showWarning={this.props.showWarning} />
+                    selectLocation={this.props.selectLocation} />
                 <SelectedLocations
                     selectedLocations={this.props.selectedLocations}
                     removeLocation={this.props.removeLocation} />
