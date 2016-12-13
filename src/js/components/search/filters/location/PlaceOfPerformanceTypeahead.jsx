@@ -36,10 +36,13 @@ const defaultProps = {
 export default class PlaceOfPerformanceTypeahead extends Typeahead {
     constructor(props) {
         super(props);
+
         this.state = {
-            validity: true
+            showWarning: false,
+            errorMessage: null,
+            errorHeader: null,
+            timeout: null
         };
-        this.checkValidity = this.checkValidity.bind(this);
     }
 
     loadValues() {
@@ -69,9 +72,11 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
     bubbleUpChange() {
         // Force the change up into the parent components
         // Validate the current value is on the autocomplete list
-        let selectedLocation = '';
-        if (this.state.valid) {
-            const key = this.dataDictionary[this.state.value.place];
+        let selectedLocation = null;
+        const isValid = this.isValidSelection(this.state.value);
+
+        if (isValid) {
+            const key = this.dataDictionary[this.state.value];
             // Find matching location object from redux store based on Matched IDs key
             for (let i = 0; i < this.props.autocompleteLocations.length; i++) {
                 if (_.isEqual(this.props.autocompleteLocations[i].matched_ids.join(","), key)) {
@@ -80,50 +85,68 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
                 }
             }
         }
-        this.props.onSelect(selectedLocation, this.state.valid);
+
+        this.props.onSelect(selectedLocation, isValid);
+    }
+
+    isValidSelection(input) {
+        return {}.hasOwnProperty.call(this.dataDictionary, input);
     }
 
     checkValidity(input) {
-        const validity = {}.hasOwnProperty.call(this.dataDictionary, input);
-        this.setState({
-            valid: validity
-        });
-    }
-
-    onChange(e) {
-        const inputValue = e.target.value;
-        this.checkValidity(inputValue);
-
-        if (inputValue.length === 1) {
-            if (!this.state.showWarning) {
-                setTimeout(() => {
-                    this.setState({
-                        showWarning: true,
-                        errorMessage: 'You must enter at least 2 characters in the search box.',
-                        errorHeader: 'Location Error'
-                    });
-                }, 500);
-            }
-            return;
+        if (input.length === 1) {
+            this.createTimeout(true,
+                'You must enter at least 2 characters in the search box.',
+                'Location Error',
+                500
+            );
         }
-
-        if (!this.state.validity) {
-            setTimeout(() => {
-                this.setState({
-                    showWarning: true,
-                    errorMessage: 'This location is not available, please try another.',
-                    errorHeader: 'Location Error'
-                });
-            }, 500);
+        // Only show this error if a user has typed in more than 2 characters
+        // and the dataDictionary is populated
+        else if (!this.isValidSelection(input)
+            && input.length !== 0
+            && this.dataDictionary.length > 0) {
+            this.createTimeout(true,
+                'This location is not available, please try another.',
+                'Location Error',
+                500
+            );
         }
-
-        // otherwise hide the warning
-        if (this.state.showWarning) {
+        else {
+            this.cancelTimeout();
             this.setState({
                 showWarning: false
             });
         }
+    }
 
+    createTimeout(showWarning, errorMessage, errorHeader, delay) {
+        this.cancelTimeout();
+
+        this.setState({
+            timeout: window.setTimeout(() => {
+                this.setState({ showWarning, errorMessage, errorHeader });
+            }, delay)
+        });
+    }
+
+    cancelTimeout() {
+        if (this.state.timeout) {
+            window.clearTimeout(this.state.timeout);
+
+            this.setState({
+                showWarning: false,
+                errorMessage: null,
+                errorHeader: null,
+                timeout: null
+            });
+        }
+    }
+
+    onChange(e) {
+        const inputValue = e.target.value;
+
+        this.checkValidity(inputValue);
         this.props.handleTextInput(e);
     }
 
@@ -154,7 +177,7 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
                         type="text"
                         className="location-input awesomplete"
                         placeholder={this.props.placeholder}
-                        onChange={this.onChange} />
+                        onChange={this.onChange.bind(this)} />
                 </div>
                 {warning}
             </div>
