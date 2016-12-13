@@ -27,6 +27,9 @@ class LocationListContainer extends React.Component {
 
         this.state = {
             locationNames: [],
+            showWarning: this.props.showWarning,
+            errorMessage: this.props.errorMessage,
+            errorHeader: this.props.errorHeader,
             filter: {
                 locationArray: [{
                     keyValue: null,
@@ -62,7 +65,7 @@ class LocationListContainer extends React.Component {
 
     handleTextInput(locationInput){
         // Only search if search is 2 or more characters
-        if (locationInput.target.value.length >= 2) {
+        if (locationInput.target.value.length >= 2 || locationInput.target.value.length === 0) {
             const locSearchParam = {"value": locationInput.target.value};
             this.locationSearchRequest = SearchHelper.fetchLocations(locSearchParam);
 
@@ -94,6 +97,18 @@ class LocationListContainer extends React.Component {
                     // Add search results to Redux
                     this.props.setAutocompleteLocations(autocompleteData);
                 });
+            this.setState({
+                showWarning: false
+            });
+        }
+        else {
+            setTimeout(() => {
+                this.setState({
+                    showWarning: true,
+                    errorMessage: 'You must enter at least 2 characters in the search box.',
+                    errorHeader: 'Location Error'
+                });
+            }, 500);
         }
     }
 
@@ -109,6 +124,9 @@ class LocationListContainer extends React.Component {
                 formatter={this.dataFormatter}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectLocation}
+                showWarning={this.state.showWarning}
+                errorMessage={this.state.errorMessage}
+                errorHeader={this.state.errorHeader}
                 placeHolder="State, City, County, Zip or District"/>
         );
     }

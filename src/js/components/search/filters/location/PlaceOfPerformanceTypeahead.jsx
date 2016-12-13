@@ -21,6 +21,7 @@ const propTypes = {
     errorMessage: PropTypes.string,
     tabIndex: PropTypes.number,
     handleTextInput: PropTypes.func,
+    showWarning: PropTypes.bool,
     isRequired: PropTypes.bool
 };
 
@@ -32,8 +33,8 @@ const defaultProps = {
     internalValue: 'location_name',
     tabIndex: null,
     isRequired: false,
-    errorHeader: null,
-    errorDescription: null
+    errorHeader: '',
+    errorMessage: ''
 };
 
 export default class PlaceOfPerformanceTypeahead extends Typeahead {
@@ -77,14 +78,28 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
                     break;
                 }
             }
-
             this.props.onSelect(selectedLocation, validity);
         }
     }
 
     render() {
+        let warning = null;
+        let shownError = "";
+        if (this.props.showWarning) {
+            shownError = "shown";
+            const errorProps = {};
+            if (this.props.errorHeader) {
+                errorProps.header = this.props.errorHeader;
+            }
+            if (this.props.errorMessage) {
+                errorProps.description = this.props.errorMessage;
+            }
+
+            warning = <TypeaheadWarning {...errorProps} />;
+        }
+
         return (
-            <div>
+            <div className={shownError}>
                 <div className="usa-da-typeahead">
                     <p>Primary Place of Performance</p>
                     <input
@@ -96,6 +111,7 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
                         placeholder={this.props.placeholder}
                         onChange={this.props.handleTextInput} />
                 </div>
+                {warning}
             </div>
         );
     }

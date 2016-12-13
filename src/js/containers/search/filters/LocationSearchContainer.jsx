@@ -20,8 +20,9 @@ class LocationSearchContainer extends React.Component {
         super(props);
 
         this.state = {
-            locationError: false,
-            errorMessage: ''
+            errorMessage: '',
+            errorHeader: '',
+            showWarning: false
         };
 
         // Bind functions
@@ -37,6 +38,7 @@ class LocationSearchContainer extends React.Component {
     }
 
     selectLocation(location, isValid) {
+        console.log("hi");
         // If location name exists and is valid
         if (location !== null && isValid) {
             const updateParams = {};
@@ -44,15 +46,18 @@ class LocationSearchContainer extends React.Component {
             updateParams.direction = 'add';
 
             this.props.updateSelectedLocations(updateParams);
-
             this.setState({
-                locationError: false
-            }, this.checkComplete);
+                showWarning: false
+            });
         }
         else {
-            this.setState({
-                locationError: true
-            }, this.checkComplete);
+            setTimeout(() => {
+                this.setState({
+                    showWarning: true,
+                    errorMessage: 'There is no match for your location, please try another.',
+                    errorHeader: 'Location Error'
+                });
+            }, 500);
         }
     }
 
@@ -61,14 +66,6 @@ class LocationSearchContainer extends React.Component {
         updateParams.location = location;
         updateParams.direction = 'remove';
         this.props.updateSelectedLocations(updateParams);
-    }
-
-    checkComplete() {
-        if (this.state.selectedLocation === '') {
-            this.setState({
-                errorMessage: 'You need to provide a valid location in order to continue.'
-            });
-        }
     }
 
     updateFilter(params) {
@@ -94,7 +91,10 @@ class LocationSearchContainer extends React.Component {
                 {...this.props}
                 toggleCountry={this.toggleCountry}
                 selectLocation={this.selectLocation}
-                removeLocation={this.removeLocation}/>
+                removeLocation={this.removeLocation}
+                errorMessage={this.state.errorMessage}
+                errorHeader={this.state.errorHeader}
+                showWarning={this.state.showWarning} />
         );
     }
 }
