@@ -10,7 +10,7 @@ import LocationListContainer from '../../../../containers/sharedContainers/Locat
 
 const propTypes = {
     toggleCountry: React.PropTypes.func,
-    handleTextInput: React.PropTypes.func,
+    selectLocation: React.PropTypes.func,
     removeLocation: React.PropTypes.func,
     selectedLocations: React.PropTypes.object
 };
@@ -20,10 +20,15 @@ export default class LocationSearch extends React.Component {
         return (
             <div className="location-filter search-filter">
                 <CountryType toggleCountry={this.props.toggleCountry} />
-                <LocationListContainer selectedLocations={this.props.selectedLocations} selectLocation={this.props.selectLocation} errorMessage={this.props.errorMessage}
-                errorHeader={this.props.errorHeader}
-                showWarning={this.props.showWarning} />
-                <SelectedLocations selectedLocations={this.props.selectedLocations} removeLocation={this.props.removeLocation} />
+                <LocationListContainer
+                    selectedLocations={this.props.selectedLocations}
+                    selectLocation={this.props.selectLocation}
+                    errorMessage={this.props.errorMessage}
+                    errorHeader={this.props.errorHeader}
+                    showWarning={this.props.showWarning} />
+                <SelectedLocations
+                    selectedLocations={this.props.selectedLocations}
+                    removeLocation={this.props.removeLocation} />
             </div>
         );
     }

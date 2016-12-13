@@ -12,7 +12,7 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import LocationSearch from 'components/search/filters/location/LocationSearch';
 
 const propTypes = {
-    updateLocation: React.PropTypes.func
+    updateSelectedLocations: React.PropTypes.func
 };
 
 class LocationSearchContainer extends React.Component {
@@ -32,13 +32,12 @@ class LocationSearchContainer extends React.Component {
     }
 
     toggleCountry(e) {
-        this.updateFilter({
+        this.state = {
             locationOption: e.target.value
-        });
+        };
     }
 
     selectLocation(location, isValid) {
-        console.log("hi");
         // If location name exists and is valid
         if (location !== null && isValid) {
             const updateParams = {};
@@ -61,28 +60,20 @@ class LocationSearchContainer extends React.Component {
         }
     }
 
-    removeLocation(location){
-        let updateParams = {};
+    removeLocation(location) {
+        const updateParams = {};
         updateParams.location = location;
         updateParams.direction = 'remove';
         this.props.updateSelectedLocations(updateParams);
     }
 
-    updateFilter(params) {
-        // set the state to a clone of the filter subobject merged with the param object
-        const newFilter = Object.assign({}, this.state.filter, params);
-        this.setState({
-            filter: newFilter
-        }, () => {
-            this.performSearch();
-        });
-    }
 
-    performSearch() {
-        const searchParams = {};
-        searchParams.locationArray = this.state.filter.locationArray;
-
-        this.props.updateLocation(searchParams);
+    checkComplete() {
+        if (this.state.selectedLocation === '') {
+            this.setState({
+                errorMessage: 'You need to provide a valid location in order to continue.'
+            });
+        }
     }
 
     render() {

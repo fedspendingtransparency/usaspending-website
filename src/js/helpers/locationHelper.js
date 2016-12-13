@@ -8,7 +8,7 @@ import Axios, { CancelToken } from 'axios';
 import kGlobalConstants from 'GlobalConstants';
 
 // fetching locations is a cancellable promise
-export const fetchLocations = (req) => {
+const fetchLocations = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
@@ -23,3 +23,5 @@ export const fetchLocations = (req) => {
         }
     };
 };
+
+export default fetchLocations;

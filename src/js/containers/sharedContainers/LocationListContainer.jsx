@@ -6,49 +6,29 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Set } from 'immutable';
 import _ from 'lodash';
 
-import * as searchFilterActions from '../../redux/actions/search/searchFilterActions';
-import * as SearchHelper from 'helpers/searchHelper';
+import PoPTypeahead from 'components/search/filters/location/PlaceOfPerformanceTypeahead';
 
-import Typeahead from '../../components/sharedComponents/Typeahead';
-import PlaceOfPerformanceTypeahead from '../../components/search/filters/location/PlaceOfPerformanceTypeahead';
+import * as SearchHelper from 'helpers/searchHelper';
+import * as searchFilterActions from '../../redux/actions/search/searchFilterActions';
 
 const propTypes = {
-    handleTextInput: React.PropTypes.func,
-    locationsList: React.PropTypes.array,
-    setLocationList: React.PropTypes.func
+    setAutocompleteLocations: React.PropTypes.func,
+    selectLocation: React.PropTypes.func,
+    selectedLocations: React.PropTypes.object
 };
 
 class LocationListContainer extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             locationNames: [],
             showWarning: this.props.showWarning,
             errorMessage: this.props.errorMessage,
-            errorHeader: this.props.errorHeader,
-            filter: {
-                locationArray: [{
-                    keyValue: null,
-                    internalValue: null
-                }]
-            }
+            errorHeader: this.props.errorHeader
         };
-
         this.handleTextInput = this.handleTextInput.bind(this);
-    }
-
-    componentDidMount() {
-        this.loadData();
-    }
-
-    loadData() {
-        this.updateFilter({
-            locationArray: this.props.locationsList
-        });
     }
 
     dataFormatter(item) {
@@ -63,10 +43,10 @@ class LocationListContainer extends React.Component {
         };
     }
 
-    handleTextInput(locationInput){
+    handleTextInput(locationInput) {
         // Only search if search is 2 or more characters
         if (locationInput.target.value.length >= 2 || locationInput.target.value.length === 0) {
-            const locSearchParam = {"value": locationInput.target.value};
+            const locSearchParam = { value: locationInput.target.value };
             this.locationSearchRequest = SearchHelper.fetchLocations(locSearchParam);
 
             this.locationSearchRequest.promise
@@ -81,16 +61,17 @@ class LocationListContainer extends React.Component {
                         data.forEach((loc) => {
                             let isSelectedLocation = false;
                             locs.forEach((selectedLoc) => {
-                                if (_.isEqual(loc,selectedLoc)){
+                                if (_.isEqual(loc, selectedLoc)) {
                                     isSelectedLocation = true;
                                 }
-                            })
+                            });
 
-                            if (!isSelectedLocation){
+                            if (!isSelectedLocation) {
                                 autocompleteData.push(loc);
                             }
                         });
-                    } else {
+                    }
+                    else {
                         autocompleteData = data;
                     }
 
@@ -112,14 +93,9 @@ class LocationListContainer extends React.Component {
         }
     }
 
-    updateFilter(params) {
-        // fetch list of locations for autocomplete
-        // set the state to a clone of the filter subobject merged with the param object
-    }
-
     render() {
         return (
-            <PlaceOfPerformanceTypeahead
+            <PoPTypeahead
                 {...this.props}
                 formatter={this.dataFormatter}
                 handleTextInput={this.handleTextInput}
@@ -127,7 +103,7 @@ class LocationListContainer extends React.Component {
                 showWarning={this.state.showWarning}
                 errorMessage={this.state.errorMessage}
                 errorHeader={this.state.errorHeader}
-                placeHolder="State, City, County, Zip or District"/>
+                placeHolder="State, City, County, Zip or District" />
         );
     }
 

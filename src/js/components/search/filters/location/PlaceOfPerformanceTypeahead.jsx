@@ -5,10 +5,8 @@
 
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import Awesomplete from 'awesomplete';
 
 import Typeahead from '../../../../components/sharedComponents/Typeahead';
-import TypeaheadWarning from '../../../../components/sharedComponents/TypeaheadWarning';
 
 const propTypes = {
     placeholder: PropTypes.string,
@@ -50,12 +48,12 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
             this.dataDictionary[key] = value.matched_ids.join(",");
         });
 
-        this.typeahead.replace = (text) => {
+        this.typeahead.replace = () => {
             this.typeahead.input.value = "";
         };
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.autocompleteLocations, this.props.autocompleteLocations)
             && this.typeahead) {
             this.loadValues();
@@ -67,13 +65,13 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
         // Validate the current value is on the autocomplete list
         const validity = {}.hasOwnProperty.call(this.dataDictionary, this.state.value);
 
-        if (validity){
+        if (validity) {
             const key = this.dataDictionary[this.state.value];
             let selectedLocation = null;
 
             // Find matching location object from redux store based on Matched IDs key
-            for (let i = 0; i < this.props.autocompleteLocations.length; i++){
-                if (_.isEqual(this.props.autocompleteLocations[i]['matched_ids'].join(","),key)){
+            for (let i = 0; i < this.props.autocompleteLocations.length; i++) {
+                if (_.isEqual(this.props.autocompleteLocations[i].matched_ids.join(","), key)) {
                     selectedLocation = this.props.autocompleteLocations[i];
                     break;
                 }
