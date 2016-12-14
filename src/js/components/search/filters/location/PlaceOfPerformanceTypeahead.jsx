@@ -104,8 +104,7 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
         // Only show this error if a user has typed in more than 2 characters
         // and the dataDictionary is populated
         else if (!this.isValidSelection(input)
-            && input.length !== 0
-            && this.dataDictionary.length > 0) {
+            && input.length !== 0) {
             this.createTimeout(true,
                 'This location is not available, please try another.',
                 'Location Error',
@@ -172,7 +171,9 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
                     <p>Primary Place of Performance</p>
                     <input
                         data-multiple
-                        ref="awesomplete"
+                        ref={(t) => {
+                            this.awesompleteInput = t;
+                        }}
                         id="location-input"
                         type="text"
                         className="location-input awesomplete"

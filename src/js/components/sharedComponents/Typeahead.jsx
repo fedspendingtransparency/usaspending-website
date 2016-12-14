@@ -14,14 +14,12 @@ const propTypes = {
     placeholder: PropTypes.string,
     onSelect: PropTypes.func.isRequired,
     customClass: PropTypes.string,
-    keyValue: PropTypes.string,
-    internalValue: PropTypes.string,
     formatter: React.PropTypes.func,
     errorHeader: PropTypes.string,
     errorMessage: PropTypes.string,
     tabIndex: PropTypes.number,
-    handleTextInput: PropTypes.func,
-    isRequired: PropTypes.bool
+    isRequired: PropTypes.bool,
+    value: PropTypes.string
 };
 
 const defaultProps = {
@@ -52,7 +50,7 @@ export default class Typeahead extends React.Component {
         this.mountAwesomeplete();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.values, this.props.values) && this.typeahead) {
             this.loadValues();
         }
@@ -67,7 +65,7 @@ export default class Typeahead extends React.Component {
     }
 
     mountAwesomeplete() {
-        const target = this.refs.awesomplete;
+        const target = this.awesompleteInput;
         this.typeahead = new Awesomplete(target);
         this.typeahead.autoFirst = true;
 
@@ -78,7 +76,7 @@ export default class Typeahead extends React.Component {
         this.loadValues();
 
         // set up event handlers
-        this.refs.awesomplete.addEventListener('awesomplete-selectcomplete', (e) => {
+        this.awesompleteInput.addEventListener('awesomplete-selectcomplete', (e) => {
             this.setState({
                 value: e.text.label
             }, () => {
@@ -87,12 +85,12 @@ export default class Typeahead extends React.Component {
             this.typeahead.close();
         });
 
-        this.refs.awesomplete.addEventListener('blur', (e) => {
+        this.awesompleteInput.addEventListener('blur', () => {
             this.bubbleUpChange();
         });
 
         // enable tab keyboard shortcut for selection
-        this.refs.awesomplete.addEventListener('keydown', (e) => {
+        this.awesompleteInput.addEventListener('keydown', (e) => {
             if (e.keyCode === 9) {
                 this.typeahead.select();
             }
@@ -197,7 +195,9 @@ export default class Typeahead extends React.Component {
                 <div className="usa-da-typeahead">
                     <input
                         className={this.props.customClass}
-                        ref="awesomplete"
+                        ref={(t) => {
+                            this.awesompleteInput = t;
+                        }}
                         type="text"
                         placeholder={placeholder}
                         value={this.props.value}
