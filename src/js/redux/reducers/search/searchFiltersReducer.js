@@ -9,6 +9,7 @@ import * as AwardFilterFunctions from './filters/awardFilterFunctions';
 
 const initialState = {
     awardType: new Set(),
+    timePeriodType: 'fy',
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null
@@ -33,10 +34,14 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'UPDATE_SEARCH_FILTER_TIME_PERIOD': {
             // FY time period is stored as an ImmutableJS set
             return Object.assign({}, state, {
+                timePeriodType: action.dateType,
                 timePeriodStart: action.start,
                 timePeriodEnd: action.end,
                 timePeriodFY: new Set(action.fy)
             });
+        }
+        case 'CLEAR_SEARCH_FILTER_ALL': {
+            return Object.assign({}, initialState);
         }
         default:
             return state;

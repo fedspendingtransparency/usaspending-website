@@ -9,11 +9,16 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import TopFilterGroup from './TopFilterGroup';
 
 const propTypes = {
+    clearAllFilters: React.PropTypes.func,
     isSticky: React.PropTypes.bool
 };
 
 export default class TopFilterBar extends React.Component {
+    constructor(props) {
+        super(props);
 
+        this.pressedClearAll = this.pressedClearAll.bind(this);
+    }
     componentDidUpdate(prevProps) {
         if (prevProps.isSticky !== this.props.isSticky) {
             this.setSticky();
@@ -35,6 +40,10 @@ export default class TopFilterBar extends React.Component {
             this.placeholder.style.height = '0px';
             this.filterDiv.style.width = '100%';
         }
+    }
+
+    pressedClearAll() {
+        this.props.clearAllFilters();
     }
 
     render() {
@@ -66,7 +75,8 @@ export default class TopFilterBar extends React.Component {
                         <button
                             className="search-clear-button"
                             aria-label="Clear all filters"
-                            title="Clear all filters">
+                            title="Clear all filters"
+                            onClick={this.pressedClearAll}>
                             <span className="button-label">
                                 Clear all filters
                             </span>
