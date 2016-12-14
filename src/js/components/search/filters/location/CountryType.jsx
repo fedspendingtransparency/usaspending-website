@@ -22,14 +22,14 @@ export default class CountryType extends React.Component {
                     value="all"
                     defaultChecked="true"
                     onClick={this.props.toggleCountry} />
-                <label htmlFor="location-all">All |</label>
+                <label htmlFor="location-all">All</label>
                 <input
                     type="radio"
                     id="location-usa"
                     name="location"
-                    value="usa"
+                    value="domestic"
                     onClick={this.props.toggleCountry} />
-                <label htmlFor="location-usa">USA |</label>
+                <label htmlFor="location-usa">USA</label>
                 <input
                     type="radio"
                     id="location-foreign"

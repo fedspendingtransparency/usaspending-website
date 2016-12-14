@@ -5,17 +5,29 @@
     @import './_selectedButtons';
     @import './_typeahead';
 
+    padding-left: 0;
+
+    > div {
+        padding-left: 3rem;
+    }
+
     .location-radio {
         p {
             color: $color-gray;
             font-size: $small-font-size;
             margin-top: 0;
-            margin-bottom: 0;
+            margin-bottom: 0.5rem;
         }
 
         label {
             color: $color-gray;
             font-weight: normal;
+        }
+
+        label:not(:last-child) {
+            border-right: 1px solid rgba(0,0,0,0.3);
+            padding-right: 1rem;
+            margin-right: 1rem;
         }
     }
 
@@ -27,4 +39,18 @@
         display: none;
     }
 
+    .pop-typeahead {
+        margin-bottom: 1rem;
+
+        .usa-da-typeahead {
+            margin: 3rem 0 1rem;
+        }
+    }
+
+    .selected-locations {
+        background-color: #E4E4E4;
+        padding: 1rem 0 1rem 3rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
 }

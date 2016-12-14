@@ -16,7 +16,8 @@ import * as searchFilterActions from '../../redux/actions/search/searchFilterAct
 const propTypes = {
     setAutocompleteLocations: React.PropTypes.func,
     selectLocation: React.PropTypes.func,
-    selectedLocations: React.PropTypes.object
+    selectedLocations: React.PropTypes.object,
+    locationOption: React.PropTypes.string
 };
 
 class LocationListContainer extends React.Component {
@@ -43,8 +44,12 @@ class LocationListContainer extends React.Component {
     handleTextInput(locationInput) {
         // Only search if search is 2 or more characters
         if (locationInput.target.value.length >= 2 || locationInput.target.value.length === 0) {
-            const locSearchParam = { value: locationInput.target.value };
-            this.locationSearchRequest = SearchHelper.fetchLocations(locSearchParam);
+            const locSearchParams = {
+                value: locationInput.target.value,
+                scope: this.props.locationOption
+            };
+
+            this.locationSearchRequest = SearchHelper.fetchLocations(locSearchParams);
 
             this.locationSearchRequest.promise
                 .then((res) => {

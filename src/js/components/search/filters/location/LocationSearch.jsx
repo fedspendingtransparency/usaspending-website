@@ -12,20 +12,27 @@ const propTypes = {
     toggleCountry: React.PropTypes.func,
     selectLocation: React.PropTypes.func,
     removeLocation: React.PropTypes.func,
-    selectedLocations: React.PropTypes.object
+    selectedLocations: React.PropTypes.object,
+    locationOption: React.PropTypes.string
 };
 
 export default class LocationSearch extends React.Component {
     render() {
+        let selectedLocations = null;
+        if (this.props.selectedLocations.size > 0) {
+            selectedLocations = (<SelectedLocations
+                selectedLocations={this.props.selectedLocations}
+                removeLocation={this.props.removeLocation} />);
+        }
+
         return (
             <div className="location-filter search-filter">
                 <CountryType toggleCountry={this.props.toggleCountry} />
                 <LocationListContainer
                     selectedLocations={this.props.selectedLocations}
-                    selectLocation={this.props.selectLocation} />
-                <SelectedLocations
-                    selectedLocations={this.props.selectedLocations}
-                    removeLocation={this.props.removeLocation} />
+                    selectLocation={this.props.selectLocation}
+                    locationOption={this.props.locationOption} />
+                {selectedLocations}
             </div>
         );
     }

@@ -86,6 +86,8 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
             }
         }
 
+        // Important - clear internal typeahead state value before passing selection
+        this.state.value = '';
         this.props.onSelect(selectedLocation, isValid);
     }
 
@@ -104,7 +106,8 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
         // Only show this error if a user has typed in more than 2 characters
         // and the dataDictionary is populated
         else if (!this.isValidSelection(input)
-            && input.length !== 0) {
+            && input.length !== 0
+            && this.dataDictionary.length === 0) {
             this.createTimeout(true,
                 'This location is not available, please try another.',
                 'Location Error',
@@ -151,9 +154,7 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
 
     render() {
         let warning = null;
-        let shownError = "";
         if (this.state.showWarning) {
-            shownError = "shown";
             const errorProps = {};
             if (this.state.errorHeader) {
                 errorProps.header = this.state.errorHeader;
@@ -166,7 +167,7 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
         }
 
         return (
-            <div className={shownError}>
+            <div className="pop-typeahead">
                 <div className="usa-da-typeahead">
                     <p>Primary Place of Performance</p>
                     <input
