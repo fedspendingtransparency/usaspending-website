@@ -7,8 +7,10 @@ import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
+    code: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
-    value: React.PropTypes.any
+    value: React.PropTypes.any,
+    removeFilter: React.PropTypes.func
 };
 
 const defaultProps = {
@@ -16,6 +18,16 @@ const defaultProps = {
 };
 
 export default class TopFilterItem extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.clickedButton = this.clickedButton.bind(this);
+    }
+
+    clickedButton() {
+        this.props.removeFilter(this.props.code, this.props.value);
+    }
+
     render() {
         const accessibleLabel = `Remove filter for ${this.props.title}`;
 
@@ -29,7 +41,8 @@ export default class TopFilterItem extends React.Component {
                         <button
                             className="filter-remove"
                             aria-label={accessibleLabel}
-                            title={accessibleLabel}>
+                            title={accessibleLabel}
+                            onClick={this.clickedButton}>
                             <span className="sr-only">
                                 {accessibleLabel}
                             </span>

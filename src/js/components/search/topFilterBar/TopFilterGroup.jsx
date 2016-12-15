@@ -9,7 +9,8 @@ import TopFilterItem from './TopFilterItem';
 
 const propTypes = {
     name: React.PropTypes.string,
-    data: React.PropTypes.object
+    data: React.PropTypes.object,
+    removeFilter: React.PropTypes.func
 };
 
 const defaultProps = {
@@ -23,8 +24,10 @@ export default class TopFilterGroup extends React.Component {
         this.props.data.values.forEach((value) => {
             const item = (<TopFilterItem
                 key={`top-item-${this.props.data.code}-${value}`}
+                code={this.props.data.code}
                 title={this.props.data.labels[i]}
-                value={value} />);
+                value={value}
+                removeFilter={this.props.removeFilter} />);
 
             items.push(item);
             i += 1;

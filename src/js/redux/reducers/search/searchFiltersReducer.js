@@ -40,6 +40,11 @@ const searchFiltersReducer = (state = initialState, action) => {
                 timePeriodFY: new Set(action.fy)
             });
         }
+        case 'UPDATE_SEARCH_FILTER_GENERIC': {
+            return Object.assign({}, state, {
+                [action.filterType]: action.filterValue
+            });
+        }
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return Object.assign({}, initialState);
         }

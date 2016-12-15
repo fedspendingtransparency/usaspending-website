@@ -16,7 +16,8 @@ import TopFilterGroup from './TopFilterGroup';
 const propTypes = {
     filters: React.PropTypes.array,
     clearAllFilters: React.PropTypes.func,
-    isSticky: React.PropTypes.bool
+    isSticky: React.PropTypes.bool,
+    removeFilter: React.PropTypes.func
 };
 
 export default class TopFilterBar extends React.Component {
@@ -75,7 +76,8 @@ export default class TopFilterBar extends React.Component {
             <TopFilterGroup
                 key={`top-group-${filter.code}`}
                 name={filter.name}
-                data={filter} />
+                data={filter}
+                removeFilter={this.props.removeFilter} />
             ));
 
         return (
