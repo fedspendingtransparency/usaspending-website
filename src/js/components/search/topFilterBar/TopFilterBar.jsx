@@ -1,6 +1,11 @@
 /**
-  * TopBar.jsx
+  * TopFilterBar.jsx
   * Created by Kevin Li 12/13/16
+  *
+  * TopFilterBar is a React component that creates the sticky filter bar at the top of the search
+  * results page. It receives parsed filter groups from its parent Redux container.
+  *
+  * @extends React.Component
   **/
 
 import React from 'react';
@@ -9,6 +14,7 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import TopFilterGroup from './TopFilterGroup';
 
 const propTypes = {
+    filters: React.PropTypes.array,
     clearAllFilters: React.PropTypes.func,
     isSticky: React.PropTypes.bool
 };
@@ -19,10 +25,23 @@ export default class TopFilterBar extends React.Component {
 
         this.pressedClearAll = this.pressedClearAll.bind(this);
     }
+
+    componentDidMount() {
+        if (this.props.isSticky) {
+            this.setInitialStickiness();
+        }
+    }
+
     componentDidUpdate(prevProps) {
         if (prevProps.isSticky !== this.props.isSticky) {
             this.setSticky();
         }
+    }
+
+    setInitialStickiness() {
+        // handle an edge case where the filter bar is mounted while the user has already scrolled
+        // to a sticky position
+        this.filterDiv.style.width = `${this.placeholder.offsetWidth}px`;
     }
 
     setSticky() {
@@ -52,6 +71,13 @@ export default class TopFilterBar extends React.Component {
             stickyClass = ' sticky';
         }
 
+        const filters = this.props.filters.map((filter) => (
+            <TopFilterGroup
+                key={`top-group-${filter.code}`}
+                name={filter.name}
+                data={filter} />
+            ));
+
         return (
             <div>
                 <div
@@ -67,8 +93,7 @@ export default class TopFilterBar extends React.Component {
                     }}>
                     <div className="search-top-filters">
                         <div className="search-top-filters-content">
-                            <TopFilterGroup />
-                            <TopFilterGroup />
+                            {filters}
                         </div>
                     </div>
                     <div className="search-clear-container">

@@ -8,7 +8,8 @@ import React from 'react';
 import TopFilterItem from './TopFilterItem';
 
 const propTypes = {
-    name: React.PropTypes.string
+    name: React.PropTypes.string,
+    data: React.PropTypes.object
 };
 
 const defaultProps = {
@@ -17,6 +18,18 @@ const defaultProps = {
 
 export default class TopFilterGroup extends React.Component {
     render() {
+        const items = [];
+        let i = 0;
+        this.props.data.values.forEach((value) => {
+            const item = (<TopFilterItem
+                key={`top-item-${this.props.data.code}-${value}`}
+                title={this.props.data.labels[i]}
+                value={value} />);
+
+            items.push(item);
+            i += 1;
+        });
+
         return (
             <div className="filter-group-container">
                 <div className="filter-group">
@@ -24,9 +37,7 @@ export default class TopFilterGroup extends React.Component {
                         {this.props.name}:
                     </div>
                     <div className="filter-values">
-                        <TopFilterItem />
-                        <TopFilterItem />
-                        <TopFilterItem />
+                        {items}
                     </div>
                 </div>
             </div>

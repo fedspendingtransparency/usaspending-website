@@ -7,7 +7,8 @@ import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    title: React.PropTypes.string.isRequired
+    title: React.PropTypes.string.isRequired,
+    value: React.PropTypes.any
 };
 
 const defaultProps = {

@@ -17,6 +17,8 @@ export default class SearchPage extends React.Component {
         super(props);
 
         this.sections = ['time', 'map', 'rank', 'table'];
+        // headerBottom tracks the position (in pixels) of the bottom of the search page header
+        // within the current window view
         this.headerBottom = 0;
 
         this.state = {
@@ -25,19 +27,23 @@ export default class SearchPage extends React.Component {
             stickyTopFilterBar: false
         };
 
+        // throttle the ocurrences of the scroll callback to once every 50ms
         this.handlePageScroll = _.throttle(this.handlePageScroll.bind(this), 50);
     }
+
     componentDidMount() {
-        // watch the page for scroll events
+        // watch the page for scroll and resize events
         window.addEventListener('scroll', this.handlePageScroll);
+        window.addEventListener('resize', this.handlePageScroll);
 
         this.headerBottom = this.searchHeader.headerDiv.getBoundingClientRect().top
             + this.searchHeader.headerDiv.offsetHeight;
     }
 
     componentWillUnmount() {
-        // stop observing scroll events
+        // stop observing scroll and resize events
         window.removeScrollEventListener('scroll', this.handlePageScroll);
+        window.removeScrollEventListener('resize', this.handlePageScroll);
     }
 
     handlePageScroll() {
@@ -45,6 +51,10 @@ export default class SearchPage extends React.Component {
         this.highlightSection();
     }
 
+    /**
+     * Track the positions of the search header and the top filter bar within the window and
+     * determine if they should be stickied or unstickied.
+     */
     manageHeaders() {
         // don't do anything if there's not enough content to have a fixed header based on the
         // current window size
@@ -64,7 +74,7 @@ export default class SearchPage extends React.Component {
         const newState = {};
         let updateState = false;
 
-        // determine which items need to be stickied
+        // determine if the search header needs to be stickied
         if (headerRect.top <= 0 && !this.state.stickyHeader) {
             // header has reached the top of the window
             // make the header sticky
@@ -77,17 +87,21 @@ export default class SearchPage extends React.Component {
             updateState = true;
         }
 
-        if (contentRect.top <= headerHeight && !this.state.stickyTopFilterBar) {
-            // make the top filter bar sticky
+        // determine if the top filter bar needs to be stickied
+        if (contentRect.top <= headerHeight && headerRect.top <= 0
+            && !this.state.stickyTopFilterBar) {
+            // make the top filter bar sticky, but only if the header bar is sticky too
             newState.stickyTopFilterBar = true;
             updateState = true;
         }
-        else if (contentRect.top > headerHeight && this.state.stickyTopFilterBar) {
+        else if ((contentRect.top > headerHeight || headerRect.top > 0)
+            && this.state.stickyTopFilterBar) {
             // unstick the top filter bar
             newState.stickyTopFilterBar = false;
             updateState = true;
         }
 
+        // only update the state if changes have occurred, to minimize on re-renders
         if (updateState) {
             this.setState(newState, () => {
                 this.displayPlaceholders();
@@ -95,10 +109,13 @@ export default class SearchPage extends React.Component {
         }
     }
 
+    /**
+     * When the search header becomes fixed positioned, a placeholder div will take its old position
+     * on the page to maintain scroll position continuity. This is because the content height that
+     * used to be taken up by the search header becomes 0 when the search header is pulled out of
+     * the content flow into a fixed window position.
+     */
     displayPlaceholders() {
-        // when an item becomes fixed positioned, a placeholder div will take its old position
-        // on the page to remain scroll position continuity
-
         if (this.state.stickyHeader) {
             // display the header placeholder
             this.searchHeaderPlaceholder.style.visibility = 'visible';
@@ -113,9 +130,12 @@ export default class SearchPage extends React.Component {
         }
     }
 
-    highlightSection() {
-        // iterate through the sections and determine which one we are in
+    /**
+     * Determine what the current section of the search results page is most in view and highlight
+     * that section's icon as the current section
+     */
 
+    highlightSection() {
         // determine the current bottom position of the header bar
         const visibleTop = this.headerBottom;
         // add a bias to the next section
