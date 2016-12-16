@@ -59,8 +59,9 @@ export default class TopFilterBar extends React.Component {
         // to a sticky position
         this.filterDiv.style.width = `${this.placeholder.offsetWidth}px`;
 
-        // determine where the bottom of the header bar is
+        // determine where the bottom of the search header bar is
         if (this.headerBar) {
+            // position the top filter bar below the search header bar position
             this.filterDiv.style.top = `${this.headerBar.offsetHeight}px`;
         }
     }
@@ -88,6 +89,8 @@ export default class TopFilterBar extends React.Component {
 
     handleWindowResize() {
         if (this.props.isSticky) {
+            // if the top filter bar is already sticky and a window resize event occurs, it will
+            // be necessary to recalculate both the width and the Y position of the top filter bar
             this.setInitialStickiness();
         }
     }
