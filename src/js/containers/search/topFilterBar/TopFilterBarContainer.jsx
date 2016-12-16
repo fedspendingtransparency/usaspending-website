@@ -65,8 +65,6 @@ class TopFilterBarContainer extends React.Component {
     /**
      * Logic for parsing the current Redux time filter into a JS object that can be parsed by the
      * top filter bar
-     *
-     * @param      object  props   Redux store filter values
      */
     prepareTimeFilter(props) {
         let selected = false;
@@ -107,6 +105,10 @@ class TopFilterBarContainer extends React.Component {
         return null;
     }
 
+    /**
+     * Logic for parsing the current Redux award type filter into a JS object that can be parsed by
+     * the top filter bar
+     */
     prepareAwardTypes(props) {
         let selected = false;
         const filter = {};
@@ -119,6 +121,8 @@ class TopFilterBarContainer extends React.Component {
 
             filter.values = [];
             filter.labels = [];
+
+            // iterate through each selected award type and determine its string label
             props.awardType.forEach((type) => {
                 if ({}.hasOwnProperty.call(AwardType.awardTypeCodes, type)) {
                     filter.values.push(type);
@@ -133,6 +137,12 @@ class TopFilterBarContainer extends React.Component {
         return null;
     }
 
+    /**
+     * Generic callback function called when an individual filter "remove" button is clicked.
+     *
+     * @param      {string}  type    The filter type (an internal code)
+     * @param      {<type>}  value   The filter value to remove
+     */
     removeFilter(type, value) {
         if (type === 'timePeriodFY' || type === 'timePeriodDR') {
             this.removeTimePeriod(type, value);
@@ -142,8 +152,16 @@ class TopFilterBarContainer extends React.Component {
         }
     }
 
+    /**
+     * Specific logic to handle removing a single fiscal year or to clear the date range from the
+     * Redux time period filter.
+     *
+     * @param      {string}  type    The type identifying if the value is a date range or fiscal
+     * year
+     * @param      {<type>}  value   The fiscal year to remove (optional if the type is date range)
+     */
     removeTimePeriod(type, value) {
-        // check if fiscal year or date range
+        // prepopulate the Redux action argument with the current filter values
         const timePeriodFilter = {
             dateType: this.props.reduxFilters.timePeriodType,
             fy: this.props.reduxFilters.timePeriodFY,
@@ -151,6 +169,7 @@ class TopFilterBarContainer extends React.Component {
             end: this.props.reduxFilters.timePeriodEnd
         };
 
+        // check if fiscal year or date range
         if (type === 'timePeriodFY') {
             // remove the item from the set
             timePeriodFilter.dateType = 'fy';
@@ -164,9 +183,17 @@ class TopFilterBarContainer extends React.Component {
             timePeriodFilter.end = null;
         }
 
+        // reuse the Redux action from the time period filter component
         this.props.updateTimePeriod(timePeriodFilter);
     }
 
+    /**
+     * Generic logic to handle removing a single element from a Redux filter that is an ImmutableJS
+     * Set.
+     *
+     * @param      {<type>}  type    The Redux filter key
+     * @param      {<type>}  value   The value to remove from the Set
+     */
     removeFromSet(type, value) {
         const newValue = this.props.reduxFilters[type].delete(value);
         this.props.updateGenericFilter({
