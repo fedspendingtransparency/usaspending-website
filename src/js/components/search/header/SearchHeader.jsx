@@ -23,6 +23,7 @@ export default class SearchHeader extends React.Component {
         return (
             <div
                 className={`search-header-wrapper${stickyClass}`}
+                id="search-header-wrapper"
                 ref={(div) => {
                     this.headerDiv = div;
                 }}>

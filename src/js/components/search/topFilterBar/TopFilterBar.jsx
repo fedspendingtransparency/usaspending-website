@@ -9,6 +9,7 @@
   **/
 
 import React from 'react';
+import _ from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import TopFilterGroup from './TopFilterGroup';
@@ -24,13 +25,22 @@ export default class TopFilterBar extends React.Component {
     constructor(props) {
         super(props);
 
+        this.headerBar = null;
+
         this.pressedClearAll = this.pressedClearAll.bind(this);
+        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
     }
 
     componentDidMount() {
+        // grab a reference to the search header bar DOM element
+        this.headerBar = document.querySelector('#search-header-wrapper');
+
         if (this.props.isSticky) {
             this.setInitialStickiness();
         }
+
+        // observe resize events to keep the filter bar's width in sync when stickied
+        window.addEventListener('resize', this.handleWindowResize);
     }
 
     componentDidUpdate(prevProps) {
@@ -39,10 +49,20 @@ export default class TopFilterBar extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        // stop observing resize events
+        window.addEventListener('resize', this.handleWindowResize);
+    }
+
     setInitialStickiness() {
         // handle an edge case where the filter bar is mounted while the user has already scrolled
         // to a sticky position
         this.filterDiv.style.width = `${this.placeholder.offsetWidth}px`;
+
+        // determine where the bottom of the header bar is
+        if (this.headerBar) {
+            this.filterDiv.style.top = `${this.headerBar.offsetHeight}px`;
+        }
     }
 
     setSticky() {
@@ -65,6 +85,13 @@ export default class TopFilterBar extends React.Component {
     pressedClearAll() {
         this.props.clearAllFilters();
     }
+
+    handleWindowResize() {
+        if (this.props.isSticky) {
+            this.setInitialStickiness();
+        }
+    }
+
 
     render() {
         let stickyClass = '';

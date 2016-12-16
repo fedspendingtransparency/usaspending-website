@@ -17,15 +17,19 @@ export default class SearchPage extends React.Component {
         super(props);
 
         this.sections = ['time', 'map', 'rank', 'table'];
-        // headerBottom tracks the position (in pixels) of the bottom of the search page header
-        // within the current window view
-        this.headerBottom = 0;
 
         this.state = {
             currentSection: this.sections[0],
             stickyHeader: false,
             stickyTopFilterBar: false
         };
+
+        // headerBottom tracks the position (in pixels) of the bottom of the search page header
+        // within the current window view
+        this.headerBottom = 0;
+
+        // also track the window size, but track it outside of state to avoid re-renders
+        this.windowWidth = window.innerWidth;
 
         // throttle the ocurrences of the scroll callback to once every 50ms
         this.handlePageScroll = _.throttle(this.handlePageScroll.bind(this), 50);
