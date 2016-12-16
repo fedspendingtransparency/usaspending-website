@@ -4,15 +4,54 @@
   **/
 
 import React from 'react';
+import _ from 'lodash';
+
+import TimeVisualization from './TimeVisualization';
 
 export default class TimeVisualizationSection extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            windowWidth: 0,
+            visualizationWidth: 0
+        };
+
+        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+    }
+
+    componentDidMount() {
+        this.handleWindowResize();
+        window.addEventListener('resize', this.handleWindowResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize);
+    }
+
+    handleWindowResize() {
+        // determine if the width changed
+        const windowWidth = window.innerWidth;
+        if (this.state.windowWidth !== windowWidth) {
+            // width changed, update the visualization width
+            this.setState({
+                windowWidth,
+                visualizationWidth: this.sectionDiv.offsetWidth
+            });
+        }
+    }
+
     render() {
         return (
             <div
                 className="results-visualization-time-section"
-                id="results-section-time">
+                id="results-section-time"
+                ref={(div) => {
+                    this.sectionDiv = div;
+                }}>
                 <h3>Spending Over Time</h3>
                 <hr className="results-divider" />
+                <TimeVisualization width={this.state.visualizationWidth} />
             </div>
         );
     }
