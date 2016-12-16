@@ -14,12 +14,12 @@ ul.toggle-buttons {
             border-bottom: 1px solid $color-white;
             background-color: $color-white;
             color: $color-gray;
-            font-size: $small-font-size;
+            font-size: $smallest-font-size;
             font-weight:normal;
             height: 31px;
             margin-bottom: 0;
             padding: 0;
-            width: 97px;
+            width: 75px;
             z-index: 9000;
         }
 
@@ -29,6 +29,13 @@ ul.toggle-buttons {
             border-right: 1px solid $color-primary-alt-lightest;
             border-top: 1px solid $color-primary-alt-lightest;
             border-bottom: 1px solid $color-gray-lighter;
+        }
+
+        @include media($large-screen){
+            button.date-toggle {
+                font-size: $small-font-size;
+                width: 97px;
+            }
         }
     }
 }

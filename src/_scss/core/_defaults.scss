@@ -103,3 +103,9 @@ $nav-width:           951px !default;
 
 // 44 x 44 pixels hit target following Apple iOS Human Interface Guidelines
 $hit-area:          4.4rem !default;
+
+// Gride Sizes
+$column: em(46.875);
+$gutter: em(30);
+$grid-columns: 16;
+$max-width: em(1400);
