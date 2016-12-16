@@ -5,7 +5,8 @@
         a {
             height: 4.8rem;
             display: block;
-            background-color: #E91E63;
+            background: url('/img/USASpendingLogo.png') no-repeat;
+            width: em(406px) !important;
 
             @include media($nav-width) {
                 @include fill-parent();
