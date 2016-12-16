@@ -147,8 +147,6 @@ export default class TableBody extends React.Component {
 
         if (this.props.rowCount < 1) {
             // no rows to show
-            // clear the last render
-            this.lastRender = '';
             // set the state to show no rows
             this.setState({
                 visibleRows: []
@@ -197,13 +195,16 @@ export default class TableBody extends React.Component {
         });
 
         // generate a string representation of the visible cell coordinates
-        const renderCoords = `${topRowIndex}-${bottomRowIndex}_${firstCol}-${lastCol}`;
+        const renderCoords =
+            `${topRowIndex}-${bottomRowIndex}_${firstCol}-${lastCol}-${this.props.dataHash}`;
 
+        // don't re-render if the render coords are the same and the underlying data hasn't changed
         if (this.lastRender === renderCoords) {
             return;
         }
 
         this.lastRender = renderCoords;
+
         for (let i = topRowIndex; i <= bottomRowIndex; i++) {
             const row = (<TableRow
                 {...this.props}
@@ -214,7 +215,6 @@ export default class TableBody extends React.Component {
             rows.push(row);
         }
 
-        this.ignoreState = false;
         this.setState({
             visibleRows: rows
         });
