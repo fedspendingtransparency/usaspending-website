@@ -1,8 +1,6 @@
 @mixin genericHeader() {
-
-    @include genericCellPositioning();
-
     border-right: 1px solid $color-gray;
+    border-bottom: 1px solid $color-gray;
 
     .cell-content {
         background-color: $color-gray-lighter;
