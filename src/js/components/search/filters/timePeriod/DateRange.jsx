@@ -32,6 +32,17 @@ export default class DateRange extends React.Component {
         };
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.startDate !== this.props.startDate && !this.props.startDate) {
+            // the start date was reset to null, clear the picker
+            this.startPicker.clearValue();
+        }
+        if (prevProps.endDate !== this.props.endDate && !this.props.endDate) {
+            // the end date was reset to null, clear the picker
+            this.endPicker.clearValue();
+        }
+    }
+
     render() {
         return (
             <div className="date-range-option">
@@ -44,7 +55,10 @@ export default class DateRange extends React.Component {
                         value={this.props.startDate}
                         opposite={this.props.endDate}
                         showError={this.props.showError}
-                        hideError={this.props.hideError} />
+                        hideError={this.props.hideError}
+                        ref={(component) => {
+                            this.startPicker = component;
+                        }} />
                     <DatePicker
                         type="endDate"
                         title="End Date"
@@ -53,7 +67,10 @@ export default class DateRange extends React.Component {
                         value={this.props.endDate}
                         opposite={this.props.startDate}
                         showError={this.props.showError}
-                        hideError={this.props.hideError} />
+                        hideError={this.props.hideError}
+                        ref={(component) => {
+                            this.endPicker = component;
+                        }} />
                 </div>
             </div>
         );

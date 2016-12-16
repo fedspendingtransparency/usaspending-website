@@ -13,7 +13,9 @@
 
     .search-results-wrapper {
         @include span-columns(12);
+        margin-top: 3.2rem;
         @import "./results/searchResults";
+        @import "./topFilterBar/topFilterBar";
     }
 
 }

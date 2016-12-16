@@ -1,0 +1,16 @@
+@mixin defaultFooter() {
+    .site-footer {
+        display: block;
+        width: 100%;
+        height: 210px;
+
+        margin-top: 60px;
+
+        background-color: #333333;
+
+        font-size: $base-font-size;
+        color: $color-white;
+
+        padding: 30px 60px;
+    }
+}
