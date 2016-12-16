@@ -7,10 +7,13 @@
     .search-header-wrapper {
         @include searchHeader;
     }
-    
+
     .search-contents {
         @include outer-container(100%);
-        margin: 0px $outer-gutter;
+        margin: 0px $outer-gutter/2;
+        @include media($large-screen) {
+            margin: 0px $outer-gutter;
+        }
     }
 
 }

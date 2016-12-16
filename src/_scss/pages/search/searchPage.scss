@@ -8,12 +8,19 @@
     @include span-columns(16);
 
     .search-sidebar {
-        @include span-columns(4);
+        display:none;
+        @include media($medium-screen){
+            @include span-columns(4);
+        }
     }
 
     .search-results-wrapper {
-        @include span-columns(12);
         @import "./results/searchResults";
+
+        @include span-columns(16);
+        @include media($medium-screen){
+            @include span-columns(12);
+        }
     }
 
 }

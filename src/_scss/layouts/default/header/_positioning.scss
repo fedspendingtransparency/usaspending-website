@@ -2,9 +2,10 @@
     .nav-container {
         @include outer-container();
         max-width: 100%;
+        margin: 0px 3rem;
 
         @include pad(1rem 0);
-        @include media($nav-width) {
+        @include media($large-screen) {
             margin: 0px 6rem;
         }
 

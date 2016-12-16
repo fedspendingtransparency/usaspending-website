@@ -1,7 +1,7 @@
 .filter-toggle {
     @include button-unstyled;
     display: inline-block;
-    height: 5rem;
+    height: 6.5rem;
     padding-left: .5rem;
     vertical-align: middle;
     width: 100%;
@@ -20,7 +20,7 @@
         font-size: $base-font-size;
         font-weight: normal;
         height: 100%;
-        line-height: 5rem;
+        line-height: 6.5rem;
         margin: 0;
         padding-left: .25rem;
         vertical-align: middle;
@@ -28,7 +28,7 @@
 
     .usa-da-icon-info-circle {
         float: right;
-        margin: 1.5rem;
+        margin: 2.2rem 1.5rem 1.5rem 1.5rem;
         fill: $color-gray-lighter;
     }
 }
