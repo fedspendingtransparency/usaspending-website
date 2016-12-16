@@ -9,6 +9,7 @@ import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 class SearchOperation {
     constructor() {
         this.awardType = [];
+        this.timePeriodType = 'fy';
         this.timePeriodFY = [];
         this.timePeriodRange = [];
 
@@ -21,8 +22,10 @@ class SearchOperation {
         this.awardType = state.awardType.toArray();
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
-        if (state.timePeriodStart && state.timePeriodEnd) {
+        this.timePeriodType = state.timePeriodType;
+        if (state.timePeriodType === 'dr' && state.timePeriodStart && state.timePeriodEnd) {
             this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
+            this.timePeriodFY = [];
         }
     }
 
@@ -44,7 +47,11 @@ class SearchOperation {
 
         // add time period queries
         if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
-            filters.push(TimePeriodQuery.buildQuery(this.timePeriodFY, this.timePeriodRange));
+            const timeQuery = TimePeriodQuery.buildQuery(this.timePeriodType,
+                this.timePeriodFY, this.timePeriodRange);
+            if (timeQuery) {
+                filters.push(timeQuery);
+            }
         }
 
         return filters;

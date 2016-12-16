@@ -9,14 +9,8 @@ export default class Footer extends React.Component {
     render() {
         const year = new Date().getFullYear();
         return (
-            <footer className="usa-footer usa-footer-slim" role="contentinfo">
-                <div className="usa-footer-primary-section">
-                    <div className="usa-grid-full">
-                        <div className="usa-width-full">
-                            &copy; {year} USAspending.gov
-                        </div>
-                    </div>
-                </div>
+            <footer className="site-footer" role="contentinfo">
+                &copy; {year} USAspending.gov
             </footer>
         );
     }

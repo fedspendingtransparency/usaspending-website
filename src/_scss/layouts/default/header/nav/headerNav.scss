@@ -9,6 +9,8 @@
     }
     
     nav {
-        @include headerNavMenu;
+        .menu-container {
+            @include headerNavMenu;
+        }
     }
 }
