@@ -147,6 +147,9 @@ export default class TableBody extends React.Component {
 
         if (this.props.rowCount < 1) {
             // no rows to show
+            // clear the last render
+            this.lastRender = '';
+            // set the state to show no rows
             this.setState({
                 visibleRows: []
             });
@@ -201,7 +204,6 @@ export default class TableBody extends React.Component {
         }
 
         this.lastRender = renderCoords;
-
         for (let i = topRowIndex; i <= bottomRowIndex; i++) {
             const row = (<TableRow
                 {...this.props}
@@ -241,7 +243,6 @@ export default class TableBody extends React.Component {
                 style={style}
                 onScroll={this.handleScroll}>
                 <div className="ibt-table-body" style={internalStyle}>
-                    <div className="table-cornerstone" />
                     {this.state.visibleRows}
                 </div>
             </div>
