@@ -8,11 +8,17 @@
     @include span-columns(16);
 
     .search-sidebar {
-        @include span-columns(4);
+        display:none;
+        @include media($medium-screen){
+            @include span-columns(4);
+        }
     }
 
     .search-results-wrapper {
-        @include span-columns(12);
+        @include span-columns(16);
+        @include media($medium-screen){
+            @include span-columns(12);
+        }
         margin-top: 3.2rem;
         @import "./results/searchResults";
         @import "./topFilterBar/topFilterBar";

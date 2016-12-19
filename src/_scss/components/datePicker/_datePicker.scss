@@ -1,7 +1,15 @@
 .generate-datepicker-wrap {
     flex: 1 1 auto;
     position: relative;
-    @include span-columns(7);
+    width: 100%;
+
+    @include media($medium-screen){
+        @include span-columns(14);
+    }
+    @include media($large-screen){
+        @include span-columns(7.5);
+        margin-right: 1rem;
+    }
 
     .generate-datepicker {
         margin-left: auto;
@@ -12,7 +20,13 @@
             @include usa-input;
             font-size:$smallest-font-size;
             width: 100%;
+            @include media($medium-screen){
+                width:105%;
+                margin-left: .5rem;
+                padding-left: .25rem;
+            }
         }
+
     }
 
     a.picker-icon {
@@ -37,6 +51,12 @@
         &.date svg {
             position: relative;
             top: 12px;
+        }
+        @include media($medium-screen){
+            right: -8px;
+        }
+        @include media($large-screen){
+            right: 0;
         }
 
     }

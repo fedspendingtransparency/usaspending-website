@@ -20,17 +20,15 @@ const defaultProps = {
 export default class TopFilterGroup extends React.Component {
     render() {
         const items = [];
-        let i = 0;
         this.props.data.values.forEach((value) => {
             const item = (<TopFilterItem
                 key={`top-item-${this.props.data.code}-${value}`}
                 code={this.props.data.code}
-                title={this.props.data.labels[i]}
+                title={this.props.data.labels[items.length]}
                 value={value}
                 removeFilter={this.props.removeFilter} />);
 
             items.push(item);
-            i += 1;
         });
 
         return (
