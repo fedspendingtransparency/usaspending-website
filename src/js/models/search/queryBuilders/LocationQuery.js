@@ -3,16 +3,19 @@
 * Created by Emily Gullo
 **/
 
+import _ from 'lodash';
 
-// build query (concat?)
-const buildLocationQuery = (values) => {
-    // concat arrays
-    const valueSet = [];
+/* eslint-disable import/prefer-default-export */
+// We only have on export but want to maintain consistency with other query modules
+export const buildLocationQuery = (values) => {
+    let valueSet = [];
+
+    // Concatenate Matched IDs of selected locations
+    // Duplicates do not matter in API query
     values.forEach((locArray) => {
-        valueSet.join(locArray);
+        valueSet = _.concat(valueSet, locArray.matched_ids);
     });
 
-// put query in filter
     const filter = {
         field: "recipient__location__location_id",
         operation: "in",
@@ -21,3 +24,4 @@ const buildLocationQuery = (values) => {
 
     return filter;
 };
+/* eslint-enable import/prefer-default-export */

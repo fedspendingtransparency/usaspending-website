@@ -5,6 +5,7 @@
 
 import * as AwardTypeQuery from './queryBuilders/AwardTypeQuery';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
+import * as LocationQuery from './queryBuilders/LocationQuery';
 
 class SearchOperation {
     constructor() {
@@ -24,6 +25,7 @@ class SearchOperation {
         if (state.timePeriodStart && state.timePeriodEnd) {
             this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
         }
+        this.selectedLocations = state.selectedLocations.toArray();
     }
 
     toParams() {
@@ -45,6 +47,11 @@ class SearchOperation {
         // add time period queries
         if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
             filters.push(TimePeriodQuery.buildQuery(this.timePeriodFY, this.timePeriodRange));
+        }
+
+        // add location queries
+        if (this.selectedLocations.length > 0) {
+            filters.push(LocationQuery.buildLocationQuery(this.selectedLocations));
         }
 
         return filters;
