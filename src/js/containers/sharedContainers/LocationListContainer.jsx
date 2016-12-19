@@ -23,9 +23,7 @@ const propTypes = {
 class LocationListContainer extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            locationNames: []
-        };
+
         this.handleTextInput = this.handleTextInput.bind(this);
     }
 

@@ -40,22 +40,38 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
         this.state = {
             showWarning: false,
             errorMessage: null,
-            errorHeader: null,
-            timeout: null
+            errorHeader: null
         };
+
+        this.timeout = null;
     }
 
     loadValues() {
         this.typeahead.list = this.props.autocompleteLocations;
 
-        this.props.autocompleteLocations.forEach((value) => {
-            let key = `<strong>${value.place}</strong><br>${_.upperCase(value.place_type)}`;
-            if (value.parent !== null) {
-                key += ` in ${value.parent}`;
-            }
+        if (this.props.autocompleteLocations.length > 0) {
+            this.props.autocompleteLocations.forEach((value) => {
+                let key = `<strong>${value.place}</strong><br>${_.upperCase(value.place_type)}`;
+                if (value.parent !== null) {
+                    key += ` in ${value.parent}`;
+                }
 
-            this.dataDictionary[key] = value.matched_ids.join(",");
-        });
+                this.dataDictionary[key] = value.matched_ids.join(",");
+            });
+            this.cancelTimeout();
+        }
+        else {
+            // No results for location search
+            this.dataDictionary = [];
+
+            // Show error if a user has typed 2 or more characters
+            if (this.typeahead.input.value.length > 1) {
+                this.createTimeout(true,
+                    'This location is not available, please try another.',
+                    'Location Error',
+                    300);
+            }
+        }
 
         this.typeahead.replace = () => {
             this.typeahead.input.value = "";
@@ -96,6 +112,7 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
     }
 
     checkValidity(input) {
+        // Ensure user has typed 2 or more characters
         if (input.length === 1) {
             this.createTimeout(true,
                 'You must enter at least 2 characters in the search box.',
@@ -103,46 +120,28 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
                 500
             );
         }
-        // Only show this error if a user has typed in more than 2 characters
-        // and the dataDictionary is populated
-        else if (!this.isValidSelection(input)
-            && input.length !== 0
-            && this.dataDictionary.length === 0) {
-            this.createTimeout(true,
-                'This location is not available, please try another.',
-                'Location Error',
-                500
-            );
-        }
-        else {
+        // Clear error when input is cleared
+        else if (input.length === 0) {
             this.cancelTimeout();
-            this.setState({
-                showWarning: false
-            });
         }
     }
 
     createTimeout(showWarning, errorMessage, errorHeader, delay) {
         this.cancelTimeout();
 
-        this.setState({
-            timeout: window.setTimeout(() => {
-                this.setState({ showWarning, errorMessage, errorHeader });
-            }, delay)
-        });
+        this.timeout = window.setTimeout(() => {
+            this.setState({ showWarning, errorMessage, errorHeader });
+        }, delay);
     }
 
     cancelTimeout() {
-        if (this.state.timeout) {
-            window.clearTimeout(this.state.timeout);
+        window.clearTimeout(this.timeout);
 
-            this.setState({
-                showWarning: false,
-                errorMessage: null,
-                errorHeader: null,
-                timeout: null
-            });
-        }
+        this.setState({
+            showWarning: false,
+            errorMessage: null,
+            errorHeader: null
+        });
     }
 
     onChange(e) {
@@ -171,7 +170,6 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
                 <div className="usa-da-typeahead">
                     <p>Primary Place of Performance</p>
                     <input
-                        data-multiple
                         ref={(t) => {
                             this.awesompleteInput = t;
                         }}
