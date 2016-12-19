@@ -4,8 +4,9 @@
   **/
 
 import React from 'react';
-import { Table, Column } from 'fixed-data-table';
 import Immutable from 'immutable';
+
+import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableGenericCell from './cells/ResultsTableGenericCell';
@@ -14,6 +15,7 @@ const propTypes = {
     results: React.PropTypes.array,
     batch: React.PropTypes.object,
     columns: React.PropTypes.array,
+    visibleWidth: React.PropTypes.number,
     loadNextPage: React.PropTypes.func
 };
 
@@ -26,16 +28,29 @@ export default class ResultsTable extends React.PureComponent {
 
         this.state = {
             yPos: 0,
-            xPos: 0
+            xPos: 0,
+            dataHash: null
         };
 
         this.rowClassName = this.rowClassName.bind(this);
         this.tableScrolled = this.tableScrolled.bind(this);
     }
+
+    componentWillReceiveProps(nextProps) {
+        // update the data hash
+        this.setState({
+            dataHash: nextProps.currentType
+        });
+    }
+
     shouldComponentUpdate(nextProps) {
         // to reduce the frequency of re-renders, this component will only monitor for
         // batch triggers
         if (!Immutable.is(nextProps.batch, this.props.batch)) {
+            return true;
+        }
+        else if (nextProps.visibleWidth !== this.props.visibleWidth) {
+            // re-render if the window size changed
             return true;
         }
         return false;
@@ -77,22 +92,25 @@ export default class ResultsTable extends React.PureComponent {
 
         const columns = this.props.columns.map((column) => {
             totalWidth += column.width;
-
-            return (<Column
-                width={column.width}
-                key={column.columnName}
-                rowClassName={this.rowClassName}
-                allowCellsRecycling
-                header={
+            return {
+                width: column.width,
+                name: column.columnName,
+                columnId: `${column.columnName}`,
+                rowClassName: this.rowClassName,
+                header: (
                     <ResultsTableHeaderCell
                         label={column.displayName}
                         column={column.columnName} />
-                }
-                cell={
+                ),
+                cell: (index) => (
                     <ResultsTableGenericCell
-                        data={this.props.results}
+                        key={`cell-${column.columnName}-${index}`}
+                        rowIndex={index}
+                        data={this.props.results[index][column.columnName]}
+                        dataHash={this.state.dataHash}
                         column={column.columnName} />
-                } />);
+                )
+            };
         });
 
         return {
@@ -106,18 +124,16 @@ export default class ResultsTable extends React.PureComponent {
 
         return (
             <div className="award-results-table">
-                <Table
+                <IBTable
+                    dataHash={`${this.state.dataHash}-${this.props.batch.batchId}`}
                     rowHeight={rowHeight}
-                    rowsCount={this.props.results.length}
+                    rowCount={this.props.results.length}
                     headerHeight={50}
                     width={calculatedValues.width}
+                    maxWidth={this.props.visibleWidth}
                     maxHeight={tableHeight}
-                    rowClassNameGetter={this.rowClassName}
-                    onScrollEnd={this.tableScrolled}>
-
-                    {calculatedValues.columns}
-
-                </Table>
+                    columns={calculatedValues.columns}
+                    onScrollEnd={this.tableScrolled} />
             </div>
         );
     }

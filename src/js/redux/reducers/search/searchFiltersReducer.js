@@ -10,6 +10,7 @@ import updateSelectedLocations from './filters/locationFilterFunctions';
 
 const initialState = {
     awardType: new Set(),
+    timePeriodType: 'fy',
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
@@ -35,6 +36,7 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'UPDATE_SEARCH_FILTER_TIME_PERIOD': {
             // FY time period is stored as an ImmutableJS set
             return Object.assign({}, state, {
+                timePeriodType: action.dateType,
                 timePeriodStart: action.start,
                 timePeriodEnd: action.end,
                 timePeriodFY: new Set(action.fy)
@@ -45,6 +47,14 @@ const searchFiltersReducer = (state = initialState, action) => {
                 selectedLocations: updateSelectedLocations(
                     state.selectedLocations, action.location, action.direction)
             });
+        }
+        case 'UPDATE_SEARCH_FILTER_GENERIC': {
+            return Object.assign({}, state, {
+                [action.filterType]: action.filterValue
+            });
+        }
+        case 'CLEAR_SEARCH_FILTER_ALL': {
+            return Object.assign({}, initialState);
         }
         default:
             return state;

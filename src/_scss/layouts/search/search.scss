@@ -6,11 +6,28 @@
 
     .search-header-wrapper {
         @include searchHeader;
+
+        &.sticky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 3;
+        }
     }
-    
+
+    .search-header-placeholder {
+        visibility: hidden;
+        width: 100%;
+        height: 0px;
+    }
+
     .search-contents {
         @include outer-container(100%);
-        margin: 0px $outer-gutter;
+        margin: 0px $outer-gutter/2;
+        @include media($large-screen) {
+            margin: 0px $outer-gutter;
+        }
     }
 
 }
