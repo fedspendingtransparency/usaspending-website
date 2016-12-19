@@ -69,7 +69,7 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
                 this.createTimeout(true,
                     'This location is not available, please try another.',
                     'Location Error',
-                    300);
+                    500);
             }
         }
 
@@ -136,6 +136,7 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
 
     cancelTimeout() {
         window.clearTimeout(this.timeout);
+        this.timeout = null;
 
         this.setState({
             showWarning: false,
