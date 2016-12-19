@@ -66,12 +66,12 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
 
             // Show error if a user has typed 2 or more characters
             if (this.typeahead.input.value.length > 1) {
-                this.createTimeout(true,
-                    'This location is not available, please try another.',
-                    'Location Error',
-                    500);
+                this.createTimeout(true, 'This location is not available, please try another.',
+                    'Location Error', 500);
             }
         }
+
+        this.checkValidityAndSearch(false);
 
         this.typeahead.replace = () => {
             this.typeahead.input.value = "";
@@ -82,6 +82,26 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
         if (!_.isEqual(prevProps.autocompleteLocations, this.props.autocompleteLocations)
             && this.typeahead) {
             this.loadValues();
+        }
+    }
+
+    checkValidityAndSearch(e) {
+        // Ensure user has typed 2 or more characters
+        if (this.typeahead.input.value.length === 1) {
+            this.createTimeout(true,
+                'You must enter at least 2 characters in the search box.',
+                'Location Error',
+                500
+            );
+        }
+        // Clear error when input is cleared
+        else if (this.typeahead.input.value.length === 0) {
+            this.cancelTimeout();
+        }
+        // Otherwise, search if asked
+        else if (e) {
+            this.cancelTimeout();
+            this.props.handleTextInput(e);
         }
     }
 
@@ -111,21 +131,6 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
         return {}.hasOwnProperty.call(this.dataDictionary, input);
     }
 
-    checkValidity(input) {
-        // Ensure user has typed 2 or more characters
-        if (input.length === 1) {
-            this.createTimeout(true,
-                'You must enter at least 2 characters in the search box.',
-                'Location Error',
-                500
-            );
-        }
-        // Clear error when input is cleared
-        else if (input.length === 0) {
-            this.cancelTimeout();
-        }
-    }
-
     createTimeout(showWarning, errorMessage, errorHeader, delay) {
         this.cancelTimeout();
 
@@ -143,13 +148,6 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
             errorMessage: null,
             errorHeader: null
         });
-    }
-
-    onChange(e) {
-        const inputValue = e.target.value;
-
-        this.checkValidity(inputValue);
-        this.props.handleTextInput(e);
     }
 
     render() {
@@ -178,7 +176,7 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
                         type="text"
                         className="location-input awesomplete"
                         placeholder={this.props.placeholder}
-                        onChange={this.onChange.bind(this)} />
+                        onChange={this.checkValidityAndSearch.bind(this)} />
                 </div>
                 {warning}
             </div>
