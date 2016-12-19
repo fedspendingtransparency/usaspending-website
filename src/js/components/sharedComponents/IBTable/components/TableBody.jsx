@@ -147,6 +147,7 @@ export default class TableBody extends React.Component {
 
         if (this.props.rowCount < 1) {
             // no rows to show
+            // set the state to show no rows
             this.setState({
                 visibleRows: []
             });
@@ -194,8 +195,10 @@ export default class TableBody extends React.Component {
         });
 
         // generate a string representation of the visible cell coordinates
-        const renderCoords = `${topRowIndex}-${bottomRowIndex}_${firstCol}-${lastCol}`;
+        const renderCoords =
+            `${topRowIndex}-${bottomRowIndex}_${firstCol}-${lastCol}-${this.props.dataHash}`;
 
+        // don't re-render if the render coords are the same and the underlying data hasn't changed
         if (this.lastRender === renderCoords) {
             return;
         }
@@ -212,7 +215,6 @@ export default class TableBody extends React.Component {
             rows.push(row);
         }
 
-        this.ignoreState = false;
         this.setState({
             visibleRows: rows
         });
@@ -241,7 +243,6 @@ export default class TableBody extends React.Component {
                 style={style}
                 onScroll={this.handleScroll}>
                 <div className="ibt-table-body" style={internalStyle}>
-                    <div className="table-cornerstone" />
                     {this.state.visibleRows}
                 </div>
             </div>
