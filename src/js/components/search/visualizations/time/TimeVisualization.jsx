@@ -25,8 +25,6 @@ const defaultProps = {
             year: 2016,
             value: 350
         }],
-    yMin: 0,
-    yMax: 0,
     width: 0,
     height: 250
 };
@@ -36,7 +34,9 @@ export default class TimeVisualization extends React.Component {
         super(props);
 
         this.state = {
-            formattedData: []
+            formattedData: [],
+            yMin: null,
+            yMax: null
         };
     }
 
@@ -50,6 +50,9 @@ export default class TimeVisualization extends React.Component {
         let yMin = this.state.yMin;
         let yMax = this.state.yMax;
         data.forEach((item) => {
+            // iterate through each data point, convert it into a generic x,y object
+            // also calculate the layout (height/width) of each bar
+
             const dataPoint = {
                 x: item.year,
                 y: item.value
@@ -57,10 +60,10 @@ export default class TimeVisualization extends React.Component {
 
             formattedData.push(dataPoint);
 
-            if (item.value < yMin) {
+            if (!yMin || item.value < yMin) {
                 yMin = item.value;
             }
-            if (item.value > yMax) {
+            if (!yMax || item.value > yMax) {
                 yMax = item.value;
             }
         });
@@ -74,8 +77,8 @@ export default class TimeVisualization extends React.Component {
                 <BarChart
                     width={this.props.width}
                     height={this.props.height}
-                    yMin={this.props.yMin}
-                    yMax={this.props.yMax}
+                    yMin={this.state.yMin}
+                    yMax={this.state.yMax}
                     data={this.state.formattedData} />
             </div>
         );

@@ -36,7 +36,7 @@ export default class TimeVisualizationSection extends React.Component {
             // width changed, update the visualization width
             this.setState({
                 windowWidth,
-                visualizationWidth: this.sectionDiv.offsetWidth
+                visualizationWidth: this.sectionHr.offsetWidth
             });
         }
     }
@@ -45,12 +45,13 @@ export default class TimeVisualizationSection extends React.Component {
         return (
             <div
                 className="results-visualization-time-section"
-                id="results-section-time"
-                ref={(div) => {
-                    this.sectionDiv = div;
-                }}>
+                id="results-section-time">
                 <h3>Spending Over Time</h3>
-                <hr className="results-divider" />
+                <hr
+                    className="results-divider"
+                    ref={(hr) => {
+                        this.sectionHr = hr;
+                    }} />
                 <TimeVisualization width={this.state.visualizationWidth} />
             </div>
         );
