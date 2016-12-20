@@ -5,18 +5,22 @@
 
 import React from 'react';
 import * as d3 from 'd3';
+import _ from 'lodash';
 
 import BarItem from './BarItem';
 import BarXAxis from './BarXAxis';
 import BarYAxis from './BarYAxis';
+
+import BarXAxisItem from './BarXAxisItem';
+import BarYAxisItem from './BarYAxisItem';
 
 const propTypes = {
 
 };
 
 const paddingConst = {
-    x: 50,
-    y: 50,
+    left: 50,
+    bottom: 50,
     top: 20,
     right: 20
 };
@@ -26,31 +30,58 @@ export default class BarChart extends React.Component {
         super(props);
 
         this.state = {
-            items: []
+            items: [],
+            xLabels: [],
+            yLabels: [],
+            yGridLines: []
         };
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     this.generateChart(nextProps);
-    // }
-
-    componentDidMount() {
-        this.generateChart();
+    componentWillReceiveProps(nextProps) {
+        this.generateChart(nextProps);
     }
 
-    generateChart() {
+    // componentDidMount() {
+    //     this.generateChart();
+    // }
 
-        // const xAxis = d3.scaleBand().rangeRound([0, this.props.width]).padding(0.1);
-        // const xValues = [];
-        // this.props.data.forEach((item) => {
-        //     xValues.push(item.x);
-        // });
+    generateChart(props) {
 
-        // xAxis.domain(xValues);
+        // calculate the axes and ranges
+        const xValues = [];
+        const xRange = [];
+        const yValues = [];
+        const yRange = [];
 
-        // const output = d3.svg.axisBottom(xAxis);
-        // const output = axisBottom(this).apply(xAxis);
-        // console.log(d3.svg.axis());
+        props.data.forEach((point) => {
+            xValues.push(point.x);
+            yValues.push(point.y);
+        });
+
+        xRange.push(_.min(xValues));
+        xRange.push(_.max(xValues));
+
+        yRange.push(_.min(yValues));
+        yRange.push(_.max(yValues));
+
+        // create the D3 scales for calculating the tick points
+        const graphWidth = props.width - paddingConst.left - paddingConst.right;
+        const graphHeight = props.height - paddingConst.top - paddingConst.bottom;
+
+        const xScale = d3.scaleBand()
+                    .domain(xValues)
+                    .range([0, graphWidth])
+                    .round(true);
+
+
+        const yScale = d3.scaleLinear()
+            .domain(yRange)
+            .range([0, graphHeight]);
+
+        this.setState({
+            xScale,
+            yScale
+        });
     }
 
     prepareXAxis() {
@@ -58,10 +89,11 @@ export default class BarChart extends React.Component {
             height: this.props.height,
             width: this.props.width,
             data: this.props.data,
-            paddingX: paddingConst.x,
-            paddingY: paddingConst.y,
+            paddingLeft: paddingConst.left,
+            paddingBottom: paddingConst.bottom,
             paddingTop: paddingConst.top,
-            paddingRight: paddingConst.right
+            paddingRight: paddingConst.right,
+            scale: this.state.xScale
         };
 
         return <BarXAxis {...xProps} />;
@@ -72,17 +104,17 @@ export default class BarChart extends React.Component {
             height: this.props.height,
             width: this.props.width,
             data: this.props.data,
-            paddingX: paddingConst.x,
-            paddingY: paddingConst.y,
+            paddingLeft: paddingConst.left,
+            paddingBottom: paddingConst.bottom,
             paddingTop: paddingConst.top,
-            paddingRight: paddingConst.right
+            paddingRight: paddingConst.right,
+            scale: this.state.yScale
         };
 
         return <BarYAxis {...yProps} />;
     }
 
     render() {
-
         return (
             <svg className="bar-graph" width={this.props.width} height={this.props.height}>
                 {this.state.items}

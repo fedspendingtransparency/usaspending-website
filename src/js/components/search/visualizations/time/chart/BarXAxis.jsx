@@ -9,8 +9,8 @@ import * as d3 from 'd3';
 import BarXAxisItem from './BarXAxisItem';
 
 const defaultProps = {
-    paddingX: 0,
-    paddingY: 0,
+    paddingLeft: 0,
+    paddingBottom: 0,
     paddingTop: 0,
     paddingRight: 0
 };
@@ -18,8 +18,9 @@ const defaultProps = {
 const propTypes = {
     width: React.PropTypes.number.isRequired,
     height: React.PropTypes.number.isRequired,
-    paddingX: React.PropTypes.number,
-    paddingY: React.PropTypes.number
+    paddingLeft: React.PropTypes.number,
+    paddingRight: React.PropTypes.number,
+    paddingBottom: React.PropTypes.number
 };
 
 export default class BarYAxis extends React.Component {
@@ -41,14 +42,22 @@ export default class BarYAxis extends React.Component {
     }
 
     drawAxis() {
+        if (!this.props.scale) {
+            return;
+        }
+
         // calculate the ticks
-        const axisWidth = this.props.width - this.props.paddingX - this.props.paddingRight;
-        const labels = this.props.data.map((item, i) => {
-            const xPos = this.props.paddingX + ((axisWidth / (this.props.data.length - 1)) * i);
+        const yPos = this.props.height + this.props.paddingTop - 30;
+
+        const labels = this.props.data.map((item) => {
+            // offset the D3 calculated position by the left padding and put the label in the middle
+            // of the each tick's width to center the text
+            const xPos = this.props.scale(item.x) + this.props.paddingLeft + (this.props.scale.bandwidth() / 2);
+
             return (<BarXAxisItem
                 x={xPos}
-                y={this.props.height + this.props.paddingTop - 30}
-                label={item.x}
+                y={yPos}
+                label={`FY ${item.x}`}
                 key={`label-x-${item.x}`} />);
         });
 
@@ -66,10 +75,10 @@ export default class BarYAxis extends React.Component {
                 </desc>
                 <line
                     className="x-axis"
-                    x1={this.props.paddingX}
-                    y1={this.props.height - this.props.paddingY + this.props.paddingTop}
+                    x1={this.props.paddingLeft}
+                    y1={this.props.height - this.props.paddingBottom + this.props.paddingTop}
                     x2={this.props.width - this.props.paddingRight}
-                    y2={this.props.height - this.props.paddingY + this.props.paddingTop} />
+                    y2={this.props.height - this.props.paddingBottom + this.props.paddingTop} />
                 <g className="axis-labels">
                     {this.state.labels}
                 </g>
