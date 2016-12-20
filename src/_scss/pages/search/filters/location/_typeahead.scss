@@ -23,8 +23,19 @@
         padding: 1rem 2rem;
         color: #555555;
 
-        &:hover {
+        &:hover,
+        &.hover,
+        &[aria-selected="true"] {
             background-color: $color-primary-alt-lightest;
+            cursor: pointer;
+            color: #333;
+            * {
+                color: $color-gray;
+            }
+            mark {
+                background-color: $color-gray-lighter;
+                color: $color-gray;
+            }
         }
     }
 }

@@ -6,8 +6,8 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
 
-import Typeahead from '../../../../components/sharedComponents/Typeahead';
-import TypeaheadWarning from '../../../../components/sharedComponents/TypeaheadWarning';
+import Typeahead from 'components/sharedComponents/Typeahead';
+import TypeaheadWarning from 'components/sharedComponents/TypeaheadWarning';
 
 const propTypes = {
     placeholder: PropTypes.string,
@@ -33,7 +33,7 @@ const defaultProps = {
     errorMessage: ''
 };
 
-export default class PlaceOfPerformanceTypeahead extends Typeahead {
+export default class LocationList extends Typeahead {
     constructor(props) {
         super(props);
 
@@ -171,5 +171,5 @@ export default class PlaceOfPerformanceTypeahead extends Typeahead {
     }
 }
 
-PlaceOfPerformanceTypeahead.defaultProps = defaultProps;
-PlaceOfPerformanceTypeahead.propTypes = propTypes;
+LocationList.defaultProps = defaultProps;
+LocationList.propTypes = propTypes;

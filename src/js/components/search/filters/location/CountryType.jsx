@@ -6,39 +6,54 @@
 import React from 'react';
 
 const propTypes = {
-    toggleCountry: React.PropTypes.func
+    toggleCountry: React.PropTypes.func,
+    locationOption: React.PropTypes.string,
+    countries: React.PropTypes.array
+};
+
+const defaultProps = {
+    countries: [
+        "All",
+        "USA",
+        "Foreign"
+    ]
 };
 
 export default class CountryType extends React.Component {
 
     render() {
+        const countries =
+            this.props.countries.map(function (name) {
+                if (name === this.props.locationOption) {
+                    return (<span>
+                        <input
+                            type="radio"
+                            id={`location-${name}`}
+                            name="location"
+                            value={name}
+                            checked
+                            onClick={this.props.toggleCountry} />
+                        <label htmlFor={`location-${name}`}>{name}</label>
+                    </span>);
+                }
+                return (
+                    <span>
+                        <input
+                            type="radio"
+                            id={`location-${name}`}
+                            name="location"
+                            value={name}
+                            onClick={this.props.toggleCountry} />
+                        <label htmlFor={`location-${name}`}>{name}</label>
+                    </span>);
+            }.bind(this));
         return (
             <div className="location-radio">
                 <p>Show Only:</p>
-                <input
-                    type="radio"
-                    id="location-all"
-                    name="location"
-                    value="all"
-                    defaultChecked="true"
-                    onClick={this.props.toggleCountry} />
-                <label htmlFor="location-all">All</label>
-                <input
-                    type="radio"
-                    id="location-usa"
-                    name="location"
-                    value="domestic"
-                    onClick={this.props.toggleCountry} />
-                <label htmlFor="location-usa">USA</label>
-                <input
-                    type="radio"
-                    id="location-foreign"
-                    name="location"
-                    value="foreign"
-                    onClick={this.props.toggleCountry} />
-                <label htmlFor="location-foreign">Foreign</label>
+                { countries }
             </div>
         );
     }
 }
 CountryType.propTypes = propTypes;
+CountryType.defaultProps = defaultProps;

@@ -16,7 +16,6 @@ export default class SelectedLocations extends React.Component {
         const shownLocations = this.props.selectedLocations.map((location, key) => (
             <ShownLocation
                 location={location}
-                id={key}
                 key={key.matched_ids.join(',')}
                 removeLocation={this.props.removeLocation.bind(null, location)} />
         ));

@@ -19,15 +19,18 @@
             margin-bottom: 0.5rem;
         }
 
-        label {
-            color: $color-gray;
-            font-weight: normal;
-        }
+        span {
 
-        label:not(:last-child) {
-            border-right: 1px solid rgba(0,0,0,0.3);
-            padding-right: 1rem;
-            margin-right: 1rem;
+            label {
+                color: $color-gray;
+                font-weight: normal;
+            }
+            &:not(:last-child) {
+                border-right: 1px solid rgba(0,0,0,0.3);
+                padding-right: 1rem;
+                margin-right: 1rem;
+            }
+
         }
     }
 

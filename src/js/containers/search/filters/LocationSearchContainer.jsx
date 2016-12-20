@@ -20,7 +20,7 @@ class LocationSearchContainer extends React.Component {
         super(props);
 
         this.state = {
-            locationOption: 'all'
+            locationOption: 'All'
         };
 
         // Bind functions

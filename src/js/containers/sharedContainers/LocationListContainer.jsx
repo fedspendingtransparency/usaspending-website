@@ -8,10 +8,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import PoPTypeahead from 'components/search/filters/location/PlaceOfPerformanceTypeahead';
+import LocationList from 'components/search/filters/location/LocationList';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as searchFilterActions from '../../redux/actions/search/searchFilterActions';
+import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 const propTypes = {
     setAutocompleteLocations: React.PropTypes.func,
@@ -83,7 +83,7 @@ class LocationListContainer extends React.Component {
 
     render() {
         return (
-            <PoPTypeahead
+            <LocationList
                 {...this.props}
                 formatter={this.dataFormatter}
                 handleTextInput={this.handleTextInput}
