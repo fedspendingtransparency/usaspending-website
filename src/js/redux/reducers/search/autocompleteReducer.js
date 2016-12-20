@@ -6,9 +6,8 @@ const initialState = [];
 
 const autocompleteReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_AUTOCOMPLETE_LOCATIONS': {
-            return Object.assign([], action.locations);
-        }
+        case 'SET_AUTOCOMPLETE_LOCATIONS':
+            return action.locations;
         default:
             return state;
     }

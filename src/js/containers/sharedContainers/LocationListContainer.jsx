@@ -11,7 +11,7 @@ import _ from 'lodash';
 import LocationList from 'components/search/filters/location/LocationList';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 
 const propTypes = {
     setAutocompleteLocations: React.PropTypes.func,
@@ -25,6 +25,7 @@ class LocationListContainer extends React.Component {
         super(props);
 
         this.handleTextInput = this.handleTextInput.bind(this);
+        this.timeout = null;
     }
 
     dataFormatter(item) {
@@ -39,11 +40,16 @@ class LocationListContainer extends React.Component {
         };
     }
 
-    handleTextInput(locationInput) {
+    queryAutocompleteLocations(input) {
         // Only search if search is 2 or more characters
-        if (locationInput.target.value.length >= 2 || locationInput.target.value.length === 0) {
+        if (input.length >= 2 || input.length === 0) {
+            if (this.locationSearchRequest) {
+                // A request is currently in-flight, cancel it
+                this.locationSearchRequest.cancel();
+            }
+
             const locSearchParams = {
-                value: locationInput.target.value,
+                value: input,
                 scope: this.props.locationOption
             };
 
@@ -81,6 +87,20 @@ class LocationListContainer extends React.Component {
         }
     }
 
+    handleTextInput(locationInput) {
+        // Clear existing locations to ensure user can't select an old or existing one
+        this.props.setAutocompleteLocations([]);
+
+        // Grab input, clear any exiting timeout
+        const input = locationInput.target.value;
+        window.clearTimeout(this.timeout);
+
+        // Perform search if user doesn't type again for 300ms
+        this.timeout = window.setTimeout(() => {
+            this.queryAutocompleteLocations(input);
+        }, 300);
+    }
+
     render() {
         return (
             <LocationList
@@ -96,7 +116,7 @@ class LocationListContainer extends React.Component {
 
 export default connect(
     (state) => ({ autocompleteLocations: state.autocompleteLocations }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+    (dispatch) => bindActionCreators(autocompleteActions, dispatch)
 )(LocationListContainer);
 
 LocationListContainer.propTypes = propTypes;

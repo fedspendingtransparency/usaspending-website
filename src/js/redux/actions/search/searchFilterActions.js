@@ -34,11 +34,5 @@ export const clearAllFilters = () => ({
 
 export const updateSelectedLocations = (state) => ({
     type: 'UPDATE_SELECTED_LOCATIONS',
-    location: state.location,
-    direction: state.direction
-});
-
-export const setAutocompleteLocations = (state) => ({
-    type: 'SET_AUTOCOMPLETE_LOCATIONS',
-    locations: state
+    location: state.location
 });

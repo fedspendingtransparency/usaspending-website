@@ -1,5 +1,5 @@
 /**
- * PlaceOfPerformanceTypeahead.jsx
+ * LocationList.jsx
  * Created by Mike Bray 12/9/2016
  **/
 
@@ -10,6 +10,7 @@ import Typeahead from 'components/sharedComponents/Typeahead';
 import TypeaheadWarning from 'components/sharedComponents/TypeaheadWarning';
 
 const propTypes = {
+    autocompleteLocations: PropTypes.array,
     placeholder: PropTypes.string,
     onSelect: PropTypes.func.isRequired,
     customClass: PropTypes.string,

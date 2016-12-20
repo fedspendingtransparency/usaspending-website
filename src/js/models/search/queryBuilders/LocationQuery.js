@@ -6,7 +6,7 @@
 import _ from 'lodash';
 
 /* eslint-disable import/prefer-default-export */
-// We only have on export but want to maintain consistency with other query modules
+// We only have one export but want to maintain consistency with other query modules
 export const buildLocationQuery = (values) => {
     let valueSet = [];
 

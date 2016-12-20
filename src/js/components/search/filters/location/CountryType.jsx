@@ -23,21 +23,21 @@ export default class CountryType extends React.Component {
 
     render() {
         const countries =
-            this.props.countries.map(function (name) {
+            this.props.countries.map((name) => {
                 if (name === this.props.locationOption) {
-                    return (<span>
+                    return (<span key={`location-${name}`}>
                         <input
                             type="radio"
                             id={`location-${name}`}
                             name="location"
                             value={name}
-                            checked
+                            defaultChecked
                             onClick={this.props.toggleCountry} />
                         <label htmlFor={`location-${name}`}>{name}</label>
                     </span>);
                 }
                 return (
-                    <span>
+                    <span key={`location-${name}`}>
                         <input
                             type="radio"
                             id={`location-${name}`}
@@ -46,7 +46,8 @@ export default class CountryType extends React.Component {
                             onClick={this.props.toggleCountry} />
                         <label htmlFor={`location-${name}`}>{name}</label>
                     </span>);
-            }.bind(this));
+            });
+
         return (
             <div className="location-radio">
                 <p>Show Only:</p>

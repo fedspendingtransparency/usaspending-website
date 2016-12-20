@@ -4,17 +4,18 @@
 
 import { Set } from 'immutable';
 
-const updateSelectedLocations = (state, value, direction) => {
+/* eslint-disable import/prefer-default-export */
+// We only have one export but want to maintain consistency with other query modules
+export const updateSelectedLocations = (state, value) => {
     let updatedSet = new Set(state);
 
-    if (updatedSet.includes(value) && direction === 'remove') {
+    if (updatedSet.includes(value)) {
         updatedSet = updatedSet.delete(value);
     }
-    else if (!updatedSet.includes(value) && direction === 'add') {
+    else {
         updatedSet = updatedSet.add(value);
     }
 
     return updatedSet;
 };
-
-export default updateSelectedLocations;
+/* eslint-enable import/prefer-default-export */

@@ -40,7 +40,6 @@ class LocationSearchContainer extends React.Component {
         if (location !== null && isValid) {
             const updateParams = {};
             updateParams.location = location;
-            updateParams.direction = 'add';
 
             this.props.updateSelectedLocations(updateParams);
         }
@@ -49,7 +48,6 @@ class LocationSearchContainer extends React.Component {
     removeLocation(location) {
         const updateParams = {};
         updateParams.location = location;
-        updateParams.direction = 'remove';
         this.props.updateSelectedLocations(updateParams);
     }
 
