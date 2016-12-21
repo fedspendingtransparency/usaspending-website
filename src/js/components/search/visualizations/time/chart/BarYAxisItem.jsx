@@ -9,7 +9,7 @@ export default class BarYAxisItem extends React.Component {
     render() {
         return (
             <g className="axis-item y-axis">
-                <text textAnchor="middle" transform={`translate(${this.props.x},${this.props.y + 6})`}>
+                <text textAnchor="right" transform={`translate(${this.props.x},${this.props.y + 6})`}>
                     {this.props.label}
                 </text>
                 <line
