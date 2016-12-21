@@ -20,7 +20,6 @@ const defaultProps = {
 };
 
 export default class CountryType extends React.Component {
-
     render() {
         const countries =
             this.props.countries.map((name) => {
@@ -56,5 +55,6 @@ export default class CountryType extends React.Component {
         );
     }
 }
+
 CountryType.propTypes = propTypes;
 CountryType.defaultProps = defaultProps;

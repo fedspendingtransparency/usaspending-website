@@ -45,7 +45,7 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'UPDATE_SELECTED_LOCATIONS': {
             return Object.assign({}, state, {
                 selectedLocations: LocationFilterFunctions.updateSelectedLocations(
-                    state.selectedLocations, action.location, action.direction)
+                    state.selectedLocations, action.location)
             });
         }
         case 'UPDATE_SEARCH_FILTER_GENERIC': {
