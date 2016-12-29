@@ -1,3 +1,7 @@
 .bar-item {
-    
+    fill: #708893;
+
+    &:hover {
+        fill: #F2B733;
+    }
 }

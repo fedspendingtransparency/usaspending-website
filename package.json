@@ -97,10 +97,11 @@
     "worker-loader": "^0.7.1"
   },
   "dependencies": {
+    "accounting": "^0.4.1",
     "awesomplete": "^1.1.0",
     "axios": "^0.15.2",
     "babel-polyfill": "^6.20.0",
-    "d3": "^4.4.0",
+    "d3-scale": "^1.0.4",
     "fixed-data-table": "0.6.3",
     "immutable": "^3.8.1",
     "jquery": "^2.1.4",

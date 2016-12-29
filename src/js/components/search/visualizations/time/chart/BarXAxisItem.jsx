@@ -5,6 +5,12 @@
 
 import React from 'react';
 
+const propTypes = {
+    x: React.PropTypes.number,
+    y: React.PropTypes.number,
+    label: React.PropTypes.string
+};
+
 export default class BarXAxisItem extends React.Component {
     render() {
         return (
@@ -16,3 +22,5 @@ export default class BarXAxisItem extends React.Component {
         );
     }
 }
+
+BarXAxisItem.propTypes = propTypes;

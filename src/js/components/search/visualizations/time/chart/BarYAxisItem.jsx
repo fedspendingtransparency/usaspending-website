@@ -5,11 +5,19 @@
 
 import React from 'react';
 
+const propTypes = {
+    x: React.PropTypes.number,
+    y: React.PropTypes.number,
+    label: React.PropTypes.string,
+    lineStart: React.PropTypes.number,
+    lineEnd: React.PropTypes.number
+};
+
 export default class BarYAxisItem extends React.Component {
     render() {
         return (
             <g className="axis-item y-axis">
-                <text textAnchor="right" transform={`translate(${this.props.x},${this.props.y + 6})`}>
+                <text textAnchor="end" transform={`translate(${this.props.x},${this.props.y + 6})`}>
                     {this.props.label}
                 </text>
                 <line
@@ -23,3 +31,5 @@ export default class BarYAxisItem extends React.Component {
         );
     }
 }
+
+BarYAxisItem.propTypes = propTypes;
