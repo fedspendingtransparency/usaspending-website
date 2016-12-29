@@ -1,0 +1,25 @@
+.selected-locations {
+
+    margin-top: .5rem;
+
+    .shown-location-button {
+        background-color: $color-white;
+        border: 1px solid $color-gray-lighter;
+        border-radius: 4px;
+        color: $color-gray;
+        font-size: $smallest-font-size;
+        font-weight: normal;
+        height: 3.1rem;
+        padding: .5rem;
+        text-align: left;
+        width: auto;
+
+        .close {
+            display: inline-block;
+            float: right;
+            padding:0 .5rem 0 .5rem;
+            vertical-align: middle;
+        }
+    }
+
+}
