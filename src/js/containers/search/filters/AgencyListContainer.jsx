@@ -45,8 +45,17 @@ class AgencyListContainer extends React.Component {
                 this.agencySearchRequest.cancel();
             }
 
+            let fieldType = [];
+
+            if (this.props.agencyType === "Awarding") {
+                fieldType = ["awarding_agency__name"];
+            }
+            else {
+                fieldType = ["funding_agency__name"];
+            }
+
             const agencySearchParams = {
-                fields: ["awarding_agency__name"],
+                fields: fieldType,
                 value: input,
                 mode: "contains"
             };

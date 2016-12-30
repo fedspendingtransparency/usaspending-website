@@ -47,12 +47,22 @@ export default class AgencyList extends Typeahead {
     }
 
     loadValues() {
-        this.typeahead.list = this.props.autocompleteAgencies;
+        let valuesList = [];
+        this.props.autocompleteAgencies.forEach((item) => {
+            if (this.props.agencyType === "Awarding") {
+                valuesList += item.results.awarding_agency__name;
+            }
+            else {
+                valuesList += item.results.funding_agency__name;
+            }
+        });
+
+        this.typeahead.list = valuesList;
 
         this.props.autocompleteAgencies.forEach((value) => {
             let key = '';
-            key += value;
-            this.dataDictionary[key] = key;
+            key += value.results.awarding_agency__name;
+            this.dataDictionary[value] = key;
         });
 
         this.typeahead.replace = () => {
@@ -76,7 +86,14 @@ export default class AgencyList extends Typeahead {
         if (isValid) {
             // Find matching agency object from redux store based on Matched IDs key
             for (let i = 0; i < this.props.autocompleteAgencies.length; i++) {
-                selectedAgency = this.props.autocompleteAgencies[i];
+                if (this.props.agencyType === "Awarding") {
+                    selectedAgency =
+                    this.props.autocompleteAgencies[i].results.awarding_agency__name;
+                }
+                else {
+                    selectedAgency =
+                    this.props.autocompleteAgencies[i].results.funding_agency__name;
+                }
                 break;
             }
         }

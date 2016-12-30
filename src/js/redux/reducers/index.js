@@ -10,13 +10,14 @@ import resultsBatchReducer from './resultsMeta/resultsBatchReducer';
 import filtersReducer from './search/searchFiltersReducer';
 import autocompleteReducer from './search/autocompleteReducer';
 import recordReducer from './records/recordReducer';
+import agencyReducer from './search/agencyReducer';
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
     resultsBatch: resultsBatchReducer,
     filters: filtersReducer,
     autocompleteLocations: autocompleteReducer,
-    autocompleteAgencies: autocompleteReducer,
+    autocompleteAgencies: agencyReducer,
     records: recordReducer
 });
 
