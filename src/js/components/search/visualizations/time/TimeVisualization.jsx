@@ -8,6 +8,8 @@ import _ from 'lodash';
 
 import BarChart from './chart/BarChart';
 
+import Tooltip from './TimeVisualizationTooltip';
+
 const defaultProps = {
     groups: [
         'FY 2013',
@@ -58,10 +60,44 @@ const propTypes = {
 /* eslint-enable react/no-unused-prop-types */
 
 export default class TimeVisualization extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            tooltipData: null,
+            tooltipX: 0,
+            tooltipY: 0,
+            tooltipDirection: 'left'
+        };
+
+        this.showTooltip = this.showTooltip.bind(this);
+    }
+
+    showTooltip(data, x, y, direction = 'left') {
+        this.setState({
+            tooltipData: data,
+            tooltipX: x,
+            tooltipY: y,
+            tooltipDirection: direction
+        });
+    }
+
     render() {
+        let tooltip = null;
+        if (this.state.tooltipData) {
+            tooltip = (<Tooltip
+                data={this.state.tooltipData}
+                x={this.state.tooltipX}
+                y={this.state.tooltipY}
+                direction={this.state.tooltipDirection} />);
+        }
+
         return (
             <div className="results-visualization-time-container">
-                <BarChart {...this.props} />
+                <BarChart
+                    {...this.props}
+                    showTooltip={this.showTooltip} />
+                {tooltip}
             </div>
         );
     }

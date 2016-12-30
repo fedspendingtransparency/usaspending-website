@@ -4,4 +4,8 @@
     @import "./chart/barChart";
 
     @import "./_topSection";
+
+    .visualization-tooltip {
+        @import "../../../../../components/visualizations/tooltip/_tooltip";
+    }
 }

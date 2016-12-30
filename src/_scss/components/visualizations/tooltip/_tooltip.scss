@@ -1,0 +1,32 @@
+.tooltip {
+    position: absolute;
+    min-width: 320px;
+    z-index: 2;
+    pointer-events: none;
+
+    border: 1px solid #ADAFB4;
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,0.5);
+    background-color: $color-white;
+
+    .tooltip-title {
+        font-weight: bold;
+        color: #5B616B;
+        font-size: $base-font-size;
+
+        background-color: #F0F0F0;
+        padding: 10px 30px;
+    }
+
+    .tooltip-body {
+        @include outer-container();
+        padding: 10px 30px;
+    }
+
+    .tooltip-left {
+        @include span-columns(9);
+    }
+
+    .tooltip-right {
+        @include span-columns(7);
+    }
+}

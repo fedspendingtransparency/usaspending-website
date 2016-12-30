@@ -19,7 +19,8 @@ const propTypes = {
     width: React.PropTypes.number,
     height: React.PropTypes.number,
     xSeries: React.PropTypes.array,
-    ySeries: React.PropTypes.array
+    ySeries: React.PropTypes.array,
+    showTooltip: React.PropTypes.func
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -42,8 +43,16 @@ export default class BarChart extends React.Component {
             xValues: [],
             yValues: [],
             yAverage: 0,
-            xAxisPos: 0
+            xAxisPos: 0,
+            graphHeight: 0,
+            activeBar: null
         };
+
+        this.dataPoints = {};
+
+        this.selectBar = this.selectBar.bind(this);
+        this.deselectBar = this.deselectBar.bind(this);
+        this.deregisterBar = this.deregisterBar.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -103,9 +112,9 @@ export default class BarChart extends React.Component {
         // generate the data points on the chart
         const items = [];
         // iterate through each of the groups
-        props.groups.forEach((group, index) => {
-            const yData = props.ySeries[index];
-            const xData = props.xSeries[index];
+        props.groups.forEach((group, groupIndex) => {
+            const yData = props.ySeries[groupIndex];
+            const xData = props.xSeries[groupIndex];
 
             // put 20px padding on each side of the group
             const groupWidth = xScale.bandwidth() - 40;
@@ -144,14 +153,24 @@ export default class BarChart extends React.Component {
                     barHeight = yScale(0) - yScale(item);
                 }
 
+                const barIdentifier = `${groupIndex}-${i}`;
+
                 const bar = (<BarItem
-                    key={`data-${xData[i]}-${item}`}
+                    key={`data-${barIdentifier}`}
+                    identifier={barIdentifier}
                     dataY={item}
                     dataX={xData[i]}
+                    graphHeight={graphHeight}
                     height={barHeight}
                     width={itemWidth}
                     x={xPos}
-                    y={yPos} />);
+                    y={yPos}
+                    selectBar={this.selectBar}
+                    deselectBar={this.deselectBar}
+                    deregisterBar={this.deregisterBar}
+                    ref={(component) => {
+                        this.dataPoints[barIdentifier] = component;
+                    }} />);
                 items.push(bar);
             });
         });
@@ -162,11 +181,105 @@ export default class BarChart extends React.Component {
             yScale,
             items,
             xAxisPos,
+            graphHeight,
             yValues: allY,
             xValues: props.groups,
-            yTicks: yScale.ticks(6),
+            yTicks: yScale.ticks(7),
             yAverage: _.mean(allY)
         });
+    }
+
+    selectBar(barIdentifier, isTouch = false) {
+        if (isTouch && this.state.activeBar === barIdentifier) {
+            // a touch event occurred on an already active bar, this indicates a deselection
+            this.deselectBar();
+            return;
+        }
+
+        this.setState({
+            activeBar: barIdentifier
+        }, () => {
+            // notify all the child items of the change
+            _.forEach(this.dataPoints, (value) => {
+                value.updateActive(this.state.activeBar);
+            });
+
+            this.prepareTooltip(barIdentifier);
+        });
+    }
+
+    deselectBar() {
+        this.setState({
+            activeBar: null
+        }, () => {
+            // notify all the child items of the change
+            _.forEach(this.dataPoints, (value) => {
+                value.updateActive(this.state.activeBar);
+            });
+
+            // hide the tooltip
+            this.props.showTooltip(null, 0, 0);
+        });
+    }
+
+    deregisterBar(barIdentifier) {
+        // the data point is about to be unmounted, remove it from the data point object
+        delete this.dataPoints[barIdentifier];
+    }
+
+    prepareTooltip(barIdentifier) {
+        // fetch the original data
+        const groupIndex = barIdentifier.split('-')[0];
+        const subIndex = barIdentifier.split('-')[1];
+        const groupLabel = this.props.groups[groupIndex];
+        const xValue = this.props.xSeries[groupIndex][subIndex];
+        const yValue = this.props.ySeries[groupIndex][subIndex];
+
+        // calculate the tooltip position
+        // get the top of the chart on the HTML page
+        const chartTop = this.divRef.offsetTop;
+        const chartLeft = this.divRef.offsetLeft;
+        let barYAnchor;
+
+        // calculate where the halfway to the top of the bar is for positive values
+        if (yValue >= 0) {
+            const barHeight = this.state.yScale(yValue) - this.state.yScale(0);
+            // the bottom of the bar for positive values is the bottom of the chart (chart height)
+            // plus the Y position of the X axis
+            barYAnchor = this.state.graphHeight - this.state.yScale(0);
+            // anchor the tooltip halfway up
+            barYAnchor -= (barHeight / 2);
+        }
+        else {
+            // for negative values, the tooltip should be anchored based  on the bottom of the bar
+            // the bottom of the bar can be directly calculated from the yScale
+            barYAnchor = this.state.yScale(yValue);
+            // now anchor the tooltip halfway to the X-axis
+            barYAnchor -= (this.state.yScale(0) / 2);
+        }
+
+        // since the tooltip exists in the HTML DOM instead of the SVG, offset it by adding the
+        // SVG's DOM position to it
+        const yPos = chartTop + barYAnchor;
+
+        // determine where the bar starting position is
+        // this is the group's starting X position plus 20px padding between groups
+        // plus the number of previous group members times the width of each group member
+        const groupWidth = this.state.xScale.bandwidth() - 40;
+        const itemWidth = groupWidth / this.props.xSeries[groupIndex].length;
+        let barXAnchor = this.state.xScale(groupLabel) + 20 + (subIndex * itemWidth);
+        // now adjust the anchor so it is halfway through the bar
+        barXAnchor += (itemWidth / 2);
+        // now place the tooltip halfway in the bar's width
+        const xPos = chartLeft + barXAnchor + this.props.padding.left;
+
+        // show the tooltip
+        this.props.showTooltip({
+            xValue,
+            yValue,
+            group: groupLabel,
+            percentage: (yValue / _.sum(this.state.yValues))
+        }, xPos, yPos);
     }
 
     render() {
@@ -174,30 +287,38 @@ export default class BarChart extends React.Component {
         // wrap the chart contents in a group and transform it down 20px to avoid impacting
         // positioning calculations
         return (
-            <svg className="bar-graph" width={this.props.width} height={this.props.height + 20}>
-                <g className="bar-graph-body" transform="translate(0,20)">
-                    <BarYAxis
-                        height={this.props.height - this.props.padding.bottom}
-                        width={this.props.width - this.props.padding.left}
-                        padding={this.props.padding}
-                        data={this.state.yValues}
-                        scale={this.state.yScale}
-                        ticks={this.state.yTicks}
-                        average={this.state.yAverage} />
+            <div
+                ref={(div) => {
+                    this.divRef = div;
+                }}>
+                <svg
+                    className="bar-graph"
+                    width={this.props.width}
+                    height={this.props.height + 20}>
+                    <g className="bar-graph-body" transform="translate(0,20)">
+                        <BarYAxis
+                            height={this.props.height - this.props.padding.bottom}
+                            width={this.props.width - this.props.padding.left}
+                            padding={this.props.padding}
+                            data={this.state.yValues}
+                            scale={this.state.yScale}
+                            ticks={this.state.yTicks}
+                            average={this.state.yAverage} />
 
-                    <BarXAxis
-                        top={this.props.height - this.props.padding.bottom}
-                        width={this.props.width - this.props.padding.left}
-                        padding={this.props.padding}
-                        data={this.state.xValues}
-                        scale={this.state.xScale}
-                        axisPos={this.state.xAxisPos} />
+                        <BarXAxis
+                            top={this.props.height - this.props.padding.bottom}
+                            width={this.props.width - this.props.padding.left}
+                            padding={this.props.padding}
+                            data={this.state.xValues}
+                            scale={this.state.xScale}
+                            axisPos={this.state.xAxisPos} />
 
-                    <g className="bar-data" transform={`translate(${this.props.padding.left},0)`}>
-                        {this.state.items}
+                        <g className="bar-data" transform={`translate(${this.props.padding.left},0)`}>
+                            {this.state.items}
+                        </g>
                     </g>
-                </g>
-            </svg>
+                </svg>
+            </div>
         );
     }
 }
