@@ -39,3 +39,38 @@ export const performPagedSearch = (filters = [], page = 1, limit = 15, fields = 
 
     return performSearch(params);
 };
+
+// Location search for autocomplete
+export const fetchLocations = (req) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'references/locations/geocomplete/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: req,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+// Agency search for autocomplete
+export const fetchAgencies = (req) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'awards/summary/autocomplete/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: req,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+

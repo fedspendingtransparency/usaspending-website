@@ -1,6 +1,6 @@
 .search-sidebar {
-    @import "./_filters";
     @import "./_searchOption";
+    @import "./_filters";
 
     background-color: $color-white;
     @import '../../elements/_inputs';

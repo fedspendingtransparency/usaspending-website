@@ -6,13 +6,17 @@
 import { Set } from 'immutable';
 
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
+import * as LocationFilterFunctions from './filters/locationFilterFunctions';
+import * as AgencyFilterFunctions from './filters/agencyFilterFunctions';
 
 const initialState = {
     awardType: new Set(),
     timePeriodType: 'fy',
     timePeriodFY: new Set(),
     timePeriodStart: null,
-    timePeriodEnd: null
+    timePeriodEnd: null,
+    selectedLocations: new Set(),
+    selectedAgencies: new Set()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -38,6 +42,18 @@ const searchFiltersReducer = (state = initialState, action) => {
                 timePeriodStart: action.start,
                 timePeriodEnd: action.end,
                 timePeriodFY: new Set(action.fy)
+            });
+        }
+        case 'UPDATE_SELECTED_LOCATIONS': {
+            return Object.assign({}, state, {
+                selectedLocations: LocationFilterFunctions.updateSelectedLocations(
+                    state.selectedLocations, action.location)
+            });
+        }
+        case 'UPDATE_SELECTED_AGENCIES': {
+            return Object.assign({}, state, {
+                selectedAgencies: AgencyFilterFunctions.updateSelectedAgencies(
+                    state.selectedAgencies, action.agencies)
             });
         }
         case 'UPDATE_SEARCH_FILTER_GENERIC': {

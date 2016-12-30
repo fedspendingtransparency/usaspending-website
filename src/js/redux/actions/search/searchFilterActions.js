@@ -31,3 +31,13 @@ export const updateGenericFilter = (state) => ({
 export const clearAllFilters = () => ({
     type: 'CLEAR_SEARCH_FILTER_ALL'
 });
+
+export const updateSelectedLocations = (state) => ({
+    type: 'UPDATE_SELECTED_LOCATIONS',
+    location: state.location
+});
+
+export const updateSelectedAgencies = (state) => ({
+    type: 'UPDATE_SELECTED_AGENCIES',
+    agency: state.agencies
+});
