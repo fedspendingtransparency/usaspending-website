@@ -176,8 +176,8 @@ export default class AgencyList extends Typeahead {
         }
 
         let selectedAgencies = null;
-        if (this.props.selectedAwardingAgencies.size > 0
-            || this.props.selectedFundingAgencies.size > 0) {
+        if (this.props.selectedAwardingAgencies.size > 0 ||
+            this.props.selectedFundingAgencies.size > 0) {
             selectedAgencies = (<SelectedAgencies
                 selectedAwardingAgencies={this.props.selectedAwardingAgencies}
                 selectedFundingAgencies={this.props.selectedFundingAgencies}
