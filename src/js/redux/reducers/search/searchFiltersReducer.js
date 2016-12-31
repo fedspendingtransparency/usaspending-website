@@ -16,7 +16,8 @@ const initialState = {
     timePeriodStart: null,
     timePeriodEnd: null,
     selectedLocations: new Set(),
-    selectedAgencies: new Set()
+    selectedFundingAgencies: new Set(),
+    selectedAwardingAgencies: new Set()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -50,10 +51,16 @@ const searchFiltersReducer = (state = initialState, action) => {
                     state.selectedLocations, action.location)
             });
         }
-        case 'UPDATE_SELECTED_AGENCIES': {
+        case 'UPDATE_SELECTED_FUNDING_AGENCIES': {
             return Object.assign({}, state, {
-                selectedAgencies: AgencyFilterFunctions.updateSelectedAgencies(
-                    state.selectedAgencies, action.agency)
+                selectedFundingAgencies: AgencyFilterFunctions.updateSelectedFundingAgencies(
+                    state.selectedFundingAgencies, action.fundingAgency)
+            });
+        }
+        case 'UPDATE_SELECTED_AWARDING_AGENCIES': {
+            return Object.assign({}, state, {
+                selectedAwardingAgencies: AgencyFilterFunctions.updateSelectedAwardingAgencies(
+                    state.selectedAwardingAgencies, action.awardingAgency)
             });
         }
         case 'UPDATE_SEARCH_FILTER_GENERIC': {

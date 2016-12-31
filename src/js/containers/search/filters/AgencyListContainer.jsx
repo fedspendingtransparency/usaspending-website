@@ -16,7 +16,8 @@ import * as agencyActions from 'redux/actions/search/agencyActions';
 const propTypes = {
     setAutocompleteAgencies: React.PropTypes.func,
     selectAgency: React.PropTypes.func,
-    selectedAgencies: React.PropTypes.object,
+    selectedAwardingAgencies: React.PropTypes.object,
+    selectedFundingAgencies: React.PropTypes.object,
     agencyType: React.PropTypes.string
 };
 
@@ -68,9 +69,13 @@ class AgencyListContainer extends React.Component {
                     let autocompleteData = [];
 
                     // Filter out any selectedAgencies that may be in the result set
-                    if (this.props.selectedAgencies.size > 0) {
+                    if (this.props.selectedAwardingAgencies.size > 0) {
                         autocompleteData = _.differenceWith(data,
-                            this.props.selectedAgencies.toArray(), _.isEqual);
+                            this.props.selectedAwardingAgencies.toArray(), _.isEqual);
+                    }
+                    else if (this.props.selectedFundingAgencies.size > 0) {
+                        autocompleteData = _.differenceWith(data,
+                            this.props.selectedFundingAgencies.toArray(), _.isEqual);
                     }
                     else {
                         autocompleteData = data;
@@ -103,7 +108,8 @@ class AgencyListContainer extends React.Component {
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectAgency}
                 placeHolder={this.props.agencyType}
-                selectedAgencies={this.props.selectedAgencies}
+                selectedFundingAgencies={this.props.selectedFundingAgencies}
+                selectedAwardingAgencies={this.props.selectedAwardingAgencies}
                 agencyType={this.props.agencyType} />
         );
     }

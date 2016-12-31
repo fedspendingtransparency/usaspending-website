@@ -12,7 +12,8 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import Agency from 'components/search/filters/agency/Agency';
 
 const propTypes = {
-    updateSelectedAgencies: React.PropTypes.func
+    updateSelectedFundingAgencies: React.PropTypes.func,
+    updateSelectedAwardingAgencies: React.PropTypes.func
 };
 
 class AgencyContainer extends React.Component {
@@ -24,19 +25,31 @@ class AgencyContainer extends React.Component {
         this.removeAgency = this.removeAgency.bind(this);
     }
 
-    selectAgency(agency, isValid) {
+    selectAgency(agency, isValid, agencyType) {
         // If agency name exists and is valid
         if (agency !== null && isValid) {
             const updateParams = {};
-            updateParams.agency = agency;
-            this.props.updateSelectedAgencies(updateParams);
+            if (agencyType === "Awarding") {
+                updateParams.awardingAgency = agency;
+                this.props.updateSelectedAwardingAgencies(updateParams);
+            }
+            else if (agencyType === "Funding") {
+                updateParams.fundingAgency = agency;
+                this.props.updateSelectedFundingAgencies(updateParams);
+            }
         }
     }
 
-    removeAgency(agency) {
+    removeAgency(agency, agencyType) {
         const updateParams = {};
-        updateParams.agency = agency;
-        this.props.updateSelectedAgencies(updateParams);
+        if (agencyType === "Awarding") {
+            updateParams.awardingAgency = agency;
+            this.props.updateSelectedAwardingAgencies(updateParams);
+        }
+        else if (agencyType === "Funding") {
+            updateParams.fundingAgency = agency;
+            this.props.updateSelectedFundingAgencies(updateParams);
+        }
     }
 
     render() {
@@ -52,6 +65,7 @@ class AgencyContainer extends React.Component {
 AgencyContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ selectedAgencies: state.filters.selectedAgencies }),
+    (state) => ({ selectedFundingAgencies: state.filters.selectedFundingAgencies,
+        selectedAwardingAgencies: state.filters.selectedAwardingAgencies }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(AgencyContainer);

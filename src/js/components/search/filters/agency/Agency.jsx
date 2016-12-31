@@ -5,7 +5,6 @@
 
 import React from 'react';
 import AgencyListContainer from 'containers/search/filters/AgencyListContainer';
-import SelectedAgencies from './SelectedAgencies';
 
 const defaultProps = {
     agencyTypes: [
@@ -17,7 +16,8 @@ const defaultProps = {
 const propTypes = {
     selectAgency: React.PropTypes.func,
     removeAgency: React.PropTypes.func,
-    selectedAgencies: React.PropTypes.object,
+    selectedAwardingAgencies: React.PropTypes.object,
+    selectedFundingAgencies: React.PropTypes.object,
     agencyTypes: React.PropTypes.array
 };
 
@@ -28,21 +28,14 @@ export default class Agency extends React.Component {
             <AgencyListContainer
                 key={key}
                 agencyType={type}
-                selectedAgencies={this.props.selectedAgencies}
+                selectedFundingAgencies={this.props.selectedFundingAgencies}
+                selectedAwardingAgencies={this.props.selectedAwardingAgencies}
                 selectAgency={this.props.selectAgency}
                 removeAgency={this.props.removeAgency} />));
-
-        let selectedAgencies = null;
-        if (this.props.selectedAgencies.size > 0) {
-            selectedAgencies = (<SelectedAgencies
-                selectedAgencies={this.props.selectedAgencies}
-                removeAgency={this.props.removeAgency} />);
-        }
 
         return (
             <div className="agency-filter search-filter">
                 {agencies}
-                {selectedAgencies}
             </div>
         );
     }

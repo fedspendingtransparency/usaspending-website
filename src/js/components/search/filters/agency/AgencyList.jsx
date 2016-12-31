@@ -8,6 +8,7 @@ import _ from 'lodash';
 
 import Typeahead from 'components/sharedComponents/Typeahead';
 import TypeaheadWarning from 'components/sharedComponents/TypeaheadWarning';
+import SelectedAgencies from './SelectedAgencies';
 
 const propTypes = {
     autocompleteAgencies: PropTypes.array,
@@ -47,17 +48,22 @@ export default class AgencyList extends Typeahead {
     }
 
     loadValues() {
-        const valuesList = [];
+        const awardingValuesList = [];
+        const fundingValuesList = [];
         this.props.autocompleteAgencies.forEach((item) => {
             if (this.props.agencyType === "Awarding") {
-                valuesList.push(item.results.awarding_agency__name);
+                awardingValuesList.push(item.results.awarding_agency__name);
             }
             else {
-                valuesList.push(item.results.funding_agency__name);
+                fundingValuesList.push(item.results.funding_agency__name);
             }
         });
-
-        this.typeahead.list = valuesList;
+        if (this.props.agencyType === "Awarding") {
+            this.typeahead.list = awardingValuesList;
+        }
+        else {
+            this.typeahead.list = fundingValuesList;
+        }
 
         this.props.autocompleteAgencies.forEach((value) => {
             let key = '';
@@ -107,7 +113,7 @@ export default class AgencyList extends Typeahead {
 
         // Important - clear internal typeahead state value before passing selection
         this.state.value = '';
-        this.props.onSelect(selectedAgency, isValid);
+        this.props.onSelect(selectedAgency, isValid, this.props.agencyType);
     }
 
     isValidSelection(input) {
@@ -169,6 +175,16 @@ export default class AgencyList extends Typeahead {
             warning = <TypeaheadWarning {...errorProps} />;
         }
 
+        let selectedAgencies = null;
+        if (this.props.selectedAwardingAgencies.size > 0
+            || this.props.selectedFundingAgencies.size > 0) {
+            selectedAgencies = (<SelectedAgencies
+                selectedAwardingAgencies={this.props.selectedAwardingAgencies}
+                selectedFundingAgencies={this.props.selectedFundingAgencies}
+                removeAgency={this.props.removeAgency}
+                agencyType={this.props.agencyType} />);
+        }
+
         return (
             <div className="pop-typeahead">
                 <div className="usa-da-typeahead">
@@ -184,6 +200,7 @@ export default class AgencyList extends Typeahead {
                         onChange={this.onChange.bind(this)} />
                 </div>
                 {warning}
+                {selectedAgencies}
             </div>
         );
     }
