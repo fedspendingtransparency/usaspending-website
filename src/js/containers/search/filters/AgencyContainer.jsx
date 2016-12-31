@@ -29,7 +29,6 @@ class AgencyContainer extends React.Component {
         if (agency !== null && isValid) {
             const updateParams = {};
             updateParams.agency = agency;
-
             this.props.updateSelectedAgencies(updateParams);
         }
     }

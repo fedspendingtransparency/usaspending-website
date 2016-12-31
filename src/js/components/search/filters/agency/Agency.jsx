@@ -24,13 +24,6 @@ const propTypes = {
 export default class Agency extends React.Component {
 
     render() {
-        let selectedAgencies = null;
-        if (this.props.selectedAgencies.size > 0) {
-            selectedAgencies = (<SelectedAgencies
-                selectedAgencies={this.props.selectedAgencies}
-                removeAgency={this.props.removeAgency} />);
-        }
-
         const agencies = this.props.agencyTypes.map((type, key) => (
             <AgencyListContainer
                 key={key}
@@ -38,6 +31,14 @@ export default class Agency extends React.Component {
                 selectedAgencies={this.props.selectedAgencies}
                 selectAgency={this.props.selectAgency}
                 removeAgency={this.props.removeAgency} />));
+
+        let selectedAgencies = null;
+        if (this.props.selectedAgencies.size > 0) {
+            selectedAgencies = (<SelectedAgencies
+                selectedAgencies={this.props.selectedAgencies}
+                removeAgency={this.props.removeAgency} />);
+        }
+
         return (
             <div className="agency-filter search-filter">
                 {agencies}

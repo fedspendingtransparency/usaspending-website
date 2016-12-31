@@ -47,13 +47,13 @@ export default class AgencyList extends Typeahead {
     }
 
     loadValues() {
-        let valuesList = [];
+        const valuesList = [];
         this.props.autocompleteAgencies.forEach((item) => {
             if (this.props.agencyType === "Awarding") {
-                valuesList += item.results.awarding_agency__name;
+                valuesList.push(item.results.awarding_agency__name);
             }
             else {
-                valuesList += item.results.funding_agency__name;
+                valuesList.push(item.results.funding_agency__name);
             }
         });
 
@@ -61,8 +61,16 @@ export default class AgencyList extends Typeahead {
 
         this.props.autocompleteAgencies.forEach((value) => {
             let key = '';
-            key += value.results.awarding_agency__name;
-            this.dataDictionary[value] = key;
+            if (this.props.agencyType === "Awarding") {
+                key =
+                `<strong>${value.results.awarding_agency__name}</strong>`;
+                this.dataDictionary[key] = value.results.awarding_agency__name;
+            }
+            else {
+                key =
+                `<strong>${value.results.funding_agency__name}</strong>`;
+                this.dataDictionary[key] = value.results.funding_agency__name;
+            }
         });
 
         this.typeahead.replace = () => {
@@ -82,7 +90,6 @@ export default class AgencyList extends Typeahead {
         // Validate the current value is on the autocomplete list
         let selectedAgency = null;
         const isValid = this.isValidSelection(this.state.value);
-
         if (isValid) {
             // Find matching agency object from redux store based on Matched IDs key
             for (let i = 0; i < this.props.autocompleteAgencies.length; i++) {

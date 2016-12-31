@@ -9,7 +9,8 @@ import ShownAgency from './ShownAgency';
 
 const propTypes = {
     selectedAgencies: React.PropTypes.object,
-    removeAgency: React.PropTypes.func
+    removeAgency: React.PropTypes.func,
+    agencyType: React.PropTypes.string
 };
 
 export default class SelectedAgencies extends React.Component {
@@ -19,14 +20,11 @@ export default class SelectedAgencies extends React.Component {
     }
 
     formatAgency(ag) {
-        const agency = ag;
         let displayValue = '';
 
-        if (agency !== null) {
-            displayValue = `${_.startCase(_.toLower(agency))} | `;
+        if (ag !== null) {
+            displayValue = `${_.startCase(_.toLower(ag))}`;
         }
-
-        displayValue += `${agency}`;
 
         return displayValue;
     }
@@ -34,10 +32,10 @@ export default class SelectedAgencies extends React.Component {
     render() {
         const shownAgencies = this.props.selectedAgencies.map((agency, key) => (
             <ShownAgency
-                agency={agency}
+                agency={this.formatAgency(agency)}
                 label={this.formatAgency(agency)}
                 key={(`_${key}`)}
-                removeAgency={this.props.removeAgency.bind(null, agency)} />
+                removeAgency={this.props.removeAgency.bind(null, this.formatAgency(agency))} />
         ));
 
         return (

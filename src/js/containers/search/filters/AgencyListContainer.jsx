@@ -29,7 +29,7 @@ class AgencyListContainer extends React.Component {
     }
 
     dataFormatter(item) {
-        const itemLabel = `<strong>${item}</strong><br>`;
+        const itemLabel = `<strong>${item}</strong>`;
 
         return {
             label: itemLabel,
@@ -102,7 +102,9 @@ class AgencyListContainer extends React.Component {
                 formatter={this.dataFormatter}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectAgency}
-                placeHolder={this.props.agencyType} />
+                placeHolder={this.props.agencyType}
+                selectedAgencies={this.props.selectedAgencies}
+                agencyType={this.props.agencyType} />
         );
     }
 

@@ -39,5 +39,5 @@ export const updateSelectedLocations = (state) => ({
 
 export const updateSelectedAgencies = (state) => ({
     type: 'UPDATE_SELECTED_AGENCIES',
-    agency: state.agencies
+    agency: state.agency
 });

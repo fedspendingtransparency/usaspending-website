@@ -53,7 +53,7 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'UPDATE_SELECTED_AGENCIES': {
             return Object.assign({}, state, {
                 selectedAgencies: AgencyFilterFunctions.updateSelectedAgencies(
-                    state.selectedAgencies, action.agencies)
+                    state.selectedAgencies, action.agency)
             });
         }
         case 'UPDATE_SEARCH_FILTER_GENERIC': {
