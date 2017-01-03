@@ -4,28 +4,29 @@
 **/
 
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import LocationList from 'components/search/filters/location/LocationList';
 
-import * as SearchHelper from 'helpers/searchHelper';
-import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
-
 const propTypes = {
     setAutocompleteLocations: React.PropTypes.func,
+    queryAutocompleteLocations: React.PropTypes.func,
     selectLocation: React.PropTypes.func,
-    selectedLocations: React.PropTypes.object,
-    locationOption: React.PropTypes.string
+    focus: React.PropTypes.bool
 };
 
-class LocationListContainer extends React.Component {
+export default class LocationListContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.handleTextInput = this.handleTextInput.bind(this);
         this.timeout = null;
+    }
+
+    componentDidUpdate() {
+        if (this.props.focus === true) {
+            this.locationList.awesompleteInput.focus();
+        }
     }
 
     dataFormatter(item) {
@@ -40,41 +41,6 @@ class LocationListContainer extends React.Component {
         };
     }
 
-    queryAutocompleteLocations(input) {
-        // Only search if search is 2 or more characters
-        if (input.length >= 2 || input.length === 0) {
-            if (this.locationSearchRequest) {
-                // A request is currently in-flight, cancel it
-                this.locationSearchRequest.cancel();
-            }
-
-            const locSearchParams = {
-                value: input,
-                scope: this.props.locationOption
-            };
-
-            this.locationSearchRequest = SearchHelper.fetchLocations(locSearchParams);
-
-            this.locationSearchRequest.promise
-                .then((res) => {
-                    const data = res.data;
-                    let autocompleteData = [];
-
-                    // Filter out any selectedLocations that may be in the result set
-                    if (this.props.selectedLocations.size > 0) {
-                        autocompleteData = _.differenceWith(data,
-                            this.props.selectedLocations.toArray(), _.isEqual);
-                    }
-                    else {
-                        autocompleteData = data;
-                    }
-
-                    // Add search results to Redux
-                    this.props.setAutocompleteLocations(autocompleteData);
-                });
-        }
-    }
-
     handleTextInput(locationInput) {
         // Clear existing locations to ensure user can't select an old or existing one
         this.props.setAutocompleteLocations([]);
@@ -85,7 +51,7 @@ class LocationListContainer extends React.Component {
 
         // Perform search if user doesn't type again for 300ms
         this.timeout = window.setTimeout(() => {
-            this.queryAutocompleteLocations(input);
+            this.props.queryAutocompleteLocations(input, false);
         }, 300);
     }
 
@@ -96,15 +62,14 @@ class LocationListContainer extends React.Component {
                 formatter={this.dataFormatter}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectLocation}
-                placeHolder="State, City, County, Zip or District" />
+                placeHolder="State, City, County, Zip or District"
+                ref={(input) => {
+                    this.locationList = input;
+                }}
+                focus={this.props.focus} />
         );
     }
 
 }
-
-export default connect(
-    (state) => ({ autocompleteLocations: state.autocompleteLocations }),
-    (dispatch) => bindActionCreators(autocompleteActions, dispatch)
-)(LocationListContainer);
 
 LocationListContainer.propTypes = propTypes;

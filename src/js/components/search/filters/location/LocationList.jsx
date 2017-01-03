@@ -65,7 +65,10 @@ export default class LocationList extends Typeahead {
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.autocompleteLocations, this.props.autocompleteLocations)
+        // Load values if the result set is different from last time, or the component is focused.
+        // The focus will happen when the user clicks the All, USA, or Foreign radio button.
+        if ((!_.isEqual(prevProps.autocompleteLocations, this.props.autocompleteLocations)
+                || this.props.focus === true)
             && this.typeahead) {
             this.loadValues();
         }
