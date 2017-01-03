@@ -35,7 +35,7 @@ export default class TimeVisualizationTooltip extends React.Component {
                             {dollarValue}
                         </div>
                         <div className="tooltip-right">
-                            {Math.round(this.props.data.percentage * 10000) / 100}%
+                            {Math.round(this.props.data.percentage * 1000) / 10}%
                         </div>
                     </div>
                 </div>
