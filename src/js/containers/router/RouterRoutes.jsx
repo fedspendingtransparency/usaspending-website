@@ -49,6 +49,14 @@ const routeDefinitions = {
                     cb(null, require('../search/SearchContainer').default);
                 });
             }
+        },
+        {
+            path: 'style',
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/testStyles/TestStylePage').default);
+                });
+            }
         }
     ]
 };
