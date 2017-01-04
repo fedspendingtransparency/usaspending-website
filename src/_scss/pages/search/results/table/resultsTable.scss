@@ -14,4 +14,15 @@
         opacity: 1;
         @include transition(opacity 0.25s ease-in);
     }
+
+    .results-table-width-master {
+        width: 100%;
+    }
+
+    .results-table-message {
+        margin-top: 1rem;
+        font-size: $small-font-size;
+        color: $color-base;
+        text-align: center;
+    }
 }

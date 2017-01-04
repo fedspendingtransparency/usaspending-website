@@ -2,6 +2,7 @@
 @import "./_menuSearchButton";
 
 @mixin headerNavMenu {
+    float: right;
     display: table;
     ul.nav-menu {
         @include clearfix;

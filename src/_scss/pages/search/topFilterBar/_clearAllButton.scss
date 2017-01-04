@@ -1,0 +1,40 @@
+.search-clear-container {
+    display: table-cell;
+    width: 130px;
+    vertical-align: middle;
+
+    .search-clear-button {
+        @include button-unstyled();
+        
+        height: 100%;
+        width: 100%;
+        background-color: $top-clear-button-background-color;
+
+        color: $top-clear-button-color;
+        font-size: 12px;
+
+        padding: 0px 15px;
+
+        .close-icon {
+            margin-left: 5px;
+            height: 2rem;
+            width: 2rem;
+            
+            position: relative;
+
+            svg {
+                fill: $top-clear-button-color;
+                height: 2rem;
+                width: 2rem;
+
+                position: absolute;
+                top: -3px;
+            }
+        }
+
+        .sr-only {
+            @include sr-only();
+        }
+
+    }
+}

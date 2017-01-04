@@ -14,34 +14,40 @@
     ul.fiscal-years {
         @include row();
         list-style-type: none;
-        padding-left: 0;
+        padding-left: 1rem;
         padding-top: 1.5rem;
 
         li {
+            line-height: 1.4rem;
             margin: 0;
-            height: 2.5rem;
+            padding: 0 0 0 1rem;
+            height: auto;
             @include span-columns(8);
 
             input {
                 @include usa-input-checkbox;
-                margin-right: .5rem;
-                height: $small-font-size;
-                width: $small-font-size;
+                margin-right: -2rem;
+                margin-top: 1.2rem;
+                vertical-align: top;
             }
 
             label {
                 @include usa-label;
                 font-weight: normal;
+                margin: 1rem 0 0 0;
+                margin-left: 2.5rem;
+                max-height: 2.4rem;
+                padding: 0;
+                font-size: 1.2rem;
+                display: inline-block;
+                @include media($large-screen){
+                    font-size: 1.4rem;
+                    max-height: 2.8rem;
+                }
             }
-        }
-    }
-
-    .date-range-option {
-        margin-top: 3rem;
-
-        input {
-            @include usa-input;
-            display:inline;
+            input + label {
+                margin-bottom: 0;
+            }
         }
     }
 
@@ -51,6 +57,16 @@
         margin-left: .5rem;
         margin-top: -1px;
         z-index: 1;
+    }
+
+    .date-range-option {
+        input {
+            @include usa-input;
+        }
+        .date-range-wrapper {
+            margin-top: 3rem;
+            width: 100%;
+        }
     }
 
 }

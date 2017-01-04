@@ -38,6 +38,28 @@
         }
       }
     },
+    "babel-polyfill": {
+      "version": "6.16.0",
+      "from": "babel-polyfill@latest",
+      "resolved": "https://registry.npmjs.org/babel-polyfill/-/babel-polyfill-6.16.0.tgz",
+      "dependencies": {
+        "core-js": {
+          "version": "2.4.1",
+          "from": "core-js@>=2.4.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/core-js/-/core-js-2.4.1.tgz"
+        },
+        "babel-runtime": {
+          "version": "6.18.0",
+          "from": "babel-runtime@>=6.9.1 <7.0.0",
+          "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-6.18.0.tgz"
+        },
+        "regenerator-runtime": {
+          "version": "0.9.6",
+          "from": "regenerator-runtime@>=0.9.5 <0.10.0",
+          "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.9.6.tgz"
+        }
+      }
+    },
     "d3": {
       "version": "3.5.17",
       "from": "https://registry.npmjs.org/d3/-/d3-3.5.17.tgz",
@@ -264,11 +286,6 @@
         }
       }
     },
-    "fixed-data-table": {
-      "version": "0.6.3",
-      "from": "fixed-data-table@latest",
-      "resolved": "https://registry.npmjs.org/fixed-data-table/-/fixed-data-table-0.6.3.tgz"
-    },
     "immutable": {
       "version": "3.8.1",
       "from": "https://registry.npmjs.org/immutable/-/immutable-3.8.1.tgz",
@@ -402,6 +419,11 @@
       "version": "15.4.0",
       "from": "https://registry.npmjs.org/react-addons-css-transition-group/-/react-addons-css-transition-group-15.4.0.tgz",
       "resolved": "https://registry.npmjs.org/react-addons-css-transition-group/-/react-addons-css-transition-group-15.4.0.tgz"
+    },
+    "react-addons-perf": {
+      "version": "15.4.0",
+      "from": "react-addons-perf@15.4.0",
+      "resolved": "https://registry.npmjs.org/react-addons-perf/-/react-addons-perf-15.4.0.tgz"
     },
     "react-addons-test-utils": {
       "version": "15.4.0",

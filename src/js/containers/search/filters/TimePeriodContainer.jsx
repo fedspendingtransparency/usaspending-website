@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import Immutable from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -15,7 +16,11 @@ import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 const startYear = 2009;
 
 const propTypes = {
-    updateTimePeriod: React.PropTypes.func
+    updateTimePeriod: React.PropTypes.func,
+    filterTimePeriodType: React.PropTypes.string,
+    filterTimePeriodFY: React.PropTypes.instanceOf(Immutable.Set),
+    filterTimePeriodStart: React.PropTypes.string,
+    filterTimePeriodEnd: React.PropTypes.string
 };
 
 class TimePeriodContainer extends React.Component {
@@ -23,13 +28,7 @@ class TimePeriodContainer extends React.Component {
         super(props);
 
         this.state = {
-            timePeriods: [],
-            activeTab: 'fy',
-            filter: {
-                fy: [],
-                startDate: null,
-                endDate: null
-            }
+            timePeriods: []
         };
 
         // bind functions
@@ -63,43 +62,30 @@ class TimePeriodContainer extends React.Component {
     }
 
     changeTab(tab) {
-        this.setState({
-            activeTab: tab
-        }, () => {
-            this.performSearch();
+        this.updateFilter({
+            dateType: tab
         });
     }
 
     updateFilter(params) {
         // set the state to a clone of the filter subobject merged with the param object
-        const newFilter = Object.assign({}, this.state.filter, params);
-        this.setState({
-            filter: newFilter
-        }, () => {
-            this.performSearch();
-        });
-    }
+        const currentFilters = {
+            dateType: this.props.filterTimePeriodType,
+            fy: this.props.filterTimePeriodFY,
+            startDate: this.props.filterTimePeriodStart,
+            endDate: this.props.filterTimePeriodEnd
+        };
 
-    performSearch() {
-        const searchParams = {};
-        if (this.state.activeTab === 'fy') {
-            // use only fy values
-            searchParams.fy = this.state.filter.fy;
-        }
-        else {
-            // use only date range values
-            searchParams.startDate = this.state.filter.startDate;
-            searchParams.endDate = this.state.filter.endDate;
-        }
+        const newFilters = Object.assign({}, currentFilters, params);
 
-        this.props.updateTimePeriod(searchParams);
+        this.props.updateTimePeriod(newFilters);
     }
 
     render() {
         return (
             <TimePeriod
                 {...this.props}
-                activeTab={this.state.activeTab}
+                activeTab={this.props.filterTimePeriodType}
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
                 changeTab={this.changeTab} />
@@ -110,6 +96,11 @@ class TimePeriodContainer extends React.Component {
 TimePeriodContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.filters.awardType }),
+    (state) => ({
+        filterTimePeriodType: state.filters.timePeriodType,
+        filterTimePeriodFY: state.filters.timePeriodFY,
+        filterTimePeriodStart: state.filters.timePeriodStart,
+        filterTimePeriodEnd: state.filters.timePeriodEnd
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(TimePeriodContainer);

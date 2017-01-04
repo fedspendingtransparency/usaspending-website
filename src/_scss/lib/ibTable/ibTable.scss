@@ -1,0 +1,49 @@
+
+.ibt-table-container {
+    position: relative;
+
+    .ibt-header {
+        display: block;
+        z-index: 1;
+        position: relative;
+        overflow: hidden;
+        white-space: nowrap;
+        
+        .ibt-header-row {
+            display: table;
+            position: absolute;
+
+            .ibt-header-cell {
+                display: table-cell;
+            }
+        }
+
+    }
+
+    .ibt-table-body-container {
+        display: block;
+        overflow: auto;
+
+        .ibt-table-body {
+            display: block;
+            position: relative;
+
+            .ibt-table-row {
+                display: table;
+                position: absolute;
+
+                .ibt-table-cell {
+                    display: table-cell;
+                    position: absolute;
+                }
+            }
+
+            background: repeating-linear-gradient(
+          $color-white,
+          $color-white 40px,
+          $color-gray-lightest 40px,
+          $color-gray-lightest 80px
+        );
+        }
+    }
+}

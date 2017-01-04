@@ -15,6 +15,9 @@ const defaultProps = {
 };
 
 const propTypes = {
+    filterTimePeriodFY: React.PropTypes.instanceOf(Set),
+    filterTimePeriodStart: React.PropTypes.string,
+    filterTimePeriodEnd: React.PropTypes.string,
     label: React.PropTypes.string,
     timePeriods: React.PropTypes.array,
     activeTab: React.PropTypes.string,
@@ -28,8 +31,8 @@ export default class TimePeriod extends React.Component {
         super(props);
 
         this.state = {
-            startDate: null,
-            endDate: null,
+            startDateUI: null,
+            endDateUI: null,
             showError: false,
             header: '',
             description: '',
@@ -46,14 +49,62 @@ export default class TimePeriod extends React.Component {
         this.toggleFilters = this.toggleFilters.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.synchronizeDatePickers(nextProps);
+    }
+
+    synchronizeDatePickers(nextProps) {
+        // synchronize the date picker state to Redux controlled props
+         // convert start/end date strings to moment objects
+        let datesChanged = false;
+        const newState = {};
+
+        // check if the start date changed
+        if (nextProps.filterTimePeriodStart !== this.props.filterTimePeriodStart) {
+            const startDate = moment(nextProps.filterTimePeriodStart, 'YYYY-MM-DD');
+            // start date did change and it is a valid date (not null)
+            if (startDate.isValid()) {
+                datesChanged = true;
+                newState.startDateUI = startDate;
+            }
+            else if (this.props.filterTimePeriodStart) {
+                // value became null
+                datesChanged = true;
+                newState.startDateUI = null;
+            }
+        }
+
+        // check if the end date changed
+        if (nextProps.filterTimePeriodEnd !== this.props.filterTimePeriodEnd) {
+            const endDate = moment(nextProps.filterTimePeriodStart, 'YYYY-MM-DD');
+            if (endDate.isValid()) {
+                // end date did change and it is a valid date (not null)
+                datesChanged = true;
+                newState.endDateUI = endDate;
+            }
+            else if (this.props.filterTimePeriodEnd) {
+                // value became null
+                datesChanged = true;
+                newState.endDateUI = null;
+            }
+        }
+
+        if (datesChanged) {
+            this.setState(newState);
+        }
+    }
+
     toggleFilters(e) {
         this.props.changeTab(e.target.value);
     }
 
     handleDateChange(date, dateType) {
-    // merge the new date into the file's state without affecting the other keys
+        // the component will hold values of the start/end dates for use by the UI only
+        // this is because the start/end range will be incomplete during the time the user has only
+        // picked one date, or if they have picked an invalid range
+        // additional logic is required to keep these values in sync with Redux
         this.setState({
-            [dateType]: moment(date)
+            [`${dateType}UI`]: moment(date)
         }, () => {
             this.validateDates();
         });
@@ -64,8 +115,8 @@ export default class TimePeriod extends React.Component {
         // don't come before the start dates
 
         // validate the date ranges
-        const start = this.state.startDate;
-        const end = this.state.endDate;
+        const start = this.state.startDateUI;
+        const end = this.state.endDateUI;
         if (start && end) {
             // both sets of dates exist
             if (!end.isSameOrAfter(start)) {
@@ -79,6 +130,7 @@ export default class TimePeriod extends React.Component {
                 this.hideError();
                 // update the filter parameters
                 this.props.updateFilter({
+                    dateType: 'dr',
                     startDate: start.format('YYYY-MM-DD'),
                     endDate: end.format('YYYY-MM-DD')
                 });
@@ -129,10 +181,9 @@ export default class TimePeriod extends React.Component {
 
         if (this.props.activeTab === 'fy') {
             showFilter = (<AllFiscalYears
-                saveSelected={this.saveSelected}
+                updateFilter={this.props.updateFilter}
                 timePeriods={this.props.timePeriods}
-                allFY={this.state.allFY}
-                selectedFY={this.state.selectedFY} />);
+                selectedFY={this.props.filterTimePeriodFY} />);
             activeClassFY = '';
             activeClassDR = 'inactive';
         }
@@ -141,8 +192,8 @@ export default class TimePeriod extends React.Component {
                 label={this.props.label}
                 datePlaceholder=""
                 startingTab={1}
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
+                startDate={this.state.startDateUI}
+                endDate={this.state.endDateUI}
                 onDateChange={this.handleDateChange}
                 showError={this.showError}
                 hideError={this.hideError} />);

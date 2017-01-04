@@ -148,7 +148,7 @@ class SearchContainer extends React.PureComponent {
                 }
                 else {
                     // request never made it out
-                    console.log(err);
+
                     this.searchRequest = null;
                 }
             });
