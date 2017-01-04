@@ -30,7 +30,7 @@ export default class LocationListContainer extends React.Component {
     }
 
     dataFormatter(item) {
-        let itemLabel = `<strong>${item.place}</strong><br>${_.upperCase(item.place_type)}`;
+        let itemLabel = `<b>${item.place}</b><br>${_.upperCase(item.place_type)}`;
         if (item.parent !== null) {
             itemLabel += ` in ${item.parent}`;
         }
