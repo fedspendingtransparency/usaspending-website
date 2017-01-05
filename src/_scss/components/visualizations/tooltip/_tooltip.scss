@@ -1,32 +1,64 @@
 .tooltip {
+
+    $color-title-background: #F0F0F0;
+    $color-tooltip-border: #ADAFB4;
+
     position: absolute;
     min-width: 320px;
     z-index: 2;
     pointer-events: none;
 
-    border: 1px solid #ADAFB4;
+    border: 1px solid $color-tooltip-border;
     box-shadow: 0 3px 4px 0 rgba(0,0,0,0.5);
     background-color: $color-white;
+
+    @import "./_arrow";
 
     .tooltip-title {
         font-weight: bold;
         color: #5B616B;
         font-size: $base-font-size;
 
-        background-color: #F0F0F0;
+        background-color: $color-title-background;
         padding: 10px 30px;
+        z-index: 9;
     }
 
     .tooltip-body {
-        @include outer-container();
-        padding: 10px 30px;
+        display: table;
+        padding: 10px;
     }
 
     .tooltip-left {
-        @include span-columns(9);
+        display: table-cell;
+        padding: 0 10px;
     }
 
     .tooltip-right {
-        @include span-columns(7);
+        display: table-cell;
+        padding: 0 10px;
+    }
+
+    .tooltip-value {
+        font-size: 26px;
+        line-height: 33px;
+        font-weight: 300;
+        text-align: center;
+
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 5px;
+
+        border-bottom: 1px solid #D5D6D8;
+    }
+
+    .tooltip-label {
+        text-align: center;
+        font-weight: 300;
+
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 10px;
     }
 }

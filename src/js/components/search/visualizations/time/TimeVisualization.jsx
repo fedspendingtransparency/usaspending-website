@@ -19,15 +19,15 @@ const defaultProps = {
     ],
     xSeries: [
         ['FY 2013'],
-        ['FY 2013'],
+        ['FY 2014'],
         ['FY 2015'],
-        ['FY 2017']
+        ['FY 2016']
     ],
     ySeries: [
-        [_.random(100, 999999999999)],
-        [_.random(100, 1999999999999)],
-        [_.random(100, 2999999999999)],
-        [_.random(100, 2999999999999)]
+        [_.random(100, 999999999)],
+        [_.random(-100, -199999999)],
+        [_.random(-100, -29999999)],
+        [_.random(100, -2999999999)]
         // [-1000000],
         // [-152000],
         // // [2000000],
@@ -66,19 +66,17 @@ export default class TimeVisualization extends React.Component {
         this.state = {
             tooltipData: null,
             tooltipX: 0,
-            tooltipY: 0,
-            tooltipDirection: 'left'
+            tooltipY: 0
         };
 
         this.showTooltip = this.showTooltip.bind(this);
     }
 
-    showTooltip(data, x, y, direction = 'left') {
+    showTooltip(data, x, y) {
         this.setState({
             tooltipData: data,
             tooltipX: x,
-            tooltipY: y,
-            tooltipDirection: direction
+            tooltipY: y
         });
     }
 
@@ -88,8 +86,7 @@ export default class TimeVisualization extends React.Component {
             tooltip = (<Tooltip
                 data={this.state.tooltipData}
                 x={this.state.tooltipX}
-                y={this.state.tooltipY}
-                direction={this.state.tooltipDirection} />);
+                y={this.state.tooltipY} />);
         }
 
         return (

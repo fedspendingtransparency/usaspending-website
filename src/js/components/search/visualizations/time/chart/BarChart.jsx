@@ -26,7 +26,7 @@ const propTypes = {
 
 const defaultProps = {
     padding: {
-        left: 50,
+        left: 70,
         bottom: 20
     }
 };
@@ -239,28 +239,27 @@ export default class BarChart extends React.Component {
         // get the top of the chart on the HTML page
         const chartTop = this.divRef.offsetTop;
         const chartLeft = this.divRef.offsetLeft;
-        let barYAnchor;
+        const xAxisHeight = this.state.graphHeight - this.state.yScale(0);
 
         // calculate where the halfway to the top of the bar is for positive values
+        let yPos = chartTop + xAxisHeight;
         if (yValue >= 0) {
+            // for positive values, the bar height is the distance from the Y scale position of
+            // the data point (the top of the bar) to the X axis position
             const barHeight = this.state.yScale(yValue) - this.state.yScale(0);
-            // the bottom of the bar for positive values is the bottom of the chart (chart height)
-            // plus the Y position of the X axis
-            barYAnchor = this.state.graphHeight - this.state.yScale(0);
-            // anchor the tooltip halfway up
-            barYAnchor -= (barHeight / 2);
+
+            // since the tooltip exists in the HTML DOM instead of the SVG, offset its Y position
+            // by adding the SVG's DOM Y position to it
+            yPos -= (barHeight / 2);
         }
         else {
-            // for negative values, the tooltip should be anchored based  on the bottom of the bar
-            // the bottom of the bar can be directly calculated from the yScale
-            barYAnchor = this.state.yScale(yValue);
-            // now anchor the tooltip halfway to the X-axis
-            barYAnchor -= (this.state.yScale(0) / 2);
+            // for negative values, bar height is calculated as the distance from the X axis to
+            // the Y scale position for the data point (the bottom of the bar)
+            const barHeight = this.state.yScale(0) - this.state.yScale(yValue);
+            // since we are starting at the X axis height, we need to keep going (adding Y position)
+            // to the halfway point of the bar
+            yPos += (barHeight / 2);
         }
-
-        // since the tooltip exists in the HTML DOM instead of the SVG, offset it by adding the
-        // SVG's DOM position to it
-        const yPos = chartTop + barYAnchor;
 
         // determine where the bar starting position is
         // this is the group's starting X position plus 20px padding between groups
@@ -313,7 +312,9 @@ export default class BarChart extends React.Component {
                             scale={this.state.xScale}
                             axisPos={this.state.xAxisPos} />
 
-                        <g className="bar-data" transform={`translate(${this.props.padding.left},0)`}>
+                        <g
+                            className="bar-data"
+                            transform={`translate(${this.props.padding.left},0)`}>
                             {this.state.items}
                         </g>
                     </g>

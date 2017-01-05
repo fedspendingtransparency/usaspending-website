@@ -110,7 +110,7 @@ export default class BarYAxis extends React.Component {
         let precision = 0;
         if ((axisMax / unit) < 6) {
             // show decimal values if the Y axis tick increment is less than one numerical unit
-            precision = 1;
+            precision = 2;
         }
 
         // generate the labels
@@ -146,8 +146,8 @@ export default class BarYAxis extends React.Component {
 
         let description = '';
         if (tickLabels.length > 0) {
-            description = `The Y-axis of the chart, showing a range of spending from $`;
-            description += `${tickLabels[0]} to $${tickLabels[tickLabels.length - 1]}`;
+            description = `The Y-axis of the chart, showing a range of spending from `;
+            description += `${tickLabels[0]} to ${tickLabels[tickLabels.length - 1]}`;
         }
 
         // set all the labels 10px left of the edge of Y axis
