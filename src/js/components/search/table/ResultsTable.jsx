@@ -20,7 +20,9 @@ const propTypes = {
 };
 
 const rowHeight = 40;
-const tableHeight = 13 * rowHeight;
+// setting the table height to a partial row prevents double bottom borders and also clearly
+// indicates when there's more data
+const tableHeight = 12.5 * rowHeight;
 
 export default class ResultsTable extends React.PureComponent {
     constructor(props) {
@@ -122,8 +124,14 @@ export default class ResultsTable extends React.PureComponent {
     render() {
         const calculatedValues = this.prepareTable();
 
+        let noResultsClass = '';
+        if (this.props.results.length === 0) {
+            // remove duplicated bottom border
+            noResultsClass = ' no-results';
+        }
+
         return (
-            <div className="award-results-table">
+            <div className={`award-results-table${noResultsClass}`}>
                 <IBTable
                     dataHash={`${this.state.dataHash}-${this.props.batch.batchId}`}
                     rowHeight={rowHeight}

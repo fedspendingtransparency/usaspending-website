@@ -1,11 +1,11 @@
 @mixin genericHeader() {
-    border-right: 1px solid $color-gray;
-    border-bottom: 1px solid $color-gray;
+    border-right: 1px solid #ADAFB4;
 
     .cell-content {
-        background-color: $color-gray-lighter;
-        font-weight: $font-semibold;
+        background-color: #E4E2E0;
+        font-weight: 600;
         font-size: 14px;
+        line-height: 18px;
         color: $color-base;
 
         padding: 16px;
