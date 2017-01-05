@@ -67,7 +67,7 @@ export default class TimePeriod extends React.Component {
                 datesChanged = true;
                 newState.startDateUI = startDate;
             }
-            else if (this.props.filterTimePeriodStart) {
+            else {
                 // value became null
                 datesChanged = true;
                 newState.startDateUI = null;
