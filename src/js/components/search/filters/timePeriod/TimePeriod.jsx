@@ -76,7 +76,7 @@ export default class TimePeriod extends React.Component {
 
         // check if the end date changed
         if (nextProps.filterTimePeriodEnd !== this.props.filterTimePeriodEnd) {
-            const endDate = moment(nextProps.filterTimePeriodStart, 'YYYY-MM-DD');
+            const endDate = moment(nextProps.filterTimePeriodEnd, 'YYYY-MM-DD');
             if (endDate.isValid()) {
                 // end date did change and it is a valid date (not null)
                 datesChanged = true;
