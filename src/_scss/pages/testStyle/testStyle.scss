@@ -1,5 +1,4 @@
 .usa-da-test-page {
-
     @import "../../layouts/search/search";
     @include searchLayout;
     @include span-columns(16);
@@ -16,11 +15,20 @@
             @include span-columns(16);
 
             li {
-                @include span-columns(4);
                 border: 1px solid #ccc;
-                margin: 0 20px 20px 0;
+                margin: 0 200px 20px 0;
                 padding: 20px;
                 height: 115px;
+
+                @include media($small-screen) {
+                    @include span-columns(16);
+                }     
+                @include media($tablet-screen) {
+                    @include span-columns(5);
+                }
+                @include media($medium-screen) {
+                    @include span-columns(3);
+                }
             }
 
             .icon-svg {
