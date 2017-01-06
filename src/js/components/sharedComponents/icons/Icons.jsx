@@ -5,6 +5,13 @@
 
 import BaseIcon from './BaseIcon';
 
+export class Lock extends BaseIcon {}
+Lock.defaultProps = {
+    iconName: 'usa-da-icon-lock',
+    iconClass: 'usa-da-icon-lock',
+    alt: 'Lock or Password Requirement Icon'
+};
+
 export class Unlock extends BaseIcon {}
 Unlock.defaultProps = {
     iconName: 'usa-da-icon-unlock',
@@ -33,46 +40,32 @@ CloudDownload.defaultProps = {
     alt: 'Download Icon'
 };
 
-export class Lock extends BaseIcon {}
-Lock.defaultProps = {
-    iconName: 'usa-da-icon-lock',
-    iconClass: 'usa-da-icon-lock',
-    alt: 'Lock or Password Requirement Icon'
-};
-
 export class AngleDown extends BaseIcon {}
 AngleDown.defaultProps = {
     iconName: 'usa-da-icon-angle-down',
     iconClass: 'usa-da-icon-angle-down',
-    alt: 'Arrow Pointing Down'
+    alt: 'Arrow Pointing Down Icon'
 };
 
 export class AngleLeft extends BaseIcon {}
 AngleLeft.defaultProps = {
     iconName: 'usa-da-icon-angle-left',
     iconClass: 'usa-da-icon-angle-left',
-    alt: 'Arrow Pointing Left'
+    alt: 'Arrow Pointing Left Icon'
 };
 
 export class AngleRight extends BaseIcon {}
 AngleRight.defaultProps = {
     iconName: 'usa-da-icon-angle-right',
     iconClass: 'usa-da-icon-angle-right',
-    alt: 'Arrow Pointing Right'
+    alt: 'Arrow Pointing Right Icon'
 };
 
 export class AngleUp extends BaseIcon {}
 AngleUp.defaultProps = {
     iconName: 'usa-da-icon-angle-up',
     iconClass: 'usa-da-icon-angle-up',
-    alt: 'Arrow Pointing Up'
-};
-
-export class CheckCircle extends BaseIcon {}
-CheckCircle.defaultProps = {
-    iconName: 'usa-da-icon-check-circle',
-    iconClass: 'usa-da-icon-check-circle',
-    alt: 'Checkmark or Successful Icon'
+    alt: 'Arrow Pointing Up Icon'
 };
 
 export class Check extends BaseIcon {}
@@ -86,34 +79,34 @@ export class Globe extends BaseIcon {}
 Globe.defaultProps = {
     iconName: 'usa-da-icon-globe',
     iconClass: 'usa-da-icon-globe',
-    alt: 'Globe or Earth Icon'
-};
-
-export class ShareSquare extends BaseIcon {}
-ShareSquare.defaultProps = {
-    iconName: 'usa-da-icon-share-square-o',
-    iconClass: 'usa-da-icon-share-square-o',
-    alt: 'Share Action Icon'
+    alt: 'Icon Depicting a Globe or the Earth'
 };
 
 export class Trash extends BaseIcon {}
 Trash.defaultProps = {
-    iconName: 'usa-da-icon-trash-o',
-    iconClass: 'usa-da-icon-trash-o',
-    alt: 'Trash Can Icon'
+    iconName: 'usa-da-icon-trash',
+    iconClass: 'usa-da-icon-trash',
+    alt: 'Icon Depicting a Trash Can'
 };
 
-export class Times extends BaseIcon {}
-Times.defaultProps = {
-    iconName: 'usa-da-icon-times',
-    iconClass: 'usa-da-icon-times',
-    alt: 'Close'
+export class Close extends BaseIcon {}
+Close.defaultProps = {
+    iconName: 'usa-da-icon-close',
+    iconClass: 'usa-da-icon-close',
+    alt: 'Icon Depicting an X'
 };
 
-export class TimesCircle extends BaseIcon {}
-TimesCircle.defaultProps = {
-    iconName: 'usa-da-icon-times-circle',
-    iconClass: 'usa-da-icon-times-circle',
+export class CheckCircle extends BaseIcon {}
+CheckCircle.defaultProps = {
+    iconName: 'usa-da-icon-check-circle',
+    iconClass: 'usa-da-icon-check-circle',
+    alt: 'Checkmark or Successful Icon'
+};
+
+export class CloseCircle extends BaseIcon {}
+CloseCircle.defaultProps = {
+    iconName: 'usa-da-icon-close-circle',
+    iconClass: 'usa-da-icon-close-circle',
     alt: 'Close'
 };
 
@@ -138,26 +131,6 @@ QuestionCircle.defaultProps = {
     alt: 'Question Mark Icon'
 };
 
-export class Pause extends BaseIcon {}
-Pause.defaultProps = {
-    iconName: 'usa-da-icon-pause',
-    iconClass: 'usa-da-icon-pause',
-    alt: 'Pause Icon'
-};
-export class Pencil extends BaseIcon {}
-Pencil.defaultProps = {
-    iconName: 'usa-da-icon-pencil',
-    iconClass: 'usa-da-icon-pencil',
-    alt: 'Icon Depicting Pencil'
-};
-
-export class Tools extends BaseIcon {}
-Tools.defaultProps = {
-    iconName: 'usa-da-icon-tools',
-    iconClass: 'usa-da-icon-tools',
-    alt: 'Icon Depicting Tools'
-};
-
 export class InfoCircle extends BaseIcon {}
 InfoCircle.defaultProps = {
     iconName: 'usa-da-icon-info-circle',
@@ -165,25 +138,25 @@ InfoCircle.defaultProps = {
     alt: 'Information'
 };
 
+export class PauseCircle extends BaseIcon {}
+PauseCircle.defaultProps = {
+    iconName: 'usa-da-icon-pause-circle',
+    iconClass: 'usa-da-icon-pause-circle',
+    alt: 'Icon Depicting a Pause Button'
+};
+
 export class File extends BaseIcon {}
 File.defaultProps = {
-    iconName: 'usa-da-icon-file-o',
-    iconClass: 'usa-da-icon-file-o',
-    alt: 'File Icon'
+    iconName: 'usa-da-icon-file',
+    iconClass: 'usa-da-icon-file',
+    alt: 'Icon Depicting a File'
 };
 
 export class Calendar extends BaseIcon {}
 Calendar.defaultProps = {
     iconName: 'usa-da-icon-calendar',
     iconClass: 'usa-da-icon-calendar',
-    alt: 'Calendar Icon'
-};
-
-export class Tachometer extends BaseIcon {}
-Tachometer.defaultProps = {
-    iconName: 'usa-da-icon-tachometer',
-    iconClass: 'usa-da-icon-tachometer',
-    alt: 'Dashboard Icon'
+    alt: 'Icon Depicting a Calendar'
 };
 
 export class Cog extends BaseIcon {}
@@ -195,8 +168,8 @@ Cog.defaultProps = {
 
 export class Building extends BaseIcon {}
 Building.defaultProps = {
-    iconName: 'usa-da-icon-building-o',
-    iconClass: 'usa-da-icon-building-o',
+    iconName: 'usa-da-icon-building',
+    iconClass: 'usa-da-icon-building',
     alt: 'Icon Depicting a Building'
 };
 
@@ -204,47 +177,89 @@ export class Search extends BaseIcon {}
 Search.defaultProps = {
     iconName: 'usa-da-icon-search',
     iconClass: 'usa-da-icon-search',
-    alt: 'Search'
-};
-
-export class Eye extends BaseIcon {}
-Eye.defaultProps = {
-    iconName: 'usa-da-icon-eye',
-    iconClass: 'usa-da-icon-eye',
-    alt: 'Icon Depicting an Eye'
-};
-
-export class Floppy extends BaseIcon {}
-Floppy.defaultProps = {
-    iconName: 'usa-da-icon-floppy-o',
-    iconClass: 'usa-da-icon-floppy-o',
-    alt: 'Icon Depicting Computer Storage'
-};
-
-export class LargeFile extends BaseIcon {}
-LargeFile.defaultProps = {
-    iconName: 'usa-da-icon-large-file-icon',
-    iconClass: 'usa-da-icon-large-file-icon',
-    alt: 'File Icon'
-};
-
-export class Bell extends BaseIcon {}
-Bell.defaultProps = {
-    iconName: 'usa-da-icon-bell-o',
-    iconClass: 'usa-da-icon-bell-o',
-    alt: 'Notify'
+    alt: 'Icon Depicting a Magnifying Glass'
 };
 
 export class MapMarker extends BaseIcon {}
 MapMarker.defaultProps = {
     iconName: 'usa-da-icon-map-marker',
     iconClass: 'usa-da-icon-map-marker',
-    alt: 'Map Marker Icon'
+    alt: 'Icon Depicting a Map Marker'
 };
 
 export class Table extends BaseIcon {}
 Table.defaultProps = {
     iconName: 'usa-da-icon-table',
     iconClass: 'usa-da-icon-table',
-    alt: 'Table Icon'
+    alt: 'Icon Depicting a Table'
+};
+
+export class TableOpen extends BaseIcon {}
+TableOpen.defaultProps = {
+    iconName: 'usa-da-icon-table-open',
+    iconClass: 'usa-da-icon-table-open',
+    alt: 'Icon Depicting a Table'
+};
+
+export class TableClosed extends BaseIcon {}
+TableClosed.defaultProps = {
+    iconName: 'usa-da-icon-table-closed',
+    iconClass: 'usa-da-icon-table-closed',
+    alt: 'Icon Depicting a Table'
+};
+
+export class MoreOptions extends BaseIcon {}
+MoreOptions.defaultProps = {
+    iconName: 'usa-da-icon-more-options',
+    iconClass: 'usa-da-icon-more-options',
+    alt: 'More Options Icon'
+};
+
+export class Tree extends BaseIcon {}
+Tree.defaultProps = {
+    iconName: 'usa-da-icon-tree',
+    iconClass: 'usa-da-icon-tree',
+    alt: 'Tree Graph Icon'
+};
+
+export class Bar extends BaseIcon {}
+Bar.defaultProps = {
+    iconName: 'usa-da-icon-bar',
+    iconClass: 'usa-da-icon-bar',
+    alt: 'Bar Graph Icon'
+};
+
+export class Pie extends BaseIcon {}
+Pie.defaultProps = {
+    iconName: 'usa-da-icon-pie',
+    iconClass: 'usa-da-icon-pie',
+    alt: 'Pie Graph Icon'
+};
+
+export class Filter extends BaseIcon {}
+Filter.defaultProps = {
+    iconName: 'usa-da-icon-filter',
+    iconClass: 'usa-da-icon-filter',
+    alt: 'Icon Depicting a Filter'
+};
+
+export class Info extends BaseIcon {}
+Info.defaultProps = {
+    iconName: 'usa-da-icon-info',
+    iconClass: 'usa-da-icon-info',
+    alt: 'Icon Depicting an (i) For Information'
+};
+
+export class ArrowDown extends BaseIcon {}
+ArrowDown.defaultProps = {
+    iconName: 'usa-da-icon-arrow-down',
+    iconClass: 'usa-da-icon-arrow-down',
+    alt: 'Icon Depicting an Arrow Pointed Down'
+};
+
+export class ArrowUp extends BaseIcon {}
+ArrowUp.defaultProps = {
+    iconName: 'usa-da-icon-arrow-up',
+    iconClass: 'usa-da-icon-arrow-up',
+    alt: 'Icon Depicting an Arrow Pointed Up'
 };
