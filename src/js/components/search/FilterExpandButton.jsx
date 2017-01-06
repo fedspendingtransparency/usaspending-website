@@ -24,7 +24,7 @@ export default class FilterExpandButton extends React.Component {
         if (this.props.arrowState === 'expanded') {
             icon = <Icons.AngleDown />;
         }
- 
+
         return (
             <button
                 className={`filter-toggle ${hiddenClass}`}
