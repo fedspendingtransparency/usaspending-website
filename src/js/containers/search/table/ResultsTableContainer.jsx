@@ -10,7 +10,7 @@ import Immutable from 'immutable';
 
 import TableSearchFields from 'dataMapping/search/tableSearchFields';
 
-import ResultsTableContent from 'components/search/table/ResultsTableContent';
+import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
 import SearchActions from 'redux/actions/searchActions';
 
@@ -105,7 +105,7 @@ class ResultsTableContainer extends React.Component {
 
     render() {
         return (
-            <ResultsTableContent
+            <ResultsTableSection
                 batch={this.props.batch}
                 inFlight={this.props.meta.inFlight}
                 results={this.props.rows.toArray()}

@@ -1,5 +1,7 @@
 @import "./header/header";
+@import "./footer/footer";
 
 @mixin defaultLayout {
     @include defaultHeader;
+    @include defaultFooter;
 }

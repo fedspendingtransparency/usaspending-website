@@ -5,11 +5,12 @@
         @include outer-container();
         max-width: 100%;
         @include pad(2rem 0rem);
-        @include media($nav-width) {
+        margin: 0px $outer-gutter/2;
+        @include media($large-screen) {
             margin: 0px $outer-gutter;
         }
     }
-    
+
     .search-title {
         @include media($nav-width) {
             @include span-columns(8);

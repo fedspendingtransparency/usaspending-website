@@ -35,12 +35,12 @@ const buildDateRangeQuery = (dateRange) => ({
     value: dateRange
 });
 
-export const buildQuery = (fyRange, dateRange) => {
-    if (fyRange.length > 0) {
+export const buildQuery = (type, fyRange, dateRange) => {
+    if (type === 'fy' && fyRange.length > 0) {
         return buildFYRangeQuery(fyRange);
     }
-    else if (dateRange.length === 2) {
+    else if (type === 'dr' && dateRange.length === 2) {
         return buildDateRangeQuery(dateRange);
     }
-    return {};
+    return null;
 };

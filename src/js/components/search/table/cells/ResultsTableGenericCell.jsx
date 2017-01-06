@@ -4,24 +4,35 @@
   **/
 
 import React from 'react';
-import { Cell } from 'fixed-data-table';
 
 const propTypes = {
-    data: React.PropTypes.array,
+    data: React.PropTypes.string,
     rowIndex: React.PropTypes.number,
     column: React.PropTypes.string
 };
 
 export default class ResultsTableGenericCell extends React.Component {
     render() {
+        // cell needs to have some content or it will collapse
+        // replace with a &nbsp; if there's no data
+        let content = this.props.data;
+        if (!content) {
+            content = "\u00A0";
+        }
+
+        // calculate even-odd class names
+        let rowClass = "row-even";
+        if (this.props.rowIndex % 2 === 0) {
+            // row index is zero-based
+            rowClass = "row-odd";
+        }
+
         return (
-            <Cell>
-                <div className={`award-result-generic-cell column-${this.props.column}`}>
-                    <div className="cell-content">
-                        {this.props.data[this.props.rowIndex][this.props.column]}
-                    </div>
+            <div className={`award-result-generic-cell column-${this.props.column} ${rowClass}`}>
+                <div className="cell-content">
+                    {content}
                 </div>
-            </Cell>
+            </div>
         );
     }
 }

@@ -10,9 +10,8 @@ import FiscalYear from './FiscalYear';
 
 const propTypes = {
     timePeriods: React.PropTypes.array,
-    saveSelected: React.PropTypes.func,
-    allFY: React.PropTypes.bool,
-    selectedFY: React.PropTypes.object
+    selectedFY: React.PropTypes.object,
+    updateFilter: React.PropTypes.func
 };
 
 export default class AllFiscalYears extends React.Component {
@@ -23,64 +22,68 @@ export default class AllFiscalYears extends React.Component {
         this.saveSelectedYear = this.saveSelectedYear.bind(this);
     }
     saveSelectedYear(year) {
-        // copy array
-        let arrayFY = this.props.selectedFY;
-        let allSelected = false;
+        let newYears;
 
-        // if already in array, it's being unselected and needs to be removed
-        if (arrayFY.includes(year)) {
-            arrayFY = arrayFY.delete(year);
-        }
-        // otherwise add it to the array
-        else {
-            arrayFY = arrayFY.add(year);
-        }
-
-        // if all available years have been chosen, make sure all years box is checked
-        if (arrayFY.size === this.props.timePeriods.length) {
-            allSelected = true;
+        // check if we are adding or removing
+        if (this.props.selectedFY.has(year)) {
+            // the year already exists in the set so we are removing
+            newYears = this.props.selectedFY.delete(year);
         }
         else {
-            allSelected = false;
+            // the year does not yet exist in the set so we are adding
+            newYears = this.props.selectedFY.add(year);
         }
 
-        this.props.saveSelected(arrayFY, allSelected);
+        this.props.updateFilter({
+            fy: newYears
+        });
     }
 
     saveAllYears() {
-        let arrayFY = new Set(this.props.selectedFY);
-        const allFY = !this.props.allFY;
-        const allYears = new Set(this.props.timePeriods);
+        let newYears;
 
-        if (allFY === false) {
-            arrayFY = arrayFY.clear();
+        // check if the all the years are already provided
+        const allFY = this.props.timePeriods.length === this.props.selectedFY.count();
+        if (allFY) {
+            // all the years are already selected, so this is an operation to unselect everything
+            newYears = new Set([]);
         }
         else {
-            arrayFY = allYears;
+            // we need to select all the years
+            newYears = new Set(this.props.timePeriods);
         }
 
-        this.props.saveSelected(arrayFY, allFY);
+        this.props.updateFilter({
+            fy: newYears
+        });
     }
 
     render() {
-        const selectedFY = new Set(this.props.selectedFY);
+        let allFY = true;
 
-        const parentFY = (<FiscalYear
-            checked={this.props.allFY}
-            year="all"
-            key="all"
-            saveAllYears={this.saveAllYears} />);
+        const fiscalYears = this.props.timePeriods.map((year) => {
+            // determine if the checkbox should be selected based on whether the filter is already
+            // applied
+            const checked = this.props.selectedFY.has(year);
 
-        const fiscalYears = this.props.timePeriods.map((year, index) =>
-            <FiscalYear
-                checked={selectedFY.has(year)}
+            if (!checked) {
+                allFY = false;
+            }
+
+            return (<FiscalYear
+                checked={checked}
                 year={year}
-                key={index}
+                key={`filter-fy-${year}`}
                 saveSelectedYear={this.saveSelectedYear} />);
+        });
 
         return (
             <ul className="fiscal-years">
-                { parentFY }
+                <FiscalYear
+                    checked={allFY}
+                    year="all"
+                    key="filter-fy-all"
+                    saveAllYears={this.saveAllYears} />
                 {fiscalYears}
             </ul>
         );

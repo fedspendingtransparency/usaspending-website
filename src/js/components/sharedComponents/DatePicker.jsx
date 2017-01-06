@@ -59,6 +59,14 @@ export default class DatePicker extends React.Component {
         }
     }
 
+    clearValue() {
+        this.setState({
+            inputValue: '',
+            selectedDay: new Date(),
+            showDatePicker: false
+        });
+    }
+
     parseValueForInput() {
         // convert the date to something typeable
         if (this.props.value != null) {

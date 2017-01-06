@@ -1,6 +1,6 @@
 .error-message {
     @include usa-input-error-message;
-    @include span-columns(15);
+    @include span-columns(14);
     padding: 15px;
     border: 1px solid $color-secondary-dark;
     margin-bottom: 1rem;
