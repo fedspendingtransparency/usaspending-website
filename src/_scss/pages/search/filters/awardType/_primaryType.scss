@@ -8,15 +8,15 @@
 
     svg {
         fill: $color-gray;
-        height: 2rem;
-        width: 2rem;
+        height: 1.1rem;
+        width: 1.1rem;
         position:relative;
     }
 
     .toggle {
         @include button-unstyled;
         display: inline-block;
-        height: 2rem;
+        height: 1.1rem;
         vertical-align: middle;
         margin-right: 7px;
 
