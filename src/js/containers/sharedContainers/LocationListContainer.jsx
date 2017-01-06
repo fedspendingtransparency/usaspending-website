@@ -11,8 +11,7 @@ import LocationList from 'components/search/filters/location/LocationList';
 const propTypes = {
     setAutocompleteLocations: React.PropTypes.func,
     queryAutocompleteLocations: React.PropTypes.func,
-    selectLocation: React.PropTypes.func,
-    focus: React.PropTypes.bool
+    selectLocation: React.PropTypes.func
 };
 
 export default class LocationListContainer extends React.Component {
@@ -21,12 +20,6 @@ export default class LocationListContainer extends React.Component {
 
         this.handleTextInput = this.handleTextInput.bind(this);
         this.timeout = null;
-    }
-
-    componentDidUpdate() {
-        if (this.props.focus === true) {
-            this.locationList.awesompleteInput.focus();
-        }
     }
 
     dataFormatter(item) {
@@ -51,7 +44,7 @@ export default class LocationListContainer extends React.Component {
 
         // Perform search if user doesn't type again for 300ms
         this.timeout = window.setTimeout(() => {
-            this.props.queryAutocompleteLocations(input, false);
+            this.props.queryAutocompleteLocations(input);
         }, 300);
     }
 
@@ -62,11 +55,10 @@ export default class LocationListContainer extends React.Component {
                 formatter={this.dataFormatter}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectLocation}
-                placeHolder="State, City, County, Zip or District"
+                placeHolder="State, City, County, ZIP, or District"
                 ref={(input) => {
                     this.locationList = input;
-                }}
-                focus={this.props.focus} />
+                }} />
         );
     }
 

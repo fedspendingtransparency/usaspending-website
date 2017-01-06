@@ -5,8 +5,6 @@
 
 import _ from 'lodash';
 
-/* eslint-disable import/prefer-default-export */
-// We only have one export but want to maintain consistency with other query modules
 export const buildLocationQuery = (values) => {
     let valueSet = [];
 
@@ -24,4 +22,18 @@ export const buildLocationQuery = (values) => {
 
     return filter;
 };
-/* eslint-enable import/prefer-default-export */
+
+export const buildDomesticForeignQuery = (selection) => {
+    let op = 'equals';
+    if (selection === 'foreign') {
+        op = 'not_equals';
+    }
+
+    const filter = {
+        field: 'recipient__location__location_country_code',
+        operation: op,
+        value: 'USA'
+    };
+
+    return filter;
+};

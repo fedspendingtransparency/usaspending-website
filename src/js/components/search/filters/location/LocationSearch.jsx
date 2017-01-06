@@ -19,6 +19,7 @@ const propTypes = {
     selectLocation: React.PropTypes.func,
     removeLocation: React.PropTypes.func,
     setAutocompleteLocations: React.PropTypes.func,
+    updateDomesticForeignSelection: React.PropTypes.func,
     selectedLocations: React.PropTypes.object
 };
 
@@ -34,23 +35,20 @@ class LocationSearch extends React.Component {
         // Bind functions
         this.toggleCountry = this.toggleCountry.bind(this);
         this.queryAutocompleteLocations = this.queryAutocompleteLocations.bind(this);
-        this.focus = false;
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.locationOption !== this.state.locationOption) {
-            this.queryAutocompleteLocations('', true);
+            this.props.updateDomesticForeignSelection(this.state.locationOption);
         }
     }
 
-    queryAutocompleteLocations(input, updateFromToggle) {
-        // Only search if input is 2 or more characters, or if the user toggled the country select
-        if (input.length >= 2 || updateFromToggle === true) {
-            if (updateFromToggle !== true) {
-                this.setState({
-                    locationSearchString: input
-                });
-            }
+    queryAutocompleteLocations(input) {
+        // Only search if input is 2 or more characters
+        if (input.length >= 2) {
+            this.setState({
+                locationSearchString: input
+            });
 
             if (this.locationSearchRequest) {
                 // A request is currently in-flight, cancel it
@@ -85,8 +83,6 @@ class LocationSearch extends React.Component {
     }
 
     toggleCountry(e) {
-        this.focus = true;
-
         this.setState({
             locationOption: e.target.value
         });
@@ -109,8 +105,7 @@ class LocationSearch extends React.Component {
                 <LocationListContainer
                     {...this.props}
                     selectLocation={this.props.selectLocation}
-                    queryAutocompleteLocations={this.queryAutocompleteLocations}
-                    focus={this.focus} />
+                    queryAutocompleteLocations={this.queryAutocompleteLocations} />
                 {selectedLocations}
             </div>
         );
