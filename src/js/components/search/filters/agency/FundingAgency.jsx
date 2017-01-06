@@ -5,12 +5,6 @@
 
 import React from 'react';
 
-const defaultProps = {
-};
-
-const propTypes = {
-};
-
 export default class FundingAgency extends React.Component {
 
     render() {
@@ -22,6 +16,3 @@ export default class FundingAgency extends React.Component {
         );
     }
 }
-
-FundingAgency.propTypes = propTypes;
-FundingAgency.defaultProps = defaultProps;

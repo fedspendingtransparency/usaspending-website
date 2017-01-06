@@ -69,12 +69,12 @@ export default class AgencyList extends Typeahead {
             let key = '';
             if (this.props.agencyType === "Awarding") {
                 key =
-                `<strong>${value.results.awarding_agency__name}</strong>`;
+                `<b>${value.results.awarding_agency__name}</b>`;
                 this.dataDictionary[key] = value.results.awarding_agency__name;
             }
             else {
                 key =
-                `<strong>${value.results.funding_agency__name}</strong>`;
+                `<b>${value.results.funding_agency__name}</b>`;
                 this.dataDictionary[key] = value.results.funding_agency__name;
             }
         });

@@ -46,7 +46,7 @@ export default class SelectedAgencies extends React.Component {
                 agencyType={type}
                 agency={this.formatAgency(agency)}
                 label={this.formatAgency(agency)}
-                key={(`_${key}`)}
+                key={`_${key}`}
                 removeAgency={this.props.removeAgency.bind(null,
                     this.formatAgency(agency), this.props.agencyType)} />
         ));
