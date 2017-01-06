@@ -8,6 +8,15 @@ const tableSearchFields = {
         type: 200,
         awarding_agency_name: 250
     },
+    defaultSortDirection: {
+        id: 'asc',
+        recipient_name: 'asc',
+        period_of_performance_start_date: 'desc',
+        period_of_performance_current_end_date: 'desc',
+        total_obligation: 'desc',
+        type: 'asc',
+        awarding_agency_name: 'asc'
+    },
     contracts: {
         _order: [
             'id',

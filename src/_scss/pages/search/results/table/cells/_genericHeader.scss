@@ -3,12 +3,47 @@
 
     .cell-content {
         background-color: #E4E2E0;
+        white-space: normal;
         font-weight: 600;
         font-size: 14px;
         line-height: 18px;
         color: $color-base;
 
-        padding: 16px;
-        white-space: normal;
+        cursor: pointer;
+
+        .header-sort {
+            display: table;
+            
+            padding: 16px;
+
+            .header-label {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .header-icons {
+                display: table-cell;
+                vertical-align: middle;
+                padding-left: 10px;
+                height: 18px;
+
+                .sort-icon {
+                    @include button-unstyled;
+                    display: block;
+                    line-height: 10px;
+                    svg {
+                        fill: #C7C4C2;
+                        height: 7px;
+                        width: 7x;
+                    }
+
+                    &.active {
+                        svg {
+                            fill: $color-base;
+                        }
+                    }
+                }
+            }
+        }
     } 
 }

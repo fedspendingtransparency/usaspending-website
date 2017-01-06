@@ -8,7 +8,8 @@ import Immutable from 'immutable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
-import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
+import ResultsTableHeaderCellContainer from
+    'containers/search/table/ResultsTableHeaderCellContainer';
 import ResultsTableGenericCell from './cells/ResultsTableGenericCell';
 
 const propTypes = {
@@ -100,9 +101,10 @@ export default class ResultsTable extends React.PureComponent {
                 columnId: `${column.columnName}`,
                 rowClassName: this.rowClassName,
                 header: (
-                    <ResultsTableHeaderCell
+                    <ResultsTableHeaderCellContainer
                         label={column.displayName}
-                        column={column.columnName} />
+                        column={column.columnName}
+                        defaultDirection={column.defaultDirection} />
                 ),
                 cell: (index) => (
                     <ResultsTableGenericCell

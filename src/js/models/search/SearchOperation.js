@@ -60,7 +60,6 @@ class SearchOperation {
         if (this.selectedLocations.length > 0) {
             filters.push(LocationQuery.buildLocationQuery(this.selectedLocations));
         }
-
         return filters;
     }
 }

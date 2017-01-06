@@ -36,3 +36,13 @@ export const updateSelectedLocations = (state) => ({
     type: 'UPDATE_SELECTED_LOCATIONS',
     location: state.location
 });
+
+export const setSearchOrder = (state) => ({
+    type: 'SET_SEARCH_ORDER',
+    field: state.field,
+    direction: state.direction
+});
+
+export const resetSearchOrder = () => ({
+    type: 'RESET_SEARCH_ORDER'
+});

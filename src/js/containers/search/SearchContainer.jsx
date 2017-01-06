@@ -8,9 +8,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
+import Immutable from 'immutable';
+
 import SearchPage from 'components/search/SearchPage';
 
 import SearchOperation from 'models/search/SearchOperation';
+import SearchSortOrder from 'models/search/SearchSortOrder';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import TableSearchFields from 'dataMapping/search/tableSearchFields';
@@ -22,6 +25,7 @@ import AwardSummary from 'models/results/award/AwardSummary';
 const propTypes = {
     filters: React.PropTypes.object,
     meta: React.PropTypes.object,
+    order: React.PropTypes.object,
     clearRecords: React.PropTypes.func,
     bulkInsertRecordSet: React.PropTypes.func,
     setSearchResultMeta: React.PropTypes.func,
@@ -50,7 +54,13 @@ class SearchContainer extends React.PureComponent {
             // filters changed
             return true;
         }
-        else if (!Object.is(nextProps.meta, this.props.meta)) {
+
+        if (nextProps.order !== this.props.order) {
+            // the sort order changed
+            return true;
+        }
+
+        if (!Object.is(nextProps.meta, this.props.meta)) {
             // something in the results metadata has changed
             if (nextProps.meta.tableType !== this.props.meta.tableType) {
                 // table type has changed
@@ -62,6 +72,7 @@ class SearchContainer extends React.PureComponent {
                 return true;
             }
         }
+
         // something may have changed, but it is out of scope for this component
         return false;
     }
@@ -73,6 +84,10 @@ class SearchContainer extends React.PureComponent {
         }
         else if (prevProps.meta.tableType !== this.props.meta.tableType) {
             // table type has changed
+            this.updateFilters();
+        }
+        else if (prevProps.order !== this.props.order) {
+            // the sort order changed
             this.updateFilters();
         }
         else if (prevProps.meta.page.page_number !==
@@ -88,11 +103,11 @@ class SearchContainer extends React.PureComponent {
         this.setState({
             searchParams: newSearch
         }, () => {
-            this.performSearch();
+            this.performSearch(true);
         });
     }
 
-    performSearch() {
+    performSearch(forceClear = false) {
         if (this.searchRequest) {
             // a request is currently in-flight, cancel it
             this.searchRequest.cancel();
@@ -105,21 +120,28 @@ class SearchContainer extends React.PureComponent {
         const tableAwardTypes = awardTypeGroups[tableType];
         searchParams.resultAwardType = tableAwardTypes;
 
+        // parse the redux search order into the API-consumable format
+        const searchOrder = new SearchSortOrder();
+        searchOrder.parseReduxState(this.props.order);
+
         // indicate the request is about to start
         this.props.setSearchInFlight(true);
 
-        const pageNumber = this.props.meta.page.page_number;
+        let pageNumber = this.props.meta.page.page_number;
+        if (forceClear) {
+            pageNumber = 1;
+        }
         const resultLimit = 60;
 
         this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(),
-            pageNumber, resultLimit, TableSearchFields[tableType]._api);
+            pageNumber, resultLimit, searchOrder.toParams(), TableSearchFields[tableType]._api);
 
         this.searchRequest.promise
             .then((res) => {
                 this.props.setSearchInFlight(false);
 
                 // don't clear records if we're appending (not the first page)
-                if (pageNumber <= 1) {
+                if (pageNumber <= 1 || forceClear) {
                     this.props.clearRecords();
                 }
 
@@ -164,6 +186,7 @@ class SearchContainer extends React.PureComponent {
             const award = new AwardSummary(awardData);
             awards.push(award);
         });
+
         // write all records into Redux
         this.props.bulkInsertRecordSet({
             type: 'awards',
@@ -181,6 +204,7 @@ class SearchContainer extends React.PureComponent {
 export default connect(
     (state) => ({
         filters: state.filters,
+        order: state.searchOrder,
         meta: state.resultsMeta.toJS()
     }),
     (dispatch) => bindActionCreators(SearchActions, dispatch)
