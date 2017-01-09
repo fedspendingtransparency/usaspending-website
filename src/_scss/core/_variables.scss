@@ -75,18 +75,23 @@ $color-focus:                #3e94cf;
 $color-visited:              #4c2c92;
 
 $color-shadow:               rgba(#000, 0.3);
+$color-tab-inactive:		 #9DA3AB; // color for inactive tab 
+
+$color-active:				 #F2B733;
+
 
 // Mobile First Breakpoints
 $small-screen:      320px;
 $tablet-screen:     768px;
 $medium-screen:     992px;
 $large-screen:      1200px;
+$x-large-screen:    1600px;
 
 
 // Magic Numbers
 $text-max-width:      53rem;
 $lead-max-width:      77rem;
-$site-max-width:      1040px;
+$site-max-width:      1600px;
 $site-margins:        3rem;
 $site-margins-mobile: 1.5rem;
 $article-max-width:   600px;
@@ -94,9 +99,9 @@ $input-max-width:     46rem;
 $border-radius:       rem(3px);
 $box-shadow:          0 0 2px $color-shadow;
 $focus-shadow:        0 0 3px $color-focus, 0 0 7px $color-focus;
-$container-shadow:    0 0 0.9px 0.3px rgba(0,0,0,0.3);
+$container-shadow:    0 1px 2px rgba(43,59,93,.29); 
 $nav-width:           951px;
-$outer-gutter:        60px;
+$outer-gutter:        40px;
 
 // 44 x 44 pixels hit target following Apple iOS Human Interface Guidelines
 $hit-area:          4.4rem;

@@ -6,31 +6,26 @@
     @import '../../../../components/datePicker/_datePicker';
     @import './_toggleButtons';
     @import './_errorMessage';
-
     @include outer-container;
-    padding-left: 0;
-    margin-top: 0 !important;
-
+    padding: 0;
+    margin: 0 2.0rem 3rem; 
     ul.fiscal-years {
         @include row();
         list-style-type: none;
-        padding-left: 1rem;
-        padding-top: 1.5rem;
-
+        padding: 1.5rem 0 0 0;
+        margin: -0.1rem auto 0;
         li {
-            line-height: 1.4rem;
+            line-height: 2.0rem;
             margin: 0;
             padding: 0 0 0 1rem;
             height: auto;
             @include span-columns(7);
-
             input {
                 @include usa-input-checkbox;
-                margin-right: -2rem;
-                margin-top: 1.2rem;
+                margin-right: -1.9rem;
+                margin-top: 1.3rem;
                 vertical-align: top;
             }
-
             label {
                 @include usa-label;
                 font-weight: normal;
@@ -40,7 +35,7 @@
                 padding: 0;
                 font-size: 1.2rem;
                 display: inline-block;
-                @include media($large-screen){
+                @include media($large-screen) {
                     font-size: 1.4rem;
                     max-height: 2.8rem;
                 }
@@ -49,28 +44,24 @@
                 margin-bottom: 0;
             }
         }
-
         .fiscal-year-option-all {
             @include span-columns(16);
         }
     }
-
-    .fiscal-years, .date-range-option {
+    .fiscal-years,
+    .date-range-option {
         border-top: 1px solid $color-gray-lighter;
-        width: 90%;
-        margin-left: .5rem;
+        padding: 0 1.0rem;
         margin-top: -1px;
         z-index: 1;
     }
-
     .date-range-option {
+        @include outer-container;
         input {
             @include usa-input;
         }
         .date-range-wrapper {
-            margin-top: 3rem;
-            width: 100%;
+            margin-top: 2.5rem;
         }
     }
-
 }

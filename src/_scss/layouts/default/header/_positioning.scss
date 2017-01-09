@@ -2,31 +2,38 @@
     .nav-container {
         display: table;
         width: 100%;
-        @include pad(1rem);
+        @include pad(1rem 2rem);
         @include media($nav-width) {
-            @include pad(1rem 6rem);
+            @include media($small-screen) {
+                @include pad(1rem 2rem);
+                height: 10.1rem;
+            }
+            @include media($large-screen) {
+                @include pad(1rem 4rem);
+            }
+            @include media($x-large-screen) {
+                max-width: $site-max-width;
+                margin: 0 auto;
+                padding: 1rem 0;
+            }
         }
-
         .logo {
             margin-left: 0;
             display: table-cell;
-            width: 80%;
+            position: relative;
+            width: 400px;
             @include media($nav-width) {
-                display: table-cell;
-                width: 25%;
                 vertical-align: middle;
             }
         }
-
         nav {
             display: none;
             @include media($nav-width) {
                 display: table-cell;
-                width: 75%;
+                width: 46.0rem;
                 vertical-align: middle;
             }
         }
-
         .mobile-menu {
             display: table-cell;
             width: 20%;
