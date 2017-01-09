@@ -34,6 +34,12 @@ class TopFilterBarContainer extends React.Component {
         this.removeFilter = this.removeFilter.bind(this);
     }
 
+    componentDidMount() {
+        // prepare filters on initial mount to handle pre-populated filters (such as a back
+        // button event or a provided URL param)
+        this.prepareFilters(this.props.reduxFilters);
+    }
+
     componentWillReceiveProps(nextProps) {
         if (!Object.is(nextProps.reduxFilters, this.props.reduxFilters)) {
             this.prepareFilters(nextProps.reduxFilters);
