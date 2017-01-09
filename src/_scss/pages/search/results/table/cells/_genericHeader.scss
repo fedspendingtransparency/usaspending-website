@@ -6,7 +6,7 @@
         white-space: normal;
         font-weight: 600;
         font-size: 14px;
-        line-height: 18px;
+        line-height: 28px;
         color: $color-base;
 
         cursor: pointer;
@@ -14,7 +14,7 @@
         .header-sort {
             display: table;
             
-            padding: 16px;
+            padding: 11px 16px;
 
             .header-label {
                 display: table-cell;
@@ -25,16 +25,21 @@
                 display: table-cell;
                 vertical-align: middle;
                 padding-left: 10px;
-                height: 18px;
+                height: 28px;
 
                 .sort-icon {
                     @include button-unstyled;
                     display: block;
                     line-height: 10px;
+                    width: 14px;
+                    height: 14px;
+
+                    text-align: center;
+
                     svg {
                         fill: #C7C4C2;
                         height: 7px;
-                        width: 7x;
+                        width: 7px;
                     }
 
                     &.active {

@@ -3,14 +3,16 @@
   * Created by Kevin Li 1/6/17
   **/
 
+import TableSearchFields from 'dataMapping/search/tableSearchFields';
+
 class SearchOperation {
     constructor() {
         this.sortOrder = [];
     }
 
-    parseReduxState(state) {
+    parseReduxState(tableType, state) {
         const orderValue = [];
-        const field = state.field;
+        const field = TableSearchFields[tableType]._mapping[state.field];
 
         let prefix = '';
         if (state.direction === 'desc') {

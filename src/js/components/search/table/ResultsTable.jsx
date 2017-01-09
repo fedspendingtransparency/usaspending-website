@@ -135,7 +135,8 @@ export default class ResultsTable extends React.PureComponent {
         return (
             <div className={`award-results-table${noResultsClass}`}>
                 <IBTable
-                    dataHash={`${this.state.dataHash}-${this.props.batch.batchId}`}
+                    dataHash={`${this.state.dataHash}-${this.props.batch.queryId}`}
+                    resetHash={this.props.batch.searchId}
                     rowHeight={rowHeight}
                     rowCount={this.props.results.length}
                     headerHeight={50}

@@ -8,8 +8,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import Immutable from 'immutable';
-
 import SearchPage from 'components/search/SearchPage';
 
 import SearchOperation from 'models/search/SearchOperation';
@@ -30,7 +28,8 @@ const propTypes = {
     bulkInsertRecordSet: React.PropTypes.func,
     setSearchResultMeta: React.PropTypes.func,
     setSearchInFlight: React.PropTypes.func,
-    triggerBatchUpdate: React.PropTypes.func
+    triggerBatchSearchUpdate: React.PropTypes.func,
+    triggerBatchQueryUpdate: React.PropTypes.func
 };
 
 class SearchContainer extends React.PureComponent {
@@ -107,7 +106,7 @@ class SearchContainer extends React.PureComponent {
         });
     }
 
-    performSearch(forceClear = false) {
+    performSearch(newSearch = false) {
         if (this.searchRequest) {
             // a request is currently in-flight, cancel it
             this.searchRequest.cancel();
@@ -122,26 +121,31 @@ class SearchContainer extends React.PureComponent {
 
         // parse the redux search order into the API-consumable format
         const searchOrder = new SearchSortOrder();
-        searchOrder.parseReduxState(this.props.order);
+        searchOrder.parseReduxState(tableType, this.props.order);
 
         // indicate the request is about to start
         this.props.setSearchInFlight(true);
 
+    // TODO: FIX THE PAGINATION + FILTER/ORDER CHANGE ISSUE
+
         let pageNumber = this.props.meta.page.page_number;
-        if (forceClear) {
+        if (newSearch) {
+            // a new search (vs just getting more pages of an existing search) requires resetting
+            // the page number
             pageNumber = 1;
         }
         const resultLimit = 60;
 
         this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(),
-            pageNumber, resultLimit, searchOrder.toParams(), TableSearchFields[tableType]._api);
+            pageNumber, resultLimit, searchOrder.toParams(),
+            TableSearchFields[tableType]._requestFields);
 
         this.searchRequest.promise
             .then((res) => {
                 this.props.setSearchInFlight(false);
 
                 // don't clear records if we're appending (not the first page)
-                if (pageNumber <= 1 || forceClear) {
+                if (pageNumber <= 1 || newSearch) {
                     this.props.clearRecords();
                 }
 
@@ -158,7 +162,12 @@ class SearchContainer extends React.PureComponent {
                 this.searchRequest = null;
 
                 // trigger a batch update
-                this.props.triggerBatchUpdate();
+                if (newSearch) {
+                    this.props.triggerBatchSearchUpdate();
+                }
+                else {
+                    this.props.triggerBatchQueryUpdate();
+                }
             })
             .catch((err) => {
                 if (isCancel(err)) {

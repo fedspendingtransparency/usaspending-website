@@ -4,7 +4,7 @@ const tableSearchFields = {
         recipient_name: 280,
         period_of_performance_start_date: 120,
         period_of_performance_current_end_date: 120,
-        total_obligation: 180,
+        total_obligation: 190,
         type: 200,
         awarding_agency_name: 250
     },
@@ -27,7 +27,7 @@ const tableSearchFields = {
             'type',
             'awarding_agency_name'
         ],
-        _api: [
+        _requestFields: [
             'piid',
             'fain',
             'uri',
@@ -38,6 +38,15 @@ const tableSearchFields = {
             'type',
             'awarding_agency'
         ],
+        _mapping: {
+            id: 'piid',
+            recipient_name: 'recipient__recipient_name',
+            period_of_performance_start_date: 'period_of_performance_start_date',
+            period_of_performance_current_end_date: 'period_of_performance_current_end_date',
+            total_obligation: 'total_obligation',
+            type: 'type',
+            awarding_agency_name: 'awarding_agency'
+        },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
@@ -56,7 +65,7 @@ const tableSearchFields = {
             'type',
             'awarding_agency_name'
         ],
-        _api: [
+        _requestFields: [
             'piid',
             'fain',
             'uri',
@@ -67,6 +76,15 @@ const tableSearchFields = {
             'type',
             'awarding_agency'
         ],
+        _mapping: {
+            id: 'fain',
+            recipient_name: 'recipient__recipient_name',
+            period_of_performance_start_date: 'period_of_performance_start_date',
+            period_of_performance_current_end_date: 'period_of_performance_current_end_date',
+            total_obligation: 'total_obligation',
+            type: 'type',
+            awarding_agency_name: 'awarding_agency'
+        },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
@@ -85,7 +103,7 @@ const tableSearchFields = {
             'type',
             'awarding_agency_name'
         ],
-        _api: [
+        _requestFields: [
             'piid',
             'fain',
             'uri',
@@ -96,6 +114,15 @@ const tableSearchFields = {
             'type',
             'awarding_agency'
         ],
+        _mapping: {
+            id: 'fain',
+            recipient_name: 'recipient__recipient_name',
+            period_of_performance_start_date: 'period_of_performance_start_date',
+            period_of_performance_current_end_date: 'period_of_performance_current_end_date',
+            total_obligation: 'total_obligation',
+            type: 'type',
+            awarding_agency_name: 'awarding_agency'
+        },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
@@ -113,7 +140,7 @@ const tableSearchFields = {
             'type',
             'awarding_agency_name'
         ],
-        _api: [
+        _requestFields: [
             'piid',
             'fain',
             'uri',
@@ -124,7 +151,15 @@ const tableSearchFields = {
             'type',
             'awarding_agency'
         ],
-        _type: ['07', '08'],
+        _mapping: {
+            id: 'fain',
+            recipient_name: 'recipient__recipient_name',
+            period_of_performance_start_date: 'period_of_performance_start_date',
+            period_of_performance_current_end_date: 'period_of_performance_current_end_date',
+            total_obligation: 'total_obligation',
+            type: 'type',
+            awarding_agency_name: 'awarding_agency'
+        },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
@@ -142,7 +177,7 @@ const tableSearchFields = {
             'type',
             'awarding_agency_name'
         ],
-        _api: [
+        _requestFields: [
             'piid',
             'fain',
             'uri',
@@ -153,6 +188,15 @@ const tableSearchFields = {
             'type',
             'awarding_agency'
         ],
+        _mapping: {
+            id: 'fain',
+            recipient_name: 'recipient__recipient_name',
+            period_of_performance_start_date: 'period_of_performance_start_date',
+            period_of_performance_current_end_date: 'period_of_performance_current_end_date',
+            total_obligation: 'total_obligation',
+            type: 'type',
+            awarding_agency_name: 'awarding_agency'
+        },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
