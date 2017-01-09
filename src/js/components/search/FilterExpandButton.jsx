@@ -31,7 +31,7 @@ export default class FilterExpandButton extends React.Component {
                 onClick={this.props.toggleFilter}>
                 {icon}
                 <h6 className="filter-header">{this.props.name}</h6>
-                <Icons.InfoCircle className="filter-help" />
+                <Icons.Info className="filter-help" />
             </button>
         );
     }

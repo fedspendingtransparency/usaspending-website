@@ -22,7 +22,7 @@
             margin: 0;
             padding: 0 0 0 1rem;
             height: auto;
-            @include span-columns(8);
+            @include span-columns(7);
 
             input {
                 @include usa-input-checkbox;
@@ -48,6 +48,10 @@
             input + label {
                 margin-bottom: 0;
             }
+        }
+
+        .fiscal-year-option-all {
+            @include span-columns(16);
         }
     }
 

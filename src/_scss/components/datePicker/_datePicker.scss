@@ -32,7 +32,7 @@
     a.picker-icon {
         display: block;
         position: absolute;
-        top: 18px;
+        top: 30px;
         right: 8px;
         height: 21px;
         max-width: 21px;
@@ -48,10 +48,6 @@
                 fill: $color-secondary;
             }
         }
-        &.date svg {
-            position: relative;
-            top: 12px;
-        }
         @include media($medium-screen){
             right: -8px;
         }
@@ -66,10 +62,31 @@
         top: 65px;
         z-index: 9999;
 
-        background-color: $color-gray-lightest;
-        border: 1px solid $color-gray-light;
+        background-color: $color-white;
+        border: 1px solid $color-gray-lighter;
+        box-shadow: $box-shadow;
 
         // import day picker library styling
         @import "../../lib/react-day-picker/_daypicker.scss";
+
+        .DayPicker-Day {
+            border: 1px solid $color-gray-lightest;
+            color: $color-gray;
+            font-size: 1.2rem;
+
+            &:active, &:focus {
+                color: $color-white;
+                background-color: $color-gray;
+            }
+        }
+
+        .DayPicker-Caption, .DayPicker-WeekdaysRow {
+            color: $color-gray;
+            margin-bottom: 1rem;
+
+            .DayPicker-Weekday {
+                font-size: 1.4rem;
+            }
+        }
     }
 }

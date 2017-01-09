@@ -24,11 +24,12 @@ ul.toggle-buttons {
         }
 
         button.inactive {
-            background-color: $color-primary-alt-lightest;
-            border-left: 1px solid $color-primary-alt-lightest;
-            border-right: 1px solid $color-primary-alt-lightest;
-            border-top: 1px solid $color-primary-alt-lightest;
+            background-color: $color-gray;
+            border-left: 1px solid $color-gray;
+            border-right: 1px solid $color-gray;
+            border-top: 1px solid $color-gray;
             border-bottom: 1px solid $color-gray-lighter;
+            color: $color-white;
         }
 
         @include media($large-screen){
