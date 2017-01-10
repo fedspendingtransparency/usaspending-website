@@ -126,8 +126,6 @@ class SearchContainer extends React.PureComponent {
         // indicate the request is about to start
         this.props.setSearchInFlight(true);
 
-    // TODO: FIX THE PAGINATION + FILTER/ORDER CHANGE ISSUE
-
         let pageNumber = this.props.meta.page.page_number;
         if (newSearch) {
             // a new search (vs just getting more pages of an existing search) requires resetting
