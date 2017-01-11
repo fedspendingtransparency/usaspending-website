@@ -24,7 +24,7 @@ export default class SelectedAgencies extends React.Component {
         let displayValue = '';
 
         if (ag !== null) {
-            displayValue = `${_.startCase(_.toLower(ag))}`;
+            displayValue = `${_.startCase(_.toLower(ag.funding_agency__name))}`;
         }
 
         return displayValue;

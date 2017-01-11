@@ -52,10 +52,10 @@ export default class AgencyList extends Typeahead {
         const fundingValuesList = [];
         this.props.autocompleteAgencies.forEach((item) => {
             if (this.props.agencyType === "Awarding") {
-                awardingValuesList.push(item.results.awarding_agency__name);
+                awardingValuesList.push(item.awarding_agency__name);
             }
             else {
-                fundingValuesList.push(item.results.funding_agency__name);
+                fundingValuesList.push(item.funding_agency__name);
             }
         });
         if (this.props.agencyType === "Awarding") {
@@ -69,13 +69,13 @@ export default class AgencyList extends Typeahead {
             let key = '';
             if (this.props.agencyType === "Awarding") {
                 key =
-                `<b>${value.results.awarding_agency__name}</b>`;
-                this.dataDictionary[key] = value.results.awarding_agency__name;
+                `<b>${value.awarding_agency__name}</b>`;
+                this.dataDictionary[key] = value.awarding_agency__name;
             }
             else {
                 key =
-                `<b>${value.results.funding_agency__name}</b>`;
-                this.dataDictionary[key] = value.results.funding_agency__name;
+                `<b>${value.funding_agency__name}</b>`;
+                this.dataDictionary[key] = value.funding_agency__name;
             }
         });
 
@@ -99,14 +99,7 @@ export default class AgencyList extends Typeahead {
         if (isValid) {
             // Find matching agency object from redux store based on Matched IDs key
             for (let i = 0; i < this.props.autocompleteAgencies.length; i++) {
-                if (this.props.agencyType === "Awarding") {
-                    selectedAgency =
-                    this.props.autocompleteAgencies[i].results.awarding_agency__name;
-                }
-                else {
-                    selectedAgency =
-                    this.props.autocompleteAgencies[i].results.funding_agency__name;
-                }
+                selectedAgency = this.props.autocompleteAgencies[i];
                 break;
             }
         }

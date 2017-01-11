@@ -30,7 +30,7 @@ class AgencyListContainer extends React.Component {
     }
 
     dataFormatter(item) {
-        const itemLabel = `<strong>${item}</strong>`;
+        const itemLabel = `<b>${item}</b>`;
 
         return {
             label: itemLabel,
@@ -65,15 +65,18 @@ class AgencyListContainer extends React.Component {
 
             this.agencySearchRequest.promise
                 .then((res) => {
-                    const data = res.data;
+                    const data = res.data.results;
                     let autocompleteData = [];
-
                     // Filter out any selectedAgencies that may be in the result set
-                    if (this.props.selectedAwardingAgencies.size > 0) {
+                    // TO-DO: These _differenceWith checks are not looking at arrays
+                    // at the same level
+                    if (this.props.agencyType === "Awarding" &&
+                    this.props.selectedAwardingAgencies.size > 0) {
                         autocompleteData = _.differenceWith(data,
                             this.props.selectedAwardingAgencies.toArray(), _.isEqual);
                     }
-                    else if (this.props.selectedFundingAgencies.size > 0) {
+                    else if (this.props.agencyType === "Funding" &&
+                    this.props.selectedFundingAgencies.size > 0) {
                         autocompleteData = _.differenceWith(data,
                             this.props.selectedFundingAgencies.toArray(), _.isEqual);
                     }
