@@ -12,7 +12,8 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import LocationSearch from 'components/search/filters/location/LocationSearch';
 
 const propTypes = {
-    updateSelectedLocations: React.PropTypes.func
+    updateSelectedLocations: React.PropTypes.func,
+    updateDomesticForeignSelection: React.PropTypes.func
 };
 
 class LocationSearchContainer extends React.Component {
@@ -51,7 +52,7 @@ class LocationSearchContainer extends React.Component {
                 {...this.props}
                 selectLocation={this.selectLocation}
                 removeLocation={this.removeLocation}
-                toggleCountry={this.toggleCountry}/>
+                toggleCountry={this.toggleCountry} />
         );
     }
 }
