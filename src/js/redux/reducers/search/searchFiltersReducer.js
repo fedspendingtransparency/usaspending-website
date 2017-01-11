@@ -15,7 +15,7 @@ const initialState = {
     timePeriodStart: null,
     timePeriodEnd: null,
     selectedLocations: new Set(),
-    locationDomesticForeign: ''
+    locationDomesticForeign: 'all'
 };
 
 const searchFiltersReducer = (state = initialState, action) => {

@@ -7,8 +7,8 @@ import React from 'react';
 
 const propTypes = {
     toggleCountry: React.PropTypes.func,
-    locationOption: React.PropTypes.string,
-    countries: React.PropTypes.array
+    countries: React.PropTypes.array,
+    locationDomesticForeign: React.PropTypes.string
 };
 
 const defaultProps = {
@@ -29,7 +29,7 @@ export default class CountryType extends React.Component {
                         id={`location-${name.value}`}
                         name="location"
                         value={name.value}
-                        checked={this.props.locationOption === name.value}
+                        checked={this.props.locationDomesticForeign === name.value}
                         onChange={this.props.toggleCountry} />
                     <label htmlFor={`location-${name.value}`}>{name.label}</label>
                 </span>

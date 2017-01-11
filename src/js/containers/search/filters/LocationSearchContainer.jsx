@@ -22,6 +22,7 @@ class LocationSearchContainer extends React.Component {
         // Bind functions
         this.selectLocation = this.selectLocation.bind(this);
         this.removeLocation = this.removeLocation.bind(this);
+        this.removeLocation = this.removeLocation.bind(this);
     }
 
     selectLocation(location, isValid) {
@@ -40,12 +41,17 @@ class LocationSearchContainer extends React.Component {
         this.props.updateSelectedLocations(updateParams);
     }
 
+    toggleCountry(selection) {
+        this.props.updateDomesticForeignSelection(selection.target.value);
+    }
+
     render() {
         return (
             <LocationSearch
                 {...this.props}
                 selectLocation={this.selectLocation}
-                removeLocation={this.removeLocation} />
+                removeLocation={this.removeLocation}
+                toggleCountry={this.toggleCountry}/>
         );
     }
 }
@@ -53,6 +59,8 @@ class LocationSearchContainer extends React.Component {
 LocationSearchContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ selectedLocations: state.filters.selectedLocations }),
+    (state) => ({
+        selectedLocations: state.filters.selectedLocations,
+        locationDomesticForeign: state.filters.locationDomesticForeign }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(LocationSearchContainer);
