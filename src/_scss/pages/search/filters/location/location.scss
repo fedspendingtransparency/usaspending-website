@@ -24,6 +24,7 @@
             label {
                 color: $color-gray;
                 font-weight: normal;
+                margin-left: 0.75rem;
             }
             &:not(:last-child) {
                 border-right: 1px solid rgba(0,0,0,0.3);

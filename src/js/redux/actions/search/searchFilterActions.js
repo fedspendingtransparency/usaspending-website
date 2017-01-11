@@ -36,3 +36,8 @@ export const updateSelectedLocations = (state) => ({
     type: 'UPDATE_SELECTED_LOCATIONS',
     location: state.location
 });
+
+export const updateDomesticForeignSelection = (state) => ({
+    type: 'UPDATE_DOMESTIC_FOREIGN',
+    selection: state
+});

@@ -46,6 +46,7 @@ export default class Typeahead extends React.Component {
             value: ""
         };
     }
+
     componentDidMount() {
         this.mountAwesomeplete();
     }
