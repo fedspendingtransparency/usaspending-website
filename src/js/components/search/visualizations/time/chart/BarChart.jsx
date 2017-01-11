@@ -91,7 +91,7 @@ export default class BarChart extends React.Component {
 
         // calculate what the visible area of the chart itself will be (excluding the axes and their
         // labels)
-        const graphWidth = props.width - props.padding.bottom;
+        const graphWidth = props.width - props.padding.left;
         const graphHeight = props.height - props.padding.bottom;
 
         // use D3 to calculate the X and Y axes
