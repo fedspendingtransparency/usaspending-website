@@ -17,7 +17,9 @@ export default class BarYAxisItem extends React.Component {
     render() {
         return (
             <g className="axis-item y-axis">
-                <text textAnchor="end" transform={`translate(${this.props.x},${this.props.y + 6})`}>
+                <text
+                    textAnchor="end"
+                    transform={`translate(${this.props.x},${this.props.y + 6})`}>
                     {this.props.label}
                 </text>
                 <line

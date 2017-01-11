@@ -63,9 +63,9 @@ export default class TimeVisualizationSection extends React.Component {
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            Spot trends in spending over your chosen time period. Filter your results more
-                            (at left) and watch this graph update automatically. Break down your results by
-                            years, quarters, or months.
+                            Spot trends in spending over your chosen time period. Filter your
+                            results more (at left) and watch this graph update automatically. Break
+                            down your results by years, quarters, or months.
                         </div>
                     </div>
                     <div className="visualization-period">

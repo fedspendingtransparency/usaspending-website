@@ -14,7 +14,11 @@
         line-height: 26px;
         color: #525252;
 
-        margin-right: 50px;
+        margin-right: 20px;
+
+        @include media($medium-screen) {
+            margin-right: 50px;
+        }
     }
 }
 
@@ -23,10 +27,18 @@
     vertical-align: middle;
 
     .content {
-        width: 390px;
-        height: 60px;
-        padding: 15px 30px;
+        padding: 15px;
         background-color: rgba(223,242,247,0.4);
+
+        @include media($tablet-screen) {
+            width: 300px;
+            height: 60px;
+
+            @include media($large-screen) {
+                width: 390px;
+                padding: 15px 30px;
+            }
+        }
     }
 
     ul {
@@ -36,11 +48,17 @@
         text-align: center;
 
         li {
-            display: inline-block;
-            margin-left: 30px;
 
-            &:first-child {
-                margin-left: 0px;
+            margin-bottom: 10px;
+
+            @include media($tablet-screen) {
+                display: inline-block;
+                margin-left: 30px;
+                margin-bottom: 0;
+
+                &:first-child {
+                    margin-left: 0px;
+                }
             }
         }
 
@@ -52,6 +70,8 @@
 
             padding: 0px 10px;
             padding-bottom: 5px;
+
+            border-bottom: 4px solid transparent;
 
             &.active, &:hover, &:active {
                 color: #323A45;

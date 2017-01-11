@@ -14,13 +14,13 @@ import BarYAxis from './BarYAxis';
 /* eslint-disable react/no-unused-prop-types */
 // we're catching the props before they're fully set, so eslint thinks these props are unused
 const propTypes = {
-    padding: React.PropTypes.object,
     groups: React.PropTypes.array,
     width: React.PropTypes.number,
     height: React.PropTypes.number,
     xSeries: React.PropTypes.array,
     ySeries: React.PropTypes.array,
-    showTooltip: React.PropTypes.func
+    showTooltip: React.PropTypes.func,
+    padding: React.PropTypes.object
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -45,7 +45,11 @@ export default class BarChart extends React.Component {
             yAverage: 0,
             xAxisPos: 0,
             graphHeight: 0,
-            activeBar: null
+            activeBar: null,
+            padding: {
+                left: 0,
+                bottom: 20
+            }
         };
 
         this.dataPoints = {};
@@ -87,7 +91,7 @@ export default class BarChart extends React.Component {
 
         // calculate what the visible area of the chart itself will be (excluding the axes and their
         // labels)
-        const graphWidth = props.width - props.padding.left;
+        const graphWidth = props.width - props.padding.bottom;
         const graphHeight = props.height - props.padding.bottom;
 
         // use D3 to calculate the X and Y axes
@@ -184,8 +188,8 @@ export default class BarChart extends React.Component {
             graphHeight,
             yValues: allY,
             xValues: props.groups,
-            yTicks: yScale.ticks(7),
-            yAverage: _.mean(allY)
+            yAverage: _.mean(allY),
+            yTicks: yScale.ticks(7)
         });
     }
 
@@ -293,7 +297,10 @@ export default class BarChart extends React.Component {
                 <svg
                     className="bar-graph"
                     width={this.props.width}
-                    height={this.props.height + 20}>
+                    height={this.props.height + 20}
+                    ref={(svg) => {
+                        this.svgRef = svg;
+                    }}>
                     <g className="bar-graph-body" transform="translate(0,20)">
                         <BarYAxis
                             height={this.props.height - this.props.padding.bottom}
@@ -302,7 +309,8 @@ export default class BarChart extends React.Component {
                             data={this.state.yValues}
                             scale={this.state.yScale}
                             ticks={this.state.yTicks}
-                            average={this.state.yAverage} />
+                            average={this.state.yAverage}
+                            generatedYAxis={this.generatedYAxis} />
 
                         <BarXAxis
                             top={this.props.height - this.props.padding.bottom}
