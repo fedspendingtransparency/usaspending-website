@@ -6,7 +6,7 @@
     margin-top: 2em;
     display: block;
 
-    border: 1px solid $color-gray;
+    border: 1px solid #ADAFB4;
 
     // placeholder background for when the user scrolls really fast
     background: repeating-linear-gradient(
@@ -15,6 +15,10 @@
         $color-gray-lightest 40px,
         $color-gray-lightest 80px
     );
+
+    &.no-results {
+        border-bottom: none;
+    }
 
     .award-result-generic-cell {
         @import "cells/_genericCell";
@@ -41,6 +45,6 @@
 
     // override the header style for a bottom border
     .ibt-header {
-        border-bottom: 1px solid $color-gray;
+        border-bottom: 1px solid #ADAFB4;
     }
 }
