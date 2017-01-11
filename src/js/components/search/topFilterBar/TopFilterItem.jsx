@@ -47,7 +47,7 @@ export default class TopFilterItem extends React.Component {
                                 {accessibleLabel}
                             </span>
                             <span className="close-icon">
-                                <Icons.Times alt={accessibleLabel} />
+                                <Icons.Close alt={accessibleLabel} />
                             </span>
                         </button>
                     </div>

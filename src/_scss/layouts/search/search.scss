@@ -28,6 +28,10 @@
         @include media($large-screen) {
             margin: 0px $outer-gutter;
         }
+        @include media($x-large-screen) {
+            max-width: $site-max-width;
+            margin: 0 auto;
+        }
     }
 
 }
