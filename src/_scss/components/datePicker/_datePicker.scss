@@ -1,91 +1,93 @@
 .generate-datepicker-wrap {
-    flex: 1 1 auto;
     position: relative;
-    width: 100%;
-
-    @include media($medium-screen){
-        @include span-columns(14);
+    @include media($medium-screen) {
+        @include span-columns(16);
     }
-    @include media($large-screen){
-        @include span-columns(7.5);
-        margin-right: 1rem;
+    @include media($large-screen) {
+        @include span-columns(7.6);
+        &:last-child{
+            margin-left: 5%;
+        }
     }
-
     .generate-datepicker {
-        margin-left: auto;
-        margin-right: auto;
-
         input {
             @import "../../elements/_inputs";
             @include usa-input;
-            font-size:$smallest-font-size;
             width: 100%;
-            @include media($medium-screen){
-                width:105%;
-                margin-left: .5rem;
+            font-size: 1.2rem;
+            padding:20px;
+            text-indent: 0.5rem;
+            color: #555;
+            @include media($medium-screen) {
                 padding-left: .25rem;
             }
         }
-
     }
-
     a.picker-icon {
         display: block;
         position: absolute;
-        top: 30px;
-        right: 8px;
-        height: 21px;
-        max-width: 21px;
-
+        top: 3.3rem;
+        right: .6rem;
+        height: 1.5rem;
+        max-width: 1.5rem;
         & svg {
             z-index: 9;
-            fill: #ccc;
-            height: 21px;
-            width: 21px;
+            fill: $color-gray-light;
+            height: 1.5rem;
+            width: 1.5rem;
+            &:hover{
+                fill: darken($color-gray-light, 20%)
+            }
         }
         &.error {
             & svg {
                 fill: $color-secondary;
             }
         }
-        @include media($medium-screen){
-            right: -8px;
-        }
-        @include media($large-screen){
-            right: 0;
-        }
-
+        // @include media($medium-screen) {
+        //     right: 0.8rem;
+        // }
+        // @include media($large-screen) {
+        //     right: 0.8rem;
+        // }
     }
-
     .floating-datepicker {
         position: absolute;
         top: 65px;
         z-index: 9999;
-
         background-color: $color-white;
         border: 1px solid $color-gray-lighter;
         box-shadow: $box-shadow;
-
         // import day picker library styling
         @import "../../lib/react-day-picker/_daypicker.scss";
-
+        .DayPicker-Month{
+            font-size: 1.3rem;
+        }
+        .DayPicker-Weekday{
+            background: $color-gray-lightest;
+            border-bottom: 1px solid darken($color-gray-lightest, 5%);
+        }
         .DayPicker-Day {
             border: 1px solid $color-gray-lightest;
             color: $color-gray;
+            background: $color-white;
             font-size: 1.2rem;
-
-            &:active, &:focus {
+            padding: 0.8rem 1.0rem;
+            &:hover{
+                background: lighten( $color-active, 30% )
+            }
+            &:active,
+            &:focus {
                 color: $color-white;
-                background-color: $color-gray;
+                background-color: $color-active;
             }
         }
-
-        .DayPicker-Caption, .DayPicker-WeekdaysRow {
+        .DayPicker-Caption,
+        .DayPicker-WeekdaysRow {
             color: $color-gray;
             margin-bottom: 1rem;
-
             .DayPicker-Weekday {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
             }
         }
     }

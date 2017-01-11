@@ -138,7 +138,7 @@ export default class TopFilterBar extends React.Component {
                                 Clear all filters
                             </span>
                             <span className="close-icon">
-                                <Icons.Times alt="Clear all filters" />
+                                <Icons.Close alt="Clear all filters" />
                             </span>
                         </button>
                     </div>
