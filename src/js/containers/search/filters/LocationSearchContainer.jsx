@@ -23,7 +23,7 @@ class LocationSearchContainer extends React.Component {
         // Bind functions
         this.selectLocation = this.selectLocation.bind(this);
         this.removeLocation = this.removeLocation.bind(this);
-        this.removeLocation = this.removeLocation.bind(this);
+        this.toggleCountry = this.toggleCountry.bind(this);
     }
 
     selectLocation(location, isValid) {
