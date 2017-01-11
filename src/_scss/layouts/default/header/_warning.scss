@@ -1,11 +1,11 @@
 @mixin defaultHeaderWarning {
+    display: none;
     @include align-self(stretch);
     background: as-alpha($color-gold-lightest, 0.95);
-    height:6rem;
+    min-height: 6rem;
     padding: 15px 0;
     width: 100%;
     border-bottom: 1px solid $color-gold-lighter;
-    margin-bottom:2rem;
     & p {
         max-width: 100%;
         margin: 5px 0;
@@ -22,11 +22,9 @@
             width: 30px;
         }
     }
-
     & .top-alert-icon {
         @include span-columns(1);
     }
-
     & .top-alert-text {
         @include span-columns(15);
     }
