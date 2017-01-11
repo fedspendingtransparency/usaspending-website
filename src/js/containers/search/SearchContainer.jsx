@@ -48,7 +48,7 @@ class SearchContainer extends React.PureComponent {
         this.updateFilters();
     }
 
-    shouldComponentUpdate(nextProps) {
+    shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.filters !== this.props.filters) {
             // filters changed
             return true;
@@ -72,6 +72,11 @@ class SearchContainer extends React.PureComponent {
             }
         }
 
+        if (!Object.is(nextState, this.state)) {
+            // allow state changes to occur
+            return true;
+        }
+
         // something may have changed, but it is out of scope for this component
         return false;
     }
@@ -92,7 +97,12 @@ class SearchContainer extends React.PureComponent {
         else if (prevProps.meta.page.page_number !==
             this.props.meta.page.page_number) {
             // page number has changed
-            this.performSearch();
+            if (this.props.meta.page.page_number !== this.state.page) {
+                // this check prevents duplicated API calls that result from Redux updating the
+                // page number prop back to 1 after a filter/order/tab change (which already
+                // triggers a page 1 search)
+                this.performSearch();
+            }
         }
     }
 
@@ -100,7 +110,8 @@ class SearchContainer extends React.PureComponent {
         const newSearch = new SearchOperation();
         newSearch.fromState(this.props.filters);
         this.setState({
-            searchParams: newSearch
+            searchParams: newSearch,
+            page: 1
         }, () => {
             this.performSearch(true);
         });
@@ -165,6 +176,9 @@ class SearchContainer extends React.PureComponent {
                 }
                 else {
                     this.props.triggerBatchQueryUpdate();
+                    this.setState({
+                        page: data.page_metadata.page_number
+                    });
                 }
             })
             .catch((err) => {
@@ -212,7 +226,8 @@ export default connect(
     (state) => ({
         filters: state.filters,
         order: state.searchOrder,
-        meta: state.resultsMeta.toJS()
+        meta: state.resultsMeta.toJS(),
+        batch: state.resultsBatch.toJS()
     }),
     (dispatch) => bindActionCreators(SearchActions, dispatch)
 )(SearchContainer);
