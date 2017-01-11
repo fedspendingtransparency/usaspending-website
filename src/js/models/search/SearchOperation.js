@@ -29,6 +29,7 @@ class SearchOperation {
             this.timePeriodFY = [];
         }
         this.selectedLocations = state.selectedLocations.toArray();
+        this.locationDomesticForeign = state.locationDomesticForeign;
     }
 
     toParams() {
@@ -60,6 +61,11 @@ class SearchOperation {
         if (this.selectedLocations.length > 0) {
             filters.push(LocationQuery.buildLocationQuery(this.selectedLocations));
         }
+
+        if (this.locationDomesticForeign !== '' && this.locationDomesticForeign !== 'all') {
+            filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign));
+        }
+
         return filters;
     }
 }

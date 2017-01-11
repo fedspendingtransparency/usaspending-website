@@ -14,7 +14,8 @@ const initialState = {
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
-    selectedLocations: new Set()
+    selectedLocations: new Set(),
+    locationDomesticForeign: 'all'
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -46,6 +47,11 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 selectedLocations: LocationFilterFunctions.updateSelectedLocations(
                     state.selectedLocations, action.location)
+            });
+        }
+        case 'UPDATE_DOMESTIC_FOREIGN': {
+            return Object.assign({}, state, {
+                locationDomesticForeign: action.selection
             });
         }
         case 'UPDATE_SEARCH_FILTER_GENERIC': {

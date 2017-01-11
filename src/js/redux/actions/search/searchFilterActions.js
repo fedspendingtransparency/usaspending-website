@@ -37,6 +37,11 @@ export const updateSelectedLocations = (state) => ({
     location: state.location
 });
 
+export const updateDomesticForeignSelection = (state) => ({
+    type: 'UPDATE_DOMESTIC_FOREIGN',
+    selection: state
+});
+
 export const setSearchOrder = (state) => ({
     type: 'SET_SEARCH_ORDER',
     field: state.field,

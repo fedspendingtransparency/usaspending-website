@@ -12,27 +12,18 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import LocationSearch from 'components/search/filters/location/LocationSearch';
 
 const propTypes = {
-    updateSelectedLocations: React.PropTypes.func
+    updateSelectedLocations: React.PropTypes.func,
+    updateDomesticForeignSelection: React.PropTypes.func
 };
 
 class LocationSearchContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            locationOption: 'all'
-        };
-
         // Bind functions
-        this.toggleCountry = this.toggleCountry.bind(this);
         this.selectLocation = this.selectLocation.bind(this);
         this.removeLocation = this.removeLocation.bind(this);
-    }
-
-    toggleCountry(e) {
-        this.setState({
-            locationOption: e.target.value
-        });
+        this.toggleCountry = this.toggleCountry.bind(this);
     }
 
     selectLocation(location, isValid) {
@@ -51,14 +42,17 @@ class LocationSearchContainer extends React.Component {
         this.props.updateSelectedLocations(updateParams);
     }
 
+    toggleCountry(selection) {
+        this.props.updateDomesticForeignSelection(selection.target.value);
+    }
+
     render() {
         return (
             <LocationSearch
                 {...this.props}
-                toggleCountry={this.toggleCountry}
                 selectLocation={this.selectLocation}
                 removeLocation={this.removeLocation}
-                locationOption={this.state.locationOption} />
+                toggleCountry={this.toggleCountry} />
         );
     }
 }
@@ -66,6 +60,8 @@ class LocationSearchContainer extends React.Component {
 LocationSearchContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ selectedLocations: state.filters.selectedLocations }),
+    (state) => ({
+        selectedLocations: state.filters.selectedLocations,
+        locationDomesticForeign: state.filters.locationDomesticForeign }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(LocationSearchContainer);
