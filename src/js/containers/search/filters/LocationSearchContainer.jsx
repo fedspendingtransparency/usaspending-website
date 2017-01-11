@@ -19,20 +19,9 @@ class LocationSearchContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            locationOption: 'all'
-        };
-
         // Bind functions
-        this.toggleCountry = this.toggleCountry.bind(this);
         this.selectLocation = this.selectLocation.bind(this);
         this.removeLocation = this.removeLocation.bind(this);
-    }
-
-    toggleCountry(e) {
-        this.setState({
-            locationOption: e.target.value
-        });
     }
 
     selectLocation(location, isValid) {
@@ -55,10 +44,8 @@ class LocationSearchContainer extends React.Component {
         return (
             <LocationSearch
                 {...this.props}
-                toggleCountry={this.toggleCountry}
                 selectLocation={this.selectLocation}
-                removeLocation={this.removeLocation}
-                locationOption={this.state.locationOption} />
+                removeLocation={this.removeLocation} />
         );
     }
 }
