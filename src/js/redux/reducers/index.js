@@ -10,14 +10,16 @@ import resultsBatchReducer from './resultsMeta/resultsBatchReducer';
 import filtersReducer from './search/searchFiltersReducer';
 import autocompleteReducer from './search/autocompleteReducer';
 import recordReducer from './records/recordReducer';
-import agencyReducer from './search/agencyReducer';
+import agencyAwardingReducer from './search/agencyAwardingReducer';
+import agencyFundingReducer from './search/agencyFundingReducer';
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
     resultsBatch: resultsBatchReducer,
     filters: filtersReducer,
     autocompleteLocations: autocompleteReducer,
-    autocompleteAgencies: agencyReducer,
+    autocompleteAwardingAgencies: agencyAwardingReducer,
+    autocompleteFundingAgencies: agencyFundingReducer,
     records: recordReducer
 });
 

@@ -14,7 +14,8 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as agencyActions from 'redux/actions/search/agencyActions';
 
 const propTypes = {
-    setAutocompleteAgencies: React.PropTypes.func,
+    setAutocompleteAwardingAgencies: React.PropTypes.func,
+    setAutocompleteFundingAgencies: React.PropTypes.func,
     selectAgency: React.PropTypes.func,
     selectedAwardingAgencies: React.PropTypes.object,
     selectedFundingAgencies: React.PropTypes.object,
@@ -68,30 +69,32 @@ class AgencyListContainer extends React.Component {
                     const data = res.data.results;
                     let autocompleteData = [];
                     // Filter out any selectedAgencies that may be in the result set
-                    // TO-DO: These _differenceWith checks are not looking at arrays
-                    // at the same level
-                    if (this.props.agencyType === "Awarding" &&
-                    this.props.selectedAwardingAgencies.size > 0) {
-                        autocompleteData = _.differenceWith(data,
-                            this.props.selectedAwardingAgencies.toArray(), _.isEqual);
+                    if (this.props.agencyType === "Awarding") {
+                        if (this.props.selectedAwardingAgencies.size > 0) {
+                            autocompleteData = _.differenceWith(data.awarding_agency__name,
+                                this.props.selectedAwardingAgencies.toArray(), _.isEqual);
+                            this.props.setAutocompleteAwardingAgencies(autocompleteData);
+                        }
+                        else {
+                            this.props.setAutocompleteAwardingAgencies(data.awarding_agency__name);
+                        }
                     }
-                    else if (this.props.agencyType === "Funding" &&
-                    this.props.selectedFundingAgencies.size > 0) {
-                        autocompleteData = _.differenceWith(data,
-                            this.props.selectedFundingAgencies.toArray(), _.isEqual);
+                    else if (this.props.agencyType === "Funding") {
+                        if (this.props.selectedFundingAgencies.size > 0) {
+                            autocompleteData = _.differenceWith(data.funding_agency__name,
+                                this.props.selectedFundingAgencies.toArray(), _.isEqual);
+                            this.props.setAutocompleteFundingAgencies(autocompleteData);
+                        }
+                        else {
+                            this.props.setAutocompleteFundingAgencies(data.funding_agency__name);
+                        }
                     }
-                    else {
-                        autocompleteData = data;
-                    }
-                    // Add search results to Redux
-                    this.props.setAutocompleteAgencies(autocompleteData);
                 });
         }
     }
 
     handleTextInput(agencyInput) {
         // Clear existing agencies to ensure user can't select an old or existing one
-        this.props.setAutocompleteAgencies([]);
 
         // Grab input, clear any exiting timeout
         const input = agencyInput.target.value;
@@ -120,7 +123,8 @@ class AgencyListContainer extends React.Component {
 }
 
 export default connect(
-    (state) => ({ autocompleteAgencies: state.autocompleteAgencies }),
+    (state) => ({ autocompleteAwardingAgencies: state.autocompleteAwardingAgencies,
+        autocompleteFundingAgencies: state.autocompleteFundingAgencies }),
     (dispatch) => bindActionCreators(agencyActions, dispatch)
 )(AgencyListContainer);
 

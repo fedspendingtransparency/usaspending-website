@@ -6,11 +6,8 @@ import _ from 'lodash';
 
 const initialState = [];
 
-const agencyReducer = (state = initialState, action) => {
+const agencyFundingReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_AUTOCOMPLETE_AWARDING_AGENCIES': {
-            return _.concat([], action.awardingAgencies);
-        }
         case 'SET_AUTOCOMPLETE_FUNDING_AGENCIES': {
             return _.concat([], action.fundingAgencies);
         }
@@ -19,4 +16,4 @@ const agencyReducer = (state = initialState, action) => {
     }
 };
 
-export default agencyReducer;
+export default agencyFundingReducer;

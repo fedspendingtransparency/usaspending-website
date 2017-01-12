@@ -11,7 +11,8 @@ import TypeaheadWarning from 'components/sharedComponents/TypeaheadWarning';
 import SelectedAgencies from './SelectedAgencies';
 
 const propTypes = {
-    autocompleteAgencies: PropTypes.array,
+    autocompleteAwardingAgencies: PropTypes.array,
+    autocompleteFundingAgencies: PropTypes.array,
     onSelect: PropTypes.func,
     customClass: PropTypes.string,
     keyValue: PropTypes.string,
@@ -50,14 +51,23 @@ export default class AgencyList extends Typeahead {
     loadValues() {
         const awardingValuesList = [];
         const fundingValuesList = [];
-        this.props.autocompleteAgencies.forEach((item) => {
-            if (this.props.agencyType === "Awarding") {
-                awardingValuesList.push(item.awarding_agency__name);
-            }
-            else {
-                fundingValuesList.push(item.funding_agency__name);
-            }
-        });
+        if (this.props.autocompleteAwardingAgencies.length > 0) {
+            this.props.autocompleteAwardingAgencies.forEach((item) => {
+                awardingValuesList.push(item);
+                const key =
+                `<b>${item}</b>`;
+                this.dataDictionary[key] = item;
+            });
+        }
+        if (this.props.autocompleteFundingAgencies.length > 0) {
+            this.props.autocompleteFundingAgencies.forEach((item) => {
+                fundingValuesList.push(item);
+                const key =
+                `<b>${item}</b>`;
+                this.dataDictionary[key] = item;
+            });
+        }
+
         if (this.props.agencyType === "Awarding") {
             this.typeahead.list = awardingValuesList;
         }
@@ -65,28 +75,16 @@ export default class AgencyList extends Typeahead {
             this.typeahead.list = fundingValuesList;
         }
 
-        this.props.autocompleteAgencies.forEach((value) => {
-            let key = '';
-            if (this.props.agencyType === "Awarding") {
-                key =
-                `<b>${value.awarding_agency__name}</b>`;
-                this.dataDictionary[key] = value.awarding_agency__name;
-            }
-            else {
-                key =
-                `<b>${value.funding_agency__name}</b>`;
-                this.dataDictionary[key] = value.funding_agency__name;
-            }
-        });
-
         this.typeahead.replace = () => {
             this.typeahead.input.value = "";
         };
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.autocompleteAgencies, this.props.autocompleteAgencies)
-            && this.typeahead) {
+        if (!_.isEqual(prevProps.autocompleteAwardingAgencies,
+            this.props.autocompleteAwardingAgencies) ||
+            !_.isEqual(prevProps.autocompleteFundingAgencies,
+                this.props.autocompleteFundingAgencies)) {
             this.loadValues();
         }
     }
@@ -98,9 +96,17 @@ export default class AgencyList extends Typeahead {
         const isValid = this.isValidSelection(this.state.value);
         if (isValid) {
             // Find matching agency object from redux store based on Matched IDs key
-            for (let i = 0; i < this.props.autocompleteAgencies.length; i++) {
-                selectedAgency = this.props.autocompleteAgencies[i];
-                break;
+            if (this.props.agencyType === "Awarding") {
+                for (let i = 0; i < this.props.autocompleteAwardingAgencies.length; i++) {
+                    selectedAgency = this.props.autocompleteAwardingAgencies[i];
+                    break;
+                }
+            }
+            else {
+                for (let i = 0; i < this.props.autocompleteFundingAgencies.length; i++) {
+                    selectedAgency = this.props.autocompleteFundingAgencies[i];
+                    break;
+                }
             }
         }
 
