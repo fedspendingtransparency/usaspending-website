@@ -32,15 +32,14 @@ export default class SelectedAgencies extends React.Component {
 
     render() {
         let selected = null;
-        let type = null;
-        if (this.props.agencyType === "Awarding") {
+        const type = this.props.agencyType;
+        if (type === "Awarding") {
             selected = this.props.selectedAwardingAgencies;
-            type = "Awarding";
         }
-        else if (this.props.agencyType === "Funding") {
+        else {
             selected = this.props.selectedFundingAgencies;
-            type = "Funding";
         }
+
         const shownAgencies = selected.map((agency, key) => (
             <ShownAgency
                 agencyType={type}
@@ -52,7 +51,7 @@ export default class SelectedAgencies extends React.Component {
         ));
 
         return (
-            <div className="selected-agencies">
+            <div className={`selected-agencies ${_.toLower(type)}`}>
                 {shownAgencies}
             </div>
         );
