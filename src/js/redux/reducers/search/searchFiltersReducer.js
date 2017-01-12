@@ -17,7 +17,8 @@ const initialState = {
     timePeriodEnd: null,
     selectedLocations: new Set(),
     selectedFundingAgencies: new Set(),
-    selectedAwardingAgencies: new Set()
+    selectedAwardingAgencies: new Set(),
+    locationDomesticForeign: 'all'
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -61,6 +62,11 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 selectedAwardingAgencies: AgencyFilterFunctions.updateSelectedAwardingAgencies(
                     state.selectedAwardingAgencies, action.awardingAgency)
+            });
+        }
+        case 'UPDATE_DOMESTIC_FOREIGN': {
+            return Object.assign({}, state, {
+                locationDomesticForeign: action.selection
             });
         }
         case 'UPDATE_SEARCH_FILTER_GENERIC': {

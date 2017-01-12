@@ -120,10 +120,44 @@ export default class AgencyList extends Typeahead {
         return {}.hasOwnProperty.call(this.dataDictionary, input);
     }
 
+    checkValidity(input) {
+        // Ensure user has typed 2 or more characters
+        if (input.length === 1) {
+            this.createTimeout(true,
+                'You must enter at least 2 characters in the search box.',
+                'Agency Error',
+                500
+            );
+        }
+        // Clear error when input is cleared or longer than 2 characters
+        else {
+            this.cancelTimeout();
+        }
+    }
+
+    createTimeout(showWarning, errorMessage, errorHeader, delay) {
+        this.cancelTimeout();
+
+        this.timeout = window.setTimeout(() => {
+            this.setState({ showWarning, errorMessage, errorHeader });
+        }, delay);
+    }
+
+    cancelTimeout() {
+        window.clearTimeout(this.timeout);
+        this.timeout = null;
+
+        this.setState({
+            showWarning: false,
+            errorMessage: null,
+            errorHeader: null
+        });
+    }
+
     onChange(e) {
         const inputValue = e.target.value;
 
-        this.props.checkValidity(inputValue);
+        this.checkValidity(inputValue);
         this.props.handleTextInput(e);
     }
 

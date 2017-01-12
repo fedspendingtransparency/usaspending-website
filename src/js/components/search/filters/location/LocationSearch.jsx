@@ -4,16 +4,15 @@
  **/
 
 import React from 'react';
+
 import LocationListContainer from 'containers/sharedContainers/LocationListContainer';
 import CountryType from './CountryType';
 import SelectedLocations from './SelectedLocations';
 
 const propTypes = {
-    toggleCountry: React.PropTypes.func,
     selectLocation: React.PropTypes.func,
     removeLocation: React.PropTypes.func,
-    selectedLocations: React.PropTypes.object,
-    locationOption: React.PropTypes.string
+    selectedLocations: React.PropTypes.object
 };
 
 export default class LocationSearch extends React.Component {
@@ -27,17 +26,12 @@ export default class LocationSearch extends React.Component {
 
         return (
             <div className="location-filter search-filter">
-                <CountryType
-                    {...this.props}
-                    toggleCountry={this.props.toggleCountry}
-                    locationOption={this.props.locationOption} />
-                <LocationListContainer
-                    selectedLocations={this.props.selectedLocations}
-                    selectLocation={this.props.selectLocation}
-                    locationOption={this.props.locationOption} />
+                <CountryType {...this.props} />
+                <LocationListContainer {...this.props} selectLocation={this.props.selectLocation} />
                 {selectedLocations}
             </div>
         );
     }
 }
+
 LocationSearch.propTypes = propTypes;

@@ -11,7 +11,7 @@ import _ from 'lodash';
 import AgencyList from 'components/search/filters/agency/AgencyList';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as agencyActions from 'redux/actions/search/agencyActions';
+import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 
 const propTypes = {
     setAutocompleteAwardingAgencies: React.PropTypes.func,
@@ -27,8 +27,6 @@ class AgencyListContainer extends React.Component {
         super(props);
 
         this.handleTextInput = this.handleTextInput.bind(this);
-        this.checkValidity = this.checkValidity.bind(this);
-        this.timeout = null;
     }
 
     dataFormatter(item) {
@@ -107,41 +105,6 @@ class AgencyListContainer extends React.Component {
         }, 300);
     }
 
-    checkValidity(input) {
-        // Ensure user has typed 2 or more characters
-        if (input.length === 1) {
-            this.createTimeout(true,
-                'You must enter at least 2 characters in the search box.',
-                'Agency Error',
-                500
-            );
-        }
-        // Clear error when input is cleared or longer than 2 characters
-        else {
-            this.cancelTimeout();
-        }
-    }
-
-    createTimeout(showWarning, errorMessage, errorHeader, delay) {
-        this.cancelTimeout();
-
-        this.timeout = window.setTimeout(() => {
-            this.setState({ showWarning, errorMessage, errorHeader });
-        }, delay);
-    }
-
-    cancelTimeout() {
-        window.clearTimeout(this.timeout);
-        this.timeout = null;
-
-        this.setState({
-            showWarning: false,
-            errorMessage: null,
-            errorHeader: null
-        });
-    }
-
-
     render() {
         return (
             <AgencyList
@@ -152,8 +115,7 @@ class AgencyListContainer extends React.Component {
                 placeHolder={this.props.agencyType}
                 selectedFundingAgencies={this.props.selectedFundingAgencies}
                 selectedAwardingAgencies={this.props.selectedAwardingAgencies}
-                agencyType={this.props.agencyType}
-                checkValidity={this.checkValidity} />
+                agencyType={this.props.agencyType} />
         );
     }
 
@@ -162,7 +124,7 @@ class AgencyListContainer extends React.Component {
 export default connect(
     (state) => ({ autocompleteAwardingAgencies: state.autocompleteAwardingAgencies,
         autocompleteFundingAgencies: state.autocompleteFundingAgencies }),
-    (dispatch) => bindActionCreators(agencyActions, dispatch)
+    (dispatch) => bindActionCreators(autocompleteActions, dispatch)
 )(AgencyListContainer);
 
 AgencyListContainer.propTypes = propTypes;

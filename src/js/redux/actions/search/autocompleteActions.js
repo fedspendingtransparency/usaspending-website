@@ -8,4 +8,14 @@ export const setAutocompleteLocations = (state) => ({
     type: 'SET_AUTOCOMPLETE_LOCATIONS',
     locations: state
 });
+
+export const setAutocompleteAwardingAgencies = (state) => ({
+    type: 'SET_AUTOCOMPLETE_AWARDING_AGENCIES',
+    awardingAgencies: state
+});
+
+export const setAutocompleteFundingAgencies = (state) => ({
+    type: 'SET_AUTOCOMPLETE_FUNDING_AGENCIES',
+    fundingAgencies: state
+});
 /* eslint-enable import/prefer-default-export */

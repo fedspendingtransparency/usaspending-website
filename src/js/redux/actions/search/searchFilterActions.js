@@ -46,3 +46,18 @@ export const updateSelectedAwardingAgencies = (state) => ({
     type: 'UPDATE_SELECTED_AWARDING_AGENCIES',
     awardingAgency: state.awardingAgency
 });
+
+export const updateDomesticForeignSelection = (state) => ({
+    type: 'UPDATE_DOMESTIC_FOREIGN',
+    selection: state
+});
+
+export const setSearchOrder = (state) => ({
+    type: 'SET_SEARCH_ORDER',
+    field: state.field,
+    direction: state.direction
+});
+
+export const resetSearchOrder = () => ({
+    type: 'RESET_SEARCH_ORDER'
+});

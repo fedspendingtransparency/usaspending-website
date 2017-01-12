@@ -6,6 +6,7 @@
 import moment from 'moment';
 
 import { awardTypeCodes } from 'dataMapping/search/awardType';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import GenericRecord from '../GenericRecord';
 
@@ -47,10 +48,21 @@ const remapData = (data) => {
     // convert the award type code to a user-readable string
     remappedData.type = awardTypeCodes[data.type];
 
+    const moneyCells = ['total_obligation'];
+    moneyCells.forEach((cell) => {
+        remappedData[cell] = MoneyFormatter.formatMoney(data[cell]);
+    });
+
     // finally parse the moment object
     const dates = ['period_of_performance_start_date', 'period_of_performance_current_end_date'];
     dates.forEach((date) => {
-        remappedData[date] = moment(data[date], 'YYYY-MM-DD').format('M/D/YYYY');
+        if (data[date]) {
+            remappedData[date] = moment(data[date], 'YYYY-MM-DD').format('M/D/YYYY');
+        }
+        else {
+            // handle null dates
+            remappedData[date] = '';
+        }
     });
 
     return remappedData;
