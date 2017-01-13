@@ -16,20 +16,24 @@ ul.toggle-buttons {
             color: $color-gray;
             font-size: $smallest-font-size;
             font-weight:normal;
-            height: 31px;
+            height: 35px;
             margin-bottom: 0;
             padding: 0;
-            width: 75px;
             z-index: 9000;
         }
 
+
         button.inactive {
-            background-color: $color-gray;
-            border-left: 1px solid $color-gray;
-            border-right: 1px solid $color-gray;
-            border-top: 1px solid $color-gray;
-            border-bottom: 1px solid $color-gray-lighter;
+            background-color: $color-tab-inactive;
+            border-left: 1px solid $color-tab-inactive;
+            border-right: 1px solid $color-tab-inactive;
+            border-top: 1px solid $color-tab-inactive;
+            border-bottom: 1px solid $color-tab-inactive;
             color: $color-white;
+
+            &:hover{
+                background-color: darken($color-tab-inactive, 10%);
+            }
         }
 
         @include media($large-screen){

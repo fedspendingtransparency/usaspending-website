@@ -8,28 +8,32 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import LocationList from 'components/search/filters/location/LocationList';
-
 import * as SearchHelper from 'helpers/searchHelper';
 import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 
+import LocationList from 'components/search/filters/location/LocationList';
+
 const propTypes = {
-    setAutocompleteLocations: React.PropTypes.func,
     selectLocation: React.PropTypes.func,
+    setAutocompleteLocations: React.PropTypes.func,
     selectedLocations: React.PropTypes.object,
-    locationOption: React.PropTypes.string
+    locationDomesticForeign: React.PropTypes.string
 };
 
 class LocationListContainer extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            locationSearchString: ''
+        };
+
         this.handleTextInput = this.handleTextInput.bind(this);
         this.timeout = null;
     }
 
     dataFormatter(item) {
-        let itemLabel = `<strong>${item.place}</strong><br>${_.upperCase(item.place_type)}`;
+        let itemLabel = `<b>${item.place}</b><br>${_.upperCase(item.place_type)}`;
         if (item.parent !== null) {
             itemLabel += ` in ${item.parent}`;
         }
@@ -41,16 +45,20 @@ class LocationListContainer extends React.Component {
     }
 
     queryAutocompleteLocations(input) {
-        // Only search if search is 2 or more characters
-        if (input.length >= 2 || input.length === 0) {
+        // Only search if input is 2 or more characters
+        if (input.length >= 2) {
+            this.setState({
+                locationSearchString: input
+            });
+
             if (this.locationSearchRequest) {
                 // A request is currently in-flight, cancel it
                 this.locationSearchRequest.cancel();
             }
 
             const locSearchParams = {
-                value: input,
-                scope: this.props.locationOption
+                value: this.state.locationSearchString,
+                scope: this.props.locationDomesticForeign
             };
 
             this.locationSearchRequest = SearchHelper.fetchLocations(locSearchParams);
@@ -96,7 +104,10 @@ class LocationListContainer extends React.Component {
                 formatter={this.dataFormatter}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectLocation}
-                placeHolder="State, City, County, Zip or District" />
+                placeHolder="State, City, County, ZIP, or District"
+                ref={(input) => {
+                    this.locationList = input;
+                }} />
         );
     }
 

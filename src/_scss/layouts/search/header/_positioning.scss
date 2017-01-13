@@ -1,6 +1,4 @@
 @mixin searchHeaderPositioning {
-
-
     .search-header {
         @include outer-container();
         max-width: 100%;
@@ -9,18 +7,19 @@
         @include media($large-screen) {
             margin: 0px $outer-gutter;
         }
+        @include media($x-large-screen) {
+            max-width: $site-max-width;
+            margin: 0 auto;
+        }
     }
-
     .search-title {
         @include media($nav-width) {
             @include span-columns(8);
         }
     }
-
     .search-options {
         @include media($nav-width) {
             @include span-columns(8);
         }
     }
-
 }

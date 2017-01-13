@@ -117,6 +117,16 @@ export default class TableBody extends React.Component {
         this.headerRow.updateScrollPosition(0, y);
     }
 
+    resetScroll() {
+        this.setState({
+            x: 0,
+            y: 0
+        }, () => {
+            this.containerDiv.scrollTop = 0;
+            this.containerDiv.scrollLeft = 0;
+        });
+    }
+
     isColumnVisible(columnLeft, columnRight, visibleLeft, visibleRight) {
         // check if the left side is inside the bounds
         if (columnLeft >= visibleLeft && columnLeft <= visibleRight) {
@@ -241,7 +251,10 @@ export default class TableBody extends React.Component {
             <div
                 className="ibt-table-body-container"
                 style={style}
-                onScroll={this.handleScroll}>
+                onScroll={this.handleScroll}
+                ref={(div) => {
+                    this.containerDiv = div;
+                }}>
                 <div className="ibt-table-body" style={internalStyle}>
                     {this.state.visibleRows}
                 </div>

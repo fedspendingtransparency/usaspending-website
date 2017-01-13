@@ -9,9 +9,9 @@
     svg {
         cursor: pointer;
         fill: $color-gray;
-        height: 1.2rem;
+        height: 1.4rem;
         vertical-align: middle;
-        width: 1.2rem;
+        width: 1.4rem;
         &.usa-da-icon-info {
             height: 2.0rem;
             width: 2.2rem;
@@ -37,7 +37,7 @@
         &:hover {
             @include transition(all 0.1s ease-in-out);
             background: $color-primary-alt-lightest;
-            fill: $color-gray-dark;
+            fill: darken($color-gray-light, 40%);
             margin-right: 0;
             padding-right: 1.5rem;
             width: 3.7rem;
