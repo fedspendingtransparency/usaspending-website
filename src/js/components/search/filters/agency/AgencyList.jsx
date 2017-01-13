@@ -94,19 +94,27 @@ export default class AgencyList extends Typeahead {
         // Force the change up into the parent components
         // Validate the current value is on the autocomplete list
         let selectedAgency = null;
-        const isValid = this.isValidSelection(this.state.value);
+        let isValid = false;
+        const key = this.dataDictionary[`<b>${this.state.value}</b>`];
+        if (key !== null) {
+            isValid = true;
+        }
         if (isValid) {
-            // Find matching agency object from redux store based on Matched IDs key
+            // Find matching agency object from redux store
             if (this.props.agencyType === "Awarding") {
                 for (let i = 0; i < this.props.autocompleteAwardingAgencies.length; i++) {
-                    selectedAgency = this.props.autocompleteAwardingAgencies[i];
-                    break;
+                    if (_.isEqual(this.props.autocompleteAwardingAgencies[i], key)) {
+                        selectedAgency = this.props.autocompleteAwardingAgencies[i];
+                        break;
+                    }
                 }
             }
             else {
                 for (let i = 0; i < this.props.autocompleteFundingAgencies.length; i++) {
-                    selectedAgency = this.props.autocompleteFundingAgencies[i];
-                    break;
+                    if (_.isEqual(this.props.autocompleteFundingAgencies[i], key)) {
+                        selectedAgency = this.props.autocompleteFundingAgencies[i];
+                        break;
+                    }
                 }
             }
         }
@@ -197,7 +205,8 @@ export default class AgencyList extends Typeahead {
                         type="text"
                         className={`${this.props.agencyType}-agency-input awesomplete`}
                         placeholder={`${this.props.agencyType} Agency`}
-                        onChange={this.onChange.bind(this)} />
+                        onChange={this.onChange.bind(this)}
+                        data-autofirst="false" />
                 </div>
                 {warning}
                 {selectedAgencies}

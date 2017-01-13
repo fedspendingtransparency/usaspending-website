@@ -30,7 +30,7 @@ class AgencyListContainer extends React.Component {
     }
 
     dataFormatter(item) {
-        const itemLabel = `<b>${item}</b>`;
+        const itemLabel = `${item}`;
 
         return {
             label: itemLabel,
@@ -49,10 +49,10 @@ class AgencyListContainer extends React.Component {
             let fieldType = [];
 
             if (this.props.agencyType === "Awarding") {
-                fieldType = ["awarding_agency__name"];
+                fieldType = ["awarding_agency__subtier_agency__name"];
             }
             else {
-                fieldType = ["funding_agency__name"];
+                fieldType = ["funding_agency__subtier_agency__name"];
             }
 
             const agencySearchParams = {
@@ -70,22 +70,26 @@ class AgencyListContainer extends React.Component {
                     // Filter out any selectedAgencies that may be in the result set
                     if (this.props.agencyType === "Awarding") {
                         if (this.props.selectedAwardingAgencies.size > 0) {
-                            autocompleteData = _.differenceWith(data.awarding_agency__name,
+                            autocompleteData =
+                            _.differenceWith(data.awarding_agency__subtier_agency__name,
                                 this.props.selectedAwardingAgencies.toArray(), _.isEqual);
                             this.props.setAutocompleteAwardingAgencies(autocompleteData);
                         }
                         else {
-                            this.props.setAutocompleteAwardingAgencies(data.awarding_agency__name);
+                            this.props.setAutocompleteAwardingAgencies(
+                                data.awarding_agency__subtier_agency__name);
                         }
                     }
                     else if (this.props.agencyType === "Funding") {
                         if (this.props.selectedFundingAgencies.size > 0) {
-                            autocompleteData = _.differenceWith(data.funding_agency__name,
+                            autocompleteData =
+                            _.differenceWith(data.funding_agency__subtier_agency__name,
                                 this.props.selectedFundingAgencies.toArray(), _.isEqual);
                             this.props.setAutocompleteFundingAgencies(autocompleteData);
                         }
                         else {
-                            this.props.setAutocompleteFundingAgencies(data.funding_agency__name);
+                            this.props.setAutocompleteFundingAgencies(
+                                data.funding_agency__subtier_agency__name);
                         }
                     }
                 });
