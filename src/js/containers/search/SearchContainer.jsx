@@ -204,7 +204,8 @@ class SearchContainer extends React.PureComponent {
 
         data.forEach((awardData) => {
             // convert the data record to a model object
-            const award = new AwardSummary(awardData);
+            const idField = TableSearchFields[this.props.meta.tableType]._mapping.id;
+            const award = new AwardSummary(awardData, idField);
             awards.push(award);
         });
 
