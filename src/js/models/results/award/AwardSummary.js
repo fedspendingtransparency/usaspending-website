@@ -27,7 +27,7 @@ const remapData = (data) => {
     let agencyName = '';
     let recipientName = '';
     if (data.awarding_agency) {
-        agencyName = data.awarding_agency.name;
+        agencyName = data.awarding_agency.toptier_agency.name;
     }
     if (data.recipient) {
         recipientName = data.recipient.recipient_name;
