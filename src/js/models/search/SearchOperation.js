@@ -32,26 +32,32 @@ class SearchOperation {
         this.locationDomesticForeign = state.locationDomesticForeign;
     }
 
-    toParams() {
+    toParams(fieldPrefix = '') {
         // converts the search operation into a JS object that can be POSTed to the endpoint
         const filters = [];
 
         // add award types
         if (this.awardType.length > 0) {
-            filters.push(AwardTypeQuery.buildQuery(this.awardType));
+            filters.push(AwardTypeQuery.buildQuery(this.awardType, fieldPrefix));
         }
 
         if (this.resultAwardType.length > 0) {
             // an award type subfilter is being applied to the search results (usually from
             // a results table tab)
             // treat this as an AND query for another set of award filters
+            // for aggregation queries, we won't apply the prefix to this field because this
+            // is specific to the results table
             filters.push(AwardTypeQuery.buildQuery(this.resultAwardType));
         }
 
         // add time period queries
         if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
-            const timeQuery = TimePeriodQuery.buildQuery(this.timePeriodType,
-                this.timePeriodFY, this.timePeriodRange);
+            const timeQuery = TimePeriodQuery.buildQuery({
+                type: this.timePeriodType,
+                fyRange: this.timePeriodFY,
+                dateRange: this.timePeriodRange,
+                prefix: fieldPrefix
+            });
             if (timeQuery) {
                 filters.push(timeQuery);
             }
@@ -59,11 +65,12 @@ class SearchOperation {
 
         // add location queries
         if (this.selectedLocations.length > 0) {
-            filters.push(LocationQuery.buildLocationQuery(this.selectedLocations));
+            filters.push(LocationQuery.buildLocationQuery(this.selectedLocations, fieldPrefix));
         }
 
         if (this.locationDomesticForeign !== '' && this.locationDomesticForeign !== 'all') {
-            filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign));
+            filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign,
+                fieldPrefix));
         }
 
         return filters;

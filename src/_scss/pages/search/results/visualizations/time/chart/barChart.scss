@@ -1,4 +1,14 @@
 svg.bar-graph {
     @import "./_axis";
     @import "./_bar";
+
+    .chart-legend {
+        .key-color {
+            fill: #708893;
+        }
+        .key-label {
+            font-size: 12px;
+            color: #666666;
+        }
+    }
 }

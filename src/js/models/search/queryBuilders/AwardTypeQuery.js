@@ -15,15 +15,15 @@ const buildFieldQuery = (field, values) => ({
     value: values
 });
 
-const buildCompoundQuery = (contracts, other) => ({
+const buildCompoundQuery = (contracts, other, prefix = '') => ({
     combine_method: 'OR',
     filters: [
-        buildFieldQuery(contractFieldName, contracts),
-        buildFieldQuery(otherFieldName, other)
+        buildFieldQuery(`${prefix}${contractFieldName}`, contracts),
+        buildFieldQuery(`${prefix}${otherFieldName}`, other)
     ]
 });
 
-export const buildQuery = (awardType) => {
+export const buildQuery = (awardType, prefix = '') => {
     let awardQuery = {};
 
     // break the filters into two categories, contract and other
@@ -42,13 +42,13 @@ export const buildQuery = (awardType) => {
     });
 
     if (contractFilters.length > 0 && otherFilters.length > 0) {
-        awardQuery = buildCompoundQuery(contractFilters, otherFilters);
+        awardQuery = buildCompoundQuery(contractFilters, otherFilters, prefix);
     }
     else if (contractFilters.length > 0) {
-        awardQuery = buildFieldQuery(contractFieldName, contractFilters);
+        awardQuery = buildFieldQuery(`${prefix}${contractFieldName}`, contractFilters);
     }
     else {
-        awardQuery = buildFieldQuery(otherFieldName, otherFilters);
+        awardQuery = buildFieldQuery(`${prefix}${otherFieldName}`, otherFilters);
     }
 
     return awardQuery;

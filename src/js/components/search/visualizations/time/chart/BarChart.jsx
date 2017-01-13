@@ -10,6 +10,7 @@ import _ from 'lodash';
 import BarItem from './BarItem';
 import BarXAxis from './BarXAxis';
 import BarYAxis from './BarYAxis';
+import BarChartLegend from './BarChartLegend';
 
 /* eslint-disable react/no-unused-prop-types */
 // we're catching the props before they're fully set, so eslint thinks these props are unused
@@ -27,7 +28,7 @@ const propTypes = {
 const defaultProps = {
     padding: {
         left: 70,
-        bottom: 20
+        bottom: 50
     }
 };
 
@@ -59,12 +60,15 @@ export default class BarChart extends React.Component {
         this.deregisterBar = this.deregisterBar.bind(this);
     }
 
+    componentDidMount() {
+        this.generateChart(this.props);
+    }
+
     componentWillReceiveProps(nextProps) {
         if (!_.isEqual(nextProps, this.props)) {
             this.generateChart(nextProps);
         }
     }
-
 
     shouldComponentUpdate(nextProps, nextState) {
         if (!_.isEqual(nextProps, this.props) || !_.isEqual(nextState, this.state)) {
@@ -324,6 +328,12 @@ export default class BarChart extends React.Component {
                             className="bar-data"
                             transform={`translate(${this.props.padding.left},0)`}>
                             {this.state.items}
+                        </g>
+
+                        <g
+                            className="legend-container"
+                            transform={`translate(${this.props.padding.left},${this.props.height - 20})`}>
+                            <BarChartLegend />
                         </g>
                     </g>
                 </svg>

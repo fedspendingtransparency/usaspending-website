@@ -5,7 +5,10 @@
 
 import _ from 'lodash';
 
-export const buildLocationQuery = (values) => {
+const locationIdField = 'recipient__location__location_id';
+const countryCodeField = 'recipient__location__location_country_code';
+
+export const buildLocationQuery = (values, prefix = '') => {
     let valueSet = [];
 
     // Concatenate Matched IDs of selected locations
@@ -15,7 +18,7 @@ export const buildLocationQuery = (values) => {
     });
 
     const filter = {
-        field: "recipient__location__location_id",
+        field: `${prefix}${locationIdField}`,
         operation: "in",
         value: valueSet
     };
@@ -23,14 +26,14 @@ export const buildLocationQuery = (values) => {
     return filter;
 };
 
-export const buildDomesticForeignQuery = (selection) => {
+export const buildDomesticForeignQuery = (selection, prefix = '') => {
     let op = 'equals';
     if (selection === 'foreign') {
         op = 'not_equals';
     }
 
     const filter = {
-        field: 'recipient__location__location_country_code',
+        field: `${prefix}${countryCodeField}`,
         operation: op,
         value: 'USA'
     };

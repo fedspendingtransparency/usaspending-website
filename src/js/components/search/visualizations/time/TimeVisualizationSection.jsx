@@ -9,6 +9,10 @@ import _ from 'lodash';
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 
+const propTypes = {
+    data: React.PropTypes.object
+};
+
 export default class TimeVisualizationSection extends React.Component {
     constructor(props) {
         super(props);
@@ -96,8 +100,12 @@ export default class TimeVisualizationSection extends React.Component {
                         </div>
                     </div>
                 </div>
-                <TimeVisualization width={this.state.visualizationWidth} />
+                <TimeVisualization
+                    {...this.props.data}
+                    width={this.state.visualizationWidth} />
             </div>
         );
     }
 }
+
+TimeVisualizationSection.propTypes = propTypes;
