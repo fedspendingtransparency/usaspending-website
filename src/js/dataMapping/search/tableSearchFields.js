@@ -45,7 +45,7 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency'
+            awarding_agency_name: 'awarding_agency__toptier_agency__name'
         },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
@@ -83,7 +83,7 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency'
+            awarding_agency_name: 'awarding_agency__toptier_agency__name'
         },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
@@ -121,7 +121,7 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency'
+            awarding_agency_name: 'awarding_agency__toptier_agency__name'
         },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
@@ -158,7 +158,7 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency'
+            awarding_agency_name: 'awarding_agency__toptier_agency__name'
         },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
@@ -195,7 +195,7 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency'
+            awarding_agency_name: 'awarding_agency__toptier_agency__name'
         },
         id: 'Award ID',
         recipient_name: 'Recipient Name',

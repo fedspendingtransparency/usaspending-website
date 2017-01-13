@@ -21,13 +21,13 @@ const fields = [
     'awarding_agency_name'
 ];
 
-const remapData = (data) => {
+const remapData = (data, idField) => {
     // remap expected child fields to top-level fields
     const remappedData = data;
     let agencyName = '';
     let recipientName = '';
     if (data.awarding_agency) {
-        agencyName = data.awarding_agency.name;
+        agencyName = data.awarding_agency.toptier_agency.name;
     }
     if (data.recipient) {
         recipientName = data.recipient.recipient_name;
@@ -37,11 +37,20 @@ const remapData = (data) => {
 
     // set the ID to the relevant field
     let id = data.fain;
-    if (!data.fain && data.piid) {
-        id = data.piid;
+    if (!idField) {
+        // unspecified ID field, use whatever value is available
+        if (!data.fain && data.piid) {
+            id = data.piid;
+        }
+        else if (data.uri) {
+            id = data.uri;
+        }
     }
-    else if (data.uri) {
-        id = data.uri;
+    else {
+        id = data[idField];
+        if (!id) {
+            id = '';
+        }
     }
     remappedData.id = id;
 
@@ -69,8 +78,8 @@ const remapData = (data) => {
 };
 
 class AwardSummary extends GenericRecord {
-    constructor(data) {
-        const remappedData = remapData(data);
+    constructor(data, idField = null) {
+        const remappedData = remapData(data, idField);
         // create the object
         super(recordType, fields, remappedData);
     }
