@@ -1,14 +1,54 @@
 @mixin genericHeader() {
-    border-right: 1px solid $color-gray;
-    border-bottom: 1px solid $color-gray;
+    border-right: 1px solid #ADAFB4;
 
     .cell-content {
-        background-color: $color-gray-lighter;
-        font-weight: $font-semibold;
+        background-color: #E4E2E0;
+        white-space: normal;
+        font-weight: 600;
         font-size: 14px;
+        line-height: 28px;
         color: $color-base;
 
-        padding: 16px;
-        white-space: normal;
+        cursor: pointer;
+
+        .header-sort {
+            display: table;
+            
+            padding: 11px 16px;
+
+            .header-label {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .header-icons {
+                display: table-cell;
+                vertical-align: middle;
+                padding-left: 10px;
+                height: 28px;
+
+                .sort-icon {
+                    @include button-unstyled;
+                    display: block;
+                    line-height: 10px;
+                    width: 14px;
+                    height: 14px;
+
+                    text-align: center;
+
+                    svg {
+                        fill: #C7C4C2;
+                        height: 7px;
+                        width: 7px;
+                    }
+
+                    &.active {
+                        svg {
+                            fill: $color-base;
+                        }
+                    }
+                }
+            }
+        }
     } 
 }

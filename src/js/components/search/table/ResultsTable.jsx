@@ -8,7 +8,8 @@ import Immutable from 'immutable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
-import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
+import ResultsTableHeaderCellContainer from
+    'containers/search/table/ResultsTableHeaderCellContainer';
 import ResultsTableGenericCell from './cells/ResultsTableGenericCell';
 
 const propTypes = {
@@ -20,7 +21,9 @@ const propTypes = {
 };
 
 const rowHeight = 40;
-const tableHeight = 13 * rowHeight;
+// setting the table height to a partial row prevents double bottom borders and also clearly
+// indicates when there's more data
+const tableHeight = 12.5 * rowHeight;
 
 export default class ResultsTable extends React.PureComponent {
     constructor(props) {
@@ -98,9 +101,10 @@ export default class ResultsTable extends React.PureComponent {
                 columnId: `${column.columnName}`,
                 rowClassName: this.rowClassName,
                 header: (
-                    <ResultsTableHeaderCell
+                    <ResultsTableHeaderCellContainer
                         label={column.displayName}
-                        column={column.columnName} />
+                        column={column.columnName}
+                        defaultDirection={column.defaultDirection} />
                 ),
                 cell: (index) => (
                     <ResultsTableGenericCell
@@ -122,10 +126,17 @@ export default class ResultsTable extends React.PureComponent {
     render() {
         const calculatedValues = this.prepareTable();
 
+        let noResultsClass = '';
+        if (this.props.results.length === 0) {
+            // remove duplicated bottom border
+            noResultsClass = ' no-results';
+        }
+
         return (
-            <div className="award-results-table">
+            <div className={`award-results-table${noResultsClass}`}>
                 <IBTable
-                    dataHash={`${this.state.dataHash}-${this.props.batch.batchId}`}
+                    dataHash={`${this.state.dataHash}-${this.props.batch.queryId}`}
+                    resetHash={this.props.batch.searchId}
                     rowHeight={rowHeight}
                     rowCount={this.props.results.length}
                     headerHeight={50}

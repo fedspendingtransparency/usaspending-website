@@ -1,9 +1,10 @@
 .error-message {
     @include usa-input-error-message;
-    @include span-columns(14);
+    @include span-columns(15);
     padding: 15px;
     border: 1px solid $color-secondary-dark;
     margin-bottom: 1rem;
+    margin-left: 1rem;
     margin-top: 1rem;
 
     .error-title {
@@ -21,7 +22,7 @@
         }
 
         svg {
-            width: 30px;
+            width: 2.0rem;
             fill: $color-secondary-dark;
         }
 
