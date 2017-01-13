@@ -24,9 +24,6 @@ import emoji from 'node-emoji';
 // linting
 import eslint from 'gulp-eslint';
 
-// testing
-import jest from 'gulp-jest';
-
 // for debugging webpack
 //import StatsPlugin from 'stats-webpack-plugin';
 
@@ -490,9 +487,3 @@ gulp.task('production', ['setProd', 'modifyHtml'], () => {
 gulp.task('default', ['local']);
 
 
-
-// run tests
-gulp.task('test', () => {
-    return gulp.src('tests')
-        .pipe(jest());
-});
