@@ -14,8 +14,7 @@ const defaultProps = {
 };
 
 const propTypes = {
-    selectAgency: React.PropTypes.func,
-    removeAgency: React.PropTypes.func,
+    updateAgency: React.PropTypes.func,
     selectedAwardingAgencies: React.PropTypes.object,
     selectedFundingAgencies: React.PropTypes.object,
     agencyTypes: React.PropTypes.array
@@ -30,8 +29,7 @@ export default class Agency extends React.Component {
                 agencyType={type}
                 selectedFundingAgencies={this.props.selectedFundingAgencies}
                 selectedAwardingAgencies={this.props.selectedAwardingAgencies}
-                selectAgency={this.props.selectAgency}
-                removeAgency={this.props.removeAgency} />));
+                updateAgency={this.props.updateAgency} />));
 
         return (
             <div className="agency-filter search-filter">

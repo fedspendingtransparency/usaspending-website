@@ -16,7 +16,7 @@ import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 const propTypes = {
     setAutocompleteAwardingAgencies: React.PropTypes.func,
     setAutocompleteFundingAgencies: React.PropTypes.func,
-    selectAgency: React.PropTypes.func,
+    updateAgency: React.PropTypes.func,
     selectedAwardingAgencies: React.PropTypes.object,
     selectedFundingAgencies: React.PropTypes.object,
     agencyType: React.PropTypes.string
@@ -47,13 +47,9 @@ class AgencyListContainer extends React.Component {
             }
 
             let fieldType = [];
-
-            if (this.props.agencyType === "Awarding") {
-                fieldType = ["awarding_agency__subtier_agency__name"];
-            }
-            else {
-                fieldType = ["funding_agency__subtier_agency__name"];
-            }
+            const fieldValue = `${_.toLower(this.props.agencyType)}_agency__subtier_agency__name`;
+            fieldType = [fieldValue];
+            console.log(fieldType);
 
             const agencySearchParams = {
                 fields: fieldType,
@@ -116,7 +112,7 @@ class AgencyListContainer extends React.Component {
                 {...this.props}
                 formatter={this.dataFormatter}
                 handleTextInput={this.handleTextInput}
-                onSelect={this.props.selectAgency}
+                onSelect={this.props.updateAgency}
                 placeHolder={this.props.agencyType}
                 selectedFundingAgencies={this.props.selectedFundingAgencies}
                 selectedAwardingAgencies={this.props.selectedAwardingAgencies}
