@@ -8,8 +8,7 @@ import _ from 'lodash';
 import ShownAgency from './ShownAgency';
 
 const propTypes = {
-    selectedFundingAgencies: React.PropTypes.object,
-    selectedAwardingAgencies: React.PropTypes.object,
+    selectedAgencies: React.PropTypes.object,
     removeAgency: React.PropTypes.func,
     agencyType: React.PropTypes.string
 };
@@ -33,13 +32,7 @@ export default class SelectedAgencies extends React.Component {
     render() {
         let selected = null;
         const type = this.props.agencyType;
-        if (type === "Awarding") {
-            selected = this.props.selectedAwardingAgencies;
-        }
-        else {
-            selected = this.props.selectedFundingAgencies;
-        }
-
+        selected = this.props.selectedAgencies;
         const shownAgencies = selected.map((agency, key) => (
             <ShownAgency
                 agencyType={type}

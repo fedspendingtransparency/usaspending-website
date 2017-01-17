@@ -6,6 +6,7 @@
 import * as AwardTypeQuery from './queryBuilders/AwardTypeQuery';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as LocationQuery from './queryBuilders/LocationQuery';
+import * as AgencyQuery from './queryBuilders/AgencyQuery';
 
 class SearchOperation {
     constructor() {
@@ -17,6 +18,9 @@ class SearchOperation {
         // special filter for filtering results to only display those that match certain award types
         // this is used by the search results table "award type" tabs
         this.resultAwardType = [];
+
+        this.awardingAgency = [];
+        this.fundingAgency = [];
     }
 
     fromState(state) {
@@ -30,6 +34,8 @@ class SearchOperation {
         }
         this.selectedLocations = state.selectedLocations.toArray();
         this.locationDomesticForeign = state.locationDomesticForeign;
+        this.awardingAgency = state.selectedAwardingAgencies;
+        this.fundingAgency = state.selectedFundingAgencies;
     }
 
     toParams() {
@@ -64,6 +70,15 @@ class SearchOperation {
 
         if (this.locationDomesticForeign !== '' && this.locationDomesticForeign !== 'all') {
             filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign));
+        }
+
+        // add agency queries
+        if (this.awardingAgency.length > 0) {
+            filters.push(AgencyQuery.buildAwardingAgencyQuery(this.awardingAgency));
+        }
+
+        if (this.fundingAgency.length > 0) {
+            filters.push(AgencyQuery.buildFundingAgencyQuery(this.fundingAgency));
         }
 
         return filters;

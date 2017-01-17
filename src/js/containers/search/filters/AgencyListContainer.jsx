@@ -65,31 +65,32 @@ class AgencyListContainer extends React.Component {
 
             this.agencySearchRequest.promise
                 .then((res) => {
-                    const data = res.data.results;
+                    const awardingResult = res.data.results.awarding_agency__subtier_agency__name;
+                    const fundingResult = res.data.results.funding_agency__subtier_agency__name;
                     let autocompleteData = [];
                     // Filter out any selectedAgencies that may be in the result set
                     if (this.props.agencyType === "Awarding") {
                         if (this.props.selectedAwardingAgencies.size > 0) {
                             autocompleteData =
-                            _.differenceWith(data.awarding_agency__subtier_agency__name,
+                            _.differenceWith(awardingResult,
                                 this.props.selectedAwardingAgencies.toArray(), _.isEqual);
                             this.props.setAutocompleteAwardingAgencies(autocompleteData);
                         }
                         else {
                             this.props.setAutocompleteAwardingAgencies(
-                                data.awarding_agency__subtier_agency__name);
+                                awardingResult);
                         }
                     }
                     else if (this.props.agencyType === "Funding") {
                         if (this.props.selectedFundingAgencies.size > 0) {
                             autocompleteData =
-                            _.differenceWith(data.funding_agency__subtier_agency__name,
+                            _.differenceWith(fundingResult,
                                 this.props.selectedFundingAgencies.toArray(), _.isEqual);
                             this.props.setAutocompleteFundingAgencies(autocompleteData);
                         }
                         else {
                             this.props.setAutocompleteFundingAgencies(
-                                data.funding_agency__subtier_agency__name);
+                                fundingResult);
                         }
                     }
                 });

@@ -50,31 +50,17 @@ export default class AgencyList extends Typeahead {
     }
 
     loadValues() {
-        const awardingValuesList = [];
-        const fundingValuesList = [];
-        if (this.props.autocompleteAwardingAgencies.length > 0) {
-            this.props.autocompleteAwardingAgencies.forEach((item) => {
-                awardingValuesList.push(item);
+        const valuesList = [];
+        const autocompleteSet = `autocomplete${this.props.agencyType}Agencies`;
+        if (this.props[autocompleteSet].length > 0) {
+            this.props[autocompleteSet].forEach((item) => {
+                valuesList.push(item);
                 const key =
                 `<b>${item}</b>`;
                 this.dataDictionary[key] = item;
             });
         }
-        if (this.props.autocompleteFundingAgencies.length > 0) {
-            this.props.autocompleteFundingAgencies.forEach((item) => {
-                fundingValuesList.push(item);
-                const key =
-                `<b>${item}</b>`;
-                this.dataDictionary[key] = item;
-            });
-        }
-
-        if (this.props.agencyType === "Awarding") {
-            this.typeahead.list = awardingValuesList;
-        }
-        else {
-            this.typeahead.list = fundingValuesList;
-        }
+        this.typeahead.list = valuesList;
 
         this.typeahead.replace = () => {
             this.typeahead.input.value = "";
@@ -82,10 +68,9 @@ export default class AgencyList extends Typeahead {
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.autocompleteAwardingAgencies,
-            this.props.autocompleteAwardingAgencies) ||
-            !_.isEqual(prevProps.autocompleteFundingAgencies,
-                this.props.autocompleteFundingAgencies)) {
+        const autocompleteSet = `autocomplete${this.props.agencyType}Agencies`;
+        if (!_.isEqual(prevProps[autocompleteSet],
+            this.props[autocompleteSet])) {
             this.loadValues();
         }
     }
@@ -94,6 +79,7 @@ export default class AgencyList extends Typeahead {
         // Force the change up into the parent components
         // Validate the current value is on the autocomplete list
         let selectedAgency = null;
+        const autocompleteSet = `autocomplete${this.props.agencyType}Agencies`;
         let isValid = false;
         const key = this.dataDictionary[`<b>${this.state.value}</b>`];
         if (key !== null) {
@@ -101,20 +87,10 @@ export default class AgencyList extends Typeahead {
         }
         if (isValid) {
             // Find matching agency object from redux store
-            if (this.props.agencyType === "Awarding") {
-                for (let i = 0; i < this.props.autocompleteAwardingAgencies.length; i++) {
-                    if (_.isEqual(this.props.autocompleteAwardingAgencies[i], key)) {
-                        selectedAgency = this.props.autocompleteAwardingAgencies[i];
-                        break;
-                    }
-                }
-            }
-            else {
-                for (let i = 0; i < this.props.autocompleteFundingAgencies.length; i++) {
-                    if (_.isEqual(this.props.autocompleteFundingAgencies[i], key)) {
-                        selectedAgency = this.props.autocompleteFundingAgencies[i];
-                        break;
-                    }
+            for (let i = 0; i < this.props[autocompleteSet].length; i++) {
+                if (_.isEqual(this.props[autocompleteSet][i], key)) {
+                    selectedAgency = this.props[autocompleteSet][i];
+                    break;
                 }
             }
         }
@@ -184,11 +160,10 @@ export default class AgencyList extends Typeahead {
         }
 
         let selectedAgencies = null;
-        if (this.props.selectedAwardingAgencies.size > 0 ||
-            this.props.selectedFundingAgencies.size > 0) {
+        const agencyTypeSet = `selected${this.props.agencyType}Agencies`;
+        if (this.props[agencyTypeSet].size > 0) {
             selectedAgencies = (<SelectedAgencies
-                selectedAwardingAgencies={this.props.selectedAwardingAgencies}
-                selectedFundingAgencies={this.props.selectedFundingAgencies}
+                selectedAgencies={this.props[agencyTypeSet]}
                 removeAgency={this.props.removeAgency}
                 agencyType={this.props.agencyType} />);
         }

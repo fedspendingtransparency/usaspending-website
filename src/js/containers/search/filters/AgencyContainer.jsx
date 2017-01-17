@@ -12,8 +12,7 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import Agency from 'components/search/filters/agency/Agency';
 
 const propTypes = {
-    updateSelectedFundingAgencies: React.PropTypes.func,
-    updateSelectedAwardingAgencies: React.PropTypes.func
+    updateSelectedAgencies: React.PropTypes.func
 };
 
 class AgencyContainer extends React.Component {
@@ -31,11 +30,11 @@ class AgencyContainer extends React.Component {
             const updateParams = {};
             if (agencyType === "Awarding") {
                 updateParams.awardingAgency = agency;
-                this.props.updateSelectedAwardingAgencies(updateParams);
+                this.props.updateSelectedAgencies(updateParams);
             }
             else if (agencyType === "Funding") {
                 updateParams.fundingAgency = agency;
-                this.props.updateSelectedFundingAgencies(updateParams);
+                this.props.updateSelectedAgencies(updateParams);
             }
         }
     }
@@ -44,11 +43,11 @@ class AgencyContainer extends React.Component {
         const updateParams = {};
         if (agencyType === "Awarding") {
             updateParams.awardingAgency = agency;
-            this.props.updateSelectedAwardingAgencies(updateParams);
+            this.props.updateSelectedAgencies(updateParams);
         }
         else if (agencyType === "Funding") {
             updateParams.fundingAgency = agency;
-            this.props.updateSelectedFundingAgencies(updateParams);
+            this.props.updateSelectedAgencies(updateParams);
         }
     }
 
