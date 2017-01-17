@@ -49,7 +49,6 @@ class AgencyListContainer extends React.Component {
             let fieldType = [];
             const fieldValue = `${_.toLower(this.props.agencyType)}_agency__subtier_agency__name`;
             fieldType = [fieldValue];
-            console.log(fieldType);
 
             const agencySearchParams = {
                 fields: fieldType,
