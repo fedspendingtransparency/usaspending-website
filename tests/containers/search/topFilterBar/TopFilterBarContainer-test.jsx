@@ -22,9 +22,8 @@ const defaultFilters = {
     locationDomesticForeign: 'all'
 };
 
-const setup = (props) => {
-    return mount(<TopFilterBarContainer {...props} />);
-};
+const setup = (props) =>
+    mount(<TopFilterBarContainer {...props} />);
 
 describe('TopFilterBarContainer', () => {
     it('should return a TopFilterBarEmpty child component when no filters are applied', () => {

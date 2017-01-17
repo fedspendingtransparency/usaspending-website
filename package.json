@@ -13,7 +13,9 @@
     "testPathDirs": [
       "./tests/"
     ],
-    "testRegex": ".*-(test)\\.jsx?$"
+    "testRegex": ".*-(test)\\.jsx?$",
+    "verbose": true,
+    "bail": false
   },
   "repository": {
     "type": "git",
@@ -45,6 +47,7 @@
     "enzyme": "^2.7.0",
     "eslint": "^3.10.2",
     "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-jasmine": "^2.2.0",
     "eslint-plugin-react": "^6.7.1",
     "eventemitter2": "^1.0.3",
     "express": "^4.13.3",
