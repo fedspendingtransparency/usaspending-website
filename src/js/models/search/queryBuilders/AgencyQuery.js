@@ -13,7 +13,7 @@ export const buildAwardingAgencyQuery = (values) => {
     });
 
     const filter = {
-        field: ["awarding_agency__subtier_agency__name"],
+        field: "awarding_agency__subtier_agency__name",
         operation: "in",
         value: valueSet
     };
@@ -29,7 +29,7 @@ export const buildFundingAgencyQuery = (values) => {
     });
 
     const filter = {
-        field: ["funding_agency__subtier_agency__name"],
+        field: "funding_agency__subtier_agency__name",
         operation: "in",
         value: valueSet
     };
