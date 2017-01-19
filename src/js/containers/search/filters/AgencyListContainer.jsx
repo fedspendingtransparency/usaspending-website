@@ -16,7 +16,7 @@ import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 const propTypes = {
     setAutocompleteAwardingAgencies: React.PropTypes.func,
     setAutocompleteFundingAgencies: React.PropTypes.func,
-    updateAgency: React.PropTypes.func,
+    selectAgency: React.PropTypes.func,
     selectedAwardingAgencies: React.PropTypes.object,
     selectedFundingAgencies: React.PropTypes.object,
     agencyType: React.PropTypes.string
@@ -111,7 +111,7 @@ class AgencyListContainer extends React.Component {
                 {...this.props}
                 formatter={this.dataFormatter}
                 handleTextInput={this.handleTextInput}
-                onSelect={this.props.updateAgency}
+                onSelect={this.props.selectAgency}
                 placeHolder={this.props.agencyType}
                 selectedFundingAgencies={this.props.selectedFundingAgencies}
                 selectedAwardingAgencies={this.props.selectedAwardingAgencies}

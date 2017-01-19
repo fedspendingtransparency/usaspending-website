@@ -24,6 +24,7 @@ class SearchOperation {
     }
 
     fromState(state) {
+        console.log(state);
         this.awardType = state.awardType.toArray();
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
@@ -34,8 +35,8 @@ class SearchOperation {
         }
         this.selectedLocations = state.selectedLocations.toArray();
         this.locationDomesticForeign = state.locationDomesticForeign;
-        this.awardingAgency = state.selectedAwardingAgencies;
-        this.fundingAgency = state.selectedFundingAgencies;
+        this.awardingAgency = state.selectedAwardingAgencies.toArray();
+        this.fundingAgency = state.selectedFundingAgencies.toArray();
     }
 
     toParams() {

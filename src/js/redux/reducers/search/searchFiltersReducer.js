@@ -52,12 +52,16 @@ const searchFiltersReducer = (state = initialState, action) => {
                     state.selectedLocations, action.location)
             });
         }
-        case 'UPDATE_SELECTED_AGENCIES': {
+        case 'UPDATE_SELECTED_AWARDING_AGENCIES': {
             return Object.assign({}, state, {
-                selectedFundingAgencies: AgencyFilterFunctions.updateSelectedAgencies(
-                    state.selectedFundingAgencies, action.fundingAgency),
                 selectedAwardingAgencies: AgencyFilterFunctions.updateSelectedAgencies(
                     state.selectedAwardingAgencies, action.awardingAgency)
+            });
+        }
+        case 'UPDATE_SELECTED_FUNDING_AGENCIES': {
+            return Object.assign({}, state, {
+                selectedFundingAgencies: AgencyFilterFunctions.updateSelectedAgencies(
+                    state.selectedFundingAgencies, action.fundingAgency)
             });
         }
         case 'UPDATE_DOMESTIC_FOREIGN': {

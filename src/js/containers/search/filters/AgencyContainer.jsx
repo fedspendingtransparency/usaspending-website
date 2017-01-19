@@ -12,50 +12,43 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import Agency from 'components/search/filters/agency/Agency';
 
-const propTypes = {
-    updateSelectedAgencies: React.PropTypes.func
-};
-
 class AgencyContainer extends React.Component {
     constructor(props) {
         super(props);
 
         // Bind functions
-        this.updateAgency = this.updateAgency.bind(this);
+        this.selectAgency = this.selectAgency.bind(this);
+        this.removeAgency = this.removeAgency.bind(this);
     }
 
-    updateAgency(agency, isValid, agencyType) {
+    selectAgency(agency, isValid, agencyType) {
         // If agency name exists and is valid
         if (agency !== null && isValid) {
             const updateParams = {};
+            const updateValue = `updateSelected${agencyType}Agencies`;
             const agencyValue = `${_.toLower(agencyType)}Agency`;
             updateParams[agencyValue] = agency;
-            this.props.updateSelectedAgencies(updateParams);
+            this.props[updateValue](updateParams);
         }
     }
 
     removeAgency(agency, agencyType) {
         const updateParams = {};
-        if (agencyType === "Awarding") {
-            updateParams.awardingAgency = agency;
-            this.props.updateSelectedAgencies(updateParams);
-        }
-        else if (agencyType === "Funding") {
-            updateParams.fundingAgency = agency;
-            this.props.updateSelectedAgencies(updateParams);
-        }
+        const agencyValue = `${_.toLower(agencyType)}Agency`;
+        const updateValue = `updateSelected${agencyType}Agencies`;
+        updateParams[agencyValue] = agency;
+        this.props[updateValue](updateParams);
     }
 
     render() {
         return (
             <Agency
                 {...this.props}
-                updateAgency={this.updateAgency} />
+                selectAgency={this.selectAgency}
+                removeAgency={this.removeAgency} />
         );
     }
 }
-
-AgencyContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ selectedFundingAgencies: state.filters.selectedFundingAgencies,

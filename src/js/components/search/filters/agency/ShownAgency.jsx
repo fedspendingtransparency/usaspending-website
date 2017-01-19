@@ -6,9 +6,8 @@
 import React from 'react';
 
 const propTypes = {
-    updateAgency: React.PropTypes.func,
-    label: React.PropTypes.string,
-    agencyType: React.PropTypes.string
+    removeAgency: React.PropTypes.func,
+    label: React.PropTypes.string
 };
 
 export default class ShownAgency extends React.Component {
@@ -18,8 +17,8 @@ export default class ShownAgency extends React.Component {
             <button
                 className="shown-agency-button"
                 value={this.props.label}
-                onClick={this.props.updateAgency}>
-                {this.props.label} | {this.props.agencyType} <span className="close">x</span>
+                onClick={this.props.removeAgency}>
+                {this.props.label} <span className="close">x</span>
             </button>
         );
     }
