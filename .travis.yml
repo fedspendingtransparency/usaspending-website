@@ -9,6 +9,8 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
+  code_climate:
+      repo_token: 46c452ebeacc1e58225184c9d3275142f7579b3212e301e42a9625a0987e556d
 env:
   - CXX=g++-4.8
 before_script:
@@ -17,5 +19,9 @@ before_script:
 script:
   - gulp buildDev
   - gulp lint
+  - npm test
+after_success:
+  - npm install -g codeclimate-test-reporter
+  - codeclimate-test-reporter < coverage/lcov.info
 notifications:
   email: false
