@@ -24,7 +24,6 @@ class SearchOperation {
     }
 
     fromState(state) {
-        console.log(state);
         this.awardType = state.awardType.toArray();
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
