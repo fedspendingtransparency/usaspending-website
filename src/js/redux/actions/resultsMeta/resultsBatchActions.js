@@ -3,9 +3,11 @@
   * Created by Kevin Li 11/29/16
   **/
 
-/* eslint-disable import/prefer-default-export */
-// we will only have one export but want to maintain consistency with other actions
-export const triggerBatchUpdate = () => ({
-    type: 'RESULTS_BATCH_UPDATE'
+export const triggerBatchQueryUpdate = () => ({
+    type: 'RESULTS_BATCH_QUERY_UPDATE'
 });
-/* eslint-enable import/prefer-default-export */
+
+export const triggerBatchSearchUpdate = () => ({
+    type: 'RESULTS_BATCH_SEARCH_UPDATE'
+});
+

@@ -46,8 +46,8 @@ export default class SearchPage extends React.Component {
 
     componentWillUnmount() {
         // stop observing scroll and resize events
-        window.removeScrollEventListener('scroll', this.handlePageScroll);
-        window.removeScrollEventListener('resize', this.handlePageScroll);
+        window.removeEventListener('scroll', this.handlePageScroll);
+        window.removeEventListener('resize', this.handlePageScroll);
     }
 
     handlePageScroll() {

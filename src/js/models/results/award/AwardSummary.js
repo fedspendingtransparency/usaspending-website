@@ -6,6 +6,7 @@
 import moment from 'moment';
 
 import { awardTypeCodes } from 'dataMapping/search/awardType';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import GenericRecord from '../GenericRecord';
 
@@ -20,13 +21,13 @@ const fields = [
     'awarding_agency_name'
 ];
 
-const remapData = (data) => {
+const remapData = (data, idField) => {
     // remap expected child fields to top-level fields
     const remappedData = data;
     let agencyName = '';
     let recipientName = '';
     if (data.awarding_agency) {
-        agencyName = data.awarding_agency.name;
+        agencyName = data.awarding_agency.toptier_agency.name;
     }
     if (data.recipient) {
         recipientName = data.recipient.recipient_name;
@@ -36,29 +37,49 @@ const remapData = (data) => {
 
     // set the ID to the relevant field
     let id = data.fain;
-    if (!data.fain && data.piid) {
-        id = data.piid;
+    if (!idField) {
+        // unspecified ID field, use whatever value is available
+        if (!data.fain && data.piid) {
+            id = data.piid;
+        }
+        else if (data.uri) {
+            id = data.uri;
+        }
     }
-    else if (data.uri) {
-        id = data.uri;
+    else {
+        id = data[idField];
+        if (!id) {
+            id = '';
+        }
     }
     remappedData.id = id;
 
     // convert the award type code to a user-readable string
     remappedData.type = awardTypeCodes[data.type];
 
+    const moneyCells = ['total_obligation'];
+    moneyCells.forEach((cell) => {
+        remappedData[cell] = MoneyFormatter.formatMoney(data[cell]);
+    });
+
     // finally parse the moment object
     const dates = ['period_of_performance_start_date', 'period_of_performance_current_end_date'];
     dates.forEach((date) => {
-        remappedData[date] = moment(data[date], 'YYYY-MM-DD').format('M/D/YYYY');
+        if (data[date]) {
+            remappedData[date] = moment(data[date], 'YYYY-MM-DD').format('M/D/YYYY');
+        }
+        else {
+            // handle null dates
+            remappedData[date] = '';
+        }
     });
 
     return remappedData;
 };
 
 class AwardSummary extends GenericRecord {
-    constructor(data) {
-        const remappedData = remapData(data);
+    constructor(data, idField = null) {
+        const remappedData = remapData(data, idField);
         // create the object
         super(recordType, fields, remappedData);
     }

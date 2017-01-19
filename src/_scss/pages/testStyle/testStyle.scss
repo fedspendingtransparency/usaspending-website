@@ -1,0 +1,42 @@
+.usa-da-test-page {
+    @import "../../layouts/search/search";
+    @include searchLayout;
+    @include span-columns(16);
+    .page-content {
+        @include outer-container();
+        margin: 0px $outer-gutter/2;
+        @include media($large-screen) {
+            margin: 0px $outer-gutter;
+        }
+        .icon-list {
+            @include unstyled-list();
+            @include span-columns(16);
+            li {
+                border: 1px solid #ccc;
+                margin: 0 200px 20px 0;
+                padding: 20px;
+                height: 115px;
+                @include media($small-screen) {
+                    @include span-columns(16);
+                }
+                @include media($tablet-screen) {
+                    @include span-columns(5);
+                }
+                @include media($medium-screen) {
+                    @include span-columns(3);
+                }
+            }
+            .icon-svg {
+                text-align: center;
+                svg {
+                    fill: $color-primary;
+                    height: 45px;
+                    width: 45px;
+                }
+            }
+            .icon-label {
+                text-align: center;
+            }
+        }
+    }
+}

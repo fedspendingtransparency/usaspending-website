@@ -1,6 +1,5 @@
 // Apply a natural box layout model to all elements, but allowing components to
 // change
-
 html {
     box-sizing: border-box;
 }
@@ -14,6 +13,8 @@ html {
 body {
     background-color: $color-gray-lightest;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 // Hack for clearfixes

@@ -2,33 +2,45 @@
     @include button-unstyled;
     display: inline-block;
     height: 6.5rem;
-    padding-left: .5rem;
+    padding-left: 1.5rem;
     vertical-align: middle;
     width: 100%;
-
+    position: relative;
     svg {
         cursor: pointer;
         fill: $color-gray;
-        height: 2rem;
+        height: 1.4rem;
         vertical-align: middle;
-        width: 2rem;
+        width: 1.4rem;
+        &.usa-da-icon-info {
+            height: 2.0rem;
+            width: 2.2rem;
+        }
     }
-
     .filter-header {
-        color: $color-base;
+        color: $color-gray;
         display: inline-block;
         font-size: $base-font-size;
         font-weight: normal;
         height: 100%;
         line-height: 6.5rem;
         margin: 0;
-        padding-left: .25rem;
+        padding-left: .6rem;
         vertical-align: middle;
     }
-
-    .usa-da-icon-info-circle {
+    .usa-da-icon-info {
+        border-left: 1px solid $color-gray-lighter;
+        fill: $color-gray-light;
         float: right;
         margin: 2.2rem 1.5rem 1.5rem 1.5rem;
-        fill: $color-gray-lighter;
+        padding-left: 1rem;
+        &:hover {
+            @include transition(all 0.1s ease-in-out);
+            background: $color-primary-alt-lightest;
+            fill: darken($color-gray-light, 40%);
+            margin-right: 0;
+            padding-right: 1.5rem;
+            width: 3.7rem;
+        }
     }
 }

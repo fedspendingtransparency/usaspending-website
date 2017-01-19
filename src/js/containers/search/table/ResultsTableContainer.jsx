@@ -15,7 +15,7 @@ import ResultsTableSection from 'components/search/table/ResultsTableSection';
 import SearchActions from 'redux/actions/searchActions';
 
 const propTypes = {
-    rows: React.PropTypes.instanceOf(Immutable.Set),
+    rows: React.PropTypes.instanceOf(Immutable.List),
     meta: React.PropTypes.object,
     batch: React.PropTypes.instanceOf(Immutable.Record),
     setSearchTableType: React.PropTypes.func,
@@ -78,7 +78,8 @@ class ResultsTableContainer extends React.Component {
             const column = {
                 columnName: col,
                 displayName: tableSettings[col],
-                width: TableSearchFields.columnWidths[col]
+                width: TableSearchFields.columnWidths[col],
+                defaultDirection: TableSearchFields.defaultSortDirection[col]
             };
             columns.push(column);
         });
