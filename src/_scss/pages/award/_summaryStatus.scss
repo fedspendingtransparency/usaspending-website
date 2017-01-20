@@ -1,0 +1,46 @@
+.summary-status {
+    display: table;
+    @include media($nav-width) {
+        @include span-columns(10);
+    }
+    ul.summary-status-items {
+        @include unstyled-list;
+        display: table-cell;
+        text-align: center;
+
+        li {
+            display: inline-block;
+            margin-left: 50px;
+            padding-left: 5rem;
+            border-left: 1px solid $color-gray-light;
+
+            &:first-child {
+                margin-left: 0;
+                border-left: 0;
+            }
+
+            &:last-child {
+                border-left: 0;
+            }
+
+            .format-item {
+                @include button-unstyled;
+                vertical-align: middle;
+
+                .item-label {
+                    color: $color-green-light;
+                    text-align: center;
+                }
+
+                svg {
+                    fill: $color-white;
+                    height: 3rem;
+                    width: auto;
+                    border: 1px solid $color-white;
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                }
+            }
+        }
+    }
+}

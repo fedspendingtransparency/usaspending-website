@@ -1,0 +1,23 @@
+.usa-da-award-page {
+    @import "../../layouts/default/default";
+    @include defaultLayout;
+
+    @import "./summaryBar";
+    @import "./content";
+
+    .wrapper {
+        @include outer-container(100%);
+        margin: 0px $outer-gutter/2;
+        @include media($large-screen) {
+            margin: 0px $outer-gutter;
+        }
+        @include media($x-large-screen) {
+            max-width: $site-max-width;
+            margin: 0 auto;
+        }
+    }
+
+    .award-info-bar {
+        @include span-columns(16);
+    }
+}

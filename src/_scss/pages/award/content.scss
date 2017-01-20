@@ -1,0 +1,11 @@
+.award-info-content {
+    @include span-columns(16);
+    margin: 1rem 0 0 0;
+    padding: 2rem;
+    background-color: $color-white;
+    box-shadow: $container-shadow;
+
+    @import './_agencyInfo';
+    @import './_recipientInfo';
+
+}

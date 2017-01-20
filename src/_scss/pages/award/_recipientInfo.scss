@@ -1,0 +1,40 @@
+.recipient-info {
+    @include span-columns(8.8);
+    padding: 1rem;
+
+    h4 {
+        margin-top: 0;
+        margin-left: 1rem;
+    }
+
+    .recipient-name {
+        font-size: $h6-font-size;
+        font-weight: $font-bold;
+        color: $color-primary-alt-darkest;
+        margin: 1rem 0 1rem 1rem;
+    }
+
+    ul.recipient-information {
+    @include unstyled-list;
+    display: table-cell;
+    text-align: center;
+
+        li {
+            @include span-columns(3.5);
+            display: inline-block;
+
+            &:last-child {
+                margin-left: 50px;
+            }
+
+            .title {
+                font-weight:bold;
+                font-size: $small-font-size;
+            }
+
+            .name {
+                font-size: $smallest-font-size;
+            }
+        }
+    }
+}
