@@ -32,7 +32,11 @@
         // closing brackets should be aligned with the final prop (props.. />)
         "react/jsx-closing-bracket-location": [2, "after-props"],
         // also set the tab width for the max line width with a max length of 100
-        "max-len": [1, 100, {"tabWidth": 4}],
+        // for tests, we'll allow run-on strings
+        "max-len": [1, 100, {
+            "tabWidth": 4,
+            "ignoreStrings": true
+        }],
         // do not allow dangling commas at the end of arrays, objects, etc.
         "comma-dangle": [2, "never"],
         // downgrade extra semicolons to warnings
