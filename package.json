@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "USASpending Website",
   "main": "index.js",
-  "scripts2": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "scripts": {
     "test": "jest"
   },
@@ -15,7 +12,9 @@
     ],
     "testRegex": ".*-(test)\\.jsx?$",
     "verbose": true,
-    "bail": false
+    "bail": false,
+    "collectCoverage": true,
+    "collectCoverageFrom": ["**/*.{js,jsx}", "!**/node_modules/**", "!**/public/**"]
   },
   "repository": {
     "type": "git",
