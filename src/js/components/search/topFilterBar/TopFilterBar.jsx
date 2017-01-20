@@ -17,7 +17,6 @@ import TopFilterGroup from './TopFilterGroup';
 const propTypes = {
     filters: React.PropTypes.array,
     clearAllFilters: React.PropTypes.func,
-    isSticky: React.PropTypes.bool,
     removeFilter: React.PropTypes.func
 };
 
@@ -35,18 +34,8 @@ export default class TopFilterBar extends React.Component {
         // grab a reference to the search header bar DOM element
         this.headerBar = document.querySelector('#search-header-wrapper');
 
-        if (this.props.isSticky) {
-            this.setInitialStickiness();
-        }
-
         // observe resize events to keep the filter bar's width in sync when stickied
         window.addEventListener('resize', this.handleWindowResize);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.isSticky !== this.props.isSticky) {
-            this.setSticky();
-        }
     }
 
     componentWillUnmount() {
@@ -54,53 +43,12 @@ export default class TopFilterBar extends React.Component {
         window.addEventListener('resize', this.handleWindowResize);
     }
 
-    setInitialStickiness() {
-        // handle an edge case where the filter bar is mounted while the user has already scrolled
-        // to a sticky position
-        this.filterDiv.style.width = `${this.placeholder.offsetWidth}px`;
-
-        // determine where the bottom of the search header bar is
-        if (this.headerBar) {
-            // position the top filter bar below the search header bar position
-            this.filterDiv.style.top = `${this.headerBar.offsetHeight}px`;
-        }
-    }
-
-    setSticky() {
-        if (this.props.isSticky) {
-            // make the bar sticky and set up the placeholder div
-            // determine what the original width of the filter div was based on the placeholder div
-            this.filterDiv.style.width = `${this.placeholder.offsetWidth}px`;
-            // resize the placeholder div
-            this.placeholder.style.visibility = 'visible';
-            this.placeholder.style.height = `${this.filterDiv.offsetHeight}px`;
-        }
-        else {
-            // unstick the bar
-            this.placeholder.style.visibility = 'hidden';
-            this.placeholder.style.height = '0px';
-            this.filterDiv.style.width = '100%';
-        }
-    }
-
     pressedClearAll() {
         this.props.clearAllFilters();
     }
 
-    handleWindowResize() {
-        if (this.props.isSticky) {
-            // if the top filter bar is already sticky and a window resize event occurs, it will
-            // be necessary to recalculate both the width and the Y position of the top filter bar
-            this.setInitialStickiness();
-        }
-    }
-
 
     render() {
-        let stickyClass = '';
-        if (this.props.isSticky) {
-            stickyClass = ' sticky';
-        }
 
         const filters = this.props.filters.map((filter) => (
             <TopFilterGroup
@@ -113,13 +61,7 @@ export default class TopFilterBar extends React.Component {
         return (
             <div>
                 <div
-                    className={`search-top-filter-bar-placeholder${stickyClass}`}
-                    id="search-top-filter-bar-placeholder"
-                    ref={(div) => {
-                        this.placeholder = div;
-                    }} />
-                <div
-                    className={`search-top-filter-bar${stickyClass}`}
+                    className="search-top-filter-bar"
                     ref={(div) => {
                         this.filterDiv = div;
                     }}>

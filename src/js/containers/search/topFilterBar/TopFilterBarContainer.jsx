@@ -11,7 +11,6 @@ import _ from 'lodash';
 import moment from 'moment';
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
-import TopFilterBarEmpty from 'components/search/topFilterBar/TopFilterBarEmpty';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -209,7 +208,7 @@ class TopFilterBarContainer extends React.Component {
     }
 
     render() {
-        let output = <TopFilterBarEmpty {...this.props} />;
+        let output = null;
         if (this.state.filters.length > 0) {
             output = (<TopFilterBar
                 {...this.props}
