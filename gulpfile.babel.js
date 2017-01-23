@@ -487,28 +487,3 @@ gulp.task('production', ['setProd', 'modifyHtml'], () => {
 gulp.task('default', ['local']);
 
 
-
-// run unit tests
-gulp.task('expresso', () => {
-    return gulp.src(['./__unittests__/**/*-spec.js','./__unittests__/**/*-spec.jsx', '!./__unittests__/support/*.js'], { read: false })
-        .pipe(mocha({
-            compilers: {
-                js: require('babel-core/register')
-            },
-            require: ['./__unittests__/setup.js']
-        }))
-})
-
-gulp.task('mocha', () => {
-    return gulp.src(['./__unittests__/**/*-spec.js','./__unittests__/**/*-spec.jsx', '!./__unittests__/support/*.js'], { read: false })
-        .pipe(mocha({
-            compilers: {
-                js: require('babel-core/register')
-            },
-            require: ['./__unittests__/setup.js'],
-            reporter: 'mocha-junit-reporter',
-            reporterOptions: {
-                mochaFile: './__unittests__/mocha.xml'
-            }
-        }))
-})
