@@ -1,8 +1,10 @@
 .agency-info {
     display: table;
-    @include span-columns(7);
+    @include span-columns(16);
     background-color: $color-primary-alt-lightest;
-    border: 1px solid $color-primary-alt-light;
+    border-top: 1px solid $color-primary-alt-light;
+    border-bottom: 1px solid $color-primary-alt-light;
+    border-left: 1px solid $color-primary-alt-light;
     padding: 1rem;
 
     select {

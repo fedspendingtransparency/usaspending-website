@@ -62,3 +62,21 @@ export const fetchLocations = (req) => {
     };
 };
 
+
+// Location search for autocomplete
+export const fetchAward = (req) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'awards/summary/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: req,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+

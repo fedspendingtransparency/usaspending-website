@@ -9,9 +9,17 @@ import { connect } from 'react-redux';
 
 import AwardInfo from 'components/award/AwardInfo';
 
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import * as awardActions from 'redux/actions/award/awardActions';
+
+const propTypes = {
+    getSelectedAward: React.PropTypes.func
+};
 
 class AwardInfoContainer extends React.Component {
+
+    componentDidMount() {
+        this.props.getSelectedAward();
+    }
     render() {
         return (
             <AwardInfo {...this.props} />
@@ -19,7 +27,9 @@ class AwardInfoContainer extends React.Component {
     }
 }
 
+AwardInfoContainer.propTypes = propTypes;
+
 export default connect(
-    (state) => ({ reduxFilters: state.filters.awardType }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+    (state) => ({ reduxFilters: state.selectedAward }),
+    (dispatch) => bindActionCreators(awardActions, dispatch)
 )(AwardInfoContainer);

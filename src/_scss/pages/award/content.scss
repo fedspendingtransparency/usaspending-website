@@ -5,7 +5,36 @@
     background-color: $color-white;
     box-shadow: $container-shadow;
 
-    @import './_agencyInfo';
+
     @import './_recipientInfo';
+
+    .agency-wrapper {
+        @import './_agencyInfo';
+        @include span-columns(7.2);
+        display: table;
+
+        .triangle-wrapper {
+            display: table-cell;
+            position: relative;
+            .outer-triangle {
+                position:absolute;
+                width: 0;
+                height: 0;
+                border-top: 71px solid transparent;
+                border-bottom: 78px solid transparent;
+                border-left: 25px solid $color-primary-alt-light;
+                z-index: 2;
+            }
+            .triangle {
+                position:absolute;
+                width: 0;
+                height: 0;
+                border-top: 70px solid transparent;
+                border-bottom: 77px solid transparent;
+                border-left: 23px solid $color-primary-alt-lightest;
+                z-index: 3;
+            }
+        }
+}
 
 }

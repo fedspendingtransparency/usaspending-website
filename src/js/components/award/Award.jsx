@@ -9,6 +9,10 @@ import Footer from '../sharedComponents/Footer';
 import SummaryBar from './SummaryBar';
 import AwardInfoContainer from '../../containers/award/AwardInfoContainer';
 
+const propTypes = {
+    getSelectedAward: React.PropTypes.func
+};
+
 export default class Award extends React.Component {
 
     render() {
@@ -17,10 +21,13 @@ export default class Award extends React.Component {
                 <Header />
                 <SummaryBar />
                 <div className="wrapper">
-                    <AwardInfoContainer />
+                    <AwardInfoContainer
+                        getSelectedAward={this.props.getSelectedAward} />
                 </div>
                 <Footer />
             </div>
         );
     }
 }
+
+Award.propTypes = propTypes;
