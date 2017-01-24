@@ -1,17 +1,13 @@
-.search-clear-container {
-    display: table-cell;
-    width: 130px;
-    vertical-align: middle;
+.search-clear-wrapper {
+    float: right;
 
     .search-clear-button {
         @include button-unstyled();
-        
-        height: 100%;
-        width: 100%;
-        background-color: $top-clear-button-background-color;
 
         color: $top-clear-button-color;
         font-size: 12px;
+        font-weight: 600;
+        line-height: 15px;
 
         padding: 0px 15px;
 

@@ -1,0 +1,50 @@
+.filter-group-container {
+    display: inline-block;
+    margin-left: 10px;
+
+    &:first-child {
+        margin-left: 0px;
+    }
+
+    .filter-group {
+        display: block;
+        background-color: $top-group-color;
+        padding: 5px 10px;
+
+        .filter-group-top {
+            @include clearfix;
+
+            .filter-name {
+                float: left;
+
+                font-size: 12px;
+                line-height: 15px;
+                color: $top-text-color;
+            }
+
+            .filter-group-close {
+                float: right;
+                margin-left: 20px;
+
+                button {
+                    @include button-unstyled();
+
+                    width: 12px;
+                    height: 16px;
+                    
+                    .close-icon {
+                        svg {
+                            height: 10px;
+                            width: 10px;
+                            fill: $top-clear-button-color;
+                        }
+                    }
+                }
+            }
+        }
+
+        .filter-group-bottom {
+            @import "./_tag";
+        }
+    }
+}

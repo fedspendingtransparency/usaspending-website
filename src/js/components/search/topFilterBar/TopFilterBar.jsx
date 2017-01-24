@@ -9,80 +9,77 @@
   **/
 
 import React from 'react';
-import _ from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
-import TopFilterGroup from './TopFilterGroup';
+
+import { topFilterGroupGenerator } from './filterGroups/topFilterGroupGenerator';
 
 const propTypes = {
     filters: React.PropTypes.array,
     clearAllFilters: React.PropTypes.func,
-    removeFilter: React.PropTypes.func
+    removeFilter: React.PropTypes.func,
+    overwriteFilter: React.PropTypes.func,
+    clearFilterGroup: React.PropTypes.func
 };
 
 export default class TopFilterBar extends React.Component {
     constructor(props) {
         super(props);
 
-        this.headerBar = null;
-
         this.pressedClearAll = this.pressedClearAll.bind(this);
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
     }
 
-    componentDidMount() {
-        // grab a reference to the search header bar DOM element
-        this.headerBar = document.querySelector('#search-header-wrapper');
-
-        // observe resize events to keep the filter bar's width in sync when stickied
-        window.addEventListener('resize', this.handleWindowResize);
-    }
-
-    componentWillUnmount() {
-        // stop observing resize events
-        window.addEventListener('resize', this.handleWindowResize);
-    }
 
     pressedClearAll() {
         this.props.clearAllFilters();
     }
 
-
     render() {
+        let filterCount = 0;
 
-        const filters = this.props.filters.map((filter) => (
-            <TopFilterGroup
-                key={`top-group-${filter.code}`}
-                name={filter.name}
-                data={filter}
-                removeFilter={this.props.removeFilter} />
-            ));
+        const filters = this.props.filters.map((filter) => {
+            filterCount += filter.values.length;
+
+            return topFilterGroupGenerator({
+                filter,
+                removeFilter: this.props.removeFilter,
+                overwriteFilter: this.props.overwriteFilter,
+                clearFilterGroup: this.props.clearFilterGroup
+            });
+        });
+
+        let filterBarHeader = `${filterCount} Current Filter`;
+        if (filterCount !== 1) {
+            filterBarHeader += 's';
+        }
+        filterBarHeader += ':';
 
         return (
             <div>
-                <div
-                    className="search-top-filter-bar"
-                    ref={(div) => {
-                        this.filterDiv = div;
-                    }}>
+                <div className="search-top-filter-bar">
+                    <div className="search-top-filter-header">
+                        <div className="header-title">
+                            {filterBarHeader}
+                        </div>
+                        <div className="search-clear-wrapper">
+                            <button
+                                className="search-clear-button"
+                                aria-label="Clear all filters"
+                                title="Clear all filters"
+                                onClick={this.pressedClearAll}>
+                                <span className="button-label">
+                                    Clear all filters
+                                </span>
+                                <span className="close-icon">
+                                    <Icons.Close alt="Clear all filters" />
+                                </span>
+                            </button>
+                        </div>
+                    </div>
                     <div className="search-top-filters">
                         <div className="search-top-filters-content">
                             {filters}
                         </div>
-                    </div>
-                    <div className="search-clear-container">
-                        <button
-                            className="search-clear-button"
-                            aria-label="Clear all filters"
-                            title="Clear all filters"
-                            onClick={this.pressedClearAll}>
-                            <span className="button-label">
-                                Clear all filters
-                            </span>
-                            <span className="close-icon">
-                                <Icons.Close alt="Clear all filters" />
-                            </span>
-                        </button>
                     </div>
                 </div>
             </div>

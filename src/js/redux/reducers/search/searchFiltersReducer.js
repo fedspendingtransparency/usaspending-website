@@ -8,12 +8,22 @@ import { Set, OrderedMap } from 'immutable';
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
 import * as LocationFilterFunctions from './filters/locationFilterFunctions';
 
+// const initialState = {
+//     awardType: new Set(),
+//     timePeriodType: 'fy',
+//     timePeriodFY: new Set(),
+//     timePeriodStart: null,
+//     timePeriodEnd: null,
+//     selectedLocations: new OrderedMap(),
+//     locationDomesticForeign: 'all'
+// };
+
 const initialState = {
-    awardType: new Set(),
-    timePeriodType: 'fy',
+    awardType: new Set(['07', '08']),
+    timePeriodType: 'dr',
     timePeriodFY: new Set(),
-    timePeriodStart: null,
-    timePeriodEnd: null,
+    timePeriodStart: '2017-01-01',
+    timePeriodEnd: '2017-01-04',
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all'
 };
@@ -57,6 +67,19 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'UPDATE_SEARCH_FILTER_GENERIC': {
             return Object.assign({}, state, {
                 [action.filterType]: action.filterValue
+            });
+        }
+        case 'RESET_SEARCH_TIME_FILTER': {
+            return Object.assign({}, state, {
+                timePeriodType: initialState.timePeriodType,
+                timePeriodFY: initialState.timePeriodFY,
+                timePeriodStart: initialState.timePeriodStart,
+                timePeriodEnd: initialState.timePeriodEnd
+            });
+        }
+        case 'CLEAR_SEARCH_FILTER_TYPE': {
+            return Object.assign({}, state, {
+                [action.filterType]: initialState[action.filterType]
             });
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {
