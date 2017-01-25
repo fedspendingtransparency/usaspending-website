@@ -6,7 +6,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import Immutable from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';

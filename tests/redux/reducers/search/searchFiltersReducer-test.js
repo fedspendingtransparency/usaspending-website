@@ -191,6 +191,130 @@ describe('searchFiltersReducer', () => {
         });
     });
 
+    describe('RESET_SEARCH_TIME_FILTER', () => {
+        it('should reset the fields relevant to time period filtering to their initial state'
+        + ' values after fiscal years change', () => {
+            const firstAction = {
+                type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
+                dateType: 'fy',
+                fy: [
+                    '2017',
+                    '2015',
+                    '2013'
+                ],
+                start: null,
+                end: null
+            };
+
+            const resetAction = {
+                type: 'RESET_SEARCH_TIME_FILTER'
+            };
+
+            const expectedFirst = {
+                timePeriodType: 'fy',
+                timePeriodFY: new Set([
+                    '2017',
+                    '2015',
+                    '2013'
+                ]),
+                timePeriodStart: null,
+                timePeriodEnd: null
+            };
+
+            const expectedSecond = {
+                timePeriodType: 'fy',
+                timePeriodFY: new Set(),
+                timePeriodStart: null,
+                timePeriodEnd: null
+            };
+
+            // perform the first action to change the time period filter values
+            let updatedState = searchFiltersReducer(undefined, firstAction);
+            // validate that the search filters changed
+            Object.keys(expectedFirst).forEach((key) => {
+                expect(updatedState[key]).toEqual(expectedFirst[key]);
+            });
+
+
+            // reset the time period filters
+            updatedState = searchFiltersReducer(updatedState, resetAction);
+            // validate that the search filters reset
+            Object.keys(expectedSecond).forEach((key) => {
+                expect(updatedState[key]).toEqual(expectedSecond[key]);
+            });
+        });
+
+        it('should reset the fields relevant to time period filtering to their initial state'
+        + ' values after a date range changes', () => {
+            const firstAction = {
+                type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
+                dateType: 'dr',
+                fy: [],
+                start: '2016-01-01',
+                end: '2016-12-31'
+            };
+
+            const resetAction = {
+                type: 'RESET_SEARCH_TIME_FILTER'
+            };
+
+            const expectedFirst = {
+                timePeriodType: 'dr',
+                timePeriodFY: new Set(),
+                timePeriodStart: '2016-01-01',
+                timePeriodEnd: '2016-12-31'
+            };
+
+            const expectedSecond = {
+                timePeriodType: 'fy',
+                timePeriodFY: new Set(),
+                timePeriodStart: null,
+                timePeriodEnd: null
+            };
+
+            // perform the first action to change the time period filter values
+            let updatedState = searchFiltersReducer(undefined, firstAction);
+            // validate that the search filters changed
+            Object.keys(expectedFirst).forEach((key) => {
+                expect(updatedState[key]).toEqual(expectedFirst[key]);
+            });
+
+
+            // reset the time period filters
+            updatedState = searchFiltersReducer(updatedState, resetAction);
+            // validate that the search filters reset
+            Object.keys(expectedSecond).forEach((key) => {
+                expect(updatedState[key]).toEqual(expectedSecond[key]);
+            });
+        });
+    });
+
+    describe('CLEAR_SEARCH_FILTER_TYPE', () => {
+        it('should reset a single search filter to its initial state value', () => {
+            const firstAction = {
+                type: 'UPDATE_SEARCH_FILTER_GENERIC',
+                filterType: 'awardType',
+                filterValue: new Set(['03', '04'])
+            };
+
+            const clearAction = {
+                type: 'CLEAR_SEARCH_FILTER_TYPE',
+                filterType: 'awardType'
+            };
+
+            const firstExpected = new Set(['03', '04']);
+            const secondExpected = new Set();
+
+            // perform the first action that updates the award type filter
+            let updatedState = searchFiltersReducer(undefined, firstAction);
+            expect(updatedState.awardType).toEqual(firstExpected);
+
+            // perform the clear action to reset the award type filter value
+            updatedState = searchFiltersReducer(updatedState, clearAction);
+            expect(updatedState.awardType).toEqual(secondExpected);
+        });
+    });
+
     describe('CLEAR_SEARCH_FILTER_ALL', () => {
         it('should reset the search filters to the initial state after multiple actions have been'
             + ' performed', () => {

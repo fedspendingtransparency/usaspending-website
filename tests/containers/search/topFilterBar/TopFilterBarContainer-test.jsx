@@ -27,6 +27,7 @@ const setup = (props) =>
 
 const removeTimePeriodSpy = sinon.spy(TopFilterBarContainer.prototype, 'removeTimePeriod');
 const removeFromSetSpy = sinon.spy(TopFilterBarContainer.prototype, 'removeFromSet');
+const resetGenericFieldSpy = sinon.spy(TopFilterBarContainer.prototype, 'resetGenericField');
 const prepareFiltersSpy = sinon.spy(TopFilterBarContainer.prototype, 'prepareFilters');
 
 
@@ -252,6 +253,98 @@ describe('TopFilterBarContainer', () => {
             // the removeFilter function should call removeFromSet
             expect(removeFromSetSpy.called).toBeTruthy();
             // the removeFromSet function should trigger a Redux action to remove the award type
+            expect(mockReduxAction).toHaveBeenCalled();
+        });
+
+        it('should trigger an appropriate Redux action when a single filter group is removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                awardType: new Set(['07', '04'])
+            });
+
+            const expectedReduxArguments = 'awardType';
+
+             // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to reset a single filter group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+            topBarContainer.instance().clearFilterGroup('awardType');
+
+            // for non-time period fields, the resetGenericField function should be called
+            expect(resetGenericFieldSpy.called).toBeTruthy();
+            // this function doesn't really do anything but pass the arguments onto a Redux action
+            expect(mockReduxAction).toHaveBeenCalled();
+        });
+
+        it('should trigger an appropriate Redux action when the time period fiscal year filter group is individually removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                timePeriodType: 'fy',
+                timePeriodFY: new Set(['2014', '2015'])
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function the reset the single time period
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                resetTimeFilters: mockReduxAction
+            });
+            topBarContainer.instance().clearFilterGroup('timePeriodFY');
+
+            // validate that the resetTimeFilters Redux action is called
+            expect(mockReduxAction).toHaveBeenCalled();
+        });
+
+        it('should trigger an appropriate Redux action when the time period date range filter group is individually removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                timePeriodType: 'dr',
+                timePeriodStart: '2016-01-01',
+                timePeriodEnd: '2016-12-31'
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function the reset the single time period
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                resetTimeFilters: mockReduxAction
+            });
+            topBarContainer.instance().clearFilterGroup('timePeriodDR');
+
+            // validate that the resetTimeFilters Redux action is called
+            expect(mockReduxAction).toHaveBeenCalled();
+        });
+
+        it('should be able to trigger Redux actions that can overwrite entire filter group values', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                awardType: new Set(['03', '04'])
+            });
+
+            const expectedReduxArguments = {
+                type: 'awardType',
+                value: new Set(['01', '02'])
+            };
+
+            // validate that the Redux action receives the arguments it is expecting
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function the overwrite a filter
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+            topBarContainer.instance().overwriteFilter('awardType', new Set(['01', '02']));
+
+            // validate that the Redux function is called
             expect(mockReduxAction).toHaveBeenCalled();
         });
     });
