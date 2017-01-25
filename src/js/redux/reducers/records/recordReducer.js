@@ -3,22 +3,17 @@
  * Created by Kevin Li 11/16/16
  **/
 
-import { Set } from 'immutable';
+import { List } from 'immutable';
 
 const initialState = {
-    awards: new Set()
+    awards: new List()
 };
 
 const recordReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'BULK_INSERT_RECORDS': {
-            return Object.assign({}, state, {
-                [action.field]: state[action.field].merge(action.data)
-            });
-        }
         case 'BULK_INSERT_RECORD_SET': {
             return Object.assign({}, state, {
-                [action.field]: state[action.field].union(action.data)
+                [action.field]: state[action.field].concat(action.data)
             });
         }
         case 'CLEAR_RECORDS': {

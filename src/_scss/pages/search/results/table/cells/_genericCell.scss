@@ -1,6 +1,6 @@
 @mixin genericCell() {
-    border-bottom: 1px solid $color-gray-light;
-    border-right: 1px solid $color-gray-light;
+    border-bottom: 1px solid #ADAFB4;
+    border-right: 1px solid #ADAFB4;
 
     .cell-content {
         padding: 12px 16px;
