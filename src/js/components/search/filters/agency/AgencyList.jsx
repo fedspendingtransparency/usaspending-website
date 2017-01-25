@@ -170,7 +170,6 @@ export default class AgencyList extends Typeahead {
         let selectedAgencies = null;
         const agencyTypeSet = `selected${this.props.agencyType}Agencies`;
         if (this.props[agencyTypeSet].size > 0) {
-            console.log("there's some agencies");
             selectedAgencies = (<SelectedAgencies
                 selectedAgencies={this.props[agencyTypeSet]}
                 removeAgency={this.props.removeAgency}
