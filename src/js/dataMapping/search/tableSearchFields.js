@@ -6,7 +6,10 @@ const tableSearchFields = {
         period_of_performance_current_end_date: 120,
         total_obligation: 190,
         type: 200,
-        awarding_agency_name: 250
+        awarding_agency_name: 250,
+        awarding_subtier_name: 250,
+        funding_agency_name: 250,
+        funding_subtier_name: 250
     },
     defaultSortDirection: {
         id: 'asc',
@@ -15,7 +18,10 @@ const tableSearchFields = {
         period_of_performance_current_end_date: 'desc',
         total_obligation: 'desc',
         type: 'asc',
-        awarding_agency_name: 'asc'
+        awarding_agency_name: 'asc',
+        awarding_subtier_name: 'asc',
+        funding_agency_name: 'asc',
+        funding_subtier_name: 'asc'
     },
     contracts: {
         _order: [
@@ -25,7 +31,10 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type',
-            'awarding_agency_name'
+            'awarding_agency_name',
+            'awarding_subtier_name',
+            'funding_agency_name',
+            'funding_subtier_name'
         ],
         _requestFields: [
             'piid',
@@ -35,8 +44,9 @@ const tableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'total_obligation',
-            'type',
-            'awarding_agency'
+            'type_description',
+            'awarding_agency',
+            'funding_agency'
         ],
         _mapping: {
             id: 'piid',
@@ -45,7 +55,10 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency'
+            awarding_agency_name: 'awarding_agency__toptier_agency__name',
+            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
+            funding_agency_name: 'funding_agency__toptier_agency__name',
+            funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
@@ -53,7 +66,10 @@ const tableSearchFields = {
         period_of_performance_current_end_date: 'End Date',
         total_obligation: 'Total Funded To-Date',
         type: 'Award Type',
-        awarding_agency_name: 'Awarding Agency'
+        awarding_agency_name: 'Awarding Agency',
+        awarding_subtier_name: 'Awarding Sub-Agency',
+        funding_agency_name: 'Funding Agency',
+        funding_subtier_name: 'Funding Sub-Agency'
     },
     grants: {
         _order: [
@@ -63,7 +79,10 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type',
-            'awarding_agency_name'
+            'awarding_agency_name',
+            'awarding_subtier_name',
+            'funding_agency_name',
+            'funding_subtier_name'
         ],
         _requestFields: [
             'piid',
@@ -73,8 +92,9 @@ const tableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'total_obligation',
-            'type',
-            'awarding_agency'
+            'type_description',
+            'awarding_agency',
+            'funding_agency'
         ],
         _mapping: {
             id: 'fain',
@@ -83,7 +103,10 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency'
+            awarding_agency_name: 'awarding_agency__toptier_agency__name',
+            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
+            funding_agency_name: 'funding_agency__toptier_agency__name',
+            funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
@@ -91,7 +114,10 @@ const tableSearchFields = {
         period_of_performance_current_end_date: 'End Date',
         total_obligation: 'Total Funded To-Date',
         type: 'Award Type',
-        awarding_agency_name: 'Awarding Agency'
+        awarding_agency_name: 'Awarding Agency',
+        awarding_subtier_name: 'Awarding Sub-Agency',
+        funding_agency_name: 'Funding Agency',
+        funding_subtier_name: 'Funding Sub-Agency'
     },
     direct_payments: {
         _order: [
@@ -101,7 +127,10 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type',
-            'awarding_agency_name'
+            'awarding_agency_name',
+            'awarding_subtier_name',
+            'funding_agency_name',
+            'funding_subtier_name'
         ],
         _requestFields: [
             'piid',
@@ -111,8 +140,9 @@ const tableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'total_obligation',
-            'type',
-            'awarding_agency'
+            'type_description',
+            'awarding_agency',
+            'funding_agency'
         ],
         _mapping: {
             id: 'fain',
@@ -121,7 +151,10 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency'
+            awarding_agency_name: 'awarding_agency__toptier_agency__name',
+            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
+            funding_agency_name: 'funding_agency__toptier_agency__name',
+            funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
@@ -129,7 +162,10 @@ const tableSearchFields = {
         period_of_performance_current_end_date: 'End Date',
         total_obligation: 'Total Funded To-Date',
         type: 'Award Type',
-        awarding_agency_name: 'Awarding Agency'
+        awarding_agency_name: 'Awarding Agency',
+        awarding_subtier_name: 'Awarding Sub-Agency',
+        funding_agency_name: 'Funding Agency',
+        funding_subtier_name: 'Funding Sub-Agency'
     },
     loans: {
         _order: [
@@ -138,7 +174,10 @@ const tableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'type',
-            'awarding_agency_name'
+            'awarding_agency_name',
+            'awarding_subtier_name',
+            'funding_agency_name',
+            'funding_subtier_name'
         ],
         _requestFields: [
             'piid',
@@ -148,8 +187,9 @@ const tableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'total_obligation',
-            'type',
-            'awarding_agency'
+            'type_description',
+            'awarding_agency',
+            'funding_agency'
         ],
         _mapping: {
             id: 'fain',
@@ -158,14 +198,20 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency'
+            awarding_agency_name: 'awarding_agency__toptier_agency__name',
+            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
+            funding_agency_name: 'funding_agency__toptier_agency__name',
+            funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
         period_of_performance_current_end_date: 'End Date',
         type: 'Award Type',
-        awarding_agency_name: 'Awarding Agency'
+        awarding_agency_name: 'Awarding Agency',
+        awarding_subtier_name: 'Awarding Sub-Agency',
+        funding_agency_name: 'Funding Agency',
+        funding_subtier_name: 'Funding Sub-Agency'
     },
     insurance: {
         _order: [
@@ -175,7 +221,10 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type',
-            'awarding_agency_name'
+            'awarding_agency_name',
+            'awarding_subtier_name',
+            'funding_agency_name',
+            'funding_subtier_name'
         ],
         _requestFields: [
             'piid',
@@ -185,8 +234,9 @@ const tableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'total_obligation',
-            'type',
-            'awarding_agency'
+            'type_description',
+            'awarding_agency',
+            'funding_agency'
         ],
         _mapping: {
             id: 'fain',
@@ -195,7 +245,10 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency'
+            awarding_agency_name: 'awarding_agency__toptier_agency__name',
+            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
+            funding_agency_name: 'funding_agency__toptier_agency__name',
+            funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
         id: 'Award ID',
         recipient_name: 'Recipient Name',
@@ -203,7 +256,10 @@ const tableSearchFields = {
         period_of_performance_current_end_date: 'End Date',
         total_obligation: 'Total Funded To-Date',
         type: 'Award Type',
-        awarding_agency_name: 'Awarding Agency'
+        awarding_agency_name: 'Awarding Agency',
+        awarding_subtier_name: 'Awarding Sub-Agency',
+        funding_agency_name: 'Funding Agency',
+        funding_subtier_name: 'Funding Sub-Agency'
     }
 };
 

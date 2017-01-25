@@ -3,7 +3,7 @@
  * Created by Kevin Li 11/1/16
  **/
 
-import { Set } from 'immutable';
+import { Set, OrderedMap } from 'immutable';
 
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
 import * as LocationFilterFunctions from './filters/locationFilterFunctions';
@@ -15,9 +15,9 @@ const initialState = {
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
-    selectedLocations: new Set(),
     selectedFundingAgencies: new Set(),
     selectedAwardingAgencies: new Set(),
+    selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all'
 };
 

@@ -52,12 +52,17 @@ export default class AgencyList extends Typeahead {
     loadValues() {
         const valuesList = [];
         const autocompleteSet = `autocomplete${this.props.agencyType}Agencies`;
+
         if (this.props[autocompleteSet].length > 0) {
             this.props[autocompleteSet].forEach((item) => {
-                valuesList.push(item);
-                const key =
-                `<b>${item}</b>`;
-                this.dataDictionary[key] = item;
+                item.funding_agency__subtier_agency__name.forEach((lower) => {
+                    valuesList.push(lower.funding_agency.subtier_agency.name);
+                    const key =
+                    `<b>
+                        ${lower.funding_agency.subtier_agency.name}
+                    </b>`;
+                    this.dataDictionary[key] = lower;
+                });
             });
         }
         this.typeahead.list = valuesList;
@@ -85,6 +90,9 @@ export default class AgencyList extends Typeahead {
         if (key !== null) {
             isValid = true;
         }
+        // Have to identify the correct value - not drilling down far enough
+        // Unsure of how to drill down properly, wondering if datadictionary should be
+        // filled differently, combining subarrays?
         if (isValid) {
             // Find matching agency object from redux store
             for (let i = 0; i < this.props[autocompleteSet].length; i++) {
@@ -162,6 +170,7 @@ export default class AgencyList extends Typeahead {
         let selectedAgencies = null;
         const agencyTypeSet = `selected${this.props.agencyType}Agencies`;
         if (this.props[agencyTypeSet].size > 0) {
+            console.log("there's some agencies");
             selectedAgencies = (<SelectedAgencies
                 selectedAgencies={this.props[agencyTypeSet]}
                 removeAgency={this.props.removeAgency}

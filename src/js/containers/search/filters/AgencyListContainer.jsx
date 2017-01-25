@@ -46,46 +46,48 @@ class AgencyListContainer extends React.Component {
                 this.agencySearchRequest.cancel();
             }
 
-            let fieldType = [];
-            const fieldValue = `${_.toLower(this.props.agencyType)}_agency__subtier_agency__name`;
-            fieldType = [fieldValue];
+            const fieldType = [];
+            fieldType.push(`${_.toLower(this.props.agencyType)}_agency__subtier_agency__name`);
+            fieldType.push(`${_.toLower(this.props.agencyType)}_agency__toptier_agency__name`);
 
             const agencySearchParams = {
                 fields: fieldType,
                 value: input,
-                mode: "contains"
+                mode: "contains",
+                matched_objects: true,
+                limit: 10
             };
 
             this.agencySearchRequest = SearchHelper.fetchAgencies(agencySearchParams);
 
             this.agencySearchRequest.promise
                 .then((res) => {
-                    const awardingResult = res.data.results.awarding_agency__subtier_agency__name;
-                    const fundingResult = res.data.results.funding_agency__subtier_agency__name;
+                    const results = [];
+                    results.push(res.data.matched_objects);
                     let autocompleteData = [];
                     // Filter out any selectedAgencies that may be in the result set
                     if (this.props.agencyType === "Awarding") {
                         if (this.props.selectedAwardingAgencies.size > 0) {
                             autocompleteData =
-                            _.differenceWith(awardingResult,
+                            _.differenceWith(results,
                                 this.props.selectedAwardingAgencies.toArray(), _.isEqual);
                             this.props.setAutocompleteAwardingAgencies(autocompleteData);
                         }
                         else {
                             this.props.setAutocompleteAwardingAgencies(
-                                awardingResult);
+                                results);
                         }
                     }
                     else if (this.props.agencyType === "Funding") {
                         if (this.props.selectedFundingAgencies.size > 0) {
                             autocompleteData =
-                            _.differenceWith(fundingResult,
+                            _.differenceWith(results,
                                 this.props.selectedFundingAgencies.toArray(), _.isEqual);
                             this.props.setAutocompleteFundingAgencies(autocompleteData);
                         }
                         else {
                             this.props.setAutocompleteFundingAgencies(
-                                fundingResult);
+                                results);
                         }
                     }
                 });

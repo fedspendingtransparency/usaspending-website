@@ -21,9 +21,11 @@ export default class SelectedAgencies extends React.Component {
 
     formatAgency(ag) {
         let displayValue = '';
+        console.log("format");
 
-        if (ag !== null) {
-            displayValue = `${_.startCase(_.toLower(ag))}`;
+        const agency = ag.funding_agency__name__subtier_agency__name__funding_agency__name;
+        if (agency !== null) {
+            displayValue = `${_.startCase(_.toLower(agency))}`;
         }
 
         return displayValue;
@@ -33,9 +35,10 @@ export default class SelectedAgencies extends React.Component {
         let selected = null;
         const type = this.props.agencyType;
         selected = this.props.selectedAgencies;
-        const shownAgencies = selected.map((agency, key) => (
+        const typeArray = `${selected}.${_.toLower(type)}_agency__subtier_agency__name`;
+        const shownAgencies = typeArray.map((agency, key) => (
             <ShownAgency
-                agency={this.formatAgency(agency)}
+                agency={agency}
                 label={this.formatAgency(agency)}
                 key={`_${key}`}
                 removeAgency={this.props.removeAgency.bind(null,
