@@ -1,10 +1,6 @@
 .filter-item-container {
     display: inline-block;
-    margin-left: 6px;
-
-    &:first-child {
-        margin-left: 0px;
-    }
+    margin-right: 6px;
 
     .filter-item {
         display: table;

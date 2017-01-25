@@ -1,10 +1,7 @@
 .filter-group-container {
     display: inline-block;
-    margin-left: 10px;
-
-    &:first-child {
-        margin-left: 0px;
-    }
+    margin-right: 10px;
+    margin-top: 10px;
 
     .filter-group {
         display: block;
