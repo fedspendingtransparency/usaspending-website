@@ -138,14 +138,15 @@ describe('searchFiltersReducer', () => {
             }
         };
 
+        const cityId = `2,3_PAWNEE_CITY`;
+
         const expectedCity = {
             matched_ids: [2, 3],
             place_type: 'CITY',
             parent: 'INDIANA',
-            place: 'PAWNEE'
+            place: 'PAWNEE',
+            identifier: cityId
         };
-
-        const cityId = `2,3_PAWNEE_CITY`;
 
         it('should add the provided location if it does not currently exist in the filter', () => {
             const updatedState = searchFiltersReducer(undefined, action);

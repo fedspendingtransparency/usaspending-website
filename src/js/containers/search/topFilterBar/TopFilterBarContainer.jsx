@@ -64,6 +64,11 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(awardFilters);
         }
 
+        const selectedLocationFilters = this.prepareSelectedLocations(props);
+        if (selectedLocationFilters) {
+            filters.push(selectedLocationFilters);
+        }
+
         this.setState({
             filters
         });
@@ -134,6 +139,43 @@ export class TopFilterBarContainer extends React.Component {
     }
 
     /**
+     * Logic for parsing the current Redux selected locations and location scope into a JS object
+     * that can be parsed by the top filter bar
+     */
+    prepareSelectedLocations(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.selectedLocations.count() > 0) {
+            // locations have been selected
+            selected = true;
+            filter.values = props.selectedLocations.toArray();
+            filter.scope = props.locationDomesticForeign;
+        }
+
+        // add an extra property to handle location scope
+        if (props.locationDomesticForeign !== 'all') {
+            // we are handling this in its own if block to handle a case where no locations
+            // have been selected, but the scope is not 'all'
+            selected = true;
+            filter.scope = props.locationDomesticForeign;
+            // add the scope as a value item so the total filter count is correctly summed
+            filter.values.push({
+                isScope: true
+            });
+        }
+
+        if (selected) {
+            filter.code = 'selectedLocations';
+            filter.name = 'Location';
+            return filter;
+        }
+        return null;
+    }
+
+    /**
      * Generic function that can be called to overwrite a filter with a specified value. This is
      * useful for filters that have complex logic associated with item or group removal (such as
      * award type groups).
@@ -163,6 +205,9 @@ export class TopFilterBarContainer extends React.Component {
         }
         else if (type === 'awardType') {
             this.removeFromSet(type, value);
+        }
+        else if (type === 'selectedLocations') {
+            this.removeFromOrderedMap(type, value);
         }
     }
 
@@ -216,6 +261,23 @@ export class TopFilterBarContainer extends React.Component {
         });
     }
 
+    /**
+     * Generic logic to handle removing an element from an OrderedMap (ImmutableJS) Redux object.
+     * This is logically identical to removeFromSet but keeping it sepearate because it is using
+     * a different API (that happens to have the same function names).
+     *
+     * @param      {<type>}  type    The key identifying the OrderedMap within the Redux filter
+     *                                  store
+     * @param      {<type>}  identifier    The key within the OrderedMap to remove
+     */
+    removeFromOrderedMap(type, identifier) {
+        const newValue = this.props.reduxFilters[type].delete(identifier);
+        this.props.updateGenericFilter({
+            type,
+            value: newValue
+        });
+    }
+
 
     /**
      * Remove all filters in the specified filter group
@@ -225,6 +287,11 @@ export class TopFilterBarContainer extends React.Component {
     clearFilterGroup(type) {
         if (type === 'timePeriodFY' || type === 'timePeriodDR') {
             this.props.resetTimeFilters();
+        }
+        else if (type === 'selectedLocations') {
+            // selected locations is actually two fields, so reset them both
+            this.resetGenericField('selectedLocations');
+            this.resetGenericField('locationDomesticForeign');
         }
         else {
             this.resetGenericField(type);

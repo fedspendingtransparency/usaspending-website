@@ -12,7 +12,7 @@ import React from 'react';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
-import { topFilterGroupGenerator } from './filterGroups/topFilterGroupGenerator';
+import { topFilterGroupGenerator } from './filterGroups/TopFilterGroupGenerator';
 
 const propTypes = {
     filters: React.PropTypes.array,
