@@ -14,8 +14,6 @@ import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
-import * as AwardType from 'dataMapping/search/awardType';
-
 const propTypes = {
     reduxFilters: React.PropTypes.object,
     updateTimePeriod: React.PropTypes.func,

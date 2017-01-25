@@ -8,22 +8,12 @@ import { Set, OrderedMap } from 'immutable';
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
 import * as LocationFilterFunctions from './filters/locationFilterFunctions';
 
-// const initialState = {
-//     awardType: new Set(),
-//     timePeriodType: 'fy',
-//     timePeriodFY: new Set(),
-//     timePeriodStart: null,
-//     timePeriodEnd: null,
-//     selectedLocations: new OrderedMap(),
-//     locationDomesticForeign: 'all'
-// };
-
 const initialState = {
-    awardType: new Set(['07', '08']),
-    timePeriodType: 'dr',
+    awardType: new Set(),
+    timePeriodType: 'fy',
     timePeriodFY: new Set(),
-    timePeriodStart: '2017-01-01',
-    timePeriodEnd: '2017-01-04',
+    timePeriodStart: null,
+    timePeriodEnd: null,
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all'
 };

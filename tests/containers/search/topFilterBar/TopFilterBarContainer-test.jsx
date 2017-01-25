@@ -10,7 +10,6 @@ import sinon from 'sinon';
 import { Set } from 'immutable';
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
-import TopFilterBarEmpty from 'components/search/topFilterBar/TopFilterBarEmpty';
 import { TopFilterBarContainer } from 'containers/search/topFilterBar/TopFilterBarContainer';
 
 const defaultFilters = {
@@ -39,7 +38,6 @@ describe('TopFilterBarContainer', () => {
         };
         const topBarContainer = setup(props);
 
-        expect(topBarContainer.find(TopFilterBarEmpty)).toHaveLength(1);
         expect(topBarContainer.find(TopFilterBar)).toHaveLength(0);
     });
 
@@ -54,7 +52,6 @@ describe('TopFilterBarContainer', () => {
 
         const topBarContainer = setup(props);
 
-        expect(topBarContainer.find(TopFilterBarEmpty)).toHaveLength(0);
         expect(topBarContainer.find(TopFilterBar)).toHaveLength(1);
     });
 
@@ -111,8 +108,7 @@ describe('TopFilterBarContainer', () => {
             const expectedFilterState = {
                 code: 'timePeriodFY',
                 name: 'Time Period',
-                values: ['2015', '2014'],
-                labels: ['FY 2015', 'FY 2014']
+                values: ['2015', '2014']
             };
 
             expect(filterItem).toEqual(expectedFilterState);
@@ -140,8 +136,7 @@ describe('TopFilterBarContainer', () => {
             const expectedFilterState = {
                 code: 'awardType',
                 name: 'Award Type',
-                values: ['07'],
-                labels: ['Direct Loans']
+                values: ['07']
             };
 
             expect(filterItem).toEqual(expectedFilterState);
@@ -159,7 +154,6 @@ describe('TopFilterBarContainer', () => {
                 reduxFilters: initialFilters
             });
 
-            expect(topBarContainer.find(TopFilterBarEmpty)).toHaveLength(0);
             expect(topBarContainer.find(TopFilterBar)).toHaveLength(1);
 
             // clear the filters
@@ -167,7 +161,6 @@ describe('TopFilterBarContainer', () => {
                 reduxFilters: Object.assign({}, defaultFilters)
             });
 
-            expect(topBarContainer.find(TopFilterBarEmpty)).toHaveLength(1);
             expect(topBarContainer.find(TopFilterBar)).toHaveLength(0);
         });
 
