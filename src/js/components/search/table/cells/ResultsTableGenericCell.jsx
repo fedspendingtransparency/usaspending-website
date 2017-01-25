@@ -8,7 +8,8 @@ import React from 'react';
 const propTypes = {
     data: React.PropTypes.string,
     rowIndex: React.PropTypes.number,
-    column: React.PropTypes.string
+    column: React.PropTypes.string,
+    isLastColumn: React.PropTypes.bool
 };
 
 export default class ResultsTableGenericCell extends React.Component {
@@ -21,10 +22,14 @@ export default class ResultsTableGenericCell extends React.Component {
         }
 
         // calculate even-odd class names
-        let rowClass = "row-even";
+        let rowClass = 'row-even';
         if (this.props.rowIndex % 2 === 0) {
             // row index is zero-based
-            rowClass = "row-odd";
+            rowClass = 'row-odd';
+        }
+
+        if (this.props.isLastColumn) {
+            rowClass += ' last-column';
         }
 
         return (

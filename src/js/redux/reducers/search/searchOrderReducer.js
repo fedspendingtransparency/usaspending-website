@@ -21,7 +21,7 @@ const searchFiltersReducer = (state = new OrderRecord(), action) => {
             });
         }
         case 'RESET_SEARCH_ORDER': {
-            return Object.assign({}, new OrderRecord());
+            return new OrderRecord();
         }
         default:
             return state;
