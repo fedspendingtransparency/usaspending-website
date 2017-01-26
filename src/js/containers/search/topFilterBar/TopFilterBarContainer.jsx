@@ -23,7 +23,7 @@ const propTypes = {
     updateGenericFilter: React.PropTypes.func
 };
 
-class TopFilterBarContainer extends React.Component {
+export class TopFilterBarContainer extends React.Component {
     constructor(props) {
         super(props);
 

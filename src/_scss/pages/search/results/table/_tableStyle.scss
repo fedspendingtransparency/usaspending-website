@@ -24,7 +24,7 @@
         @import "cells/_genericCell";
         @include genericCell();
 
-        &.column-awarding_agency_name {
+        &.last-column {
             border-right: none;
         }
     }
@@ -33,7 +33,7 @@
         @import "cells/_genericHeader";
         @include genericHeader();
 
-         &.column-awarding_agency_name {
+         &.last-column {
             border-right: none;
         }
     }

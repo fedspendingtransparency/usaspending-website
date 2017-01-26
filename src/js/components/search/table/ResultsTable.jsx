@@ -93,8 +93,10 @@ export default class ResultsTable extends React.PureComponent {
     prepareTable() {
         let totalWidth = 0;
 
-        const columns = this.props.columns.map((column) => {
+        const columns = this.props.columns.map((column, i) => {
             totalWidth += column.width;
+            const isLast = i === this.props.columns.length - 1;
+
             return {
                 width: column.width,
                 name: column.columnName,
@@ -104,7 +106,8 @@ export default class ResultsTable extends React.PureComponent {
                     <ResultsTableHeaderCellContainer
                         label={column.displayName}
                         column={column.columnName}
-                        defaultDirection={column.defaultDirection} />
+                        defaultDirection={column.defaultDirection}
+                        isLastColumn={isLast} />
                 ),
                 cell: (index) => (
                     <ResultsTableGenericCell
@@ -112,7 +115,8 @@ export default class ResultsTable extends React.PureComponent {
                         rowIndex={index}
                         data={this.props.results[index][column.columnName]}
                         dataHash={this.state.dataHash}
-                        column={column.columnName} />
+                        column={column.columnName}
+                        isLastColumn={isLast} />
                 )
             };
         });
