@@ -11,7 +11,7 @@ import TypeaheadWarning from 'components/sharedComponents/TypeaheadWarning';
 import SelectedAgencies from './SelectedAgencies';
 
 const propTypes = {
-    autocompleteAgencies: React.PropTypes.array,
+    autocompleteAgencies: React.PropTypes.object,
     onSelect: React.PropTypes.func,
     customClass: React.PropTypes.string,
     keyValue: React.PropTypes.string,

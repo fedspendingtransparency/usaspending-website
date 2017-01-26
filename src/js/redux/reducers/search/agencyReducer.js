@@ -4,8 +4,8 @@
  **/
 
 const initialState = {
-    fundingAgencies: [],
-    awardingAgencies: []
+    fundingAgencies: new Set(),
+    awardingAgencies: new Set()
 };
 
 const agencyReducer = (state = initialState, action) => {

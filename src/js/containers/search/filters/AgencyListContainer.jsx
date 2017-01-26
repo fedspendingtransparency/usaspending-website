@@ -16,8 +16,8 @@ import * as agencyActions from 'redux/actions/search/agencyActions';
 const propTypes = {
     setAutocompleteAwardingAgencies: React.PropTypes.func,
     setAutocompleteFundingAgencies: React.PropTypes.func,
-    fundingAgencies: React.PropTypes.array,
-    awardingAgencies: React.PropTypes.array,
+    fundingAgencies: React.PropTypes.object,
+    awardingAgencies: React.PropTypes.object,
     selectAgency: React.PropTypes.func,
     selectedAgencies: React.PropTypes.object,
     agencyType: React.PropTypes.string
@@ -71,10 +71,9 @@ class AgencyListContainer extends React.Component {
 
             this.agencySearchRequest.promise
                 .then((res) => {
-                    const results = [];
-                    results.push(res.data.matched_objects);
+                    const results = res.data.matched_objects;
 
-                    let autocompleteData = [];
+                    let autocompleteData = null;
 
                     // Filter out any selectedAgencies that may be in the result set
                     if (this.props.selectedAgencies.size > 0) {

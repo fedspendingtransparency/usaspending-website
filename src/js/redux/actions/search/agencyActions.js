@@ -4,11 +4,11 @@
 
 export const setAutocompleteAwardingAgencies = (state) => ({
     type: 'SET_AUTOCOMPLETE_AWARDING_AGENCIES',
-    agencies: state.agencies
+    agencies: state
 });
 
 export const setAutocompleteFundingAgencies = (state) => ({
     type: 'SET_AUTOCOMPLETE_FUNDING_AGENCIES',
-    agencies: state.agencies
+    agencies: state
 });
 
