@@ -7,7 +7,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
 
-import { Set } from 'immutable';
+import { Set, OrderedMap } from 'immutable';
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
 import { TopFilterBarContainer } from 'containers/search/topFilterBar/TopFilterBarContainer';
@@ -138,6 +138,80 @@ describe('TopFilterBarContainer', () => {
                 code: 'awardType',
                 name: 'Award Type',
                 values: ['07']
+            };
+
+            expect(filterItem).toEqual(expectedFilterState);
+        });
+
+        it('should update component state with Redux location filters when available', () => {
+            // mount the container with default props
+            const topBarContainer = setup({
+                reduxFilters: Object.assign({}, defaultFilters)
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(0);
+
+            const locationFilter = Object.assign({}, defaultFilters, {
+                selectedLocations: new OrderedMap({
+                    '1,2_LOS ANGELES_CITY': {
+                        matched_ids: [1, 2],
+                        parent: 'CALIFORNIA',
+                        place_type: 'CITY',
+                        place: 'LOS ANGELES',
+                        identifier: '1,2_LOS ANGELES_CITY'
+                    }
+                })
+            });
+
+            topBarContainer.setProps({
+                reduxFilters: locationFilter
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(1);
+
+            const filterItem = topBarContainer.state().filters[0];
+            const expectedFilterState = {
+                code: 'selectedLocations',
+                name: 'Location',
+                scope: 'all',
+                values: [{
+                    matched_ids: [1, 2],
+                    parent: 'CALIFORNIA',
+                    place_type: 'CITY',
+                    place: 'LOS ANGELES',
+                    identifier: '1,2_LOS ANGELES_CITY'
+                }]
+            };
+
+            expect(filterItem).toEqual(expectedFilterState);
+        });
+
+        it('should update component state with Redux location scope when it is not "all"', () => {
+            // mount the container with default props
+            const topBarContainer = setup({
+                reduxFilters: Object.assign({}, defaultFilters)
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(0);
+
+            const locationFilter = Object.assign({}, defaultFilters, {
+                locationDomesticForeign: 'foreign'
+            });
+
+            topBarContainer.setProps({
+                reduxFilters: locationFilter
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(1);
+
+            const filterItem = topBarContainer.state().filters[0];
+            const expectedFilterState = {
+                code: 'selectedLocations',
+                name: 'Location',
+                scope: 'foreign',
+                values: [{
+                    isScope: true
+                }]
             };
 
             expect(filterItem).toEqual(expectedFilterState);
@@ -310,7 +384,7 @@ describe('TopFilterBarContainer', () => {
 
             const mockReduxAction = jest.fn();
 
-            // setup the top bar container and call the function the reset the single time period
+            // setup the top bar container and call the function to reset the single time period
             // group
             const topBarContainer = setup({
                 reduxFilters: initialFilters,
@@ -320,6 +394,84 @@ describe('TopFilterBarContainer', () => {
 
             // validate that the resetTimeFilters Redux action is called
             expect(mockReduxAction).toHaveBeenCalled();
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire location filter', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                locationDomesticForeign: 'domestic',
+                selectedLocations: new OrderedMap({
+                    '1,2_LOS ANGELES_CITY': {
+                        matched_ids: [1, 2],
+                        parent: 'CALIFORNIA',
+                        place_type: 'CITY',
+                        place: 'LOS ANGELES',
+                        identifier: '1,2_LOS ANGELES_CITY'
+                    }
+                })
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('selectedLocations');
+
+            // validate that the clearFilterType Redux action is called twice
+            expect(mockReduxAction).toHaveBeenCalledTimes(2);
+        });
+
+        it('should be able to trigger Redux actions that can reset the specific location filter values', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                locationDomesticForeign: 'domestic',
+                selectedLocations: new OrderedMap({
+                    '1,2_LOS ANGELES_CITY': {
+                        matched_ids: [1, 2],
+                        parent: 'CALIFORNIA',
+                        place_type: 'CITY',
+                        place: 'LOS ANGELES',
+                        identifier: '1,2_LOS ANGELES_CITY'
+                    },
+                    '3,4_TORONTO_CITY': {
+                        matched_ids: [3, 4],
+                        parent: 'CANADA',
+                        place_type: 'CITY',
+                        place: 'TORONTO',
+                        identifier: '3,4_TORONTO_CITY'
+                    }
+                })
+            });
+
+            const expectedReduxArguments = {
+                type: 'selectedLocations',
+                value: new OrderedMap({
+                    '3,4_TORONTO_CITY': {
+                        matched_ids: [3, 4],
+                        parent: 'CANADA',
+                        place_type: 'CITY',
+                        place: 'TORONTO',
+                        identifier: '3,4_TORONTO_CITY'
+                    }
+                })
+            };
+
+            // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+
+            topBarContainer.instance().removeFilter('selectedLocations', '1,2_LOS ANGELES_CITY');
         });
 
         it('should be able to trigger Redux actions that can overwrite entire filter group values', () => {

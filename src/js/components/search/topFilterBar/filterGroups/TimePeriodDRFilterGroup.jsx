@@ -5,14 +5,11 @@
 
 import React from 'react';
 
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
     filter: React.PropTypes.object,
-    removeFilter: React.PropTypes.func,
-    clearFilterGroup: React.PropTypes.func
+    removeFilter: React.PropTypes.func
 };
 
 export default class TimePeriodDRFilterGroup extends React.Component {

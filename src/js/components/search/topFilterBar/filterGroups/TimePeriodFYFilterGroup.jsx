@@ -4,9 +4,6 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
-
-import { Set } from 'immutable';
 
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 

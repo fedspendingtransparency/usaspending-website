@@ -39,7 +39,7 @@ export default class LocationFilterGroup extends React.Component {
     generateLabel(item) {
         // capitalize just the first letter of each word in the place type
         const placeType = item.place_type.toLowerCase()
-            .replace(/(^|\s|[-_])\S{1}/, (letter) => (letter.toUpperCase()));
+            .replace(/(^|\s|[-_])\S{1}/g, (letter) => (letter.toUpperCase()));
         let label = `${placeType} | ${item.place}`;
 
         if (item.parent) {
