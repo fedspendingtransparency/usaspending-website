@@ -22,16 +22,24 @@ const propTypes = {
 };
 
 export default class Agency extends React.Component {
-
     render() {
-        const agencies = this.props.agencyTypes.map((type, key) => (
-            <AgencyListContainer
+        const agencies = this.props.agencyTypes.map((type, key) => {
+            let selectedAgencies = {};
+
+            if (type === 'Funding') {
+                selectedAgencies = this.props.selectedFundingAgencies;
+            }
+            else {
+                selectedAgencies = this.props.selectedAwardingAgencies;
+            }
+
+            return (<AgencyListContainer
                 key={key}
                 agencyType={type}
-                selectedFundingAgencies={this.props.selectedFundingAgencies}
-                selectedAwardingAgencies={this.props.selectedAwardingAgencies}
+                selectedAgencies={selectedAgencies}
                 selectAgency={this.props.selectAgency}
-                removeAgency={this.props.removeAgency} />));
+                removeAgency={this.props.removeAgency} />);
+        });
 
         return (
             <div className="agency-filter search-filter">

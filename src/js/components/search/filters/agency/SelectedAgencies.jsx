@@ -21,7 +21,6 @@ export default class SelectedAgencies extends React.Component {
 
     formatAgency(ag) {
         let displayValue = '';
-        console.log("format");
 
         const agency = ag.funding_agency__name__subtier_agency__name__funding_agency__name;
         if (agency !== null) {

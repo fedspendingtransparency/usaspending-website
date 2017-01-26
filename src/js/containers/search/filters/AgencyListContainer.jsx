@@ -11,14 +11,15 @@ import _ from 'lodash';
 import AgencyList from 'components/search/filters/agency/AgencyList';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
+import * as agencyActions from 'redux/actions/search/agencyActions';
 
 const propTypes = {
     setAutocompleteAwardingAgencies: React.PropTypes.func,
     setAutocompleteFundingAgencies: React.PropTypes.func,
+    fundingAgencies: React.PropTypes.array,
+    awardingAgencies: React.PropTypes.array,
     selectAgency: React.PropTypes.func,
-    selectedAwardingAgencies: React.PropTypes.object,
-    selectedFundingAgencies: React.PropTypes.object,
+    selectedAgencies: React.PropTypes.object,
     agencyType: React.PropTypes.string
 };
 
@@ -27,6 +28,14 @@ class AgencyListContainer extends React.Component {
         super(props);
 
         this.handleTextInput = this.handleTextInput.bind(this);
+
+        this.autocompleteAgencies = [];
+        if (this.props.agencyType === 'Funding') {
+            this.autocompleteAgencies = this.props.fundingAgencies;
+        }
+        else {
+            this.autocompleteAgencies = this.props.awardingAgencies;
+        }
     }
 
     dataFormatter(item) {
@@ -64,31 +73,23 @@ class AgencyListContainer extends React.Component {
                 .then((res) => {
                     const results = [];
                     results.push(res.data.matched_objects);
+
                     let autocompleteData = [];
+
                     // Filter out any selectedAgencies that may be in the result set
-                    if (this.props.agencyType === "Awarding") {
-                        if (this.props.selectedAwardingAgencies.size > 0) {
-                            autocompleteData =
-                            _.differenceWith(results,
-                                this.props.selectedAwardingAgencies.toArray(), _.isEqual);
-                            this.props.setAutocompleteAwardingAgencies(autocompleteData);
-                        }
-                        else {
-                            this.props.setAutocompleteAwardingAgencies(
-                                results);
-                        }
+                    if (this.props.selectedAgencies.size > 0) {
+                        autocompleteData = _.differenceWith(results,
+                            this.props.selectedAgencies.toArray(), _.isEqual);
                     }
-                    else if (this.props.agencyType === "Funding") {
-                        if (this.props.selectedFundingAgencies.size > 0) {
-                            autocompleteData =
-                            _.differenceWith(results,
-                                this.props.selectedFundingAgencies.toArray(), _.isEqual);
-                            this.props.setAutocompleteFundingAgencies(autocompleteData);
-                        }
-                        else {
-                            this.props.setAutocompleteFundingAgencies(
-                                results);
-                        }
+                    else {
+                        autocompleteData = results;
+                    }
+
+                    if (this.props.agencyType === 'Funding') {
+                        this.props.setAutocompleteFundingAgencies(autocompleteData);
+                    }
+                    else {
+                        this.props.setAutocompleteAwardingAgencies(autocompleteData);
                     }
                 });
         }
@@ -115,8 +116,8 @@ class AgencyListContainer extends React.Component {
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectAgency}
                 placeHolder={this.props.agencyType}
-                selectedFundingAgencies={this.props.selectedFundingAgencies}
-                selectedAwardingAgencies={this.props.selectedAwardingAgencies}
+                autocompleteAgencies={this.autocompleteAgencies}
+                selectedAgencies={this.props.selectedAgencies}
                 agencyType={this.props.agencyType} />
         );
     }
@@ -124,9 +125,10 @@ class AgencyListContainer extends React.Component {
 }
 
 export default connect(
-    (state) => ({ autocompleteAwardingAgencies: state.autocompleteAwardingAgencies,
-        autocompleteFundingAgencies: state.autocompleteFundingAgencies }),
-    (dispatch) => bindActionCreators(autocompleteActions, dispatch)
+    (state) => ({
+        fundingAgencies: state.agency.fundingAgencies,
+        awardingAgencies: state.agency.awardingAgencies }),
+    (dispatch) => bindActionCreators(agencyActions, dispatch)
 )(AgencyListContainer);
 
 AgencyListContainer.propTypes = propTypes;

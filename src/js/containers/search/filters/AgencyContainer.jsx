@@ -51,7 +51,8 @@ class AgencyContainer extends React.Component {
 }
 
 export default connect(
-    (state) => ({ selectedFundingAgencies: state.filters.selectedFundingAgencies,
+    (state) => ({
+        selectedFundingAgencies: state.filters.selectedFundingAgencies,
         selectedAwardingAgencies: state.filters.selectedAwardingAgencies }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(AgencyContainer);

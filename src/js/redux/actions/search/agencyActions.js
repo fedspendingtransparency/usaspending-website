@@ -1,17 +1,14 @@
 /**
- * Created by Emily Gullo on 12/28/2016
+ * Created by michaelbray on 1/26/17.
  */
-
-/* eslint-disable import/prefer-default-export */
-// We only have one export but want to maintain consistency with other query modules
 
 export const setAutocompleteAwardingAgencies = (state) => ({
     type: 'SET_AUTOCOMPLETE_AWARDING_AGENCIES',
-    awardingAgencies: state
+    agencies: state.agencies
 });
 
 export const setAutocompleteFundingAgencies = (state) => ({
     type: 'SET_AUTOCOMPLETE_FUNDING_AGENCIES',
-    fundingAgencies: state
+    agencies: state.agencies
 });
-/* eslint-enable import/prefer-default-export */
+

@@ -11,8 +11,7 @@ import filtersReducer from './search/searchFiltersReducer';
 import orderReducer from './search/searchOrderReducer';
 import autocompleteReducer from './search/autocompleteReducer';
 import recordReducer from './records/recordReducer';
-import agencyAwardingReducer from './search/agencyAwardingReducer';
-import agencyFundingReducer from './search/agencyFundingReducer';
+import agencyReducer from './search/agencyReducer';
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
@@ -20,9 +19,8 @@ const appReducer = combineReducers({
     filters: filtersReducer,
     searchOrder: orderReducer,
     autocompleteLocations: autocompleteReducer,
-    autocompleteAwardingAgencies: agencyAwardingReducer,
-    autocompleteFundingAgencies: agencyFundingReducer,
-    records: recordReducer
+    records: recordReducer,
+    agency: agencyReducer
 });
 
 export default appReducer;

@@ -3,7 +3,7 @@
  * Created by Emily Gullo 12/23/2016
  **/
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import _ from 'lodash';
 
 import Typeahead from 'components/sharedComponents/Typeahead';
@@ -11,18 +11,17 @@ import TypeaheadWarning from 'components/sharedComponents/TypeaheadWarning';
 import SelectedAgencies from './SelectedAgencies';
 
 const propTypes = {
-    autocompleteAwardingAgencies: PropTypes.array,
-    autocompleteFundingAgencies: PropTypes.array,
-    onSelect: PropTypes.func,
-    customClass: PropTypes.string,
-    keyValue: PropTypes.string,
-    internalValue: PropTypes.string,
+    autocompleteAgencies: React.PropTypes.array,
+    onSelect: React.PropTypes.func,
+    customClass: React.PropTypes.string,
+    keyValue: React.PropTypes.string,
+    internalValue: React.PropTypes.string,
     formatter: React.PropTypes.func,
-    tabIndex: PropTypes.number,
-    handleTextInput: PropTypes.func,
-    isRequired: PropTypes.bool,
-    agencyType: PropTypes.string,
-    checkValidity: PropTypes.func
+    tabIndex: React.PropTypes.number,
+    handleTextInput: React.PropTypes.func,
+    isRequired: React.PropTypes.bool,
+    agencyType: React.PropTypes.string,
+    checkValidity: React.PropTypes.func
 };
 
 const defaultProps = {
@@ -51,20 +50,19 @@ export default class AgencyList extends Typeahead {
 
     loadValues() {
         const valuesList = [];
-        const autocompleteSet = `autocomplete${this.props.agencyType}Agencies`;
+        const autocompleteSet = this.props.autocompleteAgencies;
 
-        if (this.props[autocompleteSet].length > 0) {
-            this.props[autocompleteSet].forEach((item) => {
-                item.funding_agency__subtier_agency__name.forEach((lower) => {
-                    valuesList.push(lower.funding_agency.subtier_agency.name);
-                    const key =
-                    `<b>
-                        ${lower.funding_agency.subtier_agency.name}
-                    </b>`;
-                    this.dataDictionary[key] = lower;
-                });
+        autocompleteSet.forEach((item) => {
+            item.funding_agency__subtier_agency__name.forEach((lower) => {
+                valuesList.push(lower.funding_agency.subtier_agency.name);
+                const key =
+                `<b>
+                    ${lower.funding_agency.subtier_agency.name}
+                </b>`;
+                this.dataDictionary[key] = lower;
             });
-        }
+        });
+
         this.typeahead.list = valuesList;
 
         this.typeahead.replace = () => {
@@ -73,9 +71,9 @@ export default class AgencyList extends Typeahead {
     }
 
     componentDidUpdate(prevProps) {
-        const autocompleteSet = `autocomplete${this.props.agencyType}Agencies`;
-        if (!_.isEqual(prevProps[autocompleteSet],
-            this.props[autocompleteSet])) {
+        const autocompleteSet = this.props.autocompleteAgencies;
+        if (!_.isEqual(prevProps.autocompleteSet,
+            autocompleteSet)) {
             this.loadValues();
         }
     }
@@ -84,7 +82,7 @@ export default class AgencyList extends Typeahead {
         // Force the change up into the parent components
         // Validate the current value is on the autocomplete list
         let selectedAgency = null;
-        const autocompleteSet = `autocomplete${this.props.agencyType}Agencies`;
+        const autocompleteSet = this.props.autocompleteAgencies;
         let isValid = false;
         const key = this.dataDictionary[`<b>${this.state.value}</b>`];
         if (key !== null) {
@@ -95,9 +93,9 @@ export default class AgencyList extends Typeahead {
         // filled differently, combining subarrays?
         if (isValid) {
             // Find matching agency object from redux store
-            for (let i = 0; i < this.props[autocompleteSet].length; i++) {
-                if (_.isEqual(this.props[autocompleteSet][i], key)) {
-                    selectedAgency = this.props[autocompleteSet][i];
+            for (let i = 0; i < autocompleteSet.length; i++) {
+                if (_.isEqual(autocompleteSet[i], key)) {
+                    selectedAgency = autocompleteSet[i];
                     break;
                 }
             }
@@ -167,11 +165,12 @@ export default class AgencyList extends Typeahead {
             warning = <TypeaheadWarning {...errorProps} />;
         }
 
-        let selectedAgencies = null;
-        const agencyTypeSet = `selected${this.props.agencyType}Agencies`;
-        if (this.props[agencyTypeSet].size > 0) {
-            selectedAgencies = (<SelectedAgencies
-                selectedAgencies={this.props[agencyTypeSet]}
+        let chosenAgencies = null;
+        const agencyTypeSet = this.props.selectedAgencies;
+
+        if (agencyTypeSet.size > 0) {
+            chosenAgencies = (<SelectedAgencies
+                selectedAgencies={agencyTypeSet}
                 removeAgency={this.props.removeAgency}
                 agencyType={this.props.agencyType} />);
         }
@@ -192,7 +191,7 @@ export default class AgencyList extends Typeahead {
                         data-autofirst="false" />
                 </div>
                 {warning}
-                {selectedAgencies}
+                {chosenAgencies}
             </div>
         );
     }
