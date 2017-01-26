@@ -67,6 +67,6 @@ class AwardContainer extends React.Component {
 AwardContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.award.selectedAward }),
+    (state) => ({ award: state.award }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
 )(AwardContainer);

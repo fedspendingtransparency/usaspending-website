@@ -17,9 +17,24 @@ const propTypes = {
 
 class AwardInfoContainer extends React.Component {
 
-    componentDidMount() {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            agencyType: "awarding"
+        };
+    }
+
+    componentWillMount() {
         this.props.getSelectedAward();
     }
+
+    toggleAgency(type) {
+        this.setState = ({
+            agencyType: type
+        });
+    }
+
     render() {
         return (
             <AwardInfo {...this.props} />
@@ -30,6 +45,6 @@ class AwardInfoContainer extends React.Component {
 AwardInfoContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.award.selectedAward }),
+    (state) => ({ selectedAward: state.award.selectedAward }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
 )(AwardInfoContainer);

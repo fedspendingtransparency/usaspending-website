@@ -8,15 +8,16 @@ import React from 'react';
 export default class AgencyInfo extends React.Component {
 
     render() {
+        // const agency = this.props[agencyType];
         return (
             <div className="agency-wrapper">
                 <div className="agency-info">
                     <select className="agency-option">
-                        <option>Awarding Agency</option>
-                        <option>Funding Agency</option>
+                        <option name="awarding" id="awarding">Awarding Agency</option>
+                        <option name="funding" id="funding">Funding Agency</option>
                     </select>
                     <div className="agency-name">
-                        Department of Defense
+                        {this.props.awardingAgency.toptier_agency.name}
                     </div>
                     <ul className="agency-subtiers">
                         <li className="subtier-agency">
@@ -24,7 +25,7 @@ export default class AgencyInfo extends React.Component {
                                 Awarding Subtier Agency
                             </div>
                             <div className="subtier name">
-                                Department of the Navy
+                                {this.props.awardingAgency.subtier_agency.name}
                             </div>
                         </li>
                         <li className="office-agency">
@@ -32,7 +33,7 @@ export default class AgencyInfo extends React.Component {
                                 Awarding Office
                             </div>
                             <div className="office name">
-                                Naval Air Systems Command
+                                Placeholder
                             </div>
                         </li>
                     </ul>
