@@ -1,5 +1,7 @@
 # USAspending Website
 
+[![Build Status](https://travis-ci.org/fedspendingtransparency/usaspending-website.svg?branch=dev)](https://travis-ci.org/fedspendingtransparency/usaspending-website) [![Test Coverage](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/badges/coverage.svg)](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/coverage)
+
 The USAspending website is the public-facing site offering information on Government spending for the United States.
 
 ## Development Set Up
