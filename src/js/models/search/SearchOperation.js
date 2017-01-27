@@ -3,6 +3,8 @@
   * Created by Kevin Li 11/4/16
   **/
 
+import _ from 'lodash';
+
 import * as AwardTypeQuery from './queryBuilders/AwardTypeQuery';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as LocationQuery from './queryBuilders/LocationQuery';
@@ -32,8 +34,9 @@ class SearchOperation {
         this.locationDomesticForeign = state.locationDomesticForeign;
     }
 
-    toParams() {
-        // converts the search operation into a JS object that can be POSTed to the endpoint
+    commonParams() {
+        // convert the search operation into JS objects for filters that have shared keys and
+        // data structures between Awards and Transactions
         const filters = [];
 
         // add award types
@@ -50,6 +53,21 @@ class SearchOperation {
             filters.push(AwardTypeQuery.buildQuery(this.resultAwardType));
         }
 
+        // add location queries
+        if (this.selectedLocations.length > 0) {
+            filters.push(LocationQuery.buildLocationQuery(this.selectedLocations));
+        }
+
+        if (this.locationDomesticForeign !== '' && this.locationDomesticForeign !== 'all') {
+            filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign));
+        }
+
+        return filters;
+    }
+
+    uniqueParams() {
+        const filters = [];
+
         // add time period queries
         if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
             const timeQuery = TimePeriodQuery.buildQuery({
@@ -62,14 +80,20 @@ class SearchOperation {
             }
         }
 
-        // add location queries
-        if (this.selectedLocations.length > 0) {
-            filters.push(LocationQuery.buildLocationQuery(this.selectedLocations));
-        }
+        return filters;
+    }
 
-        if (this.locationDomesticForeign !== '' && this.locationDomesticForeign !== 'all') {
-            filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign));
-        }
+    toParams() {
+        // converts the search operation into a JS object that can be POSTed to the endpoint
+
+        // get the common filters that are shared with all models
+        const commonFilters = this.commonParams();
+
+        // now parse the remaining filters that are unique to this model
+        const specificFilters = this.uniqueParams();
+
+        // merge the two arrays together into the fully assembled filter parameters
+        const filters = _.concat(commonFilters, specificFilters);
 
         return filters;
     }

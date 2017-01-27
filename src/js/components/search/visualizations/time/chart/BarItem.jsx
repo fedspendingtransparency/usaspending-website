@@ -19,7 +19,6 @@ const propTypes = {
     width: React.PropTypes.number,
     x: React.PropTypes.number,
     y: React.PropTypes.number,
-    active: React.PropTypes.bool,
     selectBar: React.PropTypes.func,
     deselectBar: React.PropTypes.func,
     deregisterBar: React.PropTypes.func
