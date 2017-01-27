@@ -22,7 +22,7 @@ describe('autocompleteReducer', () => {
                         matched_ids: [2, 3]
                     },
                     {
-                        parent: 'INDIANA',
+                        parent: 'MASSACHUSETTS',
                         place_type: 'CITY',
                         place: 'BOSTON',
                         matched_ids: [4, 5]
