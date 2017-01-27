@@ -51,7 +51,7 @@ const routeDefinitions = {
             }
         },
         {
-            path: 'award',
+            path: 'award/:awardId',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../award/AwardContainer').default);

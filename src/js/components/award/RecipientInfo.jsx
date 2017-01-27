@@ -13,6 +13,14 @@ export default class RecipientInfo extends React.Component {
 
     render() {
         const recipient = this.props.recipient;
+        let recipientDuns = "Not Available";
+        let businessTypeDesc = "Not Available";
+        if (recipient.recipient_unique_id) {
+            recipientDuns = recipient.recipient_unique_id;
+        }
+        if (recipient.recipient_unique_id) {
+            businessTypeDesc = recipient.recipient_unique_id;
+        }
         const name = (
             <div className="recipient-name">
                 {recipient.recipient_name}
@@ -44,7 +52,7 @@ export default class RecipientInfo extends React.Component {
                     DUNS
                 </div>
                 <div className="recipient-duns name">
-                    149879157
+                    {recipientDuns}
                 </div>
             </li>
         );
@@ -54,7 +62,7 @@ export default class RecipientInfo extends React.Component {
                     Parent DUNS
                 </div>
                 <div className="recipient-parent-duns name">
-                    009256819
+                    Not Available
                 </div>
             </li>
         );
@@ -64,7 +72,7 @@ export default class RecipientInfo extends React.Component {
                     Business Type
                 </div>
                 <div className="recipient-business-type name">
-                    Corporate Not Tax-Exempt, For Profit Organization, Manufacturer of Goods
+                    {businessTypeDesc}
                 </div>
             </li>
         );

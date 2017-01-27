@@ -23,32 +23,61 @@ export default class SummaryBar extends React.Component {
     }
 
     render() {
-        let summaryBar = null;
+        let summaryTitle = null;
+        let awardId = null;
+        let parentAwardId = null;
+        let status = null;
+        let parentId = null;
         if (this.props.selectedAward) {
             const award = this.props.selectedAward;
-            summaryBar = (
+            if (award.parent_award) {
+                parentId = award.parent_award;
+            }
+            else if (!award.parent_award && award.type_description !== "Definitive Contract") {
+                parentId = "Not Available";
+            }
+            else {
+                parentId = null;
+            }
+
+            summaryTitle = (
+                <h1 className="summary-title">{award.type_description} Summary</h1>);
+            awardId = (
+                <li>
+                    <div className="format-item">
+                        <div className="item-label">Award ID</div>
+                        <div className="item-value">{award.id}</div>
+                    </div>
+                </li>);
+            if (award.type_description === "Definitive Contract" && parentId === null) {
+                parentAwardId = null;
+            }
+            else {
+                parentAwardId = (
+                    <li>
+                        <div className="format-item">
+                            <div className="item-label">Parent Award ID</div>
+                            <div className="item-value">{parentId}</div>
+                        </div>
+                    </li>);
+            }
+            status = (
+                <li>
+                    <div className="format-item">
+                        <div className="item-label">Status</div>
+                        <div className="item-value">{this.props.awardStatus}</div>
+                    </div>
+                </li>);
+        }
+        return (
+            <div className="usa-da-summary-bar">
                 <div className="summary-bar-wrap">
-                    <h1 className="summary-title">{award.type_description} Summary</h1>
+                    { summaryTitle }
                     <div className="summary-status">
                         <ul className="summary-status-items">
-                            <li>
-                                <div className="format-item">
-                                    <div className="item-label">Award ID</div>
-                                    <div className="item-value">{award.id}</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="format-item">
-                                    <div className="item-label">Parent Award ID</div>
-                                    <div className="item-value">Not Available</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="format-item">
-                                    <div className="item-label">Status</div>
-                                    <div className="item-value">{this.props.awardStatus}</div>
-                                </div>
-                            </li>
+                            { awardId }
+                            { parentAwardId }
+                            { status }
                             <li>
                                 <div className="format-item">
                                     <Icons.MoreOptions />
@@ -57,11 +86,6 @@ export default class SummaryBar extends React.Component {
                         </ul>
                     </div>
                 </div>
-            );
-        }
-        return (
-            <div className="usa-da-summary-bar">
-                { summaryBar }
             </div>
         );
     }

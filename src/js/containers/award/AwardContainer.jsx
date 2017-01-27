@@ -14,7 +14,7 @@ import * as awardActions from 'redux/actions/award/awardActions';
 
 const propTypes = {
     setSelectedAward: React.PropTypes.func,
-    location: React.PropTypes.object
+    params: React.PropTypes.object
 };
 
 class AwardContainer extends React.Component {
@@ -26,7 +26,7 @@ class AwardContainer extends React.Component {
     }
 
     getSelectedAward() {
-        const input = this.props.location.query.id;
+        const input = this.props.params.awardId;
 
         if (this.selectedAwardRequest) {
             // A request is currently in-flight, cancel it

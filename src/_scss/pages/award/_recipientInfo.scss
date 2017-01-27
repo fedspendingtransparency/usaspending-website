@@ -15,17 +15,14 @@
     }
 
     ul.recipient-information {
+    @include span-columns(16);
     @include unstyled-list;
     display: table-cell;
     text-align: center;
 
         li {
-            @include span-columns(3.6);
+            @include span-columns(3.7);
             display: inline-block;
-
-            &:last-child {
-                margin-left: 50px;
-            }
 
             .title {
                 font-weight:bold;
