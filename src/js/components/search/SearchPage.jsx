@@ -20,8 +20,7 @@ export default class SearchPage extends React.Component {
 
         this.state = {
             currentSection: this.sections[0],
-            stickyHeader: false,
-            stickyTopFilterBar: false
+            stickyHeader: false
         };
 
         // headerBottom tracks the position (in pixels) of the bottom of the search page header
@@ -71,9 +70,6 @@ export default class SearchPage extends React.Component {
 
         // we have to observe the placeholder positions since the actual divs could be fixed to the
         // window
-        // cheat and access the DOM for the top filter bar element because it is nested too far down
-        const contentRect = document.querySelector('#search-top-filter-bar-placeholder')
-            .getBoundingClientRect();
         const headerRect = this.searchHeaderPlaceholder.getBoundingClientRect();
         const newState = {};
         let updateState = false;
@@ -88,20 +84,6 @@ export default class SearchPage extends React.Component {
         else if (headerRect.top > 0 && this.state.stickyHeader) {
             // unstick the header
             newState.stickyHeader = false;
-            updateState = true;
-        }
-
-        // determine if the top filter bar needs to be stickied
-        if (contentRect.top <= headerHeight && headerRect.top <= 0
-            && !this.state.stickyTopFilterBar) {
-            // make the top filter bar sticky, but only if the header bar is sticky too
-            newState.stickyTopFilterBar = true;
-            updateState = true;
-        }
-        else if ((contentRect.top > headerHeight || headerRect.top > 0)
-            && this.state.stickyTopFilterBar) {
-            // unstick the top filter bar
-            newState.stickyTopFilterBar = false;
             updateState = true;
         }
 
@@ -193,7 +175,7 @@ export default class SearchPage extends React.Component {
                         }} />
                     <div className="search-contents">
                         <SearchSidebar />
-                        <SearchResults isSticky={this.state.stickyTopFilterBar} />
+                        <SearchResults />
                     </div>
                 </main>
                 <Footer />

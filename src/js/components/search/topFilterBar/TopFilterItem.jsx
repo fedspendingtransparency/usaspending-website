@@ -7,7 +7,6 @@ import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    code: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
     value: React.PropTypes.any,
     removeFilter: React.PropTypes.func
@@ -25,7 +24,7 @@ export default class TopFilterItem extends React.Component {
     }
 
     clickedButton() {
-        this.props.removeFilter(this.props.code, this.props.value);
+        this.props.removeFilter(this.props.value);
     }
 
     render() {
