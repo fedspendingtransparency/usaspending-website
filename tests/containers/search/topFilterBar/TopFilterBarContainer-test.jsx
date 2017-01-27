@@ -12,15 +12,7 @@ import { Set, OrderedMap } from 'immutable';
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
 import { TopFilterBarContainer } from 'containers/search/topFilterBar/TopFilterBarContainer';
 
-const defaultFilters = {
-    awardType: new Set(),
-    timePeriodType: 'fy',
-    timePeriodFY: new Set(),
-    timePeriodStart: null,
-    timePeriodEnd: null,
-    selectedLocations: new Set(),
-    locationDomesticForeign: 'all'
-};
+import { defaultFilters } from '../../../testResources/defaultReduxFilters';
 
 const setup = (props) =>
     mount(<TopFilterBarContainer {...props} />);

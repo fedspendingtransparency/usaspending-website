@@ -68,7 +68,7 @@ export const performAwardsTotalSearch = (params) => {
 
     return {
         promise: Axios.request({
-            url: 'awards/total/',
+            url: 'transactions/total/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,

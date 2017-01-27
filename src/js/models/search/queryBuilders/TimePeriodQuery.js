@@ -6,10 +6,10 @@
 const startDateField = 'period_of_performance_start_date';
 const endDateField = 'period_of_performance_current_end_date';
 
-const buildFYRangeQuery = (fyRange, prefix) => {
+const buildFYRangeQuery = (fyRange) => {
     const fyFilters = [];
-    const startField = `${prefix}${startDateField}`;
-    const endField = `${prefix}${endDateField}`;
+    const startField = startDateField;
+    const endField = endDateField;
     fyRange.forEach((fy) => {
         // iterate through each FY and generate a range_intersect filter for the FY
         const fyQuery = {
@@ -31,8 +31,8 @@ const buildFYRangeQuery = (fyRange, prefix) => {
 
 // build an OR query to search for start dates on or after the start of the range
 // or end dates before or on the end of the range
-const buildDateRangeQuery = (dateRange, prefix) => ({
-    field: [`${prefix}${startDateField}`, `${prefix}${endDateField}`],
+const buildDateRangeQuery = (dateRange) => ({
+    field: [startDateField, endDateField],
     operation: 'range_intersect',
     value: dateRange
 });
@@ -40,14 +40,13 @@ const buildDateRangeQuery = (dateRange, prefix) => ({
 export const buildQuery = (params = {
     type: '',
     fyRange: null,
-    dateRange: null,
-    prefix: ''
+    dateRange: null
 }) => {
     if (params.type === 'fy' && params.fyRange.length > 0) {
-        return buildFYRangeQuery(params.fyRange, params.prefix);
+        return buildFYRangeQuery(params.fyRange);
     }
     else if (params.type === 'dr' && params.dateRange.length === 2) {
-        return buildDateRangeQuery(params.dateRange, params.prefix);
+        return buildDateRangeQuery(params.dateRange);
     }
     return null;
 };

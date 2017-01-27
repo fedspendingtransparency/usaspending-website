@@ -1,36 +1,15 @@
 /**
-  * SearchOperation.js
-  * Created by Kevin Li 11/4/16
+  * SearchTransactionOperation.js
+  * Created by Kevin Li 12/26/17
   **/
 
+import SearchOperation from './SearchOperation';
+
 import * as AwardTypeQuery from './queryBuilders/AwardTypeQuery';
-import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
+import * as TxnTimePeriodQuery from './queryBuilders/TxnTimePeriodQuery';
 import * as LocationQuery from './queryBuilders/LocationQuery';
 
-class SearchOperation {
-    constructor() {
-        this.awardType = [];
-        this.timePeriodType = 'fy';
-        this.timePeriodFY = [];
-        this.timePeriodRange = [];
-
-        // special filter for filtering results to only display those that match certain award types
-        // this is used by the search results table "award type" tabs
-        this.resultAwardType = [];
-    }
-
-    fromState(state) {
-        this.awardType = state.awardType.toArray();
-        this.timePeriodFY = state.timePeriodFY.toArray();
-        this.timePeriodRange = [];
-        this.timePeriodType = state.timePeriodType;
-        if (state.timePeriodType === 'dr' && state.timePeriodStart && state.timePeriodEnd) {
-            this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
-            this.timePeriodFY = [];
-        }
-        this.selectedLocations = state.selectedLocations.toArray();
-        this.locationDomesticForeign = state.locationDomesticForeign;
-    }
+class SearchTransactionOperation extends SearchOperation {
 
     toParams() {
         // converts the search operation into a JS object that can be POSTed to the endpoint
@@ -52,7 +31,7 @@ class SearchOperation {
 
         // add time period queries
         if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
-            const timeQuery = TimePeriodQuery.buildQuery({
+            const timeQuery = TxnTimePeriodQuery.buildTxnActionDateQuery({
                 type: this.timePeriodType,
                 fyRange: this.timePeriodFY,
                 dateRange: this.timePeriodRange
@@ -75,4 +54,4 @@ class SearchOperation {
     }
 }
 
-export default SearchOperation;
+export default SearchTransactionOperation;

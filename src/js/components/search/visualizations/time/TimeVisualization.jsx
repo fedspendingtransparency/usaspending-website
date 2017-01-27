@@ -4,11 +4,10 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
 
 import BarChart from './chart/BarChart';
-
 import Tooltip from './TimeVisualizationTooltip';
+import ChartMessage from './TimeVisualizationChartMessage';
 
 const defaultProps = {
     groups: [],
@@ -34,7 +33,8 @@ const propTypes = {
     height: React.PropTypes.number,
     groups: React.PropTypes.array,
     xSeries: React.PropTypes.array,
-    ySeries: React.PropTypes.array
+    ySeries: React.PropTypes.array,
+    loading: React.PropTypes.bool
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -68,8 +68,12 @@ export default class TimeVisualization extends React.Component {
                 y={this.state.tooltipY} />);
         }
 
-        let chart = null;
-        if (this.props.groups.length > 0) {
+        let chart = (<ChartMessage message="No data to display" />);
+        if (this.props.loading) {
+            // API request is still pending
+            chart = (<ChartMessage message="Loading data..." />);
+        }
+        else if (this.props.groups.length > 0) {
             // only mount the chart component if there is data to display
             chart = (<BarChart
                 {...this.props}

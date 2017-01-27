@@ -16,20 +16,21 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 
-import SearchOperation from 'models/search/SearchOperation';
+import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object
 };
 
-class TimeVisualizationSectionContainer extends React.Component {
+export class TimeVisualizationSectionContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            groups: ['2016'],
-            xSeries: [['2016']],
-            ySeries: [[10000000]]
+            loading: true,
+            groups: [],
+            xSeries: [],
+            ySeries: []
         };
     }
 
@@ -44,27 +45,30 @@ class TimeVisualizationSectionContainer extends React.Component {
     }
 
     fetchData() {
-        // build a new search operation from the Redux state
-        const operation = new SearchOperation();
+        // build a new search operation from the Redux state, but create a transaction-based search
+        // operation instead of an award-based one
+        const operation = new SearchTransactionOperation();
         operation.fromState(this.props.reduxFilters);
-        // because the aggregation endpoint uses a different model object, we need to add a
-        // prefix to all our filter field names
-        const searchParams = operation.toParams('financial_accounts_by_awards__award__');
+
+        const searchParams = operation.toParams();
 
         // generate the API parameters
         const apiParams = {
-            field: 'transaction_obligated_amount',
-            group: 'create_date',
+            field: 'federal_action_obligation',
+            group: 'action_date',
             order: ['item'],
             date_part: 'year',
             aggregate: 'sum',
             filters: searchParams
         };
 
+        this.setState({
+            loading: true
+        });
         const search = SearchHelper.performAwardsTotalSearch(apiParams);
         search.promise
             .then((res) => {
-                // this.parseData(res.data);
+                this.parseData(res.data);
             });
     }
 
@@ -83,7 +87,8 @@ class TimeVisualizationSectionContainer extends React.Component {
         this.setState({
             groups,
             xSeries,
-            ySeries
+            ySeries,
+            loading: false
         });
     }
 
