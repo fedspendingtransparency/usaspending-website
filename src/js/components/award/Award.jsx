@@ -6,7 +6,6 @@
 import React from 'react';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
-import SummaryBar from './SummaryBar';
 import AwardInfoContainer from '../../containers/award/AwardInfoContainer';
 
 const propTypes = {
@@ -19,11 +18,8 @@ export default class Award extends React.Component {
         return (
             <div className="usa-da-award-page">
                 <Header />
-                <SummaryBar />
-                <div className="wrapper">
-                    <AwardInfoContainer
-                        getSelectedAward={this.props.getSelectedAward} />
-                </div>
+                <AwardInfoContainer
+                    getSelectedAward={this.props.getSelectedAward} />
                 <Footer />
             </div>
         );

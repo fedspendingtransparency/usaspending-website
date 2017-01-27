@@ -10,8 +10,11 @@ import RecipientInfo from './RecipientInfo';
 const propTypes = {
     selectedAward: React.PropTypes.object,
     toggleAgency: React.PropTypes.func,
-    agencyType: React.PropTypes.object,
-    recipient: React.PropTypes.object
+    agencyType: React.PropTypes.string,
+    toptierAgency: React.PropTypes.object,
+    subtierAgency: React.PropTypes.object,
+    officeAgency: React.PropTypes.object,
+    setAwardValues: React.PropTypes.func
 };
 
 export default class AwardInfoBar extends React.Component {
@@ -31,10 +34,15 @@ export default class AwardInfoBar extends React.Component {
             agencies = (
                 <div className="award-info-bar">
                     <AgencyInfo
+                        {...this.props}
                         toggleAgency={this.props.toggleAgency}
-                        agencyType={this.props.agencyType} />
+                        agencySet={this.props.selectedAward[this.props.agencyType]}
+                        toptierAgency={this.props.toptierAgency}
+                        subtierAgency={this.props.subtierAgency}
+                        officeAgency={this.props.officeAgency}
+                        setAwardValues={this.props.setAwardValues} />
                     <RecipientInfo
-                        recipient={this.props.recipient} />
+                        recipient={this.props.selectedAward.recipient} />
                 </div>
             );
         }

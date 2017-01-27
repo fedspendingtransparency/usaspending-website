@@ -20,7 +20,7 @@
     text-align: center;
 
         li {
-            @include span-columns(3.5);
+            @include span-columns(3.6);
             display: inline-block;
 
             &:last-child {
@@ -34,6 +34,10 @@
 
             .name {
                 font-size: $smallest-font-size;
+
+                .address-line {
+                    display:block;
+                }
             }
         }
     }

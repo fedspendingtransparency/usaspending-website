@@ -4,56 +4,57 @@
  **/
 
 import React from 'react';
-import _ from 'lodash';
 
 const propTypes = {
     toggleAgency: React.PropTypes.func,
-    agencyType: React.PropTypes.object
+    agencySet: React.PropTypes.object,
+    agencyTitle: React.PropTypes.string,
+    setAwardValues: React.PropTypes.func,
+    toptierAgency: React.PropTypes.object,
+    subtierAgency: React.PropTypes.object,
+    officeAgency: React.PropTypes.object
 };
 
 export default class AgencyInfo extends React.Component {
+    componentDidMount() {
+        this.props.setAwardValues(this.props.agencyTitle, this.props.agencySet);
+    }
 
-    // do a foreach on this.props.agencytype?
-    // map name to value and classname
+    componentWillReceiveProps(nextProps) {
+        if (this.props.agencyTitle !== nextProps.agencyTitle) {
+            this.props.setAwardValues(nextProps.agencyTitle, nextProps.agencySet);
+        }
+    }
 
     render() {
-        this.coolFunction();
-        const toptier = this.props.agencyType.toptier_agency;
-        const subtier = this.props.agencyType.subtier_agency;
-        const office = this.props.agencyType.office_agency;
         let toptierBundle = null;
         let subtierBundle = null;
         let officeBundle = null;
 
-        if (toptier) {
-            toptierBundle = (
-                <div className="agency-name">
-                    {toptier.name}
+        toptierBundle = (
+            <div className="agency-name">
+                {this.props.toptierAgency.value}
+            </div>
+        );
+        subtierBundle = (
+            <li className="subtier-agency">
+                <div className="subtier title">
+                    {this.props.agencyTitle} Sub-tier Agency
                 </div>
-            );
-        }
+                <div className="subtier name">
+                    {this.props.subtierAgency.value}
+                </div>
+            </li>
+        );
 
-        if (subtier) {
-            subtierBundle = (
-                <li className="subtier-agency">
-                    <div className="subtier title">
-                        Awarding Subtier Agency
-                    </div>
-                    <div className="subtier name">
-                        {subtier.name}
-                    </div>
-                </li>
-            );
-        }
-
-        if (office) {
+        if (this.props.officeAgency.value) {
             officeBundle = (
                 <li className="office-agency">
                     <div className="office title">
-                        Awarding Office
+                        {this.props.agencyTitle} Office
                     </div>
                     <div className="office name">
-                        {office.name}
+                        {this.props.officeAgency.value}
                     </div>
                 </li>
             );

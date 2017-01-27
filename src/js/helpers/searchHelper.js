@@ -68,7 +68,7 @@ export const fetchAward = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'awards/summary/',
+            url: 'awards/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,

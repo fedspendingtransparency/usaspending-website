@@ -37,6 +37,10 @@
                 margin-left: 50px;
             }
 
+            &:only-child {
+                margin-left: 0;
+            }
+
             .title {
                 font-weight:bold;
             }
