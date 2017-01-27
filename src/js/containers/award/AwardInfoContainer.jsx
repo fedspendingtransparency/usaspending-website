@@ -21,23 +21,28 @@ class AwardInfoContainer extends React.Component {
         super(props);
 
         this.state = {
-            agencyType: "awarding"
+            agencyType: "awarding_agency"
         };
+
+        this.toggleAgency = this.toggleAgency.bind(this);
     }
 
     componentWillMount() {
         this.props.getSelectedAward();
     }
 
-    toggleAgency(type) {
-        this.setState = ({
-            agencyType: type
+    toggleAgency(e) {
+        this.setState({
+            agencyType: `${e.target.value}_agency`
         });
     }
 
     render() {
         return (
-            <AwardInfo {...this.props} />
+            <AwardInfo
+                {...this.props}
+                toggleAgency={this.toggleAgency}
+                agencyType={this.state.agencyType} />
         );
     }
 }
