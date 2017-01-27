@@ -12,7 +12,7 @@ export const performSearch = (searchParams) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'awards/summary/',
+            url: 'awards/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: searchParams,
