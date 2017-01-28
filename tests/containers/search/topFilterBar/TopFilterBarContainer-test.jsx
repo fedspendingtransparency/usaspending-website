@@ -7,10 +7,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
 
-import { Set } from 'immutable';
+import { Set, OrderedMap } from 'immutable';
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
-import TopFilterBarEmpty from 'components/search/topFilterBar/TopFilterBarEmpty';
 import { TopFilterBarContainer } from 'containers/search/topFilterBar/TopFilterBarContainer';
 
 const defaultFilters = {
@@ -28,6 +27,7 @@ const setup = (props) =>
 
 const removeTimePeriodSpy = sinon.spy(TopFilterBarContainer.prototype, 'removeTimePeriod');
 const removeFromSetSpy = sinon.spy(TopFilterBarContainer.prototype, 'removeFromSet');
+const resetGenericFieldSpy = sinon.spy(TopFilterBarContainer.prototype, 'resetGenericField');
 const prepareFiltersSpy = sinon.spy(TopFilterBarContainer.prototype, 'prepareFilters');
 
 
@@ -39,7 +39,6 @@ describe('TopFilterBarContainer', () => {
         };
         const topBarContainer = setup(props);
 
-        expect(topBarContainer.find(TopFilterBarEmpty)).toHaveLength(1);
         expect(topBarContainer.find(TopFilterBar)).toHaveLength(0);
     });
 
@@ -54,7 +53,6 @@ describe('TopFilterBarContainer', () => {
 
         const topBarContainer = setup(props);
 
-        expect(topBarContainer.find(TopFilterBarEmpty)).toHaveLength(0);
         expect(topBarContainer.find(TopFilterBar)).toHaveLength(1);
     });
 
@@ -111,8 +109,7 @@ describe('TopFilterBarContainer', () => {
             const expectedFilterState = {
                 code: 'timePeriodFY',
                 name: 'Time Period',
-                values: ['2015', '2014'],
-                labels: ['FY 2015', 'FY 2014']
+                values: ['2015', '2014']
             };
 
             expect(filterItem).toEqual(expectedFilterState);
@@ -140,8 +137,81 @@ describe('TopFilterBarContainer', () => {
             const expectedFilterState = {
                 code: 'awardType',
                 name: 'Award Type',
-                values: ['07'],
-                labels: ['Direct Loans']
+                values: ['07']
+            };
+
+            expect(filterItem).toEqual(expectedFilterState);
+        });
+
+        it('should update component state with Redux location filters when available', () => {
+            // mount the container with default props
+            const topBarContainer = setup({
+                reduxFilters: Object.assign({}, defaultFilters)
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(0);
+
+            const locationFilter = Object.assign({}, defaultFilters, {
+                selectedLocations: new OrderedMap({
+                    '1,2_LOS ANGELES_CITY': {
+                        matched_ids: [1, 2],
+                        parent: 'CALIFORNIA',
+                        place_type: 'CITY',
+                        place: 'LOS ANGELES',
+                        identifier: '1,2_LOS ANGELES_CITY'
+                    }
+                })
+            });
+
+            topBarContainer.setProps({
+                reduxFilters: locationFilter
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(1);
+
+            const filterItem = topBarContainer.state().filters[0];
+            const expectedFilterState = {
+                code: 'selectedLocations',
+                name: 'Location',
+                scope: 'all',
+                values: [{
+                    matched_ids: [1, 2],
+                    parent: 'CALIFORNIA',
+                    place_type: 'CITY',
+                    place: 'LOS ANGELES',
+                    identifier: '1,2_LOS ANGELES_CITY'
+                }]
+            };
+
+            expect(filterItem).toEqual(expectedFilterState);
+        });
+
+        it('should update component state with Redux location scope when it is not "all"', () => {
+            // mount the container with default props
+            const topBarContainer = setup({
+                reduxFilters: Object.assign({}, defaultFilters)
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(0);
+
+            const locationFilter = Object.assign({}, defaultFilters, {
+                locationDomesticForeign: 'foreign'
+            });
+
+            topBarContainer.setProps({
+                reduxFilters: locationFilter
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(1);
+
+            const filterItem = topBarContainer.state().filters[0];
+            const expectedFilterState = {
+                code: 'selectedLocations',
+                name: 'Location',
+                scope: 'foreign',
+                values: [{
+                    isScope: true
+                }]
             };
 
             expect(filterItem).toEqual(expectedFilterState);
@@ -159,7 +229,6 @@ describe('TopFilterBarContainer', () => {
                 reduxFilters: initialFilters
             });
 
-            expect(topBarContainer.find(TopFilterBarEmpty)).toHaveLength(0);
             expect(topBarContainer.find(TopFilterBar)).toHaveLength(1);
 
             // clear the filters
@@ -167,7 +236,6 @@ describe('TopFilterBarContainer', () => {
                 reduxFilters: Object.assign({}, defaultFilters)
             });
 
-            expect(topBarContainer.find(TopFilterBarEmpty)).toHaveLength(1);
             expect(topBarContainer.find(TopFilterBar)).toHaveLength(0);
         });
 
@@ -259,6 +327,176 @@ describe('TopFilterBarContainer', () => {
             // the removeFilter function should call removeFromSet
             expect(removeFromSetSpy.called).toBeTruthy();
             // the removeFromSet function should trigger a Redux action to remove the award type
+            expect(mockReduxAction).toHaveBeenCalled();
+        });
+
+        it('should trigger an appropriate Redux action when a single filter group is removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                awardType: new Set(['07', '04'])
+            });
+
+            const expectedReduxArguments = 'awardType';
+
+             // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to reset a single filter group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+            topBarContainer.instance().clearFilterGroup('awardType');
+
+            // for non-time period fields, the resetGenericField function should be called
+            expect(resetGenericFieldSpy.called).toBeTruthy();
+            // this function doesn't really do anything but pass the arguments onto a Redux action
+            expect(mockReduxAction).toHaveBeenCalled();
+        });
+
+        it('should trigger an appropriate Redux action when the time period fiscal year filter group is individually removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                timePeriodType: 'fy',
+                timePeriodFY: new Set(['2014', '2015'])
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function the reset the single time period
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                resetTimeFilters: mockReduxAction
+            });
+            topBarContainer.instance().clearFilterGroup('timePeriodFY');
+
+            // validate that the resetTimeFilters Redux action is called
+            expect(mockReduxAction).toHaveBeenCalled();
+        });
+
+        it('should trigger an appropriate Redux action when the time period date range filter group is individually removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                timePeriodType: 'dr',
+                timePeriodStart: '2016-01-01',
+                timePeriodEnd: '2016-12-31'
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to reset the single time period
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                resetTimeFilters: mockReduxAction
+            });
+            topBarContainer.instance().clearFilterGroup('timePeriodDR');
+
+            // validate that the resetTimeFilters Redux action is called
+            expect(mockReduxAction).toHaveBeenCalled();
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire location filter', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                locationDomesticForeign: 'domestic',
+                selectedLocations: new OrderedMap({
+                    '1,2_LOS ANGELES_CITY': {
+                        matched_ids: [1, 2],
+                        parent: 'CALIFORNIA',
+                        place_type: 'CITY',
+                        place: 'LOS ANGELES',
+                        identifier: '1,2_LOS ANGELES_CITY'
+                    }
+                })
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('selectedLocations');
+
+            // validate that the clearFilterType Redux action is called twice
+            expect(mockReduxAction).toHaveBeenCalledTimes(2);
+        });
+
+        it('should be able to trigger Redux actions that can reset the specific location filter values', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                locationDomesticForeign: 'domestic',
+                selectedLocations: new OrderedMap({
+                    '1,2_LOS ANGELES_CITY': {
+                        matched_ids: [1, 2],
+                        parent: 'CALIFORNIA',
+                        place_type: 'CITY',
+                        place: 'LOS ANGELES',
+                        identifier: '1,2_LOS ANGELES_CITY'
+                    },
+                    '3,4_TORONTO_CITY': {
+                        matched_ids: [3, 4],
+                        parent: 'CANADA',
+                        place_type: 'CITY',
+                        place: 'TORONTO',
+                        identifier: '3,4_TORONTO_CITY'
+                    }
+                })
+            });
+
+            const expectedReduxArguments = {
+                type: 'selectedLocations',
+                value: new OrderedMap({
+                    '3,4_TORONTO_CITY': {
+                        matched_ids: [3, 4],
+                        parent: 'CANADA',
+                        place_type: 'CITY',
+                        place: 'TORONTO',
+                        identifier: '3,4_TORONTO_CITY'
+                    }
+                })
+            };
+
+            // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+
+            topBarContainer.instance().removeFilter('selectedLocations', '1,2_LOS ANGELES_CITY');
+        });
+
+        it('should be able to trigger Redux actions that can overwrite entire filter group values', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                awardType: new Set(['03', '04'])
+            });
+
+            const expectedReduxArguments = {
+                type: 'awardType',
+                value: new Set(['01', '02'])
+            };
+
+            // validate that the Redux action receives the arguments it is expecting
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function the overwrite a filter
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+            topBarContainer.instance().overwriteFilter('awardType', new Set(['01', '02']));
+
+            // validate that the Redux function is called
             expect(mockReduxAction).toHaveBeenCalled();
         });
     });

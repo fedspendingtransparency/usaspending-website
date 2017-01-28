@@ -60,7 +60,8 @@ class LocationListContainer extends React.Component {
 
             const locSearchParams = {
                 value: this.state.locationSearchString,
-                scope: this.props.locationDomesticForeign
+                scope: this.props.locationDomesticForeign,
+                usage: "place_of_performance"
             };
 
             this.locationSearchRequest = SearchHelper.fetchLocations(locSearchParams);
