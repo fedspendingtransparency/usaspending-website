@@ -23,7 +23,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    placeholder: 'State, City, County, Zip or District',
+    placeholder: 'State, City, County, ZIP, or District',
     customClass: '',
     formatter: null,
     keyValue: 'place',

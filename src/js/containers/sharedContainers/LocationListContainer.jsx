@@ -12,12 +12,14 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 
 import LocationList from 'components/search/filters/location/LocationList';
+import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
     selectLocation: React.PropTypes.func,
     setAutocompleteLocations: React.PropTypes.func,
     selectedLocations: React.PropTypes.object,
-    locationDomesticForeign: React.PropTypes.string
+    locationDomesticForeign: React.PropTypes.string,
+    autocompleteLocations: React.PropTypes.array
 };
 
 class LocationListContainer extends React.Component {
@@ -98,13 +100,33 @@ class LocationListContainer extends React.Component {
     }
 
     render() {
+        const values = [];
+        if (this.props.autocompleteLocations.length > 0) {
+            this.props.autocompleteLocations.forEach((item) => {
+                let placeType = _.upperCase(item.place_type);
+                if (item.parent !== null) {
+                    placeType += ` in ${item.parent}`;
+                }
+
+                values.push({
+                    title: item.place,
+                    subtitle: placeType,
+                    data: item
+                });
+            });
+        }
+
         return (
-            <LocationList
+            <Autocomplete
                 {...this.props}
+                values={values}
                 formatter={this.dataFormatter}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectLocation}
-                placeHolder="State, City, County, ZIP, or District"
+                placeholder="State, City, County, ZIP, or District"
+                errorHeader="Unknown Location"
+                errorMessage="You must select a location from
+                    the list that is provided as you type."
                 ref={(input) => {
                     this.locationList = input;
                 }} />
