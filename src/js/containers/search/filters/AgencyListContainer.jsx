@@ -30,19 +30,6 @@ class AgencyListContainer extends React.Component {
         this.handleTextInput = this.handleTextInput.bind(this);
 
         this.autocompleteAgencies = [];
-        if (this.props.agencyType === 'Funding') {
-            this.autocompleteAgencies = this.props.fundingAgencies;
-        }
-        else {
-            this.autocompleteAgencies = this.props.awardingAgencies;
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.fundingAgencies,
-            this.props.fundingAgencies)) {
-            this.autocompleteAgencies = this.props.fundingAgencies;
-        }
     }
 
     dataFormatter(item) {
@@ -115,6 +102,13 @@ class AgencyListContainer extends React.Component {
     }
 
     render() {
+        if (this.props.agencyType === 'Funding') {
+            this.autocompleteAgencies = this.props.fundingAgencies;
+        }
+        else {
+            this.autocompleteAgencies = this.props.awardingAgencies;
+        }
+
         return (
             <AgencyList
                 {...this.props}

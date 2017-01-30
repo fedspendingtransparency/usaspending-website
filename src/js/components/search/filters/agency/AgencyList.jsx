@@ -51,17 +51,23 @@ export default class AgencyList extends Typeahead {
     loadValues() {
         const valuesList = [];
         const autocompleteSet = this.props.autocompleteAgencies;
+        const topLevelKey = `${_.lowerCase(this.props.agencyType)}_agency__subtier_agency__name`;
+        const lowerLevelKey = `${_.lowerCase(this.props.agencyType)}_agency`;
 
-        autocompleteSet.forEach((item) => {
-            item.funding_agency__subtier_agency__name.forEach((lower) => {
-                valuesList.push(lower.funding_agency.subtier_agency.name);
-                const key =
-                `<b>
-                    ${lower.funding_agency.subtier_agency.name}
-                </b>`;
-                this.dataDictionary[key] = lower;
+        if (autocompleteSet[topLevelKey]) {
+            autocompleteSet[topLevelKey].forEach((item) => {
+                const subtierName = item[lowerLevelKey].subtier_agency.name;
+                const toptierName = item[lowerLevelKey].toptier_agency.name;
+
+                valuesList.push(subtierName);
+                let key = `<b>${subtierName}</b>`;
+                if (toptierName !== subtierName) {
+                    key += `<br>Sub-Tier Agency of ${toptierName}`;
+                }
+
+                this.dataDictionary[key] = item;
             });
-        });
+        }
 
         this.typeahead.list = valuesList;
 
@@ -71,8 +77,7 @@ export default class AgencyList extends Typeahead {
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.autocompleteAgencies,
-            this.props.autocompleteAgencies)) {
+        if (!_.isEqual(prevProps.autocompleteAgencies, this.props.autocompleteAgencies)) {
             this.loadValues();
         }
     }
