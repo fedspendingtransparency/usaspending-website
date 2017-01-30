@@ -49,7 +49,6 @@ export default class TimeVisualizationSection extends React.Component {
     }
 
     changePeriod(period) {
-        // TODO: implement changing periods
         console.log(period);
     }
 
