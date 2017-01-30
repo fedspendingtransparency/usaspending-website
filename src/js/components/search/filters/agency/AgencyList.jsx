@@ -71,9 +71,8 @@ export default class AgencyList extends Typeahead {
     }
 
     componentDidUpdate(prevProps) {
-        const autocompleteSet = this.props.autocompleteAgencies;
-        if (!_.isEqual(prevProps.autocompleteSet,
-            autocompleteSet)) {
+        if (!_.isEqual(prevProps.autocompleteAgencies,
+            this.props.autocompleteAgencies)) {
             this.loadValues();
         }
     }

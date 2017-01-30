@@ -38,6 +38,13 @@ class AgencyListContainer extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (!_.isEqual(prevProps.fundingAgencies,
+            this.props.fundingAgencies)) {
+            this.autocompleteAgencies = this.props.fundingAgencies;
+        }
+    }
+
     dataFormatter(item) {
         const itemLabel = `${item}`;
 

@@ -12,7 +12,7 @@ export const performSearch = (searchParams) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'awards/summary/',
+            url: 'awards/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: searchParams,
@@ -67,7 +67,7 @@ export const fetchAgencies = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'awards/summary/autocomplete/',
+            url: 'awards/autocomplete/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,
