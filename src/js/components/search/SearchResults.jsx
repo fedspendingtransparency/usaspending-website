@@ -8,7 +8,8 @@ import React from 'react';
 import ResultsTableContainer from 'containers/search/table/ResultsTableContainer';
 import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarContainer';
 
-import TimeVisualizationSection from './visualizations/time/TimeVisualizationSection';
+import TimeVisualizationSectionContainer from
+    'containers/search/visualizations/time/TimeVisualizationSectionContainer';
 import RankVisualizationSection from './visualizations/rank/RankVisualizationSection';
 
 export default class SearchResults extends React.Component {
@@ -17,7 +18,7 @@ export default class SearchResults extends React.Component {
             <div className="search-results-wrapper">
                 <TopFilterBarContainer {...this.props} />
                 <div className="search-results">
-                    <TimeVisualizationSection />
+                    <TimeVisualizationSectionContainer />
                     <RankVisualizationSection />
                     <ResultsTableContainer />
                 </div>

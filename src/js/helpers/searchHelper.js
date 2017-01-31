@@ -62,3 +62,20 @@ export const fetchLocations = (req) => {
     };
 };
 
+// make API call to awards total aggregation endpoint
+export const performAwardsTotalSearch = (params) => {
+    const source = CancelToken.source();
+
+    return {
+        promise: Axios.request({
+            url: 'transactions/total/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

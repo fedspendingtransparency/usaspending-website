@@ -14,7 +14,11 @@
     "verbose": true,
     "bail": false,
     "collectCoverage": true,
-    "collectCoverageFrom": ["**/*.{js,jsx}", "!**/node_modules/**", "!**/public/**"]
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/public/**"
+    ]
   },
   "repository": {
     "type": "git",
@@ -77,6 +81,7 @@
     "node-emoji": "^1.4.3",
     "node-sass": "^3.8.0",
     "object-assign": "^4.1.0",
+    "promise": "^7.1.1",
     "react-test-renderer": "^15.4.2",
     "redux-mock-store": "^1.0.2",
     "sass-loader": "^4.0.0",
@@ -94,7 +99,8 @@
     "awesomplete": "^1.1.0",
     "axios": "^0.15.2",
     "babel-polyfill": "^6.20.0",
-    "d3": "^3.5.16",
+    "d3-scale": "^1.0.4",
+    "fixed-data-table": "0.6.3",
     "immutable": "^3.8.1",
     "jquery": "^2.1.4",
     "js-cookie": "^2.1.0",
