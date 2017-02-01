@@ -12,6 +12,11 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import Agency from 'components/search/filters/agency/Agency';
 
+const propTypes = {
+    updateSelectedFundingAgencies: React.PropTypes.func,
+    updateSelectedAwardingAgencies: React.PropTypes.func
+};
+
 class AgencyContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -25,19 +30,25 @@ class AgencyContainer extends React.Component {
         // If agency name exists and is valid
         if (agency !== null && isValid) {
             const updateParams = {};
-            const updateValue = `updateSelected${agencyType}Agencies`;
-            const agencyValue = `${_.toLower(agencyType)}Agency`;
-            updateParams[agencyValue] = agency;
-            this.props[updateValue](updateParams);
+            updateParams.agency = agency;
+            if (agencyType === 'Funding') {
+                this.props.updateSelectedFundingAgencies(updateParams);
+            }
+            else {
+                this.props.updateSelectedAwardingAgencies(updateParams);
+            }
         }
     }
 
     removeAgency(agency, agencyType) {
         const updateParams = {};
-        const agencyValue = `${_.toLower(agencyType)}Agency`;
-        const updateValue = `updateSelected${agencyType}Agencies`;
-        updateParams[agencyValue] = agency;
-        this.props[updateValue](updateParams);
+        updateParams.agency = agency;
+        if (agencyType === 'Funding') {
+            this.props.updateSelectedFundingAgencies(updateParams);
+        }
+        else {
+            this.props.updateSelectedAwardingAgencies(updateParams);
+        }
     }
 
     render() {
@@ -49,6 +60,8 @@ class AgencyContainer extends React.Component {
         );
     }
 }
+
+AgencyContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({

@@ -67,7 +67,7 @@ export const fetchAgencies = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'awards/autocomplete/',
+            url: 'references/agency/autocomplete/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,
@@ -78,4 +78,3 @@ export const fetchAgencies = (req) => {
         }
     };
 };
-

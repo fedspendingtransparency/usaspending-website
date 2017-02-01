@@ -39,12 +39,12 @@ export const updateSelectedLocations = (state) => ({
 
 export const updateSelectedAwardingAgencies = (state) => ({
     type: 'UPDATE_SELECTED_AWARDING_AGENCIES',
-    awardingAgency: state.awardingAgency
+    agency: state.agency
 });
 
 export const updateSelectedFundingAgencies = (state) => ({
     type: 'UPDATE_SELECTED_FUNDING_AGENCIES',
-    fundingAgency: state.fundingAgency
+    agency: state.agency
 });
 
 export const updateDomesticForeignSelection = (state) => ({

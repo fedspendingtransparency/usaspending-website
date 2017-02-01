@@ -16,8 +16,8 @@ import * as agencyActions from 'redux/actions/search/agencyActions';
 const propTypes = {
     setAutocompleteAwardingAgencies: React.PropTypes.func,
     setAutocompleteFundingAgencies: React.PropTypes.func,
-    fundingAgencies: React.PropTypes.object,
-    awardingAgencies: React.PropTypes.object,
+    fundingAgencies: React.PropTypes.array,
+    awardingAgencies: React.PropTypes.array,
     selectAgency: React.PropTypes.func,
     selectedAgencies: React.PropTypes.object,
     agencyType: React.PropTypes.string
@@ -33,11 +33,14 @@ class AgencyListContainer extends React.Component {
     }
 
     dataFormatter(item) {
-        const itemLabel = `${item}`;
+        let itemLabel = `<b>${item.subtier_agency.name}</b>`;
+        if (item.toptier_agency.name !== item.subtier_agency.name) {
+            itemLabel += `<br>Sub-Agency of ${item.toptier_agency.name}`;
+        }
 
         return {
             label: itemLabel,
-            value: item
+            value: item.subtier_agency.name
         };
     }
 
@@ -49,12 +52,8 @@ class AgencyListContainer extends React.Component {
                 this.agencySearchRequest.cancel();
             }
 
-            const fieldType = [];
-            fieldType.push(`${_.toLower(this.props.agencyType)}_agency__subtier_agency__name`);
-            fieldType.push(`${_.toLower(this.props.agencyType)}_agency__toptier_agency__name`);
-
             const agencySearchParams = {
-                fields: fieldType,
+                fields: ['subtier_agency__name'],
                 value: input,
                 mode: "contains",
                 matched_objects: true,
@@ -65,7 +64,7 @@ class AgencyListContainer extends React.Component {
 
             this.agencySearchRequest.promise
                 .then((res) => {
-                    const results = res.data.matched_objects;
+                    const results = res.data.matched_objects.subtier_agency__name;
 
                     let autocompleteData = null;
 

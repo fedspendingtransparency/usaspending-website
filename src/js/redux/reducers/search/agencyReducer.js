@@ -1,11 +1,11 @@
 /**
- * agencyReduce.js
+ * agencyReducer.js
  * Created by michaelbray 01/26/16
  **/
 
 const initialState = {
-    fundingAgencies: new Set(),
-    awardingAgencies: new Set()
+    fundingAgencies: [],
+    awardingAgencies: []
 };
 
 const agencyReducer = (state = initialState, action) => {

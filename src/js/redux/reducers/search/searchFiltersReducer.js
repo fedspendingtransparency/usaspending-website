@@ -55,13 +55,13 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'UPDATE_SELECTED_AWARDING_AGENCIES': {
             return Object.assign({}, state, {
                 selectedAwardingAgencies: AgencyFilterFunctions.updateSelectedAgencies(
-                    state.selectedAwardingAgencies, action.awardingAgency)
+                    state.selectedAwardingAgencies, action.agency)
             });
         }
         case 'UPDATE_SELECTED_FUNDING_AGENCIES': {
             return Object.assign({}, state, {
                 selectedFundingAgencies: AgencyFilterFunctions.updateSelectedAgencies(
-                    state.selectedFundingAgencies, action.fundingAgency)
+                    state.selectedFundingAgencies, action.agency)
             });
         }
         case 'UPDATE_DOMESTIC_FOREIGN': {

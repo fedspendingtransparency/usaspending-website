@@ -20,32 +20,32 @@ export default class SelectedAgencies extends React.Component {
     }
 
     formatAgency(ag) {
-        let displayValue = '';
+        const agency = ag;
+        let displayValue = `${agency.subtier_agency.name}`;
 
-        const agency = ag.funding_agency__name__subtier_agency__name__funding_agency__name;
-        if (agency !== null) {
-            displayValue = `${_.startCase(_.toLower(agency))}`;
+        if (agency.toptier_agency.name !== agency.subtier_agency.name) {
+            displayValue += ` | ${_.startCase(_.toLower(agency.toptier_agency.name))}`;
         }
 
         return displayValue;
     }
 
     render() {
-        let selected = null;
-        const type = this.props.agencyType;
-        selected = this.props.selectedAgencies;
-        const typeArray = `${selected}.${_.toLower(type)}_agency__subtier_agency__name`;
-        const shownAgencies = typeArray.map((agency, key) => (
-            <ShownAgency
+        const shownAgencies = [];
+        this.props.selectedAgencies.entrySeq().forEach((entry) => {
+            const key = entry[0];
+            const agency = entry[1];
+            const value = (<ShownAgency
                 agency={agency}
                 label={this.formatAgency(agency)}
-                key={`_${key}`}
-                removeAgency={this.props.removeAgency.bind(null,
-                    agency, type)} />
-        ));
+                key={key}
+                removeAgency={this.props.removeAgency.bind(
+                    null, agency, this.props.agencyType)} />);
+            shownAgencies.push(value);
+        });
 
         return (
-            <div className={`selected-agencies ${_.toLower(type)}`}>
+            <div className={`selected-agencies ${_.toLower(this.props.agencyType)}`}>
                 {shownAgencies}
             </div>
         );

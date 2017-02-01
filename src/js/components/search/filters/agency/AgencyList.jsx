@@ -11,7 +11,7 @@ import TypeaheadWarning from 'components/sharedComponents/TypeaheadWarning';
 import SelectedAgencies from './SelectedAgencies';
 
 const propTypes = {
-    autocompleteAgencies: React.PropTypes.object,
+    autocompleteAgencies: React.PropTypes.array,
     onSelect: React.PropTypes.func,
     customClass: React.PropTypes.string,
     keyValue: React.PropTypes.string,
@@ -49,27 +49,16 @@ export default class AgencyList extends Typeahead {
     }
 
     loadValues() {
-        const valuesList = [];
-        const autocompleteSet = this.props.autocompleteAgencies;
-        const topLevelKey = `${_.lowerCase(this.props.agencyType)}_agency__subtier_agency__name`;
-        const lowerLevelKey = `${_.lowerCase(this.props.agencyType)}_agency`;
+        this.typeahead.list = this.props.autocompleteAgencies;
 
-        if (autocompleteSet[topLevelKey]) {
-            autocompleteSet[topLevelKey].forEach((item) => {
-                const subtierName = item[lowerLevelKey].subtier_agency.name;
-                const toptierName = item[lowerLevelKey].toptier_agency.name;
+        this.props.autocompleteAgencies.forEach((item) => {
+            let key = `<b>${item.subtier_agency.name}</b>`;
+            if (item.toptier_agency.name !== item.subtier_agency.name) {
+                key += `<br>Sub-Agency of ${item.toptier_agency.name}`;
+            }
 
-                valuesList.push(subtierName);
-                let key = `<b>${subtierName}</b>`;
-                if (toptierName !== subtierName) {
-                    key += `<br>Sub-Tier Agency of ${toptierName}`;
-                }
-
-                this.dataDictionary[key] = item;
-            });
-        }
-
-        this.typeahead.list = valuesList;
+            this.dataDictionary[key] = item;
+        });
 
         this.typeahead.replace = () => {
             this.typeahead.input.value = "";
@@ -86,20 +75,14 @@ export default class AgencyList extends Typeahead {
         // Force the change up into the parent components
         // Validate the current value is on the autocomplete list
         let selectedAgency = null;
-        const autocompleteSet = this.props.autocompleteAgencies;
-        let isValid = false;
-        const key = this.dataDictionary[`<b>${this.state.value}</b>`];
-        if (key !== null) {
-            isValid = true;
-        }
-        // Have to identify the correct value - not drilling down far enough
-        // Unsure of how to drill down properly, wondering if datadictionary should be
-        // filled differently, combining subarrays?
+        const isValid = this.isValidSelection(this.state.value);
+
         if (isValid) {
+            const key = this.dataDictionary[this.state.value];
             // Find matching agency object from redux store
-            for (let i = 0; i < autocompleteSet.length; i++) {
-                if (_.isEqual(autocompleteSet[i], key)) {
-                    selectedAgency = autocompleteSet[i];
+            for (let i = 0; i < this.props.autocompleteAgencies.length; i++) {
+                if (_.isEqual(this.props.autocompleteAgencies[i], key)) {
+                    selectedAgency = this.props.autocompleteAgencies[i];
                     break;
                 }
             }
