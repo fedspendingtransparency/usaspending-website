@@ -11,18 +11,24 @@ import Award from 'components/award/Award';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
+import IndividualAward from 'models/results/award/IndividualAward';
 
 const propTypes = {
     setSelectedAward: React.PropTypes.func,
-    params: React.PropTypes.object
+    params: React.PropTypes.object,
+    award: React.PropTypes.object
 };
 
 class AwardContainer extends React.Component {
 
-    constructor(props) {
-        super(props);
+    componentDidMount() {
+        this.getSelectedAward();
+    }
 
-        this.getSelectedAward = this.getSelectedAward.bind(this);
+    componentDidUpdate() {
+        if (this.props.params.awardId !== this.props.award.selectedAward.piid) {
+            this.getSelectedAward();
+        }
     }
 
     getSelectedAward() {
@@ -49,17 +55,17 @@ class AwardContainer extends React.Component {
             .then((res) => {
                 const data = res.data;
                 const awardData = data.results[0];
+                const award = new IndividualAward(awardData);
 
                 // Add search results to Redux
-                this.props.setSelectedAward(awardData);
+                this.props.setSelectedAward(award);
             });
     }
 
     render() {
         return (
             <Award
-                {...this.props}
-                getSelectedAward={this.getSelectedAward} />
+                {...this.props} />
         );
     }
 }

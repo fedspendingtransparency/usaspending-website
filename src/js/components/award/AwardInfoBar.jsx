@@ -11,10 +11,7 @@ const propTypes = {
     selectedAward: React.PropTypes.object,
     toggleAgency: React.PropTypes.func,
     agencyType: React.PropTypes.string,
-    toptierAgency: React.PropTypes.object,
-    subtierAgency: React.PropTypes.object,
-    officeAgency: React.PropTypes.object,
-    setAwardValues: React.PropTypes.func
+    getStatus: React.PropTypes.func
 };
 
 export default class AwardInfoBar extends React.Component {
@@ -36,13 +33,11 @@ export default class AwardInfoBar extends React.Component {
                     <AgencyInfo
                         {...this.props}
                         toggleAgency={this.props.toggleAgency}
-                        agencySet={this.props.selectedAward[this.props.agencyType]}
-                        toptierAgency={this.props.toptierAgency}
-                        subtierAgency={this.props.subtierAgency}
-                        officeAgency={this.props.officeAgency}
-                        setAwardValues={this.props.setAwardValues} />
+                        agencyType={this.props.agencyType}
+                        selectedAward={this.props.selectedAward} />
                     <RecipientInfo
-                        recipient={this.props.selectedAward.recipient} />
+                        recipient={this.props.selectedAward}
+                        getstatus={this.props.getStatus} />
                 </div>
             );
         }

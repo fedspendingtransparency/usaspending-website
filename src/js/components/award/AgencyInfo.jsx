@@ -4,61 +4,21 @@
  **/
 
 import React from 'react';
+import InfoSnippet from './InfoSnippet';
 
 const propTypes = {
     toggleAgency: React.PropTypes.func,
-    agencySet: React.PropTypes.object,
-    agencyTitle: React.PropTypes.string,
-    setAwardValues: React.PropTypes.func,
-    toptierAgency: React.PropTypes.object,
-    subtierAgency: React.PropTypes.object,
-    officeAgency: React.PropTypes.object
+    agencyType: React.PropTypes.string,
+    selectedAward: React.PropTypes.object
 };
 
 export default class AgencyInfo extends React.Component {
-    componentDidMount() {
-        this.props.setAwardValues(this.props.agencyTitle, this.props.agencySet);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.agencyTitle !== nextProps.agencyTitle) {
-            this.props.setAwardValues(nextProps.agencyTitle, nextProps.agencySet);
-        }
-    }
 
     render() {
-        let toptierBundle = null;
-        let subtierBundle = null;
-        let officeBundle = null;
-
-        toptierBundle = (
-            <div className="agency-name">
-                {this.props.toptierAgency.value}
-            </div>
-        );
-        subtierBundle = (
-            <li className="subtier-agency">
-                <div className="subtier title">
-                    {this.props.agencyTitle} Sub-tier Agency
-                </div>
-                <div className="subtier name">
-                    {this.props.subtierAgency.value}
-                </div>
-            </li>
-        );
-
-        if (this.props.officeAgency.value) {
-            officeBundle = (
-                <li className="office-agency">
-                    <div className="office title">
-                        {this.props.agencyTitle} Office
-                    </div>
-                    <div className="office name">
-                        {this.props.officeAgency.value}
-                    </div>
-                </li>
-            );
-        }
+        const award = this.props.selectedAward;
+        const toptierAgency = `${this.props.agencyType}_agency_name`;
+        const subtierAgency = `${this.props.agencyType}_subtier_agency_name`;
+        const officeAgency = `${this.props.agencyType}_office_agency_name`;
 
         const dropdown = (
             <select className="agency-option" onChange={this.props.toggleAgency}>
@@ -70,10 +30,16 @@ export default class AgencyInfo extends React.Component {
             <div className="agency-wrapper">
                 <div className="agency-info">
                     { dropdown }
-                    { toptierBundle }
+                    <div className="agency-name">
+                        {award[toptierAgency]}
+                    </div>
                     <ul className="agency-subtiers">
-                        { subtierBundle }
-                        { officeBundle }
+                        <InfoSnippet
+                            titleValue="Sub-tier Agency"
+                            nameValue={award[subtierAgency]} />
+                        <InfoSnippet
+                            titleValue="Office"
+                            nameValue={award[officeAgency]} />
                     </ul>
                 </div>
                 <div className="triangle-wrapper">

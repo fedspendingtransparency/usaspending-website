@@ -6,7 +6,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import moment from 'moment';
 
 import SummaryBar from 'components/award/SummaryBar';
@@ -15,7 +14,7 @@ import AwardInfoBar from 'components/award/AwardInfoBar';
 import * as awardActions from 'redux/actions/award/awardActions';
 
 const propTypes = {
-    getSelectedAward: React.PropTypes.func
+    selectedAward: React.PropTypes.object
 };
 
 class AwardInfoContainer extends React.Component {
@@ -24,33 +23,11 @@ class AwardInfoContainer extends React.Component {
         super(props);
 
         this.state = {
-            agencyType: "awarding_agency",
-            agencyTitle: "Awarding",
-            toptier: { name: "Awarding Agency", value: null },
-            subtier: { name: "Awarding Subtier Agency", value: null },
-            office: { name: "Awarding Office", value: null },
-            status: ""
+            agencyType: "awarding"
         };
 
         this.toggleAgency = this.toggleAgency.bind(this);
-        this.setAwardValues = this.setAwardValues.bind(this);
         this.getStatus = this.getStatus.bind(this);
-    }
-
-    componentWillMount() {
-        this.props.getSelectedAward();
-    }
-
-    setAwardValues(type, obj) {
-        if (obj.office_agency) {
-            this.setState({
-                office: { name: `${type} Office`, value: obj.office_agency.name }
-            });
-        }
-        this.setState({
-            toptier: { name: `${type} Agency`, value: obj.toptier_agency.name },
-            subtier: { name: `${type} Subtier Agency`, value: obj.subtier_agency.name }
-        });
     }
 
     getStatus(award) {
@@ -67,16 +44,12 @@ class AwardInfoContainer extends React.Component {
         else {
             progress = "In Progress";
         }
-
-        this.setState({
-            status: progress
-        });
+        this.progress = progress;
     }
 
     toggleAgency(e) {
         this.setState({
-            agencyType: `${e.target.value}_agency`,
-            agencyTitle: _.startCase(e.target.value)
+            agencyType: e.target.value
         });
     }
 
@@ -87,23 +60,19 @@ class AwardInfoContainer extends React.Component {
                     {...this.props}
                     agencyType={this.state.agencyType}
                     getStatus={this.getStatus}
-                    awardStatus={this.state.status} />
+                    awardStatus={this.state.status}
+                    progress={this.progress} />
                 <div className="wrapper">
                     <AwardInfoBar
                         {...this.props}
                         toggleAgency={this.toggleAgency}
                         agencyType={this.state.agencyType}
-                        agencyTitle={this.state.agencyTitle}
-                        toptierAgency={this.state.toptier}
-                        subtierAgency={this.state.subtier}
-                        officeAgency={this.state.office}
-                        setAwardValues={this.setAwardValues} />
+                        selectedAward={this.props.selectedAward} />
                 </div>
             </div>
         );
     }
 }
-
 AwardInfoContainer.propTypes = propTypes;
 
 export default connect(
