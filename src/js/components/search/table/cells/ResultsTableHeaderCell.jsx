@@ -11,7 +11,8 @@ const propTypes = {
     column: React.PropTypes.string,
     defaultDirection: React.PropTypes.string,
     order: React.PropTypes.object,
-    setSearchOrder: React.PropTypes.func
+    setSearchOrder: React.PropTypes.func,
+    isLastColumn: React.PropTypes.bool
 };
 
 export default class ResultsTableHeaderCell extends React.Component {
@@ -61,6 +62,11 @@ export default class ResultsTableHeaderCell extends React.Component {
             }
         }
 
+        let lastClass = '';
+        if (this.props.isLastColumn) {
+            lastClass = ' last-column';
+        }
+
         /* eslint-disable jsx-a11y/no-static-element-interactions */
         // we need to allow the outer div to take an onClick event because there are nested
         // buttons within the div for specific ascending/descending sort actions
@@ -68,7 +74,7 @@ export default class ResultsTableHeaderCell extends React.Component {
         // convenience, screen-reader users are expected to use the button elements instead as
         // they are presented as interactive clickable targets
         return (
-            <div className={`award-result-header-cell column-${this.props.column}`}>
+            <div className={`award-result-header-cell column-${this.props.column}${lastClass}`}>
                 <div className="cell-content" onClick={this.clickedHeader}>
                     <div className="header-sort">
                         <div className="header-label">

@@ -60,6 +60,9 @@
         // allow ++ and -- in for loops
         "no-plusplus": [2, {
             "allowForLoopAfterthoughts": true
-        }]
+        }],
+        // allow named exports in files with default exports in order to expose containers
+        // for testing
+        "import/no-named-as-default": [0]
     }
 }

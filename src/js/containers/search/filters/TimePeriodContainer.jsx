@@ -6,14 +6,15 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import Immutable from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+
 import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 
-const startYear = 2009;
+const startYear = FiscalYearHelper.earliestFiscalYear;
 
 const propTypes = {
     updateTimePeriod: React.PropTypes.func,
@@ -44,13 +45,7 @@ class TimePeriodContainer extends React.Component {
         const timePeriods = [];
 
         // determine the current fiscal year
-        const currentMonth = moment().month();
-        let currentFY = moment().year();
-        if (currentMonth >= 9) {
-            // months are zero-indexed, so 9 is October
-            // starting in October we are in the next fiscal year
-            currentFY = moment().year() + 1;
-        }
+        const currentFY = FiscalYearHelper.currentFiscalYear();
 
         for (let i = currentFY; i >= startYear; i--) {
             timePeriods.push(i.toString());
