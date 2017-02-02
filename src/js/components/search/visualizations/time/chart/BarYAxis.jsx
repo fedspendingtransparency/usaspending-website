@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import Accounting from 'accounting';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 import _ from 'lodash';
 
 import BarYAxisItem from './BarYAxisItem';
@@ -125,15 +125,6 @@ export default class BarYAxis extends React.Component {
         }
 
         // generate the labels
-        const accountingOptions = {
-            precision,
-            symbol: '$',
-            format: {
-                pos: '%s%v',
-                neg: '-%s%v'
-            }
-        };
-
         const tickLabels = props.ticks.map((tick) => {
             let formattedTick = tick;
 
@@ -142,10 +133,11 @@ export default class BarYAxis extends React.Component {
                 formattedTick = '$0';
             }
             else if (unit > 1) {
-                formattedTick = Accounting.formatMoney(tick / unit, accountingOptions) + unitString;
+                formattedTick = MoneyFormatter.formatMoneyWithPrecision(tick / unit, precision)
+                    + unitString;
             }
             else {
-                formattedTick = Accounting.formatMoney(tick, accountingOptions);
+                formattedTick = MoneyFormatter.formatMoneyWithPrecision(tick, precision);
             }
 
             return formattedTick;
