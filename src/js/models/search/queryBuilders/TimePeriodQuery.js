@@ -8,10 +8,12 @@ const endDateField = 'period_of_performance_current_end_date';
 
 const buildFYRangeQuery = (fyRange) => {
     const fyFilters = [];
+    const startField = startDateField;
+    const endField = endDateField;
     fyRange.forEach((fy) => {
         // iterate through each FY and generate a range_intersect filter for the FY
         const fyQuery = {
-            field: [startDateField, endDateField],
+            field: [startField, endField],
             operation: 'range_intersect',
             value: fy,
             value_format: 'fy'
@@ -35,12 +37,16 @@ const buildDateRangeQuery = (dateRange) => ({
     value: dateRange
 });
 
-export const buildQuery = (type, fyRange, dateRange) => {
-    if (type === 'fy' && fyRange.length > 0) {
-        return buildFYRangeQuery(fyRange);
+export const buildQuery = (params = {
+    type: '',
+    fyRange: null,
+    dateRange: null
+}) => {
+    if (params.type === 'fy' && params.fyRange.length > 0) {
+        return buildFYRangeQuery(params.fyRange);
     }
-    else if (type === 'dr' && dateRange.length === 2) {
-        return buildDateRangeQuery(dateRange);
+    else if (params.type === 'dr' && params.dateRange.length === 2) {
+        return buildDateRangeQuery(params.dateRange);
     }
     return null;
 };

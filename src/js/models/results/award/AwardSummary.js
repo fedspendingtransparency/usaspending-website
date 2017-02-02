@@ -5,7 +5,6 @@
 
 import moment from 'moment';
 
-import { awardTypeCodes } from 'dataMapping/search/awardType';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import GenericRecord from '../GenericRecord';
@@ -18,21 +17,38 @@ const fields = [
     'period_of_performance_current_end_date',
     'total_obligation',
     'type',
-    'awarding_agency_name'
+    'awarding_agency_name',
+    'awarding_subtier_name',
+    'funding_agency_name',
+    'funding_subtier_name'
 ];
 
 const remapData = (data, idField) => {
     // remap expected child fields to top-level fields
     const remappedData = data;
-    let agencyName = '';
+    let awardingAgencyName = '';
+    let awardingSubtierName = '';
+    let fundingAgencyName = '';
+    let fundingSubtierName = '';
     let recipientName = '';
+
     if (data.awarding_agency) {
-        agencyName = data.awarding_agency.toptier_agency.name;
+        awardingAgencyName = data.awarding_agency.toptier_agency.name;
+        awardingSubtierName = data.awarding_agency.subtier_agency.name;
     }
+
+    if (data.funding_agency) {
+        fundingAgencyName = data.funding_agency.toptier_agency.name;
+        fundingSubtierName = data.funding_agency.subtier_agency.name;
+    }
+
     if (data.recipient) {
         recipientName = data.recipient.recipient_name;
     }
-    remappedData.awarding_agency_name = agencyName;
+    remappedData.awarding_agency_name = awardingAgencyName;
+    remappedData.awarding_subtier_name = awardingSubtierName;
+    remappedData.funding_agency_name = fundingAgencyName;
+    remappedData.funding_subtier_name = fundingSubtierName;
     remappedData.recipient_name = recipientName;
 
     // set the ID to the relevant field
@@ -55,7 +71,11 @@ const remapData = (data, idField) => {
     remappedData.id = id;
 
     // convert the award type code to a user-readable string
-    remappedData.type = awardTypeCodes[data.type];
+    let serverType = '';
+    if (data.type_description) {
+        serverType = data.type_description;
+    }
+    remappedData.type = serverType;
 
     const moneyCells = ['total_obligation'];
     moneyCells.forEach((cell) => {
