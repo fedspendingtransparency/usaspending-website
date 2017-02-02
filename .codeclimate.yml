@@ -1,0 +1,15 @@
+---
+engines:
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "src/js/**/**.js"
+  - "src/js/**/**.jsx"
+exclude_paths:
+- node_modules/
+- tests/
+- public/
+- coverage/
+- cache/
+- gulpfile.babel.js

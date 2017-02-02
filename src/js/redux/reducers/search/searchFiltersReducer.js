@@ -3,7 +3,7 @@
  * Created by Kevin Li 11/1/16
  **/
 
-import { Set } from 'immutable';
+import { Set, OrderedMap } from 'immutable';
 
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
 import * as LocationFilterFunctions from './filters/locationFilterFunctions';
@@ -14,7 +14,7 @@ const initialState = {
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
-    selectedLocations: new Set(),
+    selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all'
 };
 
@@ -57,6 +57,19 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'UPDATE_SEARCH_FILTER_GENERIC': {
             return Object.assign({}, state, {
                 [action.filterType]: action.filterValue
+            });
+        }
+        case 'RESET_SEARCH_TIME_FILTER': {
+            return Object.assign({}, state, {
+                timePeriodType: initialState.timePeriodType,
+                timePeriodFY: initialState.timePeriodFY,
+                timePeriodStart: initialState.timePeriodStart,
+                timePeriodEnd: initialState.timePeriodEnd
+            });
+        }
+        case 'CLEAR_SEARCH_FILTER_TYPE': {
+            return Object.assign({}, state, {
+                [action.filterType]: initialState[action.filterType]
             });
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {

@@ -1,0 +1,12 @@
+.hover-hitbox {
+    // transparent
+    fill: rgba(0,0,0,0);
+}
+
+.bar-item {
+    fill: #708893;
+
+    &:hover, &.hover {
+        fill: #F2B733;
+    }
+}

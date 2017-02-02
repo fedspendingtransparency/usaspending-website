@@ -1,3 +1,18 @@
 .results-visualization-time-section {
     padding: 3rem 3.5rem;
+
+    @import "./chart/barChart";
+
+    @import "./_topSection";
+
+    .visualization-tooltip {
+        @import "../../../../../components/visualizations/tooltip/_tooltip";
+    }
+
+    .results-visualization-message {
+        margin-top: 1rem;
+        font-size: $small-font-size;
+        color: $color-base;
+        text-align: center;
+    }
 }
