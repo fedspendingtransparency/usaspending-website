@@ -54,8 +54,7 @@ export default class AwardInfo extends React.Component {
                 <div className="wrapper">
                     <AwardInfoBar
                         {...this.props}
-                        selectedAward={this.props.selectedAward}
-                         />
+                        selectedAward={this.props.selectedAward} />
                 </div>
             </div>
         );

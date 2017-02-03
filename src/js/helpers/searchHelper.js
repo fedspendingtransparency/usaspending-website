@@ -62,8 +62,7 @@ export const fetchLocations = (req) => {
     };
 };
 
-
-// Location search for autocomplete
+// Fetch Individual Award
 export const fetchAward = (num) => {
     const source = CancelToken.source();
     return {
@@ -79,3 +78,20 @@ export const fetchAward = (num) => {
     };
 };
 
+// make API call to awards total aggregation endpoint
+export const performAwardsTotalSearch = (params) => {
+    const source = CancelToken.source();
+
+    return {
+        promise: Axios.request({
+            url: 'transactions/total/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
