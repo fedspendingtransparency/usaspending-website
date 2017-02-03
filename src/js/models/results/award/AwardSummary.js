@@ -12,63 +12,141 @@ import GenericRecord from '../GenericRecord';
 const recordType = 'award';
 const fields = [
     'id',
+    'awardId',
     'recipient_name',
+    'date_signed',
     'period_of_performance_start_date',
     'period_of_performance_current_end_date',
-    'total_obligation',
     'type',
+    'type_description',
     'awarding_agency_name',
     'awarding_subtier_name',
+    'awarding_office_name',
     'funding_agency_name',
-    'funding_subtier_name'
+    'funding_subtier_name',
+    'funding_office_name',
+    'recipient_street',
+    'recipient_city',
+    'recipient_state_province',
+    'recipient_zip_postal',
+    'recipient_country'
 ];
 
 const remapData = (data, idField) => {
     // remap expected child fields to top-level fields
     const remappedData = data;
+    let id = '';
+    let awardType = '';
+    let awardTypeDescription = '';
     let awardingAgencyName = '';
     let awardingSubtierName = '';
+    let awardingOfficeName = '';
     let fundingAgencyName = '';
     let fundingSubtierName = '';
+    let fundingOfficeName = '';
     let recipientName = '';
+    let recipientStreet = '';
+    let recipientCity = '';
+    let recipientStateProvince = '';
+    let recipientZipPostal = '';
+    let recipientCountry = '';
+
+    if (data.id) {
+        id = data.id;
+    }
+
+    if (data.type) {
+        awardType = data.type;
+    }
+
+    if (data.type_description) {
+        awardTypeDescription = data.type_description;
+    }
 
     if (data.awarding_agency) {
         awardingAgencyName = data.awarding_agency.toptier_agency.name;
         awardingSubtierName = data.awarding_agency.subtier_agency.name;
+        if (data.awarding_agency.office_agency) {
+            awardingOfficeName = data.awarding_agency.office_agency.name;
+        }
     }
 
     if (data.funding_agency) {
         fundingAgencyName = data.funding_agency.toptier_agency.name;
         fundingSubtierName = data.funding_agency.subtier_agency.name;
+        if (data.funding_agency.office_agency) {
+            fundingOfficeName = data.funding_agency.office_agency.name;
+        }
     }
 
-    if (data.recipient) {
-        recipientName = data.recipient.recipient_name;
-    }
+    remappedData.type = awardType;
+    remappedData.type_description = awardTypeDescription;
     remappedData.awarding_agency_name = awardingAgencyName;
     remappedData.awarding_subtier_name = awardingSubtierName;
+    remappedData.awarding_office_name = awardingOfficeName;
     remappedData.funding_agency_name = fundingAgencyName;
     remappedData.funding_subtier_name = fundingSubtierName;
+    remappedData.funding_office_name = fundingOfficeName;
     remappedData.recipient_name = recipientName;
+    remappedData.id = id;
 
-    // set the ID to the relevant field
-    let id = data.fain;
+    // set the awardID (fain or piid) to the relevant field
+    let awardId = data.fain;
     if (!idField) {
         // unspecified ID field, use whatever value is available
         if (!data.fain && data.piid) {
-            id = data.piid;
+            awardId = data.piid;
         }
         else if (data.uri) {
-            id = data.uri;
+            awardId = data.uri;
         }
     }
     else {
-        id = data[idField];
-        if (!id) {
-            id = '';
+        awardId = data[idField];
+        if (!awardId) {
+            awardId = '';
         }
     }
-    remappedData.id = id;
+    remappedData.awardId = awardId;
+
+    // Format address
+    if (data.recipient) {
+        const loc = data.recipient.location;
+        recipientName = loc.recipient_name;
+        recipientStreet = loc.location_address_line1 +
+        loc.location_address_line2 +
+        loc.location_address_line3;
+
+        if (loc.location_city_name) {
+            recipientCity = loc.location_city_name;
+        }
+
+        if (loc.location_state_code) {
+            recipientStateProvince = loc.location_state_code;
+        }
+        else if (loc.location_foreign_provice) {
+            recipientStateProvince = loc.location_foreign_provice;
+        }
+
+        if (loc.location_zip5) {
+            recipientZipPostal = loc.location_zip5;
+        }
+        else if (loc.location_foreign_postal_code) {
+            recipientZipPostal = loc.location_foreign_postal_code;
+        }
+
+        if (loc.location_country_code) {
+            recipientCountry = loc.location_country_code;
+        }
+        else if (loc.location_country_name) {
+            recipientCountry = loc.location_country_name;
+        }
+    }
+    remappedData.recipient_street = recipientStreet;
+    remappedData.recipient_city = recipientCity;
+    remappedData.recipient_state_province = recipientStateProvince;
+    remappedData.recipient_zip_postal = recipientZipPostal;
+    remappedData.recipient_country = recipientCountry;
 
     // convert the award type code to a user-readable string
     let serverType = '';
@@ -83,7 +161,8 @@ const remapData = (data, idField) => {
     });
 
     // finally parse the moment object
-    const dates = ['period_of_performance_start_date', 'period_of_performance_current_end_date'];
+    const dates = ['period_of_performance_start_date', 'period_of_performance_current_end_date',
+        'date_signed'];
     dates.forEach((date) => {
         if (data[date]) {
             remappedData[date] = moment(data[date], 'YYYY-MM-DD').format('M/D/YYYY');

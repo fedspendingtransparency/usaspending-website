@@ -6,24 +6,39 @@
 import React from 'react';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
-import AwardInfoContainer from '../../containers/award/AwardInfoContainer';
+import Error from '../sharedComponents/Error';
+import AwardInfo from './AwardInfo';
 
 const propTypes = {
-    getSelectedAward: React.PropTypes.func
+    award: React.PropTypes.oneOfType([
+        React.PropTypes.array,
+        React.PropTypes.object
+    ]),
+    noAward: React.PropTypes.bool
 };
 
 export default class Award extends React.Component {
 
     render() {
+        let awardInfo = null;
+        if (this.props.award.selectedAward) {
+            awardInfo = (<AwardInfo
+                selectedAward={this.props.award.selectedAward} />);
+        }
+        if (this.props.noAward === true) {
+            awardInfo = (<div className="wrapper">
+                <Error
+                    title="Invalid Award ID"
+                    message="The award ID provided is invalid.
+                    Please check the ID and try again." /></div>);
+        }
         return (
             <div className="usa-da-award-page">
                 <Header />
-                <AwardInfoContainer
-                    getSelectedAward={this.props.getSelectedAward} />
+                { awardInfo }
                 <Footer />
             </div>
         );
     }
 }
-
 Award.propTypes = propTypes;

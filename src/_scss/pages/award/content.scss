@@ -1,16 +1,22 @@
 .award-info-bar {
+    $color-gray-border: #D8D8D8;
+    $color-gray-text: #666666;
+    $color-blue-background: #F5FBFC;
     @include span-columns(16);
     margin: 1rem 0 0 0;
-    padding: 2rem;
+    padding: 0;
     background-color: $color-white;
     box-shadow: $container-shadow;
-
+    color: $color-gray-text;
+    border-top: 1px solid $color-gray-border;
+    border-right: 1px solid $color-gray-border;
+    border-bottom: 1px solid $color-gray-border;
 
     @import './_recipientInfo';
 
     .agency-wrapper {
         @import './_agencyInfo';
-        @include span-columns(7.2);
+        @include span-columns(7);
         display: table;
 
         .triangle-wrapper {
@@ -20,18 +26,18 @@
                 position:absolute;
                 width: 0;
                 height: 0;
-                border-top: 71px solid transparent;
-                border-bottom: 78px solid transparent;
-                border-left: 25px solid $color-primary-alt-light;
+                border-top: 96px solid transparent;
+                border-bottom: 103px solid transparent;
+                border-left: 35px solid $color-primary-alt-light;
                 z-index: 2;
             }
             .triangle {
                 position:absolute;
                 width: 0;
                 height: 0;
-                border-top: 70px solid transparent;
-                border-bottom: 77px solid transparent;
-                border-left: 23px solid $color-primary-alt-lightest;
+                border-top: 95px solid transparent;
+                border-bottom: 102px solid transparent;
+                border-left: 33px solid $color-blue-background;
                 z-index: 3;
             }
         }

@@ -28,7 +28,7 @@ export default class RecipientInfo extends React.Component {
                 { name }
                 <ul className="recipient-information">
                     <RecipientAddress
-                        recipient={this.props.recipient}
+                        recipient={recipient}
                         type="recipient-address"
                         titleValue="Address" />
                     <InfoSnippet

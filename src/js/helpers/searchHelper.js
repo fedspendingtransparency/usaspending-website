@@ -64,14 +64,13 @@ export const fetchLocations = (req) => {
 
 
 // Location search for autocomplete
-export const fetchAward = (req) => {
+export const fetchAward = (num) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'awards/',
+            url: `awards/${num}/`,
             baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: req,
+            method: 'get',
             cancelToken: source.token
         }),
         cancel() {

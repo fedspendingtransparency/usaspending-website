@@ -10,20 +10,10 @@ import RecipientInfo from './RecipientInfo';
 const propTypes = {
     selectedAward: React.PropTypes.object,
     toggleAgency: React.PropTypes.func,
-    agencyType: React.PropTypes.string,
-    getStatus: React.PropTypes.func
+    agencyType: React.PropTypes.string
 };
 
 export default class AwardInfoBar extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            awardingAgency: null,
-            fundingAgency: null,
-            recipient: null
-        };
-    }
 
     render() {
         let agencies = null;
@@ -36,8 +26,7 @@ export default class AwardInfoBar extends React.Component {
                         agencyType={this.props.agencyType}
                         selectedAward={this.props.selectedAward} />
                     <RecipientInfo
-                        recipient={this.props.selectedAward}
-                        getstatus={this.props.getStatus} />
+                        recipient={this.props.selectedAward} />
                 </div>
             );
         }

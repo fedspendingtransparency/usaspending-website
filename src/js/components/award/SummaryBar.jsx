@@ -8,19 +8,10 @@ import * as Icons from '../sharedComponents/icons/Icons';
 
 const propTypes = {
     selectedAward: React.PropTypes.object,
-    getStatus: React.PropTypes.func,
     awardStatus: React.PropTypes.string
 };
 
 export default class SummaryBar extends React.Component {
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.awardStatus === "" || this.props.awardStatus !== nextProps.awardStatus) {
-            if (this.props.selectedAward) {
-                this.props.getStatus(this.props.selectedAward);
-            }
-        }
-    }
 
     render() {
         let summaryTitle = null;
@@ -33,7 +24,7 @@ export default class SummaryBar extends React.Component {
             if (award.parent_award) {
                 parentId = award.parent_award;
             }
-            else if (!award.parent_award && award.type_description !== "Definitive Contract") {
+            else if (!award.parent_award && award.type !== "D") {
                 parentId = "Not Available";
             }
             else {
@@ -49,7 +40,7 @@ export default class SummaryBar extends React.Component {
                         <div className="item-value">{award.id}</div>
                     </div>
                 </li>);
-            if (award.type_description === "Definitive Contract" && parentId === null) {
+            if (award.type === "D" && parentId === null) {
                 parentAwardId = null;
             }
             else {

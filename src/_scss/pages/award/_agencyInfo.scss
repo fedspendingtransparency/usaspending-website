@@ -1,19 +1,22 @@
 .agency-info {
     display: table;
     @include span-columns(16);
-    background-color: $color-primary-alt-lightest;
+    background-color: $color-blue-background;
     border-top: 1px solid $color-primary-alt-light;
     border-bottom: 1px solid $color-primary-alt-light;
     border-left: 1px solid $color-primary-alt-light;
-    padding: 1rem;
+    padding: 2.4rem 1rem 5rem 3rem;
 
-    select {
-        font-size: $h4-font-size;
-        font-weight: 300;
-        border: none;
+    .agency-select {
         border-bottom: 1px solid;
-        border-radius: 0;
-        background-color: $color-primary-alt-lightest;
+        width: 25.6rem;
+
+        select {
+            font-size: $h4-font-size;
+            font-weight: 300;
+            border: none;
+            background-color: $color-blue-background;
+        }
     }
 
     .agency-name {
