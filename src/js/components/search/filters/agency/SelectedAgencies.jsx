@@ -14,22 +14,6 @@ const propTypes = {
 };
 
 export default class SelectedAgencies extends React.Component {
-    constructor(props) {
-        super(props);
-        this.formatAgency = this.formatAgency.bind(this);
-    }
-
-    formatAgency(ag) {
-        const agency = ag;
-        let displayValue = `${agency.subtier_agency.name}`;
-
-        if (agency.toptier_agency.name !== agency.subtier_agency.name) {
-            displayValue += ` | ${_.startCase(_.toLower(agency.toptier_agency.name))}`;
-        }
-
-        return displayValue;
-    }
-
     render() {
         const shownAgencies = [];
         this.props.selectedAgencies.entrySeq().forEach((entry) => {
@@ -37,7 +21,7 @@ export default class SelectedAgencies extends React.Component {
             const agency = entry[1];
             const value = (<ShownAgency
                 agency={agency}
-                label={this.formatAgency(agency)}
+                label={agency.subtier_agency.name}
                 key={key}
                 removeAgency={this.props.removeAgency.bind(
                     null, agency, this.props.agencyType)} />);

@@ -57,7 +57,7 @@ export default class AgencyList extends Typeahead {
                 key += `<br>Sub-Agency of ${item.toptier_agency.name}`;
             }
 
-            this.dataDictionary[key] = item;
+            this.dataDictionary[key] = item.id;
         });
 
         this.typeahead.replace = () => {
@@ -81,7 +81,7 @@ export default class AgencyList extends Typeahead {
             const key = this.dataDictionary[this.state.value];
             // Find matching agency object from redux store
             for (let i = 0; i < this.props.autocompleteAgencies.length; i++) {
-                if (_.isEqual(this.props.autocompleteAgencies[i], key)) {
+                if (_.isEqual(this.props.autocompleteAgencies[i].id, key)) {
                     selectedAgency = this.props.autocompleteAgencies[i];
                     break;
                 }

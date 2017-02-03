@@ -2,20 +2,20 @@
  * Created by Emily Gullo on 12/28/2016
  */
 
-import { Set } from 'immutable';
-
 /* eslint-disable import/prefer-default-export */
+// We only have one export but want to maintain consistency with other query modules
 export const updateSelectedAgencies = (state, value) => {
-    let updatedSet = new Set(state);
+    let updatedSet = state;
 
-    if (updatedSet.includes(value)) {
-        updatedSet = updatedSet.delete(value);
+    const agencyIdentifier = value.id;
+
+    if (updatedSet.has(agencyIdentifier)) {
+        updatedSet = updatedSet.delete(agencyIdentifier);
     }
     else {
-        updatedSet = updatedSet.add(value);
+        updatedSet = updatedSet.set(agencyIdentifier, value);
     }
 
     return updatedSet;
 };
-
 /* eslint-enable import/prefer-default-export */

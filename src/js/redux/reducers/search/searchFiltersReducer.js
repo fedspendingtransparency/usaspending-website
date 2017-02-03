@@ -15,8 +15,8 @@ const initialState = {
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
-    selectedFundingAgencies: new Set(),
-    selectedAwardingAgencies: new Set(),
+    selectedFundingAgencies: new OrderedMap(),
+    selectedAwardingAgencies: new OrderedMap(),
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all'
 };

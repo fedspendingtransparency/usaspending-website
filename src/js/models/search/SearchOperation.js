@@ -19,8 +19,8 @@ class SearchOperation {
         // this is used by the search results table "award type" tabs
         this.resultAwardType = [];
 
-        this.awardingAgency = [];
-        this.fundingAgency = [];
+        this.awardingAgencies = [];
+        this.fundingAgencies = [];
     }
 
     fromState(state) {
@@ -34,8 +34,8 @@ class SearchOperation {
         }
         this.selectedLocations = state.selectedLocations.toArray();
         this.locationDomesticForeign = state.locationDomesticForeign;
-        this.awardingAgency = state.selectedAwardingAgencies.toArray();
-        this.fundingAgency = state.selectedFundingAgencies.toArray();
+        this.awardingAgencies = state.selectedAwardingAgencies.toArray();
+        this.fundingAgencies = state.selectedFundingAgencies.toArray();
     }
 
     toParams() {
@@ -73,12 +73,12 @@ class SearchOperation {
         }
 
         // add agency queries
-        if (this.awardingAgency.length > 0) {
-            filters.push(AgencyQuery.buildAwardingAgencyQuery(this.awardingAgency));
+        if (this.awardingAgencies.length > 0) {
+            filters.push(AgencyQuery.buildAwardingAgencyQuery(this.awardingAgencies));
         }
 
-        if (this.fundingAgency.length > 0) {
-            filters.push(AgencyQuery.buildFundingAgencyQuery(this.fundingAgency));
+        if (this.fundingAgencies.length > 0) {
+            filters.push(AgencyQuery.buildFundingAgencyQuery(this.fundingAgencies));
         }
 
         return filters;
