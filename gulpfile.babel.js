@@ -115,7 +115,7 @@ gulp.task('criticalVersionCheck', () => {
         misalignedLibs.forEach((lib) => {
             message += `\n- ${lib}`;
         });
-        message += `\n\nPerform a clean install by deleting your ${chalk.bold('node_modules')} folder and then running ${chalk.bold('npm install')}\n${emoji.get(':warning:')}  ${chalk.white.bgRed('WARNING WARNING WARNING')} ${emoji.get(':warning:')}`;
+        message += `\n\nUpdate your node packages by running ${chalk.bold('npm install')}\n${emoji.get(':warning:')}  ${chalk.white.bgRed('WARNING WARNING WARNING')} ${emoji.get(':warning:')}`;
 
         gutil.log(message);
 

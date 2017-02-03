@@ -16,7 +16,10 @@ export const updateSelectedLocations = (state, value) => {
         updatedSet = updatedSet.delete(locationIdentifier);
     }
     else {
-        updatedSet = updatedSet.set(locationIdentifier, value);
+        const locationObject = Object.assign({}, value, {
+            identifier: locationIdentifier
+        });
+        updatedSet = updatedSet.set(locationIdentifier, locationObject);
     }
 
     return updatedSet;

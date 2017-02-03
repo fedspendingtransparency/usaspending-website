@@ -28,6 +28,15 @@ export const updateGenericFilter = (state) => ({
     filterValue: state.value
 });
 
+export const resetTimeFilters = () => ({
+    type: 'RESET_SEARCH_TIME_FILTER'
+});
+
+export const clearFilterType = (state) => ({
+    type: 'CLEAR_SEARCH_FILTER_TYPE',
+    filterType: state
+});
+
 export const clearAllFilters = () => ({
     type: 'CLEAR_SEARCH_FILTER_ALL'
 });

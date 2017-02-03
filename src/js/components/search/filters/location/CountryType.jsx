@@ -14,7 +14,7 @@ const propTypes = {
 const defaultProps = {
     countries: [
         { label: "All", value: "all" },
-        { label: "USA", value: "domestic" },
+        { label: "U.S.", value: "domestic" },
         { label: "Foreign", value: "foreign" }
     ]
 };

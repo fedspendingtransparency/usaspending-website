@@ -18,6 +18,7 @@ const propTypes = {
     filterTimePeriodFY: React.PropTypes.instanceOf(Set),
     filterTimePeriodStart: React.PropTypes.string,
     filterTimePeriodEnd: React.PropTypes.string,
+    filterTimePeriodType: React.PropTypes.string,
     label: React.PropTypes.string,
     timePeriods: React.PropTypes.array,
     activeTab: React.PropTypes.string,
@@ -49,8 +50,32 @@ export default class TimePeriod extends React.Component {
         this.toggleFilters = this.toggleFilters.bind(this);
     }
 
+    componentDidMount() {
+        this.prepopulateDatePickers();
+    }
+
     componentWillReceiveProps(nextProps) {
         this.synchronizeDatePickers(nextProps);
+    }
+
+    prepopulateDatePickers() {
+        if ((!this.props.filterTimePeriodStart || !this.props.filterTimePeriodEnd) &&
+            this.props.filterTimePeriodType !== 'dr') {
+            // not filtering by a date range
+            return;
+        }
+
+        // prepopulate the date pickers with the current filter values (in the event of remounting
+        // or loading from a URL)
+        const startDate = moment(this.props.filterTimePeriodStart, 'YYYY-MM-DD');
+        const endDate = moment(this.props.filterTimePeriodEnd, 'YYYY-MM-DD');
+
+        if (startDate.isValid() && endDate.isValid()) {
+            this.setState({
+                startDateUI: startDate,
+                endDateUI: endDate
+            });
+        }
     }
 
     synchronizeDatePickers(nextProps) {
@@ -88,7 +113,6 @@ export default class TimePeriod extends React.Component {
                 newState.endDateUI = null;
             }
         }
-
         if (datesChanged) {
             this.setState(newState);
         }

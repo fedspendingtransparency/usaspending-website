@@ -74,6 +74,19 @@ const searchFiltersReducer = (state = initialState, action) => {
                 [action.filterType]: action.filterValue
             });
         }
+        case 'RESET_SEARCH_TIME_FILTER': {
+            return Object.assign({}, state, {
+                timePeriodType: initialState.timePeriodType,
+                timePeriodFY: initialState.timePeriodFY,
+                timePeriodStart: initialState.timePeriodStart,
+                timePeriodEnd: initialState.timePeriodEnd
+            });
+        }
+        case 'CLEAR_SEARCH_FILTER_TYPE': {
+            return Object.assign({}, state, {
+                [action.filterType]: initialState[action.filterType]
+            });
+        }
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return Object.assign({}, initialState);
         }

@@ -3,6 +3,8 @@
   * Created by Kevin Li 11/4/16
   **/
 
+import _ from 'lodash';
+
 import * as AwardTypeQuery from './queryBuilders/AwardTypeQuery';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as LocationQuery from './queryBuilders/LocationQuery';
@@ -38,8 +40,9 @@ class SearchOperation {
         this.fundingAgencies = state.selectedFundingAgencies.toArray();
     }
 
-    toParams() {
-        // converts the search operation into a JS object that can be POSTed to the endpoint
+    commonParams() {
+        // convert the search operation into JS objects for filters that have shared keys and
+        // data structures between Awards and Transactions
         const filters = [];
 
         // add award types
@@ -51,16 +54,9 @@ class SearchOperation {
             // an award type subfilter is being applied to the search results (usually from
             // a results table tab)
             // treat this as an AND query for another set of award filters
+            // for aggregation queries, we won't apply the prefix to this field because this
+            // is specific to the results table
             filters.push(AwardTypeQuery.buildQuery(this.resultAwardType));
-        }
-
-        // add time period queries
-        if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
-            const timeQuery = TimePeriodQuery.buildQuery(this.timePeriodType,
-                this.timePeriodFY, this.timePeriodRange);
-            if (timeQuery) {
-                filters.push(timeQuery);
-            }
         }
 
         // add location queries
@@ -80,6 +76,39 @@ class SearchOperation {
         if (this.fundingAgencies.length > 0) {
             filters.push(AgencyQuery.buildFundingAgencyQuery(this.fundingAgencies));
         }
+
+        return filters;
+    }
+
+    uniqueParams() {
+        const filters = [];
+
+        // add time period queries
+        if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
+            const timeQuery = TimePeriodQuery.buildQuery({
+                type: this.timePeriodType,
+                fyRange: this.timePeriodFY,
+                dateRange: this.timePeriodRange
+            });
+            if (timeQuery) {
+                filters.push(timeQuery);
+            }
+        }
+
+        return filters;
+    }
+
+    toParams() {
+        // converts the search operation into a JS object that can be POSTed to the endpoint
+
+        // get the common filters that are shared with all models
+        const commonFilters = this.commonParams();
+
+        // now parse the remaining filters that are unique to this model
+        const specificFilters = this.uniqueParams();
+
+        // merge the two arrays together into the fully assembled filter parameters
+        const filters = _.concat(commonFilters, specificFilters);
 
         return filters;
     }
