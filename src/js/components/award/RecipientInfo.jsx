@@ -28,21 +28,16 @@ export default class RecipientInfo extends React.Component {
                 { name }
                 <ul className="recipient-information">
                     <RecipientAddress
-                        recipient={recipient}
-                        type="recipient-address"
-                        titleValue="Address" />
+                        recipient={recipient} />
                     <InfoSnippet
-                        type="recipient-duns"
-                        titleValue="DUNS"
-                        nameValue={recipientDuns} />
+                        label="DUNS"
+                        value={recipientDuns} />
                     <InfoSnippet
-                        type="recipient-parent-duns"
-                        titleValue="Parent DUNS"
-                        nameValue={businessTypeDesc} />
+                        label="Parent DUNS"
+                        value={businessTypeDesc} />
                     <InfoSnippet
-                        type="recipient-business-type"
-                        titleValue="Business Type"
-                        nameValue={businessTypeDesc} />
+                        label="Business Type"
+                        value={businessTypeDesc} />
                 </ul>
             </div>
         );

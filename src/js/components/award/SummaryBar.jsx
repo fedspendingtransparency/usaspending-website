@@ -4,20 +4,51 @@
  **/
 
 import React from 'react';
-import * as Icons from '../sharedComponents/icons/Icons';
+import moment from 'moment';
+import _ from 'lodash'
+;import * as Icons from '../sharedComponents/icons/Icons';
+import InfoSnippet from './InfoSnippet';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object,
-    awardStatus: React.PropTypes.string
+    selectedAward: React.PropTypes.object
 };
 
 export default class SummaryBar extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.getStatus = this.getStatus.bind(this);
+    }
+
+    componentWillMount() {
+        this.getStatus(this.props.selectedAward);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.selectedAward !== this.props.selectedAward) {
+            this.getStatus(nextProps.selectedAward);
+        }
+    }
+
+    getStatus(award) {
+        const awardStart = moment(award.period_of_performance_start_date, 'YYYY-MM-DD');
+        const awardEnd = moment(award.period_of_performance_current_end_date, 'YYYY-MM-DD');
+        const current = moment();
+        let progress = "";
+        if (current.isBefore(awardStart)) {
+            progress = "Awarded";
+        }
+        else if (current.isAfter(awardEnd)) {
+            progress = "Complete";
+        }
+        else {
+            progress = "In Progress";
+        }
+        this.progress = progress;
+    }
 
     render() {
-        let summaryTitle = null;
-        let awardId = null;
         let parentAwardId = null;
-        let status = null;
         let parentId = null;
         if (this.props.selectedAward) {
             const award = this.props.selectedAward;
@@ -30,45 +61,30 @@ export default class SummaryBar extends React.Component {
             else {
                 parentId = null;
             }
-
-            summaryTitle = (
-                <h1 className="summary-title">{award.type_description} Summary</h1>);
-            awardId = (
-                <li>
-                    <div className="format-item">
-                        <div className="item-label">Award ID</div>
-                        <div className="item-value">{award.id}</div>
-                    </div>
-                </li>);
             if (award.type === "D" && parentId === null) {
                 parentAwardId = null;
             }
             else {
                 parentAwardId = (
-                    <li>
-                        <div className="format-item">
-                            <div className="item-label">Parent Award ID</div>
-                            <div className="item-value">{parentId}</div>
-                        </div>
-                    </li>);
+                    <InfoSnippet
+                        label="Parent Award ID"
+                        value={parentId} />);
             }
-            status = (
-                <li>
-                    <div className="format-item">
-                        <div className="item-label">Status</div>
-                        <div className="item-value">{this.props.awardStatus}</div>
-                    </div>
-                </li>);
         }
         return (
             <div className="usa-da-summary-bar">
                 <div className="summary-bar-wrap">
-                    { summaryTitle }
+                    <h1 className="summary-title">{this.props.selectedAward.type_description}
+                        Summary</h1>
                     <div className="summary-status">
                         <ul className="summary-status-items">
-                            { awardId }
+                            <InfoSnippet
+                                label="Award ID"
+                                value={_.toString(this.props.selectedAward.id)} />
                             { parentAwardId }
-                            { status }
+                            <InfoSnippet
+                                label="Status"
+                                value={this.progress} />
                             <li>
                                 <div className="format-item">
                                     <Icons.MoreOptions />

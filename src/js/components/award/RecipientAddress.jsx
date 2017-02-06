@@ -7,8 +7,7 @@ import React from 'react';
 
 const propTypes = {
     recipient: React.PropTypes.object,
-    type: React.PropTypes.string,
-    titleValue: React.PropTypes.string
+    type: React.PropTypes.string
 };
 
 export default class RecipientAddress extends React.Component {
@@ -30,16 +29,16 @@ export default class RecipientAddress extends React.Component {
         }
         return (
             <li className={this.props.type}>
-                <div className={`title ${this.props.type}`}>
-                    {this.props.titleValue}
+                <div className="item-label">
+                    Address
                 </div>
-                <div className="name address">
+                <div className="item-value">
                     {recipient.recipient_street}
                 </div>
-                <div className="name cityState">
+                <div className="item-value">
                     {cityState}
                 </div>
-                <div className="name postalCode">
+                <div className="item-value">
                     {recipient.recipient_zip_postal} {recipient.recipient_country}
                 </div>
             </li>

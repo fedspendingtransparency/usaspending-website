@@ -1,15 +1,5 @@
 .award-info-bar {
-    $color-gray-border: #D8D8D8;
-    $color-gray-text: #666666;
-    $color-blue-background: #F5FBFC;
     @include span-columns(16);
-    margin: 1rem 0 0 0;
-    padding: 0;
-    background-color: $color-white;
-    box-shadow: $container-shadow;
-    color: $color-gray-text;
-    border-top: 1px solid $color-gray-border;
-    border-right: 1px solid $color-gray-border;
     border-bottom: 1px solid $color-gray-border;
 
     @import './_recipientInfo';

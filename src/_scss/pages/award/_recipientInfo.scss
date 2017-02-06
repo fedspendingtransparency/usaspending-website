@@ -18,23 +18,19 @@
     @include span-columns(16);
     @include unstyled-list;
     display: table-cell;
-    text-align: center;
+    text-align: left;
 
         li {
             @include span-columns(3.7);
             display: inline-block;
 
-            .title {
+            .item-label {
                 font-weight:bold;
                 font-size: $small-font-size;
             }
 
-            .name {
+            .item-value {
                 font-size: $smallest-font-size;
-
-                .address-line {
-                    display:block;
-                }
             }
         }
     }

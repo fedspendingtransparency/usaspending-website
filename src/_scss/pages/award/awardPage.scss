@@ -2,18 +2,29 @@
     @import "../../layouts/default/default";
     @include defaultLayout;
 
-    @import "./summaryBar";
-    @import "./content";
+    $color-gray-border: #D8D8D8;
+    $color-gray-text: #666666;
+    $color-blue-background: #F5FBFC;
 
-    .wrapper {
+    @import "./summaryBar";
+    @import "./infoBar";
+
+    .main-content {
         @include outer-container(100%);
+        padding: 0;
+        background-color: $color-white;
+        box-shadow: $container-shadow;
+        color: $color-gray-text;
+        border-top: 1px solid $color-gray-border;
+        border-right: 1px solid $color-gray-border;
+        border-bottom: 1px solid $color-gray-border;
         margin: 0px $outer-gutter/2;
         @include media($large-screen) {
-            margin: 0px $outer-gutter;
+            margin: 1rem $outer-gutter;
         }
         @include media($x-large-screen) {
             max-width: $site-max-width;
-            margin: 0 auto;
+            margin: 1rem auto;
         }
     }
 }

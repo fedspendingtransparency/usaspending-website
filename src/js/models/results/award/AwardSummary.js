@@ -29,7 +29,11 @@ const fields = [
     'recipient_city',
     'recipient_state_province',
     'recipient_zip_postal',
-    'recipient_country'
+    'recipient_country',
+    'pop_city',
+    'pop_state_province',
+    'total_obligation',
+    'total_funding_amount'
 ];
 
 const remapData = (data, idField) => {
@@ -50,6 +54,9 @@ const remapData = (data, idField) => {
     let recipientStateProvince = '';
     let recipientZipPostal = '';
     let recipientCountry = '';
+    let popCity = '';
+    let popStateProvince = '';
+    let totalFundingAmount = '';
 
     if (data.id) {
         id = data.id;
@@ -79,6 +86,20 @@ const remapData = (data, idField) => {
         }
     }
 
+    if (data.place_of_performance) {
+        popCity = data.place_of_performance.location_city_name;
+        if (data.place_of_performance.location_state_code) {
+            popStateProvince = data.place_of_performance.location_state_code;
+        }
+        else if (data.place_of_performance.location_foreign_province) {
+            popStateProvince = data.place_of_performance.location_foreign_province;
+        }
+    }
+    if (data.financialassistanceaward_set) {
+        // totalFundingAmount = data.financialassistanceaward_set[0].total_funding_amount;
+        totalFundingAmount = '1000';
+    }
+
     remappedData.type = awardType;
     remappedData.type_description = awardTypeDescription;
     remappedData.awarding_agency_name = awardingAgencyName;
@@ -89,6 +110,9 @@ const remapData = (data, idField) => {
     remappedData.funding_office_name = fundingOfficeName;
     remappedData.recipient_name = recipientName;
     remappedData.id = id;
+    remappedData.pop_city = popCity;
+    remappedData.pop_state_province = popStateProvince;
+    remappedData.total_funding_amount = MoneyFormatter.formatMoney(totalFundingAmount);
 
     // set the awardID (fain or piid) to the relevant field
     let awardId = data.fain;
@@ -124,8 +148,8 @@ const remapData = (data, idField) => {
         if (loc.location_state_code) {
             recipientStateProvince = loc.location_state_code;
         }
-        else if (loc.location_foreign_provice) {
-            recipientStateProvince = loc.location_foreign_provice;
+        else if (loc.location_foreign_province) {
+            recipientStateProvince = loc.location_foreign_province;
         }
 
         if (loc.location_zip5) {

@@ -46,8 +46,8 @@ export default class AgencyInfo extends React.Component {
         if (award[officeAgency]) {
             office = (
                 <InfoSnippet
-                    titleValue="Office"
-                    nameValue={award[officeAgency]} />
+                    label="Office"
+                    value={award[officeAgency]} />
             );
         }
         return (
@@ -59,8 +59,8 @@ export default class AgencyInfo extends React.Component {
                     </div>
                     <ul className="agency-subtiers">
                         <InfoSnippet
-                            titleValue="Sub-tier Agency"
-                            nameValue={award[subtierAgency]} />
+                            label="Sub-tier Agency"
+                            value={award[subtierAgency]} />
                         {office}
                     </ul>
                 </div>
