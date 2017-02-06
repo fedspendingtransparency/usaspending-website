@@ -1,0 +1,7 @@
+.award-contract-wrapper {
+    @include span-columns(16);
+
+    @import "./_awardAmounts";
+    @import "./_contractDetails";
+
+}
