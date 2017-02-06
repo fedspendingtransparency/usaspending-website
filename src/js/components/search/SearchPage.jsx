@@ -16,16 +16,12 @@ export default class SearchPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.sections = ['time', 'map', 'rank', 'table'];
+        this.sections = ['time', 'rank', 'map', 'table'];
 
         this.state = {
             currentSection: this.sections[0],
             stickyHeader: false
         };
-
-        // headerBottom tracks the position (in pixels) of the bottom of the search page header
-        // within the current window view
-        this.headerBottom = 0;
 
         // also track the window size, but track it outside of state to avoid re-renders
         this.windowWidth = window.innerWidth;
@@ -38,9 +34,6 @@ export default class SearchPage extends React.Component {
         // watch the page for scroll and resize events
         window.addEventListener('scroll', this.handlePageScroll);
         window.addEventListener('resize', this.handlePageScroll);
-
-        this.headerBottom = this.searchHeader.headerDiv.getBoundingClientRect().top
-            + this.searchHeader.headerDiv.offsetHeight;
     }
 
     componentWillUnmount() {
@@ -122,33 +115,51 @@ export default class SearchPage extends React.Component {
      */
 
     highlightSection() {
+        const headerPosition = this.searchHeader.headerDiv.getBoundingClientRect();
+        const headerHeight = this.searchHeader.headerDiv.offsetHeight;
         // determine the current bottom position of the header bar
-        const visibleTop = this.headerBottom;
+        const viewTop = headerPosition.top + headerHeight + window.pageYOffset;
+        const viewBottom = window.pageYOffset + window.innerHeight;
+        // const headerPosition = this.searchHeader.headerDiv.getBoundingClientRect();
+        // console.log(this.searchHeader.headerDiv.offsetHeight + headerPosition.top + window.pageYOffset);
+        
         // add a bias to the next section
         const nextSectionBias = 50;
 
-        let topSection = 'time';
+        const topSection = this.sections[0];
+        const bottomSection = this.sections[this.sections.length - 1];
+
+        let currentSection = topSection;
 
         for (const section of this.sections) {
+            // get the DOM element for the section
             const sectionDiv = document.querySelector(`#results-section-${section}`);
-            if (sectionDiv) {
-                // not all sections may exist
-                const sectionTop = sectionDiv.getBoundingClientRect().top - visibleTop
-                    - nextSectionBias;
-                const sectionBottom = sectionDiv.offsetHeight + sectionTop;
+            if (!sectionDiv) {
+                // DOM element doesn't exist, skip it
+                continue;
+            }
 
-                if (sectionTop >= 0 || sectionBottom >= 0) {
-                    // the section is in view
-                    topSection = section;
-                    break;
-                }
+            // determine its position
+            const sectionTop = sectionDiv.getBoundingClientRect().top;
+            const sectionBottom = sectionTop + sectionDiv.offsetHeight;
+
+            // check to see if it is within view
+            if ((sectionTop >= viewTop && sectionTop <= viewBottom) ||
+                (sectionBottom >= viewTop && sectionBottom <= viewBottom)) {
+                currentSection = section;
+                break;
+            }
+
+            if (section === bottomSection && viewTop >= sectionTop) {
+                // we're past the bottom of the page, default to the bottom section
+                currentSection = bottomSection;
             }
         }
 
-        if (topSection !== this.state.currentSection) {
+        if (currentSection !== this.state.currentSection) {
             // don't update while we're in the same section to avoid new renders
             this.setState({
-                currentSection: topSection
+                currentSection
             });
         }
     }
