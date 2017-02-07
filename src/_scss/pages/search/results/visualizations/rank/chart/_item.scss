@@ -1,0 +1,14 @@
+.chart-group {
+    .group-background {
+        fill: #F7F7F7;
+
+        &.even {
+            fill: #FFFFFF;
+        }
+    }
+
+    .group-label {
+        font-size: 14px;
+        color: #555555;
+    }
+}

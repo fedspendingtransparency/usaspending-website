@@ -1,0 +1,126 @@
+/**
+ * HorizontalXAxis.jsx
+ * Created by Kevin Li 2/6/16
+ */
+
+import React from 'react';
+
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+
+import HorizontalXLabel from './HorizontalXLabel';
+
+const propTypes = {
+    xScale: React.PropTypes.func,
+    data: React.PropTypes.array,
+    range: React.PropTypes.array,
+    x: React.PropTypes.number,
+    y: React.PropTypes.number,
+    width: React.PropTypes.number,
+    height: React.PropTypes.number
+};
+
+export default class HorizontalXAxis extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            labels: []
+        };
+    }
+
+    componentDidMount() {
+        this.generateLabels();
+    }
+
+    componentWillReceiveProps() {
+        this.generateLabels();
+    }
+
+    generateLabels() {
+        if (!this.props.xScale) {
+            return;
+        }
+
+        let tickCount = 5;
+        if (this.props.width < 500) {
+            tickCount = 3;
+        }
+
+        const ticks = this.props.xScale.ticks(tickCount);
+        const units = MoneyFormatter.calculateUnits(this.props.data, tickCount);
+
+        // determine how much space the last tick has
+        const lastTick = ticks[ticks.length - 1];
+        const lastTickPosition = this.props.xScale(lastTick);
+        const lastTickToEnd = this.props.width - lastTickPosition;
+
+        const labels = [];
+        ticks.forEach((tick, index) => {
+            let formattedValue =
+                MoneyFormatter.formatMoneyWithPrecision(tick / units.unit, units.precision);
+
+            if (tick === 0) {
+                formattedValue = '$0';
+            }
+            else {
+                formattedValue += units.unitLabel;
+            }
+
+            let alignment = 'middle';
+            if (index === ticks.length - 1 && lastTickToEnd < 50) {
+                // right-align the label if this is the last tick and there is less than 50px from
+                // the end
+                alignment = 'end';
+            }
+
+            const label = (<HorizontalXLabel
+                key={`x-label-${tick}`}
+                x={this.props.xScale(tick)}
+                y={0}
+                height={this.props.height}
+                alignment={alignment}
+                label={formattedValue} />);
+
+            labels.push(label);
+        });
+
+        this.setState({
+            labels
+        });
+    }
+
+    render() {
+        let zeroPos = 0;
+        if (this.props.xScale) {
+            zeroPos = this.props.xScale(0);
+        }
+
+        return (
+            <g
+                className="bar-axis"
+                transform={`translate(${this.props.x},${this.props.y})`}>
+                <title>X-Axis</title>
+                <desc>
+                    {`A horizontal axis depicting a range of monetary values from ${MoneyFormatter.formatMoney(this.props.range[0])} to ${MoneyFormatter.formatMoney(this.props.range[1])}.`}
+                </desc>
+                <line
+                    className="x-axis"
+                    x1={0}
+                    x2={this.props.width}
+                    y1={0}
+                    y2={0} />
+                <g className="axis-labels">
+                    {this.state.labels}
+                </g>
+                <line
+                    className="y-axis"
+                    x1={zeroPos}
+                    x2={zeroPos}
+                    y1={-1 * this.props.height}
+                    y2={0} />
+            </g>
+        );
+    }
+}
+
+HorizontalXAxis.propTypes = propTypes;
