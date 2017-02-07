@@ -107,6 +107,7 @@ export default class HorizontalChart extends React.Component {
                 index={index}
                 height={this.props.itemHeight}
                 width={this.props.width}
+                labelWidth={this.props.labelWidth}
                 padding={this.props.padding} />);
             groups.push(group);
         });
