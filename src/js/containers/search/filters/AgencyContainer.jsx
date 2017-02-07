@@ -16,7 +16,7 @@ const propTypes = {
     updateSelectedAwardingAgencies: React.PropTypes.func
 };
 
-class AgencyContainer extends React.Component {
+export class AgencyContainer extends React.Component {
     constructor(props) {
         super(props);
 

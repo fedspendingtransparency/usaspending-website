@@ -106,7 +106,7 @@ const unmockSearchHelper = () => {
 describe('AgencyListContainer', () => {
     describe('Handling text input', () => {
         it('should handle text input after 300ms', () => {
-            // setup the top bar container and call the function to type a single letter
+            // setup the agency list container and call the function to type a single letter
             const agencyListContainer = setup({ reduxFilters: initialFilters });
             const searchQuery = {
                 target: {
@@ -134,7 +134,7 @@ describe('AgencyListContainer', () => {
         });
 
         it('should call the queryAutocompleteAgencies method 300ms after text input', () => {
-            // setup the top bar container and call the function to type a single letter
+            // setup the agency list container and call the function to type a single letter
             const agencyListContainer = setup({ reduxFilters: initialFilters });
             const searchQuery = {
                 target: {
@@ -170,7 +170,7 @@ describe('AgencyListContainer', () => {
             const mockReduxActionAwarding = jest.fn();
             const mockReduxActionFunding = jest.fn();
 
-            // setup the top bar container and call the function to type a single letter
+            // setup the agency list container and call the function to type a single letter
             const agencyListContainer = setup({
                 reduxFilters: initialFilters,
                 setAutocompleteFundingAgencies: mockReduxActionFunding,
@@ -252,7 +252,7 @@ describe('AgencyListContainer', () => {
                 ]);
             });
 
-            // setup the top bar container and call the function to type a single letter
+            // setup the agency list container and call the function to type a single letter
             const agencyListContainer = setup({
                 reduxFilters: initialFilters,
                 agencyType: 'Funding',
@@ -338,7 +338,7 @@ describe('AgencyListContainer', () => {
                 ]);
             });
 
-            // setup the top bar container and call the function to type a single letter
+            // setup the agency list container and call the function to type a single letter
             const agencyListContainer = setup({
                 reduxFilters: initialFilters,
                 agencyType: 'Awarding',
