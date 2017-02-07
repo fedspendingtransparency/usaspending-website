@@ -15,7 +15,7 @@ const defaultProps = {
         'Department of Justice',
         'National Aeronautics and Space Administration'
     ],
-    dataSeries: [2212019, 1240000, 2000000, 1000000, 750000],
+    dataSeries: [2212019, 2000000, 1240000, 1000000, 750000],
     width: 0,
     height: 330
 };

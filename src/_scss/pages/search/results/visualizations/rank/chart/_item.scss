@@ -12,3 +12,13 @@
         color: #555555;
     }
 }
+
+.chart-bars {
+    .chart-bar {
+        fill: #708893;
+
+        &:hover, &.hover {
+            fill: #F2B733;
+        }
+    }
+}

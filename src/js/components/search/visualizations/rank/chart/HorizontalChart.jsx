@@ -9,6 +9,7 @@ import { scaleLinear } from 'd3-scale';
 
 import HorizontalXAxis from './HorizontalXAxis';
 import ChartGroup from './ChartGroup';
+import ChartBar from './ChartBar';
 
 const propTypes = {
     width: React.PropTypes.number,
@@ -22,8 +23,7 @@ const propTypes = {
 
 const defaultProps = {
     padding: {
-        bottom: 30,
-        right: 10
+        bottom: 30
     },
     itemHeight: 60
 };
@@ -36,7 +36,8 @@ export default class HorizontalChart extends React.Component {
             xScale: null,
             yScale: null,
             xRange: [],
-            groups: []
+            groups: [],
+            bars: []
         };
     }
     componentDidMount() {
@@ -91,16 +92,18 @@ export default class HorizontalChart extends React.Component {
         }
 
         // generate the X axis as a linear scale
-        const maxDataWidth = this.props.width - this.props.labelWidth - this.props.padding.right;
+        const maxDataWidth = this.props.width - this.props.labelWidth;
         const xScale = scaleLinear().domain(dataRange).range([0, maxDataWidth]);
 
         // process the actual data points
         const groups = [];
+        const bars = [];
         this.props.labelSeries.forEach((dataLabel, index) => {
             const dataValue = this.props.dataSeries[index];
 
+            // generate the left-side label group and striped background
             const group = (<ChartGroup
-                key={`item-${dataValue}-${dataLabel}-${index}`}
+                key={`group-${dataValue}-${dataLabel}-${index}`}
                 label={dataLabel}
                 value={dataValue}
                 scale={xScale}
@@ -110,11 +113,36 @@ export default class HorizontalChart extends React.Component {
                 labelWidth={this.props.labelWidth}
                 padding={this.props.padding} />);
             groups.push(group);
+
+            // generate the right-side graph bar
+            let start = xScale(0);
+            let barWidth = xScale(dataValue) - start;
+            if (dataValue < 0) {
+                // negative value, end at 0 and start at the data point
+                start = xScale(dataValue);
+                barWidth = xScale(0) - start;
+            }
+
+            if (barWidth < 0) {
+                barWidth = 0;
+            }
+
+            const bar = (<ChartBar
+                key={`bar-${dataValue}-${dataLabel}-${index}`}
+                index={index}
+                labelWidth={this.props.labelWidth}
+                height={this.props.itemHeight}
+                start={start}
+                width={barWidth}
+                label={dataLabel}
+                value={dataValue} />);
+            bars.push(bar);
         });
 
         this.setState({
             xScale,
             groups,
+            bars,
             xRange: dataRange
         });
     }
@@ -138,13 +166,17 @@ export default class HorizontalChart extends React.Component {
                     </g>
 
                     <HorizontalXAxis
-                        width={this.props.width - this.props.labelWidth - this.props.padding.right}
+                        width={this.props.width - this.props.labelWidth}
                         height={this.props.height - this.props.padding.bottom}
                         x={this.props.labelWidth}
                         y={this.props.height - this.props.padding.bottom}
                         range={this.state.xRange}
                         xScale={this.state.xScale}
                         data={this.props.dataSeries} />
+
+                    <g className="chart-bars">
+                        {this.state.bars}
+                    </g>
                 </svg>
             </div>
         );
