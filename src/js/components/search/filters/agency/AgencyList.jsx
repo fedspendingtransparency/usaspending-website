@@ -21,18 +21,20 @@ const propTypes = {
     handleTextInput: React.PropTypes.func,
     isRequired: React.PropTypes.bool,
     agencyType: React.PropTypes.string,
-    checkValidity: React.PropTypes.func
+    checkValidity: React.PropTypes.func,
+    selectedAgencies: React.PropTypes.object
 };
 
 const defaultProps = {
+    autocompleteAgencies: [],
     customClass: '',
-    formatter: null,
     keyValue: 'agency',
     internalValue: 'agency_name',
+    formatter: null,
     tabIndex: null,
     isRequired: false,
-    errorHeader: '',
-    errorMessage: ''
+    agencyType: '',
+    selectedAgencies: {}
 };
 
 export default class AgencyList extends Typeahead {
@@ -51,14 +53,16 @@ export default class AgencyList extends Typeahead {
     loadValues() {
         this.typeahead.list = this.props.autocompleteAgencies;
 
-        this.props.autocompleteAgencies.forEach((item) => {
-            let key = `<b>${item.subtier_agency.name}</b>`;
-            if (item.toptier_agency.name !== item.subtier_agency.name) {
-                key += `<br>Sub-Agency of ${item.toptier_agency.name}`;
-            }
+        if (this.props.autocompleteAgencies.length > 0) {
+            this.props.autocompleteAgencies.forEach((item) => {
+                let key = `<b>${item.subtier_agency.name}</b>`;
+                if (item.toptier_agency.name !== item.subtier_agency.name) {
+                    key += `<br>Sub-Agency of ${item.toptier_agency.name}`;
+                }
 
-            this.dataDictionary[key] = item.id;
-        });
+                this.dataDictionary[key] = item.id;
+            });
+        }
 
         this.typeahead.replace = () => {
             this.typeahead.input.value = "";
@@ -163,21 +167,23 @@ export default class AgencyList extends Typeahead {
         }
 
         return (
-            <div className="pop-typeahead">
-                <div className="usa-da-typeahead">
-                    <p>{this.props.agencyType} Agency</p>
-                    <input
-                        ref={(t) => {
-                            this.awesompleteInput = t;
-                        }}
-                        id={`${this.props.agencyType}-agency-input`}
-                        type="text"
-                        className={`${this.props.agencyType}-agency-input awesomplete`}
-                        placeholder={`${this.props.agencyType} Agency`}
-                        onChange={this.onChange.bind(this)}
-                        data-autofirst="false" />
+            <div>
+                <div className={`pop-typeahead ${_.lowerCase(this.props.agencyType)}`}>
+                    <div className="usa-da-typeahead">
+                        <p>{this.props.agencyType} Agency</p>
+                        <input
+                            ref={(t) => {
+                                this.awesompleteInput = t;
+                            }}
+                            id={`${this.props.agencyType}-agency-input`}
+                            type="text"
+                            className={`${this.props.agencyType}-agency-input awesomplete`}
+                            placeholder={`${this.props.agencyType} Agency`}
+                            onChange={this.onChange.bind(this)}
+                            data-autofirst="false" />
+                    </div>
+                    {warning}
                 </div>
-                {warning}
                 {chosenAgencies}
             </div>
         );

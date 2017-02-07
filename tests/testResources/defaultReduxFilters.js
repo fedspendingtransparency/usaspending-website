@@ -11,6 +11,8 @@ export const defaultFilters = {
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
+    selectedFundingAgencies: new OrderedMap(),
+    selectedAwardingAgencies: new OrderedMap(),
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all'
 };

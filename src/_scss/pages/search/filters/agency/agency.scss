@@ -8,7 +8,7 @@
     padding-left: 0;
 
     > div {
-        padding-left: 3rem;
+        padding-left: 0rem;
     }
 
     .shown {
@@ -21,15 +21,18 @@
 
     .pop-typeahead {
         margin-bottom: 1rem;
-        padding-left: 0rem;
+        padding-left: 3rem;
 
-        .usa-da-typeahead {
-            margin: 3rem 0 1rem;
-            padding-left: 2.5rem;
+        .funding {
+            .usa-da-typeahead {
+                margin: 0rem 0 1rem;
+            }
         }
 
-        .error-message {
-            margin-left: 2.5rem;
+        .awarding {
+            .usa-da-typeahead {
+                margin: 3rem 0 1rem;
+            }
         }
     }
 

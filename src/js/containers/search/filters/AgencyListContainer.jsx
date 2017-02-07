@@ -23,7 +23,7 @@ const propTypes = {
     agencyType: React.PropTypes.string
 };
 
-class AgencyListContainer extends React.Component {
+export class AgencyListContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -120,8 +120,9 @@ class AgencyListContainer extends React.Component {
                 agencyType={this.props.agencyType} />
         );
     }
-
 }
+
+AgencyListContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -129,5 +130,3 @@ export default connect(
         awardingAgencies: state.agency.awardingAgencies }),
     (dispatch) => bindActionCreators(agencyActions, dispatch)
 )(AgencyListContainer);
-
-AgencyListContainer.propTypes = propTypes;
