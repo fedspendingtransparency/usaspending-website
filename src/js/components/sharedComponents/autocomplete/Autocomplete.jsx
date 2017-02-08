@@ -62,29 +62,22 @@ export default class Autocomplete extends React.Component {
     setupAutocomplete() {
         const target = this.autocompleteInput;
 
-        // set up event handlers
-        target.addEventListener('select', (e) => {
-            this.setState({
-                value: e.text.label
-            }, () => {
-                this.bubbleUpChange();
-            });
-            this.typeahead.close();
-        });
-
         target.addEventListener('blur', () => {
             this.close();
+            target.value = "";
         });
 
         // enable tab keyboard shortcut for selection
         target.addEventListener('keydown', (e) => {
-            // Tab OR Enter
-            if (e.keyCode === 9 || e.keyCode === 13) {
+            // Enter
+            if (e.keyCode === 13) {
                 e.preventDefault();
-                this.select();
+                this.select(this.props.values[this.state.selectedIndex]);
+                target.value = "";
             }
-            // Escape
-            else if (e.keyCode === 27) {
+            // Tab or Escape
+            else if (e.keyCode === 9 || e.keyCode === 27) {
+                target.value = "";
                 this.close();
             }
             // Previous

@@ -11,7 +11,6 @@ import _ from 'lodash';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 
-import LocationList from 'components/search/filters/location/LocationList';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
