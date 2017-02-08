@@ -90,11 +90,6 @@ export default class HorizontalXAxis extends React.Component {
     }
 
     render() {
-        let zeroPos = 0;
-        if (this.props.xScale) {
-            zeroPos = this.props.xScale(0);
-        }
-
         return (
             <g
                 className="bar-axis"
@@ -112,12 +107,6 @@ export default class HorizontalXAxis extends React.Component {
                 <g className="axis-labels">
                     {this.state.labels}
                 </g>
-                <line
-                    className="y-axis"
-                    x1={zeroPos}
-                    x2={zeroPos}
-                    y1={-1 * this.props.height}
-                    y2={0} />
             </g>
         );
     }

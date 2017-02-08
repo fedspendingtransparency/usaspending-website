@@ -8,6 +8,7 @@ import _ from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
 import HorizontalXAxis from './HorizontalXAxis';
+import HorizontalYAxis from './HorizontalYAxis';
 import ChartGroup from './ChartGroup';
 import ChartBar from './ChartBar';
 
@@ -93,7 +94,7 @@ export default class HorizontalChart extends React.Component {
 
         // generate the X axis as a linear scale
         const maxDataWidth = this.props.width - this.props.labelWidth;
-        const xScale = scaleLinear().domain(dataRange).range([0, maxDataWidth]);
+        const xScale = scaleLinear().domain(dataRange).range([0, maxDataWidth]).nice();
 
         // process the actual data points
         const groups = [];
@@ -105,8 +106,6 @@ export default class HorizontalChart extends React.Component {
             const group = (<ChartGroup
                 key={`group-${dataValue}-${dataLabel}-${index}`}
                 label={dataLabel}
-                value={dataValue}
-                scale={xScale}
                 index={index}
                 height={this.props.itemHeight}
                 width={this.props.width}
@@ -134,10 +133,27 @@ export default class HorizontalChart extends React.Component {
                 height={this.props.itemHeight}
                 start={start}
                 width={barWidth}
+                maxWidth={this.props.width - this.props.labelWidth}
                 label={dataLabel}
                 value={dataValue} />);
             bars.push(bar);
         });
+
+        if (this.props.labelSeries.length < 5) {
+            // when a lot of filters are applied or we're at the end of the list
+            const remainingSlots = 5 - this.props.labelSeries.length;
+            for (let i = 0; i < remainingSlots; i++) {
+                const emptyGroup = (<ChartGroup
+                    key={`group-empty-${i}`}
+                    label=""
+                    index={i + this.props.labelSeries.length}
+                    height={this.props.itemHeight}
+                    width={this.props.width}
+                    labelWidth={this.props.labelWidth}
+                    padding={this.props.padding} />);
+                groups.push(emptyGroup);
+            }
+        }
 
         this.setState({
             xScale,
@@ -177,6 +193,13 @@ export default class HorizontalChart extends React.Component {
                     <g className="chart-bars">
                         {this.state.bars}
                     </g>
+
+                    <HorizontalYAxis
+                        height={this.props.height - this.props.padding.bottom}
+                        x={this.props.labelWidth}
+                        y={this.props.height - this.props.padding.bottom}
+                        xScale={this.state.xScale} />
+
                 </svg>
             </div>
         );
