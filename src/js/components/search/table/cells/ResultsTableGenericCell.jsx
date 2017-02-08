@@ -9,7 +9,8 @@ const propTypes = {
     data: React.PropTypes.string,
     rowIndex: React.PropTypes.number,
     column: React.PropTypes.string,
-    isLastColumn: React.PropTypes.bool
+    isLastColumn: React.PropTypes.bool,
+    id: React.PropTypes.number
 };
 
 export default class ResultsTableGenericCell extends React.Component {
@@ -30,6 +31,14 @@ export default class ResultsTableGenericCell extends React.Component {
 
         if (this.props.isLastColumn) {
             rowClass += ' last-column';
+        }
+
+        if (this.props.column === 'award_id') {
+            const urlFormatted = `/#/award/${this.props.id}`;
+            content = (
+                <a href={urlFormatted}>
+                    {this.props.data}
+                </a>);
         }
 
         return (

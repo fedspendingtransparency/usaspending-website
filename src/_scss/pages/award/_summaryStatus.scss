@@ -1,7 +1,7 @@
 .summary-status {
     display: table;
     @include media($nav-width) {
-        @include span-columns(10);
+        @include span-columns(9);
     }
     ul.summary-status-items {
         @include unstyled-list;

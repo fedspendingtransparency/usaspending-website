@@ -7,7 +7,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import _ from 'lodash';
 
 import Award from 'components/award/Award';
 
@@ -16,10 +15,6 @@ import * as awardActions from 'redux/actions/award/awardActions';
 import AwardSummary from 'models/results/award/AwardSummary';
 
 const propTypes = {
-    award: React.PropTypes.oneOfType([
-        React.PropTypes.array,
-        React.PropTypes.object
-    ]),
     setSelectedAward: React.PropTypes.func,
     params: React.PropTypes.object
 };
@@ -28,8 +23,11 @@ class AwardContainer extends React.Component {
     constructor(props) {
         super(props);
 
+        this.searchRequest = null;
+
         this.state = {
-            noAward: false
+            noAward: false,
+            awardId: null
         };
     }
 
@@ -38,11 +36,8 @@ class AwardContainer extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.props.award.selectedAward) {
-            const currentId = _.toString(this.props.award.selectedAward.id);
-            if (currentId !== this.props.params.awardId) {
-                this.getSelectedAward();
-            }
+        if (this.state.awardId !== this.props.params.awardId) {
+            this.getSelectedAward();
         }
     }
 
@@ -56,7 +51,8 @@ class AwardContainer extends React.Component {
         this.selectedAwardRequest.promise
             .then((res) => {
                 this.setState({
-                    noAward: false
+                    noAward: false,
+                    awardId: this.props.params.awardId
                 });
                 const data = res.data;
                 const award = new AwardSummary(data);
@@ -72,7 +68,8 @@ class AwardContainer extends React.Component {
                     // Errored out but got response, toggle noAward flag
                     this.selectedAwardRequest = null;
                     this.setState({
-                        noAward: true
+                        noAward: true,
+                        awardId: this.props.params.awardId
                     });
                 }
                 else {

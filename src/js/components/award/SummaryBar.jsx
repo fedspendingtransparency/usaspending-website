@@ -5,8 +5,7 @@
 
 import React from 'react';
 import moment from 'moment';
-import _ from 'lodash'
-;import * as Icons from '../sharedComponents/icons/Icons';
+import * as Icons from '../sharedComponents/icons/Icons';
 import InfoSnippet from './InfoSnippet';
 
 const propTypes = {
@@ -31,8 +30,8 @@ export default class SummaryBar extends React.Component {
     }
 
     getStatus(award) {
-        const awardStart = moment(award.period_of_performance_start_date, 'YYYY-MM-DD');
-        const awardEnd = moment(award.period_of_performance_current_end_date, 'YYYY-MM-DD');
+        const awardStart = moment(award.period_of_performance_start_date, 'MM-DD-YYYY');
+        const awardEnd = moment(award.period_of_performance_current_end_date, 'MM-DD-YYYY');
         const current = moment();
         let progress = "";
         if (current.isBefore(awardStart)) {
@@ -50,6 +49,7 @@ export default class SummaryBar extends React.Component {
     render() {
         let parentAwardId = null;
         let parentId = null;
+
         if (this.props.selectedAward) {
             const award = this.props.selectedAward;
             if (award.parent_award) {
@@ -61,6 +61,7 @@ export default class SummaryBar extends React.Component {
             else {
                 parentId = null;
             }
+
             if (award.type === "D" && parentId === null) {
                 parentAwardId = null;
             }
@@ -75,12 +76,12 @@ export default class SummaryBar extends React.Component {
             <div className="usa-da-summary-bar">
                 <div className="summary-bar-wrap">
                     <h1 className="summary-title">{this.props.selectedAward.type_description}
-                        Summary</h1>
+                        &nbsp;Summary</h1>
                     <div className="summary-status">
                         <ul className="summary-status-items">
                             <InfoSnippet
                                 label="Award ID"
-                                value={_.toString(this.props.selectedAward.id)} />
+                                value={this.props.selectedAward.award_id} />
                             { parentAwardId }
                             <InfoSnippet
                                 label="Status"

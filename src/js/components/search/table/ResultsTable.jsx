@@ -96,7 +96,6 @@ export default class ResultsTable extends React.PureComponent {
         const columns = this.props.columns.map((column, i) => {
             totalWidth += column.width;
             const isLast = i === this.props.columns.length - 1;
-
             return {
                 width: column.width,
                 name: column.columnName,
@@ -113,6 +112,7 @@ export default class ResultsTable extends React.PureComponent {
                     <ResultsTableGenericCell
                         key={`cell-${column.columnName}-${index}`}
                         rowIndex={index}
+                        id={this.props.results[index].id}
                         data={this.props.results[index][column.columnName]}
                         dataHash={this.state.dataHash}
                         column={column.columnName}

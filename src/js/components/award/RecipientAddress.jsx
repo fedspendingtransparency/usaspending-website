@@ -24,9 +24,13 @@ export default class RecipientAddress extends React.Component {
         else if (!city && !stateProvince) {
             cityState = null;
         }
-        else {
-            cityState = `${city} ${stateProvince}`;
+        else if (city && !stateProvince) {
+            cityState = city;
         }
+        else if (!city && stateProvince) {
+            cityState = stateProvince;
+        }
+
         return (
             <li className={this.props.type}>
                 <div className="item-label">

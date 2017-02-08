@@ -15,29 +15,37 @@ export default class RecipientInfo extends React.Component {
 
     render() {
         const recipient = this.props.recipient;
-        const recipientDuns = "Not Available";
-        const businessTypeDesc = "Not Available";
+        let duns = "Not Available";
+        let parentDuns = "Not Available";
+        let businessType = "Not Available";
+        if (this.props.recipient.recipient_parent_duns) {
+            parentDuns = this.props.recipient.recipient_parent_duns;
+        }
+        if (this.props.recipient.recipient_duns) {
+            duns = this.props.recipient.recipient_duns;
+        }
+        if (this.props.recipient.recipient_business_type) {
+            businessType = this.props.recipient.recipient_business_type;
+        }
 
-        const name = (
-            <div className="recipient-name">
-                {recipient.recipient_name}
-            </div>);
         return (
             <div className="recipient-info">
                 <h4>Recipient</h4>
-                { name }
+                <div className="recipient-name">
+                    {recipient.recipient_name}
+                </div>
                 <ul className="recipient-information">
                     <RecipientAddress
                         recipient={recipient} />
                     <InfoSnippet
                         label="DUNS"
-                        value={recipientDuns} />
+                        value={duns} />
                     <InfoSnippet
                         label="Parent DUNS"
-                        value={businessTypeDesc} />
+                        value={parentDuns} />
                     <InfoSnippet
                         label="Business Type"
-                        value={businessTypeDesc} />
+                        value={businessType} />
                 </ul>
             </div>
         );

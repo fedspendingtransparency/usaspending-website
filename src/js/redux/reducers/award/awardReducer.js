@@ -3,7 +3,7 @@
  * Created by Emily Gullo 01/23/2017
  **/
 
-const initialState = [];
+const initialState = {};
 
 const awardReducer = (state = initialState, action) => {
     switch (action.type) {

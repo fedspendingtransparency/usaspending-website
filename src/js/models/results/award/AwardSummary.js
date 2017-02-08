@@ -12,7 +12,7 @@ import GenericRecord from '../GenericRecord';
 const recordType = 'award';
 const fields = [
     'id',
-    'awardId',
+    'award_id',
     'recipient_name',
     'date_signed',
     'period_of_performance_start_date',
@@ -33,13 +33,16 @@ const fields = [
     'pop_city',
     'pop_state_province',
     'total_obligation',
-    'total_funding_amount'
+    'total_funding_amount',
+    'recipient_duns',
+    'recipient_parent_duns',
+    'recipient_business_type'
 ];
 
 const remapData = (data, idField) => {
     // remap expected child fields to top-level fields
     const remappedData = data;
-    let id = '';
+    let id = 0;
     let awardType = '';
     let awardTypeDescription = '';
     let awardingAgencyName = '';
@@ -54,9 +57,11 @@ const remapData = (data, idField) => {
     let recipientStateProvince = '';
     let recipientZipPostal = '';
     let recipientCountry = '';
+    let recipientDuns = '';
+    let recipientParentDuns = '';
+    let recipientBusinessType = '';
     let popCity = '';
     let popStateProvince = '';
-    let totalFundingAmount = '';
 
     if (data.id) {
         id = data.id;
@@ -95,11 +100,8 @@ const remapData = (data, idField) => {
             popStateProvince = data.place_of_performance.location_foreign_province;
         }
     }
-    if (data.financialassistanceaward_set) {
-        // totalFundingAmount = data.financialassistanceaward_set[0].total_funding_amount;
-        totalFundingAmount = '1000';
-    }
 
+    remappedData.id = id;
     remappedData.type = awardType;
     remappedData.type_description = awardTypeDescription;
     remappedData.awarding_agency_name = awardingAgencyName;
@@ -108,11 +110,8 @@ const remapData = (data, idField) => {
     remappedData.funding_agency_name = fundingAgencyName;
     remappedData.funding_subtier_name = fundingSubtierName;
     remappedData.funding_office_name = fundingOfficeName;
-    remappedData.recipient_name = recipientName;
-    remappedData.id = id;
     remappedData.pop_city = popCity;
     remappedData.pop_state_province = popStateProvince;
-    remappedData.total_funding_amount = MoneyFormatter.formatMoney(totalFundingAmount);
 
     // set the awardID (fain or piid) to the relevant field
     let awardId = data.fain;
@@ -131,15 +130,22 @@ const remapData = (data, idField) => {
             awardId = '';
         }
     }
-    remappedData.awardId = awardId;
+    remappedData.award_id = awardId;
 
-    // Format address
+    // Format Recipient Info + Address
     if (data.recipient) {
+        recipientName = data.recipient.recipient_name;
         const loc = data.recipient.location;
-        recipientName = loc.recipient_name;
-        recipientStreet = loc.location_address_line1 +
-        loc.location_address_line2 +
-        loc.location_address_line3;
+
+        if (loc.location_address_line1) {
+            recipientStreet += loc.location_address_line1;
+        }
+        if (loc.location_address_line2) {
+            recipientStreet += loc.location_address_line2;
+        }
+        if (loc.location_address_line2) {
+            recipientStreet += loc.location_address_line3;
+        }
 
         if (loc.location_city_name) {
             recipientCity = loc.location_city_name;
@@ -165,12 +171,25 @@ const remapData = (data, idField) => {
         else if (loc.location_country_name) {
             recipientCountry = loc.location_country_name;
         }
+        if (data.recipient.recipient_unique_id) {
+            recipientDuns = data.recipient.recipient_unique_id;
+        }
+        if (data.recipient.ultimate_parent_legal_entity_id) {
+            recipientParentDuns = data.recipient.ultimate_parent_legal_entity_id;
+        }
+        if (data.recipient.business_type_description) {
+            recipientBusinessType = data.recipient.business_type_description;
+        }
     }
+    remappedData.recipient_name = recipientName;
     remappedData.recipient_street = recipientStreet;
     remappedData.recipient_city = recipientCity;
     remappedData.recipient_state_province = recipientStateProvince;
     remappedData.recipient_zip_postal = recipientZipPostal;
     remappedData.recipient_country = recipientCountry;
+    remappedData.recipient_duns = recipientDuns;
+    remappedData.recipient_parent_duns = recipientParentDuns;
+    remappedData.recipient_business_type = recipientBusinessType;
 
     // convert the award type code to a user-readable string
     let serverType = '';
