@@ -5,6 +5,9 @@
 
 import _ from 'lodash';
 
+const locationIdField = 'recipient__location__location_id';
+const countryCodeField = 'recipient__location__location_country_code';
+
 export const buildLocationQuery = (values) => {
     let valueSet = [];
 
@@ -15,7 +18,7 @@ export const buildLocationQuery = (values) => {
     });
 
     const filter = {
-        field: "recipient__location__location_id",
+        field: locationIdField,
         operation: "in",
         value: valueSet
     };
@@ -30,7 +33,7 @@ export const buildDomesticForeignQuery = (selection) => {
     }
 
     const filter = {
-        field: 'recipient__location__location_country_code',
+        field: countryCodeField,
         operation: op,
         value: 'USA'
     };

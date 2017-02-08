@@ -17,3 +17,10 @@ const accountingOptions = {
 };
 
 export const formatMoney = (value) => Accounting.formatMoney(value, accountingOptions);
+
+export const formatMoneyWithPrecision = (value, precision) => {
+    const modifiedOptions = Object.assign({}, accountingOptions, {
+        precision
+    });
+    return Accounting.formatMoney(value, modifiedOptions);
+};
