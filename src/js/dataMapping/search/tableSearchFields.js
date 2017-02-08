@@ -1,15 +1,15 @@
 const tableSearchFields = {
     columnWidths: {
-        id: 130,
-        recipient_name: 280,
-        period_of_performance_start_date: 120,
-        period_of_performance_current_end_date: 120,
-        total_obligation: 190,
-        type: 200,
-        awarding_agency_name: 250,
-        awarding_subtier_name: 250,
-        funding_agency_name: 250,
-        funding_subtier_name: 250
+        id: 160,
+        recipient_name: 310,
+        period_of_performance_start_date: 150,
+        period_of_performance_current_end_date: 150,
+        total_obligation: 220,
+        type: 230,
+        awarding_agency_name: 280,
+        awarding_subtier_name: 280,
+        funding_agency_name: 280,
+        funding_subtier_name: 280
     },
     defaultSortDirection: {
         id: 'asc',
