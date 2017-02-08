@@ -53,9 +53,7 @@ export default class Autocomplete extends React.Component {
     }
 
     onChange(e) {
-        const inputValue = e.target.value;
-
-        this.checkValidity(inputValue);
+        this.checkValidity(e.target.value);
         this.props.handleTextInput(e);
     }
 
