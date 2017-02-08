@@ -24,9 +24,7 @@ export default class Suggestion extends React.Component {
     }
 
     setUpSuggestion() {
-        const target = this.suggestion;
-
-        target.addEventListener('mousedown', () => {
+        this.suggestion.addEventListener('mousedown', () => {
             this.props.select(this.props.location);
         });
     }
