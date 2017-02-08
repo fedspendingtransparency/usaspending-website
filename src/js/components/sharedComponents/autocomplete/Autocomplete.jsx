@@ -219,7 +219,7 @@ export default class Autocomplete extends React.Component {
                 <div className="usa-da-typeahead">
                     <p>Primary Place of Performance</p>
                     <input
-                        className="location-input awesomplete"
+                        className="location-input autocomplete"
                         ref={(t) => {
                             this.autocompleteInput = t;
                         }}

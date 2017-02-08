@@ -46,7 +46,7 @@ export default class SuggestionHolder extends React.Component {
         }
 
         return (
-            <div className="awesomplete" hidden={this.hidden}>
+            <div className="autocomplete" hidden={this.hidden}>
                 <ul>
                     {suggestions}
                 </ul>
