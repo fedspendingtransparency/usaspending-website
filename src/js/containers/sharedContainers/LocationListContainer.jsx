@@ -77,7 +77,6 @@ class LocationListContainer extends React.Component {
                     else {
                         autocompleteData = data;
                     }
-
                     // Add search results to Redux
                     this.props.setAutocompleteLocations(autocompleteData);
                 });

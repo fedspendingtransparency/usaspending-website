@@ -62,10 +62,26 @@ export const fetchLocations = (req) => {
     };
 };
 
+// Agency search for autocomplete
+export const fetchAgencies = (req) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'references/agency/autocomplete/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: req,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 // make API call to awards total aggregation endpoint
 export const performAwardsTotalSearch = (params) => {
     const source = CancelToken.source();
-
     return {
         promise: Axios.request({
             url: 'transactions/total/',

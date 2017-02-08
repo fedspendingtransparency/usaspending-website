@@ -46,6 +46,16 @@ export const updateSelectedLocations = (state) => ({
     location: state.location
 });
 
+export const updateSelectedAwardingAgencies = (state) => ({
+    type: 'UPDATE_SELECTED_AWARDING_AGENCIES',
+    agency: state.agency
+});
+
+export const updateSelectedFundingAgencies = (state) => ({
+    type: 'UPDATE_SELECTED_FUNDING_AGENCIES',
+    agency: state.agency
+});
+
 export const updateDomesticForeignSelection = (state) => ({
     type: 'UPDATE_DOMESTIC_FOREIGN',
     selection: state
