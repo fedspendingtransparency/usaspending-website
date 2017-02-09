@@ -19,14 +19,16 @@ const propTypes = {
     labelSeries: React.PropTypes.array,
     labelWidth: React.PropTypes.number,
     padding: React.PropTypes.object,
-    itemHeight: React.PropTypes.number
+    itemHeight: React.PropTypes.number,
+    startIndex: React.PropTypes.number
 };
 
 const defaultProps = {
     padding: {
         bottom: 30
     },
-    itemHeight: 60
+    itemHeight: 60,
+    startIndex: 0
 };
 
 export default class HorizontalChart extends React.Component {
@@ -135,7 +137,9 @@ export default class HorizontalChart extends React.Component {
                 width={barWidth}
                 maxWidth={this.props.width - this.props.labelWidth}
                 label={dataLabel}
-                value={dataValue} />);
+                value={dataValue}
+                selectItem={this.props.selectItem}
+                deselectItem={this.props.deselectItem} />);
             bars.push(bar);
         });
 

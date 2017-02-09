@@ -15,7 +15,9 @@ const propTypes = {
     start: React.PropTypes.number,
     index: React.PropTypes.number,
     label: React.PropTypes.string,
-    value: React.PropTypes.number
+    value: React.PropTypes.number,
+    selectItem: React.PropTypes.func,
+    deselectItem: React.PropTypes.func
 };
 
 export default class ChartBar extends React.Component {
@@ -34,19 +36,43 @@ export default class ChartBar extends React.Component {
     mouseEntered() {
         this.setState({
             isHovering: true
+        }, () => {
+            this.showTooltip();
         });
     }
 
     mouseExited() {
         this.setState({
             isHovering: false
+        }, () => {
+            this.hideTooltip();
         });
     }
 
     touchedBar() {
         this.setState({
             isHovering: !this.state.isHovering
+        }, () => {
+            if (this.state.isHovering) {
+                this.showTooltip();
+            }
+            else {
+                this.hideTooltip();
+            }
         });
+    }
+
+    showTooltip() {
+        this.props.selectItem({
+            agency: this.props.label,
+            value: this.props.value,
+            y: (this.props.index * this.props.height) + 20,
+            x: (this.props.width / 2) + this.props.start + this.props.labelWidth
+        });
+    }
+
+    hideTooltip() {
+        this.props.deselectItem();
     }
 
     render() {
@@ -63,6 +89,12 @@ export default class ChartBar extends React.Component {
                     {`Spending by ${this.props.label}: ${MoneyFormatter.formatMoney(this.props.value)}`}
                 </desc>
                 <rect
+                    className={`chart-bar ${hoverClass}`}
+                    x={this.props.start}
+                    y={20}
+                    width={this.props.width}
+                    height={20} />
+                <rect
                     className="chart-bar-hitzone"
                     x={0}
                     y={0}
@@ -71,12 +103,6 @@ export default class ChartBar extends React.Component {
                     onMouseOver={this.mouseEntered}
                     onMouseOut={this.mouseExited}
                     onTouchStart={this.touchedBar} />
-                <rect
-                    className={`chart-bar ${hoverClass}`}
-                    x={this.props.start}
-                    y={20}
-                    width={this.props.width}
-                    height={20} />
             </g>
         );
     }

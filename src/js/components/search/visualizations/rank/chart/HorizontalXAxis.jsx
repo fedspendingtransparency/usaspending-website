@@ -29,29 +29,28 @@ export default class HorizontalXAxis extends React.Component {
     }
 
     componentDidMount() {
-        this.generateLabels();
+        this.generateLabels(this.props);
     }
 
-    componentWillReceiveProps() {
-        this.generateLabels();
+    componentWillReceiveProps(props) {
+        this.generateLabels(props);
     }
 
-    generateLabels() {
-        if (!this.props.xScale) {
+    generateLabels(props) {
+        if (!props.xScale) {
             return;
         }
-
         let tickCount = 5;
-        if (this.props.width < 500) {
+        if (props.width < 500) {
             tickCount = 3;
         }
 
-        const ticks = this.props.xScale.ticks(tickCount);
-        const units = MoneyFormatter.calculateUnits(this.props.data, tickCount);
+        const ticks = props.xScale.ticks(tickCount);
+        const units = MoneyFormatter.calculateUnits(props.data, tickCount);
 
         // determine how much space the last tick has
         const lastTick = ticks[ticks.length - 1];
-        const lastTickPosition = this.props.xScale(lastTick);
+        const lastTickPosition = props.xScale(lastTick);
         const lastTickToEnd = this.props.width - lastTickPosition;
 
         const labels = [];
@@ -75,9 +74,9 @@ export default class HorizontalXAxis extends React.Component {
 
             const label = (<HorizontalXLabel
                 key={`x-label-${tick}`}
-                x={this.props.xScale(tick)}
+                x={props.xScale(tick)}
                 y={0}
-                height={this.props.height}
+                height={props.height}
                 alignment={alignment}
                 label={formattedValue} />);
 

@@ -8,6 +8,12 @@ import _ from 'lodash';
 
 import RankVisualizationTitle from './RankVisualizationTitle';
 import RankVisualization from './RankVisualization';
+import RankVisualizationScopeButton from './RankVisualizationScopeButton';
+
+const propTypes = {
+    agencyScope: React.PropTypes.string,
+    changeScope: React.PropTypes.func
+};
 
 export default class RankVisualizationSection extends React.Component {
     constructor(props) {
@@ -43,6 +49,7 @@ export default class RankVisualizationSection extends React.Component {
             });
         }
     }
+
     render() {
         return (
             <div
@@ -63,6 +70,33 @@ export default class RankVisualizationSection extends React.Component {
                              View your results in a bar graph or a tree map.
                         </div>
                     </div>
+                    <div className="visualization-period">
+                        <div className="content">
+                            <ul>
+                                <li>
+                                    <RankVisualizationScopeButton
+                                        value="toptier"
+                                        label="Agencies"
+                                        active={this.props.agencyScope === 'toptier'}
+                                        changeScope={this.props.changeScope} />
+                                </li>
+                                <li>
+                                    <RankVisualizationScopeButton
+                                        value="subtier"
+                                        label="Sub-Agencies"
+                                        active={this.props.agencyScope === 'subtier'}
+                                        changeScope={this.props.changeScope} />
+                                </li>
+                                <li>
+                                    <RankVisualizationScopeButton
+                                        value="office"
+                                        label="Offices"
+                                        active={this.props.agencyScope === 'office'}
+                                        changeScope={this.props.changeScope} />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <RankVisualization
@@ -73,3 +107,5 @@ export default class RankVisualizationSection extends React.Component {
         );
     }
 }
+
+RankVisualizationSection.propTypes = propTypes;

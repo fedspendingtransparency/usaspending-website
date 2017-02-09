@@ -3,6 +3,21 @@
 
     @import "./_title";
     @import "./_topSection";
+    
+    .results-visualization-rank-container {
+        position: relative;
 
-    @import "./chart/rankChart";
+        @import "./chart/rankChart";
+
+        .visualization-tooltip {
+            @import "../../../../../components/visualizations/tooltip/_tooltip";
+        }
+    }
+
+    .results-visualization-message {
+        margin-top: 1rem;
+        font-size: $small-font-size;
+        color: $color-base;
+        text-align: center;
+    }
 }

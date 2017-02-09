@@ -62,8 +62,8 @@ export const fetchLocations = (req) => {
     };
 };
 
-// make API call to awards total aggregation endpoint
-export const performAwardsTotalSearch = (params) => {
+// make API call to transactions total aggregation endpoint
+export const performTransactionsTotalSearch = (params) => {
     const source = CancelToken.source();
 
     return {
