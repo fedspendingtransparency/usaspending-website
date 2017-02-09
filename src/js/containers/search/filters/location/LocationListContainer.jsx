@@ -26,23 +26,44 @@ class LocationListContainer extends React.Component {
         super(props);
 
         this.state = {
-            locationSearchString: ''
+            locationSearchString: '',
+            autocompleteLocations: []
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
         this.timeout = null;
     }
 
-    dataFormatter(item) {
-        let itemLabel = `<b>${item.place}</b><br>${_.upperCase(item.place_type)}`;
-        if (item.parent !== null) {
-            itemLabel += ` in ${item.parent}`;
+    componentDidMount() {
+        this.parseAutocompleteLocations(this.props.autocompleteLocations);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!_.isEqual(nextProps.autocompleteLocations, this.props.autocompleteLocations)) {
+            this.parseAutocompleteLocations(nextProps.autocompleteLocations);
+        }
+    }
+
+    parseAutocompleteLocations(locations) {
+        const values = [];
+        if (locations.length > 0) {
+            locations.forEach((item) => {
+                let placeType = _.upperCase(item.place_type);
+                if (item.parent !== null) {
+                    placeType += ` in ${item.parent}`;
+                }
+
+                values.push({
+                    title: item.place,
+                    subtitle: placeType,
+                    data: item
+                });
+            });
         }
 
-        return {
-            label: itemLabel,
-            value: item.place
-        };
+        this.setState({
+            autocompleteLocations: values
+        });
     }
 
     queryAutocompleteLocations(input) {
@@ -70,10 +91,13 @@ class LocationListContainer extends React.Component {
                     const data = res.data;
                     let autocompleteData = [];
 
+                    // Remove 'identifier' from selected locations to enable comparison
+                    const selectedLocations = this.props.selectedLocations.toArray()
+                        .map((location) => _.omit(location, 'identifier'));
+
                     // Filter out any selectedLocations that may be in the result set
-                    if (this.props.selectedLocations.size > 0) {
-                        autocompleteData = _.differenceWith(data,
-                            this.props.selectedLocations.toArray(), _.isEqual);
+                    if (selectedLocations && selectedLocations.length > 0) {
+                        autocompleteData = _.differenceWith(data, selectedLocations, _.isEqual);
                     }
                     else {
                         autocompleteData = data;
@@ -100,27 +124,10 @@ class LocationListContainer extends React.Component {
     }
 
     render() {
-        const values = [];
-        if (this.props.autocompleteLocations.length > 0) {
-            this.props.autocompleteLocations.forEach((item) => {
-                let placeType = _.upperCase(item.place_type);
-                if (item.parent !== null) {
-                    placeType += ` in ${item.parent}`;
-                }
-
-                values.push({
-                    title: item.place,
-                    subtitle: placeType,
-                    data: item
-                });
-            });
-        }
-
         return (
             <Autocomplete
                 {...this.props}
-                values={values}
-                formatter={this.dataFormatter}
+                values={this.state.autocompleteLocations}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectLocation}
                 placeholder="State, City, County, ZIP, or District"

@@ -16,7 +16,8 @@ const propTypes = {
     errorHeader: React.PropTypes.string,
     errorMessage: React.PropTypes.string,
     tabIndex: React.PropTypes.number,
-    isRequired: React.PropTypes.bool
+    isRequired: React.PropTypes.bool,
+    maxSuggestions: React.PropTypes.number
 };
 
 const defaultProps = {
@@ -25,7 +26,8 @@ const defaultProps = {
     tabIndex: null,
     isRequired: false,
     errorHeader: null,
-    errorDescription: null
+    errorDescription: null,
+    maxSuggestions: 10
 };
 
 export default class Autocomplete extends React.Component {
@@ -55,6 +57,9 @@ export default class Autocomplete extends React.Component {
     onChange(e) {
         this.checkValidity(e.target.value);
         this.props.handleTextInput(e);
+        this.setState({
+            selectedIndex: 0
+        });
     }
 
     setupAutocomplete() {
@@ -110,7 +115,7 @@ export default class Autocomplete extends React.Component {
     }
 
     next() {
-        if (this.state.selectedIndex < 9) {
+        if (this.state.selectedIndex < this.props.maxSuggestions - 1) {
             this.setState({
                 selectedIndex: this.state.selectedIndex += 1
             });
@@ -230,7 +235,8 @@ export default class Autocomplete extends React.Component {
                         suggestions={this.props.values}
                         shown={this.state.shown}
                         selectedIndex={this.state.selectedIndex}
-                        select={this.select.bind(this)} />
+                        select={this.select.bind(this)}
+                        maxSuggestions={this.props.maxSuggestions} />
                 </div>
                 {warning}
             </div>
