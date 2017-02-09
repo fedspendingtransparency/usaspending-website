@@ -51,7 +51,7 @@ export default class RankVisualizationTooltip extends React.Component {
         let percentage = 'N/A';
         const totalSpending = this.props.visualization.transaction_sum;
         if (totalSpending > 0) {
-            percentage = Math.round((this.props.value / totalSpending) * 1000) / 100;
+            percentage = Math.round((this.props.value / totalSpending) * 1000) / 10;
         }
 
         return (
