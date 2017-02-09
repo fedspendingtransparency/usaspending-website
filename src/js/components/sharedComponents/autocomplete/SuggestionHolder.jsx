@@ -24,19 +24,19 @@ export default class SuggestionHolder extends React.Component {
         super(props);
 
         this.state = {
-            hidden: true
+            hidden: ' hide'
         };
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.suggestions.length > 0 && nextProps.shown !== 'hidden') {
             this.setState({
-                hidden: false
+                hidden: ''
             });
         }
         else {
             this.setState({
-                hidden: true
+                hidden: ' hide'
             });
         }
     }
@@ -57,7 +57,7 @@ export default class SuggestionHolder extends React.Component {
         }
 
         return (
-            <div className="autocomplete" hidden={this.state.hidden}>
+            <div className={`autocomplete${this.state.hidden}`}>
                 <ul>
                     {suggestions}
                 </ul>
