@@ -90,8 +90,40 @@ export default class BarChart extends React.Component {
             // set the minimum to zero if there are no negative values
             yMin = 0;
         }
-        yRange.push(yMin);
-        yRange.push(_.max(allY));
+        if (allY.length > 1) {
+            yRange.push(yMin);
+            yRange.push(_.max(allY));
+        }
+        else if (allY.length > 0) {
+            // in some cases, we may only have one data point. This is insufficient to calculate a
+            // useable Y axis range from, so we need to manually enter the max or min (based on if
+            // the data point is positive or negative)
+            const dataPoint = allY[0];
+            if (dataPoint < 0) {
+                // the data point is negative, so use this as the min and manually set the max to
+                // zero
+                yRange.push(dataPoint);
+                yRange.push(0);
+            }
+            else if (dataPoint === 0) {
+                // the data point is zero, so use this as the min and manually set the max to an
+                // arbitrary $10,000
+                yRange.push(dataPoint);
+                yRange.push(1000);
+            }
+            else {
+                // the data point is positive, so use this as the max and manually set the min to
+                // zero
+                yRange.push(0);
+                yRange.push(dataPoint);
+            }
+        }
+        else {
+            // when there is no data, fall back to an arbitrary default Y axis scale (since there's
+            // no data to display)
+            yRange.push(0);
+            yRange.push(10000);
+        }
 
         // calculate what the visible area of the chart itself will be (excluding the axes and their
         // labels)
@@ -280,12 +312,25 @@ export default class BarChart extends React.Component {
         // now place the tooltip halfway in the bar's width
         const xPos = chartLeft + barXAnchor + this.props.padding.left;
 
+        // calculate the percentage of the total
+        const rawPercent = (yValue / _.sum(this.state.yValues));
+
+        // format the percentage to be rounded to 1 decimal value, if it is a number
+        let percentage = 'N/A';
+        if (!isNaN(rawPercent)) {
+            percentage = Math.round(rawPercent * 1000) / 10;
+            if (percentage % 1 === 0) {
+                // add a trailing .0 for whole numbers
+                percentage += '.0';
+            }
+        }
+
         // show the tooltip
         this.props.showTooltip({
             xValue,
             yValue,
-            group: groupLabel,
-            percentage: (yValue / _.sum(this.state.yValues))
+            percentage,
+            group: groupLabel
         }, xPos, yPos);
     }
 
