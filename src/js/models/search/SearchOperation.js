@@ -70,11 +70,11 @@ class SearchOperation {
 
         // add agency queries
         if (this.awardingAgencies.length > 0) {
-            filters.push(AgencyQuery.buildAwardingAgencyQuery(this.awardingAgencies));
+            filters.push(AgencyQuery.buildAgencyQuery(this.awardingAgencies));
         }
 
         if (this.fundingAgencies.length > 0) {
-            filters.push(AgencyQuery.buildFundingAgencyQuery(this.fundingAgencies));
+            filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies));
         }
 
         return filters;

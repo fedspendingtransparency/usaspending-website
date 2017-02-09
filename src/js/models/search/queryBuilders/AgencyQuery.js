@@ -5,34 +5,40 @@
 
 import _ from 'lodash';
 
-export const buildAwardingAgencyQuery = (values) => {
-    let valueSet = [];
+/* eslint-disable import/prefer-default-export */
+// We only have one export but want to maintain consistency with other query modules
+
+export const buildAgencyQuery = (values) => {
+    let toptierValueSet = [];
+    let subtierValueSet = [];
 
     values.forEach((agencyArray) => {
-        valueSet = _.concat(valueSet, agencyArray.id);
+        if (agencyArray.type === 'toptier') {
+            toptierValueSet = _.concat(toptierValueSet, agencyArray.toptier_agency.name);
+        }
+        else {
+            subtierValueSet = _.concat(subtierValueSet, agencyArray.subtier_agency.name);
+        }
     });
 
-    const filter = {
-        field: "awarding_agency__id",
+    const toptierFilters = {
+        field: "funding_agency__toptier_agency__name",
         operation: "in",
-        value: valueSet
+        value: toptierValueSet
+    };
+
+    const subtierFilters = {
+        field: "funding_agency__subtier_agency__name",
+        operation: "in",
+        value: subtierValueSet
+    };
+
+    const filter = {
+        combine_method: 'OR',
+        filters: [toptierFilters, subtierFilters]
     };
 
     return filter;
 };
 
-export const buildFundingAgencyQuery = (values) => {
-    let valueSet = [];
-
-    values.forEach((agencyArray) => {
-        valueSet = _.concat(valueSet, agencyArray.id);
-    });
-
-    const filter = {
-        field: "funding_agency__id",
-        operation: "in",
-        value: valueSet
-    };
-
-    return filter;
-};
+/* eslint-enable import/prefer-default-export */

@@ -44,6 +44,32 @@ export class AgencyListContainer extends React.Component {
         };
     }
 
+    parseAutocompleteAgencies(results) {
+        const values = [];
+
+        if (results.length > 0) {
+            results.forEach((item) => {
+                // Push two items to the autocomplete entries if subtier = toptier
+                if (item.toptier_agency.name === item.subtier_agency.name) {
+                    values.push({
+                        title: item.subtier_agency.name,
+                        data: item,
+                        type: 'toptier'
+                    });
+                }
+
+                values.push({
+                    title: item.subtier_agency.name,
+                    subtitle: `Sub-Agency of ${item.toptier_agency.name}`,
+                    data: item,
+                    type: 'subtier'
+                });
+            });
+        }
+
+        return values;
+    }
+
     queryAutocompleteAgencies(input) {
         // Only search if search is 2 or more characters
         if (input.length >= 2 || input.length === 0) {
@@ -64,7 +90,9 @@ export class AgencyListContainer extends React.Component {
 
             this.agencySearchRequest.promise
                 .then((res) => {
-                    const results = res.data.matched_objects.subtier_agency__name;
+                    const results = this.parseAutocompleteAgencies(
+                        res.data.matched_objects.subtier_agency__name
+                    );
 
                     let autocompleteData = null;
 
