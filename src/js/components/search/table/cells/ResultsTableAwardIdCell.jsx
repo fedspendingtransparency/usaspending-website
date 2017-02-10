@@ -1,6 +1,6 @@
 /**
-  * ResultsTableGenericCell.jsx
-  * Created by Kevin Li 12/1/16
+  * ResultsTableAwardIdCell.jsx
+  * Created by Emily Gullo 02/08/2017
   **/
 
 import React from 'react';
@@ -9,10 +9,11 @@ const propTypes = {
     data: React.PropTypes.string,
     rowIndex: React.PropTypes.number,
     column: React.PropTypes.string,
-    isLastColumn: React.PropTypes.bool
+    isLastColumn: React.PropTypes.bool,
+    id: React.PropTypes.number
 };
 
-export default class ResultsTableGenericCell extends React.Component {
+export default class ResultsTableAwardIdCell extends React.Component {
     render() {
         // cell needs to have some content or it will collapse
         // replace with a &nbsp; if there's no data
@@ -35,11 +36,13 @@ export default class ResultsTableGenericCell extends React.Component {
         return (
             <div className={`award-result-generic-cell column-${this.props.column} ${rowClass}`}>
                 <div className="cell-content">
-                    {content}
+                    <a href={`/#/award/${this.props.id}`}>
+                        {this.props.data}
+                    </a>
                 </div>
             </div>
         );
     }
 }
 
-ResultsTableGenericCell.propTypes = propTypes;
+ResultsTableAwardIdCell.propTypes = propTypes;

@@ -16,6 +16,10 @@ export default class SummaryBar extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            status: ""
+        };
+
         this.getStatus = this.getStatus.bind(this);
     }
 
@@ -24,7 +28,7 @@ export default class SummaryBar extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.selectedAward !== this.props.selectedAward) {
+        if (nextProps.selectedAward.id !== this.props.selectedAward.id) {
             this.getStatus(nextProps.selectedAward);
         }
     }
@@ -34,16 +38,18 @@ export default class SummaryBar extends React.Component {
         const awardEnd = moment(award.period_of_performance_current_end_date, 'MM-DD-YYYY');
         const current = moment();
         let progress = "";
-        if (current.isBefore(awardStart)) {
+        if (current.isBefore(awardStart, 'day') || current.isSame(awardStart, 'day')) {
             progress = "Awarded";
         }
-        else if (current.isAfter(awardEnd)) {
+        else if (current.isAfter(awardEnd, 'day') || current.isSame(awardEnd, 'day')) {
             progress = "Complete";
         }
         else {
             progress = "In Progress";
         }
-        this.progress = progress;
+        this.setState({
+            status: progress
+        });
     }
 
     render() {
@@ -85,7 +91,7 @@ export default class SummaryBar extends React.Component {
                             { parentAwardId }
                             <InfoSnippet
                                 label="Status"
-                                value={this.progress} />
+                                value={this.state.status} />
                             <li>
                                 <div className="format-item">
                                     <Icons.MoreOptions />

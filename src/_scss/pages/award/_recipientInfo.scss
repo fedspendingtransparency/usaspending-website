@@ -18,6 +18,7 @@
     @include span-columns(16);
     @include unstyled-list;
     display: table-cell;
+    margin: 0 0 0 1rem;
     text-align: left;
 
         li {

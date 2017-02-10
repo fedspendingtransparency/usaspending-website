@@ -7,7 +7,8 @@ import React from 'react';
 import InfoSnippet from './InfoSnippet';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object
+    selectedAward: React.PropTypes.object,
+    params: React.PropTypes.object
 };
 
 export default class AgencyInfo extends React.Component {
@@ -20,6 +21,14 @@ export default class AgencyInfo extends React.Component {
         };
 
         this.toggleAgency = this.toggleAgency.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.selectedAward.id !== this.props.params.awardId) {
+            this.setState({
+                agencyType: "awarding"
+            });
+        }
     }
 
     toggleAgency(e) {
@@ -64,10 +73,7 @@ export default class AgencyInfo extends React.Component {
                         {office}
                     </ul>
                 </div>
-                <div className="triangle-wrapper">
-                    <div className="outer-triangle" />
-                    <div className="triangle" />
-                </div>
+                <div className="triangle-wrapper" />
             </div>
         );
     }

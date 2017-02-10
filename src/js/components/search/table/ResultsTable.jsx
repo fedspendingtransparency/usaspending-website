@@ -11,6 +11,7 @@ import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import ResultsTableHeaderCellContainer from
     'containers/search/table/ResultsTableHeaderCellContainer';
 import ResultsTableGenericCell from './cells/ResultsTableGenericCell';
+import ResultsTableAwardIdCell from './cells/ResultsTableAwardIdCell';
 
 const propTypes = {
     results: React.PropTypes.array,
@@ -96,6 +97,30 @@ export default class ResultsTable extends React.PureComponent {
         const columns = this.props.columns.map((column, i) => {
             totalWidth += column.width;
             const isLast = i === this.props.columns.length - 1;
+            let cellName = null;
+            if (column.columnName === 'award_id') {
+                cellName = (index) => (
+                    <ResultsTableAwardIdCell
+                        key={`cell-${column.columnName}-${index}`}
+                        rowIndex={index}
+                        id={this.props.results[index].id}
+                        data={this.props.results[index][column.columnName]}
+                        dataHash={this.state.dataHash}
+                        column={column.columnName}
+                        isLastColumn={isLast} />
+                );
+            }
+            else {
+                cellName = (index) => (
+                    <ResultsTableGenericCell
+                        key={`cell-${column.columnName}-${index}`}
+                        rowIndex={index}
+                        data={this.props.results[index][column.columnName]}
+                        dataHash={this.state.dataHash}
+                        column={column.columnName}
+                        isLastColumn={isLast} />
+                );
+            }
             return {
                 width: column.width,
                 name: column.columnName,
@@ -108,16 +133,7 @@ export default class ResultsTable extends React.PureComponent {
                         defaultDirection={column.defaultDirection}
                         isLastColumn={isLast} />
                 ),
-                cell: (index) => (
-                    <ResultsTableGenericCell
-                        key={`cell-${column.columnName}-${index}`}
-                        rowIndex={index}
-                        id={this.props.results[index].id}
-                        data={this.props.results[index][column.columnName]}
-                        dataHash={this.state.dataHash}
-                        column={column.columnName}
-                        isLastColumn={isLast} />
-                )
+                cell: cellName
             };
         });
 

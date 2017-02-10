@@ -92,12 +92,12 @@ const remapData = (data, idField) => {
     }
 
     if (data.place_of_performance) {
-        popCity = data.place_of_performance.location_city_name;
-        if (data.place_of_performance.location_state_code) {
-            popStateProvince = data.place_of_performance.location_state_code;
+        popCity = data.place_of_performance.city_name;
+        if (data.place_of_performance.lstate_code) {
+            popStateProvince = data.place_of_performance.state_code;
         }
-        else if (data.place_of_performance.location_foreign_province) {
-            popStateProvince = data.place_of_performance.location_foreign_province;
+        else if (data.place_of_performance.foreign_province) {
+            popStateProvince = data.place_of_performance.foreign_province;
         }
     }
 
@@ -137,39 +137,39 @@ const remapData = (data, idField) => {
         recipientName = data.recipient.recipient_name;
         const loc = data.recipient.location;
 
-        if (loc.location_address_line1) {
-            recipientStreet += loc.location_address_line1;
+        if (loc.address_line1) {
+            recipientStreet += loc.address_line1;
         }
-        if (loc.location_address_line2) {
-            recipientStreet += loc.location_address_line2;
+        if (loc.address_line2) {
+            recipientStreet += loc.laddress_line2;
         }
-        if (loc.location_address_line2) {
-            recipientStreet += loc.location_address_line3;
-        }
-
-        if (loc.location_city_name) {
-            recipientCity = loc.location_city_name;
+        if (loc.address_line2) {
+            recipientStreet += loc.address_line3;
         }
 
-        if (loc.location_state_code) {
-            recipientStateProvince = loc.location_state_code;
-        }
-        else if (loc.location_foreign_province) {
-            recipientStateProvince = loc.location_foreign_province;
+        if (loc.city_name) {
+            recipientCity = loc.city_name;
         }
 
-        if (loc.location_zip5) {
-            recipientZipPostal = loc.location_zip5;
+        if (loc.state_code) {
+            recipientStateProvince = loc.state_code;
         }
-        else if (loc.location_foreign_postal_code) {
-            recipientZipPostal = loc.location_foreign_postal_code;
+        else if (loc.foreign_province) {
+            recipientStateProvince = loc.foreign_province;
+        }
+
+        if (loc.zip5) {
+            recipientZipPostal = loc.zip5;
+        }
+        else if (loc.foreign_postal_code) {
+            recipientZipPostal = loc.foreign_postal_code;
         }
 
         if (loc.location_country_code) {
             recipientCountry = loc.location_country_code;
         }
-        else if (loc.location_country_name) {
-            recipientCountry = loc.location_country_name;
+        else if (loc.country_name) {
+            recipientCountry = loc.country_name;
         }
         if (data.recipient.recipient_unique_id) {
             recipientDuns = data.recipient.recipient_unique_id;
