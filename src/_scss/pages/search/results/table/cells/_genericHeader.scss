@@ -2,18 +2,16 @@
     border-right: 1px solid #ADAFB4;
 
     .cell-content {
-        background-color: #E4E2E0;
+        background-color: $color-gray;
         white-space: normal;
         font-weight: 600;
         font-size: 14px;
         line-height: 28px;
-        color: $color-base;
-
+        color: $color-white;
         cursor: pointer;
 
         .header-sort {
             display: table;
-            
             padding: 11px 16px;
 
             .header-label {
@@ -25,26 +23,25 @@
                 display: table-cell;
                 vertical-align: middle;
                 padding-left: 10px;
-                height: 28px;
+                height: 10px;
 
                 .sort-icon {
                     @include button-unstyled;
                     display: block;
                     line-height: 10px;
                     width: 14px;
-                    height: 14px;
-
+                    height: 10px;
                     text-align: center;
 
                     svg {
-                        fill: #C7C4C2;
-                        height: 7px;
-                        width: 7px;
+                        fill: #86888E;
+                        height: 11px;
+                        width: 11px;
                     }
 
                     &.active {
                         svg {
-                            fill: $color-base;
+                            fill: $color-active;
                         }
                     }
                 }
