@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import LocationListContainer from 'containers/sharedContainers/LocationListContainer';
+import LocationListContainer from 'containers/search/filters/location/LocationListContainer';
 import CountryType from './CountryType';
 import SelectedLocations from './SelectedLocations';
 
