@@ -1,0 +1,38 @@
+.recipient-info {
+    @include span-columns(9);
+    padding: 2.4rem 1rem 5rem 3rem;
+
+    h4 {
+        margin-top: 0;
+        margin-left: 1rem;
+    }
+
+    .recipient-name {
+        font-size: $h6-font-size;
+        font-weight: $font-bold;
+        color: $color-primary-alt-darkest;
+        margin: 1rem 0 1rem 1rem;
+    }
+
+    ul.recipient-information {
+    @include span-columns(16);
+    @include unstyled-list;
+    display: table-cell;
+    margin: 0 0 0 1rem;
+    text-align: left;
+
+        li {
+            @include span-columns(3.7);
+            display: inline-block;
+
+            .item-label {
+                font-weight:bold;
+                font-size: $small-font-size;
+            }
+
+            .item-value {
+                font-size: $smallest-font-size;
+            }
+        }
+    }
+}
