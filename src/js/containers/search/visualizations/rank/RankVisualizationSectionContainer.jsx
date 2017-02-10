@@ -19,7 +19,8 @@ import * as SearchHelper from 'helpers/searchHelper';
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object
+    reduxFilters: React.PropTypes.object,
+    meta: React.PropTypes.object
 };
 
 export class RankVisualizationSectionContainer extends React.Component {
@@ -31,10 +32,14 @@ export class RankVisualizationSectionContainer extends React.Component {
             labelSeries: [],
             dataSeries: [],
             page: 1,
+            total: 0,
             agencyScope: 'toptier'
         };
 
         this.changeScope = this.changeScope.bind(this);
+        this.nextPage = this.nextPage.bind(this);
+        this.previousPage = this.previousPage.bind(this);
+        this.apiRequest = null;
     }
 
     componentDidMount() {
@@ -64,6 +69,24 @@ export class RankVisualizationSectionContainer extends React.Component {
         });
     }
 
+    nextPage() {
+         this.setState({
+            page: this.state.page + 1
+        }, () => {
+            this.fetchData();
+        });
+    }
+
+    previousPage() {
+        // change the state by subtracting 2 (since the page number is already incremented)
+        const prevPage = _.max([1, this.state.page - 2]);
+        this.setState({
+            page: prevPage
+        }, () => {
+            this.fetchData();
+        });
+    }
+
     fetchData() {
         // build a new search operation from the Redux state, but create a transaction-based search
         // operation instead of an award-based one
@@ -86,10 +109,20 @@ export class RankVisualizationSectionContainer extends React.Component {
         this.setState({
             loading: true
         });
-        const search = SearchHelper.performTransactionsTotalSearch(apiParams);
-        search.promise
+
+
+        if (this.apiRequest) {
+            this.apiRequest.cancel();
+        }
+
+        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);
+                this.apiRequest = null;
+            })
+            .catch(() => {
+                this.apiRequest = null;
             });
     }
 
@@ -98,19 +131,16 @@ export class RankVisualizationSectionContainer extends React.Component {
         const dataSeries = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
-        const startIndex = 5 * (this.state.page - 1);
-        const endIndex = _.min([startIndex + 5, data.results.length]);
-        for (let i = startIndex; i < endIndex; i++) {
-            const item = data.results[i];
+        data.results.forEach((item) => {
             labelSeries.push(item.item);
             dataSeries.push(parseFloat(item.aggregate));
-        }
+        });
 
         this.setState({
             labelSeries,
             dataSeries,
             loading: false,
-            page: this.state.page + 1
+            total: data.page_metadata.num_pages
         });
     }
 
@@ -119,7 +149,9 @@ export class RankVisualizationSectionContainer extends React.Component {
             <RankVisualizationSection
                 {...this.state}
                 meta={this.props.meta}
-                changeScope={this.changeScope} />
+                changeScope={this.changeScope}
+                nextPage={this.nextPage}
+                previousPage={this.previousPage} />
         );
     }
 }

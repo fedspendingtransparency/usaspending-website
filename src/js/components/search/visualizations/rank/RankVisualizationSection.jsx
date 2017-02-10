@@ -6,13 +6,20 @@
 import React from 'react';
 import _ from 'lodash';
 
+import * as Icons from 'components/sharedComponents/icons/Icons';
+
 import RankVisualizationTitle from './RankVisualizationTitle';
 import RankVisualization from './RankVisualization';
 import RankVisualizationScopeButton from './RankVisualizationScopeButton';
 
 const propTypes = {
     agencyScope: React.PropTypes.string,
-    changeScope: React.PropTypes.func
+    changeScope: React.PropTypes.func,
+    nextPage: React.PropTypes.func,
+    previousPage: React.PropTypes.func,
+    total: React.PropTypes.number,
+    page: React.PropTypes.number,
+    loading: React.PropTypes.bool
 };
 
 export default class RankVisualizationSection extends React.Component {
@@ -26,6 +33,8 @@ export default class RankVisualizationSection extends React.Component {
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.clickPrevious = this.clickPrevious.bind(this);
+        this.clickNext = this.clickNext.bind(this);
     }
 
     componentDidMount() {
@@ -50,7 +59,31 @@ export default class RankVisualizationSection extends React.Component {
         }
     }
 
+    clickPrevious() {
+        this.props.previousPage();
+    }
+
+    clickNext() {
+        this.props.nextPage();
+    }
+
     render() {
+        let disableNext = false;
+        let disablePrev = false;
+        let hidePager = '';
+
+        if (this.props.total < this.props.page + 1) {
+            disableNext = true;
+        }
+
+        if (this.props.page <= 1) {
+            disablePrev = true;
+        }
+
+        if (this.props.total < 1 || this.props.loading) {
+            hidePager = 'hide';
+        }
+
         return (
             <div
                 className="results-visualization-rank-section"
@@ -103,6 +136,39 @@ export default class RankVisualizationSection extends React.Component {
                     {...this.props}
                     width={this.state.visualizationWidth}
                     labelWidth={this.state.labelWidth} />
+
+                <div className={`visualization-pager-container ${hidePager}`}>
+                    <button
+                        className="visualization-pager"
+                        title="Show previous five"
+                        aria-label="Show previous five"
+                        disabled={disablePrev}
+                        onClick={this.clickPrevious}>
+                        <div className="pager-content">
+                            <div className="icon">
+                                <Icons.AngleLeft alt="Show previous five" />
+                            </div>
+                            <div className="pager-label">
+                                Show previous five
+                            </div>
+                        </div>
+                    </button>
+                    <button
+                        className="visualization-pager"
+                        title="Show next five"
+                        aria-label="Show next five"
+                        disabled={disableNext}
+                        onClick={this.clickNext}>
+                        <div className="pager-content">
+                            <div className="pager-label next">
+                                Show next five
+                            </div>
+                            <div className="icon">
+                                <Icons.AngleRight alt="Show next five" />
+                            </div>
+                        </div>
+                    </button>
+                </div>
             </div>
         );
     }
