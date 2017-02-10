@@ -38,10 +38,10 @@ export default class SummaryBar extends React.Component {
         const awardEnd = moment(award.period_of_performance_current_end_date, 'MM-DD-YYYY');
         const current = moment();
         let progress = "";
-        if (current.isBefore(awardStart, 'day') || current.isSame(awardStart, 'day')) {
+        if (current.isSameOrBefore(awardStart, 'day')) {
             progress = "Awarded";
         }
-        else if (current.isAfter(awardEnd, 'day') || current.isSame(awardEnd, 'day')) {
+        else if (current.isSameOrAfter(awardEnd, 'day')) {
             progress = "Complete";
         }
         else {

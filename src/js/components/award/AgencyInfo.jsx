@@ -4,11 +4,19 @@
  **/
 
 import React from 'react';
+import _ from 'lodash';
 import InfoSnippet from './InfoSnippet';
 
 const propTypes = {
     selectedAward: React.PropTypes.object,
-    params: React.PropTypes.object
+    awardTypes: React.PropTypes.array
+};
+
+const defaultProps = {
+    awardTypes: [
+        "awarding",
+        "funding"
+    ]
 };
 
 export default class AgencyInfo extends React.Component {
@@ -24,7 +32,7 @@ export default class AgencyInfo extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.selectedAward.id !== this.props.params.awardId) {
+        if (nextProps.selectedAward.id !== this.props.selectedAward.id) {
             this.setState({
                 agencyType: "awarding"
             });
@@ -44,11 +52,17 @@ export default class AgencyInfo extends React.Component {
         const officeAgency = `${this.state.agencyType}_office_name`;
         let office = "";
 
+        const options = this.props.awardTypes.map((name) =>
+            <option name={name} value={name} key={name}>
+                {_.capitalize(name)} Agency</option>);
+
         const dropdown = (
             <div className="agency-select">
-                <select className="agency-option" onChange={this.toggleAgency}>
-                    <option name="awarding" value="awarding">Awarding Agency</option>
-                    <option name="funding" value="funding">Funding Agency</option>
+                <select
+                    className="agency-option"
+                    onChange={this.toggleAgency}
+                    value={this.state.agencyType}>
+                    { options }
                 </select>
             </div>
         );
@@ -79,3 +93,4 @@ export default class AgencyInfo extends React.Component {
     }
 }
 AgencyInfo.propTypes = propTypes;
+AgencyInfo.defaultProps = defaultProps;
