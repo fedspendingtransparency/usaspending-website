@@ -14,3 +14,21 @@ export const defaultFilters = {
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all'
 };
+
+export const defaultResultsMeta = {
+    page: {
+        count: 0,
+        num_pages: 0,
+        page_number: 1,
+        total_obligation_sum: 0
+    },
+    total: {
+        count: 0,
+        total_obligation_sum: 0
+    },
+    visualization: {
+        transaction_sum: 0
+    },
+    tableType: 'contracts',
+    inFlight: false
+};

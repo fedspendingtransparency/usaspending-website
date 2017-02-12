@@ -18,11 +18,9 @@ const defaultProps = {
 };
 
 const propTypes = {
-    labelSeries: React.PropTypes.array,
     dataSeries: React.PropTypes.array,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    loading: React.PropTypes.bool
+    loading: React.PropTypes.bool,
+    meta: React.PropTypes.object
 };
 
 export default class RankVisualization extends React.Component {

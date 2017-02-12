@@ -5,6 +5,14 @@
 
 import React from 'react';
 
+const propTypes = {
+    x: React.PropTypes.number,
+    y: React.PropTypes.number,
+    height: React.PropTypes.number,
+    label: React.PropTypes.string,
+    alignment: React.PropTypes.string
+};
+
 const defaultProps = {
     alignment: 'middle'
 };
@@ -20,8 +28,7 @@ export default class HorizontalXLabel extends React.Component {
                     x1={0}
                     x2={0}
                     y1={-1 * this.props.height}
-                    y2={0}
-                    />
+                    y2={0} />
                 <g transform="translate(0, 20)">
                     <text textAnchor={this.props.alignment}>
                         {this.props.label}
@@ -32,4 +39,5 @@ export default class HorizontalXLabel extends React.Component {
     }
 }
 
+HorizontalXLabel.propTypes = propTypes;
 HorizontalXLabel.defaultProps = defaultProps;

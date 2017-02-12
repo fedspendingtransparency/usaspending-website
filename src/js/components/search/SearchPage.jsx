@@ -120,9 +120,7 @@ export default class SearchPage extends React.Component {
         // determine the current bottom position of the header bar
         const viewTop = headerPosition.top + headerHeight + window.pageYOffset;
         const viewBottom = window.pageYOffset + window.innerHeight;
-        // const headerPosition = this.searchHeader.headerDiv.getBoundingClientRect();
-        // console.log(this.searchHeader.headerDiv.offsetHeight + headerPosition.top + window.pageYOffset);
-        
+
         // add a bias to the next section
         const nextSectionBias = 50;
 
@@ -140,8 +138,8 @@ export default class SearchPage extends React.Component {
             }
 
             // determine its position
-            const sectionTop = sectionDiv.getBoundingClientRect().top;
-            const sectionBottom = sectionTop + sectionDiv.offsetHeight;
+            const sectionTop = sectionDiv.getBoundingClientRect().top + nextSectionBias;
+            const sectionBottom = sectionTop + sectionDiv.offsetHeight + nextSectionBias;
 
             // check to see if it is within view
             if ((sectionTop >= viewTop && sectionTop <= viewBottom) ||

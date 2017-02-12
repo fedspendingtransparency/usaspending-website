@@ -20,7 +20,8 @@ const propTypes = {
     labelWidth: React.PropTypes.number,
     padding: React.PropTypes.object,
     itemHeight: React.PropTypes.number,
-    startIndex: React.PropTypes.number
+    selectItem: React.PropTypes.func,
+    deselectItem: React.PropTypes.func
 };
 
 const defaultProps = {

@@ -70,7 +70,7 @@ export class RankVisualizationSectionContainer extends React.Component {
     }
 
     nextPage() {
-         this.setState({
+        this.setState({
             page: this.state.page + 1
         }, () => {
             this.fetchData();
@@ -79,7 +79,7 @@ export class RankVisualizationSectionContainer extends React.Component {
 
     previousPage() {
         // change the state by subtracting 2 (since the page number is already incremented)
-        const prevPage = _.max([1, this.state.page - 2]);
+        const prevPage = _.max([1, this.state.page - 1]);
         this.setState({
             page: prevPage
         }, () => {

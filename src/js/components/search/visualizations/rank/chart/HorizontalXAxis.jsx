@@ -10,13 +10,10 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import HorizontalXLabel from './HorizontalXLabel';
 
 const propTypes = {
-    xScale: React.PropTypes.func,
-    data: React.PropTypes.array,
     range: React.PropTypes.array,
     x: React.PropTypes.number,
     y: React.PropTypes.number,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number
+    width: React.PropTypes.number
 };
 
 export default class HorizontalXAxis extends React.Component {
