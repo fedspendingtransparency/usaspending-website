@@ -15,10 +15,11 @@
 
 .chart-bars {
     .chart-bar {
-        fill: #708893;
-
+        fill: $color-vis-dark;
+        opacity: 0.85;
+        
         &:hover, &.hover {
-            fill: #F2B733;
+            fill: $color-active;
         }
     }
 

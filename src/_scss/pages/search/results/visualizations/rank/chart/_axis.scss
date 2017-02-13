@@ -3,11 +3,11 @@
     color: #666666;
 
     line.y-axis, line.x-axis {
-        stroke: #ADAFB4;
+        stroke: $color-gray-light;
     }
 
     .grid-line {
-        stroke: #F1F1F1;
+        stroke: $color-gray-lightest;
     }
 
     .x-label {
