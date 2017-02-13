@@ -1,7 +1,7 @@
 .visualization-top {
     margin-top: 20px;
     margin-bottom: 20px;
-
+    
     display: table;
 
     @import "../../../../../components/visualizations/_description";
@@ -12,25 +12,25 @@
     vertical-align: middle;
 }
 
-.visualization-period {
+.visualization-scope {
     display: table-cell;
     vertical-align: middle;
-
     @import "../../../../../components/visualizations/_scope";
     
     .content {
         @include media($tablet-screen) {
             width: 300px;
-            height: 60px;
 
             @include media($large-screen) {
                 width: 390px;
+                height: 60px;
                 padding: 15px 30px;
             }
         }
-
+        
         li {
-            @include media($tablet-screen) {
+            display: block;
+            @include media($large-screen) {
                 display: inline-block;
                 margin-left: 30px;
                 margin-bottom: 0;
