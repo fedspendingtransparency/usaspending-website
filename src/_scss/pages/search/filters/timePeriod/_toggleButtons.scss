@@ -25,17 +25,16 @@ ul.toggle-buttons {
 
         button.inactive {
             background-color: $color-tab-inactive;
-            border-left: 1px solid $color-tab-inactive;
-            border-right: 1px solid $color-tab-inactive;
-            border-top: 1px solid $color-tab-inactive;
-            border-bottom: 1px solid $color-tab-inactive;
-            color: $color-white;
+            border: 1px solid $color-tab-inactive;
+            border-bottom: 1px solid $color-gray-lighter;
+            color: $color-gray-dark;
 
             &:hover{
+                @include transition(all 0.3s ease-in-out);
                 background-color: darken($color-tab-inactive, 10%);
             }
         }
-
+ 
         @include media($large-screen){
             button.date-toggle {
                 font-size: $small-font-size;
