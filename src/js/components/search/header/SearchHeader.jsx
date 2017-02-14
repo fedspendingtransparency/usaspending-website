@@ -43,19 +43,19 @@ export default class SearchHeader extends React.Component {
                             </li>
                             <li>
                                 <FormatItem
+                                    code="rank"
+                                    currentSection={this.props.currentSection}
+                                    label="Rank"
+                                    accessibleLabel="Rank spending by category"
+                                    icon={<Icons.Bar alt="Rank" />} />
+                            </li>
+                            <li>
+                                <FormatItem
                                     code="map"
                                     currentSection={this.props.currentSection}
                                     label="Map"
                                     accessibleLabel="View spending on a map"
                                     icon={<Icons.MapMarker alt="Map Marker" />} />
-                            </li>
-                            <li>
-                                <FormatItem
-                                    code="rank"
-                                    currentSection={this.props.currentSection}
-                                    label="Rank"
-                                    accessibleLabel="Rank spending by category"
-                                    icon={<Icons.ExclamationCircle alt="Rank" />} />
                             </li>
                             <li>
                                 <FormatItem
