@@ -11,6 +11,7 @@ import filtersReducer from './search/searchFiltersReducer';
 import orderReducer from './search/searchOrderReducer';
 import autocompleteReducer from './search/autocompleteReducer';
 import recordReducer from './records/recordReducer';
+import awardReducer from './award/awardReducer';
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
@@ -18,7 +19,8 @@ const appReducer = combineReducers({
     filters: filtersReducer,
     searchOrder: orderReducer,
     autocompleteLocations: autocompleteReducer,
-    records: recordReducer
+    records: recordReducer,
+    award: awardReducer
 });
 
 export default appReducer;
