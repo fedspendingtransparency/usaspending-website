@@ -13,7 +13,7 @@ export const buildAgencyQuery = (values) => {
     let subtierValueSet = [];
 
     values.forEach((agencyArray) => {
-        if (agencyArray.type === 'toptier') {
+        if (agencyArray.agencyType === 'toptier') {
             toptierValueSet = _.concat(toptierValueSet, agencyArray.toptier_agency.name);
         }
         else {

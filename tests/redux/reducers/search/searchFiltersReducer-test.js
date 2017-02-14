@@ -191,11 +191,12 @@ describe('searchFiltersReducer', () => {
                     subtier_code: "1700",
                     name: "DEPT OF THE NAVY"
                 },
-                office_agency: null
+                office_agency: null,
+                agencyType: 'subtier'
             }
         };
 
-        const agency = 1788;
+        const agency = "1788_subtier";
 
         const expectedAgency = {
             id: 1788,
@@ -216,7 +217,8 @@ describe('searchFiltersReducer', () => {
                 subtier_code: "1700",
                 name: "DEPT OF THE NAVY"
             },
-            office_agency: null
+            office_agency: null,
+            agencyType: 'subtier'
         };
 
         it('should add the provided agency if it does not currently exist in the filter', () => {
@@ -259,11 +261,12 @@ describe('searchFiltersReducer', () => {
                     subtier_code: "1700",
                     name: "DEPT OF THE NAVY"
                 },
-                office_agency: null
+                office_agency: null,
+                agencyType: 'subtier'
             }
         };
 
-        const agency = 1788;
+        const agency = "1788_subtier";
 
         const expectedAgency = {
             id: 1788,
@@ -284,7 +287,8 @@ describe('searchFiltersReducer', () => {
                 subtier_code: "1700",
                 name: "DEPT OF THE NAVY"
             },
-            office_agency: null
+            office_agency: null,
+            agencyType: 'subtier'
         };
 
         it('should add the provided agency if it does not currently exist in the filter', () => {

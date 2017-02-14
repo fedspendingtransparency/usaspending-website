@@ -9,6 +9,7 @@ import sinon from 'sinon';
 
 import { AgencyListContainer } from 'containers/search/filters/AgencyListContainer';
 import * as SearchHelper from 'helpers/searchHelper';
+import * as agencyActions from 'redux/actions/search/agencyActions';
 
 const setup = (props) => mount(<AgencyListContainer {...props} />);
 
@@ -107,7 +108,11 @@ describe('AgencyListContainer', () => {
     describe('Handling text input', () => {
         it('should handle text input after 300ms', () => {
             // setup the agency list container and call the function to type a single letter
-            const agencyListContainer = setup({ reduxFilters: initialFilters });
+            const agencyListContainer = setup({
+                reduxFilters: initialFilters,
+                setAutocompleteAwardingAgencies: agencyActions.setAutocompleteAwardingAgencies,
+                setAutocompleteFundingAgencies: agencyActions.setAutocompleteFundingAgencies
+            });
             const searchQuery = {
                 target: {
                     value: 'N'
@@ -135,7 +140,11 @@ describe('AgencyListContainer', () => {
 
         it('should call the queryAutocompleteAgencies method 300ms after text input', () => {
             // setup the agency list container and call the function to type a single letter
-            const agencyListContainer = setup({ reduxFilters: initialFilters });
+            const agencyListContainer = setup({
+                reduxFilters: initialFilters,
+                setAutocompleteAwardingAgencies: agencyActions.setAutocompleteAwardingAgencies,
+                setAutocompleteFundingAgencies: agencyActions.setAutocompleteFundingAgencies
+            });
             const searchQuery = {
                 target: {
                     value: 'N'
@@ -174,7 +183,8 @@ describe('AgencyListContainer', () => {
             const agencyListContainer = setup({
                 reduxFilters: initialFilters,
                 setAutocompleteFundingAgencies: mockReduxActionFunding,
-                setAutocompleteAwardingAgencies: mockReduxActionAwarding
+                setAutocompleteAwardingAgencies: mockReduxActionAwarding,
+                agencyType: 'Funding'
             });
 
             const queryAutocompleteAgenciesSpy = sinon.spy(agencyListContainer.instance(),
@@ -195,7 +205,7 @@ describe('AgencyListContainer', () => {
             // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
             expect(queryAutocompleteAgenciesSpy.callCount).toEqual(1);
-            expect(mockReduxActionFunding).toHaveBeenCalledTimes(0);
+            expect(mockReduxActionFunding).toHaveBeenCalledTimes(1);
             expect(mockReduxActionAwarding).toHaveBeenCalledTimes(0);
 
             // reset the mocks and spies
@@ -205,51 +215,53 @@ describe('AgencyListContainer', () => {
 
         it('should search and populate Funding Agencies when more than one character has ' +
             'been input in the Funding Agency field', () => {
+            // Setup redux state
+            const reduxState = [
+                {
+                    id: 1788,
+                    create_date: "2017-01-12T19:56:30.517000Z",
+                    update_date: "2017-01-12T19:56:30.517000Z",
+                    toptier_agency: {
+                        toptier_agency_id: 268,
+                        create_date: "2017-01-31T21:25:39.810344Z",
+                        update_date: "2017-01-31T21:25:39.936439Z",
+                        cgac_code: "097",
+                        fpds_code: "9700",
+                        name: "DEPT OF DEFENSE"
+                    },
+                    subtier_agency: {
+                        subtier_agency_id: 1654,
+                        create_date: "2017-01-31T21:25:39.569918Z",
+                        update_date: "2017-01-31T21:25:39.691244Z",
+                        subtier_code: "1700",
+                        name: "DEPT OF THE NAVY"
+                    },
+                    office_agency: null
+                }, {
+                    id: 1789,
+                    create_date: "2017-01-12T19:56:30.522000Z",
+                    update_date: "2017-01-12T19:56:30.522000Z",
+                    toptier_agency: {
+                        toptier_agency_id: 268,
+                        create_date: "2017-01-31T21:25:39.810344Z",
+                        update_date: "2017-01-31T21:25:39.936439Z",
+                        cgac_code: "097",
+                        fpds_code: "9700",
+                        name: "DEPT OF DEFENSE"
+                    },
+                    subtier_agency: {
+                        subtier_agency_id: 1655,
+                        create_date: "2017-01-31T21:25:39.569918Z",
+                        update_date: "2017-01-31T21:25:39.691244Z",
+                        subtier_code: "1708",
+                        name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
+                    },
+                    office_agency: null
+                }];
+
             // setup mock redux actions for handling search results
             const mockReduxActionFunding = jest.fn((args) => {
-                expect(args).toEqual([
-                    {
-                        id: 1788,
-                        create_date: "2017-01-12T19:56:30.517000Z",
-                        update_date: "2017-01-12T19:56:30.517000Z",
-                        toptier_agency: {
-                            toptier_agency_id: 268,
-                            create_date: "2017-01-31T21:25:39.810344Z",
-                            update_date: "2017-01-31T21:25:39.936439Z",
-                            cgac_code: "097",
-                            fpds_code: "9700",
-                            name: "DEPT OF DEFENSE"
-                        },
-                        subtier_agency: {
-                            subtier_agency_id: 1654,
-                            create_date: "2017-01-31T21:25:39.569918Z",
-                            update_date: "2017-01-31T21:25:39.691244Z",
-                            subtier_code: "1700",
-                            name: "DEPT OF THE NAVY"
-                        },
-                        office_agency: null
-                    }, {
-                        id: 1789,
-                        create_date: "2017-01-12T19:56:30.522000Z",
-                        update_date: "2017-01-12T19:56:30.522000Z",
-                        toptier_agency: {
-                            toptier_agency_id: 268,
-                            create_date: "2017-01-31T21:25:39.810344Z",
-                            update_date: "2017-01-31T21:25:39.936439Z",
-                            cgac_code: "097",
-                            fpds_code: "9700",
-                            name: "DEPT OF DEFENSE"
-                        },
-                        subtier_agency: {
-                            subtier_agency_id: 1655,
-                            create_date: "2017-01-31T21:25:39.569918Z",
-                            update_date: "2017-01-31T21:25:39.691244Z",
-                            subtier_code: "1708",
-                            name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
-                        },
-                        office_agency: null
-                    }
-                ]);
+                expect(args).toEqual(reduxState);
             });
 
             // setup the agency list container and call the function to type a single letter
@@ -270,7 +282,7 @@ describe('AgencyListContainer', () => {
 
             const searchQuery = {
                 target: {
-                    value: 'Na'
+                    value: 'The Navy'
                 }
             };
             agencyListContainer.instance().handleTextInput(searchQuery);
@@ -291,51 +303,53 @@ describe('AgencyListContainer', () => {
 
         it('should search and populate Awarding Agencies when more than one character has ' +
             'been input in the Awarding Agency field', () => {
+            // Setup redux state
+            const reduxState = [
+                {
+                    id: 1788,
+                    create_date: "2017-01-12T19:56:30.517000Z",
+                    update_date: "2017-01-12T19:56:30.517000Z",
+                    toptier_agency: {
+                        toptier_agency_id: 268,
+                        create_date: "2017-01-31T21:25:39.810344Z",
+                        update_date: "2017-01-31T21:25:39.936439Z",
+                        cgac_code: "097",
+                        fpds_code: "9700",
+                        name: "DEPT OF DEFENSE"
+                    },
+                    subtier_agency: {
+                        subtier_agency_id: 1654,
+                        create_date: "2017-01-31T21:25:39.569918Z",
+                        update_date: "2017-01-31T21:25:39.691244Z",
+                        subtier_code: "1700",
+                        name: "DEPT OF THE NAVY"
+                    },
+                    office_agency: null
+                }, {
+                    id: 1789,
+                    create_date: "2017-01-12T19:56:30.522000Z",
+                    update_date: "2017-01-12T19:56:30.522000Z",
+                    toptier_agency: {
+                        toptier_agency_id: 268,
+                        create_date: "2017-01-31T21:25:39.810344Z",
+                        update_date: "2017-01-31T21:25:39.936439Z",
+                        cgac_code: "097",
+                        fpds_code: "9700",
+                        name: "DEPT OF DEFENSE"
+                    },
+                    subtier_agency: {
+                        subtier_agency_id: 1655,
+                        create_date: "2017-01-31T21:25:39.569918Z",
+                        update_date: "2017-01-31T21:25:39.691244Z",
+                        subtier_code: "1708",
+                        name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
+                    },
+                    office_agency: null
+                }];
+
             // setup mock redux actions for handling search results
             const mockReduxActionAwarding = jest.fn((args) => {
-                expect(args).toEqual([
-                    {
-                        id: 1788,
-                        create_date: "2017-01-12T19:56:30.517000Z",
-                        update_date: "2017-01-12T19:56:30.517000Z",
-                        toptier_agency: {
-                            toptier_agency_id: 268,
-                            create_date: "2017-01-31T21:25:39.810344Z",
-                            update_date: "2017-01-31T21:25:39.936439Z",
-                            cgac_code: "097",
-                            fpds_code: "9700",
-                            name: "DEPT OF DEFENSE"
-                        },
-                        subtier_agency: {
-                            subtier_agency_id: 1654,
-                            create_date: "2017-01-31T21:25:39.569918Z",
-                            update_date: "2017-01-31T21:25:39.691244Z",
-                            subtier_code: "1700",
-                            name: "DEPT OF THE NAVY"
-                        },
-                        office_agency: null
-                    }, {
-                        id: 1789,
-                        create_date: "2017-01-12T19:56:30.522000Z",
-                        update_date: "2017-01-12T19:56:30.522000Z",
-                        toptier_agency: {
-                            toptier_agency_id: 268,
-                            create_date: "2017-01-31T21:25:39.810344Z",
-                            update_date: "2017-01-31T21:25:39.936439Z",
-                            cgac_code: "097",
-                            fpds_code: "9700",
-                            name: "DEPT OF DEFENSE"
-                        },
-                        subtier_agency: {
-                            subtier_agency_id: 1655,
-                            create_date: "2017-01-31T21:25:39.569918Z",
-                            update_date: "2017-01-31T21:25:39.691244Z",
-                            subtier_code: "1708",
-                            name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
-                        },
-                        office_agency: null
-                    }
-                ]);
+                expect(args).toEqual(reduxState);
             });
 
             // setup the agency list container and call the function to type a single letter
@@ -356,7 +370,7 @@ describe('AgencyListContainer', () => {
 
             const searchQuery = {
                 target: {
-                    value: 'Na'
+                    value: 'Navy'
                 }
             };
             agencyListContainer.instance().handleTextInput(searchQuery);

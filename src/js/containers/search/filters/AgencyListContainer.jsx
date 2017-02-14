@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import AgencyList from 'components/search/filters/agency/AgencyList';
+import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as agencyActions from 'redux/actions/search/agencyActions';
@@ -29,50 +29,89 @@ export class AgencyListContainer extends React.Component {
 
         this.handleTextInput = this.handleTextInput.bind(this);
 
-        this.autocompleteAgencies = [];
+        this.state = {
+            agencySearchString: '',
+            autocompleteAgencies: []
+        };
+
+        this.handleTextInput = this.handleTextInput.bind(this);
+        this.timeout = null;
     }
 
-    dataFormatter(item) {
-        let itemLabel = `<b>${item.subtier_agency.name}</b>`;
-        if (item.toptier_agency.name !== item.subtier_agency.name) {
-            itemLabel += `<br>Sub-Agency of ${item.toptier_agency.name}`;
+    componentDidMount() {
+        if (this.props.agencyType === 'Funding') {
+            this.parseAutocompleteAgencies(this.props.fundingAgencies);
         }
+        else {
+            this.parseAutocompleteAgencies(this.props.awardingAgencies);
+        }
+    }
 
-        return {
-            label: itemLabel,
-            value: item.subtier_agency.name
-        };
+    componentWillReceiveProps(nextProps) {
+        if (this.props.agencyType === 'Funding') {
+            this.parseAutocompleteAgencies(nextProps.fundingAgencies);
+        }
+        else if (this.props.agencyType === 'Awarding') {
+            this.parseAutocompleteAgencies(nextProps.awardingAgencies);
+        }
     }
 
     parseAutocompleteAgencies(results) {
-        const values = [];
+        const agencies = [];
 
-        if (results.length > 0) {
+        // Format results of search for use in Autocomplete component
+        if (results && results.length > 0) {
             results.forEach((item) => {
                 // Push two items to the autocomplete entries if subtier = toptier
                 if (item.toptier_agency.name === item.subtier_agency.name) {
-                    values.push({
+                    agencies.push({
                         title: item.subtier_agency.name,
-                        data: item,
-                        type: 'toptier'
+                        data: Object.assign({}, item, {
+                            agencyType: 'toptier'
+                        })
                     });
                 }
 
-                values.push({
+                agencies.push({
                     title: item.subtier_agency.name,
                     subtitle: `Sub-Agency of ${item.toptier_agency.name}`,
-                    data: item,
-                    type: 'subtier'
+                    data: Object.assign({}, item, {
+                        agencyType: 'subtier'
+                    })
                 });
+            });
+
+            // Remove any selected Toptier Agencies
+            const toptierSelections = _.filter(
+                this.props.selectedAgencies.toArray(), {
+                    agencyType: 'toptier'
+                });
+            toptierSelections.forEach((agency) => {
+                _.remove(agencies, { data: agency });
+            });
+
+            // Remove any selected Subtier Agencies
+            const subtierSelections = _.filter(
+                this.props.selectedAgencies.toArray(), {
+                    agencyType: 'subtier'
+                });
+            subtierSelections.forEach((agency) => {
+                _.remove(agencies, { data: agency });
             });
         }
 
-        return values;
+        this.setState({
+            autocompleteAgencies: agencies
+        });
     }
 
     queryAutocompleteAgencies(input) {
         // Only search if search is 2 or more characters
         if (input.length >= 2 || input.length === 0) {
+            this.setState({
+                agencySearchString: input
+            });
+
             if (this.agencySearchRequest) {
                 // A request is currently in-flight, cancel it
                 this.agencySearchRequest.cancel();
@@ -80,7 +119,7 @@ export class AgencyListContainer extends React.Component {
 
             const agencySearchParams = {
                 fields: ['subtier_agency__name'],
-                value: input,
+                value: this.state.agencySearchString,
                 mode: "contains",
                 matched_objects: true,
                 limit: 10
@@ -90,26 +129,16 @@ export class AgencyListContainer extends React.Component {
 
             this.agencySearchRequest.promise
                 .then((res) => {
-                    const results = this.parseAutocompleteAgencies(
-                        res.data.matched_objects.subtier_agency__name
-                    );
-
-                    let autocompleteData = null;
-
-                    // Filter out any selectedAgencies that may be in the result set
-                    if (this.props.selectedAgencies.size > 0) {
-                        autocompleteData = _.differenceWith(results,
-                            this.props.selectedAgencies.toArray(), _.isEqual);
-                    }
-                    else {
-                        autocompleteData = results;
-                    }
-
+                    // Add search results to Redux
                     if (this.props.agencyType === 'Funding') {
-                        this.props.setAutocompleteFundingAgencies(autocompleteData);
+                        this.props.setAutocompleteFundingAgencies(
+                            res.data.matched_objects.subtier_agency__name
+                        );
                     }
                     else {
-                        this.props.setAutocompleteAwardingAgencies(autocompleteData);
+                        this.props.setAutocompleteAwardingAgencies(
+                            res.data.matched_objects.subtier_agency__name
+                        );
                     }
                 });
         }
@@ -117,6 +146,12 @@ export class AgencyListContainer extends React.Component {
 
     handleTextInput(agencyInput) {
         // Clear existing agencies to ensure user can't select an old or existing one
+        if (this.props.agencyType === 'Funding') {
+            this.props.setAutocompleteFundingAgencies([]);
+        }
+        else {
+            this.props.setAutocompleteAwardingAgencies([]);
+        }
 
         // Grab input, clear any exiting timeout
         const input = agencyInput.target.value;
@@ -128,24 +163,34 @@ export class AgencyListContainer extends React.Component {
         }, 300);
     }
 
-    render() {
+    selectAgency(agency, valid) {
+        // Pass selected agency to parent selectAgency method, adding agencyType to method call
+        this.props.selectAgency(agency, valid, this.props.agencyType);
+
+        // Clear Autocomplete results
         if (this.props.agencyType === 'Funding') {
-            this.autocompleteAgencies = this.props.fundingAgencies;
+            this.props.setAutocompleteFundingAgencies([]);
         }
         else {
-            this.autocompleteAgencies = this.props.awardingAgencies;
+            this.props.setAutocompleteAwardingAgencies([]);
         }
+    }
 
+    render() {
         return (
-            <AgencyList
+            <Autocomplete
                 {...this.props}
-                formatter={this.dataFormatter}
+                values={this.state.autocompleteAgencies}
                 handleTextInput={this.handleTextInput}
-                onSelect={this.props.selectAgency}
+                onSelect={this.selectAgency.bind(this)}
                 placeHolder={this.props.agencyType}
-                autocompleteAgencies={this.autocompleteAgencies}
-                selectedAgencies={this.props.selectedAgencies}
-                agencyType={this.props.agencyType} />
+                errorHeader="Unknown Agency"
+                errorMessage="You must select an agency from
+                    the list that is provided as you type."
+                ref={(input) => {
+                    this.agencyList = input;
+                }}
+                label={`${this.props.agencyType} Agency`} />
         );
     }
 }

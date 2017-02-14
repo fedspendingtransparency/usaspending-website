@@ -7,7 +7,7 @@
 export const updateSelectedAgencies = (state, value) => {
     let updatedSet = state;
 
-    const agencyIdentifier = value.id;
+    const agencyIdentifier = `${value.id}_${value.agencyType}`;
 
     if (updatedSet.has(agencyIdentifier)) {
         updatedSet = updatedSet.delete(agencyIdentifier);

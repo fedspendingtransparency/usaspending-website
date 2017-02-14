@@ -19,9 +19,16 @@ export default class SelectedAgencies extends React.Component {
         this.props.selectedAgencies.entrySeq().forEach((entry) => {
             const key = entry[0];
             const agency = entry[1];
+            let label = agency.subtier_agency.name;
+
+            if (agency.agencyType === 'subtier' &&
+                agency.toptier_agency.name === agency.subtier_agency.name) {
+                label += ' | Sub-Agency';
+            }
+
             const value = (<ShownAgency
                 agency={agency}
-                label={agency.subtier_agency.name}
+                label={label}
                 key={key}
                 removeAgency={this.props.removeAgency.bind(
                     null, agency, this.props.agencyType)} />);
