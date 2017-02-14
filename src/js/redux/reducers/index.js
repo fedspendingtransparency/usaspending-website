@@ -20,7 +20,7 @@ const appReducer = combineReducers({
     searchOrder: orderReducer,
     autocompleteLocations: autocompleteReducer,
     records: recordReducer,
-    agency: agencyReducer
+    autocompleteAgencies: agencyReducer
 });
 
 export default appReducer;

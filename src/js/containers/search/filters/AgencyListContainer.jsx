@@ -199,7 +199,7 @@ AgencyListContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        fundingAgencies: state.agency.fundingAgencies,
-        awardingAgencies: state.agency.awardingAgencies }),
+        fundingAgencies: state.autocompleteAgencies.fundingAgencies,
+        awardingAgencies: state.autocompleteAgencies.awardingAgencies }),
     (dispatch) => bindActionCreators(agencyActions, dispatch)
 )(AgencyListContainer);
