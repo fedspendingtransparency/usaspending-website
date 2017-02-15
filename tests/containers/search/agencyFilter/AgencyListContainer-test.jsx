@@ -6,6 +6,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
+import { OrderedMap } from 'immutable';
 
 import { AgencyListContainer } from 'containers/search/filters/AgencyListContainer';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -15,9 +16,7 @@ const setup = (props) => mount(<AgencyListContainer {...props} />);
 
 const initialFilters = {
     fundingAgencies: [],
-    awardingAgencies: [],
-    selectedAgencies: {},
-    autocompleteAgencies: []
+    awardingAgencies: []
 };
 
 // force Jest to use native Node promises
@@ -113,6 +112,7 @@ describe('AgencyListContainer', () => {
                 setAutocompleteAwardingAgencies: agencyActions.setAutocompleteAwardingAgencies,
                 setAutocompleteFundingAgencies: agencyActions.setAutocompleteFundingAgencies
             });
+
             const searchQuery = {
                 target: {
                     value: 'N'
@@ -213,8 +213,48 @@ describe('AgencyListContainer', () => {
             queryAutocompleteAgenciesSpy.reset();
         });
 
-        it('should search and populate Funding Agencies when more than one character has ' +
+        it('should search Funding Agencies when more than one character has ' +
             'been input in the Funding Agency field', () => {
+            // setup mock redux actions for handling search results
+            const mockReduxActionFunding = jest.fn();
+
+            // setup the agency list container and call the function to type a single letter
+            const agencyListContainer = setup({
+                reduxFilters: initialFilters,
+                agencyType: 'Funding',
+                setAutocompleteFundingAgencies: mockReduxActionFunding,
+                selectedAgencies: new OrderedMap()
+            });
+
+            // set up spies
+            const handleTextInputSpy = sinon.spy(agencyListContainer.instance(),
+                'handleTextInput');
+            const queryAutocompleteAgenciesSpy = sinon.spy(agencyListContainer.instance(),
+                'queryAutocompleteAgencies');
+
+            const searchQuery = {
+                target: {
+                    value: 'The Navy'
+                }
+            };
+            agencyListContainer.instance().handleTextInput(searchQuery);
+
+            // Run fake timer for input delay
+            jest.useFakeTimers().runTimersToTime(300);
+
+            // Run fake timer for input delay
+            jest.runAllTicks();
+
+            // everything should be updated now
+            expect(handleTextInputSpy.callCount).toEqual(1);
+            expect(queryAutocompleteAgenciesSpy.calledWith(handleTextInputSpy));
+
+            // Reset spies
+            handleTextInputSpy.reset();
+            queryAutocompleteAgenciesSpy.reset();
+        });
+
+        it('should populate Funding Agencies after performing the search', () => {
             // Setup redux state
             const reduxState = [
                 {
@@ -237,7 +277,8 @@ describe('AgencyListContainer', () => {
                         name: "DEPT OF THE NAVY"
                     },
                     office_agency: null
-                }, {
+                },
+                {
                     id: 1789,
                     create_date: "2017-01-12T19:56:30.522000Z",
                     update_date: "2017-01-12T19:56:30.522000Z",
@@ -269,16 +310,59 @@ describe('AgencyListContainer', () => {
                 reduxFilters: initialFilters,
                 agencyType: 'Funding',
                 setAutocompleteFundingAgencies: mockReduxActionFunding,
-                selectedAgencies: {}
+                fundingAgencies: reduxState,
+                selectedAgencies: new OrderedMap()
             });
 
-            // mock the search helper to resolve with the mocked response
+            // Mock the search helper to resolve with the mocked response
             mockSearchHelper('fetchAgencies', 'resolve', apiResponse);
 
+            // Run fake timer for input delay
+            jest.useFakeTimers().runTimersToTime(10000);
+
+            // Run all ticks
+            jest.runAllTicks();
+
+            // Set up spies
             const queryAutocompleteAgenciesSpy = sinon.spy(agencyListContainer.instance(),
                 'queryAutocompleteAgencies');
+            const parseAutocompleteAgenciesSpy = sinon.spy(agencyListContainer.instance(),
+                'parseAutocompleteAgencies');
+
+            agencyListContainer.instance().queryAutocompleteAgencies('The Navy');
+
+            // Run all ticks
+            jest.runAllTicks();
+
+            expect(queryAutocompleteAgenciesSpy.callCount).toEqual(1);
+            expect(parseAutocompleteAgenciesSpy.calledWith(queryAutocompleteAgenciesSpy));
+            expect(mockReduxActionFunding).toHaveBeenCalled();
+
+            // Reset the mock
+            unmockSearchHelper();
+
+            // Reset spies
+            queryAutocompleteAgenciesSpy.reset();
+            parseAutocompleteAgenciesSpy.reset();
+        });
+
+        it('should search Awarding Agencies when more than one character has ' +
+            'been input in the Awarding Agency field', () => {
+            // setup mock redux actions for handling search results
+            const mockReduxActionAwarding = jest.fn();
+
+            // setup the agency list container and call the function to type a single letter
+            const agencyListContainer = setup({
+                reduxFilters: initialFilters,
+                agencyType: 'Awarding',
+                setAutocompleteAwardingAgencies: mockReduxActionAwarding,
+                selectedAgencies: new OrderedMap()
+            });
+
             const handleTextInputSpy = sinon.spy(agencyListContainer.instance(),
                 'handleTextInput');
+            const queryAutocompleteAgenciesSpy = sinon.spy(agencyListContainer.instance(),
+                'queryAutocompleteAgencies');
 
             const searchQuery = {
                 target: {
@@ -288,21 +372,21 @@ describe('AgencyListContainer', () => {
             agencyListContainer.instance().handleTextInput(searchQuery);
 
             // Run fake timer for input delay
-            jest.useFakeTimers().runTimersToTime(1000);
+            jest.useFakeTimers().runTimersToTime(300);
 
             // Run fake timer for input delay
             jest.runAllTicks();
 
+            // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
-            expect(queryAutocompleteAgenciesSpy.callCount).toEqual(1);
-            expect(mockReduxActionFunding).toHaveBeenCalled();
+            expect(queryAutocompleteAgenciesSpy.calledWith(handleTextInputSpy));
 
-            // reset the mock
-            unmockSearchHelper();
+            // Reset spies
+            handleTextInputSpy.reset();
+            queryAutocompleteAgenciesSpy.reset();
         });
 
-        it('should search and populate Awarding Agencies when more than one character has ' +
-            'been input in the Awarding Agency field', () => {
+        it('should populate Awarding Agencies after performing the search', () => {
             // Setup redux state
             const reduxState = [
                 {
@@ -325,7 +409,8 @@ describe('AgencyListContainer', () => {
                         name: "DEPT OF THE NAVY"
                     },
                     office_agency: null
-                }, {
+                },
+                {
                     id: 1789,
                     create_date: "2017-01-12T19:56:30.522000Z",
                     update_date: "2017-01-12T19:56:30.522000Z",
@@ -357,36 +442,37 @@ describe('AgencyListContainer', () => {
                 reduxFilters: initialFilters,
                 agencyType: 'Awarding',
                 setAutocompleteAwardingAgencies: mockReduxActionAwarding,
-                selectedAgencies: {}
+                awardingAgencies: reduxState,
+                selectedAgencies: new OrderedMap()
             });
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('fetchAgencies', 'resolve', apiResponse);
 
-            const queryAutocompleteAgenciesSpy = sinon.spy(agencyListContainer.instance(),
-                'queryAutocompleteAgencies');
-            const handleTextInputSpy = sinon.spy(agencyListContainer.instance(),
-                'handleTextInput');
-
-            const searchQuery = {
-                target: {
-                    value: 'Navy'
-                }
-            };
-            agencyListContainer.instance().handleTextInput(searchQuery);
-
-            // Run fake timer for input delay
-            jest.useFakeTimers().runTimersToTime(1000);
-
-            // Run fake timer for input delay
+            // Run all ticks
             jest.runAllTicks();
 
-            expect(handleTextInputSpy.callCount).toEqual(1);
+            // Set up spies
+            const queryAutocompleteAgenciesSpy = sinon.spy(agencyListContainer.instance(),
+                'queryAutocompleteAgencies');
+            const parseAutocompleteAgenciesSpy = sinon.spy(agencyListContainer.instance(),
+                'parseAutocompleteAgencies');
+
+            agencyListContainer.instance().queryAutocompleteAgencies('The Navy');
+
+            // Run all ticks
+            jest.runAllTicks();
+
             expect(queryAutocompleteAgenciesSpy.callCount).toEqual(1);
+            expect(parseAutocompleteAgenciesSpy.calledWith(queryAutocompleteAgenciesSpy));
             expect(mockReduxActionAwarding).toHaveBeenCalled();
 
-            // reset the mock
+            // Reset the mock
             unmockSearchHelper();
+
+            // Reset spies
+            queryAutocompleteAgenciesSpy.reset();
+            parseAutocompleteAgenciesSpy.reset();
         });
     });
 });

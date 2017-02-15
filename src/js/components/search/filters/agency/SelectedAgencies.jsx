@@ -9,7 +9,7 @@ import ShownAgency from './ShownAgency';
 
 const propTypes = {
     selectedAgencies: React.PropTypes.object,
-    removeAgency: React.PropTypes.func,
+    toggleAgency: React.PropTypes.func,
     agencyType: React.PropTypes.string
 };
 
@@ -30,8 +30,8 @@ export default class SelectedAgencies extends React.Component {
                 agency={agency}
                 label={label}
                 key={key}
-                removeAgency={this.props.removeAgency.bind(
-                    null, agency, this.props.agencyType)} />);
+                agencyType={this.props.agencyType}
+                toggleAgency={this.props.toggleAgency.bind(this)} />);
             shownAgencies.push(value);
         });
 

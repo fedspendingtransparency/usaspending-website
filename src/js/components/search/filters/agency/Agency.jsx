@@ -15,8 +15,7 @@ const defaultProps = {
 };
 
 const propTypes = {
-    selectAgency: React.PropTypes.func,
-    removeAgency: React.PropTypes.func,
+    toggleAgency: React.PropTypes.func,
     selectedAwardingAgencies: React.PropTypes.object,
     selectedFundingAgencies: React.PropTypes.object,
     agencyTypes: React.PropTypes.array
@@ -24,7 +23,7 @@ const propTypes = {
 
 export default class Agency extends React.Component {
     render() {
-        const agencies = this.props.agencyTypes.map((type, key) => {
+        const agencies = this.props.agencyTypes.map((type) => {
             let selectedAgencies = {};
 
             if (type === 'Funding') {
@@ -35,18 +34,15 @@ export default class Agency extends React.Component {
             }
 
             return (
-                <div key={`holder-${key}`}>
+                <div key={`holder-${type}`}>
                     <AgencyListContainer
-                        key={key}
                         agencyType={type}
-                        selectAgency={this.props.selectAgency}
-                        selectedAgencies={selectedAgencies}
-                        removeAgency={this.props.removeAgency} />
+                        toggleAgency={this.props.toggleAgency}
+                        selectedAgencies={selectedAgencies} />
                     <SelectedAgencies
-                        key={`agencies-${key}`}
                         agencyType={type}
                         selectedAgencies={selectedAgencies}
-                        removeAgency={this.props.removeAgency} />
+                        toggleAgency={this.props.toggleAgency} />
                 </div>
             );
         });

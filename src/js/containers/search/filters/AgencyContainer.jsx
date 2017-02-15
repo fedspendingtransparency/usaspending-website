@@ -16,16 +16,16 @@ const propTypes = {
     updateSelectedAwardingAgencies: React.PropTypes.func
 };
 
+
 export class AgencyContainer extends React.Component {
     constructor(props) {
         super(props);
 
         // Bind functions
-        this.selectAgency = this.selectAgency.bind(this);
-        this.removeAgency = this.removeAgency.bind(this);
+        this.toggleAgency = this.toggleAgency.bind(this);
     }
 
-    selectAgency(agency, isValid, agencyType) {
+    toggleAgency(agency, isValid, agencyType) {
         // If agency name exists and is valid
         if (agency !== null && isValid) {
             const updateParams = {};
@@ -39,23 +39,11 @@ export class AgencyContainer extends React.Component {
         }
     }
 
-    removeAgency(agency, agencyType) {
-        const updateParams = {};
-        updateParams.agency = agency;
-        if (agencyType === 'Funding') {
-            this.props.updateSelectedFundingAgencies(updateParams);
-        }
-        else {
-            this.props.updateSelectedAwardingAgencies(updateParams);
-        }
-    }
-
     render() {
         return (
             <Agency
                 {...this.props}
-                selectAgency={this.selectAgency}
-                removeAgency={this.removeAgency} />
+                toggleAgency={this.toggleAgency} />
         );
     }
 }

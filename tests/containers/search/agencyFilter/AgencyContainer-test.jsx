@@ -71,18 +71,18 @@ describe('AgencyContainer', () => {
                     reduxFilters={initialFilters}
                     updateSelectedFundingAgencies={mockReduxActionFunding} />);
 
-            const selectAgencySpy = sinon.spy(agencyContainer.instance(),
-                'selectAgency');
+            const toggleAgencySpy = sinon.spy(agencyContainer.instance(),
+                'toggleAgency');
 
             // Add Agency to redux
-            agencyContainer.instance().selectAgency(agency, true, 'Funding');
+            agencyContainer.instance().toggleAgency(agency, true, 'Funding');
 
             // everything should be updated now
-            expect(selectAgencySpy.callCount).toEqual(1);
+            expect(toggleAgencySpy.callCount).toEqual(1);
             expect(mockReduxActionFunding).toHaveBeenCalled();
 
             // reset the spies
-            selectAgencySpy.reset();
+            toggleAgencySpy.reset();
         });
 
         it('should remove a Funding agency that has been deselected from Redux', () => {
@@ -118,25 +118,21 @@ describe('AgencyContainer', () => {
                     reduxFilters={initialFilters}
                     updateSelectedFundingAgencies={mockReduxActionFunding} />);
 
-            const selectAgencySpy = sinon.spy(agencyContainer.instance(),
-                'selectAgency');
-            const removeAgencySpy = sinon.spy(agencyContainer.instance(),
-                'removeAgency');
+            const toggleAgencySpy = sinon.spy(agencyContainer.instance(),
+                'toggleAgency');
 
             // Add Agency to redux
-            agencyContainer.instance().selectAgency(agency, true, 'Funding');
+            agencyContainer.instance().toggleAgency(agency, true, 'Funding');
 
             // Remove Agency from Redux
-            agencyContainer.instance().removeAgency(agency, 'Funding');
+            agencyContainer.instance().toggleAgency(agency, true, 'Funding');
 
             // everything should be updated now
-            expect(selectAgencySpy.callCount).toEqual(1);
-            expect(removeAgencySpy.callCount).toEqual(1);
+            expect(toggleAgencySpy.callCount).toEqual(2);
             expect(mockReduxActionFunding).toHaveBeenCalledTimes(2);
 
-            // reset the spies
-            selectAgencySpy.reset();
-            removeAgencySpy.reset();
+            // reset the spy
+            toggleAgencySpy.reset();
         });
 
         it('should add a Awarding agency that has been selected to Redux', () => {
@@ -172,18 +168,18 @@ describe('AgencyContainer', () => {
                     reduxFilters={initialFilters}
                     updateSelectedAwardingAgencies={mockReduxActionAwarding} />);
 
-            const selectAgencySpy = sinon.spy(agencyContainer.instance(),
-                'selectAgency');
+            const toggleAgencySpy = sinon.spy(agencyContainer.instance(),
+                'toggleAgency');
 
             // Add Agency to redux
-            agencyContainer.instance().selectAgency(agency, true, 'Awarding');
+            agencyContainer.instance().toggleAgency(agency, true, 'Awarding');
 
             // everything should be updated now
-            expect(selectAgencySpy.callCount).toEqual(1);
+            expect(toggleAgencySpy.callCount).toEqual(1);
             expect(mockReduxActionAwarding).toHaveBeenCalled();
 
-            // reset the spies
-            selectAgencySpy.reset();
+            // reset the spy
+            toggleAgencySpy.reset();
         });
 
         it('should remove a Awarding agency that has been deselected from Redux', () => {
@@ -219,25 +215,21 @@ describe('AgencyContainer', () => {
                     reduxFilters={initialFilters}
                     updateSelectedAwardingAgencies={mockReduxActionAwarding} />);
 
-            const selectAgencySpy = sinon.spy(agencyContainer.instance(),
-                'selectAgency');
-            const removeAgencySpy = sinon.spy(agencyContainer.instance(),
-                'removeAgency');
+            const toggleAgencySpy = sinon.spy(agencyContainer.instance(),
+                'toggleAgency');
 
             // Add Agency to redux
-            agencyContainer.instance().selectAgency(agency, true, 'Awarding');
+            agencyContainer.instance().toggleAgency(agency, true, 'Awarding');
 
             // Remove Agency from Redux
-            agencyContainer.instance().removeAgency(agency, 'Awarding');
+            agencyContainer.instance().toggleAgency(agency, 'Awarding');
 
             // everything should be updated now
-            expect(selectAgencySpy.callCount).toEqual(1);
-            expect(removeAgencySpy.callCount).toEqual(1);
+            expect(toggleAgencySpy.callCount).toEqual(2);
             expect(mockReduxActionAwarding).toHaveBeenCalledTimes(2);
 
-            // reset the spies
-            selectAgencySpy.reset();
-            removeAgencySpy.reset();
+            // reset the spy
+            toggleAgencySpy.reset();
         });
     });
 });

@@ -68,13 +68,9 @@ class SearchOperation {
             filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign));
         }
 
-        // add agency queries
-        if (this.awardingAgencies.length > 0) {
-            filters.push(AgencyQuery.buildAgencyQuery(this.awardingAgencies));
-        }
-
-        if (this.fundingAgencies.length > 0) {
-            filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies));
+        // add agency query
+        if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
+            filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies, this.awardingAgencies));
         }
 
         return filters;

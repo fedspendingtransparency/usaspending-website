@@ -11,6 +11,7 @@ import _ from 'lodash';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 import * as SearchHelper from 'helpers/searchHelper';
+
 import * as agencyActions from 'redux/actions/search/agencyActions';
 
 const propTypes = {
@@ -18,7 +19,7 @@ const propTypes = {
     setAutocompleteFundingAgencies: React.PropTypes.func,
     fundingAgencies: React.PropTypes.array,
     awardingAgencies: React.PropTypes.array,
-    selectAgency: React.PropTypes.func,
+    toggleAgency: React.PropTypes.func,
     selectedAgencies: React.PropTypes.object,
     agencyType: React.PropTypes.string
 };
@@ -51,13 +52,14 @@ export class AgencyListContainer extends React.Component {
         if (this.props.agencyType === 'Funding') {
             this.parseAutocompleteAgencies(nextProps.fundingAgencies);
         }
-        else if (this.props.agencyType === 'Awarding') {
+        else {
             this.parseAutocompleteAgencies(nextProps.awardingAgencies);
         }
     }
 
     parseAutocompleteAgencies(results) {
         const agencies = [];
+        let filteredAgencies = [];
 
         // Format results of search for use in Autocomplete component
         if (results && results.length > 0) {
@@ -81,33 +83,27 @@ export class AgencyListContainer extends React.Component {
                 });
             });
 
-            // Remove any selected Toptier Agencies
-            const toptierSelections = _.filter(
-                this.props.selectedAgencies.toArray(), {
-                    agencyType: 'toptier'
-                });
-            toptierSelections.forEach((agency) => {
-                _.remove(agencies, { data: agency });
-            });
-
-            // Remove any selected Subtier Agencies
-            const subtierSelections = _.filter(
-                this.props.selectedAgencies.toArray(), {
-                    agencyType: 'subtier'
-                });
-            subtierSelections.forEach((agency) => {
-                _.remove(agencies, { data: agency });
-            });
+            // Remove selected agencies
+            /* eslint-disable arrow-body-style */
+            // I don't think rule should apply here
+            filteredAgencies = _.values(
+                _.omitBy(agencies, ((agency) => {
+                    return _.findKey(this.props.selectedAgencies.toArray(), ((selectedAgency) => {
+                        return _.isEqual(selectedAgency, agency.data);
+                    }));
+                }))
+            );
+            /* eslint-enable arrow-body-style */
         }
 
         this.setState({
-            autocompleteAgencies: agencies
+            autocompleteAgencies: filteredAgencies
         });
     }
 
     queryAutocompleteAgencies(input) {
         // Only search if search is 2 or more characters
-        if (input.length >= 2 || input.length === 0) {
+        if (input.length >= 2) {
             this.setState({
                 agencySearchString: input
             });
@@ -163,9 +159,9 @@ export class AgencyListContainer extends React.Component {
         }, 300);
     }
 
-    selectAgency(agency, valid) {
-        // Pass selected agency to parent selectAgency method, adding agencyType to method call
-        this.props.selectAgency(agency, valid, this.props.agencyType);
+    toggleAgency(agency, valid) {
+        // Pass selected agency to parent toggleAgency method, adding agencyType to method call
+        this.props.toggleAgency(agency, valid, this.props.agencyType);
 
         // Clear Autocomplete results
         if (this.props.agencyType === 'Funding') {
@@ -182,7 +178,7 @@ export class AgencyListContainer extends React.Component {
                 {...this.props}
                 values={this.state.autocompleteAgencies}
                 handleTextInput={this.handleTextInput}
-                onSelect={this.selectAgency.bind(this)}
+                onSelect={this.toggleAgency.bind(this)}
                 placeHolder={this.props.agencyType}
                 errorHeader="Unknown Agency"
                 errorMessage="You must select an agency from
