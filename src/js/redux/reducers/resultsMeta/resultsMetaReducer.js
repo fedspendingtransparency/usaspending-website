@@ -16,6 +16,9 @@ const initialValues = {
         count: 0,
         total_obligation_sum: 0
     },
+    visualization: {
+        transaction_sum: 0
+    },
     tableType: 'contracts',
     inFlight: false
 };
@@ -42,6 +45,12 @@ const resultsMetaReducer = (state = new MetaRecord(), action) => {
             return state.mergeDeep({
                 page: {
                     page_number: action.pageNumber
+                }
+            });
+        case 'SET_VIZ_TXN_SUM':
+            return state.mergeDeep({
+                visualization: {
+                    transaction_sum: action.sum
                 }
             });
         default:

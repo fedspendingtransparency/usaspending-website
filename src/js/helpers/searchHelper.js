@@ -79,7 +79,7 @@ export const fetchAward = (num) => {
 };
 
 // make API call to awards total aggregation endpoint
-export const performAwardsTotalSearch = (params) => {
+export const performTransactionsTotalSearch = (params) => {
     const source = CancelToken.source();
 
     return {

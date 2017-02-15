@@ -1,7 +1,7 @@
 .visualization-top {
     margin-top: 20px;
     margin-bottom: 20px;
-
+    
     display: table;
 
     @import "../../../../../components/visualizations/_description";
@@ -20,14 +20,9 @@
         padding: 15px;
         background-color: rgba(223,242,247,0.4);
 
-        @include media($tablet-screen) {
-            width: 300px;
-            height: 60px;
-
-            @include media($large-screen) {
-                width: 390px;
-                padding: 15px 30px;
-            }
+        @include media($large-screen) {
+            width: 390px;
+            padding: 15px 30px;
         }
     }
 
@@ -41,7 +36,7 @@
 
             margin-bottom: 10px;
 
-            @include media($tablet-screen) {
+            @include media($large-screen) {
                 display: inline-block;
                 margin-left: 30px;
                 margin-bottom: 0;
@@ -52,7 +47,7 @@
             }
         }
 
-        .period-button {
+        .scope-button {
             @include button-unstyled;
             color: #808288;
             font-size: 14px;

@@ -22,3 +22,8 @@ export const setSearchPageNumber = (state) => ({
     type: 'SET_SEARCH_RESULT_PAGE_NUMBER',
     pageNumber: state
 });
+
+export const setVizTxnSum = (state) => ({
+    type: 'SET_VIZ_TXN_SUM',
+    sum: state
+});
