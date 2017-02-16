@@ -1,8 +1,8 @@
-.selected-locations {
+.selected-locations, .selected-agencies {
 
     margin-top: .5rem;
 
-    .shown-location-button {
+    .shown-location-button, .shown-agency-button {
         background-color: $color-white;
         border: 1px solid $color-gray-lighter;
         border-radius: 4px;
