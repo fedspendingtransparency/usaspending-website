@@ -13,13 +13,17 @@ import TimeVisualizationSection from
     'components/search/visualizations/time/TimeVisualizationSection';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import * as resultsMetaActions from 'redux/actions/resultsMeta/resultsMetaActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
 
+const combinedActions = Object.assign({}, searchFilterActions, resultsMetaActions);
+
 const propTypes = {
-    reduxFilters: React.PropTypes.object
+    reduxFilters: React.PropTypes.object,
+    setVizTxnSum: React.PropTypes.func
 };
 
 export class TimeVisualizationSectionContainer extends React.Component {
@@ -65,7 +69,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
         this.setState({
             loading: true
         });
-        const search = SearchHelper.performAwardsTotalSearch(apiParams);
+        const search = SearchHelper.performTransactionsTotalSearch(apiParams);
         search.promise
             .then((res) => {
                 this.parseData(res.data);
@@ -77,11 +81,15 @@ export class TimeVisualizationSectionContainer extends React.Component {
         const xSeries = [];
         const ySeries = [];
 
+        let totalSpending = 0;
+
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((group) => {
             groups.push(group.item);
             xSeries.push([group.item]);
             ySeries.push([parseFloat(group.aggregate)]);
+
+            totalSpending += parseFloat(group.aggregate);
         });
 
         this.setState({
@@ -89,6 +97,10 @@ export class TimeVisualizationSectionContainer extends React.Component {
             xSeries,
             ySeries,
             loading: false
+        }, () => {
+            // save the total spending amount to Redux so all visualizations have access to this
+            // data
+            this.props.setVizTxnSum(totalSpending);
         });
     }
 
@@ -103,5 +115,5 @@ TimeVisualizationSectionContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ reduxFilters: state.filters }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+    (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(TimeVisualizationSectionContainer);

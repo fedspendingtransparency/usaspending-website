@@ -75,7 +75,7 @@ describe('TimeVisualizationSectionContainer', () => {
         };
 
         // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performAwardsTotalSearch', 'resolve', apiResponse);
+        mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
 
         // mount the container
         mount(<TimeVisualizationSectionContainer reduxFilters={defaultFilters} />);
@@ -109,7 +109,7 @@ describe('TimeVisualizationSectionContainer', () => {
         };
 
         // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performAwardsTotalSearch', 'resolve', apiResponse);
+        mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
 
         const initialFilters = Object.assign({}, defaultFilters);
         const secondFilters = Object.assign({}, defaultFilters, {
@@ -164,7 +164,7 @@ describe('TimeVisualizationSectionContainer', () => {
             };
 
             // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performAwardsTotalSearch', 'resolve', apiResponse);
+            mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const timeVisualizationContainer =
                 mount(<TimeVisualizationSectionContainer reduxFilters={defaultFilters} />);

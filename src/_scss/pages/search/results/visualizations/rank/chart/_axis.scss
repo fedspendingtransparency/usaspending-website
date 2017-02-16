@@ -1,0 +1,17 @@
+.bar-axis {
+    font-size: 12px;
+    color: #666666;
+
+    line.y-axis, line.x-axis {
+        stroke: $color-gray-light;
+    }
+
+    .grid-line {
+        stroke: $color-gray-lightest;
+    }
+
+    .x-label {
+        font-size: 12px;
+        color: #666666;
+    }
+}
