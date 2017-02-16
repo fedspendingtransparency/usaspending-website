@@ -51,6 +51,14 @@ const routeDefinitions = {
             }
         },
         {
+            path: 'award/:awardId',
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../award/AwardContainer').default);
+                });
+            }
+        },
+        {
             path: 'style',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
