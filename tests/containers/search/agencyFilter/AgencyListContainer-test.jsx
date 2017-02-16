@@ -463,6 +463,7 @@ describe('AgencyListContainer', () => {
             // Run all ticks
             jest.runAllTicks();
 
+            // everything should be updated now
             expect(queryAutocompleteAgenciesSpy.callCount).toEqual(1);
             expect(parseAutocompleteAgenciesSpy.calledWith(queryAutocompleteAgenciesSpy));
             expect(mockReduxActionAwarding).toHaveBeenCalled();
@@ -473,6 +474,56 @@ describe('AgencyListContainer', () => {
             // Reset spies
             queryAutocompleteAgenciesSpy.reset();
             parseAutocompleteAgenciesSpy.reset();
+        });
+
+        it('should toggle Funding agencies that have been either selected or deselected', () => {
+            const agency = {
+                id: 1788,
+                create_date: "2017-01-12T19:56:30.517000Z",
+                update_date: "2017-01-12T19:56:30.517000Z",
+                toptier_agency: {
+                    toptier_agency_id: 268,
+                    create_date: "2017-01-31T21:25:39.810344Z",
+                    update_date: "2017-01-31T21:25:39.936439Z",
+                    cgac_code: "097",
+                    fpds_code: "9700",
+                    name: "DEPT OF DEFENSE"
+                },
+                subtier_agency: {
+                    subtier_agency_id: 1654,
+                    create_date: "2017-01-31T21:25:39.569918Z",
+                    update_date: "2017-01-31T21:25:39.691244Z",
+                    subtier_code: "1700",
+                    name: "DEPT OF THE NAVY"
+                },
+                office_agency: null,
+                agencyType: 'toptier'
+            };
+
+            const mockReduxActionFunding = jest.fn();
+            const mockParentActionToggle = jest.fn();
+
+            const agencyListContainer = setup({
+                reduxFilters: initialFilters,
+                agencyType: 'Funding',
+                setAutocompleteFundingAgencies: mockReduxActionFunding,
+                selectedAgencies: new OrderedMap(),
+                toggleAgency: mockParentActionToggle
+            });
+
+            const toggleAgencySpy = sinon.spy(agencyListContainer.instance(), 'toggleAgency');
+
+            agencyListContainer.instance().toggleAgency(agency, true);
+
+            // Run all ticks
+            jest.runAllTicks();
+
+            // everything should be updated now
+            expect(mockReduxActionFunding).toHaveBeenCalled();
+            expect(mockParentActionToggle).toHaveBeenCalled();
+
+            // Reset spy
+            toggleAgencySpy.reset();
         });
     });
 });
