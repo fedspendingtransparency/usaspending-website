@@ -6,9 +6,9 @@ import React from 'react';
 import Suggestion from './Suggestion';
 
 const propTypes = {
+    select: React.PropTypes.func,
     suggestions: React.PropTypes.array,
     selectedIndex: React.PropTypes.number,
-    select: React.PropTypes.func,
     maxSuggestions: React.PropTypes.number
 };
 

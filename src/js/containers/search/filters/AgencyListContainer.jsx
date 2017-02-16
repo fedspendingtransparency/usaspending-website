@@ -6,7 +6,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
@@ -59,45 +58,40 @@ export class AgencyListContainer extends React.Component {
 
     parseAutocompleteAgencies(results) {
         const agencies = [];
-        let filteredAgencies = [];
 
         // Format results of search for use in Autocomplete component
         if (results && results.length > 0) {
+            const selectedAgencies = this.props.selectedAgencies;
             results.forEach((item) => {
                 // Push two items to the autocomplete entries if subtier = toptier
+                // Only push items if they are not in selectedAgencies
                 if (item.toptier_agency.name === item.subtier_agency.name) {
+                    if (selectedAgencies.size === 0
+                        || !selectedAgencies.has(`${item.id}_toptier`)) {
+                        agencies.push({
+                            title: item.subtier_agency.name,
+                            data: Object.assign({}, item, {
+                                agencyType: 'toptier'
+                            })
+                        });
+                    }
+                }
+
+                // Only push items if they are not in selectedAgencies
+                if (selectedAgencies.size === 0 || !selectedAgencies.has(`${item.id}_subtier`)) {
                     agencies.push({
                         title: item.subtier_agency.name,
+                        subtitle: `Sub-Agency of ${item.toptier_agency.name}`,
                         data: Object.assign({}, item, {
-                            agencyType: 'toptier'
+                            agencyType: 'subtier'
                         })
                     });
                 }
-
-                agencies.push({
-                    title: item.subtier_agency.name,
-                    subtitle: `Sub-Agency of ${item.toptier_agency.name}`,
-                    data: Object.assign({}, item, {
-                        agencyType: 'subtier'
-                    })
-                });
             });
-
-            // Remove selected agencies
-            /* eslint-disable arrow-body-style */
-            // I don't think rule should apply here
-            filteredAgencies = _.values(
-                _.omitBy(agencies, ((agency) => {
-                    return _.findKey(this.props.selectedAgencies.toArray(), ((selectedAgency) => {
-                        return _.isEqual(selectedAgency, agency.data);
-                    }));
-                }))
-            );
-            /* eslint-enable arrow-body-style */
         }
 
         this.setState({
-            autocompleteAgencies: filteredAgencies
+            autocompleteAgencies: agencies
         });
     }
 
