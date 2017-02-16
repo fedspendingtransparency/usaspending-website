@@ -31,7 +31,6 @@ class LocationSearchContainer extends React.Component {
         if (location !== null && isValid) {
             const updateParams = {};
             updateParams.location = location;
-
             this.props.updateSelectedLocations(updateParams);
         }
     }

@@ -17,7 +17,8 @@ const propTypes = {
     errorMessage: React.PropTypes.string,
     tabIndex: React.PropTypes.number,
     isRequired: React.PropTypes.bool,
-    maxSuggestions: React.PropTypes.number
+    maxSuggestions: React.PropTypes.number,
+    label: React.PropTypes.string
 };
 
 const defaultProps = {
@@ -27,7 +28,8 @@ const defaultProps = {
     isRequired: false,
     errorHeader: null,
     errorDescription: null,
-    maxSuggestions: 10
+    maxSuggestions: 10,
+    label: 'Primary Place of Performance'
 };
 
 export default class Autocomplete extends React.Component {
@@ -198,9 +200,12 @@ export default class Autocomplete extends React.Component {
             selectedItem = selection.data;
         }
 
-        // Important - clear internal typeahead state value before passing selection
-        this.state.value = '';
         this.props.onSelect(selectedItem, isValid);
+
+        // Important - clear internal typeahead state value
+        this.setState({
+            value: ''
+        });
     }
 
     render() {
@@ -220,7 +225,7 @@ export default class Autocomplete extends React.Component {
         return (
             <div className="pop-typeahead">
                 <div className="usa-da-typeahead">
-                    <p>Primary Place of Performance</p>
+                    <p>{this.props.label}</p>
                     <input
                         className="location-input autocomplete"
                         ref={(t) => {
