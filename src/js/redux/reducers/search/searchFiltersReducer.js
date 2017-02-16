@@ -7,6 +7,7 @@ import { Set, OrderedMap } from 'immutable';
 
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
 import * as LocationFilterFunctions from './filters/locationFilterFunctions';
+import * as AgencyFilterFunctions from './filters/agencyFilterFunctions';
 
 const initialState = {
     awardType: new Set(),
@@ -14,6 +15,8 @@ const initialState = {
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
+    selectedFundingAgencies: new OrderedMap(),
+    selectedAwardingAgencies: new OrderedMap(),
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all'
 };
@@ -47,6 +50,18 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 selectedLocations: LocationFilterFunctions.updateSelectedLocations(
                     state.selectedLocations, action.location)
+            });
+        }
+        case 'UPDATE_SELECTED_AWARDING_AGENCIES': {
+            return Object.assign({}, state, {
+                selectedAwardingAgencies: AgencyFilterFunctions.updateSelectedAgencies(
+                    state.selectedAwardingAgencies, action.agency)
+            });
+        }
+        case 'UPDATE_SELECTED_FUNDING_AGENCIES': {
+            return Object.assign({}, state, {
+                selectedFundingAgencies: AgencyFilterFunctions.updateSelectedAgencies(
+                    state.selectedFundingAgencies, action.agency)
             });
         }
         case 'UPDATE_DOMESTIC_FOREIGN': {
