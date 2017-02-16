@@ -61,13 +61,12 @@ export class AgencyListContainer extends React.Component {
 
         // Format results of search for use in Autocomplete component
         if (results && results.length > 0) {
-            const selectedAgencies = this.props.selectedAgencies;
             results.forEach((item) => {
                 // Push two items to the autocomplete entries if subtier = toptier
                 // Only push items if they are not in selectedAgencies
                 if (item.toptier_agency.name === item.subtier_agency.name) {
-                    if (selectedAgencies.size === 0
-                        || !selectedAgencies.has(`${item.id}_toptier`)) {
+                    if (this.props.selectedAgencies.size === 0
+                        || !this.props.selectedAgencies.has(`${item.id}_toptier`)) {
                         agencies.push({
                             title: item.subtier_agency.name,
                             data: Object.assign({}, item, {
@@ -77,8 +76,8 @@ export class AgencyListContainer extends React.Component {
                     }
                 }
 
-                // Only push items if they are not in selectedAgencies
-                if (selectedAgencies.size === 0 || !selectedAgencies.has(`${item.id}_subtier`)) {
+                if (this.props.selectedAgencies.size === 0
+                    || !this.props.selectedAgencies.has(`${item.id}_subtier`)) {
                     agencies.push({
                         title: item.subtier_agency.name,
                         subtitle: `Sub-Agency of ${item.toptier_agency.name}`,
