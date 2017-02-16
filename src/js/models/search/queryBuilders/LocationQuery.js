@@ -5,8 +5,8 @@
 
 import _ from 'lodash';
 
-const locationIdField = 'recipient__location__location_id';
-const countryCodeField = 'recipient__location__location_country_code';
+const locationIdField = 'place_of_performance__location_id';
+const countryCodeField = 'place_of_performance__location_country_code';
 
 export const buildLocationQuery = (values) => {
     let valueSet = [];

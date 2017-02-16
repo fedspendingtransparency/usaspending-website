@@ -1,0 +1,22 @@
+.award-info-bar {
+    @include span-columns(16);
+    border-bottom: 1px solid $color-gray-border;
+
+    @import './_recipientInfo';
+
+    .agency-wrapper {
+        @import './_agencyInfo';
+        @include span-columns(7);
+        display: table;
+
+        .triangle-wrapper {
+            display: table-cell;
+            position: relative;
+            width: rem(74px);
+            height: rem(208px);
+            @include background-image(url('../img/award_triangle.png'));
+            background-repeat: no-repeat;
+        }
+    }
+
+}

@@ -62,8 +62,24 @@ export const fetchLocations = (req) => {
     };
 };
 
+// Fetch Individual Award
+export const fetchAward = (num) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `awards/${num}/`,
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 // make API call to awards total aggregation endpoint
-export const performAwardsTotalSearch = (params) => {
+export const performTransactionsTotalSearch = (params) => {
     const source = CancelToken.source();
 
     return {
