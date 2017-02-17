@@ -2,6 +2,8 @@
  * Created by michaelbray on 2/17/17.
  */
 
+import _ from 'lodash';
+
 export const updateSelectedRecipients = (state, value) => {
     let updatedSet = state;
 
