@@ -20,13 +20,6 @@ const propTypes = {
 };
 /* eslint-enable react/no-unused-prop-types */
 
-const UNIT_CONSTS = {
-    TRILLION: 1000000000000,
-    BILLION: 1000000000,
-    MILLION: 1000000,
-    THOUSAND: 1000
-};
-
 export default class BarYAxis extends React.Component {
     constructor(props) {
         super(props);
@@ -60,87 +53,23 @@ export default class BarYAxis extends React.Component {
             return;
         }
 
-        // determine the axis monetary unit to display
-        let axisMax = props.scale.domain()[1];
-        // use the absolute value to handle a case where the average value is negative
-        const axisAvg = Math.abs(props.average);
-
-        // check if the absolute value of the the minimum Y value is greater than the max value
-        // if so, use that as the effective max for determine numerical unit
-        if (Math.abs(props.scale.domain[0]) > axisMax) {
-            axisMax = Math.abs(props.scale.domain[0]);
-        }
-
         // determine the numerical unit to display in the Y axis labels
-        let unit = 1;
-        let unitString = '';
-        if (axisMax >= UNIT_CONSTS.TRILLION) {
-            // more than or equal to one trillion
-            unit = UNIT_CONSTS.TRILLION;
-            unitString = 'T';
-            if (axisAvg < UNIT_CONSTS.TRILLION) {
-                // if the average is less than one trillion, go down to billions
-                // for better readabilility
-                unit = UNIT_CONSTS.BILLION;
-                unitString = 'B';
-            }
-        }
-        else if (axisMax >= UNIT_CONSTS.BILLION) {
-            // more than or equal to one billion
-            unit = UNIT_CONSTS.BILLION;
-            unitString = 'B';
-            if (axisAvg < UNIT_CONSTS.BILLION) {
-                // if the average is less than one billion, go down to millions
-                // for better readabilility
-                unit = UNIT_CONSTS.MILLION;
-                unitString = 'M';
-            }
-        }
-        else if (axisMax >= UNIT_CONSTS.MILLION) {
-            // more than or equal to one million
-            unit = UNIT_CONSTS.MILLION;
-            unitString = 'M';
-            if (axisAvg < UNIT_CONSTS.MILLION) {
-                // if the average is less than one million, go down to thousands
-                // for better readabilility
-                unit = UNIT_CONSTS.THOUSAND;
-                unitString = 'k';
-            }
-        }
-        else if (axisMax >= UNIT_CONSTS.THOUSAND) {
-            // more than or equal to one thousand
-            unit = UNIT_CONSTS.THOUSAND;
-            unitString = 'k';
-            if (axisAvg < UNIT_CONSTS.THOUSAND) {
-                // if the average is less than one thousand, just display the raw value
-                unit = 1;
-                unitString = '';
-            }
-        }
-
-        let precision = 0;
-        if ((axisMax / unit) < 6) {
-            // show decimal values if the Y axis tick increment is less than one numerical unit
-            precision = 2;
-        }
+        const units = MoneyFormatter.calculateUnits(props.data);
 
         // generate the labels
         const tickLabels = props.ticks.map((tick) => {
-            let formattedTick = tick;
-
             // format the tick label based on the numerical unit chosen for the axis
+            let formattedValue =
+                MoneyFormatter.formatMoneyWithPrecision(tick / units.unit, units.precision);
+
             if (tick === 0) {
-                formattedTick = '$0';
-            }
-            else if (unit > 1) {
-                formattedTick = MoneyFormatter.formatMoneyWithPrecision(tick / unit, precision)
-                    + unitString;
+                formattedValue = '$0';
             }
             else {
-                formattedTick = MoneyFormatter.formatMoneyWithPrecision(tick, precision);
+                formattedValue += units.unitLabel;
             }
 
-            return formattedTick;
+            return formattedValue;
         });
 
         // draw the grid lines

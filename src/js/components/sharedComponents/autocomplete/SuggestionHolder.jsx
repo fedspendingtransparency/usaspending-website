@@ -6,9 +6,9 @@ import React from 'react';
 import Suggestion from './Suggestion';
 
 const propTypes = {
+    select: React.PropTypes.func,
     suggestions: React.PropTypes.array,
     selectedIndex: React.PropTypes.number,
-    select: React.PropTypes.func,
     maxSuggestions: React.PropTypes.number
 };
 
@@ -50,7 +50,7 @@ export default class SuggestionHolder extends React.Component {
             suggestions.push(<Suggestion
                 title={this.props.suggestions[i].title}
                 subtitle={this.props.suggestions[i].subtitle}
-                location={this.props.suggestions[i]}
+                data={this.props.suggestions[i]}
                 selected={i === this.props.selectedIndex}
                 select={this.props.select}
                 key={i} />);

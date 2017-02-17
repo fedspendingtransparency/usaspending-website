@@ -13,6 +13,8 @@ const initialState = {
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
+    selectedFundingAgencies: new OrderedMap(),
+    selectedAwardingAgencies: new OrderedMap(),
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all'
 };
@@ -164,6 +166,146 @@ describe('searchFiltersReducer', () => {
 
             const updatedState = searchFiltersReducer(startingState, action);
             expect(updatedState.selectedLocations).toEqual(new OrderedMap());
+        });
+    });
+
+    describe('UPDATE_SELECTED_AWARDING_AGENCIES', () => {
+        const action = {
+            type: 'UPDATE_SELECTED_AWARDING_AGENCIES',
+            agency: {
+                id: 1788,
+                create_date: "2017-01-12T19:56:30.517000Z",
+                update_date: "2017-01-12T19:56:30.517000Z",
+                toptier_agency: {
+                    toptier_agency_id: 268,
+                    create_date: "2017-01-31T21:25:39.810344Z",
+                    update_date: "2017-01-31T21:25:39.936439Z",
+                    cgac_code: "097",
+                    fpds_code: "9700",
+                    name: "DEPT OF DEFENSE"
+                },
+                subtier_agency: {
+                    subtier_agency_id: 1654,
+                    create_date: "2017-01-31T21:25:39.569918Z",
+                    update_date: "2017-01-31T21:25:39.691244Z",
+                    subtier_code: "1700",
+                    name: "DEPT OF THE NAVY"
+                },
+                office_agency: null,
+                agencyType: 'subtier'
+            }
+        };
+
+        const agency = "1788_subtier";
+
+        const expectedAgency = {
+            id: 1788,
+            create_date: "2017-01-12T19:56:30.517000Z",
+            update_date: "2017-01-12T19:56:30.517000Z",
+            toptier_agency: {
+                toptier_agency_id: 268,
+                create_date: "2017-01-31T21:25:39.810344Z",
+                update_date: "2017-01-31T21:25:39.936439Z",
+                cgac_code: "097",
+                fpds_code: "9700",
+                name: "DEPT OF DEFENSE"
+            },
+            subtier_agency: {
+                subtier_agency_id: 1654,
+                create_date: "2017-01-31T21:25:39.569918Z",
+                update_date: "2017-01-31T21:25:39.691244Z",
+                subtier_code: "1700",
+                name: "DEPT OF THE NAVY"
+            },
+            office_agency: null,
+            agencyType: 'subtier'
+        };
+
+        it('should add the provided agency if it does not currently exist in the filter', () => {
+            const updatedState = searchFiltersReducer(undefined, action);
+
+            expect(updatedState.selectedAwardingAgencies).toEqual(
+                new OrderedMap([[agency, expectedAgency]])
+            );
+        });
+
+        it('should remove the provided agency if already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                selectedAwardingAgencies: new OrderedMap([[agency, expectedAgency]])
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.selectedAwardingAgencies).toEqual(new OrderedMap());
+        });
+    });
+
+    describe('UPDATE_SELECTED_FUNDING_AGENCIES', () => {
+        const action = {
+            type: 'UPDATE_SELECTED_FUNDING_AGENCIES',
+            agency: {
+                id: 1788,
+                create_date: "2017-01-12T19:56:30.517000Z",
+                update_date: "2017-01-12T19:56:30.517000Z",
+                toptier_agency: {
+                    toptier_agency_id: 268,
+                    create_date: "2017-01-31T21:25:39.810344Z",
+                    update_date: "2017-01-31T21:25:39.936439Z",
+                    cgac_code: "097",
+                    fpds_code: "9700",
+                    name: "DEPT OF DEFENSE"
+                },
+                subtier_agency: {
+                    subtier_agency_id: 1654,
+                    create_date: "2017-01-31T21:25:39.569918Z",
+                    update_date: "2017-01-31T21:25:39.691244Z",
+                    subtier_code: "1700",
+                    name: "DEPT OF THE NAVY"
+                },
+                office_agency: null,
+                agencyType: 'subtier'
+            }
+        };
+
+        const agency = "1788_subtier";
+
+        const expectedAgency = {
+            id: 1788,
+            create_date: "2017-01-12T19:56:30.517000Z",
+            update_date: "2017-01-12T19:56:30.517000Z",
+            toptier_agency: {
+                toptier_agency_id: 268,
+                create_date: "2017-01-31T21:25:39.810344Z",
+                update_date: "2017-01-31T21:25:39.936439Z",
+                cgac_code: "097",
+                fpds_code: "9700",
+                name: "DEPT OF DEFENSE"
+            },
+            subtier_agency: {
+                subtier_agency_id: 1654,
+                create_date: "2017-01-31T21:25:39.569918Z",
+                update_date: "2017-01-31T21:25:39.691244Z",
+                subtier_code: "1700",
+                name: "DEPT OF THE NAVY"
+            },
+            office_agency: null,
+            agencyType: 'subtier'
+        };
+
+        it('should add the provided agency if it does not currently exist in the filter', () => {
+            const updatedState = searchFiltersReducer(undefined, action);
+
+            expect(updatedState.selectedFundingAgencies).toEqual(
+                new OrderedMap([[agency, expectedAgency]])
+            );
+        });
+
+        it('should remove the provided agency if already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                selectedFundingAgencies: new OrderedMap([[agency, expectedAgency]])
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.selectedFundingAgencies).toEqual(new OrderedMap());
         });
     });
 
