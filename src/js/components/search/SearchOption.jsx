@@ -7,7 +7,7 @@ import React from 'react';
 
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
-import LocationSearchContainer from 'containers/search/filters/LocationSearchContainer';
+import LocationSearchContainer from 'containers/search/filters/location/LocationSearchContainer';
 import SearchBox from './filters/keyword/SearchBox';
 import FilterExpandButton from './FilterExpandButton';
 

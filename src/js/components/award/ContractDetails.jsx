@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import moment from 'moment';
 import ContractCell from './ContractCell';
 
 const propTypes = {
@@ -13,10 +14,54 @@ const propTypes = {
 export default class ContractDetails extends React.Component {
 
     render() {
-        const popDate = `${this.props.selectedAward.period_of_performance_start_date} -
-        ${this.props.selectedAward.period_of_performance_current_end_date}`;
-        const popPlace = `${this.props.selectedAward.pop_city},
-            ${this.props.selectedAward.pop_state_province}`;
+        let yearRangeTotal = "";
+        let description = null;
+        const award = this.props.selectedAward;
+
+        // Date Range
+        const startDate = moment(award.period_of_performance_start_date);
+        const endDate = moment(award.period_of_performance_current_end_date);
+        const yearRange = endDate.diff(startDate, 'year');
+        if (yearRange !== 0) {
+            yearRangeTotal = `(${yearRange} years)`;
+        }
+        const popDate = `${award.period_of_performance_start_date} -
+        ${award.period_of_performance_current_end_date} ${yearRangeTotal}`;
+
+        // Location
+        let popPlace = "";
+        let popZip = null;
+        if (award.pop_zip) {
+            popZip = award.pop_zip;
+        }
+        if (award.pop_city && award.pop_state_province && popZip) {
+            popPlace = `${award.pop_city}, ${award.pop_state_province} ${popZip}`;
+        }
+        else if (award.pop_city && !award.pop_state_province && popZip) {
+            popPlace = `${award.pop_city} ${popZip}`;
+        }
+        else if (award.pop_city && !award.pop_state_province && !popZip) {
+            popPlace = award.pop_city;
+        }
+        else if (!award.pop_city && award.pop_state_province && popZip) {
+            popPlace = `${award.pop_state_province} ${popZip}`;
+        }
+        else if (!award.pop_city && award.pop_state_province && !popZip) {
+            popPlace = award.pop_state_province;
+        }
+        if (award.description) {
+            description = award.description;
+        }
+        else {
+            description = "Not Available";
+        }
+
+        // Pricing
+        let pricing = "Not Available";
+        if (award.type_of_contract_pricing_description) {
+            pricing = award.type_of_contract_pricing_description;
+        }
+
         return (
             <div className="contract-wrapper">
                 <div className="contract-details">
@@ -26,7 +71,7 @@ export default class ContractDetails extends React.Component {
                         <tbody>
                             <ContractCell
                                 title="Description"
-                                value={this.props.selectedAward.description} />
+                                value={description} />
                             <ContractCell
                                 title="Period of Performance"
                                 value={popDate} />
@@ -35,10 +80,10 @@ export default class ContractDetails extends React.Component {
                                 value={popPlace} />
                             <ContractCell
                                 title="Contract Award Type"
-                                value={this.props.selectedAward.type_description} />
+                                value={award.type_description} />
                             <ContractCell
                                 title="Contract Pricing Type"
-                                value="Unknown" />
+                                value={pricing} />
                         </tbody>
                     </table>
                 </div>

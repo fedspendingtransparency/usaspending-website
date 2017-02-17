@@ -8,6 +8,7 @@
 
     @import "./summaryBar";
     @import "./infoBar";
+    @import "./awardContract";
 
     .main-content {
         @include outer-container(100%);

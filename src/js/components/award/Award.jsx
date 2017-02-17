@@ -10,10 +10,7 @@ import Error from '../sharedComponents/Error';
 import AwardInfo from './AwardInfo';
 
 const propTypes = {
-    award: React.PropTypes.oneOfType([
-        React.PropTypes.array,
-        React.PropTypes.object
-    ]),
+    award: React.PropTypes.object,
     noAward: React.PropTypes.bool
 };
 

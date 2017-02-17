@@ -12,25 +12,11 @@
         .triangle-wrapper {
             display: table-cell;
             position: relative;
-            .outer-triangle {
-                position:absolute;
-                width: 0;
-                height: 0;
-                border-top: 96px solid transparent;
-                border-bottom: 103px solid transparent;
-                border-left: 35px solid $color-primary-alt-light;
-                z-index: 2;
-            }
-            .triangle {
-                position:absolute;
-                width: 0;
-                height: 0;
-                border-top: 95px solid transparent;
-                border-bottom: 102px solid transparent;
-                border-left: 33px solid $color-blue-background;
-                z-index: 3;
-            }
+            width: rem(74px);
+            height: rem(204px);
+            @include background-image(url('../img/award_triangle.png'));
+            background-repeat: no-repeat;
         }
-}
+    }
 
 }

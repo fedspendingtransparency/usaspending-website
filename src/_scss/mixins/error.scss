@@ -1,13 +1,7 @@
-.error {
-    $color-gray-border: #D8D8D8;
-    $color-gray-text: #666666;
-    @include span-columns(16);
-    margin: 1rem 0 0 0;
+.error-container {
     padding: 2rem;
-    background-color: $color-white;
-    box-shadow: $container-shadow;
-    color: $color-gray-text;
-    border-top: 1px solid $color-gray-border;
-    border-right: 1px solid $color-gray-border;
-    border-bottom: 1px solid $color-gray-border;
+
+    h4 {
+        margin-top: 1rem;
+    }
 }

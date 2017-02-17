@@ -5,6 +5,6 @@
     margin: 0;
 
     @include media($nav-width) {
-        @include span-columns(6);
+        @include span-columns(7);
     }
 }
