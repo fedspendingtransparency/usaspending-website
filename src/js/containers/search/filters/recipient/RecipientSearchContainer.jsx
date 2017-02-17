@@ -8,23 +8,43 @@ import { connect } from 'react-redux';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
-//import LocationSearch from 'components/search/filters/location/LocationSearch';
+import RecipientSearch from 'components/search/filters/recipient/RecipientSearch';
 
 const propTypes = {
-
+    updateSelectedRecipients: React.PropTypes.func,
+    updateRecipientDomesticForeignSelection: React.PropTypes.func,
+    updateRecipientLocations: React.PropTypes.func
 };
 
-class RecipientSearchContainer extends React.Component {
+export class RecipientSearchContainer extends React.Component {
     constructor(props) {
         super(props);
 
         // Bind functions
+        this.toggleRecipient = this.toggleRecipient.bind(this);
+        this.toggleDomesticForeign = this.toggleDomesticForeign.bind(this);
+        this.toggleRecipientLocation = this.toggleRecipientLocation.bind(this);
+    }
+
+    toggleRecipient(recipient) {
+        this.props.updateSelectedRecipients(recipient);
+    }
+
+    toggleDomesticForeign(selection) {
+        this.props.updateRecipientDomesticForeignSelection(selection.target.value);
+    }
+
+    toggleRecipientLocation(recipientLocation) {
+        this.props.updateRecipientLocations(recipientLocation);
     }
 
     render() {
         return (
             <RecipientSearch
-                {...this.props} />
+                {...this.props}
+                toggleRecipient={this.toggleRecipient}
+                toggleDomesticForeign={this.toggleDomesticForeign}
+                toggleRecipientLocation={this.toggleRecipientLocation} />
         );
     }
 }
@@ -32,6 +52,9 @@ class RecipientSearchContainer extends React.Component {
 RecipientSearchContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ }),
+    (state) => ({
+        selectedRecipients: state.filters.selectedRecipients,
+        recipientDomesticForeign: state.filters.recipientDomesticForeign,
+        selectedRecipientLocations: state.filters.selectedRecipientLocations }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(RecipientSearchContainer);
