@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   # latest in each series
-  - "4"
+  - "4.4"
 # Need a C++ compiler
 addons:
   apt:
