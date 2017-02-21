@@ -224,7 +224,7 @@ describe('RecipientLocationContainer', () => {
 
         it('should populate Recipients after performing the search', () => {
             // Setup redux state
-            const reduxState = {
+            const reduxState = [{
                 '22796_McLean_COUNTY': {
                     place_type: "COUNTY",
                     matched_ids: [22796],
@@ -232,7 +232,7 @@ describe('RecipientLocationContainer', () => {
                     parent: "KENTUCKY",
                     identifier: "22796_McLean_COUNTY"
                 }
-            };
+            }];
 
             // setup mock redux actions for handling search results
             const mockReduxAction = jest.fn((args) => {
