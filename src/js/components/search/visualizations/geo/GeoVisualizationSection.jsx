@@ -6,6 +6,7 @@
 import React from 'react';
 
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
+import MapWrapper from './MapWrapper';
 
 const propTypes = {
     scope: React.PropTypes.string,
@@ -56,6 +57,8 @@ export default class GeoVisualizationSection extends React.Component {
                         </div>
                     </div>
                 </div>
+
+                <MapWrapper {...this.props} />
             </div>
         );
     }

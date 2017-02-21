@@ -12,7 +12,7 @@ const propTypes = {
     changeScope: React.PropTypes.func
 };
 
-export default class RankVisualizationScopeButton extends React.Component {
+export default class GeoVisualizationScopeButton extends React.Component {
     constructor(props) {
         super(props);
 
@@ -47,4 +47,4 @@ export default class RankVisualizationScopeButton extends React.Component {
     }
 }
 
-RankVisualizationScopeButton.propTypes = propTypes;
+GeoVisualizationScopeButton.propTypes = propTypes;
