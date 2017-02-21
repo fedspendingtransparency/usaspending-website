@@ -22,8 +22,15 @@ class SearchOperation {
         // this is used by the search results table "award type" tabs
         this.resultAwardType = [];
 
+        this.selectedLocations = [];
+        this.locationDomesticForeign = 'all';
+
         this.awardingAgencies = [];
         this.fundingAgencies = [];
+
+        this.selectedRecipients = [];
+        this.recipientDomesticForeign = 'all';
+        this.selectedRecipientLocations = [];
     }
 
     fromState(state) {

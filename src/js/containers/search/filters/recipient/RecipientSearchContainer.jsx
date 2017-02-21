@@ -1,4 +1,5 @@
 /**
+ * RecipientSearchContainer.jsx
  * Created by michaelbray on 2/16/17.
  */
 
