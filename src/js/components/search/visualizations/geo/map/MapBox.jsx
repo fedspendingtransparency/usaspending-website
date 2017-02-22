@@ -71,6 +71,11 @@ export default class MapBox extends React.Component {
         return this.map.getLayer(layerId);
     }
 
+    removeLayer(layerId) {
+        this.map.removeLayer(layerId);
+        this.map.removeSource(layerId);
+    }
+
     render() {
         console.log("RENDER");
         return (

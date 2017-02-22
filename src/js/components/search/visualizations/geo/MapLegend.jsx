@@ -6,8 +6,17 @@
 import React from 'react';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as MapHelper from 'helpers/mapHelper';
 
 import MapLegendItem from './MapLegendItem';
+
+const defaultProps = {
+    units: {
+        unit: 1,
+        precision: 0,
+        unitLabel: ''
+    }
+};
 
 export default class MapLegend extends React.Component {
     constructor(props) {
@@ -19,34 +28,45 @@ export default class MapLegend extends React.Component {
     }
 
     componentDidMount() {
-        this.prepareItems(this.props.segments);
+        this.prepareItems(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.prepareItems(nextProps.segments);
+        this.prepareItems(nextProps);
     }
 
-    prepareItems(segments) {
+    prepareItems(props) {
         const items = [];
 
-        segments.forEach((segment, i) => {
+        props.segments.forEach((segment, i) => {
             let label = '';
+
+            const color = MapHelper.visualizationColors[i];
+
+            const currencyValue = MoneyFormatter.formatMoneyWithPrecision(segment / props.units.unit, props.units.precision) + props.units.unitLabel;
+            let previousValue = '';
+
+            if (i > 0) {
+                previousValue = MoneyFormatter.formatMoneyWithPrecision(props.segments[i - 1] / props.units.unit, props.units.precision) + props.units.unitLabel;
+            }
+
             if (i === 0) {
                 // first item
-                label = `Less than ${MoneyFormatter.formatMoney(segment)}`;
+                label = `Less than ${currencyValue}`;
             }
-            else if (i + 1 === segments.length) {
+            else if (i + 1 === props.segments.length) {
                 // last item
-                label = `More than ${MoneyFormatter.formatMoney(segments[i-1])}`;
+                label = `More than ${previousValue}`;
             }
             else {
                 // remaining items
-                label = `${MoneyFormatter.formatMoney(segments[i-1])} to ${MoneyFormatter.formatMoney(segment)}`;
+                label = `${previousValue} to ${currencyValue}`;
             }
 
             const item = (<MapLegendItem
-                key={segment}
-                label={label} />);
+                key={`item-${i}`}
+                label={label}
+                color={color} />);
 
             items.push(item);
         });
@@ -66,3 +86,5 @@ export default class MapLegend extends React.Component {
         );
     }
 }
+
+MapLegend.defaultProps = defaultProps;

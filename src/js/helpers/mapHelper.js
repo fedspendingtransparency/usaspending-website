@@ -150,19 +150,37 @@ export const stateCodeFromName = (name) => {
     return null;
 };
 
-export const calculateRange = (range) => {
-    let min = _.min(range);
-    let max = _.max(range);
+export const calculateRange = (data) => {
+    let dataRange = data;
+    // handle a condition where an empty array is provided
+    if (data.length < 1) {
+        dataRange = [0, 10000];
+    }
+
+    let min = _.min(dataRange);
+    let max = _.max(dataRange);
+
+    // determine the best units to use
+    const units = MoneyFormatter.calculateUnits(dataRange);
+
+    // round the minimum down to the cleanest unit point
+    min = Math.floor(min / units.unit);
+    max = Math.ceil(max / units.unit);
+
+    // determine the current step values, round it to something divisible by
+    const step = Math.ceil((max - min) / 6);
+    max = min + (6 * step);
 
     const segments = [];
-    const scale = scaleLinear().domain([min, max]).range([0, 6]).nice();
-    for (let i = 1; i < 5; i++) {
+    const scale = scaleLinear().domain([min * units.unit, max * units.unit]).range([0, 5]);
+    for (let i = 1; i <= 6; i++) {
         segments.push(scale.invert(i));
     }
 
     return {
         scale,
-        segments
+        segments,
+        units
     };
 };
 

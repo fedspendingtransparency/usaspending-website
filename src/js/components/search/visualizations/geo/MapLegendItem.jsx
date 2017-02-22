@@ -7,10 +7,14 @@ import React from 'react';
 
 export default class MapLegendItem extends React.Component {
     render() {
+        const swatchStyle = {
+            backgroundColor: this.props.color
+        };
+
         return (
             <li className="map-legend-item-container">
                 <div className="map-legend-item">
-                    <div className="color-swatch" />
+                    <div className="color-swatch" style={swatchStyle} />
                     <div className="label">
                         {this.props.label}
                     </div>

@@ -32,7 +32,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.state = {
             scope: 'pop',
-            data: {},
+            data: {
+                values: [],
+                states: []
+            },
             renderHash: `geo-${_.uniqueId()}`
         };
 
@@ -42,7 +45,22 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.fetchData();
+        // this.fetchData();
+        window.setTimeout(() => {
+            this.setState({
+                data: {
+                    states: ['PA'],
+                    values: [15034]
+                },
+                renderHash: `geo-${_.uniqueId()}`
+            });
+        }, 1000);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
+            // this.fetchData();
+        }
     }
 
     changeScope(scope) {
@@ -74,10 +92,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
             limit: 60
         };
 
-        this.setState({
-            loading: true
-        });
-
 
         if (this.apiRequest) {
             this.apiRequest.cancel();
@@ -100,12 +114,14 @@ export class GeoVisualizationSectionContainer extends React.Component {
         const spendingStates = [];
 
         data.results.forEach((item) => {
-            spendingStates.push(item.item);
-            spendingValues.push(parseFloat(item.aggregate));
+            // state must not be null or empty string
+            if (item.item && item.item !== '') {
+                spendingStates.push(item.item);
+                spendingValues.push(parseFloat(item.aggregate));
+            }
         });
 
         this.setState({
-            loading: false,
             data: {
                 values: spendingValues,
                 states: spendingStates

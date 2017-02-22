@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-
+import Q from 'q';
 import _ from 'lodash';
 
 import kGlobalConstants from 'GlobalConstants';
@@ -13,6 +13,17 @@ import * as MapHelper from 'helpers/mapHelper';
 
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
+
+const propTypes = {
+    data: React.PropTypes.object
+};
+
+const defaultProps = {
+    data: {
+        states: [],
+        values: []
+    }
+};
 
 export default class MapWrapper extends React.Component {
     constructor(props) {
@@ -23,7 +34,8 @@ export default class MapWrapper extends React.Component {
             stateData: [],
             spendingScale: {
                 scale: null,
-                segments: []
+                segments: [],
+                units: {}
             },
             mapReady: false
         };
@@ -34,8 +46,6 @@ export default class MapWrapper extends React.Component {
 
         this.mapReady = this.mapReady.bind(this);
         this.mapRemoved = this.mapRemoved.bind(this);
-
-        this.displayData = this.displayData.bind(this);
     }
 
     componentDidMount() {
@@ -53,7 +63,12 @@ export default class MapWrapper extends React.Component {
         this.setState({
             mapReady: true
         }, () => {
-            this.loadStateShapes();
+            this.loadStateShapes()
+                .then(() => {
+                    // we depend on the state shapes to process the state fills, so the operation
+                    // queue must wait for the state shapes to load first
+                    this.runMapOperationQueue();
+                });
         });
     }
 
@@ -65,8 +80,10 @@ export default class MapWrapper extends React.Component {
     }
 
     loadStateShapes() {
+        const deferred = Q.defer();
         if (!this.state.mapReady) {
-            return;
+            deferred.resolve();
+            return deferred.promise;
         }
 
         // fetch the state shapes
@@ -96,8 +113,15 @@ export default class MapWrapper extends React.Component {
 
                 this.setState({
                     stateShapes: states
+                }, () => {
+                    deferred.resolve();
                 });
+            })
+            .catch((err) => {
+                deferred.reject(err);
             });
+
+        return deferred.promise;
     }
 
     drawStateOutline(stateCode, geometry) {
@@ -142,30 +166,33 @@ export default class MapWrapper extends React.Component {
     }
 
     runMapOperationQueue() {
-        if (!this.state.mapReady) {
-            // map is still not ready, wait another 500ms
-            this.mapOperationTimer = window.setTimeout(() => {
-                this.runMapOperationQueue();
-            }, 500);
-            return;
-        }
+        // if (!this.state.mapReady) {
+        //     // map is still not ready, wait another 500ms
+        //     this.mapOperationTimer = window.setTimeout(() => {
+        //         this.runMapOperationQueue();
+        //     }, 500);
+        //     return;
+        // }
+
+        console.log("QUEUE READY");
 
         Object.keys(this.mapOperationQueue).forEach((key) => {
             const op = this.mapOperationQueue[key];
-            op();
+            op.call(this);
         });
         this.mapOperationTimer = null;
+        this.mapOperationQueue = {};
     }
 
     queueMapOperation(name, operation) {
         this.mapOperationQueue[name] = operation;
 
         // check if an operation timer exists, if not, create it
-        if (!this.mapOperationTimer) {
-            this.mapOperationTimer = window.setTimeout(() => {
-                this.runMapOperationQueue();
-            }, 500);
-        }
+        // if (!this.mapOperationTimer) {
+        //     this.mapOperationTimer = window.setTimeout(() => {
+        //         this.runMapOperationQueue();
+        //     }, 500);
+        // }
     }
 
     displayData() {
@@ -173,12 +200,14 @@ export default class MapWrapper extends React.Component {
         if (!this.state.mapReady) {
             // add to the map operation queue
             this.queueMapOperation('displayData', this.displayData);
+            console.log("queued");
             return;
         }
 
         // remove all current states
-        this.state.stateData.forEach((state) => {
-            this.map.removeLayer(state);
+        console.log(this.props.data);
+        this.state.stateData.forEach((layer) => {
+            this.mapRef.removeLayer(layer);
         });
 
         // calculate the range of data
@@ -197,7 +226,6 @@ export default class MapWrapper extends React.Component {
                 const color = MapHelper.visualizationColors[group];
                 this.fillState(state, color);
 
-                // this.addState(state, color);
                 mapStates.push(`${state}-fill`);
             }
         });
@@ -206,39 +234,6 @@ export default class MapWrapper extends React.Component {
             stateData: mapStates,
             spendingScale: scale
         });
-    }
-
-    addState(stateCode, color) {
-        const fillLayer = Object.assign({}, {
-            id: `${stateCode}-fill`,
-            type: 'fill',
-            source: {
-                type: 'geojson',
-                data: this.state.stateShapes[stateCode].shape
-            },
-            layout: {},
-            paint: {
-                'fill-color': color,
-                'fill-opacity': 0.9
-            }
-        });
-
-        const strokeLayer = Object.assign({}, {
-            id: `${stateCode}-stroke`,
-            type: 'line',
-            source: {
-                type: 'geojson',
-                data: this.state.stateShapes[stateCode].shape
-            },
-            layout: {},
-            paint: {
-                'line-color': '#000',
-                'line-opacity': 1
-            }
-        });
-
-        this.map.addLayer(strokeLayer);
-        this.map.addLayer(fillLayer, 'state-label-sm');
     }
 
     render() {
@@ -250,8 +245,13 @@ export default class MapWrapper extends React.Component {
                     ref={(component) => {
                         this.mapRef = component;
                     }} />
-                <MapLegend segments={this.state.spendingScale.segments} />
+                <MapLegend
+                    segments={this.state.spendingScale.segments}
+                    units={this.state.spendingScale.units} />
             </div>
         );
     }
 }
+
+MapWrapper.propTypes = propTypes;
+MapWrapper.defaultProps = defaultProps;
