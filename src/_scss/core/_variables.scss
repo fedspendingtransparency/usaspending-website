@@ -41,9 +41,9 @@ $color-secondary-darkest:    #981b1e;
 $color-secondary-light:      #e59393; // lighten($color-secondary, 60%)
 $color-secondary-lightest:   #f9dede; // lighten($color-secondary, 90%)
 
-$color-white:                #ffffff;
-$color-base:                 #212121;
-$color-black:                #000000;
+$color-white:                #fff;
+$color-base:                 #555;
+$color-black:                #000;
 
 $color-gray-dark:            #323a45;
 $color-gray:                 #5b616b; // lighten($color-gray-dark, 20%)
@@ -71,13 +71,21 @@ $color-cool-blue-light:      #4773aa; // lighten($color-cool-blue, 20%)
 $color-cool-blue-lighter:    #8ba6ca; // lighten($color-cool-blue, 60%)
 $color-cool-blue-lightest:   #dce4ef; // lighten($color-cool-blue, 90%)
 
+$color-vis-lightest:		 #d0e9ef;
+$color-vis-lighter:		 	 #a7c2ca;
+$color-vis-light:		 	 #7f9ba7;
+$color-vis-dark:		 	 #597785;
+$color-vis-darker:		 	 #335565;
+$color-vis-darkest:		 	 #083546;
+
+$color-active:				 #F2B733;
+
 $color-focus:                #3e94cf;
 $color-visited:              #4c2c92;
 
 $color-shadow:               rgba(#000, 0.3);
-$color-tab-inactive:		 #9DA3AB; // color for inactive tab 
+$color-tab-inactive:		 #f1f1f1; // color for inactive tab 
 
-$color-active:				 #F2B733;
 
 
 // Mobile First Breakpoints

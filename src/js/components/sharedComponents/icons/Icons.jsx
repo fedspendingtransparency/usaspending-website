@@ -236,6 +236,13 @@ Pie.defaultProps = {
     alt: 'Pie Graph Icon'
 };
 
+export class Line extends BaseIcon {}
+Line.defaultProps = {
+    iconName: 'usa-da-icon-line',
+    iconClass: 'usa-da-icon-line',
+    alt: 'Line Graph Icon'
+};
+
 export class Filter extends BaseIcon {}
 Filter.defaultProps = {
     iconName: 'usa-da-icon-filter',
@@ -262,4 +269,11 @@ ArrowUp.defaultProps = {
     iconName: 'usa-da-icon-arrow-up',
     iconClass: 'usa-da-icon-arrow-up',
     alt: 'Icon Depicting an Arrow Pointed Up'
+};
+
+export class Guide extends BaseIcon {}
+Guide.defaultProps = {
+    iconName: 'usa-da-icon-guide',
+    iconClass: 'usa-da-icon-guide',
+    alt: 'Icon Depicting a Guide Book'
 };

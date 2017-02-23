@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import Accounting from 'accounting';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
     y: React.PropTypes.number,
@@ -43,23 +43,7 @@ export default class TimeVisualizationTooltip extends React.Component {
     }
 
     render() {
-        const accountingOptions = {
-            symbol: '$',
-            precision: 0,
-            format: {
-                pos: '%s%v',
-                neg: '-%s%v'
-            }
-        };
-
-        const dollarValue = Accounting.formatMoney(this.props.data.yValue, accountingOptions);
-
-        // calculate round the percentage of total to 1 decimal value
-        let percentageValue = Math.round(this.props.data.percentage * 1000) / 10;
-        if (percentageValue % 1 === 0) {
-            // add a trailing .0 for whole numbers
-            percentageValue += '.0';
-        }
+        const dollarValue = MoneyFormatter.formatMoney(this.props.data.yValue);
 
         return (
             <div className="visualization-tooltip">
@@ -87,7 +71,7 @@ export default class TimeVisualizationTooltip extends React.Component {
                         </div>
                         <div className="tooltip-right">
                             <div className="tooltip-value">
-                                {percentageValue}%
+                                {this.props.data.percentage}%
                             </div>
                             <div className="tooltip-label">
                                 Percent of Total Spending

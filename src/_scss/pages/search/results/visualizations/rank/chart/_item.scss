@@ -1,0 +1,29 @@
+.chart-group {
+    .group-background {
+        fill: #F7F7F7;
+
+        &.even {
+            fill: #FFFFFF;
+        }
+    }
+
+    .group-label {
+        font-size: 14px;
+        color: #555555;
+    }
+}
+
+.chart-bars {
+    .chart-bar {
+        fill: $color-vis-dark;
+        opacity: 0.85;
+        
+        &:hover, &.hover {
+            fill: $color-active;
+        }
+    }
+
+    .chart-bar-hitzone {
+        fill: transparent;
+    }
+}
