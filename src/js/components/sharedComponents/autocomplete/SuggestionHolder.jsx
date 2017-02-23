@@ -9,7 +9,8 @@ const propTypes = {
     select: React.PropTypes.func,
     suggestions: React.PropTypes.array,
     selectedIndex: React.PropTypes.number,
-    maxSuggestions: React.PropTypes.number
+    maxSuggestions: React.PropTypes.number,
+    shown: React.PropTypes.string
 };
 
 const defaultProps = {
