@@ -10,6 +10,7 @@ import TimePeriodDRFilterGroup from './TimePeriodDRFilterGroup';
 import AwardTypeFilterGroup from './AwardTypeFilterGroup';
 import LocationFilterGroup from './LocationFilterGroup';
 import AgencyFilterGroup from './AgencyFilterGroup';
+import RecipientFilterGroup from './RecipientFilterGroup';
 
 export const topFilterGroupGenerator = (config = {
     filter: {
@@ -29,11 +30,19 @@ export const topFilterGroupGenerator = (config = {
         case 'awardType':
             return <AwardTypeFilterGroup key={groupKey} {...config} />;
         case 'selectedLocations':
-            return <LocationFilterGroup key={groupKey} {...config} />;
+            return (<LocationFilterGroup
+                key={groupKey} {...config}
+                toggle="locationDomesticForeign" />);
         case 'selectedFundingAgencies':
             return <AgencyFilterGroup key={groupKey} {...config} />;
         case 'selectedAwardingAgencies':
             return <AgencyFilterGroup key={groupKey} {...config} />;
+        case 'selectedRecipients':
+            return <RecipientFilterGroup key={groupKey} {...config} />;
+        case 'selectedRecipientLocations':
+            return (<LocationFilterGroup
+                key={groupKey} {...config}
+                toggle="recipientDomesticForeign" />);
         default:
             return null;
     }

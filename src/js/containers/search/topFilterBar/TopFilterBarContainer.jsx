@@ -79,6 +79,16 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(selectedAwardingAgencyFilters);
         }
 
+        const selectedRecipientFilters = this.prepareRecipients(props);
+        if (selectedRecipientFilters) {
+            filters.push(selectedRecipientFilters);
+        }
+
+        const selectedRecipientLocationFilters = this.prepareRecipientLocations(props);
+        if (selectedRecipientLocationFilters) {
+            filters.push(selectedRecipientLocationFilters);
+        }
+
         this.setState({
             filters
         });
@@ -179,7 +189,7 @@ export class TopFilterBarContainer extends React.Component {
 
         if (selected) {
             filter.code = 'selectedLocations';
-            filter.name = 'Location';
+            filter.name = 'Place of Performance Location';
             return filter;
         }
         return null;
@@ -224,6 +234,68 @@ export class TopFilterBarContainer extends React.Component {
     }
 
     /**
+     * Logic for parsing the current Redux selected Recipients into a JS object
+     * that can be parsed by the top filter bar
+     */
+    prepareRecipients(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.selectedRecipients.count() > 0) {
+            // Recipients have been selected
+            selected = true;
+            filter.values = props.selectedRecipients.toArray();
+        }
+
+        if (selected) {
+            filter.code = 'selectedRecipients';
+            filter.name = 'Recipient';
+            return filter;
+        }
+
+        return null;
+    }
+
+    /**
+     * Logic for parsing the current Redux selected Recipient Locations and Recipient Location
+     * Scope into a JS object that can be parsed by the top filter bar
+     */
+    prepareRecipientLocations(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.selectedRecipientLocations.count() > 0) {
+            // locations have been selected
+            selected = true;
+            filter.values = props.selectedRecipientLocations.toArray();
+            filter.scope = props.recipientDomesticForeign;
+        }
+
+        // add an extra property to handle location scope
+        if (props.recipientDomesticForeign !== 'all') {
+            // we are handling this in its own if block to handle a case where no locations
+            // have been selected, but the scope is not 'all'
+            selected = true;
+            filter.scope = props.recipientDomesticForeign;
+            // add the scope as a value item so the total filter count is correctly summed
+            filter.values.push({
+                isScope: true
+            });
+        }
+
+        if (selected) {
+            filter.code = 'selectedRecipientLocations';
+            filter.name = 'Recipient Location';
+            return filter;
+        }
+        return null;
+    }
+
+    /**
      * Generic function that can be called to overwrite a filter with a specified value. This is
      * useful for filters that have complex logic associated with item or group removal (such as
      * award type groups).
@@ -255,7 +327,8 @@ export class TopFilterBarContainer extends React.Component {
             this.removeFromSet(type, value);
         }
         else if (type === 'selectedLocations' || type === 'selectedFundingAgencies'
-            || type === 'selectedAwardingAgencies') {
+            || type === 'selectedAwardingAgencies' || type === 'selectedRecipients'
+            || type === 'selectedRecipientLocations') {
             this.removeFromOrderedMap(type, value);
         }
     }
@@ -341,6 +414,11 @@ export class TopFilterBarContainer extends React.Component {
             // selected locations is actually two fields, so reset them both
             this.resetGenericField('selectedLocations');
             this.resetGenericField('locationDomesticForeign');
+        }
+        else if (type === 'selectedRecipientLocations') {
+            // selected locations is actually two fields, so reset them both
+            this.resetGenericField('selectedRecipientLocations');
+            this.resetGenericField('recipientDomesticForeign');
         }
         else {
             this.resetGenericField(type);
