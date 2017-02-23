@@ -1,0 +1,11 @@
+.contract-details-table-section {
+  padding: 3rem 3.5rem;
+  transition: opacity 0.25s ease;
+
+  @import "_tableTabs";
+
+  .details-table-width-master {
+    width: 100%;
+  }
+
+}

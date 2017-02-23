@@ -15,6 +15,7 @@ const propTypes = {
 export default class AwardAmounts extends React.Component {
 
     render() {
+        const recipient = this.props.selectedAward.recipient_name.toLowerCase();
         // Math
         const potential = accounting.unformat(this.props.selectedAward.total_obligation);
         const current =
@@ -33,8 +34,8 @@ export default class AwardAmounts extends React.Component {
             truncatedPercent = _.ceil(percentage, 2);
         }
 
-        // TO-DO: When subaward amount is available on endpoint,
-        // add it here if it exists, as per mockup
+        // TODO: When subaward amount is available on endpoint,add it here if it exists, as per mockup
+        // TODO: round dollar amounts in description to billions/ millions
         const subAward = "";
         return (
             <div className="amounts-wrapper">
@@ -42,10 +43,10 @@ export default class AwardAmounts extends React.Component {
                     <h4>Award Amounts</h4>
                     <div className="border" />
                     <div className="text-details">
-                        <b>{this.props.selectedAward.potential_total_value_of_award}</b>,
-                            or <b>{truncatedPercent}%</b>, of the potential
-                            <b> {this.props.selectedAward.total_obligation} </b>
-                             award ceiling, has been obligated. { subAward }
+                        <p>This contract was awarded to <b className="recipient-name">{recipient}</b> with
+                            a ceiling of <b>{this.props.selectedAward.total_obligation}</b>.
+                            Of this amount, <b>{truncatedPercent}% ({this.props.selectedAward.potential_total_value_of_award})</b> has
+                            been obligated. { subAward }</p>
                     </div>
                     <AmountsChartContainer
                         potential={potential}
