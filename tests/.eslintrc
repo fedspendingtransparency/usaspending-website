@@ -67,6 +67,8 @@
         "no-plusplus": [2, {
             "allowForLoopAfterthoughts": true
         }],
+        // allow continue statements
+        "no-continue": [0],
         // allow importing devDependencies for tests
         "import/no-extraneous-dependencies": [
             2,

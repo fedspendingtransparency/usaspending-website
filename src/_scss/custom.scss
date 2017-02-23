@@ -2,11 +2,12 @@
 
 // ***** GLOBAL
 @import './mixins/background';
-
+@import './mixins/error';
 
 // ***** PAGES
 @import './pages/homepage';
 @import './pages/search/searchPage';
+@import './pages/award/awardPage';
 
 @import './pages/testStyle/testStyle';
 

@@ -1,0 +1,59 @@
+.visualization-pager-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+
+    .visualization-pager {
+        display: inline-block;
+        @include button-unstyled;
+        width: 140px;
+        height: 30px;
+
+        margin-top: 20px;
+
+        color: #5B616B;
+        font-size: 12px;
+        line-height: 18px;
+
+        border: 1px solid #D5D6D8;
+
+        margin-left: 20px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        .pager-content {
+            @include clearfix();
+        }
+
+        .pager-label {
+            float: left;
+
+            &.next {
+                margin-left: 20px;
+            }
+        }
+
+        .icon {
+            float: left;
+            margin: 0 5px;
+            margin-top: 2px;
+
+            svg {
+                height: 12px;
+                width: 12px;
+                fill: #5B616B;
+            }
+        }
+
+        &[disabled] {
+            opacity: 0.3;
+        }
+
+        &.hide {
+            display: none;
+        }
+
+    }
+}

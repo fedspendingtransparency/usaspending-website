@@ -3,23 +3,13 @@
     margin-bottom: 20px;
 
     display: table;
+
+    @import "../../../../../components/visualizations/_description";
 }
 
 .visualization-description {
     display: table-cell;
     vertical-align: middle;
-
-    .content {
-        font-size: $small-font-size;
-        line-height: 26px;
-        color: #525252;
-
-        margin-right: 20px;
-
-        @include media($medium-screen) {
-            margin-right: 50px;
-        }
-    }
 }
 
 .visualization-period {

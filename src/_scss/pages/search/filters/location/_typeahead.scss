@@ -16,26 +16,45 @@
         width: 90%;
     }
 
-    .awesomplete ul li {
-        line-height: 2rem;
-        font-size: $small-font-size;
-        font-weight: normal;
-        padding: 1rem 2rem;
-        color: #555555;
+    .autocomplete ul {
+        background-color: $color-white;
+        border: 1px solid $color-gray-lighter;
+        cursor: default;
+        list-style-type: none;
+        padding: 0;
+        width: 90%;
 
-        &:hover,
-        &.hover,
-        &[aria-selected="true"] {
-            background-color: $color-primary-alt-lightest;
-            cursor: pointer;
-            color: #333;
-            * {
-                color: $color-gray;
+        li {
+            line-height: 2rem;
+            font-size: $small-font-size;
+            font-weight: normal;
+            padding: 1rem 2rem;
+            color: #555555;
+            border-bottom: 1px solid $color-gray-lighter;
+            margin-bottom: 0;
+            width: 100%;
+            vertical-align: middle;
+
+            &:hover,
+            &.hover,
+            &[aria-selected="true"] {
+                background-color: $color-primary-alt-lightest;
+                cursor: pointer;
+                color: #333;
+                * {
+                    color: $color-gray;
+                }
+                mark {
+                    background-color: $color-gray-lighter;
+                    color: $color-gray;
+                }
             }
-            mark {
-                background-color: $color-gray-lighter;
-                color: $color-gray;
-            }
+
+
         }
+    }
+
+    .hide {
+        display: none;
     }
 }

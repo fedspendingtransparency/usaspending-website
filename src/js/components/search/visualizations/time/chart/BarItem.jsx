@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import Accounting from 'accounting';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const defaultProps = {
     active: false
@@ -61,14 +61,7 @@ export default class BarItem extends React.Component {
     }
 
     render() {
-        const formattedValue = Accounting.formatMoney(this.props.dataY, {
-            symbol: '$',
-            precision: 0,
-            format: {
-                pos: '%s%v',
-                neg: '-%s%v'
-            }
-        });
+        const formattedValue = MoneyFormatter.formatMoney(this.props.dataY);
 
         // generate an invisible hitbox that spans the full height of the graph and matches the
         // width of the data point bar to trigger hover events anywhere along the Y axis for the
