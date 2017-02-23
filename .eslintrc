@@ -29,6 +29,8 @@
         "react/jsx-indent-props": [2, 4],
         // closing brackets should be aligned with the final prop (props.. />)
         "react/jsx-closing-bracket-location": [2, "after-props"],
+        // downgrading to warning when using props purely within componentWillReceiveProps
+        "react/no-unused-prop-types": [1],
         // also set the tab width for the max line width with a max length of 100
         "max-len": [1, 100, {"tabWidth": 4}],
         // do not allow dangling commas at the end of arrays, objects, etc.
