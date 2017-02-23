@@ -708,6 +708,110 @@ describe('TopFilterBarContainer', () => {
             topBarContainer.instance().removeFilter('selectedFundingAgencies', '1788_subtier');
         });
 
+        it('should be able to trigger Redux actions that can reset the entire location filter', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                locationDomesticForeign: 'domestic',
+                selectedLocations: new OrderedMap({
+                    '1,2_LOS ANGELES_CITY': {
+                        matched_ids: [1, 2],
+                        parent: 'CALIFORNIA',
+                        place_type: 'CITY',
+                        place: 'LOS ANGELES',
+                        identifier: '1,2_LOS ANGELES_CITY'
+                    }
+                })
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('selectedLocations');
+
+            // validate that the clearFilterType Redux action is called twice
+            expect(mockReduxAction).toHaveBeenCalledTimes(2);
+        });
+
+        it('should be able to trigger Redux actions that can reset the specific location filter values', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                locationDomesticForeign: 'domestic',
+                selectedLocations: new OrderedMap({
+                    '1,2_LOS ANGELES_CITY': {
+                        matched_ids: [1, 2],
+                        parent: 'CALIFORNIA',
+                        place_type: 'CITY',
+                        place: 'LOS ANGELES',
+                        identifier: '1,2_LOS ANGELES_CITY'
+                    },
+                    '3,4_TORONTO_CITY': {
+                        matched_ids: [3, 4],
+                        parent: 'CANADA',
+                        place_type: 'CITY',
+                        place: 'TORONTO',
+                        identifier: '3,4_TORONTO_CITY'
+                    }
+                })
+            });
+
+            const expectedReduxArguments = {
+                type: 'selectedLocations',
+                value: new OrderedMap({
+                    '3,4_TORONTO_CITY': {
+                        matched_ids: [3, 4],
+                        parent: 'CANADA',
+                        place_type: 'CITY',
+                        place: 'TORONTO',
+                        identifier: '3,4_TORONTO_CITY'
+                    }
+                })
+            };
+
+            // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+
+            topBarContainer.instance().removeFilter('selectedLocations', '1,2_LOS ANGELES_CITY');
+        });
+
+        it('should be able to trigger Redux actions that can overwrite entire filter group values', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                awardType: new Set(['03', '04'])
+            });
+
+            const expectedReduxArguments = {
+                type: 'awardType',
+                value: new Set(['01', '02'])
+            };
+
+            // validate that the Redux action receives the arguments it is expecting
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function the overwrite a filter
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+            topBarContainer.instance().overwriteFilter('awardType', new Set(['01', '02']));
+
+            // validate that the Redux function is called
+            expect(mockReduxAction).toHaveBeenCalled();
+        });
+
         it('should be able to trigger Redux actions that can reset the entire Awarding Agency Filter', () => {
             const initialFilters = Object.assign({}, defaultFilters, {
                 selectedAwardingAgencies: new OrderedMap({
@@ -832,118 +936,6 @@ describe('TopFilterBarContainer', () => {
 
             // validate that the clearFilterType Redux action is called twice
             expect(mockReduxAction).toHaveBeenCalledTimes(1);
-        });
-
-        it('should be able to trigger Redux actions that can reset the entire location filter', () => {
-            const initialFilters = Object.assign({}, defaultFilters, {
-                locationDomesticForeign: 'domestic',
-                selectedLocations: new OrderedMap({
-                    '1,2_LOS ANGELES_CITY': {
-                        matched_ids: [1, 2],
-                        parent: 'CALIFORNIA',
-                        place_type: 'CITY',
-                        place: 'LOS ANGELES',
-                        identifier: '1,2_LOS ANGELES_CITY'
-                    }
-                })
-            });
-
-            const mockReduxAction = jest.fn();
-
-            // setup the top bar container and call the function to remove a single location
-            // group
-            const topBarContainer = setup({
-                reduxFilters: initialFilters,
-                clearFilterType: mockReduxAction
-            });
-
-            topBarContainer.instance().clearFilterGroup('selectedLocations');
-
-            // validate that the clearFilterType Redux action is called twice
-            expect(mockReduxAction).toHaveBeenCalledTimes(2);
-        });
-
-        it('should be able to trigger Redux actions that can reset the specific location filter values', () => {
-            const initialFilters = Object.assign({}, defaultFilters, {
-                locationDomesticForeign: 'domestic',
-                selectedLocations: new OrderedMap({
-                    '1,2_LOS ANGELES_CITY': {
-                        matched_ids: [1, 2],
-                        parent: 'CALIFORNIA',
-                        place_type: 'CITY',
-                        place: 'LOS ANGELES',
-                        identifier: '1,2_LOS ANGELES_CITY'
-                    },
-                    '3,4_TORONTO_CITY': {
-                        matched_ids: [3, 4],
-                        parent: 'CANADA',
-                        place_type: 'CITY',
-                        place: 'TORONTO',
-                        identifier: '3,4_TORONTO_CITY'
-                    }
-                })
-            });
-
-            const expectedReduxArguments = {
-                type: 'selectedLocations',
-                value: new OrderedMap({
-                    '3,4_TORONTO_CITY': {
-                        matched_ids: [3, 4],
-                        parent: 'CANADA',
-                        place_type: 'CITY',
-                        place: 'TORONTO',
-                        identifier: '3,4_TORONTO_CITY'
-                    }
-                })
-            };
-
-            // mock the redux action to test that the arguments match what is expected
-            const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual(expectedReduxArguments);
-            });
-
-            // setup the top bar container and call the function to remove a single location
-            // group
-            const topBarContainer = setup({
-                reduxFilters: initialFilters,
-                updateGenericFilter: mockReduxAction
-            });
-
-            topBarContainer.instance().removeFilter('selectedLocations', '1,2_LOS ANGELES_CITY');
-        });
-
-        it('should be able to trigger Redux actions that can overwrite entire filter group values', () => {
-            const initialFilters = Object.assign({}, defaultFilters, {
-                awardType: new Set(['03', '04'])
-            });
-
-            const expectedReduxArguments = {
-                type: 'awardType',
-                value: new Set(['01', '02'])
-            };
-
-            // validate that the Redux action receives the arguments it is expecting
-            const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual(expectedReduxArguments);
-            });
-
-            // setup the top bar container and call the function the overwrite a filter
-            const topBarContainer = setup({
-                reduxFilters: initialFilters,
-                updateGenericFilter: mockReduxAction
-            });
-            topBarContainer.instance().overwriteFilter('awardType', new Set(['01', '02']));
-
-            // validate that the Redux function is called
-            expect(mockReduxAction).toHaveBeenCalled();
-        });
-
-        it('should be able to trigger Redux actions that can reset the entire Awarding Agency Filter', () => {
-
-        });
-
-        it('should be able to trigger Redux actions that can reset the entire Funding Agency Filter', () => {
-
         });
     });
 });
