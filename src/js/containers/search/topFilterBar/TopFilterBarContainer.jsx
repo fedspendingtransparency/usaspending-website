@@ -69,6 +69,16 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(selectedLocationFilters);
         }
 
+        const selectedFundingAgencyFilters = this.prepareAgencies(props, 'funding');
+        if (selectedFundingAgencyFilters) {
+            filters.push(selectedFundingAgencyFilters);
+        }
+
+        const selectedAwardingAgencyFilters = this.prepareAgencies(props, 'awarding');
+        if (selectedAwardingAgencyFilters) {
+            filters.push(selectedAwardingAgencyFilters);
+        }
+
         this.setState({
             filters
         });
@@ -176,6 +186,44 @@ export class TopFilterBarContainer extends React.Component {
     }
 
     /**
+     * Logic for parsing the current Redux selected Awarding and Funding Agencies into a JS object
+     * that can be parsed by the top filter bar
+     */
+    prepareAgencies(props, type) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (type === 'funding') {
+            if (props.selectedFundingAgencies.count() > 0) {
+                // Funding Agencies have been selected
+                selected = true;
+                filter.values = props.selectedFundingAgencies.toArray();
+            }
+
+            if (selected) {
+                filter.code = 'selectedFundingAgencies';
+                filter.name = 'Funding Agency';
+                return filter;
+            }
+        }
+        else if (props.selectedAwardingAgencies.count() > 0) {
+            // Awarding Agencies have been selected
+            selected = true;
+            filter.values = props.selectedAwardingAgencies.toArray();
+
+            if (selected) {
+                filter.code = 'selectedAwardingAgencies';
+                filter.name = 'Awarding Agency';
+                return filter;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Generic function that can be called to overwrite a filter with a specified value. This is
      * useful for filters that have complex logic associated with item or group removal (such as
      * award type groups).
@@ -206,7 +254,8 @@ export class TopFilterBarContainer extends React.Component {
         else if (type === 'awardType') {
             this.removeFromSet(type, value);
         }
-        else if (type === 'selectedLocations') {
+        else if (type === 'selectedLocations' || type === 'selectedFundingAgencies'
+            || type === 'selectedAwardingAgencies') {
             this.removeFromOrderedMap(type, value);
         }
     }
