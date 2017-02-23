@@ -14,6 +14,8 @@ import * as MapHelper from 'helpers/mapHelper';
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
 
+import GeoVisualizationTooltip from './GeoVisualizationTooltip';
+
 const propTypes = {
     data: React.PropTypes.object
 };
@@ -108,7 +110,7 @@ export default class MapWrapper extends React.Component {
                     };
 
                     states[stateCode] = state;
-                    this.drawStateOutline(stateCode, state.shape);
+                    // this.drawStateOutline(stateCode, state.shape);
                 });
 
                 this.setState({
@@ -124,14 +126,14 @@ export default class MapWrapper extends React.Component {
         return deferred.promise;
     }
 
-    drawStateOutline(stateCode, geometry) {
+    outlineState(stateCode) {
         const layerId = `${stateCode}-border`;
         const borderLayer = Object.assign({}, {
             id: layerId,
             type: 'line',
             source: {
                 type: 'geojson',
-                data: geometry
+                data: this.state.stateShapes[stateCode].shape
             },
             layout: {},
             paint: {
@@ -159,6 +161,9 @@ export default class MapWrapper extends React.Component {
             paint: {
                 'fill-color': color,
                 'fill-opacity': 0.9
+            },
+            metadata: {
+                stateCode
             }
         });
 
@@ -166,16 +171,6 @@ export default class MapWrapper extends React.Component {
     }
 
     runMapOperationQueue() {
-        // if (!this.state.mapReady) {
-        //     // map is still not ready, wait another 500ms
-        //     this.mapOperationTimer = window.setTimeout(() => {
-        //         this.runMapOperationQueue();
-        //     }, 500);
-        //     return;
-        // }
-
-        console.log("QUEUE READY");
-
         Object.keys(this.mapOperationQueue).forEach((key) => {
             const op = this.mapOperationQueue[key];
             op.call(this);
@@ -186,13 +181,6 @@ export default class MapWrapper extends React.Component {
 
     queueMapOperation(name, operation) {
         this.mapOperationQueue[name] = operation;
-
-        // check if an operation timer exists, if not, create it
-        // if (!this.mapOperationTimer) {
-        //     this.mapOperationTimer = window.setTimeout(() => {
-        //         this.runMapOperationQueue();
-        //     }, 500);
-        // }
     }
 
     displayData() {
@@ -200,21 +188,22 @@ export default class MapWrapper extends React.Component {
         if (!this.state.mapReady) {
             // add to the map operation queue
             this.queueMapOperation('displayData', this.displayData);
-            console.log("queued");
             return;
         }
 
         // remove all current states
-        console.log(this.props.data);
-        this.state.stateData.forEach((layer) => {
-            this.mapRef.removeLayer(layer);
+        this.state.stateData.forEach((state) => {
+            this.mapRef.removeLayer(`${state}-fill`);
+            this.mapRef.removeLayer(`${state}-border`);
         });
+        this.mapRef.setDataLayers([]);
 
         // calculate the range of data
         const scale = MapHelper.calculateRange(this.props.data.values);
 
         // add new states
         const mapStates = [];
+        const fillLayers = [];
         this.props.data.states.forEach((state, index) => {
             const value = this.props.data.values[index];
 
@@ -225,10 +214,15 @@ export default class MapWrapper extends React.Component {
                 const group = Math.floor(scale.scale(value));
                 const color = MapHelper.visualizationColors[group];
                 this.fillState(state, color);
+                this.outlineState(state);
 
-                mapStates.push(`${state}-fill`);
+                fillLayers.push(`${state}-fill`);
+                mapStates.push(state);
             }
         });
+
+        // update the data layer array in the mapbox component
+        this.mapRef.setDataLayers(fillLayers);
 
         this.setState({
             stateData: mapStates,
@@ -237,17 +231,35 @@ export default class MapWrapper extends React.Component {
     }
 
     render() {
+        let tooltip = null;
+
+        if (this.props.showHover) {
+            tooltip = (<GeoVisualizationTooltip
+                {...this.props.selectedItem} />);
+        }
+
         return (
-            <div className="map-container">
+            <div
+                className="map-container"
+                ref={(div) => {
+                    this.wrapperDiv = div;
+                }}>
                 <MapBox
                     loadedMap={this.mapReady}
                     unloadedMap={this.mapRemoved}
+                    showTooltip={this.props.showTooltip}
+                    hideTooltip={this.props.hideTooltip}
                     ref={(component) => {
                         this.mapRef = component;
                     }} />
+                <div className="map-instructions">
+                    Hover over a state for more detailed information.
+                </div>
                 <MapLegend
                     segments={this.state.spendingScale.segments}
                     units={this.state.spendingScale.units} />
+
+                {tooltip}
             </div>
         );
     }

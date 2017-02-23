@@ -18,10 +18,13 @@ export default class MapBox extends React.Component {
         super(props);
 
         this.state = {
-            mapReady: false
+            mapReady: false,
+            dataLayers: []
         };
 
         this.map = null;
+
+        this.findHoveredLayers = this.findHoveredLayers.bind(this);
     }
     componentDidMount() {
         this.mountMap();
@@ -34,6 +37,11 @@ export default class MapBox extends React.Component {
 
     componentWillUnmount() {
         this.props.unloadedMap();
+    }
+
+
+    getMapLayer(layerId) {
+        return this.map.getLayer(layerId);
     }
 
     mountMap() {
@@ -49,6 +57,9 @@ export default class MapBox extends React.Component {
         // add navigation controls
         this.map.addControl(new MapboxGL.NavigationControl());
 
+        // disable scroll zoom
+        this.map.scrollZoom.disable();
+
         // prepare the shapes
         this.map.on('load', () => {
             this.setState({
@@ -57,6 +68,29 @@ export default class MapBox extends React.Component {
                 this.props.loadedMap(this.map);
             });
         });
+
+
+        this.map.on('mousemove', this.findHoveredLayers);
+
+        this.map.on('mouseout', this.props.hideTooltip);
+    }
+
+    findHoveredLayers(e) {
+        const features = this.map.queryRenderedFeatures(e.point, {
+            layers: this.state.dataLayers
+        });
+
+        // just grab the first layer and identify the state
+        if (features.length > 0) {
+            const layer = features[0].layer;
+            // get the state code
+            if ({}.hasOwnProperty.call(layer, 'metadata') &&
+                {}.hasOwnProperty.call(layer.metadata, 'stateCode')) {
+                // display the tooltip
+                const stateCode = layer.metadata.stateCode;
+                this.props.showTooltip(stateCode, e.point);
+            }
+        }
     }
 
     addLayer(layer, belowLayer = null) {
@@ -67,17 +101,18 @@ export default class MapBox extends React.Component {
         this.map.addLayer(layer, belowLayer);
     }
 
-    getMapLayer(layerId) {
-        return this.map.getLayer(layerId);
-    }
-
     removeLayer(layerId) {
         this.map.removeLayer(layerId);
         this.map.removeSource(layerId);
     }
 
+    setDataLayers(layerIds) {
+        this.setState({
+            dataLayers: layerIds
+        });
+    }
+
     render() {
-        console.log("RENDER");
         return (
             <div
                 className="mapbox-item"

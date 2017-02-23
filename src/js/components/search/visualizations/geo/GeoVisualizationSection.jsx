@@ -5,6 +5,8 @@
 
 import React from 'react';
 
+import _ from 'lodash';
+
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
 
@@ -14,6 +16,40 @@ const propTypes = {
 };
 
 export default class GeoVisualizationSection extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showHover: false,
+            selectedItem: {}
+        };
+
+        this.showTooltip = this.showTooltip.bind(this);
+        this.hideTooltip = this.hideTooltip.bind(this);
+    }
+
+    showTooltip(stateCode, position) {
+        // convert state code to full string name
+        const index = _.indexOf(this.props.data.states, stateCode);
+        this.setState({
+            showHover: true,
+            selectedItem: {
+                state: stateCode,
+                total: this.props.total,
+                value: this.props.data.values[index],
+                x: position.x,
+                y: position.y
+            }
+        });
+    }
+
+    hideTooltip() {
+        this.setState({
+            showHover: false,
+            selectedItem: {}
+        });
+    }
+
     render() {
         return (
             <div
@@ -58,7 +94,13 @@ export default class GeoVisualizationSection extends React.Component {
                     </div>
                 </div>
 
-                <MapWrapper {...this.props} />
+                <MapWrapper
+                    {...this.props}
+                    showHover={this.state.showHover}
+                    selectedItem={this.state.selectedItem}
+                    showTooltip={this.showTooltip}
+                    hideTooltip={this.hideTooltip} />
+
             </div>
         );
     }

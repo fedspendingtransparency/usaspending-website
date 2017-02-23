@@ -36,7 +36,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 values: [],
                 states: []
             },
-            renderHash: `geo-${_.uniqueId()}`
+            renderHash: `geo-${_.uniqueId()}`,
+            loading: true
         };
 
         this.apiRequest = null;
@@ -59,13 +60,15 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
-            // this.fetchData();
+            this.fetchData();
         }
     }
 
     changeScope(scope) {
         this.setState({
             scope
+        }, () => {
+            this.fetchData();
         });
     }
 
@@ -92,10 +95,13 @@ export class GeoVisualizationSectionContainer extends React.Component {
             limit: 60
         };
 
-
         if (this.apiRequest) {
             this.apiRequest.cancel();
         }
+
+        this.setState({
+            loading: true
+        });
 
         this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
         this.apiRequest.promise
@@ -126,7 +132,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 values: spendingValues,
                 states: spendingStates
             },
-            renderHash: `geo-${_.uniqueId()}`
+            renderHash: `geo-${_.uniqueId()}`,
+            loading: false
         });
     }
 
@@ -134,6 +141,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         return (
             <GeoVisualizationSection
                 {...this.state}
+                total={this.props.resultsMeta.visualization.transaction_sum}
                 changeScope={this.changeScope} />
         );
     }
@@ -142,6 +150,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
 GeoVisualizationSectionContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.filters }),
+    (state) => ({ reduxFilters: state.filters, resultsMeta: state.resultsMeta.toJS() }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(GeoVisualizationSectionContainer);
