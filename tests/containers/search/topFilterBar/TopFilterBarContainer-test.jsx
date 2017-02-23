@@ -208,6 +208,146 @@ describe('TopFilterBarContainer', () => {
 
             expect(filterItem).toEqual(expectedFilterState);
         });
+
+        it('should update component state with Redux awarding agency filters when available', () => {
+            // mount the container with default props
+            const topBarContainer = setup({
+                reduxFilters: Object.assign({}, defaultFilters)
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(0);
+
+            const awardingAgencyFilter = Object.assign({}, defaultFilters, {
+                selectedAwardingAgencies: new OrderedMap({
+                    "1788_subtier": {
+                        id: 1788,
+                        create_date: "2017-01-12T19:56:30.517000Z",
+                        update_date: "2017-01-12T19:56:30.517000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1654,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1700",
+                            name: "DEPT OF THE NAVY"
+                        },
+                        office_agency: null
+                    }
+                })
+            });
+
+            topBarContainer.setProps({
+                reduxFilters: awardingAgencyFilter
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(1);
+
+            const filterItem = topBarContainer.state().filters[0];
+            const expectedFilterState = {
+                code: 'selectedAwardingAgencies',
+                name: 'Awarding Agency',
+                values: [{
+                    id: 1788,
+                    create_date: "2017-01-12T19:56:30.517000Z",
+                    update_date: "2017-01-12T19:56:30.517000Z",
+                    toptier_agency: {
+                        toptier_agency_id: 268,
+                        create_date: "2017-01-31T21:25:39.810344Z",
+                        update_date: "2017-01-31T21:25:39.936439Z",
+                        cgac_code: "097",
+                        fpds_code: "9700",
+                        name: "DEPT OF DEFENSE"
+                    },
+                    subtier_agency: {
+                        subtier_agency_id: 1654,
+                        create_date: "2017-01-31T21:25:39.569918Z",
+                        update_date: "2017-01-31T21:25:39.691244Z",
+                        subtier_code: "1700",
+                        name: "DEPT OF THE NAVY"
+                    },
+                    office_agency: null
+                }]
+            };
+
+            expect(filterItem).toEqual(expectedFilterState);
+        });
+
+        it('should update component state with Redux funding agency filters when available', () => {
+            // mount the container with default props
+            const topBarContainer = setup({
+                reduxFilters: Object.assign({}, defaultFilters)
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(0);
+
+            const awardingAgencyFilter = Object.assign({}, defaultFilters, {
+                selectedFundingAgencies: new OrderedMap({
+                    "1788_subtier": {
+                        id: 1788,
+                        create_date: "2017-01-12T19:56:30.517000Z",
+                        update_date: "2017-01-12T19:56:30.517000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1654,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1700",
+                            name: "DEPT OF THE NAVY"
+                        },
+                        office_agency: null
+                    }
+                })
+            });
+
+            topBarContainer.setProps({
+                reduxFilters: awardingAgencyFilter
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(1);
+
+            const filterItem = topBarContainer.state().filters[0];
+            const expectedFilterState = {
+                code: 'selectedFundingAgencies',
+                name: 'Funding Agency',
+                values: [{
+                    id: 1788,
+                    create_date: "2017-01-12T19:56:30.517000Z",
+                    update_date: "2017-01-12T19:56:30.517000Z",
+                    toptier_agency: {
+                        toptier_agency_id: 268,
+                        create_date: "2017-01-31T21:25:39.810344Z",
+                        update_date: "2017-01-31T21:25:39.936439Z",
+                        cgac_code: "097",
+                        fpds_code: "9700",
+                        name: "DEPT OF DEFENSE"
+                    },
+                    subtier_agency: {
+                        subtier_agency_id: 1654,
+                        create_date: "2017-01-31T21:25:39.569918Z",
+                        update_date: "2017-01-31T21:25:39.691244Z",
+                        subtier_code: "1700",
+                        name: "DEPT OF THE NAVY"
+                    },
+                    office_agency: null
+                }]
+            };
+
+            expect(filterItem).toEqual(expectedFilterState);
+        });
     });
 
     describe('filter removal', () => {
@@ -388,6 +528,312 @@ describe('TopFilterBarContainer', () => {
             expect(mockReduxAction).toHaveBeenCalled();
         });
 
+        it('should trigger a Redux action to update the Awarding Agency filter when an Agency is removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                selectedAwardingAgencies: new OrderedMap({
+                    "1788_subtier": {
+                        id: 1788,
+                        create_date: "2017-01-12T19:56:30.517000Z",
+                        update_date: "2017-01-12T19:56:30.517000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1654,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1700",
+                            name: "DEPT OF THE NAVY"
+                        },
+                        office_agency: null
+                    },
+                    "1789_subtier": {
+                        id: 1789,
+                        create_date: "2017-01-12T19:56:30.522000Z",
+                        update_date: "2017-01-12T19:56:30.522000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1655,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1708",
+                            name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
+                        },
+                        office_agency: null
+                    }
+                })
+            });
+
+            const expectedReduxArguments = {
+                type: 'selectedAwardingAgencies',
+                value: new OrderedMap({
+                    "1789_subtier": {
+                        id: 1789,
+                        create_date: "2017-01-12T19:56:30.522000Z",
+                        update_date: "2017-01-12T19:56:30.522000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1655,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1708",
+                            name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
+                        },
+                        office_agency: null
+                    }
+                })
+            };
+
+            // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+
+            topBarContainer.instance().removeFilter('selectedAwardingAgencies', '1788_subtier');
+        });
+
+        it('should trigger a Redux action to update the Funding Agency filter when an Agency is removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                selectedFundingAgencies: new OrderedMap({
+                    "1788_subtier": {
+                        id: 1788,
+                        create_date: "2017-01-12T19:56:30.517000Z",
+                        update_date: "2017-01-12T19:56:30.517000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1654,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1700",
+                            name: "DEPT OF THE NAVY"
+                        },
+                        office_agency: null
+                    },
+                    "1789_subtier": {
+                        id: 1789,
+                        create_date: "2017-01-12T19:56:30.522000Z",
+                        update_date: "2017-01-12T19:56:30.522000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1655,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1708",
+                            name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
+                        },
+                        office_agency: null
+                    }
+                })
+            });
+
+            const expectedReduxArguments = {
+                type: 'selectedFundingAgencies',
+                value: new OrderedMap({
+                    "1789_subtier": {
+                        id: 1789,
+                        create_date: "2017-01-12T19:56:30.522000Z",
+                        update_date: "2017-01-12T19:56:30.522000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1655,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1708",
+                            name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
+                        },
+                        office_agency: null
+                    }
+                })
+            };
+
+            // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+
+            topBarContainer.instance().removeFilter('selectedFundingAgencies', '1788_subtier');
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire Awarding Agency Filter', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                selectedAwardingAgencies: new OrderedMap({
+                    "1788_subtier": {
+                        id: 1788,
+                        create_date: "2017-01-12T19:56:30.517000Z",
+                        update_date: "2017-01-12T19:56:30.517000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1654,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1700",
+                            name: "DEPT OF THE NAVY"
+                        },
+                        office_agency: null
+                    },
+                    "1789_subtier": {
+                        id: 1789,
+                        create_date: "2017-01-12T19:56:30.522000Z",
+                        update_date: "2017-01-12T19:56:30.522000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1655,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1708",
+                            name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
+                        },
+                        office_agency: null
+                    }
+                })
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('selectedAwardingAgencies');
+
+            // validate that the clearFilterType Redux action is called twice
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire Funding Agency Filter', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                selectedFundingAgencies: new OrderedMap({
+                    "1788_subtier": {
+                        id: 1788,
+                        create_date: "2017-01-12T19:56:30.517000Z",
+                        update_date: "2017-01-12T19:56:30.517000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1654,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1700",
+                            name: "DEPT OF THE NAVY"
+                        },
+                        office_agency: null
+                    },
+                    "1789_subtier": {
+                        id: 1789,
+                        create_date: "2017-01-12T19:56:30.522000Z",
+                        update_date: "2017-01-12T19:56:30.522000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1655,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1708",
+                            name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
+                        },
+                        office_agency: null
+                    }
+                })
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('selectedFundingAgencies');
+
+            // validate that the clearFilterType Redux action is called twice
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+        });
+
         it('should be able to trigger Redux actions that can reset the entire location filter', () => {
             const initialFilters = Object.assign({}, defaultFilters, {
                 locationDomesticForeign: 'domestic',
@@ -490,6 +936,14 @@ describe('TopFilterBarContainer', () => {
 
             // validate that the Redux function is called
             expect(mockReduxAction).toHaveBeenCalled();
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire Awarding Agency Filter', () => {
+
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire Funding Agency Filter', () => {
+
         });
     });
 });
