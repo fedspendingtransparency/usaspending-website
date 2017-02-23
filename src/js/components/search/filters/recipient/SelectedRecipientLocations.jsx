@@ -4,7 +4,8 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+
+import * as LocationFormatter from 'helpers/locationFormatter';
 import ShownRecipientLocation from './ShownRecipientLocation';
 
 const propTypes = {
@@ -13,29 +14,6 @@ const propTypes = {
 };
 
 export default class SelectedRecipientLocations extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.formatLocation = this.formatLocation.bind(this);
-    }
-
-    formatLocation(loc) {
-        const location = loc;
-        let displayValue = '';
-
-        if (location.place_type !== null) {
-            displayValue = `${_.startCase(_.toLower(location.place_type))} | `;
-        }
-
-        displayValue += `${location.place}`;
-
-        if (location.parent !== null) {
-            displayValue += `, ${location.parent}`;
-        }
-
-        return displayValue;
-    }
-
     render() {
         const shownLocations = [];
         this.props.selectedRecipientLocations.entrySeq().forEach((entry) => {
@@ -43,7 +21,7 @@ export default class SelectedRecipientLocations extends React.Component {
             const location = entry[1];
             const value = (<ShownRecipientLocation
                 location={location}
-                label={this.formatLocation(location)}
+                label={LocationFormatter.formatLocation(location)}
                 key={key}
                 toggleLocation={this.props.toggleRecipientLocation.bind(null, location)} />);
             shownLocations.push(value);

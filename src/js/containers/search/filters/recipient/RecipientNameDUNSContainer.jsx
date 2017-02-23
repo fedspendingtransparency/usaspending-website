@@ -82,7 +82,8 @@ export class RecipientNameDUNSContainer extends React.Component {
 
             this.recipientSearchRequest.promise
                 .then((res) => {
-                    const data = res.data.matched_objects.recipient_name;
+                    const data = _.union(res.data.matched_objects.recipient_name,
+                        res.data.matched_objects.recipient_unique_id);
                     let autocompleteData = [];
 
                     // Remove 'identifier' from selected recipients to enable comparison

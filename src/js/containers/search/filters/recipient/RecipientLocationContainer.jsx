@@ -17,7 +17,7 @@ const propTypes = {
     toggleRecipientLocation: React.PropTypes.func,
     setAutocompleteRecipientLocations: React.PropTypes.func,
     selectedRecipientLocations: React.PropTypes.object,
-    locationDomesticForeign: React.PropTypes.string,
+    recipientDomesticForeign: React.PropTypes.string,
     autocompleteRecipientLocations: React.PropTypes.array
 };
 
@@ -81,8 +81,8 @@ export class RecipientLocationContainer extends React.Component {
 
             const locSearchParams = {
                 value: this.state.recipientLocationSearchString,
-                scope: this.props.locationDomesticForeign,
-                usage: "location"
+                scope: this.props.recipientDomesticForeign,
+                usage: "recipient"
             };
 
             this.recipientLocationSearchRequest = SearchHelper.fetchLocations(locSearchParams);
