@@ -45,16 +45,16 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     componentDidMount() {
-        // this.fetchData();
-        window.setTimeout(() => {
-            this.setState({
-                data: {
-                    states: ['PA'],
-                    values: [15034]
-                },
-                renderHash: `geo-${_.uniqueId()}`
-            });
-        }, 1000);
+        this.fetchData();
+        // window.setTimeout(() => {
+        //     this.setState({
+        //         data: {
+        //             states: ['PA'],
+        //             values: [15034]
+        //         },
+        //         renderHash: `geo-${_.uniqueId()}`
+        //     });
+        // }, 1000);
     }
 
     componentDidUpdate(prevProps) {
