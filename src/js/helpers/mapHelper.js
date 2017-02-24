@@ -5,7 +5,7 @@
 
 import Axios, { CancelToken } from 'axios';
 import _ from 'lodash';
-import {scaleLinear } from 'd3-scale';
+import { scaleLinear } from 'd3-scale';
 import * as MoneyFormatter from './moneyFormatter';
 
 /* eslint-disable quote-props */

@@ -12,7 +12,9 @@ import MapWrapper from './MapWrapper';
 
 const propTypes = {
     scope: React.PropTypes.string,
-    changeScope: React.PropTypes.func
+    changeScope: React.PropTypes.func,
+    data: React.PropTypes.object,
+    total: React.PropTypes.number
 };
 
 export default class GeoVisualizationSection extends React.Component {

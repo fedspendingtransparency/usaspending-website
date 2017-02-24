@@ -13,7 +13,8 @@ const propTypes = {
     value: React.PropTypes.number,
     y: React.PropTypes.number,
     x: React.PropTypes.number,
-    visualization: React.PropTypes.object
+    visualization: React.PropTypes.object,
+    total: React.PropTypes.number
 };
 
 export default class GeoVisualizationTooltip extends React.Component {

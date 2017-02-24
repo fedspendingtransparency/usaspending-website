@@ -10,7 +10,9 @@ import kGlobalConstants from 'GlobalConstants';
 
 const propTypes = {
     loadedMap: React.PropTypes.func,
-    unloadedMap: React.PropTypes.func
+    unloadedMap: React.PropTypes.func,
+    showTooltip: React.PropTypes.func,
+    hideTooltip: React.PropTypes.func
 };
 
 export default class MapBox extends React.Component {
@@ -42,6 +44,12 @@ export default class MapBox extends React.Component {
 
     getMapLayer(layerId) {
         return this.map.getLayer(layerId);
+    }
+
+    setDataLayers(layerIds) {
+        this.setState({
+            dataLayers: layerIds
+        });
     }
 
     mountMap() {
@@ -104,12 +112,6 @@ export default class MapBox extends React.Component {
     removeLayer(layerId) {
         this.map.removeLayer(layerId);
         this.map.removeSource(layerId);
-    }
-
-    setDataLayers(layerIds) {
-        this.setState({
-            dataLayers: layerIds
-        });
     }
 
     render() {

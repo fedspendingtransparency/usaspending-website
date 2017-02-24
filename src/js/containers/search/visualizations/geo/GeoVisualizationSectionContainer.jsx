@@ -3,11 +3,6 @@
  * Created by Kevin Li 2/13/17
  */
 
-/**
- * TimeVisualizationSectionContainer.jsx
- * Created by Kevin Li 1/12/17
- */
-
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -23,7 +18,8 @@ import * as SearchHelper from 'helpers/searchHelper';
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object
+    reduxFilters: React.PropTypes.object,
+    resultsMeta: React.PropTypes.object
 };
 
 export class GeoVisualizationSectionContainer extends React.Component {
@@ -47,15 +43,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     componentDidMount() {
         this.fetchData();
-        // window.setTimeout(() => {
-        //     this.setState({
-        //         data: {
-        //             states: ['PA'],
-        //             values: [15034]
-        //         },
-        //         renderHash: `geo-${_.uniqueId()}`
-        //     });
-        // }, 1000);
     }
 
     componentDidUpdate(prevProps) {
@@ -109,9 +96,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 this.parseData(res.data);
                 this.apiRequest = null;
             })
-            .catch((err) => {
+            .catch(() => {
                 this.apiRequest = null;
-                console.log(err);
             });
     }
 

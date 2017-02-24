@@ -5,9 +5,6 @@
 
 import React from 'react';
 import Q from 'q';
-import _ from 'lodash';
-
-import kGlobalConstants from 'GlobalConstants';
 
 import * as MapHelper from 'helpers/mapHelper';
 
@@ -17,7 +14,12 @@ import MapLegend from './MapLegend';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
 
 const propTypes = {
-    data: React.PropTypes.object
+    data: React.PropTypes.object,
+    renderHash: React.PropTypes.string,
+    showHover: React.PropTypes.bool,
+    selectedItem: React.PropTypes.object,
+    showTooltip: React.PropTypes.func,
+    hideTooltip: React.PropTypes.func
 };
 
 const defaultProps = {
@@ -110,7 +112,6 @@ export default class MapWrapper extends React.Component {
                     };
 
                     states[stateCode] = state;
-                    // this.drawStateOutline(stateCode, state.shape);
                 });
 
                 this.setState({

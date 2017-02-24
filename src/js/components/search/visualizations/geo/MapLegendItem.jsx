@@ -5,6 +5,11 @@
 
 import React from 'react';
 
+const propTypes = {
+    color: React.PropTypes.string,
+    label: React.PropTypes.string
+};
+
 export default class MapLegendItem extends React.Component {
     render() {
         const swatchStyle = {
@@ -23,3 +28,5 @@ export default class MapLegendItem extends React.Component {
         );
     }
 }
+
+MapLegendItem.propTypes = propTypes;

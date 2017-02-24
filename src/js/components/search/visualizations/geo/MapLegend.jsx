@@ -10,6 +10,11 @@ import * as MapHelper from 'helpers/mapHelper';
 
 import MapLegendItem from './MapLegendItem';
 
+const propTypes = {
+    segments: React.PropTypes.array,
+    units: React.PropTypes.object
+};
+
 const defaultProps = {
     units: {
         unit: 1,
@@ -43,11 +48,17 @@ export default class MapLegend extends React.Component {
 
             const color = MapHelper.visualizationColors[i];
 
-            const currencyValue = MoneyFormatter.formatMoneyWithPrecision(segment / props.units.unit, props.units.precision) + props.units.unitLabel;
+            const currencyValue =
+                MoneyFormatter.formatMoneyWithPrecision(segment / props.units.unit,
+                    props.units.precision) + props.units.unitLabel;
+
             let previousValue = '';
 
             if (i > 0) {
-                previousValue = MoneyFormatter.formatMoneyWithPrecision(props.segments[i - 1] / props.units.unit, props.units.precision) + props.units.unitLabel;
+                const previous = props.segments[i - 1];
+                previousValue =
+                    MoneyFormatter.formatMoneyWithPrecision(previous / props.units.unit,
+                        props.units.precision) + props.units.unitLabel;
             }
 
             if (i === 0) {
@@ -87,4 +98,5 @@ export default class MapLegend extends React.Component {
     }
 }
 
+MapLegend.propTypes = propTypes;
 MapLegend.defaultProps = defaultProps;
