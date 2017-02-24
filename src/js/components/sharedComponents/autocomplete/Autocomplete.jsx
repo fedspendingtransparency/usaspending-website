@@ -29,7 +29,7 @@ const defaultProps = {
     errorHeader: null,
     errorDescription: null,
     maxSuggestions: 10,
-    label: 'Primary Place of Performance'
+    label: ''
 };
 
 export default class Autocomplete extends React.Component {

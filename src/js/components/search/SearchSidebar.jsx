@@ -10,7 +10,7 @@ const defaultProps = {
     options: [
         'Search',
         'Time Period',
-        'Location',
+        'Primary Place of Performance',
         'Budget Categories',
         'Agencies',
         'Recipients',
