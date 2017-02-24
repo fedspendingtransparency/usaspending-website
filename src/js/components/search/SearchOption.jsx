@@ -63,7 +63,7 @@ export default class SearchOption extends React.Component {
             case 'Location':
                 searchOption = (<LocationSearchContainer />);
                 break;
-            case 'Recipient Information':
+            case 'Recipients':
                 searchOption = (<RecipientSearchContainer />);
                 break;
             default:

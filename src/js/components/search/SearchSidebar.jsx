@@ -13,7 +13,7 @@ const defaultProps = {
         'Location',
         'Budget Categories',
         'Agencies',
-        'Recipient Information',
+        'Recipients',
         'Award Type',
         'Award ID',
         'Award Amount',
