@@ -17,7 +17,7 @@ const defaultProps = {
         'Award Type',
         'Award ID',
         'Award Amount',
-        'Contract Specific Details'
+        'Other Award Items'
     ]
 };
 
