@@ -16,7 +16,7 @@ export default class SearchPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.sections = ['time', 'rank', 'map', 'table'];
+        this.sections = ['time', 'rank', 'geo', 'table'];
 
         this.state = {
             currentSection: this.sections[0],
