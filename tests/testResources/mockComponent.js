@@ -33,3 +33,4 @@ export const unmockComponent = (component) => {
     });
     /* eslint-enable no-param-reassign */
 };
+

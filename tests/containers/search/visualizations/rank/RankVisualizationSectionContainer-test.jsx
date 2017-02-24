@@ -78,7 +78,7 @@ describe('RankVisualizationSectionContainer', () => {
             },
             results: [{
                 item: 'First Agency',
-                aggregate: '456',
+                aggregate: '456'
             },
             {
                 item: 'Second Agency',
@@ -120,7 +120,7 @@ describe('RankVisualizationSectionContainer', () => {
             },
             results: [{
                 item: 'First Agency',
-                aggregate: '456',
+                aggregate: '456'
             },
             {
                 item: 'Second Agency',

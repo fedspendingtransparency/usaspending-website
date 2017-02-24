@@ -112,6 +112,23 @@ export const fetchAwardTransaction = (params) => {
     };
 };
 
+// Fetch Recipients
+export const fetchRecipients = (req) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'references/recipients/autocomplete/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: req,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 // make API call to awards total aggregation endpoint
 export const performTransactionsTotalSearch = (params) => {
     const source = CancelToken.source();
