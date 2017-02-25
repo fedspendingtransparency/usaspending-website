@@ -1,6 +1,11 @@
-.award-amounts {
-
+.amounts-wrapper {
     @include span-columns(8);
+    @include clearfix();
+
+    padding: 0px 15px;
+}
+
+.award-amounts {
     $color-potential-award: #e9edee;
     $color-current-award: #5a7784;
     $color-sub-award: #355664;

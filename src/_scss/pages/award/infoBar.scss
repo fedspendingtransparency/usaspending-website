@@ -1,4 +1,5 @@
 .award-info-bar {
+    @include clearfix();
     @include span-columns(16);
     border-bottom: 1px solid $color-gray-border;
 

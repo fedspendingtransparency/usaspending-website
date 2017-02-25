@@ -13,23 +13,8 @@ const propTypes = {
 };
 
 export default class DetailsTableTabItem extends React.Component {
-    //constructor(props) {
-    //    super(props);
-    //
-    //    this.clickedTab = this.clickedTab.bind(this);
-    //}
-
-    //clickedTab() {
-    //    this.props.switchTab(this.props.internal);
-    //}
-
     render() {
-        //let activeClass = '';
-        //if (this.props.active) {
-        //    activeClass = ' active';
-        //}
-
-        let activeClass = ' active';
+        const activeClass = ' active';
 
         return (
             <button

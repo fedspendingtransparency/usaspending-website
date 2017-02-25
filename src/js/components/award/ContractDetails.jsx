@@ -19,14 +19,19 @@ export default class ContractDetails extends React.Component {
         const award = this.props.selectedAward;
 
         // Date Range
-        const startDate = moment(award.period_of_performance_start_date);
-        const endDate = moment(award.period_of_performance_current_end_date);
+        const startDate = moment(award.period_of_performance_start_date, 'M/D/YYYY');
+        const endDate = moment(award.period_of_performance_current_end_date, 'M/D/YYYY');
         const yearRange = endDate.diff(startDate, 'year');
         if (yearRange !== 0) {
-            yearRangeTotal = `(${yearRange} years)`;
+            if (yearRange === 1) {
+                yearRangeTotal = `${yearRange} year)`;
+            }
+            else {
+                yearRangeTotal = `(${yearRange} years)`;
+            }
         }
         const popDate = `${award.period_of_performance_start_date} -
-        ${award.period_of_performance_current_end_date} ${yearRangeTotal}`;
+            ${award.period_of_performance_current_end_date} ${yearRangeTotal}`;
 
         // Location
         let popPlace = "";

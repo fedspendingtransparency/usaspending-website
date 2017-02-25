@@ -29,7 +29,7 @@ export default class AwardInfo extends React.Component {
                     <AwardContract
                         {...this.props}
                         selectedAward={this.props.selectedAward} />
-                    <DetailsTableSection />
+                    <DetailsTableSection {...this.props} />
                 </main>
             </div>
         );

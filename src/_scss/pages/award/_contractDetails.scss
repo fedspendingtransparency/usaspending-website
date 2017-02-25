@@ -1,6 +1,11 @@
-.contract-details {
-
+.contract-wrapper {
     @include span-columns(8);
+    @include clearfix();
+
+    padding: 0px 15px;
+}
+
+.contract-details {
     margin: 1rem 1rem 1rem 0px;
     font-size: 1.4rem;
 

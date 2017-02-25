@@ -6,7 +6,7 @@
 import React from 'react';
 
 import DetailsTableTabs from './DetailsTableTabs';
-
+import DetailsTable from './DetailsTable';
 
 export default class DetailsTableSection extends React.Component {
     constructor(props) {
@@ -47,12 +47,11 @@ export default class DetailsTableSection extends React.Component {
                         this.tableWidthController = div;
                     }} />
                 <div className="contract-details-table">
-
+                    <DetailsTable
+                        {...this.props}
+                        tableWidth={this.state.tableWidth} />
                 </div>
             </div>
         );
     }
 }
-
-//DetailsTableSection.propTypes = propTypes;
-
