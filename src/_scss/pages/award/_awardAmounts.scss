@@ -6,9 +6,6 @@
 }
 
 .award-amounts {
-    $color-potential-award: #e9edee;
-    $color-current-award: #5a7784;
-    $color-sub-award: #355664;
     margin: 1rem;
     font-size: 1.4rem;
 
@@ -30,18 +27,6 @@
         }
     }
 
-    .amounts-graph {
-        margin-left: 2rem;
-        margin-top: 2rem;
-        .potential {
-            fill: $color-potential-award;
-        }
-        .current {
-            fill: $color-current-award;
-        }
-        .sub {
-            fill: $color-sub-award;
-        }
-    }
+    @import "./visualization/amountsVisualization";
 
 }

@@ -5,9 +5,10 @@
 
 import React from 'react';
 import accounting from 'accounting';
-import AmountsChartContainer from 'containers/award/AmountsChartContainer';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+
+import AmountsChart from './visualizations/AmountsChart';
 
 const propTypes = {
     selectedAward: React.PropTypes.object
@@ -83,7 +84,7 @@ export default class AwardAmounts extends React.Component {
                             Of this amount, <b>{narrative.percentage}%</b> ({narrative.current}) has
                             been obligated.</p>
                     </div>
-                    <AmountsChartContainer
+                    <AmountsChart
                         potential={potential}
                         current={current} />
                 </div>

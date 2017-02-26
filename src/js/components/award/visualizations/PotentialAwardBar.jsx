@@ -7,7 +7,7 @@ import React from 'react';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    x: React.PropTypes.string,
+    x: React.PropTypes.number,
     y: React.PropTypes.number,
     width: React.PropTypes.number,
     height: React.PropTypes.number,
@@ -22,7 +22,7 @@ export default class PotentialAwardBar extends React.Component {
             <g aria-label={formattedValue} className="potential">
                 <desc>Potential Award Amounts</desc>
                 <rect
-                    className={`bar-item`}
+                    className="potential-bar"
                     x={this.props.x}
                     y={this.props.y}
                     width={this.props.width}

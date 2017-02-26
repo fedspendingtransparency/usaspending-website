@@ -6,121 +6,241 @@
 import React from 'react';
 import { scaleLinear } from 'd3-scale';
 
-import SubAwardBar from './SubAwardBar';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+
 import CurrentAwardBar from './CurrentAwardBar';
 import PotentialAwardBar from './PotentialAwardBar';
 
 const propTypes = {
     potential: React.PropTypes.number,
     current: React.PropTypes.number,
-    sub: React.PropTypes.number,
-    graphWidth: React.PropTypes.number,
     graphHeight: React.PropTypes.number
 };
 
 const defaultProps = {
-    graphWidth: 500,
     graphHeight: 300
 };
+
+const labelDistance = 15;
 
 export default class AmountsChart extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            items: []
+            graphWidth: 0,
+            barWidth: 0,
+            potential: null,
+            potentialY: 0,
+            current: null,
+            currentY: 0,
+            currentMiddle: 0,
+            currentLabelPath: ''
         };
 
-        this.generateChart = this.generateChart.bind(this);
+        this.measureWidth = this.measureWidth.bind(this);
     }
 
     componentDidMount() {
         this.generateChart();
+        this.monitorWidth();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.graphWidth !== this.state.graphWidth) {
+            this.generateChart();
+        }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.measureWidth);
+    }
+
+    monitorWidth() {
+        window.addEventListener('resize', this.measureWidth);
+        this.measureWidth();
+    }
+
+    measureWidth() {
+        // measure the available width
+        const width = this.divRef.getBoundingClientRect().width;
+        this.setState({
+            graphWidth: width
+        });
+    }
+
+    calculateScale() {
+        // Set Y axis min and max (always assume the potential exceeds the current value)
+        const yMin = 0;
+        const yMax = this.props.potential;
+
+        // don't swap min and max if the potential value is negative; the scale needs to be inverted
+        // anyway in that case
+
+        // calculate the scale (reverse scale because greater Y is lower on the SVG image)
+        const yScale = scaleLinear()
+            .domain([yMin, yMax])
+            .range([0, this.props.graphHeight]);
+
+        return yScale;
     }
 
     generateChart() {
-        // Set Y axis min and max
-        // Uncalculated values for now
-        // Once this is working, sub in logic for handling missing/weird amounts
-        const yRange = [];
-        const yMin = 0;
-        const yMax = this.props.potential;
-        yRange.push(yMin);
-        yRange.push(yMax);
-
-        // Set graph size
-        // Calculate this properly once this works
-        const graphWidth = this.props.graphWidth;
-        const graphHeight = this.props.graphHeight;
-
-        // Math the y scale value (d3 magic)
-
-        const yScale = scaleLinear()
-            .domain(yRange)
-            .range([0, graphHeight])
-            .clamp(true);
-
-        // Put the values together
-        const items = [];
-
-        const potential = this.props.potential;
-        const current = this.props.current;
-        const sub = this.props.sub;
-        const potentialBarHeight = yScale(potential) - yScale(0);
-        const potentialYPos = graphHeight - yScale(0) - potentialBarHeight;
-        const currentBarHeight = yScale(current) - yScale(0);
-        const currentYPos = graphHeight - yScale(0) - currentBarHeight;
-        const subBarHeight = yScale(sub) - yScale(0);
-        const subYPos = graphHeight - yScale(0) - subBarHeight;
-
-        const potentialAwardBar = (<PotentialAwardBar
-            identifier={`value-${potential}`}
-            dataY={potential}
-            height={potentialBarHeight}
-            width={graphWidth}
-            x="0"
-            y={potentialYPos} />);
-        items.push(potentialAwardBar);
-
-        const currentAwardBar = (<CurrentAwardBar
-            identifier={`value-${current}`}
-            dataY={current}
-            height={currentBarHeight}
-            width={graphWidth}
-            x="0"
-            y={currentYPos} />);
-        items.push(currentAwardBar);
-
-        if (sub) {
-            const subAwardBar = (<SubAwardBar
-                identifier={`value-${sub}`}
-                dataY={sub}
-                height={subBarHeight}
-                width={graphWidth}
-                x="0"
-                y={subYPos} />);
-            items.push(subAwardBar);
+        if (this.state.graphWidth === 0) {
+            return;
         }
+        // calculate the Y axis scale
+        const yScale = this.calculateScale();
+
+        // leave 200px on each side for labels
+        const barWidth = this.state.graphWidth - 400;
+
+        // draw the potential bar
+        const potentialY = this.props.graphHeight - yScale(this.props.potential);
+        const potentialBar = (<PotentialAwardBar
+            data={MoneyFormatter.formatMoney(this.props.potential)}
+            width={barWidth}
+            height={yScale(this.props.potential)}
+            x={0}
+            y={0} />);
+
+        // draw the current var
+        const currentY = this.props.graphHeight - yScale(this.props.current);
+        const currentBar = (<CurrentAwardBar
+            data={MoneyFormatter.formatMoney(this.props.current)}
+            width={barWidth}
+            height={yScale(this.props.current)}
+            x={0}
+            y={0} />);
+
+        // calculate the label paths
+        let currentLabelPath = '';
+        // start at the top of the current bar
+        currentLabelPath += `195,${currentY}`;
+        // move left the specified amount
+        currentLabelPath += ` ${195 - labelDistance},${currentY}`;
+        // go to the bottom of the current bar
+        currentLabelPath += ` ${195 - labelDistance},${this.props.graphHeight}`;
+        // go to the edge of the bar
+        currentLabelPath += ` 195,${this.props.graphHeight}`;
+        // come back
+        currentLabelPath += ` ${195 - labelDistance},${this.props.graphHeight}`;
+        // go to the center
+        const currentMiddle = this.props.graphHeight - (yScale(this.props.current) / 2);
+        currentLabelPath += ` ${195 - labelDistance},${currentMiddle}`;
+        // move left more to the text
+        currentLabelPath += ` ${195 - (labelDistance * 2)},${currentMiddle}`;
 
         this.setState({
-            items
+            barWidth,
+            currentLabelPath,
+            currentMiddle,
+            potentialY,
+            currentY,
+            potential: potentialBar,
+            current: currentBar
         });
     }
 
     render() {
         return (
             <div
+                className="amounts-visualization-wrapper"
                 ref={(div) => {
                     this.divRef = div;
                 }}>
                 <svg
                     className="amounts-graph"
-                    width={this.props.graphWidth}
-                    height={this.props.graphHeight}
+                    width={this.state.graphWidth}
+                    height={this.props.graphHeight + 10}
                     ref={(svg) => {
                         this.svgRef = svg;
                     }}>
-                    {this.state.items}
+
+                    <g transform="translate(0, 5)">
+                        <g
+                            className="potential-group"
+                            transform={`translate(200,${this.state.potentialY})`}>
+                            {this.state.potential}
+                        </g>
+
+                        <g
+                            className="current-group"
+                            transform={`translate(200,${this.state.currentY})`}>
+                            {this.state.current}
+                        </g>
+
+                        <g
+                            className="current-label-group"
+                            transform={`translate(0,0)`}>
+
+                            <polyline
+                                fill="none"
+                                strokeWidth="1"
+                                className="label-line"
+                                points={this.state.currentLabelPath} />
+
+                            <g
+                                className="current-label"
+                                transform={`translate(0,${this.state.currentMiddle})`}>
+                                <text
+                                    className="title"
+                                    x={0}
+                                    y={0}>
+                                    Current Award Amount:
+                                </text>
+                                <text
+                                    className="subtitle"
+                                    x={0}
+                                    y={18}>
+                                    (Funding Obligated)
+                                </text>
+                                <text
+                                    className="value"
+                                    x={0}
+                                    y={18 + 20}>
+                                    {MoneyFormatter.formatMoney(this.props.current)}
+                                </text>
+                            </g>
+                        </g>
+
+                        <g
+                            className="potential-label-group"
+                            transform={`translate(${200 + this.state.barWidth},0)`}>
+
+                            <line
+                                fill="none"
+                                strokeWidth="1"
+                                className="label-line"
+                                x1={5}
+                                x2={5 + labelDistance}
+                                y1={0}
+                                y2={0} />
+
+                            <g
+                                className="potential-label"
+                                transform={`translate(${10 + labelDistance},5)`}>
+                                <text
+                                    className="title"
+                                    x={0}
+                                    y={0}>
+                                    Potential Award Amount:
+                                </text>
+                                <text
+                                    className="subtitle"
+                                    x={0}
+                                    y={18}>
+                                    (Contract Ceiling)
+                                </text>
+                                <text
+                                    className="value"
+                                    x={0}
+                                    y={18 + 20}>
+                                    {MoneyFormatter.formatMoney(this.props.potential)}
+                                </text>
+                            </g>
+                        </g>
+                    </g>
                 </svg>
             </div>
         );
