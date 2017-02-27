@@ -40,10 +40,10 @@ export default class RecipientAddress extends React.Component {
                     {recipient.recipient_street}
                 </div>
                 <div className="item-value">
-                    {cityState}
+                    {cityState} {recipient.recipient_zip_postal}
                 </div>
                 <div className="item-value">
-                    {recipient.recipient_zip_postal} {recipient.recipient_country}
+                    {recipient.recipient_country}
                 </div>
             </li>
         );

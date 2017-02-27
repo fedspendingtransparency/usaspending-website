@@ -1,4 +1,5 @@
 .award-info-bar {
+    @include clearfix();
     @include span-columns(16);
     border-bottom: 1px solid $color-gray-border;
 
@@ -13,7 +14,7 @@
             display: table-cell;
             position: relative;
             width: rem(74px);
-            height: rem(208px);
+            height: rem(204px);
             @include background-image(url('../img/award_triangle.png'));
             background-repeat: no-repeat;
         }
