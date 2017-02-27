@@ -1,0 +1,33 @@
+.table-tabs {
+  border-bottom: 1px solid $color-gray-light;
+  padding-left: 15px;
+  button.table-tab-toggle {
+    border: 1px solid transparent;
+    border-bottom: 1px solid $color-gray-light;
+    color: $color-gray-dark;
+    background-color: $color-tab-inactive;
+    font-size: $base-font-size;
+    font-weight: normal;
+    height: 31px;
+    margin-bottom: 0;
+    margin-right: 2px;
+    padding: 1.5rem;
+    min-width: 97px;
+    height: 5rem;
+    vertical-align: middle;
+    position: relative;
+    top: 1px;
+    &:hover{
+      @include transition(all 0.3s ease-in-out);
+      background-color: darken($color-gray-lightest, 5%);
+    }
+    &.active {
+      background-color: $color-white;
+      border-top: 1px solid $color-gray-light;
+      border-right: 1px solid $color-gray-light;
+      border-bottom: 1px solid $color-white;
+      border-left: 1px solid $color-gray-light;
+      color: $color-base;
+    }
+  }
+}

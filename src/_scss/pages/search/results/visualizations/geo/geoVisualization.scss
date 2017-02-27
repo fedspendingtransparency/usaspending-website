@@ -1,0 +1,17 @@
+.results-visualization-geo-section {
+    padding: 3rem 3.5rem;
+    position: relative;
+
+    @import "./_topSection";
+
+    .map-container {
+        width: 100%;
+        height: 475px;
+    }
+
+    @import "./map/map";
+
+    .visualization-tooltip {
+        @import "../../../../../components/visualizations/tooltip/_tooltip";
+    }
+}

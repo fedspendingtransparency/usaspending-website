@@ -20,6 +20,7 @@ export default class Award extends React.Component {
         let awardInfo = null;
         if (this.props.award.selectedAward) {
             awardInfo = (<AwardInfo
+                {...this.props}
                 selectedAward={this.props.award.selectedAward} />);
         }
         if (this.props.noAward === true) {

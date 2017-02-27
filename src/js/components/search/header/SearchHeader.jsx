@@ -51,7 +51,7 @@ export default class SearchHeader extends React.Component {
                             </li>
                             <li>
                                 <FormatItem
-                                    code="map"
+                                    code="geo"
                                     currentSection={this.props.currentSection}
                                     label="Map"
                                     accessibleLabel="View spending on a map"

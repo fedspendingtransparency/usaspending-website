@@ -95,6 +95,23 @@ export const fetchAward = (num) => {
     };
 };
 
+// Fetch Individual Award's Transactions
+export const fetchAwardTransaction = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `transactions/`,
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 // Fetch Recipients
 export const fetchRecipients = (req) => {
     const source = CancelToken.source();
