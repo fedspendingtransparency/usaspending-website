@@ -1,21 +1,17 @@
 .search-option {
     border-bottom: 1px solid $color-gray-lighter;
-
     label {
         @include usa-label;
-        padding:0.1rem 0;
+        padding: 0.1rem 0;
     }
-
     .search-filter {
         padding-left: 1.5rem;
         padding-bottom: 1rem;
         margin-top: .75rem;
         margin-bottom: 1rem;
-        @include media($large-screen){
+        @include media($large-screen) {
             padding-left: 3rem;
         }
-
     }
-
     @import "./_filterExpand";
 }
