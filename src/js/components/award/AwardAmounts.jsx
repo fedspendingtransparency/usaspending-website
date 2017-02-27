@@ -76,7 +76,11 @@ export default class AwardAmounts extends React.Component {
             <div className="amounts-wrapper">
                 <div className="award-amounts">
                     <h4>Award Amounts</h4>
-                    <div className="border" />
+                    <hr
+                        className="results-divider"
+                        ref={(hr) => {
+                            this.sectionHr = hr;
+                        }} />
                     <div className="text-details">
                         <p>This contract was awarded to&nbsp;
                         <b className="recipient-name">{narrative.recipient}</b>.&nbsp;

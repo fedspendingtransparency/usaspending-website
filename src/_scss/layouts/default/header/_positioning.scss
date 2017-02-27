@@ -1,12 +1,13 @@
 @mixin headerPositioning {
     .nav-container {
-        display: table;
         width: 100%;
+        @include display(flex);
+        @include flex-direction(row);
         @include pad(1rem 2rem);
         @include media($nav-width) {
             @include media($small-screen) {
                 @include pad(1rem 2rem);
-                height: 10.1rem;
+                height: 11.8rem;
             }
             @include media($large-screen) {
                 @include pad(1rem 4rem);
@@ -18,26 +19,24 @@
             }
         }
         .logo {
-            margin-left: 0;
-            display: table-cell;
+            @include flex(1);
+            margin: auto;
             position: relative;
-            width: 400px;
-            @include media($nav-width) {
-                vertical-align: middle;
-            }
+            @include media($nav-width);
+
         }
         nav {
+            margin: auto;
             display: none;
-            @include media($nav-width) {
-                display: table-cell;
+            @include media($tablet-screen) {
+                display: block;
                 width: 46.0rem;
-                vertical-align: middle;
             }
         }
         .mobile-menu {
             display: table-cell;
             width: 20%;
-            @include media($nav-width) {
+            @include media($tablet-screen) {
                 display: none;
             }
         }

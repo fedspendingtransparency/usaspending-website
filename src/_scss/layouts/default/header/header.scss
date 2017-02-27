@@ -1,25 +1,19 @@
 @import "./_warning";
 @import "./_positioning";
-
 @import "./nav/headerNav";
-
 @import "./_logo";
-
 @mixin defaultHeader {
     .skip-nav {
         @include skipNav;
     }
-    .warning-banner {
+    .warning-banner-wrap {
         @include defaultHeaderWarning;
     }
-
     header {
         @include headerPositioning;
         @include headerNav;
     }
-
     .logo {
         @include headerLogo;
     }
-
 }

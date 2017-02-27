@@ -71,7 +71,11 @@ export default class ContractDetails extends React.Component {
             <div className="contract-wrapper">
                 <div className="contract-details">
                     <h4>Contract Details</h4>
-                    <div className="border" />
+                    <hr
+                        className="results-divider"
+                        ref={(hr) => {
+                            this.sectionHr = hr;
+                        }} />
                     <table>
                         <tbody>
                             <ContractCell
