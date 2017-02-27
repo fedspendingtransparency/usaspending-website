@@ -35,6 +35,7 @@ export class AgencyListContainer extends React.Component {
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
+        this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
     }
 
@@ -133,6 +134,15 @@ export class AgencyListContainer extends React.Component {
         }
     }
 
+    clearAutocompleteSuggestions() {
+        if (this.props.agencyType === 'Funding') {
+            this.props.setAutocompleteFundingAgencies([]);
+        }
+        else {
+            this.props.setAutocompleteAwardingAgencies([]);
+        }
+    }
+
     handleTextInput(agencyInput) {
         // Clear existing agencies to ensure user can't select an old or existing one
         if (this.props.agencyType === 'Funding') {
@@ -179,7 +189,8 @@ export class AgencyListContainer extends React.Component {
                 ref={(input) => {
                     this.agencyList = input;
                 }}
-                label={`${this.props.agencyType} Agency`} />
+                label={`${this.props.agencyType} Agency`}
+                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions} />
         );
     }
 }

@@ -30,6 +30,7 @@ export class RecipientNameDUNSContainer extends React.Component {
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
+        this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
     }
 
@@ -104,6 +105,10 @@ export class RecipientNameDUNSContainer extends React.Component {
         }
     }
 
+    clearAutocompleteSuggestions() {
+        this.props.setAutocompleteRecipients([]);
+    }
+
     handleTextInput(recipientInput) {
         // Clear existing recipients to ensure user can't select an old or existing one
         this.props.setAutocompleteRecipients([]);
@@ -132,7 +137,8 @@ export class RecipientNameDUNSContainer extends React.Component {
                     the list that is provided as you type."
                 ref={(input) => {
                     this.recipientList = input;
-                }} />
+                }}
+                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions} />
         );
     }
 

@@ -9,10 +9,11 @@ import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
 
 const propTypes = {
+    handleTextInput: React.PropTypes.func.isRequired,
+    onSelect: React.PropTypes.func.isRequired,
+    clearAutocompleteSuggestions: React.PropTypes.func.isRequired,
     values: React.PropTypes.array,
     placeholder: React.PropTypes.string,
-    handleTextInput: React.PropTypes.func,
-    onSelect: React.PropTypes.func,
     errorHeader: React.PropTypes.string,
     errorMessage: React.PropTypes.string,
     tabIndex: React.PropTypes.number,
@@ -24,10 +25,10 @@ const propTypes = {
 const defaultProps = {
     values: [],
     placeholder: '',
-    tabIndex: null,
     isRequired: false,
     errorHeader: null,
-    errorDescription: null,
+    errorMessage: null,
+    tabIndex: null,
     maxSuggestions: 10,
     label: ''
 };
@@ -54,6 +55,10 @@ export default class Autocomplete extends React.Component {
         if (!_.isEqual(prevProps.values, this.props.values)) {
             this.open();
         }
+    }
+
+    componentWillUnmount() {
+        this.props.clearAutocompleteSuggestions();
     }
 
     onChange(e) {
