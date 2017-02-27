@@ -23,6 +23,8 @@ const defaultProps = {
 };
 
 const labelDistance = 15;
+const labelPadding = 5;
+const labelWidth = 200;
 
 export default class AmountsChart extends React.Component {
     constructor(props) {
@@ -74,6 +76,7 @@ export default class AmountsChart extends React.Component {
     calculateScale() {
         // Set Y axis min and max (always assume the potential exceeds the current value)
         let yMin = 0;
+        // const yMax = this.props.potential;
         const yMax = this.props.current;
         if (yMax === 0) {
             yMin = -100;
@@ -120,23 +123,25 @@ export default class AmountsChart extends React.Component {
             x={0}
             y={0} />);
 
+        const leftLabelPos = labelWidth - labelPadding;
+
         // calculate the label paths
         let currentLabelPath = '';
         // start at the top of the current bar
-        currentLabelPath += `195,${currentY}`;
+        currentLabelPath += `${leftLabelPos} ,${currentY}`;
         // move left the specified amount
-        currentLabelPath += ` ${195 - labelDistance},${currentY}`;
+        currentLabelPath += ` ${leftLabelPos - labelDistance},${currentY}`;
         // go to the bottom of the current bar
-        currentLabelPath += ` ${195 - labelDistance},${this.props.graphHeight}`;
+        currentLabelPath += ` ${leftLabelPos - labelDistance},${this.props.graphHeight}`;
         // go to the edge of the bar
-        currentLabelPath += ` 195,${this.props.graphHeight}`;
+        currentLabelPath += ` ${leftLabelPos},${this.props.graphHeight}`;
         // come back
-        currentLabelPath += ` ${195 - labelDistance},${this.props.graphHeight}`;
+        currentLabelPath += ` ${leftLabelPos - labelDistance},${this.props.graphHeight}`;
         // go to the center
         const currentMiddle = this.props.graphHeight - (yScale(this.props.current) / 2);
-        currentLabelPath += ` ${195 - labelDistance},${currentMiddle}`;
+        currentLabelPath += ` ${leftLabelPos - labelDistance},${currentMiddle}`;
         // move left more to the text
-        currentLabelPath += ` ${195 - (labelDistance * 2)},${currentMiddle}`;
+        currentLabelPath += ` ${leftLabelPos - (labelDistance * 2)},${currentMiddle}`;
 
         this.setState({
             barWidth,
