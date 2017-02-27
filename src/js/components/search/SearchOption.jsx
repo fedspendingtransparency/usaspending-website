@@ -17,7 +17,17 @@ const propTypes = {
     name: React.PropTypes.string
 };
 
+const ga = require('react-ga');
+
 export default class SearchOption extends React.Component {
+
+    static logFilterEvent(name) {
+        ga.event({
+            category: 'Filters',
+            action: 'Expanded Filter',
+            label: name
+        });
+    }
 
     constructor(props) {
         super(props);
@@ -43,6 +53,9 @@ export default class SearchOption extends React.Component {
             showFilter: newShowState,
             arrowState: newArrowState
         });
+
+        const filterName = this.props.name;
+        SearchOption.logFilterEvent(filterName);
     }
 
     render() {
