@@ -14,7 +14,10 @@ export const defaultFilters = {
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),
     selectedLocations: new OrderedMap(),
-    locationDomesticForeign: 'all'
+    locationDomesticForeign: 'all',
+    selectedRecipients: new OrderedMap(),
+    recipientDomesticForeign: 'all',
+    selectedRecipientLocations: new OrderedMap()
 };
 
 export const defaultResultsMeta = {

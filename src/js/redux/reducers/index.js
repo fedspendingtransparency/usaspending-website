@@ -12,6 +12,7 @@ import orderReducer from './search/searchOrderReducer';
 import autocompleteReducer from './search/autocompleteReducer';
 import recordReducer from './records/recordReducer';
 import agencyReducer from './search/agencyReducer';
+import recipientReducer from './search/recipientReducer';
 import awardReducer from './award/awardReducer';
 
 const appReducer = combineReducers({
@@ -22,6 +23,7 @@ const appReducer = combineReducers({
     autocompleteLocations: autocompleteReducer,
     records: recordReducer,
     autocompleteAgencies: agencyReducer,
+    autocompleteRecipients: recipientReducer,
     award: awardReducer
 });
 
