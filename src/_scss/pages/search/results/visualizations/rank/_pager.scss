@@ -2,58 +2,48 @@
     margin-left: auto;
     margin-right: auto;
     width: 300px;
-
     .visualization-pager {
         display: inline-block;
         @include button-unstyled;
-        width: 140px;
-        height: 30px;
-
-        margin-top: 20px;
-
-        color: #5B616B;
-        font-size: 12px;
-        line-height: 18px;
-
-        border: 1px solid #D5D6D8;
-
-        margin-left: 20px;
-
+        padding: rem(10);
+        margin-top: rem(20);
+        color: $color-base;
+        font-size: rem(12);
+        border: rem(1) solid $color-gray-lighter;
+        margin-left: rem(20);
         &:first-child {
             margin-left: 0;
         }
-
         .pager-content {
             @include clearfix();
         }
-
         .pager-label {
             float: left;
-
+            line-height: rem(18);
+            margin: 0 0 0 rem(5);
             &.next {
-                margin-left: 20px;
+                margin: 0 rem(5) 0 0;
             }
         }
-
         .icon {
             float: left;
-            margin: 0 5px;
-            margin-top: 2px;
-
-            svg {
-                height: 12px;
-                width: 12px;
+            margin-top: 0.3rem;
+            & svg {
+                height: rem(12);
+                width: rem(12);
                 fill: #5B616B;
             }
         }
-
         &[disabled] {
-            opacity: 0.3;
+            opacity: 0.2;
         }
-
         &.hide {
             display: none;
         }
-
+        &:hover {
+            @include transition(all 0.25s $ease-in-out-sine);
+            background: $color-gray-lightest;
+            color: #333;
+        }
     }
 }
