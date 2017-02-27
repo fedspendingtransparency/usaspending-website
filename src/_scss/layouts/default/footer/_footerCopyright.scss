@@ -1,0 +1,8 @@
+@mixin footerCopyright {
+        @include span-columns(16);
+        background:  darken( #333, 5% );
+        color:  darken( #fff, 20% );
+        margin-top: 1.5rem;
+        padding: 0.5rem 0 0.9rem;
+        text-align: center;
+}
