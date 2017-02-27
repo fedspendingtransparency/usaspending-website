@@ -15,7 +15,8 @@ const propTypes = {
 const defaultProps = {
     title: '',
     subtitle: '',
-    data: []
+    data: [],
+    selected: false
 };
 
 export default class Suggestion extends React.Component {

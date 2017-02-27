@@ -31,6 +31,7 @@ export class RecipientLocationContainer extends React.Component {
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
+        this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
     }
 
@@ -112,6 +113,10 @@ export class RecipientLocationContainer extends React.Component {
         }
     }
 
+    clearAutocompleteSuggestions() {
+        this.props.setAutocompleteRecipientLocations([]);
+    }
+
     handleTextInput(recipientInput) {
         // Clear existing recipient locationss to ensure user can't select an old or existing one
         this.props.setAutocompleteRecipientLocations([]);
@@ -140,7 +145,8 @@ export class RecipientLocationContainer extends React.Component {
                     the list that is provided as you type."
                 ref={(input) => {
                     this.recipientLocationList = input;
-                }} />
+                }}
+                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions} />
         );
     }
 
