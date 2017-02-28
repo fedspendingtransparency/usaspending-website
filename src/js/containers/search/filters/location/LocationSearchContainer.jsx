@@ -16,7 +16,34 @@ const propTypes = {
     updateDomesticForeignSelection: React.PropTypes.func
 };
 
+const ga = require('react-ga');
+
 class LocationSearchContainer extends React.Component {
+
+    static logFilterEvent() {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Applied Filter',
+            label: 'Location'
+        });
+    }
+
+    static logCountryFilterEvent(selection) {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Applied Country Filter',
+            label: selection
+        });
+    }
+
+    static logPlaceFilterEvent(place) {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Applied Place Filter',
+            label: place
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -32,6 +59,10 @@ class LocationSearchContainer extends React.Component {
             const updateParams = {};
             updateParams.location = location;
             this.props.updateSelectedLocations(updateParams);
+
+            // Analytics
+            LocationSearchContainer.logFilterEvent();
+            LocationSearchContainer.logPlaceFilterEvent(location.place);
         }
     }
 
@@ -43,6 +74,10 @@ class LocationSearchContainer extends React.Component {
 
     toggleCountry(selection) {
         this.props.updateDomesticForeignSelection(selection.target.value);
+
+        // Analytics
+        LocationSearchContainer.logFilterEvent();
+        LocationSearchContainer.logCountryFilterEvent(selection.target.value);
     }
 
     render() {

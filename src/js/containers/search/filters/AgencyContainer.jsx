@@ -28,14 +28,6 @@ export class AgencyContainer extends React.Component {
         });
     }
 
-    static logAgencyTypeEvent(agencyType) {
-        ga.event({
-            category: 'Search Filters',
-            action: 'Applied Agency Filter',
-            label: agencyType
-        });
-    }
-
     static logAgencyFilterEvent(agencyType, agency) {
         ga.event({
             category: 'Search Filters',
@@ -66,7 +58,7 @@ export class AgencyContainer extends React.Component {
 
             // Analytics
             AgencyContainer.logFilterEvent();
-            AgencyContainer.logAgencyTypeEvent(agencyType);
+
             if (agency.agencyType === 'subtier') {
                 AgencyContainer.logAgencyFilterEvent(agencyType, agency.subtier_agency.name);
             }
