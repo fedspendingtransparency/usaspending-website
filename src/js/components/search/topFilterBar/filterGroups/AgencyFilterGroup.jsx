@@ -32,7 +32,8 @@ export default class AgencyFilterGroup extends React.Component {
 
         agencies.forEach((value) => {
             let agencyTitle = value.subtier_agency.name;
-            if (value.agencyType === 'subtier') {
+            if (value.agencyType === 'subtier' &&
+                value.toptier_agency.name === value.subtier_agency.name) {
                 agencyTitle += ' | Sub-Agency';
             }
 
