@@ -59,9 +59,8 @@ export class TimeVisualizationSectionContainer extends React.Component {
         // generate the API parameters
         const apiParams = {
             field: 'federal_action_obligation',
-            group: 'action_date',
+            group: 'action_date__fy',
             order: ['item'],
-            date_part: 'year',
             aggregate: 'sum',
             filters: searchParams
         };
