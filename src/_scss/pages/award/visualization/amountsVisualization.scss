@@ -6,9 +6,10 @@ $color-label-line: #ADAFB4;
 
 .amounts-visualization-wrapper {
     width: 100%;
+    //border-bottom: 1px solid $color-gray-lighter;
+    padding-bottom: rem(24);
 
     .amounts-graph {
-        margin-left: 2rem;
         margin-top: 2rem;
         .potential-bar {
             fill: $color-potential-award;

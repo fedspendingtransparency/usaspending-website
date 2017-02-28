@@ -70,7 +70,7 @@ export default class ContractDetails extends React.Component {
         return (
             <div className="contract-wrapper">
                 <div className="contract-details">
-                    <h4>Contract Details</h4>
+                    <h3>Contract Details</h3>
                     <hr
                         className="results-divider"
                         ref={(hr) => {
