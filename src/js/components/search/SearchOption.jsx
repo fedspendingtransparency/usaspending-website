@@ -47,7 +47,7 @@ export default class SearchOption extends React.Component {
     }
 
     render() {
-        let clickEvent = this.toggleFilter;
+        let disabledStatus = false;
         let comingSoon = null;
         let comingSoonModule = (
             <div>
@@ -61,7 +61,7 @@ export default class SearchOption extends React.Component {
         let statusClass = '';
         switch (this.props.name) {
             case 'Search':
-                clickEvent = null;
+                disabledStatus = true;
                 comingSoon = comingSoonModule;
                 searchOption = (<SearchBox />);
                 statusClass = ' coming-soon';
@@ -82,7 +82,7 @@ export default class SearchOption extends React.Component {
                 searchOption = (<RecipientSearchContainer />);
                 break;
             default:
-                clickEvent = null;
+                disabledStatus = true;
                 comingSoon = comingSoonModule;
                 searchOption = null;
                 statusClass = ' coming-soon';
@@ -96,9 +96,10 @@ export default class SearchOption extends React.Component {
             <div className={`search-option${statusClass}`}>
                 <FilterExpandButton
                     hidden={this.state.showFilter}
-                    toggleFilter={clickEvent}
+                    toggleFilter={this.toggleFilter}
                     arrowState={this.state.arrowState}
-                    name={this.props.name} />
+                    name={this.props.name}
+                    disabled={disabledStatus} />
                 {searchOption}
                 {comingSoon}
             </div>
