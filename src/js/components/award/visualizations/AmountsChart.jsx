@@ -19,7 +19,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    graphHeight: 300
+    graphHeight: 180
 };
 
 const labelDistance = 15;

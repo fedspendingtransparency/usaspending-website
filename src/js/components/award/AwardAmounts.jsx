@@ -75,7 +75,7 @@ export default class AwardAmounts extends React.Component {
         return (
             <div className="amounts-wrapper">
                 <div className="award-amounts">
-                    <h4>Award Amounts</h4>
+                    <h3>Award Amounts</h3>
                     <hr
                         className="results-divider"
                         ref={(hr) => {
