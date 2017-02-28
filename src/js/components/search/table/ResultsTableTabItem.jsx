@@ -10,6 +10,7 @@ const propTypes = {
     label: React.PropTypes.string,
     internal: React.PropTypes.string,
     active: React.PropTypes.bool,
+    enabled: React.PropTypes.bool,
     switchTab: React.PropTypes.func
 };
 
@@ -25,14 +26,14 @@ export default class ResultsTableTabItem extends React.Component {
     }
 
     render() {
-        let activeClass = '',
-            comingSoon = '',
-            status = '',
-            clickEvent = '';
+        let activeClass = '';
+        let clickEvent = '';
+        let comingSoon = '';
+        let status = '';
         if (this.props.active) {
             activeClass = ' active';
         }
-        if (this.props.status == 'inactive') {
+        if (this.props.enabled === false) {
             comingSoon = (
                 <div className="coming-soon-container">
                     <div className="coming-soon-icon">
@@ -41,18 +42,17 @@ export default class ResultsTableTabItem extends React.Component {
                     <span className="coming-soon-label">Coming Soon</span>
                 </div>
             );
-            status = 'coming-soon';
+            status = ' coming-soon';
             clickEvent = null;
-
         } else {
             comingSoon = '';
             status = '';
-            clickEvent = this.clickedTab
+            clickEvent = this.clickedTab;
         }
 
         return (
             <button
-                className={`table-type-toggle${activeClass}` + ' ' + status}
+                className={`table-type-toggle${activeClass}${status}`}
                 onClick={clickEvent}
                 title={`Show ${this.props.label}`}>
                 {this.props.label}

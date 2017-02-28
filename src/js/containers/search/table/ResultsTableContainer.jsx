@@ -26,27 +26,27 @@ const tableTypes = [
     {
         label: 'Contracts',
         internal: 'contracts',
-        status: 'active'
+        enabled: true
     },
     {
         label: 'Grants',
         internal: 'grants',
-        status: 'active'
+        enabled: true
     },
     {
         label: 'Direct Payments',
         internal: 'direct_payments',
-        status: 'inactive'
+        enabled: false
     },
     {
         label: 'Loans',
         internal: 'loans',
-        status: 'inactive'
+        enabled: false
     },
     {
         label: 'Insurance',
         internal: 'insurance',
-        status: 'inactive'
+        enabled: false
     }
 ];
 

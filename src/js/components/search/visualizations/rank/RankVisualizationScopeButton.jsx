@@ -35,7 +35,7 @@ export default class RankVisualizationScopeButton extends React.Component {
         }
 
         let clickEvent = '';
-        if (this.props.label == 'Offices') {
+        if (this.props.label === 'Offices') {
             clickEvent = null;
         } else {
             clickEvent = this.clickedButton;

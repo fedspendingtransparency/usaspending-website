@@ -50,17 +50,17 @@ export default class SearchOption extends React.Component {
         let searchOption = null;
         let statusClass = '';
         let comingSoon = (
-                <div>
-                    <div className="coming-soon-icon">
-                        <Icons.ExclamationCircle />
-                    </div>
-                    <span className="coming-soon-label">Coming Soon</span>
+            <div>
+                <div className="coming-soon-icon">
+                    <Icons.ExclamationCircle />
                 </div>
-            );
+                <span className="coming-soon-label">Coming Soon</span>
+            </div>
+        );
         switch (this.props.name) {
             case 'Search':
                 searchOption = (<SearchBox />);
-                statusClass = 'coming-soon';
+                statusClass = ' coming-soon';
                 break;
             case 'Award Type':
                 searchOption = (<AwardTypeContainer />);
@@ -89,7 +89,7 @@ export default class SearchOption extends React.Component {
                 break;
             default:
                 searchOption = comingSoon;
-                statusClass = 'coming-soon';
+                statusClass = ' coming-soon';
         }
 
         if (this.state.showFilter !== true) {
@@ -97,7 +97,7 @@ export default class SearchOption extends React.Component {
         }
 
         return (
-            <div className={'search-option ' + statusClass}>
+            <div className={`search-option${statusClass}`}>
                 <FilterExpandButton
                     hidden={this.state.showFilter}
                     toggleFilter={this.toggleFilter}
