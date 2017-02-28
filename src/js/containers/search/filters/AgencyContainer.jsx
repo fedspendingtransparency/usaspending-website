@@ -16,8 +16,26 @@ const propTypes = {
     updateSelectedAwardingAgencies: React.PropTypes.func
 };
 
+const ga = require('react-ga');
 
 export class AgencyContainer extends React.Component {
+
+    static logFilterEvent() {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Applied Filter',
+            label: 'Agency'
+        });
+    }
+
+    static logAgencyFilterEvent(agencyType) {
+        ga.event({
+            category: 'Search Agency Filter',
+            action: 'Applied Filter',
+            label: agencyType
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -30,6 +48,10 @@ export class AgencyContainer extends React.Component {
         if (agency !== null && isValid) {
             const updateParams = {};
             updateParams.agency = agency;
+            
+            AgencyContainer.logFilterEvent();
+            AgencyContainer.logAgencyFilterEvent(agencyType);
+
             if (agencyType === 'Funding') {
                 this.props.updateSelectedFundingAgencies(updateParams);
             }
