@@ -27,34 +27,35 @@ export default class ResultsTableTabItem extends React.Component {
 
     render() {
         let activeClass = '';
-        let clickEvent = '';
         let comingSoon = '';
+        let comingSoonModule = (
+            <div className="coming-soon-container">
+                <div className="coming-soon-icon">
+                    <Icons.ExclamationCircle />
+                </div>
+                <span className="coming-soon-label">Coming Soon</span>
+            </div>
+        );
+        let disabledStatus = '';
         let status = '';
         if (this.props.active) {
             activeClass = ' active';
         }
         if (this.props.enabled === false) {
-            comingSoon = (
-                <div className="coming-soon-container">
-                    <div className="coming-soon-icon">
-                        <Icons.ExclamationCircle />
-                    </div>
-                    <span className="coming-soon-label">Coming Soon</span>
-                </div>
-            );
+            comingSoon = comingSoonModule;
             status = ' coming-soon';
-            clickEvent = null;
+            disabledStatus = true;
         } else {
-            comingSoon = '';
             status = '';
-            clickEvent = this.clickedTab;
+            disabledStatus = false;
         }
 
         return (
             <button
                 className={`table-type-toggle${activeClass}${status}`}
-                onClick={clickEvent}
-                title={`Show ${this.props.label}`}>
+                onClick={this.clickedTab}
+                title={`Show ${this.props.label}`}
+                disabled={disabledStatus}>
                 {this.props.label}
                 {comingSoon}
             </button>
