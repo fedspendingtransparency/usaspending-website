@@ -24,22 +24,22 @@ export class AgencyContainer extends React.Component {
         ga.event({
             category: 'Search Filters',
             action: 'Applied Filter',
-            label: 'Agency'
+            label: 'Agencies'
         });
     }
 
     static logAgencyTypeEvent(agencyType) {
         ga.event({
-            category: 'Search Agency Filter',
-            action: 'Applied Filter',
+            category: 'Search Filters',
+            action: 'Applied Agency Filter',
             label: agencyType
         });
     }
 
     static logAgencyFilterEvent(agencyType, agency) {
         ga.event({
-            category: 'Search Agency Filter',
-            action: `Applied ${agencyType} Filter`,
+            category: 'Search Filters',
+            action: `Applied ${agencyType} Agency Filter`,
             label: agency.toLowerCase()
         });
     }
