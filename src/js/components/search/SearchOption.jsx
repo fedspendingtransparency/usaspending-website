@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
@@ -47,27 +48,48 @@ export default class SearchOption extends React.Component {
 
     render() {
         let searchOption = null;
+        let statusClass = '';
+        let comingSoon = (
+                <div>
+                    <div className="coming-soon-icon">
+                        <Icons.ExclamationCircle />
+                    </div>
+                    <span className="coming-soon-label">Coming Soon</span>
+                </div>
+            );
         switch (this.props.name) {
             case 'Search':
                 searchOption = (<SearchBox />);
+                statusClass = 'coming-soon';
                 break;
             case 'Award Type':
                 searchOption = (<AwardTypeContainer />);
+                statusClass = '';
+                comingSoon = '';
                 break;
             case 'Time Period':
                 searchOption = (<TimePeriodContainer />);
+                statusClass = '';
+                comingSoon = '';
                 break;
             case 'Agencies':
                 searchOption = (<AgencyContainer />);
+                statusClass = '';
+                comingSoon = '';
                 break;
             case 'Place of Performance':
                 searchOption = (<LocationSearchContainer />);
+                statusClass = '';
+                comingSoon = '';
                 break;
             case 'Recipients':
                 searchOption = (<RecipientSearchContainer />);
+                statusClass = '';
+                comingSoon = '';
                 break;
             default:
-                searchOption = null;
+                searchOption = comingSoon;
+                statusClass = 'coming-soon';
         }
 
         if (this.state.showFilter !== true) {
@@ -75,13 +97,14 @@ export default class SearchOption extends React.Component {
         }
 
         return (
-            <div className="search-option">
+            <div className={'search-option ' + statusClass}>
                 <FilterExpandButton
                     hidden={this.state.showFilter}
                     toggleFilter={this.toggleFilter}
                     arrowState={this.state.arrowState}
                     name={this.props.name} />
                 {searchOption}
+                {comingSoon}
             </div>
         );
     }

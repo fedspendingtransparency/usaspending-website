@@ -25,10 +25,32 @@ export default class FilterExpandButton extends React.Component {
             icon = <Icons.AngleDown />;
         }
 
+        let clickEvent = '';
+        switch (this.props.name) {
+            case 'Search':
+                clickEvent = null;
+                break;
+            case 'Budget Categories':
+                clickEvent = null;
+                break;
+            case 'Award ID':
+                clickEvent = null;
+                break;
+            case 'Award Amount':
+                clickEvent = null;
+                break;
+            case 'Other Award Items':
+                clickEvent = null;
+                break;
+            default:
+                clickEvent = this.props.toggleFilter;
+                break;
+        }
+
         return (
             <button
                 className={`filter-toggle ${hiddenClass}`}
-                onClick={this.props.toggleFilter}>
+                onClick={clickEvent}>
                 {icon}
                 <h6 className="filter-header">{this.props.name}</h6>
                 <Icons.Guide className="filter-help" />

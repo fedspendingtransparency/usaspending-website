@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     label: React.PropTypes.string,
@@ -24,17 +25,38 @@ export default class ResultsTableTabItem extends React.Component {
     }
 
     render() {
-        let activeClass = '';
+        let activeClass = '',
+            comingSoon = '',
+            status = '',
+            clickEvent = '';
         if (this.props.active) {
             activeClass = ' active';
+        }
+        if (this.props.status == 'inactive') {
+            comingSoon = (
+                <div className="coming-soon-container">
+                    <div className="coming-soon-icon">
+                        <Icons.ExclamationCircle />
+                    </div>
+                    <span className="coming-soon-label">Coming Soon</span>
+                </div>
+            );
+            status = 'coming-soon';
+            clickEvent = null;
+
+        } else {
+            comingSoon = '';
+            status = '';
+            clickEvent = this.clickedTab
         }
 
         return (
             <button
-                className={`table-type-toggle${activeClass}`}
-                onClick={this.clickedTab}
+                className={`table-type-toggle${activeClass}` + ' ' + status}
+                onClick={clickEvent}
                 title={`Show ${this.props.label}`}>
                 {this.props.label}
+                {comingSoon}
             </button>
         );
     }

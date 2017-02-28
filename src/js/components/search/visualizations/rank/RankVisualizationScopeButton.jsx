@@ -34,13 +34,20 @@ export default class RankVisualizationScopeButton extends React.Component {
             description += ' (currently selected)';
         }
 
+        let clickEvent = '';
+        if (this.props.label == 'Offices') {
+            clickEvent = null;
+        } else {
+            clickEvent = this.clickedButton;
+        }
+
         return (
             <button
                 className={`scope-button${activeClass}`}
                 value={this.props.value}
                 title={description}
                 aria-label={description}
-                onClick={this.clickedButton}>
+                onClick={clickEvent}>
                 {this.props.label}
             </button>
         );

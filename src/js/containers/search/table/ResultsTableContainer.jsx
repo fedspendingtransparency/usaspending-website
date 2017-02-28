@@ -25,23 +25,28 @@ const propTypes = {
 const tableTypes = [
     {
         label: 'Contracts',
-        internal: 'contracts'
+        internal: 'contracts',
+        status: 'active'
     },
     {
         label: 'Grants',
-        internal: 'grants'
+        internal: 'grants',
+        status: 'active'
     },
     {
         label: 'Direct Payments',
-        internal: 'direct_payments'
+        internal: 'direct_payments',
+        status: 'inactive'
     },
     {
         label: 'Loans',
-        internal: 'loans'
+        internal: 'loans',
+        status: 'inactive'
     },
     {
         label: 'Insurance',
-        internal: 'insurance'
+        internal: 'insurance',
+        status: 'inactive'
     }
 ];
 
