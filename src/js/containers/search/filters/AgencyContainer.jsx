@@ -28,11 +28,19 @@ export class AgencyContainer extends React.Component {
         });
     }
 
-    static logAgencyFilterEvent(agencyType) {
+    static logAgencyTypeEvent(agencyType) {
         ga.event({
             category: 'Search Agency Filter',
             action: 'Applied Filter',
             label: agencyType
+        });
+    }
+
+    static logAgencyFilterEvent(agencyType, agency) {
+        ga.event({
+            category: 'Search Agency Filter',
+            action: `Applied ${agencyType} Filter`,
+            label: agency.toLowerCase()
         });
     }
 
@@ -48,15 +56,22 @@ export class AgencyContainer extends React.Component {
         if (agency !== null && isValid) {
             const updateParams = {};
             updateParams.agency = agency;
-            
-            AgencyContainer.logFilterEvent();
-            AgencyContainer.logAgencyFilterEvent(agencyType);
 
             if (agencyType === 'Funding') {
                 this.props.updateSelectedFundingAgencies(updateParams);
             }
             else {
                 this.props.updateSelectedAwardingAgencies(updateParams);
+            }
+
+            // Analytics
+            AgencyContainer.logFilterEvent();
+            AgencyContainer.logAgencyTypeEvent(agencyType);
+            if (agency.agencyType === 'subtier') {
+                AgencyContainer.logAgencyFilterEvent(agencyType, agency.subtier_agency.name);
+            }
+            else {
+                AgencyContainer.logAgencyFilterEvent(agencyType, agency.toptier_agency.name);
             }
         }
     }
