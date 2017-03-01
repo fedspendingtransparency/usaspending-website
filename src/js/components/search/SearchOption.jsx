@@ -48,14 +48,13 @@ export default class SearchOption extends React.Component {
         let newArrowState = 'collapsed';
         if (newShowState) {
             newArrowState = 'expanded';
+            const filterName = this.props.name;
+            SearchOption.logFilterEvent(filterName);
         }
         this.setState({
             showFilter: newShowState,
             arrowState: newArrowState
         });
-
-        const filterName = this.props.name;
-        SearchOption.logFilterEvent(filterName);
     }
 
     render() {
