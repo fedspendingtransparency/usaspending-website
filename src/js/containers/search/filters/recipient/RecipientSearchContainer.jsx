@@ -17,7 +17,41 @@ const propTypes = {
     updateRecipientLocations: React.PropTypes.func
 };
 
+const ga = require('react-ga');
+
 export class RecipientSearchContainer extends React.Component {
+    static logFilterEvent() {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Applied Filter',
+            label: 'Recipient Information'
+        });
+    }
+
+    static logRecipientFilterEvent(name) {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Applied Recipient Name/DUNS Filter',
+            label: name.toLowerCase()
+        });
+    }
+
+    static logCountryFilterEvent(selection) {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Applied Recipient Country Filter',
+            label: selection
+        });
+    }
+
+    static logLocationFilterEvent(place) {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Applied Recipient Location Filter',
+            label: place
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -29,14 +63,20 @@ export class RecipientSearchContainer extends React.Component {
 
     toggleRecipient(recipient) {
         this.props.updateSelectedRecipients(recipient);
+        RecipientSearchContainer.logFilterEvent();
+        RecipientSearchContainer.logRecipientFilterEvent(recipient.recipient_name);
     }
 
     toggleDomesticForeign(selection) {
         this.props.updateRecipientDomesticForeignSelection(selection.target.value);
+        RecipientSearchContainer.logFilterEvent();
+        RecipientSearchContainer.logCountryFilterEvent(selection.target.value);
     }
 
     toggleRecipientLocation(recipientLocation) {
         this.props.updateRecipientLocations(recipientLocation);
+        RecipientSearchContainer.logFilterEvent();
+        RecipientSearchContainer.logLocationFilterEvent(recipientLocation.place);
     }
 
     render() {
