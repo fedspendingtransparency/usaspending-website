@@ -51,7 +51,7 @@ export default class SearchHeader extends React.Component {
                             </li>
                             <li>
                                 <FormatItem
-                                    code="map"
+                                    code="geo"
                                     currentSection={this.props.currentSection}
                                     label="Map"
                                     accessibleLabel="View spending on a map"
@@ -67,6 +67,12 @@ export default class SearchHeader extends React.Component {
                             </li>
                             <li>
                                 <DownloadButton />
+                                <div className="coming-soon-container">
+                                    <div className="coming-soon-icon">
+                                        <Icons.ExclamationCircle />
+                                    </div>
+                                    <span className="coming-soon-label">Coming Soon</span>
+                                </div>
                             </li>
                         </ul>
                     </div>

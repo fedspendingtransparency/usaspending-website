@@ -77,7 +77,7 @@ export default class RankVisualizationTitle extends React.Component {
         return (
             <div className="rank-visualization-title">
                 <h3 className="static-title">
-                    Spending By:&nbsp;
+                    Spending by:&nbsp;
                 </h3>
 
                 <div className="field-picker">

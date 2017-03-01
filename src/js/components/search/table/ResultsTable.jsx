@@ -18,7 +18,8 @@ const propTypes = {
     batch: React.PropTypes.object,
     columns: React.PropTypes.array,
     visibleWidth: React.PropTypes.number,
-    loadNextPage: React.PropTypes.func
+    loadNextPage: React.PropTypes.func,
+    currentType: React.PropTypes.string
 };
 
 const rowHeight = 40;

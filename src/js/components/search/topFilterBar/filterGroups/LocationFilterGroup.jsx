@@ -11,7 +11,8 @@ import BaseTopFilterGroup from './BaseTopFilterGroup';
 const propTypes = {
     filter: React.PropTypes.object,
     removeFilter: React.PropTypes.func,
-    clearFilterGroup: React.PropTypes.func
+    clearFilterGroup: React.PropTypes.func,
+    toggle: React.PropTypes.string
 };
 
 const scopeLabels = {
@@ -29,11 +30,11 @@ export default class LocationFilterGroup extends React.Component {
 
     removeFilter(value) {
         // remove a single filter item
-        this.props.removeFilter('selectedLocations', value);
+        this.props.removeFilter(this.props.filter.code, value);
     }
 
     removeScope() {
-        this.props.clearFilterGroup('locationDomesticForeign');
+        this.props.clearFilterGroup(this.props.toggle);
     }
 
     generateLabel(item) {

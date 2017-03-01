@@ -1,12 +1,14 @@
 /**
-  * AwardInfoContainer.jsx
+  * AwardInfo.jsx
   * Created by Emily Gullo 01/20/2017
   **/
 
 import React from 'react';
 
-import SummaryBar from 'components/award/SummaryBar';
-import AwardInfoBar from 'components/award/AwardInfoBar';
+import SummaryBar from './SummaryBar';
+import AwardInfoBar from './AwardInfoBar';
+import AwardContract from './AwardContract';
+import DetailsTableSection from './table/DetailsTableSection';
 
 const propTypes = {
     selectedAward: React.PropTypes.object
@@ -24,6 +26,10 @@ export default class AwardInfo extends React.Component {
                     <AwardInfoBar
                         {...this.props}
                         selectedAward={this.props.selectedAward} />
+                    <AwardContract
+                        {...this.props}
+                        selectedAward={this.props.selectedAward} />
+                    <DetailsTableSection {...this.props} />
                 </main>
             </div>
         );

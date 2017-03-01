@@ -13,13 +13,24 @@
         }
     }
     .search-title {
-        @include media($nav-width) {
+        @include span-columns(16);
+        & h1 {
+            text-align: center;
+        }
+        @include media($medium-screen) {
             @include span-columns(8);
+            & h1 {
+                text-align: left;
+            }
         }
     }
     .search-options {
-        @include media($nav-width) {
+        @include span-columns(16);
+        @include media($medium-screen) {
             @include span-columns(8);
+            & ul.search-formats {
+                text-align: right;
+            }
         }
     }
 }

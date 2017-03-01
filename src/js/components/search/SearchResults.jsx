@@ -12,6 +12,8 @@ import TimeVisualizationSectionContainer from
     'containers/search/visualizations/time/TimeVisualizationSectionContainer';
 import RankVisualizationSectionContainer from
     'containers/search/visualizations/rank/RankVisualizationSectionContainer';
+import GeoVisualizationSectionContainer from
+    'containers/search/visualizations/geo/GeoVisualizationSectionContainer';
 
 export default class SearchResults extends React.Component {
     render() {
@@ -21,6 +23,7 @@ export default class SearchResults extends React.Component {
                 <div className="search-results">
                     <TimeVisualizationSectionContainer />
                     <RankVisualizationSectionContainer />
+                    <GeoVisualizationSectionContainer />
                     <ResultsTableContainer />
                 </div>
             </div>
