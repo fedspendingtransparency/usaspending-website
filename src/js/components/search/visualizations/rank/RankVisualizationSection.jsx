@@ -120,12 +120,18 @@ export default class RankVisualizationSection extends React.Component {
                                         active={this.props.agencyScope === 'subtier'}
                                         changeScope={this.props.changeScope} />
                                 </li>
-                                <li>
+                                <li className="coming-soon">
                                     <RankVisualizationScopeButton
                                         value="office"
                                         label="Offices"
                                         active={this.props.agencyScope === 'office'}
                                         changeScope={this.props.changeScope} />
+                                    <div>
+                                        <div className="coming-soon-icon">
+                                            <Icons.ExclamationCircle />
+                                        </div>
+                                        <span className="coming-soon-label">Coming Soon</span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>

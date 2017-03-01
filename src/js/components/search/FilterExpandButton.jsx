@@ -25,13 +25,22 @@ export default class FilterExpandButton extends React.Component {
             icon = <Icons.AngleDown />;
         }
 
+        let disabledStatus = false;
+        if (this.props.name === 'Search' ||
+            this.props.name === 'Budget Categories' ||
+            this.props.name === 'Award ID' ||
+            this.props.name === 'Award Amount' ||
+            this.props.name === 'Other Award Items') {
+                disabledStatus = true;
+        }
+
         return (
             <button
                 className={`filter-toggle ${hiddenClass}`}
-                onClick={this.props.toggleFilter}>
+                onClick={this.props.toggleFilter}
+                disabled={disabledStatus}>
                 {icon}
                 <h6 className="filter-header">{this.props.name}</h6>
-                <Icons.Guide className="filter-help" />
             </button>
         );
     }

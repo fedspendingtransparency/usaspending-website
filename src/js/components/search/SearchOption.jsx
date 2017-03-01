@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
@@ -46,10 +47,24 @@ export default class SearchOption extends React.Component {
     }
 
     render() {
+        let disabledStatus = false;
+        let comingSoon = null;
+        let comingSoonModule = (
+            <div>
+                <div className="coming-soon-icon">
+                    <Icons.ExclamationCircle />
+                </div>
+                <span className="coming-soon-label">Coming Soon</span>
+            </div>
+        );
         let searchOption = null;
+        let statusClass = '';
         switch (this.props.name) {
             case 'Search':
+                disabledStatus = true;
+                comingSoon = comingSoonModule;
                 searchOption = (<SearchBox />);
+                statusClass = ' coming-soon';
                 break;
             case 'Award Type':
                 searchOption = (<AwardTypeContainer />);
@@ -67,7 +82,10 @@ export default class SearchOption extends React.Component {
                 searchOption = (<RecipientSearchContainer />);
                 break;
             default:
+                disabledStatus = true;
+                comingSoon = comingSoonModule;
                 searchOption = null;
+                statusClass = ' coming-soon';
         }
 
         if (this.state.showFilter !== true) {
@@ -75,13 +93,15 @@ export default class SearchOption extends React.Component {
         }
 
         return (
-            <div className="search-option">
+            <div className={`search-option${statusClass}`}>
                 <FilterExpandButton
                     hidden={this.state.showFilter}
                     toggleFilter={this.toggleFilter}
                     arrowState={this.state.arrowState}
-                    name={this.props.name} />
+                    name={this.props.name}
+                    disabled={disabledStatus} />
                 {searchOption}
+                {comingSoon}
             </div>
         );
     }

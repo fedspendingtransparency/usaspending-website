@@ -34,13 +34,16 @@ export default class RankVisualizationScopeButton extends React.Component {
             description += ' (currently selected)';
         }
 
+        let disabledStatus = this.props.label === 'Offices' ? true : false;
+
         return (
             <button
                 className={`scope-button${activeClass}`}
                 value={this.props.value}
                 title={description}
                 aria-label={description}
-                onClick={this.clickedButton}>
+                onClick={this.clickedButton}
+                disabled={disabledStatus}>
                 {this.props.label}
             </button>
         );
