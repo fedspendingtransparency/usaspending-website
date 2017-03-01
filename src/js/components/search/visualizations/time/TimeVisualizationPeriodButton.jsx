@@ -34,12 +34,16 @@ export default class TimeVisualizationPeriodButton extends React.Component {
             description += ' (currently selected)';
         }
 
+        let disabledStatus = this.props.label === 'Quarters' ||
+            this.props.label === 'Months' ? true : false;
+
         return (
             <button
                 className={`period-button${activeClass}`}
                 value={this.props.value}
                 title={description}
-                aria-label={description}>
+                aria-label={description}
+                disabled={disabledStatus}>
                 {this.props.label}
             </button>
         );
