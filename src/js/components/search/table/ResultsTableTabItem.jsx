@@ -26,9 +26,7 @@ export default class ResultsTableTabItem extends React.Component {
     }
 
     render() {
-        let activeClass = '';
-        let comingSoon = '';
-        let comingSoonModule = (
+        const comingSoonModule = (
             <div className="coming-soon-container">
                 <div className="coming-soon-icon">
                     <Icons.ExclamationCircle />
@@ -36,6 +34,8 @@ export default class ResultsTableTabItem extends React.Component {
                 <span className="coming-soon-label">Coming Soon</span>
             </div>
         );
+        let activeClass = '';
+        let comingSoon = '';
         let disabledStatus = '';
         let status = '';
         if (this.props.active) {

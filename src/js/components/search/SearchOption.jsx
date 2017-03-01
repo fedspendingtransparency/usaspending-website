@@ -47,9 +47,7 @@ export default class SearchOption extends React.Component {
     }
 
     render() {
-        let disabledStatus = false;
-        let comingSoon = null;
-        let comingSoonModule = (
+        const comingSoonModule = (
             <div>
                 <div className="coming-soon-icon">
                     <Icons.ExclamationCircle />
@@ -57,6 +55,8 @@ export default class SearchOption extends React.Component {
                 <span className="coming-soon-label">Coming Soon</span>
             </div>
         );
+        let disabledStatus = false;
+        let comingSoon = null;
         let searchOption = null;
         let statusClass = '';
         switch (this.props.name) {

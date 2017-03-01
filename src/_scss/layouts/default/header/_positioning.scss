@@ -30,7 +30,7 @@
             display: none;
             @include media($tablet-screen) {
                 display: block;
-                width: 46.0rem;
+                width: 50rem;
             }
         }
         .mobile-menu {

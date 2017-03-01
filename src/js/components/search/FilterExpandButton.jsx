@@ -31,7 +31,7 @@ export default class FilterExpandButton extends React.Component {
             this.props.name === 'Award ID' ||
             this.props.name === 'Award Amount' ||
             this.props.name === 'Other Award Items') {
-                disabledStatus = true;
+            disabledStatus = true;
         }
 
         return (

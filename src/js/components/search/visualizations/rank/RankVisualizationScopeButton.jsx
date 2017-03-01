@@ -34,7 +34,7 @@ export default class RankVisualizationScopeButton extends React.Component {
             description += ' (currently selected)';
         }
 
-        let disabledStatus = this.props.label === 'Offices' ? true : false;
+        const disabledStatus = this.props.label === 'Offices';
 
         return (
             <button
