@@ -16,15 +16,52 @@
         li {
             display: inline-block;
             margin-left: 30px;
+            text-align: center;
             @include headerNavMenuItem;
 
             &:first-child {
                 margin-left: 0px;
             }
+            .coming-soon {
+                color: $color-gray-lighter;
+                cursor: default;
+                pointer-events: none;
+            }
+            .coming-soon-container {
+                margin-top: rem(5px);
+                width: 100%;
+                .coming-soon-icon {
+                    bottom: rem(10px);
+                    display: inline;
+                    height: 0;
+                    left: rem(0px);
+                    position: relative;
+                    svg {
+                        fill: $color-gray-lighter;
+                        height: rem(10px);
+                        width: rem(10px);
+                    }
+                }
+                .coming-soon-label {
+                    bottom: rem(12px);
+                    color: $color-gray-lighter;
+                    display: inline;
+                    font-weight: bold;
+                    font-size: rem(10px);
+                    height: 0;
+                    left: rem(4px);
+                    position: relative;
+                }
+            }
         }
 
         .search-button {
             @include headerNavMenuSearchButton;
+            svg {
+                fill: $color-gray-lighter;
+            }
+            cursor: default;
+            pointer-events: none;
         }
     }
 }
