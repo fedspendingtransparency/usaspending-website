@@ -13,7 +13,25 @@ const propTypes = {
     reduxFilters: React.PropTypes.object
 };
 
+const ga = require('react-ga');
+
 export default class SecondaryAwardType extends React.Component {
+    static logSecondaryTypeFilterEvent(type) {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Selected Secondary Award Type',
+            label: type
+        });
+    }
+
+    static logDeselectFilterEvent(type) {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Deselected Secondary Award Type',
+            label: type
+        });
+    }
+
     constructor(props) {
         super(props);
         // bind functions
@@ -22,6 +40,14 @@ export default class SecondaryAwardType extends React.Component {
     toggleFilter() {
         // indicate to Redux that this field needs to toggle
         this.props.toggleAwardType(this.props.code);
+        // Analytics
+        const checked = this.props.reduxFilters.includes(this.props.code);
+        if(checked){
+            SecondaryAwardType.logDeselectFilterEvent(this.props.name);
+        }
+        else {
+            SecondaryAwardType.logSecondaryTypeFilterEvent(this.props.name);
+        }
     }
     render() {
         const checked = this.props.reduxFilters.includes(this.props.code);

@@ -63,18 +63,21 @@ export class RecipientSearchContainer extends React.Component {
 
     toggleRecipient(recipient) {
         this.props.updateSelectedRecipients(recipient);
+        // Analytics
         RecipientSearchContainer.logFilterEvent();
         RecipientSearchContainer.logRecipientFilterEvent(recipient.recipient_name);
     }
 
     toggleDomesticForeign(selection) {
         this.props.updateRecipientDomesticForeignSelection(selection.target.value);
+        // Analytics
         RecipientSearchContainer.logFilterEvent();
         RecipientSearchContainer.logCountryFilterEvent(selection.target.value);
     }
 
     toggleRecipientLocation(recipientLocation) {
         this.props.updateRecipientLocations(recipientLocation);
+        // Analytics
         RecipientSearchContainer.logFilterEvent();
         RecipientSearchContainer.logLocationFilterEvent(recipientLocation.place);
     }
