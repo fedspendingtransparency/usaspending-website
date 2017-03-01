@@ -41,7 +41,6 @@ export default class FilterExpandButton extends React.Component {
                 disabled={disabledStatus}>
                 {icon}
                 <h6 className="filter-header">{this.props.name}</h6>
-                <Icons.Guide className="filter-help" />
             </button>
         );
     }
