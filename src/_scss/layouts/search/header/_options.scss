@@ -26,7 +26,7 @@
             @include searchHeaderDownloadButton;
         }
         .coming-soon {
-            color: $color-gray;
+            color: $color-gray-light;
             cursor: default;
             pointer-events: none;
         }
@@ -40,14 +40,14 @@
                 left: rem(27px);
                 position: relative;
                 svg {
-                    fill: $color-gray;
+                    fill: $color-gray-light;
                     height: rem(10px);
                     width: rem(10px);
                 }
             }
             .coming-soon-label {
                 bottom: rem(-5px);
-                color: $color-gray;
+                color: $color-gray-light;
                 display: inline;
                 float: left;
                 font-weight: bold;
