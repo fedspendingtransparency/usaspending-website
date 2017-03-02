@@ -51,7 +51,8 @@ export class RecipientLocationContainer extends React.Component {
         if (recipientLocations.length > 0) {
             recipientLocations.forEach((item) => {
                 let placeType = _.upperCase(item.place_type);
-                if (item.parent !== null) {
+                if (item.parent !== null &&
+                    (item.place_type !== null && item.place_type !== 'COUNTRY')) {
                     placeType += ` in ${item.parent}`;
                 }
 

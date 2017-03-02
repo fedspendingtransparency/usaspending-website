@@ -50,7 +50,8 @@ class LocationListContainer extends React.Component {
         if (locations.length > 0) {
             locations.forEach((item) => {
                 let placeType = _.upperCase(item.place_type);
-                if (item.parent !== null) {
+                if (item.parent !== null &&
+                    (item.place_type !== null && item.place_type !== 'COUNTRY')) {
                     placeType += ` in ${item.parent}`;
                 }
 
