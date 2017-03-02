@@ -31,7 +31,7 @@ class LocationSearchContainer extends React.Component {
     static logCountryFilterEvent(selection) {
         ga.event({
             category: 'Search Filters',
-            action: 'Applied Country Filter',
+            action: 'Applied Place of Performance Domestic/Foreign Filter',
             label: selection
         });
     }
@@ -39,7 +39,7 @@ class LocationSearchContainer extends React.Component {
     static logPlaceFilterEvent(placeType, place) {
         ga.event({
             category: 'Search Filters',
-            action: `Applied ${placeType.toLowerCase()} Filter`,
+            action: `Applied Place of Performance ${placeType.toLowerCase()} Filter`,
             label: place.toLowerCase()
         });
     }

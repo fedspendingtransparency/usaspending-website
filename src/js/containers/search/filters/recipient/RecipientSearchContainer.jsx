@@ -39,11 +39,11 @@ export class RecipientSearchContainer extends React.Component {
     static logCountryFilterEvent(selection) {
         ga.event({
             category: 'Search Filters',
-            action: 'Applied Recipient Country Filter',
+            action: 'Applied Recipient Domestic/Foreign Filter',
             label: selection
         });
     }
-    
+
     static logLocationFilterEvent(placeType, place) {
         ga.event({
             category: 'Search Filters',
