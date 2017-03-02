@@ -16,7 +16,8 @@ import AwardLabels from './AwardLabels';
 const propTypes = {
     potential: React.PropTypes.number,
     current: React.PropTypes.number,
-    graphHeight: React.PropTypes.number
+    graphHeight: React.PropTypes.number,
+    awardId: React.PropTypes.number
 };
 
 const defaultProps = {
@@ -24,6 +25,8 @@ const defaultProps = {
 };
 
 const labelDistance = 15;
+const labelPadding = 5;
+const labelWidth = 200;
 
 export default class AmountsChart extends React.Component {
     constructor(props) {
@@ -49,7 +52,8 @@ export default class AmountsChart extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.graphWidth !== this.state.graphWidth) {
+        if (prevState.graphWidth !== this.state.graphWidth ||
+            prevProps.awardId !== this.props.awardId) {
             this.generateChart();
         }
     }
@@ -73,8 +77,12 @@ export default class AmountsChart extends React.Component {
 
     calculateScale() {
         // Set Y axis min and max (always assume the potential exceeds the current value)
-        const yMin = 0;
-        const yMax = this.props.potential;
+        let yMin = 0;
+        // const yMax = this.props.potential;
+        const yMax = this.props.current;
+        if (yMax === 0) {
+            yMin = -100;
+        }
 
         // don't swap min and max if the potential value is negative; the scale needs to be inverted
         // anyway in that case
@@ -98,13 +106,15 @@ export default class AmountsChart extends React.Component {
         const barWidth = this.state.graphWidth - 400;
 
         // draw the potential bar
-        const potentialY = this.props.graphHeight - yScale(this.props.potential);
-        const potentialBar = (<PotentialAwardBar
-            data={MoneyFormatter.formatMoney(this.props.potential)}
-            width={barWidth}
-            height={yScale(this.props.potential)}
-            x={0}
-            y={0} />);
+        // const potentialY = this.props.graphHeight - yScale(this.props.potential);
+        // const potentialBar = (<PotentialAwardBar
+        //     data={MoneyFormatter.formatMoney(this.props.potential)}
+        //     width={barWidth}
+        //     height={yScale(this.props.potential)}
+        //     x={0}
+        //     y={0} />);
+        const potentialY = 1;
+        const potentialBar = null;
 
         // draw the current var
         const currentY = this.props.graphHeight - yScale(this.props.current);
@@ -115,23 +125,25 @@ export default class AmountsChart extends React.Component {
             x={0}
             y={0} />);
 
+        const leftLabelPos = labelWidth - labelPadding;
+
         // calculate the label paths
         let currentLabelPath = '';
         // start at the top of the current bar
-        currentLabelPath += `195,${currentY}`;
+        currentLabelPath += `${leftLabelPos} ,${currentY}`;
         // move left the specified amount
-        currentLabelPath += ` ${195 - labelDistance},${currentY}`;
+        currentLabelPath += ` ${leftLabelPos - labelDistance},${currentY}`;
         // go to the bottom of the current bar
-        currentLabelPath += ` ${195 - labelDistance},${this.props.graphHeight}`;
+        currentLabelPath += ` ${leftLabelPos - labelDistance},${this.props.graphHeight}`;
         // go to the edge of the bar
-        currentLabelPath += ` 195,${this.props.graphHeight}`;
+        currentLabelPath += ` ${leftLabelPos},${this.props.graphHeight}`;
         // come back
-        currentLabelPath += ` ${195 - labelDistance},${this.props.graphHeight}`;
+        currentLabelPath += ` ${leftLabelPos - labelDistance},${this.props.graphHeight}`;
         // go to the center
         const currentMiddle = this.props.graphHeight - (yScale(this.props.current) / 2);
-        currentLabelPath += ` ${195 - labelDistance},${currentMiddle}`;
+        currentLabelPath += ` ${leftLabelPos - labelDistance},${currentMiddle}`;
         // move left more to the text
-        currentLabelPath += ` ${195 - (labelDistance * 2)},${currentMiddle}`;
+        currentLabelPath += ` ${leftLabelPos - (labelDistance * 2)},${currentMiddle}`;
 
         this.setState({
             barWidth,
@@ -180,7 +192,6 @@ export default class AmountsChart extends React.Component {
                             subtitle="Funding Obligated"
                             labelDistance={labelDistance}
                             line="poly" />
-
                     </g>
                 </svg>
             </div>
