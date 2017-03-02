@@ -19,18 +19,20 @@ const propTypes = {
     tabIndex: React.PropTypes.number,
     isRequired: React.PropTypes.bool,
     maxSuggestions: React.PropTypes.number,
-    label: React.PropTypes.string
+    label: React.PropTypes.string,
+    noResults: React.PropTypes.bool
 };
 
 const defaultProps = {
     values: [],
     placeholder: '',
     isRequired: false,
-    errorHeader: null,
-    errorMessage: null,
+    errorHeader: '',
+    errorMessage: '',
     tabIndex: null,
     maxSuggestions: 10,
-    label: ''
+    label: '',
+    noResults: false
 };
 
 export default class Autocomplete extends React.Component {
@@ -43,7 +45,7 @@ export default class Autocomplete extends React.Component {
             value: '',
             shown: '',
             selectedIndex: 0,
-            showWarning: ''
+            showWarning: false
         };
     }
 
@@ -55,6 +57,9 @@ export default class Autocomplete extends React.Component {
         if (!_.isEqual(prevProps.values, this.props.values)) {
             this.open();
         }
+        else if (this.props.noResults !== prevProps.noResults) {
+            this.toggleWarning();
+        }
     }
 
     componentWillUnmount() {
@@ -65,6 +70,7 @@ export default class Autocomplete extends React.Component {
         this.checkValidity(e.target.value);
         this.props.handleTextInput(e);
         this.setState({
+            value: e.target.value,
             selectedIndex: 0
         });
     }
@@ -101,9 +107,16 @@ export default class Autocomplete extends React.Component {
         });
     }
 
+    toggleWarning() {
+        this.setState({
+            showWarning: this.props.noResults
+        });
+    }
+
     close() {
         this.setState({
-            shown: 'hidden'
+            shown: 'hidden',
+            showWarning: false
         });
     }
 
@@ -135,60 +148,41 @@ export default class Autocomplete extends React.Component {
     }
 
     checkValidity(input) {
-        // Ensure user has typed 2 or more characters
+        // Hide any old warnings
+        this.setState({
+            showWarning: false
+        });
+
         if (input.length === 1) {
-            this.createTimeout(true,
-                500
-            );
+            // Ensure user has typed 2 or more characters before searching
+            this.createTimeout(true, input, 1000);
         }
-        // Clear error when input is cleared or longer than 2 characters
         else {
+            // Clear timeout when input is cleared or longer than 2 characters
             this.cancelTimeout();
         }
     }
 
-    createTimeout(showWarning, delay) {
+    createTimeout(warning, input, delay) {
         this.cancelTimeout();
 
         this.timeout = window.setTimeout(() => {
-            this.setState({ showWarning });
+            this.setState({
+                value: input,
+                showWarning: warning
+            });
         }, delay);
     }
 
     cancelTimeout() {
         window.clearTimeout(this.timeout);
         this.timeout = null;
-
-        this.setState({
-            showWarning: false,
-            errorMessage: null,
-            errorHeader: null
-        });
     }
 
     changedText(e) {
         this.setState({
             value: e.target.value
-        }, this.detectEmptySuggestions);
-    }
-
-    detectEmptySuggestions() {
-        if (this.state.value.length > 2 && this.props.values.length === 0) {
-            if (!this.state.showWarning) {
-                // we need to show a warning that no matching loctions were found
-                this.setState({
-                    showWarning: true
-                });
-            }
-            return;
-        }
-
-        // otherwise hide the warning
-        if (this.state.showWarning) {
-            this.setState({
-                showWarning: false
-            });
-        }
+        });
     }
 
     isValidSelection(input) {
@@ -213,20 +207,30 @@ export default class Autocomplete extends React.Component {
         });
     }
 
-    render() {
-        let warning = null;
+    generateWarning() {
         if (this.state.showWarning) {
-            const errorProps = {};
-            if (this.props.errorHeader) {
-                errorProps.header = this.props.errorHeader;
+            let errorProps = {};
+
+            if (this.state.value && this.state.value.length === 1) {
+                errorProps = {
+                    header: 'Error',
+                    description: 'Please enter more than 1 character.'
+                };
             }
-            if (this.props.errorMessage) {
-                errorProps.description = this.props.errorMessage;
+            else {
+                errorProps = {
+                    header: this.props.errorHeader,
+                    description: this.props.errorMessage
+                };
             }
 
-            warning = <Warning {...errorProps} />;
+            return <Warning {...errorProps} />;
         }
 
+        return null;
+    }
+
+    render() {
         return (
             <div className="pop-typeahead">
                 <div className="usa-da-typeahead">
@@ -248,7 +252,7 @@ export default class Autocomplete extends React.Component {
                         select={this.select.bind(this)}
                         maxSuggestions={this.props.maxSuggestions} />
                 </div>
-                {warning}
+                {this.generateWarning()}
             </div>
         );
     }

@@ -2,7 +2,7 @@
     @include usa-input-error-message;
     @include span-columns(14);
     border: 1px solid $color-secondary-dark;
-    height: 13rem;
+    height: auto;
     margin-bottom: 1rem;
     margin-top: 1.5rem;
     padding: 15px;

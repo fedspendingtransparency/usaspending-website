@@ -33,6 +33,7 @@ class LocationListContainer extends React.Component {
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
+        this.noResults = false;
     }
 
     componentDidMount() {
@@ -68,6 +69,8 @@ class LocationListContainer extends React.Component {
     }
 
     queryAutocompleteLocations(input) {
+        this.noResults = false;
+
         // Only search if input is 2 or more characters
         if (input.length >= 2) {
             this.setState({
@@ -104,9 +107,18 @@ class LocationListContainer extends React.Component {
                         autocompleteData = data;
                     }
 
+                    this.noResults = !autocompleteData.length;
+
                     // Add search results to Redux
                     this.props.setAutocompleteLocations(autocompleteData);
+                })
+                .catch(() => {
+                    this.noResults = true;
                 });
+        }
+        else if (this.locationSearchRequest) {
+            // A request is currently in-flight, cancel it
+            this.locationSearchRequest.cancel();
         }
     }
 
@@ -137,12 +149,12 @@ class LocationListContainer extends React.Component {
                 onSelect={this.props.selectLocation}
                 placeholder="State, City, County, ZIP, or District"
                 errorHeader="Unknown Location"
-                errorMessage="You must select a location from
-                    the list that is provided as you type."
+                errorMessage="We were unable to find that location."
                 ref={(input) => {
                     this.locationList = input;
                 }}
-                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions} />
+                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
+                noResults={this.noResults} />
         );
     }
 
