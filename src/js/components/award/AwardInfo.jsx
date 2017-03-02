@@ -11,7 +11,8 @@ import AwardContract from './AwardContract';
 import DetailsTableSection from './table/DetailsTableSection';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object
+    selectedAward: React.PropTypes.object,
+    inFlight: React.PropTypes.bool
 };
 
 export default class AwardInfo extends React.Component {
@@ -29,7 +30,9 @@ export default class AwardInfo extends React.Component {
                     <AwardContract
                         {...this.props}
                         selectedAward={this.props.selectedAward} />
-                    <DetailsTableSection {...this.props} />
+                    <DetailsTableSection
+                        {...this.props}
+                        inFlight={this.props.inFlight} />
                 </main>
             </div>
         );

@@ -10,6 +10,8 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import CurrentAwardBar from './CurrentAwardBar';
 import PotentialAwardBar from './PotentialAwardBar';
+import IndividualBar from './IndividualBar';
+import AwardLabels from './AwardLabels';
 
 const propTypes = {
     potential: React.PropTypes.number,
@@ -158,88 +160,27 @@ export default class AmountsChart extends React.Component {
                     }}>
 
                     <g transform="translate(0, 5)">
-                        <g
-                            className="potential-group"
-                            transform={`translate(200,${this.state.potentialY})`}>
-                            {this.state.potential}
-                        </g>
+                        <IndividualBar
+                            name="potential"
+                            yValue={this.state.potentialY}
+                            barValue={this.state.potential} />
 
-                        <g
-                            className="current-group"
-                            transform={`translate(200,${this.state.currentY})`}>
-                            {this.state.current}
-                        </g>
+                        <IndividualBar
+                            name="current"
+                            yValue={this.state.currentY}
+                            barValue={this.state.current} />
 
-                        <g
-                            className="current-label-group"
-                            transform={`translate(0,0)`}>
+                        <AwardLabels
+                            name="current"
+                            path={this.state.currentLabelPath}
+                            middle={this.state.currentMiddle}
+                            amount={this.props.current}
+                            groupTransform="0,0"
+                            singleTransform={`0,${this.state.currentMiddle}`}
+                            subtitle="Funding Obligated"
+                            labelDistance={labelDistance}
+                            line="poly" />
 
-                            <polyline
-                                fill="none"
-                                strokeWidth="1"
-                                className="label-line"
-                                points={this.state.currentLabelPath} />
-
-                            <g
-                                className="current-label"
-                                transform={`translate(0,${this.state.currentMiddle})`}>
-                                <text
-                                    className="title"
-                                    x={0}
-                                    y={0}>
-                                    Current Award Amount:
-                                </text>
-                                <text
-                                    className="subtitle"
-                                    x={0}
-                                    y={18}>
-                                    (Funding Obligated)
-                                </text>
-                                <text
-                                    className="value"
-                                    x={0}
-                                    y={18 + 20}>
-                                    {MoneyFormatter.formatMoney(this.props.current)}
-                                </text>
-                            </g>
-                        </g>
-
-                        <g
-                            className="potential-label-group"
-                            transform={`translate(${200 + this.state.barWidth},0)`}>
-
-                            <line
-                                fill="none"
-                                strokeWidth="1"
-                                className="label-line"
-                                x1={5}
-                                x2={5 + labelDistance}
-                                y1={0}
-                                y2={0} />
-
-                            <g
-                                className="potential-label"
-                                transform={`translate(${10 + labelDistance},5)`}>
-                                <text
-                                    className="title"
-                                    x={0}
-                                    y={0}>
-                                    Potential Award Amount:
-                                </text>
-                                <text
-                                    className="subtitle"
-                                    x={0}
-                                    y={18}>
-                                    (Contract Ceiling)
-                                </text>
-                                <text
-                                    className="value"
-                                    x={0}
-                                    y={18 + 20}>
-                                    {MoneyFormatter.formatMoney(this.props.potential)}
-                                </text>
-                            </g>
-                        </g>
                     </g>
                 </svg>
             </div>

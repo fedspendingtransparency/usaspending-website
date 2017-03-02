@@ -193,8 +193,8 @@ const remapData = (data, idField) => {
         if (data.recipient.recipient_unique_id) {
             recipientDuns = data.recipient.recipient_unique_id;
         }
-        if (data.recipient.ultimate_parent_legal_entity_id) {
-            recipientParentDuns = data.recipient.ultimate_parent_legal_entity_id;
+        if (data.recipient.parent_recipient_unique_id) {
+            recipientParentDuns = data.recipient.parent_recipient_unique_id;
         }
         if (data.recipient.business_types_description) {
             recipientBusinessType = data.recipient.business_types_description;
@@ -210,9 +210,11 @@ const remapData = (data, idField) => {
     remappedData.recipient_parent_duns = recipientParentDuns;
     remappedData.recipient_business_type = recipientBusinessType;
 
-    if (data.procurement_set) {
-        contractPricingCode = data.procurement_set[0].type_of_contract_pricing;
-        contractPricing = data.procurement_set[0].type_of_contract_pricing_description;
+    if (data.type_of_contract_pricing) {
+        contractPricingCode = data.type_of_contract_pricing;
+    }
+    if (data.type_of_contract_pricing_description) {
+        contractPricing = data.type_of_contract_pricing_description;
     }
 
     remappedData.type_of_contract_pricing = contractPricingCode;
