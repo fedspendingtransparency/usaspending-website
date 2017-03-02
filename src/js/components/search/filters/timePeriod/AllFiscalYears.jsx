@@ -30,7 +30,7 @@ export default class AllFiscalYears extends React.Component {
             category: 'Search Filters',
             action: 'Applied Fiscal Year Filter',
             label: year
-        })
+        });
     }
 
     constructor(props) {
@@ -51,7 +51,6 @@ export default class AllFiscalYears extends React.Component {
             // the year does not yet exist in the set so we are adding
             newYears = this.props.selectedFY.add(year);
             // Analytics
-            console.log("applied fiscal year filter");
             AllFiscalYears.logFilterEvent();
             AllFiscalYears.logFYEvent(year);
         }

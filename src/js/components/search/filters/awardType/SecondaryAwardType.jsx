@@ -42,7 +42,7 @@ export default class SecondaryAwardType extends React.Component {
         this.props.toggleAwardType(this.props.code);
         // Analytics
         const checked = this.props.reduxFilters.includes(this.props.code);
-        if(checked){
+        if (checked) {
             SecondaryAwardType.logDeselectFilterEvent(this.props.name);
         }
         else {

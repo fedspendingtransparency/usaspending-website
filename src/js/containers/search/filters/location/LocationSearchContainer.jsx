@@ -37,10 +37,10 @@ class LocationSearchContainer extends React.Component {
     }
 
     // TODO: test with place type
-    static logPlaceFilterEvent(place_type, place) {
+    static logPlaceFilterEvent(placeType, place) {
         ga.event({
             category: 'Search Filters',
-            action: `Applied ${place_type.toLowerCase()} Filter`,
+            action: `Applied ${placeType.toLowerCase()} Filter`,
             label: place.toLowerCase()
         });
     }

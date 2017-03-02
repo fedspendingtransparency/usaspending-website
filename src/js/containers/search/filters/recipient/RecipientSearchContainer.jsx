@@ -45,10 +45,10 @@ export class RecipientSearchContainer extends React.Component {
     }
 
     // TODO: test with place type
-    static logLocationFilterEvent(place_type, place) {
+    static logLocationFilterEvent(placeType, place) {
         ga.event({
             category: 'Search Filters',
-            action: `Applied Recipient ${place_type.toLowerCase()} Filter`,
+            action: `Applied Recipient ${placeType.toLowerCase()} Filter`,
             label: place.toLowerCase()
         });
     }
@@ -79,8 +79,10 @@ export class RecipientSearchContainer extends React.Component {
     toggleRecipientLocation(recipientLocation) {
         this.props.updateRecipientLocations(recipientLocation);
         // Analytics
+        const placeType = recipientLocation.place_type;
+        const place = recipientLocation.place;
         RecipientSearchContainer.logFilterEvent();
-        RecipientSearchContainer.logLocationFilterEvent(recipientLocation.place_type, recipientLocation.place);
+        RecipientSearchContainer.logLocationFilterEvent(placeType, place);
     }
 
     render() {

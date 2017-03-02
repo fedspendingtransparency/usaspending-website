@@ -42,7 +42,7 @@ export default class TimePeriod extends React.Component {
             category: 'Search Filters',
             action: 'Applied Date Range Filter',
             label: `${start} - ${end}`
-        })
+        });
     }
 
     constructor(props) {
@@ -176,8 +176,8 @@ export default class TimePeriod extends React.Component {
                     endDate: end.format('YYYY-MM-DD')
                 });
                 // Analytics
-                let startDate = start.format('YYYY-MM-DD');
-                let endDate = end.format('YYYY-MM-DD');
+                const startDate = start.format('YYYY-MM-DD');
+                const endDate = end.format('YYYY-MM-DD');
                 TimePeriod.logFilterEvent();
                 TimePeriod.logDateRangeEvent(startDate, endDate);
             }
