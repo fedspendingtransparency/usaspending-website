@@ -24,7 +24,7 @@ class LocationSearchContainer extends React.Component {
         ga.event({
             category: 'Search Filters',
             action: 'Applied Filter',
-            label: 'Location'
+            label: 'Place of Performance'
         });
     }
 
@@ -36,11 +36,12 @@ class LocationSearchContainer extends React.Component {
         });
     }
 
-    static logPlaceFilterEvent(place) {
+    // TODO: test with place type
+    static logPlaceFilterEvent(place_type, place) {
         ga.event({
             category: 'Search Filters',
-            action: 'Applied Place Filter',
-            label: place
+            action: `Applied ${place_type.toLowerCase()} Filter`,
+            label: place.toLowerCase()
         });
     }
 
@@ -62,7 +63,7 @@ class LocationSearchContainer extends React.Component {
 
             // Analytics
             LocationSearchContainer.logFilterEvent();
-            LocationSearchContainer.logPlaceFilterEvent(location.place);
+            LocationSearchContainer.logPlaceFilterEvent(location.place_type, location.place);
         }
     }
 
