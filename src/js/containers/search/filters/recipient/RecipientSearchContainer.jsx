@@ -43,8 +43,7 @@ export class RecipientSearchContainer extends React.Component {
             label: selection
         });
     }
-
-    // TODO: test with place type
+    
     static logLocationFilterEvent(placeType, place) {
         ga.event({
             category: 'Search Filters',

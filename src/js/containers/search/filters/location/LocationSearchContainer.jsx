@@ -36,7 +36,6 @@ class LocationSearchContainer extends React.Component {
         });
     }
 
-    // TODO: test with place type
     static logPlaceFilterEvent(placeType, place) {
         ga.event({
             category: 'Search Filters',
