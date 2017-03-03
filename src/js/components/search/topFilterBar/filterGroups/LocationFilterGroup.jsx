@@ -6,6 +6,7 @@
 import React from 'react';
 import _ from 'lodash';
 
+import * as LocationFormatter from 'helpers/locationFormatter';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
@@ -37,19 +38,6 @@ export default class LocationFilterGroup extends React.Component {
         this.props.clearFilterGroup(this.props.toggle);
     }
 
-    generateLabel(item) {
-        // capitalize just the first letter of each word in the place type
-        const placeType = item.place_type.toLowerCase()
-            .replace(/(^|\s|[-_])\S{1}/g, (letter) => (letter.toUpperCase()));
-        let label = `${placeType} | ${item.place}`;
-
-        if (item.parent) {
-            label += `, ${item.parent}`;
-        }
-
-        return label;
-    }
-
     generateTags() {
         const tags = [];
 
@@ -73,7 +61,7 @@ export default class LocationFilterGroup extends React.Component {
         remainingValues.forEach((value) => {
             const tag = {
                 value: value.identifier,
-                title: this.generateLabel(value),
+                title: LocationFormatter.formatLocation(value),
                 isSpecial: false,
                 removeFilter: this.removeFilter
             };
