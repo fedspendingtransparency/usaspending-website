@@ -9,25 +9,28 @@ import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
 
 const propTypes = {
+    handleTextInput: React.PropTypes.func.isRequired,
+    onSelect: React.PropTypes.func.isRequired,
+    clearAutocompleteSuggestions: React.PropTypes.func.isRequired,
     values: React.PropTypes.array,
     placeholder: React.PropTypes.string,
-    handleTextInput: React.PropTypes.func,
-    onSelect: React.PropTypes.func,
     errorHeader: React.PropTypes.string,
     errorMessage: React.PropTypes.string,
     tabIndex: React.PropTypes.number,
     isRequired: React.PropTypes.bool,
-    maxSuggestions: React.PropTypes.number
+    maxSuggestions: React.PropTypes.number,
+    label: React.PropTypes.string
 };
 
 const defaultProps = {
     values: [],
     placeholder: '',
-    tabIndex: null,
     isRequired: false,
     errorHeader: null,
-    errorDescription: null,
-    maxSuggestions: 10
+    errorMessage: null,
+    tabIndex: null,
+    maxSuggestions: 10,
+    label: ''
 };
 
 export default class Autocomplete extends React.Component {
@@ -52,6 +55,10 @@ export default class Autocomplete extends React.Component {
         if (!_.isEqual(prevProps.values, this.props.values)) {
             this.open();
         }
+    }
+
+    componentWillUnmount() {
+        this.props.clearAutocompleteSuggestions();
     }
 
     onChange(e) {
@@ -198,9 +205,12 @@ export default class Autocomplete extends React.Component {
             selectedItem = selection.data;
         }
 
-        // Important - clear internal typeahead state value before passing selection
-        this.state.value = '';
         this.props.onSelect(selectedItem, isValid);
+
+        // Important - clear internal typeahead state value
+        this.setState({
+            value: ''
+        });
     }
 
     render() {
@@ -220,7 +230,7 @@ export default class Autocomplete extends React.Component {
         return (
             <div className="pop-typeahead">
                 <div className="usa-da-typeahead">
-                    <p>Primary Place of Performance</p>
+                    <p>{this.props.label}</p>
                     <input
                         className="location-input autocomplete"
                         ref={(t) => {

@@ -8,6 +8,8 @@ import _ from 'lodash';
 import * as AwardTypeQuery from './queryBuilders/AwardTypeQuery';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as LocationQuery from './queryBuilders/LocationQuery';
+import * as AgencyQuery from './queryBuilders/AgencyQuery';
+import * as RecipientQuery from './queryBuilders/RecipientQuery';
 
 class SearchOperation {
     constructor() {
@@ -19,6 +21,16 @@ class SearchOperation {
         // special filter for filtering results to only display those that match certain award types
         // this is used by the search results table "award type" tabs
         this.resultAwardType = [];
+
+        this.selectedLocations = [];
+        this.locationDomesticForeign = 'all';
+
+        this.awardingAgencies = [];
+        this.fundingAgencies = [];
+
+        this.selectedRecipients = [];
+        this.recipientDomesticForeign = 'all';
+        this.selectedRecipientLocations = [];
     }
 
     fromState(state) {
@@ -32,6 +44,11 @@ class SearchOperation {
         }
         this.selectedLocations = state.selectedLocations.toArray();
         this.locationDomesticForeign = state.locationDomesticForeign;
+        this.awardingAgencies = state.selectedAwardingAgencies.toArray();
+        this.fundingAgencies = state.selectedFundingAgencies.toArray();
+        this.selectedRecipients = state.selectedRecipients.toArray();
+        this.recipientDomesticForeign = state.recipientDomesticForeign;
+        this.selectedRecipientLocations = state.selectedRecipientLocations.toArray();
     }
 
     commonParams() {
@@ -60,6 +77,26 @@ class SearchOperation {
 
         if (this.locationDomesticForeign !== '' && this.locationDomesticForeign !== 'all') {
             filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign));
+        }
+
+        // add agency query
+        if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
+            filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies, this.awardingAgencies));
+        }
+
+        // add recipient queries
+        if (this.selectedRecipients.length > 0) {
+            filters.push(RecipientQuery.buildRecipientQuery(this.selectedRecipients));
+        }
+
+        if (this.recipientDomesticForeign !== '' && this.recipientDomesticForeign !== 'all') {
+            filters.push(RecipientQuery.buildDomesticForeignQuery(this.recipientDomesticForeign));
+        }
+
+        if (this.selectedRecipientLocations.length > 0) {
+            filters.push(RecipientQuery.buildRecipientLocationQuery(
+                this.selectedRecipientLocations)
+            );
         }
 
         return filters;

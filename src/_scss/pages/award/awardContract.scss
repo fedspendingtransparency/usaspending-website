@@ -1,0 +1,10 @@
+.award-contract-wrapper {
+    margin-top: 60px;
+
+    @include clearfix();
+    @include span-columns(16);
+
+    @import "./_awardAmounts";
+    @import "./_contractDetails";
+
+}

@@ -31,6 +31,7 @@ class LocationListContainer extends React.Component {
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
+        this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
     }
 
@@ -109,6 +110,10 @@ class LocationListContainer extends React.Component {
         }
     }
 
+    clearAutocompleteSuggestions() {
+        this.props.setAutocompleteLocations([]);
+    }
+
     handleTextInput(locationInput) {
         // Clear existing locations to ensure user can't select an old or existing one
         this.props.setAutocompleteLocations([]);
@@ -136,7 +141,8 @@ class LocationListContainer extends React.Component {
                     the list that is provided as you type."
                 ref={(input) => {
                     this.locationList = input;
-                }} />
+                }}
+                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions} />
         );
     }
 

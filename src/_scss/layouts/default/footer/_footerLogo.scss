@@ -1,0 +1,11 @@
+@mixin footerLogo {
+    @include span-columns(4);
+    @include shift(6);
+    @include media($tablet-screen) {
+        @include span-columns(2);
+        @include shift(0);
+    }
+    @include media($x-large-screen) {
+        @include span-columns(2);
+    }
+}
