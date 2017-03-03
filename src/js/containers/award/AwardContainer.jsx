@@ -68,7 +68,7 @@ class AwardContainer extends React.Component {
                     value: input
                 }
             ],
-            order: ['-modification_number'],
+            order: ['modification_number'],
             limit: countLimit
         };
 
@@ -222,7 +222,9 @@ class AwardContainer extends React.Component {
 
     nextTransactionPage() {
         const nextPage = this.props.award.transactionMeta.page + 1;
-        this.fetchTransactions(nextPage);
+        if (nextPage <= this.props.award.transactionMeta.totalPages) {
+            this.fetchTransactions(nextPage);
+        }
     }
 
     render() {

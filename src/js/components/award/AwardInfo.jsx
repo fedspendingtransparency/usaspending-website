@@ -8,7 +8,7 @@ import React from 'react';
 import SummaryBar from './SummaryBar';
 import AwardInfoBar from './AwardInfoBar';
 import AwardContract from './AwardContract';
-import DetailsTableSection from './table/DetailsTableSection';
+import DetailsSection from './details/DetailsSection';
 
 const propTypes = {
     selectedAward: React.PropTypes.object
@@ -29,7 +29,7 @@ export default class AwardInfo extends React.Component {
                     <AwardContract
                         {...this.props}
                         selectedAward={this.props.selectedAward} />
-                    <DetailsTableSection {...this.props} />
+                    <DetailsSection {...this.props} />
                 </main>
             </div>
         );

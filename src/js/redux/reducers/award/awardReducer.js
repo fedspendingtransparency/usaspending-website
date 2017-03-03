@@ -17,7 +17,7 @@ const initialState = {
     groupHash: null,
     transactionSort: {
         field: "modification_number",
-        direction: "desc"
+        direction: "asc"
     }
 };
 
