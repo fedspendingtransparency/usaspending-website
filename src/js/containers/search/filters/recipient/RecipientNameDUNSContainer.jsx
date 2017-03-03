@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as recipientActions from 'redux/actions/search/recipientActions';
@@ -26,13 +27,13 @@ export class RecipientNameDUNSContainer extends React.Component {
 
         this.state = {
             recipientSearchString: '',
-            autocompleteRecipients: []
+            autocompleteRecipients: [],
+            noResults: false
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
-        this.noResults = false;
     }
 
     componentDidMount() {
@@ -63,7 +64,9 @@ export class RecipientNameDUNSContainer extends React.Component {
     }
 
     queryAutocompleteRecipients(input) {
-        this.noResults = false;
+        this.setState({
+            noResults: false
+        });
 
         // Only search if input is 2 or more characters
         if (input.length >= 2) {
@@ -102,13 +105,19 @@ export class RecipientNameDUNSContainer extends React.Component {
                         autocompleteData = data;
                     }
 
-                    this.noResults = !autocompleteData.length;
+                    this.setState({
+                        noResults: !autocompleteData.length
+                    });
 
                     // Add search results to Redux
                     this.props.setAutocompleteRecipients(autocompleteData);
                 })
-                .catch(() => {
-                    this.noResults = true;
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        this.setState({
+                            noResults: true
+                        });
+                    }
                 });
         }
         else if (this.recipientSearchRequest) {
@@ -150,7 +159,7 @@ export class RecipientNameDUNSContainer extends React.Component {
                     this.recipientList = input;
                 }}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                noResults={this.noResults} />
+                noResults={this.state.noResults} />
         );
     }
 

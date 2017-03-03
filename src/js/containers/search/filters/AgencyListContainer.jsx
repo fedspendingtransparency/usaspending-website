@@ -6,6 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isCancel } from 'axios';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
@@ -31,13 +32,13 @@ export class AgencyListContainer extends React.Component {
 
         this.state = {
             agencySearchString: '',
-            autocompleteAgencies: []
+            autocompleteAgencies: [],
+            noResults: false
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
-        this.noResults = false;
     }
 
     componentDidMount() {
@@ -97,7 +98,10 @@ export class AgencyListContainer extends React.Component {
     }
 
     queryAutocompleteAgencies(input) {
-        this.noResults = false;
+        this.setState({
+            noResults: false
+        });
+
 
         // Only search if search is 2 or more characters
         if (input.length >= 2) {
@@ -122,7 +126,9 @@ export class AgencyListContainer extends React.Component {
 
             this.agencySearchRequest.promise
                 .then((res) => {
-                    this.noResults = !res.data.matched_objects.length;
+                    this.setState({
+                        noResults: !res.data.matched_objects.length
+                    });
 
                     // Add search results to Redux
                     if (this.props.agencyType === 'Funding') {
@@ -136,8 +142,12 @@ export class AgencyListContainer extends React.Component {
                         );
                     }
                 })
-                .catch(() => {
-                    this.noResults = true;
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        this.setState({
+                            noResults: true
+                        });
+                    }
                 });
         }
         else if (this.agencySearchRequest) {
@@ -202,7 +212,7 @@ export class AgencyListContainer extends React.Component {
                 }}
                 label={`${this.props.agencyType} Agency`}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                noResults={this.noResults} />
+                noResults={this.state.noResults} />
         );
     }
 }

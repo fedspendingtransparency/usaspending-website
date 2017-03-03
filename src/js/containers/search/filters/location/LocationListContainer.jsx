@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
@@ -27,13 +28,13 @@ class LocationListContainer extends React.Component {
 
         this.state = {
             locationSearchString: '',
-            autocompleteLocations: []
+            autocompleteLocations: [],
+            noResults: false
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
-        this.noResults = false;
     }
 
     componentDidMount() {
@@ -69,7 +70,9 @@ class LocationListContainer extends React.Component {
     }
 
     queryAutocompleteLocations(input) {
-        this.noResults = false;
+        this.setState({
+            noResults: false
+        });
 
         // Only search if input is 2 or more characters
         if (input.length >= 2) {
@@ -107,13 +110,19 @@ class LocationListContainer extends React.Component {
                         autocompleteData = data;
                     }
 
-                    this.noResults = !autocompleteData.length;
+                    this.setState({
+                        noResults: !autocompleteData.length
+                    });
 
                     // Add search results to Redux
                     this.props.setAutocompleteLocations(autocompleteData);
                 })
-                .catch(() => {
-                    this.noResults = true;
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        this.setState({
+                            noResults: true
+                        });
+                    }
                 });
         }
         else if (this.locationSearchRequest) {
@@ -154,7 +163,7 @@ class LocationListContainer extends React.Component {
                     this.locationList = input;
                 }}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                noResults={this.noResults} />
+                noResults={this.state.noResults} />
         );
     }
 

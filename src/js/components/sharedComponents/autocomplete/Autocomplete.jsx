@@ -214,7 +214,7 @@ export default class Autocomplete extends React.Component {
             if (this.state.value && this.state.value.length === 1) {
                 errorProps = {
                     header: 'Error',
-                    description: 'Please enter more than 1 character.'
+                    description: 'Please enter more than one character.'
                 };
             }
             else {

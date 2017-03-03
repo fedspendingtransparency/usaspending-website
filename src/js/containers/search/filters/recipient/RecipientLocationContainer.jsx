@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as recipientActions from 'redux/actions/search/recipientActions';
@@ -27,13 +28,13 @@ export class RecipientLocationContainer extends React.Component {
 
         this.state = {
             recipientLocationSearchString: '',
-            autocompleteRecipientLocations: []
+            autocompleteRecipientLocations: [],
+            noResults: false
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
-        this.noResults = false;
     }
 
     componentDidMount() {
@@ -70,7 +71,9 @@ export class RecipientLocationContainer extends React.Component {
     }
 
     queryAutocompleteRecipientLocations(input) {
-        this.noResults = false;
+        this.setState({
+            noResults: false
+        });
 
         // Only search if input is 2 or more characters
         if (input.length >= 2) {
@@ -110,13 +113,19 @@ export class RecipientLocationContainer extends React.Component {
                         autocompleteData = data;
                     }
 
-                    this.noResults = !autocompleteData.length;
+                    this.setState({
+                        noResults: !autocompleteData.length
+                    });
 
                     // Add search results to Redux
                     this.props.setAutocompleteRecipientLocations(autocompleteData);
                 })
-                .catch(() => {
-                    this.noResults = true;
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        this.setState({
+                            noResults: true
+                        });
+                    }
                 });
         }
         else if (this.recipientLocationSearchRequest) {
@@ -158,7 +167,7 @@ export class RecipientLocationContainer extends React.Component {
                     this.recipientLocationList = input;
                 }}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                noResults={this.noResults} />
+                noResults={this.state.noResults} />
         );
     }
 
