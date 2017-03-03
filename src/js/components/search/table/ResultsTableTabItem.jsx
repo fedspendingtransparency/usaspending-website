@@ -6,6 +6,8 @@
 import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
+import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
+
 const propTypes = {
     label: React.PropTypes.string,
     internal: React.PropTypes.string,
@@ -26,14 +28,7 @@ export default class ResultsTableTabItem extends React.Component {
     }
 
     render() {
-        const comingSoonModule = (
-            <div className="coming-soon-container">
-                <div className="coming-soon-icon">
-                    <Icons.ExclamationCircle />
-                </div>
-                <span className="coming-soon-label">Coming Soon</span>
-            </div>
-        );
+        const comingSoonModule = (<ComingSoonLabel />);
         let activeClass = '';
         let comingSoon = '';
         let disabledStatus = '';

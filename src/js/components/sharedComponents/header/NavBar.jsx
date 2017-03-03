@@ -1,6 +1,8 @@
 import React from 'react';
 import * as Icons from '../icons/Icons';
 
+import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
+
 export default class NavBar extends React.Component {
     render() {
         return (
@@ -22,45 +24,25 @@ export default class NavBar extends React.Component {
                                 <a className="usa-nav-link coming-soon" href="#/">
                                     <span>Explore The Data</span>
                                 </a>
-                                <div className="coming-soon-container">
-                                    <div className="coming-soon-icon">
-                                        <Icons.ExclamationCircle />
-                                    </div>
-                                    <span className="coming-soon-label">Coming Soon</span>
-                                </div>
+                                <ComingSoonLabel />
                             </li>
                             <li>
                                 <a className="usa-nav-link coming-soon" href="#/">
                                     <span>Developers</span>
                                 </a>
-                                <div className="coming-soon-container">
-                                    <div className="coming-soon-icon">
-                                        <Icons.ExclamationCircle />
-                                    </div>
-                                    <span className="coming-soon-label">Coming Soon</span>
-                                </div>
+                                <ComingSoonLabel />
                             </li>
                             <li>
                                 <a className="usa-nav-link coming-soon" href="#/">
                                     <span>About</span>
                                 </a>
-                                <div className="coming-soon-container">
-                                    <div className="coming-soon-icon">
-                                        <Icons.ExclamationCircle />
-                                    </div>
-                                    <span className="coming-soon-label">Coming Soon</span>
-                                </div>
+                                <ComingSoonLabel />
                             </li>
                             <li>
                                 <a className="usa-nav-link coming-soon" href="#/">
                                     <span>Support</span>
                                 </a>
-                                <div className="coming-soon-container">
-                                    <div className="coming-soon-icon">
-                                        <Icons.ExclamationCircle />
-                                    </div>
-                                    <span className="coming-soon-label">Coming Soon</span>
-                                </div>
+                                <ComingSoonLabel />
                             </li>
                             <li className="search-item">
                                 <button className="search-button">

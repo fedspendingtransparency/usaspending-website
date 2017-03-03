@@ -1,8 +1,7 @@
 .visualization-top {
+    display: table;
     margin-top: 20px;
     margin-bottom: 20px;
-
-    display: table;
 
     @import "../../../../../components/visualizations/_description";
 }
@@ -20,8 +19,8 @@
     
     .content {
         @include media($tablet-screen) {
-            width: 300px;
             height: 60px;
+            width: 300px;
         }
         @include media($large-screen) {
             width: 390px;
