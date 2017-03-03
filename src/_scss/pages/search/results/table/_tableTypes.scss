@@ -29,6 +29,9 @@
             border-left: 1px solid $color-gray-light;
             color: $color-base;
         }
+        
+        @import "../../../../../components/_comingSoon.scss"
+
         &.coming-soon {
             background: repeating-linear-gradient(
                 45deg,
@@ -42,26 +45,16 @@
                 width: 100%;
                 text-align: center;
                 height: 10px;
-            }
-            .coming-soon-icon {
-                bottom: rem(0px);
-                display: inline;
-                left: rem(0px);
-                svg {
-                    fill: $color-gray-lighter;
-                    height: rem(10px);
-                    width: rem(10px);
+                .coming-soon-icon {
+                    bottom: rem(0px);
+                    display: inline;
+                    float: none;
                 }
-            }
-            .coming-soon-label {
-                bottom: rem(2px);
-                color: $color-gray-lighter;
-                display: inline;
-                font-weight: bold;
-                font-size: rem(10px);
-                height: 0;
-                left: rem(3px);
-                position: relative;
+                .coming-soon-label {
+                    bottom: rem(2px);
+                    display: inline;
+                    left: rem(3px);
+                }
             }
             &:hover {
                 background: repeating-linear-gradient(
@@ -71,10 +64,6 @@
                     rgba($color-gray-lighter, .3) rem(2px),
                     rgba($color-gray-lighter, .3) rem(4px)
                 );
-                cursor: default;
-            }
-            &:hover * {
-                cursor: default;
             }
         }
     }

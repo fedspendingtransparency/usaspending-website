@@ -25,6 +25,9 @@
         .download-button {
             @include searchHeaderDownloadButton;
         }
+
+        @import "../../../../../components/_comingSoon.scss"
+        
         .coming-soon {
             color: $color-gray-light;
             cursor: default;
@@ -35,26 +38,14 @@
             .coming-soon-icon {
                 bottom: rem(0px);
                 display: inline;
-                float: left;
-                height: 0;
                 left: rem(27px);
-                position: relative;
-                svg {
-                    fill: $color-gray-light;
-                    height: rem(10px);
-                    width: rem(10px);
-                }
             }
             .coming-soon-label {
                 bottom: rem(-5px);
                 color: $color-gray-light;
                 display: inline;
                 float: left;
-                font-weight: bold;
-                font-size: rem(10px);
-                height: 0;
                 left: rem(42px);
-                position: relative;
             }
         }
     }
