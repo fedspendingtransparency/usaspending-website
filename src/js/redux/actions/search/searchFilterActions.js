@@ -41,6 +41,8 @@ export const clearAllFilters = () => ({
     type: 'CLEAR_SEARCH_FILTER_ALL'
 });
 
+// Location Filter
+
 export const updateSelectedLocations = (state) => ({
     type: 'UPDATE_SELECTED_LOCATIONS',
     location: state.location
@@ -50,6 +52,37 @@ export const updateDomesticForeignSelection = (state) => ({
     type: 'UPDATE_DOMESTIC_FOREIGN',
     selection: state
 });
+
+// Agency Filter
+
+export const updateSelectedAwardingAgencies = (state) => ({
+    type: 'UPDATE_SELECTED_AWARDING_AGENCIES',
+    agency: state.agency
+});
+
+export const updateSelectedFundingAgencies = (state) => ({
+    type: 'UPDATE_SELECTED_FUNDING_AGENCIES',
+    agency: state.agency
+});
+
+// Recipient Filter
+
+export const updateSelectedRecipients = (state) => ({
+    type: 'UPDATE_SELECTED_RECIPIENTS',
+    recipient: state
+});
+
+export const updateRecipientDomesticForeignSelection = (state) => ({
+    type: 'UPDATE_RECIPIENT_DOMESTIC_FORIEGN',
+    selection: state
+});
+
+export const updateRecipientLocations = (state) => ({
+    type: 'UPDATE_RECIPIENT_LOCATIONS',
+    location: state
+});
+
+// Generic
 
 export const setSearchOrder = (state) => ({
     type: 'SET_SEARCH_ORDER',

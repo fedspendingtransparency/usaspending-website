@@ -1,6 +1,6 @@
 .recipient-info {
     @include span-columns(9);
-    padding: 2.4rem 1rem 5rem 3rem;
+    padding: 2.4rem 1rem 0rem 3rem;
 
     h4 {
         margin-top: 0;
@@ -9,7 +9,7 @@
 
     .recipient-name {
         font-size: $h6-font-size;
-        font-weight: $font-bold;
+        font-weight: $font-semibold; 
         color: $color-primary-alt-darkest;
         margin: 1rem 0 1rem 1rem;
     }

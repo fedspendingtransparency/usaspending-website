@@ -31,6 +31,13 @@ export const unitLabels = {
     THOUSAND: 'k'
 };
 
+export const unitWords = {
+    TRILLION: 'trillion',
+    BILLION: 'billion',
+    MILLION: 'million',
+    THOUSAND: 'thousand'
+};
+
 export const formatMoney = (value) => Accounting.formatMoney(value, accountingOptions);
 
 export const formatMoneyWithPrecision = (value, precision) => {
@@ -103,5 +110,43 @@ export const calculateUnits = (data, subdivisions = 6) => {
         precision,
         unit,
         unitLabel
+    };
+};
+
+export const calculateUnitForSingleValue = (value) => {
+    const adjustedValue = Math.abs(value);
+
+    let unit = 1;
+    let unitLabel = '';
+    let unitWord = '';
+    if (adjustedValue >= unitValues.TRILLION) {
+        // the max is at least 1 trillion
+        unit = unitValues.TRILLION;
+        unitLabel = unitLabels.TRILLION;
+        unitWord = unitWords.TRILLION;
+    }
+    else if (adjustedValue >= unitValues.BILLION) {
+        // the max is at least 1 billion
+        unit = unitValues.BILLION;
+        unitLabel = unitLabels.BILLION;
+        unitWord = unitWords.BILLION;
+    }
+    else if (adjustedValue >= unitValues.MILLION) {
+        // the max is at least 1 million
+        unit = unitValues.MILLION;
+        unitLabel = unitLabels.MILLION;
+        unitWord = unitWords.MILLION;
+    }
+    else if (adjustedValue >= unitValues.THOUSAND) {
+        // the max is at least 1 thousand
+        unit = unitValues.THOUSAND;
+        unitLabel = unitLabels.THOUSAND;
+        unitWord = unitWords.THOUSAND;
+    }
+
+    return {
+        unit,
+        unitLabel,
+        longLabel: unitWord
     };
 };

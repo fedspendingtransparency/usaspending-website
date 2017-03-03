@@ -7,7 +7,7 @@ import React from 'react';
 const propTypes = {
     title: React.PropTypes.string,
     subtitle: React.PropTypes.string,
-    location: React.PropTypes.object,
+    data: React.PropTypes.object,
     selected: React.PropTypes.bool,
     select: React.PropTypes.func
 };
@@ -15,7 +15,8 @@ const propTypes = {
 const defaultProps = {
     title: '',
     subtitle: '',
-    data: []
+    data: [],
+    selected: false
 };
 
 export default class Suggestion extends React.Component {
@@ -25,7 +26,7 @@ export default class Suggestion extends React.Component {
 
     setUpSuggestion() {
         this.suggestion.addEventListener('mousedown', () => {
-            this.props.select(this.props.location);
+            this.props.select(this.props.data);
         });
     }
 

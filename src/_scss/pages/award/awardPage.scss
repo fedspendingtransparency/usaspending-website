@@ -7,7 +7,6 @@
     $color-blue-background: #F5FBFC;
 
     @import "./summaryBar";
-    @import "./infoBar";
 
     .main-content {
         @include outer-container(100%);
@@ -26,5 +25,9 @@
             max-width: $site-max-width;
             margin: 1rem auto;
         }
+
+        @import "./infoBar";
+        @import "./awardContract";
+        @import "./table/detailsTable";
     }
 }

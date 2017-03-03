@@ -277,3 +277,10 @@ Guide.defaultProps = {
     iconClass: 'usa-da-icon-guide',
     alt: 'Icon Depicting a Guide Book'
 };
+
+export class FlagLogo extends BaseIcon {}
+FlagLogo.defaultProps = {
+    iconName: 'usa-da-flag-logo',
+    iconClass: 'usa-da-flag-logo',
+    alt: 'USASpending Flag Logo'
+};

@@ -16,31 +16,18 @@
     display: table-cell;
     vertical-align: middle;
 
+    @import "../../../../../components/visualizations/_scope";
+    
     .content {
-        padding: 15px;
-        background-color: rgba(223,242,247,0.4);
-
         @include media($tablet-screen) {
             width: 300px;
             height: 60px;
-
-            @include media($large-screen) {
-                width: 390px;
-                padding: 15px 30px;
-            }
         }
-    }
-
-    ul {
-        @include unstyled-list;
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-
+        @include media($large-screen) {
+            width: 390px;
+            padding: 15px 30px;
+        }
         li {
-
-            margin-bottom: 10px;
-
             @include media($tablet-screen) {
                 display: inline-block;
                 margin-left: 30px;
@@ -51,21 +38,41 @@
                 }
             }
         }
-
-        .period-button {
-            @include button-unstyled;
-            color: #808288;
-            font-size: 14px;
-            line-height: 18px;
-
-            padding: 0px 10px;
-            padding-bottom: 5px;
-
-            border-bottom: 4px solid transparent;
-
-            &.active, &:hover, &:active {
-                color: #323A45;
-                border-bottom: 4px solid #00A4D3;
+        .coming-soon {
+            .period-button {
+                color: $color-gray-lighter;
+            }
+            .period-button:hover {
+                color: $color-gray-lighter;
+                border-bottom: 4px solid rgba(255,255,255,0);
+            }
+            .coming-soon-icon {
+                bottom: rem(10px);
+                height: 0;
+                float: left;
+                left: rem(0px);
+                position: relative;
+                svg {
+                    fill: $color-gray-lighter;
+                    height: rem(10px);
+                    width: rem(10px);
+                }
+            }
+            .coming-soon-label {
+                bottom: rem(6px);
+                color: $color-gray-lighter;
+                float: left;
+                font-weight: bold;
+                font-size: rem(10px);
+                height: 0;
+                left: rem(13px);
+                position: relative;
+            }
+            &:hover {
+                cursor: default;
+            }
+            &:hover * {
+                cursor: default;
             }
         }
     }

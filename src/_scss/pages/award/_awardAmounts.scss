@@ -1,0 +1,32 @@
+.amounts-wrapper {
+    @include span-columns(8);
+    @include clearfix();
+
+    padding: 0px 15px;
+}
+
+.award-amounts {
+    margin: 1rem;
+    font-size: 1.4rem;
+
+    h4 {
+        margin-top: 1rem;
+        margin-bottom: 0;
+    }
+
+    .border {
+        background: url(../img/horizontal-divider.svg) no-repeat;
+        height: 2rem;
+    }
+
+    .text-details {
+        margin-left: 1rem;
+        margin-top: 1rem;
+        .recipient-name {
+            text-transform: capitalize;
+        }
+    }
+
+    @import "./visualization/amountsVisualization";
+
+}

@@ -7,6 +7,8 @@ import { Set, OrderedMap } from 'immutable';
 
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
 import * as LocationFilterFunctions from './filters/locationFilterFunctions';
+import * as AgencyFilterFunctions from './filters/agencyFilterFunctions';
+import * as RecipientFilterFunctions from './filters/recipientFilterFunctions';
 
 const initialState = {
     awardType: new Set(),
@@ -14,8 +16,13 @@ const initialState = {
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
+    selectedFundingAgencies: new OrderedMap(),
+    selectedAwardingAgencies: new OrderedMap(),
     selectedLocations: new OrderedMap(),
-    locationDomesticForeign: 'all'
+    locationDomesticForeign: 'all',
+    selectedRecipients: new OrderedMap(),
+    recipientDomesticForeign: 'all',
+    selectedRecipientLocations: new OrderedMap()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -43,6 +50,8 @@ const searchFiltersReducer = (state = initialState, action) => {
                 timePeriodFY: new Set(action.fy)
             });
         }
+
+        // Location Filter
         case 'UPDATE_SELECTED_LOCATIONS': {
             return Object.assign({}, state, {
                 selectedLocations: LocationFilterFunctions.updateSelectedLocations(
@@ -54,6 +63,42 @@ const searchFiltersReducer = (state = initialState, action) => {
                 locationDomesticForeign: action.selection
             });
         }
+
+        // Agency Filter
+        case 'UPDATE_SELECTED_AWARDING_AGENCIES': {
+            return Object.assign({}, state, {
+                selectedAwardingAgencies: AgencyFilterFunctions.updateSelectedAgencies(
+                    state.selectedAwardingAgencies, action.agency)
+            });
+        }
+        case 'UPDATE_SELECTED_FUNDING_AGENCIES': {
+            return Object.assign({}, state, {
+                selectedFundingAgencies: AgencyFilterFunctions.updateSelectedAgencies(
+                    state.selectedFundingAgencies, action.agency)
+            });
+        }
+
+        // Recipient Filter
+        case 'UPDATE_SELECTED_RECIPIENTS': {
+            return Object.assign({}, state, {
+                selectedRecipients: RecipientFilterFunctions.updateSelectedRecipients(
+                    state.selectedRecipients, action.recipient)
+            });
+        }
+        case 'UPDATE_RECIPIENT_DOMESTIC_FORIEGN': {
+            return Object.assign({}, state, {
+                recipientDomesticForeign: action.selection
+            });
+        }
+        case 'UPDATE_RECIPIENT_LOCATIONS': {
+            return Object.assign({}, state, {
+                selectedRecipientLocations: RecipientFilterFunctions
+                    .updateSelectedRecipientLocations(
+                        state.selectedRecipientLocations, action.location)
+            });
+        }
+
+        // Generic
         case 'UPDATE_SEARCH_FILTER_GENERIC': {
             return Object.assign({}, state, {
                 [action.filterType]: action.filterValue

@@ -10,14 +10,14 @@ const defaultProps = {
     options: [
         'Search',
         'Time Period',
-        'Location',
+        'Place of Performance',
         'Budget Categories',
         'Agencies',
-        'Recipient Information',
+        'Recipients',
         'Award Type',
         'Award ID',
         'Award Amount',
-        'Contract Specific Details'
+        'Other Award Items'
     ]
 };
 
