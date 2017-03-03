@@ -5,6 +5,7 @@
 
 import React from 'react';
 import moment from 'moment';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 import ContractCell from './ContractCell';
 
 const propTypes = {
@@ -17,6 +18,7 @@ export default class ContractDetails extends React.Component {
         let yearRangeTotal = "";
         let description = null;
         const award = this.props.selectedAward;
+        const isGrant = _.includes(awardTypeGroups.grants, this.props.selectedAward.award_type);
 
         // Date Range
         const startDate = moment(award.period_of_performance_start_date, 'M/D/YYYY');
@@ -66,35 +68,62 @@ export default class ContractDetails extends React.Component {
         if (award.type_of_contract_pricing_description) {
             pricing = award.type_of_contract_pricing_description;
         }
+        let awardType = 'Contract';
+        let table = (
+            <table>
+                <tbody>
+                    <ContractCell
+                        title="Description"
+                        value={description} />
+                    <ContractCell
+                        title="Period of Performance"
+                        value={popDate} />
+                    <ContractCell
+                        title="Primary Place of Performance"
+                        value={popPlace} />
+                    <ContractCell
+                        title="Contract Award Type"
+                        value={award.type_description} />
+                    <ContractCell
+                        title="Contract Pricing Type"
+                        value={pricing} />
+                </tbody>
+            </table>
+        );
+
+        // TODO; add CFDA data when available
+        if (isGrant) {
+            awardType = 'Grant';
+            table = (
+                <table>
+                    <tbody>
+                        <ContractCell
+                            title="Description"
+                            value={description} />
+                        <ContractCell
+                            title="Period of Performance"
+                            value={popDate} />
+                        <ContractCell
+                            title="Primary Place of Performance"
+                            value={popPlace} />
+                        <ContractCell
+                            title="Grant Type"
+                            value={award.type_description} />
+                    </tbody>
+                </table>
+            );
+        }
 
         return (
             <div className="contract-wrapper">
                 <div className="contract-details">
-                    <h3>Contract Details</h3>
+                    <h3>{awardType} Details</h3>
                     <hr
                         className="results-divider"
                         ref={(hr) => {
                             this.sectionHr = hr;
                         }} />
-                    <table>
-                        <tbody>
-                            <ContractCell
-                                title="Description"
-                                value={description} />
-                            <ContractCell
-                                title="Period of Performance"
-                                value={popDate} />
-                            <ContractCell
-                                title="Primary Place of Performance"
-                                value={popPlace} />
-                            <ContractCell
-                                title="Contract Award Type"
-                                value={award.type_description} />
-                            <ContractCell
-                                title="Contract Pricing Type"
-                                value={pricing} />
-                        </tbody>
-                    </table>
+                    {table}
                 </div>
             </div>
         );

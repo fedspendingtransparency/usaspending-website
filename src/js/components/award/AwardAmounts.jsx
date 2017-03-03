@@ -5,6 +5,7 @@
 
 import React from 'react';
 import accounting from 'accounting';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -72,6 +73,29 @@ export default class AwardAmounts extends React.Component {
             accounting.unformat(this.props.selectedAward.potential_total_value_of_award);
 
         const narrative = this.generateNarrative();
+
+        const isGrant = (_.includes(awardTypeGroups.grants, this.props.selectedAward.award_type));
+
+        let textDetails = (
+            <div className="text-details">
+                <p>This contract was awarded to&nbsp;
+                    <b className="recipient-name">{narrative.recipient}</b>.&nbsp;
+                    {narrative.current} has been obligated.</p>
+            </div>
+        );
+
+        // TODO: add subaward data when available
+        if (isGrant) {
+            textDetails = (
+                <div className="text-details">
+                    <p>This contract was awarded to&nbsp;
+                        <b className="recipient-name">{narrative.recipient}</b> for&nbsp;
+                        <b>{narrative.current}</b>.
+                    </p>
+                </div>
+            );
+        }
+
         return (
             <div className="amounts-wrapper">
                 <div className="award-amounts">
@@ -81,11 +105,7 @@ export default class AwardAmounts extends React.Component {
                         ref={(hr) => {
                             this.sectionHr = hr;
                         }} />
-                    <div className="text-details">
-                        <p>This contract was awarded to&nbsp;
-                        <b className="recipient-name">{narrative.recipient}</b>.&nbsp;
-                        {narrative.current} has been obligated.</p>
-                    </div>
+                    {textDetails}
                     <AmountsChart
                         awardId={this.props.selectedAward.id}
                         potential={potential}

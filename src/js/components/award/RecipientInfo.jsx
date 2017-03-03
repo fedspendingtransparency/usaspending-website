@@ -4,8 +4,10 @@
  **/
 
 import React from 'react';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 import InfoSnippet from './InfoSnippet';
 import RecipientAddress from './RecipientAddress';
+
 
 const propTypes = {
     recipient: React.PropTypes.object
@@ -18,6 +20,8 @@ export default class RecipientInfo extends React.Component {
         let duns = "Not Available";
         let parentDuns = "Not Available";
         let businessType = "Not Available";
+        const isGrant = _.includes(awardTypeGroups.grants, this.props.recipient.award_type);
+
         if (this.props.recipient.recipient_parent_duns) {
             parentDuns = this.props.recipient.recipient_parent_duns;
         }
@@ -26,6 +30,14 @@ export default class RecipientInfo extends React.Component {
         }
         if (this.props.recipient.recipient_business_type) {
             businessType = this.props.recipient.recipient_business_type;
+        }
+        let parentDunsSnippet = (
+            <InfoSnippet
+                label="Parent DUNS"
+                value={parentDuns} />);
+        if (isGrant) {
+            // Award type is Grant, there is no parent DUNS
+            parentDunsSnippet = '';
         }
 
         return (
@@ -40,9 +52,7 @@ export default class RecipientInfo extends React.Component {
                     <InfoSnippet
                         label="DUNS"
                         value={duns} />
-                    <InfoSnippet
-                        label="Parent DUNS"
-                        value={parentDuns} />
+                    {parentDunsSnippet}
                     <InfoSnippet
                         label="Business Type"
                         value={businessType} />

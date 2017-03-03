@@ -91,6 +91,9 @@ export default class SummaryBar extends React.Component {
             if (award.award_type === "D" && parentId === null) {
                 parentAwardId = null;
             }
+            else if (awardType === 'Grant') {
+                parentAwardId = '';
+            }
             else {
                 parentAwardId = (
                     <InfoSnippet
