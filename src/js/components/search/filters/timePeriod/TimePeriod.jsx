@@ -26,7 +26,24 @@ const propTypes = {
     changeTab: React.PropTypes.func
 };
 
+const ga = require('react-ga');
+
 export default class TimePeriod extends React.Component {
+    static logFilterEvent() {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Applied Filter',
+            label: 'Time Period'
+        });
+    }
+
+    static logDateRangeEvent(start, end) {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Applied Date Range Filter',
+            label: `${start} - ${end}`
+        });
+    }
 
     constructor(props) {
         super(props);
@@ -158,6 +175,11 @@ export default class TimePeriod extends React.Component {
                     startDate: start.format('YYYY-MM-DD'),
                     endDate: end.format('YYYY-MM-DD')
                 });
+                // Analytics
+                const startDate = start.format('YYYY-MM-DD');
+                const endDate = end.format('YYYY-MM-DD');
+                TimePeriod.logFilterEvent();
+                TimePeriod.logDateRangeEvent(startDate, endDate);
             }
         }
         else {

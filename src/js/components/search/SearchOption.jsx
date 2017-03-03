@@ -18,7 +18,17 @@ const propTypes = {
     name: React.PropTypes.string
 };
 
+const ga = require('react-ga');
+
 export default class SearchOption extends React.Component {
+
+    static logFilterEvent(name) {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Expanded Filter',
+            label: name
+        });
+    }
 
     constructor(props) {
         super(props);
@@ -39,6 +49,8 @@ export default class SearchOption extends React.Component {
         let newArrowState = 'collapsed';
         if (newShowState) {
             newArrowState = 'expanded';
+            const filterName = this.props.name;
+            SearchOption.logFilterEvent(filterName);
         }
         this.setState({
             showFilter: newShowState,
