@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
@@ -27,7 +28,8 @@ class LocationListContainer extends React.Component {
 
         this.state = {
             locationSearchString: '',
-            autocompleteLocations: []
+            autocompleteLocations: [],
+            noResults: false
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
@@ -50,7 +52,8 @@ class LocationListContainer extends React.Component {
         if (locations.length > 0) {
             locations.forEach((item) => {
                 let placeType = _.upperCase(item.place_type);
-                if (item.parent !== null) {
+                if (item.parent !== null &&
+                    (item.place_type !== null && item.place_type !== 'COUNTRY')) {
                     placeType += ` in ${item.parent}`;
                 }
 
@@ -68,6 +71,10 @@ class LocationListContainer extends React.Component {
     }
 
     queryAutocompleteLocations(input) {
+        this.setState({
+            noResults: false
+        });
+
         // Only search if input is 2 or more characters
         if (input.length >= 2) {
             this.setState({
@@ -104,9 +111,24 @@ class LocationListContainer extends React.Component {
                         autocompleteData = data;
                     }
 
+                    this.setState({
+                        noResults: !autocompleteData.length
+                    });
+
                     // Add search results to Redux
                     this.props.setAutocompleteLocations(autocompleteData);
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        this.setState({
+                            noResults: true
+                        });
+                    }
                 });
+        }
+        else if (this.locationSearchRequest) {
+            // A request is currently in-flight, cancel it
+            this.locationSearchRequest.cancel();
         }
     }
 
@@ -137,12 +159,12 @@ class LocationListContainer extends React.Component {
                 onSelect={this.props.selectLocation}
                 placeholder="State, City, County, ZIP, or District"
                 errorHeader="Unknown Location"
-                errorMessage="You must select a location from
-                    the list that is provided as you type."
+                errorMessage="We were unable to find that location."
                 ref={(input) => {
                     this.locationList = input;
                 }}
-                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions} />
+                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
+                noResults={this.state.noResults} />
         );
     }
 
