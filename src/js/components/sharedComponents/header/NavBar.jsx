@@ -1,7 +1,8 @@
 import React from 'react';
-import * as Icons from '../icons/Icons';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
+
+import * as Icons from '../icons/Icons';
 
 export default class NavBar extends React.Component {
     render() {

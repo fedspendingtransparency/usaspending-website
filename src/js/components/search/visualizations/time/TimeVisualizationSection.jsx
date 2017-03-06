@@ -6,8 +6,6 @@
 import React from 'react';
 import _ from 'lodash';
 
-import * as Icons from 'components/sharedComponents/icons/Icons';
-
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
