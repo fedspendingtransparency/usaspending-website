@@ -74,7 +74,7 @@ export default class AwardAmounts extends React.Component {
 
         const narrative = this.generateNarrative();
 
-        const isGrant = (_.includes(awardTypeGroups.grants, this.props.selectedAward.award_type));
+        const isContract = (_.includes(awardTypeGroups.contracts, this.props.selectedAward.award_type));
 
         let textDetails = (
             <div className="text-details">
@@ -85,7 +85,7 @@ export default class AwardAmounts extends React.Component {
         );
 
         // TODO: add subaward data when available
-        if (isGrant) {
+        if (!isContract) {
             textDetails = (
                 <div className="text-details">
                     <p>This contract was awarded to&nbsp;

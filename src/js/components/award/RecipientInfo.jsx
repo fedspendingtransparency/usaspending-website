@@ -20,7 +20,7 @@ export default class RecipientInfo extends React.Component {
         let duns = "Not Available";
         let parentDuns = "Not Available";
         let businessType = "Not Available";
-        const isGrant = _.includes(awardTypeGroups.grants, this.props.recipient.award_type);
+        const isContract = _.includes(awardTypeGroups.contracts, this.props.recipient.award_type);
 
         if (this.props.recipient.recipient_parent_duns) {
             parentDuns = this.props.recipient.recipient_parent_duns;
@@ -35,8 +35,8 @@ export default class RecipientInfo extends React.Component {
             <InfoSnippet
                 label="Parent DUNS"
                 value={parentDuns} />);
-        if (isGrant) {
-            // Award type is Grant, there is no parent DUNS
+        if (!isContract) {
+            // There is no parent DUNS
             parentDunsSnippet = '';
         }
 
