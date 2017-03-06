@@ -1,6 +1,6 @@
 /**
- * ContractDetails.jsx
- * Created by Emily Gullo 02/06/2017
+ * GrantDetails.jsx
+ * Created by Lizzie Dabbs 03/06/2017
  **/
 
 import React from 'react';
@@ -11,7 +11,7 @@ const propTypes = {
     selectedAward: React.PropTypes.object
 };
 
-export default class ContractDetails extends React.Component {
+export default class GrantDetails extends React.Component {
 
     render() {
         let yearRangeTotal = "";
@@ -61,16 +61,10 @@ export default class ContractDetails extends React.Component {
             description = "Not Available";
         }
 
-        // Pricing
-        let pricing = "Not Available";
-        if (award.type_of_contract_pricing_description) {
-            pricing = award.type_of_contract_pricing_description;
-        }
-
         return (
             <div className="contract-wrapper">
                 <div className="contract-details">
-                    <h3>Contract Details</h3>
+                    <h3>Grant Details</h3>
                     <hr
                         className="results-divider"
                         ref={(hr) => {
@@ -88,11 +82,14 @@ export default class ContractDetails extends React.Component {
                                 title="Primary Place of Performance"
                                 value={popPlace} />
                             <ContractCell
-                                title="Contract Award Type"
+                                title="Grant Type"
                                 value={award.type_description} />
                             <ContractCell
-                                title="Contract Pricing Type"
-                                value={pricing} />
+                                title="CFDA Program"
+                                value="assistance_data.cfda.program_number - assistance_data.cfda.program_title" />
+                            <ContractCell
+                                title="CFDA Program Description"
+                                value="assistance_data.cfda.objectives" />
                         </tbody>
                     </table>
                 </div>
@@ -100,4 +97,4 @@ export default class ContractDetails extends React.Component {
         );
     }
 }
-ContractDetails.propTypes = propTypes;
+GrantDetails.propTypes = propTypes;
