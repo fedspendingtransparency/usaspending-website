@@ -519,7 +519,59 @@ describe('AgencyListContainer', () => {
             jest.runAllTicks();
 
             // everything should be updated now
+            expect(toggleAgencySpy.callCount).toEqual(1);
             expect(mockReduxActionFunding).toHaveBeenCalled();
+            expect(mockParentActionToggle).toHaveBeenCalled();
+
+            // Reset spy
+            toggleAgencySpy.reset();
+        });
+
+        it('should toggle Awarding agencies that have been either selected or deselected', () => {
+            const agency = {
+                id: 1788,
+                create_date: "2017-01-12T19:56:30.517000Z",
+                update_date: "2017-01-12T19:56:30.517000Z",
+                toptier_agency: {
+                    toptier_agency_id: 268,
+                    create_date: "2017-01-31T21:25:39.810344Z",
+                    update_date: "2017-01-31T21:25:39.936439Z",
+                    cgac_code: "097",
+                    fpds_code: "9700",
+                    name: "DEPT OF DEFENSE"
+                },
+                subtier_agency: {
+                    subtier_agency_id: 1654,
+                    create_date: "2017-01-31T21:25:39.569918Z",
+                    update_date: "2017-01-31T21:25:39.691244Z",
+                    subtier_code: "1700",
+                    name: "DEPT OF THE NAVY"
+                },
+                office_agency: null,
+                agencyType: 'toptier'
+            };
+
+            const mockReduxActionAwarding = jest.fn();
+            const mockParentActionToggle = jest.fn();
+
+            const agencyListContainer = setup({
+                reduxFilters: initialFilters,
+                agencyType: 'Awarding',
+                setAutocompleteAwardingAgencies: mockReduxActionAwarding,
+                selectedAgencies: new OrderedMap(),
+                toggleAgency: mockParentActionToggle
+            });
+
+            const toggleAgencySpy = sinon.spy(agencyListContainer.instance(), 'toggleAgency');
+
+            agencyListContainer.instance().toggleAgency(agency, true);
+
+            // Run all ticks
+            jest.runAllTicks();
+
+            // everything should be updated now
+            expect(toggleAgencySpy.callCount).toEqual(1);
+            expect(mockReduxActionAwarding).toHaveBeenCalled();
             expect(mockParentActionToggle).toHaveBeenCalled();
 
             // Reset spy

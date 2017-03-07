@@ -6,6 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isCancel } from 'axios';
 import _ from 'lodash';
 
 import * as SearchHelper from 'helpers/searchHelper';
@@ -30,13 +31,13 @@ export class AwardIDListContainer extends React.Component {
 
         this.state = {
             awardIDSearchString: '',
-            autocompleteAwardIDs: []
+            autocompleteAwardIDs: [],
+            noResults: false
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
-        this.noResults = false;
         this.fields = ['piid', 'fain', 'uri', 'parent_award__piid'];
     }
 
@@ -85,7 +86,9 @@ export class AwardIDListContainer extends React.Component {
     }
 
     queryAutocompleteAwardIDs(input) {
-        this.noResults = false;
+        this.setState({
+            noResults: false
+        });
 
         // Only search if input is 2 or more characters
         if (input.length >= 2) {
@@ -108,6 +111,10 @@ export class AwardIDListContainer extends React.Component {
 
             this.awardIDSearchRequest.promise
                 .then((res) => {
+                    this.setState({
+                        noResults: !res.data.matched_objects.length
+                    });
+
                     const data = res.data.matched_objects;
                     let autocompleteData = {};
 
@@ -137,8 +144,12 @@ export class AwardIDListContainer extends React.Component {
                     // Add search results to Redux
                     this.props.setAutocompleteAwardIDs(autocompleteData);
                 })
-                .catch(() => {
-                    this.noResults = true;
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        this.setState({
+                            noResults: true
+                        });
+                    }
                 });
         }
         else if (this.awardIDSearchRequest) {
@@ -180,10 +191,12 @@ export class AwardIDListContainer extends React.Component {
                     this.awardIDList = input;
                 }}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                noResults={this.noResults} />
+                noResults={this.state.noResults} />
         );
     }
 }
+
+AwardIDListContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -194,5 +207,3 @@ export default connect(
     }),
     (dispatch) => bindActionCreators(awardIDActions, dispatch)
 )(AwardIDListContainer);
-
-AwardIDListContainer.propTypes = propTypes;
