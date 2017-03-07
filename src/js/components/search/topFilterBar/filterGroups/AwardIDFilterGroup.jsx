@@ -28,7 +28,7 @@ export default class AwardIDFilterGroup extends React.Component {
     generateTags() {
         const tags = [];
 
-        // check to see if an agency is provided
+        // check to see if an award ID is provided
         const awardIDs = this.props.filter.values;
 
         awardIDs.forEach((value) => {
