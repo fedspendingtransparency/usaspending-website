@@ -17,7 +17,7 @@ export default class DetailsSection extends React.Component {
 
         this.state = {
             tableWidth: 0,
-            activeTab: 'additional'
+            activeTab: 'financial'
         };
 
         this.setTableWidth = this.setTableWidth.bind(this);

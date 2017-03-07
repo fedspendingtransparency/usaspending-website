@@ -1,4 +1,4 @@
-.transactions-table {
+.transactions-table, .financial-system-table {
     // implement the library style
     @import '../../../lib/ibTable/ibTable';
     margin-top: 1.5em;
@@ -17,12 +17,12 @@
         border-bottom: none;
     }
 
-    .transaction-generic-cell {
+    .transaction-generic-cell, .financial-system-generic-cell {
         @import "cells/_genericCell";
         @include genericCell();
     }
 
-    .transaction-header-cell {
+    .transaction-header-cell, .financial-system-header-cell {
         @import "cells/_genericHeader";
         @include genericHeader();
 

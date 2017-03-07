@@ -27,12 +27,36 @@ export const setTransactionSort = (state) => ({
     value: state
 });
 
+export const setFinSysData = (state) => ({
+    type: 'SET_AWARD_FINSYS_DATA',
+    data: state
+});
+
+export const appendFinSysData = (state) => ({
+    type: 'APPEND_AWARD_FINSYS_DATA',
+    data: state
+});
+
+export const setFinSysMeta = (state) => ({
+    type: 'SET_FINSYS_META',
+    meta: state
+});
+
+export const setFinSysSort = (state) => ({
+    type: 'SET_FINSYS_SORT',
+    value: state
+});
+
 export const updateTransactionRenderHash = () => ({
     type: 'UPDATE_TXN_RENDER_HASH'
 });
 
 export const updateTransactionGroupHash = () => ({
     type: 'UPDATE_TXN_GROUP_HASH'
+});
+
+export const resetFinSys = () => ({
+    type: 'RESET_FINSYS'
 });
 
 export const resetAwardData = () => ({

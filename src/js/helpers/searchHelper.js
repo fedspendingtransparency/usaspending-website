@@ -145,3 +145,19 @@ export const performTransactionsTotalSearch = (params) => {
         }
     };
 };
+
+export const performFinancialSystemLookup = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'accounts/awards/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

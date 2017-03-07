@@ -1,0 +1,60 @@
+/**
+ * financialSystem.js
+ * Created by Kevin Li 3/6/17
+ */
+
+const tableFields = {
+    columnWidths: {
+        submissionDate: 300,
+        tas: 250,
+        programActivity: 300,
+        objectClass: 420,
+        fundingObligated: 280
+    },
+    defaultSortDirection: {
+        submissionDate: 'desc',
+        tas: 'desc',
+        programActivity: 'asc',
+        objectClass: 'asc',
+        fundingObligated: 'desc'
+    },
+    table: {
+        _fields: [
+            'financial_accounts_by_awards_id',
+            'certified_date',
+            'treasury_account',
+            'object_class',
+            'program_activity_code',
+            'program_activity_name',
+            'transaction_obligations'
+        ],
+        _order: [
+            'submissionDate',
+            'tas',
+            'programActivity',
+            'objectClass',
+            'fundingObligated'
+        ],
+        _sortFields: {
+            submissionDate: 'certified_date',
+            tas: 'tas_rendering_label',
+            programActivity: 'program_activity_name',
+            objectClass: 'object_class',
+            fundingObligated: 'transaction_obligations'
+        },
+        _mapping: {
+            submissionDate: 'submissionDate',
+            tas: 'tas',
+            programActivity: 'programActivity',
+            objectClass: 'objectClass',
+            fundingObligated: 'fundingObligated'
+        },
+        submissionDate: 'Submission Date',
+        tas: 'TAS',
+        programActivity: 'Program Activity',
+        objectClass: 'Object Class',
+        fundingObligated: 'Funding Obligated'
+    }
+};
+
+export default tableFields;

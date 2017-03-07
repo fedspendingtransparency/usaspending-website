@@ -14,7 +14,7 @@ export const agencyFields = [
     },
     {
         label: 'Awarding Office',
-        field: 'awarding_office_nae'
+        field: 'awarding_office_name'
     },
     {
         label: 'Funding Agency',
