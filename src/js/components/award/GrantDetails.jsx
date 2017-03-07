@@ -62,7 +62,7 @@ export default class GrantDetails extends React.Component {
             description = "Not Available";
         }
         // CFDA Data
-        // TODO: get program descriptions (objectives) for most recent transaction
+        // TODO: get program description (objectives) for latest transaction
         const programName = `${latestTransaction.assistance_data.cfda_number} - ${latestTransaction.assistance_data.cfda_title}`;
         const programDescription = '';
 
