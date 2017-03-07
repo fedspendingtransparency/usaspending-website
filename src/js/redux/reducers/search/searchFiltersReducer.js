@@ -22,7 +22,8 @@ const initialState = {
     locationDomesticForeign: 'all',
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
-    selectedRecipientLocations: new OrderedMap()
+    selectedRecipientLocations: new OrderedMap(),
+    awardAmounts: new Set()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -97,6 +98,9 @@ const searchFiltersReducer = (state = initialState, action) => {
                         state.selectedRecipientLocations, action.location)
             });
         }
+
+        // Award Amount Filter
+
 
         // Generic
         case 'UPDATE_SEARCH_FILTER_GENERIC': {
