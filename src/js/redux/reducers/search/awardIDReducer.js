@@ -9,8 +9,7 @@ const initialState = {
     piid: [],
     fain: [],
     uri: [],
-    parent_award__piid: [],
-    transaction__contract_data__solicitation_identifier: []
+    parent_award__piid: []
 };
 
 const awardIDReducer = (state = initialState, action) => {
@@ -20,9 +19,7 @@ const awardIDReducer = (state = initialState, action) => {
                 piid: _.concat([], action.awardIDs.piid),
                 fain: _.concat([], action.awardIDs.fain),
                 uri: _.concat([], action.awardIDs.uri),
-                parent_award__piid: _.concat([], action.awardIDs.parent_award__piid),
-                transaction__contract_data__solicitation_identifier: _.concat([],
-                    action.awardIDs.transaction__contract_data__solicitation_identifier)
+                parent_award__piid: _.concat([], action.awardIDs.parent_award__piid)
             });
         }
         default:

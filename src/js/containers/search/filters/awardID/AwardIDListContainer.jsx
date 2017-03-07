@@ -21,8 +21,7 @@ const propTypes = {
     piid: React.PropTypes.array,
     fain: React.PropTypes.array,
     uri: React.PropTypes.array,
-    parent_award__piid: React.PropTypes.array,
-    transaction__contract_data__solicitation_identifier: React.PropTypes.array
+    parent_award__piid: React.PropTypes.array
 };
 
 export class AwardIDListContainer extends React.Component {
@@ -38,8 +37,7 @@ export class AwardIDListContainer extends React.Component {
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
         this.noResults = false;
-        this.fields = ['piid', 'fain', 'uri', 'parent_award__piid',
-            'transaction__contract_data__solicitation_identifier'];
+        this.fields = ['piid', 'fain', 'uri', 'parent_award__piid'];
     }
 
     componentDidMount() {
@@ -50,9 +48,7 @@ export class AwardIDListContainer extends React.Component {
         if (!_.isEqual(nextProps.piid, this.props.piid)
             || !_.isEqual(nextProps.fain, this.props.fain)
             || !_.isEqual(nextProps.uri, this.props.uri)
-            || !_.isEqual(nextProps.parent_award__piid, this.props.parent_award__piid)
-            || !_.isEqual(nextProps.transaction__contract_data__solicitation_identifier
-                , this.props.transaction__contract_data__solicitation_identifier)) {
+            || !_.isEqual(nextProps.parent_award__piid, this.props.parent_award__piid)) {
             this.parseAutocompleteAwardIDs(nextProps);
         }
     }
@@ -63,8 +59,7 @@ export class AwardIDListContainer extends React.Component {
             piid: 'PIID',
             fain: 'FAIN',
             uri: 'URI',
-            parent_award__piid: 'PIID',
-            transaction__contract_data__solicitation_identifier: 'Soliciation ID'
+            parent_award__piid: 'PIID'
         };
 
         Object.keys(fieldMap).forEach((key) => {
@@ -126,9 +121,8 @@ export class AwardIDListContainer extends React.Component {
                     // Filter out any selectedAwardIDs that may be in the result set
                     if (selectedAwardIDs && selectedAwardIDs.length > 0) {
                         // We need to compare selectedAwardIDs to each result object,
-                        // as we're receiving a result object with 5 keys:
-                        // PIID, FAIN, URI, PARENT_AWARD__PIID, and
-                        // TRANSACTION__CONTRACT_DATA__SOLICIATION_IDENTIFIED
+                        // as we're receiving a result object with 4 keys:
+                        // PIID, FAIN, URI, and PARENT_AWARD__PIID
                         Object.keys(data).forEach((key) => {
                             autocompleteData[key] =
                                 _.differenceWith(data[key], selectedAwardIDs, _.isEqual);
@@ -179,7 +173,7 @@ export class AwardIDListContainer extends React.Component {
                 values={this.state.autocompleteAwardIDs}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.toggleAwardID}
-                placeholder="PIID, FAIN, URI, or Solicitation ID"
+                placeholder="PIID, FAIN, or URI"
                 errorHeader="Unknown Award"
                 errorMessage="We were unable to find that award."
                 ref={(input) => {
@@ -196,9 +190,7 @@ export default connect(
         piid: state.autocompleteAwardIDs.piid,
         fain: state.autocompleteAwardIDs.fain,
         uri: state.autocompleteAwardIDs.uri,
-        parent_award__piid: state.autocompleteAwardIDs.parent_award__piid,
-        transaction__contract_data__solicitation_identifier:
-            state.autocompleteAwardIDs.transaction__contract_data__solicitation_identifier
+        parent_award__piid: state.autocompleteAwardIDs.parent_award__piid
     }),
     (dispatch) => bindActionCreators(awardIDActions, dispatch)
 )(AwardIDListContainer);

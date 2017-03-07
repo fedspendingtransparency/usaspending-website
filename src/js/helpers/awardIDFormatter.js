@@ -15,9 +15,6 @@ export const formatAwardID = (award, awardIDType) => {
         case 'URI': {
             return award.uri;
         }
-        case 'Soliciation ID': {
-            return award.transaction__contract_data__solicitation_identifier;
-        }
         default: {
             return `${award.id}`;
         }
