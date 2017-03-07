@@ -4,6 +4,8 @@
  */
 
 import React from 'react';
+
+import * as AwardIDFormatter from 'helpers/awardIDFormatter';
 import ShownAwardID from './ShownAwardID';
 
 const propTypes = {
@@ -19,7 +21,8 @@ export default class SelectedAwardIDs extends React.Component {
             const awardID = entry[1];
             const value = (<ShownAwardID
                 awardID={awardID}
-                label={`${awardID.id} | ${awardID.awardIDType}`}
+                label={`${AwardIDFormatter.formatAwardID(awardID, awardID.awardIDType)}
+                    | ${awardID.awardIDType}`}
                 key={key}
                 toggleAwardID={this.props.toggleAwardID.bind(null, awardID)} />);
             shownAwardIDs.push(value);

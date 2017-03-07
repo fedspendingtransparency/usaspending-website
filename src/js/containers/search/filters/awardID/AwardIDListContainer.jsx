@@ -10,6 +10,7 @@ import _ from 'lodash';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardIDActions from 'redux/actions/search/awardIDActions';
+import * as AwardIDFormatter from 'helpers/awardIDFormatter';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
@@ -72,7 +73,7 @@ export class AwardIDListContainer extends React.Component {
                 awardIDs.forEach((item) => {
                     if (item) {
                         values.push({
-                            title: `${item.id}`,
+                            title: AwardIDFormatter.formatAwardID(item, fieldMap[key]),
                             subtitle: fieldMap[key],
                             data: Object.assign({}, item, {
                                 awardIDType: fieldMap[key]
@@ -113,12 +114,25 @@ export class AwardIDListContainer extends React.Component {
             this.awardIDSearchRequest.promise
                 .then((res) => {
                     const data = res.data.matched_objects;
-                    let autocompleteData = [];
+                    let autocompleteData = {};
+
+                    // Remove custom awardIDType field from selectedAwardIDs
+                    // to enable object comparison with result data
+                    const selectedAwardIDs = [];
+                    this.props.selectedAwardIDs.toArray().forEach((item) => {
+                        selectedAwardIDs.push(_.omit(item, 'awardIDType'));
+                    });
 
                     // Filter out any selectedAwardIDs that may be in the result set
-                    const selectedAwardIDs = this.props.selectedAwardIDs.toArray();
                     if (selectedAwardIDs && selectedAwardIDs.length > 0) {
-                        autocompleteData = _.differenceWith(data, selectedAwardIDs, _.isEqual);
+                        // We need to compare selectedAwardIDs to each result object,
+                        // as we're receiving a result object with 5 keys:
+                        // PIID, FAIN, URI, PARENT_AWARD__PIID, and
+                        // TRANSACTION__CONTRACT_DATA__SOLICIATION_IDENTIFIED
+                        Object.keys(data).forEach((key) => {
+                            autocompleteData[key] =
+                                _.differenceWith(data[key], selectedAwardIDs, _.isEqual);
+                        });
                     }
                     else {
                         autocompleteData = data;
