@@ -19,6 +19,7 @@ export default class AwardGrant extends React.Component {
                 <AwardAmounts
                     selectedAward={this.props.selectedAward} />
                 <GrantDetails
+                    {...this.props}
                     selectedAward={this.props.selectedAward} />
             </div>
         );

@@ -20,7 +20,7 @@ export default class AwardInfo extends React.Component {
 
     render() {
         const isContract = _.includes(awardTypeGroups.contracts, this.props.selectedAward.award_type);
-        let  amountsDetailsSection = (
+        let amountsDetailsSection = (
             <AwardContract
                 {...this.props}
                 selectedAward={this.props.selectedAward} />

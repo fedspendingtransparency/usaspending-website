@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 import Award from 'components/award/Award';
 
@@ -14,6 +15,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 import AwardSummary from 'models/results/award/AwardSummary';
 import ContractTransaction from 'models/results/transactions/ContractTransaction';
+import AssistanceTransaction from 'models/results/transactions/AssistanceTransaction';
 
 const propTypes = {
     setSelectedAward: React.PropTypes.func,
@@ -137,10 +139,22 @@ class AwardContainer extends React.Component {
     parseTransactions(data, reset = false) {
         const transactions = [];
 
-        data.results.forEach((item) => {
-            const transaction = new ContractTransaction(item);
-            transactions.push(transaction);
-        });
+        // Check for Award Type
+        const isContract = _.includes(awardTypeGroups.contracts, this.props.award.selectedAward.award_type);
+
+        if (isContract) {
+            data.results.forEach((item) => {
+                const transaction = new ContractTransaction(item);
+                transactions.push(transaction);
+            });
+        }
+        else {
+            // Parse into AssistanceTransaction objects
+            data.results.forEach((item) => {
+                const transaction = new AssistanceTransaction(item);
+                transactions.push(transaction);
+            });
+        }
 
         if (reset) {
             this.props.setAwardTransactions(transactions);

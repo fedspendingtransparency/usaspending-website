@@ -17,6 +17,7 @@ export default class GrantDetails extends React.Component {
         let yearRangeTotal = "";
         let description = null;
         const award = this.props.selectedAward;
+        const latestTransaction = award.latest_transaction;
 
         // Date Range
         const startDate = moment(award.period_of_performance_start_date, 'M/D/YYYY');
@@ -60,6 +61,10 @@ export default class GrantDetails extends React.Component {
         else {
             description = "Not Available";
         }
+        // CFDA Data
+        // TODO: get program descriptions (objectives) for most recent transaction
+        const programName = `${latestTransaction.assistance_data.cfda_number} - ${latestTransaction.assistance_data.cfda_title}`;
+        const programDescription = '';
 
         return (
             <div className="contract-wrapper">
@@ -86,10 +91,10 @@ export default class GrantDetails extends React.Component {
                                 value={award.type_description} />
                             <ContractCell
                                 title="CFDA Program"
-                                value="assistance_data.cfda.program_number - assistance_data.cfda.program_title" />
+                                value={programName} />
                             <ContractCell
                                 title="CFDA Program Description"
-                                value="assistance_data.cfda.objectives" />
+                                value={programDescription} />
                         </tbody>
                     </table>
                 </div>
