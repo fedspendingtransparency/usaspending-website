@@ -18,7 +18,7 @@ export default class ShownRecipientLocation extends React.Component {
                 className="shown-recipient-location-button"
                 value={this.props.label}
                 onClick={this.props.toggleLocation}>
-                {this.props.label} <span className="close">x</span>
+                <span className="close">x</span> {this.props.label}
             </button>
         );
     }

@@ -1,27 +1,60 @@
 @import "./_formatItem";
 @import "./_downloadButton";
-
 @mixin searchHeaderOptions {
     display: table;
     ul.search-formats {
         @include unstyled-list;
         display: table-cell;
-        text-align: right;
-        
-        li {
-            display: inline-block;
+        text-align: center;
+        @include media($medium-screen) {
+            text-align: right;
+        }
+    }
+    li {
+        display: inline-block;
+        margin-left: 30px;
+        @include media($large-screen) {
             margin-left: 50px;
-
-            &:first-child {
-                margin-left: 0;
+        }
+        &:first-child {
+            margin-left: 0;
+        }
+        .format-item {
+            @include searchHeaderFormatItem;
+        }
+        .download-button {
+            @include searchHeaderDownloadButton;
+        }
+        .coming-soon {
+            color: $color-gray;
+            cursor: default;
+            pointer-events: none;
+        }
+        .coming-soon-container {
+            margin-top: rem(0px);
+            .coming-soon-icon {
+                bottom: rem(0px);
+                display: inline;
+                float: left;
+                height: 0;
+                left: rem(27px);
+                position: relative;
+                svg {
+                    fill: $color-gray;
+                    height: rem(10px);
+                    width: rem(10px);
+                }
             }
-
-            .format-item {
-                @include searchHeaderFormatItem;
-            }
-
-            .download-button {
-                @include searchHeaderDownloadButton;
+            .coming-soon-label {
+                bottom: rem(-5px);
+                color: $color-gray;
+                display: inline;
+                float: left;
+                font-weight: bold;
+                font-size: rem(10px);
+                height: 0;
+                left: rem(42px);
+                position: relative;
             }
         }
     }

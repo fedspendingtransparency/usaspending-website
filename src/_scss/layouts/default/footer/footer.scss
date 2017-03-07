@@ -1,16 +1,42 @@
+@import "./_footerLogo";
+@import "./_footerInternalLinks";
+@import "./_footerExternalLinks";
+@import "./_footerCopyright";
+@import "../../../elements/_inlineList";
 @mixin defaultFooter() {
-    .site-footer {
-        display: block;
-        width: 100%;
-        height: 210px;
-
-        margin-top: 60px;
-
-        background-color: #333333;
-
-        font-size: $base-font-size;
+    .footer-outter-wrap {
+        background-color: #333;
         color: $color-white;
-
-        padding: 30px 60px;
+        font-size: $base-font-size;
+        margin-top: 6.0rem;
+        padding: 1.5rem 0;
+        width: 100%;
+        .footer-container {
+            @include outer-container;
+            @include pad(1rem 2rem);
+            max-width: $site-max-width;
+            @include media($tablet-screen) {
+                @include pad(1rem 2rem);
+                @include display(flex);
+                @include align-items(center);
+            }
+            @include media($x-large-screen) {
+                margin: 0 auto;
+                max-width: $site-max-width;
+                padding: 1rem 0;
+            }
+            & .footerLogo {
+                @include footerLogo;
+            }
+            .internal-links {
+                @include footerInternalLinks;
+            }
+            .external-links {
+                @include footerExternalLinks;
+            }
+        }
+    }
+    .copyright-block {
+        @include footerCopyright;
     }
 }

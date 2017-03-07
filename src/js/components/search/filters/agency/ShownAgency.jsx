@@ -29,7 +29,7 @@ export default class ShownAgency extends React.Component {
                 className="shown-agency-button"
                 value={this.props.label}
                 onClick={this.toggleAgency}>
-                {this.props.label} <span className="close">x</span>
+                <span className="close">x</span> {this.props.label}
             </button>
         );
     }

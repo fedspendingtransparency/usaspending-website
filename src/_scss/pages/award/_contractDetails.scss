@@ -1,27 +1,24 @@
+@import "../../elements/_divider";
 .contract-wrapper {
     @include span-columns(8);
     @include clearfix();
-
-    padding: 0px 15px;
+    padding: 0px rem(15);
+    //border-bottom: 1px solid $color-gray-lighter;
 }
-
-.contract-details {
-    margin: 1rem 1rem 1rem 0px;
-    font-size: 1.4rem;
-
-    h4 {
-        margin-top: 1rem;
+    h3 {
+        margin-top: rem(10);
         margin-bottom: 0;
     }
-
+.contract-details {
+    margin: 1rem 1rem 1rem 0px;
+    font-size: rem(14);
     .border {
         background: url(../img/horizontal-divider.svg) no-repeat;
         height: 2rem;
     }
-
     table {
-        margin-top: 1rem;
-        min-width:50%;
+        margin-top: rem(10);
+        min-width: 50%;
         width: 93%;
         tbody {
             tr {
@@ -33,15 +30,13 @@
                 td {
                     border: none;
                     margin: 0;
-                    padding: .5rem;
-
+                    padding: rem(14);
                     &:first-child {
-                        font-weight: bold;
+                        font-weight: 600;
                         width: 40%;
                     }
                 }
             }
         }
     }
-
 }

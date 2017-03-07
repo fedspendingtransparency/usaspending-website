@@ -14,10 +14,9 @@
             display: table-cell;
             position: relative;
             width: rem(74px);
-            height: rem(204px);
+            height: rem(200px);
             @include background-image(url('../img/award_triangle.png'));
             background-repeat: no-repeat;
         }
     }
-
 }

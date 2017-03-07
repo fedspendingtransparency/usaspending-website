@@ -1,0 +1,22 @@
+@mixin footerExternalLinks {
+    @include span-columns(16);
+    text-align: center;
+    & ul {
+        @include unstyled-list;
+        & li a {
+            color: #9BDAF1;
+            font-size: 1.4rem;
+        }
+    }
+    & h6 {
+        font-size: 1.6rem;
+        margin-bottom: 0.2rem;
+    }
+    @include media($tablet-screen) {
+        text-align: right;
+        @include span-columns(5);
+        & h6 {
+            margin: 0;
+        }
+    }
+}

@@ -127,4 +127,18 @@
     <symbol id="usa-da-icon-guide" viewBox="0 0 512 512">
         <path d="M462.75 36.3l-95.38 373.36-317.2-.02-19.25-30.36h317.13L442.4.6 96.94 0 0 379.08l39.32 60.8 350.5.12L485 69.83 462.75 36.3zM146.57 68.92h190.5l-10.1 38.27H136.5l10.07-38.3zm-19.14 71.34h190.5l-10.1 38.27h-190.5l10.1-38.27z" />
     </symbol>
+    <symbol id="usa-da-flag-logo" viewBox="0 0 145 78">
+        <rect width="143" height="6" y="60" fill="#AAA" rx=".25" />
+        <rect width="121" height="6" y="72" fill="#AAA" rx=".25" />
+        <rect width="6" height="42" fill="#ECECEC" rx=".25" />
+        <rect width="6" height="29" x="12" y="13" fill="#ECECEC" rx=".25" />
+        <rect width="6" height="38" x="24" y="4" fill="#ECECEC" rx=".25" />
+        <rect width="6" height="35" x="36" y="7" fill="#ECECEC" rx=".25" />
+        <rect width="6" height="42" x="48" fill="#ECECEC" rx=".25" />
+        <rect width="53" height="6" x="60" fill="#AAA" rx=".25" />
+        <rect width="85" height="6" x="60" y="12" fill="#AAA" rx=".25" />
+        <rect width="75" height="6" x="60" y="24" fill="#AAA" rx=".25" />
+        <rect width="63" height="6" x="60" y="36" fill="#AAA" rx=".25" />
+        <rect width="133" height="6" y="48" fill="#AAA" rx=".25" />
+    </symbol>
 </svg>

@@ -13,11 +13,12 @@ p {
 
 a {
     color: $color-primary;
-    text-decoration: underline;
+    text-decoration: none;
 
     &:hover,
     &:active {
         color: $color-primary-darker;
+        text-decoration: underline;
     }
 
     &:visited {
@@ -107,13 +108,13 @@ h6 {
 
 @mixin h5 {
     font-size: $h5-font-size;
-    font-weight: $font-bold;
+    font-weight: $font-semibold;
     line-height: $h5-font-size*1.3;
 }
 
 @mixin h6 {
     font-size: $h6-font-size;
-    font-weight: $font-bold;
+    font-weight: $font-semibold;
     line-height: $h6-font-size*1.4;
 }
 

@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as recipientActions from 'redux/actions/search/recipientActions';
@@ -27,10 +28,12 @@ export class RecipientLocationContainer extends React.Component {
 
         this.state = {
             recipientLocationSearchString: '',
-            autocompleteRecipientLocations: []
+            autocompleteRecipientLocations: [],
+            noResults: false
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
+        this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
     }
 
@@ -50,7 +53,8 @@ export class RecipientLocationContainer extends React.Component {
         if (recipientLocations.length > 0) {
             recipientLocations.forEach((item) => {
                 let placeType = _.upperCase(item.place_type);
-                if (item.parent !== null) {
+                if (item.parent !== null &&
+                    (item.place_type !== null && item.place_type !== 'COUNTRY')) {
                     placeType += ` in ${item.parent}`;
                 }
 
@@ -68,6 +72,10 @@ export class RecipientLocationContainer extends React.Component {
     }
 
     queryAutocompleteRecipientLocations(input) {
+        this.setState({
+            noResults: false
+        });
+
         // Only search if input is 2 or more characters
         if (input.length >= 2) {
             this.setState({
@@ -106,10 +114,29 @@ export class RecipientLocationContainer extends React.Component {
                         autocompleteData = data;
                     }
 
+                    this.setState({
+                        noResults: !autocompleteData.length
+                    });
+
                     // Add search results to Redux
                     this.props.setAutocompleteRecipientLocations(autocompleteData);
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        this.setState({
+                            noResults: true
+                        });
+                    }
                 });
         }
+        else if (this.recipientLocationSearchRequest) {
+            // A request is currently in-flight, cancel it
+            this.recipientLocationSearchRequest.cancel();
+        }
+    }
+
+    clearAutocompleteSuggestions() {
+        this.props.setAutocompleteRecipientLocations([]);
     }
 
     handleTextInput(recipientInput) {
@@ -136,11 +163,12 @@ export class RecipientLocationContainer extends React.Component {
                 onSelect={this.props.toggleRecipientLocation}
                 placeholder="State, City, County, ZIP, or District"
                 errorHeader="Unknown Location"
-                errorMessage="You must select a recipient location from
-                    the list that is provided as you type."
+                errorMessage="We were unable to find that location."
                 ref={(input) => {
                     this.recipientLocationList = input;
-                }} />
+                }}
+                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
+                noResults={this.state.noResults} />
         );
     }
 

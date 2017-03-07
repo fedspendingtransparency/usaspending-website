@@ -6,6 +6,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import * as Icons from 'components/sharedComponents/icons/Icons';
+
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 
@@ -82,19 +84,31 @@ export default class TimeVisualizationSection extends React.Component {
                                         active={this.state.visualizationPeriod === 'year'}
                                         changePeriod={this.changePeriod} />
                                 </li>
-                                <li>
+                                <li className="coming-soon">
                                     <TimeVisualizationPeriodButton
                                         value="quarter"
                                         label="Quarters"
                                         active={this.state.visualizationPeriod === 'quarter'}
                                         changePeriod={this.changePeriod} />
+                                    <div>
+                                        <div className="coming-soon-icon">
+                                            <Icons.ExclamationCircle />
+                                        </div>
+                                        <span className="coming-soon-label">Coming Soon</span>
+                                    </div>
                                 </li>
-                                <li>
+                                <li className="coming-soon">
                                     <TimeVisualizationPeriodButton
                                         value="month"
                                         label="Months"
                                         active={this.state.visualizationPeriod === 'month'}
                                         changePeriod={this.changePeriod} />
+                                    <div>
+                                        <div className="coming-soon-icon">
+                                            <Icons.ExclamationCircle />
+                                        </div>
+                                        <span className="coming-soon-label">Coming Soon</span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>

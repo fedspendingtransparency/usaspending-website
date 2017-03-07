@@ -18,7 +18,7 @@ export default class ShownLocation extends React.Component {
                 className="shown-location-button"
                 value={this.props.label}
                 onClick={this.props.removeLocation}>
-                {this.props.label} <span className="close">x</span>
+                <span className="close">x</span> {this.props.label}
             </button>
         );
     }

@@ -37,6 +37,7 @@ export default class RouterContainer extends React.Component {
     handleRouteChange() {
         const path = this.router.state.location.pathname;
         RouterContainer.logPageView(path);
+        ga.pageview(window.location.hash);
         // scroll to top of page
         window.scrollTo(0, 0);
     }
