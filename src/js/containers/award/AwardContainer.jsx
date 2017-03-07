@@ -28,7 +28,7 @@ const propTypes = {
 
 const countLimit = 13;
 
-class AwardContainer extends React.Component {
+export class AwardContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -101,14 +101,12 @@ class AwardContainer extends React.Component {
                 const fullData = (Object.assign(awardData, txnData.results[0].contract_data));
                 this.parseAward(fullData);
                 this.parseTransactions(txnData, true);
-
                 // operations have resolved
                 this.searchRequests = [];
             })
             .catch((error) => {
                 if (isCancel(error)) {
                     // Got cancelled
-                    console.log(error);
                 }
                 else if (error.response) {
                     // Errored out but got response, toggle noAward flag
@@ -130,9 +128,6 @@ class AwardContainer extends React.Component {
             noAward: false,
             awardId: this.props.params.awardId
         });
-
-        // const fullData = _.flatten(data, trx);
-        // console.log(fullData);
 
         const award = new AwardSummary(data);
         // Add search results to Redux

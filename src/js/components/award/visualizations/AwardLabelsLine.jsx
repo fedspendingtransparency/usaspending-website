@@ -33,9 +33,7 @@ export default class AwardLabelsLine extends React.Component {
                 className="label-line"
                 points={this.props.path} />);
         }
-        return (
-            { line }
-        );
+        return line;
     }
 }
 AwardLabelsLine.propTypes = propTypes;

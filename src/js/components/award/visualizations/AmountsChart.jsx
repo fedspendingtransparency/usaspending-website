@@ -106,15 +106,13 @@ export default class AmountsChart extends React.Component {
         const barWidth = this.state.graphWidth - 400;
 
         // draw the potential bar
-        // const potentialY = this.props.graphHeight - yScale(this.props.potential);
-        // const potentialBar = (<PotentialAwardBar
-        //     data={MoneyFormatter.formatMoney(this.props.potential)}
-        //     width={barWidth}
-        //     height={yScale(this.props.potential)}
-        //     x={0}
-        //     y={0} />);
-        const potentialY = 1;
-        const potentialBar = null;
+        const potentialY = this.props.graphHeight - yScale(this.props.potential);
+        const potentialBar = (<PotentialAwardBar
+            data={MoneyFormatter.formatMoney(this.props.potential)}
+            width={barWidth}
+            height={yScale(this.props.potential)}
+            x={0}
+            y={0} />);
 
         // draw the current var
         const currentY = this.props.graphHeight - yScale(this.props.current);
