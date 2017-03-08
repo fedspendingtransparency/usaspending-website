@@ -24,8 +24,9 @@ export class AwardIDSearchContainer extends React.Component {
     }
 
     toggleAwardID(awardID) {
-        const updateParams = {};
-        updateParams.awardID = awardID;
+        const updateParams = {
+            awardID
+        };
         this.props.updateAwardIDs(updateParams);
     }
 

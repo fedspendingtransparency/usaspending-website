@@ -46,10 +46,21 @@ export class AwardIDListContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!_.isEqual(nextProps.piid, this.props.piid)
-            || !_.isEqual(nextProps.fain, this.props.fain)
-            || !_.isEqual(nextProps.uri, this.props.uri)
-            || !_.isEqual(nextProps.parent_award__piid, this.props.parent_award__piid)) {
+        const nextPropsResults = [
+            nextProps.piid,
+            nextProps.fain,
+            nextProps.uri,
+            nextProps.parent_award__piid
+        ];
+
+        const propsResults = [
+            this.props.piid,
+            this.props.fain,
+            this.props.uri,
+            this.props.parent_award__piid
+        ];
+
+        if (!_.isEqual(nextPropsResults, propsResults)) {
             this.parseAutocompleteAwardIDs(nextProps);
         }
     }
@@ -111,11 +122,18 @@ export class AwardIDListContainer extends React.Component {
 
             this.awardIDSearchRequest.promise
                 .then((res) => {
+                    const data = res.data.matched_objects;
+                    let resultsLength = 0;
+                    for (const key in data) {
+                        if (data[key] instanceof Array) {
+                            resultsLength += data[key].length;
+                        }
+                    }
+
                     this.setState({
-                        noResults: !res.data.matched_objects.length
+                        noResults: resultsLength === 0
                     });
 
-                    const data = res.data.matched_objects;
                     let autocompleteData = {};
 
                     // Remove custom awardIDType field from selectedAwardIDs
@@ -139,7 +157,9 @@ export class AwardIDListContainer extends React.Component {
                         autocompleteData = data;
                     }
 
-                    this.noResults = !autocompleteData.length;
+                    this.setState({
+                        noResults: !autocompleteData.length
+                    });
 
                     // Add search results to Redux
                     this.props.setAutocompleteAwardIDs(autocompleteData);

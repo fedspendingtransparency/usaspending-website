@@ -349,16 +349,36 @@ export class TopFilterBarContainer extends React.Component {
      * @param      {<type>}  value   The filter value to remove
      */
     removeFilter(type, value) {
-        if (type === 'timePeriodFY' || type === 'timePeriodDR') {
-            this.removeTimePeriod(type, value);
-        }
-        else if (type === 'awardType') {
-            this.removeFromSet(type, value);
-        }
-        else if (type === 'selectedLocations' || type === 'selectedFundingAgencies'
-            || type === 'selectedAwardingAgencies' || type === 'selectedRecipients'
-            || type === 'selectedRecipientLocations' || type === 'selectedAwardIDs') {
-            this.removeFromOrderedMap(type, value);
+        switch (type) {
+            case 'timePeriodFY':
+                this.removeTimePeriod(type, value);
+                break;
+            case 'timePeriodDR':
+                this.removeTimePeriod(type, value);
+                break;
+            case 'awardType':
+                this.removeFromSet(type, value);
+                break;
+            case 'selectedLocations':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedFundingAgencies':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedAwardingAgencies':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedRecipients':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedRecipientLocations':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedAwardIDs':
+                this.removeFromOrderedMap(type, value);
+                break;
+            default:
+                break;
         }
     }
 
