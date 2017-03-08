@@ -7,7 +7,7 @@ import React from 'react';
 
 const propTypes = {
     title: React.PropTypes.string,
-    value: React.PropTypes.string
+    value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])
 };
 
 export default class AdditionalRow extends React.Component {

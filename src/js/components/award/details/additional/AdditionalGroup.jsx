@@ -9,7 +9,7 @@ import AdditionalRow from './AdditionalRow';
 
 const propTypes = {
     fields: React.PropTypes.array,
-    award: React.PropTypes.object,
+    data: React.PropTypes.object,
     title: React.PropTypes.string
 };
 
@@ -18,11 +18,16 @@ export default class AdditionalGroup extends React.Component {
         const rows = [];
 
         this.props.fields.forEach((item) => {
-            const data = this.props.award.selectedAward[item.field];
+            let value = this.props.data[item.field];
+            if (item.field === "__special") {
+                // this is a special data field that needs to be manually parsed
+                value = item.parse(this.props.data);
+            }
+
             const row = (<AdditionalRow
                 key={item.field}
                 title={item.label}
-                value={data} />);
+                value={value} />);
 
             rows.push(row);
         });

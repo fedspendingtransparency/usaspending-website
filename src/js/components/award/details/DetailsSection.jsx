@@ -11,13 +11,15 @@ import DetailsTabBar from './DetailsTabBar';
 import TransactionsTable from '../table/TransactionsTable';
 import AdditionalDetails from './additional/AdditionalDetails';
 
+const defaultTab = 'transaction';
+
 export default class DetailsSection extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             tableWidth: 0,
-            activeTab: 'financial'
+            activeTab: defaultTab
         };
 
         this.setTableWidth = this.setTableWidth.bind(this);
@@ -33,6 +35,16 @@ export default class DetailsSection extends React.Component {
     componentWillUnmount() {
         // stop watching for size changes
         window.removeEventListener('resize', this.setTableWidth);
+    }
+
+    componentDidUpdate(prevProps) {
+        // check award changed
+        if (this.props.award.selectedAward.id !== prevProps.award.selectedAward.id) {
+            // reset the tab
+            this.setState({
+                activeTab: defaultTab
+            });
+        }
     }
 
     setTableWidth() {

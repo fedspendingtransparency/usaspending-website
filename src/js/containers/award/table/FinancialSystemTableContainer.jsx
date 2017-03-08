@@ -15,6 +15,7 @@ import * as awardActions from 'redux/actions/award/awardActions';
 import FinancialSystemItem from 'models/results/other/FinancialSystemItem';
 
 import FinancialSystemTable from 'components/award/table/FinancialSystemTable';
+import SummaryPageTableMessage from 'components/award/table/SummaryPageTableMessage';
 
 import tableFields from 'dataMapping/contracts/financialSystem';
 
@@ -146,7 +147,9 @@ export class FinancialSystemTableContainer extends React.Component {
     }
 
     render() {
-        let output = null;
+        let output = (<SummaryPageTableMessage
+            message="Loading data..." />);
+
         if (this.state.hasLoaded) {
             output = (<FinancialSystemTable
                 inFlight={this.state.inFlight}
