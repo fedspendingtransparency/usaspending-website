@@ -122,43 +122,45 @@ export class AwardIDListContainer extends React.Component {
 
             this.awardIDSearchRequest.promise
                 .then((res) => {
-                    const data = res.data.matched_objects;
-                    let resultsLength = 0;
-                    for (const key in data) {
-                        if (data[key] instanceof Array) {
-                            resultsLength += data[key].length;
-                        }
-                    }
-
                     this.setState({
-                        noResults: resultsLength === 0
+                        noResults: this.calculateResultsLength(res.data.matched_objects) === 0
                     });
 
                     let autocompleteData = {};
 
-                    // Remove custom awardIDType field from selectedAwardIDs
-                    // to enable object comparison with result data
-                    const selectedAwardIDs = [];
-                    this.props.selectedAwardIDs.toArray().forEach((item) => {
-                        selectedAwardIDs.push(_.omit(item, 'awardIDType'));
-                    });
+                    // Grab relevent data so that we're not storing the entire, large
+                    // response objects within Redux
+                    const responseData = this.parseResponse(res.data.matched_objects);
+
+                    // Convert selectedAwardIDs from OrderedMap to Array
+                    // Pull out 'id' field to compare with query results
+                    const selectedAwardIDs = _.map(this.props.selectedAwardIDs.toArray(), 'id');
 
                     // Filter out any selectedAwardIDs that may be in the result set
+                    // We need to compare selectedAwardIDs to each result object,
+                    // as we're receiving an object with 4 keys:
+                    // PIID, FAIN, URI, and PARENT_AWARD__PIID
                     if (selectedAwardIDs && selectedAwardIDs.length > 0) {
-                        // We need to compare selectedAwardIDs to each result object,
-                        // as we're receiving a result object with 4 keys:
-                        // PIID, FAIN, URI, and PARENT_AWARD__PIID
-                        Object.keys(data).forEach((key) => {
-                            autocompleteData[key] =
-                                _.differenceWith(data[key], selectedAwardIDs, _.isEqual);
+                        Object.keys(responseData).forEach((key) => {
+                            const autocompleteItems = [];
+
+                            Object.keys(responseData[key]).forEach((item) => {
+                                const element = responseData[key][item];
+
+                                if (selectedAwardIDs.indexOf(element.id) === -1) {
+                                    autocompleteItems.push(element);
+                                }
+                            });
+
+                            autocompleteData[key] = autocompleteItems;
                         });
                     }
                     else {
-                        autocompleteData = data;
+                        autocompleteData = responseData;
                     }
 
                     this.setState({
-                        noResults: !autocompleteData.length
+                        noResults: this.calculateResultsLength(autocompleteData) === 0
                     });
 
                     // Add search results to Redux
@@ -176,6 +178,34 @@ export class AwardIDListContainer extends React.Component {
             // A request is currently in-flight, cancel it
             this.awardIDSearchRequest.cancel();
         }
+    }
+
+    parseResponse(data) {
+        const responseIDs = {};
+        Object.keys(data).forEach((key) => {
+            const elements = [];
+            Object.keys(data[key]).forEach((item) => {
+                elements.push({
+                    id: data[key][item].id,
+                    piid: data[key][item].piid,
+                    uri: data[key][item].uri,
+                    fain: data[key][item].fain,
+                    awardIDType: key.toUpperCase()
+                });
+            });
+            responseIDs[key] = elements;
+        });
+        return responseIDs;
+    }
+
+    calculateResultsLength(results) {
+        let resultsLength = 0;
+        for (const key in results) {
+            if (results[key] instanceof Array) {
+                resultsLength += results[key].length;
+            }
+        }
+        return resultsLength;
     }
 
     clearAutocompleteSuggestions() {
