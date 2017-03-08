@@ -11,6 +11,7 @@ import tableMapping from 'dataMapping/contracts/financialSystem';
 
 import FinSysHeaderCellContainer from 'containers/award/table/cells/FinSysHeaderCellContainer';
 import FinSysGenericCell from './cells/FinSysGenericCell';
+import SummaryPageTableMessage from './SummaryPageTableMessage';
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
@@ -20,7 +21,8 @@ const tableHeight = 12.5 * rowHeight;
 const propTypes = {
     award: React.PropTypes.object,
     tableWidth: React.PropTypes.number,
-    nextPage: React.PropTypes.func
+    nextPage: React.PropTypes.func,
+    inFlight: React.PropTypes.bool
 };
 
 export default class FinancialSystemTable extends React.Component {
@@ -120,13 +122,29 @@ export default class FinancialSystemTable extends React.Component {
     render() {
         const tableValues = this.buildTable();
 
+        let inFlightClass = '';
+        if (this.props.inFlight) {
+            inFlightClass = ' loading';
+        }
+
+        let message = null;
+        if (this.props.inFlight) {
+            message = (<SummaryPageTableMessage
+                message="Loading data..." />);
+        }
+        if (this.props.award.finSysData.length === 0) {
+            // no results
+            message = (<SummaryPageTableMessage
+                message="No financial system details are available" />);
+        }
+
         return (
             <div className="financial-system-content">
                 <div className="disclaimer">
                     NOTE: Paid out information is currently an optional reporting element.&nbsp;
                     This data is also only available starting in Q2 of FY 2017.
                 </div>
-                <div className="financial-system-table">
+                <div className={`financial-system-table ${inFlightClass}`}>
                     <IBTable
                         dataHash={`${this.props.award.renderHash}-${this.props.tableWidth}`}
                         resetHash={this.props.award.groupHash}
@@ -139,6 +157,7 @@ export default class FinancialSystemTable extends React.Component {
                         columns={tableValues.columns}
                         onScrollEnd={this.tableScrolled} />
                 </div>
+                {message}
             </div>
         );
     }

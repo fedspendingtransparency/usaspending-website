@@ -5,6 +5,11 @@
     display: block;
     border: 1px solid $color-gray-light;
 
+    &.loading {
+        opacity: 0.5;
+        @include transition(opacity 0.25s ease-in);
+    }
+
     // placeholder background for when the user scrolls really fast
     background: repeating-linear-gradient(
         $color-white,

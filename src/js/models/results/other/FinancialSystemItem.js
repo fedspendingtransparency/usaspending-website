@@ -16,7 +16,7 @@ const fields = [
     'tas',
     'objectClass',
     'programActivity',
-    'fundingObligation'
+    'fundingObligated'
 ];
 
 const remapData = (data) => {
@@ -27,7 +27,7 @@ const remapData = (data) => {
     remappedData.tas = '';
     remappedData.objectClass = '';
     remappedData.programActivity = '';
-    remappedData.fundingObligation = '';
+    remappedData.fundingObligated = '';
 
     remappedData.id = data.financial_accounts_by_awards_id;
 
@@ -56,10 +56,9 @@ const remapData = (data) => {
 
 
     if (data.transaction_obligations && data.transaction_obligations.length > 0) {
-        if ({}.hasOwnProperty.call(data.transaction_obligations[0], 'transaction_obligated_amount'
-            && data.transaction_obligations[0].transaction_obligated_amount)) {
+        if (data.transaction_obligations[0].transaction_obligated_amount) {
             const amount = data.transaction_obligations[0].transaction_obligated_amount;
-            remappedData.fundingObligation = MoneyFormatter.formatMoney(amount);
+            remappedData.fundingObligated = MoneyFormatter.formatMoney(amount);
         }
     }
 

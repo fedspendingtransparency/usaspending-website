@@ -33,7 +33,8 @@ export class FinancialSystemTableContainer extends React.Component {
         super(props);
 
         this.state = {
-            hasLoaded: false
+            hasLoaded: false,
+            inFlight: false
         };
 
         this.financialRequest = null;
@@ -55,6 +56,10 @@ export class FinancialSystemTableContainer extends React.Component {
         if (!awardId) {
             return;
         }
+
+        this.setState({
+            inFlight: true
+        });
 
         if (reset) {
             this.props.resetFinSys();
@@ -109,7 +114,8 @@ export class FinancialSystemTableContainer extends React.Component {
                 }
 
                 this.setState({
-                    hasLoaded: true
+                    hasLoaded: true,
+                    inFlight: false
                 });
             })
             .catch((err) => {
@@ -118,7 +124,9 @@ export class FinancialSystemTableContainer extends React.Component {
                 }
                 else {
                     this.financialRequest = null;
-                    console.log(err);
+                    this.setState({
+                        inFlight: false
+                    });
                 }
             });
     }
@@ -134,6 +142,7 @@ export class FinancialSystemTableContainer extends React.Component {
         let output = null;
         if (this.state.hasLoaded) {
             output = (<FinancialSystemTable
+                inFlight={this.state.inFlight}
                 award={this.props.award}
                 tableWidth={this.props.tableWidth}
                 nextPage={this.nextPage} />);

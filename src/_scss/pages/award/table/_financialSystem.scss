@@ -7,4 +7,12 @@
         font-size: rem(14);
         color: $color-gray;
     }
+
+
+    .table-message {
+        margin-top: 1rem;
+        font-size: $small-font-size;
+        color: $color-base;
+        text-align: center;
+    }
 }
