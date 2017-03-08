@@ -37,7 +37,7 @@ const tableFields = {
         ],
         _sortFields: {
             submissionDate: 'certified_date',
-            tas: 'tas_rendering_label',
+            tas: 'treasury_account__tas_rendering_label',
             programActivity: 'program_activity_name',
             objectClass: 'object_class',
             fundingObligated: 'transaction_obligations'

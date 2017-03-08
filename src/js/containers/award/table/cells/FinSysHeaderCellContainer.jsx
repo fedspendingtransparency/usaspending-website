@@ -23,7 +23,7 @@ export class FinSysHeaderCellContainer extends React.Component {
 
 export default connect(
     (state) => ({
-        order: state.award.transactionSort
+        order: state.award.finSysSort
     }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
 )(FinSysHeaderCellContainer);

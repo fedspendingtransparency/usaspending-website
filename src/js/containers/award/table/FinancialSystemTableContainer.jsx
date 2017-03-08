@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -42,11 +43,16 @@ export class FinancialSystemTableContainer extends React.Component {
     }
 
     componentDidMount() {
+        this.props.resetFinSys();
         this.loadFinancialSystemData(1, true);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.award.selectedAward.id !== prevProps.award.selectedAward.id) {
+            this.props.resetFinSys();
+            this.loadFinancialSystemData(1, true);
+        }
+        else if (!_.isEqual(this.props.award.finSysSort, prevProps.award.finSysSort)) {
             this.loadFinancialSystemData(1, true);
         }
     }
@@ -61,12 +67,13 @@ export class FinancialSystemTableContainer extends React.Component {
             inFlight: true
         });
 
-        if (reset) {
-            this.props.resetFinSys();
-        }
-
         if (this.financialRequest) {
             this.financialRequest.cancel();
+        }
+
+        let sortDirection = '-';
+        if (this.props.award.finSysSort.direction === 'asc') {
+            sortDirection = '';
         }
 
         this.financialRequest = SearchHelper.performFinancialSystemLookup({
@@ -78,7 +85,7 @@ export class FinancialSystemTableContainer extends React.Component {
                     value: awardId
                 }
             ],
-            order: ['-certified_date'],
+            order: [`${sortDirection}${this.props.award.finSysSort.field}`],
             fields: tableFields.table._fields,
             limit: 13
         });

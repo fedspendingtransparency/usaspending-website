@@ -26,7 +26,7 @@ const initialState = {
         totalPages: 0
     },
     finSysSort: {
-        field: "submission_date",
+        field: "certified_date",
         direction: "desc"
     }
 };
