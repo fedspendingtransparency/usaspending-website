@@ -27,4 +27,11 @@ export const formatAwardAmountRange = (range) => {
     return `$${minLabel} - $${maxLabel}`;
 };
 
+export const ensureInputIsNumeric = (input) => {
+    if (isNaN(Number(input))) {
+        return null;
+    }
+    return Number(input);
+};
+
 export const formatAwardInput = (input) => input;

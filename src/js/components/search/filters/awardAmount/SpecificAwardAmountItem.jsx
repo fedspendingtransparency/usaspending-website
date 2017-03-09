@@ -5,6 +5,7 @@
 
 import React from 'react';
 
+import * as AwardAmountHelper from 'helpers/awardAmountHelper';
 import AwardAmountItem from './AwardAmountItem';
 
 const propTypes = {
@@ -23,8 +24,8 @@ export default class SpecificAwardAmountItem extends React.Component {
     }
 
     searchSpecificRange() {
-        const min = isNaN(Number(this.minValue.value)) ? 0 : Number(this.minValue.value);
-        let max = isNaN(Number(this.maxValue.value)) ? 0 : Number(this.maxValue.value);
+        const min = AwardAmountHelper.ensureInputIsNumeric(this.minValue.value);
+        let max = AwardAmountHelper.ensureInputIsNumeric(this.maxValue.value);
 
         if (min >= max) {
             // If minimum is larger than maximum, take minimum value
@@ -41,11 +42,12 @@ export default class SpecificAwardAmountItem extends React.Component {
     }
 
     render() {
-        const hide = this.state.hideCustom ? 'hide' : '';
+        const hide = this.state.hideCustom ? ' hide' : '';
 
         return (
-            <div>
-                <div className={hide}>
+            <div className="specific-award-amount">
+                <hr className="specific-award-amount-divider" />
+                <div className={`award-amount-item-wrapper${hide}`}>
                     <AwardAmountItem
                         {...this.props}
                         values={[this.state.min, this.state.max]}
@@ -57,13 +59,13 @@ export default class SpecificAwardAmountItem extends React.Component {
                 <div className="specific-award-amount-wrapper">
                     <span>$</span>
                     <input
-                        placeholder="Minimum"
+                        placeholder="Min"
                         ref={(input) => {
                             this.minValue = input;
                         }} />
                     <span>to $</span>
                     <input
-                        placeholder="Maximum"
+                        placeholder="Max"
                         ref={(input) => {
                             this.maxValue = input;
                         }} />

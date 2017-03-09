@@ -6,6 +6,7 @@
 import React from 'react';
 import { awardRanges, searchTypes } from 'dataMapping/search/awardAmount';
 
+import * as AwardAmountHelper from 'helpers/awardAmountHelper';
 import AwardAmountItem from './AwardAmountItem';
 import SpecificAwardAmountItem from './SpecificAwardAmountItem';
 
@@ -31,8 +32,8 @@ export default class AwardAmountSearch extends React.Component {
     }
 
     searchSpecificRange(selections) {
-        const min = isNaN(Number(selections[0])) ? null : Number(selections[0]);
-        const max = isNaN(Number(selections[1])) ? null : Number(selections[1]);
+        const min = AwardAmountHelper.ensureInputIsNumeric(selections[0]);
+        const max = AwardAmountHelper.ensureInputIsNumeric(selections[1]);
 
         this.props.selectAwardRange([min, max], searchTypes.SPECIFIC);
     }
