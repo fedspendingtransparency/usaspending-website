@@ -14,6 +14,7 @@ import recordReducer from './records/recordReducer';
 import agencyReducer from './search/agencyReducer';
 import recipientReducer from './search/recipientReducer';
 import awardReducer from './award/awardReducer';
+import awardIDReducer from './search/awardIDReducer';
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
@@ -24,7 +25,8 @@ const appReducer = combineReducers({
     records: recordReducer,
     autocompleteAgencies: agencyReducer,
     autocompleteRecipients: recipientReducer,
-    award: awardReducer
+    award: awardReducer,
+    autocompleteAwardIDs: awardIDReducer
 });
 
 export default appReducer;
