@@ -82,6 +82,13 @@ export const updateRecipientLocations = (state) => ({
     location: state
 });
 
+// Award Amount Filter
+
+export const updateAwardAmounts = (state) => ({
+    type: 'UPDATE_AWARD_AMOUNTS',
+    awardAmounts: state
+});
+
 // Generic
 
 export const setSearchOrder = (state) => ({

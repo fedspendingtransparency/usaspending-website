@@ -10,6 +10,7 @@ import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as LocationQuery from './queryBuilders/LocationQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
 import * as RecipientQuery from './queryBuilders/RecipientQuery';
+import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
 
 class SearchOperation {
     constructor() {
@@ -31,6 +32,8 @@ class SearchOperation {
         this.selectedRecipients = [];
         this.recipientDomesticForeign = 'all';
         this.selectedRecipientLocations = [];
+
+        this.awardAmounts = [];
     }
 
     fromState(state) {
@@ -49,6 +52,7 @@ class SearchOperation {
         this.selectedRecipients = state.selectedRecipients.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
         this.selectedRecipientLocations = state.selectedRecipientLocations.toArray();
+        this.awardAmounts = state.awardAmounts.toArray();
     }
 
     commonParams() {
@@ -114,6 +118,15 @@ class SearchOperation {
             });
             if (timeQuery) {
                 filters.push(timeQuery);
+            }
+        }
+
+        // Add Award Amount queries
+        if (this.awardAmounts.length > 0) {
+            const awardAmountsQuery = AwardAmountQuery.buildAwardAmountQuery(
+                this.awardAmounts, 'awards');
+            if (awardAmountsQuery) {
+                filters.push(awardAmountsQuery);
             }
         }
 

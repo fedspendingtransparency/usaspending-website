@@ -5,24 +5,31 @@
 
 import React from 'react';
 
-import SpecificAwardAmountInput from './SpecificAwardAmountInput';
-
 const propTypes = {
-
+    searchSpecificRange: React.PropTypes.func
 };
 
 export default class SpecificAwardAmountItem extends React.Component {
+    searchSpecificRange() {
+        this.props.searchSpecificRange([this.minValue.value, this.maxValue.value]);
+    }
+
     render() {
         return (
-            <div className="">
-                <div className="specific-award-amount-wrapper">
-                    $
-                    <SpecificAwardAmountInput
-                        amountType="min" />
-                    to $
-                    <SpecificAwardAmountInput
-                        amountType="max" />
-                </div>
+            <div className="specific-award-amount-wrapper">
+                <span>$</span>
+                <input placeholder="Minimum"
+                    ref={(input) => {
+                        this.minValue = input;
+                    }} />
+                <span>to $</span>
+                <input placeholder="Maximum"
+                    ref={(input) => {
+                        this.maxValue = input;
+                    }} />
+                <button
+                    type="button"
+                    onClick={this.searchSpecificRange.bind(this)}>Go</button>
             </div>
         );
     }

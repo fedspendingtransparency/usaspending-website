@@ -9,7 +9,8 @@ import * as AwardAmountHelper from 'helpers/awardAmountHelper';
 const propTypes = {
     awardAmounts: React.PropTypes.object,
     values: React.PropTypes.array,
-    rangeID: React.PropTypes.string
+    rangeID: React.PropTypes.string,
+    toggleSelection: React.PropTypes.func
 };
 
 const defaultProps = {
@@ -18,31 +19,24 @@ const defaultProps = {
 };
 
 export default class AwardAmountItem extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    toggleSelection() {
-
-    }
-
     formatRange() {
         return AwardAmountHelper.formatAwardAmountRange(this.props.values);
     }
 
     render() {
-        const checked = this.props.awardAmounts.includes(this.props.rangeID);
+        const checked = this.props.awardAmounts.has(this.props.rangeID);
 
         return (
             <li className="award-amount-set">
                 <div className="award-type-item-wrapper">
                     <input
                         type="checkbox"
-                        id={this.props.rangeID}
+                        id={`award-amount-${this.props.rangeID}`}
                         value={this.props.rangeID}
                         checked={checked}
-                        onChange={this.toggleSelection} />
-                    <label htmlFor={this.formatRange()}>{this.formatRange()}</label>
+                        onChange={this.props.toggleSelection.bind(this)} />
+                    <label htmlFor={`award-amount-${this.props.rangeID}`}>
+                        {this.formatRange()}</label>
                 </div>
             </li>
         );

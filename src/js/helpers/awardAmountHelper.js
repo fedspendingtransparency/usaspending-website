@@ -6,10 +6,22 @@
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 export const formatAwardAmountRange = (range) => {
-    if (range[1] === null) {
-        return `${MoneyFormatter.formatMoney(range[0])} +`;
+    const min = MoneyFormatter.calculateUnitForSingleValue(range[0]);
+    const max = MoneyFormatter.calculateUnitForSingleValue(range[1]);
+
+    const minValue = range[0] / min.unit;
+    const maxValue = range[1] / max.unit;
+
+    const minLabel = `${minValue}${min.unitLabel}`;
+    const maxLabel = `${maxValue}${max.unitLabel}`;
+
+    if (range[0] === 0) {
+        return `Under $${maxLabel}`;
     }
-    return `${MoneyFormatter.formatMoney(range[0])} - ${MoneyFormatter.formatMoney(range[1])}`;
+    else if (range[1] === null) {
+        return `$${minLabel} & Above`;
+    }
+    return `$${minLabel} - $${maxLabel}`;
 };
 
 export const formatAwardInput = (input) => input;

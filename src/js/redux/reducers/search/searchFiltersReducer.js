@@ -9,6 +9,7 @@ import * as AwardFilterFunctions from './filters/awardFilterFunctions';
 import * as LocationFilterFunctions from './filters/locationFilterFunctions';
 import * as AgencyFilterFunctions from './filters/agencyFilterFunctions';
 import * as RecipientFilterFunctions from './filters/recipientFilterFunctions';
+import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
 
 const initialState = {
     awardType: new Set(),
@@ -23,7 +24,7 @@ const initialState = {
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
     selectedRecipientLocations: new OrderedMap(),
-    awardAmounts: new Set()
+    awardAmounts: new OrderedMap()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -100,7 +101,12 @@ const searchFiltersReducer = (state = initialState, action) => {
         }
 
         // Award Amount Filter
-
+        case 'UPDATE_AWARD_AMOUNTS': {
+            return Object.assign({}, state, {
+                awardAmounts: AwardAmountFilterFunctions.updateAwardAmounts(
+                    state.awardAmounts, action.awardAmounts)
+            });
+        }
 
         // Generic
         case 'UPDATE_SEARCH_FILTER_GENERIC': {

@@ -10,6 +10,7 @@ import AwardAmountItem from './AwardAmountItem';
 import SpecificAwardAmountItem from './SpecificAwardAmountItem';
 
 const propTypes = {
+    selectAwardRange: React.PropTypes.func,
     awardAmountRanges: React.PropTypes.object
 };
 
@@ -17,7 +18,30 @@ const defaultProps = {
     awardAmountRanges: awardRanges
 };
 
+const searchTypes = {
+    RANGE: 'range',
+    SPECIFIC: 'specific'
+};
+
 export default class AwardAmountSearch extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.toggleSelection = this.toggleSelection.bind(this);
+        this.searchSpecificRange = this.searchSpecificRange.bind(this);
+    }
+
+    toggleSelection(selection) {
+        this.props.selectAwardRange(selection.target.value, searchTypes.RANGE);
+    }
+
+    searchSpecificRange(selections) {
+        const min = isNaN(Number(selections[0])) ? null : Number(selections[0]);
+        const max = isNaN(Number(selections[1])) ? null : Number(selections[1]);
+
+        this.props.selectAwardRange([min, max], searchTypes.SPECIFIC);
+    }
+
     render() {
         const awardAmountRangeItems = [];
         Object.keys(this.props.awardAmountRanges).forEach((key) => {
@@ -26,14 +50,16 @@ export default class AwardAmountSearch extends React.Component {
                     {...this.props}
                     values={this.props.awardAmountRanges[key]}
                     key={`award-range-${key}`}
-                    rangeID={key} />);
+                    rangeID={key}
+                    toggleSelection={this.toggleSelection} />);
         });
 
         return (
             <div className="award-amount-filter search-filter">
                 <ul className="award-amounts">
                     {awardAmountRangeItems}
-                    <SpecificAwardAmountItem />
+                    <SpecificAwardAmountItem
+                        searchSpecificRange={this.searchSpecificRange} />
                 </ul>
             </div>
         );

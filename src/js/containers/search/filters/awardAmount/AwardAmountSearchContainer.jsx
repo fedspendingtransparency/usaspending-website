@@ -20,18 +20,19 @@ export class AwardAmountSearchContainer extends React.Component {
         super(props);
 
         // Bind functions
-        this.selectAwardAmount = this.selectAwardAmount.bind(this);
+        this.selectAwardRange = this.selectAwardRange.bind(this);
     }
 
-    selectAwardAmount(awardAmount) {
-        console.log(awardAmount);
-        this.props.updateAwardAmounts(awardAmount);
+    selectAwardRange(amount, searchType) {
+        const updateParams = { amount, searchType };
+        this.props.updateAwardAmounts(updateParams);
     }
 
     render() {
         return (
             <AwardAmountSearch
-                {...this.props} />
+                {...this.props}
+                selectAwardRange={this.selectAwardRange} />
         );
     }
 }
