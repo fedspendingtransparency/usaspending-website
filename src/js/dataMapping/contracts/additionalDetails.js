@@ -34,6 +34,26 @@ export const parentFields = [
     {
         label: 'Parent Award ID',
         field: 'parent_award'
+    },
+    {
+        label: 'IDV Type',
+        field: '__special',
+        parse: (data) => data.latest_transaction.contract_data.idv_type
+    },
+    {
+        label: 'IDC Type',
+        field: '__special',
+        parse: () => null
+    },
+    {
+        label: 'IDV Agency Identifier',
+        field: '__special',
+        parse: () => null
+    },
+    {
+        label: 'Mutliple or Single Award IDV',
+        field: '__special',
+        parse: (data) => data.latest_transaction.contract_data.multiple_or_single_award_idv
     }
 ];
 

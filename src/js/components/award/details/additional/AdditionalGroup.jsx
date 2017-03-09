@@ -25,7 +25,7 @@ export default class AdditionalGroup extends React.Component {
             }
 
             const row = (<AdditionalRow
-                key={item.field}
+                key={item.label}
                 title={item.label}
                 value={value} />);
 
