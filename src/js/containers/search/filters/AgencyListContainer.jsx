@@ -132,7 +132,7 @@ export class AgencyListContainer extends React.Component {
             this.agencySearchRequest.promise
                 .then((res) => {
                     this.setState({
-                        noResults: !res.data.matched_objects.subtier_agency__name.length
+                        noResults: res.data.matched_objects.subtier_agency__name.length === 0
                     });
 
                     // Add search results to Redux
