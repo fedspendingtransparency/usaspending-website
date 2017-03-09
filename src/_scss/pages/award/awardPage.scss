@@ -3,7 +3,6 @@
     @include defaultLayout;
 
     $color-gray-border: #D8D8D8;
-    $color-gray-text: #666666;
     $color-blue-background: #F5FBFC;
 
     @import "./summaryBar";
@@ -13,17 +12,17 @@
         padding: 0;
         background-color: $color-white;
         box-shadow: $container-shadow;
-        color: $color-gray-text;
+        color: $color-base;
         border-top: 1px solid $color-gray-border;
         border-right: 1px solid $color-gray-border;
         border-bottom: 1px solid $color-gray-border;
-        margin: 0px $outer-gutter/2;
+        margin: rem(30) $outer-gutter/2;
         @include media($large-screen) {
-            margin: 1rem $outer-gutter;
+            margin: rem(30) $outer-gutter;
         }
         @include media($x-large-screen) {
             max-width: $site-max-width;
-            margin: 1rem auto;
+            margin: rem(30) auto;
         }
 
         @import "./infoBar";
