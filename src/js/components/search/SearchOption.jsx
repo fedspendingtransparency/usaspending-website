@@ -12,6 +12,8 @@ import AgencyContainer from 'containers/search/filters/AgencyContainer';
 import LocationSearchContainer from 'containers/search/filters/location/LocationSearchContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
 import KeywordContainer from 'containers/search/filters/KeywordContainer';
+import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
+
 import FilterExpandButton from './FilterExpandButton';
 
 const propTypes = {
@@ -89,6 +91,9 @@ export default class SearchOption extends React.Component {
                 break;
             case 'Recipients':
                 searchOption = (<RecipientSearchContainer />);
+                break;
+            case 'Award ID':
+                searchOption = (<AwardIDSearchContainer />);
                 break;
             default:
                 disabledStatus = true;

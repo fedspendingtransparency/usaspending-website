@@ -12,6 +12,7 @@ import LocationFilterGroup from './LocationFilterGroup';
 import AgencyFilterGroup from './AgencyFilterGroup';
 import RecipientFilterGroup from './RecipientFilterGroup';
 import KeywordFilterGroup from './KeywordFilterGroup';
+import AwardIDFilterGroup from './AwardIDFilterGroup';
 
 export const topFilterGroupGenerator = (config = {
     filter: {
@@ -46,6 +47,8 @@ export const topFilterGroupGenerator = (config = {
             return (<LocationFilterGroup
                 key={groupKey} {...config}
                 toggle="recipientDomesticForeign" />);
+        case 'selectedAwardIDs':
+            return (<AwardIDFilterGroup key={groupKey} {...config} />);
         default:
             return null;
     }

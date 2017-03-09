@@ -90,6 +90,12 @@ export class AgencyListContainer extends React.Component {
                     });
                 }
             });
+
+            if (agencies.length === 0) {
+                this.setState({
+                    noResults: true
+                });
+            }
         }
 
         this.setState({
@@ -101,7 +107,6 @@ export class AgencyListContainer extends React.Component {
         this.setState({
             noResults: false
         });
-
 
         // Only search if search is 2 or more characters
         if (input.length >= 2) {
@@ -127,7 +132,7 @@ export class AgencyListContainer extends React.Component {
             this.agencySearchRequest.promise
                 .then((res) => {
                     this.setState({
-                        noResults: !res.data.matched_objects.length
+                        noResults: res.data.matched_objects.subtier_agency__name.length === 0
                     });
 
                     // Add search results to Redux

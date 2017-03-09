@@ -82,11 +82,16 @@ export const updateRecipientLocations = (state) => ({
     location: state
 });
 
-// Search Filter
-
+// Keyword Filter
 export const updateTextSearchInput = (state) => ({
     type: 'UPDATE_TEXT_SEARCH',
     textInput: state
+});
+
+// Award ID Filter
+export const updateAwardIDs = (state) => ({
+    type: 'UPDATE_SELECTED_AWARD_IDS',
+    awardID: state.awardID
 });
 
 // Generic
