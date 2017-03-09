@@ -58,6 +58,12 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(timeFilters);
         }
 
+        // prepare the keyword filters
+        const keywordFilters = this.prepareKeywords(props);
+        if (keywordFilters) {
+            filters.push(keywordFilters);
+        }
+
         // prepare the award filters
         const awardFilters = this.prepareAwardTypes(props);
         if (awardFilters) {
@@ -127,6 +133,30 @@ export class TopFilterBarContainer extends React.Component {
 
                 filter.values = [`${startString} to ${endString}`];
             }
+        }
+
+        if (selected) {
+            return filter;
+        }
+        return null;
+    }
+
+
+    /**
+     * Logic for parsing the current Redux keyword filter into a JS object that can be parsed by the
+     * top filter bar
+     */
+    prepareKeywords(props) {
+        let selected = false;
+        const filter = {};
+
+        if (props.keyword) {
+        // keyword exists
+            selected = true;
+            filter.code = 'keyword';
+            filter.name = 'Keyword';
+
+            filter.values = props.keyword;
         }
 
         if (selected) {
@@ -322,6 +352,9 @@ export class TopFilterBarContainer extends React.Component {
     removeFilter(type, value) {
         if (type === 'timePeriodFY' || type === 'timePeriodDR') {
             this.removeTimePeriod(type, value);
+        }
+        else if (type === 'keyword') {
+            this.clearFilterGroup(type);
         }
         else if (type === 'awardType') {
             this.removeFromSet(type, value);

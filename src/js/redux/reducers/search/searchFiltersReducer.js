@@ -16,6 +16,7 @@ const initialState = {
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
+    keyword: '',
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),
     selectedLocations: new OrderedMap(),
@@ -95,6 +96,11 @@ const searchFiltersReducer = (state = initialState, action) => {
                 selectedRecipientLocations: RecipientFilterFunctions
                     .updateSelectedRecipientLocations(
                         state.selectedRecipientLocations, action.location)
+            });
+        }
+        case 'UPDATE_TEXT_SEARCH': {
+            return Object.assign({}, state, {
+                keyword: action.textInput
             });
         }
 

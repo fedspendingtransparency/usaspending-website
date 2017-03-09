@@ -10,6 +10,7 @@ import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as LocationQuery from './queryBuilders/LocationQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
 import * as RecipientQuery from './queryBuilders/RecipientQuery';
+import * as KeywordQuery from './queryBuilders/KeywordQuery';
 
 class SearchOperation {
     constructor() {
@@ -17,6 +18,8 @@ class SearchOperation {
         this.timePeriodType = 'fy';
         this.timePeriodFY = [];
         this.timePeriodRange = [];
+
+        this.keyword = '';
 
         // special filter for filtering results to only display those that match certain award types
         // this is used by the search results table "award type" tabs
@@ -42,6 +45,7 @@ class SearchOperation {
             this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
             this.timePeriodFY = [];
         }
+        this.keyword = state.keyword;
         this.selectedLocations = state.selectedLocations.toArray();
         this.locationDomesticForeign = state.locationDomesticForeign;
         this.awardingAgencies = state.selectedAwardingAgencies.toArray();
@@ -97,6 +101,11 @@ class SearchOperation {
             filters.push(RecipientQuery.buildRecipientLocationQuery(
                 this.selectedRecipientLocations)
             );
+        }
+
+        // // add keyword query
+        if (this.keyword !== '') {
+            filters.push(KeywordQuery.buildKeywordQuery(this.keyword));
         }
 
         return filters;

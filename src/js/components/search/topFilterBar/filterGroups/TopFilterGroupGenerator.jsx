@@ -11,6 +11,7 @@ import AwardTypeFilterGroup from './AwardTypeFilterGroup';
 import LocationFilterGroup from './LocationFilterGroup';
 import AgencyFilterGroup from './AgencyFilterGroup';
 import RecipientFilterGroup from './RecipientFilterGroup';
+import KeywordFilterGroup from './KeywordFilterGroup';
 
 export const topFilterGroupGenerator = (config = {
     filter: {
@@ -39,6 +40,8 @@ export const topFilterGroupGenerator = (config = {
             return <AgencyFilterGroup key={groupKey} {...config} />;
         case 'selectedRecipients':
             return <RecipientFilterGroup key={groupKey} {...config} />;
+        case 'keyword':
+            return <KeywordFilterGroup key={groupKey} {...config} />;
         case 'selectedRecipientLocations':
             return (<LocationFilterGroup
                 key={groupKey} {...config}

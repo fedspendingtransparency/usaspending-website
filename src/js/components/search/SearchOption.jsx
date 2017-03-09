@@ -11,7 +11,7 @@ import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
 import LocationSearchContainer from 'containers/search/filters/location/LocationSearchContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
-import SearchBox from './filters/keyword/SearchBox';
+import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import FilterExpandButton from './FilterExpandButton';
 
 const propTypes = {
@@ -73,10 +73,7 @@ export default class SearchOption extends React.Component {
         let statusClass = '';
         switch (this.props.name) {
             case 'Search':
-                disabledStatus = true;
-                comingSoon = comingSoonModule;
-                searchOption = (<SearchBox />);
-                statusClass = ' coming-soon';
+                searchOption = (<KeywordContainer />);
                 break;
             case 'Award Type':
                 searchOption = (<AwardTypeContainer />);

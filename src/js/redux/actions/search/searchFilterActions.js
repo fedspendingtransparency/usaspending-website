@@ -82,6 +82,13 @@ export const updateRecipientLocations = (state) => ({
     location: state
 });
 
+// Search Filter
+
+export const updateTextSearchInput = (state) => ({
+    type: 'UPDATE_TEXT_SEARCH',
+    textInput: state
+});
+
 // Generic
 
 export const setSearchOrder = (state) => ({
