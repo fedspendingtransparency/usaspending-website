@@ -38,7 +38,12 @@ export default class TopFilterBar extends React.Component {
         let filterCount = 0;
 
         const filters = this.props.filters.map((filter) => {
-            filterCount += filter.values.length;
+            if (filter.values instanceof Array) {
+                filterCount += filter.values.length;
+            }
+            else {
+                filterCount += Object.keys(filter.values).length;
+            }
 
             return topFilterGroupGenerator({
                 filter,
