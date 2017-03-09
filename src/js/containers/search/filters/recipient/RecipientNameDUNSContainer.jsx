@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as recipientActions from 'redux/actions/search/recipientActions';
@@ -26,7 +27,8 @@ export class RecipientNameDUNSContainer extends React.Component {
 
         this.state = {
             recipientSearchString: '',
-            autocompleteRecipients: []
+            autocompleteRecipients: [],
+            noResults: false
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
@@ -62,6 +64,10 @@ export class RecipientNameDUNSContainer extends React.Component {
     }
 
     queryAutocompleteRecipients(input) {
+        this.setState({
+            noResults: false
+        });
+
         // Only search if input is 2 or more characters
         if (input.length >= 2) {
             this.setState({
@@ -99,9 +105,24 @@ export class RecipientNameDUNSContainer extends React.Component {
                         autocompleteData = data;
                     }
 
+                    this.setState({
+                        noResults: !autocompleteData.length
+                    });
+
                     // Add search results to Redux
                     this.props.setAutocompleteRecipients(autocompleteData);
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        this.setState({
+                            noResults: true
+                        });
+                    }
                 });
+        }
+        else if (this.recipientSearchRequest) {
+            // A request is currently in-flight, cancel it
+            this.recipientSearchRequest.cancel();
         }
     }
 
@@ -133,12 +154,12 @@ export class RecipientNameDUNSContainer extends React.Component {
                 onSelect={this.props.toggleRecipient}
                 placeholder="Recipient Name or DUNS"
                 errorHeader="Unknown Recipient"
-                errorMessage="You must select a recipient from
-                    the list that is provided as you type."
+                errorMessage="We were unable to find that recipient."
                 ref={(input) => {
                     this.recipientList = input;
                 }}
-                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions} />
+                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
+                noResults={this.state.noResults} />
         );
     }
 

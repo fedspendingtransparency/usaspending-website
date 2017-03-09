@@ -19,24 +19,48 @@ export default class NavBar extends React.Component {
                     <div className="menu-container">
                         <ul className="nav-menu">
                             <li>
-                                <a className="usa-nav-link" href="#/">
+                                <a className="usa-nav-link coming-soon" href="#/">
                                     <span>Explore The Data</span>
                                 </a>
+                                <div className="coming-soon-container">
+                                    <div className="coming-soon-icon">
+                                        <Icons.ExclamationCircle />
+                                    </div>
+                                    <span className="coming-soon-label">Coming Soon</span>
+                                </div>
                             </li>
                             <li>
-                                <a className="usa-nav-link" href="#/">
+                                <a className="usa-nav-link coming-soon" href="#/">
                                     <span>Developers</span>
                                 </a>
+                                <div className="coming-soon-container">
+                                    <div className="coming-soon-icon">
+                                        <Icons.ExclamationCircle />
+                                    </div>
+                                    <span className="coming-soon-label">Coming Soon</span>
+                                </div>
                             </li>
                             <li>
-                                <a className="usa-nav-link" href="#/">
+                                <a className="usa-nav-link coming-soon" href="#/">
                                     <span>About</span>
                                 </a>
+                                <div className="coming-soon-container">
+                                    <div className="coming-soon-icon">
+                                        <Icons.ExclamationCircle />
+                                    </div>
+                                    <span className="coming-soon-label">Coming Soon</span>
+                                </div>
                             </li>
                             <li>
-                                <a className="usa-nav-link" href="#/">
+                                <a className="usa-nav-link coming-soon" href="#/">
                                     <span>Support</span>
                                 </a>
+                                <div className="coming-soon-container">
+                                    <div className="coming-soon-icon">
+                                        <Icons.ExclamationCircle />
+                                    </div>
+                                    <span className="coming-soon-label">Coming Soon</span>
+                                </div>
                             </li>
                             <li className="search-item">
                                 <button className="search-button">

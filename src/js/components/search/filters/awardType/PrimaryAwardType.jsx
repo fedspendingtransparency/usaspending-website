@@ -27,7 +27,33 @@ const defaultProps = {
     value: null
 };
 
+const ga = require('react-ga');
+
 export default class PrimaryAwardType extends React.Component {
+    static logFilterEvent() {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Applied Filter',
+            label: 'Award Type'
+        });
+    }
+
+    static logPrimaryTypeFilterEvent(type) {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Selected Award Type',
+            label: type
+        });
+    }
+
+    static logDeselectFilterEvent(type) {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Deselected Award Type Children',
+            label: type
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -99,6 +125,8 @@ export default class PrimaryAwardType extends React.Component {
             // collapse the children
             showChildren = false;
             arrowState = 'collapsed';
+            // Analytics
+            PrimaryAwardType.logDeselectFilterEvent(this.props.name);
         }
         else {
             // not all the children are selected, select them all
@@ -106,6 +134,9 @@ export default class PrimaryAwardType extends React.Component {
                 awardTypes: this.props.filters,
                 direction: 'add'
             });
+            // Analytics
+            PrimaryAwardType.logFilterEvent();
+            PrimaryAwardType.logPrimaryTypeFilterEvent(this.props.name);
         }
         this.setState({
             showSubItems: showChildren,
