@@ -4,6 +4,7 @@
 
 import { awardRanges } from 'dataMapping/search/awardAmount';
 import { OrderedMap } from 'immutable';
+import _ from 'lodash';
 
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other files
@@ -15,10 +16,17 @@ export const updateAwardAmounts = (state, value) => {
     // 2) an array, with two items, corresponding to user input
 
     if (value.searchType === 'specific') {
-        // Replace existing set with specific range
-        updatedSet = new OrderedMap({
-            5: value.amount
-        });
+        // Toggle specific range selection
+        if (updatedSet.get(`5`) !== undefined &&
+            _.isEqual(updatedSet.get(`5`), value.amount)) {
+            updatedSet = updatedSet.delete(`5`);
+        }
+        else {
+            // Replace entire existing set with specific range
+            updatedSet = new OrderedMap({
+                5: value.amount
+            });
+        }
     }
     else {
         const awardRangeID = `${value.amount}`;

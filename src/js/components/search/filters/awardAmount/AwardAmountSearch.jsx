@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { awardRanges } from 'dataMapping/search/awardAmount';
+import { awardRanges, searchTypes } from 'dataMapping/search/awardAmount';
 
 import AwardAmountItem from './AwardAmountItem';
 import SpecificAwardAmountItem from './SpecificAwardAmountItem';
@@ -16,11 +16,6 @@ const propTypes = {
 
 const defaultProps = {
     awardAmountRanges: awardRanges
-};
-
-const searchTypes = {
-    RANGE: 'range',
-    SPECIFIC: 'specific'
 };
 
 export default class AwardAmountSearch extends React.Component {
@@ -59,6 +54,7 @@ export default class AwardAmountSearch extends React.Component {
                 <ul className="award-amounts">
                     {awardAmountRangeItems}
                     <SpecificAwardAmountItem
+                        {...this.props}
                         searchSpecificRange={this.searchSpecificRange} />
                 </ul>
             </div>

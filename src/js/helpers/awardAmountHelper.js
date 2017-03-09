@@ -15,10 +15,13 @@ export const formatAwardAmountRange = (range) => {
     const minLabel = `${minValue}${min.unitLabel}`;
     const maxLabel = `${maxValue}${max.unitLabel}`;
 
-    if (range[0] === 0) {
+    if (range[0] === 0 && range[1] === 0) {
+        return `$0 & Above`;
+    }
+    else if (range[0] === 0) {
         return `Under $${maxLabel}`;
     }
-    else if (range[1] === null) {
+    else if (range[1] === 0) {
         return `$${minLabel} & Above`;
     }
     return `$${minLabel} - $${maxLabel}`;
