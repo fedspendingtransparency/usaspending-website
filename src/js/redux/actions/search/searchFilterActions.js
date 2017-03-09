@@ -82,6 +82,12 @@ export const updateRecipientLocations = (state) => ({
     location: state
 });
 
+// Award ID Filter
+export const updateAwardIDs = (state) => ({
+    type: 'UPDATE_SELECTED_AWARD_IDS',
+    awardID: state.awardID
+});
+
 // Generic
 
 export const setSearchOrder = (state) => ({
