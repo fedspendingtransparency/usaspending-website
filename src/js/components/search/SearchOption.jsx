@@ -11,7 +11,9 @@ import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
 import LocationSearchContainer from 'containers/search/filters/location/LocationSearchContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
+import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
 import AwardAmountSearchContainer from 'containers/search/filters/awardAmount/AwardAmountSearchContainer';
+
 import SearchBox from './filters/keyword/SearchBox';
 import FilterExpandButton from './FilterExpandButton';
 
@@ -93,6 +95,9 @@ export default class SearchOption extends React.Component {
                 break;
             case 'Recipients':
                 searchOption = (<RecipientSearchContainer />);
+                break;
+            case 'Award ID':
+                searchOption = (<AwardIDSearchContainer />);
                 break;
             case 'Award Amount':
                 searchOption = (<AwardAmountSearchContainer />);

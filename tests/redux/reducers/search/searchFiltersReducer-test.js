@@ -19,7 +19,9 @@ const initialState = {
     locationDomesticForeign: 'all',
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
-    selectedRecipientLocations: new OrderedMap()
+    selectedRecipientLocations: new OrderedMap(),
+    selectedAwardIDs: new OrderedMap(),
+    awardAmounts: new OrderedMap()
 };
 
 describe('searchFiltersReducer', () => {
@@ -642,7 +644,6 @@ describe('searchFiltersReducer', () => {
             const updatedState = searchFiltersReducer(startingState, action);
             expect(updatedState.selectedRecipients).toEqual(new OrderedMap());
         });
-
     });
 
     describe('UPDATE_RECIPIENT_DOMESTIC_FORIEGN', () => {
@@ -695,6 +696,127 @@ describe('searchFiltersReducer', () => {
 
             const updatedState = searchFiltersReducer(startingState, action);
             expect(updatedState.selectedRecipientLocations).toEqual(new OrderedMap());
+        });
+    });
+
+    describe('UPDATE_SELECTED_AWARD_IDS', () => {
+        const action = {
+            type: 'UPDATE_SELECTED_AWARD_IDS',
+            awardID: {
+                id: "601793",
+                date_signed__fy: null,
+                data_source: null,
+                type: "U",
+                type_description: "Unknown Type",
+                piid: "AG3142B100012",
+                fain: null,
+                uri: null,
+                total_obligation: null,
+                total_outlay: null,
+                date_signed: null,
+                description: null,
+                period_of_performance_start_date: null,
+                period_of_performance_current_end_date: null,
+                potential_total_value_of_award: null,
+                last_modified_date: null,
+                certified_date: null,
+                create_date: "2017-02-28T18:01:59.717954Z",
+                update_date: "2017-02-28T18:01:59.717969Z",
+                parent_award: null,
+                awarding_agency: {
+                    id: 999,
+                    create_date: "2017-01-12T19:56:26.723000Z",
+                    update_date: "2017-01-12T19:56:26.723000Z",
+                    toptier_agency: {
+                        toptier_agency_id: 155,
+                        create_date: null,
+                        update_date: null,
+                        cgac_code: "012",
+                        fpds_code: "1200",
+                        name: "AGRICULTURE, DEPARTMENT OF"
+                    },
+                    subtier_agency: {
+                        subtier_agency_id: 865,
+                        create_date: null,
+                        update_date: null,
+                        subtier_code: "1205",
+                        name: "USDA, OFFICE OF THE CHIEF FINANCIAL OFFICER"
+                    },
+                    office_agency: null
+                },
+                funding_agency: null,
+                recipient: null,
+                place_of_performance: null,
+                latest_submission: null
+            }
+        };
+
+        const awardIDID = "601793";
+
+        const expectedAwardID = {
+            id: "601793",
+            date_signed__fy: null,
+            data_source: null,
+            type: "U",
+            type_description: "Unknown Type",
+            piid: "AG3142B100012",
+            fain: null,
+            uri: null,
+            total_obligation: null,
+            total_outlay: null,
+            date_signed: null,
+            description: null,
+            period_of_performance_start_date: null,
+            period_of_performance_current_end_date: null,
+            potential_total_value_of_award: null,
+            last_modified_date: null,
+            certified_date: null,
+            create_date: "2017-02-28T18:01:59.717954Z",
+            update_date: "2017-02-28T18:01:59.717969Z",
+            parent_award: null,
+            awarding_agency: {
+                id: 999,
+                create_date: "2017-01-12T19:56:26.723000Z",
+                update_date: "2017-01-12T19:56:26.723000Z",
+                toptier_agency: {
+                    toptier_agency_id: 155,
+                    create_date: null,
+                    update_date: null,
+                    cgac_code: "012",
+                    fpds_code: "1200",
+                    name: "AGRICULTURE, DEPARTMENT OF"
+                },
+                subtier_agency: {
+                    subtier_agency_id: 865,
+                    create_date: null,
+                    update_date: null,
+                    subtier_code: "1205",
+                    name: "USDA, OFFICE OF THE CHIEF FINANCIAL OFFICER"
+                },
+                office_agency: null
+            },
+            funding_agency: null,
+            recipient: null,
+            place_of_performance: null,
+            latest_submission: null
+        };
+
+        it('should add the provided award ID if it does not currently exist in the filter', () => {
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap({
+                [awardIDID]: expectedAwardID
+            }));
+        });
+
+        it('should remove the provided award ID if already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                selectedAwardIDs: new OrderedMap({
+                    [awardIDID]: expectedAwardID
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
         });
     });
 

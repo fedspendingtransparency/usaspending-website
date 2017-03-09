@@ -10,6 +10,7 @@ import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as LocationQuery from './queryBuilders/LocationQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
 import * as RecipientQuery from './queryBuilders/RecipientQuery';
+import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
 import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
 
 class SearchOperation {
@@ -33,6 +34,7 @@ class SearchOperation {
         this.recipientDomesticForeign = 'all';
         this.selectedRecipientLocations = [];
 
+        this.selectedAwardIDs = [];
         this.awardAmounts = [];
     }
 
@@ -52,6 +54,7 @@ class SearchOperation {
         this.selectedRecipients = state.selectedRecipients.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
         this.selectedRecipientLocations = state.selectedRecipientLocations.toArray();
+        this.selectedAwardIDs = state.selectedAwardIDs.toArray();
         this.awardAmounts = state.awardAmounts.toArray();
     }
 
@@ -60,7 +63,7 @@ class SearchOperation {
         // data structures between Awards and Transactions
         const filters = [];
 
-        // add award types
+        // Add award types
         if (this.awardType.length > 0) {
             filters.push(AwardTypeQuery.buildQuery(this.awardType));
         }
@@ -74,7 +77,7 @@ class SearchOperation {
             filters.push(AwardTypeQuery.buildQuery(this.resultAwardType));
         }
 
-        // add location queries
+        // Add location queries
         if (this.selectedLocations.length > 0) {
             filters.push(LocationQuery.buildLocationQuery(this.selectedLocations));
         }
@@ -83,12 +86,12 @@ class SearchOperation {
             filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign));
         }
 
-        // add agency query
+        // Add agency query
         if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
             filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies, this.awardingAgencies));
         }
 
-        // add recipient queries
+        // Add recipient queries
         if (this.selectedRecipients.length > 0) {
             filters.push(RecipientQuery.buildRecipientQuery(this.selectedRecipients));
         }
@@ -103,13 +106,20 @@ class SearchOperation {
             );
         }
 
+        // Add Award ID Queries
+        if (this.selectedAwardIDs.length > 0) {
+            filters.push(AwardIDQuery.buildAwardIDQuery(
+                this.selectedAwardIDs)
+            );
+        }
+
         return filters;
     }
 
     uniqueParams() {
         const filters = [];
 
-        // add time period queries
+        // Add time period queries
         if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
             const timeQuery = TimePeriodQuery.buildQuery({
                 type: this.timePeriodType,

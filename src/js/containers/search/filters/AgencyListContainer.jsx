@@ -102,7 +102,6 @@ export class AgencyListContainer extends React.Component {
             noResults: false
         });
 
-
         // Only search if search is 2 or more characters
         if (input.length >= 2) {
             this.setState({

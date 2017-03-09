@@ -28,7 +28,6 @@ export default class FilterExpandButton extends React.Component {
         let disabledStatus = false;
         if (this.props.name === 'Search' ||
             this.props.name === 'Budget Categories' ||
-            this.props.name === 'Award ID' ||
             this.props.name === 'Other Award Items') {
             disabledStatus = true;
         }
