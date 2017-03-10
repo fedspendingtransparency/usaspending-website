@@ -23,6 +23,22 @@ export default class SpecificAwardAmountItem extends React.Component {
         };
     }
 
+    componentDidMount() {
+        this.setupInputListeners();
+    }
+
+    setupInputListeners() {
+        [this.minValue, this.maxValue].forEach((target) => {
+            target.addEventListener('keydown', (e) => {
+                // Enter
+                if (e.keyCode === 13) {
+                    e.preventDefault();
+                    this.searchSpecificRange();
+                }
+            });
+        });
+    }
+
     searchSpecificRange() {
         const min = AwardAmountHelper.ensureInputIsNumeric(this.minValue.value);
         let max = AwardAmountHelper.ensureInputIsNumeric(this.maxValue.value);
