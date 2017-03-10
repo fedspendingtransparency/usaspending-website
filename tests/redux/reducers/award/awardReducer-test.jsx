@@ -21,6 +21,33 @@ const initialState = {
     }
 };
 
+const appendState = {
+    selectedAward: null,
+    transactions: [
+        {
+            id: 40904,
+            type: 'D',
+            type_description: 'Unknown Type',
+            action_date: '11/30/2016',
+            action_type: 'C',
+            federal_action_obligation: '$4,437,307',
+            modification_number: '959',
+            description: 'MANAGEMENT AND OPERATION OF THE OAK RIDGE NATIONAL LABORATORY - TAS::97 4555::TAS - OBLIGATE SPP DOD FUNDING - NOVEMBER 30 2016'
+        }
+    ],
+    transactionMeta: {
+        count: 13,
+        page: 1,
+        totalPages: 1
+    },
+    renderHash: 5,
+    groupHash: 7,
+    transactionSort: {
+        field: "modification_number",
+        direction: "desc"
+    }
+};
+
 describe('awardReducer', () => {
     it('should return the initial state by default', () => {
         expect(awardReducer(undefined, {})).toEqual(initialState);
@@ -52,7 +79,7 @@ describe('awardReducer', () => {
                     recipient_state_province: "TN",
                     recipient_zip_postal: "37831",
                     recipient_country: "UNITED STATES",
-                    pop_city_name: null,
+                    pop_city: null,
                     pop_state_province: "TN",
                     pop_zip: "37830",
                     total_obligation: "$524,325,656",
@@ -350,9 +377,10 @@ describe('awardReducer', () => {
                     }
                 ]
             };
-            const updatedState = awardReducer(initialState, action);
+            const updatedState = awardReducer(appendState, action);
             // the value should be equal
-            expect(updatedState.transactions).toEqual(action.transactions);
+            expect(updatedState.transactions).toEqual(_.concat(
+                appendState.transactions, action.transactions));
         });
     });
 
@@ -389,7 +417,9 @@ describe('awardReducer', () => {
                 type: 'UPDATE_TXN_RENDER_HASH',
                 renderHash: _.uniqueId()
             };
-            const updatedState = awardReducer(initialState, action);
+            // running twice
+            let updatedState = awardReducer(initialState, action);
+            updatedState = awardReducer(updatedState, action);
             // the value should be equal
             expect(updatedState.renderHash).not.toEqual(action.renderHash);
         });
@@ -401,7 +431,9 @@ describe('awardReducer', () => {
                 type: 'UPDATE_TXN_GROUP_HASH',
                 groupHash: _.uniqueId()
             };
-            const updatedState = awardReducer(initialState, action);
+            // running twice
+            let updatedState = awardReducer(initialState, action);
+            updatedState = awardReducer(updatedState, action);
             // the value should be equal
             expect(updatedState.groupHash).not.toEqual(action.groupHash);
         });
@@ -412,7 +444,8 @@ describe('awardReducer', () => {
             const action = {
                 type: 'RESET_AWARD_DATA'
             };
-            const updatedState = awardReducer(initialState, action);
+            // using append state to provide a non-empty state to reset
+            const updatedState = awardReducer(appendState, action);
             // the value should be equal
             expect(updatedState).toEqual(initialState);
         });

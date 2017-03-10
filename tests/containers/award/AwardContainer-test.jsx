@@ -4,11 +4,11 @@
  **/
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
-import * as AwardActions from 'redux/actions/award/awardActions';
 import { AwardContainer } from 'containers/award/AwardContainer';
+import * as SearchHelper from 'helpers/searchHelper';
 
 const parameters = {
     awardId: 8533
@@ -19,11 +19,13 @@ const award = {
         field: "modification_number"
     },
     transactionMeta: {
-        page: 1
+        count: 1,
+        page: 1,
+        totalPages: 1
     }
 };
 
-const fullData = {
+const awardData = {
     award_id: "VA760PPVFY2015OCT",
     award_type: "C",
     awarding_agency: {
@@ -365,64 +367,145 @@ const txnData = {
     }
 };
 
+// force Jest to use native Node promises
+// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
+global.Promise = require.requireActual('promise');
+
+// spy on specific functions inside the component
+const getAwardSpy = sinon.spy(AwardContainer.prototype, 'getSelectedAward');
+const getTxnSpy = sinon.spy(AwardContainer.prototype, 'fetchTransactions');
+
+const mockSearchHelper = (functionName, event, expectedResponse) => {
+    jest.useFakeTimers();
+    // override the specified function
+    SearchHelper[functionName] = jest.fn(() => {
+        // Axios normally returns a promise, replicate this, but return the expected result
+        const networkCall = new Promise((resolve, reject) => {
+            process.nextTick(() => {
+                if (event === 'resolve') {
+                    resolve({
+                        data: expectedResponse
+                    });
+                }
+                else {
+                    reject({
+                        data: expectedResponse
+                    });
+                }
+            });
+        });
+
+        return {
+            promise: networkCall,
+            cancel: jest.fn()
+        };
+    });
+};
+
+const unmockSearchHelper = () => {
+    jest.useRealTimers();
+    jest.unmock('helpers/searchHelper');
+};
+
 describe('AwardContainer', () => {
     it('should make an API call for the selected award', () => {
-        // Set up container with mocked award action
-        const awardContainer = shallow(
-            <AwardContainer
-                params={parameters}
-                award={award} />);
+        // Mock the api call
+        mockSearchHelper('fetchAward', 'resolve', awardData);
 
-        const getAwardSpy = sinon.spy(awardContainer.instance(),
-            'getSelectedAward');
+        // mount the container
+        mount(<AwardContainer
+            params={parameters}
+            award={award} />);
 
-        // Retrieve award and transactions
-        awardContainer.instance().getSelectedAward();
+        // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
+        jest.runAllTicks();
 
         // checking that it ran
         expect(getAwardSpy.callCount).toEqual(1);
 
         // reset the spies
+        unmockSearchHelper();
         getAwardSpy.reset();
     });
 
     it('should make an API call for the selected award transactions', () => {
-        // Set up container with mocked award action
-        const awardContainer = shallow(
-            <AwardContainer
-                params={parameters}
-                award={award} />);
+        // Mock the api call
+        mockSearchHelper('fetchAwardTransaction', 'resolve', txnData);
 
-        const getTxnSpy = sinon.spy(awardContainer.instance(),
-            'fetchTransactions');
+        // mount the container
+        mount(<AwardContainer
+            params={parameters}
+            award={award} />);
 
-        // Retrieve award and transactions
-        awardContainer.instance().fetchTransactions();
+        // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
+        jest.runAllTicks();
 
         // checking that it ran
-        expect(getTxnSpy.callCount).toEqual(1);
+        expect(getAwardSpy.callCount).toEqual(1);
 
         // reset the spies
+        unmockSearchHelper();
         getTxnSpy.reset();
     });
 
     // parse award
     it('should parse the returned award and send to redux store', () => {
+        // Mocking an AwardSummary result
+        const expectedAwardData = {
+            _jsid: "award-2",
+            award_id: "VA760PPVFY2015OCT",
+            award_type: "Delivery Order",
+            awarding_agency_name: "VETERANS AFFAIRS, DEPARTMENT OF",
+            awarding_office_name: "",
+            awarding_subtier_name: "VETERANS AFFAIRS, DEPARTMENT OF",
+            date_signed: "Invalid date",
+            description: "EXPRESS REPORT PHARMACY PRIME VENDOR VA760PPVFY2015OCT",
+            funding_agency_name: "VETERANS AFFAIRS, DEPARTMENT OF",
+            funding_office_name: "",
+            funding_subtier_name: "VETERANS AFFAIRS, DEPARTMENT OF",
+            id: 8533,
+            period_of_performance_current_end_date: "Invalid date",
+            period_of_performance_start_date: "Invalid date",
+            pop_city: null,
+            pop_state_province: "",
+            pop_zip: undefined,
+            potential_total_value_of_award: "$227,269,217",
+            recipient_business_type: "Unknown Business Type",
+            recipient_city: "San Francisco",
+            recipient_country: "UNITED STATES",
+            recipient_duns: "177667227",
+            recipient_name: "MCKESSON CORPORATION",
+            recipient_parent_duns: "177667227",
+            recipient_state_province: "CA",
+            recipient_street: "ONE POST ST",
+            recipient_zip_postal: "94104",
+            total_obligation: "$227,269,217",
+            type: "Delivery Order",
+            type_description: "Delivery Order",
+            type_of_contract_pricing: "J",
+            type_of_contract_pricing_description: "Firm Fixed Price"
+        };
+
+        // Mock the call and validate it matches the expected award summary
+        const mockReduxAward = jest.fn((args) => {
+            expect(args).toEqual(expectedAwardData);
+        });
         // Set up container with mocked award action
         const awardContainer = shallow(
             <AwardContainer
                 params={parameters}
                 award={award}
-                setSelectedAward={AwardActions.setSelectedAward} />);
+                setSelectedAward={mockReduxAward} />);
 
         const parseAwardSpy = sinon.spy(awardContainer.instance(),
             'parseAward');
 
-        // Parse award
-        awardContainer.instance().parseAward(fullData);
+        // Run function on instance of container
+        awardContainer.instance().parseAward(awardData);
 
         // checking that it ran
         expect(parseAwardSpy.callCount).toEqual(1);
+        expect(mockReduxAward).toHaveBeenCalledTimes(1);
 
         // reset the spies
         parseAwardSpy.reset();
@@ -430,24 +513,58 @@ describe('AwardContainer', () => {
 
     // parse transactions
     it('should parse the returned transactions and send to redux store', () => {
+        const expectedTxnData = [{
+            _jsid: "contract-transaction-3",
+            action_date: "10/1/2014",
+            action_type: null,
+            description: "EXPRESS REPORT PHARMACY PRIME VENDOR VA760PPVFY2015OCT",
+            federal_action_obligation: "$227,269,217",
+            id: 34779,
+            modification_number: "0",
+            type: null,
+            type_description: null
+        }];
+        // Mock the call and validate it matches the expected txn summary
+        const mockReduxAwardTxn = jest.fn((args) => {
+            expect(args).toEqual(expectedTxnData);
+        });
+
+        const mockAppendAwardTxn = jest.fn((args) => {
+            expect(args).toEqual(expectedTxnData);
+        });
+
+        const mockSetTxnMeta = jest.fn((args) => {
+            expect(args).toEqual(award.transactionMeta);
+        });
+
+        const mockUpdateTxnRenderHash = jest.fn((args) => {
+            expect(args).toEqual(undefined);
+        });
+
+        const mockUpdateTxnGroupHash = jest.fn((args) => {
+            expect(args).toEqual(undefined);
+        });
+
         // Set up container with mocked award action
         const awardContainer = shallow(
             <AwardContainer
                 params={parameters}
                 award={award}
-                setAwardTransactions={AwardActions.setAwardTransactions}
-                appendAwardTransactions={AwardActions.appendAwardTransactions}
-                setTransactionsMeta={AwardActions.setTransactionsMeta}
-                updateTransactionRenderHash={AwardActions.updateTransactionRenderHash} />);
+                appendAwardTransactions={mockAppendAwardTxn}
+                setTransactionsMeta={mockSetTxnMeta}
+                updateTransactionRenderHash={mockUpdateTxnRenderHash}
+                updateTransactionGroupHash={mockUpdateTxnGroupHash}
+                setAwardTransactions={mockReduxAwardTxn} />);
 
         const parseTxnSpy = sinon.spy(awardContainer.instance(),
             'parseTransactions');
 
-        // Parse award
-        awardContainer.instance().parseTransactions(txnData);
+        // Run function on instance of container
+        awardContainer.instance().parseTransactions(txnData, true);
 
         // checking that it ran
         expect(parseTxnSpy.callCount).toEqual(1);
+        expect(mockReduxAwardTxn).toHaveBeenCalledTimes(1);
 
         // reset the spies
         parseTxnSpy.reset();
@@ -455,15 +572,24 @@ describe('AwardContainer', () => {
 
     // next transaction page
     it('should fetch the next page of available transactions', () => {
+        // set initial page
+        const initialTxnMeta = {
+            page: 1
+        };
+        // Mock the call and validate it does NOT the expected award page
+        const MockReduxAwardTxnMeta = jest.fn((args) => {
+            expect(args).not.toEqual(initialTxnMeta);
+        });
         const awardContainer = shallow(
             <AwardContainer
                 params={parameters}
-                award={award} />);
+                award={award}
+                nextTransactionPage={MockReduxAwardTxnMeta} />);
 
         const getNextPageSpy = sinon.spy(awardContainer.instance(),
             'nextTransactionPage');
 
-        // Retrieve award and transactions
+        // Call function on instance of container
         awardContainer.instance().nextTransactionPage();
 
         // checking that it ran

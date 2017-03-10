@@ -28,7 +28,7 @@ export default class ContractDetails extends React.Component {
         this.setValues = this.setValues.bind(this);
     }
 
-    componentDidMount() {
+    componentWillReceiveProps() {
         this.setValues(this.props.selectedAward);
     }
 
@@ -56,10 +56,15 @@ export default class ContractDetails extends React.Component {
             if (monthRange === 1) {
                 yearRangeTotal += ` ${monthRange} month`;
             }
-            yearRangeTotal += ` ${monthRange} months`;
+            else {
+                yearRangeTotal += ` ${monthRange} months`;
+            }
+        }
+        if (yearRangeTotal) {
+            yearRangeTotal = `(${yearRangeTotal})`;
         }
         const popDate = `${award.period_of_performance_start_date} -
-            ${award.period_of_performance_current_end_date} (${yearRangeTotal})`;
+            ${award.period_of_performance_current_end_date} ${yearRangeTotal}`;
 
         // Location
         let popPlace = "";

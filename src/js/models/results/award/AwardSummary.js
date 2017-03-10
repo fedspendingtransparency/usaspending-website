@@ -32,7 +32,7 @@ const fields = [
     'recipient_state_province',
     'recipient_zip_postal',
     'recipient_country',
-    'pop_city_name',
+    'pop_city',
     'pop_state_province',
     'pop_zip',
     'total_obligation',
@@ -106,11 +106,15 @@ const remapData = (data, idField) => {
 
     if (data.place_of_performance) {
         popCity = data.place_of_performance.city_name;
-        if (data.place_of_performance.state_code) {
+
+        if (popCity !== null && data.place_of_performance.state_code) {
             popStateProvince = data.place_of_performance.state_code;
         }
-        else if (data.place_of_performance.state_name) {
+        else if (popCity === null && data.place_of_performance.state_name) {
             popStateProvince = data.place_of_performance.state_name;
+        }
+        else if (popCity === null && !data.place_of_performance.state_name) {
+            popStateProvince = data.place_of_performance.state_code;
         }
         else if (data.place_of_performance.foreign_province) {
             popStateProvince = data.place_of_performance.foreign_province;

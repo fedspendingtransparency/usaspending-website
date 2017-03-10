@@ -39,8 +39,7 @@ export default class AmountsChart extends React.Component {
             potentialY: 0,
             current: null,
             currentY: 0,
-            currentMiddle: 0,
-            currentLabelPath: ''
+            currentMiddle: 0
         };
 
         this.measureWidth = this.measureWidth.bind(this);
@@ -114,7 +113,8 @@ export default class AmountsChart extends React.Component {
             x={0}
             y={0} />);
 
-        // draw the current var
+        // draw the current bar
+        const currentMiddle = this.props.graphHeight - (yScale(this.props.current) / 2);
         const currentY = this.props.graphHeight - yScale(this.props.current);
         const currentBar = (<CurrentAwardBar
             data={MoneyFormatter.formatMoney(this.props.current)}
@@ -123,34 +123,14 @@ export default class AmountsChart extends React.Component {
             x={0}
             y={0} />);
 
-        const leftLabelPos = labelWidth - labelPadding;
-
-        // calculate the label paths
-        let currentLabelPath = '';
-        // start at the top of the current bar
-        currentLabelPath += `${leftLabelPos} ,${currentY}`;
-        // move left the specified amount
-        currentLabelPath += ` ${leftLabelPos - labelDistance},${currentY}`;
-        // go to the bottom of the current bar
-        currentLabelPath += ` ${leftLabelPos - labelDistance},${this.props.graphHeight}`;
-        // go to the edge of the bar
-        currentLabelPath += ` ${leftLabelPos},${this.props.graphHeight}`;
-        // come back
-        currentLabelPath += ` ${leftLabelPos - labelDistance},${this.props.graphHeight}`;
-        // go to the center
-        const currentMiddle = this.props.graphHeight - (yScale(this.props.current) / 2);
-        currentLabelPath += ` ${leftLabelPos - labelDistance},${currentMiddle}`;
-        // move left more to the text
-        currentLabelPath += ` ${leftLabelPos - (labelDistance * 2)},${currentMiddle}`;
 
         this.setState({
             barWidth,
-            currentLabelPath,
-            currentMiddle,
             potentialY,
             currentY,
             potential: potentialBar,
-            current: currentBar
+            current: currentBar,
+            currentMiddle
         });
     }
 
@@ -182,14 +162,17 @@ export default class AmountsChart extends React.Component {
 
                         <AwardLabels
                             name="current"
-                            path={this.state.currentLabelPath}
-                            middle={this.state.currentMiddle}
                             amount={this.props.current}
+                            currentMiddle={this.state.currentMiddle}
                             groupTransform="0,0"
                             singleTransform={`0,${this.state.currentMiddle}`}
                             subtitle="Funding Obligated"
                             labelDistance={labelDistance}
-                            line="poly" />
+                            line="poly"
+                            labelWidth={labelWidth}
+                            labelPadding={labelPadding}
+                            currentY={this.state.currentY}
+                            graphHeight={this.props.graphHeight} />
                     </g>
                 </svg>
             </div>
