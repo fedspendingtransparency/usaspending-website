@@ -11,6 +11,10 @@ import DetailsTabBar from './DetailsTabBar';
 import TransactionsTable from '../table/TransactionsTable';
 import AdditionalDetails from './additional/AdditionalDetails';
 
+const propTypes = {
+    award: React.PropTypes.object
+};
+
 const defaultTab = 'transaction';
 
 export default class DetailsSection extends React.Component {
@@ -32,19 +36,19 @@ export default class DetailsSection extends React.Component {
         window.addEventListener('resize', this.setTableWidth);
     }
 
-    componentWillUnmount() {
-        // stop watching for size changes
-        window.removeEventListener('resize', this.setTableWidth);
-    }
-
-    componentDidUpdate(prevProps) {
+    componentWillReceiveProps(nextProps) {
         // check award changed
-        if (this.props.award.selectedAward.id !== prevProps.award.selectedAward.id) {
+        if (this.props.award.selectedAward.id !== nextProps.award.selectedAward.id) {
             // reset the tab
             this.setState({
                 activeTab: defaultTab
             });
         }
+    }
+
+    componentWillUnmount() {
+        // stop watching for size changes
+        window.removeEventListener('resize', this.setTableWidth);
     }
 
     setTableWidth() {
@@ -97,3 +101,5 @@ export default class DetailsSection extends React.Component {
         );
     }
 }
+
+DetailsSection.propTypes = propTypes;
