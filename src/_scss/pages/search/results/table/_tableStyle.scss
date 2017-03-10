@@ -1,7 +1,7 @@
 .award-results-table {
     // implement the library style
     @import '../../../../lib/ibTable/ibTable';
-    margin-top: 1.5em;
+    margin-top: rem(15);
     display: block;
     border: 1px solid $color-gray-light;
     // placeholder background for when the user scrolls really fast

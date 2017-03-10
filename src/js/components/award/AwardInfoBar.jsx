@@ -21,6 +21,7 @@ export default class AwardInfoBar extends React.Component {
                     <AgencyInfo
                         {...this.props}
                         selectedAward={this.props.selectedAward} />
+                    <div className="triangle-wrapper" />
                     <RecipientInfo
                         recipient={this.props.selectedAward} />
                 </div>
