@@ -5,7 +5,7 @@
 
 import React from 'react';
 import moment from 'moment';
-import ContractCell from './ContractCell';
+import DetailRow from '../Detailrow';
 
 const propTypes = {
     selectedAward: React.PropTypes.object
@@ -22,7 +22,7 @@ export default class ContractDetails extends React.Component {
         const startDate = moment(award.period_of_performance_start_date, 'M/D/YYYY');
         const endDate = moment(award.period_of_performance_current_end_date, 'M/D/YYYY');
         const yearRange = endDate.diff(startDate, 'year');
-        if (yearRange !== 0) {
+        if (yearRange !== 0 && !Number.isNaN(yearRange)) {
             if (yearRange === 1) {
                 yearRangeTotal = `${yearRange} year)`;
             }
@@ -78,19 +78,19 @@ export default class ContractDetails extends React.Component {
                         }} />
                     <table>
                         <tbody>
-                            <ContractCell
+                            <DetailRow
                                 title="Description"
                                 value={description} />
-                            <ContractCell
+                            <DetailRow
                                 title="Period of Performance"
                                 value={popDate} />
-                            <ContractCell
+                            <DetailRow
                                 title="Primary Place of Performance"
                                 value={popPlace} />
-                            <ContractCell
+                            <DetailRow
                                 title="Contract Award Type"
                                 value={award.type_description} />
-                            <ContractCell
+                            <DetailRow
                                 title="Contract Pricing Type"
                                 value={pricing} />
                         </tbody>

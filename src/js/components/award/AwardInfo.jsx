@@ -4,13 +4,14 @@
   **/
 
 import React from 'react';
+import _ from 'lodash';
 
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import SummaryBar from './SummaryBar';
 import AwardInfoBar from './AwardInfoBar';
-import AwardContract from './AwardContract';
-import AwardGrant from './AwardGrant';
-import DetailsTableSection from './table/DetailsTableSection';
+import AwardContract from './contract/AwardContract';
+import AwardGrant from './financialAssistance/AwardGrant';
+import DetailsSection from './details/DetailsSection';
 
 const propTypes = {
     selectedAward: React.PropTypes.object
@@ -43,7 +44,7 @@ export default class AwardInfo extends React.Component {
                         {...this.props}
                         selectedAward={this.props.selectedAward} />
                     {amountsDetailsSection}
-                    <DetailsTableSection {...this.props} />
+                    <DetailsSection {...this.props} />
                 </main>
             </div>
         );

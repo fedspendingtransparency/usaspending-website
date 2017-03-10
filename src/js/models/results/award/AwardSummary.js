@@ -32,6 +32,7 @@ const fields = [
     'recipient_state_province',
     'recipient_zip_postal',
     'recipient_country',
+    'parent_award',
     'pop_city_name',
     'pop_state_province',
     'pop_zip',

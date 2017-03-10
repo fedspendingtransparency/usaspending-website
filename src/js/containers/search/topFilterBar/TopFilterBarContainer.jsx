@@ -89,6 +89,11 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(selectedRecipientLocationFilters);
         }
 
+        const selectedAwardIDFilters = this.prepareAwardIDs(props);
+        if (selectedAwardIDFilters) {
+            filters.push(selectedAwardIDFilters);
+        }
+
         this.setState({
             filters
         });
@@ -296,6 +301,30 @@ export class TopFilterBarContainer extends React.Component {
     }
 
     /**
+     * Logic for parsing the current Redux selected Award IDs
+     * Scope into a JS object that can be parsed by the top filter bar
+     */
+    prepareAwardIDs(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.selectedAwardIDs.count() > 0) {
+            // Award IDs have been selected
+            selected = true;
+            filter.values = props.selectedAwardIDs.toArray();
+        }
+
+        if (selected) {
+            filter.code = 'selectedAwardIDs';
+            filter.name = 'Award ID';
+            return filter;
+        }
+        return null;
+    }
+
+    /**
      * Generic function that can be called to overwrite a filter with a specified value. This is
      * useful for filters that have complex logic associated with item or group removal (such as
      * award type groups).
@@ -320,16 +349,36 @@ export class TopFilterBarContainer extends React.Component {
      * @param      {<type>}  value   The filter value to remove
      */
     removeFilter(type, value) {
-        if (type === 'timePeriodFY' || type === 'timePeriodDR') {
-            this.removeTimePeriod(type, value);
-        }
-        else if (type === 'awardType') {
-            this.removeFromSet(type, value);
-        }
-        else if (type === 'selectedLocations' || type === 'selectedFundingAgencies'
-            || type === 'selectedAwardingAgencies' || type === 'selectedRecipients'
-            || type === 'selectedRecipientLocations') {
-            this.removeFromOrderedMap(type, value);
+        switch (type) {
+            case 'timePeriodFY':
+                this.removeTimePeriod(type, value);
+                break;
+            case 'timePeriodDR':
+                this.removeTimePeriod(type, value);
+                break;
+            case 'awardType':
+                this.removeFromSet(type, value);
+                break;
+            case 'selectedLocations':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedFundingAgencies':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedAwardingAgencies':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedRecipients':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedRecipientLocations':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedAwardIDs':
+                this.removeFromOrderedMap(type, value);
+                break;
+            default:
+                break;
         }
     }
 

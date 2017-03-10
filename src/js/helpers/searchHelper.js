@@ -129,12 +129,45 @@ export const fetchRecipients = (req) => {
     };
 };
 
+// Fetch Award IDs
+export const fetchAwardIDs = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'awards/autocomplete/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 // make API call to awards total aggregation endpoint
 export const performTransactionsTotalSearch = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
             url: 'transactions/total/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const performFinancialSystemLookup = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'accounts/awards/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import moment from 'moment';
-import ContractCell from './ContractCell';
+import DetailRow from '../DetailRow';
 
 const propTypes = {
     selectedAward: React.PropTypes.object
@@ -77,22 +77,22 @@ export default class GrantDetails extends React.Component {
                         }} />
                     <table>
                         <tbody>
-                            <ContractCell
+                            <DetailRow
                                 title="Description"
                                 value={description} />
-                            <ContractCell
+                            <DetailRow
                                 title="Period of Performance"
                                 value={popDate} />
-                            <ContractCell
+                            <DetailRow
                                 title="Primary Place of Performance"
                                 value={popPlace} />
-                            <ContractCell
+                            <DetailRow
                                 title="Grant Type"
                                 value={award.type_description} />
-                            <ContractCell
+                            <DetailRow
                                 title="CFDA Program"
                                 value={programName} />
-                            <ContractCell
+                            <DetailRow
                                 title="CFDA Program Description"
                                 value={programDescription} />
                         </tbody>
