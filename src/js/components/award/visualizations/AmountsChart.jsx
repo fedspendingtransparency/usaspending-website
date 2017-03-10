@@ -77,7 +77,7 @@ export default class AmountsChart extends React.Component {
     calculateScale() {
         // Set Y axis min and max (always assume the potential exceeds the current value)
         let yMin = 0;
-        // const yMax = this.props.potential;
+        //const yMax = this.props.potential;
         const yMax = this.props.current;
         if (yMax === 0) {
             yMin = -100;
@@ -154,6 +154,19 @@ export default class AmountsChart extends React.Component {
                             name="potential"
                             yValue={this.state.potentialY}
                             barValue={this.state.potential} />
+
+                        <AwardLabels
+                            name="potential"
+                            amount={this.props.potential}
+                            groupTransform={`${200 + this.state.barWidth},0`}
+                            singleTransform={`${10 + labelDistance},5`}
+                            subtitle="Potential Funding Ceiling"
+                            labelDistance={labelDistance}
+                            line="line"
+                            labelWidth={labelWidth}
+                            labelPadding={labelPadding}
+                            potentialY={this.state.potentialY}
+                            graphHeight={this.props.graphHeight} />
 
                         <IndividualBar
                             name="current"
