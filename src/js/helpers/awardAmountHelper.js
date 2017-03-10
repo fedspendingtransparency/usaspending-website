@@ -28,10 +28,11 @@ export const formatAwardAmountRange = (range) => {
 };
 
 export const ensureInputIsNumeric = (input) => {
-    if (isNaN(Number(input))) {
+    // Remove non-numeric characteres from input
+    const cleanInput = (input.toString()).replace(/\D/g, '');
+
+    if (isNaN(Number(cleanInput))) {
         return null;
     }
-    return Number(input);
+    return Number(cleanInput);
 };
-
-export const formatAwardInput = (input) => input;
