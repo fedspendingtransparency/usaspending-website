@@ -31,7 +31,7 @@ export const ensureInputIsNumeric = (input) => {
     // Remove non-numeric characteres from input
     const cleanInput = (input.toString()).replace(/\D/g, '');
 
-    if (isNaN(Number(cleanInput))) {
+    if (isNaN(Number(cleanInput)) || cleanInput === '') {
         return null;
     }
     return Number(cleanInput);
