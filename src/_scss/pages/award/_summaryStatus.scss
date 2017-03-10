@@ -12,7 +12,7 @@
         li {
             .format-item {
                 .item-label {
-                    @include span-columns(4);
+                    @include span-columns(7);
                     color: #CEF233;
                     font-weight: $font-semibold;
                     margin: 0 rem(5) 0 0;
