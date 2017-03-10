@@ -9,8 +9,8 @@ export const formatAwardAmountRange = (range) => {
     const min = MoneyFormatter.calculateUnitForSingleValue(range[0]);
     const max = MoneyFormatter.calculateUnitForSingleValue(range[1]);
 
-    const minValue = range[0] / min.unit;
-    const maxValue = range[1] / max.unit;
+    const minValue = Math.round((10 * range[0]) / min.unit) / 10;
+    const maxValue = Math.round((10 * range[1]) / max.unit) / 10;
 
     const minLabel = `${minValue}${min.unitLabel}`;
     const maxLabel = `${maxValue}${max.unitLabel}`;
