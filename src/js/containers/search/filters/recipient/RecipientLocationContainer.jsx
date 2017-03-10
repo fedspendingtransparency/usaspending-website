@@ -115,7 +115,7 @@ export class RecipientLocationContainer extends React.Component {
                     }
 
                     this.setState({
-                        noResults: !autocompleteData.length
+                        noResults: autocompleteData.length === 0
                     });
 
                     // Add search results to Redux
