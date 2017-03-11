@@ -1,5 +1,6 @@
 @import "./_formatItem";
 @import "./_downloadButton";
+@import "../../../components/_comingSoon";
 @mixin searchHeaderOptions {
     display: table;
     ul.search-formats {
@@ -25,14 +26,14 @@
         .download-button {
             @include searchHeaderDownloadButton;
         }
+    }
 
-        @import "../../../../../components/_comingSoon.scss";
-        
-        .coming-soon {
-            color: $color-gray-light;
-            cursor: default;
-            pointer-events: none;
-        }
+    @include comingSoon;    
+    
+    .coming-soon {
+        color: $color-gray-light;
+        cursor: default;
+        pointer-events: none;
         .coming-soon-container {
             margin-top: rem(0px);
             .coming-soon-icon {

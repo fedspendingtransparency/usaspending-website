@@ -42,7 +42,9 @@
         }
     }
 
-    @import "../../../../../components/_comingSoon.scss";
+    @import "../../../../../components/_comingSoon";
+    
+    @include comingSoon;
 
     .coming-soon {
         .scope-button {

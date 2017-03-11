@@ -66,7 +66,7 @@ export default class SearchHeader extends React.Component {
                                     accessibleLabel="View spending by award type in a table"
                                     icon={<Icons.Table alt="Table Icon" />} />
                             </li>
-                            <li>
+                            <li className="coming-soon">
                                 <DownloadButton />
                                 <ComingSoonLabel />
                             </li>

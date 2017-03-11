@@ -37,7 +37,11 @@
                 }
             }
         }
-        @import "../../../../../components/_comingSoon.scss"
+        
+        @import "../../../../../components/_comingSoon";
+
+        @include comingSoon;
+        
         .coming-soon {
             .period-button {
                 color: $color-gray-lighter;
