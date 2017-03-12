@@ -32,6 +32,10 @@
             cursor: default;
             pointer-events: none;
 
+            .usa-nav-link {
+                color: $color-gray-lighter;
+            }
+
             .coming-soon-container {
                 margin-top: rem(5px);
                 .coming-soon-icon {

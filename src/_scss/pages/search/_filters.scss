@@ -6,7 +6,6 @@
     @import "./filters/agency/agency";
     @import "./filters/recipient/recipient";
     @import "./filters/awardID/awardID";
-
     @import "../../components/_comingSoon";
 
     @include comingSoon;
@@ -19,6 +18,14 @@
 	        rgba($color-gray-lighter, .3) rem(3px),
 	        rgba($color-gray-lighter, .3) rem(5px)
 	    );
+	    .filter-toggle {
+            svg {
+                fill: $color-gray-lighter;
+            }
+            .filter-header {
+                color: $color-gray-lighter;
+            }
+        }
 	    .coming-soon-container {
 	        .coming-soon-icon {
 	            bottom: rem(24px);
@@ -30,15 +37,6 @@
 	            color: $color-gray-lighter;
 	            left: rem(50px);
 	        }
-	        .filter-toggle {
-	            svg {
-	                fill: $color-gray-lighter;
-	            }
-	            .filter-header {
-	                color: $color-gray-lighter;
-	            }
-	        }
 	    }
 	}
-
 }
