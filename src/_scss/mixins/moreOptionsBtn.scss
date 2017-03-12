@@ -1,0 +1,18 @@
+@mixin moreOptionsBtn($baseColor, $bgColor) {
+    svg {
+        float: right;
+        fill: $baseColor;
+        height: rem(30);
+        border: rem(1) solid rgba($baseColor, .6);
+        padding: 0 rem(10);
+    }
+    &:hover {
+        & svg {
+            fill: $bgColor;
+            border: rem(1) solid rgba($baseColor, .6);
+            background: rgba($baseColor, .6);
+            cursor: pointer;
+            @include transition(all 0.25s $ease-in-out-sine);
+        }
+    }
+}

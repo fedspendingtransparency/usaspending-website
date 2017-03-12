@@ -87,7 +87,6 @@ export default class AgencyInfo extends React.Component {
                         {office}
                     </ul>
                 </div>
-                <div className="triangle-wrapper" />
             </div>
         );
     }

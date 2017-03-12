@@ -1,6 +1,6 @@
 .table-types {
     border-bottom: 1px solid $color-gray-light;
-    padding-left: 15px;
+    padding-left: rem(15);
     button.table-type-toggle {
         border: 1px solid transparent;
         border-bottom: 1px solid $color-gray-light;
@@ -8,15 +8,15 @@
         background-color: $color-tab-inactive;
         font-size: $base-font-size;
         font-weight: normal;
-        height: 31px;
+        height: rem(31);
         margin-bottom: 0;
-        margin-right: 2px;
-        padding: 1.5rem;
-        min-width: 97px;
-        height: 5rem;
+        margin-right: rem(2);
+        padding: rem(15);
+        min-width: rem(97);
+        height: rem(50);
         vertical-align: middle;
         position: relative;
-        top: 1px;
+        top: rem(1);
         &:hover{
             @include transition(all 0.3s ease-in-out);
             background-color: darken($color-gray-lightest, 5%);
