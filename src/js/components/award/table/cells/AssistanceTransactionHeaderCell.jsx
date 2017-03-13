@@ -1,5 +1,5 @@
 /**
- * GrantTransactionHeaderCell.jsx
+ * AssistanceTransactionHeaderCell.jsx
  * Created by Lizzie Dabbs 03/07/17
  */
 
@@ -17,7 +17,7 @@ const propTypes = {
     isLastColumn: React.PropTypes.bool
 };
 
-export default class GrantTransactionHeaderCell extends React.Component {
+export default class AssistanceTransactionHeaderCell extends React.Component {
     constructor(props) {
         super(props);
 
@@ -122,4 +122,4 @@ export default class GrantTransactionHeaderCell extends React.Component {
     }
 }
 
-GrantTransactionHeaderCell.propTypes = propTypes;
+AssistanceTransactionHeaderCell.propTypes = propTypes;

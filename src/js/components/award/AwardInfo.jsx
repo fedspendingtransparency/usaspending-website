@@ -20,7 +20,8 @@ const propTypes = {
 export default class AwardInfo extends React.Component {
 
     render() {
-        const isContract = _.includes(awardTypeGroups.contracts, this.props.selectedAward.award_type);
+        const isContract =
+            _.includes(awardTypeGroups.contracts, this.props.selectedAward.award_type);
         let amountsDetailsSection = (
             <AwardContract
                 {...this.props}
@@ -44,7 +45,9 @@ export default class AwardInfo extends React.Component {
                         {...this.props}
                         selectedAward={this.props.selectedAward} />
                     {amountsDetailsSection}
-                    <DetailsSection {...this.props} />
+                    <DetailsSection
+                        {...this.props}
+                        isContract={isContract} />
                 </main>
             </div>
         );

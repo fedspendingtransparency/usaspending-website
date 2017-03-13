@@ -1,5 +1,5 @@
 /**
- * TransactionsTable.jsx
+ * ContractTransactionsTable.jsx
  * Created by Kevin Li 2/25/17
  */
 
@@ -26,7 +26,7 @@ const propTypes = {
     nextTransactionPage: React.PropTypes.func
 };
 
-export default class TransactionsTable extends React.Component {
+export default class ContractTransactionsTable extends React.Component {
     constructor(props) {
         super(props);
 
@@ -123,14 +123,14 @@ export default class TransactionsTable extends React.Component {
     render() {
         const tableValues = this.buildTable();
 
-        let noResultsClass = '';
+        let loadingClass = '';
         if (this.props.inFlight) {
-            noResultsClass = 'no-results';
+            loadingClass = 'loading';
         }
 
         return (
             <div
-                className={`transactions-table ${noResultsClass}`}
+                className={`transactions-table ${loadingClass}`}
                 ref={(div) => {
                     this.wrapperDiv = div;
                 }}>
@@ -150,4 +150,4 @@ export default class TransactionsTable extends React.Component {
     }
 }
 
-TransactionsTable.propTypes = propTypes;
+ContractTransactionsTable.propTypes = propTypes;

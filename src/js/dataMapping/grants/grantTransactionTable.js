@@ -9,7 +9,7 @@ const tableSearchFields = {
         action_date: 200,
         amount: 200,
         assistance_type: 380,
-        description: 200
+        description: 380
     },
     defaultSortDirection: {
         modification: 'desc',
@@ -24,6 +24,14 @@ const tableSearchFields = {
             'action_date',
             'amount',
             'assistance_type',
+            'description'
+        ],
+        _fields: [
+            'modification_number',
+            'action_date',
+            'action_type',
+            'assistance_data',
+            'federal_action_obligation',
             'description'
         ],
         _mapping: {

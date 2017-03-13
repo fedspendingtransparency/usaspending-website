@@ -1,5 +1,5 @@
 /**
- * GrantTransactionGenericCell.jsx
+ * AssistanceTransactionGenericCell.jsx
  * Created by Lizzie Dabbs 03/07/17
  */
 
@@ -12,7 +12,7 @@ const propTypes = {
     isLastColumn: React.PropTypes.bool
 };
 
-export default class GrantTransactionGenericCell extends React.Component {
+export default class AssistanceTransactionGenericCell extends React.Component {
     render() {
         // cell needs to have some content or it will collapse
         // replace with a &nbsp; if there's no data
@@ -42,4 +42,4 @@ export default class GrantTransactionGenericCell extends React.Component {
     }
 }
 
-GrantTransactionGenericCell.propTypes = propTypes;
+AssistanceTransactionGenericCell.propTypes = propTypes;
