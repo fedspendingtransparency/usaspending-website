@@ -25,6 +25,8 @@ export const topFilterGroupGenerator = (config = {
     const groupKey = `top-filter-group-${config.filter.code}`;
 
     switch (config.filter.code) {
+        case 'keyword':
+            return <KeywordFilterGroup key={groupKey} {...config} />;
         case 'timePeriodFY':
             return <TimePeriodFYFilterGroup key={groupKey} {...config} />;
         case 'timePeriodDR':
@@ -41,8 +43,6 @@ export const topFilterGroupGenerator = (config = {
             return <AgencyFilterGroup key={groupKey} {...config} />;
         case 'selectedRecipients':
             return <RecipientFilterGroup key={groupKey} {...config} />;
-        case 'keyword':
-            return <KeywordFilterGroup key={groupKey} {...config} />;
         case 'selectedRecipientLocations':
             return (<LocationFilterGroup
                 key={groupKey} {...config}

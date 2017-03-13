@@ -15,12 +15,11 @@ import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
 
 class SearchOperation {
     constructor() {
+        this.keyword = '';
         this.awardType = [];
         this.timePeriodType = 'fy';
         this.timePeriodFY = [];
         this.timePeriodRange = [];
-
-        this.keyword = '';
 
         // special filter for filtering results to only display those that match certain award types
         // this is used by the search results table "award type" tabs
@@ -40,6 +39,7 @@ class SearchOperation {
     }
 
     fromState(state) {
+        this.keyword = state.keyword;
         this.awardType = state.awardType.toArray();
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
@@ -48,7 +48,6 @@ class SearchOperation {
             this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
             this.timePeriodFY = [];
         }
-        this.keyword = state.keyword;
         this.selectedLocations = state.selectedLocations.toArray();
         this.locationDomesticForeign = state.locationDomesticForeign;
         this.awardingAgencies = state.selectedAwardingAgencies.toArray();
@@ -63,6 +62,11 @@ class SearchOperation {
         // convert the search operation into JS objects for filters that have shared keys and
         // data structures between Awards and Transactions
         const filters = [];
+
+        // add keyword query
+        if (this.keyword !== '') {
+            filters.push(KeywordQuery.buildKeywordQuery(this.keyword));
+        }
 
         // Add award types
         if (this.awardType.length > 0) {
@@ -105,11 +109,6 @@ class SearchOperation {
             filters.push(RecipientQuery.buildRecipientLocationQuery(
                 this.selectedRecipientLocations)
             );
-        }
-
-        // // add keyword query
-        if (this.keyword !== '') {
-            filters.push(KeywordQuery.buildKeywordQuery(this.keyword));
         }
 
         // Add Award ID Queries

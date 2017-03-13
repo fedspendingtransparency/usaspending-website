@@ -31,7 +31,7 @@ export default class KeywordFilterGroup extends React.Component {
         const keyword = this.props.filter.values;
 
         const tag = {
-            value: `${keyword}`,
+            value: keyword,
             title: `Keyword | ${keyword}`,
             isSpecial: false,
             removeFilter: this.removeFilter

@@ -30,6 +30,12 @@ const initialState = {
 
 const searchFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
+        // Free Text Search
+        case 'UPDATE_TEXT_SEARCH': {
+            return Object.assign({}, state, {
+                keyword: action.textInput
+            });
+        }
         case 'TOGGLE_SEARCH_FILTER_AWARD_TYPE': {
             // this redux state is stored in an ImmutableJS set, which returns new instances
             // whenever it is modified
@@ -98,11 +104,6 @@ const searchFiltersReducer = (state = initialState, action) => {
                 selectedRecipientLocations: RecipientFilterFunctions
                     .updateSelectedRecipientLocations(
                         state.selectedRecipientLocations, action.location)
-            });
-        }
-        case 'UPDATE_TEXT_SEARCH': {
-            return Object.assign({}, state, {
-                keyword: action.textInput
             });
         }
 
