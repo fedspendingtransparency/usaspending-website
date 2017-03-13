@@ -1,45 +1,71 @@
+@import "../../mixins/moreOptionsBtn";
 .summary-status {
-    display: table;
-    @include media($nav-width) {
-        @include span-columns(9);
-    }
+    @include span-columns(16);
+    @include display(flex);
+    @include justify-content(space-between);
+    padding-top: 15px;
+    margin-top: 15px;
+    border-top: 1px solid rgba($color-white, .1);
     ul.summary-status-items {
+        @include span-columns(13);
         @include unstyled-list;
-        display: table-cell;
-        text-align: center;
-        float: right;
         li {
-            display: inline-block;
-            margin-left: 50px;
-            padding-left: 5rem;
-            border-left: 1px solid $color-gray-light;
-            &:first-child {
-                margin-left: 0;
-                border-left: 0;
-            }
-            &:last-child {
-                border-left: 0;
-            }
             .format-item {
-                @include button-unstyled;
-                vertical-align: middle;
                 .item-label {
+                    @include span-columns(7);
                     color: #CEF233;
-                    text-align: center;
-                    font-weight: 600;
+                    font-weight: $font-semibold;
+                    margin: 0 rem(5) 0 0;
+                    text-align: right;
+                    &:after {
+                        content: (":");
+                    }
                 }
                 .item-value {
-                    text-align: center;
-                }
-                svg {
-                    fill: $color-white;
-                    height: 3rem;
-                    width: auto;
-                    border: 1px solid $color-white;
-                    padding-left: 1rem;
-                    padding-right: 1rem;
+                    text-transform: uppercase;
                 }
             }
+        }
+    }
+    .more-options {
+        @include span-columns(3);
+        @include align-self(center);
+        @include moreOptionsBtn($color-white, $color-gray);
+    }
+    @include media($tablet-screen) {
+        @include span-columns(10);
+        @include display(flex);
+        padding-top: 0;
+        margin-top: 0;
+        border-top: none;
+        ul.summary-status-items {
+            @include span-columns(15);
+            @include display(flex);
+            @include justify-content(flex-end);
+            li {
+                border-right: 1px solid rgba($color-white, .3);
+                margin-right: rem(15);
+                padding: rem(10) rem(15) rem(10) 0;
+                .format-item {
+                    .item-label {
+                        @include span-columns(4);
+                        text-align: center;
+                        width: 100%;
+                        &:after {
+                            content: ("");
+                        }
+                    }
+                    .item-value {
+                        text-transform: uppercase;
+                    }
+                }
+                &:last-child {
+                    border-right: none;
+                }
+            }
+        }
+        .more-options {
+            width: auto;
         }
     }
 }

@@ -1,6 +1,6 @@
 .table-types {
     border-bottom: 1px solid $color-gray-light;
-    padding-left: 15px;
+    padding-left: rem(15);
     button.table-type-toggle {
         border: 1px solid transparent;
         border-bottom: 1px solid $color-gray-light;
@@ -8,15 +8,15 @@
         background-color: $color-tab-inactive;
         font-size: $base-font-size;
         font-weight: normal;
-        height: 31px;
+        height: rem(31);
         margin-bottom: 0;
-        margin-right: 2px;
-        padding: 1.5rem;
-        min-width: 97px;
-        height: 5rem;
+        margin-right: rem(2);
+        padding: rem(15);
+        min-width: rem(97);
+        height: rem(50);
         vertical-align: middle;
         position: relative;
-        top: 1px;
+        top: rem(1);
         &:hover{
             @include transition(all 0.3s ease-in-out);
             background-color: darken($color-gray-lightest, 5%);
@@ -33,43 +33,43 @@
             background: repeating-linear-gradient(
                 45deg,
                 rgba($color-gray-lightest, .2),
-                rgba($color-gray-lightest, .2) rem(2px),
-                rgba($color-gray-lighter, .3) rem(2px),
-                rgba($color-gray-lighter, .3) rem(4px)
+                rgba($color-gray-lightest, .2) rem(2),
+                rgba($color-gray-lighter, .3) rem(2),
+                rgba($color-gray-lighter, .3) rem(4)
             );
             color: $color-gray-light;
             .coming-soon-container {
                 width: 100%;
                 text-align: center;
-                height: 10px;
+                height: rem(10);
             }
             .coming-soon-icon {
-                bottom: rem(0px);
+                bottom: rem(0);
                 display: inline;
-                left: rem(0px);
+                left: rem(0);
                 svg {
                     fill: $color-gray-lighter;
-                    height: rem(10px);
-                    width: rem(10px);
+                    height: rem(10);
+                    width: rem(10);
                 }
             }
             .coming-soon-label {
-                bottom: rem(2px);
+                bottom: rem(2);
                 color: $color-gray-lighter;
                 display: inline;
                 font-weight: bold;
-                font-size: rem(10px);
+                font-size: rem(10);
                 height: 0;
-                left: rem(3px);
+                left: rem(3);
                 position: relative;
             }
             &:hover {
                 background: repeating-linear-gradient(
                     45deg,
                     rgba($color-gray-lightest, .2),
-                    rgba($color-gray-lightest, .2) rem(2px),
-                    rgba($color-gray-lighter, .3) rem(2px),
-                    rgba($color-gray-lighter, .3) rem(4px)
+                    rgba($color-gray-lightest, .2) rem(2),
+                    rgba($color-gray-lighter, .3) rem(2),
+                    rgba($color-gray-lighter, .3) rem(4)
                 );
                 cursor: default;
             }
