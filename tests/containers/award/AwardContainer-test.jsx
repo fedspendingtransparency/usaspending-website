@@ -464,6 +464,8 @@ describe('AwardContainer', () => {
             funding_office_name: "",
             funding_subtier_name: "VETERANS AFFAIRS, DEPARTMENT OF",
             id: 8533,
+            latest_transaction: null,
+            parent_award: 7758,
             period_of_performance_current_end_date: "Invalid date",
             period_of_performance_start_date: "Invalid date",
             pop_city: undefined,

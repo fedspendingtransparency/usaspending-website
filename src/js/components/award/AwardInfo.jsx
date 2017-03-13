@@ -11,8 +11,7 @@ import AwardContract from './AwardContract';
 import DetailsSection from './details/DetailsSection';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object,
-    inFlight: React.PropTypes.bool
+    selectedAward: React.PropTypes.object
 };
 
 export default class AwardInfo extends React.Component {
