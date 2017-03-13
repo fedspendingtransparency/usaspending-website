@@ -115,12 +115,10 @@ export default class SummaryBar extends React.Component {
                             <InfoSnippet
                                 label="Status"
                                 value={this.state.status} />
-                            <li>
-                                <div className="format-item">
-                                    <Icons.MoreOptions />
-                                </div>
-                            </li>
                         </ul>
+                        <div className="more-options">
+                            <Icons.MoreOptions />
+                        </div>
                     </div>
                 </div>
             </div>
