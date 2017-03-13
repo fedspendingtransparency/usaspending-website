@@ -466,7 +466,7 @@ describe('AwardContainer', () => {
             id: 8533,
             period_of_performance_current_end_date: "Invalid date",
             period_of_performance_start_date: "Invalid date",
-            pop_city: null,
+            pop_city: undefined,
             pop_state_province: "",
             pop_zip: undefined,
             potential_total_value_of_award: "$227,269,217",
