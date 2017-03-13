@@ -17,6 +17,7 @@ const initialState = {
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
+    keyword: '',
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),
     selectedLocations: new OrderedMap(),
@@ -29,6 +30,12 @@ const initialState = {
 
 const searchFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
+        // Free Text Search
+        case 'UPDATE_TEXT_SEARCH': {
+            return Object.assign({}, state, {
+                keyword: action.textInput
+            });
+        }
         case 'TOGGLE_SEARCH_FILTER_AWARD_TYPE': {
             // this redux state is stored in an ImmutableJS set, which returns new instances
             // whenever it is modified

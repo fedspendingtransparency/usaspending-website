@@ -78,6 +78,34 @@ describe('TopFilterBarContainer', () => {
             expect(prepareFiltersSpy.called).toBeTruthy();
         });
 
+        it('should update component state with Redux keyword filter when available', () => {
+            // mount the container with default props
+            const topBarContainer = setup({
+                reduxFilters: Object.assign({}, defaultFilters)
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(0);
+
+            const keywordFilter = Object.assign({}, defaultFilters, {
+                keyword: 'Education'
+            });
+
+            topBarContainer.setProps({
+                reduxFilters: keywordFilter
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(1);
+
+            const filterItem = topBarContainer.state().filters[0];
+            const expectedFilterState = {
+                code: 'keyword',
+                name: 'Keyword',
+                values: 'Education'
+            };
+
+            expect(filterItem).toEqual(expectedFilterState);
+        });
+
         it('should update component state with Redux time filters when available', () => {
             // mount the container with default props
             const topBarContainer = setup({
@@ -734,6 +762,25 @@ describe('TopFilterBarContainer', () => {
             });
 
             expect(topBarContainer.find(TopFilterBar)).toHaveLength(0);
+        });
+
+        it('should trigger a Redux action to update the keyword when the filter is removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                keyword: 'Education'
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove the existing keyword
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('keyword');
+
+            // validate that the clearFilterType Redux action is called
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
         });
 
         it('should trigger a Redux action to update the time period when a FY time period filter is removed', () => {
