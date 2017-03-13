@@ -8,14 +8,14 @@ const tableSearchFields = {
         modification: 230,
         action_date: 200,
         amount: 200,
-        assistance_type: 380,
+        action_type: 380,
         description: 380
     },
     defaultSortDirection: {
         modification: 'desc',
         action_date: 'desc',
         amount: 'desc',
-        assistance_type: 'desc',
+        action_type: 'asc',
         description: 'asc'
     },
     table: {
@@ -23,7 +23,7 @@ const tableSearchFields = {
             'modification',
             'action_date',
             'amount',
-            'assistance_type',
+            'action_type',
             'description'
         ],
         _fields: [
@@ -38,13 +38,13 @@ const tableSearchFields = {
             modification: 'modification_number',
             action_date: 'action_date',
             amount: 'federal_action_obligation',
-            assistance_type: 'assistance_type',
+            action_type: 'action_type',
             description: 'description'
         },
         modification: 'Modification Number',
         action_date: 'Action Date',
         amount: 'Amount',
-        assistance_type: 'Assistance Type',
+        action_type: 'Action Type',
         description: 'Description'
     }
 };

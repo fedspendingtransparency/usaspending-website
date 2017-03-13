@@ -12,7 +12,8 @@ import AssistanceTransactionsTableContainer from
 import FinancialSystemTableContainer from 'containers/award/table/FinancialSystemTableContainer';
 
 import DetailsTabBar from './DetailsTabBar';
-import AdditionalDetails from './additional/AdditionalDetails';
+import ContractAdditionalDetails from './additional/ContractAdditionalDetails';
+import AssistanceAdditionalDetails from './additional/AssistanceAdditionalDetails';
 
 const propTypes = {
     award: React.PropTypes.object,
@@ -82,7 +83,10 @@ export default class DetailsSection extends React.Component {
                     tableWidth={this.state.tableWidth} />);
 
             case 'additional':
-                return (<AdditionalDetails {...this.props} />);
+                if (this.props.isContract) {
+                    return (<ContractAdditionalDetails {...this.props} />);
+                }
+                return (<AssistanceAdditionalDetails {...this.props} />);
 
             default:
                 return null;

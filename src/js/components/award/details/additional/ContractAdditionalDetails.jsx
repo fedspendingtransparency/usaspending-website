@@ -1,5 +1,5 @@
 /**
- * AdditionalDetails
+ * ContractAdditionalDetails
  * Created by Kevin Li 3/2/17
  */
 
@@ -13,7 +13,7 @@ const propTypes = {
     award: React.PropTypes.object
 };
 
-export default class AdditionalDetails extends React.Component {
+export default class ContractAdditionalDetails extends React.Component {
     render() {
         const award = this.props.award.selectedAward;
         return (
@@ -52,4 +52,4 @@ export default class AdditionalDetails extends React.Component {
     }
 }
 
-AdditionalDetails.propTypes = propTypes;
+ContractAdditionalDetails.propTypes = propTypes;
