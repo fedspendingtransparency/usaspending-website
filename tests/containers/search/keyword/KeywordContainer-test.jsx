@@ -24,18 +24,18 @@ describe('KeywordContainer', () => {
                     keyword={initialFilters}
                     updateTextSearchInput={mockReduxActionKeyword} />);
 
-            const toggleAgencySpy = sinon.spy(keywordContainer.instance(),
+            const submitTextSpy = sinon.spy(keywordContainer.instance(),
                 'submitText');
 
             // Add Agency to redux
             keywordContainer.instance().submitText('Education');
 
             // everything should be updated now
-            expect(toggleAgencySpy.callCount).toEqual(1);
+            expect(submitTextSpy.callCount).toEqual(1);
             expect(mockReduxActionKeyword).toHaveBeenCalled();
 
             // reset the spies
-            toggleAgencySpy.reset();
+            submitTextSpy.reset();
         });
         it('should overwrite a previous keyword with a new keyword', () => {
             const existingFilters = {
@@ -49,18 +49,18 @@ describe('KeywordContainer', () => {
                     keyword={existingFilters}
                     updateTextSearchInput={mockReduxActionKeyword} />);
 
-            const toggleAgencySpy = sinon.spy(keywordContainer.instance(),
+            const submitTextSpy = sinon.spy(keywordContainer.instance(),
                 'submitText');
 
             // Add Agency to redux
             keywordContainer.instance().submitText('Financial');
 
             // everything should be updated now
-            expect(toggleAgencySpy.callCount).toEqual(1);
+            expect(submitTextSpy.callCount).toEqual(1);
             expect(mockReduxActionKeyword).toHaveBeenCalled();
 
             // reset the spies
-            toggleAgencySpy.reset();
+            submitTextSpy.reset();
         });
     });
 });
