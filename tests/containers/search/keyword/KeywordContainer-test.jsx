@@ -27,7 +27,7 @@ describe('KeywordContainer', () => {
             const submitTextSpy = sinon.spy(keywordContainer.instance(),
                 'submitText');
 
-            // Add Agency to redux
+            // Add keyword to redux
             keywordContainer.instance().submitText('Education');
 
             // everything should be updated now
@@ -52,7 +52,7 @@ describe('KeywordContainer', () => {
             const submitTextSpy = sinon.spy(keywordContainer.instance(),
                 'submitText');
 
-            // Add Agency to redux
+            // Add keyword to redux
             keywordContainer.instance().submitText('Financial');
 
             // everything should be updated now
