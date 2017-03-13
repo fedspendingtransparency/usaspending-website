@@ -4,9 +4,9 @@
  **/
 
 import React from 'react';
-import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
+import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
 import LocationSearchContainer from 'containers/search/filters/location/LocationSearchContainer';
@@ -61,14 +61,7 @@ export default class SearchOption extends React.Component {
     }
 
     render() {
-        const comingSoonModule = (
-            <div>
-                <div className="coming-soon-icon">
-                    <Icons.ExclamationCircle />
-                </div>
-                <span className="coming-soon-label">Coming Soon</span>
-            </div>
-        );
+        const comingSoonModule = (<ComingSoonLabel />);
         let disabledStatus = false;
         let comingSoon = null;
         let searchOption = null;
