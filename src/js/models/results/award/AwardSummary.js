@@ -32,6 +32,7 @@ const fields = [
     'recipient_state_province',
     'recipient_zip_postal',
     'recipient_country',
+    'parent_award',
     'pop_city_name',
     'pop_state_province',
     'pop_zip',
@@ -41,7 +42,8 @@ const fields = [
     'recipient_parent_duns',
     'recipient_business_type',
     'type_of_contract_pricing',
-    'type_of_contract_pricing_description'
+    'type_of_contract_pricing_description',
+    'latest_transaction'
 ];
 
 const remapData = (data, idField) => {
