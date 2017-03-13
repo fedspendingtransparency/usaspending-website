@@ -10,10 +10,12 @@ import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as LocationQuery from './queryBuilders/LocationQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
 import * as RecipientQuery from './queryBuilders/RecipientQuery';
+import * as KeywordQuery from './queryBuilders/KeywordQuery';
 import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
 
 class SearchOperation {
     constructor() {
+        this.keyword = '';
         this.awardType = [];
         this.timePeriodType = 'fy';
         this.timePeriodFY = [];
@@ -37,6 +39,7 @@ class SearchOperation {
     }
 
     fromState(state) {
+        this.keyword = state.keyword;
         this.awardType = state.awardType.toArray();
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
@@ -59,6 +62,11 @@ class SearchOperation {
         // convert the search operation into JS objects for filters that have shared keys and
         // data structures between Awards and Transactions
         const filters = [];
+
+        // add keyword query
+        if (this.keyword !== '') {
+            filters.push(KeywordQuery.buildKeywordQuery(this.keyword));
+        }
 
         // Add award types
         if (this.awardType.length > 0) {
