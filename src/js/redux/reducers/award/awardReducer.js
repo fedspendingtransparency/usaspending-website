@@ -17,6 +17,16 @@ const initialState = {
     groupHash: null,
     transactionSort: {
         field: "modification_number",
+        direction: "asc"
+    },
+    finSysData: [],
+    finSysMeta: {
+        count: 0,
+        page: 0,
+        totalPages: 0
+    },
+    finSysSort: {
+        field: "certified_date",
         direction: "desc"
     }
 };
@@ -56,6 +66,33 @@ const awardReducer = (state = initialState, action) => {
         case 'UPDATE_TXN_GROUP_HASH': {
             return Object.assign({}, state, {
                 groupHash: _.uniqueId()
+            });
+        }
+        case 'SET_AWARD_FINSYS_DATA': {
+            return Object.assign({}, state, {
+                finSysData: action.data
+            });
+        }
+        case 'APPEND_AWARD_FINSYS_DATA': {
+            return Object.assign({}, state, {
+                finSysData: _.concat(state.finSysData, action.data)
+            });
+        }
+        case 'SET_FINSYS_META': {
+            return Object.assign({}, state, {
+                finSysMeta: action.meta
+            });
+        }
+        case 'SET_FINSYS_SORT': {
+            return Object.assign({}, state, {
+                finSysSort: action.value
+            });
+        }
+        case 'RESET_FINSYS': {
+            return Object.assign({}, state, {
+                finSysData: [],
+                finSysMeta: initialState.finSysMeta,
+                finSysSort: initialState.finSysSort
             });
         }
         case 'RESET_AWARD_DATA': {

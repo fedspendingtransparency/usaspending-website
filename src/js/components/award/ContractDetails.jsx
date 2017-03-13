@@ -22,7 +22,7 @@ export default class ContractDetails extends React.Component {
         const startDate = moment(award.period_of_performance_start_date, 'M/D/YYYY');
         const endDate = moment(award.period_of_performance_current_end_date, 'M/D/YYYY');
         const yearRange = endDate.diff(startDate, 'year');
-        if (yearRange !== 0) {
+        if (yearRange !== 0 && !Number.isNaN(yearRange)) {
             if (yearRange === 1) {
                 yearRangeTotal = `${yearRange} year)`;
             }

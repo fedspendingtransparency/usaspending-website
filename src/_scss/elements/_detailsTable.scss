@@ -1,0 +1,58 @@
+$table-pad: rem(13);
+table {
+    margin-top: rem(10);
+    margin-bottom: rem(5);
+    min-width: 50%;
+    width: 100%;
+    tbody {
+        tr {
+            display: inline-block;
+            width: 100%;
+            &:nth-child(even) {
+                background-color: $color-gray-lightest;
+            }
+            td {
+                background: none;
+                border: none;
+                margin: 0;
+                padding: rem(2) rem(10);
+                float: left;
+                width: 100%;
+                &:first-child {
+                    font-weight: $font-semibold;
+                    margin-top: $table-pad;
+                    width: 100%;
+                }
+                &:last-child {
+                    margin-bottom: $table-pad;
+                }
+            }
+            &:first-child {
+                td {
+                    margin-top: 0;
+                    padding-top: 0;
+                }
+            }
+        }
+    }
+    @media (min-width: #{600px}) and (max-width: #{$tablet-screen}), (min-width: #{1050px}) {
+        tbody {
+            tr {
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                td {
+                    padding: $table-pad;
+                    width: 60%;
+                    &:first-child {
+                        width: 40%;
+                        margin-top: 0;
+                    }
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}

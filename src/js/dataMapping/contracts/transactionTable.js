@@ -11,7 +11,7 @@ const tableSearchFields = {
         description: 380
     },
     defaultSortDirection: {
-        modification: 'desc',
+        modification: 'asc',
         action_date: 'desc',
         amount: 'desc',
         description: 'asc'

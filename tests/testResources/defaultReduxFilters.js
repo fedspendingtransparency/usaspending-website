@@ -6,6 +6,7 @@
 import { Set, OrderedMap } from 'immutable';
 
 export const defaultFilters = {
+    keyword: '',
     awardType: new Set(),
     timePeriodType: 'fy',
     timePeriodFY: new Set(),

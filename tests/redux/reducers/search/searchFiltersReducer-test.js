@@ -14,6 +14,7 @@ const initialState = {
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
+    keyword: '',
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),
     selectedLocations: new OrderedMap(),
@@ -132,6 +133,18 @@ describe('searchFiltersReducer', () => {
             Object.keys(expected).forEach((key) => {
                 expect(updatedState[key]).toEqual(expected[key]);
             });
+        });
+    });
+
+    describe('UPDATE_TEXT_SEARCH', () => {
+        it('should set the keyword filter option to the input string', () => {
+            const action = {
+                type: 'UPDATE_TEXT_SEARCH',
+                textInput: 'business'
+            };
+
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.keyword).toEqual('business');
         });
     });
 

@@ -1,42 +1,17 @@
 @import "../../elements/_divider";
+@import "_awardDetailsWrap";
 .contract-wrapper {
-    @include span-columns(8);
-    @include clearfix();
-    padding: 0px rem(15);
-    //border-bottom: 1px solid $color-gray-lighter;
-}
+    @include span-columns(16);
+    @include media($tablet-screen) {
+        @include span-columns(8);
+        @include clearfix();
+    }
     h3 {
-        margin-top: rem(10);
+        margin-top: rem(0);
         margin-bottom: 0;
     }
-.contract-details {
-    margin: 1rem 1rem 1rem 0px;
-    font-size: rem(14);
-    .border {
-        background: url(../img/horizontal-divider.svg) no-repeat;
-        height: 2rem;
-    }
-    table {
-        margin-top: rem(10);
-        min-width: 50%;
-        width: 93%;
-        tbody {
-            tr {
-                &:nth-child(even) {
-                    td {
-                        background-color: $color-gray-lightest;
-                    }
-                }
-                td {
-                    border: none;
-                    margin: 0;
-                    padding: rem(14);
-                    &:first-child {
-                        font-weight: 600;
-                        width: 40%;
-                    }
-                }
-            }
-        }
+    .contract-details {
+        @include element-wrap;
+        @import "../../elements/_detailsTable";
     }
 }

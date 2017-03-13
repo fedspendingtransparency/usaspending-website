@@ -38,7 +38,10 @@ export default class TopFilterBar extends React.Component {
         let filterCount = 0;
 
         const filters = this.props.filters.map((filter) => {
-            if (filter.values instanceof Array) {
+            if (typeof filter.values === "string") {
+                filterCount += 1;
+            }
+            else if (filter.values instanceof Array) {
                 filterCount += filter.values.length;
             }
             else {
