@@ -77,7 +77,6 @@ export default class AmountsChart extends React.Component {
     calculateScale() {
         // Set Y axis min and max (always assume the potential exceeds the current value)
         let yMin = 0;
-        //const yMax = this.props.potential;
         const yMax = this.props.current;
         if (yMax === 0) {
             yMin = -100;
