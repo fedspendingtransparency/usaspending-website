@@ -67,8 +67,8 @@ export default class SpecificAwardAmountItem extends React.Component {
                     <AwardAmountItem
                         {...this.props}
                         values={[this.state.min, this.state.max]}
-                        key="award-range-5"
-                        rangeID="5"
+                        key="award-range-specific"
+                        rangeID="specific"
                         toggleSelection={this.searchSpecificRange.bind(this)} />
                 </div>
 

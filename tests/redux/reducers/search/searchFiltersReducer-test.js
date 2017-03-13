@@ -798,7 +798,7 @@ describe('searchFiltersReducer', () => {
             'if it does not currently exist in the filter', () => {
             const updatedState = searchFiltersReducer(undefined, specificRangeAction);
             expect(updatedState.awardAmounts).toEqual(new OrderedMap({
-                5: specificAwardAmount
+                specific: specificAwardAmount
             }));
         });
 
@@ -806,7 +806,7 @@ describe('searchFiltersReducer', () => {
             'if it already exists in the filter', () => {
             const startingState = Object.assign({}, initialState, {
                 awardAmounts: new OrderedMap({
-                    5: specificAwardAmount
+                    specific: specificAwardAmount
                 })
             });
 
@@ -818,7 +818,7 @@ describe('searchFiltersReducer', () => {
             'if a predefined Award Amount is specified', () => {
             const startingState = Object.assign({}, initialState, {
                 awardAmounts: new OrderedMap({
-                    5: specificAwardAmount
+                    specific: specificAwardAmount
                 })
             });
 
@@ -838,7 +838,7 @@ describe('searchFiltersReducer', () => {
 
             const updatedState = searchFiltersReducer(startingState, specificRangeAction);
             expect(updatedState.awardAmounts).toEqual(new OrderedMap({
-                5: specificAwardAmount
+                specific: specificAwardAmount
             }));
         });
     });

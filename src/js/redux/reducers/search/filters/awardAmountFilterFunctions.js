@@ -17,14 +17,14 @@ export const updateAwardAmounts = (state, value) => {
 
     if (value.searchType === 'specific') {
         // Toggle specific range selection
-        if (updatedSet.get(`5`) !== undefined &&
-            _.isEqual(updatedSet.get(`5`), value.amount)) {
-            updatedSet = updatedSet.delete(`5`);
+        if (updatedSet.get(value.searchType) !== undefined &&
+            _.isEqual(updatedSet.get(value.searchType), value.amount)) {
+            updatedSet = updatedSet.delete(value.searchType);
         }
         else {
             // Replace entire existing set with specific range
             updatedSet = new OrderedMap({
-                5: value.amount
+                specific: value.amount
             });
         }
     }
@@ -32,8 +32,8 @@ export const updateAwardAmounts = (state, value) => {
         const awardRangeID = `${value.amount}`;
 
         // Remove Specific filter if it exists
-        if (updatedSet.has(`5`)) {
-            updatedSet = updatedSet.delete(`5`);
+        if (updatedSet.has('specific')) {
+            updatedSet = updatedSet.delete('specific');
         }
 
         // Toggle range selection
