@@ -21,29 +21,48 @@
 
         font-size: $small-font-size;
         line-height: $small-font-size;
-        padding-left: 0;
+        padding: 0;
         margin-top: 1.0rem;
 
         span {
             padding-right: 0.5rem;
         }
 
-        input {
-            margin-right: 0.5rem;
-            width: 25%;
+        @media only screen and (min-width:1342px) {
+            input {
+                margin-right: 0.5rem;
+                width: 27%;
+                padding: 1.1rem 0.8rem;
+                height: 4.0rem;
+            }
+
+            .award-amount-submit {
+                margin-right: 0;
+                width: auto;
+            }
         }
 
-        button {
-            @include button-unstyled;
-            color: $color-gray-light;
-            text-transform: uppercase;
-            font-size: 1em;
-            letter-spacing: 0.075em;
-            padding: 0.4rem 1.0rem;
-            border: 1px solid $color-gray-lighter;
+        @media only screen and (min-width:992px) and (max-width:1341px) {
+            input {
+                margin-right: 0.5rem;
+                width: 37%;
+                padding: 1.1rem 0.8rem;
+                height: 4.0rem;
+            }
 
-            &:hover, &:active {
-                background-color: $color-gray-medium;
+            .specific-award-min {
+                margin-right: 0.65rem;
+            }
+
+            .specific-award-max {
+                margin-left: 0.15rem;
+                margin-right: 0;
+            }
+
+            .award-amount-submit {
+                display: block;
+                width: 100%;
+                margin: 2.0rem 0 0 0;
             }
         }
     }
