@@ -1,5 +1,6 @@
 @import "./_menuItem";
 @import "./_menuSearchButton";
+@import "../../../../components/comingSoon";
 
 @mixin headerNavMenu {
     float: right;
@@ -22,35 +23,30 @@
             &:first-child {
                 margin-left: 0px;
             }
-            .coming-soon {
+        }
+
+        @include comingSoon;
+
+        .coming-soon {
+            color: $color-gray-lighter;
+            cursor: default;
+            pointer-events: none;
+
+            .usa-nav-link {
                 color: $color-gray-lighter;
-                cursor: default;
-                pointer-events: none;
             }
+
             .coming-soon-container {
                 margin-top: rem(5px);
-                width: 100%;
                 .coming-soon-icon {
-                    bottom: rem(10px);
                     display: inline;
-                    height: 0;
-                    left: rem(0px);
-                    position: relative;
-                    svg {
-                        fill: $color-gray-lighter;
-                        height: rem(10px);
-                        width: rem(10px);
-                    }
+                    float: none;
                 }
                 .coming-soon-label {
                     bottom: rem(12px);
-                    color: $color-gray-lighter;
                     display: inline;
-                    font-weight: bold;
-                    font-size: rem(10px);
-                    height: 0;
+                    float: none;
                     left: rem(4px);
-                    position: relative;
                 }
             }
         }

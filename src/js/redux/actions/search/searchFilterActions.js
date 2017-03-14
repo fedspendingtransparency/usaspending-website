@@ -3,6 +3,13 @@
   * Created by Kevin Li 11/1/16
   **/
 
+// Keyword Filter
+export const updateTextSearchInput = (state) => ({
+    type: 'UPDATE_TEXT_SEARCH',
+    textInput: state
+});
+
+// Award Type Filter
 export const toggleAwardType = (state) => ({
     type: 'TOGGLE_SEARCH_FILTER_AWARD_TYPE',
     awardType: state
@@ -14,6 +21,7 @@ export const bulkAwardTypeChange = (state) => ({
     direction: state.direction
 });
 
+// Time Period Filter
 export const updateTimePeriod = (state) => ({
     type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
     dateType: state.dateType,
