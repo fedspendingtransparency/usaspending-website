@@ -85,9 +85,11 @@ export default class SpecificAwardAmountItem extends React.Component {
                         ref={(input) => {
                             this.maxValue = input;
                         }} />
-                    <button
-                        type="button"
-                        onClick={this.searchSpecificRange.bind(this)}>{`>>`}</button>
+                    <input
+                        type="submit"
+                        value="Submit"
+                        className="award-amount-submit"
+                        onClick={this.searchSpecificRange.bind(this)} />
                 </div>
             </div>
         );
