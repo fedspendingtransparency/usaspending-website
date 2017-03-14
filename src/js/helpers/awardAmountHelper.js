@@ -3,6 +3,7 @@
  * Created by michaelbray on 3/7/17.
  */
 
+import Accounting from 'accounting';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 export const formatAwardAmountRange = (range) => {
@@ -28,8 +29,8 @@ export const formatAwardAmountRange = (range) => {
 };
 
 export const ensureInputIsNumeric = (input) => {
-    // Remove non-numeric characteres from input
-    const cleanInput = (input.toString()).replace(/\D/g, '');
+    // Format user input
+    const cleanInput = Accounting.unformat(input.toString());
 
     if (isNaN(Number(cleanInput)) || cleanInput === '') {
         return null;

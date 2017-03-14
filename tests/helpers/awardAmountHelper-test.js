@@ -34,9 +34,9 @@ describe('Award Amount helper functions', () => {
             expect(response).toEqual(100);
         });
 
-        it('return null when the input is not numeric', () => {
+        it('return 0 when the input is not numeric', () => {
             const response = AwardAmountHelper.ensureInputIsNumeric('a');
-            expect(response).toBeNull();
+            expect(response).toEqual(0);
         });
     });
 });

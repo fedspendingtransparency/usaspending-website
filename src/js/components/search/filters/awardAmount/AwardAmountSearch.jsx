@@ -45,7 +45,7 @@ export default class AwardAmountSearch extends React.Component {
                 <AwardAmountItem
                     {...this.props}
                     values={this.props.awardAmountRanges[key]}
-                    key={`award-range-${key}`}
+                    key={`award-${key}`}
                     rangeID={key}
                     toggleSelection={this.toggleSelection} />);
         });

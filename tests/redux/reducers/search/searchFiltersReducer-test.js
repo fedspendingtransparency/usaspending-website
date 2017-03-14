@@ -756,7 +756,7 @@ describe('searchFiltersReducer', () => {
         const predefinedRangeAction = {
             type: 'UPDATE_AWARD_AMOUNTS',
             awardAmounts: {
-                amount: 1,
+                amount: "range-1",
                 searchType: 'range'
             }
         };
@@ -769,7 +769,7 @@ describe('searchFiltersReducer', () => {
             }
         };
 
-        const predefinedAwardAmount = 1;
+        const predefinedAwardAmount = "range-1";
         const expectedpredefinedAwardAmount = awardRanges[predefinedAwardAmount];
 
         const specificAwardAmount = [10000, 20000];
