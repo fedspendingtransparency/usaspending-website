@@ -1,0 +1,50 @@
+.specific-award-amount {
+    margin-top: 1.0rem;
+    margin-right: 3.0rem;
+
+    hr.specific-award-amount-divider {
+        border: none;
+        border-bottom: 1px solid $color-gray-lighter;
+        position: relative;
+        margin-bottom: 1.5rem;
+        width: 100%;
+        display: block;
+    }
+
+    .award-amount-item-wrapper label {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .specific-award-amount-wrapper {
+        @include usa-label;
+
+        font-size: $small-font-size;
+        line-height: $small-font-size;
+        padding-left: 0;
+        margin-top: 1.0rem;
+
+        span {
+            padding-right: 0.5rem;
+        }
+
+        input {
+            margin-right: 0.5rem;
+            width: 25%;
+        }
+
+        button {
+            @include button-unstyled;
+            color: $color-gray-light;
+            text-transform: uppercase;
+            font-size: 1em;
+            letter-spacing: 0.075em;
+            padding: 0.4rem 1.0rem;
+            border: 1px solid $color-gray-lighter;
+
+            &:hover, &:active {
+                background-color: $color-gray-medium;
+            }
+        }
+    }
+}

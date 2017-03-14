@@ -741,6 +741,86 @@ describe('TopFilterBarContainer', () => {
 
             expect(filterItem).toEqual(expectedFilterState);
         });
+
+        it('should update component state with Redux award ID filters when available', () => {
+            // mount the container with default props
+            const topBarContainer = setup({
+                reduxFilters: Object.assign({}, defaultFilters)
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(0);
+
+            const awardIDFilter = Object.assign({}, defaultFilters, {
+                selectedAwardIDs: new OrderedMap({
+                    601793: {
+                        id: "601793",
+                        piid: "AG3142B100012",
+                        fain: null,
+                        uri: null
+                    }
+                })
+            });
+
+            topBarContainer.setProps({
+                reduxFilters: awardIDFilter
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(1);
+
+            const filterItem = topBarContainer.state().filters[0];
+            const expectedFilterState = {
+                code: 'selectedAwardIDs',
+                name: 'Award ID',
+                values: [{
+                    id: "601793",
+                    piid: "AG3142B100012",
+                    fain: null,
+                    uri: null
+                }]
+            };
+
+            expect(filterItem).toEqual(expectedFilterState);
+        });
+
+        it('should update component state with Redux award amount filters when available', () => {
+            // mount the container with default props
+            const topBarContainer = setup({
+                reduxFilters: Object.assign({}, defaultFilters)
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(0);
+
+            const awardAmountFilter = Object.assign({}, defaultFilters, {
+                awardAmounts: new OrderedMap({
+                    0: [0, 1000000],
+                    1: [1000000, 25000000],
+                    2: [25000000, 100000000],
+                    3: [100000000, 500000000],
+                    4: [500000000, 0]
+                })
+            });
+
+            topBarContainer.setProps({
+                reduxFilters: awardAmountFilter
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(1);
+
+            const filterItem = topBarContainer.state().filters[0];
+            const expectedFilterState = {
+                code: 'awardAmounts',
+                name: 'Award Amounts',
+                values: {
+                    0: [0, 1000000],
+                    1: [1000000, 25000000],
+                    2: [25000000, 100000000],
+                    3: [100000000, 500000000],
+                    4: [500000000, 0]
+                }
+            };
+
+            expect(filterItem).toEqual(expectedFilterState);
+        });
     });
 
     describe('filter removal', () => {
@@ -940,7 +1020,56 @@ describe('TopFilterBarContainer', () => {
             expect(mockReduxAction).toHaveBeenCalled();
         });
 
-        it('should trigger a Redux action to update the Awarding Agency filter when an Agency is removed', () => {
+        it('should trigger a Redux action to update the Location filter when a Location is removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                locationDomesticForeign: 'domestic',
+                selectedLocations: new OrderedMap({
+                    '1,2_LOS ANGELES_CITY': {
+                        matched_ids: [1, 2],
+                        parent: 'CALIFORNIA',
+                        place_type: 'CITY',
+                        place: 'LOS ANGELES',
+                        identifier: '1,2_LOS ANGELES_CITY'
+                    },
+                    '3,4_TORONTO_CITY': {
+                        matched_ids: [3, 4],
+                        parent: 'CANADA',
+                        place_type: 'CITY',
+                        place: 'TORONTO',
+                        identifier: '3,4_TORONTO_CITY'
+                    }
+                })
+            });
+
+            const expectedReduxArguments = {
+                type: 'selectedLocations',
+                value: new OrderedMap({
+                    '3,4_TORONTO_CITY': {
+                        matched_ids: [3, 4],
+                        parent: 'CANADA',
+                        place_type: 'CITY',
+                        place: 'TORONTO',
+                        identifier: '3,4_TORONTO_CITY'
+                    }
+                })
+            };
+
+            // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+
+            topBarContainer.instance().removeFilter('selectedLocations', '1,2_LOS ANGELES_CITY');
+        });
+
+        it('should trigger a Redux action to update the Awarding Agency filter when an Awarding Agency is removed', () => {
             const initialFilters = Object.assign({}, defaultFilters, {
                 selectedAwardingAgencies: new OrderedMap({
                     "1788_subtier": {
@@ -1030,7 +1159,7 @@ describe('TopFilterBarContainer', () => {
             topBarContainer.instance().removeFilter('selectedAwardingAgencies', '1788_subtier');
         });
 
-        it('should trigger a Redux action to update the Funding Agency filter when an Agency is removed', () => {
+        it('should trigger a Redux action to update the Funding Agency filter when a Funding Agency is removed', () => {
             const initialFilters = Object.assign({}, defaultFilters, {
                 selectedFundingAgencies: new OrderedMap({
                     "1788_subtier": {
@@ -1118,236 +1247,6 @@ describe('TopFilterBarContainer', () => {
             });
 
             topBarContainer.instance().removeFilter('selectedFundingAgencies', '1788_subtier');
-        });
-
-        it('should be able to trigger Redux actions that can reset the entire location filter', () => {
-            const initialFilters = Object.assign({}, defaultFilters, {
-                locationDomesticForeign: 'domestic',
-                selectedLocations: new OrderedMap({
-                    '1,2_LOS ANGELES_CITY': {
-                        matched_ids: [1, 2],
-                        parent: 'CALIFORNIA',
-                        place_type: 'CITY',
-                        place: 'LOS ANGELES',
-                        identifier: '1,2_LOS ANGELES_CITY'
-                    }
-                })
-            });
-
-            const mockReduxAction = jest.fn();
-
-            // setup the top bar container and call the function to remove a single location
-            // group
-            const topBarContainer = setup({
-                reduxFilters: initialFilters,
-                clearFilterType: mockReduxAction
-            });
-
-            topBarContainer.instance().clearFilterGroup('selectedLocations');
-
-            // validate that the clearFilterType Redux action is called twice
-            expect(mockReduxAction).toHaveBeenCalledTimes(2);
-        });
-
-        it('should be able to trigger Redux actions that can reset the specific location filter values', () => {
-            const initialFilters = Object.assign({}, defaultFilters, {
-                locationDomesticForeign: 'domestic',
-                selectedLocations: new OrderedMap({
-                    '1,2_LOS ANGELES_CITY': {
-                        matched_ids: [1, 2],
-                        parent: 'CALIFORNIA',
-                        place_type: 'CITY',
-                        place: 'LOS ANGELES',
-                        identifier: '1,2_LOS ANGELES_CITY'
-                    },
-                    '3,4_TORONTO_CITY': {
-                        matched_ids: [3, 4],
-                        parent: 'CANADA',
-                        place_type: 'CITY',
-                        place: 'TORONTO',
-                        identifier: '3,4_TORONTO_CITY'
-                    }
-                })
-            });
-
-            const expectedReduxArguments = {
-                type: 'selectedLocations',
-                value: new OrderedMap({
-                    '3,4_TORONTO_CITY': {
-                        matched_ids: [3, 4],
-                        parent: 'CANADA',
-                        place_type: 'CITY',
-                        place: 'TORONTO',
-                        identifier: '3,4_TORONTO_CITY'
-                    }
-                })
-            };
-
-            // mock the redux action to test that the arguments match what is expected
-            const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual(expectedReduxArguments);
-            });
-
-            // setup the top bar container and call the function to remove a single location
-            // group
-            const topBarContainer = setup({
-                reduxFilters: initialFilters,
-                updateGenericFilter: mockReduxAction
-            });
-
-            topBarContainer.instance().removeFilter('selectedLocations', '1,2_LOS ANGELES_CITY');
-        });
-
-        it('should be able to trigger Redux actions that can overwrite entire filter group values', () => {
-            const initialFilters = Object.assign({}, defaultFilters, {
-                awardType: new Set(['03', '04'])
-            });
-
-            const expectedReduxArguments = {
-                type: 'awardType',
-                value: new Set(['01', '02'])
-            };
-
-            // validate that the Redux action receives the arguments it is expecting
-            const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual(expectedReduxArguments);
-            });
-
-            // setup the top bar container and call the function the overwrite a filter
-            const topBarContainer = setup({
-                reduxFilters: initialFilters,
-                updateGenericFilter: mockReduxAction
-            });
-            topBarContainer.instance().overwriteFilter('awardType', new Set(['01', '02']));
-
-            // validate that the Redux function is called
-            expect(mockReduxAction).toHaveBeenCalled();
-        });
-
-        it('should be able to trigger Redux actions that can reset the entire Awarding Agency Filter', () => {
-            const initialFilters = Object.assign({}, defaultFilters, {
-                selectedAwardingAgencies: new OrderedMap({
-                    "1788_subtier": {
-                        id: 1788,
-                        create_date: "2017-01-12T19:56:30.517000Z",
-                        update_date: "2017-01-12T19:56:30.517000Z",
-                        toptier_agency: {
-                            toptier_agency_id: 268,
-                            create_date: "2017-01-31T21:25:39.810344Z",
-                            update_date: "2017-01-31T21:25:39.936439Z",
-                            cgac_code: "097",
-                            fpds_code: "9700",
-                            name: "DEPT OF DEFENSE"
-                        },
-                        subtier_agency: {
-                            subtier_agency_id: 1654,
-                            create_date: "2017-01-31T21:25:39.569918Z",
-                            update_date: "2017-01-31T21:25:39.691244Z",
-                            subtier_code: "1700",
-                            name: "DEPT OF THE NAVY"
-                        },
-                        office_agency: null
-                    },
-                    "1789_subtier": {
-                        id: 1789,
-                        create_date: "2017-01-12T19:56:30.522000Z",
-                        update_date: "2017-01-12T19:56:30.522000Z",
-                        toptier_agency: {
-                            toptier_agency_id: 268,
-                            create_date: "2017-01-31T21:25:39.810344Z",
-                            update_date: "2017-01-31T21:25:39.936439Z",
-                            cgac_code: "097",
-                            fpds_code: "9700",
-                            name: "DEPT OF DEFENSE"
-                        },
-                        subtier_agency: {
-                            subtier_agency_id: 1655,
-                            create_date: "2017-01-31T21:25:39.569918Z",
-                            update_date: "2017-01-31T21:25:39.691244Z",
-                            subtier_code: "1708",
-                            name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
-                        },
-                        office_agency: null
-                    }
-                })
-            });
-
-            const mockReduxAction = jest.fn();
-
-            // setup the top bar container and call the function to remove a single location
-            // group
-            const topBarContainer = setup({
-                reduxFilters: initialFilters,
-                clearFilterType: mockReduxAction
-            });
-
-            topBarContainer.instance().clearFilterGroup('selectedAwardingAgencies');
-
-            // validate that the clearFilterType Redux action is called
-            expect(mockReduxAction).toHaveBeenCalledTimes(1);
-        });
-
-        it('should be able to trigger Redux actions that can reset the entire Funding Agency Filter', () => {
-            const initialFilters = Object.assign({}, defaultFilters, {
-                selectedFundingAgencies: new OrderedMap({
-                    "1788_subtier": {
-                        id: 1788,
-                        create_date: "2017-01-12T19:56:30.517000Z",
-                        update_date: "2017-01-12T19:56:30.517000Z",
-                        toptier_agency: {
-                            toptier_agency_id: 268,
-                            create_date: "2017-01-31T21:25:39.810344Z",
-                            update_date: "2017-01-31T21:25:39.936439Z",
-                            cgac_code: "097",
-                            fpds_code: "9700",
-                            name: "DEPT OF DEFENSE"
-                        },
-                        subtier_agency: {
-                            subtier_agency_id: 1654,
-                            create_date: "2017-01-31T21:25:39.569918Z",
-                            update_date: "2017-01-31T21:25:39.691244Z",
-                            subtier_code: "1700",
-                            name: "DEPT OF THE NAVY"
-                        },
-                        office_agency: null
-                    },
-                    "1789_subtier": {
-                        id: 1789,
-                        create_date: "2017-01-12T19:56:30.522000Z",
-                        update_date: "2017-01-12T19:56:30.522000Z",
-                        toptier_agency: {
-                            toptier_agency_id: 268,
-                            create_date: "2017-01-31T21:25:39.810344Z",
-                            update_date: "2017-01-31T21:25:39.936439Z",
-                            cgac_code: "097",
-                            fpds_code: "9700",
-                            name: "DEPT OF DEFENSE"
-                        },
-                        subtier_agency: {
-                            subtier_agency_id: 1655,
-                            create_date: "2017-01-31T21:25:39.569918Z",
-                            update_date: "2017-01-31T21:25:39.691244Z",
-                            subtier_code: "1708",
-                            name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
-                        },
-                        office_agency: null
-                    }
-                })
-            });
-
-            const mockReduxAction = jest.fn();
-
-            // setup the top bar container and call the function to remove a single location
-            // group
-            const topBarContainer = setup({
-                reduxFilters: initialFilters,
-                clearFilterType: mockReduxAction
-            });
-
-            topBarContainer.instance().clearFilterGroup('selectedFundingAgencies');
-
-            // validate that the clearFilterType Redux action is called
-            expect(mockReduxAction).toHaveBeenCalledTimes(1);
         });
 
         it('should trigger a Redux action to update the Recipient filter when a Recipient is removed', () => {
@@ -1821,6 +1720,317 @@ describe('TopFilterBarContainer', () => {
             topBarContainer.instance().removeFilter('selectedRecipients', '985015354');
         });
 
+        it('should trigger a Redux action to update the Recipient Location filter when a Recipient Location is removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                recipientDomesticForeign: 'domestic',
+                selectedRecipientLocations: new OrderedMap({
+                    '22796_McLean_COUNTY': {
+                        place_type: "COUNTY",
+                        matched_ids: [22796],
+                        place: "McLean",
+                        parent: "KENTUCKY",
+                        identifier: "22796_McLean_COUNTY"
+                    },
+                    '15688_McLean_COUNTY': {
+                        matched_ids: [15688],
+                        parent: "ILLINOIS",
+                        place: "McLean",
+                        place_type: "COUNTY",
+                        identifier: "15688_McLean_COUNTY"
+                    }
+                })
+            });
+
+            const expectedReduxArguments = {
+                type: 'selectedRecipientLocations',
+                value: new OrderedMap({
+                    '15688_McLean_COUNTY': {
+                        matched_ids: [15688],
+                        parent: "ILLINOIS",
+                        place: "McLean",
+                        place_type: "COUNTY",
+                        identifier: "15688_McLean_COUNTY"
+                    }
+                })
+            };
+
+            // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+
+            topBarContainer.instance().removeFilter('selectedRecipientLocations', '22796_McLean_COUNTY');
+        });
+
+        it('should trigger a Redux action to update the Award ID filter when an Award ID is removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                awardAmounts: new OrderedMap({
+                    0: [0, 1000000],
+                    1: [1000000, 25000000],
+                    2: [25000000, 100000000],
+                    3: [100000000, 500000000],
+                    4: [500000000, 0]
+                })
+            });
+
+            const expectedReduxArguments = {
+                type: 'awardAmounts',
+                value: new OrderedMap({
+                    0: [0, 1000000],
+                    1: [1000000, 25000000],
+                    3: [100000000, 500000000],
+                    4: [500000000, 0]
+                })
+            };
+
+            // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+
+            topBarContainer.instance().removeFilter('awardAmounts', '2');
+        });
+
+        it('should trigger a Redux action to update the Award Amount filter when an Award Amount is removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                selectedAwardIDs: new OrderedMap({
+                    601793: {
+                        id: "601793",
+                        piid: "AG3142B100012",
+                        fain: null,
+                        uri: null
+                    },
+                    601794: {
+                        id: "601794",
+                        piid: "AG3142B100013",
+                        fain: null,
+                        uri: null
+                    }
+                })
+            });
+
+            const expectedReduxArguments = {
+                type: 'selectedAwardIDs',
+                value: new OrderedMap({
+                    601793: {
+                        id: "601793",
+                        piid: "AG3142B100012",
+                        fain: null,
+                        uri: null
+                    }
+                })
+            };
+
+            // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+
+            topBarContainer.instance().removeFilter('selectedAwardIDs', '601794');
+        });
+
+        it('should be able to trigger Redux actions that can overwrite entire filter group values', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                awardType: new Set(['03', '04'])
+            });
+
+            const expectedReduxArguments = {
+                type: 'awardType',
+                value: new Set(['01', '02'])
+            };
+
+            // validate that the Redux action receives the arguments it is expecting
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function the overwrite a filter
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+            topBarContainer.instance().overwriteFilter('awardType', new Set(['01', '02']));
+
+            // validate that the Redux function is called
+            expect(mockReduxAction).toHaveBeenCalled();
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire Location filter', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                locationDomesticForeign: 'domestic',
+                selectedLocations: new OrderedMap({
+                    '1,2_LOS ANGELES_CITY': {
+                        matched_ids: [1, 2],
+                        parent: 'CALIFORNIA',
+                        place_type: 'CITY',
+                        place: 'LOS ANGELES',
+                        identifier: '1,2_LOS ANGELES_CITY'
+                    }
+                })
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('selectedLocations');
+
+            // validate that the clearFilterType Redux action is called twice
+            expect(mockReduxAction).toHaveBeenCalledTimes(2);
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire Awarding Agency Filter', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                selectedAwardingAgencies: new OrderedMap({
+                    "1788_subtier": {
+                        id: 1788,
+                        create_date: "2017-01-12T19:56:30.517000Z",
+                        update_date: "2017-01-12T19:56:30.517000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1654,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1700",
+                            name: "DEPT OF THE NAVY"
+                        },
+                        office_agency: null
+                    },
+                    "1789_subtier": {
+                        id: 1789,
+                        create_date: "2017-01-12T19:56:30.522000Z",
+                        update_date: "2017-01-12T19:56:30.522000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1655,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1708",
+                            name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
+                        },
+                        office_agency: null
+                    }
+                })
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('selectedAwardingAgencies');
+
+            // validate that the clearFilterType Redux action is called
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire Funding Agency Filter', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                selectedFundingAgencies: new OrderedMap({
+                    "1788_subtier": {
+                        id: 1788,
+                        create_date: "2017-01-12T19:56:30.517000Z",
+                        update_date: "2017-01-12T19:56:30.517000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1654,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1700",
+                            name: "DEPT OF THE NAVY"
+                        },
+                        office_agency: null
+                    },
+                    "1789_subtier": {
+                        id: 1789,
+                        create_date: "2017-01-12T19:56:30.522000Z",
+                        update_date: "2017-01-12T19:56:30.522000Z",
+                        toptier_agency: {
+                            toptier_agency_id: 268,
+                            create_date: "2017-01-31T21:25:39.810344Z",
+                            update_date: "2017-01-31T21:25:39.936439Z",
+                            cgac_code: "097",
+                            fpds_code: "9700",
+                            name: "DEPT OF DEFENSE"
+                        },
+                        subtier_agency: {
+                            subtier_agency_id: 1655,
+                            create_date: "2017-01-31T21:25:39.569918Z",
+                            update_date: "2017-01-31T21:25:39.691244Z",
+                            subtier_code: "1708",
+                            name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
+                        },
+                        office_agency: null
+                    }
+                })
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('selectedFundingAgencies');
+
+            // validate that the clearFilterType Redux action is called
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+        });
+
         it('should be able to trigger Redux actions that can reset the entire Recipient Filter', () => {
             const initialFilters = Object.assign({}, defaultFilters, {
                 selectedRecipients: new OrderedMap({
@@ -1989,55 +2199,6 @@ describe('TopFilterBarContainer', () => {
             expect(mockReduxAction).toHaveBeenCalledTimes(1);
         });
 
-        it('should be able to trigger Redux actions that can reset the specific Recipient Location filter values', () => {
-            const initialFilters = Object.assign({}, defaultFilters, {
-                recipientDomesticForeign: 'domestic',
-                selectedRecipientLocations: new OrderedMap({
-                    '22796_McLean_COUNTY': {
-                        place_type: "COUNTY",
-                        matched_ids: [22796],
-                        place: "McLean",
-                        parent: "KENTUCKY",
-                        identifier: "22796_McLean_COUNTY"
-                    },
-                    '15688_McLean_COUNTY': {
-                        matched_ids: [15688],
-                        parent: "ILLINOIS",
-                        place: "McLean",
-                        place_type: "COUNTY",
-                        identifier: "15688_McLean_COUNTY"
-                    }
-                })
-            });
-
-            const expectedReduxArguments = {
-                type: 'selectedRecipientLocations',
-                value: new OrderedMap({
-                    '15688_McLean_COUNTY': {
-                        matched_ids: [15688],
-                        parent: "ILLINOIS",
-                        place: "McLean",
-                        place_type: "COUNTY",
-                        identifier: "15688_McLean_COUNTY"
-                    }
-                })
-            };
-
-            // mock the redux action to test that the arguments match what is expected
-            const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual(expectedReduxArguments);
-            });
-
-            // setup the top bar container and call the function to remove a single location
-            // group
-            const topBarContainer = setup({
-                reduxFilters: initialFilters,
-                updateGenericFilter: mockReduxAction
-            });
-
-            topBarContainer.instance().removeFilter('selectedRecipientLocations', '22796_McLean_COUNTY');
-        });
-
         it('should be able to trigger Redux actions that can reset the entire Recipient Location Filter', () => {
             const initialFilters = Object.assign({}, defaultFilters, {
                 recipientDomesticForeign: 'domestic',
@@ -2072,6 +2233,65 @@ describe('TopFilterBarContainer', () => {
 
             // validate that the clearFilterType Redux action is called twice
             expect(mockReduxAction).toHaveBeenCalledTimes(2);
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire Award ID Filter', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                selectedAwardIDs: new OrderedMap({
+                    601793: {
+                        id: "601793",
+                        piid: "AG3142B100012",
+                        fain: null,
+                        uri: null
+                    },
+                    601794: {
+                        id: "601794",
+                        piid: "AG3142B100013",
+                        fain: null,
+                        uri: null
+                    }
+                })
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('selectedAwardIDs');
+
+            // validate that the clearFilterType Redux action is called
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire Award Amount Filter', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                awardAmounts: new OrderedMap({
+                    0: [0, 1000000],
+                    1: [1000000, 25000000],
+                    2: [25000000, 100000000],
+                    3: [100000000, 500000000],
+                    4: [500000000, 0]
+                })
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('awardAmounts');
+
+            // validate that the clearFilterType Redux action is called
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
         });
     });
 });

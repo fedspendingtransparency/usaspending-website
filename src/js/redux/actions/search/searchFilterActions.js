@@ -96,6 +96,13 @@ export const updateAwardIDs = (state) => ({
     awardID: state.awardID
 });
 
+// Award Amount Filter
+
+export const updateAwardAmounts = (state) => ({
+    type: 'UPDATE_AWARD_AMOUNTS',
+    awardAmounts: state
+});
+
 // Generic
 
 export const setSearchOrder = (state) => ({

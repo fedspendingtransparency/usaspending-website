@@ -19,7 +19,8 @@ export const defaultFilters = {
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
     selectedRecipientLocations: new OrderedMap(),
-    selectedAwardIDs: new OrderedMap()
+    selectedAwardIDs: new OrderedMap(),
+    awardAmounts: new OrderedMap()
 };
 
 export const defaultResultsMeta = {

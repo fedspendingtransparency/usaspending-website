@@ -13,6 +13,7 @@ import LocationSearchContainer from 'containers/search/filters/location/Location
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
 import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
+import AwardAmountSearchContainer from 'containers/search/filters/awardAmount/AwardAmountSearchContainer';
 
 import FilterExpandButton from './FilterExpandButton';
 
@@ -87,6 +88,9 @@ export default class SearchOption extends React.Component {
                 break;
             case 'Award ID':
                 searchOption = (<AwardIDSearchContainer />);
+                break;
+            case 'Award Amount':
+                searchOption = (<AwardAmountSearchContainer />);
                 break;
             default:
                 disabledStatus = true;
