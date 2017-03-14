@@ -15,7 +15,7 @@ export default class Keyword extends React.Component {
         const inputBox = this.keyword;
         inputBox.addEventListener('keydown', (e) => {
             if (e.keyCode === 13) {
-                this.props.submitText(this.keyword.value);
+                this.searchKeyword();
             }
         });
     }
