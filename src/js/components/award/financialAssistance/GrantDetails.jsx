@@ -12,8 +12,27 @@ const propTypes = {
 };
 
 export default class GrantDetails extends React.Component {
+    constructor(props) {
+        super(props);
 
-    render() {
+        this.state = {
+            description: "",
+            date: "",
+            place: "",
+            typeDesc: "",
+            programName: "",
+            programDesc: ""
+        };
+
+        // bind functions
+        this.setValues = this.setValues.bind(this);
+    }
+
+    componentWillReceiveProps() {
+        this.setValues(this.props.selectedAward);
+    }
+
+    setValues() {
         let yearRangeTotal = "";
         let description = null;
         const award = this.props.selectedAward;
@@ -61,11 +80,23 @@ export default class GrantDetails extends React.Component {
         else {
             description = "Not Available";
         }
+
         // CFDA Data
         // TODO: get program description (objectives) for latest transaction
         const programName = `${latestTransaction.assistance_data.cfda_number} - ${latestTransaction.assistance_data.cfda_title}`;
         const programDescription = '';
 
+        this.setState({
+            description,
+            programName,
+            date: popDate,
+            place: popPlace,
+            typeDesc: award.type_description,
+            programDesc: programDescription
+        });
+    }
+
+    render() {
         return (
             <div className="contract-wrapper">
                 <div className="contract-details">
@@ -79,22 +110,22 @@ export default class GrantDetails extends React.Component {
                         <tbody>
                             <DetailRow
                                 title="Description"
-                                value={description} />
+                                value={this.state.description} />
                             <DetailRow
                                 title="Period of Performance"
-                                value={popDate} />
+                                value={this.state.date} />
                             <DetailRow
                                 title="Primary Place of Performance"
-                                value={popPlace} />
+                                value={this.state.place} />
                             <DetailRow
                                 title="Grant Type"
-                                value={award.type_description} />
+                                value={this.state.typeDesc} />
                             <DetailRow
                                 title="CFDA Program"
-                                value={programName} />
+                                value={this.state.programName} />
                             <DetailRow
                                 title="CFDA Program Description"
-                                value={programDescription} />
+                                value={this.state.programDesc} />
                         </tbody>
                     </table>
                 </div>
