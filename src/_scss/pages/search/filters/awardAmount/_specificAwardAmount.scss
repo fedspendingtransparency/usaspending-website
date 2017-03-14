@@ -28,15 +28,42 @@
             padding-right: 0.5rem;
         }
 
-        input {
-            margin-right: 0.5rem;
-            width: 28%;
-            padding: 1.1rem 0.8rem;
-            height: 4.0rem;
+        @media only screen and (min-width:1342px) {
+            input {
+                margin-right: 0.5rem;
+                width: 27%;
+                padding: 1.1rem 0.8rem;
+                height: 4.0rem;
+            }
+
+            .award-amount-submit {
+                margin-right: 0;
+                width: auto;
+            }
         }
 
-        .award-amount-submit {
-            margin-right: 0;
+        @media only screen and (min-width:992px) and (max-width:1341px) {
+            input {
+                margin-right: 0.5rem;
+                width: 37%;
+                padding: 1.1rem 0.8rem;
+                height: 4.0rem;
+            }
+
+            .specific-award-min {
+                margin-right: 0.65rem;
+            }
+
+            .specific-award-max {
+                margin-left: 0.15rem;
+                margin-right: 0;
+            }
+
+            .award-amount-submit {
+                display: block;
+                width: 100%;
+                margin: 2.0rem 0 0 0;
+            }
         }
     }
 }

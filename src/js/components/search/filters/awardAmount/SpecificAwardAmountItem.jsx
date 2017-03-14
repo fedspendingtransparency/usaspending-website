@@ -76,12 +76,14 @@ export default class SpecificAwardAmountItem extends React.Component {
                     <span>$</span>
                     <input
                         placeholder="Min"
+                        className="specific-award-min"
                         ref={(input) => {
                             this.minValue = input;
                         }} />
                     <span>to $</span>
                     <input
                         placeholder="Max"
+                        className="specific-award-max"
                         ref={(input) => {
                             this.maxValue = input;
                         }} />
