@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import _ from 'lodash';
 import accounting from 'accounting';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
@@ -12,7 +13,8 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import AmountsChart from './visualizations/AmountsChart';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object
+    selectedAward: React.PropTypes.object,
+    showPotential: React.PropTypes.bool
 };
 
 export default class AwardAmounts extends React.Component {
@@ -109,7 +111,8 @@ export default class AwardAmounts extends React.Component {
                     <AmountsChart
                         awardId={this.props.selectedAward.id}
                         potential={potential}
-                        current={current} />
+                        current={current}
+                        showPotential={this.props.showPotential} />
                 </div>
             </div>
         );

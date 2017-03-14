@@ -17,7 +17,8 @@ export default class AwardGrant extends React.Component {
         return (
             <div className="award-contract-wrapper">
                 <AwardAmounts
-                    selectedAward={this.props.selectedAward} />
+                    selectedAward={this.props.selectedAward}
+                    showPotential={false} />
                 <GrantDetails
                     {...this.props}
                     selectedAward={this.props.selectedAward} />

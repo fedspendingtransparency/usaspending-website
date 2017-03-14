@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import _ from 'lodash';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import InfoSnippet from './InfoSnippet';
 import RecipientAddress from './RecipientAddress';
