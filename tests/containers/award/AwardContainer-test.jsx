@@ -21,7 +21,19 @@ const award = {
     transactionMeta: {
         count: 1,
         page: 1,
-        totalPages: 1
+        totalPages: 3
+    }
+};
+
+const lastPageAward = {
+    transactionSort: {
+        direction: "desc",
+        field: "modification_number"
+    },
+    transactionMeta: {
+        count: 1,
+        page: 3,
+        totalPages: 3
     }
 };
 
@@ -273,7 +285,7 @@ const awardData = {
 const txnData = {
     page_metadata: {
         count: 1,
-        num_pages: 1,
+        num_pages: 3,
         page_number: 1
     },
     results: [
@@ -452,7 +464,6 @@ describe('AwardContainer', () => {
     it('should parse the returned award and send to redux store', () => {
         // Mocking an AwardSummary result
         const expectedAwardData = {
-            _jsid: "award-2",
             award_id: "VA760PPVFY2015OCT",
             award_type: "Delivery Order",
             awarding_agency_name: "VETERANS AFFAIRS, DEPARTMENT OF",
@@ -490,7 +501,9 @@ describe('AwardContainer', () => {
 
         // Mock the call and validate it matches the expected award summary
         const mockReduxAward = jest.fn((args) => {
-            expect(args).toEqual(expectedAwardData);
+            const output = args;
+            delete output._jsid;
+            expect(output).toEqual(expectedAwardData);
         });
         // Set up container with mocked award action
         const awardContainer = shallow(
@@ -515,8 +528,7 @@ describe('AwardContainer', () => {
 
     // parse transactions
     it('should parse the returned transactions and send to redux store', () => {
-        const expectedTxnData = [{
-            _jsid: "contract-transaction-3",
+        const expectedTxnData = {
             action_date: "10/1/2014",
             action_type: null,
             description: "EXPRESS REPORT PHARMACY PRIME VENDOR VA760PPVFY2015OCT",
@@ -525,10 +537,12 @@ describe('AwardContainer', () => {
             modification_number: "0",
             type: null,
             type_description: null
-        }];
+        };
         // Mock the call and validate it matches the expected txn summary
         const mockReduxAwardTxn = jest.fn((args) => {
-            expect(args).toEqual(expectedTxnData);
+            const output = args[0];
+            delete output._jsid;
+            expect(output).toEqual(expectedTxnData);
         });
 
         const mockAppendAwardTxn = jest.fn((args) => {
@@ -539,13 +553,9 @@ describe('AwardContainer', () => {
             expect(args).toEqual(award.transactionMeta);
         });
 
-        const mockUpdateTxnRenderHash = jest.fn((args) => {
-            expect(args).toEqual(undefined);
-        });
+        const mockUpdateTxnRenderHash = jest.fn();
 
-        const mockUpdateTxnGroupHash = jest.fn((args) => {
-            expect(args).toEqual(undefined);
-        });
+        const mockUpdateTxnGroupHash = jest.fn();
 
         // Set up container with mocked award action
         const awardContainer = shallow(
@@ -567,6 +577,8 @@ describe('AwardContainer', () => {
         // checking that it ran
         expect(parseTxnSpy.callCount).toEqual(1);
         expect(mockReduxAwardTxn).toHaveBeenCalledTimes(1);
+        expect(mockUpdateTxnGroupHash).toHaveBeenCalled();
+        expect(mockUpdateTxnRenderHash).toHaveBeenCalled();
 
         // reset the spies
         parseTxnSpy.reset();
@@ -574,30 +586,64 @@ describe('AwardContainer', () => {
 
     // next transaction page
     it('should fetch the next page of available transactions', () => {
-        // set initial page
-        const initialTxnMeta = {
-            page: 1
-        };
-        // Mock the call and validate it does NOT the expected award page
-        const MockReduxAwardTxnMeta = jest.fn((args) => {
-            expect(args).not.toEqual(initialTxnMeta);
-        });
         const awardContainer = shallow(
             <AwardContainer
                 params={parameters}
-                award={award}
-                nextTransactionPage={MockReduxAwardTxnMeta} />);
+                award={award} />);
 
         const getNextPageSpy = sinon.spy(awardContainer.instance(),
             'nextTransactionPage');
 
-        // Call function on instance of container
+        // Mock fetchTransactions
+        awardContainer.instance().fetchTransactions = jest.genMockFunction();
+
+        // initial page should be page 1
+        expect(awardContainer.instance().props.award.transactionMeta.page).toEqual(1);
+
+        // call to increment
         awardContainer.instance().nextTransactionPage();
+
+        // value of 2 should be passed
+        expect(awardContainer.instance().fetchTransactions).toHaveBeenCalledWith(2);
 
         // checking that it ran
         expect(getNextPageSpy.callCount).toEqual(1);
 
         // reset the spies
         getNextPageSpy.reset();
+    });
+
+    it('should not increment the page if we are on the last page', () => {
+        // set initial page
+        const initialTxnMeta = {
+            page: 3
+        };
+        // Mock the call and validate it does equal the expected award page
+        const mockReduxAwardTxnLastPage = jest.fn((args) => {
+            expect(args).toEqual(initialTxnMeta);
+        });
+
+        const awardContainer = shallow(
+            <AwardContainer
+                params={parameters}
+                award={lastPageAward}
+                nextTransactionPage={mockReduxAwardTxnLastPage} />);
+
+        const getNextPageSpy = sinon.spy(awardContainer.instance(),
+            'nextTransactionPage');
+
+        // initial page should be page 1
+        expect(awardContainer.instance().props.award.transactionMeta.page).toEqual(3);
+
+        // Call function on instance of container
+        awardContainer.instance().nextTransactionPage();
+
+        // checking that it ran
+        expect(getNextPageSpy.callCount).toEqual(1);
+        expect(getTxnSpy.callCount).toEqual(0);
+
+        // reset the spies
+        getNextPageSpy.reset();
+        getTxnSpy.reset();
     });
 });
