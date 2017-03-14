@@ -11,7 +11,8 @@ import AwardInfo from './AwardInfo';
 
 const propTypes = {
     award: React.PropTypes.object,
-    noAward: React.PropTypes.bool
+    noAward: React.PropTypes.bool,
+    inFlight: React.PropTypes.bool
 };
 
 export default class Award extends React.Component {
@@ -21,6 +22,7 @@ export default class Award extends React.Component {
         if (this.props.award.selectedAward) {
             awardInfo = (<AwardInfo
                 {...this.props}
+                inFlight={this.props.inFlight}
                 selectedAward={this.props.award.selectedAward} />);
         }
         if (this.props.noAward === true) {

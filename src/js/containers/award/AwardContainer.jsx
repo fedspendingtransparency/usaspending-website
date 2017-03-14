@@ -16,11 +16,11 @@ import AwardSummary from 'models/results/award/AwardSummary';
 
 const propTypes = {
     setSelectedAward: React.PropTypes.func,
-    params: React.PropTypes.object,
-    award: React.PropTypes.object
+    params: React.PropTypes.object
 };
 
-class AwardContainer extends React.Component {
+export class AwardContainer extends React.Component {
+
     constructor(props) {
         super(props);
 
