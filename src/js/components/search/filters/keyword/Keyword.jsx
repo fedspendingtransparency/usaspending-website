@@ -11,6 +11,15 @@ const propTypes = {
 
 export default class Keyword extends React.Component {
 
+    componentDidMount() {
+        const inputBox = this.keyword;
+        inputBox.addEventListener('keydown', (e) => {
+            if (e.keyCode === 13) {
+                this.props.submitText(this.keyword.value);
+            }
+        });
+    }
+
     searchKeyword() {
         this.props.submitText(this.keyword.value);
     }
