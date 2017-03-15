@@ -1,0 +1,41 @@
+&.coming-soon {
+    background: repeating-linear-gradient(
+        45deg,
+        rgba($color-gray-lightest, .2),
+        rgba($color-gray-lightest, .2) rem(2px),
+        rgba($color-gray-lighter, .3) rem(2px),
+        rgba($color-gray-lighter, .3) rem(4px)
+    );
+    .coming-soon-icon {
+        bottom: rem(24px);
+        height: 0;
+        left: rem(35px);
+        position: relative;
+        svg {
+            fill: $color-gray-lighter;
+            height: rem(10px);
+            width: rem(10px);
+        }
+    }
+    .coming-soon-label {
+        bottom: rem(20px);
+        color: $color-gray-lighter;
+        float: left;
+        font-weight: bold;
+        font-size: rem(10px);
+        height: 0;
+        left: rem(50px);
+        position: relative;
+    }
+    .filter-toggle {
+        svg {
+            fill: $color-gray-lighter;
+        }
+        .filter-header {
+            color: $color-gray-lighter;
+        }
+    }
+    &:hover * {
+        cursor: default;
+    }
+}

@@ -113,6 +113,8 @@ export const calculateUnits = (data, subdivisions = 6) => {
     };
 };
 
+// Returns the unit and short/longhand labels for a specific value
+// You must divide the value parameter by the unit result to put the value in the proper scale
 export const calculateUnitForSingleValue = (value) => {
     const adjustedValue = Math.abs(value);
 

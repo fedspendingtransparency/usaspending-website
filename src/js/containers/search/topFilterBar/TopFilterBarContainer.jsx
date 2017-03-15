@@ -58,6 +58,12 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(timeFilters);
         }
 
+        // prepare the keyword filters
+        const keywordFilters = this.prepareKeywords(props);
+        if (keywordFilters) {
+            filters.push(keywordFilters);
+        }
+
         // prepare the award filters
         const awardFilters = this.prepareAwardTypes(props);
         if (awardFilters) {
@@ -87,6 +93,16 @@ export class TopFilterBarContainer extends React.Component {
         const selectedRecipientLocationFilters = this.prepareRecipientLocations(props);
         if (selectedRecipientLocationFilters) {
             filters.push(selectedRecipientLocationFilters);
+        }
+
+        const selectedAwardIDFilters = this.prepareAwardIDs(props);
+        if (selectedAwardIDFilters) {
+            filters.push(selectedAwardIDFilters);
+        }
+
+        const awardAmounts = this.prepareAwardAmounts(props);
+        if (awardAmounts) {
+            filters.push(awardAmounts);
         }
 
         this.setState({
@@ -127,6 +143,30 @@ export class TopFilterBarContainer extends React.Component {
 
                 filter.values = [`${startString} to ${endString}`];
             }
+        }
+
+        if (selected) {
+            return filter;
+        }
+        return null;
+    }
+
+
+    /**
+     * Logic for parsing the current Redux keyword filter into a JS object that can be parsed by the
+     * top filter bar
+     */
+    prepareKeywords(props) {
+        let selected = false;
+        const filter = {};
+
+        if (props.keyword) {
+        // keyword exists
+            selected = true;
+            filter.code = 'keyword';
+            filter.name = 'Keyword';
+
+            filter.values = props.keyword;
         }
 
         if (selected) {
@@ -296,6 +336,54 @@ export class TopFilterBarContainer extends React.Component {
     }
 
     /**
+     * Logic for parsing the current Redux selected Award IDs
+     * Scope into a JS object that can be parsed by the top filter bar
+     */
+    prepareAwardIDs(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.selectedAwardIDs.count() > 0) {
+            // Award IDs have been selected
+            selected = true;
+            filter.values = props.selectedAwardIDs.toArray();
+        }
+
+        if (selected) {
+            filter.code = 'selectedAwardIDs';
+            filter.name = 'Award ID';
+            return filter;
+        }
+        return null;
+    }
+
+    /**
+     * Logic for parsing the current Redux selected Award Amounts
+     * Scope into a JS object that can be parsed by the top filter bar
+     */
+    prepareAwardAmounts(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.awardAmounts.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.awardAmounts.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'awardAmounts';
+            filter.name = 'Award Amounts';
+            return filter;
+        }
+        return null;
+    }
+
+    /**
      * Generic function that can be called to overwrite a filter with a specified value. This is
      * useful for filters that have complex logic associated with item or group removal (such as
      * award type groups).
@@ -320,16 +408,42 @@ export class TopFilterBarContainer extends React.Component {
      * @param      {<type>}  value   The filter value to remove
      */
     removeFilter(type, value) {
-        if (type === 'timePeriodFY' || type === 'timePeriodDR') {
-            this.removeTimePeriod(type, value);
-        }
-        else if (type === 'awardType') {
-            this.removeFromSet(type, value);
-        }
-        else if (type === 'selectedLocations' || type === 'selectedFundingAgencies'
-            || type === 'selectedAwardingAgencies' || type === 'selectedRecipients'
-            || type === 'selectedRecipientLocations') {
-            this.removeFromOrderedMap(type, value);
+        switch (type) {
+            case 'timePeriodFY':
+                this.removeTimePeriod(type, value);
+                break;
+            case 'timePeriodDR':
+                this.removeTimePeriod(type, value);
+                break;
+            case 'awardType':
+                this.removeFromSet(type, value);
+                break;
+            case 'selectedLocations':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedFundingAgencies':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedAwardingAgencies':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedRecipients':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedRecipientLocations':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedAwardIDs':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'awardAmounts':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'keyword':
+                this.clearFilterGroup(type);
+                break;
+            default:
+                break;
         }
     }
 
