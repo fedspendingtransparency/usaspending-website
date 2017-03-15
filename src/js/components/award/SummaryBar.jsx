@@ -40,6 +40,9 @@ export default class SummaryBar extends React.Component {
         const awardEnd = moment(award.period_of_performance_current_end_date, 'MM-DD-YYYY');
         const current = moment();
         let progress = "";
+        let awardType = "";
+        let parentId = null;
+
         if (current.isSameOrBefore(awardStart, 'day')) {
             progress = "Awarded";
         }
@@ -49,59 +52,52 @@ export default class SummaryBar extends React.Component {
         else {
             progress = "In Progress";
         }
+
+        if (_.includes(awardTypeGroups.contracts, award.award_type)) {
+            awardType = "Contract";
+        }
+        else if (_.includes(awardTypeGroups.grants, award.award_type)) {
+            awardType = "Grant";
+        }
+        else if (_.includes(awardTypeGroups.direct_payments, award.award_type)) {
+            awardType = "Direct Payment";
+        }
+        else if (_.includes(awardTypeGroups.loans, award.award_type)) {
+            awardType = "Loan";
+        }
+        else if (_.includes(awardTypeGroups.insurance, award.award_type)) {
+            awardType = "Insurance";
+        }
+
+        if (award.recipient_parent_duns) {
+            parentId = award.recipient_parent_duns;
+        }
+        else if (!award.parent_award && award.type !== "D") {
+            parentId = "Not Available";
+        }
+        else {
+            parentId = null;
+        }
+
         this.setState({
-            status: progress
+            status: progress,
+            type: awardType,
+            parent: parentId
         });
     }
 
     render() {
         let parentAwardId = null;
-        let parentId = null;
-        let awardType = "";
-
-        if (this.props.selectedAward) {
-            const award = this.props.selectedAward;
-
-            if (_.includes(awardTypeGroups.contracts, award.award_type)) {
-                awardType = "Contract";
-            }
-            else if (_.includes(awardTypeGroups.grants, award.award_type)) {
-                awardType = "Grant";
-            }
-            else if (_.includes(awardTypeGroups.direct_payments, award.award_type)) {
-                awardType = "Direct Payment";
-            }
-            else if (_.includes(awardTypeGroups.loans, award.award_type)) {
-                awardType = "Loan";
-            }
-            else if (_.includes(awardTypeGroups.insurance, award.award_type)) {
-                awardType = "Insurance";
-            }
-
-            if (award.parent_award) {
-                parentId = award.parent_award;
-            }
-            else if (!award.parent_award && award.award_type !== "D") {
-                parentId = "Not Available";
-            }
-            else {
-                parentId = null;
-            }
-
-            if (award.award_type === "D" && parentId === null) {
-                parentAwardId = null;
-            }
-            else {
-                parentAwardId = (
-                    <InfoSnippet
-                        label="Parent Award ID"
-                        value={parentId} />);
-            }
+        if (this.props.selectedAward.type !== "D" && this.state.parent !== null) {
+            parentAwardId = (
+                <InfoSnippet
+                    label="Parent Award ID"
+                    value={this.state.parent} />);
         }
         return (
             <div className="usa-da-summary-bar">
                 <div className="summary-bar-wrap">
-                    <h1 className="summary-title">{awardType}
+                    <h1 className="summary-title">{this.state.type}
                         &nbsp;Summary</h1>
                     <div className="summary-status">
                         <ul className="summary-status-items">

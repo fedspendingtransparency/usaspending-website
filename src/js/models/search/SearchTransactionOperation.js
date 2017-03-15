@@ -6,6 +6,7 @@
 import SearchOperation from './SearchOperation';
 
 import * as TxnTimePeriodQuery from './queryBuilders/TxnTimePeriodQuery';
+import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
 
 class SearchTransactionOperation extends SearchOperation {
 
@@ -23,6 +24,15 @@ class SearchTransactionOperation extends SearchOperation {
             });
             if (timeQuery) {
                 filters.push(timeQuery);
+            }
+        }
+
+        // Add Award Amount queries
+        if (this.awardAmounts.length > 0) {
+            const awardAmountsQuery = AwardAmountQuery.buildAwardAmountQuery(
+                this.awardAmounts, 'total');
+            if (awardAmountsQuery) {
+                filters.push(awardAmountsQuery);
             }
         }
 

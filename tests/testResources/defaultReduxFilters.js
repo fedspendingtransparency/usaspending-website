@@ -6,6 +6,7 @@
 import { Set, OrderedMap } from 'immutable';
 
 export const defaultFilters = {
+    keyword: '',
     awardType: new Set(),
     timePeriodType: 'fy',
     timePeriodFY: new Set(),
@@ -18,7 +19,8 @@ export const defaultFilters = {
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
     selectedRecipientLocations: new OrderedMap(),
-    selectedAwardIDs: new OrderedMap()
+    selectedAwardIDs: new OrderedMap(),
+    awardAmounts: new OrderedMap()
 };
 
 export const defaultResultsMeta = {

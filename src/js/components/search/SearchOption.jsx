@@ -4,16 +4,17 @@
  **/
 
 import React from 'react';
-import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
+import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
 import LocationSearchContainer from 'containers/search/filters/location/LocationSearchContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
+import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
+import AwardAmountSearchContainer from 'containers/search/filters/awardAmount/AwardAmountSearchContainer';
 
-import SearchBox from './filters/keyword/SearchBox';
 import FilterExpandButton from './FilterExpandButton';
 
 const propTypes = {
@@ -61,24 +62,14 @@ export default class SearchOption extends React.Component {
     }
 
     render() {
-        const comingSoonModule = (
-            <div>
-                <div className="coming-soon-icon">
-                    <Icons.ExclamationCircle />
-                </div>
-                <span className="coming-soon-label">Coming Soon</span>
-            </div>
-        );
+        const comingSoonModule = (<ComingSoonLabel />);
         let disabledStatus = false;
         let comingSoon = null;
         let searchOption = null;
         let statusClass = '';
         switch (this.props.name) {
             case 'Search':
-                disabledStatus = true;
-                comingSoon = comingSoonModule;
-                searchOption = (<SearchBox />);
-                statusClass = ' coming-soon';
+                searchOption = (<KeywordContainer />);
                 break;
             case 'Award Type':
                 searchOption = (<AwardTypeContainer />);
@@ -97,6 +88,9 @@ export default class SearchOption extends React.Component {
                 break;
             case 'Award ID':
                 searchOption = (<AwardIDSearchContainer />);
+                break;
+            case 'Award Amount':
+                searchOption = (<AwardAmountSearchContainer />);
                 break;
             default:
                 disabledStatus = true;

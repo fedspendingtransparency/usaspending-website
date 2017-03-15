@@ -28,7 +28,7 @@ const propTypes = {
 
 const countLimit = 13;
 
-class AwardContainer extends React.Component {
+export class AwardContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -98,9 +98,9 @@ class AwardContainer extends React.Component {
                     inFlight: false
                 });
 
-                this.parseAward(awardData);
+                const fullData = (Object.assign(awardData, txnData.results[0].contract_data));
+                this.parseAward(fullData);
                 this.parseTransactions(txnData, true);
-
                 // operations have resolved
                 this.searchRequests = [];
             })
