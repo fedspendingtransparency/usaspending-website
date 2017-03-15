@@ -4,6 +4,8 @@
  **/
 
 import React from 'react';
+import * as SummaryPageHelper from 'helpers/summaryPageHelper';
+
 import AwardAmounts from '../AwardAmounts';
 import ContractDetails from './ContractDetails';
 
@@ -17,7 +19,8 @@ export default class AwardContract extends React.Component {
         return (
             <div className="award-contract-wrapper">
                 <AwardAmounts
-                    selectedAward={this.props.selectedAward} />
+                    selectedAward={this.props.selectedAward}
+                    typeString={SummaryPageHelper.awardType(this.props.selectedAward.award_type)} />
                 <ContractDetails
                     selectedAward={this.props.selectedAward} />
             </div>

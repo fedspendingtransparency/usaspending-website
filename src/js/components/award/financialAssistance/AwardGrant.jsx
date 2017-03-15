@@ -4,6 +4,8 @@
  **/
 
 import React from 'react';
+import * as SummaryPageHelper from 'helpers/summaryPageHelper';
+
 import AwardAmounts from '../AwardAmounts';
 import GrantDetails from './GrantDetails';
 
@@ -12,13 +14,13 @@ const propTypes = {
 };
 
 export default class AwardGrant extends React.Component {
-
     render() {
         return (
             <div className="award-contract-wrapper">
                 <AwardAmounts
                     selectedAward={this.props.selectedAward}
-                    showPotential={false} />
+                    showPotential={false}
+                    typeString={SummaryPageHelper.awardType(this.props.selectedAward.award_type)} />
                 <GrantDetails
                     {...this.props}
                     selectedAward={this.props.selectedAward} />

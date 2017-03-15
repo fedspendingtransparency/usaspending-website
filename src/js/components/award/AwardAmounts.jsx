@@ -4,9 +4,7 @@
  **/
 
 import React from 'react';
-import _ from 'lodash';
 import accounting from 'accounting';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -14,7 +12,8 @@ import AmountsChart from './visualizations/AmountsChart';
 
 const propTypes = {
     selectedAward: React.PropTypes.object,
-    showPotential: React.PropTypes.bool
+    showPotential: React.PropTypes.bool,
+    typeString: React.PropTypes.string
 };
 
 export default class AwardAmounts extends React.Component {
@@ -76,28 +75,6 @@ export default class AwardAmounts extends React.Component {
 
         const narrative = this.generateNarrative();
 
-        const isContract = (_.includes(awardTypeGroups.contracts, this.props.selectedAward.award_type));
-
-        let textDetails = (
-            <div className="text-details">
-                <p>This contract was awarded to&nbsp;
-                    <b className="recipient-name">{narrative.recipient}</b>.&nbsp;
-                    {narrative.current} has been obligated.</p>
-            </div>
-        );
-
-        // TODO: add subaward data when available
-        if (!isContract) {
-            textDetails = (
-                <div className="text-details">
-                    <p>This contract was awarded to&nbsp;
-                        <b className="recipient-name">{narrative.recipient}</b> for&nbsp;
-                        <b>{narrative.current}</b>.
-                    </p>
-                </div>
-            );
-        }
-
         return (
             <div className="amounts-wrapper">
                 <div className="award-amounts">
@@ -107,7 +84,11 @@ export default class AwardAmounts extends React.Component {
                         ref={(hr) => {
                             this.sectionHr = hr;
                         }} />
-                    {textDetails}
+                    <div className="text-details">
+                        <p>This {this.props.typeString} was awarded to&nbsp;
+                            <b className="recipient-name">{narrative.recipient}</b>.&nbsp;
+                            {narrative.current} has been obligated.</p>
+                    </div>
                     <AmountsChart
                         awardId={this.props.selectedAward.id}
                         potential={potential}
