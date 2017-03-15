@@ -43,6 +43,12 @@ export class AwardContainer extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        if (this.awardRequest) {
+            this.awardRequest.cancel();
+        }
+    }
+
     getSelectedAward() {
         const input = this.props.params.awardId;
 

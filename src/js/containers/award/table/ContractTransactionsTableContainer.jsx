@@ -52,6 +52,12 @@ export class ContractTransactionsTableContainer extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        if (this.transactionRequest) {
+            this.transactionRequest.cancel();
+        }
+    }
+
     formatSort() {
         let direction = '';
         if (this.props.award.transactionSort.direction === 'desc') {
@@ -100,12 +106,11 @@ export class ContractTransactionsTableContainer extends React.Component {
                 this.parseTransactions(res.data, reset);
             })
             .catch((err) => {
-                this.setState({
-                    inFlight: false
-                });
-
                 this.transactionRequest = null;
                 if (!isCancel(err)) {
+                    this.setState({
+                        inFlight: false
+                    });
                     console.log(err);
                 }
             });
