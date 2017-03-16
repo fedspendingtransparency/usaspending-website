@@ -6,6 +6,7 @@
 import { Set, OrderedMap } from 'immutable';
 
 import searchFiltersReducer from 'redux/reducers/search/searchFiltersReducer';
+import { awardRanges } from 'dataMapping/search/awardAmount';
 
 const initialState = {
     awardType: new Set(),
@@ -13,13 +14,16 @@ const initialState = {
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
+    keyword: '',
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all',
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
-    selectedRecipientLocations: new OrderedMap()
+    selectedRecipientLocations: new OrderedMap(),
+    selectedAwardIDs: new OrderedMap(),
+    awardAmounts: new OrderedMap()
 };
 
 describe('searchFiltersReducer', () => {
@@ -129,6 +133,18 @@ describe('searchFiltersReducer', () => {
             Object.keys(expected).forEach((key) => {
                 expect(updatedState[key]).toEqual(expected[key]);
             });
+        });
+    });
+
+    describe('UPDATE_TEXT_SEARCH', () => {
+        it('should set the keyword filter option to the input string', () => {
+            const action = {
+                type: 'UPDATE_TEXT_SEARCH',
+                textInput: 'business'
+            };
+
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.keyword).toEqual('business');
         });
     });
 
@@ -642,7 +658,6 @@ describe('searchFiltersReducer', () => {
             const updatedState = searchFiltersReducer(startingState, action);
             expect(updatedState.selectedRecipients).toEqual(new OrderedMap());
         });
-
     });
 
     describe('UPDATE_RECIPIENT_DOMESTIC_FORIEGN', () => {
@@ -695,6 +710,136 @@ describe('searchFiltersReducer', () => {
 
             const updatedState = searchFiltersReducer(startingState, action);
             expect(updatedState.selectedRecipientLocations).toEqual(new OrderedMap());
+        });
+    });
+
+    describe('UPDATE_SELECTED_AWARD_IDS', () => {
+        const action = {
+            type: 'UPDATE_SELECTED_AWARD_IDS',
+            awardID: {
+                id: "601793",
+                piid: "AG3142B100012",
+                fain: null,
+                uri: null
+            }
+        };
+
+        const awardIDID = "601793";
+
+        const expectedAwardID = {
+            id: "601793",
+            piid: "AG3142B100012",
+            fain: null,
+            uri: null
+        };
+
+        it('should add the provided award ID if it does not currently exist in the filter', () => {
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap({
+                [awardIDID]: expectedAwardID
+            }));
+        });
+
+        it('should remove the provided award ID if already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                selectedAwardIDs: new OrderedMap({
+                    [awardIDID]: expectedAwardID
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
+        });
+    });
+
+    describe('UPDATE_AWARD_AMOUNTS', () => {
+        const predefinedRangeAction = {
+            type: 'UPDATE_AWARD_AMOUNTS',
+            awardAmounts: {
+                amount: "range-1",
+                searchType: 'range'
+            }
+        };
+
+        const specificRangeAction = {
+            type: 'UPDATE_AWARD_AMOUNTS',
+            awardAmounts: {
+                amount: [10000, 20000],
+                searchType: 'specific'
+            }
+        };
+
+        const predefinedAwardAmount = "range-1";
+        const expectedpredefinedAwardAmount = awardRanges[predefinedAwardAmount];
+
+        const specificAwardAmount = [10000, 20000];
+
+        it('should add the predefined Award Amount ' +
+            'if it does not currently exist in the filter', () => {
+            const updatedState = searchFiltersReducer(undefined, predefinedRangeAction);
+            expect(updatedState.awardAmounts).toEqual(new OrderedMap({
+                [predefinedAwardAmount]: expectedpredefinedAwardAmount
+            }));
+        });
+
+        it('should remove the predefined Award Amount ' +
+            'if it already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                awardAmounts: new OrderedMap({
+                    [predefinedAwardAmount]: expectedpredefinedAwardAmount
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, predefinedRangeAction);
+            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
+        });
+
+        it('should add the specific Award Amount ' +
+            'if it does not currently exist in the filter', () => {
+            const updatedState = searchFiltersReducer(undefined, specificRangeAction);
+            expect(updatedState.awardAmounts).toEqual(new OrderedMap({
+                specific: specificAwardAmount
+            }));
+        });
+
+        it('should remove the specific Award Amount ' +
+            'if it already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                awardAmounts: new OrderedMap({
+                    specific: specificAwardAmount
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, specificRangeAction);
+            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
+        });
+
+        it('should remove a specific Award Amount ' +
+            'if a predefined Award Amount is specified', () => {
+            const startingState = Object.assign({}, initialState, {
+                awardAmounts: new OrderedMap({
+                    specific: specificAwardAmount
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, predefinedRangeAction);
+            expect(updatedState.awardAmounts).toEqual(new OrderedMap({
+                [predefinedAwardAmount]: expectedpredefinedAwardAmount
+            }));
+        });
+
+        it('should remove a predefined Award Amount ' +
+            'if a specific Award Amount is specified', () => {
+            const startingState = Object.assign({}, initialState, {
+                awardAmounts: new OrderedMap({
+                    [predefinedAwardAmount]: expectedpredefinedAwardAmount
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, specificRangeAction);
+            expect(updatedState.awardAmounts).toEqual(new OrderedMap({
+                specific: specificAwardAmount
+            }));
         });
     });
 

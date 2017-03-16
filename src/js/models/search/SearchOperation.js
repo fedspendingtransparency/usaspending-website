@@ -10,9 +10,13 @@ import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as LocationQuery from './queryBuilders/LocationQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
 import * as RecipientQuery from './queryBuilders/RecipientQuery';
+import * as KeywordQuery from './queryBuilders/KeywordQuery';
+import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
+import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
 
 class SearchOperation {
     constructor() {
+        this.keyword = '';
         this.awardType = [];
         this.timePeriodType = 'fy';
         this.timePeriodFY = [];
@@ -31,9 +35,13 @@ class SearchOperation {
         this.selectedRecipients = [];
         this.recipientDomesticForeign = 'all';
         this.selectedRecipientLocations = [];
+
+        this.selectedAwardIDs = [];
+        this.awardAmounts = [];
     }
 
     fromState(state) {
+        this.keyword = state.keyword;
         this.awardType = state.awardType.toArray();
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
@@ -49,6 +57,8 @@ class SearchOperation {
         this.selectedRecipients = state.selectedRecipients.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
         this.selectedRecipientLocations = state.selectedRecipientLocations.toArray();
+        this.selectedAwardIDs = state.selectedAwardIDs.toArray();
+        this.awardAmounts = state.awardAmounts.toArray();
     }
 
     commonParams() {
@@ -56,7 +66,12 @@ class SearchOperation {
         // data structures between Awards and Transactions
         const filters = [];
 
-        // add award types
+        // add keyword query
+        if (this.keyword !== '') {
+            filters.push(KeywordQuery.buildKeywordQuery(this.keyword));
+        }
+
+        // Add award types
         if (this.awardType.length > 0) {
             filters.push(AwardTypeQuery.buildQuery(this.awardType));
         }
@@ -70,7 +85,7 @@ class SearchOperation {
             filters.push(AwardTypeQuery.buildQuery(this.resultAwardType));
         }
 
-        // add location queries
+        // Add location queries
         if (this.selectedLocations.length > 0) {
             filters.push(LocationQuery.buildLocationQuery(this.selectedLocations));
         }
@@ -79,12 +94,12 @@ class SearchOperation {
             filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign));
         }
 
-        // add agency query
+        // Add agency query
         if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
             filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies, this.awardingAgencies));
         }
 
-        // add recipient queries
+        // Add recipient queries
         if (this.selectedRecipients.length > 0) {
             filters.push(RecipientQuery.buildRecipientQuery(this.selectedRecipients));
         }
@@ -105,7 +120,7 @@ class SearchOperation {
     uniqueParams() {
         const filters = [];
 
-        // add time period queries
+        // Add time period queries
         if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
             const timeQuery = TimePeriodQuery.buildQuery({
                 type: this.timePeriodType,
@@ -114,6 +129,22 @@ class SearchOperation {
             });
             if (timeQuery) {
                 filters.push(timeQuery);
+            }
+        }
+
+        // Add Award ID Queries
+        if (this.selectedAwardIDs.length > 0) {
+            filters.push(AwardIDQuery.buildAwardIDQuery(
+                this.selectedAwardIDs, 'awards')
+            );
+        }
+
+        // Add Award Amount queries
+        if (this.awardAmounts.length > 0) {
+            const awardAmountsQuery = AwardAmountQuery.buildAwardAmountQuery(
+                this.awardAmounts, 'awards');
+            if (awardAmountsQuery) {
+                filters.push(awardAmountsQuery);
             }
         }
 

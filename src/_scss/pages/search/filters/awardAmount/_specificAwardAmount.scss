@@ -1,0 +1,69 @@
+.specific-award-amount {
+    margin-top: 1.0rem;
+    margin-right: 3.0rem;
+
+    hr.specific-award-amount-divider {
+        border: none;
+        border-bottom: 1px solid $color-gray-lighter;
+        position: relative;
+        margin-bottom: 1.5rem;
+        width: 100%;
+        display: block;
+    }
+
+    .award-amount-item-wrapper label {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .specific-award-amount-wrapper {
+        @include usa-label;
+
+        font-size: $small-font-size;
+        line-height: $small-font-size;
+        padding: 0;
+        margin-top: 1.0rem;
+
+        span {
+            padding-right: 0.5rem;
+        }
+
+        @media only screen and (min-width:1342px) {
+            input {
+                margin-right: 0.5rem;
+                width: 27%;
+                padding: 1.1rem 0.8rem;
+                height: 4.0rem;
+            }
+
+            .award-amount-submit {
+                margin-right: 0;
+                width: auto;
+            }
+        }
+
+        @media only screen and (min-width:992px) and (max-width:1341px) {
+            input {
+                margin-right: 0.5rem;
+                width: 37%;
+                padding: 1.1rem 0.8rem;
+                height: 4.0rem;
+            }
+
+            .specific-award-min {
+                margin-right: 0.65rem;
+            }
+
+            .specific-award-max {
+                margin-left: 0.15rem;
+                margin-right: 0;
+            }
+
+            .award-amount-submit {
+                display: block;
+                width: 100%;
+                margin: 2.0rem 0 0 0;
+            }
+        }
+    }
+}

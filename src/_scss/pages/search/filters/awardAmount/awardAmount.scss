@@ -1,0 +1,8 @@
+.award-amount-filter {
+    ul.award-amounts {
+        @include unstyled-list;
+
+        @import "./_awardAmountItem";
+        @import "./_specificAwardAmount";
+    }
+}

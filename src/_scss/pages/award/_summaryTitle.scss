@@ -1,10 +1,15 @@
 .summary-title {
+    @include span-columns(16);
     font-size: 2.3em;
     line-height: 5rem;
     font-weight: 200;
     margin: 0;
+    padding: 0;
+    text-align: center;
 
-    @include media($nav-width) {
-        @include span-columns(7);
+    @include media($tablet-screen) {
+        @include span-columns(6);
+        text-align: left;
+        @include align-self(center);
     }
 }

@@ -13,22 +13,55 @@ const propTypes = {
 
 export default class ContractDetails extends React.Component {
 
-    render() {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            desc: "",
+            date: "",
+            place: "",
+            typeDesc: "",
+            price: ""
+        };
+
+        // bind functions
+        this.setValues = this.setValues.bind(this);
+    }
+
+    componentWillReceiveProps() {
+        this.setValues(this.props.selectedAward);
+    }
+
+    setValues(award) {
         let yearRangeTotal = "";
         let description = null;
-        const award = this.props.selectedAward;
 
         // Date Range
         const startDate = moment(award.period_of_performance_start_date, 'M/D/YYYY');
         const endDate = moment(award.period_of_performance_current_end_date, 'M/D/YYYY');
         const yearRange = endDate.diff(startDate, 'year');
-        if (yearRange !== 0) {
+        const monthRange = (endDate.diff(startDate, 'month') - (yearRange * 12));
+        if (yearRange !== 0 && !Number.isNaN(yearRange)) {
             if (yearRange === 1) {
-                yearRangeTotal = `${yearRange} year)`;
+                yearRangeTotal = `${yearRange} year`;
             }
             else {
-                yearRangeTotal = `(${yearRange} years)`;
+                yearRangeTotal = `${yearRange} years`;
             }
+        }
+        if (monthRange !== 0 && monthRange >= 1) {
+            if (yearRange === 0) {
+                yearRangeTotal = `${monthRange} months`;
+            }
+            if (monthRange === 1) {
+                yearRangeTotal += ` ${monthRange} month`;
+            }
+            else {
+                yearRangeTotal += ` ${monthRange} months`;
+            }
+        }
+        if (yearRangeTotal) {
+            yearRangeTotal = `(${yearRangeTotal})`;
         }
         const popDate = `${award.period_of_performance_start_date} -
             ${award.period_of_performance_current_end_date} ${yearRangeTotal}`;
@@ -67,6 +100,16 @@ export default class ContractDetails extends React.Component {
             pricing = award.type_of_contract_pricing_description;
         }
 
+        this.setState({
+            desc: description,
+            date: popDate,
+            place: popPlace,
+            typeDesc: award.type_description,
+            price: pricing
+        });
+    }
+
+    render() {
         return (
             <div className="contract-wrapper">
                 <div className="contract-details">
@@ -80,19 +123,19 @@ export default class ContractDetails extends React.Component {
                         <tbody>
                             <ContractCell
                                 title="Description"
-                                value={description} />
+                                value={this.state.desc} />
                             <ContractCell
                                 title="Period of Performance"
-                                value={popDate} />
+                                value={this.state.date} />
                             <ContractCell
                                 title="Primary Place of Performance"
-                                value={popPlace} />
+                                value={this.state.place} />
                             <ContractCell
                                 title="Contract Award Type"
-                                value={award.type_description} />
+                                value={this.state.typeDesc} />
                             <ContractCell
                                 title="Contract Pricing Type"
-                                value={pricing} />
+                                value={this.state.price} />
                         </tbody>
                     </table>
                 </div>

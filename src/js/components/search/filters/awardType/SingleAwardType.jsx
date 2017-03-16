@@ -13,7 +13,25 @@ const propTypes = {
     reduxFilters: React.PropTypes.object
 };
 
+const ga = require('react-ga');
+
 export default class SingleAwardType extends React.Component {
+    static logFilterEvent() {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Applied Filter',
+            label: 'Award Type'
+        });
+    }
+
+    static logSingleTypeFilterEvent(type) {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Selected Award Type',
+            label: type
+        });
+    }
+
     constructor(props) {
         super(props);
         // bind functions
@@ -22,6 +40,8 @@ export default class SingleAwardType extends React.Component {
     toggleFilter() {
         // indicate to Redux that this field needs to toggle
         this.props.toggleAwardType(this.props.code);
+        // Analytics
+        SingleAwardType.logSingleTypeFilterEvent(this.props.name);
     }
     render() {
         const checked = this.props.reduxFilters.includes(this.props.code);

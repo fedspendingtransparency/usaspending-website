@@ -1,14 +1,14 @@
 .agency-info {
-    display: table;
     @include span-columns(16);
     background-color: $color-blue-background;
     padding: 2.4rem 1rem 5rem 3rem;
     .agency-select {
+        //@import '../../elements/_titleSelector';
         border-bottom: 1px solid;
         width: 25.6rem;
         select {
             font-size: $h4-font-size;
-            font-weight: 300;
+            font-weight: $font-semibold;
             border: none;
             background-color: $color-blue-background;
         }
@@ -17,24 +17,27 @@
         font-size: $h6-font-size;
         font-weight: $font-semibold;
         color: $color-primary-alt-darkest;
-        margin: 1rem 0 1rem 1rem;
+        margin: 1rem 0 1rem 0;
     }
     ul.agency-subtiers {
         @include unstyled-list;
-        display: table-cell;
         text-align: left;
-        padding-left: 1rem;
+        padding-left: rem(1);
         li {
             display: inline-block;
             font-size: $small-font-size;
             &:last-child {
-                margin-left: 50px;
+                margin-left: rem(50);
             }
             &:only-child {
                 margin-left: 0;
             }
             .title {
                 font-weight: bold;
+            }
+            .item-label {
+                color: #525252;
+                font-weight: $font-semibold;
             }
             .name {
                 color: $color-primary-alt-darkest;
