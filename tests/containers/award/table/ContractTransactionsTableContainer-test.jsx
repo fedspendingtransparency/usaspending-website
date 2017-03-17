@@ -1,5 +1,5 @@
 /**
- * AssistanceTransactionsTableContainer-test.jsx
+ * ContractTransactionsTableContainer-test.jsx
  * Created by Kevin Li 3/16/17
  */
 
@@ -7,18 +7,18 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
-import { AssistanceTransactionsTableContainer } from
-    'containers/award/table/AssistanceTransactionsTableContainer';
+import { ContractTransactionsTableContainer } from
+    'containers/award/table/ContractTransactionsTableContainer';
 import * as awardActions from 'redux/actions/award/awardActions';
 import * as SearchHelper from 'helpers/searchHelper';
 
-import AssistanceTransaction from 'models/results/transactions/AssistanceTransaction';
+import ContractTransaction from 'models/results/transactions/ContractTransaction';
 
 import { mockAward } from '../mockAward';
-import mockGrantTransaction from './mockGrantTransaction';
+import mockContractTransaction from './mockContractTransaction';
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/award/table/AssistanceTransactionsTable', () =>
+jest.mock('components/award/table/ContractTransactionsTable', () =>
     jest.fn(() => null));
 
 // force Jest to use native Node promises
@@ -64,13 +64,13 @@ const unmockSearchHelper = () => {
     jest.unmock('helpers/searchHelper');
 };
 
-const loadDataSpy = sinon.spy(AssistanceTransactionsTableContainer.prototype, 'fetchTransactions');
+const loadDataSpy = sinon.spy(ContractTransactionsTableContainer.prototype, 'fetchTransactions');
 
-describe('AssistanceTransactionsTableContainer', () => {
+describe('ContractTransactionsTableContainer', () => {
     it('should perform an API request on mount', () => {
-        mockSearchHelper('fetchAwardTransaction', 'resolve', mockGrantTransaction);
+        mockSearchHelper('fetchAwardTransaction', 'resolve', mockContractTransaction);
 
-        mount(<AssistanceTransactionsTableContainer
+        mount(<ContractTransactionsTableContainer
             {...mockActions}
             award={mockAward} />);
 
@@ -82,9 +82,9 @@ describe('AssistanceTransactionsTableContainer', () => {
     });
 
     it('should perform an API request when the award ID changes', () => {
-        mockSearchHelper('fetchAwardTransaction', 'resolve', mockGrantTransaction);
+        mockSearchHelper('fetchAwardTransaction', 'resolve', mockContractTransaction);
 
-        const container = mount(<AssistanceTransactionsTableContainer
+        const container = mount(<ContractTransactionsTableContainer
             {...mockActions}
             award={mockAward} />);
 
@@ -108,8 +108,8 @@ describe('AssistanceTransactionsTableContainer', () => {
     });
 
     describe('parseTransactions', () => {
-        it('should correctly parse API data into AssistanceTransaction objects', () => {
-            const expected = new AssistanceTransaction(mockGrantTransaction.results[0]);
+        it('should correctly parse API data into ContractTransaction objects', () => {
+            const expected = new ContractTransaction(mockContractTransaction.results[0]);
             delete expected._jsid;
 
             const setAwardTransactions = jest.fn((args) => {
@@ -124,19 +124,19 @@ describe('AssistanceTransactionsTableContainer', () => {
             delete mockActions.setAwardTransactions;
             delete mockActions.appendAwardTransactions;
 
-            const container = shallow(<AssistanceTransactionsTableContainer
+            const container = shallow(<ContractTransactionsTableContainer
                 {...customActions}
                 award={mockAward}
                 setAwardTransactions={setAwardTransactions}
                 appendAwardTransactions={appendAwardTransactions} />);
 
-            container.instance().parseTransactions(mockGrantTransaction, true);
+            container.instance().parseTransactions(mockContractTransaction, true);
             expect(appendAwardTransactions).not.toHaveBeenCalled();
             expect(setAwardTransactions).toHaveBeenCalled();
         });
 
         it('should append AssistanceTransaction objects when the reset flag is false', () => {
-            const expected = new AssistanceTransaction(mockGrantTransaction.results[0]);
+            const expected = new ContractTransaction(mockContractTransaction.results[0]);
             delete expected._jsid;
 
             const setAwardTransactions = jest.fn();
@@ -146,13 +146,13 @@ describe('AssistanceTransactionsTableContainer', () => {
             delete mockActions.setAwardTransactions;
             delete mockActions.appendAwardTransactions;
 
-            const container = shallow(<AssistanceTransactionsTableContainer
+            const container = shallow(<ContractTransactionsTableContainer
                 {...customActions}
                 award={mockAward}
                 setAwardTransactions={setAwardTransactions}
                 appendAwardTransactions={appendAwardTransactions} />);
 
-            container.instance().parseTransactions(mockGrantTransaction, false);
+            container.instance().parseTransactions(mockContractTransaction, false);
             expect(appendAwardTransactions).toHaveBeenCalled();
             expect(setAwardTransactions).not.toHaveBeenCalled();
         });
@@ -162,7 +162,7 @@ describe('AssistanceTransactionsTableContainer', () => {
         it('should increment the page number when there are more pages available', () => {
             loadDataSpy.reset();
 
-            mockSearchHelper('fetchAwardTransaction', 'resolve', mockGrantTransaction);
+            mockSearchHelper('fetchAwardTransaction', 'resolve', mockContractTransaction);
 
             const modifiedProps = Object.assign({}, mockAward, {
                 transactionMeta: {
@@ -172,7 +172,7 @@ describe('AssistanceTransactionsTableContainer', () => {
                 }
             });
 
-            const container = shallow(<AssistanceTransactionsTableContainer
+            const container = shallow(<ContractTransactionsTableContainer
                 {...mockActions}
                 award={modifiedProps} />);
 
@@ -181,7 +181,7 @@ describe('AssistanceTransactionsTableContainer', () => {
             loadDataSpy.reset();
         });
         it('should do nothing when there are no more pages to load', () => {
-            mockSearchHelper('fetchAwardTransaction', 'resolve', mockGrantTransaction);
+            mockSearchHelper('fetchAwardTransaction', 'resolve', mockContractTransaction);
 
             const modifiedProps = Object.assign({}, mockAward, {
                 transactionMeta: {
@@ -191,7 +191,7 @@ describe('AssistanceTransactionsTableContainer', () => {
                 }
             });
 
-            const container = shallow(<AssistanceTransactionsTableContainer
+            const container = shallow(<ContractTransactionsTableContainer
                 {...mockActions}
                 award={modifiedProps} />);
 
@@ -210,7 +210,7 @@ describe('AssistanceTransactionsTableContainer', () => {
                 }
             });
 
-            const container = shallow(<AssistanceTransactionsTableContainer
+            const container = shallow(<ContractTransactionsTableContainer
                 {...mockActions}
                 award={modifiedProps} />);
             const output = container.instance().formatSort();
@@ -226,7 +226,7 @@ describe('AssistanceTransactionsTableContainer', () => {
                 }
             });
 
-            const container = shallow(<AssistanceTransactionsTableContainer
+            const container = shallow(<ContractTransactionsTableContainer
                 {...mockActions}
                 award={modifiedProps} />);
             const output = container.instance().formatSort();
