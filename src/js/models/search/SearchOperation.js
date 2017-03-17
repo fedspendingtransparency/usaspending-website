@@ -114,13 +114,6 @@ class SearchOperation {
             );
         }
 
-        // Add Award ID Queries
-        if (this.selectedAwardIDs.length > 0) {
-            filters.push(AwardIDQuery.buildAwardIDQuery(
-                this.selectedAwardIDs)
-            );
-        }
-
         return filters;
     }
 
@@ -137,6 +130,13 @@ class SearchOperation {
             if (timeQuery) {
                 filters.push(timeQuery);
             }
+        }
+
+        // Add Award ID Queries
+        if (this.selectedAwardIDs.length > 0) {
+            filters.push(AwardIDQuery.buildAwardIDQuery(
+                this.selectedAwardIDs, 'awards')
+            );
         }
 
         // Add Award Amount queries

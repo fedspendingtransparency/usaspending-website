@@ -76,18 +76,22 @@ export default class SpecificAwardAmountItem extends React.Component {
                     <span>$</span>
                     <input
                         placeholder="Min"
+                        className="specific-award-min"
                         ref={(input) => {
                             this.minValue = input;
                         }} />
                     <span>to $</span>
                     <input
                         placeholder="Max"
+                        className="specific-award-max"
                         ref={(input) => {
                             this.maxValue = input;
                         }} />
-                    <button
-                        type="button"
-                        onClick={this.searchSpecificRange.bind(this)}>{`>>`}</button>
+                    <input
+                        type="submit"
+                        value="Submit"
+                        className="award-amount-submit"
+                        onClick={this.searchSpecificRange.bind(this)} />
                 </div>
             </div>
         );
