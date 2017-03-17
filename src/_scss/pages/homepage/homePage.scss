@@ -1,5 +1,5 @@
 .usa-da-home-page {
     @import "../../layouts/default/default";
     @include defaultLayout;
-
-}
+    @import "./landingSection";
+} 

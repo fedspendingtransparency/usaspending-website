@@ -96,6 +96,7 @@
   },
   "dependencies": {
     "accounting": "^0.4.1",
+    "autoprefixer": "^6.7.7",
     "axios": "^0.15.2",
     "babel-polyfill": "^6.20.0",
     "d3-array": "^1.0.2",

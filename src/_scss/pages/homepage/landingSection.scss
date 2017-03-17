@@ -1,0 +1,7 @@
+.landingSectionWrap {
+    display: block;
+    min-height: rem(700);
+    background: url(../img/landing_bg_img.jpg) no-repeat center center fixed;
+    @include display(flex);
+    background-size: cover; 
+}
