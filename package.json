@@ -51,7 +51,7 @@
     "eslint": "3.17.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-jasmine": "^2.2.0",
-    "eslint-plugin-react": "^6.7.1",
+    "eslint-plugin-react": "6.10.0",
     "eventemitter2": "^1.0.3",
     "express": "^4.13.3",
     "gulp": "^3.9.0",
