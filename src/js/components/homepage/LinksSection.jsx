@@ -19,28 +19,24 @@ export default class LinksSection extends React.Component {
                 <div className="links-section-box-wrap">
                     <LinksSectionBox
                         icon="recipient"
-                        text="Get insights into specific recipients." 
-                        linkText="Find a recipient" 
-                        linkUrl="http://google.com" 
-                    />
+                        text="Get insights into specific recipients."
+                        linkText="Find a recipient"
+                        linkUrl="http://google.com" />
                     <LinksSectionBox
-                        icon="federalAccount" 
+                        icon="federalAccount"
                         text="See how spending is disbursed."
-                        linkText="Find a Federal account" 
-                        linkUrl="http://google.com"
-                    />
+                        linkText="Find a Federal account"
+                        linkUrl="http://google.com" />
                     <LinksSectionBox
-                        icon="api" 
-                        text="Plug directly into our data." 
-                        linkText="View the documentation" 
-                        linkUrl="http://google.com"
-                    />
+                        icon="api"
+                        text="Plug directly into our data."
+                        linkText="View the documentation"
+                        linkUrl="http://google.com" />
                     <LinksSectionBox
-                        icon="resources" 
+                        icon="resources"
                         text="Learn more about the data."
-                        linkText="Visit our 'About' page" 
-                        linkUrl="http://google.com"
-                    />
+                        linkText="Visit our 'About' page"
+                        linkUrl="http://google.com" />
                 </div>
             </div>
         );

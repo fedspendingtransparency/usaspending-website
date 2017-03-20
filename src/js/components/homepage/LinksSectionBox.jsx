@@ -33,6 +33,9 @@ export default class LinksSectionBox extends React.Component {
             case 'resources':
                 icon = (<HomeIcons.LearnQ className="usa-da-learn-question" />);
                 break;
+            default:
+                icon = '';
+                break;
         }
 
         return (
