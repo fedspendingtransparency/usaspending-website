@@ -4,7 +4,7 @@
   **/
 
 import React from 'react';
-
+import Landing from 'components/homepage/Landing';
 import TreeMap from 'components/homepage/TreeMap';
 import Header from '../../components/sharedComponents/header/Header';
 import Footer from '../../components/sharedComponents/Footer';
@@ -49,6 +49,7 @@ export default class HomepageContainer extends React.Component {
         return (
             <div className="usa-da-home-page">
                 <Header />
+                <Landing />
                 <TreeMap
                     budgetCategories={this.state.budgetCategories} />
                 <Footer />
