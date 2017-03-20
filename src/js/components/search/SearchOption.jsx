@@ -5,20 +5,14 @@
 
 import React from 'react';
 
-import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
-import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
-import AgencyContainer from 'containers/search/filters/AgencyContainer';
-import LocationSearchContainer from 'containers/search/filters/location/LocationSearchContainer';
-import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
-import KeywordContainer from 'containers/search/filters/KeywordContainer';
-import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
-import AwardAmountSearchContainer from 'containers/search/filters/awardAmount/AwardAmountSearchContainer';
 
 import FilterExpandButton from './FilterExpandButton';
 
 const propTypes = {
-    name: React.PropTypes.string
+    name: React.PropTypes.string,
+    component: React.PropTypes.func,
+    disabled: React.PropTypes.bool
 };
 
 const ga = require('react-ga');
@@ -67,36 +61,15 @@ export default class SearchOption extends React.Component {
         let comingSoon = null;
         let searchOption = null;
         let statusClass = '';
-        switch (this.props.name) {
-            case 'Search':
-                searchOption = (<KeywordContainer />);
-                break;
-            case 'Award Type':
-                searchOption = (<AwardTypeContainer />);
-                break;
-            case 'Time Period':
-                searchOption = (<TimePeriodContainer />);
-                break;
-            case 'Agencies':
-                searchOption = (<AgencyContainer />);
-                break;
-            case 'Place of Performance':
-                searchOption = (<LocationSearchContainer />);
-                break;
-            case 'Recipients':
-                searchOption = (<RecipientSearchContainer />);
-                break;
-            case 'Award ID':
-                searchOption = (<AwardIDSearchContainer />);
-                break;
-            case 'Award Amount':
-                searchOption = (<AwardAmountSearchContainer />);
-                break;
-            default:
-                disabledStatus = true;
-                comingSoon = comingSoonModule;
-                searchOption = null;
-                statusClass = ' coming-soon';
+        if (this.props.disabled) {
+            disabledStatus = true;
+            comingSoon = comingSoonModule;
+            searchOption = null;
+            statusClass = ' coming-soon';
+        }
+        else {
+            const Component = this.props.component;
+            searchOption = <Component />;
         }
 
         if (this.state.showFilter !== true) {
