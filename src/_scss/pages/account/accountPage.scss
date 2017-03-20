@@ -1,0 +1,8 @@
+.usa-da-account-page {
+    @import "../../layouts/search/search";
+    @include searchLayout;
+
+    @include span-columns(16);
+
+    @import "./header/header";
+}

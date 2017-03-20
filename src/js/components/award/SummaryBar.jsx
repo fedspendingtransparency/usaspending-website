@@ -7,8 +7,8 @@ import React from 'react';
 import moment from 'moment';
 import _ from 'lodash';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import * as Icons from '../sharedComponents/icons/Icons';
 import InfoSnippet from './InfoSnippet';
+import MoreHeaderOptions from './MoreHeaderOptions';
 
 const propTypes = {
     selectedAward: React.PropTypes.object
@@ -95,9 +95,9 @@ export default class SummaryBar extends React.Component {
                     value={this.state.parent} />);
         }
         return (
-            <div className="usa-da-summary-bar">
-                <div className="summary-bar-wrap">
-                    <h1 className="summary-title">{this.state.type}
+            <div className="page-title-bar">
+                <div className="page-title-bar-wrap">
+                    <h1 className="page-title">{this.state.type}
                         &nbsp;Summary</h1>
                     <div className="summary-status">
                         <ul className="summary-status-items">
@@ -109,9 +109,7 @@ export default class SummaryBar extends React.Component {
                                 label="Status"
                                 value={this.state.status} />
                         </ul>
-                        <div className="more-options">
-                            <Icons.MoreOptions />
-                        </div>
+                        <MoreHeaderOptions />
                     </div>
                 </div>
             </div>

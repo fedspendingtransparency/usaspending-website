@@ -59,6 +59,14 @@ const routeDefinitions = {
             }
         },
         {
+            path: 'account/:accountId',
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../account/AccountContainer').default);
+                });
+            }
+        },
+        {
             path: 'style',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
