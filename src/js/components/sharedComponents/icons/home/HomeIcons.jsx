@@ -20,26 +20,26 @@ export class BuildingMag extends HomeBaseIcon {}
 BuildingMag.defaultProps = {
     iconName: 'usa-da-building-mag',
     iconClass: 'usa-da-building-mag',
-    alt: 'Magnifying Glass Inspecting a Building' 
+    alt: 'Magnifying Glass Inspecting a Building'
 };
 
 export class TreemapMag extends HomeBaseIcon {}
 TreemapMag.defaultProps = {
     iconName: 'usa-da-treemap-mag',
     iconClass: 'usa-da-treemap-mag',
-    alt: 'Magnifying Glass Inspecting a Treemap' 
+    alt: 'Magnifying Glass Inspecting a Treemap'
 };
 
 export class ApiPlug extends HomeBaseIcon {}
 ApiPlug.defaultProps = {
     iconName: 'usa-da-api-plug',
     iconClass: 'usa-da-api-plug',
-    alt: 'Plugin to our API' 
+    alt: 'Plugin to our API'
 };
 
 export class LearnQ extends HomeBaseIcon {}
 LearnQ.defaultProps = {
     iconName: 'usa-da-learn-question',
     iconClass: 'usa-da-learn-question',
-    alt: 'Learn About USASpending.gov' 
+    alt: 'Learn About USASpending.gov'
 };
