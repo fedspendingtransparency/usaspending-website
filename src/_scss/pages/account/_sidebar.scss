@@ -1,0 +1,12 @@
+.filter-tas {
+    @include span-columns(16);
+
+    @import "../search/searchSidebar";
+    
+    .search-sidebar {
+        display:none;
+        @include media($medium-screen){
+            @include span-columns(4);
+        }
+    }
+}

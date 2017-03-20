@@ -12,5 +12,7 @@
 
         padding: 3rem;
         @import "./overview/overview";
+
+        @import "./_sidebar";
     }
 }

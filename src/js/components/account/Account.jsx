@@ -10,6 +10,7 @@ import Footer from '../sharedComponents/Footer';
 
 import AccountHeader from './AccountHeader';
 import AccountOverview from './AccountOverview';
+import SearchSidebar from './SearchSidebar';
 
 const propTypes = {
     account: React.PropTypes.object
@@ -27,6 +28,9 @@ export default class Account extends React.Component {
 
                     <AccountOverview account={this.props.account} />
 
+                    <div className="filter-tas">
+                        <SearchSidebar />
+                    </div>
                 </main>
                 <Footer />
             </div>
