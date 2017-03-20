@@ -9,9 +9,10 @@ import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 
 import AccountHeader from './AccountHeader';
+import AccountOverview from './AccountOverview';
 
 const propTypes = {
-
+    account: React.PropTypes.object
 };
 
 export default class Account extends React.Component {
@@ -19,10 +20,13 @@ export default class Account extends React.Component {
         return (
             <div className="usa-da-account-page">
                 <Header />
-                <main id="main-content">
-                    <div className="account-contents">
-                        <AccountHeader />
-                    </div>
+                <AccountHeader account={this.props.account} />
+                <main
+                    id="main-content"
+                    className="main-content">
+
+                    <AccountOverview account={this.props.account} />
+
                 </main>
                 <Footer />
             </div>

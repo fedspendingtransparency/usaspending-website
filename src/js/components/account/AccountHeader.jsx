@@ -8,11 +8,14 @@ import InfoSnippet from '../award/InfoSnippet';
 import MoreHeaderOptions from '../award/MoreHeaderOptions';
 
 const propTypes = {
-
+    account: React.PropTypes.object
 };
 
 export default class AccountHeader extends React.Component {
     render() {
+        const accountSymbol =
+            `${this.props.account.agency_id}-${this.props.account.main_account_code}`;
+
         return (
             <div className="page-title-bar">
                 <div className="page-title-bar-wrap">
@@ -23,7 +26,7 @@ export default class AccountHeader extends React.Component {
                         <ul className="account-items">
                             <InfoSnippet
                                 label="Federal Account Symbol"
-                                value="1234" />
+                                value={accountSymbol} />
                         </ul>
                         <MoreHeaderOptions />
                     </div>

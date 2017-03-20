@@ -2,7 +2,15 @@
     @import "../../layouts/search/search";
     @include searchLayout;
 
-    @include span-columns(16);
+    $color-gray-border: #D8D8D8;
+    $color-blue-background: #F5FBFC;
 
     @import "./header/header";
+
+    .main-content {
+        @include outer-container();
+
+        padding: 3rem;
+        @import "./overview/overview";
+    }
 }

@@ -1,0 +1,22 @@
+@import "../default/default";
+@mixin summaryLayout {
+    @include defaultLayout;
+    .main-content {
+        @include outer-container(100%);
+        padding: 0;
+        background-color: $color-white;
+        box-shadow: $container-shadow;
+        color: $color-base;
+        border-top: 1px solid $color-gray-border;
+        border-right: 1px solid $color-gray-border;
+        border-bottom: 1px solid $color-gray-border;
+        margin: rem(30) $outer-gutter/2;
+        @include media($large-screen) {
+            margin: rem(30) $outer-gutter;
+        }
+        @include media($x-large-screen) {
+            max-width: $site-max-width;
+            margin: rem(30) auto;
+        }
+    }
+}
