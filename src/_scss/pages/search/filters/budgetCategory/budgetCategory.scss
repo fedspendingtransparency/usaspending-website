@@ -1,0 +1,7 @@
+.budget-category-filter {
+    ul.object-classes {
+        @include unstyled-list;
+
+        @import "./_ObjectClassItem";
+    }
+}

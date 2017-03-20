@@ -15,6 +15,7 @@ import agencyReducer from './search/agencyReducer';
 import recipientReducer from './search/recipientReducer';
 import awardReducer from './award/awardReducer';
 import awardIDReducer from './search/awardIDReducer';
+import budgetCategoryReducer from './search/budgetCategoryReducer';
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
@@ -26,7 +27,8 @@ const appReducer = combineReducers({
     autocompleteAgencies: agencyReducer,
     autocompleteRecipients: recipientReducer,
     award: awardReducer,
-    autocompleteAwardIDs: awardIDReducer
+    autocompleteAwardIDs: awardIDReducer,
+    budgetCategories: budgetCategoryReducer
 });
 
 export default appReducer;

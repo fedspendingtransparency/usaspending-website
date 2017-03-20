@@ -62,6 +62,39 @@ export const fetchLocations = (req) => {
     };
 };
 
+// Budget Category autocomplete searches
+export const fetchBudgetFunctions = (req) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            // url: 'references/agency/autocomplete/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: req,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const fetchFederalAccounts = (req) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            // url: 'references/agency/autocomplete/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: req,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 // Agency search for autocomplete
 export const fetchAgencies = (req) => {
     const source = CancelToken.source();
