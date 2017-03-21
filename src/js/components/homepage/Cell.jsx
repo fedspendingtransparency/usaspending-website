@@ -54,7 +54,7 @@ export default class Cell extends React.Component {
                     className="category"
                     x={((n.x1 - n.x0) / 2) - 30}
                     y={(n.y1 - n.y0) / 2}>
-                    {this.wrap(n.data.name)}
+                    {n.data.name}
                 </text>
                 <text
                     className="value"
