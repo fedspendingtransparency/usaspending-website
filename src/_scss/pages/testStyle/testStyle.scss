@@ -1,5 +1,6 @@
 .usa-da-test-page {
     @import "../../layouts/search/search";
+    @import "../../mixins/elementContainerWrap";
     @include searchLayout;
     @include span-columns(16);
     .page-content {
@@ -8,34 +9,56 @@
         @include media($large-screen) {
             margin: 0px $outer-gutter;
         }
-        .icon-list {
-            @include unstyled-list();
-            @include span-columns(16);
-            li {
-                border: 1px solid #ccc;
-                margin: 0 200px 20px 0;
-                padding: 20px;
-                height: 115px;
-                @include media($small-screen) {
+        .page-wrapper {
+            @include elementContainerWrap();
+            & .component-wrap {
+                @include row();
+                border: 1px solid #ececec;
+                margin-bottom: rem(10);
+                & .component-item {
                     @include span-columns(16);
+                    background: #f1f1f1;
+                    padding: rem(20);
+                    @include media($tablet-screen) {
+                        @include span-columns(10);
+                    }
                 }
-                @include media($tablet-screen) {
-                    @include span-columns(5);
-                }
-                @include media($medium-screen) {
-                    @include span-columns(3);
+                & .component-code {
+                    @include span-columns(16);
+                    padding: rem(20);
+                    @include media($tablet-screen) {
+                        @include span-columns(6);
+                    }
+                    @import "codeBlock";
                 }
             }
-            .icon-svg {
-                text-align: center;
-                svg {
-                    fill: $color-primary;
-                    height: 45px;
-                    width: 45px;
+            .icon-list {
+                @include unstyled-list();
+                @include span-columns(16);
+                li {
+                    border: 1px solid #ccc;
+                    margin: 0 0 20px 0;
+                    padding: 20px;
+                    height: 115px;
+                    @include media($small-screen) {
+                        @include span-columns(16);
+                    }
+                    @include media($tablet-screen) {
+                        @include span-columns(4);
+                        @include omega(4n);
+                    }
                 }
-            }
-            .icon-label {
-                text-align: center;
+                .icon-svg {
+                    text-align: center;
+                    svg {
+                        fill: $color-primary;
+                        height: 45px;
+                        width: 45px;
+                    }
+                }
+                .icon-label {
+                    text-align: center;
+                }
             }
         }
     }

@@ -1,0 +1,24 @@
+@import "./linksSectionBox";
+
+@mixin linksSection {
+	.links-section-wrap {
+		background-color: $color-primary-darkest;
+		padding-bottom: rem(100);
+		padding-top: rem(50);
+		text-align: center;
+		@include clearfix;
+		.links-section-primary-title {
+			color: $color-gray-lightest;
+			display: block;
+			float: none;
+			font-size: rem(20);
+		}
+		.links-section-box-wrap {
+			margin-top: rem(15);
+			text-align: center;
+			@include span-columns(8);
+			@include shift(4);
+			@include linksSectionBox;
+		}
+	}
+}

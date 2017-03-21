@@ -1,0 +1,12 @@
+pre,
+code {
+    font-size: 90%;
+    line-height: 140%;
+    white-space: pre;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    & code {
+        background: #faf8f0;
+    }
+}
