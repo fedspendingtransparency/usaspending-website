@@ -1,0 +1,16 @@
+@import "./_sidebar";
+
+.search-results {
+    background-color: $color-white;
+    box-shadow: $container-shadow;
+
+    padding: 3rem;
+
+    h3 {
+        margin: 0;
+        color: $color-gray;
+    }
+
+    @import "elements/_divider";
+    @import "./visualizations/visualizations";
+}

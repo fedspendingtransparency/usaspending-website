@@ -1,9 +1,7 @@
 .results-visualization-time-section {
-    padding: 3rem 3.5rem;
-
-    @import "./chart/barChart";
-
+    
     @import "./_topSection";
+    @import "./chart/barChart";
 
     .visualization-tooltip {
         @import "components/visualizations/tooltip/_tooltip";

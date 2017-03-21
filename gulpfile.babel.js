@@ -208,6 +208,10 @@ gulp.task('copyAssets', ['copyConstants'], () => {
 // build the SASS
 gulp.task('sass', ['copyAssets'], () => {
 
+    const sassConfig = {
+        includePaths: './src/_scss'
+    };
+
     if (environment == environmentTypes.DEVLOCAL) {
         // set up a watcher for future SASS changes
         gulp.watch(['src/css/**/*.scss', 'src/_scss/**/*.scss'])
@@ -215,7 +219,7 @@ gulp.task('sass', ['copyAssets'], () => {
                 gutil.log(chalk.green('Starting SASS recompile...'));
                 return gulp.src('./src/css/**/*.scss')
                     .pipe(sourcemaps.init())
-                    .pipe(sass.sync().on('error', sass.logError))
+                    .pipe(sass.sync(sassConfig).on('error', sass.logError))
                     .pipe(sourcemaps.write())
                     .pipe(gulp.dest('./public/css'))
                     // auto reload the browser
@@ -228,7 +232,7 @@ gulp.task('sass', ['copyAssets'], () => {
 
     // compile SASS files
     return gulp.src('src/css/**/*.scss')
-        .pipe(sass.sync().on('error', sass.logError))
+        .pipe(sass.sync(sassConfig).on('error', sass.logError))
         // add in the commit hash and timestamp header
         .pipe(header('/* Build ' + commitHash  + '\n' + currentTime + ' */\n\n'))
         // .pipe(gulpif(minified, cssNano()))

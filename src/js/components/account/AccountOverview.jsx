@@ -97,6 +97,9 @@ ${authority} has been obligated.`
 
                 <h3>Fiscal Year Snapshot</h3>
                 <hr className="results-divider" />
+                <div className="sankey-placeholder">
+                    Coming Soon
+                </div>
             </div>
         );
     }

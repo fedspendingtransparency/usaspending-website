@@ -1,5 +1,5 @@
 .usa-da-account-page {
-    @import "../../layouts/search/search";
+    @import "layouts/search/search";
     @include searchLayout;
 
     $color-gray-border: #D8D8D8;
@@ -13,6 +13,6 @@
         padding: 3rem;
         @import "./overview/overview";
 
-        @import "./_sidebar";
+        @import "./results/searchResults";
     }
 }

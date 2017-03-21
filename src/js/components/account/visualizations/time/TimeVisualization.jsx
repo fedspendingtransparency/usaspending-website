@@ -1,13 +1,12 @@
 /**
  * TimeVisualization.jsx
- * Created by Kevin Li 12/16/16
+ * Created by Kevin Li 3/21/17
  */
 
 import React from 'react';
 
-import BarChart from './chart/BarChart';
-import Tooltip from './TimeVisualizationTooltip';
-import ChartMessage from './TimeVisualizationChartMessage';
+import ChartMessage from 'components/search/visualizations/time/TimeVisualizationChartMessage';
+import BarChartStacked from './chart/BarChartStacked';
 
 const defaultProps = {
     groups: [],
@@ -17,9 +16,19 @@ const defaultProps = {
     height: 280,
     legend: [
         {
-            color: '#708893',
-            label: 'Amount Obligated',
+            color: '#083546',
+            label: 'Outlay',
             offset: 0
+        },
+        {
+            color: '#335565',
+            label: 'Obligated Balance',
+            offset: 84
+        },
+        {
+            color: '#7F9BA7',
+            label: 'Unobligated Balance',
+            offset: 226
         }
     ]
 };
@@ -59,22 +68,14 @@ export default class TimeVisualization extends React.Component {
     }
 
     showTooltip(data, x, y) {
-        this.setState({
-            tooltipData: data,
-            tooltipX: x,
-            tooltipY: y
-        });
+        // this.setState({
+        //     tooltipData: data,
+        //     tooltipX: x,
+        //     tooltipY: y
+        // });
     }
 
     render() {
-        let tooltip = null;
-        if (this.state.tooltipData) {
-            tooltip = (<Tooltip
-                data={this.state.tooltipData}
-                x={this.state.tooltipX}
-                y={this.state.tooltipY} />);
-        }
-
         let chart = (<ChartMessage message="No data to display" />);
         if (this.props.loading) {
             // API request is still pending
@@ -82,15 +83,15 @@ export default class TimeVisualization extends React.Component {
         }
         else if (this.props.groups.length > 0) {
             // only mount the chart component if there is data to display
-            chart = (<BarChart
+            chart = (<BarChartStacked
                 {...this.props}
+                enableHighlight={false}
                 showTooltip={this.showTooltip} />);
         }
 
         return (
             <div className="results-visualization-time-container">
                 {chart}
-                {tooltip}
             </div>
         );
     }

@@ -1,5 +1,5 @@
 /**
- * BarChart.jsx
+ * BarChartStacked.jsx
  * Created by Kevin Li 12/16/16
  */
 
@@ -9,10 +9,10 @@ import _ from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import BarItem from './BarItem';
-import BarXAxis from './BarXAxis';
-import BarYAxis from './BarYAxis';
-import BarChartLegend from './BarChartLegend';
+import BarItem from 'components/search/visualizations/time/chart/BarItem';
+import BarXAxis from 'components/search/visualizations/time/chart/BarXAxis';
+import BarYAxis from 'components/search/visualizations/time/chart/BarYAxis';
+import BarChartLegend from 'components/search/visualizations/time/chart/BarChartLegend';
 
 /* eslint-disable react/no-unused-prop-types */
 // we're catching the props before they're fully set, so eslint thinks these props are unused
@@ -172,55 +172,69 @@ export default class BarChart extends React.Component {
             const startingXPos = xScale(group) + 20;
 
             // iterate through the group data points and insert them into the chart
-            yData.forEach((item, i) => {
+            yData.forEach((stack, stackIndex) => {
+                // within each X axis grouping of Y data elements is yet another group of Y data values
+                // but these are stacked on top of each other
+                
                 // the X position is the group's starting X positioning plus the previous group
                 // bar widths
-                const xPos = startingXPos + (i * itemWidth);
-                // SVG starts drawing at the top and goes down the specified height, so for positive
-                // bars, the yPos should be the top of the bar (for positive values).
-                // The yScale() function returns the number of px the input value is from the
-                // bottom of the Y axis. So for positive values, we can calculate the bar height by
-                // substracting the distance 0 is from the bottom of the chart (yScale(0)) from
-                // the yScale(item) value, (which represents the total height from the bottom of the
-                // Y-axis to the data point). This gives us the height from the X-axis to the
-                // positive data point.
-                let barHeight = yScale(item) - yScale(0);
-                // The top of the chart in SVG coordinates is (0,0), the bottom is (0,chart height).
-                // Start at the bottom of the chart, go up to the X axis, and then keep going up
-                // the expected bar height. This way, the bottom of the rect will always be the
-                // X-axis.
-                let yPos = graphHeight - yScale(0) - barHeight;
+                const xPos = startingXPos + (stackIndex * itemWidth);
 
-                if (item < 0) {
-                    // slightly different calculation for negative values
-                    // the top of the bar is always the X-axis
-                    yPos = graphHeight - yScale(0);
-                    // the bar height is the remaining distance to the yScale() position
-                    barHeight = yScale(0) - yScale(item);
-                }
+                // iterate through each stacked item
+                stack.forEach((item, i) => {
+                    // SVG starts drawing at the top and goes down the specified height, so for
+                    // positive bars, the yPos should be the top of the bar (for positive values).
+                    // The yScale() function returns the number of px the input value is from the
+                    // bottom of the Y axis. So for positive values, we can calculate the bar height
+                    // by substracting the distance 0 is from the bottom of the chart (yScale(0))
+                    // from the yScale(item) value, (which represents the total height from the
+                    // bottom of the Y-axis to the data point). This gives us the height from the
+                    // X-axis to the positive data point.
+                    let barHeight = yScale(item) - yScale(0);
+                    // The top of the chart in SVG coordinates is (0,0), the bottom is (0,chart
+                    // height).
+                    // Start at the bottom of the chart, go up to the X axis, and then keep going up
+                    // the expected bar height. This way, the bottom of the rect will always be the
+                    // X-axis.
+                    let yPos = graphHeight - yScale(0) - barHeight;
 
-                const barIdentifier = `${groupIndex}-${i}`;
-                const description = `Spending in ${xData[i]}: ${MoneyFormatter.formatMoney(item)}`;
+                    if (item < 0) {
+                        // slightly different calculation for negative values
+                        // the top of the bar is always the X-axis
+                        yPos = graphHeight - yScale(0);
+                        // the bar height is the remaining distance to the yScale() position
+                        barHeight = yScale(0) - yScale(item);
+                    }
 
-                const bar = (<BarItem
-                    key={`data-${barIdentifier}`}
-                    identifier={barIdentifier}
-                    dataY={item}
-                    dataX={xData[i]}
-                    graphHeight={graphHeight}
-                    height={barHeight}
-                    width={itemWidth}
-                    x={xPos}
-                    y={yPos}
-                    color={this.props.legend[0].color}
-                    description={description}
-                    selectBar={this.selectBar}
-                    deselectBar={this.deselectBar}
-                    deregisterBar={this.deregisterBar}
-                    ref={(component) => {
-                        this.dataPoints[barIdentifier] = component;
-                    }} />);
-                items.push(bar);
+                    const barIdentifier = `${groupIndex}-${stackIndex}-${i}`;
+
+                    // we need to get the reversed color index since we are back to front in order
+                    // to avoid covering smaller bars
+                    const reverseIndex = this.props.legend.length - i - 1;
+                    const reversedColor = this.props.legend[reverseIndex].color;
+                    const description = `${this.props.legend[reverseIndex].label} in \
+${xData[stackIndex]}: ${MoneyFormatter.formatMoney(item)}`;
+
+                    const bar = (<BarItem
+                        key={`data-${barIdentifier}`}
+                        identifier={barIdentifier}
+                        dataY={item}
+                        dataX={xData[stackIndex]}
+                        graphHeight={graphHeight}
+                        height={barHeight}
+                        width={itemWidth}
+                        x={xPos}
+                        y={yPos}
+                        color={reversedColor}
+                        description={description}
+                        selectBar={this.selectBar}
+                        deselectBar={this.deselectBar}
+                        deregisterBar={this.deregisterBar}
+                        ref={(component) => {
+                            this.dataPoints[barIdentifier] = component;
+                        }} />);
+                    items.push(bar);
+                });
             });
         });
 

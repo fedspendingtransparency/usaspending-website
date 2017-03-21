@@ -42,7 +42,8 @@ const initialState = {
             }
         }
     },
-    tas: []
+    tas: [],
+    totalSpending: 0
 };
 
 const accountReducer = (state = initialState, action) => {
