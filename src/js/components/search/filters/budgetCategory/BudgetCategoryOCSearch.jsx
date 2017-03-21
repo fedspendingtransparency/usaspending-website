@@ -4,36 +4,37 @@
  */
 
 import React from 'react';
-import { objectClassDefintions } from 'dataMapping/search/budgetCategory';
+import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
 
 // import * as AwardAmountHelper from 'helpers/awardAmountHelper';
 import ObjectClassItem from './ObjectClassItem';
 
 const propTypes = {
     selectObjectClass: React.PropTypes.func,
-    objectClassDefintions: React.PropTypes.object
+    objectClassDefinitions: React.PropTypes.object
 };
 
 const defaultProps = {
-    objectClassDefintions
+    objectClassDefinitions
 };
 
 export default class BudgetCategoryOCSearch extends React.Component {
     render() {
         const objectClassItems = [];
 
-        Object.keys(this.props.objectClassDefintions).forEach((key) => {
+        Object.keys(this.props.objectClassDefinitions).forEach((key) => {
             objectClassItems.push(
                 <ObjectClassItem
                     {...this.props}
-                    objectClassLabel={this.props.objectClassDefintions[key]}
+                    objectClassLabel={this.props.objectClassDefinitions[key]}
                     objectClassID={parseInt(key, 10)}
                     key={`award-${key}`}
                     toggleSelection={this.props.selectObjectClass.bind(this)} />);
         });
 
         return (
-            <div className="">
+            <div className="pop-typeahead">
+                <p className="object-class-label">Object Class</p>
                 <ul className="object-classes">
                     {objectClassItems}
                 </ul>

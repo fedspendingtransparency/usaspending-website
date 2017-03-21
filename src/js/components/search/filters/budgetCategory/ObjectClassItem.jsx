@@ -20,8 +20,7 @@ const defaultProps = {
 
 export default class ObjectClassItem extends React.Component {
     render() {
-        // const checked = this.props.objectClasses.has(this.props.objectClassID);
-        const checked = false;
+        const checked = this.props.objectClasses.has(`${this.props.objectClassID}`);
 
         return (
             <li className="object-class-set">

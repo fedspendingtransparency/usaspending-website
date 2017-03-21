@@ -13,7 +13,9 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import BudgetCategorySearch from 'components/search/filters/budgetCategory/BudgetCategorySearch';
 
 const propTypes = {
-
+    updateSelectedBudgetFunctions: React.PropTypes.func,
+    updateSelectedFederalAccounts: React.PropTypes.func,
+    updateSelectedObjectClasses: React.PropTypes.func
 };
 
 export class BudgetCategorySearchContainer extends React.Component {
@@ -27,15 +29,15 @@ export class BudgetCategorySearchContainer extends React.Component {
     }
 
     updateBudgetFunctions(budgetFunction) {
-        console.log(budgetFunction);
+        this.props.updateSelectedBudgetFunctions(budgetFunction);
     }
 
     updateFederalAccounts(federalAccount) {
-        console.log(federalAccount);
+        this.props.updateSelectedFederalAccounts(federalAccount);
     }
 
-    updateObjectClasses(objectClass) {
-        console.log(objectClass);
+    updateObjectClasses(objectClassEvent) {
+        this.props.updateSelectedObjectClasses(objectClassEvent.target.value);
     }
 
     render() {

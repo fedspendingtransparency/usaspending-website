@@ -91,10 +91,11 @@ export class BudgetCategoryFunctionContainer extends React.Component {
             }
 
             const searchParams = {
-                fields: ['subtier_agency__name'],
+                fields: ['budget_function_code', 'budget_function_title',
+                    'budget_subfunction_code', 'budget_subfunction_title'],
                 value: this.state.searchString,
                 mode: "contains",
-                matched_objects: true,
+                matched_objects: false,
                 limit: 10
             };
 

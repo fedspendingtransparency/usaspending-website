@@ -1,4 +1,46 @@
 .budget-category-filter {
+    @import '../location/_errorMessage';
+    @import '../location/_selectedButtons';
+    @import '../location/_typeahead';
+
+    padding-left: 0;
+
+    > div {
+        padding-left: 0rem;
+    }
+
+    .shown {
+        min-height: 18rem;
+    }
+
+    .visually-hidden {
+        display: none;
+    }
+
+    .pop-typeahead {
+        margin-bottom: 1rem;
+        padding-left: 3rem;
+
+        p.object-class-label {
+            color: #5b616b;
+            padding-bottom: 1rem;
+            font-size: 1.4rem;
+            margin: 2rem 3rem .5rem 0;
+            border-bottom: 1px solid $color-gray-lighter;
+        }
+    }
+
+    .selected-budget-categories {
+        background-color: #E4E4E4;
+        padding: 1rem 0 1rem 3rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+
+        &:empty{
+            display: none;
+        }
+    }
+
     ul.object-classes {
         @include unstyled-list;
 
