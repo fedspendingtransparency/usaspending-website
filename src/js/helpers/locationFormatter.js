@@ -16,7 +16,8 @@ export const formatLocation = (location) => {
 
     displayValue += `${location.place}`;
 
-    if (location.parent !== null) {
+    if (location.parent !== null &&
+        (location.place_type !== null && location.place_type !== 'COUNTRY')) {
         displayValue += `, ${location.parent}`;
     }
 

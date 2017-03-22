@@ -28,7 +28,7 @@ const propTypes = {
 
 const countLimit = 13;
 
-class AwardContainer extends React.Component {
+export class AwardContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -68,7 +68,7 @@ class AwardContainer extends React.Component {
                     value: input
                 }
             ],
-            order: ['-modification_number'],
+            order: ['modification_number'],
             limit: countLimit
         };
 
@@ -98,9 +98,9 @@ class AwardContainer extends React.Component {
                     inFlight: false
                 });
 
-                this.parseAward(awardData);
+                const fullData = (Object.assign(awardData, txnData.results[0].contract_data));
+                this.parseAward(fullData);
                 this.parseTransactions(txnData, true);
-
                 // operations have resolved
                 this.searchRequests = [];
             })
@@ -222,7 +222,9 @@ class AwardContainer extends React.Component {
 
     nextTransactionPage() {
         const nextPage = this.props.award.transactionMeta.page + 1;
-        this.fetchTransactions(nextPage);
+        if (nextPage <= this.props.award.transactionMeta.totalPages) {
+            this.fetchTransactions(nextPage);
+        }
     }
 
     render() {

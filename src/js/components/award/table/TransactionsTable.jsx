@@ -1,5 +1,5 @@
 /**
- * DetailsTable.jsx
+ * TransactionsTable.jsx
  * Created by Kevin Li 2/25/17
  */
 
@@ -26,7 +26,7 @@ const propTypes = {
     nextTransactionPage: React.PropTypes.func
 };
 
-export default class DetailsTable extends React.Component {
+export default class TransactionsTable extends React.Component {
     constructor(props) {
         super(props);
 
@@ -150,4 +150,4 @@ export default class DetailsTable extends React.Component {
     }
 }
 
-DetailsTable.propTypes = propTypes;
+TransactionsTable.propTypes = propTypes;

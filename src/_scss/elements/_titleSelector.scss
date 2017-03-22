@@ -1,0 +1,56 @@
+    .field-picker {
+        float: left;
+        clear: none;
+        .selected-button {
+            @include button-unstyled;
+            @extend h3;
+            font-weight: 200;
+            border-bottom: 1px solid $color-gray;
+            padding-left: 10px;
+            padding-right: 10px;
+            .label {
+                display: inline-block;
+            }
+            .arrow-icon {
+                display: inline-block;
+                width: 14px;
+                margin-left: 10px;
+                svg {
+                    fill: $color-gray;
+                }
+            }
+        }
+        .field-list {
+            position: absolute;
+            z-index: 2;
+            width: 300px;
+            max-height: 250px;
+            overflow-y: auto;
+            border: 1px solid $color-gray;
+            ul {
+                @include unstyled-list;
+                width: 100%;
+                li.field-item {
+                    width: 100%;
+                    background-color: $color-white;
+                    border: none;
+                    border-bottom: 1px solid $color-gray;
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                    .item-button {
+                        @include button-unstyled;
+                        color: $color-gray;
+                        font-size: 1.4rem;
+                        width: 100%;
+                        padding: 20px;
+                        &:hover,
+                        &:active,
+                        &:focus {
+                            background-color: $color-gray-lighter;
+                        }
+                    }
+                }
+            }
+        }
+    }

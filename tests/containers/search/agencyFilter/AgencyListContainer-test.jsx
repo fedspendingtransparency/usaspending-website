@@ -519,11 +519,171 @@ describe('AgencyListContainer', () => {
             jest.runAllTicks();
 
             // everything should be updated now
+            expect(toggleAgencySpy.callCount).toEqual(1);
             expect(mockReduxActionFunding).toHaveBeenCalled();
             expect(mockParentActionToggle).toHaveBeenCalled();
 
             // Reset spy
             toggleAgencySpy.reset();
+        });
+
+        it('should toggle Awarding agencies that have been either selected or deselected', () => {
+            const agency = {
+                id: 1788,
+                create_date: "2017-01-12T19:56:30.517000Z",
+                update_date: "2017-01-12T19:56:30.517000Z",
+                toptier_agency: {
+                    toptier_agency_id: 268,
+                    create_date: "2017-01-31T21:25:39.810344Z",
+                    update_date: "2017-01-31T21:25:39.936439Z",
+                    cgac_code: "097",
+                    fpds_code: "9700",
+                    name: "DEPT OF DEFENSE"
+                },
+                subtier_agency: {
+                    subtier_agency_id: 1654,
+                    create_date: "2017-01-31T21:25:39.569918Z",
+                    update_date: "2017-01-31T21:25:39.691244Z",
+                    subtier_code: "1700",
+                    name: "DEPT OF THE NAVY"
+                },
+                office_agency: null,
+                agencyType: 'toptier'
+            };
+
+            const mockReduxActionAwarding = jest.fn();
+            const mockParentActionToggle = jest.fn();
+
+            const agencyListContainer = setup({
+                reduxFilters: initialFilters,
+                agencyType: 'Awarding',
+                setAutocompleteAwardingAgencies: mockReduxActionAwarding,
+                selectedAgencies: new OrderedMap(),
+                toggleAgency: mockParentActionToggle
+            });
+
+            const toggleAgencySpy = sinon.spy(agencyListContainer.instance(), 'toggleAgency');
+
+            agencyListContainer.instance().toggleAgency(agency, true);
+
+            // Run all ticks
+            jest.runAllTicks();
+
+            // everything should be updated now
+            expect(toggleAgencySpy.callCount).toEqual(1);
+            expect(mockReduxActionAwarding).toHaveBeenCalled();
+            expect(mockParentActionToggle).toHaveBeenCalled();
+
+            // Reset spy
+            toggleAgencySpy.reset();
+        });
+
+        it('should clear Funding Agencies when the Autocomplete tells it to', () => {
+            const reduxState = [];
+
+            // setup mock redux actions for handling search results
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(reduxState);
+            });
+
+            const agencyListContainer = setup({
+                reduxFilters: initialFilters,
+                setAutocompleteFundingAgencies: mockReduxAction,
+                fundingAgencies: [{
+                    id: 1788,
+                    create_date: "2017-01-12T19:56:30.517000Z",
+                    update_date: "2017-01-12T19:56:30.517000Z",
+                    toptier_agency: {
+                        toptier_agency_id: 268,
+                        create_date: "2017-01-31T21:25:39.810344Z",
+                        update_date: "2017-01-31T21:25:39.936439Z",
+                        cgac_code: "097",
+                        fpds_code: "9700",
+                        name: "DEPT OF DEFENSE"
+                    },
+                    subtier_agency: {
+                        subtier_agency_id: 1654,
+                        create_date: "2017-01-31T21:25:39.569918Z",
+                        update_date: "2017-01-31T21:25:39.691244Z",
+                        subtier_code: "1700",
+                        name: "DEPT OF THE NAVY"
+                    },
+                    office_agency: null,
+                    agencyType: 'toptier'
+                }],
+                selectedAgencies: new OrderedMap(),
+                agencyType: 'Funding'
+            });
+
+            // Set up spies
+            const clearAutocompleteSuggestionsSpy = sinon.spy(agencyListContainer.instance(),
+                'clearAutocompleteSuggestions');
+
+            agencyListContainer.instance().clearAutocompleteSuggestions();
+
+            // Run all ticks
+            jest.runAllTicks();
+
+            // Everything should be updated
+            expect(clearAutocompleteSuggestionsSpy.callCount).toEqual(1);
+            expect(mockReduxAction).toHaveBeenCalled();
+
+            // Reset spies
+            clearAutocompleteSuggestionsSpy.reset();
+        });
+
+        it('should clear Awarding Agencies when the Autocomplete tells it to', () => {
+            const reduxState = [];
+
+            // setup mock redux actions for handling search results
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(reduxState);
+            });
+
+            const agencyListContainer = setup({
+                reduxFilters: initialFilters,
+                setAutocompleteAwardingAgencies: mockReduxAction,
+                awardingAgencies: [{
+                    id: 1788,
+                    create_date: "2017-01-12T19:56:30.517000Z",
+                    update_date: "2017-01-12T19:56:30.517000Z",
+                    toptier_agency: {
+                        toptier_agency_id: 268,
+                        create_date: "2017-01-31T21:25:39.810344Z",
+                        update_date: "2017-01-31T21:25:39.936439Z",
+                        cgac_code: "097",
+                        fpds_code: "9700",
+                        name: "DEPT OF DEFENSE"
+                    },
+                    subtier_agency: {
+                        subtier_agency_id: 1654,
+                        create_date: "2017-01-31T21:25:39.569918Z",
+                        update_date: "2017-01-31T21:25:39.691244Z",
+                        subtier_code: "1700",
+                        name: "DEPT OF THE NAVY"
+                    },
+                    office_agency: null,
+                    agencyType: 'toptier'
+                }],
+                selectedAgencies: new OrderedMap(),
+                agencyType: 'Awarding'
+            });
+
+            // Set up spies
+            const clearAutocompleteSuggestionsSpy = sinon.spy(agencyListContainer.instance(),
+                'clearAutocompleteSuggestions');
+
+            agencyListContainer.instance().clearAutocompleteSuggestions();
+
+            // Run all ticks
+            jest.runAllTicks();
+
+            // Everything should be updated
+            expect(clearAutocompleteSuggestionsSpy.callCount).toEqual(1);
+            expect(mockReduxAction).toHaveBeenCalled();
+
+            // Reset spies
+            clearAutocompleteSuggestionsSpy.reset();
         });
     });
 });
