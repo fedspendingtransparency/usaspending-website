@@ -9,8 +9,8 @@ import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarCo
 
 import AccountTimeVisualizationContainer from
     'containers/account/visualizations/AccountTimeVisualizationContainer';
-import RankVisualizationSectionContainer from
-    'containers/search/visualizations/rank/RankVisualizationSectionContainer';
+import AccountRankVisualizationContainer from
+    'containers/account/visualizations/AccountRankVisualizationContainer';
 
 
 export default class SearchResults extends React.Component {
@@ -20,6 +20,7 @@ export default class SearchResults extends React.Component {
                 <TopFilterBarContainer {...this.props} />
                 <div className="search-results">
                     <AccountTimeVisualizationContainer />
+                    <AccountRankVisualizationContainer />
                 </div>
             </div>
         );

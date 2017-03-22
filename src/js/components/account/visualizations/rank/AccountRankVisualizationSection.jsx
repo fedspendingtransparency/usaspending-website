@@ -1,7 +1,7 @@
 /**
-  * RankVisualizationSection.jsx
-  * Created by Kevin Li 12/13/16
-  **/
+ * AccountRankVisualizationSection.jsx
+ * Created by Kevin Li 3/22/17
+ */
 
 import React from 'react';
 import _ from 'lodash';
@@ -9,12 +9,12 @@ import _ from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
-import RankVisualizationTitle from './RankVisualizationTitle';
-import RankVisualization from './RankVisualization';
-import RankVisualizationScopeButton from './RankVisualizationScopeButton';
+import RankVisualization from 'components/search/visualizations/rank/RankVisualization';
+import RankVisualizationScopeButton from
+    'components/search/visualizations/rank/RankVisualizationScopeButton';
 
 const propTypes = {
-    agencyScope: React.PropTypes.string,
+    categoryScope: React.PropTypes.string,
     changeScope: React.PropTypes.func,
     nextPage: React.PropTypes.func,
     previousPage: React.PropTypes.func,
@@ -23,7 +23,7 @@ const propTypes = {
     loading: React.PropTypes.bool
 };
 
-export default class RankVisualizationSection extends React.Component {
+export default class AccountRankVisualizationSection extends React.Component {
     constructor(props) {
         super(props);
 
@@ -89,7 +89,7 @@ export default class RankVisualizationSection extends React.Component {
             <div
                 className="results-visualization-rank-section"
                 id="results-section-rank">
-                <RankVisualizationTitle />
+                <h3>Spending by Category</h3>
                 <hr
                     className="results-divider"
                     ref={(hr) => {
@@ -99,7 +99,7 @@ export default class RankVisualizationSection extends React.Component {
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            View a list of the top Awarding Agencies from highest to lowest. Filter
+                            View a list of the top Program Activities from highest to lowest. Filter
                             your results more (at left) and watch this graph update automatically.
                              View your results in a bar graph or a tree map.
                         </div>
@@ -109,23 +109,25 @@ export default class RankVisualizationSection extends React.Component {
                             <ul>
                                 <li>
                                     <RankVisualizationScopeButton
-                                        value="toptier"
-                                        label="Agencies"
-                                        active={this.props.agencyScope === 'toptier'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="subtier"
-                                        label="Sub-Agencies"
-                                        active={this.props.agencyScope === 'subtier'}
+                                        value="program_activity"
+                                        label="Program Activity"
+                                        active={this.props.categoryScope === 'program_activity'}
                                         changeScope={this.props.changeScope} />
                                 </li>
                                 <li className="coming-soon">
                                     <RankVisualizationScopeButton
-                                        value="office"
-                                        label="Offices"
-                                        active={this.props.agencyScope === 'office'}
+                                        value="object_class"
+                                        label="Object Class"
+                                        active={this.props.categoryScope === 'object_class'}
+                                        changeScope={this.props.changeScope}
+                                        disabled />
+                                    <ComingSoonLabel />
+                                </li>
+                                <li className="coming-soon">
+                                    <RankVisualizationScopeButton
+                                        value="tas"
+                                        label="Treasury Account Symbol (TAS)"
+                                        active={this.props.categoryScope === 'tas'}
                                         changeScope={this.props.changeScope}
                                         disabled />
                                     <ComingSoonLabel />
@@ -138,7 +140,8 @@ export default class RankVisualizationSection extends React.Component {
                 <RankVisualization
                     {...this.props}
                     width={this.state.visualizationWidth}
-                    labelWidth={this.state.labelWidth} />
+                    labelWidth={this.state.labelWidth}
+                    disableTooltip />
 
                 <div className={`visualization-pager-container ${hidePager}`}>
                     <button
@@ -177,4 +180,4 @@ export default class RankVisualizationSection extends React.Component {
     }
 }
 
-RankVisualizationSection.propTypes = propTypes;
+AccountRankVisualizationSection.propTypes = propTypes;

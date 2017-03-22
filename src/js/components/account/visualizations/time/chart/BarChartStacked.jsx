@@ -212,6 +212,7 @@ export default class BarChart extends React.Component {
                     // to avoid covering smaller bars
                     const reverseIndex = this.props.legend.length - i - 1;
                     const reversedColor = this.props.legend[reverseIndex].color;
+
                     const description = `${this.props.legend[reverseIndex].label} in \
 ${xData[stackIndex]}: ${MoneyFormatter.formatMoney(item)}`;
 
