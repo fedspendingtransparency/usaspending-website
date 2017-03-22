@@ -50,8 +50,14 @@ export default class TreeMap extends React.Component {
         // build the tiles
         const finalNodes = treemap.map((n, i) =>
             <Cell
-                n={n}
-                i={i}
+                label={n.data.name}
+                value={n.value}
+                x0={n.x0}
+                x1={n.x1}
+                y0={n.y0}
+                y1={n.y1}
+                total={n.parent.value}
+                key={i}
                 color={colors[i]} />
         );
 

@@ -4,63 +4,122 @@
  **/
 
 import React from 'react';
+import _ from 'lodash';
 
 const propTypes = {
-    n: React.PropTypes.object,
-    i: React.PropTypes.number,
+    label: React.PropTypes.string,
+    value: React.PropTypes.number,
+    total: React.PropTypes.number,
+    x0: React.PropTypes.number,
+    x1: React.PropTypes.number,
+    y0: React.PropTypes.number,
+    y1: React.PropTypes.number,
     color: React.PropTypes.string
 };
 
 export default class Cell extends React.Component {
 
-    // wrap(text) {
-    //     const width = 40;
-    //     const y = 0;
-    //     const words = text.split(' ');
-    //     let wrapped = '';
-    //     const line = text;
-    //
-    //     for (let n = 0; n < words.length; n++) {
-    //         const newLine = ` ${words[n]} `;
-    //
-    //         const lineWidth = text.length;
-    //
-    //         if (lineWidth > width && n > 0) {
-    //             wrapped += `<tspan x="0" dy=${y + 20}>${newLine}</tspan>`;
-    //         }
-    //     }
-    //     let final = line;
-    //     if (wrapped !== '') {
-    //         final = wrapped;
-    //     }
-    //     return final;
-    // }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            label: '',
+            didProcess: false
+        };
+    }
+
+    componentDidMount() {
+        this.initialRender(this.props.label);
+    }
+
+    componentWillReceiveProps(props) {
+        this.initialRender(props.label);
+    }
+
+    componentDidUpdate() {
+        if (!this.state.didProcess) {
+            // the label changed and needs to be reprocessed
+            this.truncateText();
+        }
+    }
+
+    initialRender(label) {
+        // We can only access the label width after we have rendered the full text due to the
+        // variable widths of characters in non-monospaced fonts.
+        // In this function, we trigger an initial render of the full text, then we perform the
+        // calculations to test if truncation is necessary; if so, we'll re-render (this is
+        // automatically triggered when we change the label state value).
+        this.setState({
+            label,
+            didProcess: false
+        });
+    }
+
+    truncateText() {
+        const labelWidth = this.props.x1 - this.props.x0;
+        // determine if the text needs to be truncated
+        // get the current label width
+        const fullWidth = this.svgText.getBBox().width;
+
+        // there's a 12px margin on both sides of the label space
+        const maxWidth = labelWidth / 1.5;
+        let maxChars = 0;
+
+        let truncatedLabel = this.props.label;
+
+        // make sure that the max width is positive
+        if (fullWidth > maxWidth && maxWidth > 0) {
+            // the label is going to exceed the available space, truncate it
+            // determine how much of the text we can keep
+
+            // calculate the averge character width
+            const avgCharWidth = (fullWidth / this.props.label.length);
+
+            // determine how many characters can fit in the available space
+            maxChars = Math.floor((maxWidth) / avgCharWidth);
+            // truncate the label
+            truncatedLabel = _.truncate(this.props.label, {
+                length: maxChars
+            });
+        }
+
+        this.setState({
+            label: truncatedLabel,
+            didProcess: true
+        });
+    }
 
     render() {
-        const n = this.props.n;
-        const i = this.props.i;
+        const width = (this.props.x1 - this.props.x0);
+        const height = (this.props.y1 - this.props.y0);
         return (
             <g
-                transform={`translate(${n.x0},${n.y0})`}>
+                transform={`translate(${this.props.x0},${this.props.y0})`}>
                 <rect
                     className="tile"
-                    id={i}
-                    width={n.x1 - n.x0}
-                    height={n.y1 - n.y0}
+                    width={width}
+                    height={height}
                     style={{
                         fill: this.props.color
                     }} />
                 <text
                     className="category"
-                    x={((n.x1 - n.x0) / 2) - 30}
-                    y={(n.y1 - n.y0) / 2}>
-                    {n.data.name}
+                    x={(width / 2)}
+                    y={height / 2}
+                    width={width}
+                    textAnchor="middle"
+                    ref={(text) => {
+                        this.svgText = text;
+                    }}>
+                    {this.state.label}
                 </text>
                 <text
                     className="value"
-                    x={((n.x1 - n.x0) / 2) - 20}
-                    y={((n.y1 - n.y0) / 2) + 20}>
-                    {Math.round((n.value / n.parent.value) * 100)}%
+                    x={(width / 2) - 2}
+                    y={(height / 2) + 20}
+                    width={width}
+                    textAnchor="middle">
+                    {Math.round((this.props.value / this.props.total) * 100)}%
                 </text>
             </g>
         );
