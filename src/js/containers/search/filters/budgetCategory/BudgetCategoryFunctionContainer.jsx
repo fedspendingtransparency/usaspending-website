@@ -55,15 +55,9 @@ export class BudgetCategoryFunctionContainer extends React.Component {
 
         if (results.length > 0) {
             results.forEach((item) => {
-                let placeType = _.upperCase(item.place_type);
-                if (item.parent !== null &&
-                    (item.place_type !== null && item.place_type !== 'COUNTRY')) {
-                    placeType += ` in ${item.parent}`;
-                }
-
                 values.push({
-                    title: item.place,
-                    subtitle: placeType,
+                    title: item.title,
+                    subtitle: item.functionType,
                     data: item
                 });
             });
@@ -91,8 +85,7 @@ export class BudgetCategoryFunctionContainer extends React.Component {
             }
 
             const searchParams = {
-                fields: ['budget_function_code', 'budget_function_title',
-                    'budget_subfunction_code', 'budget_subfunction_title'],
+                fields: ['budget_function_title', 'budget_subfunction_title'],
                 value: this.state.searchString,
                 mode: "contains",
                 matched_objects: false,
@@ -103,19 +96,35 @@ export class BudgetCategoryFunctionContainer extends React.Component {
 
             this.searchRequest.promise
                 .then((res) => {
-                    const data = res.data;
                     let autocompleteData = [];
 
-                    // Remove 'identifier' from selected budget function to enable comparison
-                    const selectedItems = this.props.budgetFunctions.toArray()
-                            .map((item) => _.omit(item, 'identifier'));
+                    const budgetFunctions = res.data.results.budget_function_title;
+                    const budgetSubfunctions = res.data.results.budget_subfunction_title;
+
+                    if (budgetFunctions.length > 0) {
+                        budgetFunctions.forEach((budgetFunction) => {
+                            autocompleteData.push({
+                                title: budgetFunction,
+                                functionType: 'Function'
+                            });
+                        });
+                    }
+
+                    if (budgetSubfunctions.length > 0) {
+                        budgetSubfunctions.forEach((budgetSubfunction) => {
+                            autocompleteData.push({
+                                title: budgetSubfunction,
+                                functionType: 'Sub-Function'
+                            });
+                        });
+                    }
+
+                    const selectedItems = this.props.budgetFunctions.toArray();
 
                     // Filter out any selectedBudgetFunctions that may be in the result set
                     if (selectedItems && selectedItems.length > 0) {
-                        autocompleteData = _.differenceWith(data, selectedItems, _.isEqual);
-                    }
-                    else {
-                        autocompleteData = data;
+                        autocompleteData = _.differenceWith(
+                            autocompleteData, selectedItems, _.isEqual);
                     }
 
                     this.setState({
@@ -180,6 +189,8 @@ export class BudgetCategoryFunctionContainer extends React.Component {
 BudgetCategoryFunctionContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ autocompleteBudgetFunctions: state.budgetCategories.budgetFunctions }),
+    (state) => ({
+        autocompleteBudgetFunctions: state.autocompleteBudgetCategories.budgetFunctions
+    }),
     (dispatch) => bindActionCreators(budgetCategoryActions, dispatch)
 )(BudgetCategoryFunctionContainer);

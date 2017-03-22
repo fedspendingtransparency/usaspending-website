@@ -8,7 +8,7 @@ import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
 export const updateBudgetFunctions = (state, value) => {
     let updatedSet = state;
 
-    const identifier = `${value.budget_id}`;
+    const identifier = `${value.title}`;
 
     if (updatedSet.has(identifier)) {
         updatedSet = updatedSet.delete(identifier);
@@ -23,7 +23,7 @@ export const updateBudgetFunctions = (state, value) => {
 export const updateFederalAccounts = (state, value) => {
     let updatedSet = state;
 
-    const identifier = `${value.federal_account_id}`;
+    const identifier = `${value.title}`;
 
     if (updatedSet.has(identifier)) {
         updatedSet = updatedSet.delete(identifier);

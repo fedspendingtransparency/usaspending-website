@@ -11,6 +11,7 @@ import { isCancel } from 'axios';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
+import * as BudgetCategoryHelper from 'helpers/budgetCategoryHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import * as budgetCategoryActions from 'redux/actions/search/budgetCategoryActions';
@@ -55,15 +56,10 @@ export class BudgetCategoryAccountContainer extends React.Component {
 
         if (results.length > 0) {
             results.forEach((item) => {
-                let placeType = _.upperCase(item.place_type);
-                if (item.parent !== null &&
-                    (item.place_type !== null && item.place_type !== 'COUNTRY')) {
-                    placeType += ` in ${item.parent}`;
-                }
+                const formattedFedAccountTitle = BudgetCategoryHelper.formatFederalAccount(item);
 
                 values.push({
-                    title: item.place,
-                    subtitle: placeType,
+                    title: formattedFedAccountTitle,
                     data: item
                 });
             });
@@ -91,7 +87,7 @@ export class BudgetCategoryAccountContainer extends React.Component {
             }
 
             const searchParams = {
-                fields: ['subtier_agency__name'],
+                fields: ['title'],
                 value: this.state.searchString,
                 mode: "contains",
                 matched_objects: true,
@@ -179,6 +175,8 @@ export class BudgetCategoryAccountContainer extends React.Component {
 BudgetCategoryAccountContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ autocompleteFederalAccounts: state.budgetCategories.federalAccounts }),
+    (state) => ({
+        autocompleteFederalAccounts: state.autocompleteBudgetCategories.federalAccounts
+    }),
     (dispatch) => bindActionCreators(budgetCategoryActions, dispatch)
 )(BudgetCategoryAccountContainer);

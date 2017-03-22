@@ -2,24 +2,42 @@
  * Created by michaelbray on 3/21/17.
  */
 
-const budgetFunctionField = '';
+const budgetFunctionField = 'budget_function_title';
+const budgetSubfunctionField = 'budget_subfunction_title';
 const federalAccountField = '';
 const objectClassField = 'major_object_class';
 
 export const buildBudgetFunctionQuery = (budgetFunctions) => {
     const budgetFunctionSet = [];
+    const budgetSubfunctionSet = [];
 
     budgetFunctions.forEach((budgetFunction) => {
-        budgetFunctionSet.push(budgetFunction.id);
+        if (budgetFunction.functionType === 'Function') {
+            budgetFunctionSet.push(budgetFunction.title);
+        }
+        else {
+            budgetSubfunctionSet.push(budgetFunction.title);
+        }
     });
 
-    const filter = {
+    const budgetFunctionFilter = {
         field: budgetFunctionField,
         operation: "in",
         value: budgetFunctionSet
     };
 
-    return filter;
+    const budgetSubfunctionFilter = {
+        field: budgetSubfunctionField,
+        operation: "in",
+        value: budgetSubfunctionSet
+    };
+
+    const filterSet = {
+        combine_method: 'OR',
+        filters: [budgetFunctionFilter, budgetSubfunctionFilter]
+    };
+
+    return filterSet;
 };
 
 export const buildFederalAccountQuery = (federalAccounts) => {

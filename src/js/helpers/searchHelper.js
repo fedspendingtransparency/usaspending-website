@@ -83,7 +83,7 @@ export const fetchFederalAccounts = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            // url: 'references/agency/autocomplete/',
+            url: 'accounts/autocomplete/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,

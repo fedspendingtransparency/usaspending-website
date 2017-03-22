@@ -9,16 +9,19 @@ import searchFiltersReducer from 'redux/reducers/search/searchFiltersReducer';
 import { awardRanges } from 'dataMapping/search/awardAmount';
 
 const initialState = {
+    keyword: '',
     awardType: new Set(),
     timePeriodType: 'fy',
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
-    keyword: '',
-    selectedFundingAgencies: new OrderedMap(),
-    selectedAwardingAgencies: new OrderedMap(),
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all',
+    budgetFunctions: new OrderedMap(),
+    federalAccounts: new OrderedMap(),
+    objectClasses: new OrderedMap(),
+    selectedFundingAgencies: new OrderedMap(),
+    selectedAwardingAgencies: new OrderedMap(),
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
     selectedRecipientLocations: new OrderedMap(),

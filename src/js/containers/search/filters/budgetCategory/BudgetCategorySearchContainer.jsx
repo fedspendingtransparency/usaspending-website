@@ -54,6 +54,10 @@ export class BudgetCategorySearchContainer extends React.Component {
 BudgetCategorySearchContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ awardAmounts: state.filters.awardAmounts }),
+    (state) => ({
+        budgetFunctions: state.filters.budgetFunctions,
+        federalAccounts: state.filters.federalAccounts,
+        objectClasses: state.filters.objectClasses
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(BudgetCategorySearchContainer);

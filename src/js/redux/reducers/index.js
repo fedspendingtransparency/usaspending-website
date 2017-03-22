@@ -28,7 +28,7 @@ const appReducer = combineReducers({
     autocompleteRecipients: recipientReducer,
     award: awardReducer,
     autocompleteAwardIDs: awardIDReducer,
-    budgetCategories: budgetCategoryReducer
+    autocompleteBudgetCategories: budgetCategoryReducer
 });
 
 export default appReducer;

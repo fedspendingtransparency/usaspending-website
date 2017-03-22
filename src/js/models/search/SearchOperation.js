@@ -8,7 +8,6 @@ import _ from 'lodash';
 import * as AwardTypeQuery from './queryBuilders/AwardTypeQuery';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as LocationQuery from './queryBuilders/LocationQuery';
-import * as BudgetCategoryQuery from './queryBuilders/BudgetCategoryQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
 import * as RecipientQuery from './queryBuilders/RecipientQuery';
 import * as KeywordQuery from './queryBuilders/KeywordQuery';
@@ -42,6 +41,7 @@ class SearchOperation {
         this.selectedRecipientLocations = [];
 
         this.selectedAwardIDs = [];
+
         this.awardAmounts = [];
     }
 
@@ -55,17 +55,23 @@ class SearchOperation {
             this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
             this.timePeriodFY = [];
         }
+
         this.selectedLocations = state.selectedLocations.toArray();
         this.locationDomesticForeign = state.locationDomesticForeign;
+
         this.budgetFunctions = state.budgetFunctions.toArray();
         this.federalAccounts = state.federalAccounts.toArray();
         this.objectClasses = state.objectClasses.toObject();
+
         this.awardingAgencies = state.selectedAwardingAgencies.toArray();
         this.fundingAgencies = state.selectedFundingAgencies.toArray();
+
         this.selectedRecipients = state.selectedRecipients.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
         this.selectedRecipientLocations = state.selectedRecipientLocations.toArray();
+
         this.selectedAwardIDs = state.selectedAwardIDs.toArray();
+
         this.awardAmounts = state.awardAmounts.toArray();
     }
 
@@ -100,19 +106,6 @@ class SearchOperation {
 
         if (this.locationDomesticForeign !== '' && this.locationDomesticForeign !== 'all') {
             filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign));
-        }
-
-        // Add Budget Category queries
-        if (this.budgetFunctions.length > 0) {
-            filters.push(BudgetCategoryQuery.buildBudgetFunctionQuery(this.budgetFunctions));
-        }
-
-        if (this.federalAccounts.length > 0) {
-            filters.push(BudgetCategoryQuery.buildFederalAccountQuery(this.federalAccounts));
-        }
-
-        if (Object.keys(this.objectClasses).length > 0) {
-            filters.push(BudgetCategoryQuery.buildObjectClassQuery(this.objectClasses));
         }
 
         // Add agency query
