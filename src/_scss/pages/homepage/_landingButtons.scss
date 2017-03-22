@@ -1,0 +1,45 @@
+@mixin landingButtons {
+    ul {
+        @include unstyled-list;
+        & li {
+            background: rgba($color-white, .1);
+            border: 1px solid rgba($color-white, .2);
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(255, 255, 255, .025) 4px, rgba(255, 255, 255, .025) 6px);
+            background-position: fixed;
+            margin-top: rem(30);
+            @include span-columns(16);
+            @include display(flex);
+            @include align-items(center);
+            &:first-child {
+                @include shift(0);
+            }
+            & button {
+                @include button-unstyled;
+                color: $color-white;
+                font-size: rem(20);
+                padding: rem(20);
+                @include display(flex);
+                @include align-items(center);
+                @include justify-content(space-between);
+                width: 100%;
+                & svg {
+                    fill: $color-white;
+                    height: rem(40);
+                    width: rem(40);
+                }
+                &:hover {
+                    @include transition(all 0.25s $ease-in-out-sine);
+                    background: rgba($color-primary-alt, .4);
+                    cursor: pointer;
+                }
+            }
+            @include media($tablet-screen) {
+                @include span-columns(5.5);
+                margin-top: rem(130);
+                &:first-child {
+                    @include shift(2.5);
+                }
+            }
+        }
+    }
+}
