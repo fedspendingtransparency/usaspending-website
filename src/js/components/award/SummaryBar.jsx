@@ -6,7 +6,7 @@
 import React from 'react';
 import moment from 'moment';
 import _ from 'lodash';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
+import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 import * as Icons from '../sharedComponents/icons/Icons';
 import InfoSnippet from './InfoSnippet';
 
@@ -40,7 +40,7 @@ export default class SummaryBar extends React.Component {
         const awardEnd = moment(award.period_of_performance_current_end_date, 'MM-DD-YYYY');
         const current = moment();
         let progress = "";
-        let awardType = "";
+        const awardType = _.capitalize(SummaryPageHelper.awardType(award.award_type));
         let parentId = null;
 
         if (current.isSameOrBefore(awardStart, 'day')) {
@@ -51,22 +51,6 @@ export default class SummaryBar extends React.Component {
         }
         else {
             progress = "In Progress";
-        }
-
-        if (_.includes(awardTypeGroups.contracts, award.award_type)) {
-            awardType = "Contract";
-        }
-        else if (_.includes(awardTypeGroups.grants, award.award_type)) {
-            awardType = "Grant";
-        }
-        else if (_.includes(awardTypeGroups.direct_payments, award.award_type)) {
-            awardType = "Direct Payment";
-        }
-        else if (_.includes(awardTypeGroups.loans, award.award_type)) {
-            awardType = "Loan";
-        }
-        else if (_.includes(awardTypeGroups.insurance, award.award_type)) {
-            awardType = "Insurance";
         }
 
         if (award.recipient_parent_duns) {
