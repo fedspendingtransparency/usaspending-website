@@ -73,6 +73,7 @@ const remapData = (data, idField) => {
     let popZip = '';
     let contractPricingCode = '';
     let contractPricing = '';
+    let latestTransaction = '';
 
     if (data.id) {
         id = data.id;
@@ -124,6 +125,10 @@ const remapData = (data, idField) => {
         popZip = data.place_of_performance.zip5;
     }
 
+    if (data.latest_transaction) {
+        latestTransaction = data.latest_transaction;
+    }
+
     remappedData.id = id;
     remappedData.award_type = awardType;
     remappedData.type_description = awardTypeDescription;
@@ -137,6 +142,7 @@ const remapData = (data, idField) => {
     remappedData.pop_city = popCity;
     remappedData.pop_state_province = popStateProvince;
     remappedData.pop_zip = popZip;
+    remappedData.latest_transaction = latestTransaction;
 
     // set the awardID (fain or piid) to the relevant field
     let awardId = data.fain;
