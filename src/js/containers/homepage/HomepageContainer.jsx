@@ -5,7 +5,7 @@
 
 import React from 'react';
 import Landing from 'components/homepage/Landing';
-import TreeMap from 'components/homepage/TreeMap';
+import TreeMap from 'components/homepage/visualizations/TreeMap';
 import LinksSection from 'components/homepage/LinksSection';
 import SearchSection from 'components/homepage/SearchSection';
 import Header from '../../components/sharedComponents/header/Header';

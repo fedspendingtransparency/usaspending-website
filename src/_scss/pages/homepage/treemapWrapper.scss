@@ -1,0 +1,13 @@
+.tree-wrapper {
+    display: block;
+    width: 90%;
+    @include media($tablet-screen) {
+        display: inline-block;
+        margin-right: 4rem;
+        width: 60%;
+    }
+
+    @import './visualizations/_treemapVisualization';
+    @import './_treemapSource';
+
+}

@@ -1,0 +1,17 @@
+svg {
+    g {
+        .category {
+            fill: $color-white;
+            font-size: 1rem;
+        }
+        .tile {
+            stroke: $color-white;
+            stroke-width: 1.5px;
+        }
+        .value {
+            fill: $color-white;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+    }
+}

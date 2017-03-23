@@ -1,0 +1,40 @@
+.source {
+    bottom: 1rem;
+    color: #555;
+    display: block;
+    font-size: 1rem;
+    left: 3rem;
+    margin-right: 2rem;
+    position: relative;
+
+    @include media($tablet-screen) {
+        display: inline-block;
+        width: 100%;
+    }
+
+    .guide-icon {
+        @include align-self(center);
+        display: inline-block;
+        fill: $color-gray;
+        height: 1.7rem;
+        left: .5rem;
+        position: relative;
+        top: .5rem;
+        width: 1.5rem;
+        svg {
+            float: none;
+        }
+    }
+
+    .more-icon {
+        @include moreOptionsBtn($color-gray, $color-white);
+        @include align-self(center);
+        bottom: -.5rem;
+        display: inline-block;
+        right: 1rem;
+        position: absolute;
+        svg {
+            float: none;
+        }
+    }
+}

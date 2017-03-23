@@ -1,88 +1,12 @@
 @import "../../mixins/moreOptionsBtn";
 .usa-da-treemap-section {
     font-family: 'Source Sans Pro';
+    height: auto;
     margin: 2rem 0 2rem 0;
     padding: 0 0 1rem 1rem;
     position: relative;
-    svg {
-        display: inline-block;
 
-        g {
-            .tile {
-                stroke: $color-white;
-                stroke-width: 1.5px;
-            }
-
-            .category {
-                fill: $color-white;
-                font-size: 1rem;
-            }
-            .value {
-                fill: $color-white;
-                font-size: 1.3rem;
-                font-weight: bold;
-            }
-        }
-    }
-
-    .tree-desc {
-        border-left: 1rem solid #F2B733;
-        color: #555;
-        display: inline-block;
-        font-size: 2rem;
-        height: 10rem;
-        padding-left: 1.5rem;
-        position:absolute;
-        top: 2rem;
-        width: rem(380px);
-    }
-
-    .tree-hover-tip {
-        background-color: rgba(242,183,51,0.1);
-        border-bottom: 1px solid rgba(242,183,51,0.4);
-        border-top: 1px solid rgba(242,183,51,0.4);
-        color: #555;
-        display: inline-block;
-        font-size: 1.6rem;
-        padding: 1.7rem;
-        position: absolute;
-        text-align: center;
-        top: 20.1rem;
-        width: rem(380px);
-    }
-
-    .source {
-        bottom: 1rem;
-        color: #555;
-        display: inline-block;
-        font-size: 1rem;
-        left: 3rem;
-        position: absolute;
-
-        .guide-icon {
-            @include align-self(center);
-            display: inline-block;
-            fill: $color-gray;
-            height: 1.7rem;
-            left: .5rem;
-            position: relative;
-            top: .5rem;
-            width: 1.5rem;
-            svg {
-                float: none;
-            }
-        }
-    }
-
-    .more-icon {
-        @include moreOptionsBtn($color-gray, $color-white);
-        @include align-self(center);
-        bottom: -.5rem;
-        display: inline-block;
-        position: absolute;
-        left: 88rem;
-        svg {
-            float: none;
-        }
-    }
+    @import './visualizations/_treemapVisualization';
+    @import './treemapSidebar';
+    @import './treemapWrapper';
 }

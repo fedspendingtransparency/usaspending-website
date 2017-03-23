@@ -38,17 +38,11 @@ export default class Cell extends React.Component {
 
     componentDidUpdate() {
         if (!this.state.didProcess) {
-            // the label changed and needs to be reprocessed
             this.truncateText();
         }
     }
 
     initialRender(label) {
-        // We can only access the label width after we have rendered the full text due to the
-        // variable widths of characters in non-monospaced fonts.
-        // In this function, we trigger an initial render of the full text, then we perform the
-        // calculations to test if truncation is necessary; if so, we'll re-render (this is
-        // automatically triggered when we change the label state value).
         this.setState({
             label,
             didProcess: false
@@ -57,11 +51,12 @@ export default class Cell extends React.Component {
 
     truncateText() {
         const labelWidth = this.props.x1 - this.props.x0;
+
         // determine if the text needs to be truncated
         // get the current label width
         const fullWidth = this.svgText.getBBox().width;
 
-        // there's a 12px margin on both sides of the label space
+        // accounting for 15px margin
         const maxWidth = labelWidth / 1.5;
         let maxChars = 0;
 
@@ -70,8 +65,6 @@ export default class Cell extends React.Component {
         // make sure that the max width is positive
         if (fullWidth > maxWidth && maxWidth > 0) {
             // the label is going to exceed the available space, truncate it
-            // determine how much of the text we can keep
-
             // calculate the averge character width
             const avgCharWidth = (fullWidth / this.props.label.length);
 
@@ -92,6 +85,14 @@ export default class Cell extends React.Component {
     render() {
         const width = (this.props.x1 - this.props.x0);
         const height = (this.props.y1 - this.props.y0);
+        let labelView = 'block';
+        let percentView = 'block';
+        if (height < 20) {
+            labelView = 'none';
+        }
+        if (height < 40) {
+            percentView = 'none';
+        }
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}>
@@ -110,6 +111,9 @@ export default class Cell extends React.Component {
                     textAnchor="middle"
                     ref={(text) => {
                         this.svgText = text;
+                    }}
+                    style={{
+                        display: labelView
                     }}>
                     {this.state.label}
                 </text>
@@ -118,7 +122,10 @@ export default class Cell extends React.Component {
                     x={(width / 2) - 2}
                     y={(height / 2) + 20}
                     width={width}
-                    textAnchor="middle">
+                    textAnchor="middle"
+                    style={{
+                        display: percentView
+                    }}>
                     {Math.round((this.props.value / this.props.total) * 100)}%
                 </text>
             </g>
