@@ -10,10 +10,13 @@ import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as LocationQuery from './queryBuilders/LocationQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
 import * as RecipientQuery from './queryBuilders/RecipientQuery';
+import * as KeywordQuery from './queryBuilders/KeywordQuery';
 import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
+import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
 
 class SearchOperation {
     constructor() {
+        this.keyword = '';
         this.awardType = [];
         this.timePeriodType = 'fy';
         this.timePeriodFY = [];
@@ -34,9 +37,11 @@ class SearchOperation {
         this.selectedRecipientLocations = [];
 
         this.selectedAwardIDs = [];
+        this.awardAmounts = [];
     }
 
     fromState(state) {
+        this.keyword = state.keyword;
         this.awardType = state.awardType.toArray();
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
@@ -53,12 +58,18 @@ class SearchOperation {
         this.recipientDomesticForeign = state.recipientDomesticForeign;
         this.selectedRecipientLocations = state.selectedRecipientLocations.toArray();
         this.selectedAwardIDs = state.selectedAwardIDs.toArray();
+        this.awardAmounts = state.awardAmounts.toArray();
     }
 
     commonParams() {
         // convert the search operation into JS objects for filters that have shared keys and
         // data structures between Awards and Transactions
         const filters = [];
+
+        // add keyword query
+        if (this.keyword !== '') {
+            filters.push(KeywordQuery.buildKeywordQuery(this.keyword));
+        }
 
         // Add award types
         if (this.awardType.length > 0) {
@@ -103,13 +114,6 @@ class SearchOperation {
             );
         }
 
-        // Add Award ID Queries
-        if (this.selectedAwardIDs.length > 0) {
-            filters.push(AwardIDQuery.buildAwardIDQuery(
-                this.selectedAwardIDs)
-            );
-        }
-
         return filters;
     }
 
@@ -125,6 +129,22 @@ class SearchOperation {
             });
             if (timeQuery) {
                 filters.push(timeQuery);
+            }
+        }
+
+        // Add Award ID Queries
+        if (this.selectedAwardIDs.length > 0) {
+            filters.push(AwardIDQuery.buildAwardIDQuery(
+                this.selectedAwardIDs, 'awards')
+            );
+        }
+
+        // Add Award Amount queries
+        if (this.awardAmounts.length > 0) {
+            const awardAmountsQuery = AwardAmountQuery.buildAwardAmountQuery(
+                this.awardAmounts, 'awards');
+            if (awardAmountsQuery) {
+                filters.push(awardAmountsQuery);
             }
         }
 

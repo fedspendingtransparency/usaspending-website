@@ -10,7 +10,8 @@ const propTypes = {
     hideArrow: React.PropTypes.bool,
     toggleFilter: React.PropTypes.func,
     arrowState: React.PropTypes.string,
-    name: React.PropTypes.string
+    name: React.PropTypes.string,
+    disabled: React.PropTypes.bool
 };
 
 export default class FilterExpandButton extends React.Component {
@@ -25,19 +26,11 @@ export default class FilterExpandButton extends React.Component {
             icon = <Icons.AngleDown />;
         }
 
-        let disabledStatus = false;
-        if (this.props.name === 'Search' ||
-            this.props.name === 'Budget Categories' ||
-            this.props.name === 'Award Amount' ||
-            this.props.name === 'Other Award Items') {
-            disabledStatus = true;
-        }
-
         return (
             <button
                 className={`filter-toggle ${hiddenClass}`}
                 onClick={this.props.toggleFilter}
-                disabled={disabledStatus}>
+                disabled={this.props.disabled}>
                 {icon}
                 <h6 className="filter-header">{this.props.name}</h6>
             </button>

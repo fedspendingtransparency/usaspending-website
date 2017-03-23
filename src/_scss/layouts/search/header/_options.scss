@@ -1,5 +1,6 @@
 @import "./_formatItem";
 @import "./_downloadButton";
+@import "../../../components/_comingSoon";
 @mixin searchHeaderOptions {
     display: table;
     ul.search-formats {
@@ -25,36 +26,27 @@
         .download-button {
             @include searchHeaderDownloadButton;
         }
-        .coming-soon {
-            color: $color-gray;
-            cursor: default;
-            pointer-events: none;
-        }
+    }
+
+    @include comingSoon;    
+    
+    .coming-soon {
+        color: $color-gray-light;
+        cursor: default;
+        pointer-events: none;
         .coming-soon-container {
             margin-top: rem(0px);
             .coming-soon-icon {
                 bottom: rem(0px);
                 display: inline;
-                float: left;
-                height: 0;
                 left: rem(27px);
-                position: relative;
-                svg {
-                    fill: $color-gray;
-                    height: rem(10px);
-                    width: rem(10px);
-                }
             }
             .coming-soon-label {
                 bottom: rem(-5px);
-                color: $color-gray;
+                color: $color-gray-light;
                 display: inline;
                 float: left;
-                font-weight: bold;
-                font-size: rem(10px);
-                height: 0;
                 left: rem(42px);
-                position: relative;
             }
         }
     }
