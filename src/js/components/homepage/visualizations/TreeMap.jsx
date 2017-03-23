@@ -107,7 +107,6 @@ export default class TreeMap extends React.Component {
                         this.sectionWrapper = sr;
                     }}>
                     <svg
-                        style={{ margin: "20px" }}
                         width={this.state.visualizationWidth}
                         height="565">
                         { finalNodes }

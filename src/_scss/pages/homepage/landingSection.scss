@@ -1,15 +1,17 @@
-.landingSectionWrap {
+@import './_landingButtons';
+.landing-section-wrap {
     background: url(../img/landing_bg_img.jpg) no-repeat center center fixed;
     background-size: cover;
     min-height: rem(700);
+    padding: 0 rem(30);
     @include display(flex);
     @include justify-content(center);
     @include align-items(center);
-    & .contentWrap {
+    & .content-wrap {
         display: block;
-        //background: red;
         min-height: rem(325);
         text-align: center;
+        z-index: 2;
         & h2 {
             border-top: 1px solid rgba($color-white, .4);
             border-bottom: 1px solid rgba($color-white, .4);
@@ -18,34 +20,27 @@
             margin: 0;
             padding: rem(25) 0;
             & .stronger {
-                color: $color-primary-alt;
+                color: #BDF486;
                 font-weight: $font-normal;
             }
         }
         h5 {
             color: $color-gold-lighter;
-            font-size: rem(18);
+            font-size: rem(20);
             font-weight: $font-normal;
             margin-top: rem(15);
         }
-        & ul {
-            @include unstyled-list;
-            & li {
-                background: rgba($color-white, .1);
-                border: 1px solid rgba($color-white, .2);
-                background-image: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(255, 255, 255, .025) 4px, rgba(255, 255, 255, .025) 6px);
-                color: $color-white;
-                font-size: rem(20);
-                height: rem(80);
-                margin-top: rem(100);
-                padding: 0 rem(20);
-                @include span-columns(6);
-                @include display(flex);
-                @include align-items(center);
-                &:first-child {
-                    @include shift(2);
-                }
-            }
-        }
+        @include landingButtons;
+    }
+    @include media($large-screen) {
+        padding: 0 0;
+    }
+    & .bottom-gradient {
+        @include linear-gradient(rgba(239, 1, 124, 0), #0F2D52);
+        @include align-self(flex-end);
+        height: rem(450);
+        position: absolute;
+        width: 100%;
+        z-index: 1;
     }
 }

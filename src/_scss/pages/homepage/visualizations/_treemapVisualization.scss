@@ -1,17 +1,17 @@
 svg {
     g {
-        .category {
-            fill: $color-white;
-            font-size: 1rem;
-        }
         .tile {
             stroke: $color-white;
-            stroke-width: 1.5px;
+            stroke-width: rem(1.5);
+        }
+        .category {
+            fill: $color-white;
+            font-size: $small-font-size;
         }
         .value {
             fill: $color-white;
-            font-size: 1.3rem;
-            font-weight: bold;
+            font-size: $base-font-size + rem(2);
+            font-weight: $font-semibold;
         }
     }
 }

@@ -1,10 +1,20 @@
 @import "../../mixins/moreOptionsBtn";
 .usa-da-treemap-section {
-    font-family: 'Source Sans Pro';
-    height: auto;
-    margin: 2rem 0 2rem 0;
-    padding: 0 0 1rem 1rem;
+    
+    @include outer-container(100%);
+    @include row();
+    @include clearfix;
+    max-width: $site-max-width;
+    margin: rem(40) rem(30);
     position: relative;
+    padding: 0;
+
+    @include media($large-screen) {
+        margin: rem(40) $outer-gutter;
+    }
+    @include media($x-large-screen) {
+        margin: rem(40) auto;
+    }
 
     @import './visualizations/_treemapVisualization';
     @import './treemapSidebar';
