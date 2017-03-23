@@ -58,6 +58,12 @@ export class FinancialSystemTableContainer extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        if (this.financialRequest) {
+            this.financialRequest.cancel();
+        }
+    }
+
     loadFinancialSystemData(page = 1, reset = false) {
         const awardId = this.props.award.selectedAward.id;
         if (!awardId) {
@@ -127,10 +133,7 @@ export class FinancialSystemTableContainer extends React.Component {
                 });
             })
             .catch((err) => {
-                if (isCancel(err)) {
-                    // cancelled
-                }
-                else {
+                if (!isCancel(err)) {
                     this.financialRequest = null;
                     this.setState({
                         inFlight: false

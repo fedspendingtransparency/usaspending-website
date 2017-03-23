@@ -1,7 +1,7 @@
 ---
 engines:
   fixme:
-    enabled: true
+    enabled: false
 ratings:
   paths:
   - "src/js/**/**.js"
