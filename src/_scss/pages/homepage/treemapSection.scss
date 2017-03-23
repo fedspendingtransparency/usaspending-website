@@ -1,11 +1,11 @@
 @import "../../mixins/moreOptionsBtn";
 .usa-da-treemap-section {
     @include outer-container(100%);
-    max-width: $site-max-width;
-    margin: 0px $outer-gutter/2;
     @include row();
     @include clearfix;
+    max-width: $site-max-width;
     margin: rem(40) rem(30);
+    position: relative;
     padding: 0;
     @include media($large-screen) {
         margin: rem(40) $outer-gutter;
