@@ -11,6 +11,9 @@ $color-label-line: #ADAFB4;
 
     .amounts-graph {
         margin-top: 2rem;
+        rect {
+            stroke: #ADAFB4;
+        }
         .potential-bar {
             fill: $color-potential-award;
         }
