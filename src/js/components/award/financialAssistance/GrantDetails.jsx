@@ -1,27 +1,27 @@
 /**
- * ContractDetails.jsx
- * Created by Emily Gullo 02/06/2017
+ * GrantDetails.jsx
+ * Created by Lizzie Dabbs 03/06/2017
  **/
 
 import React from 'react';
 import moment from 'moment';
-import ContractCell from './ContractCell';
+import DetailRow from '../DetailRow';
 
 const propTypes = {
     selectedAward: React.PropTypes.object
 };
 
-export default class ContractDetails extends React.Component {
-
+export default class GrantDetails extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            desc: "",
+            description: "",
             date: "",
             place: "",
             typeDesc: "",
-            price: ""
+            programName: "",
+            programDesc: ""
         };
 
         // bind functions
@@ -32,36 +32,23 @@ export default class ContractDetails extends React.Component {
         this.setValues(this.props.selectedAward);
     }
 
-    setValues(award) {
+    setValues() {
         let yearRangeTotal = "";
         let description = null;
+        const award = this.props.selectedAward;
+        const latestTransaction = award.latest_transaction;
 
         // Date Range
         const startDate = moment(award.period_of_performance_start_date, 'M/D/YYYY');
         const endDate = moment(award.period_of_performance_current_end_date, 'M/D/YYYY');
         const yearRange = endDate.diff(startDate, 'year');
-        const monthRange = (endDate.diff(startDate, 'month') - (yearRange * 12));
-        if (yearRange !== 0 && !Number.isNaN(yearRange)) {
+        if (yearRange !== 0) {
             if (yearRange === 1) {
-                yearRangeTotal = `${yearRange} year`;
+                yearRangeTotal = `${yearRange} year)`;
             }
             else {
-                yearRangeTotal = `${yearRange} years`;
+                yearRangeTotal = `(${yearRange} years)`;
             }
-        }
-        if (monthRange !== 0 && monthRange >= 1) {
-            if (yearRange === 0) {
-                yearRangeTotal = `${monthRange} months`;
-            }
-            if (monthRange === 1) {
-                yearRangeTotal += ` ${monthRange} month`;
-            }
-            else {
-                yearRangeTotal += ` ${monthRange} months`;
-            }
-        }
-        if (yearRangeTotal) {
-            yearRangeTotal = `(${yearRangeTotal})`;
         }
         const popDate = `${award.period_of_performance_start_date} -
             ${award.period_of_performance_current_end_date} ${yearRangeTotal}`;
@@ -94,18 +81,18 @@ export default class ContractDetails extends React.Component {
             description = "Not Available";
         }
 
-        // Pricing
-        let pricing = "Not Available";
-        if (award.type_of_contract_pricing_description) {
-            pricing = award.type_of_contract_pricing_description;
-        }
+        // CFDA Data
+        // TODO: get program description (objectives) for latest transaction
+        const programName = `${latestTransaction.assistance_data.cfda_number} - ${latestTransaction.assistance_data.cfda_title}`;
+        const programDescription = '';
 
         this.setState({
-            desc: description,
+            description,
+            programName,
             date: popDate,
             place: popPlace,
             typeDesc: award.type_description,
-            price: pricing
+            programDesc: programDescription
         });
     }
 
@@ -113,7 +100,7 @@ export default class ContractDetails extends React.Component {
         return (
             <div className="contract-wrapper">
                 <div className="contract-details">
-                    <h3>Contract Details</h3>
+                    <h3>Grant Details</h3>
                     <hr
                         className="results-divider"
                         ref={(hr) => {
@@ -121,21 +108,24 @@ export default class ContractDetails extends React.Component {
                         }} />
                     <table>
                         <tbody>
-                            <ContractCell
+                            <DetailRow
                                 title="Description"
-                                value={this.state.desc} />
-                            <ContractCell
+                                value={this.state.description} />
+                            <DetailRow
                                 title="Period of Performance"
                                 value={this.state.date} />
-                            <ContractCell
+                            <DetailRow
                                 title="Primary Place of Performance"
                                 value={this.state.place} />
-                            <ContractCell
-                                title="Contract Award Type"
+                            <DetailRow
+                                title="Grant Type"
                                 value={this.state.typeDesc} />
-                            <ContractCell
-                                title="Contract Pricing Type"
-                                value={this.state.price} />
+                            <DetailRow
+                                title="CFDA Program"
+                                value={this.state.programName} />
+                            <DetailRow
+                                title="CFDA Program Description"
+                                value={this.state.programDesc} />
                         </tbody>
                     </table>
                 </div>
@@ -143,4 +133,4 @@ export default class ContractDetails extends React.Component {
         );
     }
 }
-ContractDetails.propTypes = propTypes;
+GrantDetails.propTypes = propTypes;

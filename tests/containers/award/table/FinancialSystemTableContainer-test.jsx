@@ -7,8 +7,6 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
-import { Set } from 'immutable';
-
 import { FinancialSystemTableContainer } from
     'containers/award/table/FinancialSystemTableContainer';
 import * as awardActions from 'redux/actions/award/awardActions';
@@ -16,8 +14,8 @@ import * as SearchHelper from 'helpers/searchHelper';
 
 import FinancialSystemItem from 'models/results/other/FinancialSystemItem';
 
-import { mockAward } from './mockAward';
-import mockFinancialSystemDetails from './mockFinancialSystemDetails';
+import { mockAward } from '../mockAward';
+import mockFinancialSystemDetails from '../mockFinancialSystemDetails';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/award/table/FinancialSystemTable', () =>
