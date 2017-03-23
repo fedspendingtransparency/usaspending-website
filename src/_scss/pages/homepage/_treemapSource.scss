@@ -1,19 +1,10 @@
 .source {
+    @include span-columns(16);
     bottom: rem(10);
     color: $color-base;
     float: left;
     font-size: rem(10);
-    margin-right: rem(20);
     margin-top: rem(10);
-    position: relative;
-
-    @include span-columns(16);
-
-    @include media($tablet-screen) {
-        display: inline-block;
-    }
-
-
     .guide-icon {
         @include align-self(center);
         display: inline-block;
@@ -27,15 +18,9 @@
             float: none;
         }
     }
-
-    .more-icon {
-        @include moreOptionsBtn($color-gray, $color-white);
-        @include align-self(center);
-        display: inline-block;
-        right: 0;
-        position: absolute;
-        svg {
-            float: none;
-        }
-    }
+}
+.more-icon {
+    @include moreOptionsBtn($color-gray, $color-white);
+    float: right;
+    margin-top: rem(0);
 }

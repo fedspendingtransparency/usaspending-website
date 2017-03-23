@@ -1,13 +1,9 @@
 .tree-wrapper {
-    display: block;
     @include span-columns(16);
     @include media($medium-screen) {
-        display: inline-block;
-        margin-right: 4rem;
-        @include span-columns(10);
+        @include span-columns(11);
+        @include shift(-16 of 16);
     }
-
     @import './visualizations/_treemapVisualization';
     @import './_treemapSource';
-
 }

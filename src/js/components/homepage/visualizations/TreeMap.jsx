@@ -101,6 +101,17 @@ export default class TreeMap extends React.Component {
         return (
             <div
                 className="usa-da-treemap-section">
+                <div className="treemap-sidebar">
+                    <div className="tree-desc">
+                        <b>3</b> of the <b>19</b> total budget functions, accounted for about
+                        &nbsp;<b>1/2</b> of total spending. Social Security, National Defense,
+                        and Medicare.
+                    </div>
+                    <div className="tree-hover-tip">
+                        Hover over each block to learn more about Spending by Budget Function in
+                        2016.
+                    </div>
+                </div>
                 <div
                     className="tree-wrapper"
                     ref={(sr) => {
@@ -119,17 +130,6 @@ export default class TreeMap extends React.Component {
                         <div className="more-icon">
                             <Icons.MoreOptions />
                         </div>
-                    </div>
-                </div>
-                <div className="treemap-sidebar">
-                    <div className="tree-desc">
-                        <b>3</b> of the <b>19</b> total budget functions, accounted for about
-                        &nbsp;<b>1/2</b> of total spending. Social Security, National Defense,
-                        and Medicare.
-                    </div>
-                    <div className="tree-hover-tip">
-                        Hover over each block to learn more about Spending by Budget Function in
-                        2016.
                     </div>
                 </div>
             </div>
