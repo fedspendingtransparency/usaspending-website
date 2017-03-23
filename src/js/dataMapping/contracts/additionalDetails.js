@@ -154,7 +154,7 @@ export const legislativeFields = [
     },
     {
         label: 'Subject to Davis Bacon Act',
-        field: ''
+        field: 'davis_bacon_act'
     },
     {
         label: 'Subject to Service Contract Act',

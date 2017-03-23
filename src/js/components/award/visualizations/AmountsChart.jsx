@@ -17,11 +17,13 @@ const propTypes = {
     potential: React.PropTypes.number,
     current: React.PropTypes.number,
     graphHeight: React.PropTypes.number,
-    awardId: React.PropTypes.number
+    awardId: React.PropTypes.number,
+    showPotential: React.PropTypes.bool
 };
 
 const defaultProps = {
-    graphHeight: 180
+    graphHeight: 180,
+    showPotential: true
 };
 
 const labelDistance = 15;
@@ -134,6 +136,28 @@ export default class AmountsChart extends React.Component {
     }
 
     render() {
+        let potentialLabel = null;
+        let potentialBar = null;
+
+        if (this.props.showPotential) {
+            potentialLabel = (<AwardLabels
+                name="potential"
+                amount={this.props.potential}
+                groupTransform={`${200 + this.state.barWidth},0`}
+                singleTransform={`${10 + labelDistance},5`}
+                subtitle="Potential Funding Ceiling"
+                labelDistance={labelDistance}
+                line="line"
+                labelWidth={labelWidth}
+                labelPadding={labelPadding}
+                potentialY={this.state.potentialY}
+                graphHeight={this.props.graphHeight} />);
+            potentialBar = (<IndividualBar
+                name="potential"
+                yValue={this.state.potentialY}
+                barValue={this.state.potential} />);
+        }
+
         return (
             <div
                 className="amounts-visualization-wrapper"
@@ -149,23 +173,9 @@ export default class AmountsChart extends React.Component {
                     }}>
 
                     <g transform="translate(0, 5)">
-                        <IndividualBar
-                            name="potential"
-                            yValue={this.state.potentialY}
-                            barValue={this.state.potential} />
 
-                        <AwardLabels
-                            name="potential"
-                            amount={this.props.potential}
-                            groupTransform={`${200 + this.state.barWidth},0`}
-                            singleTransform={`${10 + labelDistance},5`}
-                            subtitle="Potential Funding Ceiling"
-                            labelDistance={labelDistance}
-                            line="line"
-                            labelWidth={labelWidth}
-                            labelPadding={labelPadding}
-                            potentialY={this.state.potentialY}
-                            graphHeight={this.props.graphHeight} />
+                        {potentialBar}
+                        {potentialLabel}
 
                         <IndividualBar
                             name="current"

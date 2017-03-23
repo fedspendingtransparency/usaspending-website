@@ -5,14 +5,19 @@
 
 import React from 'react';
 
+import ContractTransactionsTableContainer from
+    'containers/award/table/ContractTransactionsTableContainer';
+import AssistanceTransactionsTableContainer from
+    'containers/award/table/AssistanceTransactionsTableContainer';
 import FinancialSystemTableContainer from 'containers/award/table/FinancialSystemTableContainer';
 
 import DetailsTabBar from './DetailsTabBar';
-import TransactionsTable from '../table/TransactionsTable';
-import AdditionalDetails from './additional/AdditionalDetails';
+import ContractAdditionalDetails from './additional/ContractAdditionalDetails';
+import AssistanceAdditionalDetails from './additional/AssistanceAdditionalDetails';
 
 const propTypes = {
-    award: React.PropTypes.object
+    award: React.PropTypes.object,
+    isContract: React.PropTypes.bool
 };
 
 const defaultTab = 'transaction';
@@ -65,15 +70,24 @@ export default class DetailsSection extends React.Component {
     currentSection() {
         switch (this.state.activeTab) {
             case 'transaction':
-                return (<TransactionsTable
-                    {...this.props}
+                if (this.props.isContract) {
+                    return (<ContractTransactionsTableContainer
+                        tableWidth={this.state.tableWidth} />);
+                }
+                return (<AssistanceTransactionsTableContainer
                     tableWidth={this.state.tableWidth} />);
+
             case 'financial':
                 return (<FinancialSystemTableContainer
                     {...this.props}
                     tableWidth={this.state.tableWidth} />);
+
             case 'additional':
-                return (<AdditionalDetails {...this.props} />);
+                if (this.props.isContract) {
+                    return (<ContractAdditionalDetails {...this.props} />);
+                }
+                return (<AssistanceAdditionalDetails {...this.props} />);
+
             default:
                 return null;
         }
