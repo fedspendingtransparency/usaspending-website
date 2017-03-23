@@ -100,6 +100,11 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(selectedAwardIDFilters);
         }
 
+        const awardAmounts = this.prepareAwardAmounts(props);
+        if (awardAmounts) {
+            filters.push(awardAmounts);
+        }
+
         this.setState({
             filters
         });
@@ -355,6 +360,30 @@ export class TopFilterBarContainer extends React.Component {
     }
 
     /**
+     * Logic for parsing the current Redux selected Award Amounts
+     * Scope into a JS object that can be parsed by the top filter bar
+     */
+    prepareAwardAmounts(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.awardAmounts.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.awardAmounts.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'awardAmounts';
+            filter.name = 'Award Amounts';
+            return filter;
+        }
+        return null;
+    }
+
+    /**
      * Generic function that can be called to overwrite a filter with a specified value. This is
      * useful for filters that have complex logic associated with item or group removal (such as
      * award type groups).
@@ -405,6 +434,9 @@ export class TopFilterBarContainer extends React.Component {
                 this.removeFromOrderedMap(type, value);
                 break;
             case 'selectedAwardIDs':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'awardAmounts':
                 this.removeFromOrderedMap(type, value);
                 break;
             case 'keyword':

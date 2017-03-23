@@ -6,6 +6,7 @@
 import { Set, OrderedMap } from 'immutable';
 
 import searchFiltersReducer from 'redux/reducers/search/searchFiltersReducer';
+import { awardRanges } from 'dataMapping/search/awardAmount';
 
 const initialState = {
     awardType: new Set(),
@@ -21,7 +22,8 @@ const initialState = {
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
     selectedRecipientLocations: new OrderedMap(),
-    selectedAwardIDs: new OrderedMap()
+    selectedAwardIDs: new OrderedMap(),
+    awardAmounts: new OrderedMap()
 };
 
 describe('searchFiltersReducer', () => {
@@ -716,50 +718,9 @@ describe('searchFiltersReducer', () => {
             type: 'UPDATE_SELECTED_AWARD_IDS',
             awardID: {
                 id: "601793",
-                date_signed__fy: null,
-                data_source: null,
-                type: "U",
-                type_description: "Unknown Type",
                 piid: "AG3142B100012",
                 fain: null,
-                uri: null,
-                total_obligation: null,
-                total_outlay: null,
-                date_signed: null,
-                description: null,
-                period_of_performance_start_date: null,
-                period_of_performance_current_end_date: null,
-                potential_total_value_of_award: null,
-                last_modified_date: null,
-                certified_date: null,
-                create_date: "2017-02-28T18:01:59.717954Z",
-                update_date: "2017-02-28T18:01:59.717969Z",
-                parent_award: null,
-                awarding_agency: {
-                    id: 999,
-                    create_date: "2017-01-12T19:56:26.723000Z",
-                    update_date: "2017-01-12T19:56:26.723000Z",
-                    toptier_agency: {
-                        toptier_agency_id: 155,
-                        create_date: null,
-                        update_date: null,
-                        cgac_code: "012",
-                        fpds_code: "1200",
-                        name: "AGRICULTURE, DEPARTMENT OF"
-                    },
-                    subtier_agency: {
-                        subtier_agency_id: 865,
-                        create_date: null,
-                        update_date: null,
-                        subtier_code: "1205",
-                        name: "USDA, OFFICE OF THE CHIEF FINANCIAL OFFICER"
-                    },
-                    office_agency: null
-                },
-                funding_agency: null,
-                recipient: null,
-                place_of_performance: null,
-                latest_submission: null
+                uri: null
             }
         };
 
@@ -767,50 +728,9 @@ describe('searchFiltersReducer', () => {
 
         const expectedAwardID = {
             id: "601793",
-            date_signed__fy: null,
-            data_source: null,
-            type: "U",
-            type_description: "Unknown Type",
             piid: "AG3142B100012",
             fain: null,
-            uri: null,
-            total_obligation: null,
-            total_outlay: null,
-            date_signed: null,
-            description: null,
-            period_of_performance_start_date: null,
-            period_of_performance_current_end_date: null,
-            potential_total_value_of_award: null,
-            last_modified_date: null,
-            certified_date: null,
-            create_date: "2017-02-28T18:01:59.717954Z",
-            update_date: "2017-02-28T18:01:59.717969Z",
-            parent_award: null,
-            awarding_agency: {
-                id: 999,
-                create_date: "2017-01-12T19:56:26.723000Z",
-                update_date: "2017-01-12T19:56:26.723000Z",
-                toptier_agency: {
-                    toptier_agency_id: 155,
-                    create_date: null,
-                    update_date: null,
-                    cgac_code: "012",
-                    fpds_code: "1200",
-                    name: "AGRICULTURE, DEPARTMENT OF"
-                },
-                subtier_agency: {
-                    subtier_agency_id: 865,
-                    create_date: null,
-                    update_date: null,
-                    subtier_code: "1205",
-                    name: "USDA, OFFICE OF THE CHIEF FINANCIAL OFFICER"
-                },
-                office_agency: null
-            },
-            funding_agency: null,
-            recipient: null,
-            place_of_performance: null,
-            latest_submission: null
+            uri: null
         };
 
         it('should add the provided award ID if it does not currently exist in the filter', () => {
@@ -829,6 +749,97 @@ describe('searchFiltersReducer', () => {
 
             const updatedState = searchFiltersReducer(startingState, action);
             expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
+        });
+    });
+
+    describe('UPDATE_AWARD_AMOUNTS', () => {
+        const predefinedRangeAction = {
+            type: 'UPDATE_AWARD_AMOUNTS',
+            awardAmounts: {
+                amount: "range-1",
+                searchType: 'range'
+            }
+        };
+
+        const specificRangeAction = {
+            type: 'UPDATE_AWARD_AMOUNTS',
+            awardAmounts: {
+                amount: [10000, 20000],
+                searchType: 'specific'
+            }
+        };
+
+        const predefinedAwardAmount = "range-1";
+        const expectedpredefinedAwardAmount = awardRanges[predefinedAwardAmount];
+
+        const specificAwardAmount = [10000, 20000];
+
+        it('should add the predefined Award Amount ' +
+            'if it does not currently exist in the filter', () => {
+            const updatedState = searchFiltersReducer(undefined, predefinedRangeAction);
+            expect(updatedState.awardAmounts).toEqual(new OrderedMap({
+                [predefinedAwardAmount]: expectedpredefinedAwardAmount
+            }));
+        });
+
+        it('should remove the predefined Award Amount ' +
+            'if it already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                awardAmounts: new OrderedMap({
+                    [predefinedAwardAmount]: expectedpredefinedAwardAmount
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, predefinedRangeAction);
+            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
+        });
+
+        it('should add the specific Award Amount ' +
+            'if it does not currently exist in the filter', () => {
+            const updatedState = searchFiltersReducer(undefined, specificRangeAction);
+            expect(updatedState.awardAmounts).toEqual(new OrderedMap({
+                specific: specificAwardAmount
+            }));
+        });
+
+        it('should remove the specific Award Amount ' +
+            'if it already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                awardAmounts: new OrderedMap({
+                    specific: specificAwardAmount
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, specificRangeAction);
+            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
+        });
+
+        it('should remove a specific Award Amount ' +
+            'if a predefined Award Amount is specified', () => {
+            const startingState = Object.assign({}, initialState, {
+                awardAmounts: new OrderedMap({
+                    specific: specificAwardAmount
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, predefinedRangeAction);
+            expect(updatedState.awardAmounts).toEqual(new OrderedMap({
+                [predefinedAwardAmount]: expectedpredefinedAwardAmount
+            }));
+        });
+
+        it('should remove a predefined Award Amount ' +
+            'if a specific Award Amount is specified', () => {
+            const startingState = Object.assign({}, initialState, {
+                awardAmounts: new OrderedMap({
+                    [predefinedAwardAmount]: expectedpredefinedAwardAmount
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, specificRangeAction);
+            expect(updatedState.awardAmounts).toEqual(new OrderedMap({
+                specific: specificAwardAmount
+            }));
         });
     });
 
