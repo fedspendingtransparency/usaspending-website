@@ -1,5 +1,5 @@
 /**
- * ContractCell.jsx
+ * DetailRow.jsx
  * Created by Emily Gullo 02/06/2017
  **/
 
@@ -10,7 +10,7 @@ const propTypes = {
     value: React.PropTypes.string
 };
 
-export default class ContractCell extends React.Component {
+export default class DetailRow extends React.Component {
 
     render() {
         return (
@@ -21,4 +21,4 @@ export default class ContractCell extends React.Component {
         );
     }
 }
-ContractCell.propTypes = propTypes;
+DetailRow.propTypes = propTypes;

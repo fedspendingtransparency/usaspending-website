@@ -55,11 +55,9 @@ const remapData = (data) => {
     }
 
 
-    if (data.transaction_obligations && data.transaction_obligations.length > 0) {
-        if (data.transaction_obligations[0].transaction_obligated_amount) {
-            const amount = data.transaction_obligations[0].transaction_obligated_amount;
-            remappedData.fundingObligated = MoneyFormatter.formatMoney(amount);
-        }
+    if (data.obligations_incurred_total_by_award_cpe) {
+        const amount = data.transaction_obligations[0].obligations_incurred_total_by_award_cpe;
+        remappedData.fundingObligated = MoneyFormatter.formatMoney(amount);
     }
 
     return remappedData;
