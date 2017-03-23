@@ -1,88 +1,103 @@
+///ADD A  MIXIN FOR SCREEN PADDING
 @import "../../mixins/moreOptionsBtn";
 .usa-da-treemap-section {
-    font-family: 'Source Sans Pro';
-    margin: 2rem 0 2rem 0;
-    padding: 0 0 1rem 1rem;
-    position: relative;
-    svg {
-        display: inline-block;
-
-        g {
-            .tile {
-                stroke: $color-white;
-                stroke-width: 1.5px;
-            }
-
-            .category {
-                fill: $color-white;
-                font-size: 1rem;
-            }
-            .value {
-                fill: $color-white;
-                font-size: 1.3rem;
-                font-weight: bold;
-            }
-        }
+    @include outer-container(100%);
+    max-width: $site-max-width;
+    margin: 0px $outer-gutter/2;
+    @include row();
+    @include clearfix;
+    margin: rem(40) rem(30);
+    padding: 0;
+    @include media($large-screen) {
+        margin: rem(40) $outer-gutter;
     }
-
-    .tree-desc {
-        border-left: 1rem solid #F2B733;
-        color: #555;
-        display: inline-block;
-        font-size: 2rem;
-        height: 10rem;
-        padding-left: 1.5rem;
-        position:absolute;
-        top: 2rem;
-        width: rem(380px);
+    @include media($x-large-screen) {
+        margin: rem(40) auto;
     }
-
-    .tree-hover-tip {
-        background-color: rgba(242,183,51,0.1);
-        border-bottom: 1px solid rgba(242,183,51,0.4);
-        border-top: 1px solid rgba(242,183,51,0.4);
-        color: #555;
-        display: inline-block;
-        font-size: 1.6rem;
-        padding: 1.7rem;
-        position: absolute;
-        text-align: center;
-        top: 20.1rem;
-        width: rem(380px);
-    }
-
-    .source {
-        bottom: 1rem;
-        color: #555;
-        display: inline-block;
-        font-size: 1rem;
-        left: 3rem;
-        position: absolute;
-
-        .guide-icon {
-            @include align-self(center);
-            display: inline-block;
-            fill: $color-gray;
-            height: 1.7rem;
-            left: .5rem;
-            position: relative;
-            top: .5rem;
-            width: 1.5rem;
-            svg {
-                float: none;
-            }
-        }
-    }
-
-    .more-icon {
-        @include moreOptionsBtn($color-gray, $color-white);
-        @include align-self(center);
-        bottom: -.5rem;
-        display: inline-block;
-        position: absolute;
-        left: 88rem;
+    .treeMapWrap {
+        background-color: $color-gray-lighter; //NOT NEEDED ONCE THE TREEMAP IS RESPONSIVE
+        overflow: hidden; //NOT NEEDED ONCE THE TREEMAP IS RESPONSIVE
+        @include span-columns(16);
         svg {
-            float: none;
+            display: inline-block;
+            g {
+                .tile {
+                    stroke: $color-white;
+                    stroke-width: rem(1.5);
+                }
+                .category {
+                    fill: $color-white;
+                    font-size: $small-font-size;
+                }
+                .value {
+                    fill: $color-white;
+                    font-size: $base-font-size + rem(2);
+                    font-weight: $font-semibold;
+                }
+            }
+        }
+        @include media($medium-screen) {
+            @include span-columns(11);
+            @include shift(-16 of 16);
+        }
+        .source {
+            bottom: rem(10);
+            color: $color-base;
+            float: left;
+            font-size: rem(10);
+            margin-top: rem(10);
+            .guide-icon {
+                @include align-self(center);
+                display: inline-block;
+                fill: $color-gray;
+                height: rem(17);
+                left: rem(5);
+                position: relative;
+                top: rem(5);
+                width: rem(15);
+                svg {
+                    float: none;
+                }
+            }
+        }
+        .more-icon {
+            @include moreOptionsBtn($color-gray, $color-white);
+            margin-top: rem(10);
+        }
+    }
+    .treeMapInfoWrap {
+        @include span-columns(16);
+        @include clearfix;
+        .tree-desc {
+            border-left: rem(10) solid $color-active;
+            color: $color-base;
+            font-size: rem(20);
+            font-weight: $font-light;
+            padding: rem(10) 0 rem(10) rem(15);
+            & b {
+                font-weight: $font-semibold;
+            }
+        }
+        .tree-hover-tip {
+            background-color: rgba(242, 183, 51, 0.1);
+            border-bottom: 1px solid rgba(242, 183, 51, 0.4);
+            border-top: 1px solid rgba(242, 183, 51, 0.4);
+            color: $color-base;
+            display: inline-block;
+            font-size: $base-font-size;
+            margin-bottom: rem(20);
+            margin-top: rem(30);
+            padding: rem(15);
+            text-align: center;
+            width: 100%;
+        }
+        @include media($medium-screen) {
+            @include span-columns(5);
+            @include shift(11 of 16);
+            & .tree-hover-tip {
+                margin-bottom: 0;
+                margin-top: rem(90);
+            }
         }
     }
 }
