@@ -75,6 +75,16 @@ const accountReducer = (state = initialState, action) => {
                 }
             });
         }
+        case 'RESET_ACCOUNT_FILTER_TIME': {
+            return Object.assign({}, state, {
+                filters: {
+                    dateType: initialState.filters.dateType,
+                    startDate: initialState.filters.startDate,
+                    endDate: initialState.filters.endDate,
+                    fy: new Set()
+                }
+            });
+        }
         case 'RESET_ACCOUNT_FILTERS': {
             return Object.assign({}, {
                 filters: initialState.filters,

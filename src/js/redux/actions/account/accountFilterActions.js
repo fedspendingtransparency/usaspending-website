@@ -11,6 +11,10 @@ export const updateTimePeriod = (state) => ({
     end: state.endDate
 });
 
+export const resetTimeFilters = () => ({
+    type: 'RESET_ACCOUNT_FILTER_TIME'
+});
+
 export const resetAccountFilters = () => ({
     type: 'RESET_ACCOUNT_FILTERS'
 });
