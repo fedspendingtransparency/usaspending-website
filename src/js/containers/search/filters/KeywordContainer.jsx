@@ -48,7 +48,7 @@ export class KeywordContainer extends React.Component {
 
             // Analytics
             KeywordContainer.logFilterEvent();
-            KeywordContainer.logSelectedKeywordEvent(this.keyword.value);
+            KeywordContainer.logSelectedKeywordEvent(value);
         }
     }
 

@@ -10,14 +10,15 @@ import Footer from '../sharedComponents/Footer';
 
 import * as Icons from '../sharedComponents/icons/Icons';
 
-import TestStyleIconItem from './TestStyleIconItem';
+import IconsExample from './IconsExample';
+import ButtonsExample from './ButtonsExample';
 
 export default class TestStylePage extends React.Component {
     render() {
         const icons = [];
 
         _.forEach(Icons, (value, key) => {
-            const component = (<TestStyleIconItem
+            const component = (<IconsExample
                 key={key}
                 icon={value}
                 label={`Icon.${key}`} />);
@@ -29,11 +30,13 @@ export default class TestStylePage extends React.Component {
                 <Header />
                 <main id="main-content">
                     <div className="page-content">
-                        <h3>Icons</h3>
-
-                        <ul className="icon-list">
-                            {icons}
-                        </ul>
+                        <div className="page-wrapper">
+                            <ButtonsExample />
+                            <h3>Icons</h3>
+                            <ul className="icon-list">
+                                {icons}
+                            </ul>
+                        </div>
                     </div>
                 </main>
                 <Footer />

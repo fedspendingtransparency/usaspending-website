@@ -6,6 +6,8 @@
 import SearchOperation from './SearchOperation';
 
 import * as TxnTimePeriodQuery from './queryBuilders/TxnTimePeriodQuery';
+import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
+import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
 
 class SearchTransactionOperation extends SearchOperation {
 
@@ -23,6 +25,22 @@ class SearchTransactionOperation extends SearchOperation {
             });
             if (timeQuery) {
                 filters.push(timeQuery);
+            }
+        }
+
+        // Add Award ID Queries
+        if (this.selectedAwardIDs.length > 0) {
+            filters.push(AwardIDQuery.buildAwardIDQuery(
+                this.selectedAwardIDs, 'total')
+            );
+        }
+
+        // Add Award Amount queries
+        if (this.awardAmounts.length > 0) {
+            const awardAmountsQuery = AwardAmountQuery.buildAwardAmountQuery(
+                this.awardAmounts, 'total');
+            if (awardAmountsQuery) {
+                filters.push(awardAmountsQuery);
             }
         }
 
