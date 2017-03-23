@@ -26,7 +26,7 @@ const tableFields = {
             'object_class',
             'program_activity_code',
             'program_activity_name',
-            'transaction_obligations'
+            'obligations_incurred_total_by_award_cpe'
         ],
         _order: [
             'submissionDate',
@@ -40,7 +40,7 @@ const tableFields = {
             tas: 'treasury_account__tas_rendering_label',
             programActivity: 'program_activity_name',
             objectClass: 'object_class',
-            fundingObligated: 'transaction_obligations'
+            fundingObligated: 'obligations_incurred_total_by_award_cpe'
         },
         _mapping: {
             submissionDate: 'submissionDate',

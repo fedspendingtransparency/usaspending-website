@@ -1,18 +1,18 @@
 /**
- * TransactionsTable.jsx
- * Created by Kevin Li 2/25/17
+ * GrantTransactionsTable.jsx
+ * Created by Lizzie Dabbs 03/07/17
  */
 
 import React from 'react';
 import _ from 'lodash';
 
-import tableMapping from 'dataMapping/contracts/transactionTable';
+import tableMapping from 'dataMapping/grants/grantTransactionTable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
-import TransactionTableHeaderCellContainer from
-    'containers/award/table/cells/TransactionTableHeaderCellContainer';
+import AssistanceTransactionHeaderCellContainer from
+    'containers/award/table/cells/AssistanceTransactionHeaderCellContainer';
 
-import TransactionTableGenericCell from './cells/TransactionTableGenericCell';
+import AssistanceTransactionGenericCell from './cells/AssistanceTransactionGenericCell';
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
@@ -26,7 +26,7 @@ const propTypes = {
     nextTransactionPage: React.PropTypes.func
 };
 
-export default class TransactionsTable extends React.Component {
+export default class AssistanceTransactionsTable extends React.Component {
     constructor(props) {
         super(props);
 
@@ -96,14 +96,14 @@ export default class TransactionsTable extends React.Component {
                 name: column,
                 columnId: column,
                 rowClassName: this.rowClassName,
-                header: (<TransactionTableHeaderCellContainer
+                header: (<AssistanceTransactionHeaderCellContainer
                     label={displayName}
                     column={column}
                     defaultDirection={defaultSort}
                     isLastColumn={isLast} />),
                 cell: (index) => {
                     const item = this.props.award.transactions[index];
-                    return (<TransactionTableGenericCell
+                    return (<AssistanceTransactionGenericCell
                         key={`cell-transaction-${column}-${index}`}
                         rowIndex={index}
                         id={item.id}
@@ -150,4 +150,4 @@ export default class TransactionsTable extends React.Component {
     }
 }
 
-TransactionsTable.propTypes = propTypes;
+AssistanceTransactionsTable.propTypes = propTypes;
