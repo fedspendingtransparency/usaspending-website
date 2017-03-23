@@ -1,0 +1,26 @@
+.source {
+    @include span-columns(16);
+    bottom: rem(10);
+    color: $color-base;
+    float: left;
+    font-size: rem(10);
+    margin-top: rem(10);
+    .guide-icon {
+        @include align-self(center);
+        display: inline-block;
+        fill: $color-gray;
+        height: rem(17);
+        left: rem(5);
+        position: relative;
+        top: rem(5);
+        width: rem(15);
+        svg {
+            float: none;
+        }
+    }
+}
+.more-icon {
+    @include moreOptionsBtn($color-gray, $color-white);
+    float: right;
+    margin-top: rem(0);
+}

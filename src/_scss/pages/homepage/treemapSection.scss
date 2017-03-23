@@ -1,4 +1,3 @@
-///ADD A  MIXIN FOR SCREEN PADDING
 @import "../../mixins/moreOptionsBtn";
 .usa-da-treemap-section {
     @include outer-container(100%);
@@ -14,90 +13,7 @@
     @include media($x-large-screen) {
         margin: rem(40) auto;
     }
-    .treeMapWrap {
-        background-color: $color-gray-lighter; //NOT NEEDED ONCE THE TREEMAP IS RESPONSIVE
-        overflow: hidden; //NOT NEEDED ONCE THE TREEMAP IS RESPONSIVE
-        @include span-columns(16);
-        svg {
-            display: inline-block;
-            g {
-                .tile {
-                    stroke: $color-white;
-                    stroke-width: rem(1.5);
-                }
-                .category {
-                    fill: $color-white;
-                    font-size: $small-font-size;
-                }
-                .value {
-                    fill: $color-white;
-                    font-size: $base-font-size + rem(2);
-                    font-weight: $font-semibold;
-                }
-            }
-        }
-        @include media($medium-screen) {
-            @include span-columns(11);
-            @include shift(-16 of 16);
-        }
-        .source {
-            bottom: rem(10);
-            color: $color-base;
-            float: left;
-            font-size: rem(10);
-            margin-top: rem(10);
-            .guide-icon {
-                @include align-self(center);
-                display: inline-block;
-                fill: $color-gray;
-                height: rem(17);
-                left: rem(5);
-                position: relative;
-                top: rem(5);
-                width: rem(15);
-                svg {
-                    float: none;
-                }
-            }
-        }
-        .more-icon {
-            @include moreOptionsBtn($color-gray, $color-white);
-            margin-top: rem(10);
-        }
-    }
-    .treeMapInfoWrap {
-        @include span-columns(16);
-        @include clearfix;
-        .tree-desc {
-            border-left: rem(10) solid $color-active;
-            color: $color-base;
-            font-size: rem(20);
-            font-weight: $font-light;
-            padding: rem(10) 0 rem(10) rem(15);
-            & b {
-                font-weight: $font-semibold;
-            }
-        }
-        .tree-hover-tip {
-            background-color: rgba(242, 183, 51, 0.1);
-            border-bottom: 1px solid rgba(242, 183, 51, 0.4);
-            border-top: 1px solid rgba(242, 183, 51, 0.4);
-            color: $color-base;
-            display: inline-block;
-            font-size: $base-font-size;
-            margin-bottom: rem(20);
-            margin-top: rem(30);
-            padding: rem(15);
-            text-align: center;
-            width: 100%;
-        }
-        @include media($medium-screen) {
-            @include span-columns(5);
-            @include shift(11 of 16);
-            & .tree-hover-tip {
-                margin-bottom: 0;
-                margin-top: rem(90);
-            }
-        }
-    }
+    @import './visualizations/_treemapVisualization';
+    @import './treemapSidebar';
+    @import './treemapWrapper';
 }
