@@ -30,17 +30,9 @@ const defaultProps = {
 const ga = require('react-ga');
 
 export default class PrimaryAwardType extends React.Component {
-    static logFilterEvent() {
-        ga.event({
-            category: 'Search Filters',
-            action: 'Applied Filter',
-            label: 'Award Type'
-        });
-    }
-
     static logPrimaryTypeFilterEvent(type) {
         ga.event({
-            category: 'Search Filters',
+            category: 'Search Page Filters',
             action: 'Selected Award Type',
             label: type
         });
@@ -48,7 +40,7 @@ export default class PrimaryAwardType extends React.Component {
 
     static logDeselectFilterEvent(type) {
         ga.event({
-            category: 'Search Filters',
+            category: 'Search Page Filters',
             action: 'Deselected Award Type Children',
             label: type
         });
@@ -135,7 +127,6 @@ export default class PrimaryAwardType extends React.Component {
                 direction: 'add'
             });
             // Analytics
-            PrimaryAwardType.logFilterEvent();
             PrimaryAwardType.logPrimaryTypeFilterEvent(this.props.name);
         }
         this.setState({

@@ -17,17 +17,9 @@ const propTypes = {
 const ga = require('react-ga');
 
 export default class AllFiscalYears extends React.Component {
-    static logFilterEvent() {
-        ga.event({
-            category: 'Search Filters',
-            action: 'Applied Filter',
-            label: 'Time Period'
-        });
-    }
-
     static logFYEvent(year) {
         ga.event({
-            category: 'Search Filters',
+            category: 'Search Page Filters',
             action: 'Applied Fiscal Year Filter',
             label: year
         });
@@ -51,7 +43,6 @@ export default class AllFiscalYears extends React.Component {
             // the year does not yet exist in the set so we are adding
             newYears = this.props.selectedFY.add(year);
             // Analytics
-            AllFiscalYears.logFilterEvent();
             AllFiscalYears.logFYEvent(year);
         }
 

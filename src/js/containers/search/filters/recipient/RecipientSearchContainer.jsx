@@ -20,17 +20,10 @@ const propTypes = {
 const ga = require('react-ga');
 
 export class RecipientSearchContainer extends React.Component {
-    static logFilterEvent() {
-        ga.event({
-            category: 'Search Filters',
-            action: 'Applied Filter',
-            label: 'Recipient'
-        });
-    }
 
     static logRecipientFilterEvent(name) {
         ga.event({
-            category: 'Search Filters',
+            category: 'Search Page Filters',
             action: 'Applied Recipient Name/DUNS Filter',
             label: name.toLowerCase()
         });
@@ -38,7 +31,7 @@ export class RecipientSearchContainer extends React.Component {
 
     static logCountryFilterEvent(selection) {
         ga.event({
-            category: 'Search Filters',
+            category: 'Search Page Filters',
             action: 'Applied Recipient Domestic/Foreign Filter',
             label: selection
         });
@@ -46,7 +39,7 @@ export class RecipientSearchContainer extends React.Component {
 
     static logLocationFilterEvent(placeType, place) {
         ga.event({
-            category: 'Search Filters',
+            category: 'Search Page Filters',
             action: `Applied Recipient ${placeType.toLowerCase()} Filter`,
             label: place.toLowerCase()
         });
@@ -64,14 +57,12 @@ export class RecipientSearchContainer extends React.Component {
     toggleRecipient(recipient) {
         this.props.updateSelectedRecipients(recipient);
         // Analytics
-        RecipientSearchContainer.logFilterEvent();
         RecipientSearchContainer.logRecipientFilterEvent(recipient.recipient_name);
     }
 
     toggleDomesticForeign(selection) {
         this.props.updateRecipientDomesticForeignSelection(selection.target.value);
         // Analytics
-        RecipientSearchContainer.logFilterEvent();
         RecipientSearchContainer.logCountryFilterEvent(selection.target.value);
     }
 
@@ -80,7 +71,6 @@ export class RecipientSearchContainer extends React.Component {
         // Analytics
         const placeType = recipientLocation.place_type;
         const place = recipientLocation.place;
-        RecipientSearchContainer.logFilterEvent();
         RecipientSearchContainer.logLocationFilterEvent(placeType, place);
     }
 

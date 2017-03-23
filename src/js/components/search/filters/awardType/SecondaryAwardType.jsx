@@ -18,7 +18,7 @@ const ga = require('react-ga');
 export default class SecondaryAwardType extends React.Component {
     static logSecondaryTypeFilterEvent(type) {
         ga.event({
-            category: 'Search Filters',
+            category: 'Search Page Filters',
             action: 'Selected Secondary Award Type',
             label: type
         });
@@ -26,7 +26,7 @@ export default class SecondaryAwardType extends React.Component {
 
     static logDeselectFilterEvent(type) {
         ga.event({
-            category: 'Search Filters',
+            category: 'Search Page Filters',
             action: 'Deselected Secondary Award Type',
             label: type
         });

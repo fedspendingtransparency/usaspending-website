@@ -16,14 +16,6 @@ const propTypes = {
 const ga = require('react-ga');
 
 export default class SingleAwardType extends React.Component {
-    static logFilterEvent() {
-        ga.event({
-            category: 'Search Filters',
-            action: 'Applied Filter',
-            label: 'Award Type'
-        });
-    }
-
     static logSingleTypeFilterEvent(type) {
         ga.event({
             category: 'Search Filters',
