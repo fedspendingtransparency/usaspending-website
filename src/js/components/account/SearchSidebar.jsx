@@ -7,6 +7,8 @@ import React from 'react';
 
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 
+import AccountTimePeriodContainer from 'containers/account/filters/AccountTimePeriodContainer';
+
 const filters = {
     options: [
         'Time Period',
@@ -15,7 +17,7 @@ const filters = {
         'Treasury Account Symbol (TAS)'
     ],
     components: [
-        null,
+        AccountTimePeriodContainer,
         null,
         null,
         null

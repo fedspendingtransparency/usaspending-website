@@ -5,10 +5,12 @@
 
 import _ from 'lodash';
 
+import { Set } from 'immutable';
+
 const initialState = {
     filters: {
         dateType: 'fy',
-        fy: [],
+        fy: new Set(),
         startDate: null,
         endDate: null,
         objectClass: [],
@@ -61,6 +63,16 @@ const accountReducer = (state = initialState, action) => {
         case 'APPEND_ACCOUNT_TAS_ITEMS': {
             return Object.assign({}, state, {
                 tas: _.concat(state.tas, action.as)
+            });
+        }
+        case 'UPDATE_ACCOUNT_FILTER_TIME': {
+            return Object.assign({}, state, {
+                filters: {
+                    dateType: action.dateType,
+                    startDate: action.start,
+                    endDate: action.end,
+                    fy: new Set(action.fy)
+                }
             });
         }
         case 'RESET_ACCOUNT_FILTERS': {
