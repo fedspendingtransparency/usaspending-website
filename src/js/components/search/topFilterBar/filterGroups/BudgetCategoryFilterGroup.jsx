@@ -34,9 +34,8 @@ export default class BudgetCategoryFilterGroup extends React.Component {
                     title: BudgetCategoryHelper.formatBudgetFunction(val)
                 };
             case 'federalAccounts':
-                // Todo: Format these correctly
                 return {
-                    value: val.id,
+                    value: `${val.id}`,
                     title: BudgetCategoryHelper.formatFederalAccount(val)
                 };
             case 'objectClasses':
