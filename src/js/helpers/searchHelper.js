@@ -67,7 +67,7 @@ export const fetchBudgetFunctions = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'accounts/tas/autocomplete/',
+            url: 'tas/autocomplete/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,
@@ -83,7 +83,7 @@ export const fetchFederalAccounts = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'accounts/autocomplete/',
+            url: 'federal_accounts/autocomplete/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,
