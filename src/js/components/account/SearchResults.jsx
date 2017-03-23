@@ -5,7 +5,8 @@
 
 import React from 'react';
 
-import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarContainer';
+import AccountTopFilterBarContainer from
+    'containers/account/topFilterBar/AccountTopFilterBarContainer';
 
 import AccountTimeVisualizationContainer from
     'containers/account/visualizations/AccountTimeVisualizationContainer';
@@ -17,7 +18,7 @@ export default class SearchResults extends React.Component {
     render() {
         return (
             <div className="search-results-wrapper">
-                <TopFilterBarContainer {...this.props} />
+                <AccountTopFilterBarContainer {...this.props} />
                 <div className="search-results">
                     <AccountTimeVisualizationContainer />
                     <AccountRankVisualizationContainer />

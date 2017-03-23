@@ -29,7 +29,7 @@ export default class Account extends React.Component {
 
                     <AccountOverview account={this.props.account} />
 
-                    <div className="filter-tas">
+                    <div className="filter-results">
                         <SearchSidebar />
                         <SearchResults />
                     </div>
