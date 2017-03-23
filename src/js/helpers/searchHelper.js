@@ -196,6 +196,23 @@ export const performTransactionsTotalSearch = (params) => {
     };
 };
 
+// make API call to categories total endpoint
+export const performCategorySearch = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'accounts/tas/categories/total/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 export const performFinancialSystemLookup = (params) => {
     const source = CancelToken.source();
     return {

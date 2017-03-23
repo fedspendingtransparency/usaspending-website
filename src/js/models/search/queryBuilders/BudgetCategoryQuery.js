@@ -2,10 +2,10 @@
  * Created by michaelbray on 3/21/17.
  */
 
-const budgetFunctionField = 'budget_function_title';
-const budgetSubfunctionField = 'budget_subfunction_title';
-const federalAccountField = '';
-const objectClassField = 'major_object_class';
+const budgetFunctionField = 'treasury_account__budget_function_title';
+const budgetSubfunctionField = 'treasury_account__budget_subfunction_title';
+const federalAccountField = 'treasury_account__federal_account';
+const objectClassField = 'object_class__major_object_class';
 
 export const buildBudgetFunctionQuery = (budgetFunctions) => {
     const budgetFunctionSet = [];

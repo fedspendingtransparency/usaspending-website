@@ -87,7 +87,7 @@ export class BudgetCategoryAccountContainer extends React.Component {
             }
 
             const searchParams = {
-                fields: ['title'],
+                fields: ['agency_identifier', 'main_account_code', 'account_title'],
                 value: this.state.searchString,
                 mode: "contains",
                 matched_objects: true,

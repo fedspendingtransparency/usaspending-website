@@ -8,7 +8,6 @@ import SearchOperation from './SearchOperation';
 import * as TxnTimePeriodQuery from './queryBuilders/TxnTimePeriodQuery';
 import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
 import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
-import * as BudgetCategoryQuery from './queryBuilders/BudgetCategoryQuery';
 
 class SearchTransactionOperation extends SearchOperation {
 
@@ -43,19 +42,6 @@ class SearchTransactionOperation extends SearchOperation {
             if (awardAmountsQuery) {
                 filters.push(awardAmountsQuery);
             }
-        }
-
-        // Add Budget Category queries
-        if (this.budgetFunctions.length > 0) {
-            filters.push(BudgetCategoryQuery.buildBudgetFunctionQuery(this.budgetFunctions));
-        }
-
-        if (this.federalAccounts.length > 0) {
-            filters.push(BudgetCategoryQuery.buildFederalAccountQuery(this.federalAccounts));
-        }
-
-        if (Object.keys(this.objectClasses).length > 0) {
-            filters.push(BudgetCategoryQuery.buildObjectClassQuery(this.objectClasses));
         }
 
         return filters;

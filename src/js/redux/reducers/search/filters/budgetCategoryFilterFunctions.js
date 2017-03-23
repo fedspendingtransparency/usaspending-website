@@ -23,7 +23,7 @@ export const updateBudgetFunctions = (state, value) => {
 export const updateFederalAccounts = (state, value) => {
     let updatedSet = state;
 
-    const identifier = `${value.title}`;
+    const identifier = `${value.id}`;
 
     if (updatedSet.has(identifier)) {
         updatedSet = updatedSet.delete(identifier);

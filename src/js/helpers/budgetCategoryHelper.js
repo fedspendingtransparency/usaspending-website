@@ -7,4 +7,4 @@ export const formatBudgetFunction = (budgetFunction) =>
     `${budgetFunction.title} | ${budgetFunction.functionType}`;
 
 export const formatFederalAccount = (fed) =>
-    `${fed.agency_id}-${fed.main_account_code} ${fed.title}`;
+    `${fed.agency_identifier}-${fed.main_account_code} ${fed.account_title}`;
