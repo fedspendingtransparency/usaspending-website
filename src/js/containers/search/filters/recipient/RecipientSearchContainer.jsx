@@ -23,7 +23,7 @@ export class RecipientSearchContainer extends React.Component {
 
     static logRecipientFilterEvent(name) {
         ga.event({
-            category: 'Search Page Filters',
+            category: 'Search Page Filter Applied',
             action: 'Applied Recipient Name/DUNS Filter',
             label: name.toLowerCase()
         });
@@ -31,7 +31,7 @@ export class RecipientSearchContainer extends React.Component {
 
     static logCountryFilterEvent(selection) {
         ga.event({
-            category: 'Search Page Filters',
+            category: 'Search Page Filter Applied',
             action: 'Applied Recipient Domestic/Foreign Filter',
             label: selection
         });
@@ -39,7 +39,7 @@ export class RecipientSearchContainer extends React.Component {
 
     static logLocationFilterEvent(placeType, place) {
         ga.event({
-            category: 'Search Page Filters',
+            category: 'Search Page Filter Applied',
             action: `Applied Recipient ${placeType.toLowerCase()} Filter`,
             label: place.toLowerCase()
         });

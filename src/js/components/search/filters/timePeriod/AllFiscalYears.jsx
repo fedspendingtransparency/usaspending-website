@@ -19,7 +19,7 @@ const ga = require('react-ga');
 export default class AllFiscalYears extends React.Component {
     static logFYEvent(year) {
         ga.event({
-            category: 'Search Page Filters',
+            category: 'Search Page Filter Applied',
             action: 'Applied Fiscal Year Filter',
             label: year
         });

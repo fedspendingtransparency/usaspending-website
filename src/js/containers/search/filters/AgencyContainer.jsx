@@ -22,7 +22,7 @@ export class AgencyContainer extends React.Component {
 
     static logAgencyFilterEvent(agencyType, agency) {
         ga.event({
-            category: 'Search Page Filters',
+            category: 'Search Page Filter Applied',
             action: `Applied ${agencyType} Agency Filter`,
             label: agency.toLowerCase()
         });

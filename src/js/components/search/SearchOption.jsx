@@ -23,9 +23,8 @@ export default class SearchOption extends React.Component {
 
     static logFilterEvent(name) {
         ga.event({
-            category: 'Search Page Filters',
-            action: 'Expanded Filter',
-            label: name
+            category: 'Search Page Filter Expanded',
+            action: name
         });
     }
 

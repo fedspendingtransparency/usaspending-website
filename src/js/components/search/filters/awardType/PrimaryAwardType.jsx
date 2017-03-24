@@ -32,7 +32,7 @@ const ga = require('react-ga');
 export default class PrimaryAwardType extends React.Component {
     static logPrimaryTypeFilterEvent(type) {
         ga.event({
-            category: 'Search Page Filters',
+            category: 'Search Page Filter Applied',
             action: 'Selected Award Type',
             label: type
         });
@@ -40,7 +40,7 @@ export default class PrimaryAwardType extends React.Component {
 
     static logDeselectFilterEvent(type) {
         ga.event({
-            category: 'Search Page Filters',
+            category: 'Search Page Filter Applied',
             action: 'Deselected Award Type Children',
             label: type
         });

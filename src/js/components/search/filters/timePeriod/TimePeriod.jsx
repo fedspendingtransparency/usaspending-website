@@ -31,7 +31,7 @@ const ga = require('react-ga');
 export default class TimePeriod extends React.Component {
     static logDateRangeEvent(start, end) {
         ga.event({
-            category: 'Search Page Filters',
+            category: 'Search Page Filter Applied',
             action: 'Applied Date Range Filter',
             label: `${start} - ${end}`
         });
