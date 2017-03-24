@@ -37,13 +37,10 @@ const routeDefinitions = {
     indexRoute: {
         getComponent(nextState, cb) {
             require.ensure([], (require) => {
-                cb(null, require('../homepage/HomepageContainer').default);
+                cb(null, require('../../components/homepage/Homepage').default);
             });
         }
     },
-    // indexRoute: {
-    //     onEnter: (nextState, replace) => replace('/search')
-    // },
     childRoutes: [
         {
             path: 'search',

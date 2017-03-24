@@ -21,22 +21,22 @@ export default class LinksSection extends React.Component {
                         icon="recipient"
                         text="Get insights into specific recipients."
                         linkText="Find a recipient"
-                        linkUrl="http://google.com" />
+                        linkUrl="" />
                     <LinksSectionBox
                         icon="federalAccount"
                         text="See how spending is disbursed."
                         linkText="Find a Federal account"
-                        linkUrl="http://google.com" />
+                        linkUrl="" />
                     <LinksSectionBox
                         icon="api"
                         text="Plug directly into our data."
                         linkText="View the documentation"
-                        linkUrl="http://google.com" />
+                        linkUrl="" />
                     <LinksSectionBox
                         icon="resources"
                         text="Learn more about the data."
                         linkText="Visit our 'About' page"
-                        linkUrl="http://google.com" />
+                        linkUrl="" />
                 </div>
             </div>
         );
