@@ -173,7 +173,7 @@ export class BudgetCategoryFunctionContainer extends React.Component {
                 values={this.state.autocompleteBudgetFunctions}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.updateBudgetFunctions}
-                placeHolder="e.g., Income Security"
+                placeholder="e.g., Income Security"
                 errorHeader="Unknown Budget Function"
                 errorMessage="We were unable to find that budget function."
                 ref={(input) => {

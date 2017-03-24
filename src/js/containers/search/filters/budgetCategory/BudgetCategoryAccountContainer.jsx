@@ -191,7 +191,7 @@ export class BudgetCategoryAccountContainer extends React.Component {
                 values={this.state.autocompleteFederalAccounts}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.updateFederalAccounts}
-                placeHolder="e.g., 012-3539 - Child Nutrition Programs"
+                placeholder="e.g., 012-3539 - Child Nutrition Programs"
                 errorHeader="Unknown Federal Account"
                 errorMessage="We were unable to find that federal account."
                 ref={(input) => {

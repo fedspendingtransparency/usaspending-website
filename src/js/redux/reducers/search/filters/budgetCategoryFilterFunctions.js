@@ -3,7 +3,6 @@
  */
 
 import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
-// import _ from 'lodash';
 
 export const updateBudgetFunctions = (state, value) => {
     let updatedSet = state;
