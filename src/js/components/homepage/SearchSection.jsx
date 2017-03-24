@@ -9,7 +9,7 @@ export default class SearchSection extends React.Component {
 
     render() {
         return (
-            <div className="search-section-links-outter-wrap">
+            <div className="search-section-links-outer-wrap">
                 <div className="search-section-links-wrap">
                     <h1 className="search-section-links-primary-text">
                         There&apos;s More to Explore.

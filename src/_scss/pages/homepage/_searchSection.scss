@@ -1,6 +1,6 @@
 @import "../../mixins/fullSectionWrap";
 @mixin searchSection {
-    .search-section-links-outter-wrap {
+    .search-section-links-outer-wrap {
         background-color: $color-primary-darkest;
         .search-section-links-wrap {
             @include fullSectionWrap;
