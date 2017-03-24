@@ -11,7 +11,30 @@ import Cell from './Cell';
 import * as Icons from '../../sharedComponents/icons/Icons';
 
 const propTypes = {
-    budgetCategories: React.PropTypes.object
+    budgetCategories: React.PropTypes.object,
+    colors: React.PropTypes.array
+};
+
+const defaultProps = {
+    colors: [
+        '#1b4956',
+        '#1d545c',
+        '#1d545c',
+        '#1f5f63',
+        '#216a69',
+        '#227570',
+        '#238076',
+        '#238c7d',
+        '#239884',
+        '#32a387',
+        '#48ae87',
+        '#5aba87',
+        '#6ac587',
+        '#79d086',
+        '#87dc85',
+        '#95e784',
+        '#a3f383'
+    ]
 };
 
 export default class TreeMap extends React.Component {
@@ -25,10 +48,12 @@ export default class TreeMap extends React.Component {
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.buildTree = this.buildTree.bind(this);
     }
 
     componentDidMount() {
         this.handleWindowResize();
+        this.buildTree();
         window.addEventListener('resize', this.handleWindowResize);
     }
 
@@ -48,7 +73,7 @@ export default class TreeMap extends React.Component {
         }
     }
 
-    render() {
+    buildTree() {
         // put the data through d3's hierarchy system to sum and sort it
         const root = d3.hierarchy(this.props.budgetCategories)
         .sum((d) => (d.value))
@@ -63,29 +88,9 @@ export default class TreeMap extends React.Component {
             .round(true)
             .tile(tileStyle)
             .size([this.state.visualizationWidth, 565])(root).leaves();
-
-        const colors = [
-            '#1b4956',
-            '#1d545c',
-            '#1d545c',
-            '#1f5f63',
-            '#216a69',
-            '#227570',
-            '#238076',
-            '#238c7d',
-            '#239884',
-            '#32a387',
-            '#48ae87',
-            '#5aba87',
-            '#6ac587',
-            '#79d086',
-            '#87dc85',
-            '#95e784',
-            '#a3f383'
-        ];
-
+            
         // build the tiles
-        const finalNodes = treemap.map((n, i) =>
+        const nodes = treemap.map((n, i) =>
             <Cell
                 label={n.data.name}
                 value={n.value}
@@ -95,9 +100,13 @@ export default class TreeMap extends React.Component {
                 y1={n.y1}
                 total={n.parent.value}
                 key={i}
-                color={colors[i]} />
+                color={this.props.colors[i]} />
         );
+        return nodes;
+    }
 
+    render() {
+        const finalNodes = this.buildTree();
         return (
             <div
                 className="usa-da-treemap-section">
@@ -138,3 +147,4 @@ export default class TreeMap extends React.Component {
 
 }
 TreeMap.propTypes = propTypes;
+TreeMap.defaultProps = defaultProps;
