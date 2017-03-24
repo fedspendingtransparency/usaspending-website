@@ -103,7 +103,7 @@ export class AccountRankVisualizationContainer extends React.Component {
         const searchOperation = new AccountSearchOperation(this.props.account.id);
         searchOperation.fromState(this.props.reduxFilters);
 
-        this.apiRequest = AccountHelper.fetchTASCategoryTotals({
+        this.apiRequest = AccountHelper.fetchTasCategoryTotals({
             group: this.state.categoryScope,
             field: 'obligations_incurred_by_program_object_class_cpe',
             aggregate: 'sum',

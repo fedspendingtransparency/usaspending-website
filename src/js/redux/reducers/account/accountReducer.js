@@ -27,7 +27,13 @@ const initialState = {
         agency_identifier: '',
         main_account_code: '',
         title: '',
-        description: ''
+        description: '',
+        totals: {
+            obligated: {},
+            unobligated: {},
+            budgetAuthority: {},
+            outlay: {}
+        }
     },
     tas: [],
     totalSpending: 0

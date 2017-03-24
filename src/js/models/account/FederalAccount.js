@@ -12,7 +12,8 @@ const fields = [
     'title',
     'agency_identifier',
     'main_account_code',
-    'description'
+    'description',
+    'totals'
 ];
 
 const defaultValues = [
@@ -20,7 +21,13 @@ const defaultValues = [
     '',
     '',
     '',
-    'Not available'
+    'Not available',
+    {
+        obligated: {},
+        unobligated: {},
+        budgetAuthority: {},
+        outlay: {}
+    }
 ];
 
 const formatData = (data) => {

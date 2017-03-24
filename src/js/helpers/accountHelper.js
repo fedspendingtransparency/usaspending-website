@@ -22,14 +22,14 @@ export const fetchFederalAccount = (id) => {
     };
 };
 
-export const fetchTASCategoryTotals = (data) => {
+export const fetchTasCategoryTotals = (data) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
+            data,
             url: '/tas/categories/total/',
             baseURL: kGlobalConstants.API,
             method: 'post',
-            data: data,
             cancelToken: source.token
         }),
         cancel() {
@@ -38,26 +38,18 @@ export const fetchTASCategoryTotals = (data) => {
     };
 };
 
-// export const fetchAccountBalances = (id) => {
-    // const fields = {
-    //     outlay: 'gross_outlay_amount_by_tas_cpe',
-    //     budgetAuthority: 'budget_authority_available_amount_total_cpe',
-    //     obligated: 'obligations_incurred_total_by_tas_cpe',
-    //     unobligated: 'unobligated_balance_cpe'
-    // };
-
-    // const types = [];
-    // Object.keys(fields).forEach((key) => {
-    //     types.push(key);
-
-    //     const query = {
-    //         field: fields[key],
-    //         group: 
-    //     };
-    // });
-
-    // return {
-    //     types: types,
-    //     promises: 
-    // }
-// }
+export const fetchTasBalanceTotals = (data) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            data,
+            url: '/tas/balances/total/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

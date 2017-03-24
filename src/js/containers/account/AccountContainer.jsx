@@ -7,18 +7,25 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import moment from 'moment';
 
 import * as AccountHelper from 'helpers/accountHelper';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import * as accountActions from 'redux/actions/account/accountActions';
 import * as filterActions from 'redux/actions/account/accountFilterActions';
 
 import FederalAccount from 'models/account/FederalAccount';
+import { balanceFields } from 'dataMapping/accounts/accountFields';
+
+import AccountSearchBalanceOperation from 'models/account/queries/AccountSearchBalanceOperation';
 
 import Account from 'components/account/Account';
 import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
 
 const propTypes = {
+    filters: React.PropTypes.object,
+    account: React.PropTypes.object,
     params: React.PropTypes.object,
     setSelectedAccount: React.PropTypes.func
 };
@@ -39,6 +46,7 @@ export class AccountContainer extends React.Component {
         };
 
         this.accountRequest = null;
+        this.balanceRequests = [];
     }
 
     componentDidMount() {
@@ -57,7 +65,8 @@ export class AccountContainer extends React.Component {
         }
 
         this.setState({
-            loading: true
+            loading: true,
+            currentId: id
         });
 
         this.accountRequest = AccountHelper.fetchFederalAccount(id);
@@ -69,10 +78,10 @@ export class AccountContainer extends React.Component {
                 // update the redux store
                 this.parseAccount(res.data);
 
+                this.loadBalances();
+
                 this.setState({
-                    loading: false,
-                    validAccount: true,
-                    currentId: id
+                    validAccount: true
                 });
             })
             .catch((err) => {
@@ -95,6 +104,79 @@ export class AccountContainer extends React.Component {
         this.props.setSelectedAccount(account);
     }
 
+    loadBalances() {
+        if (this.balanceRequests.length > 0) {
+            // cancel all previous requests
+            this.balanceRequests.forEach((request) => {
+                request.cancel();
+            });
+            this.balanceRequests = [];
+        }
+
+        const searchOperation = new AccountSearchBalanceOperation(this.props.account.id);
+        searchOperation.fromState(this.props.filters);
+        const filters = searchOperation.toParams();
+
+        const requests = [];
+        const promises = [];
+        Object.keys(balanceFields).forEach((balanceType) => {
+            // generate an API call
+            const request = AccountHelper.fetchTasBalanceTotals({
+                filters,
+                group: 'reporting_period_start',
+                field: balanceFields[balanceType],
+                aggregate: 'sum',
+                order: ['reporting_period_start']
+            });
+
+            request.type = balanceType;
+
+            requests.push(request);
+            promises.push(request.promise);
+        });
+
+        this.balanceRequests = requests;
+
+        Promise.all(promises)
+            .then((res) => {
+                this.parseBalances(res);
+
+                this.setState({
+                    loading: false
+                });
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    this.setState({
+                        loading: false
+                    });
+                    console.log(err);
+                }
+            });
+    }
+
+    parseBalances(data) {
+        const balances = {};
+
+        data.forEach((item, i) => {
+            const type = this.balanceRequests[i].type;
+            const values = {};
+
+            item.data.results.forEach((group) => {
+                const date = moment(group.item, 'YYYY-MM-DD');
+                const fy = FiscalYearHelper.convertDateToFY(date);
+                values[fy] = group.aggregate;
+            });
+
+            balances[type] = values;
+        });
+
+        // update the Redux account model with balances
+        const account = Object.assign({}, this.props.account);
+        account.totals = balances;
+        this.props.setSelectedAccount(account);
+    }
+
     render() {
         let output = <LoadingAccount />;
 
@@ -114,7 +196,8 @@ AccountContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         account: state.account.account,
-        tas: state.account.tas
+        tas: state.account.tas,
+        filters: state.account.filters
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(AccountContainer);
