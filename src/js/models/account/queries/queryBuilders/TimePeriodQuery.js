@@ -30,7 +30,7 @@ const buildFYQuery = (range) => {
 const buildDateRangeQuery = (range) => ({
     field: [startDateField, endDateField],
     operation: 'range_intersect',
-    value: [range]
+    value: range
 });
 
 export const buildTimePeriodQuery = (type, range) => {

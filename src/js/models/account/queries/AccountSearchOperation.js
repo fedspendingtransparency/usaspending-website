@@ -24,7 +24,9 @@ class AccountSearchOperation {
             this.dateRange = [];
         }
         else {
-            this.dateRange = [state.startDate, state.endDate];
+            if (state.startDate && state.endDate) {
+                this.dateRange = [state.startDate, state.endDate];
+            }
             this.fy = [];
         }
     }
