@@ -17,7 +17,7 @@ const propTypes = {
 
 export default class LinksSectionBox extends React.Component {
 
-    render() {
+    switchIcon() {
         let icon = this.props.icon;
 
         switch (icon) {
@@ -37,10 +37,13 @@ export default class LinksSectionBox extends React.Component {
                 icon = '';
                 break;
         }
+        return icon;
+    }
 
+    render() {
         return (
             <div className="links-section-box">
-                {icon}
+                {this.switchIcon()}
                 <h4 className="links-section-box-primary-text">
                     {this.props.text}
                 </h4>

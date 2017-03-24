@@ -145,7 +145,6 @@ export default class ResultsTable extends React.PureComponent {
     }
 
     render() {
-        console.log(this.props);
         const calculatedValues = this.prepareTable();
 
         let noResultsClass = '';

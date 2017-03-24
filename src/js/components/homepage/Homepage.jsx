@@ -1,5 +1,5 @@
 /**
-  * HomepageContainer.jsx
+  * Homepage.jsx
   * Created by Emily Gullo 03/15/2017
   **/
 
@@ -12,7 +12,7 @@ import SearchSection from 'components/homepage/SearchSection';
 import Header from '../../components/sharedComponents/header/Header';
 import Footer from '../../components/sharedComponents/Footer';
 
-export default class HomepageContainer extends React.Component {
+export default class Homepage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
