@@ -88,7 +88,7 @@ export default class TreeMap extends React.Component {
             .round(true)
             .tile(tileStyle)
             .size([this.state.visualizationWidth, 565])(root).leaves();
-            
+
         // build the tiles
         const nodes = treemap.map((n, i) =>
             <Cell
