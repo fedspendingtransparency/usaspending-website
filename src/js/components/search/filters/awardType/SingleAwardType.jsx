@@ -18,7 +18,7 @@ const ga = require('react-ga');
 export default class SingleAwardType extends React.Component {
     static logSingleTypeFilterEvent(type) {
         ga.event({
-            category: 'Search Filter Applied',
+            category: 'Search Page Filter Applied',
             action: 'Selected Award Type',
             label: type
         });
