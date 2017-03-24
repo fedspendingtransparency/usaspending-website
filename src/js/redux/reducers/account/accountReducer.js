@@ -23,26 +23,11 @@ const initialState = {
         tas: []
     },
     account: {
-        id: 19154,
-        tas_rendering_label: "089X0212",
-        agency_id: "089",
-        main_account_code: "0212",
-        title: "Salaries and Expenses, Federal Energy Regulatory Commission, Energy",
-        description: "Sample description",
-        totals: {
-            outgoing: {
-                2016: 1324353454.65,
-                2017: 46543543534.43
-            },
-            obligations: {
-                2016: 1324353454.65,
-                2017: 41543543534.43
-            },
-            budget_authority: {
-                2016: 1324353454.65,
-                2017: 46543543534.43
-            }
-        }
+        id: null,
+        agency_identifier: '',
+        main_account_code: '',
+        title: '',
+        description: ''
     },
     tas: [],
     totalSpending: 0

@@ -14,7 +14,7 @@ const propTypes = {
 export default class AccountHeader extends React.Component {
     render() {
         const accountSymbol =
-            `${this.props.account.agency_id}-${this.props.account.main_account_code}`;
+            `${this.props.account.agency_identifier}-${this.props.account.main_account_code}`;
 
         return (
             <div className="page-title-bar">

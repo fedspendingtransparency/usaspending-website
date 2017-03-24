@@ -6,6 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isCancel } from 'axios';
 
 import _ from 'lodash';
 
@@ -14,14 +15,14 @@ import AccountRankVisualizationSection from
 
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 
-import * as SearchHelper from 'helpers/searchHelper';
+import * as AccountHelper from 'helpers/accountHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
+import AccountSearchOperation from 'models/account/queries/AccountSearchOperation';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object,
-    meta: React.PropTypes.object
+    account: React.PropTypes.object
 };
 
 export class AccountRankVisualizationContainer extends React.Component {
@@ -34,7 +35,7 @@ export class AccountRankVisualizationContainer extends React.Component {
             dataSeries: [],
             descriptions: [],
             page: 1,
-            total: 0,
+            total: 1,
             categoryScope: 'program_activity'
         };
 
@@ -65,13 +66,18 @@ export class AccountRankVisualizationContainer extends React.Component {
 
     newSearch() {
         this.setState({
-            page: 1
+            page: 1,
+            total: 1
         }, () => {
             this.fetchData();
         });
     }
 
     nextPage() {
+        if (this.state.page + 1 > this.state.total) {
+            return;
+        }
+
         this.setState({
             page: this.state.page + 1
         }, () => {
@@ -90,73 +96,41 @@ export class AccountRankVisualizationContainer extends React.Component {
     }
 
     fetchData() {
-        this.setState({
-            loading: false
-        }, () => {
-            const mockRes = {
-                results: [
-                    {
-                        item: 'Something 1',
-                        aggregate: '6678.90'
-                    },
-                    {
-                        item: 'Something 2',
-                        aggregate: '5674.90'
-                    },
-                    {
-                        item: 'Something 3',
-                        aggregate: '5578.90'
-                    },
-                    {
-                        item: 'Something 4',
-                        aggregate: '4278.90'
-                    },
-                    {
-                        item: 'Something 5',
-                        aggregate: '2678.90'
-                    }
-                ]
-            };
+        if (this.apiRequest) {
+            this.apiRequest.cancel();
+        }
 
-            this.parseData(mockRes);
+        const searchOperation = new AccountSearchOperation(this.props.account.id);
+        searchOperation.fromState(this.props.reduxFilters);
+
+        this.apiRequest = AccountHelper.fetchTASCategoryTotals({
+            group: this.state.categoryScope,
+            field: 'obligations_incurred_by_program_object_class_cpe',
+            aggregate: 'sum',
+            order: ['aggregate'],
+            filters: searchOperation.toParams(),
+            page: this.state.page,
+            limit: 5
         });
 
-        // // build a new search operation from the Redux state, but create a transaction-based search
-        // // operation instead of an award-based one
-        // const operation = new SearchTransactionOperation();
-        // operation.fromState(this.props.reduxFilters);
+        this.apiRequest.promise
+            .then((res) => {
+                this.apiRequest = null;
 
-        // const searchParams = operation.toParams();
+                this.setState({
+                    loading: false
+                });
 
-        // // generate the API parameters
-        // const apiParams = {
-        //     field: 'federal_action_obligation',
-        //     group: `awarding_agency__${this.state.agencyScope}_agency__name`,
-        //     order: ['-aggregate'],
-        //     aggregate: 'sum',
-        //     filters: searchParams,
-        //     limit: 5,
-        //     page: this.state.page
-        // };
-
-        // this.setState({
-        //     loading: true
-        // });
-
-
-        // if (this.apiRequest) {
-        //     this.apiRequest.cancel();
-        // }
-
-        // this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
-        // this.apiRequest.promise
-        //     .then((res) => {
-        //         this.parseData(res.data);
-        //         this.apiRequest = null;
-        //     })
-        //     .catch(() => {
-        //         this.apiRequest = null;
-        //     });
+                this.parseData(res.data);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    this.setState({
+                        loading: false
+                    });
+                    this.apiRequest = null;
+                }
+            });
     }
 
     parseData(data) {
@@ -166,11 +140,13 @@ export class AccountRankVisualizationContainer extends React.Component {
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
+            const adjustedValue = parseFloat(-1 * item.aggregate);
+
             labelSeries.push(item.item);
-            dataSeries.push(parseFloat(item.aggregate));
+            dataSeries.push(parseFloat(adjustedValue));
 
             const description = `Obligated balance for ${item.item}: \
-${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
+${MoneyFormatter.formatMoney(adjustedValue)}`;
             descriptions.push(description);
         });
 
@@ -179,7 +155,7 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
             dataSeries,
             descriptions,
             loading: false,
-            total: 1
+            total: data.page_metadata.num_pages
         });
     }
 
@@ -187,7 +163,6 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
         return (
             <AccountRankVisualizationSection
                 {...this.state}
-                meta={this.props.meta}
                 changeScope={this.changeScope}
                 nextPage={this.nextPage}
                 previousPage={this.previousPage} />
@@ -199,7 +174,8 @@ AccountRankVisualizationContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        reduxFilters: state.filters
+        reduxFilters: state.account.filters,
+        account: state.account.account
     }),
     (dispatch) => bindActionCreators(accountFilterActions, dispatch)
 )(AccountRankVisualizationContainer);
