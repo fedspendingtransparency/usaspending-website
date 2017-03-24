@@ -7,11 +7,34 @@
         @include clearfix();
     }
     h3 {
-        margin-top: rem(0);
+        margin-top: 0;
         margin-bottom: 0;
     }
     .contract-details {
         @include element-wrap;
         @import "../../elements/_detailsTable";
+    }
+
+    .see-more button {
+        @include button-unstyled;
+        color: $color-primary;
+
+        &:hover,
+        &:active {
+            color: $color-primary-darker;
+            text-decoration: underline;
+        }
+
+        &:visited {
+            color: $color-visited;
+        }
+
+        &:focus {
+            box-shadow: $focus-shadow;
+            outline: 0;
+        }
+        margin-top: .5rem;
+        font-size: rem(14);
+        margin-left: rem(10);
     }
 }

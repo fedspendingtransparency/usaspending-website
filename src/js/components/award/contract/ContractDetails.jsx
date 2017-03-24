@@ -8,7 +8,8 @@ import moment from 'moment';
 import DetailRow from '../DetailRow';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object
+    selectedAward: React.PropTypes.object,
+    seeAdditional: React.PropTypes.func
 };
 
 export default class ContractDetails extends React.Component {
@@ -84,8 +85,8 @@ export default class ContractDetails extends React.Component {
         else if (!award.pop_city && award.pop_state_province && popZip) {
             popPlace = `${award.pop_state_province} ${popZip}`;
         }
-        else if (!award.pop_city && award.pop_state_province && !popZip) {
-            popPlace = award.pop_state_province;
+        else if (!award.pop_city && award.pop_state_province && award.pop_country && !popZip) {
+            popPlace = `${award.pop_state_province}, ${award.pop_country}`;
         }
         if (award.description) {
             description = award.description;
@@ -138,6 +139,9 @@ export default class ContractDetails extends React.Component {
                                 value={this.state.price} />
                         </tbody>
                     </table>
+                </div>
+                <div className="see-more">
+                    <button onClick={this.props.seeAdditional}>See Additional Details</button>
                 </div>
             </div>
         );
