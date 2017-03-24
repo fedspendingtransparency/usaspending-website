@@ -200,7 +200,8 @@ export default class AmountsChart extends React.Component {
                             labelWidth={labelWidth}
                             labelPadding={labelPadding}
                             currentY={this.state.currentY}
-                            graphHeight={this.props.graphHeight} />
+                            graphHeight={this.props.graphHeight}
+                            type={this.props.type} />
                     </g>
                 </svg>
             </div>
