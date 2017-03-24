@@ -12,9 +12,9 @@
         }
     }
     .tree-hover-tip {
-        background-color: rgba(242, 183, 51, 0.1);
-        border-bottom: 1px solid rgba(242, 183, 51, 0.4);
-        border-top: 1px solid rgba(242, 183, 51, 0.4);
+        background-color: rgba(#F2B733, .1);
+        border-bottom: 1px solid rgba(#F2B733, .4 );
+        border-top: 1px solid rgba(#F2B733, .4 );
         color: $color-base;
         display: inline-block;
         font-size: $base-font-size;

@@ -5,14 +5,14 @@
     float: left;
     font-size: rem(10);
     margin-top: rem(10);
-    .guide-icon {
+    .info-icon-circle {
         @include align-self(center);
         display: inline-block;
         fill: $color-gray;
         height: rem(17);
         left: rem(5);
         position: relative;
-        top: rem(5);
+        top: rem(3);
         width: rem(15);
         svg {
             float: none;
