@@ -87,10 +87,10 @@ export default class Cell extends React.Component {
         const height = (this.props.y1 - this.props.y0);
         let labelView = 'block';
         let percentView = 'block';
-        if (height < 20) {
+        if (height < 20 || width < 50) {
             labelView = 'none';
         }
-        if (height < 40) {
+        if (height < 40 || width < 60) {
             percentView = 'none';
         }
         return (
@@ -126,7 +126,7 @@ export default class Cell extends React.Component {
                     style={{
                         display: percentView
                     }}>
-                    {Math.round((this.props.value / this.props.total) * 100)}%
+                    {parseFloat((this.props.value / this.props.total) * 100).toFixed(1)}%
                 </text>
             </g>
         );

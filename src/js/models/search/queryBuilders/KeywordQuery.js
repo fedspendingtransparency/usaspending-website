@@ -5,7 +5,7 @@
 
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other query modules
-const keywordField = 'description';
+const keywordField = 'transaction__description';
 
 export const buildKeywordQuery = (value) => {
     const keyword = value;

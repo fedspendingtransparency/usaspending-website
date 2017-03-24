@@ -86,8 +86,10 @@ export default class AwardAmounts extends React.Component {
                         }} />
                     <div className="text-details">
                         <p>This {this.props.typeString} was awarded to&nbsp;
-                            <b className="recipient-name">{narrative.recipient}</b>.&nbsp;
-                            {narrative.current} has been obligated.</p>
+                        <b className="recipient-name">{narrative.recipient}</b> with a ceiling of
+                            <b>{narrative.ceiling}</b>.&nbsp; Of this amount,
+                                <b>{narrative.percentage}%</b> ({narrative.current}) has been
+                                    obligated.</p>
                     </div>
                     <AmountsChart
                         awardId={this.props.selectedAward.id}
