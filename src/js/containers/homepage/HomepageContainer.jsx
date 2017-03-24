@@ -25,7 +25,6 @@ export default class HomepageContainer extends React.Component {
                     { name: "Energy", value: 3748706890.45 },
                     { name: "Natural Resources and Environment", value: 37792268568.36 },
                     { name: "Agriculture", value: 20174987360.06 },
-                    { name: "Commerce and Housing Credit", value: -32789094410.02 },
                     { name: "Transportation", value: 92940730983.02 },
                     { name: "Community and Regional Development", value: 21051938355.95 },
                     { name: "Education, Training, Employment, and Social Services",
@@ -37,8 +36,7 @@ export default class HomepageContainer extends React.Component {
                     { name: "Veterans Benefits and Services", value: 174514511683.73 },
                     { name: "Administration of Justice", value: 57144161860.45 },
                     { name: "General Government", value: 18639539276.13 },
-                    { name: "Net Interest", value: 240721540897.61 },
-                    { name: "Undistributed Offsetting Receipts", value: -95251169802.33 }
+                    { name: "Net Interest", value: 240721540897.61 }
                 ]
             },
             budgetBreakdown: {
