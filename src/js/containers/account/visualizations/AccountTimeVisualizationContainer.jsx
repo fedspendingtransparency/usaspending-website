@@ -9,15 +9,21 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import _ from 'lodash';
+import moment from 'moment';
 
 import AccountTimeVisualizationSection from
     'components/account/visualizations/time/AccountTimeVisualizationSection';
 
+import * as AccountHelper from 'helpers/accountHelper';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
+
+import AccountSearchBalanceOperation from 'models/account/queries/AccountSearchBalanceOperation';
+import { balanceFields } from 'dataMapping/accounts/accountFields';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object,
-    setVizTxnSum: React.PropTypes.func
+    account: React.PropTypes.object
 };
 
 export class AccountTimeVisualizationSectionContainer extends React.Component {
@@ -30,6 +36,8 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             xSeries: [],
             ySeries: []
         };
+
+        this.balanceRequests = [];
     }
 
     componentDidMount() {
@@ -43,76 +51,90 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
     }
 
     fetchData() {
-        this.setState({
-            loading: false
-        }, () => {
-            const mockRes = {
-                totals: {
-                    outgoing: {
-                        outlays: {
-                            2017: '2800581',
-                            2016: '3160581',
-                            2015: '1939581'
-                        },
-                        obligations: {
-                            2017: '5800581',
-                            2016: '4160581',
-                            2015: '4839581'
-                        },
-                        budget_authority: {
-                            2017: '7800581',
-                            2016: '9160581',
-                            2015: '5239581'
-                        }
-                    }
-                }
-            };
+        if (this.balanceRequests.length > 0) {
+            // cancel all previous requests
+            this.balanceRequests.forEach((request) => {
+                request.cancel();
+            });
+            this.balanceRequests = [];
+        }
 
-            this.parseData(mockRes);
+        const searchOperation = new AccountSearchBalanceOperation(this.props.account.id);
+        searchOperation.fromState(this.props.reduxFilters);
+        const filters = searchOperation.toParams();
 
+        const requests = [];
+        const promises = [];
+        Object.keys(balanceFields).forEach((balanceType) => {
+            // generate an API call
+            const request = AccountHelper.fetchTasBalanceTotals({
+                filters,
+                group: 'reporting_period_start',
+                field: balanceFields[balanceType],
+                aggregate: 'sum',
+                order: ['reporting_period_start']
+            });
+
+            request.type = balanceType;
+
+            requests.push(request);
+            promises.push(request.promise);
         });
-        // // build a new search operation from the Redux state, but create a transaction-based search
-        // // operation instead of an award-based one
-        // const operation = new SearchTransactionOperation();
-        // operation.fromState(this.props.reduxFilters);
 
-        // const searchParams = operation.toParams();
+        this.balanceRequests = requests;
 
-        // // generate the API parameters
-        // const apiParams = {
-        //     field: 'federal_action_obligation',
-        //     group: 'action_date__fy',
-        //     order: ['item'],
-        //     aggregate: 'sum',
-        //     filters: searchParams
-        // };
+        Promise.all(promises)
+            .then((res) => {
+                this.parseBalances(res);
 
-        // this.setState({
-        //     loading: true
-        // });
-        // const search = SearchHelper.performTransactionsTotalSearch(apiParams);
-        // search.promise
-        //     .then((res) => {
-        //         this.parseData(res.data);
-        //     });
-    }
+                this.setState({
+                    loading: false
+                });
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    this.setState({
+                        loading: false
+                    });
+                    console.log(err);
+                }
+            });
 
-    parseData(data) {
+        }
+
+    parseBalances(data) {
+
+        const years = [];
+
+        const balances = {};
+        data.forEach((item, i) => {
+            const type = this.balanceRequests[i].type;
+            const values = {};
+
+            item.data.results.forEach((group) => {
+                const date = moment(group.item, 'YYYY-MM-DD');
+                const fy = FiscalYearHelper.convertDateToFY(date);
+                if (_.indexOf(years, fy) === -1) {
+                    years.push(fy);
+                }
+                values[fy] = group.aggregate;
+            });
+
+            balances[type] = values;
+        });
+
+
         const groups = [];
         const xSeries = [];
         const ySeries = [];
 
-        // get all the years
-        const years = Object.keys(data.totals.outgoing.budget_authority);
-        const outgoing = data.totals.outgoing;
-
         years.forEach((year) => {
-            groups.push(year);
-            xSeries.push([year]);
+            groups.push(`${year}`);
+            xSeries.push([`${year}`]);
 
-            const outlay = parseFloat(outgoing.outlays[year]);
-            const obligations = parseFloat(outgoing.obligations[year]);
-            const budgetAuthority = parseFloat(outgoing.budget_authority[year]);
+            const outlay = parseFloat(-1 * balances.outlay[year]);
+            const obligations = parseFloat(balances.obligated[year]);
+            const budgetAuthority = parseFloat(balances.budgetAuthority[year]);
 
             ySeries.push([[budgetAuthority, obligations, outlay]]);
         });
@@ -122,9 +144,6 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             xSeries,
             ySeries,
             loading: false
-        }, () => {
-            // save the total spending amount to Redux so all visualizations have access to this
-            // data
         });
     }
 
@@ -138,6 +157,9 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
 AccountTimeVisualizationSectionContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.account.filters }),
+    (state) => ({
+        reduxFilters: state.account.filters,
+        account: state.account.account
+    }),
     (dispatch) => bindActionCreators(accountFilterActions, dispatch)
 )(AccountTimeVisualizationSectionContainer);

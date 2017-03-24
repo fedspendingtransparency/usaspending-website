@@ -17,14 +17,11 @@ import * as filterActions from 'redux/actions/account/accountFilterActions';
 import FederalAccount from 'models/account/FederalAccount';
 import { balanceFields } from 'dataMapping/accounts/accountFields';
 
-import AccountSearchBalanceOperation from 'models/account/queries/AccountSearchBalanceOperation';
-
 import Account from 'components/account/Account';
 import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
 
 const propTypes = {
-    filters: React.PropTypes.object,
     account: React.PropTypes.object,
     params: React.PropTypes.object,
     setSelectedAccount: React.PropTypes.func
@@ -113,20 +110,28 @@ export class AccountContainer extends React.Component {
             this.balanceRequests = [];
         }
 
-        const searchOperation = new AccountSearchBalanceOperation(this.props.account.id);
-        searchOperation.fromState(this.props.filters);
-        const filters = searchOperation.toParams();
-
         const requests = [];
         const promises = [];
         Object.keys(balanceFields).forEach((balanceType) => {
             // generate an API call
             const request = AccountHelper.fetchTasBalanceTotals({
-                filters,
                 group: 'reporting_period_start',
                 field: balanceFields[balanceType],
                 aggregate: 'sum',
-                order: ['reporting_period_start']
+                order: ['reporting_period_start'],
+                filters: [
+                    {
+                        field: 'treasury_account_identifier__federal_account_id',
+                        operation: 'equals',
+                        value: this.props.account.id
+                    },
+                    {
+                        field: ['reporting_period_start', 'reporting_period_end'],
+                        operation: 'range_intersect',
+                        value: FiscalYearHelper.currentFiscalYear(),
+                        value_format: 'fy'
+                    }
+                ]
             });
 
             request.type = balanceType;
@@ -196,8 +201,7 @@ AccountContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         account: state.account.account,
-        tas: state.account.tas,
-        filters: state.account.filters
+        tas: state.account.tas
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(AccountContainer);
