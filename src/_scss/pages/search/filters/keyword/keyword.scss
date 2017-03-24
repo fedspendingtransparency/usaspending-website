@@ -1,0 +1,17 @@
+.keyword-filter {
+    padding-right: 3rem;
+
+    .keyword-input {
+        display: inline-block;
+        font-size: $small-font-size;
+        height: 4rem;
+        margin: 0 auto;
+        padding:  11px 8px 11px 8px;
+    }
+
+    .keyword-submit {
+        display: inline-block;
+        height: 4rem;
+        margin-left: 0;
+    }
+}

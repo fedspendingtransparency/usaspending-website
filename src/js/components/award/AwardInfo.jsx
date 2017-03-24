@@ -4,19 +4,37 @@
   **/
 
 import React from 'react';
+import _ from 'lodash';
 
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 import SummaryBar from './SummaryBar';
 import AwardInfoBar from './AwardInfoBar';
-import AwardContract from './AwardContract';
-import DetailsTableSection from './table/DetailsTableSection';
+import AwardContract from './contract/AwardContract';
+import AwardGrant from './financialAssistance/AwardGrant';
+import DetailsSection from './details/DetailsSection';
 
 const propTypes = {
     selectedAward: React.PropTypes.object
 };
 
 export default class AwardInfo extends React.Component {
-
     render() {
+        const isContract =
+            _.includes(awardTypeGroups.contracts, this.props.selectedAward.award_type);
+
+        let amountsDetailsSection = (
+            <AwardContract
+                {...this.props}
+                selectedAward={this.props.selectedAward} />
+        );
+        if (!isContract) {
+            amountsDetailsSection = (
+                <AwardGrant
+                    {...this.props}
+                    selectedAward={this.props.selectedAward} />
+            );
+        }
+
         return (
             <div>
                 <SummaryBar
@@ -26,10 +44,12 @@ export default class AwardInfo extends React.Component {
                     <AwardInfoBar
                         {...this.props}
                         selectedAward={this.props.selectedAward} />
-                    <AwardContract
+
+                    {amountsDetailsSection}
+
+                    <DetailsSection
                         {...this.props}
-                        selectedAward={this.props.selectedAward} />
-                    <DetailsTableSection {...this.props} />
+                        isContract={isContract} />
                 </main>
             </div>
         );

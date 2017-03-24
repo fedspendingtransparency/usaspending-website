@@ -58,6 +58,12 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(timeFilters);
         }
 
+        // prepare the keyword filters
+        const keywordFilters = this.prepareKeywords(props);
+        if (keywordFilters) {
+            filters.push(keywordFilters);
+        }
+
         // prepare the award filters
         const awardFilters = this.prepareAwardTypes(props);
         if (awardFilters) {
@@ -67,6 +73,36 @@ export class TopFilterBarContainer extends React.Component {
         const selectedLocationFilters = this.prepareSelectedLocations(props);
         if (selectedLocationFilters) {
             filters.push(selectedLocationFilters);
+        }
+
+        const selectedFundingAgencyFilters = this.prepareAgencies(props, 'funding');
+        if (selectedFundingAgencyFilters) {
+            filters.push(selectedFundingAgencyFilters);
+        }
+
+        const selectedAwardingAgencyFilters = this.prepareAgencies(props, 'awarding');
+        if (selectedAwardingAgencyFilters) {
+            filters.push(selectedAwardingAgencyFilters);
+        }
+
+        const selectedRecipientFilters = this.prepareRecipients(props);
+        if (selectedRecipientFilters) {
+            filters.push(selectedRecipientFilters);
+        }
+
+        const selectedRecipientLocationFilters = this.prepareRecipientLocations(props);
+        if (selectedRecipientLocationFilters) {
+            filters.push(selectedRecipientLocationFilters);
+        }
+
+        const selectedAwardIDFilters = this.prepareAwardIDs(props);
+        if (selectedAwardIDFilters) {
+            filters.push(selectedAwardIDFilters);
+        }
+
+        const awardAmounts = this.prepareAwardAmounts(props);
+        if (awardAmounts) {
+            filters.push(awardAmounts);
         }
 
         this.setState({
@@ -107,6 +143,30 @@ export class TopFilterBarContainer extends React.Component {
 
                 filter.values = [`${startString} to ${endString}`];
             }
+        }
+
+        if (selected) {
+            return filter;
+        }
+        return null;
+    }
+
+
+    /**
+     * Logic for parsing the current Redux keyword filter into a JS object that can be parsed by the
+     * top filter bar
+     */
+    prepareKeywords(props) {
+        let selected = false;
+        const filter = {};
+
+        if (props.keyword) {
+        // keyword exists
+            selected = true;
+            filter.code = 'keyword';
+            filter.name = 'Keyword';
+
+            filter.values = props.keyword;
         }
 
         if (selected) {
@@ -169,7 +229,155 @@ export class TopFilterBarContainer extends React.Component {
 
         if (selected) {
             filter.code = 'selectedLocations';
-            filter.name = 'Location';
+            filter.name = 'Place of Performance Location';
+            return filter;
+        }
+        return null;
+    }
+
+    /**
+     * Logic for parsing the current Redux selected Awarding and Funding Agencies into a JS object
+     * that can be parsed by the top filter bar
+     */
+    prepareAgencies(props, type) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (type === 'funding') {
+            if (props.selectedFundingAgencies.count() > 0) {
+                // Funding Agencies have been selected
+                selected = true;
+                filter.values = props.selectedFundingAgencies.toArray();
+            }
+
+            if (selected) {
+                filter.code = 'selectedFundingAgencies';
+                filter.name = 'Funding Agency';
+                return filter;
+            }
+        }
+        else if (props.selectedAwardingAgencies.count() > 0) {
+            // Awarding Agencies have been selected
+            selected = true;
+            filter.values = props.selectedAwardingAgencies.toArray();
+
+            if (selected) {
+                filter.code = 'selectedAwardingAgencies';
+                filter.name = 'Awarding Agency';
+                return filter;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Logic for parsing the current Redux selected Recipients into a JS object
+     * that can be parsed by the top filter bar
+     */
+    prepareRecipients(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.selectedRecipients.count() > 0) {
+            // Recipients have been selected
+            selected = true;
+            filter.values = props.selectedRecipients.toArray();
+        }
+
+        if (selected) {
+            filter.code = 'selectedRecipients';
+            filter.name = 'Recipient';
+            return filter;
+        }
+
+        return null;
+    }
+
+    /**
+     * Logic for parsing the current Redux selected Recipient Locations and Recipient Location
+     * Scope into a JS object that can be parsed by the top filter bar
+     */
+    prepareRecipientLocations(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.selectedRecipientLocations.count() > 0) {
+            // locations have been selected
+            selected = true;
+            filter.values = props.selectedRecipientLocations.toArray();
+            filter.scope = props.recipientDomesticForeign;
+        }
+
+        // add an extra property to handle location scope
+        if (props.recipientDomesticForeign !== 'all') {
+            // we are handling this in its own if block to handle a case where no locations
+            // have been selected, but the scope is not 'all'
+            selected = true;
+            filter.scope = props.recipientDomesticForeign;
+            // add the scope as a value item so the total filter count is correctly summed
+            filter.values.push({
+                isScope: true
+            });
+        }
+
+        if (selected) {
+            filter.code = 'selectedRecipientLocations';
+            filter.name = 'Recipient Location';
+            return filter;
+        }
+        return null;
+    }
+
+    /**
+     * Logic for parsing the current Redux selected Award IDs
+     * Scope into a JS object that can be parsed by the top filter bar
+     */
+    prepareAwardIDs(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.selectedAwardIDs.count() > 0) {
+            // Award IDs have been selected
+            selected = true;
+            filter.values = props.selectedAwardIDs.toArray();
+        }
+
+        if (selected) {
+            filter.code = 'selectedAwardIDs';
+            filter.name = 'Award ID';
+            return filter;
+        }
+        return null;
+    }
+
+    /**
+     * Logic for parsing the current Redux selected Award Amounts
+     * Scope into a JS object that can be parsed by the top filter bar
+     */
+    prepareAwardAmounts(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.awardAmounts.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.awardAmounts.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'awardAmounts';
+            filter.name = 'Award Amounts';
             return filter;
         }
         return null;
@@ -200,14 +408,42 @@ export class TopFilterBarContainer extends React.Component {
      * @param      {<type>}  value   The filter value to remove
      */
     removeFilter(type, value) {
-        if (type === 'timePeriodFY' || type === 'timePeriodDR') {
-            this.removeTimePeriod(type, value);
-        }
-        else if (type === 'awardType') {
-            this.removeFromSet(type, value);
-        }
-        else if (type === 'selectedLocations') {
-            this.removeFromOrderedMap(type, value);
+        switch (type) {
+            case 'timePeriodFY':
+                this.removeTimePeriod(type, value);
+                break;
+            case 'timePeriodDR':
+                this.removeTimePeriod(type, value);
+                break;
+            case 'awardType':
+                this.removeFromSet(type, value);
+                break;
+            case 'selectedLocations':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedFundingAgencies':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedAwardingAgencies':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedRecipients':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedRecipientLocations':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'selectedAwardIDs':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'awardAmounts':
+                this.removeFromOrderedMap(type, value);
+                break;
+            case 'keyword':
+                this.clearFilterGroup(type);
+                break;
+            default:
+                break;
         }
     }
 
@@ -292,6 +528,11 @@ export class TopFilterBarContainer extends React.Component {
             // selected locations is actually two fields, so reset them both
             this.resetGenericField('selectedLocations');
             this.resetGenericField('locationDomesticForeign');
+        }
+        else if (type === 'selectedRecipientLocations') {
+            // selected locations is actually two fields, so reset them both
+            this.resetGenericField('selectedRecipientLocations');
+            this.resetGenericField('recipientDomesticForeign');
         }
         else {
             this.resetGenericField(type);

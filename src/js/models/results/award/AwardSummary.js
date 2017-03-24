@@ -32,7 +32,8 @@ const fields = [
     'recipient_state_province',
     'recipient_zip_postal',
     'recipient_country',
-    'pop_city_name',
+    'pop_city',
+    'parent_award',
     'pop_state_province',
     'pop_zip',
     'total_obligation',
@@ -41,7 +42,8 @@ const fields = [
     'recipient_parent_duns',
     'recipient_business_type',
     'type_of_contract_pricing',
-    'type_of_contract_pricing_description'
+    'type_of_contract_pricing_description',
+    'latest_transaction'
 ];
 
 const remapData = (data, idField) => {
@@ -71,6 +73,7 @@ const remapData = (data, idField) => {
     let popZip = '';
     let contractPricingCode = '';
     let contractPricing = '';
+    let latestTransaction = '';
 
     if (data.id) {
         id = data.id;
@@ -106,16 +109,24 @@ const remapData = (data, idField) => {
 
     if (data.place_of_performance) {
         popCity = data.place_of_performance.city_name;
-        if (data.place_of_performance.state_code) {
+
+        if (popCity !== null && data.place_of_performance.state_code) {
             popStateProvince = data.place_of_performance.state_code;
         }
-        else if (data.place_of_performance.state_name) {
+        else if (popCity === null && data.place_of_performance.state_name) {
             popStateProvince = data.place_of_performance.state_name;
+        }
+        else if (popCity === null && !data.place_of_performance.state_name) {
+            popStateProvince = data.place_of_performance.state_code;
         }
         else if (data.place_of_performance.foreign_province) {
             popStateProvince = data.place_of_performance.foreign_province;
         }
         popZip = data.place_of_performance.zip5;
+    }
+
+    if (data.latest_transaction) {
+        latestTransaction = data.latest_transaction;
     }
 
     remappedData.id = id;
@@ -131,6 +142,7 @@ const remapData = (data, idField) => {
     remappedData.pop_city = popCity;
     remappedData.pop_state_province = popStateProvince;
     remappedData.pop_zip = popZip;
+    remappedData.latest_transaction = latestTransaction;
 
     // set the awardID (fain or piid) to the relevant field
     let awardId = data.fain;
@@ -193,8 +205,8 @@ const remapData = (data, idField) => {
         if (data.recipient.recipient_unique_id) {
             recipientDuns = data.recipient.recipient_unique_id;
         }
-        if (data.recipient.ultimate_parent_legal_entity_id) {
-            recipientParentDuns = data.recipient.ultimate_parent_legal_entity_id;
+        if (data.recipient.parent_recipient_unique_id) {
+            recipientParentDuns = data.recipient.parent_recipient_unique_id;
         }
         if (data.recipient.business_types_description) {
             recipientBusinessType = data.recipient.business_types_description;
@@ -210,9 +222,11 @@ const remapData = (data, idField) => {
     remappedData.recipient_parent_duns = recipientParentDuns;
     remappedData.recipient_business_type = recipientBusinessType;
 
-    if (data.procurement_set) {
-        contractPricingCode = data.procurement_set[0].type_of_contract_pricing;
-        contractPricing = data.procurement_set[0].type_of_contract_pricing_description;
+    if (data.type_of_contract_pricing) {
+        contractPricingCode = data.type_of_contract_pricing;
+    }
+    if (data.type_of_contract_pricing_description) {
+        contractPricing = data.type_of_contract_pricing_description;
     }
 
     remappedData.type_of_contract_pricing = contractPricingCode;

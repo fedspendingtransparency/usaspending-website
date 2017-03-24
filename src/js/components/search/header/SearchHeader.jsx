@@ -6,6 +6,7 @@
 import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
+import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import FormatItem from './FormatItem';
 import DownloadButton from './DownloadButton';
 
@@ -65,8 +66,9 @@ export default class SearchHeader extends React.Component {
                                     accessibleLabel="View spending by award type in a table"
                                     icon={<Icons.Table alt="Table Icon" />} />
                             </li>
-                            <li>
+                            <li className="coming-soon">
                                 <DownloadButton />
+                                <ComingSoonLabel />
                             </li>
                         </ul>
                     </div>

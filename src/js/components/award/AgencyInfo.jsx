@@ -82,12 +82,11 @@ export default class AgencyInfo extends React.Component {
                     </div>
                     <ul className="agency-subtiers">
                         <InfoSnippet
-                            label="Sub-tier Agency"
+                            label="Sub-Agency"
                             value={award[subtierAgency]} />
                         {office}
                     </ul>
                 </div>
-                <div className="triangle-wrapper" />
             </div>
         );
     }

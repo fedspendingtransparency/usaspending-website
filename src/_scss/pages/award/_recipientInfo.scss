@@ -1,38 +1,55 @@
 .recipient-info {
-    @include span-columns(9);
-    padding: 2.4rem 1rem 0rem 3rem;
-
+    position: relative;
+    @import './_infoBarTriangle';
+    @include span-columns(16);
+    background: $color-white;
+    padding: 4.4rem 1rem 1rem 3rem;
     h4 {
         margin-top: 0;
-        margin-left: 1rem;
     }
-
     .recipient-name {
         font-size: $h6-font-size;
-        font-weight: $font-bold;
+        font-weight: $font-semibold;
         color: $color-primary-alt-darkest;
-        margin: 1rem 0 1rem 1rem;
+        margin: 1rem 0 1rem 0;
     }
-
     ul.recipient-information {
-    @include span-columns(16);
-    @include unstyled-list;
-    display: table-cell;
-    margin: 0 0 0 1rem;
-    text-align: left;
-
+        @include span-columns(16);
+        @include unstyled-list;
+        text-align: left;
         li {
-            @include span-columns(3.7);
+            @include span-columns(16);
+            margin-bottom: rem(10);
             display: inline-block;
-
-            .item-label {
-                font-weight:bold;
-                font-size: $small-font-size;
+            @include media($tablet-screen) {
+                @include span-columns(16);
             }
-
+            @include media($medium-screen) {
+                @include span-columns(3.7);
+                &:first-child {
+                    @include span-columns(6.5);
+                }
+                &:nth-of-type(2),
+                &:nth-of-type(3) {
+                    @include span-columns(2.9);
+                }
+            }
+            .item-label {
+                color: #525252;
+                font-size: $small-font-size;
+                font-weight: $font-semibold;
+            }
             .item-value {
-                font-size: $smallest-font-size;
+                font-size: rem(12);
             }
         }
+    }
+    @include media($tablet-screen) {
+        @include span-columns(9);
+        padding: 2.4rem 1rem 2rem 3rem;
+    }
+    @include media($medium-screen) {
+        @include span-columns(9);
+        padding: 2.4rem 1rem 1rem 3rem;
     }
 }

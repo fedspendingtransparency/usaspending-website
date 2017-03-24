@@ -11,7 +11,6 @@
             background-size: contain;
             @include media($nav-width) {
                 @include background-image(url("../img/logo.png"));
-                width: 40.6rem;
             }
             // handle retina images
             @media (min--moz-device-pixel-ratio: 1.3),
@@ -22,11 +21,11 @@
                 @include background-image(url("../img/logo-small@2x.png"));
                 @include media($nav-width) {
                     @include background-image(url("../img/logo@2x.png"));
-                    width: 40.6rem;
                 }
             }
             @include media($nav-width) {
                 @include fill-parent();
+                width: 40.6rem;
             }
             .logo-sr {
                 @include sr-only();
@@ -48,7 +47,7 @@
             @include media($nav-width) {
                 font-size: 1.0rem;
                 left: 36.8rem;
-                top: 2.1rem;
+                top: 0rem;
             }
         }
     }

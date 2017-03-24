@@ -9,6 +9,11 @@ import TimePeriodFYFilterGroup from './TimePeriodFYFilterGroup';
 import TimePeriodDRFilterGroup from './TimePeriodDRFilterGroup';
 import AwardTypeFilterGroup from './AwardTypeFilterGroup';
 import LocationFilterGroup from './LocationFilterGroup';
+import AgencyFilterGroup from './AgencyFilterGroup';
+import RecipientFilterGroup from './RecipientFilterGroup';
+import KeywordFilterGroup from './KeywordFilterGroup';
+import AwardIDFilterGroup from './AwardIDFilterGroup';
+import AwardAmountFilterGroup from './AwardAmountFilterGroup';
 
 export const topFilterGroupGenerator = (config = {
     filter: {
@@ -21,6 +26,8 @@ export const topFilterGroupGenerator = (config = {
     const groupKey = `top-filter-group-${config.filter.code}`;
 
     switch (config.filter.code) {
+        case 'keyword':
+            return <KeywordFilterGroup key={groupKey} {...config} />;
         case 'timePeriodFY':
             return <TimePeriodFYFilterGroup key={groupKey} {...config} />;
         case 'timePeriodDR':
@@ -28,7 +35,23 @@ export const topFilterGroupGenerator = (config = {
         case 'awardType':
             return <AwardTypeFilterGroup key={groupKey} {...config} />;
         case 'selectedLocations':
-            return <LocationFilterGroup key={groupKey} {...config} />;
+            return (<LocationFilterGroup
+                key={groupKey} {...config}
+                toggle="locationDomesticForeign" />);
+        case 'selectedFundingAgencies':
+            return <AgencyFilterGroup key={groupKey} {...config} />;
+        case 'selectedAwardingAgencies':
+            return <AgencyFilterGroup key={groupKey} {...config} />;
+        case 'selectedRecipients':
+            return <RecipientFilterGroup key={groupKey} {...config} />;
+        case 'selectedRecipientLocations':
+            return (<LocationFilterGroup
+                key={groupKey} {...config}
+                toggle="recipientDomesticForeign" />);
+        case 'selectedAwardIDs':
+            return (<AwardIDFilterGroup key={groupKey} {...config} />);
+        case 'awardAmounts':
+            return (<AwardAmountFilterGroup key={groupKey} {...config} />);
         default:
             return null;
     }

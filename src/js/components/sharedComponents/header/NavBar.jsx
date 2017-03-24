@@ -1,4 +1,7 @@
 import React from 'react';
+
+import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
+
 import * as Icons from '../icons/Icons';
 
 export default class NavBar extends React.Component {
@@ -18,25 +21,29 @@ export default class NavBar extends React.Component {
                 <nav role="navigation">
                     <div className="menu-container">
                         <ul className="nav-menu">
-                            <li>
+                            <li className="coming-soon">
                                 <a className="usa-nav-link" href="#/">
                                     <span>Explore The Data</span>
                                 </a>
+                                <ComingSoonLabel />
                             </li>
-                            <li>
+                            <li className="coming-soon">
                                 <a className="usa-nav-link" href="#/">
                                     <span>Developers</span>
                                 </a>
+                                <ComingSoonLabel />
                             </li>
-                            <li>
+                            <li className="coming-soon">
                                 <a className="usa-nav-link" href="#/">
                                     <span>About</span>
                                 </a>
+                                <ComingSoonLabel />
                             </li>
-                            <li>
+                            <li className="coming-soon">
                                 <a className="usa-nav-link" href="#/">
                                     <span>Support</span>
                                 </a>
+                                <ComingSoonLabel />
                             </li>
                             <li className="search-item">
                                 <button className="search-button">

@@ -9,17 +9,21 @@ import { scaleLinear } from 'd3-scale';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import CurrentAwardBar from './CurrentAwardBar';
-// import PotentialAwardBar from './PotentialAwardBar';
+import PotentialAwardBar from './PotentialAwardBar';
+import IndividualBar from './IndividualBar';
+import AwardLabels from './AwardLabels';
 
 const propTypes = {
     potential: React.PropTypes.number,
     current: React.PropTypes.number,
     graphHeight: React.PropTypes.number,
-    awardId: React.PropTypes.number
+    awardId: React.PropTypes.number,
+    showPotential: React.PropTypes.bool
 };
 
 const defaultProps = {
-    graphHeight: 300
+    graphHeight: 180,
+    showPotential: true
 };
 
 const labelDistance = 15;
@@ -37,8 +41,7 @@ export default class AmountsChart extends React.Component {
             potentialY: 0,
             current: null,
             currentY: 0,
-            currentMiddle: 0,
-            currentLabelPath: ''
+            currentMiddle: 0
         };
 
         this.measureWidth = this.measureWidth.bind(this);
@@ -76,8 +79,7 @@ export default class AmountsChart extends React.Component {
     calculateScale() {
         // Set Y axis min and max (always assume the potential exceeds the current value)
         let yMin = 0;
-        // const yMax = this.props.potential;
-        const yMax = this.props.current;
+        const yMax = this.props.potential;
         if (yMax === 0) {
             yMin = -100;
         }
@@ -104,17 +106,16 @@ export default class AmountsChart extends React.Component {
         const barWidth = this.state.graphWidth - 400;
 
         // draw the potential bar
-        // const potentialY = this.props.graphHeight - yScale(this.props.potential);
-        // const potentialBar = (<PotentialAwardBar
-        //     data={MoneyFormatter.formatMoney(this.props.potential)}
-        //     width={barWidth}
-        //     height={yScale(this.props.potential)}
-        //     x={0}
-        //     y={0} />);
-        const potentialY = 1;
-        const potentialBar = null;
+        const potentialY = this.props.graphHeight - yScale(this.props.potential);
+        const potentialBar = (<PotentialAwardBar
+            data={MoneyFormatter.formatMoney(this.props.potential)}
+            width={barWidth}
+            height={yScale(this.props.potential)}
+            x={0}
+            y={0} />);
 
-        // draw the current var
+        // draw the current bar
+        const currentMiddle = this.props.graphHeight - (yScale(this.props.current) / 2);
         const currentY = this.props.graphHeight - yScale(this.props.current);
         const currentBar = (<CurrentAwardBar
             data={MoneyFormatter.formatMoney(this.props.current)}
@@ -123,38 +124,40 @@ export default class AmountsChart extends React.Component {
             x={0}
             y={0} />);
 
-        const leftLabelPos = labelWidth - labelPadding;
-
-        // calculate the label paths
-        let currentLabelPath = '';
-        // start at the top of the current bar
-        currentLabelPath += `${leftLabelPos} ,${currentY}`;
-        // move left the specified amount
-        currentLabelPath += ` ${leftLabelPos - labelDistance},${currentY}`;
-        // go to the bottom of the current bar
-        currentLabelPath += ` ${leftLabelPos - labelDistance},${this.props.graphHeight}`;
-        // go to the edge of the bar
-        currentLabelPath += ` ${leftLabelPos},${this.props.graphHeight}`;
-        // come back
-        currentLabelPath += ` ${leftLabelPos - labelDistance},${this.props.graphHeight}`;
-        // go to the center
-        const currentMiddle = this.props.graphHeight - (yScale(this.props.current) / 2);
-        currentLabelPath += ` ${leftLabelPos - labelDistance},${currentMiddle}`;
-        // move left more to the text
-        currentLabelPath += ` ${leftLabelPos - (labelDistance * 2)},${currentMiddle}`;
 
         this.setState({
             barWidth,
-            currentLabelPath,
-            currentMiddle,
             potentialY,
             currentY,
             potential: potentialBar,
-            current: currentBar
+            current: currentBar,
+            currentMiddle
         });
     }
 
     render() {
+        let potentialLabel = null;
+        let potentialBar = null;
+
+        if (this.props.showPotential) {
+            potentialLabel = (<AwardLabels
+                name="potential"
+                amount={this.props.potential}
+                groupTransform={`${200 + this.state.barWidth},0`}
+                singleTransform={`${10 + labelDistance},5`}
+                subtitle="Potential Funding Ceiling"
+                labelDistance={labelDistance}
+                line="line"
+                labelWidth={labelWidth}
+                labelPadding={labelPadding}
+                potentialY={this.state.potentialY}
+                graphHeight={this.props.graphHeight} />);
+            potentialBar = (<IndividualBar
+                name="potential"
+                yValue={this.state.potentialY}
+                barValue={this.state.potential} />);
+        }
+
         return (
             <div
                 className="amounts-visualization-wrapper"
@@ -170,89 +173,28 @@ export default class AmountsChart extends React.Component {
                     }}>
 
                     <g transform="translate(0, 5)">
-                        <g
-                            className="potential-group"
-                            transform={`translate(200,${this.state.potentialY})`}>
-                            {this.state.potential}
-                        </g>
 
-                        <g
-                            className="current-group"
-                            transform={`translate(200,${this.state.currentY})`}>
-                            {this.state.current}
-                        </g>
+                        {potentialBar}
+                        {potentialLabel}
 
-                        <g
-                            className="current-label-group"
-                            transform={`translate(0,0)`}>
+                        <IndividualBar
+                            name="current"
+                            yValue={this.state.currentY}
+                            barValue={this.state.current} />
 
-                            <polyline
-                                fill="none"
-                                strokeWidth="1"
-                                className="label-line"
-                                points={this.state.currentLabelPath} />
-
-                            <g
-                                className="current-label"
-                                transform={`translate(0,${this.state.currentMiddle})`}>
-                                <text
-                                    className="title"
-                                    x={0}
-                                    y={0}>
-                                    Current Award Amount:
-                                </text>
-                                <text
-                                    className="subtitle"
-                                    x={0}
-                                    y={18}>
-                                    (Funding Obligated)
-                                </text>
-                                <text
-                                    className="value"
-                                    x={0}
-                                    y={18 + 20}>
-                                    {MoneyFormatter.formatMoney(this.props.current)}
-                                </text>
-                            </g>
-                        </g>
-
-                        <g
-                            style={{ display: 'none' }}
-                            className="potential-label-group"
-                            transform={`translate(${200 + this.state.barWidth},0)`}>
-
-                            <line
-                                fill="none"
-                                strokeWidth="1"
-                                className="label-line"
-                                x1={5}
-                                x2={5 + labelDistance}
-                                y1={0}
-                                y2={0} />
-
-                            <g
-                                className="potential-label"
-                                transform={`translate(${10 + labelDistance},5)`}>
-                                <text
-                                    className="title"
-                                    x={0}
-                                    y={0}>
-                                    Potential Award Amount:
-                                </text>
-                                <text
-                                    className="subtitle"
-                                    x={0}
-                                    y={18}>
-                                    (Contract Ceiling)
-                                </text>
-                                <text
-                                    className="value"
-                                    x={0}
-                                    y={18 + 20}>
-                                    {MoneyFormatter.formatMoney(this.props.potential)}
-                                </text>
-                            </g>
-                        </g>
+                        <AwardLabels
+                            name="current"
+                            amount={this.props.current}
+                            currentMiddle={this.state.currentMiddle}
+                            groupTransform="0,0"
+                            singleTransform={`0,${this.state.currentMiddle}`}
+                            subtitle="Funding Obligated"
+                            labelDistance={labelDistance}
+                            line="poly"
+                            labelWidth={labelWidth}
+                            labelPadding={labelPadding}
+                            currentY={this.state.currentY}
+                            graphHeight={this.props.graphHeight} />
                     </g>
                 </svg>
             </div>

@@ -6,6 +6,7 @@
 import React from 'react';
 import _ from 'lodash';
 
+import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 
@@ -82,19 +83,21 @@ export default class TimeVisualizationSection extends React.Component {
                                         active={this.state.visualizationPeriod === 'year'}
                                         changePeriod={this.changePeriod} />
                                 </li>
-                                <li>
+                                <li className="coming-soon">
                                     <TimeVisualizationPeriodButton
                                         value="quarter"
                                         label="Quarters"
                                         active={this.state.visualizationPeriod === 'quarter'}
                                         changePeriod={this.changePeriod} />
+                                    <ComingSoonLabel />
                                 </li>
-                                <li>
+                                <li className="coming-soon">
                                     <TimeVisualizationPeriodButton
                                         value="month"
                                         label="Months"
                                         active={this.state.visualizationPeriod === 'month'}
                                         changePeriod={this.changePeriod} />
+                                    <ComingSoonLabel />
                                 </li>
                             </ul>
                         </div>

@@ -8,6 +8,7 @@ import _ from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
+import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import RankVisualizationTitle from './RankVisualizationTitle';
 import RankVisualization from './RankVisualization';
 import RankVisualizationScopeButton from './RankVisualizationScopeButton';
@@ -120,12 +121,13 @@ export default class RankVisualizationSection extends React.Component {
                                         active={this.props.agencyScope === 'subtier'}
                                         changeScope={this.props.changeScope} />
                                 </li>
-                                <li>
+                                <li className="coming-soon">
                                     <RankVisualizationScopeButton
                                         value="office"
                                         label="Offices"
                                         active={this.props.agencyScope === 'office'}
                                         changeScope={this.props.changeScope} />
+                                    <ComingSoonLabel />
                                 </li>
                             </ul>
                         </div>

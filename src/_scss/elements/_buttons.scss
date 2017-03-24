@@ -24,7 +24,7 @@ button,
     display: inline-block;
     font-family: $font-sans;
     font-size: $small-font-size;
-    font-weight: $font-bold;
+    font-weight: $font-semibold;
     line-height: 1;
     outline: none;
     padding: 1rem 2rem;
@@ -57,7 +57,7 @@ button,
 
     &.usa-button-primary-alt {
         background-color: $color-primary-alt;
-        color: $color-base;
+        color: $color-white;
 
         &:hover,
         &.usa-button-hover {

@@ -1,5 +1,5 @@
 .search-option {
-    border-bottom: 1px solid $color-gray-lighter;
+    border-bottom: 1px solid $color-gray-light;
 
     label {
         @include usa-label;
@@ -16,6 +16,5 @@
         }
 
     }
-
     @import "./_filterExpand";
 }

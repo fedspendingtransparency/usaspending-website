@@ -6,12 +6,14 @@
 import React from 'react';
 import _ from 'lodash';
 
+import * as LocationFormatter from 'helpers/locationFormatter';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
     filter: React.PropTypes.object,
     removeFilter: React.PropTypes.func,
-    clearFilterGroup: React.PropTypes.func
+    clearFilterGroup: React.PropTypes.func,
+    toggle: React.PropTypes.string
 };
 
 const scopeLabels = {
@@ -29,24 +31,11 @@ export default class LocationFilterGroup extends React.Component {
 
     removeFilter(value) {
         // remove a single filter item
-        this.props.removeFilter('selectedLocations', value);
+        this.props.removeFilter(this.props.filter.code, value);
     }
 
     removeScope() {
-        this.props.clearFilterGroup('locationDomesticForeign');
-    }
-
-    generateLabel(item) {
-        // capitalize just the first letter of each word in the place type
-        const placeType = item.place_type.toLowerCase()
-            .replace(/(^|\s|[-_])\S{1}/g, (letter) => (letter.toUpperCase()));
-        let label = `${placeType} | ${item.place}`;
-
-        if (item.parent) {
-            label += `, ${item.parent}`;
-        }
-
-        return label;
+        this.props.clearFilterGroup(this.props.toggle);
     }
 
     generateTags() {
@@ -72,7 +61,7 @@ export default class LocationFilterGroup extends React.Component {
         remainingValues.forEach((value) => {
             const tag = {
                 value: value.identifier,
-                title: this.generateLabel(value),
+                title: LocationFormatter.formatLocation(value),
                 isSpecial: false,
                 removeFilter: this.removeFilter
             };

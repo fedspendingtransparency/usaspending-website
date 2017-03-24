@@ -6,6 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isCancel } from 'axios';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
@@ -31,10 +32,12 @@ export class AgencyListContainer extends React.Component {
 
         this.state = {
             agencySearchString: '',
-            autocompleteAgencies: []
+            autocompleteAgencies: [],
+            noResults: false
         };
 
         this.handleTextInput = this.handleTextInput.bind(this);
+        this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
     }
 
@@ -87,6 +90,12 @@ export class AgencyListContainer extends React.Component {
                     });
                 }
             });
+
+            if (agencies.length === 0) {
+                this.setState({
+                    noResults: true
+                });
+            }
         }
 
         this.setState({
@@ -95,6 +104,10 @@ export class AgencyListContainer extends React.Component {
     }
 
     queryAutocompleteAgencies(input) {
+        this.setState({
+            noResults: false
+        });
+
         // Only search if search is 2 or more characters
         if (input.length >= 2) {
             this.setState({
@@ -118,6 +131,10 @@ export class AgencyListContainer extends React.Component {
 
             this.agencySearchRequest.promise
                 .then((res) => {
+                    this.setState({
+                        noResults: res.data.matched_objects.subtier_agency__name.length === 0
+                    });
+
                     // Add search results to Redux
                     if (this.props.agencyType === 'Funding') {
                         this.props.setAutocompleteFundingAgencies(
@@ -129,7 +146,27 @@ export class AgencyListContainer extends React.Component {
                             res.data.matched_objects.subtier_agency__name
                         );
                     }
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        this.setState({
+                            noResults: true
+                        });
+                    }
                 });
+        }
+        else if (this.agencySearchRequest) {
+            // A request is currently in-flight, cancel it
+            this.agencySearchRequest.cancel();
+        }
+    }
+
+    clearAutocompleteSuggestions() {
+        if (this.props.agencyType === 'Funding') {
+            this.props.setAutocompleteFundingAgencies([]);
+        }
+        else {
+            this.props.setAutocompleteAwardingAgencies([]);
         }
     }
 
@@ -174,12 +211,13 @@ export class AgencyListContainer extends React.Component {
                 onSelect={this.toggleAgency.bind(this)}
                 placeHolder={this.props.agencyType}
                 errorHeader="Unknown Agency"
-                errorMessage="You must select an agency from
-                    the list that is provided as you type."
+                errorMessage="We were unable to find that agency."
                 ref={(input) => {
                     this.agencyList = input;
                 }}
-                label={`${this.props.agencyType} Agency`} />
+                label={`${this.props.agencyType} Agency`}
+                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
+                noResults={this.state.noResults} />
         );
     }
 }
