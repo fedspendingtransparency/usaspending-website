@@ -1,18 +1,20 @@
 svg {
     display: inline-block;
-    g {
-        .tile {
-            stroke: $color-white;
-            stroke-width: rem(1.5);
-        }
-        .category {
-            fill: $color-white;
-            font-size: $small-font-size;
-        }
-        .value {
-            fill: $color-white;
-            font-size: $base-font-size + rem(2);
-            font-weight: $font-semibold;
-        }
+    g {}
+    .tile {
+        stroke: $color-white;
+        stroke-width: rem(1.5);
+    }
+    .category,
+    .value {
+        fill: $color-white;
+        text-shadow: rem(1) rem(0) rem(1) rgba( $color-black, .7);
+    }
+    .category {
+        font-size: $small-font-size;
+    }
+    .value {
+        font-size: $base-font-size + rem(2);
+        font-weight: $font-semibold;
     }
 }

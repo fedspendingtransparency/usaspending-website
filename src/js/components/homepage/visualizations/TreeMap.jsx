@@ -65,23 +65,23 @@ export default class TreeMap extends React.Component {
             .size([this.state.visualizationWidth, 565])(root).leaves();
 
         const colors = [
-            '#1C4956',
-            '#16646C',
-            '#1C817B',
-            '#28565A',
-            '#28565A',
-            '#2F625F',
-            '#3C6D61',
-            '#3C6D61',
-            '#3C6D61',
-            '#3C6D61',
-            '#3C6D61',
-            '#4C7861',
-            '#4C7861',
-            '#4C7861',
-            '#4C7861',
-            '#5F835F',
-            '#5F835F'
+            '#1b4956',
+            '#1d545c',
+            '#1d545c',
+            '#1f5f63',
+            '#216a69',
+            '#227570',
+            '#238076',
+            '#238c7d',
+            '#239884',
+            '#32a387',
+            '#48ae87',
+            '#5aba87',
+            '#6ac587',
+            '#79d086',
+            '#87dc85',
+            '#95e784',
+            '#a3f383'
         ];
 
         // build the tiles
@@ -124,8 +124,8 @@ export default class TreeMap extends React.Component {
                     </svg>
                     <div className="source">
                         Source: White House Historical Tables
-                        <div className="guide-icon">
-                            <Icons.Guide />
+                        <div className="info-icon-circle">
+                            <Icons.InfoCircle />
                         </div>
                         <div className="more-icon">
                             <Icons.MoreOptions />

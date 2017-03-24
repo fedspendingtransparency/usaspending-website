@@ -1,26 +1,37 @@
+@import "../../mixins/fullSectionWrap";
 @mixin searchSection {
-	.search-section-links-wrap {
-		background-color: $color-primary-darkest;
-		padding-bottom: rem(50);
-		padding-top: rem(150);
-		text-align: center;
-		.search-section-links-primary-text {
-			color: $color-white;
-			font-size: rem(38);
-			margin: 0;
-		}
-		.search-section-links-sub-text {
-			color: $color-gray-lighter;
-			font-size: rem(24);
-			margin: 0;
-		}
-		.search-section-links-button {
-			@include span-columns(4);
-			display: inline;
-			float: none;
-			font-size: rem(24);
-			font-weight: 500;
-			margin-top: rem(50);
-		}
-	}
+    .search-section-links-outter-wrap {
+        background-color: $color-primary-darkest;
+        .search-section-links-wrap {
+            @include fullSectionWrap;
+            padding-bottom: rem(50);
+            padding-top: rem(150);
+            text-align: center;
+            .search-section-links-primary-text {
+                color: $color-white;
+                font-size: rem(38);
+                margin: 0;
+            }
+            .search-section-links-sub-text {
+                color: $color-gray-lighter;
+                font-size: rem(24);
+                margin: 0;
+            }
+            .search-section-links-button {
+                @include span-columns(12);
+                @include shift(2)
+                font-size: rem(24);
+                font-weight: 500;
+                margin-top: rem(50);
+                @include media($tablet-screen) {
+                    @include span-columns(6);
+                    @include shift(5)
+                }
+                @include media($medium-screen) {
+                    @include span-columns(4);
+                    @include shift(6)
+                }
+            }
+        }
+    }
 }
