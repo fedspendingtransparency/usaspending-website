@@ -10,7 +10,7 @@ const propTypes = {
     title: React.PropTypes.string,
     value: React.PropTypes.string,
     overflow: React.PropTypes.bool,
-    MAXCHARS: React.PropTypes.number
+    maxChars: React.PropTypes.number
 };
 
 export default class DetailRow extends React.Component {
@@ -32,7 +32,7 @@ export default class DetailRow extends React.Component {
     checkOverflow() {
         let trunc = this.props.value;
         if (this.props.overflow === true && this.state.moreButton === true) {
-            trunc = `${this.props.value.substring(0, this.props.MAXCHARS)}...`;
+            trunc = `${this.props.value.substring(0, this.props.maxChars)}...`;
         }
         return trunc;
     }

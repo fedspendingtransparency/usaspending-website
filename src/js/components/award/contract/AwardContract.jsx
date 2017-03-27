@@ -24,7 +24,8 @@ export default class AwardContract extends React.Component {
                     typeString={SummaryPageHelper.awardType(this.props.selectedAward.award_type)} />
                 <ContractDetails
                     selectedAward={this.props.selectedAward}
-                    seeAdditional={this.props.seeAdditional} />
+                    seeAdditional={this.props.seeAdditional}
+                    maxChars={SummaryPageHelper.maxDescriptionCharacters} />
             </div>
         );
     }
