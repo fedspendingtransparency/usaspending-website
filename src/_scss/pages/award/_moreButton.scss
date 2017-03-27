@@ -22,9 +22,10 @@ button.see-more {
     margin-left: rem(10);
 
     svg {
-        fill: $color-gray;
-        width: 10px;
+        fill: $color-primary;
+        width: rem(10);
         display: inline;
-        vertical-align: baseline;
+        position: relative;
+        top: rem(2);
     }
 }
