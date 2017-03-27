@@ -7,7 +7,7 @@ import React from 'react';
 import * as d3 from 'd3';
 import _ from 'lodash';
 
-import Cell from './Cell';
+import TreeMapCell from './TreeMapCell';
 import * as Icons from '../../sharedComponents/icons/Icons';
 
 const propTypes = {
@@ -91,7 +91,7 @@ export default class TreeMap extends React.Component {
 
         // build the tiles
         const nodes = treemap.map((n, i) =>
-            <Cell
+            <TreeMapCell
                 label={n.data.name}
                 value={n.value}
                 x0={n.x0}
