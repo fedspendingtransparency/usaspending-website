@@ -53,8 +53,8 @@ export default class SummaryBar extends React.Component {
             progress = "In Progress";
         }
 
-        if (award.recipient_parent_duns) {
-            parentId = award.recipient_parent_duns;
+        if (award.parent_id) {
+            parentId = award.parent_id;
         }
         else if (!award.parent_award && award.type !== "D") {
             parentId = "Not Available";

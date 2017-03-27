@@ -17,22 +17,20 @@ import AssistanceAdditionalDetails from './additional/AssistanceAdditionalDetail
 
 const propTypes = {
     award: React.PropTypes.object,
-    isContract: React.PropTypes.bool
+    isContract: React.PropTypes.bool,
+    activeTab: React.PropTypes.string,
+    clickTab: React.PropTypes.func
 };
-
-const defaultTab = 'transaction';
 
 export default class DetailsSection extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            tableWidth: 0,
-            activeTab: defaultTab
+            tableWidth: 0
         };
 
         this.setTableWidth = this.setTableWidth.bind(this);
-        this.clickTab = this.clickTab.bind(this);
     }
     componentDidMount() {
         // set the initial table width
@@ -45,9 +43,7 @@ export default class DetailsSection extends React.Component {
         // check award changed
         if (this.props.award.selectedAward.id !== nextProps.award.selectedAward.id) {
             // reset the tab
-            this.setState({
-                activeTab: defaultTab
-            });
+            this.props.clickTab('transaction');
         }
     }
 
@@ -61,14 +57,8 @@ export default class DetailsSection extends React.Component {
         this.setState({ tableWidth });
     }
 
-    clickTab(tab) {
-        this.setState({
-            activeTab: tab
-        });
-    }
-
     currentSection() {
-        switch (this.state.activeTab) {
+        switch (this.props.activeTab) {
             case 'transaction':
                 if (this.props.isContract) {
                     return (<ContractTransactionsTableContainer
@@ -99,8 +89,8 @@ export default class DetailsSection extends React.Component {
         return (
             <div className="contract-details-table-section" id="details-table-section">
                 <DetailsTabBar
-                    activeTab={this.state.activeTab}
-                    clickTab={this.clickTab} />
+                    activeTab={this.props.activeTab}
+                    clickTab={this.props.clickTab} />
                 <div
                     className="details-table-width-master"
                     ref={(div) => {
