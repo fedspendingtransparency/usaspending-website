@@ -3,19 +3,19 @@
         width: 100%;
         @include display(flex);
         @include flex-direction(row);
-        @include pad(1rem 2rem);
+        @include pad(rem(10) rem(20));
         @include media($nav-width) {
             @include media($small-screen) {
-                @include pad(1rem 2rem);
-                height: 11.8rem;
+                @include pad(rem(10) rem(20));
+                height: rem(118);
             }
             @include media($large-screen) {
-                @include pad(1rem 4rem);
+                @include pad(rem(10) rem(40));
             }
             @include media($x-large-screen) {
                 max-width: $site-max-width;
                 margin: 0 auto;
-                padding: 1rem 0;
+                padding: rem(10) 0;
             }
         }
         .logo {
@@ -30,7 +30,7 @@
             display: none;
             @include media($tablet-screen) {
                 display: block;
-                width: 50rem;
+                width: rem(500);
             }
         }
         .mobile-menu {
