@@ -67,7 +67,7 @@ export default class TimeVisualization extends React.Component {
         this.showTooltip = this.showTooltip.bind(this);
     }
 
-    showTooltip(data, x, y) {
+    showTooltip() {
         // this.setState({
         //     tooltipData: data,
         //     tooltipX: x,

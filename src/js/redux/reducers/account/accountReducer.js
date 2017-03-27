@@ -77,9 +77,8 @@ const accountReducer = (state = initialState, action) => {
             });
         }
         case 'RESET_ACCOUNT_FILTERS': {
-            return Object.assign({}, {
-                filters: initialState.filters,
-                filterOptions: initialState.filterOptions
+            return Object.assign({}, state, {
+                filters: initialState.filters
             });
         }
         case 'RESET_ACCOUNT': {

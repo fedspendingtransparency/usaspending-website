@@ -17,7 +17,8 @@ import { topFilterGroupGenerator } from
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object
+    reduxFilters: React.PropTypes.object,
+    resetAccountFilters: React.PropTypes.func
 };
 
 export class AccountTopFilterBarContainer extends React.Component {
@@ -27,6 +28,8 @@ export class AccountTopFilterBarContainer extends React.Component {
         this.state = {
             filters: []
         };
+
+        this.clearAllFilters = this.clearAllFilters.bind(this);
     }
 
     componentDidMount() {
@@ -86,7 +89,7 @@ export class AccountTopFilterBarContainer extends React.Component {
 
                 const startString = moment(props.startDate, 'YYYY-MM-DD')
                     .format('MM/DD/YYYY');
-                const endString = moment(props.enate, 'YYYY-MM-DD').format('MM/DD/YYYY');
+                const endString = moment(props.endDate, 'YYYY-MM-DD').format('MM/DD/YYYY');
 
                 filter.values = [`${startString} to ${endString}`];
             }
@@ -98,11 +101,16 @@ export class AccountTopFilterBarContainer extends React.Component {
         return null;
     }
 
+    clearAllFilters() {
+        this.props.resetAccountFilters();
+    }
+
     render() {
         let output = null;
         if (this.state.filters.length > 0) {
             output = (<TopFilterBar
                 {...this.props}
+                clearAllFilters={this.clearAllFilters}
                 filters={this.state.filters}
                 groupGenerator={topFilterGroupGenerator} />);
         }

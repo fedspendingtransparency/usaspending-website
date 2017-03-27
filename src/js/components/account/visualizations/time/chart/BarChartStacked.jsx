@@ -175,7 +175,7 @@ export default class BarChart extends React.Component {
             yData.forEach((stack, stackIndex) => {
                 // within each X axis grouping of Y data elements is yet another group of Y data values
                 // but these are stacked on top of each other
-                
+
                 // the X position is the group's starting X positioning plus the previous group
                 // bar widths
                 const xPos = startingXPos + (stackIndex * itemWidth);

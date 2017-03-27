@@ -46,7 +46,7 @@ describe('Fiscal Year helper functions', () => {
             const fy = '2016';
             const expectedDates = ['2015-10-01', '2016-09-30'];
 
-            expect(FiscalYearHelper.convertFYtoDateRange(fy)).toEqual(expectedDates);
+            expect(FiscalYearHelper.convertFYToDateRange(fy)).toEqual(expectedDates);
         });
     });
 });

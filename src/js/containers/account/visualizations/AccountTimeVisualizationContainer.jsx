@@ -7,6 +7,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isCancel } from 'axios';
 
 import _ from 'lodash';
 import moment from 'moment';
@@ -99,11 +100,9 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                     console.log(err);
                 }
             });
-
-        }
+    }
 
     parseBalances(data) {
-
         const years = [];
 
         const balances = {};

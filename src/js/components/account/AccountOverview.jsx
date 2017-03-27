@@ -34,17 +34,23 @@ export default class AccountOverview extends React.Component {
     }
 
     generateSummary(account) {
-
         // determine the current fiscal year and get the associated values
         const fy = FiscalYearHelper.currentFiscalYear();
+        let fiscalYearAvailable = true;
         let authorityValue = 0;
         let obligatedValue = 0;
         if ({}.hasOwnProperty.call(account.totals.budgetAuthority, fy)) {
             authorityValue = account.totals.budgetAuthority[fy];
         }
+        else {
+            fiscalYearAvailable = false;
+        }
 
         if ({}.hasOwnProperty.call(account.totals.obligated, fy)) {
             obligatedValue = account.totals.obligated[fy];
+        }
+        else {
+            fiscalYearAvailable = false;
         }
 
         const authUnits = MoneyFormatter.calculateUnitForSingleValue(authorityValue);
@@ -66,6 +72,11 @@ ${authority} out of this federal account.`,
             toDate: `To date, ${percentObligated}% (${amountObligated}) of the total \
 ${authority} has been obligated.`
         };
+
+        if (!fiscalYearAvailable) {
+            summary.flow = `No data is available for the current fiscal year (FY ${fy}).`;
+            summary.toDate = '';
+        }
 
         this.setState({
             summary

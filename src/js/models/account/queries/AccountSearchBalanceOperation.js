@@ -3,6 +3,7 @@
  * Created by Kevin Li 3/24/17
  */
 
+import kGlobalConstants from 'GlobalConstants';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 
 class AccountSearchOperation {
@@ -33,7 +34,13 @@ class AccountSearchOperation {
 
     toParams() {
         const filters = [];
-        console.log("You promised to fix the foreign keys");
+
+        if (!window.foreignKeyError && {}.hasOwnProperty.call(window.console, 'warn')
+            && kGlobalConstants.DEV) {
+            console.warn("You promised to fix the foreign keys");
+            window.foreignKeyError = true;
+        }
+
         if (this.accountId) {
             filters.push({
                 field: 'treasury_account_identifier__federal_account_id',
