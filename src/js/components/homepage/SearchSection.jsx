@@ -17,12 +17,14 @@ export default class SearchSection extends React.Component {
                     <h2 className="search-section-links-sub-text">
                         Search through all U.S. Government Spending.
                     </h2>
-                    <button
-                        className="search-section-links-button"
-                        title="Start your search"
-                        aria-label="Start your search">
-                        Start Your Search
-                    </button>
+                    <a href="#/search">
+                        <button
+                            className="search-section-links-button"
+                            title="Start your search"
+                            aria-label="Start your search">
+                            Start Your Search
+                        </button>
+                    </a>
                 </div>
             </div>
         );

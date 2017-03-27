@@ -13,24 +13,29 @@
             &:first-child {
                 @include shift(0);
             }
-            & button {
-                @include button-unstyled;
-                color: $color-white;
-                font-size: rem(20);
-                padding: rem(20);
-                @include display(flex);
-                @include align-items(center);
-                @include justify-content(space-between);
-                width: 100%;
-                & svg {
-                    fill: $color-white;
-                    height: rem(40);
-                    width: rem(40);
+            & a {
+                & button {
+                    @include button-unstyled;
+                    color: $color-white;
+                    font-size: rem(20);
+                    padding: rem(20);
+                    @include display(flex);
+                    @include align-items(center);
+                    @include justify-content(space-between);
+                    width: 100%;
+                    & svg {
+                        fill: $color-white;
+                        height: rem(40);
+                        width: rem(40);
+                    }
+                    &:hover {
+                        @include transition(all 0.25s $ease-in-out-sine);
+                        background: rgba($color-primary-alt, .4);
+                        cursor: pointer;
+                    }
                 }
                 &:hover {
-                    @include transition(all 0.25s $ease-in-out-sine);
-                    background: rgba($color-primary-alt, .4);
-                    cursor: pointer;
+                    text-decoration: none;
                 }
             }
             @include media($tablet-screen) {
