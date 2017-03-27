@@ -90,3 +90,18 @@ export const mockBalances = {
         }
     }
 };
+
+export const mockCategories = {
+    total_metadata: {
+        count: 1
+    },
+    page_metadata: {
+        page_number: 1,
+        num_pages: 1,
+        count: 1
+    },
+    results: [{
+        item: "709",
+        aggregate: "-2696684.86"
+    }]
+};

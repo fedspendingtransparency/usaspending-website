@@ -25,10 +25,6 @@ const fetchDataSpy = sinon.spy(AccountTimeVisualizationSectionContainer.prototyp
 jest.mock('components/account/visualizations/time/AccountTimeVisualizationSection', () =>
     jest.fn(() => null));
 
-// mock the child component by replacing it with a function that returns a null element
-jest.mock('components/account/Account', () =>
-    jest.fn(() => null));
-
 const mockAccountHelper = (functionName, event, expectedResponse) => {
     jest.useFakeTimers();
     // override the specified function
