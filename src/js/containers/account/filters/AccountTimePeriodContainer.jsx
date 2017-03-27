@@ -24,7 +24,7 @@ const propTypes = {
     filterTimePeriodEnd: React.PropTypes.string
 };
 
-class AccountTimePeriodContainer extends React.Component {
+export class AccountTimePeriodContainer extends React.Component {
     constructor(props) {
         super(props);
 
