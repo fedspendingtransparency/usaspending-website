@@ -22,7 +22,8 @@ export default class ContractDetails extends React.Component {
             date: "",
             place: "",
             typeDesc: "",
-            price: ""
+            price: "",
+            overflow: false
         };
 
         // bind functions
@@ -101,12 +102,19 @@ export default class ContractDetails extends React.Component {
             pricing = award.type_of_contract_pricing_description;
         }
 
+        // char count
+        let seeMore = false;
+        if (award.description.length > 160) {
+            seeMore = true;
+        }
+
         this.setState({
             desc: description,
             date: popDate,
             place: popPlace,
             typeDesc: award.type_description,
-            price: pricing
+            price: pricing,
+            overflow: seeMore
         });
     }
 
@@ -124,7 +132,8 @@ export default class ContractDetails extends React.Component {
                         <tbody>
                             <DetailRow
                                 title="Description"
-                                value={this.state.desc} />
+                                value={this.state.desc}
+                                overflow={this.state.overflow} />
                             <DetailRow
                                 title="Period of Performance"
                                 value={this.state.date} />
@@ -140,9 +149,9 @@ export default class ContractDetails extends React.Component {
                         </tbody>
                     </table>
                 </div>
-                <div className="see-more">
-                    <button onClick={this.props.seeAdditional}>See Additional Details</button>
-                </div>
+                <button
+                    className="see-more"
+                    onClick={this.props.seeAdditional}>See Additional Details</button>
             </div>
         );
     }
