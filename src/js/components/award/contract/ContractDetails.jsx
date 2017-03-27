@@ -9,7 +9,12 @@ import DetailRow from '../DetailRow';
 
 const propTypes = {
     selectedAward: React.PropTypes.object,
-    seeAdditional: React.PropTypes.func
+    seeAdditional: React.PropTypes.func,
+    MAXCHARS: React.PropTypes.number
+};
+
+const defaultProps = {
+    MAXCHARS: 160
 };
 
 export default class ContractDetails extends React.Component {
@@ -104,17 +109,17 @@ export default class ContractDetails extends React.Component {
 
         // char count
         let seeMore = false;
-        if (award.description.length > 160) {
+        if (award.description.length > this.props.MAXCHARS) {
             seeMore = true;
         }
 
         this.setState({
             desc: description,
+            overflow: seeMore,
             date: popDate,
             place: popPlace,
             typeDesc: award.type_description,
-            price: pricing,
-            overflow: seeMore
+            price: pricing
         });
     }
 
@@ -133,7 +138,8 @@ export default class ContractDetails extends React.Component {
                             <DetailRow
                                 title="Description"
                                 value={this.state.desc}
-                                overflow={this.state.overflow} />
+                                overflow={this.state.overflow}
+                                MAXCHARS={this.props.MAXCHARS} />
                             <DetailRow
                                 title="Period of Performance"
                                 value={this.state.date} />
@@ -157,3 +163,4 @@ export default class ContractDetails extends React.Component {
     }
 }
 ContractDetails.propTypes = propTypes;
+ContractDetails.defaultProps = defaultProps;

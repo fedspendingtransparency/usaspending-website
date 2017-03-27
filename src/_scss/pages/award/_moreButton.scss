@@ -17,7 +17,6 @@ button.see-more {
         box-shadow: $focus-shadow;
         outline: 0;
     }
-    margin-top: .5rem;
     font-size: rem(14);
     margin-left: rem(10);
 
@@ -26,6 +25,6 @@ button.see-more {
         width: rem(10);
         display: inline;
         position: relative;
-        top: rem(2);
+        top: rem(1);
     }
 }

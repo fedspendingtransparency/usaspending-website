@@ -9,7 +9,8 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 const propTypes = {
     title: React.PropTypes.string,
     value: React.PropTypes.string,
-    overflow: React.PropTypes.bool
+    overflow: React.PropTypes.bool,
+    MAXCHARS: React.PropTypes.number
 };
 
 export default class DetailRow extends React.Component {
@@ -31,7 +32,7 @@ export default class DetailRow extends React.Component {
     checkOverflow() {
         let trunc = this.props.value;
         if (this.props.overflow === true && this.state.moreButton === true) {
-            trunc = `${this.props.value.substring(0, 160)}...`;
+            trunc = `${this.props.value.substring(0, this.props.MAXCHARS)}...`;
         }
         return trunc;
     }
