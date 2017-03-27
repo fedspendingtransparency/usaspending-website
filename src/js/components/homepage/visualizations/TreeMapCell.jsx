@@ -1,5 +1,5 @@
 /**
- * TreeMap.jsx
+ * TreeMapCell.jsx
  * Created by Emily Gullo 03/15/2017
  **/
 
@@ -17,7 +17,7 @@ const propTypes = {
     color: React.PropTypes.string
 };
 
-export default class Cell extends React.Component {
+export default class TreeMapCell extends React.Component {
 
     constructor(props) {
         super(props);
@@ -132,4 +132,4 @@ export default class Cell extends React.Component {
         );
     }
 }
-Cell.propTypes = propTypes;
+TreeMapCell.propTypes = propTypes;

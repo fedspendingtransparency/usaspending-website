@@ -4,13 +4,13 @@
   **/
 
 import React from 'react';
-import Landing from 'components/homepage/Landing';
-import TreeMap from 'components/homepage/visualizations/TreeMap';
-import TreeMapIntro from 'components/homepage/TreeMapIntro';
-import LinksSection from 'components/homepage/LinksSection';
-import SearchSection from 'components/homepage/SearchSection';
-import Header from '../../components/sharedComponents/header/Header';
-import Footer from '../../components/sharedComponents/Footer';
+import Landing from './Landing';
+import TreeMap from './visualizations/TreeMap';
+import TreeMapIntro from './TreeMapIntro';
+import LinksSection from './LinksSection';
+import SearchSection from './SearchSection';
+import Header from '../sharedComponents/header/Header';
+import Footer from '../sharedComponents/Footer';
 
 export default class Homepage extends React.Component {
     constructor(props) {
