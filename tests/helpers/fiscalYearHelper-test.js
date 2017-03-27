@@ -49,4 +49,18 @@ describe('Fiscal Year helper functions', () => {
             expect(FiscalYearHelper.convertFYToDateRange(fy)).toEqual(expectedDates);
         });
     });
+
+    describe('convertDateToFY', () => {
+        it('should convert a Moment object to the fiscal year it occurs within', () => {
+            const firstDate = moment('2015-12-01', 'YYYY-MM-DD');
+            const firstFy = 2016;
+
+            expect(FiscalYearHelper.convertDateToFY(firstDate)).toEqual(firstFy);
+
+            const secondDate = moment('2015-01-01', 'YYYY-MM-DD');
+            const secondFy = 2015;
+
+            expect(FiscalYearHelper.convertDateToFY(secondDate)).toEqual(secondFy);
+        });
+    });
 });
