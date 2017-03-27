@@ -6,7 +6,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import moment from 'moment';
-import { Set } from 'immutable'
+import { Set } from 'immutable';
 
 import { AccountTimePeriodContainer } from 'containers/account/filters/AccountTimePeriodContainer';
 
