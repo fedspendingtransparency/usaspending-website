@@ -1,0 +1,34 @@
+@import "./linksSectionBox";
+@import "../../mixins/fullSectionWrap";
+@mixin linksSection {
+    .links-section-outter-wrap {
+        background-color: $color-primary-darkest;
+        .links-section-wrap {
+            @include fullSectionWrap;
+        }
+        padding-bottom: rem(100);
+        padding-top: rem(50);
+        text-align: center;
+        @include clearfix;
+        .links-section-primary-title {
+            color: $color-gray-lightest;
+            display: block;
+            float: none;
+            font-size: rem(20);
+        }
+        .links-section-box-wrap {
+            margin-top: rem(15);
+            text-align: center;
+            @include span-columns(16);
+            @include linksSectionBox;
+            @include media($medium-screen) {
+                @include span-columns(12);
+                @include shift(2);
+            }
+            @include media($large-screen) {
+                @include span-columns(10);
+                @include shift(3);
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+@import './_landingButtons';
+.landing-section-wrap {
+    background: url(../img/landing_bg_img.jpg) no-repeat center center fixed;
+    background-size: cover;
+    min-height: rem(700);
+    padding: 0 rem(30);
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+    & .content-wrap {
+        display: block;
+        min-height: rem(325);
+        text-align: center;
+        z-index: 2;
+        & h2 {
+            border-top: 1px solid rgba($color-white, .4);
+            border-bottom: 1px solid rgba($color-white, .4);
+            color: $color-white;
+            font-size: rem(45);
+            margin: 0;
+            padding: rem(25) 0;
+            & .stronger {
+                color: #BDF486;
+                font-weight: $font-normal;
+            }
+        }
+        h5 {
+            color: $color-gold-lighter;
+            font-size: rem(20);
+            font-weight: $font-normal;
+            margin-top: rem(15);
+        }
+        @include landingButtons;
+    }
+    @include media($large-screen) {
+        padding: 0 0;
+    }
+    & .bottom-gradient {
+        @include linear-gradient(rgba(239, 1, 124, 0), #0F2D52);
+        @include align-self(flex-end);
+        height: rem(450);
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+    }
+}
