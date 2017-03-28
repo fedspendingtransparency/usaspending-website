@@ -6,6 +6,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import $ from 'jquery';
+
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import SummaryBar from './SummaryBar';
 import AwardInfoBar from './AwardInfoBar';
@@ -18,6 +20,34 @@ const propTypes = {
 };
 
 export default class AwardInfo extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            activeTab: "transaction"
+        };
+
+        this.clickTab = this.clickTab.bind(this);
+        this.seeAdditional = this.seeAdditional.bind(this);
+    }
+
+    clickTab(tab) {
+        this.setState({
+            activeTab: tab
+        });
+    }
+
+    seeAdditional() {
+        this.clickTab('additional');
+        const table = document.querySelector(`#details-table-section`);
+        if (table) {
+            const tableSection = table.offsetTop - 150;
+            $('body').animate({
+                scrollTop: tableSection
+            }, 250);
+        }
+    }
+
     render() {
         const isContract =
             _.includes(awardTypeGroups.contracts, this.props.selectedAward.award_type);
@@ -25,13 +55,15 @@ export default class AwardInfo extends React.Component {
         let amountsDetailsSection = (
             <AwardContract
                 {...this.props}
-                selectedAward={this.props.selectedAward} />
+                selectedAward={this.props.selectedAward}
+                seeAdditional={this.seeAdditional} />
         );
         if (!isContract) {
             amountsDetailsSection = (
                 <AwardGrant
                     {...this.props}
-                    selectedAward={this.props.selectedAward} />
+                    selectedAward={this.props.selectedAward}
+                    seeAdditional={this.seeAdditional} />
             );
         }
 
@@ -49,7 +81,9 @@ export default class AwardInfo extends React.Component {
 
                     <DetailsSection
                         {...this.props}
-                        isContract={isContract} />
+                        isContract={isContract}
+                        clickTab={this.clickTab}
+                        activeTab={this.state.activeTab} />
                 </main>
             </div>
         );

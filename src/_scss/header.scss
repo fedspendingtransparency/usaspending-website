@@ -1,25 +1,25 @@
 .usa-da-top-banner {
     @include align-self(stretch);
     background: as-alpha($color-gold-lightest, 0.95);
-    height:6rem;
-    padding: 15px 0;
+    height:rem(60);
+    padding: rem(15) 0;
     width: 100%;
-    border-bottom: 1px solid $color-gold-lighter;
-    margin-bottom:2rem;
+    border-bottom: rem(1) solid $color-gold-lighter;
+    margin-bottom:rem(20);
     & p {
         max-width: 100%;
-        margin: 5px 0;
-        font-size: 1.4rem;
+        margin: rem(5) 0;
+        font-size: rem(14);
         text-align: left;
     }
     & .usa-da-icon {
-        height: 30px;
-        width: 30px;
+        height: rem(30);
+        width: rem(30);
         float: right;
         & svg {
             fill: $color-gray-dark;
-            height: 30px;
-            width: 30px;
+            height: rem(30);
+            width: rem(30);
         }
     }
 

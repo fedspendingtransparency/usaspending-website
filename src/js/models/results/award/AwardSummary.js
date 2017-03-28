@@ -33,9 +33,10 @@ const fields = [
     'recipient_zip_postal',
     'recipient_country',
     'pop_city',
-    'parent_award',
+    'parent_id',
     'pop_state_province',
     'pop_zip',
+    'pop_country',
     'total_obligation',
     'potential_total_value_of_award',
     'recipient_duns',
@@ -50,6 +51,7 @@ const remapData = (data, idField) => {
     // remap expected child fields to top-level fields
     const remappedData = data;
     let id = 0;
+    let parentId = 0;
     let awardType = '';
     let awardTypeDescription = '';
     let awardDescription = '';
@@ -71,12 +73,17 @@ const remapData = (data, idField) => {
     let popCity = '';
     let popStateProvince = '';
     let popZip = '';
+    let popCountry = '';
     let contractPricingCode = '';
     let contractPricing = '';
     let latestTransaction = '';
 
     if (data.id) {
         id = data.id;
+    }
+
+    if (data.parent_award) {
+        parentId = data.parent_award;
     }
 
     if (data.type) {
@@ -108,7 +115,9 @@ const remapData = (data, idField) => {
     }
 
     if (data.place_of_performance) {
-        popCity = data.place_of_performance.city_name;
+        if (data.place_of_performance.city_name) {
+            popCity = data.place_of_performance.city_name;
+        }
 
         if (popCity !== null && data.place_of_performance.state_code) {
             popStateProvince = data.place_of_performance.state_code;
@@ -122,7 +131,14 @@ const remapData = (data, idField) => {
         else if (data.place_of_performance.foreign_province) {
             popStateProvince = data.place_of_performance.foreign_province;
         }
-        popZip = data.place_of_performance.zip5;
+
+        if (data.place_of_performance.zip5) {
+            popZip = data.place_of_performance.zip5;
+        }
+
+        if (data.place_of_performance.country_name) {
+            popCountry = data.place_of_performance.country_name;
+        }
     }
 
     if (data.latest_transaction) {
@@ -130,6 +146,7 @@ const remapData = (data, idField) => {
     }
 
     remappedData.id = id;
+    remappedData.parent_id = parentId;
     remappedData.award_type = awardType;
     remappedData.type_description = awardTypeDescription;
     remappedData.description = awardDescription;
@@ -142,6 +159,7 @@ const remapData = (data, idField) => {
     remappedData.pop_city = popCity;
     remappedData.pop_state_province = popStateProvince;
     remappedData.pop_zip = popZip;
+    remappedData.pop_country = popCountry;
     remappedData.latest_transaction = latestTransaction;
 
     // set the awardID (fain or piid) to the relevant field

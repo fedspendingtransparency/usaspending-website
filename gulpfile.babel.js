@@ -5,7 +5,9 @@ import sass from 'gulp-sass';
 import webpackStream from 'webpack-stream';
 import webpack from 'webpack';
 import gutil from 'gulp-util';
+import postcss from 'gulp-postcss';
 import sourcemaps from 'gulp-sourcemaps';
+import autoprefixer from 'autoprefixer';
 import rename from 'gulp-rename';
 import del from 'del';
 import vinylPaths from 'vinyl-paths';
@@ -184,6 +186,9 @@ gulp.task('copyAssets', ['copyConstants'], () => {
 
         // copy CSS files
         gulp.src('./src/css/**/*.css')
+            .pipe(sourcemaps.init())
+            .pipe(postcss([autoprefixer()]))
+            .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest('./public/css'))
             .on('end', () => {
                 gutil.log('CSS copied');
