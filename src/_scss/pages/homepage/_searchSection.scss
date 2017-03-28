@@ -15,7 +15,8 @@
             .search-section-links-sub-text {
                 color: $color-gray-lighter;
                 font-size: rem(24);
-                margin: 0;
+                line-height: 3.5rem;
+                margin-top: rem(15);
             }
             .search-section-links-button {
                 @include span-columns(12);
