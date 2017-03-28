@@ -1,16 +1,19 @@
 .agency-info {
     @include span-columns(16);
     background-color: $color-blue-background;
-    padding: 2.4rem 1rem 5rem 3rem;
-    .agency-select {
-        //@import '../../elements/_titleSelector';
-        border-bottom: 1px solid;
-        width: 25.6rem;
-        select {
+    padding: 2.4rem 1rem 4rem 3rem;
+    .static-title {
+        float: left;
+    }
+    @import '../../elements/_titleSelector';
+    .field-picker {
+        float: none;
+        .selected-button {
+            color: #555;
             font-size: $h4-font-size;
-            font-weight: $font-semibold;
-            border: none;
-            background-color: $color-blue-background;
+        }
+        .field-list {
+            width: rem(250);
         }
     }
     .agency-name {

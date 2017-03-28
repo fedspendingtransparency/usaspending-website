@@ -1,0 +1,30 @@
+button.see-more {
+
+    @include button-unstyled;
+    color: $color-primary;
+
+    &:hover,
+    &:active {
+        color: $color-primary-darker;
+        text-decoration: underline;
+    }
+
+    &:visited {
+        color: $color-visited;
+    }
+
+    &:focus {
+        box-shadow: $focus-shadow;
+        outline: 0;
+    }
+    font-size: rem(14);
+    margin-left: rem(10);
+
+    svg {
+        fill: $color-primary;
+        width: rem(10);
+        display: inline;
+        position: relative;
+        top: rem(1);
+    }
+}

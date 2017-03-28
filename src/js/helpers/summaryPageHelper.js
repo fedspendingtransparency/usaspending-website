@@ -28,3 +28,5 @@ export const awardType = (code) => {
     return type;
 };
 
+export const maxDescriptionCharacters = 160;
+
