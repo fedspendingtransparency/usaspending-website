@@ -44,11 +44,13 @@
         }
     }
 
-    .sankey-placeholder {
+    .sankey-wrapper {
         text-align: center;
         color: $color-base;
         font-size: 14px;
         margin-top: 60px;
         margin-bottom: 30px;
+
+        @import "./sankey/sankey";
     }
 }

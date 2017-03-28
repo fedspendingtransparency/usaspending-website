@@ -7,6 +7,8 @@ import React from 'react';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
+import SankeyVisualization from './visualizations/sankey/SankeyVisualization';
+
 const propTypes = {
     account: React.PropTypes.object
 };
@@ -16,20 +18,50 @@ export default class AccountOverview extends React.Component {
         super(props);
 
         this.state = {
+            windowWidth: 0,
+            visualizationWidth: 0,
+            visualizationHeight: 300,
+            amounts: {
+                budgetAuthority: 0,
+                out: {
+                    obligated: 0,
+                    unobligated: 0
+                }
+            },
             summary: {
                 flow: '',
                 toDate: ''
             }
         };
+
+        this.handleWindowResize = this.handleWindowResize.bind(this);
     }
 
     componentDidMount() {
         this.generateSummary(this.props.account);
+        this.handleWindowResize();
+        window.addEventListener('resize', this.handleWindowResize);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.account.id !== this.props.account.id) {
             this.generateSummary(nextProps.account);
+        }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize);
+    }
+
+    handleWindowResize() {
+        // determine if the width changed
+        const windowWidth = window.innerWidth;
+        if (this.state.windowWidth !== windowWidth) {
+            // width changed, update the visualization width
+            this.setState({
+                windowWidth,
+                visualizationWidth: Math.min(1200, this.sankeyHr.offsetWidth)
+            });
         }
     }
 
@@ -73,13 +105,30 @@ ${authority} out of this federal account.`,
 ${authority} has been obligated.`
         };
 
+        let amounts = {
+            budgetAuthority: authorityValue,
+            out: {
+                obligated: obligatedValue,
+                unobligated: parseFloat(account.totals.unobligated[fy])
+            }
+        };
+
         if (!fiscalYearAvailable) {
             summary.flow = `No data is available for the current fiscal year (FY ${fy}).`;
             summary.toDate = '';
+
+            amounts = {
+                budgetAuthority: 0,
+                out: {
+                    obligated: 0,
+                    unobligated: 0
+                }
+            };
         }
 
         this.setState({
-            summary
+            summary,
+            amounts
         });
     }
 
@@ -108,9 +157,16 @@ ${authority} has been obligated.`
                 </div>
 
                 <h3>Fiscal Year Snapshot</h3>
-                <hr className="results-divider" />
-                <div className="sankey-placeholder">
-                    Coming Soon
+                <hr
+                    className="results-divider"
+                    ref={(div) => {
+                        this.sankeyHr = div;
+                    }} />
+                <div className="sankey-wrapper">
+                    <SankeyVisualization
+                        amounts={this.state.amounts}
+                        width={this.state.visualizationWidth}
+                        height={this.state.visualizationHeight + 40} />
                 </div>
             </div>
         );

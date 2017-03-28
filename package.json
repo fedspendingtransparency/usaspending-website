@@ -99,6 +99,7 @@
     "axios": "^0.15.2",
     "babel-polyfill": "^6.20.0",
     "d3-array": "^1.0.2",
+    "d3-interpolate": "^1.1.4",
     "d3-scale": "^1.0.4",
     "fixed-data-table": "0.6.3",
     "immutable": "^3.8.1",
