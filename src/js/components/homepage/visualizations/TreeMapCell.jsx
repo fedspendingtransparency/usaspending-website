@@ -14,7 +14,8 @@ const propTypes = {
     x1: React.PropTypes.number,
     y0: React.PropTypes.number,
     y1: React.PropTypes.number,
-    color: React.PropTypes.string
+    color: React.PropTypes.string,
+    toggleTooltip: React.PropTypes.func
 };
 
 export default class TreeMapCell extends React.Component {

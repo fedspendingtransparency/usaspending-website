@@ -44,11 +44,14 @@ export default class TreeMap extends React.Component {
 
         this.state = {
             windowWidth: 0,
-            visualizationWidth: 0
+            visualizationWidth: 0,
+            category: 'none',
+            description: ''
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
+        this.toggleTooltip = this.toggleTooltip.bind(this);
     }
 
     componentDidMount() {
@@ -100,16 +103,32 @@ export default class TreeMap extends React.Component {
                 y1={n.y1}
                 total={n.parent.value}
                 key={i}
-                color={this.props.colors[i]} />
+                color={this.props.colors[i]}
+                toggleTooltip={this.toggleTooltip} />
         );
         return nodes;
     }
 
+    toggleTooltip(cat, desc) {
+        // toggle to original info if rolling off
+        if (this.state.category !== 'none') {
+            this.setState({
+                category: 'none',
+                description: ''
+            });
+        }
+        // otherwise set the state
+        this.setState({
+            category: cat,
+            description: desc
+        });
+    }
+
     render() {
         const finalNodes = this.buildTree();
-        return (
-            <div
-                className="usa-da-treemap-section">
+        let sidebarContent = '';
+        if (this.state.category === 'none') {
+            sidebarContent = (
                 <div className="treemap-sidebar">
                     <div className="tree-desc">
                         <b>3</b> of the <b>19</b> total budget functions, accounted for about
@@ -121,6 +140,17 @@ export default class TreeMap extends React.Component {
                         2016.
                     </div>
                 </div>
+            );
+        }
+
+        // else call treemap sidebar and pass cat & desc down to it
+        // sidebarContent = (<TreeMapSidebar
+                // category={this.state.category}
+                // description={this.this.state.description} />);
+        return (
+            <div
+                className="usa-da-treemap-section">
+                { sidebarContent }
                 <div
                     className="tree-wrapper"
                     ref={(sr) => {
