@@ -40,13 +40,12 @@ export default class Homepage extends React.Component {
         // get the homepage info
         HomepageHelper.fetchFile('graphics/homepage.json').promise
             .then((res) => {
-                const fyTotal = res.data.totalSpent;
-
+                // set to state
                 this.setState({
                     categories: res.data.budgetCategories,
                     breakdown: res.data.budgetBreakdown,
                     colors: res.data.colors,
-                    total: fyTotal
+                    total: res.data.totalSpent
                 }, () => {
                     deferred.resolve();
                 });

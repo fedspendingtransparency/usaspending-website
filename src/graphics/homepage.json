@@ -1,6 +1,7 @@
 {
 "totalSpent": "$3.85 trillion",
-"budgetCategories": [
+"budgetCategories": {
+    "children": [
         { "name": "National Defense", "value": 595303439435.41 },
         { "name": "International Affairs", "value": 45304204110.79 },
         { "name": "General Science, Space, and Technology", "value": 30230316084.43 },
@@ -19,7 +20,8 @@
         { "name": "Administration of Justice", "value": 57144161860.45 },
         { "name": "General Government", "value": 18639539276.13 },
         { "name": "Net Interest", "value": 240721540897.61 }
-    ],
+    ]
+},
 "budgetBreakdown": {
         "totalContractors": "2.29 trillion",
         "individuals": 30.2,
