@@ -113,7 +113,7 @@ export default class TreeMap extends React.Component {
                         { this.state.finalNodes }
                     </svg>
                     <div className="source">
-                        Source: White House Historical Tables
+                        Source: Monthly Treasury Statement
                         <div className="info-icon-circle">
                             <Icons.InfoCircle />
                         </div>
