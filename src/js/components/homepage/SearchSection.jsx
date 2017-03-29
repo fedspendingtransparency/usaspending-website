@@ -15,7 +15,7 @@ export default class SearchSection extends React.Component {
                         There&apos;s More to Explore.
                     </h1>
                     <h2 className="search-section-links-sub-text">
-                        Search for your city or county, a federal agency, federal program, 
+                        Search for your city or county, a federal agency, federal program,
                         <br />
                         corporation, or other keyword.
                     </h2>

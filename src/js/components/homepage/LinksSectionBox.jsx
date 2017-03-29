@@ -41,8 +41,7 @@ export default class LinksSectionBox extends React.Component {
     }
 
     render() {
-
-        let arrow = (<Icons.AngleRight />);
+        const arrow = (<Icons.AngleRight />);
         let disabledStatus = '';
         let link = (
             <a className="links-section-box-anchor" href={this.props.linkUrl}>
@@ -50,7 +49,6 @@ export default class LinksSectionBox extends React.Component {
                 {arrow}
             </a>
         );
-        let linkText = this.props.linkText;
 
         if (this.props.icon === 'recipient' ||
             this.props.icon === 'federalAccount') {
