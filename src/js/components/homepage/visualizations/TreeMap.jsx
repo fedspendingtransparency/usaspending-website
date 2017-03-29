@@ -11,7 +11,6 @@ import TreeMapCell from './TreeMapCell';
 import * as Icons from '../../sharedComponents/icons/Icons';
 
 const propTypes = {
-    categories: React.PropTypes.array,
     colors: React.PropTypes.array
 };
 
@@ -23,7 +22,7 @@ export default class TreeMap extends React.Component {
         this.state = {
             windowWidth: 0,
             visualizationWidth: 0,
-            finalNodes: []
+            finalNodes: ''
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
@@ -35,8 +34,10 @@ export default class TreeMap extends React.Component {
         window.addEventListener('resize', this.handleWindowResize);
     }
 
-    componentWillReceiveProps() {
-        this.buildTree();
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.categories.length > 0) {
+            this.buildTree(nextProps.categories);
+        }
     }
 
     componentWillUnmount() {
@@ -55,9 +56,9 @@ export default class TreeMap extends React.Component {
         }
     }
 
-    buildTree() {
+    buildTree(cats) {
         // put the data through d3's hierarchy system to sum and sort it
-        const root = d3.hierarchy(this.props.categories)
+        const root = d3.hierarchy(cats)
         .sum((d) => (d.value))
         .sort((a, b) => b.height - a.height || b.value - a.value);
 
@@ -72,7 +73,7 @@ export default class TreeMap extends React.Component {
             .size([this.state.visualizationWidth, 565])(root).leaves();
 
         // build the tiles
-        const nodes = treemap.map((n, i) =>
+        const nodes = treemap[0].data.map((n, i) =>
             <TreeMapCell
                 label={n.data.name}
                 value={n.value}
@@ -84,12 +85,17 @@ export default class TreeMap extends React.Component {
                 key={i}
                 color={this.props.colors[i]} />
         );
+
         this.setState({
             finalNodes: nodes
         });
     }
 
     render() {
+        let finalNodes = '';
+        if (this.state.finalNodes !== '') {
+            finalNodes = this.state.finalNodes;
+        }
         return (
             <div
                 className="usa-da-treemap-section">
@@ -112,7 +118,7 @@ export default class TreeMap extends React.Component {
                     <svg
                         width={this.state.visualizationWidth}
                         height="565">
-                        { this.state.finalNodes }
+                        { finalNodes }
                     </svg>
                     <div className="source">
                         Source: White House Historical Tables
