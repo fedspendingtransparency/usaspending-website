@@ -1,12 +1,12 @@
 /**
- * AccountSearchOperation.js
+ * AccountSearchBalanceOperation.js
  * Created by Kevin Li 3/24/17
  */
 
 import kGlobalConstants from 'GlobalConstants';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 
-class AccountSearchOperation {
+class AccountSearchBalanceOperation {
     constructor(id = null) {
         this.accountId = null;
         if (id) {
@@ -63,4 +63,4 @@ class AccountSearchOperation {
     }
 }
 
-export default AccountSearchOperation;
+export default AccountSearchBalanceOperation;
