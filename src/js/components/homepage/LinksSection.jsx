@@ -30,7 +30,7 @@ export default class LinksSection extends React.Component {
                             linkUrl="" />
                         <LinksSectionBox
                             icon="api"
-                            text="Plug directly into our data."
+                            text="Plug into the data using our API."
                             linkText="View the documentation"
                             linkUrl="" />
                         <LinksSectionBox

@@ -41,16 +41,32 @@ export default class LinksSectionBox extends React.Component {
     }
 
     render() {
+        const arrow = (<Icons.AngleRight />);
+        let disabledStatus = '';
+        let link = (
+            <a className="links-section-box-anchor" href={this.props.linkUrl}>
+                {this.props.linkText}
+                {arrow}
+            </a>
+        );
+
+        if (this.props.icon === 'recipient' ||
+            this.props.icon === 'federalAccount') {
+            disabledStatus = ' disabled';
+            link = (
+                <span className="links-section-box-span">
+                    Coming Soon...
+                </span>
+            );
+        }
+
         return (
             <div className="links-section-box">
                 {this.switchIcon()}
-                <h4 className="links-section-box-primary-text">
+                <h4 className={`links-section-box-primary-text${disabledStatus}`}>
                     {this.props.text}
                 </h4>
-                <a className="links-section-box-anchor" href={this.props.linkUrl}>
-                    {this.props.linkText}
-                    <Icons.AngleRight />
-                </a>
+                {link}
             </div>
         );
     }

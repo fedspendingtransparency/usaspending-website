@@ -40,5 +40,17 @@
                 width: rem(8);
             }
         }
+        .links-section-box-span {
+            color: $color-cool-blue-lighter;
+            opacity: 0.4;
+            font-size: rem(14);
+        }
+        .usa-da-building-mag,
+        .usa-da-treemap-mag {
+            opacity: 0.4;
+        }
+        .links-section-box-primary-text.disabled {
+            opacity: 0.4;
+        }
     }
 }
