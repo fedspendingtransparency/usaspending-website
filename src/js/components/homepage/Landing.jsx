@@ -15,8 +15,8 @@ export default class Landing extends React.Component {
                     <h2>In 2016, the U.S. government spent <span className="stronger">$3.85 trillion dollars</span></h2>
                     <h5>How was that money used? We have the answers.</h5>
                     <ul className="buttons-wrap">
-                        <li><a href="#">See the Breakdown<Icons.AngleDownCircle className="usa-da-icon-angle-down-circle" /></a></li>
-                        <li><a href="#/search">Start Your Search<Icons.AngleRightCircle className="usa-da-icon-angle-right-circle" /></a></li>
+                        <li><a href="#" title="See the Breakdown">See the Breakdown<Icons.AngleDownCircle className="usa-da-icon-angle-down-circle" /></a></li>
+                        <li><a href="#/search" title="Start Your Search">Start Your Search<Icons.AngleRightCircle className="usa-da-icon-angle-right-circle" /></a></li>
                     </ul>
                 </div>
                 <div className="bottom-gradient" />

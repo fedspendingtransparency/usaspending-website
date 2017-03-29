@@ -37,10 +37,10 @@
                 }
             }
             @include media($tablet-screen) {
-                @include span-columns(5.5);
+                @include span-columns(5.8);
                 margin-top: rem(130);
                 &:first-child {
-                    @include shift(2.5);
+                    @include shift(2.2);
                 }
             }
         }
