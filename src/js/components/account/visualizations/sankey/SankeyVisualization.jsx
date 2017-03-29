@@ -56,6 +56,13 @@ export default class SankeyVisualization extends React.Component {
         this.generateChart(nextProps);
     }
 
+    generateLabel(amount, total) {
+        const formattedMoney = MoneyFormatter.formatMoney(amount);
+        const percentValue = Math.round((amount / total) * 1000) / 10;
+
+        return `${formattedMoney} (${percentValue}%)`;
+    }
+
     generateChart(props) {
         const barWidth = props.width / 6;
         const flowLength = props.width / 4;
@@ -78,12 +85,13 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
         // calculate the right column values
         const obligatedHeight = (props.amounts.out.obligated / props.amounts.budgetAuthority) * centerHeight;
         const unobligatedHeight = (props.amounts.out.unobligated / props.amounts.budgetAuthority) * centerHeight;
+        const budgetAuthority = props.amounts.budgetAuthority;
         
         const obligatedString = MoneyFormatter.formatMoney(props.amounts.out.obligated);
-        const obligatedPercent = Math.round((props.amounts.out.obligated / props.amounts.budgetAuthority) * 1000) / 10;
-
         const unobligatedString = MoneyFormatter.formatMoney(props.amounts.out.unobligated);
-        const unobligatedPercent = Math.round((props.amounts.out.unobligated / props.amounts.budgetAuthority) * 1000) / 10;
+
+        const obligatedLabel = this.generateLabel(props.amounts.out.obligated, budgetAuthority);
+        const unobligatedLabel = this.generateLabel(props.amounts.out.unobligated, budgetAuthority);
 
         const right = {
             width: barWidth,
@@ -91,13 +99,13 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
             obligated: {
                 height: obligatedHeight,
                 description: `Obligated Amount: ${obligatedString}`,
-                label: `${obligatedString} (${obligatedPercent}%)`
+                label: obligatedLabel
             },
             unobligated: {
                 height: unobligatedHeight,
                 y: graphHeight - unobligatedHeight,
                 description: `Unobligated Balance: ${unobligatedString}`,
-                label: `${unobligatedString} (${unobligatedPercent}%)`
+                label: unobligatedLabel
             },
             flow: {
                 length: flowLength + 4, // extend the length by 2px on each end so the borders are hidden
