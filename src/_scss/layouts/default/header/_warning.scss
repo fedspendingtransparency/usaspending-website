@@ -1,15 +1,15 @@
 @mixin defaultHeaderWarning {
     background: as-alpha($color-gold-lightest, 0.95);
-    min-height: 6rem;
+    min-height: rem(60);
     padding: 15px 0;
     width: 100%;
     border-bottom: 1px solid $color-gold-lighter;
     .warning-banner {
         max-width: $site-max-width;
-        margin: 0 2rem;
+        margin: 0 rem(20);
         @include media($medium-screen) {
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 rem(20);
         }
         @include media($large-screen) {
             padding: 0 $outer-gutter;
@@ -19,13 +19,13 @@
         }
         & p {
             max-width: 100%;
-            margin: 5px 0;
-            font-size: 1.4rem;
+            margin: rem(5) 0;
+            font-size: rem(14);
             text-align: left;
         }
         & .usa-da-icon {
-            height: 30px;
-            width: 30px;
+            height: rem(30);
+            width: rem(30);
             float: left;
             margin: 4px 10px 10px 0;
             @include media($medium-screen) {
@@ -33,8 +33,8 @@
             }
             & svg {
                 fill: $color-gray-dark;
-                height: 30px;
-                width: 30px;
+                height: rem(30);
+                width: rem(30);
             }
         }
     }
