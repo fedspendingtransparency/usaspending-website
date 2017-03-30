@@ -2,7 +2,7 @@
 .landing-section-wrap {
     background: url(../img/landing_bg_img.jpg) no-repeat center center fixed;
     background-size: cover;
-    height: rem(700);
+    min-height: rem(700);
     padding: 0 rem(30);
     position: relative;
     @include display(flex);
@@ -11,7 +11,7 @@
     @include flex-direction(row);
     & .content-wrap {
         display: block;
-        height: rem(325);
+        min-height: rem(325);
         text-align: center;
         z-index: 2;
         & h2 {

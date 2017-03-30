@@ -131,9 +131,9 @@ export default class GrantDetails extends React.Component {
                         </tbody>
                     </table>
                 </div>
-                <div className="see-more">
-                    <button onClick={this.props.seeAdditional}>See Additional Details</button>
-                </div>
+                <button
+                    className="see-more"
+                    onClick={this.props.seeAdditional}>See Additional Details</button>
             </div>
         );
     }
