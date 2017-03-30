@@ -44,7 +44,7 @@ export default class Homepage extends React.Component {
                 this.setState({
                     categories: res.data.budgetCategories,
                     breakdown: res.data.budgetBreakdown,
-                    colors: res.data.colors,
+                    colors: res.data.treemapColors,
                     total: res.data.totalSpent
                 }, () => {
                     deferred.resolve();
