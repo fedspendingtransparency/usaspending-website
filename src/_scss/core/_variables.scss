@@ -87,16 +87,18 @@ $color-vis-green-dark:       #0d817c;
 $color-vis-green-darker:     #13646c;
 $color-vis-green-darkest:    #13646c;
 
-
 $color-active:				 #F2B733;
-
 $color-focus:                #3e94cf;
 $color-visited:              #4c2c92;
-
 $color-shadow:               rgba(#000, 0.3);
 $color-tab-inactive:		 #f1f1f1; // color for inactive tab 
-
 $color-gray-border:          #D8D8D8;
+
+// Global Paadding and Margins
+// (example usage {padding: ($global-pad * 4);} = 60px of padding.)
+$global-pad-mrg: rem(15);
+$global-pad: $global-pad-mrg;
+$global-mrg: $global-pad-mrg;
 
 // Mobile First Breakpoints
 $small-screen:      320px;

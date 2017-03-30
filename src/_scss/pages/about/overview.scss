@@ -1,0 +1,15 @@
+.overview-wrap {
+    @include clearfix;
+    padding: ($global-pad * 4) 0;
+    & p {
+        @include span-columns(14);
+        @include shift(1);
+        color: $color-base;
+        font-size: $lead-font-size;
+        text-align: center;
+        @include media($large-screen) {
+           @include span-columns(8);
+           @include shift(4);
+        }
+    }
+}
