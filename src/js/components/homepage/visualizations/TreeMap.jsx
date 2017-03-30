@@ -10,6 +10,11 @@ import _ from 'lodash';
 import TreeMapCell from './TreeMapCell';
 import * as Icons from '../../sharedComponents/icons/Icons';
 
+const propTypes = {
+    categories: React.PropTypes.object,
+    colors: React.PropTypes.array
+};
+
 export default class TreeMap extends React.Component {
 
     constructor(props) {
@@ -127,3 +132,4 @@ export default class TreeMap extends React.Component {
     }
 
 }
+TreeMap.propTypes = propTypes;

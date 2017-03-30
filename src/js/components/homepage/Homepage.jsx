@@ -21,7 +21,7 @@ export default class Homepage extends React.Component {
         super(props);
 
         this.state = {
-            categories: [],
+            categories: {},
             breakdown: [],
             colors: [],
             total: ''
