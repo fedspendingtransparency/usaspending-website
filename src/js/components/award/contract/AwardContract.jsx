@@ -10,7 +10,8 @@ import AwardAmounts from '../AwardAmounts';
 import ContractDetails from './ContractDetails';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object
+    selectedAward: React.PropTypes.object,
+    seeAdditional: React.PropTypes.func
 };
 
 export default class AwardContract extends React.Component {
@@ -22,7 +23,9 @@ export default class AwardContract extends React.Component {
                     selectedAward={this.props.selectedAward}
                     typeString={SummaryPageHelper.awardType(this.props.selectedAward.award_type)} />
                 <ContractDetails
-                    selectedAward={this.props.selectedAward} />
+                    selectedAward={this.props.selectedAward}
+                    seeAdditional={this.props.seeAdditional}
+                    maxChars={SummaryPageHelper.maxDescriptionCharacters} />
             </div>
         );
     }

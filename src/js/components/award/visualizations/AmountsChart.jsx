@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { scaleLinear } from 'd3-scale';
+import _ from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -18,7 +19,8 @@ const propTypes = {
     current: React.PropTypes.number,
     graphHeight: React.PropTypes.number,
     awardId: React.PropTypes.number,
-    showPotential: React.PropTypes.bool
+    showPotential: React.PropTypes.bool,
+    type: React.PropTypes.string
 };
 
 const defaultProps = {
@@ -79,7 +81,11 @@ export default class AmountsChart extends React.Component {
     calculateScale() {
         // Set Y axis min and max (always assume the potential exceeds the current value)
         let yMin = 0;
-        const yMax = this.props.current;
+        let yMax = this.props.potential;
+
+        if (this.props.type === 'grant') {
+            yMax = this.props.current;
+        }
         if (yMax === 0) {
             yMin = -100;
         }
@@ -145,7 +151,7 @@ export default class AmountsChart extends React.Component {
                 amount={this.props.potential}
                 groupTransform={`${200 + this.state.barWidth},0`}
                 singleTransform={`${10 + labelDistance},5`}
-                subtitle="Potential Funding Ceiling"
+                subtitle={`${_.capitalize(this.props.type)} Ceiling`}
                 labelDistance={labelDistance}
                 line="line"
                 labelWidth={labelWidth}
@@ -167,7 +173,7 @@ export default class AmountsChart extends React.Component {
                 <svg
                     className="amounts-graph"
                     width={this.state.graphWidth}
-                    height={this.props.graphHeight + 10}
+                    height={this.props.graphHeight + 30}
                     ref={(svg) => {
                         this.svgRef = svg;
                     }}>
@@ -194,7 +200,8 @@ export default class AmountsChart extends React.Component {
                             labelWidth={labelWidth}
                             labelPadding={labelPadding}
                             currentY={this.state.currentY}
-                            graphHeight={this.props.graphHeight} />
+                            graphHeight={this.props.graphHeight}
+                            type={this.props.type} />
                     </g>
                 </svg>
             </div>

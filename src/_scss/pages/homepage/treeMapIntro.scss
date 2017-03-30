@@ -1,0 +1,37 @@
+@import "../../mixins/setText";
+@import './_treeMapIntroMQ';
+.treemap-intro-wrap {
+    @include clearfix;
+    background: #ececec url(../../img/treasury_building_small.png) no-repeat center bottom;
+    border-bottom: rem(1) solid #e1e1e1;
+    padding: rem(80) 0 0;
+    height: rem(450);
+    @include media($tablet-screen) {
+        background: url(../../img/treasury_building.png) no-repeat center bottom;
+    }
+    & .treemap-intro-inner-wrap {
+        margin: 0 auto;
+        & h3 {
+            @include span-columns(16);
+            @include setText(rem(42));
+            color: $color-vis-green-dark;
+            margin: 0;
+            letter-spacing: rem(-1);
+            font-weight: $font-semibold;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        & h5 {
+            @include span-columns(16);
+            @include setText(rem(20));
+            color: $color-base;
+            font-weight: $font-light;
+            margin: 0;
+            text-align: center;
+            & strong {
+                font-weight: $font-semibold;
+            }
+        }
+        @include treeMapLangingMQ();
+    }
+}

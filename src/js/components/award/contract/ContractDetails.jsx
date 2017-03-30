@@ -8,7 +8,9 @@ import moment from 'moment';
 import DetailRow from '../DetailRow';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object
+    selectedAward: React.PropTypes.object,
+    seeAdditional: React.PropTypes.func,
+    maxChars: React.PropTypes.number
 };
 
 export default class ContractDetails extends React.Component {
@@ -21,7 +23,8 @@ export default class ContractDetails extends React.Component {
             date: "",
             place: "",
             typeDesc: "",
-            price: ""
+            price: "",
+            overflow: false
         };
 
         // bind functions
@@ -84,8 +87,8 @@ export default class ContractDetails extends React.Component {
         else if (!award.pop_city && award.pop_state_province && popZip) {
             popPlace = `${award.pop_state_province} ${popZip}`;
         }
-        else if (!award.pop_city && award.pop_state_province && !popZip) {
-            popPlace = award.pop_state_province;
+        else if (!award.pop_city && award.pop_state_province && award.pop_country && !popZip) {
+            popPlace = `${award.pop_state_province}, ${award.pop_country}`;
         }
         if (award.description) {
             description = award.description;
@@ -100,8 +103,15 @@ export default class ContractDetails extends React.Component {
             pricing = award.type_of_contract_pricing_description;
         }
 
+        // char count
+        let seeMore = false;
+        if (award.description.length > this.props.maxChars) {
+            seeMore = true;
+        }
+
         this.setState({
             desc: description,
+            overflow: seeMore,
             date: popDate,
             place: popPlace,
             typeDesc: award.type_description,
@@ -123,7 +133,9 @@ export default class ContractDetails extends React.Component {
                         <tbody>
                             <DetailRow
                                 title="Description"
-                                value={this.state.desc} />
+                                value={this.state.desc}
+                                overflow={this.state.overflow}
+                                maxChars={this.props.maxChars} />
                             <DetailRow
                                 title="Period of Performance"
                                 value={this.state.date} />
@@ -139,6 +151,9 @@ export default class ContractDetails extends React.Component {
                         </tbody>
                     </table>
                 </div>
+                <button
+                    className="see-more"
+                    onClick={this.props.seeAdditional}>See Additional Details</button>
             </div>
         );
     }

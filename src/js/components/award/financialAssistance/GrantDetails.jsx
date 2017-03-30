@@ -8,7 +8,8 @@ import moment from 'moment';
 import DetailRow from '../DetailRow';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object
+    selectedAward: React.PropTypes.object,
+    seeAdditional: React.PropTypes.func
 };
 
 export default class GrantDetails extends React.Component {
@@ -83,7 +84,8 @@ export default class GrantDetails extends React.Component {
 
         // CFDA Data
         // TODO: get program description (objectives) for latest transaction
-        const programName = `${latestTransaction.assistance_data.cfda_number} - ${latestTransaction.assistance_data.cfda_title}`;
+        const programName = `${latestTransaction.assistance_data.cfda_number} -
+        ${latestTransaction.assistance_data.cfda_title}`;
         const programDescription = '';
 
         this.setState({
@@ -129,6 +131,9 @@ export default class GrantDetails extends React.Component {
                         </tbody>
                     </table>
                 </div>
+                <button
+                    className="see-more"
+                    onClick={this.props.seeAdditional}>See Additional Details</button>
             </div>
         );
     }

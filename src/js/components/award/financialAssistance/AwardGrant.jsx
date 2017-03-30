@@ -10,7 +10,8 @@ import AwardAmounts from '../AwardAmounts';
 import GrantDetails from './GrantDetails';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object
+    selectedAward: React.PropTypes.object,
+    seeAdditional: React.PropTypes.func
 };
 
 export default class AwardGrant extends React.Component {
@@ -23,7 +24,8 @@ export default class AwardGrant extends React.Component {
                     typeString={SummaryPageHelper.awardType(this.props.selectedAward.award_type)} />
                 <GrantDetails
                     {...this.props}
-                    selectedAward={this.props.selectedAward} />
+                    selectedAward={this.props.selectedAward}
+                    seeAdditional={this.props.seeAdditional} />
             </div>
         );
     }

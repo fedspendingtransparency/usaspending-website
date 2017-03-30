@@ -75,6 +75,17 @@ export default class AwardAmounts extends React.Component {
 
         const narrative = this.generateNarrative();
 
+        let awardNarrative = (<p>This {this.props.typeString} was awarded to&nbsp;
+        <b className="recipient-name">{narrative.recipient}</b> with a ceiling of
+            &nbsp;<b>{narrative.ceiling}</b>.&nbsp;
+            Of this amount, <b>{narrative.percentage}%</b> (<b>{narrative.current}</b>)
+            has been obligated.</p>);
+        if (this.props.typeString === 'grant') {
+            awardNarrative = (<p>This {this.props.typeString} was awarded to&nbsp;
+            <b className="recipient-name">{narrative.recipient}</b>
+            &nbsp;for <b>{narrative.current}</b>.</p>);
+        }
+
         return (
             <div className="amounts-wrapper">
                 <div className="award-amounts">
@@ -85,15 +96,14 @@ export default class AwardAmounts extends React.Component {
                             this.sectionHr = hr;
                         }} />
                     <div className="text-details">
-                        <p>This {this.props.typeString} was awarded to&nbsp;
-                            <b className="recipient-name">{narrative.recipient}</b>.&nbsp;
-                            {narrative.current} has been obligated.</p>
+                        { awardNarrative }
                     </div>
                     <AmountsChart
                         awardId={this.props.selectedAward.id}
                         potential={potential}
                         current={current}
-                        showPotential={this.props.showPotential} />
+                        showPotential={this.props.showPotential}
+                        type={this.props.typeString} />
                 </div>
             </div>
         );
