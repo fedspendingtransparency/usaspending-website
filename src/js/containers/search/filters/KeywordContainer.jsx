@@ -15,7 +15,25 @@ const propTypes = {
     updateTextSearchInput: React.PropTypes.func
 };
 
+const ga = require('react-ga');
+
 export class KeywordContainer extends React.Component {
+
+    static logFilterEvent() {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Applied Filter',
+            label: 'Keyword'
+        });
+    }
+
+    static logSelectedKeywordEvent(keyword) {
+        ga.event({
+            category: 'Search Filters',
+            action: 'Selected Keyword',
+            label: keyword
+        });
+    }
 
     constructor(props) {
         super(props);
@@ -27,6 +45,10 @@ export class KeywordContainer extends React.Component {
         // take in keywords and pass to redux
         if (value !== null) {
             this.props.updateTextSearchInput(value);
+
+            // Analytics
+            KeywordContainer.logFilterEvent();
+            KeywordContainer.logSelectedKeywordEvent(value);
         }
     }
 

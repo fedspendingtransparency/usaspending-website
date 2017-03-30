@@ -23,13 +23,18 @@ const propTypes = {
     currentY: React.PropTypes.number,
     graphHeight: React.PropTypes.number,
     labelWidth: React.PropTypes.number,
-    currentMiddle: React.PropTypes.number
+    currentMiddle: React.PropTypes.number,
+    type: React.PropTypes.string
 };
 
 export default class AwardLabels extends React.Component {
 
     render() {
         let line = null;
+        let anchor = "start";
+        let labelY = [0, 18, 38];
+        let labelX = 0;
+        let labelType = _.capitalize(this.props.name);
         if (this.props.line === "line") {
             line = (<AwardLabelsLine
                 labelDistance={this.props.labelDistance} />);
@@ -44,6 +49,14 @@ export default class AwardLabels extends React.Component {
                 graphHeight={this.props.graphHeight}
                 currentMiddle={this.props.currentMiddle} />);
         }
+        if (this.props.name === 'current') {
+            anchor = "end";
+            labelY = [-15, 3, 21];
+            labelX = 150;
+            if (this.props.type === 'grant') {
+                labelType = 'Total';
+            }
+        }
 
         return (
             <g
@@ -57,20 +70,23 @@ export default class AwardLabels extends React.Component {
                     transform={`translate(${this.props.singleTransform})`}>
                     <text
                         className="title"
-                        x={0}
-                        y={0}>
-                        {_.capitalize(this.props.name)} Award Amount:
+                        x={labelX}
+                        y={labelY[0]}
+                        textAnchor={anchor}>
+                        {labelType} Award Amount:
                     </text>
                     <text
                         className="subtitle"
-                        x={0}
-                        y={18}>
+                        x={labelX}
+                        y={labelY[1]}
+                        textAnchor={anchor}>
                         ({this.props.subtitle})
                     </text>
                     <text
                         className="value"
-                        x={0}
-                        y={18 + 20}>
+                        x={labelX}
+                        y={labelY[2]}
+                        textAnchor={anchor}>
                         {MoneyFormatter.formatMoney(this.props.amount)}
                     </text>
                 </g>

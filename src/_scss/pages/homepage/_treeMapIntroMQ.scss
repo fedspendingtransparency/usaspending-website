@@ -1,0 +1,47 @@
+//MEDIA QUERIES FOR THE TREEMAP LANDING SECTION OF THE HOMEPAGE
+@mixin treeMapLangingMQ () {
+    @include media($tablet-screen) {
+        width: $site-max-width;
+        background: url(../../img/treasury_building.png) no-repeat center bottom;
+        & h3 {
+            @include span-columns(4);
+            @include setText(rem(35));
+            text-align: right;
+        }
+        & h5 {
+            @include span-columns(4);
+            @include setText(rem(18));
+            text-align: right;
+        }
+    }
+    @include media($medium-screen) {
+        & h3 {
+            @include span-columns(5.4);
+            @include setText(rem(35)) letter-spacing: rem(-1);
+        }
+        & h5 {
+            @include span-columns(5.4);
+            @include setText(rem(18))
+        }
+    }
+    @include media($large-screen) {
+        & h3 {
+            @include span-columns(6.5);
+            @include setText(rem(50))
+        }
+        & h5 {
+            @include span-columns(6.5);
+            @include setText(rem(24))
+        }
+    }
+    @include media($x-large-screen) {
+        & h3 {
+            @include span-columns(7.5);
+            @include setText(rem(55))
+        }
+        & h5 {
+            @include span-columns(7.5);
+            @include setText(rem(28))
+        }
+    }
+}

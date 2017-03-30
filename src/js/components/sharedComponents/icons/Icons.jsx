@@ -68,6 +68,34 @@ AngleUp.defaultProps = {
     alt: 'Arrow Pointing Up Icon'
 };
 
+export class AngleDownCircle extends BaseIcon {}
+AngleDownCircle.defaultProps = {
+    iconName: 'usa-da-icon-angle-down-circle',
+    iconClass: 'usa-da-icon-angle-down-circle',
+    alt: 'Arrow Pointing Down Icon in Circle'
+};
+
+export class AngleLeftCircle extends BaseIcon {}
+AngleLeftCircle.defaultProps = {
+    iconName: 'usa-da-icon-angle-left-circle',
+    iconClass: 'usa-da-icon-angle-left-circle',
+    alt: 'Arrow Pointing Left Icon in a Circle'
+};
+
+export class AngleRightCircle extends BaseIcon {}
+AngleRightCircle.defaultProps = {
+    iconName: 'usa-da-icon-angle-right-circle',
+    iconClass: 'usa-da-icon-angle-right-circle',
+    alt: 'Arrow Pointing Right Icon in a Circle'
+};
+
+export class AngleUpCircle extends BaseIcon {}
+AngleUpCircle.defaultProps = {
+    iconName: 'usa-da-icon-angle-up-circle',
+    iconClass: 'usa-da-icon-angle-up-circle',
+    alt: 'Arrow Pointing Up Icon in a Circle'
+};
+
 export class Check extends BaseIcon {}
 Check.defaultProps = {
     iconName: 'usa-da-icon-check',
