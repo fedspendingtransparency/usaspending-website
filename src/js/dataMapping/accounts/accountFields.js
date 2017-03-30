@@ -9,3 +9,9 @@ export const balanceFields = {
     obligated: 'obligations_incurred_total_by_tas_cpe',
     unobligated: 'unobligated_balance_cpe'
 };
+
+export const categoryLabelFields = {
+    programActivity: 'program_activity__program_activity_name',
+    objectClass: 'object_class__object_class_name',
+    tas: 'treasury_account__tas_rendering_label'
+};

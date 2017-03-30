@@ -8,7 +8,6 @@ import _ from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
-import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import RankVisualization from 'components/search/visualizations/rank/RankVisualization';
 import RankVisualizationScopeButton from
     'components/search/visualizations/rank/RankVisualizationScopeButton';
@@ -109,28 +108,24 @@ export default class AccountRankVisualizationSection extends React.Component {
                             <ul>
                                 <li>
                                     <RankVisualizationScopeButton
-                                        value="program_activity"
+                                        value="programActivity"
                                         label="Program Activity"
-                                        active={this.props.categoryScope === 'program_activity'}
+                                        active={this.props.categoryScope === 'programActivity'}
                                         changeScope={this.props.changeScope} />
                                 </li>
-                                <li className="coming-soon">
+                                <li>
                                     <RankVisualizationScopeButton
-                                        value="object_class"
+                                        value="objectClass"
                                         label="Object Class"
-                                        active={this.props.categoryScope === 'object_class'}
-                                        changeScope={this.props.changeScope}
-                                        disabled />
-                                    <ComingSoonLabel />
+                                        active={this.props.categoryScope === 'objectClass'}
+                                        changeScope={this.props.changeScope} />
                                 </li>
-                                <li className="coming-soon">
+                                <li>
                                     <RankVisualizationScopeButton
                                         value="tas"
                                         label="Treasury Account Symbol (TAS)"
                                         active={this.props.categoryScope === 'tas'}
-                                        changeScope={this.props.changeScope}
-                                        disabled />
-                                    <ComingSoonLabel />
+                                        changeScope={this.props.changeScope} />
                                 </li>
                             </ul>
                         </div>

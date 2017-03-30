@@ -48,19 +48,19 @@ export default class HorizontalChart extends React.Component {
         };
     }
     componentDidMount() {
-        this.generateChart();
+        this.generateChart(this.props);
     }
 
-    componentWillReceiveProps() {
-        this.generateChart();
+    componentWillReceiveProps(nextProps) {
+        this.generateChart(nextProps);
     }
 
-    generateChart() {
+    generateChart(props) {
         // generate the X-axis ranges
         const dataRange = [];
-        if (this.props.dataSeries.length > 1) {
-            let minValue = _.min(this.props.dataSeries);
-            let maxValue = _.max(this.props.dataSeries);
+        if (props.dataSeries.length > 1) {
+            let minValue = _.min(props.dataSeries);
+            let maxValue = _.max(props.dataSeries);
 
             if (minValue > 0) {
                 minValue = 0;
@@ -73,12 +73,12 @@ export default class HorizontalChart extends React.Component {
             dataRange.push(minValue);
             dataRange.push(maxValue);
         }
-        else if (this.props.dataSeries.length === 1) {
+        else if (props.dataSeries.length === 1) {
             // when there is only one item, we need to manually set either the min or the max
             let min = 0;
             let max = 10000;
 
-            const dataPoint = this.props.dataSeries[0];
+            const dataPoint = props.dataSeries[0];
             if (dataPoint <= 0) {
                 // a negative or zero value means we will use the data point as the min and 0 as
                 // the max
@@ -99,25 +99,25 @@ export default class HorizontalChart extends React.Component {
         }
 
         // generate the X axis as a linear scale
-        const maxDataWidth = this.props.width - this.props.labelWidth;
+        const maxDataWidth = props.width - props.labelWidth;
         const xScale = scaleLinear().domain(dataRange).range([0, maxDataWidth]).nice();
 
         // process the actual data points
         const groups = [];
         const bars = [];
-        this.props.labelSeries.forEach((dataLabel, index) => {
-            const dataValue = this.props.dataSeries[index];
+        props.labelSeries.forEach((dataLabel, index) => {
+            const dataValue = props.dataSeries[index];
 
             // generate the left-side label group and striped background
             const group = (<ChartGroup
                 key={`group-${dataValue}-${dataLabel}-${index}`}
                 label={dataLabel}
                 index={index}
-                height={this.props.itemHeight}
-                width={this.props.width}
-                labelWidth={this.props.labelWidth}
-                padding={this.props.padding}
-                clickedGroup={this.props.clickedGroup} />);
+                height={props.itemHeight}
+                width={props.width}
+                labelWidth={props.labelWidth}
+                padding={props.padding}
+                clickedGroup={props.clickedGroup} />);
             groups.push(group);
 
             // generate the right-side graph bar
@@ -136,32 +136,32 @@ export default class HorizontalChart extends React.Component {
             const bar = (<ChartBar
                 key={`bar-${dataValue}-${dataLabel}-${index}`}
                 index={index}
-                labelWidth={this.props.labelWidth}
-                height={this.props.itemHeight}
+                labelWidth={props.labelWidth}
+                height={props.itemHeight}
                 start={start}
                 width={barWidth}
-                maxWidth={this.props.width - this.props.labelWidth}
+                maxWidth={props.width - props.labelWidth}
                 label={dataLabel}
                 value={dataValue}
-                description={this.props.descriptions[index]}
-                selectItem={this.props.selectItem}
-                deselectItem={this.props.deselectItem}
-                disableTooltip={this.props.disableTooltip} />);
+                description={props.descriptions[index]}
+                selectItem={props.selectItem}
+                deselectItem={props.deselectItem}
+                disableTooltip={props.disableTooltip} />);
             bars.push(bar);
         });
 
-        if (this.props.labelSeries.length < 5) {
+        if (props.labelSeries.length < 5) {
             // when a lot of filters are applied or we're at the end of the list
-            const remainingSlots = 5 - this.props.labelSeries.length;
+            const remainingSlots = 5 - props.labelSeries.length;
             for (let i = 0; i < remainingSlots; i++) {
                 const emptyGroup = (<ChartGroup
                     key={`group-empty-${i}`}
                     label=""
-                    index={i + this.props.labelSeries.length}
-                    height={this.props.itemHeight}
-                    width={this.props.width}
-                    labelWidth={this.props.labelWidth}
-                    padding={this.props.padding} />);
+                    index={i + props.labelSeries.length}
+                    height={props.itemHeight}
+                    width={props.width}
+                    labelWidth={props.labelWidth}
+                    padding={props.padding} />);
                 groups.push(emptyGroup);
             }
         }

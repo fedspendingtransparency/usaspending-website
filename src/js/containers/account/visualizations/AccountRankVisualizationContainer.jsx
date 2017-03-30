@@ -10,6 +10,8 @@ import { isCancel } from 'axios';
 
 import _ from 'lodash';
 
+import { categoryLabelFields } from 'dataMapping/accounts/accountFields';
+
 import AccountRankVisualizationSection from
     'components/account/visualizations/rank/AccountRankVisualizationSection';
 
@@ -36,7 +38,7 @@ export class AccountRankVisualizationContainer extends React.Component {
             descriptions: [],
             page: 1,
             total: 1,
-            categoryScope: 'program_activity'
+            categoryScope: 'programActivity'
         };
 
         this.changeScope = this.changeScope.bind(this);
@@ -104,7 +106,7 @@ export class AccountRankVisualizationContainer extends React.Component {
         searchOperation.fromState(this.props.reduxFilters);
 
         this.apiRequest = AccountHelper.fetchTasCategoryTotals({
-            group: this.state.categoryScope,
+            group: categoryLabelFields[this.state.categoryScope],
             field: 'obligations_incurred_by_program_object_class_cpe',
             aggregate: 'sum',
             order: ['aggregate'],
