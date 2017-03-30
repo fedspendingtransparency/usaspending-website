@@ -96,11 +96,13 @@ export default class TreeMapCell extends React.Component {
         if (height < 40 || width < 60) {
             percentView = 'none';
         }
-        let strokeColor = "none";
+        let strokeColor = "white";
+        let sWidth = ".1rem";
         if (this.props.label === "Social Security" ||
             this.props.label === "National Defense" ||
             this.props.label === "Medicare") {
-            strokeColor = "yellow";
+            strokeColor = "#F2B733";
+            sWidth = ".3rem";
         }
         return (
             <g
@@ -117,7 +119,8 @@ export default class TreeMapCell extends React.Component {
                     height={height}
                     style={{
                         fill: this.props.color,
-                        stroke: strokeColor
+                        stroke: strokeColor,
+                        strokeWidth: sWidth
                     }} />
                 <text
                     className="category"
