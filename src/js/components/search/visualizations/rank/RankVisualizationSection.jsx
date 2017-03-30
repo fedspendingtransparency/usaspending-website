@@ -18,9 +18,11 @@ const propTypes = {
     changeScope: React.PropTypes.func,
     nextPage: React.PropTypes.func,
     previousPage: React.PropTypes.func,
-    total: React.PropTypes.number,
     page: React.PropTypes.number,
-    loading: React.PropTypes.bool
+    loading: React.PropTypes.bool,
+    next: React.PropTypes.string,
+    previous: React.PropTypes.string,
+    hasNextPage: React.PropTypes.bool
 };
 
 export default class RankVisualizationSection extends React.Component {
@@ -73,7 +75,7 @@ export default class RankVisualizationSection extends React.Component {
         let disablePrev = false;
         let hidePager = '';
 
-        if (this.props.total < this.props.page + 1) {
+        if (!this.props.hasNextPage) {
             disableNext = true;
         }
 
@@ -81,7 +83,7 @@ export default class RankVisualizationSection extends React.Component {
             disablePrev = true;
         }
 
-        if (this.props.total < 1 || this.props.loading) {
+        if ((this.props.page == 1 && !this.props.hasNextPage) || this.props.loading) {
             hidePager = 'hide';
         }
 
