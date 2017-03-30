@@ -29,6 +29,10 @@ class SearchOperation {
         this.selectedLocations = [];
         this.locationDomesticForeign = 'all';
 
+        this.budgetFunctions = [];
+        this.federalAccounts = [];
+        this.objectClasses = [];
+
         this.awardingAgencies = [];
         this.fundingAgencies = [];
 
@@ -37,6 +41,7 @@ class SearchOperation {
         this.selectedRecipientLocations = [];
 
         this.selectedAwardIDs = [];
+
         this.awardAmounts = [];
     }
 
@@ -50,14 +55,23 @@ class SearchOperation {
             this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
             this.timePeriodFY = [];
         }
+
         this.selectedLocations = state.selectedLocations.toArray();
         this.locationDomesticForeign = state.locationDomesticForeign;
+
+        this.budgetFunctions = state.budgetFunctions.toArray();
+        this.federalAccounts = state.federalAccounts.toArray();
+        this.objectClasses = state.objectClasses.toObject();
+
         this.awardingAgencies = state.selectedAwardingAgencies.toArray();
         this.fundingAgencies = state.selectedFundingAgencies.toArray();
+
         this.selectedRecipients = state.selectedRecipients.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
         this.selectedRecipientLocations = state.selectedRecipientLocations.toArray();
+
         this.selectedAwardIDs = state.selectedAwardIDs.toArray();
+
         this.awardAmounts = state.awardAmounts.toArray();
     }
 

@@ -11,21 +11,25 @@ import * as AgencyFilterFunctions from './filters/agencyFilterFunctions';
 import * as RecipientFilterFunctions from './filters/recipientFilterFunctions';
 import * as AwardIDFilterFunctions from './filters/awardIDFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
+import * as BudgetCategoryFilterFunctions from './filters/budgetCategoryFilterFunctions';
 
 const initialState = {
-    awardType: new Set(),
+    keyword: '',
     timePeriodType: 'fy',
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
-    keyword: '',
-    selectedFundingAgencies: new OrderedMap(),
-    selectedAwardingAgencies: new OrderedMap(),
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all',
+    budgetFunctions: new OrderedMap(),
+    federalAccounts: new OrderedMap(),
+    objectClasses: new OrderedMap(),
+    selectedFundingAgencies: new OrderedMap(),
+    selectedAwardingAgencies: new OrderedMap(),
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
     selectedRecipientLocations: new OrderedMap(),
+    awardType: new Set(),
     selectedAwardIDs: new OrderedMap(),
     awardAmounts: new OrderedMap()
 };
@@ -72,6 +76,28 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'UPDATE_DOMESTIC_FOREIGN': {
             return Object.assign({}, state, {
                 locationDomesticForeign: action.selection
+            });
+        }
+
+        // Budget Categories Filter
+        case 'UPDATE_SELECTED_BUDGET_FUNCTIONS': {
+            return Object.assign({}, state, {
+                budgetFunctions: BudgetCategoryFilterFunctions.updateBudgetFunctions(
+                    state.budgetFunctions, action.budgetFunction)
+            });
+        }
+
+        case 'UPDATE_SELECTED_FEDERAL_ACCOUNTS': {
+            return Object.assign({}, state, {
+                federalAccounts: BudgetCategoryFilterFunctions.updateFederalAccounts(
+                    state.federalAccounts, action.federalAccount)
+            });
+        }
+
+        case 'UPDATE_SELECTED_OBJECT_CLASSES': {
+            return Object.assign({}, state, {
+                objectClasses: BudgetCategoryFilterFunctions.updateObjectClasses(
+                    state.objectClasses, action.objectClass)
             });
         }
 

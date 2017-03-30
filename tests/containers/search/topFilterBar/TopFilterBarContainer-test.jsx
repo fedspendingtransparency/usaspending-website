@@ -22,7 +22,6 @@ const removeFromSetSpy = sinon.spy(TopFilterBarContainer.prototype, 'removeFromS
 const resetGenericFieldSpy = sinon.spy(TopFilterBarContainer.prototype, 'resetGenericField');
 const prepareFiltersSpy = sinon.spy(TopFilterBarContainer.prototype, 'prepareFilters');
 
-
 describe('TopFilterBarContainer', () => {
     it('should return a TopFilterBarEmpty child component when no filters are applied', () => {
         const filters = Object.assign({}, defaultFilters);
@@ -232,6 +231,114 @@ describe('TopFilterBarContainer', () => {
                 values: [{
                     isScope: true
                 }]
+            };
+
+            expect(filterItem).toEqual(expectedFilterState);
+        });
+
+        it('should update component state with Redux budget function filters when available', () => {
+            // mount the container with default props
+            const topBarContainer = setup({
+                reduxFilters: Object.assign({}, defaultFilters)
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(0);
+
+            const locationFilter = Object.assign({}, defaultFilters, {
+                budgetFunctions: new OrderedMap({
+                    'Income Security': {
+                        title: 'Income Security',
+                        functionType: 'Function'
+                    }
+                })
+            });
+
+            topBarContainer.setProps({
+                reduxFilters: locationFilter
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(1);
+
+            const filterItem = topBarContainer.state().filters[0];
+            const expectedFilterState = {
+                code: 'budgetFunctions',
+                name: 'Budget Functions',
+                values: [{
+                    title: 'Income Security',
+                    functionType: 'Function'
+                }]
+            };
+
+            expect(filterItem).toEqual(expectedFilterState);
+        });
+
+        it('should update component state with Redux federal account filters when available', () => {
+            // mount the container with default props
+            const topBarContainer = setup({
+                reduxFilters: Object.assign({}, defaultFilters)
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(0);
+
+            const locationFilter = Object.assign({}, defaultFilters, {
+                federalAccounts: new OrderedMap({
+                    392: {
+                        id: '392',
+                        agency_identifier: '012',
+                        main_account_code: '3539',
+                        account_title: 'Child Nutrition Programs, Food Nutrition Service, Agriculture'
+                    }
+                })
+            });
+
+            topBarContainer.setProps({
+                reduxFilters: locationFilter
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(1);
+
+            const filterItem = topBarContainer.state().filters[0];
+            const expectedFilterState = {
+                code: 'federalAccounts',
+                name: 'Federal Accounts',
+                values: [{
+                    id: '392',
+                    agency_identifier: '012',
+                    main_account_code: '3539',
+                    account_title: 'Child Nutrition Programs, Food Nutrition Service, Agriculture'
+                }]
+            };
+
+            expect(filterItem).toEqual(expectedFilterState);
+        });
+
+        it('should update component state with Redux object class filters when available', () => {
+            // mount the container with default props
+            const topBarContainer = setup({
+                reduxFilters: Object.assign({}, defaultFilters)
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(0);
+
+            const locationFilter = Object.assign({}, defaultFilters, {
+                objectClasses: new OrderedMap({
+                    10: "Personnel Compensation and Benefits"
+                })
+            });
+
+            topBarContainer.setProps({
+                reduxFilters: locationFilter
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(1);
+
+            const filterItem = topBarContainer.state().filters[0];
+            const expectedFilterState = {
+                code: 'objectClasses',
+                name: 'Object Classes',
+                values: {
+                    10: "Personnel Compensation and Benefits"
+                }
             };
 
             expect(filterItem).toEqual(expectedFilterState);
@@ -1069,6 +1176,120 @@ describe('TopFilterBarContainer', () => {
             topBarContainer.instance().removeFilter('selectedLocations', '1,2_LOS ANGELES_CITY');
         });
 
+        it('should trigger a Redux action to update the Budget Function filter when a Budget Function is removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                budgetFunctions: new OrderedMap({
+                    'Income Security': {
+                        title: 'Income Security',
+                        functionType: 'Function'
+                    },
+                    'Farm income stabilization': {
+                        title: 'Farm income stabilization',
+                        functionType: 'Sub-FFunction'
+                    }
+                })
+            });
+
+            const expectedReduxArguments = {
+                type: 'budgetFunctions',
+                value: new OrderedMap({
+                    'Farm income stabilization': {
+                        title: 'Farm income stabilization',
+                        functionType: 'Sub-FFunction'
+                    }
+                })
+            };
+
+            // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+
+            topBarContainer.instance().removeFilter('budgetFunctions', 'Income Security');
+        });
+
+        it('should trigger a Redux action to update the Federal Account filter when a Federal Account is removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                federalAccounts: new OrderedMap({
+                    392: {
+                        id: '392',
+                        agency_identifier: '012',
+                        main_account_code: '3539',
+                        account_title: 'Child Nutrition Programs, Food Nutrition Service, Agriculture'
+                    },
+                    1406: {
+                        id: '1406',
+                        agency_identifier: '028',
+                        main_account_code: '0416',
+                        account_title: `Administrative Expenses, Children's Health Insurance Program, Social Security Administration`
+                    }
+                })
+            });
+
+            const expectedReduxArguments = {
+                type: 'federalAccounts',
+                value: new OrderedMap({
+                    1406: {
+                        id: '1406',
+                        agency_identifier: '028',
+                        main_account_code: '0416',
+                        account_title: `Administrative Expenses, Children's Health Insurance Program, Social Security Administration`
+                    }
+                })
+            };
+
+            // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+
+            topBarContainer.instance().removeFilter('federalAccounts', '392');
+        });
+
+        it('should trigger a Redux action to update the Object Class filter when an Object Class is removed', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                objectClasses: new OrderedMap({
+                    10: "Personnel Compensation and Benefits",
+                    20: "Contractual Services and Supplies"
+                })
+            });
+
+            const expectedReduxArguments = {
+                type: 'objectClasses',
+                value: new OrderedMap({
+                    20: "Contractual Services and Supplies"
+                })
+            };
+
+            // mock the redux action to test that the arguments match what is expected
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual(expectedReduxArguments);
+            });
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                updateGenericFilter: mockReduxAction
+            });
+
+            topBarContainer.instance().removeFilter('objectClasses', '10');
+        });
+
         it('should trigger a Redux action to update the Awarding Agency filter when an Awarding Agency is removed', () => {
             const initialFilters = Object.assign({}, defaultFilters, {
                 selectedAwardingAgencies: new OrderedMap({
@@ -1903,6 +2124,89 @@ describe('TopFilterBarContainer', () => {
 
             // validate that the clearFilterType Redux action is called twice
             expect(mockReduxAction).toHaveBeenCalledTimes(2);
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire Budget Function Filter', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                budgetFunctions: new OrderedMap({
+                    'Income Security': {
+                        title: 'Income Security',
+                        functionType: 'Function'
+                    },
+                    'Farm income stabilization': {
+                        title: 'Farm income stabilization',
+                        functionType: 'Sub-FFunction'
+                    }
+                })
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove a single group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('budgetFunctions');
+
+            // validate that the clearFilterType Redux action is called
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire Federal Account Filter', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                federalAccounts: new OrderedMap({
+                    392: {
+                        id: '392',
+                        agency_identifier: '012',
+                        main_account_code: '3539',
+                        account_title: 'Child Nutrition Programs, Food Nutrition Service, Agriculture'
+                    },
+                    1406: {
+                        id: '1406',
+                        agency_identifier: '028',
+                        main_account_code: '0416',
+                        account_title: `Administrative Expenses, Children's Health Insurance Program, Social Security Administration`
+                    }
+                })
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove a single group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('federalAccounts');
+
+            // validate that the clearFilterType Redux action is called
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+        });
+
+        it('should be able to trigger Redux actions that can reset the entire Object Class Filter', () => {
+            const initialFilters = Object.assign({}, defaultFilters, {
+                objectClasses: new OrderedMap({
+                    10: "Personnel Compensation and Benefits",
+                    20: "Contractual Services and Supplies"
+                })
+            });
+
+            const mockReduxAction = jest.fn();
+
+            // setup the top bar container and call the function to remove a single location
+            // group
+            const topBarContainer = setup({
+                reduxFilters: initialFilters,
+                clearFilterType: mockReduxAction
+            });
+
+            topBarContainer.instance().clearFilterGroup('objectClasses');
+
+            // validate that the clearFilterType Redux action is called
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
         });
 
         it('should be able to trigger Redux actions that can reset the entire Awarding Agency Filter', () => {

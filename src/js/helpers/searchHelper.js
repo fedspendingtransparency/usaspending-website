@@ -62,6 +62,39 @@ export const fetchLocations = (req) => {
     };
 };
 
+// Budget Category autocomplete searches
+export const fetchBudgetFunctions = (req) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'tas/autocomplete/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: req,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const fetchFederalAccounts = (req) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'federal_accounts/autocomplete/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: req,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 // Agency search for autocomplete
 export const fetchAgencies = (req) => {
     const source = CancelToken.source();
@@ -152,6 +185,23 @@ export const performTransactionsTotalSearch = (params) => {
     return {
         promise: Axios.request({
             url: 'transactions/total/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+// make API call to categories total endpoint
+export const performCategorySearch = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'tas/categories/total/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
