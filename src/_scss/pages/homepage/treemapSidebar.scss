@@ -24,6 +24,24 @@
         text-align: center;
         width: 100%;
     }
+
+    .tree-cat-name {
+        color: $color-base;
+        font-size: rem(30);
+        line-height: rem(35);
+        margin: 0 0 .5rem 0;
+    }
+
+    .tree-cat-amount {
+        color: $color-base;
+        font-size: rem(47);
+        margin: 0 0 1rem 0;
+    }
+
+    .tree-cat-desc {
+        color: $color-base;
+        font-size: rem(14);
+    }
     @include media($medium-screen) {
         @include span-columns(5);
         @include shift(11 of 16);

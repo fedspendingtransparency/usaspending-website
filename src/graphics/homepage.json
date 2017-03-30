@@ -22,8 +22,7 @@
         { "name": "Net Interest", "value": 240721540897.61 }
     ]
 },
-"categoryDescriptions": {
-    "children": [
+"categoryDescriptions": [
         { "name": "National Defense", "value": "This category includes the military activities of the Department of Defense (DOD), the nuclear-weapons related activities of the Department of Energy (DOE) and the National Nuclear Security Administration, the national security activities of several other agencies such as the Selective Service Agency, and portions of the activities of the Coast Guard and the Federal Bureau of Investigation. The programs in this function include: the pay and benefits of active, Guard, and reserve military personnel; DOD operations including training, maintenance of equipment, and facilities; health care for military personnel and dependents; procurement of weapons; research and development; construction of military facilities, including housing; research on nuclear weapons; and the cleanup of nuclear weapons production facilities." },
         { "name": "International Affairs", "value": "This category contains funding for all U.S. international activities, including: operating U.S. embassies and consulates throughout the world; providing military assistance to allies; aiding developing nations; dispensing economic assistance to fledgling democracies; promoting U.S. exports abroad; making U.S. payments to international organizations; and contributing to international peacekeeping efforts. Funding for all of these activities constitutes about one percent of the federal budget. The major agencies in this function include the Departments of Agriculture, State, and the Treasury; the United States Agency for International Development; and the Millennium Challenge Corporation." },
         { "name": "General Science, Space, and Technology", "value": "This category includes the National Science Foundation (NSF), programs at the National Aeronautics and Space Administration except for aviation programs, and general science programs at the Department of Energy (DOE)." },
@@ -42,8 +41,7 @@
         { "name": "Administration of Justice", "value": "This category consists of federal law enforcement programs, litigation and judicial activities, correctional operations, and state and local justice assistance. Agencies within this function include: the Federal Bureau of Investigation; the Drug Enforcement Administration; Border and Transportation Security; the Bureau of Alcohol, Tobacco, Firearms and Explosives; the United States Attorneys; legal divisions within the Department of Justice; the Legal Services Corporation; the federal Judiciary; and the Federal Bureau of Prisons. This function includes several components of the Department of Homeland Security." },
         { "name": "General Government", "value": "This category includes the activities of the White House and the Executive Office of the President, the legislative branch, and programs designed to carry out the legislative and administrative responsibilities of the federal government, including personnel management, fiscal operations, and property control." },
         { "name": "Net Interest", "value": "This category consists primarily of the interest paid by the federal government to private and foreign government holders of U.S. Treasury securities. This amount is slightly offset by interest income received by the federal government on loans and cash balances and by earnings of the National Railroad Retirement Investment Trust." }
-    ]
-},
+],
 "budgetBreakdown": {
         "totalContractors": "2.29 trillion",
         "individuals": 30.2,

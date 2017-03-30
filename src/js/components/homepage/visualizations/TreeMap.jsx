@@ -8,10 +8,12 @@ import * as d3 from 'd3';
 import _ from 'lodash';
 
 import TreeMapCell from './TreeMapCell';
+import TreeMapSidebar from './TreeMapSidebar';
 import * as Icons from '../../sharedComponents/icons/Icons';
 
 const propTypes = {
     categories: React.PropTypes.object,
+    descriptions: React.PropTypes.array,
     colors: React.PropTypes.array
 };
 
@@ -25,12 +27,15 @@ export default class TreeMap extends React.Component {
             visualizationWidth: 0,
             category: 'none',
             description: '',
-            finalNodes: ''
+            descriptions: {},
+            finalNodes: '',
+            individualValue: ''
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
         this.toggleTooltip = this.toggleTooltip.bind(this);
+        this.clearTooltip = this.clearTooltip.bind(this);
     }
 
     componentDidMount() {
@@ -42,6 +47,9 @@ export default class TreeMap extends React.Component {
         if (nextProps.categories.children.length > 0) {
             this.buildTree(nextProps.categories, nextProps.colors);
         }
+        this.setState({
+            descriptions: nextProps.descriptions
+        });
     }
 
     componentWillUnmount() {
@@ -87,8 +95,9 @@ export default class TreeMap extends React.Component {
                 y1={n.y1}
                 total={n.parent.value}
                 key={i}
+                color={colors[i]}
                 toggleTooltip={this.toggleTooltip}
-                color={colors[i]} />
+                clearTooltip={this.clearTooltip} />
         );
 
         this.setState({
@@ -96,19 +105,31 @@ export default class TreeMap extends React.Component {
         });
     }
 
-    toggleTooltip(cat, desc) {
+    toggleTooltip(cat, value) {
+        const descSet = this.state.descriptions;
+        // find index of object item on matching cat name
+        const descIndex = _.findIndex(descSet, { name: cat });
+
+        // set it to desc value
+        const desc = descSet[descIndex].value;
+
+        // otherwise set the state
+        this.setState({
+            category: cat,
+            description: desc,
+            individualValue: value
+        });
+    }
+
+    clearTooltip() {
         // toggle to original info if rolling off
         if (this.state.category !== 'none') {
             this.setState({
                 category: 'none',
-                description: ''
+                description: '',
+                individualValue: ''
             });
         }
-        // otherwise set the state
-        this.setState({
-            category: cat,
-            description: desc
-        });
     }
 
     render() {
@@ -128,11 +149,12 @@ export default class TreeMap extends React.Component {
                 </div>
             );
         }
-        // else {
-        //     sidebarContent = (<TreeMapSidebar
-        //         category={this.state.category}
-        //         description={this.this.state.description} />)
-        //     }
+        else {
+            sidebarContent = (<TreeMapSidebar
+                category={this.state.category}
+                description={this.state.description}
+                amount={this.state.individualValue} />);
+        }
         return (
             <div
                 className="usa-da-treemap-section">

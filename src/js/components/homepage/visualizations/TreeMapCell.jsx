@@ -15,7 +15,9 @@ const propTypes = {
     y0: React.PropTypes.number,
     y1: React.PropTypes.number,
     color: React.PropTypes.string,
-    toggleTooltip: React.PropTypes.func
+    toggleTooltip: React.PropTypes.func,
+    clearTooltip: React.PropTypes.func,
+    top3: React.PropTypes.string
 };
 
 export default class TreeMapCell extends React.Component {
@@ -94,15 +96,28 @@ export default class TreeMapCell extends React.Component {
         if (height < 40 || width < 60) {
             percentView = 'none';
         }
+        let strokeColor = "none";
+        if (this.props.label === "Social Security" ||
+            this.props.label === "National Defense" ||
+            this.props.label === "Medicare") {
+            strokeColor = "yellow";
+        }
         return (
             <g
-                transform={`translate(${this.props.x0},${this.props.y0})`}>
+                transform={`translate(${this.props.x0},${this.props.y0})`}
+                onMouseOver={() => {
+                    this.props.toggleTooltip(this.props.label, this.props.value);
+                }}
+                onMouseLeave={() => {
+                    this.props.clearTooltip();
+                }}>
                 <rect
                     className="tile"
                     width={width}
                     height={height}
                     style={{
-                        fill: this.props.color
+                        fill: this.props.color,
+                        stroke: strokeColor
                     }} />
                 <text
                     className="category"

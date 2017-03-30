@@ -43,6 +43,7 @@ export default class Homepage extends React.Component {
                 // set to state
                 this.setState({
                     categories: res.data.budgetCategories,
+                    descriptions: res.data.categoryDescriptions,
                     breakdown: res.data.budgetBreakdown,
                     colors: res.data.treemapColors,
                     total: res.data.totalSpent
@@ -66,7 +67,8 @@ export default class Homepage extends React.Component {
                 <TreeMap
                     total={this.state.total}
                     categories={this.state.categories}
-                    colors={this.state.colors} />
+                    colors={this.state.colors}
+                    descriptions={this.state.descriptions} />
                 <SearchSection />
                 <LinksSection />
                 <Footer />
