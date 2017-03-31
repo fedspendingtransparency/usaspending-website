@@ -1,0 +1,38 @@
+.filter-results {
+    @include span-columns(16);
+
+    @import "pages/search/searchSidebar";
+
+    .search-sidebar {
+        display:none;
+        margin-top: 0;
+        @include media($medium-screen){
+            @include span-columns(4);
+        }
+    }
+
+    .search-results-wrapper {
+        @include span-columns(16);
+        @include media($medium-screen){
+            @include span-columns(12);
+        }
+
+        @import "pages/search/topFilterBar/topFilterBar";
+
+        .search-results {
+            @include span-columns(16);
+            background-color: $color-white;
+            box-shadow: $container-shadow;
+
+            padding: 3rem;
+
+            h3 {
+                margin: 0;
+                color: $color-gray;
+            }
+
+            @import "elements/_divider";
+            @import "./visualizations/visualizations";
+        }
+    }
+}

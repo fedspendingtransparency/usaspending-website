@@ -5,8 +5,6 @@
 
 import React from 'react';
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-
 const propTypes = {
     labelWidth: React.PropTypes.number,
     maxWidth: React.PropTypes.number,
@@ -16,6 +14,8 @@ const propTypes = {
     index: React.PropTypes.number,
     label: React.PropTypes.string,
     value: React.PropTypes.number,
+    description: React.PropTypes.string,
+    disableTooltip: React.PropTypes.bool,
     selectItem: React.PropTypes.func,
     deselectItem: React.PropTypes.func
 };
@@ -34,6 +34,10 @@ export default class ChartBar extends React.Component {
     }
 
     mouseEntered() {
+        if (this.props.disableTooltip) {
+            return;
+        }
+
         this.setState({
             isHovering: true
         }, () => {
@@ -42,6 +46,10 @@ export default class ChartBar extends React.Component {
     }
 
     mouseExited() {
+        if (this.props.disableTooltip) {
+            return;
+        }
+
         this.setState({
             isHovering: false
         }, () => {
@@ -50,6 +58,10 @@ export default class ChartBar extends React.Component {
     }
 
     touchedBar() {
+        if (this.props.disableTooltip) {
+            return;
+        }
+
         this.setState({
             isHovering: !this.state.isHovering
         }, () => {
@@ -84,9 +96,10 @@ export default class ChartBar extends React.Component {
         return (
             <g
                 className="chart-bar-group"
-                transform={`translate(${this.props.labelWidth},${this.props.index * this.props.height})`}>
+                transform={`translate(${this.props.labelWidth},${this.props.index * this.props.height})`}
+                aria-label={this.props.description}>
                 <desc>
-                    {`Spending by ${this.props.label}: ${MoneyFormatter.formatMoney(this.props.value)}`}
+                    {this.props.description}
                 </desc>
                 <rect
                     className={`chart-bar ${hoverClass}`}

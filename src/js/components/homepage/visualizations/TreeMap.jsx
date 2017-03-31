@@ -11,30 +11,8 @@ import TreeMapCell from './TreeMapCell';
 import * as Icons from '../../sharedComponents/icons/Icons';
 
 const propTypes = {
-    budgetCategories: React.PropTypes.object,
+    categories: React.PropTypes.object,
     colors: React.PropTypes.array
-};
-
-const defaultProps = {
-    colors: [
-        '#1b4956',
-        '#1d545c',
-        '#1d545c',
-        '#1f5f63',
-        '#216a69',
-        '#227570',
-        '#238076',
-        '#238c7d',
-        '#239884',
-        '#32a387',
-        '#48ae87',
-        '#5aba87',
-        '#6ac587',
-        '#79d086',
-        '#87dc85',
-        '#95e784',
-        '#a3f383'
-    ]
 };
 
 export default class TreeMap extends React.Component {
@@ -44,7 +22,8 @@ export default class TreeMap extends React.Component {
 
         this.state = {
             windowWidth: 0,
-            visualizationWidth: 0
+            visualizationWidth: 0,
+            finalNodes: ''
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
@@ -53,8 +32,13 @@ export default class TreeMap extends React.Component {
 
     componentDidMount() {
         this.handleWindowResize();
-        this.buildTree();
         window.addEventListener('resize', this.handleWindowResize);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.categories.children.length > 0) {
+            this.buildTree(nextProps.categories, nextProps.colors);
+        }
     }
 
     componentWillUnmount() {
@@ -73,9 +57,9 @@ export default class TreeMap extends React.Component {
         }
     }
 
-    buildTree() {
+    buildTree(cats, colors) {
         // put the data through d3's hierarchy system to sum and sort it
-        const root = d3.hierarchy(this.props.budgetCategories)
+        const root = d3.hierarchy(cats)
         .sum((d) => (d.value))
         .sort((a, b) => b.height - a.height || b.value - a.value);
 
@@ -100,13 +84,15 @@ export default class TreeMap extends React.Component {
                 y1={n.y1}
                 total={n.parent.value}
                 key={i}
-                color={this.props.colors[i]} />
+                color={colors[i]} />
         );
-        return nodes;
+
+        this.setState({
+            finalNodes: nodes
+        });
     }
 
     render() {
-        const finalNodes = this.buildTree();
         return (
             <div
                 className="usa-da-treemap-section">
@@ -129,10 +115,10 @@ export default class TreeMap extends React.Component {
                     <svg
                         width={this.state.visualizationWidth}
                         height="565">
-                        { finalNodes }
+                        { this.state.finalNodes }
                     </svg>
                     <div className="source">
-                        Source: White House Historical Tables
+                        Source: Monthly Treasury Statement
                         <div className="info-icon-circle">
                             <Icons.InfoCircle />
                         </div>
@@ -147,4 +133,3 @@ export default class TreeMap extends React.Component {
 
 }
 TreeMap.propTypes = propTypes;
-TreeMap.defaultProps = defaultProps;

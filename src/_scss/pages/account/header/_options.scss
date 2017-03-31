@@ -1,0 +1,79 @@
+.options {
+    @include span-columns(16);
+    @include display(flex);
+    @include justify-content(space-between);
+    padding-top: 15px;
+    margin-top: 15px;
+    border-top: 1px solid rgba($color-white, .1);
+
+    ul.account-items {
+        @include span-columns(13);
+        @include unstyled-list;
+        li {
+            .format-item {
+                .item-label {
+                    @include span-columns(7);
+                    color: #CEF233;
+                    font-weight: $font-semibold;
+                    margin: 0 rem(5) 0 0;
+                    text-align: right;
+                    &:after {
+                        content: (":");
+                    }
+                }
+                .item-value {
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+
+    @include media($tablet-screen) {
+        @include span-columns(10);
+        @include display(flex);
+        padding-top: 0;
+        margin-top: 0;
+        border-top: none;
+
+        ul.account-items {
+            @include span-columns(15);
+            @include display(flex);
+            @include justify-content(flex-end);
+            li {
+                border-right: 1px solid rgba($color-white, .3);
+                margin-right: rem(15);
+                padding: rem(10) rem(15) rem(10) 0;
+                .format-item {
+                    .item-label {
+                        @include span-columns(4);
+                        text-align: center;
+                        width: 100%;
+                        &:after {
+                            content: ("");
+                        }
+                    }
+                    .item-value {
+                        text-transform: uppercase;
+                        text-align: center;
+                        font-size: 22px;
+                        font-weight: 300;
+                    }
+                }
+                &:last-child {
+                    border-right: none;
+                }
+            }
+        }
+    }
+
+    @import "../../../mixins/moreOptionsBtn";
+    .more-options {
+        @include span-columns(3);
+        @include align-self(center);
+        @include moreOptionsBtn($color-white, $color-gray);
+
+        @include media($tablet-screen) {
+            width: auto;
+        }
+    }
+}

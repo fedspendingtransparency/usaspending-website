@@ -226,7 +226,7 @@ gulp.task('sass', ['copyAssets'], () => {
         sassPath = 'src/css/**/main_destyle.scss';
     }
 
-    if (environment === environmentTypes.DEVLOCAL) {
+    if (environment == environmentTypes.DEVLOCAL) {
         // set up a watcher for future SASS changes
         gulp.watch(['src/css/**/*.scss', 'src/_scss/**/*.scss'])
             .on('change', () => {

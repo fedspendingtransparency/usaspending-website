@@ -10,7 +10,7 @@ export default class Footer extends React.Component {
     render() {
         const year = new Date().getFullYear();
         return (
-            <footer className="footer-outter-wrap" role="contentinfo">
+            <footer className="footer-outer-wrap" role="contentinfo">
                 <div className="footer-container">
                     <div className="footerLogo">
                         <a href="/" title="USAspending.gov Home" aria-label="USAspending.gov Home">

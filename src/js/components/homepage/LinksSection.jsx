@@ -11,7 +11,7 @@ export default class LinksSection extends React.Component {
 
     render() {
         return (
-            <div className="links-section-outter-wrap">
+            <div className="links-section-outer-wrap">
                 <div className="links-section-wrap">
                     <h4
                         className="links-section-primary-title">
@@ -30,7 +30,7 @@ export default class LinksSection extends React.Component {
                             linkUrl="" />
                         <LinksSectionBox
                             icon="api"
-                            text="Plug directly into our data."
+                            text="Plug into the data using our API."
                             linkText="View the documentation"
                             linkUrl="" />
                         <LinksSectionBox

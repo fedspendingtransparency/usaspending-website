@@ -12,15 +12,19 @@ import ChartMessage from './RankVisualizationChartMessage';
 const defaultProps = {
     labelSeries: [],
     dataSeries: [],
+    descriptions: [],
     width: 0,
     height: 330,
-    loading: true
+    loading: true,
+    disableTooltip: false
 };
 
 const propTypes = {
     dataSeries: React.PropTypes.array,
+    descriptions: React.PropTypes.array,
     loading: React.PropTypes.bool,
-    meta: React.PropTypes.object
+    meta: React.PropTypes.object,
+    disableTooltip: React.PropTypes.bool
 };
 
 export default class RankVisualization extends React.Component {
@@ -37,6 +41,10 @@ export default class RankVisualization extends React.Component {
     }
 
     selectItem(data) {
+        if (this.props.disableTooltip) {
+            return;
+        }
+
         this.setState({
             showTooltip: true,
             selectedItem: data
@@ -44,6 +52,10 @@ export default class RankVisualization extends React.Component {
     }
 
     deselectItem() {
+        if (this.props.disableTooltip) {
+            return;
+        }
+
         this.setState({
             showTooltip: false
         });
