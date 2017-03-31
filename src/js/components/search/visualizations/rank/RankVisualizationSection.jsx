@@ -79,7 +79,7 @@ export default class RankVisualizationSection extends React.Component {
             disableNext = true;
         }
 
-        if (this.props.page <= 1) {
+        if (this.props.page <= 1 || !this.props.previous) {
             disablePrev = true;
         }
 
