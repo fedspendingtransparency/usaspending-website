@@ -6,6 +6,7 @@
 import _ from 'lodash';
 
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
+import * as ObjectClassQuery from './queryBuilders/ObjectClassQuery';
 
 class AccountSearchOperation {
     constructor(id = null) {
@@ -17,6 +18,8 @@ class AccountSearchOperation {
         this.dateType = 'fy';
         this.fy = [];
         this.dateRange = [];
+
+        this.objectClass = [];
     }
 
     fromState(state) {
@@ -30,6 +33,13 @@ class AccountSearchOperation {
                 this.dateRange = [state.startDate, state.endDate];
             }
             this.fy = [];
+        }
+
+        if (state.objectClass.count() > 0) {
+            this.objectClass = state.objectClass.toArray();
+        }
+        else {
+            this.objectClass = [];
         }
     }
 
@@ -58,6 +68,11 @@ class AccountSearchOperation {
                 operation: 'equals',
                 value: this.accountId
             });
+        }
+
+        if (this.objectClass.length > 0) {
+            const ocFilter = ObjectClassQuery.buildObjectClassQuery(this.objectClass);
+            filters.push(ocFilter);
         }
 
         return filters;
