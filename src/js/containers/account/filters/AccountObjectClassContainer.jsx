@@ -6,14 +6,13 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 
 import ObjectClassFilter from 'components/account/filters/objectClass/ObjectClassFilter';
 
 const propTypes = {
-    selectedCodes: React.PropTypes.array
+    toggleObjectClass: React.PropTypes.func
 };
 
 export class AccountObjectClassContainer extends React.Component {
@@ -24,7 +23,7 @@ export class AccountObjectClassContainer extends React.Component {
     }
 
     updateFilter(code) {
-        
+        this.props.toggleObjectClass(code);
     }
 
     render() {

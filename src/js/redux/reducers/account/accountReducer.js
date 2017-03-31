@@ -5,7 +5,9 @@
 
 import _ from 'lodash';
 
-import { Set } from 'immutable';
+import { Set, OrderedSet } from 'immutable';
+
+import * as ObjectClassFuncs from './filters/accountObjectClassFunctions';
 
 const initialState = {
     filters: {
@@ -13,7 +15,7 @@ const initialState = {
         fy: new Set(),
         startDate: null,
         endDate: null,
-        objectClass: [],
+        objectClass: new OrderedSet(),
         programActivity: [],
         tas: []
     },
@@ -74,6 +76,16 @@ const accountReducer = (state = initialState, action) => {
                     endDate: initialState.filters.endDate,
                     fy: new Set()
                 }
+            });
+        }
+        case 'TOGGLE_ACCOUNT_OBJECT_CLASS': {
+            const updatedOC = ObjectClassFuncs.toggleItem(state.filters.objectClass, action.item);
+            const updatedFilters = Object.assign({}, state.filters, {
+                objectClass: updatedOC
+            });
+
+            return Object.assign({}, state, {
+                filters: updatedFilters
             });
         }
         case 'RESET_ACCOUNT_FILTERS': {

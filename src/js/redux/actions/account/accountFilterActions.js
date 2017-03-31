@@ -15,6 +15,11 @@ export const resetTimeFilters = () => ({
     type: 'RESET_ACCOUNT_FILTER_TIME'
 });
 
+export const toggleObjectClass = (state) => ({
+    type: 'TOGGLE_ACCOUNT_OBJECT_CLASS',
+    item: state
+});
+
 export const resetAccountFilters = () => ({
     type: 'RESET_ACCOUNT_FILTERS'
 });

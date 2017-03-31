@@ -4,14 +4,14 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { OrderedSet } from 'immutable';
 
 import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
 
 import ObjectClassItem from './ObjectClassItem';
 
 const propTypes = {
-    selectedCodes: React.PropTypes.array,
+    selectedCodes: React.PropTypes.instanceOf(OrderedSet),
     updateFilter: React.PropTypes.func
 };
 
@@ -30,7 +30,7 @@ export default class ObjectClassFilter extends React.Component {
     render() {
         const items = Object.keys(objectClassDefinitions).map((code) => {
             const label = objectClassDefinitions[code];
-            const checked = _.indexOf(this.props.selectedCodes, code) > -1;
+            const checked = this.props.selectedCodes.includes(code);
             return (<ObjectClassItem
                 key={code}
                 code={code}
