@@ -126,7 +126,8 @@ export default class RankVisualizationSection extends React.Component {
                                         value="office"
                                         label="Offices"
                                         active={this.props.agencyScope === 'office'}
-                                        changeScope={this.props.changeScope} />
+                                        changeScope={this.props.changeScope}
+                                        disabled />
                                     <ComingSoonLabel />
                                 </li>
                             </ul>

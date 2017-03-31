@@ -182,7 +182,7 @@ describe('RankVisualizationSectionContainer', () => {
                 },
                 results: [{
                     item: 'First Agency',
-                    aggregate: '456',
+                    aggregate: '456'
                 },
                 {
                     item: 'Second Agency',
@@ -206,6 +206,7 @@ describe('RankVisualizationSectionContainer', () => {
                 loading: false,
                 labelSeries: ['First Agency', 'Second Agency'],
                 dataSeries: [456, 123],
+                descriptions: ['Spending by First Agency: $456', 'Spending by Second Agency: $123'],
                 page: 1,
                 total: 1,
                 agencyScope: 'toptier'

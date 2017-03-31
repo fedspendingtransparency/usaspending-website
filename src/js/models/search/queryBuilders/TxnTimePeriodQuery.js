@@ -32,7 +32,7 @@ const txnBuildFYRangeQuery = (fyRange) => {
 
     // determine the minimum year
     fyRange.forEach((fy) => {
-        const dateRange = FiscalYearHelper.convertFYtoDateRange(fy);
+        const dateRange = FiscalYearHelper.convertFYToDateRange(fy);
         const fyFilter = txnBuildDateRangeQuery(dateRange);
 
         fyFilters.push(fyFilter);
