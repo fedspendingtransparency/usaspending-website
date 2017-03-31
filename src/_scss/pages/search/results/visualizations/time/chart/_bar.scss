@@ -4,10 +4,9 @@
 }
 
 .bar-item {
-    fill: $color-vis-dark;
     opacity: 0.85;
 
-    &:hover, &.hover {
+    &.hover {
         fill: $color-active;
     }
 }

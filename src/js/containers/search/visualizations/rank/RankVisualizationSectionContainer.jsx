@@ -15,6 +15,7 @@ import RankVisualizationSection from
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
 
@@ -31,6 +32,7 @@ export class RankVisualizationSectionContainer extends React.Component {
             loading: true,
             labelSeries: [],
             dataSeries: [],
+            descriptions: [],
             page: 1,
             total: 0,
             agencyScope: 'toptier'
@@ -129,16 +131,22 @@ export class RankVisualizationSectionContainer extends React.Component {
     parseData(data) {
         const labelSeries = [];
         const dataSeries = [];
+        const descriptions = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
             labelSeries.push(item.item);
             dataSeries.push(parseFloat(item.aggregate));
+
+            const description = `Spending by ${item.item}: \
+${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
+            descriptions.push(description);
         });
 
         this.setState({
             labelSeries,
             dataSeries,
+            descriptions,
             loading: false,
             total: data.page_metadata.num_pages
         });

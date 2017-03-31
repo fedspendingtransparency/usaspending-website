@@ -7,6 +7,8 @@ import React from 'react';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import _ from 'lodash';
 
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+
 import BarItem from './BarItem';
 import BarXAxis from './BarXAxis';
 import BarYAxis from './BarYAxis';
@@ -21,7 +23,9 @@ const propTypes = {
     xSeries: React.PropTypes.array,
     ySeries: React.PropTypes.array,
     showTooltip: React.PropTypes.func,
-    padding: React.PropTypes.object
+    enableHighlight: React.PropTypes.bool,
+    padding: React.PropTypes.object,
+    legend: React.PropTypes.array
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -29,7 +33,9 @@ const defaultProps = {
     padding: {
         left: 70,
         bottom: 50
-    }
+    },
+    enableHighlight: true,
+    legend: []
 };
 
 export default class BarChart extends React.Component {
@@ -79,7 +85,7 @@ export default class BarChart extends React.Component {
 
     generateChart(props) {
         // flatten the Y values into a single array
-        const allY = _.flatten(props.ySeries);
+        const allY = _.flattenDeep(props.ySeries);
 
         // calculate the axes and ranges
         const yRange = [];
@@ -194,6 +200,7 @@ export default class BarChart extends React.Component {
                 }
 
                 const barIdentifier = `${groupIndex}-${i}`;
+                const description = `Spending in ${xData[i]}: ${MoneyFormatter.formatMoney(item)}`;
 
                 const bar = (<BarItem
                     key={`data-${barIdentifier}`}
@@ -205,6 +212,8 @@ export default class BarChart extends React.Component {
                     width={itemWidth}
                     x={xPos}
                     y={yPos}
+                    color={this.props.legend[0].color}
+                    description={description}
                     selectBar={this.selectBar}
                     deselectBar={this.deselectBar}
                     deregisterBar={this.deregisterBar}
@@ -230,6 +239,11 @@ export default class BarChart extends React.Component {
     }
 
     selectBar(barIdentifier, isTouch = false) {
+        if (!this.props.enableHighlight) {
+            // highlighting is disabled
+            return;
+        }
+
         if (isTouch && this.state.activeBar === barIdentifier) {
             // a touch event occurred on an already active bar, this indicates a deselection
             this.deselectBar();
@@ -249,6 +263,11 @@ export default class BarChart extends React.Component {
     }
 
     deselectBar() {
+        if (!this.props.enableHighlight) {
+            // highlighting is disabled
+            return;
+        }
+
         this.setState({
             activeBar: null
         }, () => {
@@ -378,7 +397,7 @@ export default class BarChart extends React.Component {
                         <g
                             className="legend-container"
                             transform={`translate(${this.props.padding.left},${this.props.height - 20})`}>
-                            <BarChartLegend />
+                            <BarChartLegend legend={this.props.legend} />
                         </g>
                     </g>
                 </svg>
