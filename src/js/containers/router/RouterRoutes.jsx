@@ -67,6 +67,14 @@ const routeDefinitions = {
             }
         },
         {
+            path: 'federal_account/:accountId',
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../account/AccountContainer').default);
+                });
+            }
+        },
+        {
             path: 'style',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {

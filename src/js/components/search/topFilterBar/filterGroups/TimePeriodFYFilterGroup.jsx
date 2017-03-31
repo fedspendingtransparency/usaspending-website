@@ -11,8 +11,7 @@ import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
     filter: React.PropTypes.object,
-    removeFilter: React.PropTypes.func,
-    clearFilterGroup: React.PropTypes.func
+    redux: React.PropTypes.object
 };
 
 export default class TimePeriodFYFilterGroup extends React.Component {
@@ -20,18 +19,29 @@ export default class TimePeriodFYFilterGroup extends React.Component {
         super(props);
 
         this.removeFilter = this.removeFilter.bind(this);
-        this.removeAll = this.removeAll.bind(this);
+        this.clearGroup = this.clearGroup.bind(this);
     }
 
     removeFilter(value) {
         // remove a single filter item
-        this.props.removeFilter(this.props.filter.code, value);
+        const timePeriodFilter = {
+            dateType: this.props.redux.reduxFilters.timePeriodType,
+            fy: this.props.redux.reduxFilters.timePeriodFY,
+            start: this.props.redux.reduxFilters.timePeriodStart,
+            end: this.props.redux.reduxFilters.timePeriodEnd
+        };
+
+        // remove the item from the set
+        timePeriodFilter.dateType = 'fy';
+        // as an ImmutableJS structure, the delete function will return a new instance
+        timePeriodFilter.fy = this.props.redux.reduxFilters.timePeriodFY.delete(value);
+
+        // reuse the Redux action from the time period filter component
+        this.props.redux.updateTimePeriod(timePeriodFilter);
     }
 
-    removeAll() {
-        // remove all fiscal years
-        // this is the same as just clearing the filter group
-        this.props.clearFilterGroup('timePeriodFY');
+    clearGroup() {
+        this.props.redux.resetTimeFilters();
     }
 
     generateTags() {
@@ -50,7 +60,7 @@ export default class TimePeriodFYFilterGroup extends React.Component {
                 value: 'all',
                 title: 'All Fiscal Years',
                 isSpecial: true,
-                removeFilter: this.removeAll
+                removeFilter: this.clearGroup
             };
 
             tags.push(tag);
@@ -75,7 +85,10 @@ export default class TimePeriodFYFilterGroup extends React.Component {
     render() {
         const tags = this.generateTags();
 
-        return <BaseTopFilterGroup {...this.props} tags={tags} />;
+        return (<BaseTopFilterGroup
+            tags={tags}
+            filter={this.props.filter}
+            clearFilterGroup={this.clearGroup} />);
     }
 }
 
