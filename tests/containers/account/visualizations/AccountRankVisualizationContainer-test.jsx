@@ -116,7 +116,7 @@ describe('AccountRankVisualizationContainer', () => {
                 loading: false,
                 total: 1,
                 page: 1,
-                categoryScope: 'program_activity'
+                categoryScope: 'programActivity'
             };
 
             expect(container.state()).toEqual(expectedState);
@@ -135,9 +135,9 @@ describe('AccountRankVisualizationContainer', () => {
 
             expect(container.state().page).toEqual(5);
 
-            container.instance().changeScope('something else');
+            container.instance().changeScope('objectClass');
 
-            expect(container.state().categoryScope).toEqual('something else');
+            expect(container.state().categoryScope).toEqual('objectClass');
             expect(container.state().page).toEqual(1);
         });
     });
