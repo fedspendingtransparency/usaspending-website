@@ -35,7 +35,8 @@ export class RankVisualizationSectionContainer extends React.Component {
             agencyScope: 'toptier',
             next: '',
             previous: '',
-            hasNextPage: false
+            hasNextPage: false,
+            hasPreviousPage: false
         };
 
         this.changeScope = this.changeScope.bind(this);
@@ -144,7 +145,8 @@ export class RankVisualizationSectionContainer extends React.Component {
             loading: false,
             next: data.page_metadata.next,
             previous: data.page_metadata.previous,
-            hasNextPage: data.page_metadata.has_next_page
+            hasNextPage: data.page_metadata.has_next_page,
+            hasPreviousPage: data.page_metadata.has_previous_page
         });
     }
 
