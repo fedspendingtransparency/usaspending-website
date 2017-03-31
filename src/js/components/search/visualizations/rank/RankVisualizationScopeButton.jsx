@@ -9,7 +9,12 @@ const propTypes = {
     active: React.PropTypes.bool,
     value: React.PropTypes.string,
     label: React.PropTypes.string,
+    disabled: React.PropTypes.bool,
     changeScope: React.PropTypes.func
+};
+
+const defaultProps = {
+    disabled: false
 };
 
 export default class RankVisualizationScopeButton extends React.Component {
@@ -34,8 +39,6 @@ export default class RankVisualizationScopeButton extends React.Component {
             description += ' (currently selected)';
         }
 
-        const disabledStatus = this.props.label === 'Offices';
-
         return (
             <button
                 className={`scope-button${activeClass}`}
@@ -43,7 +46,7 @@ export default class RankVisualizationScopeButton extends React.Component {
                 title={description}
                 aria-label={description}
                 onClick={this.clickedButton}
-                disabled={disabledStatus}>
+                disabled={this.props.disabled}>
                 {this.props.label}
             </button>
         );
@@ -51,3 +54,4 @@ export default class RankVisualizationScopeButton extends React.Component {
 }
 
 RankVisualizationScopeButton.propTypes = propTypes;
+RankVisualizationScopeButton.defaultProps = defaultProps;

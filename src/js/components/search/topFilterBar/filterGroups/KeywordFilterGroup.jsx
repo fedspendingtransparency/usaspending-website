@@ -9,7 +9,7 @@ import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
     filter: React.PropTypes.object,
-    removeFilter: React.PropTypes.func
+    redux: React.PropTypes.object
 };
 
 export default class KeywordFilterGroup extends React.Component {
@@ -19,9 +19,9 @@ export default class KeywordFilterGroup extends React.Component {
         this.removeFilter = this.removeFilter.bind(this);
     }
 
-    removeFilter(value) {
+    removeFilter() {
         // remove a single filter item
-        this.props.removeFilter(this.props.filter.code, value);
+        this.props.redux.clearFilterType('keyword');
     }
 
     generateTags() {
@@ -45,7 +45,10 @@ export default class KeywordFilterGroup extends React.Component {
     render() {
         const tags = this.generateTags();
 
-        return <BaseTopFilterGroup {...this.props} tags={tags} />;
+        return (<BaseTopFilterGroup
+            tags={tags}
+            filter={this.props.filter}
+            clearFilterGroup={this.removeFilter} />);
     }
 }
 

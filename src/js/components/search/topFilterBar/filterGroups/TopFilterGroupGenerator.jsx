@@ -20,9 +20,7 @@ export const topFilterGroupGenerator = (config = {
     filter: {
         code: ''
     },
-    removeFilter: () => null,
-    overwriteFilter: () => null,
-    clearFilterGroup: () => null
+    data: null
 }) => {
     const groupKey = `top-filter-group-${config.filter.code}`;
 
