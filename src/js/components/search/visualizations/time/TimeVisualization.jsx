@@ -14,7 +14,14 @@ const defaultProps = {
     xSeries: [],
     ySeries: [],
     width: 0,
-    height: 280
+    height: 280,
+    legend: [
+        {
+            color: '#708893',
+            label: 'Amount Obligated',
+            offset: 0
+        }
+    ]
 };
 
 /**

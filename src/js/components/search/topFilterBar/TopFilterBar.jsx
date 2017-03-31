@@ -12,14 +12,10 @@ import React from 'react';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
-import { topFilterGroupGenerator } from './filterGroups/TopFilterGroupGenerator';
-
 const propTypes = {
     filters: React.PropTypes.array,
     clearAllFilters: React.PropTypes.func,
-    removeFilter: React.PropTypes.func,
-    overwriteFilter: React.PropTypes.func,
-    clearFilterGroup: React.PropTypes.func
+    groupGenerator: React.PropTypes.func
 };
 
 export default class TopFilterBar extends React.Component {
@@ -48,11 +44,9 @@ export default class TopFilterBar extends React.Component {
                 filterCount += Object.keys(filter.values).length;
             }
 
-            return topFilterGroupGenerator({
+            return this.props.groupGenerator({
                 filter,
-                removeFilter: this.props.removeFilter,
-                overwriteFilter: this.props.overwriteFilter,
-                clearFilterGroup: this.props.clearFilterGroup
+                redux: this.props
             });
         });
 

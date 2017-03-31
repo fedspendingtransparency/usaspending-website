@@ -17,11 +17,14 @@ const propTypes = {
     height: React.PropTypes.number,
     dataSeries: React.PropTypes.array,
     labelSeries: React.PropTypes.array,
+    descriptions: React.PropTypes.array,
     labelWidth: React.PropTypes.number,
     padding: React.PropTypes.object,
     itemHeight: React.PropTypes.number,
+    disableTooltip: React.PropTypes.bool,
     selectItem: React.PropTypes.func,
-    deselectItem: React.PropTypes.func
+    deselectItem: React.PropTypes.func,
+    clickedGroup: React.PropTypes.func
 };
 
 const defaultProps = {
@@ -113,7 +116,8 @@ export default class HorizontalChart extends React.Component {
                 height={this.props.itemHeight}
                 width={this.props.width}
                 labelWidth={this.props.labelWidth}
-                padding={this.props.padding} />);
+                padding={this.props.padding}
+                clickedGroup={this.props.clickedGroup} />);
             groups.push(group);
 
             // generate the right-side graph bar
@@ -139,8 +143,10 @@ export default class HorizontalChart extends React.Component {
                 maxWidth={this.props.width - this.props.labelWidth}
                 label={dataLabel}
                 value={dataValue}
+                description={this.props.descriptions[index]}
                 selectItem={this.props.selectItem}
-                deselectItem={this.props.deselectItem} />);
+                deselectItem={this.props.deselectItem}
+                disableTooltip={this.props.disableTooltip} />);
             bars.push(bar);
         });
 

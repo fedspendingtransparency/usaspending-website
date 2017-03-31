@@ -20,9 +20,21 @@ export const currentFiscalYear = () => {
     return currentFY;
 };
 
-export const convertFYtoDateRange = (fy) => {
+export const convertFYToDateRange = (fy) => {
     const startingYear = fy - 1;
     const endingYear = fy;
 
     return [`${startingYear}-10-01`, `${endingYear}-09-30`];
+};
+
+export const convertDateToFY = (date) => {
+    // date needs to be a moment object
+    let year = date.year();
+    const month = date.month();
+
+    if (month >= 9) {
+        year += 1;
+    }
+
+    return year;
 };

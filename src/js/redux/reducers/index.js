@@ -13,8 +13,10 @@ import autocompleteReducer from './search/autocompleteReducer';
 import recordReducer from './records/recordReducer';
 import agencyReducer from './search/agencyReducer';
 import recipientReducer from './search/recipientReducer';
-import awardReducer from './award/awardReducer';
 import awardIDReducer from './search/awardIDReducer';
+import awardReducer from './award/awardReducer';
+import accountReducer from './account/accountReducer';
+
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
@@ -22,11 +24,12 @@ const appReducer = combineReducers({
     filters: filtersReducer,
     searchOrder: orderReducer,
     autocompleteLocations: autocompleteReducer,
-    records: recordReducer,
+    autocompleteAwardIDs: awardIDReducer,
     autocompleteAgencies: agencyReducer,
     autocompleteRecipients: recipientReducer,
+    records: recordReducer,
     award: awardReducer,
-    autocompleteAwardIDs: awardIDReducer
+    account: accountReducer
 });
 
 export default appReducer;
