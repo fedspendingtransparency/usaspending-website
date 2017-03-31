@@ -20,6 +20,10 @@ export const toggleObjectClass = (state) => ({
     item: state
 });
 
+export const resetObjectClass = () => ({
+    type: 'RESET_ACCOUNT_OBJECT_CLASS'
+});
+
 export const resetAccountFilters = () => ({
     type: 'RESET_ACCOUNT_FILTERS'
 });

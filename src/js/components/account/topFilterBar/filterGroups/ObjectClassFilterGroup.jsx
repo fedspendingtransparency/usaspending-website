@@ -24,24 +24,11 @@ export default class ObjectClassFilterGroup extends React.Component {
 
     removeFilter(value) {
         // remove a single filter item
-        const timePeriodFilter = {
-            dateType: this.props.redux.reduxFilters.dateType,
-            fy: this.props.redux.reduxFilters.fy,
-            start: this.props.redux.reduxFilters.startDate,
-            end: this.props.redux.reduxFilters.endDate
-        };
-
-        // remove the item from the set
-        timePeriodFilter.dateType = 'fy';
-        // as an ImmutableJS structure, the delete function will return a new instance
-        timePeriodFilter.fy = this.props.redux.reduxFilters.fy.delete(value);
-
-        // reuse the Redux action from the time period filter component
-        this.props.redux.updateTimePeriod(timePeriodFilter);
+        this.props.redux.toggleObjectClass(value);
     }
 
     clearGroup() {
-        this.props.redux.resetTimeFilters();
+        this.props.redux.resetObjectClass();
     }
 
     generateTags() {

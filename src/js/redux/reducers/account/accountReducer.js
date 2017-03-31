@@ -88,6 +88,15 @@ const accountReducer = (state = initialState, action) => {
                 filters: updatedFilters
             });
         }
+        case 'RESET_ACCOUNT_OBJECT_CLASS': {
+            const updatedFilters = Object.assign({}, state.filters, {
+                objectClass: initialState.filters.objectClass
+            });
+
+            return Object.assign({}, state, {
+                filters: updatedFilters
+            });
+        }
         case 'RESET_ACCOUNT_FILTERS': {
             return Object.assign({}, state, {
                 filters: initialState.filters
