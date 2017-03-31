@@ -1,0 +1,10 @@
+@import "../../mixins/fullSectionWrap";
+
+.aboutdata-wrap {
+    @include clearfix;
+    @include fullSectionWrap();
+    & p {
+        @include span-columns(5);
+        @include shift(10);
+    }
+}
