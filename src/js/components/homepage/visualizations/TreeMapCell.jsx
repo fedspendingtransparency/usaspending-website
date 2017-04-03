@@ -17,7 +17,7 @@ const propTypes = {
     color: React.PropTypes.string,
     toggleTooltip: React.PropTypes.func,
     clearTooltip: React.PropTypes.func,
-    top3: React.PropTypes.string
+    showOverlay: React.PropTypes.bool
 };
 
 export default class TreeMapCell extends React.Component {
@@ -27,8 +27,12 @@ export default class TreeMapCell extends React.Component {
 
         this.state = {
             label: '',
+            overlay: true,
             didProcess: false
         };
+
+        this.mouseIn = this.mouseIn.bind(this);
+        this.toggleBorders = this.toggleBorders.bind(this);
     }
 
     componentDidMount() {
@@ -85,6 +89,26 @@ export default class TreeMapCell extends React.Component {
         });
     }
 
+    mouseIn(label, value) {
+        this.props.toggleTooltip(label, value);
+        this.setState({
+            overlay: false
+        });
+    }
+
+    toggleBorders() {
+        let strokeColor = "white";
+        if (this.props.showOverlay === true) {
+            if (this.props.label === "Social Security" ||
+                this.props.label === "National Defense" ||
+                this.props.label === "Medicare") {
+                strokeColor = "#F2B733";
+            }
+        }
+        return strokeColor;
+    }
+
+
     render() {
         const width = (this.props.x1 - this.props.x0);
         const height = (this.props.y1 - this.props.y0);
@@ -96,19 +120,11 @@ export default class TreeMapCell extends React.Component {
         if (height < 40 || width < 60) {
             percentView = 'none';
         }
-        let strokeColor = "white";
-        let sWidth = ".1rem";
-        if (this.props.label === "Social Security" ||
-            this.props.label === "National Defense" ||
-            this.props.label === "Medicare") {
-            strokeColor = "#F2B733";
-            sWidth = ".3rem";
-        }
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
                 onMouseOver={() => {
-                    this.props.toggleTooltip(this.props.label, this.props.value);
+                    this.mouseIn(this.props.label, this.props.value);
                 }}
                 onMouseLeave={() => {
                     this.props.clearTooltip();
@@ -119,8 +135,7 @@ export default class TreeMapCell extends React.Component {
                     height={height}
                     style={{
                         fill: this.props.color,
-                        stroke: strokeColor,
-                        strokeWidth: sWidth
+                        stroke: this.toggleBorders(this.props.label)
                     }} />
                 <text
                     className="category"

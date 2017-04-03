@@ -29,7 +29,8 @@ export default class TreeMap extends React.Component {
             description: '',
             descriptions: {},
             finalNodes: '',
-            individualValue: ''
+            individualValue: '',
+            showOverlay: true
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
@@ -97,7 +98,8 @@ export default class TreeMap extends React.Component {
                 key={i}
                 color={colors[i]}
                 toggleTooltip={this.toggleTooltip}
-                clearTooltip={this.clearTooltip} />
+                clearTooltip={this.clearTooltip}
+                showOverlay={this.state.showOverlay} />
         );
 
         this.setState({
@@ -113,12 +115,21 @@ export default class TreeMap extends React.Component {
         // set it to desc value
         const desc = descSet[descIndex].value;
 
-        // otherwise set the state
+        // set the state
         this.setState({
             category: cat,
             description: desc,
-            individualValue: value
+            individualValue: value,
+            showOverlay: false
         });
+
+        // I need the showOverlay value (now changed to false) to pass to
+        // the child components, so that the yellow border is removed from
+        // ALL tiles.  As tiles are built and set to state and rendered via
+        // that state, the tiles themselves need access to the updated state
+        // I am re-rendering the tree to get the showOverlay value to pass
+        // I am 99.999% sure this is not best practice for this issue
+        this.buildTree(this.props.categories, this.props.colors);
     }
 
     clearTooltip() {
@@ -134,14 +145,19 @@ export default class TreeMap extends React.Component {
 
     render() {
         let sidebarContent = '';
+        let sideBarIntro = '';
+        if (this.state.showOverlay === true) {
+            sideBarIntro = (
+                <div className="tree-desc">
+                    <b>3</b> of the <b>19</b> total budget functions, accounted for about
+                    &nbsp;<b>1/2</b> of total spending. Social Security, National Defense,
+                    and Medicare.
+                </div>);
+        }
         if (this.state.category === 'none') {
             sidebarContent = (
                 <div className="treemap-sidebar">
-                    <div className="tree-desc">
-                        <b>3</b> of the <b>19</b> total budget functions, accounted for about
-                        &nbsp;<b>1/2</b> of total spending. Social Security, National Defense,
-                        and Medicare.
-                    </div>
+                    { sideBarIntro }
                     <div className="tree-hover-tip">
                         Hover over each block to learn more about Spending by Budget Function in
                         2016.
