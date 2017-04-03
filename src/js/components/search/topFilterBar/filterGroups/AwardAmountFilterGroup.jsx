@@ -10,7 +10,7 @@ import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
     filter: React.PropTypes.object,
-    removeFilter: React.PropTypes.func
+    redux: React.PropTypes.object
 };
 
 export default class AwardAmountFilterGroup extends React.Component {
@@ -18,11 +18,20 @@ export default class AwardAmountFilterGroup extends React.Component {
         super(props);
 
         this.removeFilter = this.removeFilter.bind(this);
+        this.clearGroup = this.clearGroup.bind(this);
     }
 
     removeFilter(value) {
         // remove a single filter item
-        this.props.removeFilter(this.props.filter.code, value);
+        const newValue = this.props.redux.reduxFilters.awardAmounts.delete(value);
+        this.props.redux.updateGenericFilter({
+            type: 'awardAmounts',
+            value: newValue
+        });
+    }
+
+    clearGroup() {
+        this.props.redux.clearFilterType('awardAmounts');
     }
 
     generateTags() {
@@ -48,7 +57,10 @@ export default class AwardAmountFilterGroup extends React.Component {
     render() {
         const tags = this.generateTags();
 
-        return <BaseTopFilterGroup {...this.props} tags={tags} />;
+        return (<BaseTopFilterGroup
+            tags={tags}
+            filter={this.props.filter}
+            clearFilterGroup={this.clearGroup} />);
     }
 }
 

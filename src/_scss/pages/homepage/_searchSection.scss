@@ -15,14 +15,19 @@
             .search-section-links-sub-text {
                 color: $color-gray-lighter;
                 font-size: rem(24);
-                margin: 0;
+                line-height: 3.5rem;
+                margin-top: rem(15);
             }
             .search-section-links-button {
                 @include span-columns(12);
-                @include shift(2)
+                @include shift(2);
                 font-size: rem(24);
                 font-weight: 500;
                 margin-top: rem(50);
+                padding: rem(20) 0;
+                &:hover {
+                    @include transition(all 0.25s $ease-in-out-sine);
+                }
                 @include media($tablet-screen) {
                     @include span-columns(6);
                     @include shift(5)

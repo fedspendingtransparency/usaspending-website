@@ -1,7 +1,7 @@
 @import "./linksSectionBox";
 @import "../../mixins/fullSectionWrap";
 @mixin linksSection {
-    .links-section-outter-wrap {
+    .links-section-outer-wrap {
         background-color: $color-primary-darkest;
         .links-section-wrap {
             @include fullSectionWrap;

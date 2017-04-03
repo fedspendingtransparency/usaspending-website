@@ -26,7 +26,7 @@ export default class BaseTopFilterGroup extends React.Component {
     }
 
     clearFilterGroup() {
-        this.props.clearFilterGroup(this.props.filter.code);
+        this.props.clearFilterGroup();
     }
 
     render() {
