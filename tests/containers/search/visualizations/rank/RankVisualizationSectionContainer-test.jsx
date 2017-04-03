@@ -72,9 +72,11 @@ describe('RankVisualizationSectionContainer', () => {
         // create a mock API response
         const apiResponse = {
             page_metadata: {
-                num_pages: 1,
-                page_number: 1,
-                count: 2
+                page: 1,
+                has_next_page: false,
+                has_previous_page: false,
+                next: null,
+                previous: null
             },
             results: [{
                 item: 'First Agency',
@@ -114,9 +116,11 @@ describe('RankVisualizationSectionContainer', () => {
         // create a mock API response
         const apiResponse = {
             page_metadata: {
-                num_pages: 1,
-                page_number: 1,
-                count: 2
+                page: 1,
+                has_next_page: false,
+                has_previous_page: false,
+                next: null,
+                previous: null
             },
             results: [{
                 item: 'First Agency',
@@ -176,9 +180,11 @@ describe('RankVisualizationSectionContainer', () => {
             // create a mock API response
             const apiResponse = {
                 page_metadata: {
-                    num_pages: 1,
-                    page_number: 1,
-                    count: 2
+                    page: 1,
+                    has_next_page: false,
+                    has_previous_page: false,
+                    next: null,
+                    previous: null
                 },
                 results: [{
                     item: 'First Agency',
@@ -207,8 +213,11 @@ describe('RankVisualizationSectionContainer', () => {
                 labelSeries: ['First Agency', 'Second Agency'],
                 dataSeries: [456, 123],
                 page: 1,
-                total: 1,
-                agencyScope: 'toptier'
+                agencyScope: 'toptier',
+                hasNextPage: false,
+                hasPreviousPage: false,
+                next: null,
+                previous: null
             };
 
             expect(container.state()).toEqual(expectedState);
@@ -220,13 +229,15 @@ describe('RankVisualizationSectionContainer', () => {
             // create a mock API response
             const apiResponse = {
                 page_metadata: {
-                    num_pages: 2,
-                    page_number: 1,
-                    count: 200
+                    page: 1,
+                    has_next_page: true,
+                    has_previous_page: false,
+                    next: "checksum",
+                    previous: null
                 },
                 results: [{
                     item: 'First Agency',
-                    aggregate: '456',
+                    aggregate: '456'
                 },
                 {
                     item: 'Second Agency',
@@ -256,13 +267,15 @@ describe('RankVisualizationSectionContainer', () => {
             // create a mock API response
             const apiResponse = {
                 page_metadata: {
-                    num_pages: 2,
-                    page_number: 1,
-                    count: 200
+                    page: 1,
+                    has_next_page: true,
+                    has_previous_page: false,
+                    next: "checksum",
+                    previous: null
                 },
                 results: [{
                     item: 'First Agency',
-                    aggregate: '456',
+                    aggregate: '456'
                 },
                 {
                     item: 'Second Agency',
@@ -279,7 +292,9 @@ describe('RankVisualizationSectionContainer', () => {
             const container =
                 mount(<RankVisualizationSectionContainer reduxFilters={defaultFilters} />);
             container.setState({
-                page: 5
+                page: 5,
+                has_previous_page: true,
+                previous: "checksum"
             });
 
             // wait for the SearchHelper promises to resolve
@@ -296,9 +311,11 @@ describe('RankVisualizationSectionContainer', () => {
             // create a mock API response
             const apiResponse = {
                 page_metadata: {
-                    num_pages: 2,
-                    page_number: 1,
-                    count: 200
+                    page: 1,
+                    has_next_page: true,
+                    has_previous_page: false,
+                    next: "checksum",
+                    previous: null
                 },
                 results: [{
                     item: 'First Agency',
@@ -338,13 +355,15 @@ describe('RankVisualizationSectionContainer', () => {
             // create a mock API response
             const apiResponse = {
                 page_metadata: {
-                    num_pages: 10,
-                    page_number: 1,
-                    count: 200
+                    page: 1,
+                    has_next_page: true,
+                    has_previous_page: false,
+                    next: "checksum",
+                    previous: null
                 },
                 results: [{
                     item: 'First Agency',
-                    aggregate: '456',
+                    aggregate: '456'
                 },
                 {
                     item: 'Second Agency',
@@ -365,7 +384,9 @@ describe('RankVisualizationSectionContainer', () => {
             const container =
                 mount(<RankVisualizationSectionContainer reduxFilters={initialFilters} />);
             container.setState({
-                page: 5
+                page: 5,
+                has_previous_page: true,
+                previous: "checksum"
             });
 
             // assume we are starting on page 5
