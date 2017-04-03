@@ -165,11 +165,21 @@ export default class BarChart extends React.Component {
             // put 20px padding on each side of the group
             const groupWidth = xScale.bandwidth() - 40;
             // subdivide the group width based on the number of group items to determine the width
-            // of each data point
-            const itemWidth = groupWidth / yData.length;
+            // of each data point, with a max of 120px
+            const itemWidth = _.min([groupWidth / yData.length, 120]);
             // calculate where on the X axis the group should start (offset this by 20px to account
             // for the padding between groups)
-            const startingXPos = xScale(group) + 20;
+            let startingXPos = xScale(group) + 20;
+            if (itemWidth === 120) {
+                // the total width of the group is no longer guaranteed to equal the bandwidth
+                // since each bar now maxes out at 120px
+                // determine what the new group width is
+                const realWidth = 120 * yData.length;
+                // the starting point should be the center of the X label
+                // (the group start X pos + half the band width), then adjusted left for the total
+                // group width (subtract by half the real width)
+                startingXPos = (xScale(group) + (xScale.bandwidth() / 2)) - (realWidth / 2);
+            }
 
             // iterate through the group data points and insert them into the chart
             yData.forEach((item, i) => {
