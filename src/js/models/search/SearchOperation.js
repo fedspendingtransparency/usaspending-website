@@ -139,7 +139,8 @@ class SearchOperation {
             const timeQuery = TimePeriodQuery.buildQuery({
                 type: this.timePeriodType,
                 fyRange: this.timePeriodFY,
-                dateRange: this.timePeriodRange
+                dateRange: this.timePeriodRange,
+                endpoint: 'awards'
             });
             if (timeQuery) {
                 filters.push(timeQuery);

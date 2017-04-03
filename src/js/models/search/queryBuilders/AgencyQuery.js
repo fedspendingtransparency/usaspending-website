@@ -3,8 +3,7 @@
 * Created by Emily Gullo
 **/
 
-/* eslint-disable import/prefer-default-export */
-// We only have one export but want to maintain consistency with other query modules
+const fundingAgencyField = 'treasury_account__agency_id';
 
 export const buildAgencyQuery = (funding, awarding) => {
     const toptierFundingSet = [];
@@ -70,4 +69,18 @@ export const buildAgencyQuery = (funding, awarding) => {
     return filter;
 };
 
-/* eslint-enable import/prefer-default-export */
+export const buildFundingAgencyCGACQuery = (funding) => {
+    const fundingSet = [];
+
+    funding.forEach((agencyArray) => {
+        fundingSet.push(agencyArray.toptier_agency.cgac_code);
+    });
+
+    const filter = {
+        field: fundingAgencyField,
+        operation: "in",
+        value: fundingSet
+    };
+
+    return filter;
+};

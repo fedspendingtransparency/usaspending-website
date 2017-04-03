@@ -1,19 +1,18 @@
 /**
-  * RankVisualizationSection.jsx
-  * Created by Kevin Li 12/13/16
-  **/
+ * SpendingByCategoryRankVisualizationSection.jsx
+ * Created by Kevin Li 12/13/16
+ **/
 
 import React from 'react';
 import _ from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
-import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import RankVisualization from './RankVisualization';
 import RankVisualizationScopeButton from './RankVisualizationScopeButton';
 
 const propTypes = {
-    agencyScope: React.PropTypes.string,
+    scope: React.PropTypes.string,
     changeScope: React.PropTypes.func,
     nextPage: React.PropTypes.func,
     previousPage: React.PropTypes.func,
@@ -24,7 +23,7 @@ const propTypes = {
     labelWidth: React.PropTypes.number
 };
 
-export default class RankVisualizationSection extends React.Component {
+export default class SpendingByCategoryRankVisualizationSection extends React.Component {
     constructor(props) {
         super(props);
 
@@ -62,36 +61,34 @@ export default class RankVisualizationSection extends React.Component {
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            View a list of the top Awarding Agencies from highest to lowest. Filter
+                            View a list of the top Budget Categories from highest to lowest. Filter
                             your results more (at left) and watch this graph update automatically.
-                             View your results in a bar graph or a tree map.
+                            View your results in a bar graph or a tree map.
                         </div>
                     </div>
                     <div className="visualization-period">
-                        <div className="content">
+                        <div className="content large">
                             <ul>
                                 <li>
                                     <RankVisualizationScopeButton
-                                        value="toptier"
-                                        label="Agencies"
-                                        active={this.props.agencyScope === 'toptier'}
+                                        value="budgetFunctions"
+                                        label="Budget Functions"
+                                        active={this.props.scope === 'budgetFunctions'}
                                         changeScope={this.props.changeScope} />
                                 </li>
                                 <li>
                                     <RankVisualizationScopeButton
-                                        value="subtier"
-                                        label="Sub-Agencies"
-                                        active={this.props.agencyScope === 'subtier'}
+                                        value="federalAccounts"
+                                        label="Federal Accounts"
+                                        active={this.props.scope === 'federalAccounts'}
                                         changeScope={this.props.changeScope} />
                                 </li>
-                                <li className="coming-soon">
+                                <li>
                                     <RankVisualizationScopeButton
-                                        value="office"
-                                        label="Offices"
-                                        active={this.props.agencyScope === 'office'}
-                                        changeScope={this.props.changeScope}
-                                        disabled />
-                                    <ComingSoonLabel />
+                                        value="objectClasses"
+                                        label="Object Classes"
+                                        active={this.props.scope === 'objectClasses'}
+                                        changeScope={this.props.changeScope} />
                                 </li>
                             </ul>
                         </div>
@@ -139,4 +136,4 @@ export default class RankVisualizationSection extends React.Component {
     }
 }
 
-RankVisualizationSection.propTypes = propTypes;
+SpendingByCategoryRankVisualizationSection.propTypes = propTypes;

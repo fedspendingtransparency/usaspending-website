@@ -1,6 +1,6 @@
 /**
- * RankVisualizationSectionContainer.jsx
- * Created by Kevin Li 2/9/17
+ * SpendingByCategoryRankVisualizationSectionContainer.jsx
+ * Created by michaelbray on 4/3/17.
  */
 
 import React from 'react';
@@ -9,15 +9,14 @@ import { connect } from 'react-redux';
 
 import _ from 'lodash';
 
-import RankVisualizationSection from
-    'components/search/visualizations/rank/RankVisualizationSection';
+import SpendingByCategoryRankVisualizationSection from
+    'components/search/visualizations/rank/SpendingByCategoryRankVisualizationSection';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
+import SearchAccountOperation from 'models/search/SearchAccountOperation';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object,
@@ -26,7 +25,7 @@ const propTypes = {
     labelWidth: React.PropTypes.number
 };
 
-export class RankVisualizationSectionContainer extends React.Component {
+export class SpendingByCategoryRankVisualizationSectionContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -34,10 +33,9 @@ export class RankVisualizationSectionContainer extends React.Component {
             loading: true,
             labelSeries: [],
             dataSeries: [],
-            descriptions: [],
             page: 1,
             total: 0,
-            agencyScope: 'toptier'
+            scope: 'budgetFunctions'
         };
 
         this.changeScope = this.changeScope.bind(this);
@@ -58,7 +56,7 @@ export class RankVisualizationSectionContainer extends React.Component {
 
     changeScope(scope) {
         this.setState({
-            agencyScope: scope,
+            scope,
             page: 1
         }, () => {
             this.fetchData();
@@ -94,16 +92,34 @@ export class RankVisualizationSectionContainer extends React.Component {
     fetchData() {
         // build a new search operation from the Redux state, but create a transaction-based search
         // operation instead of an award-based one
-        const operation = new SearchTransactionOperation();
+        const operation = new SearchAccountOperation();
         operation.fromState(this.props.reduxFilters);
 
         const searchParams = operation.toParams();
 
+        let groupName = "";
+
+        switch (this.state.scope) {
+            case 'budgetFunctions':
+                groupName = 'treasury_account__budget_function_title';
+                break;
+            case 'federalAccounts':
+                groupName = 'treasury_account__federal_account__account_title';
+                break;
+            case 'objectClasses':
+                groupName = 'object_class__object_class_name';
+                break;
+            default:
+                groupName = 'program_activity__program_activity_name';
+                break;
+
+        }
+
         // generate the API parameters
         const apiParams = {
-            field: 'federal_action_obligation',
-            group: `awarding_agency__${this.state.agencyScope}_agency__name`,
-            order: ['-aggregate'],
+            field: 'obligations_incurred_by_program_object_class_cpe',
+            group: groupName,
+            order: ['aggregate'],
             aggregate: 'sum',
             filters: searchParams,
             limit: 5,
@@ -114,11 +130,12 @@ export class RankVisualizationSectionContainer extends React.Component {
             loading: true
         });
 
+
         if (this.apiRequest) {
             this.apiRequest.cancel();
         }
 
-        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        this.apiRequest = SearchHelper.performCategorySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);
@@ -132,22 +149,16 @@ export class RankVisualizationSectionContainer extends React.Component {
     parseData(data) {
         const labelSeries = [];
         const dataSeries = [];
-        const descriptions = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
             labelSeries.push(item.item);
             dataSeries.push(parseFloat(item.aggregate));
-
-            const description = `Spending by ${item.item}: \
-${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
-            descriptions.push(description);
         });
 
         this.setState({
             labelSeries,
             dataSeries,
-            descriptions,
             loading: false,
             total: data.page_metadata.num_pages
         });
@@ -155,7 +166,7 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
 
     render() {
         return (
-            <RankVisualizationSection
+            <SpendingByCategoryRankVisualizationSection
                 {...this.state}
                 visualizationWidth={this.props.visualizationWidth}
                 labelWidth={this.props.labelWidth}
@@ -167,7 +178,7 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
     }
 }
 
-RankVisualizationSectionContainer.propTypes = propTypes;
+SpendingByCategoryRankVisualizationSectionContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -175,4 +186,4 @@ export default connect(
         meta: state.resultsMeta.toJS()
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
-)(RankVisualizationSectionContainer);
+)(SpendingByCategoryRankVisualizationSectionContainer);

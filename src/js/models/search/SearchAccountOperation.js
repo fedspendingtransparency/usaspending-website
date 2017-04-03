@@ -6,9 +6,15 @@
 import SearchOperation from './SearchOperation';
 
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
+import * as AgencyQuery from './queryBuilders/AgencyQuery';
 import * as BudgetCategoryQuery from './queryBuilders/BudgetCategoryQuery';
 
 class SearchAccountOperation extends SearchOperation {
+    commonParams() {
+        const filters = [];
+
+        return filters;
+    }
 
     uniqueParams() {
         // the parent class will handle all the common params, we just need to convert those
@@ -20,11 +26,17 @@ class SearchAccountOperation extends SearchOperation {
             const timeQuery = TimePeriodQuery.buildQuery({
                 type: this.timePeriodType,
                 fyRange: this.timePeriodFY,
-                dateRange: this.timePeriodRange
+                dateRange: this.timePeriodRange,
+                endpoint: 'categories'
             });
             if (timeQuery) {
                 filters.push(timeQuery);
             }
+        }
+
+        // Add Funding Agency query
+        if (this.fundingAgencies.length > 0) {
+            filters.push(AgencyQuery.buildFundingAgencyCGACQuery(this.fundingAgencies));
         }
 
         // Add Budget Category queries
@@ -36,7 +48,7 @@ class SearchAccountOperation extends SearchOperation {
             filters.push(BudgetCategoryQuery.buildFederalAccountQuery(this.federalAccounts));
         }
 
-        if (this.objectClasses.size > 0) {
+        if (Object.keys(this.objectClasses).length > 0) {
             filters.push(BudgetCategoryQuery.buildObjectClassQuery(this.objectClasses));
         }
 
