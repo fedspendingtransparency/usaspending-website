@@ -18,7 +18,6 @@ import budgetCategoryReducer from './search/budgetCategoryReducer';
 import awardReducer from './award/awardReducer';
 import accountReducer from './account/accountReducer';
 
-
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
     resultsBatch: resultsBatchReducer,
@@ -30,9 +29,8 @@ const appReducer = combineReducers({
     autocompleteRecipients: recipientReducer,
     records: recordReducer,
     award: awardReducer,
-    autocompleteAwardIDs: awardIDReducer,
+    autocompleteBudgetCategories: budgetCategoryReducer,
     account: accountReducer
-    autocompleteBudgetCategories: budgetCategoryReducer
 });
 
 export default appReducer;
