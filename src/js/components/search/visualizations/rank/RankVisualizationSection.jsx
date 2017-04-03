@@ -18,10 +18,7 @@ const propTypes = {
     changeScope: React.PropTypes.func,
     nextPage: React.PropTypes.func,
     previousPage: React.PropTypes.func,
-    page: React.PropTypes.number,
     loading: React.PropTypes.bool,
-    next: React.PropTypes.string,
-    previous: React.PropTypes.string,
     hasNextPage: React.PropTypes.bool,
     hasPreviousPage: React.PropTypes.bool
 };
