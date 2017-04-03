@@ -16,19 +16,24 @@ const defaultProps = {
     height: 280,
     legend: [
         {
-            color: '#083546',
+            color: '#fba302',
             label: 'Outlay',
             offset: 0
         },
         {
-            color: '#335565',
-            label: 'Obligated Balance',
+            color: '#2c4452',
+            label: 'Obligated Balance (Filtered)',
             offset: 84
         },
         {
-            color: '#7F9BA7',
+            color: '#5c7480',
+            label: 'Obligated Balance (Other)',
+            offset: 262
+        },
+        {
+            color: '#a0bac4',
             label: 'Unobligated Balance',
-            offset: 226
+            offset: 450
         }
     ]
 };

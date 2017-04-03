@@ -9,10 +9,11 @@ import _ from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import BarItem from 'components/search/visualizations/time/chart/BarItem';
 import BarXAxis from 'components/search/visualizations/time/chart/BarXAxis';
 import BarYAxis from 'components/search/visualizations/time/chart/BarYAxis';
 import BarChartLegend from 'components/search/visualizations/time/chart/BarChartLegend';
+import StackedBarItem from './StackedBarItem';
+import OutlayItem from './OutlayItem';
 
 /* eslint-disable react/no-unused-prop-types */
 // we're catching the props before they're fully set, so eslint thinks these props are unused
@@ -20,6 +21,7 @@ const propTypes = {
     groups: React.PropTypes.array,
     width: React.PropTypes.number,
     height: React.PropTypes.number,
+    allY: React.PropTypes.array,
     xSeries: React.PropTypes.array,
     ySeries: React.PropTypes.array,
     showTooltip: React.PropTypes.func,
@@ -85,7 +87,7 @@ export default class BarChart extends React.Component {
 
     generateChart(props) {
         // flatten the Y values into a single array
-        const allY = _.flattenDeep(props.ySeries);
+        const allY = props.allY;
 
         // calculate the axes and ranges
         const yRange = [];
@@ -190,62 +192,124 @@ export default class BarChart extends React.Component {
                 // bar widths
                 const xPos = startingXPos + (stackIndex * itemWidth);
 
-                // iterate through each stacked item
-                stack.forEach((item, i) => {
-                    // SVG starts drawing at the top and goes down the specified height, so for
-                    // positive bars, the yPos should be the top of the bar (for positive values).
-                    // The yScale() function returns the number of px the input value is from the
-                    // bottom of the Y axis. So for positive values, we can calculate the bar height
-                    // by substracting the distance 0 is from the bottom of the chart (yScale(0))
-                    // from the yScale(item) value, (which represents the total height from the
-                    // bottom of the Y-axis to the data point). This gives us the height from the
-                    // X-axis to the positive data point.
-                    let barHeight = yScale(item) - yScale(0);
-                    // The top of the chart in SVG coordinates is (0,0), the bottom is (0,chart
-                    // height).
-                    // Start at the bottom of the chart, go up to the X axis, and then keep going up
-                    // the expected bar height. This way, the bottom of the rect will always be the
-                    // X-axis.
-                    let yPos = graphHeight - yScale(0) - barHeight;
+                // parse the balances
+                // first build the obligation (filter) bar
+                // since SVG y=0 is the top of the graph, we need to yScale position from the height
+                // to get the actual position (essentially we're drawing this upside down)
+                let obligationFilteredTop = graphHeight - yScale(stack.obligationFiltered);
+                let obligationFilteredHeight = yScale(stack.obligationFiltered) - yScale(0);
+                if (stack.obligationFiltered < 0) {
+                    // if the value is negative, however, the top of the bar is actually the X axis
+                    obligationFilteredTop = graphHeight - yScale(0);
+                    obligationFilteredHeight = yScale(0) - yScale(stack.obligationFiltered);
+                }
 
-                    if (item < 0) {
-                        // slightly different calculation for negative values
-                        // the top of the bar is always the X-axis
-                        yPos = graphHeight - yScale(0);
-                        // the bar height is the remaining distance to the yScale() position
-                        barHeight = yScale(0) - yScale(item);
+                const obligationFilteredIdentifier = `obligationFiltered-${groupIndex}-${stackIndex}`;
+                const obligationFilteredDescription = `Obligated balance (filtered) in \
+${xData}: ${MoneyFormatter.formatMoney(stack.obligationFiltered)}`;
+
+                const obligationFilteredBar = (<StackedBarItem
+                    key={`data-${obligationFilteredIdentifier}`}
+                    identifier={obligationFilteredIdentifier}
+                    color={this.props.legend[1].color}
+                    height={obligationFilteredHeight}
+                    width={itemWidth}
+                    x={xPos}
+                    y={obligationFilteredTop}
+                    description={obligationFilteredDescription}
+                    selectBar={this.selectBar}
+                    deselectBar={this.deselectBar}
+                    deregisterBar={this.deregisterBar}
+                    ref={(component) => {
+                        this.dataPoints[obligationFilteredIdentifier] = component;
+                    }} />);
+                items.push(obligationFilteredBar);
+
+                // next stack the the obligation (other) bar on top
+                const obligationOther = stack.obligationTotal - stack.obligationFiltered;
+                let obligationOtherTop = graphHeight - yScale(stack.obligationTotal);
+                let obligationOtherHeight = yScale(obligationOther) - yScale(0);
+                if (stack.obligationFiltered < 0 && stack.obligationTotal > 0) {
+                    // handle a case where the total is positive but the filtered value is negative
+                    // only extend the bar down to the X axis
+                    obligationOtherHeight = yScale(stack.obligationTotal) - yScale(0);
+                }
+                else if (stack.obligationFiltered < 0 && stack.obligationTotal < 0) {
+                    // handle a case where both filtered and total are negative
+                    if (stack.obligationTotal < stack.obligationFiltered) {
+                        // obligated total is less (more negative) than obligated filtered
+                        obligationOtherTop = obligationFilteredTop + obligationFilteredHeight;
+                        obligationOtherHeight = yScale(stack.obligationFiltered)
+                            - yScale(stack.obligationTotal);
                     }
+                    else {
+                        // obligated total is more (less negative) than obligated filtered
+                        // set the top of the bar to the X axis
+                        obligationOtherTop = graphHeight - yScale(0);
+                        obligationOtherHeight = yScale(0) - yScale(stack.obligationTotal);
+                    }
+                }
 
-                    const barIdentifier = `${groupIndex}-${stackIndex}-${i}`;
+                const obligationOtherIdentifier = `obligationOther-${groupIndex}-${stackIndex}`;
+                const obligationOtherDescription = `Obligated balance (excluded from filter) in \
+${xData}: ${MoneyFormatter.formatMoney(obligationOther)}`;
 
-                    // we need to get the reversed color index since we are back to front in order
-                    // to avoid covering smaller bars
-                    const reverseIndex = this.props.legend.length - i - 1;
-                    const reversedColor = this.props.legend[reverseIndex].color;
+                const obligationOtherBar = (<StackedBarItem
+                    key={`data-${obligationOtherIdentifier}`}
+                    identifier={obligationOtherIdentifier}
+                    color={this.props.legend[2].color}
+                    height={obligationOtherHeight}
+                    width={itemWidth}
+                    x={xPos}
+                    y={obligationOtherTop}
+                    description={obligationOtherDescription}
+                    selectBar={this.selectBar}
+                    deselectBar={this.deselectBar}
+                    deregisterBar={this.deregisterBar}
+                    ref={(component) => {
+                        this.dataPoints[obligationOtherIdentifier] = component;
+                    }} />);
+                items.push(obligationOtherBar);
 
-                    const description = `${this.props.legend[reverseIndex].label} in \
-${xData[stackIndex]}: ${MoneyFormatter.formatMoney(item)}`;
+                // finally, stack the unobligated value on top
+                const unobligatedTop = graphHeight - yScale(stack.budgetAuthority);
+                const unobligatedHeight = yScale(stack.unobligated);
+                const unobligatedIdentifier = `unobligated-${groupIndex}-${stackIndex}`;
+                const unobligatedDescription = `Unobligated balance in ${xData}: \
+${MoneyFormatter.formatMoney(stack.unobligated)}`;
 
-                    const bar = (<BarItem
-                        key={`data-${barIdentifier}`}
-                        identifier={barIdentifier}
-                        dataY={item}
-                        dataX={xData[stackIndex]}
-                        graphHeight={graphHeight}
-                        height={barHeight}
-                        width={itemWidth}
-                        x={xPos}
-                        y={yPos}
-                        color={reversedColor}
-                        description={description}
-                        selectBar={this.selectBar}
-                        deselectBar={this.deselectBar}
-                        deregisterBar={this.deregisterBar}
-                        ref={(component) => {
-                            this.dataPoints[barIdentifier] = component;
-                        }} />);
-                    items.push(bar);
-                });
+                const unobligatedBar = (<StackedBarItem
+                    key={`data-${unobligatedIdentifier}`}
+                    identifier={unobligatedIdentifier}
+                    color={this.props.legend[3].color}
+                    height={unobligatedHeight}
+                    width={itemWidth}
+                    x={xPos}
+                    y={unobligatedTop}
+                    description={unobligatedDescription}
+                    selectBar={this.selectBar}
+                    deselectBar={this.deselectBar}
+                    deregisterBar={this.deregisterBar}
+                    ref={(component) => {
+                        this.dataPoints[unobligatedIdentifier] = component;
+                    }} />);
+                items.push(unobligatedBar);
+
+
+                // now add the outlay line
+                const outlayY = graphHeight - yScale(stack.outlay);
+                const outlayIdentifier = `outlay-${groupIndex}-${stackIndex}`;
+                const outlayDescription = `Outlay in ${xData}: \
+${MoneyFormatter.formatMoney(stack.outlay)}`;
+
+                const outlay = (<OutlayItem
+                    key={`data-${outlayIdentifier}`}
+                    color={this.props.legend[0].color}
+                    description={outlayDescription}
+                    width={itemWidth}
+                    x={xPos}
+                    y={outlayY} />);
+                items.push(outlay);
             });
         });
 

@@ -35,7 +35,8 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             loading: true,
             groups: [],
             xSeries: [],
-            ySeries: []
+            ySeries: [],
+            allY: []
         };
 
         this.balanceRequests = [];
@@ -103,45 +104,78 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
     }
 
     parseBalances(data) {
-        const years = [];
+        // const years = [];
 
-        const balances = {};
-        data.forEach((item, i) => {
-            const type = this.balanceRequests[i].type;
-            const values = {};
+        // const balances = {};
+        // data.forEach((item, i) => {
+        //     const type = this.balanceRequests[i].type;
+        //     const values = {};
 
-            item.data.results.forEach((group) => {
-                const date = moment(group.item, 'YYYY-MM-DD');
-                const fy = FiscalYearHelper.convertDateToFY(date);
-                if (_.indexOf(years, fy) === -1) {
-                    years.push(fy);
-                }
-                values[fy] = group.aggregate;
-            });
+        //     item.data.results.forEach((group) => {
+        //         const date = moment(group.item, 'YYYY-MM-DD');
+        //         const fy = FiscalYearHelper.convertDateToFY(date);
+        //         if (_.indexOf(years, fy) === -1) {
+        //             years.push(fy);
+        //         }
+        //         values[fy] = group.aggregate;
+        //     });
 
-            balances[type] = values;
-        });
+        //     balances[type] = values;
+        // });
+
+
+        const years = ['2017 Q1', '2017 Q2', '2017 Q3'];
+        const quarters = [['2017 Q1'], ['2017 Q2'], ['2017 Q3']];
+        const mockY = [
+            [{
+                budgetAuthority: 50000,
+                obligationTotal: 40000,
+                obligationFiltered: 23000,
+                unobligated: 10000,
+                outlay: 30000
+            }],
+            [{
+                budgetAuthority: 70000,
+                obligationTotal: 50000,
+                obligationFiltered: 43000,
+                unobligated: 20000,
+                outlay: 62000
+            }],
+            [{
+                budgetAuthority: 30000,
+                obligationTotal: 20000,
+                obligationFiltered: 18000,
+                unobligated: 10000,
+                outlay: 22000
+            }]
+        ];
 
 
         const groups = [];
         const xSeries = [];
         const ySeries = [];
+        const allY = [];
 
-        years.forEach((year) => {
+        years.forEach((year, index) => {
             groups.push(`${year}`);
-            xSeries.push([`${year}`]);
+            xSeries.push(quarters[index]);
 
-            const outlay = parseFloat(-1 * balances.outlay[year]);
-            const obligations = parseFloat(balances.obligated[year]);
-            const budgetAuthority = parseFloat(balances.budgetAuthority[year]);
+            ySeries.push(mockY[index]);
 
-            ySeries.push([[budgetAuthority, obligations, outlay]]);
+            mockY[index].forEach((balances) => {
+                // adjust the yMin and yMax to be the min and max value of any balance
+                Object.keys(balances).forEach((key) => {
+                    const balance = balances[key];
+                    allY.push(balance);
+                });
+            });
         });
 
         this.setState({
             groups,
             xSeries,
             ySeries,
+            allY,
             loading: false
         });
     }
