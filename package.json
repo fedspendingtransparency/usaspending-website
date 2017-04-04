@@ -121,6 +121,7 @@
     "react-addons-css-transition-group": "15.4.2",
     "react-addons-perf": "15.4.2",
     "react-addons-test-utils": "15.4.2",
+    "react-addons-update": "^15.4.2",
     "react-aria-modal": "^2.3.1",
     "react-day-picker": "^3.1.1",
     "react-dom": "15.4.2",

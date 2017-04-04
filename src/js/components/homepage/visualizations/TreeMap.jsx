@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import update from 'react-addons-update';
 import * as d3 from 'd3';
 import _ from 'lodash';
 
@@ -36,7 +37,6 @@ export default class TreeMap extends React.Component {
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
         this.toggleTooltip = this.toggleTooltip.bind(this);
-        this.clearTooltip = this.clearTooltip.bind(this);
     }
 
     componentDidMount() {
@@ -97,8 +97,8 @@ export default class TreeMap extends React.Component {
                 total={n.parent.value}
                 key={i}
                 color={colors[i]}
+                chosen={this.state.category}
                 toggleTooltip={this.toggleTooltip}
-                clearTooltip={this.clearTooltip}
                 showOverlay={this.state.showOverlay} />
         );
 
@@ -110,10 +110,16 @@ export default class TreeMap extends React.Component {
     toggleTooltip(cat, value) {
         const descSet = this.state.descriptions;
         // find index of object item on matching cat name
-        const descIndex = _.findIndex(descSet, { name: cat });
+        let descIndex = '0';
+        if (cat !== 'none') {
+            descIndex = _.findIndex(descSet, { name: cat });
+        }
 
         // set it to desc value
-        const desc = descSet[descIndex].value;
+        let desc = '';
+        if (cat !== 'none') {
+            desc = descSet[descIndex].value;
+        }
 
         // set the state
         this.setState({
@@ -122,25 +128,24 @@ export default class TreeMap extends React.Component {
             individualValue: value,
             showOverlay: false
         });
+        const newNodes = [];
 
-        // I need the showOverlay value (now changed to false) to pass to
-        // the child components, so that the yellow border is removed from
-        // ALL tiles.  As tiles are built and set to state and rendered via
-        // that state, the tiles themselves need access to the updated state
-        // I am re-rendering the tree to get the showOverlay value to pass
-        // I am 99.999% sure this is not best practice for this issue
-        this.buildTree(this.props.categories, this.props.colors);
-    }
-
-    clearTooltip() {
-        // toggle to original info if rolling off
-        if (this.state.category !== 'none') {
-            this.setState({
-                category: 'none',
-                description: '',
-                individualValue: ''
+        // create a copy of finalNodes
+        // update the copy
+        this.state.finalNodes.forEach((i) => {
+            const originalNode = i;
+            const updatedNode = update(originalNode, {
+                props: {
+                    showOverlay: { $set: false },
+                    chosen: { $set: cat }
+                }
             });
-        }
+            newNodes.push(updatedNode);
+        });
+        // set state with the copy
+        this.setState({
+            finalNodes: newNodes
+        });
     }
 
     render() {
@@ -183,6 +188,18 @@ export default class TreeMap extends React.Component {
                     <svg
                         width={this.state.visualizationWidth}
                         height="565">
+                        <defs>
+                            <linearGradient id="Gradient1">
+                                <stop className="stop1" offset="0%" />
+                                <stop className="stop2" offset="50%" />
+                                <stop className="stop3" offset="100%" />
+                            </linearGradient>
+                            <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
+                                <stop offset="0%" stopColor="red" />
+                                <stop offset="50%" stopColor="black" stopOpacity="0" />
+                                <stop offset="100%" stopColor="blue" />
+                            </linearGradient>
+                        </defs>
                         { this.state.finalNodes }
                     </svg>
                     <div className="source">

@@ -15,6 +15,7 @@ const propTypes = {
     y0: React.PropTypes.number,
     y1: React.PropTypes.number,
     color: React.PropTypes.string,
+    chosen: React.PropTypes.string,
     toggleTooltip: React.PropTypes.func,
     clearTooltip: React.PropTypes.func,
     showOverlay: React.PropTypes.bool
@@ -120,6 +121,10 @@ export default class TreeMapCell extends React.Component {
         if (height < 40 || width < 60) {
             percentView = 'none';
         }
+        let color = this.props.color;
+        if (this.props.label === this.props.chosen) {
+            color = "#F2B733";
+        }
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
@@ -127,14 +132,15 @@ export default class TreeMapCell extends React.Component {
                     this.mouseIn(this.props.label, this.props.value);
                 }}
                 onMouseLeave={() => {
-                    this.props.clearTooltip();
+                    this.mouseIn('none', '');
                 }}>
                 <rect
                     className="tile"
                     width={width}
                     height={height}
                     style={{
-                        fill: this.props.color,
+                        fill: color,
+                        fillOpacity: 0.8,
                         stroke: this.toggleBorders(this.props.label)
                     }} />
                 <text
