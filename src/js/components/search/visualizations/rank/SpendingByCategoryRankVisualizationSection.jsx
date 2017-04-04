@@ -4,7 +4,6 @@
  **/
 
 import React from 'react';
-import _ from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 

@@ -7,7 +7,9 @@ const budgetSubfunctionField = 'treasury_account__budget_subfunction_title';
 const federalAccountField = 'treasury_account__federal_account';
 const objectClassField = 'object_class__major_object_class';
 
-export const buildBudgetFunctionQuery = (budgetFunctions) => {
+const fileCPrepend = 'award__financial_set__';
+
+export const buildBudgetFunctionQuery = (budgetFunctions, prependFileC) => {
     const budgetFunctionSet = [];
     const budgetSubfunctionSet = [];
 
@@ -20,14 +22,22 @@ export const buildBudgetFunctionQuery = (budgetFunctions) => {
         }
     });
 
+    let functionField = budgetFunctionField;
+    let subfunctionField = budgetSubfunctionField;
+
+    if (prependFileC) {
+        functionField = `${fileCPrepend}${budgetFunctionField}`;
+        subfunctionField = `${fileCPrepend}${budgetFunctionField}`;
+    }
+
     const budgetFunctionFilter = {
-        field: budgetFunctionField,
+        field: functionField,
         operation: "in",
         value: budgetFunctionSet
     };
 
     const budgetSubfunctionFilter = {
-        field: budgetSubfunctionField,
+        field: subfunctionField,
         operation: "in",
         value: budgetSubfunctionSet
     };
@@ -40,15 +50,21 @@ export const buildBudgetFunctionQuery = (budgetFunctions) => {
     return filterSet;
 };
 
-export const buildFederalAccountQuery = (federalAccounts) => {
+export const buildFederalAccountQuery = (federalAccounts, prependFileC) => {
     const federalAccountSet = [];
 
     federalAccounts.forEach((federalAccount) => {
         federalAccountSet.push(federalAccount.id);
     });
 
+    let accountField = federalAccountField;
+
+    if (prependFileC) {
+        accountField = `${fileCPrepend}${federalAccountField}`;
+    }
+
     const filter = {
-        field: federalAccountField,
+        field: accountField,
         operation: "in",
         value: federalAccountSet
     };
@@ -56,15 +72,21 @@ export const buildFederalAccountQuery = (federalAccounts) => {
     return filter;
 };
 
-export const buildObjectClassQuery = (objectClasses) => {
+export const buildObjectClassQuery = (objectClasses, prependFileC) => {
     const objectClassSet = [];
 
     Object.keys(objectClasses).forEach((objectClass) => {
         objectClassSet.push(objectClass);
     });
 
+    let classField = objectClassField;
+
+    if (prependFileC) {
+        classField = `${fileCPrepend}${objectClassField}`;
+    }
+
     const filter = {
-        field: objectClassField,
+        field: classField,
         operation: "in",
         value: objectClassSet
     };

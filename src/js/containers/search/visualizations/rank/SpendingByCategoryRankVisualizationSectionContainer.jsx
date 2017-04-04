@@ -16,13 +16,23 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 
+import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
+import SearchTransactionFileCOperation from 'models/search/SearchTransactionFileCOperation';
 import SearchAccountOperation from 'models/search/SearchAccountOperation';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object,
     meta: React.PropTypes.object,
     visualizationWidth: React.PropTypes.number,
-    labelWidth: React.PropTypes.number
+    labelWidth: React.PropTypes.number,
+    budgetFiltersSelected: React.PropTypes.bool,
+    awardFiltersSelected: React.PropTypes.bool
+};
+
+const fieldNames = {
+    budgetFunctions: 'treasury_account__budget_function_title',
+    federalAccounts: 'treasury_account__federal_account__account_title',
+    objectClasses: 'object_class__object_class_name'
 };
 
 export class SpendingByCategoryRankVisualizationSectionContainer extends React.Component {
@@ -49,7 +59,9 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
+        if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)
+            || (prevProps.budgetFiltersSelected !== this.props.budgetFiltersSelected)
+            || (prevProps.awardFiltersSelected !== this.props.awardFiltersSelected)) {
             this.newSearch();
         }
     }
@@ -89,36 +101,16 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
         });
     }
 
-    fetchData() {
-        // build a new search operation from the Redux state, but create a transaction-based search
-        // operation instead of an award-based one
-        const operation = new SearchAccountOperation();
-        operation.fromState(this.props.reduxFilters);
-
+    createTransactionsParams(operation, groupName) {
         const searchParams = operation.toParams();
-
-        let groupName = "";
-
-        switch (this.state.scope) {
-            case 'budgetFunctions':
-                groupName = 'treasury_account__budget_function_title';
-                break;
-            case 'federalAccounts':
-                groupName = 'treasury_account__federal_account__account_title';
-                break;
-            case 'objectClasses':
-                groupName = 'object_class__object_class_name';
-                break;
-            default:
-                groupName = 'program_activity__program_activity_name';
-                break;
-
-        }
 
         // generate the API parameters
         const apiParams = {
-            field: 'obligations_incurred_by_program_object_class_cpe',
-            group: groupName,
+            field: 'federal_action_obligation',
+            group: `award__financial_set__${groupName}`,
+            // Todo: Uncomment the below when multiple aggregations are supported
+            // group: ["award__financial_set__treasury_account__federal_account_id",
+            // `award__financial_set__${groupName}`],
             order: ['aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -126,16 +118,65 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
             page: this.state.page
         };
 
+        return apiParams;
+    }
+
+    createTasParams(groupName) {
+        const operation = new SearchAccountOperation();
+        operation.fromState(this.props.reduxFilters);
+
+        const searchParams = operation.toParams();
+
+        // generate the API parameters
+        const apiParams = {
+            field: 'obligations_incurred_by_program_object_class_cpe',
+            group: groupName,
+            // Todo: Uncomment the below when multiple aggregations are supported
+            // group: ["treasury_account__federal_account_id", groupName],
+            order: ['aggregate'],
+            aggregate: 'sum',
+            filters: searchParams,
+            limit: 5,
+            page: this.state.page
+        };
+
+        return apiParams;
+    }
+
+    fetchData() {
+        // Generate group name
+        const groupName = fieldNames[this.state.scope];
+
         this.setState({
             loading: true
         });
-
 
         if (this.apiRequest) {
             this.apiRequest.cancel();
         }
 
-        this.apiRequest = SearchHelper.performCategorySearch(apiParams);
+        let apiParams = '';
+
+        // Create Search Operation and API request
+        if (this.props.awardFiltersSelected) {
+            let operation = null;
+
+            if (this.props.budgetFiltersSelected) {
+                operation = new SearchTransactionFileCOperation();
+            }
+            else {
+                operation = new SearchTransactionOperation();
+            }
+
+            operation.fromState(this.props.reduxFilters);
+            apiParams = this.createTransactionsParams(operation, groupName);
+            this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        }
+        else {
+            apiParams = this.createTasParams(groupName);
+            this.apiRequest = SearchHelper.performCategorySearch(apiParams);
+        }
+
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);

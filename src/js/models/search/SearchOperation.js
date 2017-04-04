@@ -108,11 +108,6 @@ class SearchOperation {
             filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign));
         }
 
-        // Add agency query
-        if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
-            filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies, this.awardingAgencies));
-        }
-
         // Add recipient queries
         if (this.selectedRecipients.length > 0) {
             filters.push(RecipientQuery.buildRecipientQuery(this.selectedRecipients));
@@ -161,6 +156,11 @@ class SearchOperation {
             if (awardAmountsQuery) {
                 filters.push(awardAmountsQuery);
             }
+        }
+
+        // Add agency query
+        if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
+            filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies, this.awardingAgencies));
         }
 
         return filters;

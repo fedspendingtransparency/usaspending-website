@@ -17,6 +17,7 @@ import SpendingByCategoryRankVisualizationSectionContainer from
 import RankVisualizationTitle from 'components/search/visualizations/rank/RankVisualizationTitle';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import * as SearchHelper from 'helpers/searchHelper';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object
@@ -30,7 +31,9 @@ export class RankVisualizationWrapperContainer extends React.Component {
             windowWidth: 0,
             visualizationWidth: 0,
             labelWidth: 0,
-            spendingBy: 'budget_category'
+            spendingBy: 'budget_category',
+            budgetFiltersSelected: false,
+            awardFiltersSelected: false
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
@@ -40,10 +43,39 @@ export class RankVisualizationWrapperContainer extends React.Component {
     componentDidMount() {
         this.handleWindowResize();
         window.addEventListener('resize', this.handleWindowResize);
+        this.setFilterStates();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!_.isEqual(this.props.reduxFilters, prevProps.reduxFilters)) {
+            this.setFilterStates();
+        }
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
+    }
+
+    setFilterStates() {
+        this.setState({
+            budgetFiltersSelected: SearchHelper.budgetFiltersSelected(this.props.reduxFilters),
+            awardFiltersSelected: SearchHelper.awardFiltersSelected(this.props.reduxFilters)
+        });
+    }
+
+    generateVisualization() {
+        switch (this.state.spendingBy) {
+            case 'budget_category':
+                return <SpendingByCategoryRankVisualizationSectionContainer {...this.state} />;
+            case 'awarding_agency':
+                return <RankVisualizationSectionContainer {...this.state} />;
+            default:
+                return <SpendingByCategoryRankVisualizationSectionContainer {...this.state} />;
+        }
+    }
+
+    changeSpendingBy(spendingBy) {
+        this.setState({ spendingBy });
     }
 
     handleWindowResize() {
@@ -56,21 +88,6 @@ export class RankVisualizationWrapperContainer extends React.Component {
                 visualizationWidth: this.sectionHr.offsetWidth,
                 labelWidth: _.min([this.sectionHr.offsetWidth / 3, 270])
             });
-        }
-    }
-
-    changeSpendingBy(spendingBy) {
-        this.setState({ spendingBy });
-    }
-
-    generateVisualization() {
-        switch (this.state.spendingBy) {
-            case 'budget_category':
-                return <SpendingByCategoryRankVisualizationSectionContainer {...this.state} />;
-            case 'awarding_agency':
-                return <RankVisualizationSectionContainer {...this.state} />;
-            default:
-                return <SpendingByCategoryRankVisualizationSectionContainer {...this.state} />;
         }
     }
 

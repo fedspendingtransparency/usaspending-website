@@ -10,12 +10,6 @@ import * as AgencyQuery from './queryBuilders/AgencyQuery';
 import * as BudgetCategoryQuery from './queryBuilders/BudgetCategoryQuery';
 
 class SearchAccountOperation extends SearchOperation {
-    commonParams() {
-        const filters = [];
-
-        return filters;
-    }
-
     uniqueParams() {
         // the parent class will handle all the common params, we just need to convert those
         // that are not shared with awards
@@ -36,20 +30,20 @@ class SearchAccountOperation extends SearchOperation {
 
         // Add Funding Agency query
         if (this.fundingAgencies.length > 0) {
-            filters.push(AgencyQuery.buildFundingAgencyCGACQuery(this.fundingAgencies));
+            filters.push(AgencyQuery.buildFundingAgencyCGACQuery(this.fundingAgencies, false));
         }
 
         // Add Budget Category queries
         if (this.budgetFunctions.length > 0) {
-            filters.push(BudgetCategoryQuery.buildBudgetFunctionQuery(this.budgetFunctions));
+            filters.push(BudgetCategoryQuery.buildBudgetFunctionQuery(this.budgetFunctions, false));
         }
 
         if (this.federalAccounts.length > 0) {
-            filters.push(BudgetCategoryQuery.buildFederalAccountQuery(this.federalAccounts));
+            filters.push(BudgetCategoryQuery.buildFederalAccountQuery(this.federalAccounts, false));
         }
 
         if (Object.keys(this.objectClasses).length > 0) {
-            filters.push(BudgetCategoryQuery.buildObjectClassQuery(this.objectClasses));
+            filters.push(BudgetCategoryQuery.buildObjectClassQuery(this.objectClasses, false));
         }
 
         return filters;

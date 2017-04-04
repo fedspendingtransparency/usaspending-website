@@ -5,6 +5,8 @@
 
 const fundingAgencyField = 'treasury_account__agency_id';
 
+const fileCPrepend = 'award__financial_set__';
+
 export const buildAgencyQuery = (funding, awarding) => {
     const toptierFundingSet = [];
     const subtierFundingSet = [];
@@ -69,15 +71,21 @@ export const buildAgencyQuery = (funding, awarding) => {
     return filter;
 };
 
-export const buildFundingAgencyCGACQuery = (funding) => {
+export const buildFundingAgencyCGACQuery = (funding, prependFileC) => {
     const fundingSet = [];
 
     funding.forEach((agencyArray) => {
         fundingSet.push(agencyArray.toptier_agency.cgac_code);
     });
 
+    let agencyField = fundingAgencyField;
+
+    if (prependFileC) {
+        agencyField = `${fileCPrepend}${fundingAgencyField}`;
+    }
+
     const filter = {
-        field: fundingAgencyField,
+        field: agencyField,
         operation: "in",
         value: fundingSet
     };

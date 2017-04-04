@@ -1,5 +1,5 @@
 /**
-  * SearchTransactionOperation.js
+  * SearchTransactionFileCOperation.js
   * Created by Kevin Li 12/26/17
   **/
 
@@ -9,8 +9,9 @@ import * as TxnTimePeriodQuery from './queryBuilders/TxnTimePeriodQuery';
 import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
 import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
+import * as BudgetCategoryQuery from './queryBuilders/BudgetCategoryQuery';
 
-class SearchTransactionOperation extends SearchOperation {
+class SearchTransactionFileCOperation extends SearchOperation {
 
     uniqueParams() {
         // the parent class will handle all the common params, we just need to convert those
@@ -45,13 +46,26 @@ class SearchTransactionOperation extends SearchOperation {
             }
         }
 
-        // Add agency query
-        if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
-            filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies, this.awardingAgencies));
+        // Add Funding Agency query
+        if (this.fundingAgencies.length > 0) {
+            filters.push(AgencyQuery.buildFundingAgencyCGACQuery(this.fundingAgencies, true));
+        }
+
+        // Add Budget Category queries
+        if (this.budgetFunctions.length > 0) {
+            filters.push(BudgetCategoryQuery.buildBudgetFunctionQuery(this.budgetFunctions, true));
+        }
+
+        if (this.federalAccounts.length > 0) {
+            filters.push(BudgetCategoryQuery.buildFederalAccountQuery(this.federalAccounts, true));
+        }
+
+        if (Object.keys(this.objectClasses).length > 0) {
+            filters.push(BudgetCategoryQuery.buildObjectClassQuery(this.objectClasses, true));
         }
 
         return filters;
     }
 }
 
-export default SearchTransactionOperation;
+export default SearchTransactionFileCOperation;
