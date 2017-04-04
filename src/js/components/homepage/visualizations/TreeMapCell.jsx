@@ -17,7 +17,6 @@ const propTypes = {
     color: React.PropTypes.string,
     chosen: React.PropTypes.string,
     toggleTooltip: React.PropTypes.func,
-    clearTooltip: React.PropTypes.func,
     showOverlay: React.PropTypes.bool
 };
 
@@ -140,7 +139,6 @@ export default class TreeMapCell extends React.Component {
                     height={height}
                     style={{
                         fill: color,
-                        fillOpacity: 0.8,
                         stroke: this.toggleBorders(this.props.label)
                     }} />
                 <text
