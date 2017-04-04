@@ -73,15 +73,11 @@ export default class RankVisualizationSection extends React.Component {
         let disablePrev = false;
         let hidePager = '';
 
-        if (!this.props.hasNextPage) {
-            disableNext = true;
-        }
+        disableNext = !this.props.hasNextPage;
 
-        if (!this.props.hasPreviousPage) {
-            disablePrev = true;
-        }
+        disablePrev = !this.props.hasPreviousPage;
 
-        if ((!this.props.hasPreviousPage && !this.props.hasNextPage) || this.props.loading) {
+        if ((disableNext && disablePrev) || this.props.loading) {
             hidePager = 'hide';
         }
 
