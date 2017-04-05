@@ -16,6 +16,7 @@ import AccountTimeVisualizationSection from
     'components/account/visualizations/time/AccountTimeVisualizationSection';
 
 import * as AccountHelper from 'helpers/accountHelper';
+import * as AccountQuartersHelper from 'helpers/accountQuartersHelper';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 
@@ -36,10 +37,13 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             groups: [],
             xSeries: [],
             ySeries: [],
-            allY: []
+            allY: [],
+            visualizationPeriod: 'year',
+            hasFilteredObligated: false
         };
 
         this.balanceRequests = [];
+        this.changePeriod = this.changePeriod.bind(this);
     }
 
     componentDidMount() {
@@ -50,6 +54,12 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
             this.fetchData();
         }
+    }
+
+    changePeriod(period) {
+        this.setState({
+            visualizationPeriod: period
+        });
     }
 
     fetchData() {
@@ -68,7 +78,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         const requests = [];
         const promises = [];
         Object.keys(balanceFields).forEach((balanceType) => {
-            // generate an API call
+             // generate an API call
             const request = AccountHelper.fetchTasBalanceTotals({
                 filters,
                 group: 'reporting_period_start',
@@ -76,6 +86,24 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 aggregate: 'sum',
                 order: ['reporting_period_start']
             });
+            //if (this.state.visualizationPeriod === 'quarter') {
+            //    const request = AccountQuartersHelper.fetchTasBalanceTotals({
+            //        filters,
+            //        group: 'reporting_period_start',
+            //        field: balanceFields[balanceType],
+            //        aggregate: 'sum',
+            //        order: ['reporting_period_start']
+            //    });
+            //}
+            //else {
+            //    const request = AccountHelper.fetchTasBalanceTotals({
+            //        filters,
+            //        group: 'reporting_period_start',
+            //        field: balanceFields[balanceType],
+            //        aggregate: 'sum',
+            //        order: ['reporting_period_start']
+            //    });
+            //}
 
             request.type = balanceType;
 
@@ -124,7 +152,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         // });
 
 
-        const years = ['2017 Q1', '2017 Q2', '2017 Q3'];
+        const years = ['2017', '2016', '2015'];
         const quarters = [['2017 Q1'], ['2017 Q2'], ['2017 Q3']];
         const mockY = [
             [{
@@ -182,7 +210,10 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
 
     render() {
         return (
-            <AccountTimeVisualizationSection data={this.state} />
+            <AccountTimeVisualizationSection
+                data={this.state}
+                visualizationPeriod={this.state.visualizationPeriod}
+                changePeriod={this.changePeriod} />
         );
     }
 }
