@@ -15,8 +15,6 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
-
 const propTypes = {
     reduxFilters: React.PropTypes.object
 };
@@ -48,21 +46,18 @@ export class MapVisualizationContainer extends React.Component {
     }
 
     fetchData() {
-         // build a new search operation from the Redux state, but create a transaction-based search
-        // operation instead of an award-based one
-        const operation = new SearchTransactionOperation();
-        operation.fromState(this.props.reduxFilters);
-
-        const searchParams = operation.toParams();
-
         // generate the API parameters
         const apiParams = {
             field: 'federal_action_obligation',
             group: `place_of_performance__state_code`,
             order: ['item'],
             aggregate: 'sum',
-            filters: searchParams,
-            limit: 60
+            limit: 60,
+            filter: {
+                field: 'submission__reporting_fiscal_year',
+                operation: 'equals',
+                value: '2016'
+            }
         };
 
         if (this.apiRequest) {
