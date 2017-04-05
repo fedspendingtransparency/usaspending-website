@@ -2,14 +2,19 @@
  * Created by michaelbray on 3/21/17.
  */
 
-const budgetFunctionField = 'treasury_account__budget_function_title';
-const budgetSubfunctionField = 'treasury_account__budget_subfunction_title';
-const federalAccountField = 'treasury_account__federal_account';
+const budgetFunctionField = 'budget_function_title';
+const budgetSubfunctionField = 'budget_subfunction_title';
+const federalAccountField = 'federal_account';
 const objectClassField = 'object_class__major_object_class';
 
-const fileCPrepend = 'award__financial_set__';
+const tasPrefix = 'treasury_account__';
 
-export const buildBudgetFunctionQuery = (budgetFunctions, prependFileC) => {
+const appropriationsPrefix = 'treasury_account_identifier__';
+const appropriationsOCPrefix = 'treasury_account_identifier__program_balances__';
+
+const fileCPrefix = 'award__financial_set__';
+
+export const buildBudgetFunctionQuery = (budgetFunctions, requestType) => {
     const budgetFunctionSet = [];
     const budgetSubfunctionSet = [];
 
@@ -22,12 +27,20 @@ export const buildBudgetFunctionQuery = (budgetFunctions, prependFileC) => {
         }
     });
 
-    let functionField = budgetFunctionField;
-    let subfunctionField = budgetSubfunctionField;
+    let functionField = '';
+    let subfunctionField = '';
 
-    if (prependFileC) {
-        functionField = `${fileCPrepend}${budgetFunctionField}`;
-        subfunctionField = `${fileCPrepend}${budgetFunctionField}`;
+    if (requestType === 'fileC') {
+        functionField = `${fileCPrefix}${tasPrefix}${budgetFunctionField}`;
+        subfunctionField = `${fileCPrefix}${tasPrefix}${budgetSubfunctionField}`;
+    }
+    else if (requestType === 'appropriations') {
+        functionField = `${appropriationsPrefix}${budgetFunctionField}`;
+        subfunctionField = `${appropriationsPrefix}${budgetSubfunctionField}`;
+    }
+    else {
+        functionField = `${tasPrefix}${budgetFunctionField}`;
+        subfunctionField = `${tasPrefix}${budgetSubfunctionField}`;
     }
 
     const budgetFunctionFilter = {
@@ -50,17 +63,23 @@ export const buildBudgetFunctionQuery = (budgetFunctions, prependFileC) => {
     return filterSet;
 };
 
-export const buildFederalAccountQuery = (federalAccounts, prependFileC) => {
+export const buildFederalAccountQuery = (federalAccounts, requestType) => {
     const federalAccountSet = [];
 
     federalAccounts.forEach((federalAccount) => {
         federalAccountSet.push(federalAccount.id);
     });
 
-    let accountField = federalAccountField;
+    let accountField = '';
 
-    if (prependFileC) {
-        accountField = `${fileCPrepend}${federalAccountField}`;
+    if (requestType === 'fileC') {
+        accountField = `${fileCPrefix}${tasPrefix}${federalAccountField}`;
+    }
+    else if (requestType === 'appropriations') {
+        accountField = `${appropriationsPrefix}${federalAccountField}`;
+    }
+    else {
+        accountField = `${tasPrefix}${federalAccountField}`;
     }
 
     const filter = {
@@ -72,17 +91,23 @@ export const buildFederalAccountQuery = (federalAccounts, prependFileC) => {
     return filter;
 };
 
-export const buildObjectClassQuery = (objectClasses, prependFileC) => {
+export const buildObjectClassQuery = (objectClasses, requestType) => {
     const objectClassSet = [];
 
     Object.keys(objectClasses).forEach((objectClass) => {
         objectClassSet.push(objectClass);
     });
 
-    let classField = objectClassField;
+    let classField = '';
 
-    if (prependFileC) {
-        classField = `${fileCPrepend}${objectClassField}`;
+    if (requestType === 'fileC') {
+        classField = `${fileCPrefix}${objectClassField}`;
+    }
+    else if (requestType === 'appropriations') {
+        classField = `${appropriationsOCPrefix}${objectClassField}`;
+    }
+    else {
+        classField = `${objectClassField}`;
     }
 
     const filter = {

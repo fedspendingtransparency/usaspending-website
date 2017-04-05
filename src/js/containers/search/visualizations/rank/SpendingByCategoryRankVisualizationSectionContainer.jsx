@@ -122,7 +122,7 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
     }
 
     createTasParams(groupName) {
-        const operation = new SearchAccountOperation();
+        const operation = new SearchAccountOperation('tas');
         operation.fromState(this.props.reduxFilters);
 
         const searchParams = operation.toParams();

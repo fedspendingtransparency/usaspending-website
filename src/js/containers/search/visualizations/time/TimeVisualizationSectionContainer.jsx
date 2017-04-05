@@ -18,6 +18,8 @@ import * as resultsMetaActions from 'redux/actions/resultsMeta/resultsMetaAction
 import * as SearchHelper from 'helpers/searchHelper';
 
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
+import SearchTransactionFileCOperation from 'models/search/SearchTransactionFileCOperation';
+import SearchAccountOperation from 'models/search/SearchAccountOperation';
 
 const combinedActions = Object.assign({}, searchFilterActions, resultsMetaActions);
 
@@ -34,44 +36,108 @@ export class TimeVisualizationSectionContainer extends React.Component {
             loading: true,
             groups: [],
             xSeries: [],
-            ySeries: []
+            ySeries: [],
+            budgetFiltersSelected: false,
+            awardFiltersSelected: false
         };
+
+        this.apiRequest = null;
     }
 
     componentDidMount() {
-        this.fetchData();
+        this.setFilterStates();
     }
 
     componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
-            this.fetchData();
+            this.setFilterStates();
         }
     }
 
-    fetchData() {
-        // build a new search operation from the Redux state, but create a transaction-based search
-        // operation instead of an award-based one
-        const operation = new SearchTransactionOperation();
-        operation.fromState(this.props.reduxFilters);
+    setFilterStates() {
+        this.setState({
+            budgetFiltersSelected: SearchHelper.budgetFiltersSelected(this.props.reduxFilters),
+            awardFiltersSelected: SearchHelper.awardFiltersSelected(this.props.reduxFilters)
+        }, () => {
+            this.fetchData();
+        });
+    }
 
+    createTransactionsParams(operation) {
         const searchParams = operation.toParams();
 
         // generate the API parameters
         const apiParams = {
             field: 'federal_action_obligation',
             group: 'action_date__fy',
-            order: ['item'],
+            order: ['aggregate'],
             aggregate: 'sum',
-            filters: searchParams
+            filters: searchParams,
+            limit: 5,
+            page: this.state.page
         };
 
+        return apiParams;
+    }
+
+    createTasParams() {
+        const operation = new SearchAccountOperation('appropriations');
+        operation.fromState(this.props.reduxFilters);
+
+        const searchParams = operation.toParams();
+
+        // generate the API parameters
+        const apiParams = {
+            field: 'obligations_incurred_total_by_tas_cpe',
+            group: 'submission__reporting_fiscal_year',
+            order: ['aggregate'],
+            aggregate: 'sum',
+            filters: searchParams,
+            limit: 5,
+            page: this.state.page
+        };
+
+        return apiParams;
+    }
+
+    fetchData() {
         this.setState({
             loading: true
         });
-        const search = SearchHelper.performTransactionsTotalSearch(apiParams);
-        search.promise
+
+        if (this.apiRequest) {
+            this.apiRequest.cancel();
+        }
+
+        let apiParams = '';
+
+        // Create Search Operation and API request
+        if (this.state.awardFiltersSelected) {
+            let operation = null;
+
+            if (this.state.budgetFiltersSelected) {
+                operation = new SearchTransactionFileCOperation();
+            }
+            else {
+                operation = new SearchTransactionOperation();
+            }
+
+            operation.fromState(this.props.reduxFilters);
+            apiParams = this.createTransactionsParams(operation);
+            this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        }
+        else {
+            apiParams = this.createTasParams();
+            this.apiRequest = SearchHelper.performBalancesSearch(apiParams);
+        }
+
+        this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);
+                this.apiRequest = null;
+            })
+            .catch(() => {
+                this.apiRequest = null;
             });
     }
 

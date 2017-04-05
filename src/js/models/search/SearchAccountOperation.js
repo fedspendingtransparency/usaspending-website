@@ -10,6 +10,12 @@ import * as AgencyQuery from './queryBuilders/AgencyQuery';
 import * as BudgetCategoryQuery from './queryBuilders/BudgetCategoryQuery';
 
 class SearchAccountOperation extends SearchOperation {
+    constructor(requestType) {
+        super();
+
+        this.requestType = requestType;
+    }
+
     uniqueParams() {
         // the parent class will handle all the common params, we just need to convert those
         // that are not shared with awards
@@ -30,20 +36,24 @@ class SearchAccountOperation extends SearchOperation {
 
         // Add Funding Agency query
         if (this.fundingAgencies.length > 0) {
-            filters.push(AgencyQuery.buildFundingAgencyCGACQuery(this.fundingAgencies, false));
+            filters.push(AgencyQuery.buildFundingAgencyCGACQuery(
+                this.fundingAgencies, this.requestType));
         }
 
         // Add Budget Category queries
         if (this.budgetFunctions.length > 0) {
-            filters.push(BudgetCategoryQuery.buildBudgetFunctionQuery(this.budgetFunctions, false));
+            filters.push(BudgetCategoryQuery.buildBudgetFunctionQuery(
+                this.budgetFunctions, this.requestType));
         }
 
         if (this.federalAccounts.length > 0) {
-            filters.push(BudgetCategoryQuery.buildFederalAccountQuery(this.federalAccounts, false));
+            filters.push(BudgetCategoryQuery.buildFederalAccountQuery(
+                this.federalAccounts, this.requestType));
         }
 
         if (Object.keys(this.objectClasses).length > 0) {
-            filters.push(BudgetCategoryQuery.buildObjectClassQuery(this.objectClasses, false));
+            filters.push(BudgetCategoryQuery.buildObjectClassQuery(
+                this.objectClasses, this.requestType));
         }
 
         return filters;
