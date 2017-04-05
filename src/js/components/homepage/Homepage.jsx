@@ -9,8 +9,9 @@ import Q from 'q';
 import * as HomepageHelper from 'helpers/homepageHelper';
 
 import Landing from './Landing';
-import TreeMap from './visualizations/TreeMap';
 import TreeMapIntro from './TreeMapIntro';
+import TreeMap from './visualizations/TreeMap';
+import ByCategorySection from './ByCategorySection';
 import LinksSection from './LinksSection';
 import SearchSection from './SearchSection';
 import Header from '../sharedComponents/header/Header';
@@ -67,6 +68,7 @@ export default class Homepage extends React.Component {
                     total={this.state.total}
                     categories={this.state.categories}
                     colors={this.state.colors} />
+                <ByCategorySection />
                 <SearchSection />
                 <LinksSection />
                 <Footer />
