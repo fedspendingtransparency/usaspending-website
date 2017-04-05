@@ -15,3 +15,13 @@ export const categoryLabelFields = {
     objectClass: 'object_class__object_class_name',
     tas: 'treasury_account__tas_rendering_label'
 };
+
+export const balanceFieldsFiltered = {
+    obligatedFiltered: 'obligations_incurred_by_program_object_class_cpe',
+    outlay: 'gross_outlay_amount_by_program_object_class_cpe'
+};
+
+export const balanceFieldsNonfiltered = {
+    budgetAuthority: 'budget_authority_available_amount_total_cpe',
+    unobligated: 'unobligated_balance_cpe'
+};

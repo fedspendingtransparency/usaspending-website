@@ -57,9 +57,13 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
     }
 
     changePeriod(period) {
+        const prevPeriod = this.state.visualizationPeriod;
         this.setState({
             visualizationPeriod: period
         });
+        if (prevPeriod != period) {
+            this.fetchData();
+        }
     }
 
     fetchData() {
@@ -77,41 +81,60 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
 
         const requests = [];
         const promises = [];
-        Object.keys(balanceFields).forEach((balanceType) => {
-             // generate an API call
-            const request = AccountHelper.fetchTasBalanceTotals({
-                filters,
-                group: 'reporting_period_start',
-                field: balanceFields[balanceType],
-                aggregate: 'sum',
-                order: ['reporting_period_start']
-            });
-            //if (this.state.visualizationPeriod === 'quarter') {
-            //    const request = AccountQuartersHelper.fetchTasBalanceTotals({
-            //        filters,
-            //        group: 'reporting_period_start',
-            //        field: balanceFields[balanceType],
-            //        aggregate: 'sum',
-            //        order: ['reporting_period_start']
-            //    });
-            //}
-            //else {
-            //    const request = AccountHelper.fetchTasBalanceTotals({
-            //        filters,
-            //        group: 'reporting_period_start',
-            //        field: balanceFields[balanceType],
-            //        aggregate: 'sum',
-            //        order: ['reporting_period_start']
-            //    });
-            //}
 
-            request.type = balanceType;
+        if (this.state.hasFilteredObligated) {
+            // TODO
+            if (this.state.visualizationPeriod === 'quarter') {
+                this.parseBalances();
+            }
+            else {
+                this.parseBalances();
+            }
+        }
+        else {
+            // Does not have filtered obligated
+            if (this.state.visualizationPeriod === 'quarter') {
+                //Object.keys(balanceFields).forEach((balanceType) => {
+                //    // generate API call using helper for quarters
+                //    const request = AccountQuartersHelper.fetchTasBalanceTotals({
+                //        filters,
+                //        group: 'reporting_period_start',
+                //        field: balanceFields[balanceType],
+                //        aggregate: 'sum',
+                //        order: ['reporting_period_start']
+                //    });
+                //
+                //    request.type = balanceType;
+                //
+                //    requests.push(request);
+                //    promises.push(request.promise);
+                //});
+                //
+                //this.balanceRequests = requests;
 
-            requests.push(request);
-            promises.push(request.promise);
-        });
+                this.parseBalances();
+            }
+            else {
+                Object.keys(balanceFields).forEach((balanceType) => {
+                    // generate API call
+                    const request = AccountHelper.fetchTasBalanceTotals({
+                        filters,
+                        group: 'reporting_period_start',
+                        field: balanceFields[balanceType],
+                        aggregate: 'sum',
+                        order: ['reporting_period_start']
+                    });
 
-        this.balanceRequests = requests;
+                    request.type = balanceType;
+
+                    requests.push(request);
+                    promises.push(request.promise);
+                });
+
+                this.balanceRequests = requests;
+            }
+
+        }
 
         Promise.all(promises)
             .then((res) => {
@@ -132,52 +155,118 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
     }
 
     parseBalances(data) {
-        // const years = [];
-
-        // const balances = {};
-        // data.forEach((item, i) => {
-        //     const type = this.balanceRequests[i].type;
-        //     const values = {};
-
-        //     item.data.results.forEach((group) => {
-        //         const date = moment(group.item, 'YYYY-MM-DD');
-        //         const fy = FiscalYearHelper.convertDateToFY(date);
-        //         if (_.indexOf(years, fy) === -1) {
-        //             years.push(fy);
-        //         }
-        //         values[fy] = group.aggregate;
-        //     });
-
-        //     balances[type] = values;
-        // });
-
-
-        const years = ['2017', '2016', '2015'];
-        const quarters = [['2017 Q1'], ['2017 Q2'], ['2017 Q3']];
-        const mockY = [
-            [{
-                budgetAuthority: 50000,
-                obligationTotal: 40000,
-                obligationFiltered: 23000,
-                unobligated: 10000,
-                outlay: 30000
-            }],
-            [{
-                budgetAuthority: 70000,
-                obligationTotal: 50000,
-                obligationFiltered: 43000,
-                unobligated: 20000,
-                outlay: 62000
-            }],
-            [{
-                budgetAuthority: 30000,
-                obligationTotal: 20000,
-                obligationFiltered: 18000,
-                unobligated: 10000,
-                outlay: 22000
-            }]
-        ];
-
+        let years = [];
+        let quarters = [];
+        let mockY = [];
+        if (this.state.hasFilteredObligated) {
+            if (this.state.visualizationPeriod === 'quarter') {
+                years = ['2017 Q1', '2017 Q2', '2017 Q3'];
+                quarters = [['2017 Q1'], ['2017 Q2'], ['2017 Q3']];
+                mockY = [
+                    [{
+                        budgetAuthority: 50000,
+                        obligationTotal: 40000,
+                        obligationFiltered: 23000,
+                        unobligated: 10000,
+                        outlay: 30000
+                    }],
+                    [{
+                        budgetAuthority: 70000,
+                        obligationTotal: 50000,
+                        obligationFiltered: 43000,
+                        unobligated: 20000,
+                        outlay: 62000
+                    }],
+                    [{
+                        budgetAuthority: 30000,
+                        obligationTotal: 20000,
+                        obligationFiltered: 18000,
+                        unobligated: 10000,
+                        outlay: 22000
+                    }]
+                ];
+            }
+            else {
+                // Visualization period is years
+                years = ['2015', '2016', '2017'];
+                quarters = [['2017 Q1'], ['2017 Q2'], ['2017 Q3']];
+                mockY = [
+                    [{
+                        budgetAuthority: 50000,
+                        obligationTotal: 40000,
+                        obligationFiltered: 23000,
+                        unobligated: 10000,
+                        outlay: 30000
+                    }],
+                    [{
+                        budgetAuthority: 70000,
+                        obligationTotal: 50000,
+                        obligationFiltered: 43000,
+                        unobligated: 20000,
+                        outlay: 62000
+                    }],
+                    [{
+                        budgetAuthority: 30000,
+                        obligationTotal: 20000,
+                        obligationFiltered: 18000,
+                        unobligated: 10000,
+                        outlay: 22000
+                    }]
+                ];
+            }
+        }
+        else {
+            // does not have filtered obligated
+            if (this.state.visualizationPeriod === 'quarter') {
+                years = ['2017 Q1', '2017 Q2', '2017 Q3'];
+                quarters = [['2017 Q1'], ['2017 Q2'], ['2017 Q3']];
+                mockY = [
+                    [{
+                        budgetAuthority: 60000,
+                        obligated: 40000,
+                        unobligated: 20000,
+                        outlay: 30000
+                    }],
+                    [{
+                        budgetAuthority: 70000,
+                        obligated: 63000,
+                        unobligated: 20000,
+                        outlay: 42000
+                    }],
+                    [{
+                        budgetAuthority: 30000,
+                        obligated: 22000,
+                        unobligated: 10000,
+                        outlay: 44000
+                    }]
+                ];
+            }
+            else {
+                // Visualization period is years
+                years = ['2015', '2016', '2017'];
+                quarters = [['2017 Q1'], ['2017 Q2'], ['2017 Q3']];
+                mockY = [
+                    [{
+                        budgetAuthority: 50000,
+                        obligated: 30000,
+                        unobligated: 20000,
+                        outlay: 25000
+                    }],
+                    [{
+                        budgetAuthority: 70000,
+                        obligated: 63000,
+                        unobligated: 20000,
+                        outlay: 73000
+                    }],
+                    [{
+                        budgetAuthority: 30000,
+                        obligated: 20000,
+                        unobligated: 10000,
+                        outlay: 22000
+                    }]
+                ];
+            }
+        }
 
         const groups = [];
         const xSeries = [];
@@ -213,7 +302,8 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             <AccountTimeVisualizationSection
                 data={this.state}
                 visualizationPeriod={this.state.visualizationPeriod}
-                changePeriod={this.changePeriod} />
+                changePeriod={this.changePeriod}
+                hasFilteredObligated={this.state.hasFilteredObligated} />
         );
     }
 }
