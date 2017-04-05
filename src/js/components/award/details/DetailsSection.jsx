@@ -5,29 +5,32 @@
 
 import React from 'react';
 
+import ContractTransactionsTableContainer from
+    'containers/award/table/ContractTransactionsTableContainer';
+import AssistanceTransactionsTableContainer from
+    'containers/award/table/AssistanceTransactionsTableContainer';
 import FinancialSystemTableContainer from 'containers/award/table/FinancialSystemTableContainer';
 
 import DetailsTabBar from './DetailsTabBar';
-import TransactionsTable from '../table/TransactionsTable';
-import AdditionalDetails from './additional/AdditionalDetails';
+import ContractAdditionalDetails from './additional/ContractAdditionalDetails';
+import AssistanceAdditionalDetails from './additional/AssistanceAdditionalDetails';
 
 const propTypes = {
-    award: React.PropTypes.object
+    award: React.PropTypes.object,
+    isContract: React.PropTypes.bool,
+    activeTab: React.PropTypes.string,
+    clickTab: React.PropTypes.func
 };
-
-const defaultTab = 'transaction';
 
 export default class DetailsSection extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            tableWidth: 0,
-            activeTab: defaultTab
+            tableWidth: 0
         };
 
         this.setTableWidth = this.setTableWidth.bind(this);
-        this.clickTab = this.clickTab.bind(this);
     }
     componentDidMount() {
         // set the initial table width
@@ -40,9 +43,7 @@ export default class DetailsSection extends React.Component {
         // check award changed
         if (this.props.award.selectedAward.id !== nextProps.award.selectedAward.id) {
             // reset the tab
-            this.setState({
-                activeTab: defaultTab
-            });
+            this.props.clickTab('transaction');
         }
     }
 
@@ -56,24 +57,27 @@ export default class DetailsSection extends React.Component {
         this.setState({ tableWidth });
     }
 
-    clickTab(tab) {
-        this.setState({
-            activeTab: tab
-        });
-    }
-
     currentSection() {
-        switch (this.state.activeTab) {
+        switch (this.props.activeTab) {
             case 'transaction':
-                return (<TransactionsTable
-                    {...this.props}
+                if (this.props.isContract) {
+                    return (<ContractTransactionsTableContainer
+                        tableWidth={this.state.tableWidth} />);
+                }
+                return (<AssistanceTransactionsTableContainer
                     tableWidth={this.state.tableWidth} />);
+
             case 'financial':
                 return (<FinancialSystemTableContainer
                     {...this.props}
                     tableWidth={this.state.tableWidth} />);
+
             case 'additional':
-                return (<AdditionalDetails {...this.props} />);
+                if (this.props.isContract) {
+                    return (<ContractAdditionalDetails {...this.props} />);
+                }
+                return (<AssistanceAdditionalDetails {...this.props} />);
+
             default:
                 return null;
         }
@@ -85,8 +89,8 @@ export default class DetailsSection extends React.Component {
         return (
             <div className="contract-details-table-section" id="details-table-section">
                 <DetailsTabBar
-                    activeTab={this.state.activeTab}
-                    clickTab={this.clickTab} />
+                    activeTab={this.props.activeTab}
+                    clickTab={this.props.clickTab} />
                 <div
                     className="details-table-width-master"
                     ref={(div) => {

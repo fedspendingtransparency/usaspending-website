@@ -4,11 +4,10 @@
 @import "./_footerCopyright";
 @import "../../../elements/_inlineList";
 @mixin defaultFooter() {
-    .footer-outter-wrap {
+    .footer-outer-wrap {
         background-color: #333;
         color: $color-white;
         font-size: $base-font-size;
-        margin-top: 6.0rem;
         padding: 1.5rem 0;
         width: 100%;
         .footer-container {

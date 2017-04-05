@@ -1,53 +1,72 @@
+@import "../../../mixins/setText";
 .additional-group {
-    margin-top: 35px;
+    margin-top: rem(35);
     @include clearfix();
-
-    .left-side {
-        @include span-columns(4);
-    }
-
+    .left-side,
     .right-side {
-        @include span-columns(12);
+        @include span-columns(16);
     }
-
+    .left-side {
+        margin-bottom: rem(10);
+    }
     h4.additional-title {
-        font-size: 30px;
-        line-height: 38px;
-        margin: 0;
+        @include setText(rem(30)) margin: 0;
     }
-
     .additional-row {
         display: table;
         width: 100%;
-
-        font-size: 14px;
-        line-height: 18px;
-
+        font-size: rem(14);
+        line-height: rem(18);
+        margin: rem(10) 0;
+        padding: rem(10) 0;
         &:nth-child(odd) {
             background-color: $color-gray-lightest;
         }
-
-        .row-title {
-            display: table-cell;
-            width: 33%;
-
-            font-weight: 600;
-
-            padding: 1.4rem;
-        }
-
+        .row-title,
         .row-value {
-            display: table-cell;
-            width: 67%;
-
-            padding: 1.4rem;
+            display: block;
+            width: 100%;
+            padding: rem(3) rem(15);
+        }
+        .row-title {
+            font-weight: $font-semibold;
+        }
+    }
+    @include media($tablet-screen) {
+        h4.additional-title {
+            @include setText(rem(38))
+        }
+        .left-side,
+        .right-side {
+            @include span-columns(16);
+        }
+        .additional-row {
+            padding: 0;
+            .row-title,
+            .row-value {
+                display: table-cell;
+                padding: rem(14);
+            }
+            .row-title {
+                width: 43%;
+            }
+            .row-value {
+                width: 57%;
+            }
+        }
+    }
+    @include media($medium-screen) {
+        .left-side {
+            @include span-columns(4);
+        }
+        .right-side {
+            @include span-columns(12);
         }
     }
 }
 
-
 hr.additional-group-divider {
     border: none;
-    border-bottom: 1px solid $color-gray-lighter;
-    padding-top: 20px;
+    border-bottom: rem(1) solid $color-gray-lighter;
+    padding-top: rem(20);
 }

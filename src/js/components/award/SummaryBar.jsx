@@ -6,9 +6,9 @@
 import React from 'react';
 import moment from 'moment';
 import _ from 'lodash';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
-import * as Icons from '../sharedComponents/icons/Icons';
+import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 import InfoSnippet from './InfoSnippet';
+import MoreHeaderOptions from './MoreHeaderOptions';
 
 const propTypes = {
     selectedAward: React.PropTypes.object
@@ -40,7 +40,7 @@ export default class SummaryBar extends React.Component {
         const awardEnd = moment(award.period_of_performance_current_end_date, 'MM-DD-YYYY');
         const current = moment();
         let progress = "";
-        let awardType = "";
+        const awardType = _.capitalize(SummaryPageHelper.awardType(award.award_type));
         let parentId = null;
 
         if (current.isSameOrBefore(awardStart, 'day')) {
@@ -53,24 +53,8 @@ export default class SummaryBar extends React.Component {
             progress = "In Progress";
         }
 
-        if (_.includes(awardTypeGroups.contracts, award.award_type)) {
-            awardType = "Contract";
-        }
-        else if (_.includes(awardTypeGroups.grants, award.award_type)) {
-            awardType = "Grant";
-        }
-        else if (_.includes(awardTypeGroups.direct_payments, award.award_type)) {
-            awardType = "Direct Payment";
-        }
-        else if (_.includes(awardTypeGroups.loans, award.award_type)) {
-            awardType = "Loan";
-        }
-        else if (_.includes(awardTypeGroups.insurance, award.award_type)) {
-            awardType = "Insurance";
-        }
-
-        if (award.recipient_parent_duns) {
-            parentId = award.recipient_parent_duns;
+        if (award.parent_id) {
+            parentId = award.parent_id;
         }
         else if (!award.parent_award && award.type !== "D") {
             parentId = "Not Available";
@@ -95,9 +79,9 @@ export default class SummaryBar extends React.Component {
                     value={this.state.parent} />);
         }
         return (
-            <div className="usa-da-summary-bar">
-                <div className="summary-bar-wrap">
-                    <h1 className="summary-title">{this.state.type}
+            <div className="page-title-bar">
+                <div className="page-title-bar-wrap">
+                    <h1 className="page-title">{this.state.type}
                         &nbsp;Summary</h1>
                     <div className="summary-status">
                         <ul className="summary-status-items">
@@ -109,9 +93,7 @@ export default class SummaryBar extends React.Component {
                                 label="Status"
                                 value={this.state.status} />
                         </ul>
-                        <div className="more-options">
-                            <Icons.MoreOptions />
-                        </div>
+                        <MoreHeaderOptions />
                     </div>
                 </div>
             </div>

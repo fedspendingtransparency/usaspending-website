@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { scaleLinear } from 'd3-scale';
+import _ from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -17,11 +18,14 @@ const propTypes = {
     potential: React.PropTypes.number,
     current: React.PropTypes.number,
     graphHeight: React.PropTypes.number,
-    awardId: React.PropTypes.number
+    awardId: React.PropTypes.number,
+    showPotential: React.PropTypes.bool,
+    type: React.PropTypes.string
 };
 
 const defaultProps = {
-    graphHeight: 180
+    graphHeight: 180,
+    showPotential: true
 };
 
 const labelDistance = 15;
@@ -77,7 +81,11 @@ export default class AmountsChart extends React.Component {
     calculateScale() {
         // Set Y axis min and max (always assume the potential exceeds the current value)
         let yMin = 0;
-        const yMax = this.props.current;
+        let yMax = this.props.potential;
+
+        if (this.props.type === 'grant') {
+            yMax = this.props.current;
+        }
         if (yMax === 0) {
             yMin = -100;
         }
@@ -134,6 +142,28 @@ export default class AmountsChart extends React.Component {
     }
 
     render() {
+        let potentialLabel = null;
+        let potentialBar = null;
+
+        if (this.props.showPotential) {
+            potentialLabel = (<AwardLabels
+                name="potential"
+                amount={this.props.potential}
+                groupTransform={`${200 + this.state.barWidth},0`}
+                singleTransform={`${10 + labelDistance},5`}
+                subtitle={`${_.capitalize(this.props.type)} Ceiling`}
+                labelDistance={labelDistance}
+                line="line"
+                labelWidth={labelWidth}
+                labelPadding={labelPadding}
+                potentialY={this.state.potentialY}
+                graphHeight={this.props.graphHeight} />);
+            potentialBar = (<IndividualBar
+                name="potential"
+                yValue={this.state.potentialY}
+                barValue={this.state.potential} />);
+        }
+
         return (
             <div
                 className="amounts-visualization-wrapper"
@@ -143,29 +173,15 @@ export default class AmountsChart extends React.Component {
                 <svg
                     className="amounts-graph"
                     width={this.state.graphWidth}
-                    height={this.props.graphHeight + 10}
+                    height={this.props.graphHeight + 30}
                     ref={(svg) => {
                         this.svgRef = svg;
                     }}>
 
                     <g transform="translate(0, 5)">
-                        <IndividualBar
-                            name="potential"
-                            yValue={this.state.potentialY}
-                            barValue={this.state.potential} />
 
-                        <AwardLabels
-                            name="potential"
-                            amount={this.props.potential}
-                            groupTransform={`${200 + this.state.barWidth},0`}
-                            singleTransform={`${10 + labelDistance},5`}
-                            subtitle="Potential Funding Ceiling"
-                            labelDistance={labelDistance}
-                            line="line"
-                            labelWidth={labelWidth}
-                            labelPadding={labelPadding}
-                            potentialY={this.state.potentialY}
-                            graphHeight={this.props.graphHeight} />
+                        {potentialBar}
+                        {potentialLabel}
 
                         <IndividualBar
                             name="current"
@@ -184,7 +200,8 @@ export default class AmountsChart extends React.Component {
                             labelWidth={labelWidth}
                             labelPadding={labelPadding}
                             currentY={this.state.currentY}
-                            graphHeight={this.props.graphHeight} />
+                            graphHeight={this.props.graphHeight}
+                            type={this.props.type} />
                     </g>
                 </svg>
             </div>

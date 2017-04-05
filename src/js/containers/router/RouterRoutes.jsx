@@ -5,7 +5,6 @@
 import { hashHistory } from 'react-router';
 
 import StoreSingleton from 'redux/storeSingleton';
-// import HomePage from 'components/HomePage';
 
 let instance = null;
 let store = new StoreSingleton().store;
@@ -35,11 +34,12 @@ const goToPage = (location, replace) => {
 // changes that Redux causes
 const routeDefinitions = {
     path: '/',
-    // indexRoute: {
-    //     component: HomePage
-    // },
     indexRoute: {
-        onEnter: (nextState, replace) => replace('/search')
+        getComponent(nextState, cb) {
+            require.ensure([], (require) => {
+                cb(null, require('../../components/homepage/Homepage').default);
+            });
+        }
     },
     childRoutes: [
         {
@@ -55,6 +55,14 @@ const routeDefinitions = {
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../award/AwardContainer').default);
+                });
+            }
+        },
+        {
+            path: 'federal_account/:accountId',
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../account/AccountContainer').default);
                 });
             }
         },

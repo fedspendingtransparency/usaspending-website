@@ -1,0 +1,16 @@
+.results-visualization-time-section {
+    
+    @import "./_topSection";
+    @import "./chart/barChart";
+
+    .visualization-tooltip {
+        @import "components/visualizations/tooltip/_tooltip";
+    }
+
+    .results-visualization-message {
+        margin-top: 1rem;
+        font-size: $small-font-size;
+        color: $color-base;
+        text-align: center;
+    }
+}

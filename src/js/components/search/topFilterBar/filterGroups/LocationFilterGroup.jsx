@@ -11,8 +11,7 @@ import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
     filter: React.PropTypes.object,
-    removeFilter: React.PropTypes.func,
-    clearFilterGroup: React.PropTypes.func,
+    redux: React.PropTypes.object,
     toggle: React.PropTypes.string
 };
 
@@ -27,15 +26,27 @@ export default class LocationFilterGroup extends React.Component {
 
         this.removeFilter = this.removeFilter.bind(this);
         this.removeScope = this.removeScope.bind(this);
+        this.clearGroup = this.clearGroup.bind(this);
     }
 
     removeFilter(value) {
         // remove a single filter item
-        this.props.removeFilter(this.props.filter.code, value);
+        // this.props.removeFilter(this.props.filter.code, value);
+        // remove a single filter item
+        const newValue = this.props.redux.reduxFilters[this.props.filter.code].delete(value);
+        this.props.redux.updateGenericFilter({
+            type: this.props.filter.code,
+            value: newValue
+        });
     }
 
     removeScope() {
-        this.props.clearFilterGroup(this.props.toggle);
+        this.props.redux.clearFilterType(this.props.toggle);
+    }
+
+    clearGroup() {
+        this.props.redux.clearFilterType(this.props.filter.code);
+        this.props.redux.clearFilterType(this.props.toggle);
     }
 
     generateTags() {
@@ -75,7 +86,10 @@ export default class LocationFilterGroup extends React.Component {
     render() {
         const tags = this.generateTags();
 
-        return <BaseTopFilterGroup {...this.props} tags={tags} />;
+        return (<BaseTopFilterGroup
+            tags={tags}
+            filter={this.props.filter}
+            clearFilterGroup={this.clearGroup} />);
     }
 }
 
