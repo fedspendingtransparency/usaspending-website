@@ -96,7 +96,8 @@ export default class SpendingByCategoryRankVisualizationSection extends React.Co
 
                 <RankVisualization
                     {...this.props}
-                    width={this.props.visualizationWidth} />
+                    width={this.props.visualizationWidth}
+                    urlRoot="#/federal_account/" />
 
                 <div className={`visualization-pager-container ${hidePager}`}>
                     <button

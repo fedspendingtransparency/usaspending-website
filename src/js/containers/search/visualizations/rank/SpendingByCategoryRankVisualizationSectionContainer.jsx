@@ -43,6 +43,7 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
             loading: true,
             labelSeries: [],
             dataSeries: [],
+            linkSeries: [],
             page: 1,
             total: 0,
             scope: 'budgetFunctions'
@@ -101,17 +102,14 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
         });
     }
 
-    createTransactionsParams(operation, groupName) {
+    createTransactionsParams(operation, group) {
         const searchParams = operation.toParams();
 
         // generate the API parameters
         const apiParams = {
             field: 'federal_action_obligation',
-            group: `award__financial_set__${groupName}`,
-            // Todo: Uncomment the below when multiple aggregations are supported
-            // group: ["award__financial_set__treasury_account__federal_account_id",
-            // `award__financial_set__${groupName}`],
-            order: ['aggregate'],
+            group,
+            order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
             limit: 5,
@@ -121,7 +119,7 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
         return apiParams;
     }
 
-    createTasParams(groupName) {
+    createTasParams(group) {
         const operation = new SearchAccountOperation('tas');
         operation.fromState(this.props.reduxFilters);
 
@@ -130,10 +128,8 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
         // generate the API parameters
         const apiParams = {
             field: 'obligations_incurred_by_program_object_class_cpe',
-            group: groupName,
-            // Todo: Uncomment the below when multiple aggregations are supported
-            // group: ["treasury_account__federal_account_id", groupName],
-            order: ['aggregate'],
+            group,
+            order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
             limit: 5,
@@ -145,7 +141,8 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
 
     fetchData() {
         // Generate group name
-        const groupName = fieldNames[this.state.scope];
+        const fieldName = fieldNames[this.state.scope];
+        let group = [];
 
         this.setState({
             loading: true
@@ -168,18 +165,23 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
                 operation = new SearchTransactionOperation();
             }
 
+            group = ["award__financial_set__treasury_account__federal_account_id",
+                `award__financial_set__${fieldName}`];
+
             operation.fromState(this.props.reduxFilters);
-            apiParams = this.createTransactionsParams(operation, groupName);
+            apiParams = this.createTransactionsParams(operation, group);
             this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
         }
         else {
-            apiParams = this.createTasParams(groupName);
+            group = ["treasury_account__federal_account_id", fieldName];
+
+            apiParams = this.createTasParams(group);
             this.apiRequest = SearchHelper.performCategorySearch(apiParams);
         }
 
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data);
+                this.parseData(res.data, group, fieldName);
                 this.apiRequest = null;
             })
             .catch(() => {
@@ -187,19 +189,28 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
             });
     }
 
-    parseData(data) {
+    parseData(data, group, fieldName) {
         const labelSeries = [];
         const dataSeries = [];
+        const linkSeries = [];
+
+        const idField = group[0];
+        const dataField = group[1];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            labelSeries.push(item.item);
+            labelSeries.push(item[dataField]);
             dataSeries.push(parseFloat(item.aggregate));
+
+            if (fieldName === fieldNames.federalAccounts) {
+                linkSeries.push(item[idField]);
+            }
         });
 
         this.setState({
             labelSeries,
             dataSeries,
+            linkSeries,
             loading: false,
             total: data.page_metadata.num_pages
         });
