@@ -55,6 +55,11 @@ export class AccountTopFilterBarContainer extends React.Component {
             filters.push(timeFilters);
         }
 
+        const objectClass = this.prepareObjectClass(props);
+        if (objectClass) {
+            filters.push(objectClass);
+        }
+
         this.setState({
             filters
         });
@@ -93,6 +98,25 @@ export class AccountTopFilterBarContainer extends React.Component {
 
                 filter.values = [`${startString} to ${endString}`];
             }
+        }
+
+        if (selected) {
+            return filter;
+        }
+        return null;
+    }
+
+    prepareObjectClass(props) {
+        let selected = false;
+
+        const filter = {
+            code: 'objectClass',
+            name: 'Object Class',
+            values: props.objectClass.toArray()
+        };
+
+        if (props.objectClass.count() > 0) {
+            selected = true;
         }
 
         if (selected) {

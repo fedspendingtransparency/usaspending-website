@@ -1,0 +1,5 @@
+@import "pages/search/filters/budgetCategory/budgetCategory";
+.account-object-class-filter {
+    @extend .budget-category-filter;
+    margin: 0 2.0rem 3rem;
+}

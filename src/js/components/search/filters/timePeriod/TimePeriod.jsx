@@ -11,7 +11,8 @@ import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
 
 const defaultProps = {
-    activeTab: 'fy'
+    activeTab: 'fy',
+    disableDateRange: false
 };
 
 const propTypes = {
@@ -23,7 +24,8 @@ const propTypes = {
     timePeriods: React.PropTypes.array,
     activeTab: React.PropTypes.string,
     updateFilter: React.PropTypes.func,
-    changeTab: React.PropTypes.func
+    changeTab: React.PropTypes.func,
+    disableDateRange: React.PropTypes.bool
 };
 
 const ga = require('react-ga');
@@ -238,6 +240,10 @@ export default class TimePeriod extends React.Component {
             activeClassDR = '';
         }
 
+        if (this.props.disableDateRange) {
+            activeClassDR = 'hidden';
+        }
+
         return (
             <div className="time-period-filter search-filter">
                 <ul className="toggle-buttons">
@@ -251,7 +257,10 @@ export default class TimePeriod extends React.Component {
                         <button
                             className={`date-toggle ${activeClassDR}`}
                             value="dr"
-                            onClick={this.toggleFilters}>Date Range</button>
+                            onClick={this.toggleFilters}
+                            disabled={this.props.disableDateRange}>
+                            Date Range
+                        </button>
                     </li>
                 </ul>
                 { showFilter }
