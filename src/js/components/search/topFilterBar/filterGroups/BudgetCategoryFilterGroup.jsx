@@ -11,7 +11,7 @@ import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
     filter: React.PropTypes.object,
-    removeFilter: React.PropTypes.func
+    redux: React.PropTypes.object
 };
 
 export default class BudgetCategoryFilterGroup extends React.Component {
@@ -19,11 +19,21 @@ export default class BudgetCategoryFilterGroup extends React.Component {
         super(props);
 
         this.removeFilter = this.removeFilter.bind(this);
+        this.clearGroup = this.clearGroup.bind(this);
     }
 
     removeFilter(value) {
         // remove a single filter item
-        this.props.removeFilter(this.props.filter.code, value);
+        const type = this.props.filter.code;
+        const newValue = this.props.redux.reduxFilters[type].delete(value);
+        this.props.redux.updateGenericFilter({
+            type,
+            value: newValue
+        });
+    }
+
+    clearGroup() {
+        this.props.redux.clearFilterType(this.props.filter.code);
     }
 
     formatTag(code, val) {
@@ -84,7 +94,10 @@ export default class BudgetCategoryFilterGroup extends React.Component {
     render() {
         const tags = this.generateTags();
 
-        return <BaseTopFilterGroup {...this.props} tags={tags} />;
+        return (<BaseTopFilterGroup
+            tags={tags}
+            filter={this.props.filter}
+            clearFilterGroup={this.clearGroup} />);
     }
 }
 
