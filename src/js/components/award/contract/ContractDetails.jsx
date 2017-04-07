@@ -37,7 +37,7 @@ export default class ContractDetails extends React.Component {
 
     setValues(award) {
         let yearRangeTotal = "";
-        let description = null;
+        let description = "Not Available";
 
         // Date Range
         const startDate = moment(award.period_of_performance_start_date, 'M/D/YYYY');
@@ -92,9 +92,6 @@ export default class ContractDetails extends React.Component {
         }
         if (award.description) {
             description = award.description;
-        }
-        else {
-            description = "Not Available";
         }
 
         // Pricing

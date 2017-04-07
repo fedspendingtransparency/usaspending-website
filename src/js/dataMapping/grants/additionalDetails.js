@@ -6,13 +6,11 @@
 export const budgetFields = [
     {
         label: 'Budget Function',
-        field: '__special',
-        parse: () => null
+        field: 'budgetFunction'
     },
     {
         label: 'Budget Sub-Function',
-        field: '__special',
-        parse: () => null
+        field: 'budgetSubFunction'
     },
     {
         label: 'Appropriation Account',
@@ -21,12 +19,10 @@ export const budgetFields = [
     },
     {
         label: 'Program Activity',
-        field: '__special',
-        parse: () => null
+        field: 'programActivity'
     },
     {
         label: 'Object Class',
-        field: '__special',
-        parse: () => null
+        field: 'objectClass'
     }
 ];

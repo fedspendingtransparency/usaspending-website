@@ -22,7 +22,7 @@ export const agencyFields = [
     },
     {
         label: 'Funding Sub-Tier Agency',
-        field: 'fudning_subtier_name'
+        field: 'funding_subtier_name'
     },
     {
         label: 'Funding Office',
@@ -43,12 +43,12 @@ export const parentFields = [
     {
         label: 'IDC Type',
         field: '__special',
-        parse: () => null
+        parse: (data) => data.latest_transaction.contract_data.type_of_idc
     },
     {
         label: 'IDV Agency Identifier',
         field: '__special',
-        parse: () => null
+        parse: (data) => data.latest_transaction.contract_data.referenced_idv_agency_identifier
     },
     {
         label: 'Mutliple or Single Award IDV',

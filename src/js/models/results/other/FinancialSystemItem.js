@@ -16,19 +16,24 @@ const fields = [
     'tas',
     'objectClass',
     'programActivity',
-    'fundingObligated'
+    'fundingObligated',
+    'budgetFunction',
+    'budgetSubFunction',
+    'appropriationAccount'
 ];
 
 const remapData = (data) => {
     // remap expected child fields to top-level fields
     const remappedData = data;
-    console.log(data);
 
     remappedData.submissionDate = 'Not Available';
     remappedData.tas = 'Not Available';
     remappedData.objectClass = 'Not Available';
     remappedData.programActivity = 'Not Available';
     remappedData.fundingObligated = 'Not Available';
+    remappedData.budgetFunction = 'Not Available';
+    remappedData.budgetSubFunction = 'Not Available';
+    remappedData.appropriationAccount = 'Not Available';
 
     remappedData.id = data.financial_accounts_by_awards_id;
 
@@ -36,8 +41,33 @@ const remapData = (data) => {
         remappedData.submissionDate = moment(data.certified_date, 'YYYY-MM-DD').format('M/D/YYYY');
     }
 
-    if (data.treasury_account.tas_rendering_label) {
-        remappedData.tas = data.treasury_account.tas_rendering_label;
+    if (data.treasury_account) {
+        const tAccount = data.treasury_account;
+        if (tAccount.tas_rendering_label) {
+            remappedData.tas = tAccount.tas_rendering_label;
+        }
+
+        if (tAccount.budget_function_title && tAccount.budget_function_code) {
+            remappedData.budgetFunction = `${tAccount.budget_function_title}
+            (${tAccount.budget_function_code})`;
+        }
+        else if (tAccount.budget_function_code) {
+            remappedData.budgetFunction = tAccount.budget_function_code;
+        }
+        else if (tAccount.budget_function_title) {
+            remappedData.budgetFunction = tAccount.budget_function_title;
+        }
+
+        if (tAccount.budget_subfunction_title && tAccount.budget_subfunction_code) {
+            remappedData.budgetSubFunction = `${tAccount.budget_subfunction_title}
+            (${tAccount.budget_subfunction_code})`;
+        }
+        else if (tAccount.budget_subfunction_code) {
+            remappedData.budgetSubFunction = tAccount.budget_subfunction_code;
+        }
+        else if (tAccount.budget_subunction_title) {
+            remappedData.budgetSubFunction = tAccount.budget_subfunction_title;
+        }
     }
 
     if (data.object_class) {
