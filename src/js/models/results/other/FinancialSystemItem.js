@@ -22,12 +22,13 @@ const fields = [
 const remapData = (data) => {
     // remap expected child fields to top-level fields
     const remappedData = data;
+    console.log(data);
 
-    remappedData.submissionDate = '';
-    remappedData.tas = '';
-    remappedData.objectClass = '';
-    remappedData.programActivity = '';
-    remappedData.fundingObligated = '';
+    remappedData.submissionDate = 'Not Available';
+    remappedData.tas = 'Not Available';
+    remappedData.objectClass = 'Not Available';
+    remappedData.programActivity = 'Not Available';
+    remappedData.fundingObligated = 'Not Available';
 
     remappedData.id = data.financial_accounts_by_awards_id;
 
@@ -40,23 +41,35 @@ const remapData = (data) => {
     }
 
     if (data.object_class) {
-        remappedData.objectClass = data.object_class;
+        const oClass = data.object_class;
+        if (oClass.object_class_name && oClass.object_class) {
+            remappedData.objectClass = `${oClass.object_class_name} (${oClass.object_class})`;
+        }
+        else if (oClass.object_class) {
+            remappedData.objectClass = oClass.object_class;
+        }
+        else if (oClass.object_class_name) {
+            remappedData.objectClass = oClass.object_class_name;
+        }
     }
 
-    if (data.program_activity_code && data.program_activity_name) {
-        remappedData.programActivity =
-            `${data.program_activity_name} (${data.program_activity_code})`;
-    }
-    else if (data.program_activity_code) {
-        remappedData.programActivity = data.program_activity_code;
-    }
-    else if (data.program_activity_name) {
-        remappedData.programActivity = data.program_activity_name;
+    if (data.program_activity) {
+        const pActivity = data.program_activity;
+        if (pActivity.program_activity_code && pActivity.program_activity_name) {
+            remappedData.programActivity =
+                `${pActivity.program_activity_name} (${pActivity.program_activity_code})`;
+        }
+        else if (pActivity.program_activity_code) {
+            remappedData.programActivity = pActivity.program_activity_code;
+        }
+        else if (pActivity.program_activity_name) {
+            remappedData.programActivity = pActivity.program_activity_name;
+        }
     }
 
 
-    if (data.obligations_incurred_total_by_award_cpe) {
-        const amount = data.transaction_obligations[0].obligations_incurred_total_by_award_cpe;
+    if (data.transaction_obligated_amount) {
+        const amount = data.transaction_obligated_amount;
         remappedData.fundingObligated = MoneyFormatter.formatMoney(amount);
     }
 
