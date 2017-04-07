@@ -5,24 +5,19 @@
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import { Set } from 'immutable';
+import { Set, OrderedSet } from 'immutable';
 import sinon from 'sinon';
 
 import { AccountTopFilterBarContainer } from
     'containers/account/topFilterBar/AccountTopFilterBarContainer';
+
+import { defaultFilters } from '../defaultFilters';
 
 const prepareFiltersSpy = sinon.spy(AccountTopFilterBarContainer.prototype, 'prepareFilters');
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/search/topFilterBar/TopFilterBar', () =>
     jest.fn(() => null));
-
-const defaultFilters = {
-    dateType: 'fy',
-    fy: new Set(),
-    startDate: null,
-    endDate: null
-};
 
 describe('AccountTopFilterBarContainer', () => {
     it('should parse the Redux filters on mount', () => {
@@ -75,7 +70,7 @@ describe('AccountTopFilterBarContainer', () => {
     });
 
     describe('prepareTimeFilter', () => {
-        it('should updat the container state with the selected fiscal years', () => {
+        it('should update the container state with the selected fiscal years', () => {
             const filters = Object.assign({}, defaultFilters, {
                 dateType: 'fy',
                 fy: new Set(['2017', '2016'])
@@ -111,6 +106,30 @@ describe('AccountTopFilterBarContainer', () => {
         it('should not return anything when no date filters are supplied', () => {
             const container = shallow(<AccountTopFilterBarContainer />);
             const parsed = container.instance().prepareTimeFilter(defaultFilters);
+
+            expect(parsed).toBeNull();
+        });
+    });
+
+    describe('parseObjectClass', () => {
+        it('should update the container state with the selected object classes', () => {
+            const filters = Object.assign({}, defaultFilters, {
+                objectClass: new OrderedSet(['10', '20'])
+            });
+
+            const container = shallow(<AccountTopFilterBarContainer />);
+            const parsed = container.instance().prepareObjectClass(filters);
+
+            expect(parsed).toEqual({
+                code: 'objectClass',
+                name: 'Object Class',
+                values: ['10', '20']
+            });
+        });
+
+        it('should not return anything when no date filters are supplied', () => {
+            const container = shallow(<AccountTopFilterBarContainer />);
+            const parsed = container.instance().prepareObjectClass(defaultFilters);
 
             expect(parsed).toBeNull();
         });
