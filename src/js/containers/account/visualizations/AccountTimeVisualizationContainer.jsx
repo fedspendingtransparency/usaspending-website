@@ -98,7 +98,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                         group: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
                         field: balanceFields[balanceType],
                         aggregate: 'sum',
-                        order: ['submission__reporting_period_start']
+                        order: ['submission__reporting_fiscal_year']
                     });
 
                     request.type = balanceType;
@@ -118,7 +118,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                         group: 'submission__reporting_fiscal_year',
                         field: balanceFields[balanceType],
                         aggregate: 'sum',
-                        order: ['submission__reporting_period_start']
+                        order: ['submission__reporting_fiscal_year']
                     });
 
                     request.type = balanceType;
@@ -155,41 +155,71 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         const xSeries = [];
         const ySeries = [];
         const allY = [];
-
-        data.forEach((item) => {
-            item.data.results.forEach((group) => {
-                console.log(group);
-                groups.push(group.item);
-                xSeries.push([group.item]);
-                ySeries.push([parseFloat(group.aggregate)]);
-            });
-        });
-
-
         if (this.state.hasFilteredObligated) {
-            
+
         }
         else {
             // does not have filtered obligated
-            if (this.state.visualizationPeriod === 'quarter') {
 
+            if (this.state.visualizationPeriod === 'quarter') {
+                const quarters = [];
+                const yData = [];
+                data.forEach((balance, index) => {
+                    balance.data.results.forEach((group, index2) => {
+                        if (index == 0) {
+                            console.log(JSON.stringify(group));
+                            quarters.push(group.item + " Q" + group.submission__reporting_fiscal_quarter);
+                            yData.push({});
+                            yData[index2].outlay = parseFloat(group.aggregate);
+                        }
+                        // is there a more efficient way to do this?
+                        if (index == 1) {
+                            yData[index2].budgetAuthority = parseFloat(group.aggregate);
+                        }
+                        if (index == 2) {
+                            yData[index2].obligated = parseFloat(group.aggregate);
+                        }
+                        if (index == 2) {
+                            yData[index2].unobligated = parseFloat(group.aggregate);
+                        }
+                        allY.push(parseFloat(group.aggregate));
+                    });
+                });
+                quarters.forEach((quarter, index) => {
+                    groups.push(`${quarter}`);
+                    xSeries.push([`${quarter}`]);
+                    ySeries.push([yData[index]]);
+                });
             }
             else {
                 // Visualization period is years
-                //years.forEach((year, index) => {
-                //    groups.push(`${year}`);
-                //    xSeries.push(quarters[index]);
-                //
-                //    ySeries.push(mockY[index]);
-                //
-                //    mockY[index].forEach((balances) => {
-                //        // adjust the yMin and yMax to be the min and max value of any balance
-                //        Object.keys(balances).forEach((key) => {
-                //            const balance = balances[key];
-                //            allY.push(balance);
-                //        });
-                //    });
-                //});
+                const years = [];
+                const yData = [];
+                data.forEach((balance, index) => {
+                    balance.data.results.forEach((group, index2) => {
+                        if (index == 0) {
+                            years.push(group.item);
+                            yData.push({});
+                            yData[index2].outlay = parseFloat(group.aggregate);
+                        }
+                        if (index == 1) {
+                            yData[index2].budgetAuthority = parseFloat(group.aggregate);
+                        }
+                        if (index == 2) {
+                            yData[index2].obligated = parseFloat(group.aggregate);
+                        }
+                        if (index == 2) {
+                            yData[index2].unobligated = parseFloat(group.aggregate);
+                        }
+                        allY.push(parseFloat(group.aggregate));
+                    });
+                });
+
+                years.forEach((year, index) => {
+                    groups.push(`${year}`);
+                    xSeries.push([`${year}`]);
+                    ySeries.push([yData[index]]);
+                });
             }
         }
 
