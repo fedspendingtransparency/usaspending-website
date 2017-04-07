@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import _ from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
@@ -17,17 +18,31 @@ const propTypes = {
     previousPage: React.PropTypes.func,
     total: React.PropTypes.number,
     page: React.PropTypes.number,
-    loading: React.PropTypes.bool,
-    visualizationWidth: React.PropTypes.number,
-    labelWidth: React.PropTypes.number
+    loading: React.PropTypes.bool
 };
 
 export default class SpendingByCategoryRankVisualizationSection extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            windowWidth: 0,
+            visualizationWidth: 0,
+            labelWidth: 0
+        };
+
+        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.clickPrevious = this.clickPrevious.bind(this);
         this.clickNext = this.clickNext.bind(this);
+    }
+
+    componentDidMount() {
+        this.handleWindowResize();
+        window.addEventListener('resize', this.handleWindowResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize);
     }
 
     clickPrevious() {
@@ -36,6 +51,19 @@ export default class SpendingByCategoryRankVisualizationSection extends React.Co
 
     clickNext() {
         this.props.nextPage();
+    }
+
+    handleWindowResize() {
+        // determine if the width changed
+        const windowWidth = window.innerWidth;
+        if (this.state.windowWidth !== windowWidth) {
+            // width changed, update the visualization width
+            this.setState({
+                windowWidth,
+                visualizationWidth: this.sectionHr.offsetWidth,
+                labelWidth: _.min([this.sectionHr.offsetWidth / 3, 270])
+            });
+        }
     }
 
     render() {
@@ -57,6 +85,11 @@ export default class SpendingByCategoryRankVisualizationSection extends React.Co
 
         return (
             <div>
+                <hr
+                    className="results-divider"
+                    ref={(hr) => {
+                        this.sectionHr = hr;
+                    }} />
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
@@ -96,7 +129,8 @@ export default class SpendingByCategoryRankVisualizationSection extends React.Co
 
                 <RankVisualization
                     {...this.props}
-                    width={this.props.visualizationWidth}
+                    {...this.state}
+                    width={this.state.visualizationWidth}
                     urlRoot="#/federal_account/" />
 
                 <div className={`visualization-pager-container ${hidePager}`}>

@@ -28,21 +28,15 @@ export class RankVisualizationWrapperContainer extends React.Component {
         super(props);
 
         this.state = {
-            windowWidth: 0,
-            visualizationWidth: 0,
-            labelWidth: 0,
             spendingBy: 'budget_category',
             budgetFiltersSelected: false,
             awardFiltersSelected: false
         };
 
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.changeSpendingBy = this.changeSpendingBy.bind(this);
     }
 
     componentDidMount() {
-        this.handleWindowResize();
-        window.addEventListener('resize', this.handleWindowResize);
         this.setFilterStates();
     }
 
@@ -50,10 +44,6 @@ export class RankVisualizationWrapperContainer extends React.Component {
         if (!_.isEqual(this.props.reduxFilters, prevProps.reduxFilters)) {
             this.setFilterStates();
         }
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize);
     }
 
     setFilterStates() {
@@ -78,19 +68,6 @@ export class RankVisualizationWrapperContainer extends React.Component {
         this.setState({ spendingBy });
     }
 
-    handleWindowResize() {
-        // determine if the width changed
-        const windowWidth = window.innerWidth;
-        if (this.state.windowWidth !== windowWidth) {
-            // width changed, update the visualization width
-            this.setState({
-                windowWidth,
-                visualizationWidth: this.sectionHr.offsetWidth,
-                labelWidth: _.min([this.sectionHr.offsetWidth / 3, 270])
-            });
-        }
-    }
-
     render() {
         const visualization = this.generateVisualization();
 
@@ -100,11 +77,6 @@ export class RankVisualizationWrapperContainer extends React.Component {
                 id="results-section-rank">
                 <RankVisualizationTitle
                     changeSpendingBy={this.changeSpendingBy} />
-                <hr
-                    className="results-divider"
-                    ref={(hr) => {
-                        this.sectionHr = hr;
-                    }} />
                 { visualization }
             </div>
         );

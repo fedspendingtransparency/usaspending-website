@@ -23,8 +23,6 @@ import SearchTransactionFileCOperation from 'models/search/SearchTransactionFile
 const propTypes = {
     reduxFilters: React.PropTypes.object,
     meta: React.PropTypes.object,
-    visualizationWidth: React.PropTypes.number,
-    labelWidth: React.PropTypes.number,
     budgetFiltersSelected: React.PropTypes.bool
 };
 
@@ -171,8 +169,6 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
         return (
             <RankVisualizationSection
                 {...this.state}
-                visualizationWidth={this.props.visualizationWidth}
-                labelWidth={this.props.labelWidth}
                 meta={this.props.meta}
                 changeScope={this.changeScope}
                 nextPage={this.nextPage}

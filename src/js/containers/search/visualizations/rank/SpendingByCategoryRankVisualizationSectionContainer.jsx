@@ -15,6 +15,7 @@ import SpendingByCategoryRankVisualizationSection from
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
 import SearchTransactionFileCOperation from 'models/search/SearchTransactionFileCOperation';
@@ -23,8 +24,6 @@ import SearchAccountOperation from 'models/search/SearchAccountOperation';
 const propTypes = {
     reduxFilters: React.PropTypes.object,
     meta: React.PropTypes.object,
-    visualizationWidth: React.PropTypes.number,
-    labelWidth: React.PropTypes.number,
     budgetFiltersSelected: React.PropTypes.bool,
     awardFiltersSelected: React.PropTypes.bool
 };
@@ -43,10 +42,14 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
             loading: true,
             labelSeries: [],
             dataSeries: [],
+            descriptions: [],
             linkSeries: [],
             page: 1,
-            total: 0,
-            scope: 'budgetFunctions'
+            scope: 'budgetFunctions',
+            next: '',
+            previous: '',
+            hasNextPage: false,
+            hasPreviousPage: false
         };
 
         this.changeScope = this.changeScope.bind(this);
@@ -192,6 +195,7 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
     parseData(data, group, fieldName) {
         const labelSeries = [];
         const dataSeries = [];
+        const descriptions = [];
         const linkSeries = [];
 
         const idField = group[0];
@@ -202,6 +206,10 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
             labelSeries.push(item[dataField]);
             dataSeries.push(parseFloat(item.aggregate));
 
+            const description = `Spending by ${item[dataField]}: \
+${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
+            descriptions.push(description);
+
             if (fieldName === fieldNames.federalAccounts) {
                 linkSeries.push(item[idField]);
             }
@@ -210,9 +218,13 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
         this.setState({
             labelSeries,
             dataSeries,
+            descriptions,
             linkSeries,
             loading: false,
-            total: data.page_metadata.num_pages
+            next: data.page_metadata.next,
+            previous: data.page_metadata.previous,
+            hasNextPage: data.page_metadata.has_next_page,
+            hasPreviousPage: data.page_metadata.has_previous_page
         });
     }
 
@@ -220,8 +232,6 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
         return (
             <SpendingByCategoryRankVisualizationSection
                 {...this.state}
-                visualizationWidth={this.props.visualizationWidth}
-                labelWidth={this.props.labelWidth}
                 meta={this.props.meta}
                 changeScope={this.changeScope}
                 nextPage={this.nextPage}

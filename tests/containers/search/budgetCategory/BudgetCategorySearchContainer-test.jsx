@@ -3,11 +3,6 @@
  * Created by michaelbray on 3/24/17.
  */
 
-/**
- * BudgetCategorySearchContainer-test.jsx
- * Created by michaelbray on 3/7/17.
- */
-
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
