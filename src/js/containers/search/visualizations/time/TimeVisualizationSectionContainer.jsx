@@ -72,9 +72,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
             group: 'action_date__fy',
             order: ['aggregate'],
             aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
+            filters: searchParams
         };
 
         return apiParams;
@@ -92,9 +90,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
             group: 'submission__reporting_fiscal_year',
             order: ['aggregate'],
             aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
+            filters: searchParams
         };
 
         return apiParams;
