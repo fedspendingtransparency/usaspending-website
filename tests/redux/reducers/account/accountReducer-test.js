@@ -3,7 +3,7 @@
  * Created by Kevin Li 3/27/17
  */
 
-import { Set } from 'immutable';
+import { Set, OrderedSet } from 'immutable';
 
 import accountReducer from 'redux/reducers/account/accountReducer';
 
@@ -13,7 +13,7 @@ const initialState = {
         fy: new Set(),
         startDate: null,
         endDate: null,
-        objectClass: [],
+        objectClass: new OrderedSet(),
         programActivity: [],
         tas: []
     },
@@ -163,6 +163,42 @@ describe('accountReducer', () => {
 
             state = accountReducer(state, secondAction);
             expect(state.filters).toEqual(secondState);
+        });
+    });
+
+    describe('TOGGLE_ACCOUNT_OBJECT_CLASS', () => {
+        it('should add the provided object class code if it is not already selected', () => {
+            let state = accountReducer(undefined, {});
+
+            const action = {
+                type: 'TOGGLE_ACCOUNT_OBJECT_CLASS',
+                item: '10'
+            };
+
+            state = accountReducer(state, action);
+
+            const expected = new OrderedSet(['10']);
+            expect(state.filters.objectClass).toEqual(expected);
+        });
+        it('should remove the provided object class code if it is already selected', () => {
+            const startingFilters = Object.assign({}, initialState.filters, {
+                objectClass: new OrderedSet(['10', '20'])
+            });
+            const startingState = Object.assign({}, initialState, {
+                filters: startingFilters
+            });
+
+            let state = accountReducer(startingState, {});
+
+            const action = {
+                type: 'TOGGLE_ACCOUNT_OBJECT_CLASS',
+                item: '10'
+            };
+
+            state = accountReducer(state, action);
+
+            const expected = new OrderedSet(['20']);
+            expect(state.filters.objectClass).toEqual(expected);
         });
     });
 
