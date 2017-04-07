@@ -167,7 +167,6 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 data.forEach((balance, index) => {
                     balance.data.results.forEach((group, index2) => {
                         if (index == 0) {
-                            console.log(JSON.stringify(group));
                             quarters.push(group.item + " Q" + group.submission__reporting_fiscal_quarter);
                             yData.push({});
                             yData[index2].outlay = parseFloat(group.aggregate);
@@ -179,7 +178,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                         if (index == 2) {
                             yData[index2].obligated = parseFloat(group.aggregate);
                         }
-                        if (index == 2) {
+                        if (index == 3) {
                             yData[index2].unobligated = parseFloat(group.aggregate);
                         }
                         allY.push(parseFloat(group.aggregate));
@@ -208,7 +207,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                         if (index == 2) {
                             yData[index2].obligated = parseFloat(group.aggregate);
                         }
-                        if (index == 2) {
+                        if (index == 3) {
                             yData[index2].unobligated = parseFloat(group.aggregate);
                         }
                         allY.push(parseFloat(group.aggregate));
