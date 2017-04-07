@@ -8,6 +8,7 @@ import Q from 'q';
 
 import * as HomepageHelper from 'helpers/homepageHelper';
 
+import MapVisualizationContainer from 'containers/homepage/MapVisualizationContainer';
 import Landing from './Landing';
 import TreeMap from './visualizations/TreeMap';
 import TreeMapIntro from './TreeMapIntro';
@@ -21,7 +22,9 @@ export default class Homepage extends React.Component {
         super(props);
 
         this.state = {
-            categories: {},
+            categories: {
+                children: []
+            },
             breakdown: [],
             colors: [],
             total: ''
@@ -67,6 +70,7 @@ export default class Homepage extends React.Component {
                     total={this.state.total}
                     categories={this.state.categories}
                     colors={this.state.colors} />
+                <MapVisualizationContainer />
                 <SearchSection />
                 <LinksSection />
                 <Footer />

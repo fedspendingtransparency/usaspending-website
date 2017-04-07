@@ -18,9 +18,9 @@ const propTypes = {
     changeScope: React.PropTypes.func,
     nextPage: React.PropTypes.func,
     previousPage: React.PropTypes.func,
-    total: React.PropTypes.number,
-    page: React.PropTypes.number,
-    loading: React.PropTypes.bool
+    loading: React.PropTypes.bool,
+    hasNextPage: React.PropTypes.bool,
+    hasPreviousPage: React.PropTypes.bool
 };
 
 export default class RankVisualizationSection extends React.Component {
@@ -69,19 +69,13 @@ export default class RankVisualizationSection extends React.Component {
     }
 
     render() {
-        let disableNext = false;
-        let disablePrev = false;
         let hidePager = '';
 
-        if (this.props.total < this.props.page + 1) {
-            disableNext = true;
-        }
+        const disableNext = !this.props.hasNextPage;
 
-        if (this.props.page <= 1) {
-            disablePrev = true;
-        }
+        const disablePrev = !this.props.hasPreviousPage;
 
-        if (this.props.total < 1 || this.props.loading) {
+        if ((disableNext && disablePrev) || this.props.loading) {
             hidePager = 'hide';
         }
 
@@ -126,7 +120,8 @@ export default class RankVisualizationSection extends React.Component {
                                         value="office"
                                         label="Offices"
                                         active={this.props.agencyScope === 'office'}
-                                        changeScope={this.props.changeScope} />
+                                        changeScope={this.props.changeScope}
+                                        disabled />
                                     <ComingSoonLabel />
                                 </li>
                             </ul>

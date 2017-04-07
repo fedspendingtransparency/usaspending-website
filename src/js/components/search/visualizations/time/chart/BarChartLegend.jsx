@@ -5,22 +5,24 @@
 
 import React from 'react';
 
+import BarChartLegendItem from './BarChartLegendItem';
+
+const propTypes = {
+    legend: React.PropTypes.arrayOf(React.PropTypes.object)
+};
+
 export default class BarChartLegend extends React.Component {
     render() {
+        const items = this.props.legend.map((item) => (<BarChartLegendItem
+            {...item}
+            key={item.label} />));
+
         return (
             <g className="chart-legend">
-                <circle
-                    className="key-color"
-                    cx="6"
-                    cy="6"
-                    r="6" />
-                <text
-                    className="key-label"
-                    x="20"
-                    y="10">
-                    Amount Obligated
-                </text>
+                {items}
             </g>
         );
     }
 }
+
+BarChartLegend.propTypes = propTypes;
