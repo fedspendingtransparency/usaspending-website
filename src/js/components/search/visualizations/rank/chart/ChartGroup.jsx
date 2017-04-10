@@ -11,7 +11,8 @@ const propTypes = {
     labelWidth: React.PropTypes.number,
     width: React.PropTypes.number,
     height: React.PropTypes.number,
-    index: React.PropTypes.number
+    index: React.PropTypes.number,
+    clickedGroup: React.PropTypes.func
 };
 
 export default class ChartGroup extends React.Component {
@@ -22,6 +23,8 @@ export default class ChartGroup extends React.Component {
             label: '',
             didProcess: false
         };
+
+        this.clickedLabel = this.clickedLabel.bind(this);
     }
 
     componentDidMount() {
@@ -84,6 +87,12 @@ export default class ChartGroup extends React.Component {
         });
     }
 
+    clickedLabel() {
+        if (this.props.clickedGroup) {
+            this.props.clickedGroup(this.props.index);
+        }
+    }
+
     render() {
         let backgroundClass = 'odd';
         if (this.props.index % 2 === 0) {
@@ -107,6 +116,7 @@ export default class ChartGroup extends React.Component {
                 <g transform="translate(12,34)">
                     <text
                         className="group-label"
+                        onClick={this.clickedLabel}
                         ref={(text) => {
                             this.svgText = text;
                         }}>

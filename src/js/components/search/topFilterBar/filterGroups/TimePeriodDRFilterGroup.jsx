@@ -9,19 +9,31 @@ import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
     filter: React.PropTypes.object,
-    removeFilter: React.PropTypes.func
+    redux: React.PropTypes.object
 };
 
 export default class TimePeriodDRFilterGroup extends React.Component {
     constructor(props) {
         super(props);
 
-        this.removeFilter = this.removeFilter.bind(this);
+        this.removeTimePeriod = this.removeTimePeriod.bind(this);
+        this.clearGroup = this.clearGroup.bind(this);
     }
 
-    removeFilter() {
-        // remove a single filter item
-        this.props.removeFilter(this.props.filter.code, null);
+    removeTimePeriod() {
+        // prepopulate the Redux action argument with the current filter values
+        const timePeriodFilter = {
+            dateType: this.props.redux.reduxFilters.timePeriodType,
+            fy: this.props.redux.reduxFilters.timePeriodFY,
+            start: null,
+            end: null
+        };
+        // reuse the Redux action from the time period filter component
+        this.props.redux.updateTimePeriod(timePeriodFilter);
+    }
+
+    clearGroup() {
+        this.props.redux.resetTimeFilters();
     }
 
     generateTags() {
@@ -31,7 +43,7 @@ export default class TimePeriodDRFilterGroup extends React.Component {
             value: 'dr',
             title: this.props.filter.values[0],
             isSpecial: true,
-            removeFilter: this.removeFilter
+            removeFilter: this.removeTimePeriod
         };
 
         tags.push(tag);
@@ -42,7 +54,10 @@ export default class TimePeriodDRFilterGroup extends React.Component {
     render() {
         const tags = this.generateTags();
 
-        return <BaseTopFilterGroup {...this.props} tags={tags} />;
+        return (<BaseTopFilterGroup
+            tags={tags}
+            filter={this.props.filter}
+            clearFilterGroup={this.clearGroup} />);
     }
 }
 

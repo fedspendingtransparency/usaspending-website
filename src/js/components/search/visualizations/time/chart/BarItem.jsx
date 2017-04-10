@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const defaultProps = {
     active: false
@@ -19,6 +18,8 @@ const propTypes = {
     width: React.PropTypes.number,
     x: React.PropTypes.number,
     y: React.PropTypes.number,
+    color: React.PropTypes.string,
+    description: React.PropTypes.string,
     selectBar: React.PropTypes.func,
     deselectBar: React.PropTypes.func,
     deregisterBar: React.PropTypes.func
@@ -61,8 +62,6 @@ export default class BarItem extends React.Component {
     }
 
     render() {
-        const formattedValue = MoneyFormatter.formatMoney(this.props.dataY);
-
         // generate an invisible hitbox that spans the full height of the graph and matches the
         // width of the data point bar to trigger hover events anywhere along the Y axis for the
         // data point
@@ -71,14 +70,15 @@ export default class BarItem extends React.Component {
             hoverClass = ' hover';
         }
         return (
-            <g aria-label={formattedValue}>
-                <desc>Spending in {this.props.dataX}: {formattedValue}</desc>
+            <g aria-label={this.props.description}>
+                <desc>{this.props.description}</desc>
                 <rect
                     className={`bar-item${hoverClass}`}
                     x={this.props.x}
                     y={this.props.y}
                     width={this.props.width}
-                    height={this.props.height} />
+                    height={this.props.height}
+                    fill={this.props.color} />
                 <rect
                     className="hover-hitbox"
                     x={this.props.x}

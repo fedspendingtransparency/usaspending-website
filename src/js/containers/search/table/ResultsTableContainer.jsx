@@ -103,9 +103,9 @@ class ResultsTableContainer extends React.Component {
             return;
         }
         // check if more pages are available
-        if (this.props.meta.page.page_number < this.props.meta.page.num_pages) {
+        if (this.props.meta.page.has_next_page) {
             // more pages are available, load them
-            this.props.setSearchPageNumber(this.props.meta.page.page_number + 1);
+            this.props.setSearchPageNumber(this.props.meta.page.page + 1);
         }
     }
 

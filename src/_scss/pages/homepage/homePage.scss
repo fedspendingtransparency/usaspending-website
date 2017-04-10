@@ -4,10 +4,11 @@
 
     @import "./landingSection";
     @import "./treeMapIntro";
-    
+
     @import "./treemapSection";
 
     @import "./byCategorySection";
+    @import "../search/results/visualizations/visualizations";
 
     @import "../../pages/homepage/_searchSection";
     @include searchSection;
