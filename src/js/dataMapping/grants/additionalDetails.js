@@ -14,8 +14,7 @@ export const budgetFields = [
     },
     {
         label: 'Appropriation Account',
-        field: '__special',
-        parse: () => null
+        field: 'tas'
     },
     {
         label: 'Program Activity',

@@ -18,8 +18,7 @@ const fields = [
     'programActivity',
     'fundingObligated',
     'budgetFunction',
-    'budgetSubFunction',
-    'appropriationAccount'
+    'budgetSubFunction'
 ];
 
 const remapData = (data) => {
@@ -33,7 +32,6 @@ const remapData = (data) => {
     remappedData.fundingObligated = 'Not Available';
     remappedData.budgetFunction = 'Not Available';
     remappedData.budgetSubFunction = 'Not Available';
-    remappedData.appropriationAccount = 'Not Available';
 
     remappedData.id = data.financial_accounts_by_awards_id;
 

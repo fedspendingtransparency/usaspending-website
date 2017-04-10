@@ -33,7 +33,7 @@ export const agencyFields = [
 export const parentFields = [
     {
         label: 'Parent Award ID',
-        field: 'parent_award'
+        field: 'parent_award_id'
     },
     {
         label: 'IDV Type',
@@ -78,7 +78,7 @@ export const competitionFields = [
     {
         label: 'Not Competed Reason',
         field: '__special',
-        parse: () => null
+        parse: (data) => data.other_than_full_and_open_competition
     },
     {
         label: 'Set-Aside Type',
@@ -174,7 +174,7 @@ export const additionalFields = [
     {
         label: 'Domestic or Foreign Entity',
         field: '__special',
-        parse: () => null
+        parse: (data) => data.domestic_or_foreign_entity
     },
     {
         label: 'Fair Opportunity Limited Sources',
