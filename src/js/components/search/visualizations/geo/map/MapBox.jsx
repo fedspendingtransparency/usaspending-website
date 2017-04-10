@@ -56,7 +56,7 @@ export default class MapBox extends React.Component {
         MapboxGL.accessToken = kGlobalConstants.MAPBOX_TOKEN;
         this.map = new MapboxGL.Map({
             container: this.mapDiv,
-            style: 'mapbox://styles/mapbox/streets-v9',
+            style: 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm',
             center: [-98.5795122, 39.8282172],
             zoom: 3,
             dragRotate: false // disable 3D view
