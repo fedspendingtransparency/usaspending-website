@@ -25,13 +25,13 @@ const remapData = (data) => {
     // remap expected child fields to top-level fields
     const remappedData = data;
 
-    remappedData.submissionDate = 'Not Available';
-    remappedData.tas = 'Not Available';
-    remappedData.objectClass = 'Not Available';
-    remappedData.programActivity = 'Not Available';
-    remappedData.fundingObligated = 'Not Available';
-    remappedData.budgetFunction = 'Not Available';
-    remappedData.budgetSubFunction = 'Not Available';
+    remappedData.submissionDate = '';
+    remappedData.tas = '';
+    remappedData.objectClass = '';
+    remappedData.programActivity = '';
+    remappedData.fundingObligated = '';
+    remappedData.budgetFunction = '';
+    remappedData.budgetSubFunction = '';
 
     remappedData.id = data.financial_accounts_by_awards_id;
 

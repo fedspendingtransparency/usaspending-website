@@ -37,23 +37,19 @@ export const parentFields = [
     },
     {
         label: 'IDV Type',
-        field: '__special',
-        parse: (data) => data.latest_transaction.contract_data.idv_type
+        field: 'idv_type'
     },
     {
         label: 'IDC Type',
-        field: '__special',
-        parse: (data) => data.latest_transaction.contract_data.type_of_idc
+        field: 'type_of_idc'
     },
     {
         label: 'IDV Agency Identifier',
-        field: '__special',
-        parse: (data) => data.latest_transaction.contract_data.referenced_idv_agency_identifier
+        field: 'referenced_idv_agency_identifier'
     },
     {
         label: 'Mutliple or Single Award IDV',
-        field: '__special',
-        parse: (data) => data.latest_transaction.contract_data.multiple_or_single_award_idv
+        field: 'multiple_or_single_award_idv'
     }
 ];
 
@@ -77,8 +73,7 @@ export const competitionFields = [
     },
     {
         label: 'Not Competed Reason',
-        field: '__special',
-        parse: (data) => data.other_than_full_and_open_competition
+        field: 'other_than_full_and_open_competition'
     },
     {
         label: 'Set-Aside Type',
@@ -173,8 +168,7 @@ export const additionalFields = [
     },
     {
         label: 'Domestic or Foreign Entity',
-        field: '__special',
-        parse: (data) => data.domestic_or_foreign_entity
+        field: 'domestic_or_foreign_entity'
     },
     {
         label: 'Fair Opportunity Limited Sources',
