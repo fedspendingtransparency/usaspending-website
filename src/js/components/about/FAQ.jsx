@@ -11,9 +11,9 @@ export default class FAQ extends React.Component {
 
     render() {
         return (
-            <div className="faq-wrap">
-                <div className="faq-inner-wrap">
-                    <div className="img-placeholder" />
+            <div className="wrapper">
+                <div className="inner-wrap-left">
+                    <img src="url(../../img/about_us_faq.jpg" />
                     <h3>Frequently Asked Questions</h3>
                     <hr className="results-divider" />
                     <p>Frequently Asked Questions. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet risus sed urna cursus mollis. 

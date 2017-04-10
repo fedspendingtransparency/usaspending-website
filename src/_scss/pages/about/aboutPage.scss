@@ -5,10 +5,7 @@
     @import "./mastHead";
     @import "./overview";
     @import "./aboutData";
-    @import "./faq";
-    @import "./submissionFiles";
-    @import "./contactUs";
-    @import "./whatsNext";
+    @import "./aboutTopicsPreviews";
     & .usa-da-about-inner {
         @include clearfix;
         background: $color-white;
