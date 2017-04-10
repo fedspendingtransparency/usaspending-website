@@ -59,23 +59,21 @@ const accountReducer = (state = initialState, action) => {
             });
         }
         case 'UPDATE_ACCOUNT_FILTER_TIME': {
+            const filters = Object.assign({}, state.filters, {
+                dateType: action.dateType,
+                startDate: action.start,
+                endDate: action.end,
+                fy: new Set(action.fy)
+            });
+
             return Object.assign({}, state, {
-                filters: {
-                    dateType: action.dateType,
-                    startDate: action.start,
-                    endDate: action.end,
-                    fy: new Set(action.fy)
-                }
+                filters
             });
         }
         case 'RESET_ACCOUNT_FILTER_TIME': {
+            const filters = Object.assign({}, initialState.filters);
             return Object.assign({}, state, {
-                filters: {
-                    dateType: initialState.filters.dateType,
-                    startDate: initialState.filters.startDate,
-                    endDate: initialState.filters.endDate,
-                    fy: new Set()
-                }
+                filters
             });
         }
         case 'TOGGLE_ACCOUNT_OBJECT_CLASS': {
