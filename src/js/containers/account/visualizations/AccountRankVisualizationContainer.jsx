@@ -37,7 +37,7 @@ export class AccountRankVisualizationContainer extends React.Component {
             dataSeries: [],
             descriptions: [],
             page: 1,
-            total: 1,
+            hasNextPage: false,
             categoryScope: 'programActivity'
         };
 
@@ -69,14 +69,14 @@ export class AccountRankVisualizationContainer extends React.Component {
     newSearch() {
         this.setState({
             page: 1,
-            total: 1
+            hasNextPage: false
         }, () => {
             this.fetchData();
         });
     }
 
     nextPage() {
-        if (this.state.page + 1 > this.state.total) {
+        if (!this.state.hasNextPage) {
             return;
         }
 
@@ -109,7 +109,7 @@ export class AccountRankVisualizationContainer extends React.Component {
             group: categoryLabelFields[this.state.categoryScope],
             field: 'obligations_incurred_by_program_object_class_cpe',
             aggregate: 'sum',
-            order: ['aggregate'],
+            order: ['-aggregate'],
             filters: searchOperation.toParams(),
             page: this.state.page,
             limit: 5
@@ -142,7 +142,7 @@ export class AccountRankVisualizationContainer extends React.Component {
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            const adjustedValue = parseFloat(-1 * item.aggregate);
+            const adjustedValue = parseFloat(item.aggregate);
 
             labelSeries.push(item.item);
             dataSeries.push(parseFloat(adjustedValue));
@@ -157,7 +157,7 @@ ${MoneyFormatter.formatMoney(adjustedValue)}`;
             dataSeries,
             descriptions,
             loading: false,
-            total: data.page_metadata.num_pages
+            hasNextPage: data.page_metadata.has_next_page
         });
     }
 
