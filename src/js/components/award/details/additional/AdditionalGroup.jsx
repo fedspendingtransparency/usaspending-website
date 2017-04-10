@@ -24,9 +24,7 @@ export default class AdditionalGroup extends React.Component {
             }
             if (item.field === "__special") {
                 // this is a special data field that needs to be manually parsed
-                if (item.parse(this.props.data)) {
-                    value = item.parse(this.props.data);
-                }
+                value = item.parse(this.props.data);
             }
 
             const row = (<AdditionalRow
