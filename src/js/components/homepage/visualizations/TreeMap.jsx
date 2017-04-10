@@ -48,9 +48,11 @@ export default class TreeMap extends React.Component {
         if (nextProps.categories.children.length > 0) {
             this.buildTree(nextProps.categories, nextProps.colors);
         }
-        this.setState({
-            descriptions: nextProps.descriptions
-        });
+        if (nextProps.descriptions !== this.state.descriptions) {
+            this.setState({
+                descriptions: nextProps.descriptions
+            });
+        }
     }
 
     componentWillUnmount() {

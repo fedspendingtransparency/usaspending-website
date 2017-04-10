@@ -27,7 +27,6 @@ export default class TreeMapCell extends React.Component {
 
         this.state = {
             label: '',
-            overlay: true,
             didProcess: false
         };
 
@@ -91,9 +90,6 @@ export default class TreeMapCell extends React.Component {
 
     mouseIn(label, value) {
         this.props.toggleTooltip(label, value);
-        this.setState({
-            overlay: false
-        });
     }
 
     toggleBorders() {
