@@ -6,10 +6,10 @@
 import React from 'react';
 
 const propTypes = {
-    width: React.propTypes.number,
-    x: React.propTypes.number,
-    y: React.propTypes.number,
-    color: React.propTypes.number
+    width: React.PropTypes.number,
+    x: React.PropTypes.number,
+    y: React.PropTypes.number,
+    color: React.PropTypes.string
 };
 
 export default class OutlayItem extends React.Component {
