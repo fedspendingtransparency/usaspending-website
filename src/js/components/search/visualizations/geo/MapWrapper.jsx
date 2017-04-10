@@ -139,7 +139,7 @@ export default class MapWrapper extends React.Component {
             layout: {},
             paint: {
                 'line-color': '#000',
-                'line-opacity': 1
+                'line-opacity': 0.3
             }
         });
 
@@ -161,7 +161,7 @@ export default class MapWrapper extends React.Component {
             layout: {},
             paint: {
                 'fill-color': color,
-                'fill-opacity': 0.9
+                'fill-opacity': 1
             },
             metadata: {
                 stateCode
