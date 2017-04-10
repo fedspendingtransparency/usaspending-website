@@ -6,7 +6,18 @@
 import React from 'react';
 
 const propTypes = {
-
+    deregisterBar: React.propTypes.number,
+    identifier: React.propTypes.number,
+    selectbar: React.propTypes.number,
+    deselectBar: React.propTypes.number,
+    description: React.propTypes.number,
+    x: React.propTypes.number,
+    y: React.propTypes.number,
+    width: React.propTypes.number,
+    height: React.propTypes.number,
+    color: React.propTypes.number,
+    graphHeight: React.propTypes.number,
+    selectBar: React.propTypes.number
 };
 
 export default class StackedBarItem extends React.Component {

@@ -223,8 +223,8 @@ ${xData}: ${MoneyFormatter.formatMoney(stack.obligationFiltered)}`;
                         deselectBar={this.deselectBar}
                         deregisterBar={this.deregisterBar}
                         ref={(component) => {
-                        this.dataPoints[obligationFilteredIdentifier] = component;
-                    }} />);
+                            this.dataPoints[obligationFilteredIdentifier] = component;
+                        }} />);
                     items.push(obligationFilteredBar);
 
                     // next stack the the obligation (other) bar on top
@@ -269,8 +269,8 @@ ${xData}: ${MoneyFormatter.formatMoney(obligationOther)}`;
                         deselectBar={this.deselectBar}
                         deregisterBar={this.deregisterBar}
                         ref={(component) => {
-                        this.dataPoints[obligationOtherIdentifier] = component;
-                    }} />);
+                            this.dataPoints[obligationOtherIdentifier] = component;
+                        }} />);
                     items.push(obligationOtherBar);
 
                     // finally, stack the unobligated value on top
@@ -293,8 +293,8 @@ ${MoneyFormatter.formatMoney(stack.unobligated)}`;
                         deselectBar={this.deselectBar}
                         deregisterBar={this.deregisterBar}
                         ref={(component) => {
-                        this.dataPoints[unobligatedIdentifier] = component;
-                    }} />);
+                            this.dataPoints[unobligatedIdentifier] = component;
+                        }} />);
                     items.push(unobligatedBar);
 
 
@@ -353,8 +353,8 @@ ${xData}: ${MoneyFormatter.formatMoney(stack.obligated)}`;
                         deselectBar={this.deselectBar}
                         deregisterBar={this.deregisterBar}
                         ref={(component) => {
-                        this.dataPoints[obligatedIdentifier] = component;
-                    }} />);
+                            this.dataPoints[obligatedIdentifier] = component;
+                        }} />);
                     items.push(obligatedBar);
 
                     // stack the unobligated value on top
@@ -377,17 +377,14 @@ ${MoneyFormatter.formatMoney(stack.unobligated)}`;
                         deselectBar={this.deselectBar}
                         deregisterBar={this.deregisterBar}
                         ref={(component) => {
-                        this.dataPoints[unobligatedIdentifier] = component;
-                    }} />);
+                            this.dataPoints[unobligatedIdentifier] = component;
+                        }} />);
                     items.push(unobligatedBar);
-
-
                     // now add the outlay line
                     const outlayY = graphHeight - yScale(stack.outlay);
                     const outlayIdentifier = `outlay-${groupIndex}-${stackIndex}`;
                     const outlayDescription = `Outlay in ${xData}: \
 ${MoneyFormatter.formatMoney(stack.outlay)}`;
-
                     const outlay = (<OutlayItem
                         key={`data-${outlayIdentifier}`}
                         color={this.props.legend[0].color}
@@ -398,7 +395,6 @@ ${MoneyFormatter.formatMoney(stack.outlay)}`;
                     items.push(outlay);
                 });
             }
-
         });
 
         // save it all to state
@@ -573,7 +569,8 @@ ${MoneyFormatter.formatMoney(stack.outlay)}`;
 
                         <g
                             className="legend-container"
-                            transform={`translate(${this.props.padding.left},${this.props.height - 20})`}>
+                            transform={`translate(${this.props.padding.left},
+                            ${this.props.height - 20})`}>
                             <BarChartLegend legend={this.props.legend} />
                         </g>
                     </g>

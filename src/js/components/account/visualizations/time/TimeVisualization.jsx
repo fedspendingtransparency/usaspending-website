@@ -88,7 +88,7 @@ export default class TimeVisualization extends React.Component {
             ];
         }
         else {
-            legend= [
+            legend = [
                 {
                     color: '#fba302',
                     label: 'Outlay',

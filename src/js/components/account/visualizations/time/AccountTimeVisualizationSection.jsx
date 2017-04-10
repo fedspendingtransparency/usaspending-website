@@ -6,7 +6,6 @@
 import React from 'react';
 import _ from 'lodash';
 
-import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import AccountTimeVisualizationPeriodButton from './AccountTimeVisualizationPeriodButton';
 
 import TimeVisualization from './TimeVisualization';

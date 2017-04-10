@@ -5,7 +5,15 @@
 
 import React from 'react';
 
+const propTypes = {
+    width: React.propTypes.number,
+    x: React.propTypes.number,
+    y: React.propTypes.number,
+    color: React.propTypes.number
+};
+
 export default class OutlayItem extends React.Component {
+
     calculatePath() {
         let path = '';
 
@@ -42,3 +50,5 @@ export default class OutlayItem extends React.Component {
         );
     }
 }
+
+OutlayItem.propTypes = propTypes;
