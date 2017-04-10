@@ -4,7 +4,6 @@
  **/
 
 import React from 'react';
-import * as Icons from 'components/sharedComponents/icons/Icons';
 
 export default class MastHead extends React.Component {
 
@@ -15,10 +14,11 @@ export default class MastHead extends React.Component {
                     <h3>Background</h3>
                     <hr className="results-divider" />
                 </div>
-                
                 <div className="overview-inner-wrap-left">
                     <h5>Source of Data</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin aliquam dapibus rutrum. Duis ultricies dolor ut lacus cursus venenatis. Phasellus a accumsan ipsum, non cursus orci. Vestibulum aliquam est eget nisl faucibus ullamcorper.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin aliquam dapibus rutrum.
+                     Duis ultricies dolor ut lacus cursus venenatis. Phasellus a accumsan ipsum, non cursus orci.
+                     Vestibulum aliquam est eget nisl faucibus ullamcorper.</p>
                     <a href="#">
                         <button
                             className="usa-button-primary"
@@ -30,10 +30,11 @@ export default class MastHead extends React.Component {
                 </div>
                 <div className="overview-inner-wrap-right">
                     <h5>Relevant Legislature</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin aliquam dapibus rutrum. Duis ultricies dolor ut lacus cursus venenatis. Phasellus a accumsan ipsum, non cursus orci. Vestibulum aliquam est eget nisl faucibus ullamcorper.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin aliquam dapibus rutrum.
+                     Duis ultricies dolor ut lacus cursus venenatis. Phasellus a accumsan ipsum, non cursus orci.
+                     Vestibulum aliquam est eget nisl faucibus ullamcorper.</p>
                 </div>
             </div>
         );
     }
 }
- 

@@ -1,6 +1,7 @@
 html {
     font-family: $font-sans;
     font-size: $em-base;
+    color: $color-base;
 }
 
 body {
@@ -9,7 +10,6 @@ body {
 
 p {
     line-height: $base-line-height;
-    color: $color-base;
 }
 
 a {

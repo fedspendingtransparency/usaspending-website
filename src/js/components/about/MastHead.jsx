@@ -4,7 +4,6 @@
  **/
 
 import React from 'react';
-import * as Icons from 'components/sharedComponents/icons/Icons';
 
 export default class MastHead extends React.Component {
 

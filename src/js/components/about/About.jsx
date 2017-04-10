@@ -6,7 +6,6 @@
 import React from 'react';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
-import * as Icons from '../sharedComponents/icons/Icons';
 import MastHead from './MastHead';
 import Overview from './Overview';
 import AboutData from './AboutData';
@@ -17,7 +16,6 @@ import WhatsNext from './WhatsNext';
 
 
 export default class About extends React.Component {
-
     render() {
         return (
             <div className="usa-da-about-page">
@@ -30,10 +28,8 @@ export default class About extends React.Component {
                     <SubmissionFiles />
                 </div>
                 <div className="usa-da-about-inner">
-                    <div class="row-two">
-                        <ContactUs />
-                        <WhatsNext />
-                    </div>
+                    <ContactUs />
+                    <WhatsNext />
                 </div>
                 <Footer />
             </div>
