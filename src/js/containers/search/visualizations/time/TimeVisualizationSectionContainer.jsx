@@ -16,6 +16,7 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as resultsMetaActions from 'redux/actions/resultsMeta/resultsMetaActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
+import * as BudgetCategoryHelper from 'helpers/budgetCategoryHelper';
 
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
 import SearchTransactionFileCOperation from 'models/search/SearchTransactionFileCOperation';
@@ -56,80 +57,46 @@ export class TimeVisualizationSectionContainer extends React.Component {
 
     setFilterStates() {
         this.setState({
-            budgetFiltersSelected: SearchHelper.budgetFiltersSelected(this.props.reduxFilters),
-            awardFiltersSelected: SearchHelper.awardFiltersSelected(this.props.reduxFilters)
+            budgetFiltersSelected:
+                BudgetCategoryHelper.budgetFiltersSelected(this.props.reduxFilters),
+            awardFiltersSelected:
+                BudgetCategoryHelper.awardFiltersSelected(this.props.reduxFilters)
         }, () => {
             this.fetchData();
         });
     }
 
-    createTransactionsParams(operation) {
-        const searchParams = operation.toParams();
+    fetchTransactionData() {
+        const field = 'federal_action_obligation';
+        const group = 'action_date__fy';
 
-        // generate the API parameters
-        const apiParams = {
-            field: 'federal_action_obligation',
-            group: 'action_date__fy',
-            order: ['aggregate'],
-            aggregate: 'sum',
-            filters: searchParams
-        };
+        let operation = null;
 
-        return apiParams;
-    }
-
-    createTasParams() {
-        const operation = new SearchAccountOperation('appropriations');
-        operation.fromState(this.props.reduxFilters);
-
-        const searchParams = operation.toParams();
-
-        // generate the API parameters
-        const apiParams = {
-            field: 'obligations_incurred_total_by_tas_cpe',
-            group: 'submission__reporting_fiscal_year',
-            order: ['aggregate'],
-            aggregate: 'sum',
-            filters: searchParams
-        };
-
-        return apiParams;
-    }
-
-    fetchData() {
-        this.setState({
-            loading: true
-        });
-
-        if (this.apiRequest) {
-            this.apiRequest.cancel();
-        }
-
-        let apiParams = '';
-
-        // Create Search Operation and API request
-        if (this.state.awardFiltersSelected) {
-            let operation = null;
-
-            if (this.state.budgetFiltersSelected) {
-                operation = new SearchTransactionFileCOperation();
-            }
-            else {
-                operation = new SearchTransactionOperation();
-            }
-
-            operation.fromState(this.props.reduxFilters);
-            apiParams = this.createTransactionsParams(operation);
-            this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        if (this.state.budgetFiltersSelected) {
+            operation = new SearchTransactionFileCOperation();
         }
         else {
-            apiParams = this.createTasParams();
-            this.apiRequest = SearchHelper.performBalancesSearch(apiParams);
+            operation = new SearchTransactionOperation();
         }
+
+        // Add filters to Search Operation
+        operation.fromState(this.props.reduxFilters);
+        const searchParams = operation.toParams();
+
+        // Generate the API parameters
+        const apiParams = {
+            field,
+            group,
+            order: ['aggregate'],
+            aggregate: 'sum',
+            filters: searchParams
+        };
+
+        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
 
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data);
+                this.parseData(res.data, group);
                 this.apiRequest = null;
             })
             .catch(() => {
@@ -137,7 +104,56 @@ export class TimeVisualizationSectionContainer extends React.Component {
             });
     }
 
-    parseData(data) {
+    fetchBalanceData() {
+        const field = 'obligations_incurred_total_by_tas_cpe';
+        const group = 'submission__reporting_fiscal_year';
+        const operation = new SearchAccountOperation('appropriations');
+
+        // Add filters to Search Operation
+        operation.fromState(this.props.reduxFilters);
+        const searchParams = operation.toParams();
+
+        // Generate the API parameters
+        const apiParams = {
+            field,
+            group,
+            order: ['aggregate'],
+            aggregate: 'sum',
+            filters: searchParams
+        };
+
+        this.apiRequest = SearchHelper.performBalancesSearch(apiParams);
+
+        this.apiRequest.promise
+            .then((res) => {
+                this.parseData(res.data, group);
+                this.apiRequest = null;
+            })
+            .catch(() => {
+                this.apiRequest = null;
+            });
+    }
+
+    fetchData() {
+        this.setState({
+            loading: true
+        });
+
+        // Cancel API request if it exists
+        if (this.apiRequest) {
+            this.apiRequest.cancel();
+        }
+
+        // Fetch data from the appropriate endpoint
+        if (this.state.awardFiltersSelected) {
+            this.fetchTransactionData();
+        }
+        else {
+            this.fetchBalanceData();
+        }
+    }
+
+    parseData(data, group) {
         const groups = [];
         const xSeries = [];
         const ySeries = [];
@@ -145,12 +161,12 @@ export class TimeVisualizationSectionContainer extends React.Component {
         let totalSpending = 0;
 
         // iterate through each response object and break it up into groups, x series, and y series
-        data.results.forEach((group) => {
-            groups.push(group.item);
-            xSeries.push([group.item]);
-            ySeries.push([parseFloat(group.aggregate)]);
+        data.results.forEach((item) => {
+            groups.push(item[group]);
+            xSeries.push([item[group]]);
+            ySeries.push([parseFloat(item.aggregate)]);
 
-            totalSpending += parseFloat(group.aggregate);
+            totalSpending += parseFloat(item.aggregate);
         });
 
         this.setState({

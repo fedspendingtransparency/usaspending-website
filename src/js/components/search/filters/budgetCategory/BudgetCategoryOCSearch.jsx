@@ -6,27 +6,21 @@
 import React from 'react';
 import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
 
-// import * as AwardAmountHelper from 'helpers/awardAmountHelper';
 import ObjectClassItem from './ObjectClassItem';
 
 const propTypes = {
-    selectObjectClass: React.PropTypes.func,
-    objectClassDefinitions: React.PropTypes.object
-};
-
-const defaultProps = {
-    objectClassDefinitions
+    selectObjectClass: React.PropTypes.func
 };
 
 export default class BudgetCategoryOCSearch extends React.Component {
     render() {
         const objectClassItems = [];
 
-        Object.keys(this.props.objectClassDefinitions).forEach((key) => {
+        Object.keys(objectClassDefinitions).forEach((key) => {
             objectClassItems.push(
                 <ObjectClassItem
                     {...this.props}
-                    objectClassLabel={this.props.objectClassDefinitions[key]}
+                    objectClassLabel={objectClassDefinitions[key]}
                     objectClassID={parseInt(key, 10)}
                     key={`award-${key}`}
                     toggleSelection={this.props.selectObjectClass.bind(this)} />);
@@ -44,4 +38,3 @@ export default class BudgetCategoryOCSearch extends React.Component {
 }
 
 BudgetCategoryOCSearch.propTypes = propTypes;
-BudgetCategoryOCSearch.defaultProps = defaultProps;

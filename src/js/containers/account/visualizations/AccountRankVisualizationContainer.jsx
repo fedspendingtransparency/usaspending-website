@@ -1,5 +1,5 @@
 /**
- * RankVisualizationSectionContainer.jsx
+ * AccountRankVisualizationContainer.jsx
  * Created by Kevin Li 2/9/17
  */
 

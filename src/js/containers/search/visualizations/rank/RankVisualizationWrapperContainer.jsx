@@ -17,7 +17,7 @@ import SpendingByCategoryRankVisualizationSectionContainer from
 import RankVisualizationTitle from 'components/search/visualizations/rank/RankVisualizationTitle';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import * as SearchHelper from 'helpers/searchHelper';
+import * as BudgetCategoryHelper from 'helpers/budgetCategoryHelper';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object
@@ -48,8 +48,10 @@ export class RankVisualizationWrapperContainer extends React.Component {
 
     setFilterStates() {
         this.setState({
-            budgetFiltersSelected: SearchHelper.budgetFiltersSelected(this.props.reduxFilters),
-            awardFiltersSelected: SearchHelper.awardFiltersSelected(this.props.reduxFilters)
+            budgetFiltersSelected:
+                BudgetCategoryHelper.budgetFiltersSelected(this.props.reduxFilters),
+            awardFiltersSelected:
+                BudgetCategoryHelper.awardFiltersSelected(this.props.reduxFilters)
         });
     }
 

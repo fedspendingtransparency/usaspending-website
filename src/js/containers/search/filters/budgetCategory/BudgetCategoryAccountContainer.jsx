@@ -27,8 +27,6 @@ export class BudgetCategoryAccountContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleTextInput = this.handleTextInput.bind(this);
-
         this.state = {
             searchString: '',
             autocompleteFederalAccounts: [],

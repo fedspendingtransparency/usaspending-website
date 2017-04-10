@@ -158,10 +158,10 @@ describe('TimeVisualizationSectionContainer', () => {
                     previous: null
                 },
                 results: [{
-                    item: '2013',
+                    submission__reporting_fiscal_year: '2013',
                     aggregate: '1234'
                 }, {
-                    item: '2014',
+                    submission__reporting_fiscal_year: '2014',
                     aggregate: '5555'
                 }]
             };

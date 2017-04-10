@@ -77,11 +77,13 @@ export class RankVisualizationSectionContainer extends React.Component {
     }
 
     nextPage() {
-        this.setState({
-            page: this.state.page + 1
-        }, () => {
-            this.fetchData();
-        });
+        if (this.state.hasNextPage) {
+            this.setState({
+                page: this.state.page + 1
+            }, () => {
+                this.fetchData();
+            });
+        }
     }
 
     previousPage() {

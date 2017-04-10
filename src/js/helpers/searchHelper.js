@@ -247,38 +247,3 @@ export const performFinancialSystemLookup = (params) => {
         }
     };
 };
-
-// Budget Filters consist of the three elements of Budget Categories filter
-// (Budget Functions, Federal Account, and Object Class),
-// as well as Fiscal Year filters and Funding Agency
-export const budgetFiltersSelected = (params) => {
-    if (params.budgetFunctions.size > 0
-        || params.federalAccounts.size > 0
-        || params.objectClasses.size > 0
-        || params.selectedFundingAgencies.size > 0
-        || params.timePeriodFY.size > 0) {
-        return true;
-    }
-
-    return false;
-};
-
-// Award Filters consist of all non-Budget Filter filters
-export const awardFiltersSelected = (params) => {
-    if (params.keyword !== ''
-        || (params.timePeriodStart !== null && params.timePeriodStart !== undefined)
-        || (params.timePeriodEnd !== null && params.timePeriodEnd !== undefined)
-        || params.selectedLocations.size > 0
-        || params.locationDomesticForeign !== 'all'
-        || params.selectedAwardingAgencies.size > 0
-        || params.selectedRecipients.size > 0
-        || params.recipientDomesticForeign !== 'all'
-        || params.selectedRecipientLocations.size > 0
-        || params.awardType.size > 0
-        || params.selectedAwardIDs.size > 0
-        || params.awardAmounts.size > 0) {
-        return true;
-    }
-
-    return false;
-};

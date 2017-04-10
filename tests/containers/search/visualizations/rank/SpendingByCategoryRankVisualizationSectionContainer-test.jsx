@@ -258,10 +258,16 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             const container =
                 mount(<SpendingByCategoryRankVisualizationSectionContainer
                     reduxFilters={defaultFilters} />);
+
             // initial state should be page 1
             expect(container.state().page).toEqual(1);
 
+            // Tell container it has a nextPage
+            container.state().hasNextPage = true;
+
+            // Attempt to go to the next page
             container.instance().nextPage();
+
             // updated state should be page 2
             expect(container.state().page).toEqual(2);
         });
