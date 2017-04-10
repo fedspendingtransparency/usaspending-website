@@ -21,7 +21,7 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 
 import AccountSearchBalanceOperation from 'models/account/queries/AccountSearchBalanceOperation';
-import { balanceFields } from 'dataMapping/accounts/accountFields';
+import { balanceFields, balanceFieldsFiltered, balanceFieldsNonfiltered } from 'dataMapping/accounts/accountFields';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object,
@@ -83,45 +83,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         const promises = [];
 
         if (this.state.hasFilteredObligated) {
-            if (this.state.visualizationPeriod === 'quarter') {
-                Object.keys(balanceFields).forEach((balanceType) => {
-                    // generate API call using helper for quarters
-                    const request = AccountQuartersHelper.fetchTasBalanceTotals({
-                        filters,
-                        group: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
-                        field: balanceFields[balanceType],
-                        aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year']
-                    });
-
-                    request.type = balanceType;
-
-                    requests.push(request);
-                    promises.push(request.promise);
-                });
-
-                this.balanceRequests = requests;
-            }
-            else {
-                // visualization period is year
-                Object.keys(balanceFields).forEach((balanceType) => {
-                    // generate API call
-                    const request = AccountHelper.fetchTasBalanceTotals({
-                        filters,
-                        group: 'submission__reporting_fiscal_year',
-                        field: balanceFields[balanceType],
-                        aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year']
-                    });
-
-                    request.type = balanceType;
-
-                    requests.push(request);
-                    promises.push(request.promise);
-                });
-
-                this.balanceRequests = requests;
-            }
+            // In progress
         }
         else {
             // Does not have filtered obligated
@@ -191,11 +153,10 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         const ySeries = [];
         const allY = [];
         if (this.state.hasFilteredObligated) {
-
+            // In progress
         }
         else {
             // does not have filtered obligated
-
             if (this.state.visualizationPeriod === 'quarter') {
                 const quarters = [];
                 const yData = [];
