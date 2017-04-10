@@ -4,7 +4,6 @@
  **/
 
 import React from 'react';
-import update from 'react-addons-update';
 import * as d3 from 'd3';
 import _ from 'lodash';
 
@@ -46,7 +45,7 @@ export default class TreeMap extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.categories.children.length > 0) {
-            this.buildTree(nextProps.categories, nextProps.colors);
+            this.buildTree(nextProps.categories, nextProps.colors, '');
         }
         if (nextProps.descriptions !== this.state.descriptions) {
             this.setState({
@@ -68,10 +67,13 @@ export default class TreeMap extends React.Component {
                 windowWidth,
                 visualizationWidth: this.sectionWrapper.offsetWidth
             });
+            if (this.props.categories.children.length > 0) {
+                this.buildTree(this.props.categories, this.props.colors, '');
+            }
         }
     }
 
-    buildTree(cats, colors) {
+    buildTree(cats, colors, chosen) {
         // put the data through d3's hierarchy system to sum and sort it
         const root = d3.hierarchy(cats)
         .sum((d) => (d.value))
@@ -99,7 +101,7 @@ export default class TreeMap extends React.Component {
                 total={n.parent.value}
                 key={i}
                 color={colors[i]}
-                chosen={this.state.category}
+                chosen={chosen}
                 toggleTooltip={this.toggleTooltip}
                 showOverlay={this.state.showOverlay} />
         );
@@ -130,24 +132,8 @@ export default class TreeMap extends React.Component {
             individualValue: value,
             showOverlay: false
         });
-        const newNodes = [];
 
-        // create a copy of finalNodes
-        // update the copy
-        this.state.finalNodes.forEach((i) => {
-            const originalNode = i;
-            const updatedNode = update(originalNode, {
-                props: {
-                    showOverlay: { $set: false },
-                    chosen: { $set: cat }
-                }
-            });
-            newNodes.push(updatedNode);
-        });
-        // set state with the copy
-        this.setState({
-            finalNodes: newNodes
-        });
+        this.buildTree(this.props.categories, this.props.colors, this.state.category);
     }
 
     render() {
