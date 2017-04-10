@@ -3,7 +3,7 @@
     @include display(flex);
     @include align-items(center);
     @include justify-content(center);
-    min-height: rem(250);
+    min-height: rem(300);
     & .inner-wrap {
         & h1 {
             color: $color-white;

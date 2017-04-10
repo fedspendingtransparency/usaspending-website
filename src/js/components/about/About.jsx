@@ -10,6 +10,10 @@ import * as Icons from '../sharedComponents/icons/Icons';
 import MastHead from './MastHead';
 import Overview from './Overview';
 import AboutData from './AboutData';
+import FAQ from './FAQ';
+import SubmissionFiles from './SubmissionFiles';
+import ContactUs from './ContactUs';
+import WhatsNext from './WhatsNext';
 
 
 export default class About extends React.Component {
@@ -20,7 +24,17 @@ export default class About extends React.Component {
                 <Header />
                 <MastHead />
                 <Overview />
-                <AboutData />                
+                <AboutData />
+                <div className="usa-da-about-inner">
+                    <FAQ />
+                    <SubmissionFiles />
+                </div>
+                <div className="usa-da-about-inner">
+                    <div class="row-two">
+                        <ContactUs />
+                        <WhatsNext />
+                    </div>
+                </div>
                 <Footer />
             </div>
         );

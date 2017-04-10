@@ -1,0 +1,35 @@
+@import "../../mixins/fullSectionWrap";
+@import "../../mixins/background";
+@import "../../elements/_divider";
+@import "../../elements/_typography";
+.whatsnext-wrap {
+    & .whatsnext-inner-wrap {
+        & .img-placeholder {
+            @include clearfix;
+            width: 100%;
+            min-height: 300px;
+            background: url(../../img/about_us_whats_next.jpg) no-repeat center bottom;
+            background-size: 100%;
+        }
+        & h3 {
+            margin-top: 1em;
+            margin-bottom: 0;
+        }
+        @include media($small-screen) {
+            @include span-columns(14);
+            @include shift(1);
+            padding: ($global-pad * 4) 0;
+            min-height: 100px;
+        }
+        @include media($medium-screen) {
+            @include span-columns(6);
+            @include shift(0.75);
+            padding: 0;
+        }
+        @include media($x-large-screen) {
+            @include span-columns(6);
+            @include shift(0.75);
+            padding: 0;
+        }
+    }
+}

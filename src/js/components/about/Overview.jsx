@@ -11,13 +11,27 @@ export default class MastHead extends React.Component {
     render() {
         return (
             <div className="overview-wrap">
-                <p>USAspending.gov provides the public with an easy way to explore, search, and reuse federal spending data. 
-                The site was first launched in 2007, following a mandate in the Federal Funding Accountability and Transparency 
-                Act (FFATA) to make data about federal spending available to the public. A new version was launched in May 2017, 
-                in response to the Digital Accountability and Transparency Act of 2014 (DATA Act), which increased the amount and 
-                type of data made available. USAspending.gov provides federal agencies and the public with resources to better 
-                understand federal programs and operations to increase the efficiency, effectiveness, and transparency of the 
-                federal government.</p>
+                <div className="overview-header">
+                    <h3>Background</h3>
+                    <hr className="results-divider" />
+                </div>
+                
+                <div className="overview-inner-wrap-left">
+                    <h5>Source of Data</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin aliquam dapibus rutrum. Duis ultricies dolor ut lacus cursus venenatis. Phasellus a accumsan ipsum, non cursus orci. Vestibulum aliquam est eget nisl faucibus ullamcorper.</p>
+                    <a href="#">
+                        <button
+                            className="usa-button-primary"
+                            title="View the Policy"
+                            aria-label="View the Policy">
+                            View the Policy
+                        </button>
+                    </a>
+                </div>
+                <div className="overview-inner-wrap-right">
+                    <h5>Relevant Legislature</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin aliquam dapibus rutrum. Duis ultricies dolor ut lacus cursus venenatis. Phasellus a accumsan ipsum, non cursus orci. Vestibulum aliquam est eget nisl faucibus ullamcorper.</p>
+                </div>
             </div>
         );
     }

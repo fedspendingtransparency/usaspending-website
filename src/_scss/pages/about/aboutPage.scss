@@ -1,7 +1,34 @@
+@import "../../mixins/fullSectionWrap";
+
 .usa-da-about-page {
     @import "../../layouts/default/default";
     @include defaultLayout;
     @import "./mastHead";
     @import "./overview";
     @import "./aboutData";
+    @import "./faq";
+    @import "./submissionFiles";
+    @import "./contactUs";
+    @import "./whatsNext";
+
+    & .usa-da-about-inner {
+    	@include clearfix;
+	    background: $color-white;
+	    margin: 0 auto;
+	    padding: ($global-pad * 4) 0;
+	    min-height: rem(400);
+	    @include span-columns(16);
+        @include shift (0);
+        
+        @include media($small-screen) {
+            padding: ($global-pad * 1) 0;
+        }
+        @include media($medium-screen) {
+            padding: ($global-pad * 4) 0;
+        }
+        @include media($x-large-screen) {
+            padding: ($global-pad * 4) 0;
+        }
+        
+    }
 }
