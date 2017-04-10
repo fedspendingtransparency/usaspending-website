@@ -52,7 +52,10 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
-            this.fetchData();
+            this.setState(
+                {hasFilteredObligated: this.props.reduxFilters.objectClass.size > 0},
+                () => { this.fetchData(); }
+            );
         }
     }
 
@@ -80,12 +83,44 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         const promises = [];
 
         if (this.state.hasFilteredObligated) {
-            // TODO
             if (this.state.visualizationPeriod === 'quarter') {
-                this.parseBalances();
+                Object.keys(balanceFields).forEach((balanceType) => {
+                    // generate API call using helper for quarters
+                    const request = AccountQuartersHelper.fetchTasBalanceTotals({
+                        filters,
+                        group: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
+                        field: balanceFields[balanceType],
+                        aggregate: 'sum',
+                        order: ['submission__reporting_fiscal_year']
+                    });
+
+                    request.type = balanceType;
+
+                    requests.push(request);
+                    promises.push(request.promise);
+                });
+
+                this.balanceRequests = requests;
             }
             else {
-                this.parseBalances();
+                // visualization period is year
+                Object.keys(balanceFields).forEach((balanceType) => {
+                    // generate API call
+                    const request = AccountHelper.fetchTasBalanceTotals({
+                        filters,
+                        group: 'submission__reporting_fiscal_year',
+                        field: balanceFields[balanceType],
+                        aggregate: 'sum',
+                        order: ['submission__reporting_fiscal_year']
+                    });
+
+                    request.type = balanceType;
+
+                    requests.push(request);
+                    promises.push(request.promise);
+                });
+
+                this.balanceRequests = requests;
             }
         }
         else {
