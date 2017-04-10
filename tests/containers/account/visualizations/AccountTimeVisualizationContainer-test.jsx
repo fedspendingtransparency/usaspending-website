@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import { Set } from 'immutable';
 import sinon from 'sinon';
 
 
@@ -14,6 +13,7 @@ import { AccountTimeVisualizationSectionContainer } from
 
 import * as AccountHelper from 'helpers/accountHelper';
 import { mockBalances, mockReduxAccount } from '../mockAccount';
+import { defaultFilters } from '../defaultFilters';
 
 // force Jest to use native Node promises
 // see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
@@ -55,13 +55,6 @@ const mockAccountHelper = (functionName, event, expectedResponse) => {
 const unmockAccountHelper = () => {
     jest.useRealTimers();
     jest.unmock('helpers/accountHelper');
-};
-
-const defaultFilters = {
-    dateType: 'fy',
-    fy: new Set(),
-    startDate: null,
-    endDate: null
 };
 
 describe('AccountTimeVisualizationSectionContainer', () => {

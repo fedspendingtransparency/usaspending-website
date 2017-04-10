@@ -8,6 +8,7 @@ import Q from 'q';
 
 import * as HomepageHelper from 'helpers/homepageHelper';
 
+import MapVisualizationContainer from 'containers/homepage/MapVisualizationContainer';
 import Landing from './Landing';
 import TreeMap from './visualizations/TreeMap';
 import TreeMapIntro from './TreeMapIntro';
@@ -71,6 +72,7 @@ export default class Homepage extends React.Component {
                     categories={this.state.categories}
                     colors={this.state.colors}
                     descriptions={this.state.descriptions} />
+                <MapVisualizationContainer />
                 <SearchSection />
                 <LinksSection />
                 <Footer />
