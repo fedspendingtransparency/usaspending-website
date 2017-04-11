@@ -88,7 +88,7 @@ export default class GrantDetails extends React.Component {
         // TODO: get program description (objectives) for latest transaction
         const programName = `${latestTransaction.assistance_data.cfda_number} -
         ${latestTransaction.assistance_data.cfda_title}`;
-        const programDescription = '';
+        const programDescription = "Not Available";
 
         this.setState({
             description,
