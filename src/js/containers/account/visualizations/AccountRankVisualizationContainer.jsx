@@ -1,5 +1,5 @@
 /**
- * RankVisualizationSectionContainer.jsx
+ * AccountRankVisualizationContainer.jsx
  * Created by Kevin Li 2/9/17
  */
 
@@ -37,7 +37,10 @@ export class AccountRankVisualizationContainer extends React.Component {
             dataSeries: [],
             descriptions: [],
             page: 1,
-            hasNext: false,
+            next: null,
+            previous: null,
+            hasNextPage: false,
+            hasPreviousPage: false,
             categoryScope: 'programActivity'
         };
 
@@ -61,7 +64,7 @@ export class AccountRankVisualizationContainer extends React.Component {
         this.setState({
             categoryScope: scope,
             page: 1,
-            hasNext: false
+            hasNextPage: false
         }, () => {
             this.fetchData();
         });
@@ -70,14 +73,14 @@ export class AccountRankVisualizationContainer extends React.Component {
     newSearch() {
         this.setState({
             page: 1,
-            hasNext: false
+            hasNextPage: false
         }, () => {
             this.fetchData();
         });
     }
 
     nextPage() {
-        if (!this.state.hasNext) {
+        if (!this.state.hasNextPage) {
             return;
         }
 
@@ -160,7 +163,10 @@ ${MoneyFormatter.formatMoney(adjustedValue)}`;
             dataSeries,
             descriptions,
             loading: false,
-            hasNext: data.page_metadata.has_next_page
+            next: data.page_metadata.next,
+            previous: data.page_metadata.previous,
+            hasNextPage: data.page_metadata.has_next_page,
+            hasPreviousPage: data.page_metadata.has_previous_page
         });
     }
 

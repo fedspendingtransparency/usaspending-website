@@ -107,7 +107,10 @@ describe('AccountRankVisualizationContainer', () => {
                 dataSeries: [2696684.86],
                 descriptions: ['Obligated balance for Program Name: $2,696,685'],
                 loading: false,
-                hasNext: true,
+                next: 'blerg',
+                previous: 'blerg',
+                hasNextPage: true,
+                hasPreviousPage: false,
                 page: 1,
                 categoryScope: 'programActivity'
             };
@@ -144,15 +147,15 @@ describe('AccountRankVisualizationContainer', () => {
 
             container.setState({
                 page: 5,
-                hasNext: true
+                hasNextPage: true
             });
 
             expect(container.state().page).toEqual(5);
-            expect(container.state().hasNext).toEqual(true);
+            expect(container.state().hasNextPage).toEqual(true);
 
             container.instance().newSearch();
             expect(container.state().page).toEqual(1);
-            expect(container.state().hasNext).toEqual(false);
+            expect(container.state().hasNextPage).toEqual(false);
         });
     });
 
@@ -165,7 +168,7 @@ describe('AccountRankVisualizationContainer', () => {
 
             container.setState({
                 page: 2,
-                hasNext: true
+                hasNextPage: true
             });
 
             container.instance().nextPage();
@@ -179,7 +182,7 @@ describe('AccountRankVisualizationContainer', () => {
 
             container.setState({
                 page: 5,
-                hasNext: false
+                hasNextPage: false
             });
 
             container.instance().nextPage();
