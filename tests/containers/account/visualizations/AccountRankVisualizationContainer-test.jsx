@@ -199,7 +199,7 @@ describe('AccountRankVisualizationContainer', () => {
 
             container.setState({
                 page: 2,
-                total: 5
+                hasPreviousPage: true
             });
 
             container.instance().previousPage();
@@ -213,7 +213,7 @@ describe('AccountRankVisualizationContainer', () => {
 
             container.setState({
                 page: 1,
-                total: 5
+                hasPreviousPage: false
             });
 
             container.instance().previousPage();
