@@ -3,13 +3,22 @@
   * Created by Kevin Li
   **/
 
-const startDateField = 'period_of_performance_start_date';
-const endDateField = 'period_of_performance_current_end_date';
+const startDateFieldAwards = 'period_of_performance_start_date';
+const endDateFieldAward = 'period_of_performance_current_end_date';
 
-const buildFYRangeQuery = (fyRange) => {
+const startDateFieldCategories = 'reporting_period_start';
+const endDateFieldCategories = 'reporting_period_end';
+
+const buildFYRangeQuery = (fyRange, endpoint) => {
     const fyFilters = [];
-    const startField = startDateField;
-    const endField = endDateField;
+    let startField = startDateFieldAwards;
+    let endField = endDateFieldAward;
+
+    if (endpoint === 'categories') {
+        startField = startDateFieldCategories;
+        endField = endDateFieldCategories;
+    }
+
     fyRange.forEach((fy) => {
         // iterate through each FY and generate a range_intersect filter for the FY
         const fyQuery = {
@@ -31,22 +40,35 @@ const buildFYRangeQuery = (fyRange) => {
 
 // build an OR query to search for start dates on or after the start of the range
 // or end dates before or on the end of the range
-const buildDateRangeQuery = (dateRange) => ({
-    field: [startDateField, endDateField],
-    operation: 'range_intersect',
-    value: dateRange
-});
+const buildDateRangeQuery = (dateRange, endpoint) => {
+    let startField = startDateFieldAwards;
+    let endField = endDateFieldAward;
+
+    if (endpoint === 'categories') {
+        startField = startDateFieldCategories;
+        endField = endDateFieldCategories;
+    }
+
+    const filter = {
+        field: [startField, endField],
+        operation: 'range_intersect',
+        value: dateRange
+    };
+
+    return filter;
+};
 
 export const buildQuery = (params = {
     type: '',
     fyRange: null,
-    dateRange: null
+    dateRange: null,
+    endpoint: ''
 }) => {
     if (params.type === 'fy' && params.fyRange.length > 0) {
-        return buildFYRangeQuery(params.fyRange);
+        return buildFYRangeQuery(params.fyRange, params.endpoint);
     }
     else if (params.type === 'dr' && params.dateRange.length === 2) {
-        return buildDateRangeQuery(params.dateRange);
+        return buildDateRangeQuery(params.dateRange, params.endpoint);
     }
     return null;
 };

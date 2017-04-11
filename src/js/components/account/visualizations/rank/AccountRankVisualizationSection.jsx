@@ -17,9 +17,9 @@ const propTypes = {
     changeScope: React.PropTypes.func,
     nextPage: React.PropTypes.func,
     previousPage: React.PropTypes.func,
-    hasNext: React.PropTypes.bool,
-    page: React.PropTypes.number,
-    loading: React.PropTypes.bool
+    loading: React.PropTypes.bool,
+    hasNextPage: React.PropTypes.bool,
+    hasPreviousPage: React.PropTypes.bool
 };
 
 export default class AccountRankVisualizationSection extends React.Component {
@@ -68,19 +68,11 @@ export default class AccountRankVisualizationSection extends React.Component {
     }
 
     render() {
-        let disableNext = false;
-        let disablePrev = false;
+        const disableNext = !this.props.hasNextPage;
+        const disablePrev = !this.props.hasPreviousPage;
         let hidePager = '';
 
-        if (!this.props.hasNext) {
-            disableNext = true;
-        }
-
-        if (this.props.page <= 1) {
-            disablePrev = true;
-        }
-
-        if (this.props.loading) {
+        if ((disableNext && disablePrev) || this.props.loading) {
             hidePager = 'hide';
         }
 

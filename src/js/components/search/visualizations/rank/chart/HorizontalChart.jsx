@@ -17,6 +17,7 @@ const propTypes = {
     height: React.PropTypes.number,
     dataSeries: React.PropTypes.array,
     labelSeries: React.PropTypes.array,
+    linkSeries: React.PropTypes.array,
     descriptions: React.PropTypes.array,
     labelWidth: React.PropTypes.number,
     padding: React.PropTypes.object,
@@ -24,7 +25,8 @@ const propTypes = {
     disableTooltip: React.PropTypes.bool,
     selectItem: React.PropTypes.func,
     deselectItem: React.PropTypes.func,
-    clickedGroup: React.PropTypes.func
+    clickedGroup: React.PropTypes.func,
+    urlRoot: React.PropTypes.string
 };
 
 const defaultProps = {
@@ -107,11 +109,18 @@ export default class HorizontalChart extends React.Component {
         const bars = [];
         props.labelSeries.forEach((dataLabel, index) => {
             const dataValue = props.dataSeries[index];
+            let linkID = '';
+
+            if (props.linkSeries.length > 0) {
+                linkID = props.linkSeries[index];
+            }
 
             // generate the left-side label group and striped background
             const group = (<ChartGroup
                 key={`group-${dataValue}-${dataLabel}-${index}`}
                 label={dataLabel}
+                linkID={linkID}
+                urlRoot={this.props.urlRoot}
                 index={index}
                 height={props.itemHeight}
                 width={props.width}
