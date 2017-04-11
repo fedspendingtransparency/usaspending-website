@@ -11,6 +11,7 @@ import * as HomepageHelper from 'helpers/homepageHelper';
 import MapVisualizationContainer from 'containers/homepage/MapVisualizationContainer';
 import Landing from './Landing';
 import TreeMapIntro from './TreeMapIntro';
+import MapTopBar from './MapTopBar';
 import TreeMap from './visualizations/TreeMap';
 import ByCategorySection from './ByCategorySection';
 import LinksSection from './LinksSection';
@@ -71,8 +72,8 @@ export default class Homepage extends React.Component {
                     total={this.state.total}
                     categories={this.state.categories}
                     colors={this.state.colors} />
-
                 <ByCategorySection />
+                <MapTopBar />
                 <MapVisualizationContainer />
                 <SearchSection />
                 <LinksSection />

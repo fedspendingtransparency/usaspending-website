@@ -8,7 +8,10 @@
     @import "./treemapSection";
 
     @import "./byCategorySection";
+
     @import "../search/results/visualizations/visualizations";
+    @import "./mapTopBar";
+    @import "./mapSection";
 
     @import "../../pages/homepage/_searchSection";
     @include searchSection;

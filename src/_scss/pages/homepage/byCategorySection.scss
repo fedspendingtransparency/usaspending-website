@@ -1,6 +1,6 @@
-@import "../../mixins/fullSectionWrap";
-@import "../../mixins/setText";
 .by-category-section-wrap {
+    @import "../../mixins/fullSectionWrap";
+    @import "../../mixins/setText";
     background: $color-gray;
     padding: rem(80) 0 0;
     & .inner-wrap {

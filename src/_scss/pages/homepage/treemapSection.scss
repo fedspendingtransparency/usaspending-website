@@ -1,5 +1,6 @@
-@import "../../mixins/moreOptionsBtn";
 .usa-da-treemap-section {
+    @import "../../mixins/moreOptionsBtn";
+    
     @include outer-container(100%);
     @include row();
     @include clearfix;
