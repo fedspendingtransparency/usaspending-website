@@ -358,8 +358,13 @@ ${xData}: ${MoneyFormatter.formatMoney(stack.obligated)}`;
                     items.push(obligatedBar);
 
                     // stack the unobligated value on top
-                    const unobligatedTop = graphHeight - yScale(stack.budgetAuthority);
-                    const unobligatedHeight = yScale(stack.unobligated);
+                    let unobligatedTop = graphHeight - yScale(stack.budgetAuthority);
+                    let unobligatedHeight = yScale(stack.unobligated);
+                    if (stack.unobligated < 0) {
+                        // if the value is negative, however, the top of the bar is actually the X axis
+                        unobligatedTop = graphHeight - yScale(0);
+                        unobligatedHeight = yScale(0) - yScale(stack.unobligated);
+                    }
                     const unobligatedIdentifier = `unobligated-${groupIndex}-${stackIndex}`;
                     const unobligatedDescription = `Unobligated balance in ${xData}: \
 ${MoneyFormatter.formatMoney(stack.unobligated)}`;
