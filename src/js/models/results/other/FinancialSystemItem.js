@@ -40,7 +40,14 @@ const remapData = (data) => {
     }
 
     if (data.object_class) {
-        remappedData.objectClass = data.object_class;
+        let objectClassLabel = '';
+        if (data.object_class.object_class_name) {
+            objectClassLabel += `${data.object_class.object_class_name} `;
+        }
+        if (data.object_class.object_class) {
+            objectClassLabel += `(${data.object_class.object_class})`;
+        }
+        remappedData.objectClass = objectClassLabel;
     }
 
     if (data.program_activity_code && data.program_activity_name) {

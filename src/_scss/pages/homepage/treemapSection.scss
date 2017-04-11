@@ -3,15 +3,16 @@
     @include outer-container(100%);
     @include row();
     @include clearfix;
+    background-color: #ececec;
     max-width: $site-max-width;
-    margin: rem(40) rem(30);
+    margin: 0;
     position: relative;
-    padding: 0;
+    padding: rem(40) rem(30);
     @include media($large-screen) {
-        margin: rem(40) $outer-gutter;
+        padding: rem(40) $outer-gutter;
     }
     @include media($x-large-screen) {
-        margin: rem(40) auto;
+        padding: rem(40) auto;
     }
     @import './visualizations/_treemapVisualization';
     @import './treemapSidebar';

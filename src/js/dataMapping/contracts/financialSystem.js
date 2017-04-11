@@ -39,7 +39,7 @@ const tableFields = {
             submissionDate: 'certified_date',
             tas: 'treasury_account__tas_rendering_label',
             programActivity: 'program_activity_name',
-            objectClass: 'object_class',
+            objectClass: 'object_class__object_class_name',
             fundingObligated: 'obligations_incurred_total_by_award_cpe'
         },
         _mapping: {
