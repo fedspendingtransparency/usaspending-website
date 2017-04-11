@@ -18,16 +18,16 @@ export const mockReduxAccount = {
     description: 'Not available',
     totals: {
         outlay: {
-            2017: '-5505246.42'
+            2016: '-5505246.42'
         },
         budgetAuthority: {
-            2017: '201404661.47'
+            2016: '201404661.47'
         },
         obligated: {
-            2017: '2696684.86'
+            2016: '2696684.86'
         },
         unobligated: {
-            2017: '198707976.61'
+            2016: '198707976.61'
         }
     }
 };
@@ -35,12 +35,11 @@ export const mockReduxAccount = {
 export const mockBalances = {
     unobligated: {
         page_metadata: {
-            num_pages: 1,
             count: 1,
             page_number: 1
         },
         results: [{
-            item: "2016-11-01",
+            item: "2016",
             aggregate: "198707976.61"
         }],
         total_metadata: {
@@ -49,12 +48,11 @@ export const mockBalances = {
     },
     obligated: {
         page_metadata: {
-            num_pages: 1,
             count: 1,
             page_number: 1
         },
         results: [{
-            item: "2016-11-01",
+            item: "2016",
             aggregate: "2696684.86"
         }],
         total_metadata: {
@@ -63,12 +61,11 @@ export const mockBalances = {
     },
     budgetAuthority: {
         page_metadata: {
-            num_pages: 1,
             count: 1,
             page_number: 1
         },
         results: [{
-            item: "2016-11-01",
+            item: "2016",
             aggregate: "201404661.47"
         }],
         total_metadata: {
@@ -77,12 +74,11 @@ export const mockBalances = {
     },
     outlay: {
         page_metadata: {
-            num_pages: 1,
             count: 1,
             page_number: 1
         },
         results: [{
-            item: "2016-11-01",
+            item: "2016",
             aggregate: "-5505246.42"
         }],
         total_metadata: {
@@ -96,9 +92,7 @@ export const mockCategories = {
         count: 1
     },
     page_metadata: {
-        page_number: 1,
-        num_pages: 1,
-        count: 1
+        page_number: 1
     },
     results: [{
         item: "709",

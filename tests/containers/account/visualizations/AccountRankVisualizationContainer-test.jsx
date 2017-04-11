@@ -104,10 +104,9 @@ describe('AccountRankVisualizationContainer', () => {
 
             const expectedState = {
                 labelSeries: ['709'],
-                dataSeries: [2696684.86],
-                descriptions: ['Obligated balance for 709: $2,696,685'],
+                dataSeries: [-2696684.86],
+                descriptions: ['Obligated balance for 709: -$2,696,685'],
                 loading: false,
-                total: 1,
                 page: 1,
                 categoryScope: 'programActivity'
             };
@@ -143,16 +142,13 @@ describe('AccountRankVisualizationContainer', () => {
                 account={mockReduxAccount} />);
 
             container.setState({
-                page: 5,
-                total: 5
+                page: 5
             });
 
             expect(container.state().page).toEqual(5);
-            expect(container.state().total).toEqual(5);
 
             container.instance().newSearch();
             expect(container.state().page).toEqual(1);
-            expect(container.state().total).toEqual(1);
         });
     });
 
@@ -165,7 +161,7 @@ describe('AccountRankVisualizationContainer', () => {
 
             container.setState({
                 page: 2,
-                total: 5
+                hasNextPage: true
             });
 
             container.instance().nextPage();
@@ -179,7 +175,7 @@ describe('AccountRankVisualizationContainer', () => {
 
             container.setState({
                 page: 5,
-                total: 5
+                hasNextPage: false
             });
 
             container.instance().nextPage();
@@ -196,7 +192,7 @@ describe('AccountRankVisualizationContainer', () => {
 
             container.setState({
                 page: 2,
-                total: 5
+                hasPreviousPage: true
             });
 
             container.instance().previousPage();
@@ -210,7 +206,7 @@ describe('AccountRankVisualizationContainer', () => {
 
             container.setState({
                 page: 1,
-                total: 5
+                hasPreviousPage: false
             });
 
             container.instance().previousPage();
