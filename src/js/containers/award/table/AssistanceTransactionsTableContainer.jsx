@@ -136,9 +136,8 @@ export class AssistanceTransactionsTableContainer extends React.Component {
         // update the metadata
         const meta = data.page_metadata;
         this.props.setTransactionsMeta({
-            count: meta.count,
-            page: meta.page_number,
-            totalPages: meta.num_pages
+            page: meta.page,
+            nextPage: meta.has_next_page
         });
 
         // update the render hash
@@ -149,10 +148,12 @@ export class AssistanceTransactionsTableContainer extends React.Component {
     }
 
     nextTransactionPage() {
-        const nextPage = this.props.award.transactionMeta.page + 1;
-        if (nextPage <= this.props.award.transactionMeta.totalPages) {
-            this.fetchTransactions(nextPage, false);
+        if (!this.props.award.transactionMeta.nextPage) {
+            return;
         }
+
+        const nextPage = this.props.award.transactionMeta.page + 1;
+        this.fetchTransactions(nextPage, false);
     }
 
     render() {

@@ -6,6 +6,7 @@
         color: $color-base;
         font-size: rem(20);
         font-weight: $font-light;
+        margin-bottom: rem(30);
         padding: rem(10) 0 rem(10) rem(15);
         & b {
             font-weight: $font-semibold;
@@ -19,17 +20,36 @@
         display: inline-block;
         font-size: $base-font-size;
         margin-bottom: rem(20);
-        margin-top: rem(30);
         padding: rem(15);
         text-align: center;
         width: 100%;
     }
+
+    .tree-cat-name {
+        color: $color-base;
+        font-size: rem(30);
+        line-height: rem(35);
+        margin: 0 0 .5rem 0;
+    }
+
+    .tree-cat-amount {
+        color: $color-base;
+        font-size: rem(47);
+        margin: 0 0 1rem 0;
+    }
+
+    .tree-cat-desc {
+        color: $color-base;
+        font-size: rem(14);
+    }
     @include media($medium-screen) {
         @include span-columns(5);
         @include shift(11 of 16);
+        .tree-desc {
+            margin-bottom: rem(90);
+        }
         & .tree-hover-tip {
             margin-bottom: 0;
-            margin-top: rem(90);
         }
     }
 }

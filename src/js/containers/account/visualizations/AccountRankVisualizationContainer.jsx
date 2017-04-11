@@ -60,7 +60,8 @@ export class AccountRankVisualizationContainer extends React.Component {
     changeScope(scope) {
         this.setState({
             categoryScope: scope,
-            page: 1
+            page: 1,
+            hasNext: false
         }, () => {
             this.fetchData();
         });
@@ -140,14 +141,16 @@ export class AccountRankVisualizationContainer extends React.Component {
         const dataSeries = [];
         const descriptions = [];
 
+        const labelField = categoryLabelFields[this.state.categoryScope];
+
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
             const adjustedValue = parseFloat(item.aggregate);
 
-            labelSeries.push(item.item);
+            labelSeries.push(item[labelField]);
             dataSeries.push(parseFloat(adjustedValue));
 
-            const description = `Obligated balance for ${item.item}: \
+            const description = `Obligated balance for ${item[labelField]}: \
 ${MoneyFormatter.formatMoney(adjustedValue)}`;
             descriptions.push(description);
         });

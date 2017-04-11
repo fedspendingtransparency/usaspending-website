@@ -88,14 +88,17 @@ export const mockBalances = {
 };
 
 export const mockCategories = {
-    total_metadata: {
-        count: 1
-    },
+    req: 'abc',
     page_metadata: {
-        page_number: 1
+        page: 1,
+        current: 'blerg',
+        next: 'blerg',
+        previous: 'blerg',
+        has_next_page: true,
+        has_previous_page: false
     },
     results: [{
-        item: "709",
-        aggregate: "-2696684.86"
+        program_activity__program_activity_name: "Program Name",
+        aggregate: "2696684.86"
     }]
 };

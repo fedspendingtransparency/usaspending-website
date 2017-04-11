@@ -103,10 +103,11 @@ describe('AccountRankVisualizationContainer', () => {
             container.instance().parseData(mockCategories);
 
             const expectedState = {
-                labelSeries: ['709'],
+                labelSeries: ['Program Name'],
                 dataSeries: [-2696684.86],
-                descriptions: ['Obligated balance for 709: -$2,696,685'],
+                descriptions: ['Obligated balance for Program Name: -$2,696,685'],
                 loading: false,
+                hasNext: true,
                 page: 1,
                 categoryScope: 'programActivity'
             };
@@ -142,13 +143,16 @@ describe('AccountRankVisualizationContainer', () => {
                 account={mockReduxAccount} />);
 
             container.setState({
-                page: 5
+                page: 5,
+                hasNextPage: true
             });
 
             expect(container.state().page).toEqual(5);
+            expect(container.state().hasNextPage).toEqual(true);
 
             container.instance().newSearch();
             expect(container.state().page).toEqual(1);
+            expect(container.state().hasNextPage).toEqual(false);
         });
     });
 
