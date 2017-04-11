@@ -14,7 +14,9 @@ const propTypes = {
     x1: React.PropTypes.number,
     y0: React.PropTypes.number,
     y1: React.PropTypes.number,
-    color: React.PropTypes.string
+    color: React.PropTypes.string,
+    toggleTooltip: React.PropTypes.func,
+    showOverlay: React.PropTypes.bool
 };
 
 export default class TreeMapCell extends React.Component {
@@ -24,8 +26,12 @@ export default class TreeMapCell extends React.Component {
 
         this.state = {
             label: '',
-            didProcess: false
+            didProcess: false,
+            color: this.props.color
         };
+
+        this.mouseIn = this.mouseIn.bind(this);
+        this.toggleBorders = this.toggleBorders.bind(this);
     }
 
     componentDidMount() {
@@ -82,6 +88,31 @@ export default class TreeMapCell extends React.Component {
         });
     }
 
+    mouseIn(label, value, bgColor) {
+        this.props.toggleTooltip(label, value);
+        this.setState({
+            color: bgColor
+        });
+    }
+
+    toggleBorders() {
+        const strokeArray = [];
+        let strokeColor = "white";
+        let strokeOpacity = 0.5;
+        if (this.props.showOverlay === true) {
+            if (this.props.label === "Social Security" ||
+                this.props.label === "National Defense" ||
+                this.props.label === "Medicare") {
+                strokeColor = "#F2B733";
+                strokeOpacity = 1;
+            }
+        }
+        strokeArray.push(strokeColor);
+        strokeArray.push(strokeOpacity);
+        return strokeArray;
+    }
+
+
     render() {
         const width = (this.props.x1 - this.props.x0);
         const height = (this.props.y1 - this.props.y0);
@@ -95,13 +126,23 @@ export default class TreeMapCell extends React.Component {
         }
         return (
             <g
-                transform={`translate(${this.props.x0},${this.props.y0})`}>
+                transform={`translate(${this.props.x0},${this.props.y0})`}
+                onMouseOver={() => {
+                    this.mouseIn(this.props.label, this.props.value, "#F2B733");
+                }}
+                onMouseLeave={() => {
+                    this.mouseIn('none', '', this.props.color);
+                }}>
                 <rect
                     className="tile"
                     width={width}
                     height={height}
                     style={{
-                        fill: this.props.color
+                        fill: this.state.color,
+                        stroke: this.toggleBorders()[0],
+                        strokeOpacity: this.toggleBorders()[1],
+                        strokeWidth: "2px",
+                        padding: "10px"
                     }} />
                 <text
                     className="category"

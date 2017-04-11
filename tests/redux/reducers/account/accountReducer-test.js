@@ -98,7 +98,10 @@ describe('accountReducer', () => {
                 dateType: 'fy',
                 fy: new Set(['2017']),
                 startDate: null,
-                endDate: null
+                endDate: null,
+                programActivity: [],
+                tas: [],
+                objectClass: new OrderedSet()
             };
 
             state = accountReducer(state, action);
@@ -120,7 +123,10 @@ describe('accountReducer', () => {
                 dateType: 'dr',
                 fy: new Set([]),
                 startDate: '2015-01-01',
-                endDate: '2015-12-31'
+                endDate: '2015-12-31',
+                programActivity: [],
+                tas: [],
+                objectClass: new OrderedSet()
             };
 
             state = accountReducer(state, action);
@@ -144,7 +150,10 @@ describe('accountReducer', () => {
                 dateType: 'dr',
                 fy: new Set(['2017']),
                 startDate: '2015-01-01',
-                endDate: '2015-12-31'
+                endDate: '2015-12-31',
+                programActivity: [],
+                tas: [],
+                objectClass: new OrderedSet()
             };
 
             state = accountReducer(state, firstAction);
@@ -158,7 +167,10 @@ describe('accountReducer', () => {
                 dateType: 'fy',
                 fy: new Set([]),
                 startDate: null,
-                endDate: null
+                endDate: null,
+                programActivity: [],
+                tas: [],
+                objectClass: new OrderedSet()
             };
 
             state = accountReducer(state, secondAction);
@@ -218,7 +230,10 @@ describe('accountReducer', () => {
                 dateType: 'dr',
                 fy: new Set(['2017']),
                 startDate: '2015-01-01',
-                endDate: '2015-12-31'
+                endDate: '2015-12-31',
+                programActivity: [],
+                tas: [],
+                objectClass: new OrderedSet()
             };
 
             state = accountReducer(state, firstAction);
@@ -277,7 +292,10 @@ describe('accountReducer', () => {
                 dateType: 'dr',
                 fy: new Set(['2017']),
                 startDate: '2015-01-01',
-                endDate: '2015-12-31'
+                endDate: '2015-12-31',
+                programActivity: [],
+                tas: [],
+                objectClass: new OrderedSet()
             };
 
             state = accountReducer(state, secondAction);
