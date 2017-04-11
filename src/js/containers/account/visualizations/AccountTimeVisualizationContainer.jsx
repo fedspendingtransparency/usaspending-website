@@ -160,23 +160,15 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             // does not have filtered obligated
             const quarters = [];
             const yData = [];
-            data.forEach((balance, index) => {
-                balance.data.results.forEach((group, index2) => {
-                    if (index === 0) {
+            data.forEach((balance, balanceIndex) => {
+                balance.data.results.forEach((group, groupIndex) => {
+                    const type = this.balanceRequests[balanceIndex].type;
+                    if (balanceIndex === 0) {
+                        // only push the group once
                         quarters.push(`${group.item} Q${group.submission__reporting_fiscal_quarter}`);
                         yData.push({});
-                        yData[index2].outlay = parseFloat(group.aggregate);
                     }
-                    // is there a more efficient way to do this?
-                    if (index === 1) {
-                        yData[index2].budgetAuthority = parseFloat(group.aggregate);
-                    }
-                    if (index === 2) {
-                        yData[index2].obligated = parseFloat(group.aggregate);
-                    }
-                    if (index === 3) {
-                        yData[index2].unobligated = parseFloat(group.aggregate);
-                    }
+                    yData[groupIndex][type] = parseFloat(group.aggregate);
                     allY.push(parseFloat(group.aggregate));
                 });
             });
@@ -190,22 +182,15 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             // Visualization period is years
             const years = [];
             const yData = [];
-            data.forEach((balance, index) => {
-                balance.data.results.forEach((group, index2) => {
-                    if (index === 0) {
+            data.forEach((balance, balanceIndex) => {
+                balance.data.results.forEach((group, groupIndex) => {
+                    const type = this.balanceRequests[balanceIndex].type;
+                    if (balanceIndex === 0) {
+                        // only push the group once
                         years.push(group.item);
                         yData.push({});
-                        yData[index2].outlay = parseFloat(group.aggregate);
                     }
-                    if (index === 1) {
-                        yData[index2].budgetAuthority = parseFloat(group.aggregate);
-                    }
-                    if (index === 2) {
-                        yData[index2].obligated = parseFloat(group.aggregate);
-                    }
-                    if (index === 3) {
-                        yData[index2].unobligated = parseFloat(group.aggregate);
-                    }
+                    yData[groupIndex][type] = parseFloat(group.aggregate);
                     allY.push(parseFloat(group.aggregate));
                 });
             });
