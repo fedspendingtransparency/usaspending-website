@@ -104,10 +104,10 @@ describe('AccountRankVisualizationContainer', () => {
 
             const expectedState = {
                 labelSeries: ['Program Name'],
-                dataSeries: [-2696684.86],
-                descriptions: ['Obligated balance for Program Name: -$2,696,685'],
+                dataSeries: [2696684.86],
+                descriptions: ['Obligated balance for Program Name: $2,696,685'],
                 loading: false,
-                hasNext: true,
+                hasNextPage: true,
                 page: 1,
                 categoryScope: 'programActivity'
             };
