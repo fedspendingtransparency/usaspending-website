@@ -1,10 +1,11 @@
-@import "../../mixins/fullSectionWrap";
-@import "../../mixins/background";
-@import "../../elements/_divider";
-@import "../../elements/_typography";
 .wrapper {
+    @import "../../mixins/fullSectionWrap";
+    @import "../../mixins/background";
+    @import "../../elements/_divider";
+    @import "../../elements/_typography";
+    
     & .inner-wrap-left {
-        & img { 
+        & img {
             width: 100%;
             display: inline-block;
             height: 100%;
@@ -30,7 +31,9 @@
         }
     }
     & .inner-wrap-right {
-        & img { width: 100%; }
+        & img {
+            width: 100%;
+        }
         & h3 {
             margin-top: 1em;
             margin-bottom: 0;

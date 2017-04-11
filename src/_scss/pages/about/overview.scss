@@ -1,7 +1,8 @@
-@import "../../mixins/fullSectionWrap";
-@import "../../elements/_divider";
-@import "../../elements/_buttons";
 .overview-wrap {
+    @import "../../mixins/fullSectionWrap";
+    @import "../../elements/_divider";
+    @import "../../elements/_buttons";
+    
     @include clearfix;
     @include fullSectionWrap();
     padding: ($global-pad) 0;

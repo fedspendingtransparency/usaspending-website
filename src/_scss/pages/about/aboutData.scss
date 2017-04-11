@@ -1,7 +1,8 @@
-@import "../../mixins/fullSectionWrap";
-@import "../../elements/_divider";
-@import "../../elements/_typography";
 .aboutdata-wrap {
+    @import "../../mixins/fullSectionWrap";
+    @import "../../elements/_divider";
+    @import "../../elements/_typography";
+    
     @include clearfix;
     background: url(../../img/about_us_background.png) no-repeat center bottom;
     background-size: 100%;
