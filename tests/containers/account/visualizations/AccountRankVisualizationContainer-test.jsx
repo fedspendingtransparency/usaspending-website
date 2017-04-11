@@ -103,11 +103,11 @@ describe('AccountRankVisualizationContainer', () => {
             container.instance().parseData(mockCategories);
 
             const expectedState = {
-                labelSeries: ['709'],
+                labelSeries: ['Program Name'],
                 dataSeries: [2696684.86],
-                descriptions: ['Obligated balance for 709: $2,696,685'],
+                descriptions: ['Obligated balance for Program Name: $2,696,685'],
                 loading: false,
-                total: 1,
+                hasNext: true,
                 page: 1,
                 categoryScope: 'programActivity'
             };
@@ -144,15 +144,15 @@ describe('AccountRankVisualizationContainer', () => {
 
             container.setState({
                 page: 5,
-                total: 5
+                hasNext: true
             });
 
             expect(container.state().page).toEqual(5);
-            expect(container.state().total).toEqual(5);
+            expect(container.state().hasNext).toEqual(true);
 
             container.instance().newSearch();
             expect(container.state().page).toEqual(1);
-            expect(container.state().total).toEqual(1);
+            expect(container.state().hasNext).toEqual(false);
         });
     });
 
@@ -165,7 +165,7 @@ describe('AccountRankVisualizationContainer', () => {
 
             container.setState({
                 page: 2,
-                total: 5
+                hasNext: true
             });
 
             container.instance().nextPage();
@@ -179,7 +179,7 @@ describe('AccountRankVisualizationContainer', () => {
 
             container.setState({
                 page: 5,
-                total: 5
+                hasNext: false
             });
 
             container.instance().nextPage();
