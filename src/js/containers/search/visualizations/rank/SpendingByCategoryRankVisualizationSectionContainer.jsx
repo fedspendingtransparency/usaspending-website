@@ -73,7 +73,8 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
     changeScope(scope) {
         this.setState({
             scope,
-            page: 1
+            page: 1,
+            hasNextPage: false
         }, () => {
             this.fetchData();
         });
@@ -81,7 +82,8 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
 
     newSearch() {
         this.setState({
-            page: 1
+            page: 1,
+            hasNextPage: false
         }, () => {
             this.fetchData();
         });

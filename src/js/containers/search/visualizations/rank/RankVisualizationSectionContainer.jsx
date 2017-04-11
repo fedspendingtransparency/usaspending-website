@@ -62,7 +62,8 @@ export class RankVisualizationSectionContainer extends React.Component {
     changeScope(scope) {
         this.setState({
             agencyScope: scope,
-            page: 1
+            page: 1,
+            hasNextPage: false
         }, () => {
             this.fetchData();
         });
@@ -70,7 +71,8 @@ export class RankVisualizationSectionContainer extends React.Component {
 
     newSearch() {
         this.setState({
-            page: 1
+            page: 1,
+            hasNextPage: false
         }, () => {
             this.fetchData();
         });
