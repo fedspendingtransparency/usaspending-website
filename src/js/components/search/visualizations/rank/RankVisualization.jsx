@@ -12,11 +12,13 @@ import ChartMessage from './RankVisualizationChartMessage';
 const defaultProps = {
     labelSeries: [],
     dataSeries: [],
+    linkSeries: [],
     descriptions: [],
     width: 0,
     height: 330,
     loading: true,
-    disableTooltip: false
+    disableTooltip: false,
+    urlRoot: ''
 };
 
 const propTypes = {

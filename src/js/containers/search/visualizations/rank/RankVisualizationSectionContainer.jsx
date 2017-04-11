@@ -18,10 +18,12 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
+import SearchTransactionFileCOperation from 'models/search/SearchTransactionFileCOperation';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object,
-    meta: React.PropTypes.object
+    meta: React.PropTypes.object,
+    budgetFiltersSelected: React.PropTypes.bool
 };
 
 export class RankVisualizationSectionContainer extends React.Component {
@@ -60,7 +62,8 @@ export class RankVisualizationSectionContainer extends React.Component {
     changeScope(scope) {
         this.setState({
             agencyScope: scope,
-            page: 1
+            page: 1,
+            hasNextPage: false
         }, () => {
             this.fetchData();
         });
@@ -68,18 +71,21 @@ export class RankVisualizationSectionContainer extends React.Component {
 
     newSearch() {
         this.setState({
-            page: 1
+            page: 1,
+            hasNextPage: false
         }, () => {
             this.fetchData();
         });
     }
 
     nextPage() {
-        this.setState({
-            page: this.state.page + 1
-        }, () => {
-            this.fetchData();
-        });
+        if (this.state.hasNextPage) {
+            this.setState({
+                page: this.state.page + 1
+            }, () => {
+                this.fetchData();
+            });
+        }
     }
 
     previousPage() {
@@ -93,11 +99,25 @@ export class RankVisualizationSectionContainer extends React.Component {
     }
 
     fetchData() {
-        // build a new search operation from the Redux state, but create a transaction-based search
-        // operation instead of an award-based one
-        const operation = new SearchTransactionOperation();
-        operation.fromState(this.props.reduxFilters);
+        this.setState({
+            loading: true
+        });
 
+        if (this.apiRequest) {
+            this.apiRequest.cancel();
+        }
+
+        let operation = null;
+
+        // Create Search Operation
+        if (this.props.budgetFiltersSelected) {
+            operation = new SearchTransactionFileCOperation();
+        }
+        else {
+            operation = new SearchTransactionOperation();
+        }
+
+        operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
         // generate the API parameters
@@ -110,15 +130,6 @@ export class RankVisualizationSectionContainer extends React.Component {
             limit: 5,
             page: this.state.page
         };
-
-        this.setState({
-            loading: true
-        });
-
-
-        if (this.apiRequest) {
-            this.apiRequest.cancel();
-        }
 
         this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
         this.apiRequest.promise

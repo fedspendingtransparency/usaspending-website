@@ -7,18 +7,22 @@ import { Set, OrderedMap } from 'immutable';
 
 import searchFiltersReducer from 'redux/reducers/search/searchFiltersReducer';
 import { awardRanges } from 'dataMapping/search/awardAmount';
+import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
 
 const initialState = {
+    keyword: '',
     awardType: new Set(),
     timePeriodType: 'fy',
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
-    keyword: '',
-    selectedFundingAgencies: new OrderedMap(),
-    selectedAwardingAgencies: new OrderedMap(),
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all',
+    budgetFunctions: new OrderedMap(),
+    federalAccounts: new OrderedMap(),
+    objectClasses: new OrderedMap(),
+    selectedFundingAgencies: new OrderedMap(),
+    selectedAwardingAgencies: new OrderedMap(),
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
     selectedRecipientLocations: new OrderedMap(),
@@ -197,6 +201,112 @@ describe('searchFiltersReducer', () => {
 
             const updatedState = searchFiltersReducer(undefined, action);
             expect(updatedState.locationDomesticForeign).toEqual('domestic');
+        });
+    });
+
+    describe('UPDATE_SELECTED_BUDGET_FUNCTIONS', () => {
+        const action = {
+            type: 'UPDATE_SELECTED_BUDGET_FUNCTIONS',
+            budgetFunction: {
+                title: 'Income Security',
+                functionType: 'Function'
+            }
+        };
+
+        const identifier = 'Income Security';
+
+        const expectedValue = {
+            title: 'Income Security',
+            functionType: 'Function'
+        };
+
+        it('should add the provided budget function if it does not currently exist in the filter',
+            () => {
+                const updatedState = searchFiltersReducer(undefined, action);
+                expect(updatedState.budgetFunctions).toEqual(new OrderedMap({
+                    [identifier]: expectedValue
+                }));
+            });
+
+        it('should remove the provided budget function if already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                budgetFunctions: new OrderedMap({
+                    [identifier]: expectedValue
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.budgetFunctions).toEqual(new OrderedMap());
+        });
+    });
+
+    describe('UPDATE_SELECTED_FEDERAL_ACCOUNTS', () => {
+        const action = {
+            type: 'UPDATE_SELECTED_FEDERAL_ACCOUNTS',
+            federalAccount: {
+                id: '392',
+                agency_identifier: '012',
+                main_account_code: '3539',
+                account_title: 'Child Nutrition Programs, Food Nutrition Service, Agriculture'
+            }
+        };
+
+        const identifier = '392';
+
+        const expectedValue = {
+            id: '392',
+            agency_identifier: '012',
+            main_account_code: '3539',
+            account_title: 'Child Nutrition Programs, Food Nutrition Service, Agriculture'
+        };
+
+        it('should add the provided federal account if it does not currently exist in the filter',
+            () => {
+                const updatedState = searchFiltersReducer(undefined, action);
+                expect(updatedState.federalAccounts).toEqual(new OrderedMap({
+                    [identifier]: expectedValue
+                }));
+            });
+
+        it('should remove the provided federal account if already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                federalAccounts: new OrderedMap({
+                    [identifier]: expectedValue
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.federalAccounts).toEqual(new OrderedMap());
+        });
+    });
+
+    describe('UPDATE_SELECTED_OBJECT_CLASSES', () => {
+        const action = {
+            type: 'UPDATE_SELECTED_OBJECT_CLASSES',
+            objectClass: '10'
+        };
+
+        const identifier = '10';
+
+        const expectedValue = objectClassDefinitions[identifier];
+
+        it('should add the provided federal account if it does not currently exist in the filter',
+            () => {
+                const updatedState = searchFiltersReducer(undefined, action);
+                expect(updatedState.objectClasses).toEqual(new OrderedMap({
+                    [identifier]: expectedValue
+                }));
+            });
+
+        it('should remove the provided federal account if already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                objectClasses: new OrderedMap({
+                    [identifier]: expectedValue
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.objectClasses).toEqual(new OrderedMap());
         });
     });
 

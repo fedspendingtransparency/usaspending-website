@@ -6,14 +6,15 @@
 import React from 'react';
 import _ from 'lodash';
 
-import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
-import TimeVisualizationPeriodButton from
-    'components/search/visualizations/time/TimeVisualizationPeriodButton';
+import AccountTimeVisualizationPeriodButton from './AccountTimeVisualizationPeriodButton';
 
 import TimeVisualization from './TimeVisualization';
 
 const propTypes = {
-    data: React.PropTypes.object
+    data: React.PropTypes.object,
+    visualizationPeriod: React.PropTypes.string,
+    changePeriod: React.PropTypes.func,
+    hasFilteredObligated: React.PropTypes.bool
 };
 
 export default class AccountTimeVisualizationSection extends React.Component {
@@ -22,12 +23,10 @@ export default class AccountTimeVisualizationSection extends React.Component {
 
         this.state = {
             windowWidth: 0,
-            visualizationWidth: 0,
-            visualizationPeriod: 'year'
+            visualizationWidth: 0
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
-        this.changePeriod = this.changePeriod.bind(this);
     }
 
     componentDidMount() {
@@ -49,10 +48,6 @@ export default class AccountTimeVisualizationSection extends React.Component {
                 visualizationWidth: this.sectionHr.offsetWidth
             });
         }
-    }
-
-    changePeriod(period) {
-        console.log(period);
     }
 
     render() {
@@ -79,19 +74,18 @@ export default class AccountTimeVisualizationSection extends React.Component {
                         <div className="content">
                             <ul>
                                 <li>
-                                    <TimeVisualizationPeriodButton
+                                    <AccountTimeVisualizationPeriodButton
                                         value="year"
                                         label="Years"
-                                        active={this.state.visualizationPeriod === 'year'}
-                                        changePeriod={this.changePeriod} />
+                                        active={this.props.visualizationPeriod === 'year'}
+                                        changePeriod={this.props.changePeriod} />
                                 </li>
-                                <li className="coming-soon">
-                                    <TimeVisualizationPeriodButton
+                                <li>
+                                    <AccountTimeVisualizationPeriodButton
                                         value="quarter"
                                         label="Quarters"
-                                        active={this.state.visualizationPeriod === 'quarter'}
-                                        changePeriod={this.changePeriod} />
-                                    <ComingSoonLabel />
+                                        active={this.props.visualizationPeriod === 'quarter'}
+                                        changePeriod={this.props.changePeriod} />
                                 </li>
                             </ul>
                         </div>
@@ -99,7 +93,8 @@ export default class AccountTimeVisualizationSection extends React.Component {
                 </div>
                 <TimeVisualization
                     {...this.props.data}
-                    width={this.state.visualizationWidth} />
+                    width={this.state.visualizationWidth}
+                    hasFilteredObligated={this.props.hasFilteredObligated} />
             </div>
         );
     }

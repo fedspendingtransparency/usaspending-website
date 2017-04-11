@@ -18,7 +18,10 @@ export default class AdditionalGroup extends React.Component {
         const rows = [];
 
         this.props.fields.forEach((item) => {
-            let value = this.props.data[item.field];
+            let value = "Not Available";
+            if (this.props.data[item.field]) {
+                value = this.props.data[item.field];
+            }
             if (item.field === "__special") {
                 // this is a special data field that needs to be manually parsed
                 value = item.parse(this.props.data);

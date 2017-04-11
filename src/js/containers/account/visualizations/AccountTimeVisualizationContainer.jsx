@@ -10,13 +10,12 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
 import _ from 'lodash';
-import moment from 'moment';
 
 import AccountTimeVisualizationSection from
     'components/account/visualizations/time/AccountTimeVisualizationSection';
 
 import * as AccountHelper from 'helpers/accountHelper';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import * as AccountQuartersHelper from 'helpers/accountQuartersHelper';
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 
 import AccountSearchBalanceOperation from 'models/account/queries/AccountSearchBalanceOperation';
@@ -35,10 +34,14 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             loading: true,
             groups: [],
             xSeries: [],
-            ySeries: []
+            ySeries: [],
+            allY: [],
+            visualizationPeriod: 'year',
+            hasFilteredObligated: false
         };
 
         this.balanceRequests = [];
+        this.changePeriod = this.changePeriod.bind(this);
     }
 
     componentDidMount() {
@@ -48,6 +51,20 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
     componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
             this.fetchData();
+        }
+    }
+
+    changePeriod(period) {
+        const prevPeriod = this.state.visualizationPeriod;
+        if (prevPeriod !== period) {
+            this.setState(
+                {
+                    visualizationPeriod: period
+                },
+                () => {
+                    this.fetchData();
+                }
+            );
         }
     }
 
@@ -66,23 +83,52 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
 
         const requests = [];
         const promises = [];
-        Object.keys(balanceFields).forEach((balanceType) => {
-            // generate an API call
-            const request = AccountHelper.fetchTasBalanceTotals({
-                filters,
-                group: 'reporting_period_start',
-                field: balanceFields[balanceType],
-                aggregate: 'sum',
-                order: ['reporting_period_start']
+
+        if (this.state.hasFilteredObligated) {
+            // In progress
+        }
+        else if (this.state.visualizationPeriod === 'quarter') {
+            // Does not have filtered obligated
+            Object.keys(balanceFields).forEach((balanceType) => {
+                // generate API call using helper for quarters
+                const request = AccountQuartersHelper.fetchTasBalanceTotals({
+                    filters,
+                    group: ['submission__reporting_fiscal_year',
+                        'submission__reporting_fiscal_quarter'],
+                    field: balanceFields[balanceType],
+                    aggregate: 'sum',
+                    order: ['submission__reporting_fiscal_year']
+                });
+
+                request.type = balanceType;
+
+                requests.push(request);
+                promises.push(request.promise);
             });
 
-            request.type = balanceType;
+            this.balanceRequests = requests;
+        }
+        else {
+            // visualization period is year
+            Object.keys(balanceFields).forEach((balanceType) => {
+                // generate API call
+                const request = AccountHelper.fetchTasBalanceTotals({
+                    filters,
+                    group: 'submission__reporting_fiscal_year',
+                    field: balanceFields[balanceType],
+                    aggregate: 'sum',
+                    order: ['submission__reporting_fiscal_year']
+                });
 
-            requests.push(request);
-            promises.push(request.promise);
-        });
+                request.type = balanceType;
 
-        this.balanceRequests = requests;
+                requests.push(request);
+                promises.push(request.promise);
+            });
+
+            this.balanceRequests = requests;
+        }
+
 
         Promise.all(promises)
             .then((res) => {
@@ -103,52 +149,76 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
     }
 
     parseBalances(data) {
-        const years = [];
-
-        const balances = {};
-        data.forEach((item, i) => {
-            const type = this.balanceRequests[i].type;
-            const values = {};
-
-            item.data.results.forEach((group) => {
-                const date = moment(group.item, 'YYYY-MM-DD');
-                const fy = FiscalYearHelper.convertDateToFY(date);
-                if (_.indexOf(years, fy) === -1) {
-                    years.push(fy);
-                }
-                values[fy] = group.aggregate;
-            });
-
-            balances[type] = values;
-        });
-
-
         const groups = [];
         const xSeries = [];
         const ySeries = [];
+        const allY = [];
+        if (this.state.hasFilteredObligated) {
+            // In progress
+        }
+        else if (this.state.visualizationPeriod === 'quarter') {
+            // does not have filtered obligated
+            const quarters = [];
+            const yData = [];
+            data.forEach((balance, balanceIndex) => {
+                balance.data.results.forEach((group, groupIndex) => {
+                    const type = this.balanceRequests[balanceIndex].type;
+                    if (balanceIndex === 0) {
+                        // only push the group once
+                        quarters.push(`${group.item} Q${group.submission__reporting_fiscal_quarter}`);
+                        yData.push({});
+                    }
+                    yData[groupIndex][type] = parseFloat(group.aggregate);
+                    allY.push(parseFloat(group.aggregate));
+                });
+            });
+            quarters.forEach((quarter, index) => {
+                groups.push(`${quarter}`);
+                xSeries.push([`${quarter}`]);
+                ySeries.push([yData[index]]);
+            });
+        }
+        else {
+            // Visualization period is years
+            const years = [];
+            const yData = [];
+            data.forEach((balance, balanceIndex) => {
+                balance.data.results.forEach((group, groupIndex) => {
+                    const type = this.balanceRequests[balanceIndex].type;
+                    if (balanceIndex === 0) {
+                        // only push the group once
+                        years.push(group.item);
+                        yData.push({});
+                    }
+                    yData[groupIndex][type] = parseFloat(group.aggregate);
+                    allY.push(parseFloat(group.aggregate));
+                });
+            });
 
-        years.forEach((year) => {
-            groups.push(`${year}`);
-            xSeries.push([`${year}`]);
+            years.forEach((year, index) => {
+                groups.push(`${year}`);
+                xSeries.push([`${year}`]);
+                ySeries.push([yData[index]]);
+            });
+        }
 
-            const outlay = parseFloat(-1 * balances.outlay[year]);
-            const obligations = parseFloat(balances.obligated[year]);
-            const budgetAuthority = parseFloat(balances.budgetAuthority[year]);
-
-            ySeries.push([[budgetAuthority, obligations, outlay]]);
-        });
 
         this.setState({
             groups,
             xSeries,
             ySeries,
+            allY,
             loading: false
         });
     }
 
     render() {
         return (
-            <AccountTimeVisualizationSection data={this.state} />
+            <AccountTimeVisualizationSection
+                data={this.state}
+                visualizationPeriod={this.state.visualizationPeriod}
+                changePeriod={this.changePeriod}
+                hasFilteredObligated={this.state.hasFilteredObligated} />
         );
     }
 }

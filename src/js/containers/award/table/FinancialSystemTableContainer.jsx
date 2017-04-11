@@ -116,9 +116,8 @@ export class FinancialSystemTableContainer extends React.Component {
                 // update the meta values
                 const meta = res.data.page_metadata;
                 this.props.setFinSysMeta({
-                    count: meta.count,
-                    page: meta.page_number,
-                    totalPages: meta.num_pages
+                    page: meta.page,
+                    nextPage: meta.has_next_page
                 });
 
                 // update the render hash
@@ -143,10 +142,11 @@ export class FinancialSystemTableContainer extends React.Component {
     }
 
     nextPage() {
-        const nextPage = this.props.award.finSysMeta.page + 1;
-        if (nextPage <= this.props.award.finSysMeta.totalPages) {
-            this.loadFinancialSystemData(nextPage, false);
+        if (!this.props.award.finSysMeta.nextPage) {
+            return;
         }
+        const nextPage = this.props.award.finSysMeta.page + 1;
+        this.loadFinancialSystemData(nextPage, false);
     }
 
     render() {

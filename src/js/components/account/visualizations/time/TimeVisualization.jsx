@@ -13,24 +13,7 @@ const defaultProps = {
     xSeries: [],
     ySeries: [],
     width: 0,
-    height: 280,
-    legend: [
-        {
-            color: '#083546',
-            label: 'Outlay',
-            offset: 0
-        },
-        {
-            color: '#335565',
-            label: 'Obligated Balance',
-            offset: 84
-        },
-        {
-            color: '#7F9BA7',
-            label: 'Unobligated Balance',
-            offset: 226
-        }
-    ]
+    height: 280
 };
 
 /**
@@ -50,7 +33,8 @@ const propTypes = {
     groups: React.PropTypes.array,
     xSeries: React.PropTypes.array,
     ySeries: React.PropTypes.array,
-    loading: React.PropTypes.bool
+    loading: React.PropTypes.bool,
+    hasFilteredObligated: React.PropTypes.bool
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -77,6 +61,53 @@ export default class TimeVisualization extends React.Component {
 
     render() {
         let chart = (<ChartMessage message="No data to display" />);
+        let legend = [];
+
+        if (this.props.hasFilteredObligated) {
+            legend = [
+                {
+                    color: '#fba302',
+                    label: 'Outlay',
+                    offset: 0
+                },
+                {
+                    color: '#2c4452',
+                    label: 'Obligated Balance (Filtered)',
+                    offset: 84
+                },
+                {
+                    color: '#5c7480',
+                    label: 'Obligated Balance (Other)',
+                    offset: 262
+                },
+                {
+                    color: '#a0bac4',
+                    label: 'Unobligated Balance',
+                    offset: 450
+                }
+            ];
+        }
+        else {
+            legend = [
+                {
+                    color: '#fba302',
+                    label: 'Outlay',
+                    offset: 0
+                },
+                {
+                    color: '#5c7480',
+                    label: 'Obligated Balance',
+                    offset: 84
+                },
+                {
+                    color: '#a0bac4',
+                    label: 'Unobligated Balance',
+                    offset: 220
+                }
+            ];
+        }
+
+
         if (this.props.loading) {
             // API request is still pending
             chart = (<ChartMessage message="Loading data..." />);
@@ -85,8 +116,10 @@ export default class TimeVisualization extends React.Component {
             // only mount the chart component if there is data to display
             chart = (<BarChartStacked
                 {...this.props}
+                legend={legend}
                 enableHighlight={false}
-                showTooltip={this.showTooltip} />);
+                showTooltip={this.showTooltip}
+                hasFilteredObligated={this.props.hasFilteredObligated} />);
         }
 
         return (
