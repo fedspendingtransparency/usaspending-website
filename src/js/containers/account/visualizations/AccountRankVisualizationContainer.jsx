@@ -37,7 +37,7 @@ export class AccountRankVisualizationContainer extends React.Component {
             dataSeries: [],
             descriptions: [],
             page: 1,
-            total: 1,
+            hasNext: false,
             categoryScope: 'programActivity'
         };
 
@@ -60,7 +60,8 @@ export class AccountRankVisualizationContainer extends React.Component {
     changeScope(scope) {
         this.setState({
             categoryScope: scope,
-            page: 1
+            page: 1,
+            hasNext: false
         }, () => {
             this.fetchData();
         });
@@ -69,14 +70,14 @@ export class AccountRankVisualizationContainer extends React.Component {
     newSearch() {
         this.setState({
             page: 1,
-            total: 1
+            hasNext: false
         }, () => {
             this.fetchData();
         });
     }
 
     nextPage() {
-        if (this.state.page + 1 > this.state.total) {
+        if (!this.state.hasNext) {
             return;
         }
 
@@ -109,7 +110,7 @@ export class AccountRankVisualizationContainer extends React.Component {
             group: categoryLabelFields[this.state.categoryScope],
             field: 'obligations_incurred_by_program_object_class_cpe',
             aggregate: 'sum',
-            order: ['aggregate'],
+            order: ['-aggregate'],
             filters: searchOperation.toParams(),
             page: this.state.page,
             limit: 5
@@ -140,14 +141,16 @@ export class AccountRankVisualizationContainer extends React.Component {
         const dataSeries = [];
         const descriptions = [];
 
+        const labelField = categoryLabelFields[this.state.categoryScope];
+
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            const adjustedValue = parseFloat(-1 * item.aggregate);
+            const adjustedValue = parseFloat(item.aggregate);
 
-            labelSeries.push(item.item);
+            labelSeries.push(item[labelField]);
             dataSeries.push(parseFloat(adjustedValue));
 
-            const description = `Obligated balance for ${item.item}: \
+            const description = `Obligated balance for ${item[labelField]}: \
 ${MoneyFormatter.formatMoney(adjustedValue)}`;
             descriptions.push(description);
         });
@@ -157,7 +160,7 @@ ${MoneyFormatter.formatMoney(adjustedValue)}`;
             dataSeries,
             descriptions,
             loading: false,
-            total: data.page_metadata.num_pages
+            hasNext: data.page_metadata.has_next_page
         });
     }
 
