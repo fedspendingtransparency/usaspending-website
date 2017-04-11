@@ -9,7 +9,6 @@ import _ from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
-import RankVisualizationTitle from './RankVisualizationTitle';
 import RankVisualization from './RankVisualization';
 import RankVisualizationScopeButton from './RankVisualizationScopeButton';
 
@@ -47,6 +46,14 @@ export default class RankVisualizationSection extends React.Component {
         window.removeEventListener('resize', this.handleWindowResize);
     }
 
+    clickPrevious() {
+        this.props.previousPage();
+    }
+
+    clickNext() {
+        this.props.nextPage();
+    }
+
     handleWindowResize() {
         // determine if the width changed
         const windowWidth = window.innerWidth;
@@ -60,36 +67,22 @@ export default class RankVisualizationSection extends React.Component {
         }
     }
 
-    clickPrevious() {
-        this.props.previousPage();
-    }
-
-    clickNext() {
-        this.props.nextPage();
-    }
-
     render() {
-        let hidePager = '';
-
         const disableNext = !this.props.hasNextPage;
-
         const disablePrev = !this.props.hasPreviousPage;
+        let hidePager = '';
 
         if ((disableNext && disablePrev) || this.props.loading) {
             hidePager = 'hide';
         }
 
         return (
-            <div
-                className="results-visualization-rank-section"
-                id="results-section-rank">
-                <RankVisualizationTitle />
+            <div>
                 <hr
                     className="results-divider"
                     ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
-
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
@@ -131,8 +124,8 @@ export default class RankVisualizationSection extends React.Component {
 
                 <RankVisualization
                     {...this.props}
-                    width={this.state.visualizationWidth}
-                    labelWidth={this.state.labelWidth} />
+                    {...this.state}
+                    width={this.state.visualizationWidth} />
 
                 <div className={`visualization-pager-container ${hidePager}`}>
                     <button

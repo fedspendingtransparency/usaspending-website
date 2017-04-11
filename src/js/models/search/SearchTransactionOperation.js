@@ -8,6 +8,7 @@ import SearchOperation from './SearchOperation';
 import * as TxnTimePeriodQuery from './queryBuilders/TxnTimePeriodQuery';
 import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
 import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
+import * as AgencyQuery from './queryBuilders/AgencyQuery';
 
 class SearchTransactionOperation extends SearchOperation {
 
@@ -42,6 +43,11 @@ class SearchTransactionOperation extends SearchOperation {
             if (awardAmountsQuery) {
                 filters.push(awardAmountsQuery);
             }
+        }
+
+        // Add agency query
+        if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
+            filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies, this.awardingAgencies));
         }
 
         return filters;

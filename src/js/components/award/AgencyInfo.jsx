@@ -69,6 +69,8 @@ export default class AgencyInfo extends React.Component {
         const subtierAgency = `${this.state.agencyType}_subtier_name`;
         const officeAgency = `${this.state.agencyType}_office_name`;
         let office = "";
+        let subtier = "";
+        let toptier = "Not Available";
 
         const options = this.props.awardTypes.map((label, index) => (
             <li
@@ -115,6 +117,16 @@ export default class AgencyInfo extends React.Component {
                 </div>
             </div>
         );
+        if (award[toptierAgency]) {
+            toptier = award[toptierAgency];
+        }
+        if (award[subtierAgency]) {
+            subtier = (
+                <InfoSnippet
+                    label="Sub-Agency"
+                    value={award[subtierAgency]} />
+            );
+        }
         if (award[officeAgency]) {
             office = (
                 <InfoSnippet
@@ -127,12 +139,10 @@ export default class AgencyInfo extends React.Component {
                 <div className="agency-info">
                     {dropdown}
                     <div className="agency-name">
-                        {award[toptierAgency]}
+                        {toptier}
                     </div>
                     <ul className="agency-subtiers">
-                        <InfoSnippet
-                            label="Sub-Agency"
-                            value={award[subtierAgency]} />
+                        {subtier}
                         {office}
                     </ul>
                 </div>

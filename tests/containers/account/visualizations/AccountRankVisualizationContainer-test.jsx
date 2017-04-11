@@ -107,7 +107,10 @@ describe('AccountRankVisualizationContainer', () => {
                 dataSeries: [2696684.86],
                 descriptions: ['Obligated balance for Program Name: $2,696,685'],
                 loading: false,
+                next: 'blerg',
+                previous: 'blerg',
                 hasNextPage: true,
+                hasPreviousPage: false,
                 page: 1,
                 categoryScope: 'programActivity'
             };

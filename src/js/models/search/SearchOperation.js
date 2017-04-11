@@ -29,6 +29,10 @@ class SearchOperation {
         this.selectedLocations = [];
         this.locationDomesticForeign = 'all';
 
+        this.budgetFunctions = [];
+        this.federalAccounts = [];
+        this.objectClasses = [];
+
         this.awardingAgencies = [];
         this.fundingAgencies = [];
 
@@ -37,6 +41,7 @@ class SearchOperation {
         this.selectedRecipientLocations = [];
 
         this.selectedAwardIDs = [];
+
         this.awardAmounts = [];
     }
 
@@ -50,14 +55,23 @@ class SearchOperation {
             this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
             this.timePeriodFY = [];
         }
+
         this.selectedLocations = state.selectedLocations.toArray();
         this.locationDomesticForeign = state.locationDomesticForeign;
+
+        this.budgetFunctions = state.budgetFunctions.toArray();
+        this.federalAccounts = state.federalAccounts.toArray();
+        this.objectClasses = state.objectClasses.toObject();
+
         this.awardingAgencies = state.selectedAwardingAgencies.toArray();
         this.fundingAgencies = state.selectedFundingAgencies.toArray();
+
         this.selectedRecipients = state.selectedRecipients.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
         this.selectedRecipientLocations = state.selectedRecipientLocations.toArray();
+
         this.selectedAwardIDs = state.selectedAwardIDs.toArray();
+
         this.awardAmounts = state.awardAmounts.toArray();
     }
 
@@ -94,11 +108,6 @@ class SearchOperation {
             filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign));
         }
 
-        // Add agency query
-        if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
-            filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies, this.awardingAgencies));
-        }
-
         // Add recipient queries
         if (this.selectedRecipients.length > 0) {
             filters.push(RecipientQuery.buildRecipientQuery(this.selectedRecipients));
@@ -125,7 +134,8 @@ class SearchOperation {
             const timeQuery = TimePeriodQuery.buildQuery({
                 type: this.timePeriodType,
                 fyRange: this.timePeriodFY,
-                dateRange: this.timePeriodRange
+                dateRange: this.timePeriodRange,
+                endpoint: 'awards'
             });
             if (timeQuery) {
                 filters.push(timeQuery);
@@ -146,6 +156,11 @@ class SearchOperation {
             if (awardAmountsQuery) {
                 filters.push(awardAmountsQuery);
             }
+        }
+
+        // Add agency query
+        if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
+            filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies, this.awardingAgencies));
         }
 
         return filters;
