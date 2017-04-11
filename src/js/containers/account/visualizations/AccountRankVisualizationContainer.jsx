@@ -60,7 +60,8 @@ export class AccountRankVisualizationContainer extends React.Component {
     changeScope(scope) {
         this.setState({
             categoryScope: scope,
-            page: 1
+            page: 1,
+            hasNext: false
         }, () => {
             this.fetchData();
         });
