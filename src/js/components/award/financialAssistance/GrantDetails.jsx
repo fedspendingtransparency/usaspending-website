@@ -43,19 +43,21 @@ export default class GrantDetails extends React.Component {
         const startDate = moment(award.period_of_performance_start_date, 'M/D/YYYY');
         const endDate = moment(award.period_of_performance_current_end_date, 'M/D/YYYY');
         const yearRange = endDate.diff(startDate, 'year');
-        if (yearRange !== 0) {
+        let popDate = "Not Available";
+        if (!isNaN(yearRange) && yearRange !== 0) {
             if (yearRange === 1) {
                 yearRangeTotal = `${yearRange} year)`;
             }
             else {
                 yearRangeTotal = `(${yearRange} years)`;
             }
+
+            popDate = `${award.period_of_performance_start_date} -
+               ${award.period_of_performance_current_end_date} ${yearRangeTotal}`;
         }
-        const popDate = `${award.period_of_performance_start_date} -
-            ${award.period_of_performance_current_end_date} ${yearRangeTotal}`;
 
         // Location
-        let popPlace = "";
+        let popPlace = "Not Available";
         let popZip = null;
         if (award.pop_zip) {
             popZip = award.pop_zip;
