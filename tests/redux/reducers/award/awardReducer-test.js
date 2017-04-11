@@ -5,9 +5,8 @@ const initialState = {
     selectedAward: null,
     transactions: [],
     transactionMeta: {
-        count: 0,
         page: 0,
-        totalPages: 0
+        nextPage: false
     },
     renderHash: null,
     groupHash: null,
@@ -17,9 +16,8 @@ const initialState = {
     },
     finSysData: [],
     finSysMeta: {
-        count: 0,
         page: 0,
-        totalPages: 0
+        nextPage: false
     },
     finSysSort: {
         field: "certified_date",
@@ -32,9 +30,8 @@ const sampleData = {
         count: 2
     },
     page_metadata: {
-        num_pages: 1,
-        page_number: 1,
-        count: 2
+        page: 1,
+        has_next_page: true
     },
     results: [
         {
@@ -88,9 +85,8 @@ const appendState = {
         }
     ],
     transactionMeta: {
-        count: 13,
         page: 1,
-        totalPages: 1
+        nextPage: false
     },
     renderHash: 5,
     groupHash: 7,
@@ -438,9 +434,8 @@ describe('SET_TRANSACTIONS_META', () => {
     it('should save the returned award to redux state', () => {
         const action = {
             type: 'SET_TRANSACTIONS_META',
-            count: 13,
             page: 1,
-            totalPages: 2
+            nextPage: true
         };
         const updatedState = awardReducer(initialState, action);
         // the value should be equal
@@ -566,16 +561,14 @@ describe('awardReducer', () => {
             const action = {
                 type: 'SET_FINSYS_META',
                 meta: {
-                    count: 12,
                     page: 1,
-                    totalPages: 2
+                    nextPage: true
                 }
             };
 
             const expected = {
-                count: 12,
                 page: 1,
-                totalPages: 2
+                nextPage: true
             };
 
             const updatedState = awardReducer(undefined, action);
