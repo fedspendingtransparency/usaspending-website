@@ -9,6 +9,8 @@ import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
 import LocationSearchContainer from 'containers/search/filters/location/LocationSearchContainer';
+import BudgetCategorySearchContainer
+    from 'containers/search/filters/budgetCategory/BudgetCategorySearchContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
 import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
@@ -34,7 +36,7 @@ const filters = {
         KeywordContainer,
         TimePeriodContainer,
         LocationSearchContainer,
-        null,
+        BudgetCategorySearchContainer,
         AgencyContainer,
         RecipientSearchContainer,
         AwardTypeContainer,

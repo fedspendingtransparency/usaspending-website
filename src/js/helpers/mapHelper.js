@@ -172,7 +172,7 @@ export const calculateRange = (data) => {
     max = min + (6 * step);
 
     const segments = [];
-    const scale = scaleLinear().domain([min * units.unit, max * units.unit]).range([0, 5]);
+    const scale = scaleLinear().domain([min * units.unit, max * units.unit]).range([0, 6]);
     for (let i = 1; i <= 6; i++) {
         segments.push(scale.invert(i));
     }

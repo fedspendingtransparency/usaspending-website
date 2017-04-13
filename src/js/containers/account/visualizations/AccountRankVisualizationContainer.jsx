@@ -1,5 +1,5 @@
 /**
- * RankVisualizationSectionContainer.jsx
+ * AccountRankVisualizationContainer.jsx
  * Created by Kevin Li 2/9/17
  */
 
@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
 import _ from 'lodash';
+
+import { categoryLabelFields } from 'dataMapping/accounts/accountFields';
 
 import AccountRankVisualizationSection from
     'components/account/visualizations/rank/AccountRankVisualizationSection';
@@ -35,8 +37,11 @@ export class AccountRankVisualizationContainer extends React.Component {
             dataSeries: [],
             descriptions: [],
             page: 1,
-            total: 1,
-            categoryScope: 'program_activity'
+            next: null,
+            previous: null,
+            hasNextPage: false,
+            hasPreviousPage: false,
+            categoryScope: 'programActivity'
         };
 
         this.changeScope = this.changeScope.bind(this);
@@ -58,7 +63,8 @@ export class AccountRankVisualizationContainer extends React.Component {
     changeScope(scope) {
         this.setState({
             categoryScope: scope,
-            page: 1
+            page: 1,
+            hasNextPage: false
         }, () => {
             this.fetchData();
         });
@@ -67,14 +73,14 @@ export class AccountRankVisualizationContainer extends React.Component {
     newSearch() {
         this.setState({
             page: 1,
-            total: 1
+            hasNextPage: false
         }, () => {
             this.fetchData();
         });
     }
 
     nextPage() {
-        if (this.state.page + 1 > this.state.total) {
+        if (!this.state.hasNextPage) {
             return;
         }
 
@@ -104,10 +110,10 @@ export class AccountRankVisualizationContainer extends React.Component {
         searchOperation.fromState(this.props.reduxFilters);
 
         this.apiRequest = AccountHelper.fetchTasCategoryTotals({
-            group: this.state.categoryScope,
+            group: categoryLabelFields[this.state.categoryScope],
             field: 'obligations_incurred_by_program_object_class_cpe',
             aggregate: 'sum',
-            order: ['aggregate'],
+            order: ['-aggregate'],
             filters: searchOperation.toParams(),
             page: this.state.page,
             limit: 5
@@ -138,14 +144,16 @@ export class AccountRankVisualizationContainer extends React.Component {
         const dataSeries = [];
         const descriptions = [];
 
+        const labelField = categoryLabelFields[this.state.categoryScope];
+
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            const adjustedValue = parseFloat(-1 * item.aggregate);
+            const adjustedValue = parseFloat(item.aggregate);
 
-            labelSeries.push(item.item);
+            labelSeries.push(item[labelField]);
             dataSeries.push(parseFloat(adjustedValue));
 
-            const description = `Obligated balance for ${item.item}: \
+            const description = `Obligated balance for ${item[labelField]}: \
 ${MoneyFormatter.formatMoney(adjustedValue)}`;
             descriptions.push(description);
         });
@@ -155,7 +163,10 @@ ${MoneyFormatter.formatMoney(adjustedValue)}`;
             dataSeries,
             descriptions,
             loading: false,
-            total: data.page_metadata.num_pages
+            next: data.page_metadata.next,
+            previous: data.page_metadata.previous,
+            hasNextPage: data.page_metadata.has_next_page,
+            hasPreviousPage: data.page_metadata.has_previous_page
         });
     }
 

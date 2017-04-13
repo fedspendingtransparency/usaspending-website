@@ -9,6 +9,7 @@
     @include media($tablet-screen) {
         @include display(flex);
         @include align-items(stretch);
+        min-height: rem(201);
     }
     .agency-wrapper {
         @import './_agencyInfo';

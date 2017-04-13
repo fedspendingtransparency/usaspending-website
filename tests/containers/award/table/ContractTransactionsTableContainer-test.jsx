@@ -166,9 +166,8 @@ describe('ContractTransactionsTableContainer', () => {
 
             const modifiedProps = Object.assign({}, mockAward, {
                 transactionMeta: {
-                    count: 50,
                     page: 1,
-                    totalPages: 5
+                    nextPage: true
                 }
             });
 
@@ -185,9 +184,8 @@ describe('ContractTransactionsTableContainer', () => {
 
             const modifiedProps = Object.assign({}, mockAward, {
                 transactionMeta: {
-                    count: 50,
                     page: 5,
-                    totalPages: 5
+                    nextPage: false
                 }
             });
 
