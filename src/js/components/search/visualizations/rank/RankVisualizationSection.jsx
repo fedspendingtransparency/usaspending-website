@@ -9,7 +9,6 @@ import _ from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
-import RankVisualizationTitle from './RankVisualizationTitle';
 import RankVisualization from './RankVisualization';
 import RankVisualizationScopeButton from './RankVisualizationScopeButton';
 
@@ -18,9 +17,9 @@ const propTypes = {
     changeScope: React.PropTypes.func,
     nextPage: React.PropTypes.func,
     previousPage: React.PropTypes.func,
-    total: React.PropTypes.number,
-    page: React.PropTypes.number,
-    loading: React.PropTypes.bool
+    loading: React.PropTypes.bool,
+    hasNextPage: React.PropTypes.bool,
+    hasPreviousPage: React.PropTypes.bool
 };
 
 export default class RankVisualizationSection extends React.Component {
@@ -47,6 +46,14 @@ export default class RankVisualizationSection extends React.Component {
         window.removeEventListener('resize', this.handleWindowResize);
     }
 
+    clickPrevious() {
+        this.props.previousPage();
+    }
+
+    clickNext() {
+        this.props.nextPage();
+    }
+
     handleWindowResize() {
         // determine if the width changed
         const windowWidth = window.innerWidth;
@@ -60,42 +67,22 @@ export default class RankVisualizationSection extends React.Component {
         }
     }
 
-    clickPrevious() {
-        this.props.previousPage();
-    }
-
-    clickNext() {
-        this.props.nextPage();
-    }
-
     render() {
-        let disableNext = false;
-        let disablePrev = false;
+        const disableNext = !this.props.hasNextPage;
+        const disablePrev = !this.props.hasPreviousPage;
         let hidePager = '';
 
-        if (this.props.total < this.props.page + 1) {
-            disableNext = true;
-        }
-
-        if (this.props.page <= 1) {
-            disablePrev = true;
-        }
-
-        if (this.props.total < 1 || this.props.loading) {
+        if ((disableNext && disablePrev) || this.props.loading) {
             hidePager = 'hide';
         }
 
         return (
-            <div
-                className="results-visualization-rank-section"
-                id="results-section-rank">
-                <RankVisualizationTitle />
+            <div>
                 <hr
                     className="results-divider"
                     ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
-
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
@@ -137,8 +124,8 @@ export default class RankVisualizationSection extends React.Component {
 
                 <RankVisualization
                     {...this.props}
-                    width={this.state.visualizationWidth}
-                    labelWidth={this.state.labelWidth} />
+                    {...this.state}
+                    width={this.state.visualizationWidth} />
 
                 <div className={`visualization-pager-container ${hidePager}`}>
                     <button

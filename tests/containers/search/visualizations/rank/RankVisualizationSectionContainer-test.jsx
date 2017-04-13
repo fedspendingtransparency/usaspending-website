@@ -72,21 +72,22 @@ describe('RankVisualizationSectionContainer', () => {
         // create a mock API response
         const apiResponse = {
             page_metadata: {
-                num_pages: 1,
-                page_number: 1,
-                count: 2
+                page: 1,
+                has_next_page: false,
+                has_previous_page: false,
+                next: null,
+                previous: null
             },
-            results: [{
-                item: 'First Agency',
-                aggregate: '456'
-            },
-            {
-                item: 'Second Agency',
-                aggregate: '123'
-            }],
-            total_metadata: {
-                count: 2
-            }
+            results: [
+                {
+                    item: 'First Agency',
+                    aggregate: '456'
+                },
+                {
+                    item: 'Second Agency',
+                    aggregate: '123'
+                }
+            ]
         };
 
         // mock the search helper to resolve with the mocked response
@@ -114,21 +115,22 @@ describe('RankVisualizationSectionContainer', () => {
         // create a mock API response
         const apiResponse = {
             page_metadata: {
-                num_pages: 1,
-                page_number: 1,
-                count: 2
+                page: 1,
+                has_next_page: false,
+                has_previous_page: false,
+                next: null,
+                previous: null
             },
-            results: [{
-                item: 'First Agency',
-                aggregate: '456'
-            },
-            {
-                item: 'Second Agency',
-                aggregate: '123'
-            }],
-            total_metadata: {
-                count: 2
-            }
+            results: [
+                {
+                    item: 'First Agency',
+                    aggregate: '456'
+                },
+                {
+                    item: 'Second Agency',
+                    aggregate: '123'
+                }
+            ]
         };
 
         // mock the search helper to resolve with the mocked response
@@ -176,9 +178,11 @@ describe('RankVisualizationSectionContainer', () => {
             // create a mock API response
             const apiResponse = {
                 page_metadata: {
-                    num_pages: 1,
-                    page_number: 1,
-                    count: 2
+                    page: 1,
+                    has_next_page: false,
+                    has_previous_page: false,
+                    next: null,
+                    previous: null
                 },
                 results: [{
                     item: 'First Agency',
@@ -208,8 +212,11 @@ describe('RankVisualizationSectionContainer', () => {
                 dataSeries: [456, 123],
                 descriptions: ['Spending by First Agency: $456', 'Spending by Second Agency: $123'],
                 page: 1,
-                total: 1,
-                agencyScope: 'toptier'
+                agencyScope: 'toptier',
+                hasNextPage: false,
+                hasPreviousPage: false,
+                next: null,
+                previous: null
             };
 
             expect(container.state()).toEqual(expectedState);
@@ -221,32 +228,40 @@ describe('RankVisualizationSectionContainer', () => {
             // create a mock API response
             const apiResponse = {
                 page_metadata: {
-                    num_pages: 2,
-                    page_number: 1,
-                    count: 200
+                    page: 1,
+                    has_next_page: true,
+                    has_previous_page: false,
+                    next: "checksum",
+                    previous: null
                 },
-                results: [{
-                    item: 'First Agency',
-                    aggregate: '456',
-                },
-                {
-                    item: 'Second Agency',
-                    aggregate: '123'
-                }],
-                total_metadata: {
-                    count: 200
-                }
+                results: [
+                    {
+                        item: 'First Agency',
+                        aggregate: '456'
+                    },
+                    {
+                        item: 'Second Agency',
+                        aggregate: '123'
+                    }
+                ]
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+
             // mount the container
             const container =
                 mount(<RankVisualizationSectionContainer reduxFilters={defaultFilters} />);
+
             // initial state should be page 1
             expect(container.state().page).toEqual(1);
 
+            // Tell container it has a nextPage
+            container.state().hasNextPage = true;
+
+            // Attempt to go to the next page
             container.instance().nextPage();
+
             // updated state should be page 2
             expect(container.state().page).toEqual(2);
         });
@@ -257,16 +272,18 @@ describe('RankVisualizationSectionContainer', () => {
             // create a mock API response
             const apiResponse = {
                 page_metadata: {
-                    num_pages: 2,
-                    page_number: 1,
-                    count: 200
+                    page: 1,
+                    has_next_page: true,
+                    has_previous_page: false,
+                    next: "checksum",
+                    previous: null
                 },
                 results: [{
-                    item: 'First Agency',
-                    aggregate: '456',
+                    awarding_agency__toptier_agency__name: 'First Agency',
+                    aggregate: '456'
                 },
                 {
-                    item: 'Second Agency',
+                    awarding_agency__toptier_agency__name: 'Second Agency',
                     aggregate: '123'
                 }],
                 total_metadata: {
@@ -280,11 +297,14 @@ describe('RankVisualizationSectionContainer', () => {
             const container =
                 mount(<RankVisualizationSectionContainer reduxFilters={defaultFilters} />);
             container.setState({
-                page: 5
+                page: 5,
+                has_previous_page: true,
+                previous: "checksum"
             });
 
             // wait for the SearchHelper promises to resolve
-            
+            jest.runAllTicks();
+
             // we have simulated a starting state of page 5
             expect(container.state().page).toEqual(5);
 
@@ -297,16 +317,18 @@ describe('RankVisualizationSectionContainer', () => {
             // create a mock API response
             const apiResponse = {
                 page_metadata: {
-                    num_pages: 2,
-                    page_number: 1,
-                    count: 200
+                    page: 1,
+                    has_next_page: true,
+                    has_previous_page: false,
+                    next: "checksum",
+                    previous: null
                 },
                 results: [{
-                    item: 'First Agency',
-                    aggregate: '456',
+                    awarding_agency__toptier_agency__name: 'First Agency',
+                    aggregate: '456'
                 },
                 {
-                    item: 'Second Agency',
+                    awarding_agency__toptier_agency__name: 'Second Agency',
                     aggregate: '123'
                 }],
                 total_metadata: {
@@ -324,7 +346,8 @@ describe('RankVisualizationSectionContainer', () => {
             });
 
             // wait for the SearchHelper promises to resolve
-            
+            jest.runAllTicks();
+
             // we have simulated a starting state of page 5
             expect(container.state().page).toEqual(1);
 
@@ -339,16 +362,18 @@ describe('RankVisualizationSectionContainer', () => {
             // create a mock API response
             const apiResponse = {
                 page_metadata: {
-                    num_pages: 10,
-                    page_number: 1,
-                    count: 200
+                    page: 1,
+                    has_next_page: true,
+                    has_previous_page: false,
+                    next: "checksum",
+                    previous: null
                 },
                 results: [{
-                    item: 'First Agency',
-                    aggregate: '456',
+                    awarding_agency__toptier_agency__name: 'First Agency',
+                    aggregate: '456'
                 },
                 {
-                    item: 'Second Agency',
+                    awarding_agency__toptier_agency__name: 'Second Agency',
                     aggregate: '123'
                 }],
                 total_metadata: {
@@ -366,7 +391,9 @@ describe('RankVisualizationSectionContainer', () => {
             const container =
                 mount(<RankVisualizationSectionContainer reduxFilters={initialFilters} />);
             container.setState({
-                page: 5
+                page: 5,
+                has_previous_page: true,
+                previous: "checksum"
             });
 
             // assume we are starting on page 5

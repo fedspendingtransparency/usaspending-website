@@ -16,7 +16,9 @@ const fields = [
     'tas',
     'objectClass',
     'programActivity',
-    'fundingObligated'
+    'fundingObligated',
+    'budgetFunction',
+    'budgetSubFunction'
 ];
 
 const remapData = (data) => {
@@ -28,6 +30,8 @@ const remapData = (data) => {
     remappedData.objectClass = '';
     remappedData.programActivity = '';
     remappedData.fundingObligated = '';
+    remappedData.budgetFunction = '';
+    remappedData.budgetSubFunction = '';
 
     remappedData.id = data.financial_accounts_by_awards_id;
 
@@ -35,28 +39,65 @@ const remapData = (data) => {
         remappedData.submissionDate = moment(data.certified_date, 'YYYY-MM-DD').format('M/D/YYYY');
     }
 
-    if (data.treasury_account.tas_rendering_label) {
-        remappedData.tas = data.treasury_account.tas_rendering_label;
+    if (data.treasury_account) {
+        const tAccount = data.treasury_account;
+        if (tAccount.tas_rendering_label) {
+            remappedData.tas = tAccount.tas_rendering_label;
+        }
+
+        if (tAccount.budget_function_title && tAccount.budget_function_code) {
+            remappedData.budgetFunction = `${tAccount.budget_function_title}
+            (${tAccount.budget_function_code})`;
+        }
+        else if (tAccount.budget_function_code) {
+            remappedData.budgetFunction = tAccount.budget_function_code;
+        }
+        else if (tAccount.budget_function_title) {
+            remappedData.budgetFunction = tAccount.budget_function_title;
+        }
+
+        if (tAccount.budget_subfunction_title && tAccount.budget_subfunction_code) {
+            remappedData.budgetSubFunction = `${tAccount.budget_subfunction_title}
+            (${tAccount.budget_subfunction_code})`;
+        }
+        else if (tAccount.budget_subfunction_code) {
+            remappedData.budgetSubFunction = tAccount.budget_subfunction_code;
+        }
+        else if (tAccount.budget_subunction_title) {
+            remappedData.budgetSubFunction = tAccount.budget_subfunction_title;
+        }
     }
 
     if (data.object_class) {
-        remappedData.objectClass = data.object_class;
+        const oClass = data.object_class;
+        if (oClass.object_class_name && oClass.object_class) {
+            remappedData.objectClass = `${oClass.object_class_name} (${oClass.object_class})`;
+        }
+        else if (oClass.object_class) {
+            remappedData.objectClass = oClass.object_class;
+        }
+        else if (oClass.object_class_name) {
+            remappedData.objectClass = oClass.object_class_name;
+        }
     }
 
-    if (data.program_activity_code && data.program_activity_name) {
-        remappedData.programActivity =
-            `${data.program_activity_name} (${data.program_activity_code})`;
-    }
-    else if (data.program_activity_code) {
-        remappedData.programActivity = data.program_activity_code;
-    }
-    else if (data.program_activity_name) {
-        remappedData.programActivity = data.program_activity_name;
+    if (data.program_activity) {
+        const pActivity = data.program_activity;
+        if (pActivity.program_activity_code && pActivity.program_activity_name) {
+            remappedData.programActivity =
+                `${pActivity.program_activity_name} (${pActivity.program_activity_code})`;
+        }
+        else if (pActivity.program_activity_code) {
+            remappedData.programActivity = pActivity.program_activity_code;
+        }
+        else if (pActivity.program_activity_name) {
+            remappedData.programActivity = pActivity.program_activity_name;
+        }
     }
 
 
-    if (data.obligations_incurred_total_by_award_cpe) {
-        const amount = data.transaction_obligations[0].obligations_incurred_total_by_award_cpe;
+    if (data.transaction_obligated_amount) {
+        const amount = data.transaction_obligated_amount;
         remappedData.fundingObligated = MoneyFormatter.formatMoney(amount);
     }
 

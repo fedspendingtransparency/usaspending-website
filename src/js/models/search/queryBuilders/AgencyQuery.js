@@ -3,8 +3,11 @@
 * Created by Emily Gullo
 **/
 
-/* eslint-disable import/prefer-default-export */
-// We only have one export but want to maintain consistency with other query modules
+const fundingAgencyField = 'agency_id';
+
+const tasPrefix = 'treasury_account__';
+const appropriationsPrefix = 'treasury_account_identifier__';
+const fileCPrefix = 'award__financial_set__';
 
 export const buildAgencyQuery = (funding, awarding) => {
     const toptierFundingSet = [];
@@ -70,4 +73,30 @@ export const buildAgencyQuery = (funding, awarding) => {
     return filter;
 };
 
-/* eslint-enable import/prefer-default-export */
+export const buildFundingAgencyCGACQuery = (funding, requestType) => {
+    const fundingSet = [];
+
+    funding.forEach((agencyArray) => {
+        fundingSet.push(agencyArray.toptier_agency.cgac_code);
+    });
+
+    let agencyField = '';
+
+    if (requestType === 'fileC') {
+        agencyField = `${fileCPrefix}${tasPrefix}${fundingAgencyField}`;
+    }
+    else if (requestType === 'appropriations') {
+        agencyField = `${appropriationsPrefix}${fundingAgencyField}`;
+    }
+    else {
+        agencyField = `${tasPrefix}${fundingAgencyField}`;
+    }
+
+    const filter = {
+        field: agencyField,
+        operation: "in",
+        value: fundingSet
+    };
+
+    return filter;
+};

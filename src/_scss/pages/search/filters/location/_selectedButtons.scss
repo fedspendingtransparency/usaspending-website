@@ -1,11 +1,11 @@
 .selected-locations, .selected-agencies, .selected-recipients, .selected-recipient-locations,
-.selected-award-ids{
+.selected-award-ids, .selected-budget-categories {
 
     margin-top: .5rem;
 
     .shown-location-button, .shown-agency-button,
     .shown-recipient-button, .shown-recipient-location-button,
-    .shown-award-id-button {
+    .shown-award-id-button, .shown-budget-category-button {
         background-color: $color-white;
         border: 1px solid $color-gray-lighter;
         border-radius: 4px;
