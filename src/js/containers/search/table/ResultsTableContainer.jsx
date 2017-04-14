@@ -36,17 +36,17 @@ const tableTypes = [
     {
         label: 'Direct Payments',
         internal: 'direct_payments',
-        enabled: false
+        enabled: true
     },
     {
         label: 'Loans',
         internal: 'loans',
-        enabled: false
+        enabled: true
     },
     {
         label: 'Insurance',
         internal: 'insurance',
-        enabled: false
+        enabled: true
     }
 ];
 
