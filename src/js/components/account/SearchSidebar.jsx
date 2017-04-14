@@ -9,6 +9,8 @@ import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSideb
 
 import AccountTimePeriodContainer from 'containers/account/filters/AccountTimePeriodContainer';
 import AccountObjectClassContainer from 'containers/account/filters/AccountObjectClassContainer';
+import AccountProgramActivityContainer
+    from 'containers/account/filters/AccountProgramActivityContainer';
 
 const filters = {
     options: [
@@ -20,7 +22,7 @@ const filters = {
     components: [
         AccountTimePeriodContainer,
         AccountObjectClassContainer,
-        null,
+        AccountProgramActivityContainer,
         null
     ]
 };

@@ -24,6 +24,15 @@ export const resetObjectClass = () => ({
     type: 'RESET_ACCOUNT_OBJECT_CLASS'
 });
 
+export const toggleProgramActivity = (state) => ({
+    type: 'TOGGLE_ACCOUNT_PROGRAM_ACTIVITY',
+    item: state
+});
+
+export const resetProgramActivity = () => ({
+    type: 'RESET_ACCOUNT_PROGRAM_ACTIVITY'
+});
+
 export const resetAccountFilters = () => ({
     type: 'RESET_ACCOUNT_FILTERS'
 });

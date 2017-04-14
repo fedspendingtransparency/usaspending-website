@@ -1,0 +1,21 @@
+.account-program-activity-filter {
+    padding-left: 0;
+    margin: 0.75rem 2.0rem 1rem;
+
+    > div {
+        padding-left: 0rem;
+    }
+
+    .shown {
+        min-height: 18rem;
+    }
+
+    ul.program-activities {
+        @include unstyled-list;
+
+        .program-activity-set {
+            @import "../../../search/filters/awardType/_sharedAwardStyle";
+            @include sharedAwardStyle;
+        }
+    }
+}
