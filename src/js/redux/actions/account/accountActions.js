@@ -26,6 +26,11 @@ export const setAccountAwardType = (state) => ({
     awardType: state
 });
 
+export const setAccountAwardOrder = (state) => ({
+    type: 'SET_ACCOUNT_AWARD_ORDER',
+    order: state
+});
+
 export const resetAccount = () => ({
     type: 'RESET_ACCOUNT'
 });

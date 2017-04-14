@@ -14,6 +14,7 @@ import { awardTypeGroups } from 'dataMapping/search/awardType';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import AccountAwardSearchOperation from 'models/account/queries/AccountAwardSearchOperation';
+import SearchSortOrder from 'models/search/SearchSortOrder';
 import AwardSummary from 'models/results/award/AwardSummary';
 
 import AccountAwardsSection from 'components/account/awards/AccountAwardsSection';
@@ -83,6 +84,9 @@ export class AccountAwardsContainer extends React.Component {
         if (this.props.filters !== prevProps.filters) {
             this.loadData();
         }
+        else if (this.props.order !== prevProps.order) {
+            this.loadData();
+        }
     }
 
     setColumns(tableType) {
@@ -117,13 +121,20 @@ export class AccountAwardsContainer extends React.Component {
             this.request.cancel();
         }
 
+        // create a search operation instance from the Redux filters using the account ID
         const searchOperation = new AccountAwardSearchOperation(this.props.account.id);
         searchOperation.fromState(this.props.filters);
         searchOperation.awardType = awardTypeGroups[this.props.meta.type];
+
+        // parse the redux search order into the API-consumable format
+        const searchOrder = new SearchSortOrder();
+        searchOrder.parseReduxState(this.props.meta.type, this.props.order);
+
         const params = {
             page,
             fields: TableSearchFields[this.props.meta.type]._requestFields,
             filters: searchOperation.toParams(),
+            order: searchOrder.toParams(),
             limit: 60
         };
 
@@ -206,7 +217,8 @@ export default connect(
         account: state.account.account,
         filters: state.account.filters,
         awards: state.account.awards,
-        meta: state.account.awardsMeta
+        meta: state.account.awardsMeta,
+        order: state.account.awardsOrder
     }),
     (dispatch) => bindActionCreators(accountActions, dispatch)
 )(AccountAwardsContainer);

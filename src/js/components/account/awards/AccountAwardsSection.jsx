@@ -7,6 +7,8 @@ import React from 'react';
 
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTable from 'components/search/table/ResultsTable';
+import AccountAwardsHeaderCellContainer from
+    'containers/account/awards/AccountAwardsHeaderCellContainer';
 
 export default class AccountAwardsSection extends React.Component {
     constructor(props) {
@@ -57,7 +59,10 @@ export default class AccountAwardsSection extends React.Component {
                             // the results table width will follow this div's width
                             this.tableWidthController = div;
                         }} />
-                    <ResultsTable {...this.props} visibleWidth={this.state.tableWidth} />
+                    <ResultsTable
+                        {...this.props}
+                        visibleWidth={this.state.tableWidth}
+                        headerCellClass={AccountAwardsHeaderCellContainer} />
                 </div>
             </div>
         );
