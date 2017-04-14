@@ -19,7 +19,7 @@ import * as AccountQuartersHelper from 'helpers/accountQuartersHelper';
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 
 import AccountSearchBalanceOperation from 'models/account/queries/AccountSearchBalanceOperation';
-import { balanceFields } from 'dataMapping/accounts/accountFields';
+import { balanceFields, balanceFieldsFiltered, balanceFieldsNonfiltered } from 'dataMapping/accounts/accountFields';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object,
@@ -42,6 +42,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
 
         this.balanceRequests = [];
         this.changePeriod = this.changePeriod.bind(this);
+        this.updateFilteredObligated = this.updateFilteredObligated.bind(this);
     }
 
     componentDidMount() {
@@ -50,6 +51,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
+            this.updateFilteredObligated();
             this.fetchData();
         }
     }
@@ -66,6 +68,18 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 }
             );
         }
+    }
+
+    updateFilteredObligated() {
+        this.setState(
+            {
+                hasFilteredObligated: ((this.props.reduxFilters.objectClass.size > 0) ||
+                (this.props.reduxFilters.programActivity.size > 0))
+            },
+            () => {
+                this.fetchData();
+            }
+        );
     }
 
     fetchData() {
@@ -85,7 +99,64 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         const promises = [];
 
         if (this.state.hasFilteredObligated) {
-            // In progress
+            if (this.state.visualizationPeriod === 'quarter') {
+                Object.keys(balanceFieldsFiltered).forEach((balanceType) => {
+                    // generate API call using helper for quarters
+                    const request = AccountQuartersHelper.fetchTasCategoryTotals({
+                        group: ['submission__reporting_fiscal_year',
+                            'submission__reporting_fiscal_quarter'],
+                        field: balanceFieldsFiltered[balanceType],
+                        aggregate: 'sum',
+                        order: ['submission__reporting_fiscal_year']
+                    });
+                    request.type = balanceType;
+                    requests.push(request);
+                    promises.push(request.promise);
+                });
+                Object.keys(balanceFieldsNonfiltered).forEach((balanceType) => {
+                    // generate API call using helper for quarters
+                    const request = AccountQuartersHelper.fetchTasBalanceTotals({
+                        filters,
+                        group: ['submission__reporting_fiscal_year',
+                            'submission__reporting_fiscal_quarter'],
+                        field: balanceFieldsNonfiltered[balanceType],
+                        aggregate: 'sum',
+                        order: ['submission__reporting_fiscal_year']
+                    });
+                    request.type = balanceType;
+                    requests.push(request);
+                    promises.push(request.promise);
+                });
+                this.balanceRequests = requests;
+            }
+            else if (this.state.visualizationPeriod === 'year') {
+                Object.keys(balanceFieldsFiltered).forEach((balanceType) => {
+                    // generate API call using helper for quarters
+                    const request = AccountHelper.fetchTasCategoryTotals({
+                        group: ['submission__reporting_fiscal_year'],
+                        field: balanceFieldsFiltered[balanceType],
+                        aggregate: 'sum',
+                        order: ['submission__reporting_fiscal_year']
+                    });
+                    request.type = balanceType;
+                    requests.push(request);
+                    promises.push(request.promise);
+                });
+                Object.keys(balanceFieldsNonfiltered).forEach((balanceType) => {
+                    // generate API call using helper for quarters
+                    const request = AccountHelper.fetchTasBalanceTotals({
+                        filters,
+                        group: ['submission__reporting_fiscal_year'],
+                        field: balanceFieldsNonfiltered[balanceType],
+                        aggregate: 'sum',
+                        order: ['submission__reporting_fiscal_year']
+                    });
+                    request.type = balanceType;
+                    requests.push(request);
+                    promises.push(request.promise);
+                });
+                this.balanceRequests = requests;
+            }
         }
         else if (this.state.visualizationPeriod === 'quarter') {
             // Does not have filtered obligated
@@ -154,7 +225,65 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         const ySeries = [];
         const allY = [];
         if (this.state.hasFilteredObligated) {
-            // In progress
+            if (this.state.visualizationPeriod === 'quarter') {
+                const quarters = [];
+                const yData = [];
+                data.forEach((balance, balanceIndex) => {
+                    balance.data.results.forEach((group, groupIndex) => {
+                        const type = this.balanceRequests[balanceIndex].type;
+                        if (balanceIndex === 0) {
+                            // only push the group once
+                            quarters.push(`${group.item} Q${group.submission__reporting_fiscal_quarter}`);
+                            yData.push({});
+                        }
+                        yData[groupIndex][type] = parseFloat(group.aggregate);
+                        allY.push(parseFloat(group.aggregate));
+                    });
+                });
+                quarters.forEach((quarter, index) => {
+                    groups.push(`${quarter}`);
+                    xSeries.push([`${quarter}`]);
+
+                    // Calculate Obligated (Other)
+                    const budgetAuthority = yData[index].budgetAuthority;
+                    const unobligated = yData[index].unobligated;
+                    const obligatedFiltered = yData[index].obligatedFiltered;
+
+                    yData[index].obligatedOther = budgetAuthority - unobligated - obligatedFiltered;
+                    ySeries.push([yData[index]]);
+                });
+            }
+            else {
+                // Visualization period is years
+                const years = [];
+                const yData = [];
+                data.forEach((balance, balanceIndex) => {
+                    balance.data.results.forEach((group, groupIndex) => {
+                        const type = this.balanceRequests[balanceIndex].type;
+                        if (balanceIndex === 0) {
+                            // only push the group once
+                            years.push(group.item);
+                            yData.push({});
+                        }
+                        yData[groupIndex][type] = parseFloat(group.aggregate);
+                        allY.push(parseFloat(group.aggregate));
+                    });
+                });
+
+                years.forEach((year, index) => {
+                    groups.push(`${year}`);
+                    xSeries.push([`${year}`]);
+
+                    // Calculate Obligated (Other)
+                    const budgetAuthority = yData[index].budgetAuthority;
+                    const unobligated = yData[index].unobligated;
+                    const obligatedFiltered = yData[index].obligatedFiltered;
+
+                    yData[index].obligatedOther = budgetAuthority - unobligated - obligatedFiltered;
+                    ySeries.push([yData[index]]);
+                    ySeries.push([yData[index]]);
+                });
+            }
         }
         else if (this.state.visualizationPeriod === 'quarter') {
             // does not have filtered obligated
