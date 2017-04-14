@@ -19,6 +19,7 @@ import * as AccountQuartersHelper from 'helpers/accountQuartersHelper';
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 
 import AccountSearchBalanceOperation from 'models/account/queries/AccountSearchBalanceOperation';
+import AccountSearchCategoryOperation from 'models/account/queries/AccountSearchCategoryOperation';
 import { balanceFields, balanceFieldsFiltered, balanceFieldsNonfiltered } from 'dataMapping/accounts/accountFields';
 
 const propTypes = {
@@ -42,7 +43,6 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
 
         this.balanceRequests = [];
         this.changePeriod = this.changePeriod.bind(this);
-        this.updateFilteredObligated = this.updateFilteredObligated.bind(this);
     }
 
     componentDidMount() {
@@ -51,7 +51,6 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
-            this.updateFilteredObligated();
             this.fetchData();
         }
     }
@@ -70,18 +69,6 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         }
     }
 
-    updateFilteredObligated() {
-        this.setState(
-            {
-                hasFilteredObligated: ((this.props.reduxFilters.objectClass.size > 0) ||
-                (this.props.reduxFilters.programActivity.size > 0))
-            },
-            () => {
-                this.fetchData();
-            }
-        );
-    }
-
     fetchData() {
         if (this.balanceRequests.length > 0) {
             // cancel all previous requests
@@ -95,14 +82,35 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         searchOperation.fromState(this.props.reduxFilters);
         const filters = searchOperation.toParams();
 
+        const categorySearchOperation = new AccountSearchCategoryOperation(this.props.account.id);
+        categorySearchOperation.fromState(this.props.reduxFilters);
+        const categoryFilters = categorySearchOperation.toParams();
+
         const requests = [];
         const promises = [];
 
-        if (this.state.hasFilteredObligated) {
+        const hasFilteredObligated = ((this.props.reduxFilters.objectClass.size > 0) ||
+        (this.props.reduxFilters.programActivity.size > 0));
+
+        if (hasFilteredObligated && !this.state.hasFilteredObligated) {
+            this.setState(
+                {
+                    hasFilteredObligated: true
+                });
+        }
+        else if (!hasFilteredObligated && this.state.hasFilteredObligated) {
+            this.setState(
+                {
+                    hasFilteredObligated: false
+                });
+        }
+
+        if (hasFilteredObligated) {
             if (this.state.visualizationPeriod === 'quarter') {
                 Object.keys(balanceFieldsFiltered).forEach((balanceType) => {
                     // generate API call using helper for quarters
                     const request = AccountQuartersHelper.fetchTasCategoryTotals({
+                        categoryFilters,
                         group: ['submission__reporting_fiscal_year',
                             'submission__reporting_fiscal_quarter'],
                         field: balanceFieldsFiltered[balanceType],
@@ -133,6 +141,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 Object.keys(balanceFieldsFiltered).forEach((balanceType) => {
                     // generate API call using helper for quarters
                     const request = AccountHelper.fetchTasCategoryTotals({
+                        categoryFilters,
                         group: ['submission__reporting_fiscal_year'],
                         field: balanceFieldsFiltered[balanceType],
                         aggregate: 'sum',
@@ -224,7 +233,10 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         const xSeries = [];
         const ySeries = [];
         const allY = [];
-        if (this.state.hasFilteredObligated) {
+        const hasFilteredObligated = ((this.props.reduxFilters.objectClass.size > 0) ||
+        (this.props.reduxFilters.programActivity.size > 0));
+
+        if (hasFilteredObligated) {
             if (this.state.visualizationPeriod === 'quarter') {
                 const quarters = [];
                 const yData = [];
