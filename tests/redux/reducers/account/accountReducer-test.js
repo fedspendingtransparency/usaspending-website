@@ -85,14 +85,6 @@ describe('accountReducer', () => {
         });
     });
 
-    describe('SET_ACCOUNT_TAS_ITEMS', () => {
-        // we haven't implemented this feature yet, so no tests
-    });
-
-    describe('APPEND_ACCOUNT_TAS_ITEMS', () => {
-        // we haven't implemented this feature yet, so no tests
-    });
-
     describe('UPDATE_ACCOUNT_FILTER_TIME', () => {
         it('should update the time filter to the correct values when provided a set of fiscal years', () => {
             let state = accountReducer(undefined, {});
@@ -320,6 +312,118 @@ describe('accountReducer', () => {
 
             state = accountReducer(state, thirdAction);
             expect(state.filters).toEqual(initialState.filters);
+        });
+    });
+
+    describe('SET_ACCOUNT_AWARD_ITEMS', () => {
+        it('should add AwardSummary objects to the Redux store', () => {
+            let state = accountReducer(initialState, {});
+
+            const action = {
+                type: 'SET_ACCOUNT_AWARD_ITEMS',
+                awards: ['placeholder 1', 'placeholder 2'],
+                hasNext: false
+            };
+
+            state = accountReducer(state, action);
+
+            expect(state.awardsMeta.hasNext).toBeFalsy();
+            expect(state.awardsMeta.page).toEqual(1);
+            expect(state.awards).toEqual(new OrderedSet(['placeholder 1', 'placeholder 2']));
+        });
+    });
+
+    describe('APPEND_ACCOUNT_AWARD_ITEMS', () => {
+        it('should append new items to the Redux store without impacting existing items', () => {
+            const startingState = Object.assign({}, initialState, {
+                awards: new OrderedSet(['placeholder 1', 'placeholder 2'])
+            });
+            let state = accountReducer(startingState, {});
+
+            const action = {
+                type: 'APPEND_ACCOUNT_AWARD_ITEMS',
+                awards: ['placeholder 3', 'placeholder 4'],
+                page: 2,
+                hasNext: false
+            };
+
+            state = accountReducer(state, action);
+
+            const expectedAwards = [
+                'placeholder 1', 'placeholder 2', 'placeholder 3', 'placeholder 4'
+            ];
+            expect(state.awards).toEqual(new OrderedSet(expectedAwards));
+            expect(state.awardsMeta.page).toEqual(2);
+        });
+
+        it('should update the query identifier but not the search identifier', () => {
+            const customMeta = Object.assign({}, initialState.awardsMeta, {
+                batch: {
+                    queryId: '-100',
+                    searchId: '-200'
+                }
+            });
+
+            const startingState = Object.assign({}, initialState, {
+                awards: new OrderedSet(['placeholder 1', 'placeholder 2']),
+                awardsMeta: customMeta
+            });
+
+            let state = accountReducer(startingState, {});
+
+            const action = {
+                type: 'APPEND_ACCOUNT_AWARD_ITEMS',
+                awards: ['placeholder 3', 'placeholder 4'],
+                page: 2,
+                hasNext: false
+            };
+
+            state = accountReducer(state, action);
+
+            expect(state.awardsMeta.batch.queryId).not.toEqual('-100');
+            expect(state.awardsMeta.batch.searchId).toEqual('-200');
+        });
+    });
+
+    describe('SET_ACCOUNT_AWARD_TYPE', () => {
+        it('should update the award type and both batch IDs', () => {
+            let state = accountReducer(initialState, {});
+
+            expect(state.awardsMeta.type).toEqual('contracts');
+
+            const action = {
+                type: 'SET_ACCOUNT_AWARD_TYPE',
+                awardType: 'grants'
+            };
+
+            state = accountReducer(state, action);
+
+            expect(state.awardsMeta.type).toEqual('grants');
+            expect(state.awardsMeta.batch.queryId).not
+                .toEqual(initialState.awardsMeta.batch.queryId);
+            expect(state.awardsMeta.batch.searchId).not
+                .toEqual(initialState.awardsMeta.batch.searchId);
+        });
+    });
+
+    describe('SET_ACCOUNT_AWARD_ORDER', () => {
+        it('should update the sort order of the federal account awards table', () => {
+            let state = accountReducer(initialState, {});
+
+            expect(state.awardsOrder.field).toEqual('total_obligation');
+            expect(state.awardsOrder.direction).toEqual('desc');
+
+            const action = {
+                type: 'SET_ACCOUNT_AWARD_ORDER',
+                order: {
+                    field: 'fake_field',
+                    direction: 'asc'
+                }
+            };
+
+            state = accountReducer(state, action);
+            expect(state.awardsOrder.field).toEqual('fake_field');
+            expect(state.awardsOrder.direction).toEqual('asc');
         });
     });
 });

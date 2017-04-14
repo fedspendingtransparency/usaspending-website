@@ -150,33 +150,13 @@ export class AccountAwardsContainer extends React.Component {
 
         this.request.promise
             .then((res) => {
-                const hasNext = res.data.page_metadata.has_next_page;
-
-                const awards = [];
-                res.data.results.forEach((item) => {
-                    const award = new AwardSummary(item);
-                    awards.push(award);
-                });
-
                 this.request = null;
 
                 this.setState({
                     inFlight: false
                 });
 
-                if (page > 1) {
-                    this.props.appendAccountAwards({
-                        awards,
-                        hasNext,
-                        page
-                    });
-                }
-                else {
-                    this.props.setAccountAwards({
-                        awards,
-                        hasNext
-                    });
-                }
+                this.parseData(res.data, page);
             })
             .catch((err) => {
                 this.request = null;
@@ -188,6 +168,36 @@ export class AccountAwardsContainer extends React.Component {
                     console.log(err);
                 }
             });
+    }
+
+    parseData(data, page) {
+        const hasNext = data.page_metadata.has_next_page;
+
+        const awards = [];
+        data.results.forEach((item) => {
+            const award = new AwardSummary(item);
+            awards.push(award);
+        });
+
+        this.request = null;
+
+        this.setState({
+            inFlight: false
+        });
+
+        if (page > 1) {
+            this.props.appendAccountAwards({
+                awards,
+                hasNext,
+                page
+            });
+        }
+        else {
+            this.props.setAccountAwards({
+                awards,
+                hasNext
+            });
+        }
     }
 
     loadNextPage() {

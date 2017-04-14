@@ -79,7 +79,8 @@ const accountReducer = (state = initialState, action) => {
         case 'APPEND_ACCOUNT_AWARD_ITEMS': {
             const meta = Object.assign({}, state.awardsMeta, {
                 batch: {
-                    queryId: _.uniqueId()
+                    queryId: _.uniqueId(),
+                    searchId: state.awardsMeta.batch.searchId
                 },
                 page: action.page,
                 hasNext: action.hasNext
