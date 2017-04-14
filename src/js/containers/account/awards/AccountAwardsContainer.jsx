@@ -22,10 +22,14 @@ import AccountAwardsSection from 'components/account/awards/AccountAwardsSection
 import * as accountActions from 'redux/actions/account/accountActions';
 
 const propTypes = {
+    account: React.PropTypes.object,
     awards: React.PropTypes.instanceOf(Immutable.OrderedSet),
     meta: React.PropTypes.object,
-    setSearchTableType: React.PropTypes.func,
-    setSearchPageNumber: React.PropTypes.func
+    filters: React.PropTypes.object,
+    order: React.PropTypes.object,
+    setAccountAwardType: React.PropTypes.func,
+    setAccountAwards: React.PropTypes.func,
+    appendAccountAwards: React.PropTypes.func
 };
 
 const tableTypes = [

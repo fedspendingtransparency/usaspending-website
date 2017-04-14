@@ -35,7 +35,20 @@ const initialState = {
             outlay: {}
         }
     },
-    tas: [],
+    awards: new OrderedSet(),
+    awardsMeta: {
+        batch: {
+            queryId: "0",
+            searchId: "0"
+        },
+        page: 1,
+        hasNext: false,
+        type: 'contracts'
+    },
+    awardsOrder: {
+        field: 'total_obligation',
+        direction: 'desc'
+    },
     totalSpending: 0
 };
 
@@ -244,7 +257,7 @@ describe('accountReducer', () => {
             };
 
             state = accountReducer(state, secondAction);
-            expect(state).toEqual(initialState);
+            expect(state.filters).toEqual(initialState.filters);
         });
     });
 
@@ -306,7 +319,7 @@ describe('accountReducer', () => {
             };
 
             state = accountReducer(state, thirdAction);
-            expect(state).toEqual(initialState);
+            expect(state.filters).toEqual(initialState.filters);
         });
     });
 });

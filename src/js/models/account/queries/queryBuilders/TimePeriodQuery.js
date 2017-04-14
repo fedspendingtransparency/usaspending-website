@@ -56,6 +56,4 @@ export const buildTimePeriodQuery = (type, range) => {
     return buildDateRangeQuery(range);
 };
 
-export const buildAwardTimePeriodQuery = (type, range) => {
-    return buildFYAwardQuery(range);
-};
+export const buildAwardTimePeriodQuery = (type, range) => buildFYAwardQuery(range);

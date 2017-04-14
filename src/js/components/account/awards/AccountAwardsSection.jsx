@@ -10,6 +10,13 @@ import ResultsTable from 'components/search/table/ResultsTable';
 import AccountAwardsHeaderCellContainer from
     'containers/account/awards/AccountAwardsHeaderCellContainer';
 
+const propTypes = {
+    inFlight: React.PropTypes.bool,
+    tableTypes: React.PropTypes.array,
+    currentType: React.PropTypes.string,
+    switchTab: React.PropTypes.func
+};
+
 export default class AccountAwardsSection extends React.Component {
     constructor(props) {
         super(props);
@@ -68,3 +75,5 @@ export default class AccountAwardsSection extends React.Component {
         );
     }
 }
+
+AccountAwardsSection.propTypes = propTypes;
