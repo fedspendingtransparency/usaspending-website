@@ -37,7 +37,16 @@ const initialState = {
             outlay: {}
         }
     },
-    tas: [],
+    awards: new OrderedSet(),
+    awardsMeta: {
+        batch: {
+            queryId: _.uniqueId(),
+            searchId: _.uniqueId()
+        },
+        page: 1,
+        hasNext: false,
+        type: 'contracts'
+    },
     totalSpending: 0
 };
 
@@ -48,14 +57,45 @@ const accountReducer = (state = initialState, action) => {
                 account: action.account
             });
         }
-        case 'SET_ACCOUNT_TAS_ITEMS': {
+        case 'SET_ACCOUNT_AWARD_ITEMS': {
             return Object.assign({}, state, {
-                tas: action.tas
+                awards: new OrderedSet(action.awards),
+                awardsMeta: {
+                    batch: {
+                        queryId: _.uniqueId(),
+                        searchId: _.uniqueId()
+                    },
+                    page: 1,
+                    hasNext: action.hasNext,
+                    type: state.awardsMeta.type
+                }
             });
         }
-        case 'APPEND_ACCOUNT_TAS_ITEMS': {
+        case 'APPEND_ACCOUNT_AWARD_ITEMS': {
             return Object.assign({}, state, {
-                tas: _.concat(state.tas, action.as)
+                awards: new OrderedSet(_.concat(state.awards.toArray(), action.awards)),
+                awardsMeta: {
+                    batch: {
+                        queryId: _.uniqueId(),
+                        searchId: state.awardsMeta.batch.searchId
+                    },
+                    page: action.page,
+                    hasNext: action.hasNext,
+                    type: state.awardsMeta.type
+                }
+            });
+        }
+        case 'SET_ACCOUNT_AWARD_TYPE': {
+            return Object.assign({}, state, {
+                awardsMeta: {
+                    batch: {
+                        queryId: _.uniqueId(),
+                        searchId: _.uniqueId()
+                    },
+                    type: action.awardType,
+                    page: state.awardsMeta.page,
+                    hasNext: state.awardsMeta.hasNext
+                }
             });
         }
         case 'UPDATE_ACCOUNT_FILTER_TIME': {
