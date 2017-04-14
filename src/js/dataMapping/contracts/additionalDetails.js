@@ -69,7 +69,7 @@ export const competitionFields = [
     },
     {
         label: 'Extent Competed',
-        field: 'extent_competed'
+        field: 'extent_competed_description'
     },
     {
         label: 'Not Competed Reason',
@@ -81,7 +81,7 @@ export const competitionFields = [
     },
     {
         label: 'Commercial Item Acquisition Procedures',
-        field: 'commercial_item_acquisition_procedures'
+        field: 'commercial_item_acquisition_procedures_description'
     },
     {
         label: 'Commercial Item Test Program',
@@ -158,6 +158,29 @@ export const legislativeFields = [
     {
         label: 'Subject to Walsh Healey Act',
         field: 'walsh_healey_act'
+    }
+];
+
+export const compensationFields = [
+    {
+        label: 'Officer 1',
+        field: 'officer_1_amount'
+    },
+    {
+        label: 'Officer 2',
+        field: 'officer_2_amount'
+    },
+    {
+        label: 'Officer 3',
+        field: 'officer_3_amount'
+    },
+    {
+        label: 'Officer 4',
+        field: 'officer_4_amount'
+    },
+    {
+        label: 'Officer 5',
+        field: 'officer_5_amount'
     }
 ];
 
