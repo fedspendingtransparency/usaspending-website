@@ -26,6 +26,11 @@ export default class AccountOverview extends React.Component {
                 out: {
                     obligated: 0,
                     unobligated: 0
+                },
+                in: {
+                    bbf: 0,
+                    other: 0,
+                    appropriations: 0
                 }
             },
             summary: {
@@ -71,6 +76,10 @@ export default class AccountOverview extends React.Component {
         let fiscalYearAvailable = true;
         let authorityValue = 0;
         let obligatedValue = 0;
+        let bbfValue = 0;
+        let otherValue = 0;
+        let appropriationsValue = 0;
+
         if ({}.hasOwnProperty.call(account.totals.budgetAuthority, fy)) {
             authorityValue = account.totals.budgetAuthority[fy];
         }
@@ -83,6 +92,14 @@ export default class AccountOverview extends React.Component {
         }
         else {
             fiscalYearAvailable = false;
+        }
+
+        if (fiscalYearAvailable) {
+            const firstBBF = parseFloat(account.totals.balanceBroughtForward1[fy]);
+            const secondBBF = parseFloat(account.totals.balanceBroughtForward2[fy]);
+            bbfValue = firstBBF + secondBBF;
+            otherValue = parseFloat(account.totals.otherBudgetaryResources[fy]);
+            appropriationsValue = parseFloat(account.totals.appropriations[fy]);
         }
 
         const authUnits = MoneyFormatter.calculateUnitForSingleValue(authorityValue);
@@ -98,9 +115,23 @@ ${authUnits.unitLabel}`;
         const amountObligated = `${MoneyFormatter.formatMoney(obligatedValue / obUnits.unit)}\
 ${obUnits.unitLabel}`;
 
+        const bbfUnits = MoneyFormatter.calculateUnitForSingleValue(bbfValue);
+        const bbfString = `${MoneyFormatter.formatMoney(bbfValue / bbfUnits.unit)}\
+${bbfUnits.unitLabel}`;
+
+        const appropUnits = MoneyFormatter.calculateUnitForSingleValue(appropriationsValue);
+        let appropString = `${MoneyFormatter.formatMoney(appropriationsValue / appropUnits.unit)}\
+${appropUnits.unitLabel}`;
+
+        const otherUnits = MoneyFormatter.calculateUnitForSingleValue(otherValue);
+        const otherString = `${MoneyFormatter.formatMoney(otherValue / otherUnits.unit)}\
+${otherUnits.unitLabel}`;
+
         const summary = {
             flow: `For this current fiscal year, this agency has been granted authority to spend \
-${authority} out of this federal account.`,
+${authority} out of this federal account. They carried over a balance of ${bbfString} from last \
+year, were given ${appropString} in new appropriations, and have authority to use ${otherString} \
+of other budgetary resources.`,
             toDate: `To date, ${percentObligated}% (${amountObligated}) of the total \
 ${authority} has been obligated.`
         };
@@ -110,6 +141,11 @@ ${authority} has been obligated.`
             out: {
                 obligated: obligatedValue,
                 unobligated: parseFloat(account.totals.unobligated[fy])
+            },
+            in: {
+                bbf: bbfValue,
+                other: otherValue,
+                appropriations: appropriationsValue
             }
         };
 

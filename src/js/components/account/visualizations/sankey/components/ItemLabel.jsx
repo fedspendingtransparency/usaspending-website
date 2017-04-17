@@ -7,11 +7,16 @@ import React from 'react';
 
 const defaultProps = {
     x: 0,
-    y: 0
+    y: 0,
+    hide: false
 };
 
 export default class ItemLabel extends React.Component {
     render() {
+        if (this.props.hide) {
+            return null;
+        }
+
         return (
             <g
                 className="item-label"

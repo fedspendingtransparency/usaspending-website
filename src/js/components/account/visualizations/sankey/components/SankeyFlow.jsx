@@ -30,18 +30,18 @@ export default class SankeyFlow extends React.Component {
         path += `M0,${props.startY}L2,${props.startY}`;
 
         // calculate the curve (going from 2 to length -2 to account for the offset)
-        const curve = interpolateNumber(2, props.length - 2);
+        const curve = interpolateNumber(2, props.length);
 
         path += `C${curve(0.5)},${props.startY}`;
         path += ` ${curve(0.5)},${props.endY}`;
 
         // move to the end (length, endY), then move right 2px more to account for the offset
-        path += ` ${props.length - 2},${props.endY}L${props.length},${props.endY}`;
+        path += ` ${props.length},${props.endY}L${props.length + 4},${props.endY}`;
 
         // create the height by moving downard height px
-        path += ` L${props.length},${props.endY + props.height}`;
+        path += ` L${props.length + 4},${props.endY + props.height}`;
         // move left 2px to account for the offset
-        path += `L${props.length - 2},${props.endY + props.height}`;
+        path += `L${props.length},${props.endY + props.height}`;
         // go back to the start but at the bottom
         path += `C${curve(0.5)},${props.endY + props.height}`;
         path += ` ${curve(0.5)},${props.startY + props.height}`;
@@ -59,8 +59,14 @@ export default class SankeyFlow extends React.Component {
     }
 
     render() {
+        if (this.props.height <= 0) {
+            return null;
+        }
+
         return (
-            <g aria-label={this.props.description}>
+            <g
+                transform="translate(-2,0)"
+                aria-label={this.props.description}>
                 <desc>{this.props.description}</desc>
                 <path
                     className="flow-path"

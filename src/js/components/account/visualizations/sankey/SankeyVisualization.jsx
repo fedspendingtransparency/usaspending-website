@@ -48,6 +48,31 @@ export default class SankeyVisualization extends React.Component {
                     length: 0,
                     x: 0
                 }
+            },
+            left: {
+                width: 0,
+                x: 0,
+                bbf: {
+                    height: 0,
+                    description: '',
+                    label: ''
+                },
+                other: {
+                    height: 0,
+                    y: 0,
+                    description: '',
+                    label: ''
+                },
+                appropriations: {
+                    height: 0,
+                    y: 0,
+                    description: '',
+                    label: ''
+                },
+                flow: {
+                    length: 0,
+                    x: 0
+                }
             }
         };
     }
@@ -86,7 +111,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
         const obligatedHeight = (props.amounts.out.obligated / props.amounts.budgetAuthority) * centerHeight;
         const unobligatedHeight = (props.amounts.out.unobligated / props.amounts.budgetAuthority) * centerHeight;
         const budgetAuthority = props.amounts.budgetAuthority;
-        
+
         const obligatedString = MoneyFormatter.formatMoney(props.amounts.out.obligated);
         const unobligatedString = MoneyFormatter.formatMoney(props.amounts.out.unobligated);
 
@@ -108,14 +133,69 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                 label: unobligatedLabel
             },
             flow: {
-                length: flowLength + 4, // extend the length by 2px on each end so the borders are hidden
-                x: (centerX + barWidth) - 2
+                length: flowLength,
+                x: centerX + barWidth
+            }
+        };
+
+        // calculate the left column values
+        const bbf = props.amounts.in.bbf;
+        const bbfHeight = (bbf / budgetAuthority) * centerHeight;
+        const bbfString = MoneyFormatter.formatMoney(bbf);
+        const bbfLabel = this.generateLabel(bbf, budgetAuthority);
+
+        const appropriations = props.amounts.in.appropriations;
+        const appropHeight = (appropriations / budgetAuthority) * centerHeight;
+        const appropString = MoneyFormatter.formatMoney(appropriations);
+        const appropLabel = this.generateLabel(appropriations, budgetAuthority);
+        const appropY = graphHeight - appropHeight;
+
+        const other = props.amounts.in.other;
+        const otherHeight = (other / budgetAuthority) * centerHeight;
+        const otherString = MoneyFormatter.formatMoney(other);
+        const otherLabel = this.generateLabel(other, budgetAuthority);
+
+        // to vertically center the other box, determine how much space is left between the two blocks
+        let otherY = ((bbfHeight + appropY) / 2) - (otherHeight / 2);
+        if (appropHeight <= 0) {
+            // when no appropriations are available, position it at the bottom
+            otherY = graphHeight - otherHeight;
+        }
+        else if (bbfHeight <= 0) {
+            // when there is no balance brought forward, position it at the top
+            otherY = 0;
+        }
+
+        const left = {
+            width: barWidth,
+            x: 0,
+            bbf: {
+                height: bbfHeight,
+                description: `Balance Brought Forward: ${bbfString}`,
+                label: bbfLabel
+            },
+            other: {
+                height: otherHeight,
+                y: otherY,
+                description: `Other Budgetary Resouces: ${otherString}`,
+                label: otherLabel
+            },
+            appropriations: {
+                height: appropHeight,
+                y: appropY,
+                description: `New Appropriations: ${appropString}`,
+                label: appropLabel
+            },
+            flow: {
+                length: flowLength,
+                x: barWidth
             }
         };
 
         this.setState({
             center,
-            right
+            right,
+            left
         });
     }
 
@@ -127,6 +207,79 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                 height={this.props.height + 2}>
 
                 <g
+                    className="left-flows"
+                    transform={`translate(${this.state.left.flow.x}, 40)`}>
+                    <SankeyFlow
+                        startY={0}
+                        endY={this.state.center.y}
+                        height={this.state.left.bbf.height}
+                        length={this.state.left.flow.length}
+                        description="Flow of money into total budget authority from balance brought forward"
+                        style={{
+                            fill: '#bfcfd4'
+                        }} />
+                    <SankeyFlow
+                        startY={this.state.left.other.y}
+                        endY={this.state.center.y + this.state.left.bbf.height}
+                        height={this.state.left.other.height}
+                        length={this.state.left.flow.length}
+                        description="Flow of money into total budget authority from other budgetary resources"
+                        style={{
+                            fill: '#bfcfd4'
+                        }} />
+                    <SankeyFlow
+                        startY={this.state.left.appropriations.y}
+                        endY={(this.state.center.y + this.state.center.height) - this.state.left.appropriations.height}
+                        height={this.state.left.appropriations.height}
+                        length={this.state.left.flow.length}
+                        description="Flow of money into total budget authority from new appropriations"
+                        style={{
+                            fill: '#bfcfd4'
+                        }} />
+                </g>
+
+                <g
+                    className="left-col"
+                    transform={`translate(0,40)`}>
+                    <ItemLabel
+                        y={-25}
+                        title="Balance Brought Forward"
+                        value={this.state.left.bbf.label}
+                        hide={this.state.left.bbf.height <= 0} />
+                    <SankeyBar
+                        color={"#597785"}
+                        x={0}
+                        y={0}
+                        width={this.state.left.width}
+                        height={this.state.left.bbf.height}
+                        description={this.state.left.bbf.description} />
+                    <ItemLabel
+                        y={this.state.left.other.y - 25}
+                        title="Other Budgetary Resources"
+                        value={this.state.left.other.label}
+                        hide={this.state.left.other.height <= 0} />
+                    <SankeyBar
+                        color={"#597785"}
+                        x={0}
+                        y={this.state.left.other.y}
+                        width={this.state.left.width}
+                        height={this.state.left.other.height}
+                        description={this.state.left.other.description} />
+                    <ItemLabel
+                        y={this.state.left.appropriations.y - 25}
+                        title="New Appropriations"
+                        value={this.state.left.appropriations.label}
+                        hide={this.state.left.appropriations.height <= 0} />
+                    <SankeyBar
+                        color={"#597785"}
+                        x={0}
+                        y={this.state.left.appropriations.y}
+                        width={this.state.left.width}
+                        height={this.state.left.appropriations.height}
+                        description={this.state.left.appropriations.description} />
+                </g>
+
+                <g
                     className="right-flows"
                     transform={`translate(${this.state.right.flow.x}, 40)`}>
                     <SankeyFlow
@@ -136,7 +289,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                         length={this.state.right.flow.length}
                         description="Flow of money out of total budget authority to obligated amount"
                         style={{
-                            fill: '#A7C2CA'
+                            fill: '#bfcfd4'
                         }} />
                     <SankeyFlow
                         startY={this.state.center.y + this.state.right.obligated.height}
@@ -191,7 +344,8 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                     <ItemLabel
                         y={-25}
                         title="Obligated Amount"
-                        value={this.state.right.obligated.label} />
+                        value={this.state.right.obligated.label}
+                        hide={this.state.right.obligated.height <= 0} />
                     <SankeyBar
                         color={"#083546"}
                         x={0}
@@ -202,7 +356,8 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                     <ItemLabel
                         y={this.state.right.unobligated.y - 25}
                         title="Unobligated Balance"
-                        value={this.state.right.unobligated.label} />
+                        value={this.state.right.unobligated.label}
+                        hide={this.state.right.unobligated.height <= 0} />
                     <SankeyBar
                         color={"#083546"}
                         x={0}
