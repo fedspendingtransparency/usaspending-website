@@ -6,7 +6,7 @@
 import React from 'react';
 
 const propTypes = {
-    code: React.PropTypes.string,
+    programActivityID: React.PropTypes.string,
     label: React.PropTypes.string,
     checked: React.PropTypes.bool,
     toggleValue: React.PropTypes.func
@@ -19,11 +19,11 @@ export default class ProgramActivityItem extends React.Component {
                 <div className="award-type-item-wrapper">
                     <input
                         type="checkbox"
-                        id={`program-activity-${this.props.code}`}
-                        value={this.props.code}
+                        id={`program-activity-${this.props.programActivityID}`}
+                        value={this.props.programActivityID}
                         checked={this.props.checked}
                         onChange={this.props.toggleValue} />
-                    <label htmlFor={`program-activity-${this.props.code}`}>
+                    <label htmlFor={`program-activity-${this.props.programActivityID}`}>
                         {this.props.label}</label>
                 </div>
             </li>

@@ -13,71 +13,107 @@ const propTypes = {
     selectedProgramActivities: React.PropTypes.instanceOf(OrderedSet),
     programActivities: React.PropTypes.array,
     updateFilter: React.PropTypes.func,
-    shown: React.PropTypes.number
+    noResults: React.PropTypes.bool
+};
+
+const defaultShown = 10;
+
+const defaultState = {
+    shown: defaultShown,
+    shownType: 'more'
 };
 
 export default class ProgramActivityFilter extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            shown: 10,
-            shownType: 'more'
-        };
+        this.state = defaultState;
 
         this.toggleValue = this.toggleValue.bind(this);
     }
 
-    generateShownStatement() {
-        const remaining = Object.keys(this.props.programActivities).length - this.state.shown;
+    toggleShownAmount() {
+        const programActivities = this.props.programActivities;
 
-        if (remaining === 0) {
-            return `See ${this.state.shownType}`;
-        }
+        let updatedState = defaultState;
 
-        return `See ${remaining} ${this.state.shownType}`;
-    }
-
-    toggleShownAmount(showType) {
-        if (showType === 'more') {
-            this.setState({
-                shown: Object.keys(this.state.programActivities).length,
+        if (this.state.shownType === 'more') {
+            updatedState = {
+                shown: Object.keys(programActivities).length,
                 shownType: 'fewer'
-            });
+            };
         }
+
+        this.setState(updatedState);
     }
 
     toggleValue(event) {
-        const code = event.target.value;
-        this.props.updateFilter(code);
+        this.props.updateFilter(event.target.value);
+    }
+
+    generateProgramActivityItems(programActivities) {
+        const activities = [];
+
+        programActivities.forEach((programActivity) => {
+            if (activities.length < this.state.shown) {
+                const label = `${programActivity.code} - ${programActivity.name}`;
+                const checked = this.props.selectedProgramActivities.includes(programActivity.id);
+
+                if (activities.length <= this.state.shown
+                    && (programActivity.name !== null && programActivity.name !== '')) {
+                    activities.push(
+                        <ProgramActivityItem
+                            key={programActivity.id}
+                            programActivityID={programActivity.id}
+                            label={label}
+                            checked={checked}
+                            toggleValue={this.toggleValue} />);
+                }
+            }
+        });
+
+        if (activities.length === 0 && this.props.noResults) {
+            activities.push("There are no Program Activities for this Federal Account.");
+        }
+
+        return activities;
+    }
+
+    generateToggleButton() {
+        const programActivities = this.props.programActivities;
+        let toggleButton = null;
+
+        if (programActivities && Object.keys(programActivities).length > 10) {
+            const remaining = Object.keys(programActivities).length - this.state.shown;
+            let shownStatement = '';
+
+            if (remaining === 0) {
+                shownStatement = this.state.shownType;
+            }
+            else {
+                shownStatement = `${remaining} ${this.state.shownType}`;
+            }
+
+            toggleButton = (<button
+                className="account-program-activity-toggle-button"
+                onClick={this.toggleShownAmount.bind(this)}>
+                See {shownStatement}
+            </button>);
+        }
+
+        return toggleButton;
     }
 
     render() {
-        let itemCounter = 0;
-        const items = [];
-
-        this.props.programActivities.forEach((programActivity) => {
-            if (itemCounter < this.state.shown) {
-                const label = programActivity.name;
-                const checked = this.props.programActivities.includes(programActivity.code);
-                itemCounter += 1;
-
-                items.push(
-                    <ProgramActivityItem
-                        key={programActivity.code}
-                        code={programActivity.code}
-                        label={label}
-                        checked={checked}
-                        toggleValue={this.toggleValue} />);
-            }
-        });
+        const items = this.generateProgramActivityItems(this.props.programActivities);
+        const toggleButton = this.generateToggleButton();
 
         return (
             <div className="account-program-activity-filter search-filter">
                 <ul className="program-activities">
                     { items }
                 </ul>
-                <div>{this.generateShownStatement}</div>
+                {toggleButton}
             </div>
         );
     }

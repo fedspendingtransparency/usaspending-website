@@ -16,7 +16,6 @@ import ProgramActivityFilter from
 
 const propTypes = {
     toggleProgramActivity: React.PropTypes.func,
-    setProgramActivities: React.PropTypes.func,
     account: React.PropTypes.object
 };
 
@@ -25,7 +24,8 @@ export class AccountProgramActivityContainer extends React.Component {
         super(props);
 
         this.state = {
-            programActivities: []
+            programActivities: [],
+            noResults: false
         };
 
         // bind functions
@@ -60,8 +60,7 @@ export class AccountProgramActivityContainer extends React.Component {
             group: [
                 "program_activity__program_activity_name",
                 "program_activity__program_activity_code",
-                "treasury_account__agency_id",
-                "treasury_account__main_account_code"],
+                "program_activity__id"],
             field: "ussgl480100_undelivered_orders_obligations_unpaid_fyb",
             aggregate: "count",
             filters: [
@@ -69,16 +68,6 @@ export class AccountProgramActivityContainer extends React.Component {
                     field: "treasury_account__federal_account",
                     operation: "equals",
                     value: this.props.account.id
-                },
-                {
-                    field: "treasury_account__agency_id",
-                    operation: "equals",
-                    value: this.props.account.agency_identifier
-                },
-                {
-                    field: "treasury_account__main_account_code",
-                    operation: "equals",
-                    value: this.props.account.main_account_code
                 }
             ]
         };
@@ -92,14 +81,21 @@ export class AccountProgramActivityContainer extends React.Component {
 
                 data.forEach((value) => {
                     programActivities.push({
+                        id: value.program_activity__id,
                         code: value.program_activity__program_activity_code,
                         name: value.program_activity__program_activity_name
                     });
                 });
 
+                let noResults = false;
+                if (programActivities.length === 0) {
+                    noResults = true;
+                }
+
                 // Add search results to Redux
                 this.setState({
-                    programActivities
+                    programActivities,
+                    noResults
                 });
             })
             .catch((err) => {
