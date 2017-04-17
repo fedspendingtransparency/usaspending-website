@@ -1,13 +1,11 @@
 .visualization-description {
     .content {
-        font-size: $small-font-size;
-        line-height: 26px;
         color: #525252;
-
-        margin-right: 20px;
-
+        font-size: $small-font-size;
+        line-height: rem(26);
+        margin-right: rem(20);
         @include media($medium-screen) {
-            margin-right: 50px;
+            margin-right: rem(50);
         }
     }
 }

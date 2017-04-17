@@ -1,0 +1,6 @@
+& .by-category-vis {
+    @include span-columns(16);
+    @include clearfix;
+    background: $color-gray-dark;
+    height: rem(140);
+}

@@ -1,0 +1,26 @@
+//UNDERLINED BUTTON STYLE
+//@import "../../components/underlineButton";
+//@include underlineButton();
+
+@mixin underlineButton {
+    button {
+        @include button-unstyled;
+        color: #808288;
+        font-size: rem(14);
+        line-height: rem(18);
+        padding: 0 rem(10);
+        padding-bottom: rem(5);
+        border-bottom: rem(4) solid transparent;
+        font-weight: $font-semibold;
+        &:hover {
+            @include transition(all 0.25s $ease-in-out-sine);
+            border-bottom: rem(4) solid darken( $color-primary-alt-lightest, 15%);
+            color: lighten($color-gray-dark, 15%)
+        }
+        &.active,
+        &:active {
+            color: $color-gray-dark;
+            border-bottom: rem(4) solid $color-primary-alt-dark;
+        }
+    }
+}

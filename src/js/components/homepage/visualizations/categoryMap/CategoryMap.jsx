@@ -1,5 +1,5 @@
 /**
- * SpendingMap.jsx
+ * CategoryMap.jsx
  * Created by Emily Gullo 03/15/2017
  **/
 
@@ -14,7 +14,7 @@ const propTypes = {
     breakdown: React.PropTypes.array
 };
 
-export default class TreeMap extends React.Component {
+export default class CategoryMap extends React.Component {
 
     constructor(props) {
         super(props);
@@ -130,37 +130,9 @@ export default class TreeMap extends React.Component {
     }
 
     render() {
-        let sidebarContent = '';
-        let sideBarIntro = '';
-        if (this.state.showOverlay === true) {
-            sideBarIntro = (
-                <div className="tree-desc">
-                    <b>3</b> of the <b>19</b> total budget functions, accounted for about
-                    &nbsp;<b>1/2</b> of total spending. Social Security, National Defense,
-                    and Medicare.
-                </div>);
-        }
-        if (this.state.category === 'none') {
-            sidebarContent = (
-                <div className="treemap-sidebar">
-                    { sideBarIntro }
-                    <div className="tree-hover-tip">
-                        Hover over each block to learn more about Spending by Budget Function in
-                        2016.
-                    </div>
-                </div>
-            );
-        }
-        else {
-            sidebarContent = (<TreeMapSidebar
-                category={this.state.category}
-                description={this.state.description}
-                amount={this.state.individualValue} />);
-        }
         return (
             <div
                 className="usa-da-treemap-section">
-                { sidebarContent }
                 <div
                     className="tree-wrapper"
                     ref={(sr) => {
@@ -198,4 +170,4 @@ export default class TreeMap extends React.Component {
     }
 
 }
-TreeMap.propTypes = propTypes;
+CategoryMap.propTypes = propTypes;

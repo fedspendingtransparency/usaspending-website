@@ -12,7 +12,8 @@ import MapVisualizationContainer from 'containers/homepage/MapVisualizationConta
 import Landing from './Landing';
 import TreeMap from './visualizations/treemap/TreeMap';
 import TreeMapIntro from './TreeMapIntro';
-import SpendingMap from './visualizations/spendingMap/SpendingMap';
+import MapTopBar from './MapTopBar';
+import CategorySection from './CategorySection';
 import LinksSection from './LinksSection';
 import SearchSection from './SearchSection';
 import Header from '../sharedComponents/header/Header';
@@ -73,8 +74,9 @@ export default class Homepage extends React.Component {
                     categories={this.state.categories}
                     colors={this.state.colors}
                     descriptions={this.state.descriptions} />
-                <SpendingMap
+                <CategorySection
                     breakdown={this.state.breakdown} />
+                <MapTopBar />
                 <MapVisualizationContainer />
                 <SearchSection />
                 <LinksSection />
