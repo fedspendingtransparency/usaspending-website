@@ -29,8 +29,6 @@ const initialState = {
     },
     subawards: [],
     subawardMeta: {
-        count: 1,
-        totalValue: 5001.24,
         hasNext: false,
         page: 1,
         render: '',

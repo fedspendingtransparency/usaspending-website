@@ -11,6 +11,7 @@ import SubawardsHeaderCellContainer from
     'containers/award/subawards/cells/SubawardsHeaderCellContainer';
 
 import subawardFields from 'dataMapping/contracts/subawardTable';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import TransactionTableGenericCell from 'components/award/table/cells/TransactionTableGenericCell';
 
@@ -22,6 +23,7 @@ const tableHeight = 12.5 * rowHeight;
 const propTypes = {
     inFlight: React.PropTypes.bool,
     tableWidth: React.PropTypes.number,
+    award: React.PropTypes.object,
     subawards: React.PropTypes.array,
     meta: React.PropTypes.object,
     loadNextPage: React.PropTypes.func
@@ -129,23 +131,48 @@ export default class SubawardsTable extends React.Component {
             loadingClass = 'loading';
         }
 
+        let totalValue = 0;
+        if (this.props.award.total_subaward_amount) {
+            totalValue = this.props.award.total_subaward_amount;
+        }
+
         return (
-            <div
-                className={`subawards-table ${loadingClass}`}
-                ref={(div) => {
-                    this.wrapperDiv = div;
-                }}>
-                <IBTable
-                    dataHash={`${this.props.meta.render}-${this.props.tableWidth}`}
-                    resetHash={this.props.meta.group}
-                    rowHeight={rowHeight}
-                    rowCount={this.props.subawards.length}
-                    headerHeight={50}
-                    width={tableValues.width}
-                    maxWidth={this.props.tableWidth}
-                    maxHeight={tableHeight}
-                    columns={tableValues.columns}
-                    onScrollEnd={this.tableScrolled} />
+            <div>
+                <div className="subaward-totals">
+                    <div className="total-item">
+                        <span className="total-label">
+                            Total Number of Sub-Awards:&nbsp;
+                        </span>
+                        <span className="total-value">
+                            {this.props.award.subaward_count}
+                        </span>
+                    </div>
+                    <div className="total-item">
+                        <span className="total-label">
+                            Total Sub-Award Amount:&nbsp;
+                        </span>
+                        <span className="total-value">
+                            {MoneyFormatter.formatMoney(totalValue)}
+                        </span>
+                    </div>
+                </div>
+                <div
+                    className={`subawards-table ${loadingClass}`}
+                    ref={(div) => {
+                        this.wrapperDiv = div;
+                    }}>
+                    <IBTable
+                        dataHash={`${this.props.meta.render}-${this.props.tableWidth}`}
+                        resetHash={this.props.meta.group}
+                        rowHeight={rowHeight}
+                        rowCount={this.props.subawards.length}
+                        headerHeight={50}
+                        width={tableValues.width}
+                        maxWidth={this.props.tableWidth}
+                        maxHeight={tableHeight}
+                        columns={tableValues.columns}
+                        onScrollEnd={this.tableScrolled} />
+                </div>
             </div>
         );
     }
