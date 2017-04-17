@@ -6,7 +6,7 @@
 import React from 'react';
 import { OrderedSet } from 'immutable';
 
-
+import * as Icons from 'components/sharedComponents/icons/Icons';
 import ProgramActivityItem from './ProgramActivityItem';
 
 const propTypes = {
@@ -86,18 +86,23 @@ export default class ProgramActivityFilter extends React.Component {
         if (programActivities && Object.keys(programActivities).length > 10) {
             const remaining = Object.keys(programActivities).length - this.state.shown;
             let shownStatement = '';
+            let arrow = '';
 
             if (remaining === 0) {
                 shownStatement = this.state.shownType;
+                arrow = (<Icons.AngleUp alt={`See ${shownStatement}`} />);
             }
             else {
                 shownStatement = `${remaining} ${this.state.shownType}`;
+                arrow = (<Icons.AngleDown alt={`See ${shownStatement}`} />);
             }
 
             toggleButton = (<button
-                className="account-program-activity-toggle-button"
-                onClick={this.toggleShownAmount.bind(this)}>
+                className="see-more account-program-activity-toggle-button"
+                onClick={this.toggleShownAmount.bind(this)}
+                title={`See ${shownStatement}`}>
                 See {shownStatement}
+                &nbsp; {arrow}
             </button>);
         }
 

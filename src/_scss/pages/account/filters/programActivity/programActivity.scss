@@ -19,11 +19,13 @@
         }
     }
 
-    .account-program-activity-toggle-button {
+    @import './pages/award/_moreButton';
+
+    button.account-program-activity-toggle-button {
         background-color: $color-white;
         color: $color-focus;
         padding: 0.7rem 0 0;
-        margin-bottom: 0;
+        margin: 0.7rem 0 0 0;
         font-weight: normal;
     }
 }
