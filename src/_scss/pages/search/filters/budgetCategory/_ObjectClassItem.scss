@@ -1,0 +1,4 @@
+.object-class-set {
+    @import "../awardType/_sharedAwardStyle";
+    @include sharedAwardStyle;
+}

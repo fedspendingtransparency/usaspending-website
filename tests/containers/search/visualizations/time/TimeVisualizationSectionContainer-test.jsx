@@ -61,9 +61,11 @@ describe('TimeVisualizationSectionContainer', () => {
         // create a mock API response
         const apiResponse = {
             page_metadata: {
-                num_pages: 1,
-                page_number: 1,
-                count: 1
+                has_next_page: false,
+                has_previous_page: false,
+                next: null,
+                page: 1,
+                previous: null
             },
             results: [{
                 item: '2013',
@@ -95,9 +97,11 @@ describe('TimeVisualizationSectionContainer', () => {
         // create a mock API response
         const apiResponse = {
             page_metadata: {
-                num_pages: 1,
-                page_number: 1,
-                count: 1
+                has_next_page: false,
+                has_previous_page: false,
+                next: null,
+                page: 1,
+                previous: null
             },
             results: [{
                 item: '2013',
@@ -147,24 +151,23 @@ describe('TimeVisualizationSectionContainer', () => {
             // create a mock API response
             const apiResponse = {
                 page_metadata: {
-                    num_pages: 1,
-                    page_number: 1,
-                    count: 2
+                    has_next_page: false,
+                    has_previous_page: false,
+                    next: null,
+                    page: 1,
+                    previous: null
                 },
                 results: [{
-                    item: '2013',
+                    submission__reporting_fiscal_year: '2013',
                     aggregate: '1234'
                 }, {
-                    item: '2014',
+                    submission__reporting_fiscal_year: '2014',
                     aggregate: '5555'
-                }],
-                total_metadata: {
-                    count: 2
-                }
+                }]
             };
 
             // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+            mockSearchHelper('performBalancesSearch', 'resolve', apiResponse);
             // mount the container
             const timeVisualizationContainer =
                 mount(<TimeVisualizationSectionContainer reduxFilters={defaultFilters} />);
@@ -173,6 +176,8 @@ describe('TimeVisualizationSectionContainer', () => {
             jest.runAllTicks();
             // validate the state contains the correctly parsed values
             const expectedState = {
+                awardFiltersSelected: false,
+                budgetFiltersSelected: false,
                 loading: false,
                 groups: ['2013', '2014'],
                 xSeries: [['2013'], ['2014']],

@@ -78,15 +78,27 @@ $color-vis-dark:		 	 #597785;
 $color-vis-darker:		 	 #335565;
 $color-vis-darkest:		 	 #083546;
 
-$color-active:				 #F2B733;
 
+$color-vis-green-lightest:   #a3f383;
+$color-vis-green-lighter:    #70d78b;
+$color-vis-green-light:      #45bb8c;
+$color-color-vis-green-mid:  #239e87;
+$color-vis-green-dark:       #0d817c;
+$color-vis-green-darker:     #13646c;
+$color-vis-green-darkest:    #13646c;
+
+$color-active:				 #F2B733;
 $color-focus:                #3e94cf;
 $color-visited:              #4c2c92;
-
 $color-shadow:               rgba(#000, 0.3);
 $color-tab-inactive:		 #f1f1f1; // color for inactive tab 
-
 $color-gray-border:          #D8D8D8;
+
+// Global Paadding and Margins
+// (example usage {padding: ($global-pad * 4);} = 60px of padding.)
+$global-pad-mrg: rem(15);
+$global-pad: $global-pad-mrg;
+$global-mrg: $global-pad-mrg;
 
 // Mobile First Breakpoints
 $small-screen:      320px;
@@ -97,19 +109,19 @@ $x-large-screen:    1640px;
 
 
 // Magic Numbers
-$text-max-width:      53rem;
-$lead-max-width:      77rem;
-$site-max-width:      1600px;
-$site-margins:        3rem;
-$site-margins-mobile: 1.5rem;
-$article-max-width:   600px;
-$input-max-width:     46rem;
+$text-max-width:      rem(530);
+$lead-max-width:      rem(770);
+$site-max-width:      rem(1600);
+$site-margins:        rem(30);
+$site-margins-mobile: rem(15);
+$article-max-width:   rem(600);
+$input-max-width:     rem(460);
 $border-radius:       rem(3px);
 $box-shadow:          0 0 2px $color-shadow;
 $focus-shadow:        0 0 3px $color-focus, 0 0 7px $color-focus;
 $container-shadow:    0 1px 2px rgba(43,59,93,.29); 
-$nav-width:           951px;
-$outer-gutter:        40px;
+$nav-width:           rem(951);
+$outer-gutter:        rem(40);
 
 // 44 x 44 pixels hit target following Apple iOS Human Interface Guidelines
 $hit-area:          4.4rem;

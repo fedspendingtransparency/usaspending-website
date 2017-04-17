@@ -9,9 +9,8 @@ const initialState = {
     selectedAward: null,
     transactions: [],
     transactionMeta: {
-        count: 0,
         page: 0,
-        totalPages: 0
+        nextPage: false
     },
     renderHash: null,
     groupHash: null,
@@ -21,9 +20,8 @@ const initialState = {
     },
     finSysData: [],
     finSysMeta: {
-        count: 0,
         page: 0,
-        totalPages: 0
+        nextPage: false
     },
     finSysSort: {
         field: "certified_date",

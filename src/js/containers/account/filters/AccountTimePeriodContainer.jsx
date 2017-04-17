@@ -83,7 +83,8 @@ export class AccountTimePeriodContainer extends React.Component {
                 activeTab={this.props.filterTimePeriodType}
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
-                changeTab={this.changeTab} />
+                changeTab={this.changeTab}
+                disableDateRange />
         );
     }
 }

@@ -1,0 +1,36 @@
+.masthead-wrap {
+    @include linear-gradient(180deg, #5B616B 0%, #4C515A 100%);
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+    min-height: rem(300);
+    & .inner-wrap {
+        & h1 {
+            color: $color-white;
+            margin: 0;
+            text-align: center;
+        }
+        & ul {
+            margin: 0;
+            padding: 0;
+            & li {
+                @include unstyled-list;
+                color: $color-white;
+                display: inline-block;
+                font-size: rem(18);
+                font-weight: $font-light;
+                margin-right: rem(8);
+                margin-top: rem(10);
+                text-align: center;
+                &:last-child {
+                    margin-right: 0;
+                }
+                @include media($tablet-screen) {
+                    font-size: rem(28);
+                    margin-right: rem(12);
+                    margin-top: rem(15);
+                }
+            }
+        }
+    }
+}

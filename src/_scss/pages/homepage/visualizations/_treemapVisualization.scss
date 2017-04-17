@@ -1,0 +1,15 @@
+svg {
+    display: inline-block;
+    .category,
+    .value {
+        fill: $color-white;
+        text-shadow: rem(1) rem(0) rem(1) rgba( $color-black, .7);
+    }
+    .category {
+        font-size: $small-font-size;
+    }
+    .value {
+        font-size: $base-font-size + rem(2);
+        font-weight: $font-semibold;
+    }
+}

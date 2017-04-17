@@ -8,6 +8,7 @@ import React from 'react';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 
 import AccountTimePeriodContainer from 'containers/account/filters/AccountTimePeriodContainer';
+import AccountObjectClassContainer from 'containers/account/filters/AccountObjectClassContainer';
 
 const filters = {
     options: [
@@ -18,7 +19,7 @@ const filters = {
     ],
     components: [
         AccountTimePeriodContainer,
-        null,
+        AccountObjectClassContainer,
         null,
         null
     ]

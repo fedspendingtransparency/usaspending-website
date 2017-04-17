@@ -1,0 +1,20 @@
+@import "../../mixins/moreOptionsBtn";
+.usa-da-treemap-section {
+    @include outer-container(100%);
+    @include row();
+    @include clearfix;
+    background-color: #ececec;
+    max-width: $site-max-width;
+    margin: 0;
+    position: relative;
+    padding: rem(40) rem(30);
+    @include media($large-screen) {
+        padding: rem(40) $outer-gutter;
+    }
+    @include media($x-large-screen) {
+        padding: rem(40) auto;
+    }
+    @import './visualizations/_treemapVisualization';
+    @import './treemapSidebar';
+    @import './treemapWrapper';
+}

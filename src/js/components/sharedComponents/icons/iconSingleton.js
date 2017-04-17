@@ -7,17 +7,20 @@ import Axios from 'axios';
 import xmldoc from 'xmldoc';
 import _ from 'lodash';
 
-class IconSingleton {
+export class IconSingleton {
     constructor() {
         this.subscribers = {};
         this.svgCache = {};
         this.svgLoaded = false;
         this.svgRequested = false;
+
+        this.notificationName = 'usa-da-icons.loaded';
+        this.svgPath = 'graphics/icons.svg';
     }
 
     downloadIcons() {
         this.svgRequested = true;
-        Axios.get("graphics/icons.svg")
+        Axios.get(this.svgPath)
             .then((res) => {
                 // parse the response
                 this.parseSvg(res.data);
@@ -26,7 +29,7 @@ class IconSingleton {
                 this.svgLoaded = true;
 
                 // notify any other icon components that the SVG data is ready
-                this.notifySubscribers('usa-da-icons.loaded');
+                this.notifySubscribers(this.notificationName);
             });
     }
 

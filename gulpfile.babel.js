@@ -5,7 +5,9 @@ import sass from 'gulp-sass';
 import webpackStream from 'webpack-stream';
 import webpack from 'webpack';
 import gutil from 'gulp-util';
+import postcss from 'gulp-postcss';
 import sourcemaps from 'gulp-sourcemaps';
+import autoprefixer from 'autoprefixer';
 import rename from 'gulp-rename';
 import del from 'del';
 import vinylPaths from 'vinyl-paths';
@@ -46,6 +48,12 @@ const currentTime = moment().tz('America/New_York').format('MMMM D, YYYY h:mm A 
 let environment = environmentTypes.DEVLOCAL;
 process.env.NODE_ENV = 'development';
 let constantsFile = 'GlobalConstants_dev.js';
+let destyle = false;
+
+gulp.task('setDestyle', () => {
+    destyle = true;
+});
+
 
 gulp.task('setDev', () => {
     minified = false;
@@ -184,6 +192,9 @@ gulp.task('copyAssets', ['copyConstants'], () => {
 
         // copy CSS files
         gulp.src('./src/css/**/*.css')
+            .pipe(sourcemaps.init())
+            .pipe(postcss([autoprefixer()]))
+            .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest('./public/css'))
             .on('end', () => {
                 gutil.log('CSS copied');
@@ -207,20 +218,24 @@ gulp.task('copyAssets', ['copyConstants'], () => {
 
 // build the SASS
 gulp.task('sass', ['copyAssets'], () => {
-
     const sassConfig = {
         includePaths: './src/_scss'
     };
+    let sassPath = 'src/css/**/main.scss';
+    if (destyle) {
+        sassPath = 'src/css/**/main_destyle.scss';
+    }
 
     if (environment == environmentTypes.DEVLOCAL) {
         // set up a watcher for future SASS changes
         gulp.watch(['src/css/**/*.scss', 'src/_scss/**/*.scss'])
             .on('change', () => {
                 gutil.log(chalk.green('Starting SASS recompile...'));
-                return gulp.src('./src/css/**/*.scss')
+                return gulp.src(sassPath)
                     .pipe(sourcemaps.init())
                     .pipe(sass.sync(sassConfig).on('error', sass.logError))
                     .pipe(sourcemaps.write())
+                    .pipe(rename('main.css'))
                     .pipe(gulp.dest('./public/css'))
                     // auto reload the browser
                     .pipe(connect.reload())
@@ -231,11 +246,12 @@ gulp.task('sass', ['copyAssets'], () => {
     }
 
     // compile SASS files
-    return gulp.src('src/css/**/*.scss')
+    return gulp.src(sassPath)
         .pipe(sass.sync(sassConfig).on('error', sass.logError))
         // add in the commit hash and timestamp header
         .pipe(header('/* Build ' + commitHash  + '\n' + currentTime + ' */\n\n'))
         // .pipe(gulpif(minified, cssNano()))
+        .pipe(rename('main.css'))
         .pipe(gulp.dest('./public/css'));
 });
 
@@ -485,6 +501,10 @@ gulp.task('local', ['setLocal', 'modifyHtml', 'serve'], () => {
 });
 
 gulp.task('production', ['setProd', 'modifyHtml'], () => {
+
+});
+
+gulp.task('destyle', ['setDestyle', 'dev'], () => {
 
 });
 
