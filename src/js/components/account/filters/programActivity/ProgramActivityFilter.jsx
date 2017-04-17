@@ -11,7 +11,7 @@ import ProgramActivityItem from './ProgramActivityItem';
 
 const propTypes = {
     selectedProgramActivities: React.PropTypes.instanceOf(OrderedSet),
-    programActivities: React.PropTypes.array,
+    availableProgramActivities: React.PropTypes.array,
     updateFilter: React.PropTypes.func,
     noResults: React.PropTypes.bool
 };
@@ -33,7 +33,7 @@ export default class ProgramActivityFilter extends React.Component {
     }
 
     toggleShownAmount() {
-        const programActivities = this.props.programActivities;
+        const programActivities = this.props.availableProgramActivities;
 
         let updatedState = defaultState;
 
@@ -80,7 +80,7 @@ export default class ProgramActivityFilter extends React.Component {
     }
 
     generateToggleButton() {
-        const programActivities = this.props.programActivities;
+        const programActivities = this.props.availableProgramActivities;
         let toggleButton = null;
 
         if (programActivities && Object.keys(programActivities).length > 10) {
@@ -110,7 +110,7 @@ export default class ProgramActivityFilter extends React.Component {
     }
 
     render() {
-        const items = this.generateProgramActivityItems(this.props.programActivities);
+        const items = this.generateProgramActivityItems(this.props.availableProgramActivities);
         const toggleButton = this.generateToggleButton();
 
         return (

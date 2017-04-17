@@ -15,6 +15,7 @@ import ProgramActivityFilter from
     'components/account/filters/programActivity/ProgramActivityFilter';
 
 const propTypes = {
+    setAvailableProgramActivities: React.PropTypes.func,
     toggleProgramActivity: React.PropTypes.func,
     account: React.PropTypes.object
 };
@@ -24,7 +25,6 @@ export class AccountProgramActivityContainer extends React.Component {
         super(props);
 
         this.state = {
-            programActivities: [],
             noResults: false
         };
 
@@ -38,11 +38,7 @@ export class AccountProgramActivityContainer extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.account !== this.props.account) {
-            this.setState({
-                programActivities: []
-            }, () => {
-                this.populateProgramActivities();
-            });
+            this.populateProgramActivities();
         }
     }
 
@@ -92,11 +88,13 @@ export class AccountProgramActivityContainer extends React.Component {
                     noResults = true;
                 }
 
-                // Add search results to Redux
+                // Update state
                 this.setState({
-                    programActivities,
                     noResults
                 });
+
+                // Add search results to Redux
+                this.props.setAvailableProgramActivities(programActivities);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -121,6 +119,7 @@ AccountProgramActivityContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
+        availableProgramActivities: state.account.filterOptions.programActivity,
         selectedProgramActivities: state.account.filters.programActivity,
         account: state.account.account
     }),

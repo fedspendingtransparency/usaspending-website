@@ -96,6 +96,15 @@ const accountReducer = (state = initialState, action) => {
                 filters: updatedFilters
             });
         }
+        case 'SET_AVAILABLE_PROGRAM_ACTIVITIES': {
+            const updatedFilterOptions = Object.assign({}, state.filterOptions, {
+                programActivity: action.programActivities
+            });
+
+            return Object.assign({}, state, {
+                filterOptions: updatedFilterOptions
+            });
+        }
         case 'TOGGLE_ACCOUNT_PROGRAM_ACTIVITY': {
             const updatedPA = ProgramActivityFuncs.toggleItem(
                 state.filters.programActivity, action.item);
