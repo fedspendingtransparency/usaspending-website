@@ -165,9 +165,8 @@ describe('FinancialSystemTableContainer', () => {
 
             const modifiedProps = Object.assign({}, mockAward, {
                 finSysMeta: {
-                    count: 50,
                     page: 1,
-                    totalPages: 5
+                    nextPage: true
                 }
             });
 
@@ -185,9 +184,8 @@ describe('FinancialSystemTableContainer', () => {
 
             const modifiedProps = Object.assign({}, mockAward, {
                 finSysMeta: {
-                    count: 50,
                     page: 5,
-                    totalPages: 5
+                    nextPage: false
                 }
             });
 

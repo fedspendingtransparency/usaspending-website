@@ -78,17 +78,16 @@ describe('RankVisualizationSectionContainer', () => {
                 next: null,
                 previous: null
             },
-            results: [{
-                item: 'First Agency',
-                aggregate: '456'
-            },
-            {
-                item: 'Second Agency',
-                aggregate: '123'
-            }],
-            total_metadata: {
-                count: 2
-            }
+            results: [
+                {
+                    item: 'First Agency',
+                    aggregate: '456'
+                },
+                {
+                    item: 'Second Agency',
+                    aggregate: '123'
+                }
+            ]
         };
 
         // mock the search helper to resolve with the mocked response
@@ -122,17 +121,16 @@ describe('RankVisualizationSectionContainer', () => {
                 next: null,
                 previous: null
             },
-            results: [{
-                item: 'First Agency',
-                aggregate: '456'
-            },
-            {
-                item: 'Second Agency',
-                aggregate: '123'
-            }],
-            total_metadata: {
-                count: 2
-            }
+            results: [
+                {
+                    item: 'First Agency',
+                    aggregate: '456'
+                },
+                {
+                    item: 'Second Agency',
+                    aggregate: '123'
+                }
+            ]
         };
 
         // mock the search helper to resolve with the mocked response
@@ -236,28 +234,34 @@ describe('RankVisualizationSectionContainer', () => {
                     next: "checksum",
                     previous: null
                 },
-                results: [{
-                    item: 'First Agency',
-                    aggregate: '456'
-                },
-                {
-                    item: 'Second Agency',
-                    aggregate: '123'
-                }],
-                total_metadata: {
-                    count: 200
-                }
+                results: [
+                    {
+                        item: 'First Agency',
+                        aggregate: '456'
+                    },
+                    {
+                        item: 'Second Agency',
+                        aggregate: '123'
+                    }
+                ]
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+
             // mount the container
             const container =
                 mount(<RankVisualizationSectionContainer reduxFilters={defaultFilters} />);
+
             // initial state should be page 1
             expect(container.state().page).toEqual(1);
 
+            // Tell container it has a nextPage
+            container.state().hasNextPage = true;
+
+            // Attempt to go to the next page
             container.instance().nextPage();
+
             // updated state should be page 2
             expect(container.state().page).toEqual(2);
         });
@@ -275,11 +279,11 @@ describe('RankVisualizationSectionContainer', () => {
                     previous: null
                 },
                 results: [{
-                    item: 'First Agency',
+                    awarding_agency__toptier_agency__name: 'First Agency',
                     aggregate: '456'
                 },
                 {
-                    item: 'Second Agency',
+                    awarding_agency__toptier_agency__name: 'Second Agency',
                     aggregate: '123'
                 }],
                 total_metadata: {
@@ -299,7 +303,8 @@ describe('RankVisualizationSectionContainer', () => {
             });
 
             // wait for the SearchHelper promises to resolve
-            
+            jest.runAllTicks();
+
             // we have simulated a starting state of page 5
             expect(container.state().page).toEqual(5);
 
@@ -319,11 +324,11 @@ describe('RankVisualizationSectionContainer', () => {
                     previous: null
                 },
                 results: [{
-                    item: 'First Agency',
-                    aggregate: '456',
+                    awarding_agency__toptier_agency__name: 'First Agency',
+                    aggregate: '456'
                 },
                 {
-                    item: 'Second Agency',
+                    awarding_agency__toptier_agency__name: 'Second Agency',
                     aggregate: '123'
                 }],
                 total_metadata: {
@@ -341,7 +346,8 @@ describe('RankVisualizationSectionContainer', () => {
             });
 
             // wait for the SearchHelper promises to resolve
-            
+            jest.runAllTicks();
+
             // we have simulated a starting state of page 5
             expect(container.state().page).toEqual(1);
 
@@ -363,11 +369,11 @@ describe('RankVisualizationSectionContainer', () => {
                     previous: null
                 },
                 results: [{
-                    item: 'First Agency',
+                    awarding_agency__toptier_agency__name: 'First Agency',
                     aggregate: '456'
                 },
                 {
-                    item: 'Second Agency',
+                    awarding_agency__toptier_agency__name: 'Second Agency',
                     aggregate: '123'
                 }],
                 total_metadata: {

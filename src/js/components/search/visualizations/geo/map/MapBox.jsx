@@ -25,10 +25,12 @@ export default class MapBox extends React.Component {
         };
 
         this.map = null;
+        this.componentUnmounted = false;
 
         this.findHoveredLayers = this.findHoveredLayers.bind(this);
     }
     componentDidMount() {
+        this.componentUnmounted = false;
         this.mountMap();
     }
 
@@ -39,6 +41,7 @@ export default class MapBox extends React.Component {
 
     componentWillUnmount() {
         this.props.unloadedMap();
+        this.componentUnmounted = true;
     }
 
 
@@ -73,6 +76,11 @@ export default class MapBox extends React.Component {
 
         // prepare the shapes
         this.map.on('load', () => {
+            if (this.componentUnmounted) {
+                // don't update the state if the map has been unmounted
+                return;
+            }
+
             this.setState({
                 mapReady: true
             }, () => {

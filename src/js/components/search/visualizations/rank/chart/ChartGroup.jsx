@@ -12,6 +12,8 @@ const propTypes = {
     width: React.PropTypes.number,
     height: React.PropTypes.number,
     index: React.PropTypes.number,
+    linkID: React.PropTypes.string,
+    urlRoot: React.PropTypes.string,
     clickedGroup: React.PropTypes.func
 };
 
@@ -42,6 +44,18 @@ export default class ChartGroup extends React.Component {
         }
     }
 
+    processLink(label) {
+        let title = label;
+
+        if (this.props.linkID !== '') {
+            title = (<a href={`${this.props.urlRoot}${this.props.linkID}`}>
+                {label}
+            </a>);
+        }
+
+        return title;
+    }
+
     initialRender(label) {
         // We can only access the label width after we have rendered the full text due to the
         // variable widths of characters in non-monospaced fonts.
@@ -49,7 +63,7 @@ export default class ChartGroup extends React.Component {
         // calculations to test if truncation is necessary; if so, we'll re-render (this is
         // automatically triggered when we change the label state value).
         this.setState({
-            label,
+            label: this.processLink(label),
             didProcess: false
         });
     }
@@ -75,6 +89,7 @@ export default class ChartGroup extends React.Component {
 
             // determine how many characters can fit in the available space
             const maxChars = Math.floor((maxWidth) / avgCharWidth);
+
             // truncate the label
             truncatedLabel = _.truncate(this.props.label, {
                 length: maxChars
@@ -82,7 +97,7 @@ export default class ChartGroup extends React.Component {
         }
 
         this.setState({
-            label: truncatedLabel,
+            label: this.processLink(truncatedLabel),
             didProcess: true
         });
     }
@@ -97,6 +112,11 @@ export default class ChartGroup extends React.Component {
         let backgroundClass = 'odd';
         if (this.props.index % 2 === 0) {
             backgroundClass = 'even';
+        }
+
+        let linkClass = '';
+        if (this.props.linkID !== '') {
+            linkClass = ' group-label-link';
         }
 
         return (
@@ -115,7 +135,7 @@ export default class ChartGroup extends React.Component {
 
                 <g transform="translate(12,34)">
                     <text
-                        className="group-label"
+                        className={`group-label ${linkClass}`}
                         onClick={this.clickedLabel}
                         ref={(text) => {
                             this.svgText = text;

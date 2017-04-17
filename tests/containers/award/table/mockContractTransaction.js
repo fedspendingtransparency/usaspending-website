@@ -1,11 +1,7 @@
 const item = {
     page_metadata: {
-        count: 1,
-        num_pages: 1,
-        page_number: 1
-    },
-    total_metadata: {
-        count: 1
+        page: 1,
+        has_next_page: false
     },
     results: [{
         id: 34779,
