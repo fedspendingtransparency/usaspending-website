@@ -247,3 +247,19 @@ export const performFinancialSystemLookup = (params) => {
         }
     };
 };
+
+export const performSubawardSearch = (data) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            data,
+            url: '/subawards/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

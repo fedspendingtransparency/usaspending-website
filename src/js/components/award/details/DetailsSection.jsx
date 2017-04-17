@@ -11,6 +11,8 @@ import AssistanceTransactionsTableContainer from
     'containers/award/table/AssistanceTransactionsTableContainer';
 import FinancialSystemTableContainer from 'containers/award/table/FinancialSystemTableContainer';
 
+import SubawardsContainer from 'containers/award/subawards/SubawardsContainer';
+
 import DetailsTabBar from './DetailsTabBar';
 import ContractAdditionalDetails from './additional/ContractAdditionalDetails';
 import AssistanceAdditionalDetails from './additional/AssistanceAdditionalDetails';
@@ -66,6 +68,13 @@ export default class DetailsSection extends React.Component {
                 }
                 return (<AssistanceTransactionsTableContainer
                     tableWidth={this.state.tableWidth} />);
+
+            case 'subaward':
+                if (this.props.isContract) {
+                    return (<SubawardsContainer
+                        tableWidth={this.state.tableWidth} />);
+                }
+                return null;
 
             case 'financial':
                 return (<FinancialSystemTableContainer

@@ -24,7 +24,7 @@ export default class AwardInfo extends React.Component {
         super(props);
 
         this.state = {
-            activeTab: "transaction"
+            activeTab: "subaward"
         };
 
         this.clickTab = this.clickTab.bind(this);
