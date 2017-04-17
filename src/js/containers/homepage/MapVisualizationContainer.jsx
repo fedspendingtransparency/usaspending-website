@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import MapVisualization from
-    'components/homepage/visualizations/MapVisualization';
+    'components/homepage/visualizations/geo/MapVisualization';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 

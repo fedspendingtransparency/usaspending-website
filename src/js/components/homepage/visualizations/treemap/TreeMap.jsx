@@ -9,7 +9,7 @@ import _ from 'lodash';
 
 import TreeMapCell from './TreeMapCell';
 import TreeMapSidebar from './TreeMapSidebar';
-import * as Icons from '../../sharedComponents/icons/Icons';
+import * as Icons from '../../../sharedComponents/icons/Icons';
 
 const propTypes = {
     categories: React.PropTypes.object,

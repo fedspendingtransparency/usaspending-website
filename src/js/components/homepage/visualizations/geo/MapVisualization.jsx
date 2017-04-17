@@ -1,5 +1,5 @@
 /**
- * GeoVisualizationSection.jsx
+ * MapVisualization.jsx
  * Created by Emily Gullo 04/05/2017
  */
 
