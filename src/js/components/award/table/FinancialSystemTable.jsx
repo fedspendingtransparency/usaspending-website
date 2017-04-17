@@ -141,8 +141,9 @@ export default class FinancialSystemTable extends React.Component {
         return (
             <div className="financial-system-content">
                 <div className="disclaimer">
-                    NOTE: Paid out information is currently an optional reporting element.&nbsp;
-                    This data is also only available starting in Q2 of FY 2017.
+                    NOTE: This is part of new data reported under the DATA act starting in
+                    Q2 of FY 2017.  &nbsp;It comes directly from the auditied financial systems of
+                    federal agencies.
                 </div>
                 <div className={`financial-system-table ${inFlightClass}`}>
                     <IBTable

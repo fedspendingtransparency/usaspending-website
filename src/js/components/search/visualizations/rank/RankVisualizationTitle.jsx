@@ -8,11 +8,16 @@ import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    fieldTypes: React.PropTypes.array
+    fieldTypes: React.PropTypes.array,
+    changeSpendingBy: React.PropTypes.func
 };
 
 const defaultProps = {
     fieldTypes: [
+        {
+            label: 'Budget Category',
+            value: 'budget_category'
+        },
         {
             label: 'Awarding Agency',
             value: 'awarding_agency'
@@ -43,11 +48,14 @@ export default class RankVisualizationTitle extends React.Component {
 
     clickedItem(e) {
         const value = e.target.value;
+        const spendingBy = this.props.fieldTypes[value].value;
 
         this.setState({
             selectedIndex: value,
             showPicker: false
         });
+
+        this.props.changeSpendingBy(spendingBy);
     }
 
     render() {

@@ -1,0 +1,58 @@
+.wrapper {
+    @import "../../mixins/fullSectionWrap";
+    @import "../../mixins/background";
+    @import "../../elements/_divider";
+    @import "../../elements/_typography";
+    
+    & .inner-wrap-left {
+        & img {
+            width: 100%;
+            display: inline-block;
+            height: 100%;
+        }
+        & h3 {
+            margin-top: 1em;
+            margin-bottom: 0;
+        }
+        @include media($small-screen) {
+            @include span-columns(14);
+            @include shift(1);
+            padding: ($global-pad * 2) 0;
+        }
+        @include media($medium-screen) {
+            @include span-columns(6);
+            @include shift(1.75);
+            padding: 0;
+        }
+        @include media($x-large-screen) {
+            @include span-columns(6);
+            @include shift(1.75);
+            padding: 0;
+        }
+    }
+    & .inner-wrap-right {
+        & img {
+            width: 100%;
+        }
+        & h3 {
+            margin-top: 1em;
+            margin-bottom: 0;
+        }
+        @include media($small-screen) {
+            @include span-columns(14);
+            @include shift(1);
+            padding: ($global-pad * 2) 0;
+            min-height: 100px;
+        }
+        @include media($medium-screen) {
+            @include span-columns(6);
+            @include shift(0.75);
+            padding: 0;
+        }
+        @include media($x-large-screen) {
+            @include span-columns(6);
+            @include shift(0.75);
+            padding: 0;
+        }
+    }
+}

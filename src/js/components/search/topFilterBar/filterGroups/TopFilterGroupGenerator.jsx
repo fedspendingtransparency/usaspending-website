@@ -9,6 +9,7 @@ import TimePeriodFYFilterGroup from './TimePeriodFYFilterGroup';
 import TimePeriodDRFilterGroup from './TimePeriodDRFilterGroup';
 import AwardTypeFilterGroup from './AwardTypeFilterGroup';
 import LocationFilterGroup from './LocationFilterGroup';
+import BudgetCategoryFilterGroup from './BudgetCategoryFilterGroup';
 import AgencyFilterGroup from './AgencyFilterGroup';
 import RecipientFilterGroup from './RecipientFilterGroup';
 import KeywordFilterGroup from './KeywordFilterGroup';
@@ -36,6 +37,12 @@ export const topFilterGroupGenerator = (config = {
             return (<LocationFilterGroup
                 key={groupKey} {...config}
                 toggle="locationDomesticForeign" />);
+        case 'budgetFunctions':
+            return <BudgetCategoryFilterGroup key={groupKey} {...config} />;
+        case 'federalAccounts':
+            return <BudgetCategoryFilterGroup key={groupKey} {...config} />;
+        case 'objectClasses':
+            return <BudgetCategoryFilterGroup key={groupKey} {...config} />;
         case 'selectedFundingAgencies':
             return <AgencyFilterGroup key={groupKey} {...config} />;
         case 'selectedAwardingAgencies':
