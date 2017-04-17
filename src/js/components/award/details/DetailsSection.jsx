@@ -70,11 +70,8 @@ export default class DetailsSection extends React.Component {
                     tableWidth={this.state.tableWidth} />);
 
             case 'subaward':
-                if (this.props.isContract) {
-                    return (<SubawardsContainer
-                        tableWidth={this.state.tableWidth} />);
-                }
-                return null;
+                return (<SubawardsContainer
+                    tableWidth={this.state.tableWidth} />);
 
             case 'financial':
                 return (<FinancialSystemTableContainer
