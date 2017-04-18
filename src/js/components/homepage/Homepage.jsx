@@ -72,7 +72,8 @@ export default class Homepage extends React.Component {
                 <TreeMap
                     total={this.state.total}
                     categories={this.state.categories}
-                    colors={this.state.colors} />
+                    colors={this.state.colors}
+                    descriptions={this.state.descriptions} />
                 <ByCategorySection />
                 <MapTopBar />
                 <MapVisualizationContainer />
