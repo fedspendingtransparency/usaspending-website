@@ -5,6 +5,14 @@
 
 import React from 'react';
 
+const propTypes = {
+    x: React.PropTypes.number,
+    y: React.PropTypes.number,
+    hide: React.PropTypes.bool,
+    title: React.PropTypes.string,
+    value: React.PropTypes.string
+};
+
 const defaultProps = {
     x: 0,
     y: 0,
@@ -38,4 +46,5 @@ export default class ItemLabel extends React.Component {
     }
 }
 
+ItemLabel.propTypes = propTypes;
 ItemLabel.defaultProps = defaultProps;

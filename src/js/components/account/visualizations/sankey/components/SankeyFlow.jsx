@@ -6,6 +6,12 @@
 import React from 'react';
 import { interpolateNumber } from 'd3-interpolate';
 
+const propTypes = {
+    height: React.PropTypes.number,
+    description: React.PropTypes.string,
+    style: React.PropTypes.object
+};
+
 const defaultProps = {
     description: ''
 };
@@ -77,4 +83,5 @@ export default class SankeyFlow extends React.Component {
     }
 }
 
+SankeyFlow.propTypes = propTypes;
 SankeyFlow.defaultProps = defaultProps;

@@ -5,6 +5,15 @@
 
 import React from 'react';
 
+const propTypes = {
+    width: React.PropTypes.number,
+    height: React.PropTypes.number,
+    x: React.PropTypes.number,
+    y: React.PropTypes.number,
+    description: React.PropTypes.string,
+    color: React.PropTypes.string
+};
+
 const defaultProps = {
     description: ''
 };
@@ -32,4 +41,5 @@ export default class SankeyBar extends React.Component {
     }
 }
 
+SankeyBar.propTypes = propTypes;
 SankeyBar.defaultProps = defaultProps;
