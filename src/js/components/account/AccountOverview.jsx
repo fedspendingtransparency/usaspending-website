@@ -171,17 +171,6 @@ ${authority} has been obligated.`
     }
 
     render() {
-        let sankey = (<div>
-                Not available for the current fiscal year.
-            </div>);
-
-        if (this.state.fyAvailable) {
-            sankey = (<SankeyVisualization
-                amounts={this.state.amounts}
-                width={this.state.visualizationWidth}
-                height={this.state.visualizationHeight + 40} />);
-        }
-
         return (
             <div className="account-overview">
                 <h3>{this.props.account.title}</h3>
@@ -212,7 +201,11 @@ ${authority} has been obligated.`
                         this.sankeyHr = div;
                     }} />
                 <div className="sankey-wrapper">
-                    {sankey}
+                    <SankeyVisualization
+                        fyAvailable={this.state.fyAvailable}
+                        amounts={this.state.amounts}
+                        width={this.state.visualizationWidth}
+                        height={this.state.visualizationHeight + 40} />
                 </div>
             </div>
         );
