@@ -34,7 +34,11 @@ const initialState = {
             obligated: {},
             unobligated: {},
             budgetAuthority: {},
-            outlay: {}
+            outlay: {},
+            balanceBroughtForward1: {},
+            balanceBroughtForward2: {},
+            otherBudgetaryResources: {},
+            appropriations: {}
         }
     },
     tas: [],

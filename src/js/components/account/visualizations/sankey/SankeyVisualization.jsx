@@ -75,7 +75,11 @@ export default class SankeyVisualization extends React.Component {
                     x: 0
                 }
             },
-            hidden: []
+            hidden: [],
+            labels: {
+                inX: 0,
+                outX: 0
+            }
         };
     }
 
@@ -238,11 +242,28 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
             }
         };
 
+        // now calculate the money in and money out label positions
+        // since the labels won't resize, we can assume 90px width on the In label and 110px on the
+        // Out label
+        // the In label will be left of the starting X position of the center column by half the
+        // left-side flow length. To center the label at that position, adjust the label to the left
+        // by half its own width
+        const inX = center.x - (left.flow.length / 2) - 45;
+
+        // the Out label will be left of the right column starting X positoin by half the right side
+        // flow length. To center the label at that
+        // position, adjust the label further to the left by half its own width
+        const outX = right.x - (right.flow.length / 2) - 55;
+
         this.setState({
             center,
             left,
             right,
-            hidden
+            hidden,
+            labels: {
+                inX,
+                outX
+            }
         });
     }
 
@@ -365,7 +386,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                     </g>
 
                     <DirectionLabel
-                        x={(this.state.center.x / 2) + 40}
+                        x={this.state.labels.inX}
                         y={16}
                         paddingX={85}
                         title="Money In">
@@ -391,7 +412,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                     </g>
 
                     <DirectionLabel
-                        x={this.state.center.x + ((this.state.right.x - this.state.center.x) / 2) + 40}
+                        x={this.state.labels.outX}
                         y={16}
                         paddingX={100}
                         title="Money Out">

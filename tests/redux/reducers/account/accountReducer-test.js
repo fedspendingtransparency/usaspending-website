@@ -32,7 +32,11 @@ const initialState = {
             obligated: {},
             unobligated: {},
             budgetAuthority: {},
-            outlay: {}
+            outlay: {},
+            balanceBroughtForward1: {},
+            balanceBroughtForward2: {},
+            otherBudgetaryResources: {},
+            appropriations: {}
         }
     },
     tas: [],
@@ -62,6 +66,18 @@ describe('accountReducer', () => {
                         },
                         unobligated: {
                             2017: '198707976.61'
+                        },
+                        balanceBroughtForward1: {
+                            2017: '2696684.86'
+                        },
+                        balanceBroughtForward2: {
+                            2017: '2696684.86'
+                        },
+                        otherBudgetaryResources: {
+                            2017: '2696684.86'
+                        },
+                        appropriations: {
+                            2017: '2696684.86'
                         }
                     }
                 }
