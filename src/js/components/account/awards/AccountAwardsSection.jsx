@@ -40,6 +40,7 @@ export default class AccountAwardsSection extends React.Component {
     }
 
     setTableWidth() {
+        // subtract 2px from the width to account for the table borders (2 * 1px on each side)
         const tableWidth = this.tableWidthController.clientWidth - 2;
         this.setState({ tableWidth });
     }
