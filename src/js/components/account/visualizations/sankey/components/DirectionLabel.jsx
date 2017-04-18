@@ -5,6 +5,14 @@
 
 import React from 'react';
 
+const propTypes = {
+    x: React.PropTypes.number,
+    y: React.PropTypes.number,
+    paddingX: React.PropTypes.number,
+    title: React.PropTypes.string,
+    children: React.PropTypes.element
+};
+
 const defaultProps = {
     x: 0,
     y: 0
@@ -33,4 +41,5 @@ export default class DirectionLabel extends React.Component {
     }
 }
 
+DirectionLabel.propTypes = propTypes;
 DirectionLabel.defaultProps = defaultProps;

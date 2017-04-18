@@ -21,6 +21,7 @@ export default class AccountOverview extends React.Component {
             windowWidth: 0,
             visualizationWidth: 0,
             visualizationHeight: 300,
+            fyAvailable: false,
             amounts: {
                 budgetAuthority: 0,
                 out: {
@@ -120,7 +121,7 @@ ${obUnits.unitLabel}`;
 ${bbfUnits.unitLabel}`;
 
         const appropUnits = MoneyFormatter.calculateUnitForSingleValue(appropriationsValue);
-        let appropString = `${MoneyFormatter.formatMoney(appropriationsValue / appropUnits.unit)}\
+        const appropString = `${MoneyFormatter.formatMoney(appropriationsValue / appropUnits.unit)}\
 ${appropUnits.unitLabel}`;
 
         const otherUnits = MoneyFormatter.calculateUnitForSingleValue(otherValue);
@@ -164,11 +165,23 @@ ${authority} has been obligated.`
 
         this.setState({
             summary,
-            amounts
+            amounts,
+            fyAvailable: fiscalYearAvailable
         });
     }
 
     render() {
+        let sankey = (<div>
+                Not available for the current fiscal year.
+            </div>);
+
+        if (this.state.fyAvailable) {
+            sankey = (<SankeyVisualization
+                amounts={this.state.amounts}
+                width={this.state.visualizationWidth}
+                height={this.state.visualizationHeight + 40} />);
+        }
+
         return (
             <div className="account-overview">
                 <h3>{this.props.account.title}</h3>
@@ -199,10 +212,7 @@ ${authority} has been obligated.`
                         this.sankeyHr = div;
                     }} />
                 <div className="sankey-wrapper">
-                    <SankeyVisualization
-                        amounts={this.state.amounts}
-                        width={this.state.visualizationWidth}
-                        height={this.state.visualizationHeight + 40} />
+                    {sankey}
                 </div>
             </div>
         );
