@@ -13,7 +13,7 @@ import Landing from './Landing';
 import TreeMap from './visualizations/treemap/TreeMap';
 import TreeMapIntro from './TreeMapIntro';
 import MapTopBar from './MapTopBar';
-import CategorySection from './CategorySection';
+import CategoryMap from './visualizations/categoryMap/CategoryMap';
 import LinksSection from './LinksSection';
 import SearchSection from './SearchSection';
 import Header from '../sharedComponents/header/Header';
@@ -27,7 +27,9 @@ export default class Homepage extends React.Component {
             categories: {
                 children: []
             },
-            breakdown: [],
+            breakdown: {
+                children: []
+            },
             colors: [],
             total: ''
         };
@@ -50,6 +52,7 @@ export default class Homepage extends React.Component {
                     categories: res.data.budgetCategories,
                     descriptions: res.data.categoryDescriptions,
                     breakdown: res.data.budgetBreakdown,
+                    budgetDescriptions: res.data.budgetDescriptions,
                     colors: res.data.treemapColors,
                     total: res.data.totalSpent
                 }, () => {
@@ -70,12 +73,13 @@ export default class Homepage extends React.Component {
                     total={this.state.total} />
                 <TreeMapIntro />
                 <TreeMap
-                    total={this.state.total}
                     categories={this.state.categories}
                     colors={this.state.colors}
                     descriptions={this.state.descriptions} />
-                <CategorySection
-                    breakdown={this.state.breakdown} />
+                <CategoryMap
+                    breakdown={this.state.breakdown}
+                    colors={this.state.colors}
+                    descriptions={this.state.budgetDescriptions} />
                 <MapTopBar />
                 <MapVisualizationContainer />
                 <SearchSection />

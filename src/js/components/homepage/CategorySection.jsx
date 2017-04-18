@@ -10,7 +10,8 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import CategoryMap from './visualizations/categoryMap/CategoryMap';
 
 const propTypes = {
-    breakdown: React.PropTypes.object
+    breakdown: React.PropTypes.object,
+    colors: React.PropTypes.array
 };
 
 export default class CategorySection extends React.Component {
@@ -22,7 +23,9 @@ export default class CategorySection extends React.Component {
                     <h3>About <strong>3/4</strong> of the total spending was awarded to state and
                         local governments, private contractors, individuals, and others.</h3>
                     <div className="by-category-vis">
-                        Hi
+                        <CategoryMap
+                            breakdown={this.props.breakdown}
+                            colors={this.props.colors} />
                     </div>
                     <div className="map-segue">
                         <div className="icon-wrap">

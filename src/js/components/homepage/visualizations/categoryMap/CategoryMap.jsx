@@ -6,12 +6,13 @@
 import React from 'react';
 import * as d3 from 'd3';
 import _ from 'lodash';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
-import TreeMapCell from './TreeMapCell';
-import * as Icons from '../../../sharedComponents/icons/Icons';
+import CategoryMapCell from './CategoryMapCell';
 
 const propTypes = {
-    breakdown: React.PropTypes.array
+    breakdown: React.PropTypes.object,
+    colors: React.PropTypes.array
 };
 
 export default class CategoryMap extends React.Component {
@@ -41,13 +42,8 @@ export default class CategoryMap extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.categories.children.length > 0) {
-            this.buildTree(nextProps.categories, nextProps.colors, '');
-        }
-        if (nextProps.descriptions !== this.state.descriptions) {
-            this.setState({
-                descriptions: nextProps.descriptions
-            });
+        if (nextProps.breakdown.children.length > 0) {
+            this.buildTree(nextProps.breakdown, nextProps.colors, '');
         }
     }
 
@@ -64,8 +60,8 @@ export default class CategoryMap extends React.Component {
                 windowWidth,
                 visualizationWidth: this.sectionWrapper.offsetWidth
             });
-            if (this.props.categories.children.length > 0) {
-                this.buildTree(this.props.categories, this.props.colors, '');
+            if (this.props.breakdown !== null) {
+                this.buildTree(this.props.breakdown, this.props.colors, '');
             }
         }
     }
@@ -77,27 +73,35 @@ export default class CategoryMap extends React.Component {
         .sort((a, b) => b.height - a.height || b.value - a.value);
 
         // set up a treemap object and pass in the root
+        let tileStyle = d3.treemapDice;
+        if (this.state.windowWidth < 768) {
+            tileStyle = d3.treemapSlice;
+        }
         const treemap = d3.treemap()
             .round(true)
-            .tile(d3.treemapDice)
-            .size([this.state.visualizationWidth, 565])(root).leaves();
+            .tile(tileStyle)
+            .size([this.state.visualizationWidth, 140])(root).leaves();
 
         // build the tiles
-        const nodes = treemap.map((n, i) =>
-            <TreeMapCell
-                label={n.data.name}
-                value={n.value}
-                x0={n.x0}
-                x1={n.x1}
-                y0={n.y0}
-                y1={n.y1}
-                total={n.parent.value}
-                key={i}
-                color={colors[i]}
-                chosen={chosen}
-                toggleTooltip={this.toggleTooltip}
-                showOverlay={this.state.showOverlay} />
-        );
+        const nodes = treemap.map((n, i) => {
+            let cell = '';
+            if (n.value !== 0) {
+                cell = (<CategoryMapCell
+                    label={n.data.name}
+                    value={n.data.value}
+                    x0={n.x0}
+                    x1={n.x1}
+                    y0={n.y0}
+                    y1={n.y1}
+                    total={n.parent.value}
+                    key={i}
+                    color={colors[i]}
+                    chosen={chosen}
+                    toggleTooltip={this.toggleTooltip}
+                    showOverlay={this.state.showOverlay} />);
+            }
+            return cell;
+        });
 
         this.setState({
             finalNodes: nodes
@@ -126,46 +130,36 @@ export default class CategoryMap extends React.Component {
             showOverlay: false
         });
 
-        this.buildTree(this.props.categories, this.props.colors, this.state.category);
+        this.buildTree(this.props.breakdown, this.props.colors, this.state.category);
     }
 
     render() {
-        return (
-            <div
-                className="usa-da-treemap-section">
-                <div
-                    className="tree-wrapper"
-                    ref={(sr) => {
-                        this.sectionWrapper = sr;
-                    }}>
-                    <svg
-                        width={this.state.visualizationWidth}
-                        height="565">
-                        <defs>
-                            <linearGradient id="Gradient1">
-                                <stop className="stop1" offset="0%" />
-                                <stop className="stop2" offset="50%" />
-                                <stop className="stop3" offset="100%" />
-                            </linearGradient>
-                            <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
-                                <stop offset="0%" stopColor="red" />
-                                <stop offset="50%" stopColor="black" stopOpacity="0" />
-                                <stop offset="100%" stopColor="blue" />
-                            </linearGradient>
-                        </defs>
-                        { this.state.finalNodes }
-                    </svg>
-                    <div className="source">
-                        Source: Monthly Treasury Statement
-                        <div className="info-icon-circle">
-                            <Icons.InfoCircle />
-                        </div>
-                        <div className="more-icon">
-                            <Icons.MoreOptions />
-                        </div>
+        return (<div className="by-category-section-wrap">
+            <div className="inner-wrap">
+                <h3>About <strong>3/4</strong> of the total spending was awarded to state and
+                    local governments, private contractors, individuals, and others.</h3>
+                <div className="by-category-vis">
+                    <div
+                        className="tree-wrapper"
+                        ref={(sr) => {
+                            this.sectionWrapper = sr;
+                        }}>
+                        <svg
+                            width={this.state.visualizationWidth}
+                            height="140">
+                            { this.state.finalNodes }
+                        </svg>
                     </div>
                 </div>
+                <div className="map-segue">
+                    <div className="icon-wrap">
+                        <Icons.MapMarker className="usa-da-map-marker" />
+                    </div>
+                    <h4>The geographic breakdown of this portion of the budget is shown on the
+                        map below</h4>
+                </div>
             </div>
+        </div>
         );
     }
 

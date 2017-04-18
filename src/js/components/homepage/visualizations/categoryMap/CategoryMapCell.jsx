@@ -1,5 +1,5 @@
 /**
- * TreeMapCell.jsx
+ * CategoryMapCell.jsx
  * Created by Emily Gullo 03/15/2017
  **/
 
@@ -19,7 +19,7 @@ const propTypes = {
     showOverlay: React.PropTypes.bool
 };
 
-export default class TreeMapCell extends React.Component {
+export default class CategoryMapCell extends React.Component {
 
     constructor(props) {
         super(props);
@@ -173,4 +173,4 @@ export default class TreeMapCell extends React.Component {
         );
     }
 }
-TreeMapCell.propTypes = propTypes;
+CategoryMapCell.propTypes = propTypes;
