@@ -2,8 +2,8 @@
     @import "../../mixins/moreOptionsBtn";
     @include display(flex);
     @include justify-content(space-between);
-    padding-top: rem(15);
-    margin-top: rem(15);
+    padding-top: $global-pad-mrg;
+    margin-top: $global-pad-mrg;
     border-top: 1px solid rgba($color-white, .1);
     ul.summary-status-items {
         @include unstyled-list;

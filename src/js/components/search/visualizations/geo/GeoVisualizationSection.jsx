@@ -74,7 +74,7 @@ export default class GeoVisualizationSection extends React.Component {
                         </div>
                     </div>
 
-                    <div className="visualization-scope">
+                    <div className="visualization-period">
                         <div className="content">
                             <ul>
                                 <li>
