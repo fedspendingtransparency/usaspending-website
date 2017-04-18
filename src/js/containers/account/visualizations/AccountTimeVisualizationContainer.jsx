@@ -37,8 +37,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             xSeries: [],
             ySeries: [],
             allY: [],
-            visualizationPeriod: 'year',
-            hasFilteredObligated: false
+            visualizationPeriod: 'year'
         };
 
         this.balanceRequests = [];
@@ -80,37 +79,26 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
 
         const searchOperation = new AccountSearchBalanceOperation(this.props.account.id);
         searchOperation.fromState(this.props.reduxFilters);
-        const filters = searchOperation.toParams();
-
-        const categorySearchOperation = new AccountSearchCategoryOperation(this.props.account.id);
-        categorySearchOperation.fromState(this.props.reduxFilters);
-        const categoryFilters = categorySearchOperation.toParams();
+        // const filters = searchOperation.toParams();
+        const balanceFilters = searchOperation.toParams();
+        let filters = balanceFilters;
 
         const requests = [];
         const promises = [];
 
-        const hasFilteredObligated = ((this.props.reduxFilters.objectClass.size > 0) ||
-        (this.props.reduxFilters.programActivity.size > 0));
-
-        if (hasFilteredObligated && !this.state.hasFilteredObligated) {
-            this.setState(
-                {
-                    hasFilteredObligated: true
-                });
-        }
-        else if (!hasFilteredObligated && this.state.hasFilteredObligated) {
-            this.setState(
-                {
-                    hasFilteredObligated: false
-                });
-        }
+        const hasFilteredObligated = (this.props.reduxFilters.objectClass.count() > 0);
 
         if (hasFilteredObligated) {
+            const categorySearchOperation = new AccountSearchCategoryOperation(this.props.account.id);
+            categorySearchOperation.fromState(this.props.reduxFilters);
+            const categoryFilters = categorySearchOperation.toParams();
+
             if (this.state.visualizationPeriod === 'quarter') {
                 Object.keys(balanceFieldsFiltered).forEach((balanceType) => {
                     // generate API call using helper for quarters
+                    filters = categoryFilters;
                     const request = AccountQuartersHelper.fetchTasCategoryTotals({
-                        categoryFilters,
+                        filters,
                         group: ['submission__reporting_fiscal_year',
                             'submission__reporting_fiscal_quarter'],
                         field: balanceFieldsFiltered[balanceType],
@@ -123,6 +111,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 });
                 Object.keys(balanceFieldsNonfiltered).forEach((balanceType) => {
                     // generate API call using helper for quarters
+                    filters = balanceFilters;
                     const request = AccountQuartersHelper.fetchTasBalanceTotals({
                         filters,
                         group: ['submission__reporting_fiscal_year',
@@ -140,8 +129,9 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             else if (this.state.visualizationPeriod === 'year') {
                 Object.keys(balanceFieldsFiltered).forEach((balanceType) => {
                     // generate API call using helper for quarters
+                    filters = categoryFilters;
                     const request = AccountHelper.fetchTasCategoryTotals({
-                        categoryFilters,
+                        filters,
                         group: ['submission__reporting_fiscal_year'],
                         field: balanceFieldsFiltered[balanceType],
                         aggregate: 'sum',
@@ -153,6 +143,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 });
                 Object.keys(balanceFieldsNonfiltered).forEach((balanceType) => {
                     // generate API call using helper for quarters
+                    filters = balanceFilters;
                     const request = AccountHelper.fetchTasBalanceTotals({
                         filters,
                         group: ['submission__reporting_fiscal_year'],
@@ -181,7 +172,6 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 });
 
                 request.type = balanceType;
-
                 requests.push(request);
                 promises.push(request.promise);
             });
@@ -201,7 +191,6 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 });
 
                 request.type = balanceType;
-
                 requests.push(request);
                 promises.push(request.promise);
             });
@@ -233,36 +222,50 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         const xSeries = [];
         const ySeries = [];
         const allY = [];
-        const hasFilteredObligated = ((this.props.reduxFilters.objectClass.size > 0) ||
-        (this.props.reduxFilters.programActivity.size > 0));
+        const hasFilteredObligated = (this.props.reduxFilters.objectClass.count() > 0);
 
         if (hasFilteredObligated) {
             if (this.state.visualizationPeriod === 'quarter') {
                 const quarters = [];
-                const yData = [];
+                const yData = {};
                 data.forEach((balance, balanceIndex) => {
-                    balance.data.results.forEach((group, groupIndex) => {
-                        const type = this.balanceRequests[balanceIndex].type;
-                        if (balanceIndex === 0) {
-                            // only push the group once
-                            quarters.push(`${group.item} Q${group.submission__reporting_fiscal_quarter}`);
-                            yData.push({});
+                    const type = this.balanceRequests[balanceIndex].type;
+                    balance.data.results.forEach((group) => {
+                        const quarter = `${group.item} Q${group.submission__reporting_fiscal_quarter}`;
+                        // console.log(`quarter: ${quarter}`);
+                        if (!yData[quarter]) {
+                            quarters.push(quarter);
+                            yData[quarter] = {
+                                obligatedFiltered: 0,
+                                outlay: 0,
+                                budgetAuthority: 0,
+                                unobligated: 0
+                            };
                         }
-                        yData[groupIndex][type] = parseFloat(group.aggregate);
-                        allY.push(parseFloat(group.aggregate));
+                        yData[quarter][type] = parseFloat(group.aggregate);
                     });
                 });
-                quarters.forEach((quarter, index) => {
+
+                quarters.forEach((quarter) => {
                     groups.push(`${quarter}`);
                     xSeries.push([`${quarter}`]);
-
+                    const budgetAuthority = yData[quarter].budgetAuthority;
+                    const unobligated = yData[quarter].unobligated;
+                    const obligatedFiltered = yData[quarter].obligatedFiltered;
                     // Calculate Obligated (Other)
-                    const budgetAuthority = yData[index].budgetAuthority;
-                    const unobligated = yData[index].unobligated;
-                    const obligatedFiltered = yData[index].obligatedFiltered;
+                    const obligatedOther = budgetAuthority - unobligated - obligatedFiltered;
+                    yData[quarter].obligatedOther = obligatedOther;
+                    // Calculate Obligation Total
+                    yData[quarter].obligationTotal = obligatedFiltered + obligatedOther;
+                    ySeries.push([yData[quarter]]);
+                });
 
-                    yData[index].obligatedOther = budgetAuthority - unobligated - obligatedFiltered;
-                    ySeries.push([yData[index]]);
+                ySeries.forEach((quarter) => {
+                    // console.log(`ySeries quarter: ${JSON.stringify(quarter)}`);
+                    allY.push(quarter[0].obligatedFiltered);
+                    allY.push(quarter[0].outlay);
+                    allY.push(quarter[0].budgetAuthority);
+                    allY.push(quarter[0].unobligated);
                 });
             }
             else {
@@ -270,30 +273,34 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 const years = [];
                 const yData = [];
                 data.forEach((balance, balanceIndex) => {
-                    balance.data.results.forEach((group, groupIndex) => {
-                        const type = this.balanceRequests[balanceIndex].type;
-                        if (balanceIndex === 0) {
-                            // only push the group once
-                            years.push(group.item);
-                            yData.push({});
+                    const type = this.balanceRequests[balanceIndex].type;
+                    balance.data.results.forEach((group) => {
+                        const year = `${group.item}`;
+                        if (!yData[year]) {
+                            years.push(year);
+                            yData[year] = {
+                                obligatedFiltered: 0,
+                                outlay: 0,
+                                budgetAuthority: 0,
+                                unobligated: 0
+                            };
                         }
-                        yData[groupIndex][type] = parseFloat(group.aggregate);
-                        allY.push(parseFloat(group.aggregate));
+                        yData[year][type] = parseFloat(group.aggregate);
                     });
                 });
 
-                years.forEach((year, index) => {
+                years.forEach((year) => {
                     groups.push(`${year}`);
                     xSeries.push([`${year}`]);
-
+                    const budgetAuthority = yData[year].budgetAuthority;
+                    const unobligated = yData[year].unobligated;
+                    const obligatedFiltered = yData[year].obligatedFiltered;
                     // Calculate Obligated (Other)
-                    const budgetAuthority = yData[index].budgetAuthority;
-                    const unobligated = yData[index].unobligated;
-                    const obligatedFiltered = yData[index].obligatedFiltered;
-
-                    yData[index].obligatedOther = budgetAuthority - unobligated - obligatedFiltered;
-                    ySeries.push([yData[index]]);
-                    ySeries.push([yData[index]]);
+                    const obligatedOther = budgetAuthority - unobligated - obligatedFiltered;
+                    yData[year].obligatedOther = obligatedOther;
+                    // Calculate Obligation Total
+                    yData[year].obligationTotal = obligatedFiltered + obligatedOther;
+                    ySeries.push([yData[year]]);
                 });
             }
         }
@@ -343,6 +350,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             });
         }
 
+        console.log(`ySeries: ${JSON.stringify(ySeries)}`);
 
         this.setState({
             groups,
@@ -359,7 +367,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 data={this.state}
                 visualizationPeriod={this.state.visualizationPeriod}
                 changePeriod={this.changePeriod}
-                hasFilteredObligated={this.state.hasFilteredObligated} />
+                reduxFilters={this.props.reduxFilters} />
         );
     }
 }

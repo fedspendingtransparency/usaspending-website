@@ -14,7 +14,7 @@ const propTypes = {
     data: React.PropTypes.object,
     visualizationPeriod: React.PropTypes.string,
     changePeriod: React.PropTypes.func,
-    hasFilteredObligated: React.PropTypes.bool
+    reduxFilters: React.PropTypes.object,
 };
 
 export default class AccountTimeVisualizationSection extends React.Component {
@@ -94,7 +94,7 @@ export default class AccountTimeVisualizationSection extends React.Component {
                 <TimeVisualization
                     {...this.props.data}
                     width={this.state.visualizationWidth}
-                    hasFilteredObligated={this.props.hasFilteredObligated} />
+                    reduxFilters={this.props.reduxFilters} />
             </div>
         );
     }

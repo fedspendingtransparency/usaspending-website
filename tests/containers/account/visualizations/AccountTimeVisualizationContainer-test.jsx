@@ -131,19 +131,18 @@ describe('AccountTimeVisualizationSectionContainer', () => {
             ]);
 
             const expectedState = {
-                "allY":
+                allY:
                     [-5505246.42, 201404661.47, 2696684.86, 198707976.61],
-                "groups": ["2016"],
-                "hasFilteredObligated": false,
-                "loading": false,
-                "visualizationPeriod": "year",
-                "xSeries": [["2016"]],
-                "ySeries": [
+                groups: ["2016"],
+                loading: false,
+                visualizationPeriod: "year",
+                xSeries: [["2016"]],
+                ySeries: [
                     [{
-                        "budgetAuthority": parseFloat(mockReduxAccount.totals.budgetAuthority['2016']),
-                        "obligated": parseFloat(mockReduxAccount.totals.obligated['2016']),
-                        "outlay": parseFloat(mockReduxAccount.totals.outlay['2016']),
-                        "unobligated": parseFloat(mockReduxAccount.totals.unobligated['2016'])
+                        budgetAuthority: parseFloat(mockReduxAccount.totals.budgetAuthority['2016']),
+                        obligated: parseFloat(mockReduxAccount.totals.obligated['2016']),
+                        outlay: parseFloat(mockReduxAccount.totals.outlay['2016']),
+                        unobligated: parseFloat(mockReduxAccount.totals.unobligated['2016'])
                     }]
                 ]
             };

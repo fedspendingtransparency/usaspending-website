@@ -12,7 +12,7 @@ class AccountSearchCategoryOperation extends AccountSearchOperation {
 
         if (this.accountId) {
             filters.push({
-                field: 'treasury_account_identifier__federal_account_id',
+                field: 'treasury_account__federal_account_id',
                 operation: 'equals',
                 value: this.accountId
             });

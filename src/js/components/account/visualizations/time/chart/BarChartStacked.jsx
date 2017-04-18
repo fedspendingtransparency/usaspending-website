@@ -28,7 +28,7 @@ const propTypes = {
     enableHighlight: React.PropTypes.bool,
     padding: React.PropTypes.object,
     legend: React.PropTypes.array,
-    hasFilteredObligated: React.PropTypes.bool
+    reduxFilters: React.PropTypes.object
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -185,7 +185,7 @@ export default class BarChart extends React.Component {
             }
 
             // iterate through the group data points and insert them into the chart
-            if (this.props.hasFilteredObligated) {
+            if (this.props.reduxFilters.objectClass.count() > 0) {
                 yData.forEach((stack, stackIndex) => {
                     // within each X axis grouping of Y data elements is yet another group of Y data values
                     // but these are stacked on top of each other
