@@ -14,7 +14,7 @@ const propTypes = {
     data: React.PropTypes.object,
     visualizationPeriod: React.PropTypes.string,
     changePeriod: React.PropTypes.func,
-    reduxFilters: React.PropTypes.object,
+    reduxFilters: React.PropTypes.object
 };
 
 export default class AccountTimeVisualizationSection extends React.Component {

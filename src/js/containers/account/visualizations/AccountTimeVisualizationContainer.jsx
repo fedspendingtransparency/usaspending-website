@@ -232,7 +232,6 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                     const type = this.balanceRequests[balanceIndex].type;
                     balance.data.results.forEach((group) => {
                         const quarter = `${group.item} Q${group.submission__reporting_fiscal_quarter}`;
-                        // console.log(`quarter: ${quarter}`);
                         if (!yData[quarter]) {
                             quarters.push(quarter);
                             yData[quarter] = {
@@ -261,7 +260,6 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 });
 
                 ySeries.forEach((quarter) => {
-                    // console.log(`ySeries quarter: ${JSON.stringify(quarter)}`);
                     allY.push(quarter[0].obligatedFiltered);
                     allY.push(quarter[0].outlay);
                     allY.push(quarter[0].budgetAuthority);
@@ -301,6 +299,13 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                     // Calculate Obligation Total
                     yData[year].obligationTotal = obligatedFiltered + obligatedOther;
                     ySeries.push([yData[year]]);
+                });
+
+                ySeries.forEach((year) => {
+                    allY.push(year[0].obligatedFiltered);
+                    allY.push(year[0].outlay);
+                    allY.push(year[0].budgetAuthority);
+                    allY.push(year[0].unobligated);
                 });
             }
         }
@@ -349,8 +354,6 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 ySeries.push([yData[index]]);
             });
         }
-
-        console.log(`ySeries: ${JSON.stringify(ySeries)}`);
 
         this.setState({
             groups,
