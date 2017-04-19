@@ -75,6 +75,7 @@ export class AccountProgramActivityContainer extends React.Component {
                 this.parseResultData(res.data.results);
             })
             .catch((err) => {
+                console.log(err);
                 if (!isCancel(err)) {
                     this.setState({
                         noResults: true

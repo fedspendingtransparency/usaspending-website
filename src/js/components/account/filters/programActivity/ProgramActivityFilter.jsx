@@ -85,16 +85,12 @@ export default class ProgramActivityFilter extends React.Component {
 
         if (programActivities && Object.keys(programActivities).length > 10) {
             const remaining = Object.keys(programActivities).length - this.state.shown;
-            let shownStatement = '';
-            let arrow = '';
+            let shownStatement = `${remaining} ${this.state.shownType}`;
+            let arrow = (<Icons.AngleDown alt={`See ${shownStatement}`} />);
 
             if (remaining === 0) {
                 shownStatement = this.state.shownType;
                 arrow = (<Icons.AngleUp alt={`See ${shownStatement}`} />);
-            }
-            else {
-                shownStatement = `${remaining} ${this.state.shownType}`;
-                arrow = (<Icons.AngleDown alt={`See ${shownStatement}`} />);
             }
 
             toggleButton = (<button
