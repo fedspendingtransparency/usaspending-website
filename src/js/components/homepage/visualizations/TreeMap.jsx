@@ -203,7 +203,7 @@ export default class TreeMap extends React.Component {
                     </div>
                 </div>
             </div>
-        ); 
+        );
     }
 
 }
