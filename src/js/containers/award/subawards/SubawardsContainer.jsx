@@ -224,14 +224,16 @@ export class SubawardsContainer extends React.Component {
                     inFlight: false
                 });
 
-                const mockData = {
-                    page_metadata: {
-                        page: 1,
-                        has_next_page: false
-                    },
-                    results: mockSubawards
-                };
-                this.parseSubawards(mockData, reset);
+                // const mockData = {
+                //     page_metadata: {
+                //         page: 1,
+                //         has_next_page: false
+                //     },
+                //     results: mockSubawards
+                // };
+                // this.parseSubawards(mockData, reset);
+                
+                this.parseSubawards(res.data, reset);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
