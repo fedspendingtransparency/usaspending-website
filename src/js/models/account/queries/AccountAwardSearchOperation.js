@@ -8,6 +8,7 @@ import _ from 'lodash';
 import * as AwardTypeQuery from 'models/search/queryBuilders/AwardTypeQuery';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as ObjectClassQuery from './queryBuilders/ObjectClassQuery';
+import * as ProgramActivityQuery from './queryBuilders/ProgramActivityQuery';
 
 class AccountAwardSearchOperation {
     constructor(id = null) {
@@ -21,6 +22,7 @@ class AccountAwardSearchOperation {
         this.dateRange = [];
 
         this.objectClass = [];
+        this.programActivity = [];
 
         this.awardType = [];
     }
@@ -37,6 +39,7 @@ class AccountAwardSearchOperation {
         }
 
         this.objectClass = state.objectClass.toArray();
+        this.programActivity = state.programActivity.toArray();
     }
 
     commonParams() {
@@ -54,6 +57,10 @@ class AccountAwardSearchOperation {
         // add object class to the filter
         if (this.objectClass.length > 0) {
             filters.push(ObjectClassQuery.buildAwardObjectClassQuery(this.objectClass));
+        }
+
+        if (this.programActivity.length > 0) {
+            filters.push(ProgramActivityQuery.buildAwardProgramActivityQuery(this.programActivity));
         }
 
         // add award type to the filters

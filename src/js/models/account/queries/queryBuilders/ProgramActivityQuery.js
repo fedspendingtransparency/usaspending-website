@@ -5,11 +5,22 @@
 
 const programActivityField = 'program_activity__id';
 
-/* eslint-disable import/prefer-default-export */
-// We only have one export but want to maintain consistency with other functions
-export const buildProgramActivityQuery = (values) => ({
-    field: programActivityField,
+const spendingOverTimeField =
+    `treasury_account_identifier__program_balances__${programActivityField}`;
+const spendingByCategoryField = programActivityField;
+const awardField = `financial_set__${programActivityField}`;
+
+export const commonQuery = (field, values) => ({
+    field,
     operation: 'in',
     value: values
 });
-/* eslint-enable import/prefer-default-export */
+
+export const buildSpendingOverTimeProgramActivityQuery = (values) =>
+    commonQuery(spendingOverTimeField, values);
+
+export const buildSpendingByCategoryProgramActivityQuery = (values) =>
+    commonQuery(spendingByCategoryField, values);
+
+export const buildAwardProgramActivityQuery = (values) =>
+    commonQuery(awardField, values);

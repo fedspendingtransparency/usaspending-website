@@ -80,13 +80,13 @@ class AccountSearchOperation {
         }
 
         if (this.objectClass.length > 0) {
-            const ocFilter = ObjectClassQuery.buildObjectClassQuery(this.objectClass);
-            filters.push(ocFilter);
+            filters.push(ObjectClassQuery
+                .buildSpendingByCategoryObjectClassQuery(this.objectClass));
         }
 
         if (this.programActivity.length > 0) {
-            const paFilter = ProgramActivityQuery.buildProgramActivityQuery(this.programActivity);
-            filters.push(paFilter);
+            filters.push(ProgramActivityQuery
+                .buildSpendingByCategoryProgramActivityQuery(this.programActivity));
         }
 
         return filters;

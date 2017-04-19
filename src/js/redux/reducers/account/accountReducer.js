@@ -130,6 +130,8 @@ const accountReducer = (state = initialState, action) => {
                 filters
             });
         }
+
+        // Object Classes
         case 'TOGGLE_ACCOUNT_OBJECT_CLASS': {
             const updatedOC = ObjectClassFuncs.toggleItem(state.filters.objectClass, action.item);
             const updatedFilters = Object.assign({}, state.filters, {
@@ -149,6 +151,8 @@ const accountReducer = (state = initialState, action) => {
                 filters: updatedFilters
             });
         }
+
+        // Program Activities
         case 'SET_AVAILABLE_PROGRAM_ACTIVITIES': {
             const updatedFilterOptions = Object.assign({}, state.filterOptions, {
                 programActivity: action.programActivities
@@ -178,6 +182,7 @@ const accountReducer = (state = initialState, action) => {
                 filters: updatedFilters
             });
         }
+
         case 'RESET_ACCOUNT_FILTERS': {
             return Object.assign({}, state, {
                 filters: initialState.filters

@@ -72,29 +72,7 @@ export class AccountProgramActivityContainer extends React.Component {
 
         this.searchRequest.promise
             .then((res) => {
-                const data = res.data.results;
-                const programActivities = [];
-
-                data.forEach((value) => {
-                    programActivities.push({
-                        id: value.program_activity__id,
-                        code: value.program_activity__program_activity_code,
-                        name: value.program_activity__program_activity_name
-                    });
-                });
-
-                let noResults = false;
-                if (programActivities.length === 0) {
-                    noResults = true;
-                }
-
-                // Update state
-                this.setState({
-                    noResults
-                });
-
-                // Add search results to Redux
-                this.props.setAvailableProgramActivities(programActivities);
+                this.parseResultData(res.data.results);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -103,6 +81,31 @@ export class AccountProgramActivityContainer extends React.Component {
                     });
                 }
             });
+    }
+
+    parseResultData(data) {
+        const programActivities = [];
+
+        data.forEach((value) => {
+            programActivities.push({
+                id: value.program_activity__id,
+                code: value.program_activity__program_activity_code,
+                name: value.program_activity__program_activity_name
+            });
+        });
+
+        let noResults = false;
+        if (programActivities.length === 0) {
+            noResults = true;
+        }
+
+        // Update state
+        this.setState({
+            noResults
+        });
+
+        // Add search results to Redux
+        this.props.setAvailableProgramActivities(programActivities);
     }
 
     render() {
