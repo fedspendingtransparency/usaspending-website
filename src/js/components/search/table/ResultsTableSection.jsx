@@ -61,7 +61,7 @@ export default class ResultsTableSection extends React.Component {
 
         return (
             <div className="search-results-table-section" id="results-section-table">
-                <h3>Spending by Award Type</h3>
+                <h3>Spending by Award</h3>
                 <hr className="results-divider" />
                 <ResultsTableTabs
                     types={this.props.tableTypes}

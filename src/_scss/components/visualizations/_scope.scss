@@ -8,7 +8,7 @@
         margin-right: auto;
         text-align: center;
         li {
-            margin-bottom: rem(10);
+            margin-bottom: rem(9);
             @include underlineButton();
         }
     }

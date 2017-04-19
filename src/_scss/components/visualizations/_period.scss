@@ -1,0 +1,34 @@
+.visualization-period {
+    @include span-columns(16);
+    @import "_scope";
+    margin-top: $global-mrg;
+    @include media($tablet-screen) {
+        @include span-columns(7);
+        margin-top: 0;
+    }
+    .content {
+        @include span-columns(16);
+        li {
+            float: left;
+            @include span-columns(5.3);
+            @include media($tablet-screen) {
+                margin-bottom: 0;
+            }
+        }
+        @import "./components/_comingSoon";
+        @include comingSoon;
+        .coming-soon {
+            .coming-soon-container {
+                width: rem(72);
+                margin: 0 auto;
+                .period-button {
+                    color: $color-gray-lighter;
+                }
+                .period-button:hover {
+                    color: $color-gray-lighter;
+                    border-bottom: rem(4) solid rgba(255, 255, 255, 0);
+                }
+            }
+        }
+    }
+}

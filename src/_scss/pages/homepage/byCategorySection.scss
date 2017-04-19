@@ -2,7 +2,7 @@
     @import "../../mixins/fullSectionWrap";
     @import "../../mixins/setText";
     background: $color-gray;
-    padding: rem(80) 0 0;
+    padding: ($global-pad * 6) 0 0;
     & .inner-wrap {
         @include fullSectionWrap();
         & h3 {

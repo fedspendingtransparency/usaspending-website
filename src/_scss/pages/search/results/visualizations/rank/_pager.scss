@@ -7,9 +7,9 @@
         @include button-unstyled;
         padding: rem(10);
         margin-top: rem(20);
-        color: $color-base;
+        color: $color-gray;
         font-size: rem(12);
-        border: rem(1) solid $color-gray-lighter;
+        border: rem(1) solid #D5D6D8;
         margin-left: rem(20);
         &:first-child {
             margin-left: 0;
@@ -31,7 +31,7 @@
             & svg {
                 height: rem(12);
                 width: rem(12);
-                fill: #5B616B;
+                fill: $color-gray;
             }
         }
         &[disabled] {

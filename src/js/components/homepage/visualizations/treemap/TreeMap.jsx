@@ -167,24 +167,38 @@ export default class TreeMap extends React.Component {
         return (
             <div
                 className="usa-da-treemap-section">
-                { sidebarContent }
-                <div
-                    className="tree-wrapper"
-                    ref={(sr) => {
-                        this.sectionWrapper = sr;
-                    }}>
-                    <svg
-                        width={this.state.visualizationWidth}
-                        height="565">
-                        { this.state.finalNodes }
-                    </svg>
-                    <div className="source">
-                        Source: Monthly Treasury Statement
-                        <div className="info-icon-circle">
-                            <Icons.InfoCircle />
-                        </div>
-                        <div className="more-icon">
-                            <Icons.MoreOptions />
+                <div className="treemap-inner-wrap">
+                    { sidebarContent }
+                    <div
+                        className="tree-wrapper"
+                        ref={(sr) => {
+                            this.sectionWrapper = sr;
+                        }}>
+                        <svg
+                            width={this.state.visualizationWidth}
+                            height="565">
+                            <defs>
+                                <linearGradient id="Gradient1">
+                                    <stop className="stop1" offset="0%" />
+                                    <stop className="stop2" offset="50%" />
+                                    <stop className="stop3" offset="100%" />
+                                </linearGradient>
+                                <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
+                                    <stop offset="0%" stopColor="red" />
+                                    <stop offset="50%" stopColor="black" stopOpacity="0" />
+                                    <stop offset="100%" stopColor="blue" />
+                                </linearGradient>
+                            </defs>
+                            { this.state.finalNodes }
+                        </svg>
+                        <div className="source">
+                            Source: Monthly Treasury Statement
+                            <div className="info-icon-circle">
+                                <Icons.InfoCircle />
+                            </div>
+                            <div className="more-icon">
+                                <Icons.MoreOptions />
+                            </div>
                         </div>
                     </div>
                 </div>
