@@ -14,6 +14,8 @@ import subawardFields from 'dataMapping/contracts/subawardTable';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import TransactionTableGenericCell from 'components/award/table/cells/TransactionTableGenericCell';
+import SummaryPageTableMessage from 'components/award/table/SummaryPageTableMessage';
+
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
@@ -136,6 +138,11 @@ export default class SubawardsTable extends React.Component {
             totalValue = this.props.award.total_subaward_amount;
         }
 
+        let message = null;
+        if (this.props.subawards.length === 0) {
+            message = (<SummaryPageTableMessage message="No subawards found" />);
+        }
+
         return (
             <div>
                 <div className="subaward-totals">
@@ -173,6 +180,7 @@ export default class SubawardsTable extends React.Component {
                         columns={tableValues.columns}
                         onScrollEnd={this.tableScrolled} />
                 </div>
+                {message}
             </div>
         );
     }
