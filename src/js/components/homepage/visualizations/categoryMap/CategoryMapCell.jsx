@@ -86,8 +86,8 @@ export default class CategoryMapCell extends React.Component {
         });
     }
 
-    mouseIn(label, value, bgColor, width, height) {
-        this.props.toggleTooltip(label, value, width, height);
+    mouseIn(label, value, bgColor, xStart, yStart, width, height) {
+        this.props.toggleTooltip(label, value, xStart, yStart, width, height);
         this.setState({
             color: bgColor
         });
@@ -109,11 +109,26 @@ export default class CategoryMapCell extends React.Component {
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
                 onMouseOver={() => {
-                    this.mouseIn(this.props.label, this.props.value, "#F2B733", this.props.x0,
-                    height);
+                    this.mouseIn(
+                        this.props.label,
+                        this.props.value,
+                        "#F2B733",
+                        this.props.x0,
+                        this.props.y0,
+                        width,
+                        height
+                    );
                 }}
                 onMouseLeave={() => {
-                    this.mouseIn('none', '', this.props.color, this.props.x0, height);
+                    this.mouseIn(
+                        'none',
+                        '',
+                        this.props.color,
+                        this.props.x0,
+                        this.props.y0,
+                        width,
+                        height
+                    );
                 }}>
                 <rect
                     className="tile"
@@ -121,7 +136,7 @@ export default class CategoryMapCell extends React.Component {
                     height={height}
                     style={{
                         fill: this.state.color,
-                        stroke: "white",
+                        stroke: "#5b616b",
                         strokeWidth: "2px",
                         padding: "10px"
                     }} />

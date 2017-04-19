@@ -22,5 +22,11 @@
         }
         @import './visualizations/_byCategoryVisualization';
         @import './_mapSegue';
+        .budget-line {
+            display: inline;
+            float: left;
+            width: 20px;
+            height: 642px;
+        }
     }
 }

@@ -10,11 +10,13 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import CategoryMapCell from './CategoryMapCell';
 import CategoryMapTooltip from './CategoryMapTooltip';
+import BudgetLine from './BudgetLine';
 
 const propTypes = {
     breakdown: React.PropTypes.object,
     descriptions: React.PropTypes.array,
-    colors: React.PropTypes.array
+    colors: React.PropTypes.array,
+    breakdownTotal: React.PropTypes.number
 };
 
 export default class CategoryMap extends React.Component {
@@ -30,7 +32,9 @@ export default class CategoryMap extends React.Component {
             finalNodes: '',
             individualValue: '',
             x: 0,
-            y: 0
+            y: 0,
+            width: 0,
+            height: 0
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
@@ -72,17 +76,19 @@ export default class CategoryMap extends React.Component {
         // put the data through d3's hierarchy system to sum and sort it
         const root = d3.hierarchy(cats)
         .sum((d) => (d.value))
-        .sort((a, b) => b.height - a.height || b.value - a.value);
+        .sort((d) => (d.id));
 
         // set up a treemap object and pass in the root
         let tileStyle = d3.treemapDice;
+        let height = 140;
         if (this.state.windowWidth < 768) {
             tileStyle = d3.treemapSlice;
+            height = 900;
         }
         const treemap = d3.treemap()
             .round(true)
             .tile(tileStyle)
-            .size([this.state.visualizationWidth, 140])(root).leaves();
+            .size([this.state.visualizationWidth, height])(root).leaves();
 
         // build the tiles
         const nodes = treemap.map((n, i) => {
@@ -97,6 +103,7 @@ export default class CategoryMap extends React.Component {
                     y1={n.y1}
                     total={n.parent.value}
                     key={i}
+                    id={n.data.id}
                     color={colors[i]}
                     chosen={chosen}
                     toggleTooltip={this.toggleTooltip} />);
@@ -109,7 +116,7 @@ export default class CategoryMap extends React.Component {
         });
     }
 
-    toggleTooltip(cat, value, width, height) {
+    toggleTooltip(cat, value, xStart, yStart, width, height) {
         const descSet = this.props.descriptions;
         // find index of object item on matching cat name
         let descIndex = '0';
@@ -128,8 +135,10 @@ export default class CategoryMap extends React.Component {
             category: cat,
             description: desc,
             individualValue: value,
-            x: width,
-            y: height
+            x: xStart,
+            y: yStart,
+            width,
+            height
         });
 
         this.buildTree(this.props.breakdown, this.props.colors, this.state.category);
@@ -137,19 +146,26 @@ export default class CategoryMap extends React.Component {
 
     render() {
         let tooltip = '';
-        const x = this.state.x;
+        let line = null;
+        if (this.state.windowWidth < 768) {
+            line = <BudgetLine />;
+        }
         if (this.state.category !== 'none') {
             tooltip = (<CategoryMapTooltip
                 name={this.state.category}
                 value={this.state.individualValue}
-                x={x}
-                y={(this.state.y / 2) + 50}
-                total={2749746926360} />);
+                description={this.state.description}
+                x={this.state.x}
+                y={this.state.y}
+                width={this.state.width}
+                height={(this.state.height / 2) + 50}
+                total={this.props.breakdownTotal} />);
         }
         return (<div className="by-category-section-wrap">
             <div className="inner-wrap">
                 <h3>About <strong>3/4</strong> of the total spending was awarded to state and
                     local governments, private contractors, individuals, and others.</h3>
+                { line }
                 <div className="by-category-vis">
                     { tooltip }
                     <div
@@ -158,8 +174,7 @@ export default class CategoryMap extends React.Component {
                             this.sectionWrapper = sr;
                         }}>
                         <svg
-                            width={this.state.visualizationWidth}
-                            height="140">
+                            width={this.state.visualizationWidth}>
                             { this.state.finalNodes }
                         </svg>
                     </div>

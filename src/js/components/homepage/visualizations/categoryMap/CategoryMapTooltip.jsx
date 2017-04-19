@@ -1,6 +1,6 @@
 /**
  * CategoryMapTooltip.jsx
- * Created by Kevin Li 2/23/17
+ * Created by Emily Gullo 04/17/2017
  */
 
 import React from 'react';
@@ -10,9 +10,11 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 const propTypes = {
     name: React.PropTypes.string,
     value: React.PropTypes.number,
-    y: React.PropTypes.number,
+    description: React.PropTypes.string,
+    height: React.PropTypes.number,
     x: React.PropTypes.number,
-    total: React.PropTypes.number
+    y: React.PropTypes.number,
+    width: React.PropTypes.number
 };
 
 export default class CategoryMapTooltip extends React.Component {
@@ -27,33 +29,22 @@ export default class CategoryMapTooltip extends React.Component {
         // we need to wait for the tooltip to render before we can full position it due to its
         // dynamic width
         const tooltipWidth = this.div.offsetWidth;
-        const containerX = this.containerDiv.getBoundingClientRect().left;
         const windowWidth = window.innerWidth;
-
-        // determine the tooltip direction
-        let direction = 'left';
-        // // allow 20px padding
-        if (tooltipWidth + containerX + this.props.x >= windowWidth - 20) {
-            direction = 'right';
+        let left = this.props.x + ((this.props.width - tooltipWidth) / 2);
+        if (this.props.width < tooltipWidth) {
+            left = this.props.x - ((tooltipWidth - this.props.width) / 2);
         }
-
-        // offset the tooltip position to account for its arrow/pointer
-        let offset = -9;
-        if (direction === 'right') {
-            offset = 9 + tooltipWidth;
+        let top = this.props.height - 15;
+        if (windowWidth < 768) {
+            top = (this.props.y + this.props.height) - 20;
         }
-        this.div.style.top = `${this.props.y - 15}px`;
-        this.div.style.left = `${this.props.x - offset}px`;
+        this.div.style.top = `${top}px`;
+        this.div.style.left = `${left}px`;
         this.div.className = `tooltip`;
         this.pointerDiv.className = `tooltip-pointer top`;
     }
 
     render() {
-        let percentage = 'N/A';
-        if (this.props.total > 0) {
-            percentage = Math.round((this.props.value / this.props.total) * 1000) / 10;
-        }
-
         return (
             <div
                 className="visualization-tooltip"
@@ -75,11 +66,11 @@ export default class CategoryMapTooltip extends React.Component {
                     </div>
                     <div className="tooltip-body center">
                         <div className="tooltip-center">
-                            <div className="tooltip-label">
-                                {this.props.name}
-                            </div>
                             <div className="tooltip-value">
                                 {MoneyFormatter.formatMoney(this.props.value)}
+                            </div>
+                            <div className="tooltip-description">
+                                {this.props.description}
                             </div>
                         </div>
                     </div>
