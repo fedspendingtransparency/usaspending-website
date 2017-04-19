@@ -1,26 +1,23 @@
 /**
-  * ResultsTableSection.jsx
-  * Created by Kevin Li 11/8/16
-  **/
+ * AccountAwardsSection.jsx
+ * Created by Kevin Li 4/13/17
+ */
 
 import React from 'react';
 
-import ResultsTableHeaderCellContainer from
-    'containers/search/table/ResultsTableHeaderCellContainer';
-
-import ResultsTable from './ResultsTable';
-import ResultsTableTabs from './ResultsTableTabs';
-import ResultsTableMessage from './ResultsTableMessage';
+import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
+import ResultsTable from 'components/search/table/ResultsTable';
+import AccountAwardsHeaderCellContainer from
+    'containers/account/awards/AccountAwardsHeaderCellContainer';
 
 const propTypes = {
     inFlight: React.PropTypes.bool,
     tableTypes: React.PropTypes.array,
     currentType: React.PropTypes.string,
-    switchTab: React.PropTypes.func,
-    results: React.PropTypes.array
+    switchTab: React.PropTypes.func
 };
 
-export default class ResultsTableSection extends React.Component {
+export default class AccountAwardsSection extends React.Component {
     constructor(props) {
         super(props);
 
@@ -43,24 +40,19 @@ export default class ResultsTableSection extends React.Component {
     }
 
     setTableWidth() {
+        // subtract 2px from the width to account for the table borders (2 * 1px on each side)
         const tableWidth = this.tableWidthController.clientWidth - 2;
         this.setState({ tableWidth });
     }
 
     render() {
-        let loadingWrapper = 'loaded-table';
-        let message = null;
+        let loadingWrapper = '';
         if (this.props.inFlight) {
             loadingWrapper = 'loading-table';
-            message = <ResultsTableMessage message="Loading data..." />;
-        }
-        else if (this.props.results.length === 0) {
-            // no results
-            message = <ResultsTableMessage message="No results matched your criteria." />;
         }
 
         return (
-            <div className="search-results-table-section" id="results-section-table">
+            <div className="account-awards-table-section" id="award-section-table">
                 <h3>Spending by Award</h3>
                 <hr className="results-divider" />
                 <ResultsTableTabs
@@ -69,7 +61,7 @@ export default class ResultsTableSection extends React.Component {
                     switchTab={this.props.switchTab} />
                 <div className={loadingWrapper}>
                     <div
-                        className="results-table-width-master"
+                        className="account-awards-table-width-master"
                         ref={(div) => {
                             // this is an empty div that scales via CSS
                             // the results table width will follow this div's width
@@ -78,12 +70,11 @@ export default class ResultsTableSection extends React.Component {
                     <ResultsTable
                         {...this.props}
                         visibleWidth={this.state.tableWidth}
-                        headerCellClass={ResultsTableHeaderCellContainer} />
+                        headerCellClass={AccountAwardsHeaderCellContainer} />
                 </div>
-                {message}
             </div>
         );
     }
 }
 
-ResultsTableSection.propTypes = propTypes;
+AccountAwardsSection.propTypes = propTypes;
