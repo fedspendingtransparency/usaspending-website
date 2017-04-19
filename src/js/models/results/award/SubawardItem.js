@@ -9,7 +9,7 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import GenericRecord from '../GenericRecord';
 
-const recordType = 'finsys';
+const recordType = 'subaward';
 const fields = [
     'id',
     'subaward_number',
