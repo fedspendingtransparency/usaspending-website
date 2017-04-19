@@ -3,4 +3,10 @@
     @include clearfix;
     background: $color-gray-dark;
     height: rem(140);
+    position: relative;
+
+        .visualization-tooltip {
+            @import "../../../components/visualizations/tooltip/_tooltip";
+        }
+    @import "./_treemapVisualization";
 }

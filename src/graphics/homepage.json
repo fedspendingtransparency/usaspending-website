@@ -44,10 +44,10 @@
 ],
 "budgetBreakdown": {
     "children": [
-        {"name": "Individuals", "value": 30.2},
-        {"name": "State & Local", "value": 17},
-        {"name": "Contractors", "value": 12.1},
-        {"name": "Federal Government", "value": 40.5}
+        {"name": "Individuals", "value": 1166902969415 },
+        {"name": "State & Local", "value": 669721302076 },
+        {"name": "Contractors", "value": 719365549385 },
+        {"name": "Federal Government", "value": 193757105484 }
     ]
 },
 "budgetDescriptions": [
