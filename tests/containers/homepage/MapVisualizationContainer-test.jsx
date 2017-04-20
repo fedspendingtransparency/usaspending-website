@@ -14,7 +14,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import { defaultFilters } from '../../testResources/defaultReduxFilters';
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/homepage/visualizations/MapVisualization', () =>
+jest.mock('components/homepage/visualizations/geo/MapVisualization', () =>
     jest.fn(() => null));
 
 
