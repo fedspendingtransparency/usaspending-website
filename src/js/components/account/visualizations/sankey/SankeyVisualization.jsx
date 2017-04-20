@@ -7,6 +7,7 @@ import React from 'react';
 
 import SankeyMessage from './components/SankeyMessage';
 import SankeyVisualizationHorizontal from './SankeyVisualizationHorizontal';
+import SankeyVisualizationVertical from './SankeyVisualizationVertical';
 
 const propTypes = {
     fyAvailable: React.PropTypes.bool
@@ -20,7 +21,7 @@ export default class SankeyVisualization extends React.Component {
                 message="No data available for the current fiscal year." />);
         }
 
-        return (<SankeyVisualizationHorizontal {...this.props} />);
+        return (<SankeyVisualizationVertical {...this.props} />);
     }
     render() {
         const output = this.determineOutput();
