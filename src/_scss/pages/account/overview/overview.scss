@@ -44,11 +44,33 @@
         }
     }
 
-    .sankey-placeholder {
+    .sankey-wrapper {
         text-align: center;
         color: $color-base;
         font-size: 14px;
         margin-top: 60px;
-        margin-bottom: 30px;
+        margin-bottom: 60px;
+
+        @import "./sankey/sankey";
+
+        .sankey-disclosures {
+            text-align: left;
+            margin-top: 20px;
+            .disclosure-title {
+                font-weight: 600;
+            }
+
+            ul.disclosure-list {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+
+                li {
+                    b {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
     }
 }

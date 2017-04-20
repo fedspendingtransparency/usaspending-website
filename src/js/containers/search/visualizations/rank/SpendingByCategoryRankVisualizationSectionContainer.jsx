@@ -113,8 +113,8 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
         const fieldName = fieldNames[this.state.scope];
         const field = 'federal_action_obligation';
         const group = [
-            "award__financial_set__treasury_account__federal_account_id",
-            `award__financial_set__${fieldName}`
+            `award__financial_set__${fieldName}`,
+            "award__financial_set__treasury_account__federal_account_id"
         ];
 
         let operation = null;
@@ -156,7 +156,11 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
     fetchCategoryData() {
         const fieldName = fieldNames[this.state.scope];
         const field = 'obligations_incurred_by_program_object_class_cpe';
-        const group = ["treasury_account__federal_account_id", fieldName];
+        let group = [fieldName];
+        if (this.state.scope === 'federalAccounts') {
+            group = [fieldName, "treasury_account__federal_account_id"];
+        }
+
         const operation = new SearchAccountOperation('tas');
 
         // Add filters to Search Operation
@@ -211,8 +215,8 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
         const descriptions = [];
         const linkSeries = [];
 
-        const idField = group[0];
-        const dataField = group[1];
+        const dataField = group[0];
+        const idField = group[1];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {

@@ -87,7 +87,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
         const apiParams = {
             field,
             group,
-            order: ['aggregate'],
+            order: [group],
             aggregate: 'sum',
             filters: searchParams
         };
@@ -117,7 +117,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
         const apiParams = {
             field,
             group,
-            order: ['aggregate'],
+            order: [group],
             aggregate: 'sum',
             filters: searchParams
         };

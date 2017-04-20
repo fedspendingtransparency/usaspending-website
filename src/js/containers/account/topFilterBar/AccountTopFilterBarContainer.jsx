@@ -60,6 +60,11 @@ export class AccountTopFilterBarContainer extends React.Component {
             filters.push(objectClass);
         }
 
+        const programActivity = this.prepareProgramActivity(props);
+        if (programActivity) {
+            filters.push(programActivity);
+        }
+
         this.setState({
             filters
         });
@@ -125,6 +130,25 @@ export class AccountTopFilterBarContainer extends React.Component {
         return null;
     }
 
+    prepareProgramActivity(props) {
+        let selected = false;
+
+        const filter = {
+            code: 'programActivity',
+            name: 'Program Activity',
+            values: props.programActivity.toArray()
+        };
+
+        if (props.programActivity.count() > 0) {
+            selected = true;
+        }
+
+        if (selected) {
+            return filter;
+        }
+        return null;
+    }
+
     clearAllFilters() {
         this.props.resetAccountFilters();
     }
@@ -146,6 +170,9 @@ export class AccountTopFilterBarContainer extends React.Component {
 AccountTopFilterBarContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.account.filters }),
+    (state) => ({
+        reduxFilters: state.account.filters,
+        filterOptions: state.account.filterOptions
+    }),
     (dispatch) => bindActionCreators(accountFilterActions, dispatch)
 )(AccountTopFilterBarContainer);
