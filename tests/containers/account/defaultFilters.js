@@ -10,5 +10,6 @@ export const defaultFilters = {
     fy: new Set(),
     startDate: null,
     endDate: null,
-    objectClass: new OrderedSet()
+    objectClass: new OrderedSet(),
+    programActivity: new OrderedSet()
 };

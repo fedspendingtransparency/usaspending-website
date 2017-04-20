@@ -47,6 +47,11 @@ export default class ContractAdditionalDetails extends React.Component {
                     data={award.latest_transaction.contract_data}
                     fields={DataFields.additionalFields}
                     title={"Additional Details"} />
+                <hr className="additional-group-divider" />
+                <AdditionalGroup
+                    data={award.latest_transaction.recipient.officers}
+                    fields={DataFields.compensationFields}
+                    title={"Executive Compensation"} />
             </div>
         );
     }
