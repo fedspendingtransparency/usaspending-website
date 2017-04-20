@@ -24,7 +24,8 @@ export default class ProgramActivityItem extends React.Component {
                         checked={this.props.checked}
                         onChange={this.props.toggleValue} />
                     <label htmlFor={`program-activity-${this.props.programActivityID}`}>
-                        {this.props.label}</label>
+                        {this.props.label}
+                    </label>
                 </div>
             </li>
         );

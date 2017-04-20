@@ -21,12 +21,12 @@ class AccountSearchBalanceOperation extends AccountSearchOperation {
 
         if (this.objectClass.length > 0) {
             filters.push(ObjectClassQuery
-                .buildSpendingOverTimeObjectClassQuery(this.objectClass));
+                .buildBalancesObjectClassQuery(this.objectClass));
         }
 
         if (this.programActivity.length > 0) {
             filters.push(ProgramActivityQuery
-                .buildSpendingOverTimeProgramActivityQuery(this.programActivity));
+                .buildBalancesProgramActivityQuery(this.programActivity));
         }
 
         return filters;

@@ -16,11 +16,11 @@ export const commonQuery = (field, values) => ({
     value: values
 });
 
-export const buildSpendingOverTimeProgramActivityQuery = (values) =>
+export const buildBalancesProgramActivityQuery = (values) =>
     commonQuery(spendingOverTimeField, values);
 
-export const buildSpendingByCategoryProgramActivityQuery = (values) =>
+export const buildCategoriesProgramActivityQuery = (values) =>
     commonQuery(spendingByCategoryField, values);
 
-export const buildAwardProgramActivityQuery = (values) =>
+export const buildAwardsProgramActivityQuery = (values) =>
     commonQuery(awardField, values);

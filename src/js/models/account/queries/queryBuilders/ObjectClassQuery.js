@@ -15,11 +15,11 @@ const commonQuery = (field, values) => ({
     value: values
 });
 
-export const buildSpendingOverTimeObjectClassQuery = (values) =>
+export const buildBalancesObjectClassQuery = (values) =>
     commonQuery(spendingOverTimeField, values);
 
-export const buildSpendingByCategoryObjectClassQuery = (values) =>
+export const buildCategoriesObjectClassQuery = (values) =>
     commonQuery(spendingByCategoryField, values);
 
-export const buildAwardObjectClassQuery = (values) =>
+export const buildAwardsObjectClassQuery = (values) =>
     commonQuery(awardField, values);

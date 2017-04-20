@@ -56,11 +56,12 @@ class AccountAwardSearchOperation {
 
         // add object class to the filter
         if (this.objectClass.length > 0) {
-            filters.push(ObjectClassQuery.buildAwardObjectClassQuery(this.objectClass));
+            filters.push(ObjectClassQuery.buildAwardsObjectClassQuery(this.objectClass));
         }
 
         if (this.programActivity.length > 0) {
-            filters.push(ProgramActivityQuery.buildAwardProgramActivityQuery(this.programActivity));
+            filters.push(ProgramActivityQuery
+                .buildAwardsProgramActivityQuery(this.programActivity));
         }
 
         // add award type to the filters

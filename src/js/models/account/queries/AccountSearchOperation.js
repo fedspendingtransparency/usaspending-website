@@ -81,12 +81,12 @@ class AccountSearchOperation {
 
         if (this.objectClass.length > 0) {
             filters.push(ObjectClassQuery
-                .buildSpendingByCategoryObjectClassQuery(this.objectClass));
+                .buildCategoriesObjectClassQuery(this.objectClass));
         }
 
         if (this.programActivity.length > 0) {
             filters.push(ProgramActivityQuery
-                .buildSpendingByCategoryProgramActivityQuery(this.programActivity));
+                .buildCategoriesProgramActivityQuery(this.programActivity));
         }
 
         return filters;

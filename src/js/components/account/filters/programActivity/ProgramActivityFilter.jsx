@@ -30,6 +30,7 @@ export default class ProgramActivityFilter extends React.Component {
         this.state = defaultState;
 
         this.toggleValue = this.toggleValue.bind(this);
+        this.toggleShownAmount = this.toggleShownAmount.bind(this);
     }
 
     toggleShownAmount() {
@@ -95,7 +96,7 @@ export default class ProgramActivityFilter extends React.Component {
 
             toggleButton = (<button
                 className="see-more account-program-activity-toggle-button"
-                onClick={this.toggleShownAmount.bind(this)}
+                onClick={this.toggleShownAmount}
                 title={`See ${shownStatement}`}>
                 See {shownStatement}
                 &nbsp; {arrow}
