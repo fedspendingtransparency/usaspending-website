@@ -14,7 +14,7 @@ const initialState = {
         startDate: null,
         endDate: null,
         objectClass: new OrderedSet(),
-        programActivity: [],
+        programActivity: new OrderedSet(),
         tas: []
     },
     filterOptions: {
@@ -104,7 +104,7 @@ describe('accountReducer', () => {
                 fy: new Set(['2017']),
                 startDate: null,
                 endDate: null,
-                programActivity: [],
+                programActivity: new OrderedSet(),
                 tas: [],
                 objectClass: new OrderedSet()
             };
@@ -129,7 +129,7 @@ describe('accountReducer', () => {
                 fy: new Set([]),
                 startDate: '2015-01-01',
                 endDate: '2015-12-31',
-                programActivity: [],
+                programActivity: new OrderedSet(),
                 tas: [],
                 objectClass: new OrderedSet()
             };
@@ -156,7 +156,7 @@ describe('accountReducer', () => {
                 fy: new Set(['2017']),
                 startDate: '2015-01-01',
                 endDate: '2015-12-31',
-                programActivity: [],
+                programActivity: new OrderedSet(),
                 tas: [],
                 objectClass: new OrderedSet()
             };
@@ -173,7 +173,7 @@ describe('accountReducer', () => {
                 fy: new Set([]),
                 startDate: null,
                 endDate: null,
-                programActivity: [],
+                programActivity: new OrderedSet(),
                 tas: [],
                 objectClass: new OrderedSet()
             };
@@ -236,7 +236,7 @@ describe('accountReducer', () => {
                 fy: new Set(['2017']),
                 startDate: '2015-01-01',
                 endDate: '2015-12-31',
-                programActivity: [],
+                programActivity: new OrderedSet(),
                 tas: [],
                 objectClass: new OrderedSet()
             };
@@ -298,7 +298,7 @@ describe('accountReducer', () => {
                 fy: new Set(['2017']),
                 startDate: '2015-01-01',
                 endDate: '2015-12-31',
-                programActivity: [],
+                programActivity: new OrderedSet(),
                 tas: [],
                 objectClass: new OrderedSet()
             };
@@ -424,6 +424,108 @@ describe('accountReducer', () => {
             state = accountReducer(state, action);
             expect(state.awardsOrder.field).toEqual('fake_field');
             expect(state.awardsOrder.direction).toEqual('asc');
+        });
+    });
+
+    describe('SET_AVAILABLE_PROGRAM_ACTIVITIES', () => {
+        it('should set the program activities of the filter options object', () => {
+            let state = accountReducer(initialState, {});
+
+            const action = {
+                type: 'SET_AVAILABLE_PROGRAM_ACTIVITIES',
+                programActivities: [{
+                    id: '810',
+                    code: '0002',
+                    name: 'Child support incentive payments'
+                },
+                {
+                    id: '161',
+                    code: '0001',
+                    name: 'Court of Appeals for Veterans Claims Retirement Fund'
+                }]
+            };
+
+            state = accountReducer(state, action);
+            expect(state.filterOptions.programActivity).toEqual(action.programActivities);
+        });
+    });
+
+    describe('TOGGLE_ACCOUNT_PROGRAM_ACTIVITY', () => {
+        it('should add the provided program activity if it is not already selected', () => {
+            let state = accountReducer(undefined, {});
+
+            const action = {
+                type: 'TOGGLE_ACCOUNT_PROGRAM_ACTIVITY',
+                item: '810'
+            };
+
+            state = accountReducer(state, action);
+
+            const expected = new OrderedSet(['810']);
+            expect(state.filters.programActivity).toEqual(expected);
+        });
+
+        it('should remove the provided program activity if it is already selected', () => {
+            const startingFilters = Object.assign({}, initialState.filters, {
+                programActivity: new OrderedSet(['810', '161'])
+            });
+
+            const startingState = Object.assign({}, initialState, {
+                filters: startingFilters
+            });
+
+            let state = accountReducer(startingState, {});
+
+            const action = {
+                type: 'TOGGLE_ACCOUNT_PROGRAM_ACTIVITY',
+                item: '810'
+            };
+
+            state = accountReducer(state, action);
+
+            const expected = new OrderedSet(['161']);
+            expect(state.filters.programActivity).toEqual(expected);
+        });
+    });
+
+    describe('RESET_ACCOUNT_PROGRAM_ACTIVITY', () => {
+        it('should reset the selected program activities', () => {
+            let state = accountReducer(initialState, {});
+
+            const firstAction = {
+                type: 'TOGGLE_ACCOUNT_PROGRAM_ACTIVITY',
+                item: '810'
+            };
+
+            const firstState = {
+                dateType: 'fy',
+                fy: new Set(),
+                startDate: null,
+                endDate: null,
+                objectClass: new OrderedSet(),
+                programActivity: new OrderedSet(["810"]),
+                tas: []
+            };
+
+            state = accountReducer(state, firstAction);
+            expect(state.filters).toEqual(firstState);
+
+            const secondAction = {
+                type: 'RESET_ACCOUNT_PROGRAM_ACTIVITY'
+            };
+
+            const secondState = {
+                dateType: 'fy',
+                fy: new Set([]),
+                startDate: null,
+                endDate: null,
+                programActivity: new OrderedSet(),
+                tas: [],
+                objectClass: new OrderedSet()
+            };
+
+            state = accountReducer(state, secondAction);
+            expect(state.filters).toEqual(secondState);
         });
     });
 });

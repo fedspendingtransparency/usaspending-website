@@ -8,6 +8,7 @@ import _ from 'lodash';
 import { Set, OrderedSet } from 'immutable';
 
 import * as ObjectClassFuncs from './filters/accountObjectClassFunctions';
+import * as ProgramActivityFuncs from './filters/accountProgramActivityFunctions';
 
 const initialState = {
     filters: {
@@ -16,7 +17,7 @@ const initialState = {
         startDate: null,
         endDate: null,
         objectClass: new OrderedSet(),
-        programActivity: [],
+        programActivity: new OrderedSet(),
         tas: []
     },
     filterOptions: {
@@ -129,6 +130,8 @@ const accountReducer = (state = initialState, action) => {
                 filters
             });
         }
+
+        // Object Classes
         case 'TOGGLE_ACCOUNT_OBJECT_CLASS': {
             const updatedOC = ObjectClassFuncs.toggleItem(state.filters.objectClass, action.item);
             const updatedFilters = Object.assign({}, state.filters, {
@@ -148,6 +151,38 @@ const accountReducer = (state = initialState, action) => {
                 filters: updatedFilters
             });
         }
+
+        // Program Activities
+        case 'SET_AVAILABLE_PROGRAM_ACTIVITIES': {
+            const updatedFilterOptions = Object.assign({}, state.filterOptions, {
+                programActivity: action.programActivities
+            });
+
+            return Object.assign({}, state, {
+                filterOptions: updatedFilterOptions
+            });
+        }
+        case 'TOGGLE_ACCOUNT_PROGRAM_ACTIVITY': {
+            const updatedPA = ProgramActivityFuncs.toggleItem(
+                state.filters.programActivity, action.item);
+            const updatedFilters = Object.assign({}, state.filters, {
+                programActivity: updatedPA
+            });
+
+            return Object.assign({}, state, {
+                filters: updatedFilters
+            });
+        }
+        case 'RESET_ACCOUNT_PROGRAM_ACTIVITY': {
+            const updatedFilters = Object.assign({}, state.filters, {
+                programActivity: initialState.filters.programActivity
+            });
+
+            return Object.assign({}, state, {
+                filters: updatedFilters
+            });
+        }
+
         case 'RESET_ACCOUNT_FILTERS': {
             return Object.assign({}, state, {
                 filters: initialState.filters
