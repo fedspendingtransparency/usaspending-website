@@ -14,7 +14,7 @@ const propTypes = {
     availableProgramActivities: React.PropTypes.array,
     updateFilter: React.PropTypes.func,
     noResults: React.PropTypes.bool,
-    inFlight: React.PropTypes.bool,
+    inFlight: React.PropTypes.bool
 };
 
 const defaultShown = 10;
