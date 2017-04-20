@@ -26,6 +26,13 @@ const subawardFields = {
             'amount',
             'description'
         ],
+        _sortFields: {
+            id: 'subaward_number',
+            recipient: 'recipient__recipient_name',
+            action_date: 'action_date',
+            amount: 'amount',
+            description: 'description'
+        },
         _mapping: {
             id: 'subaward_number',
             recipient: 'recipient',

@@ -27,7 +27,7 @@ export default class SubawardsHeaderCell extends React.Component {
 
     clickedHeader() {
         // check if this is the field that is currently being used to sort
-        const apiFieldName = tableMapping.table._mapping[this.props.column];
+        const apiFieldName = tableMapping.table._sortFields[this.props.column];
         if (apiFieldName === this.props.order.field) {
             // it's the same field, just toggle the direction
             let direction = 'asc';
@@ -54,7 +54,7 @@ export default class SubawardsHeaderCell extends React.Component {
         e.stopPropagation();
 
         const direction = e.currentTarget.value;
-        const apiFieldName = tableMapping.table._mapping[this.props.column];
+        const apiFieldName = tableMapping.table._sortFields[this.props.column];
         this.props.setSubawardSort({
             direction,
             field: apiFieldName
@@ -63,7 +63,7 @@ export default class SubawardsHeaderCell extends React.Component {
 
     render() {
         // highlight the active arrows
-        const apiFieldName = tableMapping.table._mapping[this.props.column];
+        const apiFieldName = tableMapping.table._sortFields[this.props.column];
         let activeAsc = '';
         let activeDesc = '';
         if (apiFieldName === this.props.order.field) {

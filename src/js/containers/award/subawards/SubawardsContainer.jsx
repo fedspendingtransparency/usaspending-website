@@ -65,6 +65,11 @@ export class SubawardsContainer extends React.Component {
             this.subawardRequest.cancel();
         }
 
+        let order = this.props.sort.field;
+        if (this.props.sort.direction === 'desc') {
+            order = `-${this.props.sort.field}`;
+        }
+
         const params = {
             page,
             limit: pageLimit,
@@ -74,7 +79,8 @@ export class SubawardsContainer extends React.Component {
                     operation: 'equals',
                     value: this.props.award.id
                 }
-            ]
+            ],
+            order: [order]
         };
 
         this.setState({
