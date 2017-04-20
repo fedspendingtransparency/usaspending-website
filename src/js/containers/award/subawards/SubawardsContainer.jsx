@@ -27,148 +27,6 @@ const propTypes = {
 
 const pageLimit = 13;
 
-const mockSubawards = [
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    },
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    },
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    },
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    },
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    },
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    },
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    },
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    },
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    },
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    },
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    },
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    },
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    },
-    {
-        award: 8914,
-        recipient: {
-            recipient_name: "NAME OF COMPANY"
-        },
-        action_date: "2016-11-30",
-        description: "test 123",
-        amount: 1234.50,
-        subaward_number: 2
-    }];
-
 export class SubawardsContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -177,11 +35,14 @@ export class SubawardsContainer extends React.Component {
             inFlight: false
         };
 
+        this.unmounted = false;
+
         this.subawardRequest = null;
         this.loadNextPage = this.loadNextPage.bind(this);
     }
 
     componentDidMount() {
+        this.unmounted = false;
         this.fetchSubawards(1, true);
     }
 
@@ -192,6 +53,10 @@ export class SubawardsContainer extends React.Component {
         else if (prevProps.sort !== this.props.sort) {
             this.fetchSubawards(1, true);
         }
+    }
+
+    componentWillUnmount() {
+        this.unmounted = true;
     }
 
     fetchSubawards(page = 1, reset = false) {
@@ -220,22 +85,21 @@ export class SubawardsContainer extends React.Component {
 
         this.subawardRequest.promise
             .then((res) => {
+                if (this.unmounted) {
+                    return;
+                }
+
                 this.setState({
                     inFlight: false
                 });
 
-                // const mockData = {
-                //     page_metadata: {
-                //         page: 1,
-                //         has_next_page: false
-                //     },
-                //     results: mockSubawards
-                // };
-                // this.parseSubawards(mockData, reset);
-                
                 this.parseSubawards(res.data, reset);
             })
             .catch((err) => {
+                if (this.unmounted) {
+                    return;
+                }
+
                 if (!isCancel(err)) {
                     this.subawardRequest = null;
                     this.setState({
