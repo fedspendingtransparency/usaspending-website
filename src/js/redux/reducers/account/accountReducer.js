@@ -37,7 +37,20 @@ const initialState = {
             outlay: {}
         }
     },
-    tas: [],
+    awards: new OrderedSet(),
+    awardsMeta: {
+        batch: {
+            queryId: _.uniqueId(),
+            searchId: _.uniqueId()
+        },
+        page: 1,
+        hasNext: false,
+        type: 'contracts'
+    },
+    awardsOrder: {
+        field: 'total_obligation',
+        direction: 'desc'
+    },
     totalSpending: 0
 };
 
@@ -48,14 +61,54 @@ const accountReducer = (state = initialState, action) => {
                 account: action.account
             });
         }
-        case 'SET_ACCOUNT_TAS_ITEMS': {
+        case 'SET_ACCOUNT_AWARD_ITEMS': {
+            const meta = Object.assign({}, state.awardsMeta, {
+                batch: {
+                    queryId: _.uniqueId(),
+                    searchId: _.uniqueId()
+                },
+                page: 1,
+                hasNext: action.hasNext
+            });
+
             return Object.assign({}, state, {
-                tas: action.tas
+                awards: new OrderedSet(action.awards),
+                awardsMeta: meta
             });
         }
-        case 'APPEND_ACCOUNT_TAS_ITEMS': {
+        case 'APPEND_ACCOUNT_AWARD_ITEMS': {
+            const meta = Object.assign({}, state.awardsMeta, {
+                batch: {
+                    queryId: _.uniqueId(),
+                    searchId: state.awardsMeta.batch.searchId
+                },
+                page: action.page,
+                hasNext: action.hasNext
+            });
+
             return Object.assign({}, state, {
-                tas: _.concat(state.tas, action.as)
+                awards: new OrderedSet(_.concat(state.awards.toArray(), action.awards)),
+                awardsMeta: meta
+            });
+        }
+        case 'SET_ACCOUNT_AWARD_TYPE': {
+            const meta = Object.assign({}, state.awardsMeta, {
+                batch: {
+                    queryId: _.uniqueId(),
+                    searchId: _.uniqueId()
+                },
+                type: action.awardType
+            });
+
+            return Object.assign({}, state, {
+                awardsMeta: meta
+            });
+        }
+        case 'SET_ACCOUNT_AWARD_ORDER': {
+            const order = Object.assign({}, state.awardsOrder, action.order);
+
+            return Object.assign({}, state, {
+                awardsOrder: order
             });
         }
         case 'UPDATE_ACCOUNT_FILTER_TIME': {
