@@ -25,7 +25,8 @@ export class AccountProgramActivityContainer extends React.Component {
         super(props);
 
         this.state = {
-            noResults: false
+            noResults: false,
+            inFlight: false
         };
 
         // bind functions
@@ -70,13 +71,29 @@ export class AccountProgramActivityContainer extends React.Component {
 
         this.searchRequest = AccountHelper.fetchProgramActivities(apiSearchParams);
 
+        this.setState({
+            inFlight: true
+        });
+
         this.searchRequest.promise
             .then((res) => {
+                this.searchRequest = null;
+
+                this.setState({
+                    inFlight: false
+                });
+
                 this.parseResultData(res.data.results);
             })
             .catch((err) => {
-                console.log(err);
+                this.searchRequest = null;
+
+                this.setState({
+                    inFlight: false
+                });
+
                 if (!isCancel(err)) {
+                    console.log(err);
                     this.setState({
                         noResults: true
                     });

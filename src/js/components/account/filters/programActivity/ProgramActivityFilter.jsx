@@ -13,7 +13,8 @@ const propTypes = {
     selectedProgramActivities: React.PropTypes.instanceOf(OrderedSet),
     availableProgramActivities: React.PropTypes.array,
     updateFilter: React.PropTypes.func,
-    noResults: React.PropTypes.bool
+    noResults: React.PropTypes.bool,
+    inFlight: React.PropTypes.bool,
 };
 
 const defaultShown = 10;
@@ -107,8 +108,12 @@ export default class ProgramActivityFilter extends React.Component {
     }
 
     render() {
-        const items = this.generateProgramActivityItems(this.props.availableProgramActivities);
+        let items = this.generateProgramActivityItems(this.props.availableProgramActivities);
         const toggleButton = this.generateToggleButton();
+
+        if (this.props.inFlight) {
+            items = (<div>Loading data...</div>);
+        }
 
         return (
             <div className="account-program-activity-filter search-filter">

@@ -17,6 +17,12 @@
             @import "../../../search/filters/awardType/_sharedAwardStyle";
             @include sharedAwardStyle;
         }
+
+        div {
+            font-size: $small-font-size;
+            line-height: $small-font-size;
+            margin: 2rem 0 0.7rem;
+        }
     }
 
     @import './pages/award/_moreButton';
