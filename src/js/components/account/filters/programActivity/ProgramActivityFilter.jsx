@@ -112,7 +112,9 @@ export default class ProgramActivityFilter extends React.Component {
         const toggleButton = this.generateToggleButton();
 
         if (this.props.inFlight) {
-            items = (<div>Loading data...</div>);
+            items = (<div className="account-program-activity-loading">
+                Loading data...
+            </div>);
         }
 
         return (
