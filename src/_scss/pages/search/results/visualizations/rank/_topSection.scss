@@ -21,7 +21,7 @@
     .content {
         @include media($tablet-screen) {
             width: 300px;
-            height: 60px;
+            min-height: 60px;
         }
         @include media($large-screen) {
             width: 390px;
@@ -37,6 +37,27 @@
 
                 &:first-child {
                     margin-left: 0px;
+                }
+            }
+        }
+
+        &.large {
+            width: 400px;
+            padding: 15px 30px;
+
+            @include media(1440px) {
+                width: 550px;
+            }
+
+            li {
+                @include media(1440px) {
+                    display: inline-block;
+                    margin-left: 30px;
+                    margin-bottom: 0;
+
+                    &:first-child {
+                        margin-left: 0px;
+                    }
                 }
             }
         }

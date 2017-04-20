@@ -34,6 +34,10 @@ ul.toggle-buttons {
                 background-color: darken($color-tab-inactive, 10%);
             }
         }
+
+        button.hidden {
+            display: none;
+        }
  
         @include media($large-screen){
             button.date-toggle {
