@@ -71,11 +71,11 @@
     ]
 },
 "budgetDescriptions": [
-    {"id": 0, "name": "Direct payments to individuals", "value": "Lorem Ipsum stuff and things" },
-    {"id": 1, "name": "For Profit", "value": "Lorem Ipsum stuff and things" },
-    {"id": 2, "name": "Grants to state and local government", "value": "Lorem Ipsum stuff and things" },
-    {"id": 3, "name": "Non-profits; higher education", "value": "Lorem Ipsum stuff and things" },
-    {"id": 4, "name": "Running the government & direct services", "value": "Lorem Ipsum stuff and things" }
+    {"id": 0, "name": "Direct payments to individuals", "value": "" },
+    {"id": 1, "name": "For Profit", "value": "" },
+    {"id": 2, "name": "Grants to state and local government", "value": "" },
+    {"id": 3, "name": "Non-profits; higher education", "value": "" },
+    {"id": 4, "name": "Running the government & direct services", "value": "" }
 ],
 "budgetTotal": 3854100000000,
 "breakdownColors": [

@@ -40,6 +40,7 @@ export default class CategoryMap extends React.Component {
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
         this.toggleTooltip = this.toggleTooltip.bind(this);
+        this.createTooltip = this.createTooltip.bind(this);
     }
 
     componentDidMount() {
@@ -144,12 +145,8 @@ export default class CategoryMap extends React.Component {
         this.buildTree(this.props.breakdown, this.props.colors, this.state.category);
     }
 
-    render() {
-        let tooltip = '';
-        let line = null;
-        if (this.state.windowWidth < 768) {
-            line = <BudgetLine />;
-        }
+    createTooltip() {
+        let tooltip = null;
         if (this.state.category !== 'none') {
             tooltip = (<CategoryMapTooltip
                 name={this.state.category}
@@ -161,13 +158,21 @@ export default class CategoryMap extends React.Component {
                 height={(this.state.height / 2) + 50}
                 total={this.props.breakdownTotal} />);
         }
+        return tooltip;
+    }
+
+    render() {
+        let line = null;
+        if (this.state.windowWidth < 768) {
+            line = <BudgetLine />;
+        }
         return (<div className="by-category-section-wrap">
             <div className="inner-wrap">
                 <h3>About <strong>3/4</strong> of the total spending was awarded to state and
                     local governments, private contractors, individuals, and others.</h3>
                 { line }
                 <div className="by-category-vis">
-                    { tooltip }
+                    { this.createTooltip() }
                     <div
                         className="tree-wrapper"
                         ref={(sr) => {

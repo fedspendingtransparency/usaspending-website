@@ -156,7 +156,7 @@ export default class CategoryMapCell extends React.Component {
                 </text>
                 <text
                     className="value"
-                    x={(width / 2) - 2}
+                    x={(width / 2)}
                     y={(height / 2) + 20}
                     width={width}
                     textAnchor="middle"
