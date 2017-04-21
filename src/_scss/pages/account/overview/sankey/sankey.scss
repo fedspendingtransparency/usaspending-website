@@ -1,0 +1,22 @@
+.item-label {
+    .title {
+        fill: $color-base;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .value {
+        fill: $color-base;
+        font-size: 12px;
+    }
+}
+
+.direction-label {
+    .title {
+        fill: $color-base;
+        font-size: 18px;
+        font-weight: 300;
+    }
+    .direction-icon {
+        fill: $color-base;
+    }
+}
