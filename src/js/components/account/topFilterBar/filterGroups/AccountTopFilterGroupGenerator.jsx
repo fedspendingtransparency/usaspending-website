@@ -8,6 +8,7 @@ import React from 'react';
 import TimePeriodFYFilterGroup from './TimePeriodFYFilterGroup';
 import TimePeriodDRFilterGroup from './TimePeriodDRFilterGroup';
 import ObjectClassFilterGroup from './ObjectClassFilterGroup';
+import ProgramActivityFilterGroup from './ProgramActivityFilterGroup';
 
 export const topFilterGroupGenerator = (config = {
     filter: {
@@ -24,6 +25,8 @@ export const topFilterGroupGenerator = (config = {
             return <TimePeriodDRFilterGroup key={groupKey} {...config} />;
         case 'objectClass':
             return <ObjectClassFilterGroup key={groupKey} {...config} />;
+        case 'programActivity':
+            return <ProgramActivityFilterGroup key={groupKey} {...config} />;
         default:
             return null;
     }

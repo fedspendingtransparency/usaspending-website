@@ -111,7 +111,7 @@ describe('AccountTopFilterBarContainer', () => {
         });
     });
 
-    describe('parseObjectClass', () => {
+    describe('prepareObjectClass', () => {
         it('should update the container state with the selected object classes', () => {
             const filters = Object.assign({}, defaultFilters, {
                 objectClass: new OrderedSet(['10', '20'])
@@ -127,9 +127,33 @@ describe('AccountTopFilterBarContainer', () => {
             });
         });
 
-        it('should not return anything when no date filters are supplied', () => {
+        it('should not return anything when no object classes are supplied', () => {
             const container = shallow(<AccountTopFilterBarContainer />);
             const parsed = container.instance().prepareObjectClass(defaultFilters);
+
+            expect(parsed).toBeNull();
+        });
+    });
+
+    describe('prepareProgramActivity', () => {
+        it('should update the container state with the selected program activities', () => {
+            const filters = Object.assign({}, defaultFilters, {
+                programActivity: new OrderedSet(['810', '161'])
+            });
+
+            const container = shallow(<AccountTopFilterBarContainer />);
+            const parsed = container.instance().prepareProgramActivity(filters);
+
+            expect(parsed).toEqual({
+                code: 'programActivity',
+                name: 'Program Activity',
+                values: ['810', '161']
+            });
+        });
+
+        it('should not return anything when no program activities are supplied', () => {
+            const container = shallow(<AccountTopFilterBarContainer />);
+            const parsed = container.instance().prepareProgramActivity(defaultFilters);
 
             expect(parsed).toBeNull();
         });

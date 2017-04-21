@@ -4,7 +4,10 @@
   **/
 
 const objectClassField = 'object_class__major_object_class';
-const awardObjectClassField = 'financial_set__object_class__major_object_class';
+
+const spendingOverTimeField = `treasury_account_identifier__program_balances__${objectClassField}`;
+const spendingByCategoryField = objectClassField;
+const awardField = `financial_set__${objectClassField}`;
 
 const commonQuery = (field, values) => ({
     field,
@@ -12,6 +15,11 @@ const commonQuery = (field, values) => ({
     value: values
 });
 
-export const buildObjectClassQuery = (values) => commonQuery(objectClassField, values);
+export const buildBalancesObjectClassQuery = (values) =>
+    commonQuery(spendingOverTimeField, values);
 
-export const buildAwardObjectClassQuery = (values) => commonQuery(awardObjectClassField, values);
+export const buildCategoriesObjectClassQuery = (values) =>
+    commonQuery(spendingByCategoryField, values);
+
+export const buildAwardsObjectClassQuery = (values) =>
+    commonQuery(awardField, values);
