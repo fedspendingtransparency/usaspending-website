@@ -9,7 +9,7 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import SankeyBar from './components/SankeyBar';
 import SankeyFlowVertical from './components/SankeyFlowVertical';
-import ItemLabel from './components/ItemLabel';
+import ItemWrappableLabel from './components/ItemWrappableLabel';
 import DirectionLabel from './components/DirectionLabel';
 import SankeyDisclosures from './components/SankeyDisclosures';
 
@@ -24,6 +24,8 @@ export default class SankeyVisualizationVertical extends React.Component {
         super(props);
 
         this.state = {
+            graphHeight: 0,
+            graphWidth: 0,
             center: {
                 width: 0,
                 height: 0,
@@ -180,6 +182,8 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
             });
         }
 
+        // finally determine the max widths for each of the labels
+
         const top = {
             height: barHeight,
             x: sideMargin,
@@ -265,6 +269,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
             bottom,
             hidden,
             graphHeight,
+            graphWidth,
             labelHeight: (labelHeight / 2)
         });
     }
@@ -350,26 +355,29 @@ unobligated balance`}
                     <g
                         className="top-labels"
                         transform={`translate(${this.state.top.x},0)`}>
-                        <g transform={`translate(${this.state.top.appropriations.x},0) scale(0.7, 0.7)`}>
-                            <ItemLabel
+                        <g transform={`translate(${this.state.top.appropriations.x},0)`}>
+                            <ItemWrappableLabel
                                 y={this.state.labelHeight}
                                 title="New Appropriations"
                                 value={this.state.top.appropriations.label}
-                                hide={this.state.top.appropriations.width <= 0} />
+                                hide={this.state.top.appropriations.width <= 0}
+                                maxWidth={this.state.top.other.x} />
                         </g>
-                        <g transform={`translate(${this.state.top.other.x},0) scale(0.7, 0.7)`}>
-                            <ItemLabel
+                        <g transform={`translate(${this.state.top.other.x},0)`}>
+                            <ItemWrappableLabel
                                 y={this.state.labelHeight}
                                 title="Other Budgetary Resources"
                                 value={this.state.top.other.label}
-                                hide={this.state.top.other.width <= 0} />
+                                hide={this.state.top.other.width <= 0}
+                                maxWidth={this.state.top.bbf.x - this.state.top.other.x} />
                         </g>
-                        <g transform={`translate(${this.state.top.bbf.x},0) scale(0.7, 0.7)`}>
-                            <ItemLabel
+                        <g transform={`translate(${this.state.top.bbf.x},0)`}>
+                            <ItemWrappableLabel
                                 y={this.state.labelHeight}
                                 title="Balance Brought Forward"
                                 value={this.state.top.bbf.label}
-                                hide={this.state.top.bbf.width <= 0} />
+                                hide={this.state.top.bbf.width <= 0}
+                                maxWidth={this.state.graphWidth - this.state.top.bbf.x} />
                         </g>
                     </g>
 
