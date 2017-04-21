@@ -1,13 +1,11 @@
 const tableSearchFields = {
     columnWidths: {
-        award_id: 160,
-        recipient_name: 310,
-        period_of_performance_start_date: 150,
-        period_of_performance_current_end_date: 150,
-        total_obligation: 220,
-        type: 230,
-        awarding_agency_name: 280,
-        awarding_subtier_name: 280,
+        award_id: 120,
+        recipient_name: 270,
+        period_of_performance_start_date: 130,
+        period_of_performance_current_end_date: 130,
+        total_obligation: 160,
+        type: 160,
         funding_agency_name: 280,
         funding_subtier_name: 280
     },
@@ -18,8 +16,6 @@ const tableSearchFields = {
         period_of_performance_current_end_date: 'desc',
         total_obligation: 'desc',
         type: 'asc',
-        awarding_agency_name: 'asc',
-        awarding_subtier_name: 'asc',
         funding_agency_name: 'asc',
         funding_subtier_name: 'asc'
     },
@@ -30,11 +26,9 @@ const tableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'total_obligation',
-            'type',
-            'awarding_agency_name',
-            'awarding_subtier_name',
             'funding_agency_name',
-            'funding_subtier_name'
+            'funding_subtier_name',
+            'type'
         ],
         _requestFields: [
             'id',
@@ -46,7 +40,6 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type_description',
-            'awarding_agency',
             'funding_agency'
         ],
         _mapping: {
@@ -56,8 +49,6 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency__toptier_agency__name',
-            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
             funding_agency_name: 'funding_agency__toptier_agency__name',
             funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
@@ -65,10 +56,8 @@ const tableSearchFields = {
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
         period_of_performance_current_end_date: 'End Date',
-        total_obligation: 'Total Funded To-Date',
+        total_obligation: 'Award Amount',
         type: 'Award Type',
-        awarding_agency_name: 'Awarding Agency',
-        awarding_subtier_name: 'Awarding Sub-Agency',
         funding_agency_name: 'Funding Agency',
         funding_subtier_name: 'Funding Sub-Agency'
     },
@@ -79,11 +68,9 @@ const tableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'total_obligation',
-            'type',
-            'awarding_agency_name',
-            'awarding_subtier_name',
             'funding_agency_name',
-            'funding_subtier_name'
+            'funding_subtier_name',
+            'type'
         ],
         _requestFields: [
             'id',
@@ -95,7 +82,6 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type_description',
-            'awarding_agency',
             'funding_agency'
         ],
         _mapping: {
@@ -105,8 +91,6 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency__toptier_agency__name',
-            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
             funding_agency_name: 'funding_agency__toptier_agency__name',
             funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
@@ -114,10 +98,8 @@ const tableSearchFields = {
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
         period_of_performance_current_end_date: 'End Date',
-        total_obligation: 'Total Funded To-Date',
+        total_obligation: 'Award Amount',
         type: 'Award Type',
-        awarding_agency_name: 'Awarding Agency',
-        awarding_subtier_name: 'Awarding Sub-Agency',
         funding_agency_name: 'Funding Agency',
         funding_subtier_name: 'Funding Sub-Agency'
     },
@@ -128,11 +110,9 @@ const tableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'total_obligation',
-            'type',
-            'awarding_agency_name',
-            'awarding_subtier_name',
             'funding_agency_name',
-            'funding_subtier_name'
+            'funding_subtier_name',
+            'type'
         ],
         _requestFields: [
             'id',
@@ -144,7 +124,6 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type_description',
-            'awarding_agency',
             'funding_agency'
         ],
         _mapping: {
@@ -154,8 +133,6 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency__toptier_agency__name',
-            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
             funding_agency_name: 'funding_agency__toptier_agency__name',
             funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
@@ -163,10 +140,8 @@ const tableSearchFields = {
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
         period_of_performance_current_end_date: 'End Date',
-        total_obligation: 'Total Funded To-Date',
+        total_obligation: 'Award Amount',
         type: 'Award Type',
-        awarding_agency_name: 'Awarding Agency',
-        awarding_subtier_name: 'Awarding Sub-Agency',
         funding_agency_name: 'Funding Agency',
         funding_subtier_name: 'Funding Sub-Agency'
     },
@@ -176,11 +151,9 @@ const tableSearchFields = {
             'recipient_name',
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
-            'type',
-            'awarding_agency_name',
-            'awarding_subtier_name',
             'funding_agency_name',
-            'funding_subtier_name'
+            'funding_subtier_name',
+            'type'
         ],
         _requestFields: [
             'id',
@@ -192,7 +165,6 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type_description',
-            'awarding_agency',
             'funding_agency'
         ],
         _mapping: {
@@ -202,8 +174,6 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency__toptier_agency__name',
-            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
             funding_agency_name: 'funding_agency__toptier_agency__name',
             funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
@@ -212,8 +182,6 @@ const tableSearchFields = {
         period_of_performance_start_date: 'Start Date',
         period_of_performance_current_end_date: 'End Date',
         type: 'Award Type',
-        awarding_agency_name: 'Awarding Agency',
-        awarding_subtier_name: 'Awarding Sub-Agency',
         funding_agency_name: 'Funding Agency',
         funding_subtier_name: 'Funding Sub-Agency'
     },
@@ -224,11 +192,9 @@ const tableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'total_obligation',
-            'type',
-            'awarding_agency_name',
-            'awarding_subtier_name',
             'funding_agency_name',
-            'funding_subtier_name'
+            'funding_subtier_name',
+            'type'
         ],
         _requestFields: [
             'id',
@@ -240,7 +206,6 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type_description',
-            'awarding_agency',
             'funding_agency'
         ],
         _mapping: {
@@ -250,8 +215,6 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
-            awarding_agency_name: 'awarding_agency__toptier_agency__name',
-            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
             funding_agency_name: 'funding_agency__toptier_agency__name',
             funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
@@ -259,10 +222,8 @@ const tableSearchFields = {
         recipient_name: 'Recipient Name',
         period_of_performance_start_date: 'Start Date',
         period_of_performance_current_end_date: 'End Date',
-        total_obligation: 'Total Funded To-Date',
+        total_obligation: 'Award Amount',
         type: 'Award Type',
-        awarding_agency_name: 'Awarding Agency',
-        awarding_subtier_name: 'Awarding Sub-Agency',
         funding_agency_name: 'Funding Agency',
         funding_subtier_name: 'Funding Sub-Agency'
     }

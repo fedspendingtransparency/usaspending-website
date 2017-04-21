@@ -5,10 +5,10 @@
 
 const tableFields = {
     columnWidths: {
-        submissionDate: 250,
-        tas: 250,
-        programActivity: 300,
-        objectClass: 300,
+        submissionDate: 160,
+        tas: 160,
+        programActivity: 250,
+        objectClass: 250,
         fundingObligated: 280
     },
     defaultSortDirection: {

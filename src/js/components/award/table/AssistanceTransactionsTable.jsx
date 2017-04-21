@@ -1,12 +1,12 @@
 /**
- * GrantTransactionsTable.jsx
+ * AssistanceTransactionsTable.jsx
  * Created by Lizzie Dabbs 03/07/17
  */
 
 import React from 'react';
 import _ from 'lodash';
 
-import tableMapping from 'dataMapping/grants/grantTransactionTable';
+import tableMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import AssistanceTransactionHeaderCellContainer from

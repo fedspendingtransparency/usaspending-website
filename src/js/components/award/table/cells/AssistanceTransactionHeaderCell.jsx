@@ -6,7 +6,7 @@
 import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
-import tableMapping from 'dataMapping/grants/grantTransactionTable';
+import tableMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable';
 
 const propTypes = {
     label: React.PropTypes.string,
