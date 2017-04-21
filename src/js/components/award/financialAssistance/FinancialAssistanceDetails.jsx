@@ -1,10 +1,12 @@
 /**
- * GrantDetails.jsx
+ * FinancialAssistanceDetails.jsx
  * Created by Lizzie Dabbs 03/06/2017
  **/
 
 import React from 'react';
 import moment from 'moment';
+import _ from 'lodash';
+import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 import DetailRow from '../DetailRow';
 
 const propTypes = {
@@ -12,7 +14,7 @@ const propTypes = {
     seeAdditional: React.PropTypes.func
 };
 
-export default class GrantDetails extends React.Component {
+export default class FinancialAssistanceDetails extends React.Component {
     constructor(props) {
         super(props);
 
@@ -83,6 +85,10 @@ export default class GrantDetails extends React.Component {
         else {
             description = "Not Available";
         }
+        let awardType = '';
+        if (award.award_type) {
+            awardType = _.capitalize(SummaryPageHelper.awardType(award.award_type));
+        }
 
         // CFDA Data
         // TODO: get program description (objectives) for latest transaction
@@ -96,6 +102,7 @@ export default class GrantDetails extends React.Component {
             date: popDate,
             place: popPlace,
             typeDesc: award.type_description,
+            awardType,
             programDesc: programDescription
         });
     }
@@ -104,7 +111,7 @@ export default class GrantDetails extends React.Component {
         return (
             <div className="contract-wrapper">
                 <div className="contract-details">
-                    <h3>Grant Details</h3>
+                    <h3>Award Details</h3>
                     <hr
                         className="results-divider"
                         ref={(hr) => {
@@ -122,7 +129,7 @@ export default class GrantDetails extends React.Component {
                                 title="Primary Place of Performance"
                                 value={this.state.place} />
                             <DetailRow
-                                title="Grant Type"
+                                title={`${this.state.awardType} Type`}
                                 value={this.state.typeDesc} />
                             <DetailRow
                                 title="CFDA Program"
@@ -133,11 +140,8 @@ export default class GrantDetails extends React.Component {
                         </tbody>
                     </table>
                 </div>
-                <button
-                    className="see-more"
-                    onClick={this.props.seeAdditional}>See Additional Details</button>
             </div>
         );
     }
 }
-GrantDetails.propTypes = propTypes;
+FinancialAssistanceDetails.propTypes = propTypes;

@@ -14,7 +14,7 @@ import { awardTypeGroups } from 'dataMapping/search/awardType';
 import SummaryBar from './SummaryBar';
 import AwardInfoBar from './AwardInfoBar';
 import AwardContract from './contract/AwardContract';
-import AwardGrant from './financialAssistance/AwardGrant';
+import AwardFinancialAssistance from './financialAssistance/AwardFinancialAssistance';
 import DetailsSection from './details/DetailsSection';
 
 const propTypes = {
@@ -63,9 +63,9 @@ export default class AwardInfo extends React.Component {
                     seeAdditional={this.seeAdditional} />
             );
         }
-        else if (type === 'grant') {
+        else {
             amountsDetailsSection = (
-                <AwardGrant
+                <AwardFinancialAssistance
                     {...this.props}
                     selectedAward={this.props.selectedAward}
                     seeAdditional={this.seeAdditional} />

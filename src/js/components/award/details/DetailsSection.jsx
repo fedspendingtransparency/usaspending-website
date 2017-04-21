@@ -90,7 +90,8 @@ export default class DetailsSection extends React.Component {
             <div className="contract-details-table-section" id="details-table-section">
                 <DetailsTabBar
                     activeTab={this.props.activeTab}
-                    clickTab={this.props.clickTab} />
+                    clickTab={this.props.clickTab}
+                    type={this.props.award.selectedAward.internal_general_type} />
                 <div
                     className="details-table-width-master"
                     ref={(div) => {
