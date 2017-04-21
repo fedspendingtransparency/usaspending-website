@@ -63,7 +63,8 @@ export default class TimeVisualization extends React.Component {
         let chart = (<ChartMessage message="No data to display" />);
         let legend = [];
 
-        if (this.props.reduxFilters.objectClass.count() > 0) {
+        if (this.props.reduxFilters.objectClass.count() > 0
+            || (this.props.reduxFilters.programActivity.count() > 0)) {
             legend = [
                 {
                     color: '#fba302',

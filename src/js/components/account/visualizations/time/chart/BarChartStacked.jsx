@@ -185,7 +185,8 @@ export default class BarChart extends React.Component {
             }
 
             // iterate through the group data points and insert them into the chart
-            const hasFilteredObligated = (this.props.reduxFilters.objectClass.count() > 0);
+            const hasFilteredObligated = (this.props.reduxFilters.objectClass.count() > 0)
+                || (this.props.reduxFilters.programActivity.count() > 0);
             if (hasFilteredObligated) {
                 yData.forEach((stack, stackIndex) => {
                     // within each X axis grouping of Y data elements is yet another group of Y data values

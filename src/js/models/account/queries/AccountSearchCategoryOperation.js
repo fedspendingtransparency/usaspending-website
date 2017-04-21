@@ -5,6 +5,7 @@
 
 import AccountSearchOperation from './AccountSearchOperation';
 import * as ObjectClassQuery from './queryBuilders/ObjectClassQuery';
+import * as ProgramActivityQuery from './queryBuilders/ProgramActivityQuery';
 
 class AccountSearchCategoryOperation extends AccountSearchOperation {
     uniqueParams() {
@@ -19,8 +20,13 @@ class AccountSearchCategoryOperation extends AccountSearchOperation {
         }
 
         if (this.objectClass.length > 0) {
-            const ocFilter = ObjectClassQuery.buildObjectClassQuery(this.objectClass);
+            const ocFilter = ObjectClassQuery.buildCategoriesObjectClassQuery(this.objectClass);
             filters.push(ocFilter);
+        }
+
+        if (this.programActivity.length > 0) {
+            const paFilter = ProgramActivityQuery.buildCategoriesProgramActivityQuery(this.programActivity);
+            filters.push(paFilter);
         }
 
         return filters;
