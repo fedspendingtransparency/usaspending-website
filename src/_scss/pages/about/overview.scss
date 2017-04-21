@@ -2,9 +2,8 @@
     @import "../../mixins/fullSectionWrap";
     @import "../../elements/_divider";
     @import "../../elements/_buttons";
-    
     @include clearfix;
-    @include fullSectionWrap();
+    @include fullSectionWrap(0, 0);
     padding: ($global-pad) 0;
     .overview-header {
         @include span-columns(14);
@@ -36,7 +35,7 @@
         @include media($small-screen) {
             @include span-columns(14);
             @include shift(1);
-            padding-top: 2rem;
+            padding-top: rem(20);
         }
         @include media($medium-screen) {
             @include span-columns(6);

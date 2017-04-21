@@ -20,10 +20,14 @@ export default class Footer extends React.Component {
                     <div className="internal-links">
                         <h6>This site is an alpha release. All data is test data.</h6>
                         <ul className="inline">
-                            <li><a href="/" title="Feedback" aria-label="Feedback">Feedback</a></li>
-                            <li><a href="/" title="About Us" aria-label="About Us">About Us</a></li>
+                            <li><a href="mailto:usaspending.help-submitonly@fiscal.treasury.gov" title="Feedback" aria-label="Feedback">Feedback</a></li>
+                            <li><a href="#/about" title="About Us" aria-label="About Us">About Us</a></li>
                             <li><a href="http://fedspendingtransparency.github.io" target="_blank" rel="noopener noreferrer" title="About the DATA Act" aria-label="About the DATA Act">About the DATA Act</a></li>
                         </ul>
+                        <div className="db-link">
+                            <p><strong>NOTE:</strong> You must <a href="#/d&binfo" target="_blank" rel="noopener noreferrer" title="Dun & Bradstreet Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data">click here </a>
+                            for very important D&B information.</p>
+                        </div>
                     </div>
                     <div className="external-links">
                         <h6>Other Resources on Federal Spending</h6>

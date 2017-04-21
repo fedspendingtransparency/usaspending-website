@@ -59,6 +59,14 @@ const routeDefinitions = {
             }
         },
         {
+            path: 'd&binfo',
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/article/DBInfo').default);
+                });
+            }
+        },
+        {
             path: 'award/:awardId',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
