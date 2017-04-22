@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/7/16
   **/
 
-const fieldName = 'type';
+import * as FilterFields from 'dataMapping/search/filterFields';
 
 const buildFieldQuery = (field, values) => ({
     field,
@@ -12,8 +12,10 @@ const buildFieldQuery = (field, values) => ({
 });
 
 
-export const buildQuery = (awardType) => {
+export const buildQuery = (awardType, searchContext = 'award') => {
     let awardQuery = {};
+
+    const fieldName = FilterFields[`${searchContext}Fields`].awardType;
 
     awardQuery = buildFieldQuery(fieldName, awardType);
 

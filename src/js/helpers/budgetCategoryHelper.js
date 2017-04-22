@@ -12,7 +12,8 @@ export const formatFederalAccount = (fed) =>
 // Budget Filters consist of the three elements of Budget Categories filter
 // (Budget Functions, Federal Account, and Object Class),
 // as well as Fiscal Year filters and Funding Agency
-export const budgetFiltersSelected = (params) => {
+export const budgetFiltersSelected = (rawFilters) => {
+    const params = Object.assign({}, rawFilters);
     let selected = false;
     const budgetFilters = [
         'budgetFunctions',
@@ -21,6 +22,12 @@ export const budgetFiltersSelected = (params) => {
         'selectedFundingAgencies',
         'timePeriodFY'
     ];
+
+    // determine the time period type
+    if (params.timePeriodType !== 'fy') {
+        // fiscal year tab is not active, remove the key
+        delete params.timePeriodFY;
+    }
 
     Object.keys(params).forEach((key) => {
         if (budgetFilters.includes(key) && params[key] && params[key].size > 0) {
@@ -60,7 +67,8 @@ const isValidDomesticForeignToggleParam = (param) => {
 };
 
 // Award Filters consist of all non-Budget Filter filters
-export const awardFiltersSelected = (params) => {
+export const awardFiltersSelected = (rawFilters) => {
+    const params = Object.assign({}, rawFilters);
     let selected = false;
     const awardFilters = [
         'keyword',
@@ -76,6 +84,13 @@ export const awardFiltersSelected = (params) => {
         'selectedAwardIDs',
         'awardAmounts'
     ];
+
+    // determine the time period type
+    if (params.timePeriodType !== 'dr') {
+        // date range tab is not active, remove the keys
+        delete params.timePeriodStart;
+        delete params.timePeriodEnd;
+    }
 
     Object.keys(params).forEach((key) => {
         if (awardFilters.includes(key) && params[key]) {

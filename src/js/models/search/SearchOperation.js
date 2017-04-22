@@ -13,6 +13,7 @@ import * as RecipientQuery from './queryBuilders/RecipientQuery';
 import * as KeywordQuery from './queryBuilders/KeywordQuery';
 import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
 import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
+import * as BudgetCategoryQuery from './queryBuilders/BudgetCategoryQuery';
 
 class SearchOperation {
     constructor() {
@@ -43,6 +44,8 @@ class SearchOperation {
         this.selectedAwardIDs = [];
 
         this.awardAmounts = [];
+
+        this.searchContext = 'award';
     }
 
     fromState(state) {
@@ -82,12 +85,12 @@ class SearchOperation {
 
         // add keyword query
         if (this.keyword !== '') {
-            filters.push(KeywordQuery.buildKeywordQuery(this.keyword));
+            filters.push(KeywordQuery.buildKeywordQuery(this.keyword, this.searchContext));
         }
 
         // Add award types
         if (this.awardType.length > 0) {
-            filters.push(AwardTypeQuery.buildQuery(this.awardType));
+            filters.push(AwardTypeQuery.buildQuery(this.awardType, this.searchContext));
         }
 
         if (this.resultAwardType.length > 0) {
@@ -96,31 +99,67 @@ class SearchOperation {
             // treat this as an AND query for another set of award filters
             // for aggregation queries, we won't apply the prefix to this field because this
             // is specific to the results table
-            filters.push(AwardTypeQuery.buildQuery(this.resultAwardType));
+            filters.push(AwardTypeQuery.buildQuery(
+                this.resultAwardType, this.searchContext));
         }
 
         // Add location queries
         if (this.selectedLocations.length > 0) {
-            filters.push(LocationQuery.buildLocationQuery(this.selectedLocations));
+            filters.push(LocationQuery.buildLocationQuery(
+                this.selectedLocations, this.searchContext));
         }
 
         if (this.locationDomesticForeign !== '' && this.locationDomesticForeign !== 'all') {
-            filters.push(LocationQuery.buildDomesticForeignQuery(this.locationDomesticForeign));
+            filters.push(LocationQuery.buildDomesticForeignQuery(
+                this.locationDomesticForeign, this.searchContext));
         }
 
         // Add recipient queries
         if (this.selectedRecipients.length > 0) {
-            filters.push(RecipientQuery.buildRecipientQuery(this.selectedRecipients));
+            filters.push(RecipientQuery.buildRecipientQuery(
+                this.selectedRecipients, this.searchContext));
         }
 
         if (this.recipientDomesticForeign !== '' && this.recipientDomesticForeign !== 'all') {
-            filters.push(RecipientQuery.buildDomesticForeignQuery(this.recipientDomesticForeign));
+            filters.push(RecipientQuery.buildDomesticForeignQuery(
+                this.recipientDomesticForeign, this.searchContext));
         }
 
         if (this.selectedRecipientLocations.length > 0) {
             filters.push(RecipientQuery.buildRecipientLocationQuery(
-                this.selectedRecipientLocations)
+                this.selectedRecipientLocations, this.searchContext));
+        }
+
+        // Add Award ID Queries
+        if (this.selectedAwardIDs.length > 0) {
+            filters.push(AwardIDQuery.buildAwardIDQuery(
+                this.selectedAwardIDs, this.searchContext)
             );
+        }
+
+        // Add Award Amount queries
+        if (this.awardAmounts.length > 0) {
+            const awardAmountsQuery = AwardAmountQuery.buildAwardAmountQuery(
+                this.awardAmounts, this.searchContext);
+            if (awardAmountsQuery) {
+                filters.push(awardAmountsQuery);
+            }
+        }
+
+        // Add Budget Category queries
+        if (this.budgetFunctions.length > 0) {
+            filters.push(BudgetCategoryQuery.buildBudgetFunctionQuery(
+                this.budgetFunctions, this.searchContext));
+        }
+
+        if (this.federalAccounts.length > 0) {
+            filters.push(BudgetCategoryQuery.buildFederalAccountQuery(
+                this.federalAccounts, this.searchContext));
+        }
+
+        if (Object.keys(this.objectClasses).length > 0) {
+            filters.push(BudgetCategoryQuery.buildObjectClassQuery(
+                this.objectClasses, this.searchContext));
         }
 
         return filters;
@@ -135,32 +174,17 @@ class SearchOperation {
                 type: this.timePeriodType,
                 fyRange: this.timePeriodFY,
                 dateRange: this.timePeriodRange,
-                endpoint: 'awards'
+                endpoint: this.searchContext
             });
             if (timeQuery) {
                 filters.push(timeQuery);
             }
         }
 
-        // Add Award ID Queries
-        if (this.selectedAwardIDs.length > 0) {
-            filters.push(AwardIDQuery.buildAwardIDQuery(
-                this.selectedAwardIDs, 'awards')
-            );
-        }
-
-        // Add Award Amount queries
-        if (this.awardAmounts.length > 0) {
-            const awardAmountsQuery = AwardAmountQuery.buildAwardAmountQuery(
-                this.awardAmounts, 'awards');
-            if (awardAmountsQuery) {
-                filters.push(awardAmountsQuery);
-            }
-        }
-
         // Add agency query
         if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
-            filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies, this.awardingAgencies));
+            filters.push(AgencyQuery.buildAgencyQuery(
+                this.fundingAgencies, this.awardingAgencies, this.searchContext));
         }
 
         return filters;

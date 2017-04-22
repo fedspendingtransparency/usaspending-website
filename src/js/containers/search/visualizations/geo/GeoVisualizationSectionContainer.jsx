@@ -79,7 +79,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
             order: ['item'],
             aggregate: 'sum',
             filters: searchParams,
-            limit: 60
+            limit: 60,
+            auditTrail: 'Geo visualization'
         };
 
         if (this.apiRequest) {

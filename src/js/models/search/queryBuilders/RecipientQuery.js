@@ -4,11 +4,9 @@
 
 import _ from 'lodash';
 
-const recipientIdField = 'recipient__legal_entity_id';
-const countryCodeField = 'recipient__location__location_country_code';
-const locationIdField = 'recipient__location__location_id';
+import * as FilterFields from 'dataMapping/search/filterFields';
 
-export const buildRecipientQuery = (recipients) => {
+export const buildRecipientQuery = (recipients, searchContext = 'award') => {
     const recipientSet = [];
 
     // Push legal_entity_id's of selected recipients
@@ -16,8 +14,10 @@ export const buildRecipientQuery = (recipients) => {
         recipientSet.push(recipient.legal_entity_id);
     });
 
+    const field = FilterFields[`${searchContext}Fields`].recipientId;
+
     const filter = {
-        field: recipientIdField,
+        field,
         operation: "in",
         value: recipientSet
     };
@@ -25,14 +25,16 @@ export const buildRecipientQuery = (recipients) => {
     return filter;
 };
 
-export const buildDomesticForeignQuery = (selection) => {
+export const buildDomesticForeignQuery = (selection, searchContext = 'award') => {
     let op = 'equals';
     if (selection === 'foreign') {
         op = 'not_equals';
     }
 
+    const field = FilterFields[`${searchContext}Fields`].recipientLocationScope;
+
     const filter = {
-        field: countryCodeField,
+        field,
         operation: op,
         value: 'USA'
     };
@@ -40,7 +42,7 @@ export const buildDomesticForeignQuery = (selection) => {
     return filter;
 };
 
-export const buildRecipientLocationQuery = (locations) => {
+export const buildRecipientLocationQuery = (locations, searchContext = 'award') => {
     let locationSet = [];
 
     // Concatenate Matched IDs of selected locations
@@ -49,8 +51,10 @@ export const buildRecipientLocationQuery = (locations) => {
         locationSet = _.concat(locationSet, location.matched_ids);
     });
 
+    const field = FilterFields[`${searchContext}Fields`].recipientLocation;
+
     const filter = {
-        field: locationIdField,
+        field,
         operation: "in",
         value: locationSet
     };
