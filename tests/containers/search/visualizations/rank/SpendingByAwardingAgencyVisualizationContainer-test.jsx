@@ -9,8 +9,8 @@ import sinon from 'sinon';
 
 import { Set } from 'immutable';
 
-import { RankVisualizationSectionContainer } from
-    'containers/search/visualizations/rank/RankVisualizationSectionContainer';
+import { SpendingByAwardingAgencyVisualizationContainer } from
+    'containers/search/visualizations/rank/SpendingByAwardingAgencyVisualizationContainer';
 import RankVisualizationSection from
     'components/search/visualizations/rank/RankVisualizationSection';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -23,7 +23,7 @@ import { mockComponent, unmockComponent } from '../../../../testResources/mockCo
 global.Promise = require.requireActual('promise');
 
 // spy on specific functions inside the component
-const fetchDataSpy = sinon.spy(RankVisualizationSectionContainer.prototype, 'fetchData');
+const fetchDataSpy = sinon.spy(SpendingByAwardingAgencyVisualizationContainer.prototype, 'fetchData');
 
 // we don't want to actually hit the API because tests should be fully controlled, so we will mock
 // the SearchHelper functions
@@ -59,7 +59,7 @@ const unmockSearchHelper = () => {
     jest.unmock('helpers/searchHelper');
 };
 
-describe('RankVisualizationSectionContainer', () => {
+describe('SpendingByAwardingAgencyVisualizationContainer', () => {
     beforeAll(() => {
         // we need to use mount() on the container to get the lifecycle logic, but enzyme doesn't
         // support the child component's SVG manipulation methods. This replaces all the child
@@ -95,7 +95,7 @@ describe('RankVisualizationSectionContainer', () => {
 
         // mount the container
         const container =
-            mount(<RankVisualizationSectionContainer reduxFilters={defaultFilters} />);
+            mount(<SpendingByAwardingAgencyVisualizationContainer reduxFilters={defaultFilters} />);
 
         // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
         jest.runAllTicks();
@@ -144,7 +144,7 @@ describe('RankVisualizationSectionContainer', () => {
 
         // mount the container
         const container =
-            mount(<RankVisualizationSectionContainer reduxFilters={initialFilters} />);
+            mount(<SpendingByAwardingAgencyVisualizationContainer reduxFilters={initialFilters} />);
 
         // wait for the first SearchHelper call to finish
         jest.runAllTicks();
@@ -201,7 +201,7 @@ describe('RankVisualizationSectionContainer', () => {
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<RankVisualizationSectionContainer reduxFilters={defaultFilters} />);
+                mount(<SpendingByAwardingAgencyVisualizationContainer reduxFilters={defaultFilters} />);
 
             // wait for the SearchHelper promises to resolve
             jest.runAllTicks();
@@ -251,7 +251,7 @@ describe('RankVisualizationSectionContainer', () => {
 
             // mount the container
             const container =
-                mount(<RankVisualizationSectionContainer reduxFilters={defaultFilters} />);
+                mount(<SpendingByAwardingAgencyVisualizationContainer reduxFilters={defaultFilters} />);
 
             // initial state should be page 1
             expect(container.state().page).toEqual(1);
@@ -295,7 +295,7 @@ describe('RankVisualizationSectionContainer', () => {
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<RankVisualizationSectionContainer reduxFilters={defaultFilters} />);
+                mount(<SpendingByAwardingAgencyVisualizationContainer reduxFilters={defaultFilters} />);
             container.setState({
                 page: 5,
                 has_previous_page: true,
@@ -340,7 +340,7 @@ describe('RankVisualizationSectionContainer', () => {
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<RankVisualizationSectionContainer reduxFilters={defaultFilters} />);
+                mount(<SpendingByAwardingAgencyVisualizationContainer reduxFilters={defaultFilters} />);
             container.setState({
                 page: 1
             });
@@ -389,7 +389,7 @@ describe('RankVisualizationSectionContainer', () => {
 
             // mount the container
             const container =
-                mount(<RankVisualizationSectionContainer reduxFilters={initialFilters} />);
+                mount(<SpendingByAwardingAgencyVisualizationContainer reduxFilters={initialFilters} />);
             container.setState({
                 page: 5,
                 has_previous_page: true,
@@ -413,7 +413,7 @@ describe('RankVisualizationSectionContainer', () => {
     describe('changeScope', () => {
         it('should change the agency scope to the provided value', () => {
             const container =
-                mount(<RankVisualizationSectionContainer reduxFilters={defaultFilters} />);
+                mount(<SpendingByAwardingAgencyVisualizationContainer reduxFilters={defaultFilters} />);
 
             // the default scope should be toptier
             expect(container.state().agencyScope).toEqual('toptier');
@@ -425,7 +425,7 @@ describe('RankVisualizationSectionContainer', () => {
 
         it('should reset the page number to 1 when the agency scope changes', () => {
             const container =
-                mount(<RankVisualizationSectionContainer reduxFilters={defaultFilters} />);
+                mount(<SpendingByAwardingAgencyVisualizationContainer reduxFilters={defaultFilters} />);
             container.setState({
                 page: 5
             });

@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import { Set } from 'immutable';
@@ -166,12 +166,20 @@ describe('TimeVisualizationSectionContainer', () => {
                 }]
             };
 
+            const mockReduxActions = {
+                setVizTxnSum: jest.fn()
+            };
+
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performBalancesSearch', 'resolve', apiResponse);
             // mount the container
             const timeVisualizationContainer =
-                mount(<TimeVisualizationSectionContainer reduxFilters={defaultFilters} />);
+                shallow(<TimeVisualizationSectionContainer
+                    {...mockReduxActions}
+                    reduxFilters={defaultFilters} />);
 
+            timeVisualizationContainer.instance().parseData(
+                apiResponse, 'submission__reporting_fiscal_year');
             // wait for the SearchHelper promises to resolve
             jest.runAllTicks();
             // validate the state contains the correctly parsed values
