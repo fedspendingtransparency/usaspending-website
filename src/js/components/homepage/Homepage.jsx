@@ -8,10 +8,12 @@ import Q from 'q';
 
 import * as HomepageHelper from 'helpers/homepageHelper';
 
-import MapVisualizationWrapper from './visualizations/MapVisualizationWrapper';
+import MapVisualizationWrapper from './visualizations/geo/MapVisualizationWrapper';
 import Landing from './Landing';
-import TreeMap from './visualizations/TreeMap';
+import TreeMap from './visualizations/treemap/TreeMap';
 import TreeMapIntro from './TreeMapIntro';
+import MapTopBar from './MapTopBar';
+import CategoryMap from './visualizations/categoryMap/CategoryMap';
 import LinksSection from './LinksSection';
 import SearchSection from './SearchSection';
 import Header from '../sharedComponents/header/Header';
@@ -25,9 +27,12 @@ export default class Homepage extends React.Component {
             categories: {
                 children: []
             },
-            breakdown: [],
+            breakdown: {
+                children: []
+            },
             colors: [],
-            total: ''
+            total: '',
+            breakdownTotal: ''
         };
 
         this.loadHomepageData = this.loadHomepageData.bind(this);
@@ -47,9 +52,12 @@ export default class Homepage extends React.Component {
                 this.setState({
                     categories: res.data.budgetCategories,
                     descriptions: res.data.categoryDescriptions,
-                    breakdown: res.data.budgetBreakdown,
                     colors: res.data.treemapColors,
+                    breakdown: res.data.budgetBreakdown,
+                    breakdownDescriptions: res.data.budgetDescriptions,
+                    breakdownColors: res.data.breakdownColors,
                     total: res.data.totalSpent,
+                    breakdownTotal: res.data.budgetTotal,
                     states: res.data.states
                 }, () => {
                     deferred.resolve();
@@ -69,10 +77,15 @@ export default class Homepage extends React.Component {
                     total={this.state.total} />
                 <TreeMapIntro />
                 <TreeMap
-                    total={this.state.total}
                     categories={this.state.categories}
                     colors={this.state.colors}
                     descriptions={this.state.descriptions} />
+                <CategoryMap
+                    breakdown={this.state.breakdown}
+                    descriptions={this.state.breakdownDescriptions}
+                    total={this.state.breakdownTotal}
+                    colors={this.state.breakdownColors} />
+                <MapTopBar />
                 <MapVisualizationWrapper
                     states={this.state.states} />
                 <SearchSection />

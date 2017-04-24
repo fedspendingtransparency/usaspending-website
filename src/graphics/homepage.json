@@ -42,13 +42,6 @@
         { "name": "General Government", "value": "This category includes the activities of the White House and the Executive Office of the President, the legislative branch, and programs designed to carry out the legislative and administrative responsibilities of the federal government, including personnel management, fiscal operations, and property control." },
         { "name": "Net Interest", "value": "This category consists primarily of the interest paid by the federal government to private and foreign government holders of U.S. Treasury securities. This amount is slightly offset by interest income received by the federal government on loans and cash balances and by earnings of the National Railroad Retirement Investment Trust." }
 ],
-"budgetBreakdown": {
-        "totalContractors": "2.29 trillion",
-        "individuals": 30.2,
-        "stateLocal": 17,
-        "contractors": 12.1,
-        "federalGov": 40.5
-    },
 "treemapColors": [
         "#1b4956",
         "#1d545c",
@@ -67,7 +60,31 @@
         "#87dc85",
         "#95e784",
         "#a3f383"
-    ],
+],
+"budgetBreakdown": {
+    "children": [
+        {"id": 0, "name": "Direct payments to individuals", "value": 1166902969415 },
+        {"id": 1, "name": "For Profit", "value": 719365549385 },
+        {"id": 2, "name": "Grants to state and local government", "value": 669721302076 },
+        {"id": 3, "name": "Non-profits; higher education", "value": 193757105484 },
+        {"id": 4, "name": "Running the government & direct services", "value": 1104353073640 }
+    ]
+},
+"budgetDescriptions": [
+    {"id": 0, "name": "Direct payments to individuals", "value": "" },
+    {"id": 1, "name": "For Profit", "value": "" },
+    {"id": 2, "name": "Grants to state and local government", "value": "" },
+    {"id": 3, "name": "Non-profits; higher education", "value": "" },
+    {"id": 4, "name": "Running the government & direct services", "value": "" }
+],
+"budgetTotal": 3854100000000,
+"breakdownColors": [
+        "#00A7D3",
+        "#00A7D3",
+        "#00A7D3",
+        "#00A7D3",
+        "rgba(0,168,212,0.4)"
+],
 "states": {
     "children": [
         {"item": "AL", "aggregate": 66910372684},
