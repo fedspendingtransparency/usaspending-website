@@ -1,0 +1,32 @@
+.by-category-section-wrap {
+    @import "../../mixins/fullSectionWrap";
+    @import "../../mixins/setText";
+    background: $color-gray;
+    padding: ($global-pad * 6) 0 0;
+    & .inner-wrap {
+        @include fullSectionWrap(0, 0);
+        & h3 {
+            @include span-columns(16);
+            @include shift(0);
+            @include row();
+            color: $color-white;
+            margin-top: 0;
+            text-align: center;
+            & strong {
+                font-weight: $font-semibold;
+            }
+            @include media($medium-screen) {
+                @include span-columns(10);
+                @include shift(3);
+            }
+        }
+        @import './visualizations/_byCategoryVisualization';
+        @import './_mapSegue';
+        .budget-line {
+            display: inline;
+            float: left;
+            width: 20px;
+            height: 642px;
+        }
+    }
+}

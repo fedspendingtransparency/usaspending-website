@@ -1,13 +1,11 @@
 .visualization-description {
+    @include span-columns(16);
+    @include media($tablet-screen) {
+        @include span-columns(9);
+    }
     .content {
+        color: $color-base;
         font-size: $small-font-size;
-        line-height: 26px;
-        color: #525252;
-
-        margin-right: 20px;
-
-        @include media($medium-screen) {
-            margin-right: 50px;
-        }
+        line-height: rem(26);
     }
 }

@@ -26,6 +26,17 @@ const initialState = {
     finSysSort: {
         field: "certified_date",
         direction: "desc"
+    },
+    subawards: [],
+    subawardMeta: {
+        hasNext: false,
+        page: 1,
+        render: '',
+        group: ''
+    },
+    subawardSort: {
+        field: "subaward_number",
+        direction: "desc"
     }
 };
 
@@ -91,6 +102,34 @@ const awardReducer = (state = initialState, action) => {
                 finSysData: [],
                 finSysMeta: initialState.finSysMeta,
                 finSysSort: initialState.finSysSort
+            });
+        }
+        case 'SET_AWARD_SUBAWARDS': {
+            return Object.assign({}, state, {
+                subawards: action.subawards
+            });
+        }
+        case 'APPEND_AWARD_SUBAWARDS': {
+            return Object.assign({}, state, {
+                subawards: _.concat(state.subawards, action.subawards)
+            });
+        }
+        case 'SET_SUBAWARD_META': {
+            const meta = Object.assign({}, state.subawardMeta, action.meta);
+            return Object.assign({}, state, {
+                subawardMeta: meta
+            });
+        }
+        case 'SET_SUBAWARD_SORT': {
+            return Object.assign({}, state, {
+                subawardSort: action.sort
+            });
+        }
+        case 'RESET_SUBAWARD': {
+            return Object.assign({}, state, {
+                subawards: [],
+                subawardMeta: initialState.subawardMeta,
+                subawardSort: initialState.subawardSort
             });
         }
         case 'RESET_AWARD_DATA': {

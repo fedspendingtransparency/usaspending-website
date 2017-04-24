@@ -1,80 +1,14 @@
 .visualization-top {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    
-    display: table;
-
+    @include row();
+    margin-bottom: rem(20);
     @import "../../../../../components/visualizations/_description";
-}
-
-.visualization-description {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.visualization-period {
-    display: table-cell;
-    vertical-align: middle;
-
-    @import "../../../../../components/visualizations/_scope";
-
-    .content {
-        @include media($tablet-screen) {
-            width: 300px;
-            min-height: 60px;
-        }
-        @include media($large-screen) {
-            width: 390px;
-            padding: 15px 30px;
-        }
-
-        li {
-
-            @include media($large-screen) {
-                display: inline-block;
-                margin-left: 30px;
-                margin-bottom: 0;
-
-                &:first-child {
-                    margin-left: 0px;
-                }
-            }
-        }
-
-        &.large {
-            width: 400px;
-            padding: 15px 30px;
-
-            @include media(1440px) {
-                width: 550px;
-            }
-
+    @import "../../../../../components/visualizations/_period";
+    .visualization-period {
+        .content {
             li {
-                @include media(1440px) {
-                    display: inline-block;
-                    margin-left: 30px;
-                    margin-bottom: 0;
-
-                    &:first-child {
-                        margin-left: 0px;
-                    }
-                }
+                //EDIT THIS DEPENDING ON HOW MANY CHOICES ARE AVAILABLE WITHIN THE TOGGLE (DEFAULT IS 3 = 5.3 COLUMNS) 
+                @include span-columns(5.3);
             }
         }
     }
-
-    @import "../../../../../components/_comingSoon";
-    
-    @include comingSoon;
-
-    .coming-soon {
-        .scope-button {
-            color: $color-gray-lighter;
-        }
-        .scope-button:hover {
-            color: $color-gray-lighter;
-            border-bottom: 4px solid rgba(255,255,255,0);
-        }
-    }
-
 }

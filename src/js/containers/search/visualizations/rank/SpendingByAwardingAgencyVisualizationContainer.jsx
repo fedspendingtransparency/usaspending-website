@@ -18,15 +18,16 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
-import SearchTransactionFileCOperation from 'models/search/SearchTransactionFileCOperation';
+import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object,
     meta: React.PropTypes.object,
-    budgetFiltersSelected: React.PropTypes.bool
+    budgetFiltersSelected: React.PropTypes.bool,
+    awardFiltersSelected: React.PropTypes.bool
 };
 
-export class RankVisualizationSectionContainer extends React.Component {
+export class SpendingByAwardingAgencyVisualizationContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -107,15 +108,43 @@ export class RankVisualizationSectionContainer extends React.Component {
             this.apiRequest.cancel();
         }
 
-        let operation = null;
-
-        // Create Search Operation
-        if (this.props.budgetFiltersSelected) {
-            operation = new SearchTransactionFileCOperation();
+        // Fetch data from the appropriate endpoint
+        if (this.props.awardFiltersSelected && this.props.budgetFiltersSelected) {
+            this.fetchComboRequest();
+        }
+        else if (this.props.budgetFiltersSelected) {
+            this.fetchBudgetRequest();
+        }
+        else if (this.props.awardFiltersSelected) {
+            this.fetchAwardRequest();
         }
         else {
-            operation = new SearchTransactionOperation();
+            this.fetchUnfilteredRequest();
         }
+    }
+
+
+    fetchUnfilteredRequest() {
+        this.fetchTransactions('Awarding agency vis - unfiltered');
+    }
+
+    fetchBudgetRequest() {
+        this.fetchAccountAwards('Awarding agency vis - budget filters');
+    }
+
+    fetchAwardRequest() {
+        // only award filters have been selected
+        this.fetchTransactions('Awarding agency vis - award filters');
+    }
+
+    fetchComboRequest() {
+        // a combination of budget and award filters have been selected
+        this.fetchAccountAwards('Awarding agency vis - combination');
+    }
+
+    fetchTransactions(auditTrail = null) {
+        // Create Search Operation
+        const operation = new SearchTransactionOperation();
 
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
@@ -131,7 +160,43 @@ export class RankVisualizationSectionContainer extends React.Component {
             page: this.state.page
         };
 
+        if (auditTrail) {
+            apiParams.auditTrail = auditTrail;
+        }
+
         this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        this.apiRequest.promise
+            .then((res) => {
+                this.parseData(res.data);
+                this.apiRequest = null;
+            })
+            .catch(() => {
+                this.apiRequest = null;
+            });
+    }
+
+    fetchAccountAwards(auditTrail = null) {
+         // Create Search Operation
+        const operation = new SearchAccountAwardsOperation();
+
+        operation.fromState(this.props.reduxFilters);
+        const searchParams = operation.toParams();
+        // generate the API parameters
+        const apiParams = {
+            field: 'transaction_obligated_amount',
+            group: `award__awarding_agency__${this.state.agencyScope}_agency__name`,
+            order: ['-aggregate'],
+            aggregate: 'sum',
+            filters: searchParams,
+            limit: 5,
+            page: this.state.page
+        };
+
+        if (auditTrail) {
+            apiParams.auditTrail = auditTrail;
+        }
+
+        this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);
@@ -181,7 +246,7 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
     }
 }
 
-RankVisualizationSectionContainer.propTypes = propTypes;
+SpendingByAwardingAgencyVisualizationContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -189,4 +254,4 @@ export default connect(
         meta: state.resultsMeta.toJS()
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
-)(RankVisualizationSectionContainer);
+)(SpendingByAwardingAgencyVisualizationContainer);
