@@ -34,7 +34,7 @@ const propTypes = {
     xSeries: React.PropTypes.array,
     ySeries: React.PropTypes.array,
     loading: React.PropTypes.bool,
-    reduxFilters: React.PropTypes.object
+    hasFilteredObligated: React.PropTypes.bool
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -63,8 +63,7 @@ export default class TimeVisualization extends React.Component {
         let chart = (<ChartMessage message="No data to display" />);
         let legend = [];
 
-        if (this.props.reduxFilters.objectClass.count() > 0
-            || (this.props.reduxFilters.programActivity.count() > 0)) {
+        if (this.props.hasFilteredObligated) {
             legend = [
                 {
                     color: '#fba302',

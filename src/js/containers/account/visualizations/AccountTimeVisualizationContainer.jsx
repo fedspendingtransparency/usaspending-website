@@ -37,7 +37,8 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             xSeries: [],
             ySeries: [],
             allY: [],
-            visualizationPeriod: 'year'
+            visualizationPeriod: 'year',
+            hasFilteredObligated: false
         };
 
         this.balanceRequests = [];
@@ -48,9 +49,14 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         this.fetchData();
     }
 
-    componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
-            this.fetchData();
+    componentWillReceiveProps(nextProps) {
+        if (!_.isEqual(nextProps.reduxFilters, this.props.reduxFilters)) {
+            this.setState({
+                hasFilteredObligated: (((nextProps.reduxFilters.objectClass.count() > 0)
+                || (nextProps.reduxFilters.programActivity.count() > 0)))
+            }, () => {
+                this.fetchData();
+            });
         }
     }
 
@@ -86,10 +92,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         const requests = [];
         const promises = [];
 
-        const hasFilteredObligated = (this.props.reduxFilters.objectClass.count() > 0)
-            || (this.props.reduxFilters.programActivity.count() > 0);
-
-        if (hasFilteredObligated) {
+        if (this.state.hasFilteredObligated) {
             const categorySearchOperation = new AccountSearchCategoryOperation(this.props.account.id);
             categorySearchOperation.fromState(this.props.reduxFilters);
             const categoryFilters = categorySearchOperation.toParams();
@@ -223,10 +226,8 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         const xSeries = [];
         const ySeries = [];
         const allY = [];
-        const hasFilteredObligated = (this.props.reduxFilters.objectClass.count() > 0)
-            || (this.props.reduxFilters.programActivity.count() > 0);
 
-        if (hasFilteredObligated) {
+        if (this.state.hasFilteredObligated) {
             if (this.state.visualizationPeriod === 'quarter') {
                 const quarters = [];
                 const yData = {};
@@ -372,7 +373,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 data={this.state}
                 visualizationPeriod={this.state.visualizationPeriod}
                 changePeriod={this.changePeriod}
-                reduxFilters={this.props.reduxFilters} />
+                hasFilteredObligated={this.state.hasFilteredObligated} />
         );
     }
 }

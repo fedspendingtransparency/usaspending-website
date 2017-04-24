@@ -138,6 +138,7 @@ describe('AccountTimeVisualizationSectionContainer', () => {
                 groups: ["2016"],
                 loading: false,
                 visualizationPeriod: "year",
+                hasFilteredObligated: false,
                 xSeries: [["2016"]],
                 ySeries: [
                     [{
@@ -160,7 +161,8 @@ describe('AccountTimeVisualizationSectionContainer', () => {
                 account={mockReduxAccount} />);
 
             container.instance().setState({
-                visualizationPeriod: "quarter"
+                visualizationPeriod: "quarter",
+                hasFilteredObligated: false
             });
 
             container.instance().balanceRequests = [
@@ -197,6 +199,7 @@ describe('AccountTimeVisualizationSectionContainer', () => {
                 allY:
                     [-5505246.42, -4413237.11, 201404661.47, 101905442.35, 2696684.86, 3851752, 198707976.61, 5851779752],
                 groups: ["2016 Q1", "2016 Q2"],
+                hasFilteredObligated: false,
                 loading: false,
                 visualizationPeriod: "quarter",
                 xSeries: [["2016 Q1"], ["2016 Q2"]],
@@ -225,6 +228,10 @@ describe('AccountTimeVisualizationSectionContainer', () => {
             const container = shallow(<AccountTimeVisualizationSectionContainer
                 reduxFilters={defaultFilters}
                 account={mockReduxAccount} />);
+
+            container.instance().setState({
+                hasFilteredObligated: true
+            });
 
             container.instance().balanceRequests = [
                 {
@@ -256,19 +263,26 @@ describe('AccountTimeVisualizationSectionContainer', () => {
                 }
             ]);
 
+            const budgetAuthority16 = parseFloat(mockReduxAccountFiltered.totals.budgetAuthority['2016']);
+            const obligatedFiltered16 = parseFloat(mockReduxAccountFiltered.totals.obligatedFiltered['2016']);
+            const unobligated16 = parseFloat(mockReduxAccountFiltered.totals.unobligated['2016']);
+
             const expectedState = {
                 allY:
-                    [-5505246.42, 201404661.47, 2696684.86, 198707976.61],
+                    [2696684.86, -5505246.42, 201404661.47, 198707976.61],
                 groups: ["2016"],
+                hasFilteredObligated: true,
                 loading: false,
                 visualizationPeriod: "year",
                 xSeries: [["2016"]],
                 ySeries: [
                     [{
-                        budgetAuthority: parseFloat(mockReduxAccountFiltered.totals.budgetAuthority['2016']),
-                        obligatedFiltered: parseFloat(mockReduxAccountFiltered.totals.obligatedFiltered['2016']),
+                        budgetAuthority: budgetAuthority16,
+                        obligatedFiltered: obligatedFiltered16,
                         outlay: parseFloat(mockReduxAccountFiltered.totals.outlay['2016']),
-                        unobligated: parseFloat(mockReduxAccountFiltered.totals.unobligated['2016'])
+                        unobligated: unobligated16,
+                        obligatedOther: budgetAuthority16 - unobligated16 - obligatedFiltered16,
+                        obligationTotal: budgetAuthority16 - unobligated16
                     }]
                 ]
             };
@@ -284,7 +298,8 @@ describe('AccountTimeVisualizationSectionContainer', () => {
                 account={mockReduxAccount} />);
 
             container.instance().setState({
-                visualizationPeriod: "quarter"
+                visualizationPeriod: "quarter",
+                hasFilteredObligated: true
             });
 
             container.instance().balanceRequests = [
@@ -317,25 +332,37 @@ describe('AccountTimeVisualizationSectionContainer', () => {
                 }
             ]);
 
+            const budgetAuthorityQ1 = parseFloat(mockReduxAccountQuartersFiltered.totals.budgetAuthority['2016 Q1']);
+            const obligatedFilteredQ1 = parseFloat(mockReduxAccountQuartersFiltered.totals.obligatedFiltered['2016 Q1']);
+            const unobligatedQ1 = parseFloat(mockReduxAccountQuartersFiltered.totals.unobligated['2016 Q1']);
+            const budgetAuthorityQ2 = parseFloat(mockReduxAccountQuartersFiltered.totals.budgetAuthority['2016 Q2']);
+            const obligatedFilteredQ2 = parseFloat(mockReduxAccountQuartersFiltered.totals.obligatedFiltered['2016 Q2']);
+            const unobligatedQ2 = parseFloat(mockReduxAccountQuartersFiltered.totals.unobligated['2016 Q2']);
+
             const expectedState = {
                 allY:
-                    [-5505246.42, -4413237.11, 201404661.47, 101905442.35, 2696684.86, 3851752, 198707976.61, 5851779752],
+                    [2696684.86, -5505246.42, 201404661.47, 198707976.61, 3851752, -4413237.11, 101905442.35, 5851779752],
                 groups: ["2016 Q1", "2016 Q2"],
+                hasFilteredObligated: true,
                 loading: false,
                 visualizationPeriod: "quarter",
                 xSeries: [["2016 Q1"], ["2016 Q2"]],
                 ySeries: [
                     [{
-                        budgetAuthority: parseFloat(mockReduxAccountQuartersFiltered.totals.budgetAuthority['2016 Q1']),
-                        obligatedFiltered: parseFloat(mockReduxAccountQuartersFiltered.totals.obligatedFiltered['2016 Q1']),
+                        budgetAuthority: budgetAuthorityQ1,
+                        obligatedFiltered: obligatedFilteredQ1,
+                        obligatedOther: budgetAuthorityQ1 - unobligatedQ1 - obligatedFilteredQ1,
+                        obligationTotal: budgetAuthorityQ1 - unobligatedQ1,
                         outlay: parseFloat(mockReduxAccountQuartersFiltered.totals.outlay['2016 Q1']),
-                        unobligated: parseFloat(mockReduxAccountQuartersFiltered.totals.unobligated['2016 Q1'])
+                        unobligated: unobligatedQ1
                     }],
                     [{
-                        budgetAuthority: parseFloat(mockReduxAccountQuartersFiltered.totals.budgetAuthority['2016 Q2']),
-                        obligatedFiltered: parseFloat(mockReduxAccountQuartersFiltered.totals.obligatedFiltered['2016 Q2']),
+                        budgetAuthority: budgetAuthorityQ2,
+                        obligatedFiltered: obligatedFilteredQ2,
+                        obligatedOther: budgetAuthorityQ2 - unobligatedQ2 - obligatedFilteredQ2,
+                        obligationTotal: budgetAuthorityQ2 - unobligatedQ2,
                         outlay: parseFloat(mockReduxAccountQuartersFiltered.totals.outlay['2016 Q2']),
-                        unobligated: parseFloat(mockReduxAccountQuartersFiltered.totals.unobligated['2016 Q2'])
+                        unobligated: unobligatedQ2
                     }]
                 ]
             };
