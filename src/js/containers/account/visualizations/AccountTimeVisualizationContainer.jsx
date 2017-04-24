@@ -183,7 +183,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                     // generate API call
                     const request = AccountHelper.fetchTasBalanceTotals({
                         filters,
-                        group: 'submission__reporting_fiscal_year',
+                        group: ['submission__reporting_fiscal_year'],
                         field: balanceFields[balanceType],
                         aggregate: 'sum',
                         order: ['submission__reporting_fiscal_year']
