@@ -33,7 +33,7 @@ const tabOptions = [
 
 export default class DetailsTabBar extends React.Component {
     render() {
-        const tabsSet = tabOptions;
+        const tabsSet = tabOptions.slice();
         if (this.props.type === 'contract') {
             tabOptions.push({
                 label: 'Additional Details',
