@@ -4,12 +4,8 @@
   **/
 
 import React from 'react';
-import _ from 'lodash';
 
 import $ from 'jquery';
-
-import * as SummaryPageHelper from 'helpers/summaryPageHelper';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 import SummaryBar from './SummaryBar';
 import AwardInfoBar from './AwardInfoBar';
