@@ -3,46 +3,36 @@ ul.toggle-buttons {
     margin-bottom: 0;
     margin-left: -2rem;
     margin-top: 0 !important;
-
     li {
         display: inline;
-
         button.date-toggle {
-            border-left: 1px solid $color-gray-lighter;
-            border-right: 1px solid $color-gray-lighter;
-            border-top: 1px solid $color-gray-lighter;
+            border: 1px solid $color-gray-lighter;
             border-bottom: 1px solid $color-white;
             background-color: $color-white;
             color: $color-gray;
             font-size: $smallest-font-size;
-            font-weight:normal;
-            height: 35px;
+            font-weight: normal;
+            height: rem(35);
             margin-bottom: 0;
-            padding: 0;
+            padding: 0 rem(15);
             z-index: 9000;
         }
-
-
         button.inactive {
             background-color: $color-tab-inactive;
             border: 1px solid $color-tab-inactive;
             border-bottom: 1px solid $color-gray-lighter;
             color: $color-gray-dark;
-
-            &:hover{
+            &:hover {
                 @include transition(all 0.3s ease-in-out);
                 background-color: darken($color-tab-inactive, 10%);
             }
         }
-
         button.hidden {
             display: none;
         }
- 
-        @include media($large-screen){
+        @include media($large-screen) {
             button.date-toggle {
                 font-size: $small-font-size;
-                width: 97px;
             }
         }
     }
