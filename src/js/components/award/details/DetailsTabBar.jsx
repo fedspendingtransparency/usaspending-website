@@ -33,6 +33,7 @@ const tabOptions = [
 
 export default class DetailsTabBar extends React.Component {
     render() {
+        const tabsSet = tabOptions;
         if (this.props.type === 'contract') {
             tabOptions.push({
                 label: 'Additional Details',
@@ -40,7 +41,7 @@ export default class DetailsTabBar extends React.Component {
                 disabled: false
             });
         }
-        const tabs = tabOptions.map((tab) => (
+        const tabs = tabsSet.map((tab) => (
             <DetailsTabItem
                 {...tab}
                 active={tab.code === this.props.activeTab}
