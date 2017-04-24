@@ -235,12 +235,22 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                 }
                 if (!yData[quarterYear]) {
                     quartersYears.push(quarterYear);
-                    yData[quarterYear] = {
-                        obligatedFiltered: 0,
-                        outlay: 0,
-                        budgetAuthority: 0,
-                        unobligated: 0
-                    };
+                    if (this.state.hasFilteredObligated) {
+                        yData[quarterYear] = {
+                            obligatedFiltered: 0,
+                            outlay: 0,
+                            budgetAuthority: 0,
+                            unobligated: 0
+                        };
+                    }
+                    else {
+                        yData[quarterYear] = {
+                            obligated: 0,
+                            outlay: 0,
+                            budgetAuthority: 0,
+                            unobligated: 0
+                        };
+                    }
                 }
                 yData[quarterYear][type] = parseFloat(group.aggregate);
             });
@@ -263,7 +273,12 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         });
 
         ySeries.forEach((quarterYear) => {
-            allY.push(quarterYear[0].obligatedFiltered);
+            if (this.state.hasFilteredObligated) {
+                allY.push(quarterYear[0].obligatedFiltered);
+            }
+            else {
+                allY.push(quarterYear[0].obligated);
+            }
             allY.push(quarterYear[0].outlay);
             allY.push(quarterYear[0].budgetAuthority);
             allY.push(quarterYear[0].unobligated);

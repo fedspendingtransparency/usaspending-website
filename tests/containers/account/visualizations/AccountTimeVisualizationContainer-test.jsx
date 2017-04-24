@@ -134,7 +134,7 @@ describe('AccountTimeVisualizationSectionContainer', () => {
 
             const expectedState = {
                 allY:
-                    [-5505246.42, 201404661.47, 2696684.86, 198707976.61],
+                    [2696684.86, -5505246.42, 201404661.47, 198707976.61],
                 groups: ["2016"],
                 loading: false,
                 visualizationPeriod: "year",
@@ -197,7 +197,7 @@ describe('AccountTimeVisualizationSectionContainer', () => {
 
             const expectedState = {
                 allY:
-                    [-5505246.42, -4413237.11, 201404661.47, 101905442.35, 2696684.86, 3851752, 198707976.61, 5851779752],
+                    [2696684.86, -5505246.42, 201404661.47, 198707976.61, 3851752, -4413237.11, 101905442.35, 5851779752],
                 groups: ["2016 Q1", "2016 Q2"],
                 hasFilteredObligated: false,
                 loading: false,
