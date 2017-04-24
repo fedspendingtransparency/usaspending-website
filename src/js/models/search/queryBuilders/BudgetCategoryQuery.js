@@ -2,19 +2,9 @@
  * Created by michaelbray on 3/21/17.
  */
 
-const budgetFunctionField = 'budget_function_title';
-const budgetSubfunctionField = 'budget_subfunction_title';
-const federalAccountField = 'federal_account';
-const objectClassField = 'object_class__major_object_class';
+import * as FilterFields from 'dataMapping/search/filterFields';
 
-const tasPrefix = 'treasury_account__';
-
-const appropriationsPrefix = 'treasury_account_identifier__';
-const appropriationsOCPrefix = 'treasury_account_identifier__program_balances__';
-
-const fileCPrefix = 'award__financial_set__';
-
-export const buildBudgetFunctionQuery = (budgetFunctions, requestType) => {
+export const buildBudgetFunctionQuery = (budgetFunctions, searchContext) => {
     const budgetFunctionSet = [];
     const budgetSubfunctionSet = [];
 
@@ -27,21 +17,8 @@ export const buildBudgetFunctionQuery = (budgetFunctions, requestType) => {
         }
     });
 
-    let functionField = '';
-    let subfunctionField = '';
-
-    if (requestType === 'fileC') {
-        functionField = `${fileCPrefix}${tasPrefix}${budgetFunctionField}`;
-        subfunctionField = `${fileCPrefix}${tasPrefix}${budgetSubfunctionField}`;
-    }
-    else if (requestType === 'appropriations') {
-        functionField = `${appropriationsPrefix}${budgetFunctionField}`;
-        subfunctionField = `${appropriationsPrefix}${budgetSubfunctionField}`;
-    }
-    else {
-        functionField = `${tasPrefix}${budgetFunctionField}`;
-        subfunctionField = `${tasPrefix}${budgetSubfunctionField}`;
-    }
+    const functionField = FilterFields[`${searchContext}Fields`].budgetFunctionTitle;
+    const subfunctionField = FilterFields[`${searchContext}Fields`].budgetSubfunctionTitle;
 
     const budgetFunctionFilter = {
         field: functionField,
@@ -63,24 +40,14 @@ export const buildBudgetFunctionQuery = (budgetFunctions, requestType) => {
     return filterSet;
 };
 
-export const buildFederalAccountQuery = (federalAccounts, requestType) => {
+export const buildFederalAccountQuery = (federalAccounts, searchContext) => {
     const federalAccountSet = [];
 
     federalAccounts.forEach((federalAccount) => {
         federalAccountSet.push(federalAccount.id);
     });
 
-    let accountField = '';
-
-    if (requestType === 'fileC') {
-        accountField = `${fileCPrefix}${tasPrefix}${federalAccountField}`;
-    }
-    else if (requestType === 'appropriations') {
-        accountField = `${appropriationsPrefix}${federalAccountField}`;
-    }
-    else {
-        accountField = `${tasPrefix}${federalAccountField}`;
-    }
+    const accountField = FilterFields[`${searchContext}Fields`].federalAccount;
 
     const filter = {
         field: accountField,
@@ -91,24 +58,14 @@ export const buildFederalAccountQuery = (federalAccounts, requestType) => {
     return filter;
 };
 
-export const buildObjectClassQuery = (objectClasses, requestType) => {
+export const buildObjectClassQuery = (objectClasses, searchContext) => {
     const objectClassSet = [];
 
     Object.keys(objectClasses).forEach((objectClass) => {
         objectClassSet.push(objectClass);
     });
 
-    let classField = '';
-
-    if (requestType === 'fileC') {
-        classField = `${fileCPrefix}${objectClassField}`;
-    }
-    else if (requestType === 'appropriations') {
-        classField = `${appropriationsOCPrefix}${objectClassField}`;
-    }
-    else {
-        classField = `${objectClassField}`;
-    }
+    const classField = FilterFields[`${searchContext}Fields`].objectClass;
 
     const filter = {
         field: classField,

@@ -2,13 +2,11 @@
  * Created by michaelbray on 3/2/17.
  */
 
-const awardsAwardIDField = 'id';
-const transactionsAwardIDField = 'award_id';
-
+import * as FilterFields from 'dataMapping/search/filterFields';
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other queries
-export const buildAwardIDQuery = (awardIDs, endpointType) => {
-    const awardIDField = endpointType === 'awards' ? awardsAwardIDField : transactionsAwardIDField;
+export const buildAwardIDQuery = (awardIDs, searchContext = 'award') => {
+    const field = FilterFields[`${searchContext}Fields`].awardId;
 
     const awardIDSet = [];
 
@@ -18,7 +16,7 @@ export const buildAwardIDQuery = (awardIDs, endpointType) => {
     });
 
     const filter = {
-        field: awardIDField,
+        field,
         operation: "in",
         value: awardIDSet
     };

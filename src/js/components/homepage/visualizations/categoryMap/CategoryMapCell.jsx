@@ -108,8 +108,8 @@ export default class CategoryMapCell extends React.Component {
         let labelY = height / 2;
         let percentY = (height / 2) + 20;
         if (window.innerWidth < 480 && height < 60) {
-            labelY = height / 3;
-            percentY = (height / 3) + 20;
+            labelY = (height / 3) + 5;
+            percentY = (height / 3) + 23;
         }
         return (
             <g

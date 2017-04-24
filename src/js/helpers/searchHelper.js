@@ -232,6 +232,23 @@ export const performBalancesSearch = (params) => {
     };
 };
 
+export const performFinancialAccountAggregation = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'accounts/awards/total/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+
 export const performFinancialSystemLookup = (params) => {
     const source = CancelToken.source();
     return {
