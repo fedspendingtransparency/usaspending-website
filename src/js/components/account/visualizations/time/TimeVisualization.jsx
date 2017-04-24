@@ -118,8 +118,7 @@ export default class TimeVisualization extends React.Component {
                 {...this.props}
                 legend={legend}
                 enableHighlight={false}
-                showTooltip={this.showTooltip}
-                hasFilteredObligated={this.props.hasFilteredObligated} />);
+                showTooltip={this.showTooltip} />);
         }
 
         return (
