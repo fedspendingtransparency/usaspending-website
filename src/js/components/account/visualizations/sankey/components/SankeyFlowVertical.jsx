@@ -7,7 +7,7 @@ import React from 'react';
 import { interpolateNumber } from 'd3-interpolate';
 
 const propTypes = {
-    height: React.PropTypes.number,
+    width: React.PropTypes.number,
     description: React.PropTypes.string,
     style: React.PropTypes.object
 };

@@ -9,13 +9,12 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import SankeyBar from './components/SankeyBar';
 import SankeyFlowVertical from './components/SankeyFlowVertical';
-import ItemWrappableLabel from './components/ItemWrappableLabel';
+import ItemLegend from './components/ItemLegend';
 import DirectionLabel from './components/DirectionLabel';
 import SankeyDisclosures from './components/SankeyDisclosures';
 
 const propTypes = {
     width: React.PropTypes.number,
-    height: React.PropTypes.number,
     amounts: React.PropTypes.object
 };
 
@@ -26,6 +25,8 @@ export default class SankeyVisualizationVertical extends React.Component {
         this.state = {
             graphHeight: 0,
             graphWidth: 0,
+            graphTop: 0,
+            graphBottom: 0,
             center: {
                 width: 0,
                 height: 0,
@@ -85,9 +86,33 @@ export default class SankeyVisualizationVertical extends React.Component {
             },
             hidden: [],
             labelHeight: 0,
-            labels: {
-                inX: 0,
-                outX: 0
+            legend: {
+                x: 0,
+                y: 0,
+                appropriations: {
+                    x: 0,
+                    y: 0
+                },
+                other: {
+                    x: 0,
+                    y: 0
+                },
+                bbf: {
+                    x: 0,
+                    y: 0
+                },
+                budgetAuthority: {
+                    x: 0,
+                    y: 0
+                },
+                obligated: {
+                    x: 0,
+                    y: 0
+                },
+                unobligated: {
+                    x: 0,
+                    y: 0
+                }
             }
         };
     }
@@ -110,12 +135,34 @@ export default class SankeyVisualizationVertical extends React.Component {
     generateChart(props) {
         const hidden = [];
 
+        let labelCount = 1;
+        // determine how much space for labels to put at the bottom of the graph by checking how
+        // many non-zero positive values there are
+        if (props.amounts.in.bbf >= 0) {
+            labelCount += 1;
+        }
+        if (props.amounts.in.appropriations >= 0) {
+            labelCount += 1;
+        }
+        if (props.amounts.in.other >= 0) {
+            labelCount += 1;
+        }
+        if (props.amounts.out.obligated >= 0) {
+            labelCount += 1;
+        }
+        if (props.amounts.out.unobligated >= 0) {
+            labelCount += 1;
+        }
+
         const barHeight = 35;
-        const labelHeight = 45;
+        const labelHeight = 40;
         const flowHeight = barHeight * 3;
-        const sideMargin = 75;
-        const graphHeight = (3 * barHeight) + (2 * flowHeight) + (2 * labelHeight);
-        const graphWidth = this.props.width - (2 * sideMargin);
+        const leftMargin = 0;
+        const rightMargin = 80;
+        const graphTop = 0;
+        const graphBottom = (labelCount + 0.5) * labelHeight;
+        const graphHeight = graphTop + (3 * barHeight) + (2 * flowHeight) + graphBottom;
+        const graphWidth = this.props.width - (leftMargin + rightMargin);
 
         const budgetAuthority = props.amounts.budgetAuthority;
 
@@ -123,11 +170,10 @@ export default class SankeyVisualizationVertical extends React.Component {
         const centerWidth = graphWidth * (2 / 3);
         // with 1/3 of the width unused, this means that 1/6 of the width is available on each side
         const centerX = (graphWidth / 6);
-        const centerY = (graphHeight / 2) - (barHeight / 2);
 
         const center = {
-            x: centerX + sideMargin,
-            y: centerY,
+            x: centerX + leftMargin,
+            y: graphTop + barHeight + flowHeight,
             width: centerWidth,
             height: barHeight,
             description: `Total Budget Authority: \
@@ -186,8 +232,8 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
 
         const top = {
             height: barHeight,
-            x: sideMargin,
-            y: labelHeight,
+            x: leftMargin,
+            y: graphTop,
             appropriations: {
                 x: 0,
                 width: appropWidth,
@@ -207,8 +253,8 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                 label: bbfLabel
             },
             flow: {
-                x: sideMargin,
-                y: barHeight + labelHeight,
+                x: leftMargin,
+                y: barHeight + graphTop,
                 length: flowHeight
             }
         };
@@ -242,8 +288,8 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
 
         const bottom = {
             height: barHeight,
-            y: graphHeight - barHeight - labelHeight,
-            x: sideMargin,
+            y: center.y + barHeight + flowHeight,
+            x: leftMargin,
             obligated: {
                 x: 0,
                 width: obligatedWidth,
@@ -257,9 +303,66 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                 label: unobligatedLabel
             },
             flow: {
-                x: sideMargin,
-                y: centerY + barHeight,
+                x: leftMargin,
+                y: center.y + barHeight,
                 length: flowHeight
+            }
+        };
+
+        // calculate label positions
+        let validLabels = 1;
+        const appropriationsLabelY = labelHeight / 2;
+        if (props.amounts.in.appropriations >= 0) {
+            validLabels += 1;
+        }
+
+        const otherLabelY = ((validLabels - 1) + 0.5) * labelHeight;
+        if (props.amounts.in.other >= 0) {
+            validLabels += 1;
+        }
+
+        const bbfLabelY = ((validLabels - 1) + 0.5) * labelHeight;
+        if (props.amounts.in.bbf >= 0) {
+            validLabels += 1;
+        }
+
+        // because the budget authority bar is always shown, we must always display the label
+        const baLabelY = ((validLabels - 1) + 0.5) * labelHeight;
+        validLabels += 1;
+
+        const obligatedLabelY = ((validLabels - 1) + 0.5) * labelHeight;
+        if (props.amounts.out.obligated >= 0) {
+            validLabels += 1;
+        }
+
+        const unobligatedLabelY = ((validLabels - 1) + 0.5) * labelHeight;
+
+        const legend = {
+            x: leftMargin,
+            y: graphHeight - graphBottom,
+            appropriations: {
+                x: 10,
+                y: appropriationsLabelY
+            },
+            other: {
+                x: 10,
+                y: otherLabelY
+            },
+            bbf: {
+                x: 10,
+                y: bbfLabelY
+            },
+            budgetAuthority: {
+                x: 10,
+                y: baLabelY
+            },
+            obligated: {
+                x: 10,
+                y: obligatedLabelY
+            },
+            unobligated: {
+                x: 10,
+                y: unobligatedLabelY
             }
         };
 
@@ -270,6 +373,9 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
             hidden,
             graphHeight,
             graphWidth,
+            graphTop,
+            graphBottom,
+            legend,
             labelHeight: (labelHeight / 2)
         });
     }
@@ -353,31 +459,67 @@ unobligated balance`}
                     </g>
 
                     <g
-                        className="top-labels"
-                        transform={`translate(${this.state.top.x},0)`}>
-                        <g transform={`translate(${this.state.top.appropriations.x},0)`}>
-                            <ItemWrappableLabel
+                        className="legend"
+                        transform={`translate(${this.state.legend.x},${this.state.legend.y})`}>
+                        <g
+                            transform={`translate(${this.state.legend.appropriations.x},\
+${this.state.legend.appropriations.y})`}>
+                            <ItemLegend
+                                color="#135259"
                                 y={this.state.labelHeight}
                                 title="New Appropriations"
                                 value={this.state.top.appropriations.label}
-                                hide={this.state.top.appropriations.width <= 0}
-                                maxWidth={this.state.top.other.x} />
+                                hide={this.props.amounts.in.appropriations < 0} />
                         </g>
-                        <g transform={`translate(${this.state.top.other.x},0)`}>
-                            <ItemWrappableLabel
+                        <g
+                            transform={`translate(${this.state.legend.other.x},\
+${this.state.legend.other.y})`}>
+                            <ItemLegend
+                                color="#136f69"
                                 y={this.state.labelHeight}
                                 title="Other Budgetary Resources"
                                 value={this.state.top.other.label}
-                                hide={this.state.top.other.width <= 0}
-                                maxWidth={this.state.top.bbf.x - this.state.top.other.x} />
+                                hide={this.props.amounts.in.other < 0} />
                         </g>
-                        <g transform={`translate(${this.state.top.bbf.x},0)`}>
-                            <ItemWrappableLabel
+                        <g
+                            transform={`translate(${this.state.legend.bbf.x},\
+${this.state.legend.bbf.y})`}>
+                            <ItemLegend
+                                color="#218e74"
                                 y={this.state.labelHeight}
                                 title="Balance Brought Forward"
                                 value={this.state.top.bbf.label}
-                                hide={this.state.top.bbf.width <= 0}
-                                maxWidth={this.state.graphWidth - this.state.top.bbf.x} />
+                                hide={this.props.amounts.in.bbf < 0} />
+                        </g>
+                        <g
+                            transform={`translate(${this.state.legend.budgetAuthority.x},\
+${this.state.legend.budgetAuthority.y})`}>
+                            <ItemLegend
+                                color="#3d9851"
+                                y={this.state.labelHeight}
+                                title="Total Budget Authority"
+                                value={`\
+${MoneyFormatter.formatMoney(this.props.amounts.budgetAuthority)} (100%)`} />
+                        </g>
+                        <g
+                            transform={`translate(${this.state.legend.obligated.x},\
+${this.state.legend.obligated.y})`}>
+                            <ItemLegend
+                                color="#6d8996"
+                                y={this.state.labelHeight}
+                                title="Obligated Amount"
+                                value={this.state.bottom.obligated.label}
+                                hide={this.props.amounts.out.obligated < 0} />
+                        </g>
+                        <g
+                            transform={`translate(${this.state.legend.unobligated.x},\
+${this.state.legend.unobligated.y})`}>
+                            <ItemLegend
+                                color="#97b5be"
+                                y={this.state.labelHeight}
+                                title="Unobligated Balance"
+                                value={this.state.bottom.unobligated.label}
+                                hide={this.props.amounts.out.unobligated < 0} />
                         </g>
                     </g>
 
@@ -385,7 +527,7 @@ unobligated balance`}
                         className="top-row"
                         transform={`translate(${this.state.top.x},${this.state.top.y})`}>
                         <SankeyBar
-                            color={"#597785"}
+                            color={"#135259"}
                             x={this.state.top.appropriations.x}
                             y={0}
                             width={this.state.top.appropriations.width}
@@ -393,7 +535,7 @@ unobligated balance`}
                             description={this.state.top.appropriations.description} />
 
                         <SankeyBar
-                            color={"#597785"}
+                            color={"#136f69"}
                             x={this.state.top.other.x}
                             y={0}
                             width={this.state.top.other.width}
@@ -401,7 +543,7 @@ unobligated balance`}
                             description={this.state.top.other.description} />
 
                         <SankeyBar
-                            color={"#597785"}
+                            color={"#218e74"}
                             x={this.state.top.bbf.x}
                             y={0}
                             width={this.state.top.bbf.width}
@@ -413,12 +555,39 @@ unobligated balance`}
                         className="middle-row"
                         transform={`translate(${this.state.center.x},${this.state.center.y})`}>
                         <SankeyBar
-                            color={"#597785"}
+                            color={"#3d9851"}
                             x={0}
                             y={0}
                             width={this.state.center.width}
                             height={this.state.center.height}
                             description={this.state.center.description} />
+                    </g>
+                    <g
+                        transform={`translate(${this.props.width - 75},\
+${this.state.top.height + (this.state.top.flow.length / 2)}) scale(0.7,0.7)`}>
+                        <DirectionLabel
+                            x={0}
+                            y={0}
+                            paddingX={85}
+                            title="Money In">
+                            <path
+                                d={`M77.2 143L255 303.7l179.7-160.2 71.3-.4-250.5 \
+225.4L6 143.7`} />
+                        </DirectionLabel>
+                    </g>
+                    <g
+                        transform={`translate(${this.props.width - 75},\
+${this.state.center.y + this.state.center.height + (this.state.bottom.flow.length / 2)}) \
+scale(0.7,0.7)`}>
+                        <DirectionLabel
+                            x={0}
+                            y={0}
+                            paddingX={100}
+                            title="Money Out">
+                            <path
+                                d={`M77.2 143L255 303.7l179.7-160.2 71.3-.4-250.5 225.4L6 \
+143.7`} />
+                        </DirectionLabel>
                     </g>
 
 
@@ -426,14 +595,14 @@ unobligated balance`}
                         className="bottom-row"
                         transform={`translate(${this.state.bottom.x},${this.state.bottom.y})`}>
                         <SankeyBar
-                            color={"#083546"}
+                            color={"#6d8996"}
                             x={this.state.bottom.obligated.x}
                             y={0}
                             width={this.state.bottom.obligated.width}
                             height={this.state.bottom.height}
                             description={this.state.bottom.obligated.description} />
                         <SankeyBar
-                            color={"#083546"}
+                            color={"#97b5be"}
                             x={this.state.bottom.unobligated.x}
                             y={0}
                             width={this.state.bottom.unobligated.width}
