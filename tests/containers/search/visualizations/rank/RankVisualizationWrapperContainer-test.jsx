@@ -15,7 +15,7 @@ import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
 // mock the child containers by replacing them with a function that returns a null element
 jest.mock('containers/search/visualizations/rank/SpendingByCategoryRankVisualizationSectionContainer', () =>
     jest.fn(() => null));
-jest.mock('containers/search/visualizations/rank/RankVisualizationSectionContainer', () =>
+jest.mock('containers/search/visualizations/rank/SpendingByAwardingAgencyVisualizationContainer', () =>
     jest.fn(() => null));
 
 // force Jest to use native Node promises

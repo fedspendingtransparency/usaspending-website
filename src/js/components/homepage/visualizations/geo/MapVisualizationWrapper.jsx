@@ -6,8 +6,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-import MapVisualization from
-    'components/homepage/visualizations/MapVisualization';
+import MapVisualization from './MapVisualization';
 
 const propTypes = {
     states: React.PropTypes.object

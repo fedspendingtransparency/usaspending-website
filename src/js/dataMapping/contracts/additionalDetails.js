@@ -164,23 +164,28 @@ export const legislativeFields = [
 export const compensationFields = [
     {
         label: 'Officer 1',
-        field: 'officer_1_amount'
+        field: 'officer_1_amount',
+        type: 'currency'
     },
     {
         label: 'Officer 2',
-        field: 'officer_2_amount'
+        field: 'officer_2_amount',
+        type: 'currency'
     },
     {
         label: 'Officer 3',
-        field: 'officer_3_amount'
+        field: 'officer_3_amount',
+        type: 'currency'
     },
     {
         label: 'Officer 4',
-        field: 'officer_4_amount'
+        field: 'officer_4_amount',
+        type: 'currency'
     },
     {
         label: 'Officer 5',
-        field: 'officer_5_amount'
+        field: 'officer_5_amount',
+        type: 'currency'
     }
 ];
 

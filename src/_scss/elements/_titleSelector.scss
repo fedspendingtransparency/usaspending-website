@@ -4,17 +4,17 @@
         .selected-button {
             @include button-unstyled;
             @extend h3;
-            font-weight: 200;
-            border-bottom: 1px solid $color-gray;
-            padding-left: 10px;
-            padding-right: 10px;
+            font-weight: $font-light;
+            border-bottom: rem(1) solid $color-gray-light;
+            padding-left: rem(10);
+            padding-right: rem(10);
             .label {
                 display: inline-block;
             }
             .arrow-icon {
                 display: inline-block;
-                width: 14px;
-                margin-left: 10px;
+                width: rem(14);
+                margin-left: rem(10);
                 svg {
                     fill: $color-gray;
                 }
@@ -23,10 +23,12 @@
         .field-list {
             position: absolute;
             z-index: 2;
-            width: 300px;
-            max-height: 250px;
+            width: rem(300);
+            max-height: rem(250);
             overflow-y: auto;
-            border: 1px solid $color-gray;
+            border: rem(1) solid $color-gray-light;
+            margin: rem(-1) 0 0 0;
+            box-shadow: 0 rem(5) rem(5) 0 rgba($color-black, .2);
             ul {
                 @include unstyled-list;
                 width: 100%;
@@ -34,20 +36,21 @@
                     width: 100%;
                     background-color: $color-white;
                     border: none;
-                    border-bottom: 1px solid $color-gray;
+                    border-bottom: rem(1) solid $color-gray-light;
                     &:last-child {
                         border-bottom: none;
                     }
                     .item-button {
                         @include button-unstyled;
                         color: $color-gray;
-                        font-size: 1.4rem;
+                        font-size: rem(14);
                         width: 100%;
-                        padding: 20px;
+                        padding: rem(20);
                         &:hover,
                         &:active,
                         &:focus {
-                            background-color: $color-gray-lighter;
+                            background-color: rgba(#fbeac3, .6);
+                            color: $color-base;
                         }
                     }
                 }

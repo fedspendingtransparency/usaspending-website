@@ -1,0 +1,46 @@
+& .map-segue {
+    @include span-columns(16);
+    @include display(flex);
+    @include align-items(center);
+    height: rem(200);
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255, 255, 255, .08) 4px, rgba(255, 255, 255, .08) 6px);
+        @include media($medium-screen) {
+        @include span-columns(11.5);
+        @include display(flex);
+        @include align-items(center);
+    }
+    & h4 {
+        @include span-columns(14);
+        @include shift(1);
+        @include setText(rem(30));
+        color: $color-white;
+        clear: none;
+        margin-top: 0;
+        text-align: center;
+        @include media($medium-screen) {
+            @include span-columns(11);
+            @include shift(1);
+            text-align: left;
+        }
+        @include media($large-screen) {
+            @include shift(0.5);
+        }
+    }
+    & .icon-wrap {
+        height: rem(175);
+        @include span-columns(3);
+        @include shift(0);
+        @include align-self(flex-end);
+        display: none;
+        & svg {
+            height: 100%;
+            fill: $color-gray;
+            stroke: rgba($color-gray-dark, .09);
+            stroke-width: 4;
+        }
+        @include media($medium-screen) {
+            @include span-columns(3);
+            @include shift(0);
+        }
+    }
+}

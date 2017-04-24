@@ -91,7 +91,7 @@ export default class SpendingByCategoryRankVisualizationSection extends React.Co
                         </div>
                     </div>
                     <div className="visualization-period">
-                        <div className="content large">
+                        <div className="content">
                             <ul>
                                 <li>
                                     <RankVisualizationScopeButton

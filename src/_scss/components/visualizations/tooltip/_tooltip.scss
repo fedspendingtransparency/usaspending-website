@@ -36,6 +36,9 @@
             display: table;
             padding: 10px;
         }
+        &.center {
+            width: 100%;
+        }
     }
 
     .tooltip-left {
@@ -71,6 +74,15 @@
         padding-bottom: 5px;
 
         border-bottom: 1px solid #D5D6D8;
+    }
+
+    .tooltip-description {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 300;
+        text-align: center;
+
+        padding: 10px 10px 5px 10px;
     }
 
     .tooltip-label {
