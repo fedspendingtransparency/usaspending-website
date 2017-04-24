@@ -32,15 +32,16 @@ const tableSearchFields = {
         _fields: [
             'modification_number',
             'action_date',
-            'assistance_data',
+            'face_value_loan_guarantee',
+            'original_loan_subsidy_cost',
             'action_type_description',
             'description'
         ],
         _mapping: {
             modification: 'modification_number',
             action_date: 'action_date',
-            face_value: 'assistance_data__face_value_loan_guarantee',
-            subsidy: 'assistance_data__original_loan_subsidy_cost',
+            face_value: 'face_value_loan_guarantee',
+            subsidy: 'original_loan_subsidy_cost',
             action_type: 'action_type_description',
             description: 'description'
         },

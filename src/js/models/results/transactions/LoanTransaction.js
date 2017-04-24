@@ -16,7 +16,6 @@ const fields = [
     'action_type_description',
     'action_date',
     'modification_number',
-    'assistance_data',
     'face_value_loan_guarantee',
     'original_loan_subsidy_cost',
     'description'
@@ -32,23 +31,21 @@ const formatData = (data) => {
     else {
         formattedData.action_date = '';
     }
-
     // format the money values
     if (data.assistance_data.face_value_loan_guarantee) {
-        formattedData.assistance_data.face_value_loan_guarantee =
+        formattedData.face_value_loan_guarantee =
             MoneyFormatter.formatMoney(data.assistance_data.face_value_loan_guarantee);
     }
     else {
         formattedData.face_value_loan_guarantee = '';
     }
     if (data.assistance_data.original_loan_subsidy_cost) {
-        formattedData.assistance_data.original_loan_subsidy_cost =
+        formattedData.original_loan_subsidy_cost =
             MoneyFormatter.formatMoney(data.assistance_data.original_loan_subsidy_cost);
     }
     else {
         formattedData.original_loan_subsidy_cost = '';
     }
-
     return formattedData;
 };
 

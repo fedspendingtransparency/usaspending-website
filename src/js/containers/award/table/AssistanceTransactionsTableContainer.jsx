@@ -11,7 +11,6 @@ import { isCancel } from 'axios';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 import AssistanceTransaction from 'models/results/transactions/AssistanceTransaction';
-import LoanTransaction from 'models/results/transactions/LoanTransaction';
 
 import AssistanceTransactionsTable from 'components/award/table/AssistanceTransactionsTable';
 
