@@ -43,7 +43,7 @@ export default class FinancialSystemTable extends React.Component {
     tableScrolled(xPos, yPos) {
         // determine the table position
         const rowNumber = this.rowAtYPosition(yPos);
-        if (rowNumber >= this.props.award.transactions.length) {
+        if (rowNumber >= this.props.award.finSysData.length) {
             // we have reached the bottom of the table, load next page
             this.props.nextPage();
         }
