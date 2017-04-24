@@ -68,6 +68,9 @@ export default class MapBox extends React.Component {
         // add navigation controls
         this.map.addControl(new MapboxGL.NavigationControl());
 
+        // disable the compass controls
+        this.map.dragRotate.disable();
+
         // disable scroll zoom
         this.map.scrollZoom.disable();
 

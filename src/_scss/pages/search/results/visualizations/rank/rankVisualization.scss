@@ -1,5 +1,5 @@
 .results-visualization-rank-section {
-    padding: 3rem 3.5rem;
+    padding: rem(30) rem(35);
 
     @import "./_title";
     @import "./_topSection";
@@ -15,7 +15,7 @@
     }
 
     .results-visualization-message {
-        margin-top: 1rem;
+        margin-top: rem(10);
         font-size: $small-font-size;
         color: $color-base;
         text-align: center;

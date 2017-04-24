@@ -7,6 +7,7 @@ import _ from 'lodash';
 
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as ObjectClassQuery from './queryBuilders/ObjectClassQuery';
+import * as ProgramActivityQuery from './queryBuilders/ProgramActivityQuery';
 
 class AccountSearchOperation {
     constructor(id = null) {
@@ -20,6 +21,7 @@ class AccountSearchOperation {
         this.dateRange = [];
 
         this.objectClass = [];
+        this.programActivity = [];
     }
 
     fromState(state) {
@@ -40,6 +42,13 @@ class AccountSearchOperation {
         }
         else {
             this.objectClass = [];
+        }
+
+        if (state.programActivity.count() > 0) {
+            this.programActivity = state.programActivity.toArray();
+        }
+        else {
+            this.programActivity = [];
         }
     }
 
@@ -71,8 +80,13 @@ class AccountSearchOperation {
         }
 
         if (this.objectClass.length > 0) {
-            const ocFilter = ObjectClassQuery.buildObjectClassQuery(this.objectClass);
-            filters.push(ocFilter);
+            filters.push(ObjectClassQuery
+                .buildCategoriesObjectClassQuery(this.objectClass));
+        }
+
+        if (this.programActivity.length > 0) {
+            filters.push(ProgramActivityQuery
+                .buildCategoriesProgramActivityQuery(this.programActivity));
         }
 
         return filters;

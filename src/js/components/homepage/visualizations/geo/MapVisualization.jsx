@@ -1,5 +1,5 @@
 /**
- * GeoVisualizationSection.jsx
+ * MapVisualization.jsx
  * Created by Emily Gullo 04/05/2017
  */
 
@@ -12,7 +12,7 @@ const propTypes = {
     data: React.PropTypes.object
 };
 
-export default class GeoVisualizationSection extends React.Component {
+export default class MapVisualization extends React.Component {
     constructor(props) {
         super(props);
 
@@ -63,4 +63,4 @@ export default class GeoVisualizationSection extends React.Component {
     }
 }
 
-GeoVisualizationSection.propTypes = propTypes;
+MapVisualization.propTypes = propTypes;

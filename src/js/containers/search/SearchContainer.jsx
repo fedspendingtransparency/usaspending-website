@@ -169,7 +169,6 @@ class SearchContainer extends React.PureComponent {
 
                 // request is done
                 this.searchRequest = null;
-
                 // trigger a batch update
                 if (newSearch) {
                     this.props.triggerBatchSearchUpdate();
@@ -191,7 +190,7 @@ class SearchContainer extends React.PureComponent {
                 }
                 else {
                     // request never made it out
-
+                    console.log(err);
                     this.searchRequest = null;
                 }
             });

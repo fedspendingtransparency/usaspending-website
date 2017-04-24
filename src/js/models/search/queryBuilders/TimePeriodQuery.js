@@ -3,21 +3,14 @@
   * Created by Kevin Li
   **/
 
-const startDateFieldAwards = 'period_of_performance_start_date';
-const endDateFieldAward = 'period_of_performance_current_end_date';
-
-const startDateFieldCategories = 'reporting_period_start';
-const endDateFieldCategories = 'reporting_period_end';
+import * as FilterFields from 'dataMapping/search/filterFields';
 
 const buildFYRangeQuery = (fyRange, endpoint) => {
     const fyFilters = [];
-    let startField = startDateFieldAwards;
-    let endField = endDateFieldAward;
 
-    if (endpoint === 'categories') {
-        startField = startDateFieldCategories;
-        endField = endDateFieldCategories;
-    }
+    const fields = FilterFields[`${endpoint}Fields`];
+    const startField = fields.startDate;
+    const endField = fields.endDate;
 
     fyRange.forEach((fy) => {
         // iterate through each FY and generate a range_intersect filter for the FY
@@ -41,13 +34,9 @@ const buildFYRangeQuery = (fyRange, endpoint) => {
 // build an OR query to search for start dates on or after the start of the range
 // or end dates before or on the end of the range
 const buildDateRangeQuery = (dateRange, endpoint) => {
-    let startField = startDateFieldAwards;
-    let endField = endDateFieldAward;
-
-    if (endpoint === 'categories') {
-        startField = startDateFieldCategories;
-        endField = endDateFieldCategories;
-    }
+    const fields = FilterFields[`${endpoint}Fields`];
+    const startField = fields.startDate;
+    const endField = fields.endDate;
 
     const filter = {
         field: [startField, endField],
@@ -62,7 +51,7 @@ export const buildQuery = (params = {
     type: '',
     fyRange: null,
     dateRange: null,
-    endpoint: ''
+    endpoint: 'award'
 }) => {
     if (params.type === 'fy' && params.fyRange.length > 0) {
         return buildFYRangeQuery(params.fyRange, params.endpoint);

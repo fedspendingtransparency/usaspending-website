@@ -1,4 +1,4 @@
-.transactions-table, .financial-system-table {
+.transactions-table, .financial-system-table, .subawards-table {
     // implement the library style
     @import '../../../lib/ibTable/ibTable';
     margin-top: 1.5em;
@@ -23,12 +23,12 @@
         border-bottom: none;
     }
 
-    .transaction-generic-cell, .financial-system-generic-cell {
+    .transaction-generic-cell, .financial-system-generic-cell, .subaward-generic-cell {
         @import "cells/_genericCell";
         @include genericCell();
     }
 
-    .transaction-header-cell, .financial-system-header-cell {
+    .transaction-header-cell, .financial-system-header-cell, .subaward-header-cell {
         @import "cells/_genericHeader";
         @include genericHeader();
 

@@ -3,17 +3,23 @@
 * Created by Emily Gullo
 **/
 
+import * as FilterFields from 'dataMapping/search/filterFields';
+
 const fundingAgencyField = 'agency_id';
 
 const tasPrefix = 'treasury_account__';
 const appropriationsPrefix = 'treasury_account_identifier__';
 const fileCPrefix = 'award__financial_set__';
 
-export const buildAgencyQuery = (funding, awarding) => {
+export const buildAgencyQuery = (funding, awarding, searchContext = 'award') => {
     const toptierFundingSet = [];
     const subtierFundingSet = [];
     const toptierAwardingSet = [];
     const subtierAwardingSet = [];
+
+    const fields = FilterFields[`${searchContext}Fields`];
+    const fundingField = fields.fundingAgency;
+    const awardingField = fields.awardingAgency;
 
     const filter = {
         combine_method: 'OR',
@@ -40,7 +46,7 @@ export const buildAgencyQuery = (funding, awarding) => {
 
     if (toptierFundingSet.length > 0) {
         filter.filters.push({
-            field: 'funding_agency__toptier_agency__name',
+            field: fundingField.toptier,
             operation: "in",
             value: toptierFundingSet
         });
@@ -48,7 +54,7 @@ export const buildAgencyQuery = (funding, awarding) => {
 
     if (subtierFundingSet.length > 0) {
         filter.filters.push({
-            field: 'funding_agency__subtier_agency__name',
+            field: fundingField.subtier,
             operation: "in",
             value: subtierFundingSet
         });
@@ -56,7 +62,7 @@ export const buildAgencyQuery = (funding, awarding) => {
 
     if (toptierAwardingSet.length > 0) {
         filter.filters.push({
-            field: 'awarding_agency__toptier_agency__name',
+            field: awardingField.toptier,
             operation: "in",
             value: toptierAwardingSet
         });
@@ -64,7 +70,7 @@ export const buildAgencyQuery = (funding, awarding) => {
 
     if (subtierAwardingSet.length > 0) {
         filter.filters.push({
-            field: 'awarding_agency__subtier_agency__name',
+            field: awardingField.subtier,
             operation: "in",
             value: subtierAwardingSet
         });
@@ -100,3 +106,22 @@ export const buildFundingAgencyCGACQuery = (funding, requestType) => {
 
     return filter;
 };
+
+export const buildFundingAgencyTASQuery = (funding, searchContext = 'tasCategories') => {
+    const fundingSet = [];
+
+    funding.forEach((agencyArray) => {
+        fundingSet.push(agencyArray.toptier_agency.cgac_code);
+    });
+
+    const field = FilterFields[`${searchContext}Fields`].fundingAgency;
+
+    const filter = {
+        field,
+        operation: "in",
+        value: fundingSet
+    };
+
+    return filter;
+};
+
