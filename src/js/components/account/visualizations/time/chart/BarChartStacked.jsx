@@ -198,84 +198,89 @@ export default class BarChart extends React.Component {
                     // first build the obligation (filter) bar
                     // since SVG y=0 is the top of the graph, we need to yScale position from the height
                     // to get the actual position (essentially we're drawing this upside down)
-                    let obligationFilteredTop = graphHeight - yScale(stack.obligationFiltered);
-                    let obligationFilteredHeight = yScale(stack.obligationFiltered) - yScale(0);
-                    if (stack.obligationFiltered < 0) {
+                    let obligatedFilteredTop = graphHeight - yScale(stack.obligatedFiltered);
+                    let obligatedFilteredHeight = yScale(stack.obligatedFiltered) - yScale(0);
+                    if (stack.obligatedFiltered < 0) {
                         // if the value is negative, however, the top of the bar is actually the X axis
-                        obligationFilteredTop = graphHeight - yScale(0);
-                        obligationFilteredHeight = yScale(0) - yScale(stack.obligationFiltered);
+                        obligatedFilteredTop = graphHeight - yScale(0);
+                        obligatedFilteredHeight = yScale(0) - yScale(stack.obligatedFiltered);
                     }
 
-                    const obligationFilteredIdentifier = `obligationFiltered-${groupIndex}-${stackIndex}`;
-                    const obligationFilteredDescription = `Obligated balance (filtered) in \
-${xData}: ${MoneyFormatter.formatMoney(stack.obligationFiltered)}`;
+                    const obligatedFilteredIdentifier = `obligatedFiltered-${groupIndex}-${stackIndex}`;
+                    const obligatedFilteredDescription = `Obligated balance (filtered) in \
+${xData}: ${MoneyFormatter.formatMoney(stack.obligatedFiltered)}`;
 
-                    const obligationFilteredBar = (<StackedBarItem
-                        key={`data-${obligationFilteredIdentifier}`}
-                        identifier={obligationFilteredIdentifier}
+                    const obligatedFilteredBar = (<StackedBarItem
+                        key={`data-${obligatedFilteredIdentifier}`}
+                        identifier={obligatedFilteredIdentifier}
                         color={this.props.legend[1].color}
-                        height={obligationFilteredHeight}
+                        height={obligatedFilteredHeight}
                         width={itemWidth}
                         x={xPos}
-                        y={obligationFilteredTop}
-                        description={obligationFilteredDescription}
+                        y={obligatedFilteredTop}
+                        description={obligatedFilteredDescription}
                         selectBar={this.selectBar}
                         deselectBar={this.deselectBar}
                         deregisterBar={this.deregisterBar}
                         ref={(component) => {
-                            this.dataPoints[obligationFilteredIdentifier] = component;
+                            this.dataPoints[obligatedFilteredIdentifier] = component;
                         }} />);
-                    items.push(obligationFilteredBar);
+                    items.push(obligatedFilteredBar);
 
                     // next stack the the obligation (other) bar on top
-                    const obligationOther = stack.obligationTotal - stack.obligationFiltered;
-                    let obligationOtherTop = graphHeight - yScale(stack.obligationTotal);
-                    let obligationOtherHeight = yScale(obligationOther) - yScale(0);
-                    if (stack.obligationFiltered < 0 && stack.obligationTotal > 0) {
+                    const obligatedOther = stack.obligationTotal - stack.obligatedFiltered;
+                    let obligatedOtherTop = graphHeight - yScale(stack.obligationTotal);
+                    let obligatedOtherHeight = yScale(obligatedOther) - yScale(0);
+                    if (stack.obligatedFiltered < 0 && stack.obligationTotal > 0) {
                         // handle a case where the total is positive but the filtered value is negative
                         // only extend the bar down to the X axis
-                        obligationOtherHeight = yScale(stack.obligationTotal) - yScale(0);
+                        obligatedOtherHeight = yScale(stack.obligationTotal) - yScale(0);
                     }
-                    else if (stack.obligationFiltered < 0 && stack.obligationTotal < 0) {
+                    else if (stack.obligatedFiltered < 0 && stack.obligationTotal < 0) {
                         // handle a case where both filtered and total are negative
-                        if (stack.obligationTotal < stack.obligationFiltered) {
+                        if (stack.obligationTotal < stack.obligatedFiltered) {
                             // obligated total is less (more negative) than obligated filtered
-                            obligationOtherTop = obligationFilteredTop + obligationFilteredHeight;
-                            obligationOtherHeight = yScale(stack.obligationFiltered)
+                            obligatedOtherTop = obligatedFilteredTop + obligatedFilteredHeight;
+                            obligatedOtherHeight = yScale(stack.obligatedFiltered)
                                 - yScale(stack.obligationTotal);
                         }
                         else {
                             // obligated total is more (less negative) than obligated filtered
                             // set the top of the bar to the X axis
-                            obligationOtherTop = graphHeight - yScale(0);
-                            obligationOtherHeight = yScale(0) - yScale(stack.obligationTotal);
+                            obligatedOtherTop = graphHeight - yScale(0);
+                            obligatedOtherHeight = yScale(0) - yScale(stack.obligationTotal);
                         }
                     }
 
-                    const obligationOtherIdentifier = `obligationOther-${groupIndex}-${stackIndex}`;
-                    const obligationOtherDescription = `Obligated balance (excluded from filter) in \
-${xData}: ${MoneyFormatter.formatMoney(obligationOther)}`;
+                    const obligatedOtherIdentifier = `obligatedOther-${groupIndex}-${stackIndex}`;
+                    const obligatedOtherDescription = `Obligated balance (excluded from filter) in \
+${xData}: ${MoneyFormatter.formatMoney(obligatedOther)}`;
 
-                    const obligationOtherBar = (<StackedBarItem
-                        key={`data-${obligationOtherIdentifier}`}
-                        identifier={obligationOtherIdentifier}
+                    const obligatedOtherBar = (<StackedBarItem
+                        key={`data-${obligatedOtherIdentifier}`}
+                        identifier={obligatedOtherIdentifier}
                         color={this.props.legend[2].color}
-                        height={obligationOtherHeight}
+                        height={obligatedOtherHeight}
                         width={itemWidth}
                         x={xPos}
-                        y={obligationOtherTop}
-                        description={obligationOtherDescription}
+                        y={obligatedOtherTop}
+                        description={obligatedOtherDescription}
                         selectBar={this.selectBar}
                         deselectBar={this.deselectBar}
                         deregisterBar={this.deregisterBar}
                         ref={(component) => {
-                            this.dataPoints[obligationOtherIdentifier] = component;
+                            this.dataPoints[obligatedOtherIdentifier] = component;
                         }} />);
-                    items.push(obligationOtherBar);
+                    items.push(obligatedOtherBar);
 
                     // finally, stack the unobligated value on top
-                    const unobligatedTop = graphHeight - yScale(stack.budgetAuthority);
-                    const unobligatedHeight = yScale(stack.unobligated);
+                    let unobligatedTop = graphHeight - yScale(stack.budgetAuthority);
+                    let unobligatedHeight = yScale(stack.unobligated);
+                    if (stack.unobligated < 0) {
+                        // if the value is negative, however, the top of the bar is actually the X axis
+                        unobligatedTop = graphHeight - yScale(0);
+                        unobligatedHeight = yScale(0) - yScale(stack.unobligated);
+                    }
                     const unobligatedIdentifier = `unobligated-${groupIndex}-${stackIndex}`;
                     const unobligatedDescription = `Unobligated balance in ${xData}: \
 ${MoneyFormatter.formatMoney(stack.unobligated)}`;
