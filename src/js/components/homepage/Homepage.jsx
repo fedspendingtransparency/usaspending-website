@@ -8,7 +8,7 @@ import Q from 'q';
 
 import * as HomepageHelper from 'helpers/homepageHelper';
 
-import MapVisualizationContainer from 'containers/homepage/MapVisualizationContainer';
+import MapVisualizationWrapper from './visualizations/MapVisualizationWrapper';
 import Landing from './Landing';
 import TreeMap from './visualizations/TreeMap';
 import TreeMapIntro from './TreeMapIntro';
@@ -49,7 +49,8 @@ export default class Homepage extends React.Component {
                     descriptions: res.data.categoryDescriptions,
                     breakdown: res.data.budgetBreakdown,
                     colors: res.data.treemapColors,
-                    total: res.data.totalSpent
+                    total: res.data.totalSpent,
+                    states: res.data.states
                 }, () => {
                     deferred.resolve();
                 });
@@ -72,7 +73,8 @@ export default class Homepage extends React.Component {
                     categories={this.state.categories}
                     colors={this.state.colors}
                     descriptions={this.state.descriptions} />
-                <MapVisualizationContainer />
+                <MapVisualizationWrapper
+                    states={this.state.states} />
                 <SearchSection />
                 <LinksSection />
                 <Footer />

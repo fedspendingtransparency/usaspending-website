@@ -10,7 +10,7 @@
             @include span-columns(4);
         }
 
-        @import "./_filters";
+        @import "../filters/filters";
     }
 
     .search-results-wrapper {
@@ -35,6 +35,7 @@
 
             @import "elements/_divider";
             @import "./visualizations/visualizations";
+            @import "./table/awardTable";
         }
     }
 }
