@@ -8,7 +8,7 @@ import Q from 'q';
 
 import * as HomepageHelper from 'helpers/homepageHelper';
 
-import MapVisualizationWrapper from './visualizations/MapVisualizationWrapper';
+import MapVisualizationWrapper from './visualizations/geo/MapVisualizationWrapper';
 import Landing from './Landing';
 import TreeMap from './visualizations/treemap/TreeMap';
 import TreeMapIntro from './TreeMapIntro';
