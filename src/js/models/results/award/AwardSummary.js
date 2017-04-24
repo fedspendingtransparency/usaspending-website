@@ -44,7 +44,9 @@ const fields = [
     'recipient_business_type',
     'type_of_contract_pricing',
     'type_of_contract_pricing_description',
-    'latest_transaction'
+    'latest_transaction',
+    'subaward_count',
+    'total_subaward_amount'
 ];
 
 const remapData = (data, idField) => {
