@@ -105,6 +105,12 @@ export default class CategoryMapCell extends React.Component {
         if (height < 40 || width < 60) {
             percentView = 'none';
         }
+        let labelY = height / 2;
+        let percentY = (height / 2) + 20;
+        if (window.innerWidth < 480 && height < 60) {
+            labelY = height / 3;
+            percentY = (height / 3) + 20;
+        }
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
@@ -142,8 +148,8 @@ export default class CategoryMapCell extends React.Component {
                     }} />
                 <text
                     className="category"
-                    x={(width / 2)}
-                    y={height / 2}
+                    x={width / 2}
+                    y={labelY}
                     width={width}
                     textAnchor="middle"
                     ref={(text) => {
@@ -157,7 +163,7 @@ export default class CategoryMapCell extends React.Component {
                 <text
                     className="value"
                     x={(width / 2)}
-                    y={(height / 2) + 20}
+                    y={percentY}
                     width={width}
                     textAnchor="middle"
                     style={{
