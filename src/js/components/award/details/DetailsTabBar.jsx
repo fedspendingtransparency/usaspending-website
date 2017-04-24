@@ -13,25 +13,26 @@ const propTypes = {
     type: React.PropTypes.string
 };
 
+const tabOptions = [
+    {
+        label: 'Transaction History',
+        code: 'transaction',
+        disabled: false
+    },
+    {
+        label: 'Sub-Awards',
+        code: 'subaward',
+        disabled: true
+    },
+    {
+        label: 'Financial System Details',
+        code: 'financial',
+        disabled: false
+    }
+];
+
 export default class DetailsTabBar extends React.Component {
     render() {
-        const tabOptions = [
-            {
-                label: 'Transaction History',
-                code: 'transaction',
-                disabled: false
-            },
-            {
-                label: 'Sub-Awards',
-                code: 'subaward',
-                disabled: true
-            },
-            {
-                label: 'Financial System Details',
-                code: 'financial',
-                disabled: false
-            }
-        ];
         if (this.props.type === 'contract') {
             tabOptions.push({
                 label: 'Additional Details',
