@@ -5,10 +5,13 @@
 
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other query modules
-const keywordField = 'description';
 
-export const buildKeywordQuery = (value) => {
+import * as FilterFields from 'dataMapping/search/filterFields';
+
+export const buildKeywordQuery = (value, searchContext = 'award') => {
     const keyword = value;
+
+    const keywordField = FilterFields[`${searchContext}Fields`].keyword;
 
     const filter = {
         field: keywordField,

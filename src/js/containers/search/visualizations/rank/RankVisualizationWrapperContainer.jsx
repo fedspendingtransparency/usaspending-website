@@ -8,8 +8,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import RankVisualizationSectionContainer from
-    'containers/search/visualizations/rank/RankVisualizationSectionContainer';
+import SpendingByAwardingAgencyVisualizationContainer from
+    'containers/search/visualizations/rank/SpendingByAwardingAgencyVisualizationContainer';
 
 import SpendingByCategoryRankVisualizationSectionContainer from
     'containers/search/visualizations/rank/SpendingByCategoryRankVisualizationSectionContainer';
@@ -60,7 +60,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
             case 'budget_category':
                 return <SpendingByCategoryRankVisualizationSectionContainer {...this.state} />;
             case 'awarding_agency':
-                return <RankVisualizationSectionContainer {...this.state} />;
+                return <SpendingByAwardingAgencyVisualizationContainer {...this.state} />;
             default:
                 return <SpendingByCategoryRankVisualizationSectionContainer {...this.state} />;
         }
