@@ -35,7 +35,7 @@ export default class DetailsTabBar extends React.Component {
     render() {
         const tabsSet = tabOptions.slice();
         if (this.props.type === 'contract') {
-            tabOptions.push({
+            tabsSet.push({
                 label: 'Additional Details',
                 code: 'additional',
                 disabled: false
