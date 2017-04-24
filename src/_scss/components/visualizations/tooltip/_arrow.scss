@@ -26,4 +26,12 @@
             transform: rotate(225deg);
         }
     }
+    &.top {
+        left: calc(50% - 8px);
+        top: -9px;
+
+        &:after {
+            transform: rotate(135deg);
+        }
+    }
 }

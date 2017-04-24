@@ -50,7 +50,9 @@ const fields = [
     'assistance_data',
     'loan_face_value',
     'total_loan_amount',
-    'loan_subsidy'
+    'loan_subsidy',
+    'subaward_count',
+    'total_subaward_amount'
 ];
 
 const remapData = (data, idField) => {
