@@ -41,10 +41,12 @@
         @include media($medium-screen) {
             @include span-columns(6);
             @include shift(1.25);
+            padding-top: 0;
         }
         @include media($x-large-screen) {
             @include span-columns(6);
             @include shift(1.25);
+            padding-top: 0;
         }
     }
 }
