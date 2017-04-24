@@ -1,5 +1,5 @@
 /**
- * AssistanceTransactionsTableContainer.jsx
+ * LoanTransactionsTableContainer.jsx
  * Created by Kevin Li 3/13/17
  */
 
@@ -10,10 +10,9 @@ import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
-import AssistanceTransaction from 'models/results/transactions/AssistanceTransaction';
 import LoanTransaction from 'models/results/transactions/LoanTransaction';
 
-import AssistanceTransactionsTable from 'components/award/table/AssistanceTransactionsTable';
+import LoanTransactionsTable from 'components/award/table/LoanTransactionsTable';
 
 const propTypes = {
     award: React.PropTypes.object,
@@ -26,7 +25,7 @@ const propTypes = {
 
 const pageLimit = 13;
 
-export class AssistanceTransactionsTableContainer extends React.Component {
+export class LoanTransactionsTableContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -121,7 +120,7 @@ export class AssistanceTransactionsTableContainer extends React.Component {
     parseTransactions(data, reset) {
         const transactions = [];
         data.results.forEach((item) => {
-            const transaction = new AssistanceTransaction(item);
+            const transaction = new LoanTransaction(item);
             transactions.push(transaction);
         });
 
@@ -159,7 +158,7 @@ export class AssistanceTransactionsTableContainer extends React.Component {
 
     render() {
         return (
-            <AssistanceTransactionsTable
+            <LoanTransactionsTable
                 {...this.props}
                 inFlight={this.state.inFlight}
                 nextTransactionPage={this.nextTransactionPage} />
@@ -167,9 +166,9 @@ export class AssistanceTransactionsTableContainer extends React.Component {
     }
 }
 
-AssistanceTransactionsTableContainer.propTypes = propTypes;
+LoanTransactionsTableContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ award: state.award }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
-)(AssistanceTransactionsTableContainer);
+)(LoanTransactionsTableContainer);

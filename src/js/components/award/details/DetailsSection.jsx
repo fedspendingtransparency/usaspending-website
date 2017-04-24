@@ -10,6 +10,7 @@ import ContractTransactionsTableContainer from
 import AssistanceTransactionsTableContainer from
     'containers/award/table/AssistanceTransactionsTableContainer';
 import FinancialSystemTableContainer from 'containers/award/table/FinancialSystemTableContainer';
+import LoanTransactionsTableContainer from 'containers/award/table/LoanTransactionsTableContainer';
 
 import DetailsTabBar from './DetailsTabBar';
 import ContractAdditionalDetails from './additional/ContractAdditionalDetails';
@@ -62,6 +63,10 @@ export default class DetailsSection extends React.Component {
             case 'transaction':
                 if (type === 'contract') {
                     return (<ContractTransactionsTableContainer
+                        tableWidth={this.state.tableWidth} />);
+                }
+                if (type === 'loan') {
+                    return (<LoanTransactionsTableContainer
                         tableWidth={this.state.tableWidth} />);
                 }
                 return (<AssistanceTransactionsTableContainer

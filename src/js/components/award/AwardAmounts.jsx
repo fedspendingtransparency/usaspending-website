@@ -79,7 +79,7 @@ export default class AwardAmounts extends React.Component {
             const loanSubsidy = MoneyFormatter.formatMoneyWithPrecision(
                 this.props.selectedAward.assistance_data.original_loan_subsidy_cost, 0);
 
-            awardNarrative = (<p>A {this.props.typeString} with a face value of&nbsp
+            awardNarrative = (<p>A {this.props.typeString} with a face value of&nbsp;
                 <b>{loanCeiling}</b> was awarded to <b>{recipient}</b>.  The agency&#8217;s
                     estimated non-administrative cost to the government for this
                     {this.props.typeString} is <b>{loanSubsidy}</b>.  This cost is also known as
