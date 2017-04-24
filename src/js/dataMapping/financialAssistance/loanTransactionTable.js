@@ -46,11 +46,11 @@ const tableSearchFields = {
             description: 'description'
         },
         modification: 'Modification Number',
-        action_date: 'Transaction Date',
-        face_value: 'Face Value of Loan',
-        subsidy: 'Estimated Cost to the Government',
+        action_date: 'Action Date',
+        face_value: 'Loan Value',
+        subsidy: 'Subsidy Cost',
         action_type: 'Assistance Type',
-        description: 'Transaction Description'
+        description: 'Description'
     }
 };
 
