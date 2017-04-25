@@ -53,7 +53,7 @@ export default class AwardLabels extends React.Component {
             anchor = "end";
             labelY = [-15, 3, 21];
             labelX = 150;
-            if (this.props.type === 'grant') {
+            if (this.props.type !== 'contract') {
                 labelType = 'Total';
             }
         }

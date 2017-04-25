@@ -1,5 +1,5 @@
 /**
- * AwardGrant.jsx
+ * AwardFinancialAssistance.jsx
  * Created by Lizzie Dabbs 03/06/2017
  **/
 
@@ -7,14 +7,14 @@ import React from 'react';
 import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 
 import AwardAmounts from '../AwardAmounts';
-import GrantDetails from './GrantDetails';
+import FinancialAssistanceDetails from './FinancialAssistanceDetails';
 
 const propTypes = {
     selectedAward: React.PropTypes.object,
     seeAdditional: React.PropTypes.func
 };
 
-export default class AwardGrant extends React.Component {
+export default class AwardFinancialAssistance extends React.Component {
     render() {
         return (
             <div className="award-contract-wrapper">
@@ -22,7 +22,7 @@ export default class AwardGrant extends React.Component {
                     selectedAward={this.props.selectedAward}
                     showPotential={false}
                     typeString={SummaryPageHelper.awardType(this.props.selectedAward.award_type)} />
-                <GrantDetails
+                <FinancialAssistanceDetails
                     {...this.props}
                     selectedAward={this.props.selectedAward}
                     seeAdditional={this.props.seeAdditional} />
@@ -30,4 +30,4 @@ export default class AwardGrant extends React.Component {
         );
     }
 }
-AwardGrant.propTypes = propTypes;
+AwardFinancialAssistance.propTypes = propTypes;

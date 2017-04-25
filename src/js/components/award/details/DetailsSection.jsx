@@ -10,6 +10,7 @@ import ContractTransactionsTableContainer from
 import AssistanceTransactionsTableContainer from
     'containers/award/table/AssistanceTransactionsTableContainer';
 import FinancialSystemTableContainer from 'containers/award/table/FinancialSystemTableContainer';
+import LoanTransactionsTableContainer from 'containers/award/table/LoanTransactionsTableContainer';
 
 import SubawardsContainer from 'containers/award/subawards/SubawardsContainer';
 
@@ -19,7 +20,6 @@ import AssistanceAdditionalDetails from './additional/AssistanceAdditionalDetail
 
 const propTypes = {
     award: React.PropTypes.object,
-    isContract: React.PropTypes.bool,
     activeTab: React.PropTypes.string,
     clickTab: React.PropTypes.func
 };
@@ -60,10 +60,15 @@ export default class DetailsSection extends React.Component {
     }
 
     currentSection() {
+        const type = this.props.award.selectedAward.internal_general_type;
         switch (this.props.activeTab) {
             case 'transaction':
-                if (this.props.isContract) {
+                if (type === 'contract') {
                     return (<ContractTransactionsTableContainer
+                        tableWidth={this.state.tableWidth} />);
+                }
+                if (type === 'loan') {
+                    return (<LoanTransactionsTableContainer
                         tableWidth={this.state.tableWidth} />);
                 }
                 return (<AssistanceTransactionsTableContainer
@@ -79,7 +84,7 @@ export default class DetailsSection extends React.Component {
                     tableWidth={this.state.tableWidth} />);
 
             case 'additional':
-                if (this.props.isContract) {
+                if (type === 'contract') {
                     return (<ContractAdditionalDetails {...this.props} />);
                 }
                 return (<AssistanceAdditionalDetails {...this.props} />);
@@ -96,7 +101,8 @@ export default class DetailsSection extends React.Component {
             <div className="contract-details-table-section" id="details-table-section">
                 <DetailsTabBar
                     activeTab={this.props.activeTab}
-                    clickTab={this.props.clickTab} />
+                    clickTab={this.props.clickTab}
+                    type={this.props.award.selectedAward.internal_general_type} />
                 <div
                     className="details-table-width-master"
                     ref={(div) => {

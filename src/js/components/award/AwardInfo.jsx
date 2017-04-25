@@ -4,15 +4,13 @@
   **/
 
 import React from 'react';
-import _ from 'lodash';
 
 import $ from 'jquery';
 
-import { awardTypeGroups } from 'dataMapping/search/awardType';
 import SummaryBar from './SummaryBar';
 import AwardInfoBar from './AwardInfoBar';
 import AwardContract from './contract/AwardContract';
-import AwardGrant from './financialAssistance/AwardGrant';
+import AwardFinancialAssistance from './financialAssistance/AwardFinancialAssistance';
 import DetailsSection from './details/DetailsSection';
 
 const propTypes = {
@@ -49,18 +47,21 @@ export default class AwardInfo extends React.Component {
     }
 
     render() {
-        const isContract =
-            _.includes(awardTypeGroups.contracts, this.props.selectedAward.award_type);
+        const type = this.props.selectedAward.internal_general_type;
 
-        let amountsDetailsSection = (
-            <AwardContract
-                {...this.props}
-                selectedAward={this.props.selectedAward}
-                seeAdditional={this.seeAdditional} />
-        );
-        if (!isContract) {
+        let amountsDetailsSection = null;
+
+        if (type === 'contract') {
             amountsDetailsSection = (
-                <AwardGrant
+                <AwardContract
+                    {...this.props}
+                    selectedAward={this.props.selectedAward}
+                    seeAdditional={this.seeAdditional} />
+            );
+        }
+        else {
+            amountsDetailsSection = (
+                <AwardFinancialAssistance
                     {...this.props}
                     selectedAward={this.props.selectedAward}
                     seeAdditional={this.seeAdditional} />
@@ -81,7 +82,6 @@ export default class AwardInfo extends React.Component {
 
                     <DetailsSection
                         {...this.props}
-                        isContract={isContract}
                         clickTab={this.clickTab}
                         activeTab={this.state.activeTab} />
                 </main>

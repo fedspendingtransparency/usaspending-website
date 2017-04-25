@@ -1,16 +1,16 @@
 /**
- * AssistanceTransactionsTable.jsx
- * Created by Lizzie Dabbs 03/07/17
+ * LoanTransactionsTable.jsx
+ * Created by Emily Gullo 04/24/2017
  */
 
 import React from 'react';
 import _ from 'lodash';
 
-import tableMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable';
+import tableMapping from 'dataMapping/financialAssistance/loanTransactionTable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
-import AssistanceTransactionHeaderCellContainer from
-    'containers/award/table/cells/AssistanceTransactionHeaderCellContainer';
+import LoanTransactionHeaderCellContainer from
+    'containers/award/table/cells/LoanTransactionHeaderCellContainer';
 
 import AssistanceTransactionGenericCell from './cells/AssistanceTransactionGenericCell';
 
@@ -26,7 +26,7 @@ const propTypes = {
     nextTransactionPage: React.PropTypes.func
 };
 
-export default class AssistanceTransactionsTable extends React.Component {
+export default class LoanTransactionsTable extends React.Component {
     constructor(props) {
         super(props);
 
@@ -96,7 +96,7 @@ export default class AssistanceTransactionsTable extends React.Component {
                 name: column,
                 columnId: column,
                 rowClassName: this.rowClassName,
-                header: (<AssistanceTransactionHeaderCellContainer
+                header: (<LoanTransactionHeaderCellContainer
                     label={displayName}
                     column={column}
                     defaultDirection={defaultSort}
@@ -150,4 +150,4 @@ export default class AssistanceTransactionsTable extends React.Component {
     }
 }
 
-AssistanceTransactionsTable.propTypes = propTypes;
+LoanTransactionsTable.propTypes = propTypes;

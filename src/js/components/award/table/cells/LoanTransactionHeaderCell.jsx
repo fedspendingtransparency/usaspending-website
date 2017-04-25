@@ -1,12 +1,12 @@
 /**
- * AssistanceTransactionHeaderCell.jsx
- * Created by Lizzie Dabbs 03/07/17
+ * LoanTransactionHeaderCell.jsx
+ * Created by Emily Gullo 04/24/2017
  */
 
 import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
-import tableMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable';
+import tableMapping from 'dataMapping/financialAssistance/loanTransactionTable';
 
 const propTypes = {
     label: React.PropTypes.string,
@@ -17,7 +17,7 @@ const propTypes = {
     isLastColumn: React.PropTypes.bool
 };
 
-export default class AssistanceTransactionHeaderCell extends React.Component {
+export default class LoanTransactionHeaderCell extends React.Component {
     constructor(props) {
         super(props);
 
@@ -122,4 +122,4 @@ export default class AssistanceTransactionHeaderCell extends React.Component {
     }
 }
 
-AssistanceTransactionHeaderCell.propTypes = propTypes;
+LoanTransactionHeaderCell.propTypes = propTypes;

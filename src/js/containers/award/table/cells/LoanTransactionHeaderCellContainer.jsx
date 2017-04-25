@@ -1,23 +1,23 @@
 /**
- * AssistanceTransactionHeaderCellContainer.jsx
- * Created by Lizzie Dabbs 03/07/17
+ * LoanTransactionHeaderCellContainer.jsx
+ * Created by Emily Gullo
  */
 
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import AssistanceTransactionHeaderCell from
-    'components/award/table/cells/AssistanceTransactionHeaderCell';
+import LoanTransactionHeaderCell from
+    'components/award/table/cells/LoanTransactionHeaderCell';
 
 // just import the two relevant actions
 import * as awardActions from 'redux/actions/award/awardActions';
 
 
-export class AssistanceTransactionHeaderCellContainer extends React.Component {
+export class LoanTransactionHeaderCellContainer extends React.Component {
     render() {
         return (
-            <AssistanceTransactionHeaderCell {...this.props} />
+            <LoanTransactionHeaderCell {...this.props} />
         );
     }
 }
@@ -27,4 +27,4 @@ export default connect(
         order: state.award.transactionSort
     }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
-)(AssistanceTransactionHeaderCellContainer);
+)(LoanTransactionHeaderCellContainer);

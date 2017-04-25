@@ -63,7 +63,7 @@ export default class SearchHeader extends React.Component {
                                     code="table"
                                     currentSection={this.props.currentSection}
                                     label="Table"
-                                    accessibleLabel="View spending by award type in a table"
+                                    accessibleLabel="View spending by award in a table"
                                     icon={<Icons.Table alt="Table Icon" />} />
                             </li>
                             <li className="coming-soon">
