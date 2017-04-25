@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
+import _ from 'lodash';
 
 import TableSearchFields from 'dataMapping/search/tableSearchFields';
 
@@ -19,7 +20,8 @@ const propTypes = {
     meta: React.PropTypes.object,
     batch: React.PropTypes.instanceOf(Immutable.Record),
     setSearchTableType: React.PropTypes.func,
-    setSearchPageNumber: React.PropTypes.func
+    setSearchPageNumber: React.PropTypes.func,
+    resetSearchOrder: React.PropTypes.func
 };
 
 const tableTypes = [
@@ -76,6 +78,13 @@ class ResultsTableContainer extends React.Component {
     setColumns(tableType) {
          // calculate the column metadata to display in the table
         const columns = [];
+        let sortOrder = TableSearchFields.defaultSortDirection;
+        let columnWidths = TableSearchFields.columnWidths;
+
+        if (tableType === 'loans') {
+            sortOrder = TableSearchFields.loans.sortDirection;
+            columnWidths = TableSearchFields.loans.columnWidths;
+        }
 
         const tableSettings = TableSearchFields[tableType];
 
@@ -83,8 +92,8 @@ class ResultsTableContainer extends React.Component {
             const column = {
                 columnName: col,
                 displayName: tableSettings[col],
-                width: TableSearchFields.columnWidths[col],
-                defaultDirection: TableSearchFields.defaultSortDirection[col]
+                width: columnWidths[col],
+                defaultDirection: sortOrder[col]
             };
             columns.push(column);
         });
@@ -94,6 +103,15 @@ class ResultsTableContainer extends React.Component {
 
     switchTab(tab) {
         this.props.setSearchTableType(tab);
+        let reset = false;
+        this.state.columns.forEach((i) => {
+            if (!_.includes(TableSearchFields[tab]._order, i.columnName)) {
+                reset = true;
+            }
+            if (reset) {
+                this.props.resetSearchOrder();
+            }
+        });
     }
 
     loadNextPage() {

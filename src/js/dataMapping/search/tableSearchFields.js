@@ -146,14 +146,32 @@ const tableSearchFields = {
         funding_subtier_name: 'Funding Sub-Agency'
     },
     loans: {
+        columnWidths: {
+            award_id: 160,
+            recipient_name: 310,
+            certified_date: 150,
+            face_value_loan_guarantee: 220,
+            original_loan_subsidy_cost: 230,
+            funding_agency_name: 280,
+            funding_subtier_name: 280
+        },
+        sortDirection: {
+            award_id: 'asc',
+            recipient_name: 'asc',
+            certified_date: 'desc',
+            face_value_loan_guarantee: 'desc',
+            original_loan_subsidy_cost: 'desc',
+            funding_agency_name: 'asc',
+            funding_subtier_name: 'asc'
+        },
         _order: [
             'award_id',
             'recipient_name',
-            'period_of_performance_start_date',
-            'period_of_performance_current_end_date',
+            'certified_date',
+            'face_value_loan_guarantee',
+            'original_loan_subsidy_cost',
             'funding_agency_name',
-            'funding_subtier_name',
-            'type'
+            'funding_subtier_name'
         ],
         _requestFields: [
             'id',
@@ -161,27 +179,24 @@ const tableSearchFields = {
             'fain',
             'uri',
             'recipient',
-            'period_of_performance_start_date',
-            'period_of_performance_current_end_date',
-            'total_obligation',
-            'type_description',
+            'certified_date',
+            'assistance_data',
             'funding_agency'
         ],
         _mapping: {
             award_id: 'fain',
             recipient_name: 'recipient__recipient_name',
-            period_of_performance_start_date: 'period_of_performance_start_date',
-            period_of_performance_current_end_date: 'period_of_performance_current_end_date',
-            total_obligation: 'total_obligation',
-            type: 'type',
+            certified_date: 'certified_date',
+            face_value_loan_guarantee: 'assistance_data__face_value_loan_guarantee',
+            original_loan_subsidy_cost: 'assistance_data__original_loan_subsidy_cost',
             funding_agency_name: 'funding_agency__toptier_agency__name',
             funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
         award_id: 'Award ID',
         recipient_name: 'Recipient Name',
-        period_of_performance_start_date: 'Start Date',
-        period_of_performance_current_end_date: 'End Date',
-        type: 'Award Type',
+        certified_date: 'Issued Date',
+        face_value_loan_guarantee: 'Loan Value',
+        original_loan_subsidy_cost: 'Subsidy Cost',
         funding_agency_name: 'Funding Agency',
         funding_subtier_name: 'Funding Sub-Agency'
     },
