@@ -20,6 +20,7 @@ const tableSearchFields = {
         funding_subtier_name: 'asc'
     },
     contracts: {
+        _defaultSortField: 'total_obligation',
         _order: [
             'award_id',
             'recipient_name',
@@ -62,6 +63,7 @@ const tableSearchFields = {
         funding_subtier_name: 'Funding Sub-Agency'
     },
     grants: {
+        _defaultSortField: 'total_obligation',
         _order: [
             'award_id',
             'recipient_name',
@@ -104,6 +106,7 @@ const tableSearchFields = {
         funding_subtier_name: 'Funding Sub-Agency'
     },
     direct_payments: {
+        _defaultSortField: 'total_obligation',
         _order: [
             'award_id',
             'recipient_name',
@@ -155,6 +158,7 @@ const tableSearchFields = {
             funding_agency_name: 280,
             funding_subtier_name: 280
         },
+        _defaultSortField: 'face_value_loan_guarantee',
         sortDirection: {
             award_id: 'asc',
             recipient_name: 'asc',
@@ -180,15 +184,15 @@ const tableSearchFields = {
             'uri',
             'recipient',
             'certified_date',
-            'assistance_data',
+            'latest_transaction',
             'funding_agency'
         ],
         _mapping: {
             award_id: 'fain',
             recipient_name: 'recipient__recipient_name',
             certified_date: 'certified_date',
-            face_value_loan_guarantee: 'assistance_data__face_value_loan_guarantee',
-            original_loan_subsidy_cost: 'assistance_data__original_loan_subsidy_cost',
+            face_value_loan_guarantee: 'latest_transaction__assistance_data__face_value_loan_guarantee',
+            original_loan_subsidy_cost: 'latest_transaction__assistance_data__original_loan_subsidy_cost',
             funding_agency_name: 'funding_agency__toptier_agency__name',
             funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
@@ -201,6 +205,7 @@ const tableSearchFields = {
         funding_subtier_name: 'Funding Sub-Agency'
     },
     insurance: {
+        _defaultSortField: 'total_obligation',
         _order: [
             'award_id',
             'recipient_name',

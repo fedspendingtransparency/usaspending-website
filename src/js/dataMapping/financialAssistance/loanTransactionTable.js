@@ -45,6 +45,14 @@ const tableSearchFields = {
             action_type: 'action_type_description',
             description: 'description'
         },
+        _sortFields: {
+            modification: 'modification_number',
+            action_date: 'action_date',
+            face_value: 'assistance_data__face_value_loan_guarantee',
+            subsidy: 'assistance_data__original_loan_subsidy_cost',
+            action_type: 'action_type_description',
+            description: 'description'
+        },
         modification: 'Modification Number',
         action_date: 'Action Date',
         face_value: 'Loan Value',

@@ -6,7 +6,7 @@
 import { Record } from 'immutable';
 
 const initialState = {
-    field: 'award_id',
+    field: 'total_obligation',
     direction: 'desc'
 };
 

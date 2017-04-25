@@ -7,7 +7,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
-import _ from 'lodash';
 
 import TableSearchFields from 'dataMapping/search/tableSearchFields';
 
@@ -19,9 +18,10 @@ const propTypes = {
     rows: React.PropTypes.instanceOf(Immutable.List),
     meta: React.PropTypes.object,
     batch: React.PropTypes.instanceOf(Immutable.Record),
+    searchOrder: React.PropTypes.object,
     setSearchTableType: React.PropTypes.func,
     setSearchPageNumber: React.PropTypes.func,
-    resetSearchOrder: React.PropTypes.func
+    setSearchOrder: React.PropTypes.func
 };
 
 const tableTypes = [
@@ -98,20 +98,29 @@ class ResultsTableContainer extends React.Component {
             columns.push(column);
         });
 
-        this.setState({ columns });
+        this.setState({
+            columns
+        });
     }
 
     switchTab(tab) {
         this.props.setSearchTableType(tab);
-        let reset = false;
-        this.state.columns.forEach((i) => {
-            if (!_.includes(TableSearchFields[tab]._order, i.columnName)) {
-                reset = true;
+        const currentSortField = this.props.searchOrder.field;
+
+        // check if the current sort field is available in the table type
+        if (!Object.hasOwnProperty.call(TableSearchFields[tab], currentSortField)) {
+            // the sort field doesn't exist, use the table type's default field
+            const field = TableSearchFields[tab]._defaultSortField;
+            let direction = TableSearchFields.defaultSortDirection[field];
+            if (tab === 'loans') {
+                direction = TableSearchFields.loans.sortDirection[field];
             }
-            if (reset) {
-                this.props.resetSearchOrder();
-            }
-        });
+
+            this.props.setSearchOrder({
+                field,
+                direction
+            });
+        }
     }
 
     loadNextPage() {
@@ -149,7 +158,8 @@ export default connect(
     (state) => ({
         rows: state.records.awards,
         meta: state.resultsMeta.toJS(),
-        batch: state.resultsBatch
+        batch: state.resultsBatch,
+        searchOrder: state.searchOrder.toJS()
     }),
     (dispatch) => bindActionCreators(SearchActions, dispatch)
 )(ResultsTableContainer);

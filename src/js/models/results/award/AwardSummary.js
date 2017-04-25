@@ -48,9 +48,9 @@ const fields = [
     'type_of_contract_pricing_description',
     'latest_transaction',
     'assistance_data',
-    'loan_face_value',
+    'face_value_loan_guarantee',
     'total_loan_amount',
-    'loan_subsidy',
+    'original_loan_subsidy_cost',
     'subaward_count',
     'total_subaward_amount'
 ];
@@ -87,6 +87,8 @@ const remapData = (data, idField) => {
     let contractPricing = '';
     let latestTransaction = '';
     let assistanceData = '';
+    let loanFaceValue = '';
+    let loanSubsidy = '';
 
     if (data.id) {
         id = data.id;
@@ -176,6 +178,12 @@ const remapData = (data, idField) => {
 
         if (data.latest_transaction.assistance_data) {
             assistanceData = data.latest_transaction.assistance_data;
+            if (assistanceData.face_value_loan_guarantee) {
+                loanFaceValue = assistanceData.face_value_loan_guarantee;
+            }
+            if (assistanceData.original_loan_subsidy_cost) {
+                loanSubsidy = assistanceData.original_loan_subsidy_cost;
+            }
         }
     }
 
@@ -200,6 +208,8 @@ const remapData = (data, idField) => {
     remappedData.type_of_contract_pricing = contractPricingCode;
     remappedData.type_of_contract_pricing_description = contractPricing;
     remappedData.assistance_data = assistanceData;
+    remappedData.face_value_loan_guarantee = loanFaceValue;
+    remappedData.original_loan_subsidy_cost = loanSubsidy;
 
     // set the awardID (fain or piid) to the relevant field
     let awardId = data.fain;

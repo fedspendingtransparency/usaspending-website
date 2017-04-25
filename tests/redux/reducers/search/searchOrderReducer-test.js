@@ -8,7 +8,7 @@ import Immutable, { Record } from 'immutable';
 import searchOrderReducer from 'redux/reducers/search/searchOrderReducer';
 
 const initialState = {
-    field: 'award_id',
+    field: 'total_obligation',
     direction: 'desc'
 };
 
