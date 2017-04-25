@@ -18,7 +18,13 @@ export default class Footer extends React.Component {
                         </a>
                     </div>
                     <div className="internal-links">
-                        <h6>This site is an alpha release. All data is test data.</h6>
+                        <h6>This site is in beta. To view the current production site, visit&nbsp;
+                            <a
+                                href="https://www.usaspending.gov"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                USAspending.gov
+                            </a>.</h6>
                         <ul className="inline">
                             <li><a href="mailto:usaspending.help-submitonly@fiscal.treasury.gov" title="Feedback" aria-label="Feedback">Feedback</a></li>
                             <li><a href="#" title="About Us" aria-label="About Us">About Us</a></li>

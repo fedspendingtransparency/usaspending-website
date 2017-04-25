@@ -11,11 +11,9 @@ export default class Header extends React.Component {
                     </div>
                     <div className="top-alert-text">
                         <p>
-                            This site is not intended to be an official resource for federal
-                            spending data. To view official federal spending data, please
-                            visit&nbsp;
+                            This site is in beta. To view the current production site, visit&nbsp;
                             <a
-                                href="http://www.usaspending.gov"
+                                href="https://www.usaspending.gov"
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 USAspending.gov
