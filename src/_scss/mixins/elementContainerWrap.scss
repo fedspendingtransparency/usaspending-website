@@ -1,6 +1,4 @@
 //PAGE WRAPPER WITH WHITE BACKGROUND AND SLIGHT SHADOW USED TO WRAP THE CONTENT OF ENTIRE PAGES
-//@import "../../mixins/elementContainerWrap";
-//@include elementContainerWrap();
 @mixin elementContainerWrap {
     @include outer-container(100%);
     background-color: $color-white;

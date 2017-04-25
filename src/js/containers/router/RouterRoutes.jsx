@@ -59,7 +59,7 @@ const routeDefinitions = {
             }
         },
         {
-            path: 'd&binfo',
+            path: 'db_info',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/article/DBInfo').default);

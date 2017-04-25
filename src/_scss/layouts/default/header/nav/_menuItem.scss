@@ -1,7 +1,10 @@
 @mixin headerNavMenuItem {
     height: rem(48);
     margin: 0;
-    padding: 0 rem(15);
+    padding: 0 rem(10);
+    @include media($medium-screen) {
+        padding: 0 rem(15);
+    }
     a {
         color: $color-gray;
         font-size: $base-font-size;

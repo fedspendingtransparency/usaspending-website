@@ -1,6 +1,4 @@
 //SECTION WRAPPER THAT APPLIES THE CORRECT MARGINS TO FULL WIDTH SECTIONS
-//@import "../../mixins/fullSectionWrap";
-//@include fullSectionWrap(#px, #px);
 @mixin fullSectionWrap($mrg-top, $mrg-bottom) {
     margin-top: $mrg-top;
     margin-bottom: $mrg-bottom;

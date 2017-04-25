@@ -5,6 +5,7 @@
     ul.nav-menu {
         @include clearfix;
         @include unstyled-list;
+        float: right;
         li {
             display: inline-block;
             margin-left: rem(30);
