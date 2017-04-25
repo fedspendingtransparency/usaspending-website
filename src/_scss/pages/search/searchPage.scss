@@ -15,6 +15,7 @@
             @include span-columns(12);
         }
         margin-top: rem(32);
+        margin-bottom: rem(60);
         @import "./results/searchResults";
         @import "./topFilterBar/topFilterBar";
     }

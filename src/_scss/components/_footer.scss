@@ -15,22 +15,22 @@
 
 @mixin usa-footer-topic {
     margin: 0;
-    padding: 2rem 0;
+    padding: rem(20) 0;
 }
 
 @mixin usa-footer-logo-img {
-    max-width: 14rem;
+    max-width: rem(140);
 }
 
 @mixin usa-footer-logo-heading {
-    margin-top: 2rem;
+    margin-top: rem(20);
 }
 
 @mixin usa-footer-contact-heading {
     margin-top: 0;
 
     @include media($medium-screen) {
-        margin-top: 1rem;
+        margin-top: rem(10);
     }
 }
 

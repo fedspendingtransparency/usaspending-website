@@ -46,4 +46,19 @@
         width: 100%;
         z-index: 1;
     }
+    @media (max-height: 750px) {
+        min-height: rem(500);
+        & .content-wrap {
+            min-height: rem(225);
+        }
+    }
+    @media (max-height: 650px) {
+        min-height: rem(400);
+        & .content-wrap {
+            min-height: rem(175);
+        }
+    }
+    @media (max-height: 650px) and (max-width: $tablet-screen) {
+        min-height: rem(600);
+    }
 }

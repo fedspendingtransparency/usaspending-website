@@ -4,7 +4,7 @@
     background: $color-gray;
     padding: ($global-pad * 6) 0 0;
     & .inner-wrap {
-        @include fullSectionWrap();
+        @include fullSectionWrap(0, 0);
         & h3 {
             @include span-columns(16);
             @include shift(0);
@@ -25,8 +25,8 @@
         .budget-line {
             display: inline;
             float: left;
-            width: 20px;
-            height: 642px;
+            width: rem(20);
+            height: rem(642);
         }
     }
 }

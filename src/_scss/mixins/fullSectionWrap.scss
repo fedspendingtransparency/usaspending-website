@@ -1,15 +1,14 @@
 //SECTION WRAPPER THAT APPLIES THE CORRECT MARGINS TO FULL WIDTH SECTIONS
-//@import "../../mixins/fullSectionWrap";
-//@include fullSectionWrap();
-
-@mixin fullSectionWrap {
+@mixin fullSectionWrap($mrg-top, $mrg-bottom) {
+    margin-top: $mrg-top;
+    margin-bottom: $mrg-bottom;
     @include outer-container(100%);
-    margin: 0px $outer-gutter/2;
+    margin: $mrg-top $outer-gutter/2 $mrg-bottom;
     @include media($large-screen) {
-        margin: 0px $outer-gutter;
+        margin: $mrg-top $outer-gutter $mrg-bottom;
     }
     @include media($x-large-screen) {
         max-width: $site-max-width;
-        margin: 0 auto;
+        margin: $mrg-top auto $mrg-bottom;
     }
 }
