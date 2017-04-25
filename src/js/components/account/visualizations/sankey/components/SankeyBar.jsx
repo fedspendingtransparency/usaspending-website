@@ -24,6 +24,9 @@ export default class SankeyBar extends React.Component {
             // don't display anything if there's no value
             return null;
         }
+        else if (this.props.width <= 0) {
+            return null;
+        }
 
         return (
             <g

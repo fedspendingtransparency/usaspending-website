@@ -7,8 +7,10 @@ import React from 'react';
 
 import SankeyMessage from './components/SankeyMessage';
 import SankeyVisualizationHorizontal from './SankeyVisualizationHorizontal';
+import SankeyVisualizationVertical from './SankeyVisualizationVertical';
 
 const propTypes = {
+    width: React.PropTypes.number,
     fyAvailable: React.PropTypes.bool
 };
 
@@ -20,6 +22,9 @@ export default class SankeyVisualization extends React.Component {
                 message="No data available for the current fiscal year." />);
         }
 
+        if (this.props.width < 720) {
+            return (<SankeyVisualizationVertical {...this.props} />);
+        }
         return (<SankeyVisualizationHorizontal {...this.props} />);
     }
     render() {
