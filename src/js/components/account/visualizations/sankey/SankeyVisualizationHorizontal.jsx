@@ -289,7 +289,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                             height={this.state.left.bbf.height}
                             length={this.state.left.flow.length}
                             description={`Flow of money into total budget authority from balance \
-    brought forward`}
+brought forward`}
                             style={{
                                 fill: '#bfcfd4'
                             }} />
@@ -299,7 +299,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                             height={this.state.left.other.height}
                             length={this.state.left.flow.length}
                             description={`Flow of money into total budget authority from other \
-    budgetary resources`}
+budgetary resources`}
                             style={{
                                 fill: '#bfcfd4'
                             }} />
@@ -310,7 +310,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                             height={this.state.left.appropriations.height}
                             length={this.state.left.flow.length}
                             description={`Flow of money into total budget authority from new \
-    appropriations`}
+appropriations`}
                             style={{
                                 fill: '#bfcfd4'
                             }} />
@@ -366,7 +366,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                             height={this.state.right.obligated.height}
                             length={this.state.right.flow.length}
                             description={`Flow of money out of total budget authority to obligated \
-    amount`}
+amount`}
                             style={{
                                 fill: '#bfcfd4'
                             }} />
@@ -375,8 +375,8 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                             endY={this.state.right.unobligated.y}
                             height={this.state.right.unobligated.height}
                             length={this.state.right.flow.length}
-                            description={`Flow of money out of total budget authority to unobligated \
-    balance`}
+                            description={`Flow of money out of total budget authority to \
+unobligated balance`}
                             style={{
                                 fill: '#E1E7E9',
                                 stroke: '#597785',
@@ -400,8 +400,8 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                         <ItemLabel
                             y={this.state.center.y - 25}
                             title="Total Budget Authority"
-                            value={`${MoneyFormatter.formatMoney(this.props.amounts.budgetAuthority)} \
-    (100%)`} />
+                            value={`\
+${MoneyFormatter.formatMoney(this.props.amounts.budgetAuthority)} (100%)`} />
                         <SankeyBar
                             color={"#597785"}
                             x={0}

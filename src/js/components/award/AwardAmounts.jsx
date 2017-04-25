@@ -50,16 +50,16 @@ export default class AwardAmounts extends React.Component {
     generateNarrative() {
         const recipient = this.props.selectedAward.recipient_name.toLowerCase();
 
-        const ceiling =
-            MoneyFormatter.formatMoneyWithPrecision(
-                this.props.selectedAward.potential_total_value_of_award, 0);
-        const current = MoneyFormatter.formatMoneyWithPrecision(
-            this.props.selectedAward.total_obligation, 0);
+        const ceiling = this.props.selectedAward.potential_total_value_of_award;
+        const current = this.props.selectedAward.total_obligation;
+        const unformattedCeiling =
+        accounting.unformat(this.props.selectedAward.potential_total_value_of_award);
+        const unformattedCurrent = accounting.unformat(this.props.selectedAward.total_obligation);
 
         // calculate the percentage spent
         let percentage = 'N/A';
-        if (ceiling && ceiling !== 0) {
-            percentage = Math.floor((current / ceiling) * 1000) / 10;
+        if (unformattedCeiling && unformattedCeiling !== 0) {
+            percentage = Math.floor((unformattedCurrent / unformattedCeiling) * 1000) / 10;
         }
         let awardNarrative = (<p>This {this.props.typeString} was awarded to&nbsp;
         <b className="recipient-name">{recipient}</b> with a ceiling of
@@ -74,10 +74,10 @@ export default class AwardAmounts extends React.Component {
             &nbsp;for <b>{current}</b>.</p>);
         }
         else if (this.props.typeString === 'loan') {
-            const loanCeiling = MoneyFormatter.formatMoneyWithPrecision(
-                this.props.selectedAward.assistance_data.face_value_loan_guarantee, 0);
-            const loanSubsidy = MoneyFormatter.formatMoneyWithPrecision(
-                this.props.selectedAward.assistance_data.original_loan_subsidy_cost, 0);
+            const loanCeiling = this.formatFriendlyString(
+                this.props.selectedAward.assistance_data.face_value_loan_guarantee);
+            const loanSubsidy = this.formatFriendlyString(
+                this.props.selectedAward.assistance_data.original_loan_subsidy_cost);
 
             awardNarrative = (<p>A {this.props.typeString} with a face value of&nbsp;
                 <b>{loanCeiling}</b> was awarded to <b>{recipient}</b>.  The agency&#8217;s

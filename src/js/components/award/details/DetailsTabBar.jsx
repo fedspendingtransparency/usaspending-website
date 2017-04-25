@@ -22,7 +22,7 @@ const tabOptions = [
     {
         label: 'Sub-Awards',
         code: 'subaward',
-        disabled: true
+        disabled: false
     },
     {
         label: 'Financial System Details',
