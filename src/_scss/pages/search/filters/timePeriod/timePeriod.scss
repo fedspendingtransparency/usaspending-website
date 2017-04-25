@@ -8,36 +8,36 @@
     @import './_errorMessage';
     @include outer-container;
     padding: 0;
-    margin: 0 2.0rem 3rem; 
+    margin: 0 rem(20) ($global-pad * 2);
     ul.fiscal-years {
         @include row();
         list-style-type: none;
-        padding: 1.5rem 0 0 0;
+        padding: $global-pad 0 0 0;
         margin: -0.1rem auto 0;
         li {
-            line-height: 2.0rem;
+            line-height: rem(20);
             margin: 0;
-            padding: 0 0 0 1rem;
+            padding: 0 0 0 rem(10);
             height: auto;
             @include span-columns(7);
             input {
                 @include usa-input-checkbox;
-                margin-right: -1.9rem;
-                margin-top: 1.3rem;
+                margin-right: rem(-19);
+                margin-top: rem(13);
                 vertical-align: top;
             }
             label {
                 @include usa-label;
                 font-weight: normal;
-                margin: 1rem 0 0 0;
-                margin-left: 2.5rem;
-                max-height: 2.4rem;
+                margin: rem(10) 0 0 0;
+                margin-left: rem(25);
+                max-height: rem(24);
                 padding: 0;
-                font-size: 1.2rem;
+                font-size: rem(12);
                 display: inline-block;
                 @include media($large-screen) {
-                    font-size: 1.4rem;
-                    max-height: 2.8rem;
+                    font-size: $small-font-size;
+                    max-height: rem(28);
                 }
             }
             input + label {
@@ -51,7 +51,7 @@
     .fiscal-years,
     .date-range-option {
         border-top: 1px solid $color-gray-lighter;
-        padding: 0 1.0rem;
+        padding: 0 rem(10);
         margin-top: -1px;
         z-index: 1;
     }
@@ -61,7 +61,7 @@
             @include usa-input;
         }
         .date-range-wrapper {
-            margin-top: 2.5rem;
+            margin-top: rem(25);
         }
     }
 }

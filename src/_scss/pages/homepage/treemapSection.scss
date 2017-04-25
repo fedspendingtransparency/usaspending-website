@@ -4,7 +4,7 @@
     padding: ($global-pad * 4) 0 ($global-pad * 6);
     background-color: #ececec;
     & .treemap-inner-wrap {
-        @include fullSectionWrap();
+        @include fullSectionWrap(0, 0);
         @import './visualizations/_treemapVisualization';
         @import './treemapSidebar';
         @import './treemapWrapper';

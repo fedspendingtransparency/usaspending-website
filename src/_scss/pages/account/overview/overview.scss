@@ -1,73 +1,57 @@
 .account-overview {
+    @import "../../../mixins/setText";
     @import "elements/_divider";
-
     @include span-columns(16);
-
     h3 {
         margin-top: rem(0);
         margin-bottom: 0;
-        font-size: 3rem;
-        line-height: 3.8rem;
-
         color: $color-base;
     }
-
     hr.results-divider {
-        margin-top: 0.9rem;
-        margin-bottom: 10px;
+        margin-top: rem(9);
+        margin-bottom: rem(10);
     }
-
     .overview-content {
         @include span-columns(16);
-        margin-bottom: 3rem;
-
+        margin-bottom: ($global-mrg * 2);
         .overview-section {
             @include span-columns(16);
-            margin-top: 10px;
-
+            margin-top: mre(10);
             @include media($tablet-screen) {
                 @include span-columns(8);
                 margin-top: 0;
             }
-
             h4 {
-                color: $color-gray;
-                font-weight: 600;
-                font-size: 19px;
-                line-height: 24px;
+                color: $color-base;
+                font-weight: $font-semibold;
+                @include setText(rem(19));
             }
-
             .section-content {
                 color: $color-base;
-                font-size: 14px;
+                font-size: $small-font-size;
             }
         }
     }
-
     .sankey-wrapper {
         text-align: center;
         color: $color-base;
-        font-size: 14px;
-        margin-top: 60px;
-        margin-bottom: 60px;
-
+        font-size: $small-font-size;
+        margin-top: ($global-mrg * 4);
+        margin-bottom: ($global-mrg * 4);
         @import "./sankey/sankey";
-
         .sankey-disclosures {
             text-align: left;
-            margin-top: 20px;
+            margin-top: rem(20);
             .disclosure-title {
-                font-weight: 600;
+                font-weight: $font-semibold;
             }
-
             ul.disclosure-list {
                 margin: 0;
                 padding: 0;
                 list-style-type: none;
-
                 li {
                     b {
-                        font-weight: 600;
+                        font-weight: $font-semibold;
                     }
                 }
             }

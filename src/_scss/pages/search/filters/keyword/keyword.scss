@@ -4,14 +4,17 @@
     .keyword-input {
         display: inline-block;
         font-size: $small-font-size;
-        height: 4rem;
+        height: rem(40);
         margin: 0 auto;
-        padding:  11px 8px 11px 8px;
+        padding:  rem(11) rem(8);
+        width: 70%
     }
 
     .keyword-submit {
         display: inline-block;
-        height: 4rem;
-        margin-left: 0;
+        height: rem(40);
+        margin: 0;
+        padding:0;
+        width: 30%;
     }
 }
