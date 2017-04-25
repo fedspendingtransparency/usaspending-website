@@ -16,10 +16,8 @@ export default class MastHead extends React.Component {
                 </div>
                 <div className="overview-inner-wrap-left">
                     <h5>Source of Data</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin aliquam dapibus rutrum.
-                     Duis ultricies dolor ut lacus cursus venenatis. Phasellus a accumsan ipsum, non cursus orci.
-                     Vestibulum aliquam est eget nisl faucibus ullamcorper.</p>
-                    <a href="#">
+                    <p>The U.S Treasury Department brings together data from hundreds of federal agencies and systems to make it readily available to the public. Federal agencies report this data, in a standard format, to Treasury and other government-wide systems.</p>
+                    <a href="#/sourcesofdata">
                         <button
                             className="usa-button-primary"
                             title="View the Policy"
@@ -30,9 +28,15 @@ export default class MastHead extends React.Component {
                 </div>
                 <div className="overview-inner-wrap-right">
                     <h5>Relevant Legislature</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin aliquam dapibus rutrum.
-                     Duis ultricies dolor ut lacus cursus venenatis. Phasellus a accumsan ipsum, non cursus orci.
-                     Vestibulum aliquam est eget nisl faucibus ullamcorper.</p>
+                    <p>In 2014, Congress passed the Digital Accountability and Transparency Act (DATA Act) in order to enable taxpayers and policy makers to track Federal spending more effectively. </p>
+                     <a href="#/relevantlegislature">
+                        <button
+                            className="usa-button-primary"
+                            title="View Relevant Legislature"
+                            aria-label="View Relevant Legislature">
+                            View Relevant Legislature
+                        </button>
+                    </a>
                 </div>
             </div>
         );
