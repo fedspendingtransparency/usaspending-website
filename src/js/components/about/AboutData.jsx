@@ -15,7 +15,7 @@ export default class AboutData extends React.Component {
                 <div className="aboutdata-inner-wrap">
                     <h3>About the Data</h3>
                     <hr className="results-divider" />
-                    <p>USAspending.gov hosts an abundance of data that can help you understand the nuances of government spending. This data can answer the who, what, where, why, and how of the complex government spending landscape. Read on for more background on the data you'll find on this site.</p>
+                    <p>USAspending.gov hosts an abundance of data that can help you understand the nuances of government spending. This data can answer the who, what, where, why, and how of the complex government spending landscape. Read on for more background on the data you&#8217;ll find on this site.</p>
                     <a href="#/aboutdata" role="button" title="About the Data" aria-label="About the Data">Not enough for you? Click here for more discussion of the data</a>
                 </div>
             </div>

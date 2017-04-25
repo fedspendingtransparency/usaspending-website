@@ -46,7 +46,9 @@
         h1 {
             margin: ($global-pad * 2) 0 ($global-pad * 1) 0;
         }
-        hr.results-divider {margin: 0 0 ($global-pad * 3) 0;}
+        hr.results-divider {
+            margin: 0 0 ($global-pad * 3) 0;
+        }
         @include media($small-screen) {
             margin-top: $global-mrg;
         }
@@ -58,4 +60,3 @@
         }
     }
 }
-
