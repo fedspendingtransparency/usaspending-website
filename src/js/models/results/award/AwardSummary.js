@@ -44,7 +44,9 @@ const fields = [
     'recipient_business_type',
     'type_of_contract_pricing',
     'type_of_contract_pricing_description',
-    'latest_transaction'
+    'latest_transaction',
+    'subaward_count',
+    'total_subaward_amount'
 ];
 
 const remapData = (data, idField) => {
@@ -99,16 +101,24 @@ const remapData = (data, idField) => {
     }
 
     if (data.awarding_agency) {
-        awardingAgencyName = data.awarding_agency.toptier_agency.name;
-        awardingSubtierName = data.awarding_agency.subtier_agency.name;
+        if (data.awarding_agency.toptier_agency) {
+            awardingAgencyName = data.awarding_agency.toptier_agency.name;
+        }
+        if (data.awarding_agency.subtier_agency) {
+            awardingSubtierName = data.awarding_agency.subtier_agency.name;
+        }
         if (data.awarding_agency.office_agency) {
             awardingOfficeName = data.awarding_agency.office_agency.name;
         }
     }
 
     if (data.funding_agency) {
-        fundingAgencyName = data.funding_agency.toptier_agency.name;
-        fundingSubtierName = data.funding_agency.subtier_agency.name;
+        if (data.funding_agency.toptier_agency) {
+            fundingAgencyName = data.funding_agency.toptier_agency.name;
+        }
+        if (data.funding_agency.subtier_agency) {
+            fundingSubtierName = data.funding_agency.subtier_agency.name;
+        }
         if (data.funding_agency.office_agency) {
             fundingOfficeName = data.funding_agency.office_agency.name;
         }

@@ -1,32 +1,41 @@
-@mixin footerInternalLinks {
-    @include span-columns(16);
-    & h6 {
-        color: $color-white;
-        font-size: 1.6rem;
-        text-align: center;
-    }
-    & ul.inline {
-        text-align: center;
-        & li {
-            float: none;
-            & a {
-                color: #9BDAF1;
-                font-size: 1.4rem;
-                font-weight: $font-semibold;
+    @mixin footerInternalLinks {
+        @include span-columns(16);
+        a {
+            color: #9BDAF1;
+        }
+        & h6 {
+            color: $color-white;
+            font-size: $base-font-size;
+            text-align: center;
+        }
+        & ul.inline {
+            text-align: center;
+            & li {
                 float: none;
-                text-align: center;
+                & a {
+                    font-size: $small-font-size;
+                    font-weight: $font-semibold;
+                    float: none;
+                    text-align: center;
+                }
+            }
+        }
+        p {
+            font-size: rem(12);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        @include media($tablet-screen) {
+            @include span-columns(9);
+            & h6 {
+                font-size: rem(19);
+                text-align: left;
+                margin: 0;
+            }
+            & ul.inline,
+            p {
+                text-align: left;
             }
         }
     }
-    @include media($tablet-screen) {
-        @include span-columns(9);
-        & h6 {
-            font-size: 1.9rem;
-            text-align: left;
-            margin: 0;
-        }
-        & ul.inline {
-            text-align: left;
-        }
-    }
-}

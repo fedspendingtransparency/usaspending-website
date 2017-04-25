@@ -1,20 +1,20 @@
-@import "../../mixins/moreOptionsBtn";
 .summary-status {
-    @include span-columns(16);
+    @import "../../mixins/moreOptionsBtn";
     @include display(flex);
     @include justify-content(space-between);
-    padding-top: 15px;
-    margin-top: 15px;
+    padding-top: $global-pad-mrg;
+    margin-top: $global-pad-mrg;
     border-top: 1px solid rgba($color-white, .1);
     ul.summary-status-items {
-        @include span-columns(13);
         @include unstyled-list;
         li {
+            display: inline-block;
+            width: 100%;
             .format-item {
                 .item-label {
-                    @include span-columns(7);
                     color: #CEF233;
                     font-weight: $font-semibold;
+                    float: left;
                     margin: 0 rem(5) 0 0;
                     text-align: right;
                     &:after {
@@ -23,32 +23,49 @@
                 }
                 .item-value {
                     text-transform: uppercase;
+                    float: left;
                 }
             }
         }
     }
     .more-options {
-        @include span-columns(3);
         @include align-self(center);
         @include moreOptionsBtn($color-white, $color-gray);
     }
     @include media($tablet-screen) {
-        @include span-columns(10);
-        @include display(flex);
+        width: 40%;
         padding-top: 0;
         margin-top: 0;
         border-top: none;
         ul.summary-status-items {
-            @include span-columns(15);
+            li {
+                .format-item {
+                    width: 100%;
+                    .item-label {
+                        float: left;
+                        color: #CEF233;
+                        font-weight: $font-semibold;
+                        margin: 0 rem(5) 0 0;
+                        text-align: right;
+                        &:after {
+                            content: (":");
+                        }
+                    }
+                    .item-value {
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
+    @include media($medium-screen) {
+        width: auto;
+        ul.summary-status-items {
             @include display(flex);
-            @include justify-content(flex-end);
             li {
                 border-right: 1px solid rgba($color-white, .3);
-                margin-right: rem(15);
-                padding: rem(10) rem(15) rem(10) 0;
                 .format-item {
                     .item-label {
-                        @include span-columns(4);
                         text-align: center;
                         width: 100%;
                         &:after {
@@ -58,6 +75,7 @@
                     .item-value {
                         text-transform: uppercase;
                         text-align: center;
+                        width: 100%;
                     }
                 }
                 &:last-child {

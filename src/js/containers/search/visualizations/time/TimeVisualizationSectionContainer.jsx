@@ -18,9 +18,8 @@ import * as resultsMetaActions from 'redux/actions/resultsMeta/resultsMetaAction
 import * as SearchHelper from 'helpers/searchHelper';
 import * as BudgetCategoryHelper from 'helpers/budgetCategoryHelper';
 
+import SearchTASCategoriesOperation from 'models/search/SearchTASCategoriesOperation';
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
-import SearchTransactionFileCOperation from 'models/search/SearchTransactionFileCOperation';
-import SearchAccountOperation from 'models/search/SearchAccountOperation';
 
 const combinedActions = Object.assign({}, searchFilterActions, resultsMetaActions);
 
@@ -66,20 +65,58 @@ export class TimeVisualizationSectionContainer extends React.Component {
         });
     }
 
-    fetchTransactionData() {
+    fetchData() {
+        this.setState({
+            loading: true
+        });
+
+        // Cancel API request if it exists
+        if (this.apiRequest) {
+            this.apiRequest.cancel();
+        }
+
+        // // Fetch data from the appropriate endpoint
+        if (this.state.awardFiltersSelected && this.state.budgetFiltersSelected) {
+            this.fetchComboRequest();
+        }
+        else if (this.state.budgetFiltersSelected) {
+            this.fetchBudgetRequest();
+        }
+        else if (this.state.awardFiltersSelected) {
+            this.fetchAwardRequest();
+            // this.fetchTransactionData();
+        }
+        else {
+            this.fetchUnfilteredRequest();
+            // this.fetchBalanceData();
+        }
+    }
+
+    fetchUnfilteredRequest() {
+        // no filters have been selected
+        this.fetchTASCategories('Time visualization - unfiltered');
+    }
+
+    fetchBudgetRequest() {
+        // only budget filters have been applied
+        this.fetchTASCategories('Time visualization - budget filters');
+    }
+
+    fetchAwardRequest() {
+        // only award filters have been selected
+        this.fetchTransactions('Time visualization - award filters');
+    }
+
+    fetchComboRequest() {
+        // a combination of budget and award filters have been selected
+        this.fetchTransactions('Time visualization - combination');
+    }
+
+    fetchTransactions(auditTrail = null) {
         const field = 'federal_action_obligation';
         const group = 'action_date__fy';
 
-        let operation = null;
-
-        if (this.state.budgetFiltersSelected) {
-            operation = new SearchTransactionFileCOperation();
-        }
-        else {
-            operation = new SearchTransactionOperation();
-        }
-
-        // Add filters to Search Operation
+        const operation = new SearchTransactionOperation();
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
@@ -87,10 +124,14 @@ export class TimeVisualizationSectionContainer extends React.Component {
         const apiParams = {
             field,
             group,
-            order: ['aggregate'],
+            order: [group],
             aggregate: 'sum',
             filters: searchParams
         };
+
+        if (auditTrail) {
+            apiParams.auditTrail = auditTrail;
+        }
 
         this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
 
@@ -104,12 +145,12 @@ export class TimeVisualizationSectionContainer extends React.Component {
             });
     }
 
-    fetchBalanceData() {
-        const field = 'obligations_incurred_total_by_tas_cpe';
+    fetchTASCategories(auditTrail = null) {
+         // only budget filters have been selected
+        const field = 'obligations_incurred_by_program_object_class_cpe';
         const group = 'submission__reporting_fiscal_year';
-        const operation = new SearchAccountOperation('appropriations');
-
-        // Add filters to Search Operation
+        // generate the API parameters
+        const operation = new SearchTASCategoriesOperation();
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
@@ -117,12 +158,16 @@ export class TimeVisualizationSectionContainer extends React.Component {
         const apiParams = {
             field,
             group,
-            order: ['aggregate'],
+            order: [group],
             aggregate: 'sum',
             filters: searchParams
         };
 
-        this.apiRequest = SearchHelper.performBalancesSearch(apiParams);
+        if (auditTrail) {
+            apiParams.auditTrail = auditTrail;
+        }
+
+        this.apiRequest = SearchHelper.performCategorySearch(apiParams);
 
         this.apiRequest.promise
             .then((res) => {
@@ -132,25 +177,6 @@ export class TimeVisualizationSectionContainer extends React.Component {
             .catch(() => {
                 this.apiRequest = null;
             });
-    }
-
-    fetchData() {
-        this.setState({
-            loading: true
-        });
-
-        // Cancel API request if it exists
-        if (this.apiRequest) {
-            this.apiRequest.cancel();
-        }
-
-        // Fetch data from the appropriate endpoint
-        if (this.state.awardFiltersSelected) {
-            this.fetchTransactionData();
-        }
-        else {
-            this.fetchBalanceData();
-        }
     }
 
     parseData(data, group) {

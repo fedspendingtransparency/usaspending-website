@@ -1,20 +1,12 @@
-@import "../../mixins/moreOptionsBtn";
 .usa-da-treemap-section {
-    @include outer-container(100%);
-    @include row();
-    @include clearfix;
+    @import "../../mixins/moreOptionsBtn";
+    @import "../../mixins/fullSectionWrap";
+    padding: ($global-pad * 4) 0 ($global-pad * 6);
     background-color: #ececec;
-    max-width: $site-max-width;
-    margin: 0;
-    position: relative;
-    padding: rem(40) rem(30);
-    @include media($large-screen) {
-        padding: rem(40) $outer-gutter;
+    & .treemap-inner-wrap {
+        @include fullSectionWrap(0, 0);
+        @import './visualizations/_treemapVisualization';
+        @import './treemapSidebar';
+        @import './treemapWrapper';
     }
-    @include media($x-large-screen) {
-        padding: rem(40) auto;
-    }
-    @import './visualizations/_treemapVisualization';
-    @import './treemapSidebar';
-    @import './treemapWrapper';
 }
