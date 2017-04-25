@@ -16,7 +16,7 @@ export default class Header extends React.Component {
                                 href="https://www.usaspending.gov"
                                 target="_blank"
                                 rel="noopener noreferrer">
-                            USAspending.gov
+                                USAspending.gov
                             </a>.
                         </p>
                     </div>
