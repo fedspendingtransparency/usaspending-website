@@ -1,11 +1,11 @@
 const tableSearchFields = {
     columnWidths: {
-        award_id: 120,
-        recipient_name: 270,
-        period_of_performance_start_date: 130,
-        period_of_performance_current_end_date: 130,
-        total_obligation: 160,
-        type: 160,
+        award_id: 160,
+        recipient_name: 310,
+        period_of_performance_start_date: 150,
+        period_of_performance_current_end_date: 150,
+        total_obligation: 220,
+        type: 230,
         funding_agency_name: 280,
         funding_subtier_name: 280
     },
