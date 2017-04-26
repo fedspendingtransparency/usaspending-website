@@ -179,10 +179,12 @@ const remapData = (data, idField) => {
         if (data.latest_transaction.assistance_data) {
             assistanceData = data.latest_transaction.assistance_data;
             if (assistanceData.face_value_loan_guarantee) {
-                loanFaceValue = assistanceData.face_value_loan_guarantee;
+                loanFaceValue =
+                    MoneyFormatter.formatMoney(assistanceData.face_value_loan_guarantee);
             }
             if (assistanceData.original_loan_subsidy_cost) {
-                loanSubsidy = assistanceData.original_loan_subsidy_cost;
+                loanSubsidy =
+                    MoneyFormatter.formatMoney(assistanceData.original_loan_subsidy_cost);
             }
         }
     }
