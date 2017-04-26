@@ -19,7 +19,6 @@ class SearchOperation {
             // descending order
             prefix = '-';
         }
-
         orderValue.push(`${prefix}${field}`);
 
         this.sortOrder = orderValue;

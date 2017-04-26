@@ -133,6 +133,7 @@ class SearchContainer extends React.PureComponent {
         // parse the redux search order into the API-consumable format
         const searchOrder = new SearchSortOrder();
         searchOrder.parseReduxState(tableType, this.props.order);
+        const sortParams = searchOrder.toParams();
 
         // indicate the request is about to start
         this.props.setSearchInFlight(true);
@@ -146,7 +147,7 @@ class SearchContainer extends React.PureComponent {
         const resultLimit = 60;
 
         this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(),
-            pageNumber, resultLimit, searchOrder.toParams(),
+            pageNumber, resultLimit, sortParams,
             TableSearchFields[tableType]._requestFields);
 
         this.searchRequest.promise
