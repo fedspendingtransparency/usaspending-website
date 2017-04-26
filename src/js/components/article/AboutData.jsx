@@ -1,32 +1,25 @@
 /**
- * DBInfo.jsx
- * Created by Destin Frasier 04/20/2017
+ * AboutData.jsx
+ * Created by Rickey An 04/20/2017
  **/
 
 import React from 'react';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
+import Breadcrumb from './Breadcrumb';
 
 export default class AboutData extends React.Component {
     render() {
         return (
             <div className="usa-da-about-article">
                 <Header />
-                <div className="breadcrumbs">
-                    <ul>
-                        <li><a href="#" role="button" title="Home" aria-label="Home">Home</a></li>
-                        <svg className="usa-da-icon-angle-right" viewBox="0 0 512 512" aria-label="Arrow Pointing Right Icon" height="12"><title>Arrow Pointing Right Icon</title><g><path d="M143.5 434.8L304 257 143.8 77.3 143.4 6l225.2 250.5L144 506" /></g></svg>
-                        <li><a href="#/about" role="button" title="About Us" aria-label="About Us">About Us</a></li>
-                        <svg className="usa-da-icon-angle-right" viewBox="0 0 512 512" aria-label="Arrow Pointing Right Icon" height="12"><title>Arrow Pointing Right Icon</title><g><path d="M143.5 434.8L304 257 143.8 77.3 143.4 6l225.2 250.5L144 506" /></g></svg>
-                        <li>About the Data</li>
-                    </ul>
-                </div>
+                <Breadcrumb title="About the Data" />
                 <div className="article-wrapper">
                     <h1>About the Data</h1>
                     <hr className="results-divider" />
                     <p>Last year, the U.S. government spent $3.85 trillion. Do you ever wonder how all that money was used? Well, as you might imagine, it is a complicated story. It involves hundreds of government agencies and programs, thousands of companies and non-profits, and millions of individual citizens across the country and the globe. Despite this complex story, there is an abundance of data available that can help make sense of it all, and that data is offered here on USAspending.gov.</p>
                     <p>USAspending.gov puts this federal spending data in your hands. In order to understand this data, it’s helpful to first understand how the data is structured and categorized. Below is a graphic showing the various levels of federal spending data that you will encounter on this site.</p>
-                    <img src="url(../../img/aboutdata-graphic@2x.png" alt="Data Structure" />
+                    <img src="img/aboutdata-graphic@2x.png" alt="Data Structure" />
                     <h6>Level 1. Total Federal Spending</h6>
                     <p>This top level represents the entirety of the United States government’s spending for a single fiscal year. Exactly how much can be spent is determined by the budget passed by Congress and signed by the President.</p>
                     <h6>Level 2. Budget Functions</h6>

@@ -1,63 +1,19 @@
 /**
- * DBInfo.jsx
- * Created by Destin Frasier 04/20/2017
+ * SourcesData.jsx
+ * Created by Rickey An 04/20/2017
  **/
 
 import React from 'react';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
+import Breadcrumb from './Breadcrumb';
 
 export default class SourcesData extends React.Component {
     render() {
         return (
             <div className="usa-da-about-article">
                 <Header />
-                <div className="breadcrumbs">
-                    <ul>
-                        <li>
-                            <a href="#" role="button" title="Home" aria-label="Home">
-                                Home
-                            </a>
-                        </li>
-                        <svg
-                            className="usa-da-icon-angle-right"
-                            viewBox="0 0 512 512"
-                            aria-label="Arrow Pointing Right Icon"
-                            height="12">
-                            <title>
-                                Arrow Pointing Right Icon
-                            </title>
-                            <g>
-                                <path
-                                    d="M143.5 434.8L304 257 143.8 77.3 143.4 6l225.2 250.5L144 506" />
-                            </g>
-                        </svg>
-                        <li>
-                            <a
-                                href="#/about"
-                                role="button"
-                                title="About Us"
-                                aria-label="About Us">
-                                About Us
-                            </a>
-                        </li>
-                        <svg
-                            className="usa-da-icon-angle-right"
-                            viewBox="0 0 512 512"
-                            aria-label="Arrow Pointing Right Icon"
-                            height="12">
-                            <title>
-                                Arrow Pointing Right Icon
-                            </title>
-                            <g>
-                                <path d="M143.5 434.8L304 257 143.8 77.3 143.4 6l225.2 250.5L144 506" />
-                            </g>
-                        </svg>
-                        <li>
-                            Sources of Data
-                        </li>
-                    </ul>
-                </div>
+                <Breadcrumb title="Sources of Data" />
                 <div className="article-wrapper">
                     <h1>Sources of Data</h1>
                     <hr className="results-divider" />

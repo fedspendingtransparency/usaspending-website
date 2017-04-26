@@ -12,6 +12,10 @@
             fill: $color-gray-medium;
             padding: 0 $global-pad;
         }
+        & .breadcrumb-arrow {
+            display: inline-block;
+            & svg {height: 12px;}
+        }
         @include media($medium-screen) {
             @include span-columns(12);
             @include shift(2);
