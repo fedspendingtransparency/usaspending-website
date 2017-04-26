@@ -152,7 +152,7 @@ const tableSearchFields = {
         columnWidths: {
             award_id: 160,
             recipient_name: 310,
-            certified_date: 150,
+            action_date: 150,
             face_value_loan_guarantee: 220,
             original_loan_subsidy_cost: 230,
             funding_agency_name: 280,
@@ -162,7 +162,7 @@ const tableSearchFields = {
         sortDirection: {
             award_id: 'asc',
             recipient_name: 'asc',
-            certified_date: 'desc',
+            action_date: 'desc',
             face_value_loan_guarantee: 'desc',
             original_loan_subsidy_cost: 'desc',
             funding_agency_name: 'asc',
@@ -171,7 +171,7 @@ const tableSearchFields = {
         _order: [
             'award_id',
             'recipient_name',
-            'certified_date',
+            'action_date',
             'face_value_loan_guarantee',
             'original_loan_subsidy_cost',
             'funding_agency_name',
@@ -183,14 +183,14 @@ const tableSearchFields = {
             'fain',
             'uri',
             'recipient',
-            'certified_date',
+            'action_date',
             'latest_transaction',
             'funding_agency'
         ],
         _mapping: {
             award_id: 'fain',
             recipient_name: 'recipient__recipient_name',
-            certified_date: 'certified_date',
+            action_date: 'latest_transaction__action_date',
             face_value_loan_guarantee: 'latest_transaction__assistance_data__face_value_loan_guarantee',
             original_loan_subsidy_cost: 'latest_transaction__assistance_data__original_loan_subsidy_cost',
             funding_agency_name: 'funding_agency__toptier_agency__name',
@@ -198,7 +198,7 @@ const tableSearchFields = {
         },
         award_id: 'Award ID',
         recipient_name: 'Recipient Name',
-        certified_date: 'Issued Date',
+        action_date: 'Issued Date',
         face_value_loan_guarantee: 'Loan Value',
         original_loan_subsidy_cost: 'Subsidy Cost',
         funding_agency_name: 'Funding Agency',

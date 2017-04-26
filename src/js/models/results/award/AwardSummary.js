@@ -52,7 +52,8 @@ const fields = [
     'total_loan_amount',
     'original_loan_subsidy_cost',
     'subaward_count',
-    'total_subaward_amount'
+    'total_subaward_amount',
+    'action_date'
 ];
 
 const remapData = (data, idField) => {
@@ -62,6 +63,7 @@ const remapData = (data, idField) => {
     let parentId = 0;
     let awardType = '';
     let internalGeneralType = 'unknown';
+    let actionDate = '';
     let awardTypeDescription = '';
     let awardDescription = '';
     let awardingAgencyName = '';
@@ -187,6 +189,10 @@ const remapData = (data, idField) => {
                     MoneyFormatter.formatMoney(assistanceData.original_loan_subsidy_cost);
             }
         }
+
+        if (data.latest_transaction.action_date) {
+            actionDate = data.latest_transaction.action_date;
+        }
     }
 
 
@@ -212,6 +218,7 @@ const remapData = (data, idField) => {
     remappedData.assistance_data = assistanceData;
     remappedData.face_value_loan_guarantee = loanFaceValue;
     remappedData.original_loan_subsidy_cost = loanSubsidy;
+    remappedData.action_date = actionDate;
 
     // set the awardID (fain or piid) to the relevant field
     let awardId = data.fain;
@@ -305,7 +312,7 @@ const remapData = (data, idField) => {
 
     // finally parse the moment object
     const dates = ['period_of_performance_start_date', 'period_of_performance_current_end_date',
-        'date_signed'];
+        'date_signed', 'action_date'];
     dates.forEach((date) => {
         if (data[date]) {
             remappedData[date] = moment(data[date], 'YYYY-MM-DD').format('M/D/YYYY');
