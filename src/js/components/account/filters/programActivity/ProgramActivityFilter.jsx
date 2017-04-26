@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { OrderedSet } from 'immutable';
+import _ from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import ProgramActivityItem from './ProgramActivityItem';
@@ -56,7 +57,12 @@ export default class ProgramActivityFilter extends React.Component {
     generateProgramActivityItems(programActivities) {
         const activities = [];
 
-        programActivities.forEach((programActivity) => {
+        // Sort program activities by code, ascending, for display purposes
+        // Code is a string - must convert to numeric before sorting
+        const sortedProgramActivities =
+            _.sortBy(programActivities, [(pa) => parseInt(pa.code, 10)]);
+
+        sortedProgramActivities.forEach((programActivity) => {
             if (activities.length < this.state.shown) {
                 const label = `${programActivity.code} - ${programActivity.name}`;
                 const checked = this.props.selectedProgramActivities.includes(programActivity.id);
