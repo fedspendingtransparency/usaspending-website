@@ -29,7 +29,8 @@ const propTypes = {
     order: React.PropTypes.object,
     setAccountAwardType: React.PropTypes.func,
     setAccountAwards: React.PropTypes.func,
-    appendAccountAwards: React.PropTypes.func
+    appendAccountAwards: React.PropTypes.func,
+    setAccountAwardOrder: React.PropTypes.func
 };
 
 const tableTypes = [
@@ -118,6 +119,22 @@ export class AccountAwardsContainer extends React.Component {
 
     switchTab(tab) {
         this.props.setAccountAwardType(tab);
+        const currentSortField = this.props.order.field;
+
+        // check if the current sort field is available in the table type
+        if (!Object.hasOwnProperty.call(TableSearchFields[tab], currentSortField)) {
+            // the sort field doesn't exist, use the table type's default field
+            const field = TableSearchFields[tab]._defaultSortField;
+            let direction = TableSearchFields.defaultSortDirection[field];
+            if (tab === 'loans') {
+                direction = TableSearchFields.loans.sortDirection[field];
+            }
+
+            this.props.setAccountAwardOrder({
+                field,
+                direction
+            });
+        }
     }
 
     loadData(page = 1) {
