@@ -3,6 +3,8 @@
  * Created by Kevin Li 3/3/17
  */
 
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+
 export const agencyFields = [
     {
         label: 'Awarding Agency',
@@ -164,28 +166,73 @@ export const legislativeFields = [
 export const compensationFields = [
     {
         label: 'Officer 1',
-        field: 'officer_1_amount',
-        type: 'currency'
+        field: '__special',
+        parse: (data) => {
+            const name = data.officer_1_name;
+            const amount = MoneyFormatter.formatMoney(data.officer_1_amount);
+
+            if (name && name !== '') {
+                return `${name} - ${amount}`;
+            }
+
+            return amount;
+        }
     },
     {
         label: 'Officer 2',
-        field: 'officer_2_amount',
-        type: 'currency'
+        field: '__special',
+        parse: (data) => {
+            const name = data.officer_2_name;
+            const amount = MoneyFormatter.formatMoney(data.officer_2_amount);
+
+            if (name && name !== '') {
+                return `${name} - ${amount}`;
+            }
+
+            return amount;
+        }
     },
     {
         label: 'Officer 3',
-        field: 'officer_3_amount',
-        type: 'currency'
+        field: '__special',
+        parse: (data) => {
+            const name = data.officer_3_name;
+            const amount = MoneyFormatter.formatMoney(data.officer_3_amount);
+
+            if (name && name !== '') {
+                return `${name} - ${amount}`;
+            }
+
+            return amount;
+        }
     },
     {
         label: 'Officer 4',
-        field: 'officer_4_amount',
-        type: 'currency'
+        field: '__special',
+        parse: (data) => {
+            const name = data.officer_4_name;
+            const amount = MoneyFormatter.formatMoney(data.officer_4_amount);
+
+            if (name && name !== '') {
+                return `${name} - ${amount}`;
+            }
+
+            return amount;
+        }
     },
     {
         label: 'Officer 5',
-        field: 'officer_5_amount',
-        type: 'currency'
+        field: '__special',
+        parse: (data) => {
+            const name = data.officer_5_name;
+            const amount = MoneyFormatter.formatMoney(data.officer_5_amount);
+
+            if (name && name !== '') {
+                return `${name} - ${amount}`;
+            }
+
+            return amount;
+        }
     }
 ];
 
