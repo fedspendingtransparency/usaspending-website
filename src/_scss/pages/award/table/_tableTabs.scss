@@ -1,6 +1,10 @@
 .table-tabs {
     border-bottom: rem(1) solid $color-gray-light;
     padding-left: rem(15);
+    display: none;
+    @include media($tablet-screen) {
+        display: block;
+    }
     button.table-tab-toggle {
         border: rem(1) solid transparent;
         border-bottom: rem(1) solid $color-gray-light;
