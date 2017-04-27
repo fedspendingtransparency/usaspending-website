@@ -1,40 +1,34 @@
-@import "./_footerLogo";
-@import "./_footerInternalLinks";
-@import "./_footerExternalLinks";
-@import "./_footerCopyright";
-@import "../../../elements/_inlineList";
-@mixin defaultFooter() {
-    .footer-outer-wrap {
-        background-color: #333;
-        color: $color-white;
-        font-size: $base-font-size;
-        padding: 1.5rem 0;
-        width: 100%;
-        .footer-container {
-            @include outer-container;
+.footer-outer-wrap {
+    
+    @import "./_footerCopyright";
+    @import "elements/_inlineList";
+
+    background-color: #333;
+    color: $color-white;
+    font-size: $base-font-size;
+    padding: 1.5rem 0;
+    width: 100%;
+    .footer-container {
+        @include outer-container;
+        @include pad(1rem 2rem);
+        max-width: $site-max-width;
+        @include media($tablet-screen) {
             @include pad(1rem 2rem);
-            max-width: $site-max-width;
-            @include media($tablet-screen) {
-                @include pad(1rem 2rem);
-                @include display(flex);
-                @include align-items(center);
-            }
-            @include media($x-large-screen) {
-                margin: 0 auto;
-                max-width: $site-max-width;
-                padding: 1rem 0;
-            }
-            & .footerLogo {
-                @include footerLogo;
-            }
-            .internal-links {
-                @include footerInternalLinks;
-            }
-            .external-links {
-                @include footerExternalLinks;
-            }
+            @include display(flex);
+            @include align-items(center);
         }
+        @include media($x-large-screen) {
+            margin: 0 auto;
+            max-width: $site-max-width;
+            padding: 1rem 0;
+        }
+
+        @import "./_footerLogo";
+        
+        @import "./_footerInternalLinks";
+        @import "./_footerExternalLinks";
     }
+
     .copyright-block {
         @include footerCopyright;
     }

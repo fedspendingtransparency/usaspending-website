@@ -1,10 +1,10 @@
 @import "../default/default";
-@import "../../mixins/elementContainerWrap";
-@import "../../elements/_divider";
-@import "../../mixins/setText";
-@mixin articleLayout {
-    @include defaultLayout;
+@import "mixins/elementContainerWrap";
+
+#main-content { 
     .article-wrapper {
+        @import "elements/_divider";
+        @import "mixins/setText";
         @include elementContainerWrap();
         h1 {
             @include setText($h3-font-size);

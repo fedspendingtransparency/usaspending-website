@@ -1,4 +1,4 @@
-@mixin searchHeaderDownloadButton {
+.download-button {
     @include button-unstyled;
     color: $color-gray-light;
     text-transform: uppercase;

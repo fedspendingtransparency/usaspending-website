@@ -18,7 +18,7 @@ export default class Header extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className="site-header">
                 <a
                     href="#main-content"
                     className="skip-nav"

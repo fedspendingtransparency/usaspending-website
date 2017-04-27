@@ -20,17 +20,19 @@ export default class About extends React.Component {
         return (
             <div className="usa-da-about-page">
                 <Header />
-                <MastHead />
-                <Overview />
-                <AboutData />
-                <div className="usa-da-about-inner">
-                    <FAQ />
-                    <SubmissionFiles />
-                </div>
-                <div className="usa-da-about-inner">
-                    <ContactUs />
-                    <WhatsNext />
-                </div>
+                <main id="main-content">
+                    <MastHead />
+                    <Overview />
+                    <AboutData />
+                    <div className="usa-da-about-inner">
+                        <FAQ />
+                        <SubmissionFiles />
+                    </div>
+                    <div className="usa-da-about-inner">
+                        <ContactUs />
+                        <WhatsNext />
+                    </div>
+                </main>
                 <Footer />
             </div>
         );

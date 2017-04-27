@@ -1,7 +1,7 @@
 .usa-da-test-page {
-    @import "../../layouts/search/search";
-    @import "../../mixins/elementContainerWrap";
-    @include searchLayout;
+    @import "layouts/search/search";
+    @import "mixins/elementContainerWrap";
+
     @include span-columns(16);
     .page-content {
         @include outer-container();

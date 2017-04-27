@@ -1,4 +1,4 @@
-@mixin headerNavMenuItem {
+li {
     height: rem(48);
     margin: 0;
     padding: 0 rem(10);
@@ -12,5 +12,31 @@
     }
     &.search-item {
         padding: 0;
+    }
+
+    
+    &.coming-soon {
+        @import "components/comingSoon";
+        @include comingSoon;
+
+        color: $color-gray-lighter;
+        cursor: default;
+        pointer-events: none;
+        .usa-nav-link {
+            color: $color-gray-lighter;
+        }
+        .coming-soon-container {
+            margin-top: rem(5px);
+            .coming-soon-icon {
+                display: inline;
+                float: none;
+            }
+            .coming-soon-label {
+                bottom: rem(12px);
+                display: inline;
+                float: none;
+                left: rem(4px);
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-    @mixin footerInternalLinks {
+   .internal-links {
         @include span-columns(16);
         a {
             color: #9BDAF1;

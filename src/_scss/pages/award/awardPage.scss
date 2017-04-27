@@ -1,6 +1,5 @@
 .usa-da-award-page {
-    @import "../../layouts/summary/summary";
-    @include summaryLayout;
+    @import "layouts/summary/summary";
 
     $color-gray-border: #D8D8D8;
     $color-blue-background: #F5FBFC;
