@@ -6,6 +6,7 @@
 
     padding: ($global-pad * 4) 0 ($global-pad * 2) 0;
     & .intro-inner-wrap {
+        text-align: center;
         @include fullSectionWrap(0,0);
         & p {
             color: $color-base;
