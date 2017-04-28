@@ -1,14 +1,18 @@
-.header-search-bar {
+.guide-search-bar {
     position: relative;
     width: 250px;
+    height: 34px;
 
-    input.header-search-field {
+    margin: 15px 0;
+
+    input.search-field {
         position: absolute;
-        top: 5px;
         left: 0;
 
         font-size: 14px;
         line-height: 17px;
+        color: $color-base;
+
         padding: 10px;
         padding-right: 25px;
 
@@ -16,10 +20,10 @@
         height: 34px;
     }
 
-    .header-search-button {
+    .search-button {
         position: absolute;
         right: 10px;
-        top: 14px;
+        top: 10px;
 
         @include button-unstyled;
         width: 14px;

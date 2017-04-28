@@ -2,6 +2,8 @@
     width: 100%;
     height: 200px;
 
+    padding: 20px;
+
     background-color: $color-primary-darkest;
 
     @include clearfix();
@@ -13,8 +15,6 @@
 
         position: relative;
         float: right;
-        margin-right: 10px;
-        margin-top: 10px;
 
         svg {
             position: absolute;
@@ -31,4 +31,19 @@
             background-color: $color-primary-darker;
         }
     }
+
+    h1.guide-title {
+        font-weight: 300;
+        font-size: rem(38);
+        line-height: rem(47);
+
+        margin: 0;
+        padding: 0;
+    }
+
+    .guide-example {
+        font-style: italic;
+    }
+
+    @import "./_searchBar";
 }

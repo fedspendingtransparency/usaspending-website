@@ -1,6 +1,4 @@
 .lower-menu {
-    @import "./_menuSearchBar";
-
     ul.nav-menu {
         @include clearfix;
         @include unstyled-list;
@@ -27,6 +25,6 @@
             }
         }
 
-        @include menuSearchBar;
+        @import "./_menuSearchBar";
     }
 }

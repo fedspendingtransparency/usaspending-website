@@ -7,6 +7,8 @@ import React from 'react';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
+import GuideSearchBar from './GuideSearchBar';
+
 const propTypes = {
     hideGuide: React.PropTypes.func
 };
@@ -21,6 +23,15 @@ export default class GuideHeader extends React.Component {
                     onClick={this.props.hideGuide}>
                     <Icons.Close alt="Close Guide" />
                 </button>
+                <h1 className="guide-title">
+                    Guide
+                </h1>
+
+                <GuideSearchBar />
+
+                <div className="guide-example">
+                    Example: &quot;Funding Obligated&quot;
+                </div>
             </div>
         );
     }

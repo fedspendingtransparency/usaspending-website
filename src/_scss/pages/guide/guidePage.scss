@@ -10,7 +10,9 @@
     width: 300px;
     height: 100%;
 
-    z-index: 5;
+    z-index: 20;
+
+    box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
 
     .guide-sidebar {
         background-color: $color-primary-darker;
