@@ -13,7 +13,7 @@ export default class AboutData extends React.Component {
             <div className="aboutdata-outer-wrap">
                 <div className="aboutdata-wrap">
                     <div className="image-wrap">
-                        <img src="img/aboutdata-graphic@2x.png" alt="About the Data" />
+                        <img src="img/spending-heirarchy.png" alt="About the Data" />
                     </div>
                     <div className="aboutdata-inner-wrap">
                         <h3>About the Data</h3>

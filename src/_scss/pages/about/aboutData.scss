@@ -13,14 +13,15 @@
             }
             @include media($medium-screen) {
                 @include span-columns(9);
-                @include shift(0.75);
+                @include shift(0.5);
             }
             @include media($x-large-screen) {
                 @include span-columns(9);
-                @include shift(0.75);
+                @include shift(0.5);
             }
         }
         & .aboutdata-inner-wrap {
+            padding-top: ($global-pad * 3);
             & h3 {
                 margin: $global-mrg auto 0 auto;
             }
@@ -34,11 +35,11 @@
                 @include shift(1.25);
             }
             @include media($medium-screen) {
-                @include span-columns(6);
+                @include span-columns(5);
                 @include shift(0.25);
             }
             @include media($x-large-screen) {
-                @include span-columns(6);
+                @include span-columns(5);
                 @include shift(0.25);
             }
         }
