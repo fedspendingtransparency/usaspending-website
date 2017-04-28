@@ -20,8 +20,8 @@ export default class About extends React.Component {
                 <Header />
                 <MastHead />
                 <Introduction />
-                <Overview />
                 <AboutData />
+                <Overview />
                 <div className="usa-da-about-inner">
                     <NextSteps />
                 </div>

@@ -11,10 +11,10 @@ export default class Introduction extends React.Component {
         return (
             <div className="intro-wrap">
                 <div className="intro-inner-wrap">
-                    <h4>
+                    <h2>
                         Providing the public with an easy way to explore, search, and understand
                         federal spending data.
-                    </h4>
+                    </h2>
                     <p>
                         By using the new data standards brought forth by the DATA Act,
                         USAspending.gov gives you access to reliable federal spending data at an

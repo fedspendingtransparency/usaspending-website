@@ -28,7 +28,9 @@ export default class AboutData extends React.Component {
                             role="button"
                             title="About the Data"
                             aria-label="About the Data">
-                            Not enough for you? Click here for more discussion of the data
+                            <button className="usa-button-primary">
+                                Learn More
+                            </button>
                         </a>
                     </div>
                 </div>
