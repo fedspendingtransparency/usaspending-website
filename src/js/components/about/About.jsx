@@ -10,6 +10,7 @@ import MastHead from './MastHead';
 import Overview from './Overview';
 import AboutData from './AboutData';
 import NextSteps from './NextSteps';
+import Introduction from './Introduction';
 
 
 export default class About extends React.Component {
@@ -18,6 +19,7 @@ export default class About extends React.Component {
             <div className="usa-da-about-page">
                 <Header />
                 <MastHead />
+                <Introduction />
                 <Overview />
                 <AboutData />
                 <div className="usa-da-about-inner">
