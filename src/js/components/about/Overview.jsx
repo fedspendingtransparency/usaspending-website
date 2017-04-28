@@ -21,7 +21,7 @@ export default class Overview extends React.Component {
                     </span>
                 </div>
                 <div className="overview-inner-wrap-right">
-                    <h5>Relevant Legislature</h5>
+                    <h5>Relevant Legislation</h5>
                     <span className="overview-coming-soon-text">
                         More coming soon
                     </span>
