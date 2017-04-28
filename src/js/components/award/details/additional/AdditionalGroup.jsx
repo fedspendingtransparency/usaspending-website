@@ -5,6 +5,7 @@
 
 import React from 'react';
 
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 import AdditionalRow from './AdditionalRow';
 
 const propTypes = {
@@ -25,6 +26,11 @@ export default class AdditionalGroup extends React.Component {
             if (item.field === "__special") {
                 // this is a special data field that needs to be manually parsed
                 value = item.parse(this.props.data);
+            }
+
+            if (item.type === "currency") {
+                // monetize this amount
+                value = MoneyFormatter.formatMoney(this.props.data[item.field]);
             }
 
             const row = (<AdditionalRow

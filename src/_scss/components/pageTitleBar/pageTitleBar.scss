@@ -1,15 +1,17 @@
 .page-title-bar {
     background-color: $color-gray;
     color: $color-white;
-
     .page-title-bar-wrap {
-        @include outer-container();
         max-width: 100%;
         @include pad(2rem 0rem);
         margin: 0px $outer-gutter/2;
         
         @include media($tablet-screen) {
             @include display(flex);
+            @include justify-content(space-between);
+            @include flex-direction(row);
+            @include align-items(center);
+            min-height: 102px;
         }
         
         @include media($large-screen) {
@@ -20,7 +22,6 @@
             max-width: $site-max-width;
             margin: 0 auto;
         }
-
         @import "./_title";
     }
 }

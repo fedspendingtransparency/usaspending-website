@@ -1,0 +1,46 @@
+.loan-amounts-wrapper {
+    height: rem(200);
+    color: #555555;
+    text-align: center;
+    margin-top: rem(40);
+
+    .left {
+        float: left;
+        display: inline-block;
+        width: 45%;
+        padding-top: rem(41);
+        padding-bottom: rem(41);
+    }
+    .right {
+        border-left: 1px solid #D6D7D9;
+        float: right;
+        display: inline-block;
+        width: 50%;
+        padding-top: rem(41);
+        padding-bottom: rem(41);
+        margin-left: rem(20);
+    }
+
+    .title {
+        font-size: rem(19);
+        line-height: rem(24);
+    }
+
+    .value {
+        font-size: rem(47);
+        line-height: rem(59);
+        margin: 0;
+
+        i {
+            font-size: rem(20);
+        }
+
+        .note {
+            font-size: rem(11);
+            text-align: right;
+            position: relative;
+            bottom: rem(36);
+            right: 0;
+        }
+    }
+}

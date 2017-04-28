@@ -6,6 +6,7 @@
 import moment from 'moment';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 
 import GenericRecord from '../GenericRecord';
 
@@ -19,6 +20,7 @@ const fields = [
     'period_of_performance_start_date',
     'period_of_performance_current_end_date',
     'award_type',
+    'internal_general_type',
     'type',
     'type_description',
     'awarding_agency_name',
@@ -44,7 +46,14 @@ const fields = [
     'recipient_business_type',
     'type_of_contract_pricing',
     'type_of_contract_pricing_description',
-    'latest_transaction'
+    'latest_transaction',
+    'assistance_data',
+    'face_value_loan_guarantee',
+    'total_loan_amount',
+    'original_loan_subsidy_cost',
+    'subaward_count',
+    'total_subaward_amount',
+    'action_date'
 ];
 
 const remapData = (data, idField) => {
@@ -53,6 +62,8 @@ const remapData = (data, idField) => {
     let id = 0;
     let parentId = 0;
     let awardType = '';
+    let internalGeneralType = 'unknown';
+    let actionDate = '';
     let awardTypeDescription = '';
     let awardDescription = '';
     let awardingAgencyName = '';
@@ -77,6 +88,9 @@ const remapData = (data, idField) => {
     let contractPricingCode = '';
     let contractPricing = '';
     let latestTransaction = '';
+    let assistanceData = '';
+    let loanFaceValue = '';
+    let loanSubsidy = '';
 
     if (data.id) {
         id = data.id;
@@ -88,6 +102,7 @@ const remapData = (data, idField) => {
 
     if (data.type) {
         awardType = data.type;
+        internalGeneralType = SummaryPageHelper.awardType(data.type);
     }
 
     if (data.type_description) {
@@ -151,11 +166,40 @@ const remapData = (data, idField) => {
 
     if (data.latest_transaction) {
         latestTransaction = data.latest_transaction;
+
+        if (data.latest_transaction.contract_data) {
+            if (data.latest_transaction.contract_data.type_of_contract_pricing) {
+                contractPricingCode =
+                data.latest_transaction.contract_data.type_of_contract_pricing;
+            }
+            if (data.latest_transaction.contract_data.type_of_contract_pricing_description) {
+                contractPricing =
+                data.latest_transaction.contract_data.type_of_contract_pricing_description;
+            }
+        }
+
+        if (data.latest_transaction.assistance_data) {
+            assistanceData = data.latest_transaction.assistance_data;
+            if (assistanceData.face_value_loan_guarantee) {
+                loanFaceValue =
+                    MoneyFormatter.formatMoney(assistanceData.face_value_loan_guarantee);
+            }
+            if (assistanceData.original_loan_subsidy_cost) {
+                loanSubsidy =
+                    MoneyFormatter.formatMoney(assistanceData.original_loan_subsidy_cost);
+            }
+        }
+
+        if (data.latest_transaction.action_date) {
+            actionDate = data.latest_transaction.action_date;
+        }
     }
+
 
     remappedData.id = id;
     remappedData.parent_id = parentId;
     remappedData.award_type = awardType;
+    remappedData.internal_general_type = internalGeneralType;
     remappedData.type_description = awardTypeDescription;
     remappedData.description = awardDescription;
     remappedData.awarding_agency_name = awardingAgencyName;
@@ -169,6 +213,12 @@ const remapData = (data, idField) => {
     remappedData.pop_zip = popZip;
     remappedData.pop_country = popCountry;
     remappedData.latest_transaction = latestTransaction;
+    remappedData.type_of_contract_pricing = contractPricingCode;
+    remappedData.type_of_contract_pricing_description = contractPricing;
+    remappedData.assistance_data = assistanceData;
+    remappedData.face_value_loan_guarantee = loanFaceValue;
+    remappedData.original_loan_subsidy_cost = loanSubsidy;
+    remappedData.action_date = actionDate;
 
     // set the awardID (fain or piid) to the relevant field
     let awardId = data.fain;
@@ -248,16 +298,6 @@ const remapData = (data, idField) => {
     remappedData.recipient_parent_duns = recipientParentDuns;
     remappedData.recipient_business_type = recipientBusinessType;
 
-    if (data.type_of_contract_pricing) {
-        contractPricingCode = data.type_of_contract_pricing;
-    }
-    if (data.type_of_contract_pricing_description) {
-        contractPricing = data.type_of_contract_pricing_description;
-    }
-
-    remappedData.type_of_contract_pricing = contractPricingCode;
-    remappedData.type_of_contract_pricing_description = contractPricing;
-
     // convert the award type code to a user-readable string
     let serverType = '';
     if (data.type_description) {
@@ -272,7 +312,7 @@ const remapData = (data, idField) => {
 
     // finally parse the moment object
     const dates = ['period_of_performance_start_date', 'period_of_performance_current_end_date',
-        'date_signed'];
+        'date_signed', 'action_date'];
     dates.forEach((date) => {
         if (data[date]) {
             remappedData[date] = moment(data[date], 'YYYY-MM-DD').format('M/D/YYYY');
@@ -282,7 +322,6 @@ const remapData = (data, idField) => {
             remappedData[date] = '';
         }
     });
-
     return remappedData;
 };
 

@@ -4,6 +4,8 @@
  */
 
 import AccountSearchOperation from './AccountSearchOperation';
+import * as ObjectClassQuery from './queryBuilders/ObjectClassQuery';
+import * as ProgramActivityQuery from './queryBuilders/ProgramActivityQuery';
 
 class AccountSearchBalanceOperation extends AccountSearchOperation {
     uniqueParams() {
@@ -15,6 +17,16 @@ class AccountSearchBalanceOperation extends AccountSearchOperation {
                 operation: 'equals',
                 value: this.accountId
             });
+        }
+
+        if (this.objectClass.length > 0) {
+            filters.push(ObjectClassQuery
+                .buildBalancesObjectClassQuery(this.objectClass));
+        }
+
+        if (this.programActivity.length > 0) {
+            filters.push(ProgramActivityQuery
+                .buildBalancesProgramActivityQuery(this.programActivity));
         }
 
         return filters;

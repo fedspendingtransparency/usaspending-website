@@ -6,11 +6,14 @@
 import SearchOperation from './SearchOperation';
 
 import * as TxnTimePeriodQuery from './queryBuilders/TxnTimePeriodQuery';
-import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
-import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
 
 class SearchTransactionOperation extends SearchOperation {
+    constructor() {
+        super();
+
+        this.searchContext = 'transaction';
+    }
 
     uniqueParams() {
         // the parent class will handle all the common params, we just need to convert those
@@ -29,25 +32,10 @@ class SearchTransactionOperation extends SearchOperation {
             }
         }
 
-        // Add Award ID Queries
-        if (this.selectedAwardIDs.length > 0) {
-            filters.push(AwardIDQuery.buildAwardIDQuery(
-                this.selectedAwardIDs, 'total')
-            );
-        }
-
-        // Add Award Amount queries
-        if (this.awardAmounts.length > 0) {
-            const awardAmountsQuery = AwardAmountQuery.buildAwardAmountQuery(
-                this.awardAmounts, 'total');
-            if (awardAmountsQuery) {
-                filters.push(awardAmountsQuery);
-            }
-        }
-
         // Add agency query
         if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
-            filters.push(AgencyQuery.buildAgencyQuery(this.fundingAgencies, this.awardingAgencies));
+            filters.push(AgencyQuery.buildAgencyQuery(
+                this.fundingAgencies, this.awardingAgencies, this.searchContext));
         }
 
         return filters;

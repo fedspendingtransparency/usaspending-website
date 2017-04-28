@@ -39,7 +39,8 @@ export default class ResultsTableTabItem extends React.Component {
             comingSoon = comingSoonModule;
             status = ' coming-soon';
             disabledStatus = true;
-        } else {
+        }
+        else {
             status = '';
             disabledStatus = false;
         }

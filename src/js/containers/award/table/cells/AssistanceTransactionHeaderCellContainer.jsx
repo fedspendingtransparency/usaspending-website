@@ -14,7 +14,7 @@ import AssistanceTransactionHeaderCell from
 import * as awardActions from 'redux/actions/award/awardActions';
 
 
-export class GrantTransactionHeaderCellContainer extends React.Component {
+export class AssistanceTransactionHeaderCellContainer extends React.Component {
     render() {
         return (
             <AssistanceTransactionHeaderCell {...this.props} />
@@ -27,4 +27,4 @@ export default connect(
         order: state.award.transactionSort
     }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
-)(GrantTransactionHeaderCellContainer);
+)(AssistanceTransactionHeaderCellContainer);

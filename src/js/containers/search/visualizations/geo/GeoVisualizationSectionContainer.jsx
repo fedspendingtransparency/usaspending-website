@@ -60,7 +60,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     fetchData() {
-         // build a new search operation from the Redux state, but create a transaction-based search
+        // this visualization only uses the /transactions/total for all filter combinations
+        // (and in unfiltered state)
+
+        // build a new search operation from the Redux state, but create a transaction-based search
         // operation instead of an award-based one
         const operation = new SearchTransactionOperation();
         operation.fromState(this.props.reduxFilters);
@@ -79,7 +82,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
             order: ['item'],
             aggregate: 'sum',
             filters: searchParams,
-            limit: 60
+            limit: 60,
+            auditTrail: 'Geo visualization'
         };
 
         if (this.apiRequest) {

@@ -12,6 +12,7 @@ import AccountTimeVisualizationContainer from
     'containers/account/visualizations/AccountTimeVisualizationContainer';
 import AccountRankVisualizationContainer from
     'containers/account/visualizations/AccountRankVisualizationContainer';
+import AccountAwardsContainer from 'containers/account/awards/AccountAwardsContainer';
 
 
 export default class SearchResults extends React.Component {
@@ -22,6 +23,7 @@ export default class SearchResults extends React.Component {
                 <div className="search-results">
                     <AccountTimeVisualizationContainer />
                     <AccountRankVisualizationContainer />
+                    <AccountAwardsContainer />
                 </div>
             </div>
         );
