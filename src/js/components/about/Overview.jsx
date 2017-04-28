@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-export default class MastHead extends React.Component {
+export default class Overview extends React.Component {
 
     render() {
         return (
@@ -16,23 +16,15 @@ export default class MastHead extends React.Component {
                 </div>
                 <div className="overview-inner-wrap-left">
                     <h5>Source of Data</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin aliquam dapibus rutrum.
-                     Duis ultricies dolor ut lacus cursus venenatis. Phasellus a accumsan ipsum, non cursus orci.
-                     Vestibulum aliquam est eget nisl faucibus ullamcorper.</p>
-                    <a href="#">
-                        <button
-                            className="usa-button-primary"
-                            title="View the Policy"
-                            aria-label="View the Policy">
-                            View the Policy
-                        </button>
-                    </a>
+                    <span className="overview-coming-soon-text">
+                        More coming soon
+                    </span>
                 </div>
                 <div className="overview-inner-wrap-right">
                     <h5>Relevant Legislature</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin aliquam dapibus rutrum.
-                     Duis ultricies dolor ut lacus cursus venenatis. Phasellus a accumsan ipsum, non cursus orci.
-                     Vestibulum aliquam est eget nisl faucibus ullamcorper.</p>
+                    <span className="overview-coming-soon-text">
+                        More coming soon
+                    </span>
                 </div>
             </div>
         );
