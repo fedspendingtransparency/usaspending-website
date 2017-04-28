@@ -42,7 +42,6 @@ export default class Footer extends React.Component {
                             <li><a href="https://itdashboard.gov" target="_blank" rel="noopener noreferrer" title="IT Dashboard" aria-label="IT Dashboard">IT Dashboard</a></li>
                             <li><a href="https://www.fiscal.treasury.gov" target="_blank" rel="noopener noreferrer" title="Bureau of the Fiscal Service" aria-label="Bureau of the Fiscal Service">Bureau of the Fiscal Service</a></li>
                             <li><a href="https://www.data.gov/" target="_blank" rel="noopener noreferrer" title="Data.gov" aria-label="Data.gov">Data.gov</a></li>
-                            <li><a href="https://www.cbo.gov/" target="_blank" rel="noopener noreferrer" title="Congressional Budget Office" aria-label="Congressional Budget Office">Congressional Budget Office</a></li>
                         </ul>
                     </div>
                 </div>
