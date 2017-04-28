@@ -10,6 +10,7 @@
             display: inline-block;
             margin-left: rem(30);
             text-align: center;
+            position: relative;
             @include headerNavMenuItem;
             &:first-child {
                 margin-left: 0;
@@ -25,6 +26,8 @@
             }
             .coming-soon-container {
                 margin-top: rem(5px);
+                position: absolute;
+                top: rem(27);
                 .coming-soon-icon {
                     display: inline;
                     float: none;
