@@ -3,8 +3,9 @@
     @import "../../elements/_divider";
     @import "../../elements/_buttons";
     @include clearfix;
-    @include fullSectionWrap(0, 0);
-    padding: ($global-pad) 0;
+    background: url(../../img/about_us_background.png) no-repeat center bottom;
+    background-size: 100%;
+    padding: ($global-pad * 2) 0 ($global-pad * 4) 0;
     .overview-header {
         @include span-columns(14);
         @include shift (1);

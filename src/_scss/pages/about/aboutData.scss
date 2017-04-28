@@ -2,9 +2,7 @@
     @import "../../mixins/fullSectionWrap";
     @import "../../elements/_divider";
     @import "../../elements/_typography";
-    background: url(../../img/about_us_background.png) no-repeat center bottom;
-    background-size: 100%;
-    padding: ($global-pad * 6) 0;
+    padding: ($global-pad) 0;
     & .aboutdata-wrap {
         @include fullSectionWrap(0,0);
         @include clearfix;
