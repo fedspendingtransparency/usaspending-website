@@ -86,7 +86,7 @@ export default class SpendingByRecipientRankVisualizationSection extends React.C
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            View a list of the top Recipients from highest to lowest. Filter
+                            View a list of the top recipients from highest to lowest. Filter
                             your results more (at left) and watch this graph update automatically.
                             View your results in a bar graph or a tree map.
                         </div>
@@ -94,12 +94,14 @@ export default class SpendingByRecipientRankVisualizationSection extends React.C
                     <div className="visualization-period">
                         <div className="content">
                             <ul>
-                                <li>
+                                <li className="coming-soon">
                                     <RankVisualizationScopeButton
                                         value="parentCompany"
                                         label="Parent Company (Parent DUNS)"
                                         active={this.props.scope === 'parentCompany'}
-                                        changeScope={this.props.changeScope} />
+                                        changeScope={this.props.changeScope}
+                                        disabled />
+                                    <ComingSoonLabel />
                                 </li>
                                 <li>
                                     <RankVisualizationScopeButton

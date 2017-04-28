@@ -85,7 +85,7 @@ export default class SpendingByCategoryRankVisualizationSection extends React.Co
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            View a list of the top Budget Categories from highest to lowest. Filter
+                            View a list of the top budget categories from highest to lowest. Filter
                             your results more (at left) and watch this graph update automatically.
                             View your results in a bar graph or a tree map.
                         </div>

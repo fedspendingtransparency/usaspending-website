@@ -242,7 +242,7 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
                 changeScope={this.changeScope}
                 nextPage={this.nextPage}
                 previousPage={this.previousPage}
-                agencyType="Funding" />
+                agencyType="funding" />
         );
     }
 }
