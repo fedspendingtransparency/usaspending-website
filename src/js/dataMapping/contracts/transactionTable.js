@@ -5,11 +5,11 @@
 
 const tableSearchFields = {
     columnWidths: {
-        modification: 200,
-        action_date: 150,
-        amount: 200,
-        action_type_description: 300,
-        description: 180
+        modification: 184,
+        action_date: 134,
+        amount: 110,
+        action_type_description: 340,
+        description: 600
     },
     defaultSortDirection: {
         modification: 'asc',
