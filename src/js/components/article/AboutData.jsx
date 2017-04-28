@@ -30,7 +30,7 @@ export default class AboutData extends React.Component {
                         data is structured and categorized. Below is a graphic showing the various
                         levels of federal spending data that you will encounter on this site.
                     </p>
-                    <img src="img/aboutdata-graphic@2x.png" alt="Data Structure" />
+                    <img src="img/spending-heirarchy.png" alt="Data Structure" />
                     <p>
                         While there are many ways to organize federal spending data, understanding
                         the way it is organized on this site will help you get the most of out of
