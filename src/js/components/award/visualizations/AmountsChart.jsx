@@ -83,7 +83,7 @@ export default class AmountsChart extends React.Component {
         let yMin = 0;
         let yMax = this.props.potential;
 
-        if (this.props.type === 'grant') {
+        if (this.props.type !== 'contract') {
             yMax = this.props.current;
         }
         if (yMax === 0) {

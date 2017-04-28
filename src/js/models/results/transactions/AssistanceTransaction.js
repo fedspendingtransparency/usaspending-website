@@ -15,7 +15,7 @@ const fields = [
     'type',
     'type_description',
     'action_date',
-    'action_type',
+    'action_type_description',
     'modification_number',
     'description',
     'assistance_data',

@@ -1,21 +1,20 @@
 @mixin headerPositioning {
     .nav-container {
-        width: 100%;
+        @import "../../../mixins/fullSectionWrap";
+        @include fullSectionWrap(0,0);
         @include display(flex);
         @include flex-direction(row);
-        @include pad(rem(10) rem(20));
+        @include align-items(center);
+        height: rem(70);
         @include media($nav-width) {
             @include media($small-screen) {
-                @include pad(rem(10) rem(20));
                 height: rem(118);
             }
             @include media($large-screen) {
-                @include pad(rem(10) rem(40));
             }
             @include media($x-large-screen) {
                 max-width: $site-max-width;
                 margin: 0 auto;
-                padding: rem(10) 0;
             }
         }
         .logo {
@@ -34,7 +33,6 @@
             }
         }
         .mobile-menu {
-            display: table-cell;
             width: 20%;
             @include media($tablet-screen) {
                 display: none;

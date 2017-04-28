@@ -8,8 +8,6 @@ import Immutable from 'immutable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
-import ResultsTableHeaderCellContainer from
-    'containers/search/table/ResultsTableHeaderCellContainer';
 import ResultsTableGenericCell from './cells/ResultsTableGenericCell';
 import ResultsTableAwardIdCell from './cells/ResultsTableAwardIdCell';
 
@@ -17,6 +15,7 @@ const propTypes = {
     results: React.PropTypes.array,
     batch: React.PropTypes.object,
     columns: React.PropTypes.array,
+    headerCellClass: React.PropTypes.func.isRequired,
     visibleWidth: React.PropTypes.number,
     loadNextPage: React.PropTypes.func,
     currentType: React.PropTypes.string
@@ -95,6 +94,8 @@ export default class ResultsTable extends React.PureComponent {
     prepareTable() {
         let totalWidth = 0;
 
+        const HeaderCell = this.props.headerCellClass;
+
         const columns = this.props.columns.map((column, i) => {
             totalWidth += column.width;
             const isLast = i === this.props.columns.length - 1;
@@ -128,7 +129,7 @@ export default class ResultsTable extends React.PureComponent {
                 columnId: `${column.columnName}`,
                 rowClassName: this.rowClassName,
                 header: (
-                    <ResultsTableHeaderCellContainer
+                    <HeaderCell
                         label={column.displayName}
                         column={column.columnName}
                         defaultDirection={column.defaultDirection}

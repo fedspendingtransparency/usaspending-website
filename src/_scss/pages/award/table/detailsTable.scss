@@ -14,7 +14,15 @@
         width: 100%;
     }
 
+    .table-message {
+        margin-top: 1rem;
+        font-size: $small-font-size;
+        color: $color-base;
+        text-align: center;
+    }
+
     @import "./_table";
     @import "./_financialSystem";
     @import "./_additionalDetails";
+    @import "./_subawards";
 }

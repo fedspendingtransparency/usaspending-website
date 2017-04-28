@@ -2,8 +2,8 @@
     .usa-logo {
         @include fill-parent();
         a {
-            height: 3.9rem;
-            width: 28.0rem;
+            height: rem(39);
+            width: rem(280);
             display: block;
             @include background-image(url("../img/logo-small.png"));
             background-position: left center;
@@ -32,11 +32,11 @@
             }
         }
         &:after {
-            content: "ALPHA";
+            content: "BETA";
             background: $color-green-light;
             color: $color-white;
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: $font-semibold;
             left: 25.4rem;
             letter-spacing: 0.14rem;
             padding: 2px 4px;
@@ -47,7 +47,7 @@
             @include media($nav-width) {
                 font-size: 1.0rem;
                 left: 36.8rem;
-                top: 0rem;
+                top: 0;
             }
         }
     }

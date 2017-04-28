@@ -78,6 +78,7 @@ export class AwardContainer extends React.Component {
                 this.awardRequest = null;
             })
             .catch((error) => {
+                console.log(error);
                 if (isCancel(error)) {
                     // Got cancelled
                 }
@@ -92,6 +93,7 @@ export class AwardContainer extends React.Component {
                 else {
                     // Request failed
                     this.awardRequest = null;
+                    console.log(error);
                 }
             });
     }

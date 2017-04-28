@@ -1,0 +1,30 @@
+.by-category-vis {
+    @include span-columns(14);
+    @include clearfix;
+    background: $color-gray-dark;
+    height: rem(900);
+    position: relative;
+
+    @media(min-width: 480px) {
+        @include span-columns(15);
+    }
+
+    @include media($tablet-screen) {
+        height: rem(140);
+        @include span-columns(16);
+    }
+
+        .visualization-tooltip {
+            @import "../../../components/visualizations/tooltip/_tooltip";
+        }
+    @import "./_treemapVisualization";
+
+    .tree-wrapper {
+        svg {
+            height: rem(900);
+            @include media($tablet-screen) {
+                height: rem(140);
+            }
+        }
+    }
+}

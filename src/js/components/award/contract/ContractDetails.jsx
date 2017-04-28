@@ -46,10 +46,13 @@ export default class ContractDetails extends React.Component {
         const monthRange = (endDate.diff(startDate, 'month') - (yearRange * 12));
         if (yearRange !== 0 && !Number.isNaN(yearRange)) {
             if (yearRange === 1) {
-                yearRangeTotal = `${yearRange} year `;
+                yearRangeTotal = `${yearRange} year`;
             }
             else {
-                yearRangeTotal = `${yearRange} years `;
+                yearRangeTotal = `${yearRange} years`;
+            }
+            if (monthRange > 0) {
+                yearRangeTotal += ' ';
             }
         }
         if (monthRange >= 1) {

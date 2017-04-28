@@ -3,6 +3,8 @@
  * Created by Kevin Li 3/3/17
  */
 
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+
 export const agencyFields = [
     {
         label: 'Awarding Agency',
@@ -37,11 +39,11 @@ export const parentFields = [
     },
     {
         label: 'IDV Type',
-        field: 'idv_type'
+        field: 'idv_type_description'
     },
     {
         label: 'IDC Type',
-        field: 'type_of_idc'
+        field: 'type_of_idc_description'
     },
     {
         label: 'IDV Agency Identifier',
@@ -49,7 +51,7 @@ export const parentFields = [
     },
     {
         label: 'Mutliple or Single Award IDV',
-        field: 'multiple_or_single_award_idv'
+        field: 'multiple_or_single_award_idv_description'
     }
 ];
 
@@ -69,7 +71,7 @@ export const competitionFields = [
     },
     {
         label: 'Extent Competed',
-        field: 'extent_competed'
+        field: 'extent_competed_description'
     },
     {
         label: 'Not Competed Reason',
@@ -81,7 +83,7 @@ export const competitionFields = [
     },
     {
         label: 'Commercial Item Acquisition Procedures',
-        field: 'commercial_item_acquisition_procedures'
+        field: 'commercial_item_acquisition_procedures_description'
     },
     {
         label: 'Commercial Item Test Program',
@@ -89,11 +91,11 @@ export const competitionFields = [
     },
     {
         label: 'Evaluated Preference',
-        field: 'evaluated_preference'
+        field: 'evaluated_preference_description'
     },
     {
         label: 'FedBizOpps',
-        field: 'fed_biz_opps'
+        field: 'fed_biz_opps_description'
     },
     {
         label: 'Small Business Competitiveness Demonstration Program',
@@ -134,11 +136,11 @@ export const pscFields = [
     },
     {
         label: 'Information Technology Commercial Item Category',
-        field: 'information_technology_commercial_item_category'
+        field: 'information_technology_commercial_item_category_description'
     },
     {
         label: 'Sea Transportation',
-        field: 'sea_transportation'
+        field: 'sea_transportation_description'
     }
 ];
 
@@ -149,11 +151,11 @@ export const legislativeFields = [
     },
     {
         label: 'Subject to Davis Bacon Act',
-        field: 'davis_bacon_act'
+        field: 'davis_bacon_act_description'
     },
     {
         label: 'Subject to Service Contract Act',
-        field: 'service_contract_act'
+        field: 'service_contract_act_description'
     },
     {
         label: 'Subject to Walsh Healey Act',
@@ -161,26 +163,99 @@ export const legislativeFields = [
     }
 ];
 
+export const compensationFields = [
+    {
+        label: 'Officer 1',
+        field: '__special',
+        parse: (data) => {
+            const name = data.officer_1_name;
+            const amount = MoneyFormatter.formatMoney(data.officer_1_amount);
+
+            if (name && name !== '') {
+                return `${name} - ${amount}`;
+            }
+
+            return amount;
+        }
+    },
+    {
+        label: 'Officer 2',
+        field: '__special',
+        parse: (data) => {
+            const name = data.officer_2_name;
+            const amount = MoneyFormatter.formatMoney(data.officer_2_amount);
+
+            if (name && name !== '') {
+                return `${name} - ${amount}`;
+            }
+
+            return amount;
+        }
+    },
+    {
+        label: 'Officer 3',
+        field: '__special',
+        parse: (data) => {
+            const name = data.officer_3_name;
+            const amount = MoneyFormatter.formatMoney(data.officer_3_amount);
+
+            if (name && name !== '') {
+                return `${name} - ${amount}`;
+            }
+
+            return amount;
+        }
+    },
+    {
+        label: 'Officer 4',
+        field: '__special',
+        parse: (data) => {
+            const name = data.officer_4_name;
+            const amount = MoneyFormatter.formatMoney(data.officer_4_amount);
+
+            if (name && name !== '') {
+                return `${name} - ${amount}`;
+            }
+
+            return amount;
+        }
+    },
+    {
+        label: 'Officer 5',
+        field: '__special',
+        parse: (data) => {
+            const name = data.officer_5_name;
+            const amount = MoneyFormatter.formatMoney(data.officer_5_amount);
+
+            if (name && name !== '') {
+                return `${name} - ${amount}`;
+            }
+
+            return amount;
+        }
+    }
+];
+
 export const additionalFields = [
     {
         label: 'Cost or Pricing Data',
-        field: 'cost_or_pricing_data'
+        field: 'cost_or_pricing_data_description'
     },
     {
         label: 'Domestic or Foreign Entity',
-        field: 'domestic_or_foreign_entity'
+        field: 'domestic_or_foreign_entity_description'
     },
     {
         label: 'Fair Opportunity Limited Sources',
-        field: 'fair_opportunity_limited_sources'
+        field: 'fair_opportunity_limited_sources_description'
     },
     {
         label: 'Foreign Funding',
-        field: 'foreign_funding'
+        field: 'foreign_funding_description'
     },
     {
         label: 'Interagency Contracting Authority',
-        field: 'interagency_contracting_authority'
+        field: 'interagency_contracting_authority_description'
     },
     {
         label: 'Major Program',
@@ -196,7 +271,7 @@ export const additionalFields = [
     },
     {
         label: 'Subcontracting Plan',
-        field: 'subcontracting_plan'
+        field: 'subcontracting_plan_description'
     },
     {
         label: 'Multi Year Contract',

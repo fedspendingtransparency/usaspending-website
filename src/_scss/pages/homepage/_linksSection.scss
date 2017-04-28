@@ -4,7 +4,7 @@
     .links-section-outer-wrap {
         background-color: $color-primary-darkest;
         .links-section-wrap {
-            @include fullSectionWrap;
+            @include fullSectionWrap(0, 0);
         }
         padding-bottom: rem(100);
         padding-top: rem(50);
