@@ -1,8 +1,10 @@
 import React from 'react';
 
+import GuideButtonWrapperContainer from 'containers/guide/GuideButtonWrapperContainer';
+
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
-import * as Icons from '../icons/Icons';
 import SearchBar from './searchBar/SearchBar';
+import NavBarGuideLink from './NavBarGuideLink';
 
 export default class NavBar extends React.Component {
     render() {
@@ -33,16 +35,7 @@ export default class NavBar extends React.Component {
                                     </a>
                                 </li>
                                 <li>
-                                    <button
-                                        aria-label="Show Guide"
-                                        className="header-guide-button">
-                                        <div className="guide-button-content">
-                                            <span className="guide-button-icon">
-                                                <Icons.Guide alt="Guide" />
-                                            </span>
-                                            Guide
-                                        </div>
-                                    </button>
+                                    <GuideButtonWrapperContainer child={NavBarGuideLink} />
                                 </li>
                             </ul>
                         </div>

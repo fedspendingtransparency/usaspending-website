@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import * as Icons from '../../icons/Icons';
+import { Search } from '../../icons/Icons';
 
 export default class SearchBar extends React.Component {
     render() {
@@ -19,7 +19,7 @@ export default class SearchBar extends React.Component {
                     aria-label="Search"
                     className="header-search-button"
                     disabled>
-                    <Icons.Search alt="Search" />
+                    <Search alt="Search" />
                 </button>
             </div>
         );

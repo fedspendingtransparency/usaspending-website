@@ -1,0 +1,45 @@
+.floating-guide-button-wrapper {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+
+    z-index: 4;
+
+    opacity: 1;
+    @include transition(opacity 0.3s ease-in);
+
+    &.hidden {
+        opacity: 0;
+        height: 0;
+        width: 0;
+    }
+
+    .floating-guide-button {
+        background-color: $color-secondary;
+
+        width: 140px;
+        height: 40px;
+        margin: 0;
+
+        font-size: 16px;
+        line-height: 16px;
+
+        .floating-guide-icon {
+            position: relative;
+            display: inline-block;
+            height: 14px;
+            width: 14px;
+
+            margin-right: 15px;
+
+            svg {
+                position: absolute;
+                top: 3px;
+
+                height: 14px;
+                width: 14px;
+                fill: $color-white;
+            }
+        }
+    }
+}
