@@ -11,7 +11,11 @@ import GuideDefinition from './definition/GuideDefinition';
 
 export default class Guide extends React.Component {
     render() {
-        const content = <GuideSearchResults {...this.props} />;
+        let content = <GuideSearchResults {...this.props} />;
+
+        if (this.props.guide.term.value !== '') {
+            content = <GuideDefinition {...this.props} />;
+        }
 
         return (
             <div className="usa-da-guide-wrapper">

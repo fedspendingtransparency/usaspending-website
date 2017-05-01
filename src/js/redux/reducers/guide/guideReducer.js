@@ -22,7 +22,17 @@ export const initialState = {
                 value: 'Recipient Location'
             },
             {
-                value: 'Recipients'
+                value: 'Recipient',
+                plain: 'The name of the __awardee__ or *recipient* that relates to a unique identifier. For U.S. based companies, this name is what the business ordinarily files in formation documents with individual states (when required).\n\nSee [Award ID](?guide=award+id)',
+                official: 'Something official\n\n**official!**',
+                resources: [
+                {
+                    label: 'Something',
+                    url: "http://www.google.com"
+                }, {
+                    label: 'Something else',
+                    url: '?guide=award+id'
+                }]
             },
             {
                 value: 'Recipient Name'
@@ -31,7 +41,8 @@ export const initialState = {
                 value: 'Recipient Type'
             },
             {
-                value: 'Award ID'
+                value: 'Award ID',
+                plain: 'Award ID is the **ID** of an award or something'
             },
             {
                 value: 'Appropriation Account'
@@ -65,12 +76,18 @@ const guideReducer = (state = initialState, action) => {
                 input: action.value
             });
             return Object.assign({}, state, {
-                search
+                search,
+                term: new Definition()
             });
         }
-        case 'SET_TERM': {
+        case 'SET_GUIDE_TERM': {
             return Object.assign({}, state, {
                 term: new Definition(action.term)
+            });
+        }
+        case 'CLEAR_GUIDE_TERM': {
+            return Object.assign({}, state, {
+                term: new Definition()
             });
         }
         default:

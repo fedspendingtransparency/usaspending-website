@@ -19,3 +19,12 @@ export const setSearchValue = (state) => ({
     type: 'SET_GUIDE_SEARCH_VALUE',
     value: state
 });
+
+export const setGuideTerm = (state) => ({
+    type: 'SET_GUIDE_TERM',
+    term: state
+});
+
+export const clearGuideTerm = (state) => ({
+    type: 'CLEAR_GUIDE_TERM'
+});

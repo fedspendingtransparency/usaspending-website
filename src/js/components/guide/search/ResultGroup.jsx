@@ -17,8 +17,9 @@ export default class ResultGroup extends React.Component {
     render() {
         const items = this.props.items.map((item) => (
             <ResultItem
-                {...item}
+                item={item}
                 search={this.props.search}
+                selectTerm={this.props.selectTerm}
                 key={item.value} />
         ));
 

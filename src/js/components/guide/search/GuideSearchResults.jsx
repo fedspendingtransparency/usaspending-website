@@ -9,10 +9,21 @@ import _ from 'lodash';
 import ResultGroup from './ResultGroup';
 
 const propTypes = {
-    guide: React.PropTypes.object
+    guide: React.PropTypes.object,
+    setGuideTerm: React.PropTypes.func
 };
 
 export default class GuideSearchResults extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.selectTerm = this.selectTerm.bind(this);
+    }
+
+    selectTerm(term) {
+        this.props.setGuideTerm(term);
+    }
+
     groupResults() {
         // we need to group the results by their starting letter
         const groups = {};
@@ -43,7 +54,8 @@ export default class GuideSearchResults extends React.Component {
                 key={group.letter}
                 title={group.letter}
                 items={group.values}
-                search={this.props.guide.search.input} />
+                search={this.props.guide.search.input}
+                selectTerm={this.selectTerm} />
         ));
     }
 

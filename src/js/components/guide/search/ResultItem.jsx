@@ -6,8 +6,9 @@
 import React from 'react';
 
 const propTypes = {
-    value: React.PropTypes.string,
-    search: React.PropTypes.string
+    item: React.PropTypes.object,
+    search: React.PropTypes.string,
+    selectTerm: React.PropTypes.func
 };
 
 export default class ResultItem extends React.Component {
@@ -17,6 +18,8 @@ export default class ResultItem extends React.Component {
         this.state = {
             label: null
         };
+
+        this.clickedLink = this.clickedLink.bind(this);
     }
 
     componentDidMount() {
@@ -28,18 +31,17 @@ export default class ResultItem extends React.Component {
     }
 
     prepareLabel(props) {
-        const value = props.value.toLowerCase();
+        const value = props.item.value.toLowerCase();
         let label = null;
         if (!props.search || value.indexOf(props.search.toLowerCase()) === -1) {
             // nothing is being searched (or there are no matches), so nothing needs to be
             // highlighted
-            label = props.value;
+            label = props.item.value;
         }
 
         else {
             // there is a search value, so we need to highlight the matched parts
             const search = props.search.toLowerCase();
-            label = value;
 
             // split the string up into parts based on the search term
             const parts = value.split(search);
@@ -50,8 +52,8 @@ export default class ResultItem extends React.Component {
                 const unmatchedPos = position + part.length;
                 if (part.length > 0) {
                     // add the unmatched parts of the label
-                    const unmatched = props.value.substring(position, unmatchedPos);
-                    output.push(<span key={`unmatch-${index}`}>
+                    const unmatched = props.item.value.substring(position, unmatchedPos);
+                    output.push(<span key={`unmatched-${index}`}>
                         {unmatched}
                     </span>);
                 }
@@ -59,7 +61,7 @@ export default class ResultItem extends React.Component {
                 if (index < parts.length - 1) {
                     // add the matched parts of the label
                     const matchedPos = unmatchedPos + search.length;
-                    const matchedValue = props.value.substring(unmatchedPos, matchedPos);
+                    const matchedValue = props.item.value.substring(unmatchedPos, matchedPos);
                     const matched = (<span className="matched-highlight" key={`match-${index}`}>
                         {matchedValue}
                     </span>);
@@ -77,11 +79,16 @@ export default class ResultItem extends React.Component {
         });
     }
 
+    clickedLink() {
+        this.props.selectTerm(this.props.item);
+    }
+
     render() {
         return (
             <li>
                 <button
-                    className="guide-link">
+                    className="guide-link"
+                    onClick={this.clickedLink}>
                     {this.state.label}
                 </button>
             </li>

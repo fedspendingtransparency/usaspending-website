@@ -22,7 +22,10 @@
         width: 100%;
         height: 100%;
 
+        overflow-y: scroll;
+
         @import "./_header";
         @import "./_searchList";
+        @import "./_definition";
     }
 }
