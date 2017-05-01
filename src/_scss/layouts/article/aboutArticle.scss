@@ -1,0 +1,66 @@
+.usa-da-about-article {
+    @import "../../layouts/article/article";
+    @include articleLayout;
+    .breadcrumbs {
+        & ul {
+            list-style: none;
+        }
+        & li {
+            display: inline-block;
+        }
+        & svg:not(:root) {
+            fill: $color-gray-medium;
+            padding: 0 $global-pad;
+        }
+        & .breadcrumb-arrow {
+            display: inline-block;
+            & svg {height: 12px;}
+        }
+        @include media($medium-screen) {
+            @include span-columns(12);
+            @include shift(2);
+            float: none;
+            & ul {
+                padding-left: 0;
+                margin: ($global-mrg * 2) 0 0 0;
+            }
+        }
+        @include media($large-screen) {
+            @include span-columns(10);
+            @include shift(3);
+            float: none;
+            & ul {
+                padding-left: 0;
+                margin: ($global-mrg * 2) 0 0 0;
+            }
+        }
+        @include media($x-large-screen) {
+            max-width: $site-max-width;
+            padding-left: 0;
+            @include span-columns(8);
+            @include shift(4);
+            float: none;
+            & ul {
+                padding-left: 0;
+                margin-bottom: 0;
+            }
+        }
+    }
+    .article-wrapper {
+        h1 {
+            margin: ($global-pad * 2) 0 ($global-pad * 1) 0;
+        }
+        hr.results-divider {
+            margin: 0 0 ($global-pad * 3) 0;
+        }
+        @include media($small-screen) {
+            margin-top: $global-mrg;
+        }
+        @include media($tablet-screen) {
+            margin-top: $global-mrg;
+        }
+        @include media($medium-screen) {
+            margin-top: $global-mrg;
+        }
+    }
+}
