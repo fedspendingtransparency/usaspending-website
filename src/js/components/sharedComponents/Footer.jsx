@@ -18,7 +18,7 @@ export default class Footer extends React.Component {
                         </a>
                     </div>
                     <div className="internal-links">
-                        <h6>This site is an beta release. All data is test data.</h6>
+                        <h6>This site is a beta release. All data is test data.</h6>
                         <ul className="inline">
                             <li><a href="mailto:usaspending.help-submitonly@fiscal.treasury.gov" title="Feedback" aria-label="Feedback">Feedback</a></li>
                             <li><a href="#/about" title="About" aria-label="About">About</a></li>
