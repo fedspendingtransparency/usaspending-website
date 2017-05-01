@@ -27,7 +27,7 @@ export default class GuideHeader extends React.Component {
                     Guide
                 </h1>
 
-                <GuideSearchBar />
+                <GuideSearchBar {...this.props} />
 
                 <div className="guide-example">
                     Example: &quot;Funding Obligated&quot;

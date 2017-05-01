@@ -15,3 +15,7 @@ export const toggleGuide = () => ({
     type: 'TOGGLE_GUIDE'
 });
 
+export const setSearchValue = (state) => ({
+    type: 'SET_GUIDE_SEARCH_VALUE',
+    value: state
+});

@@ -28,7 +28,9 @@
         }
 
         &:hover, &:active {
-            background-color: $color-primary-darker;
+            svg {
+                fill: $color-gold;
+            }
         }
     }
 

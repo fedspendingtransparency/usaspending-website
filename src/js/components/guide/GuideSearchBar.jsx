@@ -8,7 +8,8 @@ import React from 'react';
 import { Search } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    hideGuide: React.PropTypes.func
+    guide: React.PropTypes.object,
+    setSearchValue: React.PropTypes.func
 };
 
 export default class GuideSearchBar extends React.Component {
@@ -16,10 +17,18 @@ export default class GuideSearchBar extends React.Component {
         super(props);
 
         this.submitSearch = this.submitSearch.bind(this);
+        this.changedSearchValue = this.changedSearchValue.bind(this);
     }
 
     submitSearch(e) {
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
+    }
+
+    changedSearchValue(e) {
+        this.props.setSearchValue(e.target.value);
+        this.submitSearch();
     }
 
     render() {
@@ -29,7 +38,9 @@ export default class GuideSearchBar extends React.Component {
                     <input
                         className="search-field"
                         type="text"
-                        placeholder="Search for a term..." />
+                        value={this.props.guide.search.input}
+                        placeholder="Search for a term..."
+                        onChange={this.changedSearchValue} />
                     <button
                         aria-label="Search"
                         className="search-button"

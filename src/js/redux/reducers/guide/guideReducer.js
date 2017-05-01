@@ -17,7 +17,29 @@ export const initialState = {
     term: new Definition(),
     search: {
         input: '',
-        results: []
+        results: [
+            {
+                value: 'Recipient Location'
+            },
+            {
+                value: 'Recipients'
+            },
+            {
+                value: 'Recipient Name'
+            },
+            {
+                value: 'Recipient Type'
+            },
+            {
+                value: 'Award ID'
+            },
+            {
+                value: 'Appropriation Account'
+            },
+            {
+                value: 'my super long term that I hope will wrap correctly'
+            }
+        ]
     }
 };
 
@@ -36,6 +58,14 @@ const guideReducer = (state = initialState, action) => {
         case 'TOGGLE_GUIDE': {
             return Object.assign({}, state, {
                 display: !state.display
+            });
+        }
+        case 'SET_GUIDE_SEARCH_VALUE': {
+            const search = Object.assign({}, state.search, {
+                input: action.value
+            });
+            return Object.assign({}, state, {
+                search
             });
         }
         case 'SET_TERM': {
