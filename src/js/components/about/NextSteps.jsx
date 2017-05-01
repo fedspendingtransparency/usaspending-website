@@ -13,19 +13,19 @@ export default class NextSteps extends React.Component {
         return (
             <div className="wrapper">
                 <NextStepsBox
-                    icon="faq"
-                    sectionTitle="Frequently Asked Questions"
-                    iconClass="faq-icon"
-                    sectionText="Get answers to commonly asked questions"
-                    linkText="View FAQ"
-                    ariaLabel="View FAQ"
-                    title="View FAQ"
-                    linkUrl="" />
+                    icon="guide"
+                    sectionTitle="Guide"
+                    iconClass="guide-icon"
+                    sectionText="Descriptions of commonly used terms."
+                    linkText="Download Descriptions"
+                    ariaLabel="Guide"
+                    title="Guide"
+                    linkUrl="/graphics/USAspendingGuide.xlsx" />
                 <NextStepsBox
                     icon="contact"
                     sectionTitle="Contact Us"
                     iconClass="contact-icon"
-                    sectionText="We want to hear your questions and comments"
+                    sectionText="We want to hear your questions and comments."
                     linkText="Email Us"
                     ariaLabel="Email Us"
                     title="Email US"
@@ -34,7 +34,7 @@ export default class NextSteps extends React.Component {
                     icon="download"
                     sectionTitle="Agency Submission Files"
                     iconClass="download-icon"
-                    sectionText="Access the data files submitted directly by agencies"
+                    sectionText="Access the data files submitted directly by agencies."
                     linkText="Download Files"
                     ariaLabel="Download Files"
                     title="Download Files"
@@ -43,7 +43,7 @@ export default class NextSteps extends React.Component {
                     icon="next"
                     sectionTitle="What’s New"
                     iconClass="next-icon"
-                    sectionText="We're adding new pages, features, and fixes every two weeks"
+                    sectionText="We're adding new pages, features, and fixes every two weeks."
                     linkText="Read More"
                     ariaLabel="Read More"
                     title="Read More"
