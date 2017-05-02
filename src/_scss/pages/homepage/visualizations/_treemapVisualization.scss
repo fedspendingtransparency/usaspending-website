@@ -12,4 +12,8 @@ svg {
         font-size: $base-font-size + rem(4);
         font-weight: $font-semibold;
     }
+    .chosen {
+        fill: #212121;
+        text-shadow: none;
+    }
 }

@@ -9,6 +9,7 @@ import _ from 'lodash';
 
 import TreeMapCell from './TreeMapCell';
 import TreeMapSidebar from './TreeMapSidebar';
+import TreeMapTooltip from './TreeMapTooltip';
 import * as Icons from '../../../sharedComponents/icons/Icons';
 
 const propTypes = {
@@ -111,8 +112,8 @@ export default class TreeMap extends React.Component {
         });
     }
 
-    toggleTooltip(cat, value) {
-        const descSet = this.state.descriptions;
+    toggleTooltip(cat, value, xStart, yStart, width, height) {
+        const descSet = this.props.descriptions;
         // find index of object item on matching cat name
         let descIndex = '0';
         if (cat !== 'none') {
@@ -130,45 +131,46 @@ export default class TreeMap extends React.Component {
             category: cat,
             description: desc,
             individualValue: value,
+            x: xStart,
+            y: yStart,
+            width,
+            height,
             showOverlay: false
         });
 
         this.buildTree(this.props.categories, this.props.colors, this.state.category);
     }
 
-    render() {
-        let sidebarContent = '';
-        let sideBarIntro = '';
-        if (this.state.showOverlay === true) {
-            sideBarIntro = (
-                <div className="tree-desc">
-                    <b>3</b> of the <b>19</b> total budget functions, accounted for about
-                    &nbsp;<b>1/2</b> of total spending. Social Security, National Defense,
-                    and Medicare.
-                </div>);
-        }
-        if (this.state.category === 'none') {
-            sidebarContent = (
-                <div className="treemap-sidebar">
-                    { sideBarIntro }
-                    <div className="tree-hover-tip">
-                        Hover over each block to learn more about Spending by Budget Function in
-                        2016.
-                    </div>
-                </div>
-            );
-        }
-        else {
-            sidebarContent = (<TreeMapSidebar
-                category={this.state.category}
+    createTooltip() {
+        let tooltip = null;
+        if (this.state.category !== 'none') {
+            tooltip = (<TreeMapTooltip
+                name={this.state.category}
+                value={this.state.individualValue}
                 description={this.state.description}
-                amount={this.state.individualValue} />);
+                x={this.state.x}
+                y={this.state.y}
+                width={this.state.width}
+                height={(this.state.height / 2) + 50} />);
         }
+        return tooltip;
+    }
+
+    render() {
+        const contentIntro = (
+            <div className="tree-desc">
+                <b>3</b> of the <b>19</b> total budget functions, accounted for about
+                &nbsp;<b>1/2</b> of total spending. <br />
+                <span className="highlight">Social Security</span>,&nbsp;
+                <span className="highlight">National Defense</span>,
+                and <span className="highlight">Medicare</span>.
+            </div>);
         return (
             <div
                 className="usa-da-treemap-section">
+                {contentIntro}
                 <div className="treemap-inner-wrap">
-                    { sidebarContent }
+                    { this.createTooltip() }
                     <div
                         className="tree-wrapper"
                         ref={(sr) => {
@@ -177,18 +179,6 @@ export default class TreeMap extends React.Component {
                         <svg
                             width={this.state.visualizationWidth}
                             height="565">
-                            <defs>
-                                <linearGradient id="Gradient1">
-                                    <stop className="stop1" offset="0%" />
-                                    <stop className="stop2" offset="50%" />
-                                    <stop className="stop3" offset="100%" />
-                                </linearGradient>
-                                <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
-                                    <stop offset="0%" stopColor="red" />
-                                    <stop offset="50%" stopColor="black" stopOpacity="0" />
-                                    <stop offset="100%" stopColor="blue" />
-                                </linearGradient>
-                            </defs>
                             { this.state.finalNodes }
                         </svg>
                         <div className="source">

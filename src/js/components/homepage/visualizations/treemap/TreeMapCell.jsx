@@ -16,7 +16,8 @@ const propTypes = {
     y1: React.PropTypes.number,
     color: React.PropTypes.string,
     toggleTooltip: React.PropTypes.func,
-    showOverlay: React.PropTypes.bool
+    showOverlay: React.PropTypes.bool,
+    chosen: React.PropTypes.string
 };
 
 export default class TreeMapCell extends React.Component {
@@ -88,10 +89,11 @@ export default class TreeMapCell extends React.Component {
         });
     }
 
-    mouseIn(label, value, bgColor) {
-        this.props.toggleTooltip(label, value);
+    mouseIn(label, value, bgColor, textClass, xStart, yStart, width, height) {
+        this.props.toggleTooltip(label, value, xStart, yStart, width, height);
         this.setState({
-            color: bgColor
+            color: bgColor,
+            textClass
         });
     }
 
@@ -127,11 +129,29 @@ export default class TreeMapCell extends React.Component {
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
-                onMouseOver={() => {
-                    this.mouseIn(this.props.label, this.props.value, "#F2B733");
+                onMouseEnter={() => {
+                    this.mouseIn(
+                        this.props.label,
+                        this.props.value,
+                        "#F2B733",
+                        'chosen',
+                        this.props.x0,
+                        this.props.y0,
+                        width,
+                        height
+                    );
                 }}
                 onMouseLeave={() => {
-                    this.mouseIn('none', '', this.props.color);
+                    this.mouseIn(
+                        'none',
+                        '',
+                        this.props.color,
+                        '',
+                        this.props.x0,
+                        this.props.y0,
+                        width,
+                        height
+                    );
                 }}>
                 <rect
                     className="tile"
@@ -145,7 +165,7 @@ export default class TreeMapCell extends React.Component {
                         padding: "10px"
                     }} />
                 <text
-                    className="category"
+                    className={`category ${this.state.textClass}`}
                     x={(width / 2)}
                     y={height / 2}
                     width={width}
@@ -159,7 +179,7 @@ export default class TreeMapCell extends React.Component {
                     {this.state.label}
                 </text>
                 <text
-                    className="value"
+                    className={`value ${this.state.textClass}`}
                     x={(width / 2) - 2}
                     y={(height / 2) + 20}
                     width={width}

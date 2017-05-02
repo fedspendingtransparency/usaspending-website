@@ -15,8 +15,7 @@ import BudgetLine from './BudgetLine';
 const propTypes = {
     breakdown: React.PropTypes.object,
     descriptions: React.PropTypes.array,
-    colors: React.PropTypes.array,
-    breakdownTotal: React.PropTypes.number
+    colors: React.PropTypes.array
 };
 
 export default class CategoryMap extends React.Component {
@@ -155,8 +154,7 @@ export default class CategoryMap extends React.Component {
                 x={this.state.x}
                 y={this.state.y}
                 width={this.state.width}
-                height={(this.state.height / 2) + 50}
-                total={this.props.breakdownTotal} />);
+                height={(this.state.height / 2) + 50} />);
         }
         return tooltip;
     }

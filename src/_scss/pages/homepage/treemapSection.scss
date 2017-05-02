@@ -5,8 +5,28 @@
     background-color: #ececec;
     & .treemap-inner-wrap {
         @include fullSectionWrap(0, 0);
-        @import './visualizations/_treemapVisualization';
         @import './treemapSidebar';
         @import './treemapWrapper';
+
+        .visualization-tooltip {
+            @import "components/visualizations/tooltip/_tooltip";
+        }
+    }
+
+    .tree-desc {
+        color: $color-base;
+        font-size: rem(38);
+        font-weight: $font-light;
+        line-height: rem(47);
+        margin-bottom: rem(30);
+        padding: rem(10) 0 rem(10) rem(15);
+        text-align: center;
+        & b {
+            font-weight: $font-semibold;
+        }
+        .highlight {
+            padding-bottom: 5px;
+            border-bottom: #FEB711 5px solid;
+        }
     }
 }

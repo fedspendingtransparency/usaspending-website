@@ -14,9 +14,9 @@
         @include span-columns(16);
     }
 
-        .visualization-tooltip {
-            @import "../../../components/visualizations/tooltip/_tooltip";
-        }
+    .visualization-tooltip {
+        @import "../../../components/visualizations/tooltip/_tooltip";
+    }
     @import "./_treemapVisualization";
 
     .tree-wrapper {

@@ -86,10 +86,11 @@ export default class CategoryMapCell extends React.Component {
         });
     }
 
-    mouseIn(label, value, bgColor, xStart, yStart, width, height) {
+    mouseIn(label, value, bgColor, textClass, xStart, yStart, width, height) {
         this.props.toggleTooltip(label, value, xStart, yStart, width, height);
         this.setState({
-            color: bgColor
+            color: bgColor,
+            textClass
         });
     }
 
@@ -119,6 +120,7 @@ export default class CategoryMapCell extends React.Component {
                         this.props.label,
                         this.props.value,
                         "#F2B733",
+                        'chosen',
                         this.props.x0,
                         this.props.y0,
                         width,
@@ -130,6 +132,7 @@ export default class CategoryMapCell extends React.Component {
                         'none',
                         '',
                         this.props.color,
+                        '',
                         this.props.x0,
                         this.props.y0,
                         width,
@@ -147,7 +150,7 @@ export default class CategoryMapCell extends React.Component {
                         padding: "10px"
                     }} />
                 <text
-                    className="category"
+                    className={`category ${this.state.textClass}`}
                     x={width / 2}
                     y={labelY}
                     width={width}
@@ -161,7 +164,7 @@ export default class CategoryMapCell extends React.Component {
                     {this.state.label}
                 </text>
                 <text
-                    className="value"
+                    className={`value ${this.state.textClass}`}
                     x={(width / 2)}
                     y={percentY}
                     width={width}
