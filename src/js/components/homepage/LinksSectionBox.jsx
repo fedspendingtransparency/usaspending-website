@@ -44,8 +44,9 @@ export default class LinksSectionBox extends React.Component {
         let disabledStatus = '';
         let link = (
             <a className="links-section-box-anchor" href={this.props.linkUrl}>
-                {this.props.linkText}
-                <Icons.AngleRight />
+                <button className="usa-button-outline">
+                    {this.props.linkText}
+                </button>
             </a>
         );
 
@@ -53,9 +54,9 @@ export default class LinksSectionBox extends React.Component {
             this.props.icon === 'federalAccount') {
             disabledStatus = ' disabled';
             link = (
-                <span className="links-section-box-span">
+                <button className="usa-button-disabled-outline">
                     Coming Soon...
-                </span>
+                </button>
             );
         }
 

@@ -2,12 +2,12 @@
     @import "mixins/fullSectionWrap";
     @include fullSectionWrap(0, 0);
     & .block-wrap {
-        @include span-columns(16);
+        @include span-columns(4);
         text-align: center;
         margin-top: ($global-mrg * 2);
-        & h6 {
-            color: $color-gray;
-            margin: ($global-mrg * 2) 0 0;
+        & h4.title {
+            font-size: rem(21);
+            margin-top: rem(20);
         }
         & p {
             font-size: $small-font-size;
@@ -21,9 +21,9 @@
             width: 100%;
             margin: 0 auto;
             & .guide-icon {
-                height: rem(57);
-                fill: #335565;
-                width: rem(81);
+                height: rem(40);
+                fill: #0071BC;
+                width: rem(64);
             }
             & .contact-icon {
                 height: rem(38);
@@ -36,6 +36,9 @@
             & .next-icon {
                 height: rem(71);
                 width: rem(74);
+            }
+            & .disabled {
+                opacity: 0.4;
             }
         }
         @include media($tablet-screen) {
@@ -60,5 +63,8 @@
                 margin-bottom: 0;
             }
         }
+    }
+    .disabled {
+        opacity: 0.4;
     }
 }
