@@ -1,22 +1,19 @@
 .usa-da-about-page {
-    @import "../../mixins/fullSectionWrap";
-    @import "../../layouts/default/default";
-
+    @import "mixins/fullSectionWrap";
+    @import "layouts/default/default";
     @import "./mastHead";
+    @import "./introduction";
     @import "./overview";
     @import "./aboutData";
+    @import "./nextSteps";
     @import "./aboutTopicsPreviews";
     
     & .usa-da-about-inner {
         @include clearfix;
         background: $color-white;
         margin: 0 auto;
-        padding: ($global-pad * 4) 0;
-        min-height: rem(400);
+        padding: ($global-pad * 2) 0;
         @include row();
-        @include media($small-screen) {
-            padding: ($global-pad * 1) 0;
-        }
         @include media($medium-screen) {
             padding: ($global-pad * 4) 0;
         }
