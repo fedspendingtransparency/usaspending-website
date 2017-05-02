@@ -89,6 +89,30 @@ const routeDefinitions = {
                     cb(null, require('../../components/testStyles/TestStylePage').default);
                 });
             }
+        },
+        {
+            path: 'relevantlegislature',
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/article/RelevantLegislature').default);
+                });
+            }
+        },
+        {
+            path: 'aboutdata',
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/article/AboutData').default);
+                });
+            }
+        },
+        {
+            path: 'sourcesofdata',
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/article/SourcesData').default);
+                });
+            }
         }
     ]
 };

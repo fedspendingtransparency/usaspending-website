@@ -11,10 +11,7 @@
             margin: ($global-pad * 2) 0;
         }
         p {
-            margin-bottom: ($global-pad * 2)
-        }
-        p:last-of-type {
-            margin-bottom: $global-pad;
+            margin: ($global-pad * 2) 0;
         }
         @include media($tablet-screen) {
             h1 {
