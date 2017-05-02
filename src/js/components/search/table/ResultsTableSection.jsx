@@ -8,6 +8,9 @@ import React from 'react';
 import ResultsTableHeaderCellContainer from
     'containers/search/table/ResultsTableHeaderCellContainer';
 
+import ExtraModal from 'components/search/modals/ExtraModal';
+import * as Icons from 'components/sharedComponents/icons/Icons';
+
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
 import ResultsTableMessage from './ResultsTableMessage';
@@ -25,10 +28,13 @@ export default class ResultsTableSection extends React.Component {
         super(props);
 
         this.state = {
-            tableWidth: 0
+            tableWidth: 0,
+            showModal: true
         };
 
         this.setTableWidth = this.setTableWidth.bind(this);
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
     }
     componentDidMount() {
         // set the initial table width
@@ -47,6 +53,18 @@ export default class ResultsTableSection extends React.Component {
         this.setState({ tableWidth });
     }
 
+    showModal() {
+        this.setState({
+            showModal: true
+        });
+    }
+
+    hideModal() {
+        this.setState({
+            showModal: false
+        });
+    }
+
     render() {
         let loadingWrapper = 'loaded-table';
         let message = null;
@@ -61,7 +79,16 @@ export default class ResultsTableSection extends React.Component {
 
         return (
             <div className="search-results-table-section" id="results-section-table">
-                <h3>Spending by Award</h3>
+                <div className="table-section-header">
+                    <h3>Spending by Award</h3>
+                    <button
+                        className="action-modal"
+                        aria-label="More options"
+                        title="More options"
+                        onClick={this.showModal}>
+                        <Icons.MoreOptions alt="More options" />
+                    </button>
+                </div>
                 <hr className="results-divider" />
                 <ResultsTableTabs
                     types={this.props.tableTypes}
@@ -81,6 +108,9 @@ export default class ResultsTableSection extends React.Component {
                         headerCellClass={ResultsTableHeaderCellContainer} />
                 </div>
                 {message}
+                <ExtraModal
+                    mounted={this.state.showModal}
+                    hideModal={this.hideModal} />
             </div>
         );
     }

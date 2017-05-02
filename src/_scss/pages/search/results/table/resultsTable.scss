@@ -25,4 +25,42 @@
         color: $color-base;
         text-align: center;
     }
+
+    .table-section-header {
+        @include clearfix();
+
+        h3 {
+            @include media($tablet-screen) {
+                float: left
+            }
+        }
+
+        button.action-modal {
+            @include media($tablet-screen) {
+                float: right;
+            }
+
+            border: 1px solid $color-gray-lighter;
+            background-color: $color-white;
+
+            width: 58px;
+            height: 28px;
+            margin: 0;
+
+            position: relative;
+
+            &:hover, &:active {
+                background-color: $color-gray-lightest;
+            }
+
+            svg {
+                position: absolute;
+                top: -3px;
+                left: 12px;
+                width: 33px;
+
+                fill: $color-base;
+            }
+        }
+    }
 }

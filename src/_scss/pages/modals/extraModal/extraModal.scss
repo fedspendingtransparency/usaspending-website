@@ -1,0 +1,21 @@
+.search-section-extra-modal {
+    z-index: 20;
+    box-shadow: $box-shadow;
+
+    width: 75%;
+    @include media($medium-screen) {
+        width: 50%;
+    }
+
+    .modal-content {
+        background-color: $color-white;
+
+        @import "./_header";
+
+        .modal-body {
+            min-height: 100px;
+            padding: 16px;
+            font-size: 14px;
+        }
+    }
+}
