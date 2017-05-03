@@ -57,11 +57,14 @@ class ResultsTableContainer extends React.Component {
         super(props);
 
         this.state = {
-            columns: []
+            columns: [],
+            columnVisibility: TableSearchFields.defaultVisibility,
+            hiddenColumns: []
         };
 
         this.switchTab = this.switchTab.bind(this);
         this.loadNextPage = this.loadNextPage.bind(this);
+        this.toggleColumnVisibility = this.toggleColumnVisibility.bind(this);
     }
 
     componentWillMount() {
@@ -78,8 +81,10 @@ class ResultsTableContainer extends React.Component {
     setColumns(tableType) {
          // calculate the column metadata to display in the table
         const columns = [];
+        const hiddenColumns = [];
         let sortOrder = TableSearchFields.defaultSortDirection;
         let columnWidths = TableSearchFields.columnWidths;
+        const columnVisibility = this.state.columnVisibility;
 
         if (tableType === 'loans') {
             sortOrder = TableSearchFields.loans.sortDirection;
@@ -89,17 +94,27 @@ class ResultsTableContainer extends React.Component {
         const tableSettings = TableSearchFields[tableType];
 
         tableSettings._order.forEach((col) => {
-            const column = {
-                columnName: col,
-                displayName: tableSettings[col],
-                width: columnWidths[col],
-                defaultDirection: sortOrder[col]
-            };
-            columns.push(column);
+            if (columnVisibility[col]) {
+                const column = {
+                    columnName: col,
+                    displayName: tableSettings[col],
+                    width: columnWidths[col],
+                    defaultDirection: sortOrder[col]
+                };
+                columns.push(column);
+            }
+            else {
+                // column is not visible
+                const column = {
+                    columnName: col,
+                    displayName: tableSettings[col]
+                };
+                hiddenColumns.push(column);
+            }
         });
-
         this.setState({
-            columns
+            columns,
+            hiddenColumns
         });
     }
 
@@ -136,6 +151,16 @@ class ResultsTableContainer extends React.Component {
         }
     }
 
+    toggleColumnVisibility(col) {
+        const columnVisibility = this.state.columnVisibility;
+        columnVisibility[col] = !columnVisibility[col];
+        this.setState({
+            columnVisibility
+        }, () => {
+            this.setColumns(this.props.meta.tableType);
+        });
+    }
+
     render() {
         return (
             <ResultsTableSection
@@ -144,6 +169,8 @@ class ResultsTableContainer extends React.Component {
                 results={this.props.rows.toArray()}
                 resultsMeta={this.props.meta}
                 columns={this.state.columns}
+                hiddenColumns={this.state.hiddenColumns}
+                toggleColumnVisibility={this.toggleColumnVisibility}
                 tableTypes={tableTypes}
                 currentType={this.props.meta.tableType}
                 switchTab={this.switchTab}

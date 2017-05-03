@@ -11,13 +11,17 @@ import ResultsTableHeaderCellContainer from
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
 import ResultsTableMessage from './ResultsTableMessage';
+import ResultsSelectColumns from './ResultsSelectColumns';
 
 const propTypes = {
     inFlight: React.PropTypes.bool,
     tableTypes: React.PropTypes.array,
     currentType: React.PropTypes.string,
     switchTab: React.PropTypes.func,
-    results: React.PropTypes.array
+    results: React.PropTypes.array,
+    columns: React.PropTypes.array,
+    hiddenColumns: React.PropTypes.array,
+    toggleColumnVisibility: React.PropTypes.func
 };
 
 export default class ResultsTableSection extends React.Component {
@@ -63,6 +67,10 @@ export default class ResultsTableSection extends React.Component {
             <div className="search-results-table-section" id="results-section-table">
                 <h3>Spending by Award</h3>
                 <hr className="results-divider" />
+                <ResultsSelectColumns
+                    columns={this.props.columns}
+                    hiddenColumns={this.props.hiddenColumns}
+                    toggleColumnVisibility={this.props.toggleColumnVisibility} />
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}

@@ -57,6 +57,9 @@ export default class ResultsTable extends React.PureComponent {
             // re-render if the window size changed
             return true;
         }
+        else if (nextProps.columns !== this.props.columns) {
+            return true;
+        }
         return false;
     }
 
