@@ -17,9 +17,8 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
-import SearchTransactionFileCOperation from 'models/search/SearchTransactionFileCOperation';
-import SearchAccountOperation from 'models/search/SearchAccountOperation';
+import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
+import SearchTASCategoriesOperation from 'models/search/SearchTASCategoriesOperation';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object,
@@ -109,87 +108,6 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
         });
     }
 
-    fetchTransactionData() {
-        const fieldName = fieldNames[this.state.scope];
-        const field = 'federal_action_obligation';
-        const group = [
-            `award__financial_set__${fieldName}`,
-            "award__financial_set__treasury_account__federal_account_id"
-        ];
-
-        let operation = null;
-
-        if (this.props.budgetFiltersSelected) {
-            operation = new SearchTransactionFileCOperation();
-        }
-        else {
-            operation = new SearchTransactionOperation();
-        }
-
-        // Add filters to Search Operation
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-
-        // Generate the API parameters
-        const apiParams = {
-            field,
-            group,
-            order: ['-aggregate'],
-            aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
-        };
-
-        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
-
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data, group, fieldName);
-                this.apiRequest = null;
-            })
-            .catch(() => {
-                this.apiRequest = null;
-            });
-    }
-
-    fetchCategoryData() {
-        const fieldName = fieldNames[this.state.scope];
-        const field = 'obligations_incurred_by_program_object_class_cpe';
-        let group = [fieldName];
-        if (this.state.scope === 'federalAccounts') {
-            group = [fieldName, "treasury_account__federal_account_id"];
-        }
-
-        const operation = new SearchAccountOperation('tas');
-
-        // Add filters to Search Operation
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-
-        // Generate the API parameters
-        const apiParams = {
-            field,
-            group,
-            order: ['-aggregate'],
-            aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
-        };
-
-        this.apiRequest = SearchHelper.performCategorySearch(apiParams);
-
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data, group, fieldName);
-                this.apiRequest = null;
-            })
-            .catch(() => {
-                this.apiRequest = null;
-            });
-    }
-
     fetchData() {
         this.setState({
             loading: true
@@ -201,12 +119,118 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
         }
 
         // Fetch data from the appropriate endpoint
-        if (this.props.awardFiltersSelected) {
-            this.fetchTransactionData();
+        if (this.props.awardFiltersSelected && this.props.budgetFiltersSelected) {
+            this.fetchComboRequest();
+        }
+        else if (this.props.budgetFiltersSelected) {
+            this.fetchBudgetRequest();
+        }
+        else if (this.props.awardFiltersSelected) {
+            this.fetchAwardRequest();
         }
         else {
-            this.fetchCategoryData();
+            this.fetchUnfilteredRequest();
         }
+    }
+
+    fetchUnfilteredRequest() {
+        this.fetchTASCategories('Budget category vis - unfiltered');
+    }
+
+    fetchBudgetRequest() {
+        this.fetchTASCategories('Budget category vis - budget filters');
+    }
+
+    fetchAwardRequest() {
+        // only award filters have been selected
+        this.fetchAccountAwards('Budget category vis - award filters');
+    }
+
+    fetchComboRequest() {
+        // a combination of budget and award filters have been selected
+        this.fetchAccountAwards('Budget category vis - combination');
+    }
+
+    fetchAccountAwards(auditTrail = null) {
+        const fieldName = fieldNames[this.state.scope];
+        const field = 'transaction_obligated_amount';
+        let group = [fieldName];
+        if (this.state.scope === 'federalAccounts') {
+            group = [fieldName, "treasury_account__federal_account_id"];
+        }
+
+
+        const operation = new SearchAccountAwardsOperation();
+        // Add filters to Search Operation
+        operation.fromState(this.props.reduxFilters);
+        const searchParams = operation.toParams();
+
+        // Generate the API parameters
+        const apiParams = {
+            field,
+            group,
+            order: ['-aggregate'],
+            aggregate: 'sum',
+            filters: searchParams,
+            limit: 5,
+            page: this.state.page
+        };
+
+        if (auditTrail) {
+            apiParams.auditTrail = auditTrail;
+        }
+
+        this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
+
+        this.apiRequest.promise
+            .then((res) => {
+                this.parseData(res.data, group, fieldName);
+                this.apiRequest = null;
+            })
+            .catch(() => {
+                this.apiRequest = null;
+            });
+    }
+
+    fetchTASCategories(auditTrail = null) {
+        // only budget filters have been selected
+        const fieldName = fieldNames[this.state.scope];
+        const field = 'obligations_incurred_by_program_object_class_cpe';
+        let group = [fieldName];
+        if (this.state.scope === 'federalAccounts') {
+            group = [fieldName, "treasury_account__federal_account_id"];
+        }
+
+        // generate the API parameters
+        const operation = new SearchTASCategoriesOperation();
+        operation.fromState(this.props.reduxFilters);
+        const searchParams = operation.toParams();
+
+        // Generate the API parameters
+        const apiParams = {
+            field,
+            group,
+            order: ['-aggregate'],
+            aggregate: 'sum',
+            filters: searchParams,
+            limit: 5,
+            page: this.state.page
+        };
+
+        if (auditTrail) {
+            apiParams.auditTrail = auditTrail;
+        }
+
+        this.apiRequest = SearchHelper.performCategorySearch(apiParams);
+
+        this.apiRequest.promise
+            .then((res) => {
+                this.parseData(res.data, group, fieldName);
+                this.apiRequest = null;
+            })
+            .catch(() => {
+                this.apiRequest = null;
+            });
     }
 
     parseData(data, group, fieldName) {

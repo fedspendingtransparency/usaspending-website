@@ -7,7 +7,7 @@ import React from 'react';
 import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as DataFields from 'dataMapping/grants/additionalDetails';
+import * as DataFields from 'dataMapping/financialAssistance/additionalDetails';
 import FinancialSystemItem from 'models/results/other/FinancialSystemItem';
 
 import AdditionalGroup from './AdditionalGroup';
@@ -45,7 +45,7 @@ export default class AssistanceAdditionalDetails extends React.Component {
 
     loadAdditionalInfo() {
         const awardId = this.props.award.selectedAward.id;
-        const grantFields = [
+        const assistanceFields = [
             'treasury_account',
             'object_class',
             'program_activity'
@@ -73,7 +73,7 @@ export default class AssistanceAdditionalDetails extends React.Component {
             ],
             order_by: 'reporting_period_start',
             limit: 1,
-            fields: grantFields
+            fields: assistanceFields
         });
 
         this.financialRequest.promise

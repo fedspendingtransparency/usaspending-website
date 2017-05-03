@@ -5,10 +5,9 @@
 
 import _ from 'lodash';
 
-const locationIdField = 'place_of_performance__location_id';
-const countryCodeField = 'place_of_performance__location_country_code';
+import * as FilterFields from 'dataMapping/search/filterFields';
 
-export const buildLocationQuery = (values) => {
+export const buildLocationQuery = (values, searchContext = 'award') => {
     let valueSet = [];
 
     // Concatenate Matched IDs of selected locations
@@ -17,8 +16,10 @@ export const buildLocationQuery = (values) => {
         valueSet = _.concat(valueSet, locArray.matched_ids);
     });
 
+    const field = FilterFields[`${searchContext}Fields`].location;
+
     const filter = {
-        field: locationIdField,
+        field,
         operation: "in",
         value: valueSet
     };
@@ -26,14 +27,16 @@ export const buildLocationQuery = (values) => {
     return filter;
 };
 
-export const buildDomesticForeignQuery = (selection) => {
+export const buildDomesticForeignQuery = (selection, searchContext = 'award') => {
     let op = 'equals';
     if (selection === 'foreign') {
         op = 'not_equals';
     }
 
+    const field = FilterFields[`${searchContext}Fields`].locationScope;
+
     const filter = {
-        field: countryCodeField,
+        field,
         operation: op,
         value: 'USA'
     };

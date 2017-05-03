@@ -1,12 +1,10 @@
 @mixin headerNavMenuSearchButton {
     @include button-unstyled;
-    height: 100%;
-    width: 3.8rem;
-    padding-left: 13px;
+    padding-left: rem(13);
 
     svg {
         fill: $color-gray;
-        height: 22px;
-        width: 22px;
+        height: rem(22);
+        width: rem(22);
     }
 }

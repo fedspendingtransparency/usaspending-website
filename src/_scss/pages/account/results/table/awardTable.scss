@@ -1,0 +1,28 @@
+.account-awards-table-section {
+    transition: opacity 0.25s ease;
+    margin-top: ($global-mrg * 4);
+    
+    @import "pages/search/results/table/_tableTypes";
+    @import "pages/search/results/table/_tableStyle";
+
+    .loading-table {
+        opacity: 0.5;
+        @include transition(opacity 0.25s ease-in);
+    }
+
+    .loaded-table {
+        opacity: 1;
+        @include transition(opacity 0.25s ease-in);
+    }
+
+    .account-awards-table-width-master {
+        width: 100%;
+    }
+
+    .account-awards-table-message {
+        margin-top: 1rem;
+        font-size: $small-font-size;
+        color: $color-base;
+        text-align: center;
+    }
+}

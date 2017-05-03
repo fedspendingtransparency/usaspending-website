@@ -3,13 +3,14 @@
         fill: #F7F7F7;
 
         &.even {
-            fill: #FFFFFF;
+            fill: #fff;
         }
     }
 
     .group-label {
-        font-size: 14px;
-        color: #555555;
+        font-size: rem(14);
+        color: #666;
+        fill: #666;
     }
 
     .group-label-link {

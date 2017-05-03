@@ -1,54 +1,14 @@
 .visualization-top {
-    display: table;
-    margin-top: 20px;
-    margin-bottom: 20px;
-
-    @import "components/visualizations/_description";
-}
-
-.visualization-description {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.visualization-period {
-    display: table-cell;
-    vertical-align: middle;
-
-    @import "components/visualizations/_scope";
-    
-    .content {
-        @include media($tablet-screen) {
-            height: 60px;
-            width: 300px;
-        }
-        @include media($large-screen) {
-            width: 390px;
-            padding: 15px 30px;
-        }
-        li {
-            @include media($tablet-screen) {
-                display: inline-block;
-                margin-left: 30px;
-                margin-bottom: 0;
-
-                &:first-child {
-                    margin-left: 0px;
-                }
-            }
-        }
-        
-        @import "components/_comingSoon";
-
-        @include comingSoon;
-        
-        .coming-soon {
-            .period-button {
-                color: $color-gray-lighter;
-            }
-            .period-button:hover {
-                color: $color-gray-lighter;
-                border-bottom: 4px solid rgba(255,255,255,0);
+    @include row();
+    margin-bottom: rem(20);
+    @import "../../../../../components/visualizations/_description";
+    @import "../../../../../components/visualizations/_period";
+    .visualization-period {
+        .content {
+            li {
+                //EDIT THIS DEPENDING ON HOW MANY CHOICES ARE AVAILABLE WITHIN THE TOGGLE (DEFAULT IS 3 = 5.3 COLUMNS) 
+                @include span-columns(4);
+                @include shift(3);
             }
         }
     }

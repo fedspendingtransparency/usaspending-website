@@ -1,34 +1,24 @@
 .map-container {
     position: relative;
-
     .mapbox-item {
         display: block;
-        width: 100%;
         height: 100%;
+        width: 100%;
     }
-
     @import "./_legend";
-
     .map-instructions {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-
-        max-width: 230px;
-
         background-color: $color-white;
-        padding: 12px 15px;
-
-        z-index: 2;
-
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.3);
-
-        font-size: 14px;
-        line-height: 18px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
         color: $color-gray;
-        font-weight: bold;
-
+        font-size: rem(14);
+        font-weight: $font-semibold;
+        left: rem(15);
+        line-height: rem(18);
+        max-width: rem(230);
+        padding: rem(12) rem(15);
+        position: absolute;
         text-align: center;
-
+        top: rem(15);
+        z-index: 2;
     }
 }

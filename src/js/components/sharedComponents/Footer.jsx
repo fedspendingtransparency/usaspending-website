@@ -18,12 +18,16 @@ export default class Footer extends React.Component {
                         </a>
                     </div>
                     <div className="internal-links">
-                        <h6>This site is an alpha release. All data is test data.</h6>
+                        <h6>This site is a beta release. All data is test data.</h6>
                         <ul className="inline">
-                            <li><a href="/" title="Feedback" aria-label="Feedback">Feedback</a></li>
-                            <li><a href="/" title="About Us" aria-label="About Us">About Us</a></li>
+                            <li><a href="mailto:usaspending.help-submitonly@fiscal.treasury.gov" title="Feedback" aria-label="Feedback">Feedback</a></li>
+                            <li><a href="#/about" title="About" aria-label="About">About</a></li>
                             <li><a href="http://fedspendingtransparency.github.io" target="_blank" rel="noopener noreferrer" title="About the DATA Act" aria-label="About the DATA Act">About the DATA Act</a></li>
                         </ul>
+                        <div className="db-link">
+                            <p><strong>NOTE:</strong> You must <a href="#/db_info" target="_blank" rel="noopener noreferrer" title="Dun & Bradstreet Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data">click here </a>
+                            for very important D&B information.</p>
+                        </div>
                     </div>
                     <div className="external-links">
                         <h6>Other Resources on Federal Spending</h6>
@@ -32,7 +36,6 @@ export default class Footer extends React.Component {
                             <li><a href="https://itdashboard.gov" target="_blank" rel="noopener noreferrer" title="IT Dashboard" aria-label="IT Dashboard">IT Dashboard</a></li>
                             <li><a href="https://www.fiscal.treasury.gov" target="_blank" rel="noopener noreferrer" title="Bureau of the Fiscal Service" aria-label="Bureau of the Fiscal Service">Bureau of the Fiscal Service</a></li>
                             <li><a href="https://www.data.gov/" target="_blank" rel="noopener noreferrer" title="Data.gov" aria-label="Data.gov">Data.gov</a></li>
-                            <li><a href="https://www.cbo.gov/" target="_blank" rel="noopener noreferrer" title="Congressional Budget Office" aria-label="Congressional Budget Office">Congressional Budget Office</a></li>
                         </ul>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
-@import "../../../mixins/setText";
 .additional-group {
+    @import "../../../mixins/setText";
+    
     margin-top: rem(35);
     @include clearfix();
     .left-side,

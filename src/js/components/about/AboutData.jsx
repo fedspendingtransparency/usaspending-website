@@ -10,20 +10,29 @@ export default class AboutData extends React.Component {
 
     render() {
         return (
-            <div className="aboutdata-wrap">
-                <div className="img-placeholder" />
-                <div className="aboutdata-inner-wrap">
-                    <h3>About the Data</h3>
-                    <hr className="results-divider" />
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet risus sed urna cursus mollis.
-                    Donec sagittis nunc pretium dui congue, id gravida purus lobortis. Nunc sed varius massa.
-                     Nam blandit cursus metus a maximus. Vivamus pretium augue sed est aliquam mollis.
-                     Mauris efficitur arcu vitae venenatis sodales. Nulla et massa nibh. Duis ut eleifend augue.
-                     Suspendisse elit lacus, bibendum non felis eu, accumsan consectetur augue. Phasellus id aliquet nulla.
-                     Vivamus tristique, mauris et suscipit luctus, mi sapien imperdiet risus, quis condimentum
-                     libero neque vel risus.
-                    </p>
-                    <a href="#">Not enough for you? Click here for more discussion of the data</a>
+            <div className="aboutdata-outer-wrap">
+                <div className="aboutdata-wrap">
+                    <div className="image-wrap">
+                        <img src="img/spending-heirarchy.png" alt="About the Data" />
+                    </div>
+                    <div className="aboutdata-inner-wrap">
+                        <h3>About the Data</h3>
+                        <hr className="results-divider" />
+                        <p>USAspending.gov hosts an abundance of data that can help you understand the
+                            nuances of government spending. This data can answer the who, what, where,
+                            why, and how of the complex government spending landscape. Read on for more
+                            background on the data you&#8217;ll find on this site.
+                        </p>
+                        <a
+                            href="#/aboutdata"
+                            role="button"
+                            title="About the Data"
+                            aria-label="About the Data">
+                            <button className="usa-button-primary">
+                                Learn More
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
         );

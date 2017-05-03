@@ -12,7 +12,7 @@ $h4-font-size:        rem(30px);
 $h5-font-size:        rem(24px);
 $h6-font-size:        rem(19px);
 $base-line-height:    1.5;
-$heading-line-height: 1.3;
+$heading-line-height: 1.2;
 $lead-line-height:    1.7;
 
 $font-sans:           'Source Sans Pro', $helvetica;
@@ -85,13 +85,13 @@ $color-vis-green-light:      #45bb8c;
 $color-color-vis-green-mid:  #239e87;
 $color-vis-green-dark:       #0d817c;
 $color-vis-green-darker:     #13646c;
-$color-vis-green-darkest:    #13646c;
+$color-vis-green-darkest:    #1b4956;
 
 $color-active:				 #F2B733;
 $color-focus:                #3e94cf;
 $color-visited:              #4c2c92;
 $color-shadow:               rgba(#000, 0.3);
-$color-tab-inactive:		 #f1f1f1; // color for inactive tab 
+$color-tab-inactive:		 #f1f1f1; // color for inactive tab
 $color-gray-border:          #D8D8D8;
 
 // Global Paadding and Margins
@@ -99,6 +99,7 @@ $color-gray-border:          #D8D8D8;
 $global-pad-mrg: rem(15);
 $global-pad: $global-pad-mrg;
 $global-mrg: $global-pad-mrg;
+
 
 // Mobile First Breakpoints
 $small-screen:      320px;
@@ -119,7 +120,7 @@ $input-max-width:     rem(460);
 $border-radius:       rem(3px);
 $box-shadow:          0 0 2px $color-shadow;
 $focus-shadow:        0 0 3px $color-focus, 0 0 7px $color-focus;
-$container-shadow:    0 1px 2px rgba(43,59,93,.29); 
+$container-shadow:    0 1px 2px rgba(43,59,93,.29);
 $nav-width:           rem(951);
 $outer-gutter:        rem(40);
 

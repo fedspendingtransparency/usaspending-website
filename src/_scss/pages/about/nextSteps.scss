@@ -1,0 +1,64 @@
+.wrapper {
+    @import "mixins/fullSectionWrap";
+    @include fullSectionWrap(0, 0);
+    & .block-wrap {
+        @include span-columns(16);
+        text-align: center;
+        margin-top: ($global-mrg * 2);
+        & h6 {
+            color: $color-gray;
+            margin: ($global-mrg * 2) 0 0;
+        }
+        & p {
+            font-size: $small-font-size;
+            color: $color-base;
+        }
+        & .icon-wrap {
+            @include display(flex);
+            @include align-items(center);
+            @include justify-content(center);
+            height: rem(80);
+            width: 100%;
+            margin: 0 auto;
+            & .guide-icon {
+                height: rem(57);
+                fill: #335565;
+                width: rem(81);
+            }
+            & .contact-icon {
+                height: rem(38);
+                width: rem(88);
+            }
+            & .download-icon {
+                height: rem(80);
+                width: rem(46);
+            }
+            & .next-icon {
+                height: rem(71);
+                width: rem(74);
+            }
+        }
+        @include media($tablet-screen) {
+            @include span-columns(8);
+            margin-top: 0;
+            &:nth-child(even) {
+                margin-right: 0;
+            }
+            &:nth-child(-n+2) {
+                margin-bottom: ($global-mrg * 3);
+            }
+        }
+        @include media($medium-screen) {
+            @include span-columns(4);
+            &:nth-child(even) {
+                margin-right: 1.75788%;
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+            &:nth-child(-n+2) {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

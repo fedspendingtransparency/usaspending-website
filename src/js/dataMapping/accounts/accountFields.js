@@ -7,7 +7,11 @@ export const balanceFields = {
     outlay: 'gross_outlay_amount_by_tas_cpe',
     budgetAuthority: 'budget_authority_available_amount_total_cpe',
     obligated: 'obligations_incurred_total_by_tas_cpe',
-    unobligated: 'unobligated_balance_cpe'
+    unobligated: 'unobligated_balance_cpe',
+    balanceBroughtForward1: 'budget_authority_unobligated_balance_brought_forward_fyb',
+    balanceBroughtForward2: 'adjustments_to_unobligated_balance_brought_forward_cpe',
+    otherBudgetaryResources: 'other_budgetary_resources_amount_cpe',
+    appropriations: 'budget_authority_appropriated_amount_cpe'
 };
 
 export const categoryLabelFields = {

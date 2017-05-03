@@ -9,10 +9,8 @@ import Footer from '../sharedComponents/Footer';
 import MastHead from './MastHead';
 import Overview from './Overview';
 import AboutData from './AboutData';
-import FAQ from './FAQ';
-import SubmissionFiles from './SubmissionFiles';
-import ContactUs from './ContactUs';
-import WhatsNext from './WhatsNext';
+import NextSteps from './NextSteps';
+import Introduction from './Introduction';
 
 
 export default class About extends React.Component {
@@ -21,15 +19,11 @@ export default class About extends React.Component {
             <div className="usa-da-about-page">
                 <Header />
                 <MastHead />
-                <Overview />
+                <Introduction />
                 <AboutData />
+                <Overview />
                 <div className="usa-da-about-inner">
-                    <FAQ />
-                    <SubmissionFiles />
-                </div>
-                <div className="usa-da-about-inner">
-                    <ContactUs />
-                    <WhatsNext />
+                    <NextSteps />
                 </div>
                 <Footer />
             </div>

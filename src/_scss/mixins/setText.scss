@@ -1,4 +1,5 @@
 // DYNAMACALLY SET LINE-HEIGHT BASED OFF THE SIZE OF TEXT
+//@import "../../mixins/setText";
 // CALL WITH -- @include setText(rem(42)); --
 
 @mixin setText($fontSize) {

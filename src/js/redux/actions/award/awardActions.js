@@ -59,6 +59,26 @@ export const resetFinSys = () => ({
     type: 'RESET_FINSYS'
 });
 
+export const setSubawards = (state) => ({
+    type: 'SET_AWARD_SUBAWARDS',
+    subawards: state
+});
+
+export const appendSubawards = (state) => ({
+    type: 'APPEND_AWARD_SUBAWARDS',
+    subawards: state
+});
+
+export const setSubawardMeta = (state) => ({
+    type: 'SET_SUBAWARD_META',
+    meta: state
+});
+
+export const setSubawardSort = (state) => ({
+    type: 'SET_SUBAWARD_SORT',
+    sort: state
+});
+
 export const resetAwardData = () => ({
     type: 'RESET_AWARD_DATA'
 });

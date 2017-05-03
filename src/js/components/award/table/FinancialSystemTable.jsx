@@ -43,7 +43,7 @@ export default class FinancialSystemTable extends React.Component {
     tableScrolled(xPos, yPos) {
         // determine the table position
         const rowNumber = this.rowAtYPosition(yPos);
-        if (rowNumber >= this.props.award.transactions.length) {
+        if (rowNumber >= this.props.award.finSysData.length) {
             // we have reached the bottom of the table, load next page
             this.props.nextPage();
         }
@@ -142,7 +142,7 @@ export default class FinancialSystemTable extends React.Component {
             <div className="financial-system-content">
                 <div className="disclaimer">
                     NOTE: This is part of new data reported under the DATA act starting in
-                    Q2 of FY 2017.  &nbsp;It comes directly from the auditied financial systems of
+                    Q2 of FY 2017.  &nbsp;It comes directly from the audited financial systems of
                     federal agencies.
                 </div>
                 <div className={`financial-system-table ${inFlightClass}`}>

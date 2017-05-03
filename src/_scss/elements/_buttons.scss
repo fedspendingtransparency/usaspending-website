@@ -1,9 +1,6 @@
 // Buttons variables
-
 $button-stroke: inset 0 0 0 1px;
-
 // Buttons
-
 // scss-lint:disable PropertyCount
 .usa-button,
 .usa-button-primary,
@@ -32,11 +29,9 @@ button,
     text-decoration: none;
     width: 100%;
     -webkit-font-smoothing: antialiased;
-
     @include media($small-screen) {
         width: auto;
     }
-
     &:hover,
     &.usa-button-hover {
         background-color: $color-primary-darker;
@@ -44,59 +39,48 @@ button,
         color: $color-white;
         text-decoration: none;
     }
-
     &:focus,
     &.usa-button-focus {
         box-shadow: $focus-shadow;
     }
-
     &:active,
     &.usa-button-active {
         background-color: $color-primary-darkest;
     }
-
     &.usa-button-primary-alt {
         background-color: $color-primary-alt;
         color: $color-white;
-
         &:hover,
         &.usa-button-hover {
             background-color: $color-primary-alt-dark;
         }
-
         &:active,
         &.usa-button-active {
             background-color: $color-primary-alt-darkest;
             color: $color-white;
         }
     }
-
     &.usa-button-secondary {
         background-color: $color-secondary;
-
         &:hover,
         &.usa-button-hover {
             background-color: $color-secondary-dark;
         }
-
         &:active,
         &.usa-button-active {
             background-color: $color-secondary-darkest;
         }
     }
-
     &.usa-button-secondary-danger {
         background: transparent;
         box-shadow: $button-stroke $color-secondary-dark;
         color: $color-secondary-dark;
-
         &:hover,
         &.usa-button-hover {
-            background-color:$color-secondary;
+            background-color: $color-secondary;
             box-shadow: $button-stroke $color-secondary;
             color: $color-white;
         }
-
         &:active,
         &.usa-button-active {
             background-color: $color-secondary-darkest;
@@ -104,72 +88,61 @@ button,
             color: $color-white;
         }
     }
-
     &.usa-button-gray {
         background-color: $color-gray;
-
         &:hover,
         &.usa-button-hover {
             background-color: $color-gray-dark;
         }
-
         &:active,
         &.usa-button-active {
             background-color: $color-base;
         }
     }
-
     &.usa-button-outline {
         background-color: transparent;
         box-shadow: $button-stroke $color-primary;
         color: $color-primary;
-
         &:hover,
         &.usa-button-hover {
-            background:$color-primary-alt-lightest;
+            background: $color-primary-alt-lightest;
             box-shadow: $button-stroke $color-primary-darker;
             color: $color-primary-darker;
         }
-
         &:active,
         &.usa-button-active {
             box-shadow: $button-stroke $color-primary-darkest;
             color: $color-primary-darkest;
         }
-
         &:focus,
         &.usa-button-focus {
             box-shadow: $button-stroke $color-primary-darkest, $focus-shadow;
         }
     }
-
     &.usa-button-outline-inverse {
         background: transparent;
         box-shadow: $button-stroke $color-white;
         color: $color-white;
-
         &:hover,
         &.usa-button-hover {
             background: $color-gray;
             box-shadow: $button-stroke $color-gray;
             color: $color-white;
         }
-
         &:active,
         &.usa-button-active {
             box-shadow: $button-stroke $color-gray-light;
             color: $color-gray-lighter;
         }
     }
-
     &.usa-button-big {
         font-size: 1.6rem;
         line-height: 1.3rem;
         padding: 16px 24px 15px;
     }
 }
-// scss-lint:enable PropertyCount
 
+// scss-lint:enable PropertyCount
 [type="submit"]:disabled,
 .usa-button-disabled {
     background-color: $color-gray-lighter;
@@ -177,7 +150,26 @@ button,
     pointer-events: none;
     cursor: not-allowed;
     opacity: .65;
+    &:hover,
+    &.usa-button-hover,
+    &:active,
+    &.usa-button-active,
+    &:focus {
+        background-color: $color-gray-lighter;
+        border: 0;
+        box-shadow: none;
+        color: $color-gray-dark;
+    }
+}
 
+[type="submit"]:disabled,
+.usa-button-disabled-outline {
+    background: none;
+    border: rem(1) solid $color-gray-lighter;
+    color: $color-gray;
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: .65;
     &:hover,
     &.usa-button-hover,
     &:active,
@@ -199,7 +191,6 @@ button,
     outline: 0;
     padding: 0;
     text-align: left;
-
     &:hover {
         background-color: transparent;
     }
