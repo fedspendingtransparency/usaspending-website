@@ -63,9 +63,6 @@ export default class GuideSearchResults extends React.Component {
         const results = this.groupResults();
         return (
             <div className="guide-search-results">
-                <h2 className="section-title">
-                    Descriptions
-                </h2>
                 {results}
             </div>
         );

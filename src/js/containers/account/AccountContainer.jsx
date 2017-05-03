@@ -131,7 +131,8 @@ export class AccountContainer extends React.Component {
                         value: FiscalYearHelper.currentFiscalYear(),
                         value_format: 'fy'
                     }
-                ]
+                ],
+                auditTrail: `Sankey - ${balanceType}`
             });
 
             request.type = balanceType;
