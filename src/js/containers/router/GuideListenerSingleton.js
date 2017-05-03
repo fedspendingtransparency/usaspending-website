@@ -35,13 +35,15 @@ class GuideListenerSingleton {
 
         // remove the query for guide
         const currentLocation = hashHistory.getCurrentLocation();
-        const removedQuery = Object.assign({}, currentLocation.query);
-        delete removedQuery.guide;
+        if (currentLocation.query && currentLocation.query.guide) {
+            const removedQuery = Object.assign({}, currentLocation.query);
+            delete removedQuery.guide;
 
-        hashHistory.replace({
-            pathname: currentLocation.pathname,
-            query: removedQuery
-        });
+            hashHistory.replace({
+                pathname: currentLocation.pathname,
+                query: removedQuery
+            });
+        }
     }
 
     unsubscribe() {

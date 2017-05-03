@@ -66,7 +66,7 @@ export class GuideContainer extends React.Component {
                 });
                 this.request = null;
 
-                this.parseTerms(res);
+                this.parseTerms(res.data);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -82,9 +82,9 @@ export class GuideContainer extends React.Component {
     }
 
 
-    parseTerms(res) {
+    parseTerms(data) {
         const terms = [];
-        res.data.results.forEach((result) => {
+        data.results.forEach((result) => {
             const term = new Definition(result);
             terms.push(term);
         });
