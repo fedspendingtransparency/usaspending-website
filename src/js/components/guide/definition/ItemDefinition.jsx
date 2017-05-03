@@ -11,7 +11,8 @@ import MoreResources from './MoreResources';
 
 const propTypes = {
     type: React.PropTypes.string,
-    value: React.PropTypes.string,
+    term: React.PropTypes.string,
+    data_act_term: React.PropTypes.string,
     resources: React.PropTypes.array
 };
 
@@ -42,10 +43,15 @@ export default class ItemDefinition extends React.Component {
             resources = <MoreResources items={this.props.resources} />;
         }
 
+        let term = this.props.term;
+        if (this.props.type === 'official' && this.props.data_act_term !== '') {
+            term = this.props.data_act_term;
+        }
+
         return (
             <div className="definition-wrapper">
                 <h2 className="term">
-                    {this.props.value}
+                    {term}
                 </h2>
 
                 <div className="definition-content">

@@ -29,18 +29,18 @@ export default class GuideSearchResults extends React.Component {
         const groups = {};
 
         this.props.guide.search.results.forEach((result) => {
-            const startingLetter = result.value.charAt(0).toUpperCase();
+            const startingLetter = result.term.charAt(0).toUpperCase();
             // check if we already have the character
             if (Object.hasOwnProperty.call(groups, startingLetter)) {
                 // we do, add it to to the list
-                const groupValues = _.concat([], groups[startingLetter].values, result);
-                groups[startingLetter].values = _.sortBy(groupValues, ['value']);
+                const groupValues = _.concat([], groups[startingLetter].terms, result);
+                groups[startingLetter].terms = _.sortBy(groupValues, ['term']);
             }
             else {
                 // the character doesn't exist as a group item yet
                 const group = {
                     letter: startingLetter,
-                    values: [result]
+                    terms: [result]
                 };
                 groups[startingLetter] = group;
             }
@@ -53,7 +53,7 @@ export default class GuideSearchResults extends React.Component {
             <ResultGroup
                 key={group.letter}
                 title={group.letter}
-                items={group.values}
+                items={group.terms}
                 search={this.props.guide.search.input}
                 selectTerm={this.selectTerm} />
         ));

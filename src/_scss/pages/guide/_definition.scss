@@ -49,6 +49,14 @@
             .label {
                 margin-left: 24px;
             }
+
+            &:hover {
+                color: $color-active;
+
+                svg {
+                    fill: $color-active;
+                }
+            }
         }
     }
 

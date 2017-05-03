@@ -10,8 +10,24 @@
 
     &.hidden {
         opacity: 0;
-        height: 0;
-        width: 0;
+
+        @include transition(opacity 0.3s ease-in);
+
+        @keyframes removeHeightWidth {
+            from {
+                height: auto;
+                width: auto;
+            }
+            to {
+                height: 0px;
+                width: 0px;
+            }
+        }
+
+        // this invisible animation lets the button fade out by not immediately removing the height
+        // and width, but removes it after 0.3s (the duration of the fade out) to remove the
+        // button's hit area
+        @include animation(removeHeightWidth 0.1s ease-in 0.3s forwards);
     }
 
     .floating-guide-button {

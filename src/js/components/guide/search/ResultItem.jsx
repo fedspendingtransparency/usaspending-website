@@ -31,12 +31,12 @@ export default class ResultItem extends React.Component {
     }
 
     prepareLabel(props) {
-        const value = props.item.value.toLowerCase();
+        const value = props.item.term.toLowerCase();
         let label = null;
         if (!props.search || value.indexOf(props.search.toLowerCase()) === -1) {
             // nothing is being searched (or there are no matches), so nothing needs to be
             // highlighted
-            label = props.item.value;
+            label = props.item.term;
         }
 
         else {
@@ -52,7 +52,7 @@ export default class ResultItem extends React.Component {
                 const unmatchedPos = position + part.length;
                 if (part.length > 0) {
                     // add the unmatched parts of the label
-                    const unmatched = props.item.value.substring(position, unmatchedPos);
+                    const unmatched = props.item.term.substring(position, unmatchedPos);
                     output.push(<span key={`unmatched-${index}`}>
                         {unmatched}
                     </span>);
@@ -61,7 +61,7 @@ export default class ResultItem extends React.Component {
                 if (index < parts.length - 1) {
                     // add the matched parts of the label
                     const matchedPos = unmatchedPos + search.length;
-                    const matchedValue = props.item.value.substring(unmatchedPos, matchedPos);
+                    const matchedValue = props.item.term.substring(unmatchedPos, matchedPos);
                     const matched = (<span className="matched-highlight" key={`match-${index}`}>
                         {matchedValue}
                     </span>);

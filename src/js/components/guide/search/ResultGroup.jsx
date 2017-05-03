@@ -10,7 +10,8 @@ import ResultItem from './ResultItem';
 const propTypes = {
     title: React.PropTypes.string,
     items: React.PropTypes.array,
-    search: React.PropTypes.string
+    search: React.PropTypes.string,
+    selectTerm: React.PropTypes.func
 };
 
 export default class ResultGroup extends React.Component {
@@ -20,7 +21,7 @@ export default class ResultGroup extends React.Component {
                 item={item}
                 search={this.props.search}
                 selectTerm={this.props.selectTerm}
-                key={item.value} />
+                key={item.term} />
         ));
 
         return (

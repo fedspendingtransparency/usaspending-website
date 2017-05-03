@@ -13,7 +13,7 @@ export default class Guide extends React.Component {
     render() {
         let content = <GuideSearchResults {...this.props} />;
 
-        if (this.props.guide.term.value !== '') {
+        if (this.props.guide.term.slug && this.props.guide.term.slug !== '') {
             content = <GuideDefinition {...this.props} />;
         }
 

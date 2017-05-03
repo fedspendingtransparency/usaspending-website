@@ -6,51 +6,20 @@
 import { Record } from 'immutable';
 
 export const Definition = Record({
-    value: '',
+    term: '',
+    data_act_term: '',
+    slug: '',
     plain: '',
     official: '',
     resources: []
 });
 
 export const initialState = {
-    display: true,
+    display: false,
     term: new Definition(),
     search: {
         input: '',
-        results: [
-            {
-                value: 'Recipient Location'
-            },
-            {
-                value: 'Recipient',
-                plain: 'The name of the __awardee__ or *recipient* that relates to a unique identifier. For U.S. based companies, this name is what the business ordinarily files in formation documents with individual states (when required).\n\nSee [Award ID](?guide=award+id)',
-                official: 'Something official\n\n**official!**',
-                resources: [
-                {
-                    label: 'Something',
-                    url: "http://www.google.com"
-                }, {
-                    label: 'Something else',
-                    url: '?guide=award+id'
-                }]
-            },
-            {
-                value: 'Recipient Name'
-            },
-            {
-                value: 'Recipient Type'
-            },
-            {
-                value: 'Award ID',
-                plain: 'Award ID is the **ID** of an award or something'
-            },
-            {
-                value: 'Appropriation Account'
-            },
-            {
-                value: 'my super long term that I hope will wrap correctly'
-            }
-        ]
+        results: []
     }
 };
 
@@ -78,6 +47,14 @@ const guideReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 search,
                 term: new Definition()
+            });
+        }
+        case 'SET_GUIDE_SEARCH_RESULTS': {
+            const search = Object.assign({}, state.search, {
+                results: action.results
+            });
+            return Object.assign({}, state, {
+                search
             });
         }
         case 'SET_GUIDE_TERM': {

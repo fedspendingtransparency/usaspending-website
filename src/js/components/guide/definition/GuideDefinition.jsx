@@ -10,6 +10,11 @@ import { AngleLeft } from 'components/sharedComponents/icons/Icons';
 import DefinitionTabs from './DefinitionTabs';
 import ItemDefinition from './ItemDefinition';
 
+const propTypes = {
+    guide: React.PropTypes.object,
+    clearGuideTerm: React.PropTypes.func
+};
+
 export default class GuideDefinition extends React.Component {
     constructor(props) {
         super(props);
@@ -36,10 +41,10 @@ export default class GuideDefinition extends React.Component {
         let hasPlain = false;
         let hasOfficial = false;
 
-        if (props.guide.term.plain !== '') {
+        if (props.guide.term.plain && props.guide.term.plain !== '') {
             hasPlain = true;
         }
-        if (props.guide.term.official !== '') {
+        if (props.guide.term.official && props.guide.term.official !== '') {
             hasOfficial = true;
         }
 
@@ -84,3 +89,5 @@ export default class GuideDefinition extends React.Component {
         );
     }
 }
+
+GuideDefinition.propTypes = propTypes;

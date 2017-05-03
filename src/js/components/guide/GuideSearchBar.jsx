@@ -39,12 +39,14 @@ export default class GuideSearchBar extends React.Component {
                         className="search-field"
                         type="text"
                         value={this.props.guide.search.input}
-                        placeholder="Search for a term..."
-                        onChange={this.changedSearchValue} />
+                        placeholder="Search (coming soon)"
+                        onChange={this.changedSearchValue}
+                        disabled />
                     <button
                         aria-label="Search"
                         className="search-button"
-                        type="submit">
+                        type="submit"
+                        disabled>
                         <Search alt="Search" />
                     </button>
                 </form>
