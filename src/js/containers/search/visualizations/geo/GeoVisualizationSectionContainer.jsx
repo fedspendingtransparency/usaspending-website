@@ -75,17 +75,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
             fieldName = 'recipient__location';
         }
 
-        // Ensure we're only visualizing American locations
-        searchParams.push({
-            field: `${fieldName}__location_country_code`,
-            operation: "equals",
-            value: "USA"
-        });
-
         // generate the API parameters
         const apiParams = {
             field: 'federal_action_obligation',
-            group: [`${fieldName}__state_code`, `${fieldName}__location_country_code`],
+            group: `${fieldName}__state_code`,
             order: ['item'],
             aggregate: 'sum',
             filters: searchParams,
