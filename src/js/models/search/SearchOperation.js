@@ -13,7 +13,6 @@ import * as RecipientQuery from './queryBuilders/RecipientQuery';
 import * as KeywordQuery from './queryBuilders/KeywordQuery';
 import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
 import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
-import * as BudgetCategoryQuery from './queryBuilders/BudgetCategoryQuery';
 
 class SearchOperation {
     constructor() {
