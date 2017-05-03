@@ -148,8 +148,8 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
     }
 
     fetchTransactions(auditTrail = null) {
-        const idField = FilterFields.accountAwardsFields.recipientId;
-        const labelField = FilterFields.accountAwardsFields.recipientName;
+        const idField = FilterFields.transactionFields.recipientId;
+        const labelField = FilterFields.transactionFields.recipientName;
 
         const group = [idField, labelField];
         const field = 'federal_action_obligation';
