@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import _ from 'lodash';
 
 import GuideListenerSingleton from 'containers/router/GuideListenerSingleton';
 import * as GuideHelper from 'helpers/guideHelper';
@@ -18,7 +19,9 @@ import { Definition } from 'redux/reducers/guide/guideReducer';
 
 const propTypes = {
     guide: React.PropTypes.object,
-    setGuideResults: React.PropTypes.func
+    setGuideResults: React.PropTypes.func,
+    showGuide: React.PropTypes.func,
+    setGuideTerm: React.PropTypes.func
 };
 
 export class GuideContainer extends React.Component {
@@ -26,8 +29,11 @@ export class GuideContainer extends React.Component {
         super(props);
 
         this.state = {
-            loading: true
+            loading: true,
+            error: false
         };
+
+        this.queuedOperations = [];
 
         this.request = null;
     }
@@ -55,7 +61,8 @@ export class GuideContainer extends React.Component {
         this.request.promise
             .then((res) => {
                 this.setState({
-                    loading: false
+                    loading: false,
+                    error: false
                 });
                 this.request = null;
 
@@ -67,7 +74,8 @@ export class GuideContainer extends React.Component {
                 }
 
                 this.setState({
-                    loading: false
+                    loading: false,
+                    error: true
                 });
                 this.request = null;
             });
@@ -82,15 +90,48 @@ export class GuideContainer extends React.Component {
         });
 
         this.props.setGuideResults(terms);
+
+        if (this.queuedOperations.length > 0) {
+            // there are operations that were waiting for the data load, run them now
+            this.queuedOperations.forEach((operation) => {
+                operation();
+            });
+        }
     }
 
     detectedUrlChange(value) {
-        console.log(value);
+        // we've receivd a special URL param for a specific guide term
+        if (this.state.loading) {
+            // still loading, queue this operation up for later
+            const operation = this.jumpToTerm.bind(this, value);
+            this.queuedOperations.push(operation);
+            return;
+        }
+
+        this.jumpToTerm(value);
+    }
+
+    jumpToTerm(term) {
+        // look for a matching slug
+        const index = _.findIndex(this.props.guide.search.results, {
+            slug: term
+        });
+
+        if (index > -1) {
+            // we found the term, load the word
+            const result = this.props.guide.search.results[index];
+            this.props.setGuideTerm(result);
+            // now force open the guide
+            this.props.showGuide();
+        }
     }
 
     render() {
         return (
-            <AnimatedGuideWrapper {...this.props} />
+            <AnimatedGuideWrapper
+                {...this.props}
+                loading={this.state.loading}
+                error={this.state.error} />
         );
     }
 }

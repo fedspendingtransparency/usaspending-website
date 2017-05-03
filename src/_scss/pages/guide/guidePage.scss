@@ -27,5 +27,9 @@
         @import "./_header";
         @import "./_searchList";
         @import "./_definition";
+
+        .guide-loading {
+            padding: 20px;
+        }
     }
 }
