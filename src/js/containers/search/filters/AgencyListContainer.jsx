@@ -132,6 +132,7 @@ export class AgencyListContainer extends React.Component {
             const agencySearchParams = {
                 fields: ['subtier_agency__name'],
                 value: this.state.agencySearchString,
+                order: ["-toptier_flag"],
                 mode: "contains",
                 matched_objects: true,
                 limit: 10
