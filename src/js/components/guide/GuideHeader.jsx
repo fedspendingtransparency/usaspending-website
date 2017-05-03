@@ -20,6 +20,7 @@ export default class GuideHeader extends React.Component {
                 <button
                     className="close-button"
                     aria-label="Close Guide"
+                    title="Close Guide"
                     onClick={this.props.hideGuide}>
                     <Icons.Close alt="Close Guide" />
                 </button>

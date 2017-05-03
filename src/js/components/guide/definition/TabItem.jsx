@@ -33,6 +33,8 @@ export default class TabItem extends React.Component {
             <li>
                 <button
                     className={`definition-tab ${active}`}
+                    aria-label={this.props.label}
+                    title={this.props.label}
                     onClick={this.clickedButton}>
                     {this.props.label}
                 </button>
