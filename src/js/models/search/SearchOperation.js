@@ -146,22 +146,6 @@ class SearchOperation {
             }
         }
 
-        // Add Budget Category queries
-        if (this.budgetFunctions.length > 0) {
-            filters.push(BudgetCategoryQuery.buildBudgetFunctionQuery(
-                this.budgetFunctions, this.searchContext));
-        }
-
-        if (this.federalAccounts.length > 0) {
-            filters.push(BudgetCategoryQuery.buildFederalAccountQuery(
-                this.federalAccounts, this.searchContext));
-        }
-
-        if (Object.keys(this.objectClasses).length > 0) {
-            filters.push(BudgetCategoryQuery.buildObjectClassQuery(
-                this.objectClasses, this.searchContext));
-        }
-
         return filters;
     }
 
