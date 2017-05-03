@@ -81,13 +81,13 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             },
             results: [
                 {
-                    award__recipient__legal_entity_id: '1',
-                    award__recipient__recipient_name: 'Multiple Recipients',
+                    recipient__legal_entity_id: '1',
+                    recipient__recipient_name: 'Multiple Recipients',
                     aggregate: '149620471458.92'
                 },
                 {
-                    award__recipient__legal_entity_id: '113704139',
-                    award__recipient__recipient_name: 'Michigan',
+                    recipient__legal_entity_id: '113704139',
+                    recipient__recipient_name: 'Michigan',
                     aggregate: '6684225478.00'
                 }
             ]
@@ -127,13 +127,13 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             },
             results: [
                 {
-                    award__recipient__legal_entity_id: '1',
-                    award__recipient__recipient_name: 'Multiple Recipients',
+                    recipient__legal_entity_id: '1',
+                    recipient__recipient_name: 'Multiple Recipients',
                     aggregate: '149620471458.92'
                 },
                 {
-                    award__recipient__legal_entity_id: '113704139',
-                    award__recipient__recipient_name: 'Michigan',
+                    recipient__legal_entity_id: '113704139',
+                    recipient__recipient_name: 'Michigan',
                     aggregate: '6684225478.00'
                 }
             ]
@@ -193,13 +193,13 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
                 },
                 results: [
                     {
-                        award__recipient__legal_entity_id: '1',
-                        award__recipient__recipient_name: 'Multiple Recipients',
+                        recipient__legal_entity_id: '1',
+                        recipient__recipient_name: 'Multiple Recipients',
                         aggregate: '149620471458.92'
                     },
                     {
-                        award__recipient__legal_entity_id: '113704139',
-                        award__recipient__recipient_name: 'Michigan',
+                        recipient__legal_entity_id: '113704139',
+                        recipient__recipient_name: 'Michigan',
                         aggregate: '6684225478.00'
                     }
                 ]
@@ -248,13 +248,13 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
                 },
                 results: [
                     {
-                        award__recipient__legal_entity_id: '1',
-                        award__recipient__recipient_name: 'Multiple Recipients',
+                        recipient__legal_entity_id: '1',
+                        recipient__recipient_name: 'Multiple Recipients',
                         aggregate: '149620471458.92'
                     },
                     {
-                        award__recipient__legal_entity_id: '113704139',
-                        award__recipient__recipient_name: 'Michigan',
+                        recipient__legal_entity_id: '113704139',
+                        recipient__recipient_name: 'Michigan',
                         aggregate: '6684225478.00'
                     }
                 ]
@@ -294,13 +294,13 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
                 },
                 results: [
                     {
-                        award__recipient__legal_entity_id: '1',
-                        award__recipient__recipient_name: 'Multiple Recipients',
+                        recipient__legal_entity_id: '1',
+                        recipient__recipient_name: 'Multiple Recipients',
                         aggregate: '149620471458.92'
                     },
                     {
-                        award__recipient__legal_entity_id: '113704139',
-                        award__recipient__recipient_name: 'Michigan',
+                        recipient__legal_entity_id: '113704139',
+                        recipient__recipient_name: 'Michigan',
                         aggregate: '6684225478.00'
                     }
                 ]
@@ -340,13 +340,13 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
                 },
                 results: [
                     {
-                        award__recipient__legal_entity_id: '1',
-                        award__recipient__recipient_name: 'Multiple Recipients',
+                        recipient__legal_entity_id: '1',
+                        recipient__recipient_name: 'Multiple Recipients',
                         aggregate: '149620471458.92'
                     },
                     {
-                        award__recipient__legal_entity_id: '113704139',
-                        award__recipient__recipient_name: 'Michigan',
+                        recipient__legal_entity_id: '113704139',
+                        recipient__recipient_name: 'Michigan',
                         aggregate: '6684225478.00'
                     }
                 ]
