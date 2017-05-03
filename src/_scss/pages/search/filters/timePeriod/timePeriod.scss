@@ -11,6 +11,7 @@
     margin: 0 rem(20) ($global-pad * 2);
     ul.fiscal-years {
         @include row();
+        column-count: 2;
         list-style-type: none;
         padding: $global-pad 0 0 0;
         margin: -0.1rem auto 0;
@@ -19,9 +20,9 @@
             margin: 0;
             padding: 0 0 0 rem(10);
             height: auto;
-            @include span-columns(7);
             input {
                 @include usa-input-checkbox;
+                float: left;
                 margin-right: rem(-19);
                 margin-top: rem(13);
                 vertical-align: top;
@@ -43,9 +44,6 @@
             input + label {
                 margin-bottom: 0;
             }
-        }
-        .fiscal-year-option-all {
-            @include span-columns(16);
         }
     }
     .fiscal-years,
