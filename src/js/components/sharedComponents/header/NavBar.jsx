@@ -28,7 +28,7 @@ export default class NavBar extends React.Component {
                                 <ComingSoonLabel />
                             </li>
                             <li>
-                                <a className="usa-nav-link" href="https://api.usaspending.gov">
+                                <a className="usa-nav-link" href="https://spending-api.us">
                                     <span>Developers</span>
                                 </a>
                             </li>
