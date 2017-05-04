@@ -20,7 +20,7 @@ export default class NextSteps extends React.Component {
                     linkText="View FAQ"
                     ariaLabel="FAQ"
                     title="Frequently Asked Questions"
-                    linkUrl="" />
+                    linkUrl="#/FAQ" />
                 <NextStepsBox
                     icon="contact"
                     sectionTitle="Contact Us"
@@ -47,7 +47,7 @@ export default class NextSteps extends React.Component {
                     linkText="Read More"
                     ariaLabel="Read More"
                     title="Read More"
-                    linkUrl="" />
+                    linkUrl="#/WhatsNew" />
             </div>
         );
     }
