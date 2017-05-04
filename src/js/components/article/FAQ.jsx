@@ -15,7 +15,7 @@ export default class FAQ extends React.Component {
                 <Header />
                 <Breadcrumb title="FAQs" />
                 <div className="article-wrapper">
-                    <h1>FAQs</h1>
+                    <h1>Frequently Asked Questions</h1>
                     <hr className="results-divider" />
                     <h6>What is different on the new USAspending.gov site?</h6>
                     <p>
