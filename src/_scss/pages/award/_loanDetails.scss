@@ -19,6 +19,7 @@
         padding-top: rem(41);
         padding-bottom: rem(41);
         margin-left: rem(20);
+        max-height: 100%;
     }
 
     .title {
@@ -39,7 +40,7 @@
             font-size: rem(11);
             text-align: right;
             position: relative;
-            bottom: rem(36);
+            bottom: rem(30);
             right: 0;
         }
     }

@@ -27,7 +27,7 @@ export default class LoanAmounts extends React.Component {
                     <div className="title">Estimated Cost to the Government</div>
                     <div className="value">
                         {MoneyFormatter.formatMoneyWithPrecision(this.props.subsidy, 0)} <i>or</i>
-                        &nbsp;{(this.props.subsidy / this.props.faceValue) * 100}%
+                        &nbsp;{((this.props.subsidy / this.props.faceValue) * 100).toFixed(2)}%
                         <p className="note">(of Face Value)</p>
                     </div>
                 </div>
