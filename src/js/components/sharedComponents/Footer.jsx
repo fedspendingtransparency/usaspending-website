@@ -23,6 +23,7 @@ export default class Footer extends React.Component {
                             <li><a href="mailto:usaspending.help-submitonly@fiscal.treasury.gov" title="Feedback" aria-label="Feedback">Feedback</a></li>
                             <li><a href="#/about" title="About" aria-label="About">About</a></li>
                             <li><a href="http://fedspendingtransparency.github.io" target="_blank" rel="noopener noreferrer" title="About the DATA Act" aria-label="About the DATA Act">About the DATA Act</a></li>
+                            <li><a href="https://github.com/fedspendingtransparency/usaspending-website/tree/master" target="_blank" rel="noopener noreferrer" title="Explore the Code" aria-label="Explore the Code">Explore the Code</a></li>
                         </ul>
                         <div className="db-link">
                             <p><strong>NOTE:</strong> You must <a href="#/db_info" target="_blank" rel="noopener noreferrer" title="Dun & Bradstreet Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data">click here </a>
