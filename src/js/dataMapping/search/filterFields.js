@@ -10,6 +10,8 @@ export const awardFields = {
     recipientId: 'recipient__legal_entity_id',
     recipientLocationScope: 'recipient__location__location_country_code',
     recipientLocation: 'recipient__location__location_id',
+    recipientName: 'recipient__recipient_name',
+    recipientDUNS: 'recipient__recipient_unique_id',
     fundingAgency: {
         toptier: 'funding_agency__toptier_agency__name',
         subtier: 'funding_agency__subtier_agency__name'
@@ -51,6 +53,8 @@ export const transactionFields = {
     recipientId: 'recipient__legal_entity_id',
     recipientLocationScope: 'recipient__location__location_country_code',
     recipientLocation: 'recipient__location__location_id',
+    recipientName: 'recipient__recipient_name',
+    recipientDUNS: 'recipient__recipient_unique_id',
     awardType: 'type',
     awardId: 'award_id',
     awardAmount: 'federal_action_obligation',
@@ -72,6 +76,8 @@ export const accountAwardsFields = {
     recipientId: 'award__recipient__legal_entity_id',
     recipientLocationScope: 'award__recipient__location__location_country_code',
     recipientLocation: 'award__recipient__location__location_id',
+    recipientName: 'award__recipient__recipient_name',
+    recipientDUNS: 'award__recipient__recipient_unique_id',
     fundingAgency: {
         toptier: 'award__funding_agency__toptier_agency__name',
         subtier: 'award__funding_agency__subtier_agency__name'

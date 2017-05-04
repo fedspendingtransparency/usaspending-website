@@ -1,6 +1,6 @@
 /**
- * SpendingByAwardingAgencyVisualizationContainer.jsx
- * Created by Kevin Li 2/9/17
+ * SpendingByFundingAgencyVisualizationContainer.jsx
+ * Created by michaelbray on 4/27/17.
  */
 
 import React from 'react';
@@ -27,7 +27,7 @@ const propTypes = {
     awardFiltersSelected: React.PropTypes.bool
 };
 
-export class SpendingByAwardingAgencyVisualizationContainer extends React.Component {
+export class SpendingByFundingAgencyVisualizationContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -125,21 +125,21 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
 
 
     fetchUnfilteredRequest() {
-        this.fetchTransactions('Awarding agency vis - unfiltered');
+        this.fetchTransactions('Funding agency vis - unfiltered');
     }
 
     fetchBudgetRequest() {
-        this.fetchAccountAwards('Awarding agency vis - budget filters');
+        this.fetchAccountAwards('Funding agency vis - budget filters');
     }
 
     fetchAwardRequest() {
         // only award filters have been selected
-        this.fetchTransactions('Awarding agency vis - award filters');
+        this.fetchTransactions('Funding agency vis - award filters');
     }
 
     fetchComboRequest() {
         // a combination of budget and award filters have been selected
-        this.fetchAccountAwards('Awarding agency vis - combination');
+        this.fetchAccountAwards('Funding agency vis - combination');
     }
 
     fetchTransactions(auditTrail = null) {
@@ -152,7 +152,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
         // generate the API parameters
         const apiParams = {
             field: 'federal_action_obligation',
-            group: `awarding_agency__${this.state.agencyScope}_agency__name`,
+            group: `funding_agency__${this.state.agencyScope}_agency__name`,
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -176,7 +176,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
     }
 
     fetchAccountAwards(auditTrail = null) {
-         // Create Search Operation
+        // Create Search Operation
         const operation = new SearchAccountAwardsOperation();
 
         operation.fromState(this.props.reduxFilters);
@@ -184,7 +184,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
         // generate the API parameters
         const apiParams = {
             field: 'transaction_obligated_amount',
-            group: `award__awarding_agency__${this.state.agencyScope}_agency__name`,
+            group: `award__funding_agency__${this.state.agencyScope}_agency__name`,
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -242,12 +242,12 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
                 changeScope={this.changeScope}
                 nextPage={this.nextPage}
                 previousPage={this.previousPage}
-                agencyType="awarding" />
+                agencyType="funding" />
         );
     }
 }
 
-SpendingByAwardingAgencyVisualizationContainer.propTypes = propTypes;
+SpendingByFundingAgencyVisualizationContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -255,4 +255,4 @@ export default connect(
         meta: state.resultsMeta.toJS()
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
-)(SpendingByAwardingAgencyVisualizationContainer);
+)(SpendingByFundingAgencyVisualizationContainer);
