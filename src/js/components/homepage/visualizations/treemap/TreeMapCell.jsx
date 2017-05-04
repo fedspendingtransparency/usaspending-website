@@ -17,7 +17,8 @@ const propTypes = {
     color: React.PropTypes.string,
     toggleTooltip: React.PropTypes.func,
     showOverlay: React.PropTypes.bool,
-    chosen: React.PropTypes.string
+    toggleSubfunction: React.PropTypes.func,
+    clickable: React.PropTypes.bool
 };
 
 export default class TreeMapCell extends React.Component {
@@ -152,6 +153,11 @@ export default class TreeMapCell extends React.Component {
                         width,
                         height
                     );
+                }}
+                onClick={() => {
+                    if (this.props.clickable !== null) {
+                        this.props.toggleSubfunction(this.props.label);
+                    }
                 }}>
                 <rect
                     className="tile"

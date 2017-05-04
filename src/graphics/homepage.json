@@ -141,5 +141,142 @@
         {"item": "WY", "aggregate": 4146856654},
         {"item": "GU", "aggregate": 1220551421}
     ]
+},
+"subfunctions": {
+        "National Defense": {
+            "children": [
+                {"name": "Department of Defense-Military", "value": 565364058015.22, "description": "Lorem Ipsum"},
+                {"name": "Atomic energy defense activities", "value": 19213966392.53, "description": "Lorem Ipsum"},
+                {"name": "Defense-related activities", "value": 10725415027.66, "description": "Lorem Ipsum"}
+            ]
+        },
+        "International Affairs": {
+            "children": [
+                {"name": "International development and humanitarian assistance", "value": 24124327670.43, "description": "Lorem Ipsum"},
+                {"name": "International security assistance", "value": 11306643434.27, "description": "Lorem Ipsum"},
+                {"name": "Conduct of foreign affairs", "value": 13873385393.94, "description": "Lorem Ipsum"},
+                {"name": "Foreign information and exchange activities", "value": 1545040203.34, "description": "Lorem Ipsum"},
+                {"name": "International financial programs", "value": -5545192591.19, "description": "Lorem Ipsum"}
+            ]
+        },
+        "General Science, Space, and Technology": {
+            "children": [
+                {"name": "General science and basic research", "value": 12006619376.5, "description": "Lorem Ipsum"},
+                {"name": "Space flight, research, and supporting activities", "value": 18223696707.93, "description": "Lorem Ipsum"}
+            ]
+        },
+        "Energy": {
+            "children": [
+                {"name": "Energy supply", "value": 1346779910.34, "description": "Lorem Ipsum"},
+                {"name": "Energy conservation", "value": 1768521976.62, "description": "Lorem Ipsum"},
+                {"name": "Emergency energy preparedness", "value": 234049425.78, "description": "Lorem Ipsum"},
+                {"name": "Energy information, policy, and regulation", "value": 399355577.71, "description": "Lorem Ipsum"}
+            ]
+        },
+        "Natural Resources and Environment": {
+            "children": [
+                {"name": "Water resources", "value": 7378791417.36, "description": "Lorem Ipsum"},
+                {"name": "Conservation and land management", "value": 9927178004.65, "description": "Lorem Ipsum"},
+                {"name": "Recreational resources", "value": 3692160361.89, "description": "Lorem Ipsum"},
+                {"name": "Pollution control and abatement", "value": 9251483587.79999, "description": "Lorem Ipsum"},
+                {"name": "Other natural resources", "value": 7542655196.66, "description": "Lorem Ipsum"}
+            ]
+        },
+        "Agriculture": {
+            "children": [
+                {"name": "Farm income stabilization", "value": 15249020477.23, "description": "Lorem Ipsum"},
+                {"name": "Agricultural research and services", "value": 4925966882.83, "description": "Lorem Ipsum"}
+            ]
+        },
+        "Transportation": {
+            "children": [
+                {"name": "Ground transportation", "value": 62052820812.74, "description": "Lorem Ipsum"},
+                {"name": "Air transportation", "value": 20008995355.44, "description": "Lorem Ipsum"},
+                {"name": "Water transportation", "value": 10543438285.6, "description": "Lorem Ipsum"},
+                {"name": "Other transportation", "value": 335476529.24, "description": "Lorem Ipsum"}
+            ]
+        },
+        "Community and Regional Development": {
+            "children": [
+                {"name": "Community development", "value": 7095352383.05, "description": "Lorem Ipsum"},
+                {"name": "Area and regional development", "value": 3360952863.36, "description": "Lorem Ipsum"},
+                {"name": "Disaster relief and insurance", "value": 10595633109.54, "description": "Lorem Ipsum"}
+            ]
+        },
+        "Education, Training, Employment, and Social Services": {
+            "children": [
+                {"name": "Elementary, secondary, and vocational education", "value": 38888769265.2, "description": "Lorem Ipsum"},
+                {"name": "Higher education", "value": 38763160458.5, "description": "Lorem Ipsum"},
+                {"name": "Research and general education aids", "value": 3532243815.52, "description": "Lorem Ipsum"},
+                {"name": "Training and employment", "value": 6232047688.9, "description": "Lorem Ipsum"},
+                {"name": "Other labor services", "value": 1881004775.75, "description": "Lorem Ipsum"},
+                {"name": "Social services", "value": 18760572192.23, "description": "Lorem Ipsum"}
+            ]
+        },
+        "Health": {
+            "children": [
+                {"name": "Health care services", "value": 475788915253.22, "description": "Lorem Ipsum"},
+                {"name": "Health research and training", "value": 30842978110.69, "description": "Lorem Ipsum"},
+                {"name": "Consumer and occupational health and safety", "value": 4688239905.82, "description": "Lorem Ipsum"}
+            ]
+        },
+        "Medicare": {
+            "children": [
+                {"name": "Medicare", "value": 594535157426.09, "description": "Lorem Ipsum"}
+            ]
+        },
+        "Income Security": {
+            "children": [
+                {"name": "General retirement and disability insurance (excluding social se", "value": 3774575706.23, "description": "Lorem Ipsum"},
+                {"name": "Federal employee retirement and disability", "value": 144783850407.11, "description": "Lorem Ipsum"},
+                {"name": "Unemployment compensation", "value": 35952883839.19, "description": "Lorem Ipsum"},
+                {"name": "Housing assistance", "value": 48716108734.3, "description": "Lorem Ipsum"},
+                {"name": "Food and nutrition assistance", "value": 102298328884.62, "description": "Lorem Ipsum"},
+                {"name": "Other income security", "value": 179057235719.65, "description": "Lorem Ipsum"}
+            ]
+        },
+        "Social Security": {
+            "children": [
+                {"name": "Social security", "value": 916077987132.59, "description": "Lorem Ipsum"}
+            ]
+        },
+        "Veterans Benefits and Services": {
+            "children": [
+                {"name": "Income security for veterans", "value": 86795763159.15, "description": "Lorem Ipsum"},
+                {"name": "Veterans education, training, and rehabilitation", "value": 14355109402.57, "description": "Lorem Ipsum"},
+                {"name": "Hospital and medical care for veterans", "value": 65247603856.82, "description": "Lorem Ipsum"},
+                {"name": "Veterans housing", "value": 803373842.25, "description": "Lorem Ipsum"},
+                {"name": "Other veterans benefits and services", "value": 7312661422.94, "description": "Lorem Ipsum"}
+            ]
+        },
+        "Administration of Justice": {
+            "children": [
+                {"name": "Federal law enforcement activities", "value": 30262014776.33, "description": "Lorem Ipsum"},
+                {"name": "Federal litigative and judicial activities", "value": 14888514406.36, "description": "Lorem Ipsum"},
+                {"name": "Federal correctional activities", "value": 6949295503.11, "description": "Lorem Ipsum"},
+                {"name": "Criminal justice assistance", "value": 5044337174.65, "description": "Lorem Ipsum"}
+            ]
+        },
+        "General Government": {
+            "children": [
+                {"name": "Legislative functions", "value": 3825261135.86, "description": "Lorem Ipsum"},
+                {"name": "Executive direction and management", "value": 416823407.33, "description": "Lorem Ipsum"},
+                {"name": "Central fiscal operations", "value": 7736352126.77, "description": "Lorem Ipsum"},
+                {"name": "General property and records management", "value": -321989545.24, "description": "Lorem Ipsum"},
+                {"name": "Central personnel management", "value": -362931625.370001, "description": "Lorem Ipsum"},
+                {"name": "General purpose fiscal assistance", "value": 6659368017.6, "description": "Lorem Ipsum"},
+                {"name": "Other general government", "value": 4747730303.82, "description": "Lorem Ipsum"},
+                {"name": "Deductions for offsetting receipts", "value": -4061074544.64, "description": "Lorem Ipsum"}
+            ]
+        },
+        "Net Interest": {
+            "children": [
+                {"name": "Interest on Treasury debt securities (gross)", "value": 429949130660.39, "description": "Lorem Ipsum"},
+                {"name": "Interest received by on-budget trust funds", "value": -55541738959.93, "description": "Lorem Ipsum"},
+                {"name": "Interest received by off-budget trust funds", "value": -90575125089.24, "description": "Lorem Ipsum"},
+                {"name": "Other interest", "value": -41843766642.66, "description": "Lorem Ipsum"},
+                {"name": "Other investment income", "value": -1266959070.95, "description": "Lorem Ipsum"}
+            ]
+        }
     }
 }

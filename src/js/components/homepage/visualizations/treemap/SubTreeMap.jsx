@@ -1,5 +1,5 @@
 /**
- * TreeMap.jsx
+ * SubTreeMap.jsx
  * Created by Emily Gullo 03/15/2017
  **/
 
@@ -9,17 +9,14 @@ import _ from 'lodash';
 
 import TreeMapCell from './TreeMapCell';
 import TreeMapTooltip from './TreeMapTooltip';
-import SubTreeMap from './SubTreeMap';
-import * as Icons from '../../../sharedComponents/icons/Icons';
 
 const propTypes = {
-    categories: React.PropTypes.object,
-    descriptions: React.PropTypes.array,
+    subfunctions: React.PropTypes.object,
     colors: React.PropTypes.array,
-    subfunctions: React.PropTypes.object
+    topFunction: React.PropTypes.string
 };
 
-export default class TreeMap extends React.Component {
+export default class SubTreeMap extends React.Component {
 
     constructor(props) {
         super(props);
@@ -29,18 +26,14 @@ export default class TreeMap extends React.Component {
             visualizationWidth: 0,
             category: 'none',
             description: '',
-            descriptions: {},
+            subfunctions: {},
             finalNodes: '',
-            individualValue: '',
-            showOverlay: true,
-            selected: '',
-            showSub: false
+            selected: ''
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
         this.toggleTooltip = this.toggleTooltip.bind(this);
-        this.toggleSubfunction = this.toggleSubfunction.bind(this);
     }
 
     componentDidMount() {
@@ -49,12 +42,12 @@ export default class TreeMap extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.categories.children.length > 0) {
-            this.buildTree(nextProps.categories, nextProps.colors, '');
+        if (nextProps.subfunctions[nextProps.topFunction].children.length > 0) {
+            this.buildTree(nextProps.subfunctions[nextProps.topFunction], nextProps.colors, '');
         }
-        if (nextProps.descriptions !== this.state.descriptions) {
+        if (nextProps.subfunctions[nextProps.topFunction] !== this.state.subfunctions) {
             this.setState({
-                descriptions: nextProps.descriptions
+                subfunctions: nextProps.subfunctions[nextProps.topFunction]
             });
         }
     }
@@ -72,8 +65,9 @@ export default class TreeMap extends React.Component {
                 windowWidth,
                 visualizationWidth: this.sectionWrapper.offsetWidth
             });
-            if (this.props.categories.children.length > 0) {
-                this.buildTree(this.props.categories, this.props.colors, '');
+            if (this.props.subfunctions[this.props.topFunction].children.length > 0) {
+                this.buildTree(
+                    this.props.subfunctions[this.props.topFunction], this.props.colors, '');
             }
         }
     }
@@ -109,8 +103,7 @@ export default class TreeMap extends React.Component {
                 chosen={chosen}
                 toggleTooltip={this.toggleTooltip}
                 showOverlay={this.state.showOverlay}
-                toggleSubfunction={this.toggleSubfunction}
-                clickable={true} />
+                clickable={false} />
         );
 
         this.setState({
@@ -119,7 +112,8 @@ export default class TreeMap extends React.Component {
     }
 
     toggleTooltip(cat, value, xStart, yStart, width, height) {
-        const descSet = this.props.descriptions;
+        // set it to desc value
+        const descSet = this.props.subfunctions[this.props.topFunction].children;
         // find index of object item on matching cat name
         let descIndex = '0';
         if (cat !== 'none') {
@@ -129,7 +123,7 @@ export default class TreeMap extends React.Component {
         // set it to desc value
         let desc = '';
         if (cat !== 'none') {
-            desc = descSet[descIndex].value;
+            desc = descSet[descIndex].description;
         }
 
         // set the state
@@ -144,7 +138,10 @@ export default class TreeMap extends React.Component {
             showOverlay: false
         });
 
-        this.buildTree(this.props.categories, this.props.colors, this.state.category);
+        this.buildTree(
+            this.props.subfunctions[this.props.topFunction],
+            this.props.colors,
+            this.state.category);
     }
 
     createTooltip() {
@@ -163,7 +160,6 @@ export default class TreeMap extends React.Component {
     }
 
     toggleSubfunction(selected) {
-        // resize main treemap
         this.setState({
             selected,
             showSub: true
@@ -171,26 +167,9 @@ export default class TreeMap extends React.Component {
     }
 
     render() {
-        const contentIntro = (
-            <div className="tree-desc">
-                <b>3</b> of the <b>19</b> total budget functions, accounted for about
-                &nbsp;<b>1/2</b> of total spending. <br />
-                <span className="highlight">Social Security</span>,&nbsp;
-                <span className="highlight">National Defense</span>,
-                and <span className="highlight">Medicare</span>.
-            </div>);
-        let subFunctionTree = null;
-        if (this.state.showSub) {
-            subFunctionTree = (
-                <SubTreeMap
-                    topFunction={this.state.selected}
-                    subfunctions={this.props.subfunctions}
-                    colors={this.props.colors} />);
-        }
         return (
             <div
                 className="usa-da-treemap-section">
-                {contentIntro}
                 <div className="treemap-inner-wrap">
                     { this.createTooltip() }
                     <div
@@ -203,21 +182,11 @@ export default class TreeMap extends React.Component {
                             height="565">
                             { this.state.finalNodes }
                         </svg>
-                        <div className="source">
-                            Source: Monthly Treasury Statement
-                            <div className="info-icon-circle">
-                                <Icons.InfoCircle />
-                            </div>
-                            <div className="more-icon">
-                                <Icons.MoreOptions />
-                            </div>
-                        </div>
                     </div>
                 </div>
-                { subFunctionTree }
             </div>
         );
     }
 
 }
-TreeMap.propTypes = propTypes;
+SubTreeMap.propTypes = propTypes;
