@@ -1,5 +1,5 @@
 /**
- * RelevantLegislature.jsx
+ * RelevantLegislation.jsx
  * Created by Rickey An 04/20/2017
  **/
 
@@ -8,14 +8,14 @@ import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import Breadcrumb from './Breadcrumb';
 
-export default class RelevantLegislature extends React.Component {
+export default class RelevantLegislation extends React.Component {
     render() {
         return (
             <div className="usa-da-about-article">
                 <Header />
-                <Breadcrumb title="Relevant Legislature" />
+                <Breadcrumb title="Relevant Legislation" />
                 <div className="article-wrapper">
-                    <h1>Relevant Legislature</h1>
+                    <h1>Relevant Legislation</h1>
                     <hr className="results-divider" />
                     <p>
                         Beta.USAspending.gov is the new official source of accessible, searchable 
