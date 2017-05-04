@@ -4,12 +4,14 @@
  */
 
 import React from 'react';
+import _ from 'lodash'
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     fieldTypes: React.PropTypes.array,
-    changeSpendingBy: React.PropTypes.func
+    changeSpendingBy: React.PropTypes.func,
+    currentSpendingBy: React.PropTypes.string
 };
 
 const defaultProps = {
@@ -29,6 +31,14 @@ const defaultProps = {
         {
             label: 'Recipient',
             value: 'recipient'
+        },
+        {
+            label: 'CFDA Programs',
+            value: 'cfda'
+        },
+        {
+            label: 'Industry Codes',
+            value: 'industry_code'
         }
     ]
 };
@@ -38,7 +48,6 @@ export default class RankVisualizationTitle extends React.Component {
         super(props);
 
         this.state = {
-            selectedIndex: 0,
             showPicker: false
         };
 
@@ -57,13 +66,11 @@ export default class RankVisualizationTitle extends React.Component {
     clickedItem(e) {
         const value = e.target.value;
         const spendingBy = this.props.fieldTypes[value].value;
+        this.props.changeSpendingBy(spendingBy);
 
         this.setState({
-            selectedIndex: value,
             showPicker: false
         });
-
-        this.props.changeSpendingBy(spendingBy);
     }
 
     render() {
@@ -82,7 +89,7 @@ export default class RankVisualizationTitle extends React.Component {
             </li>
         ));
 
-        const currentField = this.props.fieldTypes[this.state.selectedIndex].label;
+        const currentField = _.find(this.props.fieldTypes, { value: this.props.currentSpendingBy });
         let showPicker = 'hide';
         let icon = <Icons.AngleDown alt="Pick a field" />;
         if (this.state.showPicker) {
@@ -99,18 +106,22 @@ export default class RankVisualizationTitle extends React.Component {
                 <div className="field-picker">
                     <button
                         className="selected-button"
-                        title={currentField}
-                        aria-label={currentField}
+                        title={currentField.label}
+                        aria-label={currentField.label}
                         onClick={this.togglePicker}>
                         <span className="label">
-                            {currentField}
+                            {currentField.label}
                         </span>
                         <span className="arrow-icon">
                             {icon}
                         </span>
                     </button>
 
-                    <div className={`field-list ${showPicker}`}>
+                    <div
+                        className={`field-list ${showPicker}`}
+                        style={{
+                            height: (this.props.fieldTypes.length * 55) + 1
+                        }}>
                         <ul>
                             {fields}
                         </ul>

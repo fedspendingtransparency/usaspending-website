@@ -1,6 +1,6 @@
 /**
- * SpendingByAwardingAgencyVisualizationContainer.jsx
- * Created by Kevin Li 2/9/17
+ * SpendingByCFDAVisualizationContainer.jsx
+ * Created by Kevin Li on 5/4/17
  */
 
 import React from 'react';
@@ -9,8 +9,8 @@ import { connect } from 'react-redux';
 
 import _ from 'lodash';
 
-import SpendingByAgencySection from
-    'components/search/visualizations/rank/sections/SpendingByAgencySection';
+import SpendingByCFDASection from
+    'components/search/visualizations/rank/sections/SpendingByCFDASection';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -27,7 +27,7 @@ const propTypes = {
     awardFiltersSelected: React.PropTypes.bool
 };
 
-export class SpendingByAwardingAgencyVisualizationContainer extends React.Component {
+export class SpendingByCFDAVisualizationContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -37,14 +37,12 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
             dataSeries: [],
             descriptions: [],
             page: 1,
-            agencyScope: 'toptier',
             next: '',
             previous: '',
             hasNextPage: false,
             hasPreviousPage: false
         };
 
-        this.changeScope = this.changeScope.bind(this);
         this.nextPage = this.nextPage.bind(this);
         this.previousPage = this.previousPage.bind(this);
         this.apiRequest = null;
@@ -58,16 +56,6 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
         if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
             this.newSearch();
         }
-    }
-
-    changeScope(scope) {
-        this.setState({
-            agencyScope: scope,
-            page: 1,
-            hasNextPage: false
-        }, () => {
-            this.fetchData();
-        });
     }
 
     newSearch() {
@@ -125,21 +113,21 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
 
 
     fetchUnfilteredRequest() {
-        this.fetchTransactions('Awarding agency vis - unfiltered');
+        this.fetchTransactions('CFDA rank vis - unfiltered');
     }
 
     fetchBudgetRequest() {
-        this.fetchAccountAwards('Awarding agency vis - budget filters');
+        this.fetchAccountAwards('CFDA rank vis - budget filters');
     }
 
     fetchAwardRequest() {
         // only award filters have been selected
-        this.fetchTransactions('Awarding agency vis - award filters');
+        this.fetchTransactions('CFDA rank vis - award filters');
     }
 
     fetchComboRequest() {
         // a combination of budget and award filters have been selected
-        this.fetchAccountAwards('Awarding agency vis - combination');
+        this.fetchAccountAwards('CFDA rank vis - combination');
     }
 
     fetchTransactions(auditTrail = null) {
@@ -148,11 +136,12 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
 
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
+        const apiGroups = ['assistance_data__cfda_number', 'assistance_data__cfda_title'];
 
         // generate the API parameters
         const apiParams = {
             field: 'federal_action_obligation',
-            group: `awarding_agency__${this.state.agencyScope}_agency__name`,
+            group: apiGroups,
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -167,7 +156,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
         this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data);
+                this.parseData(res.data, apiGroups);
                 this.apiRequest = null;
             })
             .catch(() => {
@@ -176,15 +165,19 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
     }
 
     fetchAccountAwards(auditTrail = null) {
-         // Create Search Operation
+        // Create Search Operation
         const operation = new SearchAccountAwardsOperation();
 
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
+        const apiGroups = [
+            'award__transaction__assistance_data__cfda_number',
+            'award__transaction__assistance_data__cfda_title'
+        ];
         // generate the API parameters
         const apiParams = {
             field: 'transaction_obligated_amount',
-            group: `award__awarding_agency__${this.state.agencyScope}_agency__name`,
+            group: apiGroups,
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -199,7 +192,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
         this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data);
+                this.parseData(res.data, apiGroups);
                 this.apiRequest = null;
             })
             .catch(() => {
@@ -207,15 +200,21 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
             });
     }
 
-    parseData(data) {
+    parseData(data, groups) {
         const labelSeries = [];
         const dataSeries = [];
         const descriptions = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            labelSeries.push(item.item);
-            dataSeries.push(parseFloat(item.aggregate));
+            labelSeries.push(item[groups[1]]);
+
+            let parsedValue = parseFloat(item.aggregate);
+            if (isNaN(parsedValue)) {
+                parsedValue = 0;
+            }
+
+            dataSeries.push(parsedValue);
 
             const description = `Spending by ${item.item}: \
 ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
@@ -236,18 +235,16 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
 
     render() {
         return (
-            <SpendingByAgencySection
+            <SpendingByCFDASection
                 {...this.state}
                 meta={this.props.meta}
-                changeScope={this.changeScope}
                 nextPage={this.nextPage}
-                previousPage={this.previousPage}
-                agencyType="awarding" />
+                previousPage={this.previousPage} />
         );
     }
 }
 
-SpendingByAwardingAgencyVisualizationContainer.propTypes = propTypes;
+SpendingByCFDAVisualizationContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -255,4 +252,4 @@ export default connect(
         meta: state.resultsMeta.toJS()
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
-)(SpendingByAwardingAgencyVisualizationContainer);
+)(SpendingByCFDAVisualizationContainer);
