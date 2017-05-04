@@ -121,6 +121,14 @@ const routeDefinitions = {
                     cb(null, require('../../components/article/FAQ').default);
                 });
             }
+        },
+        {
+            path: 'whatsnew',
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/article/WhatsNew').default);
+                });
+            }
         }
     ]
 };
