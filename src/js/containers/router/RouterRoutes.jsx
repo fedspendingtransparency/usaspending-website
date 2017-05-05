@@ -91,10 +91,10 @@ const routeDefinitions = {
             }
         },
         {
-            path: 'relevantlegislature',
+            path: 'relevantlegislation',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/article/RelevantLegislature').default);
+                    cb(null, require('../../components/article/RelevantLegislation').default);
                 });
             }
         },
@@ -111,6 +111,22 @@ const routeDefinitions = {
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('../../components/article/SourcesData').default);
+                });
+            }
+        },
+        {
+            path: 'faq',
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/article/FAQ').default);
+                });
+            }
+        },
+        {
+            path: 'whatsnew',
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('../../components/article/WhatsNew').default);
                 });
             }
         }

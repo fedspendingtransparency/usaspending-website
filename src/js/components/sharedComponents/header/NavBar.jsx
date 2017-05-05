@@ -12,7 +12,7 @@ export default class NavBar extends React.Component {
             <div className="nav-container">
                 <div className="logo">
                     <div className="usa-logo" id="logo">
-                        <a href="/" title="USAspending.gov Home" aria-label="USAspending.gov Home">
+                        <a href="#/" title="USAspending.gov Home" aria-label="USAspending.gov Home">
                             <span className="logo-sr">USAspending.gov</span>
                         </a>
                     </div>

@@ -61,6 +61,10 @@ export class AgencyListContainer extends React.Component {
 
     parseAutocompleteAgencies(results) {
         const agencies = [];
+        const agencyOrder = {
+            toptier: 0,
+            subtier: 1
+        };
 
         // Format results of search for use in Autocomplete component
         if (results && results.length > 0) {
@@ -98,6 +102,12 @@ export class AgencyListContainer extends React.Component {
             }
         }
 
+        agencies.sort((a, b) => {
+            const ap = agencyOrder[a.data.agencyType];
+            const bp = agencyOrder[b.data.agencyType];
+            return ap - bp;
+        });
+
         this.setState({
             autocompleteAgencies: agencies
         });
@@ -122,6 +132,7 @@ export class AgencyListContainer extends React.Component {
             const agencySearchParams = {
                 fields: ['subtier_agency__name'],
                 value: this.state.agencySearchString,
+                order: ["-toptier_flag"],
                 mode: "contains",
                 matched_objects: true,
                 limit: 10

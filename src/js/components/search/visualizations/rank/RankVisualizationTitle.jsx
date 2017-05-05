@@ -21,6 +21,14 @@ const defaultProps = {
         {
             label: 'Awarding Agency',
             value: 'awarding_agency'
+        },
+        {
+            label: 'Funding Agency',
+            value: 'funding_agency'
+        },
+        {
+            label: 'Recipient',
+            value: 'recipient'
         }
     ]
 };
