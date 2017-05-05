@@ -10,9 +10,12 @@ import _ from 'lodash';
 
 import SpendingByAwardingAgencyVisualizationContainer from
     'containers/search/visualizations/rank/SpendingByAwardingAgencyVisualizationContainer';
-
 import SpendingByCategoryRankVisualizationSectionContainer from
     'containers/search/visualizations/rank/SpendingByCategoryRankVisualizationSectionContainer';
+import SpendingByFundingAgencyVisualizationContainer from
+    'containers/search/visualizations/rank/SpendingByFundingAgencyVisualizationContainer';
+import SpendingByRecipientVisualizationContainer from
+    'containers/search/visualizations/rank/SpendingByRecipientVisualizationContainer';
 
 import RankVisualizationTitle from 'components/search/visualizations/rank/RankVisualizationTitle';
 
@@ -61,6 +64,10 @@ export class RankVisualizationWrapperContainer extends React.Component {
                 return <SpendingByCategoryRankVisualizationSectionContainer {...this.state} />;
             case 'awarding_agency':
                 return <SpendingByAwardingAgencyVisualizationContainer {...this.state} />;
+            case 'funding_agency':
+                return <SpendingByFundingAgencyVisualizationContainer {...this.state} />;
+            case 'recipient':
+                return <SpendingByRecipientVisualizationContainer {...this.state} />;
             default:
                 return <SpendingByCategoryRankVisualizationSectionContainer {...this.state} />;
         }

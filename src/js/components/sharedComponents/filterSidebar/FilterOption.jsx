@@ -31,8 +31,8 @@ export default class FilterOption extends React.Component {
         super(props);
 
         this.state = {
-            showFilter: false,
-            arrowState: 'collapsed'
+            showFilter: true,
+            arrowState: 'expanded'
         };
 
         // bind functions
