@@ -18,27 +18,25 @@ export default class AboutData extends React.Component {
                     <h1>About the Data</h1>
                     <hr className="results-divider" />
                     <p>
-                        The full picture of government spending is a complicated story. It involves
-                        hundreds of government agencies and programs, thousands of companies and
-                        nonprofits, and millions of individuals across the country and the globe.
-                        Despite the complexity, there is an abundance of data available here on
-                        USAspending.gov that can help make sense of it all.
-                    </p>
-                    <p>
-                        USAspending.gov puts this federal spending data in your hands.
-                        In order to understand this data, it’s helpful to first understand how the
-                        data is structured and categorized. Below is a graphic showing the various
-                        levels of federal spending data that you will encounter on this site.
+                        Under the U.S. Treasury Department’s leadership, the new site will allow
+                        taxpayers to examine nearly $4 trillion in federal spending each year and
+                        see how this money flows from Congressional appropriations to local
+                        communities and businesses. The data is compiled by Treasury from federal
+                        agencies and published quarterly beginning in May 2017. The data will be
+                        updated each quarter.
                     </p>
                     <img src="img/spending-heirarchy.png" alt="Data Structure" />
                     <p>
-                        While there are many ways to organize federal spending data, understanding
-                        the way it is organized on this site will help you get the most of out of
-                        our data. All of the categories and levels of spending discussed are
-                        available as filters on our Search and Download page. Knowing the scope of
-                        each level will not only benefit your understanding of how the U.S.
-                        Government tracks and organizes spending data, but also will help you find
-                        the data you’re looking for when using our robust search capabilities.
+                        Users can search by location (state, city, county), by federal agency or
+                        by keyword for a specific policy or type of spending. The website also
+                        allows for large amounts of data to be accessed easily through and
+                        Application Programming Interface (API) for more technical users.
+                    </p>
+                    <p>
+                        Users can also search for a specific recipient of federal funds – a
+                        business, a university or other entity that you would like to know more
+                        about. In addition, the public can link awards with the “federal account”
+                        that supplied the funding.
                     </p>
                 </div>
                 <Footer />
