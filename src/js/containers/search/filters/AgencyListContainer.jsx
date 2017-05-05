@@ -222,7 +222,7 @@ export class AgencyListContainer extends React.Component {
                 values={this.state.autocompleteAgencies}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.toggleAgency.bind(this)}
-                placeHolder={this.props.agencyType}
+                placeholder={`${this.props.agencyType} Agency`}
                 errorHeader="Unknown Agency"
                 errorMessage="We were unable to find that agency."
                 ref={(input) => {
