@@ -212,7 +212,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
         if (props.amounts.out.obligated < 0) {
             hidden.push({
                 value: MoneyFormatter.formatMoney(props.amounts.out.obligated),
-                label: 'Obligated Amount'
+                label: 'Obligations Incurred'
             });
         }
         if (props.amounts.out.unobligated < 0) {
@@ -227,7 +227,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
             x: props.width - barWidth,
             obligated: {
                 height: obligatedHeight,
-                description: `Obligated Amount: ${obligatedString}`,
+                description: `Obligations Incurred: ${obligatedString}`,
                 label: obligatedLabel
             },
             unobligated: {
@@ -424,7 +424,7 @@ ${MoneyFormatter.formatMoney(this.props.amounts.budgetAuthority)} (100%)`} />
                         transform={`translate(${this.state.right.x}, 40)`}>
                         <ItemLabel
                             y={-25}
-                            title="Obligated Amount"
+                            title="Obligations Incurred"
                             value={this.state.right.obligated.label}
                             hide={this.state.right.obligated.height <= 0} />
                         <SankeyBar
