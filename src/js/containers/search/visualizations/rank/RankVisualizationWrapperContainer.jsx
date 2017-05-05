@@ -35,7 +35,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
         super(props);
 
         this.state = {
-            spendingBy: 'industry_code',
+            spendingBy: 'budget_category',
             budgetFiltersSelected: false,
             awardFiltersSelected: false
         };

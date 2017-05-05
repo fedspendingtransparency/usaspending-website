@@ -1,6 +1,6 @@
 /**
- * SpendingByFundingAgencyVisualizationContainer-test.jsx
- * Created by Kevin Li 2/12/17
+ * SpendingByIndustryCodeVisualizationContainer-test.jsx
+ * Created by Kevin li 5/5/17
  */
 
 import React from 'react';
@@ -9,10 +9,10 @@ import sinon from 'sinon';
 
 import { Set } from 'immutable';
 
-import { SpendingByFundingAgencyVisualizationContainer } from
-    'containers/search/visualizations/rank/SpendingByFundingAgencyVisualizationContainer';
-import SpendingByAgencySection from
-    'components/search/visualizations/rank/sections/SpendingByAgencySection';
+import { SpendingByIndustryCodeVisualizationContainer } from
+    'containers/search/visualizations/rank/SpendingByIndustryCodeVisualizationContainer';
+import SpendingByIndustryCodeSection from
+    'components/search/visualizations/rank/sections/SpendingByIndustryCodeSection';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
@@ -23,7 +23,8 @@ import { mockComponent, unmockComponent } from '../../../../testResources/mockCo
 global.Promise = require.requireActual('promise');
 
 // spy on specific functions inside the component
-const fetchDataSpy = sinon.spy(SpendingByFundingAgencyVisualizationContainer.prototype, 'fetchData');
+const fetchDataSpy = sinon.spy(SpendingByIndustryCodeVisualizationContainer.prototype,
+    'fetchData');
 
 // we don't want to actually hit the API because tests should be fully controlled, so we will mock
 // the SearchHelper functions
@@ -59,13 +60,13 @@ const unmockSearchHelper = () => {
     jest.unmock('helpers/searchHelper');
 };
 
-describe('SpendingByFundingAgencyVisualizationContainer', () => {
+describe('SpendingByIndustryCodeVisualizationContainer', () => {
     beforeAll(() => {
         // we need to use mount() on the container to get the lifecycle logic, but enzyme doesn't
         // support the child component's SVG manipulation methods. This replaces all the child
         // component's lifecycle methods with mocked functions to avoid traversal into the SVG
         // components.
-        mockComponent(SpendingByAgencySection);
+        mockComponent(SpendingByIndustryCodeSection);
     });
 
     it('should make an API request on mount', () => {
@@ -80,12 +81,14 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             },
             results: [
                 {
-                    item: 'First Agency',
-                    aggregate: '456'
+                    item: '1234',
+                    aggregate: '500.00',
+                    contract_data__product_or_service_code: '1234'
                 },
                 {
-                    item: 'Second Agency',
-                    aggregate: '123'
+                    item: '2345',
+                    aggregate: '400.01',
+                    contract_data__product_or_service_code: '2345'
                 }
             ]
         };
@@ -95,7 +98,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
 
         // mount the container
         const container =
-            mount(<SpendingByFundingAgencyVisualizationContainer
+            mount(<SpendingByIndustryCodeVisualizationContainer
                 reduxFilters={defaultFilters} />);
 
         // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
@@ -124,18 +127,20 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             },
             results: [
                 {
-                    item: 'First Agency',
-                    aggregate: '456'
+                    item: '1234',
+                    aggregate: '500.00',
+                    award__transaction__contract_data__product_or_service_code: '1234'
                 },
                 {
-                    item: 'Second Agency',
-                    aggregate: '123'
+                    item: '2345',
+                    aggregate: '400.01',
+                    award__transaction__contract_data__product_or_service_code: '2345'
                 }
             ]
         };
 
         // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+        mockSearchHelper('performFinancialAccountAggregation', 'resolve', apiResponse);
 
         const initialFilters = Object.assign({}, defaultFilters);
         const secondFilters = Object.assign({}, defaultFilters, {
@@ -145,7 +150,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
 
         // mount the container
         const container =
-            mount(<SpendingByFundingAgencyVisualizationContainer
+            mount(<SpendingByIndustryCodeVisualizationContainer
                 reduxFilters={initialFilters} />);
 
         // wait for the first SearchHelper call to finish
@@ -186,24 +191,25 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
                     next: null,
                     previous: null
                 },
-                results: [{
-                    item: 'First Agency',
-                    aggregate: '456'
-                },
-                {
-                    item: 'Second Agency',
-                    aggregate: '123'
-                }],
-                total_metadata: {
-                    count: 2
-                }
+                results: [
+                    {
+                        item: '1234',
+                        aggregate: '500.00',
+                        contract_data__product_or_service_code: '1234'
+                    },
+                    {
+                        item: '2345',
+                        aggregate: '400.01',
+                        contract_data__product_or_service_code: '2345'
+                    }
+                ]
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={defaultFilters} />);
 
             // wait for the SearchHelper promises to resolve
@@ -211,11 +217,13 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             // validate the state contains the correctly parsed values
             const expectedState = {
                 loading: false,
-                labelSeries: ['First Agency', 'Second Agency'],
-                dataSeries: [456, 123],
-                descriptions: ['Spending by First Agency: $456', 'Spending by Second Agency: $123'],
+                labelSeries: ['1234', '2345'],
+                dataSeries: [500.00, 400.01],
+                descriptions: [
+                    'Spending by 1234: $500',
+                    'Spending by 2345: $400'],
+                scope: 'psc',
                 page: 1,
-                agencyScope: 'toptier',
                 hasNextPage: false,
                 hasPreviousPage: false,
                 next: null,
@@ -237,24 +245,14 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
                     next: "checksum",
                     previous: null
                 },
-                results: [
-                    {
-                        item: 'First Agency',
-                        aggregate: '456'
-                    },
-                    {
-                        item: 'Second Agency',
-                        aggregate: '123'
-                    }
-                ]
+                results: []
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
-
             // mount the container
             const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={defaultFilters} />);
 
             // initial state should be page 1
@@ -282,24 +280,14 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
                     next: "checksum",
                     previous: null
                 },
-                results: [{
-                    funding_agency__toptier_agency__name: 'First Agency',
-                    aggregate: '456'
-                },
-                {
-                    funding_agency__toptier_agency__name: 'Second Agency',
-                    aggregate: '123'
-                }],
-                total_metadata: {
-                    count: 200
-                }
+                results: []
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={defaultFilters} />);
             container.setState({
                 page: 5,
@@ -308,7 +296,6 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             });
 
             // wait for the SearchHelper promises to resolve
-            jest.runAllTicks();
 
             // we have simulated a starting state of page 5
             expect(container.state().page).toEqual(5);
@@ -328,31 +315,20 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
                     next: "checksum",
                     previous: null
                 },
-                results: [{
-                    funding_agency__toptier_agency__name: 'First Agency',
-                    aggregate: '456'
-                },
-                {
-                    funding_agency__toptier_agency__name: 'Second Agency',
-                    aggregate: '123'
-                }],
-                total_metadata: {
-                    count: 200
-                }
+                results: []
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={defaultFilters} />);
             container.setState({
                 page: 1
             });
 
             // wait for the SearchHelper promises to resolve
-            jest.runAllTicks();
 
             // we have simulated a starting state of page 5
             expect(container.state().page).toEqual(1);
@@ -365,28 +341,6 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
 
     describe('newSearch', () => {
         it('when Redux filters change, the page number should reset to 1', () => {
-            // create a mock API response
-            const apiResponse = {
-                page_metadata: {
-                    page: 1,
-                    has_next_page: true,
-                    has_previous_page: false,
-                    next: "checksum",
-                    previous: null
-                },
-                results: [{
-                    funding_agency__toptier_agency__name: 'First Agency',
-                    aggregate: '456'
-                },
-                {
-                    funding_agency__toptier_agency__name: 'Second Agency',
-                    aggregate: '123'
-                }],
-                total_metadata: {
-                    count: 200
-                }
-            };
-
             const initialFilters = Object.assign({}, defaultFilters);
             const secondFilters = Object.assign({}, defaultFilters, {
                 timePeriodType: 'fy',
@@ -395,7 +349,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
 
             // mount the container
             const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={initialFilters} />);
             container.setState({
                 page: 5,
@@ -417,40 +371,40 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
     });
 
     describe('changeScope', () => {
-        it('should change the agency scope to the provided value', () => {
+        it('should change the scope to the provided value', () => {
             const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={defaultFilters} />);
 
-            // the default scope should be toptier
-            expect(container.state().agencyScope).toEqual('toptier');
+            // the default scope should be psc
+            expect(container.state().scope).toEqual('psc');
 
-            // change the scope to subtier
-            container.instance().changeScope('subtier');
-            expect(container.state().agencyScope).toEqual('subtier');
+            // change the scope to naics
+            container.instance().changeScope('naics');
+            expect(container.state().scope).toEqual('naics');
         });
 
-        it('should reset the page number to 1 when the agency scope changes', () => {
+        it('should reset the page number to 1 when the scope changes', () => {
             const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={defaultFilters} />);
             container.setState({
                 page: 5
             });
 
-            // the default scope should be toptier
-            expect(container.state().agencyScope).toEqual('toptier');
+            // the default scope should be psc
+            expect(container.state().scope).toEqual('psc');
             expect(container.state().page).toEqual(5);
 
-            // change the scope to subtier
-            container.instance().changeScope('subtier');
-            expect(container.state().agencyScope).toEqual('subtier');
+            // change the scope to naics
+            container.instance().changeScope('naics');
+            expect(container.state().scope).toEqual('naics');
             expect(container.state().page).toEqual(1);
         });
     });
 
     afterAll(() => {
         // restore the mocked component's lifecycle functions
-        unmockComponent(SpendingByAgencySection);
+        unmockComponent(SpendingByIndustryCodeSection);
     });
 });

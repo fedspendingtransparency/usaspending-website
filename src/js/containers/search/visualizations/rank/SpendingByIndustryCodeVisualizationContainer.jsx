@@ -17,7 +17,9 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import * as FilterFields from 'dataMapping/search/filterFields';
+
+import * as AwardTypeQuery from 'models/search/queryBuilders/AwardTypeQuery';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
 import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
@@ -38,7 +40,6 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
             labelSeries: [],
             dataSeries: [],
             descriptions: [],
-            linkSeries: [],
             page: 1,
             scope: 'psc',
             next: '',
@@ -160,6 +161,11 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
+        // because industry codes are only available for contracts, restrict the query to only
+        // contract types
+        const contractFilter = AwardTypeQuery.buildQuery(awardTypeGroups.contracts, 'transaction');
+        searchParams.push(contractFilter);
+
         // Generate the API parameters
         const apiParams = {
             field,
@@ -203,6 +209,12 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
         const operation = new SearchAccountAwardsOperation();
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
+
+        // because industry codes are only available for contracts, restrict the query to only
+        // contract types
+        const contractFilter = AwardTypeQuery.buildQuery(
+            awardTypeGroups.contracts, 'accountAwards');
+        searchParams.push(contractFilter);
 
         // Generate the API parameters
         const apiParams = {

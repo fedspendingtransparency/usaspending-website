@@ -207,16 +207,15 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            labelSeries.push(item[groups[1]]);
-
             let parsedValue = parseFloat(item.aggregate);
             if (isNaN(parsedValue)) {
+                // the aggregate value is invalid (most likely null)
                 parsedValue = 0;
             }
 
+            labelSeries.push(item[groups[1]]);
             dataSeries.push(parsedValue);
-
-            const description = `Spending by ${item.item}: \
+            const description = `Spending by ${item[groups[1]]}: \
 ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
             descriptions.push(description);
         });
