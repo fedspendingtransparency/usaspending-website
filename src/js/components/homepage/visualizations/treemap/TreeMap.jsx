@@ -95,7 +95,7 @@ export default class TreeMap extends React.Component {
         if (this.state.windowWidth < 768) {
             tileStyle = d3.treemapSlice;
         }
-        else if (this.state.showSub === true) {
+        if (this.state.showSub === true) {
             tileStyle = d3.treemapDice;
             mapHeight = 80;
             colorSet = this.props.alternateColors;

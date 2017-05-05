@@ -8,7 +8,12 @@
         @import './treemapWrapper';
 
         .visualization-tooltip {
+            position: relative;
+            width: 100%;
             @import "components/visualizations/tooltip/_tooltip";
+            .tooltip {
+                max-width: rem(300);
+            }
         }
     }
 
