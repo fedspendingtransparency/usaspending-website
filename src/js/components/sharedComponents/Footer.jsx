@@ -30,9 +30,8 @@ export default class Footer extends React.Component {
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 USAspending.gov
-                            </a>.&nbsp;
-                        The award data from the current USAspending.gov will be transferred to the new site&nbsp;
-                        throughout the summer on a rolling basis.</p>
+                            </a>.
+                        The award data from the current USAspending.gov will be transferred to the new site throughout the summer on a rolling basis.</p>
                         <div className="db-link">
                             <p><strong>NOTE:</strong> You must <a href="#/db_info" target="_blank" rel="noopener noreferrer" title="Dun & Bradstreet Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data">click here </a>
                             for very important D&B information.</p>

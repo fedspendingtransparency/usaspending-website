@@ -438,8 +438,8 @@ ${this.state.center.y + this.state.center.height})`}>
                             endX={this.state.bottom.obligated.x + this.state.bottom.flow.x}
                             width={this.state.bottom.obligated.width}
                             length={this.state.bottom.flow.length}
-                            description={`Flow of money out of total budget authority to obligated \
-amount`}
+                            description={`Flow of money out of total budget authority to \
+obligations incurred`}
                             style={{
                                 fill: '#bfcfd4'
                             }} />

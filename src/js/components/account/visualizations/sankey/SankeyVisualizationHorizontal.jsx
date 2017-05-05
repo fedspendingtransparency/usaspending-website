@@ -365,8 +365,8 @@ appropriations`}
                             endY={0}
                             height={this.state.right.obligated.height}
                             length={this.state.right.flow.length}
-                            description={`Flow of money out of total budget authority to obligated \
-amount`}
+                            description={`Flow of money out of total budget authority to \
+obligations incurred`}
                             style={{
                                 fill: '#bfcfd4'
                             }} />
