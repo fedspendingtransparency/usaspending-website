@@ -8,11 +8,20 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
 
+import _ from 'lodash';
+
+import { toggleColumnVisibility } from 'redux/actions/search/searchFilterActions';
+
 import TableSearchFields from 'dataMapping/search/tableSearchFields';
 
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
 import SearchActions from 'redux/actions/searchActions';
+
+const actions = {
+    toggleColumnVisibility,
+    SearchActions
+};
 
 const propTypes = {
     rows: React.PropTypes.instanceOf(Immutable.List),
@@ -21,7 +30,9 @@ const propTypes = {
     searchOrder: React.PropTypes.object,
     setSearchTableType: React.PropTypes.func,
     setSearchPageNumber: React.PropTypes.func,
-    setSearchOrder: React.PropTypes.func
+    setSearchOrder: React.PropTypes.func,
+    columnVisibility: React.PropTypes.object,
+    toggleColumnVisibility: React.PropTypes.func
 };
 
 const tableTypes = [
@@ -58,7 +69,6 @@ class ResultsTableContainer extends React.Component {
 
         this.state = {
             columns: [],
-            columnVisibility: TableSearchFields.defaultVisibility,
             hiddenColumns: []
         };
 
@@ -78,13 +88,19 @@ class ResultsTableContainer extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (!_.isEqual(prevProps.columnVisibility, this.props.columnVisibility)) {
+            this.setColumns(this.props.meta.tableType);
+        }
+    }
+
     setColumns(tableType) {
          // calculate the column metadata to display in the table
         const columns = [];
         const hiddenColumns = [];
         let sortOrder = TableSearchFields.defaultSortDirection;
         let columnWidths = TableSearchFields.columnWidths;
-        const columnVisibility = this.state.columnVisibility;
+        const columnVisibility = this.props.columnVisibility;
 
         if (tableType === 'loans') {
             sortOrder = TableSearchFields.loans.sortDirection;
@@ -93,25 +109,24 @@ class ResultsTableContainer extends React.Component {
 
         const tableSettings = TableSearchFields[tableType];
 
-        tableSettings._order.forEach((col) => {
-            if (columnVisibility[col]) {
-                const column = {
-                    columnName: col,
-                    displayName: tableSettings[col],
-                    width: columnWidths[col],
-                    defaultDirection: sortOrder[col]
-                };
-                columns.push(column);
-            }
-            else {
-                // column is not visible
-                const column = {
-                    columnName: col,
-                    displayName: tableSettings[col]
-                };
-                hiddenColumns.push(column);
-            }
+        columnVisibility.visibleColumns.forEach((col) => {
+            const column = {
+                columnName: col,
+                displayName: tableSettings[col],
+                width: columnWidths[col],
+                defaultDirection: sortOrder[col]
+            };
+            columns.push(column);
         });
+
+        columnVisibility.hiddenColumns.forEach((col) => {
+            const column = {
+                columnName: col,
+                displayName: tableSettings[col]
+            };
+            hiddenColumns.push(column);
+        });
+
         this.setState({
             columns,
             hiddenColumns
@@ -151,13 +166,9 @@ class ResultsTableContainer extends React.Component {
         }
     }
 
-    toggleColumnVisibility(col) {
-        const columnVisibility = this.state.columnVisibility;
-        columnVisibility[col] = !columnVisibility[col];
-        this.setState({
-            columnVisibility
-        }, () => {
-            this.setColumns(this.props.meta.tableType);
+    toggleColumnVisibility(column) {
+        this.props.toggleColumnVisibility({
+            column
         });
     }
 
@@ -186,7 +197,8 @@ export default connect(
         rows: state.records.awards,
         meta: state.resultsMeta.toJS(),
         batch: state.resultsBatch,
-        searchOrder: state.searchOrder.toJS()
+        searchOrder: state.searchOrder.toJS(),
+        columnVisibility: state.columnVisibility
     }),
-    (dispatch) => bindActionCreators(SearchActions, dispatch)
+    (dispatch) => bindActionCreators(actions, dispatch)
 )(ResultsTableContainer);

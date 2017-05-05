@@ -57,6 +57,10 @@ export default class TableBody extends React.Component {
             // the data hash changed, indicating the table data needs to be updated
             this.prepareCellsForDisplay();
         }
+        else if (prevProps.columns !== this.props.columns) {
+            // the columns visible changed
+            this.prepareCellsForDisplay();
+        }
         else if (prevProps.maxWidth !== this.props.maxWidth) {
             // the container width changed (likely due to window resize)
             // this will require recalculation

@@ -6,6 +6,8 @@
 import React from 'react';
 import Immutable from 'immutable';
 
+import _ from 'lodash';
+
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableGenericCell from './cells/ResultsTableGenericCell';
@@ -38,6 +40,7 @@ export default class ResultsTable extends React.PureComponent {
 
         this.rowClassName = this.rowClassName.bind(this);
         this.tableScrolled = this.tableScrolled.bind(this);
+        this.columnsChanged = this.columnsChanged.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -61,6 +64,20 @@ export default class ResultsTable extends React.PureComponent {
             return true;
         }
         return false;
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!_.isEqual(prevProps.columns, this.props.columns)) {
+            this.columnsChanged();
+        }
+    }
+
+    columnsChanged() {
+        this.setState({
+            dataHash: parseFloat(this.props.columns.length)
+        }, () => {
+            this.prepareTable();
+        });
     }
 
     tableScrolled(xPos, yPos) {
