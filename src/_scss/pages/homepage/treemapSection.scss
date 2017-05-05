@@ -5,7 +5,6 @@
     background-color: #ececec;
     & .treemap-inner-wrap {
         @include fullSectionWrap(0, 0);
-        @import './treemapSidebar';
         @import './treemapWrapper';
 
         .visualization-tooltip {

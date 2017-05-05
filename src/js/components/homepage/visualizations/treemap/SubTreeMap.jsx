@@ -159,30 +159,20 @@ export default class SubTreeMap extends React.Component {
         return tooltip;
     }
 
-    toggleSubfunction(selected) {
-        this.setState({
-            selected,
-            showSub: true
-        });
-    }
-
     render() {
         return (
-            <div
-                className="usa-da-treemap-section">
-                <div className="treemap-inner-wrap">
-                    { this.createTooltip() }
-                    <div
-                        className="tree-wrapper"
-                        ref={(sr) => {
-                            this.sectionWrapper = sr;
-                        }}>
-                        <svg
-                            width={this.state.visualizationWidth}
-                            height="565">
-                            { this.state.finalNodes }
-                        </svg>
-                    </div>
+            <div>
+                { this.createTooltip() }
+                <div
+                    className="tree-wrapper"
+                    ref={(sr) => {
+                        this.sectionWrapper = sr;
+                    }}>
+                    <svg
+                        width={this.state.visualizationWidth}
+                        height="565">
+                        { this.state.finalNodes }
+                    </svg>
                 </div>
             </div>
         );

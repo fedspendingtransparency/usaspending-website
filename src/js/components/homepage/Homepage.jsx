@@ -53,6 +53,7 @@ export default class Homepage extends React.Component {
                     categories: res.data.budgetCategories,
                     descriptions: res.data.categoryDescriptions,
                     colors: res.data.treemapColors,
+                    alternateColors: res.data.alternateColors,
                     breakdown: res.data.budgetBreakdown,
                     breakdownDescriptions: res.data.budgetDescriptions,
                     breakdownColors: res.data.breakdownColors,
@@ -81,7 +82,8 @@ export default class Homepage extends React.Component {
                     categories={this.state.categories}
                     colors={this.state.colors}
                     descriptions={this.state.descriptions}
-                    subfunctions={this.state.subfunctions} />
+                    subfunctions={this.state.subfunctions}
+                    alternateColors={this.state.alternateColors} />
                 <CategoryMap
                     breakdown={this.state.breakdown}
                     descriptions={this.state.breakdownDescriptions}

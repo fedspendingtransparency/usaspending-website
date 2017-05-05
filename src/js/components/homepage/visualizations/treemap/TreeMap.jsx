@@ -6,6 +6,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 import _ from 'lodash';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import TreeMapCell from './TreeMapCell';
 import TreeMapTooltip from './TreeMapTooltip';
@@ -16,7 +17,8 @@ const propTypes = {
     categories: React.PropTypes.object,
     descriptions: React.PropTypes.array,
     colors: React.PropTypes.array,
-    subfunctions: React.PropTypes.object
+    subfunctions: React.PropTypes.object,
+    alternateColors: React.PropTypes.array
 };
 
 export default class TreeMap extends React.Component {
@@ -27,6 +29,7 @@ export default class TreeMap extends React.Component {
         this.state = {
             windowWidth: 0,
             visualizationWidth: 0,
+            visualizationHeight: 565,
             category: 'none',
             description: '',
             descriptions: {},
@@ -41,6 +44,7 @@ export default class TreeMap extends React.Component {
         this.buildTree = this.buildTree.bind(this);
         this.toggleTooltip = this.toggleTooltip.bind(this);
         this.toggleSubfunction = this.toggleSubfunction.bind(this);
+        this.formatFriendlyString = this.formatFriendlyString.bind(this);
     }
 
     componentDidMount() {
@@ -80,19 +84,29 @@ export default class TreeMap extends React.Component {
 
     buildTree(cats, colors, chosen) {
         // put the data through d3's hierarchy system to sum and sort it
+        let colorSet = colors;
         const root = d3.hierarchy(cats)
         .sum((d) => (d.value))
         .sort((a, b) => b.height - a.height || b.value - a.value);
 
         // set up a treemap object and pass in the root
         let tileStyle = d3.treemapBinary;
+        let mapHeight = 565;
         if (this.state.windowWidth < 768) {
             tileStyle = d3.treemapSlice;
         }
+        else if (this.state.showSub === true) {
+            tileStyle = d3.treemapDice;
+            mapHeight = 80;
+            colorSet = this.props.alternateColors;
+        }
+        this.setState({
+            visualizationHeight: mapHeight
+        });
         const treemap = d3.treemap()
             .round(true)
             .tile(tileStyle)
-            .size([this.state.visualizationWidth, 565])(root).leaves();
+            .size([this.state.visualizationWidth, this.state.visualizationHeight])(root).leaves();
 
         // build the tiles
         const nodes = treemap.map((n, i) =>
@@ -105,12 +119,12 @@ export default class TreeMap extends React.Component {
                 y1={n.y1}
                 total={n.parent.value}
                 key={i}
-                color={colors[i]}
+                color={colorSet[i]}
                 chosen={chosen}
                 toggleTooltip={this.toggleTooltip}
                 showOverlay={this.state.showOverlay}
                 toggleSubfunction={this.toggleSubfunction}
-                clickable={true} />
+                clickable />
         );
 
         this.setState({
@@ -162,35 +176,79 @@ export default class TreeMap extends React.Component {
         return tooltip;
     }
 
-    toggleSubfunction(selected) {
+    toggleSubfunction(selected, selectedValue, selectedTotal) {
         // resize main treemap
+        const descSet = this.props.descriptions;
+        // find index of object item on matching cat name
+        let descIndex = '0';
+        if (selected !== 'none') {
+            descIndex = _.findIndex(descSet, { name: selected });
+        }
         this.setState({
             selected,
+            selectedDesc: descSet[descIndex].value,
+            selectedValue,
+            selectedTotal,
             showSub: true
         });
     }
 
+    formatFriendlyString(value) {
+        // format the ceiling and current values to be friendly strings
+        const units = MoneyFormatter.calculateUnitForSingleValue(value);
+        // only reformat at a million or higher
+        if (units.unit < MoneyFormatter.unitValues.MILLION) {
+            units.unit = 1;
+            units.unitLabel = '';
+            units.longLabel = '';
+        }
+        const formattedValue = value / units.unit;
+        let precision = 1;
+        if (formattedValue % 1 === 0) {
+            // whole number
+            precision = 0;
+        }
+
+        const formattedCurrency =
+            MoneyFormatter.formatMoneyWithPrecision(formattedValue, precision);
+
+        // don't add an extra space when there's no units string to display
+        let longLabel = '';
+        if (units.unit > 1) {
+            longLabel = ` ${units.longLabel}`;
+        }
+
+        return `${formattedCurrency}${longLabel}`;
+    }
+
     render() {
-        const contentIntro = (
-            <div className="tree-desc">
-                <b>3</b> of the <b>19</b> total budget functions, accounted for about
-                &nbsp;<b>1/2</b> of total spending. <br />
-                <span className="highlight">Social Security</span>,&nbsp;
-                <span className="highlight">National Defense</span>,
-                and <span className="highlight">Medicare</span>.
-            </div>);
         let subFunctionTree = null;
+        let functionDesc = null;
         if (this.state.showSub) {
             subFunctionTree = (
                 <SubTreeMap
                     topFunction={this.state.selected}
                     subfunctions={this.props.subfunctions}
                     colors={this.props.colors} />);
+            functionDesc = (
+                <div className="function-desc">
+                    <h1>{this.state.selected}</h1>
+                    <h6>{this.formatFriendlyString(this.state.selectedValue)} |&nbsp;
+                        {((this.state.selectedValue / this.state.selectedTotal) *
+                            100).toFixed(1)}%</h6>
+                    <p>{this.state.selectedDesc}</p>
+                </div>);
         }
         return (
             <div
                 className="usa-da-treemap-section">
-                {contentIntro}
+                <div className="tree-desc">
+                    <b>3</b> of the <b>19</b> total budget functions, accounted for about
+                    &nbsp;<b>1/2</b> of total spending. <br />
+                    <span className="highlight">Social Security</span>,&nbsp;
+                    <span className="highlight">National Defense</span>,
+                    and <span className="highlight">Medicare</span>.
+                </div>
                 <div className="treemap-inner-wrap">
                     { this.createTooltip() }
                     <div
@@ -200,9 +258,11 @@ export default class TreeMap extends React.Component {
                         }}>
                         <svg
                             width={this.state.visualizationWidth}
-                            height="565">
+                            height={this.state.visualizationHeight}>
                             { this.state.finalNodes }
                         </svg>
+                        {functionDesc}
+                        { subFunctionTree }
                         <div className="source">
                             Source: Monthly Treasury Statement
                             <div className="info-icon-circle">
@@ -214,7 +274,6 @@ export default class TreeMap extends React.Component {
                         </div>
                     </div>
                 </div>
-                { subFunctionTree }
             </div>
         );
     }

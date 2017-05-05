@@ -156,7 +156,8 @@ export default class TreeMapCell extends React.Component {
                 }}
                 onClick={() => {
                     if (this.props.clickable !== null) {
-                        this.props.toggleSubfunction(this.props.label);
+                        this.props.toggleSubfunction(
+                            this.props.label, this.props.value, this.props.total);
                     }
                 }}>
                 <rect
