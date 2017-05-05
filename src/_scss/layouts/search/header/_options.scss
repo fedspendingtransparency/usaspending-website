@@ -1,12 +1,12 @@
 .search-options {    
-    display: table;
+    //display: table;
 
     ul.search-formats {
         @include unstyled-list;
-        display: table-cell;
+        //display: table-cell;
         text-align: center;
         @include media($medium-screen) {
-            text-align: right;
+            //text-align: right;
         }
     }
     li {

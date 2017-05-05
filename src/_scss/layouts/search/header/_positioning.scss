@@ -1,32 +1,43 @@
 .search-header {
-    @include outer-container();
-    max-width: 100%;
-    @include pad(2rem 0rem);
-    margin: 0px $outer-gutter/2;
-    @include media($large-screen) {
-        margin: 0px $outer-gutter;
-    }
-    @include media($x-large-screen) {
-        max-width: $site-max-width;
-        margin: 0 auto;
-    }
+    @import "mixins/fullSectionWrap";
+    @include fullSectionWrap(0, 0);
+    @include display(flex);
+    @include justify-content(space-between);
+    @include flex-direction(row);
+    @include align-items(center);
+    min-height: rem(102);
+    //@include outer-container();
+    background: red;
+    //max-width: 100%;
+    //@include pad(2rem 0rem);
+    //margin: 0px $outer-gutter/2;
+    //@include media($large-screen) {
+    //  margin: 0px $outer-gutter;
+    //}
+    //@include media($x-large-screen) {
+    // max-width: $site-max-width;
+    // margin: 0 auto;
+    //}
 }
+
 .search-title {
-    @include span-columns(16);
+    flex-grow: 2;
+    //@include span-columns(16);
     & h1 {
-        text-align: center;
+        text-align: left;
     }
     @include media($medium-screen) {
-        @include span-columns(8);
+        //@include span-columns(8);
         & h1 {
             text-align: left;
         }
     }
 }
+
 .search-options {
-    @include span-columns(16);
+    ///@include span-columns(16);
     @include media($medium-screen) {
-        @include span-columns(8);
+        //@include span-columns(8);
         & ul.search-formats {
             text-align: right;
         }

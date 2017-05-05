@@ -1,9 +1,9 @@
 .search-title {
     h1 {
-        font-size: 2.5em;
+        font-size: rem(47);
         line-height: 5rem;
         font-weight: 200;
-        margin: 0 0 2.0rem 0;
+        //margin: 0 0 2.0rem 0;
         @include media($medium-screen) {
             margin: 0;
         }
