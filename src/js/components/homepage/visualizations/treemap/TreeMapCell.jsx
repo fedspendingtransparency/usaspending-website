@@ -29,7 +29,8 @@ export default class TreeMapCell extends React.Component {
         this.state = {
             label: '',
             didProcess: false,
-            color: this.props.color
+            color: this.props.color,
+            textClass: ''
         };
 
         this.mouseIn = this.mouseIn.bind(this);
@@ -41,7 +42,7 @@ export default class TreeMapCell extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.initialRender(props.label);
+        this.initialRender(props.label, props.color);
     }
 
     componentDidUpdate() {
@@ -50,9 +51,14 @@ export default class TreeMapCell extends React.Component {
         }
     }
 
-    initialRender(label) {
+    initialRender(label, color) {
+        let c = this.props.color;
+        if (color) {
+            c = color;
+        }
         this.setState({
             label,
+            color: c,
             didProcess: false
         });
     }
@@ -155,7 +161,7 @@ export default class TreeMapCell extends React.Component {
                     );
                 }}
                 onClick={() => {
-                    if (this.props.clickable !== null) {
+                    if (this.props.clickable === true) {
                         this.props.toggleSubfunction(
                             this.props.label, this.props.value, this.props.total);
                     }

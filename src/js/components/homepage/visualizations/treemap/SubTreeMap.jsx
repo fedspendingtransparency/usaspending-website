@@ -137,11 +137,6 @@ export default class SubTreeMap extends React.Component {
             height,
             showOverlay: false
         });
-
-        this.buildTree(
-            this.props.subfunctions[this.props.topFunction],
-            this.props.colors,
-            this.state.category);
     }
 
     createTooltip() {

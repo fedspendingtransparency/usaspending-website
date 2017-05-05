@@ -82,9 +82,8 @@ export default class TreeMap extends React.Component {
         }
     }
 
-    buildTree(cats, colors, chosen) {
+    buildTree(cats, colors, chosen, sub) {
         // put the data through d3's hierarchy system to sum and sort it
-        let colorSet = colors;
         const root = d3.hierarchy(cats)
         .sum((d) => (d.value))
         .sort((a, b) => b.height - a.height || b.value - a.value);
@@ -95,10 +94,9 @@ export default class TreeMap extends React.Component {
         if (this.state.windowWidth < 768) {
             tileStyle = d3.treemapSlice;
         }
-        if (this.state.showSub === true) {
+        if (sub === true) {
             tileStyle = d3.treemapDice;
             mapHeight = 80;
-            colorSet = this.props.alternateColors;
         }
         this.setState({
             visualizationHeight: mapHeight
@@ -106,7 +104,7 @@ export default class TreeMap extends React.Component {
         const treemap = d3.treemap()
             .round(true)
             .tile(tileStyle)
-            .size([this.state.visualizationWidth, this.state.visualizationHeight])(root).leaves();
+            .size([this.state.visualizationWidth, mapHeight])(root).leaves();
 
         // build the tiles
         const nodes = treemap.map((n, i) =>
@@ -119,14 +117,13 @@ export default class TreeMap extends React.Component {
                 y1={n.y1}
                 total={n.parent.value}
                 key={i}
-                color={colorSet[i]}
+                color={colors[i]}
                 chosen={chosen}
                 toggleTooltip={this.toggleTooltip}
                 showOverlay={this.state.showOverlay}
                 toggleSubfunction={this.toggleSubfunction}
                 clickable />
         );
-
         this.setState({
             finalNodes: nodes
         });
@@ -157,8 +154,6 @@ export default class TreeMap extends React.Component {
             height,
             showOverlay: false
         });
-
-        this.buildTree(this.props.categories, this.props.colors, this.state.category);
     }
 
     createTooltip() {
@@ -184,6 +179,7 @@ export default class TreeMap extends React.Component {
         if (selected !== 'none') {
             descIndex = _.findIndex(descSet, { name: selected });
         }
+        // set values to state
         this.setState({
             selected,
             selectedDesc: descSet[descIndex].value,
@@ -191,6 +187,8 @@ export default class TreeMap extends React.Component {
             selectedTotal,
             showSub: true
         });
+
+        this.buildTree(this.props.categories, this.props.alternateColors, selected, true);
     }
 
     formatFriendlyString(value) {
@@ -224,7 +222,7 @@ export default class TreeMap extends React.Component {
     render() {
         let subFunctionTree = null;
         let functionDesc = null;
-        if (this.state.showSub) {
+        if (this.state.showSub === true) {
             subFunctionTree = (
                 <SubTreeMap
                     topFunction={this.state.selected}
