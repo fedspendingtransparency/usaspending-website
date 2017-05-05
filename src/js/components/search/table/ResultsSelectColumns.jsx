@@ -32,10 +32,16 @@ export default class ResultsSelectColumns extends React.Component {
 
     render() {
         const numHiddenColumns = this.props.hiddenColumns.length.toString();
+        let hiddenColumnsText = `Hidden Columns`;
+        if (numHiddenColumns === "1") {
+            hiddenColumnsText = `Hidden Column`;
+        }
         let showDropdown = 'hide';
+        let buttonClass = '';
         // let icon = <Icons.AngleDown alt="Select Columns" />;
         if (this.state.showDropdown) {
             showDropdown = '';
+            buttonClass = 'blue';
             // icon = <Icons.AngleUp alt="Select Columns" />;
         }
         const visibleColumns = this.props.columns.map((col) => (
@@ -57,18 +63,22 @@ export default class ResultsSelectColumns extends React.Component {
         return (
             <div className="results-select-columns">
                 <button
+                    className={`results-select-columns-btn ${buttonClass}`}
                     onClick={this.toggleDropdown}>
-                    {numHiddenColumns} Hidden Columns
+                    {`${numHiddenColumns} ${hiddenColumnsText}`}
                 </button>
                 <div className={`results-select-columns-dropdown ${showDropdown}`}>
-                    <div>
+                    <div className="results-select-columns-header">
                         Visible Columns
                     </div>
                     <ul>
                         {visibleColumns}
                     </ul>
-                    <div>
+                    <div className="results-select-columns-header">
                         Hidden Columns
+                        <div className="results-select-columns-hidden">
+                            {numHiddenColumns}
+                        </div>
                     </div>
                     <ul>
                         {hiddenColumns}

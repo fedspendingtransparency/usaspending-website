@@ -1,0 +1,44 @@
+.results-select-columns {
+  float: right;
+  .results-select-columns-btn {
+    background-color: $color-white;
+    border: solid 1px $color-gray-light;
+    color: $color-gray;
+    font-size: $smallest-font-size;
+    &.blue {
+      background-color: #00a6d2;
+      color: $color-white;
+    }
+  }
+  .results-select-columns-dropdown {
+    position: absolute;
+    z-index: 2;
+    margin-top: rem(-5);
+    background-color: $color-white;
+    border-bottom: solid 1px $color-gray-light;
+    font-size: $small-font-size;
+    .results-select-columns-header {
+      background-color: $color-gray-lightest;
+      padding: rem(10);
+      border: solid 1px $color-gray-light;
+      font-weight: 600;
+      .results-select-columns-hidden {
+        float: right;
+        background-color: $color-gray-light;
+        width: rem(20);
+        height: rem(20);
+        text-align: center;
+        color: $color-white;
+      }
+    }
+    ul {
+      @include unstyled-list;
+      padding: rem(10);
+      border-left: solid 1px $color-gray-light;
+      border-right: solid 1px $color-gray-light;
+      input {
+        margin-right: rem(5);
+      }
+    }
+  }
+}
