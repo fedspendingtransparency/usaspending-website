@@ -2,27 +2,22 @@
     @import "mixins/fullSectionWrap";
     @include fullSectionWrap(0, 0);
     @include display(flex);
-    //@include justify-content(space-between);
+    @include justify-content(space-between);
     @include flex-direction(row);
     @include align-items(center);
     @include align-self(stretch);
     @include flex-flow(row wrap);
     min-height: rem(102);
-    background: red;
 }
 
 .search-title {
     flex: 1 100%;
-    //flex: 1 100%;
-    background: blue;
-    //@include span-columns(16);
     & h1 {
-        text-align: left;
+        margin: rem(20) 0;
+        text-align: center;
     }
     @include media($tablet-screen) {
-        background: orange;
-        flex: 2;
-        //@include span-columns(8);
+        flex: 1;
         & h1 {
             text-align: left;
         }
@@ -30,13 +25,14 @@
 }
 
 .search-options {
-    ///@include span-columns(16);
     flex: 1 100%;
+    margin: 0 0 20px;
     @include media($tablet-screen) {
         flex: 1;
-        //@include span-columns(8);
+        margin: 0;
         & ul.search-formats {
             text-align: right;
+            float: right;
         }
     }
 }

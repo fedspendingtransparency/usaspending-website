@@ -10,16 +10,20 @@ export default class Header extends React.Component {
                         <i className="usa-da-icon"><Icons.ExclamationTriangle /></i>
                     </div>
                     <div className="top-alert-text">
-                        <p>
-                            This site is not intended to be an official resource for federal
-                            spending data. To view official federal spending data, please
-                            visit&nbsp;
+                        <p>This site is in beta. To view the current production site, visit&nbsp;
                             <a
                                 href="https://www.usaspending.gov"
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 USAspending.gov
                             </a>.
+                            Data from the current&nbsp;
+                            <a
+                                href="https://www.usaspending.gov"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                USAspending.gov
+                            </a> will be transferred to the new site, along with additional functionality, throughout the summer on a rolling basis.
                         </p>
                     </div>
                 </div>

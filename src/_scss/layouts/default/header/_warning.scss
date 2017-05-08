@@ -1,41 +1,33 @@
 .warning-banner-wrap {
+    @import "mixins/fullSectionWrap";
     background: as-alpha($color-gold-lightest, 0.95);
     min-height: rem(60);
     overflow: hidden;
-    padding: 15px 0;
+    padding: rem(15) 0;
     width: 100%;
     border-bottom: 1px solid $color-gold-lighter;
     .warning-banner {
-        max-width: $site-max-width;
-        margin: 0 rem(20);
-        @include media($medium-screen) {
-            margin: 0 auto;
-            padding: 0 rem(20);
-        }
-        @include media($large-screen) {
-            padding: 0 $outer-gutter;
-        }
-        @include media($x-large-screen) {
-            padding: 0;
-        }
+        @include fullSectionWrap(0, 0);
+        @include display(flex);
         & p {
-            max-width: 100%;
-            margin: rem(5) 0;
-            font-size: rem(14);
-            text-align: left;
+            flex: 1;
+            font-size: $small-font-size;
+            display: block;
         }
-        & .usa-da-icon {
-            height: rem(30);
-            width: rem(30);
-            float: left;
-            margin: 4px 10px 10px 0;
-            @include media($medium-screen) {
-                margin: -5px 10px 0 0;
+        & .top-alert-icon {
+            margin: rem(15) rem(10) 0 0;
+            @include media($large-screen) {
+                margin: rem(10) rem(10) 0 0;
             }
-            & svg {
-                fill: $color-gray-dark;
-                height: rem(30);
+            & .usa-da-icon {
+                flex: 1;
+                height: rem(20);
                 width: rem(30);
+                & svg {
+                    fill: $color-gray-dark;
+                    height: rem(30);
+                    width: rem(30);
+                }
             }
         }
     }
