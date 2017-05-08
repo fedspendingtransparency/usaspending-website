@@ -16,6 +16,25 @@
             min-height: 100px;
             padding: 16px;
             font-size: 14px;
+
+            h1.download-title {
+                font-weight: 300;
+                font-size: 26px;
+                line-height: 30px;
+
+                margin-top: 20px;
+                margin-bottom: 20px;
+
+                color: $color-base;
+                text-align: center;
+            }
+
+            .server-message {
+                text-align: center;
+                padding-bottom: 10px;
+            }
+
+            @import "./_animation";
         }
     }
 }

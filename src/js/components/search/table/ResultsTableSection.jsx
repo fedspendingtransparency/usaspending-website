@@ -8,7 +8,7 @@ import React from 'react';
 import ResultsTableHeaderCellContainer from
     'containers/search/table/ResultsTableHeaderCellContainer';
 
-import ExtraModal from 'components/search/modals/ExtraModal';
+import ExtraModalContainer from 'containers/search/modals/ExtraModalContainer';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import ResultsTable from './ResultsTable';
@@ -108,7 +108,7 @@ export default class ResultsTableSection extends React.Component {
                         headerCellClass={ResultsTableHeaderCellContainer} />
                 </div>
                 {message}
-                <ExtraModal
+                <ExtraModalContainer
                     mounted={this.state.showModal}
                     hideModal={this.hideModal} />
             </div>

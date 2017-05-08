@@ -12,7 +12,9 @@ import ExtraModalTabs from './ExtraModalTabs';
 
 const propTypes = {
     mounted: React.PropTypes.bool,
-    hideModal: React.PropTypes.func
+    hideModal: React.PropTypes.func,
+    title: React.PropTypes.string,
+    message: React.PropTypes.string
 };
 
 export default class ExtraModal extends React.Component {
@@ -39,7 +41,20 @@ export default class ExtraModal extends React.Component {
                     </div>
 
                     <div className="modal-body">
-                        Something
+                        <h1 className="download-title">
+                            {this.props.title}
+                        </h1>
+
+                        <div className="cylon-eye-wrapper">
+                            <div className="cylon-eye-line" />
+                            <div className="eyeball-wrapper">
+                                <div className="cylon-eye-ball" />
+                            </div>
+                        </div>
+
+                        <div className="server-message">
+                            {this.props.message}
+                        </div>
                     </div>
                 </div>
             </Modal>
