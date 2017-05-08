@@ -1,6 +1,6 @@
 .usa-da-search-page {
-    @import "../../layouts/search/search";
-    @include searchLayout;
+    @import "layouts/search/search";
+
     @import './searchSidebar';
     @include span-columns(16);
     .search-sidebar {

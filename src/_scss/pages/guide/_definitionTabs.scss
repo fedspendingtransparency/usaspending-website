@@ -1,0 +1,33 @@
+.definition-tabs {
+    @include unstyled-list;
+    border-bottom: 1px solid $color-cool-blue-light;
+
+    li {
+        display: inline-block;
+        margin-left: 2px;
+
+        &:first-child {
+            margin-left: 0px;
+        }
+    }
+
+    .definition-tab {
+        @include button-unstyled;
+
+        width: 129px;
+
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        text-align: center;
+
+        border: 1px solid $color-cool-blue-light;
+        border-bottom: none;
+
+        padding: 5px 10px;
+
+        &:hover, &:active, &.active {
+            background-color: $color-cool-blue-light;
+        }
+    }
+}
