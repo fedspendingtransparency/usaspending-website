@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-// import * as Icons from 'components/sharedComponents/icons/Icons';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import ResultsColumnOption from './ResultsColumnOption';
 
@@ -38,11 +38,11 @@ export default class ResultsSelectColumns extends React.Component {
         }
         let showDropdown = 'hide';
         let buttonClass = '';
-        // let icon = <Icons.AngleDown alt="Select Columns" />;
+        let icon = <Icons.TableOpen alt="Select Columns" />;
         if (this.state.showDropdown) {
             showDropdown = '';
             buttonClass = 'blue';
-            // icon = <Icons.AngleUp alt="Select Columns" />;
+            icon = <Icons.TableClosed alt="Select Columns" />;
         }
         const visibleColumns = this.props.columns.map((col) => (
             <ResultsColumnOption
@@ -65,7 +65,12 @@ export default class ResultsSelectColumns extends React.Component {
                 <button
                     className={`results-select-columns-btn ${buttonClass}`}
                     onClick={this.toggleDropdown}>
-                    {`${numHiddenColumns} ${hiddenColumnsText}`}
+                    <span className="btn-text">
+                        {`${numHiddenColumns} ${hiddenColumnsText}`}
+                    </span>
+                    <span className="icon">
+                        {icon}
+                    </span>
                 </button>
                 <div className={`results-select-columns-dropdown ${showDropdown}`}>
                     <div className="results-select-columns-header">

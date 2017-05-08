@@ -5,9 +5,31 @@
     border: solid 1px $color-gray-light;
     color: $color-gray;
     font-size: $smallest-font-size;
+    padding: 0 rem(10) 0 rem(20);
+    .btn-text {
+      float: left;
+      margin-top: rem(10);
+    }
+    .icon {
+      float: right;
+      margin-left: 0.4rem;
+      & svg {
+        height: rem(29);
+        width: rem(29);
+        fill: $color-gray;
+      }
+    }
     &.blue {
       background-color: #00a6d2;
       color: $color-white;
+      .icon {
+        & svg {
+          fill: $color-white;
+          path {
+            fill: $color-white;
+          }
+        }
+      }
     }
   }
   .results-select-columns-dropdown {
@@ -17,6 +39,11 @@
     background-color: $color-white;
     border-bottom: solid 1px $color-gray-light;
     font-size: $small-font-size;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    width: rem(320);
+    overflow-y: scroll;
+    max-height: rem(530);
+    right: 0;
     .results-select-columns-header {
       background-color: $color-gray-lightest;
       padding: rem(10);
@@ -36,8 +63,11 @@
       padding: rem(10);
       border-left: solid 1px $color-gray-light;
       border-right: solid 1px $color-gray-light;
-      input {
-        margin-right: rem(5);
+      li {
+        padding: rem(5) 0;
+        input {
+          margin-right: rem(5);
+        }
       }
     }
   }
