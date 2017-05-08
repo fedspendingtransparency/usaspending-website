@@ -20,7 +20,8 @@ const propTypes = {
     tableTypes: React.PropTypes.array,
     currentType: React.PropTypes.string,
     switchTab: React.PropTypes.func,
-    results: React.PropTypes.array
+    results: React.PropTypes.array,
+    lastReq: React.PropTypes.string
 };
 
 export default class ResultsTableSection extends React.Component {
@@ -109,6 +110,7 @@ export default class ResultsTableSection extends React.Component {
                 </div>
                 {message}
                 <ExtraModalContainer
+                    lastReq={this.props.lastReq}
                     mounted={this.state.showModal}
                     hideModal={this.hideModal} />
             </div>

@@ -142,39 +142,6 @@ class ResultsTableContainer extends React.Component {
         });
     }
 
-    switchTab(tab) {
-        this.props.setSearchTableType(tab);
-        const currentSortField = this.props.searchOrder.field;
-
-        // check if the current sort field is available in the table type
-        if (!Object.hasOwnProperty.call(TableSearchFields[tab], currentSortField)) {
-            // the sort field doesn't exist, use the table type's default field
-            const field = TableSearchFields[tab]._defaultSortField;
-            let direction = TableSearchFields.defaultSortDirection[field];
-            if (tab === 'loans') {
-                direction = TableSearchFields.loans.sortDirection[field];
-            }
-
-            this.props.setSearchOrder({
-                field,
-                direction
-            });
-        }
-    }
-
-    loadNextPage() {
-        // check if request is already in-flight
-        if (this.props.meta.inFlight) {
-            // in-flight, ignore this request
-            return;
-        }
-        // check if more pages are available
-        if (this.props.meta.page.has_next_page) {
-            // more pages are available, load them
-            this.props.setSearchPageNumber(this.props.meta.page.page + 1);
-        }
-    }
-
     updateFilters() {
         const newSearch = new SearchOperation();
         newSearch.fromState(this.props.filters);
@@ -230,11 +197,15 @@ class ResultsTableContainer extends React.Component {
 
                 // parse the response
                 const data = res.data;
-                this.saveData(data.results);
+                this.parseData(data.results);
 
                 this.props.setSearchResultMeta({
                     page: data.page_metadata,
                     total: data.total_metadata
+                });
+
+                this.setState({
+                    lastReq: res.data.req
                 });
 
                 // request is done
@@ -266,7 +237,7 @@ class ResultsTableContainer extends React.Component {
             });
     }
 
-    saveData(data) {
+    parseData(data) {
         // iterate through the result set and create model instances
         // save each model to Redux
         const awards = [];
@@ -285,6 +256,40 @@ class ResultsTableContainer extends React.Component {
         });
     }
 
+    switchTab(tab) {
+        this.props.setSearchTableType(tab);
+        const currentSortField = this.props.searchOrder.field;
+
+        // check if the current sort field is available in the table type
+        if (!Object.hasOwnProperty.call(TableSearchFields[tab], currentSortField)) {
+            // the sort field doesn't exist, use the table type's default field
+            const field = TableSearchFields[tab]._defaultSortField;
+            let direction = TableSearchFields.defaultSortDirection[field];
+            if (tab === 'loans') {
+                direction = TableSearchFields.loans.sortDirection[field];
+            }
+
+            this.props.setSearchOrder({
+                field,
+                direction
+            });
+        }
+    }
+
+    loadNextPage() {
+        // check if request is already in-flight
+        if (this.props.meta.inFlight) {
+            // in-flight, ignore this request
+            return;
+        }
+        // check if more pages are available
+        if (this.props.meta.page.has_next_page) {
+            // more pages are available, load them
+            this.props.setSearchPageNumber(this.props.meta.page.page + 1);
+        }
+    }
+
+
     render() {
         return (
             <ResultsTableSection
@@ -296,7 +301,8 @@ class ResultsTableContainer extends React.Component {
                 tableTypes={tableTypes}
                 currentType={this.props.meta.tableType}
                 switchTab={this.switchTab}
-                loadNextPage={this.loadNextPage} />
+                loadNextPage={this.loadNextPage}
+                lastReq={this.state.lastReq} />
         );
     }
 }
