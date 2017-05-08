@@ -7,15 +7,26 @@ import React from 'react';
 
 import ExtraModal from 'components/search/modals/ExtraModal';
 
+import * as DownloadHelper from 'helpers/downloadHelper';
+
 export class ExtraModalContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             title: 'A link to the file is being generated.',
-            message: 'Server status'
+            message: 'Requesting file...'
         };
     }
+
+    componentDidMount() {
+        // this.requestDownload();
+    }
+
+    requestDownload() {
+        DownloadHelper.requestAwardTable();
+    }
+
     render() {
         return (
             <ExtraModal
