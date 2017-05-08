@@ -152,7 +152,7 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
 
     fetchTransactions(auditTrail = null) {
         const field = 'federal_action_obligation';
-        let group = [FilterFields.accountAwardsFields.psc];
+        let group = [FilterFields.transactionFields.psc];
 
         if (this.state.scope === 'naics') {
             group = [
