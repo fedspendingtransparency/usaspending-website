@@ -18,10 +18,17 @@ export default class SourcesData extends React.Component {
                     <h1>Sources of Data</h1>
                     <hr className="results-divider" />
                     <p>
-                        The U.S Treasury Department brings together data from hundreds of federal agencies and systems to make federal spending data readily available to the public. Federal agencies report this data, in a standard format, to Treasury and other government-wide systems.
+                        Treasury issued the DATA Act Information Model Schema (DAIMS) v. 1.0 in
+                        April 2016. The DAIMS is the most critical component of the DATA Act
+                        implementation because it sets the requirements for all the data elements
+                        to be reported by federal agencies, the relationships between each element,
+                        the validation rules and the overall context of how the data fits together.
                     </p>
                     <p>
-                        The diagram below provides an overview of the sources of the data that are used on USAspending.gov. This model shows how the data flows from the agency financial and awards systems to reach the public website.
+                        There are more than 400 interconnected data elements within the DAIMS –
+                        some are submitted directly from the agency financial systems and others
+                        are pulled or derived from authoritative government-wide systems. For more
+                        information on the DAIMS please visit: <a href="https://fedspendingtransparency.github.io/data-model/">https://fedspendingtransparency.github.io/data-model/</a>.
                     </p>
                     <img src="img/information-flow.png" alt="Information Flow" />
                 </div>

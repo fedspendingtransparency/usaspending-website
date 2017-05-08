@@ -4,21 +4,33 @@
     text-align: center;
     margin-top: rem(40);
 
-    .left {
-        float: left;
-        display: inline-block;
-        width: 45%;
-        padding-top: rem(41);
-        padding-bottom: rem(41);
+    .left, .right {
+        width: 100%;
     }
+
     .right {
-        border-left: 1px solid #D6D7D9;
-        float: right;
-        display: inline-block;
-        width: 50%;
-        padding-top: rem(41);
-        padding-bottom: rem(41);
-        margin-left: rem(20);
+        padding-top: rem(21);
+    }
+
+    @include media($large-screen) {
+
+        .left, .right {
+            display: inline-block;
+            max-height: 100%;
+            padding-top: rem(41);
+            padding-bottom: rem(41);
+        }
+        .left {
+            float: left;
+            width: 45%;
+        }
+
+        .right {
+            border-left: 1px solid #D6D7D9;
+            margin-left: rem(20);
+            float: right;
+            width: 50%;
+        }
     }
 
     .title {
@@ -39,7 +51,7 @@
             font-size: rem(11);
             text-align: right;
             position: relative;
-            bottom: rem(36);
+            bottom: rem(30);
             right: 0;
         }
     }

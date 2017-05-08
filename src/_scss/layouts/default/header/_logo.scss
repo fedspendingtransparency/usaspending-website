@@ -1,4 +1,4 @@
-@mixin headerLogo {
+.logo {
     .usa-logo {
         @include fill-parent();
         a {

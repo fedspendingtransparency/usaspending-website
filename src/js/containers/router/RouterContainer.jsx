@@ -8,6 +8,7 @@ import { Router, hashHistory } from 'react-router';
 
 import kGlobalConstants from 'GlobalConstants';
 
+import GuideListenerSingleton from './GuideListenerSingleton';
 import RouterRoutes from './RouterRoutes';
 
 const ga = require('react-ga');
@@ -23,6 +24,11 @@ export default class RouterContainer extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            lastPath: ''
+        };
+
         // bind functions
         this.handleRouteChange = this.handleRouteChange.bind(this);
     }
@@ -38,8 +44,17 @@ export default class RouterContainer extends React.Component {
         const path = this.router.state.location.pathname;
         RouterContainer.logPageView(path);
         ga.pageview(window.location.hash);
-        // scroll to top of page
-        window.scrollTo(0, 0);
+
+        if (this.state.lastPath !== path) {
+            // scroll to top of page, but only if the path has changed (ignore in-page URL changes)
+            window.scrollTo(0, 0);
+
+            this.setState({
+                lastPath: path
+            });
+        }
+
+        GuideListenerSingleton.updateGuideValue(this.router.state.location.query);
     }
 
     render() {
