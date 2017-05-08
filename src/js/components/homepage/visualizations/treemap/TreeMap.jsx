@@ -169,7 +169,7 @@ export default class TreeMap extends React.Component {
                 y={this.state.y}
                 width={this.state.width}
                 height={(this.state.height / 2) + 50}
-                showSub />);
+                showSub={this.state.showSub} />);
         }
         return tooltip;
     }

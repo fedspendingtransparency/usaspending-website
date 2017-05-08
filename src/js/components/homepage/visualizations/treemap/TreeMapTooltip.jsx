@@ -14,7 +14,8 @@ const propTypes = {
     height: React.PropTypes.number,
     x: React.PropTypes.number,
     y: React.PropTypes.number,
-    width: React.PropTypes.number
+    width: React.PropTypes.number,
+    showSub: React.PropTypes.bool
 };
 
 export default class TreeMapTooltip extends React.Component {
@@ -46,13 +47,35 @@ export default class TreeMapTooltip extends React.Component {
             xPos = (this.props.width / 5);
         }
 
-        this.div.style.top = `${(this.props.y + this.props.height) - 80}px`;
-        this.div.style.left = `${(this.props.x + xPos) - offset}px`;
+        let leftDirection = `${(this.props.x + xPos) - offset}px`;
+        let topDirection = `${(this.props.y + this.props.height) - 80}px`;
+
+        let arrowDirection = direction;
+        if (this.props.showSub === true) {
+            arrowDirection = 'top';
+            leftDirection = `${this.props.x - offset}px`;
+            topDirection = `${(this.props.y + this.props.height)}px`;
+        }
+
+        this.div.style.top = topDirection;
+        this.div.style.left = leftDirection;
         this.div.className = `tooltip ${direction}`;
-        this.pointerDiv.className = `tooltip-pointer ${direction}`;
+        this.pointerDiv.className = `tooltip-pointer ${arrowDirection}`;
     }
 
     render() {
+        let desc = (
+            <div className="tooltip-center">
+                <div className="tooltip-value">
+                    {MoneyFormatter.formatMoney(this.props.value)}
+                </div>
+                <div className="tooltip-description">
+                    {this.props.description}
+                </div>
+            </div>);
+        if (this.props.showSub === true) {
+            desc = '';
+        }
         return (
             <div
                 className="visualization-tooltip"
@@ -73,14 +96,7 @@ export default class TreeMapTooltip extends React.Component {
                         {this.props.name}
                     </div>
                     <div className="tooltip-body center">
-                        <div className="tooltip-center">
-                            <div className="tooltip-value">
-                                {MoneyFormatter.formatMoney(this.props.value)}
-                            </div>
-                            <div className="tooltip-description">
-                                {this.props.description}
-                            </div>
-                        </div>
+                        {desc}
                     </div>
                 </div>
             </div>
