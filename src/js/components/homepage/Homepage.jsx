@@ -83,7 +83,8 @@ export default class Homepage extends React.Component {
                     colors={this.state.colors}
                     descriptions={this.state.descriptions}
                     subfunctions={this.state.subfunctions}
-                    alternateColors={this.state.alternateColors} />
+                    alternateColors={this.state.alternateColors}
+                    total={this.state.breakdownTotal} />
                 <CategoryMap
                     breakdown={this.state.breakdown}
                     descriptions={this.state.breakdownDescriptions}

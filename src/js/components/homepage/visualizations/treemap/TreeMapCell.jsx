@@ -127,7 +127,7 @@ export default class TreeMapCell extends React.Component {
         const height = (this.props.y1 - this.props.y0);
         let labelView = 'block';
         let percentView = 'block';
-        if (height < 20 || width < 50) {
+        if (height < 26 || width < 50) {
             labelView = 'none';
         }
         if (height < 40 || width < 60) {

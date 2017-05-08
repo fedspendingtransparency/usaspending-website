@@ -1,5 +1,8 @@
 svg {
     display: inline-block;
+    text {
+        cursor: default;
+    }
     .category,
     .value {
         fill: $color-white;

@@ -3,6 +3,10 @@
     @import './visualizations/_treemapVisualization';
     @import './_treemapSource';
 
+    .minimized {
+        width: 96.7%;
+    }
+
     .function-desc {
         padding-left: 10%;
         padding-right: 10%;
@@ -31,5 +35,26 @@
             line-height: rem(26);
             margin-bottom: rem(27);
         }
+    }
+
+    .right, .left, .back {
+        @include button-unstyled;
+        margin: 0;
+        width: rem(25);
+        height: auto;
+        fill: #5B616B;
+    }
+
+    .left {
+        float: left;
+    }
+
+    .right {
+        float: right;
+    }
+
+    .back {
+        margin: 0 auto;
+        display: block;
     }
 }

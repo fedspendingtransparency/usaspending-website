@@ -7,11 +7,11 @@ import React from 'react';
 import * as d3 from 'd3';
 import _ from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import TreeMapCell from './TreeMapCell';
 import TreeMapTooltip from './TreeMapTooltip';
 import SubTreeMap from './SubTreeMap';
-import * as Icons from '../../../sharedComponents/icons/Icons';
 
 const propTypes = {
     categories: React.PropTypes.object,
@@ -45,6 +45,8 @@ export default class TreeMap extends React.Component {
         this.toggleTooltip = this.toggleTooltip.bind(this);
         this.toggleSubfunction = this.toggleSubfunction.bind(this);
         this.formatFriendlyString = this.formatFriendlyString.bind(this);
+        this.swapTiles = this.swapTiles.bind(this);
+        this.showArrows = this.showArrows.bind(this);
     }
 
     componentDidMount() {
@@ -96,7 +98,7 @@ export default class TreeMap extends React.Component {
         }
         if (sub === true) {
             tileStyle = d3.treemapDice;
-            mapHeight = 80;
+            mapHeight = 25;
         }
         this.setState({
             visualizationHeight: mapHeight
@@ -166,29 +168,44 @@ export default class TreeMap extends React.Component {
                 x={this.state.x}
                 y={this.state.y}
                 width={this.state.width}
-                height={(this.state.height / 2) + 50} />);
+                height={(this.state.height / 2) + 50}
+                showSub />);
         }
         return tooltip;
     }
 
-    toggleSubfunction(selected, selectedValue, selectedTotal) {
+    toggleSubfunction(selected, selectedValue, selectedTotal, next, prev) {
         // resize main treemap
         const descSet = this.props.descriptions;
+        let newSelected = selected;
+        let newValue = selectedValue;
         // find index of object item on matching cat name
         let descIndex = '0';
         if (selected !== 'none') {
             descIndex = _.findIndex(descSet, { name: selected });
         }
+        if ((next && descIndex < 16) || (prev && descIndex > 0)) {
+            if (next) {
+                descIndex += 1;
+                newSelected = descSet[descIndex].name;
+            }
+            if (prev) {
+                descIndex -= 1;
+                newSelected = descSet[descIndex].name;
+            }
+            newValue = this.props.categories.children[descIndex].value;
+        }
+
         // set values to state
         this.setState({
-            selected,
+            selected: newSelected,
             selectedDesc: descSet[descIndex].value,
-            selectedValue,
+            selectedValue: newValue,
             selectedTotal,
             showSub: true
         });
 
-        this.buildTree(this.props.categories, this.props.alternateColors, selected, true);
+        this.buildTree(this.props.categories, this.props.alternateColors, newSelected, true);
     }
 
     formatFriendlyString(value) {
@@ -219,9 +236,56 @@ export default class TreeMap extends React.Component {
         return `${formattedCurrency}${longLabel}`;
     }
 
+    swapTiles(direction) {
+        if (direction === 'back') {
+            this.setState({
+                showSub: false
+            });
+            this.buildTree(this.props.categories, this.props.colors, this.state.selected, false);
+        }
+
+        if (direction === 'left') {
+            this.toggleSubfunction(
+                this.state.selected,
+                this.state.selectedValue,
+                this.state.selectedTotal,
+                false,
+                true);
+        }
+
+        if (direction === 'right') {
+            this.toggleSubfunction(
+                this.state.selected,
+                this.state.selectedValue,
+                this.state.selectedTotal,
+                true,
+                false);
+        }
+    }
+
+    showArrows() {
+        const buttonArray = [];
+        let left = null;
+        let right = null;
+        let back = null;
+        if (this.state.showSub === true) {
+            left = (<Icons.AngleLeft />);
+            right = (<Icons.AngleRight />);
+            back = (<Icons.AngleUp />);
+        }
+        buttonArray.push(left);
+        buttonArray.push(right);
+        buttonArray.push(back);
+        return buttonArray;
+    }
+
     render() {
         let subFunctionTree = null;
         let functionDesc = null;
+        let treeMapClass = '';
+        let buttonBack = null;
+        let buttonLeft = null;
+        let buttonRight = null;
         if (this.state.showSub === true) {
             subFunctionTree = (
                 <SubTreeMap
@@ -236,6 +300,31 @@ export default class TreeMap extends React.Component {
                             100).toFixed(1)}%</h6>
                     <p>{this.state.selectedDesc}</p>
                 </div>);
+            treeMapClass = 'minimized';
+            buttonBack =
+                (<button
+                    className="back"
+                    onClick={() => {
+                        this.swapTiles('back');
+                    }}>
+                    {this.showArrows()[2]}
+                </button>);
+            buttonLeft =
+                (<button
+                    className="left"
+                    onClick={() => {
+                        this.swapTiles('left');
+                    }}>
+                    {this.showArrows()[0]}
+                </button>);
+            buttonRight =
+                (<button
+                    className="right"
+                    onClick={() => {
+                        this.swapTiles('right');
+                    }}>
+                    {this.showArrows()[1]}
+                </button>);
         }
         return (
             <div
@@ -254,11 +343,15 @@ export default class TreeMap extends React.Component {
                         ref={(sr) => {
                             this.sectionWrapper = sr;
                         }}>
+                        {buttonBack}
+                        {buttonLeft}
                         <svg
                             width={this.state.visualizationWidth}
-                            height={this.state.visualizationHeight}>
+                            height={this.state.visualizationHeight}
+                            className={treeMapClass}>
                             { this.state.finalNodes }
                         </svg>
+                        {buttonRight}
                         {functionDesc}
                         { subFunctionTree }
                         <div className="source">
