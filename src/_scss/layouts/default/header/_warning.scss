@@ -1,6 +1,7 @@
 .warning-banner-wrap {
     background: as-alpha($color-gold-lightest, 0.95);
     min-height: rem(60);
+    overflow: hidden;
     padding: 15px 0;
     width: 100%;
     border-bottom: 1px solid $color-gold-lighter;
@@ -27,8 +28,14 @@
             height: rem(30);
             width: rem(30);
             float: left;
-            margin: 4px 10px 25px 0;
+            margin: 4px 10px 80px 0;
+            @include media(550px) {
+                margin: 4px 10px 15px 0;
+            }
             @include media($medium-screen) {
+                margin: 4px 10px 0 0;
+            }
+            @include media($large-screen) {
                 margin: -5px 10px 0 0;
             }
             & svg {
