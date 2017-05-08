@@ -18,7 +18,8 @@ const fields = [
     'action_type',
     'federal_action_obligation',
     'modification_number',
-    'description'
+    'description',
+    'action_type_description'
 ];
 
 const formatData = (data) => {

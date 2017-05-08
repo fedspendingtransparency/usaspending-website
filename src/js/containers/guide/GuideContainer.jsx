@@ -100,7 +100,7 @@ export class GuideContainer extends React.Component {
     }
 
     detectedUrlChange(value) {
-        // we've receivd a special URL param for a specific guide term
+        // we've received a special URL param for a specific guide term
         if (this.state.loading) {
             // still loading, queue this operation up for later
             const operation = this.jumpToTerm.bind(this, value);

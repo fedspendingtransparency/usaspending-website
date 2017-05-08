@@ -11,17 +11,19 @@ export default class Introduction extends React.Component {
         return (
             <div className="intro-wrap">
                 <div className="intro-inner-wrap">
-                    <h2>
-                        Providing the public with an easy way to explore, search, and understand
-                        federal spending data.
-                    </h2>
+                    <h3>
+                        Beta.USAspending.gov is the new official source of accessible, searchable
+                        and reliable spending data for the U.S. Government.
+                    </h3>
                     <p>
-                        By using the new data standards brought forth by the DATA Act,
-                        USAspending.gov gives you access to reliable federal spending data at an
-                        unprecedented level of transparency and usability.  By equipping the public
-                        and government with this data, together we can answer the big questions
-                        about how the U.S. government spends taxpayer dollars and provide the needed
-                        insight to run a more efficient and effective federal government.
+                        Treasury released this new version of the USAspending.gov site in accordance
+                        with the Digital Accountability and Transparency Act (DATA Act) requirements.
+                        The &#8220;Beta&#8221; site will run concurrently with the previous version
+                        of the USAspending.gov website over the summer to minimize disruptions to
+                        users&#39; data access and provide more time to add user-centered
+                        enhancements. The new Beta.USAspending.gov site tracks agency expenditures
+                        and for the first time, links relevant agency expenditure data with awards
+                        distributed by the government.
                     </p>
                 </div>
             </div>

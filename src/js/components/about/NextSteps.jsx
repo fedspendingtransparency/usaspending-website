@@ -13,14 +13,14 @@ export default class NextSteps extends React.Component {
         return (
             <div className="wrapper">
                 <NextStepsBox
-                    icon="guide"
-                    sectionTitle="Guide"
-                    iconClass="guide-icon"
-                    sectionText="Descriptions of commonly used terms."
-                    linkText="Download Descriptions"
-                    ariaLabel="Guide"
-                    title="Guide"
-                    linkUrl="/graphics/USAspendingGuide.xlsx" />
+                    icon="faq"
+                    sectionTitle="Frequently Asked Questions"
+                    iconClass="usa-da-qa-icon"
+                    sectionText="Get answers to commonly asked questions."
+                    linkText="View FAQ"
+                    ariaLabel="FAQ"
+                    title="Frequently Asked Questions"
+                    linkUrl="#/FAQ" />
                 <NextStepsBox
                     icon="contact"
                     sectionTitle="Contact Us"
@@ -47,7 +47,7 @@ export default class NextSteps extends React.Component {
                     linkText="Read More"
                     ariaLabel="Read More"
                     title="Read More"
-                    linkUrl="" />
+                    linkUrl="#/WhatsNew" />
             </div>
         );
     }
