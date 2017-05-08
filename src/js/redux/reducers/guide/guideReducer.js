@@ -11,7 +11,7 @@ export const Definition = Record({
     slug: '',
     plain: '',
     official: '',
-    resources: []
+    resources: ''
 });
 
 export const initialState = {

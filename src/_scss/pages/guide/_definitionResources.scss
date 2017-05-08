@@ -35,4 +35,14 @@
             }
         }
     }
+
+    a {
+        color: $color-white;
+        text-decoration: underline;
+
+        &:active, &:hover {
+            text-decoration: none;
+        }
+    }
+
 }

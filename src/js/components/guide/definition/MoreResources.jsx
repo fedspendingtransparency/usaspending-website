@@ -4,13 +4,20 @@
  */
 
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import { hashHistory } from 'react-router';
 
 const propTypes = {
-    items: React.PropTypes.array
+    resources: React.PropTypes.string
 };
 
 export default class MoreResources extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.transformLink = this.transformLink.bind(this);
+    }
+
     transformLink(url) {
         // check if the link is a local guide reference
         if (url.indexOf('?guide=') !== 0) {
@@ -26,23 +33,15 @@ export default class MoreResources extends React.Component {
     }
 
     render() {
-        const resources = this.props.items.map((item, index) => (
-            <li key={index}>
-                <a href={this.transformLink(item.url)}>
-                    {item.label}
-                </a>
-            </li>
-        ));
-
         return (
             <div className="guide-resources">
                 <h3 className="title">
                     More Resources
                 </h3>
                 <hr />
-                <ul>
-                    {resources}
-                </ul>
+                <ReactMarkdown
+                    source={this.props.resources}
+                    transformLinkUri={this.transformLink} />
             </div>
         );
     }
