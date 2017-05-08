@@ -96,8 +96,8 @@ export default class TreeMapCell extends React.Component {
         });
     }
 
-    mouseIn(label, value, bgColor, textClass, xStart, yStart, width, height) {
-        this.props.toggleTooltip(label, value, xStart, yStart, width, height);
+    mouseIn(label, value, bgColor, textClass, xStart, yStart, width, height, total) {
+        this.props.toggleTooltip(label, value, xStart, yStart, width, height, total);
         this.setState({
             color: bgColor,
             textClass
@@ -145,7 +145,8 @@ export default class TreeMapCell extends React.Component {
                         this.props.x0,
                         this.props.y0,
                         width,
-                        height
+                        height,
+                        this.props.total
                     );
                 }}
                 onMouseLeave={() => {
@@ -157,7 +158,8 @@ export default class TreeMapCell extends React.Component {
                         this.props.x0,
                         this.props.y0,
                         width,
-                        height
+                        height,
+                        this.props.total
                     );
                 }}
                 onClick={() => {

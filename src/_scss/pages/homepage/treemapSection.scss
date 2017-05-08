@@ -13,6 +13,47 @@
             @import "components/visualizations/tooltip/_tooltip";
             .tooltip {
                 max-width: rem(300);
+
+                &.small {
+                    height: rem(44);
+                    min-width: rem(200);
+                    max-width: rem(500);
+                    .tooltip-title {
+                        font-size: rem(14);
+                        line-height: rem(44);
+                        padding: 0;
+                    }
+                }
+                .tooltip-title {
+                    background: none;
+                    font-size: rem(38);
+                    line-height: rem(47);
+                    font-weight: 300;
+                    text-align: center;
+                    margin-bottom: 0;
+                    padding-bottom: 0;
+                }
+                .tooltip-value {
+                    font-size: rem(19);
+                    line-height: rem(19);
+                    font-weight: 600;
+                    padding: rem(15) 0 rem(15) 0;
+                    border-top: rem(1) solid #D6D7D9;
+                    border-bottom: rem(1) solid #D6D7D9;
+                    margin-top: 0;
+                }
+                .tooltip-pointer {
+                    &:after {
+                        background-color: $color-white;
+                    }
+                    &.right {
+                        &.top {
+                            right: calc(10% - 1px);
+                            left: auto;
+                        }
+                    }
+                }
+
             }
         }
     }

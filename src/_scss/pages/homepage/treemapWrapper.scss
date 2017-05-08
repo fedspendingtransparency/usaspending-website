@@ -4,7 +4,13 @@
     @import './_treemapSource';
 
     .minimized {
-        width: 96.7%;
+        width: 90%;
+    }
+
+    @include media($medium-screen) {
+        .minimized {
+            width: 95%;
+        }
     }
 
     .function-desc {

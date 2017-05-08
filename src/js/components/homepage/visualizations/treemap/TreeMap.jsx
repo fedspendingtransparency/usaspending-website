@@ -56,7 +56,7 @@ export default class TreeMap extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.categories.children.length > 0) {
-            this.buildTree(nextProps.categories, nextProps.colors, '');
+            this.buildTree(nextProps.categories, nextProps.colors, '', this.state.showSub);
         }
         if (nextProps.descriptions !== this.state.descriptions) {
             this.setState({
@@ -78,8 +78,12 @@ export default class TreeMap extends React.Component {
                 windowWidth,
                 visualizationWidth: this.sectionWrapper.offsetWidth
             });
+            let colors = this.props.colors;
+            if (this.state.showSub) {
+                colors = this.props.alternateColors;
+            }
             if (this.props.categories.children.length > 0) {
-                this.buildTree(this.props.categories, this.props.colors, '');
+                this.buildTree(this.props.categories, colors, '', this.state.showSub);
             }
         }
     }
@@ -131,7 +135,7 @@ export default class TreeMap extends React.Component {
         });
     }
 
-    toggleTooltip(cat, value, xStart, yStart, width, height) {
+    toggleTooltip(cat, value, xStart, yStart, width, height, total) {
         const descSet = this.props.descriptions;
         // find index of object item on matching cat name
         let descIndex = '0';
@@ -154,7 +158,8 @@ export default class TreeMap extends React.Component {
             y: yStart,
             width,
             height,
-            showOverlay: false
+            showOverlay: false,
+            total
         });
     }
 
@@ -163,7 +168,9 @@ export default class TreeMap extends React.Component {
         if (this.state.category !== 'none') {
             tooltip = (<TreeMapTooltip
                 name={this.state.category}
-                value={this.state.individualValue}
+                value={this.formatFriendlyString(this.state.individualValue)}
+                percentage={`${((this.state.individualValue / this.state.total) *
+                    100).toFixed(1)}%`}
                 description={this.state.description}
                 x={this.state.x}
                 y={this.state.y}

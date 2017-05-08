@@ -5,17 +5,16 @@
 
 import React from 'react';
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-
 const propTypes = {
     name: React.PropTypes.string,
-    value: React.PropTypes.number,
+    value: React.PropTypes.string,
     description: React.PropTypes.string,
     height: React.PropTypes.number,
     x: React.PropTypes.number,
     y: React.PropTypes.number,
     width: React.PropTypes.number,
-    showSub: React.PropTypes.bool
+    showSub: React.PropTypes.bool,
+    percentage: React.PropTypes.string
 };
 
 export default class TreeMapTooltip extends React.Component {
@@ -49,32 +48,47 @@ export default class TreeMapTooltip extends React.Component {
 
         let leftDirection = `${(this.props.x + xPos) - offset}px`;
         let topDirection = `${(this.props.y + this.props.height) - 80}px`;
+        let classValue = `tooltip ${direction}`;
 
         let arrowDirection = direction;
+        this.pointerDiv.className = `tooltip-pointer ${arrowDirection}`;
+
         if (this.props.showSub === true) {
             arrowDirection = 'top';
-            leftDirection = `${this.props.x - offset}px`;
-            topDirection = `${(this.props.y + this.props.height)}px`;
+            classValue = `tooltip ${direction} small`;
+            this.pointerDiv.className = `tooltip-pointer ${arrowDirection} ${direction}`;
+
+            if (direction === 'right') {
+                topDirection = `${(this.props.y + this.props.height)}px`;
+                leftDirection = `${((this.props.x + this.props.width) - tooltipWidth) +
+                    (this.props.width / 2)}px`;
+            }
+            else {
+                topDirection = `${(this.props.y + this.props.height)}px`;
+                leftDirection = `${((this.props.x + (this.props.width / 2)) -
+                    (tooltipWidth / 3))}px`;
+            }
         }
 
         this.div.style.top = topDirection;
         this.div.style.left = leftDirection;
-        this.div.className = `tooltip ${direction}`;
-        this.pointerDiv.className = `tooltip-pointer ${arrowDirection}`;
+        this.div.className = classValue;
     }
 
     render() {
         let desc = (
             <div className="tooltip-center">
                 <div className="tooltip-value">
-                    {MoneyFormatter.formatMoney(this.props.value)}
+                    {this.props.value} | {this.props.percentage}
                 </div>
                 <div className="tooltip-description">
                     {this.props.description}
                 </div>
             </div>);
+        let smallValue = '';
         if (this.props.showSub === true) {
             desc = '';
+            smallValue = ' small';
         }
         return (
             <div
@@ -83,7 +97,7 @@ export default class TreeMapTooltip extends React.Component {
                     this.containerDiv = div;
                 }}>
                 <div
-                    className="tooltip"
+                    className={`tooltip${smallValue}`}
                     ref={(div) => {
                         this.div = div;
                     }}>

@@ -6,6 +6,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 import _ from 'lodash';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import TreeMapCell from './TreeMapCell';
 import TreeMapTooltip from './TreeMapTooltip';
@@ -34,6 +35,7 @@ export default class SubTreeMap extends React.Component {
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
         this.toggleTooltip = this.toggleTooltip.bind(this);
+        this.formatFriendlyString = this.formatFriendlyString.bind(this);
     }
 
     componentDidMount() {
@@ -111,7 +113,7 @@ export default class SubTreeMap extends React.Component {
         });
     }
 
-    toggleTooltip(cat, value, xStart, yStart, width, height) {
+    toggleTooltip(cat, value, xStart, yStart, width, height, total) {
         // set it to desc value
         const descSet = this.props.subfunctions[this.props.topFunction].children;
         // find index of object item on matching cat name
@@ -135,7 +137,8 @@ export default class SubTreeMap extends React.Component {
             y: yStart,
             width,
             height,
-            showOverlay: false
+            showOverlay: false,
+            total
         });
     }
 
@@ -144,7 +147,9 @@ export default class SubTreeMap extends React.Component {
         if (this.state.category !== 'none') {
             tooltip = (<TreeMapTooltip
                 name={this.state.category}
-                value={this.state.individualValue}
+                value={this.formatFriendlyString(this.state.individualValue)}
+                percentage={`${((this.state.individualValue / this.state.total) *
+                    100).toFixed(1)}%`}
                 description={this.state.description}
                 x={this.state.x}
                 y={this.state.y}
@@ -152,6 +157,33 @@ export default class SubTreeMap extends React.Component {
                 height={(this.state.height / 2) + 50} />);
         }
         return tooltip;
+    }
+    formatFriendlyString(value) {
+        // format the ceiling and current values to be friendly strings
+        const units = MoneyFormatter.calculateUnitForSingleValue(value);
+        // only reformat at a million or higher
+        if (units.unit < MoneyFormatter.unitValues.MILLION) {
+            units.unit = 1;
+            units.unitLabel = '';
+            units.longLabel = '';
+        }
+        const formattedValue = value / units.unit;
+        let precision = 1;
+        if (formattedValue % 1 === 0) {
+            // whole number
+            precision = 0;
+        }
+
+        const formattedCurrency =
+            MoneyFormatter.formatMoneyWithPrecision(formattedValue, precision);
+
+        // don't add an extra space when there's no units string to display
+        let longLabel = '';
+        if (units.unit > 1) {
+            longLabel = ` ${units.longLabel}`;
+        }
+
+        return `${formattedCurrency}${longLabel}`;
     }
 
     render() {
