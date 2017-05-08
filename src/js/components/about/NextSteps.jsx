@@ -38,7 +38,7 @@ export default class NextSteps extends React.Component {
                     linkText="Download Files"
                     ariaLabel="Download Files"
                     title="Download Files"
-                    linkUrl="" />
+                    linkUrl="http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/" />
                 <NextStepsBox
                     icon="next"
                     sectionTitle="What’s New"
