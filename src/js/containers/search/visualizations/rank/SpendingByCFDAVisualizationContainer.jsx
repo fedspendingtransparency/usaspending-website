@@ -17,6 +17,8 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
+import * as FilterFields from 'dataMapping/search/filterFields';
+
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
 import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
 
@@ -136,7 +138,10 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
 
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
-        const apiGroups = ['assistance_data__cfda_number', 'assistance_data__cfda_title'];
+        const apiGroups = [
+            FilterFields.transactionFields.cfdaNumber,
+            FilterFields.transactionFields.cfdaTitle
+        ];
 
         // generate the API parameters
         const apiParams = {
@@ -171,8 +176,8 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
         const apiGroups = [
-            'award__transaction__assistance_data__cfda_number',
-            'award__transaction__assistance_data__cfda_title'
+            FilterFields.accountAwardsFields.cfdaNumber,
+            FilterFields.accountAwardsFields.cfdaTitle
         ];
         // generate the API parameters
         const apiParams = {

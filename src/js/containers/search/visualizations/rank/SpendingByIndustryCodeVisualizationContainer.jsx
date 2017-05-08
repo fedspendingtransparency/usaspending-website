@@ -18,6 +18,8 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
+import * as FilterFields from 'dataMapping/search/filterFields';
+
 import * as AwardTypeQuery from 'models/search/queryBuilders/AwardTypeQuery';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
@@ -150,10 +152,13 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
 
     fetchTransactions(auditTrail = null) {
         const field = 'federal_action_obligation';
-        let group = ['contract_data__product_or_service_code'];
+        let group = [FilterFields.accountAwardsFields.psc];
 
         if (this.state.scope === 'naics') {
-            group = ['contract_data__naics', 'contract_data__naics_description'];
+            group = [
+                FilterFields.transactionFields.naics,
+                FilterFields.transactionFields.naicsDescription
+            ];
         }
 
         const operation = new SearchTransactionOperation();
@@ -196,12 +201,12 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
     fetchAccountAwards(auditTrail = null) {
         // only budget filters have been selected
         const field = 'transaction_obligated_amount';
-        let group = ['award__transaction__contract_data__product_or_service_code'];
+        let group = [FilterFields.accountAwardsFields.psc];
 
         if (this.state.scope === 'naics') {
             group = [
-                'award__transaction__contract_data__naics',
-                'award__transaction__contract_data__naics_description'
+                FilterFields.accountAwardsFields.naics,
+                FilterFields.accountAwardsFields.naicsDescription
             ];
         }
 
