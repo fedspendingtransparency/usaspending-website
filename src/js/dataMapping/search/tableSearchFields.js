@@ -19,16 +19,6 @@ const tableSearchFields = {
         funding_agency_name: 'asc',
         funding_subtier_name: 'asc'
     },
-    defaultVisibility: {
-        award_id: true,
-        recipient_name: true,
-        period_of_performance_start_date: true,
-        period_of_performance_current_end_date: true,
-        total_obligation: true,
-        type: true,
-        funding_agency_name: true,
-        funding_subtier_name: true
-    },
     contracts: {
         _defaultSortField: 'total_obligation',
         _order: [

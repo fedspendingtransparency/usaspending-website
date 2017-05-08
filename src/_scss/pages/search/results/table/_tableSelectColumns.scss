@@ -6,6 +6,7 @@
     color: $color-gray;
     font-size: $smallest-font-size;
     padding: 0 rem(10) 0 rem(20);
+    margin-right: 0;
     .btn-text {
       float: left;
       margin-top: rem(10);
@@ -43,7 +44,7 @@
     width: rem(320);
     overflow-y: scroll;
     max-height: rem(530);
-    right: 0;
+    right: rem(60);
     .results-select-columns-header {
       background-color: $color-gray-lightest;
       padding: rem(10);

@@ -47,7 +47,7 @@ export default class ResultsSelectColumns extends React.Component {
         const visibleColumns = this.props.columns.map((col) => (
             <ResultsColumnOption
                 key={col.columnName}
-                checked={true}
+                checked={'visible'}
                 column={col.columnName}
                 label={col.displayName}
                 toggleColumnVisibility={this.props.toggleColumnVisibility} />
@@ -55,7 +55,7 @@ export default class ResultsSelectColumns extends React.Component {
         const hiddenColumns = this.props.hiddenColumns.map((col) => (
             <ResultsColumnOption
                 key={col.columnName}
-                checked={false}
+                checked={''}
                 column={col.columnName}
                 label={col.displayName}
                 toggleColumnVisibility={this.props.toggleColumnVisibility} />

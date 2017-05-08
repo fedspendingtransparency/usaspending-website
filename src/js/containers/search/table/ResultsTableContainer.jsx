@@ -10,18 +10,11 @@ import Immutable from 'immutable';
 
 import _ from 'lodash';
 
-import { toggleColumnVisibility } from 'redux/actions/search/searchFilterActions';
-
 import TableSearchFields from 'dataMapping/search/tableSearchFields';
 
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
 import SearchActions from 'redux/actions/searchActions';
-
-const actions = {
-    toggleColumnVisibility,
-    SearchActions
-};
 
 const propTypes = {
     rows: React.PropTypes.instanceOf(Immutable.List),
@@ -100,7 +93,7 @@ class ResultsTableContainer extends React.Component {
         const hiddenColumns = [];
         let sortOrder = TableSearchFields.defaultSortDirection;
         let columnWidths = TableSearchFields.columnWidths;
-        const columnVisibility = this.props.columnVisibility;
+        const columnVisibility = this.props.columnVisibility[tableType];
 
         if (tableType === 'loans') {
             sortOrder = TableSearchFields.loans.sortDirection;
@@ -167,8 +160,10 @@ class ResultsTableContainer extends React.Component {
     }
 
     toggleColumnVisibility(column) {
+        const tableType = this.props.meta.tableType;
         this.props.toggleColumnVisibility({
-            column
+            column,
+            tableType
         });
     }
 
@@ -200,5 +195,5 @@ export default connect(
         searchOrder: state.searchOrder.toJS(),
         columnVisibility: state.columnVisibility
     }),
-    (dispatch) => bindActionCreators(actions, dispatch)
+    (dispatch) => bindActionCreators(SearchActions, dispatch)
 )(ResultsTableContainer);
