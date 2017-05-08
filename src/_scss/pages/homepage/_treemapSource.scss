@@ -20,6 +20,7 @@
     }
 }
 .more-icon {
+    display: none; //HID THE MORE BUTTON UNTIL THIS COMPONENT IS BUILT
     @include moreOptionsBtn($color-gray, $color-white);
     float: right;
     margin-top: rem(0);
