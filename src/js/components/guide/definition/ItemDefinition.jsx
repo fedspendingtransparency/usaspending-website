@@ -40,7 +40,9 @@ export default class ItemDefinition extends React.Component {
     render() {
         let resources = null;
         if (this.props.resources && this.props.resources !== '') {
-            resources = <MoreResources resources={this.props.resources} />;
+            resources = (<MoreResources
+                resources={this.props.resources}
+                transformLink={this.transformLink} />);
         }
 
         let term = this.props.term;
