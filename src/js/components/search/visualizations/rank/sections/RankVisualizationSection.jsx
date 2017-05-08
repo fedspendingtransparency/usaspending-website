@@ -8,19 +8,15 @@ import _ from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
-import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
-import RankVisualization from './RankVisualization';
-import RankVisualizationScopeButton from './RankVisualizationScopeButton';
+import RankVisualization from '../RankVisualization';
 
 const propTypes = {
-    agencyScope: React.PropTypes.string,
-    changeScope: React.PropTypes.func,
     nextPage: React.PropTypes.func,
     previousPage: React.PropTypes.func,
     loading: React.PropTypes.bool,
     hasNextPage: React.PropTypes.bool,
     hasPreviousPage: React.PropTypes.bool,
-    agencyType: React.PropTypes.string
+    children: React.PropTypes.node
 };
 
 export default class RankVisualizationSection extends React.Component {
@@ -84,44 +80,8 @@ export default class RankVisualizationSection extends React.Component {
                     ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
-                <div className="visualization-top">
-                    <div className="visualization-description">
-                        <div className="content">
-                            View a list of the top {this.props.agencyType} agencies from highest to
-                            lowest. Filter your results more (at left) and watch this graph
-                            update automatically. View your results in a bar graph or a tree map.
-                        </div>
-                    </div>
-                    <div className="visualization-period">
-                        <div className="content">
-                            <ul>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="toptier"
-                                        label="Agencies"
-                                        active={this.props.agencyScope === 'toptier'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="subtier"
-                                        label="Sub-Agencies"
-                                        active={this.props.agencyScope === 'subtier'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                                <li className="coming-soon">
-                                    <RankVisualizationScopeButton
-                                        value="office"
-                                        label="Offices"
-                                        active={this.props.agencyScope === 'office'}
-                                        changeScope={this.props.changeScope}
-                                        disabled />
-                                    <ComingSoonLabel />
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+
+                {this.props.children}
 
                 <RankVisualization
                     {...this.props}
