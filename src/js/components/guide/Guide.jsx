@@ -16,6 +16,15 @@ const propTypes = {
 };
 
 export default class Guide extends React.Component {
+    componentDidUpdate(prevProps) {
+        if (this.props.guide.term !== prevProps.guide.term) {
+            // we've either gone to a definition or returned from one
+            // scroll back to the top
+            if (this.sidebar) {
+                this.sidebar.scrollTop = 0;
+            }
+        }
+    }
     render() {
         let content = <GuideSearchResults {...this.props} />;
 
@@ -37,7 +46,11 @@ export default class Guide extends React.Component {
 
         return (
             <div className="usa-da-guide-wrapper">
-                <div className="guide-sidebar">
+                <div
+                    className="guide-sidebar"
+                    ref={(div) => {
+                        this.sidebar = div;
+                    }}>
                     <GuideHeader {...this.props} />
                     {loading}
                     {content}
