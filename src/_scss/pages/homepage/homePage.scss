@@ -1,6 +1,5 @@
 .usa-da-home-page {
-    @import "../../layouts/default/default";
-    @include defaultLayout;
+    @import "layouts/default/default";
 
     @import "./landingSection";
     @import "./treeMapIntro";
@@ -13,9 +12,9 @@
     @import "./mapTopBar";
     @import "./mapSection";
 
-    @import "../../pages/homepage/_searchSection";
+    @import "./_searchSection";
     @include searchSection;
 
-    @import "../../pages/homepage/_linksSection";
+    @import "./_linksSection";
     @include linksSection;
 }

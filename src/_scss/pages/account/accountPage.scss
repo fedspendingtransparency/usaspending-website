@@ -1,6 +1,6 @@
 .usa-da-account-page {
     @import "layouts/search/search";
-    @include searchLayout;
+
     $color-gray-border: #D8D8D8;
     $color-blue-background: #F5FBFC;
     @import "./header/header";

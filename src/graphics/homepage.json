@@ -84,7 +84,7 @@
     "children": [
         {"id": 0, "name": "Direct payments to individuals", "value": 1166902969415 },
         {"id": 1, "name": "For Profit", "value": 719365549385 },
-        {"id": 2, "name": "Grants to state and local government", "value": 669721302076 },
+        {"id": 2, "name": "Grants to state, local, and tribal governments", "value": 669721302076 },
         {"id": 3, "name": "Non-profits; higher education", "value": 193757105484 },
         {"id": 4, "name": "Running the government & direct services", "value": 1104353073640 }
     ]
@@ -92,7 +92,7 @@
 "budgetDescriptions": [
     {"id": 0, "name": "Direct payments to individuals", "value": "" },
     {"id": 1, "name": "For Profit", "value": "" },
-    {"id": 2, "name": "Grants to state and local government", "value": "" },
+    {"id": 2, "name": "Grants to state, local, and tribal governments", "value": "" },
     {"id": 3, "name": "Non-profits; higher education", "value": "" },
     {"id": 4, "name": "Running the government & direct services", "value": "" }
 ],
@@ -299,3 +299,4 @@
         }
     }
 }
+

@@ -1,4 +1,4 @@
-    @mixin footerInternalLinks {
+   .internal-links {
         @include span-columns(16);
         a {
             color: #9BDAF1;
@@ -22,7 +22,7 @@
         }
         p {
             font-size: rem(12);
-            margin: 0;
+            margin: 0 0 rem(5) 0;
             padding: 0;
             text-align: center;
         }

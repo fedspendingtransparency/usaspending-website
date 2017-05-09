@@ -1,0 +1,32 @@
+.header-search-bar {
+    position: relative;
+    width: 250px;
+
+    input.header-search-field {
+        position: absolute;
+        top: 5px;
+        left: 0;
+
+        font-size: 14px;
+        line-height: 17px;
+        padding: 10px;
+        padding-right: 25px;
+
+        width: 250px;
+        height: 34px;
+    }
+
+    .header-search-button {
+        position: absolute;
+        right: 10px;
+        top: 14px;
+
+        @include button-unstyled;
+        width: 14px;
+        height: 14px;
+
+        svg {
+            fill: $color-gray;
+        }
+    }
+}

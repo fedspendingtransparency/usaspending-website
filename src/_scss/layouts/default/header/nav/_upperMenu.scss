@@ -1,0 +1,72 @@
+.upper-menu {
+    ul.small-menu {
+        @include unstyled-list;
+
+        @include display(flex);
+        @include flex-direction(row);
+        @include align-items(flex-end);
+        @include justify-content(flex-end);
+        position: relative;
+
+        margin-bottom: 10px;
+
+        li {
+            color: $color-gray;
+            font-size: 14px;
+            line-height: 16px;
+
+            a {
+                color: $color-gray;
+                padding: 0px 15px;
+
+                &.disabled {
+                    color: $color-gray-lighter;
+                }
+            }
+
+            &:after {
+                content: "|";
+            }
+
+            &:last-child {
+                &:after { 
+                    content: "";
+                }
+            }
+
+            // style the guide button
+            button.header-guide-button {
+                @include button-unstyled;
+                color: $color-gray;
+                font-size: 14px;
+                line-height: 16px;
+
+                &:hover, &:active {
+                    text-decoration: underline;
+                }
+
+                .guide-button-content {
+                    margin: 0px 15px;
+
+                    .guide-button-icon {
+                        display: inline-block;
+                        position: relative;
+                        width: 12px;
+                        height: 12px;
+
+                        margin-right: 5px;
+
+                        svg {
+                            position: absolute;
+                            top: 2px;
+
+                            height: 12px;
+                            width: 12px;
+                            fill: $color-gray;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
