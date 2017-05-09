@@ -21,7 +21,21 @@ const initialState = {
                 'type'
             ]
         ),
-        hiddenColumns: new OrderedSet()
+        hiddenColumns: new OrderedSet(
+            [
+                'description',
+                'date_signed',
+                'potential_total_value_of_award',
+                'awarding_agency_name',
+                'awarding_subtier_name',
+                'recipient_street',
+                'recipient_country',
+                'recipient_state_province',
+                'recipient_county',
+                'recipient_city',
+                'recipient_zip_postal'
+            ]
+        )
     },
     grants: {
         visibleColumns: new OrderedSet(
