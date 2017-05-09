@@ -31,6 +31,7 @@ const fields = [
     'funding_office_name',
     'recipient_street',
     'recipient_city',
+    'recipient_county',
     'recipient_state_province',
     'recipient_zip_postal',
     'recipient_country',
@@ -75,6 +76,7 @@ const remapData = (data, idField) => {
     let recipientName = '';
     let recipientStreet = '';
     let recipientCity = '';
+    let recipientCounty = '';
     let recipientStateProvince = '';
     let recipientZipPostal = '';
     let recipientCountry = '';
@@ -258,6 +260,10 @@ const remapData = (data, idField) => {
             recipientCity = loc.city_name;
         }
 
+        if (loc.county_name) {
+            recipientCounty = loc.county_name;
+        }
+
         if (loc.state_code) {
             recipientStateProvince = loc.state_code;
         }
@@ -291,6 +297,7 @@ const remapData = (data, idField) => {
     remappedData.recipient_name = recipientName;
     remappedData.recipient_street = recipientStreet;
     remappedData.recipient_city = recipientCity;
+    remappedData.recipient_county = recipientCounty;
     remappedData.recipient_state_province = recipientStateProvince;
     remappedData.recipient_zip_postal = recipientZipPostal;
     remappedData.recipient_country = recipientCountry;
