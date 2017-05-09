@@ -25,7 +25,7 @@ export default class NavBar extends React.Component {
                         <div className="upper-menu">
                             <ul className="small-menu">
                                 <li>
-                                    <a 
+                                    <a
                                         href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
                                         target="_blank" rel="noopener noreferrer">
                                         Help
