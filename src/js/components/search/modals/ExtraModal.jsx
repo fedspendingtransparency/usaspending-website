@@ -9,16 +9,30 @@ import Modal from 'react-aria-modal';
 import { Close } from 'components/sharedComponents/icons/Icons';
 
 import ExtraModalTabs from './ExtraModalTabs';
+import CylonEye from './CylonEye';
+import DownloadLocation from './DownloadLocation';
 
 const propTypes = {
     mounted: React.PropTypes.bool,
     hideModal: React.PropTypes.func,
     title: React.PropTypes.string,
-    message: React.PropTypes.string
+    message: React.PropTypes.string,
+    location: React.PropTypes.string,
+    animate: React.PropTypes.bool
 };
 
 export default class ExtraModal extends React.Component {
     render() {
+        let animation = null;
+        if (this.props.animate) {
+            animation = <CylonEye />;
+        }
+
+        let location = null;
+        if (this.props.location && this.props.location !== '') {
+            location = <DownloadLocation location={this.props.location} />;
+        }
+
         return (
             <Modal
                 mounted={this.props.mounted}
@@ -45,16 +59,13 @@ export default class ExtraModal extends React.Component {
                             {this.props.title}
                         </h1>
 
-                        <div className="cylon-eye-wrapper">
-                            <div className="cylon-eye-line" />
-                            <div className="eyeball-wrapper">
-                                <div className="cylon-eye-ball" />
-                            </div>
-                        </div>
+                        {animation}
 
                         <div className="server-message">
                             {this.props.message}
                         </div>
+
+                        {location}
                     </div>
                 </div>
             </Modal>

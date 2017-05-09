@@ -30,7 +30,7 @@ export default class ResultsTableSection extends React.Component {
 
         this.state = {
             tableWidth: 0,
-            showModal: false
+            showModal: true
         };
 
         this.setTableWidth = this.setTableWidth.bind(this);

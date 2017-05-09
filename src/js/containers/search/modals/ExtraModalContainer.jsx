@@ -21,7 +21,9 @@ export class ExtraModalContainer extends React.Component {
         this.state = {
             title: 'A link to the file is being generated.',
             message: 'Requesting file...',
-            activeReq: ''
+            activeReq: '',
+            location: 'dd',
+            animate: true
         };
 
         this.request = null;
@@ -52,16 +54,44 @@ export class ExtraModalContainer extends React.Component {
             req: this.props.lastReq
         });
 
-        // this.request.promise
-        //     .then(())
+        this.request.promise
+            .then((res) => {
+                this.parseReponse(res.data);
+            })
+            .catch((err) => {
+                if (err.response && err.response.data && err.response.data.status) {
+                    this.setState({
+                        title: 'An error occurred while generating the file.',
+                        message: err.response.data.status,
+                        location: 'dddd',
+                        animate: false
+                    });
+                }
+            });
+    }
+
+    parseReponse(data) {
+        let title = 'A link to the file is being generated.';
+        let animate = true;
+
+        if (data.location && data.location !== '') {
+            title = 'A link to the file has been generated successfully.';
+            animate = false;
+        }
+
+        this.setState({
+            title,
+            animate,
+            message: data.status,
+            location: data.location
+        });
     }
 
     render() {
         return (
             <ExtraModal
                 {...this.props}
-                title={this.state.title}
-                message={this.state.message} />
+                {...this.state} />
         );
     }
 }
