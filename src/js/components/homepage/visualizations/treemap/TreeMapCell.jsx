@@ -35,7 +35,7 @@ export default class TreeMapCell extends React.Component {
             textClass: ''
         };
 
-        this.mouseIn = this.mouseIn.bind(this);
+        this.mouseEvent = this.mouseEvent.bind(this);
         this.toggleBorders = this.toggleBorders.bind(this);
     }
 
@@ -103,7 +103,7 @@ export default class TreeMapCell extends React.Component {
         });
     }
 
-    mouseIn(set) {
+    mouseEvent(set) {
         let newSet = {};
         const width = (this.props.x1 - this.props.x0);
         const height = (this.props.y1 - this.props.y0);
@@ -182,10 +182,10 @@ export default class TreeMapCell extends React.Component {
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
                 onMouseEnter={() => {
-                    this.mouseIn('mouseIn');
+                    this.mouseEvent('mouseIn');
                 }}
                 onMouseLeave={() => {
-                    this.mouseIn('mouseOut');
+                    this.mouseEvent('mouseOut');
                 }}
                 onClick={() => {
                     if (this.props.clickable === true) {
