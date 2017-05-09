@@ -11,8 +11,8 @@ import { Set } from 'immutable';
 
 import { SpendingByFundingAgencyVisualizationContainer } from
     'containers/search/visualizations/rank/SpendingByFundingAgencyVisualizationContainer';
-import RankVisualizationSection from
-    'components/search/visualizations/rank/RankVisualizationSection';
+import SpendingByAgencySection from
+    'components/search/visualizations/rank/sections/SpendingByAgencySection';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
@@ -65,7 +65,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
         // support the child component's SVG manipulation methods. This replaces all the child
         // component's lifecycle methods with mocked functions to avoid traversal into the SVG
         // components.
-        mockComponent(RankVisualizationSection);
+        mockComponent(SpendingByAgencySection);
     });
 
     it('should make an API request on mount', () => {
@@ -451,6 +451,6 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
 
     afterAll(() => {
         // restore the mocked component's lifecycle functions
-        unmockComponent(RankVisualizationSection);
+        unmockComponent(SpendingByAgencySection);
     });
 });

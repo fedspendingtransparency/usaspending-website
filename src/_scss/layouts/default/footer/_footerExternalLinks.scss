@@ -1,4 +1,4 @@
-@mixin footerExternalLinks {
+.external-links {
     @include span-columns(16);
     text-align: center;
     & ul {

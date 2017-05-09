@@ -1,17 +1,23 @@
-@import "./_positioning";
-@import "./_title";
-@import "./_options";
+.search-header-wrapper {
+    @import "./_positioning";
+    @import "./_title";
+    @import "./_options";
 
-@mixin searchHeader {
-    @include searchHeaderPositioning;
     background-color: $color-gray;
     color: $color-white;
 
-    .search-title {
-        @include searchHeaderTitle;
+    &.sticky {
+        box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 10;
     }
+}
 
-    .search-options {
-        @include searchHeaderOptions;
-    }
+.search-header-placeholder {
+    visibility: hidden;
+    width: 100%;
+    height: 0;
 }
