@@ -56,7 +56,7 @@ export default class TreeMap extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.categories.children.length > 0) {
-            this.buildTree(nextProps.categories, nextProps.colors, '', this.state.showSub);
+            this.buildTree(nextProps.categories, nextProps.colors, null, this.state.showSub);
         }
         if (nextProps.descriptions !== this.state.descriptions) {
             this.setState({
@@ -83,7 +83,7 @@ export default class TreeMap extends React.Component {
                 colors = this.props.alternateColors;
             }
             if (this.props.categories.children.length > 0) {
-                this.buildTree(this.props.categories, colors, '', this.state.showSub);
+                this.buildTree(this.props.categories, colors, null, this.state.showSub);
             }
         }
     }
@@ -97,12 +97,14 @@ export default class TreeMap extends React.Component {
         // set up a treemap object and pass in the root
         let tileStyle = d3.treemapBinary;
         let mapHeight = 565;
+        let mapWidth = this.state.visualizationWidth;
         if (this.state.windowWidth < 768) {
             tileStyle = d3.treemapSlice;
         }
         if (sub === true) {
             tileStyle = d3.treemapDice;
             mapHeight = 25;
+            mapWidth = this.state.visualizationWidth * 0.96;
         }
         this.setState({
             visualizationHeight: mapHeight
@@ -110,7 +112,7 @@ export default class TreeMap extends React.Component {
         const treemap = d3.treemap()
             .round(true)
             .tile(tileStyle)
-            .size([this.state.visualizationWidth, mapHeight])(root).leaves();
+            .size([mapWidth, mapHeight])(root).leaves();
 
         // build the tiles
         const nodes = treemap.map((n, i) =>
@@ -124,6 +126,7 @@ export default class TreeMap extends React.Component {
                 total={n.parent.value}
                 key={i}
                 color={colors[i]}
+                chosenColor={this.props.colors[i]}
                 chosen={chosen}
                 toggleTooltip={this.toggleTooltip}
                 showOverlay={this.state.showOverlay}

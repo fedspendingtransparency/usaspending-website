@@ -18,7 +18,10 @@ const propTypes = {
     toggleTooltip: React.PropTypes.func,
     showOverlay: React.PropTypes.bool,
     toggleSubfunction: React.PropTypes.func,
-    clickable: React.PropTypes.bool
+    clickable: React.PropTypes.bool,
+    hoverColor: React.PropTypes.string,
+    chosen: React.PropTypes.string,
+    chosenColor: React.PropTypes.string
 };
 
 export default class TreeMapCell extends React.Component {
@@ -51,14 +54,19 @@ export default class TreeMapCell extends React.Component {
         }
     }
 
-    initialRender(label, color) {
+    initialRender(label, color, hoverColor) {
         let c = this.props.color;
+        let d = '';
         if (color) {
             c = color;
+        }
+        if (hoverColor) {
+            d = hoverColor;
         }
         this.setState({
             label,
             color: c,
+            hoverColor: d,
             didProcess: false
         });
     }
@@ -125,6 +133,14 @@ export default class TreeMapCell extends React.Component {
     render() {
         const width = (this.props.x1 - this.props.x0);
         const height = (this.props.y1 - this.props.y0);
+        let bgColor = this.state.color;
+        let hoverColor = "#F2B733";
+        if (this.props.chosen !== null && this.props.clickable) {
+            hoverColor = this.props.chosenColor;
+        }
+        if (this.props.chosen === this.state.label) {
+            bgColor = this.props.chosenColor;
+        }
         let labelView = 'block';
         let percentView = 'block';
         if (height < 26 || width < 50) {
@@ -140,7 +156,7 @@ export default class TreeMapCell extends React.Component {
                     this.mouseIn(
                         this.props.label,
                         this.props.value,
-                        "#F2B733",
+                        hoverColor,
                         'chosen',
                         this.props.x0,
                         this.props.y0,
@@ -173,7 +189,7 @@ export default class TreeMapCell extends React.Component {
                     width={width}
                     height={height}
                     style={{
-                        fill: this.state.color,
+                        fill: bgColor,
                         stroke: this.toggleBorders()[0],
                         strokeOpacity: this.toggleBorders()[1],
                         strokeWidth: "2px",

@@ -4,12 +4,11 @@
     @import './_treemapSource';
 
     .minimized {
-        width: 90%;
-    }
+        width: 85%;
+        display: inline-block;
 
-    @include media($medium-screen) {
-        .minimized {
-            width: 95%;
+        @include media($medium-screen) {
+            width: 96%;
         }
     }
 
@@ -46,9 +45,11 @@
     .right, .left, .back {
         @include button-unstyled;
         margin: 0;
-        width: rem(25);
+        width: rem(22);
         height: auto;
         fill: #5B616B;
+        position: relative;
+        top: rem(2);
     }
 
     .left {

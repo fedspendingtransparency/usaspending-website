@@ -88,7 +88,7 @@ export default class SubTreeMap extends React.Component {
         const treemap = d3.treemap()
             .round(true)
             .tile(tileStyle)
-            .size([this.state.visualizationWidth, 565])(root).leaves();
+            .size([this.state.visualizationWidth, 286])(root).leaves();
 
         // build the tiles
         const nodes = treemap.map((n, i) =>
@@ -197,7 +197,7 @@ export default class SubTreeMap extends React.Component {
                     }}>
                     <svg
                         width={this.state.visualizationWidth}
-                        height="565">
+                        height="286">
                         { this.state.finalNodes }
                     </svg>
                 </div>
