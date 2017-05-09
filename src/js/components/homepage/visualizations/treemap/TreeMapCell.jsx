@@ -19,7 +19,6 @@ const propTypes = {
     showOverlay: React.PropTypes.bool,
     toggleSubfunction: React.PropTypes.func,
     clickable: React.PropTypes.bool,
-    hoverColor: React.PropTypes.string,
     chosen: React.PropTypes.string,
     chosenColor: React.PropTypes.string
 };
@@ -104,11 +103,11 @@ export default class TreeMapCell extends React.Component {
         });
     }
 
-    mouseIn(label, value, bgColor, textClass, xStart, yStart, width, height, total) {
-        this.props.toggleTooltip(label, value, xStart, yStart, width, height, total);
+    mouseIn(set) {
+        this.props.toggleTooltip(set);
         this.setState({
-            color: bgColor,
-            textClass
+            color: set.bgColor,
+            textClass: set.textClass
         });
     }
 
@@ -149,34 +148,36 @@ export default class TreeMapCell extends React.Component {
         if (height < 40 || width < 60) {
             percentView = 'none';
         }
+        const mouseInSet = {
+            cat: this.props.label,
+            value: this.props.value,
+            bgColor: hoverColor,
+            textClass: 'chosen',
+            xStart: this.props.x0,
+            yStart: this.props.y0,
+            width,
+            height,
+            total: this.props.total
+        };
+        const mouseOutSet = {
+            cat: 'none',
+            value: '',
+            bgColor: this.props.color,
+            textClass: '',
+            xStart: this.props.x0,
+            yStart: this.props.y0,
+            width,
+            height,
+            total: this.props.total
+        };
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
                 onMouseEnter={() => {
-                    this.mouseIn(
-                        this.props.label,
-                        this.props.value,
-                        hoverColor,
-                        'chosen',
-                        this.props.x0,
-                        this.props.y0,
-                        width,
-                        height,
-                        this.props.total
-                    );
+                    this.mouseIn(mouseInSet);
                 }}
                 onMouseLeave={() => {
-                    this.mouseIn(
-                        'none',
-                        '',
-                        this.props.color,
-                        '',
-                        this.props.x0,
-                        this.props.y0,
-                        width,
-                        height,
-                        this.props.total
-                    );
+                    this.mouseIn(mouseOutSet);
                 }}
                 onClick={() => {
                     if (this.props.clickable === true) {

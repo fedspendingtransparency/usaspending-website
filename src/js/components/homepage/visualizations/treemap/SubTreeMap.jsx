@@ -113,32 +113,32 @@ export default class SubTreeMap extends React.Component {
         });
     }
 
-    toggleTooltip(cat, value, xStart, yStart, width, height, total) {
+    toggleTooltip(set) {
         // set it to desc value
         const descSet = this.props.subfunctions[this.props.topFunction].children;
         // find index of object item on matching cat name
         let descIndex = '0';
-        if (cat !== 'none') {
-            descIndex = _.findIndex(descSet, { name: cat });
+        if (set.cat !== 'none') {
+            descIndex = _.findIndex(descSet, { name: set.cat });
         }
 
         // set it to desc value
         let desc = '';
-        if (cat !== 'none') {
+        if (set.cat !== 'none') {
             desc = descSet[descIndex].description;
         }
 
         // set the state
         this.setState({
-            category: cat,
+            category: set.cat,
             description: desc,
-            individualValue: value,
-            x: xStart,
-            y: yStart,
-            width,
-            height,
+            individualValue: set.value,
+            x: set.xStart,
+            y: set.yStart,
+            width: set.width,
+            height: set.height,
             showOverlay: false,
-            total
+            total: set.total
         });
     }
 
