@@ -15,9 +15,8 @@
             @include usa-input;
             width: 100%;
             font-size: 1.2rem;
-            padding:20px;
             text-indent: 0.5rem;
-            color: #555;
+            color: $color-base;
             @include media($medium-screen) {
                 padding-left: .25rem;
             }

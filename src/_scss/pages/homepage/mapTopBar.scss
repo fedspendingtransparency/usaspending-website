@@ -6,6 +6,7 @@
     background: #F1F4F8;
     border-bottom: 1px solid #BEC9D6;
     height: rem(80);
+    display: none; // HID THIS BAR UNTIL THE COMPONENT IS BUILT 
     & .content-wrap {
         & ul {
             @include unstyled-list;
