@@ -37,10 +37,11 @@ export default class NavBar extends React.Component {
                                     <span>About</span>
                                 </a>
                             </li>
-                            <li>
-                                <a className="usa-nav-link" target="_blank" rel="noopener noreferrer" href="https://usaspending-help.zendesk.com/hc/en-us/community/topics">
+                            <li className="coming-soon">
+                                <a className="usa-nav-link" href="#/">
                                     <span>Support</span>
                                 </a>
+                                <ComingSoonLabel />
                             </li>
                             <li className="search-item">
                                 <button className="search-button">
