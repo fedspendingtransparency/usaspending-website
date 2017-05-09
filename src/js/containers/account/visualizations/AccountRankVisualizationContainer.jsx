@@ -116,7 +116,8 @@ export class AccountRankVisualizationContainer extends React.Component {
             order: ['-aggregate'],
             filters: searchOperation.toParams(),
             page: this.state.page,
-            limit: 5
+            limit: 5,
+            auditTrail: `Rank vis - ${this.state.categoryScope}`
         });
 
         this.apiRequest.promise
