@@ -22,11 +22,12 @@ export class ExtraModalContainer extends React.Component {
             title: 'A link to the file is being generated.',
             message: 'Requesting file...',
             activeReq: '',
-            location: 'dd',
+            location: '',
             animate: true
         };
 
         this.request = null;
+        this.statusChecker = null;
     }
 
     componentDidUpdate(prevProps) {
@@ -49,6 +50,12 @@ export class ExtraModalContainer extends React.Component {
         if (this.request) {
             this.request.cancel();
         }
+
+        this.setState({
+            animate: true,
+            location: '',
+            title: 'A link to the file is being generated.'
+        });
 
         this.request = DownloadHelper.requestAwardTable({
             req: this.props.lastReq
@@ -74,9 +81,12 @@ export class ExtraModalContainer extends React.Component {
         let title = 'A link to the file is being generated.';
         let animate = true;
 
+        let done = false;
+
         if (data.location && data.location !== '') {
             title = 'A link to the file has been generated successfully.';
             animate = false;
+            done = true;
         }
 
         this.setState({
@@ -84,6 +94,13 @@ export class ExtraModalContainer extends React.Component {
             animate,
             message: data.status,
             location: data.location
+        }, () => {
+            if (!done && this.props.mounted) {
+                // keep checking every 30 seconds
+                this.statusChecker = window.setTimeout(() => {
+                    this.requestDownload();
+                }, 30 * 1000);
+            }
         });
     }
 
