@@ -104,10 +104,44 @@ export default class TreeMapCell extends React.Component {
     }
 
     mouseIn(set) {
-        this.props.toggleTooltip(set);
+        let newSet = {};
+        const width = (this.props.x1 - this.props.x0);
+        const height = (this.props.y1 - this.props.y0);
+        let hoverColor = "#F2B733";
+        if (this.props.chosen !== null && this.props.clickable) {
+            hoverColor = this.props.chosenColor;
+        }
+        if (set === 'mouseIn') {
+            newSet = {
+                cat: this.props.label,
+                value: this.props.value,
+                bgColor: hoverColor,
+                textClass: 'chosen',
+                xStart: this.props.x0,
+                yStart: this.props.y0,
+                width,
+                height,
+                total: this.props.total
+            };
+        }
+        else {
+            newSet = {
+                cat: 'none',
+                value: '',
+                bgColor: this.props.color,
+                textClass: '',
+                xStart: this.props.x0,
+                yStart: this.props.y0,
+                width,
+                height,
+                total: this.props.total
+            };
+        }
+
+        this.props.toggleTooltip(newSet);
         this.setState({
-            color: set.bgColor,
-            textClass: set.textClass
+            color: newSet.bgColor,
+            textClass: newSet.textClass
         });
     }
 
@@ -130,54 +164,28 @@ export default class TreeMapCell extends React.Component {
 
 
     render() {
-        const width = (this.props.x1 - this.props.x0);
-        const height = (this.props.y1 - this.props.y0);
+        let labelView = 'block';
+        let percentView = 'block';
         let bgColor = this.state.color;
-        let hoverColor = "#F2B733";
-        if (this.props.chosen !== null && this.props.clickable) {
-            hoverColor = this.props.chosenColor;
-        }
         if (this.props.chosen === this.state.label) {
             bgColor = this.props.chosenColor;
         }
-        let labelView = 'block';
-        let percentView = 'block';
+        const width = (this.props.x1 - this.props.x0);
+        const height = (this.props.y1 - this.props.y0);
         if (height < 26 || width < 50) {
             labelView = 'none';
         }
         if (height < 40 || width < 60) {
             percentView = 'none';
         }
-        const mouseInSet = {
-            cat: this.props.label,
-            value: this.props.value,
-            bgColor: hoverColor,
-            textClass: 'chosen',
-            xStart: this.props.x0,
-            yStart: this.props.y0,
-            width,
-            height,
-            total: this.props.total
-        };
-        const mouseOutSet = {
-            cat: 'none',
-            value: '',
-            bgColor: this.props.color,
-            textClass: '',
-            xStart: this.props.x0,
-            yStart: this.props.y0,
-            width,
-            height,
-            total: this.props.total
-        };
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
                 onMouseEnter={() => {
-                    this.mouseIn(mouseInSet);
+                    this.mouseIn('mouseIn');
                 }}
                 onMouseLeave={() => {
-                    this.mouseIn(mouseOutSet);
+                    this.mouseIn('mouseOut');
                 }}
                 onClick={() => {
                     if (this.props.clickable === true) {

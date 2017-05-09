@@ -251,7 +251,7 @@ export default class TreeMap extends React.Component {
             this.setState({
                 showSub: false
             });
-            this.buildTree(this.props.categories, this.props.colors, this.state.selected, false);
+            this.buildTree(this.props.categories, this.props.colors, null, false);
         }
 
         if (direction === 'left') {
