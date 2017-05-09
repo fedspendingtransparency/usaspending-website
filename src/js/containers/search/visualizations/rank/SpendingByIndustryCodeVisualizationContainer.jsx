@@ -1,7 +1,8 @@
 /**
- * SpendingByAwardingAgencyVisualizationContainer.jsx
- * Created by Kevin Li 2/9/17
+ * SpendingByIndustryCodeVisualizationContainer.jsx
+ * Created by Kevin Li 5/4/17
  */
+
 
 import React from 'react';
 import { bindActionCreators } from 'redux';
@@ -9,13 +10,18 @@ import { connect } from 'react-redux';
 
 import _ from 'lodash';
 
-import SpendingByAgencySection from
-    'components/search/visualizations/rank/sections/SpendingByAgencySection';
+import SpendingByIndustryCodeSection from
+    'components/search/visualizations/rank/sections/SpendingByIndustryCodeSection';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+
+import * as FilterFields from 'dataMapping/search/filterFields';
+
+import * as AwardTypeQuery from 'models/search/queryBuilders/AwardTypeQuery';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
 import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
@@ -27,7 +33,7 @@ const propTypes = {
     awardFiltersSelected: React.PropTypes.bool
 };
 
-export class SpendingByAwardingAgencyVisualizationContainer extends React.Component {
+export class SpendingByIndustryCodeVisualizationContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -37,7 +43,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
             dataSeries: [],
             descriptions: [],
             page: 1,
-            agencyScope: 'toptier',
+            scope: 'psc',
             next: '',
             previous: '',
             hasNextPage: false,
@@ -55,14 +61,16 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
+        if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)
+            || (prevProps.budgetFiltersSelected !== this.props.budgetFiltersSelected)
+            || (prevProps.awardFiltersSelected !== this.props.awardFiltersSelected)) {
             this.newSearch();
         }
     }
 
     changeScope(scope) {
         this.setState({
-            agencyScope: scope,
+            scope,
             page: 1,
             hasNextPage: false
         }, () => {
@@ -104,6 +112,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
             loading: true
         });
 
+        // Cancel API request if it exists
         if (this.apiRequest) {
             this.apiRequest.cancel();
         }
@@ -123,36 +132,49 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
         }
     }
 
-
     fetchUnfilteredRequest() {
-        this.fetchTransactions('Awarding agency vis - unfiltered');
+        this.fetchTransactions('Industry code rank vis - unfiltered');
     }
 
     fetchBudgetRequest() {
-        this.fetchAccountAwards('Awarding agency vis - budget filters');
+        this.fetchAccountAwards('Industry code rank vis - budget filters');
     }
 
     fetchAwardRequest() {
         // only award filters have been selected
-        this.fetchTransactions('Awarding agency vis - award filters');
+        this.fetchTransactions('Industry code rank vis - award filters');
     }
 
     fetchComboRequest() {
         // a combination of budget and award filters have been selected
-        this.fetchAccountAwards('Awarding agency vis - combination');
+        this.fetchAccountAwards('Industry code rank vis - combination');
     }
 
     fetchTransactions(auditTrail = null) {
-        // Create Search Operation
-        const operation = new SearchTransactionOperation();
+        const field = 'federal_action_obligation';
+        let group = [FilterFields.transactionFields.psc];
 
+        if (this.state.scope === 'naics') {
+            group = [
+                FilterFields.transactionFields.naics,
+                FilterFields.transactionFields.naicsDescription
+            ];
+        }
+
+        const operation = new SearchTransactionOperation();
+        // Add filters to Search Operation
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
-        // generate the API parameters
+        // because industry codes are only available for contracts, restrict the query to only
+        // contract types
+        const contractFilter = AwardTypeQuery.buildQuery(awardTypeGroups.contracts, 'transaction');
+        searchParams.push(contractFilter);
+
+        // Generate the API parameters
         const apiParams = {
-            field: 'federal_action_obligation',
-            group: `awarding_agency__${this.state.agencyScope}_agency__name`,
+            field,
+            group,
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -165,9 +187,10 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
         }
 
         this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data);
+                this.parseData(res.data, group);
                 this.apiRequest = null;
             })
             .catch(() => {
@@ -176,15 +199,32 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
     }
 
     fetchAccountAwards(auditTrail = null) {
-         // Create Search Operation
-        const operation = new SearchAccountAwardsOperation();
+        // only budget filters have been selected
+        const field = 'transaction_obligated_amount';
+        let group = [FilterFields.accountAwardsFields.psc];
 
+        if (this.state.scope === 'naics') {
+            group = [
+                FilterFields.accountAwardsFields.naics,
+                FilterFields.accountAwardsFields.naicsDescription
+            ];
+        }
+
+        // generate the API parameters
+        const operation = new SearchAccountAwardsOperation();
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
-        // generate the API parameters
+
+        // because industry codes are only available for contracts, restrict the query to only
+        // contract types
+        const contractFilter = AwardTypeQuery.buildQuery(
+            awardTypeGroups.contracts, 'accountAwards');
+        searchParams.push(contractFilter);
+
+        // Generate the API parameters
         const apiParams = {
-            field: 'transaction_obligated_amount',
-            group: `award__awarding_agency__${this.state.agencyScope}_agency__name`,
+            field,
+            group,
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -197,9 +237,10 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
         }
 
         this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
+
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data);
+                this.parseData(res.data, group);
                 this.apiRequest = null;
             })
             .catch(() => {
@@ -207,17 +248,38 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
             });
     }
 
-    parseData(data) {
+    parseData(data, labelFields) {
         const labelSeries = [];
         const dataSeries = [];
         const descriptions = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            labelSeries.push(item.item);
+            let label = '';
+            if (labelFields.length === 1) {
+                label = item[labelFields];
+            }
+            else {
+                const key = item[labelFields[0]];
+                const value = item[labelFields[1]];
+                if (key && value) {
+                    label = `${item[labelFields[0]]}: ${item[labelFields[1]]}`;
+                }
+                else if (key) {
+                    label = key;
+                }
+                else if (value) {
+                    label = value;
+                }
+                else {
+                    label = '';
+                }
+            }
+
+            labelSeries.push(label);
             dataSeries.push(parseFloat(item.aggregate));
 
-            const description = `Spending by ${item.item}: \
+            const description = `Spending by ${label}: \
 ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
             descriptions.push(description);
         });
@@ -236,18 +298,17 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
 
     render() {
         return (
-            <SpendingByAgencySection
+            <SpendingByIndustryCodeSection
                 {...this.state}
                 meta={this.props.meta}
                 changeScope={this.changeScope}
                 nextPage={this.nextPage}
-                previousPage={this.previousPage}
-                agencyType="awarding" />
+                previousPage={this.previousPage} />
         );
     }
 }
 
-SpendingByAwardingAgencyVisualizationContainer.propTypes = propTypes;
+SpendingByIndustryCodeVisualizationContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -255,4 +316,4 @@ export default connect(
         meta: state.resultsMeta.toJS()
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
-)(SpendingByAwardingAgencyVisualizationContainer);
+)(SpendingByIndustryCodeVisualizationContainer);

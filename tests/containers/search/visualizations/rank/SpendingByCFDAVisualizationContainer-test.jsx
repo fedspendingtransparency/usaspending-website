@@ -1,6 +1,6 @@
 /**
- * SpendingByFundingAgencyVisualizationContainer-test.jsx
- * Created by Kevin Li 2/12/17
+ * SpendingByCFDAVisualizationContainer-test.jsx
+ * Created by Kevin li 5/5/17
  */
 
 import React from 'react';
@@ -9,10 +9,10 @@ import sinon from 'sinon';
 
 import { Set } from 'immutable';
 
-import { SpendingByFundingAgencyVisualizationContainer } from
-    'containers/search/visualizations/rank/SpendingByFundingAgencyVisualizationContainer';
-import SpendingByAgencySection from
-    'components/search/visualizations/rank/sections/SpendingByAgencySection';
+import { SpendingByCFDAVisualizationContainer } from
+    'containers/search/visualizations/rank/SpendingByCFDAVisualizationContainer';
+import SpendingByCFDASection from
+    'components/search/visualizations/rank/sections/SpendingByCFDASection';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
@@ -23,7 +23,8 @@ import { mockComponent, unmockComponent } from '../../../../testResources/mockCo
 global.Promise = require.requireActual('promise');
 
 // spy on specific functions inside the component
-const fetchDataSpy = sinon.spy(SpendingByFundingAgencyVisualizationContainer.prototype, 'fetchData');
+const fetchDataSpy = sinon.spy(SpendingByCFDAVisualizationContainer.prototype,
+    'fetchData');
 
 // we don't want to actually hit the API because tests should be fully controlled, so we will mock
 // the SearchHelper functions
@@ -59,13 +60,13 @@ const unmockSearchHelper = () => {
     jest.unmock('helpers/searchHelper');
 };
 
-describe('SpendingByFundingAgencyVisualizationContainer', () => {
+describe('SpendingByCFDAVisualizationContainer', () => {
     beforeAll(() => {
         // we need to use mount() on the container to get the lifecycle logic, but enzyme doesn't
         // support the child component's SVG manipulation methods. This replaces all the child
         // component's lifecycle methods with mocked functions to avoid traversal into the SVG
         // components.
-        mockComponent(SpendingByAgencySection);
+        mockComponent(SpendingByCFDASection);
     });
 
     it('should make an API request on mount', () => {
@@ -80,12 +81,16 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             },
             results: [
                 {
-                    item: 'First Agency',
-                    aggregate: '456'
+                    item: '93.778',
+                    aggregate: '66681011412.00',
+                    assistance_data__cfda_number: '93.778',
+                    assistance_data__cfda_title: 'Medical Assistance Program'
                 },
                 {
-                    item: 'Second Agency',
-                    aggregate: '123'
+                    item: '93.774',
+                    aggregate: '152',
+                    assistance_data__cfda_number: '93.774',
+                    assistance_data__cfda_title: 'Medicare_Supplementary Medical Insurance'
                 }
             ]
         };
@@ -95,7 +100,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
 
         // mount the container
         const container =
-            mount(<SpendingByFundingAgencyVisualizationContainer
+            mount(<SpendingByCFDAVisualizationContainer
                 reduxFilters={defaultFilters} />);
 
         // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
@@ -124,12 +129,16 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             },
             results: [
                 {
-                    item: 'First Agency',
-                    aggregate: '456'
+                    item: '93.778',
+                    aggregate: '66681011412.00',
+                    award__transaction__assistance_data__cfda_number: '93.778',
+                    award__transaction__assistance_data__cfda_title: 'Medical Assistance Program'
                 },
                 {
-                    item: 'Second Agency',
-                    aggregate: '123'
+                    item: '93.774',
+                    aggregate: '152',
+                    award__transaction__assistance_data__cfda_number: '93.774',
+                    award__transaction__assistance_data__cfda_title: 'Medicare_Supplementary Medical Insurance'
                 }
             ]
         };
@@ -145,7 +154,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
 
         // mount the container
         const container =
-            mount(<SpendingByFundingAgencyVisualizationContainer
+            mount(<SpendingByCFDAVisualizationContainer
                 reduxFilters={initialFilters} />);
 
         // wait for the first SearchHelper call to finish
@@ -186,24 +195,27 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
                     next: null,
                     previous: null
                 },
-                results: [{
-                    item: 'First Agency',
-                    aggregate: '456'
-                },
-                {
-                    item: 'Second Agency',
-                    aggregate: '123'
-                }],
-                total_metadata: {
-                    count: 2
-                }
+                results: [
+                    {
+                        item: '93.778',
+                        aggregate: '66681011412.00',
+                        assistance_data__cfda_number: '93.778',
+                        assistance_data__cfda_title: 'Medical Assistance Program'
+                    },
+                    {
+                        item: '93.774',
+                        aggregate: '152',
+                        assistance_data__cfda_number: '93.774',
+                        assistance_data__cfda_title: 'Medicare_Supplementary Medical Insurance'
+                    }
+                ]
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
+                mount(<SpendingByCFDAVisualizationContainer
                     reduxFilters={defaultFilters} />);
 
             // wait for the SearchHelper promises to resolve
@@ -211,11 +223,12 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             // validate the state contains the correctly parsed values
             const expectedState = {
                 loading: false,
-                labelSeries: ['First Agency', 'Second Agency'],
-                dataSeries: [456, 123],
-                descriptions: ['Spending by First Agency: $456', 'Spending by Second Agency: $123'],
+                labelSeries: ['Medical Assistance Program', 'Medicare_Supplementary Medical Insurance'],
+                dataSeries: [66681011412.00, 152],
+                descriptions: [
+                    'Spending by Medical Assistance Program: $66,681,011,412',
+                    'Spending by Medicare_Supplementary Medical Insurance: $152'],
                 page: 1,
-                agencyScope: 'toptier',
                 hasNextPage: false,
                 hasPreviousPage: false,
                 next: null,
@@ -237,24 +250,14 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
                     next: "checksum",
                     previous: null
                 },
-                results: [
-                    {
-                        item: 'First Agency',
-                        aggregate: '456'
-                    },
-                    {
-                        item: 'Second Agency',
-                        aggregate: '123'
-                    }
-                ]
+                results: []
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
-
             // mount the container
             const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
+                mount(<SpendingByCFDAVisualizationContainer
                     reduxFilters={defaultFilters} />);
 
             // initial state should be page 1
@@ -282,24 +285,14 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
                     next: "checksum",
                     previous: null
                 },
-                results: [{
-                    funding_agency__toptier_agency__name: 'First Agency',
-                    aggregate: '456'
-                },
-                {
-                    funding_agency__toptier_agency__name: 'Second Agency',
-                    aggregate: '123'
-                }],
-                total_metadata: {
-                    count: 200
-                }
+                results: []
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
+                mount(<SpendingByCFDAVisualizationContainer
                     reduxFilters={defaultFilters} />);
             container.setState({
                 page: 5,
@@ -308,7 +301,6 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             });
 
             // wait for the SearchHelper promises to resolve
-            jest.runAllTicks();
 
             // we have simulated a starting state of page 5
             expect(container.state().page).toEqual(5);
@@ -328,31 +320,20 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
                     next: "checksum",
                     previous: null
                 },
-                results: [{
-                    funding_agency__toptier_agency__name: 'First Agency',
-                    aggregate: '456'
-                },
-                {
-                    funding_agency__toptier_agency__name: 'Second Agency',
-                    aggregate: '123'
-                }],
-                total_metadata: {
-                    count: 200
-                }
+                results: []
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
+                mount(<SpendingByCFDAVisualizationContainer
                     reduxFilters={defaultFilters} />);
             container.setState({
                 page: 1
             });
 
             // wait for the SearchHelper promises to resolve
-            jest.runAllTicks();
 
             // we have simulated a starting state of page 5
             expect(container.state().page).toEqual(1);
@@ -365,28 +346,6 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
 
     describe('newSearch', () => {
         it('when Redux filters change, the page number should reset to 1', () => {
-            // create a mock API response
-            const apiResponse = {
-                page_metadata: {
-                    page: 1,
-                    has_next_page: true,
-                    has_previous_page: false,
-                    next: "checksum",
-                    previous: null
-                },
-                results: [{
-                    funding_agency__toptier_agency__name: 'First Agency',
-                    aggregate: '456'
-                },
-                {
-                    funding_agency__toptier_agency__name: 'Second Agency',
-                    aggregate: '123'
-                }],
-                total_metadata: {
-                    count: 200
-                }
-            };
-
             const initialFilters = Object.assign({}, defaultFilters);
             const secondFilters = Object.assign({}, defaultFilters, {
                 timePeriodType: 'fy',
@@ -395,7 +354,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
 
             // mount the container
             const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
+                mount(<SpendingByCFDAVisualizationContainer
                     reduxFilters={initialFilters} />);
             container.setState({
                 page: 5,
@@ -416,41 +375,8 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
         });
     });
 
-    describe('changeScope', () => {
-        it('should change the agency scope to the provided value', () => {
-            const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
-                    reduxFilters={defaultFilters} />);
-
-            // the default scope should be toptier
-            expect(container.state().agencyScope).toEqual('toptier');
-
-            // change the scope to subtier
-            container.instance().changeScope('subtier');
-            expect(container.state().agencyScope).toEqual('subtier');
-        });
-
-        it('should reset the page number to 1 when the agency scope changes', () => {
-            const container =
-                mount(<SpendingByFundingAgencyVisualizationContainer
-                    reduxFilters={defaultFilters} />);
-            container.setState({
-                page: 5
-            });
-
-            // the default scope should be toptier
-            expect(container.state().agencyScope).toEqual('toptier');
-            expect(container.state().page).toEqual(5);
-
-            // change the scope to subtier
-            container.instance().changeScope('subtier');
-            expect(container.state().agencyScope).toEqual('subtier');
-            expect(container.state().page).toEqual(1);
-        });
-    });
-
     afterAll(() => {
         // restore the mocked component's lifecycle functions
-        unmockComponent(SpendingByAgencySection);
+        unmockComponent(SpendingByCFDASection);
     });
 });
