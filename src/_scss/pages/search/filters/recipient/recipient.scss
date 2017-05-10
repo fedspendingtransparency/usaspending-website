@@ -11,8 +11,8 @@
     }
 
     .recipient-radio {
+        margin: 2rem 0;
         padding-left: 3rem;
-
         p {
             color: $color-gray;
             font-size: $small-font-size;
@@ -28,7 +28,6 @@
                 margin-left: 0.75rem;
             }
             &:not(:last-child) {
-                border-right: 1px solid rgba(0,0,0,0.3);
                 padding-right: 1rem;
                 margin-right: 1rem;
             }
@@ -45,7 +44,7 @@
     }
 
     .pop-typeahead {
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
         padding-left: 3rem;
 
         .funding {

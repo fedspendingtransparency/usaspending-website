@@ -26,7 +26,6 @@
                 margin-left: 0.75rem;
             }
             &:not(:last-child) {
-                border-right: 1px solid rgba(0,0,0,0.3);
                 padding-right: 1rem;
                 margin-right: 1rem;
             }
@@ -43,7 +42,7 @@
     }
 
     .pop-typeahead {
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
 
         .usa-da-typeahead {
             margin: 3rem 0 1rem;

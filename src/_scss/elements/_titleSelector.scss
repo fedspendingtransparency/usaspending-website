@@ -1,18 +1,20 @@
     .field-picker {
         float: left;
         clear: none;
+        line-height: normal;
         .selected-button {
             @include button-unstyled;
             @extend h3;
             font-weight: $font-light;
             border-bottom: rem(1) solid $color-gray-light;
-            padding-left: rem(10);
-            padding-right: rem(10);
+            line-height: normal;
             .label {
                 display: inline-block;
+                line-height: normal;
             }
             .arrow-icon {
                 display: inline-block;
+                line-height: normal;
                 width: rem(14);
                 margin-left: rem(10);
                 svg {

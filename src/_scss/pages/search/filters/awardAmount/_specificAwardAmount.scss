@@ -65,5 +65,18 @@
                 margin: 2.0rem 0 0 0;
             }
         }
+
+        ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+          opacity: 0.5;
+        }
+        ::-moz-placeholder { /* Firefox 19+ */
+          opacity: 0.5;
+        }
+        :-ms-input-placeholder { /* IE 10+ */
+          opacity: 0.5;
+        }
+        :-moz-placeholder { /* Firefox 18- */
+          opacity: 0.5;
+        }
     }
 }
