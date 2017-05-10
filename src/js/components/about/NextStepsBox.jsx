@@ -44,7 +44,7 @@ export default class NextStepsBox extends React.Component {
     }
 
     render() {
-        let disabled = '';
+        const disabled = '';
         let link = (
             <a href={this.props.linkUrl}>
                 <button className="usa-button-outline" aria-label={this.props.ariaLabel} title={this.props.title}>
