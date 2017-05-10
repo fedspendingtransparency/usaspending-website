@@ -168,8 +168,8 @@ export default class CategoryMap extends React.Component {
         }
         return (<div className="by-category-section-wrap">
             <div className="inner-wrap">
-                <h3>About <strong>3/4</strong> of the total spending was awarded to state and
-                    local governments, private contractors, individuals, and others.</h3>
+                <h3>About <strong>3/4</strong> of total spending was awarded to individuals,
+                 private contractors, and local governments.</h3>
                 { line }
                 <div className="by-category-vis">
                     { this.createTooltip() }

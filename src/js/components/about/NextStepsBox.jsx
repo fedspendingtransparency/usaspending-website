@@ -5,7 +5,6 @@
 
 import React from 'react';
 import * as AboutIcons from 'components/sharedComponents/icons/about/AboutIcons';
-import * as Icons from 'components/sharedComponents/icons/Icons';
 
 
 const propTypes = {
@@ -25,8 +24,8 @@ export default class NextStepsBox extends React.Component {
     switchIcon() {
         let icon = this.props.icon;
         switch (icon) {
-            case 'guide':
-                icon = (<Icons.Guide className="usa-da-icon-guide" />);
+            case 'faq':
+                icon = (<AboutIcons.QAIcon className="usa-da-qa-icon" />);
                 break;
             case 'contact':
                 icon = (<AboutIcons.ContactIcon className="usa-da-contact-icon" />);
@@ -54,9 +53,7 @@ export default class NextStepsBox extends React.Component {
             </a>
         );
 
-        if (this.props.icon === 'download' ||
-            this.props.icon === 'next') {
-            disabled = ' disabled'
+        if (this.props.icon === '') {
             link = (
                 <button className="usa-button-disabled-outline">
                     Coming Soon...
