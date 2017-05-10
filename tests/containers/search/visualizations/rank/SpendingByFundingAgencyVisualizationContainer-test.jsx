@@ -135,7 +135,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
         };
 
         // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+        mockSearchHelper('performFinancialAccountAggregation', 'resolve', apiResponse);
 
         const initialFilters = Object.assign({}, defaultFilters);
         const secondFilters = Object.assign({}, defaultFilters, {
@@ -200,7 +200,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             };
 
             // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+            mockSearchHelper('performFinancialAccountAggregation', 'resolve', apiResponse);
             // mount the container
             const container =
                 mount(<SpendingByFundingAgencyVisualizationContainer
@@ -250,7 +250,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             };
 
             // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+            mockSearchHelper('performFinancialAccountAggregation', 'resolve', apiResponse);
 
             // mount the container
             const container =
@@ -296,7 +296,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             };
 
             // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+            mockSearchHelper('performFinancialAccountAggregation', 'resolve', apiResponse);
             // mount the container
             const container =
                 mount(<SpendingByFundingAgencyVisualizationContainer
@@ -342,7 +342,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             };
 
             // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+            mockSearchHelper('performFinancialAccountAggregation', 'resolve', apiResponse);
             // mount the container
             const container =
                 mount(<SpendingByFundingAgencyVisualizationContainer

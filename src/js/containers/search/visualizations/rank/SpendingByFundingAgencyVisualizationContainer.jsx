@@ -17,7 +17,6 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
 import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
 
 const propTypes = {
@@ -125,7 +124,7 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
 
     fetchUnfilteredRequest() {
-        this.fetchTransactions('Funding agency vis - unfiltered');
+        this.fetchAccountAwards('Funding agency vis - unfiltered');
     }
 
     fetchBudgetRequest() {
@@ -134,45 +133,12 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
     fetchAwardRequest() {
         // only award filters have been selected
-        this.fetchTransactions('Funding agency vis - award filters');
+        this.fetchAccountAwards('Funding agency vis - award filters');
     }
 
     fetchComboRequest() {
         // a combination of budget and award filters have been selected
         this.fetchAccountAwards('Funding agency vis - combination');
-    }
-
-    fetchTransactions(auditTrail = null) {
-        // Create Search Operation
-        const operation = new SearchTransactionOperation();
-
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-
-        // generate the API parameters
-        const apiParams = {
-            field: 'federal_action_obligation',
-            group: `funding_agency__${this.state.agencyScope}_agency__name`,
-            order: ['-aggregate'],
-            aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
-        };
-
-        if (auditTrail) {
-            apiParams.auditTrail = auditTrail;
-        }
-
-        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data);
-                this.apiRequest = null;
-            })
-            .catch(() => {
-                this.apiRequest = null;
-            });
     }
 
     fetchAccountAwards(auditTrail = null) {
