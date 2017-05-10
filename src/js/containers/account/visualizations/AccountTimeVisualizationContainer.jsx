@@ -107,7 +107,8 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                             'submission__reporting_fiscal_quarter'],
                         field: balanceFieldsFiltered[balanceType],
                         aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year']
+                        order: ['submission__reporting_fiscal_year'],
+                        auditTrail: `Spending over Time (quarters) - obligated filter - ${balanceType}`
                     });
                     request.type = balanceType;
                     requests.push(request);
@@ -122,7 +123,8 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                             'submission__reporting_fiscal_quarter'],
                         field: balanceFieldsNonfiltered[balanceType],
                         aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year']
+                        order: ['submission__reporting_fiscal_year'],
+                        auditTrail: `Spending over Time (quarters) - obligated filter - ${balanceType}`
                     });
                     request.type = balanceType;
                     requests.push(request);
@@ -138,7 +140,8 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                             'submission__reporting_fiscal_quarter'],
                         field: balanceFields[balanceType],
                         aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year']
+                        order: ['submission__reporting_fiscal_year'],
+                        auditTrail: `Spending over Time (quarters) - non-obligated filter - ${balanceType}`
                     });
 
                     request.type = balanceType;
@@ -157,7 +160,8 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                         group: ['submission__reporting_fiscal_year'],
                         field: balanceFieldsFiltered[balanceType],
                         aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year']
+                        order: ['submission__reporting_fiscal_year'],
+                        auditTrail: `Spending over Time (years) - obligated filter - ${balanceType}`
                     });
                     request.type = balanceType;
                     requests.push(request);
@@ -171,7 +175,8 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                         group: ['submission__reporting_fiscal_year'],
                         field: balanceFieldsNonfiltered[balanceType],
                         aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year']
+                        order: ['submission__reporting_fiscal_year'],
+                        auditTrail: `Spending over Time (years) - obligated filter - ${balanceType}`
                     });
                     request.type = balanceType;
                     requests.push(request);
@@ -186,7 +191,8 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                         group: ['submission__reporting_fiscal_year'],
                         field: balanceFields[balanceType],
                         aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year']
+                        order: ['submission__reporting_fiscal_year'],
+                        auditTrail: `Spending over Time (years) - non-obligated filter - ${balanceType}`
                     });
 
                     request.type = balanceType;
