@@ -18,6 +18,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
+import SearchTASCategoriesOperation from 'models/search/SearchTASCategoriesOperation';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object,
@@ -124,11 +125,11 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
 
     fetchUnfilteredRequest() {
-        this.fetchAccountAwards('Funding agency vis - unfiltered');
+        this.fetchTASCategories('Funding agency vis - unfiltered');
     }
 
     fetchBudgetRequest() {
-        this.fetchAccountAwards('Funding agency vis - budget filters');
+        this.fetchTASCategories('Funding agency vis - budget filters');
     }
 
     fetchAwardRequest() {
@@ -150,7 +151,7 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
         // generate the API parameters
         const apiParams = {
             field: 'transaction_obligated_amount',
-            group: `award__funding_agency__${this.state.agencyScope}_agency__name`,
+            group: `award__funding_agency__toptier_agency__name`,
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -163,6 +164,39 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
         }
 
         this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
+        this.apiRequest.promise
+            .then((res) => {
+                this.parseData(res.data);
+                this.apiRequest = null;
+            })
+            .catch(() => {
+                this.apiRequest = null;
+            });
+    }
+
+    fetchTASCategories(auditTrail = null) {
+        // Create Search Operation
+        const operation = new SearchTASCategoriesOperation();
+        operation.fromState(this.props.reduxFilters);
+        const searchParams = operation.toParams();
+
+        // Generate the API parameters
+        // TODO: Mike Bray - Update group to the new Agency name linkage once it's available
+        const apiParams = {
+            field: 'obligations_incurred_by_program_object_class_cpe',
+            group: 'treasury_account__agency_id',
+            order: ['-aggregate'],
+            aggregate: 'sum',
+            filters: searchParams,
+            limit: 5,
+            page: this.state.page
+        };
+
+        if (auditTrail) {
+            apiParams.auditTrail = auditTrail;
+        }
+
+        this.apiRequest = SearchHelper.performCategorySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);
@@ -208,7 +242,8 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
                 changeScope={this.changeScope}
                 nextPage={this.nextPage}
                 previousPage={this.previousPage}
-                agencyType="funding" />
+                agencyType="funding"
+                hideSuboptionBar="hide" />
         );
     }
 }
