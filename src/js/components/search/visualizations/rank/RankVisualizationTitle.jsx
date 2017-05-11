@@ -14,6 +14,7 @@ const propTypes = {
     currentSpendingBy: React.PropTypes.string
 };
 
+// TODO: Mike Bray - Add Funding Agency (funding_agency) as the 3rd item when backend ready
 const defaultProps = {
     fieldTypes: [
         {
@@ -23,10 +24,6 @@ const defaultProps = {
         {
             label: 'Awarding Agency',
             value: 'awarding_agency'
-        },
-        {
-            label: 'Funding Agency',
-            value: 'funding_agency'
         },
         {
             label: 'Recipient',
