@@ -1,4 +1,4 @@
-@mixin headerNavMenuButton {
+.usa-menu-btn {
     @include button-unstyled;
     background-color: $color-primary;
     color: $color-white;

@@ -1,27 +1,25 @@
 /**
- * SpendingByCategoryRankVisualizationSection.jsx
- * Created by Kevin Li 12/13/16
- **/
+  * RankVisualizationSection.jsx
+  * Created by Kevin Li 12/13/16
+  **/
 
 import React from 'react';
 import _ from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
-import RankVisualization from './RankVisualization';
-import RankVisualizationScopeButton from './RankVisualizationScopeButton';
+import RankVisualization from '../RankVisualization';
 
 const propTypes = {
-    scope: React.PropTypes.string,
-    changeScope: React.PropTypes.func,
     nextPage: React.PropTypes.func,
     previousPage: React.PropTypes.func,
     loading: React.PropTypes.bool,
     hasNextPage: React.PropTypes.bool,
-    hasPreviousPage: React.PropTypes.bool
+    hasPreviousPage: React.PropTypes.bool,
+    children: React.PropTypes.node
 };
 
-export default class SpendingByCategoryRankVisualizationSection extends React.Component {
+export default class RankVisualizationSection extends React.Component {
     constructor(props) {
         super(props);
 
@@ -82,48 +80,13 @@ export default class SpendingByCategoryRankVisualizationSection extends React.Co
                     ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
-                <div className="visualization-top">
-                    <div className="visualization-description">
-                        <div className="content">
-                            View a list of the top Budget Categories from highest to lowest. Filter
-                            your results more (at left) and watch this graph update automatically.
-                            View your results in a bar graph or a tree map.
-                        </div>
-                    </div>
-                    <div className="visualization-period">
-                        <div className="content">
-                            <ul>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="budgetFunctions"
-                                        label="Budget Functions"
-                                        active={this.props.scope === 'budgetFunctions'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="federalAccounts"
-                                        label="Federal Accounts"
-                                        active={this.props.scope === 'federalAccounts'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="objectClasses"
-                                        label="Object Classes"
-                                        active={this.props.scope === 'objectClasses'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+
+                {this.props.children}
 
                 <RankVisualization
                     {...this.props}
                     {...this.state}
-                    width={this.state.visualizationWidth}
-                    urlRoot="#/federal_account/" />
+                    width={this.state.visualizationWidth} />
 
                 <div className={`visualization-pager-container ${hidePager}`}>
                     <button
@@ -162,4 +125,4 @@ export default class SpendingByCategoryRankVisualizationSection extends React.Co
     }
 }
 
-SpendingByCategoryRankVisualizationSection.propTypes = propTypes;
+RankVisualizationSection.propTypes = propTypes;
