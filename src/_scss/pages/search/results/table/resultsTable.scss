@@ -27,18 +27,17 @@
     }
 
     .table-section-header {
-        @include clearfix();
+        @include display(flex);
+        @include flex-direction(row);
+        @include align-items(center);
+        @include justify-content(center);
 
         h3 {
-            @include media($tablet-screen) {
-                float: left
-            }
+            @include flex(1 1 auto);
         }
 
         button.action-modal {
-            @include media($tablet-screen) {
-                float: right;
-            }
+            @include flex(0 0 auto);
 
             border: 1px solid $color-gray-lighter;
             background-color: $color-white;

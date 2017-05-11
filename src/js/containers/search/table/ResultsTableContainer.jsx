@@ -66,7 +66,7 @@ const tableTypes = [
     }
 ];
 
-class ResultsTableContainer extends React.Component {
+export class ResultsTableContainer extends React.Component {
     constructor(props) {
         super(props);
 

@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { isCancel } from 'axios';
 
 import ExtraModal from 'components/search/modals/ExtraModal';
 
@@ -66,13 +67,22 @@ export class ExtraModalContainer extends React.Component {
                 this.parseReponse(res.data);
             })
             .catch((err) => {
-                if (err.response && err.response.data && err.response.data.status) {
-                    this.setState({
-                        title: 'An error occurred while generating the file.',
-                        message: err.response.data.status,
-                        location: 'dddd',
-                        animate: false
-                    });
+                if (!isCancel(err)) {
+                    if (err.response && err.response.data) {
+                        let message = `Error: ${err.response.statusText} (${err.response.status})`;
+                        if (err.response.data.status) {
+                            message = err.response.data.status;
+                        }
+
+                        this.setState({
+                            message,
+                            title: 'An error occurred while generating the file.',
+                            location: '',
+                            animate: false
+                        });
+                    }
+
+                    console.log(err);
                 }
             });
     }

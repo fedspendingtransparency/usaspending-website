@@ -13,7 +13,7 @@ const initialValues = {
     queryId: uniqueId()
 };
 
-const BatchRecord = Record(initialValues);
+export const BatchRecord = Record(initialValues);
 
 const resultsBatchReducer = (state = new BatchRecord(), action) => {
     switch (action.type) {
