@@ -10,8 +10,6 @@ import sinon from 'sinon';
 import * as SearchHelper from 'helpers/searchHelper';
 import { ResultsTableContainer } from 'containers/search/table/ResultsTableContainer';
 
-import SearchOperation from 'models/search/SearchOperation';
-
 import { MetaRecord } from 'redux/reducers/resultsMeta/resultsMetaReducer';
 import { OrderRecord } from 'redux/reducers/search/searchOrderReducer';
 import { mockActions, mockRedux, mockApi } from './mockAwards';

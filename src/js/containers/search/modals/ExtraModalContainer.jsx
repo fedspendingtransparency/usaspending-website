@@ -64,7 +64,7 @@ export class ExtraModalContainer extends React.Component {
 
         this.request.promise
             .then((res) => {
-                this.parseReponse(res.data);
+                this.parseResponse(res.data);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -87,7 +87,7 @@ export class ExtraModalContainer extends React.Component {
             });
     }
 
-    parseReponse(data) {
+    parseResponse(data) {
         let title = 'A link to the file is being generated.';
         let animate = true;
 
