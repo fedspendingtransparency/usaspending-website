@@ -1,4 +1,4 @@
-@mixin defaultHeaderWarning {
+.warning-banner-wrap {
     background: as-alpha($color-gold-lightest, 0.95);
     min-height: rem(60);
     overflow: hidden;

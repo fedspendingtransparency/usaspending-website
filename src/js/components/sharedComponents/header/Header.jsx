@@ -1,5 +1,7 @@
 import React from 'react';
 
+import GuideContainer from 'containers/guide/GuideContainer';
+
 import WarningBanner from './WarningBanner';
 import NavBar from './NavBar';
 
@@ -18,7 +20,7 @@ export default class Header extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className="site-header">
                 <a
                     href="#main-content"
                     className="skip-nav"
@@ -29,6 +31,7 @@ export default class Header extends React.Component {
                     <WarningBanner />
                     <NavBar />
                 </header>
+                <GuideContainer />
             </div>
         );
     }

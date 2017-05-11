@@ -9,8 +9,8 @@ import { connect } from 'react-redux';
 
 import _ from 'lodash';
 
-import SpendingByCategoryRankVisualizationSection from
-    'components/search/visualizations/rank/SpendingByCategoryRankVisualizationSection';
+import SpendingByCategorySection from
+    'components/search/visualizations/rank/sections/SpendingByCategorySection';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -271,7 +271,7 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
 
     render() {
         return (
-            <SpendingByCategoryRankVisualizationSection
+            <SpendingByCategorySection
                 {...this.state}
                 meta={this.props.meta}
                 changeScope={this.changeScope}

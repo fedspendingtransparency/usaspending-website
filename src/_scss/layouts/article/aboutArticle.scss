@@ -1,6 +1,5 @@
 .usa-da-about-article {
-    @import "../../layouts/article/article";
-    @include articleLayout;
+    @import "./article";
     .breadcrumbs {
         & ul {
             list-style: none;
