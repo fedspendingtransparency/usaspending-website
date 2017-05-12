@@ -17,7 +17,7 @@ export default class Header extends React.Component {
                                 rel="noopener noreferrer">
                                 USAspending.gov
                             </a>.
-                            Data from the current&nbsp;
+                            Spending data from before 2017 at the current&nbsp;
                             <a
                                 href="https://www.usaspending.gov"
                                 target="_blank"

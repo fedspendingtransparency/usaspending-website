@@ -11,8 +11,8 @@ import { Set } from 'immutable';
 
 import { SpendingByFundingAgencyVisualizationContainer } from
     'containers/search/visualizations/rank/SpendingByFundingAgencyVisualizationContainer';
-import RankVisualizationSection from
-    'components/search/visualizations/rank/RankVisualizationSection';
+import SpendingByAgencySection from
+    'components/search/visualizations/rank/sections/SpendingByAgencySection';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
@@ -65,7 +65,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
         // support the child component's SVG manipulation methods. This replaces all the child
         // component's lifecycle methods with mocked functions to avoid traversal into the SVG
         // components.
-        mockComponent(RankVisualizationSection);
+        mockComponent(SpendingByAgencySection);
     });
 
     it('should make an API request on mount', () => {
@@ -135,7 +135,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
         };
 
         // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+        mockSearchHelper('performCategorySearch', 'resolve', apiResponse);
 
         const initialFilters = Object.assign({}, defaultFilters);
         const secondFilters = Object.assign({}, defaultFilters, {
@@ -200,7 +200,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             };
 
             // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+            mockSearchHelper('performCategorySearch', 'resolve', apiResponse);
             // mount the container
             const container =
                 mount(<SpendingByFundingAgencyVisualizationContainer
@@ -250,7 +250,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             };
 
             // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+            mockSearchHelper('performCategorySearch', 'resolve', apiResponse);
 
             // mount the container
             const container =
@@ -296,7 +296,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             };
 
             // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+            mockSearchHelper('performCategorySearch', 'resolve', apiResponse);
             // mount the container
             const container =
                 mount(<SpendingByFundingAgencyVisualizationContainer
@@ -342,7 +342,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             };
 
             // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+            mockSearchHelper('performCategorySearch', 'resolve', apiResponse);
             // mount the container
             const container =
                 mount(<SpendingByFundingAgencyVisualizationContainer
@@ -451,6 +451,6 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
 
     afterAll(() => {
         // restore the mocked component's lifecycle functions
-        unmockComponent(RankVisualizationSection);
+        unmockComponent(SpendingByAgencySection);
     });
 });

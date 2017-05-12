@@ -1,6 +1,6 @@
 /**
- * SpendingByRecipientVisualizationContainer-test.jsx
- * Created by michaelbray on 4/7/17.
+ * SpendingByCFDAVisualizationContainer-test.jsx
+ * Created by Kevin li 5/5/17
  */
 
 import React from 'react';
@@ -9,10 +9,10 @@ import sinon from 'sinon';
 
 import { Set } from 'immutable';
 
-import { SpendingByRecipientVisualizationContainer } from
-    'containers/search/visualizations/rank/SpendingByRecipientVisualizationContainer';
-import SpendingByRecipientSection from
-    'components/search/visualizations/rank/sections/SpendingByRecipientSection';
+import { SpendingByCFDAVisualizationContainer } from
+    'containers/search/visualizations/rank/SpendingByCFDAVisualizationContainer';
+import SpendingByCFDASection from
+    'components/search/visualizations/rank/sections/SpendingByCFDASection';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
@@ -23,7 +23,7 @@ import { mockComponent, unmockComponent } from '../../../../testResources/mockCo
 global.Promise = require.requireActual('promise');
 
 // spy on specific functions inside the component
-const fetchDataSpy = sinon.spy(SpendingByRecipientVisualizationContainer.prototype,
+const fetchDataSpy = sinon.spy(SpendingByCFDAVisualizationContainer.prototype,
     'fetchData');
 
 // we don't want to actually hit the API because tests should be fully controlled, so we will mock
@@ -60,13 +60,13 @@ const unmockSearchHelper = () => {
     jest.unmock('helpers/searchHelper');
 };
 
-describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
+describe('SpendingByCFDAVisualizationContainer', () => {
     beforeAll(() => {
         // we need to use mount() on the container to get the lifecycle logic, but enzyme doesn't
         // support the child component's SVG manipulation methods. This replaces all the child
         // component's lifecycle methods with mocked functions to avoid traversal into the SVG
         // components.
-        mockComponent(SpendingByRecipientSection);
+        mockComponent(SpendingByCFDASection);
     });
 
     it('should make an API request on mount', () => {
@@ -81,14 +81,16 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             },
             results: [
                 {
-                    recipient__legal_entity_id: '1',
-                    recipient__recipient_name: 'Multiple Recipients',
-                    aggregate: '149620471458.92'
+                    item: '93.778',
+                    aggregate: '66681011412.00',
+                    assistance_data__cfda_number: '93.778',
+                    assistance_data__cfda_title: 'Medical Assistance Program'
                 },
                 {
-                    recipient__legal_entity_id: '113704139',
-                    recipient__recipient_name: 'Michigan',
-                    aggregate: '6684225478.00'
+                    item: '93.774',
+                    aggregate: '152',
+                    assistance_data__cfda_number: '93.774',
+                    assistance_data__cfda_title: 'Medicare_Supplementary Medical Insurance'
                 }
             ]
         };
@@ -98,7 +100,7 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
 
         // mount the container
         const container =
-            mount(<SpendingByRecipientVisualizationContainer
+            mount(<SpendingByCFDAVisualizationContainer
                 reduxFilters={defaultFilters} />);
 
         // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
@@ -127,14 +129,16 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             },
             results: [
                 {
-                    recipient__legal_entity_id: '1',
-                    recipient__recipient_name: 'Multiple Recipients',
-                    aggregate: '149620471458.92'
+                    item: '93.778',
+                    aggregate: '66681011412.00',
+                    award__transaction__assistance_data__cfda_number: '93.778',
+                    award__transaction__assistance_data__cfda_title: 'Medical Assistance Program'
                 },
                 {
-                    recipient__legal_entity_id: '113704139',
-                    recipient__recipient_name: 'Michigan',
-                    aggregate: '6684225478.00'
+                    item: '93.774',
+                    aggregate: '152',
+                    award__transaction__assistance_data__cfda_number: '93.774',
+                    award__transaction__assistance_data__cfda_title: 'Medicare_Supplementary Medical Insurance'
                 }
             ]
         };
@@ -150,7 +154,7 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
 
         // mount the container
         const container =
-            mount(<SpendingByRecipientVisualizationContainer
+            mount(<SpendingByCFDAVisualizationContainer
                 reduxFilters={initialFilters} />);
 
         // wait for the first SearchHelper call to finish
@@ -193,14 +197,16 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
                 },
                 results: [
                     {
-                        recipient__legal_entity_id: '1',
-                        recipient__recipient_name: 'Multiple Recipients',
-                        aggregate: '149620471458.92'
+                        item: '93.778',
+                        aggregate: '66681011412.00',
+                        assistance_data__cfda_number: '93.778',
+                        assistance_data__cfda_title: 'Medical Assistance Program'
                     },
                     {
-                        recipient__legal_entity_id: '113704139',
-                        recipient__recipient_name: 'Michigan',
-                        aggregate: '6684225478.00'
+                        item: '93.774',
+                        aggregate: '152',
+                        assistance_data__cfda_number: '93.774',
+                        assistance_data__cfda_title: 'Medicare_Supplementary Medical Insurance'
                     }
                 ]
             };
@@ -209,7 +215,7 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByRecipientVisualizationContainer
+                mount(<SpendingByCFDAVisualizationContainer
                     reduxFilters={defaultFilters} />);
 
             // wait for the SearchHelper promises to resolve
@@ -217,14 +223,12 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             // validate the state contains the correctly parsed values
             const expectedState = {
                 loading: false,
-                labelSeries: ['Multiple Recipients', 'Michigan'],
-                dataSeries: [149620471458.92, 6684225478.00],
+                labelSeries: ['Medical Assistance Program', 'Medicare_Supplementary Medical Insurance'],
+                dataSeries: [66681011412.00, 152],
                 descriptions: [
-                    'Spending by Multiple Recipients: $149,620,471,459',
-                    'Spending by Michigan: $6,684,225,478'],
-                linkSeries: [],
+                    'Spending by Medical Assistance Program: $66,681,011,412',
+                    'Spending by Medicare_Supplementary Medical Insurance: $152'],
                 page: 1,
-                scope: 'subsidiary',
                 hasNextPage: false,
                 hasPreviousPage: false,
                 next: null,
@@ -246,25 +250,14 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
                     next: "checksum",
                     previous: null
                 },
-                results: [
-                    {
-                        recipient__legal_entity_id: '1',
-                        recipient__recipient_name: 'Multiple Recipients',
-                        aggregate: '149620471458.92'
-                    },
-                    {
-                        recipient__legal_entity_id: '113704139',
-                        recipient__recipient_name: 'Michigan',
-                        aggregate: '6684225478.00'
-                    }
-                ]
+                results: []
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByRecipientVisualizationContainer
+                mount(<SpendingByCFDAVisualizationContainer
                     reduxFilters={defaultFilters} />);
 
             // initial state should be page 1
@@ -292,25 +285,14 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
                     next: "checksum",
                     previous: null
                 },
-                results: [
-                    {
-                        recipient__legal_entity_id: '1',
-                        recipient__recipient_name: 'Multiple Recipients',
-                        aggregate: '149620471458.92'
-                    },
-                    {
-                        recipient__legal_entity_id: '113704139',
-                        recipient__recipient_name: 'Michigan',
-                        aggregate: '6684225478.00'
-                    }
-                ]
+                results: []
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByRecipientVisualizationContainer
+                mount(<SpendingByCFDAVisualizationContainer
                     reduxFilters={defaultFilters} />);
             container.setState({
                 page: 5,
@@ -338,25 +320,14 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
                     next: "checksum",
                     previous: null
                 },
-                results: [
-                    {
-                        recipient__legal_entity_id: '1',
-                        recipient__recipient_name: 'Multiple Recipients',
-                        aggregate: '149620471458.92'
-                    },
-                    {
-                        recipient__legal_entity_id: '113704139',
-                        recipient__recipient_name: 'Michigan',
-                        aggregate: '6684225478.00'
-                    }
-                ]
+                results: []
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByRecipientVisualizationContainer
+                mount(<SpendingByCFDAVisualizationContainer
                     reduxFilters={defaultFilters} />);
             container.setState({
                 page: 1
@@ -383,7 +354,7 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
 
             // mount the container
             const container =
-                mount(<SpendingByRecipientVisualizationContainer
+                mount(<SpendingByCFDAVisualizationContainer
                     reduxFilters={initialFilters} />);
             container.setState({
                 page: 5,
@@ -404,41 +375,8 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
         });
     });
 
-    describe('changeScope', () => {
-        it('should change the scope to the provided value', () => {
-            const container =
-                mount(<SpendingByRecipientVisualizationContainer
-                    reduxFilters={defaultFilters} />);
-
-            // the default scope should be subsidiary
-            expect(container.state().scope).toEqual('subsidiary');
-
-            // change the scope to parentCompany
-            container.instance().changeScope('parentCompany');
-            expect(container.state().scope).toEqual('parentCompany');
-        });
-
-        it('should reset the page number to 1 when the scope changes', () => {
-            const container =
-                mount(<SpendingByRecipientVisualizationContainer
-                    reduxFilters={defaultFilters} />);
-            container.setState({
-                page: 5
-            });
-
-            // the default scope should be subsidiary
-            expect(container.state().scope).toEqual('subsidiary');
-            expect(container.state().page).toEqual(5);
-
-            // change the scope to parentCompany
-            container.instance().changeScope('parentCompany');
-            expect(container.state().scope).toEqual('parentCompany');
-            expect(container.state().page).toEqual(1);
-        });
-    });
-
     afterAll(() => {
         // restore the mocked component's lifecycle functions
-        unmockComponent(SpendingByRecipientSection);
+        unmockComponent(SpendingByCFDASection);
     });
 });

@@ -1,6 +1,6 @@
 /**
- * SpendingByRecipientVisualizationContainer-test.jsx
- * Created by michaelbray on 4/7/17.
+ * SpendingByIndustryCodeVisualizationContainer-test.jsx
+ * Created by Kevin li 5/5/17
  */
 
 import React from 'react';
@@ -9,10 +9,10 @@ import sinon from 'sinon';
 
 import { Set } from 'immutable';
 
-import { SpendingByRecipientVisualizationContainer } from
-    'containers/search/visualizations/rank/SpendingByRecipientVisualizationContainer';
-import SpendingByRecipientSection from
-    'components/search/visualizations/rank/sections/SpendingByRecipientSection';
+import { SpendingByIndustryCodeVisualizationContainer } from
+    'containers/search/visualizations/rank/SpendingByIndustryCodeVisualizationContainer';
+import SpendingByIndustryCodeSection from
+    'components/search/visualizations/rank/sections/SpendingByIndustryCodeSection';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
@@ -23,7 +23,7 @@ import { mockComponent, unmockComponent } from '../../../../testResources/mockCo
 global.Promise = require.requireActual('promise');
 
 // spy on specific functions inside the component
-const fetchDataSpy = sinon.spy(SpendingByRecipientVisualizationContainer.prototype,
+const fetchDataSpy = sinon.spy(SpendingByIndustryCodeVisualizationContainer.prototype,
     'fetchData');
 
 // we don't want to actually hit the API because tests should be fully controlled, so we will mock
@@ -60,13 +60,13 @@ const unmockSearchHelper = () => {
     jest.unmock('helpers/searchHelper');
 };
 
-describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
+describe('SpendingByIndustryCodeVisualizationContainer', () => {
     beforeAll(() => {
         // we need to use mount() on the container to get the lifecycle logic, but enzyme doesn't
         // support the child component's SVG manipulation methods. This replaces all the child
         // component's lifecycle methods with mocked functions to avoid traversal into the SVG
         // components.
-        mockComponent(SpendingByRecipientSection);
+        mockComponent(SpendingByIndustryCodeSection);
     });
 
     it('should make an API request on mount', () => {
@@ -81,14 +81,14 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             },
             results: [
                 {
-                    recipient__legal_entity_id: '1',
-                    recipient__recipient_name: 'Multiple Recipients',
-                    aggregate: '149620471458.92'
+                    item: '1234',
+                    aggregate: '500.00',
+                    contract_data__product_or_service_code: '1234'
                 },
                 {
-                    recipient__legal_entity_id: '113704139',
-                    recipient__recipient_name: 'Michigan',
-                    aggregate: '6684225478.00'
+                    item: '2345',
+                    aggregate: '400.01',
+                    contract_data__product_or_service_code: '2345'
                 }
             ]
         };
@@ -98,7 +98,7 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
 
         // mount the container
         const container =
-            mount(<SpendingByRecipientVisualizationContainer
+            mount(<SpendingByIndustryCodeVisualizationContainer
                 reduxFilters={defaultFilters} />);
 
         // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
@@ -127,20 +127,20 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             },
             results: [
                 {
-                    recipient__legal_entity_id: '1',
-                    recipient__recipient_name: 'Multiple Recipients',
-                    aggregate: '149620471458.92'
+                    item: '1234',
+                    aggregate: '500.00',
+                    award__transaction__contract_data__product_or_service_code: '1234'
                 },
                 {
-                    recipient__legal_entity_id: '113704139',
-                    recipient__recipient_name: 'Michigan',
-                    aggregate: '6684225478.00'
+                    item: '2345',
+                    aggregate: '400.01',
+                    award__transaction__contract_data__product_or_service_code: '2345'
                 }
             ]
         };
 
         // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+        mockSearchHelper('performFinancialAccountAggregation', 'resolve', apiResponse);
 
         const initialFilters = Object.assign({}, defaultFilters);
         const secondFilters = Object.assign({}, defaultFilters, {
@@ -150,7 +150,7 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
 
         // mount the container
         const container =
-            mount(<SpendingByRecipientVisualizationContainer
+            mount(<SpendingByIndustryCodeVisualizationContainer
                 reduxFilters={initialFilters} />);
 
         // wait for the first SearchHelper call to finish
@@ -193,14 +193,14 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
                 },
                 results: [
                     {
-                        recipient__legal_entity_id: '1',
-                        recipient__recipient_name: 'Multiple Recipients',
-                        aggregate: '149620471458.92'
+                        item: '1234',
+                        aggregate: '500.00',
+                        contract_data__product_or_service_code: '1234'
                     },
                     {
-                        recipient__legal_entity_id: '113704139',
-                        recipient__recipient_name: 'Michigan',
-                        aggregate: '6684225478.00'
+                        item: '2345',
+                        aggregate: '400.01',
+                        contract_data__product_or_service_code: '2345'
                     }
                 ]
             };
@@ -209,7 +209,7 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByRecipientVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={defaultFilters} />);
 
             // wait for the SearchHelper promises to resolve
@@ -217,14 +217,13 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             // validate the state contains the correctly parsed values
             const expectedState = {
                 loading: false,
-                labelSeries: ['Multiple Recipients', 'Michigan'],
-                dataSeries: [149620471458.92, 6684225478.00],
+                labelSeries: ['1234', '2345'],
+                dataSeries: [500.00, 400.01],
                 descriptions: [
-                    'Spending by Multiple Recipients: $149,620,471,459',
-                    'Spending by Michigan: $6,684,225,478'],
-                linkSeries: [],
+                    'Spending by 1234: $500',
+                    'Spending by 2345: $400'],
+                scope: 'psc',
                 page: 1,
-                scope: 'subsidiary',
                 hasNextPage: false,
                 hasPreviousPage: false,
                 next: null,
@@ -246,25 +245,14 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
                     next: "checksum",
                     previous: null
                 },
-                results: [
-                    {
-                        recipient__legal_entity_id: '1',
-                        recipient__recipient_name: 'Multiple Recipients',
-                        aggregate: '149620471458.92'
-                    },
-                    {
-                        recipient__legal_entity_id: '113704139',
-                        recipient__recipient_name: 'Michigan',
-                        aggregate: '6684225478.00'
-                    }
-                ]
+                results: []
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByRecipientVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={defaultFilters} />);
 
             // initial state should be page 1
@@ -292,25 +280,14 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
                     next: "checksum",
                     previous: null
                 },
-                results: [
-                    {
-                        recipient__legal_entity_id: '1',
-                        recipient__recipient_name: 'Multiple Recipients',
-                        aggregate: '149620471458.92'
-                    },
-                    {
-                        recipient__legal_entity_id: '113704139',
-                        recipient__recipient_name: 'Michigan',
-                        aggregate: '6684225478.00'
-                    }
-                ]
+                results: []
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByRecipientVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={defaultFilters} />);
             container.setState({
                 page: 5,
@@ -338,25 +315,14 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
                     next: "checksum",
                     previous: null
                 },
-                results: [
-                    {
-                        recipient__legal_entity_id: '1',
-                        recipient__recipient_name: 'Multiple Recipients',
-                        aggregate: '149620471458.92'
-                    },
-                    {
-                        recipient__legal_entity_id: '113704139',
-                        recipient__recipient_name: 'Michigan',
-                        aggregate: '6684225478.00'
-                    }
-                ]
+                results: []
             };
 
             // mock the search helper to resolve with the mocked response
             mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
             // mount the container
             const container =
-                mount(<SpendingByRecipientVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={defaultFilters} />);
             container.setState({
                 page: 1
@@ -383,7 +349,7 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
 
             // mount the container
             const container =
-                mount(<SpendingByRecipientVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={initialFilters} />);
             container.setState({
                 page: 5,
@@ -407,38 +373,38 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
     describe('changeScope', () => {
         it('should change the scope to the provided value', () => {
             const container =
-                mount(<SpendingByRecipientVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={defaultFilters} />);
 
-            // the default scope should be subsidiary
-            expect(container.state().scope).toEqual('subsidiary');
+            // the default scope should be psc
+            expect(container.state().scope).toEqual('psc');
 
-            // change the scope to parentCompany
-            container.instance().changeScope('parentCompany');
-            expect(container.state().scope).toEqual('parentCompany');
+            // change the scope to naics
+            container.instance().changeScope('naics');
+            expect(container.state().scope).toEqual('naics');
         });
 
         it('should reset the page number to 1 when the scope changes', () => {
             const container =
-                mount(<SpendingByRecipientVisualizationContainer
+                mount(<SpendingByIndustryCodeVisualizationContainer
                     reduxFilters={defaultFilters} />);
             container.setState({
                 page: 5
             });
 
-            // the default scope should be subsidiary
-            expect(container.state().scope).toEqual('subsidiary');
+            // the default scope should be psc
+            expect(container.state().scope).toEqual('psc');
             expect(container.state().page).toEqual(5);
 
-            // change the scope to parentCompany
-            container.instance().changeScope('parentCompany');
-            expect(container.state().scope).toEqual('parentCompany');
+            // change the scope to naics
+            container.instance().changeScope('naics');
+            expect(container.state().scope).toEqual('naics');
             expect(container.state().page).toEqual(1);
         });
     });
 
     afterAll(() => {
         // restore the mocked component's lifecycle functions
-        unmockComponent(SpendingByRecipientSection);
+        unmockComponent(SpendingByIndustryCodeSection);
     });
 });

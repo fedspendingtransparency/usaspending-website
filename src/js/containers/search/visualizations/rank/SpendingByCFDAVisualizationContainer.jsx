@@ -1,6 +1,6 @@
 /**
- * SpendingByFundingAgencyVisualizationContainer.jsx
- * Created by michaelbray on 4/27/17.
+ * SpendingByCFDAVisualizationContainer.jsx
+ * Created by Kevin Li on 5/4/17
  */
 
 import React from 'react';
@@ -9,16 +9,18 @@ import { connect } from 'react-redux';
 
 import _ from 'lodash';
 
-import SpendingByAgencySection from
-    'components/search/visualizations/rank/sections/SpendingByAgencySection';
+import SpendingByCFDASection from
+    'components/search/visualizations/rank/sections/SpendingByCFDASection';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
+import * as FilterFields from 'dataMapping/search/filterFields';
+
+import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
 import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
-import SearchTASCategoriesOperation from 'models/search/SearchTASCategoriesOperation';
 
 const propTypes = {
     reduxFilters: React.PropTypes.object,
@@ -27,7 +29,7 @@ const propTypes = {
     awardFiltersSelected: React.PropTypes.bool
 };
 
-export class SpendingByFundingAgencyVisualizationContainer extends React.Component {
+export class SpendingByCFDAVisualizationContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -37,14 +39,12 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
             dataSeries: [],
             descriptions: [],
             page: 1,
-            agencyScope: 'toptier',
             next: '',
             previous: '',
             hasNextPage: false,
             hasPreviousPage: false
         };
 
-        this.changeScope = this.changeScope.bind(this);
         this.nextPage = this.nextPage.bind(this);
         this.previousPage = this.previousPage.bind(this);
         this.apiRequest = null;
@@ -58,16 +58,6 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
         if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
             this.newSearch();
         }
-    }
-
-    changeScope(scope) {
-        this.setState({
-            agencyScope: scope,
-            page: 1,
-            hasNextPage: false
-        }, () => {
-            this.fetchData();
-        });
     }
 
     newSearch() {
@@ -125,21 +115,58 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
 
     fetchUnfilteredRequest() {
-        this.fetchTASCategories('Funding agency vis - unfiltered');
+        this.fetchTransactions('CFDA rank vis - unfiltered');
     }
 
     fetchBudgetRequest() {
-        this.fetchTASCategories('Funding agency vis - budget filters');
+        this.fetchAccountAwards('CFDA rank vis - budget filters');
     }
 
     fetchAwardRequest() {
         // only award filters have been selected
-        this.fetchAccountAwards('Funding agency vis - award filters');
+        this.fetchTransactions('CFDA rank vis - award filters');
     }
 
     fetchComboRequest() {
         // a combination of budget and award filters have been selected
-        this.fetchAccountAwards('Funding agency vis - combination');
+        this.fetchAccountAwards('CFDA rank vis - combination');
+    }
+
+    fetchTransactions(auditTrail = null) {
+        // Create Search Operation
+        const operation = new SearchTransactionOperation();
+
+        operation.fromState(this.props.reduxFilters);
+        const searchParams = operation.toParams();
+        const apiGroups = [
+            FilterFields.transactionFields.cfdaNumber,
+            FilterFields.transactionFields.cfdaTitle
+        ];
+
+        // generate the API parameters
+        const apiParams = {
+            field: 'federal_action_obligation',
+            group: apiGroups,
+            order: ['-aggregate'],
+            aggregate: 'sum',
+            filters: searchParams,
+            limit: 5,
+            page: this.state.page
+        };
+
+        if (auditTrail) {
+            apiParams.auditTrail = auditTrail;
+        }
+
+        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        this.apiRequest.promise
+            .then((res) => {
+                this.parseData(res.data, apiGroups);
+                this.apiRequest = null;
+            })
+            .catch(() => {
+                this.apiRequest = null;
+            });
     }
 
     fetchAccountAwards(auditTrail = null) {
@@ -148,10 +175,14 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
+        const apiGroups = [
+            FilterFields.accountAwardsFields.cfdaNumber,
+            FilterFields.accountAwardsFields.cfdaTitle
+        ];
         // generate the API parameters
         const apiParams = {
             field: 'transaction_obligated_amount',
-            group: `award__funding_agency__toptier_agency__name`,
+            group: apiGroups,
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -166,7 +197,7 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
         this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data);
+                this.parseData(res.data, apiGroups);
                 this.apiRequest = null;
             })
             .catch(() => {
@@ -174,50 +205,22 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
             });
     }
 
-    fetchTASCategories(auditTrail = null) {
-        // Create Search Operation
-        const operation = new SearchTASCategoriesOperation();
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-
-        // Generate the API parameters
-        // TODO: Mike Bray - Update group to the new Agency name linkage once it's available
-        const apiParams = {
-            field: 'obligations_incurred_by_program_object_class_cpe',
-            group: 'treasury_account__agency_id',
-            order: ['-aggregate'],
-            aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
-        };
-
-        if (auditTrail) {
-            apiParams.auditTrail = auditTrail;
-        }
-
-        this.apiRequest = SearchHelper.performCategorySearch(apiParams);
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data);
-                this.apiRequest = null;
-            })
-            .catch(() => {
-                this.apiRequest = null;
-            });
-    }
-
-    parseData(data) {
+    parseData(data, groups) {
         const labelSeries = [];
         const dataSeries = [];
         const descriptions = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            labelSeries.push(item.item);
-            dataSeries.push(parseFloat(item.aggregate));
+            let parsedValue = parseFloat(item.aggregate);
+            if (isNaN(parsedValue)) {
+                // the aggregate value is invalid (most likely null)
+                parsedValue = 0;
+            }
 
-            const description = `Spending by ${item.item}: \
+            labelSeries.push(item[groups[1]]);
+            dataSeries.push(parsedValue);
+            const description = `Spending by ${item[groups[1]]}: \
 ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
             descriptions.push(description);
         });
@@ -236,19 +239,16 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
 
     render() {
         return (
-            <SpendingByAgencySection
+            <SpendingByCFDASection
                 {...this.state}
                 meta={this.props.meta}
-                changeScope={this.changeScope}
                 nextPage={this.nextPage}
-                previousPage={this.previousPage}
-                agencyType="funding"
-                hideSuboptionBar="hide" />
+                previousPage={this.previousPage} />
         );
     }
 }
 
-SpendingByFundingAgencyVisualizationContainer.propTypes = propTypes;
+SpendingByCFDAVisualizationContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -256,4 +256,4 @@ export default connect(
         meta: state.resultsMeta.toJS()
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
-)(SpendingByFundingAgencyVisualizationContainer);
+)(SpendingByCFDAVisualizationContainer);

@@ -61,7 +61,12 @@ export const transactionFields = {
     objectClass: 'award__financial_set__object_class__major_object_class',
     budgetFunctionTitle: 'award__financial_set__treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'award__financial_set__treasury_account__budget_subfunction_title',
-    federalAccount: 'award__financial_set__treasury_account__federal_account'
+    federalAccount: 'award__financial_set__treasury_account__federal_account',
+    cfdaNumber: 'assistance_data__cfda_number',
+    cfdaTitle: 'assistance_data__cfda_title',
+    naics: 'contract_data__naics',
+    naicsDescription: 'contract_data__naics_description',
+    psc: 'contract_data__product_or_service_code'
 };
 
 export const accountAwardsFields = {
@@ -89,5 +94,10 @@ export const accountAwardsFields = {
     objectClass: 'object_class__major_object_class',
     budgetFunctionTitle: 'treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'treasury_account__budget_subfunction_title',
-    federalAccount: 'treasury_account__federal_account'
+    federalAccount: 'treasury_account__federal_account',
+    cfdaNumber: 'award__transaction__assistance_data__cfda_number',
+    cfdaTitle: 'award__transaction__assistance_data__cfda_title',
+    naics: 'award__transaction__contract_data__naics',
+    naicsDescription: 'award__transaction__contract_data__naics_description',
+    psc: 'award__transaction__contract_data__product_or_service_code'
 };
