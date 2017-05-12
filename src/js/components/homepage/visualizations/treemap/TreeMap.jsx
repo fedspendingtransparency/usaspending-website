@@ -47,6 +47,7 @@ export default class TreeMap extends React.Component {
         this.formatFriendlyString = this.formatFriendlyString.bind(this);
         this.swapTiles = this.swapTiles.bind(this);
         this.showArrows = this.showArrows.bind(this);
+        this.toggleOverlay = this.toggleOverlay.bind(this);
     }
 
     componentDidMount() {
@@ -161,9 +162,20 @@ export default class TreeMap extends React.Component {
             y: set.yStart,
             width: set.width,
             height: set.height,
-            showOverlay: false,
             total: set.total
         });
+        if (this.state.showOverlay !== false) {
+            this.toggleOverlay();
+        }
+    }
+
+    toggleOverlay() {
+        console.log("hi");
+        this.setState({
+            showOverlay: false
+        });
+
+        this.buildTree(this.props.categories, this.props.colors, this.state.category, false);
     }
 
     createTooltip() {

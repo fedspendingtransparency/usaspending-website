@@ -60,8 +60,7 @@ export default class TreeMapTooltip extends React.Component {
 
             if (direction === 'right') {
                 topDirection = `${(this.props.y + this.props.height)}px`;
-                leftDirection = `${((this.props.x + this.props.width) - tooltipWidth) +
-                    (this.props.width / 2)}px`;
+                leftDirection = `${(this.props.x - tooltipWidth) + this.props.width}px`;
             }
             else {
                 topDirection = `${(this.props.y + this.props.height)}px`;
