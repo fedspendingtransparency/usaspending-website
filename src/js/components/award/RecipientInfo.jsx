@@ -24,7 +24,7 @@ export default class RecipientInfo extends React.Component {
 
     buildName() {
         const recipient = this.props.recipient;
-        const isMultiple = this.props.recipient.recipient_name === 'Multiple Recipients';
+        const isMultiple = _.toLower(this.props.recipient.recipient_name) === 'multiple recipients';
         let recipientName = this.props.recipient.recipient_name;
         let address = null;
         if (isMultiple) {
@@ -39,7 +39,7 @@ export default class RecipientInfo extends React.Component {
 
     buildSnippets() {
         const recipient = this.props.recipient;
-        const isMultiple = this.props.recipient.recipient_name === 'Multiple Recipients';
+        const isMultiple = _.toLower(this.props.recipient.recipient_name) === 'multiple recipients';
         const multiDescription = `An award with multiple recipients indicates an aggregate award.
         Aggregate awards exist to protect recipient Personally Identifiable Information (PII).
         Agencies are currently required to aggregate these awards on a county level.`;
