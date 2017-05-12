@@ -29,7 +29,7 @@ export default class NextSteps extends React.Component {
                     linkText="Email Us"
                     ariaLabel="Email Us"
                     title="Email US"
-                    linkUrl="mailto:datapmo@fiscal.treasury.gov" />
+                    linkUrl="mailto:usaspending.help-submitonly@fiscal.treasury.gov" />
                 <NextStepsBox
                     icon="download"
                     sectionTitle="Agency Submission Files"

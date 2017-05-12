@@ -28,13 +28,28 @@ export default class NavBar extends React.Component {
                             <ul className="small-menu">
                                 <li>
                                     <a
-                                        href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
-                                        target="_blank" rel="noopener noreferrer">
+                                        href="mailto:usaspending.help-submitonly@fiscal.treasury.gov"
+                                        title="Help"
+                                        ariaLabel="Help">
                                         Help
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/#/about">
+                                    <a
+                                        href=" https://usaspending-help.zendesk.com/hc/en-us"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        title="Community"
+                                        ariaLabel="Community">
+                                        Community
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="/#/about"
+                                        rel="noopener noreferrer"
+                                        title="About"
+                                        ariaLabel="About">
                                         About
                                     </a>
                                 </li>
@@ -46,7 +61,11 @@ export default class NavBar extends React.Component {
                         <div className="lower-menu">
                             <ul className="nav-menu">
                                 <li className="coming-soon">
-                                    <a className="usa-nav-link" href="#/">
+                                    <a
+                                        className="usa-nav-link"
+                                        href="#/"
+                                        title="Explore The Data"
+                                        ariaLabel="Explore The Data">
                                         <span>Explore The Data</span>
                                     </a>
                                     <ComingSoonLabel />
@@ -55,7 +74,10 @@ export default class NavBar extends React.Component {
                                     <a
                                         className="usa-nav-link"
                                         href="https://api.usaspending.gov/"
-                                        target="_blank" rel="noopener noreferrer">
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        title="Developers"
+                                        ariaLabel="Developers">
                                         <span>Developers</span>
                                     </a>
                                 </li>
