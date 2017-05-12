@@ -12,8 +12,12 @@
         li {
             @include flex(1 1 auto);
             position: relative;
-            margin-left: rem(30);
+            margin-left: rem(5);
             text-align: center;
+            line-height: rem(45);
+            @include media($medium-screen) {
+                margin-left: rem(30);
+            }
             &:first-child {
                 margin-left: 0;
                 padding-left: 0;

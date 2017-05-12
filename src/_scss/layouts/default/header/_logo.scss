@@ -9,7 +9,7 @@
             background-position: left center;
             background-repeat: no-repeat;
             background-size: contain;
-            @include media($tablet-screen) {
+            @include media($medium-screen) {
                 @include background-image(url("../img/logo.png"));
             }
             // handle retina images
@@ -23,7 +23,7 @@
                     @include background-image(url("../img/logo@2x.png"));
                 }
             }
-            @include media($tablet-screen) {
+            @include media($medium-screen) {
                 @include fill-parent();
                 width: 40.6rem;
             }
@@ -44,7 +44,7 @@
             text-align: center;
             top: rem(5);
             @include border-radius(2px);
-            @include media($tablet-screen) {
+            @include media($medium-screen) {
                 font-size: rem(10);
                 left: rem(368);
                 top: 0;

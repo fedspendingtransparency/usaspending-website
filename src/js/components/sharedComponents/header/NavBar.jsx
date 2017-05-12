@@ -18,7 +18,9 @@ export default class NavBar extends React.Component {
                     </div>
                 </div>
                 <div className="mobile-menu">
-                    <button className="usa-menu-btn">Menu</button>
+                    <button className="usa-menu-btn">
+                        <span className="nav-lines" />
+                    </button>
                 </div>
                 <nav role="navigation">
                     <div className="menu-container">

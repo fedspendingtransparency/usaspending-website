@@ -7,7 +7,7 @@
     @include align-items(center);
     height: rem(105);
     @include media($tablet-screen) {
-    height: rem(130);
+    height: rem(110);
     }
     .logo {
         flex-grow: 2;
@@ -15,13 +15,12 @@
     }
     nav {
         display: none;
-        @include media($medium-screen) {
+        @include media($tablet-screen) {
             display: block;
         }
     }
     .mobile-menu {
-        width: 20%;
-        @include media($medium-screen) {
+        @include media($tablet-screen) {
             display: none;
         }
     }
