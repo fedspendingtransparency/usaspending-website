@@ -27,7 +27,8 @@ export default class NavBar extends React.Component {
                                 <li>
                                     <a
                                         href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
-                                        target="_blank" rel="noopener noreferrer">
+                                        target="_blank"
+                                        rel="noopener noreferrer">
                                         Help
                                     </a>
                                 </li>
@@ -43,19 +44,24 @@ export default class NavBar extends React.Component {
                         </div>
                         <div className="lower-menu">
                             <ul className="nav-menu">
-                                <li className="coming-soon">
-                                    <a className="usa-nav-link" href="#/">
-                                        <span>Explore The Data</span>
-                                    </a>
-                                    <ComingSoonLabel />
+                                <li className="coming-soon menu-link">
+                                    <div className="link-content">
+                                        <a className="usa-nav-link" href="#/">
+                                            <span>Explore The Data</span>
+                                        </a>
+                                        <ComingSoonLabel />
+                                    </div>
                                 </li>
-                                <li>
-                                    <a
-                                        className="usa-nav-link"
-                                        href="https://api.usaspending.gov/"
-                                        target="_blank" rel="noopener noreferrer">
-                                        <span>Developers</span>
-                                    </a>
+                                <li className="menu-link">
+                                    <div className="link-content">
+                                        <a
+                                            className="usa-nav-link"
+                                            href="https://api.usaspending.gov/"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+                                            <span>Developers</span>
+                                        </a>
+                                    </div>
                                 </li>
                                 <li>
                                     <SearchBar />
