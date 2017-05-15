@@ -74,29 +74,92 @@ export class AccountAwardsContainer extends React.Component {
         this.loadNextPage = this.loadNextPage.bind(this);
     }
 
-    componentWillMount() {
-        this.setColumns(this.props.meta.type);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.meta.type !== this.props.meta.type) {
-            // table type changed, update columns
-            this.setColumns(nextProps.meta.type);
-        }
+    componentDidMount() {
+        this.pickDefaultTab();
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.filters !== prevProps.filters) {
-            this.loadData();
+            this.pickDefaultTab();
         }
         else if (this.props.order !== prevProps.order) {
             this.loadData();
         }
+
+        if (prevProps.meta.type !== this.props.meta.type) {
+            // table type changed, update columns
+            this.showColumns(this.props.meta.type);
+        }
     }
 
-    setColumns(tableType) {
+    pickDefaultTab() {
+        // get the award counts for the current filter set
+        if (this.tabCountRequest) {
+            this.tabCountRequest.cancel();
+        }
+
+        const searchParams = new AccountAwardSearchOperation(this.props.account.id);
+        searchParams.fromState(this.props.filters);
+        this.tabCountRequest = SearchHelper.fetchAwardCounts({
+            aggregate: 'count',
+            group: 'type',
+            field: 'total_obligation',
+            filters: searchParams.toParams()
+        });
+
+        this.tabCountRequest.promise
+            .then((res) => {
+                this.parseTabCounts(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    parseTabCounts(data) {
+        // determine which types have award results
+        const availableTypes = {};
+        data.results.forEach((type) => {
+            const count = parseFloat(type.aggregate);
+            if (count > 0) {
+                availableTypes[type.type] = count;
+            }
+        });
+
+        // sum the types up by group
+        const availableGroups = {};
+        Object.keys(awardTypeGroups).forEach((group) => {
+            availableGroups[group] = 0;
+            awardTypeGroups[group].forEach((type) => {
+                if ({}.hasOwnProperty.call(availableTypes, type)) {
+                    availableGroups[group] += availableTypes[type];
+                }
+            });
+        });
+
+        let firstAvailable = 0;
+        for (let i = 0; i < tableTypes.length; i++) {
+            const type = tableTypes[i].internal;
+            if (availableGroups[type] > 0) {
+                firstAvailable = i;
+                i = tableTypes.length + 1;
+            }
+        }
+
+        // select the first available tab
+        this.switchTab(tableTypes[firstAvailable].internal);
+    }
+
+    showColumns(tableType) {
          // calculate the column metadata to display in the table
         const columns = [];
+        let sortOrder = TableSearchFields.defaultSortDirection;
+        let columnWidths = TableSearchFields.columnWidths;
+
+        if (tableType === 'loans') {
+            sortOrder = TableSearchFields.loans.sortDirection;
+            columnWidths = TableSearchFields.loans.columnWidths;
+        }
 
         const tableSettings = TableSearchFields[tableType];
 
@@ -104,8 +167,8 @@ export class AccountAwardsContainer extends React.Component {
             const column = {
                 columnName: col,
                 displayName: tableSettings[col],
-                width: TableSearchFields.columnWidths[col],
-                defaultDirection: TableSearchFields.defaultSortDirection[col]
+                width: columnWidths[col],
+                defaultDirection: sortOrder[col]
             };
             columns.push(column);
         });
@@ -119,6 +182,7 @@ export class AccountAwardsContainer extends React.Component {
 
     switchTab(tab) {
         this.props.setAccountAwardType(tab);
+        this.showColumns(tab);
         const currentSortField = this.props.order.field;
 
         // check if the current sort field is available in the table type
