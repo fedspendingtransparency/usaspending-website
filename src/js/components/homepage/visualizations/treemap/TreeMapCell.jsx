@@ -17,6 +17,7 @@ const propTypes = {
     color: React.PropTypes.string,
     toggleTooltip: React.PropTypes.func,
     showOverlay: React.PropTypes.bool,
+    showSub: React.PropTypes.bool,
     toggleSubfunction: React.PropTypes.func,
     clickable: React.PropTypes.bool,
     chosen: React.PropTypes.string,
@@ -32,9 +33,9 @@ export default class TreeMapCell extends React.Component {
             label: '',
             didProcess: false,
             color: this.props.color,
-            textClass: ''
+            textClass: '',
+            showOverlay: this.props.showOverlay
         };
-
         this.mouseEvent = this.mouseEvent.bind(this);
         this.toggleBorders = this.toggleBorders.bind(this);
     }
@@ -44,6 +45,9 @@ export default class TreeMapCell extends React.Component {
     }
 
     componentWillReceiveProps(props) {
+        this.setState({
+            showOverlay: props.showOverlay
+        });
         this.initialRender(props.label, props.color);
     }
 
@@ -108,7 +112,7 @@ export default class TreeMapCell extends React.Component {
         const width = (this.props.x1 - this.props.x0);
         const height = (this.props.y1 - this.props.y0);
         let hoverColor = "#F2B733";
-        if (this.props.chosen !== null && this.props.clickable) {
+        if (this.props.chosen !== null && this.props.clickable && this.props.showSub === true) {
             hoverColor = this.props.chosenColor;
         }
         if (set === 'mouseIn') {
@@ -137,19 +141,19 @@ export default class TreeMapCell extends React.Component {
                 total: this.props.total
             };
         }
-
-        this.props.toggleTooltip(newSet);
         this.setState({
             color: newSet.bgColor,
             textClass: newSet.textClass
         });
+
+        this.props.toggleTooltip(newSet);
     }
 
     toggleBorders() {
         const strokeArray = [];
         let strokeColor = "white";
         let strokeOpacity = 0.5;
-        if (this.props.showOverlay === true) {
+        if (this.state.showOverlay) {
             if (this.props.label === "Social Security" ||
                 this.props.label === "National Defense" ||
                 this.props.label === "Medicare") {

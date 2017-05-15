@@ -3,15 +3,6 @@
     @import './visualizations/_treemapVisualization';
     @import './_treemapSource';
 
-    .minimized {
-        width: 85%;
-        display: inline-block;
-
-        @include media($medium-screen) {
-            width: 96%;
-        }
-    }
-
     .function-desc {
         padding-left: 10%;
         padding-right: 10%;

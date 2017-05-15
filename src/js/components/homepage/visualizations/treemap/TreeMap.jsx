@@ -57,7 +57,8 @@ export default class TreeMap extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.categories.children.length > 0) {
-            this.buildTree(nextProps.categories, nextProps.colors, null, this.state.showSub);
+            this.buildTree(nextProps.categories, nextProps.alternateColors, null,
+                this.state.showSub);
         }
         if (nextProps.descriptions !== this.state.descriptions) {
             this.setState({
@@ -131,6 +132,7 @@ export default class TreeMap extends React.Component {
                 chosen={chosen}
                 toggleTooltip={this.toggleTooltip}
                 showOverlay={this.state.showOverlay}
+                showSub={this.state.showSub}
                 toggleSubfunction={this.toggleSubfunction}
                 clickable />
         );
@@ -170,7 +172,6 @@ export default class TreeMap extends React.Component {
     }
 
     toggleOverlay() {
-        console.log("hi");
         this.setState({
             showOverlay: false
         });
@@ -304,7 +305,7 @@ export default class TreeMap extends React.Component {
     render() {
         let subFunctionTree = null;
         let functionDesc = null;
-        let treeMapClass = '';
+        let treeMapClass = 'treemap-svg overlay';
         let buttonBack = null;
         let buttonLeft = null;
         let buttonRight = null;
@@ -322,7 +323,7 @@ export default class TreeMap extends React.Component {
                             100).toFixed(1)}%</h6>
                     <p>{this.state.selectedDesc}</p>
                 </div>);
-            treeMapClass = 'minimized';
+            treeMapClass += ' minimized';
             buttonBack =
                 (<button
                     className="back"
