@@ -32,7 +32,7 @@ export default class LinksSection extends React.Component {
                             icon="api"
                             text="Plug into the data using our API."
                             linkText="View the documentation"
-                            linkUrl="https://spending-api.us" />
+                            linkUrl="https://api.usaspending.gov" />
                         <LinksSectionBox
                             icon="resources"
                             text="Learn more about the data."

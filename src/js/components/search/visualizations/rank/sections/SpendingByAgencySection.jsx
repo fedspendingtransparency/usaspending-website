@@ -13,7 +13,12 @@ import RankVisualizationSection from './RankVisualizationSection';
 const propTypes = {
     agencyScope: React.PropTypes.string,
     changeScope: React.PropTypes.func,
-    agencyType: React.PropTypes.string
+    agencyType: React.PropTypes.string,
+    hideSuboptionBar: React.PropTypes.string
+};
+
+const defaultProps = {
+    hideSuboptionBar: ""
 };
 
 export default class SpendingByAgencySection extends React.Component {
@@ -28,7 +33,7 @@ export default class SpendingByAgencySection extends React.Component {
                             update automatically. View your results in a bar graph or a tree map.
                         </div>
                     </div>
-                    <div className="visualization-period">
+                    <div className={`visualization-period ${this.props.hideSuboptionBar}`}>
                         <div className="content">
                             <ul>
                                 <li>
@@ -64,3 +69,4 @@ export default class SpendingByAgencySection extends React.Component {
 }
 
 SpendingByAgencySection.propTypes = propTypes;
+SpendingByAgencySection.defaultProps = defaultProps;
