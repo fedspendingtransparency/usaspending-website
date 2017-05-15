@@ -13,7 +13,7 @@ import * as AwardIDFilterFunctions from './filters/awardIDFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
 import * as BudgetCategoryFilterFunctions from './filters/budgetCategoryFilterFunctions';
 
-const initialState = {
+export const initialState = {
     keyword: '',
     timePeriodType: 'fy',
     timePeriodFY: new Set(),
