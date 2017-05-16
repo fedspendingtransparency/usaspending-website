@@ -14,15 +14,39 @@ export default class DownloadLocation extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            button: 'Copy URL'
+        };
+
         this.clipboard = null;
+        this.copiedLink = this.copiedLink.bind(this);
     }
 
     componentDidMount() {
+        this.mounted = true;
         this.clipboard = new Clipboard('.download-location-copy');
+        this.clipboard.on('success', this.copiedLink);
     }
 
     componentWillUnmount() {
+        this.mounted = false;
         this.clipboard.destroy();
+    }
+
+    copiedLink() {
+        this.setState({
+            button: 'Copied!'
+        }, () => {
+            // restore the button text after 2 seconds
+            window.setTimeout(() => {
+                if (this.mounted) {
+                    // but only change the state if the component is still mounted
+                    this.setState({
+                        button: 'Copy URL'
+                    });
+                }
+            }, 2000);
+        });
     }
 
     render() {
@@ -38,7 +62,7 @@ export default class DownloadLocation extends React.Component {
                     className="download-location-copy"
                     data-clipboard-action="copy"
                     data-clipboard-target="#download-location-url">
-                    Copy URL
+                    {this.state.button}
                 </button>
             </div>
         );

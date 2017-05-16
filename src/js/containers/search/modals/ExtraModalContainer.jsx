@@ -37,6 +37,7 @@ export class ExtraModalContainer extends React.Component {
         }
     }
 
+
     modalOpened() {
         if (this.props.lastReq !== '' && this.props.lastReq !== this.state.activeReq) {
             this.setState({
