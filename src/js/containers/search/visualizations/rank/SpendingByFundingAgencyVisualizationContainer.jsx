@@ -151,7 +151,7 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
         // generate the API parameters
         const apiParams = {
             field: 'transaction_obligated_amount',
-            group: `award__funding_agency__toptier_agency__name`,
+            group: 'treasury_account__funding_toptier_agency__name',
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -181,10 +181,9 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
         const searchParams = operation.toParams();
 
         // Generate the API parameters
-        // TODO: Mike Bray - Update group to the new Agency name linkage once it's available
         const apiParams = {
             field: 'obligations_incurred_by_program_object_class_cpe',
-            group: 'treasury_account__agency_id',
+            group: 'treasury_account__funding_toptier_agency__name',
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
