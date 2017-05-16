@@ -1,5 +1,5 @@
 /**
-* AgenciesListContainer.jsx
+* AgencyListContainer.jsx
 * Created by Emily Gullo 12/23/2016
 **/
 
@@ -107,8 +107,16 @@ export class AgencyListContainer extends React.Component {
         toptierAgencies = _.sortBy(toptierAgencies, 'title');
         subtierAgencies = _.sortBy(subtierAgencies, 'title');
 
-        // Combine groups, with toptier first, and select the top 10
-        agencies = _.slice(_.concat(toptierAgencies, subtierAgencies), 0, 10);
+        if (this.props.agencyType === 'Funding') {
+            // We don't allow users to filter by subtier Funding Agencies, so we return just
+            // the toptier agencies
+            agencies = toptierAgencies;
+        }
+        else {
+            // Otherwise, for filtering by Awarding Agency, we combine the toptier and subtier
+            // groups, with toptier first, and then return the top 10
+            agencies = _.slice(_.concat(toptierAgencies, subtierAgencies), 0, 10);
+        }
 
         this.setState({
             autocompleteAgencies: agencies
