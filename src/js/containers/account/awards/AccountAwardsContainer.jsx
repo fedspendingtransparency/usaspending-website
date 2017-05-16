@@ -67,7 +67,7 @@ export class AccountAwardsContainer extends React.Component {
 
         this.state = {
             columns: [],
-            inFlight: false
+            inFlight: true
         };
 
         this.switchTab = this.switchTab.bind(this);
@@ -75,6 +75,11 @@ export class AccountAwardsContainer extends React.Component {
     }
 
     componentDidMount() {
+        // prepare a default set of columns to show while the API call to determien the proper
+        // default tab is in flight
+        // we can't hide the table entirely because the viewport is required to calculate the
+        // row rendering
+        this.showColumns('contracts', true);
         this.pickDefaultTab();
     }
 
@@ -97,6 +102,10 @@ export class AccountAwardsContainer extends React.Component {
         if (this.tabCountRequest) {
             this.tabCountRequest.cancel();
         }
+
+        this.setState({
+            inFlight: true
+        });
 
         const searchParams = new AccountAwardSearchOperation(this.props.account.id);
         searchParams.fromState(this.props.filters);
@@ -146,11 +155,10 @@ export class AccountAwardsContainer extends React.Component {
             }
         }
 
-        // select the first available tab
         this.switchTab(tableTypes[firstAvailable].internal);
     }
 
-    showColumns(tableType) {
+    showColumns(tableType, doNotLoad = false) {
          // calculate the column metadata to display in the table
         const columns = [];
         let sortOrder = TableSearchFields.defaultSortDirection;
@@ -176,7 +184,9 @@ export class AccountAwardsContainer extends React.Component {
         this.setState({
             columns
         }, () => {
-            this.loadData();
+            if (!doNotLoad) {
+                this.loadData();
+            }
         });
     }
 
@@ -234,20 +244,15 @@ export class AccountAwardsContainer extends React.Component {
             .then((res) => {
                 this.request = null;
 
-                this.setState({
-                    inFlight: false
-                });
-
                 this.parseData(res.data, page);
             })
             .catch((err) => {
-                this.request = null;
-                this.setState({
-                    inFlight: false
-                });
-
                 if (!isCancel(err)) {
+                    this.request = null;
                     console.log(err);
+                    this.setState({
+                        inFlight: false
+                    });
                 }
             });
     }

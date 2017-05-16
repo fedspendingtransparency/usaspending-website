@@ -85,6 +85,10 @@ export class ResultsTableContainer extends React.Component {
     }
 
     componentDidMount() {
+        // set some default columns to look at while the initial tab-picker API calls are in flight
+        // we can't hide the table entirely because the viewport is required to calculate the
+        // row rendering
+        this.showColumns('contracts');
         this.pickDefaultTab();
     }
 
@@ -119,6 +123,8 @@ export class ResultsTableContainer extends React.Component {
         if (this.tabCountRequest) {
             this.tabCountRequest.cancel();
         }
+
+        this.props.setSearchInFlight(true);
 
         const searchParams = new SearchOperation();
         searchParams.fromState(this.props.filters);
