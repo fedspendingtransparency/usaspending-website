@@ -4,7 +4,7 @@
     color: $color-base;
     float: left;
     font-size: rem(10);
-    margin-top: rem(10);
+    margin: rem(10) rem(40) 0 rem(40);
     .info-icon-circle {
         @include align-self(center);
         display: inline-block;

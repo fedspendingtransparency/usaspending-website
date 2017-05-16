@@ -18,7 +18,7 @@ const propTypes = {
     toggleTooltip: React.PropTypes.func,
     showOverlay: React.PropTypes.bool,
     showSub: React.PropTypes.bool,
-    toggleSubfunction: React.PropTypes.func,
+    changeActiveSubfunction: React.PropTypes.func,
     clickable: React.PropTypes.bool,
     chosen: React.PropTypes.string,
     chosenColor: React.PropTypes.string
@@ -171,7 +171,8 @@ export default class TreeMapCell extends React.Component {
         let labelView = 'block';
         let percentView = 'block';
         let bgColor = this.state.color;
-        if (this.props.chosen === this.state.label) {
+
+        if (this.props.chosen === this.state.label && this.props.showSub === true) {
             bgColor = this.props.chosenColor;
         }
         const width = (this.props.x1 - this.props.x0);
@@ -182,6 +183,13 @@ export default class TreeMapCell extends React.Component {
         if (height < 40 || width < 60) {
             percentView = 'none';
         }
+        const set = {
+            selected: this.props.label,
+            selectedValue: this.props.value,
+            selectedTotal: this.props.total,
+            next: null,
+            prev: null,
+            showSub: true };
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
@@ -193,8 +201,7 @@ export default class TreeMapCell extends React.Component {
                 }}
                 onClick={() => {
                     if (this.props.clickable === true) {
-                        this.props.toggleSubfunction(
-                            this.props.label, this.props.value, this.props.total);
+                        this.props.changeActiveSubfunction(set);
                     }
                 }}>
                 <rect
