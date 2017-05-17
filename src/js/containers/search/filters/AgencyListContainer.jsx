@@ -7,6 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import _ from 'lodash';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
@@ -60,7 +61,7 @@ export class AgencyListContainer extends React.Component {
     }
 
     parseAutocompleteAgencies(results) {
-        const agencies = [];
+        let agencies = [];
 
         // Format results of search for use in Autocomplete component
         if (results && results.length > 0) {
@@ -98,6 +99,17 @@ export class AgencyListContainer extends React.Component {
             }
         }
 
+        // Separate top and subtier agencies
+        let toptierAgencies = _.filter(agencies, ['data.agencyType', 'toptier']);
+        let subtierAgencies = _.filter(agencies, ['data.agencyType', 'subtier']);
+
+        // Sort individual groups alphabetically
+        toptierAgencies = _.sortBy(toptierAgencies, 'title');
+        subtierAgencies = _.sortBy(subtierAgencies, 'title');
+
+        // Combine groups, with toptier first, and select the top 10
+        agencies = _.slice(_.concat(toptierAgencies, subtierAgencies), 0, 10);
+
         this.setState({
             autocompleteAgencies: agencies
         });
@@ -122,6 +134,7 @@ export class AgencyListContainer extends React.Component {
             const agencySearchParams = {
                 fields: ['subtier_agency__name'],
                 value: this.state.agencySearchString,
+                order: ["-toptier_flag", "subtier_agency__name"],
                 mode: "contains",
                 matched_objects: true,
                 limit: 10
@@ -209,7 +222,7 @@ export class AgencyListContainer extends React.Component {
                 values={this.state.autocompleteAgencies}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.toggleAgency.bind(this)}
-                placeHolder={this.props.agencyType}
+                placeholder={`${this.props.agencyType} Agency`}
                 errorHeader="Unknown Agency"
                 errorMessage="We were unable to find that agency."
                 ref={(input) => {

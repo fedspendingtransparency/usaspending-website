@@ -1,4 +1,4 @@
-@mixin searchHeaderFormatItem {
+.format-item {
     @include button-unstyled;
     vertical-align: middle;
     width: 5rem;

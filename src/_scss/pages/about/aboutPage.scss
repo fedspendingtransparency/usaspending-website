@@ -1,7 +1,6 @@
 .usa-da-about-page {
     @import "mixins/fullSectionWrap";
     @import "layouts/default/default";
-    @include defaultLayout;
     @import "./mastHead";
     @import "./introduction";
     @import "./overview";
