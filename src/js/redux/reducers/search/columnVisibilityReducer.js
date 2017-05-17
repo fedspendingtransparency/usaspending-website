@@ -39,7 +39,10 @@ const initialState = {
                 'pop_city',
                 'pop_zip',
                 'pop_country',
-                'pop_state_province'
+                'pop_state_province',
+                'recipient_duns',
+                'recipient_parent_duns',
+                'type_of_contract_pricing'
             ]
         )
     },

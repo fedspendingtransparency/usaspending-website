@@ -24,7 +24,10 @@ const tableSearchFields = {
         pop_city: 280,
         pop_zip: 280,
         pop_country: 280,
-        pop_state_province: 280
+        pop_state_province: 280,
+        recipient_duns: 280,
+        recipient_parent_duns: 280,
+        type_of_contract_pricing: 280
     },
     defaultSortDirection: {
         award_id: 'asc',
@@ -51,7 +54,10 @@ const tableSearchFields = {
         pop_city: 'asc',
         pop_zip: 'asc',
         pop_country: 'asc',
-        pop_state_province: 'asc'
+        pop_state_province: 'asc',
+        recipient_duns: 'asc',
+        recipient_parent_duns: 'asc',
+        type_of_contract_pricing: 'asc'
     },
     contracts: {
         _defaultSortField: 'total_obligation',
@@ -70,7 +76,8 @@ const tableSearchFields = {
             'date_signed',
             'potential_total_value_of_award',
             'awarding_agency',
-            'place_of_performance'
+            'place_of_performance',
+            'latest_transaction'
         ],
         _mapping: {
             award_id: 'piid',
@@ -97,7 +104,10 @@ const tableSearchFields = {
             pop_city: 'place_of_performance__city_name',
             pop_zip: 'place_of_performance__zip5',
             pop_country: 'place_of_performance__country_name',
-            pop_state_province: 'place_of_performance__state_name'
+            pop_state_province: 'place_of_performance__state_name',
+            recipient_duns: 'recipient__recipient_unique_id',
+            recipient_parent_duns: 'recipient__parent_recipient_unique_id',
+            type_of_contract_pricing: 'latest_transaction__contract_data__type_of_contract_pricing'
         },
         award_id: 'Award ID',
         recipient_name: 'Recipient Name',
@@ -123,7 +133,10 @@ const tableSearchFields = {
         pop_city: 'Place of Performance City',
         pop_zip: 'Place of Performance Zip Code',
         pop_country: 'Place of Performance Country',
-        pop_state_province: 'Place of Performance State'
+        pop_state_province: 'Place of Performance State',
+        recipient_duns: 'Recipient DUNS Number',
+        recipient_parent_duns: 'Recipient Ultimate DUNS Number',
+        type_of_contract_pricing: 'Contract Pricing Type'
     },
     grants: {
         _defaultSortField: 'total_obligation',
