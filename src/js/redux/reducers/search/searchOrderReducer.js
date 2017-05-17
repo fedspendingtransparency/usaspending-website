@@ -10,7 +10,7 @@ const initialState = {
     direction: 'desc'
 };
 
-const OrderRecord = Record(initialState);
+export const OrderRecord = Record(initialState);
 
 const searchFiltersReducer = (state = new OrderRecord(), action) => {
     switch (action.type) {
