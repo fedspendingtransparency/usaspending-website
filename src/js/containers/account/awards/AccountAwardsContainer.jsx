@@ -156,7 +156,8 @@ export class AccountAwardsContainer extends React.Component {
             fields: TableSearchFields[this.props.meta.type]._requestFields,
             filters: searchOperation.toParams(),
             order: searchOrder.toParams(),
-            limit: 60
+            limit: 60,
+            auditTrail: 'Awards table'
         };
 
         this.request = SearchHelper.performSearch(params);

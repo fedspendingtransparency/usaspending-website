@@ -18,6 +18,7 @@ import awardIDReducer from './search/awardIDReducer';
 import budgetCategoryReducer from './search/budgetCategoryReducer';
 import awardReducer from './award/awardReducer';
 import accountReducer from './account/accountReducer';
+import guideReducer from './guide/guideReducer';
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
@@ -32,7 +33,8 @@ const appReducer = combineReducers({
     records: recordReducer,
     award: awardReducer,
     autocompleteBudgetCategories: budgetCategoryReducer,
-    account: accountReducer
+    account: accountReducer,
+    guide: guideReducer
 });
 
 export default appReducer;

@@ -14,9 +14,8 @@ import BudgetLine from './BudgetLine';
 
 const propTypes = {
     breakdown: React.PropTypes.object,
-    descriptions: React.PropTypes.array,
     colors: React.PropTypes.array,
-    breakdownTotal: React.PropTypes.number
+    tooltipStyles: React.PropTypes.object
 };
 
 export default class CategoryMap extends React.Component {
@@ -39,7 +38,8 @@ export default class CategoryMap extends React.Component {
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
-        this.toggleTooltip = this.toggleTooltip.bind(this);
+        this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
+        this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
         this.createTooltip = this.createTooltip.bind(this);
     }
 
@@ -50,7 +50,7 @@ export default class CategoryMap extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.breakdown.children.length > 0) {
-            this.buildTree(nextProps.breakdown, nextProps.colors, '');
+            this.buildTree(nextProps.breakdown, nextProps.colors, nextProps.tooltipStyles);
         }
     }
 
@@ -68,12 +68,12 @@ export default class CategoryMap extends React.Component {
                 visualizationWidth: this.sectionWrapper.offsetWidth
             });
             if (this.props.breakdown !== null) {
-                this.buildTree(this.props.breakdown, this.props.colors, '');
+                this.buildTree(this.props.breakdown, this.props.colors, this.props.tooltipStyles);
             }
         }
     }
 
-    buildTree(cats, colors, chosen) {
+    buildTree(cats, colors, tooltipStyles) {
         // put the data through d3's hierarchy system to sum and sort it
         const root = d3.hierarchy(cats)
         .sum((d) => (d.value))
@@ -98,16 +98,17 @@ export default class CategoryMap extends React.Component {
                 cell = (<CategoryMapCell
                     label={n.data.name}
                     value={n.data.value}
+                    description={n.data.description}
                     x0={n.x0}
                     x1={n.x1}
                     y0={n.y0}
                     y1={n.y1}
-                    total={n.parent.value}
                     key={i}
-                    id={n.data.id}
+                    categoryID={n.data.id}
                     color={colors[i]}
-                    chosen={chosen}
-                    toggleTooltip={this.toggleTooltip} />);
+                    tooltipStyles={tooltipStyles}
+                    toggleTooltipIn={this.toggleTooltipIn}
+                    toggleTooltipOut={this.toggleTooltipOut} />);
             }
             return cell;
         });
@@ -117,32 +118,30 @@ export default class CategoryMap extends React.Component {
         });
     }
 
-    toggleTooltip(cat, value, xStart, yStart, width, height) {
-        const descSet = this.props.descriptions;
-        // find index of object item on matching cat name
-        let descIndex = '0';
-        if (cat !== 'none') {
-            descIndex = _.findIndex(descSet, { name: cat });
-        }
+    toggleTooltipIn(categoryID, height, width) {
+        const category = _.find(this.state.finalNodes, { key: `${categoryID}` });
 
-        // set it to desc value
-        let desc = '';
-        if (cat !== 'none') {
-            desc = descSet[descIndex].value;
-        }
-
-        // set the state
         this.setState({
-            category: cat,
-            description: desc,
-            individualValue: value,
-            x: xStart,
-            y: yStart,
+            category: category.props.label,
+            description: category.props.description,
+            individualValue: category.props.value,
+            x: category.props.x0,
+            y: category.props.y0,
             width,
             height
         });
+    }
 
-        this.buildTree(this.props.breakdown, this.props.colors, this.state.category);
+    toggleTooltipOut(height, width) {
+        this.setState({
+            category: 'none',
+            description: '',
+            individualValue: '',
+            x: 0,
+            y: 0,
+            width,
+            height
+        });
     }
 
     createTooltip() {
@@ -155,8 +154,7 @@ export default class CategoryMap extends React.Component {
                 x={this.state.x}
                 y={this.state.y}
                 width={this.state.width}
-                height={(this.state.height / 2) + 50}
-                total={this.props.breakdownTotal} />);
+                height={(this.state.height / 2) + 50} />);
         }
         return tooltip;
     }
@@ -168,8 +166,8 @@ export default class CategoryMap extends React.Component {
         }
         return (<div className="by-category-section-wrap">
             <div className="inner-wrap">
-                <h3>About <strong>3/4</strong> of the total spending was awarded to state and
-                    local governments, private contractors, individuals, and others.</h3>
+                <h3>About <strong>3/4</strong> of 2016 spending was award spending,
+                    which went to a range of recipients.</h3>
                 { line }
                 <div className="by-category-vis">
                     { this.createTooltip() }

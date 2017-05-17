@@ -10,9 +10,16 @@ import _ from 'lodash';
 
 import SpendingByAwardingAgencyVisualizationContainer from
     'containers/search/visualizations/rank/SpendingByAwardingAgencyVisualizationContainer';
-
 import SpendingByCategoryRankVisualizationSectionContainer from
     'containers/search/visualizations/rank/SpendingByCategoryRankVisualizationSectionContainer';
+import SpendingByFundingAgencyVisualizationContainer from
+    'containers/search/visualizations/rank/SpendingByFundingAgencyVisualizationContainer';
+import SpendingByRecipientVisualizationContainer from
+    'containers/search/visualizations/rank/SpendingByRecipientVisualizationContainer';
+import SpendingByCFDAVisualizationContainer from
+    'containers/search/visualizations/rank/SpendingByCFDAVisualizationContainer';
+import SpendingByIndustryCodeVisualizationContainer from
+    'containers/search/visualizations/rank/SpendingByIndustryCodeVisualizationContainer';
 
 import RankVisualizationTitle from 'components/search/visualizations/rank/RankVisualizationTitle';
 
@@ -61,6 +68,14 @@ export class RankVisualizationWrapperContainer extends React.Component {
                 return <SpendingByCategoryRankVisualizationSectionContainer {...this.state} />;
             case 'awarding_agency':
                 return <SpendingByAwardingAgencyVisualizationContainer {...this.state} />;
+            case 'funding_agency':
+                return <SpendingByFundingAgencyVisualizationContainer {...this.state} />;
+            case 'recipient':
+                return <SpendingByRecipientVisualizationContainer {...this.state} />;
+            case 'cfda':
+                return <SpendingByCFDAVisualizationContainer {...this.state} />;
+            case 'industry_code':
+                return <SpendingByIndustryCodeVisualizationContainer {...this.state} />;
             default:
                 return <SpendingByCategoryRankVisualizationSectionContainer {...this.state} />;
         }
@@ -78,7 +93,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                 className="results-visualization-rank-section"
                 id="results-section-rank">
                 <RankVisualizationTitle
-                    changeSpendingBy={this.changeSpendingBy} />
+                    changeSpendingBy={this.changeSpendingBy}
+                    currentSpendingBy={this.state.spendingBy} />
                 { visualization }
             </div>
         );

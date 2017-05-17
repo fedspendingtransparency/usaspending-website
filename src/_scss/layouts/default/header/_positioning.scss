@@ -1,42 +1,42 @@
-@mixin headerPositioning {
-    .nav-container {
-        @import "../../../mixins/fullSectionWrap";
-        @include fullSectionWrap(0,0);
-        @include display(flex);
-        @include flex-direction(row);
-        @include align-items(center);
-        height: rem(70);
-        @include media($nav-width) {
-            @include media($small-screen) {
-                height: rem(118);
-            }
-            @include media($large-screen) {
-            }
-            @include media($x-large-screen) {
-                max-width: $site-max-width;
-                margin: 0 auto;
-            }
-        }
-        .logo {
-            @include flex(1);
-            margin: auto;
-            position: relative;
-            @include media($nav-width);
+.nav-container {
+    @import "mixins/fullSectionWrap";
+    @include fullSectionWrap(0,0);
+    @include display(flex);
+    @include flex-direction(row);
+    @include align-items(center);
+    height: rem(105);
 
+    @include media($nav-width) {
+        @include media($small-screen) {
+            height: rem(118);
         }
-        nav {
-            margin: auto;
+        @include media($x-large-screen) {
+            max-width: $site-max-width;
+            margin: 0 auto;
+        }
+    }
+
+    .logo {
+        @include flex(1);
+        margin: auto;
+        position: relative;
+        @include media($nav-width);
+    }
+
+    nav {
+        margin: auto;
+        display: none;
+        @include media($medium-screen) {
+            display: block;
+            width: rem(600);
+            @include clearfix();
+        }
+    }
+
+    .mobile-menu {
+        width: 20%;
+        @include media($medium-screen) {
             display: none;
-            @include media($tablet-screen) {
-                display: block;
-                width: rem(500);
-            }
-        }
-        .mobile-menu {
-            width: 20%;
-            @include media($tablet-screen) {
-                display: none;
-            }
         }
     }
 }

@@ -1,5 +1,5 @@
 /**
- * RankVisualizationSectionContainer.jsx
+ * SpendingByAwardingAgencyVisualizationContainer.jsx
  * Created by Kevin Li 2/9/17
  */
 
@@ -9,8 +9,8 @@ import { connect } from 'react-redux';
 
 import _ from 'lodash';
 
-import RankVisualizationSection from
-    'components/search/visualizations/rank/RankVisualizationSection';
+import SpendingByAgencySection from
+    'components/search/visualizations/rank/sections/SpendingByAgencySection';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -236,12 +236,13 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
 
     render() {
         return (
-            <RankVisualizationSection
+            <SpendingByAgencySection
                 {...this.state}
                 meta={this.props.meta}
                 changeScope={this.changeScope}
                 nextPage={this.nextPage}
-                previousPage={this.previousPage} />
+                previousPage={this.previousPage}
+                agencyType="awarding" />
         );
     }
 }

@@ -18,13 +18,15 @@ export default class About extends React.Component {
         return (
             <div className="usa-da-about-page">
                 <Header />
-                <MastHead />
-                <Introduction />
-                <AboutData />
-                <Overview />
-                <div className="usa-da-about-inner">
-                    <NextSteps />
-                </div>
+                <main id="main-content">
+                    <MastHead />
+                    <Introduction />
+                    <AboutData />
+                    <Overview />
+                    <div className="usa-da-about-inner">
+                        <NextSteps />
+                    </div>
+                </main>
                 <Footer />
             </div>
         );
