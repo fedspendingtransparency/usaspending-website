@@ -45,6 +45,23 @@ export const performPagedSearch = (filters = [], page = 1, limit = 15, order = n
     return performSearch(params);
 };
 
+// function for determining which award tabs to default to
+export const fetchAwardCounts = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'awards/total/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 // Location search for autocomplete
 export const fetchLocations = (req) => {
     const source = CancelToken.source();
