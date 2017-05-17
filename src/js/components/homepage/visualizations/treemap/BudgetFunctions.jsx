@@ -21,7 +21,9 @@ const propTypes = {
     changeActiveSubfunction: React.PropTypes.func,
     toggleOverlay: React.PropTypes.func,
     showOverlay: React.PropTypes.bool,
-    windowWidth: React.PropTypes.number
+    windowWidth: React.PropTypes.number,
+    tooltipStyles: React.PropTypes.object,
+    chosen: React.PropTypes.string
 };
 
 export default class BudgetFunctions extends React.Component {
@@ -36,7 +38,7 @@ export default class BudgetFunctions extends React.Component {
             category: 'none',
             description: '',
             descriptions: {},
-            finalNodes: '',
+            finalNodes: [],
             individualValue: '',
             selected: '',
             showSub: this.props.showSub,
@@ -45,7 +47,9 @@ export default class BudgetFunctions extends React.Component {
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
-        this.toggleTooltip = this.toggleTooltip.bind(this);
+        this.createTooltip = this.createTooltip.bind(this);
+        this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
+        this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
     }
 
     componentDidMount() {
@@ -55,7 +59,8 @@ export default class BudgetFunctions extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.categories.children.length > 0) {
-            this.buildTree(nextProps.categories, nextProps.alternateColors, null);
+            this.buildTree(nextProps.categories, nextProps.alternateColors,
+                nextProps.tooltipStyles);
         }
     }
 
@@ -77,87 +82,83 @@ export default class BudgetFunctions extends React.Component {
                 colors = this.props.alternateColors;
             }
             if (this.props.categories.children.length > 0) {
-                this.buildTree(this.props.categories, colors, null);
+                this.buildTree(this.props.categories, colors, this.props.tooltipStyles);
             }
         }
     }
 
-    buildTree(cats, colors, chosen) {
+    buildTree(cats, colors, styles) {
         // put the data through d3's hierarchy system to sum and sort it
         const root = d3.hierarchy(cats)
         .sum((d) => (d.value))
         .sort((a, b) => b.height - a.height || b.value - a.value);
-
-        // set up a treemap object and pass in the root
-        let tileStyle = d3.treemapBinary;
-        const mapHeight = 565;
-        if (this.state.windowWidth < 768) {
-            tileStyle = d3.treemapSlice;
-        }
-        this.setState({
-            visualizationHeight: mapHeight
-        });
         const treemap = d3.treemap()
         .round(true)
-        .tile(tileStyle)
-        .size([this.sectionWrapper.offsetWidth, mapHeight])(root).leaves();
+        .tile(d3.treemapBinary)
+        .size([this.state.visualizationWidth, this.state.visualizationHeight])(root).leaves();
 
         // build the tiles
-        const nodes = treemap.map((n, i) =>
-            <TreeMapCell
-                label={n.data.name}
-                value={n.value}
-                x0={n.x0}
-                x1={n.x1}
-                y0={n.y0}
-                y1={n.y1}
-                total={n.parent.value}
-                key={i}
-                color={colors[i]}
-                chosenColor={this.props.colors[i]}
-                hoverColor={this.state.hoverColor}
-                chosen={chosen}
-                toggleTooltip={this.toggleTooltip}
-                showOverlay={this.props.showOverlay}
-                showSub={this.state.showSub}
-                toggleSubfunction={this.props.toggleSubfunction}
-                changeActiveSubfunction={this.props.changeActiveSubfunction}
-                clickable />
-        );
+        const nodes = treemap.map((n, i) => {
+            let cell = '';
+            if (n.value !== 0) {
+                cell = (<TreeMapCell
+                    label={n.data.name}
+                    value={n.value}
+                    x0={n.x0}
+                    x1={n.x1}
+                    y0={n.y0}
+                    y1={n.y1}
+                    total={n.parent.value}
+                    key={i}
+                    categoryID={n.data.id}
+                    color={colors[i]}
+                    chosenColor={this.props.colors[i]}
+                    hoverColor={this.state.hoverColor}
+                    chosen={this.props.chosen}
+                    showOverlay={this.props.showOverlay}
+                    showSub={this.state.showSub}
+                    toggleSubfunction={this.props.toggleSubfunction}
+                    changeActiveSubfunction={this.props.changeActiveSubfunction}
+                    tooltipStyles={styles}
+                    toggleTooltipIn={this.toggleTooltipIn}
+                    toggleTooltipOut={this.toggleTooltipOut}
+                    clickable />);
+            }
+            return cell;
+        });
         this.setState({
             finalNodes: nodes
         });
     }
 
-    toggleTooltip(set) {
-        const descSet = this.props.descriptions;
-        // find index of object item on matching cat name
-        let descIndex = '0';
-        if (set.cat !== 'none') {
-            descIndex = _.findIndex(descSet, { name: set.cat });
-        }
+    toggleTooltipIn(categoryID, height, width) {
+        const category = _.find(this.state.finalNodes, { key: `${categoryID}` });
 
-        // set it to desc value
-        let desc = '';
-        if (set.cat !== 'none') {
-            desc = descSet[descIndex].value;
-        }
-
-        // set the state
         this.setState({
-            category: set.cat,
-            description: desc,
-            individualValue: set.value,
-            hoverColor: set.bgColor,
-            x: set.xStart,
-            y: set.yStart,
-            width: set.width,
-            height: set.height,
-            total: set.total
+            category: category.props.label,
+            description: category.props.description,
+            individualValue: category.props.value,
+            x: category.props.x0,
+            y: category.props.y0,
+            width,
+            height
         });
+
         if (this.state.showOverlay !== false) {
             this.props.toggleOverlay();
         }
+    }
+
+    toggleTooltipOut(height, width) {
+        this.setState({
+            category: 'none',
+            description: '',
+            individualValue: '',
+            x: 0,
+            y: 0,
+            width,
+            height
+        });
     }
 
     formatFriendlyString(value) {

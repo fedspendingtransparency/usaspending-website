@@ -16,7 +16,8 @@ const propTypes = {
     descriptions: React.PropTypes.array,
     colors: React.PropTypes.array,
     subfunctions: React.PropTypes.object,
-    alternateColors: React.PropTypes.array
+    alternateColors: React.PropTypes.array,
+    tooltipStyles: React.PropTypes.object
 };
 
 export default class TreeMap extends React.Component {
@@ -157,7 +158,8 @@ export default class TreeMap extends React.Component {
             alternateColors={this.props.alternateColors}
             toggleOverlay={this.toggleOverlay}
             toggleSubfunction={this.toggleSubfunction}
-            changeActiveSubfunction={this.changeActiveSubfunction} />);
+            changeActiveSubfunction={this.changeActiveSubfunction}
+            tooltipStyles={this.props.tooltipStyles} />);
         if (this.state.showSub === true) {
             functions = (<BudgetSubfunctions
                 showSub={this.state.showSub}
@@ -172,7 +174,9 @@ export default class TreeMap extends React.Component {
                 selectedValue={this.state.selectedValue}
                 selectedTotal={this.state.selectedTotal}
                 toggleOverlay={this.toggleOverlay}
-                changeActiveSubfunction={this.changeActiveSubfunction} />);
+                changeActiveSubfunction={this.changeActiveSubfunction}
+                tooltipStyles={this.props.tooltipStyles}
+                chosen={this.state.selected} />);
         }
         return (
             <div className="usa-da-treemap-section">

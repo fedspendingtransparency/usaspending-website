@@ -16,7 +16,9 @@ const propTypes = {
     colors: React.PropTypes.array,
     topFunction: React.PropTypes.string,
     showSub: React.PropTypes.bool,
-    showOverlay: React.PropTypes.bool
+    showOverlay: React.PropTypes.bool,
+    tooltipStyles: React.PropTypes.object,
+    chosen: React.PropTypes.string
 };
 
 export default class SubTreeMap extends React.Component {
@@ -36,7 +38,8 @@ export default class SubTreeMap extends React.Component {
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
-        this.toggleTooltip = this.toggleTooltip.bind(this);
+        this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
+        this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
         this.formatFriendlyString = this.formatFriendlyString.bind(this);
     }
 
@@ -47,7 +50,8 @@ export default class SubTreeMap extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.subfunctions[nextProps.topFunction].children.length > 0) {
-            this.buildTree(nextProps.subfunctions[nextProps.topFunction], nextProps.colors, '');
+            this.buildTree(nextProps.subfunctions[nextProps.topFunction], nextProps.colors,
+            nextProps.tooltipStyles);
         }
     }
 
@@ -66,12 +70,13 @@ export default class SubTreeMap extends React.Component {
             });
             if (this.props.subfunctions[this.props.topFunction].children.length > 0) {
                 this.buildTree(
-                    this.props.subfunctions[this.props.topFunction], this.props.colors, '');
+                    this.props.subfunctions[this.props.topFunction], this.props.colors,
+                    this.props.tooltipStyles);
             }
         }
     }
 
-    buildTree(cats, colors, chosen) {
+    buildTree(cats, colors, styles) {
         // put the data through d3's hierarchy system to sum and sort it
         const root = d3.hierarchy(cats)
         .sum((d) => (d.value))
@@ -88,55 +93,58 @@ export default class SubTreeMap extends React.Component {
             .size([this.sectionWrapper.offsetWidth, 286])(root).leaves();
 
         // build the tiles
-        const nodes = treemap.map((n, i) =>
-            <TreeMapCell
-                label={n.data.name}
-                value={n.value}
-                x0={n.x0}
-                x1={n.x1}
-                y0={n.y0}
-                y1={n.y1}
-                total={n.parent.value}
-                key={i}
-                color={colors[i]}
-                chosen={chosen}
-                toggleTooltip={this.toggleTooltip}
-                showOverlay={this.props.showOverlay}
-                showSub={this.props.showSub}
-                clickable={false} />
-        );
-
+        const nodes = treemap.map((n, i) => {
+            let cell = '';
+            if (n.value !== 0) {
+                cell = (<TreeMapCell
+                    label={n.data.name}
+                    value={n.value}
+                    x0={n.x0}
+                    x1={n.x1}
+                    y0={n.y0}
+                    y1={n.y1}
+                    total={n.parent.value}
+                    categoryID={n.data.id}
+                    key={i}
+                    color={colors[i]}
+                    chosen={this.props.chosen}
+                    tooltipStyles={styles}
+                    toggleTooltipIn={this.toggleTooltipIn}
+                    toggleTooltipOut={this.toggleTooltipOut}
+                    showOverlay={this.props.showOverlay}
+                    showSub={this.props.showSub}
+                    clickable={false} />);
+            }
+            return cell;
+        });
         this.setState({
             finalNodes: nodes
         });
     }
 
-    toggleTooltip(set) {
-        // set it to desc value
-        const descSet = this.props.subfunctions[this.props.topFunction].children;
-        // find index of object item on matching cat name
-        let descIndex = '0';
-        if (set.cat !== 'none') {
-            descIndex = _.findIndex(descSet, { name: set.cat });
-        }
+    toggleTooltipIn(categoryID, height, width) {
+        const category = _.find(this.state.finalNodes, { key: `${categoryID}` });
 
-        // set it to desc value
-        let desc = '';
-        if (set.cat !== 'none') {
-            desc = descSet[descIndex].description;
-        }
-
-        // set the state
         this.setState({
-            category: set.cat,
-            description: desc,
-            individualValue: set.value,
-            x: set.xStart,
-            y: set.yStart,
-            width: set.width,
-            height: set.height,
-            showOverlay: false,
-            total: set.total
+            category: category.props.label,
+            description: category.props.description,
+            individualValue: category.props.value,
+            x: category.props.x0,
+            y: category.props.y0,
+            width,
+            height
+        });
+    }
+
+    toggleTooltipOut(height, width) {
+        this.setState({
+            category: 'none',
+            description: '',
+            individualValue: '',
+            x: 0,
+            y: 0,
+            width,
+            height
         });
     }
 

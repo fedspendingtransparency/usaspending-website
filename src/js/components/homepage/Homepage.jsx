@@ -52,12 +52,13 @@ export default class Homepage extends React.Component {
                     categories: res.data.budgetCategories,
                     descriptions: res.data.categoryDescriptions,
                     colors: res.data.treemapColors,
-                    alternateColors: res.data.alternateColors,
                     breakdown: res.data.budgetBreakdown,
                     breakdownColors: res.data.breakdownColors,
                     tooltipStyles: res.data.tooltipStyles,
                     total: res.data.totalSpent,
-                    states: res.data.states
+                    states: res.data.states,
+                    alternateColors: res.data.alternateColors,
+                    subfunctions: res.data.subfunctions
                 }, () => {
                     deferred.resolve();
                 });
@@ -81,7 +82,8 @@ export default class Homepage extends React.Component {
                     descriptions={this.state.descriptions}
                     subfunctions={this.state.subfunctions}
                     alternateColors={this.state.alternateColors}
-                    total={this.state.breakdownTotal} />
+                    total={this.state.breakdownTotal}
+                    tooltipStyles={this.state.tooltipStyles} />
                 <CategoryMap
                     breakdown={this.state.breakdown}
                     colors={this.state.breakdownColors}

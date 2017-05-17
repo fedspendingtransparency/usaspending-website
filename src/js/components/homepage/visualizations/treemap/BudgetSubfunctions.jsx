@@ -25,7 +25,9 @@ const propTypes = {
     selectedTotal: React.PropTypes.number,
     selectedDesc: React.PropTypes.string,
     changeActiveSubfunction: React.PropTypes.func,
-    toggleOverlay: React.PropTypes.func
+    toggleOverlay: React.PropTypes.func,
+    tooltipStyles: React.PropTypes.object,
+    chosen: React.PropTypes.string
 };
 
 export default class BudgetSubfunctions extends React.Component {
@@ -175,7 +177,9 @@ export default class BudgetSubfunctions extends React.Component {
                     colors={this.props.colors}
                     alternateColors={this.props.alternateColors}
                     changeActiveSubfunction={this.props.changeActiveSubfunction}
-                    toggleOverlay={this.props.toggleOverlay} />
+                    toggleOverlay={this.props.toggleOverlay}
+                    tooltipStyles={this.props.tooltipStyles}
+                    chosen={this.props.chosen} />
                 <BudgetSubfunctionsDescription
                     category={this.props.selected}
                     value={this.formatFriendlyString(this.props.selectedValue)}
@@ -187,7 +191,9 @@ export default class BudgetSubfunctions extends React.Component {
                     subfunctions={this.props.subfunctions}
                     colors={this.props.colors}
                     showSub={this.props.showSub}
-                    showOverlay={this.props.showOverlay} />
+                    showOverlay={this.props.showOverlay}
+                    tooltipStyles={this.props.tooltipStyles}
+                    chosen={this.props.chosen} />
             </div>
         );
     }

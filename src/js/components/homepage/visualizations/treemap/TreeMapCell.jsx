@@ -21,7 +21,11 @@ const propTypes = {
     changeActiveSubfunction: React.PropTypes.func,
     clickable: React.PropTypes.bool,
     chosen: React.PropTypes.string,
-    chosenColor: React.PropTypes.string
+    chosenColor: React.PropTypes.string,
+    tooltipStyles: React.PropTypes.object,
+    toggleTooltipIn: React.PropTypes.func,
+    toggleTooltipOut: React.PropTypes.func,
+    categoryID: React.PropTypes.number
 };
 
 export default class TreeMapCell extends React.Component {
@@ -34,9 +38,12 @@ export default class TreeMapCell extends React.Component {
             didProcess: false,
             color: this.props.color,
             textClass: '',
-            showOverlay: this.props.showOverlay
+            showOverlay: this.props.showOverlay,
+            textColor: this.props.tooltipStyles.defaultStyle.textColor,
+            textShadow: this.props.tooltipStyles.defaultStyle.textShadow
         };
-        this.mouseEvent = this.mouseEvent.bind(this);
+        this.mouseIn = this.mouseIn.bind(this);
+        this.mouseOut = this.mouseOut.bind(this);
         this.toggleBorders = this.toggleBorders.bind(this);
     }
 
@@ -107,51 +114,25 @@ export default class TreeMapCell extends React.Component {
         });
     }
 
-    mouseEvent(set) {
-        let newSet = {};
-        const width = (this.props.x1 - this.props.x0);
-        const height = (this.props.y1 - this.props.y0);
-        let hoverColor = "#F2B733";
+    mouseIn(height, width) {
+        this.props.toggleTooltipIn(this.props.categoryID, height, width);
+        let hoverColor = this.props.tooltipStyles.highlightedStyle.color;
         if (this.props.chosen !== null && this.props.clickable && this.props.showSub === true) {
             hoverColor = this.props.chosenColor;
         }
-        if (set === 'mouseIn') {
-            newSet = {
-                cat: this.props.label,
-                value: this.props.value,
-                bgColor: hoverColor,
-                textClass: 'chosen',
-                xStart: this.props.x0,
-                yStart: this.props.y0,
-                width,
-                height,
-                total: this.props.total
-            };
-            this.setState({
-                color: newSet.bgColor
-            });
-        }
-        else {
-            newSet = {
-                cat: 'none',
-                value: '',
-                bgColor: this.props.color,
-                textClass: '',
-                xStart: this.props.x0,
-                yStart: this.props.y0,
-                width,
-                height,
-                total: this.props.total
-            };
-            this.setState({
-                color: newSet.bgColor
-            });
-        }
         this.setState({
-            textClass: newSet.textClass
+            textClass: 'chosen',
+            color: hoverColor
         });
+    }
 
-        this.props.toggleTooltip(newSet);
+    mouseOut(height, width) {
+        this.props.toggleTooltipOut(height, width);
+
+        this.setState({
+            textClass: 'chosen',
+            color: this.props.color
+        });
     }
 
     toggleBorders() {
@@ -176,7 +157,6 @@ export default class TreeMapCell extends React.Component {
         let labelView = 'block';
         let percentView = 'block';
         let bgColor = this.state.color;
-
         if (this.props.chosen === this.state.label && this.props.showSub === true) {
             bgColor = this.props.chosenColor;
         }
@@ -200,10 +180,10 @@ export default class TreeMapCell extends React.Component {
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
                 onMouseEnter={() => {
-                    this.mouseEvent('mouseIn');
+                    this.mouseIn(height, width);
                 }}
                 onMouseLeave={() => {
-                    this.mouseEvent('mouseOut');
+                    this.mouseOut(height, width);
                 }}
                 onClick={() => {
                     if (this.props.clickable === true) {
@@ -231,7 +211,9 @@ export default class TreeMapCell extends React.Component {
                         this.svgText = text;
                     }}
                     style={{
-                        display: labelView
+                        display: labelView,
+                        fill: this.state.textColor,
+                        textShadow: this.state.textShadow
                     }}>
                     {this.state.label}
                 </text>
@@ -242,7 +224,9 @@ export default class TreeMapCell extends React.Component {
                     width={width}
                     textAnchor="middle"
                     style={{
-                        display: percentView
+                        display: percentView,
+                        fill: this.state.textColor,
+                        textShadow: this.state.textShadow
                     }}>
                     {parseFloat((this.props.value / this.props.total) * 100).toFixed(1)}%
                 </text>

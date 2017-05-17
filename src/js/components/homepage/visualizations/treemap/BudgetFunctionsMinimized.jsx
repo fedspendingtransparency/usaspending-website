@@ -19,7 +19,9 @@ const propTypes = {
     showSub: React.PropTypes.bool,
     showOverlay: React.PropTypes.bool,
     changeActiveSubfunction: React.PropTypes.func,
-    toggleOverlay: React.PropTypes.func
+    toggleOverlay: React.PropTypes.func,
+    tooltipStyles: React.PropTypes.object,
+    chosen: React.PropTypes.string
 };
 
 export default class BudgetFunctionsMinimized extends React.Component {
@@ -43,7 +45,8 @@ export default class BudgetFunctionsMinimized extends React.Component {
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
-        this.toggleTooltip = this.toggleTooltip.bind(this);
+        this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
+        this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
     }
 
     componentDidMount() {
@@ -53,8 +56,8 @@ export default class BudgetFunctionsMinimized extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.categories.children.length > 0) {
-            this.buildTree(nextProps.categories, nextProps.alternateColors, null,
-                this.props.showSub);
+            this.buildTree(nextProps.categories, nextProps.alternateColors,
+                this.props.tooltipStyles);
         }
     }
 
@@ -76,12 +79,12 @@ export default class BudgetFunctionsMinimized extends React.Component {
                 colors = this.props.alternateColors;
             }
             if (this.props.categories.children.length > 0) {
-                this.buildTree(this.props.categories, colors, null, this.props.showSub);
+                this.buildTree(this.props.categories, colors, this.props.tooltipStyles);
             }
         }
     }
 
-    buildTree(cats, colors, chosen) {
+    buildTree(cats, colors, styles) {
         // put the data through d3's hierarchy system to sum and sort it
         const root = d3.hierarchy(cats)
         .sum((d) => (d.value))
@@ -109,10 +112,13 @@ export default class BudgetFunctionsMinimized extends React.Component {
                 y1={n.y1}
                 total={n.parent.value}
                 key={i}
+                categoryID={n.data.id}
                 color={colors[i]}
                 chosenColor={this.props.colors[i]}
-                chosen={chosen}
-                toggleTooltip={this.toggleTooltip}
+                chosen={this.props.chosen}
+                toggleTooltipIn={this.toggleTooltipIn}
+                toggleTooltipOut={this.toggleTooltipOut}
+                tooltipStyles={styles}
                 showOverlay={this.props.showOverlay}
                 showSub={this.state.showSub}
                 changeActiveSubfunction={this.props.changeActiveSubfunction}
@@ -123,35 +129,36 @@ export default class BudgetFunctionsMinimized extends React.Component {
         });
     }
 
-    toggleTooltip(set) {
-        const descSet = this.props.descriptions;
-        // find index of object item on matching cat name
-        let descIndex = '0';
-        if (set.cat !== 'none') {
-            descIndex = _.findIndex(descSet, { name: set.cat });
-        }
+    toggleTooltipIn(categoryID, height, width) {
+        const category = _.find(this.state.finalNodes, { key: `${categoryID}` });
 
-        // set it to desc value
-        let desc = '';
-        if (set.cat !== 'none') {
-            desc = descSet[descIndex].value;
-        }
-
-        // set the state
         this.setState({
-            category: set.cat,
-            description: desc,
-            individualValue: set.value,
-            x: set.xStart,
-            y: set.yStart,
-            width: set.width,
-            height: set.height,
-            total: set.total
+            category: category.props.label,
+            description: category.props.description,
+            individualValue: category.props.value,
+            x: category.props.x0,
+            y: category.props.y0,
+            width,
+            height
         });
+
         if (this.state.showOverlay !== false) {
             this.props.toggleOverlay();
         }
     }
+
+    toggleTooltipOut(height, width) {
+        this.setState({
+            category: 'none',
+            description: '',
+            individualValue: '',
+            x: 0,
+            y: 0,
+            width,
+            height
+        });
+    }
+
 
     formatFriendlyString(value) {
         // format the ceiling and current values to be friendly strings
