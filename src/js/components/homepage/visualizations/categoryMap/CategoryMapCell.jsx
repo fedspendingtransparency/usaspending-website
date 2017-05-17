@@ -92,7 +92,6 @@ export default class CategoryMapCell extends React.Component {
         });
     }
 
-
     mouseIn(height, width) {
         this.props.toggleTooltipIn(this.props.categoryID, height, width);
         this.setState({
@@ -148,7 +147,7 @@ export default class CategoryMapCell extends React.Component {
                         padding: "10px"
                     }} />
                 <text
-                    className={`category ${this.state.textClass}`}
+                    className="category"
                     x={width / 2}
                     y={labelY}
                     width={width}
@@ -164,7 +163,7 @@ export default class CategoryMapCell extends React.Component {
                     {this.state.label}
                 </text>
                 <text
-                    className={`value ${this.state.textClass}`}
+                    className="value"
                     x={(width / 2)}
                     y={percentY}
                     width={width}
