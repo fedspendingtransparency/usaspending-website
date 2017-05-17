@@ -41,7 +41,7 @@ export default class TreeMapCell extends React.Component {
     }
 
     componentDidMount() {
-        this.initialRender(this.props.label);
+        this.initialRender(this.props.label, this.props.color, this.props.chosenColor);
     }
 
     componentWillReceiveProps(props) {
@@ -58,18 +58,18 @@ export default class TreeMapCell extends React.Component {
     }
 
     initialRender(label, color, hoverColor) {
-        let c = this.props.color;
-        let d = '';
+        let initialColor = this.props.color;
+        let initialHover = '#F2B733';
         if (color) {
-            c = color;
+            initialColor = color;
         }
         if (hoverColor) {
-            d = hoverColor;
+            initialHover = hoverColor;
         }
         this.setState({
             label,
-            color: c,
-            hoverColor: d,
+            color: initialColor,
+            hoverColor: initialHover,
             didProcess: false
         });
     }
@@ -127,6 +127,9 @@ export default class TreeMapCell extends React.Component {
                 height,
                 total: this.props.total
             };
+            this.setState({
+                color: newSet.bgColor
+            });
         }
         else {
             newSet = {
@@ -140,9 +143,11 @@ export default class TreeMapCell extends React.Component {
                 height,
                 total: this.props.total
             };
+            this.setState({
+                color: newSet.bgColor
+            });
         }
         this.setState({
-            color: newSet.bgColor,
             textClass: newSet.textClass
         });
 
@@ -190,6 +195,7 @@ export default class TreeMapCell extends React.Component {
             next: null,
             prev: null,
             showSub: true };
+
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}

@@ -10,7 +10,6 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import TreeMapCell from './TreeMapCell';
 import TreeMapTooltip from './TreeMapTooltip';
-import BudgetSubfunctions from './BudgetSubfunctions';
 
 const propTypes = {
     categories: React.PropTypes.object,
@@ -18,7 +17,9 @@ const propTypes = {
     colors: React.PropTypes.array,
     alternateColors: React.PropTypes.array,
     showSub: React.PropTypes.bool,
-    changeActiveSubfunction: React.PropTypes.func
+    showOverlay: React.PropTypes.bool,
+    changeActiveSubfunction: React.PropTypes.func,
+    toggleOverlay: React.PropTypes.func
 };
 
 export default class BudgetFunctionsMinimized extends React.Component {
@@ -43,7 +44,6 @@ export default class BudgetFunctionsMinimized extends React.Component {
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
         this.toggleTooltip = this.toggleTooltip.bind(this);
-        this.toggleOverlay = this.toggleOverlay.bind(this);
     }
 
     componentDidMount() {
@@ -89,7 +89,7 @@ export default class BudgetFunctionsMinimized extends React.Component {
 
         // set up a treemap object and pass in the root
         const mapHeight = 25;
-        const mapWidth = this.sectionWrapper.offsetWidth * 0.96;
+        const mapWidth = this.sectionWrapper.offsetWidth;
         this.setState({
             visualizationHeight: mapHeight
         });
@@ -113,7 +113,7 @@ export default class BudgetFunctionsMinimized extends React.Component {
                 chosenColor={this.props.colors[i]}
                 chosen={chosen}
                 toggleTooltip={this.toggleTooltip}
-                showOverlay={this.state.showOverlay}
+                showOverlay={this.props.showOverlay}
                 showSub={this.state.showSub}
                 changeActiveSubfunction={this.props.changeActiveSubfunction}
                 clickable />
@@ -149,15 +149,8 @@ export default class BudgetFunctionsMinimized extends React.Component {
             total: set.total
         });
         if (this.state.showOverlay !== false) {
-            this.toggleOverlay(set.cat);
+            this.props.toggleOverlay();
         }
-    }
-
-    toggleOverlay(cat) {
-        this.buildTree(this.props.categories, this.props.colors, cat, false);
-        this.setState({
-            showOverlay: false
-        });
     }
 
     formatFriendlyString(value) {

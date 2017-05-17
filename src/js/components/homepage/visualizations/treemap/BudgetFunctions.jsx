@@ -18,7 +18,10 @@ const propTypes = {
     alternateColors: React.PropTypes.array,
     showSub: React.PropTypes.bool,
     toggleSubfunction: React.PropTypes.func,
-    changeActiveSubfunction: React.PropTypes.func
+    changeActiveSubfunction: React.PropTypes.func,
+    toggleOverlay: React.PropTypes.func,
+    showOverlay: React.PropTypes.bool,
+    windowWidth: React.PropTypes.number
 };
 
 export default class BudgetFunctions extends React.Component {
@@ -35,15 +38,14 @@ export default class BudgetFunctions extends React.Component {
             descriptions: {},
             finalNodes: '',
             individualValue: '',
-            showOverlay: true,
             selected: '',
-            showSub: this.props.showSub
+            showSub: this.props.showSub,
+            hoverColor: ''
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
         this.toggleTooltip = this.toggleTooltip.bind(this);
-        this.toggleOverlay = this.toggleOverlay.bind(this);
     }
 
     componentDidMount() {
@@ -53,8 +55,7 @@ export default class BudgetFunctions extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.categories.children.length > 0) {
-            this.buildTree(nextProps.categories, nextProps.alternateColors, null,
-                this.props.showSub);
+            this.buildTree(nextProps.categories, nextProps.alternateColors, null);
         }
     }
 
@@ -76,7 +77,7 @@ export default class BudgetFunctions extends React.Component {
                 colors = this.props.alternateColors;
             }
             if (this.props.categories.children.length > 0) {
-                this.buildTree(this.props.categories, colors, null, this.props.showSub);
+                this.buildTree(this.props.categories, colors, null);
             }
         }
     }
@@ -90,7 +91,6 @@ export default class BudgetFunctions extends React.Component {
         // set up a treemap object and pass in the root
         let tileStyle = d3.treemapBinary;
         const mapHeight = 565;
-        const mapWidth = this.state.visualizationWidth;
         if (this.state.windowWidth < 768) {
             tileStyle = d3.treemapSlice;
         }
@@ -100,7 +100,7 @@ export default class BudgetFunctions extends React.Component {
         const treemap = d3.treemap()
         .round(true)
         .tile(tileStyle)
-        .size([mapWidth, mapHeight])(root).leaves();
+        .size([this.sectionWrapper.offsetWidth, mapHeight])(root).leaves();
 
         // build the tiles
         const nodes = treemap.map((n, i) =>
@@ -115,9 +115,10 @@ export default class BudgetFunctions extends React.Component {
                 key={i}
                 color={colors[i]}
                 chosenColor={this.props.colors[i]}
+                hoverColor={this.state.hoverColor}
                 chosen={chosen}
                 toggleTooltip={this.toggleTooltip}
-                showOverlay={this.state.showOverlay}
+                showOverlay={this.props.showOverlay}
                 showSub={this.state.showSub}
                 toggleSubfunction={this.props.toggleSubfunction}
                 changeActiveSubfunction={this.props.changeActiveSubfunction}
@@ -147,6 +148,7 @@ export default class BudgetFunctions extends React.Component {
             category: set.cat,
             description: desc,
             individualValue: set.value,
+            hoverColor: set.bgColor,
             x: set.xStart,
             y: set.yStart,
             width: set.width,
@@ -154,15 +156,8 @@ export default class BudgetFunctions extends React.Component {
             total: set.total
         });
         if (this.state.showOverlay !== false) {
-            this.toggleOverlay(set.cat);
+            this.props.toggleOverlay();
         }
-    }
-
-    toggleOverlay(cat) {
-        this.buildTree(this.props.categories, this.props.colors, cat, false);
-        this.setState({
-            showOverlay: false
-        });
     }
 
     formatFriendlyString(value) {

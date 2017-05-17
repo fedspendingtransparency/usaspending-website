@@ -4,7 +4,6 @@
 **/
 
 import React from 'react';
-import _ from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
@@ -25,7 +24,8 @@ const propTypes = {
     selectedValue: React.PropTypes.number,
     selectedTotal: React.PropTypes.number,
     selectedDesc: React.PropTypes.string,
-    changeActiveSubfunction: React.PropTypes.func
+    changeActiveSubfunction: React.PropTypes.func,
+    toggleOverlay: React.PropTypes.func
 };
 
 export default class BudgetSubfunctions extends React.Component {
@@ -44,7 +44,6 @@ export default class BudgetSubfunctions extends React.Component {
             showOverlay: this.props.showOverlay,
             showSub: this.props.showSub
         };
-
         this.createTooltip = this.createTooltip.bind(this);
     }
 
@@ -170,11 +169,13 @@ export default class BudgetSubfunctions extends React.Component {
                 </button>
                 <BudgetFunctionsMinimized
                     showSub={this.state.showSub}
+                    showOverlay={this.props.showOverlay}
                     categories={this.props.categories}
                     descriptions={this.props.descriptions}
                     colors={this.props.colors}
                     alternateColors={this.props.alternateColors}
-                    changeActiveSubfunction={this.props.changeActiveSubfunction} />
+                    changeActiveSubfunction={this.props.changeActiveSubfunction}
+                    toggleOverlay={this.props.toggleOverlay} />
                 <BudgetSubfunctionsDescription
                     category={this.props.selected}
                     value={this.formatFriendlyString(this.props.selectedValue)}
@@ -184,7 +185,9 @@ export default class BudgetSubfunctions extends React.Component {
                 <SubTreeMap
                     topFunction={this.props.selected}
                     subfunctions={this.props.subfunctions}
-                    colors={this.props.colors} />
+                    colors={this.props.colors}
+                    showSub={this.props.showSub}
+                    showOverlay={this.props.showOverlay} />
             </div>
         );
     }

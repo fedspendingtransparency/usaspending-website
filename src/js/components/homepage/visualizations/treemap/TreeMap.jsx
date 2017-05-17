@@ -5,11 +5,11 @@
 
 import React from 'react';
 import _ from 'lodash';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import BudgetFunctions from './BudgetFunctions';
 import BudgetSubfunctions from './BudgetSubfunctions';
-import BudgetFunctionsMinimized from './BudgetFunctionsMinimized';
 
 const propTypes = {
     categories: React.PropTypes.object,
@@ -26,8 +26,6 @@ export default class TreeMap extends React.Component {
 
         this.state = {
             windowWidth: 0,
-            visualizationWidth: 0,
-            visualizationHeight: 565,
             category: 'none',
             description: '',
             descriptions: {},
@@ -37,12 +35,14 @@ export default class TreeMap extends React.Component {
             selectedDesc: '',
             selectedValue: '',
             selectedTotal: 0,
-            showSub: false
+            showSub: false,
+            showOverlay: true
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.changeActiveSubfunction = this.changeActiveSubfunction.bind(this);
         this.toggleSubfunction = this.toggleSubfunction.bind(this);
+        this.toggleOverlay = this.toggleOverlay.bind(this);
     }
 
     componentDidMount() {
@@ -111,22 +111,57 @@ export default class TreeMap extends React.Component {
             selectedTotal: set.selectedTotal,
             showSub: set.showSub
         });
+    }
 
-        // this.buildTree(this.props.categories, this.props.alternateColors, newSelected, true);
+    toggleOverlay() {
+        this.setState({
+            showOverlay: false
+        });
+    }
+
+    formatFriendlyString(value) {
+        // format the ceiling and current values to be friendly strings
+        const units = MoneyFormatter.calculateUnitForSingleValue(value);
+        // only reformat at a million or higher
+        if (units.unit < MoneyFormatter.unitValues.MILLION) {
+            units.unit = 1;
+            units.unitLabel = '';
+            units.longLabel = '';
+        }
+        const formattedValue = value / units.unit;
+        let precision = 1;
+        if (formattedValue % 1 === 0) {
+            // whole number
+            precision = 0;
+        }
+
+        const formattedCurrency =
+        MoneyFormatter.formatMoneyWithPrecision(formattedValue, precision);
+
+        // don't add an extra space when there's no units string to display
+        let longLabel = '';
+        if (units.unit > 1) {
+            longLabel = ` ${units.longLabel}`;
+        }
+
+        return `${formattedCurrency}${longLabel}`;
     }
 
     render() {
         let functions = (<BudgetFunctions
             showSub={this.state.showSub}
+            showOverlay={this.state.showOverlay}
             categories={this.props.categories}
             descriptions={this.props.descriptions}
             colors={this.props.colors}
             alternateColors={this.props.alternateColors}
+            toggleOverlay={this.toggleOverlay}
             toggleSubfunction={this.toggleSubfunction}
             changeActiveSubfunction={this.changeActiveSubfunction} />);
         if (this.state.showSub === true) {
             functions = (<BudgetSubfunctions
                 showSub={this.state.showSub}
+                showOverlay={this.state.showOverlay}
                 subfunctions={this.props.subfunctions}
                 colors={this.props.colors}
                 categories={this.props.categories}
@@ -136,6 +171,7 @@ export default class TreeMap extends React.Component {
                 selectedDesc={this.state.selectedDesc}
                 selectedValue={this.state.selectedValue}
                 selectedTotal={this.state.selectedTotal}
+                toggleOverlay={this.toggleOverlay}
                 changeActiveSubfunction={this.changeActiveSubfunction} />);
         }
         return (

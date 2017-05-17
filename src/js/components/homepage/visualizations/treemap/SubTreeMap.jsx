@@ -14,7 +14,9 @@ import TreeMapTooltip from './TreeMapTooltip';
 const propTypes = {
     subfunctions: React.PropTypes.object,
     colors: React.PropTypes.array,
-    topFunction: React.PropTypes.string
+    topFunction: React.PropTypes.string,
+    showSub: React.PropTypes.bool,
+    showOverlay: React.PropTypes.bool
 };
 
 export default class SubTreeMap extends React.Component {
@@ -83,7 +85,7 @@ export default class SubTreeMap extends React.Component {
         const treemap = d3.treemap()
             .round(true)
             .tile(tileStyle)
-            .size([this.state.visualizationWidth, 286])(root).leaves();
+            .size([this.sectionWrapper.offsetWidth, 286])(root).leaves();
 
         // build the tiles
         const nodes = treemap.map((n, i) =>
@@ -99,7 +101,8 @@ export default class SubTreeMap extends React.Component {
                 color={colors[i]}
                 chosen={chosen}
                 toggleTooltip={this.toggleTooltip}
-                showOverlay={this.state.showOverlay}
+                showOverlay={this.props.showOverlay}
+                showSub={this.props.showSub}
                 clickable={false} />
         );
 
@@ -191,6 +194,7 @@ export default class SubTreeMap extends React.Component {
                         this.sectionWrapper = sr;
                     }}>
                     <svg
+                        className="treemap-svg"
                         width={this.state.visualizationWidth}
                         height="286">
                         { this.state.finalNodes }
