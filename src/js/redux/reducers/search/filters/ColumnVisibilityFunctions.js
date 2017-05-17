@@ -1,3 +1,4 @@
+
 /**
  * columnVisibilityFunctions.js
  * Created by Lizzie Salita on 5/5/17.

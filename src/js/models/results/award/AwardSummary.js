@@ -35,17 +35,11 @@ const fields = [
     'recipient_state_province',
     'recipient_zip_postal',
     'recipient_country',
-    'recipient_doing_business_as_name',
-    'recipient_congressional_district',
-    'recipient_phone',
-    'recipient_fax',
     'pop_city',
     'parent_id',
     'pop_state_province',
     'pop_zip',
     'pop_country',
-    'pop_county',
-    'pop_congressional_district',
     'total_obligation',
     'potential_total_value_of_award',
     'recipient_duns',
@@ -60,51 +54,14 @@ const fields = [
     'original_loan_subsidy_cost',
     'subaward_count',
     'total_subaward_amount',
-    'action_date',
-    'contract_idv_type',
-    'contract_idc_type',
-    'contract_idv_agency_id',
-    'contract_multiple_idv',
-    'contract_solicitation_id',
-    'contract_solicitation_procedures',
-    'contract_number_offers',
-    'contract_extent_competed',
-    'contract_set_aside_type',
-    'contract_commercial_acquisition_procedures',
-    'contract_commercial_test_program',
-    'contract_evaluated_preference',
-    'contract_fed_biz_opps',
-    'contract_small_business_competitiveness_demo',
-    'contract_psc_code',
-    'contract_naics_code',
-    'contract_naics_description',
-    'contract_dod_claimant_code',
-    'contract_program_system_or_equipment_code',
-    'contract_it_commercial_category',
-    'contract_sea_transport',
-    'contract_clinger_cohen_act',
-    'contract_davis_bacon_act',
-    'contract_service_contract_act',
-    'contract_walsh_healey_act',
-    'contract_consolidated',
-    'contract_cost_or_pricing_data',
-    'contract_domestic_or_foreign',
-    'contract_fair_opportunity_limited_sources',
-    'contract_foreign_funding',
-    'contract_interagency_contacting_authority',
-    'contract_major_program',
-    'contract_multi_year_contract',
-    'contract_price_evaluation_adjustment_preference',
-    'contract_program_acronym',
-    'contract_purchase_card_as_payment_method',
-    'contract_subcontracting_plan'
+    'action_date'
 ];
 
 const remapData = (data, idField) => {
     // remap expected child fields to top-level fields
     const remappedData = data;
     let id = 0;
-    let parentId = '';
+    let parentId = 0;
     let awardType = '';
     let internalGeneralType = 'unknown';
     let actionDate = '';
@@ -126,59 +83,16 @@ const remapData = (data, idField) => {
     let recipientDuns = '';
     let recipientParentDuns = '';
     let recipientBusinessType = '';
-    let recipientDoingBusinessAsName = '';
-    let recipientCongressionalDistrict = '';
-    let recipientPhone = '';
-    let recipientFax = '';
     let popCity = '';
     let popStateProvince = '';
     let popZip = '';
     let popCountry = '';
-    let popCounty = '';
-    let popCongressionalDistrict = '';
     let contractPricingCode = '';
     let contractPricing = '';
     let latestTransaction = '';
     let assistanceData = '';
     let loanFaceValue = '';
     let loanSubsidy = '';
-    let contractIdvType = '';
-    let contractIdcType = '';
-    let contractIdvAgencyId = '';
-    let contractMultipleIdv = '';
-    let contractSolicitationId = '';
-    let contractSolicitationProcedures = '';
-    let contractNumberOffers = '';
-    let contractExtentCompeted = '';
-    let contractSetAsideType = '';
-    let contractCommercialAcquisitionProcedures = '';
-    let contractCommercialTestProgram = '';
-    let contractEvaluatedPreference = '';
-    let contractFedBizOpps = '';
-    let contractSmallBusinessCompetitivenessDemo = '';
-    let contractPscCode = '';
-    let contractNaicsCode = '';
-    let contractNaicsDescription = '';
-    let contractDodClaimantCode = '';
-    let contractProgramSystemOrEquipmentCode = '';
-    let contractItCommercialCategory = '';
-    let contractSeaTransport = '';
-    let contractClingerCohenAct = '';
-    let contractDavisBaconAct = '';
-    let contractServiceContractAct = '';
-    let contractWalshHealeyAct = '';
-    let contractConsolidated = '';
-    let contractCostOrPricingData = '';
-    let contractDomesticOrForeign = '';
-    let contractFairOpportunityLimitedSources = '';
-    let contractForeignFunding = '';
-    let contractInteragencyContactingAuthority = '';
-    let contractMajorProgram = '';
-    let contractMultiYearContract = '';
-    let contractPriceEvaluationAdjustmentPreference = '';
-    let contractProgramAcronym = '';
-    let contractPurchaseCardAsPaymentMethod = '';
-    let contractSubcontractingPlan = '';
 
     if (data.id) {
         id = data.id;
@@ -250,14 +164,6 @@ const remapData = (data, idField) => {
         if (data.place_of_performance.country_name) {
             popCountry = data.place_of_performance.country_name;
         }
-
-        if (data.place_of_performance.county_name) {
-            popCounty = data.place_of_performance.county_name;
-        }
-
-        if (data.place_of_performance.congressional_code) {
-            popCongressionalDistrict = data.place_of_performance.congressional_code;
-        }
     }
 
     if (data.latest_transaction) {
@@ -271,120 +177,6 @@ const remapData = (data, idField) => {
             if (data.latest_transaction.contract_data.type_of_contract_pricing_description) {
                 contractPricing =
                 data.latest_transaction.contract_data.type_of_contract_pricing_description;
-            }
-            if (data.latest_transaction.contract_data.parent_award_id) {
-                parentId = data.latest_transaction.contract_data.parent_award_id;
-            }
-            if (data.latest_transaction.contract_data.idv_type_description) {
-                contractIdvType = data.latest_transaction.contract_data.idv_type_description;
-            }
-            if (data.latest_transaction.contract_data.type_of_idc_description) {
-                contractIdcType = data.latest_transaction.contract_data.type_of_idc_description;
-            }
-            if (data.latest_transaction.contract_data.referenced_idv_agency_identifier) {
-                contractIdvAgencyId = data.latest_transaction.contract_data.referenced_idv_agency_identifier;
-            }
-            if (data.latest_transaction.contract_data.multiple_or_single_award_idv) {
-                contractMultipleIdv = data.latest_transaction.contract_data.multiple_or_single_award_idv;
-            }
-            if (data.latest_transaction.contract_data.solicitation_identifier) {
-                contractSolicitationId = data.latest_transaction.contract_data.solicitation_identifier;
-            }
-            if (data.latest_transaction.contract_data.solicitation_procedures) {
-                contractSolicitationProcedures = data.latest_transaction.contract_data.solicitation_procedures;
-            }
-            if (data.latest_transaction.contract_data.number_of_offers_received) {
-                contractNumberOffers = data.latest_transaction.contract_data.number_of_offers_received;
-            }
-            if (data.latest_transaction.contract_data.extent_competed_description) {
-                contractExtentCompeted = data.latest_transaction.contract_data.extent_competed_description;
-            }
-            if (data.latest_transaction.contract_data.type_set_aside_description) {
-                contractSetAsideType = data.latest_transaction.contract_data.type_set_aside_description;
-            }
-            if (data.latest_transaction.contract_data.commercial_item_acquisition_procedures_description) {
-                contractCommercialAcquisitionProcedures = data.latest_transaction.contract_data.commercial_item_acquisition_procedures_description;
-            }
-            if (data.latest_transaction.contract_data.commercial_item_test_program) {
-                contractCommercialTestProgram = data.latest_transaction.contract_data.commercial_item_test_program;
-            }
-            if (data.latest_transaction.contract_data.evaluated_preference_description) {
-                contractEvaluatedPreference = data.latest_transaction.contract_data.evaluated_preference_description;
-            }
-            if (data.latest_transaction.contract_data.fed_biz_opps_description) {
-                contractFedBizOpps = data.latest_transaction.contract_data.fed_biz_opps_description;
-            }
-            if (data.latest_transaction.contract_data.small_business_competitiveness_demonstration_program) {
-                contractSmallBusinessCompetitivenessDemo = data.latest_transaction.contract_data.small_business_competitiveness_demonstration_program;
-            }
-            if (data.latest_transaction.contract_data.product_or_service_code) {
-                contractPscCode = data.latest_transaction.contract_data.product_or_service_code;
-            }
-            if (data.latest_transaction.contract_data.naics) {
-                contractNaicsCode = data.latest_transaction.contract_data.naics;
-            }
-            if (data.latest_transaction.contract_data.naics_description) {
-                contractNaicsDescription = data.latest_transaction.contract_data.naics_description;
-            }
-            if (data.latest_transaction.contract_data.dod_claimant_program_code) {
-                contractDodClaimantCode = data.latest_transaction.contract_data.dod_claimant_program_code;
-            }
-            if (data.latest_transaction.contract_data.program_system_or_equipment_code) {
-                contractProgramSystemOrEquipmentCode = data.latest_transaction.contract_data.program_system_or_equipment_code;
-            }
-            if (data.latest_transaction.contract_data.information_technology_commercial_item_category_description) {
-                contractItCommercialCategory = data.latest_transaction.contract_data.information_technology_commercial_item_category_description;
-            }
-            if (data.latest_transaction.contract_data.sea_transportation_description) {
-                contractSeaTransport = data.latest_transaction.contract_data.sea_transportation_description;
-            }
-            if (data.latest_transaction.contract_data.clinger_cohen_act_planning) {
-                contractClingerCohenAct = data.latest_transaction.contract_data.clinger_cohen_act_planning;
-            }
-            if (data.latest_transaction.contract_data.davis_bacon_act_description) {
-                contractDavisBaconAct = data.latest_transaction.contract_data.davis_bacon_act_description;
-            }
-            if (data.latest_transaction.contract_data.service_contract_act_description) {
-                contractServiceContractAct = data.latest_transaction.contract_data.service_contract_act_description;
-            }
-            if (data.latest_transaction.contract_data.walsh_healey_act) {
-                contractWalshHealeyAct = data.latest_transaction.contract_data.walsh_healey_act;
-            }
-            if (data.latest_transaction.contract_data.consolidated_contract) {
-                contractConsolidated = data.latest_transaction.contract_data.consolidated_contract;
-            }
-            if (data.latest_transaction.contract_data.cost_or_pricing_data_description) {
-                contractCostOrPricingData = data.latest_transaction.contract_data.cost_or_pricing_data_description;
-            }
-            if (data.latest_transaction.contract_data.domestic_or_foreign_entity) {
-                contractDomesticOrForeign = data.latest_transaction.contract_data.domestic_or_foreign_entity;
-            }
-            if (data.latest_transaction.contract_data.fair_opportunity_limited_sources_description) {
-                contractFairOpportunityLimitedSources = data.latest_transaction.contract_data.fair_opportunity_limited_sources_description;
-            }
-            if (data.latest_transaction.contract_data.foreign_funding_description) {
-                contractForeignFunding = data.latest_transaction.contract_data.foreign_funding_description;
-            }
-            if (data.latest_transaction.contract_data.interagency_contracting_authority_description) {
-                contractInteragencyContactingAuthority = data.latest_transaction.contract_data.interagency_contracting_authority_description;
-            }
-            if (data.latest_transaction.contract_data.major_program) {
-                contractMajorProgram = data.latest_transaction.contract_data.major_program;
-            }
-            if (data.latest_transaction.contract_data.multi_year_contract) {
-                contractMultiYearContract = data.latest_transaction.contract_data.multi_year_contract;
-            }
-            if (data.latest_transaction.contract_data.price_evaluation_adjustment_preference_percent_difference) {
-                contractPriceEvaluationAdjustmentPreference = data.latest_transaction.contract_data.price_evaluation_adjustment_preference_percent_difference;
-            }
-            if (data.latest_transaction.contract_data.program_acronym) {
-                contractProgramAcronym = data.latest_transaction.contract_data.program_acronym;
-            }
-            if (data.latest_transaction.contract_data.purchase_card_as_payment_method) {
-                contractPurchaseCardAsPaymentMethod = data.latest_transaction.contract_data.purchase_card_as_payment_method;
-            }
-            if (data.latest_transaction.contract_data.subcontracting_plan_description) {
-                contractSubcontractingPlan = data.latest_transaction.contract_data.subcontracting_plan_description;
             }
         }
 
@@ -422,8 +214,6 @@ const remapData = (data, idField) => {
     remappedData.pop_state_province = popStateProvince;
     remappedData.pop_zip = popZip;
     remappedData.pop_country = popCountry;
-    remappedData.pop_county = popCounty;
-    remappedData.pop_congressional_district = popCongressionalDistrict;
     remappedData.latest_transaction = latestTransaction;
     remappedData.type_of_contract_pricing = contractPricingCode;
     remappedData.type_of_contract_pricing_description = contractPricing;
@@ -431,43 +221,6 @@ const remapData = (data, idField) => {
     remappedData.face_value_loan_guarantee = loanFaceValue;
     remappedData.original_loan_subsidy_cost = loanSubsidy;
     remappedData.action_date = actionDate;
-    remappedData.contract_idv_type = contractIdvType;
-    remappedData.contract_idc_type = contractIdcType;
-    remappedData.contract_idv_agency_id = contractIdvAgencyId;
-    remappedData.contract_multiple_idv = contractMultipleIdv;
-    remappedData.contract_solicitation_id = contractSolicitationId;
-    remappedData.contract_solicitation_procedures = contractSolicitationProcedures;
-    remappedData.contract_number_offers = contractNumberOffers;
-    remappedData.contract_extent_competed = contractExtentCompeted;
-    remappedData.contract_set_aside_type = contractSetAsideType;
-    remappedData.contract_commercial_acquisition_procedures = contractCommercialAcquisitionProcedures;
-    remappedData.contract_commercial_test_program = contractCommercialTestProgram;
-    remappedData.contract_evaluated_preference = contractEvaluatedPreference;
-    remappedData.contract_fed_biz_opps = contractFedBizOpps;
-    remappedData.contract_small_business_competitiveness_demo = contractSmallBusinessCompetitivenessDemo;
-    remappedData.contract_psc_code = contractPscCode;
-    remappedData.contract_naics_code = contractNaicsCode;
-    remappedData.contract_naics_description = contractNaicsDescription;
-    remappedData.contract_dod_claimant_code = contractDodClaimantCode;
-    remappedData.contract_program_system_or_equipment_code = contractProgramSystemOrEquipmentCode;
-    remappedData.contract_it_commercial_category = contractItCommercialCategory;
-    remappedData.contract_sea_transport = contractSeaTransport;
-    remappedData.contract_clinger_cohen_act = contractClingerCohenAct;
-    remappedData.contract_davis_bacon_act = contractDavisBaconAct;
-    remappedData.contract_service_contract_act = contractServiceContractAct;
-    remappedData.contract_walsh_healey_act = contractWalshHealeyAct;
-    remappedData.contract_consolidated = contractConsolidated;
-    remappedData.contract_cost_or_pricing_data = contractCostOrPricingData;
-    remappedData.contract_domestic_or_foreign = contractDomesticOrForeign;
-    remappedData.contract_fair_opportunity_limited_sources = contractFairOpportunityLimitedSources;
-    remappedData.contract_foreign_funding = contractForeignFunding;
-    remappedData.contract_interagency_contacting_authority = contractInteragencyContactingAuthority;
-    remappedData.contract_major_program = contractMajorProgram;
-    remappedData.contract_multi_year_contract = contractMultiYearContract;
-    remappedData.contract_price_evaluation_adjustment_preference = contractPriceEvaluationAdjustmentPreference;
-    remappedData.contract_program_acronym = contractProgramAcronym;
-    remappedData.contract_purchase_card_as_payment_method = contractPurchaseCardAsPaymentMethod;
-    remappedData.contract_subcontracting_plan = contractSubcontractingPlan;
 
     // set the awardID (fain or piid) to the relevant field
     let awardId = data.fain;
@@ -497,7 +250,7 @@ const remapData = (data, idField) => {
             recipientStreet += loc.address_line1;
         }
         if (loc.address_line2) {
-            recipientStreet += loc.laddress_line2;
+            recipientStreet += loc.address_line2;
         }
         if (loc.address_line2) {
             recipientStreet += loc.address_line3;
@@ -531,9 +284,6 @@ const remapData = (data, idField) => {
         else if (loc.country_name) {
             recipientCountry = loc.country_name;
         }
-        if (loc.congressional_code) {
-            recipientCongressionalDistrict = loc.congressional_code;
-        }
         if (data.recipient.recipient_unique_id) {
             recipientDuns = data.recipient.recipient_unique_id;
         }
@@ -543,15 +293,6 @@ const remapData = (data, idField) => {
         if (data.recipient.business_types_description) {
             recipientBusinessType = data.recipient.business_types_description;
         }
-        if (data.recipient.vendor_doing_as_business_name) {
-            recipientDoingBusinessAsName = data.recipient.vendor_doing_as_business_name;
-        }
-    }
-    if (data.vendor_phone_number) {
-        recipientPhone = data.vendor_phone_number;
-    }
-    if (data.vendor_fax_number) {
-        recipientFax = data.vendor_fax_number;
     }
     remappedData.recipient_name = recipientName;
     remappedData.recipient_street = recipientStreet;
@@ -560,13 +301,9 @@ const remapData = (data, idField) => {
     remappedData.recipient_state_province = recipientStateProvince;
     remappedData.recipient_zip_postal = recipientZipPostal;
     remappedData.recipient_country = recipientCountry;
-    remappedData.recipient_congressional_district = recipientCongressionalDistrict;
     remappedData.recipient_duns = recipientDuns;
     remappedData.recipient_parent_duns = recipientParentDuns;
     remappedData.recipient_business_type = recipientBusinessType;
-    remappedData.recipient_doing_business_as_name = recipientDoingBusinessAsName;
-    remappedData.recipient_phone = recipientPhone;
-    remappedData.recipient_fax = recipientFax;
 
     // convert the award type code to a user-readable string
     let serverType = '';
