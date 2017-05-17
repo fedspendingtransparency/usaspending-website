@@ -31,8 +31,7 @@ export default class Homepage extends React.Component {
                 children: []
             },
             colors: [],
-            total: '',
-            breakdownTotal: ''
+            total: ''
         };
 
         this.loadHomepageData = this.loadHomepageData.bind(this);
@@ -55,12 +54,10 @@ export default class Homepage extends React.Component {
                     colors: res.data.treemapColors,
                     alternateColors: res.data.alternateColors,
                     breakdown: res.data.budgetBreakdown,
-                    breakdownDescriptions: res.data.budgetDescriptions,
                     breakdownColors: res.data.breakdownColors,
+                    tooltipStyles: res.data.tooltipStyles,
                     total: res.data.totalSpent,
-                    breakdownTotal: res.data.budgetTotal,
-                    states: res.data.states,
-                    subfunctions: res.data.subfunctions
+                    states: res.data.states
                 }, () => {
                     deferred.resolve();
                 });
@@ -87,9 +84,8 @@ export default class Homepage extends React.Component {
                     total={this.state.breakdownTotal} />
                 <CategoryMap
                     breakdown={this.state.breakdown}
-                    descriptions={this.state.breakdownDescriptions}
-                    total={this.state.breakdownTotal}
-                    colors={this.state.breakdownColors} />
+                    colors={this.state.breakdownColors}
+                    tooltipStyles={this.state.tooltipStyles} />
                 <MapTopBar />
                 <MapVisualizationWrapper
                     states={this.state.states} />
