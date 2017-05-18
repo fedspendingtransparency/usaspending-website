@@ -9,7 +9,6 @@
         );
     }
     &.minimized {
-        width: 85%;
         display: inline-block;
 
         @include media($medium-screen) {
