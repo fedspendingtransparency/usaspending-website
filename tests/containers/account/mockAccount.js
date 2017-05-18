@@ -532,3 +532,76 @@ export const mockReduxAwards = {
         direction: 'asc'
     }
 };
+
+export const mockTabCount = {
+    page_metadata: {
+        page: 1,
+        has_next_page: false,
+        has_previous_page: false,
+        next: null,
+        current: "blerg",
+        previous: null
+    },
+    req: "ab71bbda468",
+    results: [{
+        item: null,
+        aggregate: "0.00",
+        type: null
+    }, {
+        item: "04",
+        aggregate: "0.00",
+        type: "04"
+    }, {
+        item: "05",
+        aggregate: "0.00",
+        type: "05"
+    }, {
+        item: "02",
+        aggregate: "0.00",
+        type: "02"
+    }, {
+        item: "09",
+        aggregate: "0.00",
+        type: "09"
+    }, {
+        item: "C",
+        aggregate: "7751.00",
+        type: "C"
+    }, {
+        item: "D",
+        aggregate: "1682.00",
+        type: "D"
+    }, {
+        item: "03",
+        aggregate: "0.00",
+        type: "03"
+    }, {
+        item: "08",
+        aggregate: "0.00",
+        type: "08"
+    }, {
+        item: "B",
+        aggregate: "6404.00",
+        type: "B"
+    }, {
+        item: "07",
+        aggregate: "0.00",
+        type: "07"
+    }, {
+        item: "06",
+        aggregate: "0.00",
+        type: "06"
+    }, {
+        item: "A",
+        aggregate: "3225.00",
+        type: "A"
+    }, {
+        item: "E",
+        aggregate: "585.00",
+        type: "E"
+    }, {
+        item: "11",
+        aggregate: "0.00",
+        type: "11"
+    }]
+};

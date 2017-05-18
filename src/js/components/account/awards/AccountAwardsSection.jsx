@@ -7,6 +7,7 @@ import React from 'react';
 
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTable from 'components/search/table/ResultsTable';
+import ResultsTableMessage from 'components/search/table/ResultsTableMessage';
 import AccountAwardsHeaderCellContainer from
     'containers/account/awards/AccountAwardsHeaderCellContainer';
 
@@ -14,7 +15,8 @@ const propTypes = {
     inFlight: React.PropTypes.bool,
     tableTypes: React.PropTypes.array,
     currentType: React.PropTypes.string,
-    switchTab: React.PropTypes.func
+    switchTab: React.PropTypes.func,
+    results: React.PropTypes.array
 };
 
 export default class AccountAwardsSection extends React.Component {
@@ -47,8 +49,14 @@ export default class AccountAwardsSection extends React.Component {
 
     render() {
         let loadingWrapper = '';
+        let message = null;
         if (this.props.inFlight) {
             loadingWrapper = 'loading-table';
+            message = <ResultsTableMessage message="Loading data..." />;
+        }
+        else if (this.props.results.length === 0) {
+            // no results
+            message = <ResultsTableMessage message="No results matched your criteria." />;
         }
 
         return (
@@ -72,6 +80,7 @@ export default class AccountAwardsSection extends React.Component {
                         visibleWidth={this.state.tableWidth}
                         headerCellClass={AccountAwardsHeaderCellContainer} />
                 </div>
+                {message}
             </div>
         );
     }
