@@ -132,7 +132,8 @@ export class ResultsTableContainer extends React.Component {
             aggregate: 'count',
             group: 'type',
             field: 'total_obligation',
-            filters: searchParams.toParams()
+            filters: searchParams.toParams(),
+            auditTrail: 'Award table - tab counts'
         });
 
         this.tabCountRequest.promise
