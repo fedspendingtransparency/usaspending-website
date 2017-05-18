@@ -37,7 +37,7 @@ const routeDefinitions = {
     indexRoute: {
         getComponent(nextState, cb) {
             require.ensure([], (require) => {
-                cb(null, require('../../components/homepage/Homepage').default);
+                cb(null, require('components/homepage/Homepage').default);
             });
         }
     },
@@ -46,7 +46,7 @@ const routeDefinitions = {
             path: 'search',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../search/SearchContainer').default);
+                    cb(null, require('components/search/SearchPage').default);
                 });
             }
         },
@@ -54,7 +54,7 @@ const routeDefinitions = {
             path: 'about',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/about/About').default);
+                    cb(null, require('components/about/About').default);
                 });
             }
         },
@@ -62,7 +62,7 @@ const routeDefinitions = {
             path: 'db_info',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/article/DBInfo').default);
+                    cb(null, require('components/article/DBInfo').default);
                 });
             }
         },
@@ -86,7 +86,7 @@ const routeDefinitions = {
             path: 'style',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/testStyles/TestStylePage').default);
+                    cb(null, require('components/testStyles/TestStylePage').default);
                 });
             }
         },
@@ -94,7 +94,7 @@ const routeDefinitions = {
             path: 'relevantlegislation',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/article/RelevantLegislation').default);
+                    cb(null, require('components/article/RelevantLegislation').default);
                 });
             }
         },
@@ -102,7 +102,7 @@ const routeDefinitions = {
             path: 'aboutdata',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/article/AboutData').default);
+                    cb(null, require('components/article/AboutData').default);
                 });
             }
         },
@@ -110,7 +110,7 @@ const routeDefinitions = {
             path: 'sourcesofdata',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/article/SourcesData').default);
+                    cb(null, require('components/article/SourcesData').default);
                 });
             }
         },
@@ -118,7 +118,7 @@ const routeDefinitions = {
             path: 'faq',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/article/FAQ').default);
+                    cb(null, require('components/article/FAQ').default);
                 });
             }
         },
@@ -126,7 +126,7 @@ const routeDefinitions = {
             path: 'whatsnew',
             getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('../../components/article/WhatsNew').default);
+                    cb(null, require('components/article/WhatsNew').default);
                 });
             }
         }
