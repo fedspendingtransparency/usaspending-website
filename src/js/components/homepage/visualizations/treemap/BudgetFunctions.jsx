@@ -38,7 +38,8 @@ export default class BudgetFunctions extends React.Component {
             finalNodes: [],
             individualValue: '',
             selected: '',
-            showSub: this.props.showSub
+            showSub: this.props.showSub,
+            showOverlay: true
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
@@ -114,7 +115,7 @@ export default class BudgetFunctions extends React.Component {
                     alternateColor={altColors[i]}
                     chosenColor={this.props.colors[i]}
                     chosen={null}
-                    showOverlay={this.props.showOverlay}
+                    showOverlay={this.state.showOverlay}
                     showSub={this.state.showSub}
                     toggleSubfunction={this.props.toggleSubfunction}
                     changeActiveSubfunction={this.props.changeActiveSubfunction}
@@ -131,9 +132,6 @@ export default class BudgetFunctions extends React.Component {
     }
 
     toggleTooltipIn(categoryID, height, width) {
-        if (this.state.showOverlay !== false) {
-            this.props.toggleOverlay();
-        }
         const category = _.find(this.state.finalNodes, { key: `${categoryID}` });
 
         this.setState({
@@ -145,6 +143,11 @@ export default class BudgetFunctions extends React.Component {
             width,
             height
         });
+        if (this.props.showOverlay !== false) {
+            this.setState({
+                showOverlay: false
+            });
+        }
     }
 
     toggleTooltipOut(height, width) {

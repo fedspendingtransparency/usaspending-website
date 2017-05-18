@@ -36,8 +36,7 @@ export default class TreeMap extends React.Component {
             selectedDesc: '',
             selectedValue: '',
             selectedTotal: 0,
-            showSub: false,
-            showOverlay: true
+            showSub: false
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
@@ -151,7 +150,6 @@ export default class TreeMap extends React.Component {
     render() {
         let functions = (<BudgetFunctions
             showSub={this.state.showSub}
-            showOverlay={this.state.showOverlay}
             categories={this.props.categories}
             descriptions={this.props.descriptions}
             colors={this.props.colors}

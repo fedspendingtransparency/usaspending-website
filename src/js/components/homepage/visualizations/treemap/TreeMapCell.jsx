@@ -59,7 +59,7 @@ export default class TreeMapCell extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if (props !== this.props) {
+        if (props) {
             this.initialRender(props.label, props.color, props.alternateColor, props.chosenColor);
         }
     }
@@ -70,21 +70,16 @@ export default class TreeMapCell extends React.Component {
         }
     }
 
-    initialRender(label, color, altColor, hoverColor) {
-        let initialColor = this.props.color;
-        let initialHover = '#F2B733';
+    initialRender(label, color, altColor) {
+        let initialColor = color;
         const top3 = ["Social Security", "National Defense", "Medicare"];
-        if (!_.includes(top3, label) && this.props.showOverlay === true) {
+        if (!_.includes(top3, label) && this.props.showOverlay) {
             initialColor = altColor;
-        }
-        if (hoverColor && this.props.showSub === true) {
-            initialHover = hoverColor;
         }
 
         this.setState({
             label,
             color: initialColor,
-            hoverColor: initialHover,
             didProcess: false
         });
     }
@@ -187,7 +182,6 @@ export default class TreeMapCell extends React.Component {
             next: null,
             prev: null,
             showSub: true };
-
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
