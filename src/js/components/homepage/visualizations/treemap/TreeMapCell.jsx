@@ -49,6 +49,8 @@ export default class TreeMapCell extends React.Component {
         this.mouseIn = this.mouseIn.bind(this);
         this.mouseOut = this.mouseOut.bind(this);
         this.toggleBorders = this.toggleBorders.bind(this);
+        this.defaultStyle = this.props.tooltipStyles.defaultStyle;
+        this.highlightedStyle = this.props.tooltipStyles.highlightedStyle;
     }
 
     componentDidMount() {
@@ -122,13 +124,15 @@ export default class TreeMapCell extends React.Component {
 
     mouseIn(height, width) {
         this.props.toggleTooltipIn(this.props.categoryID, height, width);
-        let hoverColor = this.props.tooltipStyles.highlightedStyle.color;
+        let hoverColor = this.highlightedStyle.color;
         if (this.props.chosen !== null && this.props.clickable && this.props.showSub === true) {
             hoverColor = this.props.chosenColor;
         }
         this.setState({
             textClass: 'chosen',
-            color: hoverColor
+            color: hoverColor,
+            textColor: this.highlightedStyle.textColor,
+            textShadow: this.highlightedStyle.textShadow
         });
     }
 
@@ -137,7 +141,9 @@ export default class TreeMapCell extends React.Component {
 
         this.setState({
             textClass: 'chosen',
-            color: this.props.color
+            color: this.props.color,
+            textColor: this.defaultStyle.textColor,
+            textShadow: this.defaultStyle.textShadow
         });
     }
 
@@ -201,7 +207,7 @@ export default class TreeMapCell extends React.Component {
                     width={width}
                     height={height}
                     style={{
-                        fill: this.state.color,
+                        fill: bgColor,
                         stroke: this.toggleBorders()[0],
                         strokeOpacity: this.toggleBorders()[1],
                         strokeWidth: "2px",
