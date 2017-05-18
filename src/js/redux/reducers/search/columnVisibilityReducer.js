@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/04/17
  **/
 
-import { Record, OrderedSet } from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import * as ColumnVisibilityFuncs from './filters/columnVisibilityFunctions';
 
@@ -150,9 +150,7 @@ const initialState = {
     }
 };
 
-const VisibilityRecord = Record(initialState);
-
-const columnVisibilityReducer = (state = new VisibilityRecord(), action) => {
+const columnVisibilityReducer = (state = initialState, action) => {
     switch (action.type) {
         case `TOGGLE_COLUMN_VISIBILITY`: {
             switch (action.tableType) {
@@ -241,7 +239,7 @@ const columnVisibilityReducer = (state = new VisibilityRecord(), action) => {
             }
         }
         case 'RESET_COLUMN_VISIBILITY': {
-            return new VisibilityRecord();
+            return initialState;
         }
         default:
             return state;
