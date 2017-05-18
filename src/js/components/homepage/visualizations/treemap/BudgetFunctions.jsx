@@ -13,7 +13,6 @@ import TreeMapTooltip from './TreeMapTooltip';
 
 const propTypes = {
     categories: React.PropTypes.object,
-    descriptions: React.PropTypes.array,
     colors: React.PropTypes.array,
     alternateColors: React.PropTypes.array,
     showSub: React.PropTypes.bool,
@@ -21,9 +20,7 @@ const propTypes = {
     changeActiveSubfunction: React.PropTypes.func,
     toggleOverlay: React.PropTypes.func,
     showOverlay: React.PropTypes.bool,
-    windowWidth: React.PropTypes.number,
-    tooltipStyles: React.PropTypes.object,
-    chosen: React.PropTypes.string
+    tooltipStyles: React.PropTypes.object
 };
 
 export default class BudgetFunctions extends React.Component {
@@ -41,8 +38,7 @@ export default class BudgetFunctions extends React.Component {
             finalNodes: [],
             individualValue: '',
             selected: '',
-            showSub: this.props.showSub,
-            hoverColor: ''
+            showSub: this.props.showSub
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
@@ -59,7 +55,7 @@ export default class BudgetFunctions extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.categories.children.length > 0) {
-            this.buildTree(nextProps.categories, nextProps.alternateColors,
+            this.buildTree(nextProps.categories, nextProps.colors, nextProps.alternateColors,
                 nextProps.tooltipStyles);
         }
     }
@@ -77,24 +73,27 @@ export default class BudgetFunctions extends React.Component {
                 windowWidth,
                 visualizationWidth: this.sectionWrapper.offsetWidth
             });
-            let colors = this.props.colors;
-            if (this.state.showSub) {
-                colors = this.props.alternateColors;
-            }
             if (this.props.categories.children.length > 0) {
-                this.buildTree(this.props.categories, colors, this.props.tooltipStyles);
+                this.buildTree(this.props.categories, this.props.colors,
+                    this.props.alternateColors, this.props.tooltipStyles);
             }
         }
     }
 
-    buildTree(cats, colors, styles) {
+    buildTree(cats, colors, altColors, styles) {
         // put the data through d3's hierarchy system to sum and sort it
         const root = d3.hierarchy(cats)
         .sum((d) => (d.value))
         .sort((a, b) => b.height - a.height || b.value - a.value);
+
+        // set up a treemap object and pass in the root
+        let tileStyle = d3.treemapBinary;
+        if (this.state.windowWidth < 768) {
+            tileStyle = d3.treemapSlice;
+        }
         const treemap = d3.treemap()
         .round(true)
-        .tile(d3.treemapBinary)
+        .tile(tileStyle)
         .size([this.state.visualizationWidth, this.state.visualizationHeight])(root).leaves();
 
         // build the tiles
@@ -112,9 +111,9 @@ export default class BudgetFunctions extends React.Component {
                     key={i}
                     categoryID={n.data.id}
                     color={colors[i]}
+                    alternateColor={altColors[i]}
                     chosenColor={this.props.colors[i]}
-                    hoverColor={this.state.hoverColor}
-                    chosen={this.props.chosen}
+                    chosen={null}
                     showOverlay={this.props.showOverlay}
                     showSub={this.state.showSub}
                     toggleSubfunction={this.props.toggleSubfunction}
@@ -132,6 +131,9 @@ export default class BudgetFunctions extends React.Component {
     }
 
     toggleTooltipIn(categoryID, height, width) {
+        if (this.state.showOverlay !== false) {
+            this.props.toggleOverlay();
+        }
         const category = _.find(this.state.finalNodes, { key: `${categoryID}` });
 
         this.setState({
@@ -143,10 +145,6 @@ export default class BudgetFunctions extends React.Component {
             width,
             height
         });
-
-        if (this.state.showOverlay !== false) {
-            this.props.toggleOverlay();
-        }
     }
 
     toggleTooltipOut(height, width) {

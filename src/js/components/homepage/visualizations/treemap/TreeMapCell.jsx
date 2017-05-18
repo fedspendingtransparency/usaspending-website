@@ -15,7 +15,7 @@ const propTypes = {
     y0: React.PropTypes.number,
     y1: React.PropTypes.number,
     color: React.PropTypes.string,
-    toggleTooltip: React.PropTypes.func,
+    alternateColor: React.PropTypes.string,
     showOverlay: React.PropTypes.bool,
     showSub: React.PropTypes.bool,
     changeActiveSubfunction: React.PropTypes.func,
@@ -28,6 +28,11 @@ const propTypes = {
     categoryID: React.PropTypes.number
 };
 
+const defaultProps = {
+    alternateColor: '',
+    chosenColor: ''
+};
+
 export default class TreeMapCell extends React.Component {
 
     constructor(props) {
@@ -38,7 +43,6 @@ export default class TreeMapCell extends React.Component {
             didProcess: false,
             color: this.props.color,
             textClass: '',
-            showOverlay: this.props.showOverlay,
             textColor: this.props.tooltipStyles.defaultStyle.textColor,
             textShadow: this.props.tooltipStyles.defaultStyle.textShadow
         };
@@ -48,14 +52,14 @@ export default class TreeMapCell extends React.Component {
     }
 
     componentDidMount() {
-        this.initialRender(this.props.label, this.props.color, this.props.chosenColor);
+        this.initialRender(this.props.label, this.props.color, this.props.alternateColor,
+            this.props.chosenColor);
     }
 
     componentWillReceiveProps(props) {
-        this.setState({
-            showOverlay: props.showOverlay
-        });
-        this.initialRender(props.label, props.color);
+        if (props !== this.props) {
+            this.initialRender(props.label, props.color, props.alternateColor, props.chosenColor);
+        }
     }
 
     componentDidUpdate() {
@@ -64,15 +68,17 @@ export default class TreeMapCell extends React.Component {
         }
     }
 
-    initialRender(label, color, hoverColor) {
+    initialRender(label, color, altColor, hoverColor) {
         let initialColor = this.props.color;
         let initialHover = '#F2B733';
-        if (color) {
-            initialColor = color;
+        const top3 = ["Social Security", "National Defense", "Medicare"];
+        if (!_.includes(top3, label) && this.props.showOverlay === true) {
+            initialColor = altColor;
         }
-        if (hoverColor) {
+        if (hoverColor && this.props.showSub === true) {
             initialHover = hoverColor;
         }
+
         this.setState({
             label,
             color: initialColor,
@@ -139,7 +145,7 @@ export default class TreeMapCell extends React.Component {
         const strokeArray = [];
         let strokeColor = "white";
         let strokeOpacity = 0.5;
-        if (this.state.showOverlay) {
+        if (this.props.showOverlay) {
             if (this.props.label === "Social Security" ||
                 this.props.label === "National Defense" ||
                 this.props.label === "Medicare") {
@@ -158,7 +164,7 @@ export default class TreeMapCell extends React.Component {
         let percentView = 'block';
         let bgColor = this.state.color;
         if (this.props.chosen === this.state.label && this.props.showSub === true) {
-            bgColor = this.props.chosenColor;
+            bgColor = this.props.color;
         }
         const width = (this.props.x1 - this.props.x0);
         const height = (this.props.y1 - this.props.y0);
@@ -195,7 +201,7 @@ export default class TreeMapCell extends React.Component {
                     width={width}
                     height={height}
                     style={{
-                        fill: bgColor,
+                        fill: this.state.color,
                         stroke: this.toggleBorders()[0],
                         strokeOpacity: this.toggleBorders()[1],
                         strokeWidth: "2px",
@@ -235,3 +241,4 @@ export default class TreeMapCell extends React.Component {
     }
 }
 TreeMapCell.propTypes = propTypes;
+TreeMapCell.defaultProps = defaultProps;
