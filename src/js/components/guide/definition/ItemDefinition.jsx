@@ -5,9 +5,9 @@
 
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { hashHistory } from 'react-router';
 
 import MoreResources from './MoreResources';
+import SmartLink from './SmartLink';
 
 const propTypes = {
     type: React.PropTypes.string,
@@ -17,26 +17,6 @@ const propTypes = {
 };
 
 export default class ItemDefinition extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.transformLink = this.transformLink.bind(this);
-    }
-
-    transformLink(url) {
-        // check if the link is a local guide reference
-        if (url.indexOf('?guide=') !== 0) {
-            // it is not
-            return url;
-        }
-
-        // it is a local guide reference, get the current URL
-        const currentPath = hashHistory.getCurrentLocation().pathname;
-
-        const localUrl = `#${currentPath}${url}`;
-        return localUrl;
-    }
-
     render() {
         let resources = null;
         if (this.props.resources && this.props.resources !== '') {
@@ -59,7 +39,9 @@ export default class ItemDefinition extends React.Component {
                 <div className="definition-content">
                     <ReactMarkdown
                         source={this.props[this.props.type]}
-                        transformLinkUri={this.transformLink} />
+                        renderers={Object.assign({}, ReactMarkdown.renderers, {
+                            Link: SmartLink
+                        })} />
                 </div>
 
                 {resources}

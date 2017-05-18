@@ -21,7 +21,8 @@ const propTypes = {
     guide: React.PropTypes.object,
     setGuideResults: React.PropTypes.func,
     showGuide: React.PropTypes.func,
-    setGuideTerm: React.PropTypes.func
+    setGuideTerm: React.PropTypes.func,
+    setGuideCache: React.PropTypes.func
 };
 
 export class GuideContainer extends React.Component {
@@ -30,61 +31,118 @@ export class GuideContainer extends React.Component {
 
         this.state = {
             loading: true,
+            searchLoading: false,
             error: false
         };
 
         this.queuedOperations = [];
 
         this.request = null;
+
+        this.performSearch = this.performSearch.bind(this);
     }
     componentDidMount() {
         GuideListenerSingleton.subscribe(this);
 
-        this.fetchGuideList();
+        // on the first load, populate the cache
+        if (this.props.guide.cache.count() === 0) {
+            // no cache set yet, populate it
+            // we need to build a cache because when the guide is searched, it may internally link
+            // terms that are no longer in the results array
+            this.populateCache();
+        }
+        else {
+            // we have a cache set, just do a search
+            this.performSearch();
+        }
     }
 
     componentWillUnmount() {
         GuideListenerSingleton.unsubscribe(this);
     }
 
-    fetchGuideList() {
+    populateCache() {
         if (this.request) {
             this.request.cancel();
         }
 
         this.setState({
-            loading: true
+            loading: true,
+            searchLoading: true,
+            error: false
         });
 
         this.request = GuideHelper.fetchAllTerms();
 
         this.request.promise
             .then((res) => {
-                this.setState({
-                    loading: false,
-                    error: false
-                });
-                this.request = null;
+                this.writeCache(res.data.results);
 
-                this.parseTerms(res.data);
+                // okay now perform the search (which will be the same data most of the time,
+                // but potentially not)
+                this.performSearch();
             })
             .catch((err) => {
                 if (!isCancel(err)) {
                     console.log(err);
+                    this.setState({
+                        loading: false,
+                        searchLoading: false,
+                        error: true
+                    });
                 }
 
-                this.setState({
-                    loading: false,
-                    error: true
-                });
                 this.request = null;
             });
     }
 
+    performSearch() {
+        const input = this.props.guide.search.input;
+
+        if (this.request) {
+            this.request.cancel();
+        }
+
+        this.setState({
+            searchLoading: true
+        });
+
+        this.request = GuideHelper.fetchSearchResults({
+            fields: ['term'],
+            value: input,
+            matched_objects: true,
+            limit: 500
+        });
+
+        this.request.promise
+            .then((res) => {
+                this.setState({
+                    loading: false,
+                    searchLoading: false,
+                    error: false
+                });
+
+                this.request = null;
+
+                this.parseTerms(res.data.matched_objects.term);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.setState({
+                        loading: false,
+                        searchLoading: false,
+                        error: true
+                    });
+                }
+
+                this.request = null;
+            });
+    }
 
     parseTerms(data) {
         const terms = [];
-        data.results.forEach((result) => {
+        data.forEach((result) => {
             const term = new Definition(result);
             terms.push(term);
         });
@@ -99,6 +157,16 @@ export class GuideContainer extends React.Component {
         }
     }
 
+    writeCache(data) {
+        const terms = {};
+        data.forEach((result) => {
+            const term = new Definition(result);
+            terms[result.slug] = term;
+        });
+
+        this.props.setGuideCache(terms);
+    }
+
     detectedUrlChange(value) {
         // we've received a special URL param for a specific guide term
         if (this.state.loading) {
@@ -111,15 +179,11 @@ export class GuideContainer extends React.Component {
         this.jumpToTerm(value);
     }
 
-    jumpToTerm(term) {
+    jumpToTerm(slug) {
         // look for a matching slug
-        const index = _.findIndex(this.props.guide.search.results, {
-            slug: term
-        });
-
-        if (index > -1) {
+        if (this.props.guide.cache.has(slug)) {
             // we found the term, load the word
-            const result = this.props.guide.search.results[index];
+            const result = this.props.guide.cache.get(slug);
             this.props.setGuideTerm(result);
             // now force open the guide
             this.props.showGuide();
@@ -131,7 +195,9 @@ export class GuideContainer extends React.Component {
             <AnimatedGuideWrapper
                 {...this.props}
                 loading={this.state.loading}
-                error={this.state.error} />
+                error={this.state.error}
+                searchLoading={this.state.searchLoading}
+                performSearch={this.performSearch} />
         );
     }
 }
