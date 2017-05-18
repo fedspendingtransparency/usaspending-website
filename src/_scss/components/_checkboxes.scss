@@ -1,0 +1,13 @@
+.checkbox-type-filter {
+
+    ul.checkbox-types {
+        @include unstyled-list;
+    }
+
+    @import "./checkbox/primaryCheckboxType";
+
+    ul.secondary-checkbox-set {
+        @include unstyled-list;
+        @import "./checkbox/secondaryCheckboxType";
+    }
+}

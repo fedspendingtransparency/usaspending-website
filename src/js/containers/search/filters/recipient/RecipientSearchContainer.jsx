@@ -14,6 +14,8 @@ import RecipientSearch from 'components/search/filters/recipient/RecipientSearch
 const propTypes = {
     updateSelectedRecipients: React.PropTypes.func,
     updateRecipientDomesticForeignSelection: React.PropTypes.func,
+    toggleRecipientType: React.PropTypes.func,
+    bulkRecipientTypeChange: React.PropTypes.func,
     updateRecipientLocations: React.PropTypes.func
 };
 
@@ -37,6 +39,14 @@ export class RecipientSearchContainer extends React.Component {
         });
     }
 
+    static logTypeFilterEvent(selection) {
+        ga.event({
+            category: 'Search Page Filter Applied',
+            action: 'Applied Recipient Type Filter',
+            label: selection
+        });
+    }
+
     static logLocationFilterEvent(placeType, place) {
         ga.event({
             category: 'Search Page Filter Applied',
@@ -51,6 +61,8 @@ export class RecipientSearchContainer extends React.Component {
         // Bind functions
         this.toggleRecipient = this.toggleRecipient.bind(this);
         this.toggleDomesticForeign = this.toggleDomesticForeign.bind(this);
+        this.toggleRecipientType = this.toggleRecipientType.bind(this);
+        this.bulkRecipientTypeChange = this.bulkRecipientTypeChange.bind(this);
         this.toggleRecipientLocation = this.toggleRecipientLocation.bind(this);
     }
 
@@ -64,6 +76,21 @@ export class RecipientSearchContainer extends React.Component {
         this.props.updateRecipientDomesticForeignSelection(selection.target.value);
         // Analytics
         RecipientSearchContainer.logCountryFilterEvent(selection.target.value);
+    }
+
+    toggleRecipientType(selection) {
+        this.props.toggleRecipientType(selection);
+
+        // Analytics
+        RecipientSearchContainer.logTypeFilterEvent(selection);
+    }
+
+    bulkRecipientTypeChange(selection) {
+        this.props.bulkRecipientTypeChange(selection);
+
+        // TODO: Lizzie Salita - how do we want to handle analytics for bulk selection?
+        // Analytics
+        // RecipientSearchContainer.logTypeFilterEvent(selection.target.value);
     }
 
     toggleRecipientLocation(recipientLocation) {
@@ -80,6 +107,8 @@ export class RecipientSearchContainer extends React.Component {
                 {...this.props}
                 toggleRecipient={this.toggleRecipient}
                 toggleDomesticForeign={this.toggleDomesticForeign}
+                toggleRecipientType={this.toggleRecipientType}
+                bulkRecipientTypeChange={this.bulkRecipientTypeChange}
                 toggleRecipientLocation={this.toggleRecipientLocation} />
         );
     }
@@ -91,6 +120,7 @@ export default connect(
     (state) => ({
         selectedRecipients: state.filters.selectedRecipients,
         recipientDomesticForeign: state.filters.recipientDomesticForeign,
+        recipientType: state.filters.recipientType,
         selectedRecipientLocations: state.filters.selectedRecipientLocations }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(RecipientSearchContainer);

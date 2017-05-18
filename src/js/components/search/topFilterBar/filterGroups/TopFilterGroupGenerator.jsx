@@ -12,6 +12,7 @@ import LocationFilterGroup from './LocationFilterGroup';
 import BudgetCategoryFilterGroup from './BudgetCategoryFilterGroup';
 import AgencyFilterGroup from './AgencyFilterGroup';
 import RecipientFilterGroup from './RecipientFilterGroup';
+import RecipientTypeFilterGroup from './RecipientTypeFilterGroup';
 import KeywordFilterGroup from './KeywordFilterGroup';
 import AwardIDFilterGroup from './AwardIDFilterGroup';
 import AwardAmountFilterGroup from './AwardAmountFilterGroup';
@@ -53,6 +54,8 @@ export const topFilterGroupGenerator = (config = {
             return (<LocationFilterGroup
                 key={groupKey} {...config}
                 toggle="recipientDomesticForeign" />);
+        case 'recipientType':
+            return <RecipientTypeFilterGroup key={groupKey} {...config} />;
         case 'selectedAwardIDs':
             return (<AwardIDFilterGroup key={groupKey} {...config} />);
         case 'awardAmounts':

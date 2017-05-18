@@ -25,6 +25,7 @@ const initialState = {
     selectedAwardingAgencies: new OrderedMap(),
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
+    recipientType: new Set(),
     selectedRecipientLocations: new OrderedMap(),
     selectedAwardIDs: new OrderedMap(),
     awardAmounts: new OrderedMap()
@@ -820,6 +821,80 @@ describe('searchFiltersReducer', () => {
 
             const updatedState = searchFiltersReducer(startingState, action);
             expect(updatedState.selectedRecipientLocations).toEqual(new OrderedMap());
+        });
+    });
+
+    describe('TOGGLE_SEARCH_FILTER_RECIPIENT_TYPE', () => {
+        const action = {
+            type: 'TOGGLE_SEARCH_FILTER_RECIPIENT_TYPE',
+            recipientType: 'small_business'
+        };
+
+        it('should add a value if it does not currently exist in the set', () => {
+            const startingState = Object.assign({}, initialState);
+
+            expect(
+                searchFiltersReducer(startingState, action).recipientType
+            ).toEqual(new Set([
+                'small_business'
+            ]));
+        });
+
+        it('should remove a value if currently exists in the set', () => {
+            const startingState = Object.assign({}, initialState, {
+                recipientType: new Set(['small_business'])
+            });
+
+            expect(
+                searchFiltersReducer(startingState, action).recipientType
+            ).toEqual(new Set([]));
+        });
+    });
+
+    describe('BULK_SEARCH_FILTER_RECIPIENT_TYPES', () => {
+        it('should add the provided values when the direction is "add"', () => {
+            const action = {
+                type: 'BULK_SEARCH_FILTER_RECIPIENT_TYPES',
+                recipientTypes: [
+                    'small_business',
+                    'other_than_small_business'
+                ],
+                direction: 'add'
+            };
+
+            const startingState = Object.assign({}, initialState);
+
+            expect(
+                searchFiltersReducer(startingState, action).recipientType
+            ).toEqual(new Set([
+                'small_business',
+                'other_than_small_business'
+            ]));
+        });
+
+        it('should remove the provided values when the direction is "remove"', () => {
+            const action = {
+                type: 'BULK_SEARCH_FILTER_RECIPIENT_TYPES',
+                recipientTypes: [
+                    'small_business',
+                    'other_than_small_business'
+                ],
+                direction: 'remove'
+            };
+
+            const startingState = Object.assign({}, initialState, {
+                recipientType: new Set([
+                    'small_business',
+                    'other_than_small_business',
+                    'alaskan_native_owned_business'
+                ])
+            });
+
+            expect(
+                searchFiltersReducer(startingState, action).recipientType
+            ).toEqual(new Set([
+                'alaskan_native_owned_business'
+            ]));
         });
     });
 

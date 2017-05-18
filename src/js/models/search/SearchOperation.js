@@ -71,6 +71,7 @@ class SearchOperation {
         this.selectedRecipients = state.selectedRecipients.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
         this.selectedRecipientLocations = state.selectedRecipientLocations.toArray();
+        this.recipientType = state.recipientType.toArray();
 
         this.selectedAwardIDs = state.selectedAwardIDs.toArray();
 
@@ -127,6 +128,11 @@ class SearchOperation {
         if (this.selectedRecipientLocations.length > 0) {
             filters.push(RecipientQuery.buildRecipientLocationQuery(
                 this.selectedRecipientLocations, this.searchContext));
+        }
+
+        if (this.recipientType.length > 0) {
+            filters.push(RecipientQuery.buildRecipientTypeQuery(
+                this.recipientType, this.searchContext));
         }
 
         // Add Award ID Queries

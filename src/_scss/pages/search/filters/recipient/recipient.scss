@@ -10,7 +10,7 @@
         padding-left: 0rem;
     }
 
-    .recipient-radio {
+    .recipient-radio, .checkbox-type-filter {
         padding-left: 3rem;
 
         p {
@@ -36,6 +36,15 @@
         }
     }
 
+    .recipient-radio {
+        margin-bottom: 1rem;
+    }
+
+    .checkbox-type-filter {
+        margin: 1.5rem 0 0 0;
+        padding-bottom: 0;
+    }
+
     .shown {
         min-height: 18rem;
     }
@@ -47,6 +56,10 @@
     .pop-typeahead {
         margin-bottom: 1rem;
         padding-left: 3rem;
+
+        .usa-da-typeahead {
+            margin-top: 0;
+        }
 
         .funding {
             .usa-da-typeahead {
