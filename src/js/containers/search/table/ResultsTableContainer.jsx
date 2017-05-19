@@ -80,6 +80,7 @@ export class ResultsTableContainer extends React.Component {
             hiddenColumns: []
         };
 
+        this.tabCountRequest = null;
         this.searchRequest = null;
 
         this.switchTab = this.switchTab.bind(this);
@@ -88,14 +89,17 @@ export class ResultsTableContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.updateFilters();
-        this.showColumns(this.props.meta.tableType);
+        // set some default columns to look at while the initial tab-picker API calls are in flight
+        // we can't hide the table entirely because the viewport is required to calculate the
+        // row rendering
+        this.showColumns('contracts');
+        this.pickDefaultTab();
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.filters !== this.props.filters) {
             // filters changed, update the search object
-            this.updateFilters();
+            this.pickDefaultTab();
         }
         else if (prevProps.meta.tableType !== this.props.meta.tableType) {
             // table type has changed
@@ -122,8 +126,70 @@ export class ResultsTableContainer extends React.Component {
         }
     }
 
+    pickDefaultTab() {
+        // get the award counts for the current filter set
+        if (this.tabCountRequest) {
+            this.tabCountRequest.cancel();
+        }
+
+        this.props.setSearchInFlight(true);
+
+        const searchParams = new SearchOperation();
+        searchParams.fromState(this.props.filters);
+        this.tabCountRequest = SearchHelper.fetchAwardCounts({
+            aggregate: 'count',
+            group: 'type',
+            field: 'total_obligation',
+            filters: searchParams.toParams()
+        });
+
+        this.tabCountRequest.promise
+            .then((res) => {
+                this.parseTabCounts(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    parseTabCounts(data) {
+        // determine which types have award results
+        const availableTypes = {};
+        data.results.forEach((type) => {
+            const count = parseFloat(type.aggregate);
+            if (count > 0) {
+                availableTypes[type.type] = count;
+            }
+        });
+
+        // sum the types up by group
+        const availableGroups = {};
+        Object.keys(awardTypeGroups).forEach((group) => {
+            availableGroups[group] = 0;
+            awardTypeGroups[group].forEach((type) => {
+                if ({}.hasOwnProperty.call(availableTypes, type)) {
+                    availableGroups[group] += availableTypes[type];
+                }
+            });
+        });
+
+        let firstAvailable = 0;
+        for (let i = 0; i < tableTypes.length; i++) {
+            const type = tableTypes[i].internal;
+            if (availableGroups[type] > 0) {
+                firstAvailable = i;
+                i = tableTypes.length + 1;
+            }
+        }
+
+        // select the first available tab
+        this.switchTab(tableTypes[firstAvailable].internal);
+        this.updateFilters();
+        this.showColumns(tableTypes[firstAvailable].internal);
+    }
+
     showColumns(tableType) {
-         // calculate the column metadata to display in the table
+        // calculate the column metadata to display in the table
         const columns = [];
         const hiddenColumns = [];
         let sortOrder = TableSearchFields.defaultSortDirection;
@@ -246,6 +312,7 @@ export class ResultsTableContainer extends React.Component {
                 }
                 else if (err.response) {
                     // server responded with something
+                    console.log(err);
                     this.searchRequest = null;
                 }
                 else {
