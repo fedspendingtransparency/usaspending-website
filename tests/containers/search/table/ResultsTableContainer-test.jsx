@@ -414,4 +414,26 @@ describe('ResultsTableContainer', () => {
             searchSpy.reset();
         });
     });
+
+    describe('toggleColumnVisibility', () => {
+        it('should change the Redux column visibility', () => {
+            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
+            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
+
+            const columnVisibilityAction = jest.fn();
+
+            const actions = Object.assign({}, mockActions, {
+                toggleColumnVisibility: columnVisibilityAction
+            });
+
+            const container = shallow(<ResultsTableContainer
+                {...actions}
+                {...mockRedux} />);
+
+            container.instance().toggleColumnVisibility('recipient_name');
+
+            expect(columnVisibilityAction).toHaveBeenCalledTimes(1);
+            expect(columnVisibilityAction.mock.calls[0][0]).toEqual({"column": "recipient_name", "tableType": "contracts"});
+        });
+    });
 });
