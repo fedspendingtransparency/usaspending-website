@@ -1,13 +1,11 @@
-header { 
+header {
     background-color: $color-white;
-
     .nav-container {
         // style the upper menu
         @import "./_upperMenu";
         // style the lower menu
         @import "./_lowerMenu";
     }
-
     // style the mobile menu button
     @import "./_menuButton";
 }

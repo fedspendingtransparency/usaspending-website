@@ -1,7 +1,7 @@
 .content {
     @import "../../elements/underlineButton";
     padding: rem(15);
-    background-color: rgba($color-primary-alt-lightest, .8);
+    background-color: rgba($color-primary-alt-lightest, .5);
     ul {
         @include unstyled-list;
         margin-left: auto;
