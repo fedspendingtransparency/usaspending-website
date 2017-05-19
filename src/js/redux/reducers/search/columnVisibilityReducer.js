@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/04/17
  **/
 
-import { OrderedSet } from 'immutable';
+import { Record, OrderedSet } from 'immutable';
 
 import * as ColumnVisibilityFuncs from './filters/columnVisibilityFunctions';
 
@@ -149,6 +149,8 @@ const initialState = {
         hiddenColumns: new OrderedSet()
     }
 };
+
+export const VisibilityRecord = Record(initialState);
 
 const columnVisibilityReducer = (state = initialState, action) => {
     switch (action.type) {
