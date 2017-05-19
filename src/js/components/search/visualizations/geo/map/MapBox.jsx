@@ -60,8 +60,8 @@ export default class MapBox extends React.Component {
         this.map = new MapboxGL.Map({
             container: this.mapDiv,
             style: 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm',
-            center: [-98.5795122, 39.8282172],
-            zoom: 3,
+            center: [-98.5795122, 39.2282172],
+            zoom: 3.2,
             dragRotate: false // disable 3D view
         });
 
