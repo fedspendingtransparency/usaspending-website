@@ -5,7 +5,7 @@
 
 import { Record, OrderedSet } from 'immutable';
 
-import * as ColumnVisibilityFuncs from './filters/columnVisibilityFunctions';
+import * as ColumnVisibilityFuncs from './filters/ColumnVisibilityFunctions';
 
 const initialState = {
     contracts: {
