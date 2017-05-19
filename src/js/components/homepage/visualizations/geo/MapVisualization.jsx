@@ -21,11 +21,25 @@ export default class MapVisualization extends React.Component {
             selectedItem: {}
         };
 
+        this.mounted = false;
+
         this.showTooltip = this.showTooltip.bind(this);
         this.hideTooltip = this.hideTooltip.bind(this);
     }
 
+    componentDidMount() {
+        this.mounted = true;
+    }
+
+    componentWillUnmount() {
+        this.mounted = false;
+    }
+
     showTooltip(stateCode, position) {
+        if (!this.mounted) {
+            return;
+        }
+
         // convert state code to full string name
         const index = _.indexOf(this.props.data.states, stateCode);
         this.setState({
@@ -41,6 +55,10 @@ export default class MapVisualization extends React.Component {
     }
 
     hideTooltip() {
+        if (!this.mounted) {
+            return;
+        }
+
         this.setState({
             showHover: false,
             selectedItem: {}

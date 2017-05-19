@@ -7,6 +7,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import MapVisualization from './MapVisualization';
+import MapToggleOptions from './MapToggleOptions';
 
 const propTypes = {
     states: React.PropTypes.object
@@ -21,9 +22,12 @@ export default class MapVisualizationWrapper extends React.Component {
                 values: [],
                 states: []
             },
+            view: 'map',
             renderHash: `geo-${_.uniqueId()}`,
             loading: true
         };
+
+        this.changeView = this.changeView.bind(this);
     }
 
     componentWillReceiveProps(prevProps) {
@@ -58,10 +62,21 @@ export default class MapVisualizationWrapper extends React.Component {
         });
     }
 
+    changeView(view) {
+        this.setState({
+            view
+        });
+    }
+
     render() {
         return (
-            <MapVisualization
-                {...this.state} />
+            <div className="homepage-map-section">
+                <MapToggleOptions
+                    view={this.state.view}
+                    changeView={this.changeView} />
+                <MapVisualization
+                    {...this.state} />
+            </div>
         );
     }
 }

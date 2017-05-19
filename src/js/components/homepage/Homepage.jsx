@@ -35,10 +35,17 @@ export default class Homepage extends React.Component {
         };
 
         this.loadHomepageData = this.loadHomepageData.bind(this);
+
+        this.mounted = false;
     }
 
     componentWillMount() {
+        this.mounted = true;
         this.loadHomepageData();
+    }
+
+    componentWillUnmount() {
+        this.mounted = false;
     }
 
     loadHomepageData() {
@@ -48,6 +55,11 @@ export default class Homepage extends React.Component {
         HomepageHelper.fetchFile('graphics/homepage.json').promise
             .then((res) => {
                 // set to state
+                if (!this.mounted) {
+                    // page has gone away, don't mount
+                    return;
+                }
+
                 this.setState({
                     categories: res.data.budgetCategories,
                     descriptions: res.data.categoryDescriptions,
