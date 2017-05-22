@@ -1,6 +1,6 @@
 .award-results-table {
     // implement the library style
-    @import '../../../../lib/ibTable/ibTable';
+    @import 'lib/ibTable/ibTable';
     margin-top: rem(15);
     display: block;
     border: 1px solid $color-gray-light;
