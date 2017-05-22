@@ -28,7 +28,7 @@ export default class NavBar extends React.Component {
                             <ul className="small-menu">
                                 <li>
                                     <a
-                                        href="mailto:usaspending.help-submitonly@fiscal.treasury.gov"
+                                        href="mailto:usaspending.help-submitonly@fiscal.treasury.gov?subject=Help"
                                         title="Help">
                                         Help
                                     </a>
