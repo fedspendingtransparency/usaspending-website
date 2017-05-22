@@ -107,11 +107,13 @@ export default class Guide extends React.Component {
             loading = (<div className="guide-loading-content">
                 Loading Guide...
             </div>);
+            content = null;
         }
         else if (this.props.error) {
             loading = (<div className="guide-loading-content">
                 Error: Could not load Guide.
             </div>);
+            content = null;
         }
 
         return (
