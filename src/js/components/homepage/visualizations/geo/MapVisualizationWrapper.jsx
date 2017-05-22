@@ -7,10 +7,11 @@ import React from 'react';
 import _ from 'lodash';
 
 import MapVisualization from './MapVisualization';
-import MapToggleOptions from './MapToggleOptions';
+import MapList from './MapList';
+import MapToggleList from './MapToggleList';
 
 const propTypes = {
-    states: React.PropTypes.object
+    data: React.PropTypes.object
 };
 
 export default class MapVisualizationWrapper extends React.Component {
@@ -18,45 +19,25 @@ export default class MapVisualizationWrapper extends React.Component {
         super(props);
 
         this.state = {
-            data: {
-                values: [],
-                states: []
-            },
             view: 'map',
             renderHash: `geo-${_.uniqueId()}`,
-            loading: true
+            loading: true,
+            showPerCapita: false,
+            dataKey: 'total'
         };
 
         this.changeView = this.changeView.bind(this);
+        this.togglePerCapita = this.togglePerCapita.bind(this);
     }
 
-    componentWillReceiveProps(prevProps) {
-        if (!_.isEqual(prevProps.states, this.props.states)) {
-            this.parseData(prevProps.states);
+    componentWillReceiveProps(nextProps) {
+        if (!_.isEqual(nextProps.data, this.props.data)) {
+            this.parseData();
         }
     }
 
-    parseData(data) {
-        let totalAmount = 0;
-        const spendingValues = [];
-        const spendingStates = [];
-
-        data.children.forEach((item) => {
-            // state must not be null or empty string
-            if (item.item && item.item !== '') {
-                spendingStates.push(item.item);
-                spendingValues.push(parseFloat(item.aggregate));
-            }
-
-            totalAmount += parseFloat(item.aggregate);
-        });
-
+    parseData() {
         this.setState({
-            data: {
-                values: spendingValues,
-                states: spendingStates,
-                total: totalAmount
-            },
             renderHash: `geo-${_.uniqueId()}`,
             loading: false
         });
@@ -68,14 +49,38 @@ export default class MapVisualizationWrapper extends React.Component {
         });
     }
 
+    togglePerCapita() {
+        let dataKey = 'total';
+        let showPerCapita = false;
+        if (!this.state.showPerCapita) {
+            dataKey = 'capita';
+            showPerCapita = true;
+        }
+
+        this.setState({
+            showPerCapita,
+            dataKey,
+            renderHash: `geo-${_.uniqueId()}`
+        });
+    }
+
     render() {
+        let content = (<MapVisualization
+            {...this.state}
+            data={this.props.data[this.state.dataKey]}
+            togglePerCapita={this.togglePerCapita} />);
+
+        if (this.state.view === 'list') {
+            content = (<MapList
+                {...this.state} />);
+        }
+
         return (
             <div className="homepage-map-section">
-                <MapToggleOptions
+                <MapToggleList
                     view={this.state.view}
                     changeView={this.changeView} />
-                <MapVisualization
-                    {...this.state} />
+                {content}
             </div>
         );
     }

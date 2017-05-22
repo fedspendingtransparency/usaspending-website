@@ -11,15 +11,14 @@ import * as MapHelper from 'helpers/mapHelper';
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
 
-import GeoVisualizationTooltip from './GeoVisualizationTooltip';
-
 const propTypes = {
     data: React.PropTypes.object,
     renderHash: React.PropTypes.string,
     showHover: React.PropTypes.bool,
     selectedItem: React.PropTypes.object,
     showTooltip: React.PropTypes.func,
-    hideTooltip: React.PropTypes.func
+    hideTooltip: React.PropTypes.func,
+    tooltip: React.PropTypes.func
 };
 
 const defaultProps = {
@@ -235,7 +234,8 @@ export default class MapWrapper extends React.Component {
         let tooltip = null;
 
         if (this.props.showHover) {
-            tooltip = (<GeoVisualizationTooltip
+            const TooltipComponent = this.props.tooltip;
+            tooltip = (<TooltipComponent
                 {...this.props.selectedItem} />);
         }
 

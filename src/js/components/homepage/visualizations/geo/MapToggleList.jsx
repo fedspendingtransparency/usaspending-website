@@ -1,5 +1,5 @@
 /**
- * MapToggleOptions.jsx
+ * MapToggleList.jsx
  * Created by Kevin Li 5/19/17
  */
 
@@ -12,7 +12,7 @@ const propTypes = {
     changeView: React.PropTypes.func
 };
 
-export default class MapToggleOptions extends React.Component {
+export default class MapToggleList extends React.Component {
     render() {
         return (
             <div className="homepage-map-toggle">
@@ -37,4 +37,4 @@ export default class MapToggleOptions extends React.Component {
     }
 }
 
-MapToggleOptions.propTypes = propTypes;
+MapToggleList.propTypes = propTypes;

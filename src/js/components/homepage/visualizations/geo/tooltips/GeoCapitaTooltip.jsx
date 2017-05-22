@@ -1,6 +1,6 @@
 /**
- * GeoVisualizationTooltip.jsx
- * Created by Kevin Li 2/23/17
+ * GeoCapitaTooltip.jsx
+ * Created by Kevin Li 5/22/17
  */
 
 import React from 'react';
@@ -14,10 +14,12 @@ const propTypes = {
     y: React.PropTypes.number,
     x: React.PropTypes.number,
     visualization: React.PropTypes.object,
-    total: React.PropTypes.number
+    rank: React.PropTypes.number,
+    rankCount: React.PropTypes.number,
+    population: React.PropTypes.number
 };
 
-export default class GeoVisualizationTooltip extends React.Component {
+export default class GeoCapitaTooltip extends React.Component {
     componentDidMount() {
         this.positionTooltip();
     }
@@ -53,6 +55,11 @@ export default class GeoVisualizationTooltip extends React.Component {
 
     render() {
         const stateName = MapHelper.stateNameFromCode(this.props.state);
+        const populationUnits = MoneyFormatter.calculateUnitForSingleValue(this.props.population);
+        let displayedPopulation = this.props.population;
+        if (populationUnits.unit > 1) {
+            displayedPopulation = `${Math.round((this.props.population * 10) / populationUnits.unit) / 10} ${populationUnits.longLabel}`;
+        }
 
         return (
             <div
@@ -79,9 +86,20 @@ export default class GeoVisualizationTooltip extends React.Component {
                                 {MoneyFormatter.formatMoney(this.props.value)}
                             </div>
                             <div className="tooltip-label">
-                                Spending in {stateName}
+                                Per Capita Amount
                             </div>
                         </div>
+                        <div className="tooltip-right">
+                            <div className="tooltip-value">
+                                {this.props.rank} of {this.props.rankCount}
+                            </div>
+                            <div className="tooltip-label">
+                                Per Capita Rank
+                            </div>
+                        </div>
+                    </div>
+                    <div className="state-population">
+                        Population of {stateName}:&nbsp; {displayedPopulation}
                     </div>
                 </div>
             </div>
@@ -89,4 +107,4 @@ export default class GeoVisualizationTooltip extends React.Component {
     }
 }
 
-GeoVisualizationTooltip.propTypes = propTypes;
+GeoCapitaTooltip.propTypes = propTypes;

@@ -4,12 +4,18 @@
  */
 
 import React from 'react';
-
 import _ from 'lodash';
+
+import ToggleButton from 'components/sharedComponents/ToggleButton';
 import MapWrapper from 'components/search/visualizations/geo/MapWrapper';
 
+import GeoTotalTooltip from './tooltips/GeoTotalTooltip';
+import GeoCapitaTooltip from './tooltips/GeoCapitaTooltip';
+
 const propTypes = {
-    data: React.PropTypes.object
+    data: React.PropTypes.object,
+    showPerCapita: React.PropTypes.bool,
+    togglePerCapita: React.PropTypes.func
 };
 
 export default class MapVisualization extends React.Component {
@@ -17,6 +23,7 @@ export default class MapVisualization extends React.Component {
         super(props);
 
         this.state = {
+            tooltipType: GeoTotalTooltip,
             showHover: false,
             selectedItem: {}
         };
@@ -27,12 +34,46 @@ export default class MapVisualization extends React.Component {
         this.hideTooltip = this.hideTooltip.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.mounted = true;
+        this.determineTooltipType(this.props.showPerCapita);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.showPerCapita !== this.props.showPerCapita) {
+            this.determineTooltipType(nextProps.showPerCapita);
+        }
     }
 
     componentWillUnmount() {
         this.mounted = false;
+    }
+
+    determineTooltipType(showPerCapita) {
+        let tooltip = GeoTotalTooltip;
+        if (showPerCapita) {
+            tooltip = GeoCapitaTooltip;
+        }
+
+        this.setState({
+            tooltipType: tooltip
+        });
+    }
+
+    prepareTotalTooltip(index) {
+        return {
+            total: this.props.data.total,
+            value: this.props.data.values[index]
+        };
+    }
+
+    prepareCapitaTooltip(index) {
+        return {
+            value: this.props.data.values[index],
+            rank: this.props.data.ranks[index],
+            rankCount: this.props.data.ranks.length,
+            population: this.props.data.populations[index]
+        };
     }
 
     showTooltip(stateCode, position) {
@@ -42,15 +83,21 @@ export default class MapVisualization extends React.Component {
 
         // convert state code to full string name
         const index = _.indexOf(this.props.data.states, stateCode);
+
+        let tooltipValues = this.prepareTotalTooltip(index);
+        if (this.props.showPerCapita) {
+            tooltipValues = this.prepareCapitaTooltip(index);
+        }
+
+        const selectedItem = Object.assign({}, tooltipValues, {
+            state: stateCode,
+            x: position.x,
+            y: position.y
+        });
+
         this.setState({
-            showHover: true,
-            selectedItem: {
-                state: stateCode,
-                total: this.props.data.total,
-                value: this.props.data.values[index],
-                x: position.x,
-                y: position.y
-            }
+            selectedItem,
+            showHover: true
         });
     }
 
@@ -65,13 +112,22 @@ export default class MapVisualization extends React.Component {
         });
     }
 
+
     render() {
         return (
             <div
                 className="results-visualization-geo-section"
                 id="results-section-geo">
+                <div className="homepage-map-capita-toggle">
+                    <ToggleButton
+                        label="Show Spending Per Capita"
+                        prefix="toggle-capita"
+                        active={this.props.showPerCapita}
+                        pressedToggle={this.props.togglePerCapita} />
+                </div>
                 <MapWrapper
                     {...this.props}
+                    tooltip={this.state.tooltipType}
                     showHover={this.state.showHover}
                     selectedItem={this.state.selectedItem}
                     showTooltip={this.showTooltip}

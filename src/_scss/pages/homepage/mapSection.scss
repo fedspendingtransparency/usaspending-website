@@ -49,5 +49,16 @@
                 }
             }
         }
+
+        // custom tooltip styling
+        .visualization-tooltip {
+            .state-population {
+                font-size: $small-font-size;
+                margin-left: rem(20);
+                margin-bottom: rem(10);
+            }
+        }
+
+        @import "./mapToggleCapita";
     }
 }
