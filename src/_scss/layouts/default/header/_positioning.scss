@@ -1,41 +1,26 @@
 .nav-container {
     @import "mixins/fullSectionWrap";
-    @include fullSectionWrap(0,0);
+    @include fullSectionWrap(0, 0);
     @include display(flex);
+    @include justify-content(space-between);
     @include flex-direction(row);
     @include align-items(center);
     height: rem(105);
-
-    @include media($nav-width) {
-        @include media($small-screen) {
-            height: rem(118);
-        }
-        @include media($x-large-screen) {
-            max-width: $site-max-width;
-            margin: 0 auto;
-        }
+    @include media($tablet-screen) {
+    height: rem(110);
     }
-
     .logo {
-        @include flex(1);
-        margin: auto;
+        flex-grow: 2;
         position: relative;
-        @include media($nav-width);
     }
-
     nav {
-        margin: auto;
         display: none;
-        @include media($medium-screen) {
+        @include media($tablet-screen) {
             display: block;
-            width: rem(600);
-            @include clearfix();
         }
     }
-
     .mobile-menu {
-        width: 20%;
-        @include media($medium-screen) {
+        @include media($tablet-screen) {
             display: none;
         }
     }

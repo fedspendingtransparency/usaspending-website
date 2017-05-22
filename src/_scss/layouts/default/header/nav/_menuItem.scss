@@ -2,23 +2,19 @@ li {
     height: rem(48);
     margin: 0;
     padding: 0 rem(10);
-    @include media($medium-screen) {
+    @include media($large-screen) {
         padding: 0 rem(15);
     }
     a {
         color: $color-gray;
         font-size: $base-font-size;
-        text-decoration: none;
     }
     &.search-item {
         padding: 0;
     }
-
-    
     &.coming-soon {
         @import "components/comingSoon";
         @include comingSoon;
-
         color: $color-gray-lighter;
         cursor: default;
         pointer-events: none;
@@ -26,7 +22,8 @@ li {
             color: $color-gray-lighter;
         }
         .coming-soon-container {
-            margin-top: rem(5px);
+            position: absolute;
+            top: rem(30);
             .coming-soon-icon {
                 display: inline;
                 float: none;

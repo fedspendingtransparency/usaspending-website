@@ -1,31 +1,25 @@
-.search-options {    
-    display: table;
-
+.search-options {
     ul.search-formats {
         @include unstyled-list;
-        display: table-cell;
         text-align: center;
-        @include media($medium-screen) {
+        @include media($tablet-screen) {
             text-align: right;
         }
     }
     li {
         display: inline-block;
-        margin-left: 30px;
+        margin: 0 0 rem(20) rem(30);
         @include media($large-screen) {
-            margin-left: 50px;
+            margin-left: rem(50);
         }
         &:first-child {
             margin-left: 0;
         }
-        
         @import "./_formatItem";
         @import "./_downloadButton";
     }
-
     @import "components/_comingSoon";
-    @include comingSoon;    
-    
+    @include comingSoon;
     .coming-soon {
         color: $color-gray-light;
         cursor: default;
@@ -46,4 +40,4 @@
             }
         }
     }
-}
+} 

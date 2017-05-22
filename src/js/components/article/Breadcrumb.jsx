@@ -20,9 +20,9 @@ export default class Breadcrumb extends React.Component {
                             Home
                         </a>
                     </li>
-                    <div className="breadcrumb-arrow">
+                    <li className="breadcrumb-arrow">
                         <Icons.AngleRight />
-                    </div>
+                    </li>
                     <li>
                         <a
                             href="#/about"
@@ -32,18 +32,9 @@ export default class Breadcrumb extends React.Component {
                             About Us
                         </a>
                     </li>
-                    <svg
-                        className="usa-da-icon-angle-right"
-                        viewBox="0 0 512 512"
-                        aria-label="Arrow Pointing Right Icon"
-                        height="12">
-                        <title>
-                            Arrow Pointing Right Icon
-                        </title>
-                        <g>
-                            <path d="M143.5 434.8L304 257 143.8 77.3 143.4 6l225.2 250.5L144 506" />
-                        </g>
-                    </svg>
+                    <li className="breadcrumb-arrow">
+                        <Icons.AngleRight />
+                    </li>
                     <li>
                         {this.props.title}
                     </li>

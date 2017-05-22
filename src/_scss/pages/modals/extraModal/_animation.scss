@@ -1,0 +1,45 @@
+.cylon-eye-wrapper {
+    position: relative;
+    padding: 20px;
+
+    @include media($large-screen) {
+        padding: 20px 50px;
+    }
+
+    .cylon-eye-line {
+        border: none;
+        border-top: 2px solid $color-gray-lighter;
+    }
+
+    .eyeball-wrapper {
+        position: absolute;
+        top: 16px;
+        left: 20px;
+        right: 20px;
+        margin-right: 20px;
+
+        @include media($large-screen) {
+            left: 50px;
+            right: 50px;
+            margin-right: 50px;
+        }
+    }
+
+    .cylon-eye-ball {
+        width: 50px;
+        height: 10px;
+
+        background-color: $color-primary-darkest;
+
+        @keyframes cylon {
+            from {
+                margin-left: 0;
+            }
+            to {
+                margin-left: 100%;
+            }
+        }
+
+        animation: cylon 2s ease-in-out 0s alternate infinite both;
+    }
+}
