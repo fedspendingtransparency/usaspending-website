@@ -9,7 +9,7 @@
 
         input[type=checkbox] {
             @include usa-input-checkbox;
-            margin-right: 6px;
+            margin-right: 4px;
             float: left;
             margin-top: 0.6rem;
         }
@@ -29,12 +29,12 @@
             line-height: $small-font-size;
             margin: 0 0 1rem 0;
             width: 80%;
+            padding-left: 0;
 
             &:before {
                 width: 1.4rem;
                 height: 1.4rem;
                 position: relative;
-                // top: 0.25rem;
             }
         }
     }
