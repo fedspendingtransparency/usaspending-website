@@ -8,6 +8,9 @@ import React from 'react';
 import ResultsTableHeaderCellContainer from
     'containers/search/table/ResultsTableHeaderCellContainer';
 
+import ExtraModalContainer from 'containers/search/modals/ExtraModalContainer';
+import * as Icons from 'components/sharedComponents/icons/Icons';
+
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
 import ResultsTableMessage from './ResultsTableMessage';
@@ -21,7 +24,8 @@ const propTypes = {
     results: React.PropTypes.array,
     columns: React.PropTypes.array,
     hiddenColumns: React.PropTypes.array,
-    toggleColumnVisibility: React.PropTypes.func
+    toggleColumnVisibility: React.PropTypes.func,
+    lastReq: React.PropTypes.string
 };
 
 export default class ResultsTableSection extends React.Component {
@@ -29,10 +33,13 @@ export default class ResultsTableSection extends React.Component {
         super(props);
 
         this.state = {
-            tableWidth: 0
+            tableWidth: 0,
+            showModal: false
         };
 
         this.setTableWidth = this.setTableWidth.bind(this);
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
     }
     componentDidMount() {
         // set the initial table width
@@ -51,6 +58,18 @@ export default class ResultsTableSection extends React.Component {
         this.setState({ tableWidth });
     }
 
+    showModal() {
+        this.setState({
+            showModal: true
+        });
+    }
+
+    hideModal() {
+        this.setState({
+            showModal: false
+        });
+    }
+
     render() {
         let loadingWrapper = 'loaded-table';
         let message = null;
@@ -65,7 +84,16 @@ export default class ResultsTableSection extends React.Component {
 
         return (
             <div className="search-results-table-section" id="results-section-table">
-                <h3>Spending by Award</h3>
+                <div className="table-section-header">
+                    <h3>Spending by Award</h3>
+                    <button
+                        className="action-modal"
+                        aria-label="More options"
+                        title="More options"
+                        onClick={this.showModal}>
+                        <Icons.MoreOptions alt="More options" />
+                    </button>
+                </div>
                 <hr className="results-divider" />
                 <ResultsSelectColumns
                     columns={this.props.columns}
@@ -89,6 +117,10 @@ export default class ResultsTableSection extends React.Component {
                         headerCellClass={ResultsTableHeaderCellContainer} />
                 </div>
                 {message}
+                <ExtraModalContainer
+                    lastReq={this.props.lastReq}
+                    mounted={this.state.showModal}
+                    hideModal={this.hideModal} />
             </div>
         );
     }

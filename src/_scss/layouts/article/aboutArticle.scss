@@ -6,6 +6,12 @@
         }
         & li {
             display: inline-block;
+            font-size: $small-font-size;
+            & a{
+                color: $color-link;
+            &:visited{
+                color: $color-link;
+            }}
         }
         & svg:not(:root) {
             fill: $color-gray-medium;
@@ -13,7 +19,10 @@
         }
         & .breadcrumb-arrow {
             display: inline-block;
-            & svg {height: 12px;}
+            & svg {
+                height: rem(12);
+                margin-bottom: rem(-2)
+            }
         }
         @include media($medium-screen) {
             @include span-columns(12);
@@ -47,7 +56,7 @@
     }
     .article-wrapper {
         h1 {
-            margin: ($global-pad * 2) 0 ($global-pad * 1) 0;
+            margin: ($global-pad * 2) 0 ($global-pad) 0;
         }
         hr.results-divider {
             margin: 0 0 ($global-pad * 3) 0;

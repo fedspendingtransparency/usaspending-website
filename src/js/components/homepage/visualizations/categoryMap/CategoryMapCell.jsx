@@ -56,6 +56,8 @@ export default class CategoryMapCell extends React.Component {
         this.setState({
             label,
             didProcess: false
+        }, () => {
+            this.forceUpdate();
         });
     }
 
