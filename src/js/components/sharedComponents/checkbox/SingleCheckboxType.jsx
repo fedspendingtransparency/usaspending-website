@@ -11,11 +11,13 @@ const propTypes = {
     name: React.PropTypes.string,
     toggleCheckboxType: React.PropTypes.func,
     filterType: React.PropTypes.string,
-    selectedCheckboxes: React.PropTypes.object
+    selectedCheckboxes: React.PropTypes.object,
+    enableAnalytics: React.PropTypes.bool
 };
 
 const defaultProps = {
-    filterType: ''
+    filterType: '',
+    enableAnalytics: false
 };
 
 const ga = require('react-ga');
@@ -31,17 +33,24 @@ export default class SingleCheckboxType extends React.Component {
 
     constructor(props) {
         super(props);
-        // bind functions
+
+        // Bind functions
         this.toggleFilter = this.toggleFilter.bind(this);
     }
+
     toggleFilter() {
         // indicate to Redux that this field needs to toggle
         this.props.toggleCheckboxType(this.props.code);
+
         // Analytics
-        SingleCheckboxType.logSingleTypeFilterEvent(this.props.name, this.props.filterType);
+        if (this.props.enableAnalytics) {
+            SingleCheckboxType.logSingleTypeFilterEvent(this.props.name, this.props.filterType);
+        }
     }
+
     render() {
         const checked = this.props.selectedCheckboxes.includes(this.props.code);
+
         return (
             <div className="primary-checkbox-type single-item">
                 <div className="checkbox-type-item-wrapper">

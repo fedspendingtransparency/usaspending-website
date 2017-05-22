@@ -11,12 +11,14 @@ const propTypes = {
     name: React.PropTypes.string,
     toggleCheckboxType: React.PropTypes.func,
     filterType: React.PropTypes.string,
-    selectedCheckboxes: React.PropTypes.object
+    selectedCheckboxes: React.PropTypes.object,
+    enableAnalytics: React.PropTypes.bool
 };
 
 const defaultProps = {
     filterType: '',
-    selectedCheckboxes: new Set()
+    selectedCheckboxes: new Set(),
+    enableAnalytics: false
 };
 
 const ga = require('react-ga');
@@ -47,15 +49,18 @@ export default class SecondaryCheckboxType extends React.Component {
     toggleFilter() {
         // indicate to Redux that this field needs to toggle
         this.props.toggleCheckboxType(this.props.code);
+
         // Analytics
-        const checked = this.props.selectedCheckboxes.includes(this.props.code);
-        if (checked) {
-            SecondaryCheckboxType.logDeselectFilterEvent(
-                this.props.name, this.props.filterType);
-        }
-        else {
-            SecondaryCheckboxType.logSecondaryTypeFilterEvent(
-                this.props.name, this.props.filterType);
+        if (this.props.enableAnalytics) {
+            const checked = this.props.selectedCheckboxes.includes(this.props.code);
+            if (checked) {
+                SecondaryCheckboxType.logDeselectFilterEvent(this.props.name,
+                    this.props.filterType);
+            }
+            else {
+                SecondaryCheckboxType.logSecondaryTypeFilterEvent(this.props.name,
+                    this.props.filterType);
+            }
         }
     }
 

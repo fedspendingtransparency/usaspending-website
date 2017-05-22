@@ -7,14 +7,15 @@
 
         input[type=checkbox] {
             // CSS hack to allow for indented line wraps on the label
-            margin-right: -2rem;
+            // margin-right: -2rem;
             margin-top: 1.2rem;
             vertical-align: top;
+            margin-top: 0.4rem;
         }
 
         label {
-            margin-left: 2rem;
-            vertical-align: top;
+            // margin-left: 2rem;
+            vertical-align: middle;
         }
     }
 }

@@ -39,6 +39,7 @@ class SearchOperation {
         this.selectedRecipients = [];
         this.recipientDomesticForeign = 'all';
         this.selectedRecipientLocations = [];
+        this.recipientType = [];
 
         this.selectedAwardIDs = [];
 

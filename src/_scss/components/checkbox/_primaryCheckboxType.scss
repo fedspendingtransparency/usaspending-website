@@ -2,9 +2,9 @@
     @import "./_sharedCheckboxStyle";
     @include sharedCheckboxStyle;
 
-    //&.single-item {
-    //    padding-left: 1.8rem;
-    //}
+    &.single-item {
+        padding-left: 1.8rem;
+    }
 
     svg {
         fill: $color-gray;
@@ -16,9 +16,10 @@
     .toggle {
         @include button-unstyled;
         display: inline-block;
-        height: 1.1rem;
+        height: 2.8rem;
         vertical-align: middle;
         margin-right: 7px;
+        float: left;
 
         &.hidden-button {
             opacity: 0.3;

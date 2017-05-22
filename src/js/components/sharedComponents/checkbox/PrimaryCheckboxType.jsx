@@ -4,8 +4,6 @@
  */
 
 import React from 'react';
-
-import { recipientTypes } from 'dataMapping/search/recipientType';
 import { Set } from 'immutable';
 
 import SecondaryCheckboxType from './SecondaryCheckboxType';
@@ -16,10 +14,12 @@ const propTypes = {
     id: React.PropTypes.string,
     name: React.PropTypes.string,
     filters: React.PropTypes.array,
-    bulkRecipientTypeChange: React.PropTypes.func,
+    bulkTypeChange: React.PropTypes.func,
     value: React.PropTypes.string,
     filterType: React.PropTypes.string,
-    selectedCheckboxes: React.PropTypes.object
+    types: React.PropTypes.object,
+    selectedCheckboxes: React.PropTypes.object,
+    enableAnalytics: React.PropTypes.bool
 };
 
 const defaultProps = {
@@ -28,7 +28,9 @@ const defaultProps = {
     filters: [],
     value: '',
     filterType: '',
-    selectedCheckboxes: new Set()
+    types: {},
+    selectedCheckboxes: new Set(),
+    enableAnalytics: false
 };
 
 const ga = require('react-ga');
@@ -65,23 +67,23 @@ export default class PrimaryCheckboxType extends React.Component {
         this.toggleChildren = this.toggleChildren.bind(this);
     }
 
-    componentDidMount() {
-        this.compareFiltersToChildren();
+    componentWillMount() {
+        this.compareFiltersToChildren(this.props);
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.selectedCheckboxes.hashCode() !== this.props.selectedCheckboxes.hashCode()) {
-            this.compareFiltersToChildren();
+    componentWillUpdate(nextProps) {
+        if (nextProps.selectedCheckboxes.hashCode() !== this.props.selectedCheckboxes.hashCode()) {
+            this.compareFiltersToChildren(nextProps);
         }
     }
 
-    compareFiltersToChildren() {
+    compareFiltersToChildren(props) {
         // check to see if the children are all selected or not
         let allSelected = true;
         let someSelected = false;
 
-        for (const code of this.props.filters) {
-            if (!this.props.selectedCheckboxes.has(code)) {
+        for (const code of props.filters) {
+            if (!props.selectedCheckboxes.has(code)) {
                 allSelected = false;
             }
             else {
@@ -114,24 +116,31 @@ export default class PrimaryCheckboxType extends React.Component {
 
         if (this.state.allChildren) {
             // all the children are selected, deselect them
-            this.props.bulkRecipientTypeChange({
-                recipientTypes: this.props.filters,
+            this.props.bulkTypeChange({
+                types: this.props.filters,
                 direction: 'remove'
             });
             // collapse the children
             showChildren = false;
             arrowState = 'collapsed';
+
             // Analytics
-            PrimaryCheckboxType.logDeselectFilterEvent(this.props.name, this.props.filterType);
+            if (this.props.enableAnalytics) {
+                PrimaryCheckboxType.logDeselectFilterEvent(this.props.name, this.props.filterType);
+            }
         }
         else {
             // not all the children are selected, select them all
-            this.props.bulkRecipientTypeChange({
-                recipientTypes: this.props.filters,
+            this.props.bulkTypeChange({
+                types: this.props.filters,
                 direction: 'add'
             });
+
             // Analytics
-            PrimaryCheckboxType.logPrimaryTypeFilterEvent(this.props.name, this.props.filterType);
+            if (this.props.enableAnalytics) {
+                PrimaryCheckboxType.logPrimaryTypeFilterEvent(
+                    this.props.name, this.props.filterType);
+            }
         }
         this.setState({
             showSubItems: showChildren,
@@ -140,7 +149,7 @@ export default class PrimaryCheckboxType extends React.Component {
     }
 
     render() {
-        let primaryRecipient = (<CollapsedCheckboxType
+        let primaryTypes = (<CollapsedCheckboxType
             id={this.props.id}
             name={this.props.name}
             code={this.props.value}
@@ -150,20 +159,20 @@ export default class PrimaryCheckboxType extends React.Component {
             toggleChildren={this.toggleChildren}
             hideArrow={this.state.selectedChildren} />);
 
-        let secondaryRecipientTypes = null;
+        let secondaryTypes = null;
 
         if (this.state.showSubItems) {
-            secondaryRecipientTypes = this.props.filters.map((code) =>
+            secondaryTypes = this.props.filters.map((code) =>
                 <SecondaryCheckboxType
                     {...this.props}
                     code={code}
-                    name={recipientTypes[code]}
+                    name={this.props.types[code]}
                     key={`${this.props.id} - ${code}`}
                     id={`${this.props.id} - ${code}`} />);
         }
 
         if (this.props.filters.length === 0) {
-            primaryRecipient = (<SingleCheckboxType
+            primaryTypes = (<SingleCheckboxType
                 {...this.props}
                 code={this.props.value}
                 name={this.props.name}
@@ -174,10 +183,10 @@ export default class PrimaryCheckboxType extends React.Component {
         return (
             <li className="checkbox-set">
                 <div className="primary-checkbox">
-                    {primaryRecipient}
+                    {primaryTypes}
                 </div>
                 <ul className="secondary-checkbox-set">
-                    {secondaryRecipientTypes}
+                    {secondaryTypes}
                 </ul>
             </li>
         );

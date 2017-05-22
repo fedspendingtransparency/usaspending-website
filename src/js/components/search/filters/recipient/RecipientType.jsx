@@ -5,11 +5,11 @@
 
 import React from 'react';
 
-import { recipientTypeGroups } from 'dataMapping/search/recipientType';
+import { recipientTypes, recipientTypeGroups } from 'dataMapping/search/recipientType';
 import PrimaryCheckboxType from '../../../sharedComponents/checkbox/PrimaryCheckboxType';
 
 const defaultProps = {
-    recipientTypes: [
+    recipientTypeMapping: [
         {
             id: 'recipient-business',
             name: 'Business',
@@ -60,28 +60,32 @@ const defaultProps = {
 };
 
 const propTypes = {
-    recipientTypes: React.PropTypes.arrayOf(React.PropTypes.object),
+    recipientTypeMapping: React.PropTypes.arrayOf(React.PropTypes.object),
     recipientType: React.PropTypes.object
 };
 
 export default class RecipientType extends React.Component {
 
     render() {
-        const recipientTypes = (
-            this.props.recipientTypes.map((type, index) =>
+        const enableAnalytics = true;
+
+        const checkboxTypes = (
+            this.props.recipientTypeMapping.map((type, index) =>
                 <PrimaryCheckboxType
                     {...type}
                     {...this.props}
                     key={index}
+                    types={recipientTypes}
                     filterType="Recipient"
-                    selectedCheckboxes={this.props.recipientType} />
+                    selectedCheckboxes={this.props.recipientType}
+                    enableAnalytics={enableAnalytics} />
             ));
 
         return (
             <div className="checkbox-type-filter search-filter">
                 <p>Recipient Type</p>
                 <ul className="checkbox-types">
-                    {recipientTypes}
+                    {checkboxTypes}
                 </ul>
             </div>
         );

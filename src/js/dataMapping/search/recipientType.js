@@ -132,5 +132,28 @@ export const recipientTypeGroups = {
     ]
 };
 
+export const groupKeys = [
+    'business',
+    'minority_owned_business',
+    'women_owned_business',
+    'veteran_owned_business',
+    'special_designations',
+    'nonprofit',
+    'higher_education',
+    'government',
+    'individuals'];
+
+export const groupLabels = {
+    business: 'Business',
+    minority_owned_business: 'Minority Owned Business',
+    women_owned_business: 'Women Owned Business',
+    veteran_owned_business: 'Veteran Owned Business',
+    special_designations: 'Special Designations',
+    nonprofit: 'Nonprofit',
+    higher_education: 'Higher Education',
+    government: 'Government',
+    individuals: 'Individuals'
+};
+
 /* eslint-enable max-len */
 /* eslint-enable quote-props */

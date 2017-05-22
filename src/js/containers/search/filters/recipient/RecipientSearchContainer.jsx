@@ -39,14 +39,6 @@ export class RecipientSearchContainer extends React.Component {
         });
     }
 
-    static logTypeFilterEvent(selection) {
-        ga.event({
-            category: 'Search Page Filter Applied',
-            action: 'Applied Recipient Type Filter',
-            label: selection
-        });
-    }
-
     static logLocationFilterEvent(placeType, place) {
         ga.event({
             category: 'Search Page Filter Applied',
@@ -68,33 +60,29 @@ export class RecipientSearchContainer extends React.Component {
 
     toggleRecipient(recipient) {
         this.props.updateSelectedRecipients(recipient);
+
         // Analytics
         RecipientSearchContainer.logRecipientFilterEvent(recipient.recipient_name);
     }
 
     toggleDomesticForeign(selection) {
         this.props.updateRecipientDomesticForeignSelection(selection.target.value);
+
         // Analytics
         RecipientSearchContainer.logCountryFilterEvent(selection.target.value);
     }
 
     toggleRecipientType(selection) {
         this.props.toggleRecipientType(selection);
-
-        // Analytics
-        RecipientSearchContainer.logTypeFilterEvent(selection);
     }
 
     bulkRecipientTypeChange(selection) {
         this.props.bulkRecipientTypeChange(selection);
-
-        // TODO: Lizzie Salita - how do we want to handle analytics for bulk selection?
-        // Analytics
-        // RecipientSearchContainer.logTypeFilterEvent(selection.target.value);
     }
 
     toggleRecipientLocation(recipientLocation) {
         this.props.updateRecipientLocations(recipientLocation);
+
         // Analytics
         const placeType = recipientLocation.place_type;
         const place = recipientLocation.place;
@@ -108,7 +96,7 @@ export class RecipientSearchContainer extends React.Component {
                 toggleRecipient={this.toggleRecipient}
                 toggleDomesticForeign={this.toggleDomesticForeign}
                 toggleRecipientType={this.toggleRecipientType}
-                bulkRecipientTypeChange={this.bulkRecipientTypeChange}
+                bulkTypeChange={this.bulkRecipientTypeChange}
                 toggleRecipientLocation={this.toggleRecipientLocation} />
         );
     }

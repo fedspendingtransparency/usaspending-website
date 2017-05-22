@@ -17,21 +17,6 @@ const propTypes = {
     redux: React.PropTypes.object
 };
 
-const groupKeys = ['business', 'minority_owned_business', 'women_owned_business',
-    'veteran_owned_business', 'special_designations', 'nonprofit', 'higher_education',
-    'government', 'individuals'];
-const groupLabels = {
-    business: 'Business',
-    minority_owned_business: 'Minority Owned Business',
-    women_owned_business: 'Women Owned Business',
-    veteran_owned_business: 'Veteran Owned Business',
-    special_designations: 'Special Designations',
-    nonprofit: 'Nonprofit',
-    higher_education: 'Higher Education',
-    government: 'Government',
-    individuals: 'Individuals'
-};
-
 export default class RecipientTypeFilterGroup extends React.Component {
     constructor(props) {
         super(props);
@@ -76,7 +61,7 @@ export default class RecipientTypeFilterGroup extends React.Component {
         // check to see if any type groups are fully selected
         const selectedValues = this.props.filter.values;
         const fullGroups = [];
-        groupKeys.forEach((key) => {
+        RecipientType.groupKeys.forEach((key) => {
             const fullMembership = RecipientType.recipientTypeGroups[key];
 
             // quick way of checking for full group membership is to return an array of missing
@@ -94,7 +79,7 @@ export default class RecipientTypeFilterGroup extends React.Component {
         fullGroups.forEach((group) => {
             const tag = {
                 value: group,
-                title: `All ${groupLabels[group]}`,
+                title: `All ${RecipientType.groupLabels[group]}`,
                 isSpecial: true,
                 removeFilter: this.removeGroup
             };

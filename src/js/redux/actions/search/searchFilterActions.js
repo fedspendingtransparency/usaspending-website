@@ -97,7 +97,7 @@ export const toggleRecipientType = (state) => ({
 
 export const bulkRecipientTypeChange = (state) => ({
     type: 'BULK_SEARCH_FILTER_RECIPIENT_TYPES',
-    recipientTypes: state.recipientTypes,
+    recipientTypes: state.types,
     direction: state.direction
 });
 
