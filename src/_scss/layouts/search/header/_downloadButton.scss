@@ -4,15 +4,15 @@
     text-transform: uppercase;
     font-size: 1em;
     letter-spacing: 0.075em;
-    padding: 10px 20px;
+    padding: rem(10) rem(20);
     border: 1px solid $color-gray-light;
     pointer-events: none;
     background: repeating-linear-gradient(
         45deg,
         rgba($color-gray, .2),
-        rgba($color-gray, .2) rem(2px),
-        rgba(255,255,255,.2) rem(2px),
-        rgba(255,255,255,.2) rem(4px)
+        rgba($color-gray, .2) rem(2),
+        rgba(255,255,255,.2) rem(2),
+        rgba(255,255,255,.2) rem(4)
     );
 
     &:hover, &:active {
