@@ -1,0 +1,50 @@
+.homepage-map-list {
+    .map-table-width-master {
+
+    }
+
+    .map-table {
+        // implement the library style
+        @import 'lib/ibTable/ibTable';
+        margin-top: rem(15);
+        display: block;
+        border: 1px solid $color-gray-light;
+        // placeholder background for when the user scrolls really fast
+        background: repeating-linear-gradient( $color-white, $color-white 40px, $color-gray-lightest 40px, $color-gray-lightest 80px);
+        &.no-results {
+            border-bottom: none;
+        }
+        .award-result-generic-cell {
+            @import "pages/search/results/table/cells/_genericCell";
+            @include genericCell();
+        }
+        .map-list-header-cell {
+            @import "pages/search/results/table/cells/_genericHeader";
+            @include genericHeader();
+            &.last-column {
+                border-right: none;
+            }
+        }
+        // gray out even rows
+        .row-even {
+            background-color: #f7f7f7;
+        }
+        // override the header style for a bottom border
+        .ibt-header {
+            border-bottom: 1px solid #ADAFB4;
+        }
+        .ibt-table-body {
+            //border: 1px solid red;
+        }
+
+        &.loading-table {
+            opacity: 0.5;
+            @include transition(opacity 0.25s ease-in);
+        }
+
+        &.loaded-table {
+            opacity: 1;
+            @include transition(opacity 0.25s ease-in);
+        }
+    }
+}

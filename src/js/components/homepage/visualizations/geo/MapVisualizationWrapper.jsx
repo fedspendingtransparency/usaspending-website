@@ -72,7 +72,7 @@ export default class MapVisualizationWrapper extends React.Component {
 
         if (this.state.view === 'list') {
             content = (<MapList
-                {...this.state} />);
+                data={this.props.data.table} />);
         }
 
         return (

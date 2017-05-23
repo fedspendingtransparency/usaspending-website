@@ -1,4 +1,6 @@
 .homepage-map-section {
+    @import "./mapList";
+
     .homepage-map-toggle {
         ul {
             @include unstyled-list;

@@ -4,16 +4,20 @@
  */
 
 import React from 'react';
+import _ from 'lodash';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import { tableColumns } from 'dataMapping/homepage/mapTable';
+import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableGenericCell';
 
 import MapListHeaderCell from './cells/MapListHeaderCell';
 
 const propTypes = {
     loading: React.PropTypes.bool,
-    renderHash: React.PropTypes.string
+    renderHash: React.PropTypes.string,
+    data: React.PropTypes.array
 };
 
 const rowHeight = 40;
@@ -38,6 +42,7 @@ export default class MapList extends React.Component {
     componentDidMount() {
         // set the initial table width
         this.setTableWidth();
+        this.prepareTable(this.props.data);
         // watch the window for size changes
         window.addEventListener('resize', this.setTableWidth);
     }
@@ -54,7 +59,7 @@ export default class MapList extends React.Component {
     }
 
     setTableWidth() {
-        const tableWidth = this.tableWidthController.clientWidth - 2;
+        const tableWidth = _.min([this.tableWidthController.clientWidth - 2, 1025]);
         this.setState({ tableWidth });
     }
 
@@ -69,7 +74,9 @@ export default class MapList extends React.Component {
     prepareTable(data) {
         // prepare the columns
         let contentWidth = 0;
-        const columns = tableColumns.order.forEach((column, index) => {
+        const columns = [];
+
+        tableColumns.order.forEach((column, index) => {
             contentWidth += tableColumns.widths[column];
 
             let isLast = false;
@@ -77,7 +84,9 @@ export default class MapList extends React.Component {
                 isLast = true;
             }
 
-            return {
+            
+
+            const tableCol = {
                 width: tableColumns.widths[column],
                 name: column,
                 columnId: column,
@@ -88,8 +97,24 @@ export default class MapList extends React.Component {
                         column={column}
                         defaultDirection={tableColumns.defaultDirection[column]}
                         isLastColumn={isLast} />
-                )
+                ),
+                cell: (rowIndex) => {
+                    let formattedValue = `${this.props.data[rowIndex][column]}`;
+                    if (column === 'amount' || column === 'capita') {
+                        formattedValue = MoneyFormatter.formatMoney(this.props.data[rowIndex][column]);
+                    }
+
+                    return (<ResultsTableGenericCell
+                        key={`cell-${column}-${rowIndex}`}
+                        rowIndex={rowIndex}
+                        data={formattedValue}
+                        dataHash={this.props.renderHash}
+                        column={column.columnName}
+                        isLastColumn={isLast} />);
+                }
             };
+
+            columns.push(tableCol);
         });
 
         this.setState({
@@ -99,9 +124,9 @@ export default class MapList extends React.Component {
     }
 
     render() {
-        let inFlightClass = '';
+        let inFlightClass = 'loaded-table';
         if (this.props.loading) {
-            inFlightClass = 'loading';
+            inFlightClass = 'loading-table';
         }
 
         return (
@@ -123,7 +148,7 @@ export default class MapList extends React.Component {
                         width={this.state.contentWidth}
                         maxWidth={this.state.tableWidth}
                         maxHeight={tableHeight}
-                        columns={tableColumns.columns} />
+                        columns={this.state.columns} />
                 </div>
             </div>
         );

@@ -6,30 +6,30 @@
 export const tableColumns = {
     order: [
         'state',
-        'amt',
-        'amtRank',
-        'capAmt',
-        'capRank'
+        'amount',
+        'amountRank',
+        'capita',
+        'capitaRank'
     ],
     labels: {
         state: 'State',
-        amt: 'Total Amount',
-        amtRank: 'Total Rank',
-        capAmt: 'Per Capita Amount',
-        capRank: 'Per Capita Rank'
+        amount: 'Total Amount',
+        amountRank: 'Total Rank',
+        capita: 'Per Capita Amount',
+        capitaRank: 'Per Capita Rank'
     },
     widths: {
         state: 200,
-        amt: 200,
-        amtRank: 175,
-        capAmt: 250,
-        capRank: 200
+        amount: 200,
+        amountRank: 175,
+        capita: 250,
+        capitaRank: 200
     },
     defaultDirection: {
         state: 'asc',
-        amt: 'desc',
-        amtRank: 'asc',
-        capAmt: 'desc',
-        capRank: 'asc'
+        amount: 'desc',
+        amountRank: 'asc',
+        capita: 'desc',
+        capitaRank: 'asc'
     }
 };

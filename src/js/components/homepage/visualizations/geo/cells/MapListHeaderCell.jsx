@@ -25,20 +25,20 @@ export default class MapListHeaderCell extends React.Component {
     }
 
     clickedHeader() {
-        // check if this is the field that is currently being used to sort
-        if (this.props.column === this.props.order.field) {
-            // it's the same field, just toggle the direction
-            let direction = 'asc';
-            if (this.props.order.direction === 'asc') {
-                direction = 'desc';
-            }
+        // // check if this is the field that is currently being used to sort
+        // if (this.props.column === this.props.order.field) {
+        //     // it's the same field, just toggle the direction
+        //     let direction = 'asc';
+        //     if (this.props.order.direction === 'asc') {
+        //         direction = 'desc';
+        //     }
 
-            this.props.setSearchOrder(this.props.column, direction);
-        }
-        else {
-            // this is a new sort field, use the default direction
-            this.props.setSearchOrder(this.props.column, this.props.defaultDirection);
-        }
+        //     this.props.setSearchOrder(this.props.column, direction);
+        // }
+        // else {
+        //     // this is a new sort field, use the default direction
+        //     this.props.setSearchOrder(this.props.column, this.props.defaultDirection);
+        // }
     }
 
     forceDirection(e) {
@@ -53,15 +53,15 @@ export default class MapListHeaderCell extends React.Component {
         // highlight the active arrows
         let activeAsc = '';
         let activeDesc = '';
-        if (this.props.column === this.props.order.field) {
-            // this is the column that the table is sorted by
-            if (this.props.order.direction === 'asc') {
-                activeAsc = ' active';
-            }
-            else {
-                activeDesc = ' active';
-            }
-        }
+        // if (this.props.column === this.props.order.field) {
+        //     // this is the column that the table is sorted by
+        //     if (this.props.order.direction === 'asc') {
+        //         activeAsc = ' active';
+        //     }
+        //     else {
+        //         activeDesc = ' active';
+        //     }
+        // }
 
         let lastClass = '';
         if (this.props.isLastColumn) {

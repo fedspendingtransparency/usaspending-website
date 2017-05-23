@@ -8,6 +8,8 @@ import { isCancel } from 'axios';
 
 import * as HomepageHelper from 'helpers/homepageHelper';
 
+import HomepageStateModel from 'models/homepage/HomepageStateModel';
+
 import MapVisualizationWrapper from './visualizations/geo/MapVisualizationWrapper';
 import Landing from './Landing';
 import TreeMap from './visualizations/treemap/TreeMap';
@@ -131,6 +133,16 @@ export default class Homepage extends React.Component {
             capita.values.push(state.PerCapitaAmount);
             capita.ranks.push(state.PerCapitaRank);
             capita.populations.push(state.TotalStatePopulation);
+
+            const instance = new HomepageStateModel({
+                state: state.StateName,
+                amount: state.TotalAmount,
+                amountRank: state.TotalRank,
+                capita: state.PerCapitaAmount,
+                capitaRank: state.PerCapitaRank
+            });
+
+            table.push(instance);
         });
 
         this.setState({
