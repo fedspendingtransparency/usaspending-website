@@ -109,6 +109,14 @@ export default class MapBox extends React.Component {
                 const stateCode = layer.metadata.stateCode;
                 this.props.showTooltip(stateCode, e.point);
             }
+            else {
+                // no state code, hide the tooltip
+                this.props.hideTooltip();
+            }
+        }
+        else {
+            // no state layer, hide the tooltip
+            this.props.hideTooltip();
         }
     }
 

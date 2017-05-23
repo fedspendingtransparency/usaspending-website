@@ -125,6 +125,15 @@ export default class MapVisualization extends React.Component {
                         active={this.props.showPerCapita}
                         pressedToggle={this.props.togglePerCapita} />
                 </div>
+
+                <div className="homepage-map-citation">
+                    <p>
+                        The map reflects where funding was used. This is called &quot;place of performance.&quot;
+                    </p>
+                    <p>
+                        Source: U.S. Census Bureau, Population Division
+                    </p>
+                </div>
                 <MapWrapper
                     {...this.props}
                     tooltip={this.state.tooltipType}

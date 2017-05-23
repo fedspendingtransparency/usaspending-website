@@ -36,7 +36,7 @@
                 top: rem(30);
             }
             & .map-legend {
-                bottom: rem(30);
+                bottom: rem(80);
                 left: rem(30);
             }
             height: rem(760);
@@ -60,5 +60,6 @@
         }
 
         @import "./mapToggleCapita";
+        @import "./mapCitation";
     }
 }
