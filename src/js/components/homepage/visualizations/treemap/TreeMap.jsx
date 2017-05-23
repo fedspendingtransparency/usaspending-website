@@ -26,12 +26,7 @@ export default class TreeMap extends React.Component {
         super(props);
 
         this.state = {
-            windowWidth: 0,
-            category: 'none',
-            description: '',
             descriptions: {},
-            finalNodes: '',
-            individualValue: '',
             selected: 'none',
             selectedDesc: '',
             selectedValue: '',
@@ -39,36 +34,14 @@ export default class TreeMap extends React.Component {
             showSub: false
         };
 
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.changeActiveSubfunction = this.changeActiveSubfunction.bind(this);
         this.toggleSubfunction = this.toggleSubfunction.bind(this);
-        this.toggleOverlay = this.toggleOverlay.bind(this);
-    }
-
-    componentDidMount() {
-        this.handleWindowResize();
-        window.addEventListener('resize', this.handleWindowResize);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.descriptions !== this.state.descriptions) {
             this.setState({
                 descriptions: nextProps.descriptions
-            });
-        }
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize);
-    }
-
-    handleWindowResize() {
-        // determine if the width changed
-        const windowWidth = window.innerWidth;
-        if (this.state.windowWidth !== windowWidth) {
-            // width changed, update the visualization width
-            this.setState({
-                windowWidth
             });
         }
     }
@@ -113,12 +86,6 @@ export default class TreeMap extends React.Component {
         });
     }
 
-    toggleOverlay() {
-        this.setState({
-            showOverlay: false
-        });
-    }
-
     formatFriendlyString(value) {
         // format the ceiling and current values to be friendly strings
         const units = MoneyFormatter.calculateUnitForSingleValue(value);
@@ -149,19 +116,17 @@ export default class TreeMap extends React.Component {
 
     render() {
         let functions = (<BudgetFunctions
-            showSub={this.state.showSub}
             categories={this.props.categories}
             descriptions={this.props.descriptions}
             colors={this.props.colors}
             alternateColors={this.props.alternateColors}
-            toggleOverlay={this.toggleOverlay}
             toggleSubfunction={this.toggleSubfunction}
             changeActiveSubfunction={this.changeActiveSubfunction}
-            tooltipStyles={this.props.tooltipStyles} />);
+            tooltipStyles={this.props.tooltipStyles}
+            formatFriendlyString={this.formatFriendlyString} />);
         if (this.state.showSub === true) {
             functions = (<BudgetSubfunctions
                 showSub={this.state.showSub}
-                showOverlay={this.state.showOverlay}
                 subfunctions={this.props.subfunctions}
                 colors={this.props.colors}
                 categories={this.props.categories}
@@ -171,10 +136,9 @@ export default class TreeMap extends React.Component {
                 selectedDesc={this.state.selectedDesc}
                 selectedValue={this.state.selectedValue}
                 selectedTotal={this.state.selectedTotal}
-                toggleOverlay={this.toggleOverlay}
                 changeActiveSubfunction={this.changeActiveSubfunction}
                 tooltipStyles={this.props.tooltipStyles}
-                chosen={this.state.selected} />);
+                formatFriendlyString={this.formatFriendlyString} />);
         }
         return (
             <div className="usa-da-treemap-section">

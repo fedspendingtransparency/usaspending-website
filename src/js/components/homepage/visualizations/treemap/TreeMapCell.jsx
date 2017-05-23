@@ -54,13 +54,12 @@ export default class TreeMapCell extends React.Component {
     }
 
     componentDidMount() {
-        this.initialRender(this.props.label, this.props.color, this.props.alternateColor,
-            this.props.chosenColor);
+        this.initialRender(this.props.label, this.props.color, this.props.alternateColor);
     }
 
     componentWillReceiveProps(props) {
-        if (props) {
-            this.initialRender(props.label, props.color, props.alternateColor, props.chosenColor);
+        if (props !== this.props) {
+            this.initialRender(props.label, props.color, props.alternateColor);
         }
     }
 
@@ -75,6 +74,10 @@ export default class TreeMapCell extends React.Component {
         const top3 = ["Social Security", "National Defense", "Medicare"];
         if (!_.includes(top3, label) && this.props.showOverlay) {
             initialColor = altColor;
+        }
+
+        if (this.props.showOverlay === false) {
+            initialColor = color;
         }
 
         this.setState({

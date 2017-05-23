@@ -6,7 +6,6 @@
 import React from 'react';
 import * as d3 from 'd3';
 import _ from 'lodash';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import TreeMapCell from './TreeMapCell';
 import TreeMapTooltip from './TreeMapTooltip';
@@ -16,11 +15,10 @@ const propTypes = {
     colors: React.PropTypes.array,
     alternateColors: React.PropTypes.array,
     showSub: React.PropTypes.bool,
-    showOverlay: React.PropTypes.bool,
     changeActiveSubfunction: React.PropTypes.func,
-    toggleOverlay: React.PropTypes.func,
     tooltipStyles: React.PropTypes.object,
-    chosen: React.PropTypes.string
+    chosen: React.PropTypes.string,
+    formatFriendlyString: React.PropTypes.func
 };
 
 export default class BudgetFunctionsMinimized extends React.Component {
@@ -37,7 +35,6 @@ export default class BudgetFunctionsMinimized extends React.Component {
             descriptions: {},
             finalNodes: '',
             individualValue: '',
-            showOverlay: true,
             selected: '',
             showSub: this.props.showSub
         };
@@ -118,7 +115,6 @@ export default class BudgetFunctionsMinimized extends React.Component {
                 toggleTooltipIn={this.toggleTooltipIn}
                 toggleTooltipOut={this.toggleTooltipOut}
                 tooltipStyles={styles}
-                showOverlay={this.props.showOverlay}
                 showSub={this.state.showSub}
                 changeActiveSubfunction={this.props.changeActiveSubfunction}
                 clickable />
@@ -135,15 +131,12 @@ export default class BudgetFunctionsMinimized extends React.Component {
             category: category.props.label,
             description: category.props.description,
             individualValue: category.props.value,
+            total: category.props.total,
             x: category.props.x0,
             y: category.props.y0,
             width,
             height
         });
-
-        if (this.state.showOverlay !== false) {
-            this.props.toggleOverlay();
-        }
     }
 
     toggleTooltipOut(height, width) {
@@ -158,41 +151,12 @@ export default class BudgetFunctionsMinimized extends React.Component {
         });
     }
 
-
-    formatFriendlyString(value) {
-        // format the ceiling and current values to be friendly strings
-        const units = MoneyFormatter.calculateUnitForSingleValue(value);
-        // only reformat at a million or higher
-        if (units.unit < MoneyFormatter.unitValues.MILLION) {
-            units.unit = 1;
-            units.unitLabel = '';
-            units.longLabel = '';
-        }
-        const formattedValue = value / units.unit;
-        let precision = 1;
-        if (formattedValue % 1 === 0) {
-            // whole number
-            precision = 0;
-        }
-
-        const formattedCurrency =
-        MoneyFormatter.formatMoneyWithPrecision(formattedValue, precision);
-
-        // don't add an extra space when there's no units string to display
-        let longLabel = '';
-        if (units.unit > 1) {
-            longLabel = ` ${units.longLabel}`;
-        }
-
-        return `${formattedCurrency}${longLabel}`;
-    }
-
     createTooltip() {
         let tooltip = null;
         if (this.state.category !== 'none') {
             tooltip = (<TreeMapTooltip
                 name={this.state.category}
-                value={this.formatFriendlyString(this.state.individualValue)}
+                value={this.props.formatFriendlyString(this.state.individualValue)}
                 percentage={`${((this.state.individualValue / this.state.total) *
                     100).toFixed(1)}%`}
                 description={this.state.description}

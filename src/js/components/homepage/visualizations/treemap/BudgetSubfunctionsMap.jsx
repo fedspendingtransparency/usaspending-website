@@ -1,12 +1,11 @@
 /**
- * SubTreeMap.jsx
+ * BudgetSubfunctionsMap.jsx
  * Created by Emily Gullo 03/15/2017
  **/
 
 import React from 'react';
 import * as d3 from 'd3';
 import _ from 'lodash';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import TreeMapCell from './TreeMapCell';
 import TreeMapTooltip from './TreeMapTooltip';
@@ -16,12 +15,12 @@ const propTypes = {
     colors: React.PropTypes.array,
     topFunction: React.PropTypes.string,
     showSub: React.PropTypes.bool,
-    showOverlay: React.PropTypes.bool,
     tooltipStyles: React.PropTypes.object,
-    chosen: React.PropTypes.string
+    chosen: React.PropTypes.string,
+    formatFriendlyString: React.PropTypes.func
 };
 
-export default class SubTreeMap extends React.Component {
+export default class BudgetSubfunctionsMap extends React.Component {
 
     constructor(props) {
         super(props);
@@ -40,7 +39,6 @@ export default class SubTreeMap extends React.Component {
         this.buildTree = this.buildTree.bind(this);
         this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
         this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
-        this.formatFriendlyString = this.formatFriendlyString.bind(this);
     }
 
     componentDidMount() {
@@ -84,7 +82,7 @@ export default class SubTreeMap extends React.Component {
 
         // set up a treemap object and pass in the root
         let tileStyle = d3.treemapBinary;
-        if (this.state.windowWidth < 768) {
+        if (window.innerWidth < 768) {
             tileStyle = d3.treemapSlice;
         }
         const treemap = d3.treemap()
@@ -111,9 +109,9 @@ export default class SubTreeMap extends React.Component {
                     tooltipStyles={styles}
                     toggleTooltipIn={this.toggleTooltipIn}
                     toggleTooltipOut={this.toggleTooltipOut}
-                    showOverlay={this.props.showOverlay}
                     showSub={this.props.showSub}
-                    clickable={false} />);
+                    clickable={false}
+                    formatFriendlyString={this.props.formatFriendlyString} />);
             }
             return cell;
         });
@@ -153,7 +151,7 @@ export default class SubTreeMap extends React.Component {
         if (this.state.category !== 'none') {
             tooltip = (<TreeMapTooltip
                 name={this.state.category}
-                value={this.formatFriendlyString(this.state.individualValue)}
+                value={this.props.formatFriendlyString(this.state.individualValue)}
                 percentage={`${((this.state.individualValue / this.state.total) *
                     100).toFixed(1)}%`}
                 description={this.state.description}
@@ -163,33 +161,6 @@ export default class SubTreeMap extends React.Component {
                 height={(this.state.height / 2) + 50} />);
         }
         return tooltip;
-    }
-    formatFriendlyString(value) {
-        // format the ceiling and current values to be friendly strings
-        const units = MoneyFormatter.calculateUnitForSingleValue(value);
-        // only reformat at a million or higher
-        if (units.unit < MoneyFormatter.unitValues.MILLION) {
-            units.unit = 1;
-            units.unitLabel = '';
-            units.longLabel = '';
-        }
-        const formattedValue = value / units.unit;
-        let precision = 1;
-        if (formattedValue % 1 === 0) {
-            // whole number
-            precision = 0;
-        }
-
-        const formattedCurrency =
-            MoneyFormatter.formatMoneyWithPrecision(formattedValue, precision);
-
-        // don't add an extra space when there's no units string to display
-        let longLabel = '';
-        if (units.unit > 1) {
-            longLabel = ` ${units.longLabel}`;
-        }
-
-        return `${formattedCurrency}${longLabel}`;
     }
 
     render() {
@@ -213,4 +184,4 @@ export default class SubTreeMap extends React.Component {
     }
 
 }
-SubTreeMap.propTypes = propTypes;
+BudgetSubfunctionsMap.propTypes = propTypes;
