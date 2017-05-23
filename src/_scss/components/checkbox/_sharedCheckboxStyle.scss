@@ -1,0 +1,41 @@
+@mixin sharedCheckboxStyle {
+    display: table;
+    width: 100%;
+
+    .checkbox-type-item-wrapper {
+        display: table-cell;
+        clear:both;
+        overflow:hidden;
+
+        input[type=checkbox] {
+            @include usa-input-checkbox;
+            margin-right: 4px;
+            float: left;
+            margin-top: 0.6rem;
+        }
+
+        span {
+            cursor: pointer;
+            margin-left: 1rem;
+            top: 1rem;
+            position: relative;
+        }
+
+        label {
+            @include usa-label;
+
+            display: inline-block;
+            font-size: $small-font-size;
+            line-height: $small-font-size;
+            margin: 0 0 1rem 0;
+            width: 80%;
+            padding-left: 0;
+
+            &:before {
+                width: 1.4rem;
+                height: 1.4rem;
+                position: relative;
+            }
+        }
+    }
+}

@@ -1,0 +1,35 @@
+.primary-checkbox-type {
+    @import "./_sharedCheckboxStyle";
+    @include sharedCheckboxStyle;
+
+    &.single-item {
+        padding-left: 1.8rem;
+    }
+
+    svg {
+        fill: $color-gray;
+        height: 1.1rem;
+        width: 1.1rem;
+        position:relative;
+    }
+
+    .toggle {
+        @include button-unstyled;
+        display: inline-block;
+        height: 2.8rem;
+        vertical-align: middle;
+        margin-right: 8px;
+        float: left;
+
+        &.hidden-button {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        span {
+            // this is for the animation group
+            margin: 0;
+            top: 0;
+        }
+    }
+}
