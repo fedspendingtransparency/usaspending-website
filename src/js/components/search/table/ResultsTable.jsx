@@ -42,10 +42,10 @@ export default class ResultsTable extends React.PureComponent {
 
     componentWillReceiveProps(nextProps) {
         const currentType = nextProps.currentType;
-        const visibileCols = parseFloat(nextProps.columns.length);
+        const visibleCols = parseFloat(nextProps.columns.length);
         // update the data hash
         this.setState({
-            dataHash: `${currentType}-${visibileCols}`
+            dataHash: `${currentType}-${visibleCols}`
         });
     }
 
