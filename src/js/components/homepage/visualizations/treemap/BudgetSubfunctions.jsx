@@ -98,6 +98,20 @@ export default class BudgetSubfunctions extends React.Component {
     }
 
     render() {
+        let minimized = null;
+        if (window.innerWidth > 768) {
+            minimized = (<BudgetFunctionsMinimized
+                showSub={this.state.showSub}
+                categories={this.props.categories}
+                descriptions={this.props.descriptions}
+                colors={this.props.colors}
+                alternateColors={this.props.alternateColors}
+                changeActiveSubfunction={this.props.changeActiveSubfunction}
+                toggleOverlay={this.props.toggleOverlay}
+                tooltipStyles={this.props.tooltipStyles}
+                chosen={this.props.selected}
+                formatFriendlyString={this.props.formatFriendlyString} />);
+        }
         return (
             <div className="treemap-inner-wrap">
                 { this.createTooltip() }
@@ -122,17 +136,7 @@ export default class BudgetSubfunctions extends React.Component {
                     }}>
                     <Icons.AngleRight />
                 </button>
-                <BudgetFunctionsMinimized
-                    showSub={this.state.showSub}
-                    categories={this.props.categories}
-                    descriptions={this.props.descriptions}
-                    colors={this.props.colors}
-                    alternateColors={this.props.alternateColors}
-                    changeActiveSubfunction={this.props.changeActiveSubfunction}
-                    toggleOverlay={this.props.toggleOverlay}
-                    tooltipStyles={this.props.tooltipStyles}
-                    chosen={this.props.selected}
-                    formatFriendlyString={this.props.formatFriendlyString} />
+                { minimized }
                 <BudgetSubfunctionsDescription
                     category={this.props.selected}
                     value={this.props.formatFriendlyString(this.props.selectedValue)}
