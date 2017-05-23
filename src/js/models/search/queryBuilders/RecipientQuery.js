@@ -64,7 +64,7 @@ export const buildRecipientLocationQuery = (locations, searchContext = 'award') 
 
 const buildFieldQuery = (field, values) => ({
     field,
-    operation: 'in',
+    operation: "overlap",
     value: values
 });
 
