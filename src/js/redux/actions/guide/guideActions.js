@@ -33,3 +33,8 @@ export const setGuideResults = (state) => ({
     type: 'SET_GUIDE_SEARCH_RESULTS',
     results: state
 });
+
+export const setGuideCache = (state) => ({
+    type: 'SET_GUIDE_FULL_CACHE',
+    cache: state
+});

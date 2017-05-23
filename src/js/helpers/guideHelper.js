@@ -22,3 +22,19 @@ export const fetchAllTerms = () => {
         }
     };
 };
+
+export const fetchSearchResults = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'references/guide/autocomplete/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
