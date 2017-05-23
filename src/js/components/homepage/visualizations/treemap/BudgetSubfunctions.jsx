@@ -41,9 +41,12 @@ export default class BudgetSubfunctions extends React.Component {
             descriptions: {},
             finalNodes: '',
             individualValue: '',
-            showSub: this.props.showSub
+            showSub: this.props.showSub,
+            direction: null
         };
         this.createTooltip = this.createTooltip.bind(this);
+        this.showArrowTooltip = this.showArrowTooltip.bind(this);
+        this.createArrowTooltip = this.createArrowTooltip.bind(this);
     }
 
     swapTiles(direction) {
@@ -76,6 +79,26 @@ export default class BudgetSubfunctions extends React.Component {
                 showSub: false };
         }
         this.props.changeActiveSubfunction(set);
+    }
+
+    showArrowTooltip(direction) {
+        this.setState({
+            direction
+        });
+    }
+
+    createArrowTooltip() {
+        let tooltip = null;
+        if (this.state.direction !== null) {
+            tooltip = (<TreeMapTooltip
+                name={this.state.direction}
+                x={this.state.x}
+                y={this.state.y}
+                width={this.state.width}
+                height={(this.state.height / 2) + 50}
+                arrow />);
+        }
+        return tooltip;
     }
 
 
@@ -114,11 +137,18 @@ export default class BudgetSubfunctions extends React.Component {
         }
         return (
             <div className="treemap-inner-wrap">
+                { this.createArrowTooltip() }
                 { this.createTooltip() }
                 <button
                     className="back"
                     onClick={() => {
                         this.swapTiles('back');
+                    }}
+                    onMouseEnter={() => {
+                        this.showArrowTooltip('back');
+                    }}
+                    onMouseLeave={() => {
+                        this.showArrowTooltip(null);
                     }}>
                     <Icons.AngleUp />
                 </button>
@@ -126,6 +156,12 @@ export default class BudgetSubfunctions extends React.Component {
                     className="left"
                     onClick={() => {
                         this.swapTiles('left');
+                    }}
+                    onMouseEnter={() => {
+                        this.showArrowTooltip('prev');
+                    }}
+                    onMouseLeave={() => {
+                        this.showArrowTooltip(null);
                     }}>
                     <Icons.AngleLeft />
                 </button>
@@ -133,6 +169,12 @@ export default class BudgetSubfunctions extends React.Component {
                     className="right"
                     onClick={() => {
                         this.swapTiles('right');
+                    }}
+                    onMouseEnter={() => {
+                        this.showArrowTooltip('next');
+                    }}
+                    onMouseLeave={() => {
+                        this.showArrowTooltip(null);
                     }}>
                     <Icons.AngleRight />
                 </button>

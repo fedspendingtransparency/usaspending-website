@@ -14,7 +14,8 @@ const propTypes = {
     y: React.PropTypes.number,
     width: React.PropTypes.number,
     showSub: React.PropTypes.bool,
-    percentage: React.PropTypes.string
+    percentage: React.PropTypes.string,
+    arrow: React.PropTypes.bool
 };
 
 export default class TreeMapTooltip extends React.Component {
@@ -51,12 +52,12 @@ export default class TreeMapTooltip extends React.Component {
         let classValue = `tooltip ${direction}`;
         let size = '';
 
-        if (this.props.showSub) {
+        if (this.props.showSub || this.props.arrow) {
             size = ' small';
         }
         this.pointerDiv.className = `tooltip-pointer ${direction}`;
 
-        if (this.props.showSub || windowWidth < 768) {
+        if (this.props.showSub || windowWidth < 768 || this.props.arrow) {
             direction = 'top';
             classValue = `tooltip ${direction}${size}`;
             this.pointerDiv.className = `tooltip-pointer ${direction} ${direction}`;
@@ -89,7 +90,7 @@ export default class TreeMapTooltip extends React.Component {
                 </div>
             </div>);
         let smallValue = '';
-        if (this.props.showSub === true) {
+        if (this.props.showSub === true || this.props.arrow) {
             desc = '';
             smallValue = ' small';
         }

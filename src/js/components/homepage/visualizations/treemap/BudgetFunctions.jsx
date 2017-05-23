@@ -10,6 +10,10 @@ import _ from 'lodash';
 import TreeMapCell from './TreeMapCell';
 import TreeMapTooltip from './TreeMapTooltip';
 
+const defaultProps = {
+    showOverlay: true
+};
+
 const propTypes = {
     categories: React.PropTypes.object,
     colors: React.PropTypes.array,
@@ -17,7 +21,6 @@ const propTypes = {
     showSub: React.PropTypes.bool,
     toggleSubfunction: React.PropTypes.func,
     changeActiveSubfunction: React.PropTypes.func,
-    showOverlay: React.PropTypes.bool,
     tooltipStyles: React.PropTypes.object,
     formatFriendlyString: React.PropTypes.func
 };
@@ -35,7 +38,7 @@ export default class BudgetFunctions extends React.Component {
             description: '',
             finalNodes: [],
             individualValue: '',
-            showOverlay: true
+            showOverlay: props.showOverlay
         };
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
@@ -98,6 +101,7 @@ export default class BudgetFunctions extends React.Component {
             let cell = '';
             if (n.value !== 0) {
                 cell = (<TreeMapCell
+                    {...this.props}
                     label={n.data.name}
                     value={n.value}
                     x0={n.x0}
@@ -206,3 +210,4 @@ export default class BudgetFunctions extends React.Component {
 
 }
 BudgetFunctions.propTypes = propTypes;
+BudgetFunctions.defaultProps = defaultProps;
