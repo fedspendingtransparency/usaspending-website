@@ -422,6 +422,7 @@ const tableSearchFields = {
         period_of_performance_start_date: 'Start Date',
         period_of_performance_current_end_date: 'End Date',
         total_obligation: 'Award Amount',
+        type: 'Award Type',
         funding_agency_name: 'Funding Agency',
         funding_subtier_name: 'Funding Sub Agency'
     },
