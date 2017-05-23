@@ -22,6 +22,11 @@ const propTypes = {
     formatFriendlyString: React.PropTypes.func
 };
 
+const defaultProps = {
+    showOverlay: true,
+    showSub: false
+};
+
 export default class BudgetFunctions extends React.Component {
 
     constructor(props) {
@@ -35,8 +40,9 @@ export default class BudgetFunctions extends React.Component {
             description: '',
             finalNodes: [],
             individualValue: '',
-            showOverlay: true
+            showOverlay: props.showOverlay
         };
+
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
         this.createTooltip = this.createTooltip.bind(this);
@@ -51,6 +57,17 @@ export default class BudgetFunctions extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        if (nextProps.showOverlay !== this.state.showOverlay) {
+            this.setState({
+                showOverlay: nextProps.showOverlay
+            }, () => {
+                this.buildTree(nextProps.categories,
+                    nextProps.colors,
+                    nextProps.alternateColors,
+                    nextProps.tooltipStyles);
+            });
+        }
+
         if (nextProps.categories.children.length > 0) {
             this.buildTree(nextProps.categories, nextProps.colors, nextProps.alternateColors,
                 nextProps.tooltipStyles);
@@ -88,6 +105,7 @@ export default class BudgetFunctions extends React.Component {
         if (window.innerWidth < 768) {
             tileStyle = d3.treemapSlice;
         }
+
         const treemap = d3.treemap()
         .round(true)
         .tile(tileStyle)
@@ -110,7 +128,6 @@ export default class BudgetFunctions extends React.Component {
                     color={colors[i]}
                     alternateColor={altColors[i]}
                     chosenColor={this.props.colors[i]}
-                    chosen={null}
                     showOverlay={this.state.showOverlay}
                     showSub={this.props.showSub}
                     toggleSubfunction={this.props.toggleSubfunction}
@@ -122,6 +139,7 @@ export default class BudgetFunctions extends React.Component {
             }
             return cell;
         });
+
         this.setState({
             finalNodes: nodes
         });
@@ -130,10 +148,12 @@ export default class BudgetFunctions extends React.Component {
     toggleOverlay() {
         this.setState({
             showOverlay: false
+        }, () => {
+            this.buildTree(this.props.categories,
+                this.props.colors,
+                this.props.alternateColors,
+                this.props.tooltipStyles);
         });
-
-        this.buildTree(this.props.categories, this.props.colors,
-            this.props.alternateColors, this.props.tooltipStyles);
     }
 
     toggleTooltipIn(categoryID, height, width) {
@@ -205,4 +225,7 @@ export default class BudgetFunctions extends React.Component {
     }
 
 }
+
 BudgetFunctions.propTypes = propTypes;
+BudgetFunctions.defaultProps = defaultProps;
+
