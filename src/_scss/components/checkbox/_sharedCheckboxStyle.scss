@@ -1,39 +1,32 @@
+    @import "mixins/setText";
 @mixin sharedCheckboxStyle {
     display: table;
     width: 100%;
-
     .checkbox-type-item-wrapper {
         display: table-cell;
-        clear:both;
-        overflow:hidden;
-
+        clear: both;
+        overflow: hidden;
         input[type=checkbox] {
-            @include usa-input-checkbox;
-            margin-right: 4px;
             float: left;
-            margin-top: 0.6rem;
+            margin-right: rem(6);
+            margin-top: rem(6);
         }
-
         span {
             cursor: pointer;
-            margin-left: 1rem;
-            top: 1rem;
+            margin-left: rem(10);
+            top: rem(10);
             position: relative;
         }
-
         label {
             @include usa-label;
-
             display: inline-block;
-            font-size: $small-font-size;
-            line-height: $small-font-size;
-            margin: 0 0 1rem 0;
+@include setText(rem(14));
+            margin: 0 0 rem(10) 0;
             width: 80%;
             padding-left: 0;
-
             &:before {
-                width: 1.4rem;
-                height: 1.4rem;
+                width: rem(14);
+                height: rem(14);
                 position: relative;
             }
         }
