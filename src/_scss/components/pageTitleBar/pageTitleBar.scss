@@ -4,20 +4,17 @@
     .page-title-bar-wrap {
         max-width: 100%;
         @include pad(2rem 0rem);
-        margin: 0px $outer-gutter/2;
-        
+        margin: 0 $outer-gutter/2;
         @include media($tablet-screen) {
             @include display(flex);
             @include justify-content(space-between);
             @include flex-direction(row);
             @include align-items(center);
-            min-height: 102px;
+            min-height: rem(102);
         }
-        
         @include media($large-screen) {
-            margin: 0px $outer-gutter;
+            margin: 0 $outer-gutter;
         }
-        
         @include media($x-large-screen) {
             max-width: $site-max-width;
             margin: 0 auto;

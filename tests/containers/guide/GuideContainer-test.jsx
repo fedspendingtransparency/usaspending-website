@@ -9,16 +9,17 @@ import sinon from 'sinon';
 
 import { GuideContainer } from 'containers/guide/GuideContainer';
 import * as GuideHelper from 'helpers/guideHelper';
-import { Definition } from 'redux/reducers/guide/guideReducer';
+import { Definition, initialState } from 'redux/reducers/guide/guideReducer';
 
-import { mockActions, mockData, mockApi } from './mockGuide';
+import { mockActions, mockData, mockSearch, mockCache, standardTerm } from './mockGuide';
 
 // force Jest to use native Node promises
 // see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
 global.Promise = require.requireActual('promise');
 
 // spy on specific functions inside the component
-const fetchGuideListSpy = sinon.spy(GuideContainer.prototype, 'fetchGuideList');
+const populateCacheSpy = sinon.spy(GuideContainer.prototype, 'populateCache');
+const performSearchSpy = sinon.spy(GuideContainer.prototype, 'performSearch');
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/guide/AnimatedGuideWrapper', () =>
@@ -57,21 +58,64 @@ const unmockGuideHelper = () => {
 };
 
 describe('GuideContainer', () => {
-    it('should make an API call on mount', () => {
-        mockGuideHelper('fetchAllTerms', 'resolve', mockApi);
+    it('should populate the cache via an API call on mount', () => {
+        mockGuideHelper('populateCache', 'resolve', mockCache);
+        mockGuideHelper('performSearch', 'resolve', mockSearch);
+
+        mount(<GuideContainer
+            {...mockActions}
+            guide={initialState} />);
+        jest.runAllTicks();
+
+        expect(populateCacheSpy.callCount).toEqual(1);
+        populateCacheSpy.reset();
+    });
+
+    it('should only populate the cache when it is empty', () => {
+        mockGuideHelper('populateCache', 'resolve', mockCache);
+        mockGuideHelper('performSearch', 'resolve', mockSearch);
+
+        populateCacheSpy.reset();
+        performSearchSpy.reset();
 
         mount(<GuideContainer
             {...mockActions}
             guide={mockData} />);
         jest.runAllTicks();
 
-        expect(fetchGuideListSpy.callCount).toEqual(1);
-        fetchGuideListSpy.reset();
+        expect(populateCacheSpy.callCount).toEqual(0);
+        expect(performSearchSpy.callCount).toEqual(1);
+        populateCacheSpy.reset();
+        performSearchSpy.reset();
+    });
+
+    describe('writeCache', () => {
+        it('should create a Map of definitions', () => {
+            mockGuideHelper('populateCache', 'resolve', mockCache);
+            mockGuideHelper('performSearch', 'resolve', mockSearch);
+
+            const mockSetCache = jest.fn();
+
+            const actions = Object.assign({}, mockActions, {
+                setGuideCache: mockSetCache
+            });
+
+            const container = shallow(<GuideContainer
+                {...actions}
+                guide={mockData} />);
+
+            container.instance().writeCache(mockCache.results);
+
+            expect(mockSetCache).toHaveBeenCalledWith({
+                'test-term': standardTerm
+            });
+        });
     });
 
     describe('parseTerms', () => {
         it('should parse the API response into an array of Definition objects', () => {
-            mockGuideHelper('fetchAllTerms', 'resolve', mockApi);
+            mockGuideHelper('populateCache', 'resolve', mockCache);
+            mockGuideHelper('performSearch', 'resolve', mockSearch);
 
             const mockedSetGuideResults = jest.fn();
 
@@ -83,22 +127,16 @@ describe('GuideContainer', () => {
                 {...swizzledActions}
                 guide={mockData} />);
 
-            container.instance().parseTerms(mockApi);
-
-            const expectedDefinition = new Definition({
-                term: 'Test Term',
-                slug: 'test-term',
-                data_act_term: 'Test Terminology',
-                plain: 'A test term',
-                official: 'Terminology test'
-            });
+            container.instance().parseTerms(mockSearch.matched_objects.term);
 
             expect(mockedSetGuideResults).toHaveBeenCalledTimes(1);
-            expect(mockedSetGuideResults).toHaveBeenCalledWith([expectedDefinition]);
+            expect(mockedSetGuideResults).toHaveBeenCalledWith([standardTerm]);
         });
 
         it('should run any queued operations prepared before the API call finished', () => {
-            mockGuideHelper('fetchAllTerms', 'resolve', mockApi);
+            mockGuideHelper('populateCache', 'resolve', mockCache);
+            mockGuideHelper('performSearch', 'resolve', mockSearch);
+
             const container = shallow(<GuideContainer
                 {...mockActions}
                 guide={mockData} />);
@@ -107,7 +145,7 @@ describe('GuideContainer', () => {
             container.instance().queuedOperations = [mockOperation];
             expect(mockOperation).toHaveBeenCalledTimes(0);
 
-            container.instance().parseTerms(mockApi);
+            container.instance().parseTerms(mockSearch.matched_objects.term);
 
             expect(mockOperation).toHaveBeenCalledTimes(1);
         });
@@ -115,7 +153,9 @@ describe('GuideContainer', () => {
 
     describe('detectedUrlChange', () => {
         it('should queue any jump operations if the component is still loading', () => {
-            mockGuideHelper('fetchAllTerms', 'resolve', mockApi);
+            mockGuideHelper('populateCache', 'resolve', mockCache);
+            mockGuideHelper('performSearch', 'resolve', mockSearch);
+
             const container = shallow(<GuideContainer
                 {...mockActions}
                 guide={mockData} />);
@@ -135,14 +175,16 @@ describe('GuideContainer', () => {
             container.instance().setState({
                 loading: false
             });
-            container.instance().parseTerms(mockApi);
+            container.instance().parseTerms(mockSearch.matched_objects.term);
 
             // once the API response has come back it can be called
             expect(mockedJump).toHaveBeenCalledTimes(1);
         });
 
         it('should trigger jumpToTerm if the data has already loaded', () => {
-            mockGuideHelper('fetchAllTerms', 'resolve', mockApi);
+            mockGuideHelper('populateCache', 'resolve', mockCache);
+            mockGuideHelper('performSearch', 'resolve', mockSearch);
+
             const container = shallow(<GuideContainer
                 {...mockActions}
                 guide={mockData} />);
@@ -163,7 +205,8 @@ describe('GuideContainer', () => {
 
     describe('jumpToTerm', () => {
         it('should show the guide and load the specified term when a term with a matching slug exists', () => {
-            mockGuideHelper('fetchAllTerms', 'resolve', mockApi);
+            mockGuideHelper('populateCache', 'resolve', mockCache);
+            mockGuideHelper('performSearch', 'resolve', mockSearch);
 
             const mockShowGuide = jest.fn();
             const mockSetGuide = jest.fn();
@@ -180,11 +223,12 @@ describe('GuideContainer', () => {
             container.instance().jumpToTerm('test-term');
 
             expect(mockSetGuide).toHaveBeenCalledTimes(1);
-            expect(mockSetGuide).toHaveBeenCalledWith(mockData.search.results[0]);
+            expect(mockSetGuide).toHaveBeenCalledWith(standardTerm);
             expect(mockShowGuide).toHaveBeenCalledTimes(1);
         });
         it('should do nothing when no terms with matching slugs exist', () => {
-            mockGuideHelper('fetchAllTerms', 'resolve', mockApi);
+            mockGuideHelper('populateCache', 'resolve', mockCache);
+            mockGuideHelper('performSearch', 'resolve', mockSearch);
 
             const mockShowGuide = jest.fn();
             const mockSetGuide = jest.fn();

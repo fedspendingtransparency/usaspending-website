@@ -1,0 +1,27 @@
+.download-location-wrapper {
+    width: 75%;
+    margin-left: 12.5%;
+    margin-right: 12.5%;
+
+    @include clearfix();
+
+    margin-bottom: 20px;
+
+    input.download-location {
+        font-size: 14px;
+        line-height: 17px;
+        padding: 10px;
+        height: 41px;
+
+        float: left;
+        width: 70%;
+    }
+
+    button.download-location-copy {
+        height: 41px;
+
+        float: left;
+        width: 30%;
+        margin: 0;
+    }
+}

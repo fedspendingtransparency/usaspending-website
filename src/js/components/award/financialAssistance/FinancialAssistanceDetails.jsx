@@ -24,7 +24,8 @@ export default class FinancialAssistanceDetails extends React.Component {
             place: "",
             typeDesc: "",
             programName: "",
-            programDesc: ""
+            programDesc: "",
+            cfdaOverflow: false
         };
 
         // bind functions
@@ -91,14 +92,36 @@ export default class FinancialAssistanceDetails extends React.Component {
         }
 
         // CFDA Data
-        // TODO: get program description (objectives) for latest transaction
-        const programName = `${latestTransaction.assistance_data.cfda_number} -
-        ${latestTransaction.assistance_data.cfda_title}`;
-        const programDescription = "Not Available";
+        let programName = 'Not Available';
+        let programDescription = 'Not Available';
+
+        if (latestTransaction.assistance_data.cfda) {
+            const cfda = latestTransaction.assistance_data.cfda;
+            if (cfda.program_number && cfda.program_title) {
+                programName = `${latestTransaction.assistance_data.cfda.program_number} - \
+${latestTransaction.assistance_data.cfda.program_title}`;
+            }
+            else if (cfda.program_number) {
+                programName = cfda.program_number;
+            }
+            else if (cfda.program_title) {
+                programName = cfda.program_title;
+            }
+
+            if (cfda.objectives) {
+                programDescription = cfda.objectives;
+            }
+        }
+
+        let cfdaOverflow = false;
+        if (programDescription.length > SummaryPageHelper.maxDescriptionCharacters) {
+            cfdaOverflow = true;
+        }
 
         this.setState({
             description,
             programName,
+            cfdaOverflow,
             date: popDate,
             place: popPlace,
             typeDesc: award.type_description,
@@ -136,7 +159,9 @@ export default class FinancialAssistanceDetails extends React.Component {
                                 value={this.state.programName} />
                             <DetailRow
                                 title="CFDA Program Description"
-                                value={this.state.programDesc} />
+                                value={this.state.programDesc}
+                                overflow={this.state.cfdaOverflow}
+                                maxChars={SummaryPageHelper.maxDescriptionCharacters} />
                         </tbody>
                     </table>
                 </div>
