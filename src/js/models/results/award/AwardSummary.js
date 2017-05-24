@@ -499,7 +499,7 @@ const remapData = (data, idField) => {
         if (loc.address_line2) {
             recipientStreet += loc.address_line2;
         }
-        if (loc.address_line2) {
+        if (loc.address_line3) {
             recipientStreet += loc.address_line3;
         }
 

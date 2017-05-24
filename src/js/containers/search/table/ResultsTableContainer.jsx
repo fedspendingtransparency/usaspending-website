@@ -122,6 +122,7 @@ export class ResultsTableContainer extends React.Component {
         }
         else if (prevProps.columnVisibility !== this.props.columnVisibility) {
             // Visible columns have changed
+            this.performSearch(true);
             this.showColumns(this.props.meta.tableType);
         }
     }
@@ -268,9 +269,28 @@ export class ResultsTableContainer extends React.Component {
         }
         const resultLimit = 60;
 
+        const requestFields = ['id', 'piid', 'fain', 'uri'];
+
+        // Request fields for visible columns only
+        const columnVisibility = this.props.columnVisibility[tableType];
+        const mapping = TableSearchFields[tableType]._mapping;
+
+        columnVisibility.visibleColumns.forEach((col) => {
+            const field = mapping[col];
+            let requestField = field;
+            if (field.includes('__')) {
+                // If it is a nested field, request the top level object
+                const nestedFields = field.split('__');
+                requestField = nestedFields[0];
+            }
+            if (!requestFields.includes(requestField)) {
+                // Prevent duplicates in the list of fields to request
+                requestFields.push(requestField);
+            }
+        });
+
         this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(),
-            pageNumber, resultLimit, sortParams,
-            TableSearchFields[tableType]._requestFields);
+            pageNumber, resultLimit, sortParams, requestFields);
 
         this.searchRequest.promise
             .then((res) => {
