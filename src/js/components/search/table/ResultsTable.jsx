@@ -4,7 +4,7 @@
   **/
 
 import React from 'react';
-import Immutable from 'immutable';
+import Immutable, { OrderedSet } from 'immutable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
@@ -42,10 +42,10 @@ export default class ResultsTable extends React.PureComponent {
 
     componentWillReceiveProps(nextProps) {
         const currentType = nextProps.currentType;
-        const visibleCols = parseFloat(nextProps.columns.length);
+        const visibleColumnsSet = new OrderedSet(nextProps.columns);
         // update the data hash
         this.setState({
-            dataHash: `${currentType}-${visibleCols}`
+            dataHash: `${currentType}-${visibleColumnsSet.hashCode()}`
         });
     }
 
