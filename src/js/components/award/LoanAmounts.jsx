@@ -27,6 +27,7 @@ export default class LoanAmounts extends React.Component {
                         {MoneyFormatter.formatMoneyWithPrecision(this.props.faceValue, 0)}
                     </div>
                 </div>
+                <div className="divider" />
                 <div className="right">
                     <div className="title">Estimated Cost to the Government</div>
                     <div className="value">

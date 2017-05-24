@@ -3,7 +3,7 @@
  * Created by Kevin Li 4/28/17
  */
 
-import { Record } from 'immutable';
+import { Record, Map } from 'immutable';
 
 export const Definition = Record({
     term: '',
@@ -17,6 +17,7 @@ export const Definition = Record({
 export const initialState = {
     display: false,
     term: new Definition(),
+    cache: new Map(),
     search: {
         input: '',
         results: []
@@ -55,6 +56,11 @@ const guideReducer = (state = initialState, action) => {
             });
             return Object.assign({}, state, {
                 search
+            });
+        }
+        case 'SET_GUIDE_FULL_CACHE': {
+            return Object.assign({}, state, {
+                cache: new Map(action.cache)
             });
         }
         case 'SET_GUIDE_TERM': {

@@ -846,6 +846,34 @@ describe('TopFilterBarContainer', () => {
             expect(filterItem).toEqual(expectedFilterState);
         });
 
+        it('should update component state with Redux recipient type filters when available', () => {
+            // mount the container with default props
+            const topBarContainer = setup({
+                reduxFilters: Object.assign({}, defaultFilters)
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(0);
+
+            const awardFilter = Object.assign({}, defaultFilters, {
+                recipientType: new Set(['small_business'])
+            });
+
+            topBarContainer.setProps({
+                reduxFilters: awardFilter
+            });
+
+            expect(topBarContainer.state().filters).toHaveLength(1);
+
+            const filterItem = topBarContainer.state().filters[0];
+            const expectedFilterState = {
+                code: 'recipientType',
+                name: 'Recipient Type',
+                values: ['small_business']
+            };
+
+            expect(filterItem).toEqual(expectedFilterState);
+        });
+
         it('should update component state with Redux award ID filters when available', () => {
             // mount the container with default props
             const topBarContainer = setup({

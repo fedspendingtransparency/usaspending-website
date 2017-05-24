@@ -1,0 +1,60 @@
+.modal-header {
+    height: 65px;
+    background-color: $color-primary-darker;
+
+    @include clearfix();
+
+    .close-button {
+        @include button-unstyled;
+
+        float: right;
+
+        margin-top: 16px;
+        margin-right: 16px;
+
+        width: 16px;
+        height: 16px;
+
+        svg {
+            fill: $color-white;
+        }
+
+        &:hover, &:active {
+            svg {
+                fill: $color-active;
+            }
+        }
+    }
+
+    .modal-tab-wrapper {
+        padding-top: 15px;
+        width: 100%;
+    }
+
+    .modal-tabs {
+        @include unstyled-list;
+
+        width: 100%;
+
+        li {
+            text-align: center;
+
+            .active-tab {
+                @include button-unstyled;
+
+                background-color: $color-white;
+                color: $color-base;
+                font-size: 16px;
+
+                text-align: center;
+
+                width: 130px;
+                height: 50px;
+
+                &:active, &:hover {
+                    background-color: $color-white;
+                }
+            }
+        }
+    }
+}

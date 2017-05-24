@@ -1,4 +1,5 @@
 .recipient-info {
+    @import "mixins/setText";
     position: relative;
     @import './_infoBarTriangle';
     @include span-columns(16);
@@ -40,7 +41,7 @@
                 font-weight: $font-semibold;
             }
             .item-value {
-                font-size: rem(12);
+                @include setText($small-font-size);
             }
         }
         &.single {

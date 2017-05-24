@@ -23,7 +23,7 @@ const initialValues = {
     inFlight: false
 };
 
-const MetaRecord = Record(initialValues);
+export const MetaRecord = Record(initialValues);
 
 const resultsMetaReducer = (state = new MetaRecord(), action) => {
     switch (action.type) {
