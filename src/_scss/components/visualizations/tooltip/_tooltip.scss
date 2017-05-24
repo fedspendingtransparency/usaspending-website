@@ -13,6 +13,7 @@
     background-color: $color-white;
     @import "./_arrow";
     .tooltip-title {
+        color: #555;
         background-color: $color-title-background;
         color: $color-gray;
         font-size: $base-font-size;
