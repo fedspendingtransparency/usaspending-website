@@ -134,14 +134,7 @@ export default class Homepage extends React.Component {
             capita.ranks.push(state.PerCapitaRank);
             capita.populations.push(state.TotalStatePopulation);
 
-            const instance = new HomepageStateModel({
-                state: state.StateName,
-                amount: state.TotalAmount,
-                amountRank: state.TotalRank,
-                capita: state.PerCapitaAmount,
-                capitaRank: state.PerCapitaRank
-            });
-
+            const instance = new HomepageStateModel(state);
             table.push(instance);
         });
 

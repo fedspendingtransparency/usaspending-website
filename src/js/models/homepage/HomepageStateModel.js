@@ -13,6 +13,29 @@ const defaultValues = {
     capitaRank: 0
 };
 
-const HomepageStateModel = new Record(defaultValues);
+// const HomepageStateModel = new Record(defaultValues);
+class HomepageStateModel extends Record(defaultValues) {
+    constructor(values) {
+        const convertedValues = {};
+
+        // convert the JSON model keys to those of the JS app data model
+        const keyConversion = {
+            StateName: 'state',
+            TotalAmount: 'amount',
+            TotalRank: 'amountRank',
+            PerCapitaAmount: 'capita',
+            PerCapitaRank: 'capitaRank'
+        };
+
+        Object.keys(values).forEach((key) => {
+            const modelKey = keyConversion[key];
+            if (modelKey) {
+                convertedValues[modelKey] = values[key];
+            }
+        });
+
+        super(convertedValues);
+    }
+}
 
 export default HomepageStateModel;
