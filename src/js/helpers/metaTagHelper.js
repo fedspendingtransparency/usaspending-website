@@ -10,7 +10,7 @@ const productionURL = 'https://sandbox.usaspending.gov/';
 const imgDirectory = 'img/';
 
 const facebookImage = 'FacebookOG.png';
-const twitterImage = 'UnfurlLarge.png';
+const twitterImage = 'TwitterCard.png';
 
 export const homePageMetaTags = {
     og_url: productionURL,
