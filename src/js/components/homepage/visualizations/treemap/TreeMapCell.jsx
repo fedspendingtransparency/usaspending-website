@@ -29,6 +29,9 @@ const propTypes = {
 };
 
 const defaultProps = {
+    chosen: '',
+    clickable: true,
+    showSub: false,
     alternateColor: '',
     chosenColor: ''
 };
@@ -123,9 +126,10 @@ export default class TreeMapCell extends React.Component {
     mouseIn(height, width) {
         this.props.toggleTooltipIn(this.props.categoryID, height, width);
         let hoverColor = this.highlightedStyle.color;
-        if (this.props.chosen !== null && this.props.clickable && this.props.showSub === true) {
+        if (this.props.chosen !== '' && this.props.clickable && this.props.showSub === true) {
             hoverColor = this.props.chosenColor;
         }
+
         this.setState({
             textClass: 'chosen',
             color: hoverColor,
