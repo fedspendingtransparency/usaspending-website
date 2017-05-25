@@ -26,10 +26,10 @@ export default class NextSteps extends React.Component {
                     sectionTitle="Contact Us"
                     iconClass="contact-icon"
                     sectionText="We want to hear your questions and comments."
-                    linkText="Email Us"
-                    ariaLabel="Email Us"
-                    title="Email US"
-                    linkUrl="mailto:usaspending.help-submitonly@fiscal.treasury.gov" />
+                    linkText="Contact Us"
+                    ariaLabel="Contact Us"
+                    title="Contact US"
+                    linkUrl="mailto:usaspending.help-submitonly@fiscal.treasury.gov?subject=Contact Us" />
                 <NextStepsBox
                     icon="download"
                     sectionTitle="Agency Submission Files"

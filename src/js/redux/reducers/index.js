@@ -10,6 +10,7 @@ import resultsBatchReducer from './resultsMeta/resultsBatchReducer';
 import filtersReducer from './search/searchFiltersReducer';
 import orderReducer from './search/searchOrderReducer';
 import autocompleteReducer from './search/autocompleteReducer';
+import columnVisibilityReducer from './search/columnVisibilityReducer';
 import recordReducer from './records/recordReducer';
 import agencyReducer from './search/agencyReducer';
 import recipientReducer from './search/recipientReducer';
@@ -25,6 +26,7 @@ const appReducer = combineReducers({
     filters: filtersReducer,
     searchOrder: orderReducer,
     autocompleteLocations: autocompleteReducer,
+    columnVisibility: columnVisibilityReducer,
     autocompleteAwardIDs: awardIDReducer,
     autocompleteAgencies: agencyReducer,
     autocompleteRecipients: recipientReducer,

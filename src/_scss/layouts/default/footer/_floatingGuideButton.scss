@@ -26,6 +26,7 @@
     .floating-guide-button {
         @include transition(all 0.25s $ease-in-out-sine);
         background-color: $color-secondary;
+        box-shadow: $container-shadow;
         width: 140px;
         height: 40px;
         margin: 0;

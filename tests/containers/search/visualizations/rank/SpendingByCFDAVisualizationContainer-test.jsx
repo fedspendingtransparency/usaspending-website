@@ -83,14 +83,14 @@ describe('SpendingByCFDAVisualizationContainer', () => {
                 {
                     item: '93.778',
                     aggregate: '66681011412.00',
-                    assistance_data__cfda_number: '93.778',
-                    assistance_data__cfda_title: 'Medical Assistance Program'
+                    assistance_data__cfda__program_number: '93.778',
+                    assistance_data__cfda__program_title: 'Medical Assistance Program'
                 },
                 {
                     item: '93.774',
                     aggregate: '152',
-                    assistance_data__cfda_number: '93.774',
-                    assistance_data__cfda_title: 'Medicare_Supplementary Medical Insurance'
+                    assistance_data__cfda__program_number: '93.774',
+                    assistance_data__cfda__program_title: 'Medicare_Supplementary Medical Insurance'
                 }
             ]
         };
@@ -131,14 +131,14 @@ describe('SpendingByCFDAVisualizationContainer', () => {
                 {
                     item: '93.778',
                     aggregate: '66681011412.00',
-                    award__transaction__assistance_data__cfda_number: '93.778',
-                    award__transaction__assistance_data__cfda_title: 'Medical Assistance Program'
+                    award__transaction__assistance_data__cfda__program_number: '93.778',
+                    award__transaction__assistance_data__cfda__program_title: 'Medical Assistance Program'
                 },
                 {
                     item: '93.774',
                     aggregate: '152',
-                    award__transaction__assistance_data__cfda_number: '93.774',
-                    award__transaction__assistance_data__cfda_title: 'Medicare_Supplementary Medical Insurance'
+                    award__transaction__assistance_data__cfda__program_number: '93.774',
+                    award__transaction__assistance_data__cfda__program_title: 'Medicare_Supplementary Medical Insurance'
                 }
             ]
         };
@@ -199,14 +199,14 @@ describe('SpendingByCFDAVisualizationContainer', () => {
                     {
                         item: '93.778',
                         aggregate: '66681011412.00',
-                        assistance_data__cfda_number: '93.778',
-                        assistance_data__cfda_title: 'Medical Assistance Program'
+                        assistance_data__cfda__program_number: '93.778',
+                        assistance_data__cfda__program_title: 'Medical Assistance Program'
                     },
                     {
                         item: '93.774',
                         aggregate: '152',
-                        assistance_data__cfda_number: '93.774',
-                        assistance_data__cfda_title: 'Medicare_Supplementary Medical Insurance'
+                        assistance_data__cfda__program_number: '93.774',
+                        assistance_data__cfda__program_title: 'Medicare_Supplementary Medical Insurance'
                     }
                 ]
             };
