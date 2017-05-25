@@ -145,25 +145,9 @@ export default class TreeMapCell extends React.Component {
         });
     }
 
-    toggleBorders() {
-        const strokeArray = [];
-        let strokeColor = "white";
-        let strokeOpacity = 0.5;
-        if (this.props.showOverlay) {
-            if (this.props.label === "Social Security" ||
-                this.props.label === "National Defense" ||
-                this.props.label === "Medicare") {
-                strokeColor = "#F2B733";
-                strokeOpacity = 1;
-            }
-        }
-        strokeArray.push(strokeColor);
-        strokeArray.push(strokeOpacity);
-        return strokeArray;
-    }
-
 
     render() {
+        console.log("made it into a cell");
         let labelView = 'block';
         let percentView = 'block';
         let bgColor = this.state.color;

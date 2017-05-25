@@ -18,9 +18,6 @@ const propTypes = {
     categories: React.PropTypes.object,
     colors: React.PropTypes.array,
     alternateColors: React.PropTypes.array,
-    showSub: React.PropTypes.bool,
-    toggleSubfunction: React.PropTypes.func,
-    changeActiveSubfunction: React.PropTypes.func,
     tooltipStyles: React.PropTypes.object,
     formatFriendlyString: React.PropTypes.func
 };
@@ -35,17 +32,11 @@ export default class BudgetFunctions extends React.Component {
             visualizationWidth: 0,
             visualizationHeight: 565,
             category: 'none',
-            description: '',
             finalNodes: [],
-            individualValue: '',
-            showOverlay: props.showOverlay
+            showOverlay: true
         };
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
-        this.buildTree = this.buildTree.bind(this);
         this.createTooltip = this.createTooltip.bind(this);
-        this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
-        this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
-        this.toggleOverlay = this.toggleOverlay.bind(this);
     }
 
     componentDidMount() {
@@ -56,7 +47,7 @@ export default class BudgetFunctions extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.categories.children.length > 0) {
             this.buildTree(nextProps.categories, nextProps.colors, nextProps.alternateColors,
-                nextProps.tooltipStyles);
+                this.props.tooltipStyles);
         }
     }
 
@@ -74,8 +65,8 @@ export default class BudgetFunctions extends React.Component {
                 visualizationWidth: this.sectionWrapper.offsetWidth
             });
             if (this.props.categories.children.length > 0) {
-                this.buildTree(this.props.categories, this.props.colors,
-                    this.props.alternateColors, this.props.tooltipStyles);
+                this.buildTree(this.props.categories, this.props.colors, this.props.alternateColors,
+                    this.props.tooltipStyles);
             }
         }
     }
@@ -99,7 +90,24 @@ export default class BudgetFunctions extends React.Component {
         // build the tiles
         const nodes = treemap.map((n, i) => {
             let cell = '';
+            let cellColor = '';
+            let strokeColor = 'white';
+
+            if (this.state.showOverlay) {
+                cellColor = altColors[i];
+
+                if (n.data.name === "Social Security" ||
+                    n.data.name === "National Defense" ||
+                    n.data.name === "Medicare") {
+                    strokeColor = '#F2B733';
+                    cellColor = colors[i];
+                }
+            }
+            else if (!this.state.showOverlay) {
+                cellColor = colors[i];
+            }
             if (n.value !== 0) {
+                // emily, passing down this.props will give 'em the functions
                 cell = (<TreeMapCell
                     {...this.props}
                     label={n.data.name}
@@ -111,14 +119,8 @@ export default class BudgetFunctions extends React.Component {
                     total={n.parent.value}
                     key={i}
                     categoryID={n.data.id}
-                    color={colors[i]}
-                    alternateColor={altColors[i]}
-                    chosenColor={this.props.colors[i]}
-                    chosen={null}
-                    showOverlay={this.state.showOverlay}
-                    showSub={this.props.showSub}
-                    toggleSubfunction={this.props.toggleSubfunction}
-                    changeActiveSubfunction={this.props.changeActiveSubfunction}
+                    color={cellColor}
+                    strokeColor={strokeColor}
                     tooltipStyles={styles}
                     toggleTooltipIn={this.toggleTooltipIn}
                     toggleTooltipOut={this.toggleTooltipOut}
@@ -128,46 +130,6 @@ export default class BudgetFunctions extends React.Component {
         });
         this.setState({
             finalNodes: nodes
-        });
-    }
-
-    toggleOverlay() {
-        this.setState({
-            showOverlay: false
-        });
-
-        this.buildTree(this.props.categories, this.props.colors,
-            this.props.alternateColors, this.props.tooltipStyles);
-    }
-
-    toggleTooltipIn(categoryID, height, width) {
-        if (this.state.showOverlay !== false) {
-            this.toggleOverlay();
-        }
-        const category = _.find(this.state.finalNodes, { key: `${categoryID}` });
-
-        this.setState({
-            category: category.props.label,
-            description: category.props.description,
-            individualValue: category.props.value,
-            total: category.props.total,
-            x: category.props.x0,
-            y: category.props.y0,
-            width,
-            height
-        });
-    }
-
-    toggleTooltipOut(height, width) {
-        this.setState({
-            category: 'none',
-            description: '',
-            individualValue: '',
-            total: '',
-            x: 0,
-            y: 0,
-            width,
-            height
         });
     }
 

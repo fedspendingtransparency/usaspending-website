@@ -20,6 +20,11 @@ const propTypes = {
     formatFriendlyString: React.PropTypes.func
 };
 
+const defaultProps = {
+    subfunctions: {},
+    topFunction: ''
+};
+
 export default class BudgetSubfunctionsMap extends React.Component {
 
     constructor(props) {
@@ -31,7 +36,7 @@ export default class BudgetSubfunctionsMap extends React.Component {
             category: 'none',
             description: '',
             subfunctions: {},
-            finalNodes: '',
+            finalNodes: [],
             selected: ''
         };
 
@@ -185,3 +190,4 @@ export default class BudgetSubfunctionsMap extends React.Component {
 
 }
 BudgetSubfunctionsMap.propTypes = propTypes;
+BudgetSubfunctionsMap.defaultProps = defaultProps;

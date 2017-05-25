@@ -32,7 +32,6 @@ export default class BudgetFunctionsMinimized extends React.Component {
             visualizationHeight: 565,
             category: 'none',
             description: '',
-            descriptions: {},
             finalNodes: '',
             individualValue: '',
             selected: '',

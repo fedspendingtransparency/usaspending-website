@@ -116,13 +116,9 @@ export default class TreeMap extends React.Component {
 
     render() {
         let functions = (<BudgetFunctions
-            categories={this.props.categories}
-            descriptions={this.props.descriptions}
-            colors={this.props.colors}
-            alternateColors={this.props.alternateColors}
+            {...this.props}
             toggleSubfunction={this.toggleSubfunction}
             changeActiveSubfunction={this.changeActiveSubfunction}
-            tooltipStyles={this.props.tooltipStyles}
             formatFriendlyString={this.formatFriendlyString} />);
         if (this.state.showSub === true) {
             functions = (<BudgetSubfunctions
