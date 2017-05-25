@@ -155,15 +155,8 @@ export default class BudgetFunctions extends React.Component {
     }
 
     toggleTooltipIn(functionID) {
-        const category = _.find(this.props.categories.children, 'id', functionID);
-        let showOverlay = false;
-
-        if (category !== null && topFunctions.indexOf(category.name) > -1) {
-            showOverlay = true;
-        }
-
         this.setState({
-            showOverlay,
+            showOverlay: false,
             hoveredFunction: functionID
         }, () => {
             this.buildTree(this.props);
