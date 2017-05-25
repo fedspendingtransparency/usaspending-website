@@ -6,6 +6,9 @@
 import React from 'react';
 import _ from 'lodash';
 
+import * as MetaTagHelper from 'helpers/metaTagHelper';
+
+import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import SearchHeader from './header/SearchHeader';
@@ -169,6 +172,7 @@ export default class SearchPage extends React.Component {
                 ref={(div) => {
                     this.pageDiv = div;
                 }}>
+                <MetaTags {...MetaTagHelper.searchPageMetaTags} />
                 <Header />
                 <main id="main-content">
                     <div

@@ -4,6 +4,10 @@
  **/
 
 import React from 'react';
+
+import * as MetaTagHelper from 'helpers/metaTagHelper';
+
+import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import Error from '../sharedComponents/Error';
@@ -34,6 +38,7 @@ export default class Award extends React.Component {
         }
         return (
             <div className="usa-da-award-page">
+                <MetaTags {...MetaTagHelper.awardPageMetaTags} />
                 <Header />
                 { awardInfo }
                 <Footer />

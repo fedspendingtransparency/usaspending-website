@@ -4,6 +4,10 @@
  **/
 
 import React from 'react';
+
+import * as MetaTagHelper from 'helpers/metaTagHelper';
+
+import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 
@@ -11,6 +15,7 @@ export default class DBInfo extends React.Component {
     render() {
         return (
             <div className="usa-da-db-info">
+                <MetaTags {...MetaTagHelper.dbInfoPageMetaTags} />
                 <Header />
                 <main id="main-content">
                     <div className="article-wrapper">

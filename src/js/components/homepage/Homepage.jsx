@@ -7,7 +7,9 @@ import React from 'react';
 import Q from 'q';
 
 import * as HomepageHelper from 'helpers/homepageHelper';
+import * as MetaTagHelper from 'helpers/metaTagHelper';
 
+import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import MapVisualizationWrapper from './visualizations/geo/MapVisualizationWrapper';
 import Landing from './Landing';
 import TreeMap from './visualizations/treemap/TreeMap';
@@ -70,6 +72,7 @@ export default class Homepage extends React.Component {
     render() {
         return (
             <div className="usa-da-home-page">
+                <MetaTags {...MetaTagHelper.homePageMetaTags} />
                 <Header />
                 <Landing
                     total={this.state.total} />
