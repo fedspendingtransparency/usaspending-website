@@ -1,7 +1,7 @@
 /**
- * TreeMapCell.jsx
- * Created by Emily Gullo 03/15/2017
- **/
+ * BudgetSubfunctionCell.jsx
+ * Created by michaelbray on 5/25/17.
+ */
 
 import React from 'react';
 import _ from 'lodash';

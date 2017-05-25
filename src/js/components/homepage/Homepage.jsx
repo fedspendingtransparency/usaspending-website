@@ -56,7 +56,9 @@ export default class Homepage extends React.Component {
                     breakdownColors: res.data.breakdownColors,
                     tooltipStyles: res.data.tooltipStyles,
                     total: res.data.totalSpent,
-                    states: res.data.states
+                    states: res.data.states,
+                    alternateColors: res.data.alternateColors,
+                    subfunctions: res.data.subfunctions
                 }, () => {
                     deferred.resolve();
                 });
@@ -77,7 +79,11 @@ export default class Homepage extends React.Component {
                 <TreeMap
                     categories={this.state.categories}
                     colors={this.state.colors}
-                    descriptions={this.state.descriptions} />
+                    descriptions={this.state.descriptions}
+                    subfunctions={this.state.subfunctions}
+                    alternateColors={this.state.alternateColors}
+                    total={this.state.breakdownTotal}
+                    tooltipStyles={this.state.tooltipStyles} />
                 <CategoryMap
                     breakdown={this.state.breakdown}
                     colors={this.state.breakdownColors}

@@ -14,22 +14,22 @@
         @include span-columns(16);
     }
 
-        .visualization-tooltip {
-            @import "components/visualizations/tooltip/_tooltip";
+    .visualization-tooltip {
+        @import "components/visualizations/tooltip/_tooltip";
 
-            .tooltip {
-                max-width: rem(468);
+        .tooltip {
+            max-width: rem(468);
 
-                .tooltip-title {
-                    text-align: center;
-                }
+            .tooltip-title {
+                text-align: center;
+            }
 
-                .tooltip-body .tooltip-left .tooltip-description {
-                    text-align: left;
-                    font-color: #555555;
-                }
+            .tooltip-body .tooltip-left .tooltip-description {
+                text-align: left;
+                font-color: #555555;
             }
         }
+    }
     @import "./_treemapVisualization";
 
     .tree-wrapper {

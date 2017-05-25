@@ -7,7 +7,6 @@ import React from 'react';
 
 const propTypes = {
     name: React.PropTypes.string,
-    value: React.PropTypes.number,
     description: React.PropTypes.string,
     height: React.PropTypes.number,
     x: React.PropTypes.number,
