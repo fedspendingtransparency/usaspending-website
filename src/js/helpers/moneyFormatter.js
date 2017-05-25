@@ -152,3 +152,30 @@ export const calculateUnitForSingleValue = (value) => {
         longLabel: unitWord
     };
 };
+
+export const formatTreemapValues = (value) => {
+    // Format the ceiling and current values to be friendly strings
+    const units = this.calculateUnitForSingleValue(value);
+    // Only reformat at a million or higher
+    if (units.unit < this.unitValues.MILLION) {
+        units.unit = 1;
+        units.unitLabel = '';
+        units.longLabel = '';
+    }
+    const formattedValue = value / units.unit;
+    let precision = 1;
+    if (formattedValue % 1 === 0) {
+        // Whole number
+        precision = 0;
+    }
+
+    const formattedCurrency = this.formatMoneyWithPrecision(formattedValue, precision);
+
+    // Don't add an extra space when there's no units string to display
+    let longLabel = '';
+    if (units.unit > 1) {
+        longLabel = ` ${units.longLabel}`;
+    }
+
+    return `${formattedCurrency}${longLabel}`;
+};

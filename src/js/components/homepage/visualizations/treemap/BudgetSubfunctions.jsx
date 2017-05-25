@@ -5,6 +5,7 @@
 
 import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import BudgetFunctionsMinimized from './BudgetFunctionsMinimized';
 import BudgetSubfunctionsDescription from './BudgetSubfunctionsDescription';
@@ -17,15 +18,19 @@ const propTypes = {
     colors: React.PropTypes.array,
     alternateColors: React.PropTypes.array,
     subfunctions: React.PropTypes.object,
-    showSub: React.PropTypes.bool,
     selected: React.PropTypes.string,
     selectedValue: React.PropTypes.number,
     selectedTotal: React.PropTypes.number,
     selectedDesc: React.PropTypes.string,
     changeActiveSubfunction: React.PropTypes.func,
+    toggleSubfunction: React.PropTypes.func,
     toggleOverlay: React.PropTypes.func,
     tooltipStyles: React.PropTypes.object,
-    formatFriendlyString: React.PropTypes.func
+    total: React.PropTypes.number
+};
+
+const defaultProps = {
+
 };
 
 export default class BudgetSubfunctions extends React.Component {
@@ -41,12 +46,13 @@ export default class BudgetSubfunctions extends React.Component {
             descriptions: {},
             finalNodes: '',
             individualValue: '',
-            showSub: this.props.showSub,
             direction: null
         };
+
         this.createTooltip = this.createTooltip.bind(this);
         this.showArrowTooltip = this.showArrowTooltip.bind(this);
         this.createArrowTooltip = this.createArrowTooltip.bind(this);
+        this.changeActiveSubfunction = this.changeActiveSubfunction.bind(this);
     }
 
     swapTiles(direction) {
@@ -59,6 +65,7 @@ export default class BudgetSubfunctions extends React.Component {
                 next: false,
                 prev: true,
                 showSub: true };
+            this.changeActiveSubfunction(set);
         }
         else if (direction === 'right') {
             set = {
@@ -68,17 +75,11 @@ export default class BudgetSubfunctions extends React.Component {
                 next: true,
                 prev: false,
                 showSub: true };
+            this.changeActiveSubfunction(set);
         }
         else {
-            set = {
-                selected: null,
-                selectedValue: null,
-                selectedTotal: null,
-                next: null,
-                prev: null,
-                showSub: false };
+            this.props.toggleSubfunction();
         }
-        this.props.changeActiveSubfunction(set);
     }
 
     showArrowTooltip(direction) {
@@ -101,14 +102,13 @@ export default class BudgetSubfunctions extends React.Component {
         return tooltip;
     }
 
-
     createTooltip() {
         let tooltip = null;
         if (this.state.category !== 'none') {
             tooltip = (<TreeMapTooltip
                 name={this.state.category}
-                value={this.props.formatFriendlyString(this.state.individualValue)}
-                percentage={`${((this.state.individualValue / this.state.total) *
+                value={MoneyFormatter.formatTreemapValues(this.state.individualValue)}
+                percentage={`${((this.state.individualValue / this.props.total) *
                     100).toFixed(1)}%`}
                 description={this.state.description}
                 x={this.state.x}
@@ -120,6 +120,39 @@ export default class BudgetSubfunctions extends React.Component {
         return tooltip;
     }
 
+    changeActiveSubfunction(set) {
+        const descSet = this.props.descriptions;
+        let newSelected = set.selected;
+        let newValue = set.selectedValue;
+        // find index of object item on matching cat name
+        let descIndex = '0';
+        if (set.showSub !== false) {
+            if (set.selected !== 'none') {
+                descIndex = _.findIndex(descSet, { name: newSelected });
+            }
+            if ((set.next && descIndex < 16) || (set.prev && descIndex > 0)) {
+                if (set.next) {
+                    descIndex += 1;
+                    newSelected = descSet[descIndex].name;
+                }
+                if (set.prev) {
+                    descIndex -= 1;
+                    newSelected = descSet[descIndex].name;
+                }
+                newValue = this.props.categories.children[descIndex].value;
+            }
+        }
+
+        // set values to state
+        this.setState({
+            selected: newSelected,
+            selectedDesc: descSet[descIndex].value,
+            selectedValue: newValue,
+            selectedTotal: set.selectedTotal,
+            showSub: set.showSub
+        });
+    }
+
     render() {
         let minimized = null;
         if (window.innerWidth > 768) {
@@ -129,11 +162,10 @@ export default class BudgetSubfunctions extends React.Component {
                 descriptions={this.props.descriptions}
                 colors={this.props.colors}
                 alternateColors={this.props.alternateColors}
-                changeActiveSubfunction={this.props.changeActiveSubfunction}
+                changeActiveSubfunction={this.changeActiveSubfunction}
                 toggleOverlay={this.props.toggleOverlay}
                 tooltipStyles={this.props.tooltipStyles}
-                chosen={this.props.selected}
-                formatFriendlyString={this.props.formatFriendlyString} />);
+                chosen={this.props.selected} />);
         }
         return (
             <div className="treemap-inner-wrap">
@@ -181,7 +213,7 @@ export default class BudgetSubfunctions extends React.Component {
                 { minimized }
                 <BudgetSubfunctionsDescription
                     category={this.props.selected}
-                    value={this.props.formatFriendlyString(this.props.selectedValue)}
+                    value={MoneyFormatter.formatTreemapValues(this.props.selectedValue)}
                     percentage={((this.props.selectedValue / this.props.selectedTotal) *
                         100).toFixed(1)}
                     description={this.props.selectedDesc} />
@@ -189,10 +221,9 @@ export default class BudgetSubfunctions extends React.Component {
                     topFunction={this.props.selected}
                     subfunctions={this.props.subfunctions}
                     colors={this.props.colors}
-                    showSub={this.props.showSub}
+                    showSub={this.props.showSubfunction}
                     tooltipStyles={this.props.tooltipStyles}
-                    chosen={this.props.selected}
-                    formatFriendlyString={this.props.formatFriendlyString} />
+                    chosen={this.props.selected} />
             </div>
         );
     }

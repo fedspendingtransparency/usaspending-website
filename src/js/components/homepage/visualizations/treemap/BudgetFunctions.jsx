@@ -6,24 +6,26 @@
 import React from 'react';
 import * as d3 from 'd3';
 import _ from 'lodash';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import TreeMapCell from './TreeMapCell';
+import BudgetFunctionCell from './BudgetFunctionCell';
 import TreeMapTooltip from './TreeMapTooltip';
-
-const defaultProps = {
-    showOverlay: true
-};
 
 const propTypes = {
     categories: React.PropTypes.object,
     colors: React.PropTypes.array,
     alternateColors: React.PropTypes.array,
     tooltipStyles: React.PropTypes.object,
-    formatFriendlyString: React.PropTypes.func
+    toggleSubfunction: React.PropTypes.func
 };
 
-export default class BudgetFunctions extends React.Component {
+const defaultProps = {
+    showOverlay: true
+};
 
+const topFunctions = ["Social Security", "National Defense", "Medicare"];
+
+export default class BudgetFunctions extends React.Component {
     constructor(props) {
         super(props);
 
@@ -33,29 +35,30 @@ export default class BudgetFunctions extends React.Component {
             visualizationHeight: 565,
             category: 'none',
             finalNodes: [],
-            showOverlay: true
+            showOverlay: true,
+            hoveredFunction: -1
         };
+
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
         this.createTooltip = this.createTooltip.bind(this);
+        this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
+        this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
+        this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
     }
 
     componentDidMount() {
-        console.log("BudgetFunction Mounted");
         this.handleWindowResize();
         window.addEventListener('resize', this.handleWindowResize);
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("BudgetFunction Receiving Props");
         if (nextProps.categories.children.length > 0) {
-            this.buildTree(nextProps.categories, nextProps.colors, nextProps.alternateColors,
-                this.props.tooltipStyles);
+            this.buildTree(nextProps);
         }
     }
 
     componentWillUnmount() {
-        console.log("BudgetFunction Unmounting");
         window.removeEventListener('resize', this.handleWindowResize);
     }
 
@@ -69,15 +72,14 @@ export default class BudgetFunctions extends React.Component {
                 visualizationWidth: this.sectionWrapper.offsetWidth
             });
             if (this.props.categories.children.length > 0) {
-                this.buildTree(this.props.categories, this.props.colors, this.props.alternateColors,
-                    this.props.tooltipStyles);
+                this.buildTree(this.props);
             }
         }
     }
 
-    buildTree(cats, colors, altColors, styles) {
+    buildTree(treeProps) {
         // put the data through d3's hierarchy system to sum and sort it
-        const root = d3.hierarchy(cats)
+        const root = d3.hierarchy(treeProps.categories)
         .sum((d) => (d.value))
         .sort((a, b) => b.height - a.height || b.value - a.value);
 
@@ -86,6 +88,7 @@ export default class BudgetFunctions extends React.Component {
         if (window.innerWidth < 768) {
             tileStyle = d3.treemapSlice;
         }
+
         const treemap = d3.treemap()
         .round(true)
         .tile(tileStyle)
@@ -94,26 +97,34 @@ export default class BudgetFunctions extends React.Component {
         // build the tiles
         const nodes = treemap.map((n, i) => {
             let cell = '';
-            let cellColor = '';
+            let cellColor = treeProps.colors[i];
             let strokeColor = 'white';
+            let strokeOpacity = 0.5;
+            let textColor = treeProps.tooltipStyles.defaultStyle.textColor;
+            let textShadow = treeProps.tooltipStyles.defaultStyle.textShadow;
+            let textClass = '';
 
             if (this.state.showOverlay) {
-                cellColor = altColors[i];
+                cellColor = treeProps.alternateColors[i];
 
-                if (n.data.name === "Social Security" ||
-                    n.data.name === "National Defense" ||
-                    n.data.name === "Medicare") {
+                if (topFunctions.indexOf(n.data.name) > -1) {
+                    cellColor = treeProps.colors[i];
                     strokeColor = '#F2B733';
-                    cellColor = colors[i];
+                    strokeOpacity = 1;
                 }
             }
-            else if (!this.state.showOverlay) {
-                cellColor = colors[i];
+
+            // Set highlighted state for hovered function
+            if (this.state.hoveredFunction === n.data.id) {
+                cellColor = treeProps.tooltipStyles.highlightedStyle.color;
+                textColor = treeProps.tooltipStyles.highlightedStyle.textColor;
+                textShadow = treeProps.tooltipStyles.highlightedStyle.textShadow;
+                textClass = 'chosen';
             }
+
             if (n.value !== 0) {
-                // emily, passing down this.props will give 'em the functions
-                cell = (<TreeMapCell
-                    {...this.props}
+                cell = (<BudgetFunctionCell
+                    {...treeProps}
                     label={n.data.name}
                     value={n.value}
                     x0={n.x0}
@@ -122,20 +133,58 @@ export default class BudgetFunctions extends React.Component {
                     y1={n.y1}
                     total={n.parent.value}
                     key={i}
-                    categoryID={n.data.id}
+                    functionID={n.data.id}
                     color={cellColor}
                     strokeColor={strokeColor}
-                    tooltipStyles={styles}
+                    strokeOpacity={strokeOpacity}
+                    tooltipStyles={treeProps.tooltipStyles}
                     toggleTooltipIn={this.toggleTooltipIn}
                     toggleTooltipOut={this.toggleTooltipOut}
+                    textColor={textColor}
+                    textShadow={textShadow}
+                    textClass={textClass}
                     clickable />);
             }
-            console.log(cell);
+
             return cell;
         });
+
         this.setState({
             finalNodes: nodes
         });
+    }
+
+    toggleTooltipIn(functionID) {
+        const category = _.find(this.props.categories.children, 'id', functionID);
+        let showOverlay = false;
+
+        if (category !== null && topFunctions.indexOf(category.name) > -1) {
+            showOverlay = true;
+        }
+
+        this.setState({
+            showOverlay,
+            hoveredFunction: functionID
+        }, () => {
+            this.buildTree(this.props);
+        });
+    }
+
+    toggleTooltipOut() {
+        this.setState({
+            showOverlay: true,
+            hoveredFunction: -1
+        }, () => {
+            this.buildTree(this.props);
+        });
+    }
+
+    toggleSubfunction(selection) {
+        this.props.toggleSubfunction(selection);
+    }
+
+    calculatePercentage() {
+        return `${((this.state.individualValue / this.state.total) * 100).toFixed(1)}%`;
     }
 
     createTooltip() {
@@ -143,9 +192,8 @@ export default class BudgetFunctions extends React.Component {
         if (this.state.category !== 'none') {
             tooltip = (<TreeMapTooltip
                 name={this.state.category}
-                value={this.props.formatFriendlyString(this.state.individualValue)}
-                percentage={`${((this.state.individualValue / this.state.total) *
-                    100).toFixed(1)}%`}
+                value={MoneyFormatter.formatTreemapValues(this.state.individualValue)}
+                percentage={this.calculatePercentage()}
                 description={this.state.description}
                 x={this.state.x}
                 y={this.state.y}
@@ -156,9 +204,6 @@ export default class BudgetFunctions extends React.Component {
     }
 
     render() {
-        const string = `BudgetFunction State has: ${this.state.finalNodes} Nodes`;
-        console.log(string);
-        console.log("BudgetFunction Rendering");
         return (
             <div className="treemap-inner-wrap">
                 { this.createTooltip() }
