@@ -142,3 +142,13 @@ export const setSearchOrder = (state) => ({
 export const resetSearchOrder = () => ({
     type: 'RESET_SEARCH_ORDER'
 });
+
+export const toggleColumnVisibility = (state) => ({
+    type: 'TOGGLE_COLUMN_VISIBILITY',
+    column: state.column,
+    tableType: state.tableType
+});
+
+export const resetColumnVisibility = () => ({
+    type: 'RESET_COLUMN_VISIBILITY'
+});

@@ -12,6 +12,7 @@ import { ResultsTableContainer } from 'containers/search/table/ResultsTableConta
 
 import { MetaRecord } from 'redux/reducers/resultsMeta/resultsMetaReducer';
 import { OrderRecord } from 'redux/reducers/search/searchOrderReducer';
+import { VisibilityRecord } from 'redux/reducers/search/columnVisibilityReducer';
 import { mockActions, mockRedux, mockApi, mockTabCount } from './mockAwards';
 
 // force Jest to use native Node promises
@@ -176,6 +177,35 @@ describe('ResultsTableContainer', () => {
 
         container.setProps({
             meta: new MetaRecord(metaData)
+        });
+
+        jest.runAllTicks();
+
+        // this should trigger a new API call
+        expect(searchSpy.callCount).toEqual(2);
+        searchSpy.reset();
+    });
+
+    it('should make an API call when columns are added or removed', () => {
+        mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
+        mockSearchHelper('performPagedSearch', 'resolve', mockApi);
+
+        const container = mount(<ResultsTableContainer
+            {...mockActions}
+            {...mockRedux} />);
+
+        jest.runAllTicks();
+
+        expect(searchSpy.callCount).toEqual(1);
+
+        // update the column visibility
+        const columnVisibilityData = Object.assign({}, mockRedux.columnVisibility.toJS(), {
+            column: 'total_obligation',
+            tableType: 'contracts'
+        });
+
+        container.setProps({
+            searchOrder: new VisibilityRecord(columnVisibilityData)
         });
 
         jest.runAllTicks();
@@ -412,6 +442,28 @@ describe('ResultsTableContainer', () => {
             jest.runAllTicks();
             expect(searchSpy.callCount).toEqual(1);
             searchSpy.reset();
+        });
+    });
+
+    describe('toggleColumnVisibility', () => {
+        it('should change the Redux column visibility', () => {
+            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
+            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
+
+            const columnVisibilityAction = jest.fn();
+
+            const actions = Object.assign({}, mockActions, {
+                toggleColumnVisibility: columnVisibilityAction
+            });
+
+            const container = shallow(<ResultsTableContainer
+                {...actions}
+                {...mockRedux} />);
+
+            container.instance().toggleColumnVisibility('recipient_name');
+
+            expect(columnVisibilityAction).toHaveBeenCalledTimes(1);
+            expect(columnVisibilityAction.mock.calls[0][0]).toEqual({"column": "recipient_name", "tableType": "contracts"});
         });
     });
 });
