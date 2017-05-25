@@ -1,12 +1,35 @@
 .homepage-map-list {
     .map-table-width-master {
+        margin: 0 20px;
+        max-width: rem(1025);
+    }
 
+    .map-list-citation {
+        font-size: 12px;
+        color: $color-base;
+        margin-bottom: rem(30);
+
+        margin-left: rem(20);
+        margin-right: rem(20);
+
+        p {
+            margin: 2px 0;
+        }
+
+        @include media($large-screen) {
+            max-width: rem(1025);
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
 
     .map-table {
         // implement the library style
         @import 'lib/ibTable/ibTable';
+        max-width: rem(1025);
+
         margin-top: rem(15);
+        margin-bottom: rem(15);
         display: block;
         border: 1px solid $color-gray-light;
         // placeholder background for when the user scrolls really fast

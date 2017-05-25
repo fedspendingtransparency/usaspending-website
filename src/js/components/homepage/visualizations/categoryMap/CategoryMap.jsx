@@ -6,7 +6,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 import _ from 'lodash';
-import * as Icons from 'components/sharedComponents/icons/Icons';
+import { HandDrawnArrow } from 'components/sharedComponents/icons/Icons';
 
 import CategoryMapCell from './CategoryMapCell';
 import CategoryMapTooltip from './CategoryMapTooltip';
@@ -183,11 +183,10 @@ export default class CategoryMap extends React.Component {
                     </div>
                 </div>
                 <div className="map-segue">
+                    <h4>The geographic breakdown of this portion of the budget is shown below</h4>
                     <div className="icon-wrap">
-                        <Icons.MapMarker className="usa-da-map-marker" />
+                        <HandDrawnArrow />
                     </div>
-                    <h4>The geographic breakdown of this portion of the budget is shown on the
-                        map below</h4>
                 </div>
             </div>
         </div>

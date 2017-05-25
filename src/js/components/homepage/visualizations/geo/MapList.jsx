@@ -16,7 +16,6 @@ import MapListHeaderCell from './cells/MapListHeaderCell';
 
 const propTypes = {
     loading: React.PropTypes.bool,
-    renderHash: React.PropTypes.string,
     data: React.PropTypes.array
 };
 
@@ -31,12 +30,21 @@ export default class MapList extends React.Component {
 
         this.state = {
             tableWidth: 0,
+            tableLeft: 0,
+            tableRight: 0,
             columns: [],
-            contentWidth: 0
+            contentWidth: 0,
+            sort: {
+                field: 'state',
+                direction: 'asc'
+            },
+            sortedData: [],
+            renderHash: ''
         };
 
         this.setTableWidth = this.setTableWidth.bind(this);
         this.rowClassName = this.rowClassName.bind(this);
+        this.changeSearchOrder = this.changeSearchOrder.bind(this);
     }
 
     componentDidMount() {
@@ -59,8 +67,16 @@ export default class MapList extends React.Component {
     }
 
     setTableWidth() {
-        const tableWidth = _.min([this.tableWidthController.clientWidth - 2, 1025]);
-        this.setState({ tableWidth });
+        const tableWidth = this.tableWidthController.clientWidth;
+        const windowWidth = window.innerWidth;
+
+        const margin = (windowWidth - tableWidth) / 2;
+
+        this.setState({
+            tableWidth,
+            tableLeft: margin,
+            tableRight: margin
+        });
     }
 
     rowClassName(index) {
@@ -71,7 +87,15 @@ export default class MapList extends React.Component {
         return `homepage-map-table-row ${evenOdd}`;
     }
 
+    sortData(data) {
+        return _.orderBy(data, [this.state.sort.field], [this.state.sort.direction]);
+    }
+
     prepareTable(data) {
+        // prepare the data
+        const sortedData = this.sortData(data);
+        const renderHash = `map-list-sort-${_.uniqueId()}`;
+
         // prepare the columns
         let contentWidth = 0;
         const columns = [];
@@ -84,8 +108,6 @@ export default class MapList extends React.Component {
                 isLast = true;
             }
 
-            
-
             const tableCol = {
                 width: tableColumns.widths[column],
                 name: column,
@@ -96,19 +118,21 @@ export default class MapList extends React.Component {
                         label={tableColumns.labels[column]}
                         column={column}
                         defaultDirection={tableColumns.defaultDirection[column]}
-                        isLastColumn={isLast} />
+                        isLastColumn={isLast}
+                        order={this.state.sort}
+                        changeSearchOrder={this.changeSearchOrder} />
                 ),
                 cell: (rowIndex) => {
-                    let formattedValue = `${this.props.data[rowIndex][column]}`;
+                    let formattedValue = `${sortedData[rowIndex][column]}`;
                     if (column === 'amount' || column === 'capita') {
-                        formattedValue = MoneyFormatter.formatMoney(this.props.data[rowIndex][column]);
+                        formattedValue = MoneyFormatter.formatMoney(sortedData[rowIndex][column]);
                     }
 
                     return (<ResultsTableGenericCell
                         key={`cell-${column}-${rowIndex}`}
                         rowIndex={rowIndex}
                         data={formattedValue}
-                        dataHash={this.props.renderHash}
+                        dataHash={renderHash}
                         column={column.columnName}
                         isLastColumn={isLast} />);
                 }
@@ -119,10 +143,24 @@ export default class MapList extends React.Component {
 
         this.setState({
             columns,
-            contentWidth
+            contentWidth,
+            sortedData,
+            renderHash
         });
     }
 
+    changeSearchOrder(field, direction) {
+        // update the state
+        this.setState({
+            sort: {
+                field,
+                direction
+            }
+        }, () => {
+            // update the table
+            this.prepareTable(this.props.data);
+        });
+    }
     render() {
         let inFlightClass = 'loaded-table';
         if (this.props.loading) {
@@ -138,10 +176,15 @@ export default class MapList extends React.Component {
                         // the results table width will follow this div's width
                         this.tableWidthController = div;
                     }} />
-                <div className={`map-table ${inFlightClass}`}>
+                <div
+                    className={`map-table ${inFlightClass}`}
+                    style={{
+                        marginLeft: this.state.tableLeft,
+                        marginRight: this.state.tableRight
+                    }}>
                     <IBTable
-                        dataHash={`${this.props.renderHash}-${this.state.tableWidth}`}
-                        resetHash={this.props.renderHash}
+                        dataHash={`${this.state.renderHash}-${this.state.tableWidth}`}
+                        resetHash={this.state.renderHash}
                         rowHeight={rowHeight}
                         rowCount={this.props.data.length}
                         headerHeight={50}
@@ -149,6 +192,10 @@ export default class MapList extends React.Component {
                         maxWidth={this.state.tableWidth}
                         maxHeight={tableHeight}
                         columns={this.state.columns} />
+                </div>
+                <div className="map-list-citation">
+                    <p>Sources: US. Census Bureau, Population Division</p>
+                    <p>The World Factbook 2013-14. Washington, DC: Central Intelligence Agency, 2013</p>
                 </div>
             </div>
         );
