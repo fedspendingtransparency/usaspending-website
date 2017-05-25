@@ -30,7 +30,7 @@ export default class BudgetLine extends React.Component {
                 labelPadding={5}
                 labelDistance={5}
                 currentX={0}
-                graphWidth={this.gClass.offsetWidth * 0.73}
+                graphWidth={this.gClass.offsetWidth * 0.79}
                 size="large" />);
         }
         return (<div
