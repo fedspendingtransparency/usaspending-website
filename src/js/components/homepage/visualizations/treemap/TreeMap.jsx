@@ -39,6 +39,7 @@ export default class TreeMap extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log("TreeMap Receiving Props");
         if (nextProps.descriptions !== this.state.descriptions) {
             this.setState({
                 descriptions: nextProps.descriptions
@@ -115,6 +116,7 @@ export default class TreeMap extends React.Component {
     }
 
     render() {
+        console.log("TreeMap Rendering");
         let functions = (<BudgetFunctions
             {...this.props}
             toggleSubfunction={this.toggleSubfunction}

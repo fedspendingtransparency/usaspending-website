@@ -36,15 +36,18 @@ export default class BudgetFunctions extends React.Component {
             showOverlay: true
         };
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.buildTree = this.buildTree.bind(this);
         this.createTooltip = this.createTooltip.bind(this);
     }
 
     componentDidMount() {
+        console.log("BudgetFunction Mounted");
         this.handleWindowResize();
         window.addEventListener('resize', this.handleWindowResize);
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log("BudgetFunction Receiving Props");
         if (nextProps.categories.children.length > 0) {
             this.buildTree(nextProps.categories, nextProps.colors, nextProps.alternateColors,
                 this.props.tooltipStyles);
@@ -52,6 +55,7 @@ export default class BudgetFunctions extends React.Component {
     }
 
     componentWillUnmount() {
+        console.log("BudgetFunction Unmounting");
         window.removeEventListener('resize', this.handleWindowResize);
     }
 
@@ -126,6 +130,7 @@ export default class BudgetFunctions extends React.Component {
                     toggleTooltipOut={this.toggleTooltipOut}
                     clickable />);
             }
+            console.log(cell);
             return cell;
         });
         this.setState({
@@ -151,6 +156,9 @@ export default class BudgetFunctions extends React.Component {
     }
 
     render() {
+        const string = `BudgetFunction State has: ${this.state.finalNodes} Nodes`;
+        console.log(string);
+        console.log("BudgetFunction Rendering");
         return (
             <div className="treemap-inner-wrap">
                 { this.createTooltip() }
