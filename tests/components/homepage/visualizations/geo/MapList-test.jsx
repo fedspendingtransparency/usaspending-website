@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import MapList from 'components/homepage/visualizations/geo/MapList';

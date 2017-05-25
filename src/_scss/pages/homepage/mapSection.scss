@@ -38,8 +38,12 @@
                 top: rem(30);
             }
             & .map-legend {
-                bottom: rem(80);
+                bottom: rem(100);
                 left: rem(30);
+
+                @include media($tablet-screen) {
+                    bottom: rem(80);
+                }
             }
             height: rem(760);
             & .mapbox-item.mapboxgl-map {
@@ -63,5 +67,16 @@
 
         @import "./mapToggleCapita";
         @import "./mapCitation";
+    }
+
+    .info-icon {
+        margin-left: 10px;
+        svg {
+            width: 16px;
+            height: 16px;
+            fill: $color-base;
+
+            transform: translate(0, 4px);
+        }
     }
 }

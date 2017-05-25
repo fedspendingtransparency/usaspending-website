@@ -6,6 +6,7 @@
 import React from 'react';
 import _ from 'lodash';
 
+import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import ToggleButton from 'components/sharedComponents/ToggleButton';
 import MapWrapper from 'components/search/visualizations/geo/MapWrapper';
 
@@ -131,7 +132,13 @@ export default class MapVisualization extends React.Component {
                         The map reflects where funding was used. This is called &quot;place of performance.&quot;
                     </p>
                     <p>
-                        Source: U.S. Census Bureau, Population Division
+                        Sources: U.S. Census Bureau, Population Division
+                    </p>
+                    <p>
+                        The World Factbook 2013-14. Washington, DC: Central Intelligence Agency, 2013
+                        <span className="info-icon">
+                            <InfoCircle alt="Citation" />
+                        </span>
                     </p>
                 </div>
                 <MapWrapper

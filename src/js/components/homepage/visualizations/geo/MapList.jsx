@@ -8,6 +8,7 @@ import _ from 'lodash';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 import { tableColumns } from 'dataMapping/homepage/mapTable';
 import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableGenericCell';
@@ -195,7 +196,12 @@ export default class MapList extends React.Component {
                 </div>
                 <div className="map-list-citation">
                     <p>Sources: US. Census Bureau, Population Division</p>
-                    <p>The World Factbook 2013-14. Washington, DC: Central Intelligence Agency, 2013</p>
+                    <p>
+                        The World Factbook 2013-14. Washington, DC: Central Intelligence Agency, 2013
+                        <span className="info-icon">
+                            <InfoCircle alt="Citation" />
+                        </span>
+                    </p>
                 </div>
             </div>
         );
