@@ -13,20 +13,6 @@ const defaultValues = {
     capitaRank: 0
 };
 
-const UnderlyingModel = new Record(defaultValues);
-
-class HomepageStateModel {
-    constructor(values) {
-        // create a Record instance that will populate any missing fields
-        const recordModel = new UnderlyingModel(values);
-        // conver the Record to a standard JS object
-        const jsModel = recordModel.toJS();
-
-        // iterate through the object and set each key in our new object
-        Object.keys(jsModel).forEach((key) => {
-            this[key] = jsModel[key];
-        });
-    }
-}
+const HomepageStateModel = new Record(defaultValues);
 
 export default HomepageStateModel;
