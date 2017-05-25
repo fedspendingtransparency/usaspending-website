@@ -13,7 +13,6 @@ const defaultValues = {
     capitaRank: 0
 };
 
-// const HomepageStateModel = new Record(defaultValues);
 class HomepageStateModel extends Record(defaultValues) {
     constructor(values) {
         const convertedValues = {};
