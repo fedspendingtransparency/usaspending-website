@@ -4,13 +4,14 @@
  **/
 
 import React from 'react';
-import * as d3 from 'd3';
+import { hierarchy, treemap, treemapDice, treemapSlice } from 'd3-hierarchy';
 import _ from 'lodash';
 import { HandDrawnArrow } from 'components/sharedComponents/icons/Icons';
 
 import CategoryMapCell from './CategoryMapCell';
 import CategoryMapTooltip from './CategoryMapTooltip';
 import BudgetLine from './BudgetLine';
+import BudgetLineHorizontal from './BudgetLineHorizontal';
 
 const propTypes = {
     breakdown: React.PropTypes.object,
@@ -33,7 +34,8 @@ export default class CategoryMap extends React.Component {
             x: 0,
             y: 0,
             width: 0,
-            height: 0
+            height: 0,
+            geoPortion: 0
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
@@ -75,26 +77,31 @@ export default class CategoryMap extends React.Component {
 
     buildTree(cats, colors, tooltipStyles) {
         // put the data through d3's hierarchy system to sum and sort it
-        const root = d3.hierarchy(cats)
+        const root = hierarchy(cats)
         .sum((d) => (d.value))
         .sort((d) => (d.id));
 
         // set up a treemap object and pass in the root
-        let tileStyle = d3.treemapDice;
+        let tileStyle = treemapDice;
         let height = 140;
         if (this.state.windowWidth < 768) {
-            tileStyle = d3.treemapSlice;
+            tileStyle = treemapSlice;
             height = 900;
         }
-        const treemap = d3.treemap()
+        const treemapLayout = treemap()
             .round(true)
             .tile(tileStyle)
             .size([this.state.visualizationWidth, height])(root).leaves();
 
+        let geoPortion = 0;
+
         // build the tiles
-        const nodes = treemap.map((n, i) => {
+        const nodes = treemapLayout.map((n, i) => {
             let cell = '';
             if (n.value !== 0) {
+                if (i + 1 < treemapLayout.length) {
+                    geoPortion += (n.x1 - n.x0);
+                }
                 cell = (<CategoryMapCell
                     label={n.data.name}
                     value={n.data.value}
@@ -114,13 +121,13 @@ export default class CategoryMap extends React.Component {
         });
 
         this.setState({
+            geoPortion,
             finalNodes: nodes
         });
     }
 
     toggleTooltipIn(categoryID, height, width) {
         const category = _.find(this.state.finalNodes, { key: `${categoryID}` });
-
         this.setState({
             category: category.props.label,
             description: category.props.description,
@@ -160,7 +167,8 @@ export default class CategoryMap extends React.Component {
     }
 
     render() {
-        let line = null;
+        let line = (<BudgetLineHorizontal
+            width={this.state.geoPortion} />);
         if (this.state.windowWidth < 768) {
             line = <BudgetLine />;
         }

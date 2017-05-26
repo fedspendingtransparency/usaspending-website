@@ -27,6 +27,19 @@
             float: left;
             width: rem(20);
             height: rem(642);
+
+            &.horizontal {
+                display: block;
+                float: none;
+                height: rem(30);
+                width: 100%;
+
+                text {
+                    text-align: center;
+                    font-size: rem(24);
+                    font-weight: $font-light;
+                }
+            }
         }
     }
 }
