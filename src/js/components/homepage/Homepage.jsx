@@ -56,6 +56,7 @@ export default class Homepage extends React.Component {
                     breakdownColors: res.data.breakdownColors,
                     tooltipStyles: res.data.tooltipStyles,
                     total: res.data.totalSpent,
+                    totalNumber: res.data.totalSpentNumber,
                     states: res.data.states,
                     alternateColors: res.data.alternateColors,
                     subfunctions: res.data.subfunctions
@@ -82,7 +83,8 @@ export default class Homepage extends React.Component {
                     descriptions={this.state.descriptions}
                     subfunctions={this.state.subfunctions}
                     alternateColors={this.state.alternateColors}
-                    total={this.state.breakdownTotal}
+                    total={this.state.total}
+                    totalNumber={this.state.totalNumber}
                     tooltipStyles={this.state.tooltipStyles} />
                 <CategoryMap
                     breakdown={this.state.breakdown}

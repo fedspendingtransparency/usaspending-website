@@ -155,9 +155,9 @@ export const calculateUnitForSingleValue = (value) => {
 
 export const formatTreemapValues = (value) => {
     // Format the ceiling and current values to be friendly strings
-    const units = this.calculateUnitForSingleValue(value);
+    const units = calculateUnitForSingleValue(value);
     // Only reformat at a million or higher
-    if (units.unit < this.unitValues.MILLION) {
+    if (units.unit < unitValues.MILLION) {
         units.unit = 1;
         units.unitLabel = '';
         units.longLabel = '';
@@ -169,7 +169,7 @@ export const formatTreemapValues = (value) => {
         precision = 0;
     }
 
-    const formattedCurrency = this.formatMoneyWithPrecision(formattedValue, precision);
+    const formattedCurrency = formatMoneyWithPrecision(formattedValue, precision);
 
     // Don't add an extra space when there's no units string to display
     let longLabel = '';

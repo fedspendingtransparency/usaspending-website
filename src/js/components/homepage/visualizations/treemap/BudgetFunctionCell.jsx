@@ -23,7 +23,11 @@ const propTypes = {
     toggleTooltipOut: React.PropTypes.func,
     textColor: React.PropTypes.string,
     textShadow: React.PropTypes.string,
-    textClass: React.PropTypes.string
+    textClass: React.PropTypes.string,
+    height: React.PropTypes.number,
+    width: React.PropTypes.number,
+    labelView: React.PropTypes.string,
+    percentView: React.PropTypes.string
 };
 
 export default class BudgetFunctionCell extends React.Component {
@@ -92,18 +96,6 @@ export default class BudgetFunctionCell extends React.Component {
     }
 
     render() {
-        let labelView = 'block';
-        let percentView = 'block';
-
-        const width = (this.props.x1 - this.props.x0);
-        const height = (this.props.y1 - this.props.y0);
-        if (height < 26 || width < 50) {
-            labelView = 'none';
-        }
-        if (height < 40 || width < 60) {
-            percentView = 'none';
-        }
-
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
@@ -118,8 +110,8 @@ export default class BudgetFunctionCell extends React.Component {
                 }}>
                 <rect
                     className="tile"
-                    width={width}
-                    height={height}
+                    width={this.props.width}
+                    height={this.props.height}
                     style={{
                         fill: this.props.color,
                         stroke: this.props.strokeColor,
@@ -129,15 +121,15 @@ export default class BudgetFunctionCell extends React.Component {
                     }} />
                 <text
                     className={`category ${this.props.textClass}`}
-                    x={(width / 2)}
-                    y={height / 2}
-                    width={width}
+                    x={(this.props.width / 2)}
+                    y={this.props.height / 2}
+                    width={this.props.width}
                     textAnchor="middle"
                     ref={(text) => {
                         this.svgText = text;
                     }}
                     style={{
-                        display: labelView,
+                        display: this.props.labelView,
                         fill: this.props.textColor,
                         textShadow: this.props.textShadow
                     }}>
@@ -145,12 +137,12 @@ export default class BudgetFunctionCell extends React.Component {
                 </text>
                 <text
                     className={`value ${this.props.textClass}`}
-                    x={(width / 2) - 2}
-                    y={(height / 2) + 20}
-                    width={width}
+                    x={(this.props.width / 2) - 2}
+                    y={(this.props.height / 2) + 20}
+                    width={this.props.width}
                     textAnchor="middle"
                     style={{
-                        display: percentView,
+                        display: this.props.percentView,
                         fill: this.props.textColor,
                         textShadow: this.props.textShadow
                     }}>

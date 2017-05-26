@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import * as d3 from 'd3';
+import { hierarchy, treemap, treemapDice, treemapSlice } from 'd3-hierarchy';
 import _ from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
@@ -75,24 +75,24 @@ export default class CategoryMap extends React.Component {
 
     buildTree(cats, colors, tooltipStyles) {
         // put the data through d3's hierarchy system to sum and sort it
-        const root = d3.hierarchy(cats)
+        const root = hierarchy(cats)
         .sum((d) => (d.value))
         .sort((d) => (d.id));
 
         // set up a treemap object and pass in the root
-        let tileStyle = d3.treemapDice;
+        let tileStyle = treemapDice;
         let height = 140;
         if (this.state.windowWidth < 768) {
-            tileStyle = d3.treemapSlice;
+            tileStyle = treemapSlice;
             height = 900;
         }
-        const treemap = d3.treemap()
+        const categoryTreemap = treemap()
             .round(true)
             .tile(tileStyle)
             .size([this.state.visualizationWidth, height])(root).leaves();
 
         // build the tiles
-        const nodes = treemap.map((n, i) => {
+        const nodes = categoryTreemap.map((n, i) => {
             let cell = '';
             if (n.value !== 0) {
                 cell = (<CategoryMapCell

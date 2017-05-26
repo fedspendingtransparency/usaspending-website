@@ -4,7 +4,7 @@
 **/
 
 import React from 'react';
-import * as d3 from 'd3';
+import { hierarchy, treemap, treemapDice } from 'd3-hierarchy';
 import _ from 'lodash';
 
 import TreeMapCell from './TreeMapCell';
@@ -81,7 +81,7 @@ export default class BudgetFunctionsMinimized extends React.Component {
 
     buildTree(cats, colors, styles) {
         // put the data through d3's hierarchy system to sum and sort it
-        const root = d3.hierarchy(cats)
+        const root = hierarchy(cats)
         .sum((d) => (d.value))
         .sort((a, b) => b.height - a.height || b.value - a.value);
 
@@ -91,13 +91,13 @@ export default class BudgetFunctionsMinimized extends React.Component {
         this.setState({
             visualizationHeight: mapHeight
         });
-        const treemap = d3.treemap()
+        const budgetFunctionsMinimizedTreemap = treemap()
         .round(true)
-        .tile(d3.treemapDice)
+        .tile(treemapDice)
         .size([mapWidth, mapHeight])(root).leaves();
 
         // build the tiles
-        const nodes = treemap.map((n, i) =>
+        const nodes = budgetFunctionsMinimizedTreemap.map((n, i) =>
             <TreeMapCell
                 label={n.data.name}
                 value={n.value}

@@ -24,13 +24,11 @@ const propTypes = {
     selectedDesc: React.PropTypes.string,
     changeActiveSubfunction: React.PropTypes.func,
     toggleSubfunction: React.PropTypes.func,
-    toggleOverlay: React.PropTypes.func,
     tooltipStyles: React.PropTypes.object,
     total: React.PropTypes.number
 };
 
 const defaultProps = {
-
 };
 
 export default class BudgetSubfunctions extends React.Component {

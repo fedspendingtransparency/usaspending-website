@@ -1,5 +1,6 @@
 {
     "totalSpent": "$3.85 trillion",
+    "totalSpentNumber": 3982140404822,
     "budgetCategories": {
         "children": [
             { "id": 0, "name": "Social Security", "value": 916077987132.59 },

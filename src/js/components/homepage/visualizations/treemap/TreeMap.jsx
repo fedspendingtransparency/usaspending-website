@@ -15,7 +15,8 @@ const propTypes = {
     descriptions: React.PropTypes.array,
     subfunctions: React.PropTypes.object,
     alternateColors: React.PropTypes.array,
-    tooltipStyles: React.PropTypes.object
+    tooltipStyles: React.PropTypes.object,
+    totalNumber: React.PropTypes.number
 };
 
 export default class TreeMap extends React.Component {

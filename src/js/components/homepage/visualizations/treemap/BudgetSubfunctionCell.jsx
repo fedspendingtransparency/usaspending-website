@@ -54,38 +54,22 @@ export default class TreeMapCell extends React.Component {
     }
 
     componentDidMount() {
-        console.log("BudgetFunction Mounted");
-        this.initialRender(this.props.label, this.props.color, this.props.alternateColor);
+        this.initialRender(this.props.label);
     }
 
     componentWillReceiveProps(props) {
-        console.log("TreeMapCell Receiving Props");
-        if (props !== this.props) {
-            this.initialRender(props.label, props.color, props.alternateColor);
-        }
+        this.initialRender(props.label);
     }
 
     componentDidUpdate() {
-        console.log("TreeMapCell Updating");
         if (!this.state.didProcess) {
             this.truncateText();
         }
     }
 
-    initialRender(label, color, altColor) {
-        let initialColor = color;
-        const top3 = ["Social Security", "National Defense", "Medicare"];
-        if (!_.includes(top3, label) && this.props.showOverlay) {
-            initialColor = altColor;
-        }
-
-        if (this.props.showOverlay === false) {
-            initialColor = color;
-        }
-
+    initialRender(label) {
         this.setState({
             label,
-            color: initialColor,
             didProcess: false
         });
     }
