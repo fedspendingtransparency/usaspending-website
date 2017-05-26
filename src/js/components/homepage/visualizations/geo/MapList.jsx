@@ -89,7 +89,14 @@ export default class MapList extends React.Component {
     }
 
     sortData(data) {
-        return _.orderBy(data, [this.state.sort.field], [this.state.sort.direction]);
+        return _.orderBy(data, (item) => {
+            const compareValue = item[this.state.sort.field];
+            // handle N/As
+            if (compareValue === 'N/A') {
+                return Infinity;
+            }
+            return compareValue;
+        }, [this.state.sort.direction]);
     }
 
     prepareTable(data) {
@@ -127,6 +134,10 @@ export default class MapList extends React.Component {
                     let formattedValue = `${sortedData[rowIndex][column]}`;
                     if (column === 'amount' || column === 'capita') {
                         formattedValue = MoneyFormatter.formatMoney(sortedData[rowIndex][column]);
+                        if (sortedData[rowIndex][column] === 'N/A') {
+                            // handle N/A values
+                            formattedValue = 'N/A';
+                        }
                     }
 
                     return (<ResultsTableGenericCell
