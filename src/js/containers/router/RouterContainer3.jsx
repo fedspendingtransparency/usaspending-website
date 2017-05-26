@@ -1,18 +1,21 @@
 /**
 * RouterContainer.jsx
-* Created by Kevin Li 5/26/17
+* Created by Emily Gullo 10/14/2016
 **/
 
 import React from 'react';
+import { Router, hashHistory } from 'react-router';
+
 import kGlobalConstants from 'GlobalConstants';
 
 import GuideListenerSingleton from './GuideListenerSingleton';
-import Router from './Router';
+import RouterRoutes from './RouterRoutes';
 
 const ga = require('react-ga');
 
 const GA_OPTIONS = { debug: false };
 
+const Routes = new RouterRoutes();
 
 export default class RouterContainer extends React.Component {
     static logPageView(path) {
@@ -23,21 +26,11 @@ export default class RouterContainer extends React.Component {
         super(props);
 
         this.state = {
-            lastPath: '',
-            content: null,
-            route: {
-
-            }
+            lastPath: ''
         };
 
         // bind functions
         this.handleRouteChange = this.handleRouteChange.bind(this);
-    }
-
-    componentWillMount() {
-        // subscribe to the Router for changes
-        Router.reactContainer = this;
-        Router.startRouter();
     }
 
     componentDidMount() {
@@ -45,10 +38,6 @@ export default class RouterContainer extends React.Component {
         if (kGlobalConstants.GA_TRACKING_ID !== '') {
             ga.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
         }
-    }
-
-    componentWillUnmount() {
-        Router.reactContainer = null;
     }
 
     handleRouteChange() {
@@ -65,22 +54,19 @@ export default class RouterContainer extends React.Component {
             });
         }
 
-        // GuideListenerSingleton.updateGuideValue(this.router.state.location.query);
-    }
-
-    navigateToComponent(component, route) {
-        this.setState({
-            route,
-            content: component
-        });
+        GuideListenerSingleton.updateGuideValue(this.router.state.location.query);
     }
 
     render() {
-        if (!this.state.content) {
-            return null;
-        }
-
-        const ContentComponent = this.state.content;
-        return <ContentComponent params={this.state.route.params} />;
+        return (
+            <Router
+                routes={Routes.routes()}
+                history={hashHistory}
+                onUpdate={this.handleRouteChange}
+                ref={(router) => {
+                    this.router = router;
+                    return this.router;
+                }} />
+        );
     }
 }
