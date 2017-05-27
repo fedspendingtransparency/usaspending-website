@@ -113,6 +113,7 @@ export default class PrimaryCheckboxType extends React.Component {
     toggleChildren() {
         // TO-DO: Fix input for bulkTypeChange on award type filter
         // currently showing types as undefined
+        // TO-DO: Fix input child checkboxes to show checked state
         let showChildren = true;
         let arrowState = 'expanded';
 
