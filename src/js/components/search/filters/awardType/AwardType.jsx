@@ -5,11 +5,11 @@
 
 import React from 'react';
 
-import { awardTypeGroups } from 'dataMapping/search/awardType';
-import PrimaryAwardType from './PrimaryAwardType';
+import { awardTypeGroups, awardTypeCodes } from 'dataMapping/search/awardType';
+import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
 const defaultProps = {
-    awardTypes: [
+    awardTypeMapping: [
         {
             id: 'award-contracts',
             name: 'Contracts',
@@ -40,16 +40,26 @@ const defaultProps = {
 };
 
 const propTypes = {
-    awardTypes: React.PropTypes.arrayOf(React.PropTypes.object)
+    awardTypeMapping: React.PropTypes.arrayOf(React.PropTypes.object),
+    awardType: React.PropTypes.object,
+    bulkAwardTypeChange: React.PropTypes.func
 };
 
 export default class AwardType extends React.Component {
 
     render() {
         const awardTypes = (
-            this.props.awardTypes.map((type, index) =>
-                <PrimaryAwardType {...type} {...this.props} key={index} />
-        ));
+            this.props.awardTypeMapping.map((type, index) =>
+                <PrimaryCheckboxType
+                    {...type}
+                    {...this.props}
+                    key={index}
+                    types={awardTypeCodes}
+                    filterType="Award"
+                    selectedCheckboxes={this.props.awardType}
+                    bulkTypeChange={this.props.bulkAwardTypeChange}
+                    enableAnalytics />
+    ));
 
         return (
             <div className="award-type-filter search-filter">
