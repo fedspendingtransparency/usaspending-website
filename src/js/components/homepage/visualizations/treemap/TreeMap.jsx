@@ -6,8 +6,8 @@
 import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
-import BudgetFunctions from './BudgetFunctions';
-import BudgetSubfunctions from './BudgetSubfunctions';
+import BudgetFunctions from './BudgetFunctions/BudgetFunctions';
+import BudgetSubfunctions from './BudgetSubfunctions/BudgetSubfunctions';
 
 const propTypes = {
     categories: React.PropTypes.object,
@@ -29,6 +29,7 @@ export default class TreeMap extends React.Component {
         };
 
         this.toggleSubfunction = this.toggleSubfunction.bind(this);
+        this.changeActiveSubfunction = this.changeActiveSubfunction.bind(this);
     }
 
     toggleSubfunction(selected) {
@@ -36,6 +37,10 @@ export default class TreeMap extends React.Component {
             showSubfunctions: !this.state.showSubfunctions,
             selected
         });
+    }
+
+    changeActiveSubfunction(selected) {
+        this.setState({ selected });
     }
 
     render() {
@@ -46,7 +51,9 @@ export default class TreeMap extends React.Component {
         if (this.state.showSubfunctions === true) {
             functions = (<BudgetSubfunctions
                 {...this.props}
-                toggleSubfunction={this.toggleSubfunction} />);
+                {...this.state}
+                toggleSubfunction={this.toggleSubfunction}
+                changeActiveSubfunction={this.changeActiveSubfunction} />);
         }
 
         return (

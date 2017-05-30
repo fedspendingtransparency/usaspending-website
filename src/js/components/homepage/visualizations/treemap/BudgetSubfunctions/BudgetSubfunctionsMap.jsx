@@ -1,50 +1,44 @@
 /**
-* BudgetFunctions.jsx
-* Created by Emily Gullo 05/15/2017
-**/
+ * BudgetSubfunctionsMap.jsx
+ * Created by Emily Gullo 03/15/2017
+ **/
 
 import React from 'react';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
 import _ from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import BudgetFunctionCell from './BudgetFunctionCell';
-import TreeMapTooltip from './TreeMapTooltip';
+import BudgetFunctionCell from '../BudgetFunctions/BudgetFunctionCell';
+import TreeMapTooltip from '../TreeMapTooltip';
 
 const propTypes = {
-    categories: React.PropTypes.object,
+    category: React.PropTypes.object,
     colors: React.PropTypes.array,
-    descriptions: React.PropTypes.array,
-    alternateColors: React.PropTypes.array,
-    tooltipStyles: React.PropTypes.object,
-    toggleSubfunction: React.PropTypes.func,
-    totalNumber: React.PropTypes.number
+    selected: React.PropTypes.number,
+    subfunction: React.PropTypes.object,
+    tooltipStyles: React.PropTypes.object
 };
 
 const defaultProps = {
-    showOverlay: true
+    subfunctions: {},
+    selected: -1
 };
 
-const topFunctions = ["Social Security", "National Defense", "Medicare"];
-
-export default class BudgetFunctions extends React.Component {
+export default class BudgetSubfunctionsMap extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             windowWidth: 0,
             visualizationWidth: 0,
-            visualizationHeight: 565,
+            visualizationHeight: 286,
             finalNodes: [],
-            showOverlay: true,
             hoveredFunction: -1
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
-        this.createTooltip = this.createTooltip.bind(this);
         this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
-        this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
         this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
     }
 
@@ -54,7 +48,7 @@ export default class BudgetFunctions extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.categories.children.length > 0) {
+        if (nextProps.subfunction.children.length > 0) {
             this.buildTree(nextProps);
         }
     }
@@ -72,7 +66,7 @@ export default class BudgetFunctions extends React.Component {
                 windowWidth,
                 visualizationWidth: this.sectionWrapper.offsetWidth
             });
-            if (this.props.categories.children.length > 0) {
+            if (this.props.subfunction.children.length > 0) {
                 this.buildTree(this.props);
             }
         }
@@ -80,7 +74,7 @@ export default class BudgetFunctions extends React.Component {
 
     buildTree(treeProps) {
         // put the data through d3's hierarchy system to sum and sort it
-        const root = hierarchy(treeProps.categories)
+        const root = hierarchy(treeProps.subfunction)
         .sum((d) => (d.value))
         .sort((a, b) => b.height - a.height || b.value - a.value);
 
@@ -90,38 +84,14 @@ export default class BudgetFunctions extends React.Component {
             tileStyle = treemapSlice;
         }
 
-        const budgetFunctionTreemap = treemap()
-        .round(true)
-        .tile(tileStyle)
-        .size([this.sectionWrapper.offsetWidth, this.state.visualizationHeight])(root).leaves();
+        const budgetSubfunctionsTreemap = treemap()
+            .round(true)
+            .tile(tileStyle)
+            .size([this.sectionWrapper.offsetWidth, this.state.visualizationHeight])(root).leaves();
 
         // build the tiles
-        const nodes = budgetFunctionTreemap.map((n, i) => {
+        const nodes = budgetSubfunctionsTreemap.map((n, i) => {
             let cell = '';
-            let cellColor = treeProps.colors[i];
-            let strokeColor = 'white';
-            let strokeOpacity = 0.5;
-            let textColor = treeProps.tooltipStyles.defaultStyle.textColor;
-            let textShadow = treeProps.tooltipStyles.defaultStyle.textShadow;
-            let textClass = '';
-
-            if (this.state.showOverlay) {
-                cellColor = treeProps.alternateColors[i];
-
-                if (topFunctions.indexOf(n.data.name) > -1) {
-                    cellColor = treeProps.colors[i];
-                    strokeColor = '#F2B733';
-                    strokeOpacity = 1;
-                }
-            }
-
-            // Set highlighted state for hovered function
-            if (this.state.hoveredFunction === n.data.id) {
-                cellColor = treeProps.tooltipStyles.highlightedStyle.color;
-                textColor = treeProps.tooltipStyles.highlightedStyle.textColor;
-                textShadow = treeProps.tooltipStyles.highlightedStyle.textShadow;
-                textClass = 'chosen';
-            }
 
             // Calculate display params
             let labelView = 'block';
@@ -137,9 +107,6 @@ export default class BudgetFunctions extends React.Component {
                 percentView = 'none';
             }
 
-            console.log(n.data.id);
-
-            // Finally, create the cell
             if (n.value !== 0) {
                 cell = (<BudgetFunctionCell
                     {...treeProps}
@@ -152,22 +119,21 @@ export default class BudgetFunctions extends React.Component {
                     total={n.parent.value}
                     key={i}
                     functionID={n.data.id}
-                    color={cellColor}
-                    strokeColor={strokeColor}
-                    strokeOpacity={strokeOpacity}
+                    color={treeProps.colors[i]}
+                    strokeColor={'white'}
+                    strokeOpacity={0.5}
                     tooltipStyles={treeProps.tooltipStyles}
                     toggleTooltipIn={this.toggleTooltipIn}
                     toggleTooltipOut={this.toggleTooltipOut}
-                    textColor={textColor}
-                    textShadow={textShadow}
-                    textClass={textClass}
+                    textColor={treeProps.tooltipStyles.defaultStyle.textColor}
+                    textShadow={treeProps.tooltipStyles.defaultStyle.textShadow}
+                    textClass={''}
                     labelView={labelView}
                     width={width}
                     height={height}
                     percentView={percentView}
-                    clickable />);
+                    clickable={false} />);
             }
-
             return cell;
         });
 
@@ -194,24 +160,14 @@ export default class BudgetFunctions extends React.Component {
         });
     }
 
-    toggleSubfunction(selection) {
-        this.props.toggleSubfunction(selection);
-    }
-
-    calculatePercentage(category) {
-        return `${((category.value / this.props.totalNumber) * 100).toFixed(1)}%`;
-    }
-
     createTooltip() {
         let tooltip = null;
 
         if (this.state.hoveredFunction > -1) {
             const category = _.find(
-                this.props.categories.children,
+                this.props.subfunction.children,
                 { id: this.state.hoveredFunction });
-            const description = _.find(
-                this.props.descriptions,
-                { id: this.state.hoveredFunction });
+
             const node = _.find(
                 this.state.finalNodes,
                 { key: `${this.state.hoveredFunction}` });
@@ -220,20 +176,21 @@ export default class BudgetFunctions extends React.Component {
                 name={category.name}
                 value={MoneyFormatter.formatTreemapValues(category.value)}
                 percentage={MoneyFormatter.calculateTreemapPercentage(
-                    category.value, this.props.totalNumber)
+                    category.value, this.props.category.value)
                 }
-                description={description.value}
+                description={category.description}
                 x={node.props.x0}
                 y={node.props.y0}
                 width={node.props.width}
                 height={(node.props.height / 2) + 50} />);
         }
+
         return tooltip;
     }
 
     render() {
         return (
-            <div className="treemap-inner-wrap">
+            <div>
                 { this.createTooltip() }
                 <div
                     className="tree-wrapper"
@@ -241,9 +198,9 @@ export default class BudgetFunctions extends React.Component {
                         this.sectionWrapper = sr;
                     }}>
                     <svg
+                        className="treemap-svg"
                         width={this.state.visualizationWidth}
-                        height={this.state.visualizationHeight}
-                        className="treemap-svg overlay">
+                        height={286}>
                         { this.state.finalNodes }
                     </svg>
                 </div>
@@ -252,5 +209,6 @@ export default class BudgetFunctions extends React.Component {
     }
 
 }
-BudgetFunctions.propTypes = propTypes;
-BudgetFunctions.defaultProps = defaultProps;
+
+BudgetSubfunctionsMap.propTypes = propTypes;
+BudgetSubfunctionsMap.defaultProps = defaultProps;

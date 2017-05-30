@@ -6,23 +6,23 @@
 import React from 'react';
 import { hierarchy, treemap, treemapDice } from 'd3-hierarchy';
 import _ from 'lodash';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import TreeMapCell from './TreeMapCell';
-import TreeMapTooltip from './TreeMapTooltip';
+import MinimizedBudgetFunctionsCell from './MinimizedBudgetFunctionsCell';
+import MinimizedBudgetFunctionsTooltip from './MinimizedBudgetFunctionsTooltip';
 
 const propTypes = {
-    categories: React.PropTypes.object,
-    colors: React.PropTypes.array,
     alternateColors: React.PropTypes.array,
-    showSub: React.PropTypes.bool,
+    categories: React.PropTypes.object,
     changeActiveSubfunction: React.PropTypes.func,
+    colors: React.PropTypes.array,
+    descriptions: React.PropTypes.array,
+    selected: React.PropTypes.number,
     tooltipStyles: React.PropTypes.object,
-    chosen: React.PropTypes.string,
-    formatFriendlyString: React.PropTypes.func
+    totalNumber: React.PropTypes.number
 };
 
 export default class BudgetFunctionsMinimized extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -30,12 +30,8 @@ export default class BudgetFunctionsMinimized extends React.Component {
             windowWidth: 0,
             visualizationWidth: 0,
             visualizationHeight: 565,
-            category: 'none',
-            description: '',
-            finalNodes: '',
-            individualValue: '',
-            selected: '',
-            showSub: this.props.showSub
+            finalNodes: [],
+            hoveredFunction: -1
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
@@ -51,8 +47,7 @@ export default class BudgetFunctionsMinimized extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.categories.children.length > 0) {
-            this.buildTree(nextProps.categories, nextProps.alternateColors,
-                this.props.tooltipStyles);
+            this.buildTree(nextProps);
         }
     }
 
@@ -69,36 +64,37 @@ export default class BudgetFunctionsMinimized extends React.Component {
                 windowWidth,
                 visualizationWidth: this.sectionWrapper.offsetWidth
             });
-            let colors = this.props.colors;
-            if (this.state.showSub) {
-                colors = this.props.alternateColors;
-            }
             if (this.props.categories.children.length > 0) {
-                this.buildTree(this.props.categories, colors, this.props.tooltipStyles);
+                this.buildTree(this.props);
             }
         }
     }
 
-    buildTree(cats, colors, styles) {
+    buildTree(treeProps) {
         // put the data through d3's hierarchy system to sum and sort it
-        const root = hierarchy(cats)
+        const root = hierarchy(treeProps.categories)
         .sum((d) => (d.value))
         .sort((a, b) => b.height - a.height || b.value - a.value);
 
         // set up a treemap object and pass in the root
         const mapHeight = 25;
         const mapWidth = this.sectionWrapper.offsetWidth;
-        this.setState({
-            visualizationHeight: mapHeight
-        });
+
         const budgetFunctionsMinimizedTreemap = treemap()
-        .round(true)
-        .tile(treemapDice)
-        .size([mapWidth, mapHeight])(root).leaves();
+            .round(true)
+            .tile(treemapDice)
+            .size([mapWidth, mapHeight])(root).leaves();
 
         // build the tiles
-        const nodes = budgetFunctionsMinimizedTreemap.map((n, i) =>
-            <TreeMapCell
+        const nodes = budgetFunctionsMinimizedTreemap.map((n, i) => {
+            let color = treeProps.alternateColors[i];
+            if (i === treeProps.selected) {
+                color = treeProps.colors[i];
+            }
+
+            const width = (n.x1 - n.x0);
+
+            const cell = (<MinimizedBudgetFunctionsCell
                 label={n.data.name}
                 value={n.value}
                 x0={n.x0}
@@ -107,64 +103,71 @@ export default class BudgetFunctionsMinimized extends React.Component {
                 y1={n.y1}
                 total={n.parent.value}
                 key={i}
-                categoryID={n.data.id}
-                color={colors[i]}
-                chosenColor={this.props.colors[i]}
-                chosen={this.props.chosen}
+                functionID={n.data.id}
+                color={color}
+                strokeColor="white"
+                tooltipStyles={treeProps.tooltipStyles}
                 toggleTooltipIn={this.toggleTooltipIn}
                 toggleTooltipOut={this.toggleTooltipOut}
-                tooltipStyles={styles}
-                showSub={this.state.showSub}
-                changeActiveSubfunction={this.props.changeActiveSubfunction}
-                clickable />
-        );
+                width={width}
+                height={25}
+                changeActiveSubfunction={treeProps.changeActiveSubfunction}
+                clickable />);
+
+            return cell;
+        });
+
         this.setState({
-            finalNodes: nodes
+            finalNodes: nodes,
+            visualizationHeight: mapHeight
         });
     }
 
-    toggleTooltipIn(categoryID, height, width) {
-        const category = _.find(this.state.finalNodes, { key: `${categoryID}` });
-
+    toggleTooltipIn(functionID) {
         this.setState({
-            category: category.props.label,
-            description: category.props.description,
-            individualValue: category.props.value,
-            total: category.props.total,
-            x: category.props.x0,
-            y: category.props.y0,
-            width,
-            height
+            showOverlay: false,
+            hoveredFunction: functionID
+        }, () => {
+            this.buildTree(this.props);
         });
     }
 
-    toggleTooltipOut(height, width) {
+    toggleTooltipOut() {
         this.setState({
-            category: 'none',
-            description: '',
-            individualValue: '',
-            x: 0,
-            y: 0,
-            width,
-            height
+            showOverlay: true,
+            hoveredFunction: -1
+        }, () => {
+            this.buildTree(this.props);
         });
     }
 
     createTooltip() {
         let tooltip = null;
-        if (this.state.category !== 'none') {
-            tooltip = (<TreeMapTooltip
-                name={this.state.category}
-                value={this.props.formatFriendlyString(this.state.individualValue)}
-                percentage={`${((this.state.individualValue / this.state.total) *
-                    100).toFixed(1)}%`}
-                description={this.state.description}
-                x={this.state.x}
-                y={this.state.y}
-                width={this.state.width}
-                height={(this.state.height / 2) + 50}
-                showSub={this.state.showSub} />);
+
+        if (this.state.hoveredFunction > -1) {
+            const category = _.find(
+                this.props.categories.children,
+                { id: this.state.hoveredFunction });
+            const description = _.find(
+                this.props.descriptions,
+                { id: this.state.hoveredFunction });
+            const node = _.find(
+                this.state.finalNodes,
+                { key: `${this.state.hoveredFunction}` });
+
+            tooltip = (<MinimizedBudgetFunctionsTooltip
+                name={category.name}
+                value={MoneyFormatter.formatTreemapValues(category.value)}
+                percentage={MoneyFormatter.calculateTreemapPercentage(
+                    category.value, this.props.totalNumber)
+                }
+                description={description.value}
+                x={node.props.x0}
+                y={node.props.y0}
+                width={node.props.width}
+                height={node.props.height + 2} />);
         }
+
         return tooltip;
     }
 

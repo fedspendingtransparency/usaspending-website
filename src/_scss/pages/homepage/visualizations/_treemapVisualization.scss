@@ -12,7 +12,7 @@
         display: inline-block;
 
         @include media($medium-screen) {
-            width: 96%;
+            width: 100%;
         }
     }
     text {

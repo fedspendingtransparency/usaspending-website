@@ -22,6 +22,7 @@ export default class TreeMapTooltip extends React.Component {
     componentDidMount() {
         this.positionTooltip();
     }
+
     componentDidUpdate() {
         this.positionTooltip();
     }
@@ -90,10 +91,12 @@ export default class TreeMapTooltip extends React.Component {
                 </div>
             </div>);
         let smallValue = '';
+
         if (this.props.showSub === true || this.props.arrow) {
             desc = '';
             smallValue = ' small';
         }
+
         return (
             <div
                 className="visualization-tooltip"
