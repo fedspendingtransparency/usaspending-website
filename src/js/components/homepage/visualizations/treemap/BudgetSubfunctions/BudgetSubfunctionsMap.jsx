@@ -92,6 +92,18 @@ export default class BudgetSubfunctionsMap extends React.Component {
         // build the tiles
         const nodes = budgetSubfunctionsTreemap.map((n, i) => {
             let cell = '';
+            let cellColor = treeProps.colors[i];
+            let textColor = treeProps.tooltipStyles.defaultStyle.textColor;
+            let textShadow = treeProps.tooltipStyles.defaultStyle.textShadow;
+            let textClass = '';
+
+            // Set highlighted state for hovered function
+            if (this.state.hoveredFunction === n.data.id) {
+                cellColor = treeProps.tooltipStyles.highlightedStyle.color;
+                textColor = treeProps.tooltipStyles.highlightedStyle.textColor;
+                textShadow = treeProps.tooltipStyles.highlightedStyle.textShadow;
+                textClass = 'chosen';
+            }
 
             // Calculate display params
             let labelView = 'block';
@@ -119,15 +131,15 @@ export default class BudgetSubfunctionsMap extends React.Component {
                     total={n.parent.value}
                     key={i}
                     functionID={n.data.id}
-                    color={treeProps.colors[i]}
+                    color={cellColor}
                     strokeColor={'white'}
                     strokeOpacity={0.5}
                     tooltipStyles={treeProps.tooltipStyles}
                     toggleTooltipIn={this.toggleTooltipIn}
                     toggleTooltipOut={this.toggleTooltipOut}
-                    textColor={treeProps.tooltipStyles.defaultStyle.textColor}
-                    textShadow={treeProps.tooltipStyles.defaultStyle.textShadow}
-                    textClass={''}
+                    textColor={textColor}
+                    textShadow={textShadow}
+                    textClass={textClass}
                     labelView={labelView}
                     width={width}
                     height={height}

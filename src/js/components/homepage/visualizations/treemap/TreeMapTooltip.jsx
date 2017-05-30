@@ -31,25 +31,27 @@ export default class TreeMapTooltip extends React.Component {
         // we need to wait for the tooltip to render before we can full position it due to its
         // dynamic width
         const tooltipWidth = this.div.offsetWidth;
-        const containerX = this.containerDiv.getBoundingClientRect().left;
+        const containerPadding = this.containerDiv.getBoundingClientRect().left;
         const windowWidth = window.innerWidth;
 
-        // determine the tooltip direction
+        // Offset the tooltip position to account for its arrow/pointer
+        let offset = -9;
+
+        // Create a default xPosition
+        const xPosition = this.props.width * 0.5;
+
+        // Set the left direction by default
         let direction = 'left';
-        if (tooltipWidth + containerX + this.props.x >= windowWidth - 50) {
+
+        // Position the tooltip to the other side if it's going to roll off the screen
+        if (this.props.x + xPosition + tooltipWidth >= windowWidth - containerPadding) {
+            // Offset the tooltip the other way
+            offset = 9 + tooltipWidth;
             direction = 'right';
         }
 
-        // offset the tooltip position to account for its arrow/pointer
-        let offset = -9;
-        let xPos = this.props.width * 0.75;
-        if (direction === 'right') {
-            offset = 9 + tooltipWidth;
-            xPos = (this.props.width / 5);
-        }
-
-        let leftDirection = `${(this.props.x + xPos) - offset}px`;
-        let topDirection = `${(this.props.y + this.props.height) - 80}px`;
+        let leftDirection = `${(this.props.x + xPosition) - offset}px`;
+        let topDirection = `${(this.props.y + this.props.height)}px`;
         let classValue = `tooltip ${direction}`;
         let size = '';
 
