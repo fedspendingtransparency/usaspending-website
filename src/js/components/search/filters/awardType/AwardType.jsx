@@ -63,9 +63,11 @@ export default class AwardType extends React.Component {
 
         return (
             <div className="award-type-filter search-filter">
-                <ul className="award-types">
-                    {awardTypes}
-                </ul>
+                <div className="checkbox-type-filter search-filter">
+                    <ul className="checkbox-types">
+                        {awardTypes}
+                    </ul>
+                </div>
             </div>
         );
     }
