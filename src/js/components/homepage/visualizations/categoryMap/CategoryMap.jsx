@@ -11,7 +11,6 @@ import { HandDrawnArrow } from 'components/sharedComponents/icons/Icons';
 import CategoryMapCell from './CategoryMapCell';
 import CategoryMapTooltip from './CategoryMapTooltip';
 import BudgetLine from './BudgetLine';
-import BudgetLineHorizontal from './BudgetLineHorizontal';
 
 const propTypes = {
     breakdown: React.PropTypes.object,
@@ -167,10 +166,19 @@ export default class CategoryMap extends React.Component {
     }
 
     render() {
-        let line = (<BudgetLineHorizontal
-            width={this.state.geoPortion} />);
+        let line = (<BudgetLine
+            size="large"
+            gTransform={`translate(${this.state.visualizationWidth / 2.75},0)rotate(0)`}
+            rectTransform="translate(0,0)rotate(0)"
+            textTransform="translate(77,15)rotate(0)"
+            label="2.74 trillion" />);
         if (this.state.windowWidth < 768) {
-            line = <BudgetLine />;
+            line = (<BudgetLine
+                size="small"
+                gTransform="translate(15,300)rotate(180)"
+                rectTransform="translate(20, -78)rotate(90)"
+                textTransform="translate(0, 0)rotate(90)"
+                label="2.74 trillion" />);
         }
         return (<div className="by-category-section-wrap">
             <div className="inner-wrap">
