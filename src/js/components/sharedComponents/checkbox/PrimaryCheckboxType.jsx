@@ -129,6 +129,7 @@ export default class PrimaryCheckboxType extends React.Component {
         }
         else {
             // not all the children are selected, select them all
+            console.log(this.props.filters);
             this.props.bulkTypeChange({
                 types: this.props.filters,
                 direction: 'add'
