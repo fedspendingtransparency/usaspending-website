@@ -3,10 +3,11 @@
  * Created by Kevin Li 5/26/17
  */
 
-import pathToRegexp from 'path-to-regexp';
+import pathToRegExp from 'path-to-regexp';
 import createHistory from 'history/createHashHistory';
+import queryString from 'query-string';
 
-import { routes } from './RouterRoutes2';
+import Routes from './RouterRoutes';
 
 class RouterSingleton {
     constructor() {
@@ -18,6 +19,15 @@ class RouterSingleton {
         // set up history tracking
         this.history = createHistory();
         this.history.listen(this.hashChanged);
+
+        // external modules can grab URL data by accessing the singleton's state property
+        this.state = {
+            path: '/',
+            params: {},
+            query: {}
+        };
+
+        this.loaderTime = null;
     }
 
     startRouter() {
@@ -31,35 +41,54 @@ class RouterSingleton {
 
     parseRoute(location) {
         // parse the route
-        const current = location.pathname;
-        let matched = null;
-        let componentLoader = null;
-        for (const route of routes.routes) {
+        let componentReference = null;
+        for (const route of Routes.routes) {
             const path = route.path;
-            const pathData = this.matchRoute(path, current);
+            const pathData = this.matchRoute(location, path);
             if (pathData) {
                 // we matched, stop the loop
                 // add in the search params
-                matched = pathData;
-                componentLoader = route.component;
+                componentReference = route.component;
+                this.state = Object.assign({}, pathData);
                 break;
             }
         }
 
-        if (matched && componentLoader) {
+        if (componentReference) {
             // we matched a route
-            this.loadComponent(componentLoader)
+            // load the component asynchronously
+            // but because of network conditions, it could take a long time to load the module
+            if (this.loaderTime) {
+                // cancel any previous timers
+                window.clearTimeout(this.loaderTime);
+            }
+
+            // trigger a slow load event after 1.5 seconds
+            this.loaderTime = window.setTimeout(() => {
+                // have the React router container show a loading spinner
+                this.reactContainer.showSpinner();
+            }, 1500);
+
+            this.loadComponent(componentReference)
                 .then((component) => {
                     if (this.reactContainer) {
-                        this.reactContainer.navigateToComponent(component, matched);
+                        // the JS module has loaded
+                        // have the react container mount the target component and pass down any
+                        // matched params
+                        this.reactContainer.navigateToComponent(component, this.state);
+                    }
+
+                    if (this.loaderTime) {
+                        // the module loaded, cancel the spinner timer
+                        window.clearTimeout(this.loaderTime);
                     }
                 });
         }
     }
 
-    matchRoute(path, current) {
-        const regex = pathToRegexp(path);
-        const matches = regex.exec(current);
+    matchRoute(location, path) {
+        const regex = pathToRegExp(path);
+        const matches = regex.exec(location.pathname);
 
         if (!matches) {
             return null;
@@ -68,11 +97,12 @@ class RouterSingleton {
         // match the arguments to the path keys (if any)
         const pathData = {
             path: matches[0],
-            params: {}
+            params: {},
+            query: {}
         };
-        const pathKeys = pathToRegexp.parse(path);
+        const pathKeys = pathToRegExp.parse(path);
         if (pathKeys.length > 1) {
-            // there are named keys
+            // there are named keys, add them as key-value pairs to the params object
             for (let i = 1; i < pathKeys.length; i++) {
                 const namedKey = pathKeys[i];
                 const name = namedKey.name;
@@ -80,10 +110,15 @@ class RouterSingleton {
             }
         }
 
+        // parse any query strings
+        const parsedQuery = queryString.parse(location.search);
+        pathData.query = parsedQuery;
+
         return pathData;
     }
 
     loadComponent(loader) {
+        // wrap the async module loader in a promise
         return new Promise((resolve) => {
             loader((component) => {
                 resolve(component);

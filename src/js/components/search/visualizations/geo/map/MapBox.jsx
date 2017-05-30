@@ -29,6 +29,7 @@ export default class MapBox extends React.Component {
 
         this.findHoveredLayers = this.findHoveredLayers.bind(this);
     }
+
     componentDidMount() {
         this.componentUnmounted = false;
         this.mountMap();

@@ -36,26 +36,10 @@ const storeSingleton = new StoreSingleton();
 storeSingleton.setStore(store);
 
 export default class AppContainer extends React.Component {
-    constructor(props) {
-        super(props);
-
-        // may be unnecessary without a login, re-work in future
-        this.state = {
-            appReady: true,
-            showPending: false
-        };
-    }
-
     render() {
-        // let appContents = <Homepage />;
-        let appContents = <RouterContainer store={store} />;
-        // if (this.state.appReady || !this.state.showPending) {
-        //     appContents = <RouterContainer store={store} />;
-        // }
-
         return (
             <Provider store={store}>
-                {appContents}
+                <RouterContainer store={store} />
             </Provider>
         );
     }

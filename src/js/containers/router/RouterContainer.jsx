@@ -26,8 +26,9 @@ export default class RouterContainer extends React.Component {
             lastPath: '',
             content: null,
             route: {
-
-            }
+                params: {}
+            },
+            showSpinner: false
         };
 
         // bind functions
@@ -52,26 +53,38 @@ export default class RouterContainer extends React.Component {
     }
 
     handleRouteChange() {
-        const path = this.router.state.location.pathname;
-        RouterContainer.logPageView(path);
-        ga.pageview(window.location.hash);
+        const path = Router.state.path;
 
         if (this.state.lastPath !== path) {
             // scroll to top of page, but only if the path has changed (ignore in-page URL changes)
             window.scrollTo(0, 0);
+
+            // log with Google Analytics
+            RouterContainer.logPageView(path);
+            ga.pageview(window.location.hash);
 
             this.setState({
                 lastPath: path
             });
         }
 
-        // GuideListenerSingleton.updateGuideValue(this.router.state.location.query);
+        GuideListenerSingleton.updateGuideValue(Router.state.query);
     }
 
     navigateToComponent(component, route) {
         this.setState({
             route,
-            content: component
+            content: component,
+            showSpinner: false
+        }, () => {
+            // route changed, trigger callback
+            this.handleRouteChange();
+        });
+    }
+
+    showSpinner() {
+        this.setState({
+            showSpinner: true
         });
     }
 
@@ -80,7 +93,15 @@ export default class RouterContainer extends React.Component {
             return null;
         }
 
+        // TODO: Kevin Li - implement loading spinner for long-load modules
+        const loadingSpinner = null;
+
         const ContentComponent = this.state.content;
-        return <ContentComponent params={this.state.route.params} />;
+        return (
+            <div>
+                <ContentComponent params={this.state.route.params} />
+                { loadingSpinner }
+            </div>
+        );
     }
 }
