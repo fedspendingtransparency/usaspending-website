@@ -25,7 +25,9 @@ export default class Footer extends React.Component {
                             <ul className="inline">
                                 <li>
                                     <a
-                                        href="mailto:usaspending.help-submitonly@fiscal.treasury.gov"
+                                        href="https://usaspending-help.zendesk.com/hc/en-us"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         title="Feedback"
                                         aria-label="Feedback">
                                         Feedback

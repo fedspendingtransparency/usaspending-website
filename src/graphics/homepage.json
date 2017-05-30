@@ -109,13 +109,20 @@
             },
             {
                 "id": 4,
+                "name": "Other Awards",
+                "value": 8,
+                "description": "This category represents award spending that is not currently classified by recipient type."
+            },
+            {
+                "id": 5,
                 "name": "Running the government and direct services",
-                "value": 29,
+                "value": 21,
                 "description": "This category is non-award spending. That is, money that was not given out through contracts, grants, direct payments, loans, or insurance. This spending covers salaries and benefits for federal employees, including military. It also includes buildings, equipment, insurance, government travel, and other costs associated with running the government. It also includes interest paid on the federal debt."
             }
         ]
     },
     "breakdownColors": [
+            "#00A7D3",
             "#00A7D3",
             "#00A7D3",
             "#00A7D3",

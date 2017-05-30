@@ -12,6 +12,7 @@ export const awardFields = {
     recipientLocation: 'recipient__location__location_id',
     recipientName: 'recipient__recipient_name',
     recipientDUNS: 'recipient__recipient_unique_id',
+    recipientType: 'recipient__business_categories',
     fundingAgency: {
         toptier: 'funding_agency__toptier_agency__name',
         subtier: 'funding_agency__subtier_agency__name'
@@ -55,6 +56,7 @@ export const transactionFields = {
     recipientLocation: 'recipient__location__location_id',
     recipientName: 'recipient__recipient_name',
     recipientDUNS: 'recipient__recipient_unique_id',
+    recipientType: 'recipient__business_categories',
     awardType: 'type',
     awardId: 'award_id',
     awardAmount: 'federal_action_obligation',
@@ -62,8 +64,8 @@ export const transactionFields = {
     budgetFunctionTitle: 'award__financial_set__treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'award__financial_set__treasury_account__budget_subfunction_title',
     federalAccount: 'award__financial_set__treasury_account__federal_account',
-    cfdaNumber: 'assistance_data__cfda_number',
-    cfdaTitle: 'assistance_data__cfda_title',
+    cfdaNumber: 'assistance_data__cfda__program_number',
+    cfdaTitle: 'assistance_data__cfda__program_title',
     naics: 'contract_data__naics',
     naicsDescription: 'contract_data__naics_description',
     psc: 'contract_data__product_or_service_code'
@@ -83,6 +85,7 @@ export const accountAwardsFields = {
     recipientLocation: 'award__recipient__location__location_id',
     recipientName: 'award__recipient__recipient_name',
     recipientDUNS: 'award__recipient__recipient_unique_id',
+    recipientType: 'award__recipient__business_categories',
     fundingAgency: {
         toptier: 'award__funding_agency__toptier_agency__name',
         subtier: 'award__funding_agency__subtier_agency__name'
@@ -95,8 +98,8 @@ export const accountAwardsFields = {
     budgetFunctionTitle: 'treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'treasury_account__budget_subfunction_title',
     federalAccount: 'treasury_account__federal_account',
-    cfdaNumber: 'award__transaction__assistance_data__cfda_number',
-    cfdaTitle: 'award__transaction__assistance_data__cfda_title',
+    cfdaNumber: 'award__transaction__assistance_data__cfda__program_number',
+    cfdaTitle: 'award__transaction__assistance_data__cfda__program_title',
     naics: 'award__transaction__contract_data__naics',
     naicsDescription: 'award__transaction__contract_data__naics_description',
     psc: 'award__transaction__contract_data__product_or_service_code'

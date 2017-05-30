@@ -29,7 +29,7 @@ export default class GuideDefinition extends React.Component {
         this.clickedBack = this.clickedBack.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.checkDefinitions(this.props);
     }
 

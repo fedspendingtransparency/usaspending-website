@@ -8,6 +8,7 @@ import RecipientNameDUNSContainer from
     'containers/search/filters/recipient/RecipientNameDUNSContainer';
 import RecipientLocationContainer from
     'containers/search/filters/recipient/RecipientLocationContainer';
+import RecipientType from 'components/search/filters/recipient/RecipientType';
 import RecipientToggle from './RecipientToggle';
 import SelectedRecipients from './SelectedRecipients';
 import SelectedRecipientLocations from './SelectedRecipientLocations';
@@ -15,6 +16,7 @@ import SelectedRecipientLocations from './SelectedRecipientLocations';
 const propTypes = {
     toggleRecipient: React.PropTypes.func,
     toggleDomesticForeign: React.PropTypes.func,
+    toggleRecipientType: React.PropTypes.func,
     toggleRecipientLocation: React.PropTypes.func,
     selectedRecipients: React.PropTypes.object,
     selectedRecipientLocations: React.PropTypes.object
@@ -50,6 +52,9 @@ export default class RecipientSearch extends React.Component {
                     {...this.props}
                     toggleRecipientLocation={this.props.toggleRecipientLocation} />
                 {selectedRecipientLocations}
+                <RecipientType
+                    {...this.props}
+                    toggleCheckboxType={this.props.toggleRecipientType} />
             </div>
         );
     }
