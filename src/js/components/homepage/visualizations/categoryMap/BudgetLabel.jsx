@@ -10,7 +10,21 @@ const propTypes = {
     labelPadding: React.PropTypes.number,
     labelDistance: React.PropTypes.number,
     currentY: React.PropTypes.number,
-    graphHeight: React.PropTypes.number
+    currentX: React.PropTypes.number,
+    graphHeight: React.PropTypes.number,
+    graphWidth: React.PropTypes.number,
+    size: React.PropTypes.string
+};
+
+const defaultProps = {
+    labelWidth: 0,
+    labelPadding: 0,
+    labelDistance: 0,
+    currentY: 0,
+    currentX: 0,
+    graphHeight: 0,
+    graphWidth: 0,
+    size: 'small'
 };
 
 export default class BudgetLabel extends React.Component {
@@ -23,24 +37,41 @@ export default class BudgetLabel extends React.Component {
 
         this.generatePoly = this.generatePoly.bind(this);
     }
-    componentWillReceiveProps() {
-        this.generatePoly();
+    componentWillReceiveProps(props) {
+        this.generatePoly(props.size);
     }
 
-    generatePoly() {
+    generatePoly(size) {
         const leftLabelPos = this.props.labelWidth - this.props.labelPadding;
         // calculate the label paths
         let currentLabelPath = '';
-        // start at the top of the current bar
-        currentLabelPath += `${leftLabelPos} ,${this.props.currentY}`;
-        // move left the specified amount
-        currentLabelPath += ` ${leftLabelPos - this.props.labelDistance},${this.props.currentY}`;
-        // go to the bottom of the current bar
-        currentLabelPath += ` ${leftLabelPos - this.props.labelDistance},${this.props.graphHeight}`;
-        // go to the edge of the bar
-        currentLabelPath += ` ${leftLabelPos},${this.props.graphHeight}`;
-        // come back
-        currentLabelPath += ` ${leftLabelPos - this.props.labelDistance},${this.props.graphHeight}`;
+        if (size === 'small') {
+            // start at the top of the bar
+            currentLabelPath += `${leftLabelPos} ,${this.props.currentY}`;
+            // move left the specified amount
+            currentLabelPath += ` ${leftLabelPos -
+                this.props.labelDistance},${this.props.currentY}`;
+            // go to the bottom of the bar
+            currentLabelPath += ` ${leftLabelPos -
+                this.props.labelDistance},${this.props.graphHeight}`;
+            // go to the edge of the bar
+            currentLabelPath += ` ${leftLabelPos},${this.props.graphHeight}`;
+            // come back
+            currentLabelPath += ` ${leftLabelPos -
+                this.props.labelDistance},${this.props.graphHeight}`;
+        }
+        if (size === 'large') {
+            // start at the top left edge of the bar
+            currentLabelPath += `${this.props.currentX},${leftLabelPos}`;
+            // move up the specified amount
+            currentLabelPath += ` ${this.props.currentX},${leftLabelPos -
+                this.props.labelDistance}`;
+            // go to the right of the bar
+            currentLabelPath += ` ${this.props.graphWidth},${leftLabelPos -
+                this.props.labelDistance}`;
+            // go down to top right edge
+            currentLabelPath += ` ${this.props.graphWidth},${leftLabelPos}`;
+        }
 
         this.setState({
             current: currentLabelPath
@@ -57,3 +88,4 @@ export default class BudgetLabel extends React.Component {
     }
 }
 BudgetLabel.propTypes = propTypes;
+BudgetLabel.defaultProps = defaultProps;
