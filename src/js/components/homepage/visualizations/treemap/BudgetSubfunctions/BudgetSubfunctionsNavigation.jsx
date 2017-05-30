@@ -50,7 +50,7 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
 
         this.state = {
             label: null,
-            width: 200,
+            width: 230,
             height: 44
         };
 
@@ -80,24 +80,33 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
 
     showArrowTooltip(arrow) {
         let el = null;
-        let x = 0;
         let hideArrow = true;
+
+        // X should be 0 for the Previous Button, so we set it
+        // by default, as we don't need any calculations
+        let x = 0;
 
         // All Button
         if (arrow.direction === 0) {
             el = this.allButton;
-            x = el.offsetLeft - (this.state.width / 2) - el.offsetWidth - 7;
+
+            // Align the tooltip with the arrow by
+            // 1) Getting the left offset of the arrow
+            // 2) Subtracting 40 pixels of padding on the outer wrapper
+            // 3) Centering the tooltip by subtracting half its width
+            // 4) Moving the tooltip over by half the width of the arrow
+            x = el.offsetLeft - 40 - ((this.state.width - el.offsetWidth) / 2);
             hideArrow = false;
         }
-        // Previous Button
-        else if (arrow.direction === -1) {
-            el = this.previousButton;
-            x = 28;
-        }
         // Next Button
-        else {
+        else if (arrow.direction === 1) {
             el = this.nextButton;
-            x = el.offsetLeft - this.state.width - el.offsetWidth - 28;
+
+            // Align the tooltip to the right side by
+            // 1) Getting the left offset of the arrow
+            // 2) Subtracting the width of the tooltip
+            // 3) Subtracting the width of the arrow
+            x = el.offsetLeft - this.state.width - el.offsetWidth;
         }
 
         this.setState({
