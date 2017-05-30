@@ -46,7 +46,7 @@
             width: 100%;
             @import "components/visualizations/tooltip/_tooltip";
             .tooltip {
-                max-width: rem(300);
+                width: rem(570);
 
                 &.small {
                     height: rem(44);

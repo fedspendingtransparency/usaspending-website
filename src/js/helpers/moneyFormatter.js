@@ -179,3 +179,6 @@ export const formatTreemapValues = (value) => {
 
     return `${formattedCurrency}${longLabel}`;
 };
+
+export const calculateTreemapPercentage = (value, total) =>
+    `${((value / total) * 100).toFixed(1)}%`;

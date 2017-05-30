@@ -216,12 +216,12 @@ export default class BudgetFunctions extends React.Component {
                 this.state.finalNodes,
                 { key: `${this.state.hoveredFunction}` });
 
-            console.log(node);
-
             tooltip = (<TreeMapTooltip
                 name={category.name}
                 value={MoneyFormatter.formatTreemapValues(category.value)}
-                percentage={this.calculatePercentage(category)}
+                percentage={MoneyFormatter.calculateTreemapPercentage(
+                    category.value, this.props.totalNumber)
+                }
                 description={description.value}
                 x={node.props.x0}
                 y={node.props.y0}

@@ -4,6 +4,7 @@
 **/
 
 import React from 'react';
+import _ from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -155,16 +156,15 @@ export default class BudgetSubfunctions extends React.Component {
         let minimized = null;
         if (window.innerWidth > 768) {
             minimized = (<BudgetFunctionsMinimized
-                showSub={this.state.showSub}
                 categories={this.props.categories}
                 descriptions={this.props.descriptions}
                 colors={this.props.colors}
                 alternateColors={this.props.alternateColors}
                 changeActiveSubfunction={this.changeActiveSubfunction}
-                toggleOverlay={this.props.toggleOverlay}
                 tooltipStyles={this.props.tooltipStyles}
                 chosen={this.props.selected} />);
         }
+
         return (
             <div className="treemap-inner-wrap">
                 { this.createArrowTooltip() }
@@ -212,14 +212,14 @@ export default class BudgetSubfunctions extends React.Component {
                 <BudgetSubfunctionsDescription
                     category={this.props.selected}
                     value={MoneyFormatter.formatTreemapValues(this.props.selectedValue)}
-                    percentage={((this.props.selectedValue / this.props.selectedTotal) *
-                        100).toFixed(1)}
+                    percentage={MoneyFormatter.calculateTreemapPercentage(
+                        this.props.selectedValue, this.props.selectedTotal)
+                    }
                     description={this.props.selectedDesc} />
                 <BudgetSubfunctionsMap
                     topFunction={this.props.selected}
                     subfunctions={this.props.subfunctions}
                     colors={this.props.colors}
-                    showSub={this.props.showSubfunction}
                     tooltipStyles={this.props.tooltipStyles}
                     chosen={this.props.selected} />
             </div>
@@ -227,5 +227,6 @@ export default class BudgetSubfunctions extends React.Component {
     }
 
 }
-BudgetSubfunctions.propTypes = propTypes;
 
+BudgetSubfunctions.propTypes = propTypes;
+BudgetSubfunctions.defaultProps = defaultProps;
