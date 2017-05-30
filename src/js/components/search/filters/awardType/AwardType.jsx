@@ -42,7 +42,7 @@ const defaultProps = {
 const propTypes = {
     awardTypes: React.PropTypes.arrayOf(React.PropTypes.object),
     awardType: React.PropTypes.object,
-    bulkAwardTypeChange: React.PropTypes.func
+    bulkTypeChange: React.PropTypes.func
 };
 
 export default class AwardType extends React.Component {
@@ -57,7 +57,7 @@ export default class AwardType extends React.Component {
                     types={awardTypeCodes}
                     filterType="Award"
                     selectedCheckboxes={this.props.awardType}
-                    bulkTypeChange={this.props.bulkAwardTypeChange}
+                    bulkTypeChange={this.props.bulkTypeChange}
                     enableAnalytics />
             ));
 

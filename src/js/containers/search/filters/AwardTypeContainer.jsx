@@ -38,7 +38,8 @@ class AwardTypeContainer extends React.Component {
         return (
             <AwardType
                 {...this.props}
-                toggleCheckboxType={this.toggleAwardType} />
+                toggleCheckboxType={this.toggleAwardType}
+                bulkTypeChange={this.bulkAwardTypeChange} />
         );
     }
 }
@@ -46,6 +47,6 @@ class AwardTypeContainer extends React.Component {
 AwardTypeContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.filters.awardType }),
+    (state) => ({ awardType: state.filters.awardType }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(AwardTypeContainer);

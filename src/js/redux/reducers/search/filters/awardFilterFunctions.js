@@ -23,7 +23,6 @@ export const immutableSetToggle = (set, value) => {
 };
 
 export const bulkAwardTypeChange = (state, values, direction) => {
-    console.log(values);
     let updatedSet = new Set(state);
 
     values.forEach((value) => {
