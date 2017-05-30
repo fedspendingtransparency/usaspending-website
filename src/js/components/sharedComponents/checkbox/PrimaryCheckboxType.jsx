@@ -114,8 +114,6 @@ export default class PrimaryCheckboxType extends React.Component {
         // TO-DO: Fix input for bulkTypeChange on award type filter
         // currently showing types as undefined
         // TO-DO: Fix input child checkboxes to show checked state
-        let showChildren = true;
-        let arrowState = 'expanded';
 
         if (this.state.allChildren) {
             // all the children are selected, deselect them
@@ -123,9 +121,6 @@ export default class PrimaryCheckboxType extends React.Component {
                 types: this.props.filters,
                 direction: 'remove'
             });
-            // collapse the children
-            showChildren = false;
-            arrowState = 'collapsed';
 
             // Analytics
             if (this.props.enableAnalytics) {
@@ -145,10 +140,6 @@ export default class PrimaryCheckboxType extends React.Component {
                     this.props.name, this.props.filterType);
             }
         }
-        this.setState({
-            showSubItems: showChildren,
-            arrowState
-        });
     }
 
     render() {
