@@ -136,57 +136,61 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
         }
 
         return (
-            <div>
+            <div className="treemap-navigation-holder">
                 { this.createArrowTooltip() }
-                <button
-                    className="back"
-                    onClick={() => {
-                        this.changeFunction(arrows.all.direction);
-                    }}
-                    onMouseEnter={() => {
-                        this.showArrowTooltip(arrows.all);
-                    }}
-                    onMouseLeave={() => {
-                        this.setState({ label: null });
-                    }}
-                    ref={(button) => {
-                        this.allButton = button;
-                    }}>
-                    <Icons.AngleUp />
-                </button>
-                <button
-                    className="left"
-                    onClick={() => {
-                        this.changeFunction(arrows.previous.direction);
-                    }}
-                    onMouseEnter={() => {
-                        this.showArrowTooltip(arrows.previous);
-                    }}
-                    onMouseLeave={() => {
-                        this.setState({ label: null });
-                    }}
-                    ref={(button) => {
-                        this.previousButton = button;
-                    }}>
-                    <Icons.AngleLeft />
-                </button>
-                <button
-                    className="right"
-                    onClick={() => {
-                        this.changeFunction(arrows.next.direction);
-                    }}
-                    onMouseEnter={() => {
-                        this.showArrowTooltip(arrows.next);
-                    }}
-                    onMouseLeave={() => {
-                        this.setState({ label: null });
-                    }}
-                    ref={(button) => {
-                        this.nextButton = button;
-                    }}>
-                    <Icons.AngleRight />
-                </button>
-                { minimized }
+                <div>
+                    <button
+                        className="back"
+                        onClick={() => {
+                            this.changeFunction(arrows.all.direction);
+                        }}
+                        onMouseEnter={() => {
+                            this.showArrowTooltip(arrows.all);
+                        }}
+                        onMouseLeave={() => {
+                            this.setState({ label: null });
+                        }}
+                        ref={(button) => {
+                            this.allButton = button;
+                        }}>
+                        <Icons.AngleUp />
+                    </button>
+                </div>
+                <div className="treemap-navigation-bar">
+                    <button
+                        className="left"
+                        onClick={() => {
+                            this.changeFunction(arrows.previous.direction);
+                        }}
+                        onMouseEnter={() => {
+                            this.showArrowTooltip(arrows.previous);
+                        }}
+                        onMouseLeave={() => {
+                            this.setState({ label: null });
+                        }}
+                        ref={(button) => {
+                            this.previousButton = button;
+                        }}>
+                        <Icons.AngleLeft />
+                    </button>
+                    { minimized }
+                    <button
+                        className="right"
+                        onClick={() => {
+                            this.changeFunction(arrows.next.direction);
+                        }}
+                        onMouseEnter={() => {
+                            this.showArrowTooltip(arrows.next);
+                        }}
+                        onMouseLeave={() => {
+                            this.setState({ label: null });
+                        }}
+                        ref={(button) => {
+                            this.nextButton = button;
+                        }}>
+                        <Icons.AngleRight />
+                    </button>
+                </div>
             </div>
         );
     }

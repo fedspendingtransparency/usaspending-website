@@ -1,5 +1,5 @@
 /**
-* BudgetFunctionsMinimized.jsx
+* MinimizedBudgetFunctions.jsx
 * Created by Emily Gullo 05/15/2017
 **/
 

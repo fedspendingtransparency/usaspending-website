@@ -152,12 +152,12 @@ export default class BudgetSubfunctionsMap extends React.Component {
     }
 
     toggleTooltipOut() {
-        this.setState({
-            showOverlay: true,
-            hoveredFunction: -1
-        }, () => {
-            this.buildTree(this.props);
-        });
+        // this.setState({
+        //     showOverlay: true,
+        //     hoveredFunction: -1
+        // }, () => {
+        //     this.buildTree(this.props);
+        // });
     }
 
     createTooltip() {
