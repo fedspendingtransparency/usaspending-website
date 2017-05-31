@@ -221,12 +221,12 @@
         "Income Security": {
             "id": 3,
             "children": [
-                {"id": 0, "name": "General retirement and disability insurance (excluding social se", "value": 3774575706.23, "description": "Non-needs-tested retirement and disability programs composed mainly of the Railroad Retirement Fund and special benefits for coal miners. Excludes programs specifically restricted to federal employees."},
+                {"id": 0, "name": "Other income security", "value": 179057235719.65, "description": "Income security programs not included in any other subfunction. Primarily either direct payments or grants-in-aid to finance direct payments that constitute cash income to low-income individuals and families. Also includes refugee assistance."},
                 {"id": 1, "name": "Federal employee retirement and disability", "value": 144783850407.11, "description": "All funded retirement and disability programs restricted to federal employees. Includes military retirement benefits for all years, not just the years since the military retirement program began as a funded trust fund (1985)."},
-                {"id": 2, "name": "Unemployment compensation", "value": 35952883839.19, "description": "Benefits not conditioned by needs tests for unemployed workers. Excludes other benefits (such as food stamps) that an unemployed person might be eligible for under other programs."},
+                {"id": 2, "name": "Food and nutrition assistance", "value": 102298328884.62, "description": "Providing food or nutritional assistance to individuals and families."},
                 {"id": 3, "name": "Housing assistance", "value": 48716108734.3, "description": "Federal income support and related expenses that are specifically for financing or providing housing for individuals and families. Excludes loans, loan guarantees, or insurance."},
-                {"id": 4, "name": "Food and nutrition assistance", "value": 102298328884.62, "description": "Providing food or nutritional assistance to individuals and families."},
-                {"id": 5, "name": "Other income security", "value": 179057235719.65, "description": "Income security programs not included in any other subfunction. Primarily either direct payments or grants-in-aid to finance direct payments that constitute cash income to low-income individuals and families. Also includes refugee assistance."}
+                {"id": 4, "name": "Unemployment compensation", "value": 35952883839.19, "description": "Benefits not conditioned by needs tests for unemployed workers. Excludes other benefits (such as food stamps) that an unemployed person might be eligible for under other programs."},
+                {"id": 5, "name": "General retirement and disability insurance (excluding social security)", "value": 3774575706.23, "description": "Non-needs-tested retirement and disability programs composed mainly of the Railroad Retirement Fund and special benefits for coal miners. Excludes programs specifically restricted to federal employees."}
             ]
         },
         "Health": {
@@ -250,11 +250,11 @@
         "Veterans Benefits and Services": {
             "id": 6,
             "children": [
-                {"id": 0, "name": "Income security for veterans", "value": 86795763159.15, "description": "Veterans’ compensation, life insurance, pensions, and burial benefits."},
-                {"id": 1, "name": "Veterans education, training, and rehabilitation", "value": 14355109402.57, "description": "Composed primarily of the “G.I. Bill” readjustment, vocational rehabilitation benefits, and related programs."},
-                {"id": 2, "name": "Hospital and medical care for veterans", "value": 65247603856.82, "description": "Medical care and research financed by the Department of Veterans Affairs."},
-                {"id": 4, "name": "Veterans housing", "value": 803373842.25, "description": "Housing loan and guarantee programs for veterans and dependents. "},
-                {"id": 5, "name": "Other veterans benefits and services", "value": 7312661422.94, "description": "Administrative expenses of the Department of Veterans Affairs"}
+                {"id": 0, "name": "Income security for veterans", "value": 86795763159.15, "description": "Veterans' compensation, life insurance, pensions, and burial benefits."},
+                {"id": 1, "name": "Hospital and medical care for veterans", "value": 65247603856.82, "description": "Medical care and research financed by the Department of Veterans Affairs."},
+                {"id": 2, "name": "Veterans education, training, and rehabilitation", "value": 14355109402.57, "description": "Composed primarily of the 'G.I. Bill' readjustment, vocational rehabilitation benefits, and related programs."},
+                {"id": 3, "name": "Other veterans benefits and services", "value": 7312661422.94, "description": "Administrative expenses of the Department of Veterans Affairs."},
+                {"id": 4, "name": "Veterans housing", "value": 803373842.25, "description": "Housing loan and guarantee programs for veterans and dependents."}
             ]
         },
         "Education, Training, Employment, and Social Services": {
@@ -262,10 +262,10 @@
             "children": [
                 {"id": 0, "name": "Elementary, secondary, and vocational education", "value": 38888769265.2, "description": "Preschool, elementary, secondary, and vocational education programs."},
                 {"id": 1, "name": "Higher education", "value": 38763160458.5, "description": "College and graduate school programs."},
-                {"id": 2, "name": "Research and general education aids", "value": 3532243815.52, "description": "Education research and assistance for the arts, the humanities, educational radio and television, public libraries, and museums."},
+                {"id": 2, "name": "Social services", "value": 18760572192.23, "description": "Programs that provide a broad range of services to individuals to help them improve their vocational capabilities or family status; services to the poor and elderly that are not primarily for income support and that are not an integral part of some other function (such as social services block grants)."},
                 {"id": 3, "name": "Training and employment", "value": 6232047688.9, "description": "Job or skill training, employment services and placement, and payments to employers to subsidize employment."},
-                {"id": 4, "name": "Other labor services", "value": 1881004775.75, "description": "Aids to or regulation of the labor market, including gathering labor statistics and mediation and conciliation services; excludes employment and training programs and occupational safety and health programs."},
-                {"id": 5, "name": "Social services", "value": 18760572192.23, "description": "Programs that provide a broad range of services to individuals to help them improve their vocational capabilities or family status; services to the poor and elderly that are not primarily for income support and that are not an integral part of some other function (such as social services block grants)."}
+                {"id": 4, "name": "Research and general education aids", "value": 3532243815.52, "description": "Education research and assistance for the arts, the humanities, educational radio and television, public libraries, and museums."},
+                {"id": 5, "name": "Other labor services", "value": 1881004775.75, "description": "Aids to or regulation of the labor market, including gathering labor statistics and mediation and conciliation services; excludes employment and training programs and occupational safety and health programs."}
             ]
         },
         "Transportation": {
@@ -289,36 +289,35 @@
         "International Affairs": {
             "id": 10,
             "children": [
-                {"id": 0, "name": "International development and humanitarian assistance", "value": 24124327670.43, "description": "Humanitarian assistance, development assistance, security support assistance, grants to and investments in international financial and development institutions, and the budgetary costs associated with concessionary agricultural exports. "},
-                {"id": 1, "name": "International security assistance", "value": 11306643434.27, "description": "The transfer of defense articles and services to foreign governments, including grants, credit sales, and training. Excludes the military sales trust fund, which is classified under subfunction for international financial programs."},
-                {"id": 2, "name": "Conduct of foreign affairs", "value": 13873385393.94, "description": "Diplomatic and consular operations of the Department of State, assessed contributions to international organizations, and closely related activities in other agencies (such as the Arms Control and Disarmament Agency)."},
-                {"id": 3, "name": "Foreign information and exchange activities", "value": 1545040203.34, "description": "Student and cultural exchange programs and foreign library, radio, or other media information activities designed to promote mutual understanding between the people of the United States and other nations."},
-                {"id": 4, "name": "International financial programs", "value": -5545192591.19, "description": "Export credit, the military sales trust fund, international commodity agreements, international monetary programs, and other programs designed to improve the functioning of the international financial system."}
+                {"id": 0, "name": "International development and humanitarian assistance", "value": 24124327670.43, "description": "Humanitarian assistance, development assistance, security support assistance, grants to and investments in international financial and development institutions, and the budgetary costs associated with concessionary agricultural exports."},
+                {"id": 1, "name": "Conduct of foreign affairs", "value": 13873385393.94, "description": "Diplomatic and consular operations of the Department of State, assessed contributions to international organizations, and closely related activities in other agencies (such as the Arms Control and Disarmament Agency)."},
+                {"id": 2, "name": "International security assistance", "value": 11306643434.27, "description": "The transfer of defense articles and services to foreign governments, including grants, credit sales, and training. Excludes the military sales trust fund, which is classified under subfunction for international financial programs."},
+                {"id": 3, "name": "Foreign information and exchange activities", "value": 1545040203.34, "description": "Student and cultural exchange programs and foreign library, radio, or other media information activities designed to promote mutual understanding between the people of the United States and other nations."}
             ]
         },
         "Natural Resources and Environment": {
             "id": 11,
             "children": [
-                {"id": 0, "name": "Water resources", "value": 7378791417.36, "description": "Water protection, conservation, irrigation, and related activities, including the total costs of multipurpose water projects where it is not feasible to separate the transportation (navigation) or energy (power) segments of these projects."},
-                {"id": 1, "name": "Conservation and land management", "value": 9927178004.65, "description": "Maintaining the public domain and national forests, encouraging conservation of private land, and reclaiming surface mining areas."},
-                {"id": 2, "name": "Recreational resources", "value": 3692160361.89, "description": "Acquisition, improvement, and operation of recreational lands and facilities, including fish, wildlife, and parks; also preserving historic areas."},
-                {"id": 3, "name": "Pollution control and abatement", "value": 9251483587.79999, "description": "Controlling and reducing air, water, and land pollution, or enhancing the environment. Excludes water resources programs, water treatment plants, and similar programs that are not funded as part of an environmental enhancement activity."},
-                {"id": 4, "name": "Other natural resources", "value": 7542655196.66, "description": "Miscellaneous natural resources programs, not classified under other subfunctions, such as marine-, earth-, and atmosphere-related research and geological surveys and mapping"}
+                {"id": 0, "name": "Conservation and land management", "value": 9927178004.65, "description": "Maintaining the public domain and national forests, encouraging conservation of private land, and reclaiming surface mining areas."},
+                {"id": 1, "name": "Pollution control and abatement", "value": 9251483587.79999, "description": "Controlling and reducing air, water, and land pollution, or enhancing the environment. Excludes water resources programs, water treatment plants, and similar programs that are not funded as part of an environmental enhancement activity."},
+                {"id": 2, "name": "Other natural resources", "value": 7542655196.66, "description": "Miscellaneous natural resources programs, not classified under other subfunctions, such as marine-, earth-, and atmosphere-related research and geological surveys and mapping"},
+                {"id": 3, "name": "Water resources", "value": 7378791417.36, "description": "Water protection, conservation, irrigation, and related activities, including the total costs of multipurpose water projects where it is not feasible to separate the transportation (navigation) or energy (power) segments of these projects."},
+                {"id": 4, "name": "Recreational resources", "value": 3692160361.89, "description": "Acquisition, improvement, and operation of recreational lands and facilities, including fish, wildlife, and parks; also preserving historic areas."}
             ]
         },
         "General Science, Space, and Technology": {
             "id": 12,
             "children": [
-                {"id": 0, "name": "General science and basic research", "value": 12006619376.5, "description": "Conducting the National Science Foundation programs and the general science activities of the Department of Energy."},
-                {"id": 1, "name": "Space flight, research, and supporting activities", "value": 18223696707.93, "description": "Development and operation of space transportation systems, basic scientific research connected with outer space, research and demonstrations designed to promote terrestrial applications of technology developed through space research, and development of new space technologies for future flight missions."}
+                {"id": 0, "name": "Space flight, research, and supporting activities", "value": 18223696707.93, "description": "Development and operation of space transportation systems, basic scientific research connected with outer space, research and demonstrations designed to promote terrestrial applications of technology developed through space research, and development of new space technologies for future flight missions."},
+                {"id": 1, "name": "General science and basic research", "value": 12006619376.5, "description": "Conducting the National Science Foundation programs and the general science activities of the Department of Energy."}
             ]
         },
         "Community and Regional Development": {
             "id": 13,
             "children": [
-                {"id": 0, "name": "Community development", "value": 7095352383.05, "description": "Grants and related programs designed to aid largely urban community development. Includes community development block grants and predecessor activities, such as the urban renewal and model cities programs. These programs are generally carried out by the Department of Housing and Urban Development."},
-                {"id": 1, "name": "Area and regional development", "value": 3360952863.36, "description": "Grants, loans, subsidies, and related aids for the economic development of depressed areas. These aids are generally for rural areas or are more regional than the community development programs. They are generally carried out by agencies other than the Department of Housing and Urban Development, such as the Farmers Home Administration, Economic Development Administration, and Bureau of Indian Affairs."},
-                {"id": 2, "name": "Disaster relief and insurance", "value": 10595633109.54, "description": "Helping communities and families recover from natural disasters."}
+                {"id": 0, "name": "Disaster relief and insurance", "value": 10595633109.54, "description": "Helping communities and families recover from natural disasters."},
+                {"id": 1, "name": "Community development", "value": 7095352383.05, "description": "Grants and related programs designed to aid largely urban community development. Includes community development block grants and predecessor activities, such as the urban renewal and model cities programs. These programs are generally carried out by the Department of Housing and Urban Development."},
+                {"id": 2, "name": "Area and regional development", "value": 3360952863.36, "description": "Grants, loans, subsidies, and related aids for the economic development of depressed areas. These aids are generally for rural areas or are more regional than the community development programs. They are generally carried out by agencies other than the Department of Housing and Urban Development, such as the Farmers Home Administration, Economic Development Administration, and Bureau of Indian Affairs."}
             ]
         },
         "Agriculture": {
@@ -331,23 +330,23 @@
         "General Government": {
             "id": 15,
             "children": [
-                {"id": 0, "name": "Legislative functions", "value": 3825261135.86, "description": "Includes most of the legislative branch. However, the Library of Congress (except the Congressional Research Service), the Tax Court, the Government Printing Office (except for congressional printing and binding), and the Copyright Royalty Tribunal are classified in other subfunctions."},
-                {"id": 1, "name": "Executive direction and management", "value": 416823407.33, "description": "The Executive Office of the President (unless some major grants or operating programs should be included in the Office); occasionally some closely related spending outside the Office is included."},
-                {"id": 2, "name": "Central fiscal operations", "value": 7736352126.77, "description": "Covers the general tax collection and fiscal operations of the Department of the Treasury."},
-                {"id": 3, "name": "General property and records management", "value": 0, "description": "Most of the operations of the General Services Administration (net of reimbursements from other agencies for services rendered)."},
-                {"id": 4, "name": "Central personnel management", "value": 0, "description": "Most of the operating costs of the Office of Personnel Management and related agencies (net of reimbursements from other agencies for services rendered)."},
-                {"id": 5, "name": "General purpose fiscal assistance", "value": 6659368017.6, "description": "Federal aid to state, local, and territorial governments that is available for general fiscal support. The transactions of the now discontinued general revenue-sharing program are included in the historical data for this subfunction. Also includes grants for more restricted purposes when the stipulated purposes cross two or more major budgetary functions and the distribution among those functions is at the discretion of the recipient jurisdiction rather than the federal government. Includes payments in lieu of taxes, broad-purpose shared revenues, and the federal payment to the District of Columbia. Excludes payments specifically for community development or social services programs."},
-                {"id": 6, "name": "Other general government", "value": 4747730303.82, "description": "Miscellaneous other costs, such as federal costs of territorial governments."},
+                {"id": 0, "name": "Central fiscal operations", "value": 7736352126.77, "description": "Covers the general tax collection and fiscal operations of the Department of the Treasury."},
+                {"id": 1, "name": "General purpose fiscal assistance", "value": 6659368017.6, "description": "Federal aid to state, local, and territorial governments that is available for general fiscal support. The transactions of the now discontinued general revenue-sharing program are included in the historical data for this subfunction. Also includes grants for more restricted purposes when the stipulated purposes cross two or more major budgetary functions and the distribution among those functions is at the discretion of the recipient jurisdiction rather than the federal government. Includes payments in lieu of taxes, broad-purpose shared revenues, and the federal payment to the District of Columbia. Excludes payments specifically for community development or social services programs."},
+                {"id": 2, "name": "Other general government", "value": 4747730303.82, "description": "Miscellaneous other costs, such as federal costs of territorial governments."},
+                {"id": 3, "name": "Legislative functions", "value": 3825261135.86, "description": "Includes most of the legislative branch. However, the Library of Congress (except the Congressional Research Service), the Tax Court, the Government Printing Office (except for congressional printing and binding), and the Copyright Royalty Tribunal are classified in other subfunctions."},
+                {"id": 4, "name": "Executive direction and management", "value": 416823407.33, "description": "The Executive Office of the President (unless some major grants or operating programs should be included in the Office); occasionally some closely related spending outside the Office is included."},
+                {"id": 5, "name": "General property and records management", "value": 0, "description": "Most of the operations of the General Services Administration (net of reimbursements from other agencies for services rendered)."},
+                {"id": 6, "name": "Central personnel management", "value": 0, "description": "Most of the operating costs of the Office of Personnel Management and related agencies (net of reimbursements from other agencies for services rendered)."},
                 {"id": 7, "name": "Deductions for offsetting receipts", "value": 0, "description": "Includes general government function offsetting receipts that are not closely related to any other subfunction in this function."}
             ]
         },
         "Energy": {
             "id": 16,
             "children": [
-                {"id": 0, "name": "Energy supply", "value": 1346779910.34, "description": "Increasing the supply of energy through the development of domestic resources and systems capable of using them. Includes the costs of research and demonstration of supply systems."},
-                {"id": 1, "name": "Energy conservation", "value": 1768521976.62, "description": "Encouraging the prudent use of energy resources."},
-                {"id": 2, "name": "Emergency energy preparedness", "value": 234049425.78, "description": "Developing and maintaining a stockpile of energy resources (currently confined to petroleum) to meet emergency needs and associated contingency planning activities."},
-                {"id": 3, "name": "Energy information, policy, and regulation", "value": 399355577.71, "description": "Unallocable overhead activities of the Department of Energy plus the costs of energy information and regulation activities."}
+                {"id": 0, "name": "Energy conservation", "value": 1768521976.62, "description": "Encouraging the prudent use of energy resources."},
+                {"id": 1, "name": "Energy supply", "value": 1346779910.34, "description": "Increasing the supply of energy through the development of domestic resources and systems capable of using them. Includes the costs of research and demonstration of supply systems."},
+                {"id": 2, "name": "Energy information, policy, and regulation", "value": 399355577.71, "description": "Unallocable overhead activities of the Department of Energy plus the costs of energy information and regulation activities."},
+                {"id": 3, "name": "Emergency energy preparedness", "value": 234049425.78, "description": "Developing and maintaining a stockpile of energy resources (currently confined to petroleum) to meet emergency needs and associated contingency planning activities."}
             ]
         }
     }

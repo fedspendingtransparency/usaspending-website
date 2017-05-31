@@ -63,7 +63,7 @@ export default class TreeMapTooltip extends React.Component {
         if (this.props.showSub || windowWidth < 768 || this.props.arrow) {
             direction = 'top';
             classValue = `tooltip ${direction}${size}`;
-            this.pointerDiv.className = `tooltip-pointer ${direction} ${direction}`;
+            this.pointerDiv.className = `tooltip-pointer ${direction} ${classValue}`;
 
             if (direction === 'right') {
                 topDirection = `${(this.props.y + this.props.height)}px`;

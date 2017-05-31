@@ -38,6 +38,7 @@ export default class BudgetSubfunctionsMap extends React.Component {
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
+        this.createTooltip = this.createTooltip.bind(this);
         this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
         this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
     }
@@ -130,7 +131,7 @@ export default class BudgetSubfunctionsMap extends React.Component {
                     y1={n.y1}
                     total={n.parent.value}
                     key={i}
-                    functionID={n.data.id}
+                    functionID={i}
                     color={cellColor}
                     strokeColor={'white'}
                     strokeOpacity={0.5}
@@ -156,7 +157,6 @@ export default class BudgetSubfunctionsMap extends React.Component {
 
     toggleTooltipIn(functionID) {
         this.setState({
-            showOverlay: false,
             hoveredFunction: functionID
         }, () => {
             this.buildTree(this.props);
@@ -165,7 +165,6 @@ export default class BudgetSubfunctionsMap extends React.Component {
 
     toggleTooltipOut() {
         this.setState({
-            showOverlay: true,
             hoveredFunction: -1
         }, () => {
             this.buildTree(this.props);
