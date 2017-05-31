@@ -32,9 +32,7 @@ export default class BudgetSubfunctions extends React.Component {
         return (
             <div className="treemap-inner-wrap">
                 <BudgetSubfunctionsNavigation
-                    {...this.props}
-                    category={category}
-                    description={description} />
+                    {...this.props} />
                 <BudgetSubfunctionsDescription
                     {...this.props}
                     category={category}

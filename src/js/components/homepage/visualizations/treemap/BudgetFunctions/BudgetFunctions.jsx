@@ -13,10 +13,7 @@ import TreeMapTooltip from '../TreeMapTooltip';
 
 const propTypes = {
     categories: React.PropTypes.object,
-    colors: React.PropTypes.array,
     descriptions: React.PropTypes.array,
-    alternateColors: React.PropTypes.array,
-    tooltipStyles: React.PropTypes.object,
     toggleSubfunction: React.PropTypes.func,
     totalNumber: React.PropTypes.number
 };

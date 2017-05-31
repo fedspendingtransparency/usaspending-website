@@ -13,20 +13,13 @@ import MinimizedBudgetFunctionsTooltip from
 const propTypes = {
     alternateColors: React.PropTypes.array,
     categories: React.PropTypes.object,
+    changeActiveSubfunction: React.PropTypes.func,
     colors: React.PropTypes.array,
     descriptions: React.PropTypes.array,
     selected: React.PropTypes.number,
-    subfunctions: React.PropTypes.object,
     toggleSubfunction: React.PropTypes.func,
-    changeActiveSubfunction: React.PropTypes.func,
     tooltipStyles: React.PropTypes.object,
-    totalNumber: React.PropTypes.number,
-    category: React.PropTypes.object,
-    description: React.PropTypes.object
-};
-
-const defaultProps = {
-
+    totalNumber: React.PropTypes.number
 };
 
 const arrows = {
@@ -207,4 +200,3 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
 }
 
 BudgetSubfunctionsNavigation.propTypes = propTypes;
-BudgetSubfunctionsNavigation.defaultProps = defaultProps;

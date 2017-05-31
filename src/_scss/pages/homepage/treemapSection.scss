@@ -113,6 +113,12 @@
                             left: auto;
                         }
                     }
+                    &.left {
+                        &.top {
+                            left: calc(5% - 1px);
+                            right: auto;
+                        }
+                    }
                 }
 
             }

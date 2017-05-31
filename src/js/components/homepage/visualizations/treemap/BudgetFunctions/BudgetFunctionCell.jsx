@@ -13,7 +13,6 @@ const propTypes = {
     x0: React.PropTypes.number,
     x1: React.PropTypes.number,
     y0: React.PropTypes.number,
-    y1: React.PropTypes.number,
     functionID: React.PropTypes.number,
     color: React.PropTypes.string,
     strokeColor: React.PropTypes.string,

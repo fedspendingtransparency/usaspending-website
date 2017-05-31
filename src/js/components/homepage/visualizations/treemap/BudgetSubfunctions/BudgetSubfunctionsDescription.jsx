@@ -27,4 +27,5 @@ export default class BudgetSubfunctionsDescription extends React.Component {
         );
     }
 }
+
 BudgetSubfunctionsDescription.propTypes = propTypes;

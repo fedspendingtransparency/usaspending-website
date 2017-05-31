@@ -14,14 +14,8 @@ import TreeMapTooltip from '../TreeMapTooltip';
 const propTypes = {
     category: React.PropTypes.object,
     colors: React.PropTypes.array,
-    selected: React.PropTypes.number,
     subfunction: React.PropTypes.object,
     tooltipStyles: React.PropTypes.object
-};
-
-const defaultProps = {
-    subfunctions: {},
-    selected: -1
 };
 
 export default class BudgetSubfunctionsMap extends React.Component {
@@ -33,7 +27,8 @@ export default class BudgetSubfunctionsMap extends React.Component {
             visualizationWidth: 0,
             visualizationHeight: 286,
             finalNodes: [],
-            hoveredFunction: -1
+            hoveredFunction: -1,
+            negativeSubfunctions: []
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
@@ -73,9 +68,26 @@ export default class BudgetSubfunctionsMap extends React.Component {
         }
     }
 
+    calculateTotal(total) {
+        // Remove negative budget subfunction totals from the overall calculation
+        let newTotal = total;
+        const negativeSubfunctions = _.remove(this.props.subfunction.children, (v) => v.value <= 0);
+
+        if (negativeSubfunctions.length > 0) {
+            const negativeTotals = _.sumBy(negativeSubfunctions, 'value');
+            newTotal -= negativeTotals;
+        }
+
+        return newTotal;
+    }
+
     buildTree(treeProps) {
+        // Remove negative values
+        const positiveSubfunctions = treeProps.subfunction;
+        _.remove(positiveSubfunctions.children, (v) => v.value <= 0);
+
         // put the data through d3's hierarchy system to sum and sort it
-        const root = hierarchy(treeProps.subfunction)
+        const root = hierarchy(positiveSubfunctions)
         .sum((d) => (d.value))
         .sort((a, b) => b.height - a.height || b.value - a.value);
 
@@ -120,7 +132,7 @@ export default class BudgetSubfunctionsMap extends React.Component {
                 percentView = 'none';
             }
 
-            if (n.value !== 0) {
+            if (n.value > 0) {
                 cell = (<BudgetFunctionCell
                     {...treeProps}
                     label={n.data.name}
@@ -129,9 +141,9 @@ export default class BudgetSubfunctionsMap extends React.Component {
                     x1={n.x1}
                     y0={n.y0}
                     y1={n.y1}
-                    total={n.parent.value}
+                    total={this.calculateTotal(treeProps.category.value)}
                     key={i}
-                    functionID={i}
+                    functionID={n.data.id}
                     color={cellColor}
                     strokeColor={'white'}
                     strokeOpacity={0.5}
@@ -146,8 +158,11 @@ export default class BudgetSubfunctionsMap extends React.Component {
                     height={height}
                     percentView={percentView}
                     clickable={false} />);
+
+                return cell;
             }
-            return cell;
+
+            return null;
         });
 
         this.setState({
@@ -183,12 +198,13 @@ export default class BudgetSubfunctionsMap extends React.Component {
                 this.state.finalNodes,
                 { key: `${this.state.hoveredFunction}` });
 
+            const total = this.calculateTotal(this.props.category.value);
+
             tooltip = (<TreeMapTooltip
                 name={category.name}
                 value={MoneyFormatter.formatTreemapValues(category.value)}
                 percentage={MoneyFormatter.calculateTreemapPercentage(
-                    category.value, this.props.category.value)
-                }
+                    category.value, total)}
                 description={category.description}
                 x={node.props.x0}
                 y={node.props.y0}
@@ -209,17 +225,15 @@ export default class BudgetSubfunctionsMap extends React.Component {
                         this.sectionWrapper = sr;
                     }}>
                     <svg
-                        className="treemap-svg"
                         width={this.state.visualizationWidth}
-                        height={286}>
+                        height={286}
+                        className="treemap-svg">
                         { this.state.finalNodes }
                     </svg>
                 </div>
             </div>
         );
     }
-
 }
 
 BudgetSubfunctionsMap.propTypes = propTypes;
-BudgetSubfunctionsMap.defaultProps = defaultProps;
