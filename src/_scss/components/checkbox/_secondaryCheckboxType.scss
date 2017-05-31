@@ -1,0 +1,15 @@
+.secondary-checkbox-type {
+    @import "./_sharedCheckboxStyle";
+    @include sharedCheckboxStyle;
+    .checkbox-type-item-wrapper {
+        padding: 0 rem(10) 0 rem(40);
+        input[type=checkbox] {
+            margin-top: rem(12);
+            vertical-align: top;
+            margin-top: rem(4);
+        }
+        label {
+            vertical-align: middle;
+        }
+    }
+}

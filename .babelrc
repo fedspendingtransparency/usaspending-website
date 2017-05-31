@@ -5,7 +5,7 @@
   ],
   "plugins": [
     ["module-resolver", {
-        "root": ["./src/js"]
+        "root": ["src/js"]
     }]
   ]
 }

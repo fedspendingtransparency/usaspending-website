@@ -5,8 +5,6 @@
 
 import React from 'react';
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-
 const propTypes = {
     name: React.PropTypes.string,
     value: React.PropTypes.number,
@@ -61,14 +59,11 @@ export default class CategoryMapTooltip extends React.Component {
                         ref={(div) => {
                             this.pointerDiv = div;
                         }} />
-                    <div className="tooltip-title">
+                    <div className="tooltip-title center">
                         {this.props.name}
                     </div>
-                    <div className="tooltip-body center">
-                        <div className="tooltip-center">
-                            <div className="tooltip-value">
-                                {MoneyFormatter.formatMoney(this.props.value)}
-                            </div>
+                    <div className="tooltip-body">
+                        <div className="tooltip-left">
                             <div className="tooltip-description">
                                 {this.props.description}
                             </div>

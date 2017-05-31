@@ -1,50 +1,44 @@
 .budget-category-filter {
-
     @import '../location/_errorMessage';
     @import '../location/_selectedButtons';
     @import '../location/_typeahead';
-
     padding-left: 0;
-
     > div {
-        padding-left: 0rem;
+        padding-left: 0;
     }
-
     .shown {
-        min-height: 18rem;
+        min-height: rem(180);
     }
-
     .visually-hidden {
         display: none;
     }
-
     .pop-typeahead {
-        margin-bottom: 1rem;
-        padding-left: 3rem;
-
+        margin-bottom: rem(10);
+        padding-left: rem(30);
         p.object-class-label {
-            color: #5b616b;
-            padding-bottom: 1rem;
-            font-size: 1.4rem;
-            margin: 2rem 3rem .5rem 0;
-            border-bottom: 1px solid $color-gray-lighter;
+            border-bottom: rem(1) solid #E1E2E3;
+            font-size: $small-font-size;
+            font-weight: $font-semibold;
+            margin: ($global-mrg * 2) ($global-mrg * 2) $global-mrg 0;
+            padding: 0 0 rem(6);
+        }
+        &:nth-of-type(1) {
+            & .usa-da-typeahead {
+                margin-top: 0;
+            }
         }
     }
-
     .selected-budget-categories {
         background-color: #E4E4E4;
-        padding: 1rem 0 1rem 3rem;
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
-
-        &:empty{
+        padding: rem(10) 0 rem(10) rem(30);
+        margin-top: rem(15);
+        margin-bottom: rem(10);
+        &:empty {
             display: none;
         }
     }
-
     ul.object-classes {
         @include unstyled-list;
-
         @import "./_ObjectClassItem";
     }
 }
