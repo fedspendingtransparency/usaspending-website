@@ -39,7 +39,7 @@ export default class AppContainer extends React.Component {
     render() {
         return (
             <Provider store={store}>
-                <RouterContainer store={store} />
+                <RouterContainer />
             </Provider>
         );
     }

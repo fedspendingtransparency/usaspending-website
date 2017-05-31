@@ -24,6 +24,7 @@ export default class RouterContainer extends React.Component {
 
         this.state = {
             lastPath: '',
+            lastParent: '',
             content: null,
             route: {
                 params: {}
@@ -54,17 +55,24 @@ export default class RouterContainer extends React.Component {
 
     handleRouteChange() {
         const path = Router.state.path;
+        const parent = Router.state.parent;
+
 
         if (this.state.lastPath !== path) {
-            // scroll to top of page, but only if the path has changed (ignore in-page URL changes)
-            window.scrollTo(0, 0);
-
             // log with Google Analytics
             RouterContainer.logPageView(path);
             ga.pageview(window.location.hash);
 
+            if (this.state.lastParent !== parent || !Router.state.silentlyUpdate) {
+                // scroll to top of page, but only if the parent has changed (ignore in-page URL changes)
+                // and silent updates are not enabled
+                // this prevents the page from returning to the top when the search page hash changes
+                window.scrollTo(0, 0);
+            }
+
             this.setState({
-                lastPath: path
+                lastPath: path,
+                lastParent: parent
             });
         }
 

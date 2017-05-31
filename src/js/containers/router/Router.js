@@ -23,6 +23,7 @@ class RouterSingleton {
         // external modules can grab URL data by accessing the singleton's state property
         this.state = {
             path: '/',
+            parent: '/',
             params: {},
             query: {}
         };
@@ -49,7 +50,18 @@ class RouterSingleton {
                 // we matched, stop the loop
                 // add in the search params
                 componentReference = route.component;
-                this.state = Object.assign({}, pathData);
+
+                // check if we should be able to silently update this route
+                let silentlyUpdate = route.silentlyUpdate;
+                if (!route.silentlyUpdate) {
+                    // force undefined to false when the key doesn't exist
+                    silentlyUpdate = false;
+                }
+
+                this.state = Object.assign({}, pathData, {
+                    silentlyUpdate,
+                    parent: route.parent
+                });
                 break;
             }
         }
@@ -100,6 +112,7 @@ class RouterSingleton {
             params: {},
             query: {}
         };
+
         const pathKeys = pathToRegExp.parse(path);
         if (pathKeys.length > 1) {
             // there are named keys, add them as key-value pairs to the params object
