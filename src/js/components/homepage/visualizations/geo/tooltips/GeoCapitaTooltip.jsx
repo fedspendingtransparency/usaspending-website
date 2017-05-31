@@ -10,11 +10,11 @@ import * as MapHelper from 'helpers/mapHelper';
 
 const propTypes = {
     state: React.PropTypes.string,
-    value: React.PropTypes.number,
+    value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     y: React.PropTypes.number,
     x: React.PropTypes.number,
     visualization: React.PropTypes.object,
-    rank: React.PropTypes.number,
+    rank: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     rankCount: React.PropTypes.number,
     population: React.PropTypes.number
 };
@@ -61,6 +61,12 @@ export default class GeoCapitaTooltip extends React.Component {
             displayedPopulation = `${Math.round((this.props.population * 10) / populationUnits.unit) / 10} ${populationUnits.longLabel}`;
         }
 
+        let formattedAmount = MoneyFormatter.formatMoney(this.props.value);
+        if (isNaN(this.props.value)) {
+            // handle N/A amounts
+            formattedAmount = this.props.value;
+        }
+
         return (
             <div
                 className="visualization-tooltip"
@@ -83,7 +89,7 @@ export default class GeoCapitaTooltip extends React.Component {
                     <div className="tooltip-body">
                         <div className="tooltip-left">
                             <div className="tooltip-value">
-                                {MoneyFormatter.formatMoney(this.props.value)}
+                                {formattedAmount}
                             </div>
                             <div className="tooltip-label">
                                 Per Capita Amount

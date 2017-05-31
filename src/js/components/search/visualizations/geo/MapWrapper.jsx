@@ -99,14 +99,24 @@ export default class MapWrapper extends React.Component {
                     const stateName = feature.properties.NAME;
                     const stateCode = MapHelper.stateCodeFromName(stateName);
 
+                    let shape = {
+                        geometry: feature.geometry,
+                        type: 'Feature'
+                    };
+
+                    if (feature.type === 'FeatureCollection') {
+                        // this is a collection of multiple shapes (ie, islands)
+                        shape = {
+                            type: 'FeatureCollection',
+                            features: feature.features
+                        };
+                    }
+
                     const state = {
+                        shape,
                         data: {
                             name: stateName,
                             code: stateCode
-                        },
-                        shape: {
-                            geometry: feature.geometry,
-                            type: 'Feature'
                         }
                     };
 
@@ -205,7 +215,10 @@ export default class MapWrapper extends React.Component {
         const mapStates = [];
         const fillLayers = [];
         this.props.data.states.forEach((state, index) => {
-            const value = this.props.data.values[index];
+            let value = this.props.data.values[index];
+            if (isNaN(value)) {
+                value = 0;
+            }
 
             // check if the state shape exists
             if (state && {}.hasOwnProperty.call(this.state.stateShapes, state)) {
