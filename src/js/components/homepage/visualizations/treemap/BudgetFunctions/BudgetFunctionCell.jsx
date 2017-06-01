@@ -26,8 +26,13 @@ const propTypes = {
     height: React.PropTypes.number,
     width: React.PropTypes.number,
     labelView: React.PropTypes.string,
-    percentView: React.PropTypes.string
+    percentView: React.PropTypes.string,
+    clickable: React.PropTypes.string
 };
+
+const defaultProps = {
+    clickable: true
+}
 
 export default class BudgetFunctionCell extends React.Component {
     constructor(props) {
@@ -105,7 +110,9 @@ export default class BudgetFunctionCell extends React.Component {
                     this.props.toggleTooltipOut();
                 }}
                 onClick={() => {
-                    this.props.toggleSubfunction(this.props.functionID);
+                    if (this.props.clickable) {
+                        this.props.toggleSubfunction(this.props.functionID);
+                    }
                 }}>
                 <rect
                     className="tile"
@@ -153,3 +160,4 @@ export default class BudgetFunctionCell extends React.Component {
 }
 
 BudgetFunctionCell.propTypes = propTypes;
+BudgetFunctionCell.defaultProps = defaultProps;

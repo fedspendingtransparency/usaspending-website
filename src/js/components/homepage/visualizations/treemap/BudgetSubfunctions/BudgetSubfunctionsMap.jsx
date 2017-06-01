@@ -140,14 +140,12 @@ export default class BudgetSubfunctionsMap extends React.Component {
                     x0={n.x0}
                     x1={n.x1}
                     y0={n.y0}
-                    y1={n.y1}
                     total={this.calculateTotal(treeProps.category.value)}
                     key={i}
                     functionID={n.data.id}
                     color={cellColor}
                     strokeColor={'white'}
                     strokeOpacity={0.5}
-                    tooltipStyles={treeProps.tooltipStyles}
                     toggleTooltipIn={this.toggleTooltipIn}
                     toggleTooltipOut={this.toggleTooltipOut}
                     textColor={textColor}
