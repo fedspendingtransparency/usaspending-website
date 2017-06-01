@@ -4,9 +4,10 @@
  */
 
 import React from 'react';
+import _ from 'lodash';
 import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
 
-import ObjectClassItem from './ObjectClassItem';
+import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
 const propTypes = {
     selectObjectClass: React.PropTypes.func
@@ -18,18 +19,22 @@ export default class BudgetCategoryOCSearch extends React.Component {
 
         Object.keys(objectClassDefinitions).forEach((key) => {
             objectClassItems.push(
-                <ObjectClassItem
+                <PrimaryCheckboxType
                     {...this.props}
-                    objectClassLabel={objectClassDefinitions[key]}
-                    objectClassID={parseInt(key, 10)}
-                    key={`award-${key}`}
-                    toggleSelection={this.props.selectObjectClass.bind(this)} />);
+                    key={key}
+                    id={`award-${key}`}
+                    types={objectClassDefinitions}
+                    name={objectClassDefinitions[key]}
+                    value={_.toString(parseInt(key, 10))}
+                    filterType="Object Class"
+                    toggleCheckboxType={this.props.selectObjectClass.bind(this)}
+                    enableAnalytics />);
         });
 
         return (
-            <div className="pop-typeahead">
+            <div className="pop-typeahead checkbox-type-filter ">
                 <p className="object-class-label">Object Class</p>
-                <ul className="object-classes">
+                <ul className="object-classes checkbox-types">
                     {objectClassItems}
                 </ul>
             </div>

@@ -76,7 +76,7 @@ export default class ProgramActivityFilter extends React.Component {
                             name={label}
                             value={programActivity.id}
                             key={programActivity.id}
-                            types={this.props.availableProgramActivities}
+                            types={_.keyBy(this.props.availableProgramActivities, 'id')}
                             filterType="Object Class"
                             selectedCheckboxes={this.props.selectedProgramActivities}
                             toggleCheckboxType={this.toggleValue}

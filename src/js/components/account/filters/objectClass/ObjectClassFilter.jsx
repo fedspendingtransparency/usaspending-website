@@ -27,14 +27,14 @@ export default class ObjectClassFilter extends React.Component {
     }
 
     render() {
-        const items = Object.keys(objectClassDefinitions).map((code, index) => {
+        const items = Object.keys(objectClassDefinitions).map((code) => {
             const label = objectClassDefinitions[code];
             return (<PrimaryCheckboxType
                 {...code}
                 {...this.props}
                 name={label}
                 value={code}
-                key={index}
+                key={code}
                 types={objectClassDefinitions}
                 filterType="Object Class"
                 selectedCheckboxes={this.props.selectedCodes}

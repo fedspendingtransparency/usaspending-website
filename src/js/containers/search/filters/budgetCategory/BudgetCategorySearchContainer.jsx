@@ -37,7 +37,7 @@ export class BudgetCategorySearchContainer extends React.Component {
     }
 
     updateObjectClasses(objectClassEvent) {
-        this.props.updateSelectedObjectClasses(objectClassEvent.target.value);
+        this.props.updateSelectedObjectClasses(objectClassEvent);
     }
 
     render() {
