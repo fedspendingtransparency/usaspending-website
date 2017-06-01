@@ -10,7 +10,8 @@ import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
 const propTypes = {
-    selectObjectClass: React.PropTypes.func
+    selectObjectClass: React.PropTypes.func,
+    objectClasses: React.PropTypes.object
 };
 
 export default class BudgetCategoryOCSearch extends React.Component {
@@ -28,6 +29,7 @@ export default class BudgetCategoryOCSearch extends React.Component {
                     value={_.toString(parseInt(key, 10))}
                     filterType="Object Class"
                     toggleCheckboxType={this.props.selectObjectClass.bind(this)}
+                    selectedCheckboxes={this.props.objectClasses}
                     enableAnalytics />);
         });
 
