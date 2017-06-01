@@ -15,9 +15,13 @@ import { topFilterGroupGenerator } from
     'components/search/topFilterBar/filterGroups/TopFilterGroupGenerator';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import * as searchHashActions from 'redux/actions/search/searchHashActions';
+
+const combinedActions = Object.assign({}, searchFilterActions, searchHashActions);
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object
+    reduxFilters: React.PropTypes.object,
+    setSearchFilterIsUnfiltered: React.PropTypes.func
 };
 
 export class TopFilterBarContainer extends React.Component {
@@ -123,6 +127,14 @@ export class TopFilterBarContainer extends React.Component {
         const awardAmounts = this.prepareAwardAmounts(props);
         if (awardAmounts) {
             filters.push(awardAmounts);
+        }
+
+        if (filters.length > 0) {
+            // there are custom filters
+            this.props.setSearchFilterIsUnfiltered(false);
+        }
+        else {
+            this.props.setSearchFilterIsUnfiltered(true);
         }
 
         this.setState({
@@ -518,5 +530,5 @@ TopFilterBarContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ reduxFilters: state.filters }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+    (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(TopFilterBarContainer);

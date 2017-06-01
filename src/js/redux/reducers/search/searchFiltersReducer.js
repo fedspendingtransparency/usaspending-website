@@ -3,7 +3,7 @@
  * Created by Kevin Li 11/1/16
  **/
 
-import { Set, OrderedMap } from 'immutable';
+import { Set, OrderedMap, Record } from 'immutable';
 
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
 import * as LocationFilterFunctions from './filters/locationFilterFunctions';
@@ -12,6 +12,27 @@ import * as RecipientFilterFunctions from './filters/recipientFilterFunctions';
 import * as AwardIDFilterFunctions from './filters/awardIDFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
 import * as BudgetCategoryFilterFunctions from './filters/budgetCategoryFilterFunctions';
+
+// update this version when changes to the reducer structure are made
+// frontend will reject inbound hashed search filter sets with different versions because the
+// data structures may have changed
+export const filterStoreVersion = 1;
+
+export const requiredTypes = {
+    timePeriodFY: Set,
+    selectedLocations: OrderedMap,
+    budgetFunctions: OrderedMap,
+    federalAccounts: OrderedMap,
+    objectClasses: OrderedMap,
+    selectedFundingAgencies: OrderedMap,
+    selectedAwardingAgencies: OrderedMap,
+    selectedRecipients: OrderedMap,
+    recipientType: Set,
+    selectedRecipientLocations: OrderedMap,
+    awardType: Set,
+    selectedAwardIDs: OrderedMap,
+    awardAmounts: OrderedMap
+};
 
 export const initialState = {
     keyword: '',
@@ -34,6 +55,8 @@ export const initialState = {
     selectedAwardIDs: new OrderedMap(),
     awardAmounts: new OrderedMap()
 };
+
+const FilterModel = Record(initialState);
 
 const searchFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -188,6 +211,11 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 [action.filterType]: initialState[action.filterType]
             });
+        }
+        case 'POPULATE_ALL_SEARCH_FILTERS': {
+            const filters = new FilterModel(action.filters).toJS();
+            console.log(filters);
+            return Object.assign({}, initialState, filters);
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return Object.assign({}, initialState);

@@ -8,3 +8,7 @@ export const setSearchFilterIsUnfiltered = (state) => ({
     value: state
 });
 
+export const populateAllSearchFilters = (state) => ({
+    type: 'POPULATE_ALL_SEARCH_FILTERS',
+    filters: state
+});

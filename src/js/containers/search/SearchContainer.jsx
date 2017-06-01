@@ -10,9 +10,13 @@ import { isCancel } from 'axios';
 
 import Router from 'containers/router/Router';
 
+import { filterStoreVersion } from 'redux/reducers/search/searchFiltersReducer';
 import * as searchHashActions from 'redux/actions/search/searchHashActions';
+import * as SearchHelper from 'helpers/searchHelper';
 
 import SearchPage from 'components/search/SearchPage';
+
+import { testRedux } from './testRedux';
 
 const propTypes = {
     params: React.PropTypes.object,
@@ -26,6 +30,8 @@ export class SearchContainer extends React.Component {
         this.state = {
             hash: ''
         };
+
+        this.request = null;
     }
 
     componentWillMount() {
@@ -39,13 +45,16 @@ export class SearchContainer extends React.Component {
     }
 
     receiveHash(urlHash) {
+        if (!urlHash) {
+            return;
+        }
         // this is a hash that has been provided to the search page via the URL. The filters have
         // not yet been applied, so update the container's state and then parse the hash into its
         // original filter set.
         this.setState({
             hash: urlHash
         }, () => {
-            this.parseHash();
+            this.requestFilters();
         });
     }
 
@@ -63,8 +72,47 @@ export class SearchContainer extends React.Component {
         });
     }
 
-    parseHash() {
+    requestFilters() {
+        // POST an API request to retrieve the Redux state
+        if (this.request) {
+            this.request.cancel();
+        }
 
+        this.applyFilters({
+            filters: testRedux,
+            version: 1
+        });
+
+        // this.request = SearchHelper.restoreUrlHash({
+        //     hash: this.state.hash
+        // });
+
+        // this.request.promise
+        //     .then((res) => {
+        //         this.request = null;
+        //         this.applyFilters(res.data.filters);
+        //     })
+        //     .catch((err) => {
+        //         if (!isCancel(err)) {
+        //             console.log(err);
+        //             this.request = null;
+
+        //             // nuke the URL hash since it isn't working
+        //             // Router.history.replace('/search');
+        //         }
+        //     });
+    }
+
+    applyFilters(data) {
+        const filters = data.filters;
+        const version = data.version;
+
+        if (version !== filterStoreVersion) {
+            // versions don't match, don't populate the filters
+            console.log("reject");
+            return;
+        }
+        console.log(filters);
     }
 
     render() {
@@ -76,7 +124,8 @@ export class SearchContainer extends React.Component {
 
 export default connect(
     (state) => ({
-        hash: state.searchHash.hash
+        hash: state.searchHash.hash,
+        filters: state.filters
     }),
     (dispatch) => bindActionCreators(searchHashActions, dispatch)
 )(SearchContainer);
