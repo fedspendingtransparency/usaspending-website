@@ -312,3 +312,10 @@ FlagLogo.defaultProps = {
     iconClass: 'usa-da-flag-logo',
     alt: 'USASpending Flag Logo'
 };
+
+export class Sort extends BaseIcon {}
+Sort.defaultProps = {
+    iconName: 'usa-da-icon-sort',
+    iconClass: 'usa-da-icon-sort',
+    alt: 'Icon Depicting six small circles'
+};
