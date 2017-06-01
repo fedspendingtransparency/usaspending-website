@@ -31,7 +31,7 @@ export default class SelectedBudgetCategories extends React.Component {
         });
 
         return (
-            <div className="selected-budget-categories">
+            <div className="selected-filters">
                 {shownBudgetFunctions}
             </div>
         );

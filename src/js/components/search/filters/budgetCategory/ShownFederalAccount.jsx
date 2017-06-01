@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     updateSelectedFederalAccounts: React.PropTypes.func,
@@ -14,10 +15,12 @@ export default class ShownFederalAccount extends React.Component {
     render() {
         return (
             <button
-                className="shown-budget-category-button"
+                className="shown-filter-button"
                 value={this.props.label}
                 onClick={this.props.updateSelectedFederalAccounts}>
-                <span className="close">x</span> {this.props.label}
+                <span className="close">
+                    <Icons.Close className="usa-da-icon-close" />
+                </span> {this.props.label}
             </button>
         );
     }

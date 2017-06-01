@@ -15,7 +15,7 @@ export default class ShownRecipient extends React.Component {
     render() {
         return (
             <button
-                className="shown-recipient-button"
+                className="shown-filter-button"
                 value={this.props.label}
                 onClick={this.props.toggleRecipient}>
                 <span className="close">x</span> {this.props.label}

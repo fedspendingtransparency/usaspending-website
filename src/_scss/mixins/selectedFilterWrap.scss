@@ -1,0 +1,14 @@
+// ACTIVE FILTER BUTTON SEEN WITHIN THE FILTER BAR
+//@import "mixins/selectedFilterWrap";
+// CALL WITH -- @include selected-filter-wrap; --
+@mixin selected-filter-wrap {
+    @include display(flex);
+    @include flex-flow(row wrap);
+    background-color: #E4E4E4;
+    padding: rem(10) $global-pad;
+    margin-top: $global-mrg;
+    margin-bottom: rem(10);
+    &:empty {
+        display: none;
+    }
+}

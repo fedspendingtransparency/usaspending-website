@@ -1,67 +1,68 @@
-.time-period-filter {
-    @import '../../../../elements/_inputs';
-    @import '../../../../elements/_labels';
-    @import '../../../../elements/inputs/_errors';
-    @import '../../../../components/_alerts';
-    @import '../../../../components/datePicker/_datePicker';
-    @import './_toggleButtons';
-    @import './_errorMessage';
-    @include outer-container;
-    padding: 0;
-    margin: 0 rem(20) ($global-pad * 2);
-    ul.fiscal-years {
-        @include row();
-        list-style-type: none;
-        padding: $global-pad 0 0 0;
-        margin: -0.1rem auto 0;
-        li {
-            line-height: rem(20);
-            margin: 0;
-            padding: 0 0 0 rem(10);
-            height: auto;
-            @include span-columns(7);
-            input {
-                @include usa-input-checkbox;
-                margin-right: rem(-19);
-                margin-top: rem(13);
-                vertical-align: top;
-            }
-            label {
-                @include usa-label;
-                font-weight: normal;
-                margin: rem(10) 0 0 0;
-                margin-left: rem(25);
-                max-height: rem(24);
-                padding: 0;
-                font-size: rem(12);
-                display: inline-block;
-                @include media($large-screen) {
-                    font-size: $small-font-size;
-                    max-height: rem(28);
+.tab-filter-wrap {
+    .filter-item-wrap {
+        @import 'elements/_inputs';
+        @import 'elements/_labels';
+        @import 'elements/filters/_errorMessage';
+        @import 'components/_alerts';
+        @import 'components/datePicker/_datePicker';
+        @import './_toggleButtons';
+        padding: 0 $global-pad ($global-pad * 2);
+        ul.fiscal-years {
+            @include clearfix;
+            list-style-type: none;
+            padding: $global-pad $global-pad 0;
+            margin: -1px 0 0;
+            li {
+                line-height: rem(20);
+                margin: 0;
+                height: auto;
+                @include span-columns(7);
+                input {
+                    @include usa-input-checkbox;
+                    margin-right: rem(-19);
+                    margin-top: rem(13);
+                    vertical-align: top;
+                }
+                label {
+                    @include usa-label;
+                    font-weight: normal;
+                    margin: rem(10) 0 0 0;
+                    margin-left: rem(25);
+                    max-height: rem(24);
+                    padding: 0;
+                    font-size: rem(12);
+                    display: inline-block;
+                    @include media($large-screen) {
+                        font-size: $small-font-size;
+                        max-height: rem(28);
+                    }
+                }
+                input + label {
+                    margin-bottom: 0;
                 }
             }
-            input + label {
-                margin-bottom: 0;
+            .fiscal-year-option-all {
+                @include span-columns(16);
             }
         }
-        .fiscal-year-option-all {
-            @include span-columns(16);
+        .fiscal-years,
+        .date-range-option {
+            border-top: 1px solid $color-gray-lighter;
+            padding: 0 $global-pad;
+            margin-top: -1px;
+            z-index: 1;
         }
-    }
-    .fiscal-years,
-    .date-range-option {
-        border-top: 1px solid $color-gray-lighter;
-        padding: 0 rem(10);
-        margin-top: -1px;
-        z-index: 1;
-    }
-    .date-range-option {
-        @include outer-container;
-        input {
-            @include usa-input;
+        .date-range-option {
+            @include outer-container;
+            input {
+                @include usa-input;
+            }
+            .date-range-wrapper {
+                margin-top: rem(25);
+            }
         }
-        .date-range-wrapper {
-            margin-top: rem(25);
+        .error-message {
+            margin: $global-mrg
         }
     }
 }
