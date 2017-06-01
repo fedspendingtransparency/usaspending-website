@@ -9,6 +9,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import ResultsColumnOption from './ResultsColumnOption';
+import ResultsColumnVisibleOption from './ResultsColumnVisibleOption';
 
 const propTypes = {
     columns: React.PropTypes.array,
@@ -54,7 +55,7 @@ class ResultsSelectColumns extends React.Component {
             icon = <Icons.TableClosed alt="Select Columns" />;
         }
         const visibleColumns = this.props.columns.map((col, i) => (
-            <ResultsColumnOption
+            <ResultsColumnVisibleOption
                 key={col.columnName}
                 checked={'visible'}
                 column={col.columnName}
@@ -70,10 +71,7 @@ class ResultsSelectColumns extends React.Component {
                 checked={''}
                 column={col.columnName}
                 label={col.displayName}
-                toggleColumnVisibility={this.props.toggleColumnVisibility}
-                index={i}
-                id={col.columnName}
-                moveColumn={this.moveColumn} />
+                toggleColumnVisibility={this.props.toggleColumnVisibility} />
         ));
         return (
             <div className="results-select-columns">

@@ -141,3 +141,10 @@ export const toggleColumnVisibility = (state) => ({
 export const resetColumnVisibility = () => ({
     type: 'RESET_COLUMN_VISIBILITY'
 });
+
+export const reorderColumns = (state) => ({
+    type: 'REORDER_COLUMNS',
+    tableType: state.tableType,
+    dragIndex: state.dragIndex,
+    hoverIndex: state.hoverIndex
+});

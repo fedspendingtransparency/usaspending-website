@@ -37,7 +37,8 @@ const propTypes = {
     triggerBatchSearchUpdate: React.PropTypes.func,
     triggerBatchQueryUpdate: React.PropTypes.func,
     columnVisibility: React.PropTypes.object,
-    toggleColumnVisibility: React.PropTypes.func
+    toggleColumnVisibility: React.PropTypes.func,
+    reorderColumns: React.PropTypes.func
 };
 
 const tableTypes = [
@@ -406,7 +407,12 @@ export class ResultsTableContainer extends React.Component {
     }
 
     reorderColumns(dragIndex, hoverIndex) {
-        // TODO Lizzie: call redux action here
+        const tableType = this.props.meta.tableType;
+        this.props.reorderColumns({
+            tableType,
+            dragIndex,
+            hoverIndex
+        });
         console.log(`drag column: ${dragIndex}, hoverIndex: ${hoverIndex}`);
     }
 
