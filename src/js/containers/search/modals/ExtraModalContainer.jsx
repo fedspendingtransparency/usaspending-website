@@ -4,11 +4,11 @@
  */
 
 import React from 'react';
-import { isCancel } from 'axios';
+// import { isCancel } from 'axios';
 
 import ExtraModal from 'components/search/modals/ExtraModal';
 
-import * as DownloadHelper from 'helpers/downloadHelper';
+// import * as DownloadHelper from 'helpers/downloadHelper';
 
 const propTypes = {
     lastReq: React.PropTypes.string,
@@ -59,33 +59,45 @@ export class ExtraModalContainer extends React.Component {
             title: 'A link to the file is being generated.'
         });
 
-        this.request = DownloadHelper.requestAwardTable({
-            req: this.props.lastReq
-        });
+        window.setTimeout(() => {
+            const fakeRes = {
+                status: "File is ready for download.",
+                location: "https://raw.githubusercontent.com/fedspendingtransparency/usaspending-website/demo-csv/src/graphics/v1_awards_fn_633ff8232b5.csv",
+                retry_url: "https://staging-api.usaspending.gov/api/v1/download/awards/?req=633ff8232b5",
+                request_checksum: "633ff8232b5",
+                request_path: "/api/v1/awards/"
+            };
 
-        this.request.promise
-            .then((res) => {
-                this.parseResponse(res.data);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    if (err.response && err.response.data) {
-                        let message = `Error: ${err.response.statusText} (${err.response.status})`;
-                        if (err.response.data.status) {
-                            message = err.response.data.status;
-                        }
+            this.parseResponse(fakeRes);
+        }, 5000);
 
-                        this.setState({
-                            message,
-                            title: 'An error occurred while generating the file.',
-                            location: '',
-                            animate: false
-                        });
-                    }
+        // this.request = DownloadHelper.requestAwardTable({
+        //     req: this.props.lastReq
+        // });
 
-                    console.log(err);
-                }
-            });
+        // this.request.promise
+        //     .then((res) => {
+        //         this.parseResponse(res.data);
+        //     })
+        //     .catch((err) => {
+        //         if (!isCancel(err)) {
+        //             if (err.response && err.response.data) {
+        //                 let message = `Error: ${err.response.statusText} (${err.response.status})`;
+        //                 if (err.response.data.status) {
+        //                     message = err.response.data.status;
+        //                 }
+
+        //                 this.setState({
+        //                     message,
+        //                     title: 'An error occurred while generating the file.',
+        //                     location: '',
+        //                     animate: false
+        //                 });
+        //             }
+
+        //             console.log(err);
+        //         }
+        //     });
     }
 
     parseResponse(data) {
