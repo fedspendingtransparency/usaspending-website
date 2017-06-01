@@ -413,7 +413,6 @@ export class ResultsTableContainer extends React.Component {
             dragIndex,
             hoverIndex
         });
-        console.log(`drag column: ${dragIndex}, hoverIndex: ${hoverIndex}`);
     }
 
     render() {

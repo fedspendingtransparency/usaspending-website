@@ -8,6 +8,7 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 import ItemTypes from './ItemTypes';
 
 const propTypes = {
@@ -93,6 +94,7 @@ class ResultsColumnVisibleOption extends React.Component {
         const checked = this.props.checked;
         const { label, isDragging, connectDragSource, connectDropTarget } = this.props;
         const opacity = isDragging ? 0 : 1;
+        const icon = <Icons.Sort alt="Reorder Columns" />;
 
         return connectDragSource(connectDropTarget(
             <li style={{ opacity }}>
@@ -104,6 +106,9 @@ class ResultsColumnVisibleOption extends React.Component {
                     onChange={this.toggleColumnVisibility} />
                 <label htmlFor={`column-${this.props.column}`}>
                     {label}
+                    <span className="icon">
+                        {icon}
+                    </span>
                 </label>
             </li>
         ));
