@@ -56,8 +56,6 @@ export const initialState = {
     awardAmounts: new OrderedMap()
 };
 
-const FilterModel = Record(initialState);
-
 const searchFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
         // Free Text Search
@@ -213,9 +211,7 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
         case 'POPULATE_ALL_SEARCH_FILTERS': {
-            const filters = new FilterModel(action.filters).toJS();
-            console.log(filters);
-            return Object.assign({}, initialState, filters);
+            return Object.assign({}, initialState, action.filters);
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return Object.assign({}, initialState);
