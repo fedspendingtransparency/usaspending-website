@@ -86,6 +86,7 @@ export class ResultsTableContainer extends React.Component {
         this.switchTab = this.switchTab.bind(this);
         this.loadNextPage = this.loadNextPage.bind(this);
         this.toggleColumnVisibility = this.toggleColumnVisibility.bind(this);
+        this.reorderColumns = this.reorderColumns.bind(this);
     }
 
     componentDidMount() {
@@ -404,6 +405,11 @@ export class ResultsTableContainer extends React.Component {
         });
     }
 
+    reorderColumns(dragIndex, hoverIndex) {
+        // TODO Lizzie: call redux action here
+        console.log(`drag column: ${dragIndex}, hoverIndex: ${hoverIndex}`);
+    }
+
     render() {
         return (
             <ResultsTableSection
@@ -414,6 +420,7 @@ export class ResultsTableContainer extends React.Component {
                 columns={this.state.columns}
                 hiddenColumns={this.state.hiddenColumns}
                 toggleColumnVisibility={this.toggleColumnVisibility}
+                reorderColumns={this.reorderColumns}
                 tableTypes={tableTypes}
                 currentType={this.props.meta.tableType}
                 switchTab={this.switchTab}
