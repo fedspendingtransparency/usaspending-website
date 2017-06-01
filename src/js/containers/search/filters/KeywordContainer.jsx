@@ -38,23 +38,52 @@ export class KeywordContainer extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            value: ''
+        };
+
         this.submitText = this.submitText.bind(this);
+        this.changedInput = this.changedInput.bind(this);
     }
 
-    submitText(value) {
-        // take in keywords and pass to redux
-        if (value !== null) {
-            this.props.updateTextSearchInput(value);
-
-            // Analytics
-            KeywordContainer.logFilterEvent();
-            KeywordContainer.logSelectedKeywordEvent(value);
+    componentWillMount() {
+        if (this.props.keyword !== '') {
+            this.populateInput(this.props.keyword);
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.keyword !== this.state.defaultValue) {
+            this.populateInput(nextProps.keyword);
+        }
+    }
+
+    populateInput(value) {
+        this.setState({
+            value
+        });
+    }
+
+    changedInput(e) {
+        this.setState({
+            value: e.target.value
+        });
+    }
+
+    submitText() {
+        // take in keywords and pass to redux
+        this.props.updateTextSearchInput(this.state.value);
+
+        // Analytics
+        KeywordContainer.logFilterEvent();
+        KeywordContainer.logSelectedKeywordEvent(this.state.value);
     }
 
     render() {
         return (
             <Keyword
+                value={this.state.value}
+                changedInput={this.changedInput}
                 submitText={this.submitText} />
         );
     }
