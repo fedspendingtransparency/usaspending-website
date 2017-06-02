@@ -15,7 +15,8 @@ const propTypes = {
     width: React.PropTypes.number,
     showSub: React.PropTypes.bool,
     percentage: React.PropTypes.string,
-    arrow: React.PropTypes.bool
+    arrow: React.PropTypes.bool,
+    showSubfunctions: React.PropTypes.bool
 };
 
 export default class TreeMapTooltip extends React.Component {
@@ -100,6 +101,13 @@ export default class TreeMapTooltip extends React.Component {
             smallValue = ' small';
         }
 
+        let footer = null;
+        if (!this.props.showSubfunctions) {
+            footer = (<div className="tooltip-footer">
+                Click on the block to see sub-functions for {this.props.name}.
+            </div>);
+        }
+
         return (
             <div
                 className="visualization-tooltip"
@@ -122,6 +130,7 @@ export default class TreeMapTooltip extends React.Component {
                     <div className="tooltip-body center">
                         {desc}
                     </div>
+                    { footer }
                 </div>
             </div>
         );

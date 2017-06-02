@@ -15,7 +15,8 @@ const propTypes = {
     category: React.PropTypes.object,
     colors: React.PropTypes.array,
     subfunction: React.PropTypes.object,
-    tooltipStyles: React.PropTypes.object
+    tooltipStyles: React.PropTypes.object,
+    showSubfunctions: React.PropTypes.bool
 };
 
 export default class BudgetSubfunctionsMap extends React.Component {
@@ -107,14 +108,12 @@ export default class BudgetSubfunctionsMap extends React.Component {
             let cell = '';
             let cellColor = treeProps.colors[i];
             let textColor = treeProps.tooltipStyles.defaultStyle.textColor;
-            let textShadow = treeProps.tooltipStyles.defaultStyle.textShadow;
             let textClass = '';
 
             // Set highlighted state for hovered function
             if (this.state.hoveredFunction === n.data.id) {
                 cellColor = treeProps.tooltipStyles.highlightedStyle.color;
                 textColor = treeProps.tooltipStyles.highlightedStyle.textColor;
-                textShadow = treeProps.tooltipStyles.highlightedStyle.textShadow;
                 textClass = 'chosen';
             }
 
@@ -149,7 +148,6 @@ export default class BudgetSubfunctionsMap extends React.Component {
                     toggleTooltipIn={this.toggleTooltipIn}
                     toggleTooltipOut={this.toggleTooltipOut}
                     textColor={textColor}
-                    textShadow={textShadow}
                     textClass={textClass}
                     labelView={labelView}
                     width={width}
@@ -207,7 +205,8 @@ export default class BudgetSubfunctionsMap extends React.Component {
                 x={node.props.x0}
                 y={node.props.y0}
                 width={node.props.width}
-                height={(node.props.height / 2) + 50} />);
+                height={(node.props.height / 2) + 50}
+                showSubfunctions={this.props.showSubfunctions} />);
         }
 
         return tooltip;

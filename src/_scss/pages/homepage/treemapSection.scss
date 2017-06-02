@@ -11,6 +11,8 @@
         @import './_treemapNavButtons';
 
         .treemap-navigation-holder {
+            min-height: rem(48);
+
             .treemap-navigation-bar {
 
                 .treemap-inner-wrap {
@@ -32,6 +34,7 @@
         .function-desc {
             padding-left: 10%;
             padding-right: 10%;
+            margin-top: 3rem;
 
             h1, h6, p {
                 text-align: center;
@@ -41,8 +44,8 @@
             h1 {
                 font-size: rem(47);
                 line-height: rem(59);
-                margin-top: rem(18);
                 margin-bottom: 0;
+                margin-top: 0;
             }
             h6 {
                 border-top: #D6D7D9 1px solid;

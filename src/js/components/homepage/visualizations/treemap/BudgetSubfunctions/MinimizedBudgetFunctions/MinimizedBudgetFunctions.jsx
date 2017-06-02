@@ -87,9 +87,10 @@ export default class BudgetFunctionsMinimized extends React.Component {
 
         // build the tiles
         const nodes = budgetFunctionsMinimizedTreemap.map((n, i) => {
-            let color = treeProps.alternateColors[i];
-            if (i === treeProps.selected) {
-                color = treeProps.colors[i];
+            let cellColor = treeProps.alternateColors[i];
+            // Set regular state for both selected and hovered functions
+            if (i === treeProps.selected || i === this.state.hoveredFunction) {
+                cellColor = treeProps.colors[i];
             }
 
             const width = (n.x1 - n.x0);
@@ -104,7 +105,7 @@ export default class BudgetFunctionsMinimized extends React.Component {
                 total={n.parent.value}
                 key={i}
                 functionID={n.data.id}
-                color={color}
+                color={cellColor}
                 strokeColor="white"
                 tooltipStyles={treeProps.tooltipStyles}
                 toggleTooltipIn={this.toggleTooltipIn}

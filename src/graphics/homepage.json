@@ -131,13 +131,11 @@
     ],
     "tooltipStyles": {
         "defaultStyle": {
-            "textColor": "#FFFFFF",
-            "textShadow": "rem(1) rem(0) rem(1) rgba( $color-black, .6)"
+            "textColor": "#FFFFFF"
         },
         "highlightedStyle": {
             "color": "#F2B733",
-            "textColor": "#212121",
-            "textShadow": "none"
+            "textColor": "#212121"
         }
     },
     "states": {

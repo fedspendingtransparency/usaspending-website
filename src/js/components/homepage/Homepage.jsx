@@ -104,11 +104,11 @@ export default class Homepage extends React.Component {
             breakdown: res.data.budgetBreakdown,
             breakdownColors: res.data.breakdownColors,
             tooltipStyles: res.data.tooltipStyles,
-            total: res.data.totalSpent
-                    totalNumber: res.data.totalSpentNumber,
-                    states: res.data.states,
-                    alternateColors: res.data.alternateColors,
-                    subfunctions: res.data.subfunctions
+            total: res.data.totalSpent,
+            totalNumber: res.data.totalSpentNumber,
+            states: res.data.states,
+            alternateColors: res.data.alternateColors,
+            subfunctions: res.data.subfunctions
         });
     }
 

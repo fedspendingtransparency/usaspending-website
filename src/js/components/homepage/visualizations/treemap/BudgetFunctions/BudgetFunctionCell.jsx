@@ -21,18 +21,17 @@ const propTypes = {
     toggleTooltipIn: React.PropTypes.func,
     toggleTooltipOut: React.PropTypes.func,
     textColor: React.PropTypes.string,
-    textShadow: React.PropTypes.string,
     textClass: React.PropTypes.string,
     height: React.PropTypes.number,
     width: React.PropTypes.number,
     labelView: React.PropTypes.string,
     percentView: React.PropTypes.string,
-    clickable: React.PropTypes.string
+    clickable: React.PropTypes.bool
 };
 
 const defaultProps = {
     clickable: true
-}
+};
 
 export default class BudgetFunctionCell extends React.Component {
     constructor(props) {
@@ -136,8 +135,7 @@ export default class BudgetFunctionCell extends React.Component {
                     }}
                     style={{
                         display: this.props.labelView,
-                        fill: this.props.textColor,
-                        textShadow: this.props.textShadow
+                        fill: this.props.textColor
                     }}>
                     {this.state.label}
                 </text>
@@ -149,8 +147,7 @@ export default class BudgetFunctionCell extends React.Component {
                     textAnchor="middle"
                     style={{
                         display: this.props.percentView,
-                        fill: this.props.textColor,
-                        textShadow: this.props.textShadow
+                        fill: this.props.textColor
                     }}>
                     {parseFloat((this.props.value / this.props.total) * 100).toFixed(1)}%
                 </text>

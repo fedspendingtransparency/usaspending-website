@@ -15,7 +15,8 @@ const propTypes = {
     categories: React.PropTypes.object,
     descriptions: React.PropTypes.array,
     toggleSubfunction: React.PropTypes.func,
-    totalNumber: React.PropTypes.number
+    totalNumber: React.PropTypes.number,
+    showSubfunctions: React.PropTypes.bool
 };
 
 const defaultProps = {
@@ -98,7 +99,6 @@ export default class BudgetFunctions extends React.Component {
             let strokeColor = 'white';
             let strokeOpacity = 0.5;
             let textColor = treeProps.tooltipStyles.defaultStyle.textColor;
-            let textShadow = treeProps.tooltipStyles.defaultStyle.textShadow;
             let textClass = '';
 
             if (this.state.showOverlay) {
@@ -115,7 +115,6 @@ export default class BudgetFunctions extends React.Component {
             if (this.state.hoveredFunction === n.data.id) {
                 cellColor = treeProps.tooltipStyles.highlightedStyle.color;
                 textColor = treeProps.tooltipStyles.highlightedStyle.textColor;
-                textShadow = treeProps.tooltipStyles.highlightedStyle.textShadow;
                 textClass = 'chosen';
             }
 
@@ -153,7 +152,6 @@ export default class BudgetFunctions extends React.Component {
                     toggleTooltipIn={this.toggleTooltipIn}
                     toggleTooltipOut={this.toggleTooltipOut}
                     textColor={textColor}
-                    textShadow={textShadow}
                     textClass={textClass}
                     labelView={labelView}
                     width={width}
@@ -216,7 +214,8 @@ export default class BudgetFunctions extends React.Component {
                 x={node.props.x0}
                 y={node.props.y0}
                 width={node.props.width}
-                height={(node.props.height / 2) + 50} />);
+                height={(node.props.height / 2) + 50}
+                showSubfunctions={this.props.showSubfunctions} />);
         }
 
         return tooltip;

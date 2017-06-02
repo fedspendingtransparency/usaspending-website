@@ -20,7 +20,8 @@ const propTypes = {
     toggleSubfunction: React.PropTypes.func,
     changeActiveSubfunction: React.PropTypes.func,
     tooltipStyles: React.PropTypes.object,
-    totalNumber: React.PropTypes.number
+    totalNumber: React.PropTypes.number,
+    showSubfunctions: React.PropTypes.bool
 };
 
 export default class BudgetSubfunctions extends React.Component {

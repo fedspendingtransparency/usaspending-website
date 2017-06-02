@@ -44,8 +44,23 @@ export default class TreeMap extends React.Component {
     }
 
     render() {
+        let intro = null;
+
+        if (this.state.showSubfunctions === false) {
+            intro = (
+                <div className="tree-desc">
+                    <b>3</b> of the <b>19</b> total budget functions, accounted for about
+                    &nbsp;<b>1/2</b> of total spending. <br />
+                    <span className="highlight">Social Security</span>,&nbsp;
+                    <span className="highlight">National Defense</span>,
+                    and <span className="highlight">Medicare</span>.
+                </div>
+            );
+        }
+
         let functions = (<BudgetFunctions
             {...this.props}
+            {...this.state}
             toggleSubfunction={this.toggleSubfunction} />);
 
         if (this.state.showSubfunctions === true) {
@@ -58,14 +73,7 @@ export default class TreeMap extends React.Component {
 
         return (
             <div className="usa-da-treemap-section">
-                <div className="tree-desc">
-                    <b>3</b> of the <b>19</b> total budget functions, accounted for about
-                    &nbsp;<b>1/2</b> of total spending. <br />
-                    <span className="highlight">Social Security</span>,&nbsp;
-                    <span className="highlight">National Defense</span>,
-                    and <span className="highlight">Medicare</span>.
-                </div>
-
+                {intro}
                 {functions}
                 <div className="source">
                     Source: Monthly Treasury Statement

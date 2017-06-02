@@ -8,6 +8,7 @@
             rgba($color-gray-lighter, .3) rem(4px)
         );
     }
+
     &.minimized {
         display: inline-block;
 
@@ -15,21 +16,26 @@
             width: 100%;
         }
     }
+
     text {
         cursor: default;
     }
+
     .category,
     .value {
         fill: $color-white;
-        text-shadow: rem(1) rem(0) rem(1) rgba( $color-black, .6);
+        text-shadow: 0 1px 2px rgba( $color-black, .6);
     }
+
     .category {
         font-size: $base-font-size;
     }
+
     .value {
         font-size: $base-font-size + rem(4);
         font-weight: $font-semibold;
     }
+
     .chosen {
         fill: #212121;
         text-shadow: none;

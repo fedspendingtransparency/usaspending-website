@@ -29,7 +29,6 @@ export default class CategoryMapCell extends React.Component {
             didProcess: false,
             color: this.props.color,
             textColor: this.props.tooltipStyles.defaultStyle.textColor,
-            textShadow: this.props.tooltipStyles.defaultStyle.textShadow
         };
 
         this.mouseIn = this.mouseIn.bind(this);
@@ -98,8 +97,7 @@ export default class CategoryMapCell extends React.Component {
         this.props.toggleTooltipIn(this.props.categoryID, height, width);
         this.setState({
             color: this.highlightedStyle.color,
-            textColor: this.highlightedStyle.textColor,
-            textShadow: this.highlightedStyle.textShadow
+            textColor: this.highlightedStyle.textColor
         });
     }
 
@@ -107,8 +105,7 @@ export default class CategoryMapCell extends React.Component {
         this.props.toggleTooltipOut(this.props.categoryID, height, width);
         this.setState({
             color: this.props.color,
-            textColor: this.defaultStyle.textColor,
-            textShadow: this.defaultStyle.textShadow
+            textColor: this.defaultStyle.textColor
         });
     }
 
@@ -159,8 +156,7 @@ export default class CategoryMapCell extends React.Component {
                     }}
                     style={{
                         display: labelView,
-                        fill: this.state.textColor,
-                        textShadow: this.state.textShadow
+                        fill: this.state.textColor
                     }}>
                     {this.state.label}
                 </text>
@@ -172,8 +168,7 @@ export default class CategoryMapCell extends React.Component {
                     textAnchor="middle"
                     style={{
                         display: percentView,
-                        fill: this.state.textColor,
-                        textShadow: this.state.textShadow
+                        fill: this.state.textColor
                     }}>
                     {this.props.value}%
                 </text>
