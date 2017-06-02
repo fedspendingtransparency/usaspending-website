@@ -1,4 +1,4 @@
-    @import "mixins/setText";
+@import "mixins/setText";
 @mixin sharedCheckboxStyle {
     display: table;
     width: 100%;
@@ -20,7 +20,7 @@
         label {
             @include usa-label;
             display: inline-block;
-@include setText(rem(14));
+            @include setText(rem(14));
             margin: 0 0 rem(10) 0;
             width: 80%;
             padding-left: 0;
