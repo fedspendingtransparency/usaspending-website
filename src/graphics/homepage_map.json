@@ -1,0 +1,545 @@
+{
+    "states": {
+        "children": [{
+                "StateName": "Alabama",
+                "StateAbbrev": "AL",
+                "TotalAmount": 66885581514,
+                "TotalRank": 18,
+                "TotalStatePopulation": 4863300,
+                "PerCapitaAmount": 13753,
+                "PerCapitaRank": 10
+            },
+            {
+                "StateName": "Alaska",
+                "StateAbbrev": "AK",
+                "TotalAmount": 7979866423,
+                "TotalRank": 48,
+                "TotalStatePopulation": 741894,
+                "PerCapitaAmount": 10756,
+                "PerCapitaRank": 15
+            },
+            {
+                "StateName": "Arizona",
+                "StateAbbrev": "AZ",
+                "TotalAmount": 71549749751,
+                "TotalRank": 17,
+                "TotalStatePopulation": 6931071,
+                "PerCapitaAmount": 10323,
+                "PerCapitaRank": 16
+            },
+            {
+                "StateName": "Arkansas",
+                "StateAbbrev": "AR",
+                "TotalAmount": 22913343961,
+                "TotalRank": 34,
+                "TotalStatePopulation": 2988248,
+                "PerCapitaAmount": 7668,
+                "PerCapitaRank": 32
+            },
+            {
+                "StateName": "California",
+                "StateAbbrev": "CA",
+                "TotalAmount": 289390127596,
+                "TotalRank": 1,
+                "TotalStatePopulation": 39250017,
+                "PerCapitaAmount": 7373,
+                "PerCapitaRank": 36
+            },
+            {
+                "StateName": "Colorado",
+                "StateAbbrev": "CO",
+                "TotalAmount": 39454726552,
+                "TotalRank": 27,
+                "TotalStatePopulation": 5540545,
+                "PerCapitaAmount": 7121,
+                "PerCapitaRank": 40
+            },
+            {
+                "StateName": "Connecticut",
+                "StateAbbrev": "CT",
+                "TotalAmount": 74569028710,
+                "TotalRank": 15,
+                "TotalStatePopulation": 3576452,
+                "PerCapitaAmount": 20850,
+                "PerCapitaRank": 3
+            },
+            {
+                "StateName": "Delaware",
+                "StateAbbrev": "DE",
+                "TotalAmount": 6623571514,
+                "TotalRank": 50,
+                "TotalStatePopulation": 952065,
+                "PerCapitaAmount": 6957,
+                "PerCapitaRank": 42
+            },
+            {
+                "StateName": "District of Columbia",
+                "StateAbbrev": "DC",
+                "TotalAmount": 30909161262,
+                "TotalRank": 30,
+                "TotalStatePopulation": 681170,
+                "PerCapitaAmount": 45377,
+                "PerCapitaRank": 2
+            },
+            {
+                "StateName": "Florida",
+                "StateAbbrev": "FL",
+                "TotalAmount": 170941520852,
+                "TotalRank": 3,
+                "TotalStatePopulation": 20612439,
+                "PerCapitaAmount": 8293,
+                "PerCapitaRank": 23
+            },
+            {
+                "StateName": "Georgia",
+                "StateAbbrev": "GA",
+                "TotalAmount": 65121845269,
+                "TotalRank": 20,
+                "TotalStatePopulation": 10310371,
+                "PerCapitaAmount": 6316,
+                "PerCapitaRank": 47
+            },
+            {
+                "StateName": "Hawaii",
+                "StateAbbrev": "HI",
+                "TotalAmount": 11118102592,
+                "TotalRank": 44,
+                "TotalStatePopulation": 1428557,
+                "PerCapitaAmount": 7783,
+                "PerCapitaRank": 31
+            },
+            {
+                "StateName": "Idaho",
+                "StateAbbrev": "ID",
+                "TotalAmount": 12326175082,
+                "TotalRank": 41,
+                "TotalStatePopulation": 1683140,
+                "PerCapitaAmount": 7323,
+                "PerCapitaRank": 37
+            },
+            {
+                "StateName": "Illinois",
+                "StateAbbrev": "IL",
+                "TotalAmount": 80414663381,
+                "TotalRank": 11,
+                "TotalStatePopulation": 12801539,
+                "PerCapitaAmount": 6282,
+                "PerCapitaRank": 49
+            },
+            {
+                "StateName": "Indiana",
+                "StateAbbrev": "IN",
+                "TotalAmount": 128391292036,
+                "TotalRank": 6,
+                "TotalStatePopulation": 6633053,
+                "PerCapitaAmount": 19356,
+                "PerCapitaRank": 5
+            },
+            {
+                "StateName": "Iowa",
+                "StateAbbrev": "IA",
+                "TotalAmount": 23227360586,
+                "TotalRank": 33,
+                "TotalStatePopulation": 3134693,
+                "PerCapitaAmount": 7410,
+                "PerCapitaRank": 35
+            },
+            {
+                "StateName": "Kansas",
+                "StateAbbrev": "KS",
+                "TotalAmount": 16225093170,
+                "TotalRank": 38,
+                "TotalStatePopulation": 2907289,
+                "PerCapitaAmount": 5581,
+                "PerCapitaRank": 52
+            },
+            {
+                "StateName": "Kentucky",
+                "StateAbbrev": "KY",
+                "TotalAmount": 89291646070,
+                "TotalRank": 8,
+                "TotalStatePopulation": 4436974,
+                "PerCapitaAmount": 20124,
+                "PerCapitaRank": 4
+            },
+            {
+                "StateName": "Louisiana",
+                "StateAbbrev": "LA",
+                "TotalAmount": 35365880631,
+                "TotalRank": 28,
+                "TotalStatePopulation": 4681666,
+                "PerCapitaAmount": 7554,
+                "PerCapitaRank": 33
+            },
+            {
+                "StateName": "Maine",
+                "StateAbbrev": "ME",
+                "TotalAmount": 11651255794,
+                "TotalRank": 43,
+                "TotalStatePopulation": 1331479,
+                "PerCapitaAmount": 8751,
+                "PerCapitaRank": 19
+            },
+            {
+                "StateName": "Maryland",
+                "StateAbbrev": "MD",
+                "TotalAmount": 66332189805,
+                "TotalRank": 19,
+                "TotalStatePopulation": 6016447,
+                "PerCapitaAmount": 11025,
+                "PerCapitaRank": 13
+            },
+            {
+                "StateName": "Massachusetts",
+                "StateAbbrev": "MA",
+                "TotalAmount": 62269429202,
+                "TotalRank": 23,
+                "TotalStatePopulation": 6811779,
+                "PerCapitaAmount": 9141,
+                "PerCapitaRank": 17
+            },
+            {
+                "StateName": "Michigan",
+                "StateAbbrev": "MI",
+                "TotalAmount": 77379127377,
+                "TotalRank": 13,
+                "TotalStatePopulation": 9928300,
+                "PerCapitaAmount": 7794,
+                "PerCapitaRank": 30
+            },
+            {
+                "StateName": "Minnesota",
+                "StateAbbrev": "MN",
+                "TotalAmount": 81505757968,
+                "TotalRank": 10,
+                "TotalStatePopulation": 5519952,
+                "PerCapitaAmount": 14766,
+                "PerCapitaRank": 8
+            },
+            {
+                "StateName": "Mississippi",
+                "StateAbbrev": "MS",
+                "TotalAmount": 24462611165,
+                "TotalRank": 32,
+                "TotalStatePopulation": 2988726,
+                "PerCapitaAmount": 8185,
+                "PerCapitaRank": 24
+            },
+            {
+                "StateName": "Missouri",
+                "StateAbbrev": "MO",
+                "TotalAmount": 52923964757,
+                "TotalRank": 26,
+                "TotalStatePopulation": 6093000,
+                "PerCapitaAmount": 8686,
+                "PerCapitaRank": 20
+            },
+            {
+                "StateName": "Montana",
+                "StateAbbrev": "MT",
+                "TotalAmount": 8331291166,
+                "TotalRank": 47,
+                "TotalStatePopulation": 1042520,
+                "PerCapitaAmount": 7991,
+                "PerCapitaRank": 26
+            },
+            {
+                "StateName": "Nebraska",
+                "StateAbbrev": "NE",
+                "TotalAmount": 12296529035,
+                "TotalRank": 42,
+                "TotalStatePopulation": 1907116,
+                "PerCapitaAmount": 6448,
+                "PerCapitaRank": 46
+            },
+            {
+                "StateName": "Nevada",
+                "StateAbbrev": "NV",
+                "TotalAmount": 17698762453,
+                "TotalRank": 37,
+                "TotalStatePopulation": 2940058,
+                "PerCapitaAmount": 6020,
+                "PerCapitaRank": 51
+            },
+            {
+                "StateName": "New Hampshire",
+                "StateAbbrev": "NH",
+                "TotalAmount": 9697221206,
+                "TotalRank": 45,
+                "TotalStatePopulation": 1334795,
+                "PerCapitaAmount": 7265,
+                "PerCapitaRank": 38
+            },
+            {
+                "StateName": "New Jersey",
+                "StateAbbrev": "NJ",
+                "TotalAmount": 60747476825,
+                "TotalRank": 24,
+                "TotalStatePopulation": 8944469,
+                "PerCapitaAmount": 6792,
+                "PerCapitaRank": 43
+            },
+            {
+                "StateName": "New Mexico",
+                "StateAbbrev": "NM",
+                "TotalAmount": 22826361558,
+                "TotalRank": 35,
+                "TotalStatePopulation": 2081015,
+                "PerCapitaAmount": 10969,
+                "PerCapitaRank": 14
+            },
+            {
+                "StateName": "New York",
+                "StateAbbrev": "NY",
+                "TotalAmount": 158511549031,
+                "TotalRank": 5,
+                "TotalStatePopulation": 19745289,
+                "PerCapitaAmount": 8028,
+                "PerCapitaRank": 25
+            },
+            {
+                "StateName": "North Carolina",
+                "StateAbbrev": "NC",
+                "TotalAmount": 63943704237,
+                "TotalRank": 21,
+                "TotalStatePopulation": 10146788,
+                "PerCapitaAmount": 6302,
+                "PerCapitaRank": 48
+            },
+            {
+                "StateName": "North Dakota",
+                "StateAbbrev": "ND",
+                "TotalAmount": 62600155079,
+                "TotalRank": 22,
+                "TotalStatePopulation": 757952,
+                "PerCapitaAmount": 82591,
+                "PerCapitaRank": 1
+            },
+            {
+                "StateName": "Ohio",
+                "StateAbbrev": "OH",
+                "TotalAmount": 76054620938,
+                "TotalRank": 14,
+                "TotalStatePopulation": 11614373,
+                "PerCapitaAmount": 6548,
+                "PerCapitaRank": 45
+            },
+            {
+                "StateName": "Oklahoma",
+                "StateAbbrev": "OK",
+                "TotalAmount": 28202654922,
+                "TotalRank": 31,
+                "TotalStatePopulation": 3923561,
+                "PerCapitaAmount": 7188,
+                "PerCapitaRank": 39
+            },
+            {
+                "StateName": "Oregon",
+                "StateAbbrev": "OR",
+                "TotalAmount": 32007457211,
+                "TotalRank": 29,
+                "TotalStatePopulation": 4093465,
+                "PerCapitaAmount": 7819,
+                "PerCapitaRank": 28
+            },
+            {
+                "StateName": "Pennsylvania",
+                "StateAbbrev": "PA",
+                "TotalAmount": 193548163303,
+                "TotalRank": 2,
+                "TotalStatePopulation": 12784227,
+                "PerCapitaAmount": 15140,
+                "PerCapitaRank": 7
+            },
+            {
+                "StateName": "Rhode Island",
+                "StateAbbrev": "RI",
+                "TotalAmount": 8953812503,
+                "TotalRank": 46,
+                "TotalStatePopulation": 1056426,
+                "PerCapitaAmount": 8476,
+                "PerCapitaRank": 21
+            },
+            {
+                "StateName": "South Carolina",
+                "StateAbbrev": "SC",
+                "TotalAmount": 77679166849,
+                "TotalRank": 12,
+                "TotalStatePopulation": 4961119,
+                "PerCapitaAmount": 15658,
+                "PerCapitaRank": 6
+            },
+            {
+                "StateName": "South Dakota",
+                "StateAbbrev": "SD",
+                "TotalAmount": 6760411162,
+                "TotalRank": 49,
+                "TotalStatePopulation": 865454,
+                "PerCapitaAmount": 7811,
+                "PerCapitaRank": 29
+            },
+            {
+                "StateName": "Tennessee",
+                "StateAbbrev": "TN",
+                "TotalAmount": 73815178868,
+                "TotalRank": 16,
+                "TotalStatePopulation": 6651194,
+                "PerCapitaAmount": 11098,
+                "PerCapitaRank": 12
+            },
+            {
+                "StateName": "Texas",
+                "StateAbbrev": "TX",
+                "TotalAmount": 169320634379,
+                "TotalRank": 4,
+                "TotalStatePopulation": 27862596,
+                "PerCapitaAmount": 6077,
+                "PerCapitaRank": 50
+            },
+            {
+                "StateName": "Utah",
+                "StateAbbrev": "UT",
+                "TotalAmount": 14532540635,
+                "TotalRank": 40,
+                "TotalStatePopulation": 3051217,
+                "PerCapitaAmount": 4763,
+                "PerCapitaRank": 55
+            },
+            {
+                "StateName": "Vermont",
+                "StateAbbrev": "VT",
+                "TotalAmount": 5481685670,
+                "TotalRank": 51,
+                "TotalStatePopulation": 624594,
+                "PerCapitaAmount": 8776,
+                "PerCapitaRank": 18
+            },
+            {
+                "StateName": "Virginia",
+                "StateAbbrev": "VA",
+                "TotalAmount": 94643982661,
+                "TotalRank": 7,
+                "TotalStatePopulation": 8411808,
+                "PerCapitaAmount": 11251,
+                "PerCapitaRank": 11
+            },
+            {
+                "StateName": "Washington",
+                "StateAbbrev": "WA",
+                "TotalAmount": 58107646968,
+                "TotalRank": 25,
+                "TotalStatePopulation": 7288000,
+                "PerCapitaAmount": 7973,
+                "PerCapitaRank": 27
+            },
+            {
+                "StateName": "West Virginia",
+                "StateAbbrev": "WV",
+                "TotalAmount": 15257930996,
+                "TotalRank": 39,
+                "TotalStatePopulation": 1831102,
+                "PerCapitaAmount": 8333,
+                "PerCapitaRank": 22
+            },
+            {
+                "StateName": "Wisconsin",
+                "StateAbbrev": "WI",
+                "TotalAmount": 84155281834,
+                "TotalRank": 9,
+                "TotalStatePopulation": 5778708,
+                "PerCapitaAmount": 14563,
+                "PerCapitaRank": 9
+            },
+            {
+                "StateName": "Wyoming",
+                "StateAbbrev": "WY",
+                "TotalAmount": 4144825913,
+                "TotalRank": 52,
+                "TotalStatePopulation": 585501,
+                "PerCapitaAmount": 7079,
+                "PerCapitaRank": 41
+            },
+            {
+                "StateName": "American Samoa",
+                "StateAbbrev": "AS",
+                "TotalAmount": 266100668,
+                "TotalRank": 55,
+                "TotalStatePopulation": 54194,
+                "PerCapitaAmount": 4910,
+                "PerCapitaRank": 54
+            },
+            {
+                "StateName": "Guam",
+                "StateAbbrev": "GU",
+                "TotalAmount": 1215335234,
+                "TotalRank": 53,
+                "TotalStatePopulation": 162742,
+                "PerCapitaAmount": 7468,
+                "PerCapitaRank": 34
+            },
+            {
+                "StateName": "Northern Mariana Islands",
+                "StateAbbrev": "MP",
+                "TotalAmount": 219367146,
+                "TotalRank": 56,
+                "TotalStatePopulation": 53467,
+                "PerCapitaAmount": 4103,
+                "PerCapitaRank": 56
+            },
+            {
+                "StateName": "Puerto Rico",
+                "StateAbbrev": "PR",
+                "TotalAmount": 22532565727,
+                "TotalRank": 36,
+                "TotalStatePopulation": 3411307,
+                "PerCapitaAmount": 6605,
+                "PerCapitaRank": 44
+            },
+            {
+                "StateName": "Virgin Islands of the U.S.",
+                "StateAbbrev": "VI",
+                "TotalAmount": 568844473,
+                "TotalRank": 54,
+                "TotalStatePopulation": 102951,
+                "PerCapitaAmount": 5525,
+                "PerCapitaRank": 53
+            },
+            {
+                "StateName": "U.S. Minor Outlying Islands",
+                "StateAbbrev": "UM",
+                "TotalAmount": 7929794,
+                "TotalRank": 58,
+                "TotalStatePopulation": 0,
+                "PerCapitaAmount": "N/A",
+                "PerCapitaRank": "N/A"
+            },
+            {
+                "StateName": "Federated States of Micronesia",
+                "StateAbbrev": "FM",
+                "TotalAmount": 28879635,
+                "TotalRank": 57,
+                "TotalStatePopulation": 104719,
+                "PerCapitaAmount": 276,
+                "PerCapitaRank": 58
+            },
+            {
+                "StateName": "Marshall Islands",
+                "StateAbbrev": "MH",
+                "TotalAmount": 6833073,
+                "TotalRank": 59,
+                "TotalStatePopulation": 73376,
+                "PerCapitaAmount": 93,
+                "PerCapitaRank": 59
+            },
+            {
+                "StateName": "Palau",
+                "StateAbbrev": "PW",
+                "TotalAmount": 6735631,
+                "TotalRank": 60,
+                "TotalStatePopulation": 21347,
+                "PerCapitaAmount": 316,
+                "PerCapitaRank": 57
+            }
+        ]
+    }
+}
