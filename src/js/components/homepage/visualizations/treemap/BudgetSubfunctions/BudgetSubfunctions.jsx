@@ -25,24 +25,50 @@ const propTypes = {
 };
 
 export default class BudgetSubfunctions extends React.Component {
-    render() {
-        const category = _.find(this.props.categories.children, { id: this.props.selected });
-        const description = _.find(this.props.descriptions, { id: this.props.selected });
-        const subfunction = this.props.subfunctions[category.name];
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            category: {},
+            description: {},
+            subfunction: {}
+        };
+    }
+
+    componentWillMount() {
+        this.updateSubfunctionState(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.selected !== this.props.selected) {
+            this.updateSubfunctionState(nextProps);
+        }
+    }
+
+    updateSubfunctionState(props) {
+        const category = _.find(props.categories.children, { id: props.selected });
+        const description = _.find(props.descriptions, { id: props.selected });
+        const subfunction = props.subfunctions[category.name];
+
+        this.setState({
+            category,
+            description,
+            subfunction
+        });
+    }
+
+    render() {
         return (
             <div className="treemap-inner-wrap">
                 <BudgetSubfunctionsNavigation
-                    {...this.props} />
+                    {...this.props}
+                    {...this.state} />
                 <BudgetSubfunctionsDescription
                     {...this.props}
-                    category={category}
-                    description={description} />
+                    {...this.state} />
                 <BudgetSubfunctionsMap
                     {...this.props}
-                    category={category}
-                    subfunction={subfunction}
-                    description={description} />
+                    {...this.state} />
             </div>
         );
     }

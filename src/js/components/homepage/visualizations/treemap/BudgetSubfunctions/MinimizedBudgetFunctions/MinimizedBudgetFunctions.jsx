@@ -126,7 +126,6 @@ export default class BudgetFunctionsMinimized extends React.Component {
 
     toggleTooltipIn(functionID) {
         this.setState({
-            showOverlay: false,
             hoveredFunction: functionID
         }, () => {
             this.buildTree(this.props);
@@ -135,7 +134,6 @@ export default class BudgetFunctionsMinimized extends React.Component {
 
     toggleTooltipOut() {
         this.setState({
-            showOverlay: true,
             hoveredFunction: -1
         }, () => {
             this.buildTree(this.props);

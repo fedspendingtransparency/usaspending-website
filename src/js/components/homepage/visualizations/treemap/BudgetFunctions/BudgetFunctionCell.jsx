@@ -5,6 +5,7 @@
 
 import React from 'react';
 import _ from 'lodash';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
     label: React.PropTypes.string,
@@ -41,6 +42,10 @@ export default class BudgetFunctionCell extends React.Component {
             label: '',
             didProcess: false
         };
+
+        this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
+        this.toggleTooltipOut = this.props.toggleTooltipOut.bind(this);
+        this.toggleSubfunction = this.toggleSubfunction.bind(this);
     }
 
     componentDidMount() {
@@ -62,6 +67,16 @@ export default class BudgetFunctionCell extends React.Component {
             label,
             didProcess: false
         });
+    }
+
+    toggleTooltipIn() {
+        this.props.toggleTooltipIn(this.props.functionID);
+    }
+
+    toggleSubfunction() {
+        if (this.props.clickable) {
+            this.props.toggleSubfunction(this.props.functionID);
+        }
     }
 
     truncateText() {
@@ -102,17 +117,9 @@ export default class BudgetFunctionCell extends React.Component {
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
-                onMouseEnter={() => {
-                    this.props.toggleTooltipIn(this.props.functionID);
-                }}
-                onMouseLeave={() => {
-                    this.props.toggleTooltipOut();
-                }}
-                onClick={() => {
-                    if (this.props.clickable) {
-                        this.props.toggleSubfunction(this.props.functionID);
-                    }
-                }}>
+                onMouseEnter={this.toggleTooltipIn}
+                onMouseLeave={this.toggleTooltipOut}
+                onClick={this.toggleSubfunction}>
                 <rect
                     className="tile"
                     width={this.props.width}
@@ -149,7 +156,7 @@ export default class BudgetFunctionCell extends React.Component {
                         display: this.props.percentView,
                         fill: this.props.textColor
                     }}>
-                    {parseFloat((this.props.value / this.props.total) * 100).toFixed(1)}%
+                    {MoneyFormatter.calculateTreemapPercentage(this.props.value, this.props.total)}
                 </text>
             </g>
         );

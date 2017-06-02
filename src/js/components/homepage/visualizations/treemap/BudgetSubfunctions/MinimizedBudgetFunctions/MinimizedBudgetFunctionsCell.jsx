@@ -20,19 +20,29 @@ const propTypes = {
 };
 
 export default class MinimizedBudgetFunctionsCell extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
+        this.toggleTooltipOut = this.props.toggleTooltipOut.bind(this);
+        this.changeActiveSubfunction = this.changeActiveSubfunction.bind(this);
+    }
+
+    toggleTooltipIn() {
+        this.props.toggleTooltipIn(this.props.functionID);
+    }
+
+    changeActiveSubfunction() {
+        this.props.changeActiveSubfunction(this.props.functionID);
+    }
+
     render() {
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
-                onMouseEnter={() => {
-                    this.props.toggleTooltipIn(this.props.functionID);
-                }}
-                onMouseLeave={() => {
-                    this.props.toggleTooltipOut();
-                }}
-                onClick={() => {
-                    this.props.changeActiveSubfunction(this.props.functionID);
-                }}>
+                onMouseEnter={this.toggleTooltipIn}
+                onMouseLeave={this.toggleTooltipOut}
+                onClick={this.changeActiveSubfunction}>
                 <rect
                     className="tile"
                     width={this.props.width}

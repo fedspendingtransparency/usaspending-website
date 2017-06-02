@@ -45,7 +45,9 @@ export default class BudgetSubfunctionsMap extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.subfunction.children.length > 0) {
+        console.log(nextProps.category);
+        console.log(this.props.category);
+        if (nextProps.category !== this.props.category) {
             this.buildTree(nextProps);
         }
     }
@@ -83,6 +85,9 @@ export default class BudgetSubfunctionsMap extends React.Component {
     }
 
     buildTree(treeProps) {
+        // Calculate the total
+        const total = this.calculateTotal(treeProps.category.value);
+
         // Remove negative values
         const positiveSubfunctions = treeProps.subfunction;
         _.remove(positiveSubfunctions.children, (v) => v.value <= 0);
@@ -139,7 +144,7 @@ export default class BudgetSubfunctionsMap extends React.Component {
                     x0={n.x0}
                     x1={n.x1}
                     y0={n.y0}
-                    total={this.calculateTotal(treeProps.category.value)}
+                    total={total}
                     key={i}
                     functionID={n.data.id}
                     color={cellColor}

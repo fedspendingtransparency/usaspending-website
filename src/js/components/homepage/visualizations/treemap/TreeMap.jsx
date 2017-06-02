@@ -8,6 +8,7 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import BudgetFunctions from './BudgetFunctions/BudgetFunctions';
 import BudgetSubfunctions from './BudgetSubfunctions/BudgetSubfunctions';
+// import TreeMapLine from './TreeMapLine';
 
 const propTypes = {
     categories: React.PropTypes.object,
@@ -32,7 +33,7 @@ export default class TreeMap extends React.Component {
         this.changeActiveSubfunction = this.changeActiveSubfunction.bind(this);
     }
 
-    toggleSubfunction(selected) {
+    toggleSubfunction(selected = 0) {
         this.setState({
             showSubfunctions: !this.state.showSubfunctions,
             selected

@@ -47,8 +47,27 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
             height: 44
         };
 
-        this.showArrowTooltip = this.showArrowTooltip.bind(this);
-        this.createArrowTooltip = this.createArrowTooltip.bind(this);
+        this.clickedBack = this.clickedBack.bind(this);
+        this.clickedLeft = this.clickedLeft.bind(this);
+        this.clickedRight = this.clickedRight.bind(this);
+
+        this.showBackArrowTooltip = this.showBackArrowTooltip.bind(this);
+        this.showLeftArrowTooltip = this.showLeftArrowTooltip.bind(this);
+        this.showRightArrowTooltip = this.showRightArrowTooltip.bind(this);
+
+        this.hideArrowTooltip = this.hideArrowTooltip.bind(this);
+    }
+
+    clickedBack() {
+        this.changeFunction(arrows.all.direction);
+    }
+
+    clickedLeft() {
+        this.changeFunction(arrows.previous.direction);
+    }
+
+    clickedRight() {
+        this.changeFunction(arrows.next.direction);
     }
 
     changeFunction(direction) {
@@ -69,6 +88,18 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
 
             this.props.changeActiveSubfunction(newSelected);
         }
+    }
+
+    showBackArrowTooltip() {
+        this.showArrowTooltip(arrows.all);
+    }
+
+    showLeftArrowTooltip() {
+        this.showArrowTooltip(arrows.previous);
+    }
+
+    showRightArrowTooltip() {
+        this.showArrowTooltip(arrows.next);
     }
 
     showArrowTooltip(arrow) {
@@ -110,7 +141,13 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
         });
     }
 
-    createArrowTooltip() {
+    hideArrowTooltip() {
+        this.setState({
+            label: null
+        });
+    }
+
+    render() {
         let tooltip = null;
 
         if (this.state.label !== null) {
@@ -124,10 +161,6 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
                 arrow />);
         }
 
-        return tooltip;
-    }
-
-    render() {
         let minimized = null;
 
         // Show the minimized version of the Budget Functions Treemap if there is
@@ -139,19 +172,13 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
 
         return (
             <div className="treemap-navigation-holder">
-                { this.createArrowTooltip() }
+                { tooltip }
                 <div>
                     <button
                         className="back"
-                        onClick={() => {
-                            this.changeFunction(arrows.all.direction);
-                        }}
-                        onMouseEnter={() => {
-                            this.showArrowTooltip(arrows.all);
-                        }}
-                        onMouseLeave={() => {
-                            this.setState({ label: null });
-                        }}
+                        onClick={this.clickedBack}
+                        onMouseEnter={this.showBackArrowTooltip}
+                        onMouseLeave={this.hideArrowTooltip}
                         ref={(button) => {
                             this.allButton = button;
                         }}>
@@ -161,15 +188,9 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
                 <div className="treemap-navigation-bar">
                     <button
                         className="left"
-                        onClick={() => {
-                            this.changeFunction(arrows.previous.direction);
-                        }}
-                        onMouseEnter={() => {
-                            this.showArrowTooltip(arrows.previous);
-                        }}
-                        onMouseLeave={() => {
-                            this.setState({ label: null });
-                        }}
+                        onClick={this.clickedLeft}
+                        onMouseEnter={this.showLeftArrowTooltip}
+                        onMouseLeave={this.hideArrowTooltip}
                         ref={(button) => {
                             this.previousButton = button;
                         }}>
@@ -178,15 +199,9 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
                     { minimized }
                     <button
                         className="right"
-                        onClick={() => {
-                            this.changeFunction(arrows.next.direction);
-                        }}
-                        onMouseEnter={() => {
-                            this.showArrowTooltip(arrows.next);
-                        }}
-                        onMouseLeave={() => {
-                            this.setState({ label: null });
-                        }}
+                        onClick={this.clickedRight}
+                        onMouseEnter={this.showRightArrowTooltip}
+                        onMouseLeave={this.hideArrowTooltip}
                         ref={(button) => {
                             this.nextButton = button;
                         }}>

@@ -28,7 +28,7 @@ export default class CategoryMapCell extends React.Component {
             label: '',
             didProcess: false,
             color: this.props.color,
-            textColor: this.props.tooltipStyles.defaultStyle.textColor,
+            textColor: this.props.tooltipStyles.defaultStyle.textColor
         };
 
         this.mouseIn = this.mouseIn.bind(this);
