@@ -1,6 +1,7 @@
 /**
  * ResultsColumnVisibleOption.jsx
  * Created by Lizzie Salita 05/31/17
+ * Drag and drop logic based on https://github.com/react-dnd/react-dnd/tree/master/examples/04%20Sortable/Simple
  **/
 
 import React from 'react';
@@ -44,7 +45,7 @@ const columnTarget = {
         }
 
         // Determine rectangle on screen
-        const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+        const hoverBoundingRect = findDOMNode(component).getBoundingClientRect(); // eslint-disable-line react/no-find-dom-node
 
         // Get vertical middle
         const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
@@ -75,7 +76,7 @@ const columnTarget = {
         // Mutating the monitor item here
         // for the sake of performance
         // to avoid expensive index searches.
-        monitor.getItem().index = hoverIndex;
+        monitor.getItem().index = hoverIndex; // eslint-disable-line no-param-reassign
     }
 };
 

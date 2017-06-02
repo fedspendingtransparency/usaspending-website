@@ -65,7 +65,7 @@ class ResultsSelectColumns extends React.Component {
                 id={col.columnName}
                 moveColumn={this.moveColumn} />
         ));
-        const hiddenColumns = this.props.hiddenColumns.map((col, i) => (
+        const hiddenColumns = this.props.hiddenColumns.map((col) => (
             <ResultsColumnOption
                 key={col.columnName}
                 checked={''}
