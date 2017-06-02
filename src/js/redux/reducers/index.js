@@ -9,7 +9,6 @@ import resultsMetaReducer from './resultsMeta/resultsMetaReducer';
 import resultsBatchReducer from './resultsMeta/resultsBatchReducer';
 import filtersReducer from './search/searchFiltersReducer';
 import orderReducer from './search/searchOrderReducer';
-import searchHashReducer from './search/searchHashReducer';
 import autocompleteReducer from './search/autocompleteReducer';
 import columnVisibilityReducer from './search/columnVisibilityReducer';
 import recordReducer from './records/recordReducer';
@@ -26,7 +25,6 @@ const appReducer = combineReducers({
     resultsBatch: resultsBatchReducer,
     filters: filtersReducer,
     searchOrder: orderReducer,
-    searchHash: searchHashReducer,
     autocompleteLocations: autocompleteReducer,
     columnVisibility: columnVisibilityReducer,
     autocompleteAwardIDs: awardIDReducer,

@@ -11,7 +11,8 @@ import { is } from 'immutable';
 
 import Router from 'containers/router/Router';
 
-import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
+import { filterStoreVersion, requiredTypes, initialState } from
+    'redux/reducers/search/searchFiltersReducer';
 import * as searchHashActions from 'redux/actions/search/searchHashActions';
 import * as SearchHelper from 'helpers/searchHelper';
 
@@ -19,7 +20,6 @@ import SearchPage from 'components/search/SearchPage';
 
 const propTypes = {
     params: React.PropTypes.object,
-    hash: React.PropTypes.string,
     filters: React.PropTypes.object,
     populateAllSearchFilters: React.PropTypes.func
 };
@@ -289,7 +289,7 @@ export class SearchContainer extends React.Component {
 
     render() {
         return (
-            <SearchPage hash={this.props.hash} />
+            <SearchPage hash={this.props.params.hash} />
         );
     }
 }

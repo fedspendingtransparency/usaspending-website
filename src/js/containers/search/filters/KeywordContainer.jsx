@@ -12,6 +12,7 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import Keyword from 'components/search/filters/keyword/Keyword';
 
 const propTypes = {
+    keyword: React.PropTypes.string,
     updateTextSearchInput: React.PropTypes.func
 };
 
