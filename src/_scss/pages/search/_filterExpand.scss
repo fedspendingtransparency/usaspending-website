@@ -1,47 +1,47 @@
 .filter-toggle {
     @include button-unstyled;
     display: inline-block;
-    height: 6.5rem;
-    padding-left: 1.5rem;
+    height: rem(65);
+    padding-left: rem(15);
     vertical-align: middle;
     width: 100%;
     position: relative;
     svg {
         cursor: pointer;
         fill: $color-gray;
-        height: 1.1rem;
+        height: rem(11);
         vertical-align: middle;
-        width: 1.1rem;
+        width: rem(11);
         @include media($large-screen) {
-            width: 1.4rem;
-            height: 1.4rem;
+            width: rem(14);
+            height: rem(14);
         }
         &.usa-da-icon-info {
-            height: 2.0rem;
-            width: 2.2rem;
+            height: rem(20);
+            width: rem(22);
         }
     }
     .filter-header {
         color: $color-gray;
         display: inline-block;
         font-size: $small-font-size;
-        font-weight: normal;
+        font-weight: $font-semibold;
         height: 100%;
-        line-height: 6.5rem;
+        line-height: rem(65);
         margin: 0;
-        padding-left: .6rem;
+        padding-left: rem(6);
         vertical-align: middle;
         @include media($large-screen) {
             font-size: $base-font-size;
         }
     }
     .usa-da-icon-guide {
-        fill: lighten( $color-gray-light, 5% );
+        fill: lighten( $color-gray-light, 5%);
         float: right;
-        margin: 2.2rem 1.5rem 1.5rem 0.4rem;
-        padding-left: 1rem;
-        height: 2.6rem;
-        width: 2.9rem;
+        margin: rem(22) rem(15) rem(15) rem(4);
+        padding-left: rem(10);
+        height: rem(26);
+        width: rem(29);
         &:hover {
             @include transition(all 0.1s ease-in-out);
             fill: darken($color-tab-inactive, 60%);

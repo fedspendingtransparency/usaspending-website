@@ -51,7 +51,7 @@ describe('AccountProgramActivityContainer', () => {
             updateFilterSpy.reset();
         });
 
-        it('should should a Program Activity that has been deselected from Redux', () => {
+        it('should remove a Program Activity that has been deselected from Redux', () => {
             const mockReduxAction = jest.fn((args) => {
                 expect(args).toEqual('810');
             });

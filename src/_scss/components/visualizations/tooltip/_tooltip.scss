@@ -13,6 +13,7 @@
     background-color: $color-white;
     @import "./_arrow";
     .tooltip-title {
+        color: #555;
         background-color: $color-title-background;
         color: $color-gray;
         font-size: $base-font-size;
@@ -31,14 +32,14 @@
         }
     }
     .tooltip-full {
-        flex: 1 100%;
+        @include flex(1 1 auto);
     }
     .tooltip-left,
     .tooltip-right {
         display: block;
-        flex: 1 100%;
+        @include flex(1 1 auto);
         @include media($tablet-screen) {
-            flex: 1;
+            @include flex(1 1 auto);
             margin: 0 rem(10) 0 0;
         }
     }

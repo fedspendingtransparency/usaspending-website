@@ -319,3 +319,10 @@ Sort.defaultProps = {
     iconClass: 'usa-da-icon-sort',
     alt: 'Icon Depicting six small circles'
 };
+
+export class HandDrawnArrow extends BaseIcon {}
+HandDrawnArrow.defaultProps = {
+    iconName: 'usa-da-hand-drawn-arrow',
+    iconClass: 'usa-da-hand-drawn-arrow',
+    alt: 'Hand Drawn Arrow Pointing to the Next Section'
+};

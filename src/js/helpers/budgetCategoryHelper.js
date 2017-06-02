@@ -80,6 +80,7 @@ export const awardFiltersSelected = (rawFilters) => {
         'selectedRecipients',
         'recipientDomesticForeign',
         'selectedRecipientLocations',
+        'recipientType',
         'awardType',
         'selectedAwardIDs',
         'awardAmounts'

@@ -6,7 +6,6 @@
 import React from 'react';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
-
 import GuideSearchBar from './GuideSearchBar';
 
 const propTypes = {
@@ -31,7 +30,7 @@ export default class GuideHeader extends React.Component {
                 <GuideSearchBar {...this.props} />
 
                 <div className="guide-example">
-                    Example: &quot;Funding Obligated&quot;
+                    Example: &quot;Obligation&quot;
                 </div>
             </div>
         );
