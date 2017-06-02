@@ -4,9 +4,11 @@
   **/
 
 import React from 'react';
-import Q from 'q';
+import { isCancel } from 'axios';
 
 import * as HomepageHelper from 'helpers/homepageHelper';
+
+import HomepageStateModel from 'models/homepage/HomepageStateModel';
 
 import MapVisualizationWrapper from './visualizations/geo/MapVisualizationWrapper';
 import Landing from './Landing';
@@ -31,43 +33,122 @@ export default class Homepage extends React.Component {
                 children: []
             },
             colors: [],
-            total: ''
+            total: '',
+            mapData: {
+                total: {
+                    states: [],
+                    values: [],
+                    total: 0
+                },
+                capita: {
+                    states: [],
+                    values: [],
+                    ranks: [],
+                    populations: []
+                },
+                table: []
+            }
         };
 
-        this.loadHomepageData = this.loadHomepageData.bind(this);
+        this.dataRequests = [];
+        this.mounted = false;
     }
 
     componentWillMount() {
+        this.mounted = true;
         this.loadHomepageData();
     }
 
-    loadHomepageData() {
-        const deferred = Q.defer();
+    componentWillUnmount() {
+        this.mounted = false;
+    }
 
-        // get the homepage info
-        HomepageHelper.fetchFile('graphics/homepage.json').promise
-            .then((res) => {
-                // set to state
-                this.setState({
-                    categories: res.data.budgetCategories,
-                    descriptions: res.data.categoryDescriptions,
-                    colors: res.data.treemapColors,
-                    breakdown: res.data.budgetBreakdown,
-                    breakdownColors: res.data.breakdownColors,
-                    tooltipStyles: res.data.tooltipStyles,
-                    total: res.data.totalSpent,
+    loadHomepageData() {
+        if (this.dataRequests.length > 0) {
+            // there are in-flight requests, cancel them
+            this.dataRequests.forEach((request) => {
+                request.cancel();
+            });
+        }
+
+        this.dataRequests = [];
+        const requestPromises = [];
+
+        const files = ['homepage.json', 'homepage_map.json'];
+
+        files.forEach((file) => {
+            const filePath = `graphics/${file}`;
+            const request = HomepageHelper.fetchFile(filePath);
+            this.dataRequests.push(request);
+            requestPromises.push(request.promise);
+        });
+
+        // get the homepage info and the map data
+        Promise.all(requestPromises)
+            .then((responses) => {
+                this.parseHomepageData(responses[0]);
+                this.parseMapData(responses[1]);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                }
+            });
+    }
+
+    parseHomepageData(res) {
+        this.setState({
+            categories: res.data.budgetCategories,
+            descriptions: res.data.categoryDescriptions,
+            colors: res.data.treemapColors,
+            breakdown: res.data.budgetBreakdown,
+            breakdownColors: res.data.breakdownColors,
+            tooltipStyles: res.data.tooltipStyles,
+            total: res.data.totalSpent
                     totalNumber: res.data.totalSpentNumber,
                     states: res.data.states,
                     alternateColors: res.data.alternateColors,
                     subfunctions: res.data.subfunctions
-                }, () => {
-                    deferred.resolve();
-                });
-            })
-            .catch((err) => {
-                deferred.reject(err);
-            });
-        return deferred.promise;
+        });
+    }
+
+    parseMapData(res) {
+        const total = {
+            states: [],
+            values: [],
+            total: 0
+        };
+
+        const capita = {
+            states: [],
+            values: [],
+            ranks: [],
+            populations: []
+        };
+
+        const table = [];
+
+        res.data.states.children.forEach((state) => {
+            total.states.push(state.StateAbbrev);
+            total.values.push(state.TotalAmount);
+            total.total += state.TotalAmount;
+
+            capita.states.push(state.StateAbbrev);
+            capita.values.push(state.PerCapitaAmount);
+            capita.ranks.push(state.PerCapitaRank);
+            capita.populations.push(state.TotalStatePopulation);
+
+            const instance = new HomepageStateModel(state);
+            table.push(instance);
+        });
+
+        this.setState({
+            mapData: {
+                total,
+                capita,
+                table
+            }
+        });
     }
 
     render() {
@@ -92,7 +173,7 @@ export default class Homepage extends React.Component {
                     tooltipStyles={this.state.tooltipStyles} />
                 <MapTopBar />
                 <MapVisualizationWrapper
-                    states={this.state.states} />
+                    data={this.state.mapData} />
                 <SearchSection />
                 <LinksSection />
                 <Footer />

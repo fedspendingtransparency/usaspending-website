@@ -64,7 +64,8 @@ const stateCodes = {
     'Puerto Rico': 'PR',
     'U.S. Virgin Islands': 'VI',
     'American Samoa': 'AS',
-    'Guam': 'GU'
+    'Guam': 'GU',
+    'U.S. Minor Outlying Islands': 'UM'
 };
 
 const stateNames = {
@@ -122,7 +123,8 @@ const stateNames = {
     'PR': 'Puerto Rico',
     'VI': 'U.S. Virgin Islands',
     'AS': 'American Samoa',
-    'GU': 'Guam'
+    'GU': 'Guam',
+    'UM': 'U.S. Minor Outlying Islands'
 };
 /* eslint-enable quote-props */
 

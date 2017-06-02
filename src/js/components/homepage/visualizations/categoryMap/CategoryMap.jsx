@@ -6,7 +6,7 @@
 import React from 'react';
 import { hierarchy, treemap, treemapDice, treemapSlice } from 'd3-hierarchy';
 import _ from 'lodash';
-import * as Icons from 'components/sharedComponents/icons/Icons';
+import { HandDrawnArrow } from 'components/sharedComponents/icons/Icons';
 
 import CategoryMapCell from './CategoryMapCell';
 import CategoryMapTooltip from './CategoryMapTooltip';
@@ -33,7 +33,8 @@ export default class CategoryMap extends React.Component {
             x: 0,
             y: 0,
             width: 0,
-            height: 0
+            height: 0,
+            geoPortion: 0
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
@@ -86,15 +87,20 @@ export default class CategoryMap extends React.Component {
             tileStyle = treemapSlice;
             height = 900;
         }
-        const categoryTreemap = treemap()
+        const treemapLayout = treemap()
             .round(true)
             .tile(tileStyle)
             .size([this.state.visualizationWidth, height])(root).leaves();
 
+        let geoPortion = 0;
+
         // build the tiles
-        const nodes = categoryTreemap.map((n, i) => {
+        const nodes = treemapLayout.map((n, i) => {
             let cell = '';
             if (n.value !== 0) {
+                if (i + 1 < treemapLayout.length) {
+                    geoPortion += (n.x1 - n.x0);
+                }
                 cell = (<CategoryMapCell
                     label={n.data.name}
                     value={n.data.value}
@@ -114,13 +120,13 @@ export default class CategoryMap extends React.Component {
         });
 
         this.setState({
+            geoPortion,
             finalNodes: nodes
         });
     }
 
     toggleTooltipIn(categoryID, height, width) {
         const category = _.find(this.state.finalNodes, { key: `${categoryID}` });
-
         this.setState({
             category: category.props.label,
             description: category.props.description,
@@ -193,11 +199,10 @@ export default class CategoryMap extends React.Component {
                     </div>
                 </div>
                 <div className="map-segue">
+                    <h4>The geographic breakdown of this portion of the budget is shown below</h4>
                     <div className="icon-wrap">
-                        <Icons.MapMarker className="usa-da-map-marker" />
+                        <HandDrawnArrow />
                     </div>
-                    <h4>The geographic breakdown of this portion of the budget is shown on the
-                        map below</h4>
                 </div>
             </div>
         </div>

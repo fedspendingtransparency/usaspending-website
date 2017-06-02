@@ -1,22 +1,82 @@
-.results-visualization-geo-section {
-    padding: 0;
-    & .map-container {
-        & .map-instructions {
-            left: rem(30);
-            top: rem(30);
-        }
-        & .map-legend {
-            bottom: rem(30);
-            left: rem(30);
-        }
-        height: rem(760);
-        & .mapbox-item.mapboxgl-map {
-            & .mapboxgl-control-container {
-                & .mapboxgl-ctrl-top-right {
-                    right: rem(20)!important;
-                    top: rem(20)!important;
+.homepage-map-section {
+    @import "./mapList";
+
+    .homepage-map-toggle {
+        ul {
+            @include unstyled-list;
+
+            @include display(flex);
+            @include flex-direction(row);
+            @include align-items(center);
+            @include justify-content(center);
+            position: relative;
+
+            margin-top: 30px;
+            margin-bottom: 30px;
+
+            li {
+                @import "elements/_underlineButton";
+                @include underlineButton;
+
+                min-width: 75px;
+
+                @include flex(0 1 auto);
+
+                &:first-child {
+                    margin-right: 25px;
                 }
             }
+        }
+
+    }
+
+    .results-visualization-geo-section {
+        padding: 0;
+        & .map-container {
+            & .map-instructions {
+                left: rem(30);
+                top: rem(30);
+            }
+            & .map-legend {
+                bottom: rem(100);
+                left: rem(30);
+
+                @include media($tablet-screen) {
+                    bottom: rem(80);
+                }
+            }
+            height: rem(760);
+            & .mapbox-item.mapboxgl-map {
+                & .mapboxgl-control-container {
+                    & .mapboxgl-ctrl-top-right {
+                        right: rem(20)!important;
+                        top: rem(20)!important;
+                    }
+                }
+            }
+        }
+
+        // custom tooltip styling
+        .visualization-tooltip {
+            .state-population {
+                font-size: $small-font-size;
+                margin-left: rem(20);
+                margin-bottom: rem(10);
+            }
+        }
+
+        @import "./mapToggleCapita";
+        @import "./mapCitation";
+    }
+
+    .info-icon {
+        margin-left: 10px;
+        svg {
+            width: 16px;
+            height: 16px;
+            fill: $color-base;
+
+            transform: translate(0, 4px);
         }
     }
 }

@@ -312,3 +312,10 @@ FlagLogo.defaultProps = {
     iconClass: 'usa-da-flag-logo',
     alt: 'USASpending Flag Logo'
 };
+
+export class HandDrawnArrow extends BaseIcon {}
+HandDrawnArrow.defaultProps = {
+    iconName: 'usa-da-hand-drawn-arrow',
+    iconClass: 'usa-da-hand-drawn-arrow',
+    alt: 'Hand Drawn Arrow Pointing to the Next Section'
+};
