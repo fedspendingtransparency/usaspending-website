@@ -7,16 +7,15 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { is } from 'immutable';
 
 import Router from 'containers/router/Router';
 
-import { filterStoreVersion, requiredTypes } from 'redux/reducers/search/searchFiltersReducer';
+import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
 import * as searchHashActions from 'redux/actions/search/searchHashActions';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import SearchPage from 'components/search/SearchPage';
-
-import { testRedux, testRedux2 } from './testRedux';
 
 const propTypes = {
     params: React.PropTypes.object,
@@ -38,7 +37,8 @@ export class SearchContainer extends React.Component {
     }
 
     componentWillMount() {
-        this.receiveHash(this.props.params.hash);
+        // this.receiveHash(this.props.params.hash);
+        this.handleInitialUrl(this.props.params.hash);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -48,6 +48,7 @@ export class SearchContainer extends React.Component {
             // for purposes of state comparison
             nextHash = '';
         }
+
         if (nextHash !== this.state.hash) {
             this.receiveHash(nextHash);
         }
@@ -59,7 +60,55 @@ export class SearchContainer extends React.Component {
         }
     }
 
+    handleInitialUrl(urlHash) {
+        // on page load, there are multiple possibilities:
+        // the URL may not have a hash in it
+        if (!urlHash || urlHash === '') {
+            this.setState({
+                hash: '',
+                hashState: 'ready'
+            }, () => {
+                // but it may be the case that we're coming back to the search page from elsewhere
+                // on the site via a link to /search and the Redux store has cached our previous
+                // search. In this case, the page will repopulate the search and we should
+                // regenerate the hash so the URL matches the page contents
+                this.generateInitialHash();
+            });
+            return;
+        }
+
+        // otherwise, it may be the caes that the URL has a hash in it, in which case we should
+        // regenerate the filters
+        this.setState({
+            hash: urlHash,
+            hashState: 'inbound'
+        }, () => {
+            this.requestFilters();
+        });
+    }
+
+    generateInitialHash() {
+        // it may be the case that some search filters are applied when the search page is mounted
+        // this is most likely because the user has navigated away from a filtered search page, then
+        // come back to it (Redux is still holding the filters)
+        // in this case, we should regenerate the URL hash for the current filter set so that the
+        // URL is immediately shareable
+
+        const unfiltered = this.determineIfUnfiltered(this.props.filters);
+        if (unfiltered) {
+            // there is no initial hash because there are no filters
+            Router.history.replace('/search');
+            return;
+        }
+
+        // there should be an initial hash because filters are applied
+        this.generateHash(this.props.filters);
+    }
+
     receiveHash(urlHash) {
+        // unlike when we handle the URL during initial mount, we will assume subsequent filter and
+        // URL changes will be caused by direct user input rather than cached Redux values, so we
+        // won't try to generate URL hashes based on unchanged filters
         if (!urlHash || urlHash === '') {
             this.setState({
                 hash: '',
@@ -87,7 +136,7 @@ export class SearchContainer extends React.Component {
         // working as expected.
         this.setState({
             hash,
-            hashState: 'outbound'
+            hashState: 'ready'
         }, () => {
             Router.history.replace(`/search/${hash}`);
         });
@@ -130,7 +179,9 @@ export class SearchContainer extends React.Component {
 
         if (version !== filterStoreVersion) {
             // versions don't match, don't populate the filters
-            console.log("reject");
+            // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
+            // a URL hash contains data that no longer applies to the current site
+            console.log("version mismatch");
             return;
         }
 
@@ -155,7 +206,61 @@ export class SearchContainer extends React.Component {
         });
     }
 
+    determineIfUnfiltered(filters) {
+        // check to see if we are applying any filters
+        // if there are no filters, we shouldn't generate a hash
+        let unfiltered = true;
+
+        // make a copy of the initial and actual Redux filter states
+        const currentState = Object.assign({}, filters);
+        const unfilteredState = Object.assign({}, initialState);
+        if (currentState.timePeriodType === 'fy') {
+            // if the time period is fiscal year, we don't care about the date range values, even
+            // if they're provided because the date range tab isn't selected
+            delete unfilteredState.timePeriodStart;
+            delete unfilteredState.timePeriodEnd;
+            delete currentState.timePeriodStart;
+            delete currentState.timePeriodEnd;
+        }
+        else if (currentState.timePeriodEnd === 'dr') {
+            // if the time period is date range, we don't care about the fiscal year values, even
+            // if they're provided because the fiscal year tab isn't selected
+            delete unfilteredState.timePeriodFY;
+            delete currentState.timePeriodFY;
+        }
+
+        // we need to iterate through each of the filter Redux keys in order to perform equality
+        // comparisons on Immutable children (via the Immutable is() function)
+        const filterKeys = Object.keys(unfilteredState);
+
+        for (let i = 0; i < filterKeys.length; i++) {
+            const key = filterKeys[i];
+            const unfilteredValue = unfilteredState[key];
+            const currentValue = currentState[key];
+            if (!is(unfilteredValue, currentValue)) {
+                // it doesn't match, we can stop looping - filters have been applied
+                unfiltered = false;
+                break;
+            }
+        }
+
+        return unfiltered;
+    }
+
     generateHash(filters) {
+        const unfiltered = this.determineIfUnfiltered(filters);
+        if (unfiltered) {
+            // all the filters were cleared, reset to a blank hash
+            this.setState({
+                hash: '',
+                hashState: 'ready'
+            }, () => {
+                Router.history.replace('/search');
+            });
+
+            return;
+        }
+
         // POST an API request to retrieve the Redux state
         if (this.request) {
             this.request.cancel();
@@ -191,7 +296,6 @@ export class SearchContainer extends React.Component {
 
 export default connect(
     (state) => ({
-        hash: state.searchHash.hash,
         filters: state.filters
     }),
     (dispatch) => bindActionCreators(searchHashActions, dispatch)
