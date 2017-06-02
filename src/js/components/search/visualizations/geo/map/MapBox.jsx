@@ -61,8 +61,8 @@ export default class MapBox extends React.Component {
         this.map = new MapboxGL.Map({
             container: this.mapDiv,
             style: 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm',
-            center: [-98.5795122, 39.8282172],
-            zoom: 3,
+            center: [-98.5795122, 39.2282172],
+            zoom: 3.2,
             dragRotate: false // disable 3D view
         });
 
@@ -110,6 +110,14 @@ export default class MapBox extends React.Component {
                 const stateCode = layer.metadata.stateCode;
                 this.props.showTooltip(stateCode, e.point);
             }
+            else {
+                // no state code, hide the tooltip
+                this.props.hideTooltip();
+            }
+        }
+        else {
+            // no state layer, hide the tooltip
+            this.props.hideTooltip();
         }
     }
 

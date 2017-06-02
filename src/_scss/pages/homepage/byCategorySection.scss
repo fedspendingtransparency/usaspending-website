@@ -27,6 +27,10 @@
             float: left;
             width: rem(20);
             height: rem(642);
+            &.large {
+                height: 20px;
+                width: 100%;
+            }
         }
     }
 }

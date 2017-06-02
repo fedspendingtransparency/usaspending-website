@@ -1,4 +1,12 @@
 @import './_landingButtons';
+
+.landing-parent-wrap {
+    // we have to wrap divs with flex-direction: row and min-height inside a flex-direction: column
+    // for IE only
+    @include display(flex);
+    @include flex-direction(column);
+}
+
 .landing-section-wrap {
     background: url(../img/landing_bg_img.jpg) no-repeat center center fixed;
     background-size: cover;

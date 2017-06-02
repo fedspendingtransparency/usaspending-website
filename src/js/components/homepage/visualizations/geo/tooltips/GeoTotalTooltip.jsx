@@ -1,6 +1,6 @@
 /**
- * GeoVisualizationTooltip.jsx
- * Created by Kevin Li 2/23/17
+ * GeoTotalTooltip.jsx
+ * Created by Kevin Li 5/22/17
  */
 
 import React from 'react';
@@ -17,7 +17,7 @@ const propTypes = {
     total: React.PropTypes.number
 };
 
-export default class GeoVisualizationTooltip extends React.Component {
+export default class GeoTotalTooltip extends React.Component {
     componentDidMount() {
         this.positionTooltip();
     }
@@ -52,6 +52,11 @@ export default class GeoVisualizationTooltip extends React.Component {
     }
 
     render() {
+        let percentage = 'N/A';
+        if (this.props.total > 0) {
+            percentage = Math.round((this.props.value / this.props.total) * 1000) / 10;
+        }
+
         const stateName = MapHelper.stateNameFromCode(this.props.state);
 
         return (
@@ -82,6 +87,14 @@ export default class GeoVisualizationTooltip extends React.Component {
                                 Spending in {stateName}
                             </div>
                         </div>
+                        <div className="tooltip-right">
+                            <div className="tooltip-value">
+                                {percentage}%
+                            </div>
+                            <div className="tooltip-label">
+                                Percent of Total Spending
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,4 +102,4 @@ export default class GeoVisualizationTooltip extends React.Component {
     }
 }
 
-GeoVisualizationTooltip.propTypes = propTypes;
+GeoTotalTooltip.propTypes = propTypes;
