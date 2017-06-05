@@ -8,7 +8,6 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
     name: React.PropTypes.string,
-    value: React.PropTypes.number,
     dollar: React.PropTypes.number,
     description: React.PropTypes.string,
     height: React.PropTypes.number,

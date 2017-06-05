@@ -1,10 +1,11 @@
 /**
- * TreeMapCell.jsx
- * Created by Emily Gullo 03/15/2017
- **/
+ * BudgetFunctionCell.jsx
+ * Created by michaelbray on 5/25/17.
+ */
 
 import React from 'react';
 import _ from 'lodash';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
     label: React.PropTypes.string,
@@ -13,25 +14,39 @@ const propTypes = {
     x0: React.PropTypes.number,
     x1: React.PropTypes.number,
     y0: React.PropTypes.number,
-    y1: React.PropTypes.number,
+    functionID: React.PropTypes.number,
     color: React.PropTypes.string,
-    toggleTooltip: React.PropTypes.func,
-    showOverlay: React.PropTypes.bool
+    strokeColor: React.PropTypes.string,
+    strokeOpacity: React.PropTypes.number,
+    toggleSubfunction: React.PropTypes.func,
+    toggleTooltipIn: React.PropTypes.func,
+    toggleTooltipOut: React.PropTypes.func,
+    opacity: React.PropTypes.number,
+    textColor: React.PropTypes.string,
+    textClass: React.PropTypes.string,
+    height: React.PropTypes.number,
+    width: React.PropTypes.number,
+    labelView: React.PropTypes.string,
+    percentView: React.PropTypes.string,
+    clickable: React.PropTypes.bool
 };
 
-export default class TreeMapCell extends React.Component {
+const defaultProps = {
+    clickable: true
+};
 
+export default class BudgetFunctionCell extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             label: '',
-            didProcess: false,
-            color: this.props.color
+            didProcess: false
         };
 
-        this.mouseIn = this.mouseIn.bind(this);
-        this.toggleBorders = this.toggleBorders.bind(this);
+        this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
+        this.toggleTooltipOut = this.props.toggleTooltipOut.bind(this);
+        this.toggleSubfunction = this.toggleSubfunction.bind(this);
     }
 
     componentDidMount() {
@@ -55,6 +70,16 @@ export default class TreeMapCell extends React.Component {
         });
     }
 
+    toggleTooltipIn() {
+        this.props.toggleTooltipIn(this.props.functionID);
+    }
+
+    toggleSubfunction() {
+        if (this.props.clickable) {
+            this.props.toggleSubfunction(this.props.functionID);
+        }
+    }
+
     truncateText() {
         const labelWidth = this.props.x1 - this.props.x0;
 
@@ -76,6 +101,7 @@ export default class TreeMapCell extends React.Component {
 
             // determine how many characters can fit in the available space
             maxChars = Math.floor((maxWidth) / avgCharWidth);
+
             // truncate the label
             truncatedLabel = _.truncate(this.props.label, {
                 length: maxChars
@@ -88,89 +114,57 @@ export default class TreeMapCell extends React.Component {
         });
     }
 
-    mouseIn(label, value, bgColor) {
-        this.props.toggleTooltip(label, value);
-        this.setState({
-            color: bgColor
-        });
-    }
-
-    toggleBorders() {
-        const strokeArray = [];
-        let strokeColor = "white";
-        let strokeOpacity = 0.5;
-        if (this.props.showOverlay === true) {
-            if (this.props.label === "Social Security" ||
-                this.props.label === "National Defense" ||
-                this.props.label === "Medicare") {
-                strokeColor = "#F2B733";
-                strokeOpacity = 1;
-            }
-        }
-        strokeArray.push(strokeColor);
-        strokeArray.push(strokeOpacity);
-        return strokeArray;
-    }
-
-
     render() {
-        const width = (this.props.x1 - this.props.x0);
-        const height = (this.props.y1 - this.props.y0);
-        let labelView = 'block';
-        let percentView = 'block';
-        if (height < 20 || width < 50) {
-            labelView = 'none';
-        }
-        if (height < 40 || width < 60) {
-            percentView = 'none';
-        }
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
-                onMouseOver={() => {
-                    this.mouseIn(this.props.label, this.props.value, "#F2B733");
-                }}
-                onMouseLeave={() => {
-                    this.mouseIn('none', '', this.props.color);
-                }}>
+                onMouseEnter={this.toggleTooltipIn}
+                onMouseLeave={this.toggleTooltipOut}
+                onClick={this.toggleSubfunction}>
                 <rect
                     className="tile"
-                    width={width}
-                    height={height}
+                    width={this.props.width}
+                    height={this.props.height}
                     style={{
-                        fill: this.state.color,
-                        stroke: this.toggleBorders()[0],
-                        strokeOpacity: this.toggleBorders()[1],
+                        fill: this.props.color,
+                        stroke: this.props.strokeColor,
+                        strokeOpacity: this.props.strokeOpacity,
                         strokeWidth: "2px",
                         padding: "10px"
                     }} />
                 <text
-                    className="category"
-                    x={(width / 2)}
-                    y={height / 2}
-                    width={width}
+                    className={`category ${this.props.textClass}`}
+                    x={(this.props.width / 2)}
+                    y={this.props.height / 2}
+                    width={this.props.width}
                     textAnchor="middle"
                     ref={(text) => {
                         this.svgText = text;
                     }}
                     style={{
-                        display: labelView
+                        display: this.props.labelView,
+                        fill: this.props.textColor,
+                        opacity: this.props.opacity
                     }}>
                     {this.state.label}
                 </text>
                 <text
-                    className="value"
-                    x={(width / 2) - 2}
-                    y={(height / 2) + 20}
-                    width={width}
+                    className={`value ${this.props.textClass}`}
+                    x={(this.props.width / 2) - 2}
+                    y={(this.props.height / 2) + 20}
+                    width={this.props.width}
                     textAnchor="middle"
                     style={{
-                        display: percentView
+                        display: this.props.percentView,
+                        fill: this.props.textColor,
+                        opacity: this.props.opacity
                     }}>
-                    {parseFloat((this.props.value / this.props.total) * 100).toFixed(1)}%
+                    {MoneyFormatter.calculateTreemapPercentage(this.props.value, this.props.total)}
                 </text>
             </g>
         );
     }
 }
-TreeMapCell.propTypes = propTypes;
+
+BudgetFunctionCell.propTypes = propTypes;
+BudgetFunctionCell.defaultProps = defaultProps;

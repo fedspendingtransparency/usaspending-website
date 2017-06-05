@@ -104,8 +104,6 @@
     "axios": "^0.15.2",
     "babel-polyfill": "^6.20.0",
     "clipboard": "^1.6.1",
-    "d3": "^4.7.3",
-    "d3-array": "^1.0.2",
     "d3-hierarchy": "^1.1.4",
     "d3-interpolate": "^1.1.4",
     "d3-scale": "^1.0.4",
