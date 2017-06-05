@@ -108,11 +108,18 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(selectedRecipientLocationFilters);
         }
 
+        const recipientTypeFilters = this.prepareRecipientTypes(props);
+        if (recipientTypeFilters) {
+            filters.push(recipientTypeFilters);
+        }
+
+        // prepare Award ID filters
         const selectedAwardIDFilters = this.prepareAwardIDs(props);
         if (selectedAwardIDFilters) {
             filters.push(selectedAwardIDFilters);
         }
 
+        // prepare Award Amount filters
         const awardAmounts = this.prepareAwardAmounts(props);
         if (awardAmounts) {
             filters.push(awardAmounts);
@@ -418,6 +425,29 @@ export class TopFilterBarContainer extends React.Component {
         if (selected) {
             filter.code = 'selectedRecipientLocations';
             filter.name = 'Recipient Location';
+            return filter;
+        }
+        return null;
+    }
+
+    /**
+     * Logic for parsing the current Redux recipient type filter into a JS object that can
+     * be parsed by the top filter bar
+     */
+    prepareRecipientTypes(props) {
+        let selected = false;
+        const filter = {};
+
+        if (props.recipientType.count() > 0) {
+            // award types exist
+            selected = true;
+            filter.code = 'recipientType';
+            filter.name = 'Recipient Type';
+
+            filter.values = props.recipientType.toArray();
+        }
+
+        if (selected) {
             return filter;
         }
         return null;

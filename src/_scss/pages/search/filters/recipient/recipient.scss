@@ -1,66 +1,76 @@
 .recipient-filter {
-
     @import '../location/_errorMessage';
     @import '../location/_selectedButtons';
     @import '../location/_typeahead';
-
     padding-left: 0;
-
     > div {
         padding-left: 0rem;
     }
-
-    .recipient-radio {
-        margin: 2rem 0;
-        padding-left: 3rem;
+    .recipient-radio,
+    .checkbox-type-filter {
+        padding-left: rem(30);
         p {
             color: $color-gray;
             font-size: $small-font-size;
             margin-top: 0;
-            margin-bottom: 0.5rem;
+            margin-bottom: rem(5);
         }
-
+        p.sub-head {
+            border-bottom: rem(1) solid #E1E2E3;
+            font-size: $small-font-size;
+            font-weight: $font-semibold;
+            margin: 0 ($global-mrg * 2) $global-mrg 0;
+            padding: 0 0 rem(6);
+        }
         span {
-
             label {
                 color: $color-gray;
                 font-weight: normal;
                 margin-left: 0.75rem;
             }
             &:not(:last-child) {
-                padding-right: 1rem;
-                margin-right: 1rem;
+                border-right: rem(1) solid rgba(0, 0, 0, 0.3);
+                padding-right: rem(10);
+                margin-right: rem(10);
             }
-
         }
     }
-
-    .shown {
-        min-height: 18rem;
+    .recipient-radio {
+        margin: ($global-mrg * 2) 0;
     }
-
+    .checkbox-type-filter {
+        margin: ($global-mrg * 2) 0 0 0;
+        padding-bottom: 0;
+        .checkbox-set,
+        .secondary-checkbox-type {
+            margin: 0.5rem 0;
+        }
+    }
+    .shown {
+        min-height: rem(180);
+    }
     .visually-hidden {
         display: none;
     }
-
     .pop-typeahead {
         margin-bottom: 2rem;
-        padding-left: 3rem;
-
+        padding-left: rem(30);
+        .usa-da-typeahead {
+            margin-top: 0;
+        }
         .funding {
             .usa-da-typeahead {
-                margin: 0rem 0 1rem;
+                margin: 0rem 0 rem(10);
             }
         }
     }
-
-    .selected-recipients, .selected-recipient-locations {
+    .selected-recipients,
+    .selected-recipient-locations {
         background-color: #E4E4E4;
-        padding: 1rem 0 1rem 3rem;
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
-
-        &:empty{
+        padding: rem(10) 0 rem(10) rem(30);
+        margin-top: rem(15);
+        margin-bottom: rem(10);
+        &:empty {
             display: none;
         }
     }

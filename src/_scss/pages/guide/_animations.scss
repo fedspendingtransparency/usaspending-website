@@ -1,19 +1,19 @@
 // slide in animation
 @keyframes slidein {
     0% {
-        right: -300px;
+        transform: translate(300px, 0);
     }
     100% {
-        right: 0;
+        transform: translate(0, 0);
     }
 }
 
 @keyframes slideout {
     0% {
-        right: 0px;
+        transform: translate(0, 0);
     }
     100% {
-        right: -300px;
+        transform: translate(300px, 0);
     }
 }  
 

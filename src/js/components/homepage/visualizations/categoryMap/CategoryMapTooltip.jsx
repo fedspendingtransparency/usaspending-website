@@ -5,8 +5,6 @@
 
 import React from 'react';
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-
 const propTypes = {
     name: React.PropTypes.string,
     value: React.PropTypes.number,
@@ -31,9 +29,20 @@ export default class CategoryMapTooltip extends React.Component {
         const tooltipWidth = this.div.offsetWidth;
         const windowWidth = window.innerWidth;
         let left = this.props.x + ((this.props.width - tooltipWidth) / 2);
+        let pointerOffset = 0;
         if (this.props.width < tooltipWidth) {
             left = this.props.x - ((tooltipWidth - this.props.width) / 2);
         }
+        if (left < 0) {
+            // don't let the tooltip go off the screen
+            // hold onto the negative left value; we'll use it to adjust the pointer position so it
+            // is still pointing in the selected box
+            pointerOffset = left;
+            left = 0;
+        }
+
+        const pointerX = (tooltipWidth / 2) + pointerOffset;
+
         let top = this.props.height - 15;
         if (windowWidth < 768) {
             top = (this.props.y + this.props.height) - 20;
@@ -42,6 +51,7 @@ export default class CategoryMapTooltip extends React.Component {
         this.div.style.left = `${left}px`;
         this.div.className = `tooltip`;
         this.pointerDiv.className = `tooltip-pointer top`;
+        this.pointerDiv.style.left = `${pointerX}px`;
     }
 
     render() {
@@ -61,14 +71,11 @@ export default class CategoryMapTooltip extends React.Component {
                         ref={(div) => {
                             this.pointerDiv = div;
                         }} />
-                    <div className="tooltip-title">
+                    <div className="tooltip-title center">
                         {this.props.name}
                     </div>
-                    <div className="tooltip-body center">
-                        <div className="tooltip-center">
-                            <div className="tooltip-value">
-                                {MoneyFormatter.formatMoney(this.props.value)}
-                            </div>
+                    <div className="tooltip-body">
+                        <div className="tooltip-left">
                             <div className="tooltip-description">
                                 {this.props.description}
                             </div>

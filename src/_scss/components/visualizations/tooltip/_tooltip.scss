@@ -1,97 +1,74 @@
 .tooltip {
-
     $color-title-background: #F0F0F0;
     $color-tooltip-border: #ADAFB4;
-
-    position: absolute;
     max-width: 75%;
-    z-index: 3;
     pointer-events: none;
-
+    position: absolute;
+    z-index: 3;
     @include media($tablet-screen) {
         max-width: auto;
-        min-width: 320px;
     }
-
     border: 1px solid $color-tooltip-border;
-    box-shadow: 0 3px 4px 0 rgba(0,0,0,0.5);
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.5);
     background-color: $color-white;
-
     @import "./_arrow";
-
     .tooltip-title {
-        font-weight: bold;
-        color: #5B616B;
-        font-size: $base-font-size;
-
+        color: #555;
         background-color: $color-title-background;
-        padding: 10px 30px;
+        color: $color-gray;
+        font-size: $base-font-size;
+        font-weight: $font-bold;
+        padding: rem(10) rem(20);
+        text-align: center;
         z-index: 9;
     }
-
     .tooltip-body {
-        display: block;
-
-        @include media($tablet-screen) {
-            display: table;
-            padding: 10px;
-        }
+        @include display(flex);
+        @include flex-flow(row wrap);
+        @include justify-content(space-between);
+        padding: rem(20);
         &.center {
             width: 100%;
         }
     }
-
-    .tooltip-left {
-        display: block;
-        margin: 10px;
-
-        @include media($tablet-screen) {
-            display: table-cell;
-            padding: 0 10px;
-            margin: 0;
-        }
+    .tooltip-full {
+        @include flex(1 1 auto);
     }
-
+    .tooltip-left,
     .tooltip-right {
         display: block;
-        margin: 10px;
-
+        @include flex(1 1 auto);
         @include media($tablet-screen) {
-            display: table-cell;
-            padding: 0 10px;
-            margin: 0;
+            @include flex(1 1 auto);
+            margin: 0 rem(10) 0 0;
         }
     }
-
-    .tooltip-value {
-        font-size: 26px;
-        line-height: 33px;
-        font-weight: 300;
-        text-align: center;
-
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-bottom: 5px;
-
-        border-bottom: 1px solid #D5D6D8;
+    .tooltip-right {
+        @include media($tablet-screen) {
+            margin: 0 0 0 rem(10);
+        }
     }
-
-    .tooltip-description {
-        font-size: 14px;
-        line-height: 20px;
-        font-weight: 300;
-        text-align: center;
-
-        padding: 10px 10px 5px 10px;
-    }
-
+    .tooltip-value,
+    .tooltip-description,
     .tooltip-label {
+        color: $color-base;
         text-align: center;
-        font-weight: 300;
-
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 5px;
-        padding-bottom: 10px;
+    }
+    .tooltip-value {
+        border-bottom: 1px solid #D5D6D8;
+        font-size: rem(26);
+        font-weight: $font-light;
+        line-height: rem(33);
+        padding: 0 rem(10) rem(5);
+    }
+    .tooltip-description {
+        font-size: $small-font-size;
+        font-weight: $font-normal;
+        line-height: rem(20);
+        padding: rem(10) rem(10) rem(5) rem(10);
+    }
+    .tooltip-label {
+        font-weight: $font-normal;
+        padding: rem(5) rem(10) rem(10) rem(10);
     }
 }

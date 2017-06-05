@@ -3,6 +3,7 @@
  * Created by Kevin Li 5/3/17
  */
 
+import { Map } from 'immutable';
 import guideReducer, { initialState, Definition } from 'redux/reducers/guide/guideReducer';
 
 describe('guideReducer', () => {
@@ -131,6 +132,28 @@ describe('guideReducer', () => {
 
             state = guideReducer(state, action);
             expect(state.search.results).toEqual(action.results);
+        });
+    });
+
+    describe('SET_GUIDE_FULL_CACHE', () => {
+        it('should set the cache to the provided value', () => {
+            let state = guideReducer(undefined, {});
+            expect(state.cache).toEqual(new Map());
+
+            const action = {
+                type: 'SET_GUIDE_FULL_CACHE',
+                cache: [
+                    {
+                        term: "hi"
+                    },
+                    {
+                        term: "bye"
+                    }
+                ]
+            };
+
+            state = guideReducer(state, action);
+            expect(state.cache).toEqual(new Map(action.cache));
         });
     });
 

@@ -9,18 +9,6 @@ export const updateTextSearchInput = (state) => ({
     textInput: state
 });
 
-// Award Type Filter
-export const toggleAwardType = (state) => ({
-    type: 'TOGGLE_SEARCH_FILTER_AWARD_TYPE',
-    awardType: state
-});
-
-export const bulkAwardTypeChange = (state) => ({
-    type: 'BULK_SEARCH_FILTER_AWARD_TYPE',
-    awardTypes: state.awardTypes,
-    direction: state.direction
-});
-
 // Time Period Filter
 export const updateTimePeriod = (state) => ({
     type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
@@ -102,9 +90,32 @@ export const updateRecipientDomesticForeignSelection = (state) => ({
     selection: state
 });
 
+export const toggleRecipientType = (state) => ({
+    type: 'TOGGLE_SEARCH_FILTER_RECIPIENT_TYPE',
+    recipientType: state
+});
+
+export const bulkRecipientTypeChange = (state) => ({
+    type: 'BULK_SEARCH_FILTER_RECIPIENT_TYPES',
+    recipientTypes: state.types,
+    direction: state.direction
+});
+
 export const updateRecipientLocations = (state) => ({
     type: 'UPDATE_RECIPIENT_LOCATIONS',
     location: state
+});
+
+// Award Type Filter
+export const toggleAwardType = (state) => ({
+    type: 'TOGGLE_SEARCH_FILTER_AWARD_TYPE',
+    awardType: state
+});
+
+export const bulkAwardTypeChange = (state) => ({
+    type: 'BULK_SEARCH_FILTER_AWARD_TYPE',
+    awardTypes: state.awardTypes,
+    direction: state.direction
 });
 
 // Award ID Filter
@@ -130,4 +141,14 @@ export const setSearchOrder = (state) => ({
 
 export const resetSearchOrder = () => ({
     type: 'RESET_SEARCH_ORDER'
+});
+
+export const toggleColumnVisibility = (state) => ({
+    type: 'TOGGLE_COLUMN_VISIBILITY',
+    column: state.column,
+    tableType: state.tableType
+});
+
+export const resetColumnVisibility = () => ({
+    type: 'RESET_COLUMN_VISIBILITY'
 });

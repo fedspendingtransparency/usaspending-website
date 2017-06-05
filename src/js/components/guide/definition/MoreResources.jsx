@@ -6,9 +6,10 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
+import SmartLink from './SmartLink';
+
 const propTypes = {
-    resources: React.PropTypes.string,
-    transformLink: React.PropTypes.func
+    resources: React.PropTypes.string
 };
 
 export default class MoreResources extends React.Component {
@@ -21,7 +22,9 @@ export default class MoreResources extends React.Component {
                 <hr />
                 <ReactMarkdown
                     source={this.props.resources}
-                    transformLinkUri={this.props.transformLink} />
+                    renderers={Object.assign({}, ReactMarkdown.renderers, {
+                        Link: SmartLink
+                    })} />
             </div>
         );
     }

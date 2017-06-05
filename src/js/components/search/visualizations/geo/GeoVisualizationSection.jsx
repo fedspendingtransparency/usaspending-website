@@ -9,6 +9,7 @@ import _ from 'lodash';
 
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
+import GeoVisualizationTooltip from './GeoVisualizationTooltip';
 
 const propTypes = {
     scope: React.PropTypes.string,
@@ -101,7 +102,8 @@ export default class GeoVisualizationSection extends React.Component {
                     showHover={this.state.showHover}
                     selectedItem={this.state.selectedItem}
                     showTooltip={this.showTooltip}
-                    hideTooltip={this.hideTooltip} />
+                    hideTooltip={this.hideTooltip}
+                    tooltip={GeoVisualizationTooltip} />
 
             </div>
         );

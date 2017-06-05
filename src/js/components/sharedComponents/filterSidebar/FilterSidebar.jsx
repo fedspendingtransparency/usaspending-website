@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import FilterOption from './FilterOption';
 
@@ -30,7 +31,12 @@ export default class FilterSidebar extends React.Component {
 
         return (
             <div className="search-sidebar">
-                <h6 className="sidebar-header">Filter by:</h6>
+                <div className="sidebar-header">
+                    <span className="filter-icon">
+                        <Icons.Filter />
+                    </span>
+                    <h6>Filter by:</h6>
+                </div>
                 <div className="search-filters-wrapper">
                     {optionsList}
                 </div>

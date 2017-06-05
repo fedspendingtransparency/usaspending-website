@@ -1,49 +1,38 @@
 .agency-filter {
-
     @import '../location/_errorMessage';
     @import '../location/_selectedButtons';
     @import '../location/_typeahead';
-
     padding-left: 0;
-
     > div {
-        padding-left: 0rem;
+        padding-left: 0;
     }
-
     .shown {
-        min-height: 18rem;
+        min-height: rem(180);
     }
-
     .visually-hidden {
         display: none;
     }
-
     .pop-typeahead {
-        margin-bottom: 2rem;
-        padding-left: 3rem;
-
+        margin-bottom: rem(10);
+        padding-left: rem(30);
         .funding {
             .usa-da-typeahead {
-                margin: 0rem 0 1rem;
+                margin: 0 0 rem(10);
             }
         }
-
         .awarding {
             .usa-da-typeahead {
-                margin: 3rem 0 1rem;
+                margin: rem(30) 0 rem(10);
             }
         }
     }
-
     .selected-agencies {
         background-color: #E4E4E4;
-        padding: 1rem 0 1rem 3rem;
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
-
-        &:empty{
+        padding: rem(10) 0 rem(10) rem(30);
+        margin-top: rem(15);
+        margin-bottom: rem(10);
+        &:empty {
             display: none;
         }
     }
-
 }

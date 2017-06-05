@@ -10,6 +10,7 @@ import ResultGroup from './ResultGroup';
 
 const propTypes = {
     guide: React.PropTypes.object,
+    searchLoading: React.PropTypes.bool,
     setGuideTerm: React.PropTypes.func
 };
 
@@ -17,18 +18,32 @@ export default class GuideSearchResults extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            results: []
+        };
+
         this.selectTerm = this.selectTerm.bind(this);
+    }
+
+    componentWillMount() {
+        this.groupResults(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.guide.search.results !== this.props.guide.search.results) {
+            this.groupResults(nextProps);
+        }
     }
 
     selectTerm(term) {
         this.props.setGuideTerm(term);
     }
 
-    groupResults() {
+    groupResults(props) {
         // we need to group the results by their starting letter
         const groups = {};
 
-        this.props.guide.search.results.forEach((result) => {
+        props.guide.search.results.forEach((result) => {
             const startingLetter = result.term.charAt(0).toUpperCase();
             // check if we already have the character
             if (Object.hasOwnProperty.call(groups, startingLetter)) {
@@ -49,7 +64,7 @@ export default class GuideSearchResults extends React.Component {
         // sort the groups by starting letter
         const orderedGroups = _.sortBy(groups, ['letter']);
 
-        return orderedGroups.map((group) => (
+        const results = orderedGroups.map((group) => (
             <ResultGroup
                 key={group.letter}
                 title={group.letter}
@@ -57,13 +72,21 @@ export default class GuideSearchResults extends React.Component {
                 search={this.props.guide.search.input}
                 selectTerm={this.selectTerm} />
         ));
+
+        this.setState({
+            results
+        });
     }
 
     render() {
-        const results = this.groupResults();
+        let searchLoading = '';
+        if (this.props.searchLoading) {
+            searchLoading = ' loading';
+        }
+
         return (
-            <div className="guide-search-results">
-                {results}
+            <div className={`guide-search-results ${searchLoading}`}>
+                {this.state.results}
             </div>
         );
     }

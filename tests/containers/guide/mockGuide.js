@@ -1,9 +1,19 @@
+import { Map } from 'immutable';
 import { Definition } from 'redux/reducers/guide/guideReducer';
+
+export const standardTerm = new Definition({
+    term: 'Test Term',
+    slug: 'test-term',
+    data_act_term: 'Test Terminology',
+    plain: 'A test term',
+    official: 'Terminology test'
+});
 
 export const mockActions = {
     setGuideResults: jest.fn(),
     showGuide: jest.fn(),
-    setGuideTerm: jest.fn()
+    setGuideTerm: jest.fn(),
+    setGuideCache: jest.fn()
 };
 
 export const mockData = {
@@ -14,6 +24,15 @@ export const mockData = {
         data_act_term: 'Test Terminology',
         plain: 'A test term',
         official: 'Terminology test'
+    }),
+    cache: new Map({
+        'test-term': new Definition({
+            term: 'Test Term',
+            slug: 'test-term',
+            data_act_term: 'Test Terminology',
+            plain: 'A test term',
+            official: 'Terminology test'
+        })
     }),
     search: {
         input: '',
@@ -29,7 +48,7 @@ export const mockData = {
     }
 };
 
-export const mockApi = {
+export const mockCache = {
     page_metadata: {
         page: 1,
         has_next_page: false,
@@ -46,4 +65,22 @@ export const mockApi = {
         plain: 'A test term',
         official: 'Terminology test'
     }]
+};
+
+export const mockSearch = {
+    results: ['Test term'],
+    counts: {
+        term: 1
+    },
+    matched_objects: {
+        term: [
+            {
+                term: 'Test Term',
+                slug: 'test-term',
+                data_act_term: 'Test Terminology',
+                plain: 'A test term',
+                official: 'Terminology test'
+            }
+        ]
+    }
 };
