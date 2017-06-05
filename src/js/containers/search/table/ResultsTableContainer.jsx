@@ -37,7 +37,8 @@ const propTypes = {
     triggerBatchSearchUpdate: React.PropTypes.func,
     triggerBatchQueryUpdate: React.PropTypes.func,
     columnVisibility: React.PropTypes.object,
-    toggleColumnVisibility: React.PropTypes.func
+    toggleColumnVisibility: React.PropTypes.func,
+    reorderColumns: React.PropTypes.func
 };
 
 const tableTypes = [
@@ -86,6 +87,7 @@ export class ResultsTableContainer extends React.Component {
         this.switchTab = this.switchTab.bind(this);
         this.loadNextPage = this.loadNextPage.bind(this);
         this.toggleColumnVisibility = this.toggleColumnVisibility.bind(this);
+        this.reorderColumns = this.reorderColumns.bind(this);
     }
 
     componentDidMount() {
@@ -404,6 +406,15 @@ export class ResultsTableContainer extends React.Component {
         });
     }
 
+    reorderColumns(dragIndex, hoverIndex) {
+        const tableType = this.props.meta.tableType;
+        this.props.reorderColumns({
+            tableType,
+            dragIndex,
+            hoverIndex
+        });
+    }
+
     render() {
         return (
             <ResultsTableSection
@@ -414,6 +425,7 @@ export class ResultsTableContainer extends React.Component {
                 columns={this.state.columns}
                 hiddenColumns={this.state.hiddenColumns}
                 toggleColumnVisibility={this.toggleColumnVisibility}
+                reorderColumns={this.reorderColumns}
                 tableTypes={tableTypes}
                 currentType={this.props.meta.tableType}
                 switchTab={this.switchTab}
