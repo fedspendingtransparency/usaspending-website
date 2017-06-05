@@ -16,7 +16,9 @@ const propTypes = {
     showSub: React.PropTypes.bool,
     percentage: React.PropTypes.string,
     arrow: React.PropTypes.bool,
-    showSubfunctions: React.PropTypes.bool
+    showSubfunctions: React.PropTypes.bool,
+    sectionHeight: React.PropTypes.number,
+    isSubfunctions: React.PropTypes.bool
 };
 
 export default class TreeMapTooltip extends React.Component {
@@ -29,59 +31,70 @@ export default class TreeMapTooltip extends React.Component {
     }
 
     positionTooltip() {
-        // we need to wait for the tooltip to render before we can full position it due to its
-        // dynamic width
+        // Tooptip sizes
         const tooltipWidth = this.div.offsetWidth;
+        const tooltipHeight = this.div.offsetHeight;
+
+        // Left padding of container
         const containerPadding = this.containerDiv.getBoundingClientRect().left;
+
+        // Window width
         const windowWidth = window.innerWidth;
 
         // Offset the tooltip position to account for its arrow/pointer
-        let offset = -9;
+        const offset = 9;
 
-        // Create a default xPosition
+        // Height offset to not overlap labels
+        const heightOffset = 50;
+
+        // Initial position
         const xPosition = this.props.width * 0.5;
+        const yPosition = this.props.height * 0.5;
 
-        // Set the left direction by default
-        let direction = 'left';
+        // Define initial quadrants and offsets
+        let leftRightDirection = 'left';
+        let topBottomDirection = 'top';
+        let leftOffset = `${(this.props.x + xPosition) - offset}px`;
+        let topOffset = `${(this.props.height / 2) + heightOffset}px`;
 
-        // Position the tooltip to the other side if it's going to roll off the screen
+        // Determine which quadrant the tooltip should appear in
         if (this.props.x + xPosition + tooltipWidth >= windowWidth - containerPadding) {
-            // Offset the tooltip the other way
-            offset = 9 + tooltipWidth;
-            direction = 'right';
+            leftRightDirection = 'right';
         }
 
-        let leftDirection = `${(this.props.x + xPosition) - offset}px`;
-        let topDirection = `${(this.props.y + this.props.height)}px`;
-        let classValue = `tooltip ${direction}`;
-        let size = '';
+        if (this.props.y >= ((this.props.sectionHeight / 2) - 50)) {
+            topBottomDirection = 'bottom';
+        }
 
+        // Always use bottom positioning for subfunctions due to height constraints
+        if (this.props.isSubfunctions) {
+            topBottomDirection = 'bottom';
+        }
+
+        // Position the tooltip based on quadrant
+        // Bottom left
+        if (leftRightDirection === 'left' && topBottomDirection === 'bottom') {
+            topOffset = `${this.props.sectionHeight - yPosition - tooltipHeight - heightOffset}px`;
+        }
+        // Top right
+        else if (leftRightDirection === 'right' && topBottomDirection === 'top') {
+            leftOffset = `${((this.props.x + (this.props.width / 2)) - (tooltipWidth + offset))}px`;
+        }
+        // Bottom right
+        else if (leftRightDirection === 'right' && topBottomDirection === 'bottom') {
+            leftOffset = `${this.props.x - tooltipWidth}px`;
+            topOffset = `${this.props.sectionHeight - yPosition - tooltipHeight - heightOffset}px`;
+        }
+
+        let size = '';
         if (this.props.showSub || this.props.arrow) {
             size = ' small';
         }
 
-        this.pointerDiv.className = `tooltip-pointer ${direction}`;
-
-        if (this.props.showSub || windowWidth < 768 || this.props.arrow) {
-            direction = 'top';
-            classValue = `tooltip ${direction}${size}`;
-            this.pointerDiv.className = `tooltip-pointer ${direction} ${classValue}`;
-
-            if (direction === 'right') {
-                topDirection = `${(this.props.y + this.props.height)}px`;
-                leftDirection = `${((this.props.x + (this.props.width / 2)) -
-                    (tooltipWidth))}px`;
-            }
-            else {
-                topDirection = `${(this.props.y + this.props.height)}px`;
-                leftDirection = `${(this.props.x + (this.props.width / 2)) -
-                    (tooltipWidth / 2)}px`;
-            }
-        }
-
-        this.div.style.top = topDirection;
-        this.div.style.left = leftDirection;
-        this.div.className = classValue;
+        this.pointerDiv.className = `tooltip-pointer ${topBottomDirection}-${leftRightDirection}`;
+        this.div.style.top = topOffset;
+        this.div.style.left = leftOffset;
+        this.div.className = `tooltip ${topBottomDirection}${size}`;
     }
 
     render() {

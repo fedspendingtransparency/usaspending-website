@@ -45,8 +45,6 @@ export default class BudgetSubfunctionsMap extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.category);
-        console.log(this.props.category);
         if (nextProps.category !== this.props.category) {
             this.buildTree(nextProps);
         }
@@ -210,8 +208,10 @@ export default class BudgetSubfunctionsMap extends React.Component {
                 x={node.props.x0}
                 y={node.props.y0}
                 width={node.props.width}
-                height={(node.props.height / 2) + 50}
-                showSubfunctions={this.props.showSubfunctions} />);
+                height={node.props.height}
+                showSubfunctions={this.props.showSubfunctions}
+                sectionHeight={this.sectionWrapper.getBoundingClientRect().height}
+                isSubfunctions />);
         }
 
         return tooltip;

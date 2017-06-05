@@ -214,8 +214,10 @@ export default class BudgetFunctions extends React.Component {
                 x={node.props.x0}
                 y={node.props.y0}
                 width={node.props.width}
-                height={(node.props.height / 2) + 50}
-                showSubfunctions={this.props.showSubfunctions} />);
+                height={node.props.height}
+                showSubfunctions={this.props.showSubfunctions}
+                sectionHeight={this.sectionWrapper.getBoundingClientRect().height}
+                isSubfunctions={false} />);
         }
 
         return tooltip;
