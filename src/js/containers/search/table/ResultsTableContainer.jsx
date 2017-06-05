@@ -35,7 +35,9 @@ const propTypes = {
     setSearchResultMeta: React.PropTypes.func,
     setSearchInFlight: React.PropTypes.func,
     triggerBatchSearchUpdate: React.PropTypes.func,
-    triggerBatchQueryUpdate: React.PropTypes.func
+    triggerBatchQueryUpdate: React.PropTypes.func,
+    columnVisibility: React.PropTypes.object,
+    toggleColumnVisibility: React.PropTypes.func
 };
 
 const tableTypes = [
@@ -74,7 +76,8 @@ export class ResultsTableContainer extends React.Component {
             columns: [],
             searchParams: new SearchOperation(),
             page: 0,
-            lastReq: ''
+            lastReq: '',
+            hiddenColumns: []
         };
 
         this.tabCountRequest = null;
@@ -82,6 +85,7 @@ export class ResultsTableContainer extends React.Component {
 
         this.switchTab = this.switchTab.bind(this);
         this.loadNextPage = this.loadNextPage.bind(this);
+        this.toggleColumnVisibility = this.toggleColumnVisibility.bind(this);
     }
 
     componentDidMount() {
@@ -115,6 +119,11 @@ export class ResultsTableContainer extends React.Component {
                 // triggers a page 1 search)
                 this.performSearch();
             }
+        }
+        else if (prevProps.columnVisibility !== this.props.columnVisibility) {
+            // Visible columns have changed
+            this.performSearch(true);
+            this.showColumns(this.props.meta.tableType);
         }
     }
 
@@ -182,10 +191,12 @@ export class ResultsTableContainer extends React.Component {
     }
 
     showColumns(tableType) {
-         // calculate the column metadata to display in the table
+        // calculate the column metadata to display in the table
         const columns = [];
+        const hiddenColumns = [];
         let sortOrder = TableSearchFields.defaultSortDirection;
         let columnWidths = TableSearchFields.columnWidths;
+        const columnVisibility = this.props.columnVisibility[tableType];
 
         if (tableType === 'loans') {
             sortOrder = TableSearchFields.loans.sortDirection;
@@ -194,7 +205,7 @@ export class ResultsTableContainer extends React.Component {
 
         const tableSettings = TableSearchFields[tableType];
 
-        tableSettings._order.forEach((col) => {
+        columnVisibility.visibleColumns.forEach((col) => {
             const column = {
                 columnName: col,
                 displayName: tableSettings[col],
@@ -204,8 +215,17 @@ export class ResultsTableContainer extends React.Component {
             columns.push(column);
         });
 
+        columnVisibility.hiddenColumns.forEach((col) => {
+            const column = {
+                columnName: col,
+                displayName: tableSettings[col]
+            };
+            hiddenColumns.push(column);
+        });
+
         this.setState({
-            columns
+            columns,
+            hiddenColumns
         });
     }
 
@@ -249,9 +269,28 @@ export class ResultsTableContainer extends React.Component {
         }
         const resultLimit = 60;
 
+        const requestFields = ['id', 'piid', 'fain', 'uri'];
+
+        // Request fields for visible columns only
+        const columnVisibility = this.props.columnVisibility[tableType];
+        const mapping = TableSearchFields[tableType]._mapping;
+
+        columnVisibility.visibleColumns.forEach((col) => {
+            const field = mapping[col];
+            let requestField = field;
+            if (field.includes('__')) {
+                // If it is a nested field, request the top level object
+                const nestedFields = field.split('__');
+                requestField = nestedFields[0];
+            }
+            if (!requestFields.includes(requestField)) {
+                // Prevent duplicates in the list of fields to request
+                requestFields.push(requestField);
+            }
+        });
+
         this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(),
-            pageNumber, resultLimit, sortParams,
-            TableSearchFields[tableType]._requestFields);
+            pageNumber, resultLimit, sortParams, requestFields);
 
         this.searchRequest.promise
             .then((res) => {
@@ -357,6 +396,13 @@ export class ResultsTableContainer extends React.Component {
         }
     }
 
+    toggleColumnVisibility(column) {
+        const tableType = this.props.meta.tableType;
+        this.props.toggleColumnVisibility({
+            column,
+            tableType
+        });
+    }
 
     render() {
         return (
@@ -366,6 +412,8 @@ export class ResultsTableContainer extends React.Component {
                 results={this.props.rows.toArray()}
                 resultsMeta={this.props.meta}
                 columns={this.state.columns}
+                hiddenColumns={this.state.hiddenColumns}
+                toggleColumnVisibility={this.toggleColumnVisibility}
                 tableTypes={tableTypes}
                 currentType={this.props.meta.tableType}
                 switchTab={this.switchTab}
@@ -383,7 +431,8 @@ export default connect(
         rows: state.records.awards,
         meta: state.resultsMeta.toJS(),
         batch: state.resultsBatch,
-        searchOrder: state.searchOrder
+        searchOrder: state.searchOrder,
+        columnVisibility: state.columnVisibility
     }),
     (dispatch) => bindActionCreators(SearchActions, dispatch)
 )(ResultsTableContainer);

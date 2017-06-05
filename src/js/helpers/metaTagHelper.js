@@ -5,8 +5,7 @@
 // Disabling max-len property for readability / editability
 /* eslint-disable max-len */
 
-// TODO - Mike Bray - Update this to production
-const productionURL = 'https://sandbox.usaspending.gov/';
+const productionURL = 'https://beta.usaspending.gov/';
 const imgDirectory = 'img/';
 
 const facebookImage = 'FacebookOG.png';

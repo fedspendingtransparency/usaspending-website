@@ -6,40 +6,70 @@
 import React from 'react';
 import BudgetLabel from './BudgetLabel';
 
+const propTypes = {
+    size: React.PropTypes.string,
+    gTransform: React.PropTypes.string,
+    rectTransform: React.PropTypes.string,
+    textTransform: React.PropTypes.string,
+    label: React.PropTypes.string
+};
+
 export default class BudgetLine extends React.Component {
 
     render() {
-        return (<svg className="budget-line">
-            <g
-                className="budget-label-group"
-                transform="translate(0, 0)">
-                <BudgetLabel
-                    labelWidth={20}
-                    labelPadding={5}
-                    labelDistance={5}
-                    currentY={0}
-                    graphHeight={642} />
+        let budgetLabel = (<BudgetLabel
+            labelWidth={20}
+            labelPadding={5}
+            labelDistance={5}
+            currentY={0}
+            graphHeight={642}
+            size="small" />);
+        if (this.props.size === 'large') {
+            budgetLabel = (<BudgetLabel
+                labelWidth={20}
+                labelPadding={3}
+                labelDistance={8}
+                currentX={0}
+                graphWidth={this.gClass.offsetWidth * 0.79}
+                size="large" />);
+        }
+        return (<div
+            className="line-wrap"
+            ref={(g) => {
+                this.gClass = g;
+            }}>
+            <svg
+                className={`budget-line ${this.props.size}`}>
                 <g
-                    className="budget-label"
-                    transform="translate(15,300)rotate(180)">
-                    <rect
-                        transform="translate(20, -78)rotate(90)"
-                        fill="#5b616b"
-                        width="80"
-                        height="30"
-                        x={0}
-                        y={0} />
-                    <text
-                        transform="translate(0, 0)rotate(90)"
-                        fill="white"
-                        className="title"
-                        x={0}
-                        y={0}
-                        textAnchor="end">
-                        2.74 trillion
-                    </text>
+                    className="budget-label-group"
+                    transform="translate(0, 0)">
+                    {budgetLabel}
+                    <g
+                        className="budget-label"
+                        transform={this.props.gTransform}>
+                        <rect
+                            transform={this.props.rectTransform}
+                            fill="#5b616b"
+                            width="125"
+                            height="25"
+                            x={0}
+                            y={0} />
+                        <text
+                            transform={this.props.textTransform}
+                            fill="white"
+                            fontSize="26px"
+                            className="title"
+                            fontWeight="300"
+                            x={44}
+                            y={2}
+                            textAnchor="end">
+                            {this.props.label}
+                        </text>
+                    </g>
                 </g>
-            </g>
-        </svg>);
+            </svg>
+        </div>);
     }
 }
+
+BudgetLine.propTypes = propTypes;
