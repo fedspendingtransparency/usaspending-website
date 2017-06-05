@@ -8,7 +8,7 @@ import { OrderedSet } from 'immutable';
 
 import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
 
-import ObjectClassItem from './ObjectClassItem';
+import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
 const propTypes = {
     selectedCodes: React.PropTypes.instanceOf(OrderedSet),
@@ -22,28 +22,33 @@ export default class ObjectClassFilter extends React.Component {
         this.toggleValue = this.toggleValue.bind(this);
     }
 
-    toggleValue(event) {
-        const code = event.target.value;
+    toggleValue(code) {
         this.props.updateFilter(code);
     }
 
     render() {
         const items = Object.keys(objectClassDefinitions).map((code) => {
             const label = objectClassDefinitions[code];
-            const checked = this.props.selectedCodes.includes(code);
-            return (<ObjectClassItem
+            return (<PrimaryCheckboxType
+                {...code}
+                {...this.props}
+                name={label}
+                value={code}
                 key={code}
-                code={code}
-                label={label}
-                checked={checked}
-                toggleValue={this.toggleValue} />);
+                types={objectClassDefinitions}
+                filterType="Object Class"
+                selectedCheckboxes={this.props.selectedCodes}
+                toggleCheckboxType={this.toggleValue}
+                enableAnalytics />);
         });
 
         return (
             <div className="account-object-class-filter search-filter">
-                <ul className="object-classes">
-                    { items }
-                </ul>
+                <div className="checkbox-type-filter search-filter">
+                    <ul className="object-classes checkbox-types">
+                        { items }
+                    </ul>
+                </div>
             </div>
         );
     }
