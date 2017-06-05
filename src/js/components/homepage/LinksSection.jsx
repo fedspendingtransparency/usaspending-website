@@ -19,7 +19,7 @@ export default class LinksSection extends React.Component {
                     <div className="links-section-box-wrap">
                         <LinksSectionBox
                             icon="recipient"
-                            text="Get insights into specific recipients."
+                            text="Get insights into recipients."
                             linkText="Find a recipient"
                             linkUrl="" />
                         <LinksSectionBox
