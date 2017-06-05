@@ -15,7 +15,7 @@ export const toggleItem = (selected, item) => {
 
 export const spliceColumnOrder = (currentSet, dragIndex, hoverIndex) => {
     // Convert the "before" Ordered Set to an Array
-    const visibleArray = Array.from(currentSet);
+    const visibleArray = currentSet.toArray();
 
     // Get the column that is being moved
     const col = visibleArray[dragIndex];
