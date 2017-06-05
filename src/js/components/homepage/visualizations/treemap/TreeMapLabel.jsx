@@ -35,26 +35,26 @@ export default class TreeMapLabel extends React.Component {
         this.generatePoly = this.generatePoly.bind(this);
     }
 
-    componentWillReceiveProps() {
-        this.generatePoly();
+    componentWillReceiveProps(nextProps) {
+        this.generatePoly(nextProps);
     }
 
-    generatePoly() {
-        const leftLabelPos = this.props.labelWidth - this.props.labelPadding;
+    generatePoly(props) {
+        const leftLabelPos = props.labelWidth - props.labelPadding;
         // calculate the label paths
         let currentLabelPath = '';
 
         // Add and subtract 1 from left / right edges for edges to be visible on non-retina screens
         // start at the top left edge of the bar
-        currentLabelPath += `${this.props.currentX + 1},${leftLabelPos}`;
+        currentLabelPath += `${props.currentX + 1},${leftLabelPos}`;
         // move up the specified amount
-        currentLabelPath += ` ${this.props.currentX + 1},${leftLabelPos -
-        this.props.labelDistance}`;
+        currentLabelPath += ` ${props.currentX + 1},${leftLabelPos -
+        props.labelDistance}`;
         // go to the right of the bar
-        currentLabelPath += ` ${this.props.graphWidth - 1},${leftLabelPos -
-        this.props.labelDistance}`;
+        currentLabelPath += ` ${props.graphWidth - 1},${leftLabelPos -
+        props.labelDistance}`;
         // go down to top right edge
-        currentLabelPath += ` ${this.props.graphWidth - 1},${leftLabelPos}`;
+        currentLabelPath += ` ${props.graphWidth - 1},${leftLabelPos}`;
 
         this.setState({
             current: currentLabelPath
