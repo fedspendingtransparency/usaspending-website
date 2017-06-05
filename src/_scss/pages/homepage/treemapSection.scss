@@ -9,38 +9,32 @@
         @import './treemapWrapper';
         @import './_treemapDescription';
         @import './_treemapNavButtons';
-
         .treemap-navigation-holder {
-            min-height: rem(48);
-
+            min-height: rem(64);
             .treemap-navigation-bar {
-
                 .treemap-inner-wrap {
                     width: calc(100% - 8rem);
                     max-width: calc(100% - 8rem);
-                    margin: 0 4rem 0;
-
+                    margin: 0 rem(40) 0;
                     .tree-wrapper {
                         width: 100%;
                     }
                 }
-
                 .treemap-inner-wrap::after {
                     clear: none;
                 }
             }
         }
-
         .function-desc {
             padding-left: 10%;
             padding-right: 10%;
-            margin-top: 3rem;
-
-            h1, h6, p {
+            margin-top: ($global-mrg * 2);
+            h1,
+            h6,
+            p {
                 text-align: center;
                 text-color: $color-base;
             }
-
             h1 {
                 font-size: rem(47);
                 line-height: rem(59);
@@ -61,26 +55,22 @@
                 margin-bottom: rem(27);
             }
         }
-
         .visualization-tooltip {
             position: relative;
             width: 100%;
             @import "components/visualizations/tooltip/_tooltip";
             .tooltip {
                 width: rem(570);
-
                 &.small {
                     width: rem(230);
                     min-height: rem(44);
                     min-width: rem(200);
                     max-width: rem(500);
-
                     .tooltip-title {
                         font-size: rem(14);
                         line-height: rem(44);
                         padding: 0;
                     }
-
                     .tooltip-body {
                         justify-content: center;
                         text-align: center;
@@ -92,7 +82,7 @@
                     line-height: rem(47);
                     font-weight: 300;
                     justify-content: center;
-                    margin-bottom: 0;
+                    margin: rem(5) 0 0;
                     padding-bottom: 0;
                 }
                 .tooltip-body {
@@ -124,14 +114,12 @@
                         }
                     }
                 }
-
             }
         }
-
         .treemap-hover-instructions {
             float: right;
-            height: 82px;
-            width: 469px;
+            height: rem(82);
+            width: rem(469);
             position: absolute;
             top: 33%;
             right: rem(-25);
@@ -141,7 +129,6 @@
             line-height: rem(28);
             padding: rem(13) rem(15);
             z-index: 2;
-
             &:after {
                 position: absolute;
                 right: 0;
@@ -156,7 +143,6 @@
             }
         }
     }
-
     .tree-desc {
         color: $color-base;
         font-size: rem(38);
@@ -169,7 +155,7 @@
             font-weight: $font-semibold;
         }
         .highlight {
-            padding-bottom: 5px;
+            padding-bottom: rem(5);
             border-bottom: #FEB711 5px solid;
         }
     }

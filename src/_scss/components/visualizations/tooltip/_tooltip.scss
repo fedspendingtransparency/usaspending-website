@@ -13,7 +13,7 @@
     background-color: $color-white;
     @import "./_arrow";
     .tooltip-title {
-        color: #555;
+        color: $color-base;
         background-color: $color-title-background;
         color: $color-gray;
         font-size: $base-font-size;
@@ -26,7 +26,7 @@
         @include display(flex);
         @include flex-flow(row wrap);
         @include justify-content(space-between);
-        padding: rem(20);
+        padding: rem(15);
         &.center {
             width: 100%;
         }
@@ -72,10 +72,11 @@
         padding: rem(5) rem(10) rem(10) rem(10);
     }
     .tooltip-footer {
-        text-align: center;
-        font-size: $small-font-size;
         background-color: #fff1d2;
+        font-size: $small-font-size;
+        margin: 0 5%;
         padding: rem(16) rem(15) rem(14);
-
+        text-align: center;
+        width: 90%;
     }
 }
