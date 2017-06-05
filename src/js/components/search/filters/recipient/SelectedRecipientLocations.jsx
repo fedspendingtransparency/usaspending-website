@@ -28,7 +28,7 @@ export default class SelectedRecipientLocations extends React.Component {
         });
 
         return (
-            <div className="selected-recipient-locations">
+            <div className="selected-filters">
                 {shownLocations}
             </div>
         );

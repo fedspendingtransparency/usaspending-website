@@ -51,13 +51,15 @@ export default class AwardAmountSearch extends React.Component {
         });
 
         return (
-            <div className="award-amount-filter search-filter">
-                <ul className="award-amounts">
-                    {awardAmountRangeItems}
-                    <SpecificAwardAmountItem
-                        {...this.props}
-                        searchSpecificRange={this.searchSpecificRange} />
-                </ul>
+            <div className="award-amount-filter">
+                <div className="filter-item-wrap">
+                    <ul className="award-amounts">
+                        {awardAmountRangeItems}
+                        <SpecificAwardAmountItem
+                            {...this.props}
+                            searchSpecificRange={this.searchSpecificRange} />
+                    </ul>
+                </div>
             </div>
         );
     }

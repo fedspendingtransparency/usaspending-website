@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     agency: React.PropTypes.object,
@@ -26,10 +27,12 @@ export default class ShownAgency extends React.Component {
     render() {
         return (
             <button
-                className="shown-agency-button"
+                className="shown-filter-button"
                 value={this.props.label}
                 onClick={this.toggleAgency}>
-                <span className="close">x</span> {this.props.label}
+                <span className="close">
+                    <Icons.Close className="usa-da-icon-close" />
+                </span> {this.props.label}
             </button>
         );
     }

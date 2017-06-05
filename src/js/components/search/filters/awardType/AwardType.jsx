@@ -52,10 +52,12 @@ export default class AwardType extends React.Component {
         ));
 
         return (
-            <div className="award-type-filter search-filter">
-                <ul className="award-types">
-                    {awardTypes}
-                </ul>
+            <div className="award-type-filter">
+                <div className="filter-item-wrap">
+                    <ul className="award-types">
+                        {awardTypes}
+                    </ul>
+                </div>
             </div>
         );
     }
