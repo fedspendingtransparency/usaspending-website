@@ -126,6 +126,34 @@
 
             }
         }
+
+        .treemap-hover-instructions {
+            float: right;
+            height: 82px;
+            width: 469px;
+            position: absolute;
+            top: 33%;
+            right: rem(-25);
+            background-color: #A3F383;
+            color: #1B4956;
+            font-size: rem(20);
+            line-height: rem(28);
+            padding: rem(13) rem(15);
+            z-index: 21;
+
+            &:after {
+                position: absolute;
+                right: 0;
+                bottom: rem(-21);
+                content: "";
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: rem(21) rem(26) 0 0;
+                border-color: #85C76B transparent transparent transparent;
+                z-index: 22;
+            }
+        }
     }
 
     .tree-desc {
