@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     toggleAwardID: React.PropTypes.func,
@@ -15,10 +16,12 @@ export default class ShownAwardID extends React.Component {
     render() {
         return (
             <button
-                className="shown-award-id-button"
+                className="shown-filter-button"
                 value={this.props.label}
                 onClick={this.props.toggleAwardID}>
-                <span className="close">x</span> {this.props.label}
+                <span className="close">
+                    <Icons.Close className="usa-da-icon-close" />
+                </span> {this.props.label}
             </button>
         );
     }

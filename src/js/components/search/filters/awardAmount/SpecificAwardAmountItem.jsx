@@ -80,7 +80,7 @@ export default class SpecificAwardAmountItem extends React.Component {
                         ref={(input) => {
                             this.minValue = input;
                         }} />
-                    <span>to $</span>
+                    <span>to</span>
                     <input
                         placeholder="Max"
                         className="specific-award-max"

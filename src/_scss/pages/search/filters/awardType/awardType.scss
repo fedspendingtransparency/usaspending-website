@@ -1,9 +1,13 @@
 .award-type-filter {
-
     ul.award-types {
         @include unstyled-list;
     }
-    @import '../location/_selectedButtons';
+
+    @import "./_primaryType";
+    ul.secondary-award-set {
+        @include unstyled-list;
+        @import "./_secondaryType";
+    }
 
     .recipient-radio,
     .checkbox-type-filter {

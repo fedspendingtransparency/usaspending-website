@@ -34,7 +34,7 @@ export default class Agency extends React.Component {
             }
 
             return (
-                <div key={`holder-${type}`}>
+                <div className="filter-item-wrap" key={`holder-${type}`}>
                     <AgencyListContainer
                         agencyType={type}
                         toggleAgency={this.props.toggleAgency}
@@ -48,7 +48,7 @@ export default class Agency extends React.Component {
         });
 
         return (
-            <div className="agency-filter search-filter">
+            <div className="agency-filter">
                 {agencies}
             </div>
         );

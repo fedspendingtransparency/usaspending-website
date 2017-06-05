@@ -60,12 +60,14 @@ export default class AwardAmountSearch extends React.Component {
 
         return (
             <div className="award-amount-filter search-filter checkbox-type-filter">
-                <ul className="award-amounts checkbox-types">
-                    {awardAmountRangeItems}
-                    <SpecificAwardAmountItem
-                        {...this.props}
-                        searchSpecificRange={this.searchSpecificRange} />
-                </ul>
+                <div className="filter-item-wrap">
+                    <ul className="award-amounts checkbox-types">
+                        {awardAmountRangeItems}
+                        <SpecificAwardAmountItem
+                            {...this.props}
+                            searchSpecificRange={this.searchSpecificRange} />
+                    </ul>
+                </div>
             </div>
         );
     }
