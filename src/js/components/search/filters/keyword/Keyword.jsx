@@ -27,19 +27,21 @@ export default class Keyword extends React.Component {
     render() {
         return (
             <div className="keyword-filter search-filter">
-                <input
-                    id="search"
-                    type="text"
-                    className="keyword-input"
-                    placeholder="Search by Keyword"
-                    ref={(k) => {
-                        this.keyword = k;
-                    }} />
-                <input
-                    type="submit"
-                    className="keyword-submit"
-                    value="Submit"
-                    onClick={this.searchKeyword.bind(this)} />
+                <div className="filter-item-wrap">
+                    <input
+                        id="search"
+                        type="text"
+                        className="keyword-input"
+                        placeholder="Search by Keyword"
+                        ref={(k) => {
+                            this.keyword = k;
+                        }} />
+                    <input
+                        type="submit"
+                        className="keyword-submit"
+                        value="Submit"
+                        onClick={this.searchKeyword.bind(this)} />
+                </div>
             </div>
         );
     }

@@ -114,7 +114,7 @@ export const toggleAwardType = (state) => ({
 
 export const bulkAwardTypeChange = (state) => ({
     type: 'BULK_SEARCH_FILTER_AWARD_TYPE',
-    awardTypes: state.awardTypes,
+    awardTypes: state.types,
     direction: state.direction
 });
 

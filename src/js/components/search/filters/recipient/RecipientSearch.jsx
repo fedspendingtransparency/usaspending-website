@@ -40,21 +40,29 @@ export default class RecipientSearch extends React.Component {
         }
 
         return (
-            <div className="recipient-filter search-filter">
-                <RecipientNameDUNSContainer
-                    {...this.props}
-                    toggleRecipient={this.props.toggleRecipient} />
-                {selectedRecipients}
-                <RecipientToggle
-                    {...this.props}
-                    toggleDomesticForeign={this.props.toggleDomesticForeign} />
-                <RecipientLocationContainer
-                    {...this.props}
-                    toggleRecipientLocation={this.props.toggleRecipientLocation} />
-                {selectedRecipientLocations}
-                <RecipientType
-                    {...this.props}
-                    toggleCheckboxType={this.props.toggleRecipientType} />
+            <div className="recipient-filter">
+                <div className="filter-item-wrap">
+                    <RecipientNameDUNSContainer
+                        {...this.props}
+                        toggleRecipient={this.props.toggleRecipient} />
+                    {selectedRecipients}
+                </div>
+                <div className="filter-item-wrap">
+                    <RecipientToggle
+                        {...this.props}
+                        toggleDomesticForeign={this.props.toggleDomesticForeign} />
+                </div>
+                <div className="filter-item-wrap">
+                    <RecipientLocationContainer
+                        {...this.props}
+                        toggleRecipientLocation={this.props.toggleRecipientLocation} />
+                    {selectedRecipientLocations}
+                </div>
+                <div className="filter-item-wrap">
+                    <RecipientType
+                        {...this.props}
+                        toggleCheckboxType={this.props.toggleRecipientType} />
+                </div>
             </div>
         );
     }

@@ -87,36 +87,42 @@
                 "id": 0,
                 "name": "Individuals",
                 "value": 30,
+                "dollar":1164518069337,
                 "description": "This category includes direct payments to individuals, such as Social Security payments, veterans' retirement benefits, and assistance to farmers. This category also includes awards made to sole proprietorships, which are businesses owned and run by a single person."
             },
             {
                 "id": 1,
                 "name": "For-profit entities",
                 "value": 19,
+                "dollar":719754269239,
                 "description": "Most recipients in this category are contractors doing business with the federal government. Small businesses receiving loans or insurance are also included. This category includes both foreign and domestic businesses."
             },
             {
                 "id": 2,
                 "name": "State and local government",
                 "value": 17,
+                "dollar":667962527423,
                 "description": "This category includes government entities at the state, county, and local levels. As such it includes housing authorities, airport and port authorities, and local school districts. Funding for most tribal governments is also included here. This category also includes Medicare and Medicaid spending, which flows through state governments to individuals."
             },
             {
                 "id": 3,
                 "name": "Non-profits and universities",
                 "value": 5,
+                "dollar":194051596832,
                 "description": "This category includes not-for-profit organizations and public and private institutions of higher education. This category includes spending for research, social services, and student aid."
             },
             {
                 "id": 4,
                 "name": "Other Awards",
                 "value": 8,
+                "dollar":321433392409,
                 "description": "This category represents award spending that is not currently classified by recipient type."
             },
             {
                 "id": 5,
                 "name": "Running the government and direct services",
                 "value": 21,
+                "dollar":786380285370,
                 "description": "This category is non-award spending. That is, money that was not given out through contracts, grants, direct payments, loans, or insurance. This spending covers salaries and benefits for federal employees, including military. It also includes buildings, equipment, insurance, government travel, and other costs associated with running the government. It also includes interest paid on the federal debt."
             }
         ]

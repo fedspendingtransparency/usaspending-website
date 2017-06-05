@@ -245,26 +245,28 @@ export default class TimePeriod extends React.Component {
         }
 
         return (
-            <div className="time-period-filter search-filter">
-                <ul className="toggle-buttons">
-                    <li>
-                        <button
-                            className={`date-toggle ${activeClassFY}`}
-                            value="fy"
-                            onClick={this.toggleFilters}>Fiscal Year</button>
-                    </li>
-                    <li>
-                        <button
-                            className={`date-toggle ${activeClassDR}`}
-                            value="dr"
-                            onClick={this.toggleFilters}
-                            disabled={this.props.disableDateRange}>
-                            Date Range
-                        </button>
-                    </li>
-                </ul>
-                { showFilter }
-                { errorDetails }
+            <div className="tab-filter-wrap">
+                <div className="filter-item-wrap">
+                    <ul className="toggle-buttons">
+                        <li>
+                            <button
+                                className={`date-toggle ${activeClassFY}`}
+                                value="fy"
+                                onClick={this.toggleFilters}>Fiscal Year</button>
+                        </li>
+                        <li>
+                            <button
+                                className={`date-toggle ${activeClassDR}`}
+                                value="dr"
+                                onClick={this.toggleFilters}
+                                disabled={this.props.disableDateRange}>
+                                Date Range
+                            </button>
+                        </li>
+                    </ul>
+                    { showFilter }
+                    { errorDetails }
+                </div>
             </div>
         );
     }
