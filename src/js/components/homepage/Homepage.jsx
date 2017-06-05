@@ -9,8 +9,8 @@ import { isCancel } from 'axios';
 import * as HomepageHelper from 'helpers/homepageHelper';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
-import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import HomepageStateModel from 'models/homepage/HomepageStateModel';
+import MetaTags from '../sharedComponents/metaTags/MetaTags';
 
 import MapVisualizationWrapper from './visualizations/geo/MapVisualizationWrapper';
 import Landing from './Landing';
