@@ -1,14 +1,10 @@
 .recipient-filter {
-    @import '../location/_errorMessage';
-    @import '../location/_selectedButtons';
-    @import '../location/_typeahead';
-    padding-left: 0;
-    > div {
-        padding-left: 0rem;
-    }
+    @import "elements/filters/_errorMessage";
+    @import "elements/filters/_typeahead";
+    @import "elements/filters/_selectedFilterBtn";
+    @import "mixins/selectedFilterWrap";
     .recipient-radio,
     .checkbox-type-filter {
-        padding-left: rem(30);
         p {
             color: $color-gray;
             font-size: $small-font-size;
@@ -19,7 +15,7 @@
             border-bottom: rem(1) solid #E1E2E3;
             font-size: $small-font-size;
             font-weight: $font-semibold;
-            margin: 0 ($global-mrg * 2) $global-mrg 0;
+            margin: 0 0 $global-mrg 0;
             padding: 0 0 rem(6);
         }
         span {
@@ -35,12 +31,8 @@
             }
         }
     }
-    .recipient-radio {
-        margin: ($global-mrg * 2) 0;
-    }
+    .recipient-radio {}
     .checkbox-type-filter {
-        margin: ($global-mrg * 2) 0 0 0;
-        padding-bottom: 0;
         .checkbox-set,
         .secondary-checkbox-type {
             margin: 0.5rem 0;
@@ -53,8 +45,6 @@
         display: none;
     }
     .pop-typeahead {
-        margin-bottom: 2rem;
-        padding-left: rem(30);
         .usa-da-typeahead {
             margin-top: 0;
         }
@@ -64,14 +54,7 @@
             }
         }
     }
-    .selected-recipients,
-    .selected-recipient-locations {
-        background-color: #E4E4E4;
-        padding: rem(10) 0 rem(10) rem(30);
-        margin-top: rem(15);
-        margin-bottom: rem(10);
-        &:empty {
-            display: none;
-        }
+    .selected-filters {
+        @include selected-filter-wrap;
     }
 }

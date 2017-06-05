@@ -31,7 +31,7 @@ export default class SelectedFederalAccounts extends React.Component {
         });
 
         return (
-            <div className="selected-budget-categories">
+            <div className="selected-filters">
                 {shownFederalAccounts}
             </div>
         );

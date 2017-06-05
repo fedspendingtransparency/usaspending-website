@@ -1,20 +1,18 @@
 .search-option {
-    border-bottom: 1px solid $color-gray-lighter;
-
+    border-bottom: 1px solid #e4e2e0;
     label {
         @include usa-label;
-        padding:0.1rem 0;
+        padding: 0.1rem 0;
     }
-
-    .search-filter {
-        padding-left: 1.5rem;
-        padding-bottom: 1rem;
-        margin-top: .75rem;
-        margin-bottom: 1rem;
-        @include media($large-screen){
-            padding-left: 3rem;
+    .filter-item-wrap {
+        padding: 0 $global-pad ($global-pad * 2);
+        @include clearfix;
+        &:last-child {
+            margin-bottom: 0;
         }
-
+        @include media(1100px) {
+            padding: 0 ($global-pad * 2) ($global-pad * 2);
+        }
     }
     @import "./_filterExpand";
 }
