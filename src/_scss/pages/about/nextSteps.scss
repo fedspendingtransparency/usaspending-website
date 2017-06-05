@@ -20,6 +20,11 @@
             height: rem(80);
             width: 100%;
             margin: 0 auto;
+            & .qa-icon {
+                height: rem(70);
+                fill: #0071BC;
+                width: rem(100);
+            }
             & .guide-icon {
                 height: rem(40);
                 fill: #0071BC;
@@ -27,7 +32,7 @@
             }
             & .contact-icon {
                 height: rem(38);
-                width: rem(88);
+                width: rem(118);
             }
             & .download-icon {
                 height: rem(80);
