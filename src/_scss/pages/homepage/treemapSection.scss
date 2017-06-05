@@ -140,7 +140,7 @@
             font-size: rem(20);
             line-height: rem(28);
             padding: rem(13) rem(15);
-            z-index: 21;
+            z-index: 2;
 
             &:after {
                 position: absolute;
@@ -152,7 +152,7 @@
                 border-style: solid;
                 border-width: rem(21) rem(26) 0 0;
                 border-color: #85C76B transparent transparent transparent;
-                z-index: 22;
+                z-index: 3;
             }
         }
     }
