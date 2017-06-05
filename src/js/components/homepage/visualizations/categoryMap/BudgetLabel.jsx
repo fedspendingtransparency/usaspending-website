@@ -81,7 +81,7 @@ export default class BudgetLabel extends React.Component {
     render() {
         return (<polyline
             fill="none"
-            stroke="white"
+            stroke="#8C9097"
             strokeWidth="1"
             className="label-line"
             points={this.state.current} />);

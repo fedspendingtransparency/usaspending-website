@@ -4,10 +4,12 @@
  */
 
 import React from 'react';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
     name: React.PropTypes.string,
     value: React.PropTypes.number,
+    dollar: React.PropTypes.number,
     description: React.PropTypes.string,
     height: React.PropTypes.number,
     x: React.PropTypes.number,
@@ -75,7 +77,10 @@ export default class CategoryMapTooltip extends React.Component {
                         {this.props.name}
                     </div>
                     <div className="tooltip-body">
-                        <div className="tooltip-left">
+                        <div className="tooltip-full">
+                            <div className="tooltip-value">
+                                {MoneyFormatter.formatMoney(this.props.dollar)}
+                            </div>
                             <div className="tooltip-description">
                                 {this.props.description}
                             </div>

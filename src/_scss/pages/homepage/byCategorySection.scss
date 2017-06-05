@@ -11,6 +11,7 @@
             @include row();
             color: $color-white;
             margin-top: 0;
+            margin-bottom: ($global-mrg * 3);
             text-align: center;
             & strong {
                 font-weight: $font-semibold;
@@ -28,7 +29,8 @@
             width: rem(20);
             height: rem(642);
             &.large {
-                height: 20px;
+                height: rem(20);
+                margin-bottom: $global-mrg;
                 width: 100%;
             }
         }

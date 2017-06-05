@@ -27,8 +27,8 @@ export default class BudgetLine extends React.Component {
         if (this.props.size === 'large') {
             budgetLabel = (<BudgetLabel
                 labelWidth={20}
-                labelPadding={5}
-                labelDistance={5}
+                labelPadding={3}
+                labelDistance={8}
                 currentX={0}
                 graphWidth={this.gClass.offsetWidth * 0.79}
                 size="large" />);
@@ -50,16 +50,18 @@ export default class BudgetLine extends React.Component {
                         <rect
                             transform={this.props.rectTransform}
                             fill="#5b616b"
-                            width="80"
-                            height="30"
+                            width="125"
+                            height="25"
                             x={0}
                             y={0} />
                         <text
                             transform={this.props.textTransform}
                             fill="white"
+                            fontSize="26px"
                             className="title"
-                            x={0}
-                            y={0}
+                            fontWeight="300"
+                            x={44}
+                            y={2}
                             textAnchor="end">
                             {this.props.label}
                         </text>
