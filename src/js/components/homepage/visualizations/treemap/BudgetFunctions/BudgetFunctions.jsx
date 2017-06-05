@@ -98,16 +98,19 @@ export default class BudgetFunctions extends React.Component {
             let cellColor = treeProps.colors[i];
             let strokeColor = 'white';
             let strokeOpacity = 0.5;
+            let opacity = 1;
             let textColor = treeProps.tooltipStyles.defaultStyle.textColor;
             let textClass = '';
 
             if (this.state.showOverlay) {
                 cellColor = treeProps.alternateColors[i];
+                opacity = 0.7;
 
                 if (topFunctions.indexOf(n.data.name) > -1) {
                     cellColor = treeProps.colors[i];
                     strokeColor = '#F2B733';
                     strokeOpacity = 1;
+                    opacity = 1;
                 }
             }
 
@@ -151,6 +154,7 @@ export default class BudgetFunctions extends React.Component {
                     tooltipStyles={treeProps.tooltipStyles}
                     toggleTooltipIn={this.toggleTooltipIn}
                     toggleTooltipOut={this.toggleTooltipOut}
+                    opacity={opacity}
                     textColor={textColor}
                     textClass={textClass}
                     labelView={labelView}

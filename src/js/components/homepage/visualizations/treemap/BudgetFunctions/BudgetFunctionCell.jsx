@@ -21,6 +21,7 @@ const propTypes = {
     toggleSubfunction: React.PropTypes.func,
     toggleTooltipIn: React.PropTypes.func,
     toggleTooltipOut: React.PropTypes.func,
+    opacity: React.PropTypes.number,
     textColor: React.PropTypes.string,
     textClass: React.PropTypes.string,
     height: React.PropTypes.number,
@@ -142,7 +143,8 @@ export default class BudgetFunctionCell extends React.Component {
                     }}
                     style={{
                         display: this.props.labelView,
-                        fill: this.props.textColor
+                        fill: this.props.textColor,
+                        opacity: this.props.opacity
                     }}>
                     {this.state.label}
                 </text>
@@ -154,7 +156,8 @@ export default class BudgetFunctionCell extends React.Component {
                     textAnchor="middle"
                     style={{
                         display: this.props.percentView,
-                        fill: this.props.textColor
+                        fill: this.props.textColor,
+                        opacity: this.props.opacity
                     }}>
                     {MoneyFormatter.calculateTreemapPercentage(this.props.value, this.props.total)}
                 </text>

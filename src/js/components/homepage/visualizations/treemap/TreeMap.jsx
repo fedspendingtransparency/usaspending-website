@@ -4,11 +4,12 @@
  **/
 
 import React from 'react';
+import _ from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import BudgetFunctions from './BudgetFunctions/BudgetFunctions';
 import BudgetSubfunctions from './BudgetSubfunctions/BudgetSubfunctions';
-// import TreeMapLine from './TreeMapLine';
+import TreeMapLine from './TreeMapLine';
 
 const propTypes = {
     categories: React.PropTypes.object,
@@ -25,12 +26,33 @@ export default class TreeMap extends React.Component {
         super(props);
 
         this.state = {
+            windowWidth: 0,
             showSubfunctions: false,
             selected: 0
         };
 
+        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
         this.toggleSubfunction = this.toggleSubfunction.bind(this);
         this.changeActiveSubfunction = this.changeActiveSubfunction.bind(this);
+    }
+
+    componentDidMount() {
+        this.handleWindowResize();
+        window.addEventListener('resize', this.handleWindowResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize);
+    }
+
+    handleWindowResize() {
+        // determine if the width changed
+        const windowWidth = window.innerWidth;
+        if (this.state.windowWidth !== windowWidth) {
+            this.setState({
+                windowWidth
+            });
+        }
     }
 
     toggleSubfunction(selected = 0) {
@@ -44,7 +66,7 @@ export default class TreeMap extends React.Component {
         this.setState({ selected });
     }
 
-    render() {
+    generateIntro() {
         let intro = null;
 
         if (this.state.showSubfunctions === false) {
@@ -59,6 +81,23 @@ export default class TreeMap extends React.Component {
             );
         }
 
+        return intro;
+    }
+
+    generateLine() {
+        let line = null;
+
+        if (this.state.windowWidth >= 768) {
+            line = (<TreeMapLine
+                rectTransform="translate(0,0)rotate(0)"
+                textTransform="translate(44,15)rotate(0)"
+                label="All Functions" />);
+        }
+
+        return line;
+    }
+
+    generateFunctions() {
         let functions = (<BudgetFunctions
             {...this.props}
             {...this.state}
@@ -72,10 +111,19 @@ export default class TreeMap extends React.Component {
                 changeActiveSubfunction={this.changeActiveSubfunction} />);
         }
 
+        return functions;
+    }
+
+    render() {
         return (
-            <div className="usa-da-treemap-section">
-                {intro}
-                {functions}
+            <div
+                className="usa-da-treemap-section"
+                ref={(sr) => {
+                    this.sectionWrapper = sr;
+                }}>
+                {this.generateIntro()}
+                {this.generateLine()}
+                {this.generateFunctions()}
                 <div className="source">
                     Source: Monthly Treasury Statement
                     <div className="info-icon-circle">
