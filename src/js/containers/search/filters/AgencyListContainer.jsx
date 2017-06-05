@@ -62,6 +62,7 @@ export class AgencyListContainer extends React.Component {
 
     parseAutocompleteAgencies(results) {
         let agencies = [];
+        let noResults = false;
 
         // Format results of search for use in Autocomplete component
         if (results && results.length > 0) {
@@ -93,9 +94,7 @@ export class AgencyListContainer extends React.Component {
             });
 
             if (agencies.length === 0) {
-                this.setState({
-                    noResults: true
-                });
+                noResults = true;
             }
         }
 
@@ -108,6 +107,11 @@ export class AgencyListContainer extends React.Component {
         subtierAgencies = _.sortBy(subtierAgencies, 'title');
 
         if (this.props.agencyType === 'Funding') {
+            // Show an error message if the API results contain exclusively subtier Funding Agencies
+            if (agencies.length > 0 && toptierAgencies.length === 0) {
+                noResults = true;
+            }
+
             // We don't allow users to filter by subtier Funding Agencies, so we return just
             // the toptier agencies
             agencies = toptierAgencies;
@@ -119,7 +123,8 @@ export class AgencyListContainer extends React.Component {
         }
 
         this.setState({
-            autocompleteAgencies: agencies
+            autocompleteAgencies: agencies,
+            noResults
         });
     }
 
