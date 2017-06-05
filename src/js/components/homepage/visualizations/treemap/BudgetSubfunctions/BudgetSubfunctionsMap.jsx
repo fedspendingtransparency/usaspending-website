@@ -150,6 +150,7 @@ export default class BudgetSubfunctionsMap extends React.Component {
                     strokeOpacity={0.5}
                     toggleTooltipIn={this.toggleTooltipIn}
                     toggleTooltipOut={this.toggleTooltipOut}
+                    opacity={1}
                     textColor={textColor}
                     textClass={textClass}
                     labelView={labelView}

@@ -173,4 +173,20 @@
             border-bottom: #FEB711 5px solid;
         }
     }
+
+    .line-wrap {
+        @include fullSectionWrap(0, 0);
+
+        .budget-line {
+            display: inline;
+            float: left;
+            width: rem(20);
+            height: rem(642);
+            &.large {
+                height: rem(20);
+                margin-bottom: $global-mrg;
+                width: 100%;
+            }
+        }
+    }
 }
