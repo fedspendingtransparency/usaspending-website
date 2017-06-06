@@ -17,6 +17,7 @@ export default class Keyword extends React.Component {
 
         this.searchKeyword = this.searchKeyword.bind(this);
     }
+
     searchKeyword(e) {
         e.preventDefault();
         this.props.submitText();
@@ -26,17 +27,19 @@ export default class Keyword extends React.Component {
         return (
             <div className="keyword-filter search-filter">
                 <form onSubmit={this.searchKeyword}>
-                    <input
-                        id="search"
-                        type="text"
-                        className="keyword-input"
-                        placeholder="Search by Keyword"
-                        value={this.props.value}
-                        onChange={this.props.changedInput} />
-                    <input
-                        type="submit"
-                        className="keyword-submit"
-                        value="Submit" />
+                    <div className="filter-item-wrap">
+                        <input
+                            id="search"
+                            type="text"
+                            className="keyword-input"
+                            placeholder="Search by Keyword"
+                            value={this.props.value}
+                            onChange={this.props.changedInput} />
+                        <input
+                            type="submit"
+                            className="keyword-submit"
+                            value="Submit" />
+                    </div>
                 </form>
             </div>
         );

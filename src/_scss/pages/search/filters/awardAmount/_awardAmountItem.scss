@@ -1,4 +1,7 @@
-.award-amount-set {
+li.award-amount-set {
     @import "../awardType/_sharedAwardStyle";
     @include sharedAwardStyle;
+    &:last-of-type {
+        margin-bottom: $global-mrg;
+    }
 }

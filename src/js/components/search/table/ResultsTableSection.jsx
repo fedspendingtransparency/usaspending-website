@@ -25,6 +25,7 @@ const propTypes = {
     columns: React.PropTypes.array,
     hiddenColumns: React.PropTypes.array,
     toggleColumnVisibility: React.PropTypes.func,
+    reorderColumns: React.PropTypes.func,
     lastReq: React.PropTypes.string
 };
 
@@ -98,7 +99,8 @@ export default class ResultsTableSection extends React.Component {
                 <ResultsSelectColumns
                     columns={this.props.columns}
                     hiddenColumns={this.props.hiddenColumns}
-                    toggleColumnVisibility={this.props.toggleColumnVisibility} />
+                    toggleColumnVisibility={this.props.toggleColumnVisibility}
+                    reorderColumns={this.props.reorderColumns} />
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}

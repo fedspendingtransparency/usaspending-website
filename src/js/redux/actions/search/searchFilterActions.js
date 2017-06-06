@@ -114,7 +114,7 @@ export const toggleAwardType = (state) => ({
 
 export const bulkAwardTypeChange = (state) => ({
     type: 'BULK_SEARCH_FILTER_AWARD_TYPE',
-    awardTypes: state.awardTypes,
+    awardTypes: state.types,
     direction: state.direction
 });
 
@@ -151,4 +151,11 @@ export const toggleColumnVisibility = (state) => ({
 
 export const resetColumnVisibility = () => ({
     type: 'RESET_COLUMN_VISIBILITY'
+});
+
+export const reorderColumns = (state) => ({
+    type: 'REORDER_COLUMNS',
+    tableType: state.tableType,
+    dragIndex: state.dragIndex,
+    hoverIndex: state.hoverIndex
 });

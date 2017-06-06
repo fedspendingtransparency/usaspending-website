@@ -29,7 +29,7 @@ export default class SelectedAwardIDs extends React.Component {
         });
 
         return (
-            <div className="selected-award-ids">
+            <div className="selected-filters">
                 {shownAwardIDs}
             </div>
         );
