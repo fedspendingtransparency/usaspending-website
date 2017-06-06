@@ -22,12 +22,14 @@ import mocha from 'gulp-mocha';
 import path from 'path';
 import fs from 'fs';
 import emoji from 'node-emoji';
+import CompressionPlugin from 'compression-webpack-plugin';
 
 // linting
 import eslint from 'gulp-eslint';
 
 // for debugging webpack
 //import StatsPlugin from 'stats-webpack-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 let minified = false;
 
@@ -262,7 +264,7 @@ gulp.task('webpackCore', ['sass'], (callback) => {
 
     const config = {
         entry: {
-            'core': ['react', 'react-dom', 'q', 'react-addons-css-transition-group', 'react-router', 'redux', 'lodash', 'jquery', 'moment', 'svg4everybody', 'dompurify', 'babel-polyfill']
+            'core': ['react', 'react-dom', 'react-router', 'redux', 'lodash', 'jquery', 'moment', 'svg4everybody', 'dompurify', 'babel-polyfill', 'mapbox-gl/dist/mapbox-gl']
         },
         output: {
             path: './public/js',
@@ -274,6 +276,7 @@ gulp.task('webpackCore', ['sass'], (callback) => {
             extensions: ['', '.js', '.jsx']
         },
         module: {
+            noParse: /node_modules\/mapbox-gl\/dist\/mapbox-gl.js/,
             loaders: [{
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
@@ -290,6 +293,7 @@ gulp.task('webpackCore', ['sass'], (callback) => {
             fs: "empty" // this is a hack to get the AWS SDK to compile properly in webpack
         },
         plugins: [
+            // new BundleAnalyzerPlugin(),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development') // this lets some libraries compile in a compressed production mode, if available (for prod only)
             }),
@@ -343,6 +347,7 @@ gulp.task('webpack', ['webpackCore'], () => {
             extensions: ['', '.js', '.jsx']
         },
         module: {
+            noParse: /node_modules\/mapbox-gl\/dist\/mapbox-gl.js/,
             loaders: [{
                 test: /\.jsx?$/,
                 include: /src\/js/,
@@ -364,6 +369,7 @@ gulp.task('webpack', ['webpackCore'], () => {
             fs: "empty" // this is a hack to get the AWS SDK to compile properly in webpack
         },
         plugins: [
+            // new BundleAnalyzerPlugin(),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development') // this lets some libraries compile in a compressed production mode, if available (for prod only)
             }),
