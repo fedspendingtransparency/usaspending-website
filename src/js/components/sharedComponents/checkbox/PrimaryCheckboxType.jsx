@@ -91,7 +91,14 @@ export default class PrimaryCheckboxType extends React.Component {
             }
         }
 
+        // auto-expand when some but not all children are selected
+        let showSubItems = this.state.showSubItems;
+        if (!allSelected && someSelected) {
+            showSubItems = true;
+        }
+
         this.setState({
+            showSubItems,
             allChildren: allSelected,
             selectedChildren: someSelected
         });
