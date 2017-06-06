@@ -127,6 +127,8 @@
     "react-aria-modal": "^2.6.0",
     "react-custom-scrollbars": "^4.1.2",
     "react-day-picker": "^3.1.1",
+    "react-dnd": "^2.4.0",
+    "react-dnd-html5-backend": "^2.4.1",
     "react-dom": "15.4.2",
     "react-ga": "^2.1.2",
     "react-map-gl": "^2.0.2",

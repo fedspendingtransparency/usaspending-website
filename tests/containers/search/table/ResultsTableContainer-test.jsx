@@ -463,7 +463,33 @@ describe('ResultsTableContainer', () => {
             container.instance().toggleColumnVisibility('recipient_name');
 
             expect(columnVisibilityAction).toHaveBeenCalledTimes(1);
-            expect(columnVisibilityAction.mock.calls[0][0]).toEqual({"column": "recipient_name", "tableType": "contracts"});
+            expect(columnVisibilityAction.mock.calls[0][0]).toEqual({
+                column: "recipient_name", tableType: "contracts"
+            });
+        });
+    });
+
+    describe('reorderColumns', () => {
+        it('should change the order of the visible columns', () => {
+            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
+            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
+
+            const columnVisibilityAction = jest.fn();
+
+            const actions = Object.assign({}, mockActions, {
+                reorderColumns: columnVisibilityAction
+            });
+
+            const container = shallow(<ResultsTableContainer
+                {...actions}
+                {...mockRedux} />);
+
+            container.instance().reorderColumns(5, 2);
+
+            expect(columnVisibilityAction).toHaveBeenCalledTimes(1);
+            expect(columnVisibilityAction.mock.calls[0][0]).toEqual({
+                tableType: "contracts", dragIndex: 5, hoverIndex: 2
+            });
         });
     });
 });

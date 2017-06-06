@@ -16,7 +16,8 @@ export const mockActions = {
     setSearchInFlight: jest.fn(),
     triggerBatchSearchUpdate: jest.fn(),
     triggerBatchQueryUpdate: jest.fn(),
-    toggleColumnVisibility: jest.fn()
+    toggleColumnVisibility: jest.fn(),
+    reorderColumns: jest.fn()
 };
 
 export const mockRedux = {
