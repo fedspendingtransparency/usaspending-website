@@ -5,6 +5,10 @@
 
 import React from 'react';
 import _ from 'lodash';
+
+import * as MetaTagHelper from 'helpers/metaTagHelper';
+
+import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 
@@ -27,6 +31,7 @@ export default class TestStylePage extends React.Component {
 
         return (
             <div className="usa-da-test-page">
+                <MetaTags {...MetaTagHelper.stylePageMetaTags} />
                 <Header />
                 <main id="main-content">
                     <div className="page-content">
