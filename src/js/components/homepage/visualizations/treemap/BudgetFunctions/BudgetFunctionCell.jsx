@@ -85,7 +85,16 @@ export default class BudgetFunctionCell extends React.Component {
 
         // determine if the text needs to be truncated
         // get the current label width
-        const fullWidth = this.svgText.getBBox().width;
+
+        // We have to wrap this in a try/catch to prevent Firefox from dying when trying
+        // to compute the bounded box of small SVG elements
+        let fullWidth = 0;
+        try {
+            fullWidth = this.svgText.getBBox().width;
+        }
+        catch (e) {
+            // Firefox can't compute bbox
+        }
 
         // accounting for 15px margin
         const maxWidth = labelWidth / 1.5;
