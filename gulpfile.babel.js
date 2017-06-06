@@ -264,7 +264,7 @@ gulp.task('webpackCore', ['sass'], (callback) => {
 
     const config = {
         entry: {
-            'core': ['react', 'react-dom', 'react-router', 'redux', 'lodash', 'jquery', 'moment', 'svg4everybody', 'dompurify', 'babel-polyfill', 'mapbox-gl/dist/mapbox-gl']
+            'core': ['react', 'react-dom', 'redux', 'lodash', 'jquery', 'moment', 'svg4everybody', 'babel-polyfill', 'mapbox-gl/dist/mapbox-gl']
         },
         output: {
             path: './public/js',
