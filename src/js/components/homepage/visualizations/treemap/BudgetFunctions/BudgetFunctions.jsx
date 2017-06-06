@@ -87,10 +87,16 @@ export default class BudgetFunctions extends React.Component {
             tileStyle = treemapSlice;
         }
 
+        // We have to check for the existence of the ref so that Firefox doesn't die
+        let offsetWidth = 0;
+        if (this.sectionWrapper) {
+            offsetWidth = this.sectionWrapper.offsetWidth;
+        }
+
         const budgetFunctionTreemap = treemap()
             .round(true)
             .tile(tileStyle)
-            .size([this.sectionWrapper.offsetWidth, this.state.visualizationHeight])(root).leaves();
+            .size([offsetWidth, this.state.visualizationHeight])(root).leaves();
 
         // build the tiles
         const nodes = budgetFunctionTreemap.map((n, i) => {
@@ -197,6 +203,12 @@ export default class BudgetFunctions extends React.Component {
     createTooltip() {
         let tooltip = null;
 
+        // We have to check for the existence of the ref so that Firefox doesn't die
+        let sectionHeight = 0;
+        if (this.sectionWrapper) {
+            sectionHeight = this.sectionWrapper.getBoundingClientRect().height;
+        }
+
         if (this.state.hoveredFunction > -1) {
             const category = _.find(
                 this.props.categories.children,
@@ -220,7 +232,7 @@ export default class BudgetFunctions extends React.Component {
                 width={node.props.width}
                 height={node.props.height}
                 showSubfunctions={this.props.showSubfunctions}
-                sectionHeight={this.sectionWrapper.getBoundingClientRect().height}
+                sectionHeight={sectionHeight}
                 isSubfunctions={false} />);
         }
 
