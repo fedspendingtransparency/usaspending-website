@@ -9,9 +9,7 @@ import perflogger from 'redux-perf-middleware';
 import kGlobalConstants from 'GlobalConstants';
 
 import StoreSingleton from 'redux/storeSingleton';
-
 import reducers from 'redux/reducers/index';
-// import Homepage from 'components/homepage/Homepage';
 
 import RouterContainer from './router/RouterContainer';
 

@@ -77,7 +77,7 @@ export class SearchContainer extends React.Component {
             return;
         }
 
-        // otherwise, it may be the caes that the URL has a hash in it, in which case we should
+        // otherwise, it may be the case that the URL has a hash in it, in which case we should
         // regenerate the filters
         this.setState({
             hash: urlHash,
