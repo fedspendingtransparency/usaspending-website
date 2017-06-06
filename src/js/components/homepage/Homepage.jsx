@@ -7,8 +7,10 @@ import React from 'react';
 import { isCancel } from 'axios';
 
 import * as HomepageHelper from 'helpers/homepageHelper';
+import * as MetaTagHelper from 'helpers/metaTagHelper';
 
 import HomepageStateModel from 'models/homepage/HomepageStateModel';
+import MetaTags from '../sharedComponents/metaTags/MetaTags';
 
 import MapVisualizationWrapper from './visualizations/geo/MapVisualizationWrapper';
 import Landing from './Landing';
@@ -104,7 +106,11 @@ export default class Homepage extends React.Component {
             breakdown: res.data.budgetBreakdown,
             breakdownColors: res.data.breakdownColors,
             tooltipStyles: res.data.tooltipStyles,
-            total: res.data.totalSpent
+            total: res.data.totalSpent,
+            totalNumber: res.data.totalSpentNumber,
+            states: res.data.states,
+            alternateColors: res.data.alternateColors,
+            subfunctions: res.data.subfunctions
         });
     }
 
@@ -150,6 +156,7 @@ export default class Homepage extends React.Component {
     render() {
         return (
             <div className="usa-da-home-page">
+                <MetaTags {...MetaTagHelper.homePageMetaTags} />
                 <Header />
                 <Landing
                     total={this.state.total} />
@@ -157,7 +164,12 @@ export default class Homepage extends React.Component {
                 <TreeMap
                     categories={this.state.categories}
                     colors={this.state.colors}
-                    descriptions={this.state.descriptions} />
+                    descriptions={this.state.descriptions}
+                    subfunctions={this.state.subfunctions}
+                    alternateColors={this.state.alternateColors}
+                    total={this.state.total}
+                    totalNumber={this.state.totalNumber}
+                    tooltipStyles={this.state.tooltipStyles} />
                 <CategoryMap
                     breakdown={this.state.breakdown}
                     colors={this.state.breakdownColors}

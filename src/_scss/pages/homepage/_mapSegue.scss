@@ -9,7 +9,7 @@
     background: linear-gradient(180deg, rgba(91,97,107,0.5) 0%, rgba(215,220,229,0.5) 100%);
 
     @include media($medium-screen) {
-        @include span-columns(11.42);
+        @include span-columns(12.68);
         @include display(flex);
         @include align-items(center);
     }

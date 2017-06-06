@@ -14,90 +14,30 @@ export const VisibilityRecord = Record(initialState);
 const columnVisibilityReducer = (state = initialState, action) => {
     switch (action.type) {
         case `TOGGLE_COLUMN_VISIBILITY`: {
-            switch (action.tableType) {
-                case `contracts`: {
-                    const updatedVisible = ColumnVisibilityFuncs.toggleItem(
-                        state[action.tableType].visibleColumns, action.column);
-                    const updatedHidden = ColumnVisibilityFuncs.toggleItem(
-                        state[action.tableType].hiddenColumns, action.column);
-                    return Object.assign({}, state, {
-                        contracts: {
-                            visibleColumns: updatedVisible,
-                            hiddenColumns: updatedHidden
-                        },
-                        grants: state.grants,
-                        direct_payments: state.direct_payments,
-                        loans: state.loans,
-                        insurance: state.insurance
-                    });
+            const updatedVisible = ColumnVisibilityFuncs.toggleItem(
+                state[action.tableType].visibleColumns, action.column);
+            const updatedHidden = ColumnVisibilityFuncs.toggleItem(
+                state[action.tableType].hiddenColumns, action.column);
+            return Object.assign({}, state, {
+                [action.tableType]: {
+                    visibleColumns: updatedVisible,
+                    hiddenColumns: updatedHidden
                 }
-                case `grants`: {
-                    const updatedVisible = ColumnVisibilityFuncs.toggleItem(
-                        state[action.tableType].visibleColumns, action.column);
-                    const updatedHidden = ColumnVisibilityFuncs.toggleItem(
-                        state[action.tableType].hiddenColumns, action.column);
-                    return Object.assign({}, state, {
-                        contracts: state.contracts,
-                        grants: {
-                            visibleColumns: updatedVisible,
-                            hiddenColumns: updatedHidden
-                        },
-                        direct_payments: state.direct_payments,
-                        loans: state.loans,
-                        insurance: state.insurance
-                    });
+            });
+        }
+        case 'REORDER_COLUMNS': {
+            const tableType = action.tableType;
+
+            const updatedVisible = ColumnVisibilityFuncs.spliceColumnOrder(
+                state[`${tableType}`].visibleColumns,
+                action.dragIndex, action.hoverIndex);
+
+            return Object.assign({}, state, {
+                [action.tableType]: {
+                    visibleColumns: updatedVisible,
+                    hiddenColumns: state[`${tableType}`].hiddenColumns
                 }
-                case `direct_payments`: {
-                    const updatedVisible = ColumnVisibilityFuncs.toggleItem(
-                        state[action.tableType].visibleColumns, action.column);
-                    const updatedHidden = ColumnVisibilityFuncs.toggleItem(
-                        state[action.tableType].hiddenColumns, action.column);
-                    return Object.assign({}, state, {
-                        contracts: state.contracts,
-                        grants: state.grants,
-                        direct_payments: {
-                            visibleColumns: updatedVisible,
-                            hiddenColumns: updatedHidden
-                        },
-                        loans: state.loans,
-                        insurance: state.insurance
-                    });
-                }
-                case `loans`: {
-                    const updatedVisible = ColumnVisibilityFuncs.toggleItem(
-                        state[action.tableType].visibleColumns, action.column);
-                    const updatedHidden = ColumnVisibilityFuncs.toggleItem(
-                        state[action.tableType].hiddenColumns, action.column);
-                    return Object.assign({}, state, {
-                        contracts: state.contracts,
-                        grants: state.grants,
-                        direct_payments: state.direct_payments,
-                        loans: {
-                            visibleColumns: updatedVisible,
-                            hiddenColumns: updatedHidden
-                        },
-                        insurance: state.insurance
-                    });
-                }
-                case `insurance`: {
-                    const updatedVisible = ColumnVisibilityFuncs.toggleItem(
-                        state[action.tableType].visibleColumns, action.column);
-                    const updatedHidden = ColumnVisibilityFuncs.toggleItem(
-                        state[action.tableType].hiddenColumns, action.column);
-                    return Object.assign({}, state, {
-                        contracts: state.contracts,
-                        grants: state.grants,
-                        direct_payments: state.direct_payments,
-                        loans: state.loans,
-                        insurance: {
-                            visibleColumns: updatedVisible,
-                            hiddenColumns: updatedHidden
-                        }
-                    });
-                }
-                default:
-                    return state;
-            }
+            });
         }
         case 'RESET_COLUMN_VISIBILITY': {
             return initialState;

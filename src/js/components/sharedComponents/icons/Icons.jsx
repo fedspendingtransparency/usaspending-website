@@ -313,6 +313,13 @@ FlagLogo.defaultProps = {
     alt: 'USASpending Flag Logo'
 };
 
+export class Sort extends BaseIcon {}
+Sort.defaultProps = {
+    iconName: 'usa-da-icon-sort',
+    iconClass: 'usa-da-icon-sort',
+    alt: 'Icon Depicting six small circles'
+};
+
 export class HandDrawnArrow extends BaseIcon {}
 HandDrawnArrow.defaultProps = {
     iconName: 'usa-da-hand-drawn-arrow',

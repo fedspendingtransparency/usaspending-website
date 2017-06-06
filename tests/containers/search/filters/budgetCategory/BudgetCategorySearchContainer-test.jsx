@@ -164,7 +164,7 @@ describe('BudgetCategorySearchContainer', () => {
     describe('Handling adding and removing object classes', () => {
         it('should add an object class that has been selected to Redux', () => {
             const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual(10);
+                expect(args).toEqual(objectClass);
             });
 
             // Set up container with mocked object class action
@@ -189,7 +189,7 @@ describe('BudgetCategorySearchContainer', () => {
 
         it('should remove an object class that has been deselected from Redux', () => {
             const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual(10);
+                expect(args).toEqual(objectClass);
             });
 
             // Set up container with mocked object class action

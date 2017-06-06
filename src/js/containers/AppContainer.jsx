@@ -9,9 +9,7 @@ import perflogger from 'redux-perf-middleware';
 import kGlobalConstants from 'GlobalConstants';
 
 import StoreSingleton from 'redux/storeSingleton';
-
 import reducers from 'redux/reducers/index';
-import Homepage from 'components/homepage/Homepage';
 
 import RouterContainer from './router/RouterContainer';
 
@@ -36,25 +34,10 @@ const storeSingleton = new StoreSingleton();
 storeSingleton.setStore(store);
 
 export default class AppContainer extends React.Component {
-    constructor(props) {
-        super(props);
-
-        // may be unnecessary without a login, re-work in future
-        this.state = {
-            appReady: true,
-            showPending: false
-        };
-    }
-
     render() {
-        let appContents = <Homepage />;
-        if (this.state.appReady || !this.state.showPending) {
-            appContents = <RouterContainer store={store} />;
-        }
-
         return (
             <Provider store={store}>
-                {appContents}
+                <RouterContainer />
             </Provider>
         );
     }

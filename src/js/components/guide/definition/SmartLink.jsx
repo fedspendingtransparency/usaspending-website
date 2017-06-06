@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { hashHistory } from 'react-router';
+import Router from 'containers/router/Router';
 
 const propTypes = {
     href: React.PropTypes.string,
@@ -38,7 +38,7 @@ export default class SmartLink extends React.Component {
         // check if the link is a local guide reference
         if (url.indexOf('?guide=') > -1) {
             // it is a local guide reference, get the current URL
-            const currentPath = hashHistory.getCurrentLocation().pathname;
+            const currentPath = Router.state.path;
             href = `#${currentPath}${url}`;
             isLocal = true;
         }

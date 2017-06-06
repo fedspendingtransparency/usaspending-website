@@ -4,6 +4,10 @@
  **/
 
 import React from 'react';
+
+import * as MetaTagHelper from 'helpers/metaTagHelper';
+
+import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import Breadcrumb from './Breadcrumb';
@@ -12,6 +16,7 @@ export default class WhatsNew extends React.Component {
     render() {
         return (
             <div className="usa-da-about-article">
+                <MetaTags {...MetaTagHelper.whatsNewPageMetaTags} />
                 <Header />
                 <Breadcrumb title="What's New" />
                 <div className="article-wrapper">
