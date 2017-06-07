@@ -23,11 +23,13 @@ export default class AwardIDSearch extends React.Component {
         }
 
         return (
-            <div className="award-id-filter search-filter">
-                <AwardIDListContainer
-                    {...this.props}
-                    toggleAwardID={this.props.toggleAwardID} />
-                {selectedAwardIDs}
+            <div className="award-id-filter">
+                <div className="filter-item-wrap">
+                    <AwardIDListContainer
+                        {...this.props}
+                        toggleAwardID={this.props.toggleAwardID} />
+                    {selectedAwardIDs}
+                </div>
             </div>
         );
     }

@@ -1,10 +1,13 @@
 .source {
-    @include span-columns(16);
+    // @include span-columns(16);
+    @include fullSectionWrap(0, 0);
     bottom: rem(10);
     color: $color-base;
-    float: left;
     font-size: rem(10);
-    margin-top: rem(10);
+    width: calc(100% - 8rem);
+    max-width: calc(100% - 8rem);
+    margin: 0 4rem 0;
+
     .info-icon-circle {
         @include align-self(center);
         display: inline-block;
@@ -19,6 +22,7 @@
         }
     }
 }
+
 .more-icon {
     display: none; //HID THE MORE BUTTON UNTIL THIS COMPONENT IS BUILT
     @include moreOptionsBtn($color-gray, $color-white);

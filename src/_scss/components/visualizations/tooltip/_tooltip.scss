@@ -13,7 +13,7 @@
     background-color: $color-white;
     @import "./_arrow";
     .tooltip-title {
-        color: #555;
+        color: $color-base;
         background-color: $color-title-background;
         color: $color-gray;
         font-size: $base-font-size;
@@ -26,20 +26,20 @@
         @include display(flex);
         @include flex-flow(row wrap);
         @include justify-content(space-between);
-        padding: rem(20);
+        padding: rem(15);
         &.center {
             width: 100%;
         }
     }
     .tooltip-full {
-        flex: 1 100%;
+        @include flex(1 1 auto);
     }
     .tooltip-left,
     .tooltip-right {
         display: block;
-        flex: 1 100%;
+        @include flex(1 1 auto);
         @include media($tablet-screen) {
-            flex: 1;
+            @include flex(1 1 auto);
             margin: 0 rem(10) 0 0;
         }
     }
@@ -65,10 +65,18 @@
         font-size: $small-font-size;
         font-weight: $font-normal;
         line-height: rem(20);
-        padding: rem(10) rem(10) rem(5) rem(10);
+        padding: rem(30) rem(10) rem(5) rem(10);
     }
     .tooltip-label {
         font-weight: $font-normal;
         padding: rem(5) rem(10) rem(10) rem(10);
+    }
+    .tooltip-footer {
+        background-color: #fff1d2;
+        font-size: $small-font-size;
+        margin: 0 5%;
+        padding: rem(16) rem(15) rem(14);
+        text-align: center;
+        width: 90%;
     }
 }

@@ -1,21 +1,18 @@
 /**
 * RouterContainer.jsx
-* Created by Emily Gullo 10/14/2016
+* Created by Kevin Li 5/26/17
 **/
 
 import React from 'react';
-import { Router, hashHistory } from 'react-router';
-
 import kGlobalConstants from 'GlobalConstants';
 
 import GuideListenerSingleton from './GuideListenerSingleton';
-import RouterRoutes from './RouterRoutes';
+import Router from './Router';
 
 const ga = require('react-ga');
 
 const GA_OPTIONS = { debug: false };
 
-const Routes = new RouterRoutes();
 
 export default class RouterContainer extends React.Component {
     static logPageView(path) {
@@ -26,11 +23,23 @@ export default class RouterContainer extends React.Component {
         super(props);
 
         this.state = {
-            lastPath: ''
+            lastPath: '',
+            lastParent: '',
+            content: null,
+            route: {
+                params: {}
+            },
+            showSpinner: false
         };
 
         // bind functions
         this.handleRouteChange = this.handleRouteChange.bind(this);
+    }
+
+    componentWillMount() {
+        // subscribe to the Router for changes
+        Router.reactContainer = this;
+        Router.startRouter();
     }
 
     componentDidMount() {
@@ -40,33 +49,67 @@ export default class RouterContainer extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        Router.reactContainer = null;
+    }
+
     handleRouteChange() {
-        const path = this.router.state.location.pathname;
-        RouterContainer.logPageView(path);
-        ga.pageview(window.location.hash);
+        const path = Router.state.path;
+        const parent = Router.state.parent;
+
 
         if (this.state.lastPath !== path) {
-            // scroll to top of page, but only if the path has changed (ignore in-page URL changes)
-            window.scrollTo(0, 0);
+            // log with Google Analytics
+            RouterContainer.logPageView(path);
+            ga.pageview(window.location.hash);
+
+            if (this.state.lastParent !== parent || !Router.state.silentlyUpdate) {
+                // scroll to top of page, but only if the parent has changed (ignore in-page URL changes)
+                // and silent updates are not enabled
+                // this prevents the page from returning to the top when the search page hash changes
+                window.scrollTo(0, 0);
+            }
 
             this.setState({
-                lastPath: path
+                lastPath: path,
+                lastParent: parent
             });
         }
 
-        GuideListenerSingleton.updateGuideValue(this.router.state.location.query);
+        GuideListenerSingleton.updateGuideValue(Router.state.query);
+    }
+
+    navigateToComponent(component, route) {
+        this.setState({
+            route,
+            content: component,
+            showSpinner: false
+        }, () => {
+            // route changed, trigger callback
+            this.handleRouteChange();
+        });
+    }
+
+    showSpinner() {
+        this.setState({
+            showSpinner: true
+        });
     }
 
     render() {
+        if (!this.state.content) {
+            return null;
+        }
+
+        // TODO: Kevin Li - implement loading spinner for long-load modules
+        const loadingSpinner = null;
+
+        const ContentComponent = this.state.content;
         return (
-            <Router
-                routes={Routes.routes()}
-                history={hashHistory}
-                onUpdate={this.handleRouteChange}
-                ref={(router) => {
-                    this.router = router;
-                    return this.router;
-                }} />
+            <div>
+                <ContentComponent params={this.state.route.params} />
+                { loadingSpinner }
+            </div>
         );
     }
 }

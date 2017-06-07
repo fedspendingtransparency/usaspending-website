@@ -14,6 +14,7 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
 import ResultsTableMessage from './ResultsTableMessage';
+import ResultsSelectColumns from './ResultsSelectColumns';
 
 const propTypes = {
     inFlight: React.PropTypes.bool,
@@ -21,6 +22,10 @@ const propTypes = {
     currentType: React.PropTypes.string,
     switchTab: React.PropTypes.func,
     results: React.PropTypes.array,
+    columns: React.PropTypes.array,
+    hiddenColumns: React.PropTypes.array,
+    toggleColumnVisibility: React.PropTypes.func,
+    reorderColumns: React.PropTypes.func,
     lastReq: React.PropTypes.string
 };
 
@@ -91,6 +96,11 @@ export default class ResultsTableSection extends React.Component {
                     </button>
                 </div>
                 <hr className="results-divider" />
+                <ResultsSelectColumns
+                    columns={this.props.columns}
+                    hiddenColumns={this.props.hiddenColumns}
+                    toggleColumnVisibility={this.props.toggleColumnVisibility}
+                    reorderColumns={this.props.reorderColumns} />
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}

@@ -1,0 +1,13 @@
+.homepage-map-citation {
+    position: absolute;
+    bottom: rem(5);
+    left: rem(30);
+    z-index: 3;
+
+    color: $color-base;
+    font-size: 12px;
+
+    p {
+        margin: 2px 0;
+    }
+}

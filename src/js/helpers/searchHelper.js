@@ -297,3 +297,35 @@ export const performSubawardSearch = (data) => {
         }
     };
 };
+
+export const generateUrlHash = (data) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            data,
+            url: '/references/filter/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const restoreUrlHash = (data) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            data,
+            url: '/references/hash/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

@@ -6,40 +6,41 @@
 import React from 'react';
 
 const propTypes = {
-    submitText: React.PropTypes.func
+    submitText: React.PropTypes.func,
+    changedInput: React.PropTypes.func,
+    value: React.PropTypes.string
 };
 
 export default class Keyword extends React.Component {
+    constructor(props) {
+        super(props);
 
-    componentDidMount() {
-        const inputBox = this.keyword;
-        inputBox.addEventListener('keydown', (e) => {
-            if (e.keyCode === 13) {
-                this.searchKeyword();
-            }
-        });
+        this.searchKeyword = this.searchKeyword.bind(this);
     }
 
-    searchKeyword() {
-        this.props.submitText(this.keyword.value);
+    searchKeyword(e) {
+        e.preventDefault();
+        this.props.submitText();
     }
 
     render() {
         return (
             <div className="keyword-filter search-filter">
-                <input
-                    id="search"
-                    type="text"
-                    className="keyword-input"
-                    placeholder="Search by Keyword"
-                    ref={(k) => {
-                        this.keyword = k;
-                    }} />
-                <input
-                    type="submit"
-                    className="keyword-submit"
-                    value="Submit"
-                    onClick={this.searchKeyword.bind(this)} />
+                <form onSubmit={this.searchKeyword}>
+                    <div className="filter-item-wrap">
+                        <input
+                            id="search"
+                            type="text"
+                            className="keyword-input"
+                            placeholder="Search by Keyword"
+                            value={this.props.value}
+                            onChange={this.props.changedInput} />
+                        <input
+                            type="submit"
+                            className="keyword-submit"
+                            value="Submit" />
+                    </div>
+                </form>
             </div>
         );
     }

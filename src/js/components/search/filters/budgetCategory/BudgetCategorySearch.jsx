@@ -40,15 +40,21 @@ export default class BudgetCategorySearch extends React.Component {
         }
 
         return (
-            <div className="budget-category-filter search-filter">
-                <BudgetCategoryFunctionContainer
-                    {...this.props} />
-                {budgetFunctions}
-                <BudgetCategoryAccountContainer
-                    {...this.props} />
-                {federalAccounts}
-                <BudgetCategoryOCContainer
-                    {...this.props} />
+            <div className="budget-category-filter">
+                <div className="filter-item-wrap">
+                    <BudgetCategoryFunctionContainer
+                        {...this.props} />
+                    {budgetFunctions}
+                </div>
+                <div className="filter-item-wrap">
+                    <BudgetCategoryAccountContainer
+                        {...this.props} />
+                    {federalAccounts}
+                </div>
+                <div className="filter-item-wrap">
+                    <BudgetCategoryOCContainer
+                        {...this.props} />
+                </div>
             </div>
         );
     }
