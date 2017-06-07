@@ -129,7 +129,7 @@ export default class MapVisualization extends React.Component {
 
                 <div className="homepage-map-citation">
                     <p>
-                        The map reflects where funding was used. This is called &quot;place of performance.&quot;
+                        The map reflects where obligated funding was used. This is called &quot;place of performance.&quot;
                     </p>
                     <p>
                         Sources: U.S. Census Bureau, Population Division
