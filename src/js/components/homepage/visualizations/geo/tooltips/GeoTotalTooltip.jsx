@@ -92,7 +92,7 @@ export default class GeoTotalTooltip extends React.Component {
                                 {percentage}%
                             </div>
                             <div className="tooltip-label">
-                                Percent of Total Spending
+                                Percent of Total Award Spending
                             </div>
                         </div>
                     </div>
