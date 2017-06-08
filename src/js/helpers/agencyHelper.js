@@ -21,3 +21,20 @@ export const fetchAgencyOverview = (id) => {
         }
     };
 };
+
+// Get major and minor object classes
+export const fetchAgencyObjectClasses = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/financial_spending/object_class/',
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
