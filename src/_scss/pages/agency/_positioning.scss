@@ -1,0 +1,34 @@
+.agency-content-wrapper {
+    @include span-columns(16);
+
+    .agency-sidebar {
+        background-color: $color-white;
+        box-shadow: $container-shadow;
+        color: $color-base;
+        border-top: 1px solid $color-gray-border;
+        border-right: 1px solid $color-gray-border;
+        border-bottom: 1px solid $color-gray-border;
+        padding: rem(30);
+
+        display: none;
+        margin-top: 0;
+        @include media($medium-screen) {
+            @include span-columns(4);
+        }
+    }
+
+    .agency-content {
+        @include span-columns(16);
+        @include media($medium-screen) {
+            @include span-columns(12);
+        }
+
+        background-color: $color-white;
+        box-shadow: $container-shadow;
+        color: $color-base;
+        border-top: 1px solid $color-gray-border;
+        border-right: 1px solid $color-gray-border;
+        border-bottom: 1px solid $color-gray-border;
+        padding: rem(30);
+    }
+}
