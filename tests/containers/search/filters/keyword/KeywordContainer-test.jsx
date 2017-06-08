@@ -21,14 +21,17 @@ describe('KeywordContainer', () => {
             });
             const keywordContainer = shallow(
                 <KeywordContainer
-                    keyword={initialFilters}
+                    keyword={initialFilters.keyword}
                     updateTextSearchInput={mockReduxActionKeyword} />);
 
             const submitTextSpy = sinon.spy(keywordContainer.instance(),
                 'submitText');
 
             // Add keyword to redux
-            keywordContainer.instance().submitText('Education');
+            keywordContainer.setState({
+                value: 'Education'
+            });
+            keywordContainer.instance().submitText();
 
             // everything should be updated now
             expect(submitTextSpy.callCount).toEqual(1);
@@ -46,14 +49,15 @@ describe('KeywordContainer', () => {
             });
             const keywordContainer = shallow(
                 <KeywordContainer
-                    keyword={existingFilters}
+                    keyword={existingFilters.keyword}
                     updateTextSearchInput={mockReduxActionKeyword} />);
 
             const submitTextSpy = sinon.spy(keywordContainer.instance(),
                 'submitText');
 
             // Add keyword to redux
-            keywordContainer.instance().submitText('Financial');
+            keywordContainer.instance().populateInput('Financial');
+            keywordContainer.instance().submitText();
 
             // everything should be updated now
             expect(submitTextSpy.callCount).toEqual(1);

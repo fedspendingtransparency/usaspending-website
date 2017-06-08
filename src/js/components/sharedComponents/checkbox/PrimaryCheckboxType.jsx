@@ -91,7 +91,14 @@ export default class PrimaryCheckboxType extends React.Component {
             }
         }
 
+        // auto-expand when some but not all children are selected
+        let showSubItems = this.state.showSubItems;
+        if (!allSelected && someSelected) {
+            showSubItems = true;
+        }
+
         this.setState({
+            showSubItems,
             allChildren: allSelected,
             selectedChildren: someSelected
         });
@@ -111,18 +118,12 @@ export default class PrimaryCheckboxType extends React.Component {
     }
 
     toggleChildren() {
-        let showChildren = true;
-        let arrowState = 'expanded';
-
         if (this.state.allChildren) {
             // all the children are selected, deselect them
             this.props.bulkTypeChange({
                 types: this.props.filters,
                 direction: 'remove'
             });
-            // collapse the children
-            showChildren = false;
-            arrowState = 'collapsed';
 
             // Analytics
             if (this.props.enableAnalytics) {
@@ -142,10 +143,6 @@ export default class PrimaryCheckboxType extends React.Component {
                     this.props.name, this.props.filterType);
             }
         }
-        this.setState({
-            showSubItems: showChildren,
-            arrowState
-        });
     }
 
     render() {

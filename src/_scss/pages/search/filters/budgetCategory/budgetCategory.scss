@@ -1,11 +1,8 @@
 .budget-category-filter {
-    @import '../location/_errorMessage';
-    @import '../location/_selectedButtons';
-    @import '../location/_typeahead';
-    padding-left: 0;
-    > div {
-        padding-left: 0;
-    }
+    @import "elements/filters/_errorMessage";
+    @import "elements/filters/_typeahead";
+    @import "elements/filters/_selectedFilterBtn";
+    @import "mixins/selectedFilterWrap";
     .shown {
         min-height: rem(180);
     }
@@ -13,13 +10,11 @@
         display: none;
     }
     .pop-typeahead {
-        margin-bottom: rem(10);
-        padding-left: rem(30);
         p.object-class-label {
             border-bottom: rem(1) solid #E1E2E3;
             font-size: $small-font-size;
             font-weight: $font-semibold;
-            margin: ($global-mrg * 2) ($global-mrg * 2) $global-mrg 0;
+            margin: 0 0 rem(15) 0;
             padding: 0 0 rem(6);
         }
         &:nth-of-type(1) {
@@ -28,14 +23,8 @@
             }
         }
     }
-    .selected-budget-categories {
-        background-color: #E4E4E4;
-        padding: rem(10) 0 rem(10) rem(30);
-        margin-top: rem(15);
-        margin-bottom: rem(10);
-        &:empty {
-            display: none;
-        }
+    .selected-filters {
+        @include selected-filter-wrap;
     }
     ul.object-classes {
         @include unstyled-list;

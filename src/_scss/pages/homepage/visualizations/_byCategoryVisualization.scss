@@ -4,34 +4,30 @@
     background: $color-gray-dark;
     height: rem(900);
     position: relative;
-
     @media(min-width: 480px) {
         @include span-columns(15);
     }
-
     @include media($tablet-screen) {
         height: rem(140);
         @include span-columns(16);
     }
-
-        .visualization-tooltip {
-            @import "components/visualizations/tooltip/_tooltip";
-
-            .tooltip {
-                max-width: rem(468);
-
-                .tooltip-title {
-                    text-align: center;
-                }
-
-                .tooltip-body .tooltip-left .tooltip-description {
-                    text-align: left;
-                    font-color: #555555;
-                }
+    .visualization-tooltip {
+        @import "components/visualizations/tooltip/_tooltip";
+        .tooltip {
+            max-width: rem(468);
+            .tooltip-title {
+                text-align: center;
+            }
+            .tooltip-value {
+                border-bottom: none;
+            }
+            .tooltip-body .tooltip-left .tooltip-description {
+                text-align: left;
+                font-color: $color-base;
             }
         }
+    }
     @import "./_treemapVisualization";
-
     .tree-wrapper {
         svg {
             height: rem(900);

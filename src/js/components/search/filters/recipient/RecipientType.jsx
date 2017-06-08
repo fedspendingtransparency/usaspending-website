@@ -6,7 +6,7 @@
 import React from 'react';
 
 import { recipientTypes, recipientTypeGroups } from 'dataMapping/search/recipientType';
-import PrimaryCheckboxType from '../../../sharedComponents/checkbox/PrimaryCheckboxType';
+import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
 const defaultProps = {
     recipientTypeMapping: [
@@ -80,7 +80,7 @@ export default class RecipientType extends React.Component {
             ));
 
         return (
-            <div className="checkbox-type-filter search-filter">
+            <div className="checkbox-type-filter">
                 <p className="sub-head">Recipient/Business Type</p>
                 <ul className="checkbox-types">
                     {checkboxTypes}

@@ -1,0 +1,25 @@
+.error-message {
+    @import "mixins/setText";
+    @include usa-input-error-message;
+    border: 1px solid $color-secondary-dark;
+    padding: $global-pad;
+    margin: $global-mrg 0;
+    .error-title {
+        @include display(flex);
+        @include justify-content(flex-start);
+        @include align-items(center);
+        .heading {
+            font-weight: $font-bold;
+            font-size: rem(18);
+            margin-left: rem(8);
+        }
+        svg {
+            width: rem(20);
+            fill: $color-secondary-dark;
+        }
+    }
+    .message {
+        @include setText($small-font-size);
+        margin-bottom: 0;
+    }
+}

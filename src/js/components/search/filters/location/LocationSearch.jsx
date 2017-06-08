@@ -25,10 +25,14 @@ export default class LocationSearch extends React.Component {
         }
 
         return (
-            <div className="location-filter search-filter">
-                <CountryType {...this.props} />
-                <LocationListContainer {...this.props} selectLocation={this.props.selectLocation} />
-                {selectedLocations}
+            <div className="location-filter">
+                <div className="filter-item-wrap">
+                    <CountryType {...this.props} />
+                </div>
+                <div className="filter-item-wrap">
+                    <LocationListContainer {...this.props} selectLocation={this.props.selectLocation} />
+                    {selectedLocations}
+                </div>
             </div>
         );
     }

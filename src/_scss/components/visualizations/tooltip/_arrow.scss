@@ -26,12 +26,50 @@
             transform: rotate(225deg);
         }
     }
+
     &.top {
         left: calc(50% - 8px);
         top: -9px;
 
         &:after {
             transform: rotate(135deg);
+        }
+    }
+
+    &.top-left {
+        left: -9px;
+        top: 9px;
+        z-index: -1;
+    }
+
+    &.top-right {
+        right: 7px;
+        left: auto;
+        top: 9px;
+
+        &:after {
+            transform: rotate(225deg);
+        }
+    }
+
+    &.bottom-left {
+        left: -9px;
+        top: calc(100% - 32px);
+        z-index: -1;
+
+        &:after {
+            transform: rotate(45deg);
+        }
+    }
+
+    &.bottom-right {
+        right: 7px;
+        left: auto;
+        top: calc(100% - 32px);
+        z-index: -1;
+
+        &:after {
+            transform: rotate(225deg);
         }
     }
 }
