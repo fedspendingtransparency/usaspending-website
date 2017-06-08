@@ -11,7 +11,7 @@ export const fetchFederalAccount = (id) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `federal_accounts/${id}/`,
+            url: `v1/federal_accounts/${id}/`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
@@ -27,7 +27,7 @@ export const fetchTasCategoryTotals = (data) => {
     return {
         promise: Axios.request({
             data,
-            url: '/tas/categories/total/',
+            url: 'v1/tas/categories/total/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             cancelToken: source.token
@@ -43,7 +43,7 @@ export const fetchTasBalanceTotals = (data) => {
     return {
         promise: Axios.request({
             data,
-            url: '/tas/balances/total/',
+            url: 'v1/tas/balances/total/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             cancelToken: source.token
@@ -59,7 +59,7 @@ export const fetchProgramActivities = (data) => {
     return {
         promise: Axios.request({
             data,
-            url: '/tas/categories/total/',
+            url: 'v1/tas/categories/total/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             cancelToken: source.token
