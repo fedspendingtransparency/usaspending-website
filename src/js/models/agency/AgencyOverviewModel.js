@@ -11,6 +11,7 @@ const defaultValues = {
     abbreviation: '',
     mission: '',
     head: '',
+    logo: '',
     activeFY: '',
     federalBudget: 0,
     budgetAuthority: 0
@@ -25,6 +26,7 @@ const remapData = (data) => {
         abbreviation: 'agency_abbreviation',
         mission: 'agency_mission',
         head: 'agency_head',
+        logo: 'agency_logo_url',
         activeFY: 'active_fy',
         budgetAuthority: 'budget_authority',
         federalBudget: 'federal_budget_for_active_fiscal_year'

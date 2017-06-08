@@ -4,7 +4,15 @@
  */
 
 import React from 'react';
+
+import RecipientContainer from 'containers/agency/visualizations/RecipientContainer';
+
 import AgencySidebar from './AgencySidebar';
+import AgencyOverview from './overview/AgencyOverview';
+
+const propTypes = {
+    agency: React.PropTypes.object
+};
 
 export default class AgencyContent extends React.Component {
     render() {
@@ -14,9 +22,12 @@ export default class AgencyContent extends React.Component {
                     <AgencySidebar />
                 </div>
                 <div className="agency-content">
-                    Content
+                    <AgencyOverview agency={this.props.agency.overview} />
+                    <RecipientContainer id={this.props.agency.id} />
                 </div>
             </div>
         );
     }
 }
+
+AgencyContent.propTypes = propTypes;
