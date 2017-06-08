@@ -4,34 +4,61 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
-import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
+import { objectClassDefinitions, objectClassDefinitionsGroups }
+from 'dataMapping/search/budgetCategory';
 
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
+const defaultProps = {
+    objectClassMapping: [
+        {
+            id: '10',
+            name: 'Personnel compensation and benefits',
+            filters: objectClassDefinitionsGroups['10']
+        },
+        {
+            id: '20',
+            name: 'Contractual services and supplies',
+            filters: objectClassDefinitionsGroups['20']
+        },
+        {
+            id: '30',
+            name: 'Acquisition of assets',
+            filters: objectClassDefinitionsGroups['30']
+        },
+        {
+            id: '40',
+            name: 'Grants and fixed charges',
+            filters: objectClassDefinitionsGroups['40']
+        },
+        {
+            id: '90',
+            name: 'Other',
+            filters: objectClassDefinitionsGroups['90']
+        }
+    ]
+};
+
 const propTypes = {
+    objectClassMapping: React.PropTypes.arrayOf(React.PropTypes.object),
     selectObjectClass: React.PropTypes.func,
     objectClasses: React.PropTypes.object
 };
 
 export default class BudgetCategoryOCSearch extends React.Component {
     render() {
-        const objectClassItems = [];
-
-        Object.keys(objectClassDefinitions).forEach((key) => {
-            objectClassItems.push(
+        const objectClassItems = (
+            this.props.objectClassMapping.forEach((type, index) =>
                 <PrimaryCheckboxType
+                    {...type}
                     {...this.props}
-                    key={key}
-                    id={`award-${key}`}
+                    key={index}
                     types={objectClassDefinitions}
-                    name={objectClassDefinitions[key]}
-                    value={_.toString(parseInt(key, 10))}
                     filterType="Object Class"
-                    toggleCheckboxType={this.props.selectObjectClass.bind(this)}
                     selectedCheckboxes={this.props.objectClasses}
-                    enableAnalytics />);
-        });
+                    toggleCheckboxType={this.props.selectObjectClass.bind(this)}
+                    enableAnalytics />
+            ));
 
         return (
             <div className="pop-typeahead checkbox-type-filter ">
@@ -45,3 +72,4 @@ export default class BudgetCategoryOCSearch extends React.Component {
 }
 
 BudgetCategoryOCSearch.propTypes = propTypes;
+BudgetCategoryOCSearch.defaultProps = defaultProps;

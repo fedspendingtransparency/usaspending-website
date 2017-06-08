@@ -3,13 +3,105 @@
  * Created by michaelbray on 3/20/17.
  */
 
-/* eslint-disable import/prefer-default-export */
-// We only have one export but want to maintain consistency with other files
+ /* eslint-disable quote-props */
 export const objectClassDefinitions = {
-    10: "Personnel Compensation and Benefits",
-    20: "Contractual Services and Supplies",
-    30: "Acquisition of Assets",
-    40: "Grants and Fixed Changes",
-    90: "Other"
+    '110': "Full-time permanent",
+    '113': "Other than full-time permanent",
+    '115': "Other personnel compensation",
+    '116': "Military personnel - basic allowance for housing",
+    '117': "Military personnel",
+    '118': "Special personal services payments",
+    '121': "Civilian personnel benefits",
+    '122': "Military personnel benefits",
+    '130': "Benefits for former personnel",
+    '210': "Travel and transportation of persons",
+    '220': "Transportation of things",
+    '231': "Rental payments to GSA",
+    '232': "Rental payments to others",
+    '233': "Communications, utilities, and miscellaneous charges",
+    '240': "Printing and reproduction",
+    '251': "Advisory and assistance services",
+    '252': "Other services from non-Federal sources",
+    '253': "Other goods and services from Federal sources",
+    '254': "Operation and maintenance of facilities",
+    '255': "Research and development contracts",
+    '256': "Medical care",
+    '257': "Operation and maintenance of equipment",
+    '258': "Subsistence and support of persons",
+    '260': "Supplies and materials",
+    '310': "Equipment",
+    '320': "Land and structures",
+    '330': "Investments and loans",
+    '410': "Grants, subsidies, and contributions",
+    '420': "Insurance claims and indemnities",
+    '430': "Interest and dividends",
+    '440': "Refunds",
+    '910': "Unvouchered",
+    '920': "Undistributed",
+    '940': "Financial transfers"
 };
-/* eslint-enable import/prefer-default-export */
+
+export const objectClassDefinitionsGroups = {
+    '10': [
+        '110',
+        '113',
+        '115',
+        '116',
+        '117',
+        '118',
+        '121',
+        '122',
+        '130'
+    ],
+    '20': [
+        '210',
+        '220',
+        '231',
+        '232',
+        '233',
+        '240',
+        '251',
+        '252',
+        '253',
+        '254',
+        '255',
+        '256',
+        '257',
+        '258',
+        '260'
+    ],
+    '30': [
+        '310',
+        '320',
+        '330'
+    ],
+    '40': [
+        '410',
+        '420',
+        '430',
+        '440'
+    ],
+    '90': [
+        '910',
+        '920',
+        '940'
+    ]
+};
+
+export const groupKeys = [
+    '10',
+    '20',
+    '30',
+    '40',
+    '90'
+];
+
+export const groupLabels = {
+    '10': "Personnel Compensation and Benefits",
+    '20': "Contractual Services and Supplies",
+    '30': "Acquisition of Assets",
+    '40': "Grants and Fixed Changes",
+    '90': "Other"
+};
+
+/* eslint-enable quote-props */
