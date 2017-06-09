@@ -26,7 +26,7 @@ export default class MajorObjectClasses extends React.Component {
         this.state = {
             windowWidth: 0,
             visualizationWidth: 0,
-            visualizationHeight: 565,
+            visualizationHeight: 286,
             finalNodes: [],
             showOverlay: true,
             hoveredObjectClass: -1
@@ -107,10 +107,8 @@ export default class MajorObjectClasses extends React.Component {
             let textColor = TreemapHelper.tooltipStyles.defaultStyle.textColor;
             let textClass = '';
 
-            // Set highlighted state for hovered function
-            console.log(this.state.hoveredFunction);
-            console.log(n.data.major_object_class_code);
-            if (this.state.hoveredFunction === n.data.major_object_class_code) {
+            // Set highlighted state for hovered object class
+            if (this.state.hoveredObjectClass === n.data.major_object_class_code) {
                 cellColor = TreemapHelper.tooltipStyles.highlightedStyle.color;
                 textColor = TreemapHelper.tooltipStyles.highlightedStyle.textColor;
                 textClass = 'chosen';

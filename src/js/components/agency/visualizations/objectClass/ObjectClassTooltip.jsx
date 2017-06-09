@@ -40,10 +40,10 @@ export default class ObjectClassTooltip extends React.Component {
         const windowWidth = window.innerWidth;
 
         // Offset the tooltip position to account for its arrow/pointer
-        const offset = 9;
+        const offset = 13;
 
         // Height offset to not overlap labels
-        const heightOffset = 50;
+        const heightOffset = 25;
 
         // Initial position
         const xPosition = this.props.width * 0.5;
@@ -51,8 +51,8 @@ export default class ObjectClassTooltip extends React.Component {
 
         // Define initial quadrants and offsets
         let leftRightDirection = 'left';
-        let topBottomDirection = 'top';
-        let leftOffset = `${(this.props.x + xPosition) - offset}px`;
+        const topBottomDirection = 'bottom';
+        let leftOffset = `${(this.props.x + xPosition) + offset}px`;
         let topOffset = `${(this.props.height / 2) + heightOffset}px`;
 
         // Determine which quadrant the tooltip should appear in
@@ -60,23 +60,15 @@ export default class ObjectClassTooltip extends React.Component {
             leftRightDirection = 'right';
         }
 
-        if (this.props.y >= ((this.props.sectionHeight / 2) - 50)) {
-            topBottomDirection = 'bottom';
-        }
-
         // Position the tooltip based on quadrant
         // Bottom left
         if (leftRightDirection === 'left' && topBottomDirection === 'bottom') {
-            topOffset = `${this.props.sectionHeight - yPosition - tooltipHeight - heightOffset}px`;
-        }
-        // Top right
-        else if (leftRightDirection === 'right' && topBottomDirection === 'top') {
-            leftOffset = `${((this.props.x + (this.props.width / 2)) - (tooltipWidth + offset))}px`;
+            topOffset = `${(this.props.y + yPosition) - (tooltipHeight + heightOffset)}px`;
         }
         // Bottom right
         else if (leftRightDirection === 'right' && topBottomDirection === 'bottom') {
-            leftOffset = `${this.props.x - tooltipWidth}px`;
-            topOffset = `${this.props.sectionHeight - yPosition - tooltipHeight - heightOffset}px`;
+            leftOffset = `${((this.props.x + (this.props.width / 2)) - (tooltipWidth + offset))}px`;
+            topOffset = `${(this.props.y + yPosition) - (tooltipHeight + heightOffset)}px`;
         }
 
         let size = '';
