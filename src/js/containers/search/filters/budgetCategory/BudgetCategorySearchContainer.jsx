@@ -15,8 +15,7 @@ import BudgetCategorySearch from 'components/search/filters/budgetCategory/Budge
 const propTypes = {
     updateSelectedBudgetFunctions: React.PropTypes.func,
     updateSelectedFederalAccounts: React.PropTypes.func,
-    updateSelectedObjectClasses: React.PropTypes.func,
-    bulkObjectClassesChange: React.PropTypes.func
+    updateSelectedObjectClasses: React.PropTypes.func
 };
 
 export class BudgetCategorySearchContainer extends React.Component {
@@ -27,7 +26,6 @@ export class BudgetCategorySearchContainer extends React.Component {
         this.updateBudgetFunctions = this.updateBudgetFunctions.bind(this);
         this.updateFederalAccounts = this.updateFederalAccounts.bind(this);
         this.updateObjectClasses = this.updateObjectClasses.bind(this);
-        this.bulkTypeChange = this.bulkTypeChange.bind(this);
     }
 
     updateBudgetFunctions(budgetFunction) {
@@ -42,18 +40,13 @@ export class BudgetCategorySearchContainer extends React.Component {
         this.props.updateSelectedObjectClasses(objectClassEvent);
     }
 
-    bulkTypeChange(objectClass) {
-        this.props.bulkObjectClassesChange(objectClass);
-    }
-
     render() {
         return (
             <BudgetCategorySearch
                 {...this.props}
                 updateBudgetFunctions={this.updateBudgetFunctions}
                 updateFederalAccounts={this.updateFederalAccounts}
-                updateObjectClasses={this.updateObjectClasses}
-                bulkTypeChange={this.bulkTypeChange} />
+                updateObjectClasses={this.updateObjectClasses} />
         );
     }
 }

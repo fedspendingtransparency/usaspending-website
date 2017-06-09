@@ -13,7 +13,8 @@ import BudgetCategoryOCSearch from
     'components/search/filters/budgetCategory/BudgetCategoryOCSearch';
 
 const propTypes = {
-    updateObjectClasses: React.PropTypes.func
+    updateObjectClasses: React.PropTypes.func,
+    bulkObjectClassesChange: React.PropTypes.func
 };
 
 export class BudgetCategoryOCContainer extends React.Component {
@@ -21,7 +22,8 @@ export class BudgetCategoryOCContainer extends React.Component {
         return (
             <BudgetCategoryOCSearch
                 {...this.props}
-                selectObjectClass={this.props.updateObjectClasses.bind(this)} />
+                selectObjectClass={this.props.updateObjectClasses.bind(this)}
+                bulkTypeChange={this.props.bulkObjectClassesChange.bind(this)} />
         );
     }
 }
