@@ -1,7 +1,6 @@
 .chart-group {
     .group-background {
         fill: #F7F7F7;
-
         &.even {
             fill: #fff;
         }
@@ -9,12 +8,21 @@
 
     .group-label {
         font-size: rem(14);
-        color: #666;
-        fill: #666;
     }
 
     .group-label-link {
         text-decoration: underline;
+        text-decoration: none;
+        a {
+            fill: #0071bc;
+        }
+        a:hover {
+            fill: #205493;
+            text-decoration: underline;
+        }
+        a:visited {
+            fill: #4c2c92;
+        }
     }
 }
 

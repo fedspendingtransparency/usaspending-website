@@ -8,7 +8,6 @@
         input[type=checkbox] {
             @include usa-input-checkbox;
             margin-right: 6px;
-            float: left;
             margin-top: 1.1rem;
         }
         span {

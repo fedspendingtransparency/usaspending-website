@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="usa-da-qa-icon">
-<g fill="none" fill-rule="evenodd">
-    <path stroke="#597785" stroke-width="2" d="M43.906 20.07l46.416.068v46.35l-11.14-11.14H43.906z" stroke-linecap="round" stroke-linejoin="round"/>
-    <text fill="#597785" font-family="SourceSansPro-Bold, Source Sans Pro" font-size="22" font-weight="bold">
-      <tspan x="61" y="45">A</tspan>
-    </text>
-    <path fill="#FFF" d="M56.602 0H3.612C1.62 0 0 1.62 0 3.613v56.6l14.45-14.45h42.152c1.994 0 3.612-1.62 3.612-3.613V3.613C60.214 1.62 58.596 0 56.602 0z"/>
-    <path fill="#335565" d="M0 0v56.45l13.548-13.547H56.45V0"/>
-    <text fill="#FFF" font-family="SourceSansPro-Bold, Source Sans Pro" font-size="24" font-weight="bold">
-      <tspan x="20" y="26">Q</tspan>
-    </text>
-  </g>
+        <g fill="none" fill-rule="evenodd">
+            <path stroke="#597785" stroke-width="2" d="M43.906 20.07l46.416.068v46.35l-11.14-11.14H43.906z" stroke-linecap="round" stroke-linejoin="round" />
+            <text fill="#597785" font-family="SourceSansPro-Bold, Source Sans Pro" font-size="22" font-weight="bold">
+                <tspan x="61" y="45">A</tspan>
+            </text>
+            <path fill="#FFF" d="M56.602 0H3.612C1.62 0 0 1.62 0 3.613v56.6l14.45-14.45h42.152c1.994 0 3.612-1.62 3.612-3.613V3.613C60.214 1.62 58.596 0 56.602 0z" />
+            <path fill="#335565" d="M0 0v56.45l13.548-13.547H56.45V0" />
+            <text fill="#FFF" font-family="SourceSansPro-Bold, Source Sans Pro" font-size="24" font-weight="bold">
+                <tspan x="20" y="26">Q</tspan>
+            </text>
+        </g>
     </symbol>
     <symbol id="usa-da-contact-icon">
         <g fill="none" fill-rule="evenodd">

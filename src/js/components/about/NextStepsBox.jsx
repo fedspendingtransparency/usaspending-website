@@ -44,6 +44,7 @@ export default class NextStepsBox extends React.Component {
     }
 
     render() {
+        const disabled = '';
         let link = (
             <a href={this.props.linkUrl}>
                 <button className="usa-button-outline" aria-label={this.props.ariaLabel} title={this.props.title}>
@@ -62,13 +63,13 @@ export default class NextStepsBox extends React.Component {
 
         return (
             <div className="block-wrap">
-                <div className="icon-wrap">
+                <div className={`icon-wrap${disabled}`}>
                     <div className={this.props.iconClass}>
                         {this.switchIcon()}
                     </div>
                 </div>
-                <h6>{this.props.sectionTitle}</h6>
-                <p>{this.props.sectionText}</p>
+                <h4 className={`title${disabled}`}>{this.props.sectionTitle}</h4>
+                <p className={disabled}>{this.props.sectionText}</p>
                 {link}
             </div>
         );

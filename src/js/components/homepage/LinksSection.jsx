@@ -13,14 +13,13 @@ export default class LinksSection extends React.Component {
         return (
             <div className="links-section-outer-wrap">
                 <div className="links-section-wrap">
-                    <h4
-                        className="links-section-primary-title">
+                    <h4 className="links-section-primary-title">
                         Check out these sections for more views into our data.
                     </h4>
                     <div className="links-section-box-wrap">
                         <LinksSectionBox
                             icon="recipient"
-                            text="Get insights into specific recipients."
+                            text="Get insights into recipients."
                             linkText="Find a recipient"
                             linkUrl="" />
                         <LinksSectionBox

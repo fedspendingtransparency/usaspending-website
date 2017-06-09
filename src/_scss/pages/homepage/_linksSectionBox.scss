@@ -1,7 +1,10 @@
+@import "../../mixins/elementContainerWrap";
+
 @mixin linksSectionBox {
     .links-section-box {
-        @include span-columns(16);
-        border: 1px solid $color-gray;
+        @include display(flex);
+        @include span-columns(4);
+        background-color: $color-gray-lightest;
         display: inline-block;
         margin: 0 0 rem(30) 0;
         padding: rem(20) 0;
@@ -19,14 +22,14 @@
             width: rem(75);
         }
         .links-section-box-primary-text {
-            color: $color-gray-lighter;
+            color: $color-gray;
             font-size: rem(21);
             margin: 0;
-            min-height: rem(40);
+            min-height: rem(20);
             padding: 0 rem(5);
             @include media($tablet-screen) {
                 margin: 0 0 rem(20) 0;
-                min-height: rem(60);
+                min-height: rem(20);
             }
         }
         .links-section-box-anchor {
@@ -42,7 +45,7 @@
         }
         .links-section-box-span {
             color: $color-cool-blue-lighter;
-            opacity: 0.4;
+            opacity: 0.5;
             font-size: rem(14);
         }
         .usa-da-building-mag,

@@ -1,6 +1,17 @@
 .award-type-filter {
     ul.award-types {
         @include unstyled-list;
+
+        .award-set:first-child {
+        	.primary-award-type:first-child {
+	    		input {
+					margin-top: 0;
+	    		}
+	    		label {
+					margin-top: 0;
+	    		}
+	    	}
+	    }
     }
 
     @import "./_primaryType";

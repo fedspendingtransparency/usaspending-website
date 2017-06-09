@@ -1,17 +1,31 @@
 .keyword-filter {
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      opacity: 0.5;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+      opacity: 0.5;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+      opacity: 0.5;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+      opacity: 0.5;
+    }
+
     .keyword-input {
         display: inline-block;
         font-size: $small-font-size;
         height: rem(40);
         margin: 0 auto;
-        padding: rem(11) rem(8);
+        padding:  rem(11) rem(8);
         width: 70%
     }
+
     .keyword-submit {
         display: inline-block;
         height: rem(40);
         margin: 0;
-        padding: 0;
+        padding:0;
         width: 30%;
     }
 }

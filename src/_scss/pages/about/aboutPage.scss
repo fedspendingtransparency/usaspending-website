@@ -10,7 +10,7 @@
     
     & .usa-da-about-inner {
         @include clearfix;
-        background: $color-white;
+        background: $color-gray-lightest;
         margin: 0 auto;
         padding: ($global-pad * 2) 0;
         @include row();
