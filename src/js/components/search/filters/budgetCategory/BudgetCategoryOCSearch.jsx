@@ -5,34 +5,34 @@
 
 import React from 'react';
 import { objectClassDefinitions, objectClassDefinitionsGroups }
-from 'dataMapping/search/budgetCategory';
+    from 'dataMapping/search/budgetCategory';
 
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
 const defaultProps = {
     objectClassMapping: [
         {
-            id: '10',
+            id: 'personnel_compensation_and_benefits',
             name: 'Personnel compensation and benefits',
             filters: objectClassDefinitionsGroups.personnel_compensation_and_benefits
         },
         {
-            id: '20',
+            id: 'contractual_services_and_supplies',
             name: 'Contractual services and supplies',
             filters: objectClassDefinitionsGroups.contractual_services_and_supplies
         },
         {
-            id: '30',
+            id: 'acquisition_of_assets',
             name: 'Acquisition of assets',
             filters: objectClassDefinitionsGroups.acquisition_of_assets
         },
         {
-            id: '40',
+            id: 'grants_and_fixed_changes',
             name: 'Grants and fixed charges',
             filters: objectClassDefinitionsGroups.grants_and_fixed_changes
         },
         {
-            id: '90',
+            id: 'other',
             name: 'Other',
             filters: objectClassDefinitionsGroups.other
         }
@@ -41,27 +41,22 @@ const defaultProps = {
 
 const propTypes = {
     objectClassMapping: React.PropTypes.arrayOf(React.PropTypes.object),
-    selectObjectClass: React.PropTypes.func,
-    objectClasses: React.PropTypes.object,
-    bulkTypeChange: React.PropTypes.func
+    objectClasses: React.PropTypes.object
 };
 
 export default class BudgetCategoryOCSearch extends React.Component {
     render() {
-        const objectClassItems = [];
-
-        this.props.objectClassMapping.forEach((type, index) => {
-            objectClassItems.push(<PrimaryCheckboxType
-                {...type}
-                {...this.props}
-                key={index}
-                types={objectClassDefinitions}
-                filterType="Object Class"
-                selectedCheckboxes={this.props.objectClasses}
-                toggleCheckboxType={this.props.selectObjectClass.bind(this)}
-                bulkTypeChange={this.props.bulkTypeChange}
-                enableAnalytics />);
-        });
+        const objectClassItems = (
+            this.props.objectClassMapping.map((type, index) =>
+                <PrimaryCheckboxType
+                    {...type}
+                    {...this.props}
+                    key={index}
+                    types={objectClassDefinitions}
+                    filterType="Object Class"
+                    selectedCheckboxes={this.props.objectClasses}
+                    enableAnalytics />
+            ));
 
         return (
             <div className="pop-typeahead checkbox-type-filter ">
