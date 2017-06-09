@@ -1,6 +1,22 @@
 .agency-section-wrapper {
     margin-top: rem(15);
 
+    .agency-callout-description {
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        width: 100%;
+        position: relative;
+        margin: rem(100) 0 rem(80);
+        padding: 0 rem(63);
+        color: $color-base;
+        font-family: $font-sans;
+        font-size: $lead-font-size;
+        font-weight: 300;
+        line-height: 35px;
+        text-align: center;
+    }
+
     .agency-section-title {
         h4 {
             font-size: rem(38);
@@ -10,6 +26,10 @@
     }
 
     .agency-section-content {
-        
+        @import "pages/homepage/treemapSection";
+
+        .usa-da-treemap-section {
+            background: white;
+        }
     }
 }

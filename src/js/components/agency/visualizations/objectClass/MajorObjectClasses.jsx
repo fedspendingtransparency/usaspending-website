@@ -108,7 +108,9 @@ export default class MajorObjectClasses extends React.Component {
             let textClass = '';
 
             // Set highlighted state for hovered function
-            if (this.state.hoveredFunction === i) {
+            console.log(this.state.hoveredFunction);
+            console.log(n.data.major_object_class_code);
+            if (this.state.hoveredFunction === n.data.major_object_class_code) {
                 cellColor = TreemapHelper.tooltipStyles.highlightedStyle.color;
                 textColor = TreemapHelper.tooltipStyles.highlightedStyle.textColor;
                 textClass = 'chosen';
@@ -139,7 +141,7 @@ export default class MajorObjectClasses extends React.Component {
                     y0={n.y0}
                     y1={n.y1}
                     total={n.parent.value}
-                    key={i}
+                    key={n.data.major_object_class_code}
                     objectClassID={n.data.major_object_class_code}
                     color={cellColor}
                     strokeColor={'white'}
@@ -155,12 +157,12 @@ export default class MajorObjectClasses extends React.Component {
                     height={height}
                     percentView={percentView}
                     clickable />);
+
+                return cell;
             }
 
-            return cell;
+            return null;
         });
-
-        console.log(nodes);
 
         this.setState({
             finalNodes: nodes
@@ -197,34 +199,25 @@ export default class MajorObjectClasses extends React.Component {
         }
 
         if (this.state.hoveredObjectClass > -1) {
-            const objectClass = _.find(
-                this.props.objectClassData.children,
-                { id: this.state.hoveredObjectClass });
-            const description = _.find(
-                this.props.objectClassData,
-                { id: this.state.hoveredObjectClass });
-            const node = _.find(
-                this.state.finalNodes,
+            const objectClass = _.find(this.props.objectClassData.children,
+                { major_object_class_code: `${this.state.hoveredObjectClass}` });
+
+            const node = _.find(this.state.finalNodes,
                 { key: `${this.state.hoveredObjectClass}` });
 
-            console.log(objectClass);
-            console.log(description);
-            console.log(node);
-
-            // tooltip = (<ObjectClassTooltip
-            //     name={objectClass.major_object_class_name}
-            //     value={MoneyFormatter.formatTreemapValues(objectClass.obligated_amount)}
-            //     percentage={MoneyFormatter.calculateTreemapPercentage(
-            //         objectClass.obligated_amount, this.props.totalObligation)
-            //     }
-            //     description={description.value}
-            //     x={node.props.x0}
-            //     y={node.props.y0}
-            //     width={node.props.width}
-            //     height={node.props.height}
-            //     showMinorObjectClass={this.props.showMinorObjectClass}
-            //     sectionHeight={sectionHeight}
-            //     isMinorObjectClass={false} />);
+            tooltip = (<ObjectClassTooltip
+                name={objectClass.major_object_class_name}
+                value={MoneyFormatter.formatTreemapValues(objectClass.obligated_amount)}
+                percentage={MoneyFormatter.calculateTreemapPercentage(
+                    objectClass.obligated_amount, this.props.totalObligation)
+                }
+                description={''}
+                x={node.props.x0}
+                y={node.props.y0}
+                width={node.props.width}
+                height={node.props.height}
+                showMinorObjectClass={this.props.showMinorObjectClass}
+                sectionHeight={sectionHeight} />);
         }
 
         return tooltip;

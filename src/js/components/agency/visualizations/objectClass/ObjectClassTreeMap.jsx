@@ -54,14 +54,6 @@ export default class ObjectClassTreeMap extends React.Component {
         });
     }
 
-    generateIntro() {
-        return null;
-    }
-
-    generateHeader() {
-        return null;
-    }
-
     generateObjectClasses() {
         let objectClasses = (<MajorObjectClasses
             {...this.state}
@@ -87,8 +79,6 @@ export default class ObjectClassTreeMap extends React.Component {
                 ref={(sr) => {
                     this.sectionWrapper = sr;
                 }}>
-                {this.generateIntro()}
-                {this.generateHeader()}
                 {this.generateObjectClasses()}
             </div>
         );

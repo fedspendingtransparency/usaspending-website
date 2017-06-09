@@ -10,6 +10,7 @@ import { reduce } from 'lodash';
 
 import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
 import * as AgencyHelper from 'helpers/agencyHelper';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import ObjectClassTreeMap from 'components/agency/visualizations/objectClass/ObjectClassTreeMap';
 
@@ -73,10 +74,15 @@ export class ObjectClassContainer extends React.Component {
                     inFlight: false
                 });
 
-                // Sum up the obligated_amounts in the object classes to produce the total
+                // Sum up the obligated_amounts > 0 in the object classes to produce the total
                 const totalObligation = reduce(
                     res.data.results,
-                    (sum, objectClass) => sum + parseFloat(objectClass.obligated_amount),
+                    (sum, objectClass) => {
+                        if (parseFloat(objectClass.obligated_amount) >= 0) {
+                            return sum + parseFloat(objectClass.obligated_amount);
+                        }
+                        return sum;
+                    },
                     0
                 );
 
@@ -101,10 +107,27 @@ export class ObjectClassContainer extends React.Component {
     }
 
     render() {
+        const total = MoneyFormatter.formatTreemapValues(this.state.totalObligation);
+
         return (
-            <ObjectClassTreeMap
-                objectClassData={this.state.objectClassData}
-                totalObligation={this.state.totalObligation} />
+            <div className="agency-section-wrapper">
+                <div className="agency-callout-description">
+                    This {total} in obligations is divided among categories,
+                    called object classes. These groupings can be helpful for analysis
+                    and cross-agency comparison.
+                </div>
+                <div
+                    className="agency-section-title"
+                    id="agency-objectClasses">
+                    <h4>Object Class</h4>
+                    <hr className="results-divider" />
+                </div>
+                <div className="agency-section-content">
+                    <ObjectClassTreeMap
+                        objectClassData={this.state.objectClassData}
+                        totalObligation={this.state.totalObligation} />
+                </div>
+            </div>
         );
     }
 
