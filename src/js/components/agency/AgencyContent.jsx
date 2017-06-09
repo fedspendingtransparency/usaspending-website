@@ -84,6 +84,10 @@ export default class AgencyContent extends React.Component {
 
                 // scroll to the correct section
                 const sectionDom = document.querySelector(`#agency-${section}`);
+                if (!sectionDom) {
+                    return;
+                }
+
                 const sectionTop = sectionDom.offsetTop - 10;
                 jQuery('body').animate({
                     scrollTop: sectionTop
