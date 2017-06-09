@@ -9,8 +9,10 @@ export default class RecipientVisualization extends React.Component {
     render() {
         return (
             <div className="agency-section-wrapper">
-                <div className="agency-section-title">
-                    <h4>Recipient</h4>
+                <div
+                    className="agency-section-title"
+                    id="agency-recipients">
+                    <h4>Recipients</h4>
                     <hr className="results-divider" />
                 </div>
                 <div className="agency-section-content">

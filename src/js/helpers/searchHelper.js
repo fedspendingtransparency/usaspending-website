@@ -12,7 +12,7 @@ export const performSearch = (searchParams) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'awards/',
+            url: 'v1/awards/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: searchParams,
@@ -50,7 +50,7 @@ export const fetchAwardCounts = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'awards/total/',
+            url: 'v1/awards/total/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -67,7 +67,7 @@ export const fetchLocations = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'references/locations/geocomplete/',
+            url: 'v1/references/locations/geocomplete/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,
@@ -84,7 +84,7 @@ export const fetchBudgetFunctions = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'tas/autocomplete/',
+            url: 'v1/tas/autocomplete/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,
@@ -100,7 +100,7 @@ export const fetchFederalAccounts = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'federal_accounts/autocomplete/',
+            url: 'v1/federal_accounts/autocomplete/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,
@@ -117,7 +117,7 @@ export const fetchAgencies = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'references/agency/autocomplete/',
+            url: 'v1/references/agency/autocomplete/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,
@@ -134,7 +134,7 @@ export const fetchAward = (num) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `awards/${num}/`,
+            url: `v1/awards/${num}/`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
@@ -150,7 +150,7 @@ export const fetchAwardTransaction = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `transactions/`,
+            url: `v1/transactions/`,
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -167,7 +167,7 @@ export const fetchRecipients = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'references/recipients/autocomplete/',
+            url: 'v1/references/recipients/autocomplete/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,
@@ -184,7 +184,7 @@ export const fetchAwardIDs = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'awards/autocomplete/',
+            url: 'v1/awards/autocomplete/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -201,7 +201,7 @@ export const performTransactionsTotalSearch = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'transactions/total/',
+            url: 'v1/transactions/total/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -219,7 +219,7 @@ export const performCategorySearch = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'tas/categories/total/',
+            url: 'v1/tas/categories/total/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -237,7 +237,7 @@ export const performBalancesSearch = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'tas/balances/total/',
+            url: 'v1/tas/balances/total/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -253,7 +253,7 @@ export const performFinancialAccountAggregation = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'accounts/awards/total/',
+            url: 'v1/accounts/awards/total/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -270,7 +270,7 @@ export const performFinancialSystemLookup = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'accounts/awards/',
+            url: 'v1/accounts/awards/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -287,7 +287,7 @@ export const performSubawardSearch = (data) => {
     return {
         promise: Axios.request({
             data,
-            url: '/subawards/',
+            url: 'v1/subawards/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             cancelToken: source.token
@@ -303,7 +303,7 @@ export const generateUrlHash = (data) => {
     return {
         promise: Axios.request({
             data,
-            url: '/references/filter/',
+            url: 'v1/references/filter/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             cancelToken: source.token
@@ -319,7 +319,7 @@ export const restoreUrlHash = (data) => {
     return {
         promise: Axios.request({
             data,
-            url: '/references/hash/',
+            url: 'v1/references/hash/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             cancelToken: source.token

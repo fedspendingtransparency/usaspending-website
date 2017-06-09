@@ -1,0 +1,64 @@
+/**
+ * SidebarLink.jsx
+ * Created by Kevin Li 6/8/17
+ */
+
+import React from 'react';
+import Router from 'containers/router/Router';
+
+const propTypes = {
+    section: React.PropTypes.string,
+    label: React.PropTypes.string,
+    active: React.PropTypes.string,
+    onClick: React.PropTypes.func
+};
+
+export default class SidebarLink extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            url: ''
+        };
+
+        this.clickedLink = this.clickedLink.bind(this);
+    }
+
+    componentWillMount() {
+        this.prepareLink();
+    }
+
+    prepareLink() {
+        // the URL base should be the current route
+        const currentRoute = Router.state.path;
+        // append the section as a query param
+        const url = `#${currentRoute}?section=${this.props.section}`;
+
+        this.setState({
+            url
+        });
+    }
+
+    clickedLink(e) {
+        e.preventDefault();
+        this.props.onClick(this.props.section);
+    }
+
+    render() {
+        let active = '';
+        if (this.props.active === this.props.section) {
+            active = 'active';
+        }
+
+        return (
+            <a
+                className={`sidebar-link ${active}`}
+                href={this.state.url}
+                onClick={this.clickedLink}>
+                {this.props.label}
+            </a>
+        );
+    }
+}
+
+SidebarLink.propTypes = propTypes;
