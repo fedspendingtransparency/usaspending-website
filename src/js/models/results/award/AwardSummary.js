@@ -35,6 +35,7 @@ const fields = [
     'recipient_state_province',
     'recipient_zip_postal',
     'recipient_country',
+    'recipient_country_code',
     'pop_city',
     'parent_id',
     'pop_state_province',
@@ -123,6 +124,7 @@ const remapData = (data, idField) => {
     let recipientStateProvince = '';
     let recipientZipPostal = '';
     let recipientCountry = '';
+    let recipientCountryCode = '';
     let recipientDuns = '';
     let recipientParentDuns = '';
     let recipientBusinessType = '';
@@ -525,11 +527,11 @@ const remapData = (data, idField) => {
             recipientZipPostal = loc.foreign_postal_code;
         }
 
-        if (loc.location_country_code) {
+        if (loc.country_name) {
             recipientCountry = loc.country_name;
         }
-        else if (loc.country_name) {
-            recipientCountry = loc.country_name;
+        if (loc.location_country_code) {
+            recipientCountryCode = loc.location_country_code;
         }
 
         if (loc.congressional_code) {
@@ -559,6 +561,7 @@ const remapData = (data, idField) => {
     remappedData.recipient_state_province = recipientStateProvince;
     remappedData.recipient_zip_postal = recipientZipPostal;
     remappedData.recipient_country = recipientCountry;
+    remappedData.recipient_country_code = recipientCountryCode;
     remappedData.recipient_congressional_district = recipientCongressionalDistrict;
     remappedData.recipient_duns = recipientDuns;
     remappedData.recipient_parent_duns = recipientParentDuns;

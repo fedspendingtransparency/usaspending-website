@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import _ from 'lodash';
 
 const propTypes = {
     recipient: React.PropTypes.object,
@@ -14,21 +15,20 @@ export default class RecipientAddress extends React.Component {
 
     render() {
         const recipient = this.props.recipient;
-        const city = recipient.recipient_city;
-        const stateProvince = recipient.recipient_state_province;
-        let cityState = "";
+        let country = null;
+        let district = null;
 
-        if (city && stateProvince) {
-            cityState = `${city}, ${stateProvince}`;
+        if (recipient.recipient_country_code !== "USA") {
+            country = (
+                <div className="item-value">
+                    {recipient.recipient_country}
+                </div>);
         }
-        else if (!city && !stateProvince) {
-            cityState = null;
-        }
-        else if (city && !stateProvince) {
-            cityState = city;
-        }
-        else if (!city && stateProvince) {
-            cityState = stateProvince;
+        if (recipient.recipient_congressional_district) {
+            district = (
+                <div className="item-value">
+                    Congressional District: {recipient.recipient_congressional_district}
+                </div>);
         }
 
         return (
@@ -40,11 +40,11 @@ export default class RecipientAddress extends React.Component {
                     {recipient.recipient_street}
                 </div>
                 <div className="item-value">
-                    {cityState} {recipient.recipient_zip_postal}
+                    {recipient.recipient_city}, {recipient.recipient_state_province}
+                    {recipient.recipient_zip_postal}
                 </div>
-                <div className="item-value">
-                    {recipient.recipient_country}
-                </div>
+                {country}
+                {district}
             </li>
         );
     }
