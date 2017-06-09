@@ -1,0 +1,31 @@
+.agency-sidebar-content {
+    ul {
+        @include unstyled-list;
+
+        li {
+            margin-bottom: rem(20);
+
+            &:last-child {
+                margin-bottom: rem(0);
+            }
+        }
+
+        a.sidebar-link {
+            color: $color-primary;
+            font-size: rem(16);
+            line-height: rem(20);
+            padding-bottom: rem(5);
+
+            text-decoration: none;
+
+            &:hover {
+                border-bottom: 5px solid $color-gold;
+            }
+
+            &.active {
+                font-weight: $font-semibold;
+                border-bottom: 5px solid $color-gold;
+            }
+        }
+    }
+}
