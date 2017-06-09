@@ -110,6 +110,12 @@ const searchFiltersReducer = (state = initialState, action) => {
                     state.objectClasses, action.objectClass)
             });
         }
+        case 'BULK_SEARCH_FILTER_OBJECT_CLASSES': {
+            return Object.assign({}, state, {
+                objectClasses: BudgetCategoryFilterFunctions.bulkObjectClassesChange(
+                    state.objectClasses, action.objectClasses, action.direction)
+            });
+        }
 
         // Agency Filter
         case 'UPDATE_SELECTED_AWARDING_AGENCIES': {

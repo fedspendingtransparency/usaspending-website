@@ -5,6 +5,11 @@
 
  /* eslint-disable quote-props */
 export const objectClassDefinitions = {
+    '10': "Personnel Compensation and Benefits",
+    '20': "Contractual Services and Supplies",
+    '30': "Acquisition of Assets",
+    '40': "Grants and Fixed Changes",
+    '90': "Other",
     '110': "Full-time permanent",
     '113': "Other than full-time permanent",
     '115': "Other personnel compensation",
@@ -42,7 +47,7 @@ export const objectClassDefinitions = {
 };
 
 export const objectClassDefinitionsGroups = {
-    '10': [
+    'personnel_compensation_and_benefits': [
         '110',
         '113',
         '115',
@@ -53,7 +58,7 @@ export const objectClassDefinitionsGroups = {
         '122',
         '130'
     ],
-    '20': [
+    'contractual_services_and_supplies': [
         '210',
         '220',
         '231',
@@ -70,18 +75,18 @@ export const objectClassDefinitionsGroups = {
         '258',
         '260'
     ],
-    '30': [
+    'acquisition_of_assets': [
         '310',
         '320',
         '330'
     ],
-    '40': [
+    'grants_and_fixed_changes': [
         '410',
         '420',
         '430',
         '440'
     ],
-    '90': [
+    'other': [
         '910',
         '920',
         '940'
