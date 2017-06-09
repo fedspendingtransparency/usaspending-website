@@ -10,6 +10,7 @@ import jQuery from 'jquery';
 import Router from 'containers/router/Router';
 
 import RecipientContainer from 'containers/agency/visualizations/RecipientContainer';
+import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
 
 import AgencySidebar from './sidebar/AgencySidebar';
 import AgencyOverview from './overview/AgencyOverview';
@@ -108,6 +109,7 @@ export default class AgencyContent extends React.Component {
                 <div className="agency-content">
                     <AgencyOverview agency={this.props.agency.overview} />
                     <RecipientContainer id={this.props.agency.id} />
+                    <ObligatedContainer id={this.props.agency.id} />
                 </div>
             </div>
         );
