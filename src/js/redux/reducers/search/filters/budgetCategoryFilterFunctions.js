@@ -36,21 +36,20 @@ export const updateFederalAccounts = (state, value) => {
 
 export const updateObjectClasses = (state, value) => {
     let updatedSet = state;
-    const identifier = `${value}`;
 
-    if (updatedSet.has(identifier)) {
-        updatedSet = updatedSet.delete(identifier);
+    if (updatedSet.has(value)) {
+        updatedSet = updatedSet.delete(value);
     }
     else {
-        updatedSet = updatedSet.set(identifier, objectClassDefinitions[value]);
+        updatedSet = updatedSet.add(value, objectClassDefinitions[value]);
     }
 
     return updatedSet;
 };
 
 export const bulkObjectClassesChange = (state, values, direction) => {
-    let updatedSet = new Set(state);
-    console.log(values);
+    let updatedSet = state;
+
     values.forEach((value) => {
         if (updatedSet.includes(value) && direction === 'remove') {
             // item exists but we want to deselect everything

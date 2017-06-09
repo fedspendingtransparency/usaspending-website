@@ -41,7 +41,8 @@ const defaultProps = {
 
 const propTypes = {
     objectClassMapping: React.PropTypes.arrayOf(React.PropTypes.object),
-    objectClasses: React.PropTypes.object
+    objectClasses: React.PropTypes.object,
+    selectObjectClass: React.PropTypes.func
 };
 
 export default class BudgetCategoryOCSearch extends React.Component {
@@ -54,6 +55,7 @@ export default class BudgetCategoryOCSearch extends React.Component {
                     key={index}
                     types={objectClassDefinitions}
                     filterType="Object Class"
+                    toggleCheckboxType={this.props.selectObjectClass.bind(this)}
                     selectedCheckboxes={this.props.objectClasses}
                     enableAnalytics />
             ));
