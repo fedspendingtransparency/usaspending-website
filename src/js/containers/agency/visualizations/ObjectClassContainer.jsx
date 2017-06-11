@@ -74,7 +74,8 @@ export class ObjectClassContainer extends React.Component {
                     inFlight: false
                 });
 
-                // Sum up the obligated_amounts > 0 in the object classes to produce the total
+                // Sum the positive obligated_amounts in the returned object classes
+                // to produce the total obligation amount
                 const totalObligation = reduce(
                     res.data.results,
                     (sum, objectClass) => {

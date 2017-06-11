@@ -70,12 +70,16 @@ export default class MajorObjectClasses extends React.Component {
     }
 
     buildTree(treeProps) {
-        // Remove negative values and sort by value
-        const positiveObjectClasses = treeProps.objectClassData;
-        _.remove(positiveObjectClasses.children, (v) => v.obligated_amount <= 0);
+        const objectClasses = treeProps.objectClassData;
 
+        // Remove negative values
+        _.remove(objectClasses.children, (v) => parseFloat(v.obligated_amount) <= 0);
+
+        // Order by value, descending
         const finalObjectClasses = {
-            children: _.orderBy(positiveObjectClasses.children, 'obligated_amount', 'desc')
+            children: _.orderBy(objectClasses.children,
+                (oc) => parseFloat(oc.obligated_amount),
+                'desc')
         };
 
         // put the data through d3's hierarchy system to sum and sort it
