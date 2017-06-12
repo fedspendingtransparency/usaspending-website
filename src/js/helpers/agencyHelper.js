@@ -22,8 +22,25 @@ export const fetchAgencyOverview = (id) => {
     };
 };
 
-// Get major and minor object classes
-export const fetchAgencyObjectClasses = (params) => {
+// Get major object classes
+export const fetchAgencyMajorObjectClasses = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/financial_spending/major_object_class/',
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+// Get minor object classes
+export const fetchAgencyMinorObjectClasses = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({

@@ -10,8 +10,11 @@ import MajorObjectClasses from './MajorObjectClasses';
 import MinorObjectClasses from './MinorObjectClasses';
 
 const propTypes = {
-    objectClassData: React.PropTypes.object,
-    totalObligation: React.PropTypes.number
+    majorObjectClasses: React.PropTypes.object,
+    minorObjectClasses: React.PropTypes.object,
+    totalObligation: React.PropTypes.number,
+    totalMinorObligation: React.PropTypes.number,
+    fetchMinorObjectClasses: React.PropTypes.func
 };
 
 export default class ObjectClassTreeMap extends React.Component {
@@ -51,21 +54,36 @@ export default class ObjectClassTreeMap extends React.Component {
         this.setState({
             showMinorObjectClass: !this.state.showMinorObjectClass,
             selected
+        }, () => {
+            if (this.state.showMinorObjectClass) {
+                this.props.fetchMinorObjectClasses(selected);
+            }
         });
+    }
+
+    generateHeader() {
+        let header = "Hover over a segment for more information";
+
+        if (this.state.showMinorObjectClass === true) {
+            header = "Back to Treemap";
+        }
+
+        return header;
     }
 
     generateObjectClasses() {
         let objectClasses = (<MajorObjectClasses
             {...this.state}
-            objectClassData={this.props.objectClassData}
+            majorObjectClasses={this.props.majorObjectClasses}
             totalObligation={this.props.totalObligation}
             toggleMinorObjectClass={this.toggleMinorObjectClass} />);
 
         if (this.state.showMinorObjectClass === true) {
             objectClasses = (<MinorObjectClasses
                 {...this.state}
-                objectClassData={this.props.objectClassData}
+                minorObjectClasses={this.props.minorObjectClasses}
                 totalObligation={this.props.totalObligation}
+                totalMinorObligation={this.props.totalMinorObligation}
                 toggleMinorObjectClass={this.toggleMinorObjectClass} />);
         }
 
@@ -79,6 +97,9 @@ export default class ObjectClassTreeMap extends React.Component {
                 ref={(sr) => {
                     this.sectionWrapper = sr;
                 }}>
+                <div className="usa-da-treemap-header">
+                    {this.generateHeader()}
+                </div>
                 {this.generateObjectClasses()}
             </div>
         );

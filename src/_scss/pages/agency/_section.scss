@@ -30,6 +30,15 @@
 
         .usa-da-treemap-section {
             background: white;
+            padding-top: rem(50);
+        }
+
+        .usa-da-treemap-header {
+            font-style: italic;
+            color: $color-gray;
+            font-size: rem(12);
+            line-height: $base-line-height;
+            margin-bottom: rem(4);
         }
     }
 }

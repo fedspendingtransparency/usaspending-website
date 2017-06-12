@@ -70,12 +70,13 @@ export default class MajorObjectClasses extends React.Component {
     }
 
     buildTree(treeProps) {
+        // grab the major object class data
         const objectClasses = treeProps.objectClassData;
 
-        // Remove negative values
+        // remove negative values from the children, as we can't display those in the treemap
         _.remove(objectClasses.children, (v) => parseFloat(v.obligated_amount) <= 0);
 
-        // Order by value, descending
+        // order by value, descending, after converting `obligated_amount` strings to floats
         const finalObjectClasses = {
             children: _.orderBy(objectClasses.children,
                 (oc) => parseFloat(oc.obligated_amount),

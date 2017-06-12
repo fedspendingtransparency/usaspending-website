@@ -12,7 +12,7 @@ import ObjectClassCell from './ObjectClassCell';
 import ObjectClassTooltip from './ObjectClassTooltip';
 
 const propTypes = {
-    objectClassData: React.PropTypes.object,
+    minorObjectClasses: React.PropTypes.object,
     toggleMinorObjectClass: React.PropTypes.func,
     showMinorObjectClass: React.PropTypes.bool,
     totalObligation: React.PropTypes.number

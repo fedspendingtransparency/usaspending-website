@@ -27,24 +27,30 @@ export class ObjectClassContainer extends React.Component {
             loading: true,
             error: false,
             inFlight: true,
-            objectClassData: {
+            majorObjectClasses: {
                 children: []
             },
-            totalObligation: 0
+            minorObjectClasses: {
+                children: []
+            },
+            totalObligation: 0,
+            totalMinorObligation: 0
         };
+
+        this.fetchMinorObjectClasses = this.fetchMinorObjectClasses.bind(this);
     }
 
     componentWillMount() {
-        this.loadData(this.props.id, this.props.active_fy);
+        this.fetchMajorObjectClasses(this.props.id, this.props.active_fy);
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.id !== nextProps.id) {
-            this.loadData(nextProps.id, nextProps.active_fy);
+            this.fetchMajorObjectClasses(nextProps.id, nextProps.active_fy);
         }
     }
 
-    loadData(agencyID, fiscalYear) {
+    fetchMajorObjectClasses(agencyID, fiscalYear) {
         if (this.searchRequest) {
             // A request is currently in-flight, cancel it
             this.searchRequest.cancel();
@@ -55,12 +61,13 @@ export class ObjectClassContainer extends React.Component {
         //     funding_agency_id: agencyID
         // };
 
+        // Todo - Mike Bray: Remove once this data is available
         const params = {
             fiscal_year: 2017,
             funding_agency_id: 246
         };
 
-        this.searchRequest = AgencyHelper.fetchAgencyObjectClasses(params);
+        this.searchRequest = AgencyHelper.fetchAgencyMajorObjectClasses(params);
 
         this.setState({
             inFlight: true
@@ -88,10 +95,80 @@ export class ObjectClassContainer extends React.Component {
                 );
 
                 this.setState({
-                    objectClassData: {
+                    majorObjectClasses: {
                         children: res.data.results
                     },
-                    totalObligation
+                    minorObjectClasses: {
+                        children: []
+                    },
+                    totalObligation,
+                    totalMinorObligation: 0
+                });
+            })
+            .catch((err) => {
+                this.searchRequest = null;
+
+                this.setState({
+                    inFlight: false
+                });
+
+                if (!isCancel(err)) {
+                    console.log(err);
+                }
+            });
+    }
+
+    fetchMinorObjectClasses(majorObjectClassCode) {
+        if (this.searchRequest) {
+            // A request is currently in-flight, cancel it
+            this.searchRequest.cancel();
+        }
+
+        // const params = {
+        //     fiscal_year: this.props.active_fy,
+        //     funding_agency_id: this.props.id,
+        //     major_object_class_code: majorObjectClassCode
+        // };
+
+        // Todo - Mike Bray: Remove once this data is available
+        const params = {
+            fiscal_year: 2017,
+            funding_agency_id: 246,
+            major_object_class_code: majorObjectClassCode
+        };
+
+        this.searchRequest = AgencyHelper.fetchAgencyMinorObjectClasses(params);
+
+        this.setState({
+            inFlight: true
+        });
+
+        this.searchRequest.promise
+            .then((res) => {
+                this.searchRequest = null;
+
+                this.setState({
+                    inFlight: false
+                });
+
+                // Sum the positive obligated_amounts in the returned object classes
+                // to produce the total obligation amount
+                const totalMinorObligation = reduce(
+                    res.data.results,
+                    (sum, objectClass) => {
+                        if (parseFloat(objectClass.obligated_amount) >= 0) {
+                            return sum + parseFloat(objectClass.obligated_amount);
+                        }
+                        return sum;
+                    },
+                    0
+                );
+
+                this.setState({
+                    minorObjectClasses: {
+                        children: res.data.results
+                    },
+                    totalMinorObligation
                 });
             })
             .catch((err) => {
@@ -125,8 +202,11 @@ export class ObjectClassContainer extends React.Component {
                 </div>
                 <div className="agency-section-content">
                     <ObjectClassTreeMap
-                        objectClassData={this.state.objectClassData}
-                        totalObligation={this.state.totalObligation} />
+                        majorObjectClasses={this.state.majorObjectClasses}
+                        minorObjectClasses={this.state.minorObjectClasses}
+                        totalObligation={this.state.totalObligation}
+                        totalMinorObligation={this.state.totalMinorObligations}
+                        fetchMinorObjectClasses={this.fetchMinorObjectClasses} />
                 </div>
             </div>
         );
