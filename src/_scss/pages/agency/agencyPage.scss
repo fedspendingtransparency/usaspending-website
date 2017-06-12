@@ -11,6 +11,7 @@
         padding:  0;
 
         @import "./_positioning";
+        @import "./_contentWrap";
         @import "elements/_divider";
 
         @import "./_sidebar";

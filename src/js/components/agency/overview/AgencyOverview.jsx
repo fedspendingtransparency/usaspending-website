@@ -24,10 +24,10 @@ export default class AgencyOverview extends React.Component {
         }
 
         return (
-            <div className="agency-overview">
-                <div
-                    className="title-wrapper"
-                    id="agency-overview">
+            <div
+                className="agency-overview"
+                id="agency-overview">
+                <div className="title-wrapper">
                     <div className={`logo ${hideLogo}`}>
                         {logo}
                     </div>
