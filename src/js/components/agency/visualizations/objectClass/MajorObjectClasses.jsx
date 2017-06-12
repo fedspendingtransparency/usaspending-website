@@ -13,7 +13,7 @@ import ObjectClassCell from './ObjectClassCell';
 import ObjectClassTooltip from './ObjectClassTooltip';
 
 const propTypes = {
-    objectClassData: React.PropTypes.object,
+    majorObjectClasses: React.PropTypes.object,
     toggleMinorObjectClass: React.PropTypes.func,
     showMinorObjectClass: React.PropTypes.bool,
     totalObligation: React.PropTypes.number
@@ -45,7 +45,7 @@ export default class MajorObjectClasses extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.objectClassData.children.length > 0) {
+        if (nextProps.majorObjectClasses.children.length > 0) {
             this.buildTree(nextProps);
         }
     }
@@ -63,7 +63,7 @@ export default class MajorObjectClasses extends React.Component {
                 windowWidth,
                 visualizationWidth: this.sectionWrapper.offsetWidth
             });
-            if (this.props.objectClassData.children.length > 0) {
+            if (this.props.majorObjectClasses.children.length > 0) {
                 this.buildTree(this.props);
             }
         }
@@ -71,7 +71,7 @@ export default class MajorObjectClasses extends React.Component {
 
     buildTree(treeProps) {
         // grab the major object class data
-        const objectClasses = treeProps.objectClassData;
+        const objectClasses = treeProps.majorObjectClasses;
 
         // remove negative values from the children, as we can't display those in the treemap
         _.remove(objectClasses.children, (v) => parseFloat(v.obligated_amount) <= 0);
@@ -202,7 +202,7 @@ export default class MajorObjectClasses extends React.Component {
         }
 
         if (this.state.hoveredObjectClass > -1) {
-            const objectClass = _.find(this.props.objectClassData.children,
+            const objectClass = _.find(this.props.majorObjectClasses.children,
                 { major_object_class_code: `${this.state.hoveredObjectClass}` });
 
             const node = _.find(this.state.finalNodes,

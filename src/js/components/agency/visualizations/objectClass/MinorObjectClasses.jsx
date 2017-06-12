@@ -7,6 +7,7 @@ import React from 'react';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
 import _ from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as TreemapHelper from 'helpers/treemapHelper';
 
 import ObjectClassCell from './ObjectClassCell';
 import ObjectClassTooltip from './ObjectClassTooltip';
@@ -15,7 +16,7 @@ const propTypes = {
     minorObjectClasses: React.PropTypes.object,
     toggleMinorObjectClass: React.PropTypes.func,
     showMinorObjectClass: React.PropTypes.bool,
-    totalObligation: React.PropTypes.number
+    totalMinorObligation: React.PropTypes.number
 };
 
 export default class MinorObjectClasses extends React.Component {
@@ -25,7 +26,7 @@ export default class MinorObjectClasses extends React.Component {
         this.state = {
             windowWidth: 0,
             visualizationWidth: 0,
-            visualizationHeight: 565,
+            visualizationHeight: 286,
             finalNodes: [],
             showOverlay: true,
             hoveredFunction: -1
@@ -44,7 +45,7 @@ export default class MinorObjectClasses extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.objectClassData.children.length > 0) {
+        if (nextProps.minorObjectClasses.children.length > 0) {
             this.buildTree(nextProps);
         }
     }
@@ -62,7 +63,7 @@ export default class MinorObjectClasses extends React.Component {
                 windowWidth,
                 visualizationWidth: this.sectionWrapper.offsetWidth
             });
-            if (this.props.categories.children.length > 0) {
+            if (this.props.minorObjectClasses.children.length > 0) {
                 this.buildTree(this.props);
             }
         }
@@ -94,17 +95,14 @@ export default class MinorObjectClasses extends React.Component {
         // build the tiles
         const nodes = budgetFunctionTreemap.map((n, i) => {
             let cell = '';
-            let cellColor = treeProps.colors[i];
-            let strokeColor = 'white';
-            let strokeOpacity = 0.5;
-            let opacity = 1;
-            let textColor = treeProps.tooltipStyles.defaultStyle.textColor;
+            let cellColor = TreemapHelper.treemapColors[i];
+            let textColor = TreemapHelper.tooltipStyles.defaultStyle.textColor;
             let textClass = '';
 
-            // Set highlighted state for hovered function
-            if (this.state.hoveredFunction === n.data.id) {
-                cellColor = treeProps.tooltipStyles.highlightedStyle.color;
-                textColor = treeProps.tooltipStyles.highlightedStyle.textColor;
+            // Set highlighted state for hovered object class
+            if (this.state.hoveredObjectClass === n.data.object_class_code) {
+                cellColor = TreemapHelper.tooltipStyles.highlightedStyle.color;
+                textColor = TreemapHelper.tooltipStyles.highlightedStyle.textColor;
                 textClass = 'chosen';
             }
 
@@ -126,22 +124,22 @@ export default class MinorObjectClasses extends React.Component {
             if (n.value !== 0) {
                 cell = (<ObjectClassCell
                     {...treeProps}
-                    label={n.data.name}
+                    label={n.data.object_class_name}
                     value={n.value}
                     x0={n.x0}
                     x1={n.x1}
                     y0={n.y0}
                     y1={n.y1}
                     total={n.parent.value}
-                    key={i}
-                    functionID={n.data.id}
+                    key={n.data.object_class_code}
+                    objectClassID={n.data.object_class_code}
                     color={cellColor}
-                    strokeColor={strokeColor}
-                    strokeOpacity={strokeOpacity}
-                    tooltipStyles={treeProps.tooltipStyles}
+                    strokeColor={'white'}
+                    strokeOpacity={0.5}
+                    tooltipStyles={TreemapHelper.tooltipStyles}
                     toggleTooltipIn={this.toggleTooltipIn}
                     toggleTooltipOut={this.toggleTooltipOut}
-                    opacity={opacity}
+                    opacity={1}
                     textColor={textColor}
                     textClass={textClass}
                     labelView={labelView}
@@ -185,30 +183,25 @@ export default class MinorObjectClasses extends React.Component {
         }
 
         if (this.state.hoveredFunction > -1) {
-            const category = _.find(
-                this.props.categories.children,
-                { id: this.state.hoveredFunction });
-            const description = _.find(
-                this.props.descriptions,
-                { id: this.state.hoveredFunction });
-            const node = _.find(
-                this.state.finalNodes,
-                { key: `${this.state.hoveredFunction}` });
+            const objectClass = _.find(this.props.minorObjectClasses.children,
+                { object_class_code: `${this.state.hoveredObjectClass}` });
+
+            const node = _.find(this.state.finalNodes,
+                { key: `${this.state.hoveredObjectClass}` });
 
             tooltip = (<ObjectClassTooltip
-                name={category.name}
-                value={MoneyFormatter.formatTreemapValues(category.value)}
+                name={objectClass.object_class_name}
+                value={MoneyFormatter.formatTreemapValues(objectClass.obligated_amount)}
                 percentage={MoneyFormatter.calculateTreemapPercentage(
-                    category.value, this.props.totalNumber)
+                    objectClass.obligated_amount, this.props.totalMinorObligation)
                 }
-                description={description.value}
+                description={''}
                 x={node.props.x0}
                 y={node.props.y0}
                 width={node.props.width}
                 height={node.props.height}
-                showSubfunctions={this.props.showMinorObjectClass}
-                sectionHeight={sectionHeight}
-                isSubfunctions={false} />);
+                showMinorObjectClass={this.props.showMinorObjectClass}
+                sectionHeight={sectionHeight} />);
         }
 
         return tooltip;

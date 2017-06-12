@@ -188,15 +188,15 @@ export class ObjectClassContainer extends React.Component {
         const total = MoneyFormatter.formatTreemapValues(this.state.totalObligation);
 
         return (
-            <div className="agency-section-wrapper">
+            <div
+                className="agency-section-wrapper"
+                id="agency-object-classes">
                 <div className="agency-callout-description">
                     This {total} in obligations is divided among categories,
                     called object classes. These groupings can be helpful for analysis
                     and cross-agency comparison.
                 </div>
-                <div
-                    className="agency-section-title"
-                    id="agency-objectClasses">
+                <div className="agency-section-title">
                     <h4>Object Class</h4>
                     <hr className="results-divider" />
                 </div>
