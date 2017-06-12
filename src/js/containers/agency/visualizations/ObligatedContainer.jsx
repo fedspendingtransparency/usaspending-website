@@ -48,7 +48,7 @@ export class ObligatedContainer extends React.Component {
                 activeFY={2017}
                 agency="U.S. Department of Energy (DOE)"
                 obligatedAmount={18800000000}
-                budgetAuthority={3840000000000} />
+                budgetAuthority={38400000000} />
         );
     }
 }

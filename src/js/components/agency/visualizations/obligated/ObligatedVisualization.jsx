@@ -5,6 +5,9 @@
 
 import React from 'react';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import _ from 'lodash';
+
+import AgencyObligatedGraph from './ObligatedGraph';
 
 const propTypes = {
     activeFY: React.PropTypes.number,
@@ -14,6 +17,38 @@ const propTypes = {
 };
 
 export default class AgencyObligatedAmount extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            windowWidth: 0,
+            visualizationWidth: 0
+        };
+
+        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+    }
+
+    componentDidMount() {
+        this.handleWindowResize();
+        window.addEventListener('resize', this.handleWindowResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize);
+    }
+
+    handleWindowResize() {
+        // determine if the width changed
+        const windowWidth = window.innerWidth;
+        if (this.state.windowWidth !== windowWidth) {
+            // width changed, update the visualization width
+            this.setState({
+                windowWidth,
+                visualizationWidth: this.sectionHr.offsetWidth
+            });
+        }
+    }
+
     render() {
         const obligatedValue = this.props.obligatedAmount;
         const authorityValue = this.props.budgetAuthority;
@@ -31,7 +66,11 @@ export default class AgencyObligatedAmount extends React.Component {
             <div className="agency-obligated-wrapper">
                 <div className="agency-obligated-title">
                     <h4 >Obligated Amount</h4>
-                    <hr className="results-divider" />
+                    <hr
+                        className="results-divider"
+                        ref={(hr) => {
+                            this.sectionHr = hr;
+                        }} />
                 </div>
                 <div className="agency-obligated-content">
                     <p className="fy-text">
@@ -40,6 +79,12 @@ export default class AgencyObligatedAmount extends React.Component {
                     <p className="against-auth-text">
                         <span className="number number-bolder">{amountObligated}</span> against its <span className="number">{authority}</span> in Budget Authority
                     </p>
+                    <AgencyObligatedGraph
+                        activeFY={this.props.activeFY}
+                        obligatedAmount={this.props.obligatedAmount}
+                        budgetAuthority={this.props.budgetAuthority}
+                        width={this.state.visualizationWidth}
+                        obligatedText={amountObligated} />
                     <p>
                         This {amountObligated} in obligations is divided among
                         categories, called object classes. These groupings can be helpful for analysis and cross-agency
