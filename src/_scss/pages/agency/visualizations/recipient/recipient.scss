@@ -1,0 +1,8 @@
+#agency-recipients {
+    @import "./_scope";
+
+    .chart-wrapper {
+        position: relative;
+        @import "pages/search/results/visualizations/rank/chart/rankChart";
+    }
+}

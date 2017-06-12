@@ -50,7 +50,8 @@ export class AgencyContainer extends React.Component {
                 agency_id: id,
                 agency_name: 'U.S. Department of Energy',
                 agency_abbreviation: 'DOE',
-                agency_logo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Seal_of_the_United_States_Department_of_Energy.svg/500px-Seal_of_the_United_States_Department_of_Energy.svg.png'
+                agency_logo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Seal_of_the_United_States_Department_of_Energy.svg/500px-Seal_of_the_United_States_Department_of_Energy.svg.png',
+                active_fy: '2017'
             });
         });
     }
