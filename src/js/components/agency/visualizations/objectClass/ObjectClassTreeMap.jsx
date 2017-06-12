@@ -6,6 +6,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+
 import MajorObjectClasses from './MajorObjectClasses';
 import MinorObjectClasses from './MinorObjectClasses';
 
@@ -91,16 +93,33 @@ export default class ObjectClassTreeMap extends React.Component {
     }
 
     render() {
+        const total = MoneyFormatter.formatTreemapValues(this.props.totalObligation);
+
         return (
             <div
-                className="usa-da-treemap-section"
-                ref={(sr) => {
-                    this.sectionWrapper = sr;
-                }}>
-                <div className="usa-da-treemap-header">
-                    {this.generateHeader()}
+                className="agency-section-wrapper"
+                id="agency-object-classes">
+                <div className="agency-callout-description">
+                    This {total} in obligations is divided among categories,
+                    called object classes. These groupings can be helpful for analysis
+                    and cross-agency comparison.
                 </div>
-                {this.generateObjectClasses()}
+                <div className="agency-section-title">
+                    <h4>Object Classes</h4>
+                    <hr className="results-divider" />
+                </div>
+                <div className="agency-section-content">
+                    <div
+                        className="usa-da-treemap-section"
+                        ref={(sr) => {
+                            this.sectionWrapper = sr;
+                        }}>
+                        <div className="usa-da-treemap-header">
+                            {this.generateHeader()}
+                        </div>
+                        {this.generateObjectClasses()}
+                    </div>
+                </div>
             </div>
         );
     }

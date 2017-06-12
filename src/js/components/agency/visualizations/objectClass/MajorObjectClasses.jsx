@@ -83,10 +83,9 @@ export default class MajorObjectClasses extends React.Component {
                 'desc')
         };
 
-        // put the data through d3's hierarchy system to sum and sort it
+        // put the data through d3's hierarchy system to sum it
         const root = hierarchy(finalObjectClasses)
-            .sum((d) => (d.obligated_amount))
-            .sort((a, b) => b.height - a.height || b.obligated_amount - a.obligated_amount);
+            .sum((d) => (d.obligated_amount));
 
         // set up a treemap object and pass in the root
         let tileStyle = treemapBinary;
