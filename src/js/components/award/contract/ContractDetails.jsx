@@ -93,6 +93,9 @@ export default class ContractDetails extends React.Component {
         else if (!award.pop_city && award.pop_state_province && award.pop_country && !popZip) {
             popPlace = `${award.pop_state_province}, ${award.pop_country}`;
         }
+        popPlace +=
+        `\nCongressional District: ${award.pop_state_code}-${award.pop_congressional_district}`;
+
         if (award.description) {
             description = award.description;
         }

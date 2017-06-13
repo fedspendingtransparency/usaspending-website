@@ -33,6 +33,7 @@ const fields = [
     'recipient_city',
     'recipient_county',
     'recipient_state_province',
+    'recipient_state_code',
     'recipient_zip_postal',
     'recipient_country',
     'recipient_country_code',
@@ -61,6 +62,7 @@ const fields = [
     'recipient_fax',
     'pop_congressional_district',
     'pop_county',
+    'pop_state_code',
     'contract_parent_id',
     'contract_idv_type',
     'contract_idc_type',
@@ -122,6 +124,7 @@ const remapData = (data, idField) => {
     let recipientCity = '';
     let recipientCounty = '';
     let recipientStateProvince = '';
+    let recipientStateCode = '';
     let recipientZipPostal = '';
     let recipientCountry = '';
     let recipientCountryCode = '';
@@ -143,6 +146,7 @@ const remapData = (data, idField) => {
     let recipientFax = '';
     let popCongressionalDistrict = '';
     let popCounty = '';
+    let popStateCode = '';
     let contractParentId = '';
     let contractIdvType = '';
     let contractIdcType = '';
@@ -248,6 +252,9 @@ const remapData = (data, idField) => {
         if (data.place_of_performance.zip5) {
             popZip = data.place_of_performance.zip5;
         }
+        else if (data.place_of_performance.zip4) {
+            popZip = data.place_of_performance.zip4.slice(0, 5);
+        }
 
         if (data.place_of_performance.country_name) {
             popCountry = data.place_of_performance.country_name;
@@ -259,6 +266,9 @@ const remapData = (data, idField) => {
 
         if (data.place_of_performance.county_name) {
             popCounty = data.place_of_performance.county_name;
+        }
+        if (data.place_of_performance.state_code) {
+            popStateCode = data.place_of_performance.state_code;
         }
     }
 
@@ -425,6 +435,7 @@ const remapData = (data, idField) => {
     remappedData.pop_country = popCountry;
     remappedData.pop_congressional_district = popCongressionalDistrict;
     remappedData.pop_county = popCounty;
+    remappedData.pop_state_code = popStateCode;
     remappedData.latest_transaction = latestTransaction;
     remappedData.type_of_contract_pricing = contractPricingCode;
     remappedData.type_of_contract_pricing_description = contractPricing;
@@ -519,9 +530,14 @@ const remapData = (data, idField) => {
         else if (loc.foreign_province) {
             recipientStateProvince = loc.foreign_province;
         }
-
+        if (loc.state_code) {
+            recipientStateCode = loc.state_code;
+        }
         if (loc.zip5) {
             recipientZipPostal = loc.zip5;
+        }
+        else if (loc.zip4) {
+            recipientZipPostal = loc.zip4.slice(0, 5);
         }
         else if (loc.foreign_postal_code) {
             recipientZipPostal = loc.foreign_postal_code;
@@ -559,6 +575,7 @@ const remapData = (data, idField) => {
     remappedData.recipient_city = recipientCity;
     remappedData.recipient_county = recipientCounty;
     remappedData.recipient_state_province = recipientStateProvince;
+    remappedData.recipient_state_code = recipientStateCode;
     remappedData.recipient_zip_postal = recipientZipPostal;
     remappedData.recipient_country = recipientCountry;
     remappedData.recipient_country_code = recipientCountryCode;
