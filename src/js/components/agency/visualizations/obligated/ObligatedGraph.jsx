@@ -25,7 +25,11 @@ export default class AgencyObligatedGraph extends React.Component {
         const authorityValue = this.props.budgetAuthority;
         const remainderValue = authorityValue - obligatedValue;
 
-        const obligatedPercent = (obligatedValue / authorityValue);
+        let obligatedPercent = 0;
+
+        if (obligatedValue !== 0 && authorityValue !== 0) {
+            obligatedPercent = (obligatedValue / authorityValue);
+        }
         const obligatedWidth = this.props.width * obligatedPercent;
         const remainderWidth = this.props.width - obligatedWidth;
 

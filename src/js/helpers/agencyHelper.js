@@ -21,3 +21,20 @@ export const fetchAgencyOverview = (id) => {
         }
     };
 };
+
+// Get Obligated Amount and Budget Authority Amount
+export const fetchObligatedAmounts = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/financial_balances/agencies/`,
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
