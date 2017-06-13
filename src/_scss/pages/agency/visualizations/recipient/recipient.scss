@@ -4,5 +4,10 @@
     .chart-wrapper {
         position: relative;
         @import "pages/search/results/visualizations/rank/chart/rankChart";
+
+        .results-visualization-message {
+            font-size: $small-font-size;
+            text-align: center;
+        }
     }
 }

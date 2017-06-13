@@ -5,10 +5,14 @@
 
 import React from 'react';
 
-import HorizontalChart from 'components/search/visualizations/rank/chart/HorizontalChart';
+import ChartMessage from 'components/search/visualizations/rank/RankVisualizationChartMessage';
+
 import ScopeList from './ScopeList';
+import RecipientChart from './RecipientChart';
 
 const propTypes = {
+    loading: React.PropTypes.bool,
+    error: React.PropTypes.bool,
     scope: React.PropTypes.string,
     changeScope: React.PropTypes.func,
     labelSeries: React.PropTypes.array,
@@ -16,9 +20,6 @@ const propTypes = {
     descriptions: React.PropTypes.array
 };
 
-const rowHeight = 60;
-const axisHeight = 30;
-const maxRows = 10;
 
 export default class RecipientVisualization extends React.Component {
     constructor(props) {
@@ -27,7 +28,8 @@ export default class RecipientVisualization extends React.Component {
         this.state = {
             windowWidth: 0,
             visualizationWidth: 0,
-            labelWidth: 0
+            labelWidth: 0,
+            page: 1
         };
 
         this.handleWindowResize = this.handleWindowResize.bind(this);
@@ -56,6 +58,28 @@ export default class RecipientVisualization extends React.Component {
     }
 
     render() {
+        let chart = null;
+        if (this.props.loading) {
+            // loading
+            chart = (<ChartMessage message="Loading data..." />);
+        }
+        else if (this.props.error) {
+            // error
+            chart = (<ChartMessage message="An error occurred." />);
+        }
+        else if (this.props.dataSeries.length === 0) {
+            // no data
+            chart = (<ChartMessage message="No data to display." />);
+        }
+        else {
+            chart = (<RecipientChart
+                labelSeries={this.props.labelSeries}
+                dataSeries={this.props.dataSeries}
+                descriptions={this.props.descriptions}
+                width={this.state.visualizationWidth}
+                labelWidth={this.state.labelWidth} />);
+        }
+
         return (
             <div
                 className="agency-section-wrapper"
@@ -77,15 +101,8 @@ or foreign). Here is a look at who these recipients are and how they rank by awa
                     <ScopeList
                         scope={this.props.scope}
                         changeScope={this.props.changeScope} />
-
                     <div className="chart-wrapper">
-                        <HorizontalChart
-                            labelSeries={this.props.labelSeries}
-                            dataSeries={this.props.dataSeries}
-                            descriptions={this.props.descriptions}
-                            height={(maxRows * rowHeight) + axisHeight}
-                            width={this.state.visualizationWidth}
-                            labelWidth={this.state.labelWidth} />
+                        {chart}
                     </div>
                 </div>
             </div>
