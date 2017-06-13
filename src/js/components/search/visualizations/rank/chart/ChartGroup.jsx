@@ -103,8 +103,8 @@ export default class ChartGroup extends React.Component {
     }
 
     clickedLabel() {
-        if (this.props.clickedGroup) {
-            this.props.clickedGroup(this.props.index);
+        if (this.props.linkID !== '') {
+            window.location = `${this.props.urlRoot}${this.props.linkID}`;
         }
     }
 
