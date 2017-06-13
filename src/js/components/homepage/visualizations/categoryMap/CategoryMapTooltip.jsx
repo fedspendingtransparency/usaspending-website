@@ -78,7 +78,7 @@ export default class CategoryMapTooltip extends React.Component {
                     <div className="tooltip-body">
                         <div className="tooltip-full">
                             <div className="tooltip-value">
-                                {MoneyFormatter.formatMoney(this.props.dollar)}
+                                {MoneyFormatter.formatTreemapValues(this.props.dollar)}
                             </div>
                             <div className="tooltip-description">
                                 {this.props.description}
