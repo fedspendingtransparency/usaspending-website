@@ -28,8 +28,7 @@ export default class RecipientVisualization extends React.Component {
         this.state = {
             windowWidth: 0,
             visualizationWidth: 0,
-            labelWidth: 0,
-            page: 1
+            labelWidth: 0
         };
 
         this.handleWindowResize = this.handleWindowResize.bind(this);

@@ -1,9 +1,10 @@
 /**
- * RankVisualizationTooltip.jsx
- * Created by Kevin Li 2/9/17
+ * RecipientTooltip.jsx
+ * Created by Kevin Li 6/13/17
  */
 
 import React from 'react';
+import { isEqual } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -11,14 +12,20 @@ const propTypes = {
     label: React.PropTypes.string,
     value: React.PropTypes.number,
     y: React.PropTypes.number,
-    x: React.PropTypes.number,
-    visualization: React.PropTypes.object
+    x: React.PropTypes.number
 };
 
-export default class RankVisualizationTooltip extends React.Component {
+export default class RecipientTooltip extends React.Component {
     componentDidMount() {
         this.positionTooltip();
     }
+
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps, this.props)) {
+            this.positionTooltip();
+        }
+    }
+
     positionTooltip() {
         // we need to wait for the tooltip to render before we can full position it due to its
         // dynamic width
@@ -73,7 +80,7 @@ export default class RankVisualizationTooltip extends React.Component {
                                 {MoneyFormatter.formatMoney(this.props.value)}
                             </div>
                             <div className="tooltip-label">
-                                Spending by {this.props.label}
+                                Awarded Amount
                             </div>
                         </div>
                     </div>
@@ -83,4 +90,4 @@ export default class RankVisualizationTooltip extends React.Component {
     }
 }
 
-RankVisualizationTooltip.propTypes = propTypes;
+RecipientTooltip.propTypes = propTypes;

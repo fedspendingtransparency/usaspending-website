@@ -9,5 +9,9 @@
             font-size: $small-font-size;
             text-align: center;
         }
+
+        .visualization-tooltip {
+            @import "components/visualizations/tooltip/_tooltip";
+        }
     }
 }

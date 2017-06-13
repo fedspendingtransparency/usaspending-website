@@ -26,6 +26,7 @@ export default class RecipientContainer extends React.Component {
             loading: true,
             error: false,
             scope: 'all',
+            page: 1,
             labelSeries: [],
             dataSeries: [],
             descriptions: []
@@ -63,7 +64,9 @@ export default class RecipientContainer extends React.Component {
 
         this.request = AgencyHelper.fetchAwardRecipients({
             fiscal_year: fy,
-            awarding_agency_id: id
+            awarding_agency_id: id,
+            limit: 10,
+            page: this.state.page
         });
 
         this.request.promise
@@ -122,7 +125,8 @@ ${recipient}`;
 
     changeScope(scope) {
         this.setState({
-            scope
+            scope,
+            page: 1 // go back to the first page
         }, () => {
             this.loadData(this.props.id, this.props.activeFY);
         });
