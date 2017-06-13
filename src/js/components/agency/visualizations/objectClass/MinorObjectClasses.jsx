@@ -8,15 +8,16 @@ import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
 import _ from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
+import { objectClassDefinitions } from 'dataMapping/agency/objectClassDefinitions';
 
 import ObjectClassCell from './ObjectClassCell';
 import ObjectClassTooltip from './ObjectClassTooltip';
 
 const propTypes = {
+    majorObjectClass: React.PropTypes.object,
     minorObjectClasses: React.PropTypes.object,
-    toggleMinorObjectClass: React.PropTypes.func,
-    showMinorObjectClass: React.PropTypes.bool,
-    totalMinorObligation: React.PropTypes.number
+    totalObligation: React.PropTypes.number,
+    totalMinorObligation: React.PropTypes.number,
 };
 
 export default class MinorObjectClasses extends React.Component {
@@ -29,7 +30,7 @@ export default class MinorObjectClasses extends React.Component {
             visualizationHeight: 286,
             finalNodes: [],
             showOverlay: true,
-            hoveredFunction: -1
+            hoveredObjectClass: -1
         };
 
         this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
@@ -70,10 +71,22 @@ export default class MinorObjectClasses extends React.Component {
     }
 
     buildTree(treeProps) {
+        // grab the minor object class data
+        const objectClasses = treeProps.minorObjectClasses;
+
+        // remove negative values from the children, as we can't display those in the treemap
+        _.remove(objectClasses.children, (v) => parseFloat(v.obligated_amount) <= 0);
+
+        // order by value, descending, after converting `obligated_amount` strings to floats
+        const finalObjectClasses = {
+            children: _.orderBy(objectClasses.children,
+                (oc) => parseFloat(oc.obligated_amount),
+                'desc')
+        };
+
         // put the data through d3's hierarchy system to sum and sort it
-        const root = hierarchy(treeProps.categories)
-            .sum((d) => (d.value))
-            .sort((a, b) => b.height - a.height || b.value - a.value);
+        const root = hierarchy(finalObjectClasses)
+            .sum((d) => (d.obligated_amount));
 
         // set up a treemap object and pass in the root
         let tileStyle = treemapBinary;
@@ -146,7 +159,7 @@ export default class MinorObjectClasses extends React.Component {
                     width={width}
                     height={height}
                     percentView={percentView}
-                    clickable />);
+                    clickable={false} />);
             }
 
             return cell;
@@ -157,9 +170,9 @@ export default class MinorObjectClasses extends React.Component {
         });
     }
 
-    toggleTooltipIn(functionID) {
+    toggleTooltipIn(objectClassId) {
         this.setState({
-            hoveredFunction: functionID
+            hoveredObjectClass: objectClassId
         }, () => {
             this.buildTree(this.props);
         });
@@ -167,7 +180,7 @@ export default class MinorObjectClasses extends React.Component {
 
     toggleTooltipOut() {
         this.setState({
-            hoveredFunction: -1
+            hoveredObjectClass: -1
         }, () => {
             this.buildTree(this.props);
         });
@@ -182,9 +195,11 @@ export default class MinorObjectClasses extends React.Component {
             sectionHeight = this.sectionWrapper.getBoundingClientRect().height;
         }
 
-        if (this.state.hoveredFunction > -1) {
+        if (this.state.hoveredObjectClass > -1) {
             const objectClass = _.find(this.props.minorObjectClasses.children,
                 { object_class_code: `${this.state.hoveredObjectClass}` });
+
+            const objectClassDefinition = objectClassDefinitions[this.state.hoveredObjectClass];
 
             const node = _.find(this.state.finalNodes,
                 { key: `${this.state.hoveredObjectClass}` });
@@ -195,12 +210,12 @@ export default class MinorObjectClasses extends React.Component {
                 percentage={MoneyFormatter.calculateTreemapPercentage(
                     objectClass.obligated_amount, this.props.totalMinorObligation)
                 }
-                description={''}
+                description={objectClassDefinition.description}
                 x={node.props.x0}
                 y={node.props.y0}
                 width={node.props.width}
                 height={node.props.height}
-                showMinorObjectClass={this.props.showMinorObjectClass}
+                showMinorObjectClass
                 sectionHeight={sectionHeight} />);
         }
 
@@ -208,8 +223,20 @@ export default class MinorObjectClasses extends React.Component {
     }
 
     render() {
+        const value = this.props.majorObjectClass.obligated_amount;
+        const totalSpend = MoneyFormatter.formatTreemapValues(value);
+        const percentage = MoneyFormatter.calculateTreemapPercentage(
+            value, this.props.totalObligation);
+        const objectClassDefinition =
+            objectClassDefinitions[this.props.majorObjectClass.major_object_class_code];
+
         return (
             <div className="treemap-inner-wrap">
+                <div className="function-desc">
+                    <h1>{this.props.majorObjectClass.major_object_class_name}</h1>
+                    <h6>{totalSpend} | {percentage} of total spending</h6>
+                    <p>{objectClassDefinition.description}</p>
+                </div>
                 { this.createTooltip() }
                 <div
                     className="tree-wrapper"

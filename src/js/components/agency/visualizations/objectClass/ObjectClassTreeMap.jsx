@@ -7,6 +7,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import MajorObjectClasses from './MajorObjectClasses';
 import MinorObjectClasses from './MinorObjectClasses';
@@ -67,7 +68,11 @@ export default class ObjectClassTreeMap extends React.Component {
         let header = "Hover over a segment for more information";
 
         if (this.state.showMinorObjectClass === true) {
-            header = "Back to Treemap";
+            header = (<button
+                className="back"
+                onClick={this.toggleMinorObjectClass}>
+                <Icons.ArrowUp /> Back to Treemap
+            </button>);
         }
 
         return header;
@@ -81,8 +86,12 @@ export default class ObjectClassTreeMap extends React.Component {
             toggleMinorObjectClass={this.toggleMinorObjectClass} />);
 
         if (this.state.showMinorObjectClass === true) {
+            const selectedMajorObjectClass = _.find(this.props.majorObjectClasses.children,
+                { major_object_class_code: this.state.selected });
+
             objectClasses = (<MinorObjectClasses
                 {...this.state}
+                majorObjectClass={selectedMajorObjectClass}
                 minorObjectClasses={this.props.minorObjectClasses}
                 totalObligation={this.props.totalObligation}
                 totalMinorObligation={this.props.totalMinorObligation}
