@@ -27,7 +27,7 @@ export const fetchAgencyMajorObjectClasses = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/financial_spending/object_class/',
+            url: 'v2/financial_spending/major_object_class/',
             baseURL: kGlobalConstants.API,
             method: 'get',
             params,

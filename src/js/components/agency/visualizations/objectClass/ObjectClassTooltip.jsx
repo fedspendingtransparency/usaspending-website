@@ -72,7 +72,7 @@ export default class ObjectClassTooltip extends React.Component {
         }
 
         let size = '';
-        if (this.props.showMinorObjectClass || this.props.arrow) {
+        if (this.props.arrow) {
             size = ' small';
         }
 
@@ -94,7 +94,7 @@ export default class ObjectClassTooltip extends React.Component {
             </div>);
         let smallValue = '';
 
-        if (this.props.showMinorObjectClass === true || this.props.arrow) {
+        if (this.props.arrow) {
             desc = '';
             smallValue = ' small';
         }
