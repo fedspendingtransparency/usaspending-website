@@ -71,7 +71,7 @@ export default class ObjectClassTreeMap extends React.Component {
             header = (<button
                 className="back"
                 onClick={this.toggleMinorObjectClass}>
-                <Icons.ArrowUp /> Back to Treemap
+                <Icons.ArrowUp /> Back to Major Object Classes
             </button>);
         }
 
