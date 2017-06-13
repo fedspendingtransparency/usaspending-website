@@ -8,14 +8,14 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { reduce } from 'lodash';
 
-import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
+// import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
 import * as AgencyHelper from 'helpers/agencyHelper';
 
 import ObjectClassTreeMap from 'components/agency/visualizations/objectClass/ObjectClassTreeMap';
 
 const propTypes = {
     id: React.PropTypes.string,
-    active_fy: React.PropTypes.string
+    activeFY: React.PropTypes.string
 };
 
 export class ObjectClassContainer extends React.Component {
@@ -40,12 +40,12 @@ export class ObjectClassContainer extends React.Component {
     }
 
     componentWillMount() {
-        this.fetchMajorObjectClasses(this.props.id, this.props.active_fy);
+        this.fetchMajorObjectClasses(this.props.id, this.props.activeFY);
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.id !== nextProps.id) {
-            this.fetchMajorObjectClasses(nextProps.id, nextProps.active_fy);
+            this.fetchMajorObjectClasses(nextProps.id, nextProps.activeFY);
         }
     }
 
