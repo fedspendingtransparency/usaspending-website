@@ -12,6 +12,7 @@
   .agency-obligated-content {
 	text-align: center;
     .fy-text {
+      margin-top: rem(76);
       font-style: italic;
     }
     .against-auth-text {
@@ -30,7 +31,16 @@
     }
     .horizontal-bar {
       width: 100%;
-      height: rem(20);
+      height: rem(72);
+      .legend-container {
+        color: $color-gray-medium;
+        .key-label {
+          font-size: rem(12);
+        }
+      }
+    }
+    .object-class-text {
+      margin: rem(100) rem(50) rem(78) rem(50);
     }
   }
 }

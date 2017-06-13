@@ -46,6 +46,7 @@ export class ObligatedContainer extends React.Component {
         return (
             <ObligatedVisualization
                 activeFY={2017}
+                reportingFiscalQuarter={3}
                 agency="U.S. Department of Energy (DOE)"
                 obligatedAmount={18800000000}
                 budgetAuthority={38400000000} />

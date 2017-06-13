@@ -4,6 +4,8 @@
  */
 
 import React from 'react';
+import moment from 'moment';
+import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import _ from 'lodash';
 
@@ -11,6 +13,7 @@ import AgencyObligatedGraph from './ObligatedGraph';
 
 const propTypes = {
     activeFY: React.PropTypes.number,
+    reportingFiscalQuarter: React.PropTypes.number,
     agency: React.PropTypes.string,
     obligatedAmount: React.PropTypes.number,
     budgetAuthority: React.PropTypes.number
@@ -62,6 +65,27 @@ export default class AgencyObligatedAmount extends React.Component {
         const amountObligated = `${MoneyFormatter.formatMoney(obligatedValue / obUnits.unit)}
         ${obUnits.longLabel}`;
 
+        const endOfQuarter = convertQuarterToDate(this.props.reportingFiscalQuarter, this.props.activeFY);
+        const asOfDate = moment(endOfQuarter).format("MMMM D, YYYY");
+
+        const legend = [
+            {
+                color: '#5C7480',
+                label: 'Obligations',
+                offset: 0
+            },
+            {
+                color: '#D6D7D9',
+                label: 'Budget Authority',
+                offset: 100
+            },
+            {
+                color: '#ffffff',
+                label: `*as of ${asOfDate}`,
+                offset: this.state.visualizationWidth - 150
+            }
+        ];
+
         return (
             <div className="agency-obligated-wrapper">
                 <div className="agency-obligated-title">
@@ -81,13 +105,15 @@ export default class AgencyObligatedAmount extends React.Component {
                     </p>
                     <AgencyObligatedGraph
                         activeFY={this.props.activeFY}
+                        reportingFiscalQuarter={this.props.reportingFiscalQuarter}
                         obligatedAmount={this.props.obligatedAmount}
                         budgetAuthority={this.props.budgetAuthority}
                         width={this.state.visualizationWidth}
-                        obligatedText={amountObligated} />
-                    <p>
+                        obligatedText={amountObligated}
+                        legend={legend} />
+                    <p className="object-class-text">
                         This {amountObligated} in obligations is divided among
-                        categories, called object classes. These groupings can be helpful for analysis and cross-agency
+                        categories, called <b>object classes</b>. These groupings can be helpful for analysis and cross-agency
                         comparison.
                     </p>
                 </div>

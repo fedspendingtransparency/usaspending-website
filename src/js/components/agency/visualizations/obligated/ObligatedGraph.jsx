@@ -5,15 +5,18 @@
 
 import React from 'react';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import BarChartLegend from 'components/search/visualizations/time/chart/BarChartLegend';
 import HorizontalBarItem from './HorizontalBarItem';
 
 
 const propTypes = {
     activeFY: React.PropTypes.number,
+    reportingFiscalQuarter: React.PropTypes.number,
     obligatedAmount: React.PropTypes.number,
     budgetAuthority: React.PropTypes.number,
     width: React.PropTypes.number,
-    obligatedText: React.PropTypes.string
+    obligatedText: React.PropTypes.string,
+    legend: React.PropTypes.array
 };
 
 export default class AgencyObligatedGraph extends React.Component {
@@ -41,13 +44,18 @@ export default class AgencyObligatedGraph extends React.Component {
                         x={0}
                         y={0}
                         width={obligatedWidth}
-                        color="#5C7480" />
+                        color={this.props.legend[0].color} />
                     <HorizontalBarItem
                         description={remainderDescription}
                         x={obligatedWidth}
                         y={0}
                         width={remainderWidth}
-                        color="#D6D7D9" />
+                        color={this.props.legend[1].color} />
+                    <g
+                        className="legend-container"
+                        transform={`translate(0,52)`}>
+                        <BarChartLegend legend={this.props.legend} />
+                    </g>
                 </g>
             </svg>
         );
