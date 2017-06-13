@@ -169,6 +169,18 @@ export default class AgencyContent extends React.Component {
                     bottomSectionVisible = true;
                 }
             }
+            else if (index === this.state.sectionPositions.length - 1) {
+                // this is the last section, so highlight it if we're at the bottom or lower
+                // on the page
+                if (section.top <= visibleTop) {
+                    // we are lower than the top of the last section
+                    bottomSectionVisible = true;
+                    visibleSections.push({
+                        section: section.section,
+                        amount: 1
+                    });
+                }
+            }
         });
 
         // select the first section we saw
@@ -216,8 +228,9 @@ export default class AgencyContent extends React.Component {
                     <div id="agency-object-classes" style={{ height: 300 }}>
                         Object Classes
                     </div>
-                    <RecipientContainer id={this.props.agency.id} />
-                    <div style={{ height: 200 }} />
+                    <RecipientContainer
+                        id={this.props.agency.id}
+                        activeFY={this.props.agency.overview.activeFY} />
                 </div>
             </div>
         );
