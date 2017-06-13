@@ -123,6 +123,7 @@ export class ObjectClassContainer extends React.Component {
             this.searchRequest.cancel();
         }
 
+        // Todo - Mike Bray: Remove once this data is available
         // const params = {
         //     fiscal_year: this.props.active_fy,
         //     funding_agency_id: this.props.id,
