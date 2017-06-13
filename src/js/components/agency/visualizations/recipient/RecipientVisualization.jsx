@@ -12,12 +12,16 @@ import RecipientChart from './RecipientChart';
 
 const propTypes = {
     loading: React.PropTypes.bool,
+    isInitialLoad: React.PropTypes.bool,
     error: React.PropTypes.bool,
     scope: React.PropTypes.string,
     changeScope: React.PropTypes.func,
     labelSeries: React.PropTypes.array,
     dataSeries: React.PropTypes.array,
-    descriptions: React.PropTypes.array
+    descriptions: React.PropTypes.array,
+    page: React.PropTypes.number,
+    isLastPage: React.PropTypes.bool,
+    changePage: React.PropTypes.func
 };
 
 
@@ -58,8 +62,8 @@ export default class RecipientVisualization extends React.Component {
 
     render() {
         let chart = null;
-        if (this.props.loading) {
-            // loading
+        if (this.props.loading && this.props.isInitialLoad) {
+            // initial load
             chart = (<ChartMessage message="Loading data..." />);
         }
         else if (this.props.error) {
@@ -72,11 +76,15 @@ export default class RecipientVisualization extends React.Component {
         }
         else {
             chart = (<RecipientChart
+                loading={this.props.loading}
                 labelSeries={this.props.labelSeries}
                 dataSeries={this.props.dataSeries}
                 descriptions={this.props.descriptions}
                 width={this.state.visualizationWidth}
-                labelWidth={this.state.labelWidth} />);
+                labelWidth={this.state.labelWidth}
+                page={this.props.page}
+                isLastPage={this.props.isLastPage}
+                changePage={this.props.changePage} />);
         }
 
         return (

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { isCancel } from 'axios';
-import { orderBy, slice } from 'lodash';
+import { slice } from 'lodash';
 
 import * as AgencyHelper from 'helpers/agencyHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -24,9 +24,11 @@ export default class RecipientContainer extends React.Component {
 
         this.state = {
             loading: true,
+            isInitialLoad: true,
             error: false,
             scope: 'all',
             page: 1,
+            isLastPage: true,
             labelSeries: [],
             dataSeries: [],
             descriptions: []
@@ -35,19 +37,24 @@ export default class RecipientContainer extends React.Component {
         this.request = null;
 
         this.changeScope = this.changeScope.bind(this);
+        this.changePage = this.changePage.bind(this);
     }
 
     componentWillMount() {
-        this.loadData(this.props.id, this.props.activeFY);
+        this.loadData(this.props.id, this.props.activeFY, 1);
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.id !== nextProps.id || this.props.activeFY !== nextProps.activeFY) {
-            this.loadData(nextProps.id, nextProps.activeFY);
+            this.setState({
+                isInitialLoad: true
+            }, () => {
+                this.loadData(nextProps.id, nextProps.activeFY, 1);
+            });
         }
     }
 
-    loadData(id, fy) {
+    loadData(id, fy, pageNumber = 1) {
         if (!id || id === '' || !fy || fy === '') {
             // invalid ID or fiscal year
             return;
@@ -66,14 +73,17 @@ export default class RecipientContainer extends React.Component {
             fiscal_year: fy,
             awarding_agency_id: id,
             limit: 10,
-            page: this.state.page
+            page: pageNumber
         });
 
         this.request.promise
             .then((res) => {
                 this.setState({
                     loading: false,
-                    error: false
+                    error: false,
+                    isInitialLoad: false,
+                    page: pageNumber,
+                    isLastPage: !res.data.page_metadata.has_next_page
                 });
 
                 this.parseData(res.data.results);
@@ -90,6 +100,14 @@ export default class RecipientContainer extends React.Component {
 
                 this.request = null;
             });
+    }
+
+    changePage(pageNumber) {
+        this.setState({
+            page: pageNumber
+        }, () => {
+            this.loadData(this.props.id, this.props.activeFY, pageNumber);
+        });
     }
 
     parseData(data) {
@@ -125,23 +143,26 @@ ${recipient}`;
 
     changeScope(scope) {
         this.setState({
-            scope,
-            page: 1 // go back to the first page
+            scope
         }, () => {
-            this.loadData(this.props.id, this.props.activeFY);
+            this.loadData(this.props.id, this.props.activeFY, 1);
         });
     }
 
     render() {
         return (
             <RecipientVisualization
+                page={this.state.page}
+                isLastPage={this.state.isLastPage}
                 dataSeries={this.state.dataSeries}
                 labelSeries={this.state.labelSeries}
                 descriptions={this.state.descriptions}
                 loading={this.state.loading}
+                isInitialLoad={this.state.isInitialLoad}
                 error={this.state.error}
                 scope={this.state.scope}
-                changeScope={this.changeScope} />
+                changeScope={this.changeScope}
+                changePage={this.changePage} />
         );
     }
 }
