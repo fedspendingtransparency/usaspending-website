@@ -42,6 +42,7 @@ const fields = [
     'pop_state_province',
     'pop_zip',
     'pop_country',
+    'pop_country_code',
     'total_obligation',
     'potential_total_value_of_award',
     'recipient_duns',
@@ -132,9 +133,13 @@ const remapData = (data, idField) => {
     let recipientParentDuns = '';
     let recipientBusinessType = '';
     let popCity = '';
+    let popCounty = '';
+    let popStateCode = '';
     let popStateProvince = '';
     let popZip = '';
+    let popCongressionalDistrict = '';
     let popCountry = '';
+    let popCountryCode = '';
     let contractPricingCode = '';
     let contractPricing = '';
     let latestTransaction = '';
@@ -144,9 +149,6 @@ const remapData = (data, idField) => {
     let recipientCongressionalDistrict = '';
     let recipientPhone = '';
     let recipientFax = '';
-    let popCongressionalDistrict = '';
-    let popCounty = '';
-    let popStateCode = '';
     let contractParentId = '';
     let contractIdvType = '';
     let contractIdcType = '';
@@ -258,6 +260,10 @@ const remapData = (data, idField) => {
 
         if (data.place_of_performance.country_name) {
             popCountry = data.place_of_performance.country_name;
+        }
+
+        if (data.place_of_performance.location_country_code) {
+            popCountryCode = data.place_of_performance.location_country_code;
         }
 
         if (data.place_of_performance.congressional_code) {
@@ -433,6 +439,7 @@ const remapData = (data, idField) => {
     remappedData.pop_state_province = popStateProvince;
     remappedData.pop_zip = popZip;
     remappedData.pop_country = popCountry;
+    remappedData.pop_country_code = popCountryCode;
     remappedData.pop_congressional_district = popCongressionalDistrict;
     remappedData.pop_county = popCounty;
     remappedData.pop_state_code = popStateCode;

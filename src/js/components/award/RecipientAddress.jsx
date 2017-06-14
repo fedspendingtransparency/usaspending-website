@@ -19,24 +19,9 @@ export default class RecipientAddress extends React.Component {
 
         let country = null;
         let district = null;
-        let cityState = null;
-
-        if (city && stateProvince) {
-            cityState = `${city}, ${stateProvince}`;
-        }
-        else if (!city && !stateProvince) {
-            cityState = null;
-        }
-        else if (city && !stateProvince) {
-            cityState = city;
-        }
-
 
         if (recipient.recipient_country_code !== "USA") {
-            country = (
-                <div className="item-value">
-                    {recipient.recipient_country}
-                </div>);
+            country = (<span><br />{recipient.recipient_country}</span>);
         }
         if (recipient.recipient_congressional_district) {
             district = (
@@ -55,9 +40,8 @@ export default class RecipientAddress extends React.Component {
                     {recipient.recipient_street}
                 </div>
                 <div className="item-value">
-                    {cityState} {recipient.recipient_zip_postal}
+                    {`${city}, ${stateProvince}`} {country} {recipient.recipient_zip_postal}
                 </div>
-                {country}
                 {district}
             </li>
         );

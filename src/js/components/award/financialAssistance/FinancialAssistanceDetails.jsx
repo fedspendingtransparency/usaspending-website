@@ -61,24 +61,13 @@ export default class FinancialAssistanceDetails extends React.Component {
 
         // Location
         let popPlace = "Not Available";
-        let popZip = null;
-        if (award.pop_zip) {
-            popZip = award.pop_zip;
+        if (award.pop_country_code === 'USA') {
+            popPlace = `${award.pop_city}, ${award.pop_state_province} ${award.pop_zip}`;
+            popPlace +=
+            `\nCongressional District: ${award.pop_state_code}-${award.pop_congressional_district}`;
         }
-        if (award.pop_city && award.pop_state_province && popZip) {
-            popPlace = `${award.pop_city}, ${award.pop_state_province} ${popZip}`;
-        }
-        else if (award.pop_city && !award.pop_state_province && popZip) {
-            popPlace = `${award.pop_city} ${popZip}`;
-        }
-        else if (award.pop_city && !award.pop_state_province && !popZip) {
-            popPlace = award.pop_city;
-        }
-        else if (!award.pop_city && award.pop_state_province && popZip) {
-            popPlace = `${award.pop_state_province} ${popZip}`;
-        }
-        else if (!award.pop_city && award.pop_state_province && !popZip) {
-            popPlace = award.pop_state_province;
+        else if (award.pop_country_code !== 'USA') {
+            popPlace = `${award.pop_country}`;
         }
         if (award.description) {
             description = award.description;
