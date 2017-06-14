@@ -13,6 +13,27 @@ import * as AwardIDFilterFunctions from './filters/awardIDFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
 import * as BudgetCategoryFilterFunctions from './filters/budgetCategoryFilterFunctions';
 
+// update this version when changes to the reducer structure are made
+// frontend will reject inbound hashed search filter sets with different versions because the
+// data structures may have changed
+export const filterStoreVersion = 1;
+
+export const requiredTypes = {
+    timePeriodFY: Set,
+    selectedLocations: OrderedMap,
+    budgetFunctions: OrderedMap,
+    federalAccounts: OrderedMap,
+    objectClasses: OrderedMap,
+    selectedFundingAgencies: OrderedMap,
+    selectedAwardingAgencies: OrderedMap,
+    selectedRecipients: OrderedMap,
+    recipientType: Set,
+    selectedRecipientLocations: OrderedMap,
+    awardType: Set,
+    selectedAwardIDs: OrderedMap,
+    awardAmounts: OrderedMap
+};
+
 export const initialState = {
     keyword: '',
     timePeriodType: 'fy',
@@ -188,6 +209,9 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 [action.filterType]: initialState[action.filterType]
             });
+        }
+        case 'POPULATE_ALL_SEARCH_FILTERS': {
+            return Object.assign({}, initialState, action.filters);
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return Object.assign({}, initialState);

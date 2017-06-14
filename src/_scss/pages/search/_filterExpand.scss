@@ -1,8 +1,7 @@
 .filter-toggle {
     @include button-unstyled;
     display: inline-block;
-    height: rem(65);
-    padding-left: rem(15);
+    padding: rem(30) rem(15);
     vertical-align: middle;
     width: 100%;
     position: relative;
@@ -13,8 +12,8 @@
         vertical-align: middle;
         width: rem(11);
         @include media($large-screen) {
-            width: rem(14);
-            height: rem(14);
+            width: rem(12);
+            height: rem(12);
         }
         &.usa-da-icon-info {
             height: rem(20);
@@ -27,7 +26,7 @@
         font-size: $small-font-size;
         font-weight: $font-semibold;
         height: 100%;
-        line-height: rem(65);
+        line-height: 1;
         margin: 0;
         padding-left: rem(6);
         vertical-align: middle;
@@ -45,6 +44,14 @@
         &:hover {
             @include transition(all 0.1s ease-in-out);
             fill: darken($color-tab-inactive, 60%);
+        }
+    }
+    &:hover {
+        cursor: pointer;
+        svg {
+            cursor: pointer;
+            fill: $color-black;
+            @include transition(all 0.25s $ease-in-out-sine);
         }
     }
 }

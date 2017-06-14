@@ -1,0 +1,66 @@
+.toggle-wrapper {    
+    .toggle-button {
+        @include button-unstyled;
+
+        .toggle-outline {
+            position: relative;
+
+            width: 60px;
+            height: 20px;
+
+            background-color: $color-gray-light;
+
+            transition: background-color 0.15s ease;
+
+            .toggle-slider {
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                transform: translate(0);
+
+                width: 26px;
+                height: 16px;
+
+                background-color: $color-white;
+                box-shadow: $box-shadow;
+
+                transition: transform 0.15s ease;
+
+                .slider-surface {
+                    position: relative;
+                    @include display(flex);
+                    @include flex-direction(row);
+                    @include align-items(center);
+                    @include justify-content(center);
+
+                    width: 100%;
+                    height: 100%;
+
+                    .friction-grabber {
+                        @include flex(0 0 auto);
+
+                        width: 3px;
+                        height: 60%;
+                        margin-left: 2px;
+
+                        background-color: $color-gray-lighter;
+
+                        &:first-child {
+                            margin-left: 0px;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.active {
+            .toggle-outline {
+                background-color: $color-primary;
+
+                .toggle-slider {
+                    transform: translate(30px, 0);
+                }
+            }
+        }
+    }
+}

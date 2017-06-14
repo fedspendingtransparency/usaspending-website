@@ -7,12 +7,13 @@ import React from 'react';
 import { awardRanges, searchTypes } from 'dataMapping/search/awardAmount';
 
 import * as AwardAmountHelper from 'helpers/awardAmountHelper';
-import AwardAmountItem from './AwardAmountItem';
+import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 import SpecificAwardAmountItem from './SpecificAwardAmountItem';
 
 const propTypes = {
     selectAwardRange: React.PropTypes.func,
-    awardAmountRanges: React.PropTypes.object
+    awardAmountRanges: React.PropTypes.object,
+    awardAmounts: React.PropTypes.object
 };
 
 const defaultProps = {
@@ -28,7 +29,7 @@ export default class AwardAmountSearch extends React.Component {
     }
 
     toggleSelection(selection) {
-        this.props.selectAwardRange(selection.target.value, searchTypes.RANGE);
+        this.props.selectAwardRange(selection, searchTypes.RANGE);
     }
 
     searchSpecificRange(selections) {
@@ -42,22 +43,31 @@ export default class AwardAmountSearch extends React.Component {
         const awardAmountRangeItems = [];
         Object.keys(this.props.awardAmountRanges).forEach((key) => {
             awardAmountRangeItems.push(
-                <AwardAmountItem
+                <PrimaryCheckboxType
                     {...this.props}
-                    values={this.props.awardAmountRanges[key]}
-                    key={`award-${key}`}
-                    rangeID={key}
-                    toggleSelection={this.toggleSelection} />);
+                    key={key}
+                    id={`award-${key}`}
+                    name={AwardAmountHelper.formatAwardAmountRange(
+                        this.props.awardAmountRanges[key])}
+                    value={key}
+                    types={awardRanges}
+                    code={key}
+                    filterType="Award Amount"
+                    selectedCheckboxes={this.props.awardAmounts}
+                    toggleCheckboxType={this.toggleSelection}
+                    enableAnalytics />);
         });
 
         return (
-            <div className="award-amount-filter search-filter">
-                <ul className="award-amounts">
-                    {awardAmountRangeItems}
-                    <SpecificAwardAmountItem
-                        {...this.props}
-                        searchSpecificRange={this.searchSpecificRange} />
-                </ul>
+            <div className="award-amount-filter search-filter checkbox-type-filter">
+                <div className="filter-item-wrap">
+                    <ul className="award-amounts checkbox-types">
+                        {awardAmountRangeItems}
+                        <SpecificAwardAmountItem
+                            {...this.props}
+                            searchSpecificRange={this.searchSpecificRange} />
+                    </ul>
+                </div>
             </div>
         );
     }

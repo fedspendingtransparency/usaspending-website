@@ -6,13 +6,14 @@
     background-color: $color-white;
     box-shadow: $container-shadow;
     margin-top: rem(32);
+    margin-bottom: ($global-mrg * 4);
     .sidebar-header {
         @include display(flex);
         @include align-items(center);
         @include flex-flow(row);
         @include justify-content(flex-start);
         border-bottom: rem(1) solid $color-gray-lighter;
-        height: rem(60);
+        height: rem(80);
         margin: 0;
         padding: 0 0 0 rem(15);
         & h6 {
