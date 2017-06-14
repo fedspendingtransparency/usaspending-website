@@ -1,28 +1,29 @@
 /**
- * GeoTotalTooltip.jsx
- * Created by Kevin Li 5/22/17
+ * RecipientTooltip.jsx
+ * Created by Kevin Li 6/13/17
  */
 
 import React from 'react';
+import { isEqual } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import * as MapHelper from 'helpers/mapHelper';
 
 const propTypes = {
-    state: React.PropTypes.string,
+    label: React.PropTypes.string,
     value: React.PropTypes.number,
     y: React.PropTypes.number,
-    x: React.PropTypes.number,
-    visualization: React.PropTypes.object,
-    total: React.PropTypes.number
+    x: React.PropTypes.number
 };
 
-export default class GeoTotalTooltip extends React.Component {
+export default class RecipientTooltip extends React.Component {
     componentDidMount() {
         this.positionTooltip();
     }
-    componentDidUpdate() {
-        this.positionTooltip();
+
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps, this.props)) {
+            this.positionTooltip();
+        }
     }
 
     positionTooltip() {
@@ -31,6 +32,8 @@ export default class GeoTotalTooltip extends React.Component {
         const tooltipWidth = this.div.offsetWidth;
         const containerX = this.containerDiv.getBoundingClientRect().left;
         const windowWidth = window.innerWidth;
+
+        const offsetY = 10;
 
         // determine the tooltip direction
         let direction = 'left';
@@ -45,20 +48,13 @@ export default class GeoTotalTooltip extends React.Component {
             offset = 9 + tooltipWidth;
         }
 
-        this.div.style.top = `${this.props.y - 15}px`;
+        this.div.style.top = `${this.props.y - offsetY}px`;
         this.div.style.left = `${this.props.x - offset}px`;
         this.div.className = `tooltip ${direction}`;
         this.pointerDiv.className = `tooltip-pointer ${direction}`;
     }
 
     render() {
-        let percentage = 'N/A';
-        if (this.props.total > 0) {
-            percentage = Math.round((this.props.value / this.props.total) * 1000) / 10;
-        }
-
-        const stateName = MapHelper.stateNameFromCode(this.props.state);
-
         return (
             <div
                 className="visualization-tooltip"
@@ -76,23 +72,15 @@ export default class GeoTotalTooltip extends React.Component {
                             this.pointerDiv = div;
                         }} />
                     <div className="tooltip-title">
-                        {stateName}
+                        {this.props.label}
                     </div>
                     <div className="tooltip-body">
-                        <div className="tooltip-left">
+                        <div className="tooltip-full">
                             <div className="tooltip-value">
-                                {MoneyFormatter.formatTreemapValues(this.props.value)}
+                                {MoneyFormatter.formatMoney(this.props.value)}
                             </div>
                             <div className="tooltip-label">
-                                Total Award Spending
-                            </div>
-                        </div>
-                        <div className="tooltip-right">
-                            <div className="tooltip-value">
-                                {percentage}%
-                            </div>
-                            <div className="tooltip-label">
-                                Percent of Total Award Spending
+                                Awarded Amount
                             </div>
                         </div>
                     </div>
@@ -102,4 +90,4 @@ export default class GeoTotalTooltip extends React.Component {
     }
 }
 
-GeoTotalTooltip.propTypes = propTypes;
+RecipientTooltip.propTypes = propTypes;

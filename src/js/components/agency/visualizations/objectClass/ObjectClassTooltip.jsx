@@ -1,6 +1,6 @@
 /**
- * TreeMapTooltip.jsx
- * Created by Emily Gullo 04/28/2017
+ * ObjectClassTooltip.jsx
+ * Created by michaelbray on 6/8/17.
  */
 
 import React from 'react';
@@ -13,15 +13,13 @@ const propTypes = {
     x: React.PropTypes.number,
     y: React.PropTypes.number,
     width: React.PropTypes.number,
-    showSub: React.PropTypes.bool,
     percentage: React.PropTypes.string,
     arrow: React.PropTypes.bool,
-    showSubfunctions: React.PropTypes.bool,
-    sectionHeight: React.PropTypes.number,
-    isSubfunctions: React.PropTypes.bool
+    showMinorObjectClass: React.PropTypes.bool,
+    sectionHeight: React.PropTypes.number
 };
 
-export default class TreeMapTooltip extends React.Component {
+export default class ObjectClassTooltip extends React.Component {
     componentDidMount() {
         this.positionTooltip();
     }
@@ -53,7 +51,7 @@ export default class TreeMapTooltip extends React.Component {
 
         // Define initial quadrants and offsets
         let leftRightDirection = 'left';
-        let topBottomDirection = 'top';
+        const topBottomDirection = 'bottom';
         let leftOffset = `${(this.props.x + xPosition) + offset}px`;
         let topOffset = `${(this.props.height / 2) + heightOffset}px`;
 
@@ -62,23 +60,10 @@ export default class TreeMapTooltip extends React.Component {
             leftRightDirection = 'right';
         }
 
-        if (this.props.y >= ((this.props.sectionHeight / 2) - 50)) {
-            topBottomDirection = 'bottom';
-        }
-
-        // Always use bottom positioning for subfunctions due to height constraints
-        if (this.props.isSubfunctions) {
-            topBottomDirection = 'bottom';
-        }
-
         // Position the tooltip based on quadrant
         // Bottom left
         if (leftRightDirection === 'left' && topBottomDirection === 'bottom') {
             topOffset = `${(this.props.y + yPosition) - (tooltipHeight + heightOffset)}px`;
-        }
-        // Top right
-        else if (leftRightDirection === 'right' && topBottomDirection === 'top') {
-            leftOffset = `${((this.props.x + (this.props.width / 2)) - (tooltipWidth + offset))}px`;
         }
         // Bottom right
         else if (leftRightDirection === 'right' && topBottomDirection === 'bottom') {
@@ -87,7 +72,7 @@ export default class TreeMapTooltip extends React.Component {
         }
 
         let size = '';
-        if (this.props.showSub || this.props.arrow) {
+        if (this.props.arrow) {
             size = ' small';
         }
 
@@ -109,15 +94,15 @@ export default class TreeMapTooltip extends React.Component {
             </div>);
         let smallValue = '';
 
-        if (this.props.showSub === true || this.props.arrow) {
+        if (this.props.arrow) {
             desc = '';
             smallValue = ' small';
         }
 
         let footer = null;
-        if (!this.props.showSubfunctions) {
+        if (!this.props.showMinorObjectClass) {
             footer = (<div className="tooltip-footer">
-                Click on the block to see sub-functions for {this.props.name}.
+                Click on the block to see minor Object Classes for {this.props.name}.
             </div>);
         }
 
@@ -150,4 +135,4 @@ export default class TreeMapTooltip extends React.Component {
     }
 }
 
-TreeMapTooltip.propTypes = propTypes;
+ObjectClassTooltip.propTypes = propTypes;

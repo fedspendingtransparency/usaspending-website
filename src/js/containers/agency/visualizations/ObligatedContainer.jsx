@@ -49,12 +49,10 @@ export class ObligatedContainer extends React.Component {
             this.searchRequest.cancel();
         }
 
-        const id = parseFloat(agencyID);
-        const fy = parseFloat(activeFY);
-
+        // TODO - Lizzie: remove once data is available
         this.searchRequest = AgencyHelper.fetchObligatedAmounts({
-            fiscal_year: fy,
-            funding_agency_id: id
+            fiscal_year: 2017,
+            funding_agency_id: 246
         });
 
         this.setState({
