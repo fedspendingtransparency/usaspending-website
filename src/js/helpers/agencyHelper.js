@@ -11,7 +11,7 @@ export const fetchAgencyOverview = (id) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/agency/${id}/`,
+            url: `v2/references/agency/${id}/`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
