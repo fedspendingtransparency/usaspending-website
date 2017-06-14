@@ -56,7 +56,7 @@ export default class AgencyOverview extends React.Component {
                         </div>
                     </div>
                     <div className="budget-authority">
-                        <h4>Budget Authority This Year (FY {this.props.activeFY})</h4>
+                        <h4>Budget Authority This Year (FY {this.props.agency.activeFY})</h4>
                     </div>
                 </div>
             </div>

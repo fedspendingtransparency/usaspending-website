@@ -11,7 +11,7 @@ export const fetchAgencyOverview = (id) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/agency/${id}/`,
+            url: `v2/references/agency/${id}/`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
@@ -45,6 +45,23 @@ export const fetchAgencyMinorObjectClasses = (params) => {
     return {
         promise: Axios.request({
             url: 'v2/financial_spending/object_class/',
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+// get recipients
+export const fetchAwardRecipients = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/award_spending/recipient/',
             baseURL: kGlobalConstants.API,
             method: 'get',
             params,
