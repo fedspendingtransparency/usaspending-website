@@ -43,26 +43,32 @@ export default class ObjectClassContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.id !== nextProps.id) {
+        if (this.props.id !== nextProps.id && this.props.activeFY !== nextProps.activeFY) {
             this.fetchMajorObjectClasses(nextProps.id, nextProps.activeFY);
         }
     }
 
-    fetchMajorObjectClasses(agencyID, fiscalYear) {
+    fetchMajorObjectClasses(id, fy) {
+        // if (!id || id === '' || !fy || fy === '') {
+        //     // invalid ID or fiscal year
+        //     return;
+        // }
+
         if (this.searchRequest) {
             // A request is currently in-flight, cancel it
             this.searchRequest.cancel();
         }
 
+        // Todo - Mike Bray: Uncomment once this data is available
         // const params = {
-        //     fiscal_year: fiscalYear,
-        //     funding_agency_id: agencyID
+        //     fiscal_year: fy,
+        //     funding_agency_id: id
         // };
 
         // Todo - Mike Bray: Remove once this data is available
         const params = {
             fiscal_year: 2017,
-            funding_agency_id: 246
+            funding_agency_id: 256
         };
 
         this.searchRequest = AgencyHelper.fetchAgencyMajorObjectClasses(params);
@@ -122,9 +128,9 @@ export default class ObjectClassContainer extends React.Component {
             this.searchRequest.cancel();
         }
 
-        // Todo - Mike Bray: Remove once this data is available
+        // Todo - Mike Bray: Uncomment once this data is available
         // const params = {
-        //     fiscal_year: this.props.active_fy,
+        //     fiscal_year: this.props.activeFY,
         //     funding_agency_id: this.props.id,
         //     major_object_class_code: majorObjectClassCode
         // };
