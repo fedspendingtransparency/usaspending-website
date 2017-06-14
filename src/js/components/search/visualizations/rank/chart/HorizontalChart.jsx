@@ -30,6 +30,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    linkSeries: [],
     padding: {
         bottom: 30
     },
