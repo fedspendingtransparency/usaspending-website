@@ -7,7 +7,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-// import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
 import * as AgencyHelper from 'helpers/agencyHelper';
 
 import ObligatedVisualization from 'components/agency/visualizations/obligated/ObligatedVisualization';
@@ -27,10 +26,14 @@ export class ObligatedContainer extends React.Component {
             error: false,
             inFlight: true,
             obligatedAmount: 0,
-            budgetAuthority: 0
+            budgetAuthority: 0,
+            fiscalQuarter: 0,
+            cgacCode: ""
         };
 
         this.loadData = this.loadData.bind(this);
+        this.setCgacCode = this.setCgacCode.bind(this);
+        this.setFiscalQuarter = this.setFiscalQuarter.bind(this);
     }
 
     componentWillMount() {
@@ -43,14 +46,55 @@ export class ObligatedContainer extends React.Component {
         }
     }
 
+    setCgacCode(id) {
+        this.cgacRequest = AgencyHelper.fetchCgacCode({
+            id
+        });
+
+        this.cgacRequest.promise
+            .then((res) => {
+                this.setState(
+                    {
+                        cgacCode: res.data.results[0].toptier_agency.cgac_code
+                    }
+                );
+                this.setFiscalQuarter(this.state.cgacCode);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                }
+            });
+    }
+
+    setFiscalQuarter(cgacCode) {
+        this.quarterRequest = AgencyHelper.fetchFiscalQuarter({
+            cgac_code: cgacCode
+        });
+
+        this.quarterRequest.promise
+            .then((res) => {
+                this.setState({
+                    fiscalQuarter: res.data.results[0].reporting_fiscal_quarter
+                });
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                }
+            });
+    }
+
     loadData(agencyID, activeFY) {
         if (this.searchRequest) {
             // A request is currently in-flight, cancel it
             this.searchRequest.cancel();
         }
 
-        // TODO - Lizzie: remove once data is available
+        // TODO - Lizzie: uncomment when available
         this.searchRequest = AgencyHelper.fetchObligatedAmounts({
+            //fiscal_year: agencyID,
+            //funding_agency_id: activeFY
             fiscal_year: 2017,
             funding_agency_id: 246
         });
@@ -71,6 +115,10 @@ export class ObligatedContainer extends React.Component {
                     obligatedAmount: parseFloat(res.data.results[0].obligated_amount),
                     budgetAuthority: parseFloat(res.data.results[0].budget_authority_amount)
                 });
+
+                // TODO - Lizzie: uncomment when available
+                //this.setCgacCode(this.props.id);
+                this.setCgacCode(246);
             })
             .catch((err) => {
                 this.searchRequest = null;
@@ -86,12 +134,13 @@ export class ObligatedContainer extends React.Component {
     }
 
     render() {
-        // TODO - Lizzie: get reporting fiscal quarter
+        // TODO - Lizzie: uncomment when available
         return (
             <div id="agency-obligated-amount">
                 <ObligatedVisualization
-                    activeFY={parseFloat(this.props.activeFY)}
-                    reportingFiscalQuarter={3}
+                    //activeFY={this.props.activeFY}
+                    activeFY={2017}
+                    reportingFiscalQuarter={this.state.fiscalQuarter}
                     agencyName={this.props.agencyName}
                     obligatedAmount={this.state.obligatedAmount}
                     budgetAuthority={this.state.budgetAuthority} />
