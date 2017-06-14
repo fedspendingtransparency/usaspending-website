@@ -74,7 +74,7 @@ export const fetchAwardRecipients = (params) => {
 };
 
 // Get Obligated Amount and Budget Authority Amount
-export const fetchObligatedAmounts = (params) => {
+export const fetchAgencyObligatedAmounts = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
@@ -91,7 +91,7 @@ export const fetchObligatedAmounts = (params) => {
 };
 
 // Get Agency's CGAC code
-export const fetchCgacCode = (params) => {
+export const fetchAgencyCgacCode = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
@@ -108,7 +108,7 @@ export const fetchCgacCode = (params) => {
 };
 
 // Get Latest Sumbission Reporting Fiscal Quarter
-export const fetchFiscalQuarter = (params) => {
+export const fetchAgencyFiscalQuarter = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({

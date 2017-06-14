@@ -47,7 +47,7 @@ export class ObligatedContainer extends React.Component {
     }
 
     setCgacCode(id) {
-        this.cgacRequest = AgencyHelper.fetchCgacCode({
+        this.cgacRequest = AgencyHelper.fetchAgencyCgacCode({
             id
         });
 
@@ -68,7 +68,7 @@ export class ObligatedContainer extends React.Component {
     }
 
     setFiscalQuarter(cgacCode) {
-        this.quarterRequest = AgencyHelper.fetchFiscalQuarter({
+        this.quarterRequest = AgencyHelper.fetchAgencyFiscalQuarter({
             cgac_code: cgacCode
         });
 
@@ -92,7 +92,7 @@ export class ObligatedContainer extends React.Component {
         }
 
         // TODO - Lizzie: uncomment when available
-        this.searchRequest = AgencyHelper.fetchObligatedAmounts({
+        this.searchRequest = AgencyHelper.fetchAgencyObligatedAmounts({
             //fiscal_year: agencyID,
             //funding_agency_id: activeFY
             fiscal_year: 2017,
