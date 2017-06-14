@@ -43,7 +43,7 @@ export default class NextSteps extends React.Component {
                     icon="next"
                     sectionTitle="What’s New"
                     iconClass="next-icon"
-                    sectionText="See details on our latest updates."
+                    sectionText="We're adding new pages, features, and fixes every two weeks."
                     linkText="Read More"
                     ariaLabel="Read More"
                     title="Read More"

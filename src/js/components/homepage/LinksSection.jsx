@@ -13,29 +13,32 @@ export default class LinksSection extends React.Component {
         return (
             <div className="links-section-outer-wrap">
                 <div className="links-section-wrap">
-                    <h4
-                        className="links-section-primary-title">
+                    <h4 className="links-section-primary-title">
                         Check out these sections for more views into our data.
                     </h4>
                     <div className="links-section-box-wrap">
                         <LinksSectionBox
                             icon="recipient"
-                            text="Get insights into specific recipients."
+                            title="Recipient Profiles"
+                            subtitle="Get insights into specific recipients."
                             linkText="Find a recipient"
                             linkUrl="" />
                         <LinksSectionBox
                             icon="federalAccount"
-                            text="See how spending is disbursed."
+                            title="Federal Account Profiles"
+                            subtitle="See how spending is disbursed."
                             linkText="Find a Federal account"
                             linkUrl="" />
                         <LinksSectionBox
                             icon="api"
-                            text="Plug into the data using our API."
+                            title="API Documentation"
+                            subtitle="Plug into the data using our API."
                             linkText="View the documentation"
                             linkUrl="https://api.usaspending.gov" />
                         <LinksSectionBox
                             icon="resources"
-                            text="Learn more about the data."
+                            title="About"
+                            subtitle="Learn more about the data."
                             linkText="Visit our 'About' page"
                             linkUrl="#/about" />
                     </div>

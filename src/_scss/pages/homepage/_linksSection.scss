@@ -2,32 +2,28 @@
 @import "../../mixins/fullSectionWrap";
 @mixin linksSection {
     .links-section-outer-wrap {
-        background-color: $color-primary-darkest;
+        background-color: $color-gray-lightest;
         .links-section-wrap {
             @include fullSectionWrap(0, 0);
         }
-        padding-bottom: rem(100);
+        padding-bottom: rem(50);
         padding-top: rem(50);
         text-align: center;
         @include clearfix;
         .links-section-primary-title {
-            color: $color-gray-lightest;
+            color: $color-gray-medium;
             display: block;
             float: none;
-            font-size: rem(20);
         }
         .links-section-box-wrap {
-            margin-top: rem(15);
             text-align: center;
-            @include span-columns(16);
+            @include fullSectionWrap(0, 0);
             @include linksSectionBox;
             @include media($medium-screen) {
-                @include span-columns(12);
-                @include shift(2);
+                margin-top: rem(30);
             }
             @include media($large-screen) {
-                @include span-columns(10);
-                @include shift(3);
+                margin-top: rem(30);
             }
         }
     }

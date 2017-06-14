@@ -2,7 +2,7 @@
     @import "mixins/fullSectionWrap";
     @include fullSectionWrap(0, 0);
     & .block-wrap {
-        @include span-columns(16);
+        @include span-columns(4);
         text-align: center;
         margin-top: ($global-mrg * 2);
         & h6 {
@@ -20,9 +20,15 @@
             height: rem(80);
             width: 100%;
             margin: 0 auto;
-            & .usa-da-qa-icon {
+            & .qa-icon {
                 height: rem(70);
+                fill: #0071BC;
                 width: rem(100);
+            }
+            & .guide-icon {
+                height: rem(40);
+                fill: #0071BC;
+                width: rem(64);
             }
             & .contact-icon {
                 height: rem(38);
@@ -35,6 +41,9 @@
             & .next-icon {
                 height: rem(71);
                 width: rem(74);
+            }
+            & .disabled {
+                opacity: 0.4;
             }
         }
         @include media($tablet-screen) {
@@ -59,5 +68,8 @@
                 margin-bottom: 0;
             }
         }
+    }
+    .disabled {
+        opacity: 0.4;
     }
 }
