@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { reduce } from 'lodash';
 
@@ -18,7 +17,7 @@ const propTypes = {
     activeFY: React.PropTypes.string
 };
 
-export class ObjectClassContainer extends React.Component {
+export default class ObjectClassContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -196,11 +195,5 @@ export class ObjectClassContainer extends React.Component {
     }
 
 }
-
-export default connect(
-    (state) => ({
-        agency: state.agency
-    })
-)(ObjectClassContainer);
 
 ObjectClassContainer.propTypes = propTypes;

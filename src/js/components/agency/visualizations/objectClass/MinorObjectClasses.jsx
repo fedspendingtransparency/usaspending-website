@@ -17,7 +17,7 @@ const propTypes = {
     majorObjectClass: React.PropTypes.object,
     minorObjectClasses: React.PropTypes.object,
     totalObligation: React.PropTypes.number,
-    totalMinorObligation: React.PropTypes.number,
+    totalMinorObligation: React.PropTypes.number
 };
 
 export default class MinorObjectClasses extends React.Component {
