@@ -8,6 +8,17 @@
         .visualization-tooltip {
             @import "components/visualizations/tooltip/_tooltip";
         }
+
+        .chart-groups a {
+            display: block;
+            position: relative;
+            z-index: 1;
+            pointer-events: all;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
     }
     .results-visualization-message {
         margin-top: rem(10);
