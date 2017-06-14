@@ -14,7 +14,8 @@ import ObligatedVisualization from 'components/agency/visualizations/obligated/O
 
 const propTypes = {
     id: React.PropTypes.string,
-    activeFY: React.PropTypes.string
+    activeFY: React.PropTypes.string,
+    agencyName: React.PropTypes.string
 };
 
 export class ObligatedContainer extends React.Component {
@@ -48,18 +49,13 @@ export class ObligatedContainer extends React.Component {
             this.searchRequest.cancel();
         }
 
-        // TODO- Lizzie: remove placeholder values
-        // const params = {
-        //    fiscal_year: activeFY,
-        //    funding_agency_id: agencyID
-        // };
+        const id = parseFloat(agencyID);
+        const fy = parseFloat(activeFY);
 
-        const params = {
-            fiscal_year: 2017,
-            funding_agency_id: 246
-        };
-
-        this.searchRequest = AgencyHelper.fetchObligatedAmounts(params);
+        this.searchRequest = AgencyHelper.fetchObligatedAmounts({
+            fiscal_year: fy,
+            funding_agency_id: id
+        });
 
         this.setState({
             inFlight: true
@@ -92,14 +88,16 @@ export class ObligatedContainer extends React.Component {
     }
 
     render() {
-        // TODO - Lizzie: remove hard-coded props
+        // TODO - Lizzie: get reporting fiscal quarter
         return (
-            <ObligatedVisualization
-                activeFY={2017}
-                reportingFiscalQuarter={3}
-                agency="U.S. Department of Energy (DOE)"
-                obligatedAmount={this.state.obligatedAmount}
-                budgetAuthority={this.state.budgetAuthority} />
+            <div id="agency-obligated-amount">
+                <ObligatedVisualization
+                    activeFY={parseFloat(this.props.activeFY)}
+                    reportingFiscalQuarter={3}
+                    agencyName={this.props.agencyName}
+                    obligatedAmount={this.state.obligatedAmount}
+                    budgetAuthority={this.state.budgetAuthority} />
+            </div>
         );
     }
 }

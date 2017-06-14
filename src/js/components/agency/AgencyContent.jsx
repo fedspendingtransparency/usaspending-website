@@ -211,7 +211,10 @@ export default class AgencyContent extends React.Component {
                 </div>
                 <div className="agency-content">
                     <AgencyOverview agency={this.props.agency.overview} />
-                    <ObligatedContainer id={this.props.agency.id} />
+                    <ObligatedContainer
+                        agencyName={this.props.agency.overview.name}
+                        activeFY={"2017"}
+                        id={this.props.agency.id} />
                     <div id="agency-object-classes" style={{ height: 300 }}>
                         Object Classes
                     </div>

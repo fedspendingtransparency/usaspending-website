@@ -14,7 +14,7 @@ import AgencyObligatedGraph from './ObligatedGraph';
 const propTypes = {
     activeFY: React.PropTypes.number,
     reportingFiscalQuarter: React.PropTypes.number,
-    agency: React.PropTypes.string,
+    agencyName: React.PropTypes.string,
     obligatedAmount: React.PropTypes.number,
     budgetAuthority: React.PropTypes.number
 };
@@ -98,7 +98,7 @@ export default class AgencyObligatedAmount extends React.Component {
                 </div>
                 <div className="agency-obligated-content">
                     <p className="fy-text">
-                        In Fiscal Year {this.props.activeFY}*, {this.props.agency} has obligated
+                        In Fiscal Year {this.props.activeFY}*, {this.props.agencyName} has obligated
                     </p>
                     <p className="against-auth-text">
                         <span className="number number-bolder">{amountObligated}</span> against its <span className="number">{authority}</span> in Budget Authority
