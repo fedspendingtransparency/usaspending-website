@@ -20,3 +20,8 @@ export const mockRecipient = {
         obligated_amount: "18000.00"
     }]
 };
+
+export const parsedSeries = {
+    dataSeries: [2732.43, 18000],
+    labelSeries: ['NEW DESIGN AUTO BODY, INC.', 'PUBLIC SAFETY, TEXAS DEPARTMENT OF']
+};

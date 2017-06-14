@@ -103,6 +103,11 @@ export default class RecipientContainer extends React.Component {
     }
 
     changePage(pageNumber) {
+        if (this.state.isLastPage || pageNumber < 1) {
+            // last page, don't do anything
+            return;
+        }
+
         this.setState({
             page: pageNumber
         }, () => {
