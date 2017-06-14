@@ -1,4 +1,12 @@
 .agency-sidebar-content {
+    background-color: $color-white;
+    box-shadow: $container-shadow;
+    color: $color-base;
+    border-top: 1px solid $color-gray-border;
+    border-right: 1px solid $color-gray-border;
+    border-bottom: 1px solid $color-gray-border;
+    padding: rem(30);
+
     ul {
         @include unstyled-list;
 
@@ -17,6 +25,8 @@
             padding-bottom: rem(5);
 
             text-decoration: none;
+            border-bottom: 5px solid transparent;
+            @include transition(all 0.15s ease-in-out);
 
             &:hover {
                 border-bottom: 5px solid $color-gold;
