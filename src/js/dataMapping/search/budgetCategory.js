@@ -5,7 +5,7 @@
 
  /* eslint-disable quote-props */
 export const objectClassDefinitions = {
-    '110': 'Full-time permanent',
+    '111': 'Full-time permanent',
     '113': 'Other than full-time permanent',
     '115': 'Other personnel compensation',
     '116': 'Military personnel - basic allowance for housing',
@@ -43,7 +43,7 @@ export const objectClassDefinitions = {
 
 export const objectClassDefinitionsGroups = {
     personnel_compensation_and_benefits: [
-        '110',
+        '111',
         '113',
         '115',
         '116',
