@@ -7,7 +7,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { is } from 'immutable';
 
 import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
 import * as AgencyHelper from 'helpers/agencyHelper';
@@ -55,7 +54,7 @@ export class AgencyContainer extends React.Component {
                     loading: false,
                     error: false
                 }, () => {
-                    this.parseOverview(res.data.results);
+                    this.parseOverview(res.data.results, id);
                 });
             })
             .catch((err) => {
@@ -70,8 +69,10 @@ export class AgencyContainer extends React.Component {
             });
     }
 
-    parseOverview(data) {
-        const agency = new AgencyOverviewModel(data, true);
+    parseOverview(data, id) {
+        const agency = new AgencyOverviewModel(Object.assign({}, data, {
+            agency_id: id
+        }), true);
         this.props.setAgencyOverview(agency);
     }
 
