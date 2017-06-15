@@ -50,11 +50,15 @@ export class AgencyContainer extends React.Component {
 
         this.request.promise
             .then((res) => {
+                const noAgency = Object.keys(res.data.results).length === 0;
+
                 this.setState({
                     loading: false,
-                    error: false
+                    error: noAgency
                 }, () => {
-                    this.parseOverview(res.data.results, id);
+                    if (!noAgency) {
+                        this.parseOverview(res.data.results, id);
+                    }
                 });
             })
             .catch((err) => {
