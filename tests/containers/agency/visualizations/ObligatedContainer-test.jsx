@@ -7,7 +7,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
 
-import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
+import { ObligatedContainer } from 'containers/agency/visualizations/ObligatedContainer';
 import * as AgencyHelper from 'helpers/agencyHelper';
 
 import { mockObligatedAmounts, mockCgacCode, mockFiscalQuarter } from './mocks/mockObligatedAmounts';
@@ -18,10 +18,10 @@ global.Promise = require.requireActual('promise');
 
 // spy on specific functions inside the component
 const loadDataSpy = sinon.spy(ObligatedContainer.prototype, 'loadData');
-const fetchCgacCodeSpy = sinon.spy(
-    ObligatedContainer.prototype, 'fetchCgacCode');
-const fetchFiscalQuarterSpy = sinon.spy(
-    ObligatedContainer.prototype, 'fetchFiscalQuarter');
+const setCgacCodeSpy = sinon.spy(
+    ObligatedContainer.prototype, 'setCgacCode');
+const setFiscalQuarterSpy = sinon.spy(
+    ObligatedContainer.prototype, 'setFiscalQuarter');
 
 const inboundProps = {
     id: '246',
@@ -75,6 +75,8 @@ const unmockAgencyHelper = () => {
 describe('ObligatedContainer', () => {
     it('should make an API call for the selected agency obligated amounts on mount', () => {
         mockAgencyHelper('fetchAgencyObligatedAmounts', 'resolve', mockObligatedAmounts);
+        mockAgencyHelper('fetchAgencyCgacCode', 'resolve', mockCgacCode);
+        mockAgencyHelper('fetchAgencyFiscalQuarter', 'resolve', mockFiscalQuarter);
 
         mount(<ObligatedContainer
             {...inboundProps} />);
@@ -82,6 +84,8 @@ describe('ObligatedContainer', () => {
         jest.runAllTicks();
 
         expect(loadDataSpy.callCount).toEqual(1);
+        expect(setCgacCodeSpy.callCount).toEqual(1);
+        expect(setFiscalQuarterSpy.callCount).toEqual(1);
         loadDataSpy.reset();
 
         unmockAgencyHelper();
@@ -90,6 +94,8 @@ describe('ObligatedContainer', () => {
     it('should make a new API call for obligated amounts when the inbound agency ID prop' +
         ' changes', () => {
         mockAgencyHelper('fetchAgencyObligatedAmounts', 'resolve', mockObligatedAmounts);
+        mockAgencyHelper('fetchAgencyCgacCode', 'resolve', mockCgacCode);
+        mockAgencyHelper('fetchAgencyFiscalQuarter', 'resolve', mockFiscalQuarter);
 
         const container = mount(<ObligatedContainer
             {...inboundProps} />);
@@ -106,38 +112,6 @@ describe('ObligatedContainer', () => {
 
         expect(loadDataMock).toHaveBeenCalledWith('555', inboundProps.activeFY);
         loadDataSpy.reset();
-
-        unmockAgencyHelper();
-    });
-
-    it('should make an API call for the cgac code', () => {
-        mockAgencyHelper('fetchCgacCode', 'resolve', mockCgacCode);
-
-        const container = mount(<ObligatedContainer
-            {...inboundProps} />);
-
-        container.instance().fetchCgacCode(inboundProps.id);
-
-        jest.runAllTicks();
-
-        expect(fetchCgacCodeSpy.callCount).toEqual(1);
-        fetchCgacCodeSpy.reset();
-
-        unmockAgencyHelper();
-    });
-
-    it('should make an API call for the fiscal quarter', () => {
-        mockAgencyHelper('fetchFiscalQuarter', 'resolve', mockFiscalQuarter);
-
-        const container = mount(<ObligatedContainer
-            {...inboundProps} />);
-
-        container.instance().fetchFiscalQuarter(`123`);
-
-        jest.runAllTicks();
-
-        expect(fetchFiscalQuarterSpy.callCount).toEqual(1);
-        fetchFiscalQuarterSpy.reset();
 
         unmockAgencyHelper();
     });

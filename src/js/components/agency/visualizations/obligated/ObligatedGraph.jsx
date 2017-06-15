@@ -10,7 +10,7 @@ import HorizontalBarItem from './HorizontalBarItem';
 
 
 const propTypes = {
-    activeFY: React.PropTypes.number,
+    activeFY: React.PropTypes.string,
     reportingFiscalQuarter: React.PropTypes.number,
     obligatedAmount: React.PropTypes.number,
     budgetAuthority: React.PropTypes.number,

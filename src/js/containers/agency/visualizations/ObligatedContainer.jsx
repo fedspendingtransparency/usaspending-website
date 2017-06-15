@@ -9,7 +9,8 @@ import { isCancel } from 'axios';
 
 import * as AgencyHelper from 'helpers/agencyHelper';
 
-import ObligatedVisualization from 'components/agency/visualizations/obligated/ObligatedVisualization';
+import ObligatedVisualization from
+    'components/agency/visualizations/obligated/ObligatedVisualization';
 
 const propTypes = {
     id: React.PropTypes.string,
@@ -22,8 +23,6 @@ export class ObligatedContainer extends React.Component {
         super(props);
 
         this.state = {
-            loading: true,
-            error: false,
             inFlight: true,
             obligatedAmount: 0,
             budgetAuthority: 0,
@@ -47,42 +46,27 @@ export class ObligatedContainer extends React.Component {
     }
 
     setCgacCode(id) {
+        if (this.cgacRequest) {
+            this.cgacRequest.cancel();
+        }
+
         this.cgacRequest = AgencyHelper.fetchAgencyCgacCode({
             id
         });
 
-        this.cgacRequest.promise
-            .then((res) => {
-                this.setState(
-                    {
-                        cgacCode: res.data.results[0].toptier_agency.cgac_code
-                    }
-                );
-                this.setFiscalQuarter(this.state.cgacCode);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                }
-            });
+        return this.cgacRequest.promise;
     }
 
     setFiscalQuarter(cgacCode) {
+        if (this.quarterRequest) {
+            this.quarterRequest.cancel();
+        }
+
         this.quarterRequest = AgencyHelper.fetchAgencyFiscalQuarter({
             cgac_code: cgacCode
         });
 
-        this.quarterRequest.promise
-            .then((res) => {
-                this.setState({
-                    fiscalQuarter: res.data.results[0].reporting_fiscal_quarter
-                });
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                }
-            });
+        return this.quarterRequest.promise;
     }
 
     loadData(agencyID, activeFY) {
@@ -91,16 +75,13 @@ export class ObligatedContainer extends React.Component {
             this.searchRequest.cancel();
         }
 
-        // TODO - Lizzie: uncomment when available
-        this.searchRequest = AgencyHelper.fetchAgencyObligatedAmounts({
-            //fiscal_year: agencyID,
-            //funding_agency_id: activeFY
-            fiscal_year: 2017,
-            funding_agency_id: 246
-        });
-
         this.setState({
             inFlight: true
+        });
+
+        this.searchRequest = AgencyHelper.fetchAgencyObligatedAmounts({
+            fiscal_year: activeFY,
+            funding_agency_id: agencyID
         });
 
         this.searchRequest.promise
@@ -108,27 +89,35 @@ export class ObligatedContainer extends React.Component {
                 this.searchRequest = null;
 
                 this.setState({
-                    inFlight: false
-                });
-
-                this.setState({
                     obligatedAmount: parseFloat(res.data.results[0].obligated_amount),
                     budgetAuthority: parseFloat(res.data.results[0].budget_authority_amount)
                 });
 
-                // TODO - Lizzie: uncomment when available
-                //this.setCgacCode(this.props.id);
-                this.setCgacCode(246);
+                return this.setCgacCode(this.props.id);
+            })
+            .then((cgacRes) => {
+                const cgacCode = cgacRes.data.results[0].toptier_agency.cgac_code;
+                this.setState({
+                    cgacCode
+                });
+                return this.setFiscalQuarter(cgacCode);
+            })
+            .then((quarterRes) => {
+                this.setState({
+                    inFlight: false,
+                    fiscalQuarter: quarterRes.data.results[0].reporting_fiscal_quarter
+                });
             })
             .catch((err) => {
-                this.searchRequest = null;
-
-                this.setState({
-                    inFlight: false
-                });
-
                 if (!isCancel(err)) {
                     console.log(err);
+
+                    this.setState({
+                        inFlight: false
+                    });
+                    this.searchRequest = null;
+                    this.cgacRequest = null;
+                    this.quarterRequest = null;
                 }
             });
     }
@@ -136,15 +125,12 @@ export class ObligatedContainer extends React.Component {
     render() {
         // TODO - Lizzie: uncomment when available
         return (
-            <div id="agency-obligated-amount">
-                <ObligatedVisualization
-                    //activeFY={this.props.activeFY}
-                    activeFY={2017}
-                    reportingFiscalQuarter={this.state.fiscalQuarter}
-                    agencyName={this.props.agencyName}
-                    obligatedAmount={this.state.obligatedAmount}
-                    budgetAuthority={this.state.budgetAuthority} />
-            </div>
+            <ObligatedVisualization
+                activeFY={this.props.activeFY}
+                reportingFiscalQuarter={this.state.fiscalQuarter}
+                agencyName={this.props.agencyName}
+                obligatedAmount={this.state.obligatedAmount}
+                budgetAuthority={this.state.budgetAuthority} />
         );
     }
 }

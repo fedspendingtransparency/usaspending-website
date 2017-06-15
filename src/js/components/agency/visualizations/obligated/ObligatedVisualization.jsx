@@ -12,7 +12,7 @@ import _ from 'lodash';
 import AgencyObligatedGraph from './ObligatedGraph';
 
 const propTypes = {
-    activeFY: React.PropTypes.number,
+    activeFY: React.PropTypes.string,
     reportingFiscalQuarter: React.PropTypes.number,
     agencyName: React.PropTypes.string,
     obligatedAmount: React.PropTypes.number,
@@ -66,7 +66,7 @@ export default class AgencyObligatedAmount extends React.Component {
         ${obUnits.longLabel}`;
 
         const endOfQuarter = convertQuarterToDate(this.props.reportingFiscalQuarter, this.props.activeFY);
-        const asOfDate = moment(endOfQuarter).format("MMMM D, YYYY");
+        const asOfDate = moment(endOfQuarter, "YYYY-MM-DD").format("MMMM D, YYYY");
 
         const legend = [
             {
@@ -87,35 +87,42 @@ export default class AgencyObligatedAmount extends React.Component {
         ];
 
         return (
-            <div className="agency-obligated-wrapper">
-                <div className="agency-obligated-title">
-                    <h4 >Obligated Amount</h4>
-                    <hr
-                        className="results-divider"
-                        ref={(hr) => {
-                            this.sectionHr = hr;
-                        }} />
+            <div
+                className="agency-section-wrapper"
+                id="agency-obligated-amount">
+                <div className="agency-callout-description">
+                    <p>
+                        Agencies spend their available budget authority by making binding&nbsp;
+financial commitments called <strong>obligations</strong>. An agency incurs an obligation, for&nbpsp;
+example, when it places an order, signs a contract, awards a grant, purchases a service, or&nbsp;
+takes other actions that require it to make a payment.
+                    </p>
                 </div>
-                <div className="agency-obligated-content">
-                    <p className="fy-text">
-                        In Fiscal Year {this.props.activeFY}*, {this.props.agencyName} has obligated
-                    </p>
-                    <p className="against-auth-text">
-                        <span className="number number-bolder">{amountObligated}</span> against its <span className="number">{authority}</span> in Budget Authority
-                    </p>
-                    <AgencyObligatedGraph
-                        activeFY={this.props.activeFY}
-                        reportingFiscalQuarter={this.props.reportingFiscalQuarter}
-                        obligatedAmount={this.props.obligatedAmount}
-                        budgetAuthority={this.props.budgetAuthority}
-                        width={this.state.visualizationWidth}
-                        obligatedText={amountObligated}
-                        legend={legend} />
-                    <p className="object-class-text">
-                        This {amountObligated} in obligations is divided among
-                        categories, called <b>object classes</b>. These groupings can be helpful for analysis and cross-agency
-                        comparison.
-                    </p>
+                <div className="agency-obligated-wrapper">
+                    <div className="agency-obligated-title">
+                        <h4 >Obligated Amount</h4>
+                        <hr
+                            className="results-divider"
+                            ref={(hr) => {
+                                this.sectionHr = hr;
+                            }} />
+                    </div>
+                    <div className="agency-obligated-content">
+                        <p className="fy-text">
+                            In fiscal year {this.props.activeFY}*, {this.props.agencyName} has obligated
+                        </p>
+                        <p className="against-auth-text">
+                            <span className="number number-bolder">{amountObligated}</span> against its <span className="number">{authority}</span> in Budget Authority
+                        </p>
+                        <AgencyObligatedGraph
+                            activeFY={this.props.activeFY}
+                            reportingFiscalQuarter={this.props.reportingFiscalQuarter}
+                            obligatedAmount={this.props.obligatedAmount}
+                            budgetAuthority={this.props.budgetAuthority}
+                            width={this.state.visualizationWidth}
+                            obligatedText={amountObligated}
+                            legend={legend} />
+                    </div>
                 </div>
             </div>
         );
