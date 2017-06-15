@@ -7,6 +7,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
+import { is } from 'immutable';
+
 import { AgencyContainer } from 'containers/agency/AgencyContainer';
 import * as AgencyHelper from 'helpers/agencyHelper';
 
@@ -60,7 +62,7 @@ const unmockAgencyHelper = () => {
     jest.unmock('helpers/accountHelper');
 };
 
-describe('RecipientContainer', () => {
+describe('AgencyContainer', () => {
     it('should make an API call for the selected agency on mount', () => {
         mockAgencyHelper('fetchAgencyOverview', 'resolve', mockApi);
 
@@ -76,26 +78,47 @@ describe('RecipientContainer', () => {
         expect(mockLoad).toHaveBeenCalledWith('123');
     });
 
-    // it('should make a new API call when the ID prop changes', () => {
-    //     mockAgencyHelper('fetchAwardRecipients', 'resolve', mockRecipient);
+    it('should make a new API call when the URL award ID param changes', () => {
+        mockAgencyHelper('fetchAgencyOverview', 'resolve', mockApi);
 
-    //     const container = mount(<RecipientContainer
-    //         {...inboundProps} />);
+        const container = shallow(<AgencyContainer
+            {...mockRedux} />);
+        const mockLoad = jest.fn();
+        container.instance().loadAgencyOverview = mockLoad;
 
-    //     const loadDataMock = jest.fn();
-    //     container.instance().loadData = loadDataMock;
+        const nextProps = Object.assign({}, mockRedux, {
+            params: {
+                agencyId: '222'
+            }
+        });
 
-    //     // change the agency ID
-    //     container.setProps({
-    //         id: '555'
-    //     });
+        container.instance().componentWillReceiveProps(nextProps);
+        jest.runAllTicks();
 
-    //     jest.runAllTicks();
+        expect(mockLoad).toHaveBeenCalledTimes(1);
+        expect(mockLoad).toHaveBeenCalledWith('222');
+    });
 
-    //     // expect(loadDataSpy.callCount).toEqual(1);
-    //     expect(loadDataMock).toHaveBeenCalledWith('555', inboundProps.activeFY, 1);
-    //     loadDataSpy.reset();
+    describe('parseOverview', () => {
+        it('should create a new AgencyOverviewModel instance based on the API response', () => {
+            mockAgencyHelper('fetchAgencyOverview', 'resolve', mockApi);
 
-    //     unmockAgencyHelper();
-    // });
+            const mockSetAgency = jest.fn();
+
+            const mockProps = Object.assign({}, mockRedux, {
+                setAgencyOverview: mockSetAgency
+            });
+
+            const container = shallow(<AgencyContainer
+                {...mockProps} />);
+            container.instance().parseOverview(mockApi.results, '123');
+
+            expect(mockSetAgency).toHaveBeenCalledTimes(1);
+
+            const args = mockSetAgency.mock.calls[0];
+            const expectedModel = mockRedux.agency.overview;
+
+            expect(is(expectedModel, args[0])).toBeTruthy();
+        });
+    });
 });
