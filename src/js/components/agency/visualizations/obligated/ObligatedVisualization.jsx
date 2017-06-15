@@ -100,7 +100,7 @@ takes other actions that require it to make a payment.
                 </div>
                 <div className="agency-obligated-wrapper">
                     <div className="agency-obligated-title">
-                        <h4 >Obligated Amount</h4>
+                        <h4>Obligated Amount</h4>
                         <hr
                             className="results-divider"
                             ref={(hr) => {
