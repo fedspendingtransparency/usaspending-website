@@ -123,7 +123,6 @@ export class ObligatedContainer extends React.Component {
     }
 
     render() {
-        // TODO - Lizzie: uncomment when available
         return (
             <ObligatedVisualization
                 activeFY={this.props.activeFY}
