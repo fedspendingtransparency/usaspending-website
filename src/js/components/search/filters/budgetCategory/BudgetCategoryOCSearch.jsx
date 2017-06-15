@@ -48,11 +48,11 @@ const propTypes = {
 export default class BudgetCategoryOCSearch extends React.Component {
     render() {
         const objectClassItems = (
-            this.props.objectClassMapping.map((type, index) =>
+            this.props.objectClassMapping.map((type) =>
                 <PrimaryCheckboxType
                     {...type}
                     {...this.props}
-                    key={index}
+                    key={type.id}
                     types={objectClassDefinitions}
                     filterType="Object Class"
                     toggleCheckboxType={this.props.selectObjectClass.bind(this)}

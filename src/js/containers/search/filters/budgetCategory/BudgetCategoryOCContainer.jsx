@@ -18,12 +18,20 @@ const propTypes = {
 };
 
 export class BudgetCategoryOCContainer extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.selectedObjectClass = this.props.updateObjectClasses.bind(this);
+        this.bulkTypeChange = this.props.bulkObjectClassesChange.bind(this);
+    }
+
     render() {
         return (
             <BudgetCategoryOCSearch
                 {...this.props}
-                selectObjectClass={this.props.updateObjectClasses.bind(this)}
-                bulkTypeChange={this.props.bulkObjectClassesChange.bind(this)} />
+                selectObjectClass={this.selectedObjectClass}
+                bulkTypeChange={this.bulkTypeChange} />
         );
     }
 }
