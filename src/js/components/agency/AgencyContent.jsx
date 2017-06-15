@@ -11,6 +11,7 @@ import Router from 'containers/router/Router';
 
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
 import RecipientContainer from 'containers/agency/visualizations/RecipientContainer';
+import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
 
 import AgencySidebar from './sidebar/AgencySidebar';
 import AgencyOverview from './overview/AgencyOverview';
@@ -223,9 +224,10 @@ export default class AgencyContent extends React.Component {
                 </div>
                 <div className="agency-content">
                     <AgencyOverview agency={this.props.agency.overview} />
-                    <div id="agency-obligated-amount" style={{ height: 500 }}>
-                        Obligated Amount
-                    </div>
+                    <ObligatedContainer
+                        agencyName={this.props.agency.overview.name}
+                        activeFY={this.props.agency.overview.activeFY}
+                        id={this.props.agency.id} />
                     <ObjectClassContainer
                         id={this.props.agency.id}
                         activeFY={this.props.agency.overview.activeFY} />
