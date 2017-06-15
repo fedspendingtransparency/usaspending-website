@@ -17,7 +17,7 @@ const propTypes = {
     minorObjectClasses: React.PropTypes.object,
     totalObligation: React.PropTypes.number,
     totalMinorObligation: React.PropTypes.number,
-    fetchMinorObjectClasses: React.PropTypes.func
+    showMinorObjectClasses: React.PropTypes.func
 };
 
 export default class ObjectClassTreeMap extends React.Component {
@@ -59,7 +59,7 @@ export default class ObjectClassTreeMap extends React.Component {
             selected
         }, () => {
             if (this.state.showMinorObjectClass) {
-                this.props.fetchMinorObjectClasses(selected);
+                this.props.showMinorObjectClasses(selected);
             }
         });
     }

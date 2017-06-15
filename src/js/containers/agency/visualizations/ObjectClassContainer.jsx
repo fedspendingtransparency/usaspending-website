@@ -17,6 +17,11 @@ const propTypes = {
     activeFY: React.PropTypes.string
 };
 
+const defaultProps = {
+    id: '',
+    activeFY: ''
+};
+
 export default class ObjectClassContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -35,7 +40,7 @@ export default class ObjectClassContainer extends React.Component {
             totalMinorObligation: 0
         };
 
-        this.fetchMinorObjectClasses = this.fetchMinorObjectClasses.bind(this);
+        this.showMinorObjectClasses = this.showMinorObjectClasses.bind(this);
     }
 
     componentWillMount() {
@@ -43,35 +48,26 @@ export default class ObjectClassContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.id !== nextProps.id && this.props.activeFY !== nextProps.activeFY) {
+        if (this.props.id !== nextProps.id || this.props.activeFY !== nextProps.activeFY) {
             this.fetchMajorObjectClasses(nextProps.id, nextProps.activeFY);
         }
     }
 
     fetchMajorObjectClasses(id, fy) {
-        // if (!id || id === '' || !fy || fy === '') {
-        //     // invalid ID or fiscal year
-        //     return;
-        // }
+        if (!id || id === '' || !fy || fy === '') {
+            // invalid ID or fiscal year
+            return;
+        }
 
         if (this.searchRequest) {
             // A request is currently in-flight, cancel it
             this.searchRequest.cancel();
         }
 
-        // Todo - Mike Bray: Uncomment once this data is available
-        // const params = {
-        //     fiscal_year: fy,
-        //     funding_agency_id: id
-        // };
-
-        // Todo - Mike Bray: Remove once this data is available
-        const params = {
-            fiscal_year: 2017,
-            funding_agency_id: 256
-        };
-
-        this.searchRequest = AgencyHelper.fetchAgencyMajorObjectClasses(params);
+        this.searchRequest = AgencyHelper.fetchAgencyMajorObjectClasses({
+            funding_agency_id: id,
+            fiscal_year: fy
+        });
 
         this.setState({
             inFlight: true
@@ -122,27 +118,36 @@ export default class ObjectClassContainer extends React.Component {
             });
     }
 
+    showMinorObjectClasses(selected) {
+        // We want to clear out the existing Minor Object Class treemap
+        // so that subsequent loads don't show the previous treemap
+        // in the time it takes for the API call to return
+        this.setState({
+            minorObjectClasses: {
+                children: []
+            },
+            totalMinorObligation: 0
+        }, () => {
+            this.fetchMinorObjectClasses(selected);
+        });
+    }
+
     fetchMinorObjectClasses(majorObjectClassCode) {
+        if (!majorObjectClassCode || majorObjectClassCode === '') {
+            // invalid object class code
+            return;
+        }
+
         if (this.searchRequest) {
             // A request is currently in-flight, cancel it
             this.searchRequest.cancel();
         }
 
-        // Todo - Mike Bray: Uncomment once this data is available
-        // const params = {
-        //     fiscal_year: this.props.activeFY,
-        //     funding_agency_id: this.props.id,
-        //     major_object_class_code: majorObjectClassCode
-        // };
-
-        // Todo - Mike Bray: Remove once this data is available
-        const params = {
-            fiscal_year: 2017,
-            funding_agency_id: 246,
+        this.searchRequest = AgencyHelper.fetchAgencyMinorObjectClasses({
+            funding_agency_id: this.props.id,
+            fiscal_year: this.props.activeFY,
             major_object_class_code: majorObjectClassCode
-        };
-
-        this.searchRequest = AgencyHelper.fetchAgencyMinorObjectClasses(params);
+        });
 
         this.setState({
             inFlight: true
@@ -196,10 +201,11 @@ export default class ObjectClassContainer extends React.Component {
                 minorObjectClasses={this.state.minorObjectClasses}
                 totalObligation={this.state.totalObligation}
                 totalMinorObligation={this.state.totalMinorObligation}
-                fetchMinorObjectClasses={this.fetchMinorObjectClasses} />
+                showMinorObjectClasses={this.showMinorObjectClasses} />
         );
     }
 
 }
 
 ObjectClassContainer.propTypes = propTypes;
+ObjectClassContainer.defaultProps = defaultProps;

@@ -49,6 +49,14 @@ export default class MinorObjectClasses extends React.Component {
         if (nextProps.minorObjectClasses.children.length > 0) {
             this.buildTree(nextProps);
         }
+        // Clear out the finalNodes if props change and there are no minorObjectClasses.
+        // This will occur when the treemap has previously rendered and we're loading
+        // a different set of minorObjectClasses from the API.
+        else if (this.state.finalNodes.length > 0) {
+            this.setState({
+                finalNodes: []
+            });
+        }
     }
 
     componentWillUnmount() {
