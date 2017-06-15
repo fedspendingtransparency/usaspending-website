@@ -7,7 +7,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { is } from 'immutable';
 
 import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
 import * as AgencyHelper from 'helpers/agencyHelper';
@@ -29,6 +28,8 @@ export class AgencyContainer extends React.Component {
             loading: true,
             error: false
         };
+
+        this.request = null;
     }
     componentWillMount() {
         this.loadAgencyOverview(this.props.params.agencyId);
@@ -41,23 +42,37 @@ export class AgencyContainer extends React.Component {
     }
 
     loadAgencyOverview(id) {
-        // future API call
-        this.setState({
-            loading: false
-        }, () => {
-            // temporarily force the ID into the Redux store object while we mock the API
-            this.parseOverview({
-                agency_id: id,
-                agency_name: 'U.S. Department of Energy',
-                agency_abbreviation: 'DOE',
-                agency_logo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Seal_of_the_United_States_Department_of_Energy.svg/500px-Seal_of_the_United_States_Department_of_Energy.svg.png',
-                active_fy: '2017'
+        if (this.request) {
+            this.request.cancel();
+        }
+
+        this.request = AgencyHelper.fetchAgencyOverview(id);
+
+        this.request.promise
+            .then((res) => {
+                this.setState({
+                    loading: false,
+                    error: false
+                }, () => {
+                    this.parseOverview(res.data.results, id);
+                });
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+
+                    this.setState({
+                        loading: false,
+                        error: true
+                    });
+                }
             });
-        });
     }
 
-    parseOverview(data) {
-        const agency = new AgencyOverviewModel(data, true);
+    parseOverview(data, id) {
+        const agency = new AgencyOverviewModel(Object.assign({}, data, {
+            agency_id: id
+        }), true);
         this.props.setAgencyOverview(agency);
     }
 

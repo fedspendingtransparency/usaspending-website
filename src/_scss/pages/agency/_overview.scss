@@ -12,11 +12,11 @@
             @include flex(0 0 auto);
             width: rem(64);
             min-height: rem(64);
+            margin-right: rem(28);
         }
 
         .title {
             @include flex(1 1 auto);
-            margin-left: rem(28);
             h3 {
                 margin: rem(5) 0;
             }

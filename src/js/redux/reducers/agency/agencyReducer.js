@@ -10,7 +10,7 @@ export const initialState = {
     overview: new AgencyOverviewModel()
 };
 
-const accountReducer = (state = initialState, action) => {
+const agencyReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_AGENCY_OVERVIEW':
             return Object.assign({}, state, {
@@ -24,4 +24,4 @@ const accountReducer = (state = initialState, action) => {
     }
 };
 
-export default accountReducer;
+export default agencyReducer;
