@@ -109,9 +109,9 @@ export default class ObjectClassTreeMap extends React.Component {
                 className="agency-section-wrapper"
                 id="agency-object-classes">
                 <div className="agency-callout-description">
-                    This {total} in obligations is divided among categories,
-                    called object classes. These groupings can be helpful for analysis
-                    and cross-agency comparison.
+                    <p>This {total} in obligations is divided among categories,
+                    called <strong>object classes</strong>. These groupings can be helpful
+                        for analysis and cross-agency comparison.</p>
                 </div>
                 <div className="agency-section-title">
                     <h4>Object Classes</h4>
