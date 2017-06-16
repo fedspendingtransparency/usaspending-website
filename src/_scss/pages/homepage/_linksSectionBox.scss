@@ -4,7 +4,7 @@
     .links-section-box {
         @include display(flex);
         @include span-columns(16);
-        background-color: $color-gray-lightest;
+        background-color: $color-white;
         display: inline-block;
         margin: 0 0 rem(30) 0;
         padding: rem(20) 0;
@@ -12,8 +12,26 @@
             margin-bottom: 0;
         }
         @include media($tablet-screen) {
+            @include span-columns(8);
+            margin-top: 0;
+            &:nth-child(even) {
+                margin-right: 0;
+            }
+            &:nth-child(-n+2) {
+                margin-bottom: ($global-mrg * 3);
+            }
+        }
+        @include media($medium-screen) {
             @include span-columns(4);
-            margin-bottom: 0;
+            &:nth-child(even) {
+                margin-right: 1.75788%;
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+            &:nth-child(-n+2) {
+                margin-bottom: 0;
+            }
         }
         svg {
             fill: $color-cool-blue-lighter;

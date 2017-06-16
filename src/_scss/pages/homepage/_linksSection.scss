@@ -2,12 +2,11 @@
 @import "../../mixins/fullSectionWrap";
 @mixin linksSection {
     .links-section-outer-wrap {
-        background-color: $color-gray-lightest;
+        background-color: $color-white;
         .links-section-wrap {
             @include fullSectionWrap(0, 0);
         }
-        padding-bottom: rem(50);
-        padding-top: rem(50);
+        padding: rem(50) 0;
         text-align: center;
         @include clearfix;
         .links-section-primary-title {
