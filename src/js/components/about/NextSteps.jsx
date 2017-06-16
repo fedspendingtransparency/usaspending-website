@@ -15,7 +15,7 @@ export default class NextSteps extends React.Component {
                 <NextStepsBox
                     icon="faq"
                     sectionTitle="Frequently Asked Questions"
-                    iconClass="usa-da-qa-icon"
+                    iconClass="qa-icon"
                     sectionText="Get answers to commonly asked questions."
                     linkText="View FAQ"
                     ariaLabel="FAQ"
