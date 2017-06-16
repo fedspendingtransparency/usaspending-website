@@ -1,11 +1,13 @@
 // Development values
 const kGlobalConstants = {
-    API: '',
+    API: 'https://api.usaspending.gov/api/',
     LOCAL_ROOT: '',
     GITHUB: '',
     GA_TRACKING_ID: '',
     LOCAL: false,
-    DEV: true
+    DEV: true,
+    PERF_LOG: false,
+    MAPBOX_TOKEN: ''
 };
 
 export default kGlobalConstants;

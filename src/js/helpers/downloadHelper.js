@@ -11,7 +11,7 @@ export const requestAwardTable = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'download/awards/',
+            url: 'v1/download/awards/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,

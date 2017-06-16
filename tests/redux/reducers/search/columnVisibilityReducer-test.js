@@ -34,8 +34,8 @@ describe('columnVisibilityReducer', () => {
                             'period_of_performance_start_date',
                             'period_of_performance_current_end_date',
                             'total_obligation',
-                            'funding_agency_name',
-                            'funding_subtier_name',
+                            'awarding_agency_name',
+                            'awarding_subtier_name',
                             'type'
                         ]
                     ),
@@ -44,9 +44,9 @@ describe('columnVisibilityReducer', () => {
                             'description',
                             'date_signed',
                             'potential_total_value_of_award',
-                            'awarding_agency_name',
-                            'awarding_subtier_name',
                             'awarding_office_name',
+                            'funding_agency_name',
+                            'funding_subtier_name',
                             'funding_office_name',
                             'recipient_street',
                             'recipient_country',
@@ -129,8 +129,8 @@ describe('columnVisibilityReducer', () => {
                             'period_of_performance_start_date',
                             'period_of_performance_current_end_date',
                             'total_obligation',
-                            'funding_agency_name',
-                            'funding_subtier_name',
+                            'awarding_agency_name',
+                            'awarding_subtier_name',
                             'type',
                             'date_signed'
                         ]
@@ -139,9 +139,9 @@ describe('columnVisibilityReducer', () => {
                         [
                             'description',
                             'potential_total_value_of_award',
-                            'awarding_agency_name',
-                            'awarding_subtier_name',
                             'awarding_office_name',
+                            'funding_agency_name',
+                            'funding_subtier_name',
                             'funding_office_name',
                             'recipient_street',
                             'recipient_country',
@@ -226,8 +226,8 @@ describe('columnVisibilityReducer', () => {
                             'period_of_performance_start_date',
                             'period_of_performance_current_end_date',
                             'total_obligation',
-                            'funding_agency_name',
-                            'funding_subtier_name',
+                            'awarding_agency_name',
+                            'awarding_subtier_name',
                             'type'
                         ]
                     ),
@@ -236,9 +236,9 @@ describe('columnVisibilityReducer', () => {
                             'description',
                             'date_signed',
                             'potential_total_value_of_award',
-                            'awarding_agency_name',
-                            'awarding_subtier_name',
                             'awarding_office_name',
+                            'funding_agency_name',
+                            'funding_subtier_name',
                             'funding_office_name',
                             'recipient_street',
                             'recipient_country',
@@ -308,12 +308,17 @@ describe('columnVisibilityReducer', () => {
                             'period_of_performance_start_date',
                             'period_of_performance_current_end_date',
                             'total_obligation',
-                            'funding_agency_name',
-                            'funding_subtier_name',
+                            'awarding_agency_name',
+                            'awarding_subtier_name',
                             'type'
                         ]
                     ),
-                    hiddenColumns: new OrderedSet()
+                    hiddenColumns: new OrderedSet(
+                        [
+                            'funding_agency_name',
+                            'funding_subtier_name'
+                        ]
+                    )
                 },
                 direct_payments: {
                     visibleColumns: new OrderedSet(
@@ -323,12 +328,17 @@ describe('columnVisibilityReducer', () => {
                             'period_of_performance_start_date',
                             'period_of_performance_current_end_date',
                             'total_obligation',
-                            'funding_agency_name',
-                            'funding_subtier_name',
+                            'awarding_agency_name',
+                            'awarding_subtier_name',
                             'type'
                         ]
                     ),
-                    hiddenColumns: new OrderedSet()
+                    hiddenColumns: new OrderedSet(
+                        [
+                            'funding_agency_name',
+                            'funding_subtier_name'
+                        ]
+                    )
                 },
                 loans: {
                     visibleColumns: new OrderedSet(
@@ -338,11 +348,16 @@ describe('columnVisibilityReducer', () => {
                             'action_date',
                             'face_value_loan_guarantee',
                             'original_loan_subsidy_cost',
+                            'awarding_agency_name',
+                            'awarding_subtier_name'
+                        ]
+                    ),
+                    hiddenColumns: new OrderedSet(
+                        [
                             'funding_agency_name',
                             'funding_subtier_name'
                         ]
-                    ),
-                    hiddenColumns: new OrderedSet()
+                    )
                 },
                 insurance: {
                     visibleColumns: new OrderedSet(
@@ -352,12 +367,17 @@ describe('columnVisibilityReducer', () => {
                             'period_of_performance_start_date',
                             'period_of_performance_current_end_date',
                             'total_obligation',
-                            'funding_agency_name',
-                            'funding_subtier_name',
+                            'awarding_agency_name',
+                            'awarding_subtier_name',
                             'type'
                         ]
                     ),
-                    hiddenColumns: new OrderedSet()
+                    hiddenColumns: new OrderedSet(
+                        [
+                            'funding_agency_name',
+                            'funding_subtier_name'
+                        ]
+                    )
                 }
             };
 
@@ -386,11 +406,11 @@ describe('columnVisibilityReducer', () => {
                         [
                             'award_id',
                             'recipient_name',
-                            'funding_agency_name',
+                            'awarding_agency_name',
                             'period_of_performance_start_date',
                             'period_of_performance_current_end_date',
                             'total_obligation',
-                            'funding_subtier_name',
+                            'awarding_subtier_name',
                             'type'
                         ]
                     ),
@@ -399,9 +419,9 @@ describe('columnVisibilityReducer', () => {
                             'description',
                             'date_signed',
                             'potential_total_value_of_award',
-                            'awarding_agency_name',
-                            'awarding_subtier_name',
                             'awarding_office_name',
+                            'funding_agency_name',
+                            'funding_subtier_name',
                             'funding_office_name',
                             'recipient_street',
                             'recipient_country',
@@ -470,12 +490,17 @@ describe('columnVisibilityReducer', () => {
                             'period_of_performance_start_date',
                             'period_of_performance_current_end_date',
                             'total_obligation',
-                            'funding_agency_name',
-                            'funding_subtier_name',
+                            'awarding_agency_name',
+                            'awarding_subtier_name',
                             'type'
                         ]
                     ),
-                    hiddenColumns: new OrderedSet()
+                    hiddenColumns: new OrderedSet(
+                        [
+                            'funding_agency_name',
+                            'funding_subtier_name'
+                        ]
+                    )
                 },
                 direct_payments: {
                     visibleColumns: new OrderedSet(
@@ -485,12 +510,17 @@ describe('columnVisibilityReducer', () => {
                             'period_of_performance_start_date',
                             'period_of_performance_current_end_date',
                             'total_obligation',
-                            'funding_agency_name',
-                            'funding_subtier_name',
+                            'awarding_agency_name',
+                            'awarding_subtier_name',
                             'type'
                         ]
                     ),
-                    hiddenColumns: new OrderedSet()
+                    hiddenColumns: new OrderedSet(
+                        [
+                            'funding_agency_name',
+                            'funding_subtier_name'
+                        ]
+                    )
                 },
                 loans: {
                     visibleColumns: new OrderedSet(
@@ -500,11 +530,16 @@ describe('columnVisibilityReducer', () => {
                             'action_date',
                             'face_value_loan_guarantee',
                             'original_loan_subsidy_cost',
+                            'awarding_agency_name',
+                            'awarding_subtier_name'
+                        ]
+                    ),
+                    hiddenColumns: new OrderedSet(
+                        [
                             'funding_agency_name',
                             'funding_subtier_name'
                         ]
-                    ),
-                    hiddenColumns: new OrderedSet()
+                    )
                 },
                 insurance: {
                     visibleColumns: new OrderedSet(
@@ -514,12 +549,17 @@ describe('columnVisibilityReducer', () => {
                             'period_of_performance_start_date',
                             'period_of_performance_current_end_date',
                             'total_obligation',
-                            'funding_agency_name',
-                            'funding_subtier_name',
+                            'awarding_agency_name',
+                            'awarding_subtier_name',
                             'type'
                         ]
                     ),
-                    hiddenColumns: new OrderedSet()
+                    hiddenColumns: new OrderedSet(
+                        [
+                            'funding_agency_name',
+                            'funding_subtier_name'
+                        ]
+                    )
                 }
             };
 

@@ -32,7 +32,7 @@ export const tasCategoriesFields = {
     endDate: 'reporting_period_end',
     budgetFunctionTitle: 'treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'treasury_account__budget_subfunction_title',
-    objectClass: 'object_class__major_object_class',
+    objectClass: 'object_class__object_class',
     fundingAgency: 'treasury_account__agency_id',
     federalAccount: 'treasury_account__federal_account'
 };
