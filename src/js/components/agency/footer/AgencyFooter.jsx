@@ -6,7 +6,7 @@
 import React from 'react';
 
 const propTypes = {
-
+    clickedSearch: React.PropTypes.func
 };
 
 export default class AgencyFooter extends React.Component {
@@ -21,7 +21,9 @@ export default class AgencyFooter extends React.Component {
                         Check out the <strong>Search and Download</strong> page for more in-depth
                         analysis on this agency and more
                     </p>
-                    <button className="agency-search-button">
+                    <button
+                        className="agency-search-button"
+                        onClick={this.props.clickedSearch}>
                         Let&#39;s go!
                     </button>
                 </div>

@@ -12,10 +12,10 @@ import Router from 'containers/router/Router';
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
 import RecipientContainer from 'containers/agency/visualizations/RecipientContainer';
 import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
+import AgencyFooterContainer from 'containers/agency/AgencyFooterContainer';
 
 import AgencySidebar from './sidebar/AgencySidebar';
 import AgencyOverview from './overview/AgencyOverview';
-import AgencyFooter from './footer/AgencyFooter';
 
 const agencySections = [
     {
@@ -237,7 +237,7 @@ export default class AgencyContent extends React.Component {
                             id={this.props.agency.id}
                             activeFY={this.props.agency.overview.activeFY} />
                     </div>
-                    <AgencyFooter />
+                    <AgencyFooterContainer id={this.props.agency.id} />
                 </div>
             </div>
         );

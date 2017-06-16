@@ -28,5 +28,15 @@
         p {
             text-align: center;
         }
+
+        .agency-search-button {
+            display: block;
+
+            margin: rem(30) auto 0 auto;
+            width: rem(180);
+            height: rem(50);
+            text-align: center;
+            font-size: rem(24);
+        }
     }
 }
