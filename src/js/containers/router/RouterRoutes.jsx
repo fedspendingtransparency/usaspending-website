@@ -57,6 +57,15 @@ const routes = {
             }
         },
         {
+            path: '/agency/:agencyId',
+            parent: '/agency',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/agency/AgencyContainer').default);
+                });
+            }
+        },
+        {
             path: '/about',
             parent: '/about',
             component: (cb) => {
