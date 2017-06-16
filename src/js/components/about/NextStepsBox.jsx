@@ -5,7 +5,6 @@
 
 import React from 'react';
 import * as AboutIcons from 'components/sharedComponents/icons/about/AboutIcons';
-import * as Icons from 'components/sharedComponents/icons/Icons';
 
 
 const propTypes = {
