@@ -1,0 +1,32 @@
+.agency-footer {
+    height: rem(360);
+    width: 100%;
+    background-color: $color-primary-darkest;
+    color: $color-white;
+
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+    position: relative;
+
+    .footer-content {
+        @include flex(1 1 auto);
+        margin: 0 rem(20);
+
+        @include media($tablet-screen) {
+            margin: 0 rem(80);
+        }
+
+        h4 {
+            font-size: rem(38);
+            line-height: rem(47);
+            margin: rem(5) 0;
+
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+        }
+    }
+}

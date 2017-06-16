@@ -15,6 +15,7 @@ import ObligatedContainer from 'containers/agency/visualizations/ObligatedContai
 
 import AgencySidebar from './sidebar/AgencySidebar';
 import AgencyOverview from './overview/AgencyOverview';
+import AgencyFooter from './footer/AgencyFooter';
 
 const agencySections = [
     {
@@ -223,17 +224,20 @@ export default class AgencyContent extends React.Component {
                         jumpToSection={this.jumpToSection} />
                 </div>
                 <div className="agency-content">
-                    <AgencyOverview agency={this.props.agency.overview} />
-                    <ObligatedContainer
-                        agencyName={this.props.agency.overview.name}
-                        activeFY={this.props.agency.overview.activeFY}
-                        id={this.props.agency.id} />
-                    <ObjectClassContainer
-                        id={this.props.agency.id}
-                        activeFY={this.props.agency.overview.activeFY} />
-                    <RecipientContainer
-                        id={this.props.agency.id}
-                        activeFY={this.props.agency.overview.activeFY} />
+                    <div className="agency-padded-content">
+                        <AgencyOverview agency={this.props.agency.overview} />
+                        <ObligatedContainer
+                            agencyName={this.props.agency.overview.name}
+                            activeFY={this.props.agency.overview.activeFY}
+                            id={this.props.agency.id} />
+                        <ObjectClassContainer
+                            id={this.props.agency.id}
+                            activeFY={this.props.agency.overview.activeFY} />
+                        <RecipientContainer
+                            id={this.props.agency.id}
+                            activeFY={this.props.agency.overview.activeFY} />
+                    </div>
+                    <AgencyFooter />
                 </div>
             </div>
         );
