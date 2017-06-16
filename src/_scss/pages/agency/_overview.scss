@@ -1,0 +1,81 @@
+.agency-overview {
+    @include clearfix();
+
+    .title-wrapper {
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        width: 100%;
+        position: relative;
+
+        .logo {
+            @include flex(0 0 auto);
+            width: rem(64);
+            min-height: rem(64);
+            margin-right: rem(28);
+        }
+
+        .title {
+            @include flex(1 1 auto);
+            h3 {
+                margin: rem(5) 0;
+            }
+        }
+    }
+
+    .overview-content {
+        @include span-columns(16);
+
+        .agency-details {
+            @include span-columns(16);
+            @include media($tablet-screen) {
+                @include span-columns(8);
+            }
+
+            p {
+                font-size: rem(14);
+                line-height: rem(20);
+            }
+
+            .lower-details {
+                @include span-columns(16);
+
+                margin-top: rem(0);
+                @include media($tablet-screen) {
+                    margin-top: rem(10);
+                }
+
+                .group {
+                    @include span-columns(16);
+                    @include media($small-screen) {
+                        @include span-columns(8);
+                    }
+
+                    h5 {
+                        font-size: rem(16);
+                        font-weight: 600;
+                        line-height: rem(20);
+                        margin: rem(5) 0;
+                    }
+                }
+            }
+        }
+
+        .budget-authority {
+            @include span-columns(16);
+
+            @include media($tablet-screen) {
+                @include span-columns(8);
+                padding-left: rem(10);
+            }
+        }
+
+
+        h4 {
+            font-weight: 600;
+            font-size: rem(19);
+            line-height: rem(24);
+            margin: rem(5) 0;
+        }
+    }
+}
