@@ -34,6 +34,13 @@
             padding-bottom: rem(0);
 
             .treemap-inner-wrap {
+                margin: 0;
+                width: 100%;
+
+                .tree-wrapper {
+                    width: 100%;
+                }
+
                 .function-desc {
                     margin-top: 0;
                     padding: 0;
@@ -45,6 +52,12 @@
 
                     p {
                         margin-bottom: rem(17);
+                    }
+                }
+
+                .visualization-tooltip .tooltip .tooltip-body .tooltip-full {
+                    .tooltip-description {
+                        text-align: center;
                     }
                 }
             }
