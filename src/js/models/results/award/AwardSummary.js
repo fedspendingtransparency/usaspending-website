@@ -517,10 +517,10 @@ const remapData = (data, idField) => {
             recipientStreet += loc.address_line1;
         }
         if (loc.address_line2) {
-            recipientStreet += loc.address_line2;
+            recipientStreet += `\n${loc.address_line2}`;
         }
         if (loc.address_line3) {
-            recipientStreet += loc.address_line3;
+            recipientStreet += `\n${loc.address_line3}`;
         }
 
         if (loc.city_name) {

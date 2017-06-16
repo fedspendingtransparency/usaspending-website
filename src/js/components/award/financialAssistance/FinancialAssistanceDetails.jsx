@@ -75,7 +75,7 @@ export default class FinancialAssistanceDetails extends React.Component {
         }
         if (award.pop_country_code === 'USA') {
             popPlace = `${cityState} ${award.pop_zip}`;
-            if (award.pop_state_code) {
+            if (award.pop_state_code && award.pop_congressional_district) {
                 popPlace +=
             `\nCongressional District: ${award.pop_state_code}-${award.pop_congressional_district}`;
             }
