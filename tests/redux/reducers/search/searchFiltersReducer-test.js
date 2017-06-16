@@ -264,30 +264,28 @@ describe('searchFiltersReducer', () => {
     describe('UPDATE_SELECTED_OBJECT_CLASSES', () => {
         const action = {
             type: 'UPDATE_SELECTED_OBJECT_CLASSES',
-            objectClass: '10'
+            objectClass: '110'
         };
 
-        const identifier = '10';
-
-        const expectedValue = objectClassDefinitions[identifier];
+        const identifier = '110';
 
         it('should add the provided federal account if it does not currently exist in the filter',
             () => {
                 const updatedState = searchFiltersReducer(undefined, action);
-                expect(updatedState.objectClasses).toEqual(new OrderedMap({
-                    [identifier]: expectedValue
-                }));
+                expect(updatedState.objectClasses).toEqual(new Set(
+                    [identifier]
+                ));
             });
 
         it('should remove the provided federal account if already exists in the filter', () => {
             const startingState = Object.assign({}, initialState, {
-                objectClasses: new OrderedMap({
-                    [identifier]: expectedValue
-                })
+                objectClasses: new Set(
+                    [identifier]
+                )
             });
 
             const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.objectClasses).toEqual(new OrderedMap());
+            expect(updatedState.objectClasses).toEqual(new Set());
         });
     });
 
