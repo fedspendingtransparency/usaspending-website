@@ -5,7 +5,7 @@
 
 import React from 'react';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
-import _ from 'lodash';
+import { throttle } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import kGlobalConstants from 'GlobalConstants';
@@ -17,6 +17,7 @@ const propTypes = {
     hideTooltip: React.PropTypes.func
 };
 
+// Define map movement increment
 const delta = 100;
 
 export default class MapBox extends React.Component {
@@ -33,8 +34,15 @@ export default class MapBox extends React.Component {
         this.map = null;
         this.componentUnmounted = false;
 
+        // Bind window functions
         this.findHoveredLayers = this.findHoveredLayers.bind(this);
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+
+        // Bind movement functions
+        this.moveUp = this.moveUp.bind(this);
+        this.moveLeft = this.moveLeft.bind(this);
+        this.moveRight = this.moveRight.bind(this);
+        this.moveDown = this.moveDown.bind(this);
     }
 
     componentDidMount() {
@@ -68,55 +76,29 @@ export default class MapBox extends React.Component {
         });
     }
 
-    goDirection(direction, map) {
-        switch (direction) {
-            case 'left':
-                map.panBy([-delta, 0]);
-                break;
-            case 'right':
-                map.panBy([delta, 0]);
-                break;
-            case 'up':
-                map.panBy([0, -delta]);
-                break;
-            case 'down':
-                map.panBy([0, delta]);
-                break;
-            default:
-                break;
-        }
+    moveUp() {
+        this.moveMap([0, -delta]);
     }
 
-    buttonListen(button, map) {
-        this.persist = setInterval(() => {
-            this.goDirection(button[0], map);
-        }, 20);
+    moveLeft() {
+        this.moveMap([-delta, 0]);
     }
 
-    buttonStop() {
-        clearInterval(this.persist);
+    moveRight() {
+        this.moveMap([delta, 0]);
     }
 
-    generateNativationButtons(map) {
-        const buttons = [
-            ['left', this.leftButton],
-            ['right', this.rightButton],
-            ['up', this.upButton],
-            ['down', this.downButton]
-        ];
+    moveDown() {
+        this.moveMap([0, delta]);
+    }
 
-        buttons.forEach((b) => {
-            b[1].addEventListener('mousedown', this.buttonListen.bind(this, b, map));
-            b[1].addEventListener('touchstart', this.buttonListen.bind(this, b, map));
-            b[1].addEventListener('mouseup', this.buttonStop.bind(this));
-            b[1].addEventListener('touchend', this.buttonStop.bind(this));
-        });
+    moveMap(bearing) {
+        this.map.panBy(bearing);
     }
 
     resizeMap() {
         if (this.state.windowWidth < 768) {
             this.map.dragPan.disable();
-            this.generateNativationButtons(this.map);
             this.setState({
                 showNavigationButtons: true
             });
@@ -149,7 +131,6 @@ export default class MapBox extends React.Component {
         if (this.state.windowWidth < 768) {
             showNavigationButtons = true;
             this.map.dragPan.disable();
-            this.generateNativationButtons(this.map);
         }
 
         // disable scroll zoom
@@ -248,29 +229,25 @@ export default class MapBox extends React.Component {
                 <div className={`map-buttons ${hideClass}`}>
                     <div className="first-row">
                         <button
-                            ref={(b) => {
-                                this.upButton = b;
-                            }}>
+                            onMouseDown={this.moveUp}
+                            onTouchStart={this.moveUp}>
                             <Icons.AngleUp />
                         </button>
                     </div>
                     <div className="second-row">
                         <button
-                            ref={(b) => {
-                                this.leftButton = b;
-                            }}>
+                            onMouseDown={this.moveLeft}
+                            onTouchStart={this.moveLeft}>
                             <Icons.AngleLeft />
                         </button>
                         <button
-                            ref={(b) => {
-                                this.downButton = b;
-                            }}>
+                            onMouseDown={this.moveDown}
+                            onTouchStart={this.moveDown}>
                             <Icons.AngleDown />
                         </button>
                         <button
-                            ref={(b) => {
-                                this.rightButton = b;
-                            }}>
+                            onMouseDown={this.moveRight}
+                            onTouchStart={this.moveRight}>
                             <Icons.AngleRight />
                         </button>
                     </div>
