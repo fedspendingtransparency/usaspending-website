@@ -2,9 +2,10 @@
     @import "mixins/fullSectionWrap";
     @include fullSectionWrap(0, 0);
     & .block-wrap {
-        @include span-columns(4);
+        @include span-columns(16);
         text-align: center;
-        margin-top: ($global-mrg * 2);
+        margin: 0 0 rem(30) 0;
+        padding: rem(20) 0;
         & h6 {
             color: $color-gray;
             margin: ($global-mrg * 2) 0 0;

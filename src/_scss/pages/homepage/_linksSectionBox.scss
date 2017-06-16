@@ -3,7 +3,7 @@
 @mixin linksSectionBox {
     .links-section-box {
         @include display(flex);
-        @include span-columns(4);
+        @include span-columns(16);
         background-color: $color-gray-lightest;
         display: inline-block;
         margin: 0 0 rem(30) 0;
