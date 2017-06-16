@@ -92,9 +92,9 @@ export default class AgencyObligatedAmount extends React.Component {
                 id="agency-obligated-amount">
                 <div className="agency-callout-description">
                     <p>
-                        Agencies spend their available budget authority by making binding&nbsp;
-financial commitments called <strong>obligations</strong>. An agency incurs an obligation, for&nbpsp;
-example, when it places an order, signs a contract, awards a grant, purchases a service, or&nbsp;
+                        Agencies spend their available budget authority by making binding
+financial commitments called <strong>obligations</strong>. An agency incurs an obligation, for
+example, when it places an order, signs a contract, awards a grant, purchases a service, or
 takes other actions that require it to make a payment.
                     </p>
                 </div>
