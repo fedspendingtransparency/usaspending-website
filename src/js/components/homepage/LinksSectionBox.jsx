@@ -6,11 +6,11 @@
 import React from 'react';
 
 import * as HomeIcons from 'components/sharedComponents/icons/home/HomeIcons';
-import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     icon: React.PropTypes.string,
-    text: React.PropTypes.string,
+    title: React.PropTypes.string,
+    subtitle: React.PropTypes.string,
     linkText: React.PropTypes.string,
     linkUrl: React.PropTypes.string
 };
