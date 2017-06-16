@@ -21,10 +21,10 @@ export default class RecipientAddress extends React.Component {
         let country = null;
         let district = null;
 
-        if (recipient.recipient_country_code !== "USA") {
+        if (recipient.recipient_country_code !== "USA" && recipient.recipient_country !== null) {
             country = (<span><br />{recipient.recipient_country}</span>);
         }
-        if (recipient.recipient_congressional_district) {
+        if (recipient.recipient_congressional_district && recipient.recipient_state_code) {
             district = (
                 <div className="item-value">
                     Congressional District: {recipient.recipient_state_code}-
