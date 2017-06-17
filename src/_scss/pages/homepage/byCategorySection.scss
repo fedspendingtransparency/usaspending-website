@@ -16,7 +16,7 @@
             & strong {
                 font-weight: $font-semibold;
             }
-            @include media($medium-screen) {
+            @include media($large-screen) {
                 @include span-columns(10);
                 @include shift(3);
             }

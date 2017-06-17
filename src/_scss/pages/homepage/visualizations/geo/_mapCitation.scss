@@ -1,0 +1,16 @@
+.homepage-map-citation {
+    display: none;
+    @include media($tablet-screen) {
+        display: block;
+        position: absolute;
+        bottom: rem(25);
+        left: rem(30);
+        z-index: 3;
+        color: $color-base;
+        font-size: rem(12);
+        max-width: 85%;
+        p {
+            margin: rem(2) 0;
+        }
+    }
+}

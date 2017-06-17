@@ -6,12 +6,12 @@
 import React from 'react';
 import _ from 'lodash';
 
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import ToggleButton from 'components/sharedComponents/ToggleButton';
 import MapWrapper from 'components/search/visualizations/geo/MapWrapper';
 
 import GeoTotalTooltip from './tooltips/GeoTotalTooltip';
 import GeoCapitaTooltip from './tooltips/GeoCapitaTooltip';
+import HomepageMapCitation from './HomepageMapCitation';
 
 const propTypes = {
     data: React.PropTypes.object,
@@ -126,20 +126,8 @@ export default class MapVisualization extends React.Component {
                         active={this.props.showPerCapita}
                         pressedToggle={this.props.togglePerCapita} />
                 </div>
-
                 <div className="homepage-map-citation">
-                    <p>
-                        The map reflects where obligated funding was used. This is called &quot;place of performance.&quot;
-                    </p>
-                    <p>
-                        Sources: U.S. Census Bureau, Population Division
-                    </p>
-                    <p>
-                        The World Factbook 2013-14. Washington, DC: Central Intelligence Agency, 2013
-                        <span className="info-icon">
-                            <InfoCircle alt="Citation" />
-                        </span>
-                    </p>
+                    <HomepageMapCitation />
                 </div>
                 <MapWrapper
                     {...this.props}

@@ -4,28 +4,25 @@
         display: block;
         height: 100%;
         width: 100%;
-
         .map-buttons {
             position: absolute;
             float: right;
             right: rem(10);
-            bottom: rem(100);
+            bottom: rem(30);
             z-index: 3;
-
-            .first-row, .second-row {
+            .first-row,
+            .second-row {
                 @include display(flex);
                 @include justify-content(center);
                 @include flex-direction(row);
                 @include align-items(center);
             }
-
             button {
                 background-color: $color-white;
                 box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
                 color: $color-gray;
                 padding: rem(5) rem(10);
                 margin-bottom: 0;
-
                 svg {
                     fill: $color-gray;
                     height: rem(10);
@@ -36,18 +33,22 @@
     }
     @import "./_legend";
     .map-instructions {
-        background-color: $color-white;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-        color: $color-gray;
-        font-size: rem(14);
-        font-weight: $font-semibold;
-        left: rem(15);
-        line-height: rem(18);
-        max-width: rem(230);
-        padding: rem(12) rem(15);
-        position: absolute;
-        text-align: center;
-        top: rem(15);
-        z-index: 2;
+        display: none;
+        @include media($tablet-screen) {
+            background-color: $color-white;
+            display: block;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+            color: $color-gray;
+            font-size: rem(14);
+            font-weight: $font-semibold;
+            left: rem(15);
+            line-height: rem(18);
+            max-width: rem(230);
+            padding: rem(12) rem(15);
+            position: absolute;
+            text-align: center;
+            top: rem(15);
+            z-index: 2;
+        }
     }
 }
