@@ -96,9 +96,17 @@ export default class MapBox extends React.Component {
         this.map.panBy(bearing);
     }
 
+    centerMap(map) {
+        map.jumpTo({
+            zoom: 2.25,
+            center: [-95.569430, 38.852892]
+        });
+    }
+
     resizeMap() {
         if (this.state.windowWidth < 768) {
             this.map.dragPan.disable();
+            this.centerMap(this.map);
             this.setState({
                 showNavigationButtons: true
             });
@@ -131,6 +139,7 @@ export default class MapBox extends React.Component {
         if (this.state.windowWidth < 768) {
             showNavigationButtons = true;
             this.map.dragPan.disable();
+            this.centerMap(this.map);
         }
 
         // disable scroll zoom
