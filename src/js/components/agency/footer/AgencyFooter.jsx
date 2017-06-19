@@ -18,8 +18,8 @@ export default class AgencyFooter extends React.Component {
                         Looking for more insight?
                     </h4>
                     <p>
-                        Check out the <strong>Search and Download</strong> page for more in-depth
-                        analysis on this agency and more
+                        Check out the <strong>Search and Download</strong> page <br />
+                        for more in-depth analysis on this agency and more
                     </p>
                     <button
                         className="agency-search-button"
