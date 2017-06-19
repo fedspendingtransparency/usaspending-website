@@ -36,15 +36,16 @@ export class AgencyFooterContainer extends React.Component {
         this.clickedSearch = this.clickedSearch.bind(this);
     }
 
-    componentWillMount() {
-        this.loadAgency(this.props.id);
-    }
+    // TODO: Kevin Li - this feature has been descoped to no longer auto-fill the search page
+    // componentWillMount() {
+    //     this.loadAgency(this.props.id);
+    // }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.id !== this.props.id) {
-            this.loadAgency(nextProps.id);
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.id !== this.props.id) {
+    //         this.loadAgency(nextProps.id);
+    //     }
+    // }
 
     loadAgency(id) {
         if (this.request) {
@@ -74,17 +75,18 @@ export class AgencyFooterContainer extends React.Component {
     }
 
     clickedSearch() {
-        if (!this.state.ready) {
-            return;
-        }
+        // TODO: Kevin Li - this feature has been descoped to no longer auto-fill the search page
+        // if (!this.state.ready) {
+        //     return;
+        // }
 
         // we need to clear out the Redux filters
         this.props.clearAllFilters();
 
-        // now push in the current agency as the selected awarding agency
-        this.props.updateSelectedAwardingAgencies({
-            agency: this.state.agency
-        });
+        // // now push in the current agency as the selected awarding agency
+        // this.props.updateSelectedAwardingAgencies({
+        //     agency: this.state.agency
+        // });
 
         Router.history.push('/search');
     }
