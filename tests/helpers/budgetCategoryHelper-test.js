@@ -22,15 +22,4 @@ describe('Budget Category helper functions', () => {
             expect(response).toEqual('Other income security | Sub-Function');
         });
     });
-
-    describe('formatFederalAccount', () => {
-        it('should return properly formatted Federal Accounts', () => {
-            const response = BudgetCategoryHelper.formatFederalAccount({
-                agency_identifier: '123',
-                main_account_code: '4567',
-                account_title: 'Account Title'
-            });
-            expect(response).toEqual('123-4567 - Account Title');
-        });
-    });
 });
