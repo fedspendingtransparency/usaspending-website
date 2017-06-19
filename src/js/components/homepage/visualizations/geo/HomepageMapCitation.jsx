@@ -9,7 +9,7 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 export default class HomepageMapCitation extends React.Component {
     render() {
         return (
-            <div>
+            <div className="homepage-map-citation">
                 <p>
                     The map reflects where obligated funding was used. This is called &quot;place of performance.&quot;
                 </p>

@@ -126,9 +126,7 @@ export default class MapVisualization extends React.Component {
                         active={this.props.showPerCapita}
                         pressedToggle={this.props.togglePerCapita} />
                 </div>
-                <div className="homepage-map-citation">
-                    <HomepageMapCitation />
-                </div>
+                <HomepageMapCitation />
                 <MapWrapper
                     {...this.props}
                     tooltip={this.state.tooltipType}

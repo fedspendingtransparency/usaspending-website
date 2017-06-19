@@ -82,9 +82,7 @@ export default class MapVisualizationWrapper extends React.Component {
                     view={this.state.view}
                     changeView={this.changeView} />
                 {content}
-                <div className="mobile-map-citation">
-                    <HomepageMapCitation />
-                </div>
+                <HomepageMapCitation />
             </div>
         );
     }
