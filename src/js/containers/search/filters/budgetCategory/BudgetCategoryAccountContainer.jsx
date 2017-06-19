@@ -11,7 +11,6 @@ import { isCancel } from 'axios';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
-import * as BudgetCategoryHelper from 'helpers/budgetCategoryHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import * as budgetCategoryActions from 'redux/actions/search/budgetCategoryActions';
@@ -54,10 +53,8 @@ export class BudgetCategoryAccountContainer extends React.Component {
 
         if (results.length > 0) {
             results.forEach((item) => {
-                const formattedFedAccountTitle = BudgetCategoryHelper.formatFederalAccount(item);
-
                 values.push({
-                    title: formattedFedAccountTitle,
+                    title: item.federal_account_code,
                     data: item
                 });
             });
@@ -99,53 +96,16 @@ export class BudgetCategoryAccountContainer extends React.Component {
                 .then((res) => {
                     let autocompleteData = [];
 
-                    const federalAccountResults = res.data.matched_objects;
+                    const federalAccountResults = res.data.matched_objects.federal_account_code;
 
                     if (federalAccountResults.length > 0) {
                         federalAccountResults.forEach((item) => {
                             autocompleteData.push({
                                 id: item.id,
-                                federal_account: item.federal_account
+                                federal_account_code: item.federal_account_code
                             });
                         });
                     }
-
-                    // const agencyIdentifiers = res.data.matched_objects.agency_identifier;
-                    // const mainAccountCodes = res.data.matched_objects.main_account_code;
-                    // const accountTitles = res.data.matched_objects.account_title;
-                    //
-                    // if (agencyIdentifiers.length > 0) {
-                    //     agencyIdentifiers.forEach((item) => {
-                    //         autocompleteData.push({
-                    //             id: item.id,
-                    //             agency_identifier: item.agency_identifier,
-                    //             main_account_code: item.main_account_code,
-                    //             account_title: item.account_title
-                    //         });
-                    //     });
-                    // }
-                    //
-                    // if (mainAccountCodes.length > 0) {
-                    //     mainAccountCodes.forEach((item) => {
-                    //         autocompleteData.push({
-                    //             id: item.id,
-                    //             agency_identifier: item.agency_identifier,
-                    //             main_account_code: item.main_account_code,
-                    //             account_title: item.account_title
-                    //         });
-                    //     });
-                    // }
-                    //
-                    // if (accountTitles.length > 0) {
-                    //     accountTitles.forEach((item) => {
-                    //         autocompleteData.push({
-                    //             id: item.id,
-                    //             agency_identifier: item.agency_identifier,
-                    //             main_account_code: item.main_account_code,
-                    //             account_title: item.account_title
-                    //         });
-                    //     });
-                    // }
 
                     const selectedItems = this.props.federalAccounts.toArray();
 
