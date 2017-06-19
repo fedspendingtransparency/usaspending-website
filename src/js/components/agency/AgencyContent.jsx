@@ -12,6 +12,7 @@ import Router from 'containers/router/Router';
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
 import RecipientContainer from 'containers/agency/visualizations/RecipientContainer';
 import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
+import AgencyFooterContainer from 'containers/agency/AgencyFooterContainer';
 
 import AgencySidebar from './sidebar/AgencySidebar';
 import AgencyOverview from './overview/AgencyOverview';
@@ -223,17 +224,20 @@ export default class AgencyContent extends React.Component {
                         jumpToSection={this.jumpToSection} />
                 </div>
                 <div className="agency-content">
-                    <AgencyOverview agency={this.props.agency.overview} />
-                    <ObligatedContainer
-                        agencyName={this.props.agency.overview.name}
-                        activeFY={this.props.agency.overview.activeFY}
-                        id={this.props.agency.id} />
-                    <ObjectClassContainer
-                        id={this.props.agency.id}
-                        activeFY={this.props.agency.overview.activeFY} />
-                    <RecipientContainer
-                        id={this.props.agency.id}
-                        activeFY={this.props.agency.overview.activeFY} />
+                    <div className="agency-padded-content">
+                        <AgencyOverview agency={this.props.agency.overview} />
+                        <ObligatedContainer
+                            agencyName={this.props.agency.overview.name}
+                            activeFY={this.props.agency.overview.activeFY}
+                            id={this.props.agency.id} />
+                        <ObjectClassContainer
+                            id={this.props.agency.id}
+                            activeFY={this.props.agency.overview.activeFY} />
+                        <RecipientContainer
+                            id={this.props.agency.id}
+                            activeFY={this.props.agency.overview.activeFY} />
+                    </div>
+                    <AgencyFooterContainer id={this.props.agency.id} />
                 </div>
             </div>
         );
