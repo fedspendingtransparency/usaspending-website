@@ -6,6 +6,7 @@
 export const formatBudgetFunction = (budgetFunction) =>
     `${budgetFunction.title} | ${budgetFunction.functionType}`;
 
+// TODO: Mike Bray - Remove
 export const formatFederalAccount = (fed) =>
     `${fed.agency_identifier}-${fed.main_account_code} - ${fed.account_title}`;
 
