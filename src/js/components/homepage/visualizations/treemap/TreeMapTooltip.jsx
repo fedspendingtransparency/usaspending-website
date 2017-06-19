@@ -101,7 +101,7 @@ export default class TreeMapTooltip extends React.Component {
         let desc = (
             <div className="tooltip-full">
                 <div className="tooltip-value">
-                    {this.props.value} | {this.props.percentage} of total spending
+                    {this.props.value} | {this.props.percentage}
                 </div>
                 <div className="tooltip-description">
                     {this.props.description}

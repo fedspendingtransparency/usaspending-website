@@ -5,11 +5,9 @@
     background-size: 4rem;
     margin-top: 1.5em;
     padding: 1em;
-
     @include media($medium-screen) {
         background-size: 5.2rem;
     }
-
     ul {
         margin-bottom: 0;
         margin-top: 1em;
@@ -25,7 +23,6 @@
     display: table-cell;
     padding-left: 3.5rem;
     vertical-align: top;
-
     @include media($medium-screen) {
         padding-left: 5rem;
     }
@@ -34,7 +31,6 @@
 @mixin usa-alert-heading {
     margin-bottom: .3rem;
     margin-top: 0;
-
     @include media($medium-screen) {
         margin-top: .3rem;
     }

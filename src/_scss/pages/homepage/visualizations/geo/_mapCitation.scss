@@ -1,0 +1,27 @@
+.homepage-map-citation {
+    padding: $global-pad ($global-pad * 2);
+    p {
+        color: $color-base;
+        font-size: rem(12);
+        margin: rem(2) 0;
+        & strong {
+            font-weight: 600;
+        }
+    }
+    @include media($tablet-screen) {
+        display: none;
+    }
+}
+
+.results-visualization-geo-section > .homepage-map-citation {
+    display: none;
+    @include media($tablet-screen) {
+        display: block;
+        position: absolute;
+        bottom: rem(25);
+        left: rem(30);
+        padding: 0;
+        z-index: 3;
+        max-width: 85%;
+    }
+}
