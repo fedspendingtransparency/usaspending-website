@@ -5,9 +5,9 @@
 
 const tableSearchFields = {
     columnWidths: {
-        modification: 230,
-        action_date: 200,
-        amount: 220,
+        modification: 0,
+        action_date: 0,
+        amount: 0,
         action_type_description: 340,
         description: 380
     },
