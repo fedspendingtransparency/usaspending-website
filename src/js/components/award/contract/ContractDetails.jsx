@@ -74,24 +74,27 @@ export default class ContractDetails extends React.Component {
 
         // Location
         let popPlace = "";
-        let popZip = null;
-        if (award.pop_zip) {
-            popZip = award.pop_zip;
+        let cityState = null;
+        const city = award.pop_city;
+        const stateProvince = award.pop_state_province;
+        if (city && stateProvince) {
+            cityState = `${city}, ${stateProvince}`;
         }
-        if (award.pop_city && award.pop_state_province && popZip) {
-            popPlace = `${award.pop_city}, ${award.pop_state_province} ${popZip}`;
+        else if (city) {
+            cityState = city;
         }
-        else if (award.pop_city && !award.pop_state_province && popZip) {
-            popPlace = `${award.pop_city} ${popZip}`;
+        else if (stateProvince) {
+            cityState = stateProvince;
         }
-        else if (award.pop_city && !award.pop_state_province && !popZip) {
-            popPlace = award.pop_city;
+        if (award.pop_country_code === 'USA') {
+            popPlace = `${cityState} ${award.pop_zip}`;
+            if (award.pop_state_code && award.pop_congressional_district) {
+                popPlace +=
+            `\nCongressional District: ${award.pop_state_code}-${award.pop_congressional_district}`;
+            }
         }
-        else if (!award.pop_city && award.pop_state_province && popZip) {
-            popPlace = `${award.pop_state_province} ${popZip}`;
-        }
-        else if (!award.pop_city && award.pop_state_province && award.pop_country && !popZip) {
-            popPlace = `${award.pop_state_province}, ${award.pop_country}`;
+        else if (award.pop_country_code !== 'USA') {
+            popPlace = `${award.pop_country}`;
         }
         if (award.description) {
             description = award.description;
