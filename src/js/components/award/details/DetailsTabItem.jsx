@@ -7,9 +7,9 @@ import React from 'react';
 
 const propTypes = {
     label: React.PropTypes.string,
-    code: React.PropTypes.string,
+    internal: React.PropTypes.string,
     active: React.PropTypes.bool,
-    disabled: React.PropTypes.bool,
+    enabled: React.PropTypes.bool,
     clickTab: React.PropTypes.func
 };
 
@@ -21,7 +21,7 @@ export default class DetailsTabItem extends React.Component {
     }
 
     clickedButton() {
-        this.props.clickTab(this.props.code);
+        this.props.clickTab(this.props.internal);
     }
 
     render() {
@@ -36,7 +36,7 @@ export default class DetailsTabItem extends React.Component {
                 title={this.props.label}
                 aria-label={this.props.label}
                 onClick={this.clickedButton}
-                disabled={this.props.disabled}>
+                disabled={!this.props.enabled}>
                 {this.props.label}
             </button>
         );

@@ -42,7 +42,12 @@ export default class ResultsTablePicker extends React.Component {
         ));
 
         const currentField = this.props.active;
-        const label = currentField.replace('_', ' ');
+        let label = '';
+        for (let i = 0; i < this.props.types.length; i++) {
+            if (this.props.types[i].internal === currentField) {
+                label = this.props.types[i].label;
+            }
+        }
         let showPicker = 'hide';
         let icon = <Icons.AngleDown alt="Pick a field" />;
         if (this.state.showPicker) {
