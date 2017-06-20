@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+
 module.exports = {
     loaders: {
         babel: {
@@ -44,11 +45,14 @@ module.exports = {
     },
     commonConfig: {
         context: path.resolve(__dirname, '../src'),
-        entry: './entry.js',
+        entry: {
+            vendor: ['react', 'react-dom', 'redux', 'lodash', 'jquery', 'moment', 'axios', 'svg4everybody', 'babel-polyfill', 'commonmark', 'mapbox-gl/dist/mapbox-gl'],
+            app: './entry.js'
+        },
         output: {
             path: path.resolve(__dirname, '../public'),
             publicPath: '',
-            filename: 'js/app.[hash].js',
+            filename: 'js/[name].[chunkhash].js',
             chunkFilename: 'js/bundle.[chunkhash].js'
         },
         resolve: {
@@ -65,8 +69,18 @@ module.exports = {
             new CleanWebpackPlugin(['public', 'cache'], {
                 root: path.resolve(__dirname, '../')
             }),
+            new webpack.optimize.CommonsChunkPlugin({
+                name: 'vendor',
+                minChunks: (module) => {
+                    if (module.resource && (/^.*\.(css|scss)$/).test(module.resource)) {
+                        return false;
+                    }
+                    return module.context && module.context.indexOf('node_modules') !== -1;
+                }
+            }),
             new ExtractTextPlugin({
-                filename: 'css/style.[hash].css'
+                filename: 'css/style.[hash].css',
+                allChunks: true
             }),
             new HtmlWebpackPlugin({ // copy the index.html file out of /src into /public and update with the current JS files
                 inject: false,

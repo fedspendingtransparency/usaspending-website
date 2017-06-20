@@ -9,7 +9,8 @@
     "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
     "dev": "./node_modules/.bin/webpack --progress --config ./webpack/webpack.dev.config.js",
     "prod": "./node_modules/.bin/webpack --progress --config ./webpack/webpack.prod.config.js",
-    "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;"
+    "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;",
+    "sass": "./node_modules/.bin/webpack-dev-server --progress --config ./webpack/webpack.dev.sass.config.js"
   },
   "jest": {
     "rootDir": "./tests",
@@ -53,6 +54,7 @@
     "sinon": "^2.3.5",
     "style-loader": "^0.18.2",
     "webpack": "^2.6.1",
+    "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dev-server": "^2.5.0"
   },
   "dependencies": {

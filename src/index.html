@@ -30,6 +30,7 @@
 </head>
 <body>
     <div id="app"></div>
-    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js %>"></script>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.vendor.entry %>"></script>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.app.entry %>"></script>
 </body>
 </html>

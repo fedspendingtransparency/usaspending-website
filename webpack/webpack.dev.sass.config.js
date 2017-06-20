@@ -1,12 +1,35 @@
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const common = require('./common');
 
+const styleLoader = {
+    test: /\.scss$/,
+    use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [
+            {
+                loader: 'css-loader',
+                options: {
+                    sourceMap: true
+                }
+            },
+            {
+                loader: 'sass-loader',
+                options: {
+                    includePaths: ['./src/_scss'],
+                    sourceMap: true
+                }
+            }
+        ]
+    })
+};
+
 const loaders = [
     common.loaders.babel,
-    common.loaders.style,
+    styleLoader,
     common.loaders.files
 ];
 
@@ -23,7 +46,7 @@ module.exports = Object.assign({}, common.commonConfig, {
         loaders
     }),
     plugins: plugins.concat(customPlugins),
-    devtool: 'eval',
+    devtool: 'inline-source-map',
     devServer: {
         contentBase: path.resolve(__dirname, 'public'),
         host: '0.0.0.0', // this allows VMs to access the server
