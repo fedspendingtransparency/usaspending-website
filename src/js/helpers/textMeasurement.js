@@ -35,6 +35,7 @@ export const measureText = (font, text) => {
 
 export const measureTableHeader = (text) => {
     const tableHeaderFont = 'bold 14px Source Sans Pro, sans serif';
+    // add an extra 120px to account for the sorter icons
     return measureText(tableHeaderFont, text) + 120;
 };
 
