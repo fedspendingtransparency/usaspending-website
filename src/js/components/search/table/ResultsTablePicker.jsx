@@ -19,7 +19,6 @@ export default class ResultsTablePicker extends React.Component {
         super(props);
 
         this.state = {
-            // TODO: add awardType
             showPicker: false
         };
 
