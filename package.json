@@ -1,14 +1,15 @@
 {
   "name": "usaspending-website",
-  "version": "2.0.0",
+  "version": "2.5.0",
   "description": "USAspending Website",
-  "main": "index.js",
+  "main": "src/entry.js",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --progress --config ./webpack/webpack.dev.config.js",
-    "test": "./node_modules/.bin/jest",
-    "lint": "./node_modules/.bin/eslint --config .eslintrc \"src/js/**\"",
+    "test": "./node_modules/.bin/jest; exit 0;",
+    "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
     "dev": "./node_modules/.bin/webpack --progress --config ./webpack/webpack.dev.config.js",
-    "prod": "./node_modules/.bin/webpack --progress --config ./webpack/webpack.prod.config.js"
+    "prod": "./node_modules/.bin/webpack --progress --config ./webpack/webpack.prod.config.js",
+    "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;"
   },
   "jest": {
     "rootDir": "./tests",
