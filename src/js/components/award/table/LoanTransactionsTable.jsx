@@ -4,9 +4,10 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
 
 import tableMapping from 'dataMapping/financialAssistance/loanTransactionTable';
+
+import { measureTableHeader } from 'helpers/textMeasurement';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import LoanTransactionHeaderCellContainer from
@@ -77,18 +78,19 @@ export default class LoanTransactionsTable extends React.Component {
         const columns = tableMapping.table._order.map((column, i) => {
             const isLast = i === tableMapping.table._order.length - 1;
 
-            let columnWidth = tableMapping.columnWidths[column];
+            const displayName = tableMapping.table[column];
+            const calculatedWidth = measureTableHeader(displayName);
+            let columnWidth = Math.max(calculatedWidth, tableMapping.columnWidths[column]);
             if (isLast) {
                 // make it fill out the remainder of the width necessary
                 const remainingSpace = this.props.tableWidth - totalWidth;
 
-                columnWidth = _.max([remainingSpace, columnWidth]);
+                columnWidth = Math.max(remainingSpace, columnWidth);
             }
 
             totalWidth += columnWidth;
 
             const apiKey = tableMapping.table._mapping[column];
-            const displayName = tableMapping.table[column];
             const defaultSort = tableMapping.defaultSortDirection[column];
 
             return {
