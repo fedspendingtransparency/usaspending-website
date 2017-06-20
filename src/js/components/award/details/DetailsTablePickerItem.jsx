@@ -32,12 +32,17 @@ export default class DetailsTablePickerItem extends React.Component {
             activeClass = 'active';
         }
 
+        let disabledClass = '';
+        if (this.props.disabled) {
+            disabledClass = 'disabled';
+        }
+
         return (
             <li
                 className="field-item"
                 key={`field-${this.props.label}`}>
                 <button
-                    className={`item-button table-tab-toggle ${activeClass}`}
+                    className={`item-button table-tab-toggle ${activeClass} ${disabledClass}`}
                     title={this.props.label}
                     aria-label={this.props.label}
                     onClick={this.clickedButton}

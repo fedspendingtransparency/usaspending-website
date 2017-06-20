@@ -50,6 +50,13 @@
                         &:focus {
                             background-color: rgba(#fbeac3, .6);
                             color: $color-base;
+                            &.disabled {
+                                background-color: $color-white;
+                                color: $color-gray-light;
+                            }
+                        }
+                        &.disabled {
+                            color: $color-gray-light;
                         }
                     }
                 }

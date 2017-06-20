@@ -43,6 +43,7 @@ export default class ResultsTablePicker extends React.Component {
         ));
 
         const currentField = this.props.active;
+        const label = currentField.replace('_', ' ');
         let showPicker = 'hide';
         let icon = <Icons.AngleDown alt="Pick a field" />;
         if (this.state.showPicker) {
@@ -55,10 +56,10 @@ export default class ResultsTablePicker extends React.Component {
                 <button
                     className="selected-button"
                     title={currentField}
-                    aria-label={currentField}
+                    aria-label={label}
                     onClick={this.togglePicker}>
                     <span className="label">
-                        {currentField}
+                        {label}
                     </span>
                     <span className="arrow-icon">
                         {icon}

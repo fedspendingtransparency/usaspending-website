@@ -64,6 +64,12 @@ export default class DetailsTablePicker extends React.Component {
                 clickTab={this.props.clickTab}
                 key={tab.code}
                 togglePicker={this.togglePicker} />));
+        let label = '';
+        for (let i = 0; i < this.props.tabs.length; i++) {
+            if (this.props.tabs[i].code === this.props.activeTab) {
+                label = this.props.tabs[i].label;
+            }
+        }
 
         const currentField = this.props.activeTab;
         let showPicker = 'hide';
@@ -81,7 +87,7 @@ export default class DetailsTablePicker extends React.Component {
                     aria-label={currentField}
                     onClick={this.togglePicker}>
                     <span className="label">
-                        {currentField}
+                        {label}
                     </span>
                     <span className="arrow-icon">
                         {icon}
