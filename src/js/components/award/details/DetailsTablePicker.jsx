@@ -5,7 +5,7 @@
 
 import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
-import DetailsTablePickerItem from './DetailsTablePickerItem';
+import ResultsTablePickerOption from '../../search/table/ResultsTablePickerOption';
 
 const propTypes = {
     tabs: React.PropTypes.array,
@@ -19,11 +19,6 @@ const defaultProps = {
             label: 'Transaction History',
             code: 'transaction',
             disabled: false
-        },
-        {
-            label: 'Sub-Awards',
-            code: 'subaward',
-            disabled: true
         },
         {
             label: 'Financial System Details',
@@ -57,10 +52,12 @@ export default class DetailsTablePicker extends React.Component {
 
     render() {
         const options = this.props.tabs.map((tab) => (
-            <DetailsTablePickerItem
-                {...tab}
+            <ResultsTablePickerOption
+                label={tab.label}
+                internal={tab.code}
+                enabled={!tab.disabled}
                 active={tab.code === this.props.activeTab}
-                clickTab={this.props.clickTab}
+                switchTab={this.props.clickTab}
                 key={tab.code}
                 togglePicker={this.togglePicker} />));
         let label = '';

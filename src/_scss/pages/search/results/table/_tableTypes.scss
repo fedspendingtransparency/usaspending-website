@@ -75,18 +75,4 @@ button.table-type-toggle.coming-soon {
         );
     }
 }
-@import "../../../../elements/_titleSelector";
-.field-picker {
-    float: none;
-    clear: both;
-    @include media($tablet-screen) {
-        display: none;
-    }
-    .selected-button {
-        .label {
-            text-transform: capitalize;
-            color: $color-gray;
-            font-size: rem(28);
-        }
-    }
-}
+@import "_resultsTablePicker";
