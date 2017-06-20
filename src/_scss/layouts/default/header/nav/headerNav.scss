@@ -1,16 +1,11 @@
-@import "./_menuButton";
-@import "./_menu";
-
-@mixin headerNav {
+header {
     background-color: $color-white;
-
-    .usa-menu-btn {
-        @include headerNavMenuButton;
+    .nav-container {
+        // style the upper menu
+        @import "./_upperMenu";
+        // style the lower menu
+        @import "./_lowerMenu";
     }
-    
-    nav {
-        .menu-container {
-            @include headerNavMenu;
-        }
-    }
+    // style the mobile menu button
+    @import "./_menuButton";
 }

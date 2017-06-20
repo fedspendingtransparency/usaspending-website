@@ -276,7 +276,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
         if (props.amounts.out.obligated < 0) {
             hidden.push({
                 value: MoneyFormatter.formatMoney(props.amounts.out.obligated),
-                label: 'Obligated Amount'
+                label: 'Obligations Incurred'
             });
         }
         if (props.amounts.out.unobligated < 0) {
@@ -293,7 +293,7 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
             obligated: {
                 x: 0,
                 width: obligatedWidth,
-                description: `Obligated Amount: ${obligatedString}`,
+                description: `Obligations Incurred: ${obligatedString}`,
                 label: obligatedLabel
             },
             unobligated: {
@@ -438,8 +438,8 @@ ${this.state.center.y + this.state.center.height})`}>
                             endX={this.state.bottom.obligated.x + this.state.bottom.flow.x}
                             width={this.state.bottom.obligated.width}
                             length={this.state.bottom.flow.length}
-                            description={`Flow of money out of total budget authority to obligated \
-amount`}
+                            description={`Flow of money out of total budget authority to \
+obligations incurred`}
                             style={{
                                 fill: '#bfcfd4'
                             }} />
@@ -507,7 +507,7 @@ ${this.state.legend.obligated.y})`}>
                             <ItemLegend
                                 color="#6d8996"
                                 y={this.state.labelHeight}
-                                title="Obligated Amount"
+                                title="Obligations Incurred"
                                 value={this.state.bottom.obligated.label}
                                 hide={this.props.amounts.out.obligated < 0} />
                         </g>

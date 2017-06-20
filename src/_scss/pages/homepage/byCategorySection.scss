@@ -4,18 +4,19 @@
     background: $color-gray;
     padding: ($global-pad * 6) 0 0;
     & .inner-wrap {
-        @include fullSectionWrap();
+        @include fullSectionWrap(0, 0);
         & h3 {
             @include span-columns(16);
             @include shift(0);
             @include row();
             color: $color-white;
             margin-top: 0;
+            margin-bottom: ($global-mrg * 3);
             text-align: center;
             & strong {
                 font-weight: $font-semibold;
             }
-            @include media($medium-screen) {
+            @include media($large-screen) {
                 @include span-columns(10);
                 @include shift(3);
             }
@@ -25,8 +26,13 @@
         .budget-line {
             display: inline;
             float: left;
-            width: 20px;
-            height: 642px;
+            width: rem(20);
+            height: rem(642);
+            &.large {
+                height: rem(20);
+                margin-bottom: $global-mrg;
+                width: 100%;
+            }
         }
     }
 }

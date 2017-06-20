@@ -22,8 +22,8 @@ export default class AccountHeader extends React.Component {
                     <h1 className="page-title">
                         Federal Account Summary
                     </h1>
-                    <div className="options">
-                        <ul className="account-items">
+                    <div className="summary-status">
+                        <ul className="summary-status-items">
                             <InfoSnippet
                                 label="Federal Account Symbol"
                                 value={accountSymbol} />

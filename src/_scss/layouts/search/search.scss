@@ -1,23 +1,7 @@
 @import "../default/default";
-@import "./header/header";
-@mixin searchLayout {
-    @include defaultLayout;
-    .search-header-wrapper {
-        @include searchHeader;
-        &.sticky {
-            box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
-            left: 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 99;
-        }
-    }
-    .search-header-placeholder {
-        visibility: hidden;
-        width: 100%;
-        height: 0;
-    }
+
+#main-content {
+    @import "./header/header";
     .search-contents {
         @include outer-container(100%);
         margin: 0 $outer-gutter/2;

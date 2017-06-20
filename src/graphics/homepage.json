@@ -1,145 +1,358 @@
 {
-"totalSpent": "$3.85 trillion",
-"budgetCategories": {
-    "children": [
-        { "name": "National Defense", "value": 595303439435.41 },
-        { "name": "International Affairs", "value": 45304204110.79 },
-        { "name": "General Science, Space, and Technology", "value": 30230316084.43 },
-        { "name": "Energy", "value": 3748706890.45 },
-        { "name": "Natural Resources and Environment", "value": 37792268568.36 },
-        { "name": "Agriculture", "value": 20174987360.06 },
-        { "name": "Transportation", "value": 92940730983.02 },
-        { "name": "Community and Regional Development", "value": 21051938355.95 },
-        { "name": "Education, Training, Employment, and Social Services",
-            "value": 108057798196.10 },
-        { "name": "Health", "value": 511320133269.73 },
-        { "name": "Medicare", "value": 594535157426.09 },
-        { "name": "Income Security", "value": 514582983291.10 },
-        { "name": "Social Security", "value": 916077987132.59 },
-        { "name": "Veterans Benefits and Services", "value": 174514511683.73 },
-        { "name": "Administration of Justice", "value": 57144161860.45 },
-        { "name": "General Government", "value": 18639539276.13 },
-        { "name": "Net Interest", "value": 240721540897.61 }
-    ]
-},
-"categoryDescriptions": [
-        { "name": "National Defense", "value": "This category includes the military activities of the Department of Defense (DOD), the nuclear-weapons related activities of the Department of Energy (DOE) and the National Nuclear Security Administration, the national security activities of several other agencies such as the Selective Service Agency, and portions of the activities of the Coast Guard and the Federal Bureau of Investigation. The programs in this function include: the pay and benefits of active, Guard, and reserve military personnel; DOD operations including training, maintenance of equipment, and facilities; health care for military personnel and dependents; procurement of weapons; research and development; construction of military facilities, including housing; research on nuclear weapons; and the cleanup of nuclear weapons production facilities." },
-        { "name": "International Affairs", "value": "This category contains funding for all U.S. international activities, including: operating U.S. embassies and consulates throughout the world; providing military assistance to allies; aiding developing nations; dispensing economic assistance to fledgling democracies; promoting U.S. exports abroad; making U.S. payments to international organizations; and contributing to international peacekeeping efforts. Funding for all of these activities constitutes about one percent of the federal budget. The major agencies in this function include the Departments of Agriculture, State, and the Treasury; the United States Agency for International Development; and the Millennium Challenge Corporation." },
-        { "name": "General Science, Space, and Technology", "value": "This category includes the National Science Foundation (NSF), programs at the National Aeronautics and Space Administration except for aviation programs, and general science programs at the Department of Energy (DOE)." },
-        { "name": "Energy", "value": "This category contains civilian energy and environmental programs in the Department of Energy (DOE). This function also includes the Rural Utilities Service of the Department of Agriculture, the Tennessee Valley Authority, the Federal Energy Regulatory Commission, and the Nuclear Regulatory Commission. This function does not include DOE's national security activities, which are in the National Defense Function, or its basic research and science activities, which are in General Science, Space and Technology." },
-        { "name": "Natural Resources and Environment", "value": "Natural Resources and the Environment. This category includes programs concerned with environmental protection and enhancement; recreation and wildlife areas; and the development and management of the nation's land, water, and mineral resources. It includes programs within the following federal departments and agencies: Agriculture, Commerce, Interior, Transportation, the Army Corps of Engineers, and the Environmental Protection Agency (EPA)." },
-        { "name": "Agriculture", "value": "This category includes farm income stabilization, agricultural research, and other services administered by the U.S. Department of Agriculture. The discretionary programs include research and education programs, economics and statistics services, administration of the farm support programs, farm loan programs, meat and poultry inspection, and a portion of the Public Law (P.L.) 480 international food aid program. The mandatory programs include commodity programs, crop insurance, and certain farm loans." },
-        { "name": "Transportation", "value": "This category consists mostly of the programs administered by the Department of Transportation, including programs for highways, mass transit, aviation, and maritime activities. This function also includes two components of the Department of Homeland Security: the Coast Guard and the Transportation Security Administration. In addition, this function includes several small transportation-related agencies and the research program for civilian aviation at the National Aeronautics and Space Administration (NASA)." },
-        { "name": "Community and Regional Development", "value": "This category includes federal programs to improve community economic conditions, promote rural development, and assist in federal preparations for and response to disasters. This function provides appropriated funding for the Community Development Block Grant, Department of Agriculture rural development programs, the Bureau of Indian Affairs, the Federal Emergency Management Agency, and other disaster mitigation and community development-related programs. It also provides mandatory funding for the federal flood insurance program." },
-        { "name": "Education, Training, Employment, and Social Services",
-        "value": "This category includes funding for the Department of Education, social services programs within the Department of Health and Human Services, and employment and training programs within the Department of Labor. It also contains funding for the Library of Congress and independent research and art agencies such as the Corporation for Public Broadcasting, the Smithsonian Institution, the National Gallery of Art, the John F. Kennedy Center for the Performing Arts, the National Endowment for the Arts, and the National Endowment for the Humanities." },
-        { "name": "Health", "value": "This category includes most direct health care services programs. Other health programs in this function fund anti-bioterrorism activities, national biomedical research, protecting the health of the general population and workers in their places of employment, providing health services for under-served populations, and promoting training for the health care workforce. Some of the agencies funded in this function include the National Institutes of Health (NIH), Centers for Disease Control and Prevention, Health Resources and Services Administration, and the Food and Drug Administration. The major mandatory programs in this function are Medicaid, the State Children's Health Insurance Program (SCHIP), federal and retirees' health benefits, and health care for Medicare-eligible military retirees." },
-        { "name": "Medicare", "value": "The Medicare program provides health insurance to senior citizens and persons with disabilities. Congress provides an annual appropriation for the costs of administering and monitoring the Medicare program. Nearly 99 percent of spending in this function occurs on the mandatory side of the budget, and almost all of the mandatory spending consists of payments for Medicare benefits." },
-        { "name": "Income Security", "value": "This category consists of a range of income security programs that provide cash or near-cash assistance (e.g., housing, nutrition, and energy assistance) to low-income persons, and benefits to certain retirees, persons with disabilities, and the unemployed. Housing assistance programs account for the largest share of discretionary funding in this function. Major federal entitlement programs in this function include unemployment insurance, trade adjustment assistance income support, food stamps, Temporary Assistance to Needy Families, foster care, and Supplemental Security Income. Federal and other retirement and disability programs comprise approximately one third of the funds in this function." },
-        { "name": "Social Security", "value": "This category consists of the two payroll tax-financed programs that are collectively known as Social Security: Old-Age and Survivors Insurance and Disability Insurance (OASDI). This function includes Social Security benefit payments and funds to administer the program." },
-        { "name": "Veterans Benefits and Services", "value": "This category covers the programs of the Department of Veterans Affairs (VA), including veterans' medical care, compensation and pensions, education and rehabilitation benefits, and housing programs. It also includes the Department of Labor's Veterans' Employment and Training Service, the United States Court of Appeals for Veterans Claims, and the American Battle Monuments Commission. Almost 90 percent of appropriated funding in this function goes to veterans' health care." },
-        { "name": "Administration of Justice", "value": "This category consists of federal law enforcement programs, litigation and judicial activities, correctional operations, and state and local justice assistance. Agencies within this function include: the Federal Bureau of Investigation; the Drug Enforcement Administration; Border and Transportation Security; the Bureau of Alcohol, Tobacco, Firearms and Explosives; the United States Attorneys; legal divisions within the Department of Justice; the Legal Services Corporation; the federal Judiciary; and the Federal Bureau of Prisons. This function includes several components of the Department of Homeland Security." },
-        { "name": "General Government", "value": "This category includes the activities of the White House and the Executive Office of the President, the legislative branch, and programs designed to carry out the legislative and administrative responsibilities of the federal government, including personnel management, fiscal operations, and property control." },
-        { "name": "Net Interest", "value": "This category consists primarily of the interest paid by the federal government to private and foreign government holders of U.S. Treasury securities. This amount is slightly offset by interest income received by the federal government on loans and cash balances and by earnings of the National Railroad Retirement Investment Trust." }
-],
-"treemapColors": [
-        "#1b4956",
-        "#1d545c",
-        "#1d545c",
-        "#1f5f63",
-        "#216a69",
-        "#227570",
-        "#238076",
-        "#238c7d",
-        "#239884",
-        "#32a387",
-        "#48ae87",
-        "#5aba87",
-        "#6ac587",
-        "#79d086",
-        "#87dc85",
-        "#95e784",
-        "#a3f383"
-],
-"budgetBreakdown": {
-    "children": [
-        {"id": 0, "name": "Direct payments to individuals", "value": 1166902969415 },
-        {"id": 1, "name": "For Profit", "value": 719365549385 },
-        {"id": 2, "name": "Grants to state and local government", "value": 669721302076 },
-        {"id": 3, "name": "Non-profits; higher education", "value": 193757105484 },
-        {"id": 4, "name": "Running the government & direct services", "value": 1104353073640 }
-    ]
-},
-"budgetDescriptions": [
-    {"id": 0, "name": "Direct payments to individuals", "value": "" },
-    {"id": 1, "name": "For Profit", "value": "" },
-    {"id": 2, "name": "Grants to state and local government", "value": "" },
-    {"id": 3, "name": "Non-profits; higher education", "value": "" },
-    {"id": 4, "name": "Running the government & direct services", "value": "" }
-],
-"budgetTotal": 3854100000000,
-"breakdownColors": [
-        "#00A7D3",
-        "#00A7D3",
-        "#00A7D3",
-        "#00A7D3",
-        "rgba(0,168,212,0.4)"
-],
-"states": {
-    "children": [
-        {"item": "AL", "aggregate": 66910372684},
-        {"item": "AK", "aggregate": 7986325057},
-        {"item": "AZ", "aggregate": 71558643601},
-        {"item": "AR", "aggregate": 22925498923},
-        {"item": "AS", "aggregate": 266100668},
-        {"item": "CA", "aggregate": 289679921444},
-        {"item": "CO", "aggregate": 39484246622},
-        {"item": "CT", "aggregate": 74611923115},
-        {"item": "DE", "aggregate": 6627398656},
-        {"item": "DC", "aggregate": 30931763562},
-        {"item": "FL", "aggregate": 171054856475},
-        {"item": "GA", "aggregate": 65183957424},
-        {"item": "HI", "aggregate": 11118299699},
-        {"item": "ID", "aggregate": 12337454227},
-        {"item": "IL", "aggregate": 80558323346},
-        {"item": "IN", "aggregate": 128419186641},
-        {"item": "IA", "aggregate": 23217582228},
-        {"item": "KS", "aggregate": 16229795917},
-        {"item": "KY", "aggregate": 89303164343},
-        {"item": "LA", "aggregate": 35424256433},
-        {"item": "ME", "aggregate": 11660520983},
-        {"item": "MD", "aggregate": 66352632820},
-        {"item": "MA", "aggregate": 62367260228},
-        {"item": "MI", "aggregate": 77396050297},
-        {"item": "MN", "aggregate": 81535424896},
-        {"item": "MS", "aggregate": 24481678151},
-        {"item": "MO", "aggregate": 52971889116},
-        {"item": "MT", "aggregate": 8333041078},
-        {"item": "NE", "aggregate": 12306044107},
-        {"item": "NV", "aggregate": 17696587833},
-        {"item": "NH", "aggregate": 9706435188},
-        {"item": "NJ", "aggregate": 60811390189},
-        {"item": "NM", "aggregate": 22830683804},
-        {"item": "NY", "aggregate": 158617348110},
-        {"item": "NC", "aggregate": 63968795626},
-        {"item": "ND", "aggregate": 62603330175},
-        {"item": "OH", "aggregate": 76119620127},
-        {"item": "OK", "aggregate": 28215223114},
-        {"item": "OR", "aggregate": 32042458571},
-        {"item": "PA", "aggregate": 193604489691},
-        {"item": "RI", "aggregate": 8973218138},
-        {"item": "SC", "aggregate": 77700699550},
-        {"item": "SD", "aggregate": 6763485958},
-        {"item": "TN", "aggregate": 73841483061},
-        {"item": "TX", "aggregate": 169415582466},
-        {"item": "UT", "aggregate": 14543595370},
-        {"item": "VT", "aggregate": 5485620261},
-        {"item": "VA", "aggregate": 94665994579},
-        {"item": "WA", "aggregate": 58152788598},
-        {"item": "WV", "aggregate": 15265354160},
-        {"item": "WI", "aggregate": 84175926266},
-        {"item": "WY", "aggregate": 4146856654},
-        {"item": "GU", "aggregate": 1220551421}
-    ]
+    "totalSpent": "$3.85 trillion",
+    "totalSpentNumber": 3982140404822,
+    "budgetCategories": {
+        "children": [
+            { "id": 0, "name": "Social Security", "value": 916077987132.59 },
+            { "id": 1, "name": "National Defense", "value": 595303439435.41 },
+            { "id": 2, "name": "Medicare", "value": 594535157426.09 },
+            { "id": 3, "name": "Income Security", "value": 514582983291.10 },
+            { "id": 4, "name": "Health", "value": 511320133269.73 },
+            { "id": 5, "name": "Net Interest", "value": 240721540897.61 },
+            { "id": 6, "name": "Veterans Benefits and Services", "value": 174514511683.73 },
+            { "id": 7, "name": "Education, Training, Employment, and Social Services",
+                "value": 108057798196.10 },
+            { "id": 8, "name": "Transportation", "value": 92940730983.02 },
+            { "id": 9, "name": "Administration of Justice", "value": 57144161860.45 },
+            { "id": 10, "name": "International Affairs", "value": 45304204110.79 },
+            { "id": 11, "name": "Natural Resources and Environment", "value": 37792268568.36 },
+            { "id": 12, "name": "General Science, Space, and Technology", "value": 30230316084.43 },
+            { "id": 13, "name": "Community and Regional Development", "value": 21051938355.95 },
+            { "id": 14, "name": "Agriculture", "value": 20174987360.06 },
+            { "id": 15, "name": "General Government", "value": 18639539276.13 },
+            { "id": 16, "name": "Energy", "value": 3748706890.45 }
+        ]
+    },
+    "categoryDescriptions": [
+            { "id": 0, "name": "Social Security", "value": "This category consists of the two payroll tax-financed programs that are collectively known as Social Security: Old-Age and Survivors Insurance and Disability Insurance (OASDI). This function includes Social Security benefit payments and funds to administer the program." },
+            { "id": 1, "name": "National Defense", "value": "This category includes the military activities of the Department of Defense (DOD), the nuclear-weapons related activities of the Department of Energy (DOE) and the National Nuclear Security Administration, the national security activities of several other agencies such as the Selective Service Agency, and portions of the activities of the Coast Guard and the Federal Bureau of Investigation. The programs in this function include: the pay and benefits of active, Guard, and reserve military personnel; DOD operations including training, maintenance of equipment, and facilities; health care for military personnel and dependents; procurement of weapons; research and development; construction of military facilities, including housing; research on nuclear weapons; and the cleanup of nuclear weapons production facilities." },
+            { "id": 2, "name": "Medicare", "value": "The Medicare program provides health insurance to senior citizens and persons with disabilities. Congress provides an annual appropriation for the costs of administering and monitoring the Medicare program. Nearly 99 percent of spending in this function occurs on the mandatory side of the budget, and almost all of the mandatory spending consists of payments for Medicare benefits." },
+            { "id": 3, "name": "Income Security", "value": "This category consists of a range of income security programs that provide cash or near-cash assistance (e.g., housing, nutrition, and energy assistance) to low-income persons, and benefits to certain retirees, persons with disabilities, and the unemployed. Housing assistance programs account for the largest share of discretionary funding in this function. Major federal entitlement programs in this function include unemployment insurance, trade adjustment assistance income support, food stamps, Temporary Assistance to Needy Families, foster care, and Supplemental Security Income. Federal and other retirement and disability programs comprise approximately one third of the funds in this function." },
+            { "id": 4, "name": "Health", "value": "This category includes most direct health care services programs. Other health programs in this function fund anti-bioterrorism activities, national biomedical research, protecting the health of the general population and workers in their places of employment, providing health services for under-served populations, and promoting training for the health care workforce. Some of the agencies funded in this function include the National Institutes of Health (NIH), Centers for Disease Control and Prevention, Health Resources and Services Administration, and the Food and Drug Administration. The major mandatory programs in this function are Medicaid, the State Children's Health Insurance Program (SCHIP), federal and retirees' health benefits, and health care for Medicare-eligible military retirees." },
+            { "id": 5, "name": "Net Interest", "value": "This category consists primarily of the interest paid by the federal government to private and foreign government holders of U.S. Treasury securities. This amount is slightly offset by interest income received by the federal government on loans and cash balances and by earnings of the National Railroad Retirement Investment Trust." },
+            { "id": 6, "name": "Veterans Benefits and Services", "value": "This category covers the programs of the Department of Veterans Affairs (VA), including veterans' medical care, compensation and pensions, education and rehabilitation benefits, and housing programs. It also includes the Department of Labor's Veterans' Employment and Training Service, the United States Court of Appeals for Veterans Claims, and the American Battle Monuments Commission. Almost 90 percent of appropriated funding in this function goes to veterans' health care." },
+            { "id": 7, "name": "Education, Training, Employment, and Social Services",
+            "value": "This category includes funding for the Department of Education, social services programs within the Department of Health and Human Services, and employment and training programs within the Department of Labor. It also contains funding for the Library of Congress and independent research and art agencies such as the Corporation for Public Broadcasting, the Smithsonian Institution, the National Gallery of Art, the John F. Kennedy Center for the Performing Arts, the National Endowment for the Arts, and the National Endowment for the Humanities." },
+            { "id": 8, "name": "Transportation", "value": "This category consists mostly of the programs administered by the Department of Transportation, including programs for highways, mass transit, aviation, and maritime activities. This function also includes two components of the Department of Homeland Security: the Coast Guard and the Transportation Security Administration. In addition, this function includes several small transportation-related agencies and the research program for civilian aviation at the National Aeronautics and Space Administration (NASA)." },
+            { "id": 9, "name": "Administration of Justice", "value": "This category consists of federal law enforcement programs, litigation and judicial activities, correctional operations, and state and local justice assistance. Agencies within this function include: the Federal Bureau of Investigation; the Drug Enforcement Administration; Border and Transportation Security; the Bureau of Alcohol, Tobacco, Firearms and Explosives; the United States Attorneys; legal divisions within the Department of Justice; the Legal Services Corporation; the federal Judiciary; and the Federal Bureau of Prisons. This function includes several components of the Department of Homeland Security." },
+            { "id": 10, "name": "International Affairs", "value": "This category contains funding for all U.S. international activities, including: operating U.S. embassies and consulates throughout the world; providing military assistance to allies; aiding developing nations; dispensing economic assistance to fledgling democracies; promoting U.S. exports abroad; making U.S. payments to international organizations; and contributing to international peacekeeping efforts. Funding for all of these activities constitutes about one percent of the federal budget. The major agencies in this function include the Departments of Agriculture, State, and the Treasury; the United States Agency for International Development; and the Millennium Challenge Corporation." },
+            { "id": 11, "name": "Natural Resources and Environment", "value": "Natural Resources and the Environment. This category includes programs concerned with environmental protection and enhancement; recreation and wildlife areas; and the development and management of the nation's land, water, and mineral resources. It includes programs within the following federal departments and agencies: Agriculture, Commerce, Interior, Transportation, the Army Corps of Engineers, and the Environmental Protection Agency (EPA)." },
+            { "id": 12, "name": "General Science, Space, and Technology", "value": "This category includes the National Science Foundation (NSF), programs at the National Aeronautics and Space Administration except for aviation programs, and general science programs at the Department of Energy (DOE)." },
+            { "id": 13, "name": "Community and Regional Development", "value": "This category includes federal programs to improve community economic conditions, promote rural development, and assist in federal preparations for and response to disasters. This function provides appropriated funding for the Community Development Block Grant, Department of Agriculture rural development programs, the Bureau of Indian Affairs, the Federal Emergency Management Agency, and other disaster mitigation and community development-related programs. It also provides mandatory funding for the federal flood insurance program." },
+            { "id": 14, "name": "Agriculture", "value": "This category includes farm income stabilization, agricultural research, and other services administered by the U.S. Department of Agriculture. The discretionary programs include research and education programs, economics and statistics services, administration of the farm support programs, farm loan programs, meat and poultry inspection, and a portion of the Public Law (P.L.) 480 international food aid program. The mandatory programs include commodity programs, crop insurance, and certain farm loans." },
+            { "id": 15, "name": "General Government", "value": "This category includes the activities of the White House and the Executive Office of the President, the legislative branch, and programs designed to carry out the legislative and administrative responsibilities of the federal government, including personnel management, fiscal operations, and property control." },
+            { "id": 16, "name": "Energy", "value": "This category contains civilian energy and environmental programs in the Department of Energy (DOE). This function also includes the Rural Utilities Service of the Department of Agriculture, the Tennessee Valley Authority, the Federal Energy Regulatory Commission, and the Nuclear Regulatory Commission. This function does not include DOE's national security activities, which are in the National Defense Function, or its basic research and science activities, which are in General Science, Space and Technology." }
+    ],
+    "treemapColors": [
+            "#1b4956",
+            "#1d545c",
+            "#1d545c",
+            "#1f5f63",
+            "#216a69",
+            "#227570",
+            "#238076",
+            "#238c7d",
+            "#239884",
+            "#32a387",
+            "#48ae87",
+            "#5aba87",
+            "#6ac587",
+            "#79d086",
+            "#87dc85",
+            "#95e784",
+            "#a3f383"
+    ],
+    "alternateColors": [
+            "rgba(28,73,86,0.3)",
+            "rgba(22,100,108,0.3)",
+            "rgba(18,129,124,0.3)",
+            "rgba(18,129,124,0.3)",
+            "rgba(18,129,124,0.3)",
+            "rgba(32,158,135,0.3)",
+            "rgba(70,187,140,0.3)",
+            "rgba(70,187,140,0.3)",
+            "rgba(70,187,140,0.3)",
+            "rgba(70,187,140,0.3)",
+            "rgba(70,187,140,0.3)",
+            "rgba(112,215,139,0.3)",
+            "rgba(162,243,132,0.3)",
+            "rgba(162,243,132,0.3)",
+            "rgba(162,243,132,0.3)",
+            "rgba(162,243,132,0.3)",
+            "rgba(162,243,132,0.3)"
+    ],
+    "budgetBreakdown": {
+        "children": [
+            {
+                "id": 0,
+                "name": "Individuals",
+                "value": 30,
+                "dollar":1164518069337,
+                "description": "This category includes direct payments to individuals, such as Social Security payments, veterans' retirement benefits, and assistance to farmers. This category also includes awards made to sole proprietorships, which are businesses owned and run by a single person."
+            },
+            {
+                "id": 1,
+                "name": "For-profit entities",
+                "value": 19,
+                "dollar":719754269239,
+                "description": "Most recipients in this category are contractors doing business with the federal government. Small businesses receiving loans or insurance are also included. This category includes both foreign and domestic businesses."
+            },
+            {
+                "id": 2,
+                "name": "State and local government",
+                "value": 17,
+                "dollar":667962527423,
+                "description": "This category includes government entities at the state, county, and local levels. As such it includes housing authorities, airport and port authorities, and local school districts. Funding for most tribal governments is also included here. This category also includes Medicare and Medicaid spending, which flows through state governments to individuals."
+            },
+            {
+                "id": 3,
+                "name": "Non-profits and universities",
+                "value": 5,
+                "dollar":194051596832,
+                "description": "This category includes not-for-profit organizations and public and private institutions of higher education. This category includes spending for research, social services, and student aid."
+            },
+            {
+                "id": 4,
+                "name": "Other Awards",
+                "value": 8,
+                "dollar":321433392409,
+                "description": "This category represents award spending that is not currently classified by recipient type."
+            },
+            {
+                "id": 5,
+                "name": "Running the government and direct services",
+                "value": 21,
+                "dollar":786380285370,
+                "description": "This category is non-award spending. That is, money that was not given out through contracts, grants, direct payments, loans, or insurance. This spending covers salaries and benefits for federal employees, including military. It also includes buildings, equipment, insurance, government travel, and other costs associated with running the government. It also includes interest paid on the federal debt."
+            }
+        ]
+    },
+    "breakdownColors": [
+            "#00A7D3",
+            "#00A7D3",
+            "#00A7D3",
+            "#00A7D3",
+            "#00A7D3",
+            "rgba(0,168,212,0.4)"
+    ],
+    "tooltipStyles": {
+        "defaultStyle": {
+            "textColor": "#FFFFFF"
+        },
+        "highlightedStyle": {
+            "color": "#F2B733",
+            "textColor": "#212121"
+        }
+    },
+    "states": {
+        "children": [
+            {"item": "AL", "aggregate": 66910372684},
+            {"item": "AK", "aggregate": 7986325057},
+            {"item": "AZ", "aggregate": 71558643601},
+            {"item": "AR", "aggregate": 22925498923},
+            {"item": "AS", "aggregate": 266100668},
+            {"item": "CA", "aggregate": 289679921444},
+            {"item": "CO", "aggregate": 39484246622},
+            {"item": "CT", "aggregate": 74611923115},
+            {"item": "DE", "aggregate": 6627398656},
+            {"item": "DC", "aggregate": 30931763562},
+            {"item": "FL", "aggregate": 171054856475},
+            {"item": "GA", "aggregate": 65183957424},
+            {"item": "HI", "aggregate": 11118299699},
+            {"item": "ID", "aggregate": 12337454227},
+            {"item": "IL", "aggregate": 80558323346},
+            {"item": "IN", "aggregate": 128419186641},
+            {"item": "IA", "aggregate": 23217582228},
+            {"item": "KS", "aggregate": 16229795917},
+            {"item": "KY", "aggregate": 89303164343},
+            {"item": "LA", "aggregate": 35424256433},
+            {"item": "ME", "aggregate": 11660520983},
+            {"item": "MD", "aggregate": 66352632820},
+            {"item": "MA", "aggregate": 62367260228},
+            {"item": "MI", "aggregate": 77396050297},
+            {"item": "MN", "aggregate": 81535424896},
+            {"item": "MS", "aggregate": 24481678151},
+            {"item": "MO", "aggregate": 52971889116},
+            {"item": "MT", "aggregate": 8333041078},
+            {"item": "NE", "aggregate": 12306044107},
+            {"item": "NV", "aggregate": 17696587833},
+            {"item": "NH", "aggregate": 9706435188},
+            {"item": "NJ", "aggregate": 60811390189},
+            {"item": "NM", "aggregate": 22830683804},
+            {"item": "NY", "aggregate": 158617348110},
+            {"item": "NC", "aggregate": 63968795626},
+            {"item": "ND", "aggregate": 62603330175},
+            {"item": "OH", "aggregate": 76119620127},
+            {"item": "OK", "aggregate": 28215223114},
+            {"item": "OR", "aggregate": 32042458571},
+            {"item": "PA", "aggregate": 193604489691},
+            {"item": "RI", "aggregate": 8973218138},
+            {"item": "SC", "aggregate": 77700699550},
+            {"item": "SD", "aggregate": 6763485958},
+            {"item": "TN", "aggregate": 73841483061},
+            {"item": "TX", "aggregate": 169415582466},
+            {"item": "UT", "aggregate": 14543595370},
+            {"item": "VT", "aggregate": 5485620261},
+            {"item": "VA", "aggregate": 94665994579},
+            {"item": "WA", "aggregate": 58152788598},
+            {"item": "WV", "aggregate": 15265354160},
+            {"item": "WI", "aggregate": 84175926266},
+            {"item": "WY", "aggregate": 4146856654},
+            {"item": "GU", "aggregate": 1220551421}
+        ]
+    },
+    "subfunctions": {
+        "Social Security": {
+            "id": 0,
+            "children": [
+                {"id": 0, "name": "Social security", "value": 916077987132.59, "description": "Includes the entire Social Security function. "}
+            ]
+        },
+        "National Defense": {
+            "id": 1,
+            "children": [
+                {"id": 0, "name": "Department of Defense-Military", "value": 565364058015.22, "description": "With minor exceptions, entire agency is included in this subfunction. "},
+                {"id": 1, "name": "Atomic energy defense activities", "value": 19213966392.53, "description": "Department of Energy programs devoted to national defense, such as naval ship reactors and nuclear weapons."},
+                {"id": 2, "name": "Defense-related activities", "value": 10725415027.66, "description": "Miscellaneous defense activities, such as the expenses connected with selective services and with defense stockpiles outside of the Departments of Defense and Energy."}
+            ]
+        },
+        "Medicare": {
+            "id": 2,
+            "children": [
+                {"id": 0, "name": "Medicare", "value": 594535157426.09, "description": "Entire Medicare function."}
+            ]
+        },
+        "Income Security": {
+            "id": 3,
+            "children": [
+                {"id": 0, "name": "Other income security", "value": 179057235719.65, "description": "Income security programs not included in any other subfunction. Primarily either direct payments or grants-in-aid to finance direct payments that constitute cash income to low-income individuals and families. Also includes refugee assistance."},
+                {"id": 1, "name": "Federal employee retirement and disability", "value": 144783850407.11, "description": "All funded retirement and disability programs restricted to federal employees. Includes military retirement benefits for all years, not just the years since the military retirement program began as a funded trust fund (1985)."},
+                {"id": 2, "name": "Food and nutrition assistance", "value": 102298328884.62, "description": "Providing food or nutritional assistance to individuals and families."},
+                {"id": 3, "name": "Housing assistance", "value": 48716108734.3, "description": "Federal income support and related expenses that are specifically for financing or providing housing for individuals and families. Excludes loans, loan guarantees, or insurance."},
+                {"id": 4, "name": "Unemployment compensation", "value": 35952883839.19, "description": "Benefits not conditioned by needs tests for unemployed workers. Excludes other benefits (such as food stamps) that an unemployed person might be eligible for under other programs."},
+                {"id": 5, "name": "General retirement and disability insurance (excluding social security)", "value": 3774575706.23, "description": "Non-needs-tested retirement and disability programs composed mainly of the Railroad Retirement Fund and special benefits for coal miners. Excludes programs specifically restricted to federal employees."}
+            ]
+        },
+        "Health": {
+            "id": 4,
+            "children": [
+                {"id": 0, "name": "Health care services", "value": 475788915253.22, "description": "Medical services to individuals and families, whether provided directly by the federal government or financed through grants, contracts, insurance, or reimbursements."},
+                {"id": 1, "name": "Health research and training", "value": 30842978110.69, "description": "LAll research programs—whether basic or applied—that are financed specifically as health or medical research. Excludes research that is an integral part of other functions (such as biomedical research in the space program)."},
+                {"id": 2, "name": "Consumer and occupational health and safety", "value": 4688239905.82, "description": "Meat and poultry inspection, food and drug inspection, consumer product safety, and occupational health and safety."}
+            ]
+        },
+        "Net Interest": {
+            "id": 5,
+            "children": [
+                {"id": 0, "name": "Interest on Treasury debt securities (gross)", "value": 429949130660.39, "description": "Outlays for interest on the public debt. (Where this interest is paid to the public, it is on an accrual basis; all other interest outlays in the budget are on a cash basis.)"},
+                {"id": 1, "name": "Interest received by on-budget trust funds", "value": 0, "description": "Interfund interest collected by on-budget nonrevolving trust funds. Most of this income derives from outlays included in the “Interest on the Treasury Debt Securities” subfunction, but this subfunction also includes offsetting receipts from investments in public debt securities issued by the Federal Financing Bank (FFB)."},
+                {"id": 2, "name": "Interest received by off-budget trust funds", "value": 0, "description": "Interfund interest collected by off-budget nonrevolving trust funds. Normally, all of this income comes from outlays included in the “Interest on the Treasury Debt Securities” subfunction."},
+                {"id": 3, "name": "Other interest", "value": 0, "description": "All other interest expenditures and offsetting receipts. The principal expenditure in this subfunction normally is interest on refunds of receipts. Since offsetting interest receipts are included in this subfunction, the subfunction totals are usually negative."},
+                {"id": 4, "name": "Other investment income", "value": 0, "description": "The actual and estimated earnings on private securities of the Railroad Retirement Investment Trust. The actual year returns include interest, dividends, and capital gains and losses on private equities and other securities. The trust’s end-of-year balance reflects the current market value of resources available to the government to finance benefits."}
+            ]
+        },
+        "Veterans Benefits and Services": {
+            "id": 6,
+            "children": [
+                {"id": 0, "name": "Income security for veterans", "value": 86795763159.15, "description": "Veterans' compensation, life insurance, pensions, and burial benefits."},
+                {"id": 1, "name": "Hospital and medical care for veterans", "value": 65247603856.82, "description": "Medical care and research financed by the Department of Veterans Affairs."},
+                {"id": 2, "name": "Veterans education, training, and rehabilitation", "value": 14355109402.57, "description": "Composed primarily of the 'G.I. Bill' readjustment, vocational rehabilitation benefits, and related programs."},
+                {"id": 3, "name": "Other veterans benefits and services", "value": 7312661422.94, "description": "Administrative expenses of the Department of Veterans Affairs."},
+                {"id": 4, "name": "Veterans housing", "value": 803373842.25, "description": "Housing loan and guarantee programs for veterans and dependents."}
+            ]
+        },
+        "Education, Training, Employment, and Social Services": {
+            "id": 7,
+            "children": [
+                {"id": 0, "name": "Elementary, secondary, and vocational education", "value": 38888769265.2, "description": "Preschool, elementary, secondary, and vocational education programs."},
+                {"id": 1, "name": "Higher education", "value": 38763160458.5, "description": "College and graduate school programs."},
+                {"id": 2, "name": "Social services", "value": 18760572192.23, "description": "Programs that provide a broad range of services to individuals to help them improve their vocational capabilities or family status; services to the poor and elderly that are not primarily for income support and that are not an integral part of some other function (such as social services block grants)."},
+                {"id": 3, "name": "Training and employment", "value": 6232047688.9, "description": "Job or skill training, employment services and placement, and payments to employers to subsidize employment."},
+                {"id": 4, "name": "Research and general education aids", "value": 3532243815.52, "description": "Education research and assistance for the arts, the humanities, educational radio and television, public libraries, and museums."},
+                {"id": 5, "name": "Other labor services", "value": 1881004775.75, "description": "Aids to or regulation of the labor market, including gathering labor statistics and mediation and conciliation services; excludes employment and training programs and occupational safety and health programs."}
+            ]
+        },
+        "Transportation": {
+            "id": 8,
+            "children": [
+                {"id": 0, "name": "Ground transportation", "value": 62052820812.74, "description": "Aid for, and/or regulation of the various components of ground transportation, such as roads and highways, railroads, and urban mass transit."},
+                {"id": 1, "name": "Air transportation", "value": 20008995355.44, "description": "Aid for and/or regulation of air transportation, including aeronautical research conducted by the National Aeronautics and Space Administration."},
+                {"id": 2, "name": "Water transportation", "value": 10543438285.6, "description": "Aid for and/or regulation of maritime commerce."},
+                {"id": 3, "name": "Other transportation", "value": 335476529.24, "description": "General transportation programs and overhead not readily allocable to any of the preceding subfunctions."}
+            ]
+        },
+        "Administration of Justice": {
+            "id": 9,
+            "children": [
+                {"id": 0, "name": "Federal law enforcement activities", "value": 30262014776.33, "description": "The costs of operating the Federal Bureau of Investigation, Customs and Border Protection, Immigration and Customs Enforcement, the Drug Enforcement Administration, and police and crime prevention activities in other programs. Also includes the readily identifiable enforcement cost of civil rights activities."},
+                {"id": 1, "name": "Federal litigative and judicial activities", "value": 14888514406.36, "description": "The cost of the judiciary, the cost of prosecution, and federal expenses connected with financing legal defense activities."},
+                {"id": 2, "name": "Federal correctional activities", "value": 6949295503.11, "description": "Covers the costs of incarceration, supervision, parole, and rehabilitation of federal prisoners."},
+                {"id": 3, "name": "Criminal justice assistance", "value": 5044337174.65, "description": "Grants to state and local governments to assist them in operating and improving their law enforcement and justice systems."}
+            ]
+        },
+        "International Affairs": {
+            "id": 10,
+            "children": [
+                {"id": 0, "name": "International development and humanitarian assistance", "value": 24124327670.43, "description": "Humanitarian assistance, development assistance, security support assistance, grants to and investments in international financial and development institutions, and the budgetary costs associated with concessionary agricultural exports."},
+                {"id": 1, "name": "Conduct of foreign affairs", "value": 13873385393.94, "description": "Diplomatic and consular operations of the Department of State, assessed contributions to international organizations, and closely related activities in other agencies (such as the Arms Control and Disarmament Agency)."},
+                {"id": 2, "name": "International security assistance", "value": 11306643434.27, "description": "The transfer of defense articles and services to foreign governments, including grants, credit sales, and training. Excludes the military sales trust fund, which is classified under subfunction for international financial programs."},
+                {"id": 3, "name": "Foreign information and exchange activities", "value": 1545040203.34, "description": "Student and cultural exchange programs and foreign library, radio, or other media information activities designed to promote mutual understanding between the people of the United States and other nations."},
+                {"id": 4, "name": "International financial programs", "value": -5545192591.19, "description": "Export credit, the military sales trust fund, international commodity agreements, international monetary programs, and other programs designed to improve the functioning of the international financial system."}
+            ]
+        },
+        "Natural Resources and Environment": {
+            "id": 11,
+            "children": [
+                {"id": 0, "name": "Conservation and land management", "value": 9927178004.65, "description": "Maintaining the public domain and national forests, encouraging conservation of private land, and reclaiming surface mining areas."},
+                {"id": 1, "name": "Pollution control and abatement", "value": 9251483587.79999, "description": "Controlling and reducing air, water, and land pollution, or enhancing the environment. Excludes water resources programs, water treatment plants, and similar programs that are not funded as part of an environmental enhancement activity."},
+                {"id": 2, "name": "Other natural resources", "value": 7542655196.66, "description": "Miscellaneous natural resources programs, not classified under other subfunctions, such as marine-, earth-, and atmosphere-related research and geological surveys and mapping"},
+                {"id": 3, "name": "Water resources", "value": 7378791417.36, "description": "Water protection, conservation, irrigation, and related activities, including the total costs of multipurpose water projects where it is not feasible to separate the transportation (navigation) or energy (power) segments of these projects."},
+                {"id": 4, "name": "Recreational resources", "value": 3692160361.89, "description": "Acquisition, improvement, and operation of recreational lands and facilities, including fish, wildlife, and parks; also preserving historic areas."}
+            ]
+        },
+        "General Science, Space, and Technology": {
+            "id": 12,
+            "children": [
+                {"id": 0, "name": "Space flight, research, and supporting activities", "value": 18223696707.93, "description": "Development and operation of space transportation systems, basic scientific research connected with outer space, research and demonstrations designed to promote terrestrial applications of technology developed through space research, and development of new space technologies for future flight missions."},
+                {"id": 1, "name": "General science and basic research", "value": 12006619376.5, "description": "Conducting the National Science Foundation programs and the general science activities of the Department of Energy."}
+            ]
+        },
+        "Community and Regional Development": {
+            "id": 13,
+            "children": [
+                {"id": 0, "name": "Disaster relief and insurance", "value": 10595633109.54, "description": "Helping communities and families recover from natural disasters."},
+                {"id": 1, "name": "Community development", "value": 7095352383.05, "description": "Grants and related programs designed to aid largely urban community development. Includes community development block grants and predecessor activities, such as the urban renewal and model cities programs. These programs are generally carried out by the Department of Housing and Urban Development."},
+                {"id": 2, "name": "Area and regional development", "value": 3360952863.36, "description": "Grants, loans, subsidies, and related aids for the economic development of depressed areas. These aids are generally for rural areas or are more regional than the community development programs. They are generally carried out by agencies other than the Department of Housing and Urban Development, such as the Farmers Home Administration, Economic Development Administration, and Bureau of Indian Affairs."}
+            ]
+        },
+        "Agriculture": {
+            "id": 14,
+            "children": [
+                {"id": 0, "name": "Farm income stabilization", "value": 15249020477.23, "description": "Subsidies and other payments to stabilize agricultural prices at an equitable level. Includes acquiring and storing agricultural commodity stockpiles, but does not include foreign agricultural export losses (classified in the international affairs function) or domestic donations of food (part of an income support program)."},
+                {"id": 1, "name": "Agricultural research and services", "value": 4925966882.83, "description": "All other agricultural programs, such as agricultural research and extension services."}
+            ]
+        },
+        "General Government": {
+            "id": 15,
+            "children": [
+                {"id": 0, "name": "Central fiscal operations", "value": 7736352126.77, "description": "Covers the general tax collection and fiscal operations of the Department of the Treasury."},
+                {"id": 1, "name": "General purpose fiscal assistance", "value": 6659368017.6, "description": "Federal aid to state, local, and territorial governments that is available for general fiscal support. The transactions of the now discontinued general revenue-sharing program are included in the historical data for this subfunction. Also includes grants for more restricted purposes when the stipulated purposes cross two or more major budgetary functions and the distribution among those functions is at the discretion of the recipient jurisdiction rather than the federal government. Includes payments in lieu of taxes, broad-purpose shared revenues, and the federal payment to the District of Columbia. Excludes payments specifically for community development or social services programs."},
+                {"id": 2, "name": "Other general government", "value": 4747730303.82, "description": "Miscellaneous other costs, such as federal costs of territorial governments."},
+                {"id": 3, "name": "Legislative functions", "value": 3825261135.86, "description": "Includes most of the legislative branch. However, the Library of Congress (except the Congressional Research Service), the Tax Court, the Government Printing Office (except for congressional printing and binding), and the Copyright Royalty Tribunal are classified in other subfunctions."},
+                {"id": 4, "name": "Executive direction and management", "value": 416823407.33, "description": "The Executive Office of the President (unless some major grants or operating programs should be included in the Office); occasionally some closely related spending outside the Office is included."},
+                {"id": 5, "name": "General property and records management", "value": 0, "description": "Most of the operations of the General Services Administration (net of reimbursements from other agencies for services rendered)."},
+                {"id": 6, "name": "Central personnel management", "value": 0, "description": "Most of the operating costs of the Office of Personnel Management and related agencies (net of reimbursements from other agencies for services rendered)."},
+                {"id": 7, "name": "Deductions for offsetting receipts", "value": 0, "description": "Includes general government function offsetting receipts that are not closely related to any other subfunction in this function."}
+            ]
+        },
+        "Energy": {
+            "id": 16,
+            "children": [
+                {"id": 0, "name": "Energy conservation", "value": 1768521976.62, "description": "Encouraging the prudent use of energy resources."},
+                {"id": 1, "name": "Energy supply", "value": 1346779910.34, "description": "Increasing the supply of energy through the development of domestic resources and systems capable of using them. Includes the costs of research and demonstration of supply systems."},
+                {"id": 2, "name": "Energy information, policy, and regulation", "value": 399355577.71, "description": "Unallocable overhead activities of the Department of Energy plus the costs of energy information and regulation activities."},
+                {"id": 3, "name": "Emergency energy preparedness", "value": 234049425.78, "description": "Developing and maintaining a stockpile of energy resources (currently confined to petroleum) to meet emergency needs and associated contingency planning activities."}
+            ]
+        }
     }
 }

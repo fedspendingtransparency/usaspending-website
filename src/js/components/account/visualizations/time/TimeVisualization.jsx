@@ -72,12 +72,12 @@ export default class TimeVisualization extends React.Component {
                 },
                 {
                     color: '#2c4452',
-                    label: 'Obligated Balance (Filtered)',
+                    label: 'Obligations Incurred (Filtered)',
                     offset: 84
                 },
                 {
                     color: '#5c7480',
-                    label: 'Obligated Balance (Other)',
+                    label: 'Obligations Incurred (Other)',
                     offset: 262
                 },
                 {
@@ -96,7 +96,7 @@ export default class TimeVisualization extends React.Component {
                 },
                 {
                     color: '#5c7480',
-                    label: 'Obligated Balance',
+                    label: 'Obligations Incurred',
                     offset: 84
                 },
                 {

@@ -36,7 +36,7 @@ export default class SelectedAgencies extends React.Component {
         });
 
         return (
-            <div className={`selected-agencies ${_.toLower(this.props.agencyType)}`}>
+            <div className={`selected-filters ${_.toLower(this.props.agencyType)}`}>
                 {shownAgencies}
             </div>
         );

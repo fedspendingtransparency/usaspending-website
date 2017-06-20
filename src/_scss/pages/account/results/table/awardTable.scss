@@ -1,5 +1,6 @@
 .account-awards-table-section {
     transition: opacity 0.25s ease;
+    margin-top: ($global-mrg * 4);
     
     @import "pages/search/results/table/_tableTypes";
     @import "pages/search/results/table/_tableStyle";
@@ -18,7 +19,7 @@
         width: 100%;
     }
 
-    .account-awards-table-message {
+    .results-table-message {
         margin-top: 1rem;
         font-size: $small-font-size;
         color: $color-base;

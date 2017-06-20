@@ -10,6 +10,9 @@ export const awardFields = {
     recipientId: 'recipient__legal_entity_id',
     recipientLocationScope: 'recipient__location__location_country_code',
     recipientLocation: 'recipient__location__location_id',
+    recipientName: 'recipient__recipient_name',
+    recipientDUNS: 'recipient__recipient_unique_id',
+    recipientType: 'recipient__business_categories',
     fundingAgency: {
         toptier: 'funding_agency__toptier_agency__name',
         subtier: 'funding_agency__subtier_agency__name'
@@ -29,7 +32,7 @@ export const tasCategoriesFields = {
     endDate: 'reporting_period_end',
     budgetFunctionTitle: 'treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'treasury_account__budget_subfunction_title',
-    objectClass: 'object_class__major_object_class',
+    objectClass: 'object_class__object_class',
     fundingAgency: 'treasury_account__agency_id',
     federalAccount: 'treasury_account__federal_account'
 };
@@ -51,13 +54,21 @@ export const transactionFields = {
     recipientId: 'recipient__legal_entity_id',
     recipientLocationScope: 'recipient__location__location_country_code',
     recipientLocation: 'recipient__location__location_id',
+    recipientName: 'recipient__recipient_name',
+    recipientDUNS: 'recipient__recipient_unique_id',
+    recipientType: 'recipient__business_categories',
     awardType: 'type',
     awardId: 'award_id',
     awardAmount: 'federal_action_obligation',
     objectClass: 'award__financial_set__object_class__major_object_class',
     budgetFunctionTitle: 'award__financial_set__treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'award__financial_set__treasury_account__budget_subfunction_title',
-    federalAccount: 'award__financial_set__treasury_account__federal_account'
+    federalAccount: 'award__financial_set__treasury_account__federal_account',
+    cfdaNumber: 'assistance_data__cfda__program_number',
+    cfdaTitle: 'assistance_data__cfda__program_title',
+    naics: 'contract_data__naics',
+    naicsDescription: 'contract_data__naics_description',
+    psc: 'contract_data__product_or_service_code'
 };
 
 export const accountAwardsFields = {
@@ -72,6 +83,9 @@ export const accountAwardsFields = {
     recipientId: 'award__recipient__legal_entity_id',
     recipientLocationScope: 'award__recipient__location__location_country_code',
     recipientLocation: 'award__recipient__location__location_id',
+    recipientName: 'award__recipient__recipient_name',
+    recipientDUNS: 'award__recipient__recipient_unique_id',
+    recipientType: 'award__recipient__business_categories',
     fundingAgency: {
         toptier: 'award__funding_agency__toptier_agency__name',
         subtier: 'award__funding_agency__subtier_agency__name'
@@ -83,5 +97,10 @@ export const accountAwardsFields = {
     objectClass: 'object_class__major_object_class',
     budgetFunctionTitle: 'treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'treasury_account__budget_subfunction_title',
-    federalAccount: 'treasury_account__federal_account'
+    federalAccount: 'treasury_account__federal_account',
+    cfdaNumber: 'award__transaction__assistance_data__cfda__program_number',
+    cfdaTitle: 'award__transaction__assistance_data__cfda__program_title',
+    naics: 'award__transaction__contract_data__naics',
+    naicsDescription: 'award__transaction__contract_data__naics_description',
+    psc: 'award__transaction__contract_data__product_or_service_code'
 };

@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-export default class MastHead extends React.Component {
+export default class Overview extends React.Component {
 
     render() {
         return (
@@ -16,23 +16,37 @@ export default class MastHead extends React.Component {
                 </div>
                 <div className="overview-inner-wrap-left">
                     <h5>Source of Data</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin aliquam dapibus rutrum.
-                     Duis ultricies dolor ut lacus cursus venenatis. Phasellus a accumsan ipsum, non cursus orci.
-                     Vestibulum aliquam est eget nisl faucibus ullamcorper.</p>
-                    <a href="#">
-                        <button
-                            className="usa-button-primary"
-                            title="View the Policy"
-                            aria-label="View the Policy">
-                            View the Policy
+                    <p>
+                        The U.S Treasury Department brings together data from hundreds of federal
+                        agencies and systems to make federal spending data readily available to the
+                        public. Read more about how the data arrives in our system.
+                    </p>
+                    <a
+                        href="#/sourcesofdata"
+                        role="button"
+                        title="Source of Data"
+                        aria-label="Source of Data">
+                        <button className="usa-button-primary">
+                            Learn More
                         </button>
                     </a>
                 </div>
                 <div className="overview-inner-wrap-right">
-                    <h5>Relevant Legislature</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin aliquam dapibus rutrum.
-                     Duis ultricies dolor ut lacus cursus venenatis. Phasellus a accumsan ipsum, non cursus orci.
-                     Vestibulum aliquam est eget nisl faucibus ullamcorper.</p>
+                    <h5>Relevant Legislation</h5>
+                    <p>
+                        Two major pieces of legislation (FFATA and the DATA Act) have paved the way
+                        for more accessible, reliable, and transparent federal spending data. Read
+                        more about these laws and their impact.
+                    </p>
+                    <a
+                        href="#/relevantlegislation"
+                        role="button"
+                        title="Relevant Legislation"
+                        aria-label="Relevant Legislation">
+                        <button className="usa-button-primary">
+                            Learn More
+                        </button>
+                    </a>
                 </div>
             </div>
         );

@@ -1,0 +1,69 @@
+.homepage-map-section {
+    @import "./mapList";
+    .homepage-map-toggle {
+        ul {
+            @include unstyled-list;
+            @include display(flex);
+            @include flex-direction(row);
+            @include align-items(center);
+            @include justify-content(center);
+            position: relative;
+            margin-top: ($global-pad * 2);
+            margin-bottom: ($global-pad * 2);
+            li {
+                @import "elements/_underlineButton";
+                @include underlineButton;
+                min-width: rem(75);
+                @include flex(0 1 auto);
+                &:first-child {
+                    margin-right: rem(25);
+                }
+            }
+        }
+    }
+    .results-visualization-geo-section {
+        padding: 0;
+        & .map-container {
+            & .map-instructions {
+                left: rem(30);
+                top: rem(30);
+            }
+            & .map-legend {
+                bottom: rem(30);
+                left: rem(30);
+                @include media($tablet-screen) {
+                    bottom: rem(80);
+                }
+            }
+            height: rem(760);
+            & .mapbox-item.mapboxgl-map {
+                & .mapboxgl-control-container {
+                    & .mapboxgl-ctrl-top-right {
+                        right: rem(20)!important;
+                        top: rem(20)!important;
+                    }
+                }
+            }
+        }
+        // custom tooltip styling
+        .visualization-tooltip {
+            .state-population {
+                font-size: $small-font-size;
+                margin-left: rem(20);
+                margin-bottom: rem(10);
+            }
+        }
+        @import "./_mapToggleCapita";
+    }
+    @import "./_mapCitation";
+    .info-icon {
+        margin-left: rem(10);
+        svg {
+            width: rem(16);
+            height: rem(16);
+            fill: $color-base;
+            transform: translate(0, 4px);
+            display: none; //HIDING THIS ICON UNTIL WE USE IT AS A TOOLTIP BUTTON.
+        }
+    }
+}

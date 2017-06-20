@@ -1,0 +1,37 @@
+.homepage-map-capita-toggle {
+    position: absolute;
+    z-index: 3;
+    // top left in mobile view
+    left: rem(30);
+    top: rem(30);
+    @include media($tablet-screen) {
+        // bottom right on larger screen
+        left: auto;
+        top: auto;
+        bottom: rem(80);
+        right: rem(30);
+    }
+    background-color: $color-white;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    color: $color-gray;
+    text-align: center;
+    font-size: rem(14);
+    line-height: rem(18);
+    max-width: rem(260);
+    padding: rem(12) rem(15);
+    @import "elements/_toggleButton";
+    .toggle-wrapper {
+        position: relative;
+        @include display(flex);
+        @include flex-direction(row);
+        @include align-items(center);
+        @include justify-content(center);
+        .toggle-button {
+            @include flex(1 1 auto);
+        }
+        .toggle-text {
+            @include flex(1 1 auto);
+            margin-left: 10px;
+        }
+    }
+}

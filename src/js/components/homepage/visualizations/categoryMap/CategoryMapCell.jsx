@@ -9,27 +9,32 @@ import _ from 'lodash';
 const propTypes = {
     label: React.PropTypes.string,
     value: React.PropTypes.number,
-    total: React.PropTypes.number,
     x0: React.PropTypes.number,
     x1: React.PropTypes.number,
     y0: React.PropTypes.number,
     y1: React.PropTypes.number,
+    categoryID: React.PropTypes.number,
     color: React.PropTypes.string,
-    toggleTooltip: React.PropTypes.func
+    tooltipStyles: React.PropTypes.object,
+    toggleTooltipIn: React.PropTypes.func,
+    toggleTooltipOut: React.PropTypes.func
 };
 
 export default class CategoryMapCell extends React.Component {
-
     constructor(props) {
         super(props);
 
         this.state = {
             label: '',
             didProcess: false,
-            color: this.props.color
+            color: this.props.color,
+            textColor: this.props.tooltipStyles.defaultStyle.textColor
         };
 
         this.mouseIn = this.mouseIn.bind(this);
+        this.mouseOut = this.mouseOut.bind(this);
+        this.defaultStyle = this.props.tooltipStyles.defaultStyle;
+        this.highlightedStyle = this.props.tooltipStyles.highlightedStyle;
     }
 
     componentDidMount() {
@@ -50,6 +55,8 @@ export default class CategoryMapCell extends React.Component {
         this.setState({
             label,
             didProcess: false
+        }, () => {
+            this.forceUpdate();
         });
     }
 
@@ -86,13 +93,21 @@ export default class CategoryMapCell extends React.Component {
         });
     }
 
-    mouseIn(label, value, bgColor, xStart, yStart, width, height) {
-        this.props.toggleTooltip(label, value, xStart, yStart, width, height);
+    mouseIn(height, width) {
+        this.props.toggleTooltipIn(this.props.categoryID, height, width);
         this.setState({
-            color: bgColor
+            color: this.highlightedStyle.color,
+            textColor: this.highlightedStyle.textColor
         });
     }
 
+    mouseOut(height, width) {
+        this.props.toggleTooltipOut(this.props.categoryID, height, width);
+        this.setState({
+            color: this.props.color,
+            textColor: this.defaultStyle.textColor
+        });
+    }
 
     render() {
         const width = (this.props.x1 - this.props.x0);
@@ -115,26 +130,10 @@ export default class CategoryMapCell extends React.Component {
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
                 onMouseOver={() => {
-                    this.mouseIn(
-                        this.props.label,
-                        this.props.value,
-                        "#F2B733",
-                        this.props.x0,
-                        this.props.y0,
-                        width,
-                        height
-                    );
+                    this.mouseIn(height, width);
                 }}
                 onMouseLeave={() => {
-                    this.mouseIn(
-                        'none',
-                        '',
-                        this.props.color,
-                        this.props.x0,
-                        this.props.y0,
-                        width,
-                        height
-                    );
+                    this.mouseOut(height, width);
                 }}>
                 <rect
                     className="tile"
@@ -156,7 +155,8 @@ export default class CategoryMapCell extends React.Component {
                         this.svgText = text;
                     }}
                     style={{
-                        display: labelView
+                        display: labelView,
+                        fill: this.state.textColor
                     }}>
                     {this.state.label}
                 </text>
@@ -167,9 +167,10 @@ export default class CategoryMapCell extends React.Component {
                     width={width}
                     textAnchor="middle"
                     style={{
-                        display: percentView
+                        display: percentView,
+                        fill: this.state.textColor
                     }}>
-                    {parseFloat((this.props.value / this.props.total) * 100).toFixed(1)}%
+                    {this.props.value}%
                 </text>
             </g>
         );

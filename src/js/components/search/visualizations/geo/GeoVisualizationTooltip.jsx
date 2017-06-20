@@ -52,11 +52,6 @@ export default class GeoVisualizationTooltip extends React.Component {
     }
 
     render() {
-        let percentage = 'N/A';
-        if (this.props.total > 0) {
-            percentage = Math.round((this.props.value / this.props.total) * 1000) / 10;
-        }
-
         const stateName = MapHelper.stateNameFromCode(this.props.state);
 
         return (
@@ -84,15 +79,7 @@ export default class GeoVisualizationTooltip extends React.Component {
                                 {MoneyFormatter.formatMoney(this.props.value)}
                             </div>
                             <div className="tooltip-label">
-                                Spending in {stateName}
-                            </div>
-                        </div>
-                        <div className="tooltip-right">
-                            <div className="tooltip-value">
-                                {percentage}%
-                            </div>
-                            <div className="tooltip-label">
-                                Percent of Total Spending
+                                Total Spending
                             </div>
                         </div>
                     </div>

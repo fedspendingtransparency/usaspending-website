@@ -12,7 +12,7 @@ import { AccountAwardsContainer } from 'containers/account/awards/AccountAwardsC
 import * as SearchHelper from 'helpers/searchHelper';
 import FederalAccount from 'models/account/FederalAccount';
 
-import  { mockReduxAccount, mockAwards, mockReduxAwards } from '../mockAccount';
+import { mockReduxAccount, mockAwards, mockReduxAwards, mockTabCount } from '../mockAccount';
 import { defaultFilters } from '../defaultFilters';
 
 // force Jest to use native Node promises
@@ -20,11 +20,8 @@ import { defaultFilters } from '../defaultFilters';
 global.Promise = require.requireActual('promise');
 
 // spy on specific functions inside the component
+const autoTabSpy = sinon.spy(AccountAwardsContainer.prototype, 'pickDefaultTab');
 const loadDataSpy = sinon.spy(AccountAwardsContainer.prototype, 'loadData');
-
-const parameters = {
-    accountId: 2507
-};
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/account/awards/AccountAwardsSection', () =>
@@ -63,8 +60,9 @@ const unmockAccountHelper = () => {
 };
 
 describe('AccountAwardsContainer', () => {
-    it('should fetch the awards associated with the federal account on mount', () => {
+    it('should pick a default tab for awards on mount', () => {
         mockSearchHelper('performSearch', 'resolve', mockAwards);
+        mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
 
         const props = {
             account: mockReduxAccount,
@@ -72,15 +70,126 @@ describe('AccountAwardsContainer', () => {
             awards: new OrderedSet([]),
             meta: mockReduxAwards.awardsMeta,
             order: mockReduxAwards.awardsOrder,
-            setAccountAwards: jest.fn()
+            setAccountAwards: jest.fn(),
+            setAccountAwardType: jest.fn()
         };
 
         mount(<AccountAwardsContainer {...props} />);
 
         jest.runAllTicks();
 
-        expect(loadDataSpy.callCount).toEqual(1);
+        expect(autoTabSpy.callCount).toEqual(1);
+        autoTabSpy.reset();
+    });
+
+    it('should pick a default tab when the Redux filters change', () => {
+        mockSearchHelper('performSearch', 'resolve', mockAwards);
+        mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
+
+        const props = {
+            account: mockReduxAccount,
+            filters: defaultFilters,
+            awards: new OrderedSet([]),
+            meta: mockReduxAwards.awardsMeta,
+            order: mockReduxAwards.awardsOrder,
+            setAccountAwards: jest.fn(),
+            setAccountAwardType: jest.fn()
+        };
+
+        autoTabSpy.reset();
+        const container = mount(<AccountAwardsContainer {...props} />);
+
+        jest.runAllTicks();
+        expect(autoTabSpy.callCount).toEqual(1);
+
+        // change the filters
+        const newFilters = Object.assign({}, defaultFilters, {
+            obectClass: new OrderedSet(['10'])
+        });
+        container.setProps({
+            filters: newFilters
+        });
+
+        jest.runAllTicks();
+        expect(autoTabSpy.callCount).toEqual(2);
+        autoTabSpy.reset();
+    });
+
+    it('should make an API call for new awards whenever the Redux table type changes', () => {
+        mockSearchHelper('performSearch', 'resolve', mockAwards);
+        mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
+
+        const props = {
+            account: mockReduxAccount,
+            filters: defaultFilters,
+            awards: new OrderedSet([]),
+            meta: mockReduxAwards.awardsMeta,
+            order: mockReduxAwards.awardsOrder,
+            setAccountAwards: jest.fn(),
+            setAccountAwardType: jest.fn()
+        };
+
+        const container = mount(<AccountAwardsContainer {...props} />);
+
+        jest.runAllTicks();
         loadDataSpy.reset();
+        autoTabSpy.reset();
+        expect(loadDataSpy.callCount).toEqual(0);
+
+        // change the table type
+        const newMeta = Object.assign({}, mockReduxAwards.awardsMeta, {
+            type: 'loans'
+        });
+        container.setProps({
+            meta: newMeta
+        });
+
+        jest.runAllTicks();
+        expect(loadDataSpy.callCount).toEqual(1);
+        expect(autoTabSpy.callCount).toEqual(0);
+        loadDataSpy.reset();
+    });
+
+    describe('parseTabCounts', () => {
+        it('should select the first tab (left to right) with a non-zero aggregate value', () => {
+            mockSearchHelper('performSearch', 'resolve', mockAwards);
+            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
+
+            const props = {
+                account: mockReduxAccount,
+                filters: defaultFilters,
+                awards: new OrderedSet([]),
+                meta: mockReduxAwards.awardsMeta,
+                order: mockReduxAwards.awardsOrder,
+                setAccountAwards: jest.fn(),
+                setAccountAwardType: jest.fn()
+            };
+
+            const container = shallow(<AccountAwardsContainer {...props} />);
+
+            const mockSwitchTab = jest.fn();
+            container.instance().switchTab = mockSwitchTab;
+
+            container.instance().parseTabCounts(mockTabCount);
+            expect(mockSwitchTab).toHaveBeenLastCalledWith('contracts');
+
+
+            const secondTabResponse = Object.assign({}, mockTabCount, {
+                results: [
+                    {
+                        type: 'A',
+                        aggregate: '0.0'
+                    },
+                    {
+                        type: '02',
+                        aggregate: '500.0'
+                    }
+                ]
+            });
+
+            container.instance().parseTabCounts(secondTabResponse);
+            expect(mockSwitchTab).toHaveBeenLastCalledWith('grants');
+        });
     });
 
     describe('parseData', () => {

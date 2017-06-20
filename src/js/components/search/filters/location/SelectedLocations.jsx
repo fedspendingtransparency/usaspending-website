@@ -28,7 +28,7 @@ export default class SelectedLocations extends React.Component {
         });
 
         return (
-            <div className="selected-locations">
+            <div className="selected-filters">
                 {shownLocations}
             </div>
         );

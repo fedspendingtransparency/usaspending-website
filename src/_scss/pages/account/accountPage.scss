@@ -1,18 +1,14 @@
 .usa-da-account-page {
     @import "layouts/search/search";
-    @include searchLayout;
 
     $color-gray-border: #D8D8D8;
     $color-blue-background: #F5FBFC;
-
     @import "./header/header";
-
     .main-content {
-        @include outer-container();
-
-        padding: 3rem 4rem;
+        @import "../../mixins/fullSectionWrap";
+        @include fullSectionWrap(($global-mrg * 4), ($global-mrg * 4));
+        padding:  0;
         @import "./overview/overview";
-
         @import "./results/searchResults";
     }
 }

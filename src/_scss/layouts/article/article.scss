@@ -1,0 +1,36 @@
+@import "../default/default";
+@import "mixins/elementContainerWrap";
+
+.article-wrapper {
+    @import "elements/_divider";
+    @import "mixins/setText";
+    @include elementContainerWrap();
+    h1 {
+        @include setText($h3-font-size);
+        margin: ($global-pad * 2) 0;
+    }
+    p {
+        margin: ($global-pad * 2) 0;
+    }
+    @include media($tablet-screen) {
+        h1 {
+            @include setText($h2-font-size);
+        }
+    }
+    @include media($medium-screen) {
+        @include span-columns(12);
+        @include shift(2);
+        float: none;
+    }
+    @include media($large-screen) {
+        @include span-columns(10);
+        @include shift(3);
+        float: none;
+    }
+    @include media($x-large-screen) {
+        max-width: $site-max-width;
+        @include span-columns(8);
+        @include shift(4);
+        float: none;
+    }
+}

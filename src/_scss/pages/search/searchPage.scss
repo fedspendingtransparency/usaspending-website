@@ -1,6 +1,6 @@
 .usa-da-search-page {
-    @import "../../layouts/search/search";
-    @include searchLayout;
+    @import "layouts/search/search";
+
     @import './searchSidebar';
     @include span-columns(16);
     .search-sidebar {
@@ -15,6 +15,7 @@
             @include span-columns(12);
         }
         margin-top: rem(32);
+        margin-bottom: rem(60);
         @import "./results/searchResults";
         @import "./topFilterBar/topFilterBar";
     }

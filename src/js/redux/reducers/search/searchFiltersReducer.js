@@ -13,7 +13,28 @@ import * as AwardIDFilterFunctions from './filters/awardIDFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
 import * as BudgetCategoryFilterFunctions from './filters/budgetCategoryFilterFunctions';
 
-const initialState = {
+// update this version when changes to the reducer structure are made
+// frontend will reject inbound hashed search filter sets with different versions because the
+// data structures may have changed
+export const filterStoreVersion = 1;
+
+export const requiredTypes = {
+    timePeriodFY: Set,
+    selectedLocations: OrderedMap,
+    budgetFunctions: OrderedMap,
+    federalAccounts: OrderedMap,
+    objectClasses: Set,
+    selectedFundingAgencies: OrderedMap,
+    selectedAwardingAgencies: OrderedMap,
+    selectedRecipients: OrderedMap,
+    recipientType: Set,
+    selectedRecipientLocations: OrderedMap,
+    awardType: Set,
+    selectedAwardIDs: OrderedMap,
+    awardAmounts: OrderedMap
+};
+
+export const initialState = {
     keyword: '',
     timePeriodType: 'fy',
     timePeriodFY: new Set(),
@@ -23,11 +44,12 @@ const initialState = {
     locationDomesticForeign: 'all',
     budgetFunctions: new OrderedMap(),
     federalAccounts: new OrderedMap(),
-    objectClasses: new OrderedMap(),
+    objectClasses: new Set(),
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
+    recipientType: new Set(),
     selectedRecipientLocations: new OrderedMap(),
     awardType: new Set(),
     selectedAwardIDs: new OrderedMap(),
@@ -42,20 +64,8 @@ const searchFiltersReducer = (state = initialState, action) => {
                 keyword: action.textInput
             });
         }
-        case 'TOGGLE_SEARCH_FILTER_AWARD_TYPE': {
-            // this redux state is stored in an ImmutableJS set, which returns new instances
-            // whenever it is modified
-            return Object.assign({}, state, {
-                awardType: AwardFilterFunctions.immutableSetToggle(
-                    state.awardType, action.awardType)
-            });
-        }
-        case 'BULK_SEARCH_FILTER_AWARD_TYPE': {
-            return Object.assign({}, state, {
-                awardType: AwardFilterFunctions.bulkAwardTypeChange(
-                    state.awardType, action.awardTypes, action.direction)
-            });
-        }
+
+        // Time Period Filter
         case 'UPDATE_SEARCH_FILTER_TIME_PERIOD': {
             // FY time period is stored as an ImmutableJS set
             return Object.assign({}, state, {
@@ -66,7 +76,7 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
-        // Location Filter
+        // Place of Performance Filter
         case 'UPDATE_SELECTED_LOCATIONS': {
             return Object.assign({}, state, {
                 selectedLocations: LocationFilterFunctions.updateSelectedLocations(
@@ -98,6 +108,12 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 objectClasses: BudgetCategoryFilterFunctions.updateObjectClasses(
                     state.objectClasses, action.objectClass)
+            });
+        }
+        case 'BULK_SEARCH_FILTER_OBJECT_CLASSES': {
+            return Object.assign({}, state, {
+                objectClasses: BudgetCategoryFilterFunctions.bulkObjectClassesChange(
+                    state.objectClasses, action.objectClasses, action.direction)
             });
         }
 
@@ -132,6 +148,36 @@ const searchFiltersReducer = (state = initialState, action) => {
                 selectedRecipientLocations: RecipientFilterFunctions
                     .updateSelectedRecipientLocations(
                         state.selectedRecipientLocations, action.location)
+            });
+        }
+        case 'TOGGLE_SEARCH_FILTER_RECIPIENT_TYPE': {
+            // this redux state is stored in an ImmutableJS set, which returns new instances
+            // whenever it is modified
+            return Object.assign({}, state, {
+                recipientType: RecipientFilterFunctions.immutableSetToggle(
+                    state.recipientType, action.recipientType)
+            });
+        }
+        case 'BULK_SEARCH_FILTER_RECIPIENT_TYPES': {
+            return Object.assign({}, state, {
+                recipientType: RecipientFilterFunctions.bulkRecipientTypeChange(
+                    state.recipientType, action.recipientTypes, action.direction)
+            });
+        }
+
+        // Award Type Filter
+        case 'TOGGLE_SEARCH_FILTER_AWARD_TYPE': {
+            // this redux state is stored in an ImmutableJS set, which returns new instances
+            // whenever it is modified
+            return Object.assign({}, state, {
+                awardType: AwardFilterFunctions.immutableSetToggle(
+                    state.awardType, action.awardType)
+            });
+        }
+        case 'BULK_SEARCH_FILTER_AWARD_TYPE': {
+            return Object.assign({}, state, {
+                awardType: AwardFilterFunctions.bulkAwardTypeChange(
+                    state.awardType, action.awardTypes, action.direction)
             });
         }
 
@@ -169,6 +215,9 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 [action.filterType]: initialState[action.filterType]
             });
+        }
+        case 'POPULATE_ALL_SEARCH_FILTERS': {
+            return Object.assign({}, initialState, action.filters);
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return Object.assign({}, initialState);

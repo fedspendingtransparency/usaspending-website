@@ -1,8 +1,13 @@
 .visualization-top {
     @include row();
     margin-bottom: rem(20);
-    @import "../../../../../components/visualizations/_description";
-    @import "../../../../../components/visualizations/_period";
+    @import "components/visualizations/_description";
+    @import "components/visualizations/_period";
+
+    .no-scope {
+        width: 100%;
+    }
+
     .visualization-period {
         .content {
             li {

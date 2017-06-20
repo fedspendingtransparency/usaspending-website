@@ -5,9 +5,10 @@
 
 import React from 'react';
 import { OrderedSet } from 'immutable';
+import _ from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
-import ProgramActivityItem from './ProgramActivityItem';
+import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
 const propTypes = {
     selectedProgramActivities: React.PropTypes.instanceOf(OrderedSet),
@@ -49,27 +50,37 @@ export default class ProgramActivityFilter extends React.Component {
         this.setState(updatedState);
     }
 
-    toggleValue(event) {
-        this.props.updateFilter(event.target.value);
+    toggleValue(value) {
+        this.props.updateFilter(value);
     }
 
     generateProgramActivityItems(programActivities) {
         const activities = [];
 
-        programActivities.forEach((programActivity) => {
+        // Sort program activities by code, ascending, for display purposes
+        // Code is a string - must convert to numeric before sorting
+        const sortedProgramActivities =
+            _.sortBy(programActivities, [(pa) => parseInt(pa.code, 10)]);
+
+        sortedProgramActivities.forEach((programActivity) => {
             if (activities.length < this.state.shown) {
                 const label = `${programActivity.code} - ${programActivity.name}`;
-                const checked = this.props.selectedProgramActivities.includes(programActivity.id);
 
                 if (activities.length <= this.state.shown
                     && (programActivity.name !== null && programActivity.name !== '')) {
+                    // return new checkbox here
                     activities.push(
-                        <ProgramActivityItem
+                        <PrimaryCheckboxType
+                            {...programActivity}
+                            {...this.props}
+                            name={label}
+                            value={programActivity.id}
                             key={programActivity.id}
-                            programActivityID={programActivity.id}
-                            label={label}
-                            checked={checked}
-                            toggleValue={this.toggleValue} />);
+                            types={_.keyBy(this.props.availableProgramActivities, 'id')}
+                            filterType="Object Class"
+                            selectedCheckboxes={this.props.selectedProgramActivities}
+                            toggleCheckboxType={this.toggleValue}
+                            enableAnalytics />);
                 }
             }
         });
@@ -119,10 +130,12 @@ export default class ProgramActivityFilter extends React.Component {
 
         return (
             <div className="account-program-activity-filter search-filter">
-                <ul className="program-activities">
-                    { items }
-                </ul>
-                {toggleButton}
+                <div className="checkbox-type-filter search-filter">
+                    <ul className="program-activities checkbox-types">
+                        { items }
+                    </ul>
+                    {toggleButton}
+                </div>
             </div>
         );
     }

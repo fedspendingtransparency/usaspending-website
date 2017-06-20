@@ -6,9 +6,6 @@
 export const formatBudgetFunction = (budgetFunction) =>
     `${budgetFunction.title} | ${budgetFunction.functionType}`;
 
-export const formatFederalAccount = (fed) =>
-    `${fed.agency_identifier}-${fed.main_account_code} - ${fed.account_title}`;
-
 // Budget Filters consist of the three elements of Budget Categories filter
 // (Budget Functions, Federal Account, and Object Class),
 // as well as Fiscal Year filters and Funding Agency
@@ -80,6 +77,7 @@ export const awardFiltersSelected = (rawFilters) => {
         'selectedRecipients',
         'recipientDomesticForeign',
         'selectedRecipientLocations',
+        'recipientType',
         'awardType',
         'selectedAwardIDs',
         'awardAmounts'

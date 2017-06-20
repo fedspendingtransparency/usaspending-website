@@ -22,8 +22,8 @@
             .header-icons {
                 display: table-cell;
                 vertical-align: middle;
-                padding-left: 10px;
-                height: 10px;
+                padding-left: rem(5);
+                height: rem(10);
 
                 .sort-icon {
                     @include button-unstyled;
@@ -47,5 +47,5 @@
                 }
             }
         }
-    } 
+    }
 }

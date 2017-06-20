@@ -4,21 +4,30 @@
     background: $color-gray-dark;
     height: rem(900);
     position: relative;
-
     @media(min-width: 480px) {
         @include span-columns(15);
     }
-
     @include media($tablet-screen) {
         height: rem(140);
         @include span-columns(16);
     }
-
-        .visualization-tooltip {
-            @import "../../../components/visualizations/tooltip/_tooltip";
+    .visualization-tooltip {
+        @import "components/visualizations/tooltip/_tooltip";
+        .tooltip {
+            max-width: rem(468);
+            .tooltip-title {
+                text-align: center;
+            }
+            .tooltip-value {
+                border-bottom: none;
+            }
+            .tooltip-body .tooltip-left .tooltip-description {
+                text-align: left;
+                font-color: $color-base;
+            }
         }
+    }
     @import "./_treemapVisualization";
-
     .tree-wrapper {
         svg {
             height: rem(900);
@@ -26,5 +35,19 @@
                 height: rem(140);
             }
         }
+    }
+    .category,
+    .value {
+        text-shadow: rem(1) rem(0) rem(1) rgba( $color-black, .3);
+    }
+    .category {
+        font-size: $base-font-size;
+    }
+    .value {
+        font-size: $base-font-size + rem(4);
+        font-weight: $font-semibold;
+    }
+    .chosen {
+        text-shadow: none;
     }
 }

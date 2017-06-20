@@ -1,0 +1,52 @@
+.usa-da-typeahead {
+    p {
+        color: $color-gray;
+        font-size: $small-font-size;
+        margin-top: 0;
+        margin-bottom: .5rem;
+    }
+    input {
+        font-size: $small-font-size;
+        height: rem(40);
+        margin: 0 auto;
+        padding: 11px 8px 11px 8px;
+        width: 100%;
+    }
+    .autocomplete ul {
+        background-color: $color-white;
+        border: 1px solid $color-gray-lighter;
+        cursor: default;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        li {
+            line-height: rem(20);
+            font-size: $small-font-size;
+            font-weight: normal;
+            padding: rem(10) rem(20);
+            color: $color-base;
+            border-bottom: 1px solid $color-gray-lighter;
+            margin-bottom: 0;
+            width: 100%;
+            vertical-align: middle;
+            word-wrap: break-word;
+            &:hover,
+            &.hover,
+            &[aria-selected="true"] {
+                background-color: $color-primary-alt-lightest;
+                cursor: pointer;
+                color: #333;
+                * {
+                    color: $color-gray;
+                }
+                mark {
+                    background-color: $color-gray-lighter;
+                    color: $color-gray;
+                }
+            }
+        }
+    }
+    .hide {
+        display: none;
+    }
+}

@@ -1,38 +1,29 @@
 .filter-results {
     @include span-columns(16);
-
     @import "pages/search/searchSidebar";
-
     .search-sidebar {
-        display:none;
+        display: none;
         margin-top: 0;
-        @include media($medium-screen){
+        @include media($medium-screen) {
             @include span-columns(4);
         }
-
         @import "../filters/filters";
     }
-
     .search-results-wrapper {
         @include span-columns(16);
-        @include media($medium-screen){
+        @include media($medium-screen) {
             @include span-columns(12);
         }
-
         @import "pages/search/topFilterBar/topFilterBar";
-
         .search-results {
             @include span-columns(16);
             background-color: $color-white;
             box-shadow: $container-shadow;
-
-            padding: 3rem;
-
+            padding: rem(30);
             h3 {
                 margin: 0;
-                color: $color-gray;
+                color: $color-base;
             }
-
             @import "elements/_divider";
             @import "./visualizations/visualizations";
             @import "./table/awardTable";

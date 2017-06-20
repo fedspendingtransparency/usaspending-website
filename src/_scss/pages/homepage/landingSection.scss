@@ -1,4 +1,12 @@
 @import './_landingButtons';
+
+.landing-parent-wrap {
+    // we have to wrap divs with flex-direction: row and min-height inside a flex-direction: column
+    // for IE only
+    @include display(flex);
+    @include flex-direction(column);
+}
+
 .landing-section-wrap {
     background: url(../img/landing_bg_img.jpg) no-repeat center center fixed;
     background-size: cover;
@@ -45,5 +53,20 @@
         position: absolute;
         width: 100%;
         z-index: 1;
+    }
+    @media (max-height: 750px) {
+        min-height: rem(500);
+        & .content-wrap {
+            min-height: rem(225);
+        }
+    }
+    @media (max-height: 650px) {
+        min-height: rem(400);
+        & .content-wrap {
+            min-height: rem(175);
+        }
+    }
+    @media (max-height: 650px) and (max-width: $tablet-screen) {
+        min-height: rem(600);
     }
 }

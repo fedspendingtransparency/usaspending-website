@@ -2,10 +2,10 @@
     @import "../../mixins/fullSectionWrap";
     @import "../../elements/_divider";
     @import "../../elements/_buttons";
-    
     @include clearfix;
-    @include fullSectionWrap();
-    padding: ($global-pad) 0;
+    background: url(../../img/about_us_background.png) no-repeat center bottom;
+    background-size: 100%;
+    padding: ($global-pad * 2) 0 ($global-pad * 4) 0;
     .overview-header {
         @include span-columns(14);
         @include shift (1);
@@ -14,6 +14,9 @@
         & p {
             color: $color-base;
             font-size: $lead-font-size;
+        }
+        & .overview-coming-soon-text {
+            color: $color-gray-light;
         }
         @include media($small-screen) {
             @include span-columns(14);
@@ -33,18 +36,18 @@
             color: $color-base;
             font-size: $lead-font-size;
         }
+        & .overview-coming-soon-text {
+            color: $color-gray-light;
+        }
         @include media($small-screen) {
             @include span-columns(14);
             @include shift(1);
-            padding-top: 2rem;
+            padding-top: rem(20);
         }
         @include media($medium-screen) {
             @include span-columns(6);
             @include shift(1.25);
-        }
-        @include media($x-large-screen) {
-            @include span-columns(6);
-            @include shift(1.25);
+            padding-top: 0;
         }
     }
 }

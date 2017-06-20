@@ -8,7 +8,7 @@ import React from 'react';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    agency: React.PropTypes.string,
+    label: React.PropTypes.string,
     value: React.PropTypes.number,
     y: React.PropTypes.number,
     x: React.PropTypes.number,
@@ -48,12 +48,6 @@ export default class RankVisualizationTooltip extends React.Component {
     }
 
     render() {
-        let percentage = 'N/A';
-        const totalSpending = this.props.visualization.transaction_sum;
-        if (totalSpending > 0) {
-            percentage = Math.round((this.props.value / totalSpending) * 1000) / 10;
-        }
-
         return (
             <div
                 className="visualization-tooltip"
@@ -71,23 +65,15 @@ export default class RankVisualizationTooltip extends React.Component {
                             this.pointerDiv = div;
                         }} />
                     <div className="tooltip-title">
-                        {this.props.agency}
+                        {this.props.label}
                     </div>
                     <div className="tooltip-body">
-                        <div className="tooltip-left">
+                        <div className="tooltip-full">
                             <div className="tooltip-value">
                                 {MoneyFormatter.formatMoney(this.props.value)}
                             </div>
                             <div className="tooltip-label">
-                                Spending by {this.props.agency}
-                            </div>
-                        </div>
-                        <div className="tooltip-right">
-                            <div className="tooltip-value">
-                                {percentage}%
-                            </div>
-                            <div className="tooltip-label">
-                                Percent of Total Spending
+                                Total Spending
                             </div>
                         </div>
                     </div>
