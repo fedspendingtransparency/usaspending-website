@@ -2,7 +2,7 @@
     @import "./_sharedCheckboxStyle";
     @include sharedCheckboxStyle;
     &.single-item {
-        padding-left: rem(18);
+        padding-left: rem(19);
     }
     svg {
         fill: $color-gray-dark;

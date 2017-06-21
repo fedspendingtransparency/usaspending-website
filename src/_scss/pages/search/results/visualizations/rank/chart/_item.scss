@@ -1,18 +1,15 @@
 .chart-group {
     .group-background {
         fill: #F7F7F7;
-
         &.even {
-            fill: #fff;
+            fill: $color-white;
         }
     }
-
     .group-label {
         font-size: rem(14);
-        color: #666;
-        fill: #666;
+        color: $color-base;
+        fill: $color-base;
     }
-
     .group-label-link {
         text-decoration: underline;
     }
@@ -22,12 +19,11 @@
     .chart-bar {
         fill: $color-vis-dark;
         opacity: 0.85;
-        
-        &:hover, &.hover {
+        &:hover,
+        &.hover {
             fill: $color-active;
         }
     }
-
     .chart-bar-hitzone {
         fill: transparent;
     }

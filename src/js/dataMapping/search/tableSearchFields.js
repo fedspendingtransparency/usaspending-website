@@ -1,77 +1,4 @@
 const tableSearchFields = {
-    columnWidths: {
-        award_id: 160,
-        recipient_name: 310,
-        period_of_performance_start_date: 150,
-        period_of_performance_current_end_date: 150,
-        total_obligation: 220,
-        funding_agency_name: 280,
-        funding_subtier_name: 280,
-        type: 230,
-        description: 280,
-        date_signed: 180,
-        potential_total_value_of_award: 280,
-        awarding_agency_name: 180,
-        awarding_subtier_name: 280,
-        awarding_office_name: 280,
-        funding_office_name: 180,
-        recipient_street: 180,
-        recipient_country: 180,
-        recipient_state_province: 180,
-        recipient_county: 180,
-        recipient_city: 180,
-        recipient_zip_postal: 180,
-        pop_city: 280,
-        pop_zip: 280,
-        pop_country: 280,
-        pop_state_province: 280,
-        recipient_duns: 280,
-        recipient_parent_duns: 280,
-        type_of_contract_pricing: 280,
-        recipient_congressional_district: 280,
-        recipient_phone: 280,
-        recipient_fax: 280,
-        pop_congressional_district: 380,
-        pop_county: 280,
-        contract_parent_id: 180,
-        contract_idv_type: 180,
-        contract_idc_type: 180,
-        contract_idv_agency_id: 280,
-        contract_multiple_idv: 180,
-        contract_solicitation_id: 180,
-        contract_solicitation_procedures: 180,
-        contract_number_offers: 180,
-        contract_extent_competed: 180,
-        contract_set_aside_type: 180,
-        contract_commercial_acquisition_procedures: 180,
-        contract_commercial_test_program: 180,
-        contract_evaluated_preference: 180,
-        contract_fed_biz_opps: 180,
-        contract_small_business_competitiveness_demo: 180,
-        contract_psc_code: 180,
-        contract_naics_code: 180,
-        contract_naics_description: 180,
-        contract_dod_claimant_code: 180,
-        contract_program_system_or_equipment_code: 180,
-        contract_it_commercial_category: 180,
-        contract_sea_transport: 180,
-        contract_clinger_cohen_act: 180,
-        contract_davis_bacon_act: 180,
-        contract_service_contract_act: 180,
-        contract_walsh_healey_act: 180,
-        contract_consolidated: 180,
-        contract_cost_or_pricing_data: 180,
-        contract_domestic_or_foreign: 180,
-        contract_fair_opportunity_limited_sources: 180,
-        contract_foreign_funding: 180,
-        contract_interagency_contacting_authority: 180,
-        contract_major_program: 180,
-        contract_multi_year_contract: 180,
-        contract_price_evaluation_adjustment_preference: 180,
-        contract_program_acronym: 180,
-        contract_purchase_card_as_payment_method: 180,
-        contract_subcontracting_plan: 180
-    },
     defaultSortDirection: {
         award_id: 'asc',
         recipient_name: 'asc',
@@ -391,9 +318,11 @@ const tableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'total_obligation',
+            'awarding_agency_name',
+            'awarding_subtier_name',
+            'type',
             'funding_agency_name',
-            'funding_subtier_name',
-            'type'
+            'funding_subtier_name'
         ],
         _requestFields: [
             'id',
@@ -405,6 +334,7 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type_description',
+            'awarding_agency',
             'funding_agency'
         ],
         _mapping: {
@@ -414,6 +344,8 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
+            awarding_agency_name: 'awarding_agency__toptier_agency__name',
+            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
             funding_agency_name: 'funding_agency__toptier_agency__name',
             funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
@@ -422,6 +354,8 @@ const tableSearchFields = {
         period_of_performance_start_date: 'Start Date',
         period_of_performance_current_end_date: 'End Date',
         total_obligation: 'Award Amount',
+        awarding_agency_name: 'Awarding Agency',
+        awarding_subtier_name: 'Awarding Sub Agency',
         type: 'Award Type',
         funding_agency_name: 'Funding Agency',
         funding_subtier_name: 'Funding Sub Agency'
@@ -434,9 +368,11 @@ const tableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'total_obligation',
+            'awarding_agency_name',
+            'awarding_subtier_name',
+            'type',
             'funding_agency_name',
-            'funding_subtier_name',
-            'type'
+            'funding_subtier_name'
         ],
         _requestFields: [
             'id',
@@ -448,6 +384,7 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type_description',
+            'awarding_agency',
             'funding_agency'
         ],
         _mapping: {
@@ -457,6 +394,8 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
+            awarding_agency_name: 'awarding_agency__toptier_agency__name',
+            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
             funding_agency_name: 'funding_agency__toptier_agency__name',
             funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
@@ -465,20 +404,13 @@ const tableSearchFields = {
         period_of_performance_start_date: 'Start Date',
         period_of_performance_current_end_date: 'End Date',
         total_obligation: 'Award Amount',
+        awarding_agency_name: 'Awarding Agency',
+        awarding_subtier_name: 'Awarding Sub Agency',
         type: 'Award Type',
         funding_agency_name: 'Funding Agency',
         funding_subtier_name: 'Funding Sub-Agency'
     },
     loans: {
-        columnWidths: {
-            award_id: 160,
-            recipient_name: 310,
-            action_date: 150,
-            face_value_loan_guarantee: 220,
-            original_loan_subsidy_cost: 230,
-            funding_agency_name: 280,
-            funding_subtier_name: 280
-        },
         _defaultSortField: 'face_value_loan_guarantee',
         sortDirection: {
             award_id: 'asc',
@@ -486,6 +418,8 @@ const tableSearchFields = {
             action_date: 'desc',
             face_value_loan_guarantee: 'desc',
             original_loan_subsidy_cost: 'desc',
+            awarding_agency_name: 'asc',
+            awarding_subtier_name: 'asc',
             funding_agency_name: 'asc',
             funding_subtier_name: 'asc'
         },
@@ -495,6 +429,8 @@ const tableSearchFields = {
             'action_date',
             'face_value_loan_guarantee',
             'original_loan_subsidy_cost',
+            'awarding_agency_name',
+            'awarding_subtier_name',
             'funding_agency_name',
             'funding_subtier_name'
         ],
@@ -506,6 +442,7 @@ const tableSearchFields = {
             'recipient',
             'action_date',
             'latest_transaction',
+            'awarding_agency',
             'funding_agency'
         ],
         _mapping: {
@@ -514,6 +451,8 @@ const tableSearchFields = {
             action_date: 'latest_transaction__action_date',
             face_value_loan_guarantee: 'latest_transaction__assistance_data__face_value_loan_guarantee',
             original_loan_subsidy_cost: 'latest_transaction__assistance_data__original_loan_subsidy_cost',
+            awarding_agency_name: 'awarding_agency__toptier_agency__name',
+            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
             funding_agency_name: 'funding_agency__toptier_agency__name',
             funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
@@ -522,6 +461,8 @@ const tableSearchFields = {
         action_date: 'Issued Date',
         face_value_loan_guarantee: 'Loan Value',
         original_loan_subsidy_cost: 'Subsidy Cost',
+        awarding_agency_name: 'Awarding Agency',
+        awarding_subtier_name: 'Awarding Sub Agency',
         funding_agency_name: 'Funding Agency',
         funding_subtier_name: 'Funding Sub-Agency'
     },
@@ -533,9 +474,11 @@ const tableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'total_obligation',
+            'awarding_agency_name',
+            'awarding_subtier_name',
+            'type',
             'funding_agency_name',
-            'funding_subtier_name',
-            'type'
+            'funding_subtier_name'
         ],
         _requestFields: [
             'id',
@@ -547,6 +490,7 @@ const tableSearchFields = {
             'period_of_performance_current_end_date',
             'total_obligation',
             'type_description',
+            'awarding_agency',
             'funding_agency'
         ],
         _mapping: {
@@ -556,6 +500,8 @@ const tableSearchFields = {
             period_of_performance_current_end_date: 'period_of_performance_current_end_date',
             total_obligation: 'total_obligation',
             type: 'type',
+            awarding_agency_name: 'awarding_agency__toptier_agency__name',
+            awarding_subtier_name: 'awarding_agency__subtier_agency__name',
             funding_agency_name: 'funding_agency__toptier_agency__name',
             funding_subtier_name: 'funding_agency__subtier_agency__name'
         },
@@ -564,6 +510,8 @@ const tableSearchFields = {
         period_of_performance_start_date: 'Start Date',
         period_of_performance_current_end_date: 'End Date',
         total_obligation: 'Award Amount',
+        awarding_agency_name: 'Awarding Agency',
+        awarding_subtier_name: 'Awarding Sub Agency',
         type: 'Award Type',
         funding_agency_name: 'Funding Agency',
         funding_subtier_name: 'Funding Sub-Agency'

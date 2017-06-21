@@ -23,7 +23,7 @@ export const requiredTypes = {
     selectedLocations: OrderedMap,
     budgetFunctions: OrderedMap,
     federalAccounts: OrderedMap,
-    objectClasses: OrderedMap,
+    objectClasses: Set,
     selectedFundingAgencies: OrderedMap,
     selectedAwardingAgencies: OrderedMap,
     selectedRecipients: OrderedMap,
@@ -44,7 +44,7 @@ export const initialState = {
     locationDomesticForeign: 'all',
     budgetFunctions: new OrderedMap(),
     federalAccounts: new OrderedMap(),
-    objectClasses: new OrderedMap(),
+    objectClasses: new Set(),
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),
     selectedRecipients: new OrderedMap(),
@@ -108,6 +108,12 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 objectClasses: BudgetCategoryFilterFunctions.updateObjectClasses(
                     state.objectClasses, action.objectClass)
+            });
+        }
+        case 'BULK_SEARCH_FILTER_OBJECT_CLASSES': {
+            return Object.assign({}, state, {
+                objectClasses: BudgetCategoryFilterFunctions.bulkObjectClassesChange(
+                    state.objectClasses, action.objectClasses, action.direction)
             });
         }
 

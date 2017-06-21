@@ -6,7 +6,7 @@
         position: relative;
         @import "./chart/rankChart";
         .visualization-tooltip {
-            @import "../../../../../components/visualizations/tooltip/_tooltip";
+            @import "components/visualizations/tooltip/_tooltip";
         }
 
         .chart-groups a {

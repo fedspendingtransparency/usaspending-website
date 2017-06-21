@@ -5,7 +5,6 @@
 
 import React from 'react';
 
-import * as BudgetCategoryHelper from 'helpers/budgetCategoryHelper';
 import ShownFederalAccount from './ShownFederalAccount';
 
 const propTypes = {
@@ -22,7 +21,7 @@ export default class SelectedFederalAccounts extends React.Component {
             const federalAccount = entry[1];
             const value = (<ShownFederalAccount
                 federalAccount={federalAccount}
-                label={BudgetCategoryHelper.formatFederalAccount(federalAccount)}
+                label={federalAccount.federal_account_code}
                 key={key}
                 updateSelectedFederalAccounts={
                     this.props.updateSelectedFederalAccounts.bind(null, federalAccount)

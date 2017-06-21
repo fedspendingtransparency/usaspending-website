@@ -166,7 +166,7 @@ button,
 .usa-button-disabled-outline {
     background: none;
     border: rem(1) solid $color-gray-lighter;
-    color: $color-gray;
+    color: $color-gray-light;
     pointer-events: none;
     cursor: not-allowed;
     opacity: .65;
