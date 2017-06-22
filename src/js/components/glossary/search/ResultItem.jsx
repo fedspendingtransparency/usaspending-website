@@ -87,7 +87,7 @@ export default class ResultItem extends React.Component {
         return (
             <li>
                 <button
-                    className="guide-link"
+                    className="glossary-link"
                     onClick={this.clickedLink}>
                     {this.state.label}
                 </button>

@@ -15,7 +15,7 @@ const propTypes = {
 export default class MoreResources extends React.Component {
     render() {
         return (
-            <div className="guide-resources">
+            <div className="glossary-resources">
                 <h3 className="title">
                     More Resources
                 </h3>

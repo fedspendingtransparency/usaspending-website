@@ -1,43 +1,43 @@
 /**
- * GuideListenerSingleton.js
+ * GlossaryListenerSingleton.js
  * Created by Kevin Li 5/1/17
  */
 
 import Router from 'containers/router/Router';
 
-class GuideListenerSingleton {
+class GlossaryListenerSingleton {
     constructor() {
-        this.guideContainer = null;
+        this.glossaryContainer = null;
 
         this.currentValue = '';
     }
 
     subscribe(container) {
-        this.guideContainer = container;
+        this.glossaryContainer = container;
     }
 
-    updateGuideValue(value) {
+    updateGlossaryValue(value) {
         let newValue = '';
-        if (value && value.guide) {
-            newValue = value.guide;
+        if (value && value.glossary) {
+            newValue = value.glossary;
         }
 
         if (this.currentValue !== newValue) {
             this.currentValue = newValue;
-            this.guideChanged(newValue);
+            this.glossaryChanged(newValue);
         }
     }
 
-    guideChanged(value) {
-        if (this.guideContainer) {
-            this.guideContainer.detectedUrlChange(value);
+    glossaryChanged(value) {
+        if (this.glossaryContainer) {
+            this.glossaryContainer.detectedUrlChange(value);
         }
 
-        // remove the query for guide
+        // remove the query for glossary
         const currentLocation = Router.state;
-        if (currentLocation.query && currentLocation.query.guide) {
+        if (currentLocation.query && currentLocation.query.glossary) {
             const removedQuery = Object.assign({}, currentLocation.query);
-            delete removedQuery.guide;
+            delete removedQuery.glossary;
 
             Router.history.replace({
                 pathname: currentLocation.path,
@@ -47,12 +47,12 @@ class GuideListenerSingleton {
     }
 
     unsubscribe() {
-        this.guideContainer = null;
+        this.glossaryContainer = null;
     }
 }
 
 
 // create a single instance of the singleton and use that from now on
-const singletonInstance = new GuideListenerSingleton();
+const singletonInstance = new GlossaryListenerSingleton();
 
 export default singletonInstance;

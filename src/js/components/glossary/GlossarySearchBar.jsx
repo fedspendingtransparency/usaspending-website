@@ -1,5 +1,5 @@
 /**
- * GuideSearchBar.jsx
+ * GlossarySearchBar.jsx
  * Created by Kevin Li 4/28/17
  */
 
@@ -8,12 +8,12 @@ import React from 'react';
 import { Search } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    guide: React.PropTypes.object,
+    glossary: React.PropTypes.object,
     setSearchValue: React.PropTypes.func,
     performSearch: React.PropTypes.func
 };
 
-export default class GuideSearchBar extends React.Component {
+export default class GlossarySearchBar extends React.Component {
     constructor(props) {
         super(props);
 
@@ -28,7 +28,7 @@ export default class GuideSearchBar extends React.Component {
 
     submitSearch(e) {
         e.preventDefault();
-        this.performSearch(this.props.guide.search.input);
+        this.performSearch(this.props.glossary.search.input);
     }
 
     performSearch(term) {
@@ -53,12 +53,12 @@ export default class GuideSearchBar extends React.Component {
 
     render() {
         return (
-            <div className="guide-search-bar">
+            <div className="glossary-search-bar">
                 <form onSubmit={this.submitSearch}>
                     <input
                         className="search-field"
                         type="text"
-                        value={this.props.guide.search.input}
+                        value={this.props.glossary.search.input}
                         placeholder="Search for a term..."
                         onChange={this.changedSearchValue} />
                     <button
@@ -73,4 +73,4 @@ export default class GuideSearchBar extends React.Component {
     }
 }
 
-GuideSearchBar.propTypes = propTypes;
+GlossarySearchBar.propTypes = propTypes;

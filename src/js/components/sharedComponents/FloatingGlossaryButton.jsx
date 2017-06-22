@@ -1,17 +1,17 @@
 /**
- * FloatingGuideButton.jsx
+ * FloatingGlossaryButton.jsx
  * Created by Kevin Li 4/27/17
  */
 
 import React from 'react';
 
-import { Guide } from './icons/Icons';
+import { Glossary } from './icons/Icons';
 
 const propTypes = {
-    toggleGuide: React.PropTypes.func
+    toggleGlossary: React.PropTypes.func
 };
 
-export default class FloatingGuideButton extends React.Component {
+export default class FloatingGlossaryButton extends React.Component {
     constructor(props) {
         super(props);
 
@@ -34,18 +34,18 @@ export default class FloatingGuideButton extends React.Component {
     }
 
     pageScrolled() {
-        // find the header guide button
-        const header = document.getElementById('header-guide-button');
+        // find the header glossary button
+        const header = document.getElementById('header-glossary-button');
         const headerBottom = header.getBoundingClientRect().top + (header.offsetHeight * 0.5);
 
         if (headerBottom <= 0 && this.state.hide) {
-            // show the bottom guide button
+            // show the bottom glossary button
             this.setState({
                 hide: false
             });
         }
         else if (headerBottom > 0 && !this.state.hide) {
-            // hide the bottom guide
+            // hide the bottom glossary
             this.setState({
                 hide: true
             });
@@ -53,7 +53,7 @@ export default class FloatingGuideButton extends React.Component {
     }
 
     clickedButton() {
-        this.props.toggleGuide();
+        this.props.toggleGlossary();
     }
 
     render() {
@@ -63,16 +63,16 @@ export default class FloatingGuideButton extends React.Component {
         }
 
         return (
-            <div className={`floating-guide-button-wrapper ${hide}`}>
+            <div className={`floating-glossary-button-wrapper ${hide}`}>
                 <button
-                    aria-label="Show Guide"
-                    className="floating-guide-button"
+                    aria-label="Show Glossary"
+                    className="floating-glossary-button"
                     onClick={this.clickedButton}>
                     <div className="button-content">
-                        <span className="floating-guide-icon">
-                            <Guide alt="Guide" />
+                        <span className="floating-glossary-icon">
+                            <Glossary alt="Glossary" />
                         </span>
-                        Guide
+                        Glossary
                     </div>
                 </button>
             </div>
@@ -80,4 +80,4 @@ export default class FloatingGuideButton extends React.Component {
     }
 }
 
-FloatingGuideButton.propTypes = propTypes;
+FloatingGlossaryButton.propTypes = propTypes;

@@ -6,7 +6,7 @@
 import React from 'react';
 
 const propTypes = {
-    guide: React.PropTypes.object,
+    glossary: React.PropTypes.object,
     searchLoading: React.PropTypes.bool
 };
 
@@ -20,13 +20,13 @@ export default class NoResults extends React.Component {
         }
 
         return (
-            <div className={`guide-no-results ${loading}`}>
+            <div className={`glossary-no-results ${loading}`}>
                 <h2 className="title">
                     No Results Found
                 </h2>
 
                 <div className="no-results-content">
-                    <p>No results found for &quot;{this.props.guide.search.input}.&quot;</p>
+                    <p>No results found for &quot;{this.props.glossary.search.input}.&quot;</p>
                 </div>
             </div>
         );

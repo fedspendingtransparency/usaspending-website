@@ -1,5 +1,5 @@
 /**
- * GuideDefinition.jsx
+ * GlossaryDefinition.jsx
  * Created by Kevin Li 5/1/17
  */
 
@@ -11,11 +11,11 @@ import DefinitionTabs from './DefinitionTabs';
 import ItemDefinition from './ItemDefinition';
 
 const propTypes = {
-    guide: React.PropTypes.object,
-    clearGuideTerm: React.PropTypes.func
+    glossary: React.PropTypes.object,
+    clearGlossaryTerm: React.PropTypes.func
 };
 
-export default class GuideDefinition extends React.Component {
+export default class GlossaryDefinition extends React.Component {
     constructor(props) {
         super(props);
 
@@ -41,10 +41,10 @@ export default class GuideDefinition extends React.Component {
         let hasPlain = false;
         let hasOfficial = false;
 
-        if (props.guide.term.plain && props.guide.term.plain !== '') {
+        if (props.glossary.term.plain && props.glossary.term.plain !== '') {
             hasPlain = true;
         }
-        if (props.guide.term.official && props.guide.term.official !== '') {
+        if (props.glossary.term.official && props.glossary.term.official !== '') {
             hasOfficial = true;
         }
 
@@ -61,22 +61,22 @@ export default class GuideDefinition extends React.Component {
     }
 
     clickedBack() {
-        this.props.clearGuideTerm();
+        this.props.clearGlossaryTerm();
     }
 
     render() {
         return (
-            <div className="guide-definition">
+            <div className="glossary-definition">
                 <DefinitionTabs
                     hasPlain={this.state.hasPlain}
                     hasOfficial={this.state.hasOfficial}
                     activeTab={this.state.tab}
                     clickedTab={this.clickedTab} />
                 <ItemDefinition
-                    {...this.props.guide.term.toJS()}
+                    {...this.props.glossary.term.toJS()}
                     type={this.state.tab} />
                 <button
-                    className="guide-back"
+                    className="glossary-back"
                     onClick={this.clickedBack}>
                     <div className="back-content">
                         <AngleLeft alt="Back" />
@@ -90,4 +90,4 @@ export default class GuideDefinition extends React.Component {
     }
 }
 
-GuideDefinition.propTypes = propTypes;
+GlossaryDefinition.propTypes = propTypes;

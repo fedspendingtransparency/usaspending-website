@@ -1,5 +1,5 @@
 /**
- * Guide.jsx
+ * Glossary.jsx
  * Created by Kevin Li 4/28/17
  */
 
@@ -7,19 +7,19 @@ import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Mousetrap from 'mousetrap';
 
-import GuideHeader from './GuideHeader';
-import GuideSearchResults from './search/GuideSearchResults';
-import GuideDefinition from './definition/GuideDefinition';
+import GlossaryHeader from './GlossaryHeader';
+import GlossarySearchResults from './search/GlossarySearchResults';
+import GlossaryDefinition from './definition/GlossaryDefinition';
 import NoResults from './noResults/NoResults';
 
 const propTypes = {
-    guide: React.PropTypes.object,
+    glossary: React.PropTypes.object,
     loading: React.PropTypes.bool,
     error: React.PropTypes.bool,
-    hideGuide: React.PropTypes.func
+    hideGlossary: React.PropTypes.func
 };
 
-export default class Guide extends React.Component {
+export default class Glossary extends React.Component {
     constructor(props) {
         super(props);
 
@@ -41,7 +41,7 @@ export default class Guide extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.guide.term !== prevProps.guide.term) {
+        if (this.props.glossary.term !== prevProps.glossary.term) {
             // we've either gone to a definition or returned from one
             // scroll back to the top
             if (this.scrollbar) {
@@ -67,16 +67,16 @@ export default class Guide extends React.Component {
     }
 
     pressedEsc() {
-        // close the guide when the escape key is pressed for accessibility and general
+        // close the glossary when the escape key is pressed for accessibility and general
         // non-annoyance
-        this.props.hideGuide();
+        this.props.hideGlossary();
     }
 
     renderThumb() {
         // render a component to represent the current scroll position
         // (on Macs, only visible when scroll bar settings are on "Always")
         return (
-            <div className="guide-scrollbar-thumb" />
+            <div className="glossary-scrollbar-thumb" />
         );
     }
 
@@ -84,51 +84,51 @@ export default class Guide extends React.Component {
         // render a component within which the thumb moves as the scrollbar scrolls
         // (on Macs, only visible when scroll bar settings are on "Always")
         return (
-            <div className="guide-scrollbar-track" />
+            <div className="glossary-scrollbar-track" />
         );
     }
 
     render() {
-        let content = (<GuideSearchResults
+        let content = (<GlossarySearchResults
             {...this.props}
             updateContentHeight={this.updateContentHeight} />);
 
-        if (this.props.guide.term.slug && this.props.guide.term.slug !== '') {
-            content = (<GuideDefinition
+        if (this.props.glossary.term.slug && this.props.glossary.term.slug !== '') {
+            content = (<GlossaryDefinition
                 {...this.props}
                 updateContentHeight={this.updateContentHeight} />);
         }
-        else if (this.props.guide.search.results.length === 0) {
+        else if (this.props.glossary.search.results.length === 0) {
             content = <NoResults {...this.props} />;
         }
 
         let loading = null;
         if (this.props.loading) {
-            loading = (<div className="guide-loading-content">
-                Loading Guide...
+            loading = (<div className="glossary-loading-content">
+                Loading Glossary...
             </div>);
             content = null;
         }
         else if (this.props.error) {
-            loading = (<div className="guide-loading-content">
-                Error: Could not load Guide.
+            loading = (<div className="glossary-loading-content">
+                Error: Could not load Glossary.
             </div>);
             content = null;
         }
 
         return (
-            <div className="usa-da-guide-wrapper">
+            <div className="usa-da-glossary-wrapper">
                 <div
-                    className="guide-sidebar"
+                    className="glossary-sidebar"
                     ref={(div) => {
                         this.sidebar = div;
                     }}>
                     <div
-                        className="guide-header-wrapper"
+                        className="glossary-header-wrapper"
                         ref={(div) => {
                             this.sidebarHeader = div;
                         }}>
-                        <GuideHeader {...this.props} />
+                        <GlossaryHeader {...this.props} />
                     </div>
                     {loading}
                     <Scrollbars
@@ -146,4 +146,4 @@ export default class Guide extends React.Component {
     }
 }
 
-Guide.propTypes = propTypes;
+Glossary.propTypes = propTypes;

@@ -1,5 +1,5 @@
 /**
- * GuideContainer.jsx
+ * GlossaryContainer.jsx
  * Created by Kevin Li 4/28/17
  */
 
@@ -8,23 +8,23 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import GuideListenerSingleton from 'containers/router/GuideListenerSingleton';
-import * as GuideHelper from 'helpers/guideHelper';
+import GlossaryListenerSingleton from 'containers/router/GlossaryListenerSingleton';
+import * as GlossaryHelper from 'helpers/glossaryHelper';
 
-import AnimatedGuideWrapper from 'components/guide/AnimatedGuideWrapper';
+import AnimatedGlossaryWrapper from 'components/glossary/AnimatedGlossaryWrapper';
 
-import * as guideActions from 'redux/actions/guide/guideActions';
-import { Definition } from 'redux/reducers/guide/guideReducer';
+import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
+import { Definition } from 'redux/reducers/glossary/glossaryReducer';
 
 const propTypes = {
-    guide: React.PropTypes.object,
-    setGuideResults: React.PropTypes.func,
-    showGuide: React.PropTypes.func,
-    setGuideTerm: React.PropTypes.func,
-    setGuideCache: React.PropTypes.func
+    glossary: React.PropTypes.object,
+    setGlossaryResults: React.PropTypes.func,
+    showGlossary: React.PropTypes.func,
+    setGlossaryTerm: React.PropTypes.func,
+    setGlossaryCache: React.PropTypes.func
 };
 
-export class GuideContainer extends React.Component {
+export class GlossaryContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -41,12 +41,12 @@ export class GuideContainer extends React.Component {
         this.performSearch = this.performSearch.bind(this);
     }
     componentDidMount() {
-        GuideListenerSingleton.subscribe(this);
+        GlossaryListenerSingleton.subscribe(this);
 
         // on the first load, populate the cache
-        if (this.props.guide.cache.count() === 0) {
+        if (this.props.glossary.cache.count() === 0) {
             // no cache set yet, populate it
-            // we need to build a cache because when the guide is searched, it may internally link
+            // we need to build a cache because when the glossary is searched, it may internally link
             // terms that are no longer in the results array
             this.populateCache();
         }
@@ -57,7 +57,7 @@ export class GuideContainer extends React.Component {
     }
 
     componentWillUnmount() {
-        GuideListenerSingleton.unsubscribe(this);
+        GlossaryListenerSingleton.unsubscribe(this);
     }
 
     populateCache() {
@@ -71,7 +71,7 @@ export class GuideContainer extends React.Component {
             error: false
         });
 
-        this.request = GuideHelper.fetchAllTerms();
+        this.request = GlossaryHelper.fetchAllTerms();
 
         this.request.promise
             .then((res) => {
@@ -96,7 +96,7 @@ export class GuideContainer extends React.Component {
     }
 
     performSearch() {
-        const input = this.props.guide.search.input;
+        const input = this.props.glossary.search.input;
 
         if (this.request) {
             this.request.cancel();
@@ -106,7 +106,7 @@ export class GuideContainer extends React.Component {
             searchLoading: true
         });
 
-        this.request = GuideHelper.fetchSearchResults({
+        this.request = GlossaryHelper.fetchSearchResults({
             fields: ['term'],
             value: input,
             matched_objects: true,
@@ -146,7 +146,7 @@ export class GuideContainer extends React.Component {
             terms.push(term);
         });
 
-        this.props.setGuideResults(terms);
+        this.props.setGlossaryResults(terms);
 
         if (this.queuedOperations.length > 0) {
             // there are operations that were waiting for the data load, run them now
@@ -163,11 +163,11 @@ export class GuideContainer extends React.Component {
             terms[result.slug] = term;
         });
 
-        this.props.setGuideCache(terms);
+        this.props.setGlossaryCache(terms);
     }
 
     detectedUrlChange(value) {
-        // we've received a special URL param for a specific guide term
+        // we've received a special URL param for a specific glossary term
         if (this.state.loading) {
             // still loading, queue this operation up for later
             const operation = this.jumpToTerm.bind(this, value);
@@ -180,18 +180,18 @@ export class GuideContainer extends React.Component {
 
     jumpToTerm(slug) {
         // look for a matching slug
-        if (this.props.guide.cache.has(slug)) {
+        if (this.props.glossary.cache.has(slug)) {
             // we found the term, load the word
-            const result = this.props.guide.cache.get(slug);
-            this.props.setGuideTerm(result);
-            // now force open the guide
-            this.props.showGuide();
+            const result = this.props.glossary.cache.get(slug);
+            this.props.setGlossaryTerm(result);
+            // now force open the glossary
+            this.props.showGlossary();
         }
     }
 
     render() {
         return (
-            <AnimatedGuideWrapper
+            <AnimatedGlossaryWrapper
                 {...this.props}
                 loading={this.state.loading}
                 error={this.state.error}
@@ -201,11 +201,11 @@ export class GuideContainer extends React.Component {
     }
 }
 
-GuideContainer.propTypes = propTypes;
+GlossaryContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        guide: state.guide
+        glossary: state.glossary
     }),
-    (dispatch) => bindActionCreators(guideActions, dispatch)
-)(GuideContainer);
+    (dispatch) => bindActionCreators(glossaryActions, dispatch)
+)(GlossaryContainer);

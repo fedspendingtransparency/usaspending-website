@@ -1,5 +1,5 @@
 /**
- * guideReducer.js
+ * glossaryReducer.js
  * Created by Kevin Li 4/28/17
  */
 
@@ -24,24 +24,24 @@ export const initialState = {
     }
 };
 
-const guideReducer = (state = initialState, action) => {
+const glossaryReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SHOW_GUIDE': {
+        case 'SHOW_GLOSSARY': {
             return Object.assign({}, state, {
                 display: true
             });
         }
-        case 'HIDE_GUIDE': {
+        case 'HIDE_GLOSSARY': {
             return Object.assign({}, state, {
                 display: false
             });
         }
-        case 'TOGGLE_GUIDE': {
+        case 'TOGGLE_GLOSSARY': {
             return Object.assign({}, state, {
                 display: !state.display
             });
         }
-        case 'SET_GUIDE_SEARCH_VALUE': {
+        case 'SET_GLOSSARY_SEARCH_VALUE': {
             const search = Object.assign({}, state.search, {
                 input: action.value
             });
@@ -50,7 +50,7 @@ const guideReducer = (state = initialState, action) => {
                 term: new Definition()
             });
         }
-        case 'SET_GUIDE_SEARCH_RESULTS': {
+        case 'SET_GLOSSARY_SEARCH_RESULTS': {
             const search = Object.assign({}, state.search, {
                 results: action.results
             });
@@ -58,17 +58,17 @@ const guideReducer = (state = initialState, action) => {
                 search
             });
         }
-        case 'SET_GUIDE_FULL_CACHE': {
+        case 'SET_GLOSSARY_FULL_CACHE': {
             return Object.assign({}, state, {
                 cache: new Map(action.cache)
             });
         }
-        case 'SET_GUIDE_TERM': {
+        case 'SET_GLOSSARY_TERM': {
             return Object.assign({}, state, {
                 term: new Definition(action.term)
             });
         }
-        case 'CLEAR_GUIDE_TERM': {
+        case 'CLEAR_GLOSSARY_TERM': {
             return Object.assign({}, state, {
                 term: new Definition()
             });
@@ -78,4 +78,4 @@ const guideReducer = (state = initialState, action) => {
     }
 };
 
-export default guideReducer;
+export default glossaryReducer;

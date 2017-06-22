@@ -1,5 +1,5 @@
 /**
- * GuideButtonWrapperContainer.jsx
+ * GlossaryButtonWrapperContainer.jsx
  * Created by Kevin Li 4/28/17
  */
 
@@ -7,14 +7,14 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as guideActions from 'redux/actions/guide/guideActions';
+import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 
 const propTypes = {
     dispatch: React.PropTypes.func,
-    guide: React.PropTypes.object
+    glossary: React.PropTypes.object
 };
 
-export class GuideButtonWrapperContainer extends React.Component {
+export class GlossaryButtonWrapperContainer extends React.Component {
     render() {
         // This is a special container that can dynamically wrap around an arbitrary child
         // component in order to avoid creating multiple versions of this container that return
@@ -23,17 +23,17 @@ export class GuideButtonWrapperContainer extends React.Component {
         // `child` property to the child component. Because of this, we manually assemble the
         // bound Redux action using `this.props.dispatch` provided by React-Redux rather than
         // auto-generating the props in the `connect` HOC.
-        const actions = bindActionCreators(guideActions, this.props.dispatch);
+        const actions = bindActionCreators(glossaryActions, this.props.dispatch);
         return (
-            <this.props.child {...this.props.guide} {...actions} />
+            <this.props.child {...this.props.glossary} {...actions} />
         );
     }
 }
 
-GuideButtonWrapperContainer.propTypes = propTypes;
+GlossaryButtonWrapperContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        guide: state.guide
+        glossary: state.glossary
     })
-)(GuideButtonWrapperContainer);
+)(GlossaryButtonWrapperContainer);

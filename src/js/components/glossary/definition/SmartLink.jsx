@@ -35,15 +35,15 @@ export default class SmartLink extends React.Component {
         let href = url;
         let isLocal = false;
 
-        // check if the link is a local guide reference
-        if (url.indexOf('?guide=') > -1) {
-            // it is a local guide reference, get the current URL
+        // check if the link is a local glossary reference
+        if (url.indexOf('?glossary=') > -1) {
+            // it is a local glossary reference, get the current URL
             const currentPath = Router.state.path;
             href = `#${currentPath}${url}`;
             isLocal = true;
         }
         else if (url.indexOf('#') === 0 || url.indexOf('/') === 0) {
-            // link internal to the web site but not a guide reference
+            // link internal to the web site but not a glossary reference
             // don't open these in a new window, but keep the URL as provided
             isLocal = true;
         }

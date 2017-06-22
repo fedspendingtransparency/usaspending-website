@@ -1,5 +1,5 @@
 /**
- * GuideSearchResults.jsx
+ * GlossarySearchResults.jsx
  * Created by Kevin Li 5/1/17
  */
 
@@ -9,12 +9,12 @@ import _ from 'lodash';
 import ResultGroup from './ResultGroup';
 
 const propTypes = {
-    guide: React.PropTypes.object,
+    glossary: React.PropTypes.object,
     searchLoading: React.PropTypes.bool,
-    setGuideTerm: React.PropTypes.func
+    setGlossaryTerm: React.PropTypes.func
 };
 
-export default class GuideSearchResults extends React.Component {
+export default class GlossarySearchResults extends React.Component {
     constructor(props) {
         super(props);
 
@@ -30,20 +30,20 @@ export default class GuideSearchResults extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.guide.search.results !== this.props.guide.search.results) {
+        if (nextProps.glossary.search.results !== this.props.glossary.search.results) {
             this.groupResults(nextProps);
         }
     }
 
     selectTerm(term) {
-        this.props.setGuideTerm(term);
+        this.props.setGlossaryTerm(term);
     }
 
     groupResults(props) {
         // we need to group the results by their starting letter
         const groups = {};
 
-        props.guide.search.results.forEach((result) => {
+        props.glossary.search.results.forEach((result) => {
             const startingLetter = result.term.charAt(0).toUpperCase();
             // check if we already have the character
             if (Object.hasOwnProperty.call(groups, startingLetter)) {
@@ -69,7 +69,7 @@ export default class GuideSearchResults extends React.Component {
                 key={group.letter}
                 title={group.letter}
                 items={group.terms}
-                search={this.props.guide.search.input}
+                search={this.props.glossary.search.input}
                 selectTerm={this.selectTerm} />
         ));
 
@@ -85,11 +85,11 @@ export default class GuideSearchResults extends React.Component {
         }
 
         return (
-            <div className={`guide-search-results ${searchLoading}`}>
+            <div className={`glossary-search-results ${searchLoading}`}>
                 {this.state.results}
             </div>
         );
     }
 }
 
-GuideSearchResults.propTypes = propTypes;
+GlossarySearchResults.propTypes = propTypes;

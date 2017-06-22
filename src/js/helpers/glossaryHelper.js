@@ -12,6 +12,7 @@ export const fetchAllTerms = () => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
+            // TODO - Lizzie: change to glossary when API updated
             url: 'v1/references/guide/?limit=500',
             baseURL: kGlobalConstants.API,
             method: 'get',
@@ -27,6 +28,7 @@ export const fetchSearchResults = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
+            // TODO - Lizzie: change to glossary when API updated
             url: 'v1/references/guide/autocomplete/',
             baseURL: kGlobalConstants.API,
             method: 'post',

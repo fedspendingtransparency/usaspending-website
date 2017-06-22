@@ -1,29 +1,29 @@
 /**
- * AnimatedGuideWrapper.jsx
+ * AnimatedGlossaryWrapper.jsx
  * Created by Kevin Li 4/28/17
  */
 
 import React from 'react';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
-import Guide from './Guide';
+import Glossary from './Glossary';
 
 const propTypes = {
-    guide: React.PropTypes.object
+    glossary: React.PropTypes.object
 };
 
-export default class AnimatedGuideWrapper extends React.Component {
+export default class AnimatedGlossaryWrapper extends React.Component {
     render() {
-        let content = (<Guide {...this.props} />);
+        let content = (<Glossary {...this.props} />);
 
-        if (!this.props.guide.display) {
+        if (!this.props.glossary.display) {
             content = null;
         }
 
         return (
-            <div className="usa-da-guide-animations">
+            <div className="usa-da-glossary-animations">
                 <CSSTransitionGroup
-                    transitionName="guide-slide"
+                    transitionName="glossary-slide"
                     transitionLeaveTimeout={500}
                     transitionEnterTimeout={500}
                     transitionLeave>
@@ -34,4 +34,4 @@ export default class AnimatedGuideWrapper extends React.Component {
     }
 }
 
-AnimatedGuideWrapper.propTypes = propTypes;
+AnimatedGlossaryWrapper.propTypes = propTypes;

@@ -25,7 +25,7 @@ export default class ResultGroup extends React.Component {
         ));
 
         return (
-            <div className="guide-result-group">
+            <div className="glossary-result-group">
                 <h3 className="group-title">
                     {this.props.title}
                 </h3>
