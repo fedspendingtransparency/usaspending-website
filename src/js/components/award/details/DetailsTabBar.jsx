@@ -16,15 +16,7 @@ const propTypes = {
 
 export default class DetailsTabBar extends React.Component {
     render() {
-        const tabsSet = this.props.tabOptions.slice();
-        if (this.props.type === 'contract') {
-            tabsSet.push({
-                label: 'Additional Details',
-                internal: 'additional',
-                enabled: true
-            });
-        }
-        const tabs = tabsSet.map((tab) => (
+        const tabs = this.props.tabOptions.map((tab) => (
             <DetailsTabItem
                 {...tab}
                 active={tab.code === this.props.activeTab}

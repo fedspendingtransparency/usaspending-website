@@ -108,13 +108,16 @@ export default class DetailsSection extends React.Component {
                 label: 'Financial System Details',
                 internal: 'financial',
                 enabled: true
-            },
-            {
+            }
+        ];
+
+        if (this.props.award.selectedAward.internal_general_type === 'contract') {
+            tabs.push({
                 label: 'Additional Details',
                 internal: 'additional',
                 enabled: true
-            }
-        ];
+            });
+        }
 
         return (
             <div className="contract-details-table-section" id="details-table-section">

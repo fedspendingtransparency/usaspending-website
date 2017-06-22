@@ -5,6 +5,8 @@
 
 import React from 'react';
 
+import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
+
 const propTypes = {
     label: React.PropTypes.string,
     internal: React.PropTypes.string,
@@ -25,19 +27,32 @@ export default class DetailsTabItem extends React.Component {
     }
 
     render() {
+        const comingSoonModule = (<ComingSoonLabel />);
         let activeClass = '';
+        let comingSoon = '';
+        let disabledStatus = '';
+        let status = '';
         if (this.props.active) {
-            activeClass = 'active';
+            activeClass = ' active';
+        }
+        if (this.props.enabled === false) {
+            comingSoon = comingSoonModule;
+            status = ' coming-soon';
+            disabledStatus = true;
+        }
+        else {
+            status = '';
+            disabledStatus = false;
         }
 
         return (
             <button
-                className={`table-tab-toggle ${activeClass}`}
-                title={this.props.label}
-                aria-label={this.props.label}
+                className={`table-tab-toggle ${activeClass}${status}`}
                 onClick={this.clickedButton}
-                disabled={!this.props.enabled}>
+                title={`Show ${this.props.label}`}
+                disabled={disabledStatus}>
                 {this.props.label}
+                {comingSoon}
             </button>
         );
     }
