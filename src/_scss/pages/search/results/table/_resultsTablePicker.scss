@@ -1,16 +1,16 @@
-button.table-type-toggle.coming-soon {
-  .coming-soon-container {
-    text-align: right;
-    float: right;
-    width: auto;
-  }
-}
 @import "../../../../elements/_titleSelector";
 .field-picker {
   float: none;
   clear: both;
   @include media($tablet-screen) {
     display: none;
+  }
+  button.table-type-toggle.coming-soon {
+    .coming-soon-container {
+      text-align: right;
+      float: right;
+      width: auto;
+    }
   }
   .selected-button {
     .label {
