@@ -137,6 +137,28 @@ export const updateAwardAmounts = (state) => ({
     awardAmounts: state
 });
 
+// Contract Pricing Type Filter
+
+export const updatePricingType = (state) => ({
+    type: 'UPDATE_PRICING_TYPE',
+    pricingType: state
+});
+
+// Contract Set-Aside Filter
+
+export const updateSetAside = (state) => ({
+    type: 'UPDATE_SET_ASIDE',
+    setAside: state
+});
+
+// Contract Extent Competed Filter
+
+export const updateExtentCompeted = (state) => ({
+    type: 'UPDATE_EXTENT_COMPETED',
+    extentCompeted: state
+});
+
+
 // Generic
 
 export const setSearchOrder = (state) => ({
