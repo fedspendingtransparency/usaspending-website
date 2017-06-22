@@ -6,6 +6,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import { Set } from 'immutable';
+
 import * as BudgetCategoryHelper from 'helpers/budgetCategoryHelper';
 import * as ObjectClasses from 'dataMapping/search/budgetCategory';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
