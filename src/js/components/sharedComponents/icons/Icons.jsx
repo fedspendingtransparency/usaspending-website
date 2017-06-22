@@ -278,6 +278,13 @@ Filter.defaultProps = {
     alt: 'Icon Depicting a Filter'
 };
 
+export class AddFilter extends BaseIcon {}
+AddFilter.defaultProps = {
+    iconName: 'usa-da-icon-add-filter',
+    iconClass: 'usa-da-icon-add-filter',
+    alt: 'Icon Depicting a Filter With a Plus Symbol'
+};
+
 export class Info extends BaseIcon {}
 Info.defaultProps = {
     iconName: 'usa-da-icon-info',
