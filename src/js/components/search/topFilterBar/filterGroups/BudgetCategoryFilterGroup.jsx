@@ -21,6 +21,24 @@ export default class BudgetCategoryFilterGroup extends React.Component {
 
         this.removeFilter = this.removeFilter.bind(this);
         this.clearGroup = this.clearGroup.bind(this);
+        this.removeGroup = this.removeGroup.bind(this);
+    }
+
+    removeGroup(value) {
+        // remove a group of filter items
+        // let's actually fake the removal by just overwriting the the filter value with everything
+        // except for the values in the specified group
+
+        let updatedValues = new Set(_.toArray(this.props.filter.values));
+
+        // remove the current group's values
+        const objectValues = ObjectClasses.objectClassDefinitionsGroups[value];
+        updatedValues = updatedValues.filterNot((x) => _.indexOf(objectValues, x) > -1);
+
+        this.props.redux.updateGenericFilter({
+            type: 'objectClasses',
+            value: updatedValues
+        });
     }
 
     removeFilter(value) {
@@ -120,7 +138,8 @@ export default class BudgetCategoryFilterGroup extends React.Component {
 
                 if (_.indexOf(excludedValues, value) < 0) {
                     // only insert individual tags that aren't part of a fully-selected group
-                    // excluded values is an array of values that are already included in a full group,
+                    // excluded values is an array of values that are already included in a
+                    // full group,
                     // so if this value isn't in that array, it can be shown individually
                     tags.push(tag);
                 }
