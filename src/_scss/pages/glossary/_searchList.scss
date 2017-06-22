@@ -1,4 +1,4 @@
-.guide-search-results {
+.glossary-search-results {
     padding: 20px;
     padding-bottom: 40px;
 
@@ -10,7 +10,7 @@
         margin: 0;
     }
 
-    .guide-result-group {
+    .glossary-result-group {
         margin-top: 20px;
 
         h3.group-title {
@@ -33,7 +33,7 @@
             li {
                 margin-top: 10px;
 
-                button.guide-link {
+                button.glossary-link {
                     @include button-unstyled;
                     font-size: 14px;
                     line-height: 18px;

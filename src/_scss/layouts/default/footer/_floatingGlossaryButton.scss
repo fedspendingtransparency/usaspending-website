@@ -1,4 +1,4 @@
-.floating-guide-button-wrapper {
+.floating-glossary-button-wrapper {
     position: fixed;
     bottom: 0;
     right: 0;
@@ -23,7 +23,7 @@
         // button's hit area
         @include animation(removeHeightWidth 0.1s ease-in 0.3s forwards);
     }
-    .floating-guide-button {
+    .floating-glossary-button {
         @include transition(all 0.25s $ease-in-out-sine);
         background-color: $color-secondary;
         box-shadow: $container-shadow;
@@ -36,7 +36,7 @@
             background-color: lighten( $color-secondary, 8% );
             @include transition(all 0.25s $ease-in-out-sine);
         }
-        .floating-guide-icon {
+        .floating-glossary-icon {
             position: relative;
             display: inline-block;
             height: 14px;

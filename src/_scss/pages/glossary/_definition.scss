@@ -1,4 +1,4 @@
-.guide-definition {
+.glossary-definition {
     padding: 20px;
 
     @import "./_definitionTabs";
@@ -23,7 +23,7 @@
         }
     }
 
-    .guide-back {
+    .glossary-back {
         @include button-unstyled;
 
         padding: 5px;

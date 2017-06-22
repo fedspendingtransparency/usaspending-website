@@ -1,8 +1,8 @@
-.usa-da-guide-animations {
+.usa-da-glossary-animations {
     @import "./_animations";
 }
 
-.usa-da-guide-wrapper {
+.usa-da-glossary-wrapper {
     position: fixed;
     right: 0;
     top: 0;
@@ -14,7 +14,7 @@
 
     box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
 
-    .guide-sidebar {
+    .glossary-sidebar {
         background-color: $color-primary-darker;
         color: $color-white;
         font-size: 14px;
@@ -29,7 +29,7 @@
         @import "./_definition";
         @import "./_noResults";
 
-        .guide-loading-content {
+        .glossary-loading-content {
             padding: 20px;
         }
 

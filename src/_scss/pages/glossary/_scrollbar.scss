@@ -1,4 +1,4 @@
-.guide-scrollbar-track {
+.glossary-scrollbar-track {
     // this is the "track" that the thumb moves within - it's essentially a wrapper around the
     // scroll position indicator
     position: absolute;
@@ -9,7 +9,7 @@
     width: 10px;
 }
 
-.guide-scrollbar-thumb {
+.glossary-scrollbar-thumb {
     // this is the element that actually moves up and down with the scroll position
     width: 10px;
     opacity: 0.3;
