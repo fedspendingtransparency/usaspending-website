@@ -10,7 +10,6 @@ import DetailsTabItem from './DetailsTabItem';
 const propTypes = {
     activeTab: React.PropTypes.string,
     clickTab: React.PropTypes.func,
-    type: React.PropTypes.string,
     tabOptions: React.PropTypes.array
 };
 
@@ -24,7 +23,7 @@ export default class DetailsTabBar extends React.Component {
                 key={tab.internal} />));
 
         return (
-            <div className="table-tabs">
+            <div className="table-types">
                 {tabs}
             </div>
         );

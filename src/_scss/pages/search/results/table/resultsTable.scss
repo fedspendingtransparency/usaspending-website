@@ -5,6 +5,7 @@
     @import "_tableTypes";
     @import "_tableStyle";
     @import "_tableSelectColumns";
+    @import "_resultsTablePicker";
     .loading-table {
         opacity: 0.5;
         @include transition(opacity 0.25s ease-in);

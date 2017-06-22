@@ -47,7 +47,7 @@ export default class DetailsTabItem extends React.Component {
 
         return (
             <button
-                className={`table-tab-toggle ${activeClass}${status}`}
+                className={`table-type-toggle ${activeClass}${status}`}
                 onClick={this.clickedButton}
                 title={`Show ${this.props.label}`}
                 disabled={disabledStatus}>

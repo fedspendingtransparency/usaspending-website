@@ -1,10 +1,10 @@
 .table-types {
-    @include media($tablet-screen) {
-      display: block;
-    }
     border-bottom: 1px solid $color-gray-light;
     padding-left: rem(15);
     display: none;
+    @include media($tablet-screen) {
+      display: block;
+    }
     button.table-type-toggle {
         border: 1px solid transparent;
         border-bottom: 1px solid $color-gray-light;
@@ -74,4 +74,4 @@
         }
     }
 }
-@import "_resultsTablePicker";
+
