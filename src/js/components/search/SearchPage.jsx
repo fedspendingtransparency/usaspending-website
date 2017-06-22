@@ -12,6 +12,7 @@ import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import SearchHeader from './header/SearchHeader';
+import MobileFilters from './MobileFilters';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 
@@ -23,7 +24,8 @@ export default class SearchPage extends React.Component {
 
         this.state = {
             currentSection: this.sections[0],
-            stickyHeader: false
+            stickyHeader: false,
+            showMobileFilters: false
         };
 
         // also track the window size, but track it outside of state to avoid re-renders
@@ -31,6 +33,8 @@ export default class SearchPage extends React.Component {
 
         // throttle the ocurrences of the scroll callback to once every 50ms
         this.handlePageScroll = _.throttle(this.handlePageScroll.bind(this), 50);
+
+        this.toggleMobileFilters = this.toggleMobileFilters.bind(this);
     }
 
     componentDidMount() {
@@ -165,7 +169,22 @@ export default class SearchPage extends React.Component {
         }
     }
 
+    /**
+     * Toggle whether or not to show the filter view on mobile screens
+     */
+
+    toggleMobileFilters() {
+        this.setState({
+            showMobileFilters: !this.state.showMobileFilters
+        });
+    }
+
     render() {
+        let mobileFilters = null;
+        if (this.state.showMobileFilters) {
+            mobileFilters = (<MobileFilters />);
+        }
+
         return (
             <div
                 className="usa-da-search-page"
@@ -183,11 +202,16 @@ export default class SearchPage extends React.Component {
                     <SearchHeader
                         isSticky={this.state.stickyHeader}
                         currentSection={this.state.currentSection}
+                        toggleMobileFilters={this.toggleMobileFilters}
+                        showingMobile={this.state.showMobileFilters}
                         ref={(component) => {
                             this.searchHeader = component;
                         }} />
                     <div className="search-contents">
-                        <SearchSidebar />
+                        { mobileFilters }
+                        <div className="full-search-sidebar">
+                            <SearchSidebar />
+                        </div>
                         <SearchResults />
                     </div>
                 </main>

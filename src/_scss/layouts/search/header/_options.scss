@@ -2,8 +2,10 @@
     ul.search-formats {
         @include unstyled-list;
         text-align: center;
+        display: none;
         @include media($tablet-screen) {
             text-align: right;
+            display: block;
         }
     }
     li {
@@ -38,6 +40,45 @@
                 float: left;
                 left: rem(42px);
             }
+        }
+    }
+
+    ul.mobile-options {
+        @include unstyled-list;
+        text-align: center;
+
+        display: block;
+        @include media($tablet-screen) {
+            display: none;
+        }
+
+        button.mobile-filter {
+            @include button-unstyled;
+
+            border: 1px solid $color-white;
+            padding: rem(10) rem(40);
+
+            .mobile-filter-content {
+                @include display(flex);
+                position: relative;
+
+                .mobile-filter-icon {
+                    @include flex(0 0 auto);
+                    margin-right: rem(5);
+                    svg {
+                        fill: $color-white;
+                        height: rem(15);
+                    }
+                }
+
+                .mobile-filter-label {
+                    @include flex(1 1 auto);
+                    text-transform: uppercase;
+                    font-weight: $font-semibold;
+                    font-size: $small-font-size;
+                }
+            }
+
         }
     }
 } 

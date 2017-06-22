@@ -31,4 +31,9 @@
             }
         }
     }
+
+    // implement text input style
+    input[type=text] {
+        @include usa-input;
+    }
 }

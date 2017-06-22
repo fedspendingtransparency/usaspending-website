@@ -3,12 +3,15 @@
 
     @import './searchSidebar';
     @include span-columns(16);
-    .search-sidebar {
+    .full-search-sidebar {
         display: none;
         @include media($medium-screen) {
             @include span-columns(4);
         }
     }
+
+    @import "./_mobileSidebar";
+
     .search-results-wrapper {
         @include span-columns(16);
         @include media($medium-screen) {

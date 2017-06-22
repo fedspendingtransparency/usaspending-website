@@ -2,7 +2,7 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    z-index: 4;
+    z-index: $z-base + 4;
     opacity: 1;
     @include transition(opacity 0.3s ease-in);
     &.hidden {

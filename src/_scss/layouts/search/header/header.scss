@@ -5,6 +5,7 @@
 
     background-color: $color-gray;
     color: $color-white;
+    transition: transform 0.3s, opacity 0.15s;
 
     &.sticky {
         box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
@@ -12,7 +13,12 @@
         position: fixed;
         top: 0;
         width: 100%;
-        z-index: 10;
+        z-index: $z-header;
+    }
+
+    &.active-mobile {
+        transform: translate(0px, -500px);
+        opacity: 0;
     }
 }
 

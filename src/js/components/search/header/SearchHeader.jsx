@@ -12,7 +12,9 @@ import DownloadButton from './DownloadButton';
 
 const propTypes = {
     isSticky: React.PropTypes.bool,
-    currentSection: React.PropTypes.string
+    showingMobile: React.PropTypes.bool,
+    currentSection: React.PropTypes.string,
+    toggleMobileFilters: React.PropTypes.func
 };
 
 export default class SearchHeader extends React.Component {
@@ -21,9 +23,14 @@ export default class SearchHeader extends React.Component {
         if (this.props.isSticky) {
             stickyClass = ' sticky';
         }
+
+        let showingMobile = '';
+        if (this.props.showingMobile) {
+            showingMobile = ' active-mobile';
+        }
         return (
             <div
-                className={`search-header-wrapper${stickyClass}`}
+                className={`search-header-wrapper${stickyClass}${showingMobile}`}
                 id="search-header-wrapper"
                 ref={(div) => {
                     this.headerDiv = div;
@@ -69,6 +76,22 @@ export default class SearchHeader extends React.Component {
                             <li className="coming-soon">
                                 <DownloadButton />
                                 <ComingSoonLabel />
+                            </li>
+                        </ul>
+                        <ul className="mobile-options">
+                            <li>
+                                <button
+                                    className="mobile-filter"
+                                    onClick={this.props.toggleMobileFilters}>
+                                    <div className="mobile-filter-content">
+                                        <div className="mobile-filter-icon">
+                                            <Icons.Filter alt="Filters" />
+                                        </div>
+                                        <div className="mobile-filter-label">
+                                            Filters
+                                        </div>
+                                    </div>
+                                </button>
                             </li>
                         </ul>
                     </div>
