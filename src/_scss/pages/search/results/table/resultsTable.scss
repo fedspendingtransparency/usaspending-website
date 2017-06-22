@@ -1,5 +1,5 @@
 .search-results-table-section {
-    padding: 3rem 3.5rem;
+    padding: rem(30) rem(35);
     transition: opacity 0.25s ease;
     position: relative;
     @import "_tableTypes";
@@ -35,16 +35,16 @@
             @include transition(all 0.25s $ease-in-out-sine);
             border: 1px solid $color-gray-lighter;
             background-color: $color-white;
-            width: 58px;
-            height: 28px;
+            width: rem(58);
+            height: rem(28);
             margin: 0;
             position: relative;
             cursor: pointer;
             & svg {
                 position: absolute;
                 top: -3px;
-                left: 12px;
-                width: 33px;
+                left: rem(12);
+                width: rem(33);
                 fill: $color-gray-light;
             }
             &:hover,

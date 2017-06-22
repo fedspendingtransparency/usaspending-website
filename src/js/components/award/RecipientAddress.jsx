@@ -16,19 +16,36 @@ export default class RecipientAddress extends React.Component {
         const recipient = this.props.recipient;
         const city = recipient.recipient_city;
         const stateProvince = recipient.recipient_state_province;
-        let cityState = "";
+        let cityState = null;
 
+        let country = null;
+        let district = null;
+
+        const street = recipient.recipient_street.split('\n').map((item, key) =>
+            <span key={key}>{item}<br /></span>
+        );
+        if (recipient.recipient_state_code && recipient.recipient_congressional_district) {
+            district = (
+                <div className="item-value">
+                    Congressional District: {recipient.recipient_state_code}-
+                    {recipient.recipient_congressional_district}
+                </div>);
+        }
         if (city && stateProvince) {
             cityState = `${city}, ${stateProvince}`;
         }
-        else if (!city && !stateProvince) {
-            cityState = null;
-        }
-        else if (city && !stateProvince) {
+        else if (city) {
             cityState = city;
         }
-        else if (!city && stateProvince) {
+        else if (stateProvince) {
             cityState = stateProvince;
+        }
+
+        if (recipient.recipient_country_code !== "USA" && recipient.recipient_country !== null) {
+            country = recipient.recipient_country;
+            if (city !== null) {
+                cityState = `${city},`;
+            }
         }
 
         return (
@@ -37,14 +54,12 @@ export default class RecipientAddress extends React.Component {
                     Address
                 </div>
                 <div className="item-value">
-                    {recipient.recipient_street}
+                    {street}
                 </div>
                 <div className="item-value">
-                    {cityState} {recipient.recipient_zip_postal}
+                    {cityState} {country} {recipient.recipient_zip_postal}
                 </div>
-                <div className="item-value">
-                    {recipient.recipient_country}
-                </div>
+                {district}
             </li>
         );
     }

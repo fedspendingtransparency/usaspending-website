@@ -53,7 +53,15 @@ export default class DetailRow extends React.Component {
     }
 
     render() {
-        const value = this.checkOverflow();
+        let value = null;
+        if (this.props.title === "Primary Place of Performance") {
+            value = this.props.value.split('\n').map((item, key) =>
+                <span key={key}>{item}<br /></span>
+            );
+        }
+        else {
+            value = this.checkOverflow();
+        }
         let button = '';
         if (this.props.overflow === true) {
             button = (<button

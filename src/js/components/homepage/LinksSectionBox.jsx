@@ -6,11 +6,11 @@
 import React from 'react';
 
 import * as HomeIcons from 'components/sharedComponents/icons/home/HomeIcons';
-import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     icon: React.PropTypes.string,
-    text: React.PropTypes.string,
+    title: React.PropTypes.string,
+    subtitle: React.PropTypes.string,
     linkText: React.PropTypes.string,
     linkUrl: React.PropTypes.string
 };
@@ -44,8 +44,9 @@ export default class LinksSectionBox extends React.Component {
         let disabledStatus = '';
         let link = (
             <a className="links-section-box-anchor" href={this.props.linkUrl}>
-                {this.props.linkText}
-                <Icons.AngleRight />
+                <button className="usa-button-outline">
+                    {this.props.linkText}
+                </button>
             </a>
         );
 
@@ -53,18 +54,21 @@ export default class LinksSectionBox extends React.Component {
             this.props.icon === 'federalAccount') {
             disabledStatus = ' disabled';
             link = (
-                <span className="links-section-box-span">
+                <button className="usa-button-disabled-outline">
                     Coming Soon...
-                </span>
+                </button>
             );
         }
 
         return (
             <div className="links-section-box">
                 {this.switchIcon()}
-                <h4 className={`links-section-box-primary-text${disabledStatus}`}>
-                    {this.props.text}
-                </h4>
+                <h6 className={`links-section-box-primary-text${disabledStatus}`}>
+                    {this.props.title}
+                </h6>
+                <p className={`links-section-box-secondary-text${disabledStatus}`}>
+                    {this.props.subtitle}
+                </p>
                 {link}
             </div>
         );

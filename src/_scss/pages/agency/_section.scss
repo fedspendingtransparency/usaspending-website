@@ -1,0 +1,99 @@
+.agency-section-wrapper {
+    margin-top: rem(15);
+
+    .agency-callout-description {
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        width: 100%;
+        position: relative;
+        margin: rem(100) 0 rem(60);
+        padding: 0 rem(63);
+        color: $color-base;
+        font-family: $font-sans;
+        font-size: $lead-font-size;
+        font-weight: 300;
+        line-height: 35px;
+        text-align: center;
+    }
+
+    .agency-section-title {
+        h4 {
+            font-size: rem(38);
+            line-height: rem(47);
+            margin: rem(5) 0;
+        }
+    }
+
+    .agency-section-content {
+        @import "pages/homepage/treemapSection";
+
+        .usa-da-treemap-section {
+            background: white;
+            padding-top: rem(50);
+            padding-bottom: rem(0);
+
+            .treemap-inner-wrap {
+                margin: 0;
+                width: 100%;
+
+                .tree-wrapper {
+                    width: 100%;
+                }
+
+                .function-desc {
+                    margin-top: 0;
+                    padding: 0;
+
+                    h1 {
+                        font-size: rem(30);
+                        line-height: rem(38);
+                    }
+
+                    p {
+                        margin-bottom: rem(17);
+                    }
+                }
+
+                .visualization-tooltip .tooltip .tooltip-body .tooltip-full {
+                    .tooltip-description {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        .usa-da-treemap-header {
+            font-style: italic;
+            color: $color-gray;
+            font-size: rem(12);
+            line-height: $base-line-height;
+
+            .back {
+                color: $color-gray;
+                cursor: pointer;
+                margin: 0;
+                background-color: white;
+                border: 0;
+                border-radius: 0;
+                display: block;
+                font-size: rem(12);
+                font-weight: 300;
+                line-height: $base-line-height;
+                outline: none;
+                padding: 0;
+                text-align: left;
+                text-decoration: none;
+
+                svg {
+                    margin-right: rem(5);
+                    height: rem(11);
+                    width: rem(11);
+                    transform: rotate(270deg);
+                    fill: $color-gray-lighter;
+                    box-shadow: 0 1px 0 0 #FFFFFF;
+                }
+            }
+        }
+    }
+}

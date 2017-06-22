@@ -67,7 +67,7 @@ export default class BudgetCategoryFilterGroup extends React.Component {
             case 'federalAccounts':
                 return {
                     value: `${val.id}`,
-                    title: BudgetCategoryHelper.formatFederalAccount(val)
+                    title: val.federal_account_code
                 };
             case 'objectClasses':
                 return {
@@ -141,8 +141,8 @@ export default class BudgetCategoryFilterGroup extends React.Component {
                 if (_.indexOf(excludedValues, value) < 0) {
                     // only insert individual tags that aren't part of a fully-selected group
                     // excluded values is an array of values that are already included in a
-                    // full group,
-                    // so if this value isn't in that array, it can be shown individually
+                    // full group, so if this value isn't in that array, it can be shown
+                    // individually
                     tags.push(tag);
                 }
             });

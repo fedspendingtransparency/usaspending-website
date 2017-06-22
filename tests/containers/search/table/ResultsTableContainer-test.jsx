@@ -27,6 +27,14 @@ const searchSpy = sinon.spy(ResultsTableContainer.prototype, 'performSearch');
 jest.mock('components/search/table/ResultsTableSection', () =>
     jest.fn(() => null));
 
+// canvas elements are not available in Jest, so mock the text measurement helper
+jest.mock('helpers/textMeasurement', () => (
+    {
+        measureText: jest.fn(() => 100),
+        measureTableHeader: jest.fn(() => 220)
+    }
+));
+
 const mockSearchHelper = (functionName, event, expectedResponse) => {
     jest.useFakeTimers();
 

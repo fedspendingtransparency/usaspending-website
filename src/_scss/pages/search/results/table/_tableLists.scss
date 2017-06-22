@@ -1,0 +1,65 @@
+ul,
+ul:first-of-type {
+    @include unstyled-list;
+    padding: rem(10) 0;
+    border-left: solid 1px $color-gray-light;
+    border-right: solid 1px $color-gray-light;
+    li {
+        @include transition(all 0.25s $ease-in-out-sine);
+        padding: rem(5) rem(10);
+        input {
+            margin-right: rem(5);
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        label {
+            .icon {
+                float: right;
+                svg {
+                    @include transition(all 0.25s $ease-in-out-sine);
+                    height: rem(13);
+                    width: rem(8);
+                    fill: $color-gray-light;
+                    &:hover,
+                    &:active {
+                        cursor: move;
+                        fill: $color-gray-dark;
+                    }
+                }
+            }
+            &:hover,
+            &:active {
+                cursor: pointer;
+            }
+        }
+        &:hover,
+        &:active {
+            @include transition(all 0.25s $ease-in-out-sine);
+            background: lighten( $color-gold-light, 30%);
+            cursor: move;
+            & .icon {
+                svg {
+                    fill: $color-gray-dark;
+                }
+            }
+        }
+        &:active {
+            background: $color-gold-light;
+        }
+    }
+}
+
+//REMOVE THE HOVER EFFECT ON THE UL'S THAT CAN'T BE SORTED
+ul {
+    li {
+        &:hover,
+        &:active {
+            background: none;
+            cursor: default;
+        }
+        &:active {
+            background: none;
+        }
+    }
+}

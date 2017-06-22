@@ -76,7 +76,7 @@ export default class ChartBar extends React.Component {
 
     showTooltip() {
         this.props.selectItem({
-            agency: this.props.label,
+            label: this.props.label,
             value: this.props.value,
             y: (this.props.index * this.props.height) + 20,
             x: (this.props.width / 2) + this.props.start + this.props.labelWidth

@@ -5,10 +5,10 @@
 
 const tableSearchFields = {
     columnWidths: {
-        modification: 230,
-        action_date: 200,
-        face_value: 200,
-        subsidy: 220,
+        modification: 0,
+        action_date: 0,
+        face_value: 0,
+        subsidy: 0,
         action_type: 280,
         description: 380
     },

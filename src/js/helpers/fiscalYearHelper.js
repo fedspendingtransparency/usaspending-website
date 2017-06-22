@@ -38,3 +38,50 @@ export const convertDateToFY = (date) => {
 
     return year;
 };
+
+export const convertQuarterToDate = (qtr, year) => {
+    // returns the last date of the fiscal quarter
+    let date = '';
+    let outputYear = parseInt(year, 10);
+    switch (qtr) {
+        case 1:
+            outputYear = year - 1;
+            date = `${outputYear}-12-31`;
+            break;
+        case 2:
+            date = `${outputYear}-03-31`;
+            break;
+        case 3:
+            date = `${outputYear}-06-30`;
+            break;
+        case 4:
+            date = `${outputYear}-09-30`;
+            break;
+        default:
+            date = '';
+    }
+    return date;
+};
+
+export const convertDateToQuarter = (date) => {
+    // Returns the fiscal quarter that the date falls in
+    let quarter = 0;
+    const month = moment(date).month();
+
+    if (month >= 10 && month <= 12) {
+        quarter = 1;
+    }
+
+    else if (month >= 1 && month <= 3) {
+        quarter = 2;
+    }
+
+    else if (month >= 4 && month <= 6) {
+        quarter = 3;
+    }
+    else if (month >= 7 && month <= 9) {
+        quarter = 4;
+    }
+
+    return quarter;
+};

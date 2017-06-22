@@ -12,13 +12,7 @@
         @include clearfix;
         background: $color-white;
         margin: 0 auto;
-        padding: ($global-pad * 2) 0;
+        padding: rem(50) 0;
         @include row();
-        @include media($medium-screen) {
-            padding: ($global-pad * 4) 0;
-        }
-        @include media($x-large-screen) {
-            padding: ($global-pad * 4) 0;
-        }
     }
 }

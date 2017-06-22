@@ -15,7 +15,7 @@
         transform: rotate(45deg);
         pointer-events: none;
     }
-    &.right{
+    &.right {
         left: auto;
         right: rem(7);
         &:after {
@@ -34,6 +34,7 @@
         top: rem(-9);
         &:after {
             transform: rotate(135deg);
+            background: #f0f0f0;
         }
     }
     &.top-left {

@@ -17,6 +17,8 @@ import AwardSummary from 'models/results/award/AwardSummary';
 import TableSearchFields from 'dataMapping/search/tableSearchFields';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
+import { measureTableHeader } from 'helpers/textMeasurement';
+
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
 import SearchActions from 'redux/actions/searchActions';
@@ -197,21 +199,21 @@ export class ResultsTableContainer extends React.Component {
         const columns = [];
         const hiddenColumns = [];
         let sortOrder = TableSearchFields.defaultSortDirection;
-        let columnWidths = TableSearchFields.columnWidths;
         const columnVisibility = this.props.columnVisibility[tableType];
 
         if (tableType === 'loans') {
             sortOrder = TableSearchFields.loans.sortDirection;
-            columnWidths = TableSearchFields.loans.columnWidths;
         }
 
         const tableSettings = TableSearchFields[tableType];
 
         columnVisibility.visibleColumns.forEach((col) => {
+            const displayName = tableSettings[col];
+            const width = measureTableHeader(displayName);
             const column = {
+                displayName,
+                width,
                 columnName: col,
-                displayName: tableSettings[col],
-                width: columnWidths[col],
                 defaultDirection: sortOrder[col]
             };
             columns.push(column);
