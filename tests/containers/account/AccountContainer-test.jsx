@@ -29,12 +29,12 @@ const parameters = {
 jest.mock('components/account/Account', () =>
     jest.fn(() => null));
 
-// mock the GuideButtonWrapper container because there's no Redux store to connect to
-jest.mock('containers/guide/GuideButtonWrapperContainer', () =>
+// mock the GlossaryButtonWrapper container because there's no Redux store to connect to
+jest.mock('containers/glossary/GlossaryButtonWrapperContainer', () =>
     jest.fn(() => null));
 
-// also mock the Guide container for the same reason
-jest.mock('containers/guide/GuideContainer', () =>
+// also mock the Glossary container for the same reason
+jest.mock('containers/glossary/GlossaryContainer', () =>
     jest.fn(() => null));
 
 const mockAccountHelper = (functionName, event, expectedResponse) => {

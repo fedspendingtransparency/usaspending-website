@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { Definition } from 'redux/reducers/guide/guideReducer';
+import { Definition } from 'redux/reducers/glossary/glossaryReducer';
 
 export const standardTerm = new Definition({
     term: 'Test Term',
@@ -10,10 +10,10 @@ export const standardTerm = new Definition({
 });
 
 export const mockActions = {
-    setGuideResults: jest.fn(),
-    showGuide: jest.fn(),
-    setGuideTerm: jest.fn(),
-    setGuideCache: jest.fn()
+    setGlossaryResults: jest.fn(),
+    showGlossary: jest.fn(),
+    setGlossaryTerm: jest.fn(),
+    setGlossaryCache: jest.fn()
 };
 
 export const mockData = {

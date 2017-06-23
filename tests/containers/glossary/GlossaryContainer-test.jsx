@@ -1,5 +1,5 @@
 /**
- * GuideContainer-test.jsx
+ * GlossaryContainer-test.jsx
  * Created by Kevin Li 5/3/17
  */
 
@@ -7,28 +7,28 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
-import { GuideContainer } from 'containers/guide/GuideContainer';
-import * as GuideHelper from 'helpers/guideHelper';
-import { Definition, initialState } from 'redux/reducers/guide/guideReducer';
+import { GlossaryContainer } from 'containers/glossary/GlossaryContainer';
+import * as GlossaryHelper from 'helpers/glossaryHelper';
+import { Definition, initialState } from 'redux/reducers/glossary/glossaryReducer';
 
-import { mockActions, mockData, mockSearch, mockCache, standardTerm } from './mockGuide';
+import { mockActions, mockData, mockSearch, mockCache, standardTerm } from './mockGlossary';
 
 // force Jest to use native Node promises
 // see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
 global.Promise = require.requireActual('promise');
 
 // spy on specific functions inside the component
-const populateCacheSpy = sinon.spy(GuideContainer.prototype, 'populateCache');
-const performSearchSpy = sinon.spy(GuideContainer.prototype, 'performSearch');
+const populateCacheSpy = sinon.spy(GlossaryContainer.prototype, 'populateCache');
+const performSearchSpy = sinon.spy(GlossaryContainer.prototype, 'performSearch');
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/guide/AnimatedGuideWrapper', () =>
+jest.mock('components/glossary/AnimatedGlossaryWrapper', () =>
     jest.fn(() => null));
 
-const mockGuideHelper = (functionName, event, expectedResponse) => {
+const mockGlossaryHelper = (functionName, event, expectedResponse) => {
     jest.useFakeTimers();
     // override the specified function
-    GuideHelper[functionName] = jest.fn(() => {
+    GlossaryHelper[functionName] = jest.fn(() => {
         // Axios normally returns a promise, replicate this, but return the expected result
         const networkCall = new Promise((resolve, reject) => {
             process.nextTick(() => {
@@ -52,19 +52,19 @@ const mockGuideHelper = (functionName, event, expectedResponse) => {
     });
 };
 
-const unmockGuideHelper = () => {
+const unmockGlossaryHelper = () => {
     jest.useRealTimers();
-    jest.unmock('helpers/guideHelper');
+    jest.unmock('helpers/glossaryHelper');
 };
 
-describe('GuideContainer', () => {
+describe('GlossaryContainer', () => {
     it('should populate the cache via an API call on mount', () => {
-        mockGuideHelper('populateCache', 'resolve', mockCache);
-        mockGuideHelper('performSearch', 'resolve', mockSearch);
+        mockGlossaryHelper('populateCache', 'resolve', mockCache);
+        mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
-        mount(<GuideContainer
+        mount(<GlossaryContainer
             {...mockActions}
-            guide={initialState} />);
+            glossary={initialState} />);
         jest.runAllTicks();
 
         expect(populateCacheSpy.callCount).toEqual(1);
@@ -72,15 +72,15 @@ describe('GuideContainer', () => {
     });
 
     it('should only populate the cache when it is empty', () => {
-        mockGuideHelper('populateCache', 'resolve', mockCache);
-        mockGuideHelper('performSearch', 'resolve', mockSearch);
+        mockGlossaryHelper('populateCache', 'resolve', mockCache);
+        mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
         populateCacheSpy.reset();
         performSearchSpy.reset();
 
-        mount(<GuideContainer
+        mount(<GlossaryContainer
             {...mockActions}
-            guide={mockData} />);
+            glossary={mockData} />);
         jest.runAllTicks();
 
         expect(populateCacheSpy.callCount).toEqual(0);
@@ -91,18 +91,18 @@ describe('GuideContainer', () => {
 
     describe('writeCache', () => {
         it('should create a Map of definitions', () => {
-            mockGuideHelper('populateCache', 'resolve', mockCache);
-            mockGuideHelper('performSearch', 'resolve', mockSearch);
+            mockGlossaryHelper('populateCache', 'resolve', mockCache);
+            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
             const mockSetCache = jest.fn();
 
             const actions = Object.assign({}, mockActions, {
-                setGuideCache: mockSetCache
+                setGlossaryCache: mockSetCache
             });
 
-            const container = shallow(<GuideContainer
+            const container = shallow(<GlossaryContainer
                 {...actions}
-                guide={mockData} />);
+                glossary={mockData} />);
 
             container.instance().writeCache(mockCache.results);
 
@@ -114,32 +114,32 @@ describe('GuideContainer', () => {
 
     describe('parseTerms', () => {
         it('should parse the API response into an array of Definition objects', () => {
-            mockGuideHelper('populateCache', 'resolve', mockCache);
-            mockGuideHelper('performSearch', 'resolve', mockSearch);
+            mockGlossaryHelper('populateCache', 'resolve', mockCache);
+            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
-            const mockedSetGuideResults = jest.fn();
+            const mockedSetGlossaryResults = jest.fn();
 
             const swizzledActions = Object.assign({}, mockActions, {
-                setGuideResults: mockedSetGuideResults
+                setGlossaryResults: mockedSetGlossaryResults
             });
 
-            const container = shallow(<GuideContainer
+            const container = shallow(<GlossaryContainer
                 {...swizzledActions}
-                guide={mockData} />);
+                glossary={mockData} />);
 
             container.instance().parseTerms(mockSearch.matched_objects.term);
 
-            expect(mockedSetGuideResults).toHaveBeenCalledTimes(1);
-            expect(mockedSetGuideResults).toHaveBeenCalledWith([standardTerm]);
+            expect(mockedSetGlossaryResults).toHaveBeenCalledTimes(1);
+            expect(mockedSetGlossaryResults).toHaveBeenCalledWith([standardTerm]);
         });
 
         it('should run any queued operations prepared before the API call finished', () => {
-            mockGuideHelper('populateCache', 'resolve', mockCache);
-            mockGuideHelper('performSearch', 'resolve', mockSearch);
+            mockGlossaryHelper('populateCache', 'resolve', mockCache);
+            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
-            const container = shallow(<GuideContainer
+            const container = shallow(<GlossaryContainer
                 {...mockActions}
-                guide={mockData} />);
+                glossary={mockData} />);
 
             const mockOperation = jest.fn();
             container.instance().queuedOperations = [mockOperation];
@@ -153,12 +153,12 @@ describe('GuideContainer', () => {
 
     describe('detectedUrlChange', () => {
         it('should queue any jump operations if the component is still loading', () => {
-            mockGuideHelper('populateCache', 'resolve', mockCache);
-            mockGuideHelper('performSearch', 'resolve', mockSearch);
+            mockGlossaryHelper('populateCache', 'resolve', mockCache);
+            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
-            const container = shallow(<GuideContainer
+            const container = shallow(<GlossaryContainer
                 {...mockActions}
-                guide={mockData} />);
+                glossary={mockData} />);
 
             container.instance().setState({
                 loading: true
@@ -182,12 +182,12 @@ describe('GuideContainer', () => {
         });
 
         it('should trigger jumpToTerm if the data has already loaded', () => {
-            mockGuideHelper('populateCache', 'resolve', mockCache);
-            mockGuideHelper('performSearch', 'resolve', mockSearch);
+            mockGlossaryHelper('populateCache', 'resolve', mockCache);
+            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
-            const container = shallow(<GuideContainer
+            const container = shallow(<GlossaryContainer
                 {...mockActions}
-                guide={mockData} />);
+                glossary={mockData} />);
 
             container.instance().setState({
                 loading: false
@@ -204,48 +204,48 @@ describe('GuideContainer', () => {
     });
 
     describe('jumpToTerm', () => {
-        it('should show the guide and load the specified term when a term with a matching slug exists', () => {
-            mockGuideHelper('populateCache', 'resolve', mockCache);
-            mockGuideHelper('performSearch', 'resolve', mockSearch);
+        it('should show the glossary and load the specified term when a term with a matching slug exists', () => {
+            mockGlossaryHelper('populateCache', 'resolve', mockCache);
+            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
-            const mockShowGuide = jest.fn();
-            const mockSetGuide = jest.fn();
+            const mockShowGlossary = jest.fn();
+            const mockSetGlossary = jest.fn();
 
             const swizzledActions = Object.assign({}, mockActions, {
-                setGuideTerm: mockSetGuide,
-                showGuide: mockShowGuide
+                setGlossaryTerm: mockSetGlossary,
+                showGlossary: mockShowGlossary
             });
 
-            const container = shallow(<GuideContainer
+            const container = shallow(<GlossaryContainer
                 {...swizzledActions}
-                guide={mockData} />);
+                glossary={mockData} />);
 
             container.instance().jumpToTerm('test-term');
 
-            expect(mockSetGuide).toHaveBeenCalledTimes(1);
-            expect(mockSetGuide).toHaveBeenCalledWith(standardTerm);
-            expect(mockShowGuide).toHaveBeenCalledTimes(1);
+            expect(mockSetGlossary).toHaveBeenCalledTimes(1);
+            expect(mockSetGlossary).toHaveBeenCalledWith(standardTerm);
+            expect(mockShowGlossary).toHaveBeenCalledTimes(1);
         });
         it('should do nothing when no terms with matching slugs exist', () => {
-            mockGuideHelper('populateCache', 'resolve', mockCache);
-            mockGuideHelper('performSearch', 'resolve', mockSearch);
+            mockGlossaryHelper('populateCache', 'resolve', mockCache);
+            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
-            const mockShowGuide = jest.fn();
-            const mockSetGuide = jest.fn();
+            const mockShowGlossary = jest.fn();
+            const mockSetGlossary = jest.fn();
 
             const swizzledActions = Object.assign({}, mockActions, {
-                setGuideTerm: mockSetGuide,
-                showGuide: mockShowGuide
+                setGlossaryTerm: mockSetGlossary,
+                showGlossary: mockShowGlossary
             });
 
-            const container = shallow(<GuideContainer
+            const container = shallow(<GlossaryContainer
                 {...swizzledActions}
-                guide={mockData} />);
+                glossary={mockData} />);
 
             container.instance().jumpToTerm('xxxxx');
 
-            expect(mockSetGuide).toHaveBeenCalledTimes(0);
-            expect(mockShowGuide).toHaveBeenCalledTimes(0);
+            expect(mockSetGlossary).toHaveBeenCalledTimes(0);
+            expect(mockShowGlossary).toHaveBeenCalledTimes(0);
         });
     });
 });

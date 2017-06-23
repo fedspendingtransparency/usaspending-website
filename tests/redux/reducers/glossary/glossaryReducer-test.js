@@ -1,60 +1,60 @@
 /**
- * guideReducer-test.js
+ * glossaryReducer-test.js
  * Created by Kevin Li 5/3/17
  */
 
 import { Map } from 'immutable';
-import guideReducer, { initialState, Definition } from 'redux/reducers/guide/guideReducer';
+import glossaryReducer, { initialState, Definition } from 'redux/reducers/glossary/glossaryReducer';
 
-describe('guideReducer', () => {
-    describe('SHOW_GUIDE', () => {
+describe('glossaryReducer', () => {
+    describe('SHOW_GLOSSARY', () => {
         it('should set the display value to true', () => {
-            let state = guideReducer(undefined, {});
+            let state = glossaryReducer(undefined, {});
 
             expect(state.display).toBeFalsy();
 
             const action = {
-                type: 'SHOW_GUIDE'
+                type: 'SHOW_GLOSSARY'
             };
 
-            state = guideReducer(state, action);
+            state = glossaryReducer(state, action);
 
             expect(state.display).toBeTruthy();
         });
     });
 
-    describe('HIDE_GUIDE', () => {
+    describe('HIDE_GLOSSARY', () => {
         it('should set the display value to false', () => {
             const startingState = Object.assign({}, initialState, {
                 display: true
             });
 
-            let state = guideReducer(startingState, {});
+            let state = glossaryReducer(startingState, {});
 
             expect(state.display).toBeTruthy();
 
             const action = {
-                type: 'HIDE_GUIDE'
+                type: 'HIDE_GLOSSARY'
             };
 
-            state = guideReducer(state, action);
+            state = glossaryReducer(state, action);
 
             expect(state.display).toBeFalsy();
         });
     });
 
-    describe('TOGGLE_GUIDE', () => {
+    describe('TOGGLE_GLOSSARY', () => {
         it('should set the display to true when it is currently false', () => {
             const startingState = Object.assign({}, initialState, {
                 display: false
             });
-            let state = guideReducer(startingState, {});
+            let state = glossaryReducer(startingState, {});
             expect(state.display).toBeFalsy();
 
             const action = {
-                type: 'TOGGLE_GUIDE'
+                type: 'TOGGLE_GLOSSARY'
             };
-            state = guideReducer(state, action);
+            state = glossaryReducer(state, action);
             expect(state.display).toBeTruthy();
         });
 
@@ -62,28 +62,28 @@ describe('guideReducer', () => {
             const startingState = Object.assign({}, initialState, {
                 display: true
             });
-            let state = guideReducer(startingState, {});
+            let state = glossaryReducer(startingState, {});
             expect(state.display).toBeTruthy();
 
             const action = {
-                type: 'TOGGLE_GUIDE'
+                type: 'TOGGLE_GLOSSARY'
             };
-            state = guideReducer(state, action);
+            state = glossaryReducer(state, action);
             expect(state.display).toBeFalsy();
         });
     });
 
-    describe('SET_GUIDE_SEARCH_VALUE', () => {
+    describe('SET_GLOSSARY_SEARCH_VALUE', () => {
         it('should set the input to the specified value', () => {
-            let state = guideReducer(undefined, {});
+            let state = glossaryReducer(undefined, {});
             expect(state.search.input).toEqual('');
 
             const action = {
-                type: 'SET_GUIDE_SEARCH_VALUE',
+                type: 'SET_GLOSSARY_SEARCH_VALUE',
                 value: 'test'
             };
 
-            state = guideReducer(state, action);
+            state = glossaryReducer(state, action);
             expect(state.search.input).toEqual('test');
         });
 
@@ -93,27 +93,27 @@ describe('guideReducer', () => {
                     term: 'test term'
                 })
             });
-            let state = guideReducer(startingState, {});
+            let state = glossaryReducer(startingState, {});
             expect(state.term.term).toEqual('test term');
 
             const action = {
-                type: 'SET_GUIDE_SEARCH_VALUE',
+                type: 'SET_GLOSSARY_SEARCH_VALUE',
                 value: 'test'
             };
 
-            state = guideReducer(state, action);
+            state = glossaryReducer(state, action);
             expect(state.term).toEqual(new Definition());
             expect(state.term.term).toEqual('');
         });
     });
 
-    describe('SET_GUIDE_SEARCH_RESULTS', () => {
+    describe('SET_GLOSSARY_SEARCH_RESULTS', () => {
         it('should set the current results to the provided values', () => {
-            let state = guideReducer(undefined, {});
+            let state = glossaryReducer(undefined, {});
             expect(state.search.results).toEqual([]);
 
             const action = {
-                type: 'SET_GUIDE_SEARCH_RESULTS',
+                type: 'SET_GLOSSARY_SEARCH_RESULTS',
                 results: [
                     new Definition({
                         term: "Award",
@@ -130,18 +130,18 @@ describe('guideReducer', () => {
                 ]
             };
 
-            state = guideReducer(state, action);
+            state = glossaryReducer(state, action);
             expect(state.search.results).toEqual(action.results);
         });
     });
 
-    describe('SET_GUIDE_FULL_CACHE', () => {
+    describe('SET_GLOSSARY_FULL_CACHE', () => {
         it('should set the cache to the provided value', () => {
-            let state = guideReducer(undefined, {});
+            let state = glossaryReducer(undefined, {});
             expect(state.cache).toEqual(new Map());
 
             const action = {
-                type: 'SET_GUIDE_FULL_CACHE',
+                type: 'SET_GLOSSARY_FULL_CACHE',
                 cache: [
                     {
                         term: "hi"
@@ -152,18 +152,18 @@ describe('guideReducer', () => {
                 ]
             };
 
-            state = guideReducer(state, action);
+            state = glossaryReducer(state, action);
             expect(state.cache).toEqual(new Map(action.cache));
         });
     });
 
-    describe('SET_GUIDE_TERM', () => {
+    describe('SET_GLOSSARY_TERM', () => {
         it('should set the selected term to the provided value', () => {
-            let state = guideReducer(undefined, {});
+            let state = glossaryReducer(undefined, {});
             expect(state.term).toEqual(new Definition());
 
             const action = {
-                type: 'SET_GUIDE_TERM',
+                type: 'SET_GLOSSARY_TERM',
                 term: {
                     term: "Award",
                     slug: "award",
@@ -171,12 +171,12 @@ describe('guideReducer', () => {
                 }
             };
 
-            state = guideReducer(state, action);
+            state = glossaryReducer(state, action);
             expect(state.term).toEqual(new Definition(action.term));
         });
     });
 
-    describe('CLEAR_GUIDE_TERM', () => {
+    describe('CLEAR_GLOSSARY_TERM', () => {
         it('should clear the currently selected term', () => {
             const startingState = Object.assign({}, initialState, {
                 term: new Definition({
@@ -185,13 +185,13 @@ describe('guideReducer', () => {
                     plain: "Hello"
                 })
             });
-            let state = guideReducer(startingState, {});
+            let state = glossaryReducer(startingState, {});
             expect(state.term.term).toEqual('Award');
 
             const action = {
-                type: 'CLEAR_GUIDE_TERM'
+                type: 'CLEAR_GLOSSARY_TERM'
             };
-            state = guideReducer(state, action);
+            state = glossaryReducer(state, action);
             expect(state.term.term).toEqual('');
             expect(state.term).toEqual(new Definition());
         });
