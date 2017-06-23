@@ -8,26 +8,29 @@
     margin-top: rem(32);
     margin-bottom: ($global-mrg * 4);
     .sidebar-header {
-        @include display(flex);
-        @include align-items(center);
-        @include flex-flow(row);
-        @include justify-content(flex-start);
-        border-bottom: rem(1) solid $color-gray-lighter;
-        height: rem(80);
-        margin: 0;
-        padding: 0 0 0 rem(15);
-        & h6 {
-            color: $color-gray;
-            font-size: rem(19);
-            font-weight: $font-semibold;
+        display: none;
+        @include media($tablet-screen) {
+            @include display(flex);
+            @include align-items(center);
+            @include flex-flow(row);
+            @include justify-content(flex-start);
+            border-bottom: rem(1) solid $color-gray-lighter;
+            height: rem(80);
             margin: 0;
-        }
-        & .filter-icon {
-            height: rem(16);
-            margin-right: rem(8);
-            & .usa-da-icon-filter {
-                fill: lighten( $color-gray, 15%);
+            padding: 0 0 0 rem(15);
+            & h6 {
+                color: $color-gray;
+                font-size: rem(19);
+                font-weight: $font-semibold;
+                margin: 0;
+            }
+            & .filter-icon {
                 height: rem(16);
+                margin-right: rem(8);
+                & .usa-da-icon-filter {
+                    fill: lighten( $color-gray, 15%);
+                    height: rem(16);
+                }
             }
         }
     }

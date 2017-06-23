@@ -10,7 +10,9 @@
         }
     }
 
-    @import "./_mobileSidebar";
+    @import "./mobile/mobileFilterButton";
+    @import "./mobile/mobileSidebar";
+    @import "./mobile/mobileResults";
 
     .search-results-wrapper {
         @include span-columns(16);

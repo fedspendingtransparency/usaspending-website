@@ -1,0 +1,40 @@
+.mobile-filter-header {
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+    position: relative;
+    width: 100%;
+
+    background-color: $color-primary-alt-lightest;
+
+
+    @include media($tablet-screen) {
+        display: none;
+    }
+
+    .filter-header-count {
+        @include flex(1 1 auto);
+        font-size: $small-font-size;
+    }
+
+    .filter-header-collapse {
+        @include flex(1 1 auto);
+        button.filter-collapse {
+            @include button-unstyled;
+
+            .icon {
+                svg {
+                    fill: $color-primary;
+                    height: rem(15);
+                }
+            }
+
+            .label {
+                color: $color-primary;
+                font-size: $smallest-font-size;
+                line-height: rem(15);
+                font-weight: $font-semibold;
+            }
+        }
+    }
+}

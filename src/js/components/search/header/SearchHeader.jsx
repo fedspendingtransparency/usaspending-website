@@ -12,9 +12,7 @@ import DownloadButton from './DownloadButton';
 
 const propTypes = {
     isSticky: React.PropTypes.bool,
-    showingMobile: React.PropTypes.bool,
-    currentSection: React.PropTypes.string,
-    toggleMobileFilters: React.PropTypes.func
+    currentSection: React.PropTypes.string
 };
 
 export default class SearchHeader extends React.Component {
@@ -24,20 +22,16 @@ export default class SearchHeader extends React.Component {
             stickyClass = ' sticky';
         }
 
-        let showingMobile = '';
-        if (this.props.showingMobile) {
-            showingMobile = ' active-mobile';
-        }
         return (
             <div
-                className={`search-header-wrapper${stickyClass}${showingMobile}`}
+                className={`search-header-wrapper${stickyClass}`}
                 id="search-header-wrapper"
                 ref={(div) => {
                     this.headerDiv = div;
                 }}>
                 <div className="search-header">
                     <div className="search-title">
-                        <h1>Search &amp; Download Your Data</h1>
+                        <h1>Search &amp; Download Data</h1>
                     </div>
                     <div className="search-options">
                         <ul className="search-formats">
@@ -76,22 +70,6 @@ export default class SearchHeader extends React.Component {
                             <li className="coming-soon">
                                 <DownloadButton />
                                 <ComingSoonLabel />
-                            </li>
-                        </ul>
-                        <ul className="mobile-options">
-                            <li>
-                                <button
-                                    className="mobile-filter"
-                                    onClick={this.props.toggleMobileFilters}>
-                                    <div className="mobile-filter-content">
-                                        <div className="mobile-filter-icon">
-                                            <Icons.Filter alt="Filters" />
-                                        </div>
-                                        <div className="mobile-filter-label">
-                                            Filters
-                                        </div>
-                                    </div>
-                                </button>
                             </li>
                         </ul>
                     </div>

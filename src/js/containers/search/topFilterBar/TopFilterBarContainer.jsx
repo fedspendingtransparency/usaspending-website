@@ -17,7 +17,8 @@ import { topFilterGroupGenerator } from
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object
+    reduxFilters: React.PropTypes.object,
+    updateFilterCount: React.PropTypes.func
 };
 
 export class TopFilterBarContainer extends React.Component {
@@ -127,6 +128,8 @@ export class TopFilterBarContainer extends React.Component {
 
         this.setState({
             filters
+        }, () => {
+            this.props.updateFilterCount(filters.length);
         });
     }
 

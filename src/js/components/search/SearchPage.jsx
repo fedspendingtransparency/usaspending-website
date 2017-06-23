@@ -12,7 +12,6 @@ import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import SearchHeader from './header/SearchHeader';
-import MobileFilters from './MobileFilters';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 
@@ -25,7 +24,8 @@ export default class SearchPage extends React.Component {
         this.state = {
             currentSection: this.sections[0],
             stickyHeader: false,
-            showMobileFilters: false
+            showMobileFilters: false,
+            filterCount: 0
         };
 
         // also track the window size, but track it outside of state to avoid re-renders
@@ -34,6 +34,7 @@ export default class SearchPage extends React.Component {
         // throttle the ocurrences of the scroll callback to once every 50ms
         this.handlePageScroll = _.throttle(this.handlePageScroll.bind(this), 50);
 
+        this.updateFilterCount = this.updateFilterCount.bind(this);
         this.toggleMobileFilters = this.toggleMobileFilters.bind(this);
     }
 
@@ -59,6 +60,11 @@ export default class SearchPage extends React.Component {
      * determine if they should be stickied or unstickied.
      */
     manageHeaders() {
+        // don't do anything on mobile
+        if (window.innerWidth < 768) {
+            return;
+        }
+
         // don't do anything if there's not enough content to have a fixed header based on the
         // current window size
         const windowHeight = window.innerHeight;
@@ -170,7 +176,18 @@ export default class SearchPage extends React.Component {
     }
 
     /**
-     * Toggle whether or not to show the filter view on mobile screens
+     * Use the top filter bar container's internal filter parsing to track the current number of
+     * filters applied
+     */
+
+    updateFilterCount(count) {
+        this.setState({
+            filterCount: count
+        });
+    }
+
+    /**
+     * Toggle whether or not to show the mobile filter view
      */
 
     toggleMobileFilters() {
@@ -180,11 +197,6 @@ export default class SearchPage extends React.Component {
     }
 
     render() {
-        let mobileFilters = null;
-        if (this.state.showMobileFilters) {
-            mobileFilters = (<MobileFilters />);
-        }
-
         return (
             <div
                 className="usa-da-search-page"
@@ -202,17 +214,18 @@ export default class SearchPage extends React.Component {
                     <SearchHeader
                         isSticky={this.state.stickyHeader}
                         currentSection={this.state.currentSection}
-                        toggleMobileFilters={this.toggleMobileFilters}
-                        showingMobile={this.state.showMobileFilters}
                         ref={(component) => {
                             this.searchHeader = component;
                         }} />
                     <div className="search-contents">
-                        { mobileFilters }
                         <div className="full-search-sidebar">
                             <SearchSidebar />
                         </div>
-                        <SearchResults />
+                        <SearchResults
+                            filterCount={this.state.filterCount}
+                            showMobileFilters={this.state.showMobileFilters}
+                            updateFilterCount={this.updateFilterCount}
+                            toggleMobileFilters={this.toggleMobileFilters} />
                     </div>
                 </main>
                 <Footer />

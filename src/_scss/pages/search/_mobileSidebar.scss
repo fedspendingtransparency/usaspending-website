@@ -1,8 +1,0 @@
-.mobile-search-sidebar {
-    position: absolute;
-    z-index: $z-mobile-filter;
-
-    @include media($tablet-screen) {
-        display: none;
-    }
-}

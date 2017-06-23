@@ -1,0 +1,42 @@
+.mobile-filter-button-wrapper {
+    @include media($tablet-screen) {
+        // hide in non-mobile view
+        display: none;
+    }
+
+    button.mobile-filter-button {
+        @include button-unstyled;
+        margin-left: rem(10);
+
+        color: $color-white;
+        background-color: $color-primary;
+        &:hover, &:active {
+            background-color: $color-primary-alt;
+        }
+
+        .mobile-filter-button-content {
+            @include display(flex);
+            @include align-content(center);
+            @include justify-content(center);
+            position: relative;
+            padding: rem(10) rem(20);
+
+            .mobile-filter-button-icon {
+                @include flex(0 0 auto);
+                margin-right: rem(5);
+                svg {
+                    fill: $color-white;
+                    width: 18px;
+                }
+            }
+
+            .mobile-filter-button-label {
+                color: $color-white;
+                line-height: rem(18);
+                font-size: $small-font-size;
+                font-weight: $font-semibold;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
