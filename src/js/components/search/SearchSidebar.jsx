@@ -17,7 +17,9 @@ import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSea
 import AwardAmountSearchContainer from
     'containers/search/filters/awardAmount/AwardAmountSearchContainer';
 
+import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
+import MobileFilterHeader from 'components/search/mobile/MobileFilterHeader';
 
 const filters = {
     options: [
@@ -67,8 +69,22 @@ export default class SearchSidebar extends React.Component {
             }
         });
 
+        let mobileHeader = null;
+        if (this.props.mobile) {
+            mobileHeader = (<MobileFilterHeader {...this.props} />);
+        }
+
         return (
-            <FilterSidebar {...filters} expanded={expanded} />
+            <div className="search-sidebar">
+                <div className="sidebar-header">
+                    <span className="filter-icon">
+                        <FilterIcon />
+                    </span>
+                    <h6>Filter by:</h6>
+                </div>
+                {mobileHeader}
+                <FilterSidebar {...filters} expanded={expanded} />
+            </div>
         );
     }
 }

@@ -6,6 +6,7 @@
     width: 100%;
 
     background-color: $color-primary-alt-lightest;
+    padding: 0 rem(15);
 
 
     @include media($tablet-screen) {
@@ -18,22 +19,35 @@
     }
 
     .filter-header-collapse {
-        @include flex(1 1 auto);
+        @include flex(0 0 auto);
+        width: rem(100);
         button.filter-collapse {
             @include button-unstyled;
+            padding: rem(15);
 
-            .icon {
-                svg {
-                    fill: $color-primary;
-                    height: rem(15);
+            .filter-collapse-content {
+                @include display(flex);
+                @include align-items(center);
+                @include justify-content(center);
+                position: relative;
+
+                .icon {
+                    @include flex(0 0 auto);
+                    margin-right: rem(5);
+
+                    svg {
+                        fill: $color-primary;
+                        height: rem(10);
+                    }
                 }
-            }
 
-            .label {
-                color: $color-primary;
-                font-size: $smallest-font-size;
-                line-height: rem(15);
-                font-weight: $font-semibold;
+                .label {
+                    @include flex(1 1 auto);
+                    color: $color-primary;
+                    font-size: $smallest-font-size;
+                    line-height: rem(15);
+                    font-weight: $font-semibold;
+                }
             }
         }
     }

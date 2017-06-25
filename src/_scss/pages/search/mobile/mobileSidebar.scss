@@ -1,16 +1,20 @@
 .mobile-search-sidebar {
     @import "./_sidebarTransitions";
 
+    z-index: $z-mobile-filter;
     @include media($tablet-screen) {
         display: none;
     }
 
     @import "./_filterHeader";
 
-    .search-sidebar {
-        margin-top: 0;
-        margin-bottom: 0;
+    .mobile-filter-content {
 
-        background-color: $color-white;
+        .search-sidebar {
+            margin-top: 0;
+            margin-bottom: 0;
+
+            background-color: $color-white;
+        }
     }
 }

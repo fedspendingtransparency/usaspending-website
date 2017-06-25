@@ -1,8 +1,5 @@
 .search-results {
-    opacity: 1;
-    transition: opacity 0.55s;
     &.behind-filters {
-        opacity: 0;
-        display: none;
+        visibility: hidden;
     }
 }

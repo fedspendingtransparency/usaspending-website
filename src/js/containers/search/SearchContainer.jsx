@@ -14,6 +14,7 @@ import Router from 'containers/router/Router';
 import { filterStoreVersion, requiredTypes, initialState } from
     'redux/reducers/search/searchFiltersReducer';
 import * as searchHashActions from 'redux/actions/search/searchHashActions';
+import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import SearchPage from 'components/search/SearchPage';
@@ -289,7 +290,9 @@ export class SearchContainer extends React.Component {
 
     render() {
         return (
-            <SearchPage hash={this.props.params.hash} />
+            <SearchPage
+                hash={this.props.params.hash}
+                clearAllFilters={this.props.clearAllFilters} />
         );
     }
 }
@@ -298,7 +301,9 @@ export default connect(
     (state) => ({
         filters: state.filters
     }),
-    (dispatch) => bindActionCreators(searchHashActions, dispatch)
+    (dispatch) => bindActionCreators(Object.assign({}, searchHashActions, {
+        clearAllFilters
+    }), dispatch)
 )(SearchContainer);
 
 SearchContainer.propTypes = propTypes;

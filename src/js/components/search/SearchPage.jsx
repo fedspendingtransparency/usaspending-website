@@ -15,6 +15,10 @@ import SearchHeader from './header/SearchHeader';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 
+const propTypes = {
+    clearAllFilters: React.PropTypes.func
+};
+
 export default class SearchPage extends React.Component {
     constructor(props) {
         super(props);
@@ -225,7 +229,8 @@ export default class SearchPage extends React.Component {
                             filterCount={this.state.filterCount}
                             showMobileFilters={this.state.showMobileFilters}
                             updateFilterCount={this.updateFilterCount}
-                            toggleMobileFilters={this.toggleMobileFilters} />
+                            toggleMobileFilters={this.toggleMobileFilters}
+                            clearAllFilters={this.props.clearAllFilters} />
                     </div>
                 </main>
                 <Footer />
@@ -234,3 +239,5 @@ export default class SearchPage extends React.Component {
     }
 
 }
+
+SearchPage.propTypes = propTypes;
