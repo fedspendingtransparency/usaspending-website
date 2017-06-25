@@ -20,6 +20,7 @@ import GeoVisualizationSectionContainer from
 import MobileFilters from './mobile/MobileFilters';
 
 const propTypes = {
+    isMobile: React.PropTypes.bool,
     filterCount: React.PropTypes.number,
     showMobileFilters: React.PropTypes.bool,
     toggleMobileFilters: React.PropTypes.func,
@@ -29,7 +30,7 @@ const propTypes = {
 export default class SearchResults extends React.Component {
     render() {
         let mobileFilters = '';
-        if (this.props.showMobileFilters) {
+        if (this.props.showMobileFilters && this.props.isMobile) {
             mobileFilters = 'behind-filters';
         }
 

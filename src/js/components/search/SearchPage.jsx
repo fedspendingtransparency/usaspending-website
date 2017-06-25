@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import _ from 'lodash';
+import { throttle } from 'lodash';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
@@ -29,14 +29,15 @@ export default class SearchPage extends React.Component {
             currentSection: this.sections[0],
             stickyHeader: false,
             showMobileFilters: false,
-            filterCount: 0
+            filterCount: 0,
+            isMobile: false
         };
 
         // also track the window size, but track it outside of state to avoid re-renders
         this.windowWidth = window.innerWidth;
 
         // throttle the ocurrences of the scroll callback to once every 50ms
-        this.handlePageScroll = _.throttle(this.handlePageScroll.bind(this), 50);
+        this.handlePageScroll = throttle(this.handlePageScroll.bind(this), 50);
 
         this.updateFilterCount = this.updateFilterCount.bind(this);
         this.toggleMobileFilters = this.toggleMobileFilters.bind(this);
@@ -46,6 +47,8 @@ export default class SearchPage extends React.Component {
         // watch the page for scroll and resize events
         window.addEventListener('scroll', this.handlePageScroll);
         window.addEventListener('resize', this.handlePageScroll);
+
+        this.handleWindowResize();
     }
 
     componentWillUnmount() {
@@ -57,6 +60,20 @@ export default class SearchPage extends React.Component {
     handlePageScroll() {
         this.manageHeaders();
         this.highlightSection();
+        this.handleWindowResize();
+    }
+
+    handleWindowResize() {
+        if (window.innerWidth < 768 && !this.state.isMobile) {
+            this.setState({
+                isMobile: true
+            });
+        }
+        else if (window.innerWidth >= 768 && this.state.isMobile) {
+            this.setState({
+                isMobile: false
+            });
+        }
     }
 
     /**
@@ -65,7 +82,7 @@ export default class SearchPage extends React.Component {
      */
     manageHeaders() {
         // don't do anything on mobile
-        if (window.innerWidth < 768) {
+        if (this.state.isMobile) {
             return;
         }
 
@@ -201,6 +218,11 @@ export default class SearchPage extends React.Component {
     }
 
     render() {
+        let fullSidebar = (<SearchSidebar />);
+        if (this.state.isMobile) {
+            fullSidebar = null;
+        }
+
         return (
             <div
                 className="usa-da-search-page"
@@ -223,9 +245,10 @@ export default class SearchPage extends React.Component {
                         }} />
                     <div className="search-contents">
                         <div className="full-search-sidebar">
-                            <SearchSidebar />
+                            { fullSidebar }
                         </div>
                         <SearchResults
+                            isMobile={this.state.isMobile}
                             filterCount={this.state.filterCount}
                             showMobileFilters={this.state.showMobileFilters}
                             updateFilterCount={this.updateFilterCount}
