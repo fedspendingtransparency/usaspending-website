@@ -306,11 +306,11 @@ ArrowUp.defaultProps = {
     alt: 'Icon Depicting an Arrow Pointed Up'
 };
 
-export class Guide extends BaseIcon {}
-Guide.defaultProps = {
+export class Glossary extends BaseIcon {}
+Glossary.defaultProps = {
     iconName: 'usa-da-icon-guide',
     iconClass: 'usa-da-icon-guide',
-    alt: 'Icon Depicting a Guide Book'
+    alt: 'Icon Depicting a Glossary Book'
 };
 
 export class FlagLogo extends BaseIcon {}

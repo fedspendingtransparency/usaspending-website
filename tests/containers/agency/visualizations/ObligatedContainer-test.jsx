@@ -32,12 +32,12 @@ const inboundProps = {
 jest.mock('components/agency/visualizations/obligated/ObligatedVisualization', () =>
     jest.fn(() => null));
 
-// mock the GuideButtonWrapper container because there's no Redux store to connect to
-jest.mock('containers/guide/GuideButtonWrapperContainer', () =>
+// mock the GlossaryButtonWrapper container because there's no Redux store to connect to
+jest.mock('containers/glossary/GlossaryButtonWrapperContainer', () =>
     jest.fn(() => null));
 
-// also mock the Guide container for the same reason
-jest.mock('containers/guide/GuideContainer', () =>
+// also mock the Glossary container for the same reason
+jest.mock('containers/glossary/GlossaryContainer', () =>
     jest.fn(() => null));
 
 const mockAgencyHelper = (functionName, event, expectedResponse) => {
