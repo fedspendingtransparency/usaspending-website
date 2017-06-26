@@ -1,0 +1,64 @@
+.glossary-definition {
+    padding: 20px;
+
+    @import "./_definitionTabs";
+
+    h2.term {
+        font-size: 24px;
+        line-height: 31px;
+        font-weight: 600;
+
+        margin: 0;
+        margin-top: 20px;
+    }
+
+    .definition-content {
+        a {
+            color: $color-white;
+            text-decoration: underline;
+
+            &:hover, &:active {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .glossary-back {
+        @include button-unstyled;
+
+        padding: 5px;
+        padding-left: 0px;
+
+        text-transform: uppercase;
+        font-size: 15px;
+        line-height: 18px;
+        font-weight: 600;
+
+        .back-content {
+            position: relative;
+
+            svg {
+                position: absolute;
+                top: 1px;
+
+                height: 16px;
+                width: 16px;
+                fill: $color-white;
+            }
+
+            .label {
+                margin-left: 24px;
+            }
+
+            &:hover {
+                color: $color-active;
+
+                svg {
+                    fill: $color-active;
+                }
+            }
+        }
+    }
+
+    @import "./_definitionResources";
+}
