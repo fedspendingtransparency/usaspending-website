@@ -35,7 +35,7 @@ export default class TimePeriod extends React.Component {
         ga.event({
             category: 'Search Page Filter Applied',
             action: 'Applied Date Range Filter',
-            label: `${start} - ${end}`
+            label: `${start} to ${end}`
         });
     }
 
