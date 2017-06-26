@@ -22,7 +22,8 @@ import SearchPage from 'components/search/SearchPage';
 const propTypes = {
     params: React.PropTypes.object,
     filters: React.PropTypes.object,
-    populateAllSearchFilters: React.PropTypes.func
+    populateAllSearchFilters: React.PropTypes.func,
+    clearAllFilters: React.PropTypes.func
 };
 
 export class SearchContainer extends React.Component {
