@@ -182,3 +182,10 @@ export const formatTreemapValues = (value) => {
 
 export const calculateTreemapPercentage = (value, total) =>
     `${((value / total) * 100).toFixed(1)}%`;
+
+export const formatNumber = (number) => {
+    const options = Object.assign({}, accountingOptions, {
+        symbol: ''
+    });
+    return Accounting.formatMoney(number, options);
+};

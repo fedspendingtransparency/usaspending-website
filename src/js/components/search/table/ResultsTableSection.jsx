@@ -23,6 +23,7 @@ const propTypes = {
     switchTab: React.PropTypes.func,
     results: React.PropTypes.array,
     columns: React.PropTypes.array,
+    counts: React.PropTypes.object,
     hiddenColumns: React.PropTypes.array,
     toggleColumnVisibility: React.PropTypes.func,
     reorderColumns: React.PropTypes.func,
@@ -104,6 +105,7 @@ export default class ResultsTableSection extends React.Component {
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}
+                    counts={this.props.counts}
                     switchTab={this.props.switchTab} />
                 <div className={loadingWrapper}>
                     <div

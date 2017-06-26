@@ -6,10 +6,12 @@
 import React from 'react';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
+import { formatNumber } from 'helpers/moneyFormatter';
 
 const propTypes = {
     label: React.PropTypes.string,
     internal: React.PropTypes.string,
+    count: React.PropTypes.number,
     active: React.PropTypes.bool,
     enabled: React.PropTypes.bool,
     switchTab: React.PropTypes.func
@@ -51,7 +53,14 @@ export default class ResultsTableTabItem extends React.Component {
                 onClick={this.clickedTab}
                 title={`Show ${this.props.label}`}
                 disabled={disabledStatus}>
-                {this.props.label}
+                <div className="tab-content">
+                    <div className="tab-label">
+                        {this.props.label}
+                    </div>
+                    <div className={`count-badge ${activeClass}`}>
+                        {formatNumber(this.props.count)}
+                    </div>
+                </div>
                 {comingSoon}
             </button>
         );
