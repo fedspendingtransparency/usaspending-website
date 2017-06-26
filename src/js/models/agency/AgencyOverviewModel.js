@@ -29,7 +29,7 @@ const remapData = (data) => {
         logo: 'agency_logo_url',
         activeFY: 'active_fy',
         budgetAuthority: 'budget_authority',
-        federalBudget: 'federal_budget_for_active_fiscal_year'
+        federalBudget: 'total_budget_authority_amount'
     };
 
     const remapFuncs = {

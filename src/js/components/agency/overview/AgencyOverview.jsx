@@ -5,6 +5,10 @@
 
 import React from 'react';
 
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+
+import HorizontalBarItem from '../visualizations/obligated/HorizontalBarItem';
+
 const propTypes = {
     agency: React.PropTypes.object
 };
@@ -22,6 +26,18 @@ export default class AgencyOverview extends React.Component {
             hideLogo = '';
             logo = (<img src={this.props.agency.logo} alt={this.props.agency.name} />);
         }
+
+        const budgetAuthority = MoneyFormatter.formatTreemapValues(
+            this.props.agency.budgetAuthority);
+        const percentage = MoneyFormatter.calculateTreemapPercentage(
+            this.props.agency.budgetAuthority, this.props.agency.federalBudget);
+        const percentageElement = (
+            <span className="authority-statement-percentage">{percentage}</span>
+        );
+
+        const visualizationWidth = 366;
+        const obligatedWidth = visualizationWidth * percentage;
+        const remainingWidth = visualizationWidth - obligatedWidth;
 
         return (
             <div
@@ -55,8 +71,31 @@ export default class AgencyOverview extends React.Component {
 
                         </div>
                     </div>
-                    <div className="budget-authority hide">
+                    <div className="budget-authority">
                         <h4>Budget Authority This Year (FY {this.props.agency.activeFY})</h4>
+                        <div className="authority-amount">
+                            {budgetAuthority}
+                        </div>
+                        <div className="authority-statement">
+                            This is {percentageElement} of the total United States
+                            federal budget for FY {this.props.agency.activeFY}.
+                        </div>
+                        <svg className="horizontal-bar">
+                            <g>
+                                <HorizontalBarItem
+                                    description="Budget Authority"
+                                    x={0}
+                                    y={0}
+                                    width={obligatedWidth}
+                                    color="#597785" />
+                                <HorizontalBarItem
+                                    description="Remaining United States federal budget"
+                                    x={obligatedWidth}
+                                    y={0}
+                                    width={remainingWidth}
+                                    color="#D8D8D8" />
+                            </g>
+                        </svg>
                     </div>
                 </div>
             </div>
