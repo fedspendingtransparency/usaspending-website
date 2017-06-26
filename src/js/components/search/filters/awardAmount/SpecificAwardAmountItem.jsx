@@ -12,7 +12,17 @@ const propTypes = {
     searchSpecificRange: React.PropTypes.func
 };
 
+const ga = require('react-ga');
+
 export default class SpecificAwardAmountItem extends React.Component {
+    static logAmountRangeEvent(range) {
+        ga.event({
+            category: 'Search Page Filter Applied',
+            action: `Applied Award Amount Range Filter`,
+            label: range
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -55,6 +65,10 @@ export default class SpecificAwardAmountItem extends React.Component {
         });
 
         this.props.searchSpecificRange([min, max]);
+
+        // Analytics
+        const formattedRange = AwardAmountHelper.formatAwardAmountRange([min, max]);
+        SpecificAwardAmountItem.logAmountRangeEvent(formattedRange);
     }
 
     render() {

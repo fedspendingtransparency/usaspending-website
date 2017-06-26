@@ -18,7 +18,26 @@ const propTypes = {
     updateSelectedObjectClasses: React.PropTypes.func
 };
 
+
+const ga = require('react-ga');
+
 export class BudgetCategorySearchContainer extends React.Component {
+    static logBudgetFunctionFilterEvent(type) {
+        ga.event({
+            category: 'Search Page Filter Applied',
+            action: `Applied Budget Function Filter`,
+            label: type
+        });
+    }
+
+    static logFederalAccountFilterEvent(type) {
+        ga.event({
+            category: 'Search Page Filter Applied',
+            action: `Applied Federal Account Filter`,
+            label: type
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -30,10 +49,16 @@ export class BudgetCategorySearchContainer extends React.Component {
 
     updateBudgetFunctions(budgetFunction) {
         this.props.updateSelectedBudgetFunctions(budgetFunction);
+
+        // Analytics
+        BudgetCategorySearchContainer.logBudgetFunctionFilterEvent(budgetFunction.title);
     }
 
     updateFederalAccounts(federalAccount) {
         this.props.updateSelectedFederalAccounts(federalAccount);
+
+        // Analytics
+        BudgetCategorySearchContainer.logFederalAccountFilterEvent(federalAccount.federal_account_code);
     }
 
     updateObjectClasses(objectClassEvent) {
