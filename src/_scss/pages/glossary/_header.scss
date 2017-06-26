@@ -1,0 +1,51 @@
+.glossary-header {
+    width: 100%;
+    min-height: 200px;
+
+    padding: 20px;
+
+    background-color: $color-primary-darkest;
+
+    @include clearfix();
+
+    .close-button {
+        @include button-unstyled;
+        width: 30px;
+        height: 30px;
+
+        position: relative;
+        float: right;
+
+        svg {
+            position: absolute;
+            top: 7px;
+            left: 7px;
+
+            width: 17px;
+            height: 17px;
+
+            fill: $color-white;
+        }
+
+        &:hover, &:active {
+            svg {
+                fill: $color-gold;
+            }
+        }
+    }
+
+    h1.glossary-title {
+        font-weight: 300;
+        font-size: rem(38);
+        line-height: rem(47);
+
+        margin: 0;
+        padding: 0;
+    }
+
+    .glossary-example {
+        font-style: italic;
+    }
+
+    @import "./_searchBar";
+}

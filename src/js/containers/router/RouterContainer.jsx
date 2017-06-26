@@ -6,7 +6,7 @@
 import React from 'react';
 import kGlobalConstants from 'GlobalConstants';
 
-import GuideListenerSingleton from './GuideListenerSingleton';
+import GlossaryListenerSingleton from './GlossaryListenerSingleton';
 import Router from './Router';
 
 const ga = require('react-ga');
@@ -76,7 +76,7 @@ export default class RouterContainer extends React.Component {
             });
         }
 
-        GuideListenerSingleton.updateGuideValue(Router.state.query);
+        GlossaryListenerSingleton.updateGlossaryValue(Router.state.query);
     }
 
     navigateToComponent(component, route) {

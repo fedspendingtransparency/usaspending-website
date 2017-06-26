@@ -5,15 +5,15 @@
 
 import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
-import GuideButtonWrapperContainer from 'containers/guide/GuideButtonWrapperContainer';
-import FloatingGuideButton from './FloatingGuideButton';
+import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
+import FloatingGlossaryButton from './FloatingGlossaryButton';
 
 export default class Footer extends React.Component {
     render() {
         const year = new Date().getFullYear();
         return (
             <div>
-                <GuideButtonWrapperContainer child={FloatingGuideButton} />
+                <GlossaryButtonWrapperContainer child={FloatingGlossaryButton} />
                 <footer className="footer-outer-wrap" role="contentinfo">
                     <div className="footer-container">
                         <div className="footerLogo">
