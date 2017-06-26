@@ -25,6 +25,19 @@ const propTypes = {
     clickTab: React.PropTypes.func
 };
 
+const tabs = [
+    {
+        label: 'Transaction History',
+        internal: 'transaction',
+        enabled: true
+    },
+    {
+        label: 'Financial System Details',
+        internal: 'financial',
+        enabled: true
+    }
+];
+
 export default class DetailsSection extends React.Component {
     constructor(props) {
         super(props);
@@ -97,19 +110,6 @@ export default class DetailsSection extends React.Component {
 
     render() {
         const content = this.currentSection();
-
-        const tabs = [
-            {
-                label: 'Transaction History',
-                internal: 'transaction',
-                enabled: true
-            },
-            {
-                label: 'Financial System Details',
-                internal: 'financial',
-                enabled: true
-            }
-        ];
 
         if (this.props.award.selectedAward.internal_general_type === 'contract') {
             tabs.push({

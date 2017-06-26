@@ -18,7 +18,7 @@ export default class DetailsTabBar extends React.Component {
         const tabs = this.props.tabOptions.map((tab) => (
             <DetailsTabItem
                 {...tab}
-                active={tab.code === this.props.activeTab}
+                active={tab.internal === this.props.activeTab}
                 clickTab={this.props.clickTab}
                 key={tab.internal} />));
 
