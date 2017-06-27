@@ -21,10 +21,10 @@ export default class BudgetSubfunctionsDescription extends React.Component {
 
         let greatThanOneHundredDescription = null;
         if (this.props.subfunctionTotal > this.props.category.value) {
-            greatThanOneHundredDescription = (<p>Note: The subcategories of spending below add up
-                to more than 100%. This is because this budget function includes both spending and
-                income. The income offsets the spending, but cannot be displayed on this type of
-                graph.
+            greatThanOneHundredDescription = (<p><em><strong>Note:</strong> The subcategories of
+                spending below add up to more than 100%. This is because this budget function
+                includes both spending and income. The income offsets the spending, but
+                cannot be displayed on this type of graph.</em>
             </p>);
         }
 
