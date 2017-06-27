@@ -97,16 +97,18 @@ export default class ResultsTableSection extends React.Component {
                     </button>
                 </div>
                 <hr className="results-divider" />
-                <ResultsSelectColumns
-                    columns={this.props.columns}
-                    hiddenColumns={this.props.hiddenColumns}
-                    toggleColumnVisibility={this.props.toggleColumnVisibility}
-                    reorderColumns={this.props.reorderColumns} />
+                <div className="results-dropdown-picker-wrapper">
+                    <ResultsTablePicker
+                        types={this.props.tableTypes}
+                        active={this.props.currentType}
+                        switchTab={this.props.switchTab} />
+                    <ResultsSelectColumns
+                        columns={this.props.columns}
+                        hiddenColumns={this.props.hiddenColumns}
+                        toggleColumnVisibility={this.props.toggleColumnVisibility}
+                        reorderColumns={this.props.reorderColumns} />
+                </div>
                 <ResultsTableTabs
-                    types={this.props.tableTypes}
-                    active={this.props.currentType}
-                    switchTab={this.props.switchTab} />
-                <ResultsTablePicker
                     types={this.props.tableTypes}
                     active={this.props.currentType}
                     switchTab={this.props.switchTab} />

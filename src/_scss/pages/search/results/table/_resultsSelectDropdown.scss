@@ -1,4 +1,5 @@
 .results-select-columns-dropdown {
+    right: rem(-25);
     border-top: solid 1px $color-gray-light;
     position: absolute;
     z-index: 2;
@@ -7,10 +8,13 @@
     border-bottom: solid 1px $color-gray-light;
     font-size: $small-font-size;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-    width: rem(320);
+    width: rem(220);
     overflow-y: scroll;
     max-height: rem(530);
-    right: rem(35);
+    @include media($tablet-screen) {
+        right: 0;
+        width: rem(320);
+    }
     .results-select-columns-header:first-of-type {
         border-top: none;
     }

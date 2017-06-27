@@ -1,9 +1,12 @@
 @import "../../../../elements/_titleSelector";
 .field-picker {
-  float: none;
+  float: left;
   clear: both;
   @include media($tablet-screen) {
     display: none;
+  }
+  .field-list {
+    width: rem(220);
   }
   button.table-type-toggle.coming-soon {
     .coming-soon-container {
