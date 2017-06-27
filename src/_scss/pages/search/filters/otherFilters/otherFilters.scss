@@ -1,0 +1,22 @@
+.other-filters {
+    @import "elements/filters/_errorMessage";
+    @import "elements/filters/_typeahead";
+    @import "elements/filters/_selectedFilterBtn";
+    @import "mixins/selectedFilterWrap";
+    .selected-filters {
+        @include selected-filter-wrap;
+    }
+    .contract-filter {
+        padding-left: rem(30);
+        p.sub-head {
+            border-bottom: rem(1) solid #E1E2E3;
+            font-size: $small-font-size;
+            font-weight: $font-semibold;
+            margin: 0 ($global-mrg * 2) $global-mrg 0;
+            padding: 0 0 rem(6);
+        }
+        .filter-item-wrap {
+            padding-left: 0 !important;
+        }
+    }
+}

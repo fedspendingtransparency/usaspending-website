@@ -24,7 +24,10 @@ export const awardFields = {
     objectClass: 'financial_set__object_class__major_object_class',
     budgetFunctionTitle: 'financial_set__treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'financial_set__treasury_account__budget_subfunction_title',
-    federalAccount: 'financial_set__treasury_account__federal_account'
+    federalAccount: 'financial_set__treasury_account__federal_account',
+    pricingType: 'latest_transaction__contract_data__type_of_contract_pricing',
+    setAside: 'latest_transaction__contract_data__type_set_aside',
+    extentCompeted: 'latest_transaction__contract_data__extent_competed'
 };
 
 export const tasCategoriesFields = {

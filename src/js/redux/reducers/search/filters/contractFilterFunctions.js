@@ -1,17 +1,17 @@
 /**
- * Created by michaelbray on 3/21/17.
+ * Created by Emily Gullo on 6/23/2017
  */
 
 export const updatePricingType = (state, value) => {
     let updatedSet = state;
 
-    const identifier = `${value.title}`;
+    const identifier = value.value;
 
     if (updatedSet.has(identifier)) {
         updatedSet = updatedSet.delete(identifier);
     }
     else {
-        updatedSet = updatedSet.set(identifier, value);
+        updatedSet = updatedSet.add(identifier);
     }
 
     return updatedSet;
@@ -20,13 +20,13 @@ export const updatePricingType = (state, value) => {
 export const updateSetAside = (state, value) => {
     let updatedSet = state;
 
-    const identifier = `${value.title}`;
+    const identifier = value.value;
 
     if (updatedSet.has(identifier)) {
         updatedSet = updatedSet.delete(identifier);
     }
     else {
-        updatedSet = updatedSet.set(identifier, value);
+        updatedSet = updatedSet.add(identifier);
     }
 
     return updatedSet;
@@ -35,13 +35,13 @@ export const updateSetAside = (state, value) => {
 export const updateExtentCompeted = (state, value) => {
     let updatedSet = state;
 
-    const identifier = `${value.title}`;
+    const identifier = value.value;
 
-    if (updatedSet.has(identifier)) {
+    if (updatedSet.has(value.value)) {
         updatedSet = updatedSet.delete(identifier);
     }
     else {
-        updatedSet = updatedSet.set(identifier, value);
+        updatedSet = updatedSet.add(identifier);
     }
 
     return updatedSet;

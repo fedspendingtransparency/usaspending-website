@@ -16,6 +16,9 @@ import RecipientTypeFilterGroup from './RecipientTypeFilterGroup';
 import KeywordFilterGroup from './KeywordFilterGroup';
 import AwardIDFilterGroup from './AwardIDFilterGroup';
 import AwardAmountFilterGroup from './AwardAmountFilterGroup';
+import PricingTypeFilterGroup from './PricingTypeFilterGroup';
+import SetAsideFilterGroup from './SetAsideFilterGroup';
+import ExtentCompetedFilterGroup from './ExtentCompetedFilterGroup';
 
 export const topFilterGroupGenerator = (config = {
     filter: {
@@ -60,6 +63,12 @@ export const topFilterGroupGenerator = (config = {
             return (<AwardIDFilterGroup key={groupKey} {...config} />);
         case 'awardAmounts':
             return (<AwardAmountFilterGroup key={groupKey} {...config} />);
+        case 'pricingType':
+            return (<PricingTypeFilterGroup key={groupKey} {...config} />);
+        case 'setAside':
+            return (<SetAsideFilterGroup key={groupKey} {...config} />);
+        case 'extentCompeted':
+            return (<ExtentCompetedFilterGroup key={groupKey} {...config} />);
         default:
             return null;
     }

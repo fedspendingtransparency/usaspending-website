@@ -1,6 +1,6 @@
 /**
  * contractFields.js
- * Created by Emily Gullo on 6/22/17.
+ * Created by Emily Gullo on 6/22/17
  */
 
  /* eslint-disable quote-props */
@@ -51,7 +51,7 @@ export const setAsideDefinitions = {
 };
 
 export const extentCompetedDefinitions = {
-    'F ': 'Competed under SAP',
+    'F': 'Competed under SAP',
     'CDOCiv': 'Competitive Delivery Order',
     'E Civ': 'Follow On to Competed Action',
     'A': 'Full and Open Competition',
@@ -64,37 +64,59 @@ export const extentCompetedDefinitions = {
 
 export const contractFilterGroups = {
     pricing_type: [
-        '111',
-        '113',
-        '115',
-        '116',
-        '117',
-        '118',
-        '121',
-        '122',
-        '130'
+        '2',
+        'S',
+        'R',
+        'U',
+        'V',
+        'T',
+        'J',
+        'M',
+        'L',
+        'B',
+        'A',
+        'K',
+        'Z',
+        '1',
+        '3',
+        'Y'
     ],
     set_aside: [
-        '210',
-        '220',
-        '231',
-        '232',
-        '233',
-        '240',
-        '251',
-        '252',
-        '253',
-        '254',
-        '255',
-        '256',
-        '257',
-        '258',
-        '260'
+        '8AN',
+        'HS3',
+        '8A',
+        'BICiv',
+        'HS2Civ',
+        'EDWOSB',
+        'ESB',
+        'HMP',
+        'HMT',
+        'HZC',
+        'HZS',
+        'ISEE',
+        'ISBEE',
+        'NONE',
+        'RSBCiv',
+        '8ACCiv',
+        'SDVOSBS',
+        'SDVOSBC',
+        'SBP',
+        'SBA',
+        'VSBCiv',
+        'VSA',
+        'VSS',
+        'WOSB'
     ],
     extent_competed: [
-        '310',
-        '320',
-        '330'
+        'F',
+        'CDOCiv',
+        'E Civ',
+        'A',
+        'D',
+        'NDOCiv',
+        'B',
+        'C',
+        'G'
     ]
 };
 

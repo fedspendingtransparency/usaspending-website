@@ -13,6 +13,7 @@ import * as RecipientQuery from './queryBuilders/RecipientQuery';
 import * as KeywordQuery from './queryBuilders/KeywordQuery';
 import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
 import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
+import * as ContractFilterQuery from './queryBuilders/ContractFilterQuery';
 
 class SearchOperation {
     constructor() {
@@ -44,6 +45,10 @@ class SearchOperation {
         this.selectedAwardIDs = [];
 
         this.awardAmounts = [];
+
+        this.pricingType = [];
+        this.setAside = [];
+        this.extentCompeted = [];
 
         this.searchContext = 'award';
     }
@@ -77,6 +82,10 @@ class SearchOperation {
         this.selectedAwardIDs = state.selectedAwardIDs.toArray();
 
         this.awardAmounts = state.awardAmounts.toArray();
+
+        this.pricingType = state.pricingType.toArray();
+        this.setAside = state.setAside.toArray();
+        this.extentCompeted = state.extentCompeted.toArray();
     }
 
     commonParams() {
@@ -150,6 +159,21 @@ class SearchOperation {
             if (awardAmountsQuery) {
                 filters.push(awardAmountsQuery);
             }
+        }
+
+        // Add Pricing Type Queries
+        if (this.pricingType.length > 0) {
+            filters.push(ContractFilterQuery.buildPricingTypeQuery(this.pricingType));
+        }
+
+        // Add Set Aside Queries
+        if (this.setAside.length > 0) {
+            filters.push(ContractFilterQuery.buildSetAsideQuery(this.setAside));
+        }
+
+        // Add Extent Competed Queries
+        if (this.extentCompeted.length > 0) {
+            filters.push(ContractFilterQuery.buildExtentCompetedQuery(this.extentCompeted));
         }
 
         return filters;

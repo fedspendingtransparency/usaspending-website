@@ -125,6 +125,24 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(awardAmounts);
         }
 
+        // prepare Pricing Type filters
+        const pricingTypes = this.preparePricingType(props);
+        if (pricingTypes) {
+            filters.push(pricingTypes);
+        }
+
+        // prepare Set Aside filters
+        const setAside = this.prepareSetAside(props);
+        if (setAside) {
+            filters.push(setAside);
+        }
+
+        // prepare Extent Competed filters
+        const extentCompeted = this.preparedExtentCompeted(props);
+        if (extentCompeted) {
+            filters.push(extentCompeted);
+        }
+
         this.setState({
             filters
         });
@@ -496,6 +514,66 @@ export class TopFilterBarContainer extends React.Component {
         if (selected) {
             filter.code = 'awardAmounts';
             filter.name = 'Award Amounts';
+            return filter;
+        }
+        return null;
+    }
+
+    preparePricingType(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.pricingType.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.pricingType.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'pricingType';
+            filter.name = 'Pricing Type';
+            return filter;
+        }
+        return null;
+    }
+
+    prepareSetAside(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.setAside.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.setAside.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'setAside';
+            filter.name = 'Set Aside';
+            return filter;
+        }
+        return null;
+    }
+
+    preparedExtentCompeted(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.extentCompeted.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.extentCompeted.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'extentCompeted';
+            filter.name = 'Extent Competed';
             return filter;
         }
         return null;
