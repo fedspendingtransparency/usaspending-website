@@ -6,6 +6,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import { Set } from 'immutable';
+
 import * as BudgetCategoryHelper from 'helpers/budgetCategoryHelper';
 import * as ObjectClasses from 'dataMapping/search/budgetCategory';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
@@ -21,6 +23,24 @@ export default class BudgetCategoryFilterGroup extends React.Component {
 
         this.removeFilter = this.removeFilter.bind(this);
         this.clearGroup = this.clearGroup.bind(this);
+        this.removeGroup = this.removeGroup.bind(this);
+    }
+
+    removeGroup(value) {
+        // remove a group of filter items
+        // let's actually fake the removal by just overwriting the the filter value with everything
+        // except for the values in the specified group
+
+        let updatedValues = new Set(_.toArray(this.props.filter.values));
+
+        // remove the current group's values
+        const objectValues = ObjectClasses.objectClassDefinitionsGroups[value];
+        updatedValues = updatedValues.filterNot((x) => _.indexOf(objectValues, x) > -1);
+
+        this.props.redux.updateGenericFilter({
+            type: 'objectClasses',
+            value: updatedValues
+        });
     }
 
     removeFilter(value) {

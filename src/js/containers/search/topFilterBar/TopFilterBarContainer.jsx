@@ -17,7 +17,8 @@ import { topFilterGroupGenerator } from
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object
+    reduxFilters: React.PropTypes.object,
+    updateFilterCount: React.PropTypes.func
 };
 
 export class TopFilterBarContainer extends React.Component {
@@ -25,7 +26,8 @@ export class TopFilterBarContainer extends React.Component {
         super(props);
 
         this.state = {
-            filters: []
+            filters: [],
+            filterCount: 0
         };
     }
 
@@ -126,7 +128,10 @@ export class TopFilterBarContainer extends React.Component {
         }
 
         this.setState({
-            filters
+            filters,
+            filterCount: this.determineFilterCount(filters)
+        }, () => {
+            this.props.updateFilterCount(this.state.filterCount);
         });
     }
 
@@ -501,12 +506,33 @@ export class TopFilterBarContainer extends React.Component {
         return null;
     }
 
+    /**
+     * Determine the current number of filters that have been applied
+     */
+    determineFilterCount(filters) {
+        let filterCount = 0;
+        filters.forEach((filter) => {
+            if (typeof filter.values === "string") {
+                filterCount += 1;
+            }
+            else if (filter.values instanceof Array) {
+                filterCount += filter.values.length;
+            }
+            else {
+                filterCount += Object.keys(filter.values).length;
+            }
+        });
+
+        return filterCount;
+    }
+
     render() {
         let output = null;
         if (this.state.filters.length > 0) {
             output = (<TopFilterBar
                 {...this.props}
                 filters={this.state.filters}
+                filterCount={this.state.filterCount}
                 groupGenerator={topFilterGroupGenerator} />);
         }
 

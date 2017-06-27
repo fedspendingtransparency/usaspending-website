@@ -21,6 +21,7 @@ export default class SearchHeader extends React.Component {
         if (this.props.isSticky) {
             stickyClass = ' sticky';
         }
+
         return (
             <div
                 className={`search-header-wrapper${stickyClass}`}
@@ -30,7 +31,7 @@ export default class SearchHeader extends React.Component {
                 }}>
                 <div className="search-header">
                     <div className="search-title">
-                        <h1>Search &amp; Download Your Data</h1>
+                        <h1>Search &amp; Download Data</h1>
                     </div>
                     <div className="search-options">
                         <ul className="search-formats">

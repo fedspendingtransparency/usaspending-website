@@ -1,0 +1,36 @@
+.glossary-search-bar {
+    position: relative;
+    width: 250px;
+    height: 34px;
+
+    margin: 15px 0;
+
+    input.search-field {
+        position: absolute;
+        left: 0;
+
+        font-size: 14px;
+        line-height: 17px;
+        color: $color-base;
+
+        padding: 10px;
+        padding-right: 25px;
+
+        width: 250px;
+        height: 34px;
+    }
+
+    .search-button {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+
+        @include button-unstyled;
+        width: 14px;
+        height: 14px;
+
+        svg {
+            fill: $color-gray;
+        }
+    }
+}

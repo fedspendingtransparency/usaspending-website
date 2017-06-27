@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import _ from 'lodash';
+import { throttle } from 'lodash';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
@@ -15,6 +15,10 @@ import SearchHeader from './header/SearchHeader';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 
+const propTypes = {
+    clearAllFilters: React.PropTypes.func
+};
+
 export default class SearchPage extends React.Component {
     constructor(props) {
         super(props);
@@ -23,20 +27,28 @@ export default class SearchPage extends React.Component {
 
         this.state = {
             currentSection: this.sections[0],
-            stickyHeader: false
+            stickyHeader: false,
+            showMobileFilters: false,
+            filterCount: 0,
+            isMobile: false
         };
 
         // also track the window size, but track it outside of state to avoid re-renders
         this.windowWidth = window.innerWidth;
 
         // throttle the ocurrences of the scroll callback to once every 50ms
-        this.handlePageScroll = _.throttle(this.handlePageScroll.bind(this), 50);
+        this.handlePageScroll = throttle(this.handlePageScroll.bind(this), 50);
+
+        this.updateFilterCount = this.updateFilterCount.bind(this);
+        this.toggleMobileFilters = this.toggleMobileFilters.bind(this);
     }
 
     componentDidMount() {
         // watch the page for scroll and resize events
         window.addEventListener('scroll', this.handlePageScroll);
         window.addEventListener('resize', this.handlePageScroll);
+
+        this.handleWindowResize();
     }
 
     componentWillUnmount() {
@@ -48,6 +60,20 @@ export default class SearchPage extends React.Component {
     handlePageScroll() {
         this.manageHeaders();
         this.highlightSection();
+        this.handleWindowResize();
+    }
+
+    handleWindowResize() {
+        if (window.innerWidth < 768 && !this.state.isMobile) {
+            this.setState({
+                isMobile: true
+            });
+        }
+        else if (window.innerWidth >= 768 && this.state.isMobile) {
+            this.setState({
+                isMobile: false
+            });
+        }
     }
 
     /**
@@ -55,6 +81,11 @@ export default class SearchPage extends React.Component {
      * determine if they should be stickied or unstickied.
      */
     manageHeaders() {
+        // don't do anything on mobile
+        if (this.state.isMobile) {
+            return;
+        }
+
         // don't do anything if there's not enough content to have a fixed header based on the
         // current window size
         const windowHeight = window.innerHeight;
@@ -165,7 +196,33 @@ export default class SearchPage extends React.Component {
         }
     }
 
+    /**
+     * Use the top filter bar container's internal filter parsing to track the current number of
+     * filters applied
+     */
+
+    updateFilterCount(count) {
+        this.setState({
+            filterCount: count
+        });
+    }
+
+    /**
+     * Toggle whether or not to show the mobile filter view
+     */
+
+    toggleMobileFilters() {
+        this.setState({
+            showMobileFilters: !this.state.showMobileFilters
+        });
+    }
+
     render() {
+        let fullSidebar = (<SearchSidebar />);
+        if (this.state.isMobile) {
+            fullSidebar = null;
+        }
+
         return (
             <div
                 className="usa-da-search-page"
@@ -187,8 +244,16 @@ export default class SearchPage extends React.Component {
                             this.searchHeader = component;
                         }} />
                     <div className="search-contents">
-                        <SearchSidebar />
-                        <SearchResults />
+                        <div className="full-search-sidebar">
+                            { fullSidebar }
+                        </div>
+                        <SearchResults
+                            isMobile={this.state.isMobile}
+                            filterCount={this.state.filterCount}
+                            showMobileFilters={this.state.showMobileFilters}
+                            updateFilterCount={this.updateFilterCount}
+                            toggleMobileFilters={this.toggleMobileFilters}
+                            clearAllFilters={this.props.clearAllFilters} />
                     </div>
                 </main>
                 <Footer />
@@ -197,3 +262,5 @@ export default class SearchPage extends React.Component {
     }
 
 }
+
+SearchPage.propTypes = propTypes;
