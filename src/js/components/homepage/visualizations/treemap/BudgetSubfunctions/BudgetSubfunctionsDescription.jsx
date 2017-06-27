@@ -19,7 +19,6 @@ export default class BudgetSubfunctionsDescription extends React.Component {
         const value = this.props.category.value;
         const totalSpend = MoneyFormatter.formatTreemapValues(value);
         const percentage = MoneyFormatter.calculateTreemapPercentage(value, this.props.totalNumber);
-        
         let subject = "subcategories";
         let verb = "add up to";
 
