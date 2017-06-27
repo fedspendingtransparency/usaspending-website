@@ -1,0 +1,46 @@
+// slide in animation
+.mobile-filter-enter, .mobile-filter-enter-active {
+    @keyframes mobileFilterSlideIn {
+        0% {
+            transform: scale(1,0);
+            transform-origin: left top;
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1,1);
+            transform-origin: left top;
+            opacity: 1;
+        }
+    }
+
+    position: absolute;
+    width: 100%;
+    left: 0;
+    padding: 0 rem(20);
+
+    @include animation(mobileFilterSlideIn 0.195s ease-in forwards);
+}
+
+.mobile-filter-leave, .mobile-filter-leave-active {
+    @keyframes mobileFilterSlideOut {
+        0% {
+            transform: scale(1,1);
+            transform-origin: left top;
+            max-height: 100%;
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1,0);
+            transform-origin: left top;
+            opacity: 0;
+            max-height: 0%;
+        }
+    }
+
+    position: absolute;
+    width: 100%;
+    left: 0;
+    padding: 0 rem(20);
+
+    @include animation(mobileFilterSlideOut 0.195s ease-in forwards);
+}
