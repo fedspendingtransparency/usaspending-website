@@ -59,11 +59,15 @@ export default class BudgetSubfunctions extends React.Component {
 
     render() {
         let subfunctionTotal = 0;
+        let numberOfSubfunctions = 0;
 
         // If a category is selected, sum the positive subfunction values
         if (this.state.category.value) {
             const positiveSubfunctions = this.state.subfunction;
             _.remove(positiveSubfunctions.children, (v) => v.value <= 0);
+
+            // Count subfunctions
+            numberOfSubfunctions = positiveSubfunctions.children.length;
 
             // Remove JS rounding issues
             subfunctionTotal = parseFloat(
@@ -79,7 +83,8 @@ export default class BudgetSubfunctions extends React.Component {
                 <BudgetSubfunctionsDescription
                     {...this.props}
                     {...this.state}
-                    subfunctionTotal={subfunctionTotal} />
+                    subfunctionTotal={subfunctionTotal}
+                    numberOfSubfunctions={numberOfSubfunctions} />
                 <BudgetSubfunctionsMap
                     {...this.props}
                     {...this.state} />

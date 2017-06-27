@@ -10,7 +10,8 @@ const propTypes = {
     category: React.PropTypes.object,
     description: React.PropTypes.object,
     totalNumber: React.PropTypes.number,
-    subfunctionTotal: React.PropTypes.number
+    subfunctionTotal: React.PropTypes.number,
+    numberOfSubfunctions: React.PropTypes.number
 };
 
 export default class BudgetSubfunctionsDescription extends React.Component {
@@ -18,11 +19,19 @@ export default class BudgetSubfunctionsDescription extends React.Component {
         const value = this.props.category.value;
         const totalSpend = MoneyFormatter.formatTreemapValues(value);
         const percentage = MoneyFormatter.calculateTreemapPercentage(value, this.props.totalNumber);
+        
+        let subject = "subcategories";
+        let verb = "add up to";
+
+        if (this.props.numberOfSubfunctions === 1) {
+            subject = "subcategory";
+            verb = "is";
+        }
 
         let greatThanOneHundredDescription = null;
         if (this.props.subfunctionTotal > this.props.category.value) {
-            greatThanOneHundredDescription = (<p><em><strong>Note:</strong> The subcategories of
-                spending below add up to more than 100%. This is because this budget function
+            greatThanOneHundredDescription = (<p><em><strong>Note:</strong> The {subject} of
+                spending below {verb} more than 100%. This is because this budget function
                 includes both spending and income. The income offsets the spending, but
                 cannot be displayed on this type of graph.</em>
             </p>);
