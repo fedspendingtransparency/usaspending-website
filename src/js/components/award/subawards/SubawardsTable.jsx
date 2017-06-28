@@ -4,7 +4,8 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+
+import { measureTableHeader } from 'helpers/textMeasurement';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import SubawardsHeaderCellContainer from
@@ -82,18 +83,19 @@ export default class SubawardsTable extends React.Component {
         const columns = subawardFields.table._order.map((column, i) => {
             const isLast = i === subawardFields.table._order.length - 1;
 
-            let columnWidth = subawardFields.columnWidths[column];
+            const displayName = subawardFields.table[column];
+            const calculatedWidth = measureTableHeader(displayName);
+            let columnWidth = Math.max(calculatedWidth, subawardFields.columnWidths[column]);
             if (isLast) {
                 // make it fill out the remainder of the width necessary
                 const remainingSpace = this.props.tableWidth - totalWidth;
 
-                columnWidth = _.max([remainingSpace, columnWidth]);
+                columnWidth = Math.max(remainingSpace, columnWidth);
             }
 
             totalWidth += columnWidth;
 
             const apiKey = subawardFields.table._mapping[column];
-            const displayName = subawardFields.table[column];
             const defaultSort = subawardFields.defaultSortDirection[column];
 
             return {

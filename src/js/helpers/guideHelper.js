@@ -12,7 +12,7 @@ export const fetchAllTerms = () => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'references/guide/?limit=500',
+            url: 'v1/references/guide/?limit=500',
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
@@ -27,7 +27,7 @@ export const fetchSearchResults = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'references/guide/autocomplete/',
+            url: 'v1/references/guide/autocomplete/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,

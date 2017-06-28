@@ -1,65 +1,63 @@
 .search-results-table-section {
-    padding: 3rem 3.5rem;
+    padding: rem(30) rem(35);
     transition: opacity 0.25s ease;
-    
+    position: relative;
     @import "_tableTypes";
     @import "_tableStyle";
     @import "_tableSelectColumns";
-
     .loading-table {
         opacity: 0.5;
         @include transition(opacity 0.25s ease-in);
     }
-
     .loaded-table {
         opacity: 1;
         @include transition(opacity 0.25s ease-in);
     }
-
     .results-table-width-master {
         width: 100%;
     }
-
     .results-table-message {
         margin-top: 1rem;
         font-size: $small-font-size;
         color: $color-base;
         text-align: center;
     }
-
     .table-section-header {
         @include display(flex);
         @include flex-direction(row);
         @include align-items(center);
         @include justify-content(center);
-
         h3 {
             @include flex(1 1 auto);
         }
-
         button.action-modal {
             @include flex(0 0 auto);
-
+            @include transition(all 0.25s $ease-in-out-sine);
             border: 1px solid $color-gray-lighter;
             background-color: $color-white;
-
-            width: 58px;
-            height: 28px;
+            width: rem(58);
+            height: rem(28);
             margin: 0;
-
             position: relative;
-
-            &:hover, &:active {
-                background-color: $color-gray-lightest;
-            }
-
-            svg {
+            cursor: pointer;
+            & svg {
                 position: absolute;
                 top: -3px;
-                left: 12px;
-                width: 33px;
-
-                fill: $color-base;
+                left: rem(12);
+                width: rem(33);
+                fill: $color-gray-light;
+            }
+            &:hover,
+            &:active {
+                @include transition(all 0.25s $ease-in-out-sine);
+                background-color: $color-gray-lightest;
+                border: 1px solid #D5D6D8;
+                cursor: pointer;
+                & svg {
+                    cursor: pointer;
+                    @include transition(all 0.25s $ease-in-out-sine);
+                    fill: $color-gray;
+                }
             }
         }
     }

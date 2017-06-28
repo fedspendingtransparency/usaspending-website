@@ -326,3 +326,11 @@ HandDrawnArrow.defaultProps = {
     iconClass: 'usa-da-hand-drawn-arrow',
     alt: 'Hand Drawn Arrow Pointing to the Next Section'
 };
+
+export class Refresh extends BaseIcon {}
+Refresh.defaultProps = {
+    iconName: 'usa-da-refresh',
+    iconClass: 'usa-da-refresh',
+    alt: 'Icon Depicting an Arrow Curved in the Shape of a Circle'
+};
+

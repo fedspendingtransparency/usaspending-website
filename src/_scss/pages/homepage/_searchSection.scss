@@ -4,8 +4,8 @@
         background-color: $color-primary-darkest;
         .search-section-links-wrap {
             @include fullSectionWrap(0, 0);
-            padding-bottom: rem(50);
-            padding-top: rem(150);
+            padding-bottom: rem(100);
+            padding-top: rem(100);
             text-align: center;
             .search-section-links-primary-text {
                 color: $color-white;

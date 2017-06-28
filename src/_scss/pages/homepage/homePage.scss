@@ -9,8 +9,8 @@
     @import "./byCategorySection";
 
     @import "../search/results/visualizations/visualizations";
-    @import "./mapTopBar";
-    @import "./mapSection";
+    @import "visualizations/geo/mapTopBar";
+    @import "visualizations/geo/mapSection";
 
     @import "./_searchSection";
     @include searchSection;

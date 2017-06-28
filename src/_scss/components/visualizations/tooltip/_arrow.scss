@@ -2,72 +2,73 @@
     width: 0;
     height: 0;
     position: absolute;
-    top: 12px;
-    left: -9px;
-
+    top: rem(12);
+    left: rem(-9);
     &:after {
         content: "";
         position: absolute;
-        width: 16px;
-        height: 16px;
-        background: $color-title-background;
+        width: rem(16);
+        height: rem(16);
+        background: #f0f0f0;
         border-bottom: 1px solid $color-tooltip-border;
         border-left: 1px solid $color-tooltip-border;
         transform: rotate(45deg);
-
         pointer-events: none;
     }
-
     &.right {
         left: auto;
-        right: 7px;
-
+        right: rem(7);
         &:after {
             transform: rotate(225deg);
         }
     }
-
+    &.top,
+    &.top-left,
+    &.top-right {
+        &:after {
+            background: #f0f0f0;
+        }
+    }
     &.top {
         left: calc(50% - 8px);
-        top: -9px;
-
+        top: rem(-9);
         &:after {
             transform: rotate(135deg);
+            background: #f0f0f0;
         }
     }
-
     &.top-left {
-        left: -9px;
-        top: 9px;
+        left: rem(-9);
+        top: rem(9);
         z-index: -1;
     }
-
     &.top-right {
-        right: 7px;
+        right: rem(7);
         left: auto;
-        top: 9px;
-
+        top: rem(9);
         &:after {
             transform: rotate(225deg);
         }
     }
-
+    &.bottom-left,
+    &.bottom-right {
+        &:after {
+            background: $color-white;
+        }
+    }
     &.bottom-left {
-        left: -9px;
+        left: rem(-9);
         top: calc(100% - 32px);
         z-index: -1;
-
         &:after {
             transform: rotate(45deg);
         }
     }
-
     &.bottom-right {
-        right: 7px;
+        right: rem(8);
         left: auto;
         top: calc(100% - 32px);
         z-index: -1;
-
         &:after {
             transform: rotate(225deg);
         }

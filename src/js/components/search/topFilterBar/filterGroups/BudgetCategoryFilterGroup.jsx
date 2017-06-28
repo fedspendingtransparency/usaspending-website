@@ -4,9 +4,10 @@
  */
 
 import React from 'react';
+import _ from 'lodash';
 
 import * as BudgetCategoryHelper from 'helpers/budgetCategoryHelper';
-import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
+import * as ObjectClasses from 'dataMapping/search/budgetCategory';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
@@ -46,12 +47,12 @@ export default class BudgetCategoryFilterGroup extends React.Component {
             case 'federalAccounts':
                 return {
                     value: `${val.id}`,
-                    title: BudgetCategoryHelper.formatFederalAccount(val)
+                    title: val.federal_account_code
                 };
             case 'objectClasses':
                 return {
                     value: val,
-                    title: objectClassDefinitions[val]
+                    title: ObjectClasses.objectClassDefinitions[val]
                 };
             default:
                 return {
@@ -63,6 +64,39 @@ export default class BudgetCategoryFilterGroup extends React.Component {
 
     generateTags() {
         const tags = [];
+
+        // check to see if any type groups are fully selected
+        const selectedValues = _.toArray(this.props.filter.values);
+        const fullGroups = [];
+        ObjectClasses.groupKeys.forEach((key) => {
+            const fullMembership = ObjectClasses.objectClassDefinitionsGroups[key];
+
+            // quick way of checking for full group membership is to return an array of missing
+            // values; it'll be empty if all the values are selected
+            const missingValues = _.difference(fullMembership, selectedValues);
+
+            if (missingValues.length === 0) {
+                // this group is complete
+                fullGroups.push(key);
+            }
+        });
+
+        // add full groups to the beginning of the tag list
+        let excludedValues = [];
+        fullGroups.forEach((group) => {
+            const tag = {
+                value: group,
+                title: `All ${ObjectClasses.groupLabels[group]}`,
+                isSpecial: true,
+                removeFilter: this.removeGroup
+            };
+
+            tags.push(tag);
+
+            // exclude these values from the remaining tags
+            excludedValues = _.concat(excludedValues,
+                ObjectClasses.objectClassDefinitionsGroups[group]);
+        });
 
         // Grab filter values
         let budgetCatgories = this.props.filter.values;
@@ -84,7 +118,13 @@ export default class BudgetCategoryFilterGroup extends React.Component {
                     removeFilter: this.removeFilter
                 };
 
-                tags.push(tag);
+                if (_.indexOf(excludedValues, value) < 0) {
+                    // only insert individual tags that aren't part of a fully-selected group
+                    // excluded values is an array of values that are already included in a
+                    // full group, so if this value isn't in that array, it can be shown
+                    // individually
+                    tags.push(tag);
+                }
             });
         }
 

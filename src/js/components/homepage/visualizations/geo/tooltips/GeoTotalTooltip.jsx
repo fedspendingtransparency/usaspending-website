@@ -81,10 +81,10 @@ export default class GeoTotalTooltip extends React.Component {
                     <div className="tooltip-body">
                         <div className="tooltip-left">
                             <div className="tooltip-value">
-                                {MoneyFormatter.formatMoney(this.props.value)}
+                                {MoneyFormatter.formatTreemapValues(this.props.value)}
                             </div>
                             <div className="tooltip-label">
-                                Spending in {stateName}
+                                Total Award Spending
                             </div>
                         </div>
                         <div className="tooltip-right">

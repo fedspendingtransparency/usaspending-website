@@ -9,6 +9,7 @@ import _ from 'lodash';
 import MapVisualization from './MapVisualization';
 import MapList from './MapList';
 import MapToggleList from './MapToggleList';
+import HomepageMapCitation from './HomepageMapCitation';
 
 const propTypes = {
     data: React.PropTypes.object
@@ -81,6 +82,7 @@ export default class MapVisualizationWrapper extends React.Component {
                     view={this.state.view}
                     changeView={this.changeView} />
                 {content}
+                <HomepageMapCitation />
             </div>
         );
     }

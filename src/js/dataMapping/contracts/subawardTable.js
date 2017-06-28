@@ -5,10 +5,10 @@
 
 const subawardFields = {
     columnWidths: {
-        id: 230,
+        id: 0,
         recipient: 400,
-        action_date: 200,
-        amount: 220,
+        action_date: 0,
+        amount: 0,
         description: 380
     },
     defaultSortDirection: {

@@ -66,6 +66,12 @@ export const updateSelectedObjectClasses = (state) => ({
     objectClass: state
 });
 
+export const bulkObjectClassesChange = (state) => ({
+    type: 'BULK_SEARCH_FILTER_OBJECT_CLASSES',
+    objectClasses: state.types,
+    direction: state.direction
+});
+
 // Agency Filter
 
 export const updateSelectedAwardingAgencies = (state) => ({

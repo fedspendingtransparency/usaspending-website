@@ -8,7 +8,7 @@ import React from 'react';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    agency: React.PropTypes.string,
+    label: React.PropTypes.string,
     value: React.PropTypes.number,
     y: React.PropTypes.number,
     x: React.PropTypes.number,
@@ -65,7 +65,7 @@ export default class RankVisualizationTooltip extends React.Component {
                             this.pointerDiv = div;
                         }} />
                     <div className="tooltip-title">
-                        {this.props.agency}
+                        {this.props.label}
                     </div>
                     <div className="tooltip-body">
                         <div className="tooltip-full">
@@ -73,7 +73,7 @@ export default class RankVisualizationTooltip extends React.Component {
                                 {MoneyFormatter.formatMoney(this.props.value)}
                             </div>
                             <div className="tooltip-label">
-                                Spending by {this.props.agency}
+                                Total Spending
                             </div>
                         </div>
                     </div>
