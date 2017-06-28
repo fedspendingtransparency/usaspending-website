@@ -35,6 +35,7 @@ const fields = [
     'recipient_city',
     'recipient_county',
     'recipient_state_province',
+    'recipient_province',
     'recipient_state_code',
     'recipient_zip_postal',
     'recipient_country',
@@ -42,6 +43,8 @@ const fields = [
     'pop_city',
     'parent_id',
     'pop_state_province',
+    'pop_state',
+    'pop_province',
     'pop_zip',
     'pop_country',
     'pop_country_code',
@@ -129,6 +132,7 @@ const remapData = (data, idField) => {
     let recipientCity = '';
     let recipientCounty = '';
     let recipientStateProvince = '';
+    let recipientProvince = '';
     let recipientStateCode = '';
     let recipientZipPostal = '';
     let recipientCountry = '';
@@ -140,6 +144,8 @@ const remapData = (data, idField) => {
     let popCounty = '';
     let popStateCode = '';
     let popStateProvince = '';
+    let popState = '';
+    let popProvince = '';
     let popZip = '';
     let popCongressionalDistrict = '';
     let popCountry = '';
@@ -253,6 +259,17 @@ const remapData = (data, idField) => {
         }
         else if (data.place_of_performance.foreign_province) {
             popStateProvince = data.place_of_performance.foreign_province;
+        }
+
+        if (data.place_of_performance.state_name) {
+            popState = data.place_of_performance.state_name;
+        }
+        else if (data.place_of_performance.state_code) {
+            popState = data.place_of_performance.state_code;
+        }
+
+        if (data.place_of_performance.foreign_province) {
+            popProvince = data.place_of_performance.foreign_province;
         }
 
         if (data.place_of_performance.zip5) {
@@ -441,6 +458,8 @@ const remapData = (data, idField) => {
     remappedData.funding_office_name = fundingOfficeName;
     remappedData.pop_city = popCity;
     remappedData.pop_state_province = popStateProvince;
+    remappedData.pop_state = popState;
+    remappedData.pop_province = popProvince;
     remappedData.pop_zip = popZip;
     remappedData.pop_country = popCountry;
     remappedData.pop_country_code = popCountryCode;
@@ -525,6 +544,9 @@ const remapData = (data, idField) => {
         if (data.recipient.location.address_line3) {
             recipientAddressLine3 = data.recipient.location.address_line3;
         }
+        if (data.recipient.location.foreign_province) {
+            recipientProvince = data.recipient.location.foreign_province;
+        }
         const loc = data.recipient.location;
 
         if (loc.city_name) {
@@ -588,6 +610,7 @@ const remapData = (data, idField) => {
     remappedData.recipient_city = recipientCity;
     remappedData.recipient_county = recipientCounty;
     remappedData.recipient_state_province = recipientStateProvince;
+    remappedData.recipient_province = recipientProvince;
     remappedData.recipient_state_code = recipientStateCode;
     remappedData.recipient_zip_postal = recipientZipPostal;
     remappedData.recipient_country = recipientCountry;
