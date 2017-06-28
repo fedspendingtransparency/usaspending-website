@@ -535,56 +535,59 @@ const remapData = (data, idField) => {
     if (data.recipient) {
         recipientName = data.recipient.recipient_name;
 
-        if (data.recipient.location.address_line1) {
-            recipientAddressLine1 = data.recipient.location.address_line1;
-        }
-        if (data.recipient.location.address_line2) {
-            recipientAddressLine2 = data.recipient.location.address_line2;
-        }
-        if (data.recipient.location.address_line3) {
-            recipientAddressLine3 = data.recipient.location.address_line3;
-        }
-        if (data.recipient.location.foreign_province) {
-            recipientProvince = data.recipient.location.foreign_province;
-        }
         const loc = data.recipient.location;
 
-        if (loc.city_name) {
-            recipientCity = loc.city_name;
-        }
+        if (loc) {
+            if (loc.address_line1) {
+                recipientAddressLine1 = loc.address_line1;
+            }
+            if (loc.address_line2) {
+                recipientAddressLine2 = loc.address_line2;
+            }
+            if (loc.address_line3) {
+                recipientAddressLine3 = loc.address_line3;
+            }
+            if (loc.foreign_province) {
+                recipientProvince = loc.foreign_province;
+            }
 
-        if (loc.county_name) {
-            recipientCounty = loc.county_name;
-        }
+            if (loc.city_name) {
+                recipientCity = loc.city_name;
+            }
 
-        if (loc.state_code) {
-            recipientStateProvince = loc.state_code;
-        }
-        else if (loc.foreign_province) {
-            recipientStateProvince = loc.foreign_province;
-        }
-        if (loc.state_code) {
-            recipientStateCode = loc.state_code;
-        }
-        if (loc.zip5) {
-            recipientZipPostal = loc.zip5;
-        }
-        else if (loc.zip4) {
-            recipientZipPostal = loc.zip4.slice(0, 5);
-        }
-        else if (loc.foreign_postal_code) {
-            recipientZipPostal = loc.foreign_postal_code;
-        }
+            if (loc.county_name) {
+                recipientCounty = loc.county_name;
+            }
 
-        if (loc.country_name) {
-            recipientCountry = loc.country_name;
-        }
-        if (loc.location_country_code) {
-            recipientCountryCode = loc.location_country_code;
-        }
+            if (loc.state_code) {
+                recipientStateProvince = loc.state_code;
+            }
+            else if (loc.foreign_province) {
+                recipientStateProvince = loc.foreign_province;
+            }
+            if (loc.state_code) {
+                recipientStateCode = loc.state_code;
+            }
+            if (loc.zip5) {
+                recipientZipPostal = loc.zip5;
+            }
+            else if (loc.zip4) {
+                recipientZipPostal = loc.zip4.slice(0, 5);
+            }
+            else if (loc.foreign_postal_code) {
+                recipientZipPostal = loc.foreign_postal_code;
+            }
 
-        if (loc.congressional_code) {
-            recipientCongressionalDistrict = loc.congressional_code;
+            if (loc.country_name) {
+                recipientCountry = loc.country_name;
+            }
+            if (loc.location_country_code) {
+                recipientCountryCode = loc.location_country_code;
+            }
+
+            if (loc.congressional_code) {
+                recipientCongressionalDistrict = loc.congressional_code;
+            }
         }
 
         if (data.recipient.recipient_unique_id) {

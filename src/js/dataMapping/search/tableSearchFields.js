@@ -155,24 +155,6 @@ const tableSearchFields = {
             'contract_purchase_card_as_payment_method',
             'contract_subcontracting_plan'
         ],
-        _requestFields: [
-            'id',
-            'fain',
-            'uri',
-            'piid',
-            'recipient',
-            'period_of_performance_start_date',
-            'period_of_performance_current_end_date',
-            'total_obligation',
-            'funding_agency',
-            'type_description',
-            'description',
-            'date_signed',
-            'potential_total_value_of_award',
-            'awarding_agency',
-            'place_of_performance',
-            'latest_transaction'
-        ],
         _mapping: {
             award_id: 'piid',
             recipient_name: 'recipient__recipient_name',
@@ -189,7 +171,7 @@ const tableSearchFields = {
             awarding_subtier_name: 'awarding_agency__subtier_agency__name',
             awarding_office_name: 'awarding_agency__office_agency__name',
             funding_office_name: 'funding_agency__office_agency__name',
-            recipient_address_line1: 'recipient__location__address_line2',
+            recipient_address_line1: 'recipient__location__address_line1',
             recipient_address_line2: 'recipient__location__address_line2',
             recipient_address_line3: 'recipient__location__address_line3',
             recipient_country: 'recipient__location__country_name',
@@ -340,19 +322,6 @@ const tableSearchFields = {
             'funding_agency_name',
             'funding_subtier_name'
         ],
-        _requestFields: [
-            'id',
-            'piid',
-            'fain',
-            'uri',
-            'recipient',
-            'period_of_performance_start_date',
-            'period_of_performance_current_end_date',
-            'total_obligation',
-            'type_description',
-            'awarding_agency',
-            'funding_agency'
-        ],
         _mapping: {
             award_id: 'fain',
             recipient_name: 'recipient__recipient_name',
@@ -389,19 +358,6 @@ const tableSearchFields = {
             'type',
             'funding_agency_name',
             'funding_subtier_name'
-        ],
-        _requestFields: [
-            'id',
-            'piid',
-            'fain',
-            'uri',
-            'recipient',
-            'period_of_performance_start_date',
-            'period_of_performance_current_end_date',
-            'total_obligation',
-            'type_description',
-            'awarding_agency',
-            'funding_agency'
         ],
         _mapping: {
             award_id: 'fain',
@@ -450,17 +406,6 @@ const tableSearchFields = {
             'funding_agency_name',
             'funding_subtier_name'
         ],
-        _requestFields: [
-            'id',
-            'piid',
-            'fain',
-            'uri',
-            'recipient',
-            'action_date',
-            'latest_transaction',
-            'awarding_agency',
-            'funding_agency'
-        ],
         _mapping: {
             award_id: 'fain',
             recipient_name: 'recipient__recipient_name',
@@ -495,19 +440,6 @@ const tableSearchFields = {
             'type',
             'funding_agency_name',
             'funding_subtier_name'
-        ],
-        _requestFields: [
-            'id',
-            'piid',
-            'fain',
-            'uri',
-            'recipient',
-            'period_of_performance_start_date',
-            'period_of_performance_current_end_date',
-            'total_obligation',
-            'type_description',
-            'awarding_agency',
-            'funding_agency'
         ],
         _mapping: {
             award_id: 'fain',

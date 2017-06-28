@@ -281,16 +281,7 @@ export class ResultsTableContainer extends React.Component {
 
         columnVisibility.visibleColumns.forEach((col) => {
             const field = mapping[col];
-            let requestField = field;
-            if (field.includes('__')) {
-                // If it is a nested field, request the top level object
-                const nestedFields = field.split('__');
-                requestField = nestedFields[0];
-            }
-            if (!requestFields.includes(requestField)) {
-                // Prevent duplicates in the list of fields to request
-                requestFields.push(requestField);
-            }
+            requestFields.push(field);
         });
 
         this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(),
