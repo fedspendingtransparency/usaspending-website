@@ -24,7 +24,10 @@ export const defaultFilters = {
     recipientType: new Set(),
     selectedRecipientLocations: new OrderedMap(),
     selectedAwardIDs: new OrderedMap(),
-    awardAmounts: new OrderedMap()
+    awardAmounts: new OrderedMap(),
+    pricingType: new Set(),
+    setAside: new Set(),
+    extentCompeted: new Set()
 };
 
 export const defaultResultsMeta = {

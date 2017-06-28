@@ -26,7 +26,10 @@ export const mockFilters = {
             recipientDomesticForeign: "all",
             selectedRecipientLocations: {},
             awardAmounts: {},
-            timePeriodEnd: null
+            timePeriodEnd: null,
+            pricingType: [],
+            setAside: [],
+            extentCompeted: []
         }
     }
 };

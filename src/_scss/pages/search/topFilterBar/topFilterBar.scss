@@ -1,4 +1,9 @@
 .search-top-filter-bar {
+    display: none;
+    @include media($tablet-screen) {
+        display: block;
+    }
+
     $top-background-color: #DDDDDD;
     $top-text-color: #4A4A4A;
     $top-item-border-color: #CACACA;

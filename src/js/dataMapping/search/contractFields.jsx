@@ -127,8 +127,8 @@ export const groupKeys = [
 ];
 
 export const groupLabels = {
-    pricing_type: 'Pricing Types',
-    set_aside: 'Set-Aside',
+    pricing_type: 'Type of Contract Pricing',
+    set_aside: 'Set-Aside Type',
     extent_competed: 'Extent Competed'
 };
 

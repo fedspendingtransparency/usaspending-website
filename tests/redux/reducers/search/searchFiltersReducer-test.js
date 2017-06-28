@@ -630,6 +630,19 @@ describe('searchFiltersReducer', () => {
         });
     });
 
+    describe('UPDATE_PRICING_TYPE', () => {
+        it('should set a pricing type value', () => {
+            const action = {
+                type: 'UPDATE_PRICING_TYPE',
+                value: 'B'
+            };
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.pricingType).toEqual(new Set({
+                pricingType: 'B'
+            }));
+        });
+    });
+
     describe('UPDATE_SEARCH_FILTER_GENERIC', () => {
         it('should set an arbitrary child filter key with the given filter value', () => {
             const action = {

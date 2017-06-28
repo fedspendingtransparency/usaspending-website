@@ -1,5 +1,5 @@
 /**
- * ContractFilters.jsx
+ * ContractFilter.jsx
  * Created by Emily Gullo on 6/23/2017
  */
 
@@ -16,7 +16,7 @@ const propTypes = {
     contractFilterState: React.PropTypes.string
 };
 
-const defaultShown = 10;
+const defaultShown = 5;
 
 const defaultState = {
     shown: defaultShown,

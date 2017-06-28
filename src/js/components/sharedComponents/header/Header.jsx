@@ -1,6 +1,6 @@
 import React from 'react';
 
-import GuideContainer from 'containers/guide/GuideContainer';
+import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 
 import WarningBanner from './WarningBanner';
 import NavBar from './NavBar';
@@ -31,7 +31,7 @@ export default class Header extends React.Component {
                     <WarningBanner />
                     <NavBar />
                 </header>
-                <GuideContainer />
+                <GlossaryContainer />
             </div>
         );
     }
