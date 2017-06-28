@@ -634,12 +634,10 @@ describe('searchFiltersReducer', () => {
         it('should set a pricing type value', () => {
             const action = {
                 type: 'UPDATE_PRICING_TYPE',
-                value: 'B'
+                pricingType: 'B'
             };
             const updatedState = searchFiltersReducer(undefined, action);
-            expect(updatedState.pricingType).toEqual(new Set({
-                pricingType: 'B'
-            }));
+            expect(updatedState.pricingType).toEqual(new Set(['B']));
         });
     });
 

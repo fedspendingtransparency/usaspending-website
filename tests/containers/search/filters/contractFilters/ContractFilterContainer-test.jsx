@@ -14,9 +14,7 @@ describe('ContractFilterContainer', () => {
     describe('Handle adding and removing pricing type items', () => {
         it('should add a predefined pricing type that has been selected to Redux', () => {
             const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual({
-                    value: 'B'
-                });
+                expect(args).toEqual('B');
             });
 
             // Set up container with mocked Pricing Type action
@@ -42,9 +40,7 @@ describe('ContractFilterContainer', () => {
     describe('Handle adding and removing set aside items', () => {
         it('should add a predefined set aside that has been selected to Redux', () => {
             const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual({
-                    value: '8AN'
-                });
+                expect(args).toEqual('8AN');
             });
 
             // Set up container with mocked Set Aside action
@@ -70,9 +66,7 @@ describe('ContractFilterContainer', () => {
     describe('Handle adding and removing extent competed items', () => {
         it('should add a predefined extent competed that has been selected to Redux', () => {
             const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual({
-                    value: 'F'
-                });
+                expect(args).toEqual('F');
             });
 
             // Set up container with mocked Set Aside action

@@ -207,7 +207,7 @@ const searchFiltersReducer = (state = initialState, action) => {
         // Pricing Type Filter
         case 'UPDATE_PRICING_TYPE': {
             return Object.assign({}, state, {
-                pricingType: ContractFilterFunctions.updatePricingType(
+                pricingType: ContractFilterFunctions.updateContractFilterSet(
                     state.pricingType, action.pricingType)
             });
         }
@@ -215,7 +215,7 @@ const searchFiltersReducer = (state = initialState, action) => {
         // Set Aside Filter
         case 'UPDATE_SET_ASIDE': {
             return Object.assign({}, state, {
-                setAside: ContractFilterFunctions.updateSetAside(
+                setAside: ContractFilterFunctions.updateContractFilterSet(
                     state.setAside, action.setAside)
             });
         }
@@ -223,7 +223,7 @@ const searchFiltersReducer = (state = initialState, action) => {
         // Extent Competed Filter
         case 'UPDATE_EXTENT_COMPETED': {
             return Object.assign({}, state, {
-                extentCompeted: ContractFilterFunctions.updateExtentCompeted(
+                extentCompeted: ContractFilterFunctions.updateContractFilterSet(
                     state.extentCompeted, action.extentCompeted)
             });
         }

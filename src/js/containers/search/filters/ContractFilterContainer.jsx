@@ -28,18 +28,15 @@ export class ContractFilterContainer extends React.Component {
     }
 
     selectPricingType(value) {
-        const updateParams = { value };
-        this.props.updatePricingType(updateParams);
+        this.props.updatePricingType(value);
     }
 
     selectSetAside(value) {
-        const updateParams = { value };
-        this.props.updateSetAside(updateParams);
+        this.props.updateSetAside(value);
     }
 
     selectExtentCompeted(value) {
-        const updateParams = { value };
-        this.props.updateExtentCompeted(updateParams);
+        this.props.updateExtentCompeted(value);
     }
 
     render() {
