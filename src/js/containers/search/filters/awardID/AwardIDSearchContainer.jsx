@@ -19,7 +19,6 @@ const ga = require('react-ga');
 
 export class AwardIDSearchContainer extends React.Component {
     static logIdEvent(id, type) {
-        console.log(`GA ${type} ${id}`);
         ga.event({
             category: 'Search Page Filter Applied',
             action: `Toggled Award ${type} Filter`,

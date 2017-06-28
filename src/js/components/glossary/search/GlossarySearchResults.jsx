@@ -14,7 +14,17 @@ const propTypes = {
     setGlossaryTerm: React.PropTypes.func
 };
 
+const ga = require('react-ga');
+
 export default class GlossarySearchResults extends React.Component {
+    static logGlossaryTermEvent(term) {
+        ga.event({
+            category: 'Glossary',
+            action: 'Clicked Glossary Term',
+            label: term
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -37,6 +47,9 @@ export default class GlossarySearchResults extends React.Component {
 
     selectTerm(term) {
         this.props.setGlossaryTerm(term);
+
+        // Analytics
+        GlossarySearchResults.logGlossaryTermEvent(term.term);
     }
 
     groupResults(props) {
