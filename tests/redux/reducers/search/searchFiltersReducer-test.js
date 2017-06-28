@@ -7,7 +7,6 @@ import { Set, OrderedMap } from 'immutable';
 
 import searchFiltersReducer, { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { awardRanges } from 'dataMapping/search/awardAmount';
-import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
 
 import { mockRecipient, mockAgency } from './mock/mockFilters';
 
@@ -638,6 +637,28 @@ describe('searchFiltersReducer', () => {
             };
             const updatedState = searchFiltersReducer(undefined, action);
             expect(updatedState.pricingType).toEqual(new Set(['B']));
+        });
+    });
+
+    describe('UPDATE_SET_ASIDE', () => {
+        it('should set a set aside value', () => {
+            const action = {
+                type: 'UPDATE_SET_ASIDE',
+                setAside: 'BICiv'
+            };
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.setAside).toEqual(new Set(['BICiv']));
+        });
+    });
+
+    describe('UPDATE_EXTENT_COMPETED', () => {
+        it('should set an extent competed value', () => {
+            const action = {
+                type: 'UPDATE_EXTENT_COMPETED',
+                extentCompeted: 'CDOCiv'
+            };
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.extentCompeted).toEqual(new Set(['CDOCiv']));
         });
     });
 
