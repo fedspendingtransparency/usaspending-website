@@ -1,20 +1,18 @@
 .results-select-columns {
-    float: right;
-    position: absolute;
-    right: rem(40);
+    margin: rem(10) 0 0 0;
     @include media($tablet-screen) {
-        position: relative;
-        right: 0;
+        position: absolute;
+        right: rem(35);
     }
     .results-select-columns-btn {
         background-color: $color-white;
         border: solid 1px $color-gray-lighter;
         color: $color-gray;
         font-size: $smallest-font-size;
-        padding: 0;
         margin-right: 0;
+        padding: 0;
         @include media($tablet-screen) {
-            padding: 0 rem(10) 0 rem(20);
+            padding: 0 rem(10) 0 rem(20); 
         }
         .btn-text {
             display: none;
