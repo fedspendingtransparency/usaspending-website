@@ -8,7 +8,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import _ from 'lodash';
+import { uniqueId } from 'lodash';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
@@ -128,8 +128,8 @@ export class SubawardsContainer extends React.Component {
             this.props.setSubawardMeta({
                 page: data.page_metadata.page,
                 hasNext: data.page_metadata.has_next_page,
-                render: _.uniqueId(),
-                group: _.uniqueId()
+                render: uniqueId(),
+                group: uniqueId()
             });
         }
         else {
@@ -137,7 +137,7 @@ export class SubawardsContainer extends React.Component {
             this.props.setSubawardMeta({
                 page: data.page_metadata.page,
                 hasNext: data.page_metadata.has_next_page,
-                render: _.uniqueId()
+                render: uniqueId()
             });
         }
     }

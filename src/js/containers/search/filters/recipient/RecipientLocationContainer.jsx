@@ -6,7 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { isEqual, upperCase, omit, differenceWith } from 'lodash';
 import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';
@@ -42,7 +42,7 @@ export class RecipientLocationContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!_.isEqual(nextProps.autocompleteRecipientLocations,
+        if (!isEqual(nextProps.autocompleteRecipientLocations,
                 this.props.autocompleteRecipientLocations)) {
             this.parseAutocompleteRecipientLocations(nextProps.autocompleteRecipientLocations);
         }
@@ -52,7 +52,7 @@ export class RecipientLocationContainer extends React.Component {
         const values = [];
         if (recipientLocations.length > 0) {
             recipientLocations.forEach((item) => {
-                let placeType = _.upperCase(item.place_type);
+                let placeType = upperCase(item.place_type);
                 if (item.parent !== null &&
                     (item.place_type !== null && item.place_type !== 'COUNTRY')) {
                     placeType += ` in ${item.parent}`;
@@ -103,12 +103,12 @@ export class RecipientLocationContainer extends React.Component {
                     // Remove 'identifier' from selected recipient locations to enable comparison
                     const selectedRecipientLocations =
                         this.props.selectedRecipientLocations.toArray()
-                            .map((recipient) => _.omit(recipient, 'identifier'));
+                            .map((recipient) => omit(recipient, 'identifier'));
 
                     // Filter out any selectedRecipients that may be in the result set
                     if (selectedRecipientLocations && selectedRecipientLocations.length > 0) {
-                        autocompleteData = _.differenceWith(
-                            data, selectedRecipientLocations, _.isEqual);
+                        autocompleteData = differenceWith(
+                            data, selectedRecipientLocations, isEqual);
                     }
                     else {
                         autocompleteData = data;

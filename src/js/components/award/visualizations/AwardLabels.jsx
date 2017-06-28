@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import _ from 'lodash';
+import { capitalize } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -34,7 +34,7 @@ export default class AwardLabels extends React.Component {
         let anchor = "start";
         let labelY = [0, 18, 38];
         let labelX = 0;
-        let labelType = _.capitalize(this.props.name);
+        let labelType = capitalize(this.props.name);
         if (this.props.line === "line") {
             line = (<AwardLabelsLine
                 labelDistance={this.props.labelDistance} />);

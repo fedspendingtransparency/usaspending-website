@@ -4,7 +4,7 @@
  */
 
 import Accounting from 'accounting';
-import _ from 'lodash';
+import { max, min, mean } from 'lodash';
 
 // convert monetary values to currency strings
 const accountingOptions = {
@@ -50,12 +50,12 @@ export const formatMoneyWithPrecision = (value, precision) => {
 export const calculateUnits = (data, subdivisions = 6) => {
     // determine the "scale max", that is the largest absolute value data point in the data set
     // this may actually be the min value of the data set if the data set is heavily negative
-    const scaleMax = _.max([Math.abs(_.min(data)), Math.abs(_.max(data))]);
+    const scaleMax = max([Math.abs(min(data)), Math.abs(max(data))]);
 
     // also determine the absolute value of the average as an indicator of where most of the data
     // is; this will be used to jump down a unit/increase resolution in data sets where there are
     // extreme outliers
-    const scaleAvg = Math.abs(_.mean(data));
+    const scaleAvg = Math.abs(mean(data));
 
     let unit = 1;
     let unitLabel = '';

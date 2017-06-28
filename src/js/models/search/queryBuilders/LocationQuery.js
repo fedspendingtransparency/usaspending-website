@@ -3,7 +3,7 @@
 * Created by Emily Gullo
 **/
 
-import _ from 'lodash';
+import { concat } from 'lodash';
 
 import * as FilterFields from 'dataMapping/search/filterFields';
 
@@ -13,7 +13,7 @@ export const buildLocationQuery = (values, searchContext = 'award') => {
     // Concatenate Matched IDs of selected locations
     // Duplicates do not matter in API query
     values.forEach((locArray) => {
-        valueSet = _.concat(valueSet, locArray.matched_ids);
+        valueSet = concat(valueSet, locArray.matched_ids);
     });
 
     const field = FilterFields[`${searchContext}Fields`].location;

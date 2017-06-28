@@ -6,7 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { isEqual, union, omit, differenceWith } from 'lodash';
 import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';
@@ -41,7 +41,7 @@ export class RecipientNameDUNSContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!_.isEqual(nextProps.autocompleteRecipients, this.props.autocompleteRecipients)) {
+        if (!isEqual(nextProps.autocompleteRecipients, this.props.autocompleteRecipients)) {
             this.parseAutocompleteRecipients(nextProps.autocompleteRecipients);
         }
     }
@@ -89,17 +89,17 @@ export class RecipientNameDUNSContainer extends React.Component {
 
             this.recipientSearchRequest.promise
                 .then((res) => {
-                    const data = _.union(res.data.matched_objects.recipient_name,
+                    const data = union(res.data.matched_objects.recipient_name,
                         res.data.matched_objects.recipient_unique_id);
                     let autocompleteData = [];
 
                     // Remove 'identifier' from selected recipients to enable comparison
                     const selectedRecipients = this.props.selectedRecipients.toArray()
-                        .map((recipient) => _.omit(recipient, 'identifier'));
+                        .map((recipient) => omit(recipient, 'identifier'));
 
                     // Filter out any selectedRecipients that may be in the result set
                     if (selectedRecipients && selectedRecipients.length > 0) {
-                        autocompleteData = _.differenceWith(data, selectedRecipients, _.isEqual);
+                        autocompleteData = differenceWith(data, selectedRecipients, isEqual);
                     }
                     else {
                         autocompleteData = data;

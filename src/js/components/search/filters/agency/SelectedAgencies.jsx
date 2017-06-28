@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import _ from 'lodash';
+import { toLower } from 'lodash';
 import ShownAgency from './ShownAgency';
 
 const propTypes = {
@@ -36,7 +36,7 @@ export default class SelectedAgencies extends React.Component {
         });
 
         return (
-            <div className={`selected-filters ${_.toLower(this.props.agencyType)}`}>
+            <div className={`selected-filters ${toLower(this.props.agencyType)}`}>
                 {shownAgencies}
             </div>
         );

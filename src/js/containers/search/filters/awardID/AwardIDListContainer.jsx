@@ -7,7 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import _ from 'lodash';
+import { isEqual, map } from 'lodash';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardIDActions from 'redux/actions/search/awardIDActions';
@@ -60,7 +60,7 @@ export class AwardIDListContainer extends React.Component {
             this.props.parent_award__piid
         ];
 
-        if (!_.isEqual(nextPropsResults, propsResults)) {
+        if (!isEqual(nextPropsResults, propsResults)) {
             this.parseAutocompleteAwardIDs(nextProps);
         }
     }
@@ -134,7 +134,7 @@ export class AwardIDListContainer extends React.Component {
 
                     // Convert selectedAwardIDs from OrderedMap to Array
                     // Pull out 'id' field to compare with query results
-                    const selectedAwardIDs = _.map(this.props.selectedAwardIDs.toArray(), 'id');
+                    const selectedAwardIDs = map(this.props.selectedAwardIDs.toArray(), 'id');
 
                     // Filter out any selectedAwardIDs that may be in the result set
                     // We need to compare selectedAwardIDs to each result object,

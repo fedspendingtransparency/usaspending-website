@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { truncate } from 'lodash';
 
 const propTypes = {
     label: React.PropTypes.string,
@@ -91,7 +91,7 @@ export default class ChartGroup extends React.Component {
             const maxChars = Math.floor((maxWidth) / avgCharWidth);
 
             // truncate the label
-            truncatedLabel = _.truncate(this.props.label, {
+            truncatedLabel = truncate(this.props.label, {
                 length: maxChars
             });
         }

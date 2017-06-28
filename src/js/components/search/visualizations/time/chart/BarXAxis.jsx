@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 
 import BarXAxisItem from './BarXAxisItem';
 
@@ -36,7 +36,7 @@ export default class BarXAxis extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!_.isEqual(nextProps, this.props)) {
+        if (!isEqual(nextProps, this.props)) {
             this.drawAxis(nextProps);
         }
     }
