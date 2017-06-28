@@ -29,7 +29,9 @@ const fields = [
     'funding_agency_name',
     'funding_subtier_name',
     'funding_office_name',
-    'recipient_street',
+    'recipient_address_line1',
+    'recipient_address_line2',
+    'recipient_address_line3',
     'recipient_city',
     'recipient_county',
     'recipient_state_province',
@@ -121,7 +123,9 @@ const remapData = (data, idField) => {
     let fundingSubtierName = '';
     let fundingOfficeName = '';
     let recipientName = '';
-    let recipientStreet = '';
+    let recipientAddressLine1 = '';
+    let recipientAddressLine2 = '';
+    let recipientAddressLine3 = '';
     let recipientCity = '';
     let recipientCounty = '';
     let recipientStateProvince = '';
@@ -511,17 +515,17 @@ const remapData = (data, idField) => {
     // Format Recipient Info + Address
     if (data.recipient) {
         recipientName = data.recipient.recipient_name;
-        const loc = data.recipient.location;
 
-        if (loc.address_line1) {
-            recipientStreet += loc.address_line1;
+        if (data.recipient.location.address_line1) {
+            recipientAddressLine1 = data.recipient.location.address_line1;
         }
-        if (loc.address_line2) {
-            recipientStreet += `\n${loc.address_line2}`;
+        if (data.recipient.location.address_line2) {
+            recipientAddressLine2 = data.recipient.location.address_line2;
         }
-        if (loc.address_line3) {
-            recipientStreet += `\n${loc.address_line3}`;
+        if (data.recipient.location.address_line3) {
+            recipientAddressLine3 = data.recipient.location.address_line3;
         }
+        const loc = data.recipient.location;
 
         if (loc.city_name) {
             recipientCity = loc.city_name;
@@ -578,7 +582,9 @@ const remapData = (data, idField) => {
         }
     }
     remappedData.recipient_name = recipientName;
-    remappedData.recipient_street = recipientStreet;
+    remappedData.recipient_address_line1 = recipientAddressLine1;
+    remappedData.recipient_address_line2 = recipientAddressLine2;
+    remappedData.recipient_address_line3 = recipientAddressLine3;
     remappedData.recipient_city = recipientCity;
     remappedData.recipient_county = recipientCounty;
     remappedData.recipient_state_province = recipientStateProvince;
