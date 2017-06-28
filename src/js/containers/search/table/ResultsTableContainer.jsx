@@ -281,7 +281,10 @@ export class ResultsTableContainer extends React.Component {
 
         columnVisibility.visibleColumns.forEach((col) => {
             const field = mapping[col];
-            requestFields.push(field);
+            if (!requestFields.includes(field)) {
+                // Prevent duplicates in the list of fields to request
+                requestFields.push(field);
+            }
         });
 
         this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(),
