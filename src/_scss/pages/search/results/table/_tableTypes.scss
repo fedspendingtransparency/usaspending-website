@@ -1,6 +1,10 @@
 .table-types {
     border-bottom: 1px solid $color-gray-light;
     padding-left: rem(15);
+    display: none;
+    @include media($tablet-screen) {
+        display: block;
+    }
     button.table-type-toggle {
         border: 1px solid transparent;
         border-bottom: 1px solid $color-gray-light;
@@ -11,12 +15,14 @@
         height: rem(31);
         margin-bottom: 0;
         margin-right: rem(2);
-        padding: rem(15);
-        min-width: rem(97);
+        padding: rem(10);
         height: rem(50);
         vertical-align: middle;
         position: relative;
         top: rem(1);
+        @include media($large-screen) {
+        padding: rem(15);
+}
         &:hover{
             @include transition(all 0.3s ease-in-out);
             background-color: darken($color-gray-lightest, 5%);

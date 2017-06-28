@@ -1,0 +1,25 @@
+@import "../../../../elements/_titleSelector";
+.field-picker {
+  float: left;
+  clear: both;
+  @include media($tablet-screen) {
+    display: none;
+  }
+  .field-list {
+    width: rem(220);
+  }
+  button.table-type-toggle.coming-soon {
+    .coming-soon-container {
+      text-align: right;
+      float: right;
+      width: auto;
+    }
+  }
+  .selected-button {
+    .label {
+      text-transform: capitalize;
+      color: $color-gray;
+      font-size: rem(28);
+    }
+  }
+}

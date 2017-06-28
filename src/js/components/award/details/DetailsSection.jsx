@@ -17,12 +17,26 @@ import SubawardsContainer from 'containers/award/subawards/SubawardsContainer';
 import DetailsTabBar from './DetailsTabBar';
 import ContractAdditionalDetails from './additional/ContractAdditionalDetails';
 import AssistanceAdditionalDetails from './additional/AssistanceAdditionalDetails';
+import ResultsTablePicker from '../../search/table/ResultsTablePicker';
 
 const propTypes = {
     award: React.PropTypes.object,
     activeTab: React.PropTypes.string,
     clickTab: React.PropTypes.func
 };
+
+const tabs = [
+    {
+        label: 'Transaction History',
+        internal: 'transaction',
+        enabled: true
+    },
+    {
+        label: 'Financial System Details',
+        internal: 'financial',
+        enabled: true
+    }
+];
 
 export default class DetailsSection extends React.Component {
     constructor(props) {
@@ -97,12 +111,24 @@ export default class DetailsSection extends React.Component {
     render() {
         const content = this.currentSection();
 
+        if (this.props.award.selectedAward.internal_general_type === 'contract') {
+            tabs.push({
+                label: 'Additional Details',
+                internal: 'additional',
+                enabled: true
+            });
+        }
+
         return (
             <div className="contract-details-table-section" id="details-table-section">
                 <DetailsTabBar
+                    tabOptions={tabs}
                     activeTab={this.props.activeTab}
-                    clickTab={this.props.clickTab}
-                    type={this.props.award.selectedAward.internal_general_type} />
+                    clickTab={this.props.clickTab} />
+                <ResultsTablePicker
+                    types={tabs}
+                    active={this.props.activeTab}
+                    switchTab={this.props.clickTab} />
                 <div
                     className="details-table-width-master"
                     ref={(div) => {
