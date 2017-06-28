@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { toArray, indexOf, concat, difference } from 'lodash';
 
 import { Set } from 'immutable';
 
@@ -31,11 +31,11 @@ export default class BudgetCategoryFilterGroup extends React.Component {
         // let's actually fake the removal by just overwriting the the filter value with everything
         // except for the values in the specified group
 
-        let updatedValues = new Set(_.toArray(this.props.filter.values));
+        let updatedValues = new Set(toArray(this.props.filter.values));
 
         // remove the current group's values
         const objectValues = ObjectClasses.objectClassDefinitionsGroups[value];
-        updatedValues = updatedValues.filterNot((x) => _.indexOf(objectValues, x) > -1);
+        updatedValues = updatedValues.filterNot((x) => indexOf(objectValues, x) > -1);
 
         this.props.redux.updateGenericFilter({
             type: 'objectClasses',
@@ -86,14 +86,14 @@ export default class BudgetCategoryFilterGroup extends React.Component {
         const tags = [];
 
         // check to see if any type groups are fully selected
-        const selectedValues = _.toArray(this.props.filter.values);
+        const selectedValues = toArray(this.props.filter.values);
         const fullGroups = [];
         ObjectClasses.groupKeys.forEach((key) => {
             const fullMembership = ObjectClasses.objectClassDefinitionsGroups[key];
 
             // quick way of checking for full group membership is to return an array of missing
             // values; it'll be empty if all the values are selected
-            const missingValues = _.difference(fullMembership, selectedValues);
+            const missingValues = difference(fullMembership, selectedValues);
 
             if (missingValues.length === 0) {
                 // this group is complete
@@ -114,7 +114,7 @@ export default class BudgetCategoryFilterGroup extends React.Component {
             tags.push(tag);
 
             // exclude these values from the remaining tags
-            excludedValues = _.concat(excludedValues,
+            excludedValues = concat(excludedValues,
                 ObjectClasses.objectClassDefinitionsGroups[group]);
         });
 
@@ -138,7 +138,7 @@ export default class BudgetCategoryFilterGroup extends React.Component {
                     removeFilter: this.removeFilter
                 };
 
-                if (_.indexOf(excludedValues, value) < 0) {
+                if (indexOf(excludedValues, value) < 0) {
                     // only insert individual tags that aren't part of a fully-selected group
                     // excluded values is an array of values that are already included in a
                     // full group, so if this value isn't in that array, it can be shown

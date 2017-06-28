@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import _ from 'lodash';
+import { throttle } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import BudgetFunctions from './BudgetFunctions/BudgetFunctions';
@@ -31,7 +31,7 @@ export default class TreeMap extends React.Component {
             selected: 0
         };
 
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.toggleSubfunction = this.toggleSubfunction.bind(this);
         this.changeActiveSubfunction = this.changeActiveSubfunction.bind(this);
     }

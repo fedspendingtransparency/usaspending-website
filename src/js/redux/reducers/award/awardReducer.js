@@ -3,7 +3,7 @@
  * Created by Emily Gullo 01/23/2017
  **/
 
-import _ from 'lodash';
+import { concat, uniqueId } from 'lodash';
 
 const initialState = {
     selectedAward: null,
@@ -54,7 +54,7 @@ const awardReducer = (state = initialState, action) => {
         }
         case 'APPEND_AWARD_TRANSACTIONS': {
             return Object.assign({}, state, {
-                transactions: _.concat(state.transactions, action.transactions)
+                transactions: concat(state.transactions, action.transactions)
             });
         }
         case 'SET_TRANSACTIONS_META': {
@@ -69,12 +69,12 @@ const awardReducer = (state = initialState, action) => {
         }
         case 'UPDATE_TXN_RENDER_HASH': {
             return Object.assign({}, state, {
-                renderHash: _.uniqueId()
+                renderHash: uniqueId()
             });
         }
         case 'UPDATE_TXN_GROUP_HASH': {
             return Object.assign({}, state, {
-                groupHash: _.uniqueId()
+                groupHash: uniqueId()
             });
         }
         case 'SET_AWARD_FINSYS_DATA': {
@@ -84,7 +84,7 @@ const awardReducer = (state = initialState, action) => {
         }
         case 'APPEND_AWARD_FINSYS_DATA': {
             return Object.assign({}, state, {
-                finSysData: _.concat(state.finSysData, action.data)
+                finSysData: concat(state.finSysData, action.data)
             });
         }
         case 'SET_FINSYS_META': {
@@ -111,7 +111,7 @@ const awardReducer = (state = initialState, action) => {
         }
         case 'APPEND_AWARD_SUBAWARDS': {
             return Object.assign({}, state, {
-                subawards: _.concat(state.subawards, action.subawards)
+                subawards: concat(state.subawards, action.subawards)
             });
         }
         case 'SET_SUBAWARD_META': {

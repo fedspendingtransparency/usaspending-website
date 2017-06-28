@@ -5,7 +5,7 @@
 
 import React from 'react';
 import moment from 'moment';
-import _ from 'lodash';
+import { capitalize } from 'lodash';
 import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 import DetailRow from '../DetailRow';
 
@@ -91,7 +91,7 @@ export default class FinancialAssistanceDetails extends React.Component {
         }
         let awardType = '';
         if (award.award_type) {
-            awardType = _.capitalize(SummaryPageHelper.awardType(award.award_type));
+            awardType = capitalize(SummaryPageHelper.awardType(award.award_type));
         }
 
         // CFDA Data

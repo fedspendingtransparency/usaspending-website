@@ -4,7 +4,7 @@
   **/
 
 import React from 'react';
-import _ from 'lodash';
+import { throttle } from 'lodash';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import TimeVisualization from './TimeVisualization';
@@ -24,7 +24,7 @@ export default class TimeVisualizationSection extends React.Component {
             visualizationPeriod: 'year'
         };
 
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.changePeriod = this.changePeriod.bind(this);
     }
 

@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import _ from 'lodash';
+import { indexOf } from 'lodash';
 
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
@@ -33,7 +33,7 @@ export default class GeoVisualizationSection extends React.Component {
 
     showTooltip(stateCode, position) {
         // convert state code to full string name
-        const index = _.indexOf(this.props.data.states, stateCode);
+        const index = indexOf(this.props.data.states, stateCode);
         this.setState({
             showHover: true,
             selectedItem: {

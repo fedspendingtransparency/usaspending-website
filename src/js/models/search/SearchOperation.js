@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/4/16
   **/
 
-import _ from 'lodash';
+import { concat } from 'lodash';
 
 import * as AwardTypeQuery from './queryBuilders/AwardTypeQuery';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
@@ -190,7 +190,7 @@ class SearchOperation {
         const specificFilters = this.uniqueParams();
 
         // merge the two arrays together into the fully assembled filter parameters
-        const filters = _.concat(commonFilters, specificFilters);
+        const filters = concat(commonFilters, specificFilters);
 
         return filters;
     }

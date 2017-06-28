@@ -4,7 +4,7 @@
   **/
 
 import React from 'react';
-import _ from 'lodash';
+import { min } from 'lodash';
 
 import HeaderCell from './HeaderCell';
 
@@ -24,7 +24,7 @@ export default class HeaderRow extends React.Component {
     }
 
     render() {
-        const visibleWidth = _.min([this.props.maxWidth, this.props.width]);
+        const visibleWidth = min([this.props.maxWidth, this.props.width]);
 
         const style = {
             height: this.props.headerHeight,

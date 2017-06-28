@@ -4,7 +4,7 @@
   **/
 
 import React from 'react';
-import _ from 'lodash';
+import { max, min } from 'lodash';
 import TableRow from './TableRow';
 
 const propTypes = {
@@ -166,7 +166,7 @@ export default class TableBody extends React.Component {
 
         // determine the first visible row
         // add one row as a bonus padding row unless we're at the top
-        const topRowIndex = _.max([0,
+        const topRowIndex = max([0,
             Math.floor(this.scrollPosition.y / this.props.rowHeight) - 1]);
 
         // determine the last possible row index for the given row count
@@ -176,7 +176,7 @@ export default class TableBody extends React.Component {
         const viewBottomIndex = topRowIndex +
             Math.ceil(this.props.maxHeight / this.props.rowHeight) + 1;
         // the bottom row of the current view is the lesser of the two
-        const bottomRowIndex = _.min([viewBottomIndex, finalRowIndex]);
+        const bottomRowIndex = min([viewBottomIndex, finalRowIndex]);
 
         // determine which columns are in view
         let tableXPos = 0;
@@ -233,8 +233,8 @@ export default class TableBody extends React.Component {
     render() {
         const totalHeight = (this.props.rowCount * this.props.rowHeight);
 
-        const visibleHeight = _.min([this.props.maxHeight, totalHeight]);
-        const visibleWidth = _.min([this.props.maxWidth, this.props.width]);
+        const visibleHeight = min([this.props.maxHeight, totalHeight]);
+        const visibleWidth = min([this.props.maxWidth, this.props.width]);
 
         const style = {
             minHeight: visibleHeight,

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
-import _ from 'lodash';
+import { throttle, remove, orderBy, find } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { objectClassDefinitions } from 'dataMapping/agency/objectClassDefinitions';
@@ -33,7 +33,7 @@ export default class MinorObjectClasses extends React.Component {
             hoveredObjectClass: -1
         };
 
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
         this.createTooltip = this.createTooltip.bind(this);
         this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
@@ -83,11 +83,11 @@ export default class MinorObjectClasses extends React.Component {
         const objectClasses = treeProps.minorObjectClasses;
 
         // remove negative values from the children, as we can't display those in the treemap
-        _.remove(objectClasses.children, (v) => parseFloat(v.obligated_amount) <= 0);
+        remove(objectClasses.children, (v) => parseFloat(v.obligated_amount) <= 0);
 
         // order by value, descending, after converting `obligated_amount` strings to floats
         const finalObjectClasses = {
-            children: _.orderBy(objectClasses.children,
+            children: orderBy(objectClasses.children,
                 (oc) => parseFloat(oc.obligated_amount),
                 'desc')
         };
@@ -204,12 +204,12 @@ export default class MinorObjectClasses extends React.Component {
         }
 
         if (this.state.hoveredObjectClass > -1) {
-            const objectClass = _.find(this.props.minorObjectClasses.children,
+            const objectClass = find(this.props.minorObjectClasses.children,
                 { object_class_code: `${this.state.hoveredObjectClass}` });
 
             const objectClassDefinition = objectClassDefinitions[this.state.hoveredObjectClass];
 
-            const node = _.find(this.state.finalNodes,
+            const node = find(this.state.finalNodes,
                 { key: `${this.state.hoveredObjectClass}` });
 
             tooltip = (<ObjectClassTooltip
