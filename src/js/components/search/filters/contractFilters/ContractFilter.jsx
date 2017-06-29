@@ -59,24 +59,24 @@ export default class ContractFilter extends React.Component {
     generateContractFilters(filters) {
         const contractFilters = [];
         // Creating vars for original filter and inverted filter keys
-        const originalFilters = keys(filters);
-        const invertedFilters = keys(invert(filters));
+        const invertedFilters = invert(filters);
+        const invertedKeys = keys(invertedFilters);
 
         if (contractFilters.length < this.state.shown) {
             // looping on inverted filters
-            invertedFilters.sort().forEach((key) => {
+            invertedKeys.sort().forEach((key) => {
                 // need access to originalFilter[key] here but is undefined
                 if (contractFilters.length <= this.state.shown
-                    && (filters.name !== null && filters.name !== '')) {
+                    && (key.name !== null && key.name !== '')) {
                     contractFilters.push(
                         <PrimaryCheckboxType
                             {...this.props}
-                            key={originalFilters[key]}
+                            key={key}
                             id={`${this.props.contractFilterOptions}-${key}`}
                             name={key}
-                            value={originalFilters[key]}
+                            value={invertedFilters[key]}
                             types={ContractFieldDefinitions[this.props.contractFilterOptions]}
-                            code={originalFilters[key]}
+                            code={invertedFilters[key]}
                             filterType={this.props.contractFilterType}
                             selectedCheckboxes={this.props[this.props.contractFilterState]}
                             toggleCheckboxType={this.toggleValue}
