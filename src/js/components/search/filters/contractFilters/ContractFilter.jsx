@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import _ from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import * as ContractFieldDefinitions from 'dataMapping/search/contractFields';
 
@@ -16,7 +17,7 @@ const propTypes = {
     contractFilterState: React.PropTypes.string
 };
 
-const defaultShown = 5;
+const defaultShown = 4;
 
 const defaultState = {
     shown: defaultShown,
@@ -57,21 +58,25 @@ export default class ContractFilter extends React.Component {
 
     generateContractFilters(filters) {
         const contractFilters = [];
+        // Creating vars for original filter and inverted filter keys
+        const originalFilters = _.keys(filters);
+        const invertedFilters = _.keys(_.invert(filters));
 
         if (contractFilters.length < this.state.shown) {
-            Object.keys(filters).forEach((key) => {
+            // looping on inverted filters
+            invertedFilters.sort().forEach((key) => {
+                // need access to originalFilter[key] here but is undefined
                 if (contractFilters.length <= this.state.shown
                     && (filters.name !== null && filters.name !== '')) {
-                    const label = ContractFieldDefinitions[this.props.contractFilterOptions][key];
                     contractFilters.push(
                         <PrimaryCheckboxType
                             {...this.props}
-                            key={key}
+                            key={originalFilters[key]}
                             id={`${this.props.contractFilterOptions}-${key}`}
-                            name={label}
-                            value={key}
+                            name={key}
+                            value={originalFilters[key]}
                             types={ContractFieldDefinitions[this.props.contractFilterOptions]}
-                            code={key}
+                            code={originalFilters[key]}
                             filterType={this.props.contractFilterType}
                             selectedCheckboxes={this.props[this.props.contractFilterState]}
                             toggleCheckboxType={this.toggleValue}
@@ -87,7 +92,7 @@ export default class ContractFilter extends React.Component {
         const contractFilters = ContractFieldDefinitions[this.props.contractFilterOptions];
         let toggleButton = null;
 
-        if (contractFilters && Object.keys(contractFilters).length > 10) {
+        if (contractFilters && Object.keys(contractFilters).length > 4) {
             const remaining = Object.keys(contractFilters).length - this.state.shown;
             let shownStatement = `${remaining} ${this.state.shownType}`;
             let arrow = (<Icons.AngleDown alt={`See ${shownStatement}`} />);
