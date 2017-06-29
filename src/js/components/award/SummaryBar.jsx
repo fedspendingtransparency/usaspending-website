@@ -5,9 +5,10 @@
 
 import React from 'react';
 import moment from 'moment';
-import _ from 'lodash';
+import { startCase, toLower, includes } from 'lodash';
 import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
+
 import InfoSnippet from './InfoSnippet';
 import MoreHeaderOptions from './MoreHeaderOptions';
 
@@ -41,7 +42,7 @@ export default class SummaryBar extends React.Component {
         const awardEnd = moment(award.period_of_performance_current_end_date, 'MM-DD-YYYY');
         const current = moment();
         let progress = "";
-        const awardType = _.startCase(_.toLower(SummaryPageHelper.awardType(award.award_type)));
+        const awardType = startCase(toLower(SummaryPageHelper.awardType(award.award_type)));
         let parentId = null;
 
         if (current.isSameOrBefore(awardStart, 'day')) {
@@ -53,7 +54,7 @@ export default class SummaryBar extends React.Component {
         else {
             progress = "In Progress";
         }
-        if (_.includes(awardTypeGroups.contracts, award.award_type)) {
+        if (includes(awardTypeGroups.contracts, award.award_type)) {
             if (award.latest_transaction.contract_data.parent_award_id) {
                 parentId = award.latest_transaction.contract_data.parent_award_id;
             }

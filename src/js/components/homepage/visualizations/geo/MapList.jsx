@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { orderBy, uniqueId } from 'lodash';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -89,7 +89,7 @@ export default class MapList extends React.Component {
     }
 
     sortData(data) {
-        return _.orderBy(data, (item) => {
+        return orderBy(data, (item) => {
             const compareValue = item[this.state.sort.field];
             // handle N/As
             if (compareValue === 'N/A') {
@@ -102,7 +102,7 @@ export default class MapList extends React.Component {
     prepareTable(data) {
         // prepare the data
         const sortedData = this.sortData(data);
-        const renderHash = `map-list-sort-${_.uniqueId()}`;
+        const renderHash = `map-list-sort-${uniqueId()}`;
 
         // prepare the columns
         let contentWidth = 0;

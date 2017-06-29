@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 
 import AccountTimeVisualizationSection from
     'components/account/visualizations/time/AccountTimeVisualizationSection';
@@ -50,7 +50,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!_.isEqual(nextProps.reduxFilters, this.props.reduxFilters)) {
+        if (!isEqual(nextProps.reduxFilters, this.props.reduxFilters)) {
             this.setState({
                 hasFilteredObligated: (((nextProps.reduxFilters.objectClass.count() > 0)
                 || (nextProps.reduxFilters.programActivity.count() > 0)))

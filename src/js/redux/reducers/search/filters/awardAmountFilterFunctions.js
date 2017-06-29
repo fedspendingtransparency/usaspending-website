@@ -4,7 +4,7 @@
 
 import { awardRanges } from 'dataMapping/search/awardAmount';
 import { OrderedMap } from 'immutable';
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other files
@@ -18,7 +18,7 @@ export const updateAwardAmounts = (state, value) => {
     if (value.searchType === 'specific') {
         // Toggle specific range selection
         if (updatedSet.get(value.searchType) !== undefined &&
-            _.isEqual(updatedSet.get(value.searchType), value.amount)) {
+            isEqual(updatedSet.get(value.searchType), value.amount)) {
             updatedSet = updatedSet.delete(value.searchType);
         }
         else {

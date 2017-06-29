@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { throttle } from 'lodash';
 
 import AccountTimeVisualizationPeriodButton from './AccountTimeVisualizationPeriodButton';
 
@@ -26,7 +26,7 @@ export default class AccountTimeVisualizationSection extends React.Component {
             visualizationWidth: 0
         };
 
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
     }
 
     componentDidMount() {

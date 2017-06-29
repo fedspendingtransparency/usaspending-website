@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { hierarchy, treemap, treemapDice } from 'd3-hierarchy';
-import _ from 'lodash';
+import { throttle, find } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import MinimizedBudgetFunctionsCell from './MinimizedBudgetFunctionsCell';
@@ -34,7 +34,7 @@ export default class BudgetFunctionsMinimized extends React.Component {
             hoveredFunction: -1
         };
 
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
         this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
         this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
@@ -144,13 +144,13 @@ export default class BudgetFunctionsMinimized extends React.Component {
         let tooltip = null;
 
         if (this.state.hoveredFunction > -1) {
-            const category = _.find(
+            const category = find(
                 this.props.categories.children,
                 { id: this.state.hoveredFunction });
-            const description = _.find(
+            const description = find(
                 this.props.descriptions,
                 { id: this.state.hoveredFunction });
-            const node = _.find(
+            const node = find(
                 this.state.finalNodes,
                 { key: `${this.state.hoveredFunction}` });
 

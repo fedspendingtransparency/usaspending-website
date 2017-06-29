@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { scaleLinear } from 'd3-scale';
-import _ from 'lodash';
+import { capitalize } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -151,7 +151,7 @@ export default class AmountsChart extends React.Component {
                 amount={this.props.potential}
                 groupTransform={`${200 + this.state.barWidth},0`}
                 singleTransform={`${10 + labelDistance},5`}
-                subtitle={`${_.capitalize(this.props.type)} Ceiling`}
+                subtitle={`${capitalize(this.props.type)} Ceiling`}
                 labelDistance={labelDistance}
                 line="line"
                 labelWidth={labelWidth}

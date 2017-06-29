@@ -8,7 +8,7 @@
  * Created by michaelbray on 2/17/17.
  */
 
-import _ from 'lodash';
+import { concat } from 'lodash';
 
 const initialState = {
     budgetFunctions: [],
@@ -19,12 +19,12 @@ const budgetCategoryReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_AUTOCOMPLETE_BUDGET_FUNCTIONS': {
             return Object.assign({}, state, {
-                budgetFunctions: _.concat([], action.budgetFunctions)
+                budgetFunctions: concat([], action.budgetFunctions)
             });
         }
         case 'SET_AUTOCOMPLETE_FEDERAL_ACCOUNTS': {
             return Object.assign({}, state, {
-                federalAccounts: _.concat([], action.federalAccounts)
+                federalAccounts: concat([], action.federalAccounts)
             });
         }
         default:

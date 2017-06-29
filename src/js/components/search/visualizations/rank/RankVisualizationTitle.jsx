@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { find } from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
@@ -89,7 +89,7 @@ export default class RankVisualizationTitle extends React.Component {
             </li>
         ));
 
-        const currentField = _.find(this.props.fieldTypes, { value: this.props.currentSpendingBy });
+        const currentField = find(this.props.fieldTypes, { value: this.props.currentSpendingBy });
         let showPicker = 'hide';
         let icon = <Icons.AngleDown alt="Pick a field" />;
         if (this.state.showPicker) {

@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { isEqual, find } from 'lodash';
 
 import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
@@ -54,7 +54,7 @@ export default class Autocomplete extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.values, this.props.values)) {
+        if (!isEqual(prevProps.values, this.props.values)) {
             this.open();
         }
         else if (this.props.noResults !== prevProps.noResults) {
@@ -186,7 +186,7 @@ export default class Autocomplete extends React.Component {
     }
 
     isValidSelection(input) {
-        return _.find(this.props.values, input);
+        return find(this.props.values, input);
     }
 
     bubbleUpChange(selection) {

@@ -2,7 +2,7 @@
  * Created by michaelbray on 2/17/17.
  */
 
-import _ from 'lodash';
+import { sortBy } from 'lodash';
 import { Set } from 'immutable';
 
 export const updateSelectedRecipients = (state, value) => {
@@ -24,7 +24,7 @@ export const updateSelectedRecipientLocations = (state, value) => {
     let updatedSet = state;
     // generate an identifier string based on matched IDs and place name
     const locationIdentifier =
-        `${_.sortBy(value.matched_ids).join(',')}_${value.place}_${value.place_type}`;
+        `${sortBy(value.matched_ids).join(',')}_${value.place}_${value.place_type}`;
 
     if (updatedSet.has(locationIdentifier)) {
         updatedSet = updatedSet.delete(locationIdentifier);

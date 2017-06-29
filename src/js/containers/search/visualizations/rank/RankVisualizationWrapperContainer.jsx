@@ -6,7 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 
 import SpendingByAwardingAgencyVisualizationContainer from
     'containers/search/visualizations/rank/SpendingByAwardingAgencyVisualizationContainer';
@@ -48,7 +48,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(this.props.reduxFilters, prevProps.reduxFilters)) {
+        if (!isEqual(this.props.reduxFilters, prevProps.reduxFilters)) {
             this.setFilterStates();
         }
     }

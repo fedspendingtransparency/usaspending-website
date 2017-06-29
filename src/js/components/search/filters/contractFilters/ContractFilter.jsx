@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { keys, invert } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import * as ContractFieldDefinitions from 'dataMapping/search/contractFields';
 
@@ -59,8 +59,8 @@ export default class ContractFilter extends React.Component {
     generateContractFilters(filters) {
         const contractFilters = [];
         // Creating vars for original filter and inverted filter keys
-        const originalFilters = _.keys(filters);
-        const invertedFilters = _.keys(_.invert(filters));
+        const originalFilters = keys(filters);
+        const invertedFilters = keys(invert(filters));
 
         if (contractFilters.length < this.state.shown) {
             // looping on inverted filters

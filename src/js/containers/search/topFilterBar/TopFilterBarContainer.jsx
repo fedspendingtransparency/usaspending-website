@@ -6,8 +6,8 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { orderBy } from 'lodash';
 
-import _ from 'lodash';
 import moment from 'moment';
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
@@ -169,7 +169,7 @@ export class TopFilterBarContainer extends React.Component {
                 filter.name = 'Time Period';
 
                 // return the years in chronological order
-                filter.values = _.orderBy(props.timePeriodFY.toArray(), [], ['desc']);
+                filter.values = orderBy(props.timePeriodFY.toArray(), [], ['desc']);
             }
         }
         else if (props.timePeriodType === 'dr') {
