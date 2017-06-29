@@ -28,7 +28,8 @@ const remapData = (data) => {
         head: 'agency_head',
         logo: 'agency_logo_url',
         activeFY: 'active_fy',
-        budgetAuthority: 'budget_authority',
+        budgetAuthority: 'budget_authority_amount',
+        obligatedAmount: 'obligated_amount',
         federalBudget: 'total_budget_authority_amount'
     };
 

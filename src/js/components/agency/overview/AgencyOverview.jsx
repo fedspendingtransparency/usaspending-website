@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { capitalize } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -27,14 +28,28 @@ export default class AgencyOverview extends React.Component {
             logo = (<img src={this.props.agency.logo} alt={this.props.agency.name} />);
         }
 
-        const budgetAuthority = MoneyFormatter.formatTreemapValues(
+        // Hide visualizations if the budget doesn't exist
+        // Todo - Mike Bray: Remove this when the API is ready
+        let totalBudgetAuthorityHide = "";
+        if (this.props.agency.federalBudget === -1) {
+            totalBudgetAuthorityHide = 'hide';
+        }
+
+        // Generate Budget Authority string
+        const budgetAuthority = MoneyFormatter.calculateUnitForSingleValue(
             this.props.agency.budgetAuthority);
+        const formattedBudgetAuthority = `${MoneyFormatter.formatMoney(
+            this.props.agency.budgetAuthority / budgetAuthority.unit)}
+            ${capitalize(budgetAuthority.longLabel)}`;
+
+        // Generate Percentage string
         const percentage = MoneyFormatter.calculateTreemapPercentage(
             this.props.agency.budgetAuthority, this.props.agency.federalBudget);
         const percentageElement = (
             <span className="authority-statement-percentage">{percentage}</span>
         );
 
+        // Generate visualization parameters
         const visualizationWidth = 366;
         const obligatedWidth = visualizationWidth * percentage;
         const remainingWidth = visualizationWidth - obligatedWidth;
@@ -74,13 +89,13 @@ export default class AgencyOverview extends React.Component {
                     <div className="budget-authority">
                         <h4>Budget Authority This Year (FY {this.props.agency.activeFY})</h4>
                         <div className="authority-amount">
-                            {budgetAuthority}
+                            {formattedBudgetAuthority}
                         </div>
-                        <div className="authority-statement">
+                        <div className={`authority-statement ${totalBudgetAuthorityHide}`}>
                             This is {percentageElement} of the total United States
                             federal budget for FY {this.props.agency.activeFY}.
                         </div>
-                        <svg className="horizontal-bar">
+                        <svg className={`horizontal-bar ${totalBudgetAuthorityHide}`}>
                             <g>
                                 <HorizontalBarItem
                                     description="Budget Authority"
