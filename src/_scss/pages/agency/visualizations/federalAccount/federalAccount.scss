@@ -1,0 +1,20 @@
+#agency-federal-accounts {
+
+    .chart-wrapper {
+        position: relative;
+        @import "pages/search/results/visualizations/rank/chart/rankChart";
+
+        .loading-visualization {
+            opacity: 0.5;
+        }
+
+        .results-visualization-message {
+            font-size: $small-font-size;
+            text-align: center;
+        }
+
+        .visualization-tooltip {
+            @import "components/visualizations/tooltip/_tooltip";
+        }
+    }
+}
