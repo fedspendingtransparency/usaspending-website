@@ -1,51 +1,16 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const merge = require('webpack-merge');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const common = require('./common');
+const common = require('./webpack.common');
 
-const styleLoader = {
-    test: /\.scss$/,
-    use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [
-            {
-                loader: 'css-loader',
-                options: {
-                    sourceMap: true
-                }
-            },
-            {
-                loader: 'sass-loader',
-                options: {
-                    includePaths: ['./src/_scss'],
-                    sourceMap: true
-                }
-            }
-        ]
-    })
-};
-
-const loaders = [
-    common.loaders.babel,
-    styleLoader,
-    common.loaders.files
-];
-
-// clone the common plugin array
-const plugins = Array.from(common.commonConfig.plugins);
-const customPlugins = [
-    new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('development') // indicate to libraries that this is in prod mode (which may affect their behavior for debugging)
-    })
-];
-
-module.exports = Object.assign({}, common.commonConfig, {
-    module: Object.assign({}, common.commonConfig.module, {
-        loaders
-    }),
-    plugins: plugins.concat(customPlugins),
+module.exports = merge(common, {
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('development') // indicate to libraries that this is in prod mode (which may affect their behavior for debugging)
+        })
+    ],
     devtool: 'inline-source-map',
     devServer: {
         contentBase: path.resolve(__dirname, 'public'),

@@ -1,0 +1,10 @@
+require('react');
+require('react-dom');
+require('redux');
+require('moment');
+require('axios');
+require('svg4everybody');
+require('babel-polyfill');
+require('commonmark');
+require('mapbox-gl/dist/mapbox-gl');
+require('jquery');
