@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { indexOf, difference, concat } from 'lodash';
 
 import { Set } from 'immutable';
 
@@ -43,7 +43,7 @@ export default class RecipientTypeFilterGroup extends React.Component {
 
         // remove the current group's values
         const recipientValues = RecipientType.recipientTypeGroups[value];
-        updatedValues = updatedValues.filterNot((x) => _.indexOf(recipientValues, x) > -1);
+        updatedValues = updatedValues.filterNot((x) => indexOf(recipientValues, x) > -1);
 
         this.props.redux.updateGenericFilter({
             type: 'recipientType',
@@ -66,7 +66,7 @@ export default class RecipientTypeFilterGroup extends React.Component {
 
             // quick way of checking for full group membership is to return an array of missing
             // values; it'll be empty if all the values are selected
-            const missingValues = _.difference(fullMembership, selectedValues);
+            const missingValues = difference(fullMembership, selectedValues);
 
             if (missingValues.length === 0) {
                 // this group is complete
@@ -87,7 +87,7 @@ export default class RecipientTypeFilterGroup extends React.Component {
             tags.push(tag);
 
             // exclude these values from the remaining tags
-            excludedValues = _.concat(excludedValues, RecipientType.recipientTypeGroups[group]);
+            excludedValues = concat(excludedValues, RecipientType.recipientTypeGroups[group]);
         });
 
         selectedValues.forEach((value) => {
@@ -98,7 +98,7 @@ export default class RecipientTypeFilterGroup extends React.Component {
                 removeFilter: this.removeFilter
             };
 
-            if (_.indexOf(excludedValues, value) < 0) {
+            if (indexOf(excludedValues, value) < 0) {
                 // only insert individual tags that aren't part of a fully-selected group
                 // excluded values is an array of values that are already included in a full group,
                 // so if this value isn't in that array, it can be shown individually

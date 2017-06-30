@@ -1,0 +1,10 @@
+@import "_tableSelectColumns";
+@import "_resultsTablePicker";
+.results-dropdown-picker-wrapper {
+@include justify-content(space-between);
+  @include display(flex);
+  width: 100%;
+  @include media($tablet-screen) { 
+    //display: block;
+  }
+}

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { OrderedSet } from 'immutable';
-import _ from 'lodash';
+import { sortBy, keyBy } from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
@@ -60,7 +60,7 @@ export default class ProgramActivityFilter extends React.Component {
         // Sort program activities by code, ascending, for display purposes
         // Code is a string - must convert to numeric before sorting
         const sortedProgramActivities =
-            _.sortBy(programActivities, [(pa) => parseInt(pa.code, 10)]);
+            sortBy(programActivities, [(pa) => parseInt(pa.code, 10)]);
 
         sortedProgramActivities.forEach((programActivity) => {
             if (activities.length < this.state.shown) {
@@ -76,7 +76,7 @@ export default class ProgramActivityFilter extends React.Component {
                             name={label}
                             value={programActivity.id}
                             key={programActivity.id}
-                            types={_.keyBy(this.props.availableProgramActivities, 'id')}
+                            types={keyBy(this.props.availableProgramActivities, 'id')}
                             filterType="Object Class"
                             selectedCheckboxes={this.props.selectedProgramActivities}
                             toggleCheckboxType={this.toggleValue}

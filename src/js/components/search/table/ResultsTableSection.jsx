@@ -14,6 +14,7 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
 import ResultsTableMessage from './ResultsTableMessage';
+import ResultsTablePicker from './ResultsTablePicker';
 import ResultsSelectColumns from './ResultsSelectColumns';
 
 const propTypes = {
@@ -97,11 +98,17 @@ export default class ResultsTableSection extends React.Component {
                     </button>
                 </div>
                 <hr className="results-divider" />
-                <ResultsSelectColumns
-                    columns={this.props.columns}
-                    hiddenColumns={this.props.hiddenColumns}
-                    toggleColumnVisibility={this.props.toggleColumnVisibility}
-                    reorderColumns={this.props.reorderColumns} />
+                <div className="results-dropdown-picker-wrapper">
+                    <ResultsTablePicker
+                        types={this.props.tableTypes}
+                        active={this.props.currentType}
+                        switchTab={this.props.switchTab} />
+                    <ResultsSelectColumns
+                        columns={this.props.columns}
+                        hiddenColumns={this.props.hiddenColumns}
+                        toggleColumnVisibility={this.props.toggleColumnVisibility}
+                        reorderColumns={this.props.reorderColumns} />
+                </div>
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}

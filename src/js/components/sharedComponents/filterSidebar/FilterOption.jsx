@@ -12,7 +12,12 @@ import FilterExpandButton from './FilterExpandButton';
 const propTypes = {
     name: React.PropTypes.string,
     component: React.PropTypes.func,
-    disabled: React.PropTypes.bool
+    disabled: React.PropTypes.bool,
+    defaultExpand: React.PropTypes.bool
+};
+
+const defaultProps = {
+    defaultExpand: true
 };
 
 const ga = require('react-ga');
@@ -37,6 +42,16 @@ export default class FilterOption extends React.Component {
 
         // bind functions
         this.toggleFilter = this.toggleFilter.bind(this);
+    }
+
+    componentWillMount() {
+        if (!this.props.defaultExpand) {
+            // check if filter is supposed to be collapsed by default
+            this.setState({
+                arrowState: 'collapsed',
+                showFilter: false
+            });
+        }
     }
 
     toggleFilter(e) {
@@ -92,3 +107,4 @@ export default class FilterOption extends React.Component {
 }
 
 FilterOption.propTypes = propTypes;
+FilterOption.defaultProps = defaultProps;

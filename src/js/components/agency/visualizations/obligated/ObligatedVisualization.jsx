@@ -7,7 +7,7 @@ import React from 'react';
 import moment from 'moment';
 import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import _ from 'lodash';
+import { throttle } from 'lodash';
 
 import AgencyObligatedGraph from './ObligatedGraph';
 
@@ -28,7 +28,7 @@ export default class AgencyObligatedAmount extends React.Component {
             visualizationWidth: 0
         };
 
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
     }
 
     componentDidMount() {

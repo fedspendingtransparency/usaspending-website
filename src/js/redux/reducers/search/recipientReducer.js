@@ -3,7 +3,7 @@
  * Created by michaelbray on 2/17/17.
  */
 
-import _ from 'lodash';
+import { concat } from 'lodash';
 
 const initialState = {
     recipients: [],
@@ -14,12 +14,12 @@ const recipientReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_AUTOCOMPLETE_RECIPIENTS': {
             return Object.assign({}, state, {
-                recipients: _.concat([], action.recipients)
+                recipients: concat([], action.recipients)
             });
         }
         case 'SET_AUTOCOMPLETE_RECIPIENT_LOCATIONS': {
             return Object.assign({}, state, {
-                recipientLocations: _.concat([], action.locations)
+                recipientLocations: concat([], action.locations)
             });
         }
         default:

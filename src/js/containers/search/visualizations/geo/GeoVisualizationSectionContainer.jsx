@@ -6,7 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { uniqueId, isEqual } from 'lodash';
 
 import GeoVisualizationSection from
     'components/search/visualizations/geo/GeoVisualizationSection';
@@ -32,7 +32,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 values: [],
                 states: []
             },
-            renderHash: `geo-${_.uniqueId()}`,
+            renderHash: `geo-${uniqueId()}`,
             loading: true
         };
 
@@ -46,7 +46,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
             this.fetchData();
         }
     }
@@ -122,7 +122,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 values: spendingValues,
                 states: spendingStates
             },
-            renderHash: `geo-${_.uniqueId()}`,
+            renderHash: `geo-${uniqueId()}`,
             loading: false
         });
     }

@@ -6,8 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 
 import TimeVisualizationSection from
     'components/search/visualizations/time/TimeVisualizationSection';
@@ -49,7 +48,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
             this.setFilterStates();
         }
     }

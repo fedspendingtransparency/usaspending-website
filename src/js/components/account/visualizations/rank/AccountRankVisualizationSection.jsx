@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { throttle, min } from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
@@ -33,7 +33,7 @@ export default class AccountRankVisualizationSection extends React.Component {
             labelWidth: 0
         };
 
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.clickPrevious = this.clickPrevious.bind(this);
         this.clickNext = this.clickNext.bind(this);
     }
@@ -55,7 +55,7 @@ export default class AccountRankVisualizationSection extends React.Component {
             this.setState({
                 windowWidth,
                 visualizationWidth: this.sectionHr.offsetWidth,
-                labelWidth: _.min([this.sectionHr.offsetWidth / 3, 270])
+                labelWidth: min([this.sectionHr.offsetWidth / 3, 270])
             });
         }
     }

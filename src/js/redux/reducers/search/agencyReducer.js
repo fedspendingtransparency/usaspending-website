@@ -3,7 +3,7 @@
  * Created by michaelbray 01/26/16
  **/
 
-import _ from 'lodash';
+import { concat } from 'lodash';
 
 const initialState = {
     fundingAgencies: [],
@@ -14,12 +14,12 @@ const agencyReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_AUTOCOMPLETE_AWARDING_AGENCIES': {
             return Object.assign({}, state, {
-                awardingAgencies: _.concat([], action.agencies)
+                awardingAgencies: concat([], action.agencies)
             });
         }
         case 'SET_AUTOCOMPLETE_FUNDING_AGENCIES': {
             return Object.assign({}, state, {
-                fundingAgencies: _.concat([], action.agencies)
+                fundingAgencies: concat([], action.agencies)
             });
         }
         default:

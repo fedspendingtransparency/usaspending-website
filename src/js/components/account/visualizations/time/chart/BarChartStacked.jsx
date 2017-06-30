@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { scaleBand, scaleLinear } from 'd3-scale';
-import _ from 'lodash';
+import { isEqual, min, max, mean, forEach, sum } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -74,13 +74,13 @@ export default class BarChart extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!_.isEqual(nextProps, this.props)) {
+        if (!isEqual(nextProps, this.props)) {
             this.generateChart(nextProps);
         }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (!_.isEqual(nextProps, this.props) || !_.isEqual(nextState, this.state)) {
+        if (!isEqual(nextProps, this.props) || !isEqual(nextState, this.state)) {
             return true;
         }
         return false;
@@ -94,14 +94,14 @@ export default class BarChart extends React.Component {
         const yRange = [];
 
         // determine the Y axis minimum
-        let yMin = _.min(allY);
+        let yMin = min(allY);
         if (yMin > 0) {
             // set the minimum to zero if there are no negative values
             yMin = 0;
         }
         if (allY.length > 1) {
             yRange.push(yMin);
-            yRange.push(_.max(allY));
+            yRange.push(max(allY));
         }
         else if (allY.length > 0) {
             // in some cases, we may only have one data point. This is insufficient to calculate a
@@ -169,7 +169,7 @@ export default class BarChart extends React.Component {
             const groupWidth = xScale.bandwidth() - 40;
             // subdivide the group width based on the number of group items to determine the width
             // of each data point, with a max of 120px
-            const itemWidth = _.min([groupWidth / yData.length, 120]);
+            const itemWidth = min([groupWidth / yData.length, 120]);
             // calculate where on the X axis the group should start (offset this by 20px to account
             // for the padding between groups)
             let startingXPos = xScale(group) + 20;
@@ -416,7 +416,7 @@ ${MoneyFormatter.formatMoney(stack.outlay)}`;
             graphHeight,
             yValues: allY,
             xValues: props.groups,
-            yAverage: _.mean(allY),
+            yAverage: mean(allY),
             yTicks: yScale.ticks(7)
         });
     }
@@ -437,7 +437,7 @@ ${MoneyFormatter.formatMoney(stack.outlay)}`;
             activeBar: barIdentifier
         }, () => {
             // notify all the child items of the change
-            _.forEach(this.dataPoints, (value) => {
+            forEach(this.dataPoints, (value) => {
                 value.updateActive(this.state.activeBar);
             });
 
@@ -455,7 +455,7 @@ ${MoneyFormatter.formatMoney(stack.outlay)}`;
             activeBar: null
         }, () => {
             // notify all the child items of the change
-            _.forEach(this.dataPoints, (value) => {
+            forEach(this.dataPoints, (value) => {
                 value.updateActive(this.state.activeBar);
             });
 
@@ -515,7 +515,7 @@ ${MoneyFormatter.formatMoney(stack.outlay)}`;
         const xPos = chartLeft + barXAnchor + this.props.padding.left;
 
         // calculate the percentage of the total
-        const rawPercent = (yValue / _.sum(this.state.yValues));
+        const rawPercent = (yValue / sum(this.state.yValues));
 
         // format the percentage to be rounded to 1 decimal value, if it is a number
         let percentage = 'N/A';

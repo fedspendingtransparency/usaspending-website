@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { uniqueId, isEqual } from 'lodash';
 
 import MapVisualization from './MapVisualization';
 import MapList from './MapList';
@@ -21,7 +21,7 @@ export default class MapVisualizationWrapper extends React.Component {
 
         this.state = {
             view: 'map',
-            renderHash: `geo-${_.uniqueId()}`,
+            renderHash: `geo-${uniqueId()}`,
             loading: true,
             showPerCapita: false,
             dataKey: 'total'
@@ -32,14 +32,14 @@ export default class MapVisualizationWrapper extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!_.isEqual(nextProps.data, this.props.data)) {
+        if (!isEqual(nextProps.data, this.props.data)) {
             this.parseData();
         }
     }
 
     parseData() {
         this.setState({
-            renderHash: `geo-${_.uniqueId()}`,
+            renderHash: `geo-${uniqueId()}`,
             loading: false
         });
     }
@@ -61,7 +61,7 @@ export default class MapVisualizationWrapper extends React.Component {
         this.setState({
             showPerCapita,
             dataKey,
-            renderHash: `geo-${_.uniqueId()}`
+            renderHash: `geo-${uniqueId()}`
         });
     }
 
