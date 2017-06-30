@@ -630,13 +630,43 @@ describe('searchFiltersReducer', () => {
     });
 
     describe('UPDATE_PRICING_TYPE', () => {
-        it('should set a pricing type value', () => {
+        it('should set a pricing type value when there is none', () => {
             const action = {
                 type: 'UPDATE_PRICING_TYPE',
                 pricingType: 'B'
             };
             const updatedState = searchFiltersReducer(undefined, action);
             expect(updatedState.pricingType).toEqual(new Set(['B']));
+        });
+
+        it('should remove the provided values when unchecked', () => {
+            const action = {
+                type: 'UPDATE_PRICING_TYPE',
+                pricingType: 'B'
+            };
+
+            const startingState = Object.assign({}, initialState, {
+                pricingType: new Set(['B', 'L'])
+            });
+
+            expect(
+                searchFiltersReducer(startingState, action).pricingType
+            ).toEqual(new Set(['L']));
+        });
+
+        it('should add new values to an existing set', () => {
+            const action = {
+                type: 'UPDATE_PRICING_TYPE',
+                pricingType: 'B'
+            };
+
+            const startingState = Object.assign({}, initialState, {
+                pricingType: new Set(['M', 'J', 'L'])
+            });
+
+            expect(
+                searchFiltersReducer(startingState, action).pricingType
+            ).toEqual(new Set(['M', 'J', 'L', 'B']));
         });
     });
 

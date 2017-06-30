@@ -22,21 +22,11 @@ describe('ContractFilterContainer', () => {
                 <ContractFilterContainer
                     updatePricingType={mockReduxAction} />);
 
-            const selectPricingTypeSpy = sinon.spy(contractFilterContainer.instance(),
-                'selectPricingType');
-
             // Add Select Pricing to redux
             contractFilterContainer.instance().selectPricingType('B');
 
-            // Remove it
-            contractFilterContainer.instance().selectPricingType('B');
-
             // everything should be updated now
-            expect(selectPricingTypeSpy.callCount).toEqual(2);
             expect(mockReduxAction).toHaveBeenCalled();
-
-            // reset the spy
-            selectPricingTypeSpy.reset();
         });
     });
     describe('Handle adding and removing set aside items', () => {
@@ -48,21 +38,13 @@ describe('ContractFilterContainer', () => {
             // Set up container with mocked Set Aside action
             const contractFilterContainer = shallow(
                 <ContractFilterContainer
-                    selectSetAside={mockReduxAction}
                     updateSetAside={mockReduxAction} />);
 
-            const setAsideSpy = sinon.spy(contractFilterContainer.instance(),
-                'selectSetAside');
-
-            // Add Set Aside to redux
+            // Add Select Pricing to redux
             contractFilterContainer.instance().selectSetAside('8AN');
 
             // everything should be updated now
-            expect(setAsideSpy.callCount).toEqual(1);
             expect(mockReduxAction).toHaveBeenCalled();
-
-            // reset the spy
-            setAsideSpy.reset();
         });
     });
     describe('Handle adding and removing extent competed items', () => {
@@ -71,24 +53,16 @@ describe('ContractFilterContainer', () => {
                 expect(args).toEqual('F');
             });
 
-            // Set up container with mocked Set Aside action
+            // Set up container with mocked Extent Competed action
             const contractFilterContainer = shallow(
                 <ContractFilterContainer
-                    selectExtentCompeted={mockReduxAction}
                     updateExtentCompeted={mockReduxAction} />);
 
-            const extentCompetedSpy = sinon.spy(contractFilterContainer.instance(),
-                'selectExtentCompeted');
-
-            // Add Extent Competed to redux
+            // Add Select Pricing to redux
             contractFilterContainer.instance().selectExtentCompeted('F');
 
             // everything should be updated now
-            expect(extentCompetedSpy.callCount).toEqual(1);
             expect(mockReduxAction).toHaveBeenCalled();
-
-            // reset the spy
-            extentCompetedSpy.reset();
         });
     });
 });
