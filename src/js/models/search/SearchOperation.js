@@ -163,17 +163,17 @@ class SearchOperation {
 
         // Add Pricing Type Queries
         if (this.pricingType.length > 0) {
-            filters.push(ContractFilterQuery.buildPricingTypeQuery(this.pricingType));
+            filters.push(ContractFilterQuery.buildPricingTypeQuery(this.pricingType, this.searchContext));
         }
 
         // Add Set Aside Queries
         if (this.setAside.length > 0) {
-            filters.push(ContractFilterQuery.buildSetAsideQuery(this.setAside));
+            filters.push(ContractFilterQuery.buildSetAsideQuery(this.setAside, this.searchContext));
         }
 
         // Add Extent Competed Queries
         if (this.extentCompeted.length > 0) {
-            filters.push(ContractFilterQuery.buildExtentCompetedQuery(this.extentCompeted));
+            filters.push(ContractFilterQuery.buildExtentCompetedQuery(this.extentCompeted, this.searchContext));
         }
 
         return filters;

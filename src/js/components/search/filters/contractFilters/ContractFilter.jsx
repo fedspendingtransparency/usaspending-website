@@ -32,8 +32,6 @@ export default class ContractFilter extends React.Component {
         this.state = defaultState;
 
         // Bind functions
-        this.toggleValue = this.toggleValue.bind(this);
-        this.generateContractFilters = this.generateContractFilters.bind(this);
         this.toggleShownAmount = this.toggleShownAmount.bind(this);
     }
 
@@ -50,10 +48,6 @@ export default class ContractFilter extends React.Component {
         }
 
         this.setState(updatedState);
-    }
-
-    toggleValue(value) {
-        this.props.toggleFilter(value);
     }
 
     generateContractFilters(filters) {
@@ -79,7 +73,7 @@ export default class ContractFilter extends React.Component {
                             code={invertedFilters[key]}
                             filterType={this.props.contractFilterType}
                             selectedCheckboxes={this.props[this.props.contractFilterState]}
-                            toggleCheckboxType={this.toggleValue}
+                            toggleCheckboxType={this.props.toggleFilter}
                             enableAnalytics />);
                 }
             });

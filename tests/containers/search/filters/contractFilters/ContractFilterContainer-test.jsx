@@ -20,17 +20,19 @@ describe('ContractFilterContainer', () => {
             // Set up container with mocked Pricing Type action
             const contractFilterContainer = shallow(
                 <ContractFilterContainer
-                    selectPricingType={mockReduxAction}
                     updatePricingType={mockReduxAction} />);
 
             const selectPricingTypeSpy = sinon.spy(contractFilterContainer.instance(),
                 'selectPricingType');
 
-            // Add Select Pricing 3to redux
+            // Add Select Pricing to redux
+            contractFilterContainer.instance().selectPricingType('B');
+
+            // Remove it
             contractFilterContainer.instance().selectPricingType('B');
 
             // everything should be updated now
-            expect(selectPricingTypeSpy.callCount).toEqual(1);
+            expect(selectPricingTypeSpy.callCount).toEqual(2);
             expect(mockReduxAction).toHaveBeenCalled();
 
             // reset the spy

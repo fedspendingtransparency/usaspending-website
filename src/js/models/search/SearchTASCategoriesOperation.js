@@ -8,6 +8,7 @@ import SearchOperation from './SearchOperation';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
 import * as BudgetCategoryQuery from './queryBuilders/BudgetCategoryQuery';
+import * as ContractFilterQuery from './queryBuilders/ContractFilterQuery';
 
 class SearchTASCategoriesOperation extends SearchOperation {
     constructor() {
@@ -54,6 +55,24 @@ class SearchTASCategoriesOperation extends SearchOperation {
         if (Object.keys(this.objectClasses).length > 0) {
             filters.push(BudgetCategoryQuery.buildObjectClassQuery(
                 this.objectClasses, this.searchContext));
+        }
+
+        // Add pricing type query
+        if (this.pricingType.length > 0 || this.pricingType.length > 0) {
+            filters.push(ContractFilterQuery.buildPricingTypeQuery(
+                this.pricingType, this.searchContext));
+        }
+
+        // Add set aside query
+        if (this.setAside.length > 0 || this.setAside.length > 0) {
+            filters.push(ContractFilterQuery.buildSetAsideQuery(
+                this.setAside, this.searchContext));
+        }
+
+        // Add extent competed query
+        if (this.extentCompeted.length > 0 || this.extentCompeted.length > 0) {
+            filters.push(ContractFilterQuery.buildExtentCompetedQuery(
+                this.extentCompeted, this.searchContext));
         }
 
         return filters;
