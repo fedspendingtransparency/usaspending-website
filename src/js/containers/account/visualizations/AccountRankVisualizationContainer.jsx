@@ -109,7 +109,7 @@ export class AccountRankVisualizationContainer extends React.Component {
 
         this.apiRequest = AccountHelper.fetchTasCategoryTotals({
             group: categoryLabelFields[this.state.categoryScope],
-            field: 'obligations_incurred_by_program_object_class_cpe',
+            field: 'obligations_incurred_total_by_award_cpe',
             aggregate: 'sum',
             order: ['-aggregate'],
             filters: searchOperation.toParams(),
