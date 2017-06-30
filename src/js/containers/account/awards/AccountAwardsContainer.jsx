@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import Immutable from 'immutable';
 
+import { measureTableHeader } from 'helpers/textMeasurement';
+
 import TableSearchFields from 'dataMapping/search/tableSearchFields';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -162,11 +164,9 @@ export class AccountAwardsContainer extends React.Component {
          // calculate the column metadata to display in the table
         const columns = [];
         let sortOrder = TableSearchFields.defaultSortDirection;
-        let columnWidths = TableSearchFields.columnWidths;
 
         if (tableType === 'loans') {
             sortOrder = TableSearchFields.loans.sortDirection;
-            columnWidths = TableSearchFields.loans.columnWidths;
         }
 
         const tableSettings = TableSearchFields[tableType];
@@ -175,7 +175,7 @@ export class AccountAwardsContainer extends React.Component {
             const column = {
                 columnName: col,
                 displayName: tableSettings[col],
-                width: columnWidths[col],
+                width: measureTableHeader(tableSettings[col]),
                 defaultDirection: sortOrder[col]
             };
             columns.push(column);

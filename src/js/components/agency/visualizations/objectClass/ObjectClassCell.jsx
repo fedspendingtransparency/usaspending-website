@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { truncate } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
@@ -112,7 +112,7 @@ export default class ObjectClassCell extends React.Component {
             maxChars = Math.floor((maxWidth) / avgCharWidth);
 
             // truncate the label
-            truncatedLabel = _.truncate(this.props.label, {
+            truncatedLabel = truncate(this.props.label, {
                 length: maxChars
             });
         }

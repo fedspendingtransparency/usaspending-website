@@ -3,7 +3,7 @@
  * Created by Kevin Li 3/17/17
  */
 
-import _ from 'lodash';
+import { uniqueId, concat } from 'lodash';
 
 import { Set, OrderedSet } from 'immutable';
 
@@ -45,8 +45,8 @@ const initialState = {
     awards: new OrderedSet(),
     awardsMeta: {
         batch: {
-            queryId: _.uniqueId(),
-            searchId: _.uniqueId()
+            queryId: uniqueId(),
+            searchId: uniqueId()
         },
         page: 1,
         hasNext: false,
@@ -69,8 +69,8 @@ const accountReducer = (state = initialState, action) => {
         case 'SET_ACCOUNT_AWARD_ITEMS': {
             const meta = Object.assign({}, state.awardsMeta, {
                 batch: {
-                    queryId: _.uniqueId(),
-                    searchId: _.uniqueId()
+                    queryId: uniqueId(),
+                    searchId: uniqueId()
                 },
                 page: 1,
                 hasNext: action.hasNext
@@ -84,7 +84,7 @@ const accountReducer = (state = initialState, action) => {
         case 'APPEND_ACCOUNT_AWARD_ITEMS': {
             const meta = Object.assign({}, state.awardsMeta, {
                 batch: {
-                    queryId: _.uniqueId(),
+                    queryId: uniqueId(),
                     searchId: state.awardsMeta.batch.searchId
                 },
                 page: action.page,
@@ -92,15 +92,15 @@ const accountReducer = (state = initialState, action) => {
             });
 
             return Object.assign({}, state, {
-                awards: new OrderedSet(_.concat(state.awards.toArray(), action.awards)),
+                awards: new OrderedSet(concat(state.awards.toArray(), action.awards)),
                 awardsMeta: meta
             });
         }
         case 'SET_ACCOUNT_AWARD_TYPE': {
             const meta = Object.assign({}, state.awardsMeta, {
                 batch: {
-                    queryId: _.uniqueId(),
-                    searchId: _.uniqueId()
+                    queryId: uniqueId(),
+                    searchId: uniqueId()
                 },
                 type: action.awardType
             });

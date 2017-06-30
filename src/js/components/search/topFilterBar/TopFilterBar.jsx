@@ -14,6 +14,7 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     filters: React.PropTypes.array,
+    filterCount: React.PropTypes.number,
     clearAllFilters: React.PropTypes.func,
     groupGenerator: React.PropTypes.func
 };
@@ -31,27 +32,14 @@ export default class TopFilterBar extends React.Component {
     }
 
     render() {
-        let filterCount = 0;
-
-        const filters = this.props.filters.map((filter) => {
-            if (typeof filter.values === "string") {
-                filterCount += 1;
-            }
-            else if (filter.values instanceof Array) {
-                filterCount += filter.values.length;
-            }
-            else {
-                filterCount += Object.keys(filter.values).length;
-            }
-
-            return this.props.groupGenerator({
+        const filters = this.props.filters.map((filter) =>
+            this.props.groupGenerator({
                 filter,
                 redux: this.props
-            });
-        });
+            }));
 
-        let filterBarHeader = `${filterCount} Current Filter`;
-        if (filterCount !== 1) {
+        let filterBarHeader = `${this.props.filterCount} Current Filter`;
+        if (this.props.filterCount !== 1) {
             filterBarHeader += 's';
         }
         filterBarHeader += ':';

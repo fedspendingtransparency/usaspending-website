@@ -127,3 +127,11 @@ $outer-gutter:        rem(40);
 
 // 44 x 44 pixels hit target following Apple iOS Human Interface Guidelines
 $hit-area:          4.4rem;
+
+// z-indices (to use, add a number 0-9 to the layer you want to use)
+// this keeps out z-indices in check without going to absurdly high numbers
+$z-base: 0;
+$z-header: 100;
+$z-guide: 200;
+$z-modal: 300;
+$z-mobile-filter: 400;

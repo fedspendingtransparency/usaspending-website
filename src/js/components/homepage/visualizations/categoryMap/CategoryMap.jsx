@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { hierarchy, treemap, treemapDice, treemapSlice } from 'd3-hierarchy';
-import _ from 'lodash';
+import { throttle, find } from 'lodash';
 import { HandDrawnArrow } from 'components/sharedComponents/icons/Icons';
 
 import CategoryMapCell from './CategoryMapCell';
@@ -38,7 +38,7 @@ export default class CategoryMap extends React.Component {
             geoPortion: 0
         };
 
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.buildTree = this.buildTree.bind(this);
         this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
         this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
@@ -128,7 +128,7 @@ export default class CategoryMap extends React.Component {
     }
 
     toggleTooltipIn(categoryID, height, width) {
-        const category = _.find(this.state.finalNodes, { key: `${categoryID}` });
+        const category = find(this.state.finalNodes, { key: `${categoryID}` });
         this.setState({
             category: category.props.label,
             description: category.props.description,

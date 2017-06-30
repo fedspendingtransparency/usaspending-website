@@ -4,7 +4,7 @@
 **/
 
 import React from 'react';
-import _ from 'lodash';
+import { find, remove, sumBy } from 'lodash';
 
 import BudgetSubfunctionsNavigation from './BudgetSubfunctionsNavigation';
 import BudgetSubfunctionsDescription from './BudgetSubfunctionsDescription';
@@ -46,8 +46,8 @@ export default class BudgetSubfunctions extends React.Component {
     }
 
     updateSubfunctionState(props) {
-        const category = _.find(props.categories.children, { id: props.selected });
-        const description = _.find(props.descriptions, { id: props.selected });
+        const category = find(props.categories.children, { id: props.selected });
+        const description = find(props.descriptions, { id: props.selected });
         const subfunction = props.subfunctions[category.name];
 
         this.setState({
@@ -58,6 +58,23 @@ export default class BudgetSubfunctions extends React.Component {
     }
 
     render() {
+        let subfunctionTotal = 0;
+        let numberOfSubfunctions = 0;
+
+        // If a category is selected, sum the positive subfunction values
+        if (this.state.category.value) {
+            const positiveSubfunctions = this.state.subfunction;
+            remove(positiveSubfunctions.children, (v) => v.value <= 0);
+
+            // Count subfunctions
+            numberOfSubfunctions = positiveSubfunctions.children.length;
+
+            // Remove JS rounding issues
+            subfunctionTotal = parseFloat(
+                sumBy(positiveSubfunctions.children, 'value').toFixed(2)
+            );
+        }
+
         return (
             <div className="treemap-inner-wrap">
                 <BudgetSubfunctionsNavigation
@@ -65,7 +82,9 @@ export default class BudgetSubfunctions extends React.Component {
                     {...this.state} />
                 <BudgetSubfunctionsDescription
                     {...this.props}
-                    {...this.state} />
+                    {...this.state}
+                    subfunctionTotal={subfunctionTotal}
+                    numberOfSubfunctions={numberOfSubfunctions} />
                 <BudgetSubfunctionsMap
                     {...this.props}
                     {...this.state} />

@@ -1,0 +1,26 @@
+// slide in animation
+@keyframes slidein {
+    0% {
+        transform: translate(300px, 0);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes slideout {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(300px, 0);
+    }
+}  
+
+.glossary-slide-enter, .glossary-slide-enter-active {
+    @include animation(slidein 0.5s ease-in forwards);
+}
+
+.glossary-slide-leave, .glossary-slide-leave-active {
+    @include animation(slideout 0.5s ease-in forwards);
+}

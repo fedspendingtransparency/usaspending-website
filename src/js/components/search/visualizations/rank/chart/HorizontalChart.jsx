@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
 import HorizontalXAxis from './HorizontalXAxis';
@@ -62,8 +62,8 @@ export default class HorizontalChart extends React.Component {
         // generate the X-axis ranges
         const dataRange = [];
         if (props.dataSeries.length > 1) {
-            let minValue = _.min(props.dataSeries);
-            let maxValue = _.max(props.dataSeries);
+            let minValue = min(props.dataSeries);
+            let maxValue = max(props.dataSeries);
 
             if (minValue > 0) {
                 minValue = 0;
@@ -78,22 +78,22 @@ export default class HorizontalChart extends React.Component {
         }
         else if (props.dataSeries.length === 1) {
             // when there is only one item, we need to manually set either the min or the max
-            let min = 0;
-            let max = 10000;
+            let minValue = 0;
+            let maxValue = 10000;
 
             const dataPoint = props.dataSeries[0];
             if (dataPoint <= 0) {
                 // a negative or zero value means we will use the data point as the min and 0 as
                 // the max
-                min = dataPoint;
+                minValue = dataPoint;
             }
             else {
                 // a positive value means we will use the data point as the max and 0 as the min
-                max = dataPoint;
+                maxValue = dataPoint;
             }
 
-            dataRange.push(min);
-            dataRange.push(max);
+            dataRange.push(minValue);
+            dataRange.push(maxValue);
         }
         else {
             // when there are no items, use an arbitrary default range

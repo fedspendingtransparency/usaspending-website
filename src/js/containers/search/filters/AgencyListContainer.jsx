@@ -7,7 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import _ from 'lodash';
+import { filter, sortBy, slice, concat } from 'lodash';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
@@ -99,12 +99,12 @@ export class AgencyListContainer extends React.Component {
         }
 
         // Separate top and subtier agencies
-        let toptierAgencies = _.filter(agencies, ['data.agencyType', 'toptier']);
-        let subtierAgencies = _.filter(agencies, ['data.agencyType', 'subtier']);
+        let toptierAgencies = filter(agencies, ['data.agencyType', 'toptier']);
+        let subtierAgencies = filter(agencies, ['data.agencyType', 'subtier']);
 
         // Sort individual groups alphabetically
-        toptierAgencies = _.sortBy(toptierAgencies, 'title');
-        subtierAgencies = _.sortBy(subtierAgencies, 'title');
+        toptierAgencies = sortBy(toptierAgencies, 'title');
+        subtierAgencies = sortBy(subtierAgencies, 'title');
 
         if (this.props.agencyType === 'Funding') {
             // Show an error message if the API results contain exclusively subtier Funding Agencies
@@ -119,7 +119,7 @@ export class AgencyListContainer extends React.Component {
         else {
             // Otherwise, for filtering by Awarding Agency, we combine the toptier and subtier
             // groups, with toptier first, and then return the top 10
-            agencies = _.slice(_.concat(toptierAgencies, subtierAgencies), 0, 10);
+            agencies = slice(concat(toptierAgencies, subtierAgencies), 0, 10);
         }
 
         this.setState({

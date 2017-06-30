@@ -1,0 +1,48 @@
+.glossary-resources {
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    h3.title {
+        font-size: 18px;
+        line-height: 26px;
+
+        font-weight: 600;
+
+        margin: 0;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid $color-white;
+        opacity: 0.5;
+    }
+
+    ul {
+        @include unstyled-list;
+
+        margin-top: 10px;
+
+        li {
+            margin-top: 5px;
+
+            a {
+                color: $color-white;
+                text-decoration: underline;
+
+                &:active, &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    a {
+        color: $color-white;
+        text-decoration: underline;
+
+        &:active, &:hover {
+            text-decoration: none;
+        }
+    }
+
+}

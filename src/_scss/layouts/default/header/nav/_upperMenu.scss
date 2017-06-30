@@ -26,8 +26,8 @@
                     content: "";
                 }
             }
-            // style the guide button
-            button.header-guide-button {
+            // style the glossary button
+            button.header-glossary-button {
                 @include button-unstyled;
                 color: $color-gray;
                 font-size: $small-font-size;
@@ -36,9 +36,9 @@
                 &:active {
                     text-decoration: underline;
                 }
-                .guide-button-content {
+                .glossary-button-content {
                     margin: 0 0 0 rem(15);
-                    .guide-button-icon {
+                    .glossary-button-icon {
                         display: inline-block;
                         position: relative;
                         width: rem(12);

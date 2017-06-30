@@ -4,18 +4,19 @@
  */
 
 import React from 'react';
-import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import FilterOption from './FilterOption';
 
 const defaultProps = {
     options: [],
-    components: []
+    components: [],
+    expanded: []
 };
 
 const propTypes = {
     options: React.PropTypes.arrayOf(React.PropTypes.string),
-    components: React.PropTypes.arrayOf(React.PropTypes.func)
+    components: React.PropTypes.arrayOf(React.PropTypes.func),
+    expanded: React.PropTypes.arrayOf(React.PropTypes.bool)
 };
 
 export default class FilterSidebar extends React.Component {
@@ -26,20 +27,13 @@ export default class FilterSidebar extends React.Component {
                 name={name}
                 key={i}
                 component={component}
+                defaultExpand={this.props.expanded[i]}
                 disabled={component === null} />);
         });
 
         return (
-            <div className="search-sidebar">
-                <div className="sidebar-header">
-                    <span className="filter-icon">
-                        <Icons.Filter />
-                    </span>
-                    <h6>Filter by:</h6>
-                </div>
-                <div className="search-filters-wrapper">
-                    {optionsList}
-                </div>
+            <div className="search-filters-wrapper">
+                {optionsList}
             </div>
         );
     }
