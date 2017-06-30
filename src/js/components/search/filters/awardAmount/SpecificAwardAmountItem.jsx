@@ -18,7 +18,7 @@ export default class SpecificAwardAmountItem extends React.Component {
     static logAmountRangeEvent(range) {
         ga.event({
             category: 'Search Page Filter Applied',
-            action: `Applied Award Amount Range Filter`,
+            action: 'Applied Award Amount Range Filter',
             label: range
         });
     }

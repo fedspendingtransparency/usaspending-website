@@ -68,7 +68,9 @@ export class KeywordContainer extends React.Component {
         this.props.updateTextSearchInput(this.state.value);
 
         // Analytics
-        KeywordContainer.logSelectedKeywordEvent(this.state.value);
+        if (this.state.value) {
+            KeywordContainer.logSelectedKeywordEvent(this.state.value);
+        }
     }
 
     render() {
