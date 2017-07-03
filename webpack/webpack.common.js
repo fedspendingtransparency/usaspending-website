@@ -7,7 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, '../src'),
     entry: {
-        vendor: './vendor.js',
+        vendor: ['mapbox-gl/dist/mapbox-gl', 'lodash', 'moment', 'jquery', 'commonmark', 'immutable', 'react'],
         app: './entry.js'
     },
     output: {
@@ -24,7 +24,7 @@ module.exports = {
         ]
     },
     module: {
-        noParse: /node_modules\/mapbox-gl\/dist\/mapbox-gl.js/,
+        noParse: /(mapbox-gl)\.js$/,
         loaders: [
             {
                 test: /\.jsx?$/,
@@ -81,10 +81,7 @@ module.exports = {
         new CleanWebpackPlugin(['public', 'cache'], {
             root: path.resolve(__dirname, '../')
         }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: Infinity
-        }),
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new ExtractTextPlugin({
             filename: 'css/style.[hash].css',
             allChunks: true
@@ -93,6 +90,9 @@ module.exports = {
             inject: false,
             template: path.resolve(__dirname, '../src/index.html'),
             filename: 'index.html'
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor'
         })
     ]
 };
