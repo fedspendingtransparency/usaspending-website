@@ -79,7 +79,7 @@ export class ResultsTableContainer extends React.Component {
             columns: [],
             searchParams: new SearchOperation(),
             page: 0,
-            lastReq: '',
+            downloadParams: {},
             hiddenColumns: []
         };
 
@@ -308,8 +308,13 @@ export class ResultsTableContainer extends React.Component {
                     total: data.total_metadata
                 });
 
+                // Set the params needed for download API call
                 this.setState({
-                    lastReq: res.data.req
+                    downloadParams: {
+                        filters: searchParams.toParams(),
+                        order: sortParams,
+                        fields: requestFields
+                    }
                 });
 
                 // request is done
@@ -426,7 +431,7 @@ export class ResultsTableContainer extends React.Component {
                 currentType={this.props.meta.tableType}
                 switchTab={this.switchTab}
                 loadNextPage={this.loadNextPage}
-                lastReq={this.state.lastReq} />
+                downloadParams={this.state.downloadParams} />
         );
     }
 }
