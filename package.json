@@ -13,15 +13,16 @@
     "sass": "./node_modules/.bin/webpack-dev-server --progress --config ./webpack/webpack.dev.sass.config.js"
   },
   "jest": {
-    "rootDir": "./tests",
-    "testRegex": ".*-(test)\\.jsx?$",
+    "rootDir": ".",
+    "testRegex": "tests/.*-(test)\\.jsx?$",
     "verbose": true,
     "bail": false,
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "**/*.{js,jsx}",
-      "!**/node_modules/**",
-      "!**/public/**"
+      "src/js/containers/**/*.{js,jsx}",
+      "src/js/redux/reducers/**/*.{js,jsx}",
+      "!node_modules/**",
+      "!public/**"
     ]
   },
   "author": "",
