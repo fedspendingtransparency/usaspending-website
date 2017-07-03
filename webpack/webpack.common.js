@@ -50,6 +50,12 @@ module.exports = {
                                         return false;
                                     }
                                     return true;
+                                },
+                                minimize: () => {
+                                    if (process.env.NODE_ENV === 'production') {
+                                        return true;
+                                    }
+                                    return false;
                                 }
                             }
                         },
