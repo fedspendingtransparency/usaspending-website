@@ -9,7 +9,7 @@ import sinon from 'sinon';
 import * as DownloadHelper from 'helpers/downloadHelper';
 import { ExtraModalContainer } from 'containers/search/modals/ExtraModalContainer';
 
-import { mockRequest, mockReady } from './mockDownload';
+import { mockRequest, mockReady, mockParams } from './mockDownload';
 
 // force Jest to use native Node promises
 // see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
@@ -55,7 +55,7 @@ describe('ExtraModalContainer', () => {
         mockDownloadHelper('requestAwardTable', 'resolve', mockRequest);
 
         const container = mount(<ExtraModalContainer
-            lastReq="abc" />);
+            downloadParams={mockParams} />);
 
         container.setProps({
             mounted: true
@@ -69,10 +69,10 @@ describe('ExtraModalContainer', () => {
         mockDownloadHelper('requestAwardTable', 'resolve', mockRequest);
 
         const container = mount(<ExtraModalContainer
-            lastReq="abc" />);
+            downloadParams={mockParams} />);
 
         container.setState({
-            activeReq: 'abc'
+            activeParams: mockParams
         });
 
         container.setProps({
@@ -88,7 +88,7 @@ describe('ExtraModalContainer', () => {
             mockDownloadHelper('requestAwardTable', 'resolve', mockRequest);
 
             const container = shallow(<ExtraModalContainer
-                lastReq="abc"
+                downloadParams={mockParams}
                 mounted />);
 
             container.instance().parseResponse(mockRequest);
@@ -99,7 +99,7 @@ describe('ExtraModalContainer', () => {
             mockDownloadHelper('requestAwardTable', 'resolve', mockRequest);
 
             const container = shallow(<ExtraModalContainer
-                lastReq="abc"
+                downloadParams={mockParams}
                 mounted />);
 
             container.instance().parseResponse(mockReady);
@@ -110,7 +110,7 @@ describe('ExtraModalContainer', () => {
             mockDownloadHelper('requestAwardTable', 'resolve', mockRequest);
 
             const container = shallow(<ExtraModalContainer
-                lastReq="abc"
+                downloadParams={mockParams}
                 mounted />);
 
             container.instance().parseResponse(mockRequest);
@@ -123,7 +123,7 @@ describe('ExtraModalContainer', () => {
             mockDownloadHelper('requestAwardTable', 'resolve', mockRequest);
 
             const container = shallow(<ExtraModalContainer
-                lastReq="abc"
+                downloadParams={mockParams}
                 mounted />);
 
             container.instance().parseResponse(mockReady);
