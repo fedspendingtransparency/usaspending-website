@@ -26,7 +26,8 @@ const propTypes = {
     selectItem: React.PropTypes.func,
     deselectItem: React.PropTypes.func,
     clickedGroup: React.PropTypes.func,
-    urlRoot: React.PropTypes.string
+    urlRoot: React.PropTypes.string,
+    minRows: React.PropTypes.number
 };
 
 const defaultProps = {
@@ -35,7 +36,8 @@ const defaultProps = {
         bottom: 30
     },
     itemHeight: 60,
-    startIndex: 0
+    startIndex: 0,
+    minRows: 5
 };
 
 export default class HorizontalChart extends React.Component {
@@ -162,7 +164,7 @@ export default class HorizontalChart extends React.Component {
 
         if (props.labelSeries.length < 5) {
             // when a lot of filters are applied or we're at the end of the list
-            const remainingSlots = 5 - props.labelSeries.length;
+            const remainingSlots = this.props.minRows - props.labelSeries.length;
             for (let i = 0; i < remainingSlots; i++) {
                 const emptyGroup = (<ChartGroup
                     key={`group-empty-${i}`}
