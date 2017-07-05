@@ -188,7 +188,6 @@ export class ResultsTableContainer extends React.Component {
             }
         }
 
-        console.log(this.props.filters.selectedAwardIDs.toJS());
         // select the first available tab
         this.switchTab(tableTypes[firstAvailable].internal);
         this.updateFilters();
