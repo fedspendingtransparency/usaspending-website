@@ -97,7 +97,6 @@ const fields = [
     'contract_walsh_healey_act',
     'contract_consolidated',
     'contract_cost_or_pricing_data',
-    'contract_domestic_or_foreign',
     'contract_fair_opportunity_limited_sources',
     'contract_foreign_funding',
     'contract_interagency_contacting_authority',
@@ -187,7 +186,6 @@ const remapData = (data, idField) => {
     let contractWalshHealeyAct = '';
     let contractConsolidated = '';
     let contractCostOrPricingData = '';
-    let contractDomesticOrForeign = '';
     let contractFairOpportunityLimitedSources = '';
     let contractForeignFunding = '';
     let contractInteragencyContactingAuthority = '';
@@ -395,9 +393,6 @@ const remapData = (data, idField) => {
             if (data.latest_transaction.contract_data.cost_or_pricing_data_description) {
                 contractCostOrPricingData = data.latest_transaction.contract_data.cost_or_pricing_data_description;
             }
-            if (data.latest_transaction.contract_data.domestic_or_foreign_entity) {
-                contractDomesticOrForeign = data.latest_transaction.contract_data.domestic_or_foreign_entity;
-            }
             if (data.latest_transaction.contract_data.fair_opportunity_limited_sources_description) {
                 contractFairOpportunityLimitedSources = data.latest_transaction.contract_data.fair_opportunity_limited_sources_description;
             }
@@ -497,7 +492,6 @@ const remapData = (data, idField) => {
     remappedData.contract_walsh_healey_act = contractWalshHealeyAct;
     remappedData.contract_consolidated = contractConsolidated;
     remappedData.contract_cost_or_pricing_data = contractCostOrPricingData;
-    remappedData.contract_domestic_or_foreign = contractDomesticOrForeign;
     remappedData.contract_fair_opportunity_limited_sources = contractFairOpportunityLimitedSources;
     remappedData.contract_foreign_funding = contractForeignFunding;
     remappedData.contract_interagency_contacting_authority = contractInteragencyContactingAuthority;
