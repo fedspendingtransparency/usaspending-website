@@ -28,7 +28,7 @@ const propTypes = {
     hiddenColumns: React.PropTypes.array,
     toggleColumnVisibility: React.PropTypes.func,
     reorderColumns: React.PropTypes.func,
-    lastReq: React.PropTypes.string
+    downloadParams: React.PropTypes.object
 };
 
 export default class ResultsTableSection extends React.Component {
@@ -129,7 +129,7 @@ export default class ResultsTableSection extends React.Component {
                 </div>
                 {message}
                 <ExtraModalContainer
-                    lastReq={this.props.lastReq}
+                    downloadParams={this.props.downloadParams}
                     mounted={this.state.showModal}
                     hideModal={this.hideModal} />
             </div>
