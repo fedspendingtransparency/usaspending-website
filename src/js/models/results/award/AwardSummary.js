@@ -29,10 +29,13 @@ const fields = [
     'funding_agency_name',
     'funding_subtier_name',
     'funding_office_name',
-    'recipient_street',
+    'recipient_address_line1',
+    'recipient_address_line2',
+    'recipient_address_line3',
     'recipient_city',
     'recipient_county',
     'recipient_state_province',
+    'recipient_province',
     'recipient_state_code',
     'recipient_zip_postal',
     'recipient_country',
@@ -40,6 +43,8 @@ const fields = [
     'pop_city',
     'parent_id',
     'pop_state_province',
+    'pop_state',
+    'pop_province',
     'pop_zip',
     'pop_country',
     'pop_country_code',
@@ -92,7 +97,6 @@ const fields = [
     'contract_walsh_healey_act',
     'contract_consolidated',
     'contract_cost_or_pricing_data',
-    'contract_domestic_or_foreign',
     'contract_fair_opportunity_limited_sources',
     'contract_foreign_funding',
     'contract_interagency_contacting_authority',
@@ -121,10 +125,13 @@ const remapData = (data, idField) => {
     let fundingSubtierName = '';
     let fundingOfficeName = '';
     let recipientName = '';
-    let recipientStreet = '';
+    let recipientAddressLine1 = '';
+    let recipientAddressLine2 = '';
+    let recipientAddressLine3 = '';
     let recipientCity = '';
     let recipientCounty = '';
     let recipientStateProvince = '';
+    let recipientProvince = '';
     let recipientStateCode = '';
     let recipientZipPostal = '';
     let recipientCountry = '';
@@ -136,6 +143,8 @@ const remapData = (data, idField) => {
     let popCounty = '';
     let popStateCode = '';
     let popStateProvince = '';
+    let popState = '';
+    let popProvince = '';
     let popZip = '';
     let popCongressionalDistrict = '';
     let popCountry = '';
@@ -177,7 +186,6 @@ const remapData = (data, idField) => {
     let contractWalshHealeyAct = '';
     let contractConsolidated = '';
     let contractCostOrPricingData = '';
-    let contractDomesticOrForeign = '';
     let contractFairOpportunityLimitedSources = '';
     let contractForeignFunding = '';
     let contractInteragencyContactingAuthority = '';
@@ -249,6 +257,17 @@ const remapData = (data, idField) => {
         }
         else if (data.place_of_performance.foreign_province) {
             popStateProvince = data.place_of_performance.foreign_province;
+        }
+
+        if (data.place_of_performance.state_name) {
+            popState = data.place_of_performance.state_name;
+        }
+        else if (data.place_of_performance.state_code) {
+            popState = data.place_of_performance.state_code;
+        }
+
+        if (data.place_of_performance.foreign_province) {
+            popProvince = data.place_of_performance.foreign_province;
         }
 
         if (data.place_of_performance.zip5) {
@@ -374,9 +393,6 @@ const remapData = (data, idField) => {
             if (data.latest_transaction.contract_data.cost_or_pricing_data_description) {
                 contractCostOrPricingData = data.latest_transaction.contract_data.cost_or_pricing_data_description;
             }
-            if (data.latest_transaction.contract_data.domestic_or_foreign_entity) {
-                contractDomesticOrForeign = data.latest_transaction.contract_data.domestic_or_foreign_entity;
-            }
             if (data.latest_transaction.contract_data.fair_opportunity_limited_sources_description) {
                 contractFairOpportunityLimitedSources = data.latest_transaction.contract_data.fair_opportunity_limited_sources_description;
             }
@@ -437,6 +453,8 @@ const remapData = (data, idField) => {
     remappedData.funding_office_name = fundingOfficeName;
     remappedData.pop_city = popCity;
     remappedData.pop_state_province = popStateProvince;
+    remappedData.pop_state = popState;
+    remappedData.pop_province = popProvince;
     remappedData.pop_zip = popZip;
     remappedData.pop_country = popCountry;
     remappedData.pop_country_code = popCountryCode;
@@ -474,7 +492,6 @@ const remapData = (data, idField) => {
     remappedData.contract_walsh_healey_act = contractWalshHealeyAct;
     remappedData.contract_consolidated = contractConsolidated;
     remappedData.contract_cost_or_pricing_data = contractCostOrPricingData;
-    remappedData.contract_domestic_or_foreign = contractDomesticOrForeign;
     remappedData.contract_fair_opportunity_limited_sources = contractFairOpportunityLimitedSources;
     remappedData.contract_foreign_funding = contractForeignFunding;
     remappedData.contract_interagency_contacting_authority = contractInteragencyContactingAuthority;
@@ -511,54 +528,60 @@ const remapData = (data, idField) => {
     // Format Recipient Info + Address
     if (data.recipient) {
         recipientName = data.recipient.recipient_name;
+
         const loc = data.recipient.location;
 
-        if (loc.address_line1) {
-            recipientStreet += loc.address_line1;
-        }
-        if (loc.address_line2) {
-            recipientStreet += `\n${loc.address_line2}`;
-        }
-        if (loc.address_line3) {
-            recipientStreet += `\n${loc.address_line3}`;
-        }
+        if (loc) {
+            if (loc.address_line1) {
+                recipientAddressLine1 = loc.address_line1;
+            }
+            if (loc.address_line2) {
+                recipientAddressLine2 = loc.address_line2;
+            }
+            if (loc.address_line3) {
+                recipientAddressLine3 = loc.address_line3;
+            }
+            if (loc.foreign_province) {
+                recipientProvince = loc.foreign_province;
+            }
 
-        if (loc.city_name) {
-            recipientCity = loc.city_name;
-        }
+            if (loc.city_name) {
+                recipientCity = loc.city_name;
+            }
 
-        if (loc.county_name) {
-            recipientCounty = loc.county_name;
-        }
+            if (loc.county_name) {
+                recipientCounty = loc.county_name;
+            }
 
-        if (loc.state_code) {
-            recipientStateProvince = loc.state_code;
-        }
-        else if (loc.foreign_province) {
-            recipientStateProvince = loc.foreign_province;
-        }
-        if (loc.state_code) {
-            recipientStateCode = loc.state_code;
-        }
-        if (loc.zip5) {
-            recipientZipPostal = loc.zip5;
-        }
-        else if (loc.zip4) {
-            recipientZipPostal = loc.zip4.slice(0, 5);
-        }
-        else if (loc.foreign_postal_code) {
-            recipientZipPostal = loc.foreign_postal_code;
-        }
+            if (loc.state_code) {
+                recipientStateProvince = loc.state_code;
+            }
+            else if (loc.foreign_province) {
+                recipientStateProvince = loc.foreign_province;
+            }
+            if (loc.state_code) {
+                recipientStateCode = loc.state_code;
+            }
+            if (loc.zip5) {
+                recipientZipPostal = loc.zip5;
+            }
+            else if (loc.zip4) {
+                recipientZipPostal = loc.zip4.slice(0, 5);
+            }
+            else if (loc.foreign_postal_code) {
+                recipientZipPostal = loc.foreign_postal_code;
+            }
 
-        if (loc.country_name) {
-            recipientCountry = loc.country_name;
-        }
-        if (loc.location_country_code) {
-            recipientCountryCode = loc.location_country_code;
-        }
+            if (loc.country_name) {
+                recipientCountry = loc.country_name;
+            }
+            if (loc.location_country_code) {
+                recipientCountryCode = loc.location_country_code;
+            }
 
-        if (loc.congressional_code) {
-            recipientCongressionalDistrict = loc.congressional_code;
+            if (loc.congressional_code) {
+                recipientCongressionalDistrict = loc.congressional_code;
+            }
         }
 
         if (data.recipient.recipient_unique_id) {
@@ -578,10 +601,13 @@ const remapData = (data, idField) => {
         }
     }
     remappedData.recipient_name = recipientName;
-    remappedData.recipient_street = recipientStreet;
+    remappedData.recipient_address_line1 = recipientAddressLine1;
+    remappedData.recipient_address_line2 = recipientAddressLine2;
+    remappedData.recipient_address_line3 = recipientAddressLine3;
     remappedData.recipient_city = recipientCity;
     remappedData.recipient_county = recipientCounty;
     remappedData.recipient_state_province = recipientStateProvince;
+    remappedData.recipient_province = recipientProvince;
     remappedData.recipient_state_code = recipientStateCode;
     remappedData.recipient_zip_postal = recipientZipPostal;
     remappedData.recipient_country = recipientCountry;

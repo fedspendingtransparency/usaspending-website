@@ -79,7 +79,7 @@ export class ResultsTableContainer extends React.Component {
             columns: [],
             searchParams: new SearchOperation(),
             page: 0,
-            lastReq: '',
+            downloadParams: {},
             hiddenColumns: []
         };
 
@@ -282,15 +282,9 @@ export class ResultsTableContainer extends React.Component {
 
         columnVisibility.visibleColumns.forEach((col) => {
             const field = mapping[col];
-            let requestField = field;
-            if (field.includes('__')) {
-                // If it is a nested field, request the top level object
-                const nestedFields = field.split('__');
-                requestField = nestedFields[0];
-            }
-            if (!requestFields.includes(requestField)) {
+            if (!requestFields.includes(field)) {
                 // Prevent duplicates in the list of fields to request
-                requestFields.push(requestField);
+                requestFields.push(field);
             }
         });
 
@@ -315,8 +309,13 @@ export class ResultsTableContainer extends React.Component {
                     total: data.total_metadata
                 });
 
+                // Set the params needed for download API call
                 this.setState({
-                    lastReq: res.data.req
+                    downloadParams: {
+                        filters: searchParams.toParams(),
+                        order: sortParams,
+                        fields: requestFields
+                    }
                 });
 
                 // request is done
@@ -433,7 +432,7 @@ export class ResultsTableContainer extends React.Component {
                 currentType={this.props.meta.tableType}
                 switchTab={this.switchTab}
                 loadNextPage={this.loadNextPage}
-                lastReq={this.state.lastReq} />
+                downloadParams={this.state.downloadParams} />
         );
     }
 }
