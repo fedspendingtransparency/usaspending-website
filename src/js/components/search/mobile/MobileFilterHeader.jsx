@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { ArrowUp } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    toggleMobileFilters: React.PropTypes.func,
-    filterCount: React.PropTypes.number
+    toggleMobileFilters: PropTypes.func,
+    filterCount: PropTypes.number
 };
 
 export default class MobileFilterHeader extends React.Component {

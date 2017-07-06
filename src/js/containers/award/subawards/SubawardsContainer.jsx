@@ -5,6 +5,7 @@
 
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -17,12 +18,12 @@ import SubawardItem from 'models/results/award/SubawardItem';
 import SubawardsTable from 'components/award/subawards/SubawardsTable';
 
 const propTypes = {
-    award: React.PropTypes.object,
-    sort: React.PropTypes.object,
-    meta: React.PropTypes.object,
-    setSubawards: React.PropTypes.func,
-    appendSubawards: React.PropTypes.func,
-    setSubawardMeta: React.PropTypes.func
+    award: PropTypes.object,
+    sort: PropTypes.object,
+    meta: PropTypes.object,
+    setSubawards: PropTypes.func,
+    appendSubawards: PropTypes.func,
+    setSubawardMeta: PropTypes.func
 };
 
 const pageLimit = 13;

@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import RankVisualizationScopeButton from
     'components/search/visualizations/rank/RankVisualizationScopeButton';
 
 const propTypes = {
-    view: React.PropTypes.string,
-    changeView: React.PropTypes.func
+    view: PropTypes.string,
+    changeView: PropTypes.func
 };
 
 export default class MapToggleList extends React.Component {

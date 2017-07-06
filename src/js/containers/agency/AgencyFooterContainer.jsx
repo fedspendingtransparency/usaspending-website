@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -17,9 +18,9 @@ import * as AgencyHelper from 'helpers/agencyHelper';
 import AgencyFooter from 'components/agency/footer/AgencyFooter';
 
 const propTypes = {
-    id: React.PropTypes.string,
-    clearAllFilters: React.PropTypes.func,
-    updateSelectedAwardingAgencies: React.PropTypes.func
+    id: PropTypes.string,
+    clearAllFilters: PropTypes.func,
+    updateSelectedAwardingAgencies: PropTypes.func
 };
 
 export class AgencyFooterContainer extends React.Component {

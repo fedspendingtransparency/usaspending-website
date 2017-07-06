@@ -4,15 +4,16 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import $ from 'jquery';
 
 const propTypes = {
-    code: React.PropTypes.string.isRequired,
-    icon: React.PropTypes.element.isRequired,
-    label: React.PropTypes.string.isRequired,
-    role: React.PropTypes.string.isRequired,
-    className: React.PropTypes.string.isRequired,
-    accessibleLabel: React.PropTypes.string.isRequired
+    code: PropTypes.string.isRequired,
+    icon: PropTypes.element.isRequired,
+    label: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    className: PropTypes.string.isRequired,
+    accessibleLabel: PropTypes.string.isRequired
 };
 
 export default class ScrollTo extends React.Component {

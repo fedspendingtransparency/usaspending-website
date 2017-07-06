@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTable from 'components/search/table/ResultsTable';
@@ -13,11 +14,11 @@ import AccountAwardsHeaderCellContainer from
     'containers/account/awards/AccountAwardsHeaderCellContainer';
 
 const propTypes = {
-    inFlight: React.PropTypes.bool,
-    tableTypes: React.PropTypes.array,
-    currentType: React.PropTypes.string,
-    switchTab: React.PropTypes.func,
-    results: React.PropTypes.array
+    inFlight: PropTypes.bool,
+    tableTypes: PropTypes.array,
+    currentType: PropTypes.string,
+    switchTab: PropTypes.func,
+    results: PropTypes.array
 };
 
 export default class AccountAwardsSection extends React.Component {

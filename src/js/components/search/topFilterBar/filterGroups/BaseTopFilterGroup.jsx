@@ -4,14 +4,15 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import TopFilterItem from '../TopFilterItem';
 
 const propTypes = {
-    filter: React.PropTypes.object,
-    tags: React.PropTypes.array,
-    clearFilterGroup: React.PropTypes.func
+    filter: PropTypes.object,
+    tags: PropTypes.array,
+    clearFilterGroup: PropTypes.func
 };
 
 const defaultProps = {

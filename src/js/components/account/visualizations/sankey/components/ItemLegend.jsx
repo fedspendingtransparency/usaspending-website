@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    color: React.PropTypes.string,
-    x: React.PropTypes.number,
-    y: React.PropTypes.number,
-    hide: React.PropTypes.bool,
-    title: React.PropTypes.string,
-    value: React.PropTypes.string
+    color: PropTypes.string,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    hide: PropTypes.bool,
+    title: PropTypes.string,
+    value: PropTypes.string
 };
 
 const defaultProps = {

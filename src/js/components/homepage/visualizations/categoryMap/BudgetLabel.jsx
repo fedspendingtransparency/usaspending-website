@@ -4,16 +4,17 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    labelWidth: React.PropTypes.number,
-    labelPadding: React.PropTypes.number,
-    labelDistance: React.PropTypes.number,
-    currentY: React.PropTypes.number,
-    currentX: React.PropTypes.number,
-    graphHeight: React.PropTypes.number,
-    graphWidth: React.PropTypes.number,
-    size: React.PropTypes.string
+    labelWidth: PropTypes.number,
+    labelPadding: PropTypes.number,
+    labelDistance: PropTypes.number,
+    currentY: PropTypes.number,
+    currentX: PropTypes.number,
+    graphHeight: PropTypes.number,
+    graphWidth: PropTypes.number,
+    size: PropTypes.string
 };
 
 const defaultProps = {

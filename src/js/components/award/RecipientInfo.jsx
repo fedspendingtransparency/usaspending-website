@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { toLower, includes } from 'lodash';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import InfoSnippet from './InfoSnippet';
@@ -11,7 +12,7 @@ import RecipientAddress from './RecipientAddress';
 
 
 const propTypes = {
-    recipient: React.PropTypes.object
+    recipient: PropTypes.object
 };
 
 export default class RecipientInfo extends React.Component {

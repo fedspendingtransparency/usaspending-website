@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 
 import ExtraModal from 'components/search/modals/ExtraModal';
@@ -11,8 +12,8 @@ import ExtraModal from 'components/search/modals/ExtraModal';
 import * as DownloadHelper from 'helpers/downloadHelper';
 
 const propTypes = {
-    lastReq: React.PropTypes.string,
-    mounted: React.PropTypes.bool
+    lastReq: PropTypes.string,
+    mounted: PropTypes.bool
 };
 
 export class ExtraModalContainer extends React.Component {

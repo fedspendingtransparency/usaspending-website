@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SankeyMessage from './components/SankeyMessage';
 import SankeyVisualizationHorizontal from './SankeyVisualizationHorizontal';
 import SankeyVisualizationVertical from './SankeyVisualizationVertical';
 
 const propTypes = {
-    width: React.PropTypes.number,
-    fyAvailable: React.PropTypes.bool
+    width: PropTypes.number,
+    fyAvailable: PropTypes.bool
 };
 
 export default class SankeyVisualization extends React.Component {

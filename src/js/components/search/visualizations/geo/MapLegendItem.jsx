@@ -4,10 +4,11 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    color: React.PropTypes.string,
-    label: React.PropTypes.string
+    color: PropTypes.string,
+    label: PropTypes.string
 };
 
 export default class MapLegendItem extends React.Component {

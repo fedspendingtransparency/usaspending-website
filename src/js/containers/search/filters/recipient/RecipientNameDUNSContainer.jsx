@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual, union, omit, differenceWith } from 'lodash';
@@ -15,10 +16,10 @@ import * as recipientActions from 'redux/actions/search/recipientActions';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    toggleRecipient: React.PropTypes.func,
-    setAutocompleteRecipients: React.PropTypes.func,
-    selectedRecipients: React.PropTypes.object,
-    autocompleteRecipients: React.PropTypes.array
+    toggleRecipient: PropTypes.func,
+    setAutocompleteRecipients: PropTypes.func,
+    selectedRecipients: PropTypes.object,
+    autocompleteRecipients: PropTypes.array
 };
 
 export class RecipientNameDUNSContainer extends React.Component {

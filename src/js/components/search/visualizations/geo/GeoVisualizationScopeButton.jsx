@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    active: React.PropTypes.bool,
-    value: React.PropTypes.string,
-    label: React.PropTypes.string,
-    changeScope: React.PropTypes.func
+    active: PropTypes.bool,
+    value: PropTypes.string,
+    label: PropTypes.string,
+    changeScope: PropTypes.func
 };
 
 export default class GeoVisualizationScopeButton extends React.Component {

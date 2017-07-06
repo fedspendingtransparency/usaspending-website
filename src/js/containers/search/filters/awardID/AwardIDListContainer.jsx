@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -16,13 +17,13 @@ import * as AwardIDFormatter from 'helpers/awardIDFormatter';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    toggleAwardID: React.PropTypes.func,
-    setAutocompleteAwardIDs: React.PropTypes.func,
-    selectedAwardIDs: React.PropTypes.object,
-    piid: React.PropTypes.array,
-    fain: React.PropTypes.array,
-    uri: React.PropTypes.array,
-    parent_award__piid: React.PropTypes.array
+    toggleAwardID: PropTypes.func,
+    setAutocompleteAwardIDs: PropTypes.func,
+    selectedAwardIDs: PropTypes.object,
+    piid: PropTypes.array,
+    fain: PropTypes.array,
+    uri: PropTypes.array,
+    parent_award__piid: PropTypes.array
 };
 
 export class AwardIDListContainer extends React.Component {

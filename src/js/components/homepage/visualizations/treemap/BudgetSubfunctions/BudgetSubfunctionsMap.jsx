@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
 import { throttle, remove, sumBy, find } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -12,11 +13,11 @@ import BudgetFunctionCell from '../BudgetFunctions/BudgetFunctionCell';
 import TreeMapTooltip from '../TreeMapTooltip';
 
 const propTypes = {
-    category: React.PropTypes.object,
-    colors: React.PropTypes.array,
-    subfunction: React.PropTypes.object,
-    tooltipStyles: React.PropTypes.object,
-    showSubfunctions: React.PropTypes.bool
+    category: PropTypes.object,
+    colors: PropTypes.array,
+    subfunction: PropTypes.object,
+    tooltipStyles: PropTypes.object,
+    showSubfunctions: PropTypes.bool
 };
 
 export default class BudgetSubfunctionsMap extends React.Component {

@@ -4,9 +4,10 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    agency: React.PropTypes.object
+    agency: PropTypes.object
 };
 
 export default class AgencyOverview extends React.Component {

@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -12,8 +13,8 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import Agency from 'components/search/filters/agency/Agency';
 
 const propTypes = {
-    updateSelectedFundingAgencies: React.PropTypes.func,
-    updateSelectedAwardingAgencies: React.PropTypes.func
+    updateSelectedFundingAgencies: PropTypes.func,
+    updateSelectedAwardingAgencies: PropTypes.func
 };
 
 const ga = require('react-ga');

@@ -4,15 +4,16 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import LocationListContainer from 'containers/search/filters/location/LocationListContainer';
 import CountryType from './CountryType';
 import SelectedLocations from './SelectedLocations';
 
 const propTypes = {
-    selectLocation: React.PropTypes.func,
-    removeLocation: React.PropTypes.func,
-    selectedLocations: React.PropTypes.object
+    selectLocation: PropTypes.func,
+    removeLocation: PropTypes.func,
+    selectedLocations: PropTypes.object
 };
 
 export default class LocationSearch extends React.Component {

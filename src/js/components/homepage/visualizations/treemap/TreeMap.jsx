@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
@@ -12,13 +13,13 @@ import BudgetSubfunctions from './BudgetSubfunctions/BudgetSubfunctions';
 import TreeMapLine from './TreeMapLine';
 
 const propTypes = {
-    categories: React.PropTypes.object,
-    colors: React.PropTypes.array,
-    descriptions: React.PropTypes.array,
-    subfunctions: React.PropTypes.object,
-    alternateColors: React.PropTypes.array,
-    tooltipStyles: React.PropTypes.object,
-    totalNumber: React.PropTypes.number
+    categories: PropTypes.object,
+    colors: PropTypes.array,
+    descriptions: PropTypes.array,
+    subfunctions: PropTypes.object,
+    alternateColors: PropTypes.array,
+    tooltipStyles: PropTypes.object,
+    totalNumber: PropTypes.number
 };
 
 export default class TreeMap extends React.Component {

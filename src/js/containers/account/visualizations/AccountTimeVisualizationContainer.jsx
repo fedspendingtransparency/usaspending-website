@@ -3,8 +3,8 @@
  * Created by Kevin Li 3/20/17
  */
 
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -23,8 +23,8 @@ import AccountSearchCategoryOperation from 'models/account/queries/AccountSearch
 import { balanceFields, balanceFieldsFiltered, balanceFieldsNonfiltered } from 'dataMapping/accounts/accountFields';
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object,
-    account: React.PropTypes.object
+    reduxFilters: PropTypes.object,
+    account: PropTypes.object
 };
 
 export class AccountTimeVisualizationSectionContainer extends React.Component {

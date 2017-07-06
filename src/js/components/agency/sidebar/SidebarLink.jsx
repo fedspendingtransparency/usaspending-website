@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Router from 'containers/router/Router';
 
 const propTypes = {
-    section: React.PropTypes.string,
-    label: React.PropTypes.string,
-    active: React.PropTypes.string,
-    onClick: React.PropTypes.func
+    section: PropTypes.string,
+    label: PropTypes.string,
+    active: PropTypes.string,
+    onClick: PropTypes.func
 };
 
 export default class SidebarLink extends React.Component {

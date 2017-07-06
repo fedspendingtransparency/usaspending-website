@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    x: React.PropTypes.number,
-    y: React.PropTypes.number,
-    label: React.PropTypes.string,
-    lineStart: React.PropTypes.number,
-    lineEnd: React.PropTypes.number
+    x: PropTypes.number,
+    y: PropTypes.number,
+    label: PropTypes.string,
+    lineStart: PropTypes.number,
+    lineEnd: PropTypes.number
 };
 
 export default class BarYAxisItem extends React.Component {

@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ChartMessage from 'components/search/visualizations/rank/RankVisualizationChartMessage';
 
@@ -11,17 +12,17 @@ import ScopeList from './ScopeList';
 import RecipientChart from './RecipientChart';
 
 const propTypes = {
-    loading: React.PropTypes.bool,
-    isInitialLoad: React.PropTypes.bool,
-    error: React.PropTypes.bool,
-    scope: React.PropTypes.string,
-    changeScope: React.PropTypes.func,
-    labelSeries: React.PropTypes.array,
-    dataSeries: React.PropTypes.array,
-    descriptions: React.PropTypes.array,
-    page: React.PropTypes.number,
-    isLastPage: React.PropTypes.bool,
-    changePage: React.PropTypes.func
+    loading: PropTypes.bool,
+    isInitialLoad: PropTypes.bool,
+    error: PropTypes.bool,
+    scope: PropTypes.string,
+    changeScope: PropTypes.func,
+    labelSeries: PropTypes.array,
+    dataSeries: PropTypes.array,
+    descriptions: PropTypes.array,
+    page: PropTypes.number,
+    isLastPage: PropTypes.bool,
+    changePage: PropTypes.func
 };
 
 

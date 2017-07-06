@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
@@ -11,8 +12,8 @@ import FormatItem from './FormatItem';
 import DownloadButton from './DownloadButton';
 
 const propTypes = {
-    isSticky: React.PropTypes.bool,
-    currentSection: React.PropTypes.string
+    isSticky: PropTypes.bool,
+    currentSection: PropTypes.string
 };
 
 export default class SearchHeader extends React.Component {

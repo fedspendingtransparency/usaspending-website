@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { AngleLeft, AngleRight } from 'components/sharedComponents/icons/Icons';
 import HorizontalChart from 'components/search/visualizations/rank/chart/HorizontalChart';
@@ -11,15 +12,15 @@ import HorizontalChart from 'components/search/visualizations/rank/chart/Horizon
 import RecipientTooltip from './RecipientTooltip';
 
 const propTypes = {
-    loading: React.PropTypes.bool,
-    labelSeries: React.PropTypes.array,
-    dataSeries: React.PropTypes.array,
-    descriptions: React.PropTypes.array,
-    width: React.PropTypes.number,
-    labelWidth: React.PropTypes.number,
-    page: React.PropTypes.number,
-    changePage: React.PropTypes.func,
-    isLastPage: React.PropTypes.bool
+    loading: PropTypes.bool,
+    labelSeries: PropTypes.array,
+    dataSeries: PropTypes.array,
+    descriptions: PropTypes.array,
+    width: PropTypes.number,
+    labelWidth: PropTypes.number,
+    page: PropTypes.number,
+    changePage: PropTypes.func,
+    isLastPage: PropTypes.bool
 };
 
 const rowHeight = 60;

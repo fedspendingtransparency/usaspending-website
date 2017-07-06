@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import moment from 'moment';
 import * as Icons from './icons/Icons';
@@ -14,14 +15,14 @@ const defaultProps = {
 };
 
 const propTypes = {
-    value: React.PropTypes.object,
-    type: React.PropTypes.string,
-    onDateChange: React.PropTypes.func,
-    showError: React.PropTypes.func,
-    hideError: React.PropTypes.func,
-    opposite: React.PropTypes.object,
-    tabIndex: React.PropTypes.number,
-    title: React.PropTypes.string
+    value: PropTypes.object,
+    type: PropTypes.string,
+    onDateChange: PropTypes.func,
+    showError: PropTypes.func,
+    hideError: PropTypes.func,
+    opposite: PropTypes.object,
+    tabIndex: PropTypes.number,
+    title: PropTypes.string
 };
 
 export default class DatePicker extends React.Component {

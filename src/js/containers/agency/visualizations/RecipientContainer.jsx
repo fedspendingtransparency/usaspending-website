@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { slice } from 'lodash';
 
@@ -14,8 +15,8 @@ import RecipientVisualization from
     'components/agency/visualizations/recipient/RecipientVisualization';
 
 const propTypes = {
-    id: React.PropTypes.string,
-    activeFY: React.PropTypes.string
+    id: PropTypes.string,
+    activeFY: PropTypes.string
 };
 
 export default class RecipientContainer extends React.Component {

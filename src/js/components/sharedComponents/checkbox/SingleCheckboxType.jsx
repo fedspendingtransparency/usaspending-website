@@ -4,15 +4,16 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    id: React.PropTypes.string,
-    code: React.PropTypes.string,
-    name: React.PropTypes.string,
-    toggleCheckboxType: React.PropTypes.func,
-    filterType: React.PropTypes.string,
-    selectedCheckboxes: React.PropTypes.object,
-    enableAnalytics: React.PropTypes.bool
+    id: PropTypes.string,
+    code: PropTypes.string,
+    name: PropTypes.string,
+    toggleCheckboxType: PropTypes.func,
+    filterType: PropTypes.string,
+    selectedCheckboxes: PropTypes.object,
+    enableAnalytics: PropTypes.bool
 };
 
 const defaultProps = {

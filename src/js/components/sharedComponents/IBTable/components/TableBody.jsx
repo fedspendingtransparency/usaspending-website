@@ -4,19 +4,20 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { max, min } from 'lodash';
 import TableRow from './TableRow';
 
 const propTypes = {
-    rowHeight: React.PropTypes.number.isRequired,
-    rowCount: React.PropTypes.number.isRequired,
-    maxWidth: React.PropTypes.number.isRequired,
-    maxHeight: React.PropTypes.number.isRequired,
-    width: React.PropTypes.number.isRequired,
-    columns: React.PropTypes.array.isRequired,
-    dataHash: React.PropTypes.string,
-    onScrollEnd: React.PropTypes.func,
-    syncScrollPosition: React.PropTypes.func
+    rowHeight: PropTypes.number.isRequired,
+    rowCount: PropTypes.number.isRequired,
+    maxWidth: PropTypes.number.isRequired,
+    maxHeight: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    columns: PropTypes.array.isRequired,
+    dataHash: PropTypes.string,
+    onScrollEnd: PropTypes.func,
+    syncScrollPosition: PropTypes.func
 };
 
 export default class TableBody extends React.Component {

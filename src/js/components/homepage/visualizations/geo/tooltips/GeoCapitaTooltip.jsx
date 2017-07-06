@@ -4,19 +4,20 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as MapHelper from 'helpers/mapHelper';
 
 const propTypes = {
-    state: React.PropTypes.string,
-    value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    y: React.PropTypes.number,
-    x: React.PropTypes.number,
-    visualization: React.PropTypes.object,
-    rank: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    rankCount: React.PropTypes.number,
-    population: React.PropTypes.number
+    state: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    y: PropTypes.number,
+    x: PropTypes.number,
+    visualization: PropTypes.object,
+    rank: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    rankCount: PropTypes.number,
+    population: PropTypes.number
 };
 
 export default class GeoCapitaTooltip extends React.Component {

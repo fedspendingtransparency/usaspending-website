@@ -4,19 +4,19 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import BarChartLegend from 'components/search/visualizations/time/chart/BarChartLegend';
 import HorizontalBarItem from './HorizontalBarItem';
 
-
 const propTypes = {
-    activeFY: React.PropTypes.string,
-    reportingFiscalQuarter: React.PropTypes.number,
-    obligatedAmount: React.PropTypes.number,
-    budgetAuthority: React.PropTypes.number,
-    width: React.PropTypes.number,
-    obligatedText: React.PropTypes.string,
-    legend: React.PropTypes.array
+    activeFY: PropTypes.string,
+    reportingFiscalQuarter: PropTypes.number,
+    obligatedAmount: PropTypes.number,
+    budgetAuthority: PropTypes.number,
+    width: PropTypes.number,
+    obligatedText: PropTypes.string,
+    legend: PropTypes.array
 };
 
 export default class AgencyObligatedGraph extends React.Component {

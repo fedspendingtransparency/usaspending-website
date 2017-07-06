@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import MinimizedBudgetFunctions from './MinimizedBudgetFunctions/MinimizedBudgetFunctions';
@@ -11,15 +12,15 @@ import MinimizedBudgetFunctionsTooltip from
     './MinimizedBudgetFunctions/MinimizedBudgetFunctionsTooltip';
 
 const propTypes = {
-    alternateColors: React.PropTypes.array,
-    categories: React.PropTypes.object,
-    changeActiveSubfunction: React.PropTypes.func,
-    colors: React.PropTypes.array,
-    descriptions: React.PropTypes.array,
-    selected: React.PropTypes.number,
-    toggleSubfunction: React.PropTypes.func,
-    tooltipStyles: React.PropTypes.object,
-    totalNumber: React.PropTypes.number
+    alternateColors: PropTypes.array,
+    categories: PropTypes.object,
+    changeActiveSubfunction: PropTypes.func,
+    colors: PropTypes.array,
+    descriptions: PropTypes.array,
+    selected: PropTypes.number,
+    toggleSubfunction: PropTypes.func,
+    tooltipStyles: PropTypes.object,
+    totalNumber: PropTypes.number
 };
 
 const arrows = {

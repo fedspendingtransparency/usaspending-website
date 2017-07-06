@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import $ from 'jquery';
 
 const defaultProps = {
@@ -11,11 +12,11 @@ const defaultProps = {
 };
 
 const propTypes = {
-    code: React.PropTypes.string.isRequired,
-    currentSection: React.PropTypes.string.isRequired,
-    icon: React.PropTypes.element.isRequired,
-    label: React.PropTypes.string.isRequired,
-    accessibleLabel: React.PropTypes.string.isRequired
+    code: PropTypes.string.isRequired,
+    currentSection: PropTypes.string.isRequired,
+    icon: PropTypes.element.isRequired,
+    label: PropTypes.string.isRequired,
+    accessibleLabel: PropTypes.string.isRequired
 };
 
 export default class FormatItem extends React.Component {

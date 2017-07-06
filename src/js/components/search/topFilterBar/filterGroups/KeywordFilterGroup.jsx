@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
-    filter: React.PropTypes.object,
-    redux: React.PropTypes.object
+    filter: PropTypes.object,
+    redux: PropTypes.object
 };
 
 export default class KeywordFilterGroup extends React.Component {

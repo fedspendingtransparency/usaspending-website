@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ResultsTableHeaderCellContainer from
     'containers/search/table/ResultsTableHeaderCellContainer';
@@ -18,16 +19,16 @@ import ResultsTablePicker from './ResultsTablePicker';
 import ResultsSelectColumns from './ResultsSelectColumns';
 
 const propTypes = {
-    inFlight: React.PropTypes.bool,
-    tableTypes: React.PropTypes.array,
-    currentType: React.PropTypes.string,
-    switchTab: React.PropTypes.func,
-    results: React.PropTypes.array,
-    columns: React.PropTypes.array,
-    hiddenColumns: React.PropTypes.array,
-    toggleColumnVisibility: React.PropTypes.func,
-    reorderColumns: React.PropTypes.func,
-    lastReq: React.PropTypes.string
+    inFlight: PropTypes.bool,
+    tableTypes: PropTypes.array,
+    currentType: PropTypes.string,
+    switchTab: PropTypes.func,
+    results: PropTypes.array,
+    columns: PropTypes.array,
+    hiddenColumns: PropTypes.array,
+    toggleColumnVisibility: PropTypes.func,
+    reorderColumns: PropTypes.func,
+    lastReq: PropTypes.string
 };
 
 export default class ResultsTableSection extends React.Component {

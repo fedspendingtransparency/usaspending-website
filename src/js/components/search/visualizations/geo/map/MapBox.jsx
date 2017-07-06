@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { throttle } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
@@ -11,10 +12,10 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import kGlobalConstants from 'GlobalConstants';
 
 const propTypes = {
-    loadedMap: React.PropTypes.func,
-    unloadedMap: React.PropTypes.func,
-    showTooltip: React.PropTypes.func,
-    hideTooltip: React.PropTypes.func
+    loadedMap: PropTypes.func,
+    unloadedMap: PropTypes.func,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func
 };
 
 // Define map movement increment

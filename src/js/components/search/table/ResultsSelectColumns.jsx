@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import * as Icons from 'components/sharedComponents/icons/Icons';
@@ -12,10 +13,10 @@ import ResultsColumnOption from './ResultsColumnOption';
 import ResultsColumnVisibleOption from './ResultsColumnVisibleOption';
 
 const propTypes = {
-    columns: React.PropTypes.array,
-    hiddenColumns: React.PropTypes.array,
-    toggleColumnVisibility: React.PropTypes.func,
-    reorderColumns: React.PropTypes.func
+    columns: PropTypes.array,
+    hiddenColumns: PropTypes.array,
+    toggleColumnVisibility: PropTypes.func,
+    reorderColumns: PropTypes.func
 };
 
 class ResultsSelectColumns extends React.Component {

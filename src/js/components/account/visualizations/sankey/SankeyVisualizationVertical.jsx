@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -14,8 +15,8 @@ import DirectionLabel from './components/DirectionLabel';
 import SankeyDisclosures from './components/SankeyDisclosures';
 
 const propTypes = {
-    width: React.PropTypes.number,
-    amounts: React.PropTypes.object
+    width: PropTypes.number,
+    amounts: PropTypes.object
 };
 
 export default class SankeyVisualizationVertical extends React.Component {

@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from '../icons/Icons';
 
 const defaultProps = {
@@ -11,9 +12,9 @@ const defaultProps = {
 };
 
 const propTypes = {
-    hidden: React.PropTypes.bool,
-    toggleExpand: React.PropTypes.func,
-    arrowState: React.PropTypes.string
+    hidden: PropTypes.bool,
+    toggleExpand: PropTypes.func,
+    arrowState: PropTypes.string
 };
 
 export default class CheckboxExpandButton extends React.Component {

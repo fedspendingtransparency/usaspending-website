@@ -4,13 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import DetailsTabItem from './DetailsTabItem';
 
 const propTypes = {
-    activeTab: React.PropTypes.string,
-    clickTab: React.PropTypes.func,
-    tabOptions: React.PropTypes.array
+    activeTab: PropTypes.string,
+    clickTab: PropTypes.func,
+    tabOptions: PropTypes.array
 };
 
 export default class DetailsTabBar extends React.Component {

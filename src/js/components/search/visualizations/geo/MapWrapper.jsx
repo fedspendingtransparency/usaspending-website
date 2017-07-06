@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Q from 'q';
 
 import * as MapHelper from 'helpers/mapHelper';
@@ -12,13 +13,13 @@ import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
 
 const propTypes = {
-    data: React.PropTypes.object,
-    renderHash: React.PropTypes.string,
-    showHover: React.PropTypes.bool,
-    selectedItem: React.PropTypes.object,
-    showTooltip: React.PropTypes.func,
-    hideTooltip: React.PropTypes.func,
-    tooltip: React.PropTypes.func
+    data: PropTypes.object,
+    renderHash: PropTypes.string,
+    showHover: PropTypes.bool,
+    selectedItem: PropTypes.object,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func,
+    tooltip: PropTypes.func
 };
 
 const defaultProps = {

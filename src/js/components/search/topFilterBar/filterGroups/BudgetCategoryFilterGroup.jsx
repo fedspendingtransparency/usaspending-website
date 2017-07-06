@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { toArray, indexOf, concat, difference } from 'lodash';
 
 import { Set } from 'immutable';
@@ -13,8 +14,8 @@ import * as ObjectClasses from 'dataMapping/search/budgetCategory';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
-    filter: React.PropTypes.object,
-    redux: React.PropTypes.object
+    filter: PropTypes.object,
+    redux: PropTypes.object
 };
 
 export default class BudgetCategoryFilterGroup extends React.Component {

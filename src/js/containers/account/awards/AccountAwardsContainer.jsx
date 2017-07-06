@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -24,15 +25,15 @@ import AccountAwardsSection from 'components/account/awards/AccountAwardsSection
 import * as accountActions from 'redux/actions/account/accountActions';
 
 const propTypes = {
-    account: React.PropTypes.object,
-    awards: React.PropTypes.instanceOf(Immutable.OrderedSet),
-    meta: React.PropTypes.object,
-    filters: React.PropTypes.object,
-    order: React.PropTypes.object,
-    setAccountAwardType: React.PropTypes.func,
-    setAccountAwards: React.PropTypes.func,
-    appendAccountAwards: React.PropTypes.func,
-    setAccountAwardOrder: React.PropTypes.func
+    account: PropTypes.object,
+    awards: PropTypes.instanceOf(Immutable.OrderedSet),
+    meta: PropTypes.object,
+    filters: PropTypes.object,
+    order: PropTypes.object,
+    setAccountAwardType: PropTypes.func,
+    setAccountAwards: PropTypes.func,
+    appendAccountAwards: PropTypes.func,
+    setAccountAwardOrder: PropTypes.func
 };
 
 const tableTypes = [

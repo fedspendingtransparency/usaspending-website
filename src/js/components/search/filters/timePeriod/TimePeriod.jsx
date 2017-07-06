@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Set } from 'immutable';
 import DateRange from './DateRange';
@@ -16,16 +17,16 @@ const defaultProps = {
 };
 
 const propTypes = {
-    filterTimePeriodFY: React.PropTypes.instanceOf(Set),
-    filterTimePeriodStart: React.PropTypes.string,
-    filterTimePeriodEnd: React.PropTypes.string,
-    filterTimePeriodType: React.PropTypes.string,
-    label: React.PropTypes.string,
-    timePeriods: React.PropTypes.array,
-    activeTab: React.PropTypes.string,
-    updateFilter: React.PropTypes.func,
-    changeTab: React.PropTypes.func,
-    disableDateRange: React.PropTypes.bool
+    filterTimePeriodFY: PropTypes.instanceOf(Set),
+    filterTimePeriodStart: PropTypes.string,
+    filterTimePeriodEnd: PropTypes.string,
+    filterTimePeriodType: PropTypes.string,
+    label: PropTypes.string,
+    timePeriods: PropTypes.array,
+    activeTab: PropTypes.string,
+    updateFilter: PropTypes.func,
+    changeTab: PropTypes.func,
+    disableDateRange: PropTypes.bool
 };
 
 const ga = require('react-ga');

@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { find, throttle } from 'lodash';
 import jQuery from 'jquery';
 
@@ -37,7 +38,7 @@ const agencySections = [
 ];
 
 const propTypes = {
-    agency: React.PropTypes.object
+    agency: PropTypes.object
 };
 
 export default class AgencyContent extends React.Component {

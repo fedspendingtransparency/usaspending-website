@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
 import SidebarLink from './SidebarLink';
 
 const propTypes = {
-    active: React.PropTypes.string,
-    sections: React.PropTypes.array,
-    jumpToSection: React.PropTypes.func
+    active: PropTypes.string,
+    sections: PropTypes.array,
+    jumpToSection: PropTypes.func
 };
 
 export default class AgencySidebar extends React.Component {

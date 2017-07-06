@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 
 const propTypes = {
-    dispatch: React.PropTypes.func,
-    glossary: React.PropTypes.object
+    dispatch: PropTypes.func,
+    glossary: PropTypes.object
 };
 
 export class GlossaryButtonWrapperContainer extends React.Component {

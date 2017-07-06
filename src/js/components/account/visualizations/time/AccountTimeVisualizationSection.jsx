@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
 import AccountTimeVisualizationPeriodButton from './AccountTimeVisualizationPeriodButton';
@@ -11,10 +12,10 @@ import AccountTimeVisualizationPeriodButton from './AccountTimeVisualizationPeri
 import TimeVisualization from './TimeVisualization';
 
 const propTypes = {
-    data: React.PropTypes.object,
-    visualizationPeriod: React.PropTypes.string,
-    changePeriod: React.PropTypes.func,
-    hasFilteredObligated: React.PropTypes.bool
+    data: PropTypes.object,
+    visualizationPeriod: PropTypes.string,
+    changePeriod: PropTypes.func,
+    hasFilteredObligated: PropTypes.bool
 };
 
 export default class AccountTimeVisualizationSection extends React.Component {

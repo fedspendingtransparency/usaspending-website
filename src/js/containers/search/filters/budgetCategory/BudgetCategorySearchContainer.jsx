@@ -3,8 +3,8 @@
  * Created by michaelbray on 3/17/17.
  */
 
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -13,9 +13,9 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import BudgetCategorySearch from 'components/search/filters/budgetCategory/BudgetCategorySearch';
 
 const propTypes = {
-    updateSelectedBudgetFunctions: React.PropTypes.func,
-    updateSelectedFederalAccounts: React.PropTypes.func,
-    updateSelectedObjectClasses: React.PropTypes.func
+    updateSelectedBudgetFunctions: PropTypes.func,
+    updateSelectedFederalAccounts: PropTypes.func,
+    updateSelectedObjectClasses: PropTypes.func
 };
 
 export class BudgetCategorySearchContainer extends React.Component {

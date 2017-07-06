@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import HorizontalChart from './chart/HorizontalChart';
 import RankVisualizationTooltip from './RankVisualizationTooltip';
@@ -22,11 +23,11 @@ const defaultProps = {
 };
 
 const propTypes = {
-    dataSeries: React.PropTypes.array,
-    descriptions: React.PropTypes.array,
-    loading: React.PropTypes.bool,
-    meta: React.PropTypes.object,
-    disableTooltip: React.PropTypes.bool
+    dataSeries: PropTypes.array,
+    descriptions: PropTypes.array,
+    loading: PropTypes.bool,
+    meta: PropTypes.object,
+    disableTooltip: PropTypes.bool
 };
 
 export default class RankVisualization extends React.Component {
