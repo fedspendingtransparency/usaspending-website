@@ -21,18 +21,10 @@ const ga = require('react-ga');
 
 export class KeywordContainer extends React.Component {
 
-    static logFilterEvent() {
-        ga.event({
-            category: 'Search Filters',
-            action: 'Applied Filter',
-            label: 'Keyword'
-        });
-    }
-
     static logSelectedKeywordEvent(keyword) {
         ga.event({
-            category: 'Search Filters',
-            action: 'Selected Keyword',
+            category: 'Search Page Filter Applied',
+            action: 'Applied Keyword Filter',
             label: keyword
         });
     }
@@ -77,8 +69,9 @@ export class KeywordContainer extends React.Component {
         this.props.updateTextSearchInput(this.state.value);
 
         // Analytics
-        KeywordContainer.logFilterEvent();
-        KeywordContainer.logSelectedKeywordEvent(this.state.value);
+        if (this.state.value) {
+            KeywordContainer.logSelectedKeywordEvent(this.state.value);
+        }
     }
 
     render() {

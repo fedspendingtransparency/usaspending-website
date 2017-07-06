@@ -25,10 +25,11 @@ const propTypes = {
     switchTab: PropTypes.func,
     results: PropTypes.array,
     columns: PropTypes.array,
+    counts: PropTypes.object,
     hiddenColumns: PropTypes.array,
     toggleColumnVisibility: PropTypes.func,
     reorderColumns: PropTypes.func,
-    lastReq: PropTypes.string
+    downloadParams: PropTypes.object
 };
 
 export default class ResultsTableSection extends React.Component {
@@ -112,6 +113,7 @@ export default class ResultsTableSection extends React.Component {
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}
+                    counts={this.props.counts}
                     switchTab={this.props.switchTab} />
                 <div className={loadingWrapper}>
                     <div
@@ -128,7 +130,7 @@ export default class ResultsTableSection extends React.Component {
                 </div>
                 {message}
                 <ExtraModalContainer
-                    lastReq={this.props.lastReq}
+                    downloadParams={this.props.downloadParams}
                     mounted={this.state.showModal}
                     hideModal={this.hideModal} />
             </div>

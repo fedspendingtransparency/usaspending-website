@@ -13,6 +13,7 @@ import Router from 'containers/router/Router';
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
 import RecipientContainer from 'containers/agency/visualizations/RecipientContainer';
 import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
+import FederalAccountContainer from 'containers/agency/visualizations/FederalAccountContainer';
 import AgencyFooterContainer from 'containers/agency/AgencyFooterContainer';
 
 import AgencySidebar from './sidebar/AgencySidebar';
@@ -30,6 +31,10 @@ const agencySections = [
     {
         section: 'object-classes',
         label: 'Object Classes'
+    },
+    {
+        section: 'federal-accounts',
+        label: 'Federal Accounts'
     },
     {
         section: 'recipients',
@@ -234,6 +239,10 @@ export default class AgencyContent extends React.Component {
                         <ObjectClassContainer
                             id={this.props.agency.id}
                             activeFY={this.props.agency.overview.activeFY} />
+                        <FederalAccountContainer
+                            id={this.props.agency.id}
+                            activeFY={this.props.agency.overview.activeFY}
+                            obligatedAmount={this.props.agency.overview.obligatedAmount} />
                         <RecipientContainer
                             id={this.props.agency.id}
                             activeFY={this.props.agency.overview.activeFY} />

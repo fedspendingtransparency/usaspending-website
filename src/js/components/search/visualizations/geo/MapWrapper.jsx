@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Q from 'q';
 
 import * as MapHelper from 'helpers/mapHelper';
 
@@ -84,57 +83,56 @@ export default class MapWrapper extends React.Component {
     }
 
     loadStateShapes() {
-        const deferred = Q.defer();
-        if (!this.state.mapReady) {
-            deferred.resolve();
-            return deferred.promise;
-        }
+        return new Promise((resolve, reject) => {
+            if (!this.state.mapReady) {
+                resolve();
+                return;
+            }
 
-        // fetch the state shapes
-        MapHelper.fetchFile('graphics/states.json').promise
-            .then((res) => {
-                // split the data into individual state features
-                const states = {};
+            // fetch the state shapes
+            MapHelper.fetchFile('graphics/states.json').promise
+                .then((res) => {
+                    // split the data into individual state features
+                    const states = {};
 
-                res.data.features.forEach((feature) => {
-                    const stateName = feature.properties.NAME;
-                    const stateCode = MapHelper.stateCodeFromName(stateName);
+                    res.data.features.forEach((feature) => {
+                        const stateName = feature.properties.NAME;
+                        const stateCode = MapHelper.stateCodeFromName(stateName);
 
-                    let shape = {
-                        geometry: feature.geometry,
-                        type: 'Feature'
-                    };
-
-                    if (feature.type === 'FeatureCollection') {
-                        // this is a collection of multiple shapes (ie, islands)
-                        shape = {
-                            type: 'FeatureCollection',
-                            features: feature.features
+                        let shape = {
+                            geometry: feature.geometry,
+                            type: 'Feature'
                         };
-                    }
 
-                    const state = {
-                        shape,
-                        data: {
-                            name: stateName,
-                            code: stateCode
+                        if (feature.type === 'FeatureCollection') {
+                            // this is a collection of multiple shapes (ie, islands)
+                            shape = {
+                                type: 'FeatureCollection',
+                                features: feature.features
+                            };
                         }
-                    };
 
-                    states[stateCode] = state;
+                        const state = {
+                            shape,
+                            data: {
+                                name: stateName,
+                                code: stateCode
+                            }
+                        };
+
+                        states[stateCode] = state;
+                    });
+
+                    this.setState({
+                        stateShapes: states
+                    }, () => {
+                        resolve();
+                    });
+                })
+                .catch((err) => {
+                    reject(err);
                 });
-
-                this.setState({
-                    stateShapes: states
-                }, () => {
-                    deferred.resolve();
-                });
-            })
-            .catch((err) => {
-                deferred.reject(err);
-            });
-
-        return deferred.promise;
+        });
     }
 
     outlineState(stateCode) {

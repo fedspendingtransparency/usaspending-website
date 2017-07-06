@@ -40,10 +40,10 @@ export class RecipientSearchContainer extends React.Component {
         });
     }
 
-    static logLocationFilterEvent(placeType, place) {
+    static logLocationFilterEvent(placeType, place, event) {
         ga.event({
             category: 'Search Page Filter Applied',
-            action: `Applied Recipient ${placeType.toLowerCase()} Filter`,
+            action: `${event} Recipient ${placeType.toLowerCase()} Filter`,
             label: place.toLowerCase()
         });
     }
@@ -75,10 +75,12 @@ export class RecipientSearchContainer extends React.Component {
 
     toggleRecipientType(selection) {
         this.props.toggleRecipientType(selection);
+        // Analytics handled by checkbox component
     }
 
     bulkRecipientTypeChange(selection) {
         this.props.bulkRecipientTypeChange(selection);
+        // Analytics handled by checkbox component
     }
 
     toggleRecipientLocation(recipientLocation) {
@@ -87,7 +89,14 @@ export class RecipientSearchContainer extends React.Component {
         // Analytics
         const placeType = recipientLocation.place_type;
         const place = recipientLocation.place;
-        RecipientSearchContainer.logLocationFilterEvent(placeType, place);
+        if (!recipientLocation.identifier) {
+            // Adding a new location filter
+            RecipientSearchContainer.logLocationFilterEvent(placeType, place, 'Applied');
+        }
+        else {
+            // Removing an existing location filter
+            RecipientSearchContainer.logLocationFilterEvent(placeType, place, 'Removed');
+        }
     }
 
     render() {

@@ -107,6 +107,7 @@ export default class RecipientChart extends React.Component {
                     dataSeries={this.props.dataSeries}
                     descriptions={this.props.descriptions}
                     height={(maxRows * rowHeight) + axisHeight}
+                    minRows={maxRows}
                     width={this.props.width}
                     labelWidth={this.props.labelWidth}
                     selectItem={this.showTooltip}

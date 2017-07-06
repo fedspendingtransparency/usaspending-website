@@ -18,7 +18,8 @@ const propTypes = {
     tableTypes: PropTypes.array,
     currentType: PropTypes.string,
     switchTab: PropTypes.func,
-    results: PropTypes.array
+    results: PropTypes.array,
+    counts: PropTypes.object
 };
 
 export default class AccountAwardsSection extends React.Component {
@@ -68,6 +69,7 @@ export default class AccountAwardsSection extends React.Component {
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}
+                    counts={this.props.counts}
                     switchTab={this.props.switchTab} />
                 <ResultsTablePicker
                     types={this.props.tableTypes}

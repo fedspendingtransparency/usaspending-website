@@ -16,7 +16,17 @@ const propTypes = {
     updateAwardIDs: PropTypes.func
 };
 
+const ga = require('react-ga');
+
 export class AwardIDSearchContainer extends React.Component {
+    static logIdEvent(id, type) {
+        ga.event({
+            category: 'Search Page Filter Applied',
+            action: `Toggled Award ${type} Filter`,
+            label: id
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -29,6 +39,21 @@ export class AwardIDSearchContainer extends React.Component {
             awardID
         };
         this.props.updateAwardIDs(updateParams);
+
+        // Analytics
+        switch (awardID.awardIDType) {
+            case 'PIID':
+                AwardIDSearchContainer.logIdEvent(awardID.piid, 'PIID');
+                break;
+            case 'URI':
+                AwardIDSearchContainer.logIdEvent(awardID.uri, 'URI');
+                break;
+            case 'FAIN':
+                AwardIDSearchContainer.logIdEvent(awardID.fain, 'FAIN');
+                break;
+            default:
+                AwardIDSearchContainer.logIdEvent(awardID.id, 'ID');
+        }
     }
 
     render() {

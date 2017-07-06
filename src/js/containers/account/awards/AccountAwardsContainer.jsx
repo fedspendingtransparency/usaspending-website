@@ -70,6 +70,7 @@ export class AccountAwardsContainer extends React.Component {
 
         this.state = {
             columns: [],
+            counts: {},
             inFlight: true
         };
 
@@ -158,7 +159,11 @@ export class AccountAwardsContainer extends React.Component {
             }
         }
 
-        this.switchTab(tableTypes[firstAvailable].internal);
+        this.setState({
+            counts: availableGroups
+        }, () => {
+            this.switchTab(tableTypes[firstAvailable].internal);
+        });
     }
 
     showColumns(tableType, doNotLoad = false) {
@@ -304,6 +309,7 @@ export class AccountAwardsContainer extends React.Component {
                 results={this.props.awards.toArray()}
                 resultsMeta={this.props.meta}
                 columns={this.state.columns}
+                counts={this.state.counts}
                 tableTypes={tableTypes}
                 currentType={this.props.meta.type}
                 switchTab={this.switchTab}
