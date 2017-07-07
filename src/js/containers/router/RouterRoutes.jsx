@@ -136,6 +136,15 @@ const routes = {
                     cb(require('components/testStyles/TestStylePage').default);
                 });
             }
+        },
+        {
+            path: '/agencyprofiles',
+            parent: '/agencyprofiles',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/agencyProfiles/AgencyProfiles').default);
+                });
+            }
         }
     ],
     notfound: {
