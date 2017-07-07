@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { throttle, find } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as Icons from 'components/sharedComponents/icons/Icons';
@@ -30,7 +30,7 @@ export default class ObjectClassTreeMap extends React.Component {
             selected: 0
         };
 
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.toggleMinorObjectClass = this.toggleMinorObjectClass.bind(this);
     }
 
@@ -86,7 +86,7 @@ export default class ObjectClassTreeMap extends React.Component {
             toggleMinorObjectClass={this.toggleMinorObjectClass} />);
 
         if (this.state.showMinorObjectClass === true) {
-            const selectedMajorObjectClass = _.find(this.props.majorObjectClasses.children,
+            const selectedMajorObjectClass = find(this.props.majorObjectClasses.children,
                 { major_object_class_code: this.state.selected });
 
             objectClasses = (<MinorObjectClasses

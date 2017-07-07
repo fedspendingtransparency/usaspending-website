@@ -2,8 +2,10 @@
     ul.search-formats {
         @include unstyled-list;
         text-align: center;
+        display: none;
         @include media($tablet-screen) {
             text-align: right;
+            display: block;
         }
     }
     li {

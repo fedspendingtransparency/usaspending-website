@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import _ from 'lodash';
+import { truncate } from 'lodash';
 
 const propTypes = {
     label: React.PropTypes.string,
@@ -82,7 +82,7 @@ export default class CategoryMapCell extends React.Component {
             // determine how many characters can fit in the available space
             maxChars = Math.floor((maxWidth) / avgCharWidth);
             // truncate the label
-            truncatedLabel = _.truncate(this.props.label, {
+            truncatedLabel = truncate(this.props.label, {
                 length: maxChars
             });
         }

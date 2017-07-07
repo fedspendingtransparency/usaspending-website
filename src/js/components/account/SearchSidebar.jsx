@@ -5,6 +5,7 @@
 
 import React from 'react';
 
+import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 
 import AccountTimePeriodContainer from 'containers/account/filters/AccountTimePeriodContainer';
@@ -30,7 +31,15 @@ const filters = {
 export default class SearchSidebar extends React.Component {
     render() {
         return (
-            <FilterSidebar {...filters} />
+            <div className="search-sidebar">
+                <div className="sidebar-header">
+                    <span className="filter-icon">
+                        <FilterIcon />
+                    </span>
+                    <h6>Filter by:</h6>
+                </div>
+                <FilterSidebar {...filters} />
+            </div>
         );
     }
 }

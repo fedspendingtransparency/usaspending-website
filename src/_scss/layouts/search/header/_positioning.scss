@@ -13,12 +13,12 @@
 .search-title {
     flex: 1 100%;
     & h1 {
-        margin: rem(20) 0;
         text-align: center;
     }
     @include media($tablet-screen) {
         flex: 1;
         & h1 {
+            margin: rem(20) 0;
             text-align: left;
         }
     }

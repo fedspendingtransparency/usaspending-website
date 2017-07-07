@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { throttle } from 'lodash';
 import TreeMapLabel from './TreeMapLabel';
 
 const propTypes = {
@@ -22,7 +22,7 @@ export default class TreeMapLine extends React.Component {
             visualizationWidth: 0
         };
 
-        this.handleWindowResize = _.throttle(this.handleWindowResize.bind(this), 50);
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
     }
 
     componentDidMount() {

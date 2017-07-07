@@ -11,7 +11,7 @@ import ExtraModal from 'components/search/modals/ExtraModal';
 import * as DownloadHelper from 'helpers/downloadHelper';
 
 const propTypes = {
-    lastReq: React.PropTypes.string,
+    downloadParams: React.PropTypes.object,
     mounted: React.PropTypes.bool
 };
 
@@ -22,7 +22,7 @@ export class ExtraModalContainer extends React.Component {
         this.state = {
             title: 'A link to the file is being generated.',
             message: 'Requesting file...',
-            activeReq: '',
+            activeParams: '',
             location: '',
             animate: true
         };
@@ -39,9 +39,9 @@ export class ExtraModalContainer extends React.Component {
 
 
     modalOpened() {
-        if (this.props.lastReq !== '' && this.props.lastReq !== this.state.activeReq) {
+        if (this.props.downloadParams !== {} && this.props.downloadParams !== this.state.activeParams) {
             this.setState({
-                activeReq: this.props.lastReq
+                activeParams: this.props.downloadParams
             }, () => {
                 this.requestDownload();
             });
@@ -59,9 +59,9 @@ export class ExtraModalContainer extends React.Component {
             title: 'A link to the file is being generated.'
         });
 
-        this.request = DownloadHelper.requestAwardTable({
-            req: this.props.lastReq
-        });
+        this.request = DownloadHelper.requestAwardTable(
+            this.props.downloadParams
+        );
 
         this.request.promise
             .then((res) => {

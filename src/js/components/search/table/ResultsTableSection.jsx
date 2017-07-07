@@ -14,6 +14,7 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
 import ResultsTableMessage from './ResultsTableMessage';
+import ResultsTablePicker from './ResultsTablePicker';
 import ResultsSelectColumns from './ResultsSelectColumns';
 
 const propTypes = {
@@ -23,10 +24,11 @@ const propTypes = {
     switchTab: React.PropTypes.func,
     results: React.PropTypes.array,
     columns: React.PropTypes.array,
+    counts: React.PropTypes.object,
     hiddenColumns: React.PropTypes.array,
     toggleColumnVisibility: React.PropTypes.func,
     reorderColumns: React.PropTypes.func,
-    lastReq: React.PropTypes.string
+    downloadParams: React.PropTypes.object
 };
 
 export default class ResultsTableSection extends React.Component {
@@ -96,14 +98,21 @@ export default class ResultsTableSection extends React.Component {
                     </button>
                 </div>
                 <hr className="results-divider" />
-                <ResultsSelectColumns
-                    columns={this.props.columns}
-                    hiddenColumns={this.props.hiddenColumns}
-                    toggleColumnVisibility={this.props.toggleColumnVisibility}
-                    reorderColumns={this.props.reorderColumns} />
+                <div className="results-dropdown-picker-wrapper">
+                    <ResultsTablePicker
+                        types={this.props.tableTypes}
+                        active={this.props.currentType}
+                        switchTab={this.props.switchTab} />
+                    <ResultsSelectColumns
+                        columns={this.props.columns}
+                        hiddenColumns={this.props.hiddenColumns}
+                        toggleColumnVisibility={this.props.toggleColumnVisibility}
+                        reorderColumns={this.props.reorderColumns} />
+                </div>
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}
+                    counts={this.props.counts}
                     switchTab={this.props.switchTab} />
                 <div className={loadingWrapper}>
                     <div
@@ -120,7 +129,7 @@ export default class ResultsTableSection extends React.Component {
                 </div>
                 {message}
                 <ExtraModalContainer
-                    lastReq={this.props.lastReq}
+                    downloadParams={this.props.downloadParams}
                     mounted={this.state.showModal}
                     hideModal={this.hideModal} />
             </div>

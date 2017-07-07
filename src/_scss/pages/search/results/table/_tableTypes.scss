@@ -1,6 +1,10 @@
 .table-types {
     border-bottom: 1px solid $color-gray-light;
     padding-left: rem(15);
+    display: none;
+    @include media($tablet-screen) {
+        display: block;
+    }
     button.table-type-toggle {
         border: 1px solid transparent;
         border-bottom: 1px solid $color-gray-light;
@@ -11,12 +15,14 @@
         height: rem(31);
         margin-bottom: 0;
         margin-right: rem(2);
-        padding: rem(15);
-        min-width: rem(97);
+        padding: rem(10);
         height: rem(50);
         vertical-align: middle;
         position: relative;
         top: rem(1);
+        @include media($large-screen) {
+        padding: rem(15);
+}
         &:hover{
             @include transition(all 0.3s ease-in-out);
             background-color: darken($color-gray-lightest, 5%);
@@ -29,10 +35,33 @@
             border-left: 1px solid $color-gray-light;
             color: $color-base;
         }
+
+        .tab-content {
+            @include display(flex);
+            @include align-items(center);
+            @include justify-content(center);
+            position: relative;
+            .tab-label {
+                @include flex(1 1 auto);
+                margin-right: rem(5);
+            }
+
+            .count-badge {
+                @include flex(1 1 auto);
+                background-color: $color-gray-lighter;
+                font-size: rem(12);
+                line-height: rem(16);
+                padding: rem(0) rem(5);
+
+                &.active {
+                    background-color: $color-gold;    
+                }
+            }
+        }
     }
 }
 
-@import "../../../../components/_comingSoon";
+@import "components/_comingSoon";
 
 @include comingSoon;
 

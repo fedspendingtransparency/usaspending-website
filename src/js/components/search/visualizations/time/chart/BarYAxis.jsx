@@ -5,7 +5,7 @@
 
 import React from 'react';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 
 import BarYAxisItem from './BarYAxisItem';
 
@@ -32,17 +32,17 @@ export default class BarYAxis extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!_.isEqual(nextProps, this.props)) {
+        if (!isEqual(nextProps, this.props)) {
             this.drawAxis(nextProps);
         }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         // reduce unnecessary renders
-        if (!_.isEqual(nextProps, this.props)) {
+        if (!isEqual(nextProps, this.props)) {
             return true;
         }
-        else if (!_.isEqual(nextState, this.state)) {
+        else if (!isEqual(nextState, this.state)) {
             return true;
         }
         return false;
