@@ -3,7 +3,7 @@
     @import "../../elements/_divider";
     @import "../../elements/_buttons";
     @include clearfix;
-    background: url(../../img/about_us_background.png) no-repeat center bottom;
+    background: url(#{$image-path}/about_us_background.png) no-repeat center bottom;
     background-size: 100%;
     padding: ($global-pad * 2) 0 ($global-pad * 4) 0;
     .overview-header {
