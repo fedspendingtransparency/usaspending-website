@@ -8,7 +8,7 @@
 }
 
 .landing-section-wrap {
-    background: url(../img/landing_bg_img.jpg) no-repeat center center fixed;
+    background: url(#{$image-path}/landing_bg_img.jpg) no-repeat center center fixed;
     background-size: cover;
     min-height: rem(700);
     padding: 0 rem(30);
