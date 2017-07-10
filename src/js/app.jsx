@@ -5,6 +5,8 @@ import { render } from 'react-dom';
 import kGlobalConstants from 'GlobalConstants';
 import AppContainer from 'containers/AppContainer';
 
+require('helpers/rafPolyfill');
+
 const appDiv = document.getElementById('app');
 render(
     <AppContainer />,
