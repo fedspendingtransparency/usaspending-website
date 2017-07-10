@@ -13,6 +13,7 @@ const defaultValues = {
     head: '',
     logo: '',
     activeFY: '',
+    activeFQ: '',
     federalBudget: 0,
     budgetAuthority: 0
 };
@@ -28,9 +29,10 @@ const remapData = (data) => {
         head: 'agency_head',
         logo: 'agency_logo_url',
         activeFY: 'active_fy',
+        activeFQ: 'active_fq',
         budgetAuthority: 'budget_authority_amount',
         obligatedAmount: 'obligated_amount',
-        federalBudget: 'total_budget_authority_amount'
+        federalBudget: 'current_total_budget_authority_amount'
     };
 
     const remapFuncs = {

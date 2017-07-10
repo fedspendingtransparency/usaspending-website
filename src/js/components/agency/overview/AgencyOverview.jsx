@@ -28,30 +28,33 @@ export default class AgencyOverview extends React.Component {
             logo = (<img src={this.props.agency.logo} alt={this.props.agency.name} />);
         }
 
-        // Hide visualizations if the budget doesn't exist
-        // Todo - Mike Bray: Remove this when the API is ready
-        let totalBudgetAuthorityHide = "";
-        if (this.props.agency.federalBudget === -1) {
-            totalBudgetAuthorityHide = 'hide';
-        }
+        // Move props to variables for readability
+        const budgetAuthority = this.props.agency.budgetAuthority;
+        const federalBudget = this.props.agency.federalBudget;
 
         // Generate Budget Authority string
-        const budgetAuthority = MoneyFormatter.calculateUnitForSingleValue(
-            this.props.agency.budgetAuthority);
-        const formattedBudgetAuthority = `${MoneyFormatter.formatMoney(
-            this.props.agency.budgetAuthority / budgetAuthority.unit)}
-            ${capitalize(budgetAuthority.longLabel)}`;
+        const budgetAuthorityAmount = MoneyFormatter.calculateUnitForSingleValue(budgetAuthority);
+        const formattedBudgetAuthority = `${MoneyFormatter.formatMoneyWithPrecision(
+            budgetAuthority / budgetAuthorityAmount.unit, 1)}
+            ${capitalize(budgetAuthorityAmount.longLabel)}`;
 
         // Generate Percentage string
         const percentage = MoneyFormatter.calculateTreemapPercentage(
-            this.props.agency.budgetAuthority, this.props.agency.federalBudget);
+            budgetAuthority, federalBudget);
         const percentageElement = (
             <span className="authority-statement-percentage">{percentage}</span>
         );
 
         // Generate visualization parameters
         const visualizationWidth = 366;
-        const obligatedWidth = visualizationWidth * percentage;
+        let obligatedWidth = 0;
+
+        // Only check the percentage width if the data is available
+        if (budgetAuthority !== 0 && federalBudget !== 0) {
+            const percentageNumber = budgetAuthority / federalBudget;
+            obligatedWidth = visualizationWidth * percentageNumber;
+        }
+
         const remainingWidth = visualizationWidth - obligatedWidth;
 
         return (
@@ -87,15 +90,17 @@ export default class AgencyOverview extends React.Component {
                         </div>
                     </div>
                     <div className="budget-authority">
-                        <h4>Budget Authority This Year (FY {this.props.agency.activeFY})</h4>
+                        <h4>Total Budgetary Resources as of
+                            Q{this.props.agency.activeFQ} {this.props.agency.activeFY}</h4>
                         <div className="authority-amount">
                             {formattedBudgetAuthority}
                         </div>
-                        <div className={`authority-statement ${totalBudgetAuthorityHide}`}>
-                            This is {percentageElement} of the total United States
-                            federal budget for FY {this.props.agency.activeFY}.
+                        <div className="authority-statement">
+                            This is {percentageElement} of the total U.S. federal budgetary
+                            resources as of
+                            Q{this.props.agency.activeFQ} {this.props.agency.activeFY}.
                         </div>
-                        <svg className={`horizontal-bar ${totalBudgetAuthorityHide}`}>
+                        <svg className="horizontal-bar">
                             <g>
                                 <HorizontalBarItem
                                     description="Budget Authority"
