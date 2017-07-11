@@ -80,7 +80,8 @@ export class ResultsTableContainer extends React.Component {
             searchParams: new SearchOperation(),
             page: 0,
             downloadParams: {},
-            hiddenColumns: []
+            hiddenColumns: [],
+            counts: {}
         };
 
         this.tabCountRequest = null;
@@ -179,6 +180,7 @@ export class ResultsTableContainer extends React.Component {
             });
         });
 
+
         let firstAvailable = 0;
         for (let i = 0; i < tableTypes.length; i++) {
             const type = tableTypes[i].internal;
@@ -188,10 +190,14 @@ export class ResultsTableContainer extends React.Component {
             }
         }
 
-        // select the first available tab
-        this.switchTab(tableTypes[firstAvailable].internal);
-        this.updateFilters();
-        this.showColumns(tableTypes[firstAvailable].internal);
+        this.setState({
+            counts: availableGroups
+        }, () => {
+            // select the first available tab
+            this.switchTab(tableTypes[firstAvailable].internal);
+            this.updateFilters();
+            this.showColumns(tableTypes[firstAvailable].internal);
+        });
     }
 
     showColumns(tableType) {
@@ -425,6 +431,7 @@ export class ResultsTableContainer extends React.Component {
                 results={this.props.rows.toArray()}
                 resultsMeta={this.props.meta}
                 columns={this.state.columns}
+                counts={this.state.counts}
                 hiddenColumns={this.state.hiddenColumns}
                 toggleColumnVisibility={this.toggleColumnVisibility}
                 reorderColumns={this.reorderColumns}
