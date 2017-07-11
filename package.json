@@ -2,6 +2,7 @@
   "name": "usaspending-website",
   "version": "2.5.0",
   "description": "USAspending Website",
+  "repository": "fedspendingtransparency/usaspending-website",
   "main": "src/entry.js",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --progress --config ./webpack/webpack.dev.config.js",
@@ -36,7 +37,7 @@
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^0.28.4",
-    "enzyme": "^2.7.0",
+    "enzyme": "^2.9.1",
     "eslint": "^3.17.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.1.0",
