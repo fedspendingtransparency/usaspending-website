@@ -94,7 +94,7 @@ export const accountAwardsFields = {
         toptier: 'award__awarding_agency__toptier_agency__name',
         subtier: 'award__awarding_agency__subtier_agency__name'
     },
-    objectClass: 'award__object_class__object_class',
+    objectClass: 'object_class__object_class',
     budgetFunctionTitle: 'treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'treasury_account__budget_subfunction_title',
     federalAccount: 'treasury_account__federal_account_id',
