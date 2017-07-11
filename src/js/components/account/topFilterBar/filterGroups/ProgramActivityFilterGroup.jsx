@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { find } from 'lodash';
 
 import BaseTopFilterGroup from 'components/search/topFilterBar/filterGroups/BaseTopFilterGroup';
 
@@ -36,7 +36,7 @@ export default class ProgramActivityFilterGroup extends React.Component {
         const availableProgramActivities = this.props.redux.filterOptions.programActivity;
 
         selectedValues.forEach((value) => {
-            const programActivity = _.find(availableProgramActivities, { id: `${value}` });
+            const programActivity = find(availableProgramActivities, { id: `${value}` });
 
             let label = value;
             if (programActivity) {

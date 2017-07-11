@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -53,7 +53,7 @@ export class FinancialSystemTableContainer extends React.Component {
             this.props.resetFinSys();
             this.loadFinancialSystemData(1, true);
         }
-        else if (!_.isEqual(this.props.award.finSysSort, prevProps.award.finSysSort)) {
+        else if (!isEqual(this.props.award.finSysSort, prevProps.award.finSysSort)) {
             this.loadFinancialSystemData(1, true);
         }
     }

@@ -11,7 +11,17 @@ const propTypes = {
     toggleGlossary: React.PropTypes.func
 };
 
+const ga = require('react-ga');
+
 export default class FloatingGlossaryButton extends React.Component {
+    static logGlossaryButtonEvent() {
+        ga.event({
+            category: 'Glossary',
+            action: 'Opened Glossary',
+            label: 'Floating Glossary Button'
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -54,6 +64,9 @@ export default class FloatingGlossaryButton extends React.Component {
 
     clickedButton() {
         this.props.toggleGlossary();
+
+        // Analytics
+        FloatingGlossaryButton.logGlossaryButtonEvent();
     }
 
     render() {

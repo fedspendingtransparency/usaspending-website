@@ -3,7 +3,7 @@
  * Created by Kevin Li 4/13/17
  */
 
-import _ from 'lodash';
+import { concat } from 'lodash';
 
 import * as AwardTypeQuery from 'models/search/queryBuilders/AwardTypeQuery';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
@@ -90,7 +90,7 @@ class AccountAwardSearchOperation {
         const common = this.commonParams();
         const unique = this.uniqueParams();
 
-        return _.concat(common, unique);
+        return concat(common, unique);
     }
 
 }

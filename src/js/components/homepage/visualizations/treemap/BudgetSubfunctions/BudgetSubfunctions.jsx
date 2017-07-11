@@ -4,7 +4,7 @@
 **/
 
 import React from 'react';
-import _ from 'lodash';
+import { find, remove, sumBy } from 'lodash';
 
 import BudgetSubfunctionsNavigation from './BudgetSubfunctionsNavigation';
 import BudgetSubfunctionsDescription from './BudgetSubfunctionsDescription';
@@ -46,8 +46,8 @@ export default class BudgetSubfunctions extends React.Component {
     }
 
     updateSubfunctionState(props) {
-        const category = _.find(props.categories.children, { id: props.selected });
-        const description = _.find(props.descriptions, { id: props.selected });
+        const category = find(props.categories.children, { id: props.selected });
+        const description = find(props.descriptions, { id: props.selected });
         const subfunction = props.subfunctions[category.name];
 
         this.setState({
@@ -64,14 +64,14 @@ export default class BudgetSubfunctions extends React.Component {
         // If a category is selected, sum the positive subfunction values
         if (this.state.category.value) {
             const positiveSubfunctions = this.state.subfunction;
-            _.remove(positiveSubfunctions.children, (v) => v.value <= 0);
+            remove(positiveSubfunctions.children, (v) => v.value <= 0);
 
             // Count subfunctions
             numberOfSubfunctions = positiveSubfunctions.children.length;
 
             // Remove JS rounding issues
             subfunctionTotal = parseFloat(
-                _.sumBy(positiveSubfunctions.children, 'value').toFixed(2)
+                sumBy(positiveSubfunctions.children, 'value').toFixed(2)
             );
         }
 

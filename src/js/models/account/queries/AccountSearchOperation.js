@@ -3,7 +3,7 @@
  * Created by Kevin Li 3/24/17
  */
 
-import _ from 'lodash';
+import { concat } from 'lodash';
 
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as ObjectClassQuery from './queryBuilders/ObjectClassQuery';
@@ -102,7 +102,7 @@ class AccountSearchOperation {
         const specificFilters = this.uniqueParams();
 
         // merge the two arrays together into the fully assembled filter parameters
-        const filters = _.concat(commonFilters, specificFilters);
+        const filters = concat(commonFilters, specificFilters);
 
         return filters;
     }

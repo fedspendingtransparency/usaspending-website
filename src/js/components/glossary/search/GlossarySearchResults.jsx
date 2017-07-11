@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { concat, sortBy } from 'lodash';
 
 import ResultGroup from './ResultGroup';
 
@@ -14,7 +14,17 @@ const propTypes = {
     setGlossaryTerm: React.PropTypes.func
 };
 
+const ga = require('react-ga');
+
 export default class GlossarySearchResults extends React.Component {
+    static logGlossaryTermEvent(term) {
+        ga.event({
+            category: 'Glossary',
+            action: 'Clicked Glossary Term',
+            label: term
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -37,6 +47,9 @@ export default class GlossarySearchResults extends React.Component {
 
     selectTerm(term) {
         this.props.setGlossaryTerm(term);
+
+        // Analytics
+        GlossarySearchResults.logGlossaryTermEvent(term.term);
     }
 
     groupResults(props) {
@@ -48,8 +61,8 @@ export default class GlossarySearchResults extends React.Component {
             // check if we already have the character
             if (Object.hasOwnProperty.call(groups, startingLetter)) {
                 // we do, add it to to the list
-                const groupValues = _.concat([], groups[startingLetter].terms, result);
-                groups[startingLetter].terms = _.sortBy(groupValues, ['term']);
+                const groupValues = concat([], groups[startingLetter].terms, result);
+                groups[startingLetter].terms = sortBy(groupValues, ['term']);
             }
             else {
                 // the character doesn't exist as a group item yet
@@ -62,7 +75,7 @@ export default class GlossarySearchResults extends React.Component {
         });
 
         // sort the groups by starting letter
-        const orderedGroups = _.sortBy(groups, ['letter']);
+        const orderedGroups = sortBy(groups, ['letter']);
 
         const results = orderedGroups.map((group) => (
             <ResultGroup

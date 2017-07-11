@@ -15,6 +15,7 @@ const defaultValues = {
     activeFY: '',
     activeFQ: '',
     federalBudget: 0,
+    obligatedAmount: 0,
     budgetAuthority: 0
 };
 
@@ -37,7 +38,8 @@ const remapData = (data) => {
 
     const remapFuncs = {
         budgetAuthority: (raw) => parseFloat(raw),
-        federalBudget: (raw) => parseFloat(raw)
+        federalBudget: (raw) => parseFloat(raw),
+        obligatedAmount: (raw) => parseFloat(raw)
     };
 
     for (const modelProp in remap) {

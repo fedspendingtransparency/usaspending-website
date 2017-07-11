@@ -6,7 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { isEqual, differenceWith } from 'lodash';
 import { isCancel } from 'axios';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
@@ -42,7 +42,7 @@ export class BudgetCategoryFunctionContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!_.isEqual(nextProps.autocompleteBudgetFunctions,
+        if (!isEqual(nextProps.autocompleteBudgetFunctions,
                 this.props.autocompleteBudgetFunctions)) {
             this.parseAutocompleteBudgetFunctions(nextProps.autocompleteBudgetFunctions);
         }
@@ -121,8 +121,8 @@ export class BudgetCategoryFunctionContainer extends React.Component {
 
                     // Filter out any selectedBudgetFunctions that may be in the result set
                     if (selectedItems && selectedItems.length > 0) {
-                        autocompleteData = _.differenceWith(
-                            autocompleteData, selectedItems, _.isEqual);
+                        autocompleteData = differenceWith(
+                            autocompleteData, selectedItems, isEqual);
                     }
 
                     this.setState({

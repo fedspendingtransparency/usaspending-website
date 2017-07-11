@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { forEach } from 'lodash';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
@@ -21,7 +21,7 @@ export default class TestStylePage extends React.Component {
     render() {
         const icons = [];
 
-        _.forEach(Icons, (value, key) => {
+        forEach(Icons, (value, key) => {
             const component = (<IconsExample
                 key={key}
                 icon={value}

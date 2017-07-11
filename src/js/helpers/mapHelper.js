@@ -4,7 +4,7 @@
  */
 
 import Axios, { CancelToken } from 'axios';
-import _ from 'lodash';
+import { min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import * as MoneyFormatter from './moneyFormatter';
 
@@ -159,22 +159,22 @@ export const calculateRange = (data) => {
         dataRange = [0, 10000];
     }
 
-    let min = _.min(dataRange);
-    let max = _.max(dataRange);
+    let minValue = min(dataRange);
+    let maxValue = max(dataRange);
 
     // determine the best units to use
     const units = MoneyFormatter.calculateUnits(dataRange);
 
     // round the minimum down to the cleanest unit point
-    min = Math.floor(min / units.unit);
-    max = Math.ceil(max / units.unit);
+    minValue = Math.floor(minValue / units.unit);
+    maxValue = Math.ceil(maxValue / units.unit);
 
     // determine the current step values, round it to something divisible by
-    const step = Math.ceil((max - min) / 6);
-    max = min + (6 * step);
+    const step = Math.ceil((maxValue - minValue) / 6);
+    maxValue = minValue + (6 * step);
 
     const segments = [];
-    const scale = scaleLinear().domain([min * units.unit, max * units.unit]).range([0, 6]);
+    const scale = scaleLinear().domain([minValue * units.unit, maxValue * units.unit]).range([0, 6]);
     for (let i = 1; i <= 6; i++) {
         segments.push(scale.invert(i));
     }
