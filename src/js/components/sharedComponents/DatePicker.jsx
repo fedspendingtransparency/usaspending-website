@@ -109,7 +109,8 @@ export default class DatePicker extends React.Component {
         }
     }
 
-    handleDatePick(e, day) {
+    handleDatePick(day) {
+        console.log(day);
         this.props.onDateChange(day, this.props.type);
         this.props.hideError();
         // close the popup if is shown
@@ -121,6 +122,7 @@ export default class DatePicker extends React.Component {
     }
 
     handleTypedDate(e) {
+        console.log(e.target.value);
         // update the string state of the input field
         this.setState({
             inputValue: e.target.value
@@ -147,7 +149,7 @@ export default class DatePicker extends React.Component {
             const date = moment(this.state.inputValue, format);
             if (date.isValid()) {
                 // it's a valid date
-                this.handleDatePick(null, date.toDate());
+                this.handleDatePick(date.toDate());
             }
         });
     }
