@@ -137,6 +137,13 @@ export const updateAwardAmounts = (state) => ({
     awardAmounts: state
 });
 
+// CFDA Filter
+
+export const updateSelectedCFDA = (state) => ({
+    type: 'UPDATE_SELECTED_CFDA',
+    cfda: state.cfda
+});
+
 // Generic
 
 export const setSearchOrder = (state) => ({

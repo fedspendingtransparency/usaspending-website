@@ -12,6 +12,7 @@ import * as RecipientFilterFunctions from './filters/recipientFilterFunctions';
 import * as AwardIDFilterFunctions from './filters/awardIDFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
 import * as BudgetCategoryFilterFunctions from './filters/budgetCategoryFilterFunctions';
+import * as CFDAFilterFunctions from './filters/CFDAFilterFunctions';
 
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
@@ -31,7 +32,8 @@ export const requiredTypes = {
     selectedRecipientLocations: OrderedMap,
     awardType: Set,
     selectedAwardIDs: OrderedMap,
-    awardAmounts: OrderedMap
+    awardAmounts: OrderedMap,
+    selectedCFDA: OrderedMap
 };
 
 export const initialState = {
@@ -53,7 +55,8 @@ export const initialState = {
     selectedRecipientLocations: new OrderedMap(),
     awardType: new Set(),
     selectedAwardIDs: new OrderedMap(),
-    awardAmounts: new OrderedMap()
+    awardAmounts: new OrderedMap(),
+    selectedCFDA: new OrderedMap()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -194,6 +197,14 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 awardAmounts: AwardAmountFilterFunctions.updateAwardAmounts(
                     state.awardAmounts, action.awardAmounts)
+            });
+        }
+
+        // CFDA Filter
+        case 'UPDATE_SELECTED_CFDA': {
+            return Object.assign({}, state, {
+                selectedCFDA: CFDAFilterFunctions.updateSelectedCFDA(
+                    state.selectedCFDA, action.cfda)
             });
         }
 
