@@ -69,6 +69,11 @@
                 padding-left: rem(10);
             }
 
+            .budget-authority-date {
+                color: #555;
+                font-size: 1.2rem;
+            }
+
             .authority-amount {
                 color: $color-vis-dark;
                 font-size: rem(48);
@@ -88,6 +93,7 @@
 
             .horizontal-bar {
                 height: rem(20);
+                width: 100%;
             }
         }
 

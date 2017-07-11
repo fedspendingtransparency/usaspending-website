@@ -4,7 +4,9 @@
  */
 
 import React from 'react';
+import moment from 'moment';
 import { capitalize } from 'lodash';
+import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -31,6 +33,12 @@ export default class AgencyOverview extends React.Component {
         // Move props to variables for readability
         const budgetAuthority = this.props.agency.budgetAuthority;
         const federalBudget = this.props.agency.federalBudget;
+        const fy = parseInt(this.props.agency.activeFY, 10);
+        const quarter = parseInt(this.props.agency.activeFQ, 10);
+
+        // Generate "as of" date
+        const endOfQuarter = convertQuarterToDate(quarter, fy);
+        const asOfDate = moment(endOfQuarter, "YYYY-MM-DD").format("MMMM D, YYYY");
 
         // Generate Budget Authority string
         const budgetAuthorityAmount = MoneyFormatter.calculateUnitForSingleValue(budgetAuthority);
@@ -46,7 +54,10 @@ export default class AgencyOverview extends React.Component {
         );
 
         // Generate visualization parameters
-        const visualizationWidth = 366;
+        let visualizationWidth = 0;
+        if (this.containerDiv) {
+            visualizationWidth = this.containerDiv.getBoundingClientRect().width;
+        }
         let obligatedWidth = 0;
 
         // Only check the percentage width if the data is available
@@ -89,16 +100,21 @@ export default class AgencyOverview extends React.Component {
 
                         </div>
                     </div>
-                    <div className="budget-authority">
-                        <h4>Total Budgetary Resources as of
-                            Q{this.props.agency.activeFQ} {this.props.agency.activeFY}</h4>
+                    <div
+                        className="budget-authority"
+                        ref={(div) => {
+                            this.containerDiv = div;
+                        }}>
+                        <h4>Budgetary Resources for FY {this.props.agency.activeFY}</h4>
+                        <div className="budget-authority-date">
+                            <em>Data as of {asOfDate}</em>
+                        </div>
                         <div className="authority-amount">
                             {formattedBudgetAuthority}
                         </div>
                         <div className="authority-statement">
                             This is {percentageElement} of the total U.S. federal budgetary
-                            resources as of
-                            Q{this.props.agency.activeFQ} {this.props.agency.activeFY}.
+                            resources for FY {this.props.agency.activeFY}.
                         </div>
                         <svg className="horizontal-bar">
                             <g>
