@@ -1,11 +1,11 @@
 /**
- * AgencyProfilesHeader.jsx
- * Created by Lizzie Salita
+ * AgencyLandingHeader.jsx
+ * Created by Lizzie Salita 7/7/17
  */
 
 import React from 'react';
 
-export default class AgencyProfilesHeader extends React.Component {
+export default class AgencyLandingHeader extends React.Component {
     render() {
         return (
             <div className="page-title-bar">

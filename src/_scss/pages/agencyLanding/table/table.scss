@@ -1,0 +1,5 @@
+@mixin agencyLandingTable {
+  .agency-landing-table {
+    @include span-columns(16);
+  }
+}

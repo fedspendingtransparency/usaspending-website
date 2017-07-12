@@ -1,0 +1,56 @@
+/**
+ * AgencyLandingHeaderCellContainer.jsx
+ * Created by Lizzie Salita 7/11/17
+ */
+
+import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+// just import the two relevant actions
+import { setAgenciesOrder, resetAgenciesOrder } from 'redux/actions/agencyLanding/agencyLandingActions';
+
+import ResultsTableHeaderCell from 'components/search/table/cells/ResultsTableHeaderCell';
+
+// combine the action functions into an object for the react-redux bindings
+const actions = {
+    setAgenciesOrder,
+    resetAgenciesOrder
+};
+
+const propTypes = {
+    setAgenciesOrder: React.PropTypes.func,
+    order: React.PropTypes.object
+};
+
+class AgencyLandingHeaderCellContainer extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.setAgenciesOrder = this.setAgenciesOrder.bind(this);
+    }
+
+    setAgenciesOrder(field, direction) {
+        this.props.setAgenciesOrder({
+            field,
+            direction
+        });
+    }
+
+    render() {
+        return (
+            <ResultsTableHeaderCell
+                {...this.props}
+                setSearchOrder={this.setAgenciesOrder} />
+        );
+    }
+}
+
+AgencyLandingHeaderCellContainer.propTypes = propTypes;
+
+export default connect(
+    (state) => ({
+        order: state.agencyLanding.agenciesOrder
+    }),
+    (dispatch) => bindActionCreators(actions, dispatch)
+)(AgencyLandingHeaderCellContainer);

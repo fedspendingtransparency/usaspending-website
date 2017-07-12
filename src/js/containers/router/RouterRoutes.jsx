@@ -142,7 +142,7 @@ const routes = {
             parent: '/agencyprofiles',
             component: (cb) => {
                 require.ensure([], (require) => {
-                    cb(require('components/agencyProfiles/AgencyProfiles').default);
+                    cb(require('components/agencyLanding/AgencyLandingPage').default);
                 });
             }
         }
