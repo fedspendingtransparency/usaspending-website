@@ -16,7 +16,7 @@ const propTypes = {
     agency: React.PropTypes.object
 };
 
-export default class AgencyOverview extends React.Component {
+export default class AgencyOverview extends React.PureComponent {
     constructor(props) {
         super(props);
 

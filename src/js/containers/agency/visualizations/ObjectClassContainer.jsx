@@ -22,7 +22,7 @@ const defaultProps = {
     activeFY: ''
 };
 
-export default class ObjectClassContainer extends React.Component {
+export default class ObjectClassContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
