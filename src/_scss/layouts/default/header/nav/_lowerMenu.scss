@@ -9,7 +9,7 @@
         position: relative;
         margin-top: rem(5);
         @import "./_menuItem";
-        li {
+        li.menu-item {
             @include flex(1 1 auto);
             position: relative;
             margin-left: rem(5);
@@ -26,6 +26,7 @@
                 padding-right: 0;
             }
         }
+        @import "./_profileMenu";
         @import "./_menuSearchBar";
     }
 }

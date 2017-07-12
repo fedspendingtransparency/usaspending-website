@@ -1,0 +1,80 @@
+.usa-nav-profile-button {
+    @include button-unstyled;
+    height: rem(48);
+    padding: rem(10) rem(15);
+    color: $color-gray;
+    font-size: $base-font-size;
+
+    .profile-button-content {
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        position: relative;
+
+        .profile-button-label {
+            @include flex(1 1 auto);
+        }
+
+        .profile-button-icon {
+            @include flex(0 0 auto);
+            margin-left: rem(10);
+            svg {
+                width: rem(10);
+                fill: $color-gray;
+            }
+        }
+    }
+
+    &:hover, &:active, &.active {
+        background-color: $color-primary;
+        color: $color-white;
+
+        .profile-button-icon {
+            svg {
+                fill: $color-white;
+            }
+        }
+    }
+}
+
+.usa-nav-profile-list {
+    display: none;
+    z-index: $z-modal;
+    &.active {
+        display: block;
+        position: relative;
+    }
+
+    .profile-list-wrapper {
+        position: absolute;
+    }
+
+    ul.profile-list {
+        position: relative;
+        @include unstyled-list;
+        background-color: $color-primary;
+
+        width: 100%;
+
+        li {
+            white-space: nowrap;
+            a {
+                font-size: $small-font-size;
+                color: $color-white;
+                text-decoration: none;
+
+                display: block;
+                padding: rem(15);
+
+                &:hover {
+                    background-color: $color-primary-darker;
+                }
+
+                &.disabled {
+                    opacity: 0.5;
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+}
