@@ -271,8 +271,6 @@ export default class TableBody extends React.Component {
             width: this.props.width
         };
 
-        console.log(this.state.horizontalScrollbar);
-
         return (
             <div
                 className="ibt-table-body-container"
