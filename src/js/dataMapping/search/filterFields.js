@@ -21,10 +21,10 @@ export const awardFields = {
         toptier: 'awarding_agency__toptier_agency__name',
         subtier: 'awarding_agency__subtier_agency__name'
     },
-    objectClass: 'financial_set__object_class__major_object_class',
+    objectClass: 'financial_set__object_class__object_class',
     budgetFunctionTitle: 'financial_set__treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'financial_set__treasury_account__budget_subfunction_title',
-    federalAccount: 'financial_set__treasury_account__federal_account'
+    federalAccount: 'financial_set__treasury_account__federal_account_id'
 };
 
 export const tasCategoriesFields = {
@@ -34,7 +34,7 @@ export const tasCategoriesFields = {
     budgetSubfunctionTitle: 'treasury_account__budget_subfunction_title',
     objectClass: 'object_class__object_class',
     fundingAgency: 'treasury_account__agency_id',
-    federalAccount: 'treasury_account__federal_account'
+    federalAccount: 'treasury_account__federal_account_id'
 };
 
 export const transactionFields = {
@@ -60,10 +60,10 @@ export const transactionFields = {
     awardType: 'type',
     awardId: 'award_id',
     awardAmount: 'federal_action_obligation',
-    objectClass: 'award__financial_set__object_class__major_object_class',
+    objectClass: 'award__financial_set__object_class__object_class',
     budgetFunctionTitle: 'award__financial_set__treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'award__financial_set__treasury_account__budget_subfunction_title',
-    federalAccount: 'award__financial_set__treasury_account__federal_account',
+    federalAccount: 'award__financial_set__treasury_account__federal_account_id',
     cfdaNumber: 'assistance_data__cfda__program_number',
     cfdaTitle: 'assistance_data__cfda__program_title',
     naics: 'contract_data__naics',
@@ -94,10 +94,10 @@ export const accountAwardsFields = {
         toptier: 'award__awarding_agency__toptier_agency__name',
         subtier: 'award__awarding_agency__subtier_agency__name'
     },
-    objectClass: 'object_class__major_object_class',
+    objectClass: 'object_class__object_class',
     budgetFunctionTitle: 'treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'treasury_account__budget_subfunction_title',
-    federalAccount: 'treasury_account__federal_account',
+    federalAccount: 'treasury_account__federal_account_id',
     cfdaNumber: 'award__transaction__assistance_data__cfda__program_number',
     cfdaTitle: 'award__transaction__assistance_data__cfda__program_title',
     naics: 'award__transaction__contract_data__naics',

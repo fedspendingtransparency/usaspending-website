@@ -116,7 +116,7 @@ export class ResultsTableContainer extends React.Component {
             this.updateFilters();
         }
         else if (prevProps.meta.page.page_number !==
-            this.props.meta.page.page_number) {
+            this.props.meta.page.page_number && this.props.meta.page.page_number) {
             // page number has changed
             if (this.props.meta.page.page_number !== this.state.page) {
                 // this check prevents duplicated API calls that result from Redux updating the
@@ -255,6 +255,7 @@ export class ResultsTableContainer extends React.Component {
             // a request is currently in-flight, cancel it
             this.searchRequest.cancel();
         }
+
 
         const tableType = this.props.meta.tableType;
 

@@ -1,4 +1,16 @@
+.agency-sidebar-reference {
+    display: none;
+
+    &.float-sidebar {
+        display: block;
+    }
+}
 .agency-sidebar-content {
+    &.float-sidebar {
+        position: fixed;
+        top: rem(60);
+    }
+
     background-color: $color-white;
     box-shadow: $container-shadow;
     color: $color-base;

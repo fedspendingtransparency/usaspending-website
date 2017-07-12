@@ -18,7 +18,7 @@ const propTypes = {
     activeFY: React.PropTypes.string
 };
 
-export default class RecipientContainer extends React.Component {
+export default class RecipientContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 

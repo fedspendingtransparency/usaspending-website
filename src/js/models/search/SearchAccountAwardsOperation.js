@@ -7,7 +7,6 @@ import SearchOperation from './SearchOperation';
 
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
-import * as BudgetCategoryQuery from './queryBuilders/BudgetCategoryQuery';
 
 class SearchAccountAwardsOperation extends SearchOperation {
     constructor() {
@@ -38,23 +37,6 @@ class SearchAccountAwardsOperation extends SearchOperation {
         if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
             filters.push(AgencyQuery.buildAgencyQuery(
                 this.fundingAgencies, this.awardingAgencies, this.searchContext));
-        }
-
-
-        // Add Budget Category queries
-        if (this.budgetFunctions.length > 0) {
-            filters.push(BudgetCategoryQuery.buildBudgetFunctionQuery(
-                this.budgetFunctions, this.searchContext));
-        }
-
-        if (this.federalAccounts.length > 0) {
-            filters.push(BudgetCategoryQuery.buildFederalAccountQuery(
-                this.federalAccounts, this.searchContext));
-        }
-
-        if (Object.keys(this.objectClasses).length > 0) {
-            filters.push(BudgetCategoryQuery.buildObjectClassQuery(
-                this.objectClasses, this.searchContext));
         }
 
         return filters;

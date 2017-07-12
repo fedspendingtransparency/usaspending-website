@@ -5,12 +5,6 @@
 
 import * as FilterFields from 'dataMapping/search/filterFields';
 
-const fundingAgencyField = 'agency_id';
-
-const tasPrefix = 'treasury_account__';
-const appropriationsPrefix = 'treasury_account_identifier__';
-const fileCPrefix = 'award__financial_set__';
-
 export const buildAgencyQuery = (funding, awarding, searchContext = 'award') => {
     const toptierFundingSet = [];
     const subtierFundingSet = [];
@@ -75,34 +69,6 @@ export const buildAgencyQuery = (funding, awarding, searchContext = 'award') => 
             value: subtierAwardingSet
         });
     }
-
-    return filter;
-};
-
-export const buildFundingAgencyCGACQuery = (funding, requestType) => {
-    const fundingSet = [];
-
-    funding.forEach((agencyArray) => {
-        fundingSet.push(agencyArray.toptier_agency.cgac_code);
-    });
-
-    let agencyField = '';
-
-    if (requestType === 'fileC') {
-        agencyField = `${fileCPrefix}${tasPrefix}${fundingAgencyField}`;
-    }
-    else if (requestType === 'appropriations') {
-        agencyField = `${appropriationsPrefix}${fundingAgencyField}`;
-    }
-    else {
-        agencyField = `${tasPrefix}${fundingAgencyField}`;
-    }
-
-    const filter = {
-        field: agencyField,
-        operation: "in",
-        value: fundingSet
-    };
 
     return filter;
 };
