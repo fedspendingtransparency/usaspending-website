@@ -5,9 +5,9 @@
 
 import React from 'react';
 
-import AgencyLandingTable from './table/AgencyLandingTable';
 import ResultsTableMessage from 'components/search/table/ResultsTableMessage';
 import AgencyLandingHeaderCellContainer from 'containers/agencyLanding/table/AgencyLandingHeaderCellContainer';
+import AgencyLandingTable from './table/AgencyLandingTable';
 
 const propTypes = {
     inFlight: React.PropTypes.bool,

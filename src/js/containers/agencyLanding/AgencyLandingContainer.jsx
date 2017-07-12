@@ -6,25 +6,23 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isCancel } from 'axios';
-import Immutable, { OrderedSet } from 'immutable';
+// import { isCancel } from 'axios';
+import Immutable from 'immutable';
 
 import { measureTableHeader } from 'helpers/textMeasurement';
 
 import AgenciesTableFields from 'dataMapping/agencyLanding/agenciesTableFields';
 import * as agencyLandingActions from 'redux/actions/agencyLanding/agencyLandingActions';
 import { Agency } from 'redux/reducers/agencyLanding/agencyLandingReducer';
-import AgencyLandingHelper from 'helpers/agencyLandingHelper';
+// import AgencyLandingHelper from 'helpers/agencyLandingHelper';
 
-import AgencyLandingSearchBar from 'components/agencyLanding/agencyLandingSearchBar';
-import AgencyLandingResultsSection from 'components/agencyLanding/agencyLandingResultsSection';
+import AgencyLandingSearchBar from 'components/agencyLanding/AgencyLandingSearchBar';
+import AgencyLandingResultsSection from 'components/agencyLanding/AgencyLandingResultsSection';
 
 const propTypes = {
     agencies: React.PropTypes.instanceOf(Immutable.OrderedSet),
     agenciesOrder: React.PropTypes.object,
-    setAgencies: React.PropTypes.func,
-    //setAgenciesOrder: React.PropTypes.func,
-    activetFY: React.PropTypes.string
+    setAgencies: React.PropTypes.func
 };
 
 export class AgencyLandingContainer extends React.Component {
@@ -67,7 +65,7 @@ export class AgencyLandingContainer extends React.Component {
 
     showColumns() {
         const columns = [];
-        let sortOrder = AgenciesTableFields.defaultSortDirection;
+        const sortOrder = AgenciesTableFields.defaultSortDirection;
 
         AgenciesTableFields.order.forEach((col) => {
             const column = {
@@ -88,17 +86,17 @@ export class AgencyLandingContainer extends React.Component {
 
     fetchAgencies() {
         // TODO - Lizzie: uncomment when endpoint is ready
-        //if (this.agenciesRequest) {
+        // if (this.agenciesRequest) {
         //    // a request is in-flight, cancel it
         //    this.agenciesRequest.cancel();
-        //}
+        // }
         //
-        //this.setState({
+        // this.setState({
         //    inFlight: true
-        //});
+        // });
         //
-        //// generate the params
-        //const params = {
+        // // generate the params
+        // const params = {
         //    filters: [
         //        {
         //            field: 'actice_fy',
@@ -107,11 +105,11 @@ export class AgencyLandingContainer extends React.Component {
         //        }
         //    ],
         //    order: [this.formatSort()]
-        //};
+        // };
         //
-        //this.agenciesRequest = AgencyLandingHelper.fetchAllAgencies(params);
+        // this.agenciesRequest = AgencyLandingHelper.fetchAllAgencies(params);
         //
-        //this.agenciesRequest.promise
+        // this.agenciesRequest.promise
         //    .then((res) => {
         //        this.setState({
         //            inFlight: false
@@ -129,31 +127,31 @@ export class AgencyLandingContainer extends React.Component {
         //        }
         //    });
 
-        const mockRes = {"results": [
+        const mockRes = { results: [
             {
-                "id": 10,
-                "percentage_of_total_budget_authority": ".0567",
-                "agency_name": "Architect of the Capitol",
-                "budget_authority_amount": "4322852976.48",
-                "active_fy": "2017"
+                id: 10,
+                percentage_of_total_budget_authority: ".0567",
+                agency_name: "Architect of the Capitol",
+                budget_authority_amount: "4322852976.48",
+                active_fy: "2017"
             },
             {
-                "id": 11,
-                "percentage_of_total_budget_authority": ".00411",
-                "agency_name": "Library of Congress",
-                "budget_authority_amount": "9842852976.48",
-                "active_fy": "2017"
+                id: 11,
+                percentage_of_total_budget_authority: ".00411",
+                agency_name: "Library of Congress",
+                budget_authority_amount: "9842852976.48",
+                active_fy: "2017"
             },
             {
-                "id": 14,
-                "percentage_of_total_budget_authority": ".00032",
-                "agency_name": "Government Publishing Office",
-                "budget_authority_amount": "1426852976.48",
-                "active_fy": "2017"
+                id: 14,
+                percentage_of_total_budget_authority: ".00032",
+                agency_name: "Government Publishing Office",
+                budget_authority_amount: "1426852976.48",
+                active_fy: "2017"
             }
-        ]};
-        this.parseAgencies(mockRes);
+        ] };
 
+        this.parseAgencies(mockRes);
     }
 
     parseAgencies(data) {
@@ -162,8 +160,6 @@ export class AgencyLandingContainer extends React.Component {
             const agency = new Agency(item);
             agencies.push(agency);
         });
-
-        console.log(`agencies: ${agencies}`);
 
         this.props.setAgencies(agencies);
     }

@@ -5,8 +5,6 @@
 
 import React from 'react';
 
-import Immutable, { OrderedSet } from 'immutable';
-
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableGenericCell';
@@ -42,14 +40,6 @@ export default class AgencyLandingTable extends React.PureComponent {
     }
 
     tableScrolled(xPos, yPos) {
-        // determine the table position
-        const rowNumber = this.rowAtYPosition(yPos);
-
-        if (rowNumber >= this.props.results.length) {
-            // we have reached the bottom of the table, load next page
-            this.props.loadNextPage();
-        }
-
         // save the scroll position
         this.setState({ xPos, yPos });
     }

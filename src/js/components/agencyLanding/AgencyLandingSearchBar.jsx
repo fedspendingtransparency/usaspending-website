@@ -8,9 +8,9 @@ import React from 'react';
 import { Search } from 'components/sharedComponents/icons/Icons';
 
 export default class AgencyLandingSearchBar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //    super(props);
+    // }
 
     render() {
         return (

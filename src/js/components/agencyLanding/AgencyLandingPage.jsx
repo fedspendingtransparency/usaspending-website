@@ -7,12 +7,11 @@ import React from 'react';
 
 import { agencyLandingPageMetaTags } from 'helpers/metaTagHelper';
 
-import MetaTags from '../sharedComponents/metaTags/MetaTags';
-import Header from '../sharedComponents/header/Header';
-import Footer from '../sharedComponents/Footer';
-
+import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import Header from 'components/sharedComponents/header/Header';
+import Footer from 'components/sharedComponents/Footer';
+import AgencyLandingContainer from 'containers/agencyLanding/AgencyLandingContainer';
 import AgencyLandingHeader from './header/AgencyLandingHeader';
-import AgencyLandingContainer from 'containers/agencyLanding/agencyLandingContainer';
 
 export default class AgencyLandingPage extends React.Component {
     render() {
