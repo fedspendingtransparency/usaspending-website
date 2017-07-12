@@ -5,6 +5,7 @@ import kGlobalConstants from 'GlobalConstants';
 import AppContainer from 'containers/AppContainer';
 
 require('babel-polyfill');
+require('helpers/rafPolyfill');
 
 const appDiv = document.getElementById('app');
 render(

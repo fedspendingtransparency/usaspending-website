@@ -7,7 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, '../src'),
     entry: {
-        vendor: ['mapbox-gl/dist/mapbox-gl', 'lodash', 'moment', 'jquery', 'commonmark', 'immutable', 'react'],
+        vendor: ['mapbox-gl/dist/mapbox-gl', 'lodash', 'moment', 'commonmark', 'immutable', 'react'],
         app: './entry.js'
     },
     output: {
