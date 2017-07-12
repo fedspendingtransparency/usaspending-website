@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import $ from 'jquery';
+import { scrollToY } from 'helpers/scrollToHelper';
 
 const propTypes = {
     code: PropTypes.string.isRequired,
@@ -27,9 +27,7 @@ export default class ScrollTo extends React.Component {
         const sectionDom = document.querySelector(`#scroll-to-${this.props.code}`);
         if (sectionDom) {
             const sectionTop = sectionDom.offsetTop - 10;
-            $('body').animate({
-                scrollTop: sectionTop
-            }, 700);
+            scrollToY(sectionTop, 700);
         }
     }
 

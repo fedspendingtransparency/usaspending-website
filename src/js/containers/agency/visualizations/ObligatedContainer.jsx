@@ -19,7 +19,7 @@ const propTypes = {
     agencyName: PropTypes.string
 };
 
-export class ObligatedContainer extends React.Component {
+export class ObligatedContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 

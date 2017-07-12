@@ -10,7 +10,7 @@ const propTypes = {
     agency: PropTypes.object
 };
 
-export default class AgencyOverview extends React.Component {
+export default class AgencyOverview extends React.PureComponent {
     render() {
         let title = `${this.props.agency.name} (${this.props.agency.abbreviation})`;
         if (this.props.agency.abbreviation === '') {

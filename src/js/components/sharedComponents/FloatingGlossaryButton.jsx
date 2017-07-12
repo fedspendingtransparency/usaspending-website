@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { throttle } from 'lodash';
 import { Glossary } from './icons/Icons';
 
 const propTypes = {
@@ -30,7 +30,7 @@ export default class FloatingGlossaryButton extends React.Component {
             hide: true
         };
 
-        this.pageScrolled = this.pageScrolled.bind(this);
+        this.pageScrolled = throttle(this.pageScrolled.bind(this), 16);
         this.clickedButton = this.clickedButton.bind(this);
     }
 

@@ -75,7 +75,6 @@
     "history": "^4.6.1",
     "immutable": "^3.8.1",
     "jest-cli": "^18.1.0",
-    "jquery": "^2.1.4",
     "js-cookie": "^2.1.0",
     "keyboardjs": "^2.3.3",
     "lodash": "^4.6.1",

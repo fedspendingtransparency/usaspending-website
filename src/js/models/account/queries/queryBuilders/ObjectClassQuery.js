@@ -3,7 +3,7 @@
   * Created by Kevin Li 3/31/17
   **/
 
-const objectClassField = 'object_class__major_object_class';
+const objectClassField = 'object_class__object_class';
 
 const spendingOverTimeField = `treasury_account_identifier__program_balances__${objectClassField}`;
 const spendingByCategoryField = objectClassField;

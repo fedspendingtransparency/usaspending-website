@@ -6,9 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { find, throttle } from 'lodash';
-import jQuery from 'jquery';
-
-import Router from 'containers/router/Router';
+import { scrollToY } from 'helpers/scrollToHelper';
 
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
 import RecipientContainer from 'containers/agency/visualizations/RecipientContainer';
@@ -52,7 +50,10 @@ export default class AgencyContent extends React.Component {
 
         this.state = {
             activeSection: 'overview',
-            sectionPositions: []
+            sectionPositions: [],
+            window: {
+                height: 0
+            }
         };
 
         this.jumpToSection = this.jumpToSection.bind(this);
@@ -61,8 +62,6 @@ export default class AgencyContent extends React.Component {
     }
 
     componentDidMount() {
-        // auto-jump to a section if the section param is baked into the URL on mount
-        this.jumpToSection();
         this.cacheSectionPositions();
         window.addEventListener('scroll', this.highlightCurrentSection);
         window.addEventListener('resize', this.cacheSectionPositions);
@@ -96,61 +95,49 @@ export default class AgencyContent extends React.Component {
             });
         }
 
+        const windowHeight = window.innerHeight
+            || document.documentElement.clientHeight || document.body.clientHeight;
+
         this.setState({
-            sectionPositions
+            sectionPositions,
+            window: {
+                height: windowHeight
+            }
         });
     }
 
-    jumpToSection(clickedSection = '') {
-        // check if we should jump to a section
-        const query = Router.state.query;
-        if (query.section || (clickedSection && clickedSection !== '')) {
-            let section = query.section;
-            if (clickedSection && clickedSection !== '') {
-                section = clickedSection;
-            }
+    jumpToSection(section = '') {
+        // we've been provided a section to jump to
+        // check if it's a valid section
+        const matchedSection = find(agencySections, {
+            section
+        });
 
-            // we've been provided a section to jump to
-            // check if it's a valid section
-            const matchedSection = find(agencySections, {
-                section
-            });
+        if (!matchedSection) {
+            // no matching section
+            return;
+        }
 
-            if (!matchedSection) {
-                // no matching section, invalid URL
-                // reset the URL without the section
-                Router.history.replace(Router.state.path);
+        // update the state
+        this.setState({
+            activeSection: section
+        }, () => {
+            // scroll to the correct section
+            const sectionDom = document.querySelector(`#agency-${section}`);
+            if (!sectionDom) {
                 return;
             }
 
-            // update the state
-            this.setState({
-                activeSection: section
-            }, () => {
-                // reset the URL without the section
-                Router.history.replace(Router.state.path);
-
-                // scroll to the correct section
-                const sectionDom = document.querySelector(`#agency-${section}`);
-                if (!sectionDom) {
-                    return;
-                }
-
-                const sectionTop = sectionDom.offsetTop - 10;
-                jQuery('body').animate({
-                    scrollTop: sectionTop
-                }, 700);
-            });
-        }
+            const sectionTop = sectionDom.offsetTop - 10;
+            scrollToY(sectionTop, 700);
+        });
     }
 
     highlightCurrentSection() {
-        // determine the section to highlight
         const windowTop = window.pageYOffset || document.documentElement.scrollTop;
-        const windowHeight = window.innerHeight
-            || document.documentElement.clientHeight || document.body.clientHeight;
-        const windowBottom = windowTop + windowHeight;
+        const windowBottom = windowTop + this.state.window.height;
 
+        // determine the section to highlight
         let activeSection = agencySections[0].section;
         let bottomSectionVisible = false;
         const visibleSections = [];
@@ -213,6 +200,11 @@ export default class AgencyContent extends React.Component {
                 // is visible, select the bottom section
                 activeSection = bottomSection.section;
             }
+        }
+
+        if (activeSection === this.state.activeSection) {
+            // no change
+            return;
         }
 
         this.setState({

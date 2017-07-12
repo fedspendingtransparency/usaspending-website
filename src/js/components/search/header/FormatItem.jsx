@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import $ from 'jquery';
+import { scrollToY } from 'helpers/scrollToHelper';
 
 const defaultProps = {
     isActive: false
@@ -31,9 +31,7 @@ export default class FormatItem extends React.Component {
         const sectionDom = document.querySelector(`#results-section-${this.props.code}`);
         if (sectionDom) {
             const sectionTop = sectionDom.offsetTop - 150;
-            $('body').animate({
-                scrollTop: sectionTop
-            }, 250);
+            scrollToY(sectionTop, 250);
         }
     }
 

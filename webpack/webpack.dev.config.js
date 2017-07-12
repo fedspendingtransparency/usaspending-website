@@ -16,6 +16,7 @@ module.exports = merge(common, {
     devServer: {
         contentBase: path.resolve(__dirname, 'public'),
         host: '0.0.0.0', // this allows VMs to access the server
-        port: 3000
+        port: 3000,
+        disableHostCheck: true
     }
 });
