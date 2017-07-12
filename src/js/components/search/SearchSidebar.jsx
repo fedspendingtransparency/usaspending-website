@@ -16,6 +16,7 @@ import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
 import AwardAmountSearchContainer from
     'containers/search/filters/awardAmount/AwardAmountSearchContainer';
+import CFDASearchContainer from 'containers/search/filters/cfda/CFDASearchContainer';
 
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
@@ -44,7 +45,7 @@ const filters = {
         AwardTypeContainer,
         AwardIDSearchContainer,
         AwardAmountSearchContainer,
-        null
+        CFDASearchContainer
     ]
 };
 

@@ -14,7 +14,7 @@ const propTypes = {
     selectedCFDA: React.PropTypes.object
 };
 
-export default class LocationSearch extends React.Component {
+export default class CFDASearch extends React.Component {
     render() {
         let selectedLocations = null;
         if (this.props.selectedCFDA.size > 0) {
@@ -26,6 +26,7 @@ export default class LocationSearch extends React.Component {
         return (
             <div className="location-filter">
                 <div className="filter-item-wrap">
+                    <p className="sub-head">CFDA</p>
                     <CFDAListContainer {...this.props} selectLocation={this.props.selectCFDA} />
                     {selectedLocations}
                 </div>

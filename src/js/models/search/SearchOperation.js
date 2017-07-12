@@ -13,6 +13,7 @@ import * as RecipientQuery from './queryBuilders/RecipientQuery';
 import * as KeywordQuery from './queryBuilders/KeywordQuery';
 import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
 import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
+import * as CFDAQuery from './queryBuilders/CFDAQuery';
 
 class SearchOperation {
     constructor() {
@@ -44,6 +45,8 @@ class SearchOperation {
         this.selectedAwardIDs = [];
 
         this.awardAmounts = [];
+
+        this.selectedCFDA = [];
 
         this.searchContext = 'award';
     }
@@ -77,6 +80,8 @@ class SearchOperation {
         this.selectedAwardIDs = state.selectedAwardIDs.toArray();
 
         this.awardAmounts = state.awardAmounts.toArray();
+
+        this.selectedCFDA = state.selectedCFDA.toArray();
     }
 
     commonParams() {
@@ -150,6 +155,12 @@ class SearchOperation {
             if (awardAmountsQuery) {
                 filters.push(awardAmountsQuery);
             }
+        }
+
+        // Add cfda query
+        if (this.selectedCFDA.length > 0) {
+            filters.push(CFDAQuery.buildCFDAQuery(
+                this.selectedCFDA, this.searchContext));
         }
 
         return filters;

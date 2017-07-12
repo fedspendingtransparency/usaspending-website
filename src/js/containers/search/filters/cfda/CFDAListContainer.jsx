@@ -37,19 +37,19 @@ class CFDAListContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.parseAutocompleteLocations(this.props.autocompleteCFDA);
+        this.parseAutocompleteCFDA(this.props.autocompleteCFDA);
     }
 
     componentWillReceiveProps(nextProps) {
         if (!isEqual(nextProps.autocompleteCFDA, this.props.autocompleteCFDA)) {
-            this.parseAutocompleteLocations(nextProps.autocompleteCFDA);
+            this.parseAutocompleteCFDA(nextProps.autocompleteCFDA);
         }
     }
 
-    parseAutocompleteLocations(locations) {
+    parseAutocompleteCFDA(cfda) {
         const values = [];
-        if (locations.length > 0) {
-            locations.forEach((item) => {
+        if (cfda.length > 0) {
+            cfda.forEach((item) => {
                 let placeType = upperCase(item.place_type);
                 if (item.parent !== null &&
                     (item.place_type !== null && item.place_type !== 'COUNTRY')) {
@@ -65,11 +65,11 @@ class CFDAListContainer extends React.Component {
         }
 
         this.setState({
-            autocompleteLocations: values
+            autocompleteCFDA: values
         });
     }
 
-    queryAutocompleteLocations(input) {
+    queryAutocompleteCFDA(input) {
         this.setState({
             noResults: false
         });
@@ -77,33 +77,33 @@ class CFDAListContainer extends React.Component {
         // Only search if input is 2 or more characters
         if (input.length >= 2) {
             this.setState({
-                locationSearchString: input
+                cfdaSearchString: input
             });
 
-            if (this.locationSearchRequest) {
+            if (this.cfdaSearchRequest) {
                 // A request is currently in-flight, cancel it
                 this.locationSearchRequest.cancel();
             }
 
-            const locSearchParams = {
-                value: this.state.locationSearchString,
-                usage: "place_of_performance"
+            const cfdaSearchParams = {
+                value: this.state.cfdaSearchString,
+                usage: "cfda"
             };
 
-            this.locationSearchRequest = SearchHelper.fetchLocations(locSearchParams);
+            this.cfdaSearchRequest = SearchHelper.fetchCFDA(cfdaSearchParams);
 
-            this.locationSearchRequest.promise
+            this.cfdaSearchRequest.promise
                 .then((res) => {
                     const data = res.data;
                     let autocompleteData = [];
 
                     // Remove 'identifier' from selected locations to enable comparison
-                    const selectedLocations = this.props.selectedCFDA.toArray()
-                        .map((location) => omit(location, 'identifier'));
+                    const selectedCFDA = this.props.selectedCFDA.toArray()
+                        .map((cfda) => omit(cfda, 'identifier'));
 
                     // Filter out any selectedLocations that may be in the result set
-                    if (selectedLocations && selectedLocations.length > 0) {
-                        autocompleteData = differenceWith(data, selectedLocations, isEqual);
+                    if (selectedCFDA && selectedCFDA.length > 0) {
+                        autocompleteData = differenceWith(data, selectedCFDA, isEqual);
                     }
                     else {
                         autocompleteData = data;
@@ -124,9 +124,9 @@ class CFDAListContainer extends React.Component {
                     }
                 });
         }
-        else if (this.locationSearchRequest) {
+        else if (this.cfdaSearchRequest) {
             // A request is currently in-flight, cancel it
-            this.locationSearchRequest.cancel();
+            this.cfdaSearchRequest.cancel();
         }
     }
 
@@ -144,7 +144,7 @@ class CFDAListContainer extends React.Component {
 
         // Perform search if user doesn't type again for 300ms
         this.timeout = window.setTimeout(() => {
-            this.queryAutocompleteLocations(input);
+            this.queryAutocompleteCFDA(input);
         }, 300);
     }
 
