@@ -24,7 +24,8 @@ export default class TableBody extends React.Component {
         super(props);
 
         this.state = {
-            visibleRows: []
+            visibleRows: [],
+            horizontalScrollbar: 0
         };
 
         // scroll position is used for reference only
@@ -149,6 +150,28 @@ export default class TableBody extends React.Component {
         return false;
     }
 
+    isHorizontalScrollbarVisible() {
+        if (!this.containerDiv) {
+            // nothing has been rendered to screen yet
+            return 0;
+        }
+
+        // measure how much vertical space is inside the container
+        const containerInternalHeight = this.containerDiv.clientHeight;
+        // measure how much vertical space the container takes up on the page
+        const containerExternalHeight = this.containerDiv.offsetHeight;
+
+        if (containerInternalHeight < containerExternalHeight) {
+            // the internal height is less than the external height, this means that some of the
+            // internal height height is being blocked by a horizontal scrollbar (which takes up
+            // vertical space)
+            return containerExternalHeight - containerInternalHeight;
+        }
+
+        // otherwise assume no scrollbar
+        return 0;
+    }
+
 
     prepareCellsForDisplay() {
         // only render the rows and columns that are visible within the current table bounds
@@ -226,7 +249,8 @@ export default class TableBody extends React.Component {
         }
 
         this.setState({
-            visibleRows: rows
+            visibleRows: rows,
+            horizontalScrollbar: this.isHorizontalScrollbarVisible()
         });
     }
 
@@ -238,7 +262,7 @@ export default class TableBody extends React.Component {
 
         const style = {
             minHeight: visibleHeight,
-            maxHeight: visibleHeight,
+            maxHeight: visibleHeight + this.state.horizontalScrollbar,
             width: visibleWidth
         };
 
