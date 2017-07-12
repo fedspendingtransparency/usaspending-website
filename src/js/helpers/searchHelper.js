@@ -219,7 +219,7 @@ export const performCategorySearch = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v1/accounts/awards/total/',
+            url: 'v1/tas/categories/total/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,

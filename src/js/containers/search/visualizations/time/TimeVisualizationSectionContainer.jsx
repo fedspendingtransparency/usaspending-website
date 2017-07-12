@@ -146,7 +146,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
 
     fetchTASCategories(auditTrail = null) {
          // only budget filters have been selected
-        const field = 'obligations_incurred_total_by_award_cpe';
+        const field = 'obligations_incurred_by_program_object_class_cpe';
         const group = 'submission__reporting_fiscal_year';
         // generate the API parameters
         const operation = new SearchTASCategoriesOperation();

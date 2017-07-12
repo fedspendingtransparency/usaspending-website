@@ -195,7 +195,7 @@ export class SpendingByCategoryRankVisualizationSectionContainer extends React.C
     fetchTASCategories(auditTrail = null) {
         // only budget filters have been selected
         const fieldName = fieldNames[this.state.scope];
-        const field = 'obligations_incurred_total_by_award_cpe';
+        const field = 'obligations_incurred_by_program_object_class_cpe';
         let group = [fieldName];
         if (this.state.scope === 'federalAccounts') {
             group = [fieldName, "treasury_account__federal_account_id"];

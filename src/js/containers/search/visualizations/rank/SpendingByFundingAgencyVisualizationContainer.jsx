@@ -181,7 +181,7 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
         // Generate the API parameters
         const apiParams = {
-            field: 'obligations_incurred_total_by_award_cpe',
+            field: 'obligations_incurred_by_program_object_class_cpe',
             group: 'treasury_account__funding_toptier_agency__name',
             order: ['-aggregate'],
             aggregate: 'sum',

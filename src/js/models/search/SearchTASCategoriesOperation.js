@@ -57,24 +57,6 @@ class SearchTASCategoriesOperation extends SearchOperation {
                 this.objectClasses, this.searchContext));
         }
 
-        // Add pricing type query
-        if (this.pricingType.length > 0) {
-            filters.push(ContractFilterQuery.buildPricingTypeQuery(
-                this.pricingType, this.searchContext));
-        }
-
-        // Add set aside query
-        if (this.setAside.length > 0) {
-            filters.push(ContractFilterQuery.buildSetAsideQuery(
-                this.setAside, this.searchContext));
-        }
-
-        // Add extent competed query
-        if (this.extentCompeted.length > 0) {
-            filters.push(ContractFilterQuery.buildExtentCompetedQuery(
-                this.extentCompeted, this.searchContext));
-        }
-
         return filters;
     }
 }
