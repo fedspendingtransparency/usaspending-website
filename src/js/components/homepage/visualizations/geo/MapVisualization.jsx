@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { indexOf } from 'lodash';
 
 import ToggleButton from 'components/sharedComponents/ToggleButton';
 import MapWrapper from 'components/search/visualizations/geo/MapWrapper';
@@ -83,7 +83,7 @@ export default class MapVisualization extends React.Component {
         }
 
         // convert state code to full string name
-        const index = _.indexOf(this.props.data.states, stateCode);
+        const index = indexOf(this.props.data.states, stateCode);
 
         let tooltipValues = this.prepareTotalTooltip(index);
         if (this.props.showPerCapita) {

@@ -122,7 +122,6 @@
     "mousetrap": "^1.6.1",
     "node-uuid": "^1.4.7",
     "path-to-regexp": "^1.7.0",
-    "q": "^1.4.1",
     "query-string": "^4.3.4",
     "r-dom": "^2.3.2",
     "react": "15.4.2",

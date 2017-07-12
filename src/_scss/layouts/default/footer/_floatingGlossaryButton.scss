@@ -1,0 +1,54 @@
+.floating-glossary-button-wrapper {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: $z-base + 4;
+    opacity: 1;
+    @include transition(opacity 0.3s ease-in);
+    &.hidden {
+        opacity: 0;
+        @include transition(opacity 0.3s ease-in);
+        @keyframes removeHeightWidth {
+            from {
+                height: auto;
+                width: auto;
+            }
+            to {
+                height: 0px;
+                width: 0px;
+            }
+        }
+        // this invisible animation lets the button fade out by not immediately removing the height
+        // and width, but removes it after 0.3s (the duration of the fade out) to remove the
+        // button's hit area
+        @include animation(removeHeightWidth 0.1s ease-in 0.3s forwards);
+    }
+    .floating-glossary-button {
+        @include transition(all 0.25s $ease-in-out-sine);
+        background-color: $color-secondary;
+        box-shadow: $container-shadow;
+        width: 140px;
+        height: 40px;
+        margin: 0;
+        font-size: 16px;
+        line-height: 16px;
+        &:hover {
+            background-color: lighten( $color-secondary, 8% );
+            @include transition(all 0.25s $ease-in-out-sine);
+        }
+        .floating-glossary-icon {
+            position: relative;
+            display: inline-block;
+            height: 14px;
+            width: 14px;
+            margin-right: 15px;
+            svg {
+                position: absolute;
+                top: 3px;
+                height: 14px;
+                width: 14px;
+                fill: $color-white;
+            }
+        }
+    }
+}

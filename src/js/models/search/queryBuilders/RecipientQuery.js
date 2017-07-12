@@ -2,7 +2,7 @@
  * Created by michaelbray on 2/17/17.
  */
 
-import _ from 'lodash';
+import { concat } from 'lodash';
 
 import * as FilterFields from 'dataMapping/search/filterFields';
 
@@ -48,7 +48,7 @@ export const buildRecipientLocationQuery = (locations, searchContext = 'award') 
     // Concatenate Matched IDs of selected locations
     // Duplicates do not matter in API query
     locations.forEach((location) => {
-        locationSet = _.concat(locationSet, location.matched_ids);
+        locationSet = concat(locationSet, location.matched_ids);
     });
 
     const field = FilterFields[`${searchContext}Fields`].recipientLocation;

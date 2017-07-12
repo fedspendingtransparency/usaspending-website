@@ -8,7 +8,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import _ from 'lodash';
+import { isEqual, max } from 'lodash';
 
 import SpendingByIndustryCodeSection from
     'components/search/visualizations/rank/sections/SpendingByIndustryCodeSection';
@@ -61,7 +61,7 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)
             || (prevProps.budgetFiltersSelected !== this.props.budgetFiltersSelected)
             || (prevProps.awardFiltersSelected !== this.props.awardFiltersSelected)) {
             this.newSearch();
@@ -99,7 +99,7 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
 
     previousPage() {
         // change the state by subtracting 2 (since the page number is already incremented)
-        const prevPage = _.max([1, this.state.page - 1]);
+        const prevPage = max([1, this.state.page - 1]);
         this.setState({
             page: prevPage
         }, () => {

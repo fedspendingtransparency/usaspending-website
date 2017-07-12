@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { dropRight } from 'lodash';
 
 import * as LocationFormatter from 'helpers/locationFormatter';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
@@ -56,7 +56,7 @@ export default class LocationFilterGroup extends React.Component {
         let remainingValues = this.props.filter.values;
         if (this.props.filter.scope !== 'all') {
             // there is a scope and it will always be the last filter item
-            remainingValues = _.dropRight(this.props.filter.values, 1);
+            remainingValues = dropRight(this.props.filter.values, 1);
 
             // add a tag for the scope filter
             const tag = {

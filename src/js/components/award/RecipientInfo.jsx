@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import _ from 'lodash';
+import { toLower, includes } from 'lodash';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import InfoSnippet from './InfoSnippet';
 import RecipientAddress from './RecipientAddress';
@@ -24,7 +24,7 @@ export default class RecipientInfo extends React.Component {
 
     buildName() {
         const recipient = this.props.recipient;
-        const isMultiple = _.toLower(this.props.recipient.recipient_name) === 'multiple recipients';
+        const isMultiple = toLower(this.props.recipient.recipient_name) === 'multiple recipients';
         let recipientName = this.props.recipient.recipient_name;
         let address = null;
         if (isMultiple) {
@@ -39,7 +39,7 @@ export default class RecipientInfo extends React.Component {
 
     buildSnippets() {
         const recipient = this.props.recipient;
-        const isMultiple = _.toLower(this.props.recipient.recipient_name) === 'multiple recipients';
+        const isMultiple = toLower(this.props.recipient.recipient_name) === 'multiple recipients';
         const multiDescription = `An award with multiple recipients indicates an aggregate award.
         Aggregate awards exist to protect recipient Personally Identifiable Information (PII).
         Agencies are currently required to aggregate these awards on a county level.`;
@@ -47,7 +47,7 @@ export default class RecipientInfo extends React.Component {
         let duns = "Not Available";
         let parentDuns = "Not Available";
         let businessType = "Not Available";
-        const isContract = _.includes(awardTypeGroups.contracts, this.props.recipient.award_type);
+        const isContract = includes(awardTypeGroups.contracts, this.props.recipient.award_type);
 
         if (this.props.recipient.recipient_parent_duns) {
             parentDuns = this.props.recipient.recipient_parent_duns;

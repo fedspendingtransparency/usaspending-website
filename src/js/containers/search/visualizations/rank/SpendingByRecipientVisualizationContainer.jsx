@@ -7,8 +7,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import _ from 'lodash';
+import { isEqual, max } from 'lodash';
 
 import SpendingByRecipientSection from
     'components/search/visualizations/rank/sections/SpendingByRecipientSection';
@@ -58,7 +57,7 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!_.isEqual(prevProps.reduxFilters, this.props.reduxFilters)
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)
             || (prevProps.budgetFiltersSelected !== this.props.budgetFiltersSelected)
             || (prevProps.awardFiltersSelected !== this.props.awardFiltersSelected)) {
             this.newSearch();
@@ -96,7 +95,7 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
 
     previousPage() {
         // change the state by subtracting 2 (since the page number is already incremented)
-        const prevPage = _.max([1, this.state.page - 1]);
+        const prevPage = max([1, this.state.page - 1]);
         this.setState({
             page: prevPage
         }, () => {

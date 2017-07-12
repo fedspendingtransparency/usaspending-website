@@ -31,6 +31,14 @@ export default class SingleCheckboxType extends React.Component {
         });
     }
 
+    static logDeselectSingleTypeFilterEvent(type, filter) {
+        ga.event({
+            category: 'Search Page Filter Applied',
+            action: `Deselected ${filter} Type`,
+            label: type
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -39,13 +47,20 @@ export default class SingleCheckboxType extends React.Component {
     }
 
     toggleFilter() {
-        // indicate to Redux that this field needs to toggle
-        this.props.toggleCheckboxType(this.props.code);
-
         // Analytics
         if (this.props.enableAnalytics) {
-            SingleCheckboxType.logSingleTypeFilterEvent(this.props.name, this.props.filterType);
+            if (this.props.selectedCheckboxes.has(this.props.code)) {
+                // already checked, log deselect event
+                SingleCheckboxType.logDeselectSingleTypeFilterEvent(this.props.name, this.props.filterType);
+            }
+            else {
+                // not already checked, log select event
+                SingleCheckboxType.logSingleTypeFilterEvent(this.props.name, this.props.filterType);
+            }
         }
+
+        // indicate to Redux that this field needs to toggle
+        this.props.toggleCheckboxType(this.props.code);
     }
 
     render() {

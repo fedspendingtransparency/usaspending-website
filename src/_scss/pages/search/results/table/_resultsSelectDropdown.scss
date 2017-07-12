@@ -1,31 +1,35 @@
 .results-select-columns-dropdown {
-    border-top: solid 1px $color-gray-light;
-    position: absolute;
-    z-index: 2;
-    margin-top: rem(-5);
     background-color: $color-white;
     border-bottom: solid 1px $color-gray-light;
-    font-size: $small-font-size;
+    border-top: solid 1px $color-gray-light;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-    width: rem(320);
-    overflow-y: scroll;
+    font-size: $small-font-size;
+    margin-top: rem(-5);
     max-height: rem(530);
+    overflow-y: scroll;
+    position: absolute;
     right: rem(35);
+    width: rem(220);
+    z-index: 2;
+    @include media($tablet-screen) {
+        right: 0;
+        width: rem(320);
+    }
     .results-select-columns-header:first-of-type {
         border-top: none;
     }
     .results-select-columns-header {
         background-color: $color-gray-lightest;
-        padding: rem(10);
         border: solid 1px $color-gray-light;
         font-weight: $font-semibold;
+        padding: rem(10);
         .results-select-columns-hidden {
-            float: right;
             background-color: $color-gray-light;
-            width: rem(20);
+            color: $color-white;
+            float: right;
             height: rem(20);
             text-align: center;
-            color: $color-white;
+            width: rem(20);
         }
     }
     //IMPORT THE UL TO CREATE THE LIST OF AVAILABLE COLUMNS

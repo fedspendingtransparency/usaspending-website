@@ -8,6 +8,7 @@ import React from 'react';
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTable from 'components/search/table/ResultsTable';
 import ResultsTableMessage from 'components/search/table/ResultsTableMessage';
+import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import AccountAwardsHeaderCellContainer from
     'containers/account/awards/AccountAwardsHeaderCellContainer';
 
@@ -16,7 +17,8 @@ const propTypes = {
     tableTypes: React.PropTypes.array,
     currentType: React.PropTypes.string,
     switchTab: React.PropTypes.func,
-    results: React.PropTypes.array
+    results: React.PropTypes.array,
+    counts: React.PropTypes.object
 };
 
 export default class AccountAwardsSection extends React.Component {
@@ -64,6 +66,11 @@ export default class AccountAwardsSection extends React.Component {
                 <h3>Spending by Award</h3>
                 <hr className="results-divider" />
                 <ResultsTableTabs
+                    types={this.props.tableTypes}
+                    active={this.props.currentType}
+                    counts={this.props.counts}
+                    switchTab={this.props.switchTab} />
+                <ResultsTablePicker
                     types={this.props.tableTypes}
                     active={this.props.currentType}
                     switchTab={this.props.switchTab} />

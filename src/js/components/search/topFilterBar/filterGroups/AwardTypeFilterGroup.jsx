@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import { indexOf, difference, concat } from 'lodash';
 
 import { Set } from 'immutable';
 
@@ -51,7 +51,7 @@ export default class AwardTypeFilterGroup extends React.Component {
 
         // remove the current group's values
         const awardValues = AwardType.awardTypeGroups[value];
-        updatedValues = updatedValues.filterNot((x) => _.indexOf(awardValues, x) > -1);
+        updatedValues = updatedValues.filterNot((x) => indexOf(awardValues, x) > -1);
 
         this.props.redux.updateGenericFilter({
             type: 'awardType',
@@ -74,7 +74,7 @@ export default class AwardTypeFilterGroup extends React.Component {
 
             // quick way of checking for full group membership is to return an array of missing
             // values; it'll be empty if all the values are selected
-            const missingValues = _.difference(fullMembership, selectedValues);
+            const missingValues = difference(fullMembership, selectedValues);
 
             if (missingValues.length === 0) {
                 // this group is complete
@@ -95,7 +95,7 @@ export default class AwardTypeFilterGroup extends React.Component {
             tags.push(tag);
 
             // exclude these values from the remaining tags
-            excludedValues = _.concat(excludedValues, AwardType.awardTypeGroups[group]);
+            excludedValues = concat(excludedValues, AwardType.awardTypeGroups[group]);
         });
 
         selectedValues.forEach((value) => {
@@ -106,7 +106,7 @@ export default class AwardTypeFilterGroup extends React.Component {
                 removeFilter: this.removeFilter
             };
 
-            if (_.indexOf(excludedValues, value) < 0) {
+            if (indexOf(excludedValues, value) < 0) {
                 // only insert individual tags that aren't part of a fully-selected group
                 // excluded values is an array of values that are already included in a full group,
                 // so if this value isn't in that array, it can be shown individually
