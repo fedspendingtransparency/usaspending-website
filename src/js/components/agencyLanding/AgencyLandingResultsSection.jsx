@@ -56,10 +56,10 @@ export default class AgencyLandingResultsSection extends React.Component {
         }
 
         return (
-            <div className="agency-landing-table-section" id="agency-landing-section-table">
+            <div className="agency-landing-results" id="agency-landing-results">
                 <div className={loadingWrapper}>
                     <div
-                        className="account-awards-table-width-master"
+                        className="agency-landing-table-width-master"
                         ref={(div) => {
                             // this is an empty div that scales via CSS
                             // the results table width will follow this div's width

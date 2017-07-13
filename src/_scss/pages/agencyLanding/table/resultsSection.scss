@@ -1,0 +1,29 @@
+@mixin resultsSection {
+    .agency-landing-results {
+        transition: opacity 0.25s ease;
+        margin-top: ($global-mrg * 4);
+
+        @import './table';
+
+        .loading-table {
+            opacity: 0.5;
+            @include transition(opacity 0.25s ease-in);
+        }
+
+        .loaded-table {
+            opacity: 1;
+            @include transition(opacity 0.25s ease-in);
+        }
+
+        .agency-landing-table-width-master {
+            width: 100%;
+        }
+
+        .results-table-message {
+            margin-top: 1rem;
+            font-size: $small-font-size;
+            color: $color-base;
+            text-align: center;
+        }
+    }
+}

@@ -138,8 +138,8 @@ const routes = {
             }
         },
         {
-            path: '/agencyprofiles',
-            parent: '/agencyprofiles',
+            path: '/agency',
+            parent: '/agency',
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/agencyLanding/AgencyLandingPage').default);

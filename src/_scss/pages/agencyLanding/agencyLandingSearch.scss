@@ -1,36 +1,35 @@
 @mixin agencyLandingSearch {
-  .agency-landing-search {
-    @include span-columns(16);
-    background-color: $color-primary-alt-lightest;
-    padding: rem(30);
-    border: 1px solid $color-vis-lightest;
-    text-align: center;
-    form {
-      // TODO - Lizzie: add mobile styling
-      position: relative;
-      input.search-field {
-        color: $color-gray-light;
-        font-size: rem(28);
-        font-weight: 300;
-        line-height: rem(36);
-        padding: rem(15);
-        //width: rem(684);
-        width: 75%;
-        padding-right: rem(30);
-      }
-      .search-button {
-        position: absolute;
-        left: 80%;
-        top: rem(15);
+    .agency-landing-search {
+        @include span-columns(16);
+        background-color: $color-primary-alt-lightest;
+        padding: rem(30);
+        border: 1px solid $color-vis-lightest;
+        text-align: center;
+        form {
+            // TODO - Lizzie: add mobile styling
+            position: relative;
+            input.search-field {
+                color: $color-gray-light;
+                font-size: rem(28);
+                font-weight: 300;
+                line-height: rem(36);
+                padding: rem(15);
+                width: 75%;
+                padding-right: rem(30);
+            }
+            .search-button {
+                position: absolute;
+                left: 80%;
+                top: rem(15);
 
-        @include button-unstyled;
-        width: 36px;
-        height: 36px;
+                @include button-unstyled;
+                width: 36px;
+                height: 36px;
 
-        svg {
-          fill: $color-gray-light;
+                svg {
+                    fill: $color-gray-light;
+                }
+            }
         }
-      }
     }
-  }
 }
