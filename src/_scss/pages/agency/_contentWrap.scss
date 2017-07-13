@@ -8,5 +8,13 @@
 
     .agency-padded-content {
         padding: rem(30);
+
+        &.overview {
+            border-bottom: 1px solid $color-gray-border;
+        }
+
+        &.data {
+            padding-top: 0;
+        }
     }
 }
