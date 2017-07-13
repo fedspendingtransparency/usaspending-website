@@ -160,13 +160,13 @@ export class AgencyLandingContainer extends React.Component {
         data.results.forEach((item) => {
             // Create a link to the agency's profile page
             const link = (
-              <a href={`/#/agency/${item.agency_id}`}>{item.agency_name}</a>
+                <a href={`/#/agency/${item.agency_id}`}>{item.agency_name}</a>
             );
 
             // Round to 2 decimal places and don't show 0.00
-            let percent = Math.round(parseFloat(item.percentage_of_total_budget_authority)*100)/100;
+            let percent = Math.round(parseFloat(item.percentage_of_total_budget_authority) * 100) / 100;
 
-            if (percent == 0.00) {
+            if (percent === 0.00) {
                 percent = 'Less than 0.01%';
             }
             else {

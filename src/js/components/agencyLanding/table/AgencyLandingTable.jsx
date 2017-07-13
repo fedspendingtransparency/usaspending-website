@@ -9,6 +9,7 @@ import Immutable from 'immutable';
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableGenericCell';
+import AgencyLinkCell from './cells/AgencyLinkCell';
 
 const propTypes = {
     batch: React.PropTypes.object,
@@ -80,16 +81,28 @@ export default class AgencyLandingTable extends React.PureComponent {
             totalWidth += column.width;
             const isLast = i === this.props.columns.length - 1;
             let cellName = null;
-            cellName = (index) => (
-                <ResultsTableGenericCell
-                    key={`cell-${column.columnName}-${index}`}
-                    rowIndex={index}
-                    data={this.props.results[index][column.columnName]}
-                    dataHash={this.state.dataHash}
-                    column={column.columnName}
-                    isLastColumn={isLast} />
-            );
-
+            if (column.columnName === 'agency_profile_link') {
+                cellName = (index) => (
+                    <AgencyLinkCell
+                        key={`cell-${column.columnName}-${index}`}
+                        rowIndex={index}
+                        data={this.props.results[index][column.columnName]}
+                        dataHash={this.state.dataHash}
+                        column={column.columnName}
+                        isLastColumn={isLast} />
+                );
+            }
+            else {
+                cellName = (index) => (
+                    <ResultsTableGenericCell
+                        key={`cell-${column.columnName}-${index}`}
+                        rowIndex={index}
+                        data={this.props.results[index][column.columnName]}
+                        dataHash={this.state.dataHash}
+                        column={column.columnName}
+                        isLastColumn={isLast} />
+                );
+            }
             return {
                 width: column.width,
                 name: column.columnName,
