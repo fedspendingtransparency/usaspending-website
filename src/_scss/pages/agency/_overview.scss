@@ -68,6 +68,34 @@
                 @include span-columns(8);
                 padding-left: rem(10);
             }
+
+            .budget-authority-date {
+                color: #555;
+                font-size: 1.2rem;
+                margin-bottom: rem(10);
+            }
+
+            .authority-amount {
+                color: $color-vis-dark;
+                font-size: rem(48);
+                line-height: rem(60);
+                margin-bottom: rem(14);
+            }
+
+            .authority-statement {
+                font-size: $small-font-size;
+                margin-bottom: rem(12);
+
+                .authority-statement-percentage {
+                    color: $color-vis-dark;
+                    font-weight: $font-bold;
+                }
+            }
+
+            .horizontal-bar {
+                height: rem(20);
+                width: 100%;
+            }
         }
 
 
