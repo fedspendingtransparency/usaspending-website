@@ -7,18 +7,15 @@
     // placeholder background for when the user scrolls really fast
     background: repeating-linear-gradient( $color-white, $color-white 40px, $color-gray-lightest 40px, $color-gray-lightest 80px);
     &.no-results {
-        border-bottom: none;
+        border: none;
     }
     .award-result-generic-cell {
-        @import "../../search/results/table/cells/_genericCell";
-        @include genericCell();
+        @import "./cells/_agencyLandingCell";
+        @include agencyLandingCell();
     }
     .award-result-header-cell {
-        @import "../../search/results/table/cells/_genericHeader";
-        @include genericHeader();
-        &.last-column {
-            border-right: none;
-        }
+        @import "./cells/_agencyLandingHeaderCell";
+        @include agencyLandingHeader();
     }
     // gray out even rows
     .row-even {
@@ -26,6 +23,6 @@
     }
     // override the header style for a bottom border
     .ibt-header {
-        border-bottom: 1px solid #ADAFB4;
+        //border-bottom: 1px solid #ADAFB4;
     }
 }

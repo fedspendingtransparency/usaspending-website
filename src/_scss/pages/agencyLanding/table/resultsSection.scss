@@ -1,7 +1,6 @@
 @mixin resultsSection {
     .agency-landing-results {
         transition: opacity 0.25s ease;
-        margin-top: ($global-mrg * 4);
 
         @import './table';
 
