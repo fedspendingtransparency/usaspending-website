@@ -222,8 +222,10 @@ export default class AgencyContent extends React.Component {
                         jumpToSection={this.jumpToSection} />
                 </div>
                 <div className="agency-content">
-                    <div className="agency-padded-content">
+                    <div className="agency-padded-content overview">
                         <AgencyOverview agency={this.props.agency.overview} />
+                    </div>
+                    <div className="agency-padded-content data">
                         <ObligatedContainer
                             agencyName={this.props.agency.overview.name}
                             activeFY={this.props.agency.overview.activeFY}
