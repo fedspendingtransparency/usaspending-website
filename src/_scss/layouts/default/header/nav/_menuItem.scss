@@ -1,4 +1,4 @@
-li {
+li.menu-item {
     height: rem(48);
     margin: 0;
     padding: 0 rem(10);
@@ -35,5 +35,9 @@ li {
                 left: rem(4px);
             }
         }
+    }
+
+    &.profile-item {
+        padding: 0;
     }
 }
