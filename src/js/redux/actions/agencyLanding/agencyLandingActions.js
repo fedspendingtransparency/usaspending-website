@@ -12,7 +12,3 @@ export const setAgenciesOrder = (state) => ({
     type: 'SET_AGENCIES_ORDER',
     order: state
 });
-
-export const resetAgenciesOrder = () => ({
-    type: 'RESET_AGENCIES_ORDER'
-});

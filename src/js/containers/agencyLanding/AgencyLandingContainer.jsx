@@ -22,7 +22,8 @@ import AgencyLandingResultsSection from 'components/agencyLanding/AgencyLandingR
 const propTypes = {
     agencies: React.PropTypes.instanceOf(Immutable.OrderedSet),
     agenciesOrder: React.PropTypes.object,
-    setAgencies: React.PropTypes.func
+    setAgencies: React.PropTypes.func,
+    meta: React.PropTypes.object
 };
 
 export class AgencyLandingContainer extends React.Component {
@@ -129,22 +130,22 @@ export class AgencyLandingContainer extends React.Component {
 
         const mockRes = { results: [
             {
-                id: 10,
-                percentage_of_total_budget_authority: ".0567",
+                agency_id: 10,
+                percentage_of_total_budget_authority: ".0467",
                 agency_name: "Architect of the Capitol",
-                budget_authority_amount: "4322852976.48",
+                budget_authority_amount: "322852976.48",
                 active_fy: "2017"
             },
             {
-                id: 11,
+                agency_id: 11,
                 percentage_of_total_budget_authority: ".00411",
                 agency_name: "Library of Congress",
                 budget_authority_amount: "9842852976.48",
                 active_fy: "2017"
             },
             {
-                id: 14,
-                percentage_of_total_budget_authority: ".00032",
+                agency_id: 14,
+                percentage_of_total_budget_authority: ".032",
                 agency_name: "Government Publishing Office",
                 budget_authority_amount: "1426852976.48",
                 active_fy: "2017"
@@ -157,7 +158,28 @@ export class AgencyLandingContainer extends React.Component {
     parseAgencies(data) {
         const agencies = [];
         data.results.forEach((item) => {
-            const agency = new Agency(item);
+            // Create a link to the agency's profile page
+            const link = (
+              <a href={`/#/agency/${item.agency_id}`}>{item.agency_name}</a>
+            );
+
+            // Round to 2 decimal places and don't show 0.00
+            let percent = Math.round(parseFloat(item.percentage_of_total_budget_authority)*100)/100;
+
+            if (percent == 0.00) {
+                percent = 'Less than 0.01%';
+            }
+            else {
+                percent = `${percent}%`;
+            }
+
+            const agencyObject = {
+                agency_profile_link: link,
+                budget_authority_amount: item.budget_authority_amount,
+                percentage_of_total_budget_authority: percent
+            };
+
+            const agency = new Agency(agencyObject);
             agencies.push(agency);
         });
 
@@ -165,7 +187,7 @@ export class AgencyLandingContainer extends React.Component {
     }
 
     render() {
-        // TODO - Lizzie: remove static value and use metadata
+        // TODO - Lizzie: remove static value
         const resultsCount = 65;
 
         return (
@@ -180,6 +202,7 @@ export class AgencyLandingContainer extends React.Component {
                 </div>
                 <div className="agency-landing-section">
                     <AgencyLandingResultsSection
+                        batch={this.props.meta.batch}
                         columns={this.state.columns}
                         results={this.props.agencies.toArray()}
                         inFlight={this.state.inFlight} />
@@ -194,7 +217,8 @@ AgencyLandingContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         agencies: state.agencyLanding.agencies,
-        agenciesOrder: state.agencyLanding.agenciesOrder
+        agenciesOrder: state.agencyLanding.agenciesOrder,
+        meta: state.agencyLanding.agenciesMeta
     }),
     (dispatch) => bindActionCreators(agencyLandingActions, dispatch)
 )(AgencyLandingContainer);

@@ -4,12 +4,14 @@
  */
 
 import React from 'react';
+import Immutable from 'immutable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableGenericCell';
 
 const propTypes = {
+    batch: React.PropTypes.object,
     results: React.PropTypes.array,
     columns: React.PropTypes.array,
     headerCellClass: React.PropTypes.func.isRequired,
@@ -36,7 +38,14 @@ export default class AgencyLandingTable extends React.PureComponent {
     }
 
     shouldComponentUpdate(nextProps) {
-        return (nextProps.visibleWidth !== this.props.visibleWidth);
+        if (!Immutable.is(nextProps.batch, this.props.batch)) {
+            return true;
+        }
+        else if (nextProps.visibleWidth !== this.props.visibleWidth) {
+            // re-render if the window size changed
+            return true;
+        }
+        return false;
     }
 
     tableScrolled(xPos, yPos) {
