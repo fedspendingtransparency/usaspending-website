@@ -23,7 +23,8 @@ export default class AgencyOverview extends React.PureComponent {
         this.state = {
             hideLogo: true,
             logo: '',
-            title: '',
+            mission: '',
+            website: '',
             asOfDate: '',
             formattedBudgetAuthority: '',
             percentageElement: '',
@@ -42,16 +43,29 @@ export default class AgencyOverview extends React.PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.agency.id !== this.props.agency.id) {
-            let title = `${nextProps.agency.name} (${nextProps.agency.abbreviation})`;
-            if (nextProps.agency.abbreviation === '') {
-                title = nextProps.agency.name;
-            }
-
             let logo = null;
             let hideLogo = 'hide';
             if (nextProps.agency.logo !== '') {
                 hideLogo = '';
-                logo = (<img src={nextProps.agency.logo} alt={nextProps.agency.name} />);
+                logo = (<img
+                    src={`graphics/agency/${nextProps.agency.logo}`}
+                    alt={nextProps.agency.name} />);
+            }
+
+            let mission = 'Not available';
+            if (nextProps.agency.mission !== '') {
+                mission = nextProps.agency.mission;
+            }
+
+            let website = 'Not available';
+            if (nextProps.agency.website !== '') {
+                website = (<a
+                    className="agency-website"
+                    href={nextProps.agency.website}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    {nextProps.agency.website}
+                </a>);
             }
 
             // Move props to variables for readability
@@ -87,7 +101,8 @@ export default class AgencyOverview extends React.PureComponent {
             this.setState({
                 hideLogo,
                 logo,
-                title,
+                mission,
+                website,
                 asOfDate,
                 formattedBudgetAuthority,
                 percentageElement,
@@ -142,25 +157,21 @@ export default class AgencyOverview extends React.PureComponent {
                         {this.state.logo}
                     </div>
                     <div className="title">
-                        <h3>{this.state.title}</h3>
+                        <h3>{this.props.agency.name}</h3>
                     </div>
                 </div>
                 <hr className="results-divider" />
                 <div className="overview-content">
                     <div className="agency-details">
                         <h4>Agency Mission</h4>
-                        <p>Not available</p>
+                        <p>{this.state.mission}</p>
 
                         <div className="lower-details">
-
-                            <div className="group">
-                                <h5>Agency Head</h5>
-                                <p>Not available</p>
-                            </div>
-
                             <div className="group">
                                 <h5>Website</h5>
-                                <p>Not available</p>
+                                <div className="agency-website">
+                                    {this.state.website}
+                                </div>
                             </div>
 
                         </div>

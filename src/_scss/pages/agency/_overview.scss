@@ -47,9 +47,6 @@
 
                 .group {
                     @include span-columns(16);
-                    @include media($small-screen) {
-                        @include span-columns(8);
-                    }
 
                     h5 {
                         font-size: rem(16);
@@ -57,6 +54,18 @@
                         line-height: rem(20);
                         margin: rem(5) 0;
                     }
+
+                    .agency-website {
+                        font-size: rem(14);
+                        line-height: rem(20);
+                        margin: rem(14) 0;
+
+                        a {
+                            color: $color-primary;
+                            text-decoration: none;
+                        }
+                    }
+
                 }
             }
         }
