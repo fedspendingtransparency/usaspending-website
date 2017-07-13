@@ -110,7 +110,6 @@ export default class DatePicker extends React.Component {
     }
 
     handleDatePick(day) {
-        console.log(day);
         this.props.onDateChange(day, this.props.type);
         this.props.hideError();
         // close the popup if is shown
@@ -122,7 +121,6 @@ export default class DatePicker extends React.Component {
     }
 
     handleTypedDate(e) {
-        console.log(e.target.value);
         // update the string state of the input field
         this.setState({
             inputValue: e.target.value
