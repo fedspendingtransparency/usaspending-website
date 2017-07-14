@@ -1,46 +1,46 @@
 .agency-obligated-wrapper {
-  margin-top: rem(15);
+    margin-top: rem(15);
 
-  .agency-obligated-title {
-	h4 {
-	  font-size: rem(38);
-	  line-height: rem(47);
-	  margin: rem(5) 0;
-	}
-  }
+    .agency-obligated-title {
+        h4 {
+            font-size: rem(38);
+            line-height: rem(47);
+            margin: rem(5) 0;
+        }
+    }
 
-  .agency-obligated-content {
-	text-align: center;
-    .fy-text {
-      margin-top: rem(76);
-      font-style: italic;
-    }
-    .against-auth-text {
-      font-size: rem(20);
-      font-weight: 300;
-      .number {
-        font-weight: normal;
-        color: $color-vis-dark;
-        font-size: rem(30);
-        letter-spacing: -1px;
-        line-height: rem(38);
-        &.number-bolder {
-          font-weight: 600;
+    .agency-obligated-content {
+        text-align: center;
+        .fy-text {
+            margin-top: rem(76);
+            font-style: italic;
         }
-      }
-    }
-    .horizontal-bar {
-      width: 100%;
-      height: rem(72);
-      .legend-container {
-        color: $color-gray-medium;
-        .key-label {
-          font-size: rem(12);
+        .against-auth-text {
+            font-size: rem(20);
+            font-weight: 300;
+            .number {
+                font-weight: normal;
+                color: $color-vis-dark;
+                font-size: rem(30);
+                letter-spacing: -1px;
+                line-height: rem(38);
+                &.number-bolder {
+                    font-weight: 600;
+                }
+            }
         }
-      }
+        .horizontal-bar {
+            width: 100%;
+            height: rem(72);
+            .legend-container {
+                color: $color-gray-medium;
+                .key-label {
+                    font-size: rem(12);
+                }
+            }
+        }
+        .object-class-text {
+            margin: rem(100) rem(50) rem(78) rem(50);
+        }
     }
-    .object-class-text {
-      margin: rem(100) rem(50) rem(78) rem(50);
-    }
-  }
 }
