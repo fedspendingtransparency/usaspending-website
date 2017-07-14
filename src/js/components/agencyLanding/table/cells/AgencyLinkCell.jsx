@@ -33,7 +33,7 @@ export default class AgencyLinkCell extends React.Component {
         }
 
         return (
-            <div className={`award-result-generic-cell column-${this.props.column} ${rowClass}`}>
+            <div className={`award-result-generic-cell agency-link-cell column-${this.props.column} ${rowClass}`}>
                 <div className="cell-content">
                     {content}
                 </div>

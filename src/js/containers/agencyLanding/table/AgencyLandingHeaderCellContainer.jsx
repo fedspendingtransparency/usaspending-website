@@ -7,15 +7,14 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-// just import the two relevant actions
-import { setAgenciesOrder, resetAgenciesOrder } from 'redux/actions/agencyLanding/agencyLandingActions';
+// just import the relevant action(s)
+import { setAgenciesOrder } from 'redux/actions/agencyLanding/agencyLandingActions';
 
 import ResultsTableHeaderCell from 'components/search/table/cells/ResultsTableHeaderCell';
 
 // combine the action functions into an object for the react-redux bindings
 const actions = {
-    setAgenciesOrder,
-    resetAgenciesOrder
+    setAgenciesOrder
 };
 
 const propTypes = {

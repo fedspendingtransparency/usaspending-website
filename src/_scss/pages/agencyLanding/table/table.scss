@@ -3,15 +3,17 @@
     @import '../../../lib/ibTable/ibTable';
     margin-top: rem(15);
     display: block;
-    border: 1px solid $color-gray-light;
-    // placeholder background for when the user scrolls really fast
-    background: repeating-linear-gradient( $color-white, $color-white 40px, $color-gray-lightest 40px, $color-gray-lightest 80px);
     &.no-results {
         border: none;
     }
     .award-result-generic-cell {
         @import "./cells/_agencyLandingCell";
         @include agencyLandingCell();
+        &.agency-link-cell {
+            .cell-content {
+                float: left;
+            }
+        }
     }
     .award-result-header-cell {
         @import "./cells/_agencyLandingHeaderCell";
@@ -21,8 +23,32 @@
     .row-even {
         background-color: #f7f7f7;
     }
-    // override the header style for a bottom border
-    .ibt-header {
-        //border-bottom: 1px solid #ADAFB4;
+
+    .ibt-table-container {
+        // override the header style
+        .ibt-header {
+            border-bottom: 1px solid #ADAFB4;
+            .ibt-header-cell {
+                background-color: $color-white;
+                &:first-child {
+                    .award-result-header-cell {
+                        .cell-content {
+                            float: left;
+                        }
+                    }
+                }
+            }
+        }
+        // placeholder background for when the user scrolls really fast, with wider strips to match larger row height
+        .ibt-table-body-container {
+            .ibt-table-body {
+                background: repeating-linear-gradient(
+                        $color-white,
+                        $color-white 50px,
+                        #f7f7f7 50px,
+                        #f7f7f7 100px
+                );
+            }
+        }
     }
 }

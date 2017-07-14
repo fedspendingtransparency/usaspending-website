@@ -38,8 +38,7 @@ export default class AgencyLandingResultsSection extends React.Component {
     }
 
     setTableWidth() {
-        // subtract 2px from the width to account for the table borders (2 * 1px on each side)
-        const tableWidth = this.tableWidthController.clientWidth - 2;
+        const tableWidth = this.tableWidthController.clientWidth;
         this.setState({ tableWidth });
     }
 

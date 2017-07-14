@@ -1,13 +1,13 @@
 @mixin agencyLandingHeader() {
 
     .cell-content {
-        //background-color: $color-gray;
         white-space: normal;
+        font-size: rem(18);
         font-weight: 600;
-        font-size: rem(14);
-        line-height: rem(28);
+        line-height: 25px;
         color: $color-base;
         cursor: pointer;
+        float: right;
 
         .header-sort {
             display: table;

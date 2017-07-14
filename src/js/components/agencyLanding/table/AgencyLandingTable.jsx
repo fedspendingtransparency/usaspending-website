@@ -19,7 +19,7 @@ const propTypes = {
     visibleWidth: React.PropTypes.number
 };
 
-const rowHeight = 40;
+const rowHeight = 50;
 // setting the table height to a partial row prevents double bottom borders and also clearly
 // indicates when there's more data
 const tableHeight = 12.5 * rowHeight;
@@ -78,7 +78,9 @@ export default class AgencyLandingTable extends React.PureComponent {
         const HeaderCell = this.props.headerCellClass;
 
         const columns = this.props.columns.map((column, i) => {
-            totalWidth += column.width;
+            // For this table, make each column's width a percentage of the visible width
+            const adjustedWidth = (this.props.visibleWidth * column.width );
+            totalWidth += adjustedWidth;
             const isLast = i === this.props.columns.length - 1;
             let cellName = null;
             if (column.columnName === 'agency_profile_link') {
@@ -104,7 +106,7 @@ export default class AgencyLandingTable extends React.PureComponent {
                 );
             }
             return {
-                width: column.width,
+                width: adjustedWidth,
                 name: column.columnName,
                 columnId: `${column.columnName}`,
                 rowClassName: this.rowClassName,
@@ -142,7 +144,7 @@ export default class AgencyLandingTable extends React.PureComponent {
                     rowHeight={rowHeight}
                     rowCount={this.props.results.length}
                     headerHeight={50}
-                    width={calculatedValues.width}
+                    width={this.props.visibleWidth}
                     maxWidth={this.props.visibleWidth}
                     maxHeight={tableHeight}
                     columns={calculatedValues.columns}

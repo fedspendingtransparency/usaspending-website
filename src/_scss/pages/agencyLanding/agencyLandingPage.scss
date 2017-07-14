@@ -14,6 +14,10 @@
             h3 {
                 margin-top: 0;
             }
+            p {
+                color: $color-gray-medium;
+                margin-bottom: rem(30);
+            }
         }
         .agency-landing-container {
             .agency-landing-section {
@@ -21,6 +25,7 @@
                 &.results-count {
                     font-style: italic;
                     padding: rem(20) 0;
+                    font-size: rem(16);
                 }
             }
             @include agencyLandingSearch;

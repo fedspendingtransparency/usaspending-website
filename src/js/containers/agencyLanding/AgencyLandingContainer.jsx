@@ -67,12 +67,13 @@ export class AgencyLandingContainer extends React.Component {
     showColumns() {
         const columns = [];
         const sortOrder = AgenciesTableFields.defaultSortDirection;
+        const widths = AgenciesTableFields.columnWidthPercentage;
 
         AgenciesTableFields.order.forEach((col) => {
             const column = {
                 columnName: col,
                 displayName: AgenciesTableFields[col],
-                width: measureTableHeader(AgenciesTableFields[col]),
+                width: widths[col],
                 defaultDirection: sortOrder[col]
             };
             columns.push(column);
