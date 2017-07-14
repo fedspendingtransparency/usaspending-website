@@ -1,6 +1,6 @@
     .field-picker {
-        float: none!important;
-        @include clearfix;
+        float: left;
+        clear: none;
         .selected-button {
             @include button-unstyled;
             @extend h3;
