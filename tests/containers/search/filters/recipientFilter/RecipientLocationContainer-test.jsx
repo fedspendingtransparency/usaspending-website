@@ -76,7 +76,8 @@ describe('RecipientLocationContainer', () => {
                 setAutocompleteRecipientLocations:
                     recipientActions.setAutocompleteRecipientLocations,
                 selectedRecipientLocations: new OrderedMap(),
-                autocompleteRecipientLocations: []
+                autocompleteRecipientLocations: [],
+                toggleRecipientLocation: jest.fn()
             });
 
             const searchQuery = {
@@ -112,7 +113,8 @@ describe('RecipientLocationContainer', () => {
                 setAutocompleteRecipientLocations:
                     recipientActions.setAutocompleteRecipientLocations,
                 selectedRecipientLocations: new OrderedMap(),
-                autocompleteRecipientLocations: []
+                autocompleteRecipientLocations: [],
+                toggleRecipientLocation: jest.fn()
             });
             const searchQuery = {
                 target: {
@@ -152,7 +154,8 @@ describe('RecipientLocationContainer', () => {
                 reduxFilters: initialFilters,
                 setAutocompleteRecipientLocations: mockReduxAction,
                 selectedRecipientLocations: new OrderedMap(),
-                autocompleteRecipientLocations: []
+                autocompleteRecipientLocations: [],
+                toggleRecipientLocation: jest.fn()
             });
 
             const queryAutocompleteRecipientLocationsSpy = sinon
@@ -191,7 +194,8 @@ describe('RecipientLocationContainer', () => {
                 reduxFilters: initialFilters,
                 setAutocompleteRecipientLocations: mockReduxAction,
                 selectedRecipientLocations: new OrderedMap(),
-                autocompleteRecipientLocations: []
+                autocompleteRecipientLocations: [],
+                toggleRecipientLocation: jest.fn()
             });
 
             // set up spies
@@ -235,23 +239,19 @@ describe('RecipientLocationContainer', () => {
             }];
 
             // setup mock redux actions for handling search results
-            const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual(reduxState);
-            });
+            const mockReduxAction = jest.fn();
 
             // Set up the Container and call the function to type a single letter
             const recipientLocationContainer = setup({
                 reduxFilters: initialFilters,
                 setAutocompleteRecipientLocations: mockReduxAction,
                 autocompleteRecipientLocations: reduxState,
-                selectedRecipientLocations: new OrderedMap()
+                selectedRecipientLocations: new OrderedMap(),
+                toggleRecipientLocation: jest.fn()
             });
 
             // Mock the search helper to resolve with the mocked response
             mockSearchHelper('fetchLocations', 'resolve', apiResponse);
-
-            // Run fake timer for input delay
-            jest.useFakeTimers().runTimersToTime(10000);
 
             // Run all ticks
             jest.runAllTicks();
@@ -272,7 +272,8 @@ describe('RecipientLocationContainer', () => {
             expect(queryAutocompleteRecipientLocationsSpy.callCount).toEqual(1);
             expect(parseAutocompleteRecipientLocationsSpy
                 .calledWith(queryAutocompleteRecipientLocationsSpy));
-            expect(mockReduxAction).toHaveBeenCalled();
+
+            expect(mockReduxAction).toBeCalled();
 
             // Reset the mock
             unmockSearchHelper();
