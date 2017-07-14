@@ -144,6 +144,20 @@ export const updateSelectedCFDA = (state) => ({
     cfda: state.cfda
 });
 
+// NAICS Filter
+
+export const updateSelectedNAICS = (state) => ({
+    type: 'UPDATE_SELECTED_NAICS',
+    cfda: state.naics
+});
+
+// PSC Filter
+
+export const updateSelectedPSC = (state) => ({
+    type: 'UPDATE_SELECTED_PSC',
+    cfda: state.psc
+});
+
 // Generic
 
 export const setSearchOrder = (state) => ({

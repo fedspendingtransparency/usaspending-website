@@ -1,0 +1,22 @@
+.cfda-filter, .psc-filter, .naics-filter {
+    @import "elements/filters/_errorMessage";
+    @import "elements/filters/_typeahead";
+    @import "elements/filters/_selectedFilterBtn";
+    @import "mixins/selectedFilterWrap";
+
+    .filter-item-wrap {
+        p {
+            margin-top: rem(5);
+            margin-bottom: rem(5);
+        }
+    }
+    .shown {
+        min-height: rem(18);
+    }
+    .visually-hidden {
+        display: none;
+    }
+    .selected-filters {
+        @include selected-filter-wrap;
+    }
+}

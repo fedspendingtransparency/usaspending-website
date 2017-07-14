@@ -1,6 +1,6 @@
 /**
-* CFDAListContainer.jsx
-* Created by Emily Gullo 07/10/2017
+* PSCListContainer.jsx
+* Created by Emily Gullo 07/14/2017
 **/
 
 import React from 'react';
@@ -15,19 +15,19 @@ import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    selectCFDA: React.PropTypes.func,
-    setAutocompleteCFDA: React.PropTypes.func,
-    selectedCFDA: React.PropTypes.object,
-    autocompleteCFDA: React.PropTypes.array
+    selectPSC: React.PropTypes.func,
+    setAutocompletePSC: React.PropTypes.func,
+    selectedPSC: React.PropTypes.object,
+    autocompletePSC: React.PropTypes.array
 };
 
-class CFDAListContainer extends React.Component {
+class PSCListContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            cfdaSearchString: '',
-            autocompleteCFDA: [],
+            pscSearchString: '',
+            autocompletePSC: [],
             noResults: false
         };
 
@@ -37,19 +37,19 @@ class CFDAListContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.parseAutocompleteCFDA(this.props.autocompleteCFDA);
+        this.parseAutocompletePSC(this.props.autocompletePSC);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!isEqual(nextProps.autocompleteCFDA, this.props.autocompleteCFDA)) {
-            this.parseAutocompleteCFDA(nextProps.autocompleteCFDA);
+        if (!isEqual(nextProps.autocompletePSC, this.props.autocompletePSC)) {
+            this.parseAutocompletePSC(nextProps.autocompletePSC);
         }
     }
 
-    parseAutocompleteCFDA(cfda) {
+    parseAutocompletePSC(psc) {
         const values = [];
-        if (cfda.length > 0) {
-            cfda.forEach((item) => {
+        if (psc.length > 0) {
+            psc.forEach((item) => {
                 let placeType = upperCase(item.place_type);
                 if (item.parent !== null &&
                     (item.place_type !== null && item.place_type !== 'COUNTRY')) {
@@ -65,11 +65,11 @@ class CFDAListContainer extends React.Component {
         }
 
         this.setState({
-            autocompleteCFDA: values
+            autocompletePSC: values
         });
     }
 
-    queryAutocompleteCFDA(input) {
+    queryAutocompletePSC(input) {
         this.setState({
             noResults: false
         });
@@ -77,33 +77,33 @@ class CFDAListContainer extends React.Component {
         // Only search if input is 2 or more characters
         if (input.length >= 2) {
             this.setState({
-                cfdaSearchString: input
+                pscSearchString: input
             });
 
-            if (this.cfdaSearchRequest) {
+            if (this.pscSearchRequest) {
                 // A request is currently in-flight, cancel it
-                this.cfdaSearchRequest.cancel();
+                this.pscSearchRequest.cancel();
             }
 
-            const cfdaSearchParams = {
-                value: this.state.cfdaSearchString,
-                usage: "cfda"
+            const pscSearchParams = {
+                value: this.state.pscSearchString,
+                usage: "psc"
             };
 
-            this.cfdaSearchRequest = SearchHelper.fetchCFDA(cfdaSearchParams);
+            this.pscSearchRequest = SearchHelper.fetchPSC(pscSearchParams);
 
-            this.cfdaSearchRequest.promise
+            this.pscSearchRequest.promise
                 .then((res) => {
                     const data = res.data;
                     let autocompleteData = [];
 
-                    // Remove 'identifier' from selected cfdas to enable comparison
-                    const selectedCFDA = this.props.selectedCFDA.toArray()
-                        .map((cfda) => omit(cfda, 'identifier'));
+                    // Remove 'identifier' from selected PSC to enable comparison
+                    const selectedPSC = this.props.selectedPSC.toArray()
+                        .map((psc) => omit(psc, 'identifier'));
 
-                    // Filter out any selected cfdas that may be in the result set
-                    if (selectedCFDA && selectedCFDA.length > 0) {
-                        autocompleteData = differenceWith(data, selectedCFDA, isEqual);
+                    // Filter out any selected PSC that may be in the result set
+                    if (selectedPSC && selectedPSC.length > 0) {
+                        autocompleteData = differenceWith(data, selectedPSC, isEqual);
                     }
                     else {
                         autocompleteData = data;
@@ -114,7 +114,7 @@ class CFDAListContainer extends React.Component {
                     });
 
                     // Add search results to Redux
-                    this.props.setAutocompleteCFDA(autocompleteData);
+                    this.props.setAutocompletePSC(autocompleteData);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -124,27 +124,27 @@ class CFDAListContainer extends React.Component {
                     }
                 });
         }
-        else if (this.cfdaSearchRequest) {
+        else if (this.pscSearchRequest) {
             // A request is currently in-flight, cancel it
-            this.cfdaSearchRequest.cancel();
+            this.pscSearchRequest.cancel();
         }
     }
 
     clearAutocompleteSuggestions() {
-        this.props.setAutocompleteCFDA([]);
+        this.props.setAutocompletePSC([]);
     }
 
-    handleTextInput(cfdaInput) {
-        // Clear existing cfdas to ensure user can't select an old or existing one
-        this.props.setAutocompleteCFDA([]);
+    handleTextInput(pscInput) {
+        // Clear existing PSC to ensure user can't select an old or existing one
+        this.props.setAutocompletePSC([]);
 
         // Grab input, clear any exiting timeout
-        const input = cfdaInput.target.value;
+        const input = pscInput.target.value;
         window.clearTimeout(this.timeout);
 
         // Perform search if user doesn't type again for 300ms
         this.timeout = window.setTimeout(() => {
-            this.queryAutocompleteCFDA(input);
+            this.queryAutocompletePSC(input);
         }, 300);
     }
 
@@ -152,14 +152,14 @@ class CFDAListContainer extends React.Component {
         return (
             <Autocomplete
                 {...this.props}
-                values={this.state.autocompleteCFDA}
+                values={this.state.autocompletePSC}
                 handleTextInput={this.handleTextInput}
-                onSelect={this.props.selectCFDA}
-                placeholder="eg: 10.553 - School Breakfast Program"
-                errorHeader="Unknown CFDA"
-                errorMessage="We were unable to find that CFDA."
+                onSelect={this.props.selectPSC}
+                placeholder="eg: 1510 - Aircraft, Fixed Wing"
+                errorHeader="Unknown PSC"
+                errorMessage="We were unable to find that PSC."
                 ref={(input) => {
-                    this.cfdaList = input;
+                    this.pscList = input;
                 }}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
                 noResults={this.state.noResults} />
@@ -169,8 +169,8 @@ class CFDAListContainer extends React.Component {
 }
 
 export default connect(
-    (state) => ({ autocompleteCFDA: state.autocompleteCFDA }),
+    (state) => ({ autocompletePSC: state.autocompletePSC }),
     (dispatch) => bindActionCreators(autocompleteActions, dispatch)
-)(CFDAListContainer);
+)(PSCListContainer);
 
-CFDAListContainer.propTypes = propTypes;
+PSCListContainer.propTypes = propTypes;

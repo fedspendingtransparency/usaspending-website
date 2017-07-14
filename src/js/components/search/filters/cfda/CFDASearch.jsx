@@ -16,19 +16,19 @@ const propTypes = {
 
 export default class CFDASearch extends React.Component {
     render() {
-        let selectedLocations = null;
+        let selectedCFDA = null;
         if (this.props.selectedCFDA.size > 0) {
-            selectedLocations = (<SelectedCFDA
-                selectedLocations={this.props.selectedCFDA}
-                removeLocation={this.props.removeCFDA} />);
+            selectedCFDA = (<SelectedCFDA
+                selectedCFDA={this.props.selectedCFDA}
+                removeCFDA={this.props.removeCFDA} />);
         }
 
         return (
-            <div className="location-filter">
+            <div className="cfda-filter">
                 <div className="filter-item-wrap">
-                    <p className="sub-head">CFDA</p>
-                    <CFDAListContainer {...this.props} selectLocation={this.props.selectCFDA} />
-                    {selectedLocations}
+                    <p>CFDA</p>
+                    <CFDAListContainer {...this.props} selectCFDA={this.props.selectCFDA} />
+                    {selectedCFDA}
                 </div>
             </div>
         );

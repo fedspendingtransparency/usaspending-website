@@ -13,7 +13,7 @@ import * as RecipientQuery from './queryBuilders/RecipientQuery';
 import * as KeywordQuery from './queryBuilders/KeywordQuery';
 import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
 import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
-import * as CFDAQuery from './queryBuilders/CFDAQuery';
+import * as OtherFiltersQuery from './queryBuilders/OtherFiltersQuery';
 
 class SearchOperation {
     constructor() {
@@ -47,6 +47,8 @@ class SearchOperation {
         this.awardAmounts = [];
 
         this.selectedCFDA = [];
+        this.selectedNAICS = [];
+        this.selectedPSC = [];
 
         this.searchContext = 'award';
     }
@@ -82,6 +84,8 @@ class SearchOperation {
         this.awardAmounts = state.awardAmounts.toArray();
 
         this.selectedCFDA = state.selectedCFDA.toArray();
+        this.selectedNAICS = state.selectedNAICS.toArray();
+        this.selectesPSC = state.selectedPSC.toArray();
     }
 
     commonParams() {
@@ -159,8 +163,20 @@ class SearchOperation {
 
         // Add cfda query
         if (this.selectedCFDA.length > 0) {
-            filters.push(CFDAQuery.buildCFDAQuery(
+            filters.push(OtherFiltersQuery.buildCFDAQuery(
                 this.selectedCFDA, this.searchContext));
+        }
+
+        // Add naics query
+        if (this.selectedNAICS.length > 0) {
+            filters.push(OtherFiltersQuery.buildNAICSQuery(
+                this.selectedNAICS, this.searchContext));
+        }
+
+        // Add psc query
+        if (this.selectedPSC.length > 0) {
+            filters.push(OtherFiltersQuery.buildPSCQuery(
+                this.selectedPSC, this.searchContext));
         }
 
         return filters;

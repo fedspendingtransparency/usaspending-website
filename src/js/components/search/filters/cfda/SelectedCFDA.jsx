@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import * as CFDAFormatter from 'helpers/cfdaFormatter';
+import * as OtherFiltersFormatter from 'helpers/otherFiltersFormatter';
 import ShownCFDA from './ShownCFDA';
 
 const propTypes = {
@@ -21,7 +21,7 @@ export default class SelectedCFDA extends React.Component {
             const cfda = entry[1];
             const value = (<ShownCFDA
                 cfda={cfda}
-                label={CFDAFormatter.formatCFDA(key, cfda)}
+                label={OtherFiltersFormatter.formatCFDA(key, cfda)}
                 key={key}
                 removeCFDA={this.props.removeCFDA.bind(null, cfda)} />);
             shownCFDA.push(value);

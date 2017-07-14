@@ -1,6 +1,6 @@
 /**
-* CFDAListContainer.jsx
-* Created by Emily Gullo 07/10/2017
+* NAICSListContainer.jsx
+* Created by Emily Gullo 07/14/2017
 **/
 
 import React from 'react';
@@ -15,19 +15,19 @@ import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    selectCFDA: React.PropTypes.func,
-    setAutocompleteCFDA: React.PropTypes.func,
-    selectedCFDA: React.PropTypes.object,
-    autocompleteCFDA: React.PropTypes.array
+    selectNAICS: React.PropTypes.func,
+    setAutocompleteNAICS: React.PropTypes.func,
+    selectedNAICS: React.PropTypes.object,
+    autocompleteNAICS: React.PropTypes.array
 };
 
-class CFDAListContainer extends React.Component {
+class NAICSListContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            cfdaSearchString: '',
-            autocompleteCFDA: [],
+            naicsSearchString: '',
+            autocompleteNAICS: [],
             noResults: false
         };
 
@@ -37,19 +37,19 @@ class CFDAListContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.parseAutocompleteCFDA(this.props.autocompleteCFDA);
+        this.parseAutocompleteNAICS(this.props.autocompleteNAICS);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!isEqual(nextProps.autocompleteCFDA, this.props.autocompleteCFDA)) {
-            this.parseAutocompleteCFDA(nextProps.autocompleteCFDA);
+        if (!isEqual(nextProps.autocompleteNAICS, this.props.autocompleteNAICS)) {
+            this.parseAutocompleteNAICS(nextProps.autocompleteNAICS);
         }
     }
 
-    parseAutocompleteCFDA(cfda) {
+    parseAutocompleteNAICS(naics) {
         const values = [];
-        if (cfda.length > 0) {
-            cfda.forEach((item) => {
+        if (naics.length > 0) {
+            naics.forEach((item) => {
                 let placeType = upperCase(item.place_type);
                 if (item.parent !== null &&
                     (item.place_type !== null && item.place_type !== 'COUNTRY')) {
@@ -65,11 +65,11 @@ class CFDAListContainer extends React.Component {
         }
 
         this.setState({
-            autocompleteCFDA: values
+            autocompleteNAICS: values
         });
     }
 
-    queryAutocompleteCFDA(input) {
+    queryAutocompleteNAICS(input) {
         this.setState({
             noResults: false
         });
@@ -77,33 +77,33 @@ class CFDAListContainer extends React.Component {
         // Only search if input is 2 or more characters
         if (input.length >= 2) {
             this.setState({
-                cfdaSearchString: input
+                naicsSearchString: input
             });
 
-            if (this.cfdaSearchRequest) {
+            if (this.naicsSearchRequest) {
                 // A request is currently in-flight, cancel it
-                this.cfdaSearchRequest.cancel();
+                this.naicsSearchRequest.cancel();
             }
 
-            const cfdaSearchParams = {
-                value: this.state.cfdaSearchString,
-                usage: "cfda"
+            const naicsSearchParams = {
+                value: this.state.naicsSearchString,
+                usage: "naics"
             };
 
-            this.cfdaSearchRequest = SearchHelper.fetchCFDA(cfdaSearchParams);
+            this.naicsSearchRequest = SearchHelper.fetchNAICS(naicsSearchParams);
 
-            this.cfdaSearchRequest.promise
+            this.naicsSearchRequest.promise
                 .then((res) => {
                     const data = res.data;
                     let autocompleteData = [];
 
-                    // Remove 'identifier' from selected cfdas to enable comparison
-                    const selectedCFDA = this.props.selectedCFDA.toArray()
-                        .map((cfda) => omit(cfda, 'identifier'));
+                    // Remove 'identifier' from selected NAICS to enable comparison
+                    const selectedNAICS = this.props.selectedNAICS.toArray()
+                        .map((naics) => omit(naics, 'identifier'));
 
-                    // Filter out any selected cfdas that may be in the result set
-                    if (selectedCFDA && selectedCFDA.length > 0) {
-                        autocompleteData = differenceWith(data, selectedCFDA, isEqual);
+                    // Filter out any selected NAICS that may be in the result set
+                    if (selectedNAICS && selectedNAICS.length > 0) {
+                        autocompleteData = differenceWith(data, selectedNAICS, isEqual);
                     }
                     else {
                         autocompleteData = data;
@@ -114,7 +114,7 @@ class CFDAListContainer extends React.Component {
                     });
 
                     // Add search results to Redux
-                    this.props.setAutocompleteCFDA(autocompleteData);
+                    this.props.setAutocompleteNAICS(autocompleteData);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -124,27 +124,27 @@ class CFDAListContainer extends React.Component {
                     }
                 });
         }
-        else if (this.cfdaSearchRequest) {
+        else if (this.naicsSearchRequest) {
             // A request is currently in-flight, cancel it
-            this.cfdaSearchRequest.cancel();
+            this.naicsSearchRequest.cancel();
         }
     }
 
     clearAutocompleteSuggestions() {
-        this.props.setAutocompleteCFDA([]);
+        this.props.setAutocompleteNAICS([]);
     }
 
-    handleTextInput(cfdaInput) {
-        // Clear existing cfdas to ensure user can't select an old or existing one
-        this.props.setAutocompleteCFDA([]);
+    handleTextInput(naicsInput) {
+        // Clear existing NAICS to ensure user can't select an old or existing one
+        this.props.setAutocompleteNAICS([]);
 
         // Grab input, clear any exiting timeout
-        const input = cfdaInput.target.value;
+        const input = naicsInput.target.value;
         window.clearTimeout(this.timeout);
 
         // Perform search if user doesn't type again for 300ms
         this.timeout = window.setTimeout(() => {
-            this.queryAutocompleteCFDA(input);
+            this.queryAutocompleteNAICS(input);
         }, 300);
     }
 
@@ -152,14 +152,14 @@ class CFDAListContainer extends React.Component {
         return (
             <Autocomplete
                 {...this.props}
-                values={this.state.autocompleteCFDA}
+                values={this.state.autocompleteNAICS}
                 handleTextInput={this.handleTextInput}
-                onSelect={this.props.selectCFDA}
-                placeholder="eg: 10.553 - School Breakfast Program"
-                errorHeader="Unknown CFDA"
-                errorMessage="We were unable to find that CFDA."
+                onSelect={this.props.selectNAICS}
+                placeholder="eg: 33641 - Aircraft Manufacturing"
+                errorHeader="Unknown NAICS"
+                errorMessage="We were unable to find that NAICS."
                 ref={(input) => {
-                    this.cfdaList = input;
+                    this.naicsList = input;
                 }}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
                 noResults={this.state.noResults} />
@@ -169,8 +169,8 @@ class CFDAListContainer extends React.Component {
 }
 
 export default connect(
-    (state) => ({ autocompleteCFDA: state.autocompleteCFDA }),
+    (state) => ({ autocompleteNAICS: state.autocompleteNAICS }),
     (dispatch) => bindActionCreators(autocompleteActions, dispatch)
-)(CFDAListContainer);
+)(NAICSListContainer);
 
-CFDAListContainer.propTypes = propTypes;
+NAICSListContainer.propTypes = propTypes;

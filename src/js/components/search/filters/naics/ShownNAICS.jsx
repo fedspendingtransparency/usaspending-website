@@ -1,24 +1,24 @@
 /**
- * ShownCFDA.jsx
- * Created by Emily Gullo 07/10/2017
+ * ShownNAICS.jsx
+ * Created by Emily Gullo 07/14/2017
  **/
 
 import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    removeCFDA: React.PropTypes.func,
+    removeNAICS: React.PropTypes.func,
     label: React.PropTypes.string
 };
 
-export default class ShownCFDA extends React.Component {
+export default class ShownNAICS extends React.Component {
 
     render() {
         return (
             <button
                 className="shown-filter-button"
                 value={this.props.label}
-                onClick={this.props.removeCFDA}>
+                onClick={this.props.removeNAICS}>
                 <span className="close">
                     <Icons.Close className="usa-da-icon-close" />
                 </span> {this.props.label}
@@ -26,4 +26,4 @@ export default class ShownCFDA extends React.Component {
         );
     }
 }
-ShownCFDA.propTypes = propTypes;
+ShownNAICS.propTypes = propTypes;
