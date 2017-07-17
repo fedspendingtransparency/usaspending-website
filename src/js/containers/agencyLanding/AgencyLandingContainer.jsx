@@ -51,9 +51,12 @@ export class AgencyLandingContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if ((this.props.agenciesOrder !== prevProps.agenciesOrder) ||
-            (this.props.autocompleteAgencies !== prevProps.autocompleteAgencies)) {
-            // table sort or search input changed
+        if (this.props.agenciesOrder !== prevProps.agenciesOrder) {
+            // table sort changed
+            this.fetchAgencies();
+        }
+        if (this.props.autocompleteAgencies !== prevProps.autocompleteAgencies) {
+            // search input changed
             this.fetchAgencies();
         }
     }
@@ -135,6 +138,11 @@ export class AgencyLandingContainer extends React.Component {
     handleTextInput(agencyInput) {
         // Clear existing agencies
         this.props.setAutocompleteAgencies([]);
+        if (agencyInput === '') {
+            this.setState({
+                noResults: false
+            });
+        }
 
         // Grab input, clear any exiting timeout
         const input = agencyInput.target.value;
@@ -184,7 +192,6 @@ export class AgencyLandingContainer extends React.Component {
     }
 
     fetchAgencies() {
-        console.log(JSON.stringify(this.props.autocompleteAgencies));
         if (this.props.autocompleteAgencies.length === 0 && !this.state.noResults) {
             // Show all agencies
             const mockRes = { results: [
@@ -310,6 +317,10 @@ export class AgencyLandingContainer extends React.Component {
 
     render() {
         const resultsCount = this.props.agencies.toArray().length;
+        let resultsText = `${resultsCount} results`;
+        if (resultsCount === 1) {
+            resultsText = `${resultsCount} result`;
+        }
 
         return (
             <div className="agency-landing-container">
@@ -320,7 +331,7 @@ export class AgencyLandingContainer extends React.Component {
                     </div>
                 </div>
                 <div className="agency-landing-section results-count">
-                    {resultsCount} results
+                    {resultsText}
                 </div>
                 <div className="agency-landing-section">
                     <AgencyLandingResultsSection
