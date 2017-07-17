@@ -13,52 +13,16 @@ import { SpendingByCategoryRankVisualizationSectionContainer } from
     'containers/search/visualizations/rank/SpendingByCategoryRankVisualizationSectionContainer';
 import SpendingByCategorySection from
     'components/search/visualizations/rank/sections/SpendingByCategorySection';
-import * as SearchHelper from 'helpers/searchHelper';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
 import { mockComponent, unmockComponent } from '../../../../testResources/mockComponent';
 
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
+jest.mock('helpers/searchHelper', () => require('../../filters/searchHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // spy on specific functions inside the component
 const fetchDataSpy = sinon.spy(SpendingByCategoryRankVisualizationSectionContainer.prototype,
     'fetchData');
-
-// we don't want to actually hit the API because tests should be fully controlled, so we will mock
-// the SearchHelper functions
-const mockSearchHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    SearchHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockSearchHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/searchHelper');
-};
 
 describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
     beforeAll(() => {
@@ -69,38 +33,13 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
         mockComponent(SpendingByCategorySection);
     });
 
-    it('should make an API request on mount', () => {
-        // create a mock API response
-        const apiResponse = {
-            page_metadata: {
-                page: 1,
-                has_next_page: false,
-                has_previous_page: false,
-                next: null,
-                previous: null
-            },
-            results: [
-                {
-                    treasury_account__budget_function_title: 'First Budget Function',
-                    aggregate: '456'
-                },
-                {
-                    treasury_account__budget_function_title: 'Second Budget Function',
-                    aggregate: '123'
-                }
-            ]
-        };
-
-        // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performCategorySearch', 'resolve', apiResponse);
-
+    it('should make an API request on mount', async () => {
         // mount the container
         const container =
             mount(<SpendingByCategoryRankVisualizationSectionContainer
                 reduxFilters={defaultFilters} />);
 
-        // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
-        jest.runAllTicks();
+        await container.instance().apiRequest.promise;
 
         // everything should be updated now
         expect(fetchDataSpy.callCount).toEqual(1);
@@ -108,36 +47,11 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
         // the page number should be equal to 1
         expect(container.state().page).toEqual(1);
 
-        // reset the mocks and spies
-        unmockSearchHelper();
+        // reset the spy
         fetchDataSpy.reset();
     });
 
-    it('should make an API request when the Redux filters change', () => {
-        // create a mock API response
-        const apiResponse = {
-            page_metadata: {
-                page: 1,
-                has_next_page: false,
-                has_previous_page: false,
-                next: null,
-                previous: null
-            },
-            results: [
-                {
-                    treasury_account__budget_function_title: 'First Budget Function',
-                    aggregate: '456'
-                },
-                {
-                    treasury_account__budget_function_title: 'Second Budget Function',
-                    aggregate: '123'
-                }
-            ]
-        };
-
-        // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performCategorySearch', 'resolve', apiResponse);
-
+    it('should make an API request when the Redux filters change', async () => {
         const initialFilters = Object.assign({}, defaultFilters);
         const secondFilters = Object.assign({}, defaultFilters, {
             timePeriodType: 'fy',
@@ -149,8 +63,7 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             mount(<SpendingByCategoryRankVisualizationSectionContainer
                 reduxFilters={initialFilters} />);
 
-        // wait for the first SearchHelper call to finish
-        jest.runAllTicks();
+        await container.instance().apiRequest.promise;
 
         // the first API call should have been called
         expect(fetchDataSpy.callCount).toEqual(1);
@@ -163,51 +76,25 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             reduxFilters: secondFilters
         });
 
-        // wait for the second SearchHelper call to finish
-        jest.runAllTicks();
         // the first API call should have been called
         expect(fetchDataSpy.callCount).toEqual(2);
 
         // the page number should still be equal to 1
         expect(container.state().page).toEqual(1);
 
-        // reset the mocks and spies
-        unmockSearchHelper();
+        // reset the spy
         fetchDataSpy.reset();
     });
 
     describe('parseData', () => {
-        it('should properly restructure the API data for the rank visualization', () => {
-            // create a mock API response
-            const apiResponse = {
-                page_metadata: {
-                    page: 1,
-                    has_next_page: false,
-                    has_previous_page: false,
-                    next: null,
-                    previous: null
-                },
-                results: [
-                    {
-                        treasury_account__budget_function_title: 'First Budget Function',
-                        aggregate: '456'
-                    },
-                    {
-                        treasury_account__budget_function_title: 'Second Budget Function',
-                        aggregate: '123'
-                    }
-                ]
-            };
-
-            // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performCategorySearch', 'resolve', apiResponse);
+        it('should properly restructure the API data for the rank visualization', async () => {
             // mount the container
             const container =
                 mount(<SpendingByCategoryRankVisualizationSectionContainer
                     reduxFilters={defaultFilters} />);
 
-            // wait for the SearchHelper promises to resolve
-            jest.runAllTicks();
+            await container.instance().apiRequest.promise;
+
             // validate the state contains the correctly parsed values
             const expectedState = {
                 loading: false,
@@ -230,34 +117,13 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
     });
 
     describe('nextPage', () => {
-        it('should trigger a new API call with an incremented page number', () => {
-            // create a mock API response
-            const apiResponse = {
-                page_metadata: {
-                    page: 1,
-                    has_next_page: true,
-                    has_previous_page: false,
-                    next: "checksum",
-                    previous: null
-                },
-                results: [
-                    {
-                        treasury_account__budget_function_title: 'First Budget Function',
-                        aggregate: '456'
-                    },
-                    {
-                        treasury_account__budget_function_title: 'Second Budget Function',
-                        aggregate: '123'
-                    }
-                ]
-            };
-
-            // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performCategorySearch', 'resolve', apiResponse);
+        it('should trigger a new API call with an incremented page number', async () => {
             // mount the container
             const container =
                 mount(<SpendingByCategoryRankVisualizationSectionContainer
                     reduxFilters={defaultFilters} />);
+
+            await container.instance().apiRequest.promise;
 
             // initial state should be page 1
             expect(container.state().page).toEqual(1);
@@ -274,41 +140,19 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
     });
 
     describe('previousPage', () => {
-        it('should trigger a new API call with a decremented page number', () => {
-            // create a mock API response
-            const apiResponse = {
-                page_metadata: {
-                    page: 1,
-                    has_next_page: true,
-                    has_previous_page: false,
-                    next: "checksum",
-                    previous: null
-                },
-                results: [
-                    {
-                        treasury_account__budget_function_title: 'First Budget Function',
-                        aggregate: '456'
-                    },
-                    {
-                        treasury_account__budget_function_title: 'Second Budget Function',
-                        aggregate: '123'
-                    }
-                ]
-            };
-
-            // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performCategorySearch', 'resolve', apiResponse);
+        it('should trigger a new API call with a decremented page number', async () => {
             // mount the container
             const container =
                 mount(<SpendingByCategoryRankVisualizationSectionContainer
                     reduxFilters={defaultFilters} />);
+
+            await container.instance().apiRequest.promise;
+
             container.setState({
                 page: 5,
                 has_previous_page: true,
                 previous: "checksum"
             });
-
-            // wait for the SearchHelper promises to resolve
 
             // we have simulated a starting state of page 5
             expect(container.state().page).toEqual(5);
@@ -318,34 +162,14 @@ describe('SpendingByCategoryRankVisualizationSectionContainer', () => {
             expect(container.state().page).toEqual(4);
         });
 
-        it('should never use a page number less than 1', () => {
-            // create a mock API response
-            const apiResponse = {
-                page_metadata: {
-                    page: 1,
-                    has_next_page: true,
-                    has_previous_page: false,
-                    next: "checksum",
-                    previous: null
-                },
-                results: [
-                    {
-                        treasury_account__budget_function_title: 'First Budget Function',
-                        aggregate: '456'
-                    },
-                    {
-                        treasury_account__budget_function_title: 'Second Budget Function',
-                        aggregate: '123'
-                    }
-                ]
-            };
-
-            // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performCategorySearch', 'resolve', apiResponse);
+        it('should never use a page number less than 1', async () => {
             // mount the container
             const container =
                 mount(<SpendingByCategoryRankVisualizationSectionContainer
                     reduxFilters={defaultFilters} />);
+
+            await container.instance().apiRequest.promise;
+
             container.setState({
                 page: 1
             });

@@ -3,11 +3,6 @@
  * Created by michaelbray on 2/17/17.
  */
 
-jest.mock('helpers/searchHelper', () => {
-    const helper = require('./mocks/searchHelper');
-    return helper;
-});
-
 import React from 'react';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
@@ -24,6 +19,8 @@ const initialFilters = {
     autocompleteRecipientLocations: []
 };
 
+jest.mock('helpers/searchHelper', () => require('../searchHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 describe('RecipientLocationContainer', () => {
     describe('Handling text input', () => {
