@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import { concat } from 'lodash';
 
 import ContractTransactionsTableContainer from
     'containers/award/table/ContractTransactionsTableContainer';
@@ -25,7 +26,7 @@ const propTypes = {
     clickTab: React.PropTypes.func
 };
 
-const tabs = [
+const commonTabs = [
     {
         label: 'Transaction History',
         internal: 'transaction',
@@ -110,6 +111,8 @@ export default class DetailsSection extends React.Component {
 
     render() {
         const content = this.currentSection();
+
+        const tabs = concat([], commonTabs);
 
         if (this.props.award.selectedAward.internal_general_type === 'contract') {
             tabs.push({
