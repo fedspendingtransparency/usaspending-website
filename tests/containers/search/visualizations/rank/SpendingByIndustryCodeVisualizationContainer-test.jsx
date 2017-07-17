@@ -13,52 +13,16 @@ import { SpendingByIndustryCodeVisualizationContainer } from
     'containers/search/visualizations/rank/SpendingByIndustryCodeVisualizationContainer';
 import SpendingByIndustryCodeSection from
     'components/search/visualizations/rank/sections/SpendingByIndustryCodeSection';
-import * as SearchHelper from 'helpers/searchHelper';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
 import { mockComponent, unmockComponent } from '../../../../testResources/mockComponent';
 
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
+jest.mock('helpers/searchHelper', () => require('../../filters/searchHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // spy on specific functions inside the component
 const fetchDataSpy = sinon.spy(SpendingByIndustryCodeVisualizationContainer.prototype,
     'fetchData');
-
-// we don't want to actually hit the API because tests should be fully controlled, so we will mock
-// the SearchHelper functions
-const mockSearchHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    SearchHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockSearchHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/searchHelper');
-};
 
 describe('SpendingByIndustryCodeVisualizationContainer', () => {
     beforeAll(() => {

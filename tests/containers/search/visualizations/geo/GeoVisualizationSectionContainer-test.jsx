@@ -14,7 +14,7 @@ import { GeoVisualizationSectionContainer } from
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
 
-jest.mock('helpers/searchHelper', () => require('../../filters/searchHelper'));
+jest.mock('helpers/searchHelper', () => require('./mocks/geoHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // mock the child component by replacing it with a function that returns a null element
@@ -69,8 +69,6 @@ describe('GeoVisualizationSectionContainer', () => {
             reduxFilters: secondFilters
         });
 
-        // wait for the second SearchHelper call to finish
-        jest.runAllTicks();
         // the first API call should have been called
         expect(fetchDataSpy.callCount).toEqual(2);
 

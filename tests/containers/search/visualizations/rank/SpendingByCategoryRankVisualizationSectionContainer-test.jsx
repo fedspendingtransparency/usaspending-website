@@ -17,7 +17,7 @@ import SpendingByCategorySection from
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
 import { mockComponent, unmockComponent } from '../../../../testResources/mockComponent';
 
-jest.mock('helpers/searchHelper', () => require('../../filters/searchHelper'));
+jest.mock('helpers/searchHelper', () => require('./mocks/categoryHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // spy on specific functions inside the component
