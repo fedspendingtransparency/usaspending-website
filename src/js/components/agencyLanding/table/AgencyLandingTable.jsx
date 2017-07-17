@@ -79,7 +79,7 @@ export default class AgencyLandingTable extends React.PureComponent {
 
         const columns = this.props.columns.map((column, i) => {
             // For this table, make each column's width a percentage of the visible width
-            const adjustedWidth = (this.props.visibleWidth * column.width );
+            const adjustedWidth = (this.props.visibleWidth * column.width);
             totalWidth += adjustedWidth;
             const isLast = i === this.props.columns.length - 1;
             let cellName = null;
@@ -139,8 +139,8 @@ export default class AgencyLandingTable extends React.PureComponent {
         return (
             <div className={`agency-landing-results-table${noResultsClass}`}>
                 <IBTable
-                    dataHash={`${this.state.dataHash}`}
-                    resetHash={'abc'}
+                    dataHash={`${this.state.dataHash}-${this.props.batch.queryId}-${this.props.visibleWidth}`}
+                    resetHash={this.props.batch.searchId}
                     rowHeight={rowHeight}
                     rowCount={this.props.results.length}
                     headerHeight={50}

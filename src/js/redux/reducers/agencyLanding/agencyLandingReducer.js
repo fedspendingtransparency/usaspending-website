@@ -7,6 +7,7 @@ import { uniqueId } from 'lodash';
 import { Record, OrderedSet } from 'immutable';
 
 export const Agency = Record({
+    agency_id: 0,
     agency_profile_link: '',
     budget_authority_amount: '',
     percentage_of_total_budget_authority: ''
@@ -23,7 +24,8 @@ const initialState = {
             queryId: uniqueId(),
             searchId: uniqueId()
         }
-    }
+    },
+    autocompleteAgencies: []
 };
 
 
@@ -36,6 +38,7 @@ const agencyLandingReducer = (state = initialState, action) => {
                     searchId: uniqueId()
                 }
             });
+
             return Object.assign({}, state, {
                 agencies: new OrderedSet(action.agencies),
                 agenciesMeta: meta
@@ -46,6 +49,11 @@ const agencyLandingReducer = (state = initialState, action) => {
 
             return Object.assign({}, state, {
                 agenciesOrder: order
+            });
+        }
+        case 'SET_AUTOCOMPLETE_AGENCIES': {
+            return Object.assign({}, state, {
+                autocompleteAgencies: action.agencies
             });
         }
         default:

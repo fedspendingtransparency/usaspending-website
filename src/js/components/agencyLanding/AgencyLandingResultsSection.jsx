@@ -12,7 +12,8 @@ import AgencyLandingTable from './table/AgencyLandingTable';
 const propTypes = {
     inFlight: React.PropTypes.bool,
     results: React.PropTypes.array,
-    columns: React.PropTypes.array
+    columns: React.PropTypes.array,
+    agencySearchString: React.PropTypes.string
 };
 
 export default class AgencyLandingResultsSection extends React.Component {
@@ -51,7 +52,16 @@ export default class AgencyLandingResultsSection extends React.Component {
         }
         else if (this.props.results.length === 0) {
             // no results
-            message = <ResultsTableMessage message="No results matched your criteria." />;
+            if (this.props.agencySearchString) {
+                message = (
+                    <div className="results-table-message">
+                        No results found for &ldquo; <span>{this.props.agencySearchString}</span> &rdquo;.
+                    </div>
+                );
+            }
+            else {
+                message = <ResultsTableMessage message="No results found." />;
+            }
         }
 
         return (

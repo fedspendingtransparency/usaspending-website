@@ -12,3 +12,8 @@ export const setAgenciesOrder = (state) => ({
     type: 'SET_AGENCIES_ORDER',
     order: state
 });
+
+export const setAutocompleteAgencies = (state) => ({
+    type: 'SET_AUTOCOMPLETE_AGENCIES',
+    agencies: state
+});

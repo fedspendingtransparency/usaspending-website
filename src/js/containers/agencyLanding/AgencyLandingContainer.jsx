@@ -6,15 +6,14 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import { isCancel } from 'axios';
+import { isCancel } from 'axios';
 import Immutable from 'immutable';
-
-import { measureTableHeader } from 'helpers/textMeasurement';
 
 import AgenciesTableFields from 'dataMapping/agencyLanding/agenciesTableFields';
 import * as agencyLandingActions from 'redux/actions/agencyLanding/agencyLandingActions';
 import { Agency } from 'redux/reducers/agencyLanding/agencyLandingReducer';
-// import AgencyLandingHelper from 'helpers/agencyLandingHelper';
+// import * as AgencyLandingHelper from 'helpers/agencyLandingHelper';
+import * as SearchHelper from 'helpers/searchHelper';
 
 import AgencyLandingSearchBar from 'components/agencyLanding/AgencyLandingSearchBar';
 import AgencyLandingResultsSection from 'components/agencyLanding/AgencyLandingResultsSection';
@@ -23,7 +22,9 @@ const propTypes = {
     agencies: React.PropTypes.instanceOf(Immutable.OrderedSet),
     agenciesOrder: React.PropTypes.object,
     setAgencies: React.PropTypes.func,
-    meta: React.PropTypes.object
+    meta: React.PropTypes.object,
+    setAutocompleteAgencies: React.PropTypes.func,
+    autocompleteAgencies: React.PropTypes.array
 };
 
 export class AgencyLandingContainer extends React.Component {
@@ -32,10 +33,17 @@ export class AgencyLandingContainer extends React.Component {
 
         this.state = {
             columns: [],
-            inFlight: false
+            inFlight: false,
+            currentFY: '',
+            agencySearchString: '',
+            autocompleteAgencies: [],
+            noResults: false
         };
 
         this.agenciesRequest = null;
+        this.agencySearchRequest = null;
+        this.handleTextInput = this.handleTextInput.bind(this);
+        this.timeout = null;
     }
 
     componentDidMount() {
@@ -43,8 +51,9 @@ export class AgencyLandingContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.agenciesOrder !== prevProps.agenciesOrder) {
-            // table sort changed
+        if ((this.props.agenciesOrder !== prevProps.agenciesOrder) ||
+            (this.props.autocompleteAgencies !== prevProps.autocompleteAgencies)) {
+            // table sort or search input changed
             this.fetchAgencies();
         }
     }
@@ -53,6 +62,88 @@ export class AgencyLandingContainer extends React.Component {
         if (this.agenciesRequest) {
             this.agenciesRequest.cancel();
         }
+        if (this.agencySearchRequest) {
+            this.agencySearchRequest.cancel();
+        }
+    }
+
+    queryAutocompleteAgencies(input) {
+        this.setState({
+            noResults: false
+        });
+
+        // Only search if search is 2 or more characters
+        if (input.length >= 2) {
+            this.setState({
+                agencySearchString: input
+            });
+
+            if (this.agencySearchRequest) {
+                // A request is currently in-flight, cancel it
+                this.agencySearchRequest.cancel();
+            }
+
+            const agencySearchParams = {
+                fields: ['toptier_agency__name'],
+                value: this.state.agencySearchString,
+                order: ["toptier_agency__name"],
+                mode: "contains",
+                matched_objects: true
+            };
+
+            this.agencySearchRequest = SearchHelper.fetchAgencies(agencySearchParams);
+
+            this.agencySearchRequest.promise
+                .then((res) => {
+                    this.setState({
+                        noResults: res.data.matched_objects.toptier_agency__name.length === 0
+                    });
+
+                    const matchedAgencies = res.data.matched_objects.toptier_agency__name;
+                    const matchedAgencyIds = [];
+                    matchedAgencies.forEach((agency) => {
+                        if (agency.toptier_flag) {
+                            matchedAgencyIds.push(agency.id);
+                        }
+                    });
+
+                    console.log(JSON.stringify(matchedAgencyIds));
+
+                    // Add search results to Redux
+                    this.props.setAutocompleteAgencies(
+                        matchedAgencyIds
+                    );
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        this.setState({
+                            noResults: true
+                        });
+                    }
+                });
+        }
+        else if (this.agencySearchRequest) {
+            // A request is currently in-flight, cancel it
+            this.agencySearchRequest.cancel();
+        }
+    }
+
+    clearAutocompleteSuggestions() {
+        this.props.setAutocompleteAgencies([]);
+    }
+
+    handleTextInput(agencyInput) {
+        // Clear existing agencies
+        this.props.setAutocompleteAgencies([]);
+
+        // Grab input, clear any exiting timeout
+        const input = agencyInput.target.value;
+        window.clearTimeout(this.timeout);
+
+        // Perform search if user doesn't type again for 300ms
+        this.timeout = window.setTimeout(() => {
+            this.queryAutocompleteAgencies(input);
+        }, 300);
     }
 
     formatSort() {
@@ -70,9 +161,15 @@ export class AgencyLandingContainer extends React.Component {
         const widths = AgenciesTableFields.columnWidthPercentage;
 
         AgenciesTableFields.order.forEach((col) => {
+            let displayName = AgenciesTableFields[col];
+            if ((col === 'budget_authority_amount') || (col === 'percentage_of_total_budget_authority')) {
+                if (this.state.fy) {
+                    displayName = `${displayName} (FY ${this.state.currentFY})`;
+                }
+            }
             const column = {
                 columnName: col,
-                displayName: AgenciesTableFields[col],
+                displayName,
                 width: widths[col],
                 defaultDirection: sortOrder[col]
             };
@@ -87,6 +184,55 @@ export class AgencyLandingContainer extends React.Component {
     }
 
     fetchAgencies() {
+        console.log(JSON.stringify(this.props.autocompleteAgencies));
+        if (this.props.autocompleteAgencies.length === 0 && !this.state.noResults) {
+            // Show all agencies
+            const mockRes = { results: [
+                {
+                    agency_id: 10,
+                    percentage_of_total_budget_authority: ".0467",
+                    agency_name: "Architect of the Capitol",
+                    budget_authority_amount: "322852976.48",
+                    active_fy: "2017"
+                },
+                {
+                    agency_id: 11,
+                    percentage_of_total_budget_authority: ".00411",
+                    agency_name: "Library of Congress",
+                    budget_authority_amount: "9842852976.48",
+                    active_fy: "2017"
+                },
+                {
+                    agency_id: 14,
+                    percentage_of_total_budget_authority: ".032",
+                    agency_name: "Government Publishing Office",
+                    budget_authority_amount: "1426852976.48",
+                    active_fy: "2017"
+                }
+            ] };
+
+            this.parseAgencies(mockRes);
+        }
+        else if (this.state.noResults) {
+            // Show no results message
+            const mockRes = { results: [] };
+
+            this.parseAgencies(mockRes);
+        }
+        else if (this.props.autocompleteAgencies.length > 0) {
+            // Show only agencies that match the search input
+            const mockRes = { results: [
+                {
+                    agency_id: 10,
+                    percentage_of_total_budget_authority: ".0467",
+                    agency_name: "Test",
+                    budget_authority_amount: "322852976.48",
+                    active_fy: "2017"
+                }
+            ] };
+
+            this.parseAgencies(mockRes);
+        }
         // TODO - Lizzie: uncomment when endpoint is ready
         // if (this.agenciesRequest) {
         //    // a request is in-flight, cancel it
@@ -128,32 +274,6 @@ export class AgencyLandingContainer extends React.Component {
         //            console.log(err);
         //        }
         //    });
-
-        const mockRes = { results: [
-            {
-                agency_id: 10,
-                percentage_of_total_budget_authority: ".0467",
-                agency_name: "Architect of the Capitol",
-                budget_authority_amount: "322852976.48",
-                active_fy: "2017"
-            },
-            {
-                agency_id: 11,
-                percentage_of_total_budget_authority: ".00411",
-                agency_name: "Library of Congress",
-                budget_authority_amount: "9842852976.48",
-                active_fy: "2017"
-            },
-            {
-                agency_id: 14,
-                percentage_of_total_budget_authority: ".032",
-                agency_name: "Government Publishing Office",
-                budget_authority_amount: "1426852976.48",
-                active_fy: "2017"
-            }
-        ] };
-
-        this.parseAgencies(mockRes);
     }
 
     parseAgencies(data) {
@@ -175,6 +295,7 @@ export class AgencyLandingContainer extends React.Component {
             }
 
             const agencyObject = {
+                agency_id: item.agency_id,
                 agency_profile_link: link,
                 budget_authority_amount: item.budget_authority_amount,
                 percentage_of_total_budget_authority: percent
@@ -188,14 +309,14 @@ export class AgencyLandingContainer extends React.Component {
     }
 
     render() {
-        // TODO - Lizzie: remove static value
-        const resultsCount = 65;
+        const resultsCount = this.props.agencies.toArray().length;
 
         return (
             <div className="agency-landing-container">
                 <div className="agency-landing-section">
                     <div className="agency-landing-search">
-                        <AgencyLandingSearchBar />
+                        <AgencyLandingSearchBar
+                            handleTextInput={this.handleTextInput} />
                     </div>
                 </div>
                 <div className="agency-landing-section results-count">
@@ -206,7 +327,8 @@ export class AgencyLandingContainer extends React.Component {
                         batch={this.props.meta.batch}
                         columns={this.state.columns}
                         results={this.props.agencies.toArray()}
-                        inFlight={this.state.inFlight} />
+                        inFlight={this.state.inFlight}
+                        agencySearchString={this.state.agencySearchString} />
                 </div>
             </div>
         );
@@ -219,7 +341,8 @@ export default connect(
     (state) => ({
         agencies: state.agencyLanding.agencies,
         agenciesOrder: state.agencyLanding.agenciesOrder,
-        meta: state.agencyLanding.agenciesMeta
+        meta: state.agencyLanding.agenciesMeta,
+        autocompleteAgencies: state.agencyLanding.autocompleteAgencies
     }),
     (dispatch) => bindActionCreators(agencyLandingActions, dispatch)
 )(AgencyLandingContainer);

@@ -7,10 +7,14 @@ import React from 'react';
 
 import { Search } from 'components/sharedComponents/icons/Icons';
 
+const propTypes = {
+    handleTextInput: React.PropTypes.func.isRequired
+};
+
 export default class AgencyLandingSearchBar extends React.Component {
-    // constructor(props) {
-    //    super(props);
-    // }
+    onChange(e) {
+        this.props.handleTextInput(e);
+    }
 
     render() {
         return (
@@ -19,6 +23,7 @@ export default class AgencyLandingSearchBar extends React.Component {
                     <input
                         className="search-field"
                         type="text"
+                        onChange={this.onChange.bind(this)}
                         placeholder="Start typing to find an agency..." />
                     <button
                         aria-label="Search"
@@ -32,3 +37,4 @@ export default class AgencyLandingSearchBar extends React.Component {
     }
 }
 
+AgencyLandingSearchBar.propTypes = propTypes;
