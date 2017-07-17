@@ -54,7 +54,7 @@
     "react-dom": "^15.6.0",
     "react-test-renderer": "^15.6.0",
     "sass-loader": "^6.0.6",
-    "sinon": "^2.3.5",
+    "sinon": "^2.3.8",
     "style-loader": "^0.18.2",
     "webpack": "^2.6.1",
     "webpack-bundle-analyzer": "^2.8.2",

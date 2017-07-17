@@ -1,4 +1,4 @@
-export const accountProgramActivities = {
+export const mockAccountProgramActivities = {
     aggregate: "2.00",
     item: "Veterans employment and training",
     program_activity__id: "11694",

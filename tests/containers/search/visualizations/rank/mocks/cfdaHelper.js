@@ -1,12 +1,12 @@
-import { fundingAgency } from '../../mockVisualizations';
+import { cfda } from '../../mockVisualizations';
 
-// Fetch Categories
-export const performCategorySearch = () => (
+// Fetch Transactions Total
+export const performTransactionsTotalSearch = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
-                    data: fundingAgency
+                    data: cfda
                 });
             });
         }),

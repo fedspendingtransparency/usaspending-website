@@ -1,8 +1,9 @@
-import { mockLocationAutocomplete } from '../../../redux/reducers/search/mock/mockRecipient';
-import { mockAwardResponse } from '../../../redux/reducers/award/mockAward';
-import { accountProgramActivities }
-    from '../../../redux/reducers/account/mockAccountProgramActivities';
-
+import { mockRecipientLocation, mockRecipientDUNS } from './recipientFilter/mockRecipients';
+import { mockAgencies } from './agencyFilter/mockAgencies';
+import { mockAwardIDs } from './awardID/mockAwardIDs';
+import { mockBudgetCategoryAccounts, mockBudgetCategoryFunctions }
+    from './budgetCategory/mockBudgetCategories';
+import { mockApi, mockTabCount } from '../table/mockAwards';
 
 // Fetch Locations for Autocomplete
 export const fetchLocations = () => (
@@ -10,7 +11,7 @@ export const fetchLocations = () => (
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
-                    data: mockLocationAutocomplete
+                    data: mockRecipientLocation
                 });
             });
         }),
@@ -18,13 +19,13 @@ export const fetchLocations = () => (
     }
 );
 
-// Fetch Individual Awards
-export const fetchAward = () => (
+// Fetch Recipients
+export const fetchRecipients = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
-                    data: mockAwardResponse
+                    data: mockRecipientDUNS
                 });
             });
         }),
@@ -32,13 +33,83 @@ export const fetchAward = () => (
     }
 );
 
-// Fetch Program Activities
-export const fetchProgramActivities = () => (
+// Fetch Agencies
+export const fetchAgencies = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
-                    data: accountProgramActivities
+                    data: mockAgencies
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+// Fetch Award IDs
+export const fetchAwardIDs = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockAwardIDs
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+// Fetch Federal Accounts
+export const fetchFederalAccounts = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockBudgetCategoryAccounts
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+// Fetch Budget Functions
+export const fetchBudgetFunctions = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockBudgetCategoryFunctions
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+// Fetch Award Counts
+export const fetchAwardCounts = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockTabCount
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+// Perform Paged Search
+export const performPagedSearch = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockApi
                 });
             });
         }),

@@ -1,12 +1,12 @@
-import { fundingAgency } from '../../mockVisualizations';
+import { mockAwards } from './mockAward';
 
-// Fetch Categories
-export const performCategorySearch = () => (
+// Fetch Individual Awards
+export const fetchAward = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
-                    data: fundingAgency
+                    data: mockAwards
                 });
             });
         }),

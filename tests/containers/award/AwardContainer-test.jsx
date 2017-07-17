@@ -19,7 +19,7 @@ const parameters = {
     awardId: 57557
 };
 
-jest.mock('helpers/searchHelper', () => require('../search/filters/searchHelper'));
+jest.mock('helpers/searchHelper', () => require('./awardHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/award/Award', () =>

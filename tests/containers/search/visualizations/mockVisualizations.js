@@ -20,7 +20,23 @@ export const geo = {
 };
 
 export const awardingAgency = {
-
+    page_metadata: {
+        page: 1,
+        has_next_page: false,
+        has_previous_page: false,
+        next: null,
+        previous: null
+    },
+    results: [
+        {
+            item: 'First Agency',
+            aggregate: '456'
+        },
+        {
+            item: 'Second Agency',
+            aggregate: '123'
+        }
+    ]
 };
 
 export const spendingByCategory = {
@@ -44,11 +60,47 @@ export const spendingByCategory = {
 };
 
 export const cfda = {
-
+    page_metadata: {
+        page: 1,
+        has_next_page: false,
+        has_previous_page: false,
+        next: null,
+        previous: null
+    },
+    results: [
+        {
+            item: '93.778',
+            aggregate: '66681011412.00',
+            assistance_data__cfda__program_number: '93.778',
+            assistance_data__cfda__program_title: 'Medical Assistance Program'
+        },
+        {
+            item: '93.774',
+            aggregate: '152',
+            assistance_data__cfda__program_number: '93.774',
+            assistance_data__cfda__program_title: 'Medicare_Supplementary Medical Insurance'
+        }
+    ]
 };
 
 export const fundingAgency = {
-
+    page_metadata: {
+        page: 1,
+        has_next_page: false,
+        has_previous_page: false,
+        next: null,
+        previous: null
+    },
+    results: [
+        {
+            item: 'First Agency',
+            aggregate: '456'
+        },
+        {
+            item: 'Second Agency',
+            aggregate: '123'
+        }
+    ]
 };
 
 export const industryCode = {
