@@ -38,3 +38,25 @@ export const geo = {
         num_pages: 1
     }
 };
+
+export const industryCode = {
+    page_metadata: {
+        page: 1,
+        has_next_page: false,
+        has_previous_page: false,
+        next: null,
+        previous: null
+    },
+    results: [
+        {
+            item: '1234',
+            aggregate: '500.00',
+            contract_data__product_or_service_code: '1234'
+        },
+        {
+            item: '2345',
+            aggregate: '400.01',
+            contract_data__product_or_service_code: '2345'
+        }
+    ]
+}

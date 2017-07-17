@@ -1,3 +1,15 @@
-/**
- * Created by michaelbray on 7/16/17.
- */
+import { industryCode } from '../../mockVisualizations';
+
+// Fetch Industry Codes
+export const performTransactionsTotalSearch = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: industryCode
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
