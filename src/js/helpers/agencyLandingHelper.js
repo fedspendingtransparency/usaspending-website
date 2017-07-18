@@ -7,14 +7,13 @@ import Axios, { CancelToken } from 'axios';
 
 import kGlobalConstants from 'GlobalConstants';
 
-// TODO - Lizzie: update when endpoint is ready
 export const fetchAllAgencies = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/references/agency/',
+            url: 'v2/references/toptier_agencies/',
             baseURL: kGlobalConstants.API,
-            method: 'post',
+            method: 'get',
             data: params,
             cancelToken: source.token
         }),
@@ -24,6 +23,7 @@ export const fetchAllAgencies = (params) => {
     };
 };
 
+// TODO - Lizzie: update when toptier autocomplete endpoint is ready
 export const fetchSearchResults = (params) => {
     const source = CancelToken.source();
     return {
