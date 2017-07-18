@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const GitHashPlugin = require('./plugins/git-hash-plugin');
 
 module.exports = {
     context: path.resolve(__dirname, '../src'),
@@ -92,6 +93,7 @@ module.exports = {
             filename: 'css/style.[hash].css',
             allChunks: true
         }),
+        new GitHashPlugin(),
         new HtmlWebpackPlugin({ // copy the index.html file out of /src into /public and update with the current JS files
             inject: false,
             template: path.resolve(__dirname, '../src/index.html'),

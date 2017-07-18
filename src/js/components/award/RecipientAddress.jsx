@@ -23,7 +23,7 @@ export default class RecipientAddress extends React.Component {
         let district = null;
 
         const street = [];
-        const streetFields = ['address_line1', 'address_line2', 'address_line3'];
+        const streetFields = ['recipient_address_line1', 'recipient_address_line2', 'recipient_address_line3'];
         streetFields.forEach((key) => {
             const item = recipient[key];
             if (recipient[key] && recipient[key] !== '') {
