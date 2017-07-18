@@ -48,7 +48,7 @@ class CFDAListContainer extends React.Component {
 
     parseAutocompleteCFDA(cfda) {
         const values = [];
-        if (cfda.length > 0) {
+        if (cfda && cfda.length > 0) {
             cfda.forEach((item) => {
                 let placeType = upperCase(item.place_type);
                 if (item.parent !== null &&

@@ -48,7 +48,7 @@ class PSCListContainer extends React.Component {
 
     parseAutocompletePSC(psc) {
         const values = [];
-        if (psc.length > 0) {
+        if (psc && psc.length > 0) {
             psc.forEach((item) => {
                 let placeType = upperCase(item.place_type);
                 if (item.parent !== null &&

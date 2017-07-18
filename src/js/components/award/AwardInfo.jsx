@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import $ from 'jquery';
+import { scrollToY } from 'helpers/scrollToHelper';
 
 import SummaryBar from './SummaryBar';
 import AwardInfoBar from './AwardInfoBar';
@@ -40,9 +40,8 @@ export default class AwardInfo extends React.Component {
         const table = document.querySelector(`#details-table-section`);
         if (table) {
             const tableSection = table.offsetTop - 150;
-            $('body').animate({
-                scrollTop: tableSection
-            }, 250);
+
+            scrollToY(tableSection, 250);
         }
     }
 

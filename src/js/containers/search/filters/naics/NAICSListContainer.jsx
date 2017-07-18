@@ -48,7 +48,7 @@ class NAICSListContainer extends React.Component {
 
     parseAutocompleteNAICS(naics) {
         const values = [];
-        if (naics.length > 0) {
+        if (naics && naics.length > 0) {
             naics.forEach((item) => {
                 let placeType = upperCase(item.place_type);
                 if (item.parent !== null &&
