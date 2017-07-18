@@ -18,7 +18,7 @@
     "testRegex": "tests/.*-(test)\\.jsx?$",
     "verbose": true,
     "bail": false,
-    "collectCoverage": false,
+    "collectCoverage": true,
     "collectCoverageFrom": [
       "src/js/containers/**/*.{js,jsx}",
       "src/js/redux/reducers/**/*.{js,jsx}",
