@@ -73,7 +73,31 @@
                 &.disabled {
                     opacity: 0.5;
                     pointer-events: none;
+                    padding-bottom: rem(10);
                 }
+            }
+
+            .profile-coming-soon {
+                @include display(flex);
+                @include align-items(center);
+                @include justify-content(center);
+                position: relative;
+
+                .icon {
+                    @include flex(0 0 auto);
+                    svg {
+                        height: rem(10);
+                        fill: $color-white;
+                    }
+                }
+
+                .label {
+                    @include flex(1 1 auto);
+                    margin-left: rem(5);
+                    font-size: rem(10);
+                    color: $color-white;
+                }
+
             }
         }
     }
