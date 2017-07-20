@@ -4,15 +4,16 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    label: React.PropTypes.string,
-    value: React.PropTypes.number,
-    y: React.PropTypes.number,
-    x: React.PropTypes.number,
-    visualization: React.PropTypes.object
+    label: PropTypes.string,
+    value: PropTypes.number,
+    y: PropTypes.number,
+    x: PropTypes.number,
+    visualization: PropTypes.object
 };
 
 export default class RankVisualizationTooltip extends React.Component {

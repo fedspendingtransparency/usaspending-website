@@ -86,7 +86,8 @@ describe('ContractTransactionsTableContainer', () => {
 
         const container = mount(<ContractTransactionsTableContainer
             {...mockActions}
-            award={mockAward} />);
+            award={mockAward}
+            appendAwardTransactions={jest.fn()} />);
 
         jest.runAllTicks();
 
@@ -173,7 +174,8 @@ describe('ContractTransactionsTableContainer', () => {
 
             const container = shallow(<ContractTransactionsTableContainer
                 {...mockActions}
-                award={modifiedProps} />);
+                award={modifiedProps}
+                appendAwardTransactions={jest.fn()} />);
 
             container.instance().nextTransactionPage();
             expect(loadDataSpy.withArgs(2).callCount).toBe(1);
@@ -191,7 +193,8 @@ describe('ContractTransactionsTableContainer', () => {
 
             const container = shallow(<ContractTransactionsTableContainer
                 {...mockActions}
-                award={modifiedProps} />);
+                award={modifiedProps}
+                appendAwardTransactions={jest.fn()} />);
 
             container.instance().nextTransactionPage();
             expect(loadDataSpy.notCalled).toBeTruthy();
@@ -210,7 +213,8 @@ describe('ContractTransactionsTableContainer', () => {
 
             const container = shallow(<ContractTransactionsTableContainer
                 {...mockActions}
-                award={modifiedProps} />);
+                award={modifiedProps}
+                appendAwardTransactions={jest.fn()} />);
             const output = container.instance().formatSort();
 
             expect(output).toEqual('-field');

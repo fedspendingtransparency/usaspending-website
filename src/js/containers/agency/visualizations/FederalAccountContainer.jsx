@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 
 import * as AgencyHelper from 'helpers/agencyHelper';
@@ -14,9 +15,9 @@ import FederalAccountVisualization from
     'components/agency/visualizations/federalAccount/FederalAccountVisualization';
 
 const propTypes = {
-    id: React.PropTypes.string,
-    activeFY: React.PropTypes.string,
-    obligatedAmount: React.PropTypes.number
+    id: PropTypes.string,
+    activeFY: PropTypes.string,
+    obligatedAmount: PropTypes.number
 };
 
 export default class FederalAccountContainer extends React.PureComponent {

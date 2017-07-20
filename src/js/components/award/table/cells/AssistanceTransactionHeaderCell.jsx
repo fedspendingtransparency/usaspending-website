@@ -4,17 +4,18 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import tableMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable';
 
 const propTypes = {
-    label: React.PropTypes.string,
-    column: React.PropTypes.string,
-    defaultDirection: React.PropTypes.string,
-    order: React.PropTypes.object,
-    setTransactionSort: React.PropTypes.func,
-    isLastColumn: React.PropTypes.bool
+    label: PropTypes.string,
+    column: PropTypes.string,
+    defaultDirection: PropTypes.string,
+    order: PropTypes.object,
+    setTransactionSort: PropTypes.func,
+    isLastColumn: PropTypes.bool
 };
 
 export default class AssistanceTransactionHeaderCell extends React.Component {

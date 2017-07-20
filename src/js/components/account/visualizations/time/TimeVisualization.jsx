@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ChartMessage from 'components/search/visualizations/time/TimeVisualizationChartMessage';
 import BarChartStacked from './chart/BarChartStacked';
@@ -28,13 +29,13 @@ const defaultProps = {
  /* eslint-disable react/no-unused-prop-types */
  // allow unused prop types. they are passed to child components, but documented here
 const propTypes = {
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    groups: React.PropTypes.array,
-    xSeries: React.PropTypes.array,
-    ySeries: React.PropTypes.array,
-    loading: React.PropTypes.bool,
-    hasFilteredObligated: React.PropTypes.bool
+    width: PropTypes.number,
+    height: PropTypes.number,
+    groups: PropTypes.array,
+    xSeries: PropTypes.array,
+    ySeries: PropTypes.array,
+    loading: PropTypes.bool,
+    hasFilteredObligated: PropTypes.bool
 };
 /* eslint-enable react/no-unused-prop-types */
 

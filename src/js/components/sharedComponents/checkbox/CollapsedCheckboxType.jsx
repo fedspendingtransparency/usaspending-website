@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import CheckboxExpandButton from './CheckboxExpandButton';
 
 const defaultProps = {
@@ -15,13 +16,13 @@ const defaultProps = {
 };
 
 const propTypes = {
-    id: React.PropTypes.string,
-    toggleExpand: React.PropTypes.func,
-    toggleChildren: React.PropTypes.func,
-    name: React.PropTypes.string,
-    selected: React.PropTypes.bool,
-    hideArrow: React.PropTypes.bool,
-    arrowState: React.PropTypes.string
+    id: PropTypes.string,
+    toggleExpand: PropTypes.func,
+    toggleChildren: PropTypes.func,
+    name: PropTypes.string,
+    selected: PropTypes.bool,
+    hideArrow: PropTypes.bool,
+    arrowState: PropTypes.string
 };
 
 export default class CollapsedCheckboxType extends React.Component {

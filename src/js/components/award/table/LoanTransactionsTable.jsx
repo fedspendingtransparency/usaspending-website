@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import tableMapping from 'dataMapping/financialAssistance/loanTransactionTable';
 
@@ -21,10 +22,10 @@ const rowHeight = 40;
 const tableHeight = 12.5 * rowHeight;
 
 const propTypes = {
-    award: React.PropTypes.object,
-    tableWidth: React.PropTypes.number,
-    inFlight: React.PropTypes.bool,
-    nextTransactionPage: React.PropTypes.func
+    award: PropTypes.object,
+    tableWidth: PropTypes.number,
+    inFlight: PropTypes.bool,
+    nextTransactionPage: PropTypes.func
 };
 
 export default class LoanTransactionsTable extends React.Component {

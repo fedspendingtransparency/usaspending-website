@@ -4,11 +4,12 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import BarChartLegendItem from './BarChartLegendItem';
 
 const propTypes = {
-    legend: React.PropTypes.arrayOf(React.PropTypes.object)
+    legend: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default class BarChartLegend extends React.Component {

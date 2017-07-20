@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Immutable, { OrderedSet } from 'immutable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
@@ -12,13 +13,13 @@ import ResultsTableGenericCell from './cells/ResultsTableGenericCell';
 import ResultsTableAwardIdCell from './cells/ResultsTableAwardIdCell';
 
 const propTypes = {
-    results: React.PropTypes.array,
-    batch: React.PropTypes.object,
-    columns: React.PropTypes.array,
-    headerCellClass: React.PropTypes.func.isRequired,
-    visibleWidth: React.PropTypes.number,
-    loadNextPage: React.PropTypes.func,
-    currentType: React.PropTypes.string
+    results: PropTypes.array,
+    batch: PropTypes.object,
+    columns: PropTypes.array,
+    headerCellClass: PropTypes.func.isRequired,
+    visibleWidth: PropTypes.number,
+    loadNextPage: PropTypes.func,
+    currentType: PropTypes.string
 };
 
 const rowHeight = 40;

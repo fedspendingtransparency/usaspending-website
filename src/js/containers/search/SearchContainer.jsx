@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -20,10 +21,10 @@ import * as SearchHelper from 'helpers/searchHelper';
 import SearchPage from 'components/search/SearchPage';
 
 const propTypes = {
-    params: React.PropTypes.object,
-    filters: React.PropTypes.object,
-    populateAllSearchFilters: React.PropTypes.func,
-    clearAllFilters: React.PropTypes.func
+    params: PropTypes.object,
+    filters: PropTypes.object,
+    populateAllSearchFilters: PropTypes.func,
+    clearAllFilters: PropTypes.func
 };
 
 export class SearchContainer extends React.Component {

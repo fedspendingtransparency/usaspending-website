@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Search } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    glossary: React.PropTypes.object,
-    setSearchValue: React.PropTypes.func,
-    performSearch: React.PropTypes.func
+    glossary: PropTypes.object,
+    setSearchValue: PropTypes.func,
+    performSearch: PropTypes.func
 };
 
 export default class GlossarySearchBar extends React.Component {

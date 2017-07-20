@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { recipientTypes, recipientTypeGroups } from 'dataMapping/search/recipientType';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
@@ -60,8 +61,8 @@ const defaultProps = {
 };
 
 const propTypes = {
-    recipientTypeMapping: React.PropTypes.arrayOf(React.PropTypes.object),
-    recipientType: React.PropTypes.object
+    recipientTypeMapping: PropTypes.arrayOf(PropTypes.object),
+    recipientType: PropTypes.object
 };
 
 export default class RecipientType extends React.Component {

@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import HeaderRow from './HeaderRow';
 import TableBody from './TableBody';
@@ -13,8 +14,8 @@ const defaultProps = {
 };
 
 const propTypes = {
-    resetHash: React.PropTypes.string,
-    maxWidth: React.PropTypes.number.isRequired
+    resetHash: PropTypes.string,
+    maxWidth: PropTypes.number.isRequired
 };
 
 export default class Table extends React.Component {

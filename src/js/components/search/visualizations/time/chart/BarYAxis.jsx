@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { isEqual } from 'lodash';
 
@@ -12,11 +13,11 @@ import BarYAxisItem from './BarYAxisItem';
 /* eslint-disable react/no-unused-prop-types */
 // we're catching the props before they're fully set, so eslint thinks these props are unused
 const propTypes = {
-    width: React.PropTypes.number.isRequired,
-    height: React.PropTypes.number.isRequired,
-    padding: React.PropTypes.object,
-    scale: React.PropTypes.func,
-    average: React.PropTypes.number
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    padding: PropTypes.object,
+    scale: PropTypes.func,
+    average: PropTypes.number
 };
 /* eslint-enable react/no-unused-prop-types */
 

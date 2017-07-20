@@ -4,17 +4,18 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import { formatNumber } from 'helpers/moneyFormatter';
 
 const propTypes = {
-    label: React.PropTypes.string,
-    internal: React.PropTypes.string,
-    count: React.PropTypes.number,
-    active: React.PropTypes.bool,
-    enabled: React.PropTypes.bool,
-    switchTab: React.PropTypes.func
+    label: PropTypes.string,
+    internal: PropTypes.string,
+    count: PropTypes.number,
+    active: PropTypes.bool,
+    enabled: PropTypes.bool,
+    switchTab: PropTypes.func
 };
 
 export default class ResultsTableTabItem extends React.Component {

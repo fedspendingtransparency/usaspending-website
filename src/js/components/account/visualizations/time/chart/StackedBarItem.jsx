@@ -4,19 +4,20 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    deregisterBar: React.PropTypes.func,
-    identifier: React.PropTypes.string,
-    selectBar: React.PropTypes.func,
-    deselectBar: React.PropTypes.func,
-    description: React.PropTypes.string,
-    x: React.PropTypes.number,
-    y: React.PropTypes.number,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    color: React.PropTypes.string,
-    graphHeight: React.PropTypes.number
+    deregisterBar: PropTypes.func,
+    identifier: PropTypes.string,
+    selectBar: PropTypes.func,
+    deselectBar: PropTypes.func,
+    description: PropTypes.string,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    color: PropTypes.string,
+    graphHeight: PropTypes.number
 };
 
 export default class StackedBarItem extends React.Component {

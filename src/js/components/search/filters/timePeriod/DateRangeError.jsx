@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from '../../../sharedComponents/icons/Icons';
 
 const defaultProps = {
@@ -12,8 +13,8 @@ const defaultProps = {
 };
 
 const propTypes = {
-    header: React.PropTypes.string,
-    message: React.PropTypes.string
+    header: PropTypes.string,
+    message: PropTypes.string
 };
 
 export default class DateRangeError extends React.Component {

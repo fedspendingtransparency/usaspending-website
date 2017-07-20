@@ -8,14 +8,12 @@ import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import { AccountContainer } from 'containers/account/AccountContainer';
-import * as AccountHelper from 'helpers/accountHelper';
 import FederalAccount from 'models/account/FederalAccount';
 
 import { mockAccount, mockBalances, mockReduxAccount } from './mockAccount';
 
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
+jest.mock('helpers/accountHelper', () => require('./accountHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // spy on specific functions inside the component
 const loadAccountSpy = sinon.spy(AccountContainer.prototype, 'loadData');
@@ -37,64 +35,8 @@ jest.mock('containers/glossary/GlossaryButtonWrapperContainer', () =>
 jest.mock('containers/glossary/GlossaryContainer', () =>
     jest.fn(() => null));
 
-const mockAccountHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    AccountHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockAccountHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/accountHelper');
-};
-
 describe('AccountContainer', () => {
-    it('should make an API call for the selected account on mount', () => {
-        mockAccountHelper('fetchFederalAccount', 'resolve', mockAccount);
-        mockAccountHelper('fetchTasBalanceTotals', 'resolve', mockBalances.outlay);
-
-        const mockRedux = {
-            account: mockReduxAccount
-        };
-
-        mount(<AccountContainer
-            params={parameters}
-            setSelectedAccount={jest.fn()}
-            account={mockRedux} />);
-
-        jest.runAllTicks();
-
-        expect(loadAccountSpy.callCount).toEqual(1);
-        expect(loadBalancesSpy.callCount).toEqual(1);
-        loadAccountSpy.reset();
-        loadBalancesSpy.reset();
-    });
-
-    it('should make an API call when the award ID parameter changes', () => {
-        mockAccountHelper('fetchFederalAccount', 'resolve', mockAccount);
-        mockAccountHelper('fetchTasBalanceTotals', 'resolve', mockBalances.outlay);
-
+    it('should make an API call for the selected account on mount', async () => {
         const mockRedux = {
             account: mockReduxAccount
         };
@@ -104,7 +46,29 @@ describe('AccountContainer', () => {
             setSelectedAccount={jest.fn()}
             account={mockRedux} />);
 
-        jest.runAllTicks();
+        await container.instance().accountRequest.promise;
+        await container.instance().balanceRequests.promise;
+
+        expect(loadAccountSpy.callCount).toEqual(1);
+        expect(loadBalancesSpy.callCount).toEqual(1);
+
+        loadAccountSpy.reset();
+        loadBalancesSpy.reset();
+    });
+
+    it('should make an API call when the award ID parameter changes', async () => {
+        const mockRedux = {
+            account: mockReduxAccount
+        };
+
+        const container = mount(<AccountContainer
+            params={parameters}
+            setSelectedAccount={jest.fn()}
+            account={mockRedux} />);
+
+        await container.instance().accountRequest.promise;
+        await container.instance().balanceRequests.promise;
+
         expect(loadAccountSpy.callCount).toEqual(1);
         expect(loadBalancesSpy.callCount).toEqual(1);
 
@@ -114,9 +78,12 @@ describe('AccountContainer', () => {
             }
         });
 
-        jest.runAllTicks();
+        await container.instance().accountRequest.promise;
+        await container.instance().balanceRequests.promise;
+
         expect(loadAccountSpy.callCount).toEqual(2);
         expect(loadBalancesSpy.callCount).toEqual(2);
+
         loadAccountSpy.reset();
         loadBalancesSpy.reset();
     });

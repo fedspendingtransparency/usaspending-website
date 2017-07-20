@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -12,8 +13,8 @@ import AwardType from 'components/search/filters/awardType/AwardType';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 const propTypes = {
-    toggleAwardType: React.PropTypes.func,
-    bulkAwardTypeChange: React.PropTypes.func
+    toggleAwardType: PropTypes.func,
+    bulkAwardTypeChange: PropTypes.func
 };
 
 class AwardTypeContainer extends React.Component {

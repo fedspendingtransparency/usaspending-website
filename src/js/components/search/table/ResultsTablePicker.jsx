@@ -4,13 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import ResultsTablePickerOption from './ResultsTablePickerOption';
 
 const propTypes = {
-    types: React.PropTypes.array,
-    active: React.PropTypes.string,
-    switchTab: React.PropTypes.func
+    types: PropTypes.array,
+    active: PropTypes.string,
+    switchTab: PropTypes.func
 };
 
 export default class ResultsTablePicker extends React.Component {

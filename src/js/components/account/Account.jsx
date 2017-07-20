@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
@@ -17,7 +18,7 @@ import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 
 const propTypes = {
-    account: React.PropTypes.object
+    account: PropTypes.object
 };
 
 export default class Account extends React.Component {

@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import GlossarySearchBar from './GlossarySearchBar';
 
 const propTypes = {
-    hideGlossary: React.PropTypes.func
+    hideGlossary: PropTypes.func
 };
 
 export default class GlossaryHeader extends React.Component {

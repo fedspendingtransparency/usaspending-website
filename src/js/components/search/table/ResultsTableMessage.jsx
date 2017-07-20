@@ -4,13 +4,14 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const defaultProps = {
     message: ''
 };
 
 const propTypes = {
-    message: React.PropTypes.string
+    message: PropTypes.string
 };
 
 export default class ResultsTableMessage extends React.Component {

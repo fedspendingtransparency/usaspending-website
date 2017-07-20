@@ -4,22 +4,23 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
 const propTypes = {
-    og_url: React.PropTypes.string,
-    og_title: React.PropTypes.string,
-    og_description: React.PropTypes.string,
-    og_site_name: React.PropTypes.string,
-    og_image: React.PropTypes.string,
-    twitter_title: React.PropTypes.string,
-    twitter_description: React.PropTypes.string,
-    twitter_image: React.PropTypes.string,
-    twitter_url: React.PropTypes.string,
-    twitter_label1: React.PropTypes.string,
-    twitter_data1: React.PropTypes.string,
-    twitter_label2: React.PropTypes.string,
-    twitter_data2: React.PropTypes.string
+    og_url: PropTypes.string,
+    og_title: PropTypes.string,
+    og_description: PropTypes.string,
+    og_site_name: PropTypes.string,
+    og_image: PropTypes.string,
+    twitter_title: PropTypes.string,
+    twitter_description: PropTypes.string,
+    twitter_image: PropTypes.string,
+    twitter_url: PropTypes.string,
+    twitter_label1: PropTypes.string,
+    twitter_data1: PropTypes.string,
+    twitter_label2: PropTypes.string,
+    twitter_data2: PropTypes.string
 };
 
 const defaultProps = {

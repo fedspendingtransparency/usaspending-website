@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 
 import SmartLink from './SmartLink';
 
 const propTypes = {
-    resources: React.PropTypes.string
+    resources: PropTypes.string
 };
 
 export default class MoreResources extends React.Component {

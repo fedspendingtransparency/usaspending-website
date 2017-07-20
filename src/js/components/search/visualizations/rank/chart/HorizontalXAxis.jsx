@@ -4,16 +4,17 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import HorizontalXLabel from './HorizontalXLabel';
 
 const propTypes = {
-    range: React.PropTypes.array,
-    x: React.PropTypes.number,
-    y: React.PropTypes.number,
-    width: React.PropTypes.number
+    range: PropTypes.array,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    width: PropTypes.number
 };
 
 export default class HorizontalXAxis extends React.Component {

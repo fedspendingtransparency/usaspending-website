@@ -4,6 +4,7 @@
 **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -16,13 +17,13 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as agencyActions from 'redux/actions/search/agencyActions';
 
 const propTypes = {
-    setAutocompleteAwardingAgencies: React.PropTypes.func,
-    setAutocompleteFundingAgencies: React.PropTypes.func,
-    fundingAgencies: React.PropTypes.array,
-    awardingAgencies: React.PropTypes.array,
-    toggleAgency: React.PropTypes.func,
-    selectedAgencies: React.PropTypes.object,
-    agencyType: React.PropTypes.string
+    setAutocompleteAwardingAgencies: PropTypes.func,
+    setAutocompleteFundingAgencies: PropTypes.func,
+    fundingAgencies: PropTypes.array,
+    awardingAgencies: PropTypes.array,
+    toggleAgency: PropTypes.func,
+    selectedAgencies: PropTypes.object,
+    agencyType: PropTypes.string
 };
 
 export class AgencyListContainer extends React.Component {

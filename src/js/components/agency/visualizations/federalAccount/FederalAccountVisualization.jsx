@@ -4,18 +4,19 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import FederalAccountChart from './FederalAccountChart';
 
 const propTypes = {
-    obligatedAmount: React.PropTypes.number,
-    loading: React.PropTypes.bool,
-    error: React.PropTypes.bool,
-    linkSeries: React.PropTypes.array,
-    labelSeries: React.PropTypes.array,
-    dataSeries: React.PropTypes.array,
-    descriptions: React.PropTypes.array
+    obligatedAmount: PropTypes.number,
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+    linkSeries: PropTypes.array,
+    labelSeries: PropTypes.array,
+    dataSeries: PropTypes.array,
+    descriptions: PropTypes.array
 };
 
 export default class FederalAccountVisualization extends React.Component {

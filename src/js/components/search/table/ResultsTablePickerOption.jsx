@@ -4,16 +4,17 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 
 const propTypes = {
-    label: React.PropTypes.string,
-    internal: React.PropTypes.string,
-    active: React.PropTypes.bool,
-    enabled: React.PropTypes.bool,
-    switchTab: React.PropTypes.func,
-    togglePicker: React.PropTypes.func
+    label: PropTypes.string,
+    internal: PropTypes.string,
+    active: PropTypes.bool,
+    enabled: PropTypes.bool,
+    switchTab: PropTypes.func,
+    togglePicker: PropTypes.func
 };
 
 export default class ResultsTablePickerOption extends React.Component {

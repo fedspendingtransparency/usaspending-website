@@ -4,10 +4,10 @@
  **/
 
 import React from 'react';
-
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    labelDistance: React.PropTypes.number
+    labelDistance: PropTypes.number
 };
 
 export default class AwardLabelsLine extends React.Component {

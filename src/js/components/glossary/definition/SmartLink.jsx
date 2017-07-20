@@ -4,11 +4,12 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Router from 'containers/router/Router';
 
 const propTypes = {
-    href: React.PropTypes.string,
-    children: React.PropTypes.node
+    href: PropTypes.string,
+    children: PropTypes.node
 };
 
 export default class SmartLink extends React.Component {

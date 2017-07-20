@@ -4,19 +4,20 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import HorizontalChart from 'components/search/visualizations/rank/chart/HorizontalChart';
 
 import FederalAccountTooltip from './FederalAccountTooltip';
 
 const propTypes = {
-    loading: React.PropTypes.bool,
-    labelSeries: React.PropTypes.array,
-    linkSeries: React.PropTypes.array,
-    dataSeries: React.PropTypes.array,
-    descriptions: React.PropTypes.array,
-    width: React.PropTypes.number,
-    labelWidth: React.PropTypes.number
+    loading: PropTypes.bool,
+    labelSeries: PropTypes.array,
+    linkSeries: PropTypes.array,
+    dataSeries: PropTypes.array,
+    descriptions: PropTypes.array,
+    width: PropTypes.number,
+    labelWidth: PropTypes.number
 };
 
 const rowHeight = 60;

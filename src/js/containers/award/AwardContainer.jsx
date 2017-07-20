@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -15,8 +16,8 @@ import * as awardActions from 'redux/actions/award/awardActions';
 import AwardSummary from 'models/results/award/AwardSummary';
 
 const propTypes = {
-    setSelectedAward: React.PropTypes.func,
-    params: React.PropTypes.object
+    setSelectedAward: PropTypes.func,
+    params: PropTypes.object
 };
 
 export class AwardContainer extends React.Component {

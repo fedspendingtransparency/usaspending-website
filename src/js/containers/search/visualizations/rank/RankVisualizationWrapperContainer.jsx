@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
@@ -27,7 +28,7 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as BudgetCategoryHelper from 'helpers/budgetCategoryHelper';
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object
+    reduxFilters: PropTypes.object
 };
 
 export class RankVisualizationWrapperContainer extends React.Component {

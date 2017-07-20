@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -17,11 +18,11 @@ import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import { Definition } from 'redux/reducers/glossary/glossaryReducer';
 
 const propTypes = {
-    glossary: React.PropTypes.object,
-    setGlossaryResults: React.PropTypes.func,
-    showGlossary: React.PropTypes.func,
-    setGlossaryTerm: React.PropTypes.func,
-    setGlossaryCache: React.PropTypes.func
+    glossary: PropTypes.object,
+    setGlossaryResults: PropTypes.func,
+    showGlossary: PropTypes.func,
+    setGlossaryTerm: PropTypes.func,
+    setGlossaryCache: PropTypes.func
 };
 
 export class GlossaryContainer extends React.Component {

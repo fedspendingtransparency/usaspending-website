@@ -4,6 +4,7 @@
 **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual, upperCase, omit, differenceWith } from 'lodash';
@@ -15,11 +16,11 @@ import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    selectLocation: React.PropTypes.func,
-    setAutocompleteLocations: React.PropTypes.func,
-    selectedLocations: React.PropTypes.object,
-    locationDomesticForeign: React.PropTypes.string,
-    autocompleteLocations: React.PropTypes.array
+    selectLocation: PropTypes.func,
+    setAutocompleteLocations: PropTypes.func,
+    selectedLocations: PropTypes.object,
+    locationDomesticForeign: PropTypes.string,
+    autocompleteLocations: PropTypes.array
 };
 
 class LocationListContainer extends React.Component {

@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -15,12 +16,12 @@ import LoanTransaction from 'models/results/transactions/LoanTransaction';
 import LoanTransactionsTable from 'components/award/table/LoanTransactionsTable';
 
 const propTypes = {
-    award: React.PropTypes.object,
-    setAwardTransactions: React.PropTypes.func,
-    appendAwardTransactions: React.PropTypes.func,
-    setTransactionsMeta: React.PropTypes.func,
-    updateTransactionRenderHash: React.PropTypes.func,
-    updateTransactionGroupHash: React.PropTypes.func
+    award: PropTypes.object,
+    setAwardTransactions: PropTypes.func,
+    appendAwardTransactions: PropTypes.func,
+    setTransactionsMeta: PropTypes.func,
+    updateTransactionRenderHash: PropTypes.func,
+    updateTransactionGroupHash: PropTypes.func
 };
 
 const pageLimit = 13;
