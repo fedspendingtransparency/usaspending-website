@@ -81,37 +81,15 @@ export class RecipientNameDUNSContainer extends React.Component {
             }
 
             const recipientSearchParams = {
-                fields: ['recipient_name', 'recipient_unique_id'],
-                value: this.state.recipientSearchString,
-                matched_objects: true
+                search_text: this.state.recipientSearchString,
+                limit: 10
             };
 
             this.recipientSearchRequest = SearchHelper.fetchRecipients(recipientSearchParams);
 
             this.recipientSearchRequest.promise
                 .then((res) => {
-                    const data = union(res.data.matched_objects.recipient_name,
-                        res.data.matched_objects.recipient_unique_id);
-                    let autocompleteData = [];
-
-                    // Remove 'identifier' from selected recipients to enable comparison
-                    const selectedRecipients = this.props.selectedRecipients.toArray()
-                        .map((recipient) => omit(recipient, 'identifier'));
-
-                    // Filter out any selectedRecipients that may be in the result set
-                    if (selectedRecipients && selectedRecipients.length > 0) {
-                        autocompleteData = differenceWith(data, selectedRecipients, isEqual);
-                    }
-                    else {
-                        autocompleteData = data;
-                    }
-
-                    this.setState({
-                        noResults: !autocompleteData.length
-                    });
-
-                    // Add search results to Redux
-                    this.props.setAutocompleteRecipients(autocompleteData);
+                    this.parseApiResponse(res.data.results);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -125,6 +103,25 @@ export class RecipientNameDUNSContainer extends React.Component {
             // A request is currently in-flight, cancel it
             this.recipientSearchRequest.cancel();
         }
+    }
+
+    parseApiResponse(data) {
+        let autocompleteData = [];
+        const selectedRecipients = this.props.selectedRecipients.toArray();
+        // Filter out any selectedRecipients that may be in the result set
+        if (selectedRecipients && selectedRecipients.length > 0) {
+            autocompleteData = differenceWith(data, selectedRecipients, isEqual);
+        }
+        else {
+            autocompleteData = data;
+        }
+
+        this.setState({
+            noResults: !autocompleteData.length
+        });
+
+        // Add search results to Redux
+        this.props.setAutocompleteRecipients(autocompleteData);
     }
 
     clearAutocompleteSuggestions() {
