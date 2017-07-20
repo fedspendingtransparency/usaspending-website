@@ -6,6 +6,8 @@
 import React from 'react';
 import { AngleDown } from 'components/sharedComponents/icons/Icons';
 
+import ProfileComingSoon from './ProfileComingSoon';
+
 export default class ProfileButton extends React.Component {
     constructor(props) {
         super(props);
@@ -67,6 +69,7 @@ export default class ProfileButton extends React.Component {
                                     className="disabled"
                                     href="#/agency">
                                     Agencies
+                                    <ProfileComingSoon />
                                 </a>
                             </li>
                             <li>
@@ -74,6 +77,7 @@ export default class ProfileButton extends React.Component {
                                     className="disabled"
                                     href="#/recipient">
                                     Recipients
+                                    <ProfileComingSoon />
                                 </a>
                             </li>
                             <li>
@@ -81,6 +85,7 @@ export default class ProfileButton extends React.Component {
                                     className="disabled"
                                     href="#/federal_account">
                                     Federal Accounts
+                                    <ProfileComingSoon />
                                 </a>
                             </li>
                         </ul>

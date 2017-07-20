@@ -4,6 +4,7 @@
 **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { find, remove, sumBy } from 'lodash';
 
 import BudgetSubfunctionsNavigation from './BudgetSubfunctionsNavigation';
@@ -11,17 +12,17 @@ import BudgetSubfunctionsDescription from './BudgetSubfunctionsDescription';
 import BudgetSubfunctionsMap from './BudgetSubfunctionsMap';
 
 const propTypes = {
-    alternateColors: React.PropTypes.array,
-    categories: React.PropTypes.object,
-    colors: React.PropTypes.array,
-    descriptions: React.PropTypes.array,
-    selected: React.PropTypes.number,
-    subfunctions: React.PropTypes.object,
-    toggleSubfunction: React.PropTypes.func,
-    changeActiveSubfunction: React.PropTypes.func,
-    tooltipStyles: React.PropTypes.object,
-    totalNumber: React.PropTypes.number,
-    showSubfunctions: React.PropTypes.bool
+    alternateColors: PropTypes.array,
+    categories: PropTypes.object,
+    colors: PropTypes.array,
+    descriptions: PropTypes.array,
+    selected: PropTypes.number,
+    subfunctions: PropTypes.object,
+    toggleSubfunction: PropTypes.func,
+    changeActiveSubfunction: PropTypes.func,
+    tooltipStyles: PropTypes.object,
+    totalNumber: PropTypes.number,
+    showSubfunctions: PropTypes.bool
 };
 
 export default class BudgetSubfunctions extends React.Component {

@@ -11,7 +11,6 @@ import { OrderedMap } from 'immutable';
 import { RecipientLocationContainer } from
     'containers/search/filters/recipient/RecipientLocationContainer';
 
-import * as SearchHelper from 'helpers/searchHelper';
 import * as recipientActions from 'redux/actions/search/recipientActions';
 
 const setup = (props) => mount(<RecipientLocationContainer {...props} />);
@@ -20,52 +19,8 @@ const initialFilters = {
     autocompleteRecipientLocations: []
 };
 
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
-
-const apiResponse = [
-    {
-        place_type: "COUNTY",
-        matched_ids: [22796],
-        place: "McLean",
-        parent: "KENTUCKY"
-    }
-];
-
-// we don't want to actually hit the API because tests should be fully controlled, so we will mock
-// the SearchHelper functions
-const mockSearchHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    SearchHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockSearchHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/searchHelper');
-};
+jest.mock('helpers/searchHelper', () => require('../searchHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 describe('RecipientLocationContainer', () => {
     describe('Handling text input', () => {
@@ -76,7 +31,8 @@ describe('RecipientLocationContainer', () => {
                 setAutocompleteRecipientLocations:
                     recipientActions.setAutocompleteRecipientLocations,
                 selectedRecipientLocations: new OrderedMap(),
-                autocompleteRecipientLocations: []
+                autocompleteRecipientLocations: [],
+                toggleRecipientLocation: jest.fn()
             });
 
             const searchQuery = {
@@ -94,9 +50,6 @@ describe('RecipientLocationContainer', () => {
             // Run fake timer for input delay
             jest.useFakeTimers().runTimersToTime(1000);
 
-            // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
-            jest.runAllTicks();
-
             // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
 
@@ -112,7 +65,8 @@ describe('RecipientLocationContainer', () => {
                 setAutocompleteRecipientLocations:
                     recipientActions.setAutocompleteRecipientLocations,
                 selectedRecipientLocations: new OrderedMap(),
-                autocompleteRecipientLocations: []
+                autocompleteRecipientLocations: [],
+                toggleRecipientLocation: jest.fn()
             });
             const searchQuery = {
                 target: {
@@ -130,9 +84,6 @@ describe('RecipientLocationContainer', () => {
 
             // Run fake timer for input delay
             jest.useFakeTimers().runTimersToTime(1000);
-
-            // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
-            jest.runAllTicks();
 
             // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
@@ -152,7 +103,8 @@ describe('RecipientLocationContainer', () => {
                 reduxFilters: initialFilters,
                 setAutocompleteRecipientLocations: mockReduxAction,
                 selectedRecipientLocations: new OrderedMap(),
-                autocompleteRecipientLocations: []
+                autocompleteRecipientLocations: [],
+                toggleRecipientLocation: jest.fn()
             });
 
             const queryAutocompleteRecipientLocationsSpy = sinon
@@ -191,7 +143,8 @@ describe('RecipientLocationContainer', () => {
                 reduxFilters: initialFilters,
                 setAutocompleteRecipientLocations: mockReduxAction,
                 selectedRecipientLocations: new OrderedMap(),
-                autocompleteRecipientLocations: []
+                autocompleteRecipientLocations: [],
+                toggleRecipientLocation: jest.fn()
             });
 
             // set up spies
@@ -222,7 +175,7 @@ describe('RecipientLocationContainer', () => {
             queryAutocompleteRecipientLocationsSpy.reset();
         });
 
-        it('should populate Recipients after performing the search', () => {
+        it('should populate Recipients after performing the search', async () => {
             // Setup redux state
             const reduxState = [{
                 '22796_McLean_COUNTY': {
@@ -235,51 +188,30 @@ describe('RecipientLocationContainer', () => {
             }];
 
             // setup mock redux actions for handling search results
-            const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual(reduxState);
-            });
+            const mockReduxAction = jest.fn();
 
             // Set up the Container and call the function to type a single letter
             const recipientLocationContainer = setup({
                 reduxFilters: initialFilters,
                 setAutocompleteRecipientLocations: mockReduxAction,
                 autocompleteRecipientLocations: reduxState,
-                selectedRecipientLocations: new OrderedMap()
+                selectedRecipientLocations: new OrderedMap(),
+                toggleRecipientLocation: jest.fn()
             });
-
-            // Mock the search helper to resolve with the mocked response
-            mockSearchHelper('fetchLocations', 'resolve', apiResponse);
-
-            // Run fake timer for input delay
-            jest.useFakeTimers().runTimersToTime(10000);
-
-            // Run all ticks
-            jest.runAllTicks();
 
             // Set up spies
             const queryAutocompleteRecipientLocationsSpy =
                 sinon.spy(recipientLocationContainer.instance(),
                     'queryAutocompleteRecipientLocations');
-            const parseAutocompleteRecipientLocationsSpy = sinon
-                .spy(recipientLocationContainer.instance(),
-                'parseAutocompleteRecipientLocations');
 
             recipientLocationContainer.instance().queryAutocompleteRecipientLocations('Booz Allen');
-
-            // Run all ticks
-            jest.runAllTicks();
+            await recipientLocationContainer.instance().recipientLocationSearchRequest.promise;
 
             expect(queryAutocompleteRecipientLocationsSpy.callCount).toEqual(1);
-            expect(parseAutocompleteRecipientLocationsSpy
-                .calledWith(queryAutocompleteRecipientLocationsSpy));
-            expect(mockReduxAction).toHaveBeenCalled();
-
-            // Reset the mock
-            unmockSearchHelper();
+            expect(mockReduxAction).toBeCalled();
 
             // Reset spies
             queryAutocompleteRecipientLocationsSpy.reset();
-            parseAutocompleteRecipientLocationsSpy.reset();
         });
     });
 });

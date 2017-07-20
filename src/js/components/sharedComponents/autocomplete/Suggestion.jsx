@@ -3,13 +3,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    title: React.PropTypes.string,
-    subtitle: React.PropTypes.string,
-    data: React.PropTypes.object,
-    selected: React.PropTypes.bool,
-    select: React.PropTypes.func
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
+    data: PropTypes.object,
+    selected: PropTypes.bool,
+    select: PropTypes.func
 };
 
 const defaultProps = {

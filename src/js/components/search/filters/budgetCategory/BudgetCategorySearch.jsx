@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import BudgetCategoryFunctionContainer
     from 'containers/search/filters/budgetCategory/BudgetCategoryFunctionContainer';
@@ -16,10 +17,10 @@ import SelectedBudgetFunctions from './SelectedBudgetFunctions';
 import SelectedFederalAccounts from './SelectedFederalAccounts';
 
 const propTypes = {
-    updateSelectedBudgetFunctions: React.PropTypes.func,
-    updateSelectedFederalAccounts: React.PropTypes.func,
-    budgetFunctions: React.PropTypes.object,
-    federalAccounts: React.PropTypes.object
+    updateSelectedBudgetFunctions: PropTypes.func,
+    updateSelectedFederalAccounts: PropTypes.func,
+    budgetFunctions: PropTypes.object,
+    federalAccounts: PropTypes.object
 };
 
 export default class BudgetCategorySearch extends React.Component {

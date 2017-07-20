@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
@@ -11,7 +12,7 @@ import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 
 const propTypes = {
-    data: React.PropTypes.object
+    data: PropTypes.object
 };
 
 export default class TimeVisualizationSection extends React.Component {

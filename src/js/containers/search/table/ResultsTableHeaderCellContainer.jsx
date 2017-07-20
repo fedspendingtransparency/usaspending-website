@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -19,7 +20,7 @@ const actions = {
 };
 
 const propTypes = {
-    setSearchOrder: React.PropTypes.func
+    setSearchOrder: PropTypes.func
 };
 
 class ResultsTableHeaderCellContainer extends React.Component {

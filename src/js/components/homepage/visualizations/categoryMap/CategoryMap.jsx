@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapDice, treemapSlice } from 'd3-hierarchy';
 import { throttle, find } from 'lodash';
 import { HandDrawnArrow } from 'components/sharedComponents/icons/Icons';
@@ -13,9 +14,9 @@ import CategoryMapTooltip from './CategoryMapTooltip';
 import BudgetLine from './BudgetLine';
 
 const propTypes = {
-    breakdown: React.PropTypes.object,
-    colors: React.PropTypes.array,
-    tooltipStyles: React.PropTypes.object
+    breakdown: PropTypes.object,
+    colors: PropTypes.array,
+    tooltipStyles: PropTypes.object
 };
 
 export default class CategoryMap extends React.Component {

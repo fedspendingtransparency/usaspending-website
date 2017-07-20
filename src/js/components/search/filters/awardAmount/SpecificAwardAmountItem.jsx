@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as AwardAmountHelper from 'helpers/awardAmountHelper';
 import AwardAmountItem from './AwardAmountItem';
 
 const propTypes = {
-    searchSpecificRange: React.PropTypes.func
+    searchSpecificRange: PropTypes.func
 };
 
 const ga = require('react-ga');

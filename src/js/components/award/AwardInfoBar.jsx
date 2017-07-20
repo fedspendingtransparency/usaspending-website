@@ -4,11 +4,12 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import AgencyInfo from './AgencyInfo';
 import RecipientInfo from './RecipientInfo';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object
+    selectedAward: PropTypes.object
 };
 
 export default class AwardInfoBar extends React.Component {

@@ -4,21 +4,22 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    name: React.PropTypes.string,
-    value: React.PropTypes.string,
-    description: React.PropTypes.string,
-    height: React.PropTypes.number,
-    x: React.PropTypes.number,
-    y: React.PropTypes.number,
-    width: React.PropTypes.number,
-    showSub: React.PropTypes.bool,
-    percentage: React.PropTypes.string,
-    arrow: React.PropTypes.bool,
-    showSubfunctions: React.PropTypes.bool,
-    sectionHeight: React.PropTypes.number,
-    isSubfunctions: React.PropTypes.bool
+    name: PropTypes.string,
+    value: PropTypes.string,
+    description: PropTypes.string,
+    height: PropTypes.number,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    width: PropTypes.number,
+    showSub: PropTypes.bool,
+    percentage: PropTypes.string,
+    arrow: PropTypes.bool,
+    showSubfunctions: PropTypes.bool,
+    sectionHeight: PropTypes.number,
+    isSubfunctions: PropTypes.bool
 };
 
 export default class TreeMapTooltip extends React.Component {

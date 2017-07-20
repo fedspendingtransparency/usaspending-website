@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import accounting from 'accounting';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -12,9 +13,9 @@ import AmountsChart from './visualizations/AmountsChart';
 import LoanAmounts from './LoanAmounts';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object,
-    showPotential: React.PropTypes.bool,
-    typeString: React.PropTypes.string
+    selectedAward: PropTypes.object,
+    showPotential: PropTypes.bool,
+    typeString: PropTypes.string
 };
 
 export default class AwardAmounts extends React.Component {

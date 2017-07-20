@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
@@ -14,9 +15,9 @@ import Error from '../sharedComponents/Error';
 import AwardInfo from './AwardInfo';
 
 const propTypes = {
-    award: React.PropTypes.object,
-    noAward: React.PropTypes.bool,
-    inFlight: React.PropTypes.bool
+    award: PropTypes.object,
+    noAward: PropTypes.bool,
+    inFlight: PropTypes.bool
 };
 
 export default class Award extends React.Component {

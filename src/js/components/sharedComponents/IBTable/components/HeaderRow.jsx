@@ -4,15 +4,16 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { min } from 'lodash';
 
 import HeaderCell from './HeaderCell';
 
 const propTypes = {
-    headerHeight: React.PropTypes.number,
-    maxWidth: React.PropTypes.number,
-    width: React.PropTypes.number,
-    columns: React.PropTypes.array
+    headerHeight: PropTypes.number,
+    maxWidth: PropTypes.number,
+    width: PropTypes.number,
+    columns: PropTypes.array
 };
 
 export default class HeaderRow extends React.Component {

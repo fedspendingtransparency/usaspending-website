@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 
 import { Close } from 'components/sharedComponents/icons/Icons';
@@ -13,12 +14,12 @@ import CylonEye from './CylonEye';
 import DownloadLocation from './DownloadLocation';
 
 const propTypes = {
-    mounted: React.PropTypes.bool,
-    hideModal: React.PropTypes.func,
-    title: React.PropTypes.string,
-    message: React.PropTypes.string,
-    location: React.PropTypes.string,
-    animate: React.PropTypes.bool
+    mounted: PropTypes.bool,
+    hideModal: PropTypes.func,
+    title: PropTypes.string,
+    message: PropTypes.string,
+    location: PropTypes.string,
+    animate: PropTypes.bool
 };
 
 export default class ExtraModal extends React.Component {

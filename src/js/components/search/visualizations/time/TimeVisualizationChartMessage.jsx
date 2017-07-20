@@ -4,9 +4,10 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    message: React.PropTypes.string
+    message: PropTypes.string
 };
 
 export default class TimeVisualizationChartMessage extends React.Component {

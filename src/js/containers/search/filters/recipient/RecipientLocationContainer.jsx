@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual, upperCase, omit, differenceWith } from 'lodash';
@@ -15,11 +16,11 @@ import * as recipientActions from 'redux/actions/search/recipientActions';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    toggleRecipientLocation: React.PropTypes.func,
-    setAutocompleteRecipientLocations: React.PropTypes.func,
-    selectedRecipientLocations: React.PropTypes.object,
-    recipientDomesticForeign: React.PropTypes.string,
-    autocompleteRecipientLocations: React.PropTypes.array
+    toggleRecipientLocation: PropTypes.func,
+    setAutocompleteRecipientLocations: PropTypes.func,
+    selectedRecipientLocations: PropTypes.object,
+    recipientDomesticForeign: PropTypes.string,
+    autocompleteRecipientLocations: PropTypes.array
 };
 
 export class RecipientLocationContainer extends React.Component {

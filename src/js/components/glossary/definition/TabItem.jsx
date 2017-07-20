@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    active: React.PropTypes.bool,
-    label: React.PropTypes.string,
-    type: React.PropTypes.string,
-    clickedTab: React.PropTypes.func
+    active: PropTypes.bool,
+    label: PropTypes.string,
+    type: PropTypes.string,
+    clickedTab: PropTypes.func
 };
 
 export default class TabItem extends React.Component {

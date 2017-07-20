@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { isEqual, flattenDeep, min, max, mean, forEach, sum } from 'lodash';
 
@@ -17,15 +18,15 @@ import BarChartLegend from './BarChartLegend';
 /* eslint-disable react/no-unused-prop-types */
 // we're catching the props before they're fully set, so eslint thinks these props are unused
 const propTypes = {
-    groups: React.PropTypes.array,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    xSeries: React.PropTypes.array,
-    ySeries: React.PropTypes.array,
-    showTooltip: React.PropTypes.func,
-    enableHighlight: React.PropTypes.bool,
-    padding: React.PropTypes.object,
-    legend: React.PropTypes.array
+    groups: PropTypes.array,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    xSeries: PropTypes.array,
+    ySeries: PropTypes.array,
+    showTooltip: PropTypes.func,
+    enableHighlight: PropTypes.bool,
+    padding: PropTypes.object,
+    legend: PropTypes.array
 };
 /* eslint-enable react/no-unused-prop-types */
 

@@ -4,14 +4,15 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
 import FiscalYear from './FiscalYear';
 
 const propTypes = {
-    timePeriods: React.PropTypes.array,
-    selectedFY: React.PropTypes.object,
-    updateFilter: React.PropTypes.func
+    timePeriods: PropTypes.array,
+    selectedFY: PropTypes.object,
+    updateFilter: PropTypes.func
 };
 
 const ga = require('react-ga');

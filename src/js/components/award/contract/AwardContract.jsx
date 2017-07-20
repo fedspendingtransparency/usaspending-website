@@ -4,14 +4,15 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 
 import AwardAmounts from '../AwardAmounts';
 import ContractDetails from './ContractDetails';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object,
-    seeAdditional: React.PropTypes.func
+    selectedAward: PropTypes.object,
+    seeAdditional: PropTypes.func
 };
 
 export default class AwardContract extends React.Component {

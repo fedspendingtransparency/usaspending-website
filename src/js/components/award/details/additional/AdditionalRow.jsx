@@ -4,10 +4,11 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    title: React.PropTypes.string,
-    value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])
+    title: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 export default class AdditionalRow extends React.Component {

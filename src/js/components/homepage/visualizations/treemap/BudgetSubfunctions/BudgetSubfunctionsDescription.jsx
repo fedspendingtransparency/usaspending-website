@@ -4,14 +4,15 @@
 **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    category: React.PropTypes.object,
-    description: React.PropTypes.object,
-    totalNumber: React.PropTypes.number,
-    subfunctionTotal: React.PropTypes.number,
-    numberOfSubfunctions: React.PropTypes.number
+    category: PropTypes.object,
+    description: PropTypes.object,
+    totalNumber: PropTypes.number,
+    subfunctionTotal: PropTypes.number,
+    numberOfSubfunctions: PropTypes.number
 };
 
 export default class BudgetSubfunctionsDescription extends React.Component {

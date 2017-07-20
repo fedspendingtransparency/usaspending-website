@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
@@ -16,7 +17,7 @@ import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 
 const propTypes = {
-    clearAllFilters: React.PropTypes.func
+    clearAllFilters: PropTypes.func
 };
 
 export default class SearchPage extends React.Component {

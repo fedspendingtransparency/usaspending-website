@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TabItem from './TabItem';
 
 const propTypes = {
-    activeTab: React.PropTypes.string,
-    clickedTab: React.PropTypes.func,
-    hasPlain: React.PropTypes.bool,
-    hasOfficial: React.PropTypes.bool
+    activeTab: PropTypes.string,
+    clickedTab: PropTypes.func,
+    hasPlain: PropTypes.bool,
+    hasOfficial: PropTypes.bool
 };
 
 const defaultProps = {

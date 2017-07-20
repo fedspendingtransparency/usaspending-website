@@ -3,11 +3,12 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    toggleDomesticForeign: React.PropTypes.func,
-    countries: React.PropTypes.array,
-    recipientDomesticForeign: React.PropTypes.string
+    toggleDomesticForeign: PropTypes.func,
+    countries: PropTypes.array,
+    recipientDomesticForeign: PropTypes.string
 };
 
 const defaultProps = {

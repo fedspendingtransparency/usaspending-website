@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { concat, sortBy } from 'lodash';
 
 import ResultGroup from './ResultGroup';
 
 const propTypes = {
-    glossary: React.PropTypes.object,
-    searchLoading: React.PropTypes.bool,
-    setGlossaryTerm: React.PropTypes.func
+    glossary: PropTypes.object,
+    searchLoading: PropTypes.bool,
+    setGlossaryTerm: PropTypes.func
 };
 
 const ga = require('react-ga');

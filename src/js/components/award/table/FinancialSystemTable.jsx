@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
@@ -21,10 +22,10 @@ const rowHeight = 40;
 const tableHeight = 12.5 * rowHeight;
 
 const propTypes = {
-    award: React.PropTypes.object,
-    tableWidth: React.PropTypes.number,
-    nextPage: React.PropTypes.func,
-    inFlight: React.PropTypes.bool
+    award: PropTypes.object,
+    tableWidth: PropTypes.number,
+    nextPage: PropTypes.func,
+    inFlight: PropTypes.bool
 };
 
 export default class FinancialSystemTable extends React.Component {

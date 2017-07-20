@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { scrollToY } from 'helpers/scrollToHelper';
 
@@ -14,7 +15,7 @@ import AwardFinancialAssistance from './financialAssistance/AwardFinancialAssist
 import DetailsSection from './details/DetailsSection';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object
+    selectedAward: PropTypes.object
 };
 
 export default class AwardInfo extends React.Component {

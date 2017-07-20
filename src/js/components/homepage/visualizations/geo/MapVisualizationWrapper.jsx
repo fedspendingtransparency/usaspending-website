@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { uniqueId, isEqual } from 'lodash';
 
 import MapVisualization from './MapVisualization';
@@ -12,7 +13,7 @@ import MapToggleList from './MapToggleList';
 import HomepageMapCitation from './HomepageMapCitation';
 
 const propTypes = {
-    data: React.PropTypes.object
+    data: PropTypes.object
 };
 
 export default class MapVisualizationWrapper extends React.Component {

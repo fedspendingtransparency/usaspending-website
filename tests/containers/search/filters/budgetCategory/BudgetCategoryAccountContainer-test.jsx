@@ -11,65 +11,15 @@ import { OrderedMap } from 'immutable';
 import { BudgetCategoryAccountContainer } from
     'containers/search/filters/budgetCategory/BudgetCategoryAccountContainer';
 
-import * as SearchHelper from 'helpers/searchHelper';
 import * as budgetCategoryActions from 'redux/actions/search/budgetCategoryActions';
+
+jest.mock('helpers/searchHelper', () => require('../searchHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 const setup = (props) => mount(<BudgetCategoryAccountContainer {...props} />);
 
 const initialFilters = {
     autocompleteFederalAccounts: []
-};
-
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
-
-const apiResponse = {
-    matched_objects: {
-        federal_account_code: {
-            account_title: "Special Supplemental Nutrition Program for Women, Infants and " +
-            "Children (WIC), Food and Nutrition Service",
-            agency_identifier: "012",
-            id: 391,
-            main_account_code: "3510",
-            federal_account_code: "012-3510 - Special Supplemental Nutrition Program for Women," +
-            "Infants and Children (WIC), Food and Nutrition Service"
-        }
-    }
-};
-
-// we don't want to actually hit the API because tests should be fully controlled, so we will mock
-// the SearchHelper functions
-const mockSearchHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    SearchHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockSearchHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/searchHelper');
 };
 
 describe('BudgetCategoryAccountContainer', () => {
@@ -81,7 +31,8 @@ describe('BudgetCategoryAccountContainer', () => {
                 setAutocompleteFederalAccounts:
                     budgetCategoryActions.setAutocompleteFederalAccounts,
                 federalAccounts: new OrderedMap(),
-                autocompleteFederalAccounts: []
+                autocompleteFederalAccounts: [],
+                updateFederalAccounts: jest.fn()
             });
 
             const searchQuery = {
@@ -117,7 +68,8 @@ describe('BudgetCategoryAccountContainer', () => {
                 setAutocompleteFederalAccounts:
                     budgetCategoryActions.setAutocompleteFederalAccounts,
                 federalAccounts: new OrderedMap(),
-                autocompleteFederalAccounts: []
+                autocompleteFederalAccounts: [],
+                updateFederalAccounts: jest.fn()
             });
 
             const searchQuery = {
@@ -159,7 +111,8 @@ describe('BudgetCategoryAccountContainer', () => {
                 reduxFilters: initialFilters,
                 setAutocompleteFederalAccounts: mockReduxAction,
                 federalAccounts: new OrderedMap(),
-                autocompleteFederalAccounts: []
+                autocompleteFederalAccounts: [],
+                updateFederalAccounts: jest.fn()
             });
 
             const queryAutocompleteFederalAccountsSpy = sinon
@@ -198,7 +151,8 @@ describe('BudgetCategoryAccountContainer', () => {
                 reduxFilters: initialFilters,
                 setAutocompleteFederalAccounts: mockReduxAction,
                 federalAccounts: new OrderedMap(),
-                autocompleteFederalAccounts: []
+                autocompleteFederalAccounts: [],
+                updateFederalAccounts: jest.fn()
             });
 
             // set up spies
@@ -229,7 +183,7 @@ describe('BudgetCategoryAccountContainer', () => {
             queryAutocompleteFederalAccountsSpy.reset();
         });
 
-        it('should populate Federal Accounts after performing the search', () => {
+        it('should populate Federal Accounts after performing the search', async () => {
             // Setup redux state
             const reduxState = [{
                 391: {
@@ -255,15 +209,6 @@ describe('BudgetCategoryAccountContainer', () => {
                 updateFederalAccounts: jest.fn()
             });
 
-            // Mock the search helper to resolve with the mocked response
-            mockSearchHelper('fetchFederalAccounts', 'resolve', apiResponse);
-
-            // Run fake timer for input delay
-            jest.useFakeTimers().runTimersToTime(10000);
-
-            // Run all ticks
-            jest.runAllTicks();
-
             // Set up spies
             const queryAutocompleteFederalAccountsSpy = sinon.spy(
                 budgetCategoryAccountContainer.instance(), 'queryAutocompleteFederalAccounts');
@@ -272,17 +217,12 @@ describe('BudgetCategoryAccountContainer', () => {
 
             budgetCategoryAccountContainer.instance()
                 .queryAutocompleteFederalAccounts('Income');
-
-            // Run all ticks
-            jest.runAllTicks();
+            await budgetCategoryAccountContainer.instance().searchRequest.promise;
 
             expect(queryAutocompleteFederalAccountsSpy.callCount).toEqual(1);
             expect(parseAutocompleteFederalAccountsSpy
                 .calledWith(queryAutocompleteFederalAccountsSpy));
             expect(mockReduxAction).toHaveBeenCalled();
-
-            // Reset the mock
-            unmockSearchHelper();
 
             // Reset spies
             queryAutocompleteFederalAccountsSpy.reset();
