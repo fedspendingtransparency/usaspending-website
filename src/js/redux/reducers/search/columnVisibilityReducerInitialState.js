@@ -149,7 +149,7 @@ const initialState = {
             ]
         )
     },
-    insurance: {
+    other: {
         visibleColumns: new OrderedSet(
             [
                 'award_id',
