@@ -1,6 +1,4 @@
-FROM node:4
-
-RUN npm install --global gulp
+FROM node:6
 
 RUN mkdir /node-workspace
 COPY package.json /node-workspace 
@@ -14,5 +12,3 @@ COPY . /node-workspace
 VOLUME /node-workspace
 
 RUN mkdir /test-results
-
-CMD gulp

@@ -118,7 +118,7 @@ describe('AgencyContainer', () => {
             const args = mockSetAgency.mock.calls[0];
             const expectedModel = mockRedux.agency.overview;
 
-            expect(is(expectedModel, args[0])).toBeTruthy();
+            expect(args[0]).toEqual(expectedModel);
         });
     });
 });

@@ -2,11 +2,11 @@
 
 @font-face {
     font-family: "dataact";
-    src:url("../fonts/dataact.eot");
-    src:url("../fonts/dataact.eot?#iefix") format("embedded-opentype"),
-    url("../fonts/dataact.woff") format("woff"),
-    url("../fonts/dataact.ttf") format("truetype"),
-    url("../fonts/dataact.svg#dataact") format("svg");
+    src:url("${font-path}/dataact.eot");
+    src:url("${font-path}/dataact.eot?#iefix") format("embedded-opentype"),
+    url("${font-path}/dataact.woff") format("woff"),
+    url("${font-path}/dataact.ttf") format("truetype"),
+    url("${font-path}/dataact.svg#dataact") format("svg");
     font-weight: normal;
     font-style: normal;
 }

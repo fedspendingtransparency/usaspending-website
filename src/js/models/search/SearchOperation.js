@@ -8,6 +8,7 @@ import { concat } from 'lodash';
 import * as AwardTypeQuery from './queryBuilders/AwardTypeQuery';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as LocationQuery from './queryBuilders/LocationQuery';
+import * as BudgetCategoryQuery from './queryBuilders/BudgetCategoryQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
 import * as RecipientQuery from './queryBuilders/RecipientQuery';
 import * as KeywordQuery from './queryBuilders/KeywordQuery';
@@ -113,6 +114,22 @@ class SearchOperation {
         if (this.locationDomesticForeign !== '' && this.locationDomesticForeign !== 'all') {
             filters.push(LocationQuery.buildDomesticForeignQuery(
                 this.locationDomesticForeign, this.searchContext));
+        }
+
+        // Add Budget Category queries
+        if (this.budgetFunctions.length > 0) {
+            filters.push(BudgetCategoryQuery.buildBudgetFunctionQuery(
+                this.budgetFunctions, this.searchContext));
+        }
+
+        if (this.federalAccounts.length > 0) {
+            filters.push(BudgetCategoryQuery.buildFederalAccountQuery(
+                this.federalAccounts, this.searchContext));
+        }
+
+        if (Object.keys(this.objectClasses).length > 0) {
+            filters.push(BudgetCategoryQuery.buildObjectClassQuery(
+                this.objectClasses, this.searchContext));
         }
 
         // Add recipient queries
