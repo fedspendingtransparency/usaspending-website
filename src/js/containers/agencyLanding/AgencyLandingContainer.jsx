@@ -70,25 +70,44 @@ export class AgencyLandingContainer extends React.Component {
         }
     }
 
+    handleTextInput(agencyInput) {
+        // Clear existing agencies
+        this.props.setAutocompleteAgencies([]);
+        if (agencyInput === '') {
+            this.setState({
+                noResults: false
+            });
+        }
+
+        // Grab input, clear any exiting timeout
+        const input = agencyInput.target.value;
+        window.clearTimeout(this.timeout);
+
+        // Perform search if user doesn't type again for 300ms
+        this.timeout = window.setTimeout(() => {
+            this.queryAutocompleteAgencies(input);
+        }, 300);
+    }
+
     queryAutocompleteAgencies(input) {
         this.setState({
             noResults: false
         });
 
-        // Only search if search is 2 or more characters
+        if (this.agencySearchRequest) {
+            // A request is currently in-flight, cancel it
+            this.agencySearchRequest.cancel();
+        }
+
+        // Only search if input is 2 or more characters
         if (input.length >= 2) {
             this.setState({
                 agencySearchString: input
             });
 
-            if (this.agencySearchRequest) {
-                // A request is currently in-flight, cancel it
-                this.agencySearchRequest.cancel();
-            }
-
             const agencySearchParams = {
                 fields: ['toptier_agency__name'],
-                value: this.state.agencySearchString,
+                value: input,
                 order: ["toptier_agency__name"],
                 mode: "contains",
                 matched_objects: true
@@ -123,33 +142,6 @@ export class AgencyLandingContainer extends React.Component {
                     }
                 });
         }
-        else if (this.agencySearchRequest) {
-            // A request is currently in-flight, cancel it
-            this.agencySearchRequest.cancel();
-        }
-    }
-
-    clearAutocompleteSuggestions() {
-        this.props.setAutocompleteAgencies([]);
-    }
-
-    handleTextInput(agencyInput) {
-        // Clear existing agencies
-        this.props.setAutocompleteAgencies([]);
-        if (agencyInput === '') {
-            this.setState({
-                noResults: false
-            });
-        }
-
-        // Grab input, clear any exiting timeout
-        const input = agencyInput.target.value;
-        window.clearTimeout(this.timeout);
-
-        // Perform search if user doesn't type again for 300ms
-        this.timeout = window.setTimeout(() => {
-            this.queryAutocompleteAgencies(input);
-        }, 300);
     }
 
     formatSort() {
@@ -169,6 +161,7 @@ export class AgencyLandingContainer extends React.Component {
         AgenciesTableFields.order.forEach((col) => {
             let displayName = AgenciesTableFields[col];
             if ((col === 'budget_authority_amount') || (col === 'percentage_of_total_budget_authority')) {
+                // Add (FY YYYY) to Budget Authority and Percent of Total U.S. Budget column headers
                 if (this.state.fy) {
                     displayName = `${displayName} (FY ${this.state.currentFY})`;
                 }
@@ -190,30 +183,23 @@ export class AgencyLandingContainer extends React.Component {
     }
 
     fetchAgencies() {
-         if (this.agenciesRequest) {
+        if (this.agenciesRequest) {
             // a request is in-flight, cancel it
             this.agenciesRequest.cancel();
-         }
+        }
 
-         this.setState({
+        this.setState({
             inFlight: true
-         });
+        });
 
-         // generate the params
-         const params = {
-            filters: [
-                {
-                    field: 'actice_fy',
-                    operation: 'equals',
-                    value: this.props.activeFY
-                }
-            ],
+        // generate the params
+        const params = {
             order: [this.formatSort()]
-         };
+        };
 
-         this.agenciesRequest = AgencyLandingHelper.fetchAllAgencies(params);
+        this.agenciesRequest = AgencyLandingHelper.fetchAllAgencies(params);
 
-         this.agenciesRequest.promise
+        this.agenciesRequest.promise
             .then((res) => {
                 this.setState({
                     inFlight: false
@@ -234,12 +220,12 @@ export class AgencyLandingContainer extends React.Component {
 
     parseAgencies(data) {
         const agencies = [];
-        const emptyString = this.props.autocompleteAgencies.length === 0 && !this.state.noResults;
+        const showAllAgencies = this.props.autocompleteAgencies.length === 0 && !this.state.noResults;
 
         data.results.forEach((item) => {
             // If there is no search term, show all agencies. Otherwise, only show agencies that match
             // the search input
-            if (emptyString || (this.props.autocompleteAgencies.indexOf(parseFloat(item.agency_id)) > -1)) {
+            if (showAllAgencies || (this.props.autocompleteAgencies.indexOf(parseFloat(item.agency_id)) > -1)) {
                 // Create a link to the agency's profile page
                 const link = (
                     <a href={`/#/agency/${item.agency_id}`}>{item.agency_name}</a>
