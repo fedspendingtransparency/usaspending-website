@@ -24,7 +24,7 @@ Assumptions:
 
         $ git clone https://github.com/fedspendingtransparency/usaspending-website.git
 
-4. Enter the `usaspending-website` directory that was created when you cloned the USAspending Website repository.
+4. Change to the `usaspending-website` directory that was created when you cloned the USAspending Website repository.
 
 5. Install the web application's package dependencies:
 
