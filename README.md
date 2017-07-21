@@ -16,19 +16,15 @@ Assumptions:
 
 ### Install Prerequisites and Code
 
-1. If you're not already running Node.js, download and run the installer for your operating system. We build using version 4.x: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").
+1. If you're not already running Node.js, download and run the installer for your operating system. We build using **Node.js 6.11.x (LTS)**: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").
 
-2. Use *npm* (Node's package manager, which is part of the Node.js install) to install the latest version of gulp. This is necessary for runing the babel version of the `gulpfile`):
-
-    ```bash
-        $ npm install gulp && npm install gulp -g
-    ```
+2. You should also have *npm* (Node's package manager). This is typically included as part of the Node.js install. We use version 3.10.x. This is used to install the software dependencies the web site and the build system require.
 
 3. From the command line, clone the USAspending website repository from GitHub to your local machine:
 
         $ git clone https://github.com/fedspendingtransparency/usaspending-website.git
 
-4. Change to the `usaspending-website` directory that was created when you cloned the USAspending Website repository.
+4. Enter the `usaspending-website` directory that was created when you cloned the USAspending Website repository.
 
 5. Install the web application's package dependencies:
 
@@ -46,7 +42,8 @@ Use these sample files to create files named `GlobalConstants_dev.js` and `Globa
 
 The sample files require you to provide values for:
 
-* `API` (string) is the base API URL for the server that is hosting the API. It should start with an `https://` or `http://` protocol and end with `/v1/`, including the trailing slash.
+* `API` (string) is the base API URL for the server that is hosting the API.
+	* The USAspending API is located at `https://api.usaspending.gov/api/`, with the trailing slash included.
 * `DEV` (boolean) indicates if you are running the application in development mode or for production use. Enabling development mode activates certain debugging functionality at the expense of some performance.
 * `PERF_LOG` (boolean) indicates if you want to enable performance logging data in the JavaScript console. This requires `DEV` to be enabled as well.
 
@@ -54,40 +51,40 @@ The sample files require you to provide values for:
 
 **TIP!** You can use separate `GlobalConstants_dev.js` and `GlobalConstants_prod.js` files to point to different API endpoints that align with different environments.
 
-### Run gulp tasks:
+### Build Application
 
-Several Gulp tasks are available to build the frontend web site for various use cases.
+Several Webpack configurations are available to build the frontend web site for various use cases.
 
 #### Hosted Production
 
 If you are building the web site for a hosted production environment, run:
 
 ```bash
-	$ gulp production
+	$ npm run prod
 ```
 This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and the `GlobalConstants_prod.js` file is used as the GlobalConstants file.
-
-#### Hosted Development (Build-only)
-
-If you are deploying the frontend to a hosted environment for development/testing purposes, use:
-
-```bash
-	$ gulp buildDev
-```
-This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are uncompressed and sourcemapped, debugging tools are enabled, and the `GlobalConstants_dev.js` file is used as the GlobalConstants file.
 
 #### Local Development
 
 Finally, if you are a frontend developer, use:
 
 ```bash
-	$ gulp dev
+	$ npm start
 ```
 
 This will build the frontend files to the `/public` directory and also start a web server on port 3000. In this mode, JavaScript files are uncompressed and sourcemapped, debugging tools are enabled and the `GlobalConstants_dev.js` file is used as the GlobalConstants file. Additionally, SASS files in the `/src/_scss` and `/src/css` folders are watched, along with JS files in the `/src/js` folder, and these files are recompiled (and the browser automatically refreshed) whenever a change is detected.
 
 This mode also differs from `production` by using incremental Webpack builds. This means that the code is recompiled every time a change is detected in a source JS/JSX file, but the builds are *incremental*, meaning they take significantly less time than a complete build by recycling compiled code for unmodified parts. When making changes to the source code, you should always develop in `dev` mode to take advantage of this feature.
 
-## Running Tests
+#### Running Tests
 
 To run the automated test suite, run `npm test`.
+
+#### Additional Configurations
+
+Additional Webpack configurations are available for common tasks:
+
+* `npm run lint` runs the linter for JavaScript ES6 style checking.
+* `npm run dev` builds the web application in development mode, but generates static files rather than creating a web server. This is useful if you are hosting a remote development environment.
+* `npm run sass` builds the web application in development mode with a local server (the same as `npm start`), but also includes sourcemapping for Sass files. However, this does result in slower builds.
+* `npm run travis` is reserved for the Travis CI system and runs the linter and Jest tests in a single thread with error reporting.
