@@ -23,12 +23,11 @@ export const fetchAllAgencies = (params) => {
     };
 };
 
-// TODO - Lizzie: update when toptier autocomplete endpoint is ready
 export const fetchSearchResults = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v1/references/agency/autocomplete/',
+            url: 'v2/autocomplete/toptier_agency/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,

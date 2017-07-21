@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -13,18 +14,17 @@ import AgenciesTableFields from 'dataMapping/agencyLanding/agenciesTableFields';
 import * as agencyLandingActions from 'redux/actions/agencyLanding/agencyLandingActions';
 import { Agency } from 'redux/reducers/agencyLanding/agencyLandingReducer';
 import * as AgencyLandingHelper from 'helpers/agencyLandingHelper';
-import * as SearchHelper from 'helpers/searchHelper';
 
 import AgencyLandingSearchBar from 'components/agencyLanding/AgencyLandingSearchBar';
 import AgencyLandingResultsSection from 'components/agencyLanding/AgencyLandingResultsSection';
 
 const propTypes = {
-    agencies: React.PropTypes.instanceOf(Immutable.OrderedSet),
-    agenciesOrder: React.PropTypes.object,
-    setAgencies: React.PropTypes.func,
-    meta: React.PropTypes.object,
-    setAutocompleteAgencies: React.PropTypes.func,
-    autocompleteAgencies: React.PropTypes.array
+    agencies: PropTypes.instanceOf(Immutable.OrderedSet),
+    agenciesOrder: PropTypes.object,
+    setAgencies: PropTypes.func,
+    meta: PropTypes.object,
+    setAutocompleteAgencies: PropTypes.func,
+    autocompleteAgencies: PropTypes.array
 };
 
 export class AgencyLandingContainer extends React.Component {
@@ -106,27 +106,21 @@ export class AgencyLandingContainer extends React.Component {
             });
 
             const agencySearchParams = {
-                fields: ['toptier_agency__name'],
-                value: input,
-                order: ["toptier_agency__name"],
-                mode: "contains",
-                matched_objects: true
+                search_text: input
             };
 
-            this.agencySearchRequest = SearchHelper.fetchAgencies(agencySearchParams);
+            this.agencySearchRequest = AgencyLandingHelper.fetchSearchResults(agencySearchParams);
 
             this.agencySearchRequest.promise
                 .then((res) => {
                     this.setState({
-                        noResults: res.data.matched_objects.toptier_agency__name.length === 0
+                        noResults: res.data.results.length === 0
                     });
 
-                    const matchedAgencies = res.data.matched_objects.toptier_agency__name;
+                    const matchedAgencies = res.data.results;
                     const matchedAgencyIds = [];
                     matchedAgencies.forEach((agency) => {
-                        if (agency.toptier_flag) {
-                            matchedAgencyIds.push(agency.id);
-                        }
+                        matchedAgencyIds.push(agency.agency_id);
                     });
 
                     // Add search results to Redux
