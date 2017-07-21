@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -12,11 +13,11 @@ import { throttle } from 'lodash';
 import AgencyObligatedGraph from './ObligatedGraph';
 
 const propTypes = {
-    activeFY: React.PropTypes.string,
-    reportingFiscalQuarter: React.PropTypes.number,
-    agencyName: React.PropTypes.string,
-    obligatedAmount: React.PropTypes.number,
-    budgetAuthority: React.PropTypes.number
+    activeFY: PropTypes.string,
+    reportingFiscalQuarter: PropTypes.number,
+    agencyName: PropTypes.string,
+    obligatedAmount: PropTypes.number,
+    budgetAuthority: PropTypes.number
 };
 
 export default class AgencyObligatedAmount extends React.Component {

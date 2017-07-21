@@ -25,4 +25,9 @@
     @import "./_subawards";
     @import "pages/search/results/table/_tableTypes";
     @import "pages/search/results/table/_resultsTablePicker";
+
+    .field-picker {
+        float: none;
+        display: block;
+    }
 }

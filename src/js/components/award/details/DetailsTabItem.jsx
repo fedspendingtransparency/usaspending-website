@@ -4,15 +4,16 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 
 const propTypes = {
-    label: React.PropTypes.string,
-    internal: React.PropTypes.string,
-    active: React.PropTypes.bool,
-    enabled: React.PropTypes.bool,
-    clickTab: React.PropTypes.func
+    label: PropTypes.string,
+    internal: PropTypes.string,
+    active: PropTypes.bool,
+    enabled: PropTypes.bool,
+    clickTab: PropTypes.func
 };
 
 export default class DetailsTabItem extends React.Component {

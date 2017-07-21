@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -15,9 +16,9 @@ import * as agencyActions from 'redux/actions/agency/agencyActions';
 import AgencyPage from 'components/agency/AgencyPage';
 
 const propTypes = {
-    params: React.PropTypes.object,
-    agency: React.PropTypes.object,
-    setAgencyOverview: React.PropTypes.func
+    params: PropTypes.object,
+    agency: PropTypes.object,
+    setAgencyOverview: PropTypes.func
 };
 
 export class AgencyContainer extends React.Component {

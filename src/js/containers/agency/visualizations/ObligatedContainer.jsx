@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
@@ -13,9 +14,9 @@ import ObligatedVisualization from
     'components/agency/visualizations/obligated/ObligatedVisualization';
 
 const propTypes = {
-    id: React.PropTypes.string,
-    activeFY: React.PropTypes.string,
-    agencyName: React.PropTypes.string
+    id: PropTypes.string,
+    activeFY: PropTypes.string,
+    agencyName: PropTypes.string
 };
 
 export class ObligatedContainer extends React.PureComponent {

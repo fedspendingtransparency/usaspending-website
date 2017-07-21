@@ -27,6 +27,7 @@ const appReducer = combineReducers({
     filters: filtersReducer,
     searchOrder: orderReducer,
     autocompleteLocations: autocompleteReducer,
+    autocompleteNAICS: autocompleteReducer,
     columnVisibility: columnVisibilityReducer,
     autocompleteAwardIDs: awardIDReducer,
     autocompleteAgencies: autocompleteAgencyReducer,

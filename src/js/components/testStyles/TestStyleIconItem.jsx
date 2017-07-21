@@ -4,10 +4,11 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    icon: React.PropTypes.func,
-    label: React.PropTypes.string
+    icon: PropTypes.func,
+    label: PropTypes.string
 };
 
 export default class TestStyleIconItem extends React.Component {

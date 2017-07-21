@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { interpolateNumber } from 'd3-interpolate';
 
 const propTypes = {
-    width: React.PropTypes.number,
-    description: React.PropTypes.string,
-    style: React.PropTypes.object
+    width: PropTypes.number,
+    description: PropTypes.string,
+    style: PropTypes.object
 };
 
 const defaultProps = {

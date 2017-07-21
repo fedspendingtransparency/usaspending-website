@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { orderBy } from 'lodash';
@@ -16,8 +17,8 @@ import { topFilterGroupGenerator } from
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object,
-    resetAccountFilters: React.PropTypes.func
+    reduxFilters: PropTypes.object,
+    resetAccountFilters: PropTypes.func
 };
 
 export class AccountTopFilterBarContainer extends React.Component {

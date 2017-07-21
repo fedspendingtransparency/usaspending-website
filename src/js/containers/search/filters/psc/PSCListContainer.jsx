@@ -86,15 +86,14 @@ class PSCListContainer extends React.Component {
             }
 
             const pscSearchParams = {
-                value: this.state.pscSearchString,
-                usage: "psc"
+                value: this.state.pscSearchString
             };
 
             this.pscSearchRequest = SearchHelper.fetchPSC(pscSearchParams);
 
             this.pscSearchRequest.promise
                 .then((res) => {
-                    const data = res.data;
+                    const data = res.data.results;
                     let autocompleteData = [];
 
                     // Remove 'identifier' from selected PSC to enable comparison

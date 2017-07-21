@@ -48,17 +48,13 @@ class NAICSListContainer extends React.Component {
 
     parseAutocompleteNAICS(naics) {
         const values = [];
-        if (naics && naics.length > 0) {
+        if (naics.length > 0) {
             naics.forEach((item) => {
-                let placeType = upperCase(item.place_type);
-                if (item.parent !== null &&
-                    (item.place_type !== null && item.place_type !== 'COUNTRY')) {
-                    placeType += ` in ${item.parent}`;
-                }
+                const description = upperCase(item.naics_description);
 
                 values.push({
-                    title: item.place,
-                    subtitle: placeType,
+                    title: item.naics,
+                    subtitle: description,
                     data: item
                 });
             });
@@ -86,15 +82,14 @@ class NAICSListContainer extends React.Component {
             }
 
             const naicsSearchParams = {
-                value: this.state.naicsSearchString,
-                usage: "naics"
+                search_text: this.state.naicsSearchString
             };
 
             this.naicsSearchRequest = SearchHelper.fetchNAICS(naicsSearchParams);
 
             this.naicsSearchRequest.promise
                 .then((res) => {
-                    const data = res.data;
+                    const data = res.data.results;
                     let autocompleteData = [];
 
                     // Remove 'identifier' from selected NAICS to enable comparison

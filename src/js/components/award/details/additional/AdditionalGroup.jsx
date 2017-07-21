@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import AdditionalRow from './AdditionalRow';
 
 const propTypes = {
-    fields: React.PropTypes.array,
-    data: React.PropTypes.object,
-    title: React.PropTypes.string
+    fields: PropTypes.array,
+    data: PropTypes.object,
+    title: PropTypes.string
 };
 
 export default class AdditionalGroup extends React.Component {

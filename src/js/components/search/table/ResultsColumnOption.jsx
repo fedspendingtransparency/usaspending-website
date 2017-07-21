@@ -4,12 +4,13 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    checked: React.PropTypes.string,
-    column: React.PropTypes.string,
-    label: React.PropTypes.string,
-    toggleColumnVisibility: React.PropTypes.func
+    checked: PropTypes.string,
+    column: PropTypes.string,
+    label: PropTypes.string,
+    toggleColumnVisibility: PropTypes.func
 };
 
 export default class ResultsColumnOption extends React.Component {

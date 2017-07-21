@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { orderBy } from 'lodash';
@@ -17,8 +18,8 @@ import { topFilterGroupGenerator } from
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object,
-    updateFilterCount: React.PropTypes.func
+    reduxFilters: PropTypes.object,
+    updateFilterCount: PropTypes.func
 };
 
 export class TopFilterBarContainer extends React.Component {
@@ -125,6 +126,12 @@ export class TopFilterBarContainer extends React.Component {
         const awardAmounts = this.prepareAwardAmounts(props);
         if (awardAmounts) {
             filters.push(awardAmounts);
+        }
+
+        // prepare NAICS filters
+        const selectedNAICS = this.prepareNAICS(props);
+        if (selectedNAICS) {
+            filters.push(selectedNAICS);
         }
 
         this.setState({
@@ -503,6 +510,31 @@ export class TopFilterBarContainer extends React.Component {
             filter.name = 'Award Amounts';
             return filter;
         }
+        return null;
+    }
+
+    /**
+     * Logic for parsing the current Redux selected NAICS into a JS object
+     * that can be parsed by the top filter bar
+     */
+    prepareNAICS(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.selectedNAICS.count() > 0) {
+            // NAICS have been selected
+            selected = true;
+            filter.values = props.selectedNAICS.toArray();
+        }
+
+        if (selected) {
+            filter.code = 'selectedNAICS';
+            filter.name = 'NAICS';
+            return filter;
+        }
+
         return null;
     }
 

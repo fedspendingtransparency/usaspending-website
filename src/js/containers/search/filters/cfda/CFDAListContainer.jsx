@@ -86,15 +86,14 @@ class CFDAListContainer extends React.Component {
             }
 
             const cfdaSearchParams = {
-                value: this.state.cfdaSearchString,
-                usage: "cfda"
+                value: this.state.cfdaSearchString
             };
 
             this.cfdaSearchRequest = SearchHelper.fetchCFDA(cfdaSearchParams);
 
             this.cfdaSearchRequest.promise
                 .then((res) => {
-                    const data = res.data;
+                    const data = res.data.results;
                     let autocompleteData = [];
 
                     // Remove 'identifier' from selected cfdas to enable comparison

@@ -4,13 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { toLower } from 'lodash';
 import ShownAgency from './ShownAgency';
 
 const propTypes = {
-    selectedAgencies: React.PropTypes.object,
-    toggleAgency: React.PropTypes.func,
-    agencyType: React.PropTypes.string
+    selectedAgencies: PropTypes.object,
+    toggleAgency: PropTypes.func,
+    agencyType: PropTypes.string
 };
 
 export default class SelectedAgencies extends React.Component {

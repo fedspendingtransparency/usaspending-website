@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { capitalize, throttle } from 'lodash';
 import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
@@ -13,7 +14,7 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import HorizontalBarItem from '../visualizations/obligated/HorizontalBarItem';
 
 const propTypes = {
-    agency: React.PropTypes.object
+    agency: PropTypes.object
 };
 
 export default class AgencyOverview extends React.PureComponent {
@@ -39,82 +40,87 @@ export default class AgencyOverview extends React.PureComponent {
     componentDidMount() {
         this.handleWindowResize();
         window.addEventListener('resize', this.handleWindowResize);
+        this.prepareOverview(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.agency.id !== this.props.agency.id) {
-            let logo = null;
-            let hideLogo = 'hide';
-            if (nextProps.agency.logo !== '') {
-                hideLogo = '';
-                logo = (<img
-                    src={`graphics/agency/${nextProps.agency.logo}`}
-                    alt={nextProps.agency.name} />);
-            }
-
-            let mission = 'Not available';
-            if (nextProps.agency.mission !== '') {
-                mission = nextProps.agency.mission;
-            }
-
-            let website = 'Not available';
-            if (nextProps.agency.website !== '') {
-                website = (<a
-                    className="agency-website"
-                    href={nextProps.agency.website}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    {nextProps.agency.website}
-                </a>);
-            }
-
-            // Move props to variables for readability
-            const budgetAuthority = nextProps.agency.budgetAuthority;
-            const federalBudget = nextProps.agency.federalBudget;
-            const fy = parseInt(nextProps.agency.activeFY, 10);
-            const quarter = parseInt(nextProps.agency.activeFQ, 10);
-
-            // Generate "as of" date
-            const endOfQuarter = convertQuarterToDate(quarter, fy);
-            const asOfDate = moment(endOfQuarter, "YYYY-MM-DD").format("MMMM D, YYYY");
-
-            // Generate Budget Authority string
-            const budgetAuthorityAmount = MoneyFormatter
-                .calculateUnitForSingleValue(budgetAuthority);
-            const formattedBudgetAuthority = `${MoneyFormatter
-                .formatMoneyWithPrecision(budgetAuthority / budgetAuthorityAmount.unit, 1)}
-            ${capitalize(budgetAuthorityAmount.longLabel)}`;
-
-            // Generate Percentage string
-            const percentage = MoneyFormatter.calculateTreemapPercentage(
-                budgetAuthority, federalBudget);
-            const percentageElement = (
-                <span className="authority-statement-percentage">{percentage}</span>
-            );
-
-            // Generate initial visualization size
-            let visualizationWidth = 0;
-            if (this.containerDiv) {
-                visualizationWidth = this.containerDiv.getBoundingClientRect().width;
-            }
-
-            this.setState({
-                hideLogo,
-                logo,
-                mission,
-                website,
-                asOfDate,
-                formattedBudgetAuthority,
-                percentageElement,
-                visualizationWidth
-            }, () => {
-                this.updateVisualizationState(nextProps, visualizationWidth);
-            });
+            this.prepareOverview(nextProps);
         }
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
+    }
+
+    prepareOverview(props) {
+        let logo = null;
+        let hideLogo = 'hide';
+        if (props.agency.logo !== '') {
+            hideLogo = '';
+            logo = (<img
+                src={`graphics/agency/${props.agency.logo}`}
+                alt={props.agency.name} />);
+        }
+
+        let mission = 'Not available';
+        if (props.agency.mission !== '') {
+            mission = props.agency.mission;
+        }
+
+        let website = 'Not available';
+        if (props.agency.website !== '') {
+            website = (<a
+                className="agency-website"
+                href={props.agency.website}
+                target="_blank"
+                rel="noopener noreferrer">
+                {props.agency.website}
+            </a>);
+        }
+
+        // Move props to variables for readability
+        const budgetAuthority = props.agency.budgetAuthority;
+        const federalBudget = props.agency.federalBudget;
+        const fy = parseInt(props.agency.activeFY, 10);
+        const quarter = parseInt(props.agency.activeFQ, 10);
+
+        // Generate "as of" date
+        const endOfQuarter = convertQuarterToDate(quarter, fy);
+        const asOfDate = moment(endOfQuarter, "YYYY-MM-DD").format("MMMM D, YYYY");
+
+        // Generate Budget Authority string
+        const budgetAuthorityAmount = MoneyFormatter
+            .calculateUnitForSingleValue(budgetAuthority);
+        const formattedBudgetAuthority = `${MoneyFormatter
+            .formatMoneyWithPrecision(budgetAuthority / budgetAuthorityAmount.unit, 1)}
+        ${capitalize(budgetAuthorityAmount.longLabel)}`;
+
+        // Generate Percentage string
+        const percentage = MoneyFormatter.calculateTreemapPercentage(
+            budgetAuthority, federalBudget);
+        const percentageElement = (
+            <span className="authority-statement-percentage">{percentage}</span>
+        );
+
+        // Generate initial visualization size
+        let visualizationWidth = 0;
+        if (this.containerDiv) {
+            visualizationWidth = this.containerDiv.getBoundingClientRect().width;
+        }
+
+        this.setState({
+            hideLogo,
+            logo,
+            mission,
+            website,
+            asOfDate,
+            formattedBudgetAuthority,
+            percentageElement,
+            visualizationWidth
+        }, () => {
+            this.updateVisualizationState(props, visualizationWidth);
+        });
     }
 
     updateVisualizationState(props, visualizationWidth) {

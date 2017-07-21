@@ -19,11 +19,11 @@ const ga = require('react-ga');
 
 class NAICSSearchContainer extends React.Component {
 
-    static logPlaceFilterEvent(place) {
+    static logPlaceFilterEvent(naics) {
         ga.event({
             category: 'Search Page Filter Applied',
             action: `Applied NAICS Filter`,
-            label: place.toLowerCase()
+            label: naics.toLowerCase()
         });
     }
 
@@ -43,7 +43,7 @@ class NAICSSearchContainer extends React.Component {
             this.props.updateSelectedNAICS(updateParams);
 
             // Analytics
-            NAICSSearchContainer.logPlaceFilterEvent(naics.place);
+            NAICSSearchContainer.logPlaceFilterEvent(naics.naics_description);
         }
     }
 

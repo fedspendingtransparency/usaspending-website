@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as LocationFormatter from 'helpers/locationFormatter';
 import ShownRecipientLocation from './ShownRecipientLocation';
 
 const propTypes = {
-    selectedRecipientLocations: React.PropTypes.object,
-    toggleRecipientLocation: React.PropTypes.func
+    selectedRecipientLocations: PropTypes.object,
+    toggleRecipientLocation: PropTypes.func
 };
 
 export default class SelectedRecipientLocations extends React.Component {

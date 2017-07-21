@@ -4,14 +4,15 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    hideArrow: React.PropTypes.bool,
-    toggleFilter: React.PropTypes.func,
-    arrowState: React.PropTypes.string,
-    name: React.PropTypes.string,
-    disabled: React.PropTypes.bool
+    hideArrow: PropTypes.bool,
+    toggleFilter: PropTypes.func,
+    arrowState: PropTypes.string,
+    name: PropTypes.string,
+    disabled: PropTypes.bool
 };
 
 export default class FilterExpandButton extends React.Component {

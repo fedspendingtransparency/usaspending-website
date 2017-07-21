@@ -4,31 +4,32 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { truncate } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    label: React.PropTypes.string,
-    value: React.PropTypes.number,
-    total: React.PropTypes.number,
-    x0: React.PropTypes.number,
-    x1: React.PropTypes.number,
-    y0: React.PropTypes.number,
-    objectClassID: React.PropTypes.string,
-    color: React.PropTypes.string,
-    strokeColor: React.PropTypes.string,
-    strokeOpacity: React.PropTypes.number,
-    toggleMinorObjectClass: React.PropTypes.func,
-    toggleTooltipIn: React.PropTypes.func,
-    toggleTooltipOut: React.PropTypes.func,
-    opacity: React.PropTypes.number,
-    textColor: React.PropTypes.string,
-    textClass: React.PropTypes.string,
-    height: React.PropTypes.number,
-    width: React.PropTypes.number,
-    labelView: React.PropTypes.string,
-    percentView: React.PropTypes.string,
-    clickable: React.PropTypes.bool
+    label: PropTypes.string,
+    value: PropTypes.number,
+    total: PropTypes.number,
+    x0: PropTypes.number,
+    x1: PropTypes.number,
+    y0: PropTypes.number,
+    objectClassID: PropTypes.string,
+    color: PropTypes.string,
+    strokeColor: PropTypes.string,
+    strokeOpacity: PropTypes.number,
+    toggleMinorObjectClass: PropTypes.func,
+    toggleTooltipIn: PropTypes.func,
+    toggleTooltipOut: PropTypes.func,
+    opacity: PropTypes.number,
+    textColor: PropTypes.string,
+    textClass: PropTypes.string,
+    height: PropTypes.number,
+    width: PropTypes.number,
+    labelView: PropTypes.string,
+    percentView: PropTypes.string,
+    clickable: PropTypes.bool
 };
 
 const defaultProps = {

@@ -7,7 +7,6 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
-import * as SearchHelper from 'helpers/searchHelper';
 import { ResultsTableContainer } from 'containers/search/table/ResultsTableContainer';
 
 import { MetaRecord } from 'redux/reducers/resultsMeta/resultsMetaReducer';
@@ -15,9 +14,8 @@ import { OrderRecord } from 'redux/reducers/search/searchOrderReducer';
 import { VisibilityRecord } from 'redux/reducers/search/columnVisibilityReducer';
 import { mockActions, mockRedux, mockApi, mockTabCount } from './mockAwards';
 
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
+jest.mock('helpers/searchHelper', () => require('../filters/searchHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // spy on specific functions inside the component
 const autoTabSpy = sinon.spy(ResultsTableContainer.prototype, 'pickDefaultTab');
@@ -35,58 +33,29 @@ jest.mock('helpers/textMeasurement', () => (
     }
 ));
 
-const mockSearchHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-
-    // override the specified function
-    SearchHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
 describe('ResultsTableContainer', () => {
-    it('should pick a default tab for awards on mount', () => {
-        mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-        mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
-        mount(<ResultsTableContainer
-            {...mockActions}
-            {...mockRedux} />);
-
-        jest.runAllTicks();
-
-        expect(autoTabSpy.callCount).toEqual(1);
-        autoTabSpy.reset();
-    });
-
-    it('should pick a default tab whenever the Redux filters change', () => {
-        mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-        mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
+    it('should pick a default tab for awards on mount', async () => {
         const container = mount(<ResultsTableContainer
             {...mockActions}
             {...mockRedux} />);
 
-        jest.runAllTicks();
+        container.instance().parseTabCounts = jest.fn();
+
+        await container.instance().tabCountRequest.promise;
+
+        expect(autoTabSpy.callCount).toEqual(1);
+
+        autoTabSpy.reset();
+    });
+
+    it('should pick a default tab whenever the Redux filters change', async () => {
+        const container = mount(<ResultsTableContainer
+            {...mockActions}
+            {...mockRedux} />);
+
+        container.instance().parseTabCounts = jest.fn();
+
+        await container.instance().tabCountRequest.promise;
 
         expect(autoTabSpy.callCount).toEqual(1);
 
@@ -99,24 +68,20 @@ describe('ResultsTableContainer', () => {
             filters: newFilters
         });
 
-        jest.runAllTicks();
+        await container.instance().tabCountRequest.promise;
 
         // this should trigger a new API call
         expect(autoTabSpy.callCount).toEqual(2);
+
         autoTabSpy.reset();
     });
 
-    it('should make an API call whenever the Redux table type value changes', () => {
-        mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-        mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
-        searchSpy.reset();
-
+    it('should trigger an API call whenever the Redux table type value changes', async () => {
         const container = mount(<ResultsTableContainer
             {...mockActions}
             {...mockRedux} />);
-
-        jest.runAllTicks();
+        await container.instance().tabCountRequest.promise;
+        await container.instance().searchRequest.promise;
 
         expect(searchSpy.callCount).toEqual(1);
 
@@ -129,22 +94,19 @@ describe('ResultsTableContainer', () => {
             meta: new MetaRecord(metaData)
         });
 
-        jest.runAllTicks();
-
-        // this should trigger a new API call
+        await container.instance().searchRequest.promise;
         expect(searchSpy.callCount).toEqual(2);
+        autoTabSpy.reset();
         searchSpy.reset();
     });
 
-    it('should make an API call when the Redux sort order changes', () => {
-        mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-        mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
+    it('should make an API call when the Redux sort order changes', async () => {
         const container = mount(<ResultsTableContainer
             {...mockActions}
             {...mockRedux} />);
 
-        jest.runAllTicks();
+        await container.instance().tabCountRequest.promise;
+        await container.instance().searchRequest.promise;
 
         expect(searchSpy.callCount).toEqual(1);
 
@@ -157,22 +119,23 @@ describe('ResultsTableContainer', () => {
             searchOrder: new OrderRecord(orderData)
         });
 
-        jest.runAllTicks();
+        await container.instance().tabCountRequest.promise;
+        await container.instance().searchRequest.promise;
 
         // this should trigger a new API call
         expect(searchSpy.callCount).toEqual(2);
+
+        autoTabSpy.reset();
         searchSpy.reset();
     });
 
-    it('should make an API call when the Redux page number changes', () => {
-        mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-        mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
+    it('should make an API call when the Redux page number changes', async () => {
         const container = mount(<ResultsTableContainer
             {...mockActions}
             {...mockRedux} />);
 
-        jest.runAllTicks();
+        await container.instance().tabCountRequest.promise;
+        await container.instance().searchRequest.promise;
 
         expect(searchSpy.callCount).toEqual(1);
 
@@ -187,22 +150,23 @@ describe('ResultsTableContainer', () => {
             meta: new MetaRecord(metaData)
         });
 
-        jest.runAllTicks();
+        await container.instance().tabCountRequest.promise;
+        await container.instance().searchRequest.promise;
 
         // this should trigger a new API call
         expect(searchSpy.callCount).toEqual(2);
+
+        autoTabSpy.reset();
         searchSpy.reset();
     });
 
-    it('should make an API call when columns are added or removed', () => {
-        mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-        mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
+    it('should make an API call when columns are added or removed', async () => {
         const container = mount(<ResultsTableContainer
             {...mockActions}
             {...mockRedux} />);
 
-        jest.runAllTicks();
+        await container.instance().tabCountRequest.promise;
+        await container.instance().searchRequest.promise;
 
         expect(searchSpy.callCount).toEqual(1);
 
@@ -216,35 +180,36 @@ describe('ResultsTableContainer', () => {
             searchOrder: new VisibilityRecord(columnVisibilityData)
         });
 
-        jest.runAllTicks();
+        await container.instance().tabCountRequest.promise;
+        await container.instance().searchRequest.promise;
 
         // this should trigger a new API call
         expect(searchSpy.callCount).toEqual(2);
+
+        autoTabSpy.reset();
         searchSpy.reset();
     });
 
     describe('updateFilters', () => {
-        it('should reset the page number to 1', () => {
-            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
+        it('should reset the page number to 1', async () => {
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...mockRedux} />);
-
-            jest.runAllTicks();
 
             container.setState({
                 page: 5
             });
             container.instance().updateFilters();
+
+            await container.instance().searchRequest.promise;
+
             expect(container.state().page).toEqual(1);
+
+            autoTabSpy.reset();
+            searchSpy.reset();
         });
 
-        it('should save a SearchObject object to state', () => {
-            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
+        it('should save a SearchObject object to state', async () => {
             const customFilters = Object.assign({}, mockRedux.filters, {
                 keyword: 'blah blah'
             });
@@ -258,31 +223,33 @@ describe('ResultsTableContainer', () => {
                 {...redux} />);
 
             container.instance().updateFilters();
+
+            await container.instance().searchRequest.promise;
+
             expect(container.state().searchParams.keyword).toEqual('blah blah');
+
+            autoTabSpy.reset();
+            searchSpy.reset();
         });
 
-        it('will trigger an API call', () => {
-            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
+        it('will trigger an API call', async () => {
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...mockRedux} />);
 
-            searchSpy.reset();
             container.instance().updateFilters();
-            jest.runAllTicks();
+
+            await container.instance().searchRequest.promise;
 
             expect(searchSpy.callCount).toEqual(1);
+
+            autoTabSpy.reset();
             searchSpy.reset();
         });
     });
 
     describe('parseData', () => {
         it('should parse the API response into an array of award objects', () => {
-            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
             const insertAction = jest.fn();
 
             const actions = Object.assign({}, mockActions, {
@@ -298,14 +265,14 @@ describe('ResultsTableContainer', () => {
             expect(insertAction).toHaveBeenCalledTimes(1);
             expect(insertAction.mock.calls[0][0].type).toEqual('awards');
             expect(insertAction.mock.calls[0][0].data).toHaveLength(1);
+
+            autoTabSpy.reset();
+            searchSpy.reset();
         });
     });
 
     describe('switchTab', () => {
         it('should change the Redux table type', () => {
-            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
             const tableTypeAction = jest.fn();
 
             const actions = Object.assign({}, mockActions, {
@@ -320,14 +287,14 @@ describe('ResultsTableContainer', () => {
 
             expect(tableTypeAction).toHaveBeenCalledTimes(1);
             expect(tableTypeAction.mock.calls[0][0]).toEqual('loans');
+
+            autoTabSpy.reset();
+            searchSpy.reset();
         });
     });
 
     describe('loadNextPage', () => {
         it('should load the next page if available', () => {
-            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
             const pageNumber = jest.fn();
 
             const actions = Object.assign({}, mockActions, {
@@ -353,11 +320,11 @@ describe('ResultsTableContainer', () => {
 
             expect(pageNumber).toHaveBeenCalledTimes(1);
             expect(pageNumber.mock.calls[0][0]).toEqual(6);
+
+            autoTabSpy.reset();
+            searchSpy.reset();
         });
         it('should do nothing if there are no more pages', () => {
-            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
             const pageNumber = jest.fn();
 
             const actions = Object.assign({}, mockActions, {
@@ -382,14 +349,14 @@ describe('ResultsTableContainer', () => {
             container.instance().loadNextPage();
 
             expect(pageNumber).toHaveBeenCalledTimes(0);
+
+            autoTabSpy.reset();
+            searchSpy.reset();
         });
     });
 
     describe('parseTabCounts', () => {
-        it('should select the first tab (left to right) with a non-zero aggregate value', () => {
-            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
+        it('should select the first tab (left to right) with a non-zero aggregate value', async () => {
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -398,6 +365,8 @@ describe('ResultsTableContainer', () => {
             container.instance().switchTab = mockSwitchTab;
 
             container.instance().parseTabCounts(mockTabCount);
+
+            await container.instance().searchRequest.promise;
 
             expect(mockSwitchTab).toHaveBeenLastCalledWith('contracts');
 
@@ -433,12 +402,12 @@ describe('ResultsTableContainer', () => {
 
             container.instance().parseTabCounts(secondMock);
             expect(mockSwitchTab).toHaveBeenLastCalledWith('grants');
+
+            autoTabSpy.reset();
+            searchSpy.reset();
         });
 
-        it('should trigger an API call for awards', () => {
-            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
+        it('should trigger an API call for awards', async () => {
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -447,17 +416,17 @@ describe('ResultsTableContainer', () => {
             expect(searchSpy.callCount).toEqual(0);
             container.instance().parseTabCounts(mockTabCount);
 
-            jest.runAllTicks();
+            await container.instance().searchRequest.promise;
+
             expect(searchSpy.callCount).toEqual(1);
+
+            autoTabSpy.reset();
             searchSpy.reset();
         });
     });
 
     describe('toggleColumnVisibility', () => {
         it('should change the Redux column visibility', () => {
-            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
             const columnVisibilityAction = jest.fn();
 
             const actions = Object.assign({}, mockActions, {
@@ -474,14 +443,14 @@ describe('ResultsTableContainer', () => {
             expect(columnVisibilityAction.mock.calls[0][0]).toEqual({
                 column: "recipient_name", tableType: "contracts"
             });
+
+            autoTabSpy.reset();
+            searchSpy.reset();
         });
     });
 
     describe('reorderColumns', () => {
         it('should change the order of the visible columns', () => {
-            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-            mockSearchHelper('performPagedSearch', 'resolve', mockApi);
-
             const columnVisibilityAction = jest.fn();
 
             const actions = Object.assign({}, mockActions, {
@@ -498,6 +467,9 @@ describe('ResultsTableContainer', () => {
             expect(columnVisibilityAction.mock.calls[0][0]).toEqual({
                 tableType: "contracts", dragIndex: 5, hoverIndex: 2
             });
+
+            autoTabSpy.reset();
+            searchSpy.reset();
         });
     });
 });

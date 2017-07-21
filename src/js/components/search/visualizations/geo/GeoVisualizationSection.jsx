@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { indexOf } from 'lodash';
 
@@ -12,10 +13,10 @@ import MapWrapper from './MapWrapper';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
 
 const propTypes = {
-    scope: React.PropTypes.string,
-    changeScope: React.PropTypes.func,
-    data: React.PropTypes.object,
-    total: React.PropTypes.number
+    scope: PropTypes.string,
+    changeScope: PropTypes.func,
+    data: PropTypes.object,
+    total: PropTypes.number
 };
 
 export default class GeoVisualizationSection extends React.Component {

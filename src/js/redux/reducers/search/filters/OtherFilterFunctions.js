@@ -1,10 +1,10 @@
 /**
- * Created by michaelbray on 12/12/16.
+ * Created by Emily Gullo 07/18/2017
  */
 
 import { sortBy } from 'lodash';
 
-export const udpatedSelectedCFDA = (state, value) => {
+export const updateSelectedCFDA = (state, value) => {
     let updatedSet = state;
     // generate an identifier string based on matched IDs and place name
     const cfdaIdentifier =
@@ -23,11 +23,10 @@ export const udpatedSelectedCFDA = (state, value) => {
     return updatedSet;
 };
 
-export const udpatedSelectedNAICS = (state, value) => {
+export const updateSelectedNAICS = (state, value) => {
     let updatedSet = state;
     // generate an identifier string based on matched IDs and place name
-    const naicsIdentifier =
-        `${sortBy(value.matched_ids).join(',')}_${value.place}_${value.place_type}`;
+    const naicsIdentifier = value.naics;
 
     if (updatedSet.has(naicsIdentifier)) {
         updatedSet = updatedSet.delete(naicsIdentifier);
@@ -42,7 +41,7 @@ export const udpatedSelectedNAICS = (state, value) => {
     return updatedSet;
 };
 
-export const udpatedSelectedPSC = (state, value) => {
+export const updateSelectedPSC = (state, value) => {
     let updatedSet = state;
     // generate an identifier string based on matched IDs and place name
     const pscIdentifier =

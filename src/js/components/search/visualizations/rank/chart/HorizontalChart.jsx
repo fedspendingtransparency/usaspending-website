@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
@@ -13,21 +14,21 @@ import ChartGroup from './ChartGroup';
 import ChartBar from './ChartBar';
 
 const propTypes = {
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    dataSeries: React.PropTypes.array,
-    labelSeries: React.PropTypes.array,
-    linkSeries: React.PropTypes.array,
-    descriptions: React.PropTypes.array,
-    labelWidth: React.PropTypes.number,
-    padding: React.PropTypes.object,
-    itemHeight: React.PropTypes.number,
-    disableTooltip: React.PropTypes.bool,
-    selectItem: React.PropTypes.func,
-    deselectItem: React.PropTypes.func,
-    clickedGroup: React.PropTypes.func,
-    urlRoot: React.PropTypes.string,
-    minRows: React.PropTypes.number
+    width: PropTypes.number,
+    height: PropTypes.number,
+    dataSeries: PropTypes.array,
+    labelSeries: PropTypes.array,
+    linkSeries: PropTypes.array,
+    descriptions: PropTypes.array,
+    labelWidth: PropTypes.number,
+    padding: PropTypes.object,
+    itemHeight: PropTypes.number,
+    disableTooltip: PropTypes.bool,
+    selectItem: PropTypes.func,
+    deselectItem: PropTypes.func,
+    clickedGroup: PropTypes.func,
+    urlRoot: PropTypes.string,
+    minRows: PropTypes.number
 };
 
 const defaultProps = {

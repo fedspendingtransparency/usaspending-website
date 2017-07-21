@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { throttle, find } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -13,11 +14,11 @@ import MajorObjectClasses from './MajorObjectClasses';
 import MinorObjectClasses from './MinorObjectClasses';
 
 const propTypes = {
-    majorObjectClasses: React.PropTypes.object,
-    minorObjectClasses: React.PropTypes.object,
-    totalObligation: React.PropTypes.number,
-    totalMinorObligation: React.PropTypes.number,
-    showMinorObjectClasses: React.PropTypes.func
+    majorObjectClasses: PropTypes.object,
+    minorObjectClasses: PropTypes.object,
+    totalObligation: PropTypes.number,
+    totalMinorObligation: PropTypes.number,
+    showMinorObjectClasses: PropTypes.func
 };
 
 export default class ObjectClassTreeMap extends React.Component {

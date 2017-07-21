@@ -134,7 +134,7 @@ export const fetchCFDA = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/autocomplete/CFDA/',
+            url: 'v2/autocomplete/cfda/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,
@@ -151,7 +151,7 @@ export const fetchNAICS = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/autocomplete/NAICS/',
+            url: 'v2/autocomplete/naics/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,
@@ -168,7 +168,7 @@ export const fetchPSC = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/autocomplete/PSC/',
+            url: 'v2/autocomplete/psc/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,

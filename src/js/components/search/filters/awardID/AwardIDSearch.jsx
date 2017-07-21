@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import AwardIDListContainer from 'containers/search/filters/awardID/AwardIDListContainer';
 import SelectedAwardIDs from './SelectedAwardIDs';
 
 const propTypes = {
-    toggleAwardID: React.PropTypes.func,
-    selectedAwardIDs: React.PropTypes.object
+    toggleAwardID: PropTypes.func,
+    selectedAwardIDs: PropTypes.object
 };
 
 export default class AwardIDSearch extends React.Component {

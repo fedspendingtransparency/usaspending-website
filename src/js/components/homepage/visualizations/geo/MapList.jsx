@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { orderBy, uniqueId } from 'lodash';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
@@ -16,8 +17,8 @@ import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableG
 import MapListHeaderCell from './cells/MapListHeaderCell';
 
 const propTypes = {
-    loading: React.PropTypes.bool,
-    data: React.PropTypes.array
+    loading: PropTypes.bool,
+    data: PropTypes.array
 };
 
 const rowHeight = 40;

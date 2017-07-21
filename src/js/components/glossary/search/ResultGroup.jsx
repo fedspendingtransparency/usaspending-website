@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ResultItem from './ResultItem';
 
 const propTypes = {
-    title: React.PropTypes.string,
-    items: React.PropTypes.array,
-    search: React.PropTypes.string,
-    selectTerm: React.PropTypes.func
+    title: PropTypes.string,
+    items: PropTypes.array,
+    search: PropTypes.string,
+    selectTerm: PropTypes.func
 };
 
 export default class ResultGroup extends React.Component {

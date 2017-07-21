@@ -4,12 +4,13 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    title: React.PropTypes.string.isRequired,
-    value: React.PropTypes.any,
-    removeFilter: React.PropTypes.func
+    title: PropTypes.string.isRequired,
+    value: PropTypes.any,
+    removeFilter: PropTypes.func
 };
 
 const defaultProps = {
@@ -24,6 +25,7 @@ export default class TopFilterItem extends React.Component {
     }
 
     clickedButton() {
+        console.log(this.props);
         this.props.removeFilter(this.props.value);
     }
 

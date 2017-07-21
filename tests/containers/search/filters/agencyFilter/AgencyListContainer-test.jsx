@@ -9,98 +9,16 @@ import sinon from 'sinon';
 import { OrderedMap } from 'immutable';
 
 import { AgencyListContainer } from 'containers/search/filters/AgencyListContainer';
-import * as SearchHelper from 'helpers/searchHelper';
 import * as agencyActions from 'redux/actions/search/agencyActions';
+
+jest.mock('helpers/searchHelper', () => require('../searchHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 const setup = (props) => mount(<AgencyListContainer {...props} />);
 
 const initialFilters = {
     fundingAgencies: [],
     awardingAgencies: []
-};
-
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
-
-const apiResponse = {
-    matched_objects: {
-        subtier_agency__name: [{
-            id: 1788,
-            create_date: "2017-01-12T19:56:30.517000Z",
-            update_date: "2017-01-12T19:56:30.517000Z",
-            toptier_agency: {
-                toptier_agency_id: 268,
-                create_date: "2017-01-31T21:25:39.810344Z",
-                update_date: "2017-01-31T21:25:39.936439Z",
-                cgac_code: "097",
-                fpds_code: "9700",
-                name: "DEPT OF DEFENSE"
-            },
-            subtier_agency: {
-                subtier_agency_id: 1654,
-                create_date: "2017-01-31T21:25:39.569918Z",
-                update_date: "2017-01-31T21:25:39.691244Z",
-                subtier_code: "1700",
-                name: "DEPT OF THE NAVY"
-            },
-            office_agency: null
-        }, {
-            id: 1789,
-            create_date: "2017-01-12T19:56:30.522000Z",
-            update_date: "2017-01-12T19:56:30.522000Z",
-            toptier_agency: {
-                toptier_agency_id: 268,
-                create_date: "2017-01-31T21:25:39.810344Z",
-                update_date: "2017-01-31T21:25:39.936439Z",
-                cgac_code: "097",
-                fpds_code: "9700",
-                name: "DEPT OF DEFENSE"
-            },
-            subtier_agency: {
-                subtier_agency_id: 1655,
-                create_date: "2017-01-31T21:25:39.569918Z",
-                update_date: "2017-01-31T21:25:39.691244Z",
-                subtier_code: "1708",
-                name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
-            },
-            office_agency: null
-        }]
-    }
-};
-
-// we don't want to actually hit the API because tests should be fully controlled, so we will mock
-// the SearchHelper functions
-const mockSearchHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    SearchHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockSearchHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/searchHelper');
 };
 
 describe('AgencyListContainer', () => {
@@ -162,9 +80,6 @@ describe('AgencyListContainer', () => {
             // Run fake timer for input delay
             jest.useFakeTimers().runTimersToTime(1000);
 
-            // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
-            jest.runAllTicks();
-
             // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
             expect(queryAutocompleteAgenciesSpy.callCount).toEqual(1);
@@ -197,6 +112,8 @@ describe('AgencyListContainer', () => {
                     value: 'N'
                 }
             };
+
+            // Call handleTextInput function
             agencyListContainer.instance().handleTextInput(searchQuery);
 
             // Run fake timer for input delay
@@ -237,13 +154,12 @@ describe('AgencyListContainer', () => {
                     value: 'The Navy'
                 }
             };
+
+            // Call handleTextInput function
             agencyListContainer.instance().handleTextInput(searchQuery);
 
             // Run fake timer for input delay
-            jest.useFakeTimers().runTimersToTime(300);
-
-            // Run fake timer for input delay
-            jest.runAllTicks();
+            jest.useFakeTimers().runTimersToTime(1000);
 
             // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
@@ -254,7 +170,7 @@ describe('AgencyListContainer', () => {
             queryAutocompleteAgenciesSpy.reset();
         });
 
-        it('should populate Funding Agencies after performing the search', () => {
+        it('should populate Funding Agencies after performing the search', async () => {
             // Setup redux state
             const reduxState = [
                 {
@@ -314,15 +230,6 @@ describe('AgencyListContainer', () => {
                 selectedAgencies: new OrderedMap()
             });
 
-            // Mock the search helper to resolve with the mocked response
-            mockSearchHelper('fetchAgencies', 'resolve', apiResponse);
-
-            // Run fake timer for input delay
-            jest.useFakeTimers().runTimersToTime(10000);
-
-            // Run all ticks
-            jest.runAllTicks();
-
             // Set up spies
             const queryAutocompleteAgenciesSpy = sinon.spy(agencyListContainer.instance(),
                 'queryAutocompleteAgencies');
@@ -330,16 +237,11 @@ describe('AgencyListContainer', () => {
                 'parseAutocompleteAgencies');
 
             agencyListContainer.instance().queryAutocompleteAgencies('The Navy');
-
-            // Run all ticks
-            jest.runAllTicks();
+            await agencyListContainer.instance().agencySearchRequest.promise;
 
             expect(queryAutocompleteAgenciesSpy.callCount).toEqual(1);
             expect(parseAutocompleteAgenciesSpy.calledWith(queryAutocompleteAgenciesSpy));
             expect(mockReduxActionFunding).toHaveBeenCalled();
-
-            // Reset the mock
-            unmockSearchHelper();
 
             // Reset spies
             queryAutocompleteAgenciesSpy.reset();
@@ -369,13 +271,12 @@ describe('AgencyListContainer', () => {
                     value: 'The Navy'
                 }
             };
+
+            // Call handleTextInput function
             agencyListContainer.instance().handleTextInput(searchQuery);
 
             // Run fake timer for input delay
-            jest.useFakeTimers().runTimersToTime(300);
-
-            // Run fake timer for input delay
-            jest.runAllTicks();
+            jest.useFakeTimers().runTimersToTime(1000);
 
             // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
@@ -386,7 +287,7 @@ describe('AgencyListContainer', () => {
             queryAutocompleteAgenciesSpy.reset();
         });
 
-        it('should populate Awarding Agencies after performing the search', () => {
+        it('should populate Awarding Agencies after performing the search', async () => {
             // Setup redux state
             const reduxState = [
                 {
@@ -446,12 +347,6 @@ describe('AgencyListContainer', () => {
                 selectedAgencies: new OrderedMap()
             });
 
-            // mock the search helper to resolve with the mocked response
-            mockSearchHelper('fetchAgencies', 'resolve', apiResponse);
-
-            // Run all ticks
-            jest.runAllTicks();
-
             // Set up spies
             const queryAutocompleteAgenciesSpy = sinon.spy(agencyListContainer.instance(),
                 'queryAutocompleteAgencies');
@@ -459,17 +354,12 @@ describe('AgencyListContainer', () => {
                 'parseAutocompleteAgencies');
 
             agencyListContainer.instance().queryAutocompleteAgencies('The Navy');
-
-            // Run all ticks
-            jest.runAllTicks();
+            await agencyListContainer.instance().agencySearchRequest.promise;
 
             // everything should be updated now
             expect(queryAutocompleteAgenciesSpy.callCount).toEqual(1);
             expect(parseAutocompleteAgenciesSpy.calledWith(queryAutocompleteAgenciesSpy));
             expect(mockReduxActionAwarding).toHaveBeenCalled();
-
-            // Reset the mock
-            unmockSearchHelper();
 
             // Reset spies
             queryAutocompleteAgenciesSpy.reset();

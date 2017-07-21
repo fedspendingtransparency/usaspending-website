@@ -17,13 +17,13 @@ export default class SelectedNAICS extends React.Component {
     render() {
         const shownNAICS = [];
         this.props.selectedNAICS.entrySeq().forEach((entry) => {
-            const key = entry[0];
-            const naics = entry[1];
+            const naics = entry[1].naics;
+            const description = entry[1].naics_description;
             const value = (<ShownNAICS
                 naics={naics}
-                label={OtherFiltersFormatter.formatNAICS(key, naics)}
-                key={key}
-                removeNAICS={this.props.removeNAICS.bind(null, naics)} />);
+                label={OtherFiltersFormatter.formatNAICS(naics, description)}
+                key={naics}
+                removeNAICS={this.props.removeNAICS.bind(null, entry[1])} />);
             shownNAICS.push(value);
         });
 

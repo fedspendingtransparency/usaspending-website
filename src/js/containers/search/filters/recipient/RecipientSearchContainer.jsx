@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -12,11 +13,11 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import RecipientSearch from 'components/search/filters/recipient/RecipientSearch';
 
 const propTypes = {
-    updateSelectedRecipients: React.PropTypes.func,
-    updateRecipientDomesticForeignSelection: React.PropTypes.func,
-    toggleRecipientType: React.PropTypes.func,
-    bulkRecipientTypeChange: React.PropTypes.func,
-    updateRecipientLocations: React.PropTypes.func
+    updateSelectedRecipients: PropTypes.func,
+    updateRecipientDomesticForeignSelection: PropTypes.func,
+    toggleRecipientType: PropTypes.func,
+    bulkRecipientTypeChange: PropTypes.func,
+    updateRecipientLocations: PropTypes.func
 };
 
 const ga = require('react-ga');

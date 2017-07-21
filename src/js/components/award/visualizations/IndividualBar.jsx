@@ -4,11 +4,12 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    name: React.PropTypes.string,
-    yValue: React.PropTypes.number,
-    barValue: React.PropTypes.object
+    name: PropTypes.string,
+    yValue: PropTypes.number,
+    barValue: PropTypes.object
 };
 
 export default class IndividualBar extends React.Component {

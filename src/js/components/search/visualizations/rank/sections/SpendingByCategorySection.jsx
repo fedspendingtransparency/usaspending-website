@@ -4,13 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import RankVisualizationScopeButton from '../RankVisualizationScopeButton';
 import RankVisualizationSection from './RankVisualizationSection';
 
 const propTypes = {
-    scope: React.PropTypes.string,
-    changeScope: React.PropTypes.func
+    scope: PropTypes.string,
+    changeScope: PropTypes.func
 };
 
 export default class SpendingByCategorySection extends React.Component {

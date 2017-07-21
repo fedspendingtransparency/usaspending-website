@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual, differenceWith } from 'lodash';
@@ -16,10 +17,10 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as budgetCategoryActions from 'redux/actions/search/budgetCategoryActions';
 
 const propTypes = {
-    setAutocompleteFederalAccounts: React.PropTypes.func,
-    autocompleteFederalAccounts: React.PropTypes.array,
-    updateFederalAccounts: React.PropTypes.func,
-    federalAccounts: React.PropTypes.object
+    setAutocompleteFederalAccounts: PropTypes.func,
+    autocompleteFederalAccounts: PropTypes.array,
+    updateFederalAccounts: PropTypes.func,
+    federalAccounts: PropTypes.object
 };
 
 export class BudgetCategoryAccountContainer extends React.Component {

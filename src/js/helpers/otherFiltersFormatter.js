@@ -22,18 +22,11 @@ export const formatCFDA = (cfda) => {
     return displayValue;
 };
 
-export const formatNAICS = (naics) => {
-    let displayValue = '';
+export const formatNAICS = (naics, description) => {
+    let displayValue = `${naics}`;
 
-    if (naics.place_type !== null) {
-        displayValue = `${startCase(toLower(naics.place_type))} | `;
-    }
-
-    displayValue += `${naics.place}`;
-
-    if (naics.parent !== null &&
-        (naics.place_type !== null && naics.place_type !== 'COUNTRY')) {
-        displayValue += `, ${naics.parent}`;
+    if (description !== null) {
+        displayValue += ` | ${startCase(toLower(description))}`;
     }
 
     return displayValue;

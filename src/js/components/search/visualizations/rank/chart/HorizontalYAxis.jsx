@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    xScale: React.PropTypes.func,
-    x: React.PropTypes.number,
-    y: React.PropTypes.number,
-    height: React.PropTypes.number
+    xScale: PropTypes.func,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    height: PropTypes.number
 };
 
 export default class HorizontalYAxis extends React.Component {

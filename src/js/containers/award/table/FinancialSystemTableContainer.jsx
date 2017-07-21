@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -20,14 +21,14 @@ import SummaryPageTableMessage from 'components/award/table/SummaryPageTableMess
 import tableFields from 'dataMapping/contracts/financialSystem';
 
 const propTypes = {
-    award: React.PropTypes.object,
-    tableWidth: React.PropTypes.number,
-    resetFinSys: React.PropTypes.func,
-    setFinSysData: React.PropTypes.func,
-    appendFinSysData: React.PropTypes.func,
-    setFinSysMeta: React.PropTypes.func,
-    updateTransactionRenderHash: React.PropTypes.func,
-    updateTransactionGroupHash: React.PropTypes.func
+    award: PropTypes.object,
+    tableWidth: PropTypes.number,
+    resetFinSys: PropTypes.func,
+    setFinSysData: PropTypes.func,
+    appendFinSysData: PropTypes.func,
+    setFinSysMeta: PropTypes.func,
+    updateTransactionRenderHash: PropTypes.func,
+    updateTransactionGroupHash: PropTypes.func
 };
 
 export class FinancialSystemTableContainer extends React.Component {

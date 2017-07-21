@@ -185,7 +185,7 @@ class SearchOperation {
         }
 
         // Add naics query
-        if (this.selectedNAICS.length > 0) {
+        if (this.selectedNAICS.length > 0 && this.searchContext === 'award') {
             filters.push(OtherFiltersQuery.buildNAICSQuery(
                 this.selectedNAICS, this.searchContext));
         }

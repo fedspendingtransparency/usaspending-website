@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    name: React.PropTypes.string,
-    height: React.PropTypes.number,
-    x: React.PropTypes.number,
-    y: React.PropTypes.number,
-    width: React.PropTypes.number,
-    hideArrow: React.PropTypes.bool
+    name: PropTypes.string,
+    height: PropTypes.number,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    width: PropTypes.number,
+    hideArrow: PropTypes.bool
 };
 
 export default class MinimizedBudgetFunctionsTooltip extends React.Component {

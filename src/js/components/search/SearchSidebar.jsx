@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
@@ -50,7 +51,7 @@ const filters = {
 };
 
 const propTypes = {
-    mobile: React.PropTypes.bool
+    mobile: PropTypes.bool
 };
 
 const defaultProps = {

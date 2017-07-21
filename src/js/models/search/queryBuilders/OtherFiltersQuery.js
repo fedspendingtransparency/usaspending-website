@@ -6,7 +6,6 @@ import * as FilterFields from 'dataMapping/search/filterFields';
 
 export const buildCFDAQuery = (cfdaGroup, searchContext = 'award') => {
     const field = FilterFields[`${searchContext}Fields`].cfda;
-
     const cfdaSet = [];
 
     // Push IDs of selected Awards
@@ -25,12 +24,13 @@ export const buildCFDAQuery = (cfdaGroup, searchContext = 'award') => {
 
 export const buildNAICSQuery = (naicsGroup, searchContext = 'award') => {
     const field = FilterFields[`${searchContext}Fields`].naics;
+    // if context is award and account leave set empty
 
     const naicsSet = [];
 
     // Push IDs of selected Awards
     naicsGroup.forEach((naics) => {
-        naicsSet.push(naics.id);
+        naicsSet.push(naics.naics);
     });
 
     const filter = {

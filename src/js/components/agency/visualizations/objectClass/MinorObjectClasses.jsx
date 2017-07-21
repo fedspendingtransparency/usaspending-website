@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
 import { throttle, remove, orderBy, find } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -14,10 +15,10 @@ import ObjectClassCell from './ObjectClassCell';
 import ObjectClassTooltip from './ObjectClassTooltip';
 
 const propTypes = {
-    majorObjectClass: React.PropTypes.object,
-    minorObjectClasses: React.PropTypes.object,
-    totalObligation: React.PropTypes.number,
-    totalMinorObligation: React.PropTypes.number
+    majorObjectClass: PropTypes.object,
+    minorObjectClasses: PropTypes.object,
+    totalObligation: PropTypes.number,
+    totalMinorObligation: PropTypes.number
 };
 
 export default class MinorObjectClasses extends React.Component {
