@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isEqual, union, omit, differenceWith } from 'lodash';
+import { isEqual, differenceWith } from 'lodash';
 import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';

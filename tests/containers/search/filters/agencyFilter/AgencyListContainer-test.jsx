@@ -9,7 +9,6 @@ import sinon from 'sinon';
 import { OrderedMap } from 'immutable';
 
 import { AgencyListContainer } from 'containers/search/filters/AgencyListContainer';
-import * as agencyActions from 'redux/actions/search/agencyActions';
 
 import { mockAgencies } from './mockAgencies';
 import { mockSecondaryResults } from './mockLocalSearch';
@@ -31,8 +30,8 @@ describe('AgencyListContainer', () => {
         it('should handle text input after 300ms', () => {
             // setup the agency list container and call the function to type a single letter
             const agencyListContainer = setup(Object.assign({}, initialFilters, {
-                setAutocompleteAwardingAgencies: agencyActions.setAutocompleteAwardingAgencies,
-                setAutocompleteFundingAgencies: agencyActions.setAutocompleteFundingAgencies
+                setAutocompleteAwardingAgencies: jest.fn(),
+                setAutocompleteFundingAgencies: jest.fn()
             }));
 
             const searchQuery = {
@@ -63,8 +62,8 @@ describe('AgencyListContainer', () => {
         it('should call the queryAutocompleteAgencies method 300ms after text input', () => {
             // setup the agency list container and call the function to type a single letter
             const agencyListContainer = setup(Object.assign({}, initialFilters, {
-                setAutocompleteAwardingAgencies: agencyActions.setAutocompleteAwardingAgencies,
-                setAutocompleteFundingAgencies: agencyActions.setAutocompleteFundingAgencies
+                setAutocompleteAwardingAgencies: jest.fn(),
+                setAutocompleteFundingAgencies: jest.fn()
             }));
             const searchQuery = {
                 target: {
@@ -99,8 +98,8 @@ describe('AgencyListContainer', () => {
 
             // setup the agency list container and call the function to type a single letter
             const agencyListContainer = setup(Object.assign({}, initialFilters, {
-                setAutocompleteAwardingAgencies: agencyActions.setAutocompleteAwardingAgencies,
-                setAutocompleteFundingAgencies: agencyActions.setAutocompleteFundingAgencies,
+                setAutocompleteAwardingAgencies: jest.fn(),
+                setAutocompleteFundingAgencies: jest.fn(),
                 agencyType: 'Funding'
             }));
 
@@ -182,7 +181,7 @@ describe('AgencyListContainer', () => {
             queryAutocompleteAgenciesSpy.reset();
         });
 
-        it('should make an Awarding Agencies autocomplete API Call when more than one character '
+        it('should make an Awarding Agencies autocomplete API call when more than one character '
             + 'has been input in the Awarding Agency field', async () => {
             // mock the secondary search function
             const mockSecondarySearch = jest.fn();
@@ -226,61 +225,14 @@ describe('AgencyListContainer', () => {
         });
 
         it('should populate Awarding Agencies after performing the search', async () => {
-            // Setup redux state
-            const reduxState = [
-                {
-                    id: 1788,
-                    create_date: "2017-01-12T19:56:30.517000Z",
-                    update_date: "2017-01-12T19:56:30.517000Z",
-                    toptier_agency: {
-                        toptier_agency_id: 268,
-                        create_date: "2017-01-31T21:25:39.810344Z",
-                        update_date: "2017-01-31T21:25:39.936439Z",
-                        cgac_code: "097",
-                        fpds_code: "9700",
-                        name: "DEPT OF DEFENSE"
-                    },
-                    subtier_agency: {
-                        subtier_agency_id: 1654,
-                        create_date: "2017-01-31T21:25:39.569918Z",
-                        update_date: "2017-01-31T21:25:39.691244Z",
-                        subtier_code: "1700",
-                        name: "DEPT OF THE NAVY"
-                    },
-                    office_agency: null
-                },
-                {
-                    id: 1789,
-                    create_date: "2017-01-12T19:56:30.522000Z",
-                    update_date: "2017-01-12T19:56:30.522000Z",
-                    toptier_agency: {
-                        toptier_agency_id: 268,
-                        create_date: "2017-01-31T21:25:39.810344Z",
-                        update_date: "2017-01-31T21:25:39.936439Z",
-                        cgac_code: "097",
-                        fpds_code: "9700",
-                        name: "DEPT OF DEFENSE"
-                    },
-                    subtier_agency: {
-                        subtier_agency_id: 1655,
-                        create_date: "2017-01-31T21:25:39.569918Z",
-                        update_date: "2017-01-31T21:25:39.691244Z",
-                        subtier_code: "1708",
-                        name: "IMMEDIATE OFFICE OF THE SECRETARY OF THE NAVY"
-                    },
-                    office_agency: null
-                }];
-
             // setup mock redux actions for handling search results
-            const mockReduxActionAwarding = jest.fn((args) => {
-                expect(args).toEqual(reduxState);
-            });
+            const mockReduxActionAwarding = jest.fn();
 
             // setup the agency list container and call the function to type a single letter
             const agencyListContainer = setup(Object.assign({}, initialFilters, {
                 agencyType: 'Awarding',
                 setAutocompleteAwardingAgencies: mockReduxActionAwarding,
-                awardingAgencies: reduxState,
+                awardingAgencies: [],
                 selectedAgencies: new OrderedMap()
             }));
 
@@ -289,18 +241,23 @@ describe('AgencyListContainer', () => {
                 'queryAutocompleteAgencies');
             const parseAutocompleteAgenciesSpy = sinon.spy(agencyListContainer.instance(),
                 'parseAutocompleteAgencies');
+            const secondarySearchSpy = sinon.spy(agencyListContainer.instance(),
+                'performSecondarySearch');
 
-            agencyListContainer.instance().queryAutocompleteAgencies('The Navy');
+            agencyListContainer.instance().queryAutocompleteAgencies('office of government');
             await agencyListContainer.instance().agencySearchRequest.promise;
 
             // everything should be updated now
             expect(queryAutocompleteAgenciesSpy.callCount).toEqual(1);
             expect(parseAutocompleteAgenciesSpy.calledWith(queryAutocompleteAgenciesSpy));
-            expect(mockReduxActionAwarding).toHaveBeenCalled();
+            expect(secondarySearchSpy.callCount).toEqual(1);
+            expect(mockReduxActionAwarding).toHaveBeenCalledTimes(1);
+            expect(mockReduxActionAwarding.mock.calls[0]).toEqual([mockSecondaryResults]);
 
             // Reset spies
             queryAutocompleteAgenciesSpy.reset();
             parseAutocompleteAgenciesSpy.reset();
+            secondarySearchSpy.reset();
         });
 
         it('should toggle Funding agencies that have been either selected or deselected', () => {

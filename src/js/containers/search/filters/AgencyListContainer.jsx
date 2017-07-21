@@ -141,7 +141,7 @@ export class AgencyListContainer extends React.Component {
             this.setState({
                 agencySearchString: input
             });
- 
+
             if (this.agencySearchRequest) {
                 // A request is currently in-flight, cancel it
                 this.agencySearchRequest.cancel();
