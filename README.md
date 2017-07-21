@@ -40,6 +40,8 @@ The `usaspending-website` folder provides three sample `GlobalConstants` files:
 
 Use these sample files to create files named `GlobalConstants_dev.js` and `GlobalConstants_prod.js` respectively.
 
+You **must** have *both* `GlobalConstants_dev.js` and `GlobalConstants_prod.js` created before building the application. 
+
 The sample files require you to provide values for:
 
 * `API` (string) is the base API URL for the server that is hosting the API.
