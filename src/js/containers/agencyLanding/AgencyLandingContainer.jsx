@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { Search } from 'js-search';
 import Immutable from 'immutable';
 
 import AgenciesTableFields from 'dataMapping/agencyLanding/agenciesTableFields';
@@ -113,20 +114,7 @@ export class AgencyLandingContainer extends React.Component {
 
             this.agencySearchRequest.promise
                 .then((res) => {
-                    this.setState({
-                        noResults: res.data.results.length === 0
-                    });
-
-                    const matchedAgencies = res.data.results;
-                    const matchedAgencyIds = [];
-                    matchedAgencies.forEach((agency) => {
-                        matchedAgencyIds.push(agency.agency_id);
-                    });
-
-                    // Add search results to Redux
-                    this.props.setAutocompleteAgencies(
-                        matchedAgencyIds
-                    );
+                    this.performSecondarySearch(res.data.results);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -136,6 +124,33 @@ export class AgencyLandingContainer extends React.Component {
                     }
                 });
         }
+    }
+
+    performSecondarySearch(data) {
+        // Search within the returned data
+        // Create a search index with the API response records
+        const search = new Search('agency_id');
+        search.addIndex('agency_name');
+
+        // Add the API response as the data source to search within
+        search.addDocuments(data);
+
+        // Use the JS search library to search within the records
+        const results = search.search(this.state.agencySearchString);
+
+        const matchedAgencyIds = [];
+        results.forEach((item) => {
+            matchedAgencyIds.push(item.agency_id);
+        });
+
+        // Add search results to Redux
+        this.props.setAutocompleteAgencies(
+            matchedAgencyIds
+        );
+
+        this.setState({
+            noResults: matchedAgencyIds.length === 0
+        });
     }
 
     formatSort() {
