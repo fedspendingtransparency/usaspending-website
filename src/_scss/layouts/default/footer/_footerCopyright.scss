@@ -31,12 +31,14 @@
         width: 100%;
         margin-bottom: rem(50);
         margin-right: rem(155);
+        margin-top: rem(15);
 
         @include media($tablet-screen) {
             @include flex(1 1 auto);
             text-align: right;
             width: 50%;
             margin-bottom: 0;
+            margin-top: 0;
         }
 
         font-size: $small-font-size;
