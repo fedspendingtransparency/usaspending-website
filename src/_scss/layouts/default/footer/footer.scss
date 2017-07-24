@@ -1,19 +1,18 @@
 .footer-outer-wrap {
-    
-    @import "./_footerCopyright";
+
     @import "elements/_inlineList";
 
     background-color: #333;
     color: $color-white;
     font-size: $base-font-size;
-    padding: 1.5rem 0;
+    padding-top: 1.5rem;
     width: 100%;
     .footer-container {
         @include outer-container;
         @include pad(1rem 2rem);
         max-width: $site-max-width;
         @include media($tablet-screen) {
-            @include pad(1rem 2rem);
+            @include pad(1rem 2rem 3rem 2rem);
             @include display(flex);
             @include align-items(center);
         }
@@ -24,14 +23,11 @@
         }
 
         @import "./_footerLogo";
-        
-        @import "./_footerInternalLinks";
-        @import "./_footerExternalLinks";
+        @import "./_footerLinks";
     }
 
-    .copyright-block {
-        @include footerCopyright;
-    }
+
+    @import "./_footerCopyright";
 }
 
 @import "./_floatingGlossaryButton";
