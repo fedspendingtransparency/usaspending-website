@@ -9,5 +9,11 @@
         font-size: rem(16);
         line-height: 23px;
         float: right;
+	    a {
+		    span {
+			    text-decoration: underline;
+			    font-weight: 600;
+		    }
+	    }
     }
 }

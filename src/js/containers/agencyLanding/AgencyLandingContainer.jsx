@@ -8,8 +8,11 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { Search } from 'js-search';
 import Immutable from 'immutable';
+
+import { Search } from 'js-search';
+import reactStringReplace from 'react-string-replace';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import AgenciesTableFields from 'dataMapping/agencyLanding/agenciesTableFields';
 import * as agencyLandingActions from 'redux/actions/agencyLanding/agencyLandingActions';
@@ -124,6 +127,11 @@ export class AgencyLandingContainer extends React.Component {
                     }
                 });
         }
+        else {
+            this.setState({
+                agencySearchString: ''
+            });
+        }
     }
 
     performSecondarySearch(data) {
@@ -236,11 +244,23 @@ export class AgencyLandingContainer extends React.Component {
             // the search input
             if (showAllAgencies || (this.props.autocompleteAgencies.indexOf(parseFloat(item.agency_id)) > -1)) {
                 // Create a link to the agency's profile page
+                let linkText = item.agency_name;
+
+                // If the user has entered a search term, highlight the matched substring
+                if (this.state.agencySearchString) {
+                    linkText = reactStringReplace(item.agency_name, this.state.agencySearchString, (match, i) => (
+                        <span key={match + i}>{match}</span>
+                    ));
+                }
                 const link = (
-                    <a href={`/#/agency/${item.agency_id}`}>{item.agency_name}</a>
+                    <a href={`/#/agency/${item.agency_id}`}>{linkText}</a>
                 );
 
-                // Round to 2 decimal places and don't show 0.00
+                // Format budget authority amount
+                const formattedCurrency =
+                    MoneyFormatter.formatMoneyWithPrecision(item.budget_authority_amount, 0);
+
+                // Round percentage to 2 decimal places and show less than 0.01 for 0.00
                 let percent = Math.round(parseFloat(item.percentage_of_total_budget_authority) * 100) / 100;
 
                 if (percent === 0.00) {
@@ -253,7 +273,7 @@ export class AgencyLandingContainer extends React.Component {
                 const agencyObject = {
                     agency_id: item.agency_id,
                     agency_profile_link: link,
-                    budget_authority_amount: item.budget_authority_amount,
+                    budget_authority_amount: formattedCurrency,
                     percentage_of_total_budget_authority: percent
                 };
 
