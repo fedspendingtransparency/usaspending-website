@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -15,9 +16,9 @@ import ProgramActivityFilter from
     'components/account/filters/programActivity/ProgramActivityFilter';
 
 const propTypes = {
-    setAvailableProgramActivities: React.PropTypes.func,
-    toggleProgramActivity: React.PropTypes.func,
-    account: React.PropTypes.object
+    setAvailableProgramActivities: PropTypes.func,
+    toggleProgramActivity: PropTypes.func,
+    account: PropTypes.object
 };
 
 export class AccountProgramActivityContainer extends React.Component {

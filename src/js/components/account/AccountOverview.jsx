@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import SankeyVisualization from './visualizations/sankey/SankeyVisualization';
 
 const propTypes = {
-    account: React.PropTypes.object
+    account: PropTypes.object
 };
 
 export default class AccountOverview extends React.Component {

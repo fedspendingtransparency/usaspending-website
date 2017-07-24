@@ -4,11 +4,12 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Glossary } from '../icons/Icons';
 
 const propTypes = {
-    toggleGlossary: React.PropTypes.func
+    toggleGlossary: PropTypes.func
 };
 
 const ga = require('react-ga');

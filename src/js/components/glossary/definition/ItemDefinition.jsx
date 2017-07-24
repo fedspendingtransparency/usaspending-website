@@ -4,16 +4,17 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 
 import MoreResources from './MoreResources';
 import SmartLink from './SmartLink';
 
 const propTypes = {
-    type: React.PropTypes.string,
-    term: React.PropTypes.string,
-    data_act_term: React.PropTypes.string,
-    resources: React.PropTypes.string
+    type: PropTypes.string,
+    term: PropTypes.string,
+    data_act_term: PropTypes.string,
+    resources: PropTypes.string
 };
 
 export default class ItemDefinition extends React.Component {

@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { uniqueId, isEqual } from 'lodash';
@@ -18,8 +19,8 @@ import * as SearchHelper from 'helpers/searchHelper';
 import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object,
-    resultsMeta: React.PropTypes.object
+    reduxFilters: PropTypes.object,
+    resultsMeta: PropTypes.object
 };
 
 export class GeoVisualizationSectionContainer extends React.Component {

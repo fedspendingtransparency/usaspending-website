@@ -4,19 +4,20 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    name: React.PropTypes.string,
-    value: React.PropTypes.string,
-    description: React.PropTypes.string,
-    height: React.PropTypes.number,
-    x: React.PropTypes.number,
-    y: React.PropTypes.number,
-    width: React.PropTypes.number,
-    percentage: React.PropTypes.string,
-    arrow: React.PropTypes.bool,
-    showMinorObjectClass: React.PropTypes.bool,
-    sectionHeight: React.PropTypes.number
+    name: PropTypes.string,
+    value: PropTypes.string,
+    description: PropTypes.string,
+    height: PropTypes.number,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    width: PropTypes.number,
+    percentage: PropTypes.string,
+    arrow: PropTypes.bool,
+    showMinorObjectClass: PropTypes.bool,
+    sectionHeight: PropTypes.number
 };
 
 export default class ObjectClassTooltip extends React.Component {

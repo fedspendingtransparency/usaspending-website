@@ -9,14 +9,15 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    filters: React.PropTypes.array,
-    filterCount: React.PropTypes.number,
-    clearAllFilters: React.PropTypes.func,
-    groupGenerator: React.PropTypes.func
+    filters: PropTypes.array,
+    filterCount: PropTypes.number,
+    clearAllFilters: PropTypes.func,
+    groupGenerator: PropTypes.func
 };
 
 export default class TopFilterBar extends React.Component {

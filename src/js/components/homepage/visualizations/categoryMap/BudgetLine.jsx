@@ -4,14 +4,15 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import BudgetLabel from './BudgetLabel';
 
 const propTypes = {
-    size: React.PropTypes.string,
-    gTransform: React.PropTypes.string,
-    rectTransform: React.PropTypes.string,
-    textTransform: React.PropTypes.string,
-    label: React.PropTypes.string
+    size: PropTypes.string,
+    gTransform: PropTypes.string,
+    rectTransform: PropTypes.string,
+    textTransform: PropTypes.string,
+    label: PropTypes.string
 };
 
 export default class BudgetLine extends React.Component {

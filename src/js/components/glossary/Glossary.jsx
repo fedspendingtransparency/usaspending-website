@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Mousetrap from 'mousetrap';
 
@@ -13,10 +14,10 @@ import GlossaryDefinition from './definition/GlossaryDefinition';
 import NoResults from './noResults/NoResults';
 
 const propTypes = {
-    glossary: React.PropTypes.object,
-    loading: React.PropTypes.bool,
-    error: React.PropTypes.bool,
-    hideGlossary: React.PropTypes.func
+    glossary: PropTypes.object,
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+    hideGlossary: PropTypes.func
 };
 
 export default class Glossary extends React.Component {

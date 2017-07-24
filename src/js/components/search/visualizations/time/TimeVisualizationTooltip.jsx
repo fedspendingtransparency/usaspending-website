@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    y: React.PropTypes.number,
-    x: React.PropTypes.number,
-    data: React.PropTypes.object
+    y: PropTypes.number,
+    x: PropTypes.number,
+    data: PropTypes.object
 };
 
 export default class TimeVisualizationTooltip extends React.Component {

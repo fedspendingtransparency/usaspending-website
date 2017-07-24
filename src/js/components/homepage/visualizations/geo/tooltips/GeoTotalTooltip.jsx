@@ -4,17 +4,18 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as MapHelper from 'helpers/mapHelper';
 
 const propTypes = {
-    state: React.PropTypes.string,
-    value: React.PropTypes.number,
-    y: React.PropTypes.number,
-    x: React.PropTypes.number,
-    visualization: React.PropTypes.object,
-    total: React.PropTypes.number
+    state: PropTypes.string,
+    value: PropTypes.number,
+    y: PropTypes.number,
+    x: PropTypes.number,
+    visualization: PropTypes.object,
+    total: PropTypes.number
 };
 
 export default class GeoTotalTooltip extends React.Component {

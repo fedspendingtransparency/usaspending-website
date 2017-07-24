@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -13,7 +14,7 @@ import * as accountActions from 'redux/actions/account/accountActions';
 import ResultsTableHeaderCell from 'components/search/table/cells/ResultsTableHeaderCell';
 
 const propTypes = {
-    setAccountAwardOrder: React.PropTypes.func
+    setAccountAwardOrder: PropTypes.func
 };
 
 class AccountAwardsHeaderCellContainer extends React.Component {

@@ -4,14 +4,15 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ResultsTableTabItem from './ResultsTableTabItem';
 
 const propTypes = {
-    types: React.PropTypes.array,
-    counts: React.PropTypes.object,
-    active: React.PropTypes.string,
-    switchTab: React.PropTypes.func
+    types: PropTypes.array,
+    counts: PropTypes.object,
+    active: PropTypes.string,
+    switchTab: PropTypes.func
 };
 
 export default class ResultsTableTabs extends React.Component {

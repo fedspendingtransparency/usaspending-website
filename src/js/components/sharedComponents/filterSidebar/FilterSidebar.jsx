@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import FilterOption from './FilterOption';
 
@@ -14,9 +15,9 @@ const defaultProps = {
 };
 
 const propTypes = {
-    options: React.PropTypes.arrayOf(React.PropTypes.string),
-    components: React.PropTypes.arrayOf(React.PropTypes.func),
-    expanded: React.PropTypes.arrayOf(React.PropTypes.bool)
+    options: PropTypes.arrayOf(PropTypes.string),
+    components: PropTypes.arrayOf(PropTypes.func),
+    expanded: PropTypes.arrayOf(PropTypes.bool)
 };
 
 export default class FilterSidebar extends React.Component {

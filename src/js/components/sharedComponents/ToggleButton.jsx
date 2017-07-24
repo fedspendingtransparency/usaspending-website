@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    active: React.PropTypes.bool,
-    pressedToggle: React.PropTypes.func,
-    label: React.PropTypes.string,
-    prefix: React.PropTypes.string
+    active: PropTypes.bool,
+    pressedToggle: PropTypes.func,
+    label: PropTypes.string,
+    prefix: PropTypes.string
 };
 
 export default class ToggleButton extends React.Component {

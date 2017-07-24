@@ -4,13 +4,14 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    height: React.PropTypes.number,
-    width: React.PropTypes.number,
-    left: React.PropTypes.number,
-    rowIndex: React.PropTypes.number,
-    column: React.PropTypes.object
+    height: PropTypes.number,
+    width: PropTypes.number,
+    left: PropTypes.number,
+    rowIndex: PropTypes.number,
+    column: PropTypes.object
 };
 
 export default class TableCell extends React.Component {

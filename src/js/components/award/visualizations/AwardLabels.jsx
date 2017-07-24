@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { capitalize } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -12,19 +13,19 @@ import AwardLabelsLine from './AwardLabelsLine';
 import AwardLabelsPoly from './AwardLabelsPoly';
 
 const propTypes = {
-    name: React.PropTypes.string,
-    amount: React.PropTypes.number,
-    subtitle: React.PropTypes.string,
-    line: React.PropTypes.string,
-    labelDistance: React.PropTypes.number,
-    groupTransform: React.PropTypes.string,
-    singleTransform: React.PropTypes.string,
-    labelPadding: React.PropTypes.number,
-    currentY: React.PropTypes.number,
-    graphHeight: React.PropTypes.number,
-    labelWidth: React.PropTypes.number,
-    currentMiddle: React.PropTypes.number,
-    type: React.PropTypes.string
+    name: PropTypes.string,
+    amount: PropTypes.number,
+    subtitle: PropTypes.string,
+    line: PropTypes.string,
+    labelDistance: PropTypes.number,
+    groupTransform: PropTypes.string,
+    singleTransform: PropTypes.string,
+    labelPadding: PropTypes.number,
+    currentY: PropTypes.number,
+    graphHeight: PropTypes.number,
+    labelWidth: PropTypes.number,
+    currentMiddle: PropTypes.number,
+    type: PropTypes.string
 };
 
 export default class AwardLabels extends React.Component {

@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { find } from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    fieldTypes: React.PropTypes.array,
-    changeSpendingBy: React.PropTypes.func,
-    currentSpendingBy: React.PropTypes.string
+    fieldTypes: PropTypes.array,
+    changeSpendingBy: PropTypes.func,
+    currentSpendingBy: PropTypes.string
 };
 
 const defaultProps = {

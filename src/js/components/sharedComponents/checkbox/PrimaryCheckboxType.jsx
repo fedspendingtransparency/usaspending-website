@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
 import SecondaryCheckboxType from './SecondaryCheckboxType';
@@ -11,15 +12,15 @@ import CollapsedCheckboxType from './CollapsedCheckboxType';
 import SingleCheckboxType from './SingleCheckboxType';
 
 const propTypes = {
-    id: React.PropTypes.string,
-    name: React.PropTypes.string,
-    filters: React.PropTypes.array,
-    bulkTypeChange: React.PropTypes.func,
-    value: React.PropTypes.string,
-    filterType: React.PropTypes.string,
-    types: React.PropTypes.object,
-    selectedCheckboxes: React.PropTypes.object,
-    enableAnalytics: React.PropTypes.bool
+    id: PropTypes.string,
+    name: PropTypes.string,
+    filters: PropTypes.array,
+    bulkTypeChange: PropTypes.func,
+    value: PropTypes.string,
+    filterType: PropTypes.string,
+    types: PropTypes.object,
+    selectedCheckboxes: PropTypes.object,
+    enableAnalytics: PropTypes.bool
 };
 
 const defaultProps = {

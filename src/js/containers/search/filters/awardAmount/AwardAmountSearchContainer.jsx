@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -12,7 +13,7 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import AwardAmountSearch from 'components/search/filters/awardAmount/AwardAmountSearch';
 
 const propTypes = {
-    updateAwardAmounts: React.PropTypes.func
+    updateAwardAmounts: PropTypes.func
 };
 
 export class AwardAmountSearchContainer extends React.Component {

@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import RankVisualizationScopeButton from '../RankVisualizationScopeButton';
 import RankVisualizationSection from './RankVisualizationSection';
 
 const propTypes = {
-    scope: React.PropTypes.string,
-    changeScope: React.PropTypes.func
+    scope: PropTypes.string,
+    changeScope: PropTypes.func
 };
 
 export default class SpendingByRecipientSection extends React.Component {

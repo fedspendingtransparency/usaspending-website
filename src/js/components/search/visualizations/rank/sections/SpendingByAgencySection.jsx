@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import RankVisualizationScopeButton from '../RankVisualizationScopeButton';
@@ -11,10 +12,10 @@ import RankVisualizationScopeButton from '../RankVisualizationScopeButton';
 import RankVisualizationSection from './RankVisualizationSection';
 
 const propTypes = {
-    agencyScope: React.PropTypes.string,
-    changeScope: React.PropTypes.func,
-    agencyType: React.PropTypes.string,
-    hideSuboptionBar: React.PropTypes.string
+    agencyScope: PropTypes.string,
+    changeScope: PropTypes.func,
+    agencyType: PropTypes.string,
+    hideSuboptionBar: PropTypes.string
 };
 
 const defaultProps = {

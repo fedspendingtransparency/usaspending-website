@@ -4,16 +4,17 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 
 import FilterExpandButton from './FilterExpandButton';
 
 const propTypes = {
-    name: React.PropTypes.string,
-    component: React.PropTypes.func,
-    disabled: React.PropTypes.bool,
-    defaultExpand: React.PropTypes.bool
+    name: PropTypes.string,
+    component: PropTypes.func,
+    disabled: PropTypes.bool,
+    defaultExpand: PropTypes.bool
 };
 
 const defaultProps = {

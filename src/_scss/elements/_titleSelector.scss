@@ -13,9 +13,10 @@
             }
             .arrow-icon {
                 display: inline-block;
-                width: rem(14);
                 margin-left: rem(10);
                 svg {
+                    width: rem(14);
+                    height: rem(14);
                     fill: $color-gray;
                 }
             }

@@ -4,14 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
-
 
 import CategoryMap from './visualizations/categoryMap/CategoryMap';
 
 const propTypes = {
-    breakdown: React.PropTypes.object,
-    colors: React.PropTypes.array
+    breakdown: PropTypes.object,
+    colors: PropTypes.array
 };
 
 export default class CategorySection extends React.Component {

@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { scaleLinear } from 'd3-scale';
 import { capitalize } from 'lodash';
 
@@ -15,12 +16,12 @@ import IndividualBar from './IndividualBar';
 import AwardLabels from './AwardLabels';
 
 const propTypes = {
-    potential: React.PropTypes.number,
-    current: React.PropTypes.number,
-    graphHeight: React.PropTypes.number,
-    awardId: React.PropTypes.number,
-    showPotential: React.PropTypes.bool,
-    type: React.PropTypes.string
+    potential: PropTypes.number,
+    current: PropTypes.number,
+    graphHeight: PropTypes.number,
+    awardId: PropTypes.number,
+    showPotential: PropTypes.bool,
+    type: PropTypes.string
 };
 
 const defaultProps = {

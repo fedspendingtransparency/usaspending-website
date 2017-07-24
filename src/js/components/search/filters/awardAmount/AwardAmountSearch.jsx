@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { awardRanges, searchTypes } from 'dataMapping/search/awardAmount';
 
 import * as AwardAmountHelper from 'helpers/awardAmountHelper';
@@ -11,9 +12,9 @@ import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryChe
 import SpecificAwardAmountItem from './SpecificAwardAmountItem';
 
 const propTypes = {
-    selectAwardRange: React.PropTypes.func,
-    awardAmountRanges: React.PropTypes.object,
-    awardAmounts: React.PropTypes.object
+    selectAwardRange: PropTypes.func,
+    awardAmountRanges: PropTypes.object,
+    awardAmounts: PropTypes.object
 };
 
 const defaultProps = {

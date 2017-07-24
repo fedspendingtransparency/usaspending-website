@@ -5,6 +5,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
@@ -13,16 +14,16 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import ItemTypes from './ItemTypes';
 
 const propTypes = {
-    checked: React.PropTypes.string,
-    column: React.PropTypes.string,
-    label: React.PropTypes.string,
-    toggleColumnVisibility: React.PropTypes.func,
-    connectDragSource: React.PropTypes.func.isRequired,
-    connectDropTarget: React.PropTypes.func.isRequired,
-    index: React.PropTypes.number.isRequired,
-    isDragging: React.PropTypes.bool.isRequired,
-    id: React.PropTypes.any.isRequired,
-    moveColumn: React.PropTypes.func.isRequired
+    checked: PropTypes.string,
+    column: PropTypes.string,
+    label: PropTypes.string,
+    toggleColumnVisibility: PropTypes.func,
+    connectDragSource: PropTypes.func.isRequired,
+    connectDropTarget: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired,
+    isDragging: PropTypes.bool.isRequired,
+    id: PropTypes.any.isRequired,
+    moveColumn: PropTypes.func.isRequired
 };
 
 const columnSource = {

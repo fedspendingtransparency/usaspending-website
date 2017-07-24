@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { AddFilter, CloseCircle } from 'components/sharedComponents/icons/Icons';
 
@@ -20,11 +21,11 @@ import GeoVisualizationSectionContainer from
 import MobileFilters from './mobile/MobileFilters';
 
 const propTypes = {
-    isMobile: React.PropTypes.bool,
-    filterCount: React.PropTypes.number,
-    showMobileFilters: React.PropTypes.bool,
-    toggleMobileFilters: React.PropTypes.func,
-    clearAllFilters: React.PropTypes.func
+    isMobile: PropTypes.bool,
+    filterCount: PropTypes.number,
+    showMobileFilters: PropTypes.bool,
+    toggleMobileFilters: PropTypes.func,
+    clearAllFilters: PropTypes.func
 };
 
 export default class SearchResults extends React.Component {
