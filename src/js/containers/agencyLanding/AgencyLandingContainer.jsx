@@ -161,15 +161,6 @@ export class AgencyLandingContainer extends React.Component {
         });
     }
 
-    formatSort() {
-        let direction = '';
-        if (this.props.agenciesOrder.direction === 'desc') {
-            direction = '-';
-        }
-
-        return `${direction}${this.props.agenciesOrder.field}`;
-    }
-
     showColumns() {
         const columns = [];
         const sortOrder = AgenciesTableFields.defaultSortDirection;
@@ -211,7 +202,8 @@ export class AgencyLandingContainer extends React.Component {
 
         // generate the params
         const params = {
-            order: [this.formatSort()]
+            sort: this.props.agenciesOrder.field,
+            order: this.props.agenciesOrder.direction
         };
 
         this.agenciesRequest = AgencyLandingHelper.fetchAllAgencies(params);
@@ -272,7 +264,7 @@ export class AgencyLandingContainer extends React.Component {
 
                 const agencyObject = {
                     agency_id: item.agency_id,
-                    agency_profile_link: link,
+                    agency_name: link,
                     budget_authority_amount: formattedCurrency,
                     percentage_of_total_budget_authority: percent
                 };

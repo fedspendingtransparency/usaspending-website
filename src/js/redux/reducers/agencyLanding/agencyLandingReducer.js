@@ -8,7 +8,7 @@ import { Record, OrderedSet } from 'immutable';
 
 export const Agency = Record({
     agency_id: 0,
-    agency_profile_link: '',
+    agency_name: '',
     budget_authority_amount: '',
     percentage_of_total_budget_authority: ''
 });

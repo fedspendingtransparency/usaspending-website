@@ -14,7 +14,7 @@ export const fetchAllAgencies = (params) => {
             url: 'v2/references/toptier_agencies/',
             baseURL: kGlobalConstants.API,
             method: 'get',
-            data: params,
+            params,
             cancelToken: source.token
         }),
         cancel() {

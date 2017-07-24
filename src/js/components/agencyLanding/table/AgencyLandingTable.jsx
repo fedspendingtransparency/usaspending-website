@@ -83,7 +83,7 @@ export default class AgencyLandingTable extends React.PureComponent {
             totalWidth += adjustedWidth;
             const isLast = i === this.props.columns.length - 1;
             let cellName = null;
-            if (column.columnName === 'agency_profile_link') {
+            if (column.columnName === 'agency_name') {
                 cellName = (index) => (
                     <AgencyLinkCell
                         key={`cell-${column.columnName}-${index}`}
