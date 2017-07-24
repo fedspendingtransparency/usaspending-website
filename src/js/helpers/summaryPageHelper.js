@@ -21,8 +21,8 @@ export const awardType = (code) => {
     else if (includes(awardTypeGroups.loans, code)) {
         type = "loan";
     }
-    else if (includes(awardTypeGroups.insurance, code)) {
-        type = "insurance";
+    else if (includes(awardTypeGroups.other, code)) {
+        type = "other";
     }
 
     return type;

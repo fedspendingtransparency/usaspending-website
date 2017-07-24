@@ -423,7 +423,7 @@ const tableSearchFields = {
         funding_agency_name: 'Funding Agency',
         funding_subtier_name: 'Funding Sub-Agency'
     },
-    insurance: {
+    other: {
         _defaultSortField: 'total_obligation',
         _order: [
             'award_id',

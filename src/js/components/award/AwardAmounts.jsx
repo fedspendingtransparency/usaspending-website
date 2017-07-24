@@ -69,7 +69,7 @@ export default class AwardAmounts extends React.Component {
             has been obligated.</p>);
 
         if (this.props.typeString === 'grant' || this.props.typeString === 'direct payment' ||
-        this.props.typeString === 'insurance') {
+        this.props.typeString === 'other') {
             awardNarrative = (<p>This {this.props.typeString} was awarded to&nbsp;
             <b className="recipient-name">{recipient}</b>
             &nbsp;for <b>{current}</b>.</p>);
