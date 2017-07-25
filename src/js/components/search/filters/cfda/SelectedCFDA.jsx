@@ -17,13 +17,13 @@ export default class SelectedCFDA extends React.Component {
     render() {
         const shownCFDA = [];
         this.props.selectedCFDA.entrySeq().forEach((entry) => {
-            const key = entry[0];
-            const cfda = entry[1];
+            const key = entry[1].program_number;
+            const cfda = entry[1].program_title;
             const value = (<ShownCFDA
                 cfda={cfda}
                 label={OtherFiltersFormatter.formatCFDA(key, cfda)}
                 key={key}
-                removeCFDA={this.props.removeCFDA.bind(null, cfda)} />);
+                removeCFDA={this.props.removeCFDA.bind(null, entry[1])} />);
             shownCFDA.push(value);
         });
 

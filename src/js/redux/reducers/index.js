@@ -20,6 +20,9 @@ import awardReducer from './award/awardReducer';
 import accountReducer from './account/accountReducer';
 import agencyReducer from './agency/agencyReducer';
 import glossaryReducer from './glossary/glossaryReducer';
+import cfdaReducer from './search/filters/cfdaReducer';
+import naicsReducer from './search/filters/naicsReducer';
+import pscReducer from './search/filters/pscReducer';
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
@@ -27,7 +30,9 @@ const appReducer = combineReducers({
     filters: filtersReducer,
     searchOrder: orderReducer,
     autocompleteLocations: autocompleteReducer,
-    autocompleteNAICS: autocompleteReducer,
+    autocompleteCFDA: cfdaReducer,
+    autocompleteNAICS: naicsReducer,
+    autocompletePSC: pscReducer,
     columnVisibility: columnVisibilityReducer,
     autocompleteAwardIDs: awardIDReducer,
     autocompleteAgencies: autocompleteAgencyReducer,

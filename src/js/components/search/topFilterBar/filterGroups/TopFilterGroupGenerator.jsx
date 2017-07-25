@@ -16,7 +16,9 @@ import RecipientTypeFilterGroup from './RecipientTypeFilterGroup';
 import KeywordFilterGroup from './KeywordFilterGroup';
 import AwardIDFilterGroup from './AwardIDFilterGroup';
 import AwardAmountFilterGroup from './AwardAmountFilterGroup';
+import CFDAFilterGroup from './CFDAFilterGroup';
 import NAICSFilterGroup from './NAICSFilterGroup';
+import PSCFilterGroup from './PSCFilterGroup';
 
 export const topFilterGroupGenerator = (config = {
     filter: {
@@ -61,8 +63,12 @@ export const topFilterGroupGenerator = (config = {
             return (<AwardIDFilterGroup key={groupKey} {...config} />);
         case 'awardAmounts':
             return (<AwardAmountFilterGroup key={groupKey} {...config} />);
+        case 'selectedCFDA':
+            return (<CFDAFilterGroup key={groupKey} {...config} />);
         case 'selectedNAICS':
             return (<NAICSFilterGroup key={groupKey} {...config} />);
+        case 'selectedPSC':
+            return (<PSCFilterGroup key={groupKey} {...config} />);
         default:
             return null;
     }

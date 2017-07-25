@@ -50,15 +50,12 @@ class CFDAListContainer extends React.Component {
         const values = [];
         if (cfda && cfda.length > 0) {
             cfda.forEach((item) => {
-                let placeType = upperCase(item.place_type);
-                if (item.parent !== null &&
-                    (item.place_type !== null && item.place_type !== 'COUNTRY')) {
-                    placeType += ` in ${item.parent}`;
-                }
+                const title = item.program_number;
+                const subtitle = upperCase(item.program_title);
 
                 values.push({
-                    title: item.place,
-                    subtitle: placeType,
+                    title,
+                    subtitle,
                     data: item
                 });
             });
@@ -86,7 +83,7 @@ class CFDAListContainer extends React.Component {
             }
 
             const cfdaSearchParams = {
-                value: this.state.cfdaSearchString
+                search_text: this.state.cfdaSearchString
             };
 
             this.cfdaSearchRequest = SearchHelper.fetchCFDA(cfdaSearchParams);

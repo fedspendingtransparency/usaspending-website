@@ -179,7 +179,7 @@ class SearchOperation {
         }
 
         // Add cfda query
-        if (this.selectedCFDA.length > 0) {
+        if (this.selectedCFDA.length > 0 && this.searchContext === 'award') {
             filters.push(OtherFiltersQuery.buildCFDAQuery(
                 this.selectedCFDA, this.searchContext));
         }
@@ -191,7 +191,7 @@ class SearchOperation {
         }
 
         // Add psc query
-        if (this.selectedPSC.length > 0) {
+        if (this.selectedPSC.length > 0 && this.searchContext === 'award') {
             filters.push(OtherFiltersQuery.buildPSCQuery(
                 this.selectedPSC, this.searchContext));
         }

@@ -19,7 +19,7 @@ const ga = require('react-ga');
 
 class CFDASearchContainer extends React.Component {
 
-    static logPlaceFilterEvent(place) {
+    static logCFDAFilterEvent(place) {
         ga.event({
             category: 'Search Page Filter Applied',
             action: `Applied CFDA Filter`,
@@ -43,7 +43,7 @@ class CFDASearchContainer extends React.Component {
             this.props.updateSelectedCFDA(updateParams);
 
             // Analytics
-            CFDASearchContainer.logPlaceFilterEvent(cfda.place);
+            CFDASearchContainer.logCFDAFilterEvent(cfda.program_number);
         }
     }
 

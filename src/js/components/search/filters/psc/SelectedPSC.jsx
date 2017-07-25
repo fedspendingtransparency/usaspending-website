@@ -17,13 +17,12 @@ export default class SelectedPSC extends React.Component {
     render() {
         const shownPSC = [];
         this.props.selectedPSC.entrySeq().forEach((entry) => {
-            const key = entry[0];
-            const psc = entry[1];
+            const psc = entry[1].product_or_service_code;
             const value = (<ShownPSC
                 psc={psc}
-                label={OtherFiltersFormatter.formatPSC(key, psc)}
-                key={key}
-                removePSC={this.props.removePSC.bind(null, psc)} />);
+                label={OtherFiltersFormatter.formatPSC(psc)}
+                key={psc}
+                removePSC={this.props.removePSC.bind(null, entry[1])} />);
             shownPSC.push(value);
         });
 

@@ -10,7 +10,7 @@ export const buildCFDAQuery = (cfdaGroup, searchContext = 'award') => {
 
     // Push IDs of selected Awards
     cfdaGroup.forEach((cfda) => {
-        cfdaSet.push(cfda.id);
+        cfdaSet.push(cfda.program_number);
     });
 
     const filter = {
@@ -49,7 +49,7 @@ export const buildPSCQuery = (pscGroup, searchContext = 'award') => {
 
     // Push IDs of selected Awards
     pscGroup.forEach((psc) => {
-        pscSet.push(psc.id);
+        pscSet.push(psc.product_or_service_code);
     });
 
     const filter = {

@@ -128,10 +128,22 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(awardAmounts);
         }
 
+        // prepare CFDA filters
+        const selectedCFDA = this.prepareCFDA(props);
+        if (selectedCFDA) {
+            filters.push(selectedCFDA);
+        }
+
         // prepare NAICS filters
         const selectedNAICS = this.prepareNAICS(props);
         if (selectedNAICS) {
             filters.push(selectedNAICS);
+        }
+
+        // prepare PSC filters
+        const selectedPSC = this.preparePSC(props);
+        if (selectedPSC) {
+            filters.push(selectedPSC);
         }
 
         this.setState({
@@ -514,6 +526,31 @@ export class TopFilterBarContainer extends React.Component {
     }
 
     /**
+     * Logic for parsing the current Redux selected CFDA into a JS object
+     * that can be parsed by the top filter bar
+     */
+    prepareCFDA(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.selectedCFDA.count() > 0) {
+            // CFDA have been selected
+            selected = true;
+            filter.values = props.selectedCFDA.toArray();
+        }
+
+        if (selected) {
+            filter.code = 'selectedCFDA';
+            filter.name = 'CFDA';
+            return filter;
+        }
+
+        return null;
+    }
+
+    /**
      * Logic for parsing the current Redux selected NAICS into a JS object
      * that can be parsed by the top filter bar
      */
@@ -532,6 +569,31 @@ export class TopFilterBarContainer extends React.Component {
         if (selected) {
             filter.code = 'selectedNAICS';
             filter.name = 'NAICS';
+            return filter;
+        }
+
+        return null;
+    }
+
+    /**
+     * Logic for parsing the current Redux selected PSC into a JS object
+     * that can be parsed by the top filter bar
+     */
+    preparePSC(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.selectedPSC.count() > 0) {
+            // PSC have been selected
+            selected = true;
+            filter.values = props.selectedPSC.toArray();
+        }
+
+        if (selected) {
+            filter.code = 'selectedPSC';
+            filter.name = 'PSC';
             return filter;
         }
 

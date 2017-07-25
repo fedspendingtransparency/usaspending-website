@@ -6,7 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isEqual, upperCase, omit, differenceWith } from 'lodash';
+import { isEqual, omit, differenceWith } from 'lodash';
 import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';
@@ -50,15 +50,9 @@ class PSCListContainer extends React.Component {
         const values = [];
         if (psc && psc.length > 0) {
             psc.forEach((item) => {
-                let placeType = upperCase(item.place_type);
-                if (item.parent !== null &&
-                    (item.place_type !== null && item.place_type !== 'COUNTRY')) {
-                    placeType += ` in ${item.parent}`;
-                }
-
                 values.push({
-                    title: item.place,
-                    subtitle: placeType,
+                    title: item.product_or_service_code,
+                    subtitle: 'PSC Code',
                     data: item
                 });
             });
@@ -86,7 +80,7 @@ class PSCListContainer extends React.Component {
             }
 
             const pscSearchParams = {
-                value: this.state.pscSearchString
+                search_text: this.state.pscSearchString
             };
 
             this.pscSearchRequest = SearchHelper.fetchPSC(pscSearchParams);

@@ -2,13 +2,10 @@
  * Created by Emily Gullo 07/18/2017
  */
 
-import { sortBy } from 'lodash';
-
 export const updateSelectedCFDA = (state, value) => {
     let updatedSet = state;
-    // generate an identifier string based on matched IDs and place name
-    const cfdaIdentifier =
-        `${sortBy(value.matched_ids).join(',')}_${value.place}_${value.place_type}`;
+
+    const cfdaIdentifier = value.program_number;
 
     if (updatedSet.has(cfdaIdentifier)) {
         updatedSet = updatedSet.delete(cfdaIdentifier);
@@ -25,7 +22,7 @@ export const updateSelectedCFDA = (state, value) => {
 
 export const updateSelectedNAICS = (state, value) => {
     let updatedSet = state;
-    // generate an identifier string based on matched IDs and place name
+
     const naicsIdentifier = value.naics;
 
     if (updatedSet.has(naicsIdentifier)) {
@@ -43,9 +40,8 @@ export const updateSelectedNAICS = (state, value) => {
 
 export const updateSelectedPSC = (state, value) => {
     let updatedSet = state;
-    // generate an identifier string based on matched IDs and place name
-    const pscIdentifier =
-        `${sortBy(value.matched_ids).join(',')}_${value.place}_${value.place_type}`;
+
+    const pscIdentifier = value.psc;
 
     if (updatedSet.has(pscIdentifier)) {
         updatedSet = updatedSet.delete(pscIdentifier);

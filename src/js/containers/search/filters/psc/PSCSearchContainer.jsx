@@ -19,11 +19,11 @@ const ga = require('react-ga');
 
 class PSCSearchContainer extends React.Component {
 
-    static logPlaceFilterEvent(place) {
+    static logPSCFilterEvent(psc) {
         ga.event({
             category: 'Search Page Filter Applied',
             action: `Applied PSC Filter`,
-            label: place.toLowerCase()
+            label: psc
         });
     }
 
@@ -43,7 +43,7 @@ class PSCSearchContainer extends React.Component {
             this.props.updateSelectedPSC(updateParams);
 
             // Analytics
-            PSCSearchContainer.logPlaceFilterEvent(psc.place);
+            PSCSearchContainer.logPSCFilterEvent(psc);
         }
     }
 

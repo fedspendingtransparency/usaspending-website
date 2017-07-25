@@ -25,7 +25,6 @@ export default class TopFilterItem extends React.Component {
     }
 
     clickedButton() {
-        console.log(this.props);
         this.props.removeFilter(this.props.value);
     }
 

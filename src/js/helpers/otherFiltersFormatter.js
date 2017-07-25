@@ -5,18 +5,11 @@
 
 import { startCase, toLower } from 'lodash';
 
-export const formatCFDA = (cfda) => {
-    let displayValue = '';
+export const formatCFDA = (cfda, description) => {
+    let displayValue = `${cfda}`;
 
-    if (cfda.place_type !== null) {
-        displayValue = `${startCase(toLower(cfda.place_type))} | `;
-    }
-
-    displayValue += `${cfda.place}`;
-
-    if (cfda.parent !== null &&
-        (cfda.place_type !== null && cfda.place_type !== 'COUNTRY')) {
-        displayValue += `, ${cfda.parent}`;
+    if (description !== null) {
+        displayValue += ` | ${startCase(toLower(description))}`;
     }
 
     return displayValue;
@@ -33,18 +26,7 @@ export const formatNAICS = (naics, description) => {
 };
 
 export const formatPSC = (psc) => {
-    let displayValue = '';
-
-    if (psc.place_type !== null) {
-        displayValue = `${startCase(toLower(psc.place_type))} | `;
-    }
-
-    displayValue += `${psc.place}`;
-
-    if (psc.parent !== null &&
-        (psc.place_type !== null && psc.place_type !== 'COUNTRY')) {
-        displayValue += `, ${psc.parent}`;
-    }
+    const displayValue = `${psc}`;
 
     return displayValue;
 };
