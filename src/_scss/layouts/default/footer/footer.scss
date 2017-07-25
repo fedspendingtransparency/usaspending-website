@@ -14,7 +14,7 @@
         @include media($tablet-screen) {
             @include pad(1rem 2rem 3rem 2rem);
             @include display(flex);
-            @include align-items(center);
+            @include align-items(flex-start);
         }
         @include media($x-large-screen) {
             margin: 0 auto;
