@@ -16,8 +16,12 @@
         margin-bottom: rem(10);
         @include media($tablet-screen) {
             height: auto;
-            max-width: rem(300);
+            max-width: rem(250);
             margin-bottom: 0;
+        }
+
+        @include media($medium-screen) {
+            max-width: rem(300);
         }
     }
 }
