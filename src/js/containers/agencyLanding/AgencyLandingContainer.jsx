@@ -10,24 +10,22 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import Immutable from 'immutable';
 
-import { Search } from 'js-search';
 import reactStringReplace from 'react-string-replace';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import AgenciesTableFields from 'dataMapping/agencyLanding/agenciesTableFields';
 import * as agencyLandingActions from 'redux/actions/agencyLanding/agencyLandingActions';
 import { Agency } from 'redux/reducers/agencyLanding/agencyLandingReducer';
 import * as AgencyLandingHelper from 'helpers/agencyLandingHelper';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import AgencyLandingSearchBar from 'components/agencyLanding/AgencyLandingSearchBar';
 import AgencyLandingResultsSection from 'components/agencyLanding/AgencyLandingResultsSection';
+import AgencyLandingSearchBarContainer from './AgencyLandingSearchBarContainer';
 
 const propTypes = {
     agencies: PropTypes.instanceOf(Immutable.OrderedSet),
     agenciesOrder: PropTypes.object,
     setAgencies: PropTypes.func,
     meta: PropTypes.object,
-    setAutocompleteAgencies: PropTypes.func,
     autocompleteAgencies: PropTypes.array
 };
 
@@ -45,9 +43,8 @@ export class AgencyLandingContainer extends React.Component {
         };
 
         this.agenciesRequest = null;
-        this.agencySearchRequest = null;
-        this.handleTextInput = this.handleTextInput.bind(this);
-        this.timeout = null;
+        this.setAgencySearchString = this.setAgencySearchString.bind(this);
+        this.setNoResults = this.setNoResults.bind(this);
     }
 
     componentDidMount() {
@@ -69,95 +66,17 @@ export class AgencyLandingContainer extends React.Component {
         if (this.agenciesRequest) {
             this.agenciesRequest.cancel();
         }
-        if (this.agencySearchRequest) {
-            this.agencySearchRequest.cancel();
-        }
     }
 
-    handleTextInput(agencyInput) {
-        // Clear existing agencies
-        this.props.setAutocompleteAgencies([]);
-        if (agencyInput === '') {
-            this.setState({
-                noResults: false
-            });
-        }
-
-        // Grab input, clear any exiting timeout
-        const input = agencyInput.target.value;
-        window.clearTimeout(this.timeout);
-
-        // Perform search if user doesn't type again for 300ms
-        this.timeout = window.setTimeout(() => {
-            this.queryAutocompleteAgencies(input);
-        }, 300);
-    }
-
-    queryAutocompleteAgencies(input) {
+    setAgencySearchString(agencySearchString) {
         this.setState({
-            noResults: false
+            agencySearchString
         });
-
-        if (this.agencySearchRequest) {
-            // A request is currently in-flight, cancel it
-            this.agencySearchRequest.cancel();
-        }
-
-        // Only search if input is 2 or more characters
-        if (input.length >= 2) {
-            this.setState({
-                agencySearchString: input
-            });
-
-            const agencySearchParams = {
-                search_text: input
-            };
-
-            this.agencySearchRequest = AgencyLandingHelper.fetchSearchResults(agencySearchParams);
-
-            this.agencySearchRequest.promise
-                .then((res) => {
-                    this.performSecondarySearch(res.data.results);
-                })
-                .catch((err) => {
-                    if (!isCancel(err)) {
-                        this.setState({
-                            noResults: true
-                        });
-                    }
-                });
-        }
-        else {
-            this.setState({
-                agencySearchString: ''
-            });
-        }
     }
 
-    performSecondarySearch(data) {
-        // Search within the returned data
-        // Create a search index with the API response records
-        const search = new Search('agency_id');
-        search.addIndex('agency_name');
-
-        // Add the API response as the data source to search within
-        search.addDocuments(data);
-
-        // Use the JS search library to search within the records
-        const results = search.search(this.state.agencySearchString);
-
-        const matchedAgencyIds = [];
-        results.forEach((item) => {
-            matchedAgencyIds.push(item.agency_id);
-        });
-
-        // Add search results to Redux
-        this.props.setAutocompleteAgencies(
-            matchedAgencyIds
-        );
-
+    setNoResults(noResults) {
         this.setState({
-            noResults: matchedAgencyIds.length === 0
+            noResults
         });
     }
 
@@ -168,7 +87,8 @@ export class AgencyLandingContainer extends React.Component {
 
         AgenciesTableFields.order.forEach((col) => {
             let displayName = AgenciesTableFields[col];
-            if ((col === 'budget_authority_amount') || (col === 'percentage_of_total_budget_authority')) {
+            if ((col === 'budget_authority_amount') ||
+                (col === 'percentage_of_total_budget_authority')) {
                 // Add (FY YYYY) to Budget Authority and Percent of Total U.S. Budget column headers
                 if (this.state.fy) {
                     displayName = `${displayName} (FY ${this.state.currentFY})`;
@@ -234,7 +154,8 @@ export class AgencyLandingContainer extends React.Component {
         data.results.forEach((item) => {
             // If there is no search term, show all agencies. Otherwise, only show agencies that match
             // the search input
-            if (showAllAgencies || (this.props.autocompleteAgencies.indexOf(parseFloat(item.agency_id)) > -1)) {
+            if (showAllAgencies ||
+                (this.props.autocompleteAgencies.indexOf(parseFloat(item.agency_id)) > -1)) {
                 // Create a link to the agency's profile page
                 let linkText = item.agency_name;
 
@@ -252,7 +173,7 @@ export class AgencyLandingContainer extends React.Component {
                 const formattedCurrency =
                     MoneyFormatter.formatMoneyWithPrecision(item.budget_authority_amount, 0);
 
-                // Round percentage to 2 decimal places and show less than 0.01 for 0.00
+                // Round percentage to 2 decimal places
                 let percent = Math.round(parseFloat(item.percentage_of_total_budget_authority) * 100) / 100;
 
                 if (percent === 0.00) {
@@ -288,8 +209,9 @@ export class AgencyLandingContainer extends React.Component {
             <div className="agency-landing-container">
                 <div className="agency-landing-section">
                     <div className="agency-landing-search">
-                        <AgencyLandingSearchBar
-                            handleTextInput={this.handleTextInput} />
+                        <AgencyLandingSearchBarContainer
+                            setAgencySearchString={this.setAgencySearchString}
+                            setNoResults={this.setNoResults} />
                     </div>
                 </div>
                 <div className="agency-landing-section results-count">
