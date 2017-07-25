@@ -1,11 +1,23 @@
-.footerLogo {
-    @include span-columns(4);
-    @include shift(6);
+.footer-logo {
+    @include span-columns(16);
+    text-align: center;
     @include media($tablet-screen) {
-        @include span-columns(2);
+        @include span-columns(5);
         @include shift(0);
+        text-align: left;
     }
     @include media($x-large-screen) {
-        @include span-columns(2);
+        @include span-columns(5);
+        @include shift(0);
+    }
+
+    img {
+        height: rem(20);
+        margin-bottom: rem(10);
+        @include media($tablet-screen) {
+            height: auto;
+            max-width: rem(300);
+            margin-bottom: 0;
+        }
     }
 }

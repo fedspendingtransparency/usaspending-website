@@ -4,7 +4,6 @@
  **/
 
 import React from 'react';
-import * as Icons from 'components/sharedComponents/icons/Icons';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 import FloatingGlossaryButton from './FloatingGlossaryButton';
 import FooterExternalLink from './FooterExternalLink';
@@ -17,9 +16,9 @@ export default class Footer extends React.Component {
                 <GlossaryButtonWrapperContainer child={FloatingGlossaryButton} />
                 <footer className="footer-outer-wrap" role="contentinfo">
                     <div className="footer-container">
-                        <div className="footerLogo">
+                        <div className="footer-logo">
                             <a href="#/" title="USAspending.gov Home" aria-label="USAspending.gov Home">
-                                <Icons.FlagLogo className="usa-da-flag-logo" />
+                                <img src="img/footer_logo.png" alt="USAspending.gov" />
                             </a>
                         </div>
                         <div className="footer-links">
@@ -29,7 +28,7 @@ export default class Footer extends React.Component {
                                 </div>
                                 <ul className="links">
                                     <li>
-                                        <a href="#/aboutdata">
+                                        <a href="#/about">
                                             About The Data
                                         </a>
                                     </li>
@@ -94,11 +93,13 @@ export default class Footer extends React.Component {
                         </div>
                     </div>
                     <div className="copyright-block">
-                        <div className="copyright-notice">
-                            <small>&copy; {year} USAspending.gov</small>
-                        </div>
-                        <div className="important-db">
-                            <strong>NOTE:</strong> You must <a href="#/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data">click here</a> for very important D&amp;B information.
+                        <div className="copyright-content">
+                            <div className="copyright-notice">
+                                <small>&copy; {year} USAspending.gov</small>
+                            </div>
+                            <div className="important-db">
+                                <strong>NOTE:</strong> You must <a href="#/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data">click here</a> for very important D&amp;B information.
+                            </div>
                         </div>
                     </div>
                 </footer>

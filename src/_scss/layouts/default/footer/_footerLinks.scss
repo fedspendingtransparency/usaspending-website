@@ -3,7 +3,7 @@
 
     @include media($tablet-screen) {
         @include span-columns(10);
-        @include shift(4);
+        @include shift(1);
 
         @include display(flex);
         @include flex-direction(row);

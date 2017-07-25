@@ -1,53 +1,56 @@
 .copyright-block {
-    @include pad(1rem 2rem);
-    max-width: $site-max-width;
-
-    @include media($tablet-screen) {
-        @include display(flex);
-        @include flex-direction(row);
-        @include align-items(center);
-        @include justify-content(center);
-        position: relative;
-    }
-
+    width: 100%;
+    padding: rem(10) 0;
     background:  darken( #333, 5% );
     color:  darken( #fff, 20% );
 
-    .copyright-notice {
-        display: block;
-        width: 100%;
-        text-align: center;
-
+    .copyright-content {
         @include media($tablet-screen) {
-            @include flex(1 1 auto);
-            width: 50%;
-            text-align: left;
-        }
-    }
-
-    .important-db {
-        display: block;
-        text-align: center;
-        width: 100%;
-        margin-bottom: rem(50);
-        margin-right: rem(155);
-        margin-top: rem(15);
-
-        @include media($tablet-screen) {
-            @include flex(1 1 auto);
-            text-align: right;
-            width: 50%;
-            margin-bottom: 0;
-            margin-top: 0;
+            @include display(flex);
+            @include flex-direction(row);
+            @include align-items(center);
+            @include justify-content(center);
+            position: relative;
         }
 
-        font-size: $small-font-size;
-        a {
-            color: #9BDAF1;
-            text-decoration: underline;
+        .copyright-notice {
+            display: block;
+            width: 100%;
+            text-align: center;
 
-            &:hover, &:active {
-                text-decoration: none;
+            padding-left: rem(20);
+
+            @include media($tablet-screen) {
+                @include flex(1 1 auto);
+                width: 50%;
+                text-align: left;
+            }
+        }
+
+        .important-db {
+            display: block;
+            text-align: center;
+            width: 100%;
+            margin-bottom: rem(50);
+            margin-right: rem(155);
+            margin-top: rem(15);
+
+            @include media($tablet-screen) {
+                @include flex(1 1 auto);
+                text-align: right;
+                width: 50%;
+                margin-bottom: 0;
+                margin-top: 0;
+            }
+
+            font-size: $small-font-size;
+            a {
+                color: #9BDAF1;
+                text-decoration: underline;
+
+                &:hover, &:active {
+                    text-decoration: none;
+                }
             }
         }
     }
