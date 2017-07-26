@@ -37,12 +37,12 @@ export default class PSCFilterGroup extends React.Component {
     generateTags() {
         const tags = [];
 
-        // check to see if an PSC code is provided
+        // check to see if a PSC code is provided
         const PSC = this.props.filter.values;
 
         PSC.forEach((value) => {
             const tag = {
-                value: `${value}`,
+                value: `${value.identifier}`,
                 title: `${value.product_or_service_code}`,
                 isSpecial: false,
                 removeFilter: this.removeFilter

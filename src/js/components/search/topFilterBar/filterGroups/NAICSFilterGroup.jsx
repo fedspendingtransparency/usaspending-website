@@ -42,7 +42,7 @@ export default class NAICSFilterGroup extends React.Component {
 
         naics.forEach((value) => {
             const tag = {
-                value: `${value.naics}`,
+                value: `${value.identifier}`,
                 title: `${value.naics} | ${value.naics_description}`,
                 isSpecial: false,
                 removeFilter: this.removeFilter

@@ -6,8 +6,9 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isEqual, omit, differenceWith } from 'lodash';
+import { isEqual, omit, differenceWith, slice } from 'lodash';
 import { isCancel } from 'axios';
+import { Search } from 'js-search';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
@@ -89,14 +90,19 @@ class PSCListContainer extends React.Component {
                 .then((res) => {
                     const data = res.data.results;
                     let autocompleteData = [];
+                    const search = new Search('id');
+                    search.addIndex(['product_or_service_code']);
+                    search.addDocuments(data);
+                    const results = search.search(this.state.pscSearchString);
+                    let improvedResults = slice(results, 0, 10);
 
                     // Remove 'identifier' from selected PSC to enable comparison
-                    const selectedPSC = this.props.selectedPSC.toArray()
-                        .map((psc) => omit(psc, 'identifier'));
+                    improvedResults = this.props.selectedPSC.toArray()
+                        .map((psc) => omit(psc, 'product_or_service_code'));
 
                     // Filter out any selected PSC that may be in the result set
-                    if (selectedPSC && selectedPSC.length > 0) {
-                        autocompleteData = differenceWith(data, selectedPSC, isEqual);
+                    if (improvedResults && improvedResults.length > 0) {
+                        autocompleteData = differenceWith(data, improvedResults, isEqual);
                     }
                     else {
                         autocompleteData = data;

@@ -41,7 +41,7 @@ export const updateSelectedNAICS = (state, value) => {
 export const updateSelectedPSC = (state, value) => {
     let updatedSet = state;
 
-    const pscIdentifier = value.psc;
+    const pscIdentifier = value.product_or_service_code;
 
     if (updatedSet.has(pscIdentifier)) {
         updatedSet = updatedSet.delete(pscIdentifier);
