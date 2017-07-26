@@ -34,7 +34,20 @@ export const fetchRecipients = () => (
 );
 
 // Fetch Agencies
-export const fetchAgencies = () => (
+export const fetchAwardingAgencies = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockAgencies
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+export const fetchFundingAgencies = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
