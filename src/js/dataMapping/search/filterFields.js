@@ -25,8 +25,8 @@ export const awardFields = {
     budgetFunctionTitle: 'financial_set__treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'financial_set__treasury_account__budget_subfunction_title',
     federalAccount: 'financial_set__treasury_account__federal_account_id',
-    cfdaNumber: 'assistance_data__cfda__program_number',
-    cfdaTitle: 'assistance_data__cfda__program_title',
+    cfdaNumber: 'latest_transaction__assistance_data__cfda__program_number',
+    cfdaTitle: 'latest_transaction__assistance_data__cfda__program_title',
     naics: 'latest_transaction__contract_data__naics',
     naicsDescription: 'latest_transaction__contract_data__naics_description',
     psc: 'latest_transaction__contract_data__product_or_service_code'

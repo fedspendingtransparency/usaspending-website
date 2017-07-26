@@ -17,7 +17,7 @@ const propTypes = {
 
 const ga = require('react-ga');
 
-class CFDASearchContainer extends React.Component {
+export class CFDASearchContainer extends React.Component {
 
     static logCFDAFilterEvent(place) {
         ga.event({

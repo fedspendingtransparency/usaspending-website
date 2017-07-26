@@ -29,5 +29,8 @@
     .field-picker {
         float: none;
         display: block;
+        @include media($tablet-screen) {
+            display: none;
+        }
     }
 }

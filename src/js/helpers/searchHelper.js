@@ -113,11 +113,27 @@ export const fetchFederalAccounts = (req) => {
 };
 
 // Agency search for autocomplete
-export const fetchAgencies = (req) => {
+export const fetchAwardingAgencies = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v1/references/agency/autocomplete/',
+            url: 'v2/autocomplete/awarding_agency',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: req,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const fetchFundingAgencies = (req) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/autocomplete/funding_agency',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,
@@ -218,7 +234,7 @@ export const fetchRecipients = (req) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v1/references/recipients/autocomplete/',
+            url: 'v2/autocomplete/recipient/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: req,

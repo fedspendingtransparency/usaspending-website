@@ -18,12 +18,13 @@ const propTypes = {
     redux: PropTypes.object
 };
 
-const groupKeys = ['contracts', 'grants', 'direct_payments', 'loans'];
+const groupKeys = ['contracts', 'grants', 'direct_payments', 'loans', 'other'];
 const groupLabels = {
     contracts: 'Contracts',
     grants: 'Grants',
     direct_payments: 'Direct Payments',
-    loans: 'Loans'
+    loans: 'Loans',
+    other: 'Other'
 };
 
 export default class AwardTypeFilterGroup extends React.Component {

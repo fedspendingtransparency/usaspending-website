@@ -17,7 +17,7 @@ const propTypes = {
 
 const ga = require('react-ga');
 
-class NAICSSearchContainer extends React.Component {
+export class NAICSSearchContainer extends React.Component {
 
     static logPlaceFilterEvent(naics) {
         ga.event({

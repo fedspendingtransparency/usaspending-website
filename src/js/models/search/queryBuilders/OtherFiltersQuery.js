@@ -5,7 +5,7 @@
 import * as FilterFields from 'dataMapping/search/filterFields';
 
 export const buildCFDAQuery = (cfdaGroup, searchContext = 'award') => {
-    const field = FilterFields[`${searchContext}Fields`].cfda;
+    const field = FilterFields[`${searchContext}Fields`].cfdaNumber;
     const cfdaSet = [];
 
     // Push IDs of selected Awards

@@ -68,9 +68,9 @@ export default class ScopeList extends React.Component {
                             </li>
                             <li className="coming-soon">
                                 <RankVisualizationScopeButton
-                                    value="insurance"
-                                    label="Insurance"
-                                    active={this.props.scope === 'insurance'}
+                                    value="other"
+                                    label="Other"
+                                    active={this.props.scope === 'other'}
                                     changeScope={this.props.changeScope}
                                     disabled />
                                 <ComingSoonLabel />

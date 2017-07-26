@@ -6,8 +6,9 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isEqual, upperCase, omit, differenceWith } from 'lodash';
+import { isEqual, upperCase, omit, differenceWith, slice } from 'lodash';
 import { isCancel } from 'axios';
+import { Search } from 'js-search';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
@@ -92,14 +93,19 @@ class CFDAListContainer extends React.Component {
                 .then((res) => {
                     const data = res.data.results;
                     let autocompleteData = [];
+                    const search = new Search('program_number');
+                    search.addIndex(['program_number', 'program_title']);
+                    search.addDocuments(data);
+                    const results = search.search(this.state.cfdaSearchString);
+                    let improvedResults = slice(results, 0, 10);
 
                     // Remove 'identifier' from selected cfdas to enable comparison
-                    const selectedCFDA = this.props.selectedCFDA.toArray()
+                    improvedResults = this.props.selectedCFDA.toArray()
                         .map((cfda) => omit(cfda, 'identifier'));
 
                     // Filter out any selected cfdas that may be in the result set
-                    if (selectedCFDA && selectedCFDA.length > 0) {
-                        autocompleteData = differenceWith(data, selectedCFDA, isEqual);
+                    if (improvedResults && improvedResults.length > 0) {
+                        autocompleteData = differenceWith(data, improvedResults, isEqual);
                     }
                     else {
                         autocompleteData = data;

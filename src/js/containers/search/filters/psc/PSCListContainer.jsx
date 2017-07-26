@@ -22,7 +22,7 @@ const propTypes = {
     autocompletePSC: React.PropTypes.array
 };
 
-class PSCListContainer extends React.Component {
+export class PSCListContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -90,15 +90,15 @@ class PSCListContainer extends React.Component {
                 .then((res) => {
                     const data = res.data.results;
                     let autocompleteData = [];
-                    const search = new Search('id');
-                    search.addIndex(['product_or_service_code']);
+                    const search = new Search('product_or_service_code');
+                    search.addIndex('product_or_service_code');
                     search.addDocuments(data);
                     const results = search.search(this.state.pscSearchString);
                     let improvedResults = slice(results, 0, 10);
 
                     // Remove 'identifier' from selected PSC to enable comparison
                     improvedResults = this.props.selectedPSC.toArray()
-                        .map((psc) => omit(psc, 'product_or_service_code'));
+                        .map((psc) => omit(psc, 'identifier'));
 
                     // Filter out any selected PSC that may be in the result set
                     if (improvedResults && improvedResults.length > 0) {

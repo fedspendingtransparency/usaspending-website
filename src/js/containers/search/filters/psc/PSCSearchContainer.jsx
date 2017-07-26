@@ -17,7 +17,7 @@ const propTypes = {
 
 const ga = require('react-ga');
 
-class PSCSearchContainer extends React.Component {
+export class PSCSearchContainer extends React.Component {
 
     static logPSCFilterEvent(psc) {
         ga.event({

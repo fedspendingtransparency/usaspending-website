@@ -6,8 +6,9 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isEqual, upperCase, omit, differenceWith } from 'lodash';
+import { isEqual, upperCase, omit, differenceWith, slice } from 'lodash';
 import { isCancel } from 'axios';
+import { Search } from 'js-search';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
@@ -21,7 +22,7 @@ const propTypes = {
     autocompleteNAICS: React.PropTypes.array
 };
 
-class NAICSListContainer extends React.Component {
+export class NAICSListContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -91,14 +92,19 @@ class NAICSListContainer extends React.Component {
                 .then((res) => {
                     const data = res.data.results;
                     let autocompleteData = [];
+                    const search = new Search('naics');
+                    search.addIndex(['naics', 'naics_description']);
+                    search.addDocuments(data);
+                    const results = search.search(this.state.cfdaSearchString);
+                    let improvedResults = slice(results, 0, 10);
 
                     // Remove 'identifier' from selected NAICS to enable comparison
-                    const selectedNAICS = this.props.selectedNAICS.toArray()
+                    improvedResults = this.props.selectedNAICS.toArray()
                         .map((naics) => omit(naics, 'identifier'));
 
                     // Filter out any selected NAICS that may be in the result set
-                    if (selectedNAICS && selectedNAICS.length > 0) {
-                        autocompleteData = differenceWith(data, selectedNAICS, isEqual);
+                    if (improvedResults && improvedResults.length > 0) {
+                        autocompleteData = differenceWith(data, improvedResults, isEqual);
                     }
                     else {
                         autocompleteData = data;

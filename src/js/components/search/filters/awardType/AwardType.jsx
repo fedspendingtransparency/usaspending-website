@@ -32,10 +32,9 @@ const defaultProps = {
             filters: awardTypeGroups.loans
         },
         {
-            id: 'award-insurance',
-            name: 'Insurance',
-            filters: [],
-            value: awardTypeGroups.insurance[0]
+            id: 'award-other',
+            name: 'Other',
+            filters: awardTypeGroups.other
         }
     ]
 };
