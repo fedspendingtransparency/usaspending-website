@@ -18,16 +18,50 @@ export default class AgencySidebar extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            shouldFloat: false,
+            sidebarWidth: 0,
+            floatPoint: 0
+        };
+
         this.lastY = null;
-        this.windowDidScroll = throttle(this.windowDidScroll.bind(this), 12);
+        this.windowDidScroll = throttle(this.windowDidScroll.bind(this), 16);
+        this.measureSidebarWidth = this.measureSidebarWidth.bind(this);
     }
 
     componentDidMount() {
+        this.measureSidebarWidth();
         window.addEventListener('scroll', this.windowDidScroll);
+        window.addEventListener('resize', this.measureSidebarWidth);
     }
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.windowDidScroll);
+        window.removeEventListener('resize', this.measureSidebarWidth);
+    }
+
+    measureSidebarWidth() {
+        // measure the reference div
+        let targetElement = this.referenceDiv;
+        if (!this.state.shouldFloat) {
+            // sidebar isn't floating, so measure that instead
+            targetElement = this.div;
+        }
+
+        const width = targetElement.offsetWidth;
+        // also measure the Y position at which to float the sidebar
+        const floatPoint = targetElement.offsetTop - 60;
+
+        this.setState({
+            floatPoint,
+            sidebarWidth: width
+        }, () => {
+            if (this.state.shouldFloat) {
+                // when the sidebar floats it calls outside of the grid layout, so
+                // programmatically force it to the correct width
+                this.div.style.width = `${width}px`;
+            }
+        });
     }
 
     windowDidScroll() {
@@ -37,30 +71,24 @@ export default class AgencySidebar extends React.Component {
             return;
         }
 
-        if (this.lastY === window.scrollY) {
-            // no position change
-            return;
-        }
-
-        this.lastY = window.scrollY;
 
         let shouldFloat = false;
-
-        const divPos = this.referenceDiv.getBoundingClientRect().top;
-        if (divPos < 60) {
+        const yPos = window.scrollY || window.pageYOffset;
+        if (yPos > this.state.floatPoint) {
             // it needs to float because the sidebar is less than 60px from the top or out of view
             shouldFloat = true;
         }
 
-        if (shouldFloat) {
-            const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
-            const originalPos = this.referenceDiv.offsetTop;
-            // the Y offset is 60px lower to ensure the current page padding is maintained
-            const offsetPos = (scrollPos - originalPos) + 60;
-            this.div.style.transform = `translate(0px,${offsetPos}px)`;
-        }
-        else {
-            this.div.style.transform = null;
+        if (shouldFloat !== this.state.shouldFloat) {
+            this.setState({
+                shouldFloat
+            }, () => {
+                if (shouldFloat) {
+                    // when the sidebar floats it calls outside of the grid layout, so
+                    // programmatically force it to the correct width
+                    this.div.style.width = `${this.state.sidebarWidth}px`;
+                }
+            });
         }
     }
 
@@ -75,16 +103,24 @@ export default class AgencySidebar extends React.Component {
             </li>
         ));
 
+        let floatSidebar = '';
+        if (this.state.shouldFloat) {
+            floatSidebar = 'float-sidebar';
+        }
+
         return (
             <div>
                 <div
+                    className={`agency-sidebar-reference ${floatSidebar}`}
                     ref={(div) => {
                         // this is an empty div that does not float with the page so we can track
                         // the inline/non-floating Y position of the sidebar
                         this.referenceDiv = div;
-                    }} />
+                    }}>
+                    &nbsp;
+                </div>
                 <div
-                    className="agency-sidebar-content"
+                    className={`agency-sidebar-content ${floatSidebar}`}
                     ref={(div) => {
                         this.div = div;
                     }}>

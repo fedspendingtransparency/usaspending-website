@@ -2,12 +2,12 @@
 @import './_treeMapIntroMQ';
 .treemap-intro-wrap {
     @include clearfix;
-    background: url(../../img/treasury_building_small.png) no-repeat center bottom, linear-gradient(180deg, #ececec 0%, rgba(174,176,181,0.5) 100%);
+    background: url(#{$image-path}/treasury_building_small.png) no-repeat center bottom, linear-gradient(180deg, #ececec 0%, rgba(174,176,181,0.5) 100%);
     border-bottom: rem(1) solid #e1e1e1;
     padding: rem(80) 0 0;
     height: rem(450);
     @include media($tablet-screen) {
-        background: url(../../img/treasury_building.png) no-repeat center bottom, linear-gradient(180deg, #ececec 0%, rgba(174,176,181,0.5) 100%);
+        background: url(#{$image-path}/treasury_building.png) no-repeat center bottom, linear-gradient(180deg, #ececec 0%, rgba(174,176,181,0.5) 100%);
     }
     & .treemap-intro-inner-wrap {
         margin: 0 auto;

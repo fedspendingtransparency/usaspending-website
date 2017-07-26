@@ -25,12 +25,15 @@
     <meta name="twitter:data2" value="" />
 
     <title>USAspending.gov</title>
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="shortcut icon" href="./img/favicon.ico">
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css %>" />
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <!-- Build <%= htmlWebpackPlugin.files.gitHash %> -->
+
 </head>
 <body>
     <div id="app"></div>
-    <script type="text/javascript" src="js/core.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.vendor.entry %>"></script>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.app.entry %>"></script>
 </body>
 </html>

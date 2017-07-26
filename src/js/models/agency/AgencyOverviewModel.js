@@ -8,11 +8,11 @@ import { Record } from 'immutable';
 const defaultValues = {
     id: '',
     name: '',
-    abbreviation: '',
     mission: '',
-    head: '',
+    website: '',
     logo: '',
     activeFY: '',
+    activeFQ: '',
     federalBudget: 0,
     obligatedAmount: 0,
     budgetAuthority: 0
@@ -24,14 +24,14 @@ const remapData = (data) => {
     const remap = {
         id: 'agency_id',
         name: 'agency_name',
-        abbreviation: 'agency_abbreviation',
-        mission: 'agency_mission',
-        head: 'agency_head',
-        logo: 'agency_logo_url',
+        mission: 'mission',
+        website: 'website',
+        logo: 'icon_filename',
         activeFY: 'active_fy',
-        budgetAuthority: 'budget_authority',
+        activeFQ: 'active_fq',
+        budgetAuthority: 'budget_authority_amount',
         obligatedAmount: 'obligated_amount',
-        federalBudget: 'federal_budget_for_active_fiscal_year'
+        federalBudget: 'current_total_budget_authority_amount'
     };
 
     const remapFuncs = {

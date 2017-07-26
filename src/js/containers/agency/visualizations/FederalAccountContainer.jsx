@@ -19,7 +19,7 @@ const propTypes = {
     obligatedAmount: React.PropTypes.number
 };
 
-export default class FederalAccountContainer extends React.Component {
+export default class FederalAccountContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
