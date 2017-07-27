@@ -58,8 +58,8 @@ const tableTypes = [
         enabled: true
     },
     {
-        label: 'Insurance',
-        internal: 'insurance',
+        label: 'Other',
+        internal: 'other',
         enabled: true
     }
 ];

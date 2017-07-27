@@ -1,0 +1,59 @@
+.footer-links {
+    @include span-columns(16);
+
+    @include media($tablet-screen) {
+        @include span-columns(8);
+        @include shift(3);
+
+        @include display(flex);
+        @include flex-direction(row);
+        @include align-items(flex-start);
+        @include justify-content(flex-start);
+        position: relative;
+    }
+
+    .link-group {
+        display: block;
+        margin-bottom: rem(15);
+        &:first-child {
+            margin-top: rem(15);
+        }
+
+        text-align: center;
+
+        @include media($tablet-screen) {
+            @include flex(1 1 auto);
+            width: 25%;
+            padding-left: rem(20);
+            margin-bottom: 0;
+            &:first-child {
+                margin-top: 0;
+            }
+
+            text-align: left;
+        }
+
+        .group-title {
+            text-transform: uppercase;
+            font-weight: $font-semibold;
+            font-size: $small-font-size;
+            margin-bottom: rem(5);
+        }
+
+        ul.links {
+            @include unstyled-list;
+            li {
+                padding: rem(2) 0;
+                a {
+                    font-size: $small-font-size;
+                    color: $color-gray-light;
+                    text-decoration: none;
+
+                    &:hover, &:active {
+                        color: $color-white;
+                    }
+                }
+            }
+        }
+    }
+}

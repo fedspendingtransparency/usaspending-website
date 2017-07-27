@@ -18,7 +18,8 @@ export const awardTypeCodes = {
     '06': 'Direct Payment for Specified Use',
     '07': 'Direct Loans',
     '08': 'Guaranteed/Insured Loans',
-    '09': 'Insurance'
+    '09': 'Insurance',
+    '11': 'Other Financial Assistance'
 };
 /* eslint-enable quote-props */
 
@@ -27,5 +28,5 @@ export const awardTypeGroups = {
     grants: ['02', '03', '04', '05'],
     direct_payments: ['10', '06'],
     loans: ['07', '08'],
-    insurance: ['09']
+    other: ['09', '11']
 };

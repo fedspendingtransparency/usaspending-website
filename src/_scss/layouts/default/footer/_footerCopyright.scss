@@ -1,8 +1,57 @@
-@mixin footerCopyright {
-        @include span-columns(16);
-        background:  darken( #333, 5% );
-        color:  darken( #fff, 20% );
-        margin-top: 1.5rem;
-        padding: 0.5rem 0 0.9rem;
-        text-align: center;
+.copyright-block {
+    width: 100%;
+    padding: rem(10) 0;
+    background:  darken( #333, 5% );
+    color:  darken( #fff, 20% );
+
+    .copyright-content {
+        @include media($tablet-screen) {
+            @include display(flex);
+            @include flex-direction(row);
+            @include align-items(center);
+            @include justify-content(center);
+            position: relative;
+        }
+
+        .copyright-notice {
+            display: block;
+            width: 100%;
+            text-align: center;
+
+            padding-left: rem(20);
+
+            @include media($tablet-screen) {
+                @include flex(1 1 auto);
+                width: 50%;
+                text-align: left;
+            }
+        }
+
+        .important-db {
+            display: block;
+            text-align: center;
+            width: 100%;
+            margin-bottom: rem(50);
+            margin-right: rem(155);
+            margin-top: rem(15);
+
+            @include media($tablet-screen) {
+                @include flex(1 1 auto);
+                text-align: right;
+                width: 50%;
+                margin-bottom: 0;
+                margin-top: 0;
+            }
+
+            font-size: $small-font-size;
+            a {
+                color: #9BDAF1;
+                text-decoration: underline;
+
+                &:hover, &:active {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
 }

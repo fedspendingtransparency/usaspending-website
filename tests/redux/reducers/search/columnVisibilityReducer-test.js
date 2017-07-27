@@ -368,7 +368,7 @@ describe('columnVisibilityReducer', () => {
                         ]
                     )
                 },
-                insurance: {
+                other: {
                     visibleColumns: new OrderedSet(
                         [
                             'award_id',
@@ -553,7 +553,7 @@ describe('columnVisibilityReducer', () => {
                         ]
                     )
                 },
-                insurance: {
+                other: {
                     visibleColumns: new OrderedSet(
                         [
                             'award_id',
