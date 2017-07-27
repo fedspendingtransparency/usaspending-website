@@ -4,11 +4,12 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    height: React.PropTypes.number,
-    width: React.PropTypes.number,
-    header: React.PropTypes.node
+    height: PropTypes.number,
+    width: PropTypes.number,
+    header: PropTypes.node
 };
 
 export default class HeaderCell extends React.Component {

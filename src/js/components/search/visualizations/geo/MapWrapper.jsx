@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import Q from 'q';
+import PropTypes from 'prop-types';
 
 import * as MapHelper from 'helpers/mapHelper';
 
@@ -12,13 +12,13 @@ import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
 
 const propTypes = {
-    data: React.PropTypes.object,
-    renderHash: React.PropTypes.string,
-    showHover: React.PropTypes.bool,
-    selectedItem: React.PropTypes.object,
-    showTooltip: React.PropTypes.func,
-    hideTooltip: React.PropTypes.func,
-    tooltip: React.PropTypes.func
+    data: PropTypes.object,
+    renderHash: PropTypes.string,
+    showHover: PropTypes.bool,
+    selectedItem: PropTypes.object,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func,
+    tooltip: PropTypes.func
 };
 
 const defaultProps = {
@@ -83,57 +83,56 @@ export default class MapWrapper extends React.Component {
     }
 
     loadStateShapes() {
-        const deferred = Q.defer();
-        if (!this.state.mapReady) {
-            deferred.resolve();
-            return deferred.promise;
-        }
+        return new Promise((resolve, reject) => {
+            if (!this.state.mapReady) {
+                resolve();
+                return;
+            }
 
-        // fetch the state shapes
-        MapHelper.fetchFile('graphics/states.json').promise
-            .then((res) => {
-                // split the data into individual state features
-                const states = {};
+            // fetch the state shapes
+            MapHelper.fetchFile('graphics/states.json').promise
+                .then((res) => {
+                    // split the data into individual state features
+                    const states = {};
 
-                res.data.features.forEach((feature) => {
-                    const stateName = feature.properties.NAME;
-                    const stateCode = MapHelper.stateCodeFromName(stateName);
+                    res.data.features.forEach((feature) => {
+                        const stateName = feature.properties.NAME;
+                        const stateCode = MapHelper.stateCodeFromName(stateName);
 
-                    let shape = {
-                        geometry: feature.geometry,
-                        type: 'Feature'
-                    };
-
-                    if (feature.type === 'FeatureCollection') {
-                        // this is a collection of multiple shapes (ie, islands)
-                        shape = {
-                            type: 'FeatureCollection',
-                            features: feature.features
+                        let shape = {
+                            geometry: feature.geometry,
+                            type: 'Feature'
                         };
-                    }
 
-                    const state = {
-                        shape,
-                        data: {
-                            name: stateName,
-                            code: stateCode
+                        if (feature.type === 'FeatureCollection') {
+                            // this is a collection of multiple shapes (ie, islands)
+                            shape = {
+                                type: 'FeatureCollection',
+                                features: feature.features
+                            };
                         }
-                    };
 
-                    states[stateCode] = state;
+                        const state = {
+                            shape,
+                            data: {
+                                name: stateName,
+                                code: stateCode
+                            }
+                        };
+
+                        states[stateCode] = state;
+                    });
+
+                    this.setState({
+                        stateShapes: states
+                    }, () => {
+                        resolve();
+                    });
+                })
+                .catch((err) => {
+                    reject(err);
                 });
-
-                this.setState({
-                    stateShapes: states
-                }, () => {
-                    deferred.resolve();
-                });
-            })
-            .catch((err) => {
-                deferred.reject(err);
-            });
-
-        return deferred.promise;
+        });
     }
 
     outlineState(stateCode) {

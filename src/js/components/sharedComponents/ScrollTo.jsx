@@ -4,15 +4,16 @@
   **/
 
 import React from 'react';
-import $ from 'jquery';
+import PropTypes from 'prop-types';
+import { scrollToY } from 'helpers/scrollToHelper';
 
 const propTypes = {
-    code: React.PropTypes.string.isRequired,
-    icon: React.PropTypes.element.isRequired,
-    label: React.PropTypes.string.isRequired,
-    role: React.PropTypes.string.isRequired,
-    className: React.PropTypes.string.isRequired,
-    accessibleLabel: React.PropTypes.string.isRequired
+    code: PropTypes.string.isRequired,
+    icon: PropTypes.element.isRequired,
+    label: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    className: PropTypes.string.isRequired,
+    accessibleLabel: PropTypes.string.isRequired
 };
 
 export default class ScrollTo extends React.Component {
@@ -26,9 +27,7 @@ export default class ScrollTo extends React.Component {
         const sectionDom = document.querySelector(`#scroll-to-${this.props.code}`);
         if (sectionDom) {
             const sectionTop = sectionDom.offsetTop - 10;
-            $('body').animate({
-                scrollTop: sectionTop
-            }, 700);
+            scrollToY(sectionTop, 700);
         }
     }
 

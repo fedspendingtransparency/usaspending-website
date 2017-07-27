@@ -4,13 +4,15 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ResultsTableTabItem from './ResultsTableTabItem';
 
 const propTypes = {
-    types: React.PropTypes.array,
-    active: React.PropTypes.string,
-    switchTab: React.PropTypes.func
+    types: PropTypes.array,
+    counts: PropTypes.object,
+    active: PropTypes.string,
+    switchTab: PropTypes.func
 };
 
 export default class ResultsTableTabs extends React.Component {
@@ -18,6 +20,7 @@ export default class ResultsTableTabs extends React.Component {
         const tabs = this.props.types.map((type) => (
             <ResultsTableTabItem
                 {...type}
+                count={this.props.counts[type.internal]}
                 active={this.props.active === type.internal}
                 switchTab={this.props.switchTab}
                 key={`table-type-item-${type.internal}`} />

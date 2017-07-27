@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -12,26 +13,18 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import Keyword from 'components/search/filters/keyword/Keyword';
 
 const propTypes = {
-    keyword: React.PropTypes.string,
-    updateTextSearchInput: React.PropTypes.func
+    keyword: PropTypes.string,
+    updateTextSearchInput: PropTypes.func
 };
 
 const ga = require('react-ga');
 
 export class KeywordContainer extends React.Component {
 
-    static logFilterEvent() {
-        ga.event({
-            category: 'Search Filters',
-            action: 'Applied Filter',
-            label: 'Keyword'
-        });
-    }
-
     static logSelectedKeywordEvent(keyword) {
         ga.event({
-            category: 'Search Filters',
-            action: 'Selected Keyword',
+            category: 'Search Page Filter Applied',
+            action: 'Applied Keyword Filter',
             label: keyword
         });
     }
@@ -76,8 +69,9 @@ export class KeywordContainer extends React.Component {
         this.props.updateTextSearchInput(this.state.value);
 
         // Analytics
-        KeywordContainer.logFilterEvent();
-        KeywordContainer.logSelectedKeywordEvent(this.state.value);
+        if (this.state.value) {
+            KeywordContainer.logSelectedKeywordEvent(this.state.value);
+        }
     }
 
     render() {

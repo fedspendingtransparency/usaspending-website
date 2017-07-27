@@ -4,15 +4,16 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as HomeIcons from 'components/sharedComponents/icons/home/HomeIcons';
 
 const propTypes = {
-    icon: React.PropTypes.string,
-    title: React.PropTypes.string,
-    subtitle: React.PropTypes.string,
-    linkText: React.PropTypes.string,
-    linkUrl: React.PropTypes.string
+    icon: PropTypes.string,
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
+    linkText: PropTypes.string,
+    linkUrl: PropTypes.string
 };
 
 export default class LinksSectionBox extends React.Component {

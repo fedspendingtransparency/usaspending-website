@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 
 import BarXAxisItem from './BarXAxisItem';
@@ -19,10 +20,10 @@ const defaultProps = {
 };
 
 const propTypes = {
-    top: React.PropTypes.number.isRequired,
-    width: React.PropTypes.number.isRequired,
-    padding: React.PropTypes.object,
-    axisPos: React.PropTypes.number
+    top: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    padding: PropTypes.object,
+    axisPos: PropTypes.number
 };
 
 export default class BarXAxis extends React.Component {

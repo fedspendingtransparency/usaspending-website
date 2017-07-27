@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';
@@ -13,7 +14,7 @@ import FinancialSystemItem from 'models/results/other/FinancialSystemItem';
 import AdditionalGroup from './AdditionalGroup';
 
 const propTypes = {
-    award: React.PropTypes.object
+    award: PropTypes.object
 };
 
 export default class AssistanceAdditionalDetails extends React.Component {

@@ -4,18 +4,19 @@
   **/
 
 import React from 'react';
-import $ from 'jquery';
+import PropTypes from 'prop-types';
+import { scrollToY } from 'helpers/scrollToHelper';
 
 const defaultProps = {
     isActive: false
 };
 
 const propTypes = {
-    code: React.PropTypes.string.isRequired,
-    currentSection: React.PropTypes.string.isRequired,
-    icon: React.PropTypes.element.isRequired,
-    label: React.PropTypes.string.isRequired,
-    accessibleLabel: React.PropTypes.string.isRequired
+    code: PropTypes.string.isRequired,
+    currentSection: PropTypes.string.isRequired,
+    icon: PropTypes.element.isRequired,
+    label: PropTypes.string.isRequired,
+    accessibleLabel: PropTypes.string.isRequired
 };
 
 export default class FormatItem extends React.Component {
@@ -30,9 +31,7 @@ export default class FormatItem extends React.Component {
         const sectionDom = document.querySelector(`#results-section-${this.props.code}`);
         if (sectionDom) {
             const sectionTop = sectionDom.offsetTop - 150;
-            $('body').animate({
-                scrollTop: sectionTop
-            }, 250);
+            scrollToY(sectionTop, 250);
         }
     }
 

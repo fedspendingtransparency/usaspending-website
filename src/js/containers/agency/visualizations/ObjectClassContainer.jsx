@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { reduce } from 'lodash';
 
@@ -13,8 +14,8 @@ import * as AgencyHelper from 'helpers/agencyHelper';
 import ObjectClassTreeMap from 'components/agency/visualizations/objectClass/ObjectClassTreeMap';
 
 const propTypes = {
-    id: React.PropTypes.string,
-    activeFY: React.PropTypes.string
+    id: PropTypes.string,
+    activeFY: PropTypes.string
 };
 
 const defaultProps = {
@@ -22,7 +23,7 @@ const defaultProps = {
     activeFY: ''
 };
 
-export default class ObjectClassContainer extends React.Component {
+export default class ObjectClassContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 

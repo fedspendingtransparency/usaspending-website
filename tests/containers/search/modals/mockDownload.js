@@ -11,3 +11,13 @@ export const mockReady = {
     request_checksum: "abcd",
     request_path: "path"
 };
+
+export const mockParams = {
+    filters: [{
+        field: "type",
+        operation: "in",
+        value: ["A", "B", "C", "D"]
+    }],
+    order: ["-abc"],
+    fields: ["abc"]
+};

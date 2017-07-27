@@ -4,10 +4,11 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    toggleRecipient: React.PropTypes.func,
-    label: React.PropTypes.string
+    toggleRecipient: PropTypes.func,
+    label: PropTypes.string
 };
 
 export default class ShownRecipient extends React.Component {

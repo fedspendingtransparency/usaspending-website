@@ -4,17 +4,28 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { concat, sortBy } from 'lodash';
 
 import ResultGroup from './ResultGroup';
 
 const propTypes = {
-    glossary: React.PropTypes.object,
-    searchLoading: React.PropTypes.bool,
-    setGlossaryTerm: React.PropTypes.func
+    glossary: PropTypes.object,
+    searchLoading: PropTypes.bool,
+    setGlossaryTerm: PropTypes.func
 };
 
+const ga = require('react-ga');
+
 export default class GlossarySearchResults extends React.Component {
+    static logGlossaryTermEvent(term) {
+        ga.event({
+            category: 'Glossary',
+            action: 'Clicked Glossary Term',
+            label: term
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -37,6 +48,9 @@ export default class GlossarySearchResults extends React.Component {
 
     selectTerm(term) {
         this.props.setGlossaryTerm(term);
+
+        // Analytics
+        GlossarySearchResults.logGlossaryTermEvent(term.term);
     }
 
     groupResults(props) {

@@ -4,11 +4,12 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import InfoSnippet from '../award/InfoSnippet';
 import MoreHeaderOptions from '../award/MoreHeaderOptions';
 
 const propTypes = {
-    account: React.PropTypes.object
+    account: PropTypes.object
 };
 
 export default class AccountHeader extends React.Component {

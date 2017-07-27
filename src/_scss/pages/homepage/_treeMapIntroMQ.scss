@@ -2,7 +2,7 @@
 @mixin treeMapLangingMQ () {
     @include media($tablet-screen) {
         width: $site-max-width;
-        background: url(../../img/treasury_building.png) no-repeat center bottom;
+        background: url(#{$image-path}/treasury_building.png) no-repeat center bottom;
         & h3 {
             @include span-columns(4);
             @include setText(rem(35));

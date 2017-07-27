@@ -4,13 +4,14 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    data: React.PropTypes.string,
-    rowIndex: React.PropTypes.number,
-    column: React.PropTypes.string,
-    isLastColumn: React.PropTypes.bool,
-    id: React.PropTypes.number
+    data: PropTypes.string,
+    rowIndex: PropTypes.number,
+    column: PropTypes.string,
+    isLastColumn: PropTypes.bool,
+    id: PropTypes.number
 };
 
 export default class ResultsTableAwardIdCell extends React.Component {

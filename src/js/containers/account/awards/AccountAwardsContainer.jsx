@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -24,15 +25,15 @@ import AccountAwardsSection from 'components/account/awards/AccountAwardsSection
 import * as accountActions from 'redux/actions/account/accountActions';
 
 const propTypes = {
-    account: React.PropTypes.object,
-    awards: React.PropTypes.instanceOf(Immutable.OrderedSet),
-    meta: React.PropTypes.object,
-    filters: React.PropTypes.object,
-    order: React.PropTypes.object,
-    setAccountAwardType: React.PropTypes.func,
-    setAccountAwards: React.PropTypes.func,
-    appendAccountAwards: React.PropTypes.func,
-    setAccountAwardOrder: React.PropTypes.func
+    account: PropTypes.object,
+    awards: PropTypes.instanceOf(Immutable.OrderedSet),
+    meta: PropTypes.object,
+    filters: PropTypes.object,
+    order: PropTypes.object,
+    setAccountAwardType: PropTypes.func,
+    setAccountAwards: PropTypes.func,
+    appendAccountAwards: PropTypes.func,
+    setAccountAwardOrder: PropTypes.func
 };
 
 const tableTypes = [
@@ -57,8 +58,8 @@ const tableTypes = [
         enabled: true
     },
     {
-        label: 'Insurance',
-        internal: 'insurance',
+        label: 'Other',
+        internal: 'other',
         enabled: true
     }
 ];
@@ -69,6 +70,7 @@ export class AccountAwardsContainer extends React.Component {
 
         this.state = {
             columns: [],
+            counts: {},
             inFlight: true
         };
 
@@ -157,7 +159,11 @@ export class AccountAwardsContainer extends React.Component {
             }
         }
 
-        this.switchTab(tableTypes[firstAvailable].internal);
+        this.setState({
+            counts: availableGroups
+        }, () => {
+            this.switchTab(tableTypes[firstAvailable].internal);
+        });
     }
 
     showColumns(tableType, doNotLoad = false) {
@@ -303,6 +309,7 @@ export class AccountAwardsContainer extends React.Component {
                 results={this.props.awards.toArray()}
                 resultsMeta={this.props.meta}
                 columns={this.state.columns}
+                counts={this.state.counts}
                 tableTypes={tableTypes}
                 currentType={this.props.meta.type}
                 switchTab={this.switchTab}

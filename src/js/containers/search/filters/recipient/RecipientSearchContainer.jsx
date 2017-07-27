@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -12,11 +13,11 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import RecipientSearch from 'components/search/filters/recipient/RecipientSearch';
 
 const propTypes = {
-    updateSelectedRecipients: React.PropTypes.func,
-    updateRecipientDomesticForeignSelection: React.PropTypes.func,
-    toggleRecipientType: React.PropTypes.func,
-    bulkRecipientTypeChange: React.PropTypes.func,
-    updateRecipientLocations: React.PropTypes.func
+    updateSelectedRecipients: PropTypes.func,
+    updateRecipientDomesticForeignSelection: PropTypes.func,
+    toggleRecipientType: PropTypes.func,
+    bulkRecipientTypeChange: PropTypes.func,
+    updateRecipientLocations: PropTypes.func
 };
 
 const ga = require('react-ga');
@@ -39,10 +40,10 @@ export class RecipientSearchContainer extends React.Component {
         });
     }
 
-    static logLocationFilterEvent(placeType, place) {
+    static logLocationFilterEvent(placeType, place, event) {
         ga.event({
             category: 'Search Page Filter Applied',
-            action: `Applied Recipient ${placeType.toLowerCase()} Filter`,
+            action: `${event} Recipient ${placeType.toLowerCase()} Filter`,
             label: place.toLowerCase()
         });
     }
@@ -74,10 +75,12 @@ export class RecipientSearchContainer extends React.Component {
 
     toggleRecipientType(selection) {
         this.props.toggleRecipientType(selection);
+        // Analytics handled by checkbox component
     }
 
     bulkRecipientTypeChange(selection) {
         this.props.bulkRecipientTypeChange(selection);
+        // Analytics handled by checkbox component
     }
 
     toggleRecipientLocation(recipientLocation) {
@@ -86,7 +89,14 @@ export class RecipientSearchContainer extends React.Component {
         // Analytics
         const placeType = recipientLocation.place_type;
         const place = recipientLocation.place;
-        RecipientSearchContainer.logLocationFilterEvent(placeType, place);
+        if (!recipientLocation.identifier) {
+            // Adding a new location filter
+            RecipientSearchContainer.logLocationFilterEvent(placeType, place, 'Applied');
+        }
+        else {
+            // Removing an existing location filter
+            RecipientSearchContainer.logLocationFilterEvent(placeType, place, 'Removed');
+        }
     }
 
     render() {

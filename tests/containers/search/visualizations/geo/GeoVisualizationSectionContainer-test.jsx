@@ -11,55 +11,18 @@ import { Set } from 'immutable';
 
 import { GeoVisualizationSectionContainer } from
     'containers/search/visualizations/geo/GeoVisualizationSectionContainer';
-import * as SearchHelper from 'helpers/searchHelper';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
+
+jest.mock('helpers/searchHelper', () => require('./mocks/geoHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/search/visualizations/geo/GeoVisualizationSection', () =>
     jest.fn(() => null));
 
-
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
-
 // spy on specific functions inside the component
 const fetchDataSpy = sinon.spy(GeoVisualizationSectionContainer.prototype, 'fetchData');
-
-// we don't want to actually hit the API because tests should be fully controlled, so we will mock
-// the SearchHelper functions
-const mockSearchHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    SearchHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockSearchHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/searchHelper');
-};
 
 const mockedReduxMeta = {
     visualization: {
@@ -68,72 +31,22 @@ const mockedReduxMeta = {
 };
 
 describe('GeoVisualizationSectionContainer', () => {
-    it('should make an API request on mount', () => {
-        const apiResponse = {
-            results: [
-                {
-                    item: 'AK',
-                    aggregate: '123.12'
-                },
-                {
-                    item: 'AL',
-                    aggregate: '345.56'
-                }
-            ],
-            total_metadata: {
-                count: 2
-            },
-            page_metadata: {
-                page_number: 1,
-                count: 2,
-                num_pages: 1
-            }
-        };
-
-        // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
-
+    it('should make an API request on mount', async () => {
         // mount the container
-        mount(<GeoVisualizationSectionContainer
+        const container = mount(<GeoVisualizationSectionContainer
             reduxFilters={defaultFilters}
             resultsMeta={mockedReduxMeta} />);
 
-        // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
-        jest.runAllTicks();
+        await container.instance().apiRequest.promise;
 
         // everything should be updated now
         expect(fetchDataSpy.callCount).toEqual(1);
 
-        // reset the mocks and spies
-        unmockSearchHelper();
+        // reset the spy
         fetchDataSpy.reset();
     });
 
-    it('should make an API request when the Redux filters change', () => {
-        const apiResponse = {
-            results: [
-                {
-                    item: 'AK',
-                    aggregate: '123.12'
-                },
-                {
-                    item: 'AL',
-                    aggregate: '345.56'
-                }
-            ],
-            total_metadata: {
-                count: 2
-            },
-            page_metadata: {
-                page_number: 1,
-                count: 2,
-                num_pages: 1
-            }
-        };
-
-        // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
-
+    it('should make an API request when the Redux filters change', async () => {
         const initialFilters = Object.assign({}, defaultFilters);
         const secondFilters = Object.assign({}, defaultFilters, {
             timePeriodType: 'fy',
@@ -146,8 +59,7 @@ describe('GeoVisualizationSectionContainer', () => {
                 reduxFilters={initialFilters}
                 resultsMeta={mockedReduxMeta} />);
 
-        // wait for the first SearchHelper call to finish
-        jest.runAllTicks();
+        await container.instance().apiRequest.promise;
 
         // the first API call should have been called
         expect(fetchDataSpy.callCount).toEqual(1);
@@ -157,49 +69,21 @@ describe('GeoVisualizationSectionContainer', () => {
             reduxFilters: secondFilters
         });
 
-        // wait for the second SearchHelper call to finish
-        jest.runAllTicks();
         // the first API call should have been called
         expect(fetchDataSpy.callCount).toEqual(2);
 
-        // reset the mocks and spies
-        unmockSearchHelper();
+        // reset the spy
         fetchDataSpy.reset();
     });
 
     describe('parseData', () => {
-        it('should properly resture the API response for the map visualization', () => {
-            const apiResponse = {
-                results: [
-                    {
-                        item: 'AK',
-                        aggregate: '123.12'
-                    },
-                    {
-                        item: 'AL',
-                        aggregate: '345.56'
-                    }
-                ],
-                total_metadata: {
-                    count: 2
-                },
-                page_metadata: {
-                    page_number: 1,
-                    count: 2,
-                    num_pages: 1
-                }
-            };
-
-            // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
-
+        it('should properly resture the API response for the map visualization', async () => {
             // mount the container
             const container = mount(<GeoVisualizationSectionContainer
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
 
-            // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
-            jest.runAllTicks();
+            await container.instance().apiRequest.promise;
 
             const expectedState = {
                 data: {
@@ -215,6 +99,9 @@ describe('GeoVisualizationSectionContainer', () => {
             delete actualState.renderHash;
 
             expect(actualState).toEqual(expectedState);
+
+            // reset the spy
+            fetchDataSpy.reset();
         });
     });
 

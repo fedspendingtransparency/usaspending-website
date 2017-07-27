@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { startCase, toLower, includes } from 'lodash';
 import * as SummaryPageHelper from 'helpers/summaryPageHelper';
@@ -13,7 +14,7 @@ import InfoSnippet from './InfoSnippet';
 import MoreHeaderOptions from './MoreHeaderOptions';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object
+    selectedAward: PropTypes.object
 };
 
 export default class SummaryBar extends React.Component {

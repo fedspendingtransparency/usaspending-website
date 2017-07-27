@@ -23,9 +23,12 @@ const account = {
     id: 2525
 };
 
+jest.mock('helpers/searchHelper', () => require('../accountHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+
 describe('AccountProgramActivityContainer', () => {
     describe('updateFilter', () => {
-        it('should add a Program Activity that has been selected to Redux', () => {
+        it('should add a Program Activity that has been selected to Redux', async () => {
             const mockReduxAction = jest.fn((args) => {
                 expect(args).toEqual('810');
             });
@@ -35,7 +38,10 @@ describe('AccountProgramActivityContainer', () => {
                 <AccountProgramActivityContainer
                     reduxFilters={initialFilters}
                     toggleProgramActivity={mockReduxAction}
+                    setAvailableProgramActivities={jest.fn()}
                     account={account} />);
+
+            await accountProgramActivityContainer.instance().searchRequest.promise;
 
             const updateFilterSpy = sinon.spy(accountProgramActivityContainer.instance(),
                 'updateFilter');
@@ -51,7 +57,7 @@ describe('AccountProgramActivityContainer', () => {
             updateFilterSpy.reset();
         });
 
-        it('should remove a Program Activity that has been deselected from Redux', () => {
+        it('should remove a Program Activity that has been deselected from Redux', async () => {
             const mockReduxAction = jest.fn((args) => {
                 expect(args).toEqual('810');
             });
@@ -61,7 +67,10 @@ describe('AccountProgramActivityContainer', () => {
                 <AccountProgramActivityContainer
                     reduxFilters={initialFilters}
                     toggleProgramActivity={mockReduxAction}
+                    setAvailableProgramActivities={jest.fn()}
                     account={account} />);
+
+            await accountProgramActivityContainer.instance().searchRequest.promise;
 
             const updateFilterSpy = sinon.spy(accountProgramActivityContainer.instance(),
                 'updateFilter');
@@ -82,20 +91,21 @@ describe('AccountProgramActivityContainer', () => {
     });
 
     describe('populateProgramActivities', () => {
-        it('should fetch program activities on load', () => {
-            jest.useFakeTimers();
-
-            const container = shallow(<AccountProgramActivityContainer
-                {...initialFilters} />);
+        it('should fetch program activities on load', async () => {
+            const accountProgramActivityContainer = shallow(
+                <AccountProgramActivityContainer
+                    reduxFilters={initialFilters}
+                    toggleProgramActivity={jest.fn()}
+                    setAvailableProgramActivities={jest.fn()}
+                    account={account} />);
 
             // set up spy
             const populateProgramActivitiesSpy = sinon.spy(
-                container.instance(), 'populateProgramActivities');
+                accountProgramActivityContainer.instance(), 'populateProgramActivities');
 
-            container.instance().componentWillMount();
+            accountProgramActivityContainer.instance().componentWillMount();
 
-            // Run fake timer for input delay
-            jest.runAllTicks();
+            await accountProgramActivityContainer.instance().searchRequest.promise;
 
             // everything should be updated now
             expect(populateProgramActivitiesSpy.callCount).toEqual(1);
@@ -106,22 +116,23 @@ describe('AccountProgramActivityContainer', () => {
     });
 
     describe('parseResultData', () => {
-        it('should parse retrieved program activities', () => {
-            jest.useFakeTimers();
-
-            const container = shallow(<AccountProgramActivityContainer
-                {...initialFilters} />);
+        it('should parse retrieved program activities', async () => {
+            const accountProgramActivityContainer = shallow(
+                <AccountProgramActivityContainer
+                    reduxFilters={initialFilters}
+                    toggleProgramActivity={jest.fn()}
+                    setAvailableProgramActivities={jest.fn()}
+                    account={account} />);
 
             // set up spy
             const populateProgramActivitiesSpy = sinon.spy(
-                container.instance(), 'populateProgramActivities');
+                accountProgramActivityContainer.instance(), 'populateProgramActivities');
             const parseResultDataSpy = sinon.spy(
-                container.instance(), 'parseResultData');
+                accountProgramActivityContainer.instance(), 'parseResultData');
 
-            container.instance().populateProgramActivities();
+            accountProgramActivityContainer.instance().populateProgramActivities();
 
-            // Run fake timer for input delay
-            jest.runAllTicks();
+            await accountProgramActivityContainer.instance().searchRequest.promise;
 
             // everything should be updated now
             expect(populateProgramActivitiesSpy.callCount).toEqual(1);

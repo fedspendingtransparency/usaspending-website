@@ -4,10 +4,11 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    glossary: React.PropTypes.object,
-    searchLoading: React.PropTypes.bool
+    glossary: PropTypes.object,
+    searchLoading: PropTypes.bool
 };
 
 export default class NoResults extends React.Component {

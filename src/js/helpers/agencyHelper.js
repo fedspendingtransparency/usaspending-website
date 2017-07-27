@@ -56,6 +56,23 @@ export const fetchAgencyMinorObjectClasses = (params) => {
     };
 };
 
+// get federal accounts
+export const fetchAgencyFederalAccounts = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/federal_obligations/',
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 // get recipients
 export const fetchAwardRecipients = (params) => {
     const source = CancelToken.source();

@@ -4,12 +4,13 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    faceValue: React.PropTypes.string,
-    subsidy: React.PropTypes.string
+    faceValue: PropTypes.string,
+    subsidy: PropTypes.string
 };
 
 export default class LoanAmounts extends React.Component {

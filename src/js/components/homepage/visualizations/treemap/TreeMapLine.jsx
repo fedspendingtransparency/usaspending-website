@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import TreeMapLabel from './TreeMapLabel';
 
 const propTypes = {
-    rectTransform: React.PropTypes.string,
-    textTransform: React.PropTypes.string,
-    label: React.PropTypes.string
+    rectTransform: PropTypes.string,
+    textTransform: PropTypes.string,
+    label: PropTypes.string
 };
 
 export default class TreeMapLine extends React.Component {

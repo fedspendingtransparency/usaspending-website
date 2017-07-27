@@ -75,6 +75,8 @@
             {
                 "devDependencies": true
             }
-        ]
+        ],
+        // allow global require for tests
+        "global-require": [0]
     }
 }

@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -21,8 +22,8 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import AccountSearchOperation from 'models/account/queries/AccountSearchOperation';
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object,
-    account: React.PropTypes.object
+    reduxFilters: PropTypes.object,
+    account: PropTypes.object
 };
 
 export class AccountRankVisualizationContainer extends React.Component {

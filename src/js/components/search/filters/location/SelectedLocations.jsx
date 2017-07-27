@@ -4,13 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as LocationFormatter from 'helpers/locationFormatter';
 import ShownLocation from './ShownLocation';
 
 const propTypes = {
-    selectedLocations: React.PropTypes.object,
-    removeLocation: React.PropTypes.func
+    selectedLocations: PropTypes.object,
+    removeLocation: PropTypes.func
 };
 
 export default class SelectedLocations extends React.Component {

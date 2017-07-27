@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    labelWidth: React.PropTypes.number,
-    labelPadding: React.PropTypes.number,
-    labelDistance: React.PropTypes.number,
-    currentX: React.PropTypes.number,
-    graphWidth: React.PropTypes.number
+    labelWidth: PropTypes.number,
+    labelPadding: PropTypes.number,
+    labelDistance: PropTypes.number,
+    currentX: PropTypes.number,
+    graphWidth: PropTypes.number
 };
 
 const defaultProps = {

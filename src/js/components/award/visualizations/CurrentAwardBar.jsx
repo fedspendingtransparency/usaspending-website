@@ -4,13 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    x: React.PropTypes.number,
-    y: React.PropTypes.number,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    data: React.PropTypes.string
+    x: PropTypes.number,
+    y: PropTypes.number,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    data: PropTypes.string
 };
 
 export default class CurrentAwardBar extends React.Component {

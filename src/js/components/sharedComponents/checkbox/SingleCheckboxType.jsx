@@ -4,15 +4,16 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    id: React.PropTypes.string,
-    code: React.PropTypes.string,
-    name: React.PropTypes.string,
-    toggleCheckboxType: React.PropTypes.func,
-    filterType: React.PropTypes.string,
-    selectedCheckboxes: React.PropTypes.object,
-    enableAnalytics: React.PropTypes.bool
+    id: PropTypes.string,
+    code: PropTypes.string,
+    name: PropTypes.string,
+    toggleCheckboxType: PropTypes.func,
+    filterType: PropTypes.string,
+    selectedCheckboxes: PropTypes.object,
+    enableAnalytics: PropTypes.bool
 };
 
 const defaultProps = {
@@ -31,6 +32,14 @@ export default class SingleCheckboxType extends React.Component {
         });
     }
 
+    static logDeselectSingleTypeFilterEvent(type, filter) {
+        ga.event({
+            category: 'Search Page Filter Applied',
+            action: `Deselected ${filter} Type`,
+            label: type
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -39,13 +48,20 @@ export default class SingleCheckboxType extends React.Component {
     }
 
     toggleFilter() {
-        // indicate to Redux that this field needs to toggle
-        this.props.toggleCheckboxType(this.props.code);
-
         // Analytics
         if (this.props.enableAnalytics) {
-            SingleCheckboxType.logSingleTypeFilterEvent(this.props.name, this.props.filterType);
+            if (this.props.selectedCheckboxes.has(this.props.code)) {
+                // already checked, log deselect event
+                SingleCheckboxType.logDeselectSingleTypeFilterEvent(this.props.name, this.props.filterType);
+            }
+            else {
+                // not already checked, log select event
+                SingleCheckboxType.logSingleTypeFilterEvent(this.props.name, this.props.filterType);
+            }
         }
+
+        // indicate to Redux that this field needs to toggle
+        this.props.toggleCheckboxType(this.props.code);
     }
 
     render() {

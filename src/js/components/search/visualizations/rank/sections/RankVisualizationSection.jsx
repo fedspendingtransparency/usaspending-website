@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { throttle, min } from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
@@ -11,12 +12,12 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import RankVisualization from '../RankVisualization';
 
 const propTypes = {
-    nextPage: React.PropTypes.func,
-    previousPage: React.PropTypes.func,
-    loading: React.PropTypes.bool,
-    hasNextPage: React.PropTypes.bool,
-    hasPreviousPage: React.PropTypes.bool,
-    children: React.PropTypes.node
+    nextPage: PropTypes.func,
+    previousPage: PropTypes.func,
+    loading: PropTypes.bool,
+    hasNextPage: PropTypes.bool,
+    hasPreviousPage: PropTypes.bool,
+    children: PropTypes.node
 };
 
 export default class RankVisualizationSection extends React.Component {

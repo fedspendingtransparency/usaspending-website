@@ -3,8 +3,8 @@
  * Created by michaelbray on 3/17/17.
  */
 
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -13,12 +13,23 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import BudgetCategorySearch from 'components/search/filters/budgetCategory/BudgetCategorySearch';
 
 const propTypes = {
-    updateSelectedBudgetFunctions: React.PropTypes.func,
-    updateSelectedFederalAccounts: React.PropTypes.func,
-    updateSelectedObjectClasses: React.PropTypes.func
+    updateSelectedBudgetFunctions: PropTypes.func,
+    updateSelectedFederalAccounts: PropTypes.func,
+    updateSelectedObjectClasses: PropTypes.func
 };
 
+
+const ga = require('react-ga');
+
 export class BudgetCategorySearchContainer extends React.Component {
+    static logBudgetCategoryFilterEvent(type, event) {
+        ga.event({
+            category: 'Search Page Filter Applied',
+            action: `Applied ${event} Filter`,
+            label: type
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -30,10 +41,16 @@ export class BudgetCategorySearchContainer extends React.Component {
 
     updateBudgetFunctions(budgetFunction) {
         this.props.updateSelectedBudgetFunctions(budgetFunction);
+
+        // Analytics
+        BudgetCategorySearchContainer.logBudgetCategoryFilterEvent(budgetFunction.title, 'Budget Function');
     }
 
     updateFederalAccounts(federalAccount) {
         this.props.updateSelectedFederalAccounts(federalAccount);
+
+        // Analytics
+        BudgetCategorySearchContainer.logBudgetCategoryFilterEvent(federalAccount.federal_account_code, 'Federal Account');
     }
 
     updateObjectClasses(objectClassEvent) {

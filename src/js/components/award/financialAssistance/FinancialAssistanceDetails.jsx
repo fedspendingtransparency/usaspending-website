@@ -4,14 +4,15 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { capitalize } from 'lodash';
 import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 import DetailRow from '../DetailRow';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object,
-    seeAdditional: React.PropTypes.func
+    selectedAward: PropTypes.object,
+    seeAdditional: PropTypes.func
 };
 
 export default class FinancialAssistanceDetails extends React.Component {

@@ -5,6 +5,7 @@
 
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual, max } from 'lodash';
@@ -22,10 +23,10 @@ import SearchTransactionOperation from 'models/search/SearchTransactionOperation
 import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object,
-    meta: React.PropTypes.object,
-    budgetFiltersSelected: React.PropTypes.bool,
-    awardFiltersSelected: React.PropTypes.bool
+    reduxFilters: PropTypes.object,
+    meta: PropTypes.object,
+    budgetFiltersSelected: PropTypes.bool,
+    awardFiltersSelected: PropTypes.bool
 };
 
 export class SpendingByRecipientVisualizationContainer extends React.Component {

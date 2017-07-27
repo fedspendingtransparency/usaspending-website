@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
@@ -24,23 +25,23 @@ import ResultsTableSection from 'components/search/table/ResultsTableSection';
 import SearchActions from 'redux/actions/searchActions';
 
 const propTypes = {
-    filters: React.PropTypes.object,
-    rows: React.PropTypes.instanceOf(Immutable.List),
-    meta: React.PropTypes.object,
-    batch: React.PropTypes.instanceOf(Immutable.Record),
-    searchOrder: React.PropTypes.object,
-    setSearchTableType: React.PropTypes.func,
-    setSearchPageNumber: React.PropTypes.func,
-    setSearchOrder: React.PropTypes.func,
-    clearRecords: React.PropTypes.func,
-    bulkInsertRecordSet: React.PropTypes.func,
-    setSearchResultMeta: React.PropTypes.func,
-    setSearchInFlight: React.PropTypes.func,
-    triggerBatchSearchUpdate: React.PropTypes.func,
-    triggerBatchQueryUpdate: React.PropTypes.func,
-    columnVisibility: React.PropTypes.object,
-    toggleColumnVisibility: React.PropTypes.func,
-    reorderColumns: React.PropTypes.func
+    filters: PropTypes.object,
+    rows: PropTypes.instanceOf(Immutable.List),
+    meta: PropTypes.object,
+    batch: PropTypes.instanceOf(Immutable.Record),
+    searchOrder: PropTypes.object,
+    setSearchTableType: PropTypes.func,
+    setSearchPageNumber: PropTypes.func,
+    setSearchOrder: PropTypes.func,
+    clearRecords: PropTypes.func,
+    bulkInsertRecordSet: PropTypes.func,
+    setSearchResultMeta: PropTypes.func,
+    setSearchInFlight: PropTypes.func,
+    triggerBatchSearchUpdate: PropTypes.func,
+    triggerBatchQueryUpdate: PropTypes.func,
+    columnVisibility: PropTypes.object,
+    toggleColumnVisibility: PropTypes.func,
+    reorderColumns: PropTypes.func
 };
 
 const tableTypes = [
@@ -65,8 +66,8 @@ const tableTypes = [
         enabled: true
     },
     {
-        label: 'Insurance',
-        internal: 'insurance',
+        label: 'Other',
+        internal: 'other',
         enabled: true
     }
 ];
@@ -79,8 +80,9 @@ export class ResultsTableContainer extends React.Component {
             columns: [],
             searchParams: new SearchOperation(),
             page: 0,
-            lastReq: '',
-            hiddenColumns: []
+            downloadParams: {},
+            hiddenColumns: [],
+            counts: {}
         };
 
         this.tabCountRequest = null;
@@ -115,7 +117,7 @@ export class ResultsTableContainer extends React.Component {
             this.updateFilters();
         }
         else if (prevProps.meta.page.page_number !==
-            this.props.meta.page.page_number) {
+            this.props.meta.page.page_number && this.props.meta.page.page_number) {
             // page number has changed
             if (this.props.meta.page.page_number !== this.state.page) {
                 // this check prevents duplicated API calls that result from Redux updating the
@@ -179,6 +181,7 @@ export class ResultsTableContainer extends React.Component {
             });
         });
 
+
         let firstAvailable = 0;
         for (let i = 0; i < tableTypes.length; i++) {
             const type = tableTypes[i].internal;
@@ -188,10 +191,14 @@ export class ResultsTableContainer extends React.Component {
             }
         }
 
-        // select the first available tab
-        this.switchTab(tableTypes[firstAvailable].internal);
-        this.updateFilters();
-        this.showColumns(tableTypes[firstAvailable].internal);
+        this.setState({
+            counts: availableGroups
+        }, () => {
+            // select the first available tab
+            this.switchTab(tableTypes[firstAvailable].internal);
+            this.updateFilters();
+            this.showColumns(tableTypes[firstAvailable].internal);
+        });
     }
 
     showColumns(tableType) {
@@ -250,6 +257,7 @@ export class ResultsTableContainer extends React.Component {
             this.searchRequest.cancel();
         }
 
+
         const tableType = this.props.meta.tableType;
 
         // append the table type to the current search params
@@ -281,15 +289,9 @@ export class ResultsTableContainer extends React.Component {
 
         columnVisibility.visibleColumns.forEach((col) => {
             const field = mapping[col];
-            let requestField = field;
-            if (field.includes('__')) {
-                // If it is a nested field, request the top level object
-                const nestedFields = field.split('__');
-                requestField = nestedFields[0];
-            }
-            if (!requestFields.includes(requestField)) {
+            if (!requestFields.includes(field)) {
                 // Prevent duplicates in the list of fields to request
-                requestFields.push(requestField);
+                requestFields.push(field);
             }
         });
 
@@ -314,8 +316,13 @@ export class ResultsTableContainer extends React.Component {
                     total: data.total_metadata
                 });
 
+                // Set the params needed for download API call
                 this.setState({
-                    lastReq: res.data.req
+                    downloadParams: {
+                        filters: searchParams.toParams(),
+                        order: sortParams,
+                        fields: requestFields
+                    }
                 });
 
                 // request is done
@@ -425,6 +432,7 @@ export class ResultsTableContainer extends React.Component {
                 results={this.props.rows.toArray()}
                 resultsMeta={this.props.meta}
                 columns={this.state.columns}
+                counts={this.state.counts}
                 hiddenColumns={this.state.hiddenColumns}
                 toggleColumnVisibility={this.toggleColumnVisibility}
                 reorderColumns={this.reorderColumns}
@@ -432,7 +440,7 @@ export class ResultsTableContainer extends React.Component {
                 currentType={this.props.meta.tableType}
                 switchTab={this.switchTab}
                 loadNextPage={this.loadNextPage}
-                lastReq={this.state.lastReq} />
+                downloadParams={this.state.downloadParams} />
         );
     }
 }

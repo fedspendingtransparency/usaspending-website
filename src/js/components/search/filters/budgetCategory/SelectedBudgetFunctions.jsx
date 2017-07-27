@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as BudgetCategoryHelper from 'helpers/budgetCategoryHelper';
 import ShownBudgetFunction from './ShownBudgetFunction';
 
 const propTypes = {
-    budgetFunctions: React.PropTypes.object,
-    updateSelectedBudgetFunctions: React.PropTypes.func
+    budgetFunctions: PropTypes.object,
+    updateSelectedBudgetFunctions: PropTypes.func
 };
 
 export default class SelectedBudgetCategories extends React.Component {

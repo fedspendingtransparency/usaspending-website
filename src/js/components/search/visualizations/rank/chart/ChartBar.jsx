@@ -4,20 +4,21 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    labelWidth: React.PropTypes.number,
-    maxWidth: React.PropTypes.number,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    start: React.PropTypes.number,
-    index: React.PropTypes.number,
-    label: React.PropTypes.string,
-    value: React.PropTypes.number,
-    description: React.PropTypes.string,
-    disableTooltip: React.PropTypes.bool,
-    selectItem: React.PropTypes.func,
-    deselectItem: React.PropTypes.func
+    labelWidth: PropTypes.number,
+    maxWidth: PropTypes.number,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    start: PropTypes.number,
+    index: PropTypes.number,
+    label: PropTypes.string,
+    value: PropTypes.number,
+    description: PropTypes.string,
+    disableTooltip: PropTypes.bool,
+    selectItem: PropTypes.func,
+    deselectItem: PropTypes.func
 };
 
 export default class ChartBar extends React.Component {

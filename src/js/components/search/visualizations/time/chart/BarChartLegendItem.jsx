@@ -4,11 +4,12 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    color: React.PropTypes.string,
-    label: React.PropTypes.string,
-    offset: React.PropTypes.number
+    color: PropTypes.string,
+    label: PropTypes.string,
+    offset: PropTypes.number
 };
 
 export default class BarChartLegendItem extends React.Component {

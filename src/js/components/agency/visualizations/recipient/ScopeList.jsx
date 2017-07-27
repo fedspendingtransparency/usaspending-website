@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 
@@ -11,8 +12,8 @@ import RankVisualizationScopeButton from
     'components/search/visualizations/rank/RankVisualizationScopeButton';
 
 const propTypes = {
-    scope: React.PropTypes.string,
-    changeScope: React.PropTypes.func
+    scope: PropTypes.string,
+    changeScope: PropTypes.func
 };
 
 export default class ScopeList extends React.Component {
@@ -67,9 +68,9 @@ export default class ScopeList extends React.Component {
                             </li>
                             <li className="coming-soon">
                                 <RankVisualizationScopeButton
-                                    value="insurance"
-                                    label="Insurance"
-                                    active={this.props.scope === 'insurance'}
+                                    value="other"
+                                    label="Other"
+                                    active={this.props.scope === 'other'}
                                     changeScope={this.props.changeScope}
                                     disabled />
                                 <ComingSoonLabel />

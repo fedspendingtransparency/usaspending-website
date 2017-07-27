@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as AwardAmountHelper from 'helpers/awardAmountHelper';
 
 const propTypes = {
-    awardAmounts: React.PropTypes.object,
-    values: React.PropTypes.array,
-    rangeID: React.PropTypes.string,
-    toggleSelection: React.PropTypes.func
+    awardAmounts: PropTypes.object,
+    values: PropTypes.array,
+    rangeID: PropTypes.string,
+    toggleSelection: PropTypes.func
 };
 
 const defaultProps = {

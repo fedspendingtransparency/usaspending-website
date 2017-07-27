@@ -4,9 +4,10 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    items: React.PropTypes.array
+    items: PropTypes.array
 };
 
 export default class SankeyDisclosures extends React.Component {

@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -13,8 +14,8 @@ import BudgetCategoryOCSearch from
     'components/search/filters/budgetCategory/BudgetCategoryOCSearch';
 
 const propTypes = {
-    updateObjectClasses: React.PropTypes.func,
-    bulkObjectClassesChange: React.PropTypes.func
+    updateObjectClasses: PropTypes.func,
+    bulkObjectClassesChange: PropTypes.func
 };
 
 export class BudgetCategoryOCContainer extends React.Component {
