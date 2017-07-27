@@ -4,6 +4,7 @@ import { mockAwardIDs } from './awardID/mockAwardIDs';
 import { mockBudgetCategoryAccounts, mockBudgetCategoryFunctions }
     from './budgetCategory/mockBudgetCategories';
 import { mockApi, mockTabCount } from '../table/mockAwards';
+import { mockCFDA } from './cfda/mockCFDA';
 
 // Fetch Locations for Autocomplete
 export const fetchLocations = () => (
@@ -123,6 +124,20 @@ export const performPagedSearch = () => (
             process.nextTick(() => {
                 resolve({
                     data: mockApi
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+// Perform Paged Search
+export const fetchCFDA = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockCFDA
                 });
             });
         }),
