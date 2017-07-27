@@ -27,8 +27,7 @@ export default class AgencyLandingSearchBar extends React.Component {
                         placeholder="Start typing to find an agency..." />
                     <button
                         aria-label="Search"
-                        className="search-button"
-                        type="submit">
+                        className="search-button">
                         <Search alt="Search" />
                     </button>
                 </form>
