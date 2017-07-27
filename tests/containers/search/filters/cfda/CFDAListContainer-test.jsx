@@ -11,6 +11,7 @@ import { OrderedMap } from 'immutable';
 import { CFDAListContainer } from 'containers/search/filters/cfda/CFDAListContainer';
 
 import { mockCFDA } from './mockCFDA';
+import { mockLocalCFDA } from './mockLocalCFDA';
 
 jest.mock('helpers/searchHelper', () => require('../searchHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -26,7 +27,10 @@ describe('CFDAListContainer', () => {
         it('should handle text input after 300ms', () => {
             // setup the cfda list container and call the function to type a single letter
             const cfdaListContainer = setup(Object.assign({}, initialFilters, {
-                setAutocompleteCFDA: jest.fn()
+                setAutocompleteCFDA: jest.fn(),
+                selectedCFDA: new OrderedMap(),
+                autocompleteCFDA: [],
+                selectCFDA: jest.fn()
             }));
 
             const searchQuery = {
@@ -57,7 +61,10 @@ describe('CFDAListContainer', () => {
         it('should call the queryAutocompleteCFDA method 300ms after text input', () => {
             // setup the cfda list container and call the function to type a single letter
             const cfdaListContainer = setup(Object.assign({}, initialFilters, {
-                setAutocompleteCFDA: jest.fn()
+                setAutocompleteCFDA: jest.fn(),
+                selectedCFDA: new OrderedMap(),
+                autocompleteCFDA: [],
+                selectCFDA: jest.fn()
             }));
             const searchQuery = {
                 target: {
@@ -91,7 +98,10 @@ describe('CFDAListContainer', () => {
 
             // setup the cfda list container and call the function to type a single letter
             const cfdaListContainer = setup(Object.assign({}, initialFilters, {
-                setAutocompleteCFDA: jest.fn()
+                setAutocompleteCFDA: jest.fn(),
+                selectedCFDA: new OrderedMap(),
+                autocompleteCFDA: [],
+                selectCFDA: jest.fn()
             }));
 
             const queryAutocompleteCFDASpy = sinon.spy(cfdaListContainer.instance(),
@@ -157,8 +167,9 @@ describe('CFDAListContainer', () => {
             // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
             expect(queryAutocompleteCFDASpy.calledWith(handleTextInputSpy));
-            expect(mockReduxActionCFDA).toHaveBeenCalledTimes(1);
-            expect(mockReduxActionCFDA.mock.calls[0]).toEqual([mockCFDA.results]);
+            expect(mockReduxActionCFDA).toHaveBeenCalledTimes(2);
+            expect(mockReduxActionCFDA.mock.calls[0]).toEqual([[]]);
+            expect(mockReduxActionCFDA.mock.calls[1]).toEqual([mockCFDA.results]);
 
             // Reset spies
             handleTextInputSpy.reset();
@@ -190,7 +201,7 @@ describe('CFDAListContainer', () => {
             expect(queryAutocompleteCFDASpy.callCount).toEqual(1);
             expect(parseAutocompleteCFDASpy.calledWith(queryAutocompleteCFDASpy));
             expect(mockReduxActionCFDA).toHaveBeenCalledTimes(1);
-            expect(mockReduxActionCFDA.mock.calls[0]).toEqual([mockCFDA]);
+            expect(mockReduxActionCFDA.mock.calls[0]).toEqual([mockLocalCFDA]);
 
             // Reset spies
             queryAutocompleteCFDASpy.reset();

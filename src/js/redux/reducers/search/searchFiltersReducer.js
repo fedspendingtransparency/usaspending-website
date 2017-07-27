@@ -212,7 +212,7 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
-        // CFDA Filter
+        // NAICS Filter
         case 'UPDATE_SELECTED_NAICS': {
             return Object.assign({}, state, {
                 selectedNAICS: OtherFilterFunctions.updateSelectedNAICS(
@@ -220,7 +220,7 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
-        // CFDA Filter
+        // PSC Filter
         case 'UPDATE_SELECTED_PSC': {
             return Object.assign({}, state, {
                 selectedPSC: OtherFilterFunctions.updateSelectedPSC(

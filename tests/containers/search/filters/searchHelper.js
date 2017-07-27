@@ -5,6 +5,8 @@ import { mockBudgetCategoryAccounts, mockBudgetCategoryFunctions }
     from './budgetCategory/mockBudgetCategories';
 import { mockApi, mockTabCount } from '../table/mockAwards';
 import { mockCFDA } from './cfda/mockCFDA';
+import { mockNAICS } from './naics/mockNAICS';
+import { mockPSC } from './psc/mockPSC';
 
 // Fetch Locations for Autocomplete
 export const fetchLocations = () => (
@@ -61,12 +63,41 @@ export const fetchFundingAgencies = () => (
     }
 );
 
+// fetch CFDA
 export const fetchCFDA = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
                     data: mockCFDA
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+// fetch NAICS
+export const fetchNAICS = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockNAICS
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+// fetch PSC
+export const fetchPSC = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockPSC
                 });
             });
         }),
