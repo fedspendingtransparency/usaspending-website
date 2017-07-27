@@ -8,12 +8,9 @@ import PropTypes from 'prop-types';
 
 import ChartMessage from 'components/search/visualizations/time/TimeVisualizationChartMessage';
 import BarChartStacked from './chart/BarChartStacked';
+import TimeTooltip from './TimeTooltip';
 
 const defaultProps = {
-    groups: [],
-    xSeries: [],
-    ySeries: [],
-    stacks: [],
     width: 0,
     height: 280
 };
@@ -32,10 +29,7 @@ const defaultProps = {
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
-    xSeries: PropTypes.array,
-    ySeries: PropTypes.array,
-    allY: PropTypes.array,
-    stacks: PropTypes.array,
+    data: PropTypes.object,
     loading: PropTypes.bool,
     hasFilteredObligated: PropTypes.bool
 };
@@ -53,16 +47,30 @@ export default class TimeVisualization extends React.Component {
         };
 
         this.showTooltip = this.showTooltip.bind(this);
+        this.hideTooltip = this.hideTooltip.bind(this);
+        this.toggleTooltip = this.toggleTooltip.bind(this);
     }
 
-    showTooltip(data, x, y) {
-        console.log(data);
+    showTooltip(data) {
         this.setState({
             showTooltip: true,
-            tooltipData: data,
-            tooltipX: x,
-            tooltipY: y
+            tooltipData: data
         });
+    }
+
+    hideTooltip() {
+        this.setState({
+            showTooltip: false
+        });
+    }
+
+    toggleTooltip(data) {
+        if (this.state.showTooltip) {
+            this.hideTooltip();
+        }
+        else {
+            this.showTooltip(data);
+        }
     }
 
     render() {
@@ -117,29 +125,30 @@ export default class TimeVisualization extends React.Component {
             // API request is still pending
             chart = (<ChartMessage message="Loading data..." />);
         }
-        else if (this.props.xSeries.length > 0) {
+        else if (this.props.data.xSeries.length > 0) {
             // only mount the chart component if there is data to display
             chart = (<BarChartStacked
                 width={this.props.width}
                 height={this.props.height}
-                allY={this.props.allY}
-                xSeries={this.props.xSeries}
-                ySeries={this.props.ySeries}
-                stacks={this.props.stacks}
+                data={this.props.data}
                 legend={legend}
-                enableHighlight={false}
-                showTooltip={this.showTooltip} />);
+                showTooltip={this.showTooltip}
+                hideTooltip={this.hideTooltip}
+                toggleTooltip={this.toggleTooltip} />);
         }
 
         let tooltip = null;
         if (this.state.showTooltip) {
-            tooltip = '';
+            tooltip = (<TimeTooltip
+                {...this.state.tooltipData}
+                width={this.props.width}
+                height={this.props.height} />);
         }
 
         return (
             <div className="results-visualization-time-container">
-                {chart}
                 {tooltip}
+                {chart}
             </div>
         );
     }

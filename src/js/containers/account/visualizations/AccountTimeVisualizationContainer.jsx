@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { Record } from 'immutable';
 
 import { isEqual } from 'lodash';
 
@@ -20,24 +21,29 @@ import * as accountFilterActions from 'redux/actions/account/accountFilterAction
 
 import AccountSearchBalanceOperation from 'models/account/queries/AccountSearchBalanceOperation';
 import AccountSearchCategoryOperation from 'models/account/queries/AccountSearchCategoryOperation';
-import { balanceFields, balanceFieldsFiltered, balanceFieldsNonfiltered } from 'dataMapping/accounts/accountFields';
+import { balanceFields, balanceFieldsFiltered, balanceFieldsNonfiltered } from
+    'dataMapping/accounts/accountFields';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
     account: PropTypes.object
 };
 
-export class AccountTimeVisualizationSectionContainer extends React.Component {
+// create an Immuatable Record object to guarantee the existance of required visualization fields
+const VisData = Record({
+    xSeries: [],
+    ySeries: [],
+    allY: [],
+    stacks: []
+});
+
+export class AccountTimeVisualizationSectionContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
             loading: true,
-            groups: [],
-            xSeries: [],
-            ySeries: [],
-            allY: [],
-            stacks: [],
+            data: new VisData(),
             visualizationPeriod: 'year',
             hasFilteredObligated: false
         };
@@ -277,19 +283,19 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                         bottom: 0,
                         top: obligatedFiltered,
                         value: obligatedFiltered,
-                        description: 'Obligated balance (filtered)'
+                        description: 'Obligations Incurred (Filtered)'
                     },
                     obligatedOther: {
                         bottom: obligatedFiltered,
                         top: obligatedFiltered + obligatedOther,
                         value: obligatedOther,
-                        description: 'Obligated balance (excluded from filter)'
+                        description: 'Obligations Incurred (Other)'
                     },
                     unobligated: {
                         bottom: budgetAuthority - unobligated,
                         top: budgetAuthority,
                         value: unobligated,
-                        description: 'Unobligated balance'
+                        description: 'Unobligated Balance'
                     },
                     outlay: {
                         bottom: outlay,
@@ -307,7 +313,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
                         bottom: 0,
                         top: yData[quarterYear].obligated,
                         value: yData[quarterYear].obligated,
-                        description: 'Obligated balance'
+                        description: 'Obligations Incurred'
                     },
                     unobligated: {
                         bottom: yData[quarterYear].obligated,
@@ -374,11 +380,16 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             ];
         }
 
-        this.setState({
+        // combine all the visualization chart data into a single Immutable object
+        const visualizationData = new VisData({
             xSeries,
             ySeries,
             allY,
-            stacks,
+            stacks
+        });
+
+        this.setState({
+            data: visualizationData,
             loading: false
         });
     }
@@ -386,7 +397,8 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
     render() {
         return (
             <AccountTimeVisualizationSection
-                data={this.state}
+                data={this.state.data}
+                loading={this.state.loading}
                 visualizationPeriod={this.state.visualizationPeriod}
                 changePeriod={this.changePeriod}
                 hasFilteredObligated={this.state.hasFilteredObligated} />
