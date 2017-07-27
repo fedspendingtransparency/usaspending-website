@@ -94,7 +94,8 @@ export class NAICSListContainer extends React.Component {
                     const data = res.data.results;
                     let autocompleteData = [];
                     const search = new Search('naics');
-                    search.addIndex(['naics', 'naics_description']);
+                    search.addIndex(['naics']);
+                    search.addIndex(['naics_description']);
                     search.addDocuments(data);
                     const results = search.search(this.state.cfdaSearchString);
                     let improvedResults = slice(results, 0, 10);

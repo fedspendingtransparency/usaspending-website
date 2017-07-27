@@ -4,12 +4,12 @@
 **/
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual, upperCase, omit, differenceWith, slice } from 'lodash';
 import { isCancel } from 'axios';
 import { Search } from 'js-search';
+import PropTypes from 'prop-types';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
@@ -95,7 +95,8 @@ export class CFDAListContainer extends React.Component {
                     const data = res.data.results;
                     let autocompleteData = [];
                     const search = new Search('program_number');
-                    search.addIndex(['program_number', 'program_title']);
+                    search.addIndex(['program_number']);
+                    search.addIndex(['program_title']);
                     search.addDocuments(data);
                     const results = search.search(this.state.cfdaSearchString);
                     let improvedResults = slice(results, 0, 10);
