@@ -6,7 +6,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isEqual, upperCase, omit, differenceWith, slice } from 'lodash';
+import { isEqual, omit, differenceWith, slice } from 'lodash';
 import { isCancel } from 'axios';
 import { Search } from 'js-search';
 import PropTypes from 'prop-types';
