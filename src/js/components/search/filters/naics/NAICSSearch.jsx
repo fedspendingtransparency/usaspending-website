@@ -4,14 +4,15 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import NAICSListContainer from 'containers/search/filters/naics/NAICSListContainer';
 import SelectedNAICS from './SelectedNAICS';
 
 const propTypes = {
-    selectNAICS: React.PropTypes.func,
-    removeNAICS: React.PropTypes.func,
-    selectedNAICS: React.PropTypes.object
+    selectNAICS: PropTypes.func,
+    removeNAICS: PropTypes.func,
+    selectedNAICS: PropTypes.object
 };
 
 export default class NAICSSearch extends React.Component {

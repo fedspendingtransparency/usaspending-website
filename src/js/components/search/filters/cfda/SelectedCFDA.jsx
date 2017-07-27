@@ -4,13 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as OtherFiltersFormatter from 'helpers/otherFiltersFormatter';
 import ShownCFDA from './ShownCFDA';
 
 const propTypes = {
-    selectedCFDA: React.PropTypes.object,
-    removeCFDA: React.PropTypes.func
+    selectedCFDA: PropTypes.object,
+    removeCFDA: PropTypes.func
 };
 
 export default class SelectedCFDA extends React.Component {

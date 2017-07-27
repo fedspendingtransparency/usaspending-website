@@ -4,13 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as OtherFiltersFormatter from 'helpers/otherFiltersFormatter';
 import ShownNAICS from './ShownNAICS';
 
 const propTypes = {
-    selectedNAICS: React.PropTypes.object,
-    removeNAICS: React.PropTypes.func
+    selectedNAICS: PropTypes.object,
+    removeNAICS: PropTypes.func
 };
 
 export default class SelectedNAICS extends React.Component {

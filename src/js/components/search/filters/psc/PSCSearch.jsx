@@ -4,14 +4,15 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import PSCListContainer from 'containers/search/filters/psc/PSCListContainer';
 import SelectedPSC from './SelectedPSC';
 
 const propTypes = {
-    selectPSC: React.PropTypes.func,
-    removePSC: React.PropTypes.func,
-    selectedPSC: React.PropTypes.object
+    selectPSC: PropTypes.func,
+    removePSC: PropTypes.func,
+    selectedPSC: PropTypes.object
 };
 
 export default class PSCSearch extends React.Component {

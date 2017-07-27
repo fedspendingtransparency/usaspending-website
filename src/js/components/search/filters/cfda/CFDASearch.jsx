@@ -4,14 +4,15 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import CFDAListContainer from 'containers/search/filters/cfda/CFDAListContainer';
 import SelectedCFDA from './SelectedCFDA';
 
 const propTypes = {
-    selectCFDA: React.PropTypes.func,
-    removeCFDA: React.PropTypes.func,
-    selectedCFDA: React.PropTypes.object
+    selectCFDA: PropTypes.func,
+    removeCFDA: PropTypes.func,
+    selectedCFDA: PropTypes.object
 };
 
 export default class CFDASearch extends React.Component {

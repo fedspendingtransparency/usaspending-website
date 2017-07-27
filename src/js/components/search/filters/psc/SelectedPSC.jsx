@@ -4,13 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as OtherFiltersFormatter from 'helpers/otherFiltersFormatter';
 import ShownPSC from './ShownPSC';
 
 const propTypes = {
-    selectedPSC: React.PropTypes.object,
-    removePSC: React.PropTypes.func
+    selectedPSC: PropTypes.object,
+    removePSC: PropTypes.func
 };
 
 export default class SelectedPSC extends React.Component {

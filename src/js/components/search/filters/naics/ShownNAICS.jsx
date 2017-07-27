@@ -4,11 +4,12 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    removeNAICS: React.PropTypes.func,
-    label: React.PropTypes.string
+    removeNAICS: PropTypes.func,
+    label: PropTypes.string
 };
 
 export default class ShownNAICS extends React.Component {
