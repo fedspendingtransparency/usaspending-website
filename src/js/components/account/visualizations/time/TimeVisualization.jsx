@@ -13,6 +13,7 @@ const defaultProps = {
     groups: [],
     xSeries: [],
     ySeries: [],
+    stacks: [],
     width: 0,
     height: 280
 };
@@ -31,9 +32,10 @@ const defaultProps = {
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
-    groups: PropTypes.array,
     xSeries: PropTypes.array,
     ySeries: PropTypes.array,
+    allY: PropTypes.array,
+    stacks: PropTypes.array,
     loading: PropTypes.bool,
     hasFilteredObligated: PropTypes.bool
 };
@@ -44,6 +46,7 @@ export default class TimeVisualization extends React.Component {
         super(props);
 
         this.state = {
+            showTooltip: false,
             tooltipData: null,
             tooltipX: 0,
             tooltipY: 0
@@ -52,12 +55,14 @@ export default class TimeVisualization extends React.Component {
         this.showTooltip = this.showTooltip.bind(this);
     }
 
-    showTooltip() {
-        // this.setState({
-        //     tooltipData: data,
-        //     tooltipX: x,
-        //     tooltipY: y
-        // });
+    showTooltip(data, x, y) {
+        console.log(data);
+        this.setState({
+            showTooltip: true,
+            tooltipData: data,
+            tooltipX: x,
+            tooltipY: y
+        });
     }
 
     render() {
@@ -108,23 +113,33 @@ export default class TimeVisualization extends React.Component {
             ];
         }
 
-
         if (this.props.loading) {
             // API request is still pending
             chart = (<ChartMessage message="Loading data..." />);
         }
-        else if (this.props.groups.length > 0) {
+        else if (this.props.xSeries.length > 0) {
             // only mount the chart component if there is data to display
             chart = (<BarChartStacked
-                {...this.props}
+                width={this.props.width}
+                height={this.props.height}
+                allY={this.props.allY}
+                xSeries={this.props.xSeries}
+                ySeries={this.props.ySeries}
+                stacks={this.props.stacks}
                 legend={legend}
                 enableHighlight={false}
                 showTooltip={this.showTooltip} />);
         }
 
+        let tooltip = null;
+        if (this.state.showTooltip) {
+            tooltip = '';
+        }
+
         return (
             <div className="results-visualization-time-container">
                 {chart}
+                {tooltip}
             </div>
         );
     }

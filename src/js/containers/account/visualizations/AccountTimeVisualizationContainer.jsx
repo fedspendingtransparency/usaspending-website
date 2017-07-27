@@ -37,6 +37,7 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
             xSeries: [],
             ySeries: [],
             allY: [],
+            stacks: [],
             visualizationPeriod: 'year',
             hasFilteredObligated: false
         };
@@ -222,7 +223,6 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
     }
 
     parseBalances(data) {
-        const groups = [];
         const xSeries = [];
         const ySeries = [];
         const allY = [];
@@ -263,38 +263,122 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         });
 
         quartersYears.forEach((quarterYear) => {
-            groups.push(`${quarterYear}`);
-            xSeries.push([`${quarterYear}`]);
+            xSeries.push(`${quarterYear}`);
             if (this.state.hasFilteredObligated) {
                 const budgetAuthority = yData[quarterYear].budgetAuthority;
                 const unobligated = yData[quarterYear].unobligated;
                 const obligatedFiltered = yData[quarterYear].obligatedFiltered;
+                const outlay = yData[quarterYear].outlay;
                 // Calculate Obligated (Other)
                 const obligatedOther = budgetAuthority - unobligated - obligatedFiltered;
-                yData[quarterYear].obligatedOther = obligatedOther;
-                // Calculate Obligation Total
-                yData[quarterYear].obligationTotal = obligatedFiltered + obligatedOther;
-            }
-            ySeries.push([yData[quarterYear]]);
-        });
 
-        ySeries.forEach((quarterYear) => {
-            if (this.state.hasFilteredObligated) {
-                allY.push(quarterYear[0].obligatedFiltered);
+                const period = {
+                    obligatedFiltered: {
+                        bottom: 0,
+                        top: obligatedFiltered,
+                        value: obligatedFiltered,
+                        description: 'Obligated balance (filtered)'
+                    },
+                    obligatedOther: {
+                        bottom: obligatedFiltered,
+                        top: obligatedFiltered + obligatedOther,
+                        value: obligatedOther,
+                        description: 'Obligated balance (excluded from filter)'
+                    },
+                    unobligated: {
+                        bottom: budgetAuthority - unobligated,
+                        top: budgetAuthority,
+                        value: unobligated,
+                        description: 'Unobligated balance'
+                    },
+                    outlay: {
+                        bottom: outlay,
+                        top: outlay,
+                        value: outlay,
+                        description: 'Outlay'
+                    }
+                };
+                ySeries.push(period);
+                allY.push(obligatedFiltered);
             }
             else {
-                allY.push(quarterYear[0].obligated);
+                const period = {
+                    obligated: {
+                        bottom: 0,
+                        top: yData[quarterYear].obligated,
+                        value: yData[quarterYear].obligated,
+                        description: 'Obligated balance'
+                    },
+                    unobligated: {
+                        bottom: yData[quarterYear].obligated,
+                        top: yData[quarterYear].unobligated + yData[quarterYear].obligated,
+                        value: yData[quarterYear].unobligated,
+                        description: 'Unobligated balance'
+                    },
+                    outlay: {
+                        bottom: yData[quarterYear].outlay,
+                        top: yData[quarterYear].outlay,
+                        value: yData[quarterYear].outlay,
+                        description: 'Outlay'
+                    }
+                };
+
+                ySeries.push(period);
+                allY.push(yData[quarterYear].obligated);
             }
-            allY.push(quarterYear[0].outlay);
-            allY.push(quarterYear[0].budgetAuthority);
-            allY.push(quarterYear[0].unobligated);
+            allY.push(yData[quarterYear].outlay);
+            allY.push(yData[quarterYear].budgetAuthority);
+            allY.push(yData[quarterYear].unobligated);
         });
 
+        // determine the bar stacks to display and their order
+        let stacks = [
+            {
+                name: 'outlay',
+                type: 'line',
+                color: '#fba302'
+            },
+            {
+                name: 'obligated',
+                type: 'bar',
+                color: '#5c7480'
+            },
+            {
+                name: 'unobligated',
+                type: 'bar',
+                color: '#a0bac4'
+            }
+        ];
+        if (this.state.hasFilteredObligated) {
+            stacks = [
+                {
+                    name: 'outlay',
+                    type: 'line',
+                    color: '#fba302'
+                },
+                {
+                    name: 'obligatedFiltered',
+                    type: 'bar',
+                    color: '#2c4452'
+                },
+                {
+                    name: 'obligatedOther',
+                    type: 'bar',
+                    color: '#5c7480'
+                },
+                {
+                    name: 'unobligated',
+                    type: 'bar',
+                    color: '#a0bac4'
+                }
+            ];
+        }
+
         this.setState({
-            groups,
             xSeries,
             ySeries,
             allY,
+            stacks,
             loading: false
         });
     }

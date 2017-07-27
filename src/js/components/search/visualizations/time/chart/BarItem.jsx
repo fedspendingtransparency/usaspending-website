@@ -86,7 +86,7 @@ export default class BarItem extends React.Component {
                     y={0}
                     width={this.props.width}
                     height={this.props.graphHeight}
-                    onMouseOver={this.mouseEntered}
+                    onMouseEnter={this.mouseEntered}
                     onMouseOut={this.mouseExited}
                     onTouchStart={this.touchedBar} />
             </g>
