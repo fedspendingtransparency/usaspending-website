@@ -8,7 +8,6 @@ import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import RecipientContainer from 'containers/agency/visualizations/RecipientContainer';
-import * as AgencyHelper from 'helpers/agencyHelper';
 
 import { mockRecipient, parsedSeries } from './mocks/mockRecipient';
 
@@ -36,56 +35,20 @@ jest.mock('containers/glossary/GlossaryButtonWrapperContainer', () =>
 jest.mock('containers/glossary/GlossaryContainer', () =>
     jest.fn(() => null));
 
-const mockAgencyHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    AgencyHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockAgencyHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/accountHelper');
-};
+jest.mock('helpers/agencyHelper', () => require('../agencyHelper'));
 
 describe('RecipientContainer', () => {
-    it('should make an API call for the selected account on mount', () => {
-        mockAgencyHelper('fetchAwardRecipients', 'resolve', mockRecipient);
-
-        mount(<RecipientContainer
+    it('should make an API call for the selected account on mount', async () => {
+        const container = mount(<RecipientContainer
             {...inboundProps} />);
 
-        jest.runAllTicks();
+        await container.instance().request.promise;
 
         expect(loadDataSpy.callCount).toEqual(1);
         loadDataSpy.reset();
-
-        unmockAgencyHelper();
     });
 
     it('should make a new API call when the inbound agency ID prop changes', () => {
-        mockAgencyHelper('fetchAwardRecipients', 'resolve', mockRecipient);
-
         const container = mount(<RecipientContainer
             {...inboundProps} />);
 
@@ -97,18 +60,13 @@ describe('RecipientContainer', () => {
             id: '555'
         });
 
-        jest.runAllTicks();
-
         // expect(loadDataSpy.callCount).toEqual(1);
         expect(loadDataMock).toHaveBeenCalledWith('555', inboundProps.activeFY, 1);
         loadDataSpy.reset();
-
-        unmockAgencyHelper();
     });
 
     describe('changePage', () => {
         it('should update the page number in state', () => {
-            mockAgencyHelper('fetchAwardRecipients', 'resolve', mockRecipient);
             const container = shallow(<RecipientContainer
                 {...inboundProps} />);
 
@@ -122,7 +80,6 @@ describe('RecipientContainer', () => {
             expect(container.state().page).toEqual(2);
         });
         it('should make an API call with the new page number', () => {
-            mockAgencyHelper('fetchAwardRecipients', 'resolve', mockRecipient);
             const container = shallow(<RecipientContainer
                 {...inboundProps} />);
 
@@ -138,7 +95,6 @@ describe('RecipientContainer', () => {
         });
 
         it('should not do anything if there are no more pages', () => {
-            mockAgencyHelper('fetchAwardRecipients', 'resolve', mockRecipient);
             const container = shallow(<RecipientContainer
                 {...inboundProps} />);
 
@@ -158,20 +114,80 @@ describe('RecipientContainer', () => {
 
     describe('changeScope', () => {
         it('should update the state with the new scope', () => {
-            mockAgencyHelper('fetchAwardRecipients', 'resolve', mockRecipient);
             const container = shallow(<RecipientContainer
                 {...inboundProps} />);
 
             expect(container.state().scope).toEqual('all');
 
+            container.instance().changeScope('contract');
+            expect(container.state().scope).toEqual('contract');
+        });
+
+        it('should trigger an API call', () => {
+            const container = shallow(<RecipientContainer
+                {...inboundProps} />);
+
+            const loadDataMock = jest.fn();
+            container.instance().loadData = loadDataMock;
+
             container.instance().changeScope('contracts');
             expect(container.state().scope).toEqual('contracts');
+            expect(loadDataMock).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('loadData', () => {
+        it('should not include a scope when the scope state is "all"', async () => {
+            const apiSpy = sinon.spy(require('helpers/agencyHelper'), 'fetchAwardRecipients');
+            const container = shallow(<RecipientContainer
+                {...inboundProps} />);
+
+            await container.instance().request.promise;
+            expect(apiSpy.callCount).toEqual(1);
+
+            container.setState({
+                scope: 'all'
+            });
+
+            container.instance().loadData(123, 2017, 1)
+;
+            await container.instance().request.promise;
+            expect(apiSpy.callCount).toEqual(2);
+
+            const spyCalls = apiSpy.getCalls();
+            const args = spyCalls[1].args[0];
+            expect(args.award_category).toBeUndefined();
+
+            apiSpy.restore();
+        });
+
+        it('should include a scope when the scope state is not "all"', async () => {
+            const apiSpy = sinon.spy(require('helpers/agencyHelper'), 'fetchAwardRecipients');
+            const container = shallow(<RecipientContainer
+                {...inboundProps} />);
+
+            await container.instance().request.promise;
+            expect(apiSpy.callCount).toEqual(1);
+
+            container.setState({
+                scope: 'contract'
+            });
+
+            container.instance().loadData(123, 2017, 1)
+;
+            await container.instance().request.promise;
+            expect(apiSpy.callCount).toEqual(2);
+
+            const spyCalls = apiSpy.getCalls();
+            const args = spyCalls[1].args[0];
+            expect(args.award_category).toEqual('contract');
+
+            apiSpy.restore();
         });
     });
 
     describe('parseData', () => {
         it('should parse the returned API response', () => {
-            mockAgencyHelper('fetchAwardRecipients', 'resolve', mockRecipient);
             const container = shallow(<RecipientContainer
                 {...inboundProps} />);
 

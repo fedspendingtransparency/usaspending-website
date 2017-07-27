@@ -70,12 +70,18 @@ export default class RecipientContainer extends React.PureComponent {
             error: false
         });
 
-        this.request = AgencyHelper.fetchAwardRecipients({
+        const params = {
             fiscal_year: fy,
             awarding_agency_id: id,
             limit: 10,
             page: pageNumber
-        });
+        };
+
+        if (this.state.scope !== 'all') {
+            params.award_category = this.state.scope;
+        }
+
+        this.request = AgencyHelper.fetchAwardRecipients(params);
 
         this.request.promise
             .then((res) => {
