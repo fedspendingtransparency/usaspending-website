@@ -18,6 +18,19 @@ export const mockData = {
     ]
 };
 
+export const mockSearchResults = {
+    results: [
+        {
+            agency_id: 1,
+            agency_name:'Agency 1'
+        },
+        {
+            agency_id: 2,
+            agency_name:'Agency 2'
+        }
+    ]
+};
+
 export const mockMeta = {
     batch: {
         queryId: "01",

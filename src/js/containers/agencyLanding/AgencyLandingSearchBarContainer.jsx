@@ -64,11 +64,6 @@ export class AgencyLandingSearchBarContainer extends React.Component {
     queryAutocompleteAgencies(input) {
         this.props.setNoResults(false);
 
-        if (this.agencySearchRequest) {
-            // A request is currently in-flight, cancel it
-            this.agencySearchRequest.cancel();
-        }
-
         // Only search if input is 2 or more characters
         if (input.length >= 2) {
             this.props.setAgencySearchString(input);
@@ -91,6 +86,10 @@ export class AgencyLandingSearchBarContainer extends React.Component {
                         this.props.setNoResults(true);
                     }
                 });
+        }
+        else if (this.agencySearchRequest) {
+            // A request is currently in-flight, cancel it
+            this.agencySearchRequest.cancel();
         }
         else {
             this.props.setAgencySearchString('');

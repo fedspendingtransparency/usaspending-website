@@ -23,8 +23,11 @@ import { mockData, mockMeta, mockAgenciesOrder } from './mockToptierAgencies';
 jest.mock('helpers/agencyLandingHelper', () => require('./agencyLandingHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
+const setup = (props) => shallow(<AgencyLandingContainer {...props} />);
+
 // spy on specific functions inside the component
 const fetchAgenciesSpy = sinon.spy(AgencyLandingContainer.prototype, 'fetchAgencies');
+const parseAgenciesSpy = sinon.spy(AgencyLandingContainer.prototype, 'parseAgencies');
 
 describe('AgencyLandingContainer', () => {
     beforeAll(() => {
@@ -32,24 +35,14 @@ describe('AgencyLandingContainer', () => {
         mockComponent(AgencyLandingSearchBarContainer);
     });
 
-    const mockRedux = {
-        agencies: new Immutable.OrderedSet([]),
-        agenciesOrder: mockAgenciesOrder,
-        meta: mockMeta,
-        autocompleteAgencies: []
-    };
-
-    const props = {
-        agencies: new Immutable.OrderedSet([]),
-        agenciesOrder: mockAgenciesOrder,
-        meta: mockMeta,
-        autocompleteAgencies: []
-    };
-
     it('should make an API request on mount', async () => {
         // mount the container
-        const container =
-            shallow(<AgencyLandingContainer agencyLanding={mockRedux} {...props} />);
+        const container = setup({
+            agencies: new Immutable.OrderedSet([]),
+            agenciesOrder: mockAgenciesOrder,
+            meta: mockMeta,
+            autocompleteAgencies: []
+        });
 
         // componentDidMount doesn't get called automatically with shallow
         container.instance().showColumns();
@@ -57,17 +50,26 @@ describe('AgencyLandingContainer', () => {
         await container.instance().agenciesRequest.promise;
 
         expect(fetchAgenciesSpy.callCount).toEqual(1);
+        expect(parseAgenciesSpy.callCount).toEqual(1);
 
         // reset the spy
         fetchAgenciesSpy.reset();
+        parseAgenciesSpy.reset();
+    });
+
+    it('should make an API requeset when the sort order changes', async () => {
+
     });
 
     describe('showColumns', () => {
-        it('should build the table on mount', async () => {
+        it('should build the table', async () => {
             // mount the container
-            const container =
-                shallow(<AgencyLandingContainer agencyLanding={mockRedux} {...props} />);
-
+            const container = setup({
+                agencies: new Immutable.OrderedSet([]),
+                agenciesOrder: mockAgenciesOrder,
+                meta: mockMeta,
+                autocompleteAgencies: []
+            });
             container.instance().showColumns();
 
             await container.instance().agenciesRequest.promise;
@@ -131,9 +133,14 @@ describe('AgencyLandingContainer', () => {
                 done();
             });
 
+            const container = setup({
+                agencies: new Immutable.OrderedSet([]),
+                agenciesOrder: mockAgenciesOrder,
+                meta: mockMeta,
+                autocompleteAgencies: [],
+                setAgencies: reduxAction
+            });
             // mount the container
-            const container =
-                shallow(<AgencyLandingContainer agencyLanding={mockRedux} {...props} setAgencies={reduxAction} />);
 
             container.instance().parseAgencies(mockData);
         });

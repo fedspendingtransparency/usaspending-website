@@ -1,11 +1,11 @@
-import { mockAgencies, mockSearchResults } from './mockToptierAgencies';
+import { mockData, mockSearchResults } from './mockToptierAgencies';
 
 export const fetchAllAgencies = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
-                    data: mockAgencies
+                    data: mockData
                 });
             });
         }),
