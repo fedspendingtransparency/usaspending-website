@@ -52,11 +52,9 @@ export class NAICSListContainer extends React.Component {
         const values = [];
         if (naics.length > 0) {
             naics.forEach((item) => {
-                const description = upperCase(item.naics_description);
-
                 values.push({
-                    title: item.naics,
-                    subtitle: description,
+                    title: `${item.naics} - ${item.naics_description}`,
+                    subtitle: '',
                     data: item
                 });
             });

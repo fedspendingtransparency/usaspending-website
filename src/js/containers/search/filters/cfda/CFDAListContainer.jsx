@@ -52,8 +52,8 @@ export class CFDAListContainer extends React.Component {
         const values = [];
         if (cfda && cfda.length > 0) {
             cfda.forEach((item) => {
-                const title = item.program_number;
-                const subtitle = upperCase(item.program_title);
+                const title = `${item.program_number} - ${item.program_title}`;
+                const subtitle = '';
 
                 values.push({
                     title,

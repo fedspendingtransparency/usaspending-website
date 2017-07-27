@@ -54,7 +54,7 @@ export class PSCListContainer extends React.Component {
             psc.forEach((item) => {
                 values.push({
                     title: item.product_or_service_code,
-                    subtitle: 'PSC Code',
+                    subtitle: '',
                     data: item
                 });
             });
