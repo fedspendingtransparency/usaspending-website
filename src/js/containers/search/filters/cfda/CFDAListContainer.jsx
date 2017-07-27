@@ -22,7 +22,7 @@ const propTypes = {
     autocompleteCFDA: React.PropTypes.array
 };
 
-class CFDAListContainer extends React.Component {
+export class CFDAListContainer extends React.Component {
     constructor(props) {
         super(props);
 
