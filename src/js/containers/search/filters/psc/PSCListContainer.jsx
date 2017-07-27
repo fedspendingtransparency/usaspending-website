@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { isEqual, omit, differenceWith, slice } from 'lodash';
 import { isCancel } from 'axios';
 import { Search } from 'js-search';
+import PropTypes from 'prop-types';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
@@ -16,10 +17,10 @@ import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    selectPSC: React.PropTypes.func,
-    setAutocompletePSC: React.PropTypes.func,
-    selectedPSC: React.PropTypes.object,
-    autocompletePSC: React.PropTypes.array
+    selectPSC: PropTypes.func,
+    setAutocompletePSC: PropTypes.func,
+    selectedPSC: PropTypes.object,
+    autocompletePSC: PropTypes.array
 };
 
 export class PSCListContainer extends React.Component {

@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { isEqual, upperCase, omit, differenceWith, slice } from 'lodash';
 import { isCancel } from 'axios';
 import { Search } from 'js-search';
+import PropTypes from 'prop-types';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
@@ -16,10 +17,10 @@ import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    selectCFDA: React.PropTypes.func,
-    setAutocompleteCFDA: React.PropTypes.func,
-    selectedCFDA: React.PropTypes.object,
-    autocompleteCFDA: React.PropTypes.array
+    selectCFDA: PropTypes.func,
+    setAutocompleteCFDA: PropTypes.func,
+    selectedCFDA: PropTypes.object,
+    autocompleteCFDA: PropTypes.array
 };
 
 export class CFDAListContainer extends React.Component {

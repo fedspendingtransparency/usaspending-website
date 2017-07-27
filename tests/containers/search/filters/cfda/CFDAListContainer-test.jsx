@@ -128,9 +128,10 @@ describe('CFDAListContainer', () => {
 
             // setup the cfda list container and call the function to type a single letter
             const cfdaListContainer = setup(Object.assign({}, initialFilters, {
-                setAutocompleteCFDA: jest.fn(),
-                fetchCFDA: jest.fn(),
-                selectedCFDA: new OrderedMap()
+                setAutocompleteCFDA: mockReduxActionCFDA,
+                selectedCFDA: new OrderedMap(),
+                autocompleteCFDA: [],
+                selectCFDA: jest.fn()
             }));
 
             // set up spies
@@ -156,6 +157,7 @@ describe('CFDAListContainer', () => {
             // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
             expect(queryAutocompleteCFDASpy.calledWith(handleTextInputSpy));
+            expect(mockReduxActionCFDA).toHaveBeenCalledTimes(1);
             expect(mockReduxActionCFDA.mock.calls[0]).toEqual([mockCFDA.results]);
 
             // Reset spies
@@ -171,7 +173,8 @@ describe('CFDAListContainer', () => {
             const cfdaListContainer = setup(Object.assign({}, initialFilters, {
                 setAutocompleteCFDA: mockReduxActionCFDA,
                 autocompleteCFDA: [],
-                selectedCFDA: new OrderedMap()
+                selectedCFDA: new OrderedMap(),
+                selectCFDA: jest.fn()
             }));
 
             // Set up spies
