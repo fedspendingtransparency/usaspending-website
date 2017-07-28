@@ -173,8 +173,10 @@ export class AgencyLandingContainer extends React.Component {
                 const formattedCurrency =
                     MoneyFormatter.formatMoneyWithPrecision(item.budget_authority_amount, 0);
 
+                // Convert from decimal value to percentage
+                const percentage = item.percentage_of_total_budget_authority * 100;
                 // Round percentage to 2 decimal places
-                let percent = Math.round(parseFloat(item.percentage_of_total_budget_authority) * 100) / 100;
+                let percent = Math.round(parseFloat(percentage) * 100) / 100;
 
                 if (percent === 0.00) {
                     percent = 'Less than 0.01%';

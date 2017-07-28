@@ -114,13 +114,13 @@ describe('AgencyLandingContainer', () => {
                     agency_id: 1,
                     agency_name: <a href="/#/agency/1">Test 1</a>,
                     budget_authority_amount: "$1,234,567",
-                    percentage_of_total_budget_authority: "0.01%"
+                    percentage_of_total_budget_authority: "1.21%"
                 }),
                 new Agency({
                     agency_id: 2,
                     agency_name: <a href="/#/agency/2">Test 2</a>,
                     budget_authority_amount: "$2,345,678",
-                    percentage_of_total_budget_authority: "0.02%"
+                    percentage_of_total_budget_authority: "2.32%"
                 })
             ]);
             delete expected._jsid;
