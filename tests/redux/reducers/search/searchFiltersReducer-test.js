@@ -351,7 +351,7 @@ describe('searchFiltersReducer', () => {
             recipient: mockRecipient
         };
 
-        const recipient = "006928857";
+        const recipient = '2222';
 
         const expectedRecipient = mockRecipient;
 
