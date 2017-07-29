@@ -140,9 +140,7 @@ export default class TimeVisualization extends React.Component {
         let tooltip = null;
         if (this.state.showTooltip) {
             tooltip = (<TimeTooltip
-                {...this.state.tooltipData}
-                width={this.props.width}
-                height={this.props.height} />);
+                {...this.state.tooltipData} />);
         }
 
         return (

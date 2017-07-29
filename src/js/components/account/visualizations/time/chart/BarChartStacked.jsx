@@ -62,7 +62,6 @@ export default class BarChartStacked extends React.Component {
     }
 
     buildVirtualChart(props) {
-        const startTime = window.performance.now();
         const values = {
             width: props.width,
             height: props.height,
@@ -111,11 +110,6 @@ export default class BarChartStacked extends React.Component {
             xAxis,
             body
         };
-
-        const endTime = window.performance.now();
-        console.log(`calc ${endTime - startTime}ms`);
-
-        // console.log(JSON.stringify(chart) === JSON.stringify(this.state.virtualChart));
 
         this.setState({
             virtualChart: chart,

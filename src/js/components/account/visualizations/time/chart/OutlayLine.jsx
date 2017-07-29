@@ -15,7 +15,6 @@ const propTypes = {
     x: PropTypes.number,
     y: PropTypes.number,
     width: PropTypes.number,
-    height: PropTypes.number,
     color: PropTypes.string
 };
 
