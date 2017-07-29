@@ -30,7 +30,7 @@ const propTypes = {
 };
 
 // create an Immuatable Record object to guarantee the existance of required visualization fields
-const VisData = Record({
+export const VisData = Record({
     xSeries: [],
     ySeries: [],
     allY: [],
@@ -319,7 +319,7 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
                         bottom: yData[quarterYear].obligated,
                         top: yData[quarterYear].unobligated + yData[quarterYear].obligated,
                         value: yData[quarterYear].unobligated,
-                        description: 'Unobligated balance'
+                        description: 'Unobligated Balance'
                     },
                     outlay: {
                         bottom: yData[quarterYear].outlay,

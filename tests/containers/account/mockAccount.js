@@ -605,3 +605,149 @@ export const mockTabCount = {
         type: "11"
     }]
 };
+
+export const parsedYearYSeries = {
+    obligated: {
+        bottom: 0,
+        top: 2696684.86,
+        value: 2696684.86,
+        description: 'Obligations Incurred'
+    },
+    unobligated: {
+        bottom: 2696684.86,
+        top: 198707976.61 + 2696684.86,
+        value: 198707976.61,
+        description: 'Unobligated Balance'
+    },
+    outlay: {
+        bottom: -5505246.42,
+        top: -5505246.42,
+        value: -5505246.42,
+        description: 'Outlay'
+    }
+};
+
+export const parsedYearYSeriesFiltered = {
+    obligatedFiltered: {
+        bottom: 0,
+        top: 2696684.86,
+        value: 2696684.86,
+        description: 'Obligations Incurred (Filtered)'
+    },
+    obligatedOther: {
+        bottom: 2696684.86,
+        top: (201404661.47 - 198707976.61 - 2696684.86) + 2696684.86,
+        value: (201404661.47 - 198707976.61 - 2696684.86),
+        description: 'Obligations Incurred (Other)'
+    },
+    unobligated: {
+        bottom: (201404661.47 - 198707976.61),
+        top: 201404661.47,
+        value: 198707976.61,
+        description: 'Unobligated Balance'
+    },
+    outlay: {
+        bottom: -5505246.42,
+        top: -5505246.42,
+        value: -5505246.42,
+        description: 'Outlay'
+    }
+};
+
+export const parsedQuarterYSeries = [
+    {
+        obligated: {
+            bottom: 0,
+            top: 2696684.86,
+            value: 2696684.86,
+            description: 'Obligations Incurred'
+        },
+        unobligated: {
+            bottom: 2696684.86,
+            top: 198707976.61 + 2696684.86,
+            value: 198707976.61,
+            description: 'Unobligated Balance'
+        },
+        outlay: {
+            bottom: -5505246.42,
+            top: -5505246.42,
+            value: -5505246.42,
+            description: 'Outlay'
+        }
+    },
+    {
+        obligated: {
+            bottom: 0,
+            top: 3851752.00,
+            value: 3851752.00,
+            description: 'Obligations Incurred'
+        },
+        unobligated: {
+            bottom: 3851752.00,
+            top: 5851779752.00 + 3851752.00,
+            value: 5851779752.00,
+            description: 'Unobligated Balance'
+        },
+        outlay: {
+            bottom: -4413237.11,
+            top: -4413237.11,
+            value: -4413237.11,
+            description: 'Outlay'
+        }
+    }
+];
+
+export const parsedQuarterYSeriesFiltered = [
+    {
+        obligatedFiltered: {
+            bottom: 0,
+            top: 2696684.86,
+            value: 2696684.86,
+            description: 'Obligations Incurred (Filtered)'
+        },
+        obligatedOther: {
+            bottom: 2696684.86,
+            top: (201404661.47 - 198707976.61 - 2696684.86) + 2696684.86,
+            value: (201404661.47 - 198707976.61 - 2696684.86),
+            description: 'Obligations Incurred (Other)'
+        },
+        unobligated: {
+            bottom: (201404661.47 - 198707976.61),
+            top: 201404661.47,
+            value: 198707976.61,
+            description: 'Unobligated Balance'
+        },
+        outlay: {
+            bottom: -5505246.42,
+            top: -5505246.42,
+            value: -5505246.42,
+            description: 'Outlay'
+        }
+    },
+    {
+        obligatedFiltered: {
+            bottom: 0,
+            top: 3851752.00,
+            value: 3851752.00,
+            description: 'Obligations Incurred (Filtered)'
+        },
+        obligatedOther: {
+            bottom: 3851752.00,
+            top: (101905442.35 - 5851779752.00 - 3851752) + 3851752,
+            value: (101905442.35 - 5851779752.00 - 3851752),
+            description: 'Obligations Incurred (Other)'
+        },
+        unobligated: {
+            bottom: (101905442.35 - 5851779752.00),
+            top: 101905442.35,
+            value: 5851779752.00,
+            description: 'Unobligated Balance'
+        },
+        outlay: {
+            bottom: -4413237.11,
+            top: -4413237.11,
+            value: -4413237.11,
+            description: 'Outlay'
+        }
+    }
+];
