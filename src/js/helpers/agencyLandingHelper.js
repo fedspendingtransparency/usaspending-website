@@ -23,18 +23,3 @@ export const fetchAllAgencies = (params) => {
     };
 };
 
-export const fetchSearchResults = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/autocomplete/toptier_agency/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};

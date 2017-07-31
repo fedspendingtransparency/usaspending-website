@@ -7,17 +7,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    data: PropTypes.object,
+    name: PropTypes.array,
     rowIndex: PropTypes.number,
     column: PropTypes.string,
-    isLastColumn: PropTypes.bool
+    isLastColumn: PropTypes.bool,
+    id: PropTypes.number
 };
 
 export default class AgencyLinkCell extends React.Component {
     render() {
         // cell needs to have some content or it will collapse
         // replace with a &nbsp; if there's no data
-        let content = this.props.data;
+        let content = this.props.name;
         if (!content) {
             content = "\u00A0";
         }
@@ -36,7 +37,9 @@ export default class AgencyLinkCell extends React.Component {
         return (
             <div className={`award-result-generic-cell agency-link-cell column-${this.props.column} ${rowClass}`}>
                 <div className="cell-content">
-                    {content}
+                    <a href={`/#/agency/${this.props.id}`}>
+                        {this.props.name}
+                    </a>
                 </div>
             </div>
         );

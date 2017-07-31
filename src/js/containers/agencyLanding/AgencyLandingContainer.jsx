@@ -149,15 +149,16 @@ export class AgencyLandingContainer extends React.Component {
 
     parseAgencies(data) {
         const agencies = [];
-        const showAllAgencies = this.props.autocompleteAgencies.length === 0 && !this.state.noResults;
+        const showAllAgencies = this.props.autocompleteAgencies.length === 0
+            && !this.state.noResults;
 
         data.results.forEach((item) => {
-            // If there is no search term, show all agencies. Otherwise, only show agencies that match
-            // the search input
+            // If there is no search term, show all agencies.
+            // Otherwise, only show agencies that match the search input.
             if (showAllAgencies ||
                 (this.props.autocompleteAgencies.indexOf(parseFloat(item.agency_id)) > -1)) {
                 // Create a link to the agency's profile page
-                let linkText = item.agency_name;
+                let linkText = [item.agency_name];
 
                 // If the user has entered a search term, highlight the matched substring
                 if (this.state.agencySearchString) {
@@ -165,9 +166,6 @@ export class AgencyLandingContainer extends React.Component {
                         <span key={match + i}>{match}</span>
                     ));
                 }
-                const link = (
-                    <a href={`/#/agency/${item.agency_id}`}>{linkText}</a>
-                );
 
                 // Format budget authority amount
                 const formattedCurrency =
@@ -187,7 +185,7 @@ export class AgencyLandingContainer extends React.Component {
 
                 const agencyObject = {
                     agency_id: item.agency_id,
-                    agency_name: link,
+                    agency_name: linkText,
                     budget_authority_amount: formattedCurrency,
                     percentage_of_total_budget_authority: percent
                 };

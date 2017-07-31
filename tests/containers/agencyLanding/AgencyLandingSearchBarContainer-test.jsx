@@ -13,6 +13,7 @@ import { AgencyLandingSearchBarContainer } from
 import { AgencyLandingSearchBar } from
     'components/agencyLanding/AgencyLandingSearchBar';
 import * as agencyLandingActions from 'redux/actions/agencyLanding/agencyLandingActions';
+import { mockAgencies } from './mockToptierAgencies';
 
 jest.mock('helpers/agencyLandingHelper', () => require('./agencyLandingHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -27,7 +28,8 @@ describe('AgencyLandingSearchBarContainer', () => {
                 setAgencySearchString: jest.fn(),
                 setNoResults: jest.fn(),
                 setAutocompleteAgencies: agencyLandingActions.setAutocompleteAgencies,
-                autocompleteAgencies: []
+                autocompleteAgencies: [],
+                agencies: mockAgencies
             });
 
             const searchQuery = {
@@ -55,13 +57,14 @@ describe('AgencyLandingSearchBarContainer', () => {
             handleTextInputSpy.reset(); 
         });
 
-        it('should call the queryAutocompleteAgencies method after text input', () => {
+        it('should call the performSecondarySearch method after text input', () => {
             // setup the search bar container and call the function to type a single letter
             const searchBarContainer = setup({
                 setAgencySearchString: jest.fn(),
                 setNoResults: jest.fn(),
                 setAutocompleteAgencies: agencyLandingActions.setAutocompleteAgencies,
-                autocompleteAgencies: []
+                autocompleteAgencies: [],
+                agencies: mockAgencies
             });
 
             const searchQuery = {
@@ -72,8 +75,8 @@ describe('AgencyLandingSearchBarContainer', () => {
 
             const handleTextInputSpy = sinon.spy(searchBarContainer.instance(),
                 'handleTextInput');
-            const queryAutocompleteAgenciesSpy = sinon.spy(searchBarContainer.instance(),
-                'queryAutocompleteAgencies');
+            const performSecondarySearchSpy = sinon.spy(searchBarContainer.instance(),
+                'performSecondarySearch');
 
             // Call handleTextInput function
             searchBarContainer.instance().handleTextInput(searchQuery);
@@ -83,11 +86,11 @@ describe('AgencyLandingSearchBarContainer', () => {
 
             // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
-            expect(queryAutocompleteAgenciesSpy.callCount).toEqual(1);
+            expect(performSecondarySearchSpy.callCount).toEqual(1);
 
             // reset the spies
             handleTextInputSpy.reset();
-            queryAutocompleteAgenciesSpy.reset();
+            performSecondarySearchSpy.reset();
         });
         it('should not search when only one character has been input', () => {
             // setup mock redux actions for handling search results
@@ -98,11 +101,12 @@ describe('AgencyLandingSearchBarContainer', () => {
                 setAgencySearchString: jest.fn(),
                 setNoResults: jest.fn(),
                 setAutocompleteAgencies: mockReduxAction,
-                autocompleteAgencies: []
+                autocompleteAgencies: [],
+                agencies: mockAgencies
             });
 
-            const queryAutocompleteAgenciesSpy = sinon.spy(searchBarContainer.instance(),
-                'queryAutocompleteAgencies');
+            const performSecondarySearchSpy = sinon.spy(searchBarContainer.instance(),
+                'performSecondarySearch');
             const handleTextInputSpy = sinon.spy(searchBarContainer.instance(),
                 'handleTextInput');
 
@@ -120,13 +124,13 @@ describe('AgencyLandingSearchBarContainer', () => {
 
             // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
-            expect(queryAutocompleteAgenciesSpy.callCount).toEqual(1);
+            expect(performSecondarySearchSpy.callCount).toEqual(1);
             // The redux action is called once in handleTextInput to reset
             expect(mockReduxAction).toHaveBeenCalledTimes(1);
 
             // reset the mocks and spies
             handleTextInputSpy.reset();
-            queryAutocompleteAgenciesSpy.reset();
+            performSecondarySearchSpy.reset();
         });
 
         it('should perform the search when more than one character has been entered', () => {
@@ -138,14 +142,15 @@ describe('AgencyLandingSearchBarContainer', () => {
                 setAgencySearchString: jest.fn(),
                 setNoResults: jest.fn(),
                 setAutocompleteAgencies: mockReduxAction,
-                autocompleteAgencies: []
+                autocompleteAgencies: [],
+                agencies: mockAgencies
             });
 
             // set up spies
             const handleTextInputSpy = sinon.spy(searchBarContainer.instance(),
                 'handleTextInput');
-            const queryAutocompleteAgenciesSpy = sinon.spy(searchBarContainer.instance(),
-                'queryAutocompleteAgencies');
+            const performSecondarySearchSpy = sinon.spy(searchBarContainer.instance(),
+                'performSecondarySearch');
 
             const searchQuery = {
                 target: {
@@ -161,16 +166,17 @@ describe('AgencyLandingSearchBarContainer', () => {
 
             // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
-            expect(queryAutocompleteAgenciesSpy.calledWith(handleTextInputSpy));
+            expect(performSecondarySearchSpy.calledWith(handleTextInputSpy));
 
             // Reset spies
             handleTextInputSpy.reset();
-            queryAutocompleteAgenciesSpy.reset();
+            performSecondarySearchSpy.reset();
         });
 
-        it('should populate Agencies after performing the search', async () => {
+        it('should populate Agencies with matching results after performing the search', () => {
             // Setup redux state
-            const reduxState = [1, 2];
+            // Only id's 1 & 3 have agency names with the substring we are using
+            const reduxState = [1, 3];
 
             // setup mock redux actions for handling search results
             const mockReduxAction = jest.fn((args) => {
@@ -182,24 +188,20 @@ describe('AgencyLandingSearchBarContainer', () => {
                 setAgencySearchString: jest.fn(),
                 setNoResults: jest.fn(),
                 setAutocompleteAgencies: mockReduxAction,
-                autocompleteAgencies: reduxState
+                autocompleteAgencies: reduxState,
+                agencies: mockAgencies
             });
 
             // Set up spies
-            const queryAutocompleteAgenciesSpy = sinon.spy(searchBarContainer.instance(),
-                'queryAutocompleteAgencies');
             const performSecondarySearchSpy = sinon.spy(searchBarContainer.instance(),
                 'performSecondarySearch');
 
-            searchBarContainer.instance().queryAutocompleteAgencies('Department of');
-            await searchBarContainer.instance().agencySearchRequest.promise;
+            searchBarContainer.instance().performSecondarySearch('Agen');
 
-            expect(queryAutocompleteAgenciesSpy.callCount).toEqual(1);
-            expect(performSecondarySearchSpy.calledWith(queryAutocompleteAgenciesSpy));
+            expect(performSecondarySearchSpy.callCount).toEqual(1);
             expect(mockReduxAction).toHaveBeenCalled();
 
             // Reset spies
-            queryAutocompleteAgenciesSpy.reset();
             performSecondarySearchSpy.reset();
         });
     });

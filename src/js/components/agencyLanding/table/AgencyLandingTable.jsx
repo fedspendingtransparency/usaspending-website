@@ -89,7 +89,8 @@ export default class AgencyLandingTable extends React.PureComponent {
                     <AgencyLinkCell
                         key={`cell-${column.columnName}-${index}`}
                         rowIndex={index}
-                        data={this.props.results[index][column.columnName]}
+                        name={this.props.results[index][column.columnName]}
+                        id={this.props.results[index].agency_id}
                         dataHash={this.state.dataHash}
                         column={column.columnName}
                         isLastColumn={isLast} />

@@ -109,25 +109,26 @@ describe('AgencyLandingContainer', () => {
 
     describe('parseAgencies', () => {
         it('should parse the API response and overwrite the Redux agencies', (done) => {
-            const expected = new Immutable.OrderedSet([
+            const expected = Object.assign({},new Immutable.OrderedSet([
                 new Agency({
                     agency_id: 1,
-                    agency_name: <a href="/#/agency/1">Test 1</a>,
+                    agency_name: ['Agency 1'],
                     budget_authority_amount: "$1,234,567",
                     percentage_of_total_budget_authority: "1.21%"
                 }),
                 new Agency({
                     agency_id: 2,
-                    agency_name: <a href="/#/agency/2">Test 2</a>,
+                    agency_name: ['Agency 2'],
                     budget_authority_amount: "$2,345,678",
                     percentage_of_total_budget_authority: "2.32%"
                 })
-            ]);
+            ]));
+
             delete expected._jsid;
 
             const reduxAction = jest.fn((args) => {
                 const model = Object.assign({}, new Immutable.OrderedSet(args));
-                delete model._jsid;
+                //delete model._jsid;
 
                 expect(model).toEqual(expected);
                 done();
