@@ -11,7 +11,6 @@ import { OrderedMap } from 'immutable';
 import { PSCListContainer } from 'containers/search/filters/psc/PSCListContainer';
 
 import { mockPSC } from './mockPSC';
-import { mockLocalPSC } from './mockLocalPSC';
 
 jest.mock('helpers/searchHelper', () => require('../searchHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -201,7 +200,7 @@ describe('pscListContainer', () => {
             expect(queryAutocompletePSCSpy.callCount).toEqual(1);
             expect(parseAutocompletePSCSpy.calledWith(queryAutocompletePSCSpy));
             expect(mockReduxActionPSC).toHaveBeenCalledTimes(1);
-            expect(mockReduxActionPSC.mock.calls[0]).toEqual([mockLocalPSC]);
+            expect(mockReduxActionPSC.mock.calls[0]).toEqual([mockPSC.results]);
 
             // Reset spies
             queryAutocompletePSCSpy.reset();
@@ -218,7 +217,7 @@ describe('pscListContainer', () => {
 
             const pscListContainer = setup(Object.assign({}, initialFilters, {
                 setAutocompletePSC: mockReduxAction,
-                autocompletePSC: mockLocalPSC,
+                autocompletePSC: mockPSC.results,
                 selectedPSC: new OrderedMap()
             }));
 

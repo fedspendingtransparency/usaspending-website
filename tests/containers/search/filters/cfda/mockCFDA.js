@@ -16,11 +16,6 @@ export const mockCFDA = {
             program_title: "2009 Aquaculture Grant Program"
         },
         {
-            program_number: "10.110",
-            popular_name: "(ELAP)",
-            program_title: "Emergency Assistance for Livestock, Honeybees and Farm-Raised Fish Program-2014 Farm Bill"
-        },
-        {
             program_number: "10.104",
             popular_name: "",
             program_title: "Poultry Loss Contract Grant Assistance Program"
@@ -44,6 +39,11 @@ export const mockCFDA = {
             program_number: "10.109",
             popular_name: "(LFP)",
             program_title: "Livestock Forage Program-2014 Farm Bill"
+        },
+        {
+            program_number: "10.110",
+            popular_name: "(ELAP)",
+            program_title: "Emergency Assistance for Livestock, Honeybees and Farm-Raised Fish Program-2014 Farm Bill"
         },
         {
             program_number: "10.163",

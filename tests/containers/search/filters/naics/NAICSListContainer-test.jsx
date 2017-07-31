@@ -11,7 +11,6 @@ import { OrderedMap } from 'immutable';
 import { NAICSListContainer } from 'containers/search/filters/naics/NAICSListContainer';
 
 import { mockNAICS } from './mockNAICS';
-import { mockLocalNAICS } from './mockLocalNAICS';
 
 jest.mock('helpers/searchHelper', () => require('../searchHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -201,7 +200,7 @@ describe('naicsListContainer', () => {
             expect(queryAutocompleteNAICSSpy.callCount).toEqual(1);
             expect(parseAutocompleteNAICSSpy.calledWith(queryAutocompleteNAICSSpy));
             expect(mockReduxActionNAICS).toHaveBeenCalledTimes(1);
-            expect(mockReduxActionNAICS.mock.calls[0]).toEqual([mockLocalNAICS]);
+            expect(mockReduxActionNAICS.mock.calls[0]).toEqual([mockNAICS.results]);
 
             // Reset spies
             queryAutocompleteNAICSSpy.reset();
@@ -218,7 +217,7 @@ describe('naicsListContainer', () => {
 
             const naicsListContainer = setup(Object.assign({}, initialFilters, {
                 setAutocompleteNAICS: mockReduxAction,
-                autocompleteNAICS: mockLocalNAICS,
+                autocompleteNAICS: mockNAICS.results,
                 selectedNAICS: new OrderedMap()
             }));
 

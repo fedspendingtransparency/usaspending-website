@@ -11,7 +11,6 @@ import { OrderedMap } from 'immutable';
 import { CFDAListContainer } from 'containers/search/filters/cfda/CFDAListContainer';
 
 import { mockCFDA } from './mockCFDA';
-import { mockLocalCFDA } from './mockLocalCFDA';
 
 jest.mock('helpers/searchHelper', () => require('../searchHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -201,7 +200,7 @@ describe('CFDAListContainer', () => {
             expect(queryAutocompleteCFDASpy.callCount).toEqual(1);
             expect(parseAutocompleteCFDASpy.calledWith(queryAutocompleteCFDASpy));
             expect(mockReduxActionCFDA).toHaveBeenCalledTimes(1);
-            expect(mockReduxActionCFDA.mock.calls[0]).toEqual([mockLocalCFDA]);
+            expect(mockReduxActionCFDA.mock.calls[0]).toEqual([mockCFDA.results]);
 
             // Reset spies
             queryAutocompleteCFDASpy.reset();
@@ -218,7 +217,7 @@ describe('CFDAListContainer', () => {
 
             const cfdaListContainer = setup(Object.assign({}, initialFilters, {
                 setAutocompleteCFDA: mockReduxAction,
-                autocompleteCFDA: mockLocalCFDA,
+                autocompleteCFDA: mockCFDA.results,
                 selectedCFDA: new OrderedMap()
             }));
 
