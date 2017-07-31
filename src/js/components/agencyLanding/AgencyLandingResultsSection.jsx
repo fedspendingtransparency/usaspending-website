@@ -4,16 +4,17 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ResultsTableMessage from 'components/search/table/ResultsTableMessage';
 import AgencyLandingHeaderCellContainer from 'containers/agencyLanding/table/AgencyLandingHeaderCellContainer';
 import AgencyLandingTable from './table/AgencyLandingTable';
 
 const propTypes = {
-    inFlight: React.PropTypes.bool,
-    results: React.PropTypes.array,
-    columns: React.PropTypes.array,
-    agencySearchString: React.PropTypes.string
+    inFlight: PropTypes.bool,
+    results: PropTypes.array,
+    columns: PropTypes.array,
+    agencySearchString: PropTypes.string
 };
 
 export default class AgencyLandingResultsSection extends React.Component {

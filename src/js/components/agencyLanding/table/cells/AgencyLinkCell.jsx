@@ -4,12 +4,13 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    data: React.PropTypes.object,
-    rowIndex: React.PropTypes.number,
-    column: React.PropTypes.string,
-    isLastColumn: React.PropTypes.bool
+    data: PropTypes.object,
+    rowIndex: PropTypes.number,
+    column: PropTypes.string,
+    isLastColumn: PropTypes.bool
 };
 
 export default class AgencyLinkCell extends React.Component {

@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
@@ -12,11 +13,11 @@ import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableG
 import AgencyLinkCell from './cells/AgencyLinkCell';
 
 const propTypes = {
-    batch: React.PropTypes.object,
-    results: React.PropTypes.array,
-    columns: React.PropTypes.array,
-    headerCellClass: React.PropTypes.func.isRequired,
-    visibleWidth: React.PropTypes.number
+    batch: PropTypes.object,
+    results: PropTypes.array,
+    columns: PropTypes.array,
+    headerCellClass: PropTypes.func.isRequired,
+    visibleWidth: PropTypes.number
 };
 
 const rowHeight = 50;

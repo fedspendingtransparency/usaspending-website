@@ -4,11 +4,12 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Search } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    handleTextInput: React.PropTypes.func.isRequired
+    handleTextInput: PropTypes.func.isRequired
 };
 
 export default class AgencyLandingSearchBar extends React.Component {
