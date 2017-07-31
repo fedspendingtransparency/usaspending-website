@@ -17,7 +17,7 @@ const initialState = {
     agencies: new OrderedSet(),
     agenciesOrder: {
         field: 'agency_name',
-        direction: 'desc'
+        direction: 'asc'
     },
     agenciesMeta: {
         batch: {

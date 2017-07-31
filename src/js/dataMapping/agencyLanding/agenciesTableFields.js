@@ -1,6 +1,6 @@
 const agenciesTableFields = {
     defaultSortDirection: {
-        agency_name: 'desc',
+        agency_name: 'asc',
         budget_authority_amount: 'desc',
         percentage_of_total_budget_authority: 'desc'
     },
