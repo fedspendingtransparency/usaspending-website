@@ -49,8 +49,8 @@ export default class CategoryMapTooltip extends React.Component {
         if (windowWidth < 768) {
             top = (this.props.y + this.props.height) - 20;
         }
-        this.div.style.top = `${top}px`;
-        this.div.style.left = `${left}px`;
+
+        this.div.style.transform = `translate(${left}px, ${top}px)`;
         this.div.className = `tooltip`;
         this.pointerDiv.className = `tooltip-pointer top`;
         this.pointerDiv.style.left = `${pointerX}px`;

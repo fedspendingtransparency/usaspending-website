@@ -129,8 +129,7 @@ export default class AccountRankVisualizationSection extends React.Component {
                 <RankVisualization
                     {...this.props}
                     width={this.state.visualizationWidth}
-                    labelWidth={this.state.labelWidth}
-                    disableTooltip />
+                    labelWidth={this.state.labelWidth} />
 
                 <div className={`visualization-pager-container ${hidePager}`}>
                     <button
