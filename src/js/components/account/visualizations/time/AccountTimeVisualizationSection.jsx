@@ -13,6 +13,7 @@ import TimeVisualization from './TimeVisualization';
 
 const propTypes = {
     data: PropTypes.object,
+    loading: PropTypes.bool,
     visualizationPeriod: PropTypes.string,
     changePeriod: PropTypes.func,
     hasFilteredObligated: PropTypes.bool
@@ -93,7 +94,8 @@ export default class AccountTimeVisualizationSection extends React.Component {
                     </div>
                 </div>
                 <TimeVisualization
-                    {...this.props.data}
+                    loading={this.props.loading}
+                    data={this.props.data}
                     width={this.state.visualizationWidth}
                     hasFilteredObligated={this.props.hasFilteredObligated} />
             </div>
