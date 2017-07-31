@@ -101,9 +101,9 @@ export class RecipientNameDUNSContainer extends React.Component {
             this.recipientSearchRequest.promise
                 .then((res) => {
                     const parentResults = this.performSecondarySearch(
-                        res.data.results.parent_recipient[0], 'parent_recipient_unique_id');
+                        res.data.results.parent_recipient, 'parent_recipient_unique_id');
                     const normalResults = this.performSecondarySearch(
-                        res.data.results.recipient[0], 'recipient_unique_id');
+                        res.data.results.recipient, 'recipient_unique_id');
                     this.parseResults(parentResults, normalResults);
                 })
                 .catch((err) => {
