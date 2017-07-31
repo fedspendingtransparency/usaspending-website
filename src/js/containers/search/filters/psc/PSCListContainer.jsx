@@ -6,9 +6,8 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isEqual, omit, differenceWith, slice } from 'lodash';
+import { isEqual, differenceWith, omit } from 'lodash';
 import { isCancel } from 'axios';
-import { Search } from 'js-search';
 import PropTypes from 'prop-types';
 
 import * as SearchHelper from 'helpers/searchHelper';
@@ -18,8 +17,8 @@ import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete'
 
 const propTypes = {
     selectPSC: PropTypes.func,
-    setAutocompletePSC: PropTypes.func,
     selectedPSC: PropTypes.object,
+    setAutocompletePSC: PropTypes.func,
     autocompletePSC: PropTypes.array
 };
 
@@ -89,28 +88,21 @@ export class PSCListContainer extends React.Component {
 
             this.pscSearchRequest.promise
                 .then((res) => {
-                    const data = res.data.results;
                     let autocompleteData = [];
-                    const search = new Search('product_or_service_code');
-                    search.addIndex('product_or_service_code');
-                    search.addDocuments(data);
-                    const results = search.search(this.state.pscSearchString);
-                    let improvedResults = slice(results, 0, 10);
+                    const data = res.data.results;
 
-                    // Remove 'identifier' from selected PSC to enable comparison
-                    improvedResults = this.props.selectedPSC.toArray()
-                        .map((psc) => omit(psc, 'identifier'));
-
-                    // Filter out any selected PSC that may be in the result set
-                    if (improvedResults && improvedResults.length > 0) {
-                        autocompleteData = differenceWith(data, improvedResults, isEqual);
+                    const selectedPSC =
+                        this.props.selectedPSC.toArray().map((psc) => omit(psc, 'identifier'));
+                    // Filter out any selectedPSC that may be in the result set
+                    if (selectedPSC && selectedPSC.length > 0) {
+                        autocompleteData = differenceWith(data, selectedPSC, isEqual);
                     }
                     else {
                         autocompleteData = data;
                     }
 
                     this.setState({
-                        noResults: autocompleteData.length === 0
+                        noResults: data.length === 0
                     });
 
                     // Add search results to Redux

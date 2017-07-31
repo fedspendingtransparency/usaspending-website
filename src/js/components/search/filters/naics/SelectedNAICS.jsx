@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import * as OtherFiltersFormatter from 'helpers/otherFiltersFormatter';
-import ShownNAICS from './ShownNAICS';
+import ShownValue from 'components/search/filters/otherFilters/ShownValue';
 
 const propTypes = {
     selectedNAICS: PropTypes.object,
@@ -20,11 +20,10 @@ export default class SelectedNAICS extends React.Component {
         this.props.selectedNAICS.entrySeq().forEach((entry) => {
             const naics = entry[1].naics;
             const description = entry[1].naics_description;
-            const value = (<ShownNAICS
-                naics={naics}
-                label={OtherFiltersFormatter.formatNAICS(naics, description)}
+            const value = (<ShownValue
+                label={OtherFiltersFormatter.formatValue(naics, description)}
                 key={naics}
-                removeNAICS={this.props.removeNAICS.bind(null, entry[1])} />);
+                removeValue={this.props.removeNAICS.bind(null, entry[1])} />);
             shownNAICS.push(value);
         });
 

@@ -6,13 +6,14 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import NAICSSearch from 'components/search/filters/naics/NAICSSearch';
 
 const propTypes = {
-    updateSelectedNAICS: React.PropTypes.func
+    updateSelectedNAICS: PropTypes.func
 };
 
 const ga = require('react-ga');

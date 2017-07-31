@@ -6,13 +6,14 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import CFDASearch from 'components/search/filters/cfda/CFDASearch';
 
 const propTypes = {
-    updateSelectedCFDA: React.PropTypes.func
+    updateSelectedCFDA: PropTypes.func
 };
 
 const ga = require('react-ga');

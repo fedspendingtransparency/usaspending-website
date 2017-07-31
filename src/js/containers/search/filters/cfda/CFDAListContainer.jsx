@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual, omit, differenceWith, slice } from 'lodash';
 import { isCancel } from 'axios';
-import { Search } from 'js-search';
+import { Search, PrefixIndexStrategy } from 'js-search';
 import PropTypes from 'prop-types';
 
 import * as SearchHelper from 'helpers/searchHelper';
@@ -18,8 +18,8 @@ import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete'
 
 const propTypes = {
     selectCFDA: PropTypes.func,
-    setAutocompleteCFDA: PropTypes.func,
     selectedCFDA: PropTypes.object,
+    setAutocompleteCFDA: PropTypes.func,
     autocompleteCFDA: PropTypes.array
 };
 
@@ -95,22 +95,22 @@ export class CFDAListContainer extends React.Component {
                     const data = res.data.results;
                     let autocompleteData = [];
                     const search = new Search('program_number');
+                    // ordering by prefix if there are matches returned that begin w/ the exact text
+                    search.indexStrategy = new PrefixIndexStrategy();
                     search.addIndex(['program_number']);
                     search.addIndex(['program_title']);
                     search.addDocuments(data);
                     const results = search.search(this.state.cfdaSearchString);
-                    let improvedResults = slice(results, 0, 10);
+                    const improvedResults = slice(results, 0, 10);
 
-                    // Remove 'identifier' from selected cfdas to enable comparison
-                    improvedResults = this.props.selectedCFDA.toArray()
-                        .map((cfda) => omit(cfda, 'identifier'));
-
-                    // Filter out any selected cfdas that may be in the result set
+                    // Filter out any selected CFDA that may be in the result set
+                    const selectedCFDA =
+                    this.props.selectedCFDA.toArray().map((cfda) => omit(cfda, 'identifier'));
                     if (improvedResults && improvedResults.length > 0) {
-                        autocompleteData = differenceWith(data, improvedResults, isEqual);
+                        autocompleteData = differenceWith(improvedResults, selectedCFDA, isEqual);
                     }
                     else {
-                        autocompleteData = data;
+                        autocompleteData = improvedResults;
                     }
 
                     this.setState({

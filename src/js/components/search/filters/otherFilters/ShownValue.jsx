@@ -1,6 +1,6 @@
 /**
- * ShownNAICS.jsx
- * Created by Emily Gullo 07/14/2017
+ * ShownValue.jsx
+ * Created by Emily Gullo 07/10/2017
  **/
 
 import React from 'react';
@@ -8,18 +8,18 @@ import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    removeNAICS: PropTypes.func,
+    removeValue: PropTypes.func,
     label: PropTypes.string
 };
 
-export default class ShownNAICS extends React.Component {
+export default class ShownValue extends React.Component {
 
     render() {
         return (
             <button
                 className="shown-filter-button"
                 value={this.props.label}
-                onClick={this.props.removeNAICS}>
+                onClick={this.props.removeValue}>
                 <span className="close">
                     <Icons.Close className="usa-da-icon-close" />
                 </span> {this.props.label}
@@ -27,4 +27,4 @@ export default class ShownNAICS extends React.Component {
         );
     }
 }
-ShownNAICS.propTypes = propTypes;
+ShownValue.propTypes = propTypes;

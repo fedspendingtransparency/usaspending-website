@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import * as OtherFiltersFormatter from 'helpers/otherFiltersFormatter';
-import ShownCFDA from './ShownCFDA';
+import ShownValue from 'components/search/filters/otherFilters/ShownValue';
 
 const propTypes = {
     selectedCFDA: PropTypes.object,
@@ -20,11 +20,10 @@ export default class SelectedCFDA extends React.Component {
         this.props.selectedCFDA.entrySeq().forEach((entry) => {
             const key = entry[1].program_number;
             const cfda = entry[1].program_title;
-            const value = (<ShownCFDA
-                cfda={cfda}
-                label={OtherFiltersFormatter.formatCFDA(key, cfda)}
+            const value = (<ShownValue
+                label={OtherFiltersFormatter.formatValue(key, cfda)}
                 key={key}
-                removeCFDA={this.props.removeCFDA.bind(null, entry[1])} />);
+                removeValue={this.props.removeCFDA.bind(null, entry[1])} />);
             shownCFDA.push(value);
         });
 

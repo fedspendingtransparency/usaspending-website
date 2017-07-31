@@ -5,28 +5,12 @@
 
 import { startCase, toLower } from 'lodash';
 
-export const formatCFDA = (cfda, description) => {
-    let displayValue = `${cfda}`;
+export const formatValue = (value, description) => {
+    let displayValue = `${value}`;
 
     if (description !== null) {
         displayValue += ` | ${startCase(toLower(description))}`;
     }
-
-    return displayValue;
-};
-
-export const formatNAICS = (naics, description) => {
-    let displayValue = `${naics}`;
-
-    if (description !== null) {
-        displayValue += ` | ${startCase(toLower(description))}`;
-    }
-
-    return displayValue;
-};
-
-export const formatPSC = (psc) => {
-    const displayValue = `${psc}`;
 
     return displayValue;
 };

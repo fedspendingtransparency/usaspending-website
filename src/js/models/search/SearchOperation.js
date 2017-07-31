@@ -86,7 +86,7 @@ class SearchOperation {
 
         this.selectedCFDA = state.selectedCFDA.toArray();
         this.selectedNAICS = state.selectedNAICS.toArray();
-        this.selectesPSC = state.selectedPSC.toArray();
+        this.selectedPSC = state.selectedPSC.toArray();
     }
 
     commonParams() {
@@ -178,24 +178,6 @@ class SearchOperation {
             }
         }
 
-        // Add cfda query
-        if (this.selectedCFDA.length > 0 && this.searchContext === 'award') {
-            filters.push(OtherFiltersQuery.buildCFDAQuery(
-                this.selectedCFDA, this.searchContext));
-        }
-
-        // Add naics query
-        if (this.selectedNAICS.length > 0 && this.searchContext === 'award') {
-            filters.push(OtherFiltersQuery.buildNAICSQuery(
-                this.selectedNAICS, this.searchContext));
-        }
-
-        // Add psc query
-        if (this.selectedPSC.length > 0 && this.searchContext === 'award') {
-            filters.push(OtherFiltersQuery.buildPSCQuery(
-                this.selectedPSC, this.searchContext));
-        }
-
         return filters;
     }
 
@@ -219,6 +201,24 @@ class SearchOperation {
         if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
             filters.push(AgencyQuery.buildAgencyQuery(
                 this.fundingAgencies, this.awardingAgencies, this.searchContext));
+        }
+
+        // Add cfda query
+        if (this.selectedCFDA.length > 0 && this.searchContext === 'award') {
+            filters.push(OtherFiltersQuery.buildCFDAQuery(
+                this.selectedCFDA, this.searchContext));
+        }
+
+        // Add naics query
+        if (this.selectedNAICS.length > 0 && this.searchContext === 'award') {
+            filters.push(OtherFiltersQuery.buildNAICSQuery(
+                this.selectedNAICS, this.searchContext));
+        }
+
+        // Add psc query
+        if (this.selectedPSC.length > 0 && this.searchContext === 'award') {
+            filters.push(OtherFiltersQuery.buildPSCQuery(
+                this.selectedPSC, this.searchContext));
         }
 
         return filters;

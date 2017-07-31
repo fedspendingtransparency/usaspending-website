@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual, omit, differenceWith, slice } from 'lodash';
 import { isCancel } from 'axios';
-import { Search } from 'js-search';
+import { Search, PrefixIndexStrategy } from 'js-search';
 import PropTypes from 'prop-types';
 
 import * as SearchHelper from 'helpers/searchHelper';
@@ -18,8 +18,8 @@ import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete'
 
 const propTypes = {
     selectNAICS: PropTypes.func,
-    setAutocompleteNAICS: PropTypes.func,
     selectedNAICS: PropTypes.object,
+    setAutocompleteNAICS: PropTypes.func,
     autocompleteNAICS: PropTypes.array
 };
 
@@ -92,22 +92,22 @@ export class NAICSListContainer extends React.Component {
                     const data = res.data.results;
                     let autocompleteData = [];
                     const search = new Search('naics');
+                    // ordering by prefix if there are matches returned that begin w/ the exact text
+                    search.indexStrategy = new PrefixIndexStrategy();
                     search.addIndex(['naics']);
                     search.addIndex(['naics_description']);
                     search.addDocuments(data);
-                    const results = search.search(this.state.cfdaSearchString);
-                    let improvedResults = slice(results, 0, 10);
-
-                    // Remove 'identifier' from selected NAICS to enable comparison
-                    improvedResults = this.props.selectedNAICS.toArray()
-                        .map((naics) => omit(naics, 'identifier'));
+                    const results = search.search(this.state.naicsSearchString);
+                    const improvedResults = slice(results, 0, 10);
 
                     // Filter out any selected NAICS that may be in the result set
+                    const selectedNAICS =
+                    this.props.selectedNAICS.toArray().map((naics) => omit(naics, 'identifier'));
                     if (improvedResults && improvedResults.length > 0) {
-                        autocompleteData = differenceWith(data, improvedResults, isEqual);
+                        autocompleteData = differenceWith(improvedResults, selectedNAICS, isEqual);
                     }
                     else {
-                        autocompleteData = data;
+                        autocompleteData = improvedResults;
                     }
 
                     this.setState({

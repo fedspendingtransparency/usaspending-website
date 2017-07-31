@@ -6,13 +6,14 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import PSCSearch from 'components/search/filters/psc/PSCSearch';
 
 const propTypes = {
-    updateSelectedPSC: React.PropTypes.func
+    updateSelectedPSC: PropTypes.func
 };
 
 const ga = require('react-ga');

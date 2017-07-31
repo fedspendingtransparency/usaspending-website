@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
-import * as OtherFiltersFormatter from 'helpers/otherFiltersFormatter';
-import ShownPSC from './ShownPSC';
+import ShownValue from 'components/search/filters/otherFilters/ShownValue';
 
 const propTypes = {
     selectedPSC: PropTypes.object,
@@ -19,11 +19,10 @@ export default class SelectedPSC extends React.Component {
         const shownPSC = [];
         this.props.selectedPSC.entrySeq().forEach((entry) => {
             const psc = entry[1].product_or_service_code;
-            const value = (<ShownPSC
-                psc={psc}
-                label={OtherFiltersFormatter.formatPSC(psc)}
+            const value = (<ShownValue
+                label={_.toString(psc)}
                 key={psc}
-                removePSC={this.props.removePSC.bind(null, entry[1])} />);
+                removeValue={this.props.removePSC.bind(null, entry[1])} />);
             shownPSC.push(value);
         });
 
