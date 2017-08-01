@@ -145,6 +145,57 @@ export const fetchFundingAgencies = (req) => {
     };
 };
 
+// CFDA search for autocomplete
+export const fetchCFDA = (req) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/autocomplete/cfda/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: req,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+// NAICS search for autocomplete
+export const fetchNAICS = (req) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/autocomplete/naics/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: req,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+// PSC search for autocomplete
+export const fetchPSC = (req) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/autocomplete/psc/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: req,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 // Fetch Individual Award
 export const fetchAward = (num) => {
     const source = CancelToken.source();
