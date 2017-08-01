@@ -7,10 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 
-import IBTable from 'components/sharedComponents/IBTable/IBTable';
-
-import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableGenericCell';
+import HeaderRow from './HeaderRow';
+import TableRow from './TableRow';
 import AgencyLinkCell from './cells/AgencyLinkCell';
+import GenericCell from './cells/GenericCell';
 
 const propTypes = {
     batch: PropTypes.object,
@@ -20,25 +20,7 @@ const propTypes = {
     visibleWidth: PropTypes.number
 };
 
-const rowHeight = 50;
-// setting the table height to a partial row prevents double bottom borders and also clearly
-// indicates when there's more data
-const tableHeight = 12.5 * rowHeight;
-
 export default class AgencyLandingTable extends React.PureComponent {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            yPos: 0,
-            xPos: 0,
-            dataHash: null
-        };
-
-        this.rowClassName = this.rowClassName.bind(this);
-        this.tableScrolled = this.tableScrolled.bind(this);
-    }
-
     shouldComponentUpdate(nextProps) {
         if (!Immutable.is(nextProps.batch, this.props.batch)) {
             return true;
@@ -50,29 +32,6 @@ export default class AgencyLandingTable extends React.PureComponent {
         return false;
     }
 
-    tableScrolled(xPos, yPos) {
-        // save the scroll position
-        this.setState({ xPos, yPos });
-    }
-
-    rowAtYPosition(yPos, returnTop = false) {
-        // determine the table position
-        let yPosition = yPos;
-        if (!returnTop) {
-            // return the bottom row
-            yPosition += tableHeight;
-        }
-        return Math.floor(yPosition / rowHeight);
-    }
-
-    rowClassName(index) {
-        let evenOdd = 'odd';
-        if ((index + 1) % 2 === 0) {
-            evenOdd = 'even';
-        }
-        return `agency-landing-results-row-${evenOdd}`;
-    }
-
     prepareTable() {
         let totalWidth = 0;
 
@@ -82,7 +41,6 @@ export default class AgencyLandingTable extends React.PureComponent {
             // For this table, make each column's width a percentage of the visible width
             const adjustedWidth = (this.props.visibleWidth * column.width);
             totalWidth += adjustedWidth;
-            const isLast = i === this.props.columns.length - 1;
             let cellName = null;
             if (column.columnName === 'agency_name') {
                 cellName = (index) => (
@@ -91,33 +49,27 @@ export default class AgencyLandingTable extends React.PureComponent {
                         rowIndex={index}
                         name={this.props.results[index][column.columnName]}
                         id={this.props.results[index].agency_id}
-                        dataHash={this.state.dataHash}
-                        column={column.columnName}
-                        isLastColumn={isLast} />
+                        column={column.columnName} />
                 );
             }
             else {
                 cellName = (index) => (
-                    <ResultsTableGenericCell
+                    <GenericCell
                         key={`cell-${column.columnName}-${index}`}
                         rowIndex={index}
                         data={this.props.results[index][column.columnName]}
-                        dataHash={this.state.dataHash}
-                        column={column.columnName}
-                        isLastColumn={isLast} />
+                        column={column.columnName} />
                 );
             }
             return {
                 width: adjustedWidth,
                 name: column.columnName,
                 columnId: `${column.columnName}`,
-                rowClassName: this.rowClassName,
                 header: (
                     <HeaderCell
                         label={column.displayName}
                         column={column.columnName}
-                        defaultDirection={column.defaultDirection}
-                        isLastColumn={isLast} />
+                        defaultDirection={column.defaultDirection} />
                 ),
                 cell: cellName
             };
@@ -138,19 +90,30 @@ export default class AgencyLandingTable extends React.PureComponent {
             noResultsClass = ' no-results';
         }
 
+        const rowCount = this.props.results.length;
+        const rows = [];
+        for (let i = 0; i <= (rowCount - 1); i++) {
+            const row = (<TableRow
+                dataHash={this.props.batch.searchId}
+                columns={calculatedValues.columns}
+                rowIndex={i}
+                key={`row-${i}`} />);
+            rows.push(row);
+        }
+
         return (
             <div className={`agency-landing-results-table${noResultsClass}`}>
-                <IBTable
-                    dataHash={`${this.state.dataHash}-${this.props.batch.queryId}-${this.props.visibleWidth}`}
-                    resetHash={this.props.batch.searchId}
-                    rowHeight={rowHeight}
-                    rowCount={this.props.results.length}
-                    headerHeight={50}
-                    width={this.props.visibleWidth}
-                    maxWidth={this.props.visibleWidth}
-                    maxHeight={tableHeight}
-                    columns={calculatedValues.columns}
-                    onScrollEnd={this.tableScrolled} />
+                <table>
+                    <thead>
+                        <HeaderRow
+                            maxWidth={this.props.visibleWidth}
+                            width={this.props.visibleWidth}
+                            columns={calculatedValues.columns} />
+                    </thead>
+                    <tbody>
+                        {rows}
+                    </tbody>
+                </table>
             </div>
         );
     }

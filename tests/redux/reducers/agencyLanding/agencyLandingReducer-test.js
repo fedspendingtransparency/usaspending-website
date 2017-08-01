@@ -11,7 +11,7 @@ describe('agencyLandingReducer', () => {
         it('should add Agency objects to the Redux store', () => {
             let state = agencyLandingReducer(initialState, {});
 
-            const model = new Immutable.OrderedSet([
+            const model = [
                 new Agency({
                         agency_id: 1,
                         agency_name: 'Test 1',
@@ -24,7 +24,7 @@ describe('agencyLandingReducer', () => {
                         budget_authority_amount: '2345678',
                         percentage_of_total_budget_authority: '0.023'
                     })
-            ]);
+            ];
             const action = {
               type: 'SET_AGENCIES',
               agencies: model

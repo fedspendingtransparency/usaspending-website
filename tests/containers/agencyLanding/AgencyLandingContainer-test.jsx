@@ -79,7 +79,7 @@ describe('AgencyLandingContainer', () => {
                 columns: [
                     {
                         columnName: "agency_name",
-                        defaultDirection: "desc",
+                        defaultDirection: "asc",
                         displayName: "Agency Name",
                         width: 0.35
                     },

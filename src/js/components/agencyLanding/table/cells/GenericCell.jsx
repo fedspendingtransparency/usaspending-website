@@ -1,19 +1,18 @@
 /**
- * AgencyLinkCell.jsx
- * Created by Lizzie Salita 7/13/17
+ * GenericCell.jsx
+ * Created by Lizzie Salita 08/01/17
  **/
 
 import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    name: PropTypes.array,
+    data: PropTypes.string,
     rowIndex: PropTypes.number,
-    column: PropTypes.string,
-    id: PropTypes.number
+    column: PropTypes.string
 };
 
-export default class AgencyLinkCell extends React.Component {
+export default class ResultsTableGenericCell extends React.Component {
     render() {
         // calculate even-odd class names
         let rowClass = 'row-even';
@@ -23,15 +22,13 @@ export default class AgencyLinkCell extends React.Component {
         }
 
         return (
-            <div className={`agency-link-cell column-${this.props.column} ${rowClass}`}>
+            <div className={`generic-cell column-${this.props.column} ${rowClass}`}>
                 <div className="cell-content">
-                    <a href={`/#/agency/${this.props.id}`}>
-                        {this.props.name}
-                    </a>
+                    {this.props.data}
                 </div>
             </div>
         );
     }
 }
 
-AgencyLinkCell.propTypes = propTypes;
+ResultsTableGenericCell.propTypes = propTypes;
