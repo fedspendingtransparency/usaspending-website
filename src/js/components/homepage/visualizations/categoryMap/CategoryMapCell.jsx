@@ -130,7 +130,7 @@ export default class CategoryMapCell extends React.Component {
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
-                onMouseOver={() => {
+                onMouseEnter={() => {
                     this.mouseIn(height, width);
                 }}
                 onMouseLeave={() => {

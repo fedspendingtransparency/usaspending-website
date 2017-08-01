@@ -4,8 +4,8 @@
  **/
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import DetailRow from '../DetailRow';
 
 const propTypes = {
@@ -75,7 +75,7 @@ export default class ContractDetails extends React.Component {
 
         // Location
         let popPlace = "";
-        let cityState = '';
+        let cityState = "";
         const city = award.pop_city;
         const stateProvince = award.pop_state_province;
         if (city && stateProvince) {

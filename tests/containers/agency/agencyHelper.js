@@ -1,6 +1,8 @@
 import { mockObligatedAmounts, mockCgacCode, mockFiscalQuarter }
     from './visualizations/mocks/mockObligatedAmounts';
 
+import { mockRecipient } from './visualizations/mocks/mockRecipient';
+
 // Fetch Agency Obligated Amounts
 export const fetchAgencyObligatedAmounts = () => (
     {
@@ -36,6 +38,19 @@ export const fetchAgencyFiscalQuarter = () => (
             process.nextTick(() => {
                 resolve({
                     data: mockFiscalQuarter
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+export const fetchAwardRecipients = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockRecipient
                 });
             });
         }),
