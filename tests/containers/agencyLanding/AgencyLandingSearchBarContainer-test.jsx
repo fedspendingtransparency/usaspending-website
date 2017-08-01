@@ -7,6 +7,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 import Immutable from 'immutable';
+import { Agency } from 'redux/reducers/agencyLanding/agencyLandingReducer';
 
 import { AgencyLandingSearchBarContainer } from
     'containers/agencyLanding/AgencyLandingSearchBarContainer';
@@ -175,12 +176,26 @@ describe('AgencyLandingSearchBarContainer', () => {
 
         it('should populate Agencies with matching results after performing the search', () => {
             // Setup redux state
-            // Only id's 1 & 3 have agency names with the substring we are using
-            const reduxState = [1, 3];
+            // Only Agencies 1 & 3 have agency names with the substring we are using
+            const reduxState = [
+                new Agency({
+                    "agency_id": 1,
+                    "agency_name": ["", <span>Agen</span>, "cy 1"],
+                    "budget_authority_amount": "1234567",
+                    "percentage_of_total_budget_authority": "0.01211"
+                }).toJS(),
+                new Agency({
+                    "agency_id": 3,
+                    "agency_name": ["", <span>Agen</span>, "cy 3"],
+                    "budget_authority_amount": "2345678",
+                    "percentage_of_total_budget_authority": "0.02322"
+                }).toJS()
+            ];
 
             // setup mock redux actions for handling search results
             const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual(reduxState);
+                expect(args[0].agency_id).toEqual(1);
+                expect(args[1].agency_id).toEqual(3);
             });
 
             // setup the agency list container and call the function to type a single letter

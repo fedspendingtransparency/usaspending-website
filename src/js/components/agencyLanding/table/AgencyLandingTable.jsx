@@ -37,7 +37,7 @@ export default class AgencyLandingTable extends React.PureComponent {
 
         const HeaderCell = this.props.headerCellClass;
 
-        const columns = this.props.columns.map((column, i) => {
+        const columns = this.props.columns.map((column) => {
             // For this table, make each column's width a percentage of the visible width
             const adjustedWidth = (this.props.visibleWidth * column.width);
             totalWidth += adjustedWidth;

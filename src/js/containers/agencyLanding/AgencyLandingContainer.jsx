@@ -10,8 +10,6 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import Immutable from 'immutable';
 
-import reactStringReplace from 'react-string-replace';
-
 import AgenciesTableFields from 'dataMapping/agencyLanding/agenciesTableFields';
 import * as agencyLandingActions from 'redux/actions/agencyLanding/agencyLandingActions';
 import { Agency } from 'redux/reducers/agencyLanding/agencyLandingReducer';
@@ -149,57 +147,54 @@ export class AgencyLandingContainer extends React.Component {
 
     parseAgencies(data) {
         const agencies = [];
-        const showAllAgencies = this.props.autocompleteAgencies.length === 0
-            && !this.state.noResults;
 
         data.results.forEach((item) => {
-            // If there is no search term, show all agencies.
-            // Otherwise, only show agencies that match the search input.
-            if (showAllAgencies ||
-                (this.props.autocompleteAgencies.indexOf(parseFloat(item.agency_id)) > -1)) {
-                // Create a link to the agency's profile page
-                let linkText = [item.agency_name];
+            // Format budget authority amount
+            const formattedCurrency =
+                MoneyFormatter.formatMoneyWithPrecision(item.budget_authority_amount, 0);
 
-                // If the user has entered a search term, highlight the matched substring
-                if (this.state.agencySearchString) {
-                    linkText = reactStringReplace(item.agency_name, this.state.agencySearchString, (match, i) => (
-                        <span key={match + i}>{match}</span>
-                    ));
-                }
+            // Convert from decimal value to percentage
+            const percentage = item.percentage_of_total_budget_authority * 100;
+            // Round percentage to 2 decimal places
+            let percent = Math.round(parseFloat(percentage) * 100) / 100;
 
-                // Format budget authority amount
-                const formattedCurrency =
-                    MoneyFormatter.formatMoneyWithPrecision(item.budget_authority_amount, 0);
-
-                // Convert from decimal value to percentage
-                const percentage = item.percentage_of_total_budget_authority * 100;
-                // Round percentage to 2 decimal places
-                let percent = Math.round(parseFloat(percentage) * 100) / 100;
-
-                if (percent === 0.00) {
-                    percent = 'Less than 0.01%';
-                }
-                else {
-                    percent = `${percent}%`;
-                }
-
-                const agencyObject = {
-                    agency_id: item.agency_id,
-                    agency_name: linkText,
-                    budget_authority_amount: formattedCurrency,
-                    percentage_of_total_budget_authority: percent
-                };
-
-                const agency = new Agency(agencyObject);
-                agencies.push(agency);
+            if (percent === 0.00) {
+                percent = 'Less than 0.01%';
             }
+            else {
+                percent = `${percent}%`;
+            }
+
+            const agencyObject = {
+                agency_id: item.agency_id,
+                agency_name: item.agency_name,
+                budget_authority_amount: formattedCurrency,
+                percentage_of_total_budget_authority: percent
+            };
+
+            const agency = new Agency(agencyObject);
+            agencies.push(agency);
         });
 
         this.props.setAgencies(agencies);
     }
 
     render() {
-        const resultsCount = this.props.agencies.toArray().length;
+        let results = [];
+
+        if (!this.state.noResults) {
+            // There are results
+            if (this.props.autocompleteAgencies.length === 0) {
+                // There is no search input
+                results = this.props.agencies.toArray();
+            }
+            else {
+                // There are agencies matching the search input
+                results = this.props.autocompleteAgencies;
+            }
+        }
+
+        const resultsCount = results.length;
         let resultsText = `${resultsCount} results`;
         if (resultsCount === 1) {
             resultsText = `${resultsCount} result`;
@@ -221,7 +216,7 @@ export class AgencyLandingContainer extends React.Component {
                     <AgencyLandingResultsSection
                         batch={this.props.meta.batch}
                         columns={this.state.columns}
-                        results={this.props.agencies.toArray()}
+                        results={results}
                         inFlight={this.state.inFlight}
                         agencySearchString={this.state.agencySearchString} />
                 </div>

@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Search } from 'js-search';
 import Immutable from 'immutable';
+import reactStringReplace from 'react-string-replace';
 
 import * as agencyLandingActions from 'redux/actions/agencyLanding/agencyLandingActions';
 
@@ -86,17 +87,25 @@ export class AgencyLandingSearchBarContainer extends React.Component {
             // Use the JS search library to search within the records
             const results = search.search(this.state.agencySearchString);
 
-            const matchedAgencyIds = [];
+            const matchedAgencies = [];
             results.forEach((item) => {
-                matchedAgencyIds.push(item.agency_id);
+                // highlight the matched substring
+                const updatedName = reactStringReplace(item.agency_name, this.state.agencySearchString, (match, i) => (
+                    <span key={match + i}>{match}</span>
+                ));
+                const updatedItem = Object.assign({}, item, {
+                    agency_name: updatedName
+                });
+
+                matchedAgencies.push(updatedItem);
             });
 
             // Add search results to Redux
             this.props.setAutocompleteAgencies(
-                matchedAgencyIds
+                matchedAgencies
             );
 
-            this.props.setNoResults(matchedAgencyIds.length === 0);
+            this.props.setNoResults(matchedAgencies.length === 0);
         }
         else {
             this.props.setNoResults(false);
