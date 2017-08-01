@@ -48,9 +48,11 @@ describe('RecipientContainer', () => {
         loadDataSpy.reset();
     });
 
-    it('should make a new API call when the inbound agency ID prop changes', () => {
+    it('should make a new API call when the inbound agency ID prop changes', async () => {
         const container = mount(<RecipientContainer
             {...inboundProps} />);
+
+        await container.instance().request.promise;
 
         const loadDataMock = jest.fn();
         container.instance().loadData = loadDataMock;
@@ -60,7 +62,7 @@ describe('RecipientContainer', () => {
             id: '555'
         });
 
-        // expect(loadDataSpy.callCount).toEqual(1);
+        expect(loadDataMock).toHaveBeenCalledTimes(1);
         expect(loadDataMock).toHaveBeenCalledWith('555', inboundProps.activeFY, 1);
         loadDataSpy.reset();
     });
@@ -149,8 +151,8 @@ describe('RecipientContainer', () => {
                 scope: 'all'
             });
 
-            container.instance().loadData(123, 2017, 1)
-;
+            container.instance().loadData(123, 2017, 1);
+
             await container.instance().request.promise;
             expect(apiSpy.callCount).toEqual(2);
 
