@@ -1,54 +1,48 @@
 .agency-landing-results-table {
-    // implement the library style
-    @import '../../../lib/ibTable/ibTable';
-    margin-top: rem(15);
     display: block;
     &.no-results {
         border: none;
     }
-    .award-result-generic-cell {
-        @import "./cells/_agencyLandingCell";
-        @include agencyLandingCell();
-        &.agency-link-cell {
-            .cell-content {
-                float: left;
-            }
-        }
-    }
-    .award-result-header-cell {
-        @import "./cells/_agencyLandingHeaderCell";
-        @include agencyLandingHeader();
-    }
-    // gray out even rows
-    .row-even {
-        background-color: #f7f7f7;
-    }
-
-    .ibt-table-container {
-        // override the header style
-        .ibt-header {
-            border-bottom: 1px solid #ADAFB4;
-            .ibt-header-cell {
-                background-color: $color-white;
-                &:first-child {
-                    .award-result-header-cell {
-                        .cell-content {
-                            float: left;
-                        }
-                    }
-                }
-            }
-        }
-        // placeholder background for when the user scrolls really fast, with wider strips to match larger row height
-        .ibt-table-body-container {
-            .ibt-table-body {
-                background: repeating-linear-gradient(
-                        $color-white,
-                        $color-white 50px,
-                        #f7f7f7 50px,
-                        #f7f7f7 100px
-                );
-            }
-        }
-    }
+	table {
+		margin-top: rem(15);
+		thead {
+			tr {
+				border-bottom: solid 1px $color-gray-lighter;
+				td {
+					border: 0;
+				}
+			}
+			.award-result-header-cell {
+				@import "./cells/_agencyLandingHeaderCell";
+				@include agencyLandingHeader();
+			}
+		}
+		tbody {
+			tr {
+				td {
+					border: 0;
+				}
+				.generic-cell {
+					.cell-content {
+						float: right;
+					}
+				}
+				.agency-link-cell {
+					.cell-content {
+						float: left;
+						a {
+							span {
+								text-decoration: underline;
+								font-weight: 600;
+							}
+						}
+					}
+				}
+				// gray out even rows
+				.row-even {
+					background-color: #f7f7f7;
+				}
+			}
+		}
+	}
 }
