@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isEqual, differenceWith, slice } from 'lodash';
+import { isEqual, concat, differenceWith, slice } from 'lodash';
 import { isCancel } from 'axios';
 
 import { Search } from 'js-search';
@@ -53,10 +53,19 @@ export class RecipientNameDUNSContainer extends React.Component {
         const values = [];
         if (recipients.length > 0) {
             recipients.forEach((item) => {
+                let subtitle = `DUNS: ${item.recipient_unique_id}`;
+                let duns = item.recipient_unique_id;
+                if (item.parent_recipient_unique_id) {
+                    subtitle = `Parent DUNS: ${item.parent_recipient_unique_id}`;
+                    duns = item.parent_recipient_unique_id;
+                }
+
                 values.push({
+                    subtitle,
                     title: item.recipient_name,
-                    subtitle: `DUNS: ${item.recipient_unique_id}`,
-                    data: item
+                    data: Object.assign({}, item, {
+                        duns
+                    })
                 });
             });
         }
@@ -91,7 +100,11 @@ export class RecipientNameDUNSContainer extends React.Component {
 
             this.recipientSearchRequest.promise
                 .then((res) => {
-                    this.performSecondarySearch(res.data.results);
+                    const parentResults = this.performSecondarySearch(
+                        res.data.results.parent_recipient, 'parent_recipient_unique_id');
+                    const normalResults = this.performSecondarySearch(
+                        res.data.results.recipient, 'recipient_unique_id');
+                    this.parseResults(parentResults, normalResults);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -107,12 +120,12 @@ export class RecipientNameDUNSContainer extends React.Component {
         }
     }
 
-    performSecondarySearch(data) {
+    performSecondarySearch(data, dunsKey) {
         // search within the returned data
         // create a search index with the API response records
         const search = new Search('legal_entity_id');
         search.addIndex('recipient_name');
-        search.addIndex('recipient_unique_id');
+        search.addIndex(dunsKey);
 
         // add the API response as the data source to search within
         search.addDocuments(data);
@@ -122,11 +135,13 @@ export class RecipientNameDUNSContainer extends React.Component {
 
         // combine the two arrays and limit it to 10
         const improvedResults = slice(results, 0, 10);
-
-        this.parseResults(improvedResults);
+        return improvedResults;
     }
 
-    parseResults(data) {
+    parseResults(parent, normal) {
+        // combine the two arrays
+        const data = slice(concat(parent, normal), 0, 10);
+
         let autocompleteData = [];
         const selectedRecipients = this.props.selectedRecipients.toArray();
         // Filter out any selectedRecipients that may be in the result set

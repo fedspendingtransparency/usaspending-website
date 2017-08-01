@@ -12,6 +12,7 @@ import * as RecipientFilterFunctions from './filters/recipientFilterFunctions';
 import * as AwardIDFilterFunctions from './filters/awardIDFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
 import * as BudgetCategoryFilterFunctions from './filters/budgetCategoryFilterFunctions';
+import * as OtherFilterFunctions from './filters/OtherFilterFunctions';
 
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
@@ -31,7 +32,10 @@ export const requiredTypes = {
     selectedRecipientLocations: OrderedMap,
     awardType: Set,
     selectedAwardIDs: OrderedMap,
-    awardAmounts: OrderedMap
+    awardAmounts: OrderedMap,
+    selectedCFDA: OrderedMap,
+    selectedNAICS: OrderedMap,
+    selectedPSC: OrderedMap
 };
 
 export const initialState = {
@@ -53,7 +57,10 @@ export const initialState = {
     selectedRecipientLocations: new OrderedMap(),
     awardType: new Set(),
     selectedAwardIDs: new OrderedMap(),
-    awardAmounts: new OrderedMap()
+    awardAmounts: new OrderedMap(),
+    selectedCFDA: new OrderedMap(),
+    selectedNAICS: new OrderedMap(),
+    selectedPSC: new OrderedMap()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -194,6 +201,30 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 awardAmounts: AwardAmountFilterFunctions.updateAwardAmounts(
                     state.awardAmounts, action.awardAmounts)
+            });
+        }
+
+        // CFDA Filter
+        case 'UPDATE_SELECTED_CFDA': {
+            return Object.assign({}, state, {
+                selectedCFDA: OtherFilterFunctions.updateSelectedCFDA(
+                    state.selectedCFDA, action.cfda)
+            });
+        }
+
+        // NAICS Filter
+        case 'UPDATE_SELECTED_NAICS': {
+            return Object.assign({}, state, {
+                selectedNAICS: OtherFilterFunctions.updateSelectedNAICS(
+                    state.selectedNAICS, action.naics)
+            });
+        }
+
+        // PSC Filter
+        case 'UPDATE_SELECTED_PSC': {
+            return Object.assign({}, state, {
+                selectedPSC: OtherFilterFunctions.updateSelectedPSC(
+                    state.selectedPSC, action.psc)
             });
         }
 
