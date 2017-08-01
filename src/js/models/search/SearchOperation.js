@@ -204,19 +204,19 @@ class SearchOperation {
         }
 
         // Add cfda query
-        if (this.selectedCFDA.length > 0 && this.searchContext === 'award') {
+        if (this.selectedCFDA.length > 0) {
             filters.push(OtherFiltersQuery.buildCFDAQuery(
                 this.selectedCFDA, this.searchContext));
         }
 
         // Add naics query
-        if (this.selectedNAICS.length > 0 && this.searchContext === 'award') {
+        if (this.selectedNAICS.length > 0) {
             filters.push(OtherFiltersQuery.buildNAICSQuery(
                 this.selectedNAICS, this.searchContext));
         }
 
         // Add psc query
-        if (this.selectedPSC.length > 0 && this.searchContext === 'award') {
+        if (this.selectedPSC.length > 0) {
             filters.push(OtherFiltersQuery.buildPSCQuery(
                 this.selectedPSC, this.searchContext));
         }

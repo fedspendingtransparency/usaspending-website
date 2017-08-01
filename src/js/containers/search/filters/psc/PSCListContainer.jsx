@@ -147,7 +147,7 @@ export class PSCListContainer extends React.Component {
                 values={this.state.autocompletePSC}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectPSC}
-                placeholder="eg: 1510 - Aircraft, Fixed Wing"
+                placeholder="e.g., 1510 - Aircraft, Fixed Wing"
                 errorHeader="Unknown PSC"
                 errorMessage="We were unable to find that PSC."
                 ref={(input) => {

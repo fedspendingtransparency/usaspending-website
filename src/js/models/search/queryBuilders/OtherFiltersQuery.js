@@ -24,7 +24,6 @@ export const buildCFDAQuery = (cfdaGroup, searchContext = 'award') => {
 
 export const buildNAICSQuery = (naicsGroup, searchContext = 'award') => {
     const field = FilterFields[`${searchContext}Fields`].naics;
-    // if context is award and account leave set empty
 
     const naicsSet = [];
 

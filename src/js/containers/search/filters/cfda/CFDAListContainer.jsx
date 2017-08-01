@@ -159,7 +159,7 @@ export class CFDAListContainer extends React.Component {
                 values={this.state.autocompleteCFDA}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectCFDA}
-                placeholder="eg: 10.553 - School Breakfast Program"
+                placeholder="e.g., 10.553 - School Breakfast Program"
                 errorHeader="Unknown CFDA"
                 errorMessage="We were unable to find that CFDA."
                 ref={(input) => {

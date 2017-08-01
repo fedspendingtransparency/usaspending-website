@@ -156,7 +156,7 @@ export class NAICSListContainer extends React.Component {
                 values={this.state.autocompleteNAICS}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectNAICS}
-                placeholder="eg: 33641 - Aircraft Manufacturing"
+                placeholder="e.g., 336411 - Aircraft Manufacturing"
                 errorHeader="Unknown NAICS"
                 errorMessage="We were unable to find that NAICS."
                 ref={(input) => {
