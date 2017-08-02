@@ -17,7 +17,8 @@ const propTypes = {
     results: PropTypes.array,
     columns: PropTypes.array,
     headerCellClass: PropTypes.func.isRequired,
-    visibleWidth: PropTypes.number
+    visibleWidth: PropTypes.number,
+    searchHash: PropTypes.number
 };
 
 export default class AgencyLandingTable extends React.PureComponent {
@@ -27,6 +28,9 @@ export default class AgencyLandingTable extends React.PureComponent {
         }
         else if (nextProps.visibleWidth !== this.props.visibleWidth) {
             // re-render if the window size changed
+            return true;
+        }
+        else if (nextProps.searchHash !== this.props.searchHash) {
             return true;
         }
         return false;
@@ -94,7 +98,7 @@ export default class AgencyLandingTable extends React.PureComponent {
         const rows = [];
         for (let i = 0; i <= (rowCount - 1); i++) {
             const row = (<TableRow
-                dataHash={this.props.batch.searchId}
+                dataHash={`${this.props.batch.searchId}-${this.props.searchHash}`}
                 columns={calculatedValues.columns}
                 rowIndex={i}
                 key={`row-${i}`} />);

@@ -13,6 +13,7 @@ import AgencyLandingResultsSection from './AgencyLandingResultsSection';
 const propTypes = {
     resultsText: PropTypes.string,
     results: PropTypes.array,
+    searchHash: PropTypes.number,
     agencySearchString: PropTypes.string,
     inFlight: PropTypes.bool,
     columns: PropTypes.array,
@@ -42,6 +43,7 @@ export default class AgencyLandingContent extends React.Component {
                 <div className="agency-landing-section">
                     <AgencyLandingResultsSection
                         batch={this.props.meta.batch}
+                        searchHash={this.props.searchHash}
                         columns={this.props.columns}
                         results={this.props.results}
                         inFlight={this.props.inFlight}

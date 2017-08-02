@@ -53,11 +53,6 @@ export class AgencyLandingContainer extends React.Component {
             // table sort changed
             this.fetchAgencies();
         }
-        // TODO- Lizzie: update lifecycle / don't make an API call here
-        if (this.props.autocompleteAgencies !== prevProps.autocompleteAgencies) {
-            // search input changed
-            this.fetchAgencies();
-        }
     }
 
     componentWillUnmount() {
@@ -200,11 +195,15 @@ export class AgencyLandingContainer extends React.Component {
             resultsText = `${resultsCount} result`;
         }
 
+        // Create an Ordered Set for the search hash
+        const autocompleteSet = new Immutable.OrderedSet(this.props.autocompleteAgencies);
+
         return (
             <AgencyLandingContent
                 {...this.props}
                 resultsText={resultsText}
                 results={results}
+                searchHash={autocompleteSet.hashCode()}
                 agencySearchString={this.state.agencySearchString}
                 inFlight={this.state.inFlight}
                 columns={this.state.columns}

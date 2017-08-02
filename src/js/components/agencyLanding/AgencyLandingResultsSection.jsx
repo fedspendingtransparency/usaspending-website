@@ -14,7 +14,8 @@ const propTypes = {
     inFlight: PropTypes.bool,
     results: PropTypes.array,
     columns: PropTypes.array,
-    agencySearchString: PropTypes.string
+    agencySearchString: PropTypes.string,
+    searchHash: PropTypes.number
 };
 
 export default class AgencyLandingResultsSection extends React.Component {

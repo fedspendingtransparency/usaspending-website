@@ -42,9 +42,6 @@ describe('AgencyLandingContainer', () => {
             autocompleteAgencies: []
         });
 
-        // componentDidMount doesn't get called automatically with shallow
-        container.instance().showColumns();
-
         await container.instance().agenciesRequest.promise;
 
         expect(fetchAgenciesSpy.callCount).toEqual(1);
