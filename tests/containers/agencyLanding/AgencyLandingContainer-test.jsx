@@ -24,6 +24,7 @@ jest.mock('helpers/agencyLandingHelper', () => require('./agencyLandingHelper'))
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 const setup = (props) => shallow(<AgencyLandingContainer {...props} />);
+const setupMount = (props) => mount(<AgencyLandingContainer {...props} />);
 
 // spy on specific functions inside the component
 const fetchAgenciesSpy = sinon.spy(AgencyLandingContainer.prototype, 'fetchAgencies');
@@ -37,7 +38,7 @@ describe('AgencyLandingContainer', () => {
 
     it('should make an API request on mount', async () => {
         // mount the container
-        const container = setup({
+        const container = setupMount({
             agencies: new Immutable.OrderedSet([]),
             agenciesOrder: mockAgenciesOrder,
             meta: mockMeta,
@@ -55,10 +56,6 @@ describe('AgencyLandingContainer', () => {
         // reset the spy
         fetchAgenciesSpy.reset();
         parseAgenciesSpy.reset();
-    });
-
-    it('should make an API requeset when the sort order changes', async () => {
-
     });
 
     describe('showColumns', () => {
@@ -108,17 +105,17 @@ describe('AgencyLandingContainer', () => {
     });
 
     describe('parseAgencies', () => {
-        it('should parse the API response and overwrite the Redux agencies', (done) => {
+        it('should parse the API response and overwrite the Redux agencies', () => {
             const expected = Object.assign({},new Immutable.OrderedSet([
                 new Agency({
                     agency_id: 1,
-                    agency_name: ['Agency 1'],
+                    agency_name: 'Agency 1',
                     budget_authority_amount: "$1,234,567",
                     percentage_of_total_budget_authority: "1.21%"
                 }),
                 new Agency({
                     agency_id: 2,
-                    agency_name: ['Agency 2'],
+                    agency_name: 'Agency 2',
                     budget_authority_amount: "$2,345,678",
                     percentage_of_total_budget_authority: "2.32%"
                 })
@@ -131,7 +128,6 @@ describe('AgencyLandingContainer', () => {
                 //delete model._jsid;
 
                 expect(model).toEqual(expected);
-                done();
             });
 
             const container = setup({
