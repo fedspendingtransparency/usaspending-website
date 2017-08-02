@@ -42,8 +42,8 @@ export default class RecipientFilterGroup extends React.Component {
 
         recipients.forEach((value) => {
             const tag = {
-                value: `${value.recipient_unique_id}`,
-                title: `${value.recipient_name} | ${value.recipient_unique_id}`,
+                value: `${value.legal_entity_id}`,
+                title: `${value.recipient_name} | ${value.duns}`,
                 isSpecial: false,
                 removeFilter: this.removeFilter
             };

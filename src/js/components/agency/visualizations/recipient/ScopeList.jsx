@@ -6,8 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
-
 import RankVisualizationScopeButton from
     'components/search/visualizations/rank/RankVisualizationScopeButton';
 
@@ -30,50 +28,40 @@ export default class ScopeList extends React.Component {
                                     active={this.props.scope === 'all'}
                                     changeScope={this.props.changeScope} />
                             </li>
-                            <li className="coming-soon">
+                            <li>
                                 <RankVisualizationScopeButton
-                                    value="contracts"
+                                    value="contract"
                                     label="Contracts"
-                                    active={this.props.scope === 'contracts'}
-                                    changeScope={this.props.changeScope}
-                                    disabled />
-                                <ComingSoonLabel />
+                                    active={this.props.scope === 'contract'}
+                                    changeScope={this.props.changeScope} />
                             </li>
-                            <li className="coming-soon">
+                            <li>
                                 <RankVisualizationScopeButton
-                                    value="grants"
+                                    value="grant"
                                     label="Grants"
-                                    active={this.props.scope === 'grants'}
-                                    changeScope={this.props.changeScope}
-                                    disabled />
-                                <ComingSoonLabel />
+                                    active={this.props.scope === 'grant'}
+                                    changeScope={this.props.changeScope} />
                             </li>
-                            <li className="coming-soon">
+                            <li>
                                 <RankVisualizationScopeButton
-                                    value="direct_payments"
+                                    value="direct payments"
                                     label="Direct Payments"
-                                    active={this.props.scope === 'direct_payments'}
-                                    changeScope={this.props.changeScope}
-                                    disabled />
-                                <ComingSoonLabel />
+                                    active={this.props.scope === 'direct payments'}
+                                    changeScope={this.props.changeScope} />
                             </li>
-                            <li className="coming-soon">
+                            <li>
                                 <RankVisualizationScopeButton
                                     value="loans"
                                     label="Loans"
                                     active={this.props.scope === 'loans'}
-                                    changeScope={this.props.changeScope}
-                                    disabled />
-                                <ComingSoonLabel />
+                                    changeScope={this.props.changeScope} />
                             </li>
-                            <li className="coming-soon">
+                            <li>
                                 <RankVisualizationScopeButton
                                     value="other"
                                     label="Other"
                                     active={this.props.scope === 'other'}
-                                    changeScope={this.props.changeScope}
-                                    disabled />
-                                <ComingSoonLabel />
+                                    changeScope={this.props.changeScope} />
                             </li>
                         </ul>
                     </div>

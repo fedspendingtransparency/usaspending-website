@@ -41,7 +41,7 @@ export class GlossaryContainer extends React.Component {
 
         this.performSearch = this.performSearch.bind(this);
     }
-    componentDidMount() {
+    componentWillMount() {
         GlossaryListenerSingleton.subscribe(this);
 
         // on the first load, populate the cache
@@ -58,6 +58,9 @@ export class GlossaryContainer extends React.Component {
     }
 
     componentWillUnmount() {
+        if (this.request) {
+            this.request.cancel();
+        }
         GlossaryListenerSingleton.unsubscribe(this);
     }
 

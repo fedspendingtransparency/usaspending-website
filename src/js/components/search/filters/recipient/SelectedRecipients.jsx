@@ -20,7 +20,7 @@ export default class SelectedRecipients extends React.Component {
             const recipient = entry[1];
             const value = (<ShownRecipient
                 recipient={recipient}
-                label={`${recipient.recipient_name} | ${recipient.recipient_unique_id}`}
+                label={`${recipient.recipient_name} | ${recipient.duns}`}
                 key={key}
                 toggleRecipient={this.props.toggleRecipient.bind(null, recipient)} />);
             shownRecipients.push(value);
