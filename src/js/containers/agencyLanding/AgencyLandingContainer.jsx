@@ -16,8 +16,7 @@ import { Agency } from 'redux/reducers/agencyLanding/agencyLandingReducer';
 import * as AgencyLandingHelper from 'helpers/agencyLandingHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import AgencyLandingResultsSection from 'components/agencyLanding/AgencyLandingResultsSection';
-import AgencyLandingSearchBarContainer from './AgencyLandingSearchBarContainer';
+import AgencyLandingContent from 'components/agencyLanding/AgencyLandingContent';
 
 const propTypes = {
     agencies: PropTypes.instanceOf(Immutable.OrderedSet),
@@ -54,6 +53,7 @@ export class AgencyLandingContainer extends React.Component {
             // table sort changed
             this.fetchAgencies();
         }
+        // TODO- Lizzie: update lifecycle / don't make an API call here
         if (this.props.autocompleteAgencies !== prevProps.autocompleteAgencies) {
             // search input changed
             this.fetchAgencies();
@@ -167,7 +167,7 @@ export class AgencyLandingContainer extends React.Component {
 
             const agencyObject = {
                 agency_id: item.agency_id,
-                agency_name: item.agency_name,
+                agency_name: [item.agency_name],
                 budget_authority_amount: formattedCurrency,
                 percentage_of_total_budget_authority: percent
             };
@@ -201,26 +201,15 @@ export class AgencyLandingContainer extends React.Component {
         }
 
         return (
-            <div className="agency-landing-container">
-                <div className="agency-landing-section">
-                    <div className="agency-landing-search">
-                        <AgencyLandingSearchBarContainer
-                            setAgencySearchString={this.setAgencySearchString}
-                            setNoResults={this.setNoResults} />
-                    </div>
-                </div>
-                <div className="agency-landing-section results-count">
-                    {resultsText}
-                </div>
-                <div className="agency-landing-section">
-                    <AgencyLandingResultsSection
-                        batch={this.props.meta.batch}
-                        columns={this.state.columns}
-                        results={results}
-                        inFlight={this.state.inFlight}
-                        agencySearchString={this.state.agencySearchString} />
-                </div>
-            </div>
+            <AgencyLandingContent
+                {...this.props}
+                resultsText={resultsText}
+                results={results}
+                agencySearchString={this.state.agencySearchString}
+                inFlight={this.state.inFlight}
+                columns={this.state.columns}
+                setAgencySearchString={this.setAgencySearchString}
+                setNoResults={this.setNoResults} />
         );
     }
 }

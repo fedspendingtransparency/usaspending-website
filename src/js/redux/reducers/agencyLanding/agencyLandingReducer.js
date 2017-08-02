@@ -16,8 +16,8 @@ export const Agency = Record({
 const initialState = {
     agencies: new OrderedSet(),
     agenciesOrder: {
-        field: 'agency_name',
-        direction: 'asc'
+        field: 'percentage_of_total_budget_authority',
+        direction: 'desc'
     },
     agenciesMeta: {
         batch: {

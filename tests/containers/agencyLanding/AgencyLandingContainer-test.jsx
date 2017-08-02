@@ -11,10 +11,8 @@ import { Agency } from 'redux/reducers/agencyLanding/agencyLandingReducer';
 
 import { AgencyLandingContainer } from
     'containers/agencyLanding/AgencyLandingContainer';
-import { AgencyLandingSearchBarContainer } from
-    'containers/agencyLanding/AgencyLandingSearchBarContainer';
-import AgencyLandingResultsSection from
-    'components/agencyLanding/AgencyLandingResultsSection';
+import AgencyLandingContent from
+    'components/agencyLanding/AgencyLandingContent';
 
 
 import { mockComponent, unmockComponent } from '../../testResources/mockComponent';
@@ -32,8 +30,7 @@ const parseAgenciesSpy = sinon.spy(AgencyLandingContainer.prototype, 'parseAgenc
 
 describe('AgencyLandingContainer', () => {
     beforeAll(() => {
-        mockComponent(AgencyLandingResultsSection);
-        mockComponent(AgencyLandingSearchBarContainer);
+        mockComponent(AgencyLandingContent);
     });
 
     it('should make an API request on mount', async () => {
@@ -109,13 +106,13 @@ describe('AgencyLandingContainer', () => {
             const expected = Object.assign({},new Immutable.OrderedSet([
                 new Agency({
                     agency_id: 1,
-                    agency_name: 'Agency 1',
+                    agency_name: ['Agency 1'],
                     budget_authority_amount: "$1,234,567",
                     percentage_of_total_budget_authority: "1.21%"
                 }),
                 new Agency({
                     agency_id: 2,
-                    agency_name: 'Agency 2',
+                    agency_name: ['Agency 2'],
                     budget_authority_amount: "$2,345,678",
                     percentage_of_total_budget_authority: "2.32%"
                 })
