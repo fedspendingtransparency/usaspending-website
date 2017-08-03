@@ -34,14 +34,11 @@ export class AgencyLandingContainer extends React.Component {
             columns: [],
             inFlight: false,
             currentFY: '',
-            agencySearchString: '',
-            autocompleteAgencies: [],
-            noResults: false
+            agencySearchString: ''
         };
 
         this.agenciesRequest = null;
         this.setAgencySearchString = this.setAgencySearchString.bind(this);
-        this.setNoResults = this.setNoResults.bind(this);
     }
 
     componentDidMount() {
@@ -67,16 +64,9 @@ export class AgencyLandingContainer extends React.Component {
         });
     }
 
-    setNoResults(noResults) {
-        this.setState({
-            noResults
-        });
-    }
-
     showColumns() {
         const columns = [];
         const sortOrder = AgenciesTableFields.defaultSortDirection;
-        const widths = AgenciesTableFields.columnWidthPercentage;
 
         AgenciesTableFields.order.forEach((col) => {
             let displayName = AgenciesTableFields[col];
@@ -90,7 +80,6 @@ export class AgencyLandingContainer extends React.Component {
             const column = {
                 columnName: col,
                 displayName,
-                width: widths[col],
                 defaultDirection: sortOrder[col]
             };
             columns.push(column);
@@ -148,16 +137,12 @@ export class AgencyLandingContainer extends React.Component {
             const formattedCurrency =
                 MoneyFormatter.formatMoneyWithPrecision(item.budget_authority_amount, 0);
 
-            // Convert from decimal value to percentage
-            const percentage = item.percentage_of_total_budget_authority * 100;
-            // Round percentage to 2 decimal places
-            let percent = Math.round(parseFloat(percentage) * 100) / 100;
+            // Convert from decimal value to percentage and round to 2 decimal places
+            const percentage = (item.percentage_of_total_budget_authority * 100).toFixed(2);
 
-            if (percent === 0.00) {
+            let percent = `${percentage}%`;
+            if (percentage === 0.00) {
                 percent = 'Less than 0.01%';
-            }
-            else {
-                percent = `${percent}%`;
             }
 
             const agencyObject = {
@@ -175,18 +160,10 @@ export class AgencyLandingContainer extends React.Component {
     }
 
     render() {
-        let results = [];
+        let results = this.props.agencies.toArray();
 
-        if (!this.state.noResults) {
-            // There are results
-            if (this.props.autocompleteAgencies.length === 0) {
-                // There is no search input
-                results = this.props.agencies.toArray();
-            }
-            else {
-                // There are agencies matching the search input
-                results = this.props.autocompleteAgencies;
-            }
+        if (this.state.agencySearchString.length > 1) {
+            results = this.props.autocompleteAgencies;
         }
 
         const resultsCount = results.length;
@@ -203,12 +180,11 @@ export class AgencyLandingContainer extends React.Component {
                 {...this.props}
                 resultsText={resultsText}
                 results={results}
-                searchHash={autocompleteSet.hashCode()}
+                searchHash={`${autocompleteSet.hashCode()} - ${this.state.agencySearchString}`}
                 agencySearchString={this.state.agencySearchString}
                 inFlight={this.state.inFlight}
                 columns={this.state.columns}
-                setAgencySearchString={this.setAgencySearchString}
-                setNoResults={this.setNoResults} />
+                setAgencySearchString={this.setAgencySearchString} />
         );
     }
 }

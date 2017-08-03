@@ -4,12 +4,6 @@ const agenciesTableFields = {
         budget_authority_amount: 'desc',
         percentage_of_total_budget_authority: 'desc'
     },
-    // Fraction of the visible width the column should take up
-    columnWidthPercentage: {
-        agency_name: 0.35,
-        budget_authority_amount: 0.3,
-        percentage_of_total_budget_authority: 0.35
-    },
     defaultSortField: 'agency_name',
     order: [
         'agency_name',

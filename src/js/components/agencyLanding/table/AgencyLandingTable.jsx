@@ -18,7 +18,7 @@ const propTypes = {
     columns: PropTypes.array,
     headerCellClass: PropTypes.func.isRequired,
     visibleWidth: PropTypes.number,
-    searchHash: PropTypes.number
+    searchHash: PropTypes.string
 };
 
 export default class AgencyLandingTable extends React.PureComponent {

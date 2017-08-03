@@ -13,12 +13,11 @@ import AgencyLandingResultsSection from './AgencyLandingResultsSection';
 const propTypes = {
     resultsText: PropTypes.string,
     results: PropTypes.array,
-    searchHash: PropTypes.number,
+    searchHash: PropTypes.string,
     agencySearchString: PropTypes.string,
     inFlight: PropTypes.bool,
     columns: PropTypes.array,
     setAgencySearchString: PropTypes.func,
-    setNoResults: PropTypes.func,
     agencies: PropTypes.instanceOf(Immutable.OrderedSet),
     agenciesOrder: PropTypes.object,
     setAgencies: PropTypes.func,
@@ -39,8 +38,7 @@ export default class AgencyLandingContent extends React.Component {
                 </div>
                 <div className="landing-page-section">
                     <AgencyLandingSearchBarContainer
-                        setAgencySearchString={this.props.setAgencySearchString}
-                        setNoResults={this.props.setNoResults} />
+                        setAgencySearchString={this.props.setAgencySearchString} />
                 </div>
                 <div className="landing-page-section results-count">
                     {this.props.resultsText}

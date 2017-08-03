@@ -71,27 +71,22 @@ describe('AgencyLandingContainer', () => {
                     {
                         columnName: "agency_name",
                         defaultDirection: "asc",
-                        displayName: "Agency Name",
-                        width: 0.35
+                        displayName: "Agency Name"
                     },
                     {
                         columnName: "budget_authority_amount",
                         defaultDirection: "desc",
-                        displayName: "Budget Authority",
-                        width: 0.3
+                        displayName: "Budget Authority"
                     },
                     {
                         columnName: "percentage_of_total_budget_authority",
                         defaultDirection: "desc",
-                        displayName: "Percent of Total U.S. Budget",
-                        width: 0.35
+                        displayName: "Percent of Total U.S. Budget"
                     }
                 ],
                 inFlight: false,
                 currentFY: '',
-                agencySearchString: '',
-                autocompleteAgencies: [],
-                noResults: false
+                agencySearchString: ''
             };
 
             expect(container.state()).toEqual(expectedState);

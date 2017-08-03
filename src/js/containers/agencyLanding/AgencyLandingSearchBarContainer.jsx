@@ -17,7 +17,6 @@ import AgencyLandingSearchBar from 'components/agencyLanding/AgencyLandingSearch
 
 const propTypes = {
     setAgencySearchString: PropTypes.func,
-    setNoResults: PropTypes.func,
     setAutocompleteAgencies: PropTypes.func,
     autocompleteAgencies: PropTypes.array,
     agencies: PropTypes.instanceOf(Immutable.OrderedSet)
@@ -48,9 +47,6 @@ export class AgencyLandingSearchBarContainer extends React.Component {
     handleTextInput(agencyInput) {
         // Clear existing agencies
         this.props.setAutocompleteAgencies([]);
-        if (agencyInput === '') {
-            this.props.setNoResults(false);
-        }
 
         // Grab input, clear any exiting timeout
         const input = agencyInput.target.value;
@@ -104,11 +100,8 @@ export class AgencyLandingSearchBarContainer extends React.Component {
             this.props.setAutocompleteAgencies(
                 matchedAgencies
             );
-
-            this.props.setNoResults(matchedAgencies.length === 0);
         }
         else {
-            this.props.setNoResults(false);
             this.props.setAgencySearchString('');
             this.setState({
                 agencySearchString: ''

@@ -15,7 +15,7 @@ const propTypes = {
     results: PropTypes.array,
     columns: PropTypes.array,
     agencySearchString: PropTypes.string,
-    searchHash: PropTypes.number
+    searchHash: PropTypes.string
 };
 
 export default class AgencyLandingResultsSection extends React.Component {
