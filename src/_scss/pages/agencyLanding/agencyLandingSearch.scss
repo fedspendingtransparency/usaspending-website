@@ -2,34 +2,49 @@
     .agency-landing-search {
         @include span-columns(16);
         background-color: $color-primary-alt-lightest;
-        padding: rem(30);
+        padding: rem(5);
         border: 1px solid $color-vis-lightest;
         text-align: center;
         form {
-            // TODO - Lizzie: add mobile styling
             position: relative;
             input.search-field {
                 color: $color-gray-light;
-                font-size: rem(28);
+                font-size: rem(14);
                 font-weight: 300;
                 line-height: rem(36);
-                padding: rem(15);
-                width: 75%;
-                padding-right: rem(30);
+                padding: 0 rem(30) 0 rem(4);
+                width: 100%;
             }
             .search-button {
                 position: absolute;
-                left: 80%;
-                top: rem(15);
+                top: rem(5);
+	            left: 90%;
 
                 @include button-unstyled;
-                width: 36px;
-                height: 36px;
+                width: 25px;
+                height: 25px;
 
                 svg {
                     fill: $color-gray-light;
                 }
             }
         }
+	    @include media($medium-screen) {
+		    padding: rem(30);
+		    form {
+			    input.search-field {
+				    width: 75%;
+				    font-size: rem(28);
+				    padding: rem(15);
+				    padding-right: rem(30);
+			    }
+			    .search-button {
+				    left: 80%;
+				    top: rem(15);
+				    width: 36px;
+				    height: 36px;
+			    }
+		    }
+	    }
     }
 }

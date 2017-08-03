@@ -14,15 +14,8 @@ const propTypes = {
 
 export default class ResultsTableGenericCell extends React.Component {
     render() {
-        // calculate even-odd class names
-        let rowClass = 'row-even';
-        if (this.props.rowIndex % 2 === 0) {
-            // row index is zero-based
-            rowClass = 'row-odd';
-        }
-
         return (
-            <div className={`generic-cell column-${this.props.column} ${rowClass}`}>
+            <div className={`generic-cell column-${this.props.column}`}>
                 <div className="cell-content">
                     {this.props.data}
                 </div>

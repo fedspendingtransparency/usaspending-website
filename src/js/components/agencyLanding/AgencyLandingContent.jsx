@@ -29,18 +29,23 @@ const propTypes = {
 export default class AgencyLandingContent extends React.Component {
     render() {
         return (
-            <div className="agency-landing-container">
-                <div className="agency-landing-section">
-                    <div className="agency-landing-search">
-                        <AgencyLandingSearchBarContainer
-                            setAgencySearchString={this.props.setAgencySearchString}
-                            setNoResults={this.props.setNoResults} />
-                    </div>
+            <div className="landing-page-content">
+                <div className="landing-page-overview">
+                    <h3>Find an Agency Profile.</h3>
+                    <h6>Understand the current spending of agencies in our agency profiles.</h6>
+                    <p>These include the 15 executive departments whose leaders sit on the
+                        President&#39;s Cabinet, as well as small independent boards and
+                        commissions. They range in size from $700 billion down to less than $200,000.</p>
                 </div>
-                <div className="agency-landing-section results-count">
+                <div className="landing-page-section">
+                    <AgencyLandingSearchBarContainer
+                        setAgencySearchString={this.props.setAgencySearchString}
+                        setNoResults={this.props.setNoResults} />
+                </div>
+                <div className="landing-page-section results-count">
                     {this.props.resultsText}
                 </div>
-                <div className="agency-landing-section">
+                <div className="landing-page-section">
                     <AgencyLandingResultsSection
                         batch={this.props.meta.batch}
                         searchHash={this.props.searchHash}

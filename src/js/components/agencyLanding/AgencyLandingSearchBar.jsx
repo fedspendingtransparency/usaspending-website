@@ -19,7 +19,7 @@ export default class AgencyLandingSearchBar extends React.Component {
 
     render() {
         return (
-            <div className="agency-search-bar">
+            <div className="agency-landing-search">
                 <form>
                     <input
                         className="search-field"

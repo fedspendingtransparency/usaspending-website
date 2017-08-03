@@ -1,35 +1,17 @@
 .usa-da-agency-landing {
-    @import "layouts/summary/summary";
-    @import "mixins/fullSectionWrap";
+	@import "layouts/landingPage/landingPage";
     @import "./header/header";
     @import './agencyLandingSearch';
     @import './table/resultsSection';
 
-    .agency-landing-content {
-        padding: ($global-pad * 2) 0;
-        .agency-landing-overview {
-            @include span-columns(12);
-            @include shift(2);
-            text-align: center;
-            h3 {
-                margin-top: 0;
-            }
-            p {
-                color: $color-gray-medium;
-                margin-bottom: rem(30);
-            }
-        }
-        .agency-landing-container {
-            .agency-landing-section {
-                @include fullSectionWrap(0,0);
-                &.results-count {
-                    font-style: italic;
-                    padding: rem(20) 0;
-                    font-size: rem(16);
-                }
-            }
-            @include agencyLandingSearch;
-            @include resultsSection;
+    .landing-page-section {
+        &.results-count {
+            font-style: italic;
+            padding: rem(20) 0;
+            font-size: rem(16);
         }
     }
+    @include agencyLandingSearch;
+    @include resultsSection;
+
 }

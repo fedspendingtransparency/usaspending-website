@@ -107,7 +107,7 @@ export default class AgencyLandingTable extends React.PureComponent {
 
         return (
             <div className={`agency-landing-results-table${noResultsClass}`}>
-                <table>
+                <table width={this.props.visibleWidth}>
                     <thead>
                         <HeaderRow
                             maxWidth={this.props.visibleWidth}
