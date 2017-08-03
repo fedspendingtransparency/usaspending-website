@@ -137,6 +137,28 @@ export const updateAwardAmounts = (state) => ({
     awardAmounts: state
 });
 
+
+// CFDA Filter
+
+export const updateSelectedCFDA = (state) => ({
+    type: 'UPDATE_SELECTED_CFDA',
+    cfda: state.cfda
+});
+
+// NAICS Filter
+
+export const updateSelectedNAICS = (state) => ({
+    type: 'UPDATE_SELECTED_NAICS',
+    naics: state.naics
+});
+
+// PSC Filter
+
+export const updateSelectedPSC = (state) => ({
+    type: 'UPDATE_SELECTED_PSC',
+    psc: state.psc
+});
+
 // Contract Pricing Type Filter
 
 export const updatePricingType = (state) => ({

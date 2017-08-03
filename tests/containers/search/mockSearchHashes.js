@@ -27,6 +27,9 @@ export const mockFilters = {
             selectedRecipientLocations: {},
             awardAmounts: {},
             timePeriodEnd: null,
+            selectedCFDA: {},
+            selectedNAICS: {},
+            selectedPSC: {},
             pricingType: [],
             setAside: [],
             extentCompeted: []

@@ -350,7 +350,7 @@ describe('searchFiltersReducer', () => {
             recipient: mockRecipient
         };
 
-        const recipient = "006928857";
+        const recipient = '2222';
 
         const expectedRecipient = mockRecipient;
 
@@ -626,6 +626,117 @@ describe('searchFiltersReducer', () => {
             expect(updatedState.awardAmounts).toEqual(new OrderedMap({
                 specific: specificAwardAmount
             }));
+        });
+    });
+
+
+    describe('UPDATE_SELECTED_CFDA', () => {
+        const action = {
+            type: 'UPDATE_SELECTED_CFDA',
+            cfda: {
+                identifier: "10.101",
+                program_number: "10.101",
+                popular_name: "",
+                program_title: "Hawaii Sugar Disaster Program"
+            }
+        };
+
+        const cfdaNum = "10.101";
+
+        const expectedCFDA = {
+            identifier: "10.101",
+            program_number: "10.101",
+            popular_name: "",
+            program_title: "Hawaii Sugar Disaster Program"
+        };
+
+        it('should add the provided cfda if it does not currently exist in the filter', () => {
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.selectedCFDA).toEqual(new OrderedMap({
+                [cfdaNum]: expectedCFDA
+            }));
+        });
+
+        it('should remove the provided cfda if already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                selectedCFDA: new OrderedMap({
+                    [cfdaNum]: expectedCFDA
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.selectedCFDA).toEqual(new OrderedMap());
+        });
+    });
+
+    describe('UPDATE_SELECTED_NAICS', () => {
+        const action = {
+            type: 'UPDATE_SELECTED_NAICS',
+            naics: {
+                identifier: "333318",
+                naics: "333318",
+                naics_description: "OTHER COMMERCIAL AND SERVICE INDUSTRY MACHINERY MANUFACTURING"
+            }
+        };
+
+        const naicsNum = "333318";
+
+        const expectedNAICS = {
+            identifier: "333318",
+            naics: "333318",
+            naics_description: "OTHER COMMERCIAL AND SERVICE INDUSTRY MACHINERY MANUFACTURING"
+        };
+
+        it('should add the provided naics if it does not currently exist in the filter', () => {
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.selectedNAICS).toEqual(new OrderedMap({
+                [naicsNum]: expectedNAICS
+            }));
+        });
+
+        it('should remove the provided naics if already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                selectedNAICS: new OrderedMap({
+                    [naicsNum]: expectedNAICS
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.selectedNAICS).toEqual(new OrderedMap());
+        });
+    });
+
+    describe('UPDATE_SELECTED_PSC', () => {
+        const action = {
+            type: 'UPDATE_SELECTED_PSC',
+            psc: {
+                product_or_service_code: "1375"
+            }
+        };
+
+        const pscNum = "1375";
+
+        const expectedPSC = {
+            identifier: "1375",
+            product_or_service_code: "1375"
+        };
+
+        it('should add the provided psc if it does not currently exist in the filter', () => {
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.selectedPSC).toEqual(new OrderedMap({
+                [pscNum]: expectedPSC
+            }));
+        });
+
+        it('should remove the provided psc if already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                selectedPSC: new OrderedMap({
+                    [pscNum]: expectedPSC
+                })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.selectedPSC).toEqual(new OrderedMap());
         });
     });
 

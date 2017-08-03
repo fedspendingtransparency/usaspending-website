@@ -6,45 +6,56 @@ export const mockRecipientLocation = [{
 }];
 
 export const mockRecipientDUNS = {
-    results: [{
-        legal_entity_id: 1256,
-        recipient_name: "BOOZ ALLEN HAMILTON INC.",
-        recipient_unique_id: "077368509"
-    }, {
-        legal_entity_id: 35,
-        recipient_name: "BOOZ ALLEN HAMILTON INC",
-        recipient_unique_id: "006928857"
-    }, {
-        legal_entity_id: 3961,
-        recipient_name: "BOOZ ALLEN HAMILTON INC.",
-        recipient_unique_id: "004679015"
-    }, {
-        legal_entity_id: 2511,
-        recipient_name: "ALLAN BAKER, INC.",
-        recipient_unique_id: "147795132"
-    }, {
-        legal_entity_id: 3939,
-        recipient_name: "ALL BUSINESS MACHINES, INC.",
-        recipient_unique_id: "104178756"
-    }, {
-        legal_entity_id: 6609,
-        recipient_name: "BOVA, JEFFREY ALAN",
-        recipient_unique_id: "078440988"
-    }, {
-        legal_entity_id: 8482,
-        recipient_name: "FOR ALL SEASONS INC",
-        recipient_unique_id: "179268370"
-    }, {
-        legal_entity_id: 1190,
-        recipient_name: "ALLSTEEL INC.",
-        recipient_unique_id: "120316711"
-    }, {
-        legal_entity_id: 8593,
-        recipient_name: "BOONE, TOWN OF",
-        recipient_unique_id: "021395942"
-    }, {
-        legal_entity_id: 8346,
-        recipient_name: "ALLEN, CITY OF",
-        recipient_unique_id: "788275956"
-    }]
+    results: {
+        parent_recipient: [
+            {
+                legal_entity_id: 1111,
+                recipient_name: "MEGA CONGLOMERATE CORP",
+                parent_recipient_unique_id: "001122334"
+            }
+        ],
+        recipient: [
+            {
+                legal_entity_id: 2222,
+                recipient_name: "MEGA CONGLOMERATE CORP PIZZA DIVISION",
+                recipient_unique_id: "001122335"
+            }
+        ]
+    }
 };
+
+export const mockAutocompleteRedux = [
+    {
+        legal_entity_id: 1111,
+        recipient_name: "MEGA CONGLOMERATE CORP",
+        parent_recipient_unique_id: "001122334"
+    },
+    {
+        legal_entity_id: 2222,
+        recipient_name: "MEGA CONGLOMERATE CORP PIZZA DIVISION",
+        recipient_unique_id: "001122335"
+    }
+];
+
+export const expectedAutocomplete = [
+    {
+        title: 'MEGA CONGLOMERATE CORP',
+        subtitle: 'Parent DUNS: 001122334',
+        data: {
+            legal_entity_id: 1111,
+            recipient_name: "MEGA CONGLOMERATE CORP",
+            parent_recipient_unique_id: "001122334",
+            duns: "001122334"
+        }
+    },
+    {
+        title: 'MEGA CONGLOMERATE CORP PIZZA DIVISION',
+        subtitle: 'DUNS: 001122335',
+        data: {
+            legal_entity_id: 2222,
+            recipient_name: "MEGA CONGLOMERATE CORP PIZZA DIVISION",
+            recipient_unique_id: "001122335",
+            duns: "001122335"
+        }
+    }
+];

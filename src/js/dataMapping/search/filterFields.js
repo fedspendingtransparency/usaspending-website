@@ -25,6 +25,11 @@ export const awardFields = {
     budgetFunctionTitle: 'financial_set__treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'financial_set__treasury_account__budget_subfunction_title',
     federalAccount: 'financial_set__treasury_account__federal_account_id',
+    cfdaNumber: 'latest_transaction__assistance_data__cfda__program_number',
+    cfdaTitle: 'latest_transaction__assistance_data__cfda__program_title',
+    naics: 'latest_transaction__contract_data__naics',
+    naicsDescription: 'latest_transaction__contract_data__naics_description',
+    psc: 'latest_transaction__contract_data__product_or_service_code',
     pricingType: 'latest_transaction__contract_data__type_of_contract_pricing',
     setAside: 'latest_transaction__contract_data__type_set_aside',
     extentCompeted: 'latest_transaction__contract_data__extent_competed'

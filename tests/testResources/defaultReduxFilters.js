@@ -25,6 +25,9 @@ export const defaultFilters = {
     selectedRecipientLocations: new OrderedMap(),
     selectedAwardIDs: new OrderedMap(),
     awardAmounts: new OrderedMap(),
+    selectedCFDA: new OrderedMap(),
+    selectedNAICS: new OrderedMap(),
+    selectedPSC: new OrderedMap(),
     pricingType: new Set(),
     setAside: new Set(),
     extentCompeted: new Set()
