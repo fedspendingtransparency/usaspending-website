@@ -38,7 +38,8 @@
             cursor: pointer;
             @include transition(all 0.25s $ease-in-out-sine);
             & .close {
-                & svg {
+                & svg,
+                & path {
                     cursor: pointer;
                     fill: $color-cool-blue;
                 }
