@@ -10,8 +10,6 @@ import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
 import LocationSearchContainer from 'containers/search/filters/location/LocationSearchContainer';
-import BudgetCategorySearchContainer
-    from 'containers/search/filters/budgetCategory/BudgetCategorySearchContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
 import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
@@ -27,25 +25,23 @@ const filters = {
     options: [
         'Search',
         'Time Period',
-        'Place of Performance',
-        'Budget Categories',
+        'Award Type',
         'Agencies',
         'Recipients',
-        'Award Type',
-        'Award ID',
+        'Place of Performance',
         'Award Amount',
+        'Award ID',
         'Other Award Items'
     ],
     components: [
         KeywordContainer,
         TimePeriodContainer,
-        LocationSearchContainer,
-        BudgetCategorySearchContainer,
+        AwardTypeContainer,
         AgencyContainer,
         RecipientSearchContainer,
-        AwardTypeContainer,
-        AwardIDSearchContainer,
+        LocationSearchContainer,
         AwardAmountSearchContainer,
+        AwardIDSearchContainer,
         OtherFilters
     ]
 };
@@ -62,13 +58,8 @@ export default class SearchSidebar extends React.Component {
     render() {
         const expanded = [];
         filters.options.forEach(() => {
-            // collapse if mobile, otherwise expand
-            if (this.props.mobile) {
-                expanded.push(false);
-            }
-            else {
-                expanded.push(true);
-            }
+            // Collapse all by default
+            expanded.push(false);
         });
 
         let mobileHeader = null;
