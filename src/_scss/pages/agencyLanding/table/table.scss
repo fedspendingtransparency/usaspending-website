@@ -1,10 +1,18 @@
 .agency-landing-results-table {
     display: block;
+    overflow: scroll;   
+
     &.no-results {
         border: none;
     }
 	table {
 		margin-top: rem(15);
+        width: rem(500);
+
+        @include media($tablet-screen) {
+            width: auto;
+        }
+
 		thead {
 			tr {
 				border-bottom: solid 1px $color-gray-lighter;
