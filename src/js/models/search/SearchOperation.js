@@ -14,7 +14,6 @@ import * as RecipientQuery from './queryBuilders/RecipientQuery';
 import * as KeywordQuery from './queryBuilders/KeywordQuery';
 import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
 import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
-import * as ContractFilterQuery from './queryBuilders/ContractFilterQuery';
 import * as OtherFiltersQuery from './queryBuilders/OtherFiltersQuery';
 
 class SearchOperation {
@@ -187,23 +186,6 @@ class SearchOperation {
             }
         }
 
-        // Add Pricing Type Queries
-        if (this.pricingType.length > 0) {
-            filters.push(ContractFilterQuery.buildPricingTypeQuery(
-                this.pricingType, this.searchContext));
-        }
-
-        // Add Set Aside Queries
-        if (this.setAside.length > 0) {
-            filters.push(ContractFilterQuery.buildSetAsideQuery(this.setAside, this.searchContext));
-        }
-
-        // Add Extent Competed Queries
-        if (this.extentCompeted.length > 0) {
-            filters.push(ContractFilterQuery.buildExtentCompetedQuery(
-                this.extentCompeted, this.searchContext));
-        }
-
         return filters;
     }
 
@@ -245,6 +227,23 @@ class SearchOperation {
         if (this.selectedPSC.length > 0) {
             filters.push(OtherFiltersQuery.buildPSCQuery(
                 this.selectedPSC, this.searchContext));
+        }
+
+        // Add Pricing Type Queries
+        if (this.pricingType.length > 0) {
+            filters.push(OtherFiltersQuery.buildPricingTypeQuery(
+                this.pricingType, this.searchContext));
+        }
+
+        // Add Set Aside Queries
+        if (this.setAside.length > 0) {
+            filters.push(OtherFiltersQuery.buildSetAsideQuery(this.setAside, this.searchContext));
+        }
+
+        // Add Extent Competed Queries
+        if (this.extentCompeted.length > 0) {
+            filters.push(OtherFiltersQuery.buildExtentCompetedQuery(
+                this.extentCompeted, this.searchContext));
         }
 
         return filters;

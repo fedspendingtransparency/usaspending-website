@@ -122,9 +122,6 @@ export default class ContractFilter extends React.Component {
             <div
                 className={`contract-filter search-filter checkbox-type-filter
                     ${this.props.contractFilterType}`}>
-                <p className="sub-head">
-                    {ContractFieldDefinitions.groupLabels[this.props.contractFilterType]}
-                </p>
                 <div className="filter-item-wrap">
                     <ul className="contract-types checkbox-types">
                         {contractFilterItems}

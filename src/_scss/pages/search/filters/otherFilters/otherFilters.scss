@@ -1,31 +1,31 @@
-.cfda-filter, .psc-filter, .naics-filter, .other-filters {
+.cfda-filter, .psc-filter, .naics-filter, .contract-filter {
     @import "elements/filters/_errorMessage";
     @import "elements/filters/_typeahead";
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
+    @import './pages/award/_moreButton';
+
+    padding-left: rem(30);
+
+    .shown {
+        min-height: rem(18);
+    }
+    .visually-hidden {
+        display: none;
+    }
+
+    .filter-item-wrap {
+        padding-left: 0 !important;
+
+        p {
+            margin-top: rem(5);
+            margin-bottom: rem(5);
+        }
+    }
+
     .selected-filters {
         @include selected-filter-wrap;
     }
-    .contract-filter {
-        padding-left: rem(30);
-        p.sub-head {
-            border-bottom: rem(1) solid #E1E2E3;
-            font-size: $small-font-size;
-            font-weight: $font-semibold;
-            margin: 0 ($global-mrg * 2) $global-mrg 0;
-            padding: 0 0 rem(6);
-        }
-        .filter-item-wrap {
-            padding-left: 0 !important;
-
-            p {
-                margin-top: rem(5);
-                margin-bottom: rem(5);
-            }
-        }
-    }
-
-    @import './pages/award/_moreButton';
 
     button.contract-filter-toggle-button {
         background-color: $color-white;
@@ -33,11 +33,5 @@
         padding: 0.7rem 0 0;
         margin: 0.7rem 0 0 0;
         font-weight: normal;
-    }
-    .shown {
-        min-height: rem(18);
-    }
-    .visually-hidden {
-        display: none;
     }
 }
