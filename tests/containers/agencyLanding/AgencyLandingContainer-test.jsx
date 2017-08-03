@@ -52,6 +52,32 @@ describe('AgencyLandingContainer', () => {
         parseAgenciesSpy.reset();
     });
 
+    it('should make an API request when the sort order changes', async () => {
+        // mount the container
+        const container = setupMount({
+            agencies: new Immutable.OrderedSet([]),
+            agenciesOrder: mockAgenciesOrder,
+            meta: mockMeta,
+            autocompleteAgencies: []
+        });
+
+        await container.instance().agenciesRequest.promise;
+
+        expect(fetchAgenciesSpy.callCount).toEqual(1);
+
+        // change the sort order
+        container.setProps({
+            agenciesOrder: {
+                sort: 'budget_authority_amount',
+                direction: 'asc'
+            }
+        });
+
+        await container.instance().agenciesRequest.promise;
+
+        expect(fetchAgenciesSpy.callCount).toEqual(2);
+    });
+
     describe('showColumns', () => {
         it('should build the table', async () => {
             // mount the container
