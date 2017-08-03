@@ -1,0 +1,30 @@
+@import "../default/default";
+@import "../summary/summary";
+@import "mixins/fullSectionWrap";
+
+.landing-page-content {
+	padding: $global-pad;
+	.landing-page-overview {
+		@include span-columns(16);
+		@include shift(0);
+
+		text-align: center;
+		h3 {
+			margin-top: 0;
+		}
+		p {
+			color: $color-gray-medium;
+			margin-bottom: rem(30);
+		}
+	}
+	.landing-page-section {
+		@include span-columns(16);
+	}
+	@include media($medium-screen) {
+		padding: ($global-pad * 2);
+		.landing-page-overview {
+			@include span-columns(12);
+			@include shift(2);
+		}
+	}
+}
