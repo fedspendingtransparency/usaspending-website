@@ -3,6 +3,7 @@
     margin-right: 6px;
 
     .filter-item {
+        @include button-unstyled();
         display: table;
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
@@ -12,9 +13,16 @@
         @include border-top-radius(4px);
         @include border-bottom-radius(4px);
 
+        font-size: $smallest-font-size;
+
+        &:hover, &:active {
+            background-color: $color-white;
+        }
+
         .filter-item-title {
             color: $color-gray;
             display: table-cell;
+            vertical-align: middle;
         }
 
         .filter-item-remove-container {
@@ -22,15 +30,14 @@
             vertical-align: middle;
 
             .filter-remove {
-                @include button-unstyled();
                 margin-left: 10px;
-                width: 10px;
-                height: 14px;
+                width: rem(8);
+                height: rem(8);
                 
                 .close-icon {
                     svg {
-                        height: 8px;
-                        width: 8px;
+                        height: rem(8);
+                        width: rem(8);
                         fill: $color-gray;
                     }
                 }
