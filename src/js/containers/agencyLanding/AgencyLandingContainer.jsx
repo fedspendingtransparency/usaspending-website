@@ -162,7 +162,7 @@ export class AgencyLandingContainer extends React.Component {
 
             const agencyObject = {
                 agency_id: item.agency_id,
-                agency_name: [item.agency_name],
+                agency_name: [`${item.agency_name} (${item.abbreviation})`],
                 budget_authority_amount: formattedCurrency,
                 percentage_of_total_budget_authority: percent
             };

@@ -7,13 +7,15 @@ export const mockData = {
             agency_id: 1,
             agency_name: 'Agency 1',
             budget_authority_amount: '1234567',
-            percentage_of_total_budget_authority: '0.01211'
+            percentage_of_total_budget_authority: '0.01211',
+            abbreviation: 'ABC'
         },
         {
             agency_id: 2,
             agency_name: 'Agency 2',
             budget_authority_amount: '2345678',
-            percentage_of_total_budget_authority: '0.02322'
+            percentage_of_total_budget_authority: '0.02322',
+            abbreviation: 'XYZ'
         }
     ]
 };
@@ -22,11 +24,11 @@ export const mockSearchResults = {
     results: [
         {
             agency_id: 1,
-            agency_name:'Agency 1'
+            agency_name:'Agency 1 (ABC)'
         },
         {
             agency_id: 2,
-            agency_name:'Agency 2'
+            agency_name:'Agency 2 (XYZ)'
         }
     ]
 };
@@ -49,7 +51,8 @@ export const mockAgencies = [
             agency_id: 1,
             agency_name: 'Agency 1',
             budget_authority_amount: '1234567',
-            percentage_of_total_budget_authority: '0.01211'
+            percentage_of_total_budget_authority: '0.01211',
+            abbreviation: 'ABC'
         }
     ),
     new Agency(
@@ -57,7 +60,8 @@ export const mockAgencies = [
             agency_id: 2,
             agency_name: 'Test 2',
             budget_authority_amount: '2345678',
-            percentage_of_total_budget_authority: '0.02322'
+            percentage_of_total_budget_authority: '0.02322',
+            abbreviation: 'XYZ'
         }
     ),
     new Agency(
@@ -65,7 +69,8 @@ export const mockAgencies = [
             agency_id: 3,
             agency_name: 'Agency 3',
             budget_authority_amount: '2345678',
-            percentage_of_total_budget_authority: '0.02322'
+            percentage_of_total_budget_authority: '0.02322',
+            abbreviation: 'DEF'
         }
     )
 ];

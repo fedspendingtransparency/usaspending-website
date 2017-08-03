@@ -103,13 +103,13 @@ describe('AgencyLandingContainer', () => {
             const expected = Object.assign({},new Immutable.OrderedSet([
                 new Agency({
                     agency_id: 1,
-                    agency_name: ['Agency 1'],
+                    agency_name: ['Agency 1 (ABC)'],
                     budget_authority_amount: "$1,234,567",
                     percentage_of_total_budget_authority: "1.21%"
                 }),
                 new Agency({
                     agency_id: 2,
-                    agency_name: ['Agency 2'],
+                    agency_name: ['Agency 2 (XYZ)'],
                     budget_authority_amount: "$2,345,678",
                     percentage_of_total_budget_authority: "2.32%"
                 })
@@ -139,7 +139,6 @@ describe('AgencyLandingContainer', () => {
 
     afterAll(() => {
         // restore the mocked component's lifecycle functions
-        unmockComponent(AgencyLandingResultsSection);
-        unmockComponent(AgencyLandingSearchBarContainer);
+        unmockComponent(AgencyLandingContent);
     });
 });
