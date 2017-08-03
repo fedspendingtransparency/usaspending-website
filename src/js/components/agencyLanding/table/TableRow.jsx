@@ -11,7 +11,8 @@ import GenericCell from './cells/GenericCell';
 const propTypes = {
     columns: PropTypes.array.isRequired,
     agency: PropTypes.object,
-    rowIndex: PropTypes.number.isRequired
+    rowIndex: PropTypes.number.isRequired,
+    agencySearchString: PropTypes.string
 };
 
 export default class TableRow extends React.PureComponent {
@@ -26,6 +27,7 @@ export default class TableRow extends React.PureComponent {
                             rowIndex={this.props.rowIndex}
                             name={this.props.agency.agency_name}
                             id={this.props.agency.agency_id}
+                            agencySearchString={this.props.agencySearchString}
                             column={column.columnName} />
                     </td>
                 );

@@ -11,7 +11,8 @@ import TableRow from './TableRow';
 
 const propTypes = {
     results: PropTypes.array,
-    columns: PropTypes.array
+    columns: PropTypes.array,
+    agencySearchString: PropTypes.string
 };
 
 export default class AgencyLandingTable extends React.PureComponent {
@@ -28,7 +29,8 @@ export default class AgencyLandingTable extends React.PureComponent {
                 agency={agency}
                 key={agency.agency_id}
                 rowIndex={index}
-                columns={this.props.columns} />
+                columns={this.props.columns}
+                agencySearchString={this.props.agencySearchString} />
         ));
 
         return (
