@@ -6,7 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import HeaderCell from './HeaderCell';
+import AgencyLandingHeaderCellContainer from
+    'containers/agencyLanding/table/AgencyLandingHeaderCellContainer';
 
 const propTypes = {
     columns: PropTypes.array
@@ -14,8 +15,12 @@ const propTypes = {
 
 export default class HeaderRow extends React.Component {
     render() {
-        const headers = this.props.columns.map((column) => (
-            <HeaderCell {...column} key={column.columnId} />
+        const headers = this.props.columns.map((column, i) => (
+            <td key={column.columnName}>
+                <AgencyLandingHeaderCellContainer
+                    {...column}
+                    isLast={i === this.props.columns.length - 1} />
+            </td>
         ));
 
         return (

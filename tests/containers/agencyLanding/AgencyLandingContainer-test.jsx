@@ -6,8 +6,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
-import Immutable from 'immutable';
-import { Agency } from 'redux/reducers/agencyLanding/agencyLandingReducer';
 
 import { AgencyLandingContainer } from
     'containers/agencyLanding/AgencyLandingContainer';
@@ -16,7 +14,7 @@ import AgencyLandingContent from
 
 
 import { mockComponent, unmockComponent } from '../../testResources/mockComponent';
-import { mockData, mockMeta, mockAgenciesOrder } from './mockToptierAgencies';
+import { mockData, mockPopulated, mockAgenciesOrder } from './mockToptierAgencies';
 
 jest.mock('helpers/agencyLandingHelper', () => require('./agencyLandingHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -27,6 +25,7 @@ const setupMount = (props) => mount(<AgencyLandingContainer {...props} />);
 // spy on specific functions inside the component
 const fetchAgenciesSpy = sinon.spy(AgencyLandingContainer.prototype, 'fetchAgencies');
 const parseAgenciesSpy = sinon.spy(AgencyLandingContainer.prototype, 'parseAgencies');
+const performSearchSpy = sinon.spy(AgencyLandingContainer.prototype, 'performSearch');
 
 describe('AgencyLandingContainer', () => {
     beforeAll(() => {
@@ -36,10 +35,7 @@ describe('AgencyLandingContainer', () => {
     it('should make an API request on mount', async () => {
         // mount the container
         const container = setupMount({
-            agencies: new Immutable.OrderedSet([]),
-            agenciesOrder: mockAgenciesOrder,
-            meta: mockMeta,
-            autocompleteAgencies: []
+            agenciesOrder: mockAgenciesOrder
         });
 
         await container.instance().agenciesRequest.promise;
@@ -50,20 +46,18 @@ describe('AgencyLandingContainer', () => {
         // reset the spy
         fetchAgenciesSpy.reset();
         parseAgenciesSpy.reset();
+        performSearchSpy.reset();
     });
 
-    it('should make an API request when the sort order changes', async () => {
+    it('should perform a local search when the sort order changes', async () => {
         // mount the container
         const container = setupMount({
-            agencies: new Immutable.OrderedSet([]),
-            agenciesOrder: mockAgenciesOrder,
-            meta: mockMeta,
-            autocompleteAgencies: []
+            agenciesOrder: mockAgenciesOrder
         });
 
         await container.instance().agenciesRequest.promise;
 
-        expect(fetchAgenciesSpy.callCount).toEqual(1);
+        expect(performSearchSpy.callCount).toEqual(1);
 
         // change the sort order
         container.setProps({
@@ -75,86 +69,51 @@ describe('AgencyLandingContainer', () => {
 
         await container.instance().agenciesRequest.promise;
 
-        expect(fetchAgenciesSpy.callCount).toEqual(2);
+        expect(performSearchSpy.callCount).toEqual(2);
     });
 
     describe('showColumns', () => {
         it('should build the table', async () => {
             // mount the container
             const container = setup({
-                agencies: new Immutable.OrderedSet([]),
-                agenciesOrder: mockAgenciesOrder,
-                meta: mockMeta,
-                autocompleteAgencies: []
+                agenciesOrder: mockAgenciesOrder
             });
             container.instance().showColumns();
 
             await container.instance().agenciesRequest.promise;
 
             // validate the state contains the correctly parsed values
-            const expectedState = {
-                columns: [
-                    {
-                        columnName: "agency_name",
-                        defaultDirection: "asc",
-                        displayName: "Agency Name"
-                    },
-                    {
-                        columnName: "budget_authority_amount",
-                        defaultDirection: "desc",
-                        displayName: "Budget Authority"
-                    },
-                    {
-                        columnName: "percentage_of_total_budget_authority",
-                        defaultDirection: "desc",
-                        displayName: "Percent of Total U.S. Budget"
-                    }
-                ],
-                inFlight: false,
-                currentFY: '',
-                agencySearchString: ''
-            };
+            const expectedState = [
+                {
+                    columnName: "agency_name",
+                    defaultDirection: "asc",
+                    displayName: "Agency Name"
+                },
+                {
+                    columnName: "budget_authority_amount",
+                    defaultDirection: "desc",
+                    displayName: "Budgetary Resources"
+                },
+                {
+                    columnName: "percentage_of_total_budget_authority",
+                    defaultDirection: "desc",
+                    displayName: "Percent of Total"
+                }
+            ];
 
-            expect(container.state()).toEqual(expectedState);
+            expect(container.state().columns).toEqual(expectedState);
         });
     });
 
     describe('parseAgencies', () => {
-        it('should parse the API response and overwrite the Redux agencies', () => {
-            const expected = Object.assign({},new Immutable.OrderedSet([
-                new Agency({
-                    agency_id: 1,
-                    agency_name: ['Agency 1 (ABC)'],
-                    budget_authority_amount: "$1,234,567",
-                    percentage_of_total_budget_authority: "1.21%"
-                }),
-                new Agency({
-                    agency_id: 2,
-                    agency_name: ['Agency 2 (XYZ)'],
-                    budget_authority_amount: "$2,345,678",
-                    percentage_of_total_budget_authority: "2.32%"
-                })
-            ]));
-
-            delete expected._jsid;
-
-            const reduxAction = jest.fn((args) => {
-                const model = Object.assign({}, new Immutable.OrderedSet(args));
-                //delete model._jsid;
-
-                expect(model).toEqual(expected);
-            });
-
+        it('should parse the API response and update the container state', () => {
             const container = setup({
-                agencies: new Immutable.OrderedSet([]),
-                agenciesOrder: mockAgenciesOrder,
-                meta: mockMeta,
-                autocompleteAgencies: [],
-                setAgencies: reduxAction
+                agenciesOrder: mockAgenciesOrder
             });
-            // mount the container
 
+            // mount the container
             container.instance().parseAgencies(mockData);
+            expect(container.state().fullData).toEqual(mockPopulated);
         });
     });
 

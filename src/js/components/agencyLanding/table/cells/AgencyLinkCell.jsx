@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    name: PropTypes.array,
+    name: PropTypes.string,
     rowIndex: PropTypes.number,
     column: PropTypes.string,
     id: PropTypes.number

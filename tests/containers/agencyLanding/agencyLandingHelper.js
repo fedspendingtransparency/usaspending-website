@@ -1,4 +1,4 @@
-import { mockData, mockSearchResults } from './mockToptierAgencies';
+import { mockData } from './mockToptierAgencies';
 
 export const fetchAllAgencies = () => (
     {
@@ -6,19 +6,6 @@ export const fetchAllAgencies = () => (
             process.nextTick(() => {
                 resolve({
                     data: mockData
-                });
-            });
-        }),
-        cancel: jest.fn()
-    }
-);
-
-export const fetchSearchResults = () => (
-    {
-        promise: new Promise((resolve) => {
-            process.nextTick(() => {
-                resolve({
-                    data: mockSearchResults
                 });
             });
         }),

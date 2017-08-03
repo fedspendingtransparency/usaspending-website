@@ -9,12 +9,13 @@ import PropTypes from 'prop-types';
 import { Search } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    handleTextInput: PropTypes.func.isRequired
+    setAgencySearchString: PropTypes.func.isRequired
 };
 
 export default class AgencyLandingSearchBar extends React.Component {
     onChange(e) {
-        this.props.handleTextInput(e);
+        const value = e.target.value;
+        this.props.setAgencySearchString(value);
     }
 
     render() {

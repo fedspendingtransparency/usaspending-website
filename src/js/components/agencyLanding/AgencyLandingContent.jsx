@@ -5,24 +5,17 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Immutable from 'immutable';
 
-import AgencyLandingSearchBarContainer from 'containers/agencyLanding/AgencyLandingSearchBarContainer';
+import AgencyLandingSearchBar from './AgencyLandingSearchBar';
 import AgencyLandingResultsSection from './AgencyLandingResultsSection';
 
 const propTypes = {
     resultsText: PropTypes.string,
     results: PropTypes.array,
-    searchHash: PropTypes.string,
     agencySearchString: PropTypes.string,
     inFlight: PropTypes.bool,
     columns: PropTypes.array,
-    setAgencySearchString: PropTypes.func,
-    agencies: PropTypes.instanceOf(Immutable.OrderedSet),
-    agenciesOrder: PropTypes.object,
-    setAgencies: PropTypes.func,
-    meta: PropTypes.object,
-    autocompleteAgencies: PropTypes.array
+    setAgencySearchString: PropTypes.func
 };
 
 export default class AgencyLandingContent extends React.Component {
@@ -37,7 +30,7 @@ export default class AgencyLandingContent extends React.Component {
                         commissions. They range in size from $700 billion down to less than $200,000.</p>
                 </div>
                 <div className="landing-page-section">
-                    <AgencyLandingSearchBarContainer
+                    <AgencyLandingSearchBar
                         setAgencySearchString={this.props.setAgencySearchString} />
                 </div>
                 <div className="landing-page-section results-count">
@@ -45,8 +38,6 @@ export default class AgencyLandingContent extends React.Component {
                 </div>
                 <div className="landing-page-section">
                     <AgencyLandingResultsSection
-                        batch={this.props.meta.batch}
-                        searchHash={this.props.searchHash}
                         columns={this.props.columns}
                         results={this.props.results}
                         inFlight={this.props.inFlight}

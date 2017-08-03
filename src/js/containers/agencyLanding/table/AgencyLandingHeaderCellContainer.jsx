@@ -20,7 +20,11 @@ const actions = {
 
 const propTypes = {
     setAgenciesOrder: PropTypes.func,
-    order: PropTypes.object
+    order: PropTypes.object,
+    displayName: PropTypes.string,
+    defaultDirection: PropTypes.string,
+    columnName: PropTypes.string,
+    isLast: PropTypes.bool
 };
 
 class AgencyLandingHeaderCellContainer extends React.Component {
@@ -40,7 +44,11 @@ class AgencyLandingHeaderCellContainer extends React.Component {
     render() {
         return (
             <ResultsTableHeaderCell
-                {...this.props}
+                label={this.props.displayName}
+                defaultDirection={this.props.defaultDirection}
+                column={this.props.columnName}
+                isLast={this.props.isLast}
+                order={this.props.order}
                 setSearchOrder={this.setAgenciesOrder} />
         );
     }

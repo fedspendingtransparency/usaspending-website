@@ -5,25 +5,20 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import Immutable from 'immutable';
+
+import { Search } from 'js-search';
+import { orderBy } from 'lodash';
 
 import AgenciesTableFields from 'dataMapping/agencyLanding/agenciesTableFields';
-import * as agencyLandingActions from 'redux/actions/agencyLanding/agencyLandingActions';
-import { Agency } from 'redux/reducers/agencyLanding/agencyLandingReducer';
 import * as AgencyLandingHelper from 'helpers/agencyLandingHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import AgencyLandingContent from 'components/agencyLanding/AgencyLandingContent';
 
 const propTypes = {
-    agencies: PropTypes.instanceOf(Immutable.OrderedSet),
-    agenciesOrder: PropTypes.object,
-    setAgencies: PropTypes.func,
-    meta: PropTypes.object,
-    autocompleteAgencies: PropTypes.array
+    agenciesOrder: PropTypes.object
 };
 
 export class AgencyLandingContainer extends React.Component {
@@ -34,7 +29,9 @@ export class AgencyLandingContainer extends React.Component {
             columns: [],
             inFlight: false,
             currentFY: '',
-            agencySearchString: ''
+            agencySearchString: '',
+            fullData: [],
+            results: []
         };
 
         this.agenciesRequest = null;
@@ -48,7 +45,7 @@ export class AgencyLandingContainer extends React.Component {
     componentDidUpdate(prevProps) {
         if (this.props.agenciesOrder !== prevProps.agenciesOrder) {
             // table sort changed
-            this.fetchAgencies();
+            this.performSearch();
         }
     }
 
@@ -59,8 +56,15 @@ export class AgencyLandingContainer extends React.Component {
     }
 
     setAgencySearchString(agencySearchString) {
+        let searchValue = '';
+        if (agencySearchString.length > 2) {
+            searchValue = agencySearchString;
+        }
+
         this.setState({
-            agencySearchString
+            agencySearchString: searchValue
+        }, () => {
+            this.performSearch();
         });
     }
 
@@ -141,49 +145,67 @@ export class AgencyLandingContainer extends React.Component {
             const percentage = (item.percentage_of_total_budget_authority * 100).toFixed(2);
 
             let percent = `${percentage}%`;
-            if (percentage === 0.00) {
+            if (percent === '0.00%') {
                 percent = 'Less than 0.01%';
             }
 
-            const agencyObject = {
+            const agency = {
                 agency_id: item.agency_id,
-                agency_name: [`${item.agency_name} (${item.abbreviation})`],
-                budget_authority_amount: formattedCurrency,
-                percentage_of_total_budget_authority: percent
+                agency_name: `${item.agency_name} (${item.abbreviation})`,
+                budget_authority_amount: item.budget_authority_amount,
+                percentage_of_total_budget_authority: item.percentage_of_total_budget_authority,
+                display: {
+                    agency_name: `${item.agency_name} (${item.abbreviation})`,
+                    budget_authority_amount: formattedCurrency,
+                    percentage_of_total_budget_authority: percent
+                }
             };
-
-            const agency = new Agency(agencyObject);
             agencies.push(agency);
         });
 
-        this.props.setAgencies(agencies);
+        this.setState({
+            fullData: agencies
+        }, () => {
+            this.performSearch();
+        });
+    }
+
+    performSearch() {
+        // perform a local search
+        const search = new Search('agency_id');
+        search.addIndex('agency_name');
+        search.addDocuments(this.state.fullData);
+
+        // return the full data set if no search string is provided
+        let results = this.state.fullData;
+        if (this.state.agencySearchString !== '') {
+            results = search.search(this.state.agencySearchString);
+        }
+
+        // now sort the results by the appropriate table column and direction
+        const orderedResults = orderBy(results,
+                [this.props.agenciesOrder.field], [this.props.agenciesOrder.direction]);
+
+        this.setState({
+            results: orderedResults
+        });
     }
 
     render() {
-        let results = this.props.agencies.toArray();
-
-        if (this.state.agencySearchString.length > 1) {
-            results = this.props.autocompleteAgencies;
-        }
-
-        const resultsCount = results.length;
+        const resultsCount = this.state.results.length;
         let resultsText = `${resultsCount} results`;
         if (resultsCount === 1) {
             resultsText = `${resultsCount} result`;
         }
 
-        // Create an Ordered Set for the search hash
-        const autocompleteSet = new Immutable.OrderedSet(this.props.autocompleteAgencies);
-
         return (
             <AgencyLandingContent
-                {...this.props}
                 resultsText={resultsText}
-                results={results}
-                searchHash={`${autocompleteSet.hashCode()} - ${this.state.agencySearchString}`}
+                results={this.state.results}
                 agencySearchString={this.state.agencySearchString}
                 inFlight={this.state.inFlight}
                 columns={this.state.columns}
+                sort={this.props.agenciesOrder}
                 setAgencySearchString={this.setAgencySearchString} />
         );
     }
@@ -193,10 +215,6 @@ AgencyLandingContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        agencies: state.agencyLanding.agencies,
-        agenciesOrder: state.agencyLanding.agenciesOrder,
-        meta: state.agencyLanding.agenciesMeta,
-        autocompleteAgencies: state.agencyLanding.autocompleteAgencies
-    }),
-    (dispatch) => bindActionCreators(agencyLandingActions, dispatch)
+        agenciesOrder: state.agencyLanding.agenciesOrder
+    })
 )(AgencyLandingContainer);

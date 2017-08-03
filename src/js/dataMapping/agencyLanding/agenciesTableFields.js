@@ -11,8 +11,8 @@ const agenciesTableFields = {
         'percentage_of_total_budget_authority'
     ],
     agency_name: 'Agency Name',
-    budget_authority_amount: 'Budget Authority',
-    percentage_of_total_budget_authority: 'Percent of Total U.S. Budget'
+    budget_authority_amount: 'Budgetary Resources',
+    percentage_of_total_budget_authority: 'Percent of Total'
 };
 
 export default agenciesTableFields;

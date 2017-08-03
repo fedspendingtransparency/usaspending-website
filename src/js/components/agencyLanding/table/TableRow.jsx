@@ -5,27 +5,41 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import TableCell from './TableCell';
+import AgencyLinkCell from './cells/AgencyLinkCell';
+import GenericCell from './cells/GenericCell';
 
 const propTypes = {
     columns: PropTypes.array.isRequired,
-    dataHash: PropTypes.string,
+    agency: PropTypes.object,
     rowIndex: PropTypes.number.isRequired
 };
 
 export default class TableRow extends React.PureComponent {
-    shouldComponentUpdate(nextProps) {
-        // force an update if the data hash has changed
-        return (nextProps.dataHash !== this.props.dataHash);
-    }
-
     render() {
-        const cells = this.props.columns.map((column) => (
-            <TableCell
-                column={column}
-                rowIndex={this.props.rowIndex}
-                key={`${column.columnId}-${this.props.rowIndex}`} />
-        ));
+        const cells = this.props.columns.map((column) => {
+            if (column.columnName === 'agency_name') {
+                // show the agency link cell
+                return (
+                    <td
+                        key={`${column.columnName}-${this.props.agency.agency_id}`}>
+                        <AgencyLinkCell
+                            rowIndex={this.props.rowIndex}
+                            name={this.props.agency.agency_name}
+                            id={this.props.agency.agency_id}
+                            column={column.columnName} />
+                    </td>
+                );
+            }
+            return (
+                <td
+                    key={`${column.columnName}-${this.props.agency.agency_id}`}>
+                    <GenericCell
+                        rowIndex={this.props.rowIndex}
+                        data={this.props.agency.display[column.columnName]}
+                        column={column.columnName} />
+                </td>
+            );
+        });
 
         return (
             <tr>

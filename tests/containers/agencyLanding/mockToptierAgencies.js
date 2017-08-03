@@ -1,43 +1,42 @@
-import { Agency } from 'redux/reducers/agencyLanding/agencyLandingReducer';
-import Immutable from 'immutable';
-
 export const mockData = {
     results: [
         {
+            current_total_budget_authority_amount: 123.0,
+            active_fq: "2",
+            active_fy: "2017",
             agency_id: 1,
-            agency_name: 'Agency 1',
-            budget_authority_amount: '1234567',
-            percentage_of_total_budget_authority: '0.01211',
-            abbreviation: 'ABC'
+            agency_name: "Agency 1",
+            obligated_amount: 123.0,
+            percentage_of_total_budget_authority: 0.655,
+            outlay_amount: 123.0,
+            budget_authority_amount: 123.0,
+            abbreviation: "ABC"
         },
         {
+            current_total_budget_authority_amount: 234.0,
+            active_fq: "2",
+            active_fy: "2017",
             agency_id: 2,
-            agency_name: 'Agency 2',
-            budget_authority_amount: '2345678',
-            percentage_of_total_budget_authority: '0.02322',
-            abbreviation: 'XYZ'
-        }
-    ]
-};
-
-export const mockSearchResults = {
-    results: [
-        {
-            agency_id: 1,
-            agency_name:'Agency 1 (ABC)'
+            agency_name: "Agency 2",
+            obligated_amount: 234.0,
+            percentage_of_total_budget_authority: 0.345,
+            outlay_amount: 234.0,
+            budget_authority_amount: 234.0,
+            abbreviation: "XYZ"
         },
         {
-            agency_id: 2,
-            agency_name:'Agency 2 (XYZ)'
+            current_total_budget_authority_amount: 0.10,
+            active_fq: "2",
+            active_fy: "2017",
+            agency_id: 3,
+            agency_name: "Agency 3",
+            obligated_amount: 0.10,
+            percentage_of_total_budget_authority: 0.00003,
+            outlay_amount: 0.10,
+            budget_authority_amount: 0.10,
+            abbreviation: "FFF"
         }
     ]
-};
-
-export const mockMeta = {
-    batch: {
-        queryId: "01",
-        searchId: "02"
-    }
 };
 
 export const mockAgenciesOrder = {
@@ -45,33 +44,38 @@ export const mockAgenciesOrder = {
     direction: 'desc'
 };
 
-export const mockAgencies = [
-    new Agency(
-        {
-            agency_id: 1,
-            agency_name: 'Agency 1',
-            budget_authority_amount: '1234567',
-            percentage_of_total_budget_authority: '0.01211',
-            abbreviation: 'ABC'
+export const mockPopulated = [
+    {
+        agency_id: 1,
+        agency_name: "Agency 1 (ABC)",
+        percentage_of_total_budget_authority: 0.655,
+        budget_authority_amount: 123.0,
+        display: {
+            agency_name: "Agency 1 (ABC)",
+            budget_authority_amount: "$123",
+            percentage_of_total_budget_authority: "65.50%"
         }
-    ),
-    new Agency(
-        {
-            agency_id: 2,
-            agency_name: 'Test 2',
-            budget_authority_amount: '2345678',
-            percentage_of_total_budget_authority: '0.02322',
-            abbreviation: 'XYZ'
+    },
+    {
+        agency_id: 2,
+        agency_name: "Agency 2 (XYZ)",
+        percentage_of_total_budget_authority: 0.345,
+        budget_authority_amount: 234.0,
+        display: {
+            agency_name: "Agency 2 (XYZ)",
+            budget_authority_amount: "$234",
+            percentage_of_total_budget_authority: "34.50%"
         }
-    ),
-    new Agency(
-        {
-            agency_id: 3,
-            agency_name: 'Agency 3',
-            budget_authority_amount: '2345678',
-            percentage_of_total_budget_authority: '0.02322',
-            abbreviation: 'DEF'
+    },
+    {
+        agency_id: 3,
+        agency_name: "Agency 3 (FFF)",
+        percentage_of_total_budget_authority: 0.00003,
+        budget_authority_amount: 0.10,
+        display: {
+            agency_name: "Agency 3 (FFF)",
+            percentage_of_total_budget_authority: "Less than 0.01%",
+            budget_authority_amount: "$0"
         }
-    )
+    }
 ];
-
