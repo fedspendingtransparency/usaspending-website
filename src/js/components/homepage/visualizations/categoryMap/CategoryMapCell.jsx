@@ -4,20 +4,21 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { truncate } from 'lodash';
 
 const propTypes = {
-    label: React.PropTypes.string,
-    value: React.PropTypes.number,
-    x0: React.PropTypes.number,
-    x1: React.PropTypes.number,
-    y0: React.PropTypes.number,
-    y1: React.PropTypes.number,
-    categoryID: React.PropTypes.number,
-    color: React.PropTypes.string,
-    tooltipStyles: React.PropTypes.object,
-    toggleTooltipIn: React.PropTypes.func,
-    toggleTooltipOut: React.PropTypes.func
+    label: PropTypes.string,
+    value: PropTypes.number,
+    x0: PropTypes.number,
+    x1: PropTypes.number,
+    y0: PropTypes.number,
+    y1: PropTypes.number,
+    categoryID: PropTypes.number,
+    color: PropTypes.string,
+    tooltipStyles: PropTypes.object,
+    toggleTooltipIn: PropTypes.func,
+    toggleTooltipOut: PropTypes.func
 };
 
 export default class CategoryMapCell extends React.Component {
@@ -129,7 +130,7 @@ export default class CategoryMapCell extends React.Component {
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
-                onMouseOver={() => {
+                onMouseEnter={() => {
                     this.mouseIn(height, width);
                 }}
                 onMouseLeave={() => {

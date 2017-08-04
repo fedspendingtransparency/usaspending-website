@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { indexOf, difference, concat } from 'lodash';
 
 import { Set } from 'immutable';
@@ -13,16 +14,17 @@ import * as AwardType from 'dataMapping/search/awardType';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
-    filter: React.PropTypes.object,
-    redux: React.PropTypes.object
+    filter: PropTypes.object,
+    redux: PropTypes.object
 };
 
-const groupKeys = ['contracts', 'grants', 'direct_payments', 'loans'];
+const groupKeys = ['contracts', 'grants', 'direct_payments', 'loans', 'other'];
 const groupLabels = {
     contracts: 'Contracts',
     grants: 'Grants',
     direct_payments: 'Direct Payments',
-    loans: 'Loans'
+    loans: 'Loans',
+    other: 'Other'
 };
 
 export default class AwardTypeFilterGroup extends React.Component {

@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { OrderedSet } from 'immutable';
 
 import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
@@ -11,8 +12,8 @@ import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
 const propTypes = {
-    selectedCodes: React.PropTypes.instanceOf(OrderedSet),
-    updateFilter: React.PropTypes.func
+    selectedCodes: PropTypes.instanceOf(OrderedSet),
+    updateFilter: PropTypes.func
 };
 
 export default class ObjectClassFilter extends React.Component {

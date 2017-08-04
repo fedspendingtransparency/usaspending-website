@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import accounting from 'accounting';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -12,9 +13,9 @@ import AmountsChart from './visualizations/AmountsChart';
 import LoanAmounts from './LoanAmounts';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object,
-    showPotential: React.PropTypes.bool,
-    typeString: React.PropTypes.string
+    selectedAward: PropTypes.object,
+    showPotential: PropTypes.bool,
+    typeString: PropTypes.string
 };
 
 export default class AwardAmounts extends React.Component {
@@ -68,7 +69,7 @@ export default class AwardAmounts extends React.Component {
             has been obligated.</p>);
 
         if (this.props.typeString === 'grant' || this.props.typeString === 'direct payment' ||
-        this.props.typeString === 'insurance') {
+        this.props.typeString === 'other') {
             awardNarrative = (<p>This {this.props.typeString} was awarded to&nbsp;
             <b className="recipient-name">{recipient}</b>
             &nbsp;for <b>{current}</b>.</p>);

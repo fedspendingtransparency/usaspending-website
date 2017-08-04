@@ -4,14 +4,15 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import TableCell from './TableCell';
 
 const propTypes = {
-    visibleColumns: React.PropTypes.array.isRequired,
-    visibleCoords: React.PropTypes.string.isRequired,
-    dataHash: React.PropTypes.string,
-    rowHeight: React.PropTypes.number.isRequired,
-    rowIndex: React.PropTypes.number.isRequired
+    visibleColumns: PropTypes.array.isRequired,
+    visibleCoords: PropTypes.string.isRequired,
+    dataHash: PropTypes.string,
+    rowHeight: PropTypes.number.isRequired,
+    rowIndex: PropTypes.number.isRequired
 };
 
 export default class TableRow extends React.PureComponent {

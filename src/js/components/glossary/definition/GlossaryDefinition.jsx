@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
 
@@ -11,8 +12,8 @@ import DefinitionTabs from './DefinitionTabs';
 import ItemDefinition from './ItemDefinition';
 
 const propTypes = {
-    glossary: React.PropTypes.object,
-    clearGlossaryTerm: React.PropTypes.func
+    glossary: PropTypes.object,
+    clearGlossaryTerm: PropTypes.func
 };
 
 export default class GlossaryDefinition extends React.Component {

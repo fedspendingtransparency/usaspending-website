@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -12,8 +13,8 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import LocationSearch from 'components/search/filters/location/LocationSearch';
 
 const propTypes = {
-    updateSelectedLocations: React.PropTypes.func,
-    updateDomesticForeignSelection: React.PropTypes.func
+    updateSelectedLocations: PropTypes.func,
+    updateDomesticForeignSelection: PropTypes.func
 };
 
 const ga = require('react-ga');

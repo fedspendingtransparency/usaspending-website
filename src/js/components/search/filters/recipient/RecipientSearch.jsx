@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import RecipientNameDUNSContainer from
     'containers/search/filters/recipient/RecipientNameDUNSContainer';
@@ -14,12 +15,12 @@ import SelectedRecipients from './SelectedRecipients';
 import SelectedRecipientLocations from './SelectedRecipientLocations';
 
 const propTypes = {
-    toggleRecipient: React.PropTypes.func,
-    toggleDomesticForeign: React.PropTypes.func,
-    toggleRecipientType: React.PropTypes.func,
-    toggleRecipientLocation: React.PropTypes.func,
-    selectedRecipients: React.PropTypes.object,
-    selectedRecipientLocations: React.PropTypes.object
+    toggleRecipient: PropTypes.func,
+    toggleDomesticForeign: PropTypes.func,
+    toggleRecipientType: PropTypes.func,
+    toggleRecipientLocation: PropTypes.func,
+    selectedRecipients: PropTypes.object,
+    selectedRecipientLocations: PropTypes.object
 };
 
 export default class RecipientSearch extends React.Component {

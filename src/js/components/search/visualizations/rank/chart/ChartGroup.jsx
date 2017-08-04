@@ -4,17 +4,18 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { truncate } from 'lodash';
 
 const propTypes = {
-    label: React.PropTypes.string,
-    labelWidth: React.PropTypes.number,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    index: React.PropTypes.number,
-    linkID: React.PropTypes.string,
-    urlRoot: React.PropTypes.string,
-    clickedGroup: React.PropTypes.func
+    label: PropTypes.string,
+    labelWidth: PropTypes.number,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    index: PropTypes.number,
+    linkID: PropTypes.string,
+    urlRoot: PropTypes.string,
+    clickedGroup: PropTypes.func
 };
 
 export default class ChartGroup extends React.Component {

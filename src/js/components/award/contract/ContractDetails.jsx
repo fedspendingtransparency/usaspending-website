@@ -5,12 +5,13 @@
 
 import React from 'react';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import DetailRow from '../DetailRow';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object,
-    seeAdditional: React.PropTypes.func,
-    maxChars: React.PropTypes.number
+    selectedAward: PropTypes.object,
+    seeAdditional: PropTypes.func,
+    maxChars: PropTypes.number
 };
 
 export default class ContractDetails extends React.Component {
@@ -74,7 +75,7 @@ export default class ContractDetails extends React.Component {
 
         // Location
         let popPlace = "";
-        let cityState = '';
+        let cityState = "";
         const city = award.pop_city;
         const stateProvince = award.pop_state_province;
         if (city && stateProvince) {

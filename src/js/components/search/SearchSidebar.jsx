@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
@@ -16,6 +17,7 @@ import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
 import AwardAmountSearchContainer from
     'containers/search/filters/awardAmount/AwardAmountSearchContainer';
+import OtherFilters from 'components/search/filters/otherFilters/OtherFilters';
 
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
@@ -44,12 +46,12 @@ const filters = {
         AwardTypeContainer,
         AwardIDSearchContainer,
         AwardAmountSearchContainer,
-        null
+        OtherFilters
     ]
 };
 
 const propTypes = {
-    mobile: React.PropTypes.bool
+    mobile: PropTypes.bool
 };
 
 const defaultProps = {

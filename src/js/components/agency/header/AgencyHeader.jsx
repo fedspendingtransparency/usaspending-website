@@ -4,9 +4,10 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    account: React.PropTypes.object
+    account: PropTypes.object
 };
 
 export default class AgencyHeader extends React.Component {

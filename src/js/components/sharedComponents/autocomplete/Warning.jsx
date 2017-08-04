@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from '../icons/Icons';
 
 const defaultProps = {
@@ -11,8 +12,8 @@ const defaultProps = {
 };
 
 const propTypes = {
-    header: React.PropTypes.string,
-    description: React.PropTypes.string
+    header: PropTypes.string,
+    description: PropTypes.string
 };
 
 export default class Warning extends React.Component {

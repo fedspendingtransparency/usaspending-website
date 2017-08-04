@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { OrderedSet } from 'immutable';
 import { sortBy, keyBy } from 'lodash';
 
@@ -11,11 +12,11 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
 const propTypes = {
-    selectedProgramActivities: React.PropTypes.instanceOf(OrderedSet),
-    availableProgramActivities: React.PropTypes.array,
-    updateFilter: React.PropTypes.func,
-    noResults: React.PropTypes.bool,
-    inFlight: React.PropTypes.bool
+    selectedProgramActivities: PropTypes.instanceOf(OrderedSet),
+    availableProgramActivities: PropTypes.array,
+    updateFilter: PropTypes.func,
+    noResults: PropTypes.bool,
+    inFlight: PropTypes.bool
 };
 
 const defaultShown = 10;

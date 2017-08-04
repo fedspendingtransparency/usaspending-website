@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as DataFields from 'dataMapping/contracts/additionalDetails';
 
 import AdditionalGroup from './AdditionalGroup';
 
 const propTypes = {
-    award: React.PropTypes.object
+    award: PropTypes.object
 };
 
 export default class ContractAdditionalDetails extends React.Component {

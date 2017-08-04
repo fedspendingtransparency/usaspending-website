@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -22,9 +23,9 @@ import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
 
 const propTypes = {
-    account: React.PropTypes.object,
-    params: React.PropTypes.object,
-    setSelectedAccount: React.PropTypes.func
+    account: PropTypes.object,
+    params: PropTypes.object,
+    setSelectedAccount: PropTypes.func
 };
 
 const combinedActions = Object.assign({},

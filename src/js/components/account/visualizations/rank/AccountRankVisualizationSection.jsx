@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { throttle, min } from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
@@ -13,14 +14,14 @@ import RankVisualizationScopeButton from
     'components/search/visualizations/rank/RankVisualizationScopeButton';
 
 const propTypes = {
-    categoryScope: React.PropTypes.string,
-    changeScope: React.PropTypes.func,
-    nextPage: React.PropTypes.func,
-    previousPage: React.PropTypes.func,
-    hasNextPage: React.PropTypes.bool,
-    hasPreviousPage: React.PropTypes.bool,
-    page: React.PropTypes.number,
-    loading: React.PropTypes.bool
+    categoryScope: PropTypes.string,
+    changeScope: PropTypes.func,
+    nextPage: PropTypes.func,
+    previousPage: PropTypes.func,
+    hasNextPage: PropTypes.bool,
+    hasPreviousPage: PropTypes.bool,
+    page: PropTypes.number,
+    loading: PropTypes.bool
 };
 
 export default class AccountRankVisualizationSection extends React.Component {
@@ -128,8 +129,7 @@ export default class AccountRankVisualizationSection extends React.Component {
                 <RankVisualization
                     {...this.props}
                     width={this.state.visualizationWidth}
-                    labelWidth={this.state.labelWidth}
-                    disableTooltip />
+                    labelWidth={this.state.labelWidth} />
 
                 <div className={`visualization-pager-container ${hidePager}`}>
                     <button

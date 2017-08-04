@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import SearchSidebar from '../SearchSidebar';
 
 const propTypes = {
-    showMobileFilters: React.PropTypes.bool,
-    filterCount: React.PropTypes.number,
-    toggleMobileFilters: React.PropTypes.func
+    showMobileFilters: PropTypes.bool,
+    filterCount: PropTypes.number,
+    toggleMobileFilters: PropTypes.func
 };
 
 export default class MobileFilters extends React.Component {

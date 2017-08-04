@@ -24,7 +24,12 @@ export const awardFields = {
     objectClass: 'financial_set__object_class__object_class',
     budgetFunctionTitle: 'financial_set__treasury_account__budget_function_title',
     budgetSubfunctionTitle: 'financial_set__treasury_account__budget_subfunction_title',
-    federalAccount: 'financial_set__treasury_account__federal_account_id'
+    federalAccount: 'financial_set__treasury_account__federal_account_id',
+    cfdaNumber: 'latest_transaction__assistance_data__cfda__program_number',
+    cfdaTitle: 'latest_transaction__assistance_data__cfda__program_title',
+    naics: 'latest_transaction__contract_data__naics',
+    naicsDescription: 'latest_transaction__contract_data__naics_description',
+    psc: 'latest_transaction__contract_data__product_or_service_code'
 };
 
 export const tasCategoriesFields = {

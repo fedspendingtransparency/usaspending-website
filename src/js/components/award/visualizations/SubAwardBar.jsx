@@ -4,14 +4,15 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    x: React.PropTypes.string,
-    y: React.PropTypes.number,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    dataY: React.PropTypes.number
+    x: PropTypes.string,
+    y: PropTypes.number,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    dataY: PropTypes.number
 };
 
 export default class SubAwardBar extends React.Component {

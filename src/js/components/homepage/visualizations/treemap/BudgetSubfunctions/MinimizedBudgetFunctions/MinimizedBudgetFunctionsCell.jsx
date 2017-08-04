@@ -4,19 +4,20 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    x0: React.PropTypes.number,
-    y0: React.PropTypes.number,
-    functionID: React.PropTypes.number,
-    color: React.PropTypes.string,
-    strokeColor: React.PropTypes.string,
-    strokeOpacity: React.PropTypes.number,
-    changeActiveSubfunction: React.PropTypes.func,
-    toggleTooltipIn: React.PropTypes.func,
-    toggleTooltipOut: React.PropTypes.func,
-    height: React.PropTypes.number,
-    width: React.PropTypes.number
+    x0: PropTypes.number,
+    y0: PropTypes.number,
+    functionID: PropTypes.number,
+    color: PropTypes.string,
+    strokeColor: PropTypes.string,
+    strokeOpacity: PropTypes.number,
+    changeActiveSubfunction: PropTypes.func,
+    toggleTooltipIn: PropTypes.func,
+    toggleTooltipOut: PropTypes.func,
+    height: PropTypes.number,
+    width: PropTypes.number
 };
 
 export default class MinimizedBudgetFunctionsCell extends React.Component {

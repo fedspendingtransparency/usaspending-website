@@ -3,14 +3,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Suggestion from './Suggestion';
 
 const propTypes = {
-    select: React.PropTypes.func,
-    suggestions: React.PropTypes.array,
-    selectedIndex: React.PropTypes.number,
-    maxSuggestions: React.PropTypes.number,
-    shown: React.PropTypes.string
+    select: PropTypes.func,
+    suggestions: PropTypes.array,
+    selectedIndex: PropTypes.number,
+    maxSuggestions: PropTypes.number,
+    shown: PropTypes.string
 };
 
 const defaultProps = {

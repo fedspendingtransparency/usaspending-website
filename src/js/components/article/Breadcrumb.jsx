@@ -4,10 +4,11 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    title: React.PropTypes.string
+    title: PropTypes.string
 };
 
 export default class Breadcrumb extends React.Component {

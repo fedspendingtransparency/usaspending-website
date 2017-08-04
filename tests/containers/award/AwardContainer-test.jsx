@@ -8,14 +8,9 @@ import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import { AwardContainer } from 'containers/award/AwardContainer';
-import * as SearchHelper from 'helpers/searchHelper';
 import AwardSummary from 'models/results/award/AwardSummary';
 
 import { mockAward } from './mockAward';
-
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
 
 // spy on specific functions inside the component
 const getAwardSpy = sinon.spy(AwardContainer.prototype, 'getSelectedAward');
@@ -24,70 +19,37 @@ const parameters = {
     awardId: 57557
 };
 
+jest.mock('helpers/searchHelper', () => require('./awardHelper'));
+
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/award/Award', () =>
     jest.fn(() => null));
 
-const mockSearchHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    SearchHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockSearchHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/searchHelper');
-};
-
 describe('AwardContainer', () => {
-    it('should make an API call for the selected award on mount', () => {
-        // Mock the api call
-        mockSearchHelper('fetchAward', 'resolve', mockAward);
-
+    it('should make an API call for the selected award on mount', async () => {
         // mount the container
-        mount(<AwardContainer params={parameters} />);
+        const container = mount(
+            <AwardContainer
+                params={parameters}
+                setSelectedAward={jest.fn()} />);
 
-        // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
-        jest.runAllTicks();
+        await container.instance().awardRequest.promise;
 
         // checking that it ran
         expect(getAwardSpy.callCount).toEqual(1);
 
         // reset the spies
-        unmockSearchHelper();
         getAwardSpy.reset();
     });
 
-    it('should make an API call when the award ID parameter changes', () => {
-        // Mock the api call
-        mockSearchHelper('fetchAward', 'resolve', mockAward);
-
+    it('should make an API call when the award ID parameter changes', async () => {
         // mount the container
-        const container = mount(<AwardContainer params={parameters} />);
+        const container = mount(
+            <AwardContainer
+                params={parameters}
+                setSelectedAward={jest.fn()} />);
 
-        // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
-        jest.runAllTicks();
+        await container.instance().awardRequest.promise;
 
         // checking that it ran
         expect(getAwardSpy.callCount).toEqual(1);
@@ -98,11 +60,9 @@ describe('AwardContainer', () => {
             }
         });
 
-        jest.runAllTicks();
         expect(getAwardSpy.callCount).toEqual(2);
 
         // reset the spies
-        unmockSearchHelper();
         getAwardSpy.reset();
     });
 

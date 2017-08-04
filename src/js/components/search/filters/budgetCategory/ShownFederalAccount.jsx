@@ -4,11 +4,12 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    updateSelectedFederalAccounts: React.PropTypes.func,
-    label: React.PropTypes.string
+    updateSelectedFederalAccounts: PropTypes.func,
+    label: PropTypes.string
 };
 
 export default class ShownFederalAccount extends React.Component {

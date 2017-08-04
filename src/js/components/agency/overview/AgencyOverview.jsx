@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { capitalize, throttle } from 'lodash';
 import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
@@ -13,7 +14,7 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import HorizontalBarItem from '../visualizations/obligated/HorizontalBarItem';
 
 const propTypes = {
-    agency: React.PropTypes.object
+    agency: PropTypes.object
 };
 
 export default class AgencyOverview extends React.PureComponent {
@@ -200,7 +201,7 @@ export default class AgencyOverview extends React.PureComponent {
                         <svg className="horizontal-bar">
                             <g>
                                 <HorizontalBarItem
-                                    description="Budget Authority"
+                                    description="Budgetary Resources"
                                     x={0}
                                     y={0}
                                     width={this.state.obligatedWidth}

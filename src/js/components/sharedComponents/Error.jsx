@@ -4,10 +4,11 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    title: React.PropTypes.string,
-    message: React.PropTypes.string
+    title: PropTypes.string,
+    message: PropTypes.string
 };
 
 const defaultProps = {

@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
@@ -17,11 +18,11 @@ import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 const startYear = FiscalYearHelper.earliestFiscalYear;
 
 const propTypes = {
-    updateTimePeriod: React.PropTypes.func,
-    filterTimePeriodType: React.PropTypes.string,
-    filterTimePeriodFY: React.PropTypes.instanceOf(Immutable.Set),
-    filterTimePeriodStart: React.PropTypes.string,
-    filterTimePeriodEnd: React.PropTypes.string
+    updateTimePeriod: PropTypes.func,
+    filterTimePeriodType: PropTypes.string,
+    filterTimePeriodFY: PropTypes.instanceOf(Immutable.Set),
+    filterTimePeriodStart: PropTypes.string,
+    filterTimePeriodEnd: PropTypes.string
 };
 
 class TimePeriodContainer extends React.Component {

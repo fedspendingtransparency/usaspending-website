@@ -4,6 +4,7 @@
 **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapDice } from 'd3-hierarchy';
 import { throttle, find } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -12,14 +13,14 @@ import MinimizedBudgetFunctionsCell from './MinimizedBudgetFunctionsCell';
 import MinimizedBudgetFunctionsTooltip from './MinimizedBudgetFunctionsTooltip';
 
 const propTypes = {
-    alternateColors: React.PropTypes.array,
-    categories: React.PropTypes.object,
-    changeActiveSubfunction: React.PropTypes.func,
-    colors: React.PropTypes.array,
-    descriptions: React.PropTypes.array,
-    selected: React.PropTypes.number,
-    tooltipStyles: React.PropTypes.object,
-    totalNumber: React.PropTypes.number
+    alternateColors: PropTypes.array,
+    categories: PropTypes.object,
+    changeActiveSubfunction: PropTypes.func,
+    colors: PropTypes.array,
+    descriptions: PropTypes.array,
+    selected: PropTypes.number,
+    tooltipStyles: PropTypes.object,
+    totalNumber: PropTypes.number
 };
 
 export default class BudgetFunctionsMinimized extends React.Component {

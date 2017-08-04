@@ -4,12 +4,13 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    year: React.PropTypes.string,
-    saveSelectedYear: React.PropTypes.func,
-    checked: React.PropTypes.bool,
-    saveAllYears: React.PropTypes.func
+    year: PropTypes.string,
+    saveSelectedYear: PropTypes.func,
+    checked: PropTypes.bool,
+    saveAllYears: PropTypes.func
 };
 
 const defaultProps = {

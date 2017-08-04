@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import AgencyListContainer from 'containers/search/filters/AgencyListContainer';
 import SelectedAgencies from './SelectedAgencies';
 
@@ -15,10 +16,10 @@ const defaultProps = {
 };
 
 const propTypes = {
-    toggleAgency: React.PropTypes.func,
-    selectedAwardingAgencies: React.PropTypes.object,
-    selectedFundingAgencies: React.PropTypes.object,
-    agencyTypes: React.PropTypes.array
+    toggleAgency: PropTypes.func,
+    selectedAwardingAgencies: PropTypes.object,
+    selectedFundingAgencies: PropTypes.object,
+    agencyTypes: PropTypes.array
 };
 
 export default class Agency extends React.Component {

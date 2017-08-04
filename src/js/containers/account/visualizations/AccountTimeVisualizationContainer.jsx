@@ -3,11 +3,12 @@
  * Created by Kevin Li 3/20/17
  */
 
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { Record } from 'immutable';
 
 import { isEqual } from 'lodash';
 
@@ -20,23 +21,29 @@ import * as accountFilterActions from 'redux/actions/account/accountFilterAction
 
 import AccountSearchBalanceOperation from 'models/account/queries/AccountSearchBalanceOperation';
 import AccountSearchCategoryOperation from 'models/account/queries/AccountSearchCategoryOperation';
-import { balanceFields, balanceFieldsFiltered, balanceFieldsNonfiltered } from 'dataMapping/accounts/accountFields';
+import { balanceFields, balanceFieldsFiltered, balanceFieldsNonfiltered } from
+    'dataMapping/accounts/accountFields';
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object,
-    account: React.PropTypes.object
+    reduxFilters: PropTypes.object,
+    account: PropTypes.object
 };
 
-export class AccountTimeVisualizationSectionContainer extends React.Component {
+// create an Immuatable Record object to guarantee the existance of required visualization fields
+export const VisData = Record({
+    xSeries: [],
+    ySeries: [],
+    allY: [],
+    stacks: []
+});
+
+export class AccountTimeVisualizationSectionContainer extends React.PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
             loading: true,
-            groups: [],
-            xSeries: [],
-            ySeries: [],
-            allY: [],
+            data: new VisData(),
             visualizationPeriod: 'year',
             hasFilteredObligated: false
         };
@@ -222,7 +229,6 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
     }
 
     parseBalances(data) {
-        const groups = [];
         const xSeries = [];
         const ySeries = [];
         const allY = [];
@@ -263,38 +269,127 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
         });
 
         quartersYears.forEach((quarterYear) => {
-            groups.push(`${quarterYear}`);
-            xSeries.push([`${quarterYear}`]);
+            xSeries.push(`${quarterYear}`);
             if (this.state.hasFilteredObligated) {
                 const budgetAuthority = yData[quarterYear].budgetAuthority;
                 const unobligated = yData[quarterYear].unobligated;
                 const obligatedFiltered = yData[quarterYear].obligatedFiltered;
+                const outlay = yData[quarterYear].outlay;
                 // Calculate Obligated (Other)
                 const obligatedOther = budgetAuthority - unobligated - obligatedFiltered;
-                yData[quarterYear].obligatedOther = obligatedOther;
-                // Calculate Obligation Total
-                yData[quarterYear].obligationTotal = obligatedFiltered + obligatedOther;
-            }
-            ySeries.push([yData[quarterYear]]);
-        });
 
-        ySeries.forEach((quarterYear) => {
-            if (this.state.hasFilteredObligated) {
-                allY.push(quarterYear[0].obligatedFiltered);
+                const period = {
+                    obligatedFiltered: {
+                        bottom: 0,
+                        top: obligatedFiltered,
+                        value: obligatedFiltered,
+                        description: 'Obligations Incurred (Filtered)'
+                    },
+                    obligatedOther: {
+                        bottom: obligatedFiltered,
+                        top: obligatedFiltered + obligatedOther,
+                        value: obligatedOther,
+                        description: 'Obligations Incurred (Other)'
+                    },
+                    unobligated: {
+                        bottom: budgetAuthority - unobligated,
+                        top: budgetAuthority,
+                        value: unobligated,
+                        description: 'Unobligated Balance'
+                    },
+                    outlay: {
+                        bottom: outlay,
+                        top: outlay,
+                        value: outlay,
+                        description: 'Outlay'
+                    }
+                };
+                ySeries.push(period);
+                allY.push(obligatedFiltered);
             }
             else {
-                allY.push(quarterYear[0].obligated);
+                const period = {
+                    obligated: {
+                        bottom: 0,
+                        top: yData[quarterYear].obligated,
+                        value: yData[quarterYear].obligated,
+                        description: 'Obligations Incurred'
+                    },
+                    unobligated: {
+                        bottom: yData[quarterYear].obligated,
+                        top: yData[quarterYear].unobligated + yData[quarterYear].obligated,
+                        value: yData[quarterYear].unobligated,
+                        description: 'Unobligated Balance'
+                    },
+                    outlay: {
+                        bottom: yData[quarterYear].outlay,
+                        top: yData[quarterYear].outlay,
+                        value: yData[quarterYear].outlay,
+                        description: 'Outlay'
+                    }
+                };
+
+                ySeries.push(period);
+                allY.push(yData[quarterYear].obligated);
             }
-            allY.push(quarterYear[0].outlay);
-            allY.push(quarterYear[0].budgetAuthority);
-            allY.push(quarterYear[0].unobligated);
+            allY.push(yData[quarterYear].outlay);
+            allY.push(yData[quarterYear].budgetAuthority);
+            allY.push(yData[quarterYear].unobligated);
         });
 
-        this.setState({
-            groups,
+        // determine the bar stacks to display and their order
+        let stacks = [
+            {
+                name: 'outlay',
+                type: 'line',
+                color: '#fba302'
+            },
+            {
+                name: 'obligated',
+                type: 'bar',
+                color: '#5c7480'
+            },
+            {
+                name: 'unobligated',
+                type: 'bar',
+                color: '#a0bac4'
+            }
+        ];
+        if (this.state.hasFilteredObligated) {
+            stacks = [
+                {
+                    name: 'outlay',
+                    type: 'line',
+                    color: '#fba302'
+                },
+                {
+                    name: 'obligatedFiltered',
+                    type: 'bar',
+                    color: '#2c4452'
+                },
+                {
+                    name: 'obligatedOther',
+                    type: 'bar',
+                    color: '#5c7480'
+                },
+                {
+                    name: 'unobligated',
+                    type: 'bar',
+                    color: '#a0bac4'
+                }
+            ];
+        }
+
+        // combine all the visualization chart data into a single Immutable object
+        const visualizationData = new VisData({
             xSeries,
             ySeries,
             allY,
+            stacks
+        });
+
+        this.setState({
+            data: visualizationData,
             loading: false
         });
     }
@@ -302,7 +397,8 @@ export class AccountTimeVisualizationSectionContainer extends React.Component {
     render() {
         return (
             <AccountTimeVisualizationSection
-                data={this.state}
+                data={this.state.data}
+                loading={this.state.loading}
                 visualizationPeriod={this.state.visualizationPeriod}
                 changePeriod={this.changePeriod}
                 hasFilteredObligated={this.state.hasFilteredObligated} />

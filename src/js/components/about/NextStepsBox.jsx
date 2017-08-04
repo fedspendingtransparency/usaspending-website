@@ -4,18 +4,19 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as AboutIcons from 'components/sharedComponents/icons/about/AboutIcons';
 
 
 const propTypes = {
-    icon: React.PropTypes.string,
-    sectionTitle: React.PropTypes.string,
-    sectionText: React.PropTypes.string,
-    linkText: React.PropTypes.string,
-    linkUrl: React.PropTypes.string,
-    iconClass: React.PropTypes.string,
-    ariaLabel: React.PropTypes.string,
-    title: React.PropTypes.string
+    icon: PropTypes.string,
+    sectionTitle: PropTypes.string,
+    sectionText: PropTypes.string,
+    linkText: PropTypes.string,
+    linkUrl: PropTypes.string,
+    iconClass: PropTypes.string,
+    ariaLabel: PropTypes.string,
+    title: PropTypes.string
 };
 
 export default class NextStepsBox extends React.Component {

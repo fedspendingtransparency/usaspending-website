@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 
@@ -19,10 +20,10 @@ import AgencyError from './AgencyError';
 import AgencyContent from './AgencyContent';
 
 const propTypes = {
-    loading: React.PropTypes.bool,
-    error: React.PropTypes.bool,
-    id: React.PropTypes.string,
-    agency: React.PropTypes.object
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+    id: PropTypes.string,
+    agency: PropTypes.object
 };
 
 export default class AgencyPage extends React.Component {

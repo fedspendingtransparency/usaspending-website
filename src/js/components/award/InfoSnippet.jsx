@@ -4,10 +4,11 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    label: React.PropTypes.string,
-    value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])
+    label: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 export default class InfoSnippet extends React.Component {
