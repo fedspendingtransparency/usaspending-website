@@ -1,0 +1,60 @@
+.account-landing-results-table {
+    display: block;
+    overflow: scroll;   
+
+    &.no-results {
+        border: none;
+    }
+	table {
+		margin-top: rem(15);
+        width: rem(500);
+
+        @include media($tablet-screen) {
+            width: auto;
+        }
+
+		thead {
+			tr {
+				border-bottom: solid 1px $color-gray-lighter;
+				td {
+					border: 0;
+					&:last-child {
+						.cell-content {
+							float: right;
+						}
+					}
+				}
+			}
+			.award-result-header-cell {
+				@import "./cells/_accountLandingHeaderCell";
+				@include accountLandingHeader();
+			}
+		}
+		tbody {
+			tr {
+				td {
+					border: 0;
+					&:last-child {
+						.cell-content {
+							float: right;
+						}
+					}
+				}
+				.account-link-cell {
+					.cell-content {
+						a {
+							span {
+								text-decoration: underline;
+								font-weight: 600;
+							}
+						}
+					}
+				}
+				// gray out even rows
+				.row-even {
+					background-color: #f7f7f7;
+				}
+			}
+		}
+	}
+}

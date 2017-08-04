@@ -12,7 +12,7 @@ const agenciesTableFields = {
         'budget_authority_amount'
     ],
     account_number: 'Account Number',
-    account_name: 'Agency Name',
+    account_name: 'Account Name',
     managing_agency: 'Managing Agency',
     budget_authority_amount: 'Budgetary Resources'
 };

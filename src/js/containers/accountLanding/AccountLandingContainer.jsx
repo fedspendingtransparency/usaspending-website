@@ -6,13 +6,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { isCancel } from 'axios';
+// import { isCancel } from 'axios';
 
 import { Search } from 'js-search';
 import { orderBy } from 'lodash';
 
 import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
-import * as AccountLandingHelper from 'helpers/accountLandingHelper';
+// import * as AccountLandingHelper from 'helpers/accountLandingHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import AccountLandingContent from 'components/accountLanding/AccountLandingContent';
@@ -97,40 +97,71 @@ export class AccountLandingContainer extends React.Component {
     }
 
     fetchAccounts() {
-        if (this.accountsRequest) {
-            // a request is in-flight, cancel it
-            this.accountsRequest.cancel();
-        }
-
-        this.setState({
-            inFlight: true
-        });
-
-        // generate the params
-        const params = {
-            sort: this.props.accountsOrder.field,
-            order: this.props.accountsOrder.direction
-        };
-
-        this.accountsRequest = AccountLandingHelper.fetchAllAccounts(params);
-
-        this.accountsRequest.promise
-            .then((res) => {
-                this.setState({
-                    inFlight: false
-                });
-
-                this.parseAccounts(res.data);
-            })
-            .catch((err) => {
-                this.accountsRequest = null;
-                if (!isCancel(err)) {
-                    this.setState({
-                        inFlight: false
-                    });
-                    console.log(err);
+        const mockData = {
+            results: [
+                {
+                    account_id: 1,
+                    account_number: '123-4567',
+                    account_name: 'Mock Account',
+                    managing_agency: 'Mock Agency',
+                    managing_agency_acronym: 'XYZ',
+                    budget_authority_amount: 5000000
+                },
+                {
+                    account_id: 2,
+                    account_number: '098-7654',
+                    account_name: 'Mock Account 2',
+                    managing_agency: 'Mock Agency 2',
+                    managing_agency_acronym: 'ABC',
+                    budget_authority_amount: 6000000
+                },
+                {
+                    account_id: 3,
+                    account_number: '234-5678',
+                    account_name: 'Test Account',
+                    managing_agency: 'Mock Agency 3',
+                    managing_agency_acronym: 'DEF',
+                    budget_authority_amount: 4000000
                 }
-            });
+            ]
+        };
+        this.parseAccounts(mockData);
+
+        // TODO - Lizzie: add API call when endpoint is ready
+        // if (this.accountsRequest) {
+        //    // a request is in-flight, cancel it
+        //    this.accountsRequest.cancel();
+        // }
+        //
+        // this.setState({
+        //    inFlight: true
+        // });
+        //
+        // // generate the params
+        // const params = {
+        //    sort: this.props.accountsOrder.field,
+        //    order: this.props.accountsOrder.direction
+        // };
+        //
+        // this.accountsRequest = AccountLandingHelper.fetchAllAccounts(params);
+        //
+        // this.accountsRequest.promise
+        //    .then((res) => {
+        //        this.setState({
+        //            inFlight: false
+        //        });
+        //
+        //        this.parseAccounts(res.data);
+        //    })
+        //    .catch((err) => {
+        //        this.accountsRequest = null;
+        //        if (!isCancel(err)) {
+        //            this.setState({
+        //                inFlight: false
+        //            });
+        //            console.log(err);
+        //        }
+        //    });
     }
 
     parseAccounts(data) {
@@ -151,13 +182,15 @@ export class AccountLandingContainer extends React.Component {
 
             const account = {
                 account_id: item.account_id,
-                account_name: `${item.account_name} (${item.abbreviation})`,
+                account_number: item.account_number,
+                managing_agency: `${item.managing_agency} (${item.managing_agency_acronym})`,
+                account_name: item.account_name,
                 budget_authority_amount: item.budget_authority_amount,
-                percentage_of_total_budget_authority: item.percentage_of_total_budget_authority,
                 display: {
-                    account_name: `${item.account_name} (${item.abbreviation})`,
-                    budget_authority_amount: formattedCurrency,
-                    percentage_of_total_budget_authority: percent
+                    account_number: `${item.account_number}`,
+                    account_name: `${item.account_name}`,
+                    managing_agency: `${item.managing_agency} (${item.managing_agency_acronym})`,
+                    budget_authority_amount: formattedCurrency
                 }
             };
             accounts.push(account);

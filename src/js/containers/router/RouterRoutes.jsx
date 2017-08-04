@@ -145,6 +145,15 @@ const routes = {
                     cb(require('components/agencyLanding/AgencyLandingPage').default);
                 });
             }
+        },
+        {
+            path: '/federal_account',
+            parent: '/federal_account',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/accountLanding/AccountLandingPage').default);
+                });
+            }
         }
     ],
     notfound: {

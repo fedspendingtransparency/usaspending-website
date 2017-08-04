@@ -24,6 +24,7 @@ import agencyLandingReducer from './agencyLanding/agencyLandingReducer';
 import cfdaReducer from './search/cfdaReducer';
 import naicsReducer from './search/naicsReducer';
 import pscReducer from './search/pscReducer';
+import accountLandingReducer from './accountLanding/accountLandingReducer';
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
@@ -44,7 +45,8 @@ const appReducer = combineReducers({
     account: accountReducer,
     agency: agencyReducer,
     glossary: glossaryReducer,
-    agencyLanding: agencyLandingReducer
+    agencyLanding: agencyLandingReducer,
+    accountLanding: accountLandingReducer
 });
 
 export default appReducer;

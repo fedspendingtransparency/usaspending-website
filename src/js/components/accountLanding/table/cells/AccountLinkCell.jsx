@@ -17,13 +17,6 @@ const propTypes = {
 
 export default class AccountLinkCell extends React.Component {
     render() {
-        // calculate even-odd class names
-        let rowClass = 'row-even';
-        if (this.props.rowIndex % 2 === 0) {
-            // row index is zero-based
-            rowClass = 'row-odd';
-        }
-
         let name = this.props.name;
         // highlight the matched string if applicable
         if (this.props.accountSearchString !== '') {
@@ -33,9 +26,9 @@ export default class AccountLinkCell extends React.Component {
         }
 
         return (
-            <div className={`account-link-cell column-${this.props.column} ${rowClass}`}>
+            <div className={`account-link-cell column-${this.props.column}`}>
                 <div className="cell-content">
-                    <a href={`/#/account/${this.props.id}`}>
+                    <a href={`/#/federal_account/${this.props.id}`}>
                         {name}
                     </a>
                 </div>

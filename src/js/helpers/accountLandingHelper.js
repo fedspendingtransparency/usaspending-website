@@ -7,11 +7,11 @@ import Axios, { CancelToken } from 'axios';
 
 import kGlobalConstants from 'GlobalConstants';
 
-export const fetchAllAgencies = (params) => {
+export const fetchAllAccounts = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/references/accounts/',
+            url: 'v2/references/federal_account/',
             baseURL: kGlobalConstants.API,
             method: 'get',
             params,
