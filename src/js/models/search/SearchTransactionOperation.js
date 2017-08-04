@@ -7,7 +7,6 @@ import SearchOperation from './SearchOperation';
 
 import * as TxnTimePeriodQuery from './queryBuilders/TxnTimePeriodQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
-import * as ContractFilterQuery from './queryBuilders/ContractFilterQuery';
 
 class SearchTransactionOperation extends SearchOperation {
     constructor() {
