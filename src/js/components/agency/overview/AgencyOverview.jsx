@@ -201,7 +201,7 @@ export default class AgencyOverview extends React.PureComponent {
                         <svg className="horizontal-bar">
                             <g>
                                 <HorizontalBarItem
-                                    description="Budget Authority"
+                                    description="Budgetary Resources"
                                     x={0}
                                     y={0}
                                     width={this.state.obligatedWidth}

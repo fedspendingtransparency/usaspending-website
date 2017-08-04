@@ -1,5 +1,5 @@
 /**
-  * guideHelper.js
+  * glossaryHelper.js
   * Created by Kevin Li 5/3/17
   **/
 

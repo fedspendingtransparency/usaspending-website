@@ -33,25 +33,25 @@ export default class TopFilterItem extends React.Component {
 
         return (
             <div className="filter-item-container">
-                <div className="filter-item">
+                <button
+                    className="filter-item"
+                    aria-label={accessibleLabel}
+                    title={accessibleLabel}
+                    onClick={this.clickedButton}>
                     <div className="filter-item-title">
                         {this.props.title}
                     </div>
                     <div className="filter-item-remove-container">
-                        <button
-                            className="filter-remove"
-                            aria-label={accessibleLabel}
-                            title={accessibleLabel}
-                            onClick={this.clickedButton}>
+                        <div className="filter-remove">
                             <span className="sr-only">
                                 {accessibleLabel}
                             </span>
                             <span className="close-icon">
                                 <Icons.Close alt={accessibleLabel} />
                             </span>
-                        </button>
+                        </div>
                     </div>
-                </div>
+                </button>
             </div>
         );
     }

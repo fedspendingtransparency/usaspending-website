@@ -1,0 +1,64 @@
+.agency-landing-results-table {
+    display: block;
+    overflow: scroll;   
+
+    &.no-results {
+        border: none;
+    }
+	table {
+		margin-top: rem(15);
+        width: rem(500);
+
+        @include media($tablet-screen) {
+            width: auto;
+        }
+
+		thead {
+			tr {
+				border-bottom: solid 1px $color-gray-lighter;
+				td {
+					border: 0;
+					.cell-content {
+						float: right;
+					}
+					&:first-child {
+						.cell-content {
+							float: left;
+						}
+					}
+				}
+			}
+			.award-result-header-cell {
+				@import "./cells/_agencyLandingHeaderCell";
+				@include agencyLandingHeader();
+			}
+		}
+		tbody {
+			tr {
+				td {
+					border: 0;
+				}
+				.generic-cell {
+					.cell-content {
+						float: right;
+					}
+				}
+				.agency-link-cell {
+					.cell-content {
+						float: left;
+						a {
+							span {
+								text-decoration: underline;
+								font-weight: 600;
+							}
+						}
+					}
+				}
+				// gray out even rows
+				.row-even {
+					background-color: #f7f7f7;
+				}
+			}
+		}
+	}
+}
