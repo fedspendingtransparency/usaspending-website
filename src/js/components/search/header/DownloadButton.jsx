@@ -11,8 +11,7 @@ export default class DownloadButton extends React.Component {
             <button
                 className="download-button"
                 title="Download your data"
-                aria-label="Download your data"
-                disabled>
+                aria-label="Download your data">
                 Download
             </button>
         );

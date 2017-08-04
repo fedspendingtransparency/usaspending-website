@@ -3,19 +3,15 @@
     color: $color-gray-light;
     text-transform: uppercase;
     font-size: 1em;
+    font-weight: $font-semibold;
     letter-spacing: 0.075em;
     padding: rem(10) rem(20);
     border: 1px solid $color-gray-light;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-        45deg,
-        rgba($color-gray, .2),
-        rgba($color-gray, .2) rem(2),
-        rgba(255,255,255,.2) rem(2),
-        rgba(255,255,255,.2) rem(4)
-    );
+    cursor: pointer;
 
     &:hover, &:active {
-        background-color: $color-gray-medium;
+        color: $color-white;
+        border: 1px solid $color-white;
+        background-color: $color-gray;
     }
 }
