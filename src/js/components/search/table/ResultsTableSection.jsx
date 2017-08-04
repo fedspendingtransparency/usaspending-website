@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import ResultsTableHeaderCellContainer from
     'containers/search/table/ResultsTableHeaderCellContainer';
 
-import ExtraModalContainer from 'containers/search/modals/ExtraModalContainer';
+import ExtraModalContainer from 'containers/search/modals/tableDownload/ExtraModalContainer';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import ResultsTable from './ResultsTable';

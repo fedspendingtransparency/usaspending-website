@@ -5,6 +5,7 @@
 
     background-color: $color-gray;
     color: $color-white;
+    will-change: transform;
 
     &.sticky {
         // don't be sticky on mobile
