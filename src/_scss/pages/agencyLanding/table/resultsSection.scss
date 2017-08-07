@@ -1,0 +1,33 @@
+@mixin resultsSection {
+    .agency-landing-results {
+        transition: opacity 0.25s ease;
+
+        @import './table';
+
+        .loading-table {
+            opacity: 0.5;
+            @include transition(opacity 0.25s ease-in);
+        }
+
+        .loaded-table {
+            opacity: 1;
+            @include transition(opacity 0.25s ease-in);
+        }
+
+        .agency-landing-table-width-master {
+            width: 100%;
+        }
+
+        .results-table-message {
+            margin: rem(90) auto;
+            font-size: rem(36);
+            font-weight: 300;
+            color: $color-base;
+            text-align: center;
+            span {
+                color: $color-active;
+                font-weight: normal;
+            }
+        }
+    }
+}

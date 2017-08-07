@@ -77,7 +77,7 @@ export default class AgencyObligatedAmount extends React.Component {
             },
             {
                 color: '#D6D7D9',
-                label: 'Budget Authority',
+                label: 'Budgetary Resources',
                 offset: 100
             },
             {
@@ -93,7 +93,7 @@ export default class AgencyObligatedAmount extends React.Component {
                 id="agency-obligated-amount">
                 <div className="agency-callout-description">
                     <p>
-                        Agencies spend their available budget authority by making binding
+                        Agencies spend their available budgetary resources by making binding
 financial commitments called <strong>obligations</strong>. An agency incurs an obligation, for
 example, when it places an order, signs a contract, awards a grant, purchases a service, or
 takes other actions that require it to make a payment.
@@ -113,7 +113,7 @@ takes other actions that require it to make a payment.
                             In fiscal year {this.props.activeFY}*, {this.props.agencyName} has obligated
                         </p>
                         <p className="against-auth-text">
-                            <span className="number number-bolder">{amountObligated}</span> against its <span className="number">{authority}</span> in Budget Authority
+                            <span className="number number-bolder">{amountObligated}</span> against its <span className="number">{authority}</span> in Budgetary Resources
                         </p>
                         <AgencyObligatedGraph
                             activeFY={this.props.activeFY}
