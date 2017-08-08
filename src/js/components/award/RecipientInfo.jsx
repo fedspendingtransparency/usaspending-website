@@ -20,8 +20,14 @@ export default class RecipientInfo extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            moreTypesButton: true
+        };
+
         this.buildSnippets = this.buildSnippets.bind(this);
         this.buildName = this.buildName.bind(this);
+        this.toggleButton = this.toggleButton.bind(this);
     }
 
     buildName() {
@@ -39,6 +45,12 @@ export default class RecipientInfo extends React.Component {
         return recipientName;
     }
 
+    toggleButton() {
+        this.setState({
+            moreTypesButton: !this.state.moreTypesButton
+        });
+    }
+
     buildSnippets() {
         const recipient = this.props.recipient;
         const isMultiple = toLower(this.props.recipient.recipient_name) === 'multiple recipients';
@@ -48,16 +60,7 @@ export default class RecipientInfo extends React.Component {
 
         let duns = "Not Available";
         let parentDuns = "Not Available";
-        let businessType = "Not Available";
         const isContract = includes(awardTypeGroups.contracts, this.props.recipient.award_type);
-
-        const allBusinessTypes = BusinessTypesHelper.getBusinessTypes();
-        const businessTypesArray = [];
-        allBusinessTypes.forEach((type) => {
-            if (recipient.latest_transaction.recipient[type.fieldName] === '1') {
-                businessTypesArray.push(type.displayName);
-            }
-        });
 
         if (this.props.recipient.recipient_parent_duns) {
             parentDuns = this.props.recipient.recipient_parent_duns;
@@ -65,15 +68,46 @@ export default class RecipientInfo extends React.Component {
         if (this.props.recipient.recipient_duns) {
             duns = this.props.recipient.recipient_duns;
         }
-        if (this.props.recipient.recipient_business_type !== 'Unknown Types') {
-            // Grants, Loans, Direct Payments, and Insurance
+
+        let businessType = "Not Available";
+        let businessTypeLabel = "Business Type";
+        let overflow = false;
+        const businessTypesArray = [];
+
+        if (!isContract) {
             businessType = this.props.recipient.recipient_business_type;
         }
-        else if (businessTypesArray.length > 0) {
-            businessType = '';
-            businessTypesArray.forEach((type) => {
-                businessType += `${type}, `;
+        else {
+            businessTypeLabel = "Business Types";
+            // Build an array of applicable business type fields
+            const allBusinessTypes = BusinessTypesHelper.getBusinessTypes();
+            allBusinessTypes.forEach((type) => {
+                if (recipient.latest_transaction.recipient[type.fieldName] === '1') {
+                    businessTypesArray.push(type.displayName);
+                }
             });
+
+            if ((businessTypesArray.length > 0) && (businessTypesArray.length <= 2)) {
+                // Show all the business types
+                businessType = businessTypesArray[0];
+                businessTypesArray.forEach((type, index) => {
+                    if (index !== 0) {
+                        businessType += `, ${type}`;
+                    }
+                });
+            }
+            else if (businessTypesArray.length > 2) {
+                // Show just the first two types until a user clicks the 'See More' button
+                overflow = true;
+                businessType = `${businessTypesArray[0]}, ${businessTypesArray[1]}`;
+                if (!this.state.moreTypesButton) {
+                    businessTypesArray.forEach((type, index) => {
+                        if (index > 1) {
+                            businessType += `, ${type}`;
+                        }
+                    });
+                }
+            }
         }
 
         let parentDunsSnippet = (
@@ -85,6 +119,34 @@ export default class RecipientInfo extends React.Component {
             parentDunsSnippet = '';
         }
 
+        let businessTypesSnippet = (
+            <InfoSnippet
+                label={businessTypeLabel}
+                value={businessType} />);
+
+        if (overflow) {
+            let button = (<button
+                onClick={this.toggleButton}
+                className="see-more">{`See ${businessTypesArray.length - 2} more`}</button>);
+            if (!this.state.moreTypesButton) {
+                button = (<button
+                    onClick={this.toggleButton}
+                    className="see-more">{`See less`}</button>);
+            }
+            businessTypesSnippet = (
+                <li>
+                    <div className="format-item">
+                        <div className="item-label">
+                            Business Types
+                        </div>
+                        <div className="item-value">
+                            {businessType}
+                            {button}
+                        </div>
+                    </div>
+                </li>);
+        }
+
         let infoSnippets = (
             <ul className="recipient-information">
                 <RecipientAddress
@@ -93,9 +155,7 @@ export default class RecipientInfo extends React.Component {
                     label="DUNS"
                     value={duns} />
                 {parentDunsSnippet}
-                <InfoSnippet
-                    label="Business Types"
-                    value={businessType} />
+                {businessTypesSnippet}
             </ul>);
 
         if (isMultiple) {

@@ -49,6 +49,7 @@
                 @include span-columns(16);
             }
         }
+	    @import './_moreButton';
     }
     @include media($tablet-screen) {
         @include span-columns(9);
