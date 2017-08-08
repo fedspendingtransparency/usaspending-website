@@ -1,6 +1,6 @@
 .search-section-extra-modal {
     // override the modal widths
-    width: 75%;
+    width: 85%;
 }
 
 .full-download-modal {
@@ -15,4 +15,6 @@
     }
 
     @import "./_breadcrumb";
+
+    @import "./_levelScreen";
 }

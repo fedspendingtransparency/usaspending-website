@@ -6,6 +6,8 @@
         position: relative;
     }
 
+    margin-bottom: rem(10);
+
     .breadcrumb-item {
         display: block;
         @include media($medium-screen) {
@@ -17,7 +19,10 @@
 
         &.active {
             background-color: $color-primary-darker;
-            color: $color-white;
+        }
+
+        &.past {
+            background-color: $color-gray-medium;
         }
 
         .breadcrumb-content {
@@ -27,6 +32,12 @@
             @include align-items(center);
 
             width: 100%;
+
+            color: $color-base;
+
+            &.active, &.past {
+                color: $color-white;
+            }
 
             border-top: 2px solid $color-white;
             @include media($medium-screen) {
@@ -91,10 +102,20 @@
                             border-left-color: $color-primary-darker;
                         }
                     }
+
+                    &.past {
+                        &:after {
+                            border-left-color: $color-gray-medium;
+                        }
+                    }
                 }
 
-                &.next-active {
+                &.next-active, &.is-last, &.active {
                     background-color: $color-primary-darker;
+                }
+
+                &.next-past, &.past {
+                    background-color: $color-gray-medium
                 }
             }
         }

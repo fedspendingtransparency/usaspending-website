@@ -10,6 +10,10 @@ import Modal from 'react-aria-modal';
 import { Close } from 'components/sharedComponents/icons/Icons';
 
 import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarContainer';
+import DownloadLevelContainer from
+    'containers/search/modals/fullDownload/screens/DownloadLevelContainer';
+import DownloadScopeContainer from
+    'containers/search/modals/fullDownload/screens/DownloadScopeContainer';
 
 import DownloadBreadcrumb from './breadcrumb/DownloadBreadcrumb';
 
@@ -29,9 +33,9 @@ export default class FullDownloadModal extends React.Component {
         this.goToStep = this.goToStep.bind(this);
     }
 
-    goToStep(step) {
+    goToStep(step, override = false) {
         // we can only go backwards
-        if (step >= this.state.downloadStep) {
+        if (step >= this.state.downloadStep && !override) {
             return;
         }
 
@@ -41,6 +45,12 @@ export default class FullDownloadModal extends React.Component {
     }
 
     render() {
+        let content = <DownloadLevelContainer goToStep={this.goToStep} />;
+        if (this.state.downloadStep === 2) {
+            content = <DownloadScopeContainer goToStep={this.goToStep} />;
+        }
+
+
         return (
             <Modal
                 mounted={this.props.mounted}
@@ -72,6 +82,8 @@ export default class FullDownloadModal extends React.Component {
                         <DownloadBreadcrumb
                             step={this.state.downloadStep}
                             goToStep={this.goToStep} />
+
+                        {content}
                     </div>
                 </div>
             </Modal>

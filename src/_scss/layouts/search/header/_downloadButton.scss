@@ -1,12 +1,12 @@
 .download-button {
     @include button-unstyled;
-    color: $color-gray-light;
+    color: $color-white;
     text-transform: uppercase;
     font-size: 1em;
     font-weight: $font-semibold;
     letter-spacing: 0.075em;
     padding: rem(10) rem(20);
-    border: 1px solid $color-gray-light;
+    border: 1px solid $color-white;
     cursor: pointer;
 
     &:hover, &:active {

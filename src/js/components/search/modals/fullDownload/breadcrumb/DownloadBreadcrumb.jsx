@@ -39,9 +39,8 @@ export default class DownloadBreadcrumb extends React.Component {
                 type={type}
                 title={step}
                 step={index + 1}
-                active={index + 1 === this.props.step}
-                nextActive={index + 2 === this.props.step}
-                disabled={index + 1 >= this.props.step}
+                currentStep={this.props.step}
+                totalSteps={steps.length}
                 goToStep={this.props.goToStep} />);
         });
 

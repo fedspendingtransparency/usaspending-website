@@ -5,14 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import FullDownloadModal from 'components/search/modals/fullDownload/FullDownloadModal';
 
 const propTypes = {
     mounted: PropTypes.bool,
-    hideModal: PropTypes.func,
-    reduxFilters: PropTypes.object
+    hideModal: PropTypes.func
 };
 
 export class FullDownloadModalContainer extends React.Component {
@@ -27,6 +25,4 @@ export class FullDownloadModalContainer extends React.Component {
 
 FullDownloadModalContainer.propTypes = propTypes;
 
-export default connect(
-    (state) => ({ reduxFilters: state.filters })
-)(FullDownloadModalContainer);
+export default FullDownloadModalContainer;
