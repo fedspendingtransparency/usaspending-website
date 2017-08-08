@@ -12,7 +12,8 @@ import DownloadButton from './DownloadButton';
 
 const propTypes = {
     isSticky: PropTypes.bool,
-    currentSection: PropTypes.string
+    currentSection: PropTypes.string,
+    showDownloadModal: PropTypes.func
 };
 
 const sectionList = ['time', 'rank', 'geo', 'table'];
@@ -200,7 +201,8 @@ export default class SearchHeader extends React.Component {
                                         icon={<Icons.Table alt="Table Icon" />} />
                                 </li>
                                 <li>
-                                    <DownloadButton />
+                                    <DownloadButton
+                                        onClick={this.props.showDownloadModal} />
                                 </li>
                             </ul>
                         </div>

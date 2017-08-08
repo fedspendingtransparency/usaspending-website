@@ -9,12 +9,16 @@ import { throttle } from 'lodash';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
+import FullDownloadModalContainer from
+    'containers/search/modals/fullDownload/FullDownloadModalContainer';
+
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import SearchHeader from './header/SearchHeader';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
+
 
 const propTypes = {
     clearAllFilters: PropTypes.func
@@ -27,7 +31,8 @@ export default class SearchPage extends React.Component {
         this.state = {
             showMobileFilters: false,
             filterCount: 0,
-            isMobile: false
+            isMobile: false,
+            showFullDownload: true
         };
 
         // throttle the ocurrences of the scroll callback to once every 50ms
@@ -35,6 +40,9 @@ export default class SearchPage extends React.Component {
 
         this.updateFilterCount = this.updateFilterCount.bind(this);
         this.toggleMobileFilters = this.toggleMobileFilters.bind(this);
+
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
     }
 
     componentDidMount() {
@@ -85,6 +93,26 @@ export default class SearchPage extends React.Component {
         });
     }
 
+    /**
+     * Shows the full download modal
+     */
+
+    showModal() {
+        this.setState({
+            showFullDownload: true
+        });
+    }
+
+    /**
+     * Hides the full download modal
+     */
+
+    hideModal() {
+        this.setState({
+            showFullDownload: false
+        });
+    }
+
     render() {
         let fullSidebar = (<SearchSidebar />);
         if (this.state.isMobile) {
@@ -100,7 +128,8 @@ export default class SearchPage extends React.Component {
                 <MetaTags {...MetaTagHelper.searchPageMetaTags} />
                 <Header />
                 <main id="main-content">
-                    <SearchHeader />
+                    <SearchHeader
+                        showDownloadModal={this.showModal} />
                     <div className="search-contents">
                         <div className="full-search-sidebar">
                             { fullSidebar }
@@ -113,6 +142,9 @@ export default class SearchPage extends React.Component {
                             toggleMobileFilters={this.toggleMobileFilters}
                             clearAllFilters={this.props.clearAllFilters} />
                     </div>
+                    <FullDownloadModalContainer
+                        mounted={this.state.showFullDownload}
+                        hideModal={this.hideModal} />
                 </main>
                 <Footer />
             </div>

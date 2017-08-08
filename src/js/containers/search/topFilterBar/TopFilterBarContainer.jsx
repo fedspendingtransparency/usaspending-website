@@ -19,7 +19,12 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    updateFilterCount: PropTypes.func
+    updateFilterCount: PropTypes.func,
+    compressed: PropTypes.bool
+};
+
+const defaultProps = {
+    compressed: false
 };
 
 export class TopFilterBarContainer extends React.Component {
@@ -150,7 +155,9 @@ export class TopFilterBarContainer extends React.Component {
             filters,
             filterCount: this.determineFilterCount(filters)
         }, () => {
-            this.props.updateFilterCount(this.state.filterCount);
+            if (!this.props.compressed) {
+                this.props.updateFilterCount(this.state.filterCount);
+            }
         });
     }
 
@@ -635,6 +642,7 @@ export class TopFilterBarContainer extends React.Component {
 }
 
 TopFilterBarContainer.propTypes = propTypes;
+TopFilterBarContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ reduxFilters: state.filters }),

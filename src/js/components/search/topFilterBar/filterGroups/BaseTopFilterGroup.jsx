@@ -12,11 +12,13 @@ import TopFilterItem from '../TopFilterItem';
 const propTypes = {
     filter: PropTypes.object,
     tags: PropTypes.array,
-    clearFilterGroup: PropTypes.func
+    clearFilterGroup: PropTypes.func,
+    compressed: PropTypes.bool
 };
 
 const defaultProps = {
-    tags: []
+    tags: [],
+    compressed: false
 };
 
 export default class BaseTopFilterGroup extends React.Component {
@@ -38,7 +40,8 @@ export default class BaseTopFilterGroup extends React.Component {
                 value={tag.value}
                 isSpecial={tag.isSpecial}
                 code={this.props.filter.code}
-                removeFilter={tag.removeFilter} />
+                removeFilter={tag.removeFilter}
+                compressed={this.props.compressed} />
         ));
 
         let showClose = '';
@@ -46,10 +49,15 @@ export default class BaseTopFilterGroup extends React.Component {
             showClose = ' hide';
         }
 
+        let hideCompressed = '';
+        if (this.props.compressed) {
+            hideCompressed = 'hide';
+        }
+
         return (
             <div className="filter-group-container">
                 <div className="filter-group">
-                    <div className="filter-group-top">
+                    <div className={`filter-group-top ${hideCompressed}`}>
                         <div className="filter-name">
                             {this.props.filter.name}:
                         </div>

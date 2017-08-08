@@ -1,0 +1,18 @@
+.search-section-extra-modal {
+    // override the modal widths
+    width: 75%;
+}
+
+.full-download-modal {
+    $filter-bar-gray: #DDDDDD;
+    @import "./_header";
+    background-color: $color-white;
+
+    .download-body {
+        padding: rem(20) rem(30);
+
+        @import "./_filterBar";
+    }
+
+    @import "./_breadcrumb";
+}
