@@ -194,7 +194,7 @@ class SearchAwardsOperation {
             filters[rootKeys.recipientType] = this.recipientType;
         }
 
-        // Add location queries
+        // Add Locations
         if (this.selectedLocations.length > 0) {
             filters[rootKeys.placeOfPerformance] = this.selectedLocations.map(
                 (location) => location.matched_ids);
@@ -204,7 +204,7 @@ class SearchAwardsOperation {
             filters[rootKeys.placeOfPerformanceScope] = this.locationDomesticForeign;
         }
 
-        // Add Award Amount queries
+        // Add Award Amounts
         if (this.awardAmounts.length > 0) {
             const amounts = [];
 
@@ -225,23 +225,23 @@ class SearchAwardsOperation {
             filters[rootKeys.awardAmount] = amounts;
         }
 
-        // Add Award ID Queries
+        // Add Award IDs
         if (this.selectedAwardIDs.length > 0) {
             filters[rootKeys.awardID] = this.selectedAwardIDs.map(
                 (awardID) => awardID.id);
         }
 
-        // Placeholder for CFDA
+        // Add CFDA
         if (this.selectedCFDA.length > 0) {
             filters[rootKeys.cfda] = this.selectedCFDA.map((cfda) => cfda.program_number);
         }
 
-        // Placeholder for NAICS
+        // Add NAICS
         if (this.selectedNAICS.length > 0) {
             filters[rootKeys.naics] = this.selectedNAICS.map((naics) => naics.naics);
         }
 
-        // Placeholder for PSC
+        // Add PSC
         if (this.selectedPSC.length > 0) {
             filters[rootKeys.psc] = this.selectedPSC.map((psc) => psc.product_or_service_code);
         }
