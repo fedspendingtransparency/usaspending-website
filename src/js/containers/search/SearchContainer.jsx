@@ -294,7 +294,8 @@ export class SearchContainer extends React.Component {
         return (
             <SearchPage
                 hash={this.props.params.hash}
-                clearAllFilters={this.props.clearAllFilters} />
+                clearAllFilters={this.props.clearAllFilters}
+                filters={this.props.filters} />
         );
     }
 }
