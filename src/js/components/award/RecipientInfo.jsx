@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { toLower, includes } from 'lodash';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
+import * as BusinessTypesHelper from 'helpers/businessTypesHelper';
 import InfoSnippet from './InfoSnippet';
 import RecipientAddress from './RecipientAddress';
 
@@ -50,15 +51,31 @@ export default class RecipientInfo extends React.Component {
         let businessType = "Not Available";
         const isContract = includes(awardTypeGroups.contracts, this.props.recipient.award_type);
 
+        const allBusinessTypes = BusinessTypesHelper.getBusinessTypes();
+        const businessTypesArray = [];
+        allBusinessTypes.forEach((type) => {
+            if (recipient.latest_transaction.recipient[type.fieldName] === '1') {
+                businessTypesArray.push(type.displayName);
+            }
+        });
+
         if (this.props.recipient.recipient_parent_duns) {
             parentDuns = this.props.recipient.recipient_parent_duns;
         }
         if (this.props.recipient.recipient_duns) {
             duns = this.props.recipient.recipient_duns;
         }
-        if (this.props.recipient.recipient_business_type) {
+        if (this.props.recipient.recipient_business_type !== 'Unknown Types') {
+            // Grants, Loans, Direct Payments, and Insurance
             businessType = this.props.recipient.recipient_business_type;
         }
+        else if (businessTypesArray.length > 0) {
+            businessType = '';
+            businessTypesArray.forEach((type) => {
+                businessType += `${type}, `;
+            });
+        }
+
         let parentDunsSnippet = (
             <InfoSnippet
                 label="Parent DUNS"
@@ -77,7 +94,7 @@ export default class RecipientInfo extends React.Component {
                     value={duns} />
                 {parentDunsSnippet}
                 <InfoSnippet
-                    label="Business Type"
+                    label="Business Types"
                     value={businessType} />
             </ul>);
 
