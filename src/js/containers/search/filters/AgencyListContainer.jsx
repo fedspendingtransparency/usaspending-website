@@ -4,10 +4,13 @@
 **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { filter, sortBy, slice, concat } from 'lodash';
+
+import { Search } from 'js-search';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
@@ -16,13 +19,13 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as agencyActions from 'redux/actions/search/agencyActions';
 
 const propTypes = {
-    setAutocompleteAwardingAgencies: React.PropTypes.func,
-    setAutocompleteFundingAgencies: React.PropTypes.func,
-    fundingAgencies: React.PropTypes.array,
-    awardingAgencies: React.PropTypes.array,
-    toggleAgency: React.PropTypes.func,
-    selectedAgencies: React.PropTypes.object,
-    agencyType: React.PropTypes.string
+    setAutocompleteAwardingAgencies: PropTypes.func,
+    setAutocompleteFundingAgencies: PropTypes.func,
+    fundingAgencies: PropTypes.array,
+    awardingAgencies: PropTypes.array,
+    toggleAgency: PropTypes.func,
+    selectedAgencies: PropTypes.object,
+    agencyType: PropTypes.string
 };
 
 export class AgencyListContainer extends React.Component {
@@ -145,33 +148,20 @@ export class AgencyListContainer extends React.Component {
             }
 
             const agencySearchParams = {
-                fields: ['subtier_agency__name'],
-                value: this.state.agencySearchString,
-                order: ["-toptier_flag", "subtier_agency__name"],
-                mode: "contains",
-                matched_objects: true,
-                limit: 10
+                search_text: this.state.agencySearchString,
+                limit: 20
             };
 
-            this.agencySearchRequest = SearchHelper.fetchAgencies(agencySearchParams);
+            if (this.props.agencyType === 'Funding') {
+                this.agencySearchRequest = SearchHelper.fetchFundingAgencies(agencySearchParams);
+            }
+            else {
+                this.agencySearchRequest = SearchHelper.fetchAwardingAgencies(agencySearchParams);
+            }
 
             this.agencySearchRequest.promise
                 .then((res) => {
-                    this.setState({
-                        noResults: res.data.matched_objects.subtier_agency__name.length === 0
-                    });
-
-                    // Add search results to Redux
-                    if (this.props.agencyType === 'Funding') {
-                        this.props.setAutocompleteFundingAgencies(
-                            res.data.matched_objects.subtier_agency__name
-                        );
-                    }
-                    else {
-                        this.props.setAutocompleteAwardingAgencies(
-                            res.data.matched_objects.subtier_agency__name
-                        );
-                    }
+                    this.performSecondarySearch(res.data.results);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -187,6 +177,49 @@ export class AgencyListContainer extends React.Component {
         }
     }
 
+    performSecondarySearch(data) {
+        // search within the returned data
+        // create a search index with the API response records
+        const search = new Search('id');
+        search.addIndex(['toptier_agency', 'name']);
+        if (this.props.agencyType === 'Awarding') {
+            search.addIndex(['subtier_agency', 'name']);
+        }
+
+        // add the API response as the data source to search within
+        search.addDocuments(data);
+
+        // use the JS search library to search within the records
+        const results = search.search(this.state.agencySearchString);
+        const toptier = [];
+        const subtier = [];
+
+        // re-group the responses by top tier and subtier
+        results.forEach((item) => {
+            if (item.toptier_flag) {
+                toptier.push(item);
+            }
+            else {
+                subtier.push(item);
+            }
+        });
+
+        // combine the two arrays and limit it to 10
+        const improvedResults = slice(concat(toptier, subtier), 0, 10);
+
+        // Add search results to Redux
+        if (this.props.agencyType === 'Funding') {
+            this.props.setAutocompleteFundingAgencies(improvedResults);
+        }
+        else {
+            this.props.setAutocompleteAwardingAgencies(improvedResults);
+        }
+
+        this.setState({
+            noResults: improvedResults.length === 0
+        });
+    }
+
     clearAutocompleteSuggestions() {
         if (this.props.agencyType === 'Funding') {
             this.props.setAutocompleteFundingAgencies([]);
@@ -198,10 +231,10 @@ export class AgencyListContainer extends React.Component {
 
     handleTextInput(agencyInput) {
         // Clear existing agencies to ensure user can't select an old or existing one
-        if (this.props.agencyType === 'Funding') {
+        if (this.props.agencyType === 'Funding' && this.props.fundingAgencies.length > 0) {
             this.props.setAutocompleteFundingAgencies([]);
         }
-        else {
+        else if (this.props.agencyType === 'Awarding' && this.props.awardingAgencies.length > 0) {
             this.props.setAutocompleteAwardingAgencies([]);
         }
 

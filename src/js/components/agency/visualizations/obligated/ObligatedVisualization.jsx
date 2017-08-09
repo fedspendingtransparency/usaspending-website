@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -12,11 +13,11 @@ import { throttle } from 'lodash';
 import AgencyObligatedGraph from './ObligatedGraph';
 
 const propTypes = {
-    activeFY: React.PropTypes.string,
-    reportingFiscalQuarter: React.PropTypes.number,
-    agencyName: React.PropTypes.string,
-    obligatedAmount: React.PropTypes.number,
-    budgetAuthority: React.PropTypes.number
+    activeFY: PropTypes.string,
+    reportingFiscalQuarter: PropTypes.number,
+    agencyName: PropTypes.string,
+    obligatedAmount: PropTypes.number,
+    budgetAuthority: PropTypes.number
 };
 
 export default class AgencyObligatedAmount extends React.Component {
@@ -76,7 +77,7 @@ export default class AgencyObligatedAmount extends React.Component {
             },
             {
                 color: '#D6D7D9',
-                label: 'Budget Authority',
+                label: 'Budgetary Resources',
                 offset: 100
             },
             {
@@ -92,7 +93,7 @@ export default class AgencyObligatedAmount extends React.Component {
                 id="agency-obligated-amount">
                 <div className="agency-callout-description">
                     <p>
-                        Agencies spend their available budget authority by making binding
+                        Agencies spend their available budgetary resources by making binding
 financial commitments called <strong>obligations</strong>. An agency incurs an obligation, for
 example, when it places an order, signs a contract, awards a grant, purchases a service, or
 takes other actions that require it to make a payment.
@@ -112,7 +113,7 @@ takes other actions that require it to make a payment.
                             In fiscal year {this.props.activeFY}*, {this.props.agencyName} has obligated
                         </p>
                         <p className="against-auth-text">
-                            <span className="number number-bolder">{amountObligated}</span> against its <span className="number">{authority}</span> in Budget Authority
+                            <span className="number number-bolder">{amountObligated}</span> against its <span className="number">{authority}</span> in Budgetary Resources
                         </p>
                         <AgencyObligatedGraph
                             activeFY={this.props.activeFY}

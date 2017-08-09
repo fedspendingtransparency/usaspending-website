@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -12,7 +13,7 @@ import * as accountFilterActions from 'redux/actions/account/accountFilterAction
 import ObjectClassFilter from 'components/account/filters/objectClass/ObjectClassFilter';
 
 const propTypes = {
-    toggleObjectClass: React.PropTypes.func
+    toggleObjectClass: PropTypes.func
 };
 
 export class AccountObjectClassContainer extends React.Component {

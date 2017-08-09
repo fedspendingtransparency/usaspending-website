@@ -26,6 +26,9 @@ export const mockFilters = {
             recipientDomesticForeign: "all",
             selectedRecipientLocations: {},
             awardAmounts: {},
+            selectedCFDA: {},
+            selectedNAICS: {},
+            selectedPSC: {},
             timePeriodEnd: null
         }
     }

@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { awardTypeGroups, awardTypeCodes } from 'dataMapping/search/awardType';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
@@ -31,18 +32,17 @@ const defaultProps = {
             filters: awardTypeGroups.loans
         },
         {
-            id: 'award-insurance',
-            name: 'Insurance',
-            filters: [],
-            value: awardTypeGroups.insurance[0]
+            id: 'award-other',
+            name: 'Other',
+            filters: awardTypeGroups.other
         }
     ]
 };
 
 const propTypes = {
-    awardTypes: React.PropTypes.arrayOf(React.PropTypes.object),
-    awardType: React.PropTypes.object,
-    bulkTypeChange: React.PropTypes.func
+    awardTypes: PropTypes.arrayOf(PropTypes.object),
+    awardType: PropTypes.object,
+    bulkTypeChange: PropTypes.func
 };
 
 export default class AwardType extends React.Component {

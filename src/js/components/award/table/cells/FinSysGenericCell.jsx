@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    data: React.PropTypes.string,
-    rowIndex: React.PropTypes.number,
-    column: React.PropTypes.string,
-    isLastColumn: React.PropTypes.bool
+    data: PropTypes.string,
+    rowIndex: PropTypes.number,
+    column: PropTypes.string,
+    isLastColumn: PropTypes.bool
 };
 
 export default class FinSysGenericCell extends React.Component {

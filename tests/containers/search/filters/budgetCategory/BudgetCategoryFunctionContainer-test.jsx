@@ -11,58 +11,15 @@ import { OrderedMap } from 'immutable';
 import { BudgetCategoryFunctionContainer } from
     'containers/search/filters/budgetCategory/BudgetCategoryFunctionContainer';
 
-import * as SearchHelper from 'helpers/searchHelper';
 import * as budgetCategoryActions from 'redux/actions/search/budgetCategoryActions';
+
+jest.mock('helpers/searchHelper', () => require('../searchHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 const setup = (props) => mount(<BudgetCategoryFunctionContainer {...props} />);
 
 const initialFilters = {
     autocompleteBudgetFunctions: []
-};
-
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
-
-const apiResponse = {
-    results: {
-        budget_function_title: ['Income Security'],
-        budget_subfunction_title: ['Farm income stabilization']
-    }
-};
-
-// we don't want to actually hit the API because tests should be fully controlled, so we will mock
-// the SearchHelper functions
-const mockSearchHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    SearchHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockSearchHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/searchHelper');
 };
 
 describe('BudgetCategoryFunctionContainer', () => {
@@ -74,7 +31,8 @@ describe('BudgetCategoryFunctionContainer', () => {
                 setAutocompleteBudgetFunctions:
                     budgetCategoryActions.setAutocompleteBudgetFunctions,
                 budgetFunctions: new OrderedMap(),
-                autocompleteBudgetFunctions: []
+                autocompleteBudgetFunctions: [],
+                updateBudgetFunctions: jest.fn()
             });
 
             const searchQuery = {
@@ -110,7 +68,8 @@ describe('BudgetCategoryFunctionContainer', () => {
                 setAutocompleteBudgetFunctions:
                     budgetCategoryActions.setAutocompleteBudgetFunctions,
                 budgetFunctions: new OrderedMap(),
-                autocompleteBudgetFunctions: []
+                autocompleteBudgetFunctions: [],
+                updateBudgetFunctions: jest.fn()
             });
 
             const searchQuery = {
@@ -152,7 +111,8 @@ describe('BudgetCategoryFunctionContainer', () => {
                 reduxFilters: initialFilters,
                 setAutocompleteBudgetFunctions: mockReduxAction,
                 budgetFunctions: new OrderedMap(),
-                autocompleteBudgetFunctions: []
+                autocompleteBudgetFunctions: [],
+                updateBudgetFunctions: jest.fn()
             });
 
             const queryAutocompleteBudgetFunctionsSpy = sinon
@@ -191,7 +151,8 @@ describe('BudgetCategoryFunctionContainer', () => {
                 reduxFilters: initialFilters,
                 setAutocompleteBudgetFunctions: mockReduxAction,
                 budgetFunctions: new OrderedMap(),
-                autocompleteBudgetFunctions: []
+                autocompleteBudgetFunctions: [],
+                updateBudgetFunctions: jest.fn()
             });
 
             // set up spies
@@ -222,7 +183,7 @@ describe('BudgetCategoryFunctionContainer', () => {
             queryAutocompleteBudgetFunctionsSpy.reset();
         });
 
-        it('should populate Budget Functions after performing the search', () => {
+        it('should populate Budget Functions after performing the search', async () => {
             // Setup redux state
             const reduxState = [{
                 'Income Security': {
@@ -245,15 +206,6 @@ describe('BudgetCategoryFunctionContainer', () => {
                 updateBudgetFunctions: jest.fn()
             });
 
-            // Mock the search helper to resolve with the mocked response
-            mockSearchHelper('fetchBudgetFunctions', 'resolve', apiResponse);
-
-            // Run fake timer for input delay
-            jest.useFakeTimers().runTimersToTime(10000);
-
-            // Run all ticks
-            jest.runAllTicks();
-
             // Set up spies
             const queryAutocompleteBudgetFunctionsSpy = sinon.spy(
                 budgetCategoryFunctionContainer.instance(), 'queryAutocompleteBudgetFunctions');
@@ -263,16 +215,12 @@ describe('BudgetCategoryFunctionContainer', () => {
             budgetCategoryFunctionContainer.instance()
                 .queryAutocompleteBudgetFunctions('Income');
 
-            // Run all ticks
-            jest.runAllTicks();
+            await budgetCategoryFunctionContainer.instance().searchRequest.promise;
 
             expect(queryAutocompleteBudgetFunctionsSpy.callCount).toEqual(1);
             expect(parseAutocompleteBudgetFunctionsSpy
                 .calledWith(queryAutocompleteBudgetFunctionsSpy));
             expect(mockReduxAction).toHaveBeenCalled();
-
-            // Reset the mock
-            unmockSearchHelper();
 
             // Reset spies
             queryAutocompleteBudgetFunctionsSpy.reset();

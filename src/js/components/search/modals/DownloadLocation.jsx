@@ -4,10 +4,11 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Clipboard from 'clipboard';
 
 const propTypes = {
-    location: React.PropTypes.string
+    location: PropTypes.string
 };
 
 export default class DownloadLocation extends React.Component {

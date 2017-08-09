@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import Error from '../sharedComponents/Error';
 
 const propTypes = {
-    account: React.PropTypes.object
+    account: PropTypes.object
 };
 
 export default class InvalidAccount extends React.Component {

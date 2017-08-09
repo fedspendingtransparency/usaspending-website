@@ -4,11 +4,12 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    submitText: React.PropTypes.func,
-    changedInput: React.PropTypes.func,
-    value: React.PropTypes.string
+    submitText: PropTypes.func,
+    changedInput: PropTypes.func,
+    value: PropTypes.string
 };
 
 export default class Keyword extends React.Component {

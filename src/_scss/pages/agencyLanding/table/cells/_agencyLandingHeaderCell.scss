@@ -1,0 +1,49 @@
+@mixin agencyLandingHeader() {
+
+    .cell-content {
+        white-space: normal;
+        font-size: rem(18);
+        font-weight: 600;
+        line-height: 25px;
+        color: $color-base;
+        cursor: pointer;
+
+        .header-sort {
+            display: table;
+            padding: rem(11) rem(20);
+
+            .header-label {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .header-icons {
+                display: table-cell;
+                vertical-align: middle;
+                padding-left: rem(5);
+                height: rem(10);
+
+                .sort-icon {
+                    @include button-unstyled;
+                    display: block;
+                    line-height: rem(10);
+                    width: rem(14);
+                    height: rem(10);
+                    text-align: center;
+
+                    svg {
+                        fill: #86888E;
+                        height: rem(11);
+                        width: rem(11);
+                    }
+
+                    &.active {
+                        svg {
+                            fill: $color-active;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

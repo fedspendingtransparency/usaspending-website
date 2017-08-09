@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { indexOf } from 'lodash';
 
 import ToggleButton from 'components/sharedComponents/ToggleButton';
@@ -14,9 +15,9 @@ import GeoCapitaTooltip from './tooltips/GeoCapitaTooltip';
 import HomepageMapCitation from './HomepageMapCitation';
 
 const propTypes = {
-    data: React.PropTypes.object,
-    showPerCapita: React.PropTypes.bool,
-    togglePerCapita: React.PropTypes.func
+    data: PropTypes.object,
+    showPerCapita: PropTypes.bool,
+    togglePerCapita: PropTypes.func
 };
 
 export default class MapVisualization extends React.Component {

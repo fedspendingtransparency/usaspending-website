@@ -3,24 +3,25 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isEqual, find } from 'lodash';
 
 import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
 
 const propTypes = {
-    handleTextInput: React.PropTypes.func.isRequired,
-    onSelect: React.PropTypes.func.isRequired,
-    clearAutocompleteSuggestions: React.PropTypes.func.isRequired,
-    values: React.PropTypes.array,
-    placeholder: React.PropTypes.string,
-    errorHeader: React.PropTypes.string,
-    errorMessage: React.PropTypes.string,
-    tabIndex: React.PropTypes.number,
-    isRequired: React.PropTypes.bool,
-    maxSuggestions: React.PropTypes.number,
-    label: React.PropTypes.string,
-    noResults: React.PropTypes.bool
+    handleTextInput: PropTypes.func.isRequired,
+    onSelect: PropTypes.func.isRequired,
+    clearAutocompleteSuggestions: PropTypes.func.isRequired,
+    values: PropTypes.array,
+    placeholder: PropTypes.string,
+    errorHeader: PropTypes.string,
+    errorMessage: PropTypes.string,
+    tabIndex: PropTypes.number,
+    isRequired: PropTypes.bool,
+    maxSuggestions: PropTypes.number,
+    label: PropTypes.string,
+    noResults: PropTypes.bool
 };
 
 const defaultProps = {

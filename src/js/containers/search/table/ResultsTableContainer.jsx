@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
@@ -24,23 +25,23 @@ import ResultsTableSection from 'components/search/table/ResultsTableSection';
 import SearchActions from 'redux/actions/searchActions';
 
 const propTypes = {
-    filters: React.PropTypes.object,
-    rows: React.PropTypes.instanceOf(Immutable.List),
-    meta: React.PropTypes.object,
-    batch: React.PropTypes.instanceOf(Immutable.Record),
-    searchOrder: React.PropTypes.object,
-    setSearchTableType: React.PropTypes.func,
-    setSearchPageNumber: React.PropTypes.func,
-    setSearchOrder: React.PropTypes.func,
-    clearRecords: React.PropTypes.func,
-    bulkInsertRecordSet: React.PropTypes.func,
-    setSearchResultMeta: React.PropTypes.func,
-    setSearchInFlight: React.PropTypes.func,
-    triggerBatchSearchUpdate: React.PropTypes.func,
-    triggerBatchQueryUpdate: React.PropTypes.func,
-    columnVisibility: React.PropTypes.object,
-    toggleColumnVisibility: React.PropTypes.func,
-    reorderColumns: React.PropTypes.func
+    filters: PropTypes.object,
+    rows: PropTypes.instanceOf(Immutable.List),
+    meta: PropTypes.object,
+    batch: PropTypes.instanceOf(Immutable.Record),
+    searchOrder: PropTypes.object,
+    setSearchTableType: PropTypes.func,
+    setSearchPageNumber: PropTypes.func,
+    setSearchOrder: PropTypes.func,
+    clearRecords: PropTypes.func,
+    bulkInsertRecordSet: PropTypes.func,
+    setSearchResultMeta: PropTypes.func,
+    setSearchInFlight: PropTypes.func,
+    triggerBatchSearchUpdate: PropTypes.func,
+    triggerBatchQueryUpdate: PropTypes.func,
+    columnVisibility: PropTypes.object,
+    toggleColumnVisibility: PropTypes.func,
+    reorderColumns: PropTypes.func
 };
 
 const tableTypes = [
@@ -65,8 +66,8 @@ const tableTypes = [
         enabled: true
     },
     {
-        label: 'Insurance',
-        internal: 'insurance',
+        label: 'Other',
+        internal: 'other',
         enabled: true
     }
 ];

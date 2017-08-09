@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { concat } from 'lodash';
 
 import ContractTransactionsTableContainer from
@@ -21,9 +22,9 @@ import AssistanceAdditionalDetails from './additional/AssistanceAdditionalDetail
 import ResultsTablePicker from '../../search/table/ResultsTablePicker';
 
 const propTypes = {
-    award: React.PropTypes.object,
-    activeTab: React.PropTypes.string,
-    clickTab: React.PropTypes.func
+    award: PropTypes.object,
+    activeTab: PropTypes.string,
+    clickTab: PropTypes.func
 };
 
 const commonTabs = [

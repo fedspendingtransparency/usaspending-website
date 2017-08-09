@@ -4,13 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    title: React.PropTypes.string,
-    value: React.PropTypes.string,
-    overflow: React.PropTypes.bool,
-    maxChars: React.PropTypes.number
+    title: PropTypes.string,
+    value: PropTypes.string,
+    overflow: PropTypes.bool,
+    maxChars: PropTypes.number
 };
 
 export default class DetailRow extends React.Component {

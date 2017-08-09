@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { objectClassDefinitions, objectClassDefinitionsGroups }
     from 'dataMapping/search/budgetCategory';
 
@@ -40,9 +41,9 @@ const defaultProps = {
 };
 
 const propTypes = {
-    objectClassMapping: React.PropTypes.arrayOf(React.PropTypes.object),
-    objectClasses: React.PropTypes.object,
-    selectObjectClass: React.PropTypes.func
+    objectClassMapping: PropTypes.arrayOf(PropTypes.object),
+    objectClasses: PropTypes.object,
+    selectObjectClass: PropTypes.func
 };
 
 export default class BudgetCategoryOCSearch extends React.Component {

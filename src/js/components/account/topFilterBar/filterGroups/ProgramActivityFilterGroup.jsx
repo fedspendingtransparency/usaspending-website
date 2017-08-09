@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { find } from 'lodash';
 
 import BaseTopFilterGroup from 'components/search/topFilterBar/filterGroups/BaseTopFilterGroup';
 
 const propTypes = {
-    filter: React.PropTypes.object,
-    redux: React.PropTypes.object
+    filter: PropTypes.object,
+    redux: PropTypes.object
 };
 
 export default class ProgramActivityFilterGroup extends React.Component {

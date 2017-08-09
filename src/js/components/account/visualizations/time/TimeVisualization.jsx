@@ -4,14 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ChartMessage from 'components/search/visualizations/time/TimeVisualizationChartMessage';
 import BarChartStacked from './chart/BarChartStacked';
+import TimeTooltip from './TimeTooltip';
 
 const defaultProps = {
-    groups: [],
-    xSeries: [],
-    ySeries: [],
     width: 0,
     height: 280
 };
@@ -28,13 +27,11 @@ const defaultProps = {
  /* eslint-disable react/no-unused-prop-types */
  // allow unused prop types. they are passed to child components, but documented here
 const propTypes = {
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    groups: React.PropTypes.array,
-    xSeries: React.PropTypes.array,
-    ySeries: React.PropTypes.array,
-    loading: React.PropTypes.bool,
-    hasFilteredObligated: React.PropTypes.bool
+    width: PropTypes.number,
+    height: PropTypes.number,
+    data: PropTypes.object,
+    loading: PropTypes.bool,
+    hasFilteredObligated: PropTypes.bool
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -43,20 +40,37 @@ export default class TimeVisualization extends React.Component {
         super(props);
 
         this.state = {
+            showTooltip: false,
             tooltipData: null,
             tooltipX: 0,
             tooltipY: 0
         };
 
         this.showTooltip = this.showTooltip.bind(this);
+        this.hideTooltip = this.hideTooltip.bind(this);
+        this.toggleTooltip = this.toggleTooltip.bind(this);
     }
 
-    showTooltip() {
-        // this.setState({
-        //     tooltipData: data,
-        //     tooltipX: x,
-        //     tooltipY: y
-        // });
+    showTooltip(data) {
+        this.setState({
+            showTooltip: true,
+            tooltipData: data
+        });
+    }
+
+    hideTooltip() {
+        this.setState({
+            showTooltip: false
+        });
+    }
+
+    toggleTooltip(data) {
+        if (this.state.showTooltip) {
+            this.hideTooltip();
+        }
+        else {
+            this.showTooltip(data);
+        }
     }
 
     render() {
@@ -107,22 +121,31 @@ export default class TimeVisualization extends React.Component {
             ];
         }
 
-
         if (this.props.loading) {
             // API request is still pending
             chart = (<ChartMessage message="Loading data..." />);
         }
-        else if (this.props.groups.length > 0) {
+        else if (this.props.data.xSeries.length > 0) {
             // only mount the chart component if there is data to display
             chart = (<BarChartStacked
-                {...this.props}
+                width={this.props.width}
+                height={this.props.height}
+                data={this.props.data}
                 legend={legend}
-                enableHighlight={false}
-                showTooltip={this.showTooltip} />);
+                showTooltip={this.showTooltip}
+                hideTooltip={this.hideTooltip}
+                toggleTooltip={this.toggleTooltip} />);
+        }
+
+        let tooltip = null;
+        if (this.state.showTooltip) {
+            tooltip = (<TimeTooltip
+                {...this.state.tooltipData} />);
         }
 
         return (
             <div className="results-visualization-time-container">
+                {tooltip}
                 {chart}
             </div>
         );

@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import DatePicker from 'components/sharedComponents/DatePicker';
 
 const defaultProps = {
@@ -13,12 +14,12 @@ const defaultProps = {
 };
 
 const propTypes = {
-    startingTab: React.PropTypes.number,
-    onDateChange: React.PropTypes.func,
-    startDate: React.PropTypes.object,
-    endDate: React.PropTypes.object,
-    showError: React.PropTypes.func,
-    hideError: React.PropTypes.func
+    startingTab: PropTypes.number,
+    onDateChange: PropTypes.func,
+    startDate: PropTypes.object,
+    endDate: PropTypes.object,
+    showError: PropTypes.func,
+    hideError: PropTypes.func
 };
 
 export default class DateRange extends React.Component {

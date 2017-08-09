@@ -4,10 +4,11 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    recipient: React.PropTypes.object,
-    type: React.PropTypes.string
+    recipient: PropTypes.object,
+    type: PropTypes.string
 };
 
 export default class RecipientAddress extends React.Component {

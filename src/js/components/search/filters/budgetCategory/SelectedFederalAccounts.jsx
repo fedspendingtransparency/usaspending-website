@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ShownFederalAccount from './ShownFederalAccount';
 
 const propTypes = {
-    federalAccounts: React.PropTypes.object,
-    updateSelectedFederalAccounts: React.PropTypes.func
+    federalAccounts: PropTypes.object,
+    updateSelectedFederalAccounts: PropTypes.func
 };
 
 export default class SelectedFederalAccounts extends React.Component {

@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
-    filter: React.PropTypes.object,
-    redux: React.PropTypes.object
+    filter: PropTypes.object,
+    redux: PropTypes.object
 };
 
 export default class RecipientFilterGroup extends React.Component {
@@ -41,8 +42,8 @@ export default class RecipientFilterGroup extends React.Component {
 
         recipients.forEach((value) => {
             const tag = {
-                value: `${value.recipient_unique_id}`,
-                title: `${value.recipient_name} | ${value.recipient_unique_id}`,
+                value: `${value.legal_entity_id}`,
+                title: `${value.recipient_name} | ${value.duns}`,
                 isSpecial: false,
                 removeFilter: this.removeFilter
             };

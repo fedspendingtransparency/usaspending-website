@@ -4,12 +4,13 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import InfoSnippet from './InfoSnippet';
 
 const propTypes = {
-    selectedAward: React.PropTypes.object,
-    awardTypes: React.PropTypes.array
+    selectedAward: PropTypes.object,
+    awardTypes: PropTypes.array
 };
 
 const defaultProps = {

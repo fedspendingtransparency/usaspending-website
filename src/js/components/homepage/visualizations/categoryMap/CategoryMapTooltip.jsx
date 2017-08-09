@@ -4,16 +4,17 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    name: React.PropTypes.string,
-    dollar: React.PropTypes.number,
-    description: React.PropTypes.string,
-    height: React.PropTypes.number,
-    x: React.PropTypes.number,
-    y: React.PropTypes.number,
-    width: React.PropTypes.number
+    name: PropTypes.string,
+    dollar: PropTypes.number,
+    description: PropTypes.string,
+    height: PropTypes.number,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    width: PropTypes.number
 };
 
 export default class CategoryMapTooltip extends React.Component {
@@ -48,8 +49,8 @@ export default class CategoryMapTooltip extends React.Component {
         if (windowWidth < 768) {
             top = (this.props.y + this.props.height) - 20;
         }
-        this.div.style.top = `${top}px`;
-        this.div.style.left = `${left}px`;
+
+        this.div.style.transform = `translate(${left}px, ${top}px)`;
         this.div.className = `tooltip`;
         this.pointerDiv.className = `tooltip-pointer top`;
         this.pointerDiv.style.left = `${pointerX}px`;

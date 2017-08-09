@@ -4,25 +4,26 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const defaultProps = {
     active: false
 };
 
 const propTypes = {
-    identifier: React.PropTypes.string,
-    dataY: React.PropTypes.number,
-    dataX: React.PropTypes.string,
-    graphHeight: React.PropTypes.number,
-    height: React.PropTypes.number,
-    width: React.PropTypes.number,
-    x: React.PropTypes.number,
-    y: React.PropTypes.number,
-    color: React.PropTypes.string,
-    description: React.PropTypes.string,
-    selectBar: React.PropTypes.func,
-    deselectBar: React.PropTypes.func,
-    deregisterBar: React.PropTypes.func
+    identifier: PropTypes.string,
+    dataY: PropTypes.number,
+    dataX: PropTypes.string,
+    graphHeight: PropTypes.number,
+    height: PropTypes.number,
+    width: PropTypes.number,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    color: PropTypes.string,
+    description: PropTypes.string,
+    selectBar: PropTypes.func,
+    deselectBar: PropTypes.func,
+    deregisterBar: PropTypes.func
 };
 
 export default class BarItem extends React.Component {
@@ -85,7 +86,7 @@ export default class BarItem extends React.Component {
                     y={0}
                     width={this.props.width}
                     height={this.props.graphHeight}
-                    onMouseOver={this.mouseEntered}
+                    onMouseEnter={this.mouseEntered}
                     onMouseOut={this.mouseExited}
                     onTouchStart={this.touchedBar} />
             </g>

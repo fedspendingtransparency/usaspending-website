@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { measureTableHeader } from 'helpers/textMeasurement';
 
@@ -24,12 +25,12 @@ const rowHeight = 40;
 const tableHeight = 12.5 * rowHeight;
 
 const propTypes = {
-    inFlight: React.PropTypes.bool,
-    tableWidth: React.PropTypes.number,
-    award: React.PropTypes.object,
-    subawards: React.PropTypes.array,
-    meta: React.PropTypes.object,
-    loadNextPage: React.PropTypes.func
+    inFlight: PropTypes.bool,
+    tableWidth: PropTypes.number,
+    award: PropTypes.object,
+    subawards: PropTypes.array,
+    meta: PropTypes.object,
+    loadNextPage: PropTypes.func
 };
 
 export default class SubawardsTable extends React.Component {

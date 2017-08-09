@@ -28,6 +28,7 @@
             vertical-align: middle;
             & svg {
                 width: rem(8);
+                height: rem(8);
                 fill: $color-gray;
             }
         }
@@ -37,7 +38,11 @@
             cursor: pointer;
             @include transition(all 0.25s $ease-in-out-sine);
             & .close {
-                & svg {
+                cursor: pointer;
+                fill: $color-cool-blue;
+                
+                & svg,
+                & path {
                     cursor: pointer;
                     fill: $color-cool-blue;
                 }

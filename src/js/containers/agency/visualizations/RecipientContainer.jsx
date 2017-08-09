@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { slice } from 'lodash';
 
@@ -14,8 +15,8 @@ import RecipientVisualization from
     'components/agency/visualizations/recipient/RecipientVisualization';
 
 const propTypes = {
-    id: React.PropTypes.string,
-    activeFY: React.PropTypes.string
+    id: PropTypes.string,
+    activeFY: PropTypes.string
 };
 
 export default class RecipientContainer extends React.PureComponent {
@@ -69,12 +70,18 @@ export default class RecipientContainer extends React.PureComponent {
             error: false
         });
 
-        this.request = AgencyHelper.fetchAwardRecipients({
+        const params = {
             fiscal_year: fy,
             awarding_agency_id: id,
             limit: 10,
             page: pageNumber
-        });
+        };
+
+        if (this.state.scope !== 'all') {
+            params.award_category = this.state.scope;
+        }
+
+        this.request = AgencyHelper.fetchAwardRecipients(params);
 
         this.request.promise
             .then((res) => {

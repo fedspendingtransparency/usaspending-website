@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as AwardIDFormatter from 'helpers/awardIDFormatter';
 import ShownAwardID from './ShownAwardID';
 
 const propTypes = {
-    toggleAwardID: React.PropTypes.func,
-    selectedAwardIDs: React.PropTypes.object
+    toggleAwardID: PropTypes.func,
+    selectedAwardIDs: PropTypes.object
 };
 
 export default class SelectedAwardIDs extends React.Component {

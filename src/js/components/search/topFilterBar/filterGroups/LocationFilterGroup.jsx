@@ -4,15 +4,16 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { dropRight } from 'lodash';
 
 import * as LocationFormatter from 'helpers/locationFormatter';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
-    filter: React.PropTypes.object,
-    redux: React.PropTypes.object,
-    toggle: React.PropTypes.string
+    filter: PropTypes.object,
+    redux: PropTypes.object,
+    toggle: PropTypes.string
 };
 
 const scopeLabels = {

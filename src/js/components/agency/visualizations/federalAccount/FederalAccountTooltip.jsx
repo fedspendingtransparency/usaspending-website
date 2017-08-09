@@ -4,15 +4,16 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    label: React.PropTypes.string,
-    value: React.PropTypes.number,
-    y: React.PropTypes.number,
-    x: React.PropTypes.number
+    label: PropTypes.string,
+    value: PropTypes.number,
+    y: PropTypes.number,
+    x: PropTypes.number
 };
 
 export default class FederalAccountTooltip extends React.Component {

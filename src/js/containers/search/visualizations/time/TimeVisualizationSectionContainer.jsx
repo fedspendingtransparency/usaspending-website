@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
@@ -23,8 +24,8 @@ import SearchTransactionOperation from 'models/search/SearchTransactionOperation
 const combinedActions = Object.assign({}, searchFilterActions, resultsMetaActions);
 
 const propTypes = {
-    reduxFilters: React.PropTypes.object,
-    setVizTxnSum: React.PropTypes.func
+    reduxFilters: PropTypes.object,
+    setVizTxnSum: PropTypes.func
 };
 
 export class TimeVisualizationSectionContainer extends React.Component {

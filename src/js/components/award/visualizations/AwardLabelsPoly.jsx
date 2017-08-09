@@ -4,14 +4,15 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    labelWidth: React.PropTypes.number,
-    labelPadding: React.PropTypes.number,
-    labelDistance: React.PropTypes.number,
-    currentY: React.PropTypes.number,
-    graphHeight: React.PropTypes.number,
-    currentMiddle: React.PropTypes.number
+    labelWidth: PropTypes.number,
+    labelPadding: PropTypes.number,
+    labelDistance: PropTypes.number,
+    currentY: PropTypes.number,
+    graphHeight: PropTypes.number,
+    currentMiddle: PropTypes.number
 };
 
 export default class AwardLabelsPoly extends React.Component {

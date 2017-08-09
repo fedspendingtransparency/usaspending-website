@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-    objectClasses: React.PropTypes.object,
-    objectClassLabel: React.PropTypes.string,
-    objectClassID: React.PropTypes.number,
-    toggleSelection: React.PropTypes.func
+    objectClasses: PropTypes.object,
+    objectClassLabel: PropTypes.string,
+    objectClassID: PropTypes.number,
+    toggleSelection: PropTypes.func
 };
 
 const defaultProps = {
