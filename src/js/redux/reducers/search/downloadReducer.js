@@ -8,7 +8,9 @@ import { List } from 'immutable';
 export const initialState = {
     type: 'award',
     columns: new List(),
-    expectedFile: ''
+    expectedFile: '',
+    pendingDownload: false,
+    showCollapsedProgress: false
 };
 
 const downloadReducer = (state = initialState, action) => {
@@ -26,6 +28,16 @@ const downloadReducer = (state = initialState, action) => {
         case 'SET_DOWNLOAD_EXPECTED_FILE': {
             return Object.assign({}, state, {
                 expectedFile: action.file
+            });
+        }
+        case 'SET_DOWNLOAD_PENDING': {
+            return Object.assign({}, state, {
+                pendingDownload: action.state
+            });
+        }
+        case 'SET_DOWNLOAD_COLLAPSED': {
+            return Object.assign({}, state, {
+                showCollapsedProgress: action.collapsed
             });
         }
         case 'RESET_DOWNLOAD': {

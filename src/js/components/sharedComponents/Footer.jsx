@@ -5,6 +5,8 @@
 
 import React from 'react';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
+import DownloadBottomBarContainer from
+    'containers/search/modals/fullDownload/DownloadBottomBarContainer';
 import FloatingGlossaryButton from './FloatingGlossaryButton';
 import FooterExternalLink from './FooterExternalLink';
 
@@ -14,6 +16,7 @@ export default class Footer extends React.Component {
         return (
             <div>
                 <GlossaryButtonWrapperContainer child={FloatingGlossaryButton} />
+                <DownloadBottomBarContainer />
                 <footer className="footer-outer-wrap" role="contentinfo">
                     <div className="footer-container">
                         <div className="footer-logo">

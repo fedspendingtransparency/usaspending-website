@@ -5,18 +5,26 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import * as downloadActions from 'redux/actions/search/downloadActions';
 
 import FullDownloadModal from 'components/search/modals/fullDownload/FullDownloadModal';
 
 const propTypes = {
     mounted: PropTypes.bool,
-    hideModal: PropTypes.func
+    hideModal: PropTypes.func,
+    setDownloadCollapsed: PropTypes.func,
+    pendingDownload: PropTypes.bool
 };
 
 export class FullDownloadModalContainer extends React.Component {
     render() {
         return (
             <FullDownloadModal
+                setDownloadCollapsed={this.props.setDownloadCollapsed}
+                pendingDownload={this.props.pendingDownload}
                 mounted={this.props.mounted}
                 hideModal={this.props.hideModal} />
         );
@@ -25,4 +33,7 @@ export class FullDownloadModalContainer extends React.Component {
 
 FullDownloadModalContainer.propTypes = propTypes;
 
-export default FullDownloadModalContainer;
+export default connect(
+    (state) => ({ pendingDownload: state.download.pendingDownload }),
+    (dispatch) => bindActionCreators(downloadActions, dispatch)
+)(FullDownloadModalContainer);

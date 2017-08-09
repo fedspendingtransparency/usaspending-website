@@ -68,7 +68,7 @@ const BreadcrumbItem = (props) => {
             <button
                 className={`breadcrumb-content ${type}`}
                 onClick={props.goToStep.bind(null, props.step)}
-                disabled={isFuture || isActive}
+                disabled={isFuture || isActive || props.currentStep === props.totalSteps}
                 title={`Step ${props.step}: ${props.title}`}
                 aria-label={`Step ${props.step}: ${props.title}`}>
                 <div className="breadcrumb-step">

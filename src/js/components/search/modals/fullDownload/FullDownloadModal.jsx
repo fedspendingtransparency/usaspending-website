@@ -17,9 +17,13 @@ import DownloadScopeContainer from
 
 import DownloadBreadcrumb from './breadcrumb/DownloadBreadcrumb';
 
+import DownloadProgress from './screens/DownloadProgress';
+
 const propTypes = {
     mounted: PropTypes.bool,
-    hideModal: PropTypes.func
+    hideModal: PropTypes.func,
+    setDownloadCollapsed: PropTypes.func,
+    pendingDownload: PropTypes.bool
 };
 
 export default class FullDownloadModal extends React.Component {
@@ -31,8 +35,23 @@ export default class FullDownloadModal extends React.Component {
         };
 
         this.goToStep = this.goToStep.bind(this);
+        this.hideModal = this.hideModal.bind(this);
     }
 
+    hideModal() {
+        // reset the state before closing, but only if we're not on the download screen
+        if (this.state.downloadStep === 3 || this.props.pendingDownload) {
+            this.props.setDownloadCollapsed(true);
+            this.props.hideModal();
+            return;
+        }
+
+        this.setState({
+            downloadStep: 1
+        }, () => {
+            this.props.hideModal();
+        });
+    }
     goToStep(step, override = false) {
         // we can only go backwards
         if (step >= this.state.downloadStep && !override) {
@@ -49,12 +68,17 @@ export default class FullDownloadModal extends React.Component {
         if (this.state.downloadStep === 2) {
             content = <DownloadScopeContainer goToStep={this.goToStep} />;
         }
+        else if (this.state.downloadStep === 3) {
+            content = (<DownloadProgress
+                hideModal={this.hideModal}
+                setDownloadCollapsed={this.props.setDownloadCollapsed} />);
+        }
 
 
         return (
             <Modal
                 mounted={this.props.mounted}
-                onExit={this.props.hideModal}
+                onExit={this.hideModal}
                 titleText="Additional Options"
                 dialogClass="search-section-extra-modal"
                 verticallyCenter
@@ -82,7 +106,6 @@ export default class FullDownloadModal extends React.Component {
                         <DownloadBreadcrumb
                             step={this.state.downloadStep}
                             goToStep={this.goToStep} />
-
                         {content}
                     </div>
                 </div>

@@ -20,6 +20,7 @@ export default class DownloadScope extends React.Component {
 
     clickedEverything() {
         this.props.setDownloadColumns([]);
+        this.props.setDownloadPending(true);
         this.props.goToStep(3, true);
     }
 
