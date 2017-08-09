@@ -74,10 +74,7 @@ export default class RecipientInfo extends React.Component {
         let overflow = false;
         const businessTypesArray = [];
 
-        if (!isContract) {
-            businessType = this.props.recipient.recipient_business_type;
-        }
-        else {
+        if (isContract && this.props.recipient.recipient_business_type === 'Unknown Types') {
             businessTypeLabel = "Business Types";
             // Build an array of applicable business type fields
             const allBusinessTypes = BusinessTypesHelper.getBusinessTypes();
@@ -108,6 +105,9 @@ export default class RecipientInfo extends React.Component {
                     });
                 }
             }
+        }
+        else {
+            businessType = this.props.recipient.recipient_business_type;
         }
 
         let parentDunsSnippet = (
