@@ -3,6 +3,8 @@
  * Created by michaelbray on 8/7/17.
  */
 
+import { concat } from 'lodash';
+
 import { rootKeys, timePeriodKeys, agencyKeys, awardAmountKeys }
     from 'dataMapping/search/awardsOperationKeys';
 
@@ -89,18 +91,17 @@ class SearchAwardsOperation {
         // Add Time Period
         if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
             if (this.timePeriodType === 'fy' && this.timePeriodFY.length > 0) {
-                filters[rootKeys.timePeriod] = {
-                    [timePeriodKeys.type]: this.timePeriodType,
-                    [timePeriodKeys.value]: this.timePeriodFY
-                };
+                filters[rootKeys.timePeriod] = this.timePeriodFY.map((fy) =>
+                    ({
+                        [timePeriodKeys.startDate]: `${fy - 1}-10-01`,
+                        [timePeriodKeys.endDate]: `${fy}-09-30`
+                    })
+                );
             }
             else if (this.timePeriodType === 'dr' && this.timePeriodRange.length === 2) {
                 filters[rootKeys.timePeriod] = {
-                    [timePeriodKeys.type]: this.timePeriodType,
-                    [timePeriodKeys.value]: {
-                        [timePeriodKeys.startDate]: this.timePeriodRange[0],
-                        [timePeriodKeys.endDate]: this.timePeriodRange[1]
-                    }
+                    [timePeriodKeys.startDate]: this.timePeriodRange[0],
+                    [timePeriodKeys.endDate]: this.timePeriodRange[1]
                 };
             }
         }
@@ -150,8 +151,12 @@ class SearchAwardsOperation {
         }
 
         if (this.selectedRecipientLocations.length > 0) {
-            filters[rootKeys.recipientLocation] = this.selectedRecipientLocations.map(
-                (recipient) => recipient.matched_ids);
+            let locationSet = [];
+            this.selectedRecipientLocations.forEach((location) => {
+                locationSet = concat(locationSet, location.matched_ids);
+            });
+
+            filters[rootKeys.recipientLocation] = locationSet;
         }
 
         if (this.recipientType.length > 0) {
@@ -160,8 +165,12 @@ class SearchAwardsOperation {
 
         // Add Locations
         if (this.selectedLocations.length > 0) {
-            filters[rootKeys.placeOfPerformance] = this.selectedLocations.map(
-                (location) => location.matched_ids);
+            let locationSet = [];
+            this.selectedLocations.forEach((location) => {
+                locationSet = concat(locationSet, location.matched_ids);
+            });
+
+            filters[rootKeys.placeOfPerformance] = locationSet;
         }
 
         if (this.locationDomesticForeign !== '' && this.locationDomesticForeign !== 'all') {
