@@ -20,6 +20,7 @@ import awardReducer from './award/awardReducer';
 import accountReducer from './account/accountReducer';
 import agencyReducer from './agency/agencyReducer';
 import glossaryReducer from './glossary/glossaryReducer';
+import agencyLandingReducer from './agencyLanding/agencyLandingReducer';
 import cfdaReducer from './search/cfdaReducer';
 import naicsReducer from './search/naicsReducer';
 import pscReducer from './search/pscReducer';
@@ -44,7 +45,8 @@ const appReducer = combineReducers({
     autocompleteBudgetCategories: budgetCategoryReducer,
     account: accountReducer,
     agency: agencyReducer,
-    glossary: glossaryReducer
+    glossary: glossaryReducer,
+    agencyLanding: agencyLandingReducer
 });
 
 export default appReducer;

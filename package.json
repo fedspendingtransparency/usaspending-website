@@ -103,6 +103,7 @@
     "react-map-gl": "^2.0.2",
     "react-markdown": "^2.5.0",
     "react-redux": "5.0.5",
+    "react-string-replace": "^0.4.0",
     "react-transition-group": "^1.1.2",
     "redux": "3.7.1",
     "redux-perf-middleware": "^1.2.2",
