@@ -10,11 +10,11 @@ export const rootKeys = {
     agencies: 'agencies',
     recipients: 'legal_entities',
     recipientLocationScope: 'recipient_scope',
-    recipientLocation: 'recipient_location',
+    recipientLocation: 'recipient_locations',
     recipientType: 'recipient_type_names',
     placeOfPerformanceScope: 'place_of_performance_scope',
-    placeOfPerformance: 'place_of_performance_location',
-    awardAmount: 'award_amount',
+    placeOfPerformance: 'place_of_performance_locations',
+    awardAmount: 'award_amounts',
     awardID: 'award_ids',
     cfda: 'program_numbers',
     naics: 'naics_codes',
@@ -25,8 +25,6 @@ export const rootKeys = {
 };
 
 export const timePeriodKeys = {
-    type: 'type',
-    value: 'value',
     startDate: 'start_date',
     endDate: 'end_date'
 };
