@@ -55,6 +55,23 @@ export default class FilterOption extends React.Component {
         }
     }
 
+    componentWillUpdate(nextProps) {
+        if (nextProps.defaultExpand !== this.props.defaultExpand) {
+            if (nextProps.defaultExpand) {
+                this.setState({
+                    showFilter: true,
+                    arrowState: 'expanded'
+                });
+            }
+            else {
+                this.setState({
+                    showFilter: false,
+                    arrowState: 'collapsed'
+                });
+            }
+        }
+    }
+
     toggleFilter(e) {
         e.preventDefault();
 
