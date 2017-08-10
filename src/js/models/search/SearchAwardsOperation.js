@@ -4,9 +4,9 @@
  */
 
 import { concat } from 'lodash';
-
 import { rootKeys, timePeriodKeys, agencyKeys, awardAmountKeys }
     from 'dataMapping/search/awardsOperationKeys';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 class SearchAwardsOperation {
     constructor() {
@@ -79,7 +79,7 @@ class SearchAwardsOperation {
         // this.extentCompeted = state.extentCompeted.toArray();
     }
 
-    params() {
+    toParams() {
         // Convert the search operation into JS objects
         const filters = {};
 
@@ -91,12 +91,14 @@ class SearchAwardsOperation {
         // Add Time Period
         if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
             if (this.timePeriodType === 'fy' && this.timePeriodFY.length > 0) {
-                filters[rootKeys.timePeriod] = this.timePeriodFY.map((fy) =>
-                    ({
-                        [timePeriodKeys.startDate]: `${fy - 1}-10-01`,
-                        [timePeriodKeys.endDate]: `${fy}-09-30`
-                    })
-                );
+                filters[rootKeys.timePeriod] = this.timePeriodFY.map((fy) => {
+                    const dates = FiscalYearHelper.convertFYToDateRange(fy);
+
+                    return {
+                        [timePeriodKeys.startDate]: dates[0],
+                        [timePeriodKeys.endDate]: dates[1]
+                    };
+                });
             }
             else if (this.timePeriodType === 'dr' && this.timePeriodRange.length === 2) {
                 filters[rootKeys.timePeriod] = {
@@ -126,9 +128,7 @@ class SearchAwardsOperation {
 
             // Awarding Agencies can be both toptier and subtier
             this.awardingAgencies.forEach((agencyArray) => {
-                const agencyName = agencyArray.agencyType === 'toptier'
-                    ? agencyArray.toptier_agency.name
-                    : agencyArray.subtier_agency.name;
+                const agencyName = agencyArray[`${agencyArray.agencyType}_agency`].name;
 
                 agencies.push({
                     [agencyKeys.type]: 'awarding',
@@ -181,21 +181,40 @@ class SearchAwardsOperation {
         if (this.awardAmounts.length > 0) {
             const amounts = [];
 
+            // The backend expects an object with a lower bound, an upper bound, or both.
+            // In cases of "$x - $y", we include both a lower and upper bound.
+            // In cases of "$x & Above", we don't include an upper bound.
+            // In cases of "Under $x", we don't include a lower bound.
             this.awardAmounts.forEach((awardAmount) => {
                 const amount = {};
 
-                if (awardAmount[0] !== 0) {
+                // Don't include the min if it's negative
+                if (awardAmount[0] > 0) {
                     amount[awardAmountKeys.min] = awardAmount[0];
                 }
 
-                if (awardAmount[1] !== 0) {
+                // Don't include the max if it's negative
+                if (awardAmount[1] > 0) {
                     amount[awardAmountKeys.max] = awardAmount[1];
                 }
 
-                amounts.push(amount);
+                // Remove the max element if the min element is larger
+                if (awardAmount[0] !== 0 && awardAmount[1] !== 0 &&
+                    awardAmount[0] > awardAmount[1]) {
+                    delete amount[awardAmountKeys.max];
+                }
+
+                // Only include a range if at least one of the bounds is defined
+                if (amount[awardAmountKeys.min] || amount[awardAmountKeys.max]) {
+                    amounts.push(amount);
+                }
             });
 
-            filters[rootKeys.awardAmount] = amounts;
+            // Only push the array to the filters element if at least
+            // one award amount object is defined
+            if (amounts.length > 0) {
+                filters[rootKeys.awardAmount] = amounts;
+            }
         }
 
         // Add Award IDs
