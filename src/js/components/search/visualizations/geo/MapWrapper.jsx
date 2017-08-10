@@ -66,12 +66,12 @@ export default class MapWrapper extends React.Component {
         this.setState({
             mapReady: true
         }, () => {
-            this.loadStateShapes()
-                .then(() => {
-                    // we depend on the state shapes to process the state fills, so the operation
-                    // queue must wait for the state shapes to load first
-                    this.runMapOperationQueue();
-                });
+            this.loadStateShapes();
+            //     .then(() => {
+            //         // we depend on the state shapes to process the state fills, so the operation
+            //         // queue must wait for the state shapes to load first
+            //         this.runMapOperationQueue();
+            //     });
         });
     }
 
@@ -82,57 +82,128 @@ export default class MapWrapper extends React.Component {
         });
     }
 
-    loadStateShapes() {
-        return new Promise((resolve, reject) => {
-            if (!this.state.mapReady) {
-                resolve();
-                return;
-            }
-
-            // fetch the state shapes
-            MapHelper.fetchFile('graphics/states.json').promise
-                .then((res) => {
-                    // split the data into individual state features
-                    const states = {};
-
-                    res.data.features.forEach((feature) => {
-                        const stateName = feature.properties.NAME;
-                        const stateCode = MapHelper.stateCodeFromName(stateName);
-
-                        let shape = {
-                            geometry: feature.geometry,
-                            type: 'Feature'
-                        };
-
-                        if (feature.type === 'FeatureCollection') {
-                            // this is a collection of multiple shapes (ie, islands)
-                            shape = {
-                                type: 'FeatureCollection',
-                                features: feature.features
-                            };
-                        }
-
-                        const state = {
-                            shape,
-                            data: {
-                                name: stateName,
-                                code: stateCode
-                            }
-                        };
-
-                        states[stateCode] = state;
-                    });
-
-                    this.setState({
-                        stateShapes: states
-                    }, () => {
-                        resolve();
-                    });
-                })
-                .catch((err) => {
-                    reject(err);
-                });
+    determineVisibleStates() {
+        // determine which states are in view
+        const states = this.mapRef.map.queryRenderedFeatures({
+            layers: ['us_state_shapes']
         });
+
+        const names = states.map((state) => {
+            return state.properties.STUSPS;
+        });
+        if (names.length < 2) {
+            return;
+        }
+        
+        // get the first and last state
+        const firstState = names[0];
+        const lastState = names[names.length - 1];
+
+        this.mapRef.map.setFilter('highlighted-states', ['in', 'STUSPS', firstState]);
+
+    }
+
+    loadStateShapes() {
+        // add the state data
+        this.mapRef.map.addSource('states', {
+            type: 'vector',
+            url: 'mapbox://usaspending.9cse49bi'
+        });
+
+        // add the state shapes as its own layer
+        this.mapRef.map.addLayer({
+            id: 'us_state_shapes',
+            type: 'fill',
+            source: 'states',
+            'source-layer': 'cb_2016_us_state_500k-ckeyb7',
+            paint: {
+                'fill-outline-color': '#212121',
+                'fill-color': 'rgba(0,0,0,0)'
+            }
+        });
+
+        this.mapRef.map.addLayer({
+            id: 'highlighted-states',
+            type: 'fill',
+            source: 'states',
+            'source-layer': 'cb_2016_us_state_500k-ckeyb7',
+            paint: {
+                'fill-outline-color': '#F9A825',
+                'fill-color': '#FFEE58',
+                'fill-opacity': 0.75
+            },
+            filter: ['in', 'STUSPS', '']
+        }, 'us_state_shapes');
+
+        this.mapRef.map.on('move', this.determineVisibleStates.bind(this));
+        this.determineVisibleStates();
+
+       
+
+
+        // this.mapRef.map.addSource('states', {
+        //     type: 'geojson',
+        //     data: 'graphics/cb_2016_us_state_500k.json'
+        // });
+
+        // this.mapRef.map.addLayer({
+        //     id: 'states-join',
+        //     type: 'fill',
+        //     source: 'states',
+        //     paint: {
+        //         'fill-color': "#00FFFF"
+        //     }
+        // });
+        // return new Promise((resolve, reject) => {
+        //     if (!this.state.mapReady) {
+        //         resolve();
+        //         return;
+        //     }
+
+        //     // fetch the state shapes
+        //     MapHelper.fetchFile('graphics/states.json').promise
+        //         .then((res) => {
+        //             // split the data into individual state features
+        //             const states = {};
+
+        //             res.data.features.forEach((feature) => {
+        //                 const stateName = feature.properties.NAME;
+        //                 const stateCode = MapHelper.stateCodeFromName(stateName);
+
+        //                 let shape = {
+        //                     geometry: feature.geometry,
+        //                     type: 'Feature'
+        //                 };
+
+        //                 if (feature.type === 'FeatureCollection') {
+        //                     // this is a collection of multiple shapes (ie, islands)
+        //                     shape = {
+        //                         type: 'FeatureCollection',
+        //                         features: feature.features
+        //                     };
+        //                 }
+
+        //                 const state = {
+        //                     shape,
+        //                     data: {
+        //                         name: stateName,
+        //                         code: stateCode
+        //                     }
+        //                 };
+
+        //                 states[stateCode] = state;
+        //             });
+
+        //             this.setState({
+        //                 stateShapes: states
+        //             }, () => {
+        //                 resolve();
+        //             });
+        //         })
+        //         .catch((err) => {
+        //             reject(err);
+        //         });
+        // });
     }
 
     outlineState(stateCode) {
