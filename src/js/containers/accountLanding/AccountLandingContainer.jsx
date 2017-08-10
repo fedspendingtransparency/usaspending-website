@@ -207,6 +207,8 @@ export class AccountLandingContainer extends React.Component {
         // perform a local search
         const search = new Search('account_id');
         search.addIndex('account_name');
+        search.addIndex('account_number');
+        search.addIndex('managing_agency');
         search.addDocuments(this.state.fullData);
 
         // return the full data set if no search string is provided

@@ -40,13 +40,11 @@
 						}
 					}
 				}
-				.account-link-cell {
+				.account-link-cell, .generic-account-cell {
 					.cell-content {
-						a {
-							span {
-								text-decoration: underline;
-								font-weight: 600;
-							}
+						span {
+							text-decoration: underline;
+							font-weight: 600;
 						}
 					}
 				}

@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GenericCell from 'components/agencyLanding/table/cells/GenericCell';
 import AccountLinkCell from './cells/AccountLinkCell';
+import GenericAccountCell from './cells/GenericAccountCell';
 
 const propTypes = {
     columns: PropTypes.array.isRequired,
@@ -37,14 +38,27 @@ export default class TableRow extends React.PureComponent {
                     </td>
                 );
             }
+            else if (column.columnName === 'budget_authority_amount') {
+                return (
+                    <td
+                        className={rowClass}
+                        key={`${column.columnName}-${this.props.account.account_id}`}>
+                        <GenericCell
+                            rowIndex={this.props.rowIndex}
+                            data={this.props.account.display[column.columnName]}
+                            column={column.columnName} />
+                    </td>
+                );
+            }
             return (
                 <td
                     className={rowClass}
                     key={`${column.columnName}-${this.props.account.account_id}`}>
-                    <GenericCell
+                    <GenericAccountCell
                         rowIndex={this.props.rowIndex}
                         data={this.props.account.display[column.columnName]}
-                        column={column.columnName} />
+                        column={column.columnName}
+                        accountSearchString={this.props.accountSearchString} />
                 </td>
             );
         });
