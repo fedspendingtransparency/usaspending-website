@@ -14,6 +14,7 @@ import tableMapping from 'dataMapping/contracts/financialSystem';
 
 import FinSysHeaderCellContainer from 'containers/award/table/cells/FinSysHeaderCellContainer';
 import FinSysGenericCell from './cells/FinSysGenericCell';
+import FinSysAccountCell from './cells/FinSysAccountCell';
 import SummaryPageTableMessage from './SummaryPageTableMessage';
 
 const rowHeight = 40;
@@ -94,6 +95,11 @@ export default class FinancialSystemTable extends React.Component {
             const apiKey = tableMapping.table._mapping[column];
             const defaultSort = tableMapping.defaultSortDirection[column];
 
+            let CellComponent = FinSysGenericCell;
+            if (column === 'fedAccount') {
+                CellComponent = FinSysAccountCell;
+            }
+
             return {
                 width: columnWidth,
                 name: column,
@@ -106,7 +112,7 @@ export default class FinancialSystemTable extends React.Component {
                     isLastColumn={isLast} />),
                 cell: (index) => {
                     const item = this.props.award.finSysData[index];
-                    return (<FinSysGenericCell
+                    return (<CellComponent
                         key={`cell-transaction-${column}-${index}`}
                         rowIndex={index}
                         id={item.id}
