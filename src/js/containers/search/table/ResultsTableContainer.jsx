@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import Immutable from 'immutable';
 import { isCancel } from 'axios';
 
-import SearchOperation from 'models/search/SearchOperation';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import SearchSortOrder from 'models/search/SearchSortOrder';
 import * as SearchHelper from 'helpers/searchHelper';
 import AwardSummary from 'models/results/award/AwardSummary';
@@ -78,7 +78,7 @@ export class ResultsTableContainer extends React.Component {
 
         this.state = {
             columns: [],
-            searchParams: new SearchOperation(),
+            searchParams: new SearchAwardsOperation(),
             page: 0,
             downloadParams: {},
             hiddenColumns: [],
@@ -141,8 +141,9 @@ export class ResultsTableContainer extends React.Component {
 
         this.props.setSearchInFlight(true);
 
-        const searchParams = new SearchOperation();
+        const searchParams = new SearchAwardsOperation();
         searchParams.fromState(this.props.filters);
+
         this.tabCountRequest = SearchHelper.fetchAwardCounts({
             aggregate: 'count',
             group: 'type',
@@ -241,7 +242,7 @@ export class ResultsTableContainer extends React.Component {
     }
 
     updateFilters() {
-        const newSearch = new SearchOperation();
+        const newSearch = new SearchAwardsOperation();
         newSearch.fromState(this.props.filters);
         this.setState({
             searchParams: newSearch,
@@ -257,13 +258,11 @@ export class ResultsTableContainer extends React.Component {
             this.searchRequest.cancel();
         }
 
-
         const tableType = this.props.meta.tableType;
 
         // append the table type to the current search params
-        const searchParams = Object.assign(new SearchOperation(), this.state.searchParams);
-        const tableAwardTypes = awardTypeGroups[tableType];
-        searchParams.resultAwardType = tableAwardTypes;
+        const searchParams = Object.assign(new SearchAwardsOperation(), this.state.searchParams);
+        searchParams.awardType = awardTypeGroups[tableType];
 
         // parse the redux search order into the API-consumable format
         const searchOrder = new SearchSortOrder();

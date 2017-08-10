@@ -16,7 +16,7 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -66,7 +66,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         // build a new search operation from the Redux state, but create a transaction-based search
         // operation instead of an award-based one
-        const operation = new SearchTransactionOperation();
+        const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
 
         const searchParams = operation.toParams();
@@ -78,10 +78,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         // generate the API parameters
         const apiParams = {
-            field: 'federal_action_obligation',
             group: `${fieldName}__state_code`,
-            order: ['item'],
-            aggregate: 'sum',
             filters: searchParams,
             limit: 500,
             auditTrail: 'Geo visualization'
@@ -95,7 +92,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             loading: true
         });
 
-        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);

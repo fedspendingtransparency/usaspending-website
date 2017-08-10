@@ -246,6 +246,23 @@ export const performSpendingOverTimeSearch = (params) => {
     };
 };
 
+// Spending By Geography Visualization Endpoint
+export const performSpendingByGeographySearch = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/search/spending_by_geography/`,
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 // Fetch Recipients
 export const fetchRecipients = (req) => {
     const source = CancelToken.source();

@@ -1,7 +1,7 @@
 import { fundingAgency } from '../../mockVisualizations';
 
 // Fetch Categories
-export const performCategorySearch = () => (
+export const performFinancialAccountAggregation = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {

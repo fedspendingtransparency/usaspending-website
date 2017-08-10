@@ -77,7 +77,7 @@ describe('TimeVisualizationSectionContainer', () => {
         };
 
         // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+        mockSearchHelper('performSpendingOverTimeSearch', 'resolve', apiResponse);
 
         // mount the container
         mount(<TimeVisualizationSectionContainer reduxFilters={defaultFilters} />);
@@ -113,7 +113,7 @@ describe('TimeVisualizationSectionContainer', () => {
         };
 
         // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+        mockSearchHelper('performSpendingOverTimeSearch', 'resolve', apiResponse);
 
         const initialFilters = Object.assign({}, defaultFilters);
         const secondFilters = Object.assign({}, defaultFilters, {
@@ -158,11 +158,16 @@ describe('TimeVisualizationSectionContainer', () => {
                     previous: null
                 },
                 results: [{
-                    submission__reporting_fiscal_year: '2013',
-                    aggregate: '1234'
-                }, {
-                    submission__reporting_fiscal_year: '2014',
-                    aggregate: '5555'
+                    time_period: {
+                        fiscal_year: "2016"
+                    },
+                    aggregated_amount: "1234"
+                },
+                {
+                    time_period: {
+                        fiscal_year: "2017"
+                    },
+                    aggregated_amount: "5555"
                 }]
             };
 
@@ -171,7 +176,7 @@ describe('TimeVisualizationSectionContainer', () => {
             };
 
             // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performBalancesSearch', 'resolve', apiResponse);
+            mockSearchHelper('performSpendingOverTimeSearch', 'resolve', apiResponse);
             // mount the container
             const timeVisualizationContainer =
                 shallow(<TimeVisualizationSectionContainer
@@ -179,16 +184,14 @@ describe('TimeVisualizationSectionContainer', () => {
                     reduxFilters={defaultFilters} />);
 
             timeVisualizationContainer.instance().parseData(
-                apiResponse, 'submission__reporting_fiscal_year');
+                apiResponse, 'fiscal_year');
             // wait for the SearchHelper promises to resolve
             jest.runAllTicks();
             // validate the state contains the correctly parsed values
             const expectedState = {
-                awardFiltersSelected: false,
-                budgetFiltersSelected: false,
                 loading: false,
-                groups: ['2013', '2014'],
-                xSeries: [['2013'], ['2014']],
+                groups: ['2016', '2017'],
+                xSeries: [['2016'], ['2017']],
                 ySeries: [[1234], [5555]]
             };
 

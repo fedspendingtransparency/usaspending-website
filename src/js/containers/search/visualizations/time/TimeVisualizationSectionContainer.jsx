@@ -65,11 +65,12 @@ export class TimeVisualizationSectionContainer extends React.Component {
     }
 
     fetchAwards(auditTrail = null) {
-        const group = 'action_date__fy';
+        // Group can be "fiscal_year", "quarter", or "month"
+        const group = 'fiscal_year';
 
         const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.params();
+        const searchParams = operation.toParams();
 
         // Generate the API parameters
         const apiParams = {
@@ -102,8 +103,8 @@ export class TimeVisualizationSectionContainer extends React.Component {
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            groups.push(item[group]);
-            xSeries.push([item[group]]);
+            groups.push(item.time_period[group]);
+            xSeries.push([item.time_period[group]]);
             ySeries.push([parseFloat(item.aggregated_amount)]);
 
             totalSpending += parseFloat(item.aggregated_amount);

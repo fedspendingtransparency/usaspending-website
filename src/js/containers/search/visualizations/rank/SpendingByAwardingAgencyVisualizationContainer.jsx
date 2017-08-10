@@ -17,8 +17,7 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
-import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -108,53 +107,19 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
             this.apiRequest.cancel();
         }
 
-        // Fetch data from the appropriate endpoint
-        if (this.props.awardFiltersSelected && this.props.budgetFiltersSelected) {
-            this.fetchComboRequest();
-        }
-        else if (this.props.budgetFiltersSelected) {
-            this.fetchBudgetRequest();
-        }
-        else if (this.props.awardFiltersSelected) {
-            this.fetchAwardRequest();
-        }
-        else {
-            this.fetchUnfilteredRequest();
-        }
+        // Fetch data from the Awards v2 endpoint
+        this.fetchAwards("Awarding Agency Rank Visualization");
     }
 
-
-    fetchUnfilteredRequest() {
-        this.fetchTransactions('Awarding agency vis - unfiltered');
-    }
-
-    fetchBudgetRequest() {
-        this.fetchAccountAwards('Awarding agency vis - budget filters');
-    }
-
-    fetchAwardRequest() {
-        // only award filters have been selected
-        this.fetchTransactions('Awarding agency vis - award filters');
-    }
-
-    fetchComboRequest() {
-        // a combination of budget and award filters have been selected
-        this.fetchAccountAwards('Awarding agency vis - combination');
-    }
-
-    fetchTransactions(auditTrail = null) {
+    fetchAwards(auditTrail = null) {
         // Create Search Operation
-        const operation = new SearchTransactionOperation();
-
+        const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
         // generate the API parameters
         const apiParams = {
-            field: 'federal_action_obligation',
             group: `awarding_agency__${this.state.agencyScope}_agency__name`,
-            order: ['-aggregate'],
-            aggregate: 'sum',
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -165,38 +130,6 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
         }
 
         this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data);
-                this.apiRequest = null;
-            })
-            .catch(() => {
-                this.apiRequest = null;
-            });
-    }
-
-    fetchAccountAwards(auditTrail = null) {
-         // Create Search Operation
-        const operation = new SearchAccountAwardsOperation();
-
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-        // generate the API parameters
-        const apiParams = {
-            field: 'transaction_obligated_amount',
-            group: `award__awarding_agency__${this.state.agencyScope}_agency__name`,
-            order: ['-aggregate'],
-            aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
-        };
-
-        if (auditTrail) {
-            apiParams.auditTrail = auditTrail;
-        }
-
-        this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);

@@ -19,14 +19,11 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as FilterFields from 'dataMapping/search/filterFields';
 
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
-import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    meta: PropTypes.object,
-    budgetFiltersSelected: PropTypes.bool,
-    awardFiltersSelected: PropTypes.bool
+    meta: PropTypes.object
 };
 
 export class SpendingByRecipientVisualizationContainer extends React.Component {
@@ -58,9 +55,7 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)
-            || (prevProps.budgetFiltersSelected !== this.props.budgetFiltersSelected)
-            || (prevProps.awardFiltersSelected !== this.props.awardFiltersSelected)) {
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
             this.newSearch();
         }
     }
@@ -114,57 +109,23 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
             this.apiRequest.cancel();
         }
 
-        // Fetch data from the appropriate endpoint
-        if (this.props.awardFiltersSelected && this.props.budgetFiltersSelected) {
-            this.fetchComboRequest();
-        }
-        else if (this.props.budgetFiltersSelected) {
-            this.fetchBudgetRequest();
-        }
-        else if (this.props.awardFiltersSelected) {
-            this.fetchAwardRequest();
-        }
-        else {
-            this.fetchUnfilteredRequest();
-        }
+        // Fetch data from the Awards v2 endpoint
+        this.fetchAwards("Recipient Rank Visualization");
     }
 
-    fetchUnfilteredRequest() {
-        this.fetchTransactions('Recipient vis - unfiltered');
-    }
+    fetchAwards(auditTrail = null) {
+        const operation = new SearchAwardsOperation();
+        operation.fromState(this.props.reduxFilters);
+        const searchParams = operation.toParams();
 
-    fetchBudgetRequest() {
-        this.fetchAccountAwards('Recipient vis - budget filters');
-    }
-
-    fetchAwardRequest() {
-        // only award filters have been selected
-        this.fetchTransactions('Recipient vis - award filters');
-    }
-
-    fetchComboRequest() {
-        // a combination of budget and award filters have been selected
-        this.fetchAccountAwards('Recipient vis - combination');
-    }
-
-    fetchTransactions(auditTrail = null) {
         const idField = FilterFields.transactionFields.recipientId;
         const labelField = FilterFields.transactionFields.recipientName;
 
         const group = [idField, labelField];
-        const field = 'federal_action_obligation';
-
-        const operation = new SearchTransactionOperation();
-        // Add filters to Search Operation
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
 
         // Generate the API parameters
         const apiParams = {
-            field,
             group,
-            order: ['-aggregate'],
-            aggregate: 'sum',
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -175,46 +136,6 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
         }
 
         this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
-
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data, labelField);
-                this.apiRequest = null;
-            })
-            .catch(() => {
-                this.apiRequest = null;
-            });
-    }
-
-    fetchAccountAwards(auditTrail = null) {
-        // only budget filters have been selected
-        const idField = FilterFields.accountAwardsFields.recipientId;
-        const labelField = FilterFields.accountAwardsFields.recipientName;
-
-        const group = [idField, labelField];
-        const field = 'transaction_obligated_amount';
-
-        // generate the API parameters
-        const operation = new SearchAccountAwardsOperation();
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-
-        // Generate the API parameters
-        const apiParams = {
-            field,
-            group,
-            order: ['-aggregate'],
-            aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
-        };
-
-        if (auditTrail) {
-            apiParams.auditTrail = auditTrail;
-        }
-
-        this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
 
         this.apiRequest.promise
             .then((res) => {

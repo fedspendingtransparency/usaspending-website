@@ -19,14 +19,11 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import * as FilterFields from 'dataMapping/search/filterFields';
 
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
-import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    meta: PropTypes.object,
-    budgetFiltersSelected: PropTypes.bool,
-    awardFiltersSelected: PropTypes.bool
+    meta: PropTypes.object
 };
 
 export class SpendingByCFDAVisualizationContainer extends React.Component {
@@ -98,46 +95,16 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
             this.apiRequest.cancel();
         }
 
-        // Fetch data from the appropriate endpoint
-        if (this.props.awardFiltersSelected && this.props.budgetFiltersSelected) {
-            this.fetchComboRequest();
-        }
-        else if (this.props.budgetFiltersSelected) {
-            this.fetchBudgetRequest();
-        }
-        else if (this.props.awardFiltersSelected) {
-            this.fetchAwardRequest();
-        }
-        else {
-            this.fetchUnfilteredRequest();
-        }
+        // Fetch data from the Awards v2 endpoint
+        this.fetchAwards("CFDA Rank Visualization");
     }
 
-
-    fetchUnfilteredRequest() {
-        this.fetchTransactions('CFDA rank vis - unfiltered');
-    }
-
-    fetchBudgetRequest() {
-        this.fetchAccountAwards('CFDA rank vis - budget filters');
-    }
-
-    fetchAwardRequest() {
-        // only award filters have been selected
-        this.fetchTransactions('CFDA rank vis - award filters');
-    }
-
-    fetchComboRequest() {
-        // a combination of budget and award filters have been selected
-        this.fetchAccountAwards('CFDA rank vis - combination');
-    }
-
-    fetchTransactions(auditTrail = null) {
+    fetchAwards(auditTrail = null) {
         // Create Search Operation
-        const operation = new SearchTransactionOperation();
-
+        const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
+
         const apiGroups = [
             FilterFields.transactionFields.cfdaNumber,
             FilterFields.transactionFields.cfdaTitle
@@ -145,10 +112,7 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
 
         // generate the API parameters
         const apiParams = {
-            field: 'federal_action_obligation',
             group: apiGroups,
-            order: ['-aggregate'],
-            aggregate: 'sum',
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -159,42 +123,6 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
         }
 
         this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data, apiGroups);
-                this.apiRequest = null;
-            })
-            .catch(() => {
-                this.apiRequest = null;
-            });
-    }
-
-    fetchAccountAwards(auditTrail = null) {
-        // Create Search Operation
-        const operation = new SearchAccountAwardsOperation();
-
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-        const apiGroups = [
-            FilterFields.accountAwardsFields.cfdaNumber,
-            FilterFields.accountAwardsFields.cfdaTitle
-        ];
-        // generate the API parameters
-        const apiParams = {
-            field: 'transaction_obligated_amount',
-            group: apiGroups,
-            order: ['-aggregate'],
-            aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
-        };
-
-        if (auditTrail) {
-            apiParams.auditTrail = auditTrail;
-        }
-
-        this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data, apiGroups);
