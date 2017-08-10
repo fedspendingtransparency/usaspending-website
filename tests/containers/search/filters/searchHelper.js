@@ -8,6 +8,8 @@ import { mockCFDA } from './cfda/mockCFDA';
 import { mockNAICS } from './naics/mockNAICS';
 import { mockPSC } from './psc/mockPSC';
 
+import { mockHash, mockFilters, mockRedux, mockActions } from '../mockSearchHashes';
+
 // Fetch Locations for Autocomplete
 export const fetchLocations = () => (
     {
@@ -168,6 +170,47 @@ export const performPagedSearch = () => (
             process.nextTick(() => {
                 resolve({
                     data: mockApi
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+export const generateUrlHash = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockHash
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+export const restoreUrlHash = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockFilters
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+export const fetchLastUpdate = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: {
+                        last_update: '01/01/1984'
+                    }
                 });
             });
         }),
