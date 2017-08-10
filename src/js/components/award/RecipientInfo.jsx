@@ -73,6 +73,7 @@ export default class RecipientInfo extends React.Component {
         let businessTypeLabel = "Business Type";
         let overflow = false;
         const businessTypesArray = [];
+        let typesList = '';
 
         if (isContract && this.props.recipient.recipient_business_type === 'Unknown Types') {
             businessTypeLabel = "Business Types";
@@ -80,29 +81,26 @@ export default class RecipientInfo extends React.Component {
             const allBusinessTypes = BusinessTypesHelper.getBusinessTypes();
             allBusinessTypes.forEach((type) => {
                 if (recipient.latest_transaction.recipient[type.fieldName] === '1') {
-                    businessTypesArray.push(type.displayName);
+                    businessTypesArray.push(type);
                 }
             });
 
             if ((businessTypesArray.length > 0) && (businessTypesArray.length <= 2)) {
                 // Show all the business types
-                businessType = businessTypesArray[0];
-                businessTypesArray.forEach((type, index) => {
-                    if (index !== 0) {
-                        businessType += `, ${type}`;
-                    }
-                });
+                typesList = businessTypesArray.map((type) => <li key={type.fieldName}>{type.displayName}</li>);
             }
             else if (businessTypesArray.length > 2) {
                 // Show just the first two types until a user clicks the 'See More' button
                 overflow = true;
-                businessType = `${businessTypesArray[0]}, ${businessTypesArray[1]}`;
-                if (!this.state.moreTypesButton) {
-                    businessTypesArray.forEach((type, index) => {
-                        if (index > 1) {
-                            businessType += `, ${type}`;
-                        }
-                    });
+                if (this.state.moreTypesButton) {
+                    typesList = [businessTypesArray[0], businessTypesArray[1]].map((type) =>
+                        <li key={type.fieldName}>{type.displayName}</li>
+                    );
+                }
+                else {
+                    typesList = businessTypesArray.map((type) =>
+                        <li key={type.fieldName}>{type.displayName}</li>
+                    );
                 }
             }
         }
@@ -140,7 +138,9 @@ export default class RecipientInfo extends React.Component {
                             Business Types
                         </div>
                         <div className="item-value">
-                            {businessType}
+                            <ul className="business-types-list">
+                                {typesList}
+                            </ul>
                             {button}
                         </div>
                     </div>

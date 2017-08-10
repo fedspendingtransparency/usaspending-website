@@ -35,7 +35,7 @@ export const getBusinessTypes = () => {
                 fieldName: 'service_disabled_veteran_owned_business'
             },
             {
-                displayName: 'Woman Owned business',
+                displayName: 'Woman Owned Business',
                 fieldName: 'woman_owned_business'
             },
             {
@@ -63,7 +63,7 @@ export const getBusinessTypes = () => {
                 fieldName: 'subcontinent_asian_asian_indian_american_owned_business'
             },
             {
-                displayName: 'Asian Pacific American Owned business',
+                displayName: 'Asian Pacific American Owned Business',
                 fieldName: 'asian_pacific_american_owned_business'
             },
             {
@@ -83,7 +83,7 @@ export const getBusinessTypes = () => {
                 fieldName: 'other_minority_owned_business'
             },
             {
-                displayName: 'Emerging Small business',
+                displayName: 'Emerging Small Business',
                 fieldName: 'emerging_small_business'
             },
             {
