@@ -413,3 +413,18 @@ export const restoreUrlHash = (data) => {
         }
     };
 };
+
+export const fetchLastUpdate = () => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/awards/last_updated/',
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

@@ -20,51 +20,18 @@ import { mockHash, mockFilters, mockRedux, mockActions } from './mockSearchHashe
 global.Promise = require.requireActual('promise');
 
 // spy on specific functions inside the component
-const requestFiltersSpy = sinon.spy(SearchContainer.prototype, 'requestFilters');
-const generateHashSpy = sinon.spy(SearchContainer.prototype, 'generateHash');
 const routerReplaceSpy = sinon.spy(Router.history, 'replace');
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/search/SearchPage', () =>
     jest.fn(() => null));
 
-const mockSearchHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    SearchHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
+jest.mock('helpers/searchHelper', () => require('./filters/searchHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockSearchHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/searchHelper');
-};
 
 describe('SearchContainer', () => {
     it('should try to resolve the current URL hash on mount', () => {
-        mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-        mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
         const container = shallow(<SearchContainer
             {...mockActions}
             {...mockRedux} />);
@@ -73,14 +40,11 @@ describe('SearchContainer', () => {
         container.instance().handleInitialUrl = handleInitialUrl;
 
         container.instance().componentWillMount();
-        jest.runAllTicks();
+
         expect(handleInitialUrl).toHaveBeenCalledTimes(1);
     });
 
     it('should try to resolve the URL hash when new inbound hashes are passed in the URL', () => {
-        mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-        mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
         const container = shallow(<SearchContainer
             {...mockActions}
             {...mockRedux} />);
@@ -98,14 +62,10 @@ describe('SearchContainer', () => {
             }
         });
 
-        jest.runAllTicks();
         expect(receiveHash).toHaveBeenCalledTimes(1);
     });
 
     it('should not try to resolve the URL hash again when the URL changes programmatically', () => {
-        mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-        mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
         const container = shallow(<SearchContainer
             {...mockActions}
             {...mockRedux} />);
@@ -123,14 +83,10 @@ describe('SearchContainer', () => {
             }
         });
 
-        jest.runAllTicks();
         expect(receiveHash).toHaveBeenCalledTimes(0);
     });
 
     it('should try to generate a new URL hash when the Redux filters change', () => {
-        mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-        mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
         const container = shallow(<SearchContainer
             {...mockActions}
             {...mockRedux} />);
@@ -153,15 +109,11 @@ describe('SearchContainer', () => {
 
         container.instance().componentWillReceiveProps(nextProps);
 
-        jest.runAllTicks();
         expect(generateHash).toHaveBeenCalledTimes(1);
     });
 
     describe('handleInitialUrl', () => {
         it('should attempt to generate a hash from the existing Redux filters if no URL hash is found', () => {
-            mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-            mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
             const container = shallow(<SearchContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -174,9 +126,6 @@ describe('SearchContainer', () => {
             expect(generateInitialHash).toHaveBeenCalledTimes(1);
         });
         it('should attempt to restore the filter set based on the current URL hash', () => {
-            mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-            mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
             const container = shallow(<SearchContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -192,9 +141,6 @@ describe('SearchContainer', () => {
 
     describe('generateInitialHash', () => {
         it('should use a hashless search URL if no filters are applied', () => {
-            mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-            mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
             const container = shallow(<SearchContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -212,9 +158,6 @@ describe('SearchContainer', () => {
         });
 
         it('should generate a hash if there are filters applied', () => {
-            mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-            mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
             const filters = Object.assign({}, initialState, {
                 keyword: 'blerg'
             });
@@ -238,9 +181,6 @@ describe('SearchContainer', () => {
 
     describe('receiveHash', () => {
         it('should request filters for the given hash', () => {
-            mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-            mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
             const container = shallow(<SearchContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -254,9 +194,6 @@ describe('SearchContainer', () => {
         });
 
         it('should do nothing if no hash is provided', () => {
-            mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-            mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
             const container = shallow(<SearchContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -272,9 +209,6 @@ describe('SearchContainer', () => {
 
     describe('provideHash', () => {
         it('should update the URL to the given hash', () => {
-            mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-            mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
             const container = shallow(<SearchContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -291,9 +225,6 @@ describe('SearchContainer', () => {
 
     describe('applyFilters', () => {
         it('should stop if the versions do not match', () => {
-            mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-            mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
             const container = shallow(<SearchContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -313,9 +244,6 @@ describe('SearchContainer', () => {
         });
 
         it('should trigger a Redux action to apply the filters', () => {
-            mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-            mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
             const populateAction = jest.fn();
 
             const actions = {
@@ -343,9 +271,6 @@ describe('SearchContainer', () => {
 
     describe('determineIfUnfiltered', () => {
         it('should return true if no filters are applied', () => {
-            mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-            mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
             const container = shallow(<SearchContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -354,9 +279,6 @@ describe('SearchContainer', () => {
             expect(unfiltered).toBeTruthy();
         });
         it('should return false if filters have been applied', () => {
-            mockSearchHelper('restoreUrlHash', 'resolve', mockFilters);
-            mockSearchHelper('generateUrlHash', 'resolve', mockHash);
-
             const container = shallow(<SearchContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -367,6 +289,17 @@ describe('SearchContainer', () => {
 
             const unfiltered = container.instance().determineIfUnfiltered(modifiedState);
             expect(unfiltered).toBeFalsy();
+        });
+    });
+
+    describe('parseUpdateDate', () => {
+        it('should format the API response correctly and set the state', () => {
+            const container = shallow(<SearchContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            container.instance().parseUpdateDate('01/01/1984');
+            expect(container.state().lastUpdate).toEqual('January 1, 1984');
         });
     });
 });
