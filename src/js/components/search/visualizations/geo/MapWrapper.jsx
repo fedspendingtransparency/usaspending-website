@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniq } from 'lodash';
 
 import * as MapHelper from 'helpers/mapHelper';
 
@@ -66,12 +67,12 @@ export default class MapWrapper extends React.Component {
         this.setState({
             mapReady: true
         }, () => {
-            this.loadStateShapes();
-            //     .then(() => {
-            //         // we depend on the state shapes to process the state fills, so the operation
-            //         // queue must wait for the state shapes to load first
-            //         this.runMapOperationQueue();
-            //     });
+            this.loadStateShapes()
+                .then(() => {
+                    // we depend on the state shapes to process the state fills, so the operation
+                    // queue must wait for the state shapes to load first
+                    this.runMapOperationQueue();
+                });
         });
     }
 
@@ -88,166 +89,57 @@ export default class MapWrapper extends React.Component {
             layers: ['us_state_shapes']
         });
 
-        const names = states.map((state) => {
-            return state.properties.STUSPS;
-        });
-        if (names.length < 2) {
-            return;
-        }
-        
-        // get the first and last state
-        const firstState = names[0];
-        const lastState = names[names.length - 1];
+        const visibleStates = states.map((state) => (
+            state.properties.STUSPS
+        ));
 
-        this.mapRef.map.setFilter('highlighted-states', ['in', 'STUSPS', firstState]);
-
+        // remove the duplicates values
+        return uniq(visibleStates);
     }
 
     loadStateShapes() {
-        // add the state data
-        this.mapRef.map.addSource('states', {
-            type: 'vector',
-            url: 'mapbox://usaspending.9cse49bi'
-        });
-
-        // add the state shapes as its own layer
-        this.mapRef.map.addLayer({
-            id: 'us_state_shapes',
-            type: 'fill',
-            source: 'states',
-            'source-layer': 'cb_2016_us_state_500k-ckeyb7',
-            paint: {
-                'fill-outline-color': '#212121',
-                'fill-color': 'rgba(0,0,0,0)'
+        return new Promise((resolve, reject) => {
+            if (!this.state.mapReady) {
+                // something went wrong, the map isn't ready yet
+                reject();
             }
+
+            // add the state shapes data
+            this.mapRef.map.addSource('states', {
+                type: 'vector',
+                url: 'mapbox://usaspending.9cse49bi'
+            });
+
+            // transform the state shapes into its own layer
+            this.mapRef.map.addLayer({
+                id: 'us_state_shapes',
+                type: 'fill',
+                source: 'states',
+                'source-layer': 'cb_2016_us_state_500k-ckeyb7',
+                paint: {
+                    'fill-outline-color': 'rgba(0,0,0,0.3)',
+                    'fill-color': 'rgba(0,0,0,0)'
+                }
+            });
+
+            // generate the highlight layers
+            const colors = MapHelper.visualizationColors;
+            colors.forEach((color, index) => {
+                this.mapRef.map.addLayer({
+                    id: `highlight_state_group_${index}`,
+                    type: 'fill',
+                    source: 'states',
+                    'source-layer': 'cb_2016_us_state_500k-ckeyb7',
+                    paint: {
+                        'fill-outline-color': 'rgba(0,0,0,0.3)',
+                        'fill-color': color
+                    },
+                    filter: ['in', 'STUSPS', '']
+                });
+            });
+
+            resolve();
         });
-
-        this.mapRef.map.addLayer({
-            id: 'highlighted-states',
-            type: 'fill',
-            source: 'states',
-            'source-layer': 'cb_2016_us_state_500k-ckeyb7',
-            paint: {
-                'fill-outline-color': '#F9A825',
-                'fill-color': '#FFEE58',
-                'fill-opacity': 0.75
-            },
-            filter: ['in', 'STUSPS', '']
-        }, 'us_state_shapes');
-
-        this.mapRef.map.on('move', this.determineVisibleStates.bind(this));
-        this.determineVisibleStates();
-
-       
-
-
-        // this.mapRef.map.addSource('states', {
-        //     type: 'geojson',
-        //     data: 'graphics/cb_2016_us_state_500k.json'
-        // });
-
-        // this.mapRef.map.addLayer({
-        //     id: 'states-join',
-        //     type: 'fill',
-        //     source: 'states',
-        //     paint: {
-        //         'fill-color': "#00FFFF"
-        //     }
-        // });
-        // return new Promise((resolve, reject) => {
-        //     if (!this.state.mapReady) {
-        //         resolve();
-        //         return;
-        //     }
-
-        //     // fetch the state shapes
-        //     MapHelper.fetchFile('graphics/states.json').promise
-        //         .then((res) => {
-        //             // split the data into individual state features
-        //             const states = {};
-
-        //             res.data.features.forEach((feature) => {
-        //                 const stateName = feature.properties.NAME;
-        //                 const stateCode = MapHelper.stateCodeFromName(stateName);
-
-        //                 let shape = {
-        //                     geometry: feature.geometry,
-        //                     type: 'Feature'
-        //                 };
-
-        //                 if (feature.type === 'FeatureCollection') {
-        //                     // this is a collection of multiple shapes (ie, islands)
-        //                     shape = {
-        //                         type: 'FeatureCollection',
-        //                         features: feature.features
-        //                     };
-        //                 }
-
-        //                 const state = {
-        //                     shape,
-        //                     data: {
-        //                         name: stateName,
-        //                         code: stateCode
-        //                     }
-        //                 };
-
-        //                 states[stateCode] = state;
-        //             });
-
-        //             this.setState({
-        //                 stateShapes: states
-        //             }, () => {
-        //                 resolve();
-        //             });
-        //         })
-        //         .catch((err) => {
-        //             reject(err);
-        //         });
-        // });
-    }
-
-    outlineState(stateCode) {
-        const layerId = `${stateCode}-border`;
-        const borderLayer = Object.assign({}, {
-            id: layerId,
-            type: 'line',
-            source: {
-                type: 'geojson',
-                data: this.state.stateShapes[stateCode].shape
-            },
-            layout: {},
-            paint: {
-                'line-color': '#000',
-                'line-opacity': 0.3
-            }
-        });
-
-        if (!this.mapRef.getMapLayer(layerId)) {
-            // only add the layer if it doesn't already exist
-            this.mapRef.addLayer(borderLayer);
-        }
-    }
-
-    fillState(stateCode, color) {
-        const layerId = `${stateCode}-fill`;
-        const fillLayer = Object.assign({}, {
-            id: layerId,
-            type: 'fill',
-            source: {
-                type: 'geojson',
-                data: this.state.stateShapes[stateCode].shape
-            },
-            layout: {},
-            paint: {
-                'fill-color': color,
-                'fill-opacity': 1
-            },
-            metadata: {
-                stateCode
-            }
-        });
-
-        this.mapRef.addLayer(fillLayer, 'state-label-sm');
     }
 
     runMapOperationQueue() {
@@ -271,44 +163,39 @@ export default class MapWrapper extends React.Component {
             return;
         }
 
-        // remove all current states
-        this.state.stateData.forEach((state) => {
-            this.mapRef.removeLayer(`${state}-fill`);
-            this.mapRef.removeLayer(`${state}-border`);
-        });
-        this.mapRef.setDataLayers([]);
+        const highlightLayers = {};
 
         // calculate the range of data
         const scale = MapHelper.calculateRange(this.props.data.values);
+        const colors = MapHelper.visualizationColors;
+        // prepare a set of blank (false) filters
+        const filterValues = colors.map(() => (
+            []
+        ));
 
-        // add new states
-        const mapStates = [];
-        const fillLayers = [];
         this.props.data.states.forEach((state, index) => {
             let value = this.props.data.values[index];
             if (isNaN(value)) {
                 value = 0;
             }
 
-            // check if the state shape exists
-            if (state && {}.hasOwnProperty.call(this.state.stateShapes, state)) {
-                // it exists, add it to the map
-                // calculate the color
-                const group = Math.floor(scale.scale(value));
-                const color = MapHelper.visualizationColors[group];
-                this.fillState(state, color);
-                this.outlineState(state);
-
-                fillLayers.push(`${state}-fill`);
-                mapStates.push(state);
-            }
+            // determine the group index
+            const group = Math.floor(scale.scale(value));
+            // add it to the filter list
+            filterValues[group].push(state);
         });
 
-        // update the data layer array in the mapbox component
-        this.mapRef.setDataLayers(fillLayers);
+        // generate Mapbox filters from the values
+        filterValues.forEach((valueSet, index) => {
+            const layerName = `highlight_state_group_${index}`;
+            let filter = ['in', 'STUSPS', ''];
+            if (valueSet.length > 0) {
+                filter = ['in', 'STUSPS'].concat(valueSet);
+            }
+            this.mapRef.map.setFilter(layerName, filter);
+        });
 
         this.setState({
-            stateData: mapStates,
             spendingScale: scale
         });
     }
