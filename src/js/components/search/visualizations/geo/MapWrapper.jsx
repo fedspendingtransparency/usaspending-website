@@ -34,8 +34,6 @@ export default class MapWrapper extends React.Component {
         super(props);
 
         this.state = {
-            stateShapes: {},
-            stateData: [],
             spendingScale: {
                 scale: null,
                 segments: [],
@@ -125,8 +123,9 @@ export default class MapWrapper extends React.Component {
             // generate the highlight layers
             const colors = MapHelper.visualizationColors;
             colors.forEach((color, index) => {
+                const layerName = `highlight_state_group_${index}`;
                 this.mapRef.map.addLayer({
-                    id: `highlight_state_group_${index}`,
+                    id: layerName,
                     type: 'fill',
                     source: 'states',
                     'source-layer': 'cb_2016_us_state_500k-ckeyb7',
@@ -136,10 +135,26 @@ export default class MapWrapper extends React.Component {
                     },
                     filter: ['in', 'STUSPS', '']
                 });
+
+                // setup mouseover events
+                this.mapRef.map.on('mousemove', layerName, this.mouseOverLayer.bind(this));
+                this.mapRef.map.on('mouseleave', layerName, this.mouseExitLayer.bind(this));
             });
 
             resolve();
         });
+    }
+
+    mouseOverLayer(e) {
+        const stateName = e.features[0].properties.STUSPS;
+        this.props.showTooltip(stateName, {
+            x: e.originalEvent.screenX,
+            y: e.originalEvent.screenY
+        });
+    }
+
+    mouseExitLayer() {
+        this.props.hideTooltip();
     }
 
     runMapOperationQueue() {
@@ -162,8 +177,6 @@ export default class MapWrapper extends React.Component {
             this.queueMapOperation('displayData', this.displayData);
             return;
         }
-
-        const highlightLayers = {};
 
         // calculate the range of data
         const scale = MapHelper.calculateRange(this.props.data.values);
@@ -218,8 +231,6 @@ export default class MapWrapper extends React.Component {
                 <MapBox
                     loadedMap={this.mapReady}
                     unloadedMap={this.mapRemoved}
-                    showTooltip={this.props.showTooltip}
-                    hideTooltip={this.props.hideTooltip}
                     ref={(component) => {
                         this.mapRef = component;
                     }} />

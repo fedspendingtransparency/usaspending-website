@@ -13,9 +13,7 @@ import kGlobalConstants from 'GlobalConstants';
 
 const propTypes = {
     loadedMap: PropTypes.func,
-    unloadedMap: PropTypes.func,
-    showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    unloadedMap: PropTypes.func
 };
 
 // Define map movement increment
@@ -36,7 +34,6 @@ export default class MapBox extends React.Component {
         this.componentUnmounted = false;
 
         // Bind window functions
-        this.findHoveredLayers = this.findHoveredLayers.bind(this);
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
 
         // Bind movement functions
@@ -160,37 +157,6 @@ export default class MapBox extends React.Component {
                 this.props.loadedMap(this.map);
             });
         });
-
-        if (this.state.windowWidth >= 768) {
-            this.map.on('mousemove', this.findHoveredLayers);
-            this.map.on('mouseout', this.props.hideTooltip);
-        }
-    }
-
-    findHoveredLayers(e) {
-        const features = this.map.queryRenderedFeatures(e.point, {
-            layers: this.state.dataLayers
-        });
-
-        // just grab the first layer and identify the state
-        if (features.length > 0) {
-            const layer = features[0].layer;
-            // get the state code
-            if ({}.hasOwnProperty.call(layer, 'metadata') &&
-                {}.hasOwnProperty.call(layer.metadata, 'stateCode')) {
-                // display the tooltip
-                const stateCode = layer.metadata.stateCode;
-                this.props.showTooltip(stateCode, e.point);
-            }
-            else {
-                // no state code, hide the tooltip
-                this.props.hideTooltip();
-            }
-        }
-        else {
-            // no state layer, hide the tooltip
-            this.props.hideTooltip();
-        }
     }
 
     addLayer(layer, belowLayer = null) {
