@@ -30,11 +30,13 @@ export const awardingAgency = {
     results: [
         {
             item: 'First Agency',
-            aggregate: '456'
+            aggregate: '456',
+            treasury_account__awarding_toptier_agency__abbreviation: 'FA'
         },
         {
             item: 'Second Agency',
-            aggregate: '123'
+            aggregate: '123',
+            treasury_account__awarding_toptier_agency__abbreviation: 'SA'
         }
     ]
 };
@@ -94,11 +96,13 @@ export const fundingAgency = {
     results: [
         {
             item: 'First Agency',
-            aggregate: '456'
+            aggregate: '456',
+            treasury_account__funding_toptier_agency__abbreviation: 'FA'
         },
         {
             item: 'Second Agency',
-            aggregate: '123'
+            aggregate: '123',
+            treasury_account__funding_toptier_agency__abbreviation: 'SA'
         }
     ]
 };
