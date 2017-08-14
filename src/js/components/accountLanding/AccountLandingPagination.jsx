@@ -46,6 +46,7 @@ export default class AccountLandingPagination extends React.Component {
         }
 
         // get new pager object for specified page
+        // TODO - Lizzie: update to 50 when endpoint is ready
         pager = this.getPager(items.length, page, 3);
 
         // get new page of items from items array
@@ -64,22 +65,50 @@ export default class AccountLandingPagination extends React.Component {
 
         let startPage;
         let endPage;
-        if (totalPages <= 10) {
-            // less than 10 total pages so show all
+        let prevEllipses = '...';
+        let nextEllipses = '...';
+        let firstButton = (
+            <li>
+                <button onClick={() => this.setPage(1)}>{1}</button>
+            </li>
+        );
+        let lastButton = (
+            <li>
+                <button onClick={() => this.setPage(totalPages)}>{totalPages}</button>
+            </li>
+        );
+        if (totalPages < 5) {
+            // less than 5 total pages so show all
             startPage = 1;
             endPage = totalPages;
-        }
-        else if (currentPage <= 6) {
-            startPage = 1;
-            endPage = 10;
-        }
-        else if (currentPage + 4 >= totalPages) {
-            startPage = totalPages - 9;
-            endPage = totalPages;
+            prevEllipses = '';
+            nextEllipses = '';
+            firstButton = '';
+            lastButton = '';
         }
         else {
-            startPage = currentPage - 5;
-            endPage = currentPage + 4;
+            if (currentPage === 1) {
+                startPage = currentPage;
+                endPage = currentPage + 2;
+            }
+            else if (currentPage === totalPages) {
+                startPage = currentPage - 2;
+                endPage = currentPage;
+            }
+            else {
+                startPage = currentPage - 1;
+                endPage = currentPage + 1;
+            }
+
+
+            if(currentPage < 4) {
+                prevEllipses = '';
+                firstButton = '';
+            }
+            else if (currentPage > (totalPages - 3)) {
+                nextEllipses = '';
+                lastButton = '';
+            }
         }
 
         // calculate start and end item indexes
@@ -99,7 +128,11 @@ export default class AccountLandingPagination extends React.Component {
             endPage,
             startIndex,
             endIndex,
-            pages
+            pages,
+            prevEllipses,
+            nextEllipses,
+            firstButton,
+            lastButton
         };
     }
 
@@ -114,21 +147,19 @@ export default class AccountLandingPagination extends React.Component {
         return (
             <ul className="pagination">
                 <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-                    <button onClick={() => this.setPage(1)}>First</button>
+                    <button onClick={() => this.setPage(pager.currentPage - 1)}>{`<`}</button>
                 </li>
-                <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-                    <button onClick={() => this.setPage(pager.currentPage - 1)}>Previous</button>
-                </li>
+                {pager.firstButton}
+                {pager.prevEllipses}
                 {pager.pages.map((page, index) =>
                     <li key={index} className={pager.currentPage === page ? 'active' : ''}>
                         <button onClick={() => this.setPage(page)}>{page}</button>
                     </li>
                 )}
+                {pager.nextEllipses}
+                {pager.lastButton}
                 <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                    <button onClick={() => this.setPage(pager.currentPage + 1)}>Next</button>
-                </li>
-                <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                    <button onClick={() => this.setPage(pager.totalPages)}>Last</button>
+                    <button onClick={() => this.setPage(pager.currentPage + 1)}>{`>`}</button>
                 </li>
             </ul>
         );
