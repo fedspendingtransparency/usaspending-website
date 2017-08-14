@@ -1,5 +1,6 @@
 .usa-da-account-landing {
 	@import "layouts/landingPage/landingPage";
+	@import "components/pagination";
     @import "./header/header";
     @import './accountLandingSearch';
     @import './table/resultsSection';
@@ -9,7 +10,13 @@
             font-style: italic;
             padding: rem(20) 0;
             font-size: rem(16);
+	        .pagination {
+		        margin: 0;
+	        }
         }
+	    .pagination {
+		    float: right;
+	    }
     }
     @include accountLandingSearch;
     @include resultsSection;

@@ -65,8 +65,8 @@ export default class AccountLandingPagination extends React.Component {
 
         let startPage;
         let endPage;
-        let prevEllipses = '...';
-        let nextEllipses = '...';
+        let prevEllipses = (<span className="pagination-ellipsis">...</span>);
+        let nextEllipses = (<span className="pagination-ellipsis">...</span>);
         let firstButton = (
             <li>
                 <button onClick={() => this.setPage(1)}>{1}</button>
@@ -101,7 +101,7 @@ export default class AccountLandingPagination extends React.Component {
             }
 
 
-            if(currentPage < 4) {
+            if (currentPage < 4) {
                 prevEllipses = '';
                 firstButton = '';
             }

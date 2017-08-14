@@ -1,0 +1,27 @@
+.pagination {
+	list-style-type: none;
+	display: inline-flex;
+	li {
+		button {
+			padding: rem(7) rem(10);
+			background-color: $color-white;
+			color: $color-gray;
+			border: solid rem(1) $color-gray-light;
+			font-style: normal;
+			font-size: rem(12);
+			margin: rem(5) rem(5) rem(5) 0;
+		}
+		&.active {
+			button {
+				background-color: $color-primary-alt-dark;
+				color: $color-white;
+				border-color: $color-primary-alt-dark;
+			}
+		}
+	}
+	.pagination-ellipsis {
+		font-weight: bold;
+		margin-top: 14px;
+		margin-right: 5px;
+	}
+}
