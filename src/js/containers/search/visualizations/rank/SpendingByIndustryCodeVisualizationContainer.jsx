@@ -137,6 +137,7 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
 
         // Generate the API parameters
         const apiParams = {
+            category: 'industry_code',
             group,
             filters: searchParams,
             limit: 5,
@@ -147,7 +148,7 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
             apiParams.auditTrail = auditTrail;
         }
 
-        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        this.apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
 
         this.apiRequest.promise
             .then((res) => {

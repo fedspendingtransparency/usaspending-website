@@ -116,6 +116,7 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
         const searchParams = operation.toParams();
 
         const apiParams = {
+            category: 'funding_agency',
             group: 'treasury_account__funding_toptier_agency__name',
             filters: searchParams,
             limit: 5,
@@ -126,7 +127,7 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
             apiParams.auditTrail = auditTrail;
         }
 
-        this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
+        this.apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);

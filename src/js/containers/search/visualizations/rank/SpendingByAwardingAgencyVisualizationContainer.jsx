@@ -119,6 +119,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
 
         // generate the API parameters
         const apiParams = {
+            category: 'awarding_agency',
             group: `awarding_agency__${this.state.agencyScope}_agency__name`,
             filters: searchParams,
             limit: 5,
@@ -129,7 +130,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
             apiParams.auditTrail = auditTrail;
         }
 
-        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        this.apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);

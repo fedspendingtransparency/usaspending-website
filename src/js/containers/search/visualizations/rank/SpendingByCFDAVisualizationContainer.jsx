@@ -112,6 +112,7 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
 
         // generate the API parameters
         const apiParams = {
+            category: 'cfda',
             group: apiGroups,
             filters: searchParams,
             limit: 5,
@@ -122,7 +123,7 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
             apiParams.auditTrail = auditTrail;
         }
 
-        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        this.apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data, apiGroups);

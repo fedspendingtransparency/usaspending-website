@@ -294,7 +294,7 @@ export class ResultsTableContainer extends React.Component {
             }
         });
 
-        this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(),
+        this.searchRequest = SearchHelper.performPagedSpendingByAwardSearch(searchParams.toParams(),
             pageNumber, resultLimit, sortParams, requestFields);
 
         this.searchRequest.promise
