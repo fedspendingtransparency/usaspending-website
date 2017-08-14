@@ -31,11 +31,13 @@ export class AccountLandingContainer extends React.Component {
             currentFY: '',
             accountSearchString: '',
             fullData: [],
-            results: []
+            results: [],
+            pageOfItems: []
         };
 
         this.accountsRequest = null;
         this.setAccountSearchString = this.setAccountSearchString.bind(this);
+        this.onChangePage = this.onChangePage.bind(this);
     }
 
     componentDidMount() {
@@ -53,6 +55,11 @@ export class AccountLandingContainer extends React.Component {
         if (this.accountsRequest) {
             this.accountsRequest.cancel();
         }
+    }
+
+    onChangePage(pageOfItems) {
+        // update state with new page of items
+        this.setState({ pageOfItems });
     }
 
     setAccountSearchString(accountSearchString) {
@@ -113,13 +120,37 @@ export class AccountLandingContainer extends React.Component {
                     account_name: 'Mock Account 2',
                     managing_agency: 'Mock Agency 2',
                     managing_agency_acronym: 'ABC',
-                    budget_authority_amount: 6000000
+                    budget_authority_amount: 6500000
                 },
                 {
                     account_id: 3,
                     account_number: '234-5678',
                     account_name: 'Test Account',
                     managing_agency: 'Mock Agency 3',
+                    managing_agency_acronym: 'DEF',
+                    budget_authority_amount: 4500000
+                },
+                {
+                    account_id: 4,
+                    account_number: '123-4567',
+                    account_name: 'Mock Account 4',
+                    managing_agency: 'Mock Agency 4',
+                    managing_agency_acronym: 'XYZ',
+                    budget_authority_amount: 5500000
+                },
+                {
+                    account_id: 5,
+                    account_number: '098-7654',
+                    account_name: 'Mock Account 5',
+                    managing_agency: 'Mock Agency 5',
+                    managing_agency_acronym: 'ABC',
+                    budget_authority_amount: 6000000
+                },
+                {
+                    account_id: 6,
+                    account_number: '234-5678',
+                    account_name: 'Test Account 2',
+                    managing_agency: 'Mock Agency 6',
                     managing_agency_acronym: 'DEF',
                     budget_authority_amount: 4000000
                 }
@@ -236,12 +267,14 @@ export class AccountLandingContainer extends React.Component {
         return (
             <AccountLandingContent
                 resultsText={resultsText}
-                results={this.state.results}
+                results={this.state.pageOfItems}
+                items={this.state.results}
                 accountSearchString={this.state.accountSearchString}
                 inFlight={this.state.inFlight}
                 columns={this.state.columns}
                 sort={this.props.accountsOrder}
-                setAccountSearchString={this.setAccountSearchString} />
+                setAccountSearchString={this.setAccountSearchString}
+                onChangePage={this.onChangePage} />
         );
     }
 }

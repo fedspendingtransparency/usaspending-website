@@ -8,14 +8,17 @@ import PropTypes from 'prop-types';
 
 import AccountLandingSearchBar from './AccountLandingSearchBar';
 import AccountLandingResultsSection from './AccountLandingResultsSection';
+import AccountLandingPagination from './AccountLandingPagination';
 
 const propTypes = {
     resultsText: PropTypes.string,
     results: PropTypes.array,
+    items: PropTypes.array,
     accountSearchString: PropTypes.string,
     inFlight: PropTypes.bool,
     columns: PropTypes.array,
-    setAccountSearchString: PropTypes.func
+    setAccountSearchString: PropTypes.func,
+    onChangePage: PropTypes.func
 };
 
 export default class AccountLandingContent extends React.Component {
@@ -37,6 +40,9 @@ export default class AccountLandingContent extends React.Component {
                 </div>
                 <div className="landing-page-section results-count">
                     {this.props.resultsText}
+                    <AccountLandingPagination
+                        items={this.props.items}
+                        onChangePage={this.props.onChangePage} />
                 </div>
                 <div className="landing-page-section">
                     <AccountLandingResultsSection
