@@ -19,6 +19,9 @@ const propTypes = {
 // Define map movement increment
 const delta = 100;
 
+// define map sources
+const mapStyle = 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm';
+
 export default class MapBox extends React.Component {
     constructor(props) {
         super(props);
@@ -121,7 +124,7 @@ export default class MapBox extends React.Component {
         MapboxGL.accessToken = kGlobalConstants.MAPBOX_TOKEN;
         this.map = new MapboxGL.Map({
             container: this.mapDiv,
-            style: 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm',
+            style: mapStyle,
             center: [-98.5795122, 39.2282172],
             zoom: 3.2,
             dragRotate: false // disable 3D view
@@ -157,19 +160,6 @@ export default class MapBox extends React.Component {
                 this.props.loadedMap(this.map);
             });
         });
-    }
-
-    addLayer(layer, belowLayer = null) {
-        if (!this.state.mapReady) {
-            return;
-        }
-
-        this.map.addLayer(layer, belowLayer);
-    }
-
-    removeLayer(layerId) {
-        this.map.removeLayer(layerId);
-        this.map.removeSource(layerId);
     }
 
     handleWindowResize() {

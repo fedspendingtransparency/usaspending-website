@@ -99,7 +99,9 @@ export default class GeoVisualizationSection extends React.Component {
                 </div>
 
                 <MapWrapper
-                    {...this.props}
+                    data={this.props.data}
+                    renderHash={this.props.renderHash}
+                    scope={this.props.mapScope}
                     showHover={this.state.showHover}
                     selectedItem={this.state.selectedItem}
                     showTooltip={this.showTooltip}

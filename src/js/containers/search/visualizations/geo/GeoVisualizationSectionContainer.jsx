@@ -29,9 +29,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.state = {
             scope: 'pop',
+            mapScope: 'state',
             data: {
                 values: [],
-                states: []
+                locations: []
             },
             renderHash: `geo-${uniqueId()}`,
             loading: true
@@ -54,10 +55,14 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     changeScope(scope) {
         this.setState({
-            scope
-        }, () => {
-            this.fetchData();
+            mapScope: 'county',
+            renderHash: `geo-${uniqueId()}`
         });
+        // this.setState({
+        //     scope
+        // }, () => {
+        //     this.fetchData();
+        // });
     }
 
     fetchData() {
@@ -121,7 +126,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.setState({
             data: {
                 values: spendingValues,
-                states: spendingStates
+                locations: spendingStates
             },
             renderHash: `geo-${uniqueId()}`,
             loading: false

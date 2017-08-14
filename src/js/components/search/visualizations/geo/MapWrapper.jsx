@@ -14,6 +14,7 @@ import MapLegend from './MapLegend';
 
 const propTypes = {
     data: PropTypes.object,
+    scope: PropTypes.string,
     renderHash: PropTypes.string,
     showHover: PropTypes.bool,
     selectedItem: PropTypes.object,
@@ -24,8 +25,36 @@ const propTypes = {
 
 const defaultProps = {
     data: {
-        states: [],
+        locations: [],
         values: []
+    },
+    scope: 'state'
+};
+
+const mapboxSources = {
+    state: {
+        label: 'state',
+        url: 'mapbox://usaspending.9cse49bi',
+        layer: 'cb_2016_us_state_500k-ckeyb7',
+        filterKey: 'STUSPS' // state abbreviation
+    },
+    county: {
+        label: 'county',
+        url: 'mapbox://usaspending.67dl1i5b',
+        layer: 'cb_2016_us_county_500k-dqqug4',
+        filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
+    },
+    congressionalDistrict: {
+        label: 'Congressional district',
+        url: 'mapbox://usaspending.2z200y6q',
+        layer: 'cb_2016_us_cd115_500k-c8mr5m',
+        filterKey: 'GEOID' // the GEOID is state FIPS + district
+    },
+    zip: {
+        label: 'ZIP Code Tabulation Area',
+        url: 'mapbox://usaspending.3lk61l9t',
+        layer: 'cb_2016_us_zcta510_500k-4se882',
+        filterKey: 'ZCTA5CE10' // zip code
     }
 };
 
@@ -56,6 +85,7 @@ export default class MapWrapper extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.renderHash !== this.props.renderHash) {
+            // if (this.)
             this.displayData();
         }
     }
@@ -65,7 +95,7 @@ export default class MapWrapper extends React.Component {
         this.setState({
             mapReady: true
         }, () => {
-            this.loadStateShapes()
+            this.prepareLayers()
                 .then(() => {
                     // we depend on the state shapes to process the state fills, so the operation
                     // queue must wait for the state shapes to load first
@@ -81,39 +111,30 @@ export default class MapWrapper extends React.Component {
         });
     }
 
-    determineVisibleStates() {
-        // determine which states are in view
-        const states = this.mapRef.map.queryRenderedFeatures({
-            layers: ['us_state_shapes']
-        });
-
-        const visibleStates = states.map((state) => (
-            state.properties.STUSPS
-        ));
-
-        // remove the duplicates values
-        return uniq(visibleStates);
-    }
-
-    loadStateShapes() {
+    prepareLayers() {
         return new Promise((resolve, reject) => {
             if (!this.state.mapReady) {
                 // something went wrong, the map isn't ready yet
                 reject();
             }
 
-            // add the state shapes data
-            this.mapRef.map.addSource('states', {
+            const source = mapboxSources[this.props.scope];
+            if (!source) {
+                reject();
+            }
+
+            // load the shape data for the given scope (state, county, etc) from Mapbox
+            this.mapRef.map.addSource(this.props.scope, {
                 type: 'vector',
-                url: 'mapbox://usaspending.9cse49bi'
+                url: source.url
             });
 
-            // transform the state shapes into its own layer
+            // transform the source shapes into its own layer
             this.mapRef.map.addLayer({
-                id: 'us_state_shapes',
+                id: `base_${this.props.scope}`,
                 type: 'fill',
-                source: 'states',
-                'source-layer': 'cb_2016_us_state_500k-ckeyb7',
+                source: this.props.scope,
+                'source-layer': source.layer,
                 paint: {
                     'fill-outline-color': 'rgba(0,0,0,0.3)',
                     'fill-color': 'rgba(0,0,0,0)'
@@ -123,17 +144,17 @@ export default class MapWrapper extends React.Component {
             // generate the highlight layers
             const colors = MapHelper.visualizationColors;
             colors.forEach((color, index) => {
-                const layerName = `highlight_state_group_${index}`;
+                const layerName = `highlight_${this.props.scope}_group_${index}`;
                 this.mapRef.map.addLayer({
                     id: layerName,
                     type: 'fill',
-                    source: 'states',
-                    'source-layer': 'cb_2016_us_state_500k-ckeyb7',
+                    source: this.props.scope,
+                    'source-layer': source.layer,
                     paint: {
                         'fill-outline-color': 'rgba(0,0,0,0.3)',
                         'fill-color': color
                     },
-                    filter: ['in', 'STUSPS', '']
+                    filter: ['in', source.filterKey, '']
                 });
 
                 // setup mouseover events
@@ -145,11 +166,29 @@ export default class MapWrapper extends React.Component {
         });
     }
 
+    determineVisibleEntities() {
+        // determine which entities (state, counties, etc based on current scope) are in view
+        // use Mapbox SDK to determine the currently rendered shapes in the base layer
+        const entities = this.mapRef.map.queryRenderedFeatures({
+            layers: [`base_${this.props.scope}`]
+        });
+
+        const source = mapboxSources[this.props.scope];
+
+        const visibleEntities = entities.map((entity) => (
+            entity.properties[source.filterKey]
+        ));
+
+        // remove the duplicates values
+        return uniq(visibleEntities);
+    }
+
     mouseOverLayer(e) {
-        const stateName = e.features[0].properties.STUSPS;
-        this.props.showTooltip(stateName, {
-            x: e.originalEvent.screenX,
-            y: e.originalEvent.screenY
+        const source = mapboxSources[this.props.scope];
+        const entityId = e.features[0].properties[source.filterKey];
+        this.props.showTooltip(entityId, {
+            x: e.originalEvent.clientX,
+            y: e.originalEvent.clientY
         });
     }
 
@@ -171,12 +210,14 @@ export default class MapWrapper extends React.Component {
     }
 
     displayData() {
-        // don't do anything while the map has not yet loaded
+        // don't do anything if the map has not yet loaded
         if (!this.state.mapReady) {
             // add to the map operation queue
             this.queueMapOperation('displayData', this.displayData);
             return;
         }
+
+        const source = mapboxSources[this.props.scope];
 
         // calculate the range of data
         const scale = MapHelper.calculateRange(this.props.data.values);
@@ -186,7 +227,7 @@ export default class MapWrapper extends React.Component {
             []
         ));
 
-        this.props.data.states.forEach((state, index) => {
+        this.props.data.locations.forEach((location, index) => {
             let value = this.props.data.values[index];
             if (isNaN(value)) {
                 value = 0;
@@ -195,15 +236,17 @@ export default class MapWrapper extends React.Component {
             // determine the group index
             const group = Math.floor(scale.scale(value));
             // add it to the filter list
-            filterValues[group].push(state);
+            filterValues[group].push(location);
         });
 
         // generate Mapbox filters from the values
         filterValues.forEach((valueSet, index) => {
-            const layerName = `highlight_state_group_${index}`;
-            let filter = ['in', 'STUSPS', ''];
+            const layerName = `highlight_${this.props.scope}_group_${index}`;
+            // by default set up the filter to not include anything
+            let filter = ['in', source.filterKey, ''];
             if (valueSet.length > 0) {
-                filter = ['in', 'STUSPS'].concat(valueSet);
+                // if there are locations that are displayable, include those in the filter
+                filter = ['in', source.filterKey].concat(valueSet);
             }
             this.mapRef.map.setFilter(layerName, filter);
         });
@@ -235,7 +278,7 @@ export default class MapWrapper extends React.Component {
                         this.mapRef = component;
                     }} />
                 <div className="map-instructions">
-                    Hover over a state for more detailed information.
+                    Hover over a {mapboxSources[this.props.scope].label} for more detailed information.
                 </div>
                 <MapLegend
                     segments={this.state.spendingScale.segments}
