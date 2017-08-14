@@ -153,7 +153,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
         const apiParams = {
             field: 'federal_action_obligation',
             group: [`awarding_agency__${this.state.agencyScope}_agency__name`,
-                `treasury_account__awarding_toptier_agency__abbreviation`],
+                `awarding_agency__toptier_agency__abbreviation`],
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -217,10 +217,17 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
             let abr = '';
+            let field = null;
+            if (item.treasury_account__awarding_toptier_agency__abbreviation) {
+                field = item.treasury_account__awarding_toptier_agency__abbreviation;
+            }
+            else if (item.awarding_agency__toptier_agency__abbreviation) {
+                field = item.awarding_agency__toptier_agency__abbreviation;
+            }
+
             if (this.state.agencyScope === 'toptier') {
-                if (item.treasury_account__awarding_toptier_agency__abbreviation !== '' &&
-                    item.treasury_account__awarding_toptier_agency__abbreviation !== null) {
-                    abr = ` (${item.treasury_account__awarding_toptier_agency__abbreviation})`;
+                if (field !== '' && field !== null) {
+                    abr = ` (${field})`;
                 }
             }
             labelSeries.push(`${item.item}${abr}`);
