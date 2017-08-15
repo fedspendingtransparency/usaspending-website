@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { throttle } from 'lodash';
+import { capitalize, throttle } from 'lodash';
 
 import AgencyObligatedGraph from './ObligatedGraph';
 
@@ -54,17 +54,24 @@ export default class AgencyObligatedAmount extends React.Component {
     }
 
     render() {
-        const obligatedValue = this.props.obligatedAmount;
-        const authorityValue = this.props.budgetAuthority;
+        // Move props to variables for readability
+        const obligatedAmount = this.props.obligatedAmount;
+        const budgetAuthority = this.props.budgetAuthority;
 
-        const authUnits = MoneyFormatter.calculateUnitForSingleValue(authorityValue);
-        const authority = `${MoneyFormatter.formatMoney(authorityValue / authUnits.unit)}
-        ${authUnits.longLabel}`;
+        // Generate Budget Authority string
+        const budgetAuthorityAmount = MoneyFormatter
+            .calculateUnitForSingleValue(budgetAuthority);
+        const formattedBudgetAuthority = `${MoneyFormatter
+            .formatMoneyWithPrecision(budgetAuthority / budgetAuthorityAmount.unit, 1)}
+        ${capitalize(budgetAuthorityAmount.longLabel)}`;
 
-        const obUnits = MoneyFormatter.calculateUnitForSingleValue(obligatedValue);
+        // Generate Obligated Amount string
+        const obligatedAmountValue = MoneyFormatter
+            .calculateUnitForSingleValue(obligatedAmount);
+        const formattedObligatedAmount = `${MoneyFormatter
+            .formatMoneyWithPrecision(obligatedAmount / obligatedAmountValue.unit, 1)}
+        ${capitalize(obligatedAmountValue.longLabel)}`;
 
-        const amountObligated = `${MoneyFormatter.formatMoney(obligatedValue / obUnits.unit)}
-        ${obUnits.longLabel}`;
 
         const endOfQuarter = convertQuarterToDate(this.props.reportingFiscalQuarter, this.props.activeFY);
         const asOfDate = moment(endOfQuarter, "YYYY-MM-DD").format("MMMM D, YYYY");
@@ -113,7 +120,7 @@ takes other actions that require it to make a payment.
                             In fiscal year {this.props.activeFY}*, {this.props.agencyName} has obligated
                         </p>
                         <p className="against-auth-text">
-                            <span className="number number-bolder">{amountObligated}</span> against its <span className="number">{authority}</span> in Budgetary Resources
+                            <span className="number number-bolder">{formattedObligatedAmount}</span> against its <span className="number">{formattedBudgetAuthority}</span> in Budgetary Resources
                         </p>
                         <AgencyObligatedGraph
                             activeFY={this.props.activeFY}
@@ -121,7 +128,7 @@ takes other actions that require it to make a payment.
                             obligatedAmount={this.props.obligatedAmount}
                             budgetAuthority={this.props.budgetAuthority}
                             width={this.state.visualizationWidth}
-                            obligatedText={amountObligated}
+                            obligatedText={formattedObligatedAmount}
                             legend={legend} />
                     </div>
                 </div>
