@@ -7,18 +7,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { isCancel } from 'axios';
+import { bindActionCreators } from 'redux';
 
 import { Search } from 'js-search';
-import { orderBy } from 'lodash';
+import { range, orderBy } from 'lodash';
 
 import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
 // import * as AccountLandingHelper from 'helpers/accountLandingHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as accountLandingActions from 'redux/actions/accountLanding/accountLandingActions';
 
 import AccountLandingContent from 'components/accountLanding/AccountLandingContent';
 
 const propTypes = {
-    accountsOrder: PropTypes.object
+    accountsOrder: PropTypes.object,
+    pageNumber: PropTypes.number,
+    setPageNumber: PropTypes.func
 };
 
 export class AccountLandingContainer extends React.Component {
@@ -32,7 +36,8 @@ export class AccountLandingContainer extends React.Component {
             accountSearchString: '',
             fullData: [],
             results: [],
-            pageOfItems: []
+            pageOfItems: [],
+            pager: {}
         };
 
         this.accountsRequest = null;
@@ -49,6 +54,10 @@ export class AccountLandingContainer extends React.Component {
             // table sort changed
             this.performSearch();
         }
+        if (this.props.pageNumber !== prevProps.pageNumber) {
+            // page number changed
+            this.setPageOfItems();
+        }
     }
 
     componentWillUnmount() {
@@ -57,9 +66,86 @@ export class AccountLandingContainer extends React.Component {
         }
     }
 
-    onChangePage(pageOfItems) {
-        // update state with new page of items
-        this.setState({ pageOfItems });
+    onChangePage(pageNumber) {
+        // Change page number in Redux state
+        this.props.setPageNumber(pageNumber);
+    }
+
+    getPager(totalItems, currentPage, pageSize) {
+        // calculate total pages
+        const totalPages = Math.ceil(totalItems / pageSize);
+
+        let startPage;
+        let endPage;
+        let prevEllipses = (<span className="pagination-ellipsis">...</span>);
+        let nextEllipses = (<span className="pagination-ellipsis">...</span>);
+        let firstButton = (
+            <li>
+                <button onClick={() => this.onChangePage(1)}>{1}</button>
+            </li>
+        );
+        let lastButton = (
+            <li>
+                <button onClick={() => this.onChangePage(totalPages)}>{totalPages}</button>
+            </li>
+        );
+        if (totalPages < 5) {
+            // less than 5 total pages so show all
+            startPage = 1;
+            endPage = totalPages;
+            prevEllipses = '';
+            nextEllipses = '';
+            firstButton = '';
+            lastButton = '';
+        }
+        else {
+            if (currentPage === 1) {
+                startPage = currentPage;
+                endPage = currentPage + 2;
+            }
+            else if (currentPage === totalPages) {
+                startPage = currentPage - 2;
+                endPage = currentPage;
+            }
+            else {
+                startPage = currentPage - 1;
+                endPage = currentPage + 1;
+            }
+
+
+            if (currentPage < 4) {
+                prevEllipses = '';
+                firstButton = '';
+            }
+            else if (currentPage > (totalPages - 3)) {
+                nextEllipses = '';
+                lastButton = '';
+            }
+        }
+
+        // calculate start and end item indexes
+        const startIndex = (currentPage - 1) * pageSize;
+        const endIndex = Math.min(startIndex + (pageSize - 1), (totalItems - 1));
+
+        // create an array of pages to repeat in the pager control
+        const pages = range(startPage, endPage + 1);
+
+        // return object with all pager properties
+        return {
+            totalItems,
+            currentPage,
+            pageSize,
+            totalPages,
+            startPage,
+            endPage,
+            startIndex,
+            endIndex,
+            pages,
+            prevEllipses,
+            nextEllipses,
+            firstButton,
+            lastButton
+        };
     }
 
     setAccountSearchString(accountSearchString) {
@@ -72,6 +158,25 @@ export class AccountLandingContainer extends React.Component {
             accountSearchString: searchValue
         }, () => {
             this.performSearch();
+        });
+    }
+
+    setPageOfItems() {
+        const page = this.props.pageNumber;
+        let pager = this.state.pager;
+        const results = this.state.results;
+
+        // Get new pager object for specified page
+        // TODO - Lizzie: update to 50 when endpoint is ready
+        pager = this.getPager(results.length, page, 3);
+
+        // Get new page of items from results
+        const pageOfItems = results.slice(pager.startIndex, pager.endIndex + 1);
+
+        // update state
+        this.setState({
+            pager,
+            pageOfItems
         });
     }
 
@@ -364,8 +469,13 @@ export class AccountLandingContainer extends React.Component {
         const orderedResults = orderBy(results,
                 [this.props.accountsOrder.field], [this.props.accountsOrder.direction]);
 
+        // Reset to page 1
+        this.props.setPageNumber(1);
+
         this.setState({
             results: orderedResults
+        }, () => {
+            this.setPageOfItems();
         });
     }
 
@@ -380,13 +490,13 @@ export class AccountLandingContainer extends React.Component {
             <AccountLandingContent
                 resultsText={resultsText}
                 results={this.state.pageOfItems}
-                items={this.state.results}
                 accountSearchString={this.state.accountSearchString}
                 inFlight={this.state.inFlight}
                 columns={this.state.columns}
                 sort={this.props.accountsOrder}
                 setAccountSearchString={this.setAccountSearchString}
-                onChangePage={this.onChangePage} />
+                onChangePage={this.onChangePage}
+                pager={this.state.pager} />
         );
     }
 }
@@ -395,6 +505,8 @@ AccountLandingContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        accountsOrder: state.accountLanding.accountsOrder
-    })
+        accountsOrder: state.accountLanding.accountsOrder,
+        pageNumber: state.accountLanding.pageNumber
+    }),
+    (dispatch) => bindActionCreators(accountLandingActions, dispatch)
 )(AccountLandingContainer);
