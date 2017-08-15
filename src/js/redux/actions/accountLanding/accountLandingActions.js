@@ -7,3 +7,8 @@ export const setAccountsOrder = (state) => ({
     type: 'SET_ACCOUNTS_ORDER',
     order: state
 });
+
+export const setPageNumber = (state) => ({
+    type: 'SET_PAGE_NUMBER',
+    number: state
+});

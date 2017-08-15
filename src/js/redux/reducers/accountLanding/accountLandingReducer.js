@@ -7,7 +7,8 @@ const initialState = {
     accountsOrder: {
         field: 'budget_authority_amount',
         direction: 'desc'
-    }
+    },
+    pageNumber: 1
 };
 
 const accountLandingReducer = (state = initialState, action) => {
@@ -17,6 +18,11 @@ const accountLandingReducer = (state = initialState, action) => {
 
             return Object.assign({}, state, {
                 accountsOrder: order
+            });
+        }
+        case 'SET_PAGE_NUMBER': {
+            return Object.assign({}, state, {
+                pageNumber: action.number
             });
         }
         default:
