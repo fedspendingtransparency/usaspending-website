@@ -229,6 +229,7 @@ export default class AgencyContent extends React.Component {
                         <ObligatedContainer
                             agencyName={this.props.agency.overview.name}
                             activeFY={this.props.agency.overview.activeFY}
+                            activeQuarter={this.props.agency.overview.activeFQ}
                             id={this.props.agency.id} />
                         <ObjectClassContainer
                             id={this.props.agency.id}
