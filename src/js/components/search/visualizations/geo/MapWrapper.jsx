@@ -241,7 +241,7 @@ export default class MapWrapper extends React.Component {
             this.showSource(this.props.scope);
             const resolver = (e) => {
                 // Mapbox insists on emitting sourcedata events for many different source
-                // loading stages, so we need to wait for the source to be loaded AND for the
+                // loading stages, so we need to wait for the source to be loaded AND for
                 // it to be affecting tiles (aka, it has moved onto the render stage)
                 if (e.isSourceLoaded && e.tile) {
                     // source has finished loading and is rendered (so we can start filtering
