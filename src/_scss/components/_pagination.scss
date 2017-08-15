@@ -10,6 +10,9 @@
 			font-style: normal;
 			font-size: rem(12);
 			margin: rem(5) rem(5) rem(5) 0;
+			&:hover {
+				background-color: $color-primary-alt-lightest;
+			}
 		}
 		&.active {
 			button {
