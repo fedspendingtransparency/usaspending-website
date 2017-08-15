@@ -88,9 +88,10 @@ describe('GeoVisualizationSectionContainer', () => {
             const expectedState = {
                 data: {
                     values: [123.12, 345.56],
-                    states: ['AK', 'AL']
+                    locations: ['AK', 'AL']
                 },
-                loading: false
+                loading: false,
+                mapScope: 'state'
             };
 
             const actualState = container.state();

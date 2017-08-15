@@ -37,7 +37,7 @@ export default class MapBox extends React.Component {
         this.componentUnmounted = false;
 
         // Bind window functions
-        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 16);
 
         // Bind movement functions
         this.moveUp = this.moveUp.bind(this);

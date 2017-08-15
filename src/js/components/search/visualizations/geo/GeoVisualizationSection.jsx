@@ -14,7 +14,9 @@ import GeoVisualizationTooltip from './GeoVisualizationTooltip';
 
 const propTypes = {
     scope: PropTypes.string,
+    mapScope: PropTypes.string,
     changeScope: PropTypes.func,
+    renderHash: PropTypes.string,
     data: PropTypes.object,
     total: PropTypes.number
 };
@@ -34,7 +36,7 @@ export default class GeoVisualizationSection extends React.Component {
 
     showTooltip(stateCode, position) {
         // convert state code to full string name
-        const index = indexOf(this.props.data.states, stateCode);
+        const index = indexOf(this.props.data.locations, stateCode);
         this.setState({
             showHover: true,
             selectedItem: {

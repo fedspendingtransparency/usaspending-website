@@ -54,19 +54,11 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     changeScope(scope) {
-        let newscope = 'county';
-        if (scope === 'pop') {
-            newscope = 'state';
-        }
         this.setState({
-            mapScope: newscope,
-            renderHash: `geo-${uniqueId()}`
+            scope
+        }, () => {
+            this.fetchData();
         });
-        // this.setState({
-        //     scope
-        // }, () => {
-        //     this.fetchData();
-        // });
     }
 
     fetchData() {

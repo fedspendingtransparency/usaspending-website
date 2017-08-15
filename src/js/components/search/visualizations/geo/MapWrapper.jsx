@@ -20,7 +20,8 @@ const propTypes = {
     selectedItem: PropTypes.object,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    tooltip: PropTypes.func
+    tooltip: PropTypes.func,
+    receiveVisible: PropTypes.func
 };
 
 const defaultProps = {
@@ -77,6 +78,8 @@ export default class MapWrapper extends React.Component {
 
         this.mapReady = this.mapReady.bind(this);
         this.mapRemoved = this.mapRemoved.bind(this);
+
+        this.determineVisibleEntities = this.determineVisibleEntities.bind(this);
     }
 
     componentDidMount() {
@@ -88,10 +91,7 @@ export default class MapWrapper extends React.Component {
             if (prevProps.scope !== this.props.scope) {
                 // the scope changed, we need to reload the layers
                 this.queueMapOperation('displayData', this.displayData);
-                this.prepareLayers()
-                    .then(() => {
-                        this.runMapOperationQueue();
-                    });
+                this.prepareMap();
             }
             else {
                 // only the data changed
@@ -105,12 +105,7 @@ export default class MapWrapper extends React.Component {
         this.setState({
             mapReady: true
         }, () => {
-            this.prepareLayers()
-                .then(() => {
-                    // we depend on the state shapes to process the state fills, so the operation
-                    // queue must wait for the state shapes to load first
-                    this.runMapOperationQueue();
-                });
+            this.prepareMap();
         });
     }
 
@@ -119,6 +114,20 @@ export default class MapWrapper extends React.Component {
         this.setState({
             mapReady: false
         });
+    }
+
+    prepareMap() {
+        this.prepareLayers()
+            .then(() => {
+                // we depend on the state shapes to process the state fills, so the operation
+                // queue must wait for the state shapes to load first
+                this.runMapOperationQueue();
+
+                // set up listeners to determine visible entities, if applicable
+                if (this.props.receiveVisible) {
+                    this.prepareChangeListeners();
+                }
+            });
     }
 
     showSource(type) {
@@ -230,12 +239,29 @@ export default class MapWrapper extends React.Component {
             });
 
             this.showSource(this.props.scope);
-
-            resolve();
+            const resolver = (e) => {
+                // Mapbox insists on emitting sourcedata events for many different source
+                // loading stages, so we need to wait for the source to be loaded AND for the
+                // it to be affecting tiles (aka, it has moved onto the render stage)
+                if (e.isSourceLoaded && e.tile) {
+                    // source has finished loading and is rendered (so we can start filtering
+                    // and querying)
+                    this.mapRef.map.off('sourcedata', resolver);
+                    resolve();
+                }
+            };
+            // if we're loading new data, we need to wait for the data to be ready
+            this.mapRef.map.on('sourcedata', resolver);
         });
     }
 
     determineVisibleEntities() {
+        // check if the parent component wants to query the map for only the visible features
+        if (!this.props.receiveVisible) {
+            // no receiver function was passed down, so don't do anything
+            return;
+        }
+
         // determine which entities (state, counties, etc based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
         const entities = this.mapRef.map.queryRenderedFeatures({
@@ -248,12 +274,23 @@ export default class MapWrapper extends React.Component {
             entity.properties[source.filterKey]
         ));
 
-        // remove the duplicates values
-        return uniq(visibleEntities);
+        // remove the duplicates values and pass them to the parent
+        this.props.receiveVisible(uniq(visibleEntities));
+    }
+
+    prepareChangeListeners() {
+        // detect visible entities whenever the map moves
+        this.mapRef.map.on('moveend', this.determineVisibleEntities);
+        // but also do it when the map resizes, since the view will be different
+        this.mapRef.map.on('resize', this.determineVisibleEntities);
+
+        // now run the detector immediately so we can get the current state
+        this.determineVisibleEntities();
     }
 
     mouseOverLayer(e) {
         const source = mapboxSources[this.props.scope];
+        // grab the filter ID from the GeoJSON feature properties
         const entityId = e.features[0].properties[source.filterKey];
         this.props.showTooltip(entityId, {
             x: e.originalEvent.offsetX,
