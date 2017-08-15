@@ -73,7 +73,7 @@ export default class MapWrapper extends React.Component {
 
         this.mapRef = null;
         this.mapOperationQueue = {};
-        this.mapOperationTimer = null;
+        this.loadedLayers = {};
 
         this.mapReady = this.mapReady.bind(this);
         this.mapRemoved = this.mapRemoved.bind(this);
@@ -85,8 +85,18 @@ export default class MapWrapper extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.renderHash !== this.props.renderHash) {
-            // if (this.)
-            this.displayData();
+            if (prevProps.scope !== this.props.scope) {
+                // the scope changed, we need to reload the layers
+                this.queueMapOperation('displayData', this.displayData);
+                this.prepareLayers()
+                    .then(() => {
+                        this.runMapOperationQueue();
+                    });
+            }
+            else {
+                // only the data changed
+                this.displayData();
+            }
         }
     }
 
@@ -111,6 +121,95 @@ export default class MapWrapper extends React.Component {
         });
     }
 
+    showSource(type) {
+        const layers = this.loadedLayers[type];
+        // check if we've already loaded the data layer
+        if (!layers) {
+            // we haven't loaded it yet, do that now
+            this.loadSource(type);
+            return;
+        }
+
+        // enable the base layer
+        this.mapRef.map.setLayoutProperty(layers.base, 'visibility', 'visible');
+        layers.highlights.forEach((highlight) => {
+            // iterate through all the highlight layers and enable them
+            this.mapRef.map.setLayoutProperty(highlight, 'visibility', 'visible');
+        });
+    }
+
+    hideSource(type) {
+        const layers = this.loadedLayers[type];
+
+        if (!layers) {
+            // we haven't loaded the layer yet, stop
+            return;
+        }
+
+        // hide the base layer
+        this.mapRef.map.setLayoutProperty(layers.base, 'visibility', 'none');
+        layers.highlights.forEach((highlight) => {
+            // iterate through all the highlight layers and enable them
+            this.mapRef.map.setLayoutProperty(highlight, 'visibility', 'none');
+        });
+    }
+
+    loadSource(type) {
+        const baseLayer = `base_${type}`;
+
+        const sourceRef = {
+            base: baseLayer,
+            highlights: []
+        };
+
+        // load the data source
+        const source = mapboxSources[type];
+        this.mapRef.map.addSource(type, {
+            type: 'vector',
+            url: source.url
+        });
+
+        // transform the source shapes into a base layer that will show the outline of all the
+        // contents
+        this.mapRef.map.addLayer({
+            id: baseLayer,
+            type: 'fill',
+            source: type,
+            'source-layer': source.layer,
+            paint: {
+                'fill-outline-color': 'rgba(0,0,0,0.3)',
+                'fill-color': 'rgba(0,0,0,0)'
+            }
+        });
+
+        // generate the highlight layers that will be shaded in when populated with data filters
+        // set up temporary empty filters that will show nothing
+        const colors = MapHelper.visualizationColors;
+        colors.forEach((color, index) => {
+            const layerName = `highlight_${type}_group_${index}`;
+            this.mapRef.map.addLayer({
+                id: layerName,
+                type: 'fill',
+                source: type,
+                'source-layer': source.layer,
+                paint: {
+                    'fill-outline-color': 'rgba(0,0,0,0.3)',
+                    'fill-color': color
+                },
+                filter: ['in', source.filterKey, '']
+            });
+
+            // setup mouseover events
+            this.mapRef.map.on('mousemove', layerName, this.mouseOverLayer.bind(this));
+            this.mapRef.map.on('mouseleave', layerName, this.mouseExitLayer.bind(this));
+
+            // save a reference to this layer
+            sourceRef.highlights.push(layerName);
+        });
+
+        this.loadedLayers[type] = sourceRef;
+    }
+
     prepareLayers() {
         return new Promise((resolve, reject) => {
             if (!this.state.mapReady) {
@@ -123,44 +222,14 @@ export default class MapWrapper extends React.Component {
                 reject();
             }
 
-            // load the shape data for the given scope (state, county, etc) from Mapbox
-            this.mapRef.map.addSource(this.props.scope, {
-                type: 'vector',
-                url: source.url
-            });
-
-            // transform the source shapes into its own layer
-            this.mapRef.map.addLayer({
-                id: `base_${this.props.scope}`,
-                type: 'fill',
-                source: this.props.scope,
-                'source-layer': source.layer,
-                paint: {
-                    'fill-outline-color': 'rgba(0,0,0,0.3)',
-                    'fill-color': 'rgba(0,0,0,0)'
+            // hide all the other layers
+            Object.keys(mapboxSources).forEach((type) => {
+                if (type !== this.props.scope) {
+                    this.hideSource(type);
                 }
             });
 
-            // generate the highlight layers
-            const colors = MapHelper.visualizationColors;
-            colors.forEach((color, index) => {
-                const layerName = `highlight_${this.props.scope}_group_${index}`;
-                this.mapRef.map.addLayer({
-                    id: layerName,
-                    type: 'fill',
-                    source: this.props.scope,
-                    'source-layer': source.layer,
-                    paint: {
-                        'fill-outline-color': 'rgba(0,0,0,0.3)',
-                        'fill-color': color
-                    },
-                    filter: ['in', source.filterKey, '']
-                });
-
-                // setup mouseover events
-                this.mapRef.map.on('mousemove', layerName, this.mouseOverLayer.bind(this));
-                this.mapRef.map.on('mouseleave', layerName, this.mouseExitLayer.bind(this));
-            });
+            this.showSource(this.props.scope);
 
             resolve();
         });
@@ -187,8 +256,8 @@ export default class MapWrapper extends React.Component {
         const source = mapboxSources[this.props.scope];
         const entityId = e.features[0].properties[source.filterKey];
         this.props.showTooltip(entityId, {
-            x: e.originalEvent.clientX,
-            y: e.originalEvent.clientY
+            x: e.originalEvent.offsetX,
+            y: e.originalEvent.offsetY
         });
     }
 
@@ -201,7 +270,6 @@ export default class MapWrapper extends React.Component {
             const op = this.mapOperationQueue[key];
             op.call(this);
         });
-        this.mapOperationTimer = null;
         this.mapOperationQueue = {};
     }
 
