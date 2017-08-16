@@ -71,7 +71,7 @@ export default class FederalAccountChart extends React.Component {
         const legend = [
             {
                 color: '#597785',
-                label: 'Obligated Amounts',
+                label: 'Obligated Amount',
                 offset: 0
             }
         ];
