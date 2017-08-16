@@ -1,0 +1,14 @@
+.explorer-sidebar {
+    @include flex(0 0 auto);
+    position: relative;
+
+    width: rem(300);
+    padding: rem(20) 0;
+
+    background-color: $color-gray-dark;
+    color: $color-white;
+    @import "./_home";
+    @import "./_fy";
+    @import "./_fyPicker";
+    @import "./_trail";
+}

@@ -1,0 +1,56 @@
+.landing-option {
+    @include flex(0 0 auto);
+    padding: rem(30);
+
+    width: 100%;
+
+    margin-top: rem(30);
+    &:first-child {
+        margin-top: 0;
+    }
+
+    @include media($large-screen) {
+        width: rem(350);
+        margin-left: rem(30);
+        margin-top: 0;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+    @include media($x-large-screen) {
+        width: rem(400);
+    }
+
+    background-color: rgba(91,97,106, 0.8);
+    color: $color-white;
+    text-align: center;
+
+    h3 {
+        margin: 0;
+        font-weight: $font-light;
+        font-size: rem(35);
+        line-height: rem(44);
+    }
+
+    .description {
+        margin-top: rem(10);
+        margin-bottom: rem(40);
+        font-weight: $font-normal;
+
+        @include media($large-screen) {
+            min-height: rem(70);
+        }
+    }
+
+    a.landing-option-button {
+        @extend .usa-button;
+        background-color: $color-primary-alt;
+        font-size: $base-font-size;
+        padding: rem(10) rem(60);
+
+        &:visited {
+            background-color: $color-primary-alt;
+        }
+    }
+}

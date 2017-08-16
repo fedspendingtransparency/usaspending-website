@@ -1,0 +1,60 @@
+.explorer-landing-page {
+    background-color: $color-white;
+
+    .landing-intro {
+        padding: rem(100) 0;
+        text-align: center;
+
+        margin-left: rem(30);
+        margin-right: rem(30);
+
+        @include media($tablet-screen) {
+            width: 75%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @include media($large-screen) {
+            width: rem(750);
+        }
+
+        h2 {
+            margin: 0;
+            font-weight: $font-light;
+            font-size: rem(45);
+            line-height: rem(56);
+            padding-bottom: rem(14);
+        }
+
+        .description {
+            font-size: rem(19);
+            font-weight: $font-light;
+
+            .highlight {
+                color: $color-primary-alt-darkest;
+                margin-bottom: rem(28);
+            }
+        }
+    }
+
+    .landing-options {
+        @include display(flex);
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include align-items(center);
+        position: relative;
+
+        padding-left: rem(30);
+        padding-right: rem(30);
+
+        @include media($large-screen) {
+            @include flex-direction(row);
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        @import "./_option";
+
+        padding-bottom: rem(230);
+    }
+}

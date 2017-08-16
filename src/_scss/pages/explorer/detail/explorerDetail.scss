@@ -1,0 +1,8 @@
+.explorer-detail {
+    @include display(flex);
+    @include justify-content(flex-start);
+    @include align-items(flex-start);
+    position: relative;
+
+    @import "./sidebar/sidebar";
+}

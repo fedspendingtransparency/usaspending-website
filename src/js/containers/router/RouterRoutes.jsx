@@ -39,6 +39,24 @@ const routes = {
             }
         },
         {
+            path: '/explorer',
+            parent: '/explorer',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/explorer/landing/ExplorerLanding').default);
+                });
+            }
+        },
+        {
+            path: '/explorer/:root',
+            parent: '/explorer',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/explorer/detail/ExplorerDetailPageContainer').default);
+                });
+            }
+        },
+        {
             path: '/award/:awardId',
             parent: '/award',
             component: (cb) => {
