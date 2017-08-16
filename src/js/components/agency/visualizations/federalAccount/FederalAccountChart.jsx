@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import HorizontalChart from 'components/search/visualizations/rank/chart/HorizontalChart';
+import BarChartLegend from 'components/search/visualizations/time/chart/BarChartLegend';
 
 import FederalAccountTooltip from './FederalAccountTooltip';
 
@@ -67,7 +68,16 @@ export default class FederalAccountChart extends React.Component {
             isLoading = 'loading-visualization';
         }
 
+        const legend = [
+            {
+                color: '#597785',
+                label: 'Obligated Amounts',
+                offset: 0
+            }
+        ];
+
         return (
+
             <div className={isLoading}>
                 <HorizontalChart
                     labelSeries={this.props.labelSeries}
@@ -81,6 +91,11 @@ export default class FederalAccountChart extends React.Component {
                     selectItem={this.showTooltip}
                     deselectItem={this.hideTooltip}
                     urlRoot="#/federal_account/" />
+                <svg className="horizontal-bar">
+                    <g className="legend-container">
+                        <BarChartLegend legend={legend} />
+                    </g>
+                </svg>
 
                 <div className={`tooltip-wrapper ${hideTooltip}`}>
                     <FederalAccountTooltip

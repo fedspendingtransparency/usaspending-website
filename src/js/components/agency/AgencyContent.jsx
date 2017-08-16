@@ -7,6 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { find, throttle } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
+import moment from 'moment';
+import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
 
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
 import RecipientContainer from 'containers/agency/visualizations/RecipientContainer';
@@ -213,6 +215,10 @@ export default class AgencyContent extends React.Component {
     }
 
     render() {
+        const qtr = parseFloat(this.props.agency.overview.activeFQ);
+        const endOfQuarter = convertQuarterToDate(qtr, this.props.agency.overview.activeFY);
+        const asOfDate = moment(endOfQuarter, "YYYY-MM-DD").format("MMMM D, YYYY");
+
         return (
             <div className="agency-content-wrapper">
                 <div className="agency-sidebar">
@@ -230,14 +236,17 @@ export default class AgencyContent extends React.Component {
                             agencyName={this.props.agency.overview.name}
                             activeFY={this.props.agency.overview.activeFY}
                             activeQuarter={this.props.agency.overview.activeFQ}
-                            id={this.props.agency.id} />
+                            id={this.props.agency.id}
+                            asOfDate={asOfDate} />
                         <ObjectClassContainer
                             id={this.props.agency.id}
-                            activeFY={this.props.agency.overview.activeFY} />
+                            activeFY={this.props.agency.overview.activeFY}
+                            asOfDate={asOfDate} />
                         <FederalAccountContainer
                             id={this.props.agency.id}
                             activeFY={this.props.agency.overview.activeFY}
-                            obligatedAmount={this.props.agency.overview.obligatedAmount} />
+                            obligatedAmount={this.props.agency.overview.obligatedAmount}
+                            asOfDate={asOfDate} />
                         <RecipientContainer
                             id={this.props.agency.id}
                             activeFY={this.props.agency.overview.activeFY} />
