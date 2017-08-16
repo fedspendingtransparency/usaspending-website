@@ -43,7 +43,8 @@ const agencySections = [
 ];
 
 const propTypes = {
-    agency: PropTypes.object
+    agency: PropTypes.object,
+    lastUpdate: PropTypes.string
 };
 
 export default class AgencyContent extends React.Component {
@@ -249,7 +250,8 @@ export default class AgencyContent extends React.Component {
                             asOfDate={asOfDate} />
                         <RecipientContainer
                             id={this.props.agency.id}
-                            activeFY={this.props.agency.overview.activeFY} />
+                            activeFY={this.props.agency.overview.activeFY}
+                            lastUpdate={this.props.lastUpdate} />
                     </div>
                     <AgencyFooterContainer id={this.props.agency.id} />
                 </div>
