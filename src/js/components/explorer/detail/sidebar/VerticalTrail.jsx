@@ -13,29 +13,6 @@ const propTypes = {
     trail: PropTypes.array
 };
 
-const defaultProps = {
-    trail: [
-        {
-            type: 'root',
-            subtype: 'agency',
-            title: 'All Agencies',
-            total: 2700000000000
-        },
-        {
-            type: 'agency',
-            subtype: '',
-            title: 'Department of Energy',
-            total: 18800000000
-        },
-        {
-            type: 'federal_account',
-            subtype: '',
-            title: 'Energy Efficiency & Renewable Energy',
-            total: 958500000
-        }
-    ]
-};
-
 export default class VerticalTrail extends React.Component {
     render() {
         const trail = this.props.trail.map((item, index) => (
@@ -63,4 +40,3 @@ export default class VerticalTrail extends React.Component {
 }
 
 VerticalTrail.propTypes = propTypes;
-VerticalTrail.defaultProps = defaultProps;

@@ -18,6 +18,7 @@ import ExplorerDetailPage from 'components/explorer/detail/ExplorerDetailPage';
 const propTypes = {
     params: PropTypes.object,
     explorer: PropTypes.object,
+    setExplorerRoot: PropTypes.func,
     resetExplorer: PropTypes.func
 };
 
@@ -34,11 +35,15 @@ export class ExplorerDetailPageContainer extends React.Component {
         }
     }
 
-    validateRoot(root) {
+    validateRoot(rootValue) {
         const allowedRoots = ['budget_function', 'agency', 'object_class'];
-        if (!root || allowedRoots.indexOf(root) === -1) {
+        if (!rootValue || allowedRoots.indexOf(rootValue) === -1) {
             // not a valid root, go to to the landing page
             Router.history.replace('/explorer');
+        }
+        else {
+            // set the root
+            this.props.setExplorerRoot(rootValue);
         }
     }
 

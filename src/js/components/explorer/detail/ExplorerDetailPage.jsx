@@ -4,9 +4,17 @@
  */
 
 import React from 'react';
-import ExplorerWrapperPage from '../ExplorerWrapperPage';
+import PropTypes from 'prop-types';
 
+import RootContentContainer from 'containers/explorer/detail/RootContentContainer';
+
+import ExplorerWrapperPage from '../ExplorerWrapperPage';
 import ExplorerSidebar from './sidebar/ExplorerSidebar';
+
+const propTypes = {
+    explorer: PropTypes.object,
+    setExplorerYear: PropTypes.func
+};
 
 export default class ExplorerDetailPage extends React.Component {
     render() {
@@ -17,8 +25,11 @@ export default class ExplorerDetailPage extends React.Component {
                         fy={this.props.explorer.fy}
                         trail={this.props.explorer.trail}
                         setExplorerYear={this.props.setExplorerYear} />
+                    <RootContentContainer />
                 </div>
             </ExplorerWrapperPage>
         );
     }
 }
+
+ExplorerDetailPage.propTypes = propTypes;

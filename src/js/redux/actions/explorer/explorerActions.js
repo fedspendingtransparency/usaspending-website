@@ -3,6 +3,11 @@
  * Created by Kevin Li 8/16/17
  */
 
+export const setExplorerRoot = (state) => ({
+    type: 'SET_EXPLORER_ROOT',
+    root: state
+});
+
 export const setExplorerYear = (state) => ({
     type: 'SET_EXPLORER_FY',
     fy: state
@@ -18,8 +23,8 @@ export const rewindExplorerFilters = (state) => ({
     index: state
 });
 
-export const rewindExplorerTree = (state) => ({
-    type: 'REWIND_EXPLORER_TREE',
+export const rewindExplorerTrail = (state) => ({
+    type: 'REWIND_EXPLORER_TRAIL',
     index: state
 });
 
