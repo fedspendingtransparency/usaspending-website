@@ -23,10 +23,7 @@ export default class SelectedAgencies extends React.Component {
             let label = agency.subtier_agency.name;
 
             if (agency.agencyType !== '' && agency.agencyType !== null) {
-                if (agency.agencyType === 'subtier') {
-                    label += ` (${agency.subtier_agency.abbreviation})`;
-                }
-                else if (agency.agencyType === 'toptier') {
+                if (agency.agencyType === 'toptier') {
                     label += ` (${agency.toptier_agency.abbreviation})`;
                 }
 
