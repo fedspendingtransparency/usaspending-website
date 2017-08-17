@@ -1,0 +1,69 @@
+.root-header {
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+
+    position: relative;
+    .left-side {
+        @include flex(1 1 auto);
+        h2 {
+            margin: 0;
+            font-weight: $font-light;
+            font-size: rem(28);
+            line-height: rem(32);
+
+            @include media($large-screen) {
+                font-size: rem(36);
+                line-height: rem(40);
+            }
+        }
+
+        .instructions {
+            margin-top: rem(10);
+            font-weight: $font-light;
+            color: $color-primary-alt-darkest;
+            font-size: rem(24);
+            line-height: rem(28);
+        }
+
+        .capitalize {
+            text-transform: capitalize;
+        }
+
+    }
+
+    .right-side {
+        @include flex(1 0 auto);
+        width: rem(150);
+        margin-left: rem(10);
+        
+        @include media($medium-screen) {
+            width: rem(250);
+            margin-left: rem(50);
+        }
+        @include media($x-large-screen) {
+            margin-left: rem(150);    
+        }
+
+        .amount-header {
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: $font-semibold;
+
+            font-size: rem(16);
+            line-height: rem(21);
+        }
+
+        .amount-value {
+            text-align: center;
+            text-transform: capitalize;
+            font-weight: $font-light;
+
+            font-size: rem(36);
+            line-height: rem(40);
+
+            color: $color-primary-alt-darkest;
+
+        }
+    }
+}

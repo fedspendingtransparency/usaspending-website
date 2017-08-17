@@ -3,7 +3,7 @@
  * Created by Kevin Li 8/16/17
  **/
 
-import { List, Record } from 'immutable';
+import { Map, List, Record } from 'immutable';
 import { currentFiscalYear } from 'helpers/fiscalYearHelper';
 
 export const ActiveScreen = new Record({
@@ -16,28 +16,9 @@ export const ActiveScreen = new Record({
 export const initialState = {
     root: 'object_class',
     fy: currentFiscalYear(),
-    filters: new List(),
+    filters: new Map(),
     active: new ActiveScreen(),
-    trail: [
-        {
-            type: 'root',
-            subtype: 'agency',
-            title: 'All Agencies',
-            total: 2700000000000
-        },
-        {
-            type: 'agency',
-            subtype: '',
-            title: 'Department of Energy',
-            total: 18800000000
-        },
-        {
-            type: 'federal_account',
-            subtype: '',
-            title: 'Energy Efficiency & Renewable Energy',
-            total: 958500000
-        }
-    ]
+    trail: new List([])
 };
 
 const explorerReducer = (state = initialState, action) => {
@@ -54,17 +35,12 @@ const explorerReducer = (state = initialState, action) => {
         }
         case 'ADD_EXPLORER_FILTER': {
             return Object.assign({}, state, {
-                filters: state.filters.push(action.filter)
+                filters: state.set(action.filterType, action.filterValue)
             });
         }
-        case 'REWIND_EXPLORER_FILTERS': {
-            // remove all filters after a specific index
-            let rewoundFilters = new List();
-            if (action.index > 0) {
-                rewoundFilters = state.filters.slice(0, action.index + 1);
-            }
+        case 'OVERWRITE_EXPLORER_FILTERS': {
             return Object.assign({}, state, {
-                filters: rewoundFilters
+                filters: action.filters
             });
         }
         case 'REWIND_EXPLORER_TRAIL': {
@@ -78,6 +54,16 @@ const explorerReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 active: newActive,
                 trail: newTrail
+            });
+        }
+        case 'OVERWRITE_EXPLORER_TRAIL': {
+            return Object.assign({}, state, {
+                trail: new List(action.trail)
+            });
+        }
+        case 'SET_EXPLORER_ACTIVE': {
+            return Object.assign({}, state, {
+                active: new ActiveScreen(action.active)
             });
         }
         case 'RESET_EXPLORER': {

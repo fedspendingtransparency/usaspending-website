@@ -23,9 +23,6 @@ const propTypes = {
 };
 
 export class ExplorerDetailPageContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     componentWillMount() {
         this.validateRoot(this.props.params.root);
     }

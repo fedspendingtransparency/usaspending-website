@@ -13,7 +13,7 @@ import VerticalTrail from './VerticalTrail';
 
 const propTypes = {
     fy: PropTypes.number,
-    trail: PropTypes.array,
+    trail: PropTypes.object,
     setExplorerYear: PropTypes.func
 };
 
@@ -87,7 +87,7 @@ export default class ExplorerSidebar extends React.Component {
                 {fyPicker}
 
                 <VerticalTrail
-                    trail={this.props.trail} />
+                    trail={this.props.trail.toArray()} />
 
             </div>
         );

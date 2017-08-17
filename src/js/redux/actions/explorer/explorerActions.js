@@ -13,9 +13,20 @@ export const setExplorerYear = (state) => ({
     fy: state
 });
 
+export const setExplorerActive = (state) => ({
+    type: 'SET_EXPLORER_ACTIVE',
+    active: state
+});
+
+export const overwriteExplorerFilters = (state) => ({
+    type: 'OVERWRITE_EXPLORER_FILTERS',
+    filters: state
+});
+
 export const addExplorerFilter = (state) => ({
     type: 'ADD_EXPLORER_FILTER',
-    filter: state
+    filterType: state.type,
+    filterValue: state.value
 });
 
 export const rewindExplorerFilters = (state) => ({
@@ -26,6 +37,11 @@ export const rewindExplorerFilters = (state) => ({
 export const rewindExplorerTrail = (state) => ({
     type: 'REWIND_EXPLORER_TRAIL',
     index: state
+});
+
+export const overwriteExplorerTrail = (state) => ({
+    type: 'OVERWRITE_EXPLORER_TRAIL',
+    trail: state
 });
 
 export const resetExplorer = () => ({

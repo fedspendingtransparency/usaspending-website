@@ -1,8 +1,12 @@
 .explorer-sidebar {
-    @include flex(0 0 auto);
-    position: relative;
+    display: none;
+    @include media($tablet-screen) {
+        display: block;
+        @include flex(0 0 auto);
+        position: relative;
+        width: rem(300);    
+    }
 
-    width: rem(300);
     padding: rem(20) 0;
 
     background-color: $color-gray-dark;
