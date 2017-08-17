@@ -1,0 +1,51 @@
+.breakdown-menu {
+    @include display(flex);
+    @include justify-content(flex-start);
+    @include align-items(center);
+
+    .breakdown-label {
+        @include flex(0 0 auto);
+        font-size: rem(24);
+        line-height: rem(31);
+        font-weight: $font-light;
+        margin-right: rem(30);
+    }
+
+    .breakdown-dropdown {
+        @include flex(1 1 auto);
+
+        .dropdown-selector {
+            @include button-unstyled;
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+
+            border-bottom: 1px solid $color-base;
+
+            padding: rem(10) rem(5);
+
+            .item-icon, .arrow {
+                @include flex(0 0 auto);
+                width: rem(25);
+                height: rem(25);
+
+                svg {
+                    width: rem(25);
+                    height: rem(25);
+                    fill: $color-base;
+                }
+            }
+
+            .item-label {
+                @include flex(1 1 auto);
+                color: $color-base;
+                font-size: rem(24);
+                line-height: rem(31);
+                font-weight: $font-light;
+
+                margin-left: rem(15);
+                margin-right: rem(20);
+            }
+        }
+    }
+}

@@ -9,5 +9,7 @@
     .explorer-detail-content {
         padding: rem(40);
         @import "./header/header";
+
+        @import "./visualization/visualization";
     }
 }

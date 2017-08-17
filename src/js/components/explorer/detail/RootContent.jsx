@@ -5,10 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { capitalize } from 'lodash';
 
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
+
+import ExplorerVisualization from './visualization/ExplorerVisualization';
 
 const propTypes = {
     root: PropTypes.string,
@@ -49,6 +50,8 @@ export default class RootContent extends React.Component {
                         </div>
                     </div>
                 </div>
+
+                <ExplorerVisualization {...this.props} />
             </div>
         );
     }

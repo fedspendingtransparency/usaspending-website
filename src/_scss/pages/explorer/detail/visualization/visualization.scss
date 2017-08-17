@@ -1,0 +1,9 @@
+.explorer-visualization-wrapper {
+    background-color: $color-white;
+    border: 1px solid $color-gray-border;
+    box-shadow: $box-shadow;
+
+    margin-top: rem(40);
+
+    @import "./_menu";
+}
