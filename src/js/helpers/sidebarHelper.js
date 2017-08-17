@@ -20,7 +20,7 @@ export const filterHasSelections = (reduxFilters, filter) => {
         case 'Budget Categories':
             if (reduxFilters.budgetFunctions.length > 0
                 || reduxFilters.federalAccounts.length > 0
-                || Object.keys(reduxFilters.objectClasses).length > 0) {
+                || Object.keys(reduxFilters.objectClasses.toArray()).length > 0) {
                 return true;
             }
             return false;
