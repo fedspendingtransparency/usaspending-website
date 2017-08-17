@@ -13,7 +13,7 @@ const propTypes = {
 
 export default class AccountLandingPagination extends React.Component {
     setPage(page) {
-        this.props.onChangePage(page);
+        this.props.onChangePage(page, (page > 0 && page <= this.props.pager.totalPages));
     }
 
     render() {

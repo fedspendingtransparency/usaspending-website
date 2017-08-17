@@ -66,9 +66,11 @@ export class AccountLandingContainer extends React.Component {
         }
     }
 
-    onChangePage(pageNumber) {
+    onChangePage(pageNumber, inRange) {
         // Change page number in Redux state
-        this.props.setPageNumber(pageNumber);
+        if (inRange) {
+            this.props.setPageNumber(pageNumber);
+        }
     }
 
     getPager(totalItems, currentPage, pageSize) {
@@ -81,12 +83,12 @@ export class AccountLandingContainer extends React.Component {
         let nextEllipses = (<span className="pagination-ellipsis">...</span>);
         let firstButton = (
             <li>
-                <button onClick={() => this.onChangePage(1)}>{1}</button>
+                <button onClick={() => this.onChangePage(1, true)}>{1}</button>
             </li>
         );
         let lastButton = (
             <li>
-                <button onClick={() => this.onChangePage(totalPages)}>{totalPages}</button>
+                <button onClick={() => this.onChangePage(totalPages, true)}>{totalPages}</button>
             </li>
         );
         if (totalPages < 5) {

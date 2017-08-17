@@ -21,6 +21,16 @@
 				border-color: $color-primary-alt-dark;
 			}
 		}
+		&.disabled {
+			button {
+				border-color: $color-gray-lighter;
+				color: $color-gray-light;
+				&:hover {
+					background-color: $color-white;
+					cursor: auto;
+				}
+			}
+		}
 	}
 	.pagination-ellipsis {
 		font-weight: bold;
