@@ -44,7 +44,7 @@ export class SearchContainer extends React.Component {
 
     componentWillMount() {
         this.handleInitialUrl(this.props.params.hash);
-        this.loadUpdateDate();
+        // this.loadUpdateDate();
     }
 
     componentWillReceiveProps(nextProps) {
