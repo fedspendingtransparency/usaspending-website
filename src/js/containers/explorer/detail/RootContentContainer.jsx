@@ -118,6 +118,7 @@ export class RootContentContainer extends React.Component {
             <RootContent
                 root={this.props.explorer.root}
                 fy={this.props.explorer.fy}
+                active={this.props.explorer.active}
                 total={this.state.total}
                 data={this.state.data} />
         );

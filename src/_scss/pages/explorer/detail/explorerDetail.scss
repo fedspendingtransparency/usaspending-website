@@ -1,13 +1,16 @@
 .explorer-detail {
     @include display(flex);
     @include justify-content(flex-start);
-    @include align-items(flex-start);
+    @include align-items(stretch);
     position: relative;
 
     @import "./sidebar/sidebar";
 
     .explorer-detail-content {
+        @include flex(1 1 auto);
+        min-width: 0;
         padding: rem(40);
+
         @import "./header/header";
 
         @import "./visualization/visualization";

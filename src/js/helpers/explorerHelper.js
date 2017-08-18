@@ -11,13 +11,6 @@ const mockAgencyRoot = {
     total: 2712837928102,
     results: [
         {
-            id: 1,
-            type: "agency",
-            name: "Department of First Thing",
-            code: "",
-            amount: 846405433567.82
-        },
-        {
             id: 2,
             type: "agency",
             name: "Second Department Name",
@@ -72,6 +65,13 @@ const mockAgencyRoot = {
             name: "Ninth Agency",
             code: "",
             amount: 163719768960.96
+        },
+        {
+            id: 1,
+            type: "agency",
+            name: "Department of First Thing",
+            code: "",
+            amount: 846405433567.82
         }
     ]
 };

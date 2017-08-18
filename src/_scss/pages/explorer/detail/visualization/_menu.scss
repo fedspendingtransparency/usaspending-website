@@ -3,6 +3,10 @@
     @include justify-content(center);
     @include align-items(center);
 
+    background-color: $color-white;
+    border: 1px solid $color-gray-border;
+    box-shadow: $box-shadow;
+
     padding: rem(15) rem(25);
 
     .breakdown-menu {
@@ -21,7 +25,7 @@
             @include flex(0 0 auto);
             width: rem(18);
             height: rem(18);
-            margin-right: rem(5);
+            margin-right: rem(10);
 
             svg {
                 width: rem(18);
