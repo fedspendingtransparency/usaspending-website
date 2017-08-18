@@ -557,7 +557,7 @@ export class TopFilterBarContainer extends React.Component {
 
         if (selected) {
             filter.code = 'pricingType';
-            filter.name = 'Pricing Type';
+            filter.name = 'Type of Contract Pricing';
             return filter;
         }
         return null;
@@ -577,7 +577,7 @@ export class TopFilterBarContainer extends React.Component {
 
         if (selected) {
             filter.code = 'setAside';
-            filter.name = 'Set Aside';
+            filter.name = 'Type of Set Aside';
             return filter;
         }
         return null;
