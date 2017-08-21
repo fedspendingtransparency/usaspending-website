@@ -27,18 +27,19 @@ import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedCon
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import MobileFilterHeader from 'components/search/mobile/MobileFilterHeader';
+import * as SidebarHelper from 'helpers/sidebarHelper';
 
 const filters = {
     options: [
         'Search',
         'Time Period',
-        'Place of Performance',
         'Budget Categories',
+        'Award Type',
         'Agencies',
         'Recipients',
-        'Award Type',
-        'Award ID',
+        'Place of Performance',
         'Award Amount',
+        'Award ID',
         'CFDA Programs',
         'NAICS Code',
         'Product/Service Code (PSC)',
@@ -49,13 +50,13 @@ const filters = {
     components: [
         KeywordContainer,
         TimePeriodContainer,
-        LocationSearchContainer,
         BudgetCategorySearchContainer,
+        AwardTypeContainer,
         AgencyContainer,
         RecipientSearchContainer,
-        AwardTypeContainer,
-        AwardIDSearchContainer,
+        LocationSearchContainer,
         AwardAmountSearchContainer,
+        AwardIDSearchContainer,
         CFDASearchContainer,
         NAICSSearchContainer,
         PSCSearchContainer,
@@ -66,7 +67,8 @@ const filters = {
 };
 
 const propTypes = {
-    mobile: PropTypes.bool
+    mobile: PropTypes.bool,
+    filters: PropTypes.object
 };
 
 const defaultProps = {
@@ -76,14 +78,9 @@ const defaultProps = {
 export default class SearchSidebar extends React.Component {
     render() {
         const expanded = [];
-        filters.options.forEach(() => {
-            // collapse if mobile, otherwise expand
-            if (this.props.mobile) {
-                expanded.push(false);
-            }
-            else {
-                expanded.push(true);
-            }
+        filters.options.forEach((filter) => {
+            // Collapse all by default, unless the filter has a selection made
+            expanded.push(SidebarHelper.filterHasSelections(this.props.filters, filter));
         });
 
         let mobileHeader = null;

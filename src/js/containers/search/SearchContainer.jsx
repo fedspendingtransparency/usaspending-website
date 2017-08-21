@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { is } from 'immutable';
+import moment from 'moment';
 
 import Router from 'containers/router/Router';
 
@@ -33,15 +34,17 @@ export class SearchContainer extends React.Component {
 
         this.state = {
             hash: '',
-            hashState: 'ready'
+            hashState: 'ready',
+            lastUpdate: ''
         };
 
         this.request = null;
+        this.updateRequest = null;
     }
 
     componentWillMount() {
-        // this.receiveHash(this.props.params.hash);
         this.handleInitialUrl(this.props.params.hash);
+        this.loadUpdateDate();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -290,11 +293,38 @@ export class SearchContainer extends React.Component {
             });
     }
 
+    loadUpdateDate() {
+        if (this.updateRequest) {
+            this.updateRequest.cancel();
+        }
+
+        this.updateRequest = SearchHelper.fetchLastUpdate();
+        this.updateRequest.promise
+            .then((res) => {
+                this.parseUpdateDate(res.data.last_updated);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.updateRequest = null;
+                }
+            });
+    }
+
+    parseUpdateDate(value) {
+        const date = moment(value, 'MM/DD/YYYY');
+        this.setState({
+            lastUpdate: date.format('MMMM D, YYYY')
+        });
+    }
+
     render() {
         return (
             <SearchPage
                 hash={this.props.params.hash}
-                clearAllFilters={this.props.clearAllFilters} />
+                clearAllFilters={this.props.clearAllFilters}
+                filters={this.props.filters}
+                lastUpdate={this.state.lastUpdate} />
         );
     }
 }

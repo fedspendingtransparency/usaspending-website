@@ -22,7 +22,8 @@ const propTypes = {
     descriptions: PropTypes.array,
     page: PropTypes.number,
     isLastPage: PropTypes.bool,
-    changePage: PropTypes.func
+    changePage: PropTypes.func,
+    lastUpdate: PropTypes.string
 };
 
 
@@ -99,6 +100,7 @@ or foreign). Here is a look at who these recipients are and how they rank by awa
                 </div>
                 <div className="agency-section-title">
                     <h4>Recipients</h4>
+                    <em>Data as of {this.props.lastUpdate}</em>
                     <hr
                         className="results-divider"
                         ref={(hr) => {

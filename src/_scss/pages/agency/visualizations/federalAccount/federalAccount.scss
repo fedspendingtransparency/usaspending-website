@@ -16,5 +16,17 @@
         .visualization-tooltip {
             @import "components/visualizations/tooltip/_tooltip";
         }
+
+	    .horizontal-bar {
+		    height: rem(15);
+		    .legend-container {
+			    color: $color-gray-medium;
+			    .key-label {
+				    font-size: rem(12);
+			    }
+		    }
+	    }
+
+
     }
 }

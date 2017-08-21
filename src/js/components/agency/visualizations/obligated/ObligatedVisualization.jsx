@@ -5,19 +5,17 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { throttle } from 'lodash';
+import { capitalize, throttle } from 'lodash';
 
 import AgencyObligatedGraph from './ObligatedGraph';
 
 const propTypes = {
     activeFY: PropTypes.string,
-    reportingFiscalQuarter: PropTypes.number,
     agencyName: PropTypes.string,
     obligatedAmount: PropTypes.number,
-    budgetAuthority: PropTypes.number
+    budgetAuthority: PropTypes.number,
+    asOfDate: PropTypes.string
 };
 
 export default class AgencyObligatedAmount extends React.Component {
@@ -54,20 +52,23 @@ export default class AgencyObligatedAmount extends React.Component {
     }
 
     render() {
-        const obligatedValue = this.props.obligatedAmount;
-        const authorityValue = this.props.budgetAuthority;
+        // Move props to variables for readability
+        const obligatedAmount = this.props.obligatedAmount;
+        const budgetAuthority = this.props.budgetAuthority;
 
-        const authUnits = MoneyFormatter.calculateUnitForSingleValue(authorityValue);
-        const authority = `${MoneyFormatter.formatMoney(authorityValue / authUnits.unit)}
-        ${authUnits.longLabel}`;
+        // Generate Budget Authority string
+        const budgetAuthorityAmount = MoneyFormatter
+            .calculateUnitForSingleValue(budgetAuthority);
+        const formattedBudgetAuthority = `${MoneyFormatter
+            .formatMoneyWithPrecision(budgetAuthority / budgetAuthorityAmount.unit, 1)}
+        ${capitalize(budgetAuthorityAmount.longLabel)}`;
 
-        const obUnits = MoneyFormatter.calculateUnitForSingleValue(obligatedValue);
-
-        const amountObligated = `${MoneyFormatter.formatMoney(obligatedValue / obUnits.unit)}
-        ${obUnits.longLabel}`;
-
-        const endOfQuarter = convertQuarterToDate(this.props.reportingFiscalQuarter, this.props.activeFY);
-        const asOfDate = moment(endOfQuarter, "YYYY-MM-DD").format("MMMM D, YYYY");
+        // Generate Obligated Amount string
+        const obligatedAmountValue = MoneyFormatter
+            .calculateUnitForSingleValue(obligatedAmount);
+        const formattedObligatedAmount = `${MoneyFormatter
+            .formatMoneyWithPrecision(obligatedAmount / obligatedAmountValue.unit, 1)}
+        ${capitalize(obligatedAmountValue.longLabel)}`;
 
         const legend = [
             {
@@ -79,11 +80,6 @@ export default class AgencyObligatedAmount extends React.Component {
                 color: '#D6D7D9',
                 label: 'Budgetary Resources',
                 offset: 100
-            },
-            {
-                color: '#ffffff',
-                label: `*as of ${asOfDate}`,
-                offset: this.state.visualizationWidth - 150
             }
         ];
 
@@ -99,9 +95,10 @@ example, when it places an order, signs a contract, awards a grant, purchases a 
 takes other actions that require it to make a payment.
                     </p>
                 </div>
-                <div className="agency-obligated-wrapper">
-                    <div className="agency-obligated-title">
+                <div className="agency-section-wrapper">
+                    <div className="agency-section-title">
                         <h4>Obligated Amount</h4>
+                        <em>Data as of {this.props.asOfDate}</em>
                         <hr
                             className="results-divider"
                             ref={(hr) => {
@@ -110,18 +107,16 @@ takes other actions that require it to make a payment.
                     </div>
                     <div className="agency-obligated-content">
                         <p className="fy-text">
-                            In fiscal year {this.props.activeFY}*, {this.props.agencyName} has obligated
+                            In fiscal year {this.props.activeFY}, {this.props.agencyName} has obligated...
                         </p>
                         <p className="against-auth-text">
-                            <span className="number number-bolder">{amountObligated}</span> against its <span className="number">{authority}</span> in Budgetary Resources
+                            <span className="number number-bolder">{formattedObligatedAmount}</span> against its <span className="number">{formattedBudgetAuthority}</span> in Budgetary Resources
                         </p>
                         <AgencyObligatedGraph
-                            activeFY={this.props.activeFY}
-                            reportingFiscalQuarter={this.props.reportingFiscalQuarter}
                             obligatedAmount={this.props.obligatedAmount}
                             budgetAuthority={this.props.budgetAuthority}
                             width={this.state.visualizationWidth}
-                            obligatedText={amountObligated}
+                            obligatedText={formattedObligatedAmount}
                             legend={legend} />
                     </div>
                 </div>
