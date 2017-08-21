@@ -94,7 +94,7 @@ describe('SpendingByAwardingAgencyVisualizationContainer', () => {
             // validate the state contains the correctly parsed values
             const expectedState = {
                 loading: false,
-                labelSeries: ['First Agency', 'Second Agency'],
+                labelSeries: ['First Agency (FA)', 'Second Agency (SA)'],
                 dataSeries: [456, 123],
                 descriptions: ['Spending by First Agency: $456', 'Spending by Second Agency: $123'],
                 page: 1,

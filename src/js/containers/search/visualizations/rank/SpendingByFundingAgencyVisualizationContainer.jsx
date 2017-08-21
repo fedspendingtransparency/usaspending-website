@@ -107,6 +107,8 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
         // Fetch data from the Awards v2 endpoint
         this.fetchAwards("Funding Agency Rank Visualization");
+            group: ['treasury_account__funding_toptier_agency__name',
+                'treasury_account__funding_toptier_agency__abbreviation'],
     }
 
 
@@ -117,7 +119,8 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
         const apiParams = {
             category: 'funding_agency',
-            group: 'treasury_account__funding_toptier_agency__name',
+            group: ['treasury_account__funding_toptier_agency__name',
+                'treasury_account__funding_toptier_agency__abbreviation'],
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -145,7 +148,12 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            labelSeries.push(item.item);
+            let abr = '';
+            if (item.treasury_account__funding_toptier_agency__abbreviation !== ''
+                && item.treasury_account__funding_toptier_agency__abbreviation !== null) {
+                abr = ` (${item.treasury_account__funding_toptier_agency__abbreviation})`;
+            }
+            labelSeries.push(`${item.item}${abr}`);
             dataSeries.push(parseFloat(item.aggregate));
 
             const description = `Spending by ${item.item}: \

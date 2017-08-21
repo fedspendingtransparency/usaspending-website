@@ -11,10 +11,6 @@ import { ObligatedContainer } from 'containers/agency/visualizations/ObligatedCo
 
 // spy on specific functions inside the component
 const loadDataSpy = sinon.spy(ObligatedContainer.prototype, 'loadData');
-const setCgacCodeSpy = sinon.spy(
-    ObligatedContainer.prototype, 'setCgacCode');
-const setFiscalQuarterSpy = sinon.spy(
-    ObligatedContainer.prototype, 'setFiscalQuarter');
 
 const inboundProps = {
     id: '246',
@@ -45,34 +41,6 @@ describe('ObligatedContainer', () => {
         expect(loadDataSpy.callCount).toEqual(1);
 
         loadDataSpy.reset();
-        setCgacCodeSpy.reset();
-        setFiscalQuarterSpy.reset();
-    });
-
-    it('should make an API call for the selected agency CGAC codes after loading data', async () => {
-        const container = mount(<ObligatedContainer
-            {...inboundProps} />);
-
-        await container.instance().searchRequest.promise;
-
-        expect(setCgacCodeSpy.callCount).toEqual(1);
-
-        loadDataSpy.reset();
-        setCgacCodeSpy.reset();
-        setFiscalQuarterSpy.reset();
-    });
-
-    it('should make an API call for the selected agency fiscal quarters after loading CGAC data', async () => {
-        const container = mount(<ObligatedContainer
-            {...inboundProps} />);
-
-        await container.instance().searchRequest.promise;
-
-        expect(setFiscalQuarterSpy.callCount).toEqual(1);
-
-        loadDataSpy.reset();
-        setCgacCodeSpy.reset();
-        setFiscalQuarterSpy.reset();
     });
 
     it('should make a new API call for obligated amounts when the inbound agency ID prop' +
@@ -90,7 +58,6 @@ describe('ObligatedContainer', () => {
 
         expect(loadDataMock).toHaveBeenCalledWith('555', inboundProps.activeFY);
         loadDataSpy.reset();
-        setCgacCodeSpy.reset();
-        setFiscalQuarterSpy.reset();
+        loadDataSpy.reset();
     });
 });

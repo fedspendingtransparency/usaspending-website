@@ -34,11 +34,6 @@ const commonTabs = [
         enabled: true
     },
     {
-        label: 'Sub-Awards',
-        internal: 'subaward',
-        enabled: true
-    },
-    {
         label: 'Financial System Details',
         internal: 'financial',
         enabled: true
