@@ -8,9 +8,11 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import moment from 'moment';
 
 import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
 import * as AgencyHelper from 'helpers/agencyHelper';
+import * as SearchHelper from 'helpers/searchHelper';
 import * as agencyActions from 'redux/actions/agency/agencyActions';
 
 import AgencyPage from 'components/agency/AgencyPage';
@@ -27,13 +29,16 @@ export class AgencyContainer extends React.Component {
 
         this.state = {
             loading: true,
-            error: false
+            error: false,
+            lastUpdate: ''
         };
 
         this.request = null;
+        this.updateRequest = null;
     }
     componentWillMount() {
         this.loadAgencyOverview(this.props.params.agencyId);
+        this.loadUpdateDate();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -81,13 +86,39 @@ export class AgencyContainer extends React.Component {
         this.props.setAgencyOverview(agency);
     }
 
+    loadUpdateDate() {
+        if (this.updateRequest) {
+            this.updateRequest.cancel();
+        }
+
+        this.updateRequest = SearchHelper.fetchLastUpdate();
+        this.updateRequest.promise
+            .then((res) => {
+                this.parseUpdateDate(res.data.last_updated);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.updateRequest = null;
+                }
+            });
+    }
+
+    parseUpdateDate(value) {
+        const date = moment(value, 'MM/DD/YYYY');
+        this.setState({
+            lastUpdate: date.format('MMMM D, YYYY')
+        });
+    }
+
     render() {
         return (
             <AgencyPage
                 loading={this.state.loading}
                 error={this.state.error}
                 id={this.props.agency.id}
-                agency={this.props.agency} />
+                agency={this.props.agency}
+                lastUpdate={this.state.lastUpdate} />
         );
     }
 }

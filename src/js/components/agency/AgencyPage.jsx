@@ -23,7 +23,8 @@ const propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
     id: PropTypes.string,
-    agency: PropTypes.object
+    agency: PropTypes.object,
+    lastUpdate: PropTypes.string
 };
 
 export default class AgencyPage extends React.Component {

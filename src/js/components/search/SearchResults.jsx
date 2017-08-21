@@ -25,7 +25,8 @@ const propTypes = {
     filterCount: PropTypes.number,
     showMobileFilters: PropTypes.bool,
     toggleMobileFilters: PropTypes.func,
-    clearAllFilters: PropTypes.func
+    clearAllFilters: PropTypes.func,
+    lastUpdate: PropTypes.string
 };
 
 export default class SearchResults extends React.Component {
@@ -44,6 +45,14 @@ export default class SearchResults extends React.Component {
         if (this.props.filterCount === 0 || this.props.showMobileFilters) {
             showCountBadge = 'hide';
         }
+
+        let lastUpdate = null;
+        if (this.props.lastUpdate !== '') {
+            lastUpdate = (<div className="last-update">
+                <strong>Note:</strong> All data shown is as of {this.props.lastUpdate}
+            </div>);
+        }
+
 
         return (
             <div className="search-results-wrapper">
@@ -83,6 +92,7 @@ export default class SearchResults extends React.Component {
                         showMobileFilters={this.props.showMobileFilters}
                         toggleMobileFilters={this.props.toggleMobileFilters} />
                 </div>
+                {lastUpdate}
                 <div className={`search-results ${mobileFilters}`}>
                     <TimeVisualizationSectionContainer />
                     <RankVisualizationWrapperContainer />
