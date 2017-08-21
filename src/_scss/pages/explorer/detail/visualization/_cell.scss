@@ -1,4 +1,6 @@
 .explorer-cell {
+    cursor: pointer;
+
     .explorer-cell-title {
         fill: $color-white;
         font-size: rem(16);

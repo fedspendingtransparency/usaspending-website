@@ -76,13 +76,82 @@ const mockAgencyRoot = {
     ]
 };
 
+const mockAgencyAccounts = {
+    total: 18819494822,
+    results: [
+        {
+            id: 1,
+            type: "federal_account",
+            name: "First Federal Account",
+            code: "",
+            amount: 2766465738.83
+        },
+        {
+            id: 2,
+            type: "federal_account",
+            name: "Second Federal Account",
+            code: "",
+            amount: 1618476554.69
+        },
+        {
+            id: 3,
+            type: "federal_account",
+            name: "Third Federal Account",
+            code: "",
+            amount: 2766465738.83
+        },
+        {
+            id: 4,
+            type: "federal_account",
+            name: "Fourth Federal Account",
+            code: "",
+            amount: 5514111982.85
+        },
+        {
+            id: 5,
+            type: "federal_account",
+            name: "Fifth Federal Account",
+            code: "",
+            amount: 959794235.92
+        },
+        {
+            id: 6,
+            type: "federal_account",
+            name: "Sixth Federal Account",
+            code: "",
+            amount: 865696761.81
+        },
+        {
+            id: 7,
+            type: "federal_account",
+            name: "Seventh Federal Account",
+            code: "",
+            amount: 752779792.88
+        },
+        {
+            id: 8,
+            type: "federal_account",
+            name: "Eighth Federal Account",
+            code: "",
+            amount: 3575704016.18
+        }
+    ]
+};
+
 export const fetchBreakdown = (params) => {
     const source = CancelToken.source();
     return {
         promise: new Promise((resolve) => {
+            console.log(params);
             setTimeout(() => {
+                let data = mockAgencyRoot;
+
+                if (params.type === 'federal_account') {
+                    data = mockAgencyAccounts;
+                }
+
                 resolve({
-                    data: mockAgencyRoot
+                    data
                 });
             }, 1500);
         }),

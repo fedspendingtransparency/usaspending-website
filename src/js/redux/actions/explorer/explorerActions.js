@@ -39,6 +39,11 @@ export const rewindExplorerTrail = (state) => ({
     index: state
 });
 
+export const addExplorerTrail = (state) => ({
+    type: 'ADD_EXPLORER_TRAIL',
+    item: state
+});
+
 export const overwriteExplorerTrail = (state) => ({
     type: 'OVERWRITE_EXPLORER_TRAIL',
     trail: state

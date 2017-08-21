@@ -26,6 +26,7 @@ export class ExplorerDetailPageContainer extends React.Component {
     componentWillMount() {
         this.validateRoot(this.props.params.root);
     }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.params.root !== this.props.params.root) {
             this.validateRoot(nextProps.params.root);
@@ -45,7 +46,6 @@ export class ExplorerDetailPageContainer extends React.Component {
     }
 
     render() {
-        // validate if
         return (
             <ExplorerDetailPage
                 {...this.props} />

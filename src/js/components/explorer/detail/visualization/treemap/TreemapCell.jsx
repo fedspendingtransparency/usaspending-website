@@ -7,15 +7,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-
+    width: PropTypes.number,
+    height: PropTypes.number,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    color: PropTypes.string,
+    title: PropTypes.object,
+    subtitle: PropTypes.object,
+    data: PropTypes.object,
+    selectedCell: PropTypes.func
 };
 
 const TreemapCell = (props) => {
+    const clickedCell = () => {
+        props.selectedCell(props.data.id, props.data);
+    };
+
     const position = `translate(${props.x}, ${props.y})`;
     return (
         <g
             className="explorer-cell"
-            transform={position}>
+            transform={position}
+            onClick={clickedCell}>
+            <title>
+                {props.data.name}
+            </title>
             <rect
                 x={0}
                 y={0}

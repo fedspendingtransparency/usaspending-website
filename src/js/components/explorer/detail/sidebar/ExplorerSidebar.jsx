@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Building, Calendar, AngleRight } from 'components/sharedComponents/icons/Icons';
+import { Home, Calendar, AngleRight } from 'components/sharedComponents/icons/Icons';
 
 import FYPicker from './FYPicker';
 import VerticalTrail from './VerticalTrail';
@@ -57,7 +57,7 @@ export default class ExplorerSidebar extends React.Component {
                         href="#/explorer">
                         <div className="content">
                             <div className="icon">
-                                <Building alt="Home" />
+                                <Home alt="Home" />
                             </div>
                             <div className="label">
                                 Start Over
@@ -69,7 +69,8 @@ export default class ExplorerSidebar extends React.Component {
                 <div className="fy-item">
                     <button
                         className="fy-button"
-                        onClick={this.toggleFYMenu}>
+                        onClick={this.toggleFYMenu}
+                        disabled>
                         <div className="content">
                             <div className="icon">
                                 <Calendar alt="Pick fiscal year" />

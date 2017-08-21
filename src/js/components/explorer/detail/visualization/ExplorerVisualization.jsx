@@ -6,14 +6,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
-
 import BreakdownDropdown from './toolbar/BreakdownDropdown';
 import ExplorerTreemap from './treemap/ExplorerTreemap';
 
 const propTypes = {
+    isRoot: PropTypes.bool,
     root: PropTypes.string,
-    active: PropTypes.object
+    active: PropTypes.object,
+    goDeeper: PropTypes.func
 };
 
 export default class ExplorerVisualization extends React.Component {
@@ -50,15 +50,8 @@ export default class ExplorerVisualization extends React.Component {
                 <div className="toolbar">
                     <BreakdownDropdown
                         root={this.props.root}
-                        active={this.props.active} />
-                    <div className="instructions">
-                        <div className="icon">
-                            <InfoCircle />
-                        </div>
-                        <div className="label">
-                            View Instructions
-                        </div>
-                    </div>
+                        active={this.props.active}
+                        isRoot={this.props.isRoot} />
                 </div>
 
                 <div
@@ -70,7 +63,8 @@ export default class ExplorerVisualization extends React.Component {
                 <ExplorerTreemap
                     width={this.state.width}
                     data={this.props.data}
-                    total={this.props.total} />
+                    total={this.props.total}
+                    goDeeper={this.props.goDeeper} />
 
             </div>
         );

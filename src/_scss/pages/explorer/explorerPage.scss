@@ -3,6 +3,9 @@
     @import "components/pageTitleBar/pageTitleBar";
 
     .main-content {
+        background: url(#{$image-path}/explorer-background.jpg) no-repeat center center fixed;
+        background-size: cover;
+
         @import "./landing/explorerLanding";
         @import "./detail/explorerDetail";
     }

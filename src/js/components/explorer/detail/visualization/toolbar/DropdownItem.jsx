@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Building } from 'components/sharedComponents/icons/Icons';
+import { icons } from 'dataMapping/explorer/dropdownScopes';
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 
 const propTypes = {
@@ -26,7 +26,8 @@ export default class DropdownItem extends React.Component {
     }
 
     render() {
-        const icon = <Building />;
+        const IconType = icons[this.props.value];
+        const icon = <IconType />;
         const label = sidebarTypes[this.props.value];
         return (
             <li>

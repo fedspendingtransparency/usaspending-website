@@ -16,7 +16,9 @@ import TreemapCell from './TreemapCell';
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
-    data: PropTypes.array
+    data: PropTypes.array,
+    nextLevel: PropTypes.string,
+    goDeeper: PropTypes.func
 };
 
 const defaultProps = {
@@ -30,6 +32,8 @@ export default class ExplorerTreemap extends React.Component {
             chartReady: false,
             virtualChart: []
         };
+
+        this.selectedCell = this.selectedCell.bind(this);
     }
 
     componentWillMount() {
@@ -173,6 +177,10 @@ export default class ExplorerTreemap extends React.Component {
         return label;
     }
 
+    selectedCell(id, title) {
+        this.props.goDeeper(id, title);
+    }
+
     render() {
         if (this.props.width <= 0) {
             return null;
@@ -181,7 +189,8 @@ export default class ExplorerTreemap extends React.Component {
         const cells = this.state.virtualChart.map((cell) => (
             <TreemapCell
                 {...cell}
-                key={cell.data.id} />
+                key={cell.data.id}
+                selectedCell={this.selectedCell} />
         ));
 
         return (
@@ -190,9 +199,7 @@ export default class ExplorerTreemap extends React.Component {
                     className="treemap"
                     width={this.props.width}
                     height={this.props.height}>
-
                     {cells}
-
                 </svg>
             </div>
         );

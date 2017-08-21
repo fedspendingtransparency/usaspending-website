@@ -14,7 +14,7 @@ const propTypes = {
 const FYPicker = (props) => {
     const fy = [];
     const currentFY = FiscalYearHelper.currentFiscalYear();
-    const earliestFY = FiscalYearHelper.earliestFiscalYear;
+    const earliestFY = FiscalYearHelper.earliestExplorerYear;
     for (let year = currentFY; year >= earliestFY; year--) {
         const item = (<li key={year}>
             <button

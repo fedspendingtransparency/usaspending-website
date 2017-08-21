@@ -1,7 +1,7 @@
 .fy-item {
     .fy-button {
         @include button-unstyled;
-        padding: rem(20) rem(50);
+        padding: rem(20) rem(40);
         width: 100%;
 
         border-top: 1px solid $color-gray;
@@ -20,7 +20,6 @@
                 width: rem(30);
                 height: rem(30);
                 margin-right: rem(25);
-                margin-left: rem(20);
 
                 svg {
                     fill: $color-white;

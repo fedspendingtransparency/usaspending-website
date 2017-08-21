@@ -3,6 +3,9 @@
  * Created by Kevin Li 8/17/17
  */
 
+import { BudgetFunction, FederalAccount, ProgramActivity, ObjectClass, Recipient, Award, Agency }
+    from 'components/sharedComponents/icons/Icons';
+
 export const dropdownScopes = {
     budget_function: [
         'budget_function',
@@ -28,4 +31,21 @@ export const dropdownScopes = {
         'recipient',
         'award'
     ]
+};
+
+export const rootScopes = [
+    'budget_function',
+    'agency',
+    'object_class'
+];
+
+export const icons = {
+    budget_function: BudgetFunction,
+    budget_subfunction: BudgetFunction,
+    federal_account: FederalAccount,
+    program_activity: ProgramActivity,
+    object_class: ObjectClass,
+    recipient: Recipient,
+    agency: Agency,
+    award: Award
 };

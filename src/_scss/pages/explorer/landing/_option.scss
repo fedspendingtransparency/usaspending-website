@@ -26,6 +26,21 @@
     color: $color-white;
     text-align: center;
 
+    .icon {
+        width: rem(50);
+        height: rem(50);
+        margin-left: auto;
+        margin-right: auto;
+
+        margin-bottom: rem(30);
+
+        svg {
+            width: rem(50);
+            height: rem(50);
+            fill: $color-white;
+        }
+    }
+
     h3 {
         margin: 0;
         font-weight: $font-light;
@@ -47,7 +62,7 @@
         @extend .usa-button;
         background-color: $color-primary-alt;
         font-size: $base-font-size;
-        padding: rem(10) rem(60);
+        padding: rem(10) rem(50);
 
         &:visited {
             background-color: $color-primary-alt;

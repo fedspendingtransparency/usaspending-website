@@ -2,6 +2,7 @@
     position: absolute;
     top: rem(90);
     left: rem(300);
+    z-index: $z-modal;
 
     ul.fy-list {
         @include unstyled-list;

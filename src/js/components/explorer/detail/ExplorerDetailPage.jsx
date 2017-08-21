@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import RootContentContainer from 'containers/explorer/detail/RootContentContainer';
+import DetailContentContainer from 'containers/explorer/detail/DetailContentContainer';
 
 import ExplorerWrapperPage from '../ExplorerWrapperPage';
 import ExplorerSidebar from './sidebar/ExplorerSidebar';
@@ -25,7 +25,7 @@ export default class ExplorerDetailPage extends React.Component {
                         fy={this.props.explorer.fy}
                         trail={this.props.explorer.trail}
                         setExplorerYear={this.props.setExplorerYear} />
-                    <RootContentContainer />
+                    <DetailContentContainer />
                 </div>
             </ExplorerWrapperPage>
         );

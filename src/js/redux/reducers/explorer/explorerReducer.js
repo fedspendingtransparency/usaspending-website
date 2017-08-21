@@ -35,12 +35,12 @@ const explorerReducer = (state = initialState, action) => {
         }
         case 'ADD_EXPLORER_FILTER': {
             return Object.assign({}, state, {
-                filters: state.set(action.filterType, action.filterValue)
+                filters: state.filters.set(action.filterType, action.filterValue)
             });
         }
         case 'OVERWRITE_EXPLORER_FILTERS': {
             return Object.assign({}, state, {
-                filters: action.filters
+                filters: Map(action.filters)
             });
         }
         case 'REWIND_EXPLORER_TRAIL': {
@@ -54,6 +54,11 @@ const explorerReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 active: newActive,
                 trail: newTrail
+            });
+        }
+        case 'ADD_EXPLORER_TRAIL': {
+            return Object.assign({}, state, {
+                trail: state.trail.push(action.item)
             });
         }
         case 'OVERWRITE_EXPLORER_TRAIL': {

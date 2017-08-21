@@ -6,13 +6,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { AngleDown, Building } from 'components/sharedComponents/icons/Icons';
+import { AngleDown } from 'components/sharedComponents/icons/Icons';
 
-import { dropdownScopes } from 'dataMapping/explorer/dropdownScopes';
+import { dropdownScopes, rootScopes, icons } from 'dataMapping/explorer/dropdownScopes';
+import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 
 import DropdownItem from './DropdownItem';
 
 const propTypes = {
+    isRoot: PropTypes.bool,
     active: PropTypes.object,
     root: PropTypes.string
 };
@@ -23,7 +25,8 @@ export default class BreakdownDropdown extends React.Component {
 
         this.state = {
             expanded: false,
-            options: []
+            options: [],
+            active: null
         };
 
         this.toggleMenu = this.toggleMenu.bind(this);
@@ -41,13 +44,17 @@ export default class BreakdownDropdown extends React.Component {
         else if (nextProps.root !== this.props.root) {
             this.prepareOptions(nextProps);
         }
+        else if (nextProps.isRoot !== this.props.isRoot) {
+            this.prepareOptions(nextProps);
+        }
     }
 
     prepareOptions(props) {
         let options = [];
-        if (props.active.type === 'root') {
+        let active = props.root;
+        if (props.isRoot) {
             // we're at the root level, so populate the full list
-            options = dropdownScopes[props.root];
+            options = rootScopes;
         }
         else {
             // we're not at the root, so we need to determine our current position in the tree
@@ -56,10 +63,13 @@ export default class BreakdownDropdown extends React.Component {
             const remainingTree = optionTree.slice(currentIndex);
 
             options = remainingTree;
+
+            active = props.active.type;
         }
 
         this.setState({
-            options
+            options,
+            active
         });
     }
 
@@ -92,6 +102,12 @@ export default class BreakdownDropdown extends React.Component {
                 </ul>);
         }
 
+        let icon = null;
+        const IconType = icons[this.state.active];
+        if (IconType) {
+            icon = <IconType />;
+        }
+
         return (
             <div className="breakdown-menu">
                 <div className="breakdown-label">
@@ -102,10 +118,10 @@ export default class BreakdownDropdown extends React.Component {
                         className="dropdown-selector"
                         onClick={this.toggleMenu}>
                         <div className="item-icon">
-                            <Building />
+                            {icon}
                         </div>
                         <div className="item-label">
-                            Agency
+                            {sidebarTypes[this.state.active]}
                         </div>
                         <div className="arrow">
                             <AngleDown />

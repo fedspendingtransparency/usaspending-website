@@ -1,4 +1,4 @@
-.root-header {
+.root-header, .detail-header {
     @include display(flex);
     @include justify-content(center);
     @include align-items(center);
@@ -28,6 +28,16 @@
 
         .capitalize {
             text-transform: capitalize;
+        }
+
+        .data-type {
+            font-weight: $font-normal;
+            font-size: rem(16);
+            line-height: rem(28);
+        }
+
+        .bold {
+            font-weight: $font-semibold;
         }
 
     }
