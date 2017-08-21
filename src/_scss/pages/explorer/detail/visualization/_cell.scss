@@ -1,0 +1,12 @@
+.explorer-cell {
+    .explorer-cell-title {
+        fill: $color-white;
+        font-size: rem(16);
+    }
+
+    .explorer-cell-value {
+        fill: $color-white;
+        font-size: rem(18);
+        font-weight: $font-semibold;
+    }
+}

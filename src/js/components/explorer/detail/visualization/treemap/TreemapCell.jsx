@@ -14,9 +14,9 @@ const TreemapCell = (props) => {
     const position = `translate(${props.x}, ${props.y})`;
     return (
         <g
+            className="explorer-cell"
             transform={position}>
             <rect
-                className="explorer-cell"
                 x={0}
                 y={0}
                 width={props.width}
@@ -24,6 +24,20 @@ const TreemapCell = (props) => {
                 style={{
                     fill: props.color
                 }} />
+            <text
+                className="explorer-cell-title"
+                textAnchor="middle"
+                x={props.title.x}
+                y={props.title.y}>
+                {props.title.text}
+            </text>
+            <text
+                className="explorer-cell-value"
+                textAnchor="middle"
+                x={props.subtitle.x}
+                y={props.subtitle.y}>
+                {props.subtitle.text}
+            </text>
         </g>
     );
 };

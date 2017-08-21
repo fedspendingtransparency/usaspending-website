@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
 import { scaleLinear } from 'd3-scale';
 
+import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
+
 import TreemapCell from './TreemapCell';
 
 const propTypes = {
@@ -97,7 +99,6 @@ export default class ExplorerTreemap extends React.Component {
         this.setState({
             virtualChart: cells
         });
-
     }
 
     buildVirtualCell(data, scale, total) {
@@ -107,6 +108,13 @@ export default class ExplorerTreemap extends React.Component {
         const amount = data.data.amount;
 
         const percent = amount / total;
+        const percentString = `${(Math.round(percent * 1000) / 10)}%`;
+
+        // the available width is 40px less than the box width to account for 20px of padding on
+        // each side
+        const usableWidth = width - 40;
+        const title = this.truncateText(data.data.name, 'title', usableWidth);
+        const subtitle = this.truncateText(percentString, 'subtitle', usableWidth);
 
         const cell = {
             width,
@@ -116,10 +124,53 @@ export default class ExplorerTreemap extends React.Component {
             data: Object.assign({}, data.data, {
                 percent
             }),
-            color: scale(amount)
+            color: scale(amount),
+            title: {
+                text: title,
+                x: (width / 2),
+                y: (height / 2) - 5 // shift it up slightly so the full title + subtitle combo is vertically centered
+            },
+            subtitle: {
+                text: subtitle,
+                x: (width / 2),
+                y: (height / 2) + 15 // to place the subtitle below the title
+            }
         };
 
         return cell;
+    }
+
+    truncateText(text, type, maxWidth) {
+        // calculate the text width of the full label
+        let label = text;
+        let labelWidth = 0;
+        if (type === 'title') {
+            labelWidth = measureTreemapHeader(text);
+        }
+        else if (type === 'subtitle') {
+            labelWidth = measureTreemapValue(text);
+        }
+
+        // check to see if the full label will fit
+        if (labelWidth > maxWidth) {
+            // label won't fit, let's cut it down
+            // determine the average character pixel width
+            const characterWidth = Math.ceil(labelWidth / text.length);
+            // give an additional 30px for the ellipsis
+            const availableWidth = maxWidth - 30;
+            let availableLength = Math.floor(availableWidth / characterWidth);
+            if (availableLength < 1) {
+                // we must show at least one character
+                availableLength = 1;
+            }
+
+            // substring the label to this length
+            if (availableLength < text.length) {
+                label = `${label.substring(0, availableLength)}...`;
+            }
+        }
+
+        return label;
     }
 
     render() {

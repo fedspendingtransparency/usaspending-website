@@ -7,4 +7,8 @@
         width: 100%;
         height: 0;
     }
+
+    .explorer-treemap {
+        @import "./_cell";
+    }
 }
