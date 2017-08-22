@@ -18,7 +18,14 @@
 				border-bottom: solid 1px $color-gray-lighter;
 				td {
 					border: 0;
+					&:first-child {
+						width: 18%;
+					}
+					&:nth-child(2), &:nth-child(3) {
+						width: 31%;
+					}
 					&:last-child {
+						width: 20%;
 						.cell-content {
 							float: right;
 						}
@@ -34,7 +41,14 @@
 			tr {
 				td {
 					border: 0;
+					&:first-child {
+						width: 18%;
+					}
+					&:nth-child(2), &:nth-child(3) {
+						width: 31%;
+					}
 					&:last-child {
+						width: 20%;
 						.cell-content {
 							float: right;
 						}
