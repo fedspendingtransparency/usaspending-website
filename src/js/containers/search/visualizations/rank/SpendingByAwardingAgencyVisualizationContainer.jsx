@@ -120,13 +120,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
         // generate the API parameters
         const apiParams = {
             category: 'awarding_agency',
-            group: [`awarding_agency__${this.state.agencyScope}_agency__name`,
-                `awarding_agency__${this.state.agencyScope}_agency__abbreviation`],
-        const groupFields = [`award__awarding_agency__${this.state.agencyScope}_agency__name`];
-        if (this.state.agencyScope === 'toptier') {
-            groupFields.push(`treasury_account__awarding_toptier_agency__abbreviation`);
-        }
-            group: groupFields,
+            scope: this.state.agencyScope,
             filters: searchParams,
             limit: 5,
             page: this.state.page

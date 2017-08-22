@@ -107,8 +107,6 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
         // Fetch data from the Awards v2 endpoint
         this.fetchAwards("Funding Agency Rank Visualization");
-            group: ['treasury_account__funding_toptier_agency__name',
-                'treasury_account__funding_toptier_agency__abbreviation'],
     }
 
 
@@ -119,8 +117,7 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
         const apiParams = {
             category: 'funding_agency',
-            group: ['treasury_account__funding_toptier_agency__name',
-                'treasury_account__funding_toptier_agency__abbreviation'],
+            scope: this.state.agencyScope,
             filters: searchParams,
             limit: 5,
             page: this.state.page
