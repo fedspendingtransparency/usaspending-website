@@ -145,6 +145,15 @@ const routes = {
                     cb(require('components/agencyLanding/AgencyLandingPage').default);
                 });
             }
+        },
+        {
+            path: '/recipient/:recipientId',
+            parent: '/recipient',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/recipient/RecipientContainer').default);
+                });
+            }
         }
     ],
     notFound: {
