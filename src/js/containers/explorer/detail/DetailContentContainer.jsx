@@ -188,7 +188,7 @@ export class DetailContentContainer extends React.Component {
         };
 
         this.setState({
-            transitionSteps: -3
+            transitionSteps: 1
         }, () => {
             this.props.addExplorerTrail(trailItem);
             this.loadData(nextType, false);

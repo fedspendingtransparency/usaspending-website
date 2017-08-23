@@ -28,8 +28,8 @@
             padding: rem(40);
 
             &.above {
-                position: relative;
-                padding: 0;
+                top: auto;
+                bottom: rem(530);
             }
         }
 

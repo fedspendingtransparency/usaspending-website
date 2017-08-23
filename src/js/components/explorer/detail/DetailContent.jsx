@@ -73,7 +73,7 @@ export default class DetailContent extends React.Component {
 
         // the end point of the scroll operation is the height of each screen times the number
         // of screens we'll be passing through
-        const scrollDestination = (absoluteSteps * wrapperHeight);
+        const scrollDestination = (direction * absoluteSteps * wrapperHeight);
 
         if (absoluteSteps > 1) {
             let fakeDirection = 'below';
@@ -97,26 +97,26 @@ export default class DetailContent extends React.Component {
 
         // the detail-animate CSS class animates transform changes over 250ms, so we'll schedule
         // the next event for 250ms later
-        // setTimeout(() => {
-        //     // the first "exit" animation has completed, now remove the animation class so
-        //     // we can make DOM changes immediately without animations
-        //     this.wrapperDiv.classList.remove('detail-animate');
-        //     // position the screen below the bottom of the visible area
-        //     // but, if we are scrolling downwards (negative step count), we should position it
-        //     // above the visible area
-        //     const secondScrollStart = -1 * direction * wrapperHeight;
-        //     this.wrapperDiv.style.transform = `translate(0px,${secondScrollStart}px)`;
+        setTimeout(() => {
+            // the first "exit" animation has completed, now remove the animation class so
+            // we can make DOM changes immediately without animations
+            this.wrapperDiv.classList.remove('detail-animate');
+            // position the screen below the bottom of the visible area
+            // but, if we are scrolling downwards (negative step count), we should position it
+            // above the visible area
+            const secondScrollStart = -1 * direction * wrapperHeight;
+            this.wrapperDiv.style.transform = `translate(0px,${secondScrollStart}px)`;
 
-        //     // re-render the screen with the updated data and without the fake screens
-        //     this.updateChart(data, () => {
-        //         // once the update is complete, restore the animation frame and animate the screen
-        //         // back to its default position
-        //         window.requestAnimationFrame(() => {
-        //             this.wrapperDiv.classList.add('detail-animate');
-        //             this.wrapperDiv.style.transform = `translate(0px,0px)`;
-        //         });
-        //     });
-        // }, 250);
+            // re-render the screen with the updated data and without the fake screens
+            this.updateChart(data, () => {
+                // once the update is complete, restore the animation frame and animate the screen
+                // back to its default position
+                window.requestAnimationFrame(() => {
+                    this.wrapperDiv.classList.add('detail-animate');
+                    this.wrapperDiv.style.transform = `translate(0px,0px)`;
+                });
+            });
+        }, 250);
     }
 
     render() {
