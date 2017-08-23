@@ -26,6 +26,7 @@ export const dropdownScopes = {
     ],
     object_class: [
         'object_class',
+        'agency',
         'federal_account',
         'program_activity',
         'recipient',

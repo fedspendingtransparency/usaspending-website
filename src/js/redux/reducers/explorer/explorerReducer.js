@@ -9,7 +9,6 @@ import { currentFiscalYear } from 'helpers/fiscalYearHelper';
 export const ActiveScreen = new Record({
     type: '',
     subtype: '',
-    title: '',
     total: 0
 });
 

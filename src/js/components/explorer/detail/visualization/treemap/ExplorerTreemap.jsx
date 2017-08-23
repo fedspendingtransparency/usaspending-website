@@ -16,8 +16,7 @@ import TreemapCell from './TreemapCell';
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
-    data: PropTypes.array,
-    nextLevel: PropTypes.string,
+    data: PropTypes.object,
     goDeeper: PropTypes.func
 };
 
@@ -50,7 +49,7 @@ export default class ExplorerTreemap extends React.Component {
     }
 
     buildVirtualChart(props) {
-        const data = props.data;
+        const data = props.data.toJS();
         const total = props.total;
 
         // parse the inbound data into D3's treemap hierarchy structure

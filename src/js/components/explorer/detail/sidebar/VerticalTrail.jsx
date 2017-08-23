@@ -10,7 +10,8 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import TrailItem from './TrailItem';
 
 const propTypes = {
-    trail: PropTypes.array
+    trail: PropTypes.array,
+    rewindToFilter: PropTypes.func
 };
 
 export default class VerticalTrail extends React.Component {
@@ -20,6 +21,8 @@ export default class VerticalTrail extends React.Component {
                 {...item}
                 isFirst={index === 0}
                 isLast={index + 1 === this.props.trail.length}
+                rewindToFilter={this.props.rewindToFilter}
+                index={index}
                 key={item.type} />
         ));
 

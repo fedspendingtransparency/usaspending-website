@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Router from 'containers/router/Router';
+
 import { AngleDown } from 'components/sharedComponents/icons/Icons';
 
 import { dropdownScopes, rootScopes, icons } from 'dataMapping/explorer/dropdownScopes';
@@ -16,7 +18,8 @@ import DropdownItem from './DropdownItem';
 const propTypes = {
     isRoot: PropTypes.bool,
     active: PropTypes.object,
-    root: PropTypes.string
+    root: PropTypes.string,
+    jumpToLevel: PropTypes.func
 };
 
 export default class BreakdownDropdown extends React.Component {
@@ -57,9 +60,11 @@ export default class BreakdownDropdown extends React.Component {
             options = rootScopes;
         }
         else {
-            // we're not at the root, so we need to determine our current position in the tree
+            // we're not at the root, so we need to determine our current position in the tree using
+            // the last filter that was applied
             const optionTree = dropdownScopes[props.root];
-            const currentIndex = optionTree.indexOf(props.active.type);
+            const currentIndex = Math.min(optionTree.indexOf(props.lastFilter.type) + 1,
+                optionTree.length - 1);
             const remainingTree = optionTree.slice(currentIndex);
 
             options = remainingTree;
@@ -83,7 +88,13 @@ export default class BreakdownDropdown extends React.Component {
         this.setState({
             expanded: false
         }, () => {
-            console.log(item);
+            if (this.props.isRoot && item !== this.props.root) {
+                // redirect to the correct root URL
+                Router.history.push(`/explorer/${item}`);
+            }
+            else if (!this.props.isRoot) {
+                this.props.jumpToLevel(item);
+            }
         });
     }
 

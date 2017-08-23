@@ -5,51 +5,186 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { List } from 'immutable';
 
-import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 
 import RootHeader from './header/RootHeader';
 import DetailHeader from './header/DetailHeader';
 
 import ExplorerVisualization from './visualization/ExplorerVisualization';
 
+import FakeScreens from './FakeScreens';
+
 const propTypes = {
     isRoot: PropTypes.bool,
+    isLoading: PropTypes.bool,
+    data: PropTypes.object,
     root: PropTypes.string,
     fy: PropTypes.number,
     total: PropTypes.number,
-    active: PropTypes.object
+    active: PropTypes.object,
+    trail: PropTypes.array,
+    transitionSteps: PropTypes.number
 };
 
 export default class DetailContent extends React.Component {
-    singularType(type) {
-        const firstLetter = type.substring(0, 1).toLowerCase();
-        const vowels = ['a', 'e', 'i', 'o', 'u'];
+    constructor(props) {
+        super(props);
 
-        if (vowels.indexOf(firstLetter) === -1) {
-            return `a ${type.toLowerCase()}`;
+        this.state = {
+            data: new List(),
+            showFakes: false,
+            fakeDirection: 'below'
+        };
+    }
+
+    componentDidMount() {
+        this.updateChart(this.props.data);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.transitionSteps !== 0 && nextProps.data !== this.props.data) {
+            this.animateTransition(nextProps.transitionSteps, nextProps.data);
         }
-        return `an ${type.toLowerCase()}`;
+        else if (nextProps.data !== this.props.data) {
+            this.updateChart(nextProps.data);
+        }
+    }
+
+    updateChart(data, callback) {
+        this.setState({
+            data,
+            showFakes: false
+        }, () => {
+            if (callback) {
+                callback();
+            }
+        });
+    }
+
+    animateTransition(steps, data) {
+        // measure how tall the wrapper div is; we'll use this as the height of each screen
+        const wrapperHeight = this.wrapperDiv.offsetHeight;
+
+        const absoluteSteps = Math.abs(steps);
+        // we scroll upwards if the explorer is drilling down, and we scroll downwards if the
+        // explorer is drilling up
+        const direction = (steps / absoluteSteps) * -1;
+
+        // the end point of the scroll operation is the height of each screen times the number
+        // of screens we'll be passing through
+        const scrollDestination = (absoluteSteps * wrapperHeight);
+
+        if (absoluteSteps > 1) {
+            let fakeDirection = 'below';
+            if (steps < 0) {
+                fakeDirection = 'above';
+            }
+
+            this.setState({
+                fakeDirection,
+                showFakes: true // render the fake screens into the DOM
+            }, () => {
+                this.wrapperDiv.classList.add('detail-animate');
+                this.wrapperDiv.style.transform = `translate(0px,${scrollDestination}px)`;
+            });
+        }
+        else {
+            // we don't have any fake screens, so just go straight to DOM animations
+            this.wrapperDiv.classList.add('detail-animate');
+            this.wrapperDiv.style.transform = `translate(0px,${scrollDestination}px)`;
+        }
+
+        // the detail-animate CSS class animates transform changes over 250ms, so we'll schedule
+        // the next event for 250ms later
+        // setTimeout(() => {
+        //     // the first "exit" animation has completed, now remove the animation class so
+        //     // we can make DOM changes immediately without animations
+        //     this.wrapperDiv.classList.remove('detail-animate');
+        //     // position the screen below the bottom of the visible area
+        //     // but, if we are scrolling downwards (negative step count), we should position it
+        //     // above the visible area
+        //     const secondScrollStart = -1 * direction * wrapperHeight;
+        //     this.wrapperDiv.style.transform = `translate(0px,${secondScrollStart}px)`;
+
+        //     // re-render the screen with the updated data and without the fake screens
+        //     this.updateChart(data, () => {
+        //         // once the update is complete, restore the animation frame and animate the screen
+        //         // back to its default position
+        //         window.requestAnimationFrame(() => {
+        //             this.wrapperDiv.classList.add('detail-animate');
+        //             this.wrapperDiv.style.transform = `translate(0px,0px)`;
+        //         });
+        //     });
+        // }, 250);
     }
 
     render() {
+        if (this.props.isLoading && this.state.data.count() < 1) {
+            return null;
+        }
         let header = (<RootHeader
             root={this.props.root}
             fy={this.props.fy}
             total={this.props.active.total} />);
+
+        let lastFilter = null;
+
         if (!this.props.isRoot) {
+            // when we're not at the root level, the header displays information about the
+            // last filter chosen
+            lastFilter = this.props.trail[this.props.trail.length - 1];
+            // when we are more than one level past the root, the header subtitle displays the
+            // relation to its parent filter
+            let parentFilter = null;
+            if (this.props.trail.length > 2) {
+                parentFilter = this.props.trail[this.props.trail.length - 2].title;
+            }
             header = (<DetailHeader
-                type={this.props.active.type}
+                type={lastFilter.type}
+                title={lastFilter.title}
                 fy={this.props.fy}
                 total={this.props.active.total}
-                title={this.props.active.title} />);
+                parent={parentFilter} />);
+        }
+
+        let fakeScreenAbove = null;
+        let fakeScreenBelow = null;
+        if (this.state.showFakes && this.state.fakeDirection === 'below') {
+            fakeScreenBelow = (<FakeScreens
+                position="below"
+                transitionSteps={this.props.transitionSteps} />);
+        }
+        else if (this.state.showFakes && this.state.fakeDirection === 'above') {
+            fakeScreenAbove = (<FakeScreens
+                position="above"
+                transitionSteps={this.props.transitionSteps} />);
         }
 
         return (
-            <div className="explorer-detail-content">
+            <div
+                className="explorer-detail-content"
+                ref={(div) => {
+                    this.wrapperDiv = div;
+                }}>
+
+                {fakeScreenAbove}
+
                 {header}
                 <ExplorerVisualization
-                    {...this.props} />
+                    isRoot={this.props.isRoot}
+                    isLoading={this.props.isLoading}
+                    lastFilter={lastFilter}
+                    root={this.props.root}
+                    fy={this.props.fy}
+                    active={this.props.active}
+                    trail={this.props.trail}
+                    total={this.props.total}
+                    data={this.state.data}
+                    goDeeper={this.props.goDeeper}
+                    jumpToLevel={this.props.jumpToLevel} />
+
+                {fakeScreenBelow}
             </div>
         );
     }

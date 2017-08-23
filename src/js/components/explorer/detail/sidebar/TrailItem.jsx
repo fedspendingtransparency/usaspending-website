@@ -18,10 +18,16 @@ const propTypes = {
     type: PropTypes.string,
     subtype: PropTypes.string,
     title: PropTypes.string,
-    total: PropTypes.number
+    total: PropTypes.number,
+    index: PropTypes.number,
+    rewindToFilter: PropTypes.func
 };
 
 const TrailItem = (props) => {
+    const clickedItem = () => {
+        props.rewindToFilter(props.index);
+    };
+
     let specialClass = '';
     if (props.isFirst && props.isLast) {
         specialClass = 'single';
@@ -58,7 +64,8 @@ const TrailItem = (props) => {
         <li className="trail-item">
             <button
                 className="item"
-                title={`Return to ${type}`}>
+                title={`Return to ${type}`}
+                onClick={clickedItem}>
                 <div className={`item-decorator ${specialClass}`}>
                     <div className="main-dot" />
                     <CSSTransitionGroup

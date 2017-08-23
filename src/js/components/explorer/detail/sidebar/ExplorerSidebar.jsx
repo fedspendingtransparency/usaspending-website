@@ -14,7 +14,8 @@ import VerticalTrail from './VerticalTrail';
 const propTypes = {
     fy: PropTypes.number,
     trail: PropTypes.object,
-    setExplorerYear: PropTypes.func
+    setExplorerYear: PropTypes.func,
+    rewindToFilter: PropTypes.func
 };
 
 export default class ExplorerSidebar extends React.Component {
@@ -88,7 +89,8 @@ export default class ExplorerSidebar extends React.Component {
                 {fyPicker}
 
                 <VerticalTrail
-                    trail={this.props.trail.toArray()} />
+                    trail={this.props.trail.toArray()}
+                    rewindToFilter={this.props.rewindToFilter} />
 
             </div>
         );

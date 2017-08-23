@@ -11,9 +11,11 @@ import ExplorerTreemap from './treemap/ExplorerTreemap';
 
 const propTypes = {
     isRoot: PropTypes.bool,
+    isLoading: PropTypes.bool,
     root: PropTypes.string,
     active: PropTypes.object,
-    goDeeper: PropTypes.func
+    goDeeper: PropTypes.func,
+    jumpToLevel: PropTypes.func
 };
 
 export default class ExplorerVisualization extends React.Component {
@@ -45,13 +47,20 @@ export default class ExplorerVisualization extends React.Component {
     }
 
     render() {
+        let loadingClass = '';
+        if (this.props.isLoading) {
+            loadingClass = 'loading';
+        }
+
         return (
             <div className="explorer-visualization-wrapper">
                 <div className="toolbar">
                     <BreakdownDropdown
                         root={this.props.root}
+                        lastFilter={this.props.lastFilter}
                         active={this.props.active}
-                        isRoot={this.props.isRoot} />
+                        isRoot={this.props.isRoot}
+                        jumpToLevel={this.props.jumpToLevel} />
                 </div>
 
                 <div
@@ -60,11 +69,13 @@ export default class ExplorerVisualization extends React.Component {
                         this.widthRef = div;
                     }} />
 
-                <ExplorerTreemap
-                    width={this.state.width}
-                    data={this.props.data}
-                    total={this.props.total}
-                    goDeeper={this.props.goDeeper} />
+                <div className={`${loadingClass}`}>
+                    <ExplorerTreemap
+                        width={this.state.width}
+                        data={this.props.data}
+                        total={this.props.total}
+                        goDeeper={this.props.goDeeper} />
+                </div>
 
             </div>
         );

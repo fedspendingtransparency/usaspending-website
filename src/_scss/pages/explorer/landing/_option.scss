@@ -38,6 +38,7 @@
             width: rem(50);
             height: rem(50);
             fill: $color-white;
+            opacity: 0.7;
         }
     }
 
@@ -50,7 +51,7 @@
 
     .description {
         margin-top: rem(10);
-        margin-bottom: rem(40);
+        margin-bottom: rem(30);
         font-weight: $font-normal;
 
         @include media($large-screen) {
@@ -62,7 +63,7 @@
         @extend .usa-button;
         background-color: $color-primary-alt;
         font-size: $base-font-size;
-        padding: rem(10) rem(50);
+        padding: rem(10) rem(60);
 
         &:visited {
             background-color: $color-primary-alt;

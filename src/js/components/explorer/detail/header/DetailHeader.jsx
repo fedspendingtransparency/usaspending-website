@@ -13,10 +13,11 @@ const propTypes = {
     type: PropTypes.string,
     fy: PropTypes.number,
     total: PropTypes.number,
-    title: PropTypes.string
+    title: PropTypes.string,
+    parent: PropTypes.string
 };
 
-const singularType = (type) => {
+const dataType = (type, parent) => {
     const firstLetter = type.substring(0, 1).toLowerCase();
     const vowels = ['a', 'e', 'i', 'o', 'u'];
 
@@ -25,15 +26,26 @@ const singularType = (type) => {
     if (vowels.indexOf(firstLetter) === -1) {
         singular = 'A';
     }
+
+    let parentRelation = null;
+    if (parent) {
+        parentRelation = (
+            <span>
+                of <span className="bold">{parent}</span>
+            </span>
+        );
+    }
+
     return (
         <div className="data-type">
-            {singular} <span className="bold">{type}</span>
+            {singular} <span className="bold">{type}</span> {parentRelation}
         </div>
     );
 };
 
 const DetailHeader = (props) => {
     const type = sidebarTypes[props.type];
+
     return (
         <div className="detail-header">
             <div className="left-side">
@@ -43,7 +55,7 @@ const DetailHeader = (props) => {
                 <h2>
                     {props.title}
                 </h2>
-                {singularType(type)}
+                {dataType(type, props.parent)}
             </div>
             <div className="right-side">
                 <div className="amount-header">

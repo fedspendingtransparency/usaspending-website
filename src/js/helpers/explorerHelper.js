@@ -138,6 +138,40 @@ const mockAgencyAccounts = {
     ]
 };
 
+const mockAccountOCs = {
+    total: 114901294,
+    results: [
+        {
+            id: 1,
+            type: "object_class",
+            name: "First Object Class",
+            code: "",
+            amount: 92610442.96
+        },
+        {
+            id: 2,
+            type: "object_class",
+            name: "Second Object Class",
+            code: "",
+            amount: 11490129.40
+        },
+        {
+            id: 3,
+            type: "object_class",
+            name: "Third Object Class",
+            code: "",
+            amount: 6664275.05
+        },
+        {
+            id: 4,
+            type: "object_class",
+            name: "Fourth Object Class",
+            code: "",
+            amount: 4136446.58
+        }
+    ]
+};
+
 export const fetchBreakdown = (params) => {
     const source = CancelToken.source();
     return {
@@ -148,6 +182,10 @@ export const fetchBreakdown = (params) => {
 
                 if (params.type === 'federal_account') {
                     data = mockAgencyAccounts;
+                }
+
+                else if (params.type === 'object_class') {
+                    data = mockAccountOCs;
                 }
 
                 resolve({

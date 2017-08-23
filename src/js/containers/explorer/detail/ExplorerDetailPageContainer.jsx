@@ -47,8 +47,7 @@ export class ExplorerDetailPageContainer extends React.Component {
 
     render() {
         return (
-            <ExplorerDetailPage
-                {...this.props} />
+            <ExplorerDetailPage />
         );
     }
 }
@@ -56,6 +55,6 @@ export class ExplorerDetailPageContainer extends React.Component {
 ExplorerDetailPageContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ explorer: state.explorer }),
+    null,
     (dispatch) => bindActionCreators(explorerActions, dispatch)
 )(ExplorerDetailPageContainer);

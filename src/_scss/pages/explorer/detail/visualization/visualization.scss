@@ -8,6 +8,10 @@
         height: 0;
     }
 
+    .loading {
+        opacity: 0.5;
+    }
+
     .explorer-treemap {
         @import "./_cell";
     }
