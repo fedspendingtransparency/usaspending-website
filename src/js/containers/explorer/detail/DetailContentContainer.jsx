@@ -37,13 +37,14 @@ export class DetailContentContainer extends React.Component {
         this.state = {
             data: new List(),
             transitionSteps: 0,
-            inFlight: true
+            inFlight: true,
+            transition: ''
         };
 
         this.request = null;
 
         this.goDeeper = this.goDeeper.bind(this);
-        this.jumpToLevel = this.jumpToLevel.bind(this);
+        this.changeSubdivisionType = this.changeSubdivisionType.bind(this);
         this.rewindToFilter = this.rewindToFilter.bind(this);
     }
 
@@ -73,10 +74,15 @@ export class DetailContentContainer extends React.Component {
         this.props.overwriteExplorerFilters(resetFilters);
 
         // make the request
-        this.loadData(rootType, true);
+        const request = {
+            within: 'root',
+            subdivision: rootType
+        };
+
+        this.loadData(request, true);
     }
 
-    loadData(type, isRoot = false) {
+    loadData(request, isRoot = false, isRewind = false) {
         this.setState({
             inFlight: true
         });
@@ -87,7 +93,7 @@ export class DetailContentContainer extends React.Component {
 
         // perform the API request
         this.request = ExplorerHelper.fetchBreakdown({
-            type,
+            type: request.subdivision,
             filters: this.props.explorer.filters.toJS()
         });
 
@@ -97,7 +103,7 @@ export class DetailContentContainer extends React.Component {
                     this.parseRootData(res.data);
                 }
                 else {
-                    this.parseData(res.data, type);
+                    this.parseData(res.data, request, isRewind);
                 }
                 this.request = null;
             })
@@ -115,41 +121,112 @@ export class DetailContentContainer extends React.Component {
         // build the active screen root object
         const activeScreen = {
             total,
-            type: 'root',
-            subtype: this.props.explorer.root
+            within: 'root',
+            subdivision: this.props.explorer.root
         };
         // update the trail to consist of only this screen (since we are at the root, there cannot
         //  be anything else in the trail)
         const trail = [
-            activeScreen
+            {
+                total,
+                within: 'root',
+                subdivision: this.props.explorer.root,
+                title: ''
+            }
         ];
 
-        this.props.setExplorerActive(activeScreen);
         this.props.overwriteExplorerTrail(trail);
 
-        // save the data as an Immutable object for easy change comparison within the treemap
-        this.setState({
-            data: new List(data.results),
-            inFlight: false
-        });
+        if (this.state.transitionSteps !== 0) {
+            // there is going to be a transition, so trigger the exit animation
+            // then, 250ms later (after the exit animation completes), apply the props and state
+            // so the entry animation occurs with the new data
+            this.setState({
+                transition: 'start'
+            }, () => {
+                window.setTimeout(() => {
+                    this.props.setExplorerActive(activeScreen);
+
+                    // save the data as an Immutable object for easy change comparison within
+                    // the treemap
+                    this.setState({
+                        data: new List(data.results),
+                        inFlight: false,
+                        transition: 'end'
+                    });
+                }, 250);
+            });
+        }
+        else {
+            // there are no transition steps, so apply changes immediate
+            this.props.setExplorerActive(activeScreen);
+
+            // save the data as an Immutable object for easy change comparison within
+            // the treemap
+            this.setState({
+                data: new List(data.results),
+                inFlight: false,
+                transition: ''
+            });
+        }
     }
 
-    parseData(data, type) {
+    parseData(data, request, isRewind) {
         const total = data.total;
 
-        // build the active screen root object
+        // build the trail item of the last applied filter using the request object
+        const trailItem = Object.assign({}, request, {
+            total
+        });
+
+        // add it to the sidebar trail, but only if the "within" value has changed
+        // otherwise, we're simply cutting the data up in a different way (ie, only the subdivision
+        // unit has changed), so we shouldn't add anything to the trail.
+        // Also, if the data load was part of a rewind operation (going back up the path via
+        // the sidebar), the sidebar is already rendered with the correct items, so don't add
+        // anything
+        if (request.within !== this.props.explorer.active.within && !isRewind) {
+            this.props.addExplorerTrail(trailItem);
+        }
+
+        // update the active screen within and subdivision values using the request object
         const activeScreen = {
             total,
-            type
+            within: request.within,
+            subdivision: request.subdivision
         };
 
-        this.props.setExplorerActive(activeScreen);
+        if (this.state.transitionSteps !== 0) {
+            // there is going to be a transition, so trigger the exit animation
+            // then, 250ms later (after the exit animation completes), apply the props and state
+            // so the entry animation occurs with the new data
+            this.setState({
+                transition: 'start'
+            }, () => {
+                window.setTimeout(() => {
+                    this.props.setExplorerActive(activeScreen);
 
-        // save the data as an Immutable object for easy change comparison within the treemap
-        this.setState({
-            data: new List(data.results),
-            inFlight: false
-        });
+                    // save the data as an Immutable object for easy change comparison within
+                    // the treemap
+                    this.setState({
+                        data: new List(data.results),
+                        inFlight: false,
+                        transition: 'end'
+                    });
+                }, 250);
+            });
+        }
+        else {
+            // no animation required if there are 0 transition steps
+            this.props.setExplorerActive(activeScreen);
+
+            // save the data as an Immutable object for easy change comparison within the treemap
+            this.setState({
+                data: new List(data.results),
+                inFlight: false,
+                transition: ''
+            });
+        }
     }
 
     goDeeper(id, data) {
@@ -158,52 +235,64 @@ export class DetailContentContainer extends React.Component {
             return;
         }
 
-        // add the filter
-        // to do this, determine the first filter type and the path we are following
-        const path = dropdownScopes[this.props.explorer.root];
-        let currentType = this.props.explorer.active.type;
-        if (currentType === 'root') {
-            currentType = this.props.explorer.root;
-        }
-        else if (currentType === 'award') {
+        // determine how we are currently subdividing the data
+        // determine the data element we should filter by
+        // this is equal to how we are currently subdividing the spending
+        const filterBy = this.props.explorer.active.subdivision;
+        if (filterBy === 'award') {
             // we are at the bottom of the path, go to the award page
             Router.history.push(`/award/${id}`);
             return;
         }
-        const pathDepth = path.indexOf(currentType);
-        // TODO: Kevin Li - check if we're at the end
-        // get the next data type
-        const nextType = path[pathDepth + 1];
 
         this.props.addExplorerFilter({
-            type: currentType,
+            type: filterBy,
             value: id
         });
 
         // generate a trail object representing the current filter that is being applied
-        const trailItem = {
-            type: currentType,
-            title: data.name,
-            total: data.amount
+        // the new "within" value is the old subdivision unit
+        // given this, determine how far down the path we are
+        const path = dropdownScopes[this.props.explorer.root];
+        const currentDepth = path.indexOf(this.props.explorer.active.subdivision);
+        // the next subdivision unit is the next step down the path
+        const nextSubdivision = path[currentDepth + 1];
+
+        // create the request object
+        // this is also used as the basis for the sidebar trail, so cache the title if available
+        // for the next request, the current subdivision will be the "within" (data field that
+        // the total amount represents)
+        // the next item in the path will be the new subdivision unit
+        const request = {
+            within: this.props.explorer.active.subdivision,
+            subdivision: nextSubdivision,
+            title: data.name
         };
 
         this.setState({
             transitionSteps: 1
         }, () => {
-            this.props.addExplorerTrail(trailItem);
-            this.loadData(nextType, false);
+            this.loadData(request, false);
         });
     }
 
-    jumpToLevel(level) {
+    changeSubdivisionType(type) {
         // if we're skipping levels, then we are not adding filters, we're simply revisualizating
-        // the data that is already filtered
-        // this means we don't need to modify the trail or the redux filter set
-        // this also means we shouldn't show an animation
+        // the data that is already filtered.
+        // This means we don't need to modify the trail or the redux filter set.
+        // This also means we shouldn't show an animation.
+        // To do this, clone the current active screen object and change only the subdivision to
+        // the selected type. We'll pass this on as the request object to loadData.
+        // loadData has internal logic that will just change the redux Active Screen and not add
+        // anything to the sidebar trail
+        const request = Object.assign({}, this.props.explorer.active.toJS(), {
+            subdivision: type
+        });
+
         this.setState({
             transitionSteps: 0
         }, () => {
-            this.loadData(level, false);
+            this.loadData(request, false);
         });
     }
 
@@ -218,47 +307,49 @@ export class DetailContentContainer extends React.Component {
         // determine how many steps we need to rewind
         const steps = index - (trail.length - 1);
 
+
+        if (index === 0) {
+            // we are going all the way back to the start
+            this.setState({
+                transitionSteps: steps
+            }, () => {
+                this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy);
+            });
+            return;
+        }
+
         // iterate through the trail to rebuild the filter set
         const newFilters = {
             fy: this.props.explorer.fy
         };
         const newTrail = [];
-
+        // iterate through the trail and include only those filters up to the point we are rewinding
+        // to
         for (let i = 0; i <= index; i++) {
-            const filterType = trail[i].type;
+            const filterType = trail[i].within;
             if (filterType !== 'root') {
-                // root filters are not real filters
+                // root filters are not real filters, so ignore them
                 // get the filter type and fetch its ID from the current filter set
                 const filterValue = oldFilters.get(filterType);
                 newFilters[filterType] = filterValue;
             }
-
-            // do not include the last filter in the trail
-            if (i < index) {
-                // this is because the last trail is always one item ahead of the number of filters
-                newTrail.push(trail[i]);
-            }
+            // add the old item back into the new trail
+            newTrail.push(trail[i]);
         }
-
-        // overwrite the redux filters with the new filters
-        this.props.overwriteExplorerFilters(newFilters);
-        // overwrite the redux trail with the spliced trail at the index
-        this.props.overwriteExplorerTrail(newTrail);
 
         // determine if we are jumping back to the root
         const isRoot = index === 0;
 
-        // determine the data type that was being displayed at the index point of the original trail
-        let dataType = trail[index].type;
-        if (isRoot) {
-            // in the event that this is a root object, use the explorer root value
-            dataType = this.props.explorer.root;
-        }
+        // the request object will essentially match the trail item from the selected index
+        const selectedTrailItem = trail[index];
+
+        this.props.overwriteExplorerFilters(newFilters);
+        this.props.overwriteExplorerTrail(newTrail);
 
         this.setState({
             transitionSteps: steps
         }, () => {
-            this.loadData(dataType, isRoot);
+            this.loadData(selectedTrailItem, isRoot, true);
         });
     }
 
@@ -271,7 +362,7 @@ export class DetailContentContainer extends React.Component {
                     setExplorerYear={this.props.setExplorerYear}
                     rewindToFilter={this.rewindToFilter} />
                 <DetailContent
-                    isRoot={this.props.explorer.active.type === 'root'}
+                    isRoot={this.props.explorer.active.within === 'root'}
                     isLoading={this.state.inFlight}
                     root={this.props.explorer.root}
                     fy={this.props.explorer.fy}
@@ -280,8 +371,9 @@ export class DetailContentContainer extends React.Component {
                     total={this.props.explorer.active.total}
                     data={this.state.data}
                     transitionSteps={this.state.transitionSteps}
+                    transition={this.state.transition}
                     goDeeper={this.goDeeper}
-                    jumpToLevel={this.jumpToLevel} />
+                    changeSubdivisionType={this.changeSubdivisionType} />
             </div>
         );
     }

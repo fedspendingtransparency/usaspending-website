@@ -7,8 +7,8 @@ import { Map, List, Record } from 'immutable';
 import { currentFiscalYear } from 'helpers/fiscalYearHelper';
 
 export const ActiveScreen = new Record({
-    type: '',
-    subtype: '',
+    within: '', // within is the data type that the total is a slice WITHIN
+    subdivision: '', // subdivision is the data type that the total is being subdivided in the treemap
     total: 0
 });
 
@@ -40,19 +40,6 @@ const explorerReducer = (state = initialState, action) => {
         case 'OVERWRITE_EXPLORER_FILTERS': {
             return Object.assign({}, state, {
                 filters: Map(action.filters)
-            });
-        }
-        case 'REWIND_EXPLORER_TRAIL': {
-            // grab the new active screen
-            const newActive = new ActiveScreen(state.trail[action.index]);
-            // remove everything in the trail after the specified index
-            let newTrail = new List();
-            if (action.index > 0) {
-                newTrail = state.trail.slice(0, action.index + 1);
-            }
-            return Object.assign({}, state, {
-                active: newActive,
-                trail: newTrail
             });
         }
         case 'ADD_EXPLORER_TRAIL': {

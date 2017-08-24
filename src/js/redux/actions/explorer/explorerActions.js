@@ -29,16 +29,6 @@ export const addExplorerFilter = (state) => ({
     filterValue: state.value
 });
 
-export const rewindExplorerFilters = (state) => ({
-    type: 'REWIND_EXPLORER_FILTERS',
-    index: state
-});
-
-export const rewindExplorerTrail = (state) => ({
-    type: 'REWIND_EXPLORER_TRAIL',
-    index: state
-});
-
 export const addExplorerTrail = (state) => ({
     type: 'ADD_EXPLORER_TRAIL',
     item: state

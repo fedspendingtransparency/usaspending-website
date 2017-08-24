@@ -15,7 +15,7 @@ const propTypes = {
     root: PropTypes.string,
     active: PropTypes.object,
     goDeeper: PropTypes.func,
-    jumpToLevel: PropTypes.func
+    changeSubdivisionType: PropTypes.func
 };
 
 export default class ExplorerVisualization extends React.Component {
@@ -57,10 +57,9 @@ export default class ExplorerVisualization extends React.Component {
                 <div className="toolbar">
                     <BreakdownDropdown
                         root={this.props.root}
-                        lastFilter={this.props.lastFilter}
                         active={this.props.active}
                         isRoot={this.props.isRoot}
-                        jumpToLevel={this.props.jumpToLevel} />
+                        changeSubdivisionType={this.props.changeSubdivisionType} />
                 </div>
 
                 <div

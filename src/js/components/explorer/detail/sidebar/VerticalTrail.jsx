@@ -23,7 +23,7 @@ export default class VerticalTrail extends React.Component {
                 isLast={index + 1 === this.props.trail.length}
                 rewindToFilter={this.props.rewindToFilter}
                 index={index}
-                key={item.type} />
+                key={item.within} />
         ));
 
         return (

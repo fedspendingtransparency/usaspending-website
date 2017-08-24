@@ -5,8 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List } from 'immutable';
-
 
 import RootHeader from './header/RootHeader';
 import DetailHeader from './header/DetailHeader';
@@ -24,7 +22,10 @@ const propTypes = {
     total: PropTypes.number,
     active: PropTypes.object,
     trail: PropTypes.array,
-    transitionSteps: PropTypes.number
+    transitionSteps: PropTypes.number,
+    transition: PropTypes.string,
+    goDeeper: PropTypes.func,
+    changeSubdivisionType: PropTypes.func
 };
 
 export default class DetailContent extends React.Component {
@@ -32,7 +33,6 @@ export default class DetailContent extends React.Component {
         super(props);
 
         this.state = {
-            data: new List(),
             showFakes: false,
             fakeDirection: 'below'
         };
@@ -43,8 +43,13 @@ export default class DetailContent extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.transitionSteps !== 0 && nextProps.data !== this.props.data) {
-            this.animateTransition(nextProps.transitionSteps, nextProps.data);
+        if (nextProps.transitionSteps !== 0 && nextProps.transition !== this.props.transition) {
+            if (nextProps.transition === 'start') {
+                this.startTransition(nextProps.transitionSteps);
+            }
+            else if (nextProps.transition === 'end') {
+                this.finishTransition();
+            }
         }
         else if (nextProps.data !== this.props.data) {
             this.updateChart(nextProps.data);
@@ -62,7 +67,7 @@ export default class DetailContent extends React.Component {
         });
     }
 
-    animateTransition(steps, data) {
+    startTransition(steps) {
         // measure how tall the wrapper div is; we'll use this as the height of each screen
         const wrapperHeight = this.wrapperDiv.offsetHeight;
 
@@ -106,21 +111,25 @@ export default class DetailContent extends React.Component {
             // above the visible area
             const secondScrollStart = -1 * direction * wrapperHeight;
             this.wrapperDiv.style.transform = `translate(0px,${secondScrollStart}px)`;
-
-            // re-render the screen with the updated data and without the fake screens
-            this.updateChart(data, () => {
-                // once the update is complete, restore the animation frame and animate the screen
-                // back to its default position
-                window.requestAnimationFrame(() => {
-                    this.wrapperDiv.classList.add('detail-animate');
-                    this.wrapperDiv.style.transform = `translate(0px,0px)`;
-                });
-            });
         }, 250);
     }
 
+    finishTransition() {
+        // re-render the screen with the updated data and without the fake screens
+        this.setState({
+            showFakes: false
+        }, () => {
+            // once the update is complete, restore the animation frame and animate the screen
+            // back to its default position
+            window.requestAnimationFrame(() => {
+                this.wrapperDiv.classList.add('detail-animate');
+                this.wrapperDiv.style.transform = `translate(0px,0px)`;
+            });
+        });
+    }
+
     render() {
-        if (this.props.isLoading && this.state.data.count() < 1) {
+        if (this.props.isLoading && this.props.data.count() < 1) {
             return null;
         }
         let header = (<RootHeader
@@ -141,7 +150,7 @@ export default class DetailContent extends React.Component {
                 parentFilter = this.props.trail[this.props.trail.length - 2].title;
             }
             header = (<DetailHeader
-                type={lastFilter.type}
+                within={lastFilter.within}
                 title={lastFilter.title}
                 fy={this.props.fy}
                 total={this.props.active.total}
@@ -180,9 +189,9 @@ export default class DetailContent extends React.Component {
                     active={this.props.active}
                     trail={this.props.trail}
                     total={this.props.total}
-                    data={this.state.data}
+                    data={this.props.data}
                     goDeeper={this.props.goDeeper}
-                    jumpToLevel={this.props.jumpToLevel} />
+                    changeSubdivisionType={this.props.changeSubdivisionType} />
 
                 {fakeScreenBelow}
             </div>

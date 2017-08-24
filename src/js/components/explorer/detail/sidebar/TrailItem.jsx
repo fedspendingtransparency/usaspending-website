@@ -15,8 +15,8 @@ import TrailDecorator from './TrailDecorator';
 const propTypes = {
     isFirst: PropTypes.bool,
     isLast: PropTypes.bool,
-    type: PropTypes.string,
-    subtype: PropTypes.string,
+    within: PropTypes.string,
+    subdivision: PropTypes.string,
     title: PropTypes.string,
     total: PropTypes.number,
     index: PropTypes.number,
@@ -41,18 +41,18 @@ const TrailItem = (props) => {
 
     const formattedAmount = MoneyFormatter.formatTreemapValues(props.total);
 
-    let type = '';
+    let filterName = '';
     let title = props.title;
     let showAmountClass = '';
     let titleIsAmount = '';
-    if (props.type === 'root') {
-        type = rootTypes[props.subtype];
+    if (props.within === 'root') {
+        filterName = rootTypes[props.subdivision];
         title = formattedAmount;
         titleIsAmount = 'bold';
         showAmountClass = 'hide';
     }
     else {
-        type = sidebarTypes[props.type];
+        filterName = sidebarTypes[props.within];
     }
 
     let trailingDots = null;
@@ -64,7 +64,7 @@ const TrailItem = (props) => {
         <li className="trail-item">
             <button
                 className="item"
-                title={`Return to ${type}`}
+                title={`Return to ${filterName}`}
                 onClick={clickedItem}>
                 <div className={`item-decorator ${specialClass}`}>
                     <div className="main-dot" />
@@ -78,7 +78,7 @@ const TrailItem = (props) => {
                 </div>
                 <div className="item-content">
                     <div className="type">
-                        {type}
+                        {filterName}
                     </div>
                     <div className={`title ${titleIsAmount}`}>
                         {title}

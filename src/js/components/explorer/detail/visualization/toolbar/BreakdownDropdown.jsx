@@ -19,7 +19,7 @@ const propTypes = {
     isRoot: PropTypes.bool,
     active: PropTypes.object,
     root: PropTypes.string,
-    jumpToLevel: PropTypes.func
+    changeSubdivisionType: PropTypes.func
 };
 
 export default class BreakdownDropdown extends React.Component {
@@ -63,13 +63,13 @@ export default class BreakdownDropdown extends React.Component {
             // we're not at the root, so we need to determine our current position in the tree using
             // the last filter that was applied
             const optionTree = dropdownScopes[props.root];
-            const currentIndex = Math.min(optionTree.indexOf(props.lastFilter.type) + 1,
+            const currentIndex = Math.min(optionTree.indexOf(props.active.subdivision),
                 optionTree.length - 1);
             const remainingTree = optionTree.slice(currentIndex);
 
             options = remainingTree;
 
-            active = props.active.type;
+            active = props.active.subdivision;
         }
 
         this.setState({
@@ -93,7 +93,7 @@ export default class BreakdownDropdown extends React.Component {
                 Router.history.push(`/explorer/${item}`);
             }
             else if (!this.props.isRoot) {
-                this.props.jumpToLevel(item);
+                this.props.changeSubdivisionType(item);
             }
         });
     }

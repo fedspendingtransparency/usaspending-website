@@ -1,5 +1,5 @@
 /**
- * DetailHeader.jsx
+ * RootHeader.jsx
  * Created by Kevin Li 8/21/17
  */
 
@@ -25,7 +25,7 @@ const singularType = (type) => {
     return `an ${type.toLowerCase()}`;
 };
 
-const DetailHeader = (props) => {
+const RootHeader = (props) => {
     const type = sidebarTypes[props.root];
     return (
         <div className="root-header">
@@ -49,6 +49,6 @@ const DetailHeader = (props) => {
     );
 };
 
-DetailHeader.propTypes = propTypes;
+RootHeader.propTypes = propTypes;
 
-export default DetailHeader;
+export default RootHeader;

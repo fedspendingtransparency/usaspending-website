@@ -10,7 +10,7 @@ import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
 
 const propTypes = {
-    type: PropTypes.string,
+    within: PropTypes.string,
     fy: PropTypes.number,
     total: PropTypes.number,
     title: PropTypes.string,
@@ -18,6 +18,10 @@ const propTypes = {
 };
 
 const dataType = (type, parent) => {
+    if (!type) {
+        return null;
+    }
+
     const firstLetter = type.substring(0, 1).toLowerCase();
     const vowels = ['a', 'e', 'i', 'o', 'u'];
 
@@ -29,9 +33,14 @@ const dataType = (type, parent) => {
 
     let parentRelation = null;
     if (parent) {
+        let descriptor = 'of';
+        if (type === 'Recipient') {
+            descriptor = 'within';
+        }
+
         parentRelation = (
             <span>
-                of <span className="bold">{parent}</span>
+                {descriptor} <span className="bold">{parent}</span>
             </span>
         );
     }
@@ -44,7 +53,7 @@ const dataType = (type, parent) => {
 };
 
 const DetailHeader = (props) => {
-    const type = sidebarTypes[props.type];
+    const type = sidebarTypes[props.within];
 
     return (
         <div className="detail-header">
