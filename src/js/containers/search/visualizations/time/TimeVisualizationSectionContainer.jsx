@@ -16,6 +16,7 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as resultsMetaActions from 'redux/actions/resultsMeta/resultsMetaActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
+import * as MonthHelper from 'helpers/monthHelper';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
@@ -31,6 +32,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
         super(props);
 
         this.state = {
+            visualizationPeriod: 'fiscal_year',
             loading: true,
             groups: [],
             xSeries: [],
@@ -38,6 +40,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
         };
 
         this.apiRequest = null;
+        this.updateVisualizationPeriod = this.updateVisualizationPeriod.bind(this);
     }
 
     componentDidMount() {
@@ -48,6 +51,14 @@ export class TimeVisualizationSectionContainer extends React.Component {
         if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
             this.fetchData();
         }
+    }
+
+    updateVisualizationPeriod(visualizationPeriod) {
+        this.setState({
+            visualizationPeriod
+        }, () => {
+            this.fetchData();
+        });
     }
 
     fetchData() {
@@ -65,16 +76,13 @@ export class TimeVisualizationSectionContainer extends React.Component {
     }
 
     fetchAwards(auditTrail = null) {
-        // Group can be "fiscal_year", "quarter", or "month"
-        const group = 'fiscal_year';
-
         const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
         // Generate the API parameters
         const apiParams = {
-            group,
+            group: this.state.visualizationPeriod,
             filters: searchParams
         };
 
@@ -86,12 +94,22 @@ export class TimeVisualizationSectionContainer extends React.Component {
 
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data, group);
+                this.parseData(res.data, this.state.visualizationPeriod);
                 this.apiRequest = null;
             })
             .catch(() => {
                 this.apiRequest = null;
             });
+    }
+
+    generateTimeLabel(group, timePeriod) {
+        if (group === 'fiscal_year') {
+            return timePeriod.fiscal_year;
+        }
+        else if (group === 'quarter') {
+            return `Q${timePeriod.quarter} ${timePeriod.fiscal_year}`;
+        }
+        return `${MonthHelper.convertNumToShortMonth(timePeriod.month)} ${timePeriod.fiscal_year}`;
     }
 
     parseData(data, group) {
@@ -103,8 +121,8 @@ export class TimeVisualizationSectionContainer extends React.Component {
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            groups.push(item.time_period[group]);
-            xSeries.push([item.time_period[group]]);
+            groups.push(this.generateTimeLabel(group, item.time_period));
+            xSeries.push([this.generateTimeLabel(group, item.time_period)]);
             ySeries.push([parseFloat(item.aggregated_amount)]);
 
             totalSpending += parseFloat(item.aggregated_amount);
@@ -124,7 +142,9 @@ export class TimeVisualizationSectionContainer extends React.Component {
 
     render() {
         return (
-            <TimeVisualizationSection data={this.state} />
+            <TimeVisualizationSection
+                data={this.state}
+                updateVisualizationPeriod={this.updateVisualizationPeriod} />
         );
     }
 }
