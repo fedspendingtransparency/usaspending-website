@@ -2,7 +2,11 @@
  * Created by Lizzie Salita 8/23/17
  */
 
-export const setSelectedRecipient = (state) => ({
-    type: 'SET_SELECTED_RECIPIENT',
-    selectedRecipient: state
+export const setRecipientOverview = (state) => ({
+    type: 'SET_RECIPIENT_OVERVIEW',
+    overview: state
+});
+
+export const resetRecipient = () => ({
+    type: 'RESET_RECIPIENT'
 });

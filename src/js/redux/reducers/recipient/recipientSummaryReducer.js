@@ -3,17 +3,22 @@
  * Created by Lizzie Salita 8/23/17
  **/
 
+import RecipientOverviewModel from 'models/recipient/RecipientOverviewModel';
+
 const initialState = {
-    selectedRecipient: null
+    id: '',
+    overview: new RecipientOverviewModel()
 };
 
 const recipientSummaryReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_SELECTED_RECIPIENT': {
+        case 'SET_RECIPIENT_OVERVIEW':
             return Object.assign({}, state, {
-                selectedRecipient: action.selectedRecipient
+                id: action.overview.id,
+                overview: action.overview
             });
-        }
+        case 'RESET_AGENCY':
+            return Object.assign({}, initialState);
         default:
             return state;
     }

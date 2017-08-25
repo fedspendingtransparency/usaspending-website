@@ -9,13 +9,14 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import { isCancel } from 'axios';
 
+import RecipientOverviewModel from 'models/recipient/RecipientOverviewModel';
 import * as recipientActions from 'redux/actions/recipient/recipientSummaryActions';
 // import * as RecipientHelper from 'helpers/recipientHelper';
 
 import RecipientPage from 'components/recipient/RecipientPage';
 
 const propTypes = {
-    setSelectedRecipient: PropTypes.func,
+    setRecipientOverview: PropTypes.func,
     params: PropTypes.object,
     recipient: PropTypes.object
 };
@@ -34,38 +35,43 @@ export class RecipientContainer extends React.Component {
     }
 
     componentWillMount() {
-        this.loadRecipient(this.props.params.recipientId);
+        this.loadRecipientOverview(this.props.params.recipientId);
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.params.recipientId !== nextProps.params.recipientId) {
-            this.loadRecipient(nextProps.params.recipientId);
+            this.loadRecipientOverview(nextProps.params.recipientId);
         }
     }
 
-    loadRecipient(id) {
+    loadRecipientOverview(id) {
         this.setState({
             loading: false
         });
         const mockData = {
-            recipientId: id,
-            recipientName: 'The ABC Corporation A',
-            duns: '014874593',
-            parentDuns: '007872690',
-            address: '7515 Colshire Dr, McLean, VA 22102',
-            recipientTypes: [
+            recipient_id: id,
+            recipient_name: 'The ABC Corporation A',
+            recipient_duns: '014874593',
+            parent_company: 'The ABC Corporation',
+            recipient_parent_duns: '007872690',
+            recipient_street: '7515 Colshire Dr',
+            recipient_city: 'McLean',
+            recipient_state: 'VA',
+            recipient_zip: '22102',
+            recipient_business_types: [
                 'Non-Profit',
                 'Federally Funded Research and Development Corp'
             ],
-            primaryNaics: '542712 - RESEARCH AND DEVELOPMENT IN THE PHYSICAL, ENGINEERING,' +
+            primary_NAICS: '542712',
+            NAICS_description: 'RESEARCH AND DEVELOPMENT IN THE PHYSICAL, ENGINEERING, ' +
             'AND LIFE SCIENCES (EXCEPT BIOTECHNOLOGY)',
-            awardedAmount: 990000000000,
-            historicalAmount: 9200000000000,
-            activeAwards: 150,
-            historicalAwards: 1227
+            awarded_amount: '990000000000',
+            historical_awarded_amount: '9200000000',
+            active_awards: '150',
+            historical_awards: '1227'
         };
 
-        this.parseRecipient(mockData);
+        this.parseRecipient(mockData, id);
 
         // TODO - Lizzie: uncomment when endpoint is ready
         // if (this.request) {
@@ -100,8 +106,11 @@ export class RecipientContainer extends React.Component {
         //    });
     }
 
-    parseRecipient(data) {
-        this.props.setSelectedRecipient(data);
+    parseRecipient(data, id) {
+        const recipient = new RecipientOverviewModel(Object.assign({}, data, {
+            agency_id: id
+        }), true);
+        this.props.setRecipientOverview(recipient);
     }
 
     render() {

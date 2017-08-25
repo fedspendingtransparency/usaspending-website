@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import RecipientOverview from './RecipientOverview';
+
 const propTypes = {
     recipient: PropTypes.object
 };
@@ -13,11 +15,10 @@ const propTypes = {
 export default class RecipientContent extends React.Component {
     render() {
         return (
-
-            <div className="recipient-content-wrapper">
-                {JSON.stringify(this.props.recipient)}
+            <div className="recipient-content">
+                <RecipientOverview
+                    recipient={this.props.recipient.overview} />
             </div>
-
         );
     }
 }
