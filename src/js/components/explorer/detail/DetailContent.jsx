@@ -135,6 +135,7 @@ export default class DetailContent extends React.Component {
         let header = (<RootHeader
             root={this.props.root}
             fy={this.props.fy}
+            lastUpdate={this.props.lastUpdate}
             total={this.props.active.total} />);
 
         let lastFilter = null;
@@ -153,6 +154,7 @@ export default class DetailContent extends React.Component {
                 within={lastFilter.within}
                 title={lastFilter.title}
                 fy={this.props.fy}
+                lastUpdate={this.props.lastUpdate}
                 total={this.props.active.total}
                 parent={parentFilter} />);
         }

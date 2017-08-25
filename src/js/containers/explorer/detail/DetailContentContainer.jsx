@@ -36,6 +36,8 @@ export class DetailContentContainer extends React.Component {
 
         this.state = {
             data: new List(),
+            lastUpdate: '',
+            filters: {},
             transitionSteps: 0,
             inFlight: true,
             transition: ''
@@ -48,18 +50,18 @@ export class DetailContentContainer extends React.Component {
         this.rewindToFilter = this.rewindToFilter.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.explorer.root !== this.props.explorer.root) {
+    componentDidUpdate(prevProps) {
+        if (prevProps.explorer.root !== this.props.explorer.root) {
             // root changed, reload everything
-            this.prepareRootRequest(nextProps.explorer.root, nextProps.explorer.fy);
+            this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy);
         }
-        else if (nextProps.explorer.fy !== this.props.explorer.fy) {
+        else if (prevProps.explorer.fy !== this.props.explorer.fy) {
             // fy changed, also reload everything (and rewind to the root)
-            this.prepareRootRequest(nextProps.explorer.root, nextProps.explorer.fy);
+            this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy);
         }
     }
 
@@ -71,15 +73,17 @@ export class DetailContentContainer extends React.Component {
             fy
         };
 
-        this.props.overwriteExplorerFilters(resetFilters);
-
         // make the request
         const request = {
             within: 'root',
             subdivision: rootType
         };
 
-        this.loadData(request, true);
+        this.setState({
+            filters: resetFilters
+        }, () => {
+            this.loadData(request, true);
+        });
     }
 
     loadData(request, isRoot = false, isRewind = false) {
@@ -94,7 +98,7 @@ export class DetailContentContainer extends React.Component {
         // perform the API request
         this.request = ExplorerHelper.fetchBreakdown({
             type: request.subdivision,
-            filters: this.props.explorer.filters.toJS()
+            filters: this.state.filters
         });
 
         this.request.promise
@@ -151,6 +155,7 @@ export class DetailContentContainer extends React.Component {
                     // the treemap
                     this.setState({
                         data: new List(data.results),
+                        lastUpdate: data.end_date,
                         inFlight: false,
                         transition: 'end'
                     });
@@ -165,6 +170,7 @@ export class DetailContentContainer extends React.Component {
             // the treemap
             this.setState({
                 data: new List(data.results),
+                lastUpdate: data.end_date,
                 inFlight: false,
                 transition: ''
             });
@@ -210,6 +216,7 @@ export class DetailContentContainer extends React.Component {
                     // the treemap
                     this.setState({
                         data: new List(data.results),
+                        lastUpdate: data.end_date,
                         inFlight: false,
                         transition: 'end'
                     });
@@ -223,6 +230,7 @@ export class DetailContentContainer extends React.Component {
             // save the data as an Immutable object for easy change comparison within the treemap
             this.setState({
                 data: new List(data.results),
+                lastUpdate: data.end_date,
                 inFlight: false,
                 transition: ''
             });
@@ -245,10 +253,9 @@ export class DetailContentContainer extends React.Component {
             return;
         }
 
-        this.props.addExplorerFilter({
-            type: filterBy,
-            value: id
-        });
+        const newFilter = {
+            [filterBy]: id
+        };
 
         // generate a trail object representing the current filter that is being applied
         // the new "within" value is the old subdivision unit
@@ -270,7 +277,8 @@ export class DetailContentContainer extends React.Component {
         };
 
         this.setState({
-            transitionSteps: 1
+            transitionSteps: 1,
+            filters: Object.assign({}, this.state.filters, newFilter)
         }, () => {
             this.loadData(request, false);
         });
@@ -298,7 +306,7 @@ export class DetailContentContainer extends React.Component {
 
     rewindToFilter(index) {
         const trail = this.props.explorer.trail.toJS();
-        const oldFilters = this.props.explorer.filters;
+        const oldFilters = this.state.filters;
         // don't do anything if this is the current filter (ie, the last one in the trail)
         if (index === trail.length - 1) {
             return;
@@ -330,7 +338,7 @@ export class DetailContentContainer extends React.Component {
             if (filterType !== 'root') {
                 // root filters are not real filters, so ignore them
                 // get the filter type and fetch its ID from the current filter set
-                const filterValue = oldFilters.get(filterType);
+                const filterValue = oldFilters[filterType];
                 newFilters[filterType] = filterValue;
             }
             // add the old item back into the new trail
@@ -343,11 +351,11 @@ export class DetailContentContainer extends React.Component {
         // the request object will essentially match the trail item from the selected index
         const selectedTrailItem = trail[index];
 
-        this.props.overwriteExplorerFilters(newFilters);
         this.props.overwriteExplorerTrail(newTrail);
 
         this.setState({
-            transitionSteps: steps
+            transitionSteps: steps,
+            filters: newFilters
         }, () => {
             this.loadData(selectedTrailItem, isRoot, true);
         });
@@ -370,6 +378,7 @@ export class DetailContentContainer extends React.Component {
                     trail={this.props.explorer.trail.toJS()}
                     total={this.props.explorer.active.total}
                     data={this.state.data}
+                    lastUpdate={this.state.lastUpdate}
                     transitionSteps={this.state.transitionSteps}
                     transition={this.state.transition}
                     goDeeper={this.goDeeper}

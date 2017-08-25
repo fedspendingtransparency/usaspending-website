@@ -18,17 +18,6 @@ export const setExplorerActive = (state) => ({
     active: state
 });
 
-export const overwriteExplorerFilters = (state) => ({
-    type: 'OVERWRITE_EXPLORER_FILTERS',
-    filters: state
-});
-
-export const addExplorerFilter = (state) => ({
-    type: 'ADD_EXPLORER_FILTER',
-    filterType: state.type,
-    filterValue: state.value
-});
-
 export const addExplorerTrail = (state) => ({
     type: 'ADD_EXPLORER_TRAIL',
     item: state

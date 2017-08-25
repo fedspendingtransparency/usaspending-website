@@ -6,13 +6,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import moment from 'moment';
+
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
 
 const propTypes = {
     root: PropTypes.string,
     fy: PropTypes.number,
-    total: PropTypes.number
+    total: PropTypes.number,
+    lastUpdate: PropTypes.string
 };
 
 const singularType = (type) => {
@@ -43,6 +46,9 @@ const RootHeader = (props) => {
                 </div>
                 <div className="amount-value">
                     {formatTreemapValues(props.total)}
+                </div>
+                <div className="update-date">
+                    Data as of {moment(props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
                 </div>
             </div>
         </div>

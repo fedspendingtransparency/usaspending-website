@@ -8,9 +8,18 @@
         height: 0;
     }
 
-    .loading {
-        opacity: 0.5;
+    .treemap-loading-transition {
+        transition: opacity 0.25s;
+        &.loading {
+            opacity: 0.5;
+
+            .explorer-cell {
+                cursor: auto;
+            }
+        }
     }
+
+    
 
     .explorer-treemap {
         @import "./_cell";

@@ -68,7 +68,7 @@ export default class ExplorerVisualization extends React.Component {
                         this.widthRef = div;
                     }} />
 
-                <div className={`${loadingClass}`}>
+                <div className={`treemap-loading-transition ${loadingClass}`}>
                     <ExplorerTreemap
                         width={this.state.width}
                         data={this.props.data}

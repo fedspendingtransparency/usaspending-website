@@ -3,7 +3,7 @@
  * Created by Kevin Li 8/16/17
  **/
 
-import { Map, List, Record } from 'immutable';
+import { List, Record } from 'immutable';
 import { currentFiscalYear } from 'helpers/fiscalYearHelper';
 
 export const ActiveScreen = new Record({
@@ -15,7 +15,6 @@ export const ActiveScreen = new Record({
 export const initialState = {
     root: 'object_class',
     fy: currentFiscalYear(),
-    filters: new Map(),
     active: new ActiveScreen(),
     trail: new List([])
 };
@@ -30,16 +29,6 @@ const explorerReducer = (state = initialState, action) => {
         case 'SET_EXPLORER_ROOT': {
             return Object.assign({}, state, {
                 root: action.root
-            });
-        }
-        case 'ADD_EXPLORER_FILTER': {
-            return Object.assign({}, state, {
-                filters: state.filters.set(action.filterType, action.filterValue)
-            });
-        }
-        case 'OVERWRITE_EXPLORER_FILTERS': {
-            return Object.assign({}, state, {
-                filters: Map(action.filters)
             });
         }
         case 'ADD_EXPLORER_TRAIL': {

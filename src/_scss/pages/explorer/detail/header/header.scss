@@ -73,7 +73,12 @@
             line-height: rem(40);
 
             color: $color-primary-alt-darkest;
+        }
 
+        .update-date {
+            text-align: center;
+            font-size: rem(14);
+            line-height: rem(18);
         }
     }
 }
