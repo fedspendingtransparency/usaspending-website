@@ -19,9 +19,16 @@
         }
     }
 
-    
-
     .explorer-treemap {
         @import "./_cell";
     }
+
+    .treemap-disclaimer {
+        font-style: italic;
+        font-size: rem(14);
+        line-height: rem(18);
+
+        margin-top: rem(15);
+    }
+
 }

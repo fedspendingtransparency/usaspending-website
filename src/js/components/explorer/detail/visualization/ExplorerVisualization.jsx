@@ -14,6 +14,8 @@ const propTypes = {
     isLoading: PropTypes.bool,
     root: PropTypes.string,
     active: PropTypes.object,
+    data: PropTypes.object,
+    total: PropTypes.number,
     goDeeper: PropTypes.func,
     changeSubdivisionType: PropTypes.func
 };
@@ -76,6 +78,9 @@ export default class ExplorerVisualization extends React.Component {
                         goDeeper={this.props.goDeeper} />
                 </div>
 
+                <div className="treemap-disclaimer">
+                    All dollar amounts shown here represent obligated amounts
+                </div>
             </div>
         );
     }
