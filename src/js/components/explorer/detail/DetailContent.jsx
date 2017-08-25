@@ -19,6 +19,7 @@ const propTypes = {
     data: PropTypes.object,
     root: PropTypes.string,
     fy: PropTypes.number,
+    lastUpdate: PropTypes.string,
     total: PropTypes.number,
     active: PropTypes.object,
     trail: PropTypes.array,
