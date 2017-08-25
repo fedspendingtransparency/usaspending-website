@@ -19,6 +19,9 @@ export default class RecipientOverview extends React.Component {
         super(props);
 
         this.state = {
+            duns: '',
+            parentCompany: '',
+            parentDuns: '',
             address2: '',
             formattedNaics: '',
             formattedAwarded: '',
@@ -39,6 +42,30 @@ export default class RecipientOverview extends React.Component {
     }
 
     prepareOverview(props) {
+        let duns = 'Not available';
+        if (props.recipient.duns !== '') {
+            duns = props.recipient.duns;
+        }
+
+        let parentCompany = 'Not available';
+        if (props.recipient.parentCompany !== '') {
+            parentCompany = props.recipient.parentCompany;
+        }
+
+        let parentDuns = 'Not available';
+        if (props.recipient.parentDuns !== '') {
+            parentDuns = props.recipient.parentDuns;
+        }
+
+        // Generate NAICS string
+        let formattedNaics = 'Not available';
+        if (props.recipient.primaryNaics) {
+            formattedNaics = `${props.recipient.primaryNaics} - ${props.recipient.naicsDescription}`;
+        }
+
+        // Generate Address Line 2
+        const address2 = `${props.recipient.city}, ${props.recipient.state} ${props.recipient.zip}`;
+
         // Move props to variables for readability
         const awarded = props.recipient.awardedAmount;
         const historicalAwarded = props.recipient.historicalAwardedAmount;
@@ -59,16 +86,11 @@ export default class RecipientOverview extends React.Component {
             .formatMoneyWithPrecision(historicalAwarded / historicalAwardedAmount.unit, 1)}
             ${capitalize(historicalAwardedAmount.longLabel)}`;
 
-        // Generate NAICS string
-        let formattedNaics = 'Not available';
-        if (props.recipient.primaryNaics) {
-            formattedNaics = `${props.recipient.primaryNaics} - ${props.recipient.naicsDescription}`;
-        }
-
-        // Generate Address Line 2
-        const address2 = `${props.recipient.city}, ${props.recipient.state} ${props.recipient.zip}`;
 
         this.setState({
+            duns,
+            parentCompany,
+            parentDuns,
             address2,
             formattedNaics,
             formattedAwarded,
@@ -136,15 +158,15 @@ export default class RecipientOverview extends React.Component {
                                 </tr>
                                 <tr>
                                     <th>DUNS</th>
-                                    <td>{this.props.recipient.duns}</td>
+                                    <td>{this.state.duns}</td>
                                 </tr>
                                 <tr>
                                     <th>Parent DUNS</th>
-                                    <td>{this.props.recipient.parentDuns}</td>
+                                    <td>{this.state.parentDuns}</td>
                                 </tr>
                                 <tr>
                                     <th>Parent Company</th>
-                                    <td>{this.props.recipient.parentCompany}</td>
+                                    <td>{this.state.parentCompany}</td>
                                 </tr>
                                 <tr>
                                     <th>Recipient Type</th>
