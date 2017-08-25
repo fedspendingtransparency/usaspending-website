@@ -382,7 +382,9 @@ export class DetailContentContainer extends React.Component {
                     transitionSteps={this.state.transitionSteps}
                     transition={this.state.transition}
                     goDeeper={this.goDeeper}
-                    changeSubdivisionType={this.changeSubdivisionType} />
+                    changeSubdivisionType={this.changeSubdivisionType}
+                    showTooltip={this.props.showTooltip}
+                    hideTooltip={this.props.hideTooltip} />
             </div>
         );
     }

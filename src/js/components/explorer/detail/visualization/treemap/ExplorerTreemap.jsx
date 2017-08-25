@@ -125,7 +125,8 @@ export default class ExplorerTreemap extends React.Component {
             x: data.x0,
             y: data.y0,
             data: Object.assign({}, data.data, {
-                percent
+                percent,
+                percentString
             }),
             color: scale(amount),
             title: {
@@ -189,7 +190,9 @@ export default class ExplorerTreemap extends React.Component {
             <TreemapCell
                 {...cell}
                 key={cell.data.id}
-                selectedCell={this.selectedCell} />
+                selectedCell={this.selectedCell}
+                showTooltip={this.props.showTooltip}
+                hideTooltip={this.props.hideTooltip} />
         ));
 
         return (

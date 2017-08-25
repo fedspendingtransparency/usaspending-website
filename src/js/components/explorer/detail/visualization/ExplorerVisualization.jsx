@@ -75,7 +75,9 @@ export default class ExplorerVisualization extends React.Component {
                         width={this.state.width}
                         data={this.props.data}
                         total={this.props.total}
-                        goDeeper={this.props.goDeeper} />
+                        goDeeper={this.props.goDeeper}
+                        showTooltip={this.props.showTooltip}
+                        hideTooltip={this.props.hideTooltip} />
                 </div>
 
                 <div className="treemap-disclaimer">

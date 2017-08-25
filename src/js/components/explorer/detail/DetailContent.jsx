@@ -10,7 +10,6 @@ import RootHeader from './header/RootHeader';
 import DetailHeader from './header/DetailHeader';
 
 import ExplorerVisualization from './visualization/ExplorerVisualization';
-
 import FakeScreens from './FakeScreens';
 
 const propTypes = {
@@ -35,7 +34,15 @@ export default class DetailContent extends React.Component {
 
         this.state = {
             showFakes: false,
-            fakeDirection: 'below'
+            fakeDirection: 'below',
+            showTooltip: false,
+            tooltip: {
+                x: 0,
+                y: 0,
+                title: '',
+                amount: 0,
+                percent: 0
+            }
         };
     }
 
@@ -194,7 +201,9 @@ export default class DetailContent extends React.Component {
                     total={this.props.total}
                     data={this.props.data}
                     goDeeper={this.props.goDeeper}
-                    changeSubdivisionType={this.props.changeSubdivisionType} />
+                    changeSubdivisionType={this.props.changeSubdivisionType}
+                    showTooltip={this.props.showTooltip}
+                    hideTooltip={this.props.hideTooltip} />
 
                 {fakeScreenBelow}
             </div>
