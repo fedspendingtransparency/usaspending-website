@@ -16,8 +16,10 @@ export default class RecipientContent extends React.Component {
     render() {
         return (
             <div className="recipient-content">
-                <RecipientOverview
-                    recipient={this.props.recipient.overview} />
+                <div className="recipient-padded-content overview">
+                    <RecipientOverview
+                        recipient={this.props.recipient.overview} />
+                </div>
             </div>
         );
     }

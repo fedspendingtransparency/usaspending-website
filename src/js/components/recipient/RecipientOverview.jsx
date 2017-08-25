@@ -93,31 +93,32 @@ export default class RecipientOverview extends React.Component {
                             <div className="current">
                                 <div><b>Awarded Amount</b></div>
                                 <div>(Trailing 12 Months)</div>
-                                <div className="awarded-amount">
+                                <h3>
                                     {this.state.formattedAwarded}
-                                </div>
+                                </h3>
                             </div>
                             <div className="historical">
-                                <div>Historical Awarded Amount</div>
+                                <div><b>Historical Awarded Amount</b></div>
                                 <div>(Since FY 2006)</div>
-                                <div className="awarded-amount">
+                                <h5>
                                     {this.state.formattedHistoricalAwarded}
-                                </div>
+                                </h5>
                             </div>
                         </div>
                         <div className="award-counts">
                             <div className="current">
                                 <div><b>Active Awards</b></div>
-                                <div className="awarded-amount">
+                                <div>(Trailing 12 Months)</div>
+                                <h3>
                                     {this.state.formattedActiveAwards}
-                                </div>
+                                </h3>
                             </div>
                             <div className="historical">
-                                <div>Historical Awards</div>
+                                <div><b>Historical Awards</b></div>
                                 <div>(Since FY 2006)</div>
-                                <div className="awarded-amount">
+                                <h5>
                                     {this.state.formattedHistoricalAwards}
-                                </div>
+                                </h5>
                             </div>
                         </div>
                     </div>
