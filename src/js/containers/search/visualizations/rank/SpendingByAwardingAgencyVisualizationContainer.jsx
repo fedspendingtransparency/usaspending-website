@@ -152,7 +152,8 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
         // generate the API parameters
         const apiParams = {
             field: 'federal_action_obligation',
-            group: `awarding_agency__${this.state.agencyScope}_agency__name`,
+            group: [`awarding_agency__${this.state.agencyScope}_agency__name`,
+                `awarding_agency__${this.state.agencyScope}_agency__abbreviation`],
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -181,10 +182,14 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
 
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
+        const groupFields = [`award__awarding_agency__${this.state.agencyScope}_agency__name`];
+        if (this.state.agencyScope === 'toptier') {
+            groupFields.push(`treasury_account__awarding_toptier_agency__abbreviation`);
+        }
         // generate the API parameters
         const apiParams = {
             field: 'transaction_obligated_amount',
-            group: `award__awarding_agency__${this.state.agencyScope}_agency__name`,
+            group: groupFields,
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -214,7 +219,20 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            labelSeries.push(item.item);
+            let abr = '';
+            let field = null;
+            const transactionsTier =
+            `awarding_agency__${this.state.agencyScope}_agency__abbreviation`;
+            if (item.treasury_account__awarding_toptier_agency__abbreviation) {
+                field = item.treasury_account__awarding_toptier_agency__abbreviation;
+            }
+            else if (item[transactionsTier]) {
+                field = item[transactionsTier];
+            }
+            if (field !== '' && field !== null) {
+                abr = ` (${field})`;
+            }
+            labelSeries.push(`${item.item}${abr}`);
             dataSeries.push(parseFloat(item.aggregate));
 
             const description = `Spending by ${item.item}: \

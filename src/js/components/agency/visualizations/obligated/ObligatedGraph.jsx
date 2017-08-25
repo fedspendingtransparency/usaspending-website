@@ -10,8 +10,6 @@ import BarChartLegend from 'components/search/visualizations/time/chart/BarChart
 import HorizontalBarItem from './HorizontalBarItem';
 
 const propTypes = {
-    activeFY: PropTypes.string,
-    reportingFiscalQuarter: PropTypes.number,
     obligatedAmount: PropTypes.number,
     budgetAuthority: PropTypes.number,
     width: PropTypes.number,

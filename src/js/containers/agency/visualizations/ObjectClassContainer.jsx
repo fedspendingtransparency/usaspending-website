@@ -15,7 +15,8 @@ import ObjectClassTreeMap from 'components/agency/visualizations/objectClass/Obj
 
 const propTypes = {
     id: PropTypes.string,
-    activeFY: PropTypes.string
+    activeFY: PropTypes.string,
+    asOfDate: PropTypes.string
 };
 
 const defaultProps = {
@@ -202,7 +203,8 @@ export default class ObjectClassContainer extends React.PureComponent {
                 minorObjectClasses={this.state.minorObjectClasses}
                 totalObligation={this.state.totalObligation}
                 totalMinorObligation={this.state.totalMinorObligation}
-                showMinorObjectClasses={this.showMinorObjectClasses} />
+                showMinorObjectClasses={this.showMinorObjectClasses}
+                asOfDate={this.props.asOfDate} />
         );
     }
 

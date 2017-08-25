@@ -18,7 +18,8 @@ const propTypes = {
     minorObjectClasses: PropTypes.object,
     totalObligation: PropTypes.number,
     totalMinorObligation: PropTypes.number,
-    showMinorObjectClasses: PropTypes.func
+    showMinorObjectClasses: PropTypes.func,
+    asOfDate: PropTypes.string
 };
 
 export default class ObjectClassTreeMap extends React.Component {
@@ -66,7 +67,12 @@ export default class ObjectClassTreeMap extends React.Component {
     }
 
     generateHeader() {
-        let header = "Hover over a segment for more information";
+        let header = (<div>
+            <div className="info-icon-circle">
+                <Icons.InfoCircle />
+            </div>
+            <span>Hover over a segment for more information</span>
+        </div>);
 
         if (this.state.showMinorObjectClass === true) {
             header = (<button
@@ -116,6 +122,7 @@ export default class ObjectClassTreeMap extends React.Component {
                 </div>
                 <div className="agency-section-title">
                     <h4>Object Classes</h4>
+                    <em>Data as of {this.props.asOfDate}</em>
                     <hr className="results-divider" />
                 </div>
                 <div className="agency-section-content">
@@ -129,6 +136,7 @@ export default class ObjectClassTreeMap extends React.Component {
                         </div>
                         {this.generateObjectClasses()}
                     </div>
+                    <div className="agency-viz-description">This visualization represents obligated amount.</div>
                 </div>
             </div>
         );

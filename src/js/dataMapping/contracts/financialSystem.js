@@ -6,6 +6,7 @@
 const tableFields = {
     columnWidths: {
         submissionDate: 0,
+        fedAccount: 0,
         tas: 0,
         programActivity: 300,
         objectClass: 300,
@@ -13,6 +14,7 @@ const tableFields = {
     },
     defaultSortDirection: {
         submissionDate: 'desc',
+        fedAccount: 'asc',
         tas: 'desc',
         programActivity: 'asc',
         objectClass: 'asc',
@@ -29,6 +31,7 @@ const tableFields = {
         ],
         _order: [
             'submissionDate',
+            'fedAccount',
             'tas',
             'programActivity',
             'objectClass',
@@ -36,6 +39,7 @@ const tableFields = {
         ],
         _sortFields: {
             submissionDate: 'certified_date',
+            fedAccount: 'treasury_account__federal_account__account_title',
             tas: 'treasury_account__tas_rendering_label',
             programActivity: 'program_activity__program_activity_name',
             objectClass: 'object_class__object_class_name',
@@ -43,13 +47,15 @@ const tableFields = {
         },
         _mapping: {
             submissionDate: 'submissionDate',
+            fedAccount: 'fedAccount',
             tas: 'tas',
             programActivity: 'programActivity',
             objectClass: 'objectClass',
             fundingObligated: 'fundingObligated'
         },
         submissionDate: 'Submission Date',
-        tas: 'TAS',
+        fedAccount: 'Federal Account Name',
+        tas: 'Treasury Account Symbol',
         programActivity: 'Program Activity',
         objectClass: 'Object Class',
         fundingObligated: 'Funding Obligated'

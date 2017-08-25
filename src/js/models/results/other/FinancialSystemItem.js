@@ -13,6 +13,7 @@ const recordType = 'finsys';
 const fields = [
     'id',
     'submissionDate',
+    'fedAccount',
     'tas',
     'objectClass',
     'programActivity',
@@ -26,6 +27,10 @@ const remapData = (data) => {
     const remappedData = data;
 
     remappedData.submissionDate = '';
+    remappedData.fedAccount = {
+        title: '',
+        id: 0
+    };
     remappedData.tas = '';
     remappedData.objectClass = '';
     remappedData.programActivity = '';
@@ -43,6 +48,12 @@ const remapData = (data) => {
         const tAccount = data.treasury_account;
         if (tAccount.tas_rendering_label) {
             remappedData.tas = tAccount.tas_rendering_label;
+            if (tAccount.federal_account) {
+                remappedData.fedAccount = {
+                    title: tAccount.federal_account.account_title,
+                    id: tAccount.federal_account.id
+                };
+            }
         }
 
         if (tAccount.budget_function_title && tAccount.budget_function_code) {

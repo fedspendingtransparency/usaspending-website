@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import { AngleLeft, AngleRight } from 'components/sharedComponents/icons/Icons';
 import HorizontalChart from 'components/search/visualizations/rank/chart/HorizontalChart';
+import BarChartLegend from 'components/search/visualizations/time/chart/BarChartLegend';
 
 import RecipientTooltip from './RecipientTooltip';
 
@@ -100,6 +101,14 @@ export default class RecipientChart extends React.Component {
             isLoading = 'loading-visualization';
         }
 
+        const legend = [
+            {
+                color: '#597785',
+                label: 'Obligated Amount',
+                offset: 0
+            }
+        ];
+
         return (
             <div className={`${isLoading}`}>
                 <HorizontalChart
@@ -112,6 +121,11 @@ export default class RecipientChart extends React.Component {
                     labelWidth={this.props.labelWidth}
                     selectItem={this.showTooltip}
                     deselectItem={this.hideTooltip} />
+                <svg className="horizontal-bar">
+                    <g className="legend-container">
+                        <BarChartLegend legend={legend} />
+                    </g>
+                </svg>
 
                 <div className="visualization-pager-container">
                     <div className="prev-page">
