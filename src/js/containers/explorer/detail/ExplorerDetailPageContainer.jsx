@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isCancel } from 'axios';
 
 import Router from 'containers/router/Router';
 
@@ -17,9 +16,7 @@ import ExplorerDetailPage from 'components/explorer/detail/ExplorerDetailPage';
 
 const propTypes = {
     params: PropTypes.object,
-    explorer: PropTypes.object,
-    setExplorerRoot: PropTypes.func,
-    resetExplorer: PropTypes.func
+    setExplorerRoot: PropTypes.func
 };
 
 export class ExplorerDetailPageContainer extends React.Component {

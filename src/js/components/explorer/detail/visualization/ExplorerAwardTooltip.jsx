@@ -10,7 +10,10 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 const propTypes = {
     y: PropTypes.number,
     x: PropTypes.number,
-    data: PropTypes.object
+    name: PropTypes.string,
+    amount: PropTypes.number,
+    percent: PropTypes.number,
+    total: PropTypes.number
 };
 
 export default class ExplorerTooltip extends React.Component {
@@ -80,6 +83,7 @@ export default class ExplorerTooltip extends React.Component {
 
     render() {
         const dollarValue = MoneyFormatter.formatMoney(this.props.amount);
+        const totalDollar = MoneyFormatter.formatTreemapValues(this.props.total);
         const percentString = `${(Math.round(this.props.percent * 1000) / 10)}%`;
 
         let hideDisclaimer = 'hide';
@@ -119,7 +123,7 @@ export default class ExplorerTooltip extends React.Component {
                         </div>
                     </div>
                     <div className={`disclaimer-total ${hideDisclaimer}`}>
-                        The amount shown above is a portion of a larger award that is {MoneyFormatter.formatTreemapValues(this.props.total)}.
+                        The amount shown above is a portion of a larger award that is {totalDollar}.
                     </div>
                 </div>
             </div>

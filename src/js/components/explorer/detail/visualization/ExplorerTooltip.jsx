@@ -10,7 +10,9 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 const propTypes = {
     y: PropTypes.number,
     x: PropTypes.number,
-    data: PropTypes.object
+    name: PropTypes.string,
+    amount: PropTypes.number,
+    percent: PropTypes.number
 };
 
 export default class ExplorerTooltip extends React.Component {

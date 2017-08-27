@@ -24,10 +24,10 @@ const propTypes = {
     explorer: PropTypes.object,
     setExplorerActive: PropTypes.func,
     setExplorerYear: PropTypes.func,
-    overwriteExplorerFilters: PropTypes.func,
     overwriteExplorerTrail: PropTypes.func,
-    addExplorerFilter: PropTypes.func,
-    addExplorerTrail: PropTypes.func
+    addExplorerTrail: PropTypes.func,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func
 };
 
 export class DetailContentContainer extends React.Component {

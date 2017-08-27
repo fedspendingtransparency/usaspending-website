@@ -17,7 +17,9 @@ const propTypes = {
     data: PropTypes.object,
     total: PropTypes.number,
     goDeeper: PropTypes.func,
-    changeSubdivisionType: PropTypes.func
+    changeSubdivisionType: PropTypes.func,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func
 };
 
 export default class ExplorerVisualization extends React.Component {

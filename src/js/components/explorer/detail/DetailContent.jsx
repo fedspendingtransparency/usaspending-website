@@ -25,7 +25,9 @@ const propTypes = {
     transitionSteps: PropTypes.number,
     transition: PropTypes.string,
     goDeeper: PropTypes.func,
-    changeSubdivisionType: PropTypes.func
+    changeSubdivisionType: PropTypes.func,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func
 };
 
 export default class DetailContent extends React.Component {

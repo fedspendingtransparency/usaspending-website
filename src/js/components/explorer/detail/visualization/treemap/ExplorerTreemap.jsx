@@ -17,7 +17,9 @@ const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     data: PropTypes.object,
-    goDeeper: PropTypes.func
+    goDeeper: PropTypes.func,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func
 };
 
 const defaultProps = {
