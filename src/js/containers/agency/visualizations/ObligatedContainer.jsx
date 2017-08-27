@@ -17,7 +17,7 @@ const propTypes = {
     id: PropTypes.string,
     activeFY: PropTypes.string,
     agencyName: PropTypes.string,
-    activeQuarter: PropTypes.string
+    asOfDate: PropTypes.string
 };
 
 export class ObligatedContainer extends React.PureComponent {
@@ -83,10 +83,10 @@ export class ObligatedContainer extends React.PureComponent {
         return (
             <ObligatedVisualization
                 activeFY={this.props.activeFY}
-                reportingFiscalQuarter={parseFloat(this.props.activeQuarter)}
                 agencyName={this.props.agencyName}
                 obligatedAmount={this.state.obligatedAmount}
-                budgetAuthority={this.state.budgetAuthority} />
+                budgetAuthority={this.state.budgetAuthority}
+                asOfDate={this.props.asOfDate} />
         );
     }
 }

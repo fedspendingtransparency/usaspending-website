@@ -7,7 +7,7 @@
         @include justify-content(center);
         width: 100%;
         position: relative;
-        margin: rem(100) 0 rem(60);
+        margin: rem(60) 0 rem(60);
         padding: 0 rem(63);
         color: $color-base;
         font-family: $font-sans;
@@ -23,10 +23,18 @@
             line-height: rem(47);
             margin: rem(5) 0;
         }
+	    em {
+		    font-size: rem(12);
+	    }
     }
 
     .agency-section-content {
         @import "pages/homepage/treemapSection";
+
+	    .agency-viz-description {
+		    margin-top: rem(20);
+		    font-size: rem(12);
+	    }
 
         .usa-da-treemap-section {
             background: white;
@@ -68,6 +76,20 @@
             color: $color-gray;
             font-size: rem(12);
             line-height: $base-line-height;
+
+	        .info-icon-circle {
+		        @include align-self(center);
+		        display: inline-block;
+		        fill: $color-gray;
+		        height: rem(17);
+		        left: rem(5);
+		        position: relative;
+		        top: rem(3);
+		        width: rem(15);
+	        }
+	        span {
+		        margin-left: rem(10);
+	        }
 
             .back {
                 color: $color-gray;

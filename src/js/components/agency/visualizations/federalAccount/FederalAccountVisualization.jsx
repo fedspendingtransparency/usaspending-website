@@ -16,7 +16,8 @@ const propTypes = {
     linkSeries: PropTypes.array,
     labelSeries: PropTypes.array,
     dataSeries: PropTypes.array,
-    descriptions: PropTypes.array
+    descriptions: PropTypes.array,
+    asOfDate: PropTypes.string
 };
 
 export default class FederalAccountVisualization extends React.Component {
@@ -68,6 +69,7 @@ export default class FederalAccountVisualization extends React.Component {
                 </div>
                 <div className="agency-section-title">
                     <h4>Federal Accounts</h4>
+                    <em>Data as of {this.props.asOfDate}</em>
                     <hr
                         className="results-divider"
                         ref={(hr) => {

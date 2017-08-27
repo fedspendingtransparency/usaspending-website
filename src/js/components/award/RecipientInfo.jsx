@@ -129,7 +129,7 @@ export default class RecipientInfo extends React.Component {
             if (!this.state.moreTypesButton) {
                 button = (<button
                     onClick={this.toggleButton}
-                    className="see-more">{`See less`}</button>);
+                    className="see-more">{`See fewer`}</button>);
             }
             businessTypesSnippet = (
                 <li>
