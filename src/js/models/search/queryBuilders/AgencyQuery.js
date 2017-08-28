@@ -91,3 +91,20 @@ export const buildFundingAgencyTASQuery = (funding, searchContext = 'tasCategori
     return filter;
 };
 
+export const buildFundingAgencyTASFRECQuery = (funding, searchContext = 'tasCategories') => {
+    const fundingSet = [];
+
+    funding.forEach((agencyArray) => {
+        fundingSet.push(agencyArray.toptier_agency.cgac_code);
+    });
+
+    const field = FilterFields[`${searchContext}Fields`].fundingAgencyFREC;
+
+    const filter = {
+        field,
+        operation: "in",
+        value: fundingSet
+    };
+
+    return filter;
+};
