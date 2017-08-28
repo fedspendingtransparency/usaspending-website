@@ -35,15 +35,8 @@ class SearchTASCategoriesOperation extends SearchOperation {
 
         // Add funding agency query
         if (this.fundingAgencies.length > 0) {
-            const frecFilters = [];
-            frecFilters.push(AgencyQuery.buildFundingAgencyTASQuery(
+            filters.push(AgencyQuery.buildFundingAgencyTASQuery(
                 this.fundingAgencies, this.searchContext));
-            frecFilters.push(AgencyQuery.buildFundingAgencyTASFRECQuery(
-                this.fundingAgencies, this.searchContext));
-            filters.push({
-                combine_method: 'OR',
-                filters: frecFilters
-            });
         }
 
         return filters;

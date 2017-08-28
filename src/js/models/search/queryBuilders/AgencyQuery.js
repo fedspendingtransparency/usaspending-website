@@ -81,29 +81,22 @@ export const buildFundingAgencyTASQuery = (funding, searchContext = 'tasCategori
     });
 
     const field = FilterFields[`${searchContext}Fields`].fundingAgency;
+    const frecField = FilterFields[`${searchContext}Fields`].fundingAgencyFREC;
 
     const filter = {
-        field,
-        operation: "in",
-        value: fundingSet
-    };
-
-    return filter;
-};
-
-export const buildFundingAgencyTASFRECQuery = (funding, searchContext = 'tasCategories') => {
-    const fundingSet = [];
-
-    funding.forEach((agencyArray) => {
-        fundingSet.push(agencyArray.toptier_agency.cgac_code);
-    });
-
-    const field = FilterFields[`${searchContext}Fields`].fundingAgencyFREC;
-
-    const filter = {
-        field,
-        operation: "in",
-        value: fundingSet
+        combine_method: 'OR',
+        filters: [
+            {
+                field,
+                operation: "in",
+                value: fundingSet
+            },
+            {
+                field: frecField,
+                operation: "in",
+                value: fundingSet
+            }
+        ]
     };
 
     return filter;
