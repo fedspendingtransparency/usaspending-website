@@ -17,6 +17,13 @@ export const filterHasSelections = (reduxFilters, filter) => {
                 return true;
             }
             return false;
+        case 'Budget Categories':
+            if (reduxFilters.budgetFunctions.length > 0
+                || reduxFilters.federalAccounts.length > 0
+                || Object.keys(reduxFilters.objectClasses.toArray()).length > 0) {
+                return true;
+            }
+            return false;
         case 'Award Type':
             if (reduxFilters.awardType.toArray().length > 0) {
                 return true;

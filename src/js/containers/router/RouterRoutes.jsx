@@ -147,8 +147,13 @@ const routes = {
             }
         }
     ],
-    notfound: {
+    notFound: {
         // TODO: Kevin Li - add 404 page handling
+        component: (cb) => {
+            require.ensure([], (require) => {
+                cb(require('components/errorPage/ErrorPage').default);
+            });
+        }
     }
 };
 

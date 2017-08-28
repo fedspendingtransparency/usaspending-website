@@ -22,7 +22,8 @@ import SearchResults from './SearchResults';
 
 const propTypes = {
     clearAllFilters: PropTypes.func,
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    lastUpdate: PropTypes.string
 };
 
 export default class SearchPage extends React.Component {
@@ -141,7 +142,8 @@ export default class SearchPage extends React.Component {
                             showMobileFilters={this.state.showMobileFilters}
                             updateFilterCount={this.updateFilterCount}
                             toggleMobileFilters={this.toggleMobileFilters}
-                            clearAllFilters={this.props.clearAllFilters} />
+                            clearAllFilters={this.props.clearAllFilters}
+                            lastUpdate={this.props.lastUpdate} />
                     </div>
                     <FullDownloadModalContainer
                         mounted={this.state.showFullDownload}

@@ -151,7 +151,8 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
         // generate the API parameters
         const apiParams = {
             field: 'transaction_obligated_amount',
-            group: 'treasury_account__funding_toptier_agency__name',
+            group: ['treasury_account__funding_toptier_agency__name',
+                'treasury_account__funding_toptier_agency__abbreviation'],
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -183,7 +184,8 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
         // Generate the API parameters
         const apiParams = {
             field: 'obligations_incurred_by_program_object_class_cpe',
-            group: 'treasury_account__funding_toptier_agency__name',
+            group: ['treasury_account__funding_toptier_agency__name',
+                'treasury_account__funding_toptier_agency__abbreviation'],
             order: ['-aggregate'],
             aggregate: 'sum',
             filters: searchParams,
@@ -213,7 +215,12 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            labelSeries.push(item.item);
+            let abr = '';
+            if (item.treasury_account__funding_toptier_agency__abbreviation !== ''
+                && item.treasury_account__funding_toptier_agency__abbreviation !== null) {
+                abr = ` (${item.treasury_account__funding_toptier_agency__abbreviation})`;
+            }
+            labelSeries.push(`${item.item}${abr}`);
             dataSeries.push(parseFloat(item.aggregate));
 
             const description = `Spending by ${item.item}: \

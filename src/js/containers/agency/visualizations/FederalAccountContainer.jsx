@@ -17,7 +17,8 @@ import FederalAccountVisualization from
 const propTypes = {
     id: PropTypes.string,
     activeFY: PropTypes.string,
-    obligatedAmount: PropTypes.number
+    obligatedAmount: PropTypes.number,
+    asOfDate: PropTypes.string
 };
 
 export default class FederalAccountContainer extends React.PureComponent {
@@ -132,7 +133,8 @@ ${account}`;
                 labelSeries={this.state.labelSeries}
                 descriptions={this.state.descriptions}
                 loading={this.state.loading}
-                error={this.state.error} />
+                error={this.state.error}
+                asOfDate={this.props.asOfDate} />
         );
     }
 }

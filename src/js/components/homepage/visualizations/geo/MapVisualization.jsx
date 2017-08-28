@@ -16,6 +16,7 @@ import HomepageMapCitation from './HomepageMapCitation';
 
 const propTypes = {
     data: PropTypes.object,
+    renderHash: PropTypes.string,
     showPerCapita: PropTypes.bool,
     togglePerCapita: PropTypes.func
 };
@@ -129,7 +130,12 @@ export default class MapVisualization extends React.Component {
                 </div>
                 <HomepageMapCitation />
                 <MapWrapper
-                    {...this.props}
+                    data={{
+                        locations: this.props.data.states,
+                        values: this.props.data.values
+                    }}
+                    scope="state"
+                    renderHash={this.props.renderHash}
                     tooltip={this.state.tooltipType}
                     showHover={this.state.showHover}
                     selectedItem={this.state.selectedItem}
