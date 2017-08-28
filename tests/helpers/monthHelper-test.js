@@ -3,11 +3,6 @@
  * Created by michaelbray on 8/24/17.
  */
 
-/**
- * fiscalYearHelper-test.js
- * Created by Kevin Li 1/25/17
- */
-
 import * as MonthHelper from 'helpers/monthHelper';
 
 describe('Month helper functions', () => {
