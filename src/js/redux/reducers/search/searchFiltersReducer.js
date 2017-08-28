@@ -41,7 +41,7 @@ export const requiredTypes = {
 export const initialState = {
     keyword: '',
     timePeriodType: 'fy',
-    timePeriodFY: new Set(),
+    timePeriodFY: new Set(["2017"]),
     timePeriodStart: null,
     timePeriodEnd: null,
     selectedLocations: new OrderedMap(),
