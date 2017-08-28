@@ -74,6 +74,23 @@ export const mockReducerChild = {
     ])
 };
 
+export const mockLevelData = {
+    type: "agency",
+    amount: 10,
+    id: 3,
+    name: "Third Agency",
+    code: "agency_3",
+    total: 100,
+    percent: 0.0841,
+    percentString: "8.4%"
+};
+
+export const mockRequest = request = {
+    within: 'agency',
+    subdivision: 'recipient',
+    title: 'Third Agency'
+};
+
 export const mockActions = {
     setExplorerRoot: jest.fn(),
     setExplorerYear: jest.fn(),
