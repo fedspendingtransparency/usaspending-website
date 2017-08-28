@@ -29,9 +29,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.state = {
             scope: 'pop',
+            mapScope: 'state',
             data: {
                 values: [],
-                states: []
+                locations: []
             },
             renderHash: `geo-${uniqueId()}`,
             loading: true
@@ -118,7 +119,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.setState({
             data: {
                 values: spendingValues,
-                states: spendingStates
+                locations: spendingStates
             },
             renderHash: `geo-${uniqueId()}`,
             loading: false
