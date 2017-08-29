@@ -42,6 +42,7 @@ export const tasCategoriesFields = {
     budgetSubfunctionTitle: 'treasury_account__budget_subfunction_title',
     objectClass: 'object_class__object_class',
     fundingAgency: 'treasury_account__agency_id',
+    fundingAgencyFREC: 'treasury_account__fr_entity_code',
     federalAccount: 'treasury_account__federal_account_id'
 };
 

@@ -7,12 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isEqual } from 'lodash';
 
 import SpendingByAwardingAgencyVisualizationContainer from
     'containers/search/visualizations/rank/SpendingByAwardingAgencyVisualizationContainer';
-import SpendingByCategoryRankVisualizationSectionContainer from
-    'containers/search/visualizations/rank/SpendingByCategoryRankVisualizationSectionContainer';
 import SpendingByFundingAgencyVisualizationContainer from
     'containers/search/visualizations/rank/SpendingByFundingAgencyVisualizationContainer';
 import SpendingByRecipientVisualizationContainer from
@@ -25,7 +22,6 @@ import SpendingByIndustryCodeVisualizationContainer from
 import RankVisualizationTitle from 'components/search/visualizations/rank/RankVisualizationTitle';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import * as BudgetCategoryHelper from 'helpers/budgetCategoryHelper';
 
 const propTypes = {
     reduxFilters: PropTypes.object
@@ -36,37 +32,14 @@ export class RankVisualizationWrapperContainer extends React.Component {
         super(props);
 
         this.state = {
-            spendingBy: 'budget_category',
-            budgetFiltersSelected: false,
-            awardFiltersSelected: false
+            spendingBy: 'awarding_agency'
         };
 
         this.changeSpendingBy = this.changeSpendingBy.bind(this);
     }
 
-    componentDidMount() {
-        this.setFilterStates();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!isEqual(this.props.reduxFilters, prevProps.reduxFilters)) {
-            this.setFilterStates();
-        }
-    }
-
-    setFilterStates() {
-        this.setState({
-            budgetFiltersSelected:
-                BudgetCategoryHelper.budgetFiltersSelected(this.props.reduxFilters),
-            awardFiltersSelected:
-                BudgetCategoryHelper.awardFiltersSelected(this.props.reduxFilters)
-        });
-    }
-
     generateVisualization() {
         switch (this.state.spendingBy) {
-            case 'budget_category':
-                return <SpendingByCategoryRankVisualizationSectionContainer {...this.state} />;
             case 'awarding_agency':
                 return <SpendingByAwardingAgencyVisualizationContainer {...this.state} />;
             case 'funding_agency':
@@ -78,7 +51,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
             case 'industry_code':
                 return <SpendingByIndustryCodeVisualizationContainer {...this.state} />;
             default:
-                return <SpendingByCategoryRankVisualizationSectionContainer {...this.state} />;
+                return <SpendingByAwardingAgencyVisualizationContainer {...this.state} />;
         }
     }
 

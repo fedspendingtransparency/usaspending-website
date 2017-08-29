@@ -163,6 +163,20 @@ export const fetchAwardCounts = () => (
     }
 );
 
+// v2 Award Search
+export const performPagedSpendingByAwardSearch = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockApi
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
 // Perform Paged Search
 export const performPagedSearch = () => (
     {

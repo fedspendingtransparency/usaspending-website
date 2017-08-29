@@ -24,14 +24,11 @@ import * as FilterFields from 'dataMapping/search/filterFields';
 import * as AwardTypeQuery from 'models/search/queryBuilders/AwardTypeQuery';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
-import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    meta: PropTypes.object,
-    budgetFiltersSelected: PropTypes.bool,
-    awardFiltersSelected: PropTypes.bool
+    meta: PropTypes.object
 };
 
 export class SpendingByIndustryCodeVisualizationContainer extends React.Component {
@@ -62,9 +59,7 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)
-            || (prevProps.budgetFiltersSelected !== this.props.budgetFiltersSelected)
-            || (prevProps.awardFiltersSelected !== this.props.awardFiltersSelected)) {
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
             this.newSearch();
         }
     }
@@ -118,43 +113,16 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
             this.apiRequest.cancel();
         }
 
-        // Fetch data from the appropriate endpoint
-        if (this.props.awardFiltersSelected && this.props.budgetFiltersSelected) {
-            this.fetchComboRequest();
-        }
-        else if (this.props.budgetFiltersSelected) {
-            this.fetchBudgetRequest();
-        }
-        else if (this.props.awardFiltersSelected) {
-            this.fetchAwardRequest();
-        }
-        else {
-            this.fetchUnfilteredRequest();
-        }
+        // Fetch data from the Awards v2 endpoint
+        this.fetchAwards("Industry Code Rank Visualization");
     }
 
-    fetchUnfilteredRequest() {
-        this.fetchTransactions('Industry code rank vis - unfiltered');
-    }
+    fetchAwards(auditTrail = null) {
+        const operation = new SearchAwardsOperation();
+        operation.fromState(this.props.reduxFilters);
+        const searchParams = operation.toParams();
 
-    fetchBudgetRequest() {
-        this.fetchAccountAwards('Industry code rank vis - budget filters');
-    }
-
-    fetchAwardRequest() {
-        // only award filters have been selected
-        this.fetchTransactions('Industry code rank vis - award filters');
-    }
-
-    fetchComboRequest() {
-        // a combination of budget and award filters have been selected
-        this.fetchAccountAwards('Industry code rank vis - combination');
-    }
-
-    fetchTransactions(auditTrail = null) {
-        const field = 'federal_action_obligation';
         let group = [FilterFields.transactionFields.psc];
-
         if (this.state.scope === 'naics') {
             group = [
                 FilterFields.transactionFields.naics,
@@ -162,22 +130,15 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
             ];
         }
 
-        const operation = new SearchTransactionOperation();
-        // Add filters to Search Operation
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-
         // because industry codes are only available for contracts, restrict the query to only
         // contract types
         const contractFilter = AwardTypeQuery.buildQuery(awardTypeGroups.contracts, 'transaction');
-        searchParams.push(contractFilter);
+        searchParams.awardType = contractFilter;
 
         // Generate the API parameters
         const apiParams = {
-            field,
+            category: 'industry_code',
             group,
-            order: ['-aggregate'],
-            aggregate: 'sum',
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -187,57 +148,7 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
             apiParams.auditTrail = auditTrail;
         }
 
-        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
-
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data, group);
-                this.apiRequest = null;
-            })
-            .catch(() => {
-                this.apiRequest = null;
-            });
-    }
-
-    fetchAccountAwards(auditTrail = null) {
-        // only budget filters have been selected
-        const field = 'transaction_obligated_amount';
-        let group = [FilterFields.accountAwardsFields.psc];
-
-        if (this.state.scope === 'naics') {
-            group = [
-                FilterFields.accountAwardsFields.naics,
-                FilterFields.accountAwardsFields.naicsDescription
-            ];
-        }
-
-        // generate the API parameters
-        const operation = new SearchAccountAwardsOperation();
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-
-        // because industry codes are only available for contracts, restrict the query to only
-        // contract types
-        const contractFilter = AwardTypeQuery.buildQuery(
-            awardTypeGroups.contracts, 'accountAwards');
-        searchParams.push(contractFilter);
-
-        // Generate the API parameters
-        const apiParams = {
-            field,
-            group,
-            order: ['-aggregate'],
-            aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
-        };
-
-        if (auditTrail) {
-            apiParams.auditTrail = auditTrail;
-        }
-
-        this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
+        this.apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
 
         this.apiRequest.promise
             .then((res) => {

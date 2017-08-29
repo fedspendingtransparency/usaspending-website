@@ -12,6 +12,9 @@
     }
     .group-label-link {
 	    fill: $color-link;
+	    a:visited {
+		    fill: $color-link;
+	    }
     }
 }
 

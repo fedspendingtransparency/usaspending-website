@@ -1,7 +1,7 @@
 import { awardingAgency } from '../../mockVisualizations';
 
-// Fetch Transactions Total
-export const performTransactionsTotalSearch = () => (
+// Spending by Category Search
+export const performSpendingByCategorySearch = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {

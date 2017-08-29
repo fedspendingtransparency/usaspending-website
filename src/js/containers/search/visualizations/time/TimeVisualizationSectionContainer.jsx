@@ -16,10 +16,9 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as resultsMetaActions from 'redux/actions/resultsMeta/resultsMetaActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as BudgetCategoryHelper from 'helpers/budgetCategoryHelper';
+import * as MonthHelper from 'helpers/monthHelper';
 
-import SearchTASCategoriesOperation from 'models/search/SearchTASCategoriesOperation';
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const combinedActions = Object.assign({}, searchFilterActions, resultsMetaActions);
 
@@ -33,33 +32,30 @@ export class TimeVisualizationSectionContainer extends React.Component {
         super(props);
 
         this.state = {
+            visualizationPeriod: 'fiscal_year',
             loading: true,
             groups: [],
             xSeries: [],
-            ySeries: [],
-            budgetFiltersSelected: false,
-            awardFiltersSelected: false
+            ySeries: []
         };
 
         this.apiRequest = null;
+        this.updateVisualizationPeriod = this.updateVisualizationPeriod.bind(this);
     }
 
     componentDidMount() {
-        this.setFilterStates();
+        this.fetchData();
     }
 
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
-            this.setFilterStates();
+            this.fetchData();
         }
     }
 
-    setFilterStates() {
+    updateVisualizationPeriod(visualizationPeriod) {
         this.setState({
-            budgetFiltersSelected:
-                BudgetCategoryHelper.budgetFiltersSelected(this.props.reduxFilters),
-            awardFiltersSelected:
-                BudgetCategoryHelper.awardFiltersSelected(this.props.reduxFilters)
+            visualizationPeriod
         }, () => {
             this.fetchData();
         });
@@ -75,57 +71,18 @@ export class TimeVisualizationSectionContainer extends React.Component {
             this.apiRequest.cancel();
         }
 
-        // // Fetch data from the appropriate endpoint
-        if (this.state.awardFiltersSelected && this.state.budgetFiltersSelected) {
-            this.fetchComboRequest();
-        }
-        else if (this.state.budgetFiltersSelected) {
-            this.fetchBudgetRequest();
-        }
-        else if (this.state.awardFiltersSelected) {
-            this.fetchAwardRequest();
-            // this.fetchTransactionData();
-        }
-        else {
-            this.fetchUnfilteredRequest();
-            // this.fetchBalanceData();
-        }
+        // Fetch data from the Awards v2 endpoint
+        this.fetchAwards('Spending Over Time Visualization');
     }
 
-    fetchUnfilteredRequest() {
-        // no filters have been selected
-        this.fetchTASCategories('Time visualization - unfiltered');
-    }
-
-    fetchBudgetRequest() {
-        // only budget filters have been applied
-        this.fetchTASCategories('Time visualization - budget filters');
-    }
-
-    fetchAwardRequest() {
-        // only award filters have been selected
-        this.fetchTransactions('Time visualization - award filters');
-    }
-
-    fetchComboRequest() {
-        // a combination of budget and award filters have been selected
-        this.fetchTransactions('Time visualization - combination');
-    }
-
-    fetchTransactions(auditTrail = null) {
-        const field = 'federal_action_obligation';
-        const group = 'action_date__fy';
-
-        const operation = new SearchTransactionOperation();
+    fetchAwards(auditTrail = null) {
+        const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
         // Generate the API parameters
         const apiParams = {
-            field,
-            group,
-            order: [group],
-            aggregate: 'sum',
+            group: this.state.visualizationPeriod,
             filters: searchParams
         };
 
@@ -133,11 +90,11 @@ export class TimeVisualizationSectionContainer extends React.Component {
             apiParams.auditTrail = auditTrail;
         }
 
-        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        this.apiRequest = SearchHelper.performSpendingOverTimeSearch(apiParams);
 
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data, group);
+                this.parseData(res.data, this.state.visualizationPeriod);
                 this.apiRequest = null;
             })
             .catch(() => {
@@ -145,38 +102,18 @@ export class TimeVisualizationSectionContainer extends React.Component {
             });
     }
 
-    fetchTASCategories(auditTrail = null) {
-        // only budget filters have been selected
-        const field = 'obligations_incurred_by_program_object_class_cpe';
-        const group = 'submission__reporting_fiscal_year';
-        // generate the API parameters
-        const operation = new SearchTASCategoriesOperation();
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-
-        // Generate the API parameters
-        const apiParams = {
-            field,
-            group,
-            order: [group],
-            aggregate: 'sum',
-            filters: searchParams
-        };
-
-        if (auditTrail) {
-            apiParams.auditTrail = auditTrail;
+    generateTimeLabel(group, timePeriod) {
+        if (group === 'fiscal_year') {
+            return timePeriod.fiscal_year;
+        }
+        else if (group === 'quarter') {
+            return `Q${timePeriod.quarter} ${timePeriod.fiscal_year}`;
         }
 
-        this.apiRequest = SearchHelper.performCategorySearch(apiParams);
+        const month = MonthHelper.convertNumToShortMonth(timePeriod.month);
+        const year = MonthHelper.convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
 
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data, group);
-                this.apiRequest = null;
-            })
-            .catch(() => {
-                this.apiRequest = null;
-            });
+        return `${month} ${year}`;
     }
 
     parseData(data, group) {
@@ -188,11 +125,11 @@ export class TimeVisualizationSectionContainer extends React.Component {
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            groups.push(item[group]);
-            xSeries.push([item[group]]);
-            ySeries.push([parseFloat(item.aggregate)]);
+            groups.push(this.generateTimeLabel(group, item.time_period));
+            xSeries.push([this.generateTimeLabel(group, item.time_period)]);
+            ySeries.push([parseFloat(item.aggregated_amount)]);
 
-            totalSpending += parseFloat(item.aggregate);
+            totalSpending += parseFloat(item.aggregated_amount);
         });
 
         this.setState({
@@ -209,7 +146,9 @@ export class TimeVisualizationSectionContainer extends React.Component {
 
     render() {
         return (
-            <TimeVisualizationSection data={this.state} />
+            <TimeVisualizationSection
+                data={this.state}
+                updateVisualizationPeriod={this.updateVisualizationPeriod} />
         );
     }
 }

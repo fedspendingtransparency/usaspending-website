@@ -10,10 +10,18 @@ import { awardRanges } from 'dataMapping/search/awardAmount';
 
 import { mockRecipient, mockAgency } from './mock/mockFilters';
 
+const initialAction = {
+    type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
+    dateType: 'fy',
+    fy: ['2017'],
+    start: null,
+    end: null
+};
+
 describe('searchFiltersReducer', () => {
     it('should return the initial state by default', () => {
         expect(
-            searchFiltersReducer(undefined, {})
+            searchFiltersReducer(undefined, initialAction)
         ).toEqual(initialState);
     });
 
@@ -823,7 +831,7 @@ describe('searchFiltersReducer', () => {
                 type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                 dateType: 'fy',
                 fy: [
-                    '2017',
+                    '2016',
                     '2015',
                     '2013'
                 ],
@@ -838,7 +846,7 @@ describe('searchFiltersReducer', () => {
             const expectedFirst = {
                 timePeriodType: 'fy',
                 timePeriodFY: new Set([
-                    '2017',
+                    '2016',
                     '2015',
                     '2013'
                 ]),
@@ -848,7 +856,7 @@ describe('searchFiltersReducer', () => {
 
             const expectedSecond = {
                 timePeriodType: 'fy',
-                timePeriodFY: new Set(),
+                timePeriodFY: new Set(['2017']),
                 timePeriodStart: null,
                 timePeriodEnd: null
             };
@@ -892,7 +900,7 @@ describe('searchFiltersReducer', () => {
 
             const expectedSecond = {
                 timePeriodType: 'fy',
-                timePeriodFY: new Set(),
+                timePeriodFY: new Set(['2017']),
                 timePeriodStart: null,
                 timePeriodEnd: null
             };

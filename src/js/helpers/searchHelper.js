@@ -246,6 +246,77 @@ export const performSpendingOverTimeSearch = (params) => {
     };
 };
 
+// Spending By Category Visualization Endpoint
+export const performSpendingByCategorySearch = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/search/spending_by_category/`,
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+// Spending By Geography Visualization Endpoint
+export const performSpendingByGeographySearch = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/search/spending_by_geography/`,
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+// Spending By Award Table Endpoint
+export const performSpendingByAwardSearch = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/search/spending_by_award/`,
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const performPagedSpendingByAwardSearch = (filters = [], page = 1, limit = 15, order = null,
+    fields = null, exclude = null) => {
+    const params = { filters, page, limit };
+
+    if (order) {
+        params.order = order;
+    }
+
+    if (fields != null) {
+        // we have specific fields to query for
+        params.fields = fields;
+    }
+    else if (exclude != null) {
+        // we have specific fields to exclude
+        params.exclude = exclude;
+    }
+
+    return performSpendingByAwardSearch(params);
+};
+
 // Fetch Recipients
 export const fetchRecipients = (req) => {
     const source = CancelToken.source();
