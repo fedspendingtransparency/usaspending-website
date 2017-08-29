@@ -4,6 +4,8 @@
  */
 
 import moment from "moment";
+import { currentFiscalYear } from './fiscalYearHelper';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 // Months are 1-indexed strings, starting with the first month in the fiscal year, which is October
 // We parse the month, using 1 by default if the month is not a number
@@ -15,3 +17,15 @@ const monthConversion = (m) =>
 export const convertNumToMonth = (m) => monthConversion(m).format("MMMM");
 
 export const convertNumToShortMonth = (m) => monthConversion(m).format("MMM");
+
+export const convertMonthToFY = (m, y) => {
+    const parsedMonth = isNaN(parseInt(m, 10)) ? 1 : parseInt(m, 10);
+    const parsedYear = isNaN(parseInt(y, 10))
+        ? FiscalYearHelper.currentFiscalYear()
+        : parseInt(y, 10);
+
+    if (parsedMonth <= 3) {
+        return parsedYear - 1;
+    }
+    return parsedYear;
+};

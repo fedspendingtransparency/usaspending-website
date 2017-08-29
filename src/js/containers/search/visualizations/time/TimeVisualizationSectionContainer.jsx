@@ -109,7 +109,11 @@ export class TimeVisualizationSectionContainer extends React.Component {
         else if (group === 'quarter') {
             return `Q${timePeriod.quarter} ${timePeriod.fiscal_year}`;
         }
-        return `${MonthHelper.convertNumToShortMonth(timePeriod.month)} ${timePeriod.fiscal_year}`;
+
+        const month = MonthHelper.convertNumToShortMonth(timePeriod.month);
+        const year = MonthHelper.convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
+
+        return `${month} ${year}`;
     }
 
     parseData(data, group) {

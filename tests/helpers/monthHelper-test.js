@@ -4,6 +4,7 @@
  */
 
 import * as MonthHelper from 'helpers/monthHelper';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 describe('Month helper functions', () => {
     describe('convertNumToMonth', () => {
@@ -137,6 +138,85 @@ describe('Month helper functions', () => {
         it('should convert any other input to "Oct"', () => {
             const month = MonthHelper.convertNumToShortMonth("test");
             expect(month).toEqual("Oct");
+        });
+    });
+
+    describe('convertMonthToFY', () => {
+        it('should convert {"1", "2017"}  to "2016"', () => {
+            const year = MonthHelper.convertMonthToFY("1", "2017");
+            expect(year).toEqual(2016);
+        });
+
+        it('should convert {"2", "2017"}  to "2016"', () => {
+            const year = MonthHelper.convertMonthToFY("2", "2017");
+            expect(year).toEqual(2016);
+        });
+
+        it('should convert {"3", "2017"}  to "2016"', () => {
+            const year = MonthHelper.convertMonthToFY("3", "2017");
+            expect(year).toEqual(2016);
+        });
+
+        it('should convert {"4", "2017"}  to "2017"', () => {
+            const year = MonthHelper.convertMonthToFY("4", "2017");
+            expect(year).toEqual(2017);
+        });
+
+        it('should convert {"5", "2017"}  to "2017"', () => {
+            const year = MonthHelper.convertMonthToFY("5", "2017");
+            expect(year).toEqual(2017);
+        });
+
+        it('should convert {"6", "2017"}  to "2017"', () => {
+            const year = MonthHelper.convertMonthToFY("6", "2017");
+            expect(year).toEqual(2017);
+        });
+
+        it('should convert {"7", "2017"}  to "2017"', () => {
+            const year = MonthHelper.convertMonthToFY("7", "2017");
+            expect(year).toEqual(2017);
+        });
+
+        it('should convert {"8", "2017"}  to "2017"', () => {
+            const year = MonthHelper.convertMonthToFY("8", "2017");
+            expect(year).toEqual(2017);
+        });
+
+        it('should convert {"9", "2017"}  to "2017"', () => {
+            const year = MonthHelper.convertMonthToFY("9", "2017");
+            expect(year).toEqual(2017);
+        });
+
+        it('should convert {"10", "2017"}  to "2017"', () => {
+            const year = MonthHelper.convertMonthToFY("10", "2017");
+            expect(year).toEqual(2017);
+        });
+
+        it('should convert {"11", "2017"}  to "2017"', () => {
+            const year = MonthHelper.convertMonthToFY("11", "2017");
+            expect(year).toEqual(2017);
+        });
+
+        it('should convert {"12", "2017"}  to "2016"', () => {
+            const year = MonthHelper.convertMonthToFY("12", "2017");
+            expect(year).toEqual(2017);
+        });
+
+        it('should convert any other month to "2016"', () => {
+            const year = MonthHelper.convertMonthToFY("asdf", "2017");
+            expect(year).toEqual(2016);
+        });
+
+        it('should convert nonsense input to the current fiscal year' +
+            'and apply the same month logic for October', () => {
+            const year = MonthHelper.convertMonthToFY("1", "asdf");
+            expect(year).toEqual(FiscalYearHelper.currentFiscalYear() - 1);
+        });
+
+        it('should convert nonsense input to the current fiscal year' +
+            'and apply the same month logic for January', () => {
+            const year = MonthHelper.convertMonthToFY("4", "asdf");
+            expect(year).toEqual(FiscalYearHelper.currentFiscalYear());
         });
     });
 });
