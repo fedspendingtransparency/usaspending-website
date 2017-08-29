@@ -12,7 +12,7 @@ import FYPicker from './FYPicker';
 import VerticalTrail from './VerticalTrail';
 
 const propTypes = {
-    fy: PropTypes.number,
+    fy: PropTypes.string,
     trail: PropTypes.object,
     setExplorerYear: PropTypes.func,
     rewindToFilter: PropTypes.func

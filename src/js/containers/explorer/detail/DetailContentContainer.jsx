@@ -363,27 +363,6 @@ export class DetailContentContainer extends React.Component {
     }
 
     render() {
-        let content = (
-            <DetailContent
-                isRoot={this.props.explorer.active.within === 'root'}
-                isLoading={this.state.inFlight}
-                root={this.props.explorer.root}
-                fy={this.props.explorer.fy}
-                active={this.props.explorer.active}
-                trail={this.props.explorer.trail.toJS()}
-                total={this.props.explorer.active.total}
-                data={this.state.data}
-                lastUpdate={this.state.lastUpdate}
-                transitionSteps={this.state.transitionSteps}
-                transition={this.state.transition}
-                goDeeper={this.goDeeper}
-                changeSubdivisionType={this.changeSubdivisionType}
-                showTooltip={this.props.showTooltip}
-                hideTooltip={this.props.hideTooltip} />
-        );
-        if (this.state.inFlight) {
-            content = (<DetailLoading />);
-        }
         return (
             <div className="explorer-detail">
                 <ExplorerSidebar
@@ -391,7 +370,22 @@ export class DetailContentContainer extends React.Component {
                     trail={this.props.explorer.trail}
                     setExplorerYear={this.props.setExplorerYear}
                     rewindToFilter={this.rewindToFilter} />
-                {content}
+                <DetailContent
+                    isRoot={this.props.explorer.active.within === 'root'}
+                    isLoading={this.state.inFlight}
+                    root={this.props.explorer.root}
+                    fy={this.props.explorer.fy}
+                    active={this.props.explorer.active}
+                    trail={this.props.explorer.trail.toJS()}
+                    total={this.props.explorer.active.total}
+                    data={this.state.data}
+                    lastUpdate={this.state.lastUpdate}
+                    transitionSteps={this.state.transitionSteps}
+                    transition={this.state.transition}
+                    goDeeper={this.goDeeper}
+                    changeSubdivisionType={this.changeSubdivisionType}
+                    showTooltip={this.props.showTooltip}
+                    hideTooltip={this.props.hideTooltip} />
             </div>
         );
     }

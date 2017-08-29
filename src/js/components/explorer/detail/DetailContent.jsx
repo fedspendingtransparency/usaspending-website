@@ -17,7 +17,7 @@ const propTypes = {
     isLoading: PropTypes.bool,
     data: PropTypes.object,
     root: PropTypes.string,
-    fy: PropTypes.number,
+    fy: PropTypes.string,
     lastUpdate: PropTypes.string,
     total: PropTypes.number,
     active: PropTypes.object,

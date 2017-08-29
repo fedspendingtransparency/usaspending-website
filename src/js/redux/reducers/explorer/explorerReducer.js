@@ -14,7 +14,7 @@ export const ActiveScreen = new Record({
 
 export const initialState = {
     root: 'object_class',
-    fy: currentFiscalYear(),
+    fy: `${currentFiscalYear()}`,
     active: new ActiveScreen(),
     trail: new List([])
 };
