@@ -8,7 +8,7 @@
 export const updateSelectedAwardIDs = (state, value) => {
     let updatedSet = state;
 
-    const awardIdentifier = value.id;
+    const awardIdentifier = `${value.id}`;
 
     if (updatedSet.has(awardIdentifier)) {
         updatedSet = updatedSet.delete(awardIdentifier);
