@@ -19,7 +19,6 @@ import * as ExplorerHelper from 'helpers/explorerHelper';
 
 import DetailContent from 'components/explorer/detail/DetailContent';
 import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
-import DetailLoading from 'components/explorer/detail/DetailLoading';
 
 const propTypes = {
     explorer: PropTypes.object,
