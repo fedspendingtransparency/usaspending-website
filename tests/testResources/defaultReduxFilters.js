@@ -9,7 +9,7 @@ export const defaultFilters = {
     keyword: '',
     awardType: new Set(),
     timePeriodType: 'fy',
-    timePeriodFY: new Set(),
+    timePeriodFY: new Set(['2017']),
     timePeriodStart: null,
     timePeriodEnd: null,
     selectedLocations: new OrderedMap(),
