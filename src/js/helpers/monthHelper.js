@@ -4,8 +4,7 @@
  */
 
 import moment from "moment";
-import { currentFiscalYear } from './fiscalYearHelper';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import * as FiscalYearHelper from './fiscalYearHelper';
 
 // Months are 1-indexed strings, starting with the first month in the fiscal year, which is October
 // We parse the month, using 1 by default if the month is not a number

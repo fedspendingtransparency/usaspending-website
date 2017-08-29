@@ -34,7 +34,7 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
             dataSeries: [],
             descriptions: [],
             page: 1,
-            agencyScope: 'toptier',
+            agencyScope: 'agency',
             next: '',
             previous: '',
             hasNextPage: false,

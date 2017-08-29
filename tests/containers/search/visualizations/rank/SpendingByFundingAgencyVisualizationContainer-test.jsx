@@ -101,7 +101,7 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
                 dataSeries: [456, 123],
                 descriptions: ['Spending by First Agency: $456', 'Spending by Second Agency: $123'],
                 page: 1,
-                agencyScope: 'toptier',
+                agencyScope: 'agency',
                 hasNextPage: false,
                 hasPreviousPage: false,
                 next: null,
@@ -212,11 +212,11 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
                     reduxFilters={defaultFilters} />);
 
             // the default scope should be toptier
-            expect(container.state().agencyScope).toEqual('toptier');
+            expect(container.state().agencyScope).toEqual('agency');
 
             // change the scope to subtier
-            container.instance().changeScope('subtier');
-            expect(container.state().agencyScope).toEqual('subtier');
+            container.instance().changeScope('subagency');
+            expect(container.state().agencyScope).toEqual('subagency');
         });
 
         it('should reset the page number to 1 when the agency scope changes', () => {
@@ -228,12 +228,12 @@ describe('SpendingByFundingAgencyVisualizationContainer', () => {
             });
 
             // the default scope should be toptier
-            expect(container.state().agencyScope).toEqual('toptier');
+            expect(container.state().agencyScope).toEqual('agency');
             expect(container.state().page).toEqual(5);
 
             // change the scope to subtier
-            container.instance().changeScope('subtier');
-            expect(container.state().agencyScope).toEqual('subtier');
+            container.instance().changeScope('subagency');
+            expect(container.state().agencyScope).toEqual('subagency');
             expect(container.state().page).toEqual(1);
         });
     });
