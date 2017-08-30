@@ -8,10 +8,10 @@ describe('explorerReducer', () => {
         it('should update the FY to the given value', () => {
             const action = {
                 type: 'SET_EXPLORER_FY',
-                fy: 1984
+                fy: '1984'
             };
             const state = explorerReducer(undefined, action);
-            expect(state.fy).toEqual(1984);
+            expect(state.fy).toEqual('1984');
         });
     });
 
@@ -88,7 +88,7 @@ describe('explorerReducer', () => {
                     subdivision: 'federal_account',
                     total: 12345
                 }),
-                fy: 1984,
+                fy: '1984',
                 trail: new List(['a', 'b', 'c'])
             };
 
@@ -98,7 +98,7 @@ describe('explorerReducer', () => {
 
             const newState = explorerReducer(state, action);
 
-            expect(newState.fy).toEqual(1984);
+            expect(newState.fy).toEqual('1984');
             expect(newState.root).toEqual('object_class');
             expect(newState.active).toEqual(new ActiveScreen());
             expect(newState.trail.count()).toEqual(0);

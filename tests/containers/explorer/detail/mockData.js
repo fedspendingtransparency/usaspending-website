@@ -34,7 +34,7 @@ export const mockApiReponse = {
 
 export const mockReducerRoot = {
     root: 'agency',
-    fy: 1984,
+    fy: '1984',
     active: new ActiveScreen({
         within: 'root',
         subdivision: 'agency',
@@ -52,7 +52,7 @@ export const mockReducerRoot = {
 
 export const mockReducerChild = {
     root: 'agency',
-    fy: 1984,
+    fy: '1984',
     active: new ActiveScreen({
         within: 'agency',
         subdivision: 'federal_account',

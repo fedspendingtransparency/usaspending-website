@@ -39,7 +39,7 @@ describe('DetailContentContainer', () => {
             });
 
             expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
-            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', 1984);
+            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984');
         });
         it('should reload from root when the fy prop changes', () => {
             const mockPrepareRoot = jest.fn();
@@ -56,7 +56,7 @@ describe('DetailContentContainer', () => {
             });
 
             expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
-            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', 1984);
+            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984');
         });
     });
     it('should make an API call on mount', async () => {
