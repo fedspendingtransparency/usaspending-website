@@ -144,12 +144,9 @@ export class ResultsTableContainer extends React.Component {
         const searchParams = new SearchAwardsOperation();
         searchParams.fromState(this.props.filters);
 
-        this.tabCountRequest = SearchHelper.fetchAwardCounts({
-            aggregate: 'count',
-            group: 'type',
-            field: 'total_obligation',
+        this.tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: searchParams.toParams(),
-            auditTrail: 'Award table - tab counts'
+            auditTrail: 'Award Table - Tab Counts'
         });
 
         this.tabCountRequest.promise

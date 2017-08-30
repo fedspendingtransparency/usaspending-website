@@ -95,7 +95,6 @@ describe('TopFilterBarContainer', () => {
 
         it('should update component state with Redux keyword filter when available', () => {
             // mount the container with default props
-            // Remove FY 2017
             const topBarContainer = setup({
                 reduxFilters: Object.assign({}, stateWithoutDefault),
                 updateFilterCount: jest.fn()
