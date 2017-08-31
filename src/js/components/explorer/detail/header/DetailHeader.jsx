@@ -13,7 +13,7 @@ import { formatTreemapValues } from 'helpers/moneyFormatter';
 
 const propTypes = {
     within: PropTypes.string,
-    fy: PropTypes.number,
+    fy: PropTypes.string,
     lastUpdate: PropTypes.string,
     total: PropTypes.number,
     title: PropTypes.string,

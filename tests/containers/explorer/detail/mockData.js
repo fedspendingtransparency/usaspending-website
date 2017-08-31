@@ -85,11 +85,33 @@ export const mockLevelData = {
     percentString: "8.4%"
 };
 
-export const mockRequest = request = {
-    within: 'agency',
-    subdivision: 'recipient',
-    title: 'Third Agency'
+export const mockDeeperRoot = {
+    root: 'agency',
+    fy: '1984',
+    active: new ActiveScreen({
+        within: 'federal_account',
+        subdivision: 'award',
+        total: 100
+    }),
+    trail: new List([
+        {
+            within: 'root',
+            subdivision: 'agency',
+            total: 100,
+            title: ''
+        },
+        {
+            within: 'agency',
+            subdivision: 'federal_account',
+            total: 75,
+            title: 'First Agency'
+        }
+    ])
 };
+
+export const mockActiveScreen = new ActiveScreen (
+    {"subdivision": "agency", "total": 100, "within": "root"}
+);
 
 export const mockActions = {
     setExplorerRoot: jest.fn(),
