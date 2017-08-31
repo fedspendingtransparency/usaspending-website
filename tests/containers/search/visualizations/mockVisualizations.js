@@ -1,12 +1,12 @@
 export const geo = {
     results: [
         {
-            item: 'AK',
-            aggregate: '123.12'
+            state_code: 'AK',
+            aggregated_amount: '123.12'
         },
         {
-            item: 'AL',
-            aggregate: '345.56'
+            state_code: 'AL',
+            aggregated_amount: '345.56'
         }
     ],
     total_metadata: {
