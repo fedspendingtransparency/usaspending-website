@@ -13,7 +13,8 @@ const propTypes = {
     icon: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
-    url: PropTypes.string
+    url: PropTypes.string,
+    term: PropTypes.string
 };
 
 const ExplorerLandingOption = (props) => {
