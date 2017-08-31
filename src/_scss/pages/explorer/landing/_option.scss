@@ -47,6 +47,12 @@
         font-weight: $font-light;
         font-size: rem(35);
         line-height: rem(44);
+	    .usa-da-icon-guide {
+		    width: rem(15);
+		    height: rem(15);
+		    fill: $color-white;
+		    margin: 0 0 rem(12) rem(5);
+	    }
     }
 
     .description {
