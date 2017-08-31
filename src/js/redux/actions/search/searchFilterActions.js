@@ -49,29 +49,6 @@ export const updateDomesticForeignSelection = (state) => ({
     selection: state
 });
 
-// Budget Category Filter
-
-export const updateSelectedBudgetFunctions = (state) => ({
-    type: 'UPDATE_SELECTED_BUDGET_FUNCTIONS',
-    budgetFunction: state
-});
-
-export const updateSelectedFederalAccounts = (state) => ({
-    type: 'UPDATE_SELECTED_FEDERAL_ACCOUNTS',
-    federalAccount: state
-});
-
-export const updateSelectedObjectClasses = (state) => ({
-    type: 'UPDATE_SELECTED_OBJECT_CLASSES',
-    objectClass: state
-});
-
-export const bulkObjectClassesChange = (state) => ({
-    type: 'BULK_SEARCH_FILTER_OBJECT_CLASSES',
-    objectClasses: state.types,
-    direction: state.direction
-});
-
 // Agency Filter
 
 export const updateSelectedAwardingAgencies = (state) => ({

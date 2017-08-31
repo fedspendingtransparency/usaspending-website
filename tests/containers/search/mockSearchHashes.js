@@ -1,4 +1,5 @@
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 export const mockHash = {
     hash: 'abcd1234'
@@ -11,13 +12,10 @@ export const mockFilters = {
             locationDomesticForeign: "all",
             selectedAwardIDs: {},
             selectedRecipients: {},
-            objectClasses: [],
             selectedFundingAgencies: {},
-            federalAccounts: {},
-            budgetFunctions: {},
             selectedLocations: {},
             recipientType: [],
-            timePeriodFY: ["2017"],
+            timePeriodFY: [`${FiscalYearHelper.currentFiscalYear()}`],
             keyword: "",
             timePeriodType: "fy",
             timePeriodStart: null,
