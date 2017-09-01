@@ -34,7 +34,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
             dataSeries: [],
             descriptions: [],
             page: 1,
-            agencyScope: 'toptier',
+            agencyScope: 'agency',
             next: '',
             previous: '',
             hasNextPage: false,
@@ -146,24 +146,26 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            let abr = '';
-            let field = null;
-            const transactionsTier =
-            `awarding_agency__${this.state.agencyScope}_agency__abbreviation`;
-            if (item.treasury_account__awarding_toptier_agency__abbreviation) {
-                field = item.treasury_account__awarding_toptier_agency__abbreviation;
+            let aggregate = parseFloat(item.aggregated_amount);
+            if (isNaN(aggregate)) {
+                // the aggregate value is invalid (most likely null)
+                aggregate = 0;
             }
-            else if (item[transactionsTier]) {
-                field = item[transactionsTier];
-            }
-            if (field !== '' && field !== null) {
-                abr = ` (${field})`;
-            }
-            labelSeries.push(`${item.item}${abr}`);
-            dataSeries.push(parseFloat(item.aggregate));
 
-            const description = `Spending by ${item.item}: \
-${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
+            const agencyName = item.agency_name;
+            let agencyAbbreviation = '';
+
+            if (item.agency_abbreviation !== null && item.agency_abbreviation !== '') {
+                agencyAbbreviation = ` (${item.agency_abbreviation})`;
+            }
+
+            const label = `${agencyName}${agencyAbbreviation}`;
+
+            labelSeries.push(`${label}`);
+            dataSeries.push(aggregate);
+
+            const description = `Spending by ${label}: \
+${MoneyFormatter.formatMoney(aggregate)}`;
             descriptions.push(description);
         });
 

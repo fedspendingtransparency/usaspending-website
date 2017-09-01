@@ -39,16 +39,16 @@ export default class SpendingByAgencySection extends React.Component {
                             <ul>
                                 <li>
                                     <RankVisualizationScopeButton
-                                        value="toptier"
+                                        value="agency"
                                         label="Agencies"
-                                        active={this.props.agencyScope === 'toptier'}
+                                        active={this.props.agencyScope === 'agency'}
                                         changeScope={this.props.changeScope} />
                                 </li>
                                 <li>
                                     <RankVisualizationScopeButton
-                                        value="subtier"
+                                        value="subagency"
                                         label="Sub-Agencies"
-                                        active={this.props.agencyScope === 'subtier'}
+                                        active={this.props.agencyScope === 'subagency'}
                                         changeScope={this.props.changeScope} />
                                 </li>
                                 <li className="coming-soon">

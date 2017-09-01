@@ -19,8 +19,6 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import * as FilterFields from 'dataMapping/search/filterFields';
-
 import * as AwardTypeQuery from 'models/search/queryBuilders/AwardTypeQuery';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
@@ -122,14 +120,6 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
-        let group = [FilterFields.transactionFields.psc];
-        if (this.state.scope === 'naics') {
-            group = [
-                FilterFields.transactionFields.naics,
-                FilterFields.transactionFields.naicsDescription
-            ];
-        }
-
         // because industry codes are only available for contracts, restrict the query to only
         // contract types
         const contractFilter = AwardTypeQuery.buildQuery(awardTypeGroups.contracts, 'transaction');
@@ -138,7 +128,6 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
         // Generate the API parameters
         const apiParams = {
             category: 'industry_code',
-            group,
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -152,7 +141,7 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
 
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data, group);
+                this.parseData(res.data);
                 this.apiRequest = null;
             })
             .catch(() => {
@@ -160,39 +149,37 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
             });
     }
 
-    parseData(data, labelFields) {
+    parseData(data) {
         const labelSeries = [];
         const dataSeries = [];
         const descriptions = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            let label = '';
-            if (labelFields.length === 1) {
-                label = item[labelFields];
+            let aggregate = parseFloat(item.aggregated_amount);
+            if (isNaN(aggregate)) {
+                // the aggregate value is invalid (most likely null)
+                aggregate = 0;
+            }
+
+            let code = '';
+            let codeDescription = '';
+
+            if (this.state.scope === 'psc') {
+                code = item.psc_code;
             }
             else {
-                const key = item[labelFields[0]];
-                const value = item[labelFields[1]];
-                if (key && value) {
-                    label = `${item[labelFields[0]]}: ${item[labelFields[1]]}`;
-                }
-                else if (key) {
-                    label = key;
-                }
-                else if (value) {
-                    label = value;
-                }
-                else {
-                    label = '';
-                }
+                code = item.naics_code;
+                codeDescription = `: ${item.naics_description}`;
             }
 
-            labelSeries.push(label);
-            dataSeries.push(parseFloat(item.aggregate));
+            const label = `${code}${codeDescription}`;
+
+            labelSeries.push(`${label}`);
+            dataSeries.push(aggregate);
 
             const description = `Spending by ${label}: \
-${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
+${MoneyFormatter.formatMoney(parseFloat(aggregate))}`;
             descriptions.push(description);
         });
 

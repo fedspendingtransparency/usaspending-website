@@ -34,7 +34,7 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
             dataSeries: [],
             descriptions: [],
             page: 1,
-            agencyScope: 'toptier',
+            agencyScope: 'agency',
             next: '',
             previous: '',
             hasNextPage: false,
@@ -145,16 +145,26 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            let abr = '';
-            if (item.treasury_account__funding_toptier_agency__abbreviation !== ''
-                && item.treasury_account__funding_toptier_agency__abbreviation !== null) {
-                abr = ` (${item.treasury_account__funding_toptier_agency__abbreviation})`;
+            let aggregate = parseFloat(item.aggregated_amount);
+            if (isNaN(aggregate)) {
+                // the aggregate value is invalid (most likely null)
+                aggregate = 0;
             }
-            labelSeries.push(`${item.item}${abr}`);
-            dataSeries.push(parseFloat(item.aggregate));
 
-            const description = `Spending by ${item.item}: \
-${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
+            const agencyName = item.agency_name;
+            let agencyAbbreviation = '';
+
+            if (item.agency_abbreviation !== null && item.agency_abbreviation !== '') {
+                agencyAbbreviation = ` (${item.agency_abbreviation})`;
+            }
+
+            const label = `${agencyName}${agencyAbbreviation}`;
+
+            labelSeries.push(`${label}`);
+            dataSeries.push(aggregate);
+
+            const description = `Spending by ${label}: \
+${MoneyFormatter.formatMoney(aggregate)}`;
             descriptions.push(description);
         });
 

@@ -17,7 +17,6 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import * as FilterFields from 'dataMapping/search/filterFields';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
@@ -37,7 +36,7 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
             descriptions: [],
             linkSeries: [],
             page: 1,
-            scope: 'subsidiary',
+            scope: 'duns',
             next: '',
             previous: '',
             hasNextPage: false,
@@ -118,15 +117,10 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
-        const idField = FilterFields.transactionFields.recipientId;
-        const labelField = FilterFields.transactionFields.recipientName;
-
-        const group = [idField, labelField];
-
         // Generate the API parameters
         const apiParams = {
             category: 'recipient',
-            group,
+            scope: this.state.scope,
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -140,7 +134,7 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
 
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data, labelField);
+                this.parseData(res.data);
                 this.apiRequest = null;
             })
             .catch(() => {
@@ -148,18 +142,26 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
             });
     }
 
-    parseData(data, labelField) {
+    parseData(data) {
         const labelSeries = [];
         const dataSeries = [];
         const descriptions = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            labelSeries.push(item[labelField]);
-            dataSeries.push(parseFloat(item.aggregate));
+            let aggregate = parseFloat(item.aggregated_amount);
+            if (isNaN(aggregate)) {
+                // the aggregate value is invalid (most likely null)
+                aggregate = 0;
+            }
 
-            const description = `Spending by ${item[labelField]}: \
-${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
+            const recipientName = item.recipient_name;
+
+            labelSeries.push(`${recipientName}`);
+            dataSeries.push(aggregate);
+
+            const description = `Spending by ${recipientName}: \
+${MoneyFormatter.formatMoney(parseFloat(aggregate))}`;
             descriptions.push(description);
         });
 

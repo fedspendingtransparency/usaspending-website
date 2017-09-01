@@ -105,7 +105,7 @@ describe('SpendingByRecipientVisualizationContainer', () => {
                     'Spending by Michigan: $6,684,225,478'],
                 linkSeries: [],
                 page: 1,
-                scope: 'subsidiary',
+                scope: 'duns',
                 hasNextPage: false,
                 hasPreviousPage: false,
                 next: null,
@@ -216,11 +216,11 @@ describe('SpendingByRecipientVisualizationContainer', () => {
                     reduxFilters={defaultFilters} />);
 
             // the default scope should be subsidiary
-            expect(container.state().scope).toEqual('subsidiary');
+            expect(container.state().scope).toEqual('duns');
 
             // change the scope to parentCompany
-            container.instance().changeScope('parentCompany');
-            expect(container.state().scope).toEqual('parentCompany');
+            container.instance().changeScope('parent_duns');
+            expect(container.state().scope).toEqual('parent_duns');
         });
 
         it('should reset the page number to 1 when the scope changes', () => {
@@ -232,12 +232,12 @@ describe('SpendingByRecipientVisualizationContainer', () => {
             });
 
             // the default scope should be subsidiary
-            expect(container.state().scope).toEqual('subsidiary');
+            expect(container.state().scope).toEqual('duns');
             expect(container.state().page).toEqual(5);
 
             // change the scope to parentCompany
-            container.instance().changeScope('parentCompany');
-            expect(container.state().scope).toEqual('parentCompany');
+            container.instance().changeScope('parent_duns');
+            expect(container.state().scope).toEqual('parent_duns');
             expect(container.state().page).toEqual(1);
         });
     });

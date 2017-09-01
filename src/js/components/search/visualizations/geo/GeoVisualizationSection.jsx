@@ -85,14 +85,14 @@ export default class GeoVisualizationSection extends React.Component {
                                     <GeoVisualizationScopeButton
                                         value="pop"
                                         label="Place of Performance"
-                                        active={this.props.scope === 'pop'}
+                                        active={this.props.scope === 'place_of_performance'}
                                         changeScope={this.props.changeScope} />
                                 </li>
                                 <li>
                                     <GeoVisualizationScopeButton
                                         value="recipient"
                                         label="Recipient Location"
-                                        active={this.props.scope === 'recipient'}
+                                        active={this.props.scope === 'recipient_location'}
                                         changeScope={this.props.changeScope} />
                                 </li>
                             </ul>

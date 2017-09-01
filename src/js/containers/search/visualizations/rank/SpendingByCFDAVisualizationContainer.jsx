@@ -17,8 +17,6 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import * as FilterFields from 'dataMapping/search/filterFields';
-
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const propTypes = {
@@ -105,15 +103,9 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
-        const apiGroups = [
-            FilterFields.transactionFields.cfdaNumber,
-            FilterFields.transactionFields.cfdaTitle
-        ];
-
         // generate the API parameters
         const apiParams = {
             category: 'cfda',
-            group: apiGroups,
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -126,7 +118,7 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
         this.apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data, apiGroups);
+                this.parseData(res.data);
                 this.apiRequest = null;
             })
             .catch(() => {
@@ -134,23 +126,29 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
             });
     }
 
-    parseData(data, groups) {
+    parseData(data) {
         const labelSeries = [];
         const dataSeries = [];
         const descriptions = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            let parsedValue = parseFloat(item.aggregate);
-            if (isNaN(parsedValue)) {
+            let aggregate = parseFloat(item.aggregated_amount);
+            if (isNaN(aggregate)) {
                 // the aggregate value is invalid (most likely null)
-                parsedValue = 0;
+                aggregate = 0;
             }
 
-            labelSeries.push(item[groups[1]]);
-            dataSeries.push(parsedValue);
-            const description = `Spending by ${item[groups[1]]}: \
-${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
+            const programNumber = item.cfda_program_number;
+            const programTitle = item.program_title;
+
+            const label = `${programNumber}: ${programTitle}`;
+
+            labelSeries.push(`${label}`);
+            dataSeries.push(aggregate);
+
+            const description = `Spending by ${label}: \
+${MoneyFormatter.formatMoney(parseFloat(aggregate))}`;
             descriptions.push(description);
         });
 

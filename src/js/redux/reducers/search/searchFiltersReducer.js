@@ -11,9 +11,8 @@ import * as AgencyFilterFunctions from './filters/agencyFilterFunctions';
 import * as RecipientFilterFunctions from './filters/recipientFilterFunctions';
 import * as AwardIDFilterFunctions from './filters/awardIDFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
-import * as BudgetCategoryFilterFunctions from './filters/budgetCategoryFilterFunctions';
-import * as ContractFilterFunctions from './filters/contractFilterFunctions';
 import * as OtherFilterFunctions from './filters/OtherFilterFunctions';
+import * as FiscalYearHelper from '../../../helpers/fiscalYearHelper';
 
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
@@ -23,9 +22,6 @@ export const filterStoreVersion = 1;
 export const requiredTypes = {
     timePeriodFY: Set,
     selectedLocations: OrderedMap,
-    budgetFunctions: OrderedMap,
-    federalAccounts: OrderedMap,
-    objectClasses: Set,
     selectedFundingAgencies: OrderedMap,
     selectedAwardingAgencies: OrderedMap,
     selectedRecipients: OrderedMap,
@@ -45,14 +41,11 @@ export const requiredTypes = {
 export const initialState = {
     keyword: '',
     timePeriodType: 'fy',
-    timePeriodFY: new Set(["2017"]),
+    timePeriodFY: new Set([`${FiscalYearHelper.currentFiscalYear()}`]),
     timePeriodStart: null,
     timePeriodEnd: null,
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all',
-    budgetFunctions: new OrderedMap(),
-    federalAccounts: new OrderedMap(),
-    objectClasses: new Set(),
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),
     selectedRecipients: new OrderedMap(),
@@ -100,34 +93,6 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'UPDATE_DOMESTIC_FOREIGN': {
             return Object.assign({}, state, {
                 locationDomesticForeign: action.selection
-            });
-        }
-
-        // Budget Categories Filter
-        case 'UPDATE_SELECTED_BUDGET_FUNCTIONS': {
-            return Object.assign({}, state, {
-                budgetFunctions: BudgetCategoryFilterFunctions.updateBudgetFunctions(
-                    state.budgetFunctions, action.budgetFunction)
-            });
-        }
-
-        case 'UPDATE_SELECTED_FEDERAL_ACCOUNTS': {
-            return Object.assign({}, state, {
-                federalAccounts: BudgetCategoryFilterFunctions.updateFederalAccounts(
-                    state.federalAccounts, action.federalAccount)
-            });
-        }
-
-        case 'UPDATE_SELECTED_OBJECT_CLASSES': {
-            return Object.assign({}, state, {
-                objectClasses: BudgetCategoryFilterFunctions.updateObjectClasses(
-                    state.objectClasses, action.objectClass)
-            });
-        }
-        case 'BULK_SEARCH_FILTER_OBJECT_CLASSES': {
-            return Object.assign({}, state, {
-                objectClasses: BudgetCategoryFilterFunctions.bulkObjectClassesChange(
-                    state.objectClasses, action.objectClasses, action.direction)
             });
         }
 

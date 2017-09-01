@@ -28,7 +28,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         super(props);
 
         this.state = {
-            scope: 'pop',
+            scope: 'place_of_performance',
             mapScope: 'state',
             data: {
                 values: [],
@@ -72,17 +72,12 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         const searchParams = operation.toParams();
 
-        let fieldName = 'place_of_performance';
-        if (this.state.scope === 'recipient') {
-            fieldName = 'recipient__location';
-        }
-
         // generate the API parameters
         const apiParams = {
-            group: `${fieldName}__state_code`,
+            scope: this.state.scope,
             filters: searchParams,
             limit: 500,
-            auditTrail: 'Geo visualization'
+            auditTrail: 'Map Visualization'
         };
 
         if (this.apiRequest) {
@@ -110,9 +105,9 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         data.results.forEach((item) => {
             // state must not be null or empty string
-            if (item.item && item.item !== '') {
-                spendingStates.push(item.item);
-                spendingValues.push(parseFloat(item.aggregate));
+            if (item.state_code && item.state_code !== '') {
+                spendingStates.push(item.state_code);
+                spendingValues.push(parseFloat(item.aggregated_amount));
             }
         });
 
