@@ -34,7 +34,7 @@ export default class SearchPage extends React.Component {
             showMobileFilters: false,
             filterCount: 0,
             isMobile: false,
-            showFullDownload: true
+            showFullDownload: false
         };
 
         // throttle the ocurrences of the scroll callback to once every 50ms
