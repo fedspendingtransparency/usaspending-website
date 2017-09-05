@@ -1,16 +1,53 @@
 @import './_landingButtons';
 
-.landing-parent-wrap {
-    // we have to wrap divs with flex-direction: row and min-height inside a flex-direction: column
-    // for IE only
-    @include display(flex);
-    @include flex-direction(column);
-}
-
-.landing-section-wrap {
+.top-section {
     background: url(#{$image-path}/landing_bg_img.jpg) no-repeat center center fixed;
     background-size: cover;
     min-height: rem(700);
+    position: relative;
+    @media (max-height: 750px) {
+        min-height: rem(500);
+        & .content-wrap {
+            min-height: rem(225);
+        }
+    }
+
+    @media (max-height: 650px) {
+        min-height: rem(400);
+        & .content-wrap {
+            min-height: rem(175);
+        }
+    }
+    @media (max-height: 650px) and (max-width: $tablet-screen) {
+        min-height: rem(600);
+    }
+
+    .bottom-gradient {
+        @include linear-gradient(rgba(15, 45, 82, 0), rgba(15, 45, 82, 1));
+        bottom: 0;
+        height: rem(450);
+        left: 0;
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+    }
+
+    @import "./header/header";
+}
+
+.landing-parent-wrap {
+    // we have to wrap divs with flex-direction: row and min-height inside a flex-direction: column
+    // for IE only
+    // @include display(flex);
+    // @include flex-direction(column);
+    // position: absolute;
+    // top: 0;
+    // bottom: 0;
+    margin-top: rem(230);
+    margin-bottom: rem(70);
+}
+
+.landing-section-wrap {
     padding: 0 rem(30);
     position: relative;
     @include display(flex);
@@ -44,29 +81,5 @@
     }
     @include media($large-screen) {
         padding: 0 0;
-    }
-    & .bottom-gradient {
-        @include linear-gradient(rgba(15, 45, 82, 0), rgba(15, 45, 82, 1));
-        bottom: 0;
-        height: rem(450);
-        left: 0;
-        position: absolute;
-        width: 100%;
-        z-index: 1;
-    }
-    @media (max-height: 750px) {
-        min-height: rem(500);
-        & .content-wrap {
-            min-height: rem(225);
-        }
-    }
-    @media (max-height: 650px) {
-        min-height: rem(400);
-        & .content-wrap {
-            min-height: rem(175);
-        }
-    }
-    @media (max-height: 650px) and (max-width: $tablet-screen) {
-        min-height: rem(600);
     }
 }

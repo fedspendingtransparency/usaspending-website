@@ -1,19 +1,28 @@
-.upper-menu {
+.secondary-menu {
+    @include flex(0 1 auto);
+
     ul.small-menu {
         @include unstyled-list;
         @include display(flex);
         @include flex-direction(row);
-        @include align-items(flex-end);
-        @include justify-content(flex-end);
+        @include align-items(center);
+        @include justify-content(center);
         position: relative;
-        margin-bottom: rem(10);
+        height: rem(48);
         li {
+            @include flex(1 1 auto);
             color: $color-gray;
-            font-size: $small-font-size;
-            line-height: rem(16);
+            font-size: rem(14);
             a {
                 color: $color-gray;
                 padding: 0 rem(15);
+                opacity: 0.7;
+
+                &:hover, &:active {
+                    opacity: 1;
+                    text-decoration: none;
+                }
+
                 &.disabled {
                     color: $color-gray-lighter;
                 }
@@ -30,26 +39,50 @@
             button.header-glossary-button {
                 @include button-unstyled;
                 color: $color-gray;
-                font-size: $small-font-size;
-                line-height: rem(16);
+                font-size: rem(14);
+                line-height: rem(18);
+                opacity: 0.7;
                 &:hover,
                 &:active {
-                    text-decoration: underline;
+                    text-decoration: none;
+                    opacity: 1;
                 }
                 .glossary-button-content {
                     margin: 0 0 0 rem(15);
                     .glossary-button-icon {
                         display: inline-block;
                         position: relative;
-                        width: rem(12);
-                        height: rem(12);
+                        width: rem(14);
+                        height: rem(14);
                         margin-right: rem(5);
                         svg {
                             position: absolute;
                             top: rem(2);
-                            height: rem(12);
-                            width: rem(12);
+                            height: rem(14);
+                            width: rem(14);
                             fill: $color-gray;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.homepage {
+            li {
+                a {
+                    color: $color-white;
+                }
+
+                &:after {
+                    color: $color-white;
+                }
+
+                button.header-glossary-button {
+                    color: $color-white;
+
+                    .glossary-button-icon {
+                        svg {
+                            fill: $color-white;
                         }
                     }
                 }

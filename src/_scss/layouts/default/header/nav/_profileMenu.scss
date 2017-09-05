@@ -3,7 +3,9 @@
     height: rem(48);
     padding: rem(10) rem(15);
     color: $color-gray;
-    font-size: $base-font-size;
+    font-size: rem(20);
+    line-height: rem(25);
+    opacity: 0.7;
 
     .profile-button-content {
         @include display(flex);
@@ -27,9 +29,17 @@
     }
 
     &:hover, &:active, &.active {
-        background-color: $color-primary;
-        color: $color-white;
+        opacity: 1;
+        .profile-button-icon {
+            svg {
+                fill: $color-gray;
+            }
+        }
+    }
 
+
+    &.homepage {
+        color: $color-white;
         .profile-button-icon {
             svg {
                 fill: $color-white;
@@ -53,22 +63,25 @@
     ul.profile-list {
         position: relative;
         @include unstyled-list;
-        background-color: $color-primary;
+        background-color: $color-gray-lightest;
 
         width: 100%;
 
         li {
             white-space: nowrap;
             a {
-                font-size: $small-font-size;
-                color: $color-white;
+                font-size: rem(12);
+                color: $color-primary-alt-darkest;
                 text-decoration: none;
+                opacity: 0.7;
 
                 display: block;
-                padding: rem(15);
+                padding: rem(5) rem(15);
 
-                &:hover {
-                    background-color: $color-primary-darker;
+                &:hover, &:active {
+                    background-color: $color-gray-lighter;
+                    opacity: 1;
+                    text-decoration: none;
                 }
 
                 &.disabled {
@@ -89,7 +102,7 @@
                     svg {
                         height: rem(10);
                         width: rem(10);
-                        fill: $color-white;
+                        fill: $color-primary-alt-darkest;
                     }
                 }
 
@@ -97,9 +110,34 @@
                     @include flex(1 1 auto);
                     margin-left: rem(5);
                     font-size: rem(10);
-                    color: $color-white;
+                    color: $color-primary-alt-darkest;
                 }
 
+            }
+        }
+    }
+
+    &.homepage {
+        ul.profile-list {
+            background-color: transparent;
+
+            a {
+                color: $color-white;
+                &:hover {
+                    color: $color-white;
+                    background-color: transparent;                
+                }
+            }
+
+            .profile-coming-soon {
+                .icon {
+                    svg {
+                        fill: $color-white;
+                    }
+                }
+                .label {
+                    color: $color-white;
+                }
             }
         }
     }

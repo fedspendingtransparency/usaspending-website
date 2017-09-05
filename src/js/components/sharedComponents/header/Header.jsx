@@ -5,6 +5,10 @@ import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import WarningBanner from './WarningBanner';
 import NavBar from './NavBar';
 
+const defaultProps = {
+    homepage: false
+};
+
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -29,11 +33,12 @@ export default class Header extends React.Component {
                 </a>
                 <header>
                     <WarningBanner />
-                    <NavBar />
+                    <NavBar homepage={this.props.homepage} />
                 </header>
                 <GlossaryContainer />
             </div>
         );
     }
-
 }
+
+Header.defaultProps = defaultProps;
