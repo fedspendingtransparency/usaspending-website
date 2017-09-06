@@ -39,7 +39,8 @@ export default class ObjectClassContainer extends React.PureComponent {
                 children: []
             },
             totalObligation: 0,
-            totalMinorObligation: 0
+            totalMinorObligation: 0,
+            displayTotal: 0
         };
 
         this.showMinorObjectClasses = this.showMinorObjectClasses.bind(this);
@@ -84,7 +85,7 @@ export default class ObjectClassContainer extends React.PureComponent {
                 });
 
                 // Sum the positive obligated_amounts in the returned object classes
-                // to produce the total obligation amount
+                // to produce the total obligation amount for the treemap
                 const totalObligation = reduce(
                     res.data.results,
                     (sum, objectClass) => {
@@ -92,6 +93,16 @@ export default class ObjectClassContainer extends React.PureComponent {
                             return sum + parseFloat(objectClass.obligated_amount);
                         }
                         return sum;
+                    },
+                    0
+                );
+
+                // Sum ALL obligated_amounts in the returned object classes
+                // to produce the total obligation amount for the description
+                const displayTotal = reduce(
+                    res.data.results,
+                    (sum, objectClass) => {
+                        return sum + parseFloat(objectClass.obligated_amount);
                     },
                     0
                 );
@@ -104,7 +115,8 @@ export default class ObjectClassContainer extends React.PureComponent {
                         children: []
                     },
                     totalObligation,
-                    totalMinorObligation: 0
+                    totalMinorObligation: 0,
+                    displayTotal
                 });
             })
             .catch((err) => {
@@ -204,7 +216,8 @@ export default class ObjectClassContainer extends React.PureComponent {
                 totalObligation={this.state.totalObligation}
                 totalMinorObligation={this.state.totalMinorObligation}
                 showMinorObjectClasses={this.showMinorObjectClasses}
-                asOfDate={this.props.asOfDate} />
+                asOfDate={this.props.asOfDate}
+                displayTotal={this.state.displayTotal} />
         );
     }
 
