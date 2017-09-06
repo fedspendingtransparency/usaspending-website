@@ -96,15 +96,21 @@ export const mockDeeperRoot = {
     trail: new List([
         {
             within: 'root',
-            subdivision: 'agency',
+            subdivision: 'budget_function',
             total: 100,
             title: ''
         },
         {
-            within: 'agency',
-            subdivision: 'federal_account',
+            within: 'budget_function',
+            subdivision: 'budget_subfunction',
             total: 75,
-            title: 'First Agency'
+            title: 'Health'
+        },
+        {
+            within: "budget_subfunction",
+            subdivision: "federal_account",
+            title: "Health care services",
+            total: 60
         }
     ])
 };

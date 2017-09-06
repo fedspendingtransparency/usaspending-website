@@ -175,4 +175,56 @@ describe('DetailContentContainer', () => {
             expect(mockLoadData).toHaveBeenCalledWith(mockRequest, false);
         });
     });
+    describe('rewindToFilter', () => {
+        it ('should not rewind if it is called with the current filter', () => {
+            const container = mount(<DetailContentContainer
+                {...mockActions}
+                explorer={mockDeeperRoot} />);
+
+            container.instance().goDeeper('2', mockLevelData);
+            const expectedSteps = container.instance().state.transitionSteps;
+
+            container.instance().rewindToFilter(2);
+
+            expect(container.instance().state.transitionSteps).toEqual(expectedSteps);
+        });
+        it ('should call prepareRootRequest if going back to the start', () => {
+            const container = mount(<DetailContentContainer
+                {...mockActions}
+                explorer={mockDeeperRoot} />);
+
+            const mockPrepareRoot = jest.fn();
+            container.instance().prepareRootRequest = mockPrepareRoot;
+
+            container.instance().goDeeper('2', mockLevelData);
+            container.instance().rewindToFilter(0);
+
+            expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
+        });
+        it ('should overwrite the explorer trail and update the transition steps', () => {
+            const container = mount(<DetailContentContainer
+                {...mockActions}
+                explorer={mockDeeperRoot} />);
+
+            expect(container.instance().props.explorer.trail).toEqual(mockDeeperRoot.trail);
+
+            container.instance().rewindToFilter(1);
+
+            expect(container.instance().state.transitionSteps).toEqual(-1);
+            expect(mockActions.overwriteExplorerTrail).toHaveBeenCalledWith([
+                {
+                    within: 'root',
+                    subdivision: 'budget_function',
+                    total: 100,
+                    title: ''
+                },
+                {
+                    within: 'budget_function',
+                    subdivision: 'budget_subfunction',
+                    total: 75,
+                    title: 'Health'
+                }
+            ]);
+        });
+    });
 });
