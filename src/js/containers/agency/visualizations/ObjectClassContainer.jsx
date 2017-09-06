@@ -101,9 +101,7 @@ export default class ObjectClassContainer extends React.PureComponent {
                 // to produce the total obligation amount for the description
                 const displayTotal = reduce(
                     res.data.results,
-                    (sum, objectClass) => {
-                        return sum + parseFloat(objectClass.obligated_amount);
-                    },
+                    (sum, objectClass) => sum + parseFloat(objectClass.obligated_amount),
                     0
                 );
 
