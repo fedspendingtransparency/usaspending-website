@@ -43,3 +43,19 @@ LearnQ.defaultProps = {
     iconClass: 'usa-da-learn-question',
     alt: 'Learn About USASpending.gov'
 };
+
+export class Explorer extends HomeBaseIcon {}
+Explorer.defaultProps = {
+    iconName: 'usa-da-explorer',
+    iconClass: 'usa-da-explorer',
+    alt: 'Explorer'
+};
+
+export class AwardSearch extends HomeBaseIcon {}
+AwardSearch.defaultProps = {
+    iconName: 'usa-da-award-search',
+    iconClass: 'usa-da-award-search',
+    alt: 'Award Search'
+};
+
+

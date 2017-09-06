@@ -1,9 +1,8 @@
-@import './_landingButtons';
-
 .top-section {
     background: url(#{$image-path}/landing_bg_img.jpg) no-repeat center center fixed;
     background-size: cover;
     min-height: rem(700);
+    padding-bottom: rem(70);
     position: relative;
     @media (max-height: 750px) {
         min-height: rem(500);
@@ -36,15 +35,7 @@
 }
 
 .landing-parent-wrap {
-    // we have to wrap divs with flex-direction: row and min-height inside a flex-direction: column
-    // for IE only
-    // @include display(flex);
-    // @include flex-direction(column);
-    // position: absolute;
-    // top: 0;
-    // bottom: 0;
-    margin-top: rem(230);
-    margin-bottom: rem(70);
+    margin-top: rem(150);
 }
 
 .landing-section-wrap {
@@ -60,8 +51,6 @@
         text-align: center;
         z-index: 2;
         & h2 {
-            border-top: 1px solid rgba($color-white, .4);
-            border-bottom: 1px solid rgba($color-white, .4);
             color: $color-white;
             font-size: rem(45);
             margin: 0;
@@ -77,7 +66,8 @@
             font-weight: $font-normal;
             margin-top: rem(15);
         }
-        @include landingButtons;
+
+        @import "./_landingGettingStarted";
     }
     @include media($large-screen) {
         padding: 0 0;

@@ -15,8 +15,4 @@
     @import "visualizations/geo/mapSection";
 
     @import "./_searchSection";
-    @include searchSection;
-
-    @import "./_linksSection";
-    @include linksSection;
 }

@@ -1,16 +1,20 @@
 .secondary-menu {
-    @include flex(0 1 auto);
+    display: none;
+    @include media($medium-screen) {
+        display: block;
+        @include flex(0 1 auto);    
+    }
 
     ul.small-menu {
         @include unstyled-list;
         @include display(flex);
         @include flex-direction(row);
         @include align-items(center);
-        @include justify-content(center);
+        @include justify-content(flex-end);
         position: relative;
         height: rem(48);
         li {
-            @include flex(1 1 auto);
+            @include flex(0 0 auto);
             color: $color-gray;
             font-size: rem(14);
             a {

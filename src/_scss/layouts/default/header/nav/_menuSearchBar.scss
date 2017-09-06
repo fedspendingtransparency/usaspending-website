@@ -1,4 +1,5 @@
 .header-search-bar {
+    display: none;
     @include flex(0 1 auto);
     position: relative;
     width: rem(60);

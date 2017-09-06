@@ -1,0 +1,42 @@
+.getting-started {
+    @include button-unstyled;
+    margin-top: rem(150);
+
+    .getting-started-content {
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+        @include flex-direction(column);
+        position: relative;
+
+        .label {
+            @include flex(1 1 auto);
+            color: $color-white;
+            font-weight: $font-light;
+            font-size: rem(18);
+            line-height: rem(23);
+
+            margin-bottom: rem(18);
+        }
+
+        .icon {
+            @include flex(0 0 auto);
+            width: rem(40);
+            height: rem(40);
+            border-radius: rem(20);
+            box-shadow: 0 0 rem(8) $color-white;
+
+            svg {
+                fill: $color-white;
+                width: rem(40);
+                height: rem(40);
+            }
+        }
+    }
+
+    &:hover, &:active {
+        .icon {
+            box-shadow: 0 0 rem(12) $color-white;
+        }
+    }
+}

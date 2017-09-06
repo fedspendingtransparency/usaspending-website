@@ -54,6 +54,8 @@ export default class Homepage extends React.Component {
 
         this.dataRequests = [];
         this.mounted = false;
+
+        this.skippedNav = this.skippedNav.bind(this);
     }
 
     componentWillMount() {
@@ -153,9 +155,25 @@ export default class Homepage extends React.Component {
         });
     }
 
+    skippedNav(e) {
+        // don't update the URL due to potential React Router conflicts
+        e.preventDefault();
+        // scroll to the main-content id
+        const yPos = document.querySelector('#main-content').getBoundingClientRect().top;
+        window.scrollTo(0, yPos);
+    }
+
     render() {
         return (
             <div className="usa-da-home-page">
+                <div className="site-header">
+                    <a
+                        href="#main-content"
+                        className="skip-nav"
+                        onClick={this.skippedNav}>
+                            Skip to main content
+                    </a>
+                </div>
                 <MetaTags {...MetaTagHelper.homePageMetaTags} />
                 <WarningBanner />
                 <Landing
@@ -178,7 +196,6 @@ export default class Homepage extends React.Component {
                 <MapVisualizationWrapper
                     data={this.state.mapData} />
                 <SearchSection />
-                <LinksSection />
                 <Footer />
             </div>
         );
