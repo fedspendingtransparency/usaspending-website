@@ -27,7 +27,8 @@ export class ObligatedContainer extends React.PureComponent {
         this.state = {
             inFlight: true,
             obligatedAmount: 0,
-            budgetAuthority: 0
+            budgetAuthority: 0,
+            outlay: 0
         };
 
         this.loadData = this.loadData.bind(this);
@@ -64,7 +65,8 @@ export class ObligatedContainer extends React.PureComponent {
 
                 this.setState({
                     obligatedAmount: parseFloat(res.data.results[0].obligated_amount),
-                    budgetAuthority: parseFloat(res.data.results[0].budget_authority_amount)
+                    budgetAuthority: parseFloat(res.data.results[0].budget_authority_amount),
+                    outlay: parseFloat(res.data.results[0].outlay_amount)
                 });
             })
             .catch((err) => {
@@ -86,6 +88,7 @@ export class ObligatedContainer extends React.PureComponent {
                 agencyName={this.props.agencyName}
                 obligatedAmount={this.state.obligatedAmount}
                 budgetAuthority={this.state.budgetAuthority}
+                outlay={this.state.outlay}
                 asOfDate={this.props.asOfDate} />
         );
     }
