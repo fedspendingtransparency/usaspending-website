@@ -1,6 +1,8 @@
 .usa-da-home-page {
     @import "layouts/default/default";
 
+    @import "layouts/default/header/_warning";
+
     @import "./landingSection";
     @import "./treeMapIntro";
 

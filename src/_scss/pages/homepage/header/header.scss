@@ -3,6 +3,10 @@
         background-color: transparent;
         color: $color-white;
 
+        .skip-nav {
+            top: rem(-420);
+        }
+
         .usa-logo {
             // use the black and white logo
             a {

@@ -21,6 +21,7 @@ import CategoryMap from './visualizations/categoryMap/CategoryMap';
 import LinksSection from './LinksSection';
 import SearchSection from './SearchSection';
 import Footer from '../sharedComponents/Footer';
+import WarningBanner from '../sharedComponents/header/WarningBanner';
 
 export default class Homepage extends React.Component {
     constructor(props) {
@@ -156,6 +157,7 @@ export default class Homepage extends React.Component {
         return (
             <div className="usa-da-home-page">
                 <MetaTags {...MetaTagHelper.homePageMetaTags} />
+                <WarningBanner />
                 <Landing
                     total={this.state.total} />
                 <TreeMapIntro />
