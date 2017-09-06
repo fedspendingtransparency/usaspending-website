@@ -30,35 +30,16 @@ export default class AgencyObligatedGraph extends React.Component {
         let outlayPercent = 0;
         let remainderPercent = 0;
 
-        if ((obligatedValue > 0) && (outlayValue > 0) && (authorityValue > 0)) {
-            if (authorityValue > obligatedValue) {
-                // Both bars are visible
-                if (outlayValue < authorityValue) {
-                    // Outlay line overlaps with the bars
-                    obligatedPercent = (obligatedValue / authorityValue);
-                    remainderPercent = (remainderValue / authorityValue);
-                    outlayPercent = (outlayValue / authorityValue);
-                }
-                else {
-                    // Outlay line is farther right than the bars
-                    outlayPercent = 1;
-                    obligatedPercent = (obligatedValue / outlayValue);
-                    remainderPercent = (remainderValue / outlayValue);
-                }
+        const max = Math.max(obligatedValue, authorityValue, outlayValue);
+
+        if (obligatedValue > 0) {
+            obligatedPercent = obligatedValue / max;
+            if (remainderValue > 0) {
+                remainderPercent = (remainderValue) / max;
             }
-            else if (obligatedValue > outlayValue) {
-                // Obligated bar should cover budget authority
-                // Outlay line overlaps obligated bar
-                obligatedPercent = 1;
-                outlayPercent = (outlayValue / obligatedValue);
-            }
-            else {
-                // Outlay is farther right than the obligated bar
-                outlayPercent = 1;
-                if (outlayValue !== 0) {
-                    obligatedPercent = (obligatedValue / outlayValue);
-                }
-            }
+        }
+        if (outlayValue > 0) {
+            outlayPercent = outlayValue / max;
         }
 
         const obligatedWidth = this.props.width * obligatedPercent;
