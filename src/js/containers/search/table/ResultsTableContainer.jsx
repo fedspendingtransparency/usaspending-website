@@ -159,43 +159,34 @@ export class ResultsTableContainer extends React.Component {
     }
 
     parseTabCounts(data) {
-        // determine which types have award results
-        const availableTypes = {};
-        data.results.forEach((type) => {
-            const count = parseFloat(type.aggregate);
-            if (count > 0) {
-                availableTypes[type.type] = count;
+        const awardCounts = data.results;
+        let firstAvailable = '';
+        let i = 0;
+
+        // Set the first available award type to the first non-zero entry in the
+        while (firstAvailable === '' && i < tableTypes.length) {
+            const tableType = tableTypes[i].internal;
+
+            if (awardCounts[tableType] > 0) {
+                firstAvailable = tableType;
             }
-        });
 
-        // sum the types up by group
-        const availableGroups = {};
-        Object.keys(awardTypeGroups).forEach((group) => {
-            availableGroups[group] = 0;
-            awardTypeGroups[group].forEach((type) => {
-                if ({}.hasOwnProperty.call(availableTypes, type)) {
-                    availableGroups[group] += availableTypes[type];
-                }
-            });
-        });
+            i += 1;
+        }
 
-
-        let firstAvailable = 0;
-        for (let i = 0; i < tableTypes.length; i++) {
-            const type = tableTypes[i].internal;
-            if (availableGroups[type] > 0) {
-                firstAvailable = i;
-                i = tableTypes.length + 1;
-            }
+        // If none of the award types are populated, set the first available tab to be the
+        // first tab in the table
+        if (firstAvailable === '') {
+            firstAvailable = tableTypes[0].internal;
         }
 
         this.setState({
-            counts: availableGroups
+            counts: awardCounts
         }, () => {
             // select the first available tab
-            this.switchTab(tableTypes[firstAvailable].internal);
+            this.switchTab(firstAvailable);
             this.updateFilters();
-            this.showColumns(tableTypes[firstAvailable].internal);
+            this.showColumns(firstAvailable);
         });
     }
 
