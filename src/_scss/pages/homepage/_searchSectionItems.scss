@@ -90,13 +90,16 @@
 
         .action {
             @include flex(1 1 auto);
-            margin-top: rem(50);
+            margin-top: rem(30);
+            height: rem(40);
+            position: relative;
 
             @include display(flex);
+            @include flex-direction(column);
+            @include justify-content(flex-end);
 
             button.action-button {
                 @include flex(0 0 auto);
-                @include align-content(flex-end);
                 @include button-unstyled;
                 text-decoration: none;
                 color: $color-white;
@@ -104,12 +107,37 @@
                 font-size: rem(14);
                 font-weight: $font-semibold;
                 text-align: center;
+                border: 1px solid $color-white;
 
                 height: rem(40);
                 width: rem(200);
 
-                border: 1px solid $color-white;
+                .dropdown-content {
+                    @include display(flex);
+                    @include justify-content(center);
+                    @include align-items(center);
+                    position: relative;
+
+                    .label {
+                        @include flex(0 0 auto);
+                        margin-right: rem(5);
+                    }
+
+                    .dropdown-icon {
+                        @include flex(0 0 auto);
+                        height: rem(10);
+                        width: rem(10);
+
+                        svg {
+                            height: rem(10);
+                            width: rem(10);
+                            fill: $color-white;
+                        }
+                    }
+                }
             }
+
+            @import "./_searchSectionDropdown";
         }
     }
 }

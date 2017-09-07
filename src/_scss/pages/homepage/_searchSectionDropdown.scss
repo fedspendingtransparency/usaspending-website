@@ -1,0 +1,45 @@
+.dropdown {
+    @include unstyled-list;
+    z-index: $z-modal;
+
+    position: absolute;
+    top: rem(50);
+    left: 0;
+
+    @include display(flex);
+    @include flex-direction(column);
+    @include justify-content(flex-start);
+    @include align-items(flex-start);
+
+    width: rem(200);
+
+    li {
+        @include flex(1 1 auto);
+        border: 1px solid $color-white;
+        border-top: none;
+
+        &:first-child {
+            border-top: 1px solid $color-white;
+        }
+    }
+
+    .dropdown-button {
+        @include button-unstyled;
+        background-color: $color-primary-darkest;
+        color: $color-white;
+        text-transform: uppercase;
+        font-size: rem(14);
+        font-weight: $font-semibold;
+        text-align: center;
+
+        display: block;
+        width: rem(198);
+
+        padding: rem(8) 0;
+
+        &:hover, &:active {
+            background-color: $color-white;
+            color: $color-primary-darkest;
+        }
+    }
+}

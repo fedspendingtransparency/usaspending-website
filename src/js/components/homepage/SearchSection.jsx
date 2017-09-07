@@ -13,10 +13,21 @@ export default class SearchSection extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            expanded: false
+        };
+
+        this.toggleDropdown = this.toggleDropdown.bind(this);
     }
 
     navigateTo(url) {
         Router.history.push(url);
+    }
+
+    toggleDropdown() {
+        this.setState({
+            expanded: !this.state.expanded
+        });
     }
 
     render() {
@@ -43,9 +54,42 @@ export default class SearchSection extends React.Component {
                             </div>
                             <div className="action">
                                 <button
-                                    className="action-button">
-                                    Select an Option
+                                    className="action-button"
+                                    label="Select an Option"
+                                    onClick={this.toggleDropdown}>
+                                    <div className="dropdown-content">
+                                        <div className="label">
+                                            Select an Option
+                                        </div>
+                                        <div className="dropdown-icon">
+                                            <AngleDown alt="Select an Option" />
+                                        </div>
+                                    </div>
                                 </button>
+
+                                <ul className="dropdown">
+                                    <li>
+                                        <button
+                                            className="dropdown-button"
+                                            onClick={this.navigateTo.bind(null, "/agency")}>
+                                            Agencies
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button
+                                            className="dropdown-button"
+                                            disabled>
+                                            Recipients<br />Coming Soon
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button
+                                            className="dropdown-button"
+                                            disabled>
+                                            Federal Accounts<br />Coming Soon
+                                        </button>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <div className="way-item">
