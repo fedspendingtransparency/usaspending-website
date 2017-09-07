@@ -105,7 +105,7 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
 
         // generate the API parameters
         const apiParams = {
-            category: 'cfda',
+            category: 'cfda_programs',
             filters: searchParams,
             limit: 5,
             page: this.state.page

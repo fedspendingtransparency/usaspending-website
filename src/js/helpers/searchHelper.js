@@ -285,7 +285,7 @@ export const performSpendingByAwardTabCountSearch = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/search/spending_by_award_count/',
+            url: 'v2/search/spending_by_award_type_count/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -302,7 +302,7 @@ export const performSpendingByAwardSearch = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/search/spending_by_award/`,
+            url: `v2/search/spending_by_award_type/`,
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
