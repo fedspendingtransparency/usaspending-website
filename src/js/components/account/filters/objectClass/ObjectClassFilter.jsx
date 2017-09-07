@@ -28,16 +28,29 @@ export default class ObjectClassFilter extends React.Component {
     }
 
     render() {
-        const items = Object.keys(objectClassDefinitions).map((code) => {
-            const label = objectClassDefinitions[code];
+        const items = this.props.available.map((major) => {
+            const label = major.name;
+            const id = `${major.id}`;
+            const childFilters = [];
+            const childValues = {};
+            major.minor_object_class.forEach((minor) => {
+                const child = {
+                    code: `${minor.id}`,
+                    name: minor.name,
+                    type: 'Minor Object Class'
+                };
+
+                childFilters.push(`${minor.id}`);
+                childValues[minor.id] = child;
+            });
+
             return (<PrimaryCheckboxType
-                {...code}
-                {...this.props}
                 name={label}
-                value={code}
-                key={code}
-                types={objectClassDefinitions}
-                filterType="Object Class"
+                value={id}
+                key={id}
+                types={childValues}
+                filters={childFilters}
+                filterType="Major Object Class"
                 selectedCheckboxes={this.props.selectedCodes}
                 toggleCheckboxType={this.toggleValue}
                 enableAnalytics />);

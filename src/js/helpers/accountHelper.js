@@ -7,6 +7,8 @@ import Axios, { CancelToken } from 'axios';
 
 import kGlobalConstants from 'GlobalConstants';
 
+import MockAPI from './mockAccountOC';
+
 export const fetchFederalAccount = (id) => {
     const source = CancelToken.source();
     return {
@@ -64,6 +66,22 @@ export const fetchProgramActivities = (data) => {
             method: 'post',
             cancelToken: source.token
         }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const fetchAvailableObjectClasses = (federalAccountId) => {
+    const source = CancelToken.source();
+    return {
+        // promise: Axios.request({
+        //     url: `v2/federal_account/available_object_classes/${federalAccountId}`,
+        //     baseURL: kGlobalConstants.API,
+        //     method: 'get',
+        //     cancelToken: source.token
+        // }),
+        promise: MockAPI.generateResponse(),
         cancel() {
             source.cancel();
         }
