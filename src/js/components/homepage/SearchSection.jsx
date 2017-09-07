@@ -18,6 +18,8 @@ export default class SearchSection extends React.Component {
         };
 
         this.toggleDropdown = this.toggleDropdown.bind(this);
+        this.mouseEnter = this.mouseEnter.bind(this);
+        this.mouseExit = this.mouseExit.bind(this);
     }
 
     navigateTo(url) {
@@ -27,6 +29,18 @@ export default class SearchSection extends React.Component {
     toggleDropdown() {
         this.setState({
             expanded: !this.state.expanded
+        });
+    }
+
+    mouseEnter() {
+        this.setState({
+            expanded: true
+        });
+    }
+
+    mouseExit() {
+        this.setState({
+            expanded: false
         });
     }
 
@@ -57,7 +71,10 @@ export default class SearchSection extends React.Component {
                                     Learn more about organizations and accounts
                                 </div>
                             </div>
-                            <div className="action">
+                            <div
+                                className="action"
+                                onMouseEnter={this.mouseEnter}
+                                onMouseLeave={this.mouseExit}>
                                 <button
                                     className="action-button"
                                     label="Select an Option"
