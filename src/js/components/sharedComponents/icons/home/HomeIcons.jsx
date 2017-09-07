@@ -57,5 +57,3 @@ AwardSearch.defaultProps = {
     iconClass: 'usa-da-award-search',
     alt: 'Award Search'
 };
-
-

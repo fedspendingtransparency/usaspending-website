@@ -39,7 +39,7 @@ export default class Landing extends React.Component {
                             <div className="buttons-wrap">
                                 <button
                                     className="getting-started"
-                                    label="Get Started"
+                                    title="Get Started"
                                     onClick={this.scrollToBreakdown}>
                                     <div className="getting-started-content">
                                         <div className="label">

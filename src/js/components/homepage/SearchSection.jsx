@@ -31,6 +31,11 @@ export default class SearchSection extends React.Component {
     }
 
     render() {
+        let showDropdown = 'hide';
+        if (this.state.expanded) {
+            showDropdown = '';
+        }
+
         return (
             <div className="search-section-links-outer-wrap">
                 <div className="search-section-links-wrap">
@@ -67,7 +72,7 @@ export default class SearchSection extends React.Component {
                                     </div>
                                 </button>
 
-                                <ul className="dropdown">
+                                <ul className={`dropdown ${showDropdown}`}>
                                     <li>
                                         <button
                                             className="dropdown-button"
@@ -79,17 +84,24 @@ export default class SearchSection extends React.Component {
                                         <button
                                             className="dropdown-button"
                                             disabled>
-                                            Recipients<br />Coming Soon
+                                            Recipients
+                                            <div className="coming-soon">
+                                                Coming Soon
+                                            </div>
                                         </button>
                                     </li>
                                     <li>
                                         <button
                                             className="dropdown-button"
                                             disabled>
-                                            Federal Accounts<br />Coming Soon
+                                            Federal Accounts
+                                            <div className="coming-soon">
+                                                Coming Soon
+                                            </div>
                                         </button>
                                     </li>
                                 </ul>
+
                             </div>
                         </div>
                         <div className="way-item">

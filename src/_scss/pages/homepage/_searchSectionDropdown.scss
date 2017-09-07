@@ -2,9 +2,13 @@
     @include unstyled-list;
     z-index: $z-modal;
 
-    position: absolute;
-    top: rem(50);
-    left: 0;
+    position: relative;
+    
+    @include media($medium-screen) {
+        position: absolute;
+        top: rem(50);
+        left: 0;
+    }
 
     @include display(flex);
     @include flex-direction(column);
@@ -40,6 +44,19 @@
         &:hover, &:active {
             background-color: $color-white;
             color: $color-primary-darkest;
+        }
+
+        &[disabled] {
+            color: rgba(255,255,255,0.7);
+            &:hover, &:active {
+                background-color: $color-primary-darkest;
+                color: rgba(255,255,255,0.7);
+            }
+        }
+
+        .coming-soon {
+            font-size: rem(10);
+            color: rgba(255,255,255,0.4);
         }
     }
 }

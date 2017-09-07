@@ -18,7 +18,6 @@ import TreeMap from './visualizations/treemap/TreeMap';
 import TreeMapIntro from './TreeMapIntro';
 import MapTopBar from './MapTopBar';
 import CategoryMap from './visualizations/categoryMap/CategoryMap';
-import LinksSection from './LinksSection';
 import SearchSection from './SearchSection';
 import Footer from '../sharedComponents/Footer';
 import WarningBanner from '../sharedComponents/header/WarningBanner';

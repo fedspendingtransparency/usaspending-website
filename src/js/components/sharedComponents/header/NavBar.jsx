@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 
-import SearchBar from './searchBar/SearchBar';
 import NavBarGlossaryLink from './NavBarGlossaryLink';
 import ProfileButton from './ProfileButton';
 
@@ -30,7 +29,7 @@ const NavBar = (props) => {
             </div>
             <div className="mobile-menu">
                 <div className="mobile-button-wrapper">
-                    <button className="usa-menu-btn">
+                    <button className={`usa-menu-btn ${homepageClass}`}>
                         <span className="nav-lines" />
                     </button>
                 </div>
@@ -44,7 +43,7 @@ const NavBar = (props) => {
                         <a
                             className={`usa-nav-link ${homepageClass}`}
                             href="#/explorer"
-                            title="Explorer">
+                            title="Explorer: Navigate the levels of government spending from top to bottom">
                             <span>Explorer</span>
                         </a>
                     </li>
@@ -52,13 +51,12 @@ const NavBar = (props) => {
                         <a
                             className={`usa-nav-link ${homepageClass}`}
                             href="#/search"
-                            title="Award Search">
+                            title="Award Search: Search through awards and discover trends and connections">
                             <span>Award Search</span>
                         </a>
                     </li>
                 </ul>
             </div>
-            <SearchBar homepage={props.homepage} />
             <div className="secondary-menu">
                 <ul className={`small-menu ${homepageClass}`}>
                     <li>

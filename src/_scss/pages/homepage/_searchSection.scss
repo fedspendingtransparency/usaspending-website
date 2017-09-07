@@ -3,7 +3,7 @@
     background-color: $color-primary-darkest;
     .search-section-links-wrap {
         @include fullSectionWrap(0, 0);
-        padding-bottom: rem(100);
+        padding-bottom: rem(130);
         padding-top: rem(100);
         text-align: center;
         .search-section-links-primary-text {

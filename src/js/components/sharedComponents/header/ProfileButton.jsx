@@ -61,6 +61,7 @@ export default class ProfileButton extends React.Component {
                 onMouseLeave={this.collapseMenu}>
                 <button
                     className={`usa-nav-profile-button ${active} ${homepage}`}
+                    title="Profiles: Learn more about organizations and accounts"
                     onClick={this.clickedButton}>
                     <div className="profile-button-content">
                         <div className="profile-button-label">
