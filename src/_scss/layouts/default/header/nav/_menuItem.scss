@@ -15,6 +15,7 @@ li.menu-item {
         color: $color-gray;
         font-size: rem(20);
         line-height: rem(25);
+        font-weight: $font-semibold;
         opacity: 0.70;
 
         &:hover, &:active {

@@ -2,9 +2,10 @@
     @include button-unstyled;
     height: rem(48);
     padding: rem(10) rem(15);
-    color: $color-gray;
+    color: $color-base;
     font-size: rem(20);
     line-height: rem(25);
+    font-weight: $font-semibold;
     opacity: 0.7;
 
     .profile-button-content {
@@ -23,7 +24,7 @@
             svg {
                 width: rem(10);
                 height: rem(10);
-                fill: $color-gray;
+                fill: $color-base;
             }
         }
     }
@@ -32,7 +33,7 @@
         opacity: 1;
         .profile-button-icon {
             svg {
-                fill: $color-gray;
+                fill: $color-base;
             }
         }
     }
@@ -58,20 +59,24 @@
 
     .profile-list-wrapper {
         position: absolute;
+        padding-top: rem(13);
     }
 
     ul.profile-list {
         position: relative;
         @include unstyled-list;
         background-color: $color-gray-lightest;
+        box-shadow: $box-shadow;
 
         width: 100%;
 
         li {
             white-space: nowrap;
             a {
-                font-size: rem(12);
-                color: $color-primary-alt-darkest;
+                font-size: rem(20);
+                line-height: rem(25);
+                font-weight: $font-light;
+                color: $color-base;
                 text-decoration: none;
                 opacity: 0.7;
 
@@ -85,7 +90,7 @@
                 }
 
                 &.disabled {
-                    opacity: 0.5;
+                    opacity: 0.4;
                     pointer-events: none;
                     padding-bottom: rem(10);
                 }
@@ -96,21 +101,24 @@
                 @include align-items(center);
                 @include justify-content(center);
                 position: relative;
+                line-height: rem(10);
 
                 .icon {
                     @include flex(0 0 auto);
                     svg {
                         height: rem(10);
                         width: rem(10);
-                        fill: $color-primary-alt-darkest;
+                        color: $color-gray;
+                        fill-opacity: 0.4;
                     }
                 }
 
                 .label {
                     @include flex(1 1 auto);
                     margin-left: rem(5);
+                    margin-top: rem(5);
                     font-size: rem(10);
-                    color: $color-primary-alt-darkest;
+                    color: $color-base;
                 }
 
             }
@@ -118,8 +126,12 @@
     }
 
     &.homepage {
+        .profile-list-wrapper {
+            padding-top: 0;
+        }
         ul.profile-list {
             background-color: transparent;
+            box-shadow: none;
 
             a {
                 color: $color-white;
