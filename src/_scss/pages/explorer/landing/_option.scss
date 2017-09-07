@@ -71,6 +71,10 @@
         font-size: $base-font-size;
         padding: rem(10) rem(60);
 
+	    &:hover {
+		    background-color: $color-primary-alt-dark !important;
+	    }
+
         &:visited {
             background-color: $color-primary-alt;
         }

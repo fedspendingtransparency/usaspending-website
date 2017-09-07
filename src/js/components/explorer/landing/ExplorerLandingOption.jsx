@@ -37,7 +37,7 @@ const ExplorerLandingOption = (props) => {
             <a
                 className="landing-option-button"
                 href={props.url}>
-                Start Here
+                Start
             </a>
         </div>
     );

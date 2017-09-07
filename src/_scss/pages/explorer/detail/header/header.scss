@@ -1,7 +1,5 @@
 .root-header, .detail-header {
     @include display(flex);
-    @include justify-content(center);
-    @include align-items(center);
 
     position: relative;
     .left-side {
@@ -9,7 +7,7 @@
         h2 {
             margin: 0;
             font-weight: $font-light;
-            font-size: rem(28);
+            font-size: rem(38);
             line-height: rem(32);
 
             @include media($large-screen) {
@@ -21,8 +19,8 @@
         .instructions {
             margin-top: rem(10);
             font-weight: $font-light;
-            color: $color-primary-alt-darkest;
-            font-size: rem(24);
+	        color: #587786;
+            font-size: rem(28);
             line-height: rem(28);
         }
 
@@ -43,12 +41,12 @@
     }
 
     .right-side {
-        @include flex(1 0 auto);
+        @include flex(0 1 auto);
         width: rem(150);
         margin-left: rem(10);
         
         @include media($medium-screen) {
-            width: rem(250);
+            width: rem(200);
             margin-left: rem(50);
         }
         @include media($x-large-screen) {
@@ -60,7 +58,7 @@
             text-transform: uppercase;
             font-weight: $font-semibold;
 
-            font-size: rem(16);
+            font-size: rem(14);
             line-height: rem(21);
         }
 
@@ -72,7 +70,7 @@
             font-size: rem(36);
             line-height: rem(40);
 
-            color: $color-primary-alt-darkest;
+            color: #587786;
         }
 
         .update-date {
