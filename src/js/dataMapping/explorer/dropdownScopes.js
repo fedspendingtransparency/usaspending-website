@@ -11,7 +11,6 @@ export const dropdownScopes = {
         'budget_function',
         'budget_subfunction',
         'federal_account',
-        'program_activity',
         'object_class',
         'recipient',
         'award'
@@ -19,7 +18,6 @@ export const dropdownScopes = {
     agency: [
         'agency',
         'federal_account',
-        'program_activity',
         'object_class',
         'recipient',
         'award'
@@ -28,7 +26,6 @@ export const dropdownScopes = {
         'object_class',
         'agency',
         'federal_account',
-        'program_activity',
         'recipient',
         'award'
     ]

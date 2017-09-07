@@ -262,6 +262,18 @@ export class DetailContentContainer extends React.Component {
         // given this, determine how far down the path we are
         const path = dropdownScopes[this.props.explorer.root];
         const currentDepth = path.indexOf(this.props.explorer.active.subdivision);
+
+        // Add Program Activity as an option if a Federal Account has been picked
+        const accountDepth = path.indexOf('federal_account');
+        if (currentDepth >= accountDepth) {
+            if (this.props.explorer.root === 'agency') {
+                path[2] = 'program_activity';
+            }
+            else {
+                path[3] = 'program_activity';
+            }
+        }
+
         // the next subdivision unit is the next step down the path
         const nextSubdivision = path[currentDepth + 1];
 
