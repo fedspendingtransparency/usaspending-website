@@ -73,10 +73,9 @@ class SearchAwardsOperation {
         this.selectedNAICS = state.selectedNAICS.toArray();
         this.selectedPSC = state.selectedPSC.toArray();
 
-        // TODO - Mike Bray - Enable these Other Award Filters when they're available
-        // this.pricingType = state.pricingType.toArray();
-        // this.setAside = state.setAside.toArray();
-        // this.extentCompeted = state.extentCompeted.toArray();
+        this.pricingType = state.pricingType.toArray();
+        this.setAside = state.setAside.toArray();
+        this.extentCompeted = state.extentCompeted.toArray();
     }
 
     toParams() {
