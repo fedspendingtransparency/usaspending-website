@@ -158,8 +158,11 @@ export default class Homepage extends React.Component {
         // don't update the URL due to potential React Router conflicts
         e.preventDefault();
         // scroll to the main-content id
-        const yPos = document.querySelector('#main-content').getBoundingClientRect().top;
+        const mainElement = document.querySelector('#main-content');
+        const yPos = mainElement.getBoundingClientRect().top;
         window.scrollTo(0, yPos);
+        // focus on the element
+        mainElement.focus();
     }
 
     render() {
