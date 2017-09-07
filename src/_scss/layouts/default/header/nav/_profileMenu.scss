@@ -6,7 +6,7 @@
     font-size: rem(20);
     line-height: rem(25);
     font-weight: $font-semibold;
-    opacity: 0.7;
+    opacity: 0.6;
 
     .profile-button-content {
         @include display(flex);
@@ -78,7 +78,7 @@
                 font-weight: $font-light;
                 color: $color-base;
                 text-decoration: none;
-                opacity: 0.7;
+                opacity: 0.6;
 
                 display: block;
                 padding: rem(5) rem(15);
