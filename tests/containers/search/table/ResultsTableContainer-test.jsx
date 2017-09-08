@@ -372,32 +372,13 @@ describe('ResultsTableContainer', () => {
 
             // now check a second response
             const secondMock = Object.assign({}, mockTabCount, {
-                results: [
-                    {
-                        type: 'A',
-                        aggregate: '0'
-                    },
-                    {
-                        type: 'B',
-                        aggregate: '0'
-                    },
-                    {
-                        type: 'C',
-                        aggregate: '0'
-                    },
-                    {
-                        type: 'D',
-                        aggregate: '0'
-                    },
-                    {
-                        type: '02',
-                        aggregate: '1'
-                    },
-                    {
-                        type: '03',
-                        aggregate: '1'
-                    }
-                ]
+                results: {
+                    grants: 1,
+                    loans: 0,
+                    contracts: 0,
+                    direct_payments: 0,
+                    other: 0
+                }
             });
 
             container.instance().parseTabCounts(secondMock);

@@ -22,8 +22,8 @@ export const geo = {
 export const awardingAgency = {
     page_metadata: {
         page: 1,
-        has_next_page: false,
-        has_previous_page: false,
+        hasNext: false,
+        hasPrevious: false,
         next: null,
         previous: null
     },
@@ -44,8 +44,8 @@ export const awardingAgency = {
 export const cfda = {
     page_metadata: {
         page: 1,
-        has_next_page: false,
-        has_previous_page: false,
+        hasNext: false,
+        hasPrevious: false,
         next: null,
         previous: null
     },
@@ -66,8 +66,8 @@ export const cfda = {
 export const fundingAgency = {
     page_metadata: {
         page: 1,
-        has_next_page: false,
-        has_previous_page: false,
+        hasNext: false,
+        hasPrevious: false,
         next: null,
         previous: null
     },
@@ -88,8 +88,8 @@ export const fundingAgency = {
 export const industryCode = {
     page_metadata: {
         page: 1,
-        has_next_page: false,
-        has_previous_page: false,
+        hasNext: false,
+        hasPrevious: false,
         next: null,
         previous: null
     },
@@ -108,8 +108,8 @@ export const industryCode = {
 export const recipient = {
     page_metadata: {
         page: 1,
-        has_next_page: false,
-        has_previous_page: false,
+        hasNext: false,
+        hasPrevious: false,
         next: null,
         previous: null
     },

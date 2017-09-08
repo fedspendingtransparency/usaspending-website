@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { isEqual, max } from 'lodash';
+import { rootKeys } from 'dataMapping/search/awardsOperationKeys';
 
 import SpendingByIndustryCodeSection from
     'components/search/visualizations/rank/sections/SpendingByIndustryCodeSection';
@@ -120,14 +121,14 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
-        // because industry codes are only available for contracts, restrict the query to only
-        // contract types
-        const contractFilter = AwardTypeQuery.buildQuery(awardTypeGroups.contracts, 'transaction');
-        searchParams.awardType = contractFilter;
+        // because industry codes are only available for contracts,
+        // restrict the query to only contract types
+        searchParams[rootKeys.awardType] = awardTypeGroups.contracts;
 
         // Generate the API parameters
         const apiParams = {
-            category: 'industry_code',
+            category: 'industry_codes',
+            scope: this.state.scope,
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -190,8 +191,8 @@ ${MoneyFormatter.formatMoney(parseFloat(aggregate))}`;
             loading: false,
             next: data.page_metadata.next,
             previous: data.page_metadata.previous,
-            hasNextPage: data.page_metadata.has_next_page,
-            hasPreviousPage: data.page_metadata.has_previous_page
+            hasNextPage: data.page_metadata.hasNext,
+            hasPreviousPage: data.page_metadata.hasPrevious
         });
     }
 
