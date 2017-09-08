@@ -11,11 +11,10 @@ import Immutable from 'immutable';
 import { isCancel } from 'axios';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
-import SearchSortOrder from 'models/search/SearchSortOrder';
 import * as SearchHelper from 'helpers/searchHelper';
-import AwardSummary from 'models/results/award/AwardSummary';
+import ResultsTableAward from 'models/results/award/ResultsTableAward';
 
-import TableSearchFields from 'dataMapping/search/tableSearchFields';
+import AwardTableSearchFields from 'dataMapping/search/awardTableSearchFields';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 import { measureTableHeader } from 'helpers/textMeasurement';
@@ -194,14 +193,14 @@ export class ResultsTableContainer extends React.Component {
         // calculate the column metadata to display in the table
         const columns = [];
         const hiddenColumns = [];
-        let sortOrder = TableSearchFields.defaultSortDirection;
+        let sortOrder = AwardTableSearchFields.defaultSortDirection;
         const columnVisibility = this.props.columnVisibility[tableType];
 
         if (tableType === 'loans') {
-            sortOrder = TableSearchFields.loans.sortDirection;
+            sortOrder = AwardTableSearchFields.loans.sortDirection;
         }
 
-        const tableSettings = TableSearchFields[tableType];
+        const tableSettings = AwardTableSearchFields[tableType];
 
         columnVisibility.visibleColumns.forEach((col) => {
             const displayName = tableSettings[col];
@@ -253,9 +252,9 @@ export class ResultsTableContainer extends React.Component {
         searchParams.awardType = awardTypeGroups[tableType];
 
         // parse the redux search order into the API-consumable format
-        const searchOrder = new SearchSortOrder();
-        searchOrder.parseReduxState(tableType, this.props.searchOrder.toJS());
-        const sortParams = searchOrder.toParams();
+        const searchOrder = this.props.searchOrder.toJS();
+        const order = AwardTableSearchFields[tableType][searchOrder.field];
+        const sort = searchOrder.direction;
 
         // indicate the request is about to start
         this.props.setSearchInFlight(true);
@@ -268,11 +267,11 @@ export class ResultsTableContainer extends React.Component {
         }
         const resultLimit = 60;
 
-        const requestFields = ['id', 'piid', 'fain', 'uri'];
+        const requestFields = ['Award ID'];
 
         // Request fields for visible columns only
         const columnVisibility = this.props.columnVisibility[tableType];
-        const mapping = TableSearchFields[tableType]._mapping;
+        const mapping = AwardTableSearchFields[tableType];
 
         columnVisibility.visibleColumns.forEach((col) => {
             const field = mapping[col];
@@ -283,7 +282,7 @@ export class ResultsTableContainer extends React.Component {
         });
 
         this.searchRequest = SearchHelper.performPagedSpendingByAwardSearch(searchParams.toParams(),
-            pageNumber, resultLimit, sortParams, requestFields);
+            pageNumber, resultLimit, sort, order, requestFields, null);
 
         this.searchRequest.promise
             .then((res) => {
@@ -307,7 +306,8 @@ export class ResultsTableContainer extends React.Component {
                 this.setState({
                     downloadParams: {
                         filters: searchParams.toParams(),
-                        order: sortParams,
+                        order,
+                        sort,
                         fields: requestFields
                     }
                 });
@@ -349,15 +349,15 @@ export class ResultsTableContainer extends React.Component {
 
         data.forEach((awardData) => {
             // convert the data record to a model object
-            const idField = TableSearchFields[this.props.meta.tableType]._mapping.awardId;
-            const award = new AwardSummary(awardData, idField);
-            awards.push(award);
+            const idField = AwardTableSearchFields[this.props.meta.tableType].award_id;
+            const award = new ResultsTableAward(awardData, idField);
+            awards.push(awardData);
         });
 
         // write all records into Redux
         this.props.bulkInsertRecordSet({
             type: 'awards',
-            data: awards
+            data: data
         });
     }
 
@@ -366,12 +366,12 @@ export class ResultsTableContainer extends React.Component {
         const currentSortField = this.props.searchOrder.field;
 
         // check if the current sort field is available in the table type
-        if (!Object.hasOwnProperty.call(TableSearchFields[tab], currentSortField)) {
+        if (!Object.hasOwnProperty.call(AwardTableSearchFields[tab], currentSortField)) {
             // the sort field doesn't exist, use the table type's default field
-            const field = TableSearchFields[tab]._defaultSortField;
-            let direction = TableSearchFields.defaultSortDirection[field];
+            const field = AwardTableSearchFields[tab]._defaultSortField;
+            let direction = AwardTableSearchFields.defaultSortDirection[field];
             if (tab === 'loans') {
-                direction = TableSearchFields.loans.sortDirection[field];
+                direction = AwardTableSearchFields.loans.sortDirection[field];
             }
 
             this.props.setSearchOrder({
