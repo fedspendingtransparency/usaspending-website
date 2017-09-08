@@ -163,3 +163,9 @@ export const reorderColumns = (state) => ({
     dragIndex: state.dragIndex,
     hoverIndex: state.hoverIndex
 });
+
+export const populateAvailableColumns = (state) => ({
+    type: 'POPULATE_COLUMN_VISIBILITY',
+    fullSet: state
+});
+

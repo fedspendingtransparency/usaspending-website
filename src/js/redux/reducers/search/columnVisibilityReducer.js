@@ -13,7 +13,7 @@ export const VisibilityRecord = Record(initialState);
 
 const columnVisibilityReducer = (state = initialState, action) => {
     switch (action.type) {
-        case `TOGGLE_COLUMN_VISIBILITY`: {
+        case 'TOGGLE_COLUMN_VISIBILITY': {
             const updatedVisible = ColumnVisibilityFuncs.toggleItem(
                 state[action.tableType].visibleColumns, action.column);
             const updatedHidden = ColumnVisibilityFuncs.toggleItem(
@@ -38,6 +38,11 @@ const columnVisibilityReducer = (state = initialState, action) => {
                     hiddenColumns: state[`${tableType}`].hiddenColumns
                 }
             });
+        }
+        case 'POPULATE_COLUMN_VISIBILITY': {
+            // overwrite the entire store with a given value
+            const immutableSet = ColumnVisibilityFuncs.convertDataSetToImmutable(action.fullSet);
+            return Object.assign({}, immutableSet);
         }
         case 'RESET_COLUMN_VISIBILITY': {
             return initialState;

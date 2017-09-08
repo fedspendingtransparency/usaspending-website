@@ -13,8 +13,7 @@ import ResultsColumnOption from './ResultsColumnOption';
 import ResultsColumnVisibleOption from './ResultsColumnVisibleOption';
 
 const propTypes = {
-    columns: PropTypes.array,
-    hiddenColumns: PropTypes.array,
+    columns: PropTypes.object,
     toggleColumnVisibility: PropTypes.func,
     reorderColumns: PropTypes.func
 };
@@ -42,6 +41,7 @@ class ResultsSelectColumns extends React.Component {
     }
 
     render() {
+        return null;
         const numHiddenColumns = this.props.hiddenColumns.length.toString();
         let hiddenColumnsText = `Hidden Columns`;
         if (numHiddenColumns === "1") {

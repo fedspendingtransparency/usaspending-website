@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
 import { isCancel } from 'axios';
+import { difference } from 'lodash';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -17,6 +18,8 @@ import ResultsTableAward from 'models/results/award/ResultsTableAward';
 import AwardTableSearchFields from 'dataMapping/search/awardTableSearchFields';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
+import { availableColumns, defaultColumns } from 'dataMapping/search/awardTableColumns';
+import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
@@ -97,7 +100,7 @@ export class ResultsTableContainer extends React.Component {
         // set some default columns to look at while the initial tab-picker API calls are in flight
         // we can't hide the table entirely because the viewport is required to calculate the
         // row rendering
-        this.showColumns('contracts');
+        this.loadColumns();
         this.pickDefaultTab();
     }
 
@@ -109,7 +112,6 @@ export class ResultsTableContainer extends React.Component {
         else if (prevProps.meta.tableType !== this.props.meta.tableType) {
             // table type has changed
             this.updateFilters();
-            this.showColumns(this.props.meta.tableType);
         }
         else if (prevProps.searchOrder !== this.props.searchOrder) {
             // the sort order changed
@@ -127,8 +129,9 @@ export class ResultsTableContainer extends React.Component {
         }
         else if (prevProps.columnVisibility !== this.props.columnVisibility) {
             // Visible columns have changed
+            // we don't need to reload the table columns because the Redux store is the source
+            // of truth for which columns are visible
             this.performSearch(true);
-            this.showColumns(this.props.meta.tableType);
         }
     }
 
@@ -185,46 +188,6 @@ export class ResultsTableContainer extends React.Component {
             // select the first available tab
             this.switchTab(firstAvailable);
             this.updateFilters();
-            this.showColumns(firstAvailable);
-        });
-    }
-
-    showColumns(tableType) {
-        // calculate the column metadata to display in the table
-        const columns = [];
-        const hiddenColumns = [];
-        let sortOrder = AwardTableSearchFields.defaultSortDirection;
-        const columnVisibility = this.props.columnVisibility[tableType];
-
-        if (tableType === 'loans') {
-            sortOrder = AwardTableSearchFields.loans.sortDirection;
-        }
-
-        const tableSettings = AwardTableSearchFields[tableType];
-
-        columnVisibility.visibleColumns.forEach((col) => {
-            const displayName = tableSettings[col];
-            const width = measureTableHeader(displayName);
-            const column = {
-                displayName,
-                width,
-                columnName: col,
-                defaultDirection: sortOrder[col]
-            };
-            columns.push(column);
-        });
-
-        columnVisibility.hiddenColumns.forEach((col) => {
-            const column = {
-                columnName: col,
-                displayName: tableSettings[col]
-            };
-            hiddenColumns.push(column);
-        });
-
-        this.setState({
-            columns,
-            hiddenColumns
         });
     }
 
@@ -239,6 +202,51 @@ export class ResultsTableContainer extends React.Component {
         });
     }
 
+    loadColumns() {
+        // in the future, this will be an API call, but for now, read the local data file
+        // load every possible table column up front, so we don't need to deal with this when
+        // switching tabs
+        const columns = {};
+        tableTypes.forEach((type) => {
+            const allColumns = availableColumns(type.internal);
+            const visibleOrder = defaultColumns(type.internal);
+            const hiddenOrder = difference(allColumns, visibleOrder);
+
+            const parsedColumns = {};
+            allColumns.forEach((title) => {
+                parsedColumns[title] = this.createColumn(title);
+            });
+
+            columns[type.internal] = {
+                visibleOrder,
+                hiddenOrder,
+                data: parsedColumns
+            };
+        });
+
+        // save the values to redux
+        this.props.populateAvailableColumns(columns);
+    }
+
+    createColumn(title) {
+        // create an object that integrates with the expected column data structure used by
+        // the table component
+        const dataType = awardTableColumnTypes[title];
+        let direction = 'asc';
+        if (dataType === 'number') {
+            direction = 'desc';
+        }
+
+        const column = {
+            columnName: title,
+            displayName: title,
+            width: measureTableHeader(title),
+            defaultDirection: direction
+        };
+
+        return column;
+    }
+
     performSearch(newSearch = false) {
         if (this.searchRequest) {
             // a request is currently in-flight, cancel it
@@ -251,10 +259,6 @@ export class ResultsTableContainer extends React.Component {
         const searchParams = Object.assign(new SearchAwardsOperation(), this.state.searchParams);
         searchParams.awardType = awardTypeGroups[tableType];
 
-        // parse the redux search order into the API-consumable format
-        const searchOrder = this.props.searchOrder.toJS();
-        const order = AwardTableSearchFields[tableType][searchOrder.field];
-        const sort = searchOrder.direction;
 
         // indicate the request is about to start
         this.props.setSearchInFlight(true);
@@ -270,19 +274,36 @@ export class ResultsTableContainer extends React.Component {
         const requestFields = ['Award ID'];
 
         // Request fields for visible columns only
-        const columnVisibility = this.props.columnVisibility[tableType];
-        const mapping = AwardTableSearchFields[tableType];
+        const columnVisibility = this.props.columnVisibility[tableType].visibleOrder;
 
-        columnVisibility.visibleColumns.forEach((col) => {
-            const field = mapping[col];
+        columnVisibility.forEach((field) => {
             if (!requestFields.includes(field)) {
                 // Prevent duplicates in the list of fields to request
                 requestFields.push(field);
             }
         });
 
-        this.searchRequest = SearchHelper.performPagedSpendingByAwardSearch(searchParams.toParams(),
-            pageNumber, resultLimit, sort, order, requestFields, null);
+        // parse the redux search order into the API-consumable format
+        const searchOrder = this.props.searchOrder.toJS();
+        let sortDirection = searchOrder.direction;
+        if (!sortDirection) {
+            sortDirection = 'desc';
+        }
+
+        const params = {
+            filters: searchParams.toParams(),
+            fields: requestFields,
+            page: pageNumber,
+            limit: resultLimit,
+            sort: searchOrder.field,
+            order: sortDirection
+        };
+
+        console.log(params);
+
+        // this.searchRequest = SearchHelper.performPagedSpendingByAwardSearch(searchParams.toParams(),
+        //     pageNumber, resultLimit, sort, order, requestFields, null);
+        this.searchRequest = SearchHelper.performSpendingByAwardSearch(params);
 
         this.searchRequest.promise
             .then((res) => {
@@ -306,8 +327,8 @@ export class ResultsTableContainer extends React.Component {
                 this.setState({
                     downloadParams: {
                         filters: searchParams.toParams(),
-                        order,
-                        sort,
+                        order: searchOrder,
+                        sort: searchOrder.field,
                         fields: requestFields
                     }
                 });
@@ -412,15 +433,15 @@ export class ResultsTableContainer extends React.Component {
     }
 
     render() {
+        const tableType = this.props.meta.tableType;
         return (
             <ResultsTableSection
                 batch={this.props.batch}
                 inFlight={this.props.meta.inFlight}
                 results={this.props.rows.toArray()}
                 resultsMeta={this.props.meta}
-                columns={this.state.columns}
+                columns={this.props.columnVisibility[tableType]}
                 counts={this.state.counts}
-                hiddenColumns={this.state.hiddenColumns}
                 toggleColumnVisibility={this.toggleColumnVisibility}
                 reorderColumns={this.reorderColumns}
                 tableTypes={tableTypes}

@@ -302,7 +302,7 @@ export const performSpendingByAwardSearch = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/search/spending_by_award/`,
+            url: `v2/search/spending_by_award_type/`,
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -316,7 +316,7 @@ export const performSpendingByAwardSearch = (params) => {
 
 export const performPagedSpendingByAwardSearch = (filters = [], page = 1, limit = 15,
     sort = 'Award Amount', order = 'desc', fields = null, exclude = null) => {
-    const params = { filters, page, limit, sort, order };
+    const params = { filters, page, limit };
 
     if (sort) {
         params.sort = sort;
@@ -334,6 +334,8 @@ export const performPagedSpendingByAwardSearch = (filters = [], page = 1, limit 
         // we have specific fields to exclude
         params.exclude = exclude;
     }
+
+    console.log(params);
 
     return performSpendingByAwardSearch(params);
 };

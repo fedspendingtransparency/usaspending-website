@@ -15,7 +15,7 @@ import ResultsTableAwardIdCell from './cells/ResultsTableAwardIdCell';
 const propTypes = {
     results: PropTypes.array,
     batch: PropTypes.object,
-    columns: PropTypes.array,
+    columns: PropTypes.object,
     headerCellClass: PropTypes.func.isRequired,
     visibleWidth: PropTypes.number,
     loadNextPage: PropTypes.func,
@@ -43,7 +43,7 @@ export default class ResultsTable extends React.PureComponent {
 
     componentWillReceiveProps(nextProps) {
         const currentType = nextProps.currentType;
-        const visibleColumnsSet = new OrderedSet(nextProps.columns);
+        const visibleColumnsSet = new OrderedSet(nextProps.columns.visibleOrder);
         // update the data hash
         this.setState({
             dataHash: `${currentType}-${visibleColumnsSet.hashCode()}`
@@ -103,9 +103,11 @@ export default class ResultsTable extends React.PureComponent {
 
         const HeaderCell = this.props.headerCellClass;
 
-        const columns = this.props.columns.map((column, i) => {
+        const columnOrder = this.props.columns.visibleOrder.toJS();
+        const columns = columnOrder.map((columnTitle, i) => {
+            const column = this.props.columns.data.get(columnTitle);
             totalWidth += column.width;
-            const isLast = i === this.props.columns.length - 1;
+            const isLast = i === columnOrder.length - 1;
             let cellName = null;
             if (column.columnName === 'award_id') {
                 cellName = (index) => (
