@@ -18,7 +18,8 @@ import ResultsTableAward from 'models/results/award/ResultsTableAward';
 import AwardTableSearchFields from 'dataMapping/search/awardTableSearchFields';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
-import { availableColumns, defaultColumns } from 'dataMapping/search/awardTableColumns';
+import { availableColumns, defaultColumns, defaultSort } from
+    'dataMapping/search/awardTableColumns';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
@@ -79,11 +80,9 @@ export class ResultsTableContainer extends React.Component {
         super(props);
 
         this.state = {
-            columns: [],
             searchParams: new SearchAwardsOperation(),
             page: 0,
             downloadParams: {},
-            hiddenColumns: [],
             counts: {}
         };
 
@@ -127,11 +126,16 @@ export class ResultsTableContainer extends React.Component {
                 this.performSearch();
             }
         }
-        else if (prevProps.columnVisibility !== this.props.columnVisibility) {
+        else if (prevProps.columnVisibility.visibleOrder !== this.props.columnVisibility.visibleOrder) {
             // Visible columns have changed
             // we don't need to reload the table columns because the Redux store is the source
             // of truth for which columns are visible
-            this.performSearch(true);
+            if (prevProps.columnVisibility.visibleOrder.count() > 0) {
+                // if the previous visible column count was 0, then that just meant the initial
+                // column set hadn't loaded yet, we don't need to do a new search in that case (bc
+                // it means we're still loading the page)
+                this.performSearch(true);
+            }
         }
     }
 
@@ -387,12 +391,14 @@ export class ResultsTableContainer extends React.Component {
         const currentSortField = this.props.searchOrder.field;
 
         // check if the current sort field is available in the table type
-        if (!Object.hasOwnProperty.call(AwardTableSearchFields[tab], currentSortField)) {
+        const availableFields = this.props.columnVisibility[tab].data;
+        if (!availableFields.has(currentSortField)) {
             // the sort field doesn't exist, use the table type's default field
-            const field = AwardTableSearchFields[tab]._defaultSortField;
-            let direction = AwardTableSearchFields.defaultSortDirection[field];
-            if (tab === 'loans') {
-                direction = AwardTableSearchFields.loans.sortDirection[field];
+            const field = defaultSort(tab);
+            const fieldType = awardTableColumnTypes[field];
+            let direction = 'desc';
+            if (fieldType === 'number') {
+                direction = 'asc';
             }
 
             this.props.setSearchOrder({

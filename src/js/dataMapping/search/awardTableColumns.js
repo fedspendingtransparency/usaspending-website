@@ -210,3 +210,15 @@ export const defaultColumns = (type) => {
     return columns[type];
 };
 
+export const defaultSort = (type) => {
+    const columns = {
+        contracts: 'Award ID',
+        grants: 'Award ID',
+        direct_payments: 'Award ID',
+        loans: 'Award ID',
+        other: 'Award ID'
+    };
+
+    return columns[type];
+};
+
