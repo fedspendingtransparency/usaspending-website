@@ -17,7 +17,9 @@ import ObjectClassFilter from 'components/account/filters/objectClass/ObjectClas
 
 const propTypes = {
     accountId: PropTypes.number,
-    toggleObjectClass: PropTypes.func
+    toggleObjectClass: PropTypes.func,
+    setAvailableObjectClasses: PropTypes.func,
+    bulkObjectClassesChange: PropTypes.func
 };
 
 export class AccountObjectClassContainer extends React.Component {
@@ -32,6 +34,7 @@ export class AccountObjectClassContainer extends React.Component {
 
         // bind functions
         this.updateFilter = this.updateFilter.bind(this);
+        this.updateMajorFilter = this.updateMajorFilter.bind(this);
     }
 
     componentWillMount() {
@@ -57,8 +60,8 @@ export class AccountObjectClassContainer extends React.Component {
         this.availableRequest = AccountHelper.fetchAvailableObjectClasses(id);
         this.availableRequest.promise
             .then((res) => {
+                this.parseAvailableOCs(res.data.results);
                 this.setState({
-                    available: res.data.results,
                     loading: false,
                     error: false
                 });
@@ -67,9 +70,7 @@ export class AccountObjectClassContainer extends React.Component {
                 if (!isCancel(err)) {
                     this.availableRequest = null;
                     console.log(err);
-
                     this.setState({
-                        available: [],
                         loading: false,
                         error: true
                     });
@@ -77,15 +78,40 @@ export class AccountObjectClassContainer extends React.Component {
             });
     }
 
+    parseAvailableOCs(data) {
+        const definitions = {};
+        const children = {};
+        data.forEach((major) => {
+            definitions[`${major.id}`] = major.name;
+            const childIds = [];
+            major.minor_object_class.forEach((minor) => {
+                definitions[`${minor.id}`] = minor.name;
+                childIds.push(`${minor.id}`);
+            });
+
+            children[`${major.id}`] = childIds;
+        });
+
+        this.props.setAvailableObjectClasses({
+            definitions,
+            children,
+            values: data
+        });
+    }
+
     updateFilter(code) {
         this.props.toggleObjectClass(code);
+    }
+
+    updateMajorFilter(action) {
+        this.props.bulkObjectClassesChange(action);
     }
 
     render() {
         return (
             <ObjectClassFilter
                 {...this.props}
-                available={this.state.available}
+                updateMajorFilter={this.updateMajorFilter}
                 updateFilter={this.updateFilter} />
         );
     }
@@ -96,7 +122,8 @@ AccountObjectClassContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         accountId: state.account.account.id,
-        selectedCodes: state.account.filters.objectClass
+        selectedCodes: state.account.filters.objectClass,
+        availableObjectClasses: state.account.filterOptions.objectClass
     }),
     (dispatch) => bindActionCreators(accountFilterActions, dispatch)
 )(AccountObjectClassContainer);

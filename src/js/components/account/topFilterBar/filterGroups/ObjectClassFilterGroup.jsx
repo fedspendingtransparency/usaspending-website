@@ -6,8 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
-
 import BaseTopFilterGroup from 'components/search/topFilterBar/filterGroups/BaseTopFilterGroup';
 
 const propTypes = {
@@ -38,7 +36,7 @@ export default class ObjectClassFilterGroup extends React.Component {
         const selectedValues = this.props.filter.values;
 
         selectedValues.forEach((value) => {
-            const label = objectClassDefinitions[value];
+            const label = this.props.redux.filterOptions.objectClassDefinitions[value];
             const tag = {
                 value,
                 title: label,
