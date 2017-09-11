@@ -314,30 +314,6 @@ export const performSpendingByAwardSearch = (params) => {
     };
 };
 
-export const performPagedSpendingByAwardSearch = (filters = [], page = 1, limit = 15,
-    sort = 'Award Amount', order = 'desc', fields = null, exclude = null) => {
-    const params = { filters, page, limit, sort, order };
-
-    if (sort) {
-        params.sort = sort;
-    }
-
-    if (order) {
-        params.order = order;
-    }
-
-    if (fields != null) {
-        // we have specific fields to query for
-        params.fields = fields;
-    }
-    else if (exclude != null) {
-        // we have specific fields to exclude
-        params.exclude = exclude;
-    }
-
-    return performSpendingByAwardSearch(params);
-};
-
 // Fetch Recipients
 export const fetchRecipients = (req) => {
     const source = CancelToken.source();

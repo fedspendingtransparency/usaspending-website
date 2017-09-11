@@ -36,6 +36,7 @@ class SearchAwardsOperation {
         this.selectedCFDA = [];
         this.selectedNAICS = [];
         this.selectedPSC = [];
+
         this.pricingType = [];
         this.setAside = [];
         this.extentCompeted = [];

@@ -20,7 +20,6 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import * as AwardTypeQuery from 'models/search/queryBuilders/AwardTypeQuery';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
