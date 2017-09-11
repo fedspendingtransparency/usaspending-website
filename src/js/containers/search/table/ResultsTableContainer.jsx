@@ -13,9 +13,7 @@ import { difference } from 'lodash';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import * as SearchHelper from 'helpers/searchHelper';
-import ResultsTableAward from 'models/results/award/ResultsTableAward';
 
-import AwardTableSearchFields from 'dataMapping/search/awardTableSearchFields';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 import { availableColumns, defaultColumns, defaultSort } from
@@ -44,7 +42,8 @@ const propTypes = {
     triggerBatchQueryUpdate: PropTypes.func,
     columnVisibility: PropTypes.object,
     toggleColumnVisibility: PropTypes.func,
-    reorderColumns: PropTypes.func
+    reorderColumns: PropTypes.func,
+    populateAvailableColumns: PropTypes.func
 };
 
 const tableTypes = [
@@ -126,11 +125,12 @@ export class ResultsTableContainer extends React.Component {
                 this.performSearch();
             }
         }
-        else if (prevProps.columnVisibility.visibleOrder !== this.props.columnVisibility.visibleOrder) {
+        else if (prevProps.columnVisibility[prevProps.meta.tableType].visibleOrder !==
+            this.props.columnVisibility[this.props.meta.tableType].visibleOrder) {
             // Visible columns have changed
             // we don't need to reload the table columns because the Redux store is the source
             // of truth for which columns are visible
-            if (prevProps.columnVisibility.visibleOrder.count() > 0) {
+            if (prevProps.columnVisibility[prevProps.meta.tableType].visibleOrder.count() > 0) {
                 // if the previous visible column count was 0, then that just meant the initial
                 // column set hadn't loaded yet, we don't need to do a new search in that case (bc
                 // it means we're still loading the page)
@@ -237,7 +237,7 @@ export class ResultsTableContainer extends React.Component {
         // the table component
         const dataType = awardTableColumnTypes[title];
         let direction = 'asc';
-        if (dataType === 'number') {
+        if (dataType === 'number' || dataType === 'currency') {
             direction = 'desc';
         }
 
@@ -303,12 +303,7 @@ export class ResultsTableContainer extends React.Component {
             order: sortDirection
         };
 
-        console.log(params);
-
-        // this.searchRequest = SearchHelper.performPagedSpendingByAwardSearch(searchParams.toParams(),
-        //     pageNumber, resultLimit, sort, order, requestFields, null);
         this.searchRequest = SearchHelper.performSpendingByAwardSearch(params);
-
         this.searchRequest.promise
             .then((res) => {
                 this.props.setSearchInFlight(false);
@@ -368,21 +363,10 @@ export class ResultsTableContainer extends React.Component {
     }
 
     parseData(data) {
-        // iterate through the result set and create model instances
-        // save each model to Redux
-        const awards = [];
-
-        data.forEach((awardData) => {
-            // convert the data record to a model object
-            const idField = AwardTableSearchFields[this.props.meta.tableType].award_id;
-            const award = new ResultsTableAward(awardData, idField);
-            awards.push(awardData);
-        });
-
         // write all records into Redux
         this.props.bulkInsertRecordSet({
-            type: 'awards',
-            data: data
+            data,
+            type: 'awards'
         });
     }
 
@@ -415,7 +399,7 @@ export class ResultsTableContainer extends React.Component {
             return;
         }
         // check if more pages are available
-        if (this.props.meta.page.has_next_page) {
+        if (this.props.meta.page.hasNext) {
             // more pages are available, load them
             this.props.setSearchPageNumber(this.props.meta.page.page + 1);
         }

@@ -1,9 +1,12 @@
+/* eslint-disable quote-props */
+// disable quote props because a lot of these keys actually do need quotes, so for consistency sake
+// we'll do them all
 export const awardTableColumnTypes = {
     'Award ID': 'string',
     'Recipient Name': 'string',
     'Start Date': 'date',
     'End Date': 'date',
-    'Award Amount': 'number',
+    'Award Amount': 'currency',
     'Funding Agency': 'string',
     'Funding Sub Agency': 'string',
     'Contract Award Type': 'string',
@@ -74,6 +77,7 @@ export const awardTableColumnTypes = {
     'Purchase Card as Payment Method': 'string',
     'Subcontracting Plan': 'string',
     'Issued Date': 'date',
-    'Loan Value': 'number',
-    'Subsidy Cost': 'number'
+    'Loan Value': 'currency',
+    'Subsidy Cost': 'currency'
 };
+/* eslint-enable quote-props */

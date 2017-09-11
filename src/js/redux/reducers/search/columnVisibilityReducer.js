@@ -15,28 +15,32 @@ const columnVisibilityReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'TOGGLE_COLUMN_VISIBILITY': {
             const updatedVisible = ColumnVisibilityFuncs.toggleItem(
-                state[action.tableType].visibleColumns, action.column);
+                state[action.tableType].visibleOrder, action.column);
             const updatedHidden = ColumnVisibilityFuncs.toggleItem(
-                state[action.tableType].hiddenColumns, action.column);
+                state[action.tableType].hiddenOrder, action.column);
+
+            const updatedTableType = Object.assign({}, state[action.tableType], {
+                visibleOrder: updatedVisible,
+                hiddenOrder: updatedHidden
+            });
+
             return Object.assign({}, state, {
-                [action.tableType]: {
-                    visibleColumns: updatedVisible,
-                    hiddenColumns: updatedHidden
-                }
+                [action.tableType]: updatedTableType
             });
         }
         case 'REORDER_COLUMNS': {
             const tableType = action.tableType;
 
             const updatedVisible = ColumnVisibilityFuncs.spliceColumnOrder(
-                state[`${tableType}`].visibleColumns,
+                state[`${tableType}`].visibleOrder,
                 action.dragIndex, action.hoverIndex);
 
+            const updatedTableType = Object.assign({}, state[action.tableType], {
+                visibleOrder: updatedVisible
+            });
+
             return Object.assign({}, state, {
-                [action.tableType]: {
-                    visibleColumns: updatedVisible,
-                    hiddenColumns: state[`${tableType}`].hiddenColumns
-                }
+                [action.tableType]: updatedTableType
             });
         }
         case 'POPULATE_COLUMN_VISIBILITY': {

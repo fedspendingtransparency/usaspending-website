@@ -9,7 +9,7 @@ import Immutable, { OrderedSet } from 'immutable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
-import ResultsTableGenericCell from './cells/ResultsTableGenericCell';
+import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableAwardIdCell from './cells/ResultsTableAwardIdCell';
 
 const propTypes = {
@@ -109,12 +109,13 @@ export default class ResultsTable extends React.PureComponent {
             totalWidth += column.width;
             const isLast = i === columnOrder.length - 1;
             let cellName = null;
-            if (column.columnName === 'award_id') {
+
+            if (column.columnName === 'Award ID') {
                 cellName = (index) => (
                     <ResultsTableAwardIdCell
                         key={`cell-${column.columnName}-${index}`}
                         rowIndex={index}
-                        id={this.props.results[index].id}
+                        id={this.props.results[index].internal_id}
                         data={this.props.results[index][column.columnName]}
                         dataHash={this.state.dataHash}
                         column={column.columnName}
@@ -123,7 +124,7 @@ export default class ResultsTable extends React.PureComponent {
             }
             else {
                 cellName = (index) => (
-                    <ResultsTableGenericCell
+                    <ResultsTableFormattedCell
                         key={`cell-${column.columnName}-${index}`}
                         rowIndex={index}
                         data={this.props.results[index][column.columnName]}

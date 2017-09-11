@@ -285,7 +285,7 @@ export const performSpendingByAwardTabCountSearch = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/search/spending_by_award_type_count/',
+            url: 'v2/search/spending_by_award_count/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -302,7 +302,7 @@ export const performSpendingByAwardSearch = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/search/spending_by_award_type/`,
+            url: `v2/search/spending_by_award/`,
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -312,32 +312,6 @@ export const performSpendingByAwardSearch = (params) => {
             source.cancel();
         }
     };
-};
-
-export const performPagedSpendingByAwardSearch = (filters = [], page = 1, limit = 15,
-    sort = 'Award Amount', order = 'desc', fields = null, exclude = null) => {
-    const params = { filters, page, limit };
-
-    if (sort) {
-        params.sort = sort;
-    }
-
-    if (order) {
-        params.order = order;
-    }
-
-    if (fields != null) {
-        // we have specific fields to query for
-        params.fields = fields;
-    }
-    else if (exclude != null) {
-        // we have specific fields to exclude
-        params.exclude = exclude;
-    }
-
-    console.log(params);
-
-    return performSpendingByAwardSearch(params);
 };
 
 // Fetch Recipients
