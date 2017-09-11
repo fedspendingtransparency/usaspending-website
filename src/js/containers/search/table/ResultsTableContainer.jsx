@@ -11,10 +11,12 @@ import Immutable from 'immutable';
 import { isCancel } from 'axios';
 import { difference } from 'lodash';
 
+import LegacySearchOperation from 'models/search/LegacySearchOperation';
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import { awardTypeGroups } from 'dataMapping/search/awardType';
+import tableSearchFields from 'dataMapping/search/tableSearchFields';
 
 import { availableColumns, defaultColumns, defaultSort } from
     'dataMapping/search/awardTableColumns';
@@ -263,7 +265,6 @@ export class ResultsTableContainer extends React.Component {
         const searchParams = Object.assign(new SearchAwardsOperation(), this.state.searchParams);
         searchParams.awardType = awardTypeGroups[tableType];
 
-
         // indicate the request is about to start
         this.props.setSearchInFlight(true);
 
@@ -303,6 +304,27 @@ export class ResultsTableContainer extends React.Component {
             order: sortDirection
         };
 
+        // Set the params needed for download API call
+        // TODO: Kevin Li - download is currently on v1 endpoints, so we will actually
+        // need to use our legacy filter converters to generate the download params
+        const legacySearchParams = new LegacySearchOperation();
+        legacySearchParams.fromState(this.props.filters);
+        legacySearchParams.resultAwardType = awardTypeGroups[tableType];
+        // we will no longer hold a list of table fields locally, but for the time
+        // being, let's just dump out all the old v1 fields (regardless of what is being
+        // displayed)
+        const legacySearchFields = [];
+        Object.keys(tableSearchFields[tableType]._mapping).forEach((key) => {
+            const legacyField = tableSearchFields[tableType]._mapping[key];
+            legacySearchFields.push(legacyField);
+        });
+        this.setState({
+            downloadParams: {
+                filters: legacySearchParams.toParams(),
+                fields: legacySearchFields
+            }
+        });
+
         this.searchRequest = SearchHelper.performSpendingByAwardSearch(params);
         this.searchRequest.promise
             .then((res) => {
@@ -320,16 +342,6 @@ export class ResultsTableContainer extends React.Component {
                 this.props.setSearchResultMeta({
                     page: data.page_metadata,
                     total: data.total_metadata
-                });
-
-                // Set the params needed for download API call
-                this.setState({
-                    downloadParams: {
-                        filters: searchParams.toParams(),
-                        order: searchOrder,
-                        sort: searchOrder.field,
-                        fields: requestFields
-                    }
                 });
 
                 // request is done
