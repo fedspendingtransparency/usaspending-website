@@ -21,7 +21,8 @@
         }
         .horizontal-bar {
             width: 100%;
-            height: rem(72);
+            height: rem(100);
+	        padding-top: rem(15);
             .legend-container {
                 color: $color-gray-medium;
                 .key-label {

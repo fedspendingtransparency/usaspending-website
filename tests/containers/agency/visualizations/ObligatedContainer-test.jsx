@@ -9,6 +9,11 @@ import sinon from 'sinon';
 
 import { ObligatedContainer } from 'containers/agency/visualizations/ObligatedContainer';
 
+import { mockObligatedAmounts } from './mocks/mockObligatedAmounts';
+
+jest.mock('helpers/agencyHelper', () => require('../agencyHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+
 // spy on specific functions inside the component
 const loadDataSpy = sinon.spy(ObligatedContainer.prototype, 'loadData');
 
@@ -16,8 +21,6 @@ const inboundProps = {
     id: '246',
     activeFY: '2017'
 };
-
-jest.mock('helpers/agencyHelper', () => require('../../../containers/agency/agencyHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/agency/visualizations/obligated/ObligatedVisualization', () =>
@@ -39,12 +42,11 @@ describe('ObligatedContainer', () => {
         await container.instance().searchRequest.promise;
 
         expect(loadDataSpy.callCount).toEqual(1);
-
         loadDataSpy.reset();
     });
 
     it('should make a new API call for obligated amounts when the inbound agency ID prop' +
-        ' changes', () => {
+        ' changes', async () => {
         const container = mount(<ObligatedContainer
             {...inboundProps} />);
 
@@ -56,8 +58,20 @@ describe('ObligatedContainer', () => {
             id: '555'
         });
 
+        await container.instance().searchRequest.promise;
+
         expect(loadDataMock).toHaveBeenCalledWith('555', inboundProps.activeFY);
         loadDataSpy.reset();
-        loadDataSpy.reset();
+    });
+
+    it('should correctly set the state values', async () => {
+        const container = mount(<ObligatedContainer
+            {...inboundProps} />);
+
+        await container.instance().searchRequest.promise;
+
+        expect(container.instance().state.obligatedAmount).toEqual(17839104086.11);
+        expect(container.instance().state.budgetAuthority).toEqual(46564455029.68);
+        expect(container.instance().state.outlay).toEqual(19368986358.21);
     });
 });
