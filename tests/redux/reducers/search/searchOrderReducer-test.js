@@ -8,7 +8,7 @@ import Immutable, { Record } from 'immutable';
 import searchOrderReducer from 'redux/reducers/search/searchOrderReducer';
 
 const initialState = {
-    field: 'total_obligation',
+    field: 'Award ID',
     direction: 'desc'
 };
 
@@ -21,7 +21,7 @@ const OrderRecord = Record(initialState);
 describe('searchOrderReducer', () => {
     it('should validate that Immutable.is() is an appropriate comparator', () => {
         const firstValue = new OrderRecord({
-            field: 'total_obligation',
+            field: 'Award ID',
             direction: 'desc'
         });
 
@@ -31,7 +31,7 @@ describe('searchOrderReducer', () => {
         });
 
         const thirdValue = new OrderRecord({
-            field: 'total_obligation',
+            field: 'Award ID',
             direction: 'desc'
         });
 

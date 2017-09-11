@@ -10,12 +10,11 @@ import { connect } from 'react-redux';
 import Immutable from 'immutable';
 import { isCancel } from 'axios';
 
-import SearchOperation from 'models/search/SearchOperation';
-import SearchSortOrder from 'models/search/SearchSortOrder';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import * as SearchHelper from 'helpers/searchHelper';
-import AwardSummary from 'models/results/award/AwardSummary';
+import ResultsTableAward from 'models/results/award/ResultsTableAward';
 
-import TableSearchFields from 'dataMapping/search/tableSearchFields';
+import AwardTableSearchFields from 'dataMapping/search/awardTableSearchFields';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 import { measureTableHeader } from 'helpers/textMeasurement';
@@ -78,7 +77,7 @@ export class ResultsTableContainer extends React.Component {
 
         this.state = {
             columns: [],
-            searchParams: new SearchOperation(),
+            searchParams: new SearchAwardsOperation(),
             page: 0,
             downloadParams: {},
             hiddenColumns: [],
@@ -141,14 +140,12 @@ export class ResultsTableContainer extends React.Component {
 
         this.props.setSearchInFlight(true);
 
-        const searchParams = new SearchOperation();
+        const searchParams = new SearchAwardsOperation();
         searchParams.fromState(this.props.filters);
-        this.tabCountRequest = SearchHelper.fetchAwardCounts({
-            aggregate: 'count',
-            group: 'type',
-            field: 'total_obligation',
+
+        this.tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: searchParams.toParams(),
-            auditTrail: 'Award table - tab counts'
+            auditTrail: 'Award Table - Tab Counts'
         });
 
         this.tabCountRequest.promise
@@ -161,43 +158,34 @@ export class ResultsTableContainer extends React.Component {
     }
 
     parseTabCounts(data) {
-        // determine which types have award results
-        const availableTypes = {};
-        data.results.forEach((type) => {
-            const count = parseFloat(type.aggregate);
-            if (count > 0) {
-                availableTypes[type.type] = count;
+        const awardCounts = data.results;
+        let firstAvailable = '';
+        let i = 0;
+
+        // Set the first available award type to the first non-zero entry in the
+        while (firstAvailable === '' && i < tableTypes.length) {
+            const tableType = tableTypes[i].internal;
+
+            if (awardCounts[tableType] > 0) {
+                firstAvailable = tableType;
             }
-        });
 
-        // sum the types up by group
-        const availableGroups = {};
-        Object.keys(awardTypeGroups).forEach((group) => {
-            availableGroups[group] = 0;
-            awardTypeGroups[group].forEach((type) => {
-                if ({}.hasOwnProperty.call(availableTypes, type)) {
-                    availableGroups[group] += availableTypes[type];
-                }
-            });
-        });
+            i += 1;
+        }
 
-
-        let firstAvailable = 0;
-        for (let i = 0; i < tableTypes.length; i++) {
-            const type = tableTypes[i].internal;
-            if (availableGroups[type] > 0) {
-                firstAvailable = i;
-                i = tableTypes.length + 1;
-            }
+        // If none of the award types are populated, set the first available tab to be the
+        // first tab in the table
+        if (firstAvailable === '') {
+            firstAvailable = tableTypes[0].internal;
         }
 
         this.setState({
-            counts: availableGroups
+            counts: awardCounts
         }, () => {
             // select the first available tab
-            this.switchTab(tableTypes[firstAvailable].internal);
+            this.switchTab(firstAvailable);
             this.updateFilters();
-            this.showColumns(tableTypes[firstAvailable].internal);
+            this.showColumns(firstAvailable);
         });
     }
 
@@ -205,14 +193,14 @@ export class ResultsTableContainer extends React.Component {
         // calculate the column metadata to display in the table
         const columns = [];
         const hiddenColumns = [];
-        let sortOrder = TableSearchFields.defaultSortDirection;
+        let sortOrder = AwardTableSearchFields.defaultSortDirection;
         const columnVisibility = this.props.columnVisibility[tableType];
 
         if (tableType === 'loans') {
-            sortOrder = TableSearchFields.loans.sortDirection;
+            sortOrder = AwardTableSearchFields.loans.sortDirection;
         }
 
-        const tableSettings = TableSearchFields[tableType];
+        const tableSettings = AwardTableSearchFields[tableType];
 
         columnVisibility.visibleColumns.forEach((col) => {
             const displayName = tableSettings[col];
@@ -241,7 +229,7 @@ export class ResultsTableContainer extends React.Component {
     }
 
     updateFilters() {
-        const newSearch = new SearchOperation();
+        const newSearch = new SearchAwardsOperation();
         newSearch.fromState(this.props.filters);
         this.setState({
             searchParams: newSearch,
@@ -257,18 +245,16 @@ export class ResultsTableContainer extends React.Component {
             this.searchRequest.cancel();
         }
 
-
         const tableType = this.props.meta.tableType;
 
         // append the table type to the current search params
-        const searchParams = Object.assign(new SearchOperation(), this.state.searchParams);
-        const tableAwardTypes = awardTypeGroups[tableType];
-        searchParams.resultAwardType = tableAwardTypes;
+        const searchParams = Object.assign(new SearchAwardsOperation(), this.state.searchParams);
+        searchParams.awardType = awardTypeGroups[tableType];
 
         // parse the redux search order into the API-consumable format
-        const searchOrder = new SearchSortOrder();
-        searchOrder.parseReduxState(tableType, this.props.searchOrder.toJS());
-        const sortParams = searchOrder.toParams();
+        const searchOrder = this.props.searchOrder.toJS();
+        const order = AwardTableSearchFields[tableType][searchOrder.field];
+        const sort = searchOrder.direction;
 
         // indicate the request is about to start
         this.props.setSearchInFlight(true);
@@ -281,11 +267,11 @@ export class ResultsTableContainer extends React.Component {
         }
         const resultLimit = 60;
 
-        const requestFields = ['id', 'piid', 'fain', 'uri'];
+        const requestFields = ['Award ID'];
 
         // Request fields for visible columns only
         const columnVisibility = this.props.columnVisibility[tableType];
-        const mapping = TableSearchFields[tableType]._mapping;
+        const mapping = AwardTableSearchFields[tableType];
 
         columnVisibility.visibleColumns.forEach((col) => {
             const field = mapping[col];
@@ -295,8 +281,8 @@ export class ResultsTableContainer extends React.Component {
             }
         });
 
-        this.searchRequest = SearchHelper.performPagedSearch(searchParams.toParams(),
-            pageNumber, resultLimit, sortParams, requestFields);
+        this.searchRequest = SearchHelper.performPagedSpendingByAwardSearch(searchParams.toParams(),
+            pageNumber, resultLimit, sort, order, requestFields, null);
 
         this.searchRequest.promise
             .then((res) => {
@@ -320,7 +306,8 @@ export class ResultsTableContainer extends React.Component {
                 this.setState({
                     downloadParams: {
                         filters: searchParams.toParams(),
-                        order: sortParams,
+                        order,
+                        sort,
                         fields: requestFields
                     }
                 });
@@ -362,15 +349,15 @@ export class ResultsTableContainer extends React.Component {
 
         data.forEach((awardData) => {
             // convert the data record to a model object
-            const idField = TableSearchFields[this.props.meta.tableType]._mapping.awardId;
-            const award = new AwardSummary(awardData, idField);
-            awards.push(award);
+            const idField = AwardTableSearchFields[this.props.meta.tableType].award_id;
+            const award = new ResultsTableAward(awardData, idField);
+            awards.push(awardData);
         });
 
         // write all records into Redux
         this.props.bulkInsertRecordSet({
             type: 'awards',
-            data: awards
+            data: data
         });
     }
 
@@ -379,12 +366,12 @@ export class ResultsTableContainer extends React.Component {
         const currentSortField = this.props.searchOrder.field;
 
         // check if the current sort field is available in the table type
-        if (!Object.hasOwnProperty.call(TableSearchFields[tab], currentSortField)) {
+        if (!Object.hasOwnProperty.call(AwardTableSearchFields[tab], currentSortField)) {
             // the sort field doesn't exist, use the table type's default field
-            const field = TableSearchFields[tab]._defaultSortField;
-            let direction = TableSearchFields.defaultSortDirection[field];
+            const field = AwardTableSearchFields[tab]._defaultSortField;
+            let direction = AwardTableSearchFields.defaultSortDirection[field];
             if (tab === 'loans') {
-                direction = TableSearchFields.loans.sortDirection[field];
+                direction = AwardTableSearchFields.loans.sortDirection[field];
             }
 
             this.props.setSearchOrder({

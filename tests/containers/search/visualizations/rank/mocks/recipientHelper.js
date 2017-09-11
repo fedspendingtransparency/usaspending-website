@@ -1,7 +1,7 @@
 import { recipient } from '../../mockVisualizations';
 
-// Fetch Transactions Total for Geo
-export const performTransactionsTotalSearch = () => (
+// Spending by Category Search
+export const performSpendingByCategorySearch = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {

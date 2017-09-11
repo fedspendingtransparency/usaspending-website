@@ -1,12 +1,12 @@
 export const geo = {
     results: [
         {
-            item: 'AK',
-            aggregate: '123.12'
+            state_code: 'AK',
+            aggregated_amount: '123.12'
         },
         {
-            item: 'AL',
-            aggregate: '345.56'
+            state_code: 'AL',
+            aggregated_amount: '345.56'
         }
     ],
     total_metadata: {
@@ -22,41 +22,21 @@ export const geo = {
 export const awardingAgency = {
     page_metadata: {
         page: 1,
-        has_next_page: false,
-        has_previous_page: false,
+        hasNext: false,
+        hasPrevious: false,
         next: null,
         previous: null
     },
     results: [
         {
-            item: 'First Agency',
-            aggregate: '456',
-            treasury_account__awarding_toptier_agency__abbreviation: 'FA'
+            agency_name: 'First Agency',
+            agency_abbreviation: 'FA',
+            aggregated_amount: '456'
         },
         {
-            item: 'Second Agency',
-            aggregate: '123',
-            treasury_account__awarding_toptier_agency__abbreviation: 'SA'
-        }
-    ]
-};
-
-export const spendingByCategory = {
-    page_metadata: {
-        page: 1,
-        has_next_page: false,
-        has_previous_page: false,
-        next: null,
-        previous: null
-    },
-    results: [
-        {
-            treasury_account__budget_function_title: 'First Budget Function',
-            aggregate: '456'
-        },
-        {
-            treasury_account__budget_function_title: 'Second Budget Function',
-            aggregate: '123'
+            agency_name: 'Second Agency',
+            agency_abbreviation: 'SA',
+            aggregated_amount: '123'
         }
     ]
 };
@@ -64,23 +44,21 @@ export const spendingByCategory = {
 export const cfda = {
     page_metadata: {
         page: 1,
-        has_next_page: false,
-        has_previous_page: false,
+        hasNext: false,
+        hasPrevious: false,
         next: null,
         previous: null
     },
     results: [
         {
-            item: '93.778',
-            aggregate: '66681011412.00',
-            assistance_data__cfda__program_number: '93.778',
-            assistance_data__cfda__program_title: 'Medical Assistance Program'
+            aggregated_amount: '66681011412.00',
+            cfda_program_number: '93.778',
+            program_title: 'Medical Assistance Program'
         },
         {
-            item: '93.774',
-            aggregate: '152',
-            assistance_data__cfda__program_number: '93.774',
-            assistance_data__cfda__program_title: 'Medicare_Supplementary Medical Insurance'
+            aggregated_amount: '152',
+            cfda_program_number: '93.774',
+            program_title: 'Medicare_Supplementary Medical Insurance'
         }
     ]
 };
@@ -88,21 +66,21 @@ export const cfda = {
 export const fundingAgency = {
     page_metadata: {
         page: 1,
-        has_next_page: false,
-        has_previous_page: false,
+        hasNext: false,
+        hasPrevious: false,
         next: null,
         previous: null
     },
     results: [
         {
-            item: 'First Agency',
-            aggregate: '456',
-            treasury_account__funding_toptier_agency__abbreviation: 'FA'
+            agency_name: 'First Agency',
+            agency_abbreviation: 'FA',
+            aggregated_amount: '456'
         },
         {
-            item: 'Second Agency',
-            aggregate: '123',
-            treasury_account__funding_toptier_agency__abbreviation: 'SA'
+            agency_name: 'Second Agency',
+            agency_abbreviation: 'SA',
+            aggregated_amount: '123'
         }
     ]
 };
@@ -110,21 +88,19 @@ export const fundingAgency = {
 export const industryCode = {
     page_metadata: {
         page: 1,
-        has_next_page: false,
-        has_previous_page: false,
+        hasNext: false,
+        hasPrevious: false,
         next: null,
         previous: null
     },
     results: [
         {
-            item: '1234',
-            aggregate: '500.00',
-            contract_data__product_or_service_code: '1234'
+            aggregated_amount: '500.00',
+            psc_code: '1234'
         },
         {
-            item: '2345',
-            aggregate: '400.01',
-            contract_data__product_or_service_code: '2345'
+            aggregated_amount: '400.01',
+            psc_code: '2345'
         }
     ]
 };
@@ -132,21 +108,21 @@ export const industryCode = {
 export const recipient = {
     page_metadata: {
         page: 1,
-        has_next_page: false,
-        has_previous_page: false,
+        hasNext: false,
+        hasPrevious: false,
         next: null,
         previous: null
     },
     results: [
         {
-            recipient__legal_entity_id: '1',
-            recipient__recipient_name: 'Multiple Recipients',
-            aggregate: '149620471458.92'
+            legal_entity_id: '1',
+            recipient_name: 'Multiple Recipients',
+            aggregated_amount: '149620471458.92'
         },
         {
-            recipient__legal_entity_id: '113704139',
-            recipient__recipient_name: 'Michigan',
-            aggregate: '6684225478.00'
+            legal_entity_id: '113704139',
+            recipient_name: 'Michigan',
+            aggregated_amount: '6684225478.00'
         }
     ]
 };
