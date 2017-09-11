@@ -1,10 +1,20 @@
 header {
     background-color: $color-white;
+
+    .menu-container {
+        @include display(flex);
+        @include justify-content(flex-end);
+        @include align-items(center);
+        position: relative;
+    }
+
     .nav-container {
-        // style the upper menu
-        @import "./_upperMenu";
-        // style the lower menu
-        @import "./_lowerMenu";
+        // style the primary menu
+        @import "./_primaryMenu";
+        // style the search bar
+        @import "./_menuSearchBar";
+        // style the secondary menu
+        @import "./_secondaryMenu";
     }
     // style the mobile menu button
     @import "./_menuButton";

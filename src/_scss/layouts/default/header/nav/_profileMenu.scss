@@ -2,8 +2,11 @@
     @include button-unstyled;
     height: rem(48);
     padding: rem(10) rem(15);
-    color: $color-gray;
-    font-size: $base-font-size;
+    color: $color-base;
+    font-size: rem(20);
+    line-height: rem(25);
+    font-weight: $font-semibold;
+    opacity: 0.6;
 
     .profile-button-content {
         @include display(flex);
@@ -21,15 +24,23 @@
             svg {
                 width: rem(10);
                 height: rem(10);
-                fill: $color-gray;
+                fill: $color-base;
             }
         }
     }
 
     &:hover, &:active, &.active {
-        background-color: $color-primary;
-        color: $color-white;
+        opacity: 1;
+        .profile-button-icon {
+            svg {
+                fill: $color-base;
+            }
+        }
+    }
 
+
+    &.homepage {
+        color: $color-white;
         .profile-button-icon {
             svg {
                 fill: $color-white;
@@ -48,31 +59,38 @@
 
     .profile-list-wrapper {
         position: absolute;
+        padding-top: rem(13);
     }
 
     ul.profile-list {
         position: relative;
         @include unstyled-list;
-        background-color: $color-primary;
+        background-color: $color-gray-lightest;
+        box-shadow: 0 2px 5px $color-shadow;
 
         width: 100%;
 
         li {
             white-space: nowrap;
             a {
-                font-size: $small-font-size;
-                color: $color-white;
+                font-size: rem(20);
+                line-height: rem(25);
+                font-weight: $font-light;
+                color: $color-base;
                 text-decoration: none;
+                opacity: 0.6;
 
                 display: block;
-                padding: rem(15);
+                padding: rem(5) rem(15);
 
-                &:hover {
-                    background-color: $color-primary-darker;
+                &:hover, &:active {
+                    background-color: $color-gray-lighter;
+                    opacity: 1;
+                    text-decoration: none;
                 }
 
                 &.disabled {
-                    opacity: 0.5;
+                    opacity: 0.4;
                     pointer-events: none;
                     padding-bottom: rem(10);
                 }
@@ -83,23 +101,55 @@
                 @include align-items(center);
                 @include justify-content(center);
                 position: relative;
+                line-height: rem(10);
 
                 .icon {
                     @include flex(0 0 auto);
                     svg {
                         height: rem(10);
                         width: rem(10);
-                        fill: $color-white;
+                        color: $color-gray;
+                        fill-opacity: 0.4;
                     }
                 }
 
                 .label {
                     @include flex(1 1 auto);
                     margin-left: rem(5);
+                    margin-top: rem(5);
                     font-size: rem(10);
-                    color: $color-white;
+                    color: $color-base;
                 }
 
+            }
+        }
+    }
+
+    &.homepage {
+        .profile-list-wrapper {
+            padding-top: 0;
+        }
+        ul.profile-list {
+            background-color: transparent;
+            box-shadow: none;
+
+            a {
+                color: $color-white;
+                &:hover {
+                    color: $color-white;
+                    background-color: transparent;                
+                }
+            }
+
+            .profile-coming-soon {
+                .icon {
+                    svg {
+                        fill: $color-white;
+                    }
+                }
+                .label {
+                    color: $color-white;
+                }
             }
         }
     }
