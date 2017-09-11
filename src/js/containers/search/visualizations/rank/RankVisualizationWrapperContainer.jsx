@@ -41,17 +41,17 @@ export class RankVisualizationWrapperContainer extends React.Component {
     generateVisualization() {
         switch (this.state.spendingBy) {
             case 'awarding_agency':
-                return <SpendingByAwardingAgencyVisualizationContainer {...this.state} />;
+                return <SpendingByAwardingAgencyVisualizationContainer />;
             case 'funding_agency':
-                return <SpendingByFundingAgencyVisualizationContainer {...this.state} />;
+                return <SpendingByFundingAgencyVisualizationContainer />;
             case 'recipient':
-                return <SpendingByRecipientVisualizationContainer {...this.state} />;
+                return <SpendingByRecipientVisualizationContainer />;
             case 'cfda':
-                return <SpendingByCFDAVisualizationContainer {...this.state} />;
+                return <SpendingByCFDAVisualizationContainer />;
             case 'industry_code':
-                return <SpendingByIndustryCodeVisualizationContainer {...this.state} />;
+                return <SpendingByIndustryCodeVisualizationContainer />;
             default:
-                return <SpendingByAwardingAgencyVisualizationContainer {...this.state} />;
+                return <SpendingByAwardingAgencyVisualizationContainer />;
         }
     }
 
