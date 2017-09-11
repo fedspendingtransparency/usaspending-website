@@ -20,6 +20,19 @@ export const toggleObjectClass = (state) => ({
     item: state
 });
 
+export const setAvailableObjectClasses = (state) => ({
+    type: 'SET_ACCOUNT_AVAILABLE_OBJECT_CLASSES',
+    objectClass: state.values,
+    objectClassDefinitions: state.definitions,
+    objectClassChildren: state.children
+});
+
+export const bulkObjectClassesChange = (state) => ({
+    type: 'BULK_ACCOUNT_TOGGLE_OBJECT_CLASSES',
+    objectClasses: state.types,
+    direction: state.direction
+});
+
 export const resetObjectClass = () => ({
     type: 'RESET_ACCOUNT_OBJECT_CLASS'
 });
