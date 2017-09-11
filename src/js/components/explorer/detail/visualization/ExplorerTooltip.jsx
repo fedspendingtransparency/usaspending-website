@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { truncate } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
@@ -81,7 +82,8 @@ export default class ExplorerTooltip extends React.Component {
     }
 
     render() {
-        const dollarValue = MoneyFormatter.formatMoney(this.props.amount);
+        const truncatedName = truncate(this.props.name, { length: 90 });
+        const dollarValue = MoneyFormatter.formatTreemapValues(this.props.amount);
         const percentString = `${(Math.round(this.props.percent * 1000) / 10)}%`;
 
         return (
@@ -95,7 +97,7 @@ export default class ExplorerTooltip extends React.Component {
                     <div
                         className={`tooltip-pointer ${this.state.direction}`} />
                     <div className="tooltip-title">
-                        {this.props.name}
+                        {truncatedName}
                     </div>
                     <div className="tooltip-body">
                         <div className="tooltip-left">

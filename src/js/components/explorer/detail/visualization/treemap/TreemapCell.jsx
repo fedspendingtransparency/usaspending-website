@@ -83,6 +83,28 @@ export default class TreemapCell extends React.Component {
     }
 
     render() {
+        let cellTitle = (
+            <text
+                className={`explorer-cell-title ${this.state.active}`}
+                textAnchor="middle"
+                x={this.props.title.x}
+                y={this.props.title.y}>
+                {this.props.title.text}
+            </text>
+        );
+        let cellValue = (
+            <text
+                className={`explorer-cell-value ${this.state.active}`}
+                textAnchor="middle"
+                x={this.props.subtitle.x}
+                y={this.props.subtitle.y}>
+                {this.props.subtitle.text}
+            </text>
+        );
+        if (this.props.width < 80) {
+            cellTitle = '';
+            cellValue = '';
+        }
         const position = `translate(${this.props.x}, ${this.props.y})`;
         return (
             <g
@@ -106,20 +128,8 @@ export default class TreemapCell extends React.Component {
                     style={{
                         fill: this.state.backgroundColor
                     }} />
-                <text
-                    className={`explorer-cell-title ${this.state.active}`}
-                    textAnchor="middle"
-                    x={this.props.title.x}
-                    y={this.props.title.y}>
-                    {this.props.title.text}
-                </text>
-                <text
-                    className={`explorer-cell-value ${this.state.active}`}
-                    textAnchor="middle"
-                    x={this.props.subtitle.x}
-                    y={this.props.subtitle.y}>
-                    {this.props.subtitle.text}
-                </text>
+                {cellTitle}
+                {cellValue}
             </g>
         );
     }
