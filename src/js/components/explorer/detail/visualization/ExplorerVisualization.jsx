@@ -52,12 +52,15 @@ export default class ExplorerVisualization extends React.Component {
 
     render() {
         let loadingClass = '';
+        let loadingText = '';
         if (this.props.isLoading) {
             loadingClass = 'loading';
+            loadingText = 'Loading data...';
         }
 
         return (
             <div className="explorer-visualization-wrapper">
+                <div className={`loading-text ${loadingClass}`}>{loadingText}</div>
                 <div className="toolbar">
                     <BreakdownDropdown
                         root={this.props.root}
