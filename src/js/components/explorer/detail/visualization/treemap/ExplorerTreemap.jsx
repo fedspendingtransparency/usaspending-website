@@ -97,8 +97,11 @@ export default class ExplorerTreemap extends React.Component {
         // we can now begin creating the individual treemap cells
         const cells = [];
         treeItems.forEach((item) => {
-            const cell = this.buildVirtualCell(item, scale, total);
-            cells.push(cell);
+            if (item.value > 0) {
+                // Don't display cells with zero or negative amounts
+                const cell = this.buildVirtualCell(item, scale, total);
+                cells.push(cell);
+            }
         });
 
         this.setState({
