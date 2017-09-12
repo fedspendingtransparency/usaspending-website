@@ -23,7 +23,7 @@ const FakeScreen = () => {
             <DetailHeader
                 type="agency"
                 title="Lorem Ipsum"
-                fy={1789}
+                fy={'1789'}
                 total={Math.random() * 10000000} />
 
             <div className="explorer-visualization-wrapper">
