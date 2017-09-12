@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { reduce } from 'lodash';
 
-// import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
 import * as AgencyHelper from 'helpers/agencyHelper';
 
 import ObjectClassTreeMap from 'components/agency/visualizations/objectClass/ObjectClassTreeMap';
@@ -40,7 +39,8 @@ export default class ObjectClassContainer extends React.PureComponent {
             },
             totalObligation: 0,
             totalMinorObligation: 0,
-            displayTotal: 0
+            displayTotal: 0,
+            hasNegatives: false
         };
 
         this.showMinorObjectClasses = this.showMinorObjectClasses.bind(this);
@@ -84,9 +84,16 @@ export default class ObjectClassContainer extends React.PureComponent {
                     inFlight: false
                 });
 
-                // Sum the positive obligated_amounts in the returned object classes
-                // to produce the total obligation amount for the treemap
+                // Sum ALL obligated_amounts in the returned object classes
+                // to produce the total obligation amount
                 const totalObligation = reduce(
+                    res.data.results,
+                    (sum, objectClass) => sum + parseFloat(objectClass.obligated_amount),
+                    0
+                );
+
+                // Sum only the positive obligated_amounts in the returned object classes
+                const positiveObligation = reduce(
                     res.data.results,
                     (sum, objectClass) => {
                         if (parseFloat(objectClass.obligated_amount) >= 0) {
@@ -97,13 +104,7 @@ export default class ObjectClassContainer extends React.PureComponent {
                     0
                 );
 
-                // Sum ALL obligated_amounts in the returned object classes
-                // to produce the total obligation amount for the description
-                const displayTotal = reduce(
-                    res.data.results,
-                    (sum, objectClass) => sum + parseFloat(objectClass.obligated_amount),
-                    0
-                );
+                const hasNegatives = positiveObligation > totalObligation;
 
                 this.setState({
                     majorObjectClasses: {
@@ -114,7 +115,7 @@ export default class ObjectClassContainer extends React.PureComponent {
                     },
                     totalObligation,
                     totalMinorObligation: 0,
-                    displayTotal
+                    hasNegatives
                 });
             })
             .catch((err) => {
@@ -173,9 +174,16 @@ export default class ObjectClassContainer extends React.PureComponent {
                     inFlight: false
                 });
 
-                // Sum the positive obligated_amounts in the returned object classes
+                // Sum ALL obligated_amounts in the returned object classes
                 // to produce the total obligation amount
                 const totalMinorObligation = reduce(
+                    res.data.results,
+                    (sum, objectClass) => sum + parseFloat(objectClass.obligated_amount),
+                    0
+                );
+
+                // Sum the positive obligated_amounts in the returned object classes
+                const positiveMinorObligation = reduce(
                     res.data.results,
                     (sum, objectClass) => {
                         if (parseFloat(objectClass.obligated_amount) >= 0) {
@@ -186,11 +194,14 @@ export default class ObjectClassContainer extends React.PureComponent {
                     0
                 );
 
+                const hasNegatives = positiveMinorObligation > totalMinorObligation;
+
                 this.setState({
                     minorObjectClasses: {
                         children: res.data.results
                     },
-                    totalMinorObligation
+                    totalMinorObligation,
+                    hasNegatives
                 });
             })
             .catch((err) => {
@@ -215,7 +226,7 @@ export default class ObjectClassContainer extends React.PureComponent {
                 totalMinorObligation={this.state.totalMinorObligation}
                 showMinorObjectClasses={this.showMinorObjectClasses}
                 asOfDate={this.props.asOfDate}
-                displayTotal={this.state.displayTotal} />
+                hasNegatives={this.state.hasNegatives} />
         );
     }
 

@@ -20,7 +20,7 @@ const propTypes = {
     totalMinorObligation: PropTypes.number,
     showMinorObjectClasses: PropTypes.func,
     asOfDate: PropTypes.string,
-    displayTotal: PropTypes.number
+    hasNegatives: PropTypes.bool
 };
 
 export default class ObjectClassTreeMap extends React.Component {
@@ -110,7 +110,15 @@ export default class ObjectClassTreeMap extends React.Component {
     }
 
     render() {
-        const total = MoneyFormatter.formatTreemapValues(this.props.displayTotal);
+        const total = MoneyFormatter.formatTreemapValues(this.props.totalObligation);
+        let greatThanOneHundredDescription = null;
+        if (this.props.hasNegatives) {
+            // placeholder description
+            greatThanOneHundredDescription = (<p><em><strong>Note:</strong> These object classes may
+            add up to more than 100%. This is because this agency has both inflow and outflow. The
+            negative obligations offset the positive ones, but cannot be displayed on this type of graph. </em>
+            </p>);
+        }
 
         return (
             <div
@@ -126,6 +134,7 @@ export default class ObjectClassTreeMap extends React.Component {
                     <em>Data as of {this.props.asOfDate}</em>
                     <hr className="results-divider" />
                 </div>
+                {greatThanOneHundredDescription}
                 <div className="agency-section-content">
                     <div
                         className="usa-da-treemap-section"
