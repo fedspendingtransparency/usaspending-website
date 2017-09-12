@@ -12,6 +12,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import * as downloadActions from 'redux/actions/search/downloadActions';
 
+import SearchOperation from 'models/search/SearchOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 
 import * as DownloadHelper from 'helpers/downloadHelper';
@@ -19,7 +20,9 @@ import * as DownloadHelper from 'helpers/downloadHelper';
 const propTypes = {
     download: PropTypes.object,
     setDownloadPending: PropTypes.func,
-    setDownloadCollapsed: PropTypes.func
+    setDownloadCollapsed: PropTypes.func,
+    setDownloadExpectedFile: PropTypes.func,
+    filters: PropTypes.object
 };
 
 export class DownloadBottomBarContainer extends React.Component {
@@ -46,6 +49,8 @@ export class DownloadBottomBarContainer extends React.Component {
     componentDidMount() {
         if (this.props.download.pendingDownload && this.props.download.showCollapsedProgress &&
             !this.state.visible) {
+            this.requestDownload(this.props.filters,
+                this.props.download.columns, this.props.download.type);
             this.displayBar();
         }
     }
@@ -53,6 +58,8 @@ export class DownloadBottomBarContainer extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.download.pendingDownload && nextProps.download.showCollapsedProgress &&
             !this.state.visible) {
+            this.requestDownload(nextProps.filters,
+                nextProps.download.columns, nextProps.download.type);
             this.displayBar();
         }
     }
@@ -73,15 +80,24 @@ export class DownloadBottomBarContainer extends React.Component {
         }, this.checkStatus);
     }
 
-    checkStatus() {
-        if (this.statusRequest) {
-            this.statusRequest.cancel();
+    requestDownload(filters, columns, type) {
+        if (this.request) {
+            this.request.cancel();
         }
+        let filterSet = {};
+        if (filters !== '') {
+            filterSet = new SearchOperation(filters).toParams();
+        }
+        const params = {
+            filters: filterSet,
+            columns
+        };
+        this.request = DownloadHelper.requestFullDownload(params, type);
 
-        this.statusRequest = DownloadHelper.requestDownloadStatus();
-        this.statusRequest.promise
+        this.request.promise
             .then((res) => {
-                this.parseStatus(res.data);
+                this.props.setDownloadExpectedFile(res.data.file_name);
+                this.checkStatus();
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -96,6 +112,36 @@ export class DownloadBottomBarContainer extends React.Component {
                     }
                 }
             });
+    }
+
+    checkStatus() {
+        if (this.props.download.expectedFile !== '') {
+            if (this.statusRequest) {
+                this.statusRequest.cancel();
+            }
+            this.statusRequest = DownloadHelper.requestDownloadStatus({
+                file_name: this.props.download.expectedFile,
+                type: this.props.download.type
+            });
+
+            this.statusRequest.promise
+                .then((res) => {
+                    this.parseStatus(res.data);
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        // something went wrong
+                        console.log(err);
+
+                        if (err.response) {
+                            this.displayError(err.response.data.message);
+                        }
+                        else {
+                            this.displayError(err.message);
+                        }
+                    }
+                });
+        }
     }
 
     parseStatus(data) {

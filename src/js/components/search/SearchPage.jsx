@@ -149,7 +149,8 @@ export default class SearchPage extends React.Component {
                         mounted={this.state.showFullDownload}
                         hideModal={this.hideModal} />
                 </main>
-                <Footer />
+                <Footer
+                    filters={this.props.filters} />
             </div>
         );
     }

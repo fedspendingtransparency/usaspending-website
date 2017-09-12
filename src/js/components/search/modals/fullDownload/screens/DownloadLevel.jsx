@@ -20,12 +20,12 @@ export default class DownloadLevel extends React.Component {
     }
 
     clickedAward() {
-        this.props.setDownloadType('award');
+        this.props.setDownloadType('awards');
         this.props.goToStep(2, true);
     }
 
     clickedTransaction() {
-        this.props.setDownloadType('transaction');
+        this.props.setDownloadType('transactions');
         this.props.goToStep(2, true);
     }
 

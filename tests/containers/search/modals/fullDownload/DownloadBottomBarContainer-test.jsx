@@ -6,6 +6,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
+import * as DownloadHelper from 'helpers/downloadHelper';
 import { DownloadBottomBarContainer } from 'containers/search/modals/fullDownload/DownloadBottomBarContainer';
 import { mockParams, mockResponse } from './mockFullDownload';
 
@@ -13,10 +14,43 @@ import { mockParams, mockResponse } from './mockFullDownload';
 // see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
 global.Promise = require.requireActual('promise');
 
+const mockDownloadHelper = (functionName, event, expectedResponse) => {
+    jest.useFakeTimers();
+    // override the specified function
+    DownloadHelper[functionName] = jest.fn(() => {
+        // Axios normally returns a promise, replicate this, but return the expected result
+        const networkCall = new Promise((resolve, reject) => {
+            process.nextTick(() => {
+                if (event === 'resolve') {
+                    resolve({
+                        data: expectedResponse
+                    });
+                }
+                else {
+                    reject({
+                        data: expectedResponse
+                    });
+                }
+            });
+        });
+
+        return {
+            promise: networkCall,
+            cancel: jest.fn()
+        };
+    });
+};
+
+const unmockDownloadHelper = () => {
+    jest.useRealTimers();
+    jest.unmock('helpers/downloadHelper');
+};
+
 // spy on specific functions inside the component
 const displaySpy = sinon.spy(DownloadBottomBarContainer.prototype, 'displayBar');
 const downloadSpy = sinon.spy(DownloadBottomBarContainer.prototype, 'downloadFile');
 const errorSpy = sinon.spy(DownloadBottomBarContainer.prototype, 'displayError');
+const statusSpy = sinon.spy(DownloadBottomBarContainer.prototype, 'checkStatus');
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/search/modals/fullDownload/DownloadBottomBar', () =>
@@ -36,7 +70,8 @@ describe('DownloadBottomBarContainer', () => {
     it('should display the bottom bar if a download is pending', () => {
         const defaultProps = {
             pendingDownload: true,
-            showCollapsedProgress: true
+            showCollapsedProgress: true,
+            expectedFile: ''
         };
         const container = mount(<DownloadBottomBarContainer download={defaultProps} />);
 
@@ -116,6 +151,44 @@ describe('DownloadBottomBarContainer', () => {
             container.instance().displayError(mockResponse.message);
             expect(container.instance().state.description).toEqual(mockResponse.message);
             expect(container.instance().state.showError).toEqual(true);
+        });
+    });
+
+    describe('requestDownload', () => {
+        it('requests the file to be downloaded and passes it on to check download status', () => {
+            mockDownloadHelper('requestFullDownload', 'resolve', mockResponse);
+            const container = shallow(<DownloadBottomBarContainer
+                download={mockParams}
+                setDownloadPending={jest.fn()}
+                setDownloadCollapsed={jest.fn()}
+                setDownloadExpectedFile={jest.fn()} />);
+            container.instance().requestDownload({}, [], 'awards');
+
+            expect(statusSpy.callCount).toEqual(1);
+            statusSpy.reset();
+            unmockDownloadHelper();
+        });
+
+        it('should pass an error on if it receives one', () => {
+            const mockFailedResponse = {
+                total_size: 12345,
+                total_columns: 19,
+                total_rows: 55555,
+                file_name: "transaction_9fn24der3.csv",
+                status: "failed",
+                url: "https://s3.amazonaws.com/award_9fn24der3.csv",
+                message: "Your file failed because the database crashed."
+            };
+            mockDownloadHelper('requestFullDownload', 'resolve', mockFailedResponse);
+            const container = shallow(<DownloadBottomBarContainer
+                downloadParams={mockParams}
+                setDownloadPending={jest.fn()}
+                setDownloadCollapsed={jest.fn()} />);
+            container.instance().requestDownload({}, [], 'cheese');
+
+            expect(errorSpy.callCount).toEqual(1);
+            errorSpy.reset();
+            unmockDownloadHelper();
         });
     });
 

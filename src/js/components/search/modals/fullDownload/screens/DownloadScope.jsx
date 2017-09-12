@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     goToStep: PropTypes.func,
-    setDownloadColumns: PropTypes.func
+    setDownloadColumns: PropTypes.func,
+    setDownloadPending: PropTypes.func
 };
 
 export default class DownloadScope extends React.Component {

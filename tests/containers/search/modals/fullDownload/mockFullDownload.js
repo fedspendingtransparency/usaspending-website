@@ -1,6 +1,8 @@
 export const mockParams = {
     pendingDownload: false,
-    showCollapsedProgress: false
+    showCollapsedProgress: false,
+    expectedFile: '',
+    filters: {}
 };
 
 export const mockResponse = {

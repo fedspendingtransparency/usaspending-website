@@ -23,7 +23,7 @@ describe('downloadReducer', () => {
         it('should return a new string for download type', () => {
             const action = {
                 type: 'SET_DOWNLOAD_TYPE',
-                downloadType: 'award'
+                downloadType: 'awards'
             };
 
             const updatedState = downloadReducer(undefined, action);
