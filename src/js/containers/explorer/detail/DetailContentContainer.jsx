@@ -265,13 +265,24 @@ export class DetailContentContainer extends React.Component {
 
         // Add Program Activity as an option if a Federal Account has been picked
         const accountDepth = path.indexOf('federal_account');
+        const programActivityIndex = path.indexOf('program_activity');
+
         if (currentDepth >= accountDepth) {
-            if (this.props.explorer.root === 'agency') {
-                path[2] = 'program_activity';
+            // A federal account has been picked, add program activity to the
+            // scope if it's not already there
+            if (programActivityIndex === -1) {
+                if (this.props.explorer.root === 'agency') {
+                    path.splice(2, 0, 'program_activity');
+                }
+                else {
+                    path.splice(3, 0, 'program_activity');
+                }
             }
-            else {
-                path[3] = 'program_activity';
-            }
+        }
+        else if (programActivityIndex !== -1) {
+            // We have moved back above federal account in the hierarchy,
+            // remove program activity from the scope
+            path.splice(programActivityIndex, 1);
         }
 
         // the next subdivision unit is the next step down the path
