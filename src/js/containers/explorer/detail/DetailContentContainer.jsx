@@ -263,6 +263,9 @@ export class DetailContentContainer extends React.Component {
         const path = dropdownScopes[this.props.explorer.root];
         const currentDepth = path.indexOf(this.props.explorer.active.subdivision);
 
+        // By default, the next subdivision unit is the next step down the path
+        let nextSubdivision = path[currentDepth + 1];
+
         // Add Program Activity as an option if a Federal Account has been picked
         const accountDepth = path.indexOf('federal_account');
         const programActivityIndex = path.indexOf('program_activity');
@@ -273,9 +276,19 @@ export class DetailContentContainer extends React.Component {
             if (programActivityIndex === -1) {
                 if (this.props.explorer.root === 'agency') {
                     path.splice(2, 0, 'program_activity');
+                    if (currentDepth === 2) {
+                        // We've just inserted a new element at the current depth,
+                        // so the next subdivision is 2 steps ahead
+                        nextSubdivision = path[currentDepth + 2];
+                    }
                 }
                 else {
                     path.splice(3, 0, 'program_activity');
+                    if (currentDepth === 3) {
+                        // We've just inserted a new element at the current depth,
+                        // so the next subdivision is 2 steps ahead
+                        nextSubdivision = path[currentDepth + 2];
+                    }
                 }
             }
         }
@@ -284,9 +297,6 @@ export class DetailContentContainer extends React.Component {
             // remove program activity from the scope
             path.splice(programActivityIndex, 1);
         }
-
-        // the next subdivision unit is the next step down the path
-        const nextSubdivision = path[currentDepth + 1];
 
         // create the request object
         // this is also used as the basis for the sidebar trail, so cache the title if available

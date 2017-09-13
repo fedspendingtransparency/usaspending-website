@@ -4,10 +4,11 @@
     position: relative;
     .left-side {
         @include flex(1 1 auto);
+	    max-width: 75%;
         h2 {
             margin: 0;
             font-weight: $font-light;
-            font-size: rem(38);
+            font-size: rem(30);
             line-height: rem(32);
 
             @include media($large-screen) {
@@ -20,8 +21,13 @@
             margin-top: rem(10);
             font-weight: $font-light;
 	        color: #587786;
-            font-size: rem(28);
-            line-height: rem(28);
+            font-size: rem(24);
+	        line-height: rem(24);
+
+	        @include media($large-screen) {
+		        font-size: rem(28);
+		        line-height: rem(28);
+	        }
         }
 
         .capitalize {
