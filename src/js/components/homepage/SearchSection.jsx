@@ -131,8 +131,11 @@ export default class SearchSection extends React.Component {
                                     <li>
                                         <button
                                             className="dropdown-button"
-                                            onClick={this.navigateTo.bind(null, "/agency")}>
+                                            disabled>
                                             Agencies
+                                            <div className="coming-soon">
+                                                Coming Soon
+                                            </div>
                                         </button>
                                     </li>
                                     <li>
