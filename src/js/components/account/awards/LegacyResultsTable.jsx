@@ -1,6 +1,8 @@
 /**
-  * ResultsTable.jsx
+  * LegacyResultsTable.jsx
   * Created by Kevin Li 11/8/16
+  * TEMPORARY: We should reunify this table with the award search table when federal accounts are
+  * moved to v2 endpoints
   **/
 
 import React from 'react';
@@ -9,13 +11,13 @@ import Immutable, { OrderedSet } from 'immutable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
-import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
-import ResultsTableAwardIdCell from './cells/ResultsTableAwardIdCell';
+import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableGenericCell';
+import ResultsTableAwardIdCell from 'components/search/table/cells/ResultsTableAwardIdCell';
 
 const propTypes = {
     results: PropTypes.array,
     batch: PropTypes.object,
-    columns: PropTypes.object,
+    columns: PropTypes.array,
     headerCellClass: PropTypes.func.isRequired,
     visibleWidth: PropTypes.number,
     loadNextPage: PropTypes.func,
@@ -27,7 +29,7 @@ const rowHeight = 40;
 // indicates when there's more data
 const tableHeight = 12.5 * rowHeight;
 
-export default class ResultsTable extends React.PureComponent {
+export default class LegacyResultsTable extends React.PureComponent {
     constructor(props) {
         super(props);
 
@@ -43,7 +45,7 @@ export default class ResultsTable extends React.PureComponent {
 
     componentWillReceiveProps(nextProps) {
         const currentType = nextProps.currentType;
-        const visibleColumnsSet = new OrderedSet(nextProps.columns.visibleOrder);
+        const visibleColumnsSet = new OrderedSet(nextProps.columns);
         // update the data hash
         this.setState({
             dataHash: `${currentType}-${visibleColumnsSet.hashCode()}`
@@ -103,19 +105,16 @@ export default class ResultsTable extends React.PureComponent {
 
         const HeaderCell = this.props.headerCellClass;
 
-        const columnOrder = this.props.columns.visibleOrder.toJS();
-        const columns = columnOrder.map((columnTitle, i) => {
-            const column = this.props.columns.data.get(columnTitle);
+        const columns = this.props.columns.map((column, i) => {
             totalWidth += column.width;
-            const isLast = i === columnOrder.length - 1;
+            const isLast = i === this.props.columns.length - 1;
             let cellName = null;
-
-            if (column.columnName === 'Award ID') {
+            if (column.columnName === 'award_id') {
                 cellName = (index) => (
                     <ResultsTableAwardIdCell
                         key={`cell-${column.columnName}-${index}`}
                         rowIndex={index}
-                        id={this.props.results[index].internal_id}
+                        id={this.props.results[index].id}
                         data={this.props.results[index][column.columnName]}
                         dataHash={this.state.dataHash}
                         column={column.columnName}
@@ -124,7 +123,7 @@ export default class ResultsTable extends React.PureComponent {
             }
             else {
                 cellName = (index) => (
-                    <ResultsTableFormattedCell
+                    <ResultsTableGenericCell
                         key={`cell-${column.columnName}-${index}`}
                         rowIndex={index}
                         data={this.props.results[index][column.columnName]}
@@ -182,4 +181,4 @@ export default class ResultsTable extends React.PureComponent {
     }
 }
 
-ResultsTable.propTypes = propTypes;
+LegacyResultsTable.propTypes = propTypes;

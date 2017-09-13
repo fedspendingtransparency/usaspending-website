@@ -1,9 +1,14 @@
 /**
- * tableSearchFields.js
+ * awardTableSearchFields.js
+ * Created by michaelbray on 9/7/17.
+ */
+
+/**
+ * awardTableSearchFields.js
  **/
 
 /* eslint-disable max-len */
-const tableSearchFields = {
+const awardTableSearchFields = {
     defaultSortDirection: {
         award_id: 'asc',
         recipient_name: 'asc',
@@ -81,7 +86,7 @@ const tableSearchFields = {
         contract_subcontracting_plan: 'asc'
     },
     contracts: {
-        _defaultSortField: 'total_obligation',
+        _defaultSortField: 'Award ID',
         _order: [
             'award_id',
             'recipient_name',
@@ -310,7 +315,7 @@ const tableSearchFields = {
         contract_subcontracting_plan: 'Subcontracting Plan'
     },
     grants: {
-        _defaultSortField: 'total_obligation',
+        _defaultSortField: 'Award ID',
         _order: [
             'award_id',
             'recipient_name',
@@ -347,7 +352,7 @@ const tableSearchFields = {
         funding_subtier_name: 'Funding Sub Agency'
     },
     direct_payments: {
-        _defaultSortField: 'total_obligation',
+        _defaultSortField: 'Award ID',
         _order: [
             'award_id',
             'recipient_name',
@@ -384,7 +389,7 @@ const tableSearchFields = {
         funding_subtier_name: 'Funding Sub-Agency'
     },
     loans: {
-        _defaultSortField: 'face_value_loan_guarantee',
+        _defaultSortField: 'Loan Value',
         sortDirection: {
             award_id: 'asc',
             recipient_name: 'asc',
@@ -429,7 +434,7 @@ const tableSearchFields = {
         funding_subtier_name: 'Funding Sub-Agency'
     },
     other: {
-        _defaultSortField: 'total_obligation',
+        _defaultSortField: 'Award ID',
         _order: [
             'award_id',
             'recipient_name',
@@ -468,4 +473,4 @@ const tableSearchFields = {
 };
 /* eslint-enable max-len */
 
-export default tableSearchFields;
+export default awardTableSearchFields;
