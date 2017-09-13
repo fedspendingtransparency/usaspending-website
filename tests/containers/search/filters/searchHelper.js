@@ -1,7 +1,7 @@
 import { mockRecipientLocation, mockRecipientDUNS } from './recipientFilter/mockRecipients';
 import { mockAgencies } from './agencyFilter/mockAgencies';
 import { mockAwardIDs } from './awardID/mockAwardIDs';
-import { mockApi, mockTabCount } from '../table/mockAwards';
+import { mockApi, mockV2TableApi, mockTabCount } from '../table/mockAwards';
 import { mockCFDA } from './cfda/mockCFDA';
 import { mockNAICS } from './naics/mockNAICS';
 import { mockPSC } from './psc/mockPSC';
@@ -209,6 +209,19 @@ export const fetchLastUpdate = () => (
                     data: {
                         last_update: '01/01/1984'
                     }
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+export const performSpendingByAwardSearch = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockV2TableApi
                 });
             });
         }),

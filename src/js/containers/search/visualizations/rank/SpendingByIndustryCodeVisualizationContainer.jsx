@@ -162,18 +162,13 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
                 aggregate = 0;
             }
 
-            let code = '';
-            let codeDescription = '';
-
+            let label = '';
             if (this.state.scope === 'psc') {
-                code = item.psc_code;
+                label = item.psc_code;
             }
             else {
-                code = item.naics_code;
-                codeDescription = `: ${item.naics_description}`;
+                label = `${item.naics_code}: ${item.naics_description}`;
             }
-
-            const label = `${code}${codeDescription}`;
 
             labelSeries.push(`${label}`);
             dataSeries.push(aggregate);

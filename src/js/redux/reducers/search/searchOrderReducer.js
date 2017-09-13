@@ -5,7 +5,7 @@
 
 import { Record } from 'immutable';
 
-const initialState = {
+export const initialState = {
     field: 'Award Amount',
     direction: 'desc'
 };
@@ -21,7 +21,7 @@ const searchFiltersReducer = (state = new OrderRecord(), action) => {
             });
         }
         case 'RESET_SEARCH_ORDER': {
-            return Object.assign({}, initialState);
+            return new OrderRecord();
         }
         default:
             return state;
