@@ -152,7 +152,7 @@ export default class MinorObjectClasses extends React.Component {
                     x1={n.x1}
                     y0={n.y0}
                     y1={n.y1}
-                    total={this.props.totalMinorObligation}
+                    total={treeProps.totalMinorObligation}
                     key={n.data.object_class_code}
                     objectClassID={n.data.object_class_code}
                     color={cellColor}

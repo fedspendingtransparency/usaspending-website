@@ -113,10 +113,8 @@ export default class ObjectClassTreeMap extends React.Component {
         const total = MoneyFormatter.formatTreemapValues(this.props.totalObligation);
         let greatThanOneHundredDescription = null;
         if (this.props.hasNegatives) {
-            // placeholder description
-            greatThanOneHundredDescription = (<p><em><strong>Note:</strong> These object classes may
-            add up to more than 100%. This is because this agency has both inflow and outflow. The
-            negative obligations offset the positive ones, but cannot be displayed on this type of graph. </em>
+            greatThanOneHundredDescription = (<p><em><strong>Note:</strong> The object classes below add up to more
+                than 100% due to negative values not shown here. </em>
             </p>);
         }
 

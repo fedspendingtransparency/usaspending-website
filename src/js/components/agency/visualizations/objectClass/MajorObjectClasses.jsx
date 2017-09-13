@@ -144,7 +144,7 @@ export default class MajorObjectClasses extends React.Component {
                     x1={n.x1}
                     y0={n.y0}
                     y1={n.y1}
-                    total={this.props.totalObligation}
+                    total={treeProps.totalObligation}
                     key={n.data.major_object_class_code}
                     objectClassID={n.data.major_object_class_code}
                     color={cellColor}
