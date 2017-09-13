@@ -18,7 +18,8 @@ const propTypes = {
     majorObjectClass: PropTypes.object,
     minorObjectClasses: PropTypes.object,
     totalObligation: PropTypes.number,
-    totalMinorObligation: PropTypes.number
+    totalMinorObligation: PropTypes.number,
+    hasNegatives: PropTypes.bool
 };
 
 export default class MinorObjectClasses extends React.Component {
@@ -239,8 +240,16 @@ export default class MinorObjectClasses extends React.Component {
         const objectClassDefinition =
             objectClassDefinitions[this.props.majorObjectClass.major_object_class_code];
 
+        let greatThanOneHundredDescription = null;
+        if (this.props.hasNegatives) {
+            greatThanOneHundredDescription = (<p><em><strong>Note:</strong> The object classes below add up to more
+                than 100% due to negative values not shown here. </em>
+            </p>);
+        }
+
         return (
             <div className="treemap-inner-wrap">
+                {greatThanOneHundredDescription}
                 <div className="function-desc">
                     <h1>{this.props.majorObjectClass.major_object_class_name}</h1>
                     <h6>{totalSpend} | {percentage}</h6>

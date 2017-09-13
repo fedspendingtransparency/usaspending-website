@@ -20,7 +20,8 @@ const propTypes = {
     totalMinorObligation: PropTypes.number,
     showMinorObjectClasses: PropTypes.func,
     asOfDate: PropTypes.string,
-    hasNegatives: PropTypes.bool
+    hasNegatives: PropTypes.bool,
+    minorHasNegatives: PropTypes.bool
 };
 
 export default class ObjectClassTreeMap extends React.Component {
@@ -91,7 +92,8 @@ export default class ObjectClassTreeMap extends React.Component {
             {...this.state}
             majorObjectClasses={this.props.majorObjectClasses}
             totalObligation={this.props.totalObligation}
-            toggleMinorObjectClass={this.toggleMinorObjectClass} />);
+            toggleMinorObjectClass={this.toggleMinorObjectClass}
+            hasNegatives={this.props.hasNegatives} />);
 
         if (this.state.showMinorObjectClass === true) {
             const selectedMajorObjectClass = find(this.props.majorObjectClasses.children,
@@ -103,7 +105,8 @@ export default class ObjectClassTreeMap extends React.Component {
                 minorObjectClasses={this.props.minorObjectClasses}
                 totalObligation={this.props.totalObligation}
                 totalMinorObligation={this.props.totalMinorObligation}
-                toggleMinorObjectClass={this.toggleMinorObjectClass} />);
+                toggleMinorObjectClass={this.toggleMinorObjectClass}
+                hasNegatives={this.props.minorHasNegatives} />);
         }
 
         return objectClasses;
@@ -111,12 +114,6 @@ export default class ObjectClassTreeMap extends React.Component {
 
     render() {
         const total = MoneyFormatter.formatTreemapValues(this.props.totalObligation);
-        let greatThanOneHundredDescription = null;
-        if (this.props.hasNegatives) {
-            greatThanOneHundredDescription = (<p><em><strong>Note:</strong> The object classes below add up to more
-                than 100% due to negative values not shown here. </em>
-            </p>);
-        }
 
         return (
             <div
@@ -132,7 +129,6 @@ export default class ObjectClassTreeMap extends React.Component {
                     <em>Data as of {this.props.asOfDate}</em>
                     <hr className="results-divider" />
                 </div>
-                {greatThanOneHundredDescription}
                 <div className="agency-section-content">
                     <div
                         className="usa-da-treemap-section"

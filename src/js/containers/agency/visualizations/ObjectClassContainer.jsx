@@ -40,7 +40,8 @@ export default class ObjectClassContainer extends React.PureComponent {
             totalObligation: 0,
             totalMinorObligation: 0,
             displayTotal: 0,
-            hasNegatives: false
+            hasNegatives: false,
+            minorHasNegatives: false
         };
 
         this.showMinorObjectClasses = this.showMinorObjectClasses.bind(this);
@@ -194,14 +195,14 @@ export default class ObjectClassContainer extends React.PureComponent {
                     0
                 );
 
-                const hasNegatives = positiveMinorObligation > totalMinorObligation;
+                const minorHasNegatives = positiveMinorObligation > totalMinorObligation;
 
                 this.setState({
                     minorObjectClasses: {
                         children: res.data.results
                     },
                     totalMinorObligation,
-                    hasNegatives
+                    minorHasNegatives
                 });
             })
             .catch((err) => {
@@ -226,7 +227,8 @@ export default class ObjectClassContainer extends React.PureComponent {
                 totalMinorObligation={this.state.totalMinorObligation}
                 showMinorObjectClasses={this.showMinorObjectClasses}
                 asOfDate={this.props.asOfDate}
-                hasNegatives={this.state.hasNegatives} />
+                hasNegatives={this.state.hasNegatives}
+                minorHasNegatives={this.state.minorHasNegatives} />
         );
     }
 
