@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -12,7 +13,7 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import ContractFilter from 'components/search/filters/contractFilters/ContractFilter';
 
 const propTypes = {
-    updateSetAside: React.PropTypes.func
+    updateSetAside: PropTypes.func
 };
 
 export class SetAsideContainer extends React.Component {

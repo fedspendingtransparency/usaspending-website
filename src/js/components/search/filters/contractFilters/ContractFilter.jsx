@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { keys, invert } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import * as ContractFieldDefinitions from 'dataMapping/search/contractFields';
@@ -11,10 +12,10 @@ import * as ContractFieldDefinitions from 'dataMapping/search/contractFields';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
 const propTypes = {
-    toggleFilter: React.PropTypes.func,
-    contractFilterType: React.PropTypes.string,
-    contractFilterOptions: React.PropTypes.string,
-    contractFilterState: React.PropTypes.string
+    toggleFilter: PropTypes.func,
+    contractFilterType: PropTypes.string,
+    contractFilterOptions: PropTypes.string,
+    contractFilterState: PropTypes.string
 };
 
 const defaultShown = 4;
