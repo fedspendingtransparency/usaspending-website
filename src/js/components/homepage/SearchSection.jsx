@@ -62,6 +62,44 @@ export default class SearchSection extends React.Component {
                     <div className="search-section-ways">
                         <div className="way-item">
                             <div className="icon">
+                                <Explorer
+                                    alt="Explorer" />
+                            </div>
+                            <div className="title">
+                                <h3>Spending Explorer</h3>
+                                <div className="description">
+                                    Navigate the levels of government spending from top to bottom
+                                </div>
+                            </div>
+                            <div className="action">
+                                <button
+                                    className="action-button"
+                                    onClick={this.navigateTo.bind(null, "/explorer")}>
+                                    Start Exploring
+                                </button>
+                            </div>
+                        </div>
+                        <div className="way-item">
+                            <div className="icon">
+                                <AwardSearch
+                                    alt="Award Search" />
+                            </div>
+                            <div className="title">
+                                <h3>Award Search</h3>
+                                <div className="description">
+                                    Search through awards and discover trends and connections
+                                </div>
+                            </div>
+                            <div className="action">
+                                <button
+                                    className="action-button"
+                                    onClick={this.navigateTo.bind(null, "/search")}>
+                                    Start Search
+                                </button>
+                            </div>
+                        </div>
+                        <div className="way-item">
+                            <div className="icon">
                                 <BuildingMag
                                     alt="Profiles" />
                             </div>
@@ -119,44 +157,6 @@ export default class SearchSection extends React.Component {
                                     </li>
                                 </ul>
 
-                            </div>
-                        </div>
-                        <div className="way-item">
-                            <div className="icon">
-                                <Explorer
-                                    alt="Explorer" />
-                            </div>
-                            <div className="title">
-                                <h3>Explorer</h3>
-                                <div className="description">
-                                    Navigate the levels of government spending from top to bottom
-                                </div>
-                            </div>
-                            <div className="action">
-                                <button
-                                    className="action-button"
-                                    onClick={this.navigateTo.bind(null, "/explorer")}>
-                                    Start Exploring
-                                </button>
-                            </div>
-                        </div>
-                        <div className="way-item">
-                            <div className="icon">
-                                <AwardSearch
-                                    alt="Award Search" />
-                            </div>
-                            <div className="title">
-                                <h3>Award Search</h3>
-                                <div className="description">
-                                    Search through awards and discover trends and connections
-                                </div>
-                            </div>
-                            <div className="action">
-                                <button
-                                    className="action-button"
-                                    onClick={this.navigateTo.bind(null, "/search")}>
-                                    Start Search
-                                </button>
                             </div>
                         </div>
                     </div>
