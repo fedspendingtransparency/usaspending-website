@@ -52,7 +52,7 @@ const NavBar = (props) => {
                             <span>Award Search</span>
                         </a>
                     </li>
-                    <li className="menu-item profile-item">
+                    <li className="menu-item">
                         <ProfileButton homepage={props.homepage} />
                     </li>
                 </ul>

@@ -72,13 +72,13 @@
 
         li {
             white-space: nowrap;
-            text-align: left;
             a {
                 font-size: rem(20);
                 line-height: rem(25);
                 font-weight: $font-light;
                 color: $color-base;
                 text-decoration: none;
+                text-align: left;
                 opacity: 0.6;
 
                 display: block;
