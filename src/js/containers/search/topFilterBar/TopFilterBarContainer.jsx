@@ -130,6 +130,24 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(selectedPSC);
         }
 
+        // prepare Pricing Type filters
+        const pricingTypes = this.preparePricingType(props);
+        if (pricingTypes) {
+            filters.push(pricingTypes);
+        }
+
+        // prepare Set Aside filters
+        const setAside = this.prepareSetAside(props);
+        if (setAside) {
+            filters.push(setAside);
+        }
+
+        // prepare Extent Competed filters
+        const extentCompeted = this.preparedExtentCompeted(props);
+        if (extentCompeted) {
+            filters.push(extentCompeted);
+        }
+
         this.setState({
             filters,
             filterCount: this.determineFilterCount(filters)
@@ -434,6 +452,65 @@ export class TopFilterBarContainer extends React.Component {
         return null;
     }
 
+    preparePricingType(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.pricingType.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.pricingType.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'pricingType';
+            filter.name = 'Type of Contract Pricing';
+            return filter;
+        }
+        return null;
+    }
+
+    prepareSetAside(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.setAside.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.setAside.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'setAside';
+            filter.name = 'Type of Set Aside';
+            return filter;
+        }
+        return null;
+    }
+
+    preparedExtentCompeted(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.extentCompeted.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.extentCompeted.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'extentCompeted';
+            filter.name = 'Extent Competed';
+            return filter;
+        }
+        return null;
+    }
     /**
      * Logic for parsing the current Redux selected CFDA into a JS object
      * that can be parsed by the top filter bar

@@ -18,6 +18,9 @@ import AwardAmountFilterGroup from './AwardAmountFilterGroup';
 import CFDAFilterGroup from './CFDAFilterGroup';
 import NAICSFilterGroup from './NAICSFilterGroup';
 import PSCFilterGroup from './PSCFilterGroup';
+import PricingTypeFilterGroup from './PricingTypeFilterGroup';
+import SetAsideFilterGroup from './SetAsideFilterGroup';
+import ExtentCompetedFilterGroup from './ExtentCompetedFilterGroup';
 
 export const topFilterGroupGenerator = (config = {
     filter: {
@@ -62,6 +65,12 @@ export const topFilterGroupGenerator = (config = {
             return (<NAICSFilterGroup key={groupKey} {...config} />);
         case 'selectedPSC':
             return (<PSCFilterGroup key={groupKey} {...config} />);
+        case 'pricingType':
+            return (<PricingTypeFilterGroup key={groupKey} {...config} />);
+        case 'setAside':
+            return (<SetAsideFilterGroup key={groupKey} {...config} />);
+        case 'extentCompeted':
+            return (<ExtentCompetedFilterGroup key={groupKey} {...config} />);
         default:
             return null;
     }

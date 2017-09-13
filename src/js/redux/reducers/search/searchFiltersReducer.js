@@ -13,6 +13,7 @@ import * as AwardIDFilterFunctions from './filters/awardIDFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
 import * as OtherFilterFunctions from './filters/OtherFilterFunctions';
 import * as FiscalYearHelper from '../../../helpers/fiscalYearHelper';
+import * as ContractFilterFunctions from './filters/contractFilterFunctions';
 
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
@@ -32,7 +33,10 @@ export const requiredTypes = {
     awardAmounts: OrderedMap,
     selectedCFDA: OrderedMap,
     selectedNAICS: OrderedMap,
-    selectedPSC: OrderedMap
+    selectedPSC: OrderedMap,
+    pricingType: Set,
+    setAside: Set,
+    extentCompeted: Set
 };
 
 export const initialState = {
@@ -54,7 +58,10 @@ export const initialState = {
     awardAmounts: new OrderedMap(),
     selectedCFDA: new OrderedMap(),
     selectedNAICS: new OrderedMap(),
-    selectedPSC: new OrderedMap()
+    selectedPSC: new OrderedMap(),
+    pricingType: new Set(),
+    setAside: new Set(),
+    extentCompeted: new Set()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -191,6 +198,30 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 selectedPSC: OtherFilterFunctions.updateSelectedPSC(
                     state.selectedPSC, action.psc)
+            });
+        }
+
+        // Pricing Type Filter
+        case 'UPDATE_PRICING_TYPE': {
+            return Object.assign({}, state, {
+                pricingType: ContractFilterFunctions.updateContractFilterSet(
+                    state.pricingType, action.pricingType)
+            });
+        }
+
+        // Set Aside Filter
+        case 'UPDATE_SET_ASIDE': {
+            return Object.assign({}, state, {
+                setAside: ContractFilterFunctions.updateContractFilterSet(
+                    state.setAside, action.setAside)
+            });
+        }
+
+        // Extent Competed Filter
+        case 'UPDATE_EXTENT_COMPETED': {
+            return Object.assign({}, state, {
+                extentCompeted: ContractFilterFunctions.updateContractFilterSet(
+                    state.extentCompeted, action.extentCompeted)
             });
         }
 

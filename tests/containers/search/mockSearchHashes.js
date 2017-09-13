@@ -24,10 +24,13 @@ export const mockFilters = {
             recipientDomesticForeign: "all",
             selectedRecipientLocations: {},
             awardAmounts: {},
+            timePeriodEnd: null,
             selectedCFDA: {},
             selectedNAICS: {},
             selectedPSC: {},
-            timePeriodEnd: null
+            pricingType: [],
+            setAside: [],
+            extentCompeted: []
         }
     }
 };

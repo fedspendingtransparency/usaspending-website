@@ -15,7 +15,12 @@ import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
 import AwardAmountSearchContainer from
     'containers/search/filters/awardAmount/AwardAmountSearchContainer';
-import OtherFilters from 'components/search/filters/otherFilters/OtherFilters';
+import CFDASearchContainer from 'containers/search/filters/cfda/CFDASearchContainer';
+import NAICSSearchContainer from 'containers/search/filters/naics/NAICSSearchContainer';
+import PSCSearchContainer from 'containers/search/filters/psc/PSCSearchContainer';
+import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer';
+import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
+import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedContainer';
 
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
@@ -32,7 +37,12 @@ const filters = {
         'Place of Performance',
         'Award Amount',
         'Award ID',
-        'Other Award Items'
+        'CFDA Programs',
+        'NAICS Code',
+        'Product/Service Code (PSC)',
+        'Type of Contract Pricing',
+        'Type of Set Aside',
+        'Extent Competed'
     ],
     components: [
         KeywordContainer,
@@ -43,7 +53,12 @@ const filters = {
         LocationSearchContainer,
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
-        OtherFilters
+        CFDASearchContainer,
+        NAICSSearchContainer,
+        PSCSearchContainer,
+        PricingTypeContainer,
+        SetAsideContainer,
+        ExtentCompetedContainer
     ]
 };
 

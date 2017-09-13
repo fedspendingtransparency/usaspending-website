@@ -533,6 +533,7 @@ describe('searchFiltersReducer', () => {
         });
     });
 
+
     describe('UPDATE_SELECTED_CFDA', () => {
         const action = {
             type: 'UPDATE_SELECTED_CFDA',
@@ -640,6 +641,69 @@ describe('searchFiltersReducer', () => {
 
             const updatedState = searchFiltersReducer(startingState, action);
             expect(updatedState.selectedPSC).toEqual(new OrderedMap());
+        });
+    });
+
+    describe('UPDATE_PRICING_TYPE', () => {
+        it('should set a pricing type value when there is none', () => {
+            const action = {
+                type: 'UPDATE_PRICING_TYPE',
+                pricingType: 'B'
+            };
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.pricingType).toEqual(new Set(['B']));
+        });
+
+        it('should remove the provided values when unchecked', () => {
+            const action = {
+                type: 'UPDATE_PRICING_TYPE',
+                pricingType: 'B'
+            };
+
+            const startingState = Object.assign({}, initialState, {
+                pricingType: new Set(['B', 'L'])
+            });
+
+            expect(
+                searchFiltersReducer(startingState, action).pricingType
+            ).toEqual(new Set(['L']));
+        });
+
+        it('should add new values to an existing set', () => {
+            const action = {
+                type: 'UPDATE_PRICING_TYPE',
+                pricingType: 'B'
+            };
+
+            const startingState = Object.assign({}, initialState, {
+                pricingType: new Set(['M', 'J', 'L'])
+            });
+
+            expect(
+                searchFiltersReducer(startingState, action).pricingType
+            ).toEqual(new Set(['M', 'J', 'L', 'B']));
+        });
+    });
+
+    describe('UPDATE_SET_ASIDE', () => {
+        it('should set a set aside value', () => {
+            const action = {
+                type: 'UPDATE_SET_ASIDE',
+                setAside: 'BICiv'
+            };
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.setAside).toEqual(new Set(['BICiv']));
+        });
+    });
+
+    describe('UPDATE_EXTENT_COMPETED', () => {
+        it('should set an extent competed value', () => {
+            const action = {
+                type: 'UPDATE_EXTENT_COMPETED',
+                extentCompeted: 'CDOCiv'
+            };
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.extentCompeted).toEqual(new Set(['CDOCiv']));
         });
     });
 

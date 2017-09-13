@@ -27,7 +27,6 @@ export default class CFDASearch extends React.Component {
         return (
             <div className="cfda-filter">
                 <div className="filter-item-wrap">
-                    <p>CFDA Programs</p>
                     <CFDAListContainer {...this.props} selectCFDA={this.props.selectCFDA} />
                     {selectedCFDA}
                 </div>

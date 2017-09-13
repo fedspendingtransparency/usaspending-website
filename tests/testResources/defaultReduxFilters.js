@@ -29,7 +29,10 @@ export const defaultFilters = {
     awardAmounts: new OrderedMap(),
     selectedCFDA: new OrderedMap(),
     selectedNAICS: new OrderedMap(),
-    selectedPSC: new OrderedMap()
+    selectedPSC: new OrderedMap(),
+    pricingType: new Set(),
+    setAside: new Set(),
+    extentCompeted: new Set()
 };
 
 export const defaultResultsMeta = {
