@@ -69,12 +69,7 @@ export default class ObjectClassTreeMap extends React.Component {
     }
 
     generateHeader() {
-        let header = (<div>
-            <div className="info-icon-circle">
-                <Icons.InfoCircle />
-            </div>
-            <span>Hover over a segment for more information</span>
-        </div>);
+        let header = '';
 
         if (this.state.showMinorObjectClass === true) {
             header = (<button
