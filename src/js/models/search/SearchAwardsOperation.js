@@ -101,10 +101,12 @@ class SearchAwardsOperation {
                 });
             }
             else if (this.timePeriodType === 'dr' && this.timePeriodRange.length === 2) {
-                filters[rootKeys.timePeriod] = {
-                    [timePeriodKeys.startDate]: this.timePeriodRange[0],
-                    [timePeriodKeys.endDate]: this.timePeriodRange[1]
-                };
+                filters[rootKeys.timePeriod] = [
+                    {
+                        [timePeriodKeys.startDate]: this.timePeriodRange[0],
+                        [timePeriodKeys.endDate]: this.timePeriodRange[1]
+                    }
+                ];
             }
         }
 
