@@ -15,7 +15,6 @@ import recordReducer from './records/recordReducer';
 import autocompleteAgencyReducer from './search/agencyReducer';
 import recipientReducer from './search/recipientReducer';
 import awardIDReducer from './search/awardIDReducer';
-import budgetCategoryReducer from './search/budgetCategoryReducer';
 import awardReducer from './award/awardReducer';
 import accountReducer from './account/accountReducer';
 import agencyReducer from './agency/agencyReducer';
@@ -41,7 +40,6 @@ const appReducer = combineReducers({
     autocompleteRecipients: recipientReducer,
     records: recordReducer,
     award: awardReducer,
-    autocompleteBudgetCategories: budgetCategoryReducer,
     account: accountReducer,
     agency: agencyReducer,
     glossary: glossaryReducer,

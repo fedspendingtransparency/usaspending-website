@@ -27,7 +27,6 @@ export default class NAICSSearch extends React.Component {
         return (
             <div className="naics-filter">
                 <div className="filter-item-wrap">
-                    <p>NAICS Code</p>
                     <NAICSListContainer {...this.props} selectNAICS={this.props.selectNAICS} />
                     {selectedNAICS}
                 </div>

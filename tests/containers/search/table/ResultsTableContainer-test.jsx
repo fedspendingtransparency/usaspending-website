@@ -302,7 +302,7 @@ describe('ResultsTableContainer', () => {
             });
 
             const page = Object.assign({}, mockRedux.meta.page, {
-                has_next_page: true,
+                hasNext: true,
                 page: 5
             });
 
@@ -332,7 +332,7 @@ describe('ResultsTableContainer', () => {
             });
 
             const page = Object.assign({}, mockRedux.meta.page, {
-                has_next_page: false,
+                hasNext: false,
                 page: 5
             });
 
@@ -372,32 +372,13 @@ describe('ResultsTableContainer', () => {
 
             // now check a second response
             const secondMock = Object.assign({}, mockTabCount, {
-                results: [
-                    {
-                        type: 'A',
-                        aggregate: '0'
-                    },
-                    {
-                        type: 'B',
-                        aggregate: '0'
-                    },
-                    {
-                        type: 'C',
-                        aggregate: '0'
-                    },
-                    {
-                        type: 'D',
-                        aggregate: '0'
-                    },
-                    {
-                        type: '02',
-                        aggregate: '1'
-                    },
-                    {
-                        type: '03',
-                        aggregate: '1'
-                    }
-                ]
+                results: {
+                    grants: 1,
+                    loans: 0,
+                    contracts: 0,
+                    direct_payments: 0,
+                    other: 0
+                }
             });
 
             container.instance().parseTabCounts(secondMock);
@@ -470,6 +451,47 @@ describe('ResultsTableContainer', () => {
 
             autoTabSpy.reset();
             searchSpy.reset();
+        });
+    });
+
+    describe('loadColumns', () => {
+        it('should load the available table columns', () => {
+            const mockPop = jest.fn();
+            const actions = Object.assign({}, mockActions, {
+                populateAvailableColumns: mockPop
+            });
+
+            const container = shallow(<ResultsTableContainer
+                {...actions}
+                {...mockRedux} />);
+            container.instance().loadColumns();
+            expect(mockPop).toHaveBeenCalledTimes(1);
+
+            const mockPopArgs = mockPop.mock.calls[0][0];
+
+            const types = ['contracts', 'grants', 'direct_payments', 'loans', 'other'];
+            types.forEach((type) => {
+                expect(mockPopArgs).toHaveProperty(type);
+                expect(mockPopArgs[type]).toHaveProperty('visibleOrder');
+                expect(mockPopArgs[type]).toHaveProperty('hiddenOrder');
+                expect(mockPopArgs[type]).toHaveProperty('data');
+            });
+        });
+    });
+
+    describe('createColumn', () => {
+        it('should create a column object that aligns with the legacy column object used by the results table', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+            const column = container.instance().createColumn('Award ID');
+
+            expect(column).toEqual({
+                columnName: 'Award ID',
+                displayName: 'Award ID',
+                width: 220,
+                defaultDirection: 'asc'
+            });
         });
     });
 });

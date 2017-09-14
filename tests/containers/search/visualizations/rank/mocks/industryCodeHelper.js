@@ -1,7 +1,7 @@
 import { industryCode } from '../../mockVisualizations';
 
-// Fetch Industry Codes
-export const performTransactionsTotalSearch = () => (
+// Spending by Category Search
+export const performSpendingByCategorySearch = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {

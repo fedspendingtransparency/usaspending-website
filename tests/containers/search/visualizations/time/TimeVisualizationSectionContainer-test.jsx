@@ -77,7 +77,7 @@ describe('TimeVisualizationSectionContainer', () => {
         };
 
         // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+        mockSearchHelper('performSpendingOverTimeSearch', 'resolve', apiResponse);
 
         // mount the container
         mount(<TimeVisualizationSectionContainer reduxFilters={defaultFilters} />);
@@ -113,7 +113,7 @@ describe('TimeVisualizationSectionContainer', () => {
         };
 
         // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performTransactionsTotalSearch', 'resolve', apiResponse);
+        mockSearchHelper('performSpendingOverTimeSearch', 'resolve', apiResponse);
 
         const initialFilters = Object.assign({}, defaultFilters);
         const secondFilters = Object.assign({}, defaultFilters, {
@@ -147,7 +147,7 @@ describe('TimeVisualizationSectionContainer', () => {
     });
 
     describe('parseData', () => {
-        it('should properly restructure the API data for the spending over time chart for ungrouped series', () => {
+        it('should properly restructure the API data for the spending over time chart for fiscal year series', () => {
             // create a mock API response
             const apiResponse = {
                 page_metadata: {
@@ -158,11 +158,16 @@ describe('TimeVisualizationSectionContainer', () => {
                     previous: null
                 },
                 results: [{
-                    submission__reporting_fiscal_year: '2013',
-                    aggregate: '1234'
-                }, {
-                    submission__reporting_fiscal_year: '2014',
-                    aggregate: '5555'
+                    time_period: {
+                        fiscal_year: "2016"
+                    },
+                    aggregated_amount: "1234"
+                },
+                {
+                    time_period: {
+                        fiscal_year: "2017"
+                    },
+                    aggregated_amount: "5555"
                 }]
             };
 
@@ -171,24 +176,138 @@ describe('TimeVisualizationSectionContainer', () => {
             };
 
             // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performBalancesSearch', 'resolve', apiResponse);
+            mockSearchHelper('performSpendingOverTimeSearch', 'resolve', apiResponse);
             // mount the container
             const timeVisualizationContainer =
                 shallow(<TimeVisualizationSectionContainer
                     {...mockReduxActions}
                     reduxFilters={defaultFilters} />);
 
-            timeVisualizationContainer.instance().parseData(
-                apiResponse, 'submission__reporting_fiscal_year');
+            timeVisualizationContainer.instance().parseData(apiResponse, 'fiscal_year');
+
+            // wait for the SearchHelper promises to resolve
+            jest.runAllTicks();
+
+            // validate the state contains the correctly parsed values
+            const expectedState = {
+                loading: false,
+                visualizationPeriod: "fiscal_year",
+                groups: ['2016', '2017'],
+                xSeries: [['2016'], ['2017']],
+                ySeries: [[1234], [5555]]
+            };
+
+            expect(timeVisualizationContainer.state()).toEqual(expectedState);
+        });
+
+        it('should properly restructure the API data for the spending over time chart for quarterly series', () => {
+            // create a mock API response
+            const apiResponse = {
+                page_metadata: {
+                    has_next_page: false,
+                    has_previous_page: false,
+                    next: null,
+                    page: 1,
+                    previous: null
+                },
+                results: [{
+                    time_period: {
+                        fiscal_year: "2017",
+                        quarter: "1"
+                    },
+                    aggregated_amount: "1234"
+                },
+                {
+                    time_period: {
+                        fiscal_year: "2017",
+                        quarter: "2"
+                    },
+                    aggregated_amount: "5555"
+                }]
+            };
+
+            const mockReduxActions = {
+                setVizTxnSum: jest.fn()
+            };
+
+            // mock the search helper to resolve with the mocked response
+            mockSearchHelper('performSpendingOverTimeSearch', 'resolve', apiResponse);
+
+            // mount the container
+            const timeVisualizationContainer =
+                shallow(<TimeVisualizationSectionContainer
+                    {...mockReduxActions}
+                    reduxFilters={defaultFilters} />);
+
+            timeVisualizationContainer.instance().updateVisualizationPeriod('quarter');
+
+            timeVisualizationContainer.instance().parseData(apiResponse, 'quarter');
+
+            // wait for the SearchHelper promises to resolve
+            jest.runAllTicks();
+
+            // validate the state contains the correctly parsed values
+            const expectedState = {
+                loading: false,
+                visualizationPeriod: "quarter",
+                groups: ['Q1 2017', 'Q2 2017'],
+                xSeries: [['Q1 2017'], ['Q2 2017']],
+                ySeries: [[1234], [5555]]
+            };
+
+            expect(timeVisualizationContainer.state()).toEqual(expectedState);
+        });
+
+        it('should properly restructure the API data for the spending over time chart for monthly series', () => {
+            // create a mock API response
+            const apiResponse = {
+                page_metadata: {
+                    has_next_page: false,
+                    has_previous_page: false,
+                    next: null,
+                    page: 1,
+                    previous: null
+                },
+                results: [{
+                    time_period: {
+                        fiscal_year: "2017",
+                        month: "1"
+                    },
+                    aggregated_amount: "1234"
+                },
+                {
+                    time_period: {
+                        fiscal_year: "2017",
+                        month: "2"
+                    },
+                    aggregated_amount: "5555"
+                }]
+            };
+
+            const mockReduxActions = {
+                setVizTxnSum: jest.fn()
+            };
+
+            // mock the search helper to resolve with the mocked response
+            mockSearchHelper('performSpendingOverTimeSearch', 'resolve', apiResponse);
+
+            // mount the container
+            const timeVisualizationContainer =
+                shallow(<TimeVisualizationSectionContainer
+                    {...mockReduxActions}
+                    reduxFilters={defaultFilters} />);
+
+            timeVisualizationContainer.instance().updateVisualizationPeriod('month');
+
+            timeVisualizationContainer.instance().parseData(apiResponse, 'month');
             // wait for the SearchHelper promises to resolve
             jest.runAllTicks();
             // validate the state contains the correctly parsed values
             const expectedState = {
-                awardFiltersSelected: false,
-                budgetFiltersSelected: false,
                 loading: false,
-                groups: ['2013', '2014'],
-                xSeries: [['2013'], ['2014']],
+                visualizationPeriod: "month",
+                groups: ['Oct 2016', 'Nov 2016'],
+                xSeries: [['Oct 2016'], ['Nov 2016']],
                 ySeries: [[1234], [5555]]
             };
 

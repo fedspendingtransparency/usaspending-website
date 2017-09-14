@@ -4,9 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { AngleDown } from 'components/sharedComponents/icons/Icons';
 
 import ProfileComingSoon from './ProfileComingSoon';
+
+const propTypes = {
+    homepage: PropTypes.bool
+};
 
 export default class ProfileButton extends React.Component {
     constructor(props) {
@@ -45,12 +50,18 @@ export default class ProfileButton extends React.Component {
             active = 'active';
         }
 
+        let homepage = '';
+        if (this.props.homepage) {
+            homepage = 'homepage';
+        }
+
         return (
             <div
                 onMouseEnter={this.expandMenu}
                 onMouseLeave={this.collapseMenu}>
                 <button
-                    className={`usa-nav-profile-button ${active}`}
+                    className={`usa-nav-profile-button ${homepage} ${active}`}
+                    title="Profiles: Learn more about organizations and accounts"
                     onClick={this.clickedButton}>
                     <div className="profile-button-content">
                         <div className="profile-button-label">
@@ -61,7 +72,7 @@ export default class ProfileButton extends React.Component {
                         </div>
                     </div>
                 </button>
-                <div className={`usa-nav-profile-list ${active}`}>
+                <div className={`usa-nav-profile-list ${active} ${homepage}`}>
                     <div className="profile-list-wrapper">
                         <ul className="profile-list">
                             <li>
@@ -96,3 +107,4 @@ export default class ProfileButton extends React.Component {
     }
 }
 
+ProfileButton.propTypes = propTypes;

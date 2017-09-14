@@ -1,4 +1,5 @@
 import { mockAccountProgramActivities } from './filters/mockAccountProgramActivities';
+import { mockAvailableOC } from './filters/mockObjectClass';
 import { mockAccount, mockBalances } from './mockAccount';
 
 // Fetch Program Activities
@@ -56,3 +57,15 @@ export const fetchTasCategoryTotals = () => (
     }
 );
 
+export const fetchAvailableObjectClasses = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockAvailableOC
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
