@@ -136,4 +136,16 @@ describe('RouterSingleton', () => {
             expect(output).toBeNull();
         });
     });
+
+    describe('loadComponent', () => {
+        it('should async load a JS bundle with the entrypoint component for a given route', async () => {
+            const instance = new RouterSingleton();
+            const mockComponent = (callback) => {
+                callback('hello');
+            };
+
+            const output = await instance.loadComponent(mockComponent);
+            expect(output).toEqual('hello');
+        });
+    });
 });
