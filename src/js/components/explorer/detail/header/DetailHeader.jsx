@@ -17,6 +17,7 @@ const propTypes = {
     lastUpdate: PropTypes.string,
     total: PropTypes.number,
     title: PropTypes.string,
+    id: PropTypes.string,
     parent: PropTypes.string
 };
 
@@ -55,6 +56,29 @@ const dataType = (type, parent) => {
     );
 };
 
+const heading = (type, title, id) => {
+    if (type === 'Federal Account') {
+        return (
+            <h2>
+                <a href={`/#/federal_account/${id}`}>{title}</a>
+            </h2>
+        );
+    }
+    // TODO - Lizzie: uncomment when backend verifies the id will match the url
+    // else if (type === 'Agency') {
+    //    return (
+    //        <h2>
+    //            <a href={`/#/agency/${id}`}>{title}</a>
+    //        </h2>
+    //    );
+    // }
+    return (
+        <h2>
+            {title}
+        </h2>
+    );
+};
+
 const DetailHeader = (props) => {
     const type = sidebarTypes[props.within];
 
@@ -64,9 +88,7 @@ const DetailHeader = (props) => {
                 <div className="you-did-this">
                     You&apos;ve chosen
                 </div>
-                <h2>
-                    {props.title}
-                </h2>
+                {heading(type, props.title, props.id)}
                 {dataType(type, props.parent)}
             </div>
             <div className="right-side">

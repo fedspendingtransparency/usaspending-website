@@ -38,7 +38,7 @@ const ExplorerLanding = () => (
                 <ExplorerLandingOption
                     icon="object_class"
                     title="Object Class"
-                    description="See spending divided by a broad categorization based on what was purchased."
+                    description="See spending grouped by the types of items and services purchased by the federal government."
                     url="#/explorer/object_class"
                     term="object-class" />
             </div>

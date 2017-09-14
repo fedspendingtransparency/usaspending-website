@@ -77,7 +77,8 @@ describe('DetailContentContainer', () => {
                     "subdivision": "agency",
                     "title": "",
                     "total": 100,
-                    "within": "root"
+                    "within": "root",
+                    "id": ""
                 }];
 
             const container = shallow(<DetailContentContainer
@@ -108,7 +109,8 @@ describe('DetailContentContainer', () => {
             const mockRequest = {
                 "subdivision": "federal_account",
                 "title": "Third Agency",
-                "within": "agency"
+                "within": "agency",
+                "id": 3
             };
             const mockLoadData = jest.fn();
             const container = shallow(<DetailContentContainer

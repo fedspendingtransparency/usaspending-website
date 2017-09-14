@@ -135,7 +135,8 @@ export class DetailContentContainer extends React.Component {
                 total,
                 within: 'root',
                 subdivision: this.props.explorer.root,
-                title: ''
+                title: '',
+                id: ''
             }
         ];
 
@@ -296,7 +297,8 @@ export class DetailContentContainer extends React.Component {
         const request = {
             within: this.props.explorer.active.subdivision,
             subdivision: nextSubdivision,
-            title: data.name
+            title: data.name,
+            id: data.id
         };
 
         this.setState({

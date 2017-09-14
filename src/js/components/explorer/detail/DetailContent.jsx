@@ -163,6 +163,7 @@ export default class DetailContent extends React.Component {
             header = (<DetailHeader
                 within={lastFilter.within}
                 title={lastFilter.title}
+                id={`${lastFilter.id}`}
                 fy={this.props.fy}
                 lastUpdate={this.props.lastUpdate}
                 total={this.props.active.total}

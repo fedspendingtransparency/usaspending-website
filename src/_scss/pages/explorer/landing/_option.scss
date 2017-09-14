@@ -52,6 +52,9 @@
 		    height: rem(15);
 		    fill: $color-white;
 		    margin: 0 0 rem(12) rem(5);
+		    &:hover {
+			    cursor: pointer;
+		    }
 	    }
     }
 

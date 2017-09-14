@@ -11,6 +11,10 @@
             font-size: rem(30);
             line-height: rem(32);
 
+	        a:hover {
+		        text-decoration: none;
+	        }
+
             @include media($large-screen) {
                 font-size: rem(36);
                 line-height: rem(40);
