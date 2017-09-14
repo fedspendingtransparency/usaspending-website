@@ -39,7 +39,6 @@ export default class ObjectClassContainer extends React.PureComponent {
             },
             totalObligation: 0,
             totalMinorObligation: 0,
-            displayTotal: 0,
             hasNegatives: false,
             minorHasNegatives: false
         };
