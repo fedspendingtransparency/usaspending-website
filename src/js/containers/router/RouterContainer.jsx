@@ -13,7 +13,6 @@ const ga = require('react-ga');
 
 const GA_OPTIONS = { debug: false };
 
-
 export default class RouterContainer extends React.Component {
     static logPageView(path) {
         ga.pageview(path);
