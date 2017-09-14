@@ -65,6 +65,17 @@ export default class BreakdownDropdown extends React.Component {
             const optionTree = dropdownScopes[props.root];
             const currentIndex = Math.min(optionTree.indexOf(props.active.subdivision),
                 optionTree.length - 1);
+            const accountDepth = optionTree.indexOf('federal_account');
+            const programActivityIndex = optionTree.indexOf('program_activity');
+
+            // Check if at or above the Federal Account level
+            if (currentIndex <= accountDepth) {
+                if (programActivityIndex !== -1) {
+                    // remove program activity from the options
+                    optionTree.splice(programActivityIndex, 1);
+                }
+            }
+
             const remainingTree = optionTree.slice(currentIndex);
 
             options = remainingTree;

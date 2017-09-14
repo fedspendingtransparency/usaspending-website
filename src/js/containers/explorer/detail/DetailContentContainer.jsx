@@ -274,28 +274,18 @@ export class DetailContentContainer extends React.Component {
             // A federal account has been picked, add program activity to the
             // scope if it's not already there
             if (programActivityIndex === -1) {
+                let index = 3;
                 if (this.props.explorer.root === 'agency') {
-                    path.splice(2, 0, 'program_activity');
-                    if (currentDepth === 2) {
-                        // We've just inserted a new element at the current depth,
-                        // so the next subdivision is 2 steps ahead
-                        nextSubdivision = path[currentDepth + 2];
-                    }
+                    index = 2;
                 }
-                else {
-                    path.splice(3, 0, 'program_activity');
-                    if (currentDepth === 3) {
-                        // We've just inserted a new element at the current depth,
-                        // so the next subdivision is 2 steps ahead
-                        nextSubdivision = path[currentDepth + 2];
-                    }
+                // Insert program activity
+                path.splice(index, 0, 'program_activity');
+                if (currentDepth === (index - 1)) {
+                    // We've just inserted a new element at the federal account level,
+                    // so the next subdivision should be program activity
+                    nextSubdivision = path[index];
                 }
             }
-        }
-        else if (programActivityIndex !== -1) {
-            // We have moved back above federal account in the hierarchy,
-            // remove program activity from the scope
-            path.splice(programActivityIndex, 1);
         }
 
         // create the request object
