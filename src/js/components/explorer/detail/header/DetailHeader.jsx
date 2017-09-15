@@ -64,14 +64,13 @@ const heading = (type, title, id) => {
             </h2>
         );
     }
-    // TODO - Lizzie: uncomment when backend verifies the id will match the url
-    // else if (type === 'Agency') {
-    //    return (
-    //        <h2>
-    //            <a href={`/#/agency/${id}`}>{title}</a>
-    //        </h2>
-    //    );
-    // }
+     else if (type === 'Agency') {
+        return (
+            <h2>
+                <a href={`/#/agency/${id}`}>{title}</a>
+            </h2>
+        );
+     }
     return (
         <h2>
             {title}

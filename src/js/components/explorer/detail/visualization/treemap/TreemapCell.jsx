@@ -101,7 +101,7 @@ export default class TreemapCell extends React.Component {
                 {this.props.subtitle.text}
             </text>
         );
-        if (this.props.width < 80) {
+        if (this.props.width < 75 || this.props.height < 38) {
             cellTitle = '';
             cellValue = '';
         }
