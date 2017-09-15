@@ -26,8 +26,6 @@ export default class ChartGroup extends React.Component {
             label: '',
             didProcess: false
         };
-
-        this.clickedLabel = this.clickedLabel.bind(this);
     }
 
     componentDidMount() {
@@ -46,11 +44,29 @@ export default class ChartGroup extends React.Component {
     }
 
     processLink(label) {
-        let title = label;
+        let linkClass = '';
+        if (this.props.linkID !== '') {
+            linkClass = ' group-label-link';
+        }
+        let title = (
+            <text
+                className={`group-label ${linkClass}`}
+                ref={(text) => {
+                    this.svgText = text;
+                }}>
+                {label}
+            </text>
+        );
 
         if (this.props.linkID !== '') {
-            title = (<a href={`${this.props.urlRoot}${this.props.linkID}`}>
-                {label}
+            title = (<a xlinkHref={`${this.props.urlRoot}${this.props.linkID}`}>
+                <text
+                    className={`group-label ${linkClass}`}
+                    ref={(text) => {
+                        this.svgText = text;
+                    }}>
+                    {label}
+                </text>
             </a>);
         }
 
@@ -103,21 +119,10 @@ export default class ChartGroup extends React.Component {
         });
     }
 
-    clickedLabel() {
-        if (this.props.linkID !== '') {
-            window.location = `${this.props.urlRoot}${this.props.linkID}`;
-        }
-    }
-
     render() {
         let backgroundClass = 'odd';
         if (this.props.index % 2 === 0) {
             backgroundClass = 'even';
-        }
-
-        let linkClass = '';
-        if (this.props.linkID !== '') {
-            linkClass = ' group-label-link';
         }
 
         return (
@@ -135,14 +140,7 @@ export default class ChartGroup extends React.Component {
                     height={this.props.height} />
 
                 <g transform="translate(12,34)">
-                    <text
-                        className={`group-label ${linkClass}`}
-                        onClick={this.clickedLabel}
-                        ref={(text) => {
-                            this.svgText = text;
-                        }}>
-                        {this.state.label}
-                    </text>
+                    {this.state.label}
                 </g>
             </g>
         );
