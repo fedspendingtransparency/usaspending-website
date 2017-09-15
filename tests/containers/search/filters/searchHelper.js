@@ -1,9 +1,7 @@
 import { mockRecipientLocation, mockRecipientDUNS } from './recipientFilter/mockRecipients';
 import { mockAgencies } from './agencyFilter/mockAgencies';
 import { mockAwardIDs } from './awardID/mockAwardIDs';
-import { mockBudgetCategoryAccounts, mockBudgetCategoryFunctions }
-    from './budgetCategory/mockBudgetCategories';
-import { mockApi, mockTabCount } from '../table/mockAwards';
+import { mockApi, mockV2TableApi, mockTabCount } from '../table/mockAwards';
 import { mockCFDA } from './cfda/mockCFDA';
 import { mockNAICS } from './naics/mockNAICS';
 import { mockPSC } from './psc/mockPSC';
@@ -121,27 +119,13 @@ export const fetchAwardIDs = () => (
     }
 );
 
-// Fetch Federal Accounts
-export const fetchFederalAccounts = () => (
+// Fetch Award Counts v2
+export const performSpendingByAwardTabCountSearch = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
-                    data: mockBudgetCategoryAccounts
-                });
-            });
-        }),
-        cancel: jest.fn()
-    }
-);
-
-// Fetch Budget Functions
-export const fetchBudgetFunctions = () => (
-    {
-        promise: new Promise((resolve) => {
-            process.nextTick(() => {
-                resolve({
-                    data: mockBudgetCategoryFunctions
+                    data: mockTabCount
                 });
             });
         }),
@@ -156,6 +140,20 @@ export const fetchAwardCounts = () => (
             process.nextTick(() => {
                 resolve({
                     data: mockTabCount
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+// v2 Award Search
+export const performPagedSpendingByAwardSearch = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockApi
                 });
             });
         }),
@@ -211,6 +209,19 @@ export const fetchLastUpdate = () => (
                     data: {
                         last_update: '01/01/1984'
                     }
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+export const performSpendingByAwardSearch = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockV2TableApi
                 });
             });
         }),

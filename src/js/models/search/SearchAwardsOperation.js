@@ -36,6 +36,7 @@ class SearchAwardsOperation {
         this.selectedCFDA = [];
         this.selectedNAICS = [];
         this.selectedPSC = [];
+
         this.pricingType = [];
         this.setAside = [];
         this.extentCompeted = [];
@@ -73,10 +74,9 @@ class SearchAwardsOperation {
         this.selectedNAICS = state.selectedNAICS.toArray();
         this.selectedPSC = state.selectedPSC.toArray();
 
-        // TODO - Mike Bray - Enable these Other Award Filters when they're available
-        // this.pricingType = state.pricingType.toArray();
-        // this.setAside = state.setAside.toArray();
-        // this.extentCompeted = state.extentCompeted.toArray();
+        this.pricingType = state.pricingType.toArray();
+        this.setAside = state.setAside.toArray();
+        this.extentCompeted = state.extentCompeted.toArray();
     }
 
     toParams() {
@@ -101,10 +101,12 @@ class SearchAwardsOperation {
                 });
             }
             else if (this.timePeriodType === 'dr' && this.timePeriodRange.length === 2) {
-                filters[rootKeys.timePeriod] = {
-                    [timePeriodKeys.startDate]: this.timePeriodRange[0],
-                    [timePeriodKeys.endDate]: this.timePeriodRange[1]
-                };
+                filters[rootKeys.timePeriod] = [
+                    {
+                        [timePeriodKeys.startDate]: this.timePeriodRange[0],
+                        [timePeriodKeys.endDate]: this.timePeriodRange[1]
+                    }
+                ];
             }
         }
 

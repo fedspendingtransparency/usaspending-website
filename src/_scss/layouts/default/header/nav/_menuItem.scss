@@ -1,13 +1,31 @@
 li.menu-item {
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+    position: relative;
+
     height: rem(48);
     margin: 0;
-    padding: 0 rem(10);
+    padding: 0 rem(5);
     @include media($large-screen) {
         padding: 0 rem(15);
     }
     a {
+        @include flex(1 1 auto);
         color: $color-gray;
-        font-size: $base-font-size;
+        font-size: rem(20);
+        line-height: rem(25);
+        font-weight: $font-semibold;
+        opacity: 0.60;
+
+        &:hover, &:active {
+            text-decoration: none;
+            opacity: 1;
+        }
+
+        &.homepage {
+            color: $color-white;
+        }
     }
     &.search-item {
         padding: 0;
@@ -35,9 +53,5 @@ li.menu-item {
                 left: rem(4px);
             }
         }
-    }
-
-    &.profile-item {
-        padding: 0;
     }
 }

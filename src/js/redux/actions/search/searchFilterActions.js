@@ -49,29 +49,6 @@ export const updateDomesticForeignSelection = (state) => ({
     selection: state
 });
 
-// Budget Category Filter
-
-export const updateSelectedBudgetFunctions = (state) => ({
-    type: 'UPDATE_SELECTED_BUDGET_FUNCTIONS',
-    budgetFunction: state
-});
-
-export const updateSelectedFederalAccounts = (state) => ({
-    type: 'UPDATE_SELECTED_FEDERAL_ACCOUNTS',
-    federalAccount: state
-});
-
-export const updateSelectedObjectClasses = (state) => ({
-    type: 'UPDATE_SELECTED_OBJECT_CLASSES',
-    objectClass: state
-});
-
-export const bulkObjectClassesChange = (state) => ({
-    type: 'BULK_SEARCH_FILTER_OBJECT_CLASSES',
-    objectClasses: state.types,
-    direction: state.direction
-});
-
 // Agency Filter
 
 export const updateSelectedAwardingAgencies = (state) => ({
@@ -137,6 +114,7 @@ export const updateAwardAmounts = (state) => ({
     awardAmounts: state
 });
 
+
 // CFDA Filter
 
 export const updateSelectedCFDA = (state) => ({
@@ -157,6 +135,28 @@ export const updateSelectedPSC = (state) => ({
     type: 'UPDATE_SELECTED_PSC',
     psc: state.psc
 });
+
+// Contract Pricing Type Filter
+
+export const updatePricingType = (state) => ({
+    type: 'UPDATE_PRICING_TYPE',
+    pricingType: state
+});
+
+// Contract Set-Aside Filter
+
+export const updateSetAside = (state) => ({
+    type: 'UPDATE_SET_ASIDE',
+    setAside: state
+});
+
+// Contract Extent Competed Filter
+
+export const updateExtentCompeted = (state) => ({
+    type: 'UPDATE_EXTENT_COMPETED',
+    extentCompeted: state
+});
+
 
 // Generic
 
@@ -186,3 +186,9 @@ export const reorderColumns = (state) => ({
     dragIndex: state.dragIndex,
     hoverIndex: state.hoverIndex
 });
+
+export const populateAvailableColumns = (state) => ({
+    type: 'POPULATE_COLUMN_VISIBILITY',
+    fullSet: state
+});
+

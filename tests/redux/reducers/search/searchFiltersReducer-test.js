@@ -7,14 +7,21 @@ import { Set, OrderedMap } from 'immutable';
 
 import searchFiltersReducer, { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { awardRanges } from 'dataMapping/search/awardAmount';
-import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
 
 import { mockRecipient, mockAgency } from './mock/mockFilters';
+
+const initialAction = {
+    type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
+    dateType: 'fy',
+    fy: ['2017'],
+    start: null,
+    end: null
+};
 
 describe('searchFiltersReducer', () => {
     it('should return the initial state by default', () => {
         expect(
-            searchFiltersReducer(undefined, {})
+            searchFiltersReducer(undefined, initialAction)
         ).toEqual(initialState);
     });
 
@@ -182,110 +189,6 @@ describe('searchFiltersReducer', () => {
 
             const updatedState = searchFiltersReducer(undefined, action);
             expect(updatedState.locationDomesticForeign).toEqual('domestic');
-        });
-    });
-
-    describe('UPDATE_SELECTED_BUDGET_FUNCTIONS', () => {
-        const action = {
-            type: 'UPDATE_SELECTED_BUDGET_FUNCTIONS',
-            budgetFunction: {
-                title: 'Income Security',
-                functionType: 'Function'
-            }
-        };
-
-        const identifier = 'Income Security';
-
-        const expectedValue = {
-            title: 'Income Security',
-            functionType: 'Function'
-        };
-
-        it('should add the provided budget function if it does not currently exist in the filter',
-            () => {
-                const updatedState = searchFiltersReducer(undefined, action);
-                expect(updatedState.budgetFunctions).toEqual(new OrderedMap({
-                    [identifier]: expectedValue
-                }));
-            });
-
-        it('should remove the provided budget function if already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                budgetFunctions: new OrderedMap({
-                    [identifier]: expectedValue
-                })
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.budgetFunctions).toEqual(new OrderedMap());
-        });
-    });
-
-    describe('UPDATE_SELECTED_FEDERAL_ACCOUNTS', () => {
-        const action = {
-            type: 'UPDATE_SELECTED_FEDERAL_ACCOUNTS',
-            federalAccount: {
-                id: '392',
-                agency_identifier: '012',
-                main_account_code: '3539',
-                account_title: 'Child Nutrition Programs, Food Nutrition Service, Agriculture'
-            }
-        };
-
-        const identifier = '392';
-
-        const expectedValue = {
-            id: '392',
-            agency_identifier: '012',
-            main_account_code: '3539',
-            account_title: 'Child Nutrition Programs, Food Nutrition Service, Agriculture'
-        };
-
-        it('should add the provided federal account if it does not currently exist in the filter',
-            () => {
-                const updatedState = searchFiltersReducer(undefined, action);
-                expect(updatedState.federalAccounts).toEqual(new OrderedMap({
-                    [identifier]: expectedValue
-                }));
-            });
-
-        it('should remove the provided federal account if already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                federalAccounts: new OrderedMap({
-                    [identifier]: expectedValue
-                })
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.federalAccounts).toEqual(new OrderedMap());
-        });
-    });
-
-    describe('UPDATE_SELECTED_OBJECT_CLASSES', () => {
-        const action = {
-            type: 'UPDATE_SELECTED_OBJECT_CLASSES',
-            objectClass: '110'
-        };
-
-        const identifier = '110';
-
-        it('should add the provided federal account if it does not currently exist in the filter',
-            () => {
-                const updatedState = searchFiltersReducer(undefined, action);
-                expect(updatedState.objectClasses).toEqual(new Set(
-                    [identifier]
-                ));
-            });
-
-        it('should remove the provided federal account if already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                objectClasses: new Set(
-                    [identifier]
-                )
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.objectClasses).toEqual(new Set());
         });
     });
 
@@ -630,6 +533,7 @@ describe('searchFiltersReducer', () => {
         });
     });
 
+
     describe('UPDATE_SELECTED_CFDA', () => {
         const action = {
             type: 'UPDATE_SELECTED_CFDA',
@@ -740,6 +644,69 @@ describe('searchFiltersReducer', () => {
         });
     });
 
+    describe('UPDATE_PRICING_TYPE', () => {
+        it('should set a pricing type value when there is none', () => {
+            const action = {
+                type: 'UPDATE_PRICING_TYPE',
+                pricingType: 'B'
+            };
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.pricingType).toEqual(new Set(['B']));
+        });
+
+        it('should remove the provided values when unchecked', () => {
+            const action = {
+                type: 'UPDATE_PRICING_TYPE',
+                pricingType: 'B'
+            };
+
+            const startingState = Object.assign({}, initialState, {
+                pricingType: new Set(['B', 'L'])
+            });
+
+            expect(
+                searchFiltersReducer(startingState, action).pricingType
+            ).toEqual(new Set(['L']));
+        });
+
+        it('should add new values to an existing set', () => {
+            const action = {
+                type: 'UPDATE_PRICING_TYPE',
+                pricingType: 'B'
+            };
+
+            const startingState = Object.assign({}, initialState, {
+                pricingType: new Set(['M', 'J', 'L'])
+            });
+
+            expect(
+                searchFiltersReducer(startingState, action).pricingType
+            ).toEqual(new Set(['M', 'J', 'L', 'B']));
+        });
+    });
+
+    describe('UPDATE_SET_ASIDE', () => {
+        it('should set a set aside value', () => {
+            const action = {
+                type: 'UPDATE_SET_ASIDE',
+                setAside: 'BICiv'
+            };
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.setAside).toEqual(new Set(['BICiv']));
+        });
+    });
+
+    describe('UPDATE_EXTENT_COMPETED', () => {
+        it('should set an extent competed value', () => {
+            const action = {
+                type: 'UPDATE_EXTENT_COMPETED',
+                extentCompeted: 'CDOCiv'
+            };
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.extentCompeted).toEqual(new Set(['CDOCiv']));
+        });
+    });
+
     describe('UPDATE_SEARCH_FILTER_GENERIC', () => {
         it('should set an arbitrary child filter key with the given filter value', () => {
             const action = {
@@ -760,7 +727,7 @@ describe('searchFiltersReducer', () => {
                 type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                 dateType: 'fy',
                 fy: [
-                    '2017',
+                    '2016',
                     '2015',
                     '2013'
                 ],
@@ -775,7 +742,7 @@ describe('searchFiltersReducer', () => {
             const expectedFirst = {
                 timePeriodType: 'fy',
                 timePeriodFY: new Set([
-                    '2017',
+                    '2016',
                     '2015',
                     '2013'
                 ]),
@@ -785,7 +752,7 @@ describe('searchFiltersReducer', () => {
 
             const expectedSecond = {
                 timePeriodType: 'fy',
-                timePeriodFY: new Set(),
+                timePeriodFY: new Set(['2017']),
                 timePeriodStart: null,
                 timePeriodEnd: null
             };
@@ -829,7 +796,7 @@ describe('searchFiltersReducer', () => {
 
             const expectedSecond = {
                 timePeriodType: 'fy',
-                timePeriodFY: new Set(),
+                timePeriodFY: new Set(['2017']),
                 timePeriodStart: null,
                 timePeriodEnd: null
             };

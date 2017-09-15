@@ -11,7 +11,10 @@
         fill: $color-base;
     }
     .group-label-link {
-        text-decoration: underline;
+	    fill: $color-link;
+	    a:visited {
+		    fill: $color-link;
+	    }
     }
 }
 

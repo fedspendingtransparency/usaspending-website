@@ -59,3 +59,56 @@ export const buildPSCQuery = (pscGroup, searchContext = 'award') => {
 
     return filter;
 };
+
+export const buildPricingTypeQuery = (pricingTypes, searchContext = 'award') => {
+    const pricingTypeSet = [];
+    const filterField = FilterFields[`${searchContext}Fields`].pricingType;
+
+    pricingTypes.forEach((type) => {
+        pricingTypeSet.push(type);
+    });
+
+    const filter = {
+        field: filterField,
+        operation: "in",
+        value: pricingTypeSet
+    };
+
+    return filter;
+};
+
+export const buildSetAsideQuery = (setAside, searchContext = 'award') => {
+    const setAsideSet = [];
+
+    const filterField = FilterFields[`${searchContext}Fields`].setAside;
+
+    setAside.forEach((type) => {
+        setAsideSet.push(type);
+    });
+
+    const filter = {
+        field: filterField,
+        operation: "in",
+        value: setAsideSet
+    };
+
+    return filter;
+};
+
+export const buildExtentCompetedQuery = (extendCompeted, searchContext = 'award') => {
+    const extentCompetedTypeSet = [];
+
+    const filterField = FilterFields[`${searchContext}Fields`].extentCompeted;
+
+    extendCompeted.forEach((type) => {
+        extentCompetedTypeSet.push(type);
+    });
+
+    const filter = {
+        field: filterField,
+        operation: "in",
+        value: extentCompetedTypeSet
+    };
+
+    return filter;
+};

@@ -70,13 +70,21 @@ export class AgencyListContainer extends React.Component {
         // Format results of search for use in Autocomplete component
         if (results && results.length > 0) {
             results.forEach((item) => {
+                let subAbbreviation = '';
+                let topAbbreviation = '';
+                if (item.subtier_agency.abbreviation !== '') {
+                    subAbbreviation = `(${item.subtier_agency.abbreviation})`;
+                }
+                if (item.toptier_agency.abbreviation !== '') {
+                    topAbbreviation = `(${item.toptier_agency.abbreviation})`;
+                }
                 // Push two items to the autocomplete entries if subtier = toptier
                 // Only push items if they are not in selectedAgencies
                 if (item.toptier_agency.name === item.subtier_agency.name) {
                     if (this.props.selectedAgencies.size === 0
                         || !this.props.selectedAgencies.has(`${item.id}_toptier`)) {
                         agencies.push({
-                            title: item.subtier_agency.name,
+                            title: `${item.subtier_agency.name} ${topAbbreviation}`,
                             data: Object.assign({}, item, {
                                 agencyType: 'toptier'
                             })
@@ -87,8 +95,8 @@ export class AgencyListContainer extends React.Component {
                 if (this.props.selectedAgencies.size === 0
                     || !this.props.selectedAgencies.has(`${item.id}_subtier`)) {
                     agencies.push({
-                        title: item.subtier_agency.name,
-                        subtitle: `Sub-Agency of ${item.toptier_agency.name}`,
+                        title: `${item.subtier_agency.name} ${subAbbreviation}`,
+                        subtitle: `Sub-Agency of ${item.toptier_agency.name} ${topAbbreviation}`,
                         data: Object.assign({}, item, {
                             agencyType: 'subtier'
                         })

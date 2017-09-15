@@ -46,14 +46,14 @@ export const fetchAgencyMajorObjectClasses = () => (
 );
 
 export const fetchAgencyMinorObjectClasses = () => (
-{
-    promise: new Promise((resolve) => {
-        process.nextTick(() => {
-            resolve({
-                data: mockMinorObjectClasses
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockMinorObjectClasses
+                });
             });
-        });
-    }),
-    cancel: jest.fn()
-}
+        }),
+        cancel: jest.fn()
+    }
 );

@@ -27,7 +27,6 @@ export default class PSCSearch extends React.Component {
         return (
             <div className="psc-filter">
                 <div className="filter-item-wrap">
-                    <p>Product/Service Code (PSC)</p>
                     <PSCListContainer {...this.props} selectPSC={this.props.selectPSC} />
                     {selectedPSC}
                 </div>

@@ -51,6 +51,10 @@ class SearchOperation {
         this.selectedNAICS = [];
         this.selectedPSC = [];
 
+        this.pricingType = [];
+        this.setAside = [];
+        this.extentCompeted = [];
+
         this.searchContext = 'award';
     }
 
@@ -87,6 +91,10 @@ class SearchOperation {
         this.selectedCFDA = state.selectedCFDA.toArray();
         this.selectedNAICS = state.selectedNAICS.toArray();
         this.selectedPSC = state.selectedPSC.toArray();
+
+        this.pricingType = state.pricingType.toArray();
+        this.setAside = state.setAside.toArray();
+        this.extentCompeted = state.extentCompeted.toArray();
     }
 
     commonParams() {
@@ -219,6 +227,23 @@ class SearchOperation {
         if (this.selectedPSC.length > 0) {
             filters.push(OtherFiltersQuery.buildPSCQuery(
                 this.selectedPSC, this.searchContext));
+        }
+
+        // Add Pricing Type Queries
+        if (this.pricingType.length > 0) {
+            filters.push(OtherFiltersQuery.buildPricingTypeQuery(
+                this.pricingType, this.searchContext));
+        }
+
+        // Add Set Aside Queries
+        if (this.setAside.length > 0) {
+            filters.push(OtherFiltersQuery.buildSetAsideQuery(this.setAside, this.searchContext));
+        }
+
+        // Add Extent Competed Queries
+        if (this.extentCompeted.length > 0) {
+            filters.push(OtherFiltersQuery.buildExtentCompetedQuery(
+                this.extentCompeted, this.searchContext));
         }
 
         return filters;
