@@ -64,13 +64,13 @@ const heading = (type, title, id) => {
             </h2>
         );
     }
-     else if (type === 'Agency') {
+    else if (type === 'Agency') {
         return (
             <h2>
                 <a href={`/#/agency/${id}`}>{title}</a>
             </h2>
         );
-     }
+    }
     return (
         <h2>
             {title}
