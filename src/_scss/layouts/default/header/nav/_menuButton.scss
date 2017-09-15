@@ -5,7 +5,6 @@
 .usa-menu-btn {
     @include button-unstyled;
     @include transition(all 0.75s $ease-in-out-sine);
-    border: 1px solid $color-primary;
     cursor: pointer;
     display: block;
     height: rem(45);
@@ -60,7 +59,6 @@
     }
 
      &.homepage {
-        border: 1px solid $color-white;
 
         .nav-lines {
             background: $color-white;
