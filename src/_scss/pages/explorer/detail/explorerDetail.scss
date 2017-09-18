@@ -1,8 +1,8 @@
 .explorer-detail-wrap {
     @import "./_tooltip";
 
-	background: url(#{$image-path}/explorer-background.jpg) no-repeat top center fixed;
-	background-size: cover;
+    background: url(#{$image-path}/explorer-background.jpg) no-repeat top center fixed;
+    background-size: cover;
 }
 
 .explorer-detail {
@@ -52,7 +52,8 @@
                 background-color: #1C4956;
                 height: rem(530);
             }
-            .middle-block {
+            
+	    .middle-block {
                 @include flex(1 1 auto);
                 margin-right: rem(5);
                 height: rem(530);
