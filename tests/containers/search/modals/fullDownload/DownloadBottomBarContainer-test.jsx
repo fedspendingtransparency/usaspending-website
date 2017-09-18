@@ -3,54 +3,13 @@
  * Created by Emily Gullo 08/24/2017
  */
 import React from 'react';
-import { mount, shallow } from 'enzyme';
-import sinon from 'sinon';
+import { shallow } from 'enzyme';
 
-import * as DownloadHelper from 'helpers/downloadHelper';
 import { DownloadBottomBarContainer } from 'containers/search/modals/fullDownload/DownloadBottomBarContainer';
-import { mockParams, mockResponse } from './mockFullDownload';
+import { mockRedux, mockActions, mockResponse } from './mockFullDownload';
 
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
-
-const mockDownloadHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    DownloadHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockDownloadHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/downloadHelper');
-};
-
-// spy on specific functions inside the component
-const displaySpy = sinon.spy(DownloadBottomBarContainer.prototype, 'displayBar');
-const downloadSpy = sinon.spy(DownloadBottomBarContainer.prototype, 'downloadFile');
-const errorSpy = sinon.spy(DownloadBottomBarContainer.prototype, 'displayError');
-const statusSpy = sinon.spy(DownloadBottomBarContainer.prototype, 'checkStatus');
+jest.mock('helpers/downloadHelper', () => require('./downloadHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/search/modals/fullDownload/DownloadBottomBar', () =>
@@ -58,160 +17,248 @@ jest.mock('components/search/modals/fullDownload/DownloadBottomBar', () =>
 
 describe('DownloadBottomBarContainer', () => {
     it('should not display the bottom bar if a download is not pending', () => {
-        const container = mount(<DownloadBottomBarContainer download={mockParams} />);
+        const container = shallow(<DownloadBottomBarContainer
+            {...mockRedux}
+            {...mockActions} />);
+        const mockDisplay = jest.fn();
+        container.instance().displayBar = mockDisplay;
+        container.instance().componentDidMount();
 
-        container.setState({
-            visible: false
-        });
-
-        expect(displaySpy.callCount).toEqual(0);
-        displaySpy.reset();
+        expect(mockDisplay).toHaveBeenCalledTimes(0);
     });
     it('should display the bottom bar if a download is pending', () => {
-        const defaultProps = {
+        const startingDownload = Object.assign({}, mockRedux.download, {
             pendingDownload: true,
             showCollapsedProgress: true,
             expectedFile: ''
-        };
-        const container = mount(<DownloadBottomBarContainer download={defaultProps} />);
-
-        container.setState({
-            visible: true
         });
+        const redux = Object.assign({}, mockRedux, {
+            download: startingDownload
+        });
+        const container = shallow(<DownloadBottomBarContainer
+            {...redux}
+            {...mockActions} />);
+        const mockDisplay = jest.fn();
+        container.instance().displayBar = mockDisplay;
+        container.instance().componentDidMount();
 
-        expect(displaySpy.callCount).toEqual(1);
-        displaySpy.reset();
+        expect(mockDisplay).toHaveBeenCalledTimes(1);
     });
 
-    describe('parseStatus', () => {
-        it('should download the file if status is ready', () => {
-            const container = mount(<DownloadBottomBarContainer
-                download={mockParams}
-                setDownloadPending={jest.fn()}
-                setDownloadCollapsed={jest.fn()} />);
-            container.instance().parseStatus(mockResponse);
-
-            expect(downloadSpy.callCount).toEqual(1);
-            expect(errorSpy.callCount).toEqual(0);
-            downloadSpy.reset();
-            errorSpy.reset();
-        });
-
-        it('should display an error if status is failed', () => {
-            const mockFailedResponse = {
-                total_size: 12345,
-                total_columns: 19,
-                total_rows: 55555,
-                file_name: "transaction_9fn24der3.csv",
-                status: "failed",
-                url: "https://s3.amazonaws.com/award_9fn24der3.csv",
-                message: "Your file failed because the database crashed."
-            };
+    describe('displayBar', () => {
+        it('should set the visible state to true', () => {
             const container = shallow(<DownloadBottomBarContainer
-                downloadParams={mockParams}
-                setDownloadPending={jest.fn()}
-                setDownloadCollapsed={jest.fn()} />);
-            container.instance().parseStatus(mockFailedResponse);
+                {...mockRedux}
+                {...mockActions} />);
 
-            expect(downloadSpy.callCount).toEqual(0);
-            expect(errorSpy.callCount).toEqual(1);
-            errorSpy.reset();
-            downloadSpy.reset();
-        });
-    });
+            expect(container.state().visible).toBeFalsy();
 
-    describe('scheduleNextStatus', () => {
-        it('should set the number of seconds til next check', () => {
-            const container = shallow(<DownloadBottomBarContainer
-                download={mockParams} />);
-
-            container.instance().statusCount = 6;
-            container.instance().scheduleNextStatus();
-            // expect(container.instance().statusTimer).toEqual(15000);
-            expect(container.instance().statusCount).toBeGreaterThan(6);
-        });
-
-        it('should increment the status count', () => {
-            const container = shallow(<DownloadBottomBarContainer
-                downloadParams={mockParams} />);
-
-            container.instance().statusCount = 0;
-            container.instance().scheduleNextStatus();
-            expect(container.instance().statusCount).toBeGreaterThan(0);
-        });
-    });
-
-    describe('displayError', () => {
-        it('displays the error received', () => {
-            const container = shallow(<DownloadBottomBarContainer
-                download={mockParams}
-                setDownloadPending={jest.fn()}
-                setDownloadCollapsed={jest.fn()} />);
-
-            container.instance().displayError(mockResponse.message);
-            expect(container.instance().state.description).toEqual(mockResponse.message);
-            expect(container.instance().state.showError).toEqual(true);
+            container.instance().displayBar();
+            expect(container.state().visible).toBeTruthy();
+            expect(container.state().showError).toBeFalsy();
+            expect(container.state().showSuccess).toBeFalsy();
         });
     });
 
     describe('requestDownload', () => {
-        it('requests the file to be downloaded and passes it on to check download status', () => {
-            mockDownloadHelper('requestFullDownload', 'resolve', mockResponse);
+        it('should begin checking the status upon completion of the API call', async () => {
             const container = shallow(<DownloadBottomBarContainer
-                download={mockParams}
-                setDownloadPending={jest.fn()}
-                setDownloadCollapsed={jest.fn()}
-                setDownloadExpectedFile={jest.fn()} />);
-            container.instance().requestDownload({}, [], 'awards');
+                {...mockRedux}
+                {...mockActions} />);
+            const mockCheck = jest.fn();
+            container.instance().checkStatus = mockCheck;
 
-            expect(statusSpy.callCount).toEqual(1);
-            statusSpy.reset();
-            unmockDownloadHelper();
+            container.instance().requestDownload(mockRedux.filters, [], 'awards');
+            await container.instance().request.promise;
+
+            expect(mockCheck).toHaveBeenCalledTimes(1);
         });
+    });
 
-        it('should pass an error on if it receives one', () => {
-            const mockFailedResponse = {
-                total_size: 12345,
-                total_columns: 19,
-                total_rows: 55555,
-                file_name: "transaction_9fn24der3.csv",
-                status: "failed",
-                url: "https://s3.amazonaws.com/award_9fn24der3.csv",
-                message: "Your file failed because the database crashed."
-            };
-            mockDownloadHelper('requestFullDownload', 'resolve', mockFailedResponse);
+    describe('checkStatus', () => {
+        it('should do nothing if no file is expected', () => {
             const container = shallow(<DownloadBottomBarContainer
-                downloadParams={mockParams}
-                setDownloadPending={jest.fn()}
-                setDownloadCollapsed={jest.fn()} />);
-            container.instance().requestDownload({}, [], 'cheese');
+                {...mockRedux}
+                {...mockActions} />);
+            const mockParse = jest.fn();
+            container.instance().parseStatus = mockParse;
 
-            expect(errorSpy.callCount).toEqual(1);
-            errorSpy.reset();
-            unmockDownloadHelper();
+            container.instance().checkStatus();
+
+            expect(mockParse).toHaveBeenCalledTimes(0);
+        });
+        it('should continue call the parseStatus function upon receiving an API response', async () => {
+            const redux = Object.assign({}, mockRedux, {
+                download: Object.assign({}, mockRedux.download, {
+                    expectedFile: 'blerg.zip'
+                })
+            });
+
+            const container = shallow(<DownloadBottomBarContainer
+                {...redux}
+                {...mockActions} />);
+            const mockParse = jest.fn();
+            container.instance().parseStatus = mockParse;
+
+            container.instance().checkStatus();
+            await container.instance().statusRequest.promise;
+
+            expect(mockParse).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('parseStatus', () => {
+        it('should download the file if the status is finished', () => {
+            const response = Object.assign({}, mockResponse, {
+                status: 'finished',
+                url: 'http://www.google.com'
+            });
+            const container = shallow(<DownloadBottomBarContainer
+                {...mockRedux}
+                {...mockActions} />);
+            const mockDownload = jest.fn();
+            container.instance().downloadFile = mockDownload;
+
+            container.instance().parseStatus(response);
+            expect(mockDownload).toHaveBeenCalledTimes(1);
+            expect(mockDownload).toHaveBeenCalledWith('http://www.google.com');
+        });
+        it('should display an error message if the status is failed', () => {
+            const response = Object.assign({}, mockResponse, {
+                status: 'failed',
+                message: 'Fake error message'
+            });
+            const container = shallow(<DownloadBottomBarContainer
+                {...mockRedux}
+                {...mockActions} />);
+            const mockError = jest.fn();
+            container.instance().displayError = mockError;
+
+            container.instance().parseStatus(response);
+            expect(mockError).toHaveBeenCalledTimes(1);
+            expect(mockError).toHaveBeenCalledWith('Fake error message');
+        });
+        it('should schedule another status API call in other cases', () => {
+            const response = Object.assign({}, mockResponse, {
+                status: 'running'
+            });
+            const container = shallow(<DownloadBottomBarContainer
+                {...mockRedux}
+                {...mockActions} />);
+            const mockSchedule = jest.fn();
+            container.instance().scheduleNextStatus = mockSchedule;
+
+            container.instance().parseStatus(response);
+            expect(mockSchedule).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('scheduleNextStatus', () => {
+        it('should perform an API call every 15 seconds for the first 4 status calls', () => {
+            const container = shallow(<DownloadBottomBarContainer
+                {...mockRedux}
+                {...mockActions} />);
+            const mockStatus = jest.fn();
+            container.instance().checkStatus = mockStatus;
+
+            jest.useFakeTimers();
+
+            container.instance().statusCount = 2;
+            container.instance().scheduleNextStatus();
+            jest.runTimersToTime(15000);
+            expect(mockStatus).toHaveBeenCalledTimes(1);
+        });
+        it('should perform an API call every 30 seconds after that', () => {
+            const container = shallow(<DownloadBottomBarContainer
+                {...mockRedux}
+                {...mockActions} />);
+            const mockStatus = jest.fn();
+            container.instance().checkStatus = mockStatus;
+
+            jest.useFakeTimers();
+
+            container.instance().statusCount = 8;
+            container.instance().scheduleNextStatus();
+            jest.runTimersToTime(15000);
+            expect(mockStatus).toHaveBeenCalledTimes(0);
+            jest.runTimersToTime(15000);
+            expect(mockStatus).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('displayError', () => {
+        it('should set the showError state to true and display a message', () => {
+            const container = shallow(<DownloadBottomBarContainer
+                {...mockRedux}
+                {...mockActions} />);
+            container.instance().displayError('error message');
+            expect(container.state().showError).toBeTruthy();
+            expect(container.state().description).toEqual('error message');
         });
     });
 
     describe('downloadFile', () => {
-        it('downloads the file', () => {
+        it('should open the file URL', () => {
             const container = shallow(<DownloadBottomBarContainer
-                download={mockParams}
-                setDownloadPending={jest.fn()}
-                setDownloadCollapsed={jest.fn()} />);
+                {...mockRedux}
+                {...mockActions} />);
+            const download = jest.fn();
+            global.open = download;
 
-            container.instance().downloadFile(mockResponse.url);
-            expect(container.instance().state.showSuccess).toBeTruthy();
+            container.instance().downloadFile('http://www.google.com');
+            expect(download).toHaveBeenCalledTimes(1);
+            expect(download).toHaveBeenCalledWith('http://www.google.com', '_self');
+        });
+
+        it('should tell Redux that the download has completed', () => {
+            const mockPending = jest.fn();
+            const mockCollapse = jest.fn();
+            const actions = Object.assign({}, mockActions, {
+                setDownloadPending: mockPending,
+                setDownloadCollapsed: mockCollapse
+            });
+
+            const container = shallow(<DownloadBottomBarContainer
+                {...mockRedux}
+                {...actions} />);
+            container.instance().downloadFile('http://www.google.com');
+            expect(mockPending).toHaveBeenCalledTimes(1);
+            expect(mockPending).toHaveBeenCalledWith(false);
+            expect(mockCollapse).toHaveBeenCalledTimes(1);
+            expect(mockCollapse).toHaveBeenCalledWith(false);
+        });
+
+        it('should set the state to success and display such a message', () => {
+            const container = shallow(<DownloadBottomBarContainer
+                {...mockRedux}
+                {...mockActions} />);
+            container.instance().downloadFile('http://www.google.com');
+
+            expect(container.state().showSuccess).toBeTruthy();
+        });
+
+        it('should close the download bar after 5 seconds', () => {
+            const container = shallow(<DownloadBottomBarContainer
+                {...mockRedux}
+                {...mockActions} />);
+            const mockClose = jest.fn();
+            container.instance().closeBar = mockClose;
+            container.instance().downloadFile('http://www.google.com');
+
+            jest.useFakeTimers();
+            jest.runTimersToTime(5000);
+            expect(mockClose).toHaveBeenCalledTimes(1);
         });
     });
 
     describe('closeBar', () => {
         it('closes the bar', () => {
             const container = shallow(<DownloadBottomBarContainer
-                downloadParams={mockParams}
-                mounted />);
+                {...mockRedux}
+                {...mockActions} />);
 
             container.instance().closeBar();
-            expect(container.instance().state.visible).toBeFalsy();
+            expect(container.state().visible).toBeFalsy();
         });
     });
 });

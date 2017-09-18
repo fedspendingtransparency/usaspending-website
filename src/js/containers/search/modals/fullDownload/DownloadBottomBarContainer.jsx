@@ -37,6 +37,7 @@ export class DownloadBottomBarContainer extends React.Component {
             description: 'Your file will automatically download when it is ready.'
         };
 
+        this.request = null;
         this.statusRequest = null;
         this.statusTimer = null;
         this.statusCount = 0;
@@ -84,6 +85,8 @@ export class DownloadBottomBarContainer extends React.Component {
         if (this.request) {
             this.request.cancel();
         }
+
+        this.statusCount = 0;
 
         let filterSet = {};
         if (filters) {
