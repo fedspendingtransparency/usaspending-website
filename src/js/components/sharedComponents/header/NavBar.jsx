@@ -36,15 +36,12 @@ const NavBar = (props) => {
             </div>
             <div className="primary-menu">
                 <ul className="nav-menu">
-                    <li className="profile-item">
-                        <ProfileButton homepage={props.homepage} />
-                    </li>
                     <li className="menu-item">
                         <a
                             className={`usa-nav-link ${homepageClass}`}
                             href="#/explorer"
-                            title="Explorer: Navigate the levels of government spending from top to bottom">
-                            <span>Explorer</span>
+                            title="Spending Explorer: Navigate the levels of government spending from top to bottom">
+                            <span>Spending Explorer</span>
                         </a>
                     </li>
                     <li className="menu-item">
@@ -54,6 +51,9 @@ const NavBar = (props) => {
                             title="Award Search: Search through awards and discover trends and connections">
                             <span>Award Search</span>
                         </a>
+                    </li>
+                    <li className="menu-item">
+                        <ProfileButton homepage={props.homepage} />
                     </li>
                 </ul>
             </div>

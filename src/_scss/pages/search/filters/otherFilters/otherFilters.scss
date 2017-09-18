@@ -1,24 +1,32 @@
-.cfda-filter, .psc-filter, .naics-filter {
+.cfda-filter, .psc-filter, .naics-filter, .contract-filter {
     @import "elements/filters/_errorMessage";
     @import "elements/filters/_typeahead";
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
+    @import './pages/award/_moreButton';
 
-    .filter-item-wrap {
-        p {
-            font-size: rem(14);
-            line-height: rem(15);
-            margin-bottom: rem(5);
-            margin-top: rem(0);
-        }
-    }
+    padding-left: rem(30);
+
     .shown {
         min-height: rem(18);
     }
     .visually-hidden {
         display: none;
     }
+
+    .filter-item-wrap {
+        padding-left: 0 !important;
+    }
+
     .selected-filters {
         @include selected-filter-wrap;
+    }
+
+    button.contract-filter-toggle-button {
+        background-color: $color-white;
+        color: $color-focus;
+        padding: 0.7rem 0 0;
+        margin: 0.7rem 0 0 0;
+        font-weight: normal;
     }
 }

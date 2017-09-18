@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { isEqual, max } from 'lodash';
+import { rootKeys } from 'dataMapping/search/awardsOperationKeys';
 
 import SpendingByIndustryCodeSection from
     'components/search/visualizations/rank/sections/SpendingByIndustryCodeSection';
@@ -19,19 +20,13 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import * as FilterFields from 'dataMapping/search/filterFields';
-
-import * as AwardTypeQuery from 'models/search/queryBuilders/AwardTypeQuery';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
-import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    meta: PropTypes.object,
-    budgetFiltersSelected: PropTypes.bool,
-    awardFiltersSelected: PropTypes.bool
+    meta: PropTypes.object
 };
 
 export class SpendingByIndustryCodeVisualizationContainer extends React.Component {
@@ -62,9 +57,7 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)
-            || (prevProps.budgetFiltersSelected !== this.props.budgetFiltersSelected)
-            || (prevProps.awardFiltersSelected !== this.props.awardFiltersSelected)) {
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
             this.newSearch();
         }
     }
@@ -118,66 +111,23 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
             this.apiRequest.cancel();
         }
 
-        // Fetch data from the appropriate endpoint
-        if (this.props.awardFiltersSelected && this.props.budgetFiltersSelected) {
-            this.fetchComboRequest();
-        }
-        else if (this.props.budgetFiltersSelected) {
-            this.fetchBudgetRequest();
-        }
-        else if (this.props.awardFiltersSelected) {
-            this.fetchAwardRequest();
-        }
-        else {
-            this.fetchUnfilteredRequest();
-        }
+        // Fetch data from the Awards v2 endpoint
+        this.fetchAwards("Industry Code Rank Visualization");
     }
 
-    fetchUnfilteredRequest() {
-        this.fetchTransactions('Industry code rank vis - unfiltered');
-    }
-
-    fetchBudgetRequest() {
-        this.fetchAccountAwards('Industry code rank vis - budget filters');
-    }
-
-    fetchAwardRequest() {
-        // only award filters have been selected
-        this.fetchTransactions('Industry code rank vis - award filters');
-    }
-
-    fetchComboRequest() {
-        // a combination of budget and award filters have been selected
-        this.fetchAccountAwards('Industry code rank vis - combination');
-    }
-
-    fetchTransactions(auditTrail = null) {
-        const field = 'federal_action_obligation';
-        let group = [FilterFields.transactionFields.psc];
-
-        if (this.state.scope === 'naics') {
-            group = [
-                FilterFields.transactionFields.naics,
-                FilterFields.transactionFields.naicsDescription
-            ];
-        }
-
-        const operation = new SearchTransactionOperation();
-        // Add filters to Search Operation
+    fetchAwards(auditTrail = null) {
+        const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
-        // because industry codes are only available for contracts, restrict the query to only
-        // contract types
-        const contractFilter = AwardTypeQuery.buildQuery(awardTypeGroups.contracts, 'transaction');
-        searchParams.push(contractFilter);
+        // because industry codes are only available for contracts,
+        // restrict the query to only contract types
+        searchParams[rootKeys.awardType] = awardTypeGroups.contracts;
 
         // Generate the API parameters
         const apiParams = {
-            field,
-            group,
-            order: ['-aggregate'],
-            aggregate: 'sum',
+            category: 'industry_codes',
+            scope: this.state.scope,
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -187,11 +137,11 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
             apiParams.auditTrail = auditTrail;
         }
 
-        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        this.apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
 
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data, group);
+                this.parseData(res.data);
                 this.apiRequest = null;
             })
             .catch(() => {
@@ -199,89 +149,32 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
             });
     }
 
-    fetchAccountAwards(auditTrail = null) {
-        // only budget filters have been selected
-        const field = 'transaction_obligated_amount';
-        let group = [FilterFields.accountAwardsFields.psc];
-
-        if (this.state.scope === 'naics') {
-            group = [
-                FilterFields.accountAwardsFields.naics,
-                FilterFields.accountAwardsFields.naicsDescription
-            ];
-        }
-
-        // generate the API parameters
-        const operation = new SearchAccountAwardsOperation();
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-
-        // because industry codes are only available for contracts, restrict the query to only
-        // contract types
-        const contractFilter = AwardTypeQuery.buildQuery(
-            awardTypeGroups.contracts, 'accountAwards');
-        searchParams.push(contractFilter);
-
-        // Generate the API parameters
-        const apiParams = {
-            field,
-            group,
-            order: ['-aggregate'],
-            aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
-        };
-
-        if (auditTrail) {
-            apiParams.auditTrail = auditTrail;
-        }
-
-        this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
-
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data, group);
-                this.apiRequest = null;
-            })
-            .catch(() => {
-                this.apiRequest = null;
-            });
-    }
-
-    parseData(data, labelFields) {
+    parseData(data) {
         const labelSeries = [];
         const dataSeries = [];
         const descriptions = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
+            let aggregate = parseFloat(item.aggregated_amount);
+            if (isNaN(aggregate)) {
+                // the aggregate value is invalid (most likely null)
+                aggregate = 0;
+            }
+
             let label = '';
-            if (labelFields.length === 1) {
-                label = item[labelFields];
+            if (this.state.scope === 'psc') {
+                label = item.psc_code;
             }
             else {
-                const key = item[labelFields[0]];
-                const value = item[labelFields[1]];
-                if (key && value) {
-                    label = `${item[labelFields[0]]}: ${item[labelFields[1]]}`;
-                }
-                else if (key) {
-                    label = key;
-                }
-                else if (value) {
-                    label = value;
-                }
-                else {
-                    label = '';
-                }
+                label = `${item.naics_code}: ${item.naics_description}`;
             }
 
-            labelSeries.push(label);
-            dataSeries.push(parseFloat(item.aggregate));
+            labelSeries.push(`${label}`);
+            dataSeries.push(aggregate);
 
             const description = `Spending by ${label}: \
-${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
+${MoneyFormatter.formatMoney(parseFloat(aggregate))}`;
             descriptions.push(description);
         });
 
@@ -292,8 +185,8 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
             loading: false,
             next: data.page_metadata.next,
             previous: data.page_metadata.previous,
-            hasNextPage: data.page_metadata.has_next_page,
-            hasPreviousPage: data.page_metadata.has_previous_page
+            hasNextPage: data.page_metadata.hasNext,
+            hasPreviousPage: data.page_metadata.hasPrevious
         });
     }
 

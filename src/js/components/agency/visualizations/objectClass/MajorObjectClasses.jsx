@@ -18,7 +18,8 @@ const propTypes = {
     majorObjectClasses: PropTypes.object,
     toggleMinorObjectClass: PropTypes.func,
     showMinorObjectClass: PropTypes.bool,
-    totalObligation: PropTypes.number
+    totalObligation: PropTypes.number,
+    hasNegatives: PropTypes.bool
 };
 
 export default class MajorObjectClasses extends React.Component {
@@ -144,7 +145,7 @@ export default class MajorObjectClasses extends React.Component {
                     x1={n.x1}
                     y0={n.y0}
                     y1={n.y1}
-                    total={n.parent.value}
+                    total={treeProps.totalObligation}
                     key={n.data.major_object_class_code}
                     objectClassID={n.data.major_object_class_code}
                     color={cellColor}
@@ -230,8 +231,15 @@ export default class MajorObjectClasses extends React.Component {
     }
 
     render() {
+        let greatThanOneHundredDescription = null;
+        if (this.props.hasNegatives) {
+            greatThanOneHundredDescription = (<p><em><strong>Note:</strong> The object classes below add up to more
+                than 100% due to negative values not shown here. </em>
+            </p>);
+        }
         return (
             <div className="treemap-inner-wrap">
+                {greatThanOneHundredDescription}
                 { this.createTooltip() }
                 <div
                     className="tree-wrapper"

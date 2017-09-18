@@ -16,7 +16,7 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -28,7 +28,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         super(props);
 
         this.state = {
-            scope: 'pop',
+            scope: 'place_of_performance',
             mapScope: 'state',
             data: {
                 values: [],
@@ -67,25 +67,17 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         // build a new search operation from the Redux state, but create a transaction-based search
         // operation instead of an award-based one
-        const operation = new SearchTransactionOperation();
+        const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
 
         const searchParams = operation.toParams();
 
-        let fieldName = 'place_of_performance';
-        if (this.state.scope === 'recipient') {
-            fieldName = 'recipient__location';
-        }
-
         // generate the API parameters
         const apiParams = {
-            field: 'federal_action_obligation',
-            group: `${fieldName}__state_code`,
-            order: ['item'],
-            aggregate: 'sum',
+            scope: this.state.scope,
             filters: searchParams,
             limit: 500,
-            auditTrail: 'Geo visualization'
+            auditTrail: 'Map Visualization'
         };
 
         if (this.apiRequest) {
@@ -96,7 +88,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             loading: true
         });
 
-        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);
@@ -113,9 +105,9 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         data.results.forEach((item) => {
             // state must not be null or empty string
-            if (item.item && item.item !== '') {
-                spendingStates.push(item.item);
-                spendingValues.push(parseFloat(item.aggregate));
+            if (item.state_code && item.state_code !== '') {
+                spendingStates.push(item.state_code);
+                spendingValues.push(parseFloat(item.aggregated_amount));
             }
         });
 

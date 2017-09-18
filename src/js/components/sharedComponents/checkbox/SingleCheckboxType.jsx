@@ -66,7 +66,6 @@ export default class SingleCheckboxType extends React.Component {
 
     render() {
         const checked = this.props.selectedCheckboxes.has(this.props.code);
-
         return (
             <div className="primary-checkbox-type single-item">
                 <div className="checkbox-type-item-wrapper">

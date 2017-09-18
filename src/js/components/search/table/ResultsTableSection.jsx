@@ -24,9 +24,8 @@ const propTypes = {
     currentType: PropTypes.string,
     switchTab: PropTypes.func,
     results: PropTypes.array,
-    columns: PropTypes.array,
+    columns: PropTypes.object,
     counts: PropTypes.object,
-    hiddenColumns: PropTypes.array,
     toggleColumnVisibility: PropTypes.func,
     reorderColumns: PropTypes.func,
     downloadParams: PropTypes.object
@@ -106,7 +105,6 @@ export default class ResultsTableSection extends React.Component {
                         switchTab={this.props.switchTab} />
                     <ResultsSelectColumns
                         columns={this.props.columns}
-                        hiddenColumns={this.props.hiddenColumns}
                         toggleColumnVisibility={this.props.toggleColumnVisibility}
                         reorderColumns={this.props.reorderColumns} />
                 </div>

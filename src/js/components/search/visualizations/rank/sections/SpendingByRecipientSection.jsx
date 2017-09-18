@@ -34,7 +34,7 @@ export default class SpendingByRecipientSection extends React.Component {
                                     <RankVisualizationScopeButton
                                         value="parentCompany"
                                         label="Parent Company (Parent DUNS)"
-                                        active={this.props.scope === 'parentCompany'}
+                                        active={this.props.scope === 'parent_duns'}
                                         changeScope={this.props.changeScope}
                                         disabled />
                                     <ComingSoonLabel />
@@ -43,14 +43,14 @@ export default class SpendingByRecipientSection extends React.Component {
                                     <RankVisualizationScopeButton
                                         value="subsidiary"
                                         label="Subsidiary (DUNS)"
-                                        active={this.props.scope === 'subsidiary'}
+                                        active={this.props.scope === 'duns'}
                                         changeScope={this.props.changeScope} />
                                 </li>
                                 <li className="coming-soon">
                                     <RankVisualizationScopeButton
                                         value="recipientType"
                                         label="Recipient Type"
-                                        active={this.props.scope === 'recipientType'}
+                                        active={this.props.scope === 'recipient_type'}
                                         changeScope={this.props.changeScope}
                                         disabled />
                                     <ComingSoonLabel />

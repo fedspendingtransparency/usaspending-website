@@ -164,7 +164,7 @@ export default class SearchHeader extends React.Component {
                     }}>
                     <div className="search-header">
                         <div className="search-title">
-                            <h1>Search &amp; Download Data</h1>
+                            <h1>Award Search</h1>
                         </div>
                         <div className="search-options">
                             <ul className="search-formats">

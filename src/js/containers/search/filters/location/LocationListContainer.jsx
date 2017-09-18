@@ -23,7 +23,7 @@ const propTypes = {
     autocompleteLocations: PropTypes.array
 };
 
-class LocationListContainer extends React.Component {
+export class LocationListContainer extends React.Component {
     constructor(props) {
         super(props);
 

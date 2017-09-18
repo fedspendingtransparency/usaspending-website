@@ -78,22 +78,6 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(selectedLocationFilters);
         }
 
-        // prepare the budget categories filters
-        const budgetFunctions = this.prepareBudgetFunctions(props);
-        if (budgetFunctions) {
-            filters.push(budgetFunctions);
-        }
-
-        const federalAccounts = this.prepareFederalAccounts(props);
-        if (federalAccounts) {
-            filters.push(federalAccounts);
-        }
-
-        const objectClasses = this.prepareObjectClasses(props);
-        if (objectClasses) {
-            filters.push(objectClasses);
-        }
-
         // prepare the agency filters
         const selectedFundingAgencyFilters = this.prepareAgencies(props, 'funding');
         if (selectedFundingAgencyFilters) {
@@ -149,6 +133,24 @@ export class TopFilterBarContainer extends React.Component {
         const selectedPSC = this.preparePSC(props);
         if (selectedPSC) {
             filters.push(selectedPSC);
+        }
+
+        // prepare Pricing Type filters
+        const pricingTypes = this.preparePricingType(props);
+        if (pricingTypes) {
+            filters.push(pricingTypes);
+        }
+
+        // prepare Set Aside filters
+        const setAside = this.prepareSetAside(props);
+        if (setAside) {
+            filters.push(setAside);
+        }
+
+        // prepare Extent Competed filters
+        const extentCompeted = this.preparedExtentCompeted(props);
+        if (extentCompeted) {
+            filters.push(extentCompeted);
         }
 
         this.setState({
@@ -283,81 +285,6 @@ export class TopFilterBarContainer extends React.Component {
             filter.name = 'Place of Performance Location';
             return filter;
         }
-        return null;
-    }
-
-    /**
-     * Logic for parsing the current Redux budget functions into a JS object
-     * that can be parsed by the top filter bar
-     */
-    prepareBudgetFunctions(props) {
-        let selected = false;
-        const filter = {
-            values: []
-        };
-
-        if (props.budgetFunctions.count() > 0) {
-            // budgetFunctions have been selected
-            selected = true;
-            filter.values = props.budgetFunctions.toArray();
-        }
-
-        if (selected) {
-            filter.code = 'budgetFunctions';
-            filter.name = 'Budget Functions';
-            return filter;
-        }
-
-        return null;
-    }
-
-    /**
-     * Logic for parsing the current Redux federal accounts into a JS object
-     * that can be parsed by the top filter bar
-     */
-    prepareFederalAccounts(props) {
-        let selected = false;
-        const filter = {
-            values: []
-        };
-
-        if (props.federalAccounts.count() > 0) {
-            // federalAccounts have been selected
-            selected = true;
-            filter.values = props.federalAccounts.toArray();
-        }
-
-        if (selected) {
-            filter.code = 'federalAccounts';
-            filter.name = 'Federal Accounts';
-            return filter;
-        }
-
-        return null;
-    }
-
-    /**
-     * Logic for parsing the current Redux object classes into a JS object
-     * that can be parsed by the top filter bar
-     */
-    prepareObjectClasses(props) {
-        let selected = false;
-        const filter = {
-            values: []
-        };
-
-        if (props.objectClasses.count() > 0) {
-            // objectClasses have been selected
-            selected = true;
-            filter.values = props.objectClasses.toObject();
-        }
-
-        if (selected) {
-            filter.code = 'objectClasses';
-            filter.name = 'Object Classes';
-            return filter;
-        }
-
         return null;
     }
 
@@ -532,6 +459,65 @@ export class TopFilterBarContainer extends React.Component {
         return null;
     }
 
+    preparePricingType(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.pricingType.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.pricingType.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'pricingType';
+            filter.name = 'Type of Contract Pricing';
+            return filter;
+        }
+        return null;
+    }
+
+    prepareSetAside(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.setAside.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.setAside.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'setAside';
+            filter.name = 'Type of Set Aside';
+            return filter;
+        }
+        return null;
+    }
+
+    preparedExtentCompeted(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.extentCompeted.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.extentCompeted.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'extentCompeted';
+            filter.name = 'Extent Competed';
+            return filter;
+        }
+        return null;
+    }
     /**
      * Logic for parsing the current Redux selected CFDA into a JS object
      * that can be parsed by the top filter bar

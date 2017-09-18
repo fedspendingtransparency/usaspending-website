@@ -7,11 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
-import ResultsTable from 'components/search/table/ResultsTable';
 import ResultsTableMessage from 'components/search/table/ResultsTableMessage';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import AccountAwardsHeaderCellContainer from
     'containers/account/awards/AccountAwardsHeaderCellContainer';
+import LegacyResultsTable from './LegacyResultsTable';
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -83,7 +83,7 @@ export default class AccountAwardsSection extends React.Component {
                             // the results table width will follow this div's width
                             this.tableWidthController = div;
                         }} />
-                    <ResultsTable
+                    <LegacyResultsTable
                         {...this.props}
                         visibleWidth={this.state.tableWidth}
                         headerCellClass={AccountAwardsHeaderCellContainer} />
