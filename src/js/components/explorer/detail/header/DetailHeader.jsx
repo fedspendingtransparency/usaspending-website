@@ -10,6 +10,7 @@ import moment from 'moment';
 
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
+import { generateSingular } from 'helpers/singularityHelper';
 
 const propTypes = {
     within: PropTypes.string,
@@ -26,14 +27,7 @@ const dataType = (type, parent) => {
         return null;
     }
 
-    const firstLetter = type.substring(0, 1).toLowerCase();
-    const vowels = ['a', 'e', 'i', 'o', 'u'];
-
-    let singular = 'An';
-
-    if (vowels.indexOf(firstLetter) === -1) {
-        singular = 'A';
-    }
+    const singular = generateSingular(type, true);
 
     let parentRelation = null;
     if (parent) {

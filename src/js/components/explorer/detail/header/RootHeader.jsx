@@ -10,6 +10,7 @@ import moment from 'moment';
 
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
+import { generateSingular } from 'helpers/singularityHelper';
 
 const propTypes = {
     root: PropTypes.string,
@@ -18,26 +19,18 @@ const propTypes = {
     lastUpdate: PropTypes.string
 };
 
-const singularType = (type) => {
-    const firstLetter = type.substring(0, 1).toLowerCase();
-    const vowels = ['a', 'e', 'i', 'o', 'u'];
-
-    if (vowels.indexOf(firstLetter) === -1) {
-        return `a ${type.toLowerCase()}`;
-    }
-    return `an ${type.toLowerCase()}`;
-};
-
 const RootHeader = (props) => {
     const type = sidebarTypes[props.root];
     return (
         <div className="root-header">
             <div className="left-side">
                 <h2>
-                    You are viewing FY {props.fy} spending by <span className="capitalize">{type}</span>
+                    You are viewing FY {props.fy} spending
+                    by <span className="capitalize">{type}</span>
                 </h2>
                 <div className="instructions">
-                    Choose {singularType(type)} below to start your exploration.
+                    Choose {generateSingular(type, false)} {type.toLowerCase()} below to start
+                    your exploration.
                 </div>
             </div>
             <div className="right-side">
