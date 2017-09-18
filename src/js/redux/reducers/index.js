@@ -18,6 +18,7 @@ import awardIDReducer from './search/awardIDReducer';
 import awardReducer from './award/awardReducer';
 import accountReducer from './account/accountReducer';
 import agencyReducer from './agency/agencyReducer';
+import explorerReducer from './explorer/explorerReducer';
 import glossaryReducer from './glossary/glossaryReducer';
 import agencyLandingReducer from './agencyLanding/agencyLandingReducer';
 import cfdaReducer from './search/cfdaReducer';
@@ -42,7 +43,8 @@ const appReducer = combineReducers({
     account: accountReducer,
     agency: agencyReducer,
     glossary: glossaryReducer,
-    agencyLanding: agencyLandingReducer
+    agencyLanding: agencyLandingReducer,
+    explorer: explorerReducer
 });
 
 export default appReducer;

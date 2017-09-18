@@ -39,3 +39,12 @@ export const measureTableHeader = (text) => {
     return measureText(tableHeaderFont, text) + 120;
 };
 
+export const measureTreemapHeader = (text) => {
+    const treemapHeaderFont = '16px Source Sans Pro, sans serif';
+    return measureText(treemapHeaderFont, text);
+};
+
+export const measureTreemapValue = (text) => {
+    const treemapValueFont = 'bold 18px Source Sans Pro, sans serif';
+    return measureText(treemapValueFont, text);
+};

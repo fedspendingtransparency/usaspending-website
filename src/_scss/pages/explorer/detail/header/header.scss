@@ -1,0 +1,93 @@
+.root-header, .detail-header {
+    @include display(flex);
+
+    position: relative;
+    .left-side {
+        @include flex(1 1 auto);
+        max-width: 75%;
+        
+        h2 {
+            margin: 0;
+            font-weight: $font-light;
+            font-size: rem(30);
+            line-height: rem(32);
+
+            a:hover {
+                text-decoration: none;
+            }
+
+            @include media($large-screen) {
+                font-size: rem(36);
+                line-height: rem(40);
+            }
+        }
+
+        .instructions {
+            margin-top: rem(10);
+            font-weight: $font-light;
+            color: #587786;
+            font-size: rem(24);
+            line-height: rem(24);
+
+            @include media($large-screen) {
+                font-size: rem(28);
+                line-height: rem(28);
+            }
+        }
+
+        .capitalize {
+            text-transform: capitalize;
+        }
+
+        .data-type {
+            font-weight: $font-normal;
+            font-size: rem(16);
+            line-height: rem(28);
+        }
+
+        .bold {
+            font-weight: $font-semibold;
+        }
+
+    }
+
+    .right-side {
+        @include flex(0 1 auto);
+        width: rem(150);
+        margin-left: rem(10);
+        
+        @include media($medium-screen) {
+            width: rem(200);
+            margin-left: rem(50);
+        }
+        @include media($x-large-screen) {
+            margin-left: rem(150);    
+        }
+
+        .amount-header {
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: $font-semibold;
+
+            font-size: rem(14);
+            line-height: rem(21);
+        }
+
+        .amount-value {
+            text-align: center;
+            text-transform: capitalize;
+            font-weight: $font-light;
+
+            font-size: rem(36);
+            line-height: rem(40);
+
+            color: #587786;
+        }
+
+        .update-date {
+            text-align: center;
+            font-size: rem(14);
+            line-height: rem(18);
+        }
+    }
+}
