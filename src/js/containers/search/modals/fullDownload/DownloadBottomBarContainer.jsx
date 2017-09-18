@@ -12,7 +12,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import * as downloadActions from 'redux/actions/search/downloadActions';
 
-import SearchOperation from 'models/search/SearchOperation';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 
 import * as DownloadHelper from 'helpers/downloadHelper';
@@ -84,10 +84,15 @@ export class DownloadBottomBarContainer extends React.Component {
         if (this.request) {
             this.request.cancel();
         }
+
         let filterSet = {};
-        if (filters !== '') {
-            filterSet = new SearchOperation(filters).toParams();
+        if (filters) {
+            const operation = new SearchAwardsOperation();
+            operation.fromState(filters);
+
+            filterSet = operation.toParams();
         }
+
         const params = {
             filters: filterSet,
             columns
