@@ -140,7 +140,13 @@ export default class DetailContent extends React.Component {
 
     render() {
         if (this.props.isLoading && this.props.data.count() < 1) {
-            return null;
+            return (
+                <div
+                    className="explorer-detail-content"
+                    ref={(div) => {
+                        this.wrapperDiv = div;
+                    }} />
+            );
         }
         let header = (<RootHeader
             root={this.props.root}
