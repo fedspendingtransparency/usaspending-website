@@ -150,7 +150,7 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     parseStatus(data) {
-        if (data.status === 'complete') {
+        if (data.status === 'finished') {
             // download is ready
             this.downloadFile(data.url);
             return;
