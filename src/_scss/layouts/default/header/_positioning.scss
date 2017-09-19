@@ -18,8 +18,6 @@
         @include flex(1 1 auto);
         position: relative;
         height: rem(45);
-        @include media($medium-screen) {
-            display: none;
-        }
+        display: none;
     }
 }
