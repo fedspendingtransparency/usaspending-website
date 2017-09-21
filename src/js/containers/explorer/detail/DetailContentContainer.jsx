@@ -409,7 +409,8 @@ export class DetailContentContainer extends React.Component {
                     goDeeper={this.goDeeper}
                     changeSubdivisionType={this.changeSubdivisionType}
                     showTooltip={this.props.showTooltip}
-                    hideTooltip={this.props.hideTooltip} />
+                    hideTooltip={this.props.hideTooltip}
+                    rewindToFilter={this.rewindToFilter} />
             </div>
         );
     }
