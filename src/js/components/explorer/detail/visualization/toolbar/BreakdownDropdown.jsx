@@ -34,10 +34,16 @@ export default class BreakdownDropdown extends React.Component {
 
         this.toggleMenu = this.toggleMenu.bind(this);
         this.pickItem = this.pickItem.bind(this);
+        this.setWrapperRef = this.setWrapperRef.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentWillMount() {
         this.prepareOptions(this.props);
+    }
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -49,6 +55,22 @@ export default class BreakdownDropdown extends React.Component {
         }
         else if (nextProps.isRoot !== this.props.isRoot) {
             this.prepareOptions(nextProps);
+        }
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+
+    setWrapperRef(node) {
+        this.wrapperRef = node;
+    }
+
+    handleClickOutside(event) {
+        if (this.state.expanded && this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+            this.setState({
+                expanded: false
+            });
         }
     }
 
@@ -131,26 +153,28 @@ export default class BreakdownDropdown extends React.Component {
         }
 
         return (
-            <div className="breakdown-menu">
-                <div className="breakdown-label">
-                    See the breakdown by:
-                </div>
-                <div className="breakdown-dropdown">
-                    <button
-                        className="dropdown-selector"
-                        onClick={this.toggleMenu}>
-                        <div className="item-icon">
-                            {icon}
-                        </div>
-                        <div className="item-label">
-                            {sidebarTypes[this.state.active]}
-                        </div>
-                        <div className="arrow">
-                            <AngleDown />
-                        </div>
-                    </button>
+            <div ref={this.setWrapperRef}>
+                <div className="breakdown-menu" >
+                    <div className="breakdown-label">
+                        See the breakdown by:
+                    </div>
+                    <div className="breakdown-dropdown">
+                        <button
+                            className="dropdown-selector"
+                            onClick={this.toggleMenu}>
+                            <div className="item-icon">
+                                {icon}
+                            </div>
+                            <div className="item-label">
+                                {sidebarTypes[this.state.active]}
+                            </div>
+                            <div className="arrow">
+                                <AngleDown />
+                            </div>
+                        </button>
 
-                    {dropdown}
+                        {dropdown}
+                    </div>
                 </div>
             </div>
         );
