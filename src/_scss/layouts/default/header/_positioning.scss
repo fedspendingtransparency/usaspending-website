@@ -20,8 +20,6 @@
         }
     }
     .mobile-menu {
-        @include media($tablet-screen) {
-            display: none;
-        }
+        display: none;
     }
 }
