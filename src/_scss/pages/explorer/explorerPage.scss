@@ -1,0 +1,9 @@
+.usa-da-explorer-page {
+    @import "layouts/default/default";
+    @import "components/pageTitleBar/pageTitleBar";
+
+    .main-content {
+        @import "./landing/explorerLanding";
+        @import "./detail/explorerDetail";
+    }
+}

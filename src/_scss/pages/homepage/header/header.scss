@@ -1,0 +1,37 @@
+.site-header {
+    header {
+        background-color: transparent;
+        color: $color-white;
+        padding-top: rem(10);
+
+        .skip-nav {
+            top: rem(-420);
+        }
+
+        .usa-logo {
+            // use the black and white logo
+            a {
+                @include background-image(url("#{$image-path}/logo-small-bw.png"));
+                @include media($large-screen) {
+                    @include background-image(url("#{$image-path}/logo-bw.png"));
+                }
+                // handle retina images
+                @media (min--moz-device-pixel-ratio: 1.3),
+                (-o-min-device-pixel-ratio: 2.6/2),
+                (-webkit-min-device-pixel-ratio: 1.3),
+                (min-device-pixel-ratio: 1.3),
+                (min-resolution: 1.3dppx) {
+                    @include background-image(url("#{$image-path}/logo-small-bw@2x.png"));
+                    @include media($large-screen) {
+                        @include background-image(url("#{$image-path}/logo-bw@2x.png"));
+                    }
+                }
+            }
+            &:after {
+                // adjust the styling of the beta badge
+                background: $color-white;
+                color: $color-primary-darkest;
+            }
+        }
+    }
+}

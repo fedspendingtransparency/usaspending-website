@@ -1,0 +1,30 @@
+.explorer-fy-picker {
+    position: absolute;
+    top: rem(90);
+    left: rem(300);
+    z-index: $z-modal;
+
+    ul.fy-list {
+        @include unstyled-list;
+        border: 1px solid $color-gray-dark;
+
+        li {
+            width: rem(140);
+            border-top: 1px solid $color-gray;
+            background-color: #272F38;
+
+            &:first-child {
+                border-top: none;
+            }
+
+            button.fy-item {
+                @include button-unstyled;
+                width: 100%;
+                padding: rem(10) rem(20);
+                color: $color-white;
+                font-size: $small-font-size;
+                text-align: center;
+            }
+        }
+    }
+}

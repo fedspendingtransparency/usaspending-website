@@ -98,11 +98,11 @@ describe('SpendingByCFDAVisualizationContainer', () => {
             // validate the state contains the correctly parsed values
             const expectedState = {
                 loading: false,
-                labelSeries: ['Medical Assistance Program', 'Medicare_Supplementary Medical Insurance'],
+                labelSeries: ['93.778: Medical Assistance Program', '93.774: Medicare_Supplementary Medical Insurance'],
                 dataSeries: [66681011412.00, 152],
                 descriptions: [
-                    'Spending by Medical Assistance Program: $66,681,011,412',
-                    'Spending by Medicare_Supplementary Medical Insurance: $152'],
+                    'Spending by 93.778: Medical Assistance Program: $66,681,011,412',
+                    'Spending by 93.774: Medicare_Supplementary Medical Insurance: $152'],
                 page: 1,
                 hasNextPage: false,
                 hasPreviousPage: false,

@@ -17,14 +17,11 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
-import SearchTASCategoriesOperation from 'models/search/SearchTASCategoriesOperation';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    meta: PropTypes.object,
-    budgetFiltersSelected: PropTypes.bool,
-    awardFiltersSelected: PropTypes.bool
+    meta: PropTypes.object
 };
 
 export class SpendingByFundingAgencyVisualizationContainer extends React.Component {
@@ -37,7 +34,7 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
             dataSeries: [],
             descriptions: [],
             page: 1,
-            agencyScope: 'toptier',
+            agencyScope: 'agency',
             next: '',
             previous: '',
             hasNextPage: false,
@@ -108,53 +105,19 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
             this.apiRequest.cancel();
         }
 
-        // Fetch data from the appropriate endpoint
-        if (this.props.awardFiltersSelected && this.props.budgetFiltersSelected) {
-            this.fetchComboRequest();
-        }
-        else if (this.props.budgetFiltersSelected) {
-            this.fetchBudgetRequest();
-        }
-        else if (this.props.awardFiltersSelected) {
-            this.fetchAwardRequest();
-        }
-        else {
-            this.fetchUnfilteredRequest();
-        }
+        // Fetch data from the Awards v2 endpoint
+        this.fetchAwards("Funding Agency Rank Visualization");
     }
 
 
-    fetchUnfilteredRequest() {
-        this.fetchTASCategories('Funding agency vis - unfiltered');
-    }
-
-    fetchBudgetRequest() {
-        this.fetchTASCategories('Funding agency vis - budget filters');
-    }
-
-    fetchAwardRequest() {
-        // only award filters have been selected
-        this.fetchAccountAwards('Funding agency vis - award filters');
-    }
-
-    fetchComboRequest() {
-        // a combination of budget and award filters have been selected
-        this.fetchAccountAwards('Funding agency vis - combination');
-    }
-
-    fetchAccountAwards(auditTrail = null) {
-        // Create Search Operation
-        const operation = new SearchAccountAwardsOperation();
-
+    fetchAwards(auditTrail = null) {
+        const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
-        // generate the API parameters
+
         const apiParams = {
-            field: 'transaction_obligated_amount',
-            group: ['treasury_account__funding_toptier_agency__name',
-                'treasury_account__funding_toptier_agency__abbreviation'],
-            order: ['-aggregate'],
-            aggregate: 'sum',
+            category: 'funding_agency',
+            scope: this.state.agencyScope,
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -164,40 +127,7 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
             apiParams.auditTrail = auditTrail;
         }
 
-        this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data);
-                this.apiRequest = null;
-            })
-            .catch(() => {
-                this.apiRequest = null;
-            });
-    }
-
-    fetchTASCategories(auditTrail = null) {
-        // Create Search Operation
-        const operation = new SearchTASCategoriesOperation();
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-
-        // Generate the API parameters
-        const apiParams = {
-            field: 'obligations_incurred_by_program_object_class_cpe',
-            group: ['treasury_account__funding_toptier_agency__name',
-                'treasury_account__funding_toptier_agency__abbreviation'],
-            order: ['-aggregate'],
-            aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
-        };
-
-        if (auditTrail) {
-            apiParams.auditTrail = auditTrail;
-        }
-
-        this.apiRequest = SearchHelper.performCategorySearch(apiParams);
+        this.apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);
@@ -215,16 +145,26 @@ export class SpendingByFundingAgencyVisualizationContainer extends React.Compone
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            let abr = '';
-            if (item.treasury_account__funding_toptier_agency__abbreviation !== ''
-                && item.treasury_account__funding_toptier_agency__abbreviation !== null) {
-                abr = ` (${item.treasury_account__funding_toptier_agency__abbreviation})`;
+            let aggregate = parseFloat(item.aggregated_amount);
+            if (isNaN(aggregate)) {
+                // the aggregate value is invalid (most likely null)
+                aggregate = 0;
             }
-            labelSeries.push(`${item.item}${abr}`);
-            dataSeries.push(parseFloat(item.aggregate));
 
-            const description = `Spending by ${item.item}: \
-${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
+            const agencyName = item.agency_name;
+            let agencyAbbreviation = '';
+
+            if (item.agency_abbreviation !== null && item.agency_abbreviation !== '') {
+                agencyAbbreviation = ` (${item.agency_abbreviation})`;
+            }
+
+            const label = `${agencyName}${agencyAbbreviation}`;
+
+            labelSeries.push(`${label}`);
+            dataSeries.push(aggregate);
+
+            const description = `Spending by ${label}: \
+${MoneyFormatter.formatMoney(aggregate)}`;
             descriptions.push(description);
         });
 
@@ -235,8 +175,8 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
             loading: false,
             next: data.page_metadata.next,
             previous: data.page_metadata.previous,
-            hasNextPage: data.page_metadata.has_next_page,
-            hasPreviousPage: data.page_metadata.has_previous_page
+            hasNextPage: data.page_metadata.hasNext,
+            hasPreviousPage: data.page_metadata.hasPrevious
         });
     }
 

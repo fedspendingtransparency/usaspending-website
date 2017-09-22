@@ -5,56 +5,8 @@
 
 import { Set, OrderedSet } from 'immutable';
 
-import accountReducer from 'redux/reducers/account/accountReducer';
-
-const initialState = {
-    filters: {
-        dateType: 'fy',
-        fy: new Set(),
-        startDate: null,
-        endDate: null,
-        objectClass: new OrderedSet(),
-        programActivity: new OrderedSet(),
-        tas: []
-    },
-    filterOptions: {
-        objectClass: [],
-        programActivity: [],
-        tas: []
-    },
-    account: {
-        id: null,
-        agency_identifier: '',
-        main_account_code: '',
-        title: '',
-        description: '',
-        totals: {
-            obligated: {},
-            unobligated: {},
-            budgetAuthority: {},
-            outlay: {},
-            balanceBroughtForward1: {},
-            balanceBroughtForward2: {},
-            otherBudgetaryResources: {},
-            appropriations: {}
-        }
-    },
-    awards: new OrderedSet(),
-    awardsMeta: {
-        batch: {
-            queryId: "0",
-            searchId: "0"
-        },
-        page: 1,
-        hasNext: false,
-        type: 'contracts'
-    },
-    awardsOrder: {
-        field: 'total_obligation',
-        direction: 'desc'
-    },
-    totalSpending: 0
-};
+import accountReducer, { initialState } from 'redux/reducers/account/accountReducer';
+import { mockOCAPI } from './mockResponses';
 
 describe('accountReducer', () => {
     describe('SET_SELECTED_ACCOUNT', () => {
@@ -232,6 +184,101 @@ describe('accountReducer', () => {
 
             const expected = new OrderedSet(['20']);
             expect(state.filters.objectClass).toEqual(expected);
+        });
+    });
+
+    describe('SET_ACCOUNT_AVAILABLE_OBJECT_CLASSES', () => {
+        const mockActionState = {
+            objectClass: mockOCAPI.results,
+            objectClassDefinitions: {
+                '1': 'First Major',
+                '2': 'First Major Minor'
+            },
+            objectClassChildren: {
+                '1': ['2']
+            }
+        };
+
+        it('should populate the objectClass key in filterOptions with the major/minor structure', () => {
+            let state = accountReducer(undefined, {});
+            expect(state.filterOptions.objectClass).toEqual([]);
+            const action = Object.assign({}, mockActionState, {
+                type: 'SET_ACCOUNT_AVAILABLE_OBJECT_CLASSES'
+            });
+
+            state = accountReducer(state, action);
+            expect(state.filterOptions.objectClass).toEqual(mockOCAPI.results);
+        });
+        it('should populate the objectClassDefinitions key in filterOptions with an object mapping IDs to names', () => {
+            let state = accountReducer(undefined, {});
+            expect(state.filterOptions.objectClassDefinitions).toEqual({});
+            const action = Object.assign({}, mockActionState, {
+                type: 'SET_ACCOUNT_AVAILABLE_OBJECT_CLASSES'
+            });
+
+            state = accountReducer(state, action);
+            expect(state.filterOptions.objectClassDefinitions).toEqual(mockActionState.objectClassDefinitions);
+        });
+        it('should populate the objectClassChildren key in filterOptions with an object associating minor IDs to major IDs', () => {
+            let state = accountReducer(undefined, {});
+            expect(state.filterOptions.objectClassChildren).toEqual({});
+            const action = Object.assign({}, mockActionState, {
+                type: 'SET_ACCOUNT_AVAILABLE_OBJECT_CLASSES'
+            });
+
+            state = accountReducer(state, action);
+            expect(state.filterOptions.objectClassChildren).toEqual(mockActionState.objectClassChildren);
+        });
+    });
+
+    describe('BULK_ACCOUNT_TOGGLE_OBJECT_CLASSES', () => {
+        it('should add all child IDs to the filter when the direction is "add"', () => {
+            let state = accountReducer(undefined, {});
+            expect(state.filters.objectClass).toEqual(new OrderedSet([]));
+
+            const action = {
+                type: 'BULK_ACCOUNT_TOGGLE_OBJECT_CLASSES',
+                objectClasses: ['1', '2', '3'],
+                direction: 'add'
+            };
+            state = accountReducer(state, action);
+            expect(state.filters.objectClass).toEqual(new OrderedSet(['1', '2', '3']));
+        });
+        it('should add only those currently unselected child IDs to the filter when the direction is "add"', () => {
+            const startingFilters = Object.assign({}, initialState.filters, {
+                objectClass: new OrderedSet(['1'])
+            });
+            const startingState = Object.assign({}, initialState, {
+                filters: startingFilters
+            });
+            let state = accountReducer(startingState, {});
+            expect(state.filters.objectClass).toEqual(new OrderedSet(['1']));
+
+            const action = {
+                type: 'BULK_ACCOUNT_TOGGLE_OBJECT_CLASSES',
+                objectClasses: ['1', '2', '3'],
+                direction: 'add'
+            };
+            state = accountReducer(state, action);
+            expect(state.filters.objectClass).toEqual(new OrderedSet(['1', '2', '3']));
+        });
+        it('should remove all child IDs from the filter when the direction is "remove"', () => {
+            const startingFilters = Object.assign({}, initialState.filters, {
+                objectClass: new OrderedSet(['1', '2', '3'])
+            });
+            const startingState = Object.assign({}, initialState, {
+                filters: startingFilters
+            });
+            let state = accountReducer(startingState, {});
+            expect(state.filters.objectClass).toEqual(new OrderedSet(['1', '2', '3']));
+
+            const action = {
+                type: 'BULK_ACCOUNT_TOGGLE_OBJECT_CLASSES',
+                objectClasses: ['1', '2'],
+                direction: 'remove'
+            };
+            state = accountReducer(state, action);
+            expect(state.filters.objectClass).toEqual(new OrderedSet(['3']));
         });
     });
 

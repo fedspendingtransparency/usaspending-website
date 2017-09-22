@@ -5,21 +5,19 @@
     @include justify-content(space-between);
     @include flex-direction(row);
     @include align-items(center);
-    height: rem(105);
-    @include media($tablet-screen) {
-    height: rem(110);
+    height: rem(80);
+    @include media($medium-screen) {
+        height: rem(80);
     }
     .logo {
-        flex-grow: 2;
+        @include flex(0 0 auto);
         position: relative;
     }
-    nav {
-        display: none;
-        @include media($tablet-screen) {
-            display: block;
-        }
-    }
+
     .mobile-menu {
+        @include flex(1 1 auto);
+        position: relative;
+        height: rem(45);
         display: none;
     }
 }

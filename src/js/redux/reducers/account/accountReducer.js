@@ -10,7 +10,7 @@ import { Set, OrderedSet } from 'immutable';
 import * as ObjectClassFuncs from './filters/accountObjectClassFunctions';
 import * as ProgramActivityFuncs from './filters/accountProgramActivityFunctions';
 
-const initialState = {
+export const initialState = {
     filters: {
         dateType: 'fy',
         fy: new Set(),
@@ -23,7 +23,9 @@ const initialState = {
     filterOptions: {
         objectClass: [],
         programActivity: [],
-        tas: []
+        tas: [],
+        objectClassDefinitions: {},
+        objectClassChildren: {}
     },
     account: {
         id: null,
@@ -144,6 +146,25 @@ const accountReducer = (state = initialState, action) => {
 
             return Object.assign({}, state, {
                 filters: updatedFilters
+            });
+        }
+        case 'BULK_ACCOUNT_TOGGLE_OBJECT_CLASSES': {
+            const updatedFilters = Object.assign({}, state.filters, {
+                objectClass: ObjectClassFuncs.bulkObjectClassesChange(
+                    state.filters.objectClass, action.objectClasses, action.direction)
+            });
+            return Object.assign({}, state, {
+                filters: updatedFilters
+            });
+        }
+        case 'SET_ACCOUNT_AVAILABLE_OBJECT_CLASSES': {
+            const updatedFilterOptions = Object.assign({}, state.filterOptions, {
+                objectClass: action.objectClass,
+                objectClassDefinitions: action.objectClassDefinitions,
+                objectClassChildren: action.objectClassChildren
+            });
+            return Object.assign({}, state, {
+                filterOptions: updatedFilterOptions
             });
         }
         case 'RESET_ACCOUNT_OBJECT_CLASS': {

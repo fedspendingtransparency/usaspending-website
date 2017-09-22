@@ -5,7 +5,7 @@
 
 import { List } from 'immutable';
 
-const initialState = {
+export const initialState = {
     awards: new List()
 };
 

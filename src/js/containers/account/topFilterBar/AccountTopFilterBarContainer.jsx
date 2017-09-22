@@ -156,8 +156,14 @@ export class AccountTopFilterBarContainer extends React.Component {
     render() {
         let output = null;
         if (this.state.filters.length > 0) {
+            let count = 0;
+            this.state.filters.forEach((filter) => {
+                count += filter.values.length;
+            });
+
             output = (<TopFilterBar
                 {...this.props}
+                filterCount={count}
                 clearAllFilters={this.clearAllFilters}
                 filters={this.state.filters}
                 groupGenerator={topFilterGroupGenerator} />);

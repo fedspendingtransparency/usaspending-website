@@ -77,7 +77,6 @@ describe('ObjectClassContainer', () => {
         fetchMinorObjectClassesSpy.reset();
     });
 
-
     it('should correctly sum the total obligation for major and minor object classes', async () => {
         const container = mount(<ObjectClassContainer
             {...inboundProps} />);
@@ -89,7 +88,6 @@ describe('ObjectClassContainer', () => {
         expect(container.instance().state.totalObligation).toEqual(1520);
         expect(container.instance().state.totalMinorObligation).toEqual(300);
     });
-
 
     it('should set the state to reflect the presence of negative obligations', async () => {
         const container = mount(<ObjectClassContainer

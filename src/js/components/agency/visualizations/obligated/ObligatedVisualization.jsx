@@ -87,6 +87,7 @@ export default class AgencyObligatedAmount extends React.Component {
                 label: 'Budgetary Resources',
                 offset: 248
             }
+
         ];
 
         return (

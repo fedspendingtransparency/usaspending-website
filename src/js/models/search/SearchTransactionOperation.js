@@ -7,6 +7,7 @@ import SearchOperation from './SearchOperation';
 
 import * as TxnTimePeriodQuery from './queryBuilders/TxnTimePeriodQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
+import * as OtherFiltersQuery from './queryBuilders/OtherFiltersQuery';
 
 class SearchTransactionOperation extends SearchOperation {
     constructor() {
@@ -37,6 +38,42 @@ class SearchTransactionOperation extends SearchOperation {
             filters.push(AgencyQuery.buildAgencyQuery(
                 this.fundingAgencies, this.awardingAgencies, this.searchContext));
         }
+
+        // Add cfda query
+        if (this.selectedCFDA.length > 0) {
+            filters.push(OtherFiltersQuery.buildCFDAQuery(
+                this.selectedCFDA, this.searchContext));
+        }
+
+        // Add naics query
+        if (this.selectedNAICS.length > 0) {
+            filters.push(OtherFiltersQuery.buildNAICSQuery(
+                this.selectedNAICS, this.searchContext));
+        }
+
+        // Add psc query
+        if (this.selectedPSC.length > 0) {
+            filters.push(OtherFiltersQuery.buildPSCQuery(
+                this.selectedPSC, this.searchContext));
+        }
+
+        // Add Pricing Type Queries
+        if (this.pricingType.length > 0) {
+            filters.push(OtherFiltersQuery.buildPricingTypeQuery(
+                this.pricingType, this.searchContext));
+        }
+
+        // Add Set Aside Queries
+        if (this.setAside.length > 0) {
+            filters.push(OtherFiltersQuery.buildSetAsideQuery(this.setAside, this.searchContext));
+        }
+
+        // Add Extent Competed Queries
+        if (this.extentCompeted.length > 0) {
+            filters.push(OtherFiltersQuery.buildExtentCompetedQuery(
+                this.extentCompeted, this.searchContext));
+        }
+
 
         return filters;
     }

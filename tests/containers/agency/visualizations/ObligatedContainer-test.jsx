@@ -69,7 +69,7 @@ describe('ObligatedContainer', () => {
             {...inboundProps} />);
 
         await container.instance().searchRequest.promise;
-
+      
         expect(container.instance().state.obligatedAmount).toEqual(300);
         expect(container.instance().state.budgetAuthority).toEqual(400);
         expect(container.instance().state.outlay).toEqual(200);
