@@ -153,7 +153,7 @@ export class AgencyLandingContainer extends React.Component {
             if (item.abbreviation !== null && item.abbreviation !== '') {
                 abbreviation = `(${item.abbreviation})`;
             }
-            
+
             const agency = {
                 agency_id: item.agency_id,
                 agency_name: `${item.agency_name} ${abbreviation}`,

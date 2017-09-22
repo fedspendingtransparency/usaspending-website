@@ -56,7 +56,8 @@ export default class FederalAccountVisualization extends React.Component {
     }
     render() {
         const obUnits = MoneyFormatter.calculateUnitForSingleValue(this.props.obligatedAmount);
-        const formattedObligation = `${MoneyFormatter.formatMoney(this.props.obligatedAmount / obUnits.unit)} ${obUnits.longLabel}`;
+        const formattedObligation = `${MoneyFormatter.formatMoneyWithPrecision(this.props.obligatedAmount / obUnits.unit, 1)}
+         ${obUnits.longLabel}`;
 
         return (
             <div
