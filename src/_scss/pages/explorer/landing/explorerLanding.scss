@@ -1,0 +1,67 @@
+.explorer-landing-page {
+	background: url(#{$image-path}/explorer-background.jpg) no-repeat top center;
+	background-size: cover;
+
+    .landing-intro {
+        padding: rem(88) 0;
+        text-align: center;
+
+        margin-left: rem(30);
+        margin-right: rem(30);
+
+        @include media($tablet-screen) {
+            width: 75%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @include media($large-screen) {
+            width: rem(750);
+        }
+
+        h2 {
+            margin: 0;
+            font-weight: $font-light;
+            font-size: rem(45);
+            line-height: rem(56);
+            padding-bottom: rem(14);
+        }
+
+        .description {
+            font-size: rem(19);
+            font-weight: $font-light;
+	        line-height: rem(30);
+	        max-width: rem(500);
+	        margin-left: auto;
+			margin-right: auto;
+
+            .highlight {
+                color: #587786;
+                margin-bottom: rem(28);
+	            font-size: rem(24);
+	            line-height: rem(31);
+            }
+        }
+    }
+
+    .landing-options {
+        @include display(flex);
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include align-items(center);
+        position: relative;
+
+        padding-left: rem(30);
+        padding-right: rem(30);
+
+        @include media($large-screen) {
+            @include flex-direction(row);
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        @import "./_option";
+
+        padding-bottom: rem(230);
+    }
+}

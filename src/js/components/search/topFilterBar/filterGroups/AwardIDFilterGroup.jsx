@@ -44,7 +44,7 @@ export default class AwardIDFilterGroup extends React.Component {
 
         awardIDs.forEach((value) => {
             const tag = {
-                value: value.id,
+                value: `${value.id}`,
                 title: `${AwardIDFormatter.formatAwardID(value, value.awardIDType)}
                     | ${value.awardIDType}`,
                 isSpecial: false,
