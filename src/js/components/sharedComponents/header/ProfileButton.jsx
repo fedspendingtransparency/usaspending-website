@@ -66,10 +66,8 @@ export default class ProfileButton extends React.Component {
                         <ul className="profile-list">
                             <li>
                                 <a
-                                    className="disabled"
                                     href="#/agency">
                                     Agencies
-                                    <ProfileComingSoon />
                                 </a>
                             </li>
                             <li>
