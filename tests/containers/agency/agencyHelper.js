@@ -1,4 +1,4 @@
-import { mockObligatedAmounts, mockCgacCode, mockFiscalQuarter }
+import { mockObligatedAmounts }
     from './visualizations/mocks/mockObligatedAmounts';
 
 import { mockRecipient } from './visualizations/mocks/mockRecipient';

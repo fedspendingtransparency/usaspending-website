@@ -17,7 +17,7 @@ const propTypes = {
     setAccountAwardOrder: PropTypes.func
 };
 
-class AccountAwardsHeaderCellContainer extends React.Component {
+export class AccountAwardsHeaderCellContainer extends React.Component {
     constructor(props) {
         super(props);
 

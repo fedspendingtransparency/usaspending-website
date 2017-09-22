@@ -27,7 +27,7 @@ const propTypes = {
     isLast: PropTypes.bool
 };
 
-class AgencyLandingHeaderCellContainer extends React.Component {
+export class AgencyLandingHeaderCellContainer extends React.Component {
     constructor(props) {
         super(props);
 
