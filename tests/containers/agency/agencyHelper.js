@@ -1,7 +1,9 @@
-import { mockObligatedAmounts, mockCgacCode, mockFiscalQuarter }
+import { mockObligatedAmounts }
     from './visualizations/mocks/mockObligatedAmounts';
 
 import { mockRecipient } from './visualizations/mocks/mockRecipient';
+
+import { mockMajorObjectClasses, mockMinorObjectClasses } from './visualizations/mocks/mockObjectClasses';
 
 // Fetch Agency Obligated Amounts
 export const fetchAgencyObligatedAmounts = () => (
@@ -17,40 +19,38 @@ export const fetchAgencyObligatedAmounts = () => (
     }
 );
 
-// Fetch Agency CGAC Code
-export const fetchAgencyCgacCode = () => (
-    {
-        promise: new Promise((resolve) => {
-            process.nextTick(() => {
-                resolve({
-                    data: mockCgacCode
-                });
-            });
-        }),
-        cancel: jest.fn()
-    }
-);
-
-// Fetch Agency Fiscal Quarter
-export const fetchAgencyFiscalQuarter = () => (
-    {
-        promise: new Promise((resolve) => {
-            process.nextTick(() => {
-                resolve({
-                    data: mockFiscalQuarter
-                });
-            });
-        }),
-        cancel: jest.fn()
-    }
-);
-
 export const fetchAwardRecipients = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
                     data: mockRecipient
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+export const fetchAgencyMajorObjectClasses = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockMajorObjectClasses
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+export const fetchAgencyMinorObjectClasses = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockMinorObjectClasses
                 });
             });
         }),
