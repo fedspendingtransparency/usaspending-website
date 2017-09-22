@@ -3,16 +3,9 @@
  * Created by Emily Gullo 08/24/2017
  */
 
-import downloadReducer from 'redux/reducers/search/downloadReducer';
+import downloadReducer, { initialState } from 'redux/reducers/search/downloadReducer';
 import { List } from 'immutable';
 
-const initialState = {
-    type: 'award',
-    columns: new List(),
-    expectedFile: '',
-    pendingDownload: false,
-    showCollapsedProgress: false
-};
 
 describe('downloadReducer', () => {
     it('should return an empty array by default', () => {
