@@ -61,7 +61,6 @@ describe('ObjectClassContainer', () => {
 
         await container.instance().searchRequest.promise;
 
-        // expect(loadDataSpy.callCount).toEqual(1);
         expect(fetchMajorObjectClassesMock).toHaveBeenCalledWith('555', inboundProps.activeFY);
         fetchMajorObjectClassesSpy.reset();
     });
