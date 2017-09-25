@@ -81,7 +81,11 @@ export default class AgencyOverview extends React.PureComponent {
 
         // Move props to variables for readability
         const budgetAuthority = props.agency.budgetAuthority;
-        const federalBudget = props.agency.federalBudget;
+
+        // Temporarily use a hardcoded total budget authority
+        const federalBudget = 8361447130497.72;
+        // const federalBudget = props.agency.federalBudget;
+
         const fy = parseInt(props.agency.activeFY, 10);
         const quarter = parseInt(props.agency.activeFQ, 10);
 
