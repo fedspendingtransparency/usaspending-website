@@ -41,7 +41,7 @@ describe('downloadReducer', () => {
     });
 
     describe('SET_DOWNLOAD_EXPECTED_FILE', () => {
-        it('should return a new string of the filename', () => {
+        it('should return a new string of the expected filename', () => {
             const action = {
                 type: 'SET_DOWNLOAD_EXPECTED_FILE',
                 file: 'transaction_9fn24der3.csv'
