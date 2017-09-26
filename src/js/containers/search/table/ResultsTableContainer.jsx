@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
 import { isCancel } from 'axios';
-import { difference } from 'lodash';
+import { difference, intersection } from 'lodash';
 
 import LegacySearchOperation from 'models/search/LegacySearchOperation';
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
@@ -261,9 +261,17 @@ export class ResultsTableContainer extends React.Component {
 
         const tableType = this.props.meta.tableType;
 
-        // append the table type to the current search params
+        // Append the current tab's award types to the search params if the Award Type filter
+        // isn't populated. If it is, perform a search on the intersection of the current tab's
+        // award types and the Award Type filter's content
         const searchParams = Object.assign(new SearchAwardsOperation(), this.state.searchParams);
-        searchParams.awardType = awardTypeGroups[tableType];
+        if (this.state.searchParams.awardType.length === 0) {
+            searchParams.awardType = awardTypeGroups[tableType];
+        }
+        else {
+            searchParams.awardType = intersection(awardTypeGroups[tableType],
+                this.state.searchParams.awardType);
+        }
 
         // indicate the request is about to start
         this.props.setSearchInFlight(true);
