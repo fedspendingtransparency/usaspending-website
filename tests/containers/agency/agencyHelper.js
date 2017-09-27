@@ -3,6 +3,8 @@ import { mockObligatedAmounts }
 
 import { mockRecipient } from './visualizations/mocks/mockRecipient';
 
+import { mockAccount } from './visualizations/mocks/mockFederalAccount';
+
 import { mockMajorObjectClasses, mockMinorObjectClasses } from './visualizations/mocks/mockObjectClasses';
 
 // Fetch Agency Obligated Amounts
@@ -12,6 +14,19 @@ export const fetchAgencyObligatedAmounts = () => (
             process.nextTick(() => {
                 resolve({
                     data: mockObligatedAmounts
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+export const fetchAgencyFederalAccounts = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockAccount
                 });
             });
         }),
