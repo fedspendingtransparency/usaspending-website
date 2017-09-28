@@ -8,13 +8,11 @@ import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import FederalAccountContainer from 'containers/agency/visualizations/FederalAccountContainer';
-import * as AgencyHelper from 'helpers/agencyHelper';
 
 import { mockAccount, parsedSeries } from './mocks/mockFederalAccount';
 
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
+jest.mock('helpers/agencyHelper', () => require('./../agencyHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // spy on specific functions inside the component
 const loadDataSpy = sinon.spy(FederalAccountContainer.prototype, 'loadData');
@@ -37,56 +35,19 @@ jest.mock('containers/glossary/GlossaryButtonWrapperContainer', () =>
 jest.mock('containers/glossary/GlossaryContainer', () =>
     jest.fn(() => null));
 
-const mockAgencyHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    AgencyHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockAgencyHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/agencyHelper');
-};
 
 describe('FederalAccountContainer', () => {
-    it('should make an API call for the selected agency on mount', () => {
-        mockAgencyHelper('fetchAgencyFederalAccounts', 'resolve', mockAccount);
-
-        mount(<FederalAccountContainer
+    it('should make an API call for the selected agency on mount', async () => {
+        const container = mount(<FederalAccountContainer
             {...inboundProps} />);
 
-        jest.runAllTicks();
+        await container.instance().request.promise;
 
         expect(loadDataSpy.callCount).toEqual(1);
         loadDataSpy.reset();
-
-        unmockAgencyHelper();
     });
 
-    it('should make a new API call when the inbound agency ID prop changes', () => {
-        mockAgencyHelper('fetchAgencyFederalAccounts', 'resolve', mockAccount);
-
+    it('should make a new API call when the inbound agency ID prop changes', async () => {
         const container = mount(<FederalAccountContainer
             {...inboundProps} />);
 
@@ -98,17 +59,14 @@ describe('FederalAccountContainer', () => {
             id: '555'
         });
 
-        jest.runAllTicks();
+        await container.instance().request.promise;
 
-        expect(loadDataMock).toHaveBeenCalledWith('555', inboundProps.activeFY);
+        expect(loadDataMock).toHaveBeenCalledWith('555', inboundProps.activeFY, 1);
         loadDataSpy.reset();
-
-        unmockAgencyHelper();
     });
 
     describe('parseData', () => {
         it('should parse the returned API response', () => {
-            mockAgencyHelper('fetchAgencyFederalAccounts', 'resolve', mockAccount);
             const container = shallow(<FederalAccountContainer
                 {...inboundProps} />);
 
@@ -117,6 +75,53 @@ describe('FederalAccountContainer', () => {
             expect(container.state().dataSeries).toEqual(parsedSeries.dataSeries);
             expect(container.state().labelSeries).toEqual(parsedSeries.labelSeries);
             expect(container.state().linkSeries).toEqual(parsedSeries.linkSeries);
+        });
+    });
+
+    describe('changePage', () => {
+        it('should update the page number in state', () => {
+            const container = shallow(<FederalAccountContainer
+                {...inboundProps} />);
+
+            container.setState({
+                isLastPage: false
+            });
+
+            expect(container.state().page).toEqual(1);
+
+            container.instance().changePage(2);
+            expect(container.state().page).toEqual(2);
+        });
+        it('should make an API call with the new page number', () => {
+            const container = shallow(<FederalAccountContainer
+                {...inboundProps} />);
+
+            container.setState({
+                isLastPage: false
+            });
+
+            const loadDataMock = jest.fn();
+            container.instance().loadData = loadDataMock;
+
+            container.instance().changePage(2);
+            expect(loadDataMock).toHaveBeenCalledWith(inboundProps.id, inboundProps.activeFY, 2);
+        });
+
+        it('should not do anything if there are no more pages', () => {
+            const container = shallow(<FederalAccountContainer
+                {...inboundProps} />);
+
+            container.setState({
+                isLastPage: true
+            });
+
+            const loadDataMock = jest.fn();
+            container.instance().loadData = loadDataMock;
+
+            expect(container.state().page).toEqual(1);
+
+            container.instance().changePage(2);
+            expect(container.state().page).toEqual(1);
         });
     });
 });
