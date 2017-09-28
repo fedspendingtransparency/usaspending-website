@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
 import { scaleLinear } from 'd3-scale';
+import { remove } from 'lodash';
 
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
 
@@ -52,6 +53,10 @@ export default class ExplorerTreemap extends React.Component {
 
     buildVirtualChart(props) {
         const data = props.data.toJS();
+
+        // remove the negative values from the data because they can't be displayed in the treemap
+        remove(data, (v) => v.amount <= 0);
+
         const total = props.total;
 
         // parse the inbound data into D3's treemap hierarchy structure
@@ -71,7 +76,7 @@ export default class ExplorerTreemap extends React.Component {
         // generate the treemap and calculate the individual boxes
         const treeItems = tree(treemapData).leaves();
 
-        if (treeItems.length === 0) {
+        if (treeItems.length === 0 || data.length === 0) {
             // we have no data, so don't draw a chart
             this.setState({
                 virtualChart: []
@@ -97,11 +102,8 @@ export default class ExplorerTreemap extends React.Component {
         // we can now begin creating the individual treemap cells
         const cells = [];
         treeItems.forEach((item) => {
-            if (item.value > 0) {
-                // Don't display cells with zero or negative amounts
-                const cell = this.buildVirtualCell(item, scale, total);
-                cells.push(cell);
-            }
+            const cell = this.buildVirtualCell(item, scale, total);
+            cells.push(cell);
         });
 
         this.setState({
