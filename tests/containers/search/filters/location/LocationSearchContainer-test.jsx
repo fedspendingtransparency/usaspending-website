@@ -30,18 +30,36 @@ const toggleValue = {
 
 describe('LocationSearchContainer', () => {
     describe('selectLocation', () => {
-        it('should update the location name in redux', () => {
+        it('should update the location name in redux if the passed value is valid', () => {
             const container = setupShallow({
                 updateSelectedLocations: jest.fn(),
-                updateDomesticForeignSelection: jest.fn(),
-                selectedLocations: {},
-                locationDomesticForeign: 'domestic'
+                updateDomesticForeignSelection: jest.fn()
             });
 
             // mount the container
             container.instance().selectLocation(mockApi[0], true);
             expect(container.instance().props.updateSelectedLocations).toBeCalled();
             expect(container.instance().props.updateSelectedLocations).toBeCalledWith(parsedApi);
+        });
+        it('should do nothing if the passed value is null', () => {
+            const container = setupShallow({
+                updateSelectedLocations: jest.fn(),
+                updateDomesticForeignSelection: jest.fn()
+            });
+
+            // mount the container
+            container.instance().selectLocation(null, true);
+            expect(container.instance().props.updateSelectedLocations).not.toBeCalled();
+        });
+        it('should do nothing if the passed value is not valid', () => {
+            const container = setupShallow({
+                updateSelectedLocations: jest.fn(),
+                updateDomesticForeignSelection: jest.fn()
+            });
+
+            // mount the container
+            container.instance().selectLocation(mockApi[0], false);
+            expect(container.instance().props.updateSelectedLocations).not.toBeCalled();
         });
     });
     describe('removeLocation', () => {

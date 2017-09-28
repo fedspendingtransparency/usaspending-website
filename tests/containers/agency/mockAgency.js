@@ -15,6 +15,27 @@ export const mockApi = {
     }
 };
 
+export const mockAgencyApi = {
+    results: [
+        {
+            id: 123,
+            office_agency: null,
+            subtier_agency: {
+                abbreviation: 'FNS',
+                name: 'Food and Nutrition Service',
+                subtier_code: '1251'
+            },
+            toptier_agency: {
+                abbreviation: '',
+                cgac_code: '1200',
+                fpds_code: '1200',
+                name: 'Under Secretary for Rural Development'
+            },
+            toptier_flag: true
+        }
+    ]
+};
+
 export const mockRedux = {
     agency: {
         id: '123',
