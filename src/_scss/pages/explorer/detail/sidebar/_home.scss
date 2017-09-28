@@ -1,0 +1,42 @@
+.start-over {
+    .start-over-button {
+        text-decoration: none;
+        color: $color-white;
+        display: block;
+        padding: rem(20) rem(40);
+        width: 100%;
+
+        &:visited {
+            text-decoration: none;
+            color: $color-white;
+        }
+
+        .content {
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+            position: relative;
+
+            .icon {
+                @include flex(0 0 auto);
+                width: rem(30);
+                height: rem(30);
+                margin-right: rem(25);
+
+                svg {
+                    fill: $color-white;
+                    width: rem(30);
+                    height: rem(30);
+                }
+            }
+
+            .label {
+                @include flex(1 1 auto);
+                color: $color-white;
+                font-weight: $font-semibold;
+                font-size: rem(20);
+                line-height: rem(25);
+            }
+        }
+    }
+}

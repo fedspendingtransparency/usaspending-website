@@ -1,0 +1,31 @@
+.explorer-no-awards {
+	text-align: center;
+	.no-awards-message {
+		font-weight: 600;
+		font-size: rem(30);
+		margin: 20vh 0 rem(30) 0;
+		.info-icon-circle {
+			@include align-self(center);
+			display: inline-block;
+			fill: $color-primary-alt;
+			height: rem(27);
+			right: rem(5);
+			position: relative;
+			top: rem(3);
+			width: rem(25);
+			svg {
+				float: none;
+			}
+		}
+	}
+	.go-back {
+		background-color: transparent;
+		font-size: rem(24);
+		font-weight: normal;
+		color: $color-primary-alt-darkest;
+		text-decoration: underline;
+		&:hover {
+			color: $color-primary-alt-dark;
+		}
+	}
+}
