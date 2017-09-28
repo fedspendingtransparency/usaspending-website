@@ -54,6 +54,10 @@ export default class BreakdownDropdown extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+
     setWrapperRef(node) {
         this.wrapperRef = node;
     }
