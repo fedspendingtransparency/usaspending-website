@@ -4,7 +4,6 @@ import { mockObligatedAmounts }
 import { mockRecipient } from './visualizations/mocks/mockRecipient';
 
 import { mockAccount } from './visualizations/mocks/mockFederalAccount';
-
 import { mockMajorObjectClasses, mockMinorObjectClasses } from './visualizations/mocks/mockObjectClasses';
 
 // Fetch Agency Obligated Amounts

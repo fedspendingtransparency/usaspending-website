@@ -69,3 +69,18 @@ export const fetchProgramActivities = (data) => {
         }
     };
 };
+
+export const fetchAvailableObjectClasses = (federalAccountId) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/federal_accounts/${federalAccountId}/available_object_classes`,
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

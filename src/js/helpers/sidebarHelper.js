@@ -17,13 +17,6 @@ export const filterHasSelections = (reduxFilters, filter) => {
                 return true;
             }
             return false;
-        case 'Budget Categories':
-            if (reduxFilters.budgetFunctions.length > 0
-                || reduxFilters.federalAccounts.length > 0
-                || Object.keys(reduxFilters.objectClasses.toArray()).length > 0) {
-                return true;
-            }
-            return false;
         case 'Award Type':
             if (reduxFilters.awardType.toArray().length > 0) {
                 return true;
@@ -61,12 +54,33 @@ export const filterHasSelections = (reduxFilters, filter) => {
                 return true;
             }
             return false;
-        // Todo - Mike Bray - Add remaining Other Award Items and convert to individual
-        // statements when available
-        case 'Other Award Items':
-            if (reduxFilters.selectedCFDA.toArray().length > 0
-                || reduxFilters.selectedNAICS.toArray().length > 0
-                || reduxFilters.selectedPSC.toArray().length > 0) {
+        case 'CFDA Programs':
+            if (reduxFilters.selectedCFDA.toArray().length > 0) {
+                return true;
+            }
+            return false;
+        case 'NAICS Code':
+            if (reduxFilters.selectedNAICS.toArray().length > 0) {
+                return true;
+            }
+            return false;
+        case 'Product/Service Code (PSC)':
+            if (reduxFilters.selectedPSC.toArray().length > 0) {
+                return true;
+            }
+            return false;
+        case 'Type of Contract Pricing':
+            if (reduxFilters.pricingType.toArray().length > 0) {
+                return true;
+            }
+            return false;
+        case 'Type of Set Aside':
+            if (reduxFilters.setAside.toArray().length > 0) {
+                return true;
+            }
+            return false;
+        case 'Extent Competed':
+            if (reduxFilters.extentCompeted.toArray().length > 0) {
                 return true;
             }
             return false;

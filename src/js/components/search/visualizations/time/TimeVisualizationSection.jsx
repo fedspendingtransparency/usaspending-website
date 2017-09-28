@@ -7,12 +7,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
-import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 
 const propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
+    updateVisualizationPeriod: PropTypes.func
 };
 
 export default class TimeVisualizationSection extends React.Component {
@@ -21,12 +21,10 @@ export default class TimeVisualizationSection extends React.Component {
 
         this.state = {
             windowWidth: 0,
-            visualizationWidth: 0,
-            visualizationPeriod: 'year'
+            visualizationWidth: 0
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-        this.changePeriod = this.changePeriod.bind(this);
     }
 
     componentDidMount() {
@@ -48,10 +46,6 @@ export default class TimeVisualizationSection extends React.Component {
                 visualizationWidth: this.sectionHr.offsetWidth
             });
         }
-    }
-
-    changePeriod(period) {
-        console.log(period);
     }
 
     render() {
@@ -79,26 +73,24 @@ export default class TimeVisualizationSection extends React.Component {
                             <ul>
                                 <li>
                                     <TimeVisualizationPeriodButton
-                                        value="year"
+                                        value="fiscal_year"
                                         label="Years"
-                                        active={this.state.visualizationPeriod === 'year'}
-                                        changePeriod={this.changePeriod} />
+                                        active={this.props.data.visualizationPeriod === 'fiscal_year'}
+                                        changePeriod={this.props.updateVisualizationPeriod} />
                                 </li>
-                                <li className="coming-soon">
+                                <li>
                                     <TimeVisualizationPeriodButton
                                         value="quarter"
                                         label="Quarters"
-                                        active={this.state.visualizationPeriod === 'quarter'}
-                                        changePeriod={this.changePeriod} />
-                                    <ComingSoonLabel />
+                                        active={this.props.data.visualizationPeriod === 'quarter'}
+                                        changePeriod={this.props.updateVisualizationPeriod} />
                                 </li>
-                                <li className="coming-soon">
+                                <li>
                                     <TimeVisualizationPeriodButton
                                         value="month"
                                         label="Months"
-                                        active={this.state.visualizationPeriod === 'month'}
-                                        changePeriod={this.changePeriod} />
-                                    <ComingSoonLabel />
+                                        active={this.props.data.visualizationPeriod === 'month'}
+                                        changePeriod={this.props.updateVisualizationPeriod} />
                                 </li>
                             </ul>
                         </div>

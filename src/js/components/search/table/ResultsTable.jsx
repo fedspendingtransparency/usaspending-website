@@ -9,13 +9,13 @@ import Immutable, { OrderedSet } from 'immutable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
-import ResultsTableGenericCell from './cells/ResultsTableGenericCell';
+import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableAwardIdCell from './cells/ResultsTableAwardIdCell';
 
 const propTypes = {
     results: PropTypes.array,
     batch: PropTypes.object,
-    columns: PropTypes.array,
+    columns: PropTypes.object,
     headerCellClass: PropTypes.func.isRequired,
     visibleWidth: PropTypes.number,
     loadNextPage: PropTypes.func,
@@ -43,7 +43,7 @@ export default class ResultsTable extends React.PureComponent {
 
     componentWillReceiveProps(nextProps) {
         const currentType = nextProps.currentType;
-        const visibleColumnsSet = new OrderedSet(nextProps.columns);
+        const visibleColumnsSet = new OrderedSet(nextProps.columns.visibleOrder);
         // update the data hash
         this.setState({
             dataHash: `${currentType}-${visibleColumnsSet.hashCode()}`
@@ -103,16 +103,19 @@ export default class ResultsTable extends React.PureComponent {
 
         const HeaderCell = this.props.headerCellClass;
 
-        const columns = this.props.columns.map((column, i) => {
+        const columnOrder = this.props.columns.visibleOrder.toJS();
+        const columns = columnOrder.map((columnTitle, i) => {
+            const column = this.props.columns.data.get(columnTitle);
             totalWidth += column.width;
-            const isLast = i === this.props.columns.length - 1;
+            const isLast = i === columnOrder.length - 1;
             let cellName = null;
-            if (column.columnName === 'award_id') {
+
+            if (column.columnName === 'Award ID') {
                 cellName = (index) => (
                     <ResultsTableAwardIdCell
                         key={`cell-${column.columnName}-${index}`}
                         rowIndex={index}
-                        id={this.props.results[index].id}
+                        id={this.props.results[index].internal_id}
                         data={this.props.results[index][column.columnName]}
                         dataHash={this.state.dataHash}
                         column={column.columnName}
@@ -121,7 +124,7 @@ export default class ResultsTable extends React.PureComponent {
             }
             else {
                 cellName = (index) => (
-                    <ResultsTableGenericCell
+                    <ResultsTableFormattedCell
                         key={`cell-${column.columnName}-${index}`}
                         rowIndex={index}
                         data={this.props.results[index][column.columnName]}

@@ -46,7 +46,7 @@ export default class GeoTotalTooltip extends React.Component {
             offset = 9 + tooltipWidth;
         }
 
-        this.div.style.top = `${this.props.y - 15}px`;
+        this.div.style.top = `${this.props.y - 12}px`;
         this.div.style.left = `${this.props.x - offset}px`;
         this.div.className = `tooltip ${direction}`;
         this.pointerDiv.className = `tooltip-pointer ${direction}`;

@@ -3,7 +3,7 @@
  * Created by Lizzie Salita on 5/5/17.
  */
 
-import { OrderedSet } from 'immutable';
+import { OrderedSet, Map } from 'immutable';
 
 export const toggleItem = (selected, item) => {
     if (selected.includes(item)) {
@@ -26,4 +26,18 @@ export const spliceColumnOrder = (currentSet, dragIndex, hoverIndex) => {
 
     // Convert the Array back to an Ordered Set
     return new OrderedSet(visibleArray);
+};
+
+export const convertDataSetToImmutable = (inbound) => {
+    const immutableSet = {};
+    const data = inbound;
+    Object.keys(data).forEach((key) => {
+        immutableSet[key] = {
+            visibleOrder: new OrderedSet(data[key].visibleOrder),
+            hiddenOrder: new OrderedSet(data[key].hiddenOrder),
+            data: new Map(data[key].data)
+        };
+    });
+
+    return immutableSet;
 };

@@ -18,10 +18,6 @@ const propTypes = {
 const defaultProps = {
     fieldTypes: [
         {
-            label: 'Budget Category',
-            value: 'budget_category'
-        },
-        {
             label: 'Awarding Agency',
             value: 'awarding_agency'
         },

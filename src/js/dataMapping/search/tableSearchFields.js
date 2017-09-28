@@ -1,3 +1,8 @@
+/**
+ * tableSearchFields.js
+ **/
+
+/* eslint-disable max-len */
 const tableSearchFields = {
     defaultSortDirection: {
         award_id: 'asc',
@@ -461,5 +466,6 @@ const tableSearchFields = {
         funding_subtier_name: 'Funding Sub-Agency'
     }
 };
+/* eslint-enable max-len */
 
 export default tableSearchFields;
