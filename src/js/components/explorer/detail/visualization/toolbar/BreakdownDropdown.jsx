@@ -42,10 +42,6 @@ export default class BreakdownDropdown extends React.Component {
         this.prepareOptions(this.props);
     }
 
-    componentDidMount() {
-        document.addEventListener('mousedown', this.handleClickOutside);
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.active !== this.props.active) {
             this.prepareOptions(nextProps);
@@ -56,10 +52,6 @@ export default class BreakdownDropdown extends React.Component {
         else if (nextProps.isRoot !== this.props.isRoot) {
             this.prepareOptions(nextProps);
         }
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClickOutside);
     }
 
     setWrapperRef(node) {
@@ -114,6 +106,13 @@ export default class BreakdownDropdown extends React.Component {
     toggleMenu() {
         this.setState({
             expanded: !this.state.expanded
+        }, () => {
+            if (this.state.expanded) {
+                document.addEventListener('mousedown', this.handleClickOutside);
+            }
+            else {
+                document.removeEventListener('mousedown', this.handleClickOutside);
+            }
         });
     }
 

@@ -76,7 +76,7 @@ export default class ExplorerTreemap extends React.Component {
         // generate the treemap and calculate the individual boxes
         const treeItems = tree(treemapData).leaves();
 
-        if (treeItems.length === 0) {
+        if (treeItems.length === 0 || data.length === 0) {
             // we have no data, so don't draw a chart
             this.setState({
                 virtualChart: []

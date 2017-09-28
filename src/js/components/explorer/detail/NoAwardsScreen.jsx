@@ -21,7 +21,6 @@ export default class NoAwardsScreen extends React.Component {
 
     clickedLink() {
         const previousIndex = this.props.currentIndex - 1;
-        console.log(previousIndex);
         this.props.rewindToFilter(previousIndex);
     };
 
