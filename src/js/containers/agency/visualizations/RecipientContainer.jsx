@@ -111,8 +111,8 @@ export default class RecipientContainer extends React.PureComponent {
     }
 
     changePage(pageNumber) {
-        if (this.state.isLastPage || pageNumber < 1) {
-            // last page, don't do anything
+        if (pageNumber < 1 || (this.state.isLastPage && pageNumber > this.state.page)) {
+            // Requested page number is out of range; don't do anything
             return;
         }
 

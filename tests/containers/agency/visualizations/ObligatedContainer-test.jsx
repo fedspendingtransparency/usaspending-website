@@ -70,8 +70,8 @@ describe('ObligatedContainer', () => {
 
         await container.instance().searchRequest.promise;
 
-        expect(container.instance().state.obligatedAmount).toEqual(17839104086.11);
-        expect(container.instance().state.budgetAuthority).toEqual(46564455029.68);
-        expect(container.instance().state.outlay).toEqual(19368986358.21);
+        expect(container.instance().state.obligatedAmount).toEqual(300);
+        expect(container.instance().state.budgetAuthority).toEqual(400);
+        expect(container.instance().state.outlay).toEqual(200);
     });
 });

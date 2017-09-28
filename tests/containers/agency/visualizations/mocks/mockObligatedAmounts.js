@@ -14,10 +14,9 @@ export const mockObligatedAmounts = {
     req: "abc",
     results: [
         {
-            budget_authority_amount: "46564455029.68",
-            obligated_amount: "17839104086.11",
-            outlay_amount: "19368986358.21"
+            budget_authority_amount: "400",
+            obligated_amount: "300",
+            outlay_amount: "200"
         }
     ]
 };
-
