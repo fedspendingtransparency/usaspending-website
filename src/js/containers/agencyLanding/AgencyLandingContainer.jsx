@@ -135,25 +135,34 @@ export class AgencyLandingContainer extends React.Component {
 
     parseAgencies(data) {
         const agencies = [];
+        // Temporarily hardcode the total budget authority to calculate accurate percentages
+        const totalBudgetAuthority = 8361447130497.72;
 
         data.results.forEach((item) => {
             // Format budget authority amount
             const formattedCurrency =
                 MoneyFormatter.formatMoneyWithPrecision(item.budget_authority_amount, 0);
 
-            // Convert from decimal value to percentage and round to 2 decimal places
-            const percentage = (item.percentage_of_total_budget_authority * 100).toFixed(2);
+            const percentage = item.budget_authority_amount / totalBudgetAuthority;
 
-            let percent = `${percentage}%`;
+            // Convert from decimal value to percentage and round to 2 decimal places
+            const formattedPercentage = (percentage * 100).toFixed(2);
+
+            let percent = `${formattedPercentage}%`;
             if (percent === '0.00%') {
                 percent = 'Less than 0.01%';
             }
 
+            let abbreviation = '';
+            if (item.abbreviation !== null && item.abbreviation !== '') {
+                abbreviation = `(${item.abbreviation})`;
+            }
+
             const agency = {
                 agency_id: item.agency_id,
-                agency_name: `${item.agency_name} (${item.abbreviation})`,
+                agency_name: `${item.agency_name} ${abbreviation}`,
                 budget_authority_amount: item.budget_authority_amount,
-                percentage_of_total_budget_authority: item.percentage_of_total_budget_authority,
+                percentage_of_total_budget_authority: percentage,
                 display: {
                     agency_name: `${item.agency_name} (${item.abbreviation})`,
                     budget_authority_amount: formattedCurrency,

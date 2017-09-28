@@ -27,6 +27,26 @@
 		    }
 	    }
 
+	    @import "pages/search/results/visualizations/rank/_pager";
+	    .visualization-pager-container {
+		    @include display(flex);
+		    @include align-items(center);
+		    @include justify-content(center);
 
+		    position: relative;
+		    width: 100%;
+
+		    .prev-page {
+			    @include flex(1 1 auto);
+			    @include align-self(flex-start);
+		    }
+		    .next-page {
+			    @include flex(1 1 auto);
+			    @include align-self(flex-end);
+			    button {
+				    float: right;
+			    }
+		    }
+	    }
     }
 }

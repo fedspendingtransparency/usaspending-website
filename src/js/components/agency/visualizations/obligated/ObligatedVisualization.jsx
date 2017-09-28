@@ -15,6 +15,7 @@ const propTypes = {
     agencyName: PropTypes.string,
     obligatedAmount: PropTypes.number,
     budgetAuthority: PropTypes.number,
+    outlay: PropTypes.number,
     asOfDate: PropTypes.string
 };
 
@@ -73,13 +74,18 @@ export default class AgencyObligatedAmount extends React.Component {
         const legend = [
             {
                 color: '#5C7480',
-                label: 'Obligations',
+                label: 'Obligated Amount',
                 offset: 0
+            },
+            {
+                color: '#FBA302',
+                label: 'Outlay Amount',
+                offset: 130
             },
             {
                 color: '#D6D7D9',
                 label: 'Budgetary Resources',
-                offset: 100
+                offset: 248
             }
         ];
 
@@ -115,6 +121,7 @@ takes other actions that require it to make a payment.
                         <AgencyObligatedGraph
                             obligatedAmount={this.props.obligatedAmount}
                             budgetAuthority={this.props.budgetAuthority}
+                            outlay={this.props.outlay}
                             width={this.state.visualizationWidth}
                             obligatedText={formattedObligatedAmount}
                             legend={legend} />

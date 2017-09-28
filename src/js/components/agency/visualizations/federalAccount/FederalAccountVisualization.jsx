@@ -7,17 +7,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
+import ChartMessage from 'components/search/visualizations/rank/RankVisualizationChartMessage';
+
 import FederalAccountChart from './FederalAccountChart';
 
 const propTypes = {
     obligatedAmount: PropTypes.number,
     loading: PropTypes.bool,
     error: PropTypes.bool,
+    isInitialLoad: PropTypes.bool,
     linkSeries: PropTypes.array,
     labelSeries: PropTypes.array,
     dataSeries: PropTypes.array,
     descriptions: PropTypes.array,
-    asOfDate: PropTypes.string
+    asOfDate: PropTypes.string,
+    page: PropTypes.number,
+    isLastPage: PropTypes.bool,
+    changePage: PropTypes.func
 };
 
 export default class FederalAccountVisualization extends React.Component {
@@ -56,7 +62,35 @@ export default class FederalAccountVisualization extends React.Component {
     }
     render() {
         const obUnits = MoneyFormatter.calculateUnitForSingleValue(this.props.obligatedAmount);
-        const formattedObligation = `${MoneyFormatter.formatMoney(this.props.obligatedAmount / obUnits.unit)} ${obUnits.longLabel}`;
+        const formattedObligation = `${MoneyFormatter.formatMoneyWithPrecision(this.props.obligatedAmount / obUnits.unit, 1)}
+         ${obUnits.longLabel}`;
+
+        let chart = null;
+        if (this.props.loading && this.props.isInitialLoad) {
+            // initial load
+            chart = (<ChartMessage message="Loading data..." />);
+        }
+        else if (this.props.error) {
+            // error
+            chart = (<ChartMessage message="An error occurred." />);
+        }
+        else if (this.props.dataSeries.length === 0) {
+            // no data
+            chart = (<ChartMessage message="No data to display." />);
+        }
+        else {
+            chart = (<FederalAccountChart
+                loading={this.props.loading}
+                linkSeries={this.props.linkSeries}
+                labelSeries={this.props.labelSeries}
+                dataSeries={this.props.dataSeries}
+                descriptions={this.props.descriptions}
+                width={this.state.visualizationWidth}
+                labelWidth={this.state.labelWidth}
+                page={this.props.page}
+                isLastPage={this.props.isLastPage}
+                changePage={this.props.changePage} />);
+        }
 
         return (
             <div
@@ -78,14 +112,7 @@ export default class FederalAccountVisualization extends React.Component {
                 </div>
                 <div className="agency-section-content">
                     <div className="chart-wrapper">
-                        <FederalAccountChart
-                            loading={this.props.loading}
-                            linkSeries={this.props.linkSeries}
-                            labelSeries={this.props.labelSeries}
-                            dataSeries={this.props.dataSeries}
-                            descriptions={this.props.descriptions}
-                            width={this.state.visualizationWidth}
-                            labelWidth={this.state.labelWidth} />
+                        {chart}
                     </div>
                 </div>
             </div>
