@@ -1,0 +1,28 @@
+.mobile-nav-animations {
+    // slide in animation
+    @keyframes mobileNavEnter {
+        0% {
+            transform: translate(0, -100vh);
+        }
+        100% {
+            transform: translate(0, 0);
+        }
+    }
+
+    @keyframes mobileNavExit {
+        0% {
+            transform: translate(0, 0);
+        }
+        100% {
+            transform: translate(0, -100vh);
+        }
+    }  
+
+    .mobile-nav-slide-enter, .mobile-nav-slide-enter-active {
+        @include animation(mobileNavEnter 0.225s ease-in forwards);
+    }
+
+    .mobile-nav-slide-leave, .mobile-nav-slide-leave-active {
+        @include animation(mobileNavExit 0.195s ease-in forwards);
+    }
+}

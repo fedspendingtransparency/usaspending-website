@@ -1,0 +1,34 @@
+.nav-top {
+    @include display(flex);
+    @include justify-content(space-between);
+    @include flex-direction(row);
+    @include align-items(center);
+    position: relative;
+    padding: rem(20) rem(0);
+    margin: rem(0) rem(20);
+
+    .logo {
+        @include flex(0 1 auto);
+        position: relative;
+    }
+
+    .close {
+        @include flex(0 0 auto);
+        position: relative;
+        height: rem(26);
+        width: rem(26);
+
+        .close-button {
+            @include button-unstyled;
+            height: rem(26);
+            width: rem(26);
+            svg {
+                height: rem(15);
+                width: rem(15);
+                fill: $color-gray;
+            }
+        }
+    }
+
+    @import "../../_logo";
+}

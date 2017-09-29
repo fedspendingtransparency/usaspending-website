@@ -8,4 +8,9 @@
     z-index: $z-mobile-nav;
 
     background-color: $color-white;
+
+    @import "./_top";
+    @import "./_nav";
 }
+
+@import "./_animations";

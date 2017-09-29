@@ -1,0 +1,15 @@
+.nav-content {
+    ul {
+        @include unstyled-list;
+
+        li {
+            text-align: center;
+
+            a.nav-link {
+                color: $color-base;
+                font-size: rem(45);
+                line-height: rem(52);
+            }
+        }
+    }
+}

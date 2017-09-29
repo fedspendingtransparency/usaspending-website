@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 
@@ -22,6 +23,7 @@ export default class NavBar extends React.Component {
         this.siteBody = null;
 
         this.toggleMobileNav = this.toggleMobileNav.bind(this);
+        this.hideMobileNav = this.hideMobileNav.bind(this);
     }
 
     componentDidMount() {
@@ -62,7 +64,8 @@ export default class NavBar extends React.Component {
         let mobileNav = null;
         if (this.state.showMobileNav) {
             mobileNav = (
-                <MobileNav />
+                <MobileNav
+                    hideMobileNav={this.hideMobileNav} />
             );
         }
 
@@ -86,7 +89,15 @@ export default class NavBar extends React.Component {
                         </button>
                     </div>
                 </div>
-                {mobileNav}
+                <div className="mobile-nav-animations">
+                    <CSSTransitionGroup
+                        transitionName="mobile-nav-slide"
+                        transitionLeaveTimeout={195}
+                        transitionEnterTimeout={225}
+                        transitionLeave>
+                        {mobileNav}
+                    </CSSTransitionGroup>
+                </div>
                 <div className="primary-menu">
                     <ul className="nav-menu">
                         <li className="menu-item">
