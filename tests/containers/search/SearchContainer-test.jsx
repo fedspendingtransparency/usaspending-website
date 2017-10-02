@@ -27,6 +27,8 @@ jest.mock('components/search/SearchPage', () =>
     jest.fn(() => null));
 
 jest.mock('helpers/searchHelper', () => require('./filters/searchHelper'));
+jest.mock('helpers/fiscalYearHelper', () => require('./filters/fiscalYearHelper'));
+
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 
@@ -260,7 +262,7 @@ describe('SearchContainer', () => {
             container.instance().applyFilters(mockFilters.filter);
 
             const expectedFilters = Object.assign({}, initialState, {
-                timePeriodFY: new Set(['2017'])
+                timePeriodFY: new Set(['1990'])
             });
 
             expect(populateAction).toHaveBeenCalledTimes(1);

@@ -74,7 +74,7 @@ export default class AccountOverview extends React.Component {
 
     generateSummary(account) {
         // determine the current fiscal year and get the associated values
-        const fy = FiscalYearHelper.currentFiscalYear();
+        const fy = FiscalYearHelper.defaultFiscalYear();
         let fiscalYearAvailable = true;
         let authorityValue = 0;
         let obligatedValue = 0;

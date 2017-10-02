@@ -46,7 +46,7 @@ export class TimePeriodContainer extends React.Component {
         const timePeriods = [];
 
         // determine the current fiscal year
-        const currentFY = FiscalYearHelper.currentFiscalYear();
+        const currentFY = FiscalYearHelper.defaultFiscalYear();
 
         for (let i = currentFY; i >= startYear; i--) {
             timePeriods.push(i.toString());

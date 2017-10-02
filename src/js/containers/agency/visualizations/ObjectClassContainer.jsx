@@ -15,7 +15,8 @@ import ObjectClassTreeMap from 'components/agency/visualizations/objectClass/Obj
 const propTypes = {
     id: PropTypes.string,
     activeFY: PropTypes.string,
-    asOfDate: PropTypes.string
+    asOfDate: PropTypes.string,
+    displayedTotalObligation: PropTypes.number
 };
 
 const defaultProps = {
@@ -220,6 +221,7 @@ export default class ObjectClassContainer extends React.PureComponent {
     render() {
         return (
             <ObjectClassTreeMap
+                displayedTotalObligation={this.props.displayedTotalObligation}
                 majorObjectClasses={this.state.majorObjectClasses}
                 minorObjectClasses={this.state.minorObjectClasses}
                 totalObligation={this.state.totalObligation}
