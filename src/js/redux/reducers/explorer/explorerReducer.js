@@ -4,7 +4,7 @@
  **/
 
 import { List, Record } from 'immutable';
-import { currentFiscalYear } from 'helpers/fiscalYearHelper';
+import { defaultFiscalYear } from 'helpers/fiscalYearHelper';
 
 export const ActiveScreen = new Record({
     within: '', // within is the data type that the total is a slice WITHIN
@@ -14,7 +14,7 @@ export const ActiveScreen = new Record({
 
 export const initialState = {
     root: 'object_class',
-    fy: `${currentFiscalYear()}`,
+    fy: `${defaultFiscalYear()}`,
     active: new ActiveScreen(),
     trail: new List([])
 };
