@@ -242,6 +242,7 @@ export default class AgencyContent extends React.Component {
                         <ObjectClassContainer
                             id={this.props.agency.id}
                             activeFY={this.props.agency.overview.activeFY}
+                            displayedTotalObligation={this.props.agency.overview.obligatedAmount}
                             asOfDate={asOfDate} />
                         <FederalAccountContainer
                             id={this.props.agency.id}
