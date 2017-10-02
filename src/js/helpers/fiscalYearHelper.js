@@ -21,6 +21,18 @@ export const currentFiscalYear = () => {
     return currentFY;
 };
 
+export const defaultFiscalYear = () => {
+    // wait until after the 1/31 of the new year
+    const currentMonth = moment().month();
+    if (currentMonth >= 1 && currentMonth < 9) {
+        // months are zero-indexed, so 1 is February, 9 is October (start of the next fiscal year)
+        // show the current fiscal year if the month is February or later but before October
+        return currentFiscalYear();
+    }
+    // go to the previous fiscal year
+    return currentFiscalYear() - 1;
+};
+
 export const convertFYToDateRange = (fy) => {
     const startingYear = fy - 1;
     const endingYear = fy;

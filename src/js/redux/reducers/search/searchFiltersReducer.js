@@ -42,7 +42,7 @@ export const requiredTypes = {
 export const initialState = {
     keyword: '',
     timePeriodType: 'fy',
-    timePeriodFY: new Set([`${FiscalYearHelper.currentFiscalYear()}`]),
+    timePeriodFY: new Set([`${FiscalYearHelper.defaultFiscalYear()}`]),
     timePeriodStart: null,
     timePeriodEnd: null,
     selectedLocations: new OrderedMap(),

@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { currentFiscalYear } from 'helpers/fiscalYearHelper';
+import { defaultFiscalYear } from 'helpers/fiscalYearHelper';
 
 import ExplorerWrapperPage from '../ExplorerWrapperPage';
 import ExplorerLandingOption from './ExplorerLandingOption';
@@ -14,7 +14,7 @@ const ExplorerLanding = () => (
     <ExplorerWrapperPage>
         <div className="explorer-landing-page">
             <div className="landing-intro">
-                <h2>Explore spending for Fiscal Year {currentFiscalYear()}</h2>
+                <h2>Explore spending for Fiscal Year {defaultFiscalYear()}</h2>
                 <div className="description">
                     <div className="highlight">
                         Choose a starting point to begin.
