@@ -41,6 +41,44 @@ describe('Fiscal Year helper functions', () => {
         });
     });
 
+    describe('defaultFiscalYear', () => {
+        it('should use the current calendar year as the fiscal year for every month before October but after January', () => {
+            // override the moment's library's internal time to a known mocked date
+            const mockedDate = moment('2015-04-01', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const currentFY = FiscalYearHelper.defaultFiscalYear();
+            expect(currentFY).toEqual(2015);
+
+            // reset moment's date to the current time
+            moment.now = () => (new Date());
+        });
+
+        it('should use the previous calendar year as the fiscal year for every month before February', () => {
+            // override the moment's library's internal time to a known mocked date
+            const mockedDate = moment('2015-01-20', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const currentFY = FiscalYearHelper.defaultFiscalYear();
+            expect(currentFY).toEqual(2014);
+
+            // reset moment's date to the current time
+            moment.now = () => (new Date());
+        });
+
+        it('should use the current calendar year as the fiscal year for months on or after October', () => {
+            // override the moment's library's internal time to a known mocked date
+            const mockedDate = moment('2015-11-01', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const currentFY = FiscalYearHelper.defaultFiscalYear();
+            expect(currentFY).toEqual(2015);
+
+            // reset moment's date to the current time
+            moment.now = () => (new Date());
+        });
+    });
+
     describe('convertFYtoDateRange', () => {
         it('should convert a given fiscal year to an array of start, end date strings', () => {
             const fy = '2016';
