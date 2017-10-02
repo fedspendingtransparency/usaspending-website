@@ -4,10 +4,15 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { AngleUp, AngleDown } from 'components/sharedComponents/icons/Icons';
 
 import ProfileComingSoon from '../ProfileComingSoon';
+
+const propTypes = {
+    hideMobileNav: PropTypes.func
+};
 
 export default class MobileProfiles extends React.Component {
     constructor(props) {
@@ -63,7 +68,8 @@ export default class MobileProfiles extends React.Component {
                         <li className="coming-soon">
                             <a
                                 href="#/agency"
-                                className="profile-item">
+                                className="profile-item"
+                                onClick={this.props.hideMobileNav}>
                                 Agencies
                             </a>
                             <div className="coming-soon-wrapper">
@@ -73,7 +79,8 @@ export default class MobileProfiles extends React.Component {
                         <li className="coming-soon">
                             <a
                                 href="#/recipient"
-                                className="profile-item">
+                                className="profile-item"
+                                onClick={this.props.hideMobileNav}>
                                 Recipients
                             </a>
                             <div className="coming-soon-wrapper">
@@ -83,7 +90,8 @@ export default class MobileProfiles extends React.Component {
                         <li className="coming-soon">
                             <a
                                 href="#/federal_account"
-                                className="profile-item">
+                                className="profile-item"
+                                onClick={this.props.hideMobileNav}>
                                 Federal Accounts
                             </a>
                             <div className="coming-soon-wrapper">
@@ -96,3 +104,5 @@ export default class MobileProfiles extends React.Component {
         );
     }
 }
+
+MobileProfiles.propTypes = propTypes;

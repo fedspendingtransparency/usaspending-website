@@ -24,14 +24,15 @@ export default class MobileNav extends React.Component {
                 <div className="nav-content">
                     <ul>
                         <li>
-                            <MobileProfiles />
+                            <MobileProfiles {...this.props} />
                             <div className="nav-link-decorator" />
                         </li>
                         <li>
                             <a
                                 className="nav-link"
                                 href="#/explorer"
-                                title="Spending Explorer">
+                                title="Spending Explorer"
+                                onClick={this.props.hideMobileNav}>
                                 Spending Explorer
                             </a>
                             <div className="nav-link-decorator" />
@@ -40,7 +41,8 @@ export default class MobileNav extends React.Component {
                             <a
                                 className="nav-link"
                                 href="#/search"
-                                title="Award Search">
+                                title="Award Search"
+                                onClick={this.props.hideMobileNav}>
                                 Award Search
                             </a>
                             <div className="nav-link-decorator" />
@@ -49,7 +51,8 @@ export default class MobileNav extends React.Component {
                             <a
                                 className="nav-link"
                                 href="#/about"
-                                title="About">
+                                title="About"
+                                onClick={this.props.hideMobileNav}>
                                 About
                             </a>
                             <div className="nav-link-decorator" />
@@ -60,7 +63,8 @@ export default class MobileNav extends React.Component {
                                 href="https://usaspending-help.zendesk.com/hc/en-us"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                title="Help">
+                                title="Help"
+                                onClick={this.props.hideMobileNav}>
                                 Help
                             </a>
                             <div className="nav-link-decorator" />
