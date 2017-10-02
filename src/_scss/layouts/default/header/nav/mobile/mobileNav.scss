@@ -4,10 +4,11 @@
     bottom: 0;
     left: 0;
     right: 0;
-
     z-index: $z-mobile-nav;
 
-    background-color: $color-white;
+    overflow-y: auto;
+
+    background-color: $color-gray-lightest;
 
     @import "./_top";
     @import "./_nav";

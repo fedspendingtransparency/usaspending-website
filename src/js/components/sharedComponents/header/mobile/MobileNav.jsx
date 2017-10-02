@@ -6,21 +6,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
+
 import MobileTop from './MobileTop';
+import MobileGlossaryButton from './MobileGlossaryButton';
+import MobileProfiles from './MobileProfiles';
 
 const propTypes = {
     hideMobileNav: PropTypes.func
 };
 
 export default class MobileNav extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            expandedProfile: false
-        };
-    }
-
     render() {
         return (
             <div className="mobile-nav">
@@ -28,12 +24,17 @@ export default class MobileNav extends React.Component {
                 <div className="nav-content">
                     <ul>
                         <li>
+                            <MobileProfiles />
+                            <div className="nav-link-decorator" />
+                        </li>
+                        <li>
                             <a
                                 className="nav-link"
                                 href="#/explorer"
                                 title="Spending Explorer">
                                 Spending Explorer
                             </a>
+                            <div className="nav-link-decorator" />
                         </li>
                         <li>
                             <a
@@ -42,6 +43,7 @@ export default class MobileNav extends React.Component {
                                 title="Award Search">
                                 Award Search
                             </a>
+                            <div className="nav-link-decorator" />
                         </li>
                         <li>
                             <a
@@ -50,6 +52,7 @@ export default class MobileNav extends React.Component {
                                 title="About">
                                 About
                             </a>
+                            <div className="nav-link-decorator" />
                         </li>
                         <li>
                             <a
@@ -60,6 +63,13 @@ export default class MobileNav extends React.Component {
                                 title="Help">
                                 Help
                             </a>
+                            <div className="nav-link-decorator" />
+                        </li>
+                        <li>
+                            <GlossaryButtonWrapperContainer
+                                child={MobileGlossaryButton}
+                                hideMobileNav={this.props.hideMobileNav} />
+                            <div className="nav-link-decorator" />
                         </li>
                     </ul>
                 </div>

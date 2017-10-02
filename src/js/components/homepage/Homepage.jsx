@@ -9,6 +9,8 @@ import { isCancel } from 'axios';
 import * as HomepageHelper from 'helpers/homepageHelper';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
+import GlossaryContainer from 'containers/glossary/GlossaryContainer';
+
 import HomepageStateModel from 'models/homepage/HomepageStateModel';
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 
@@ -178,6 +180,7 @@ export default class Homepage extends React.Component {
                     </a>
                 </div>
                 <MetaTags {...MetaTagHelper.homePageMetaTags} />
+                <GlossaryContainer />
                 <InfoBanner />
                 <Landing
                     total={this.state.total} />
