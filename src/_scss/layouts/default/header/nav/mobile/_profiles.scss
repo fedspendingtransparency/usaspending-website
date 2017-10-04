@@ -72,10 +72,10 @@
     a.profile-item {
         font-size: rem(24);
         line-height: rem(28);
-        color: $color-primary-alt;
+        color: $color-base;
         text-decoration: none;
 
-        &:hover, &:active {
+        &:hover, &:active, &.active {
             color: $color-primary-alt;
             text-decoration: none;
         }

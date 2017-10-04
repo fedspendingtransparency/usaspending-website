@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
+import Router from 'containers/router/Router';
 
 import MobileTop from './MobileTop';
 import MobileGlossaryButton from './MobileGlossaryButton';
@@ -16,7 +17,40 @@ const propTypes = {
     hideMobileNav: PropTypes.func
 };
 
+const profiles = ['/agency', '/recipient', '/federal_account'];
+
 export default class MobileNav extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            profile: ''
+        };
+    }
+    componentDidMount() {
+        this.checkCurrentProfile();
+    }
+
+    checkCurrentProfile() {
+        // determine if we're on a profile page
+        const currentUrl = Router.history.location.pathname;
+        if (profiles.indexOf(currentUrl) > -1) {
+            // the user is currently on a profile page
+            const profileName = currentUrl.substring(1);
+            if (this.state.profile !== profileName) {
+                this.setState({
+                    profile: profileName
+                });
+            }
+        }
+        else if (this.state.profile !== '') {
+            // not on a profile page
+            this.setState({
+                profile: ''
+            });
+        }
+    }
+
     render() {
         return (
             <div className="mobile-nav">
@@ -24,7 +58,9 @@ export default class MobileNav extends React.Component {
                 <div className="nav-content">
                     <ul>
                         <li>
-                            <MobileProfiles {...this.props} />
+                            <MobileProfiles
+                                {...this.props}
+                                active={this.state.profile} />
                             <div className="nav-link-decorator" />
                         </li>
                         <li>

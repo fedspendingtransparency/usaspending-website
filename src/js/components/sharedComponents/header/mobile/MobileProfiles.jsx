@@ -8,11 +8,33 @@ import PropTypes from 'prop-types';
 
 import { AngleUp, AngleDown } from 'components/sharedComponents/icons/Icons';
 
-import ProfileComingSoon from '../ProfileComingSoon';
+import MobileProfileItem from './MobileProfileItem';
 
 const propTypes = {
-    hideMobileNav: PropTypes.func
+    hideMobileNav: PropTypes.func,
+    active: PropTypes.string
 };
+
+const profiles = [
+    {
+        url: '#/agency',
+        code: 'agency',
+        title: 'Agencies',
+        comingSoon: true
+    },
+    {
+        url: '#/recipient',
+        code: 'recipient',
+        title: 'Recipients',
+        comingSoon: true
+    },
+    {
+        url: '#/federal_account',
+        code: 'federal_account',
+        title: 'Federal Accounts',
+        comingSoon: true
+    }
+];
 
 export default class MobileProfiles extends React.Component {
     constructor(props) {
@@ -49,6 +71,17 @@ export default class MobileProfiles extends React.Component {
             hideList = 'hide';
         }
 
+
+        const items = profiles.map((profile) => (
+            <MobileProfileItem
+                key={profile.code}
+                comingSoon={profile.comingSoon}
+                title={profile.title}
+                url={profile.url}
+                active={profile.code === this.props.active}
+                hideMobileNav={this.props.hideMobileNav} />
+        ));
+
         return (
             <div className="profiles">
                 <button
@@ -65,39 +98,7 @@ export default class MobileProfiles extends React.Component {
 
                 <div className={`profile-list ${hideList}`}>
                     <ul className="profile-items">
-                        <li className="coming-soon">
-                            <a
-                                href="#/agency"
-                                className="profile-item"
-                                onClick={this.props.hideMobileNav}>
-                                Agencies
-                            </a>
-                            <div className="coming-soon-wrapper">
-                                <ProfileComingSoon />
-                            </div>
-                        </li>
-                        <li className="coming-soon">
-                            <a
-                                href="#/recipient"
-                                className="profile-item"
-                                onClick={this.props.hideMobileNav}>
-                                Recipients
-                            </a>
-                            <div className="coming-soon-wrapper">
-                                <ProfileComingSoon />
-                            </div>
-                        </li>
-                        <li className="coming-soon">
-                            <a
-                                href="#/federal_account"
-                                className="profile-item"
-                                onClick={this.props.hideMobileNav}>
-                                Federal Accounts
-                            </a>
-                            <div className="coming-soon-wrapper">
-                                <ProfileComingSoon />
-                            </div>
-                        </li>
+                        {items}
                     </ul>
                 </div>
             </div>
