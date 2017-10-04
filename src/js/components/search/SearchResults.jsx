@@ -21,6 +21,7 @@ import GeoVisualizationSectionContainer from
 import MobileFilters from './mobile/MobileFilters';
 
 const propTypes = {
+    filters: PropTypes.object,
     isMobile: PropTypes.bool,
     filterCount: PropTypes.number,
     showMobileFilters: PropTypes.bool,
@@ -88,6 +89,7 @@ export default class SearchResults extends React.Component {
                 </div>
                 <div className="mobile-search-sidebar">
                     <MobileFilters
+                        filters={this.props.filters}
                         filterCount={this.props.filterCount}
                         showMobileFilters={this.props.showMobileFilters}
                         toggleMobileFilters={this.props.toggleMobileFilters} />

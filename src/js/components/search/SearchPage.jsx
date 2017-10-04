@@ -251,6 +251,7 @@ export default class SearchPage extends React.Component {
                             { fullSidebar }
                         </div>
                         <SearchResults
+                            filters={this.props.filters}
                             isMobile={this.state.isMobile}
                             filterCount={this.state.filterCount}
                             showMobileFilters={this.state.showMobileFilters}
