@@ -18,6 +18,7 @@ import DropdownItem from './DropdownItem';
 const propTypes = {
     isRoot: PropTypes.bool,
     active: PropTypes.object,
+    trail: PropTypes.array,
     root: PropTypes.string,
     changeSubdivisionType: PropTypes.func
 };
@@ -81,7 +82,11 @@ export default class BreakdownDropdown extends React.Component {
             // we're not at the root, so we need to determine our current position in the tree using
             // the last filter that was applied
             const optionTree = dropdownScopes[props.root];
-            const currentIndex = Math.min(optionTree.indexOf(props.active.subdivision),
+
+            const lastTrailItem = this.props.trail[this.props.trail.length - 1];
+            const lastFilter = lastTrailItem.subdivision;
+
+            const currentIndex = Math.min(optionTree.indexOf(lastFilter),
                 optionTree.length - 1);
             const accountDepth = optionTree.indexOf('federal_account');
             const programActivityIndex = optionTree.indexOf('program_activity');
@@ -156,28 +161,26 @@ export default class BreakdownDropdown extends React.Component {
         }
 
         return (
-            <div ref={this.setWrapperRef}>
-                <div className="breakdown-menu" >
-                    <div className="breakdown-label">
-                        See the breakdown by:
-                    </div>
-                    <div className="breakdown-dropdown">
-                        <button
-                            className="dropdown-selector"
-                            onClick={this.toggleMenu}>
-                            <div className="item-icon">
-                                {icon}
-                            </div>
-                            <div className="item-label">
-                                {sidebarTypes[this.state.active]}
-                            </div>
-                            <div className="arrow">
-                                <AngleDown />
-                            </div>
-                        </button>
+            <div className="breakdown-menu" ref={this.setWrapperRef}>
+                <div className="breakdown-label">
+                    See the breakdown by:
+                </div>
+                <div className="breakdown-dropdown">
+                    <button
+                        className="dropdown-selector"
+                        onClick={this.toggleMenu}>
+                        <div className="item-icon">
+                            {icon}
+                        </div>
+                        <div className="item-label">
+                            {sidebarTypes[this.state.active]}
+                        </div>
+                        <div className="arrow">
+                            <AngleDown />
+                        </div>
+                    </button>
 
-                        {dropdown}
-                    </div>
+                    {dropdown}
                 </div>
             </div>
         );

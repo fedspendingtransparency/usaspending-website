@@ -17,7 +17,7 @@ const propTypes = {
     bulkAwardTypeChange: PropTypes.func
 };
 
-class AwardTypeContainer extends React.Component {
+export class AwardTypeContainer extends React.Component {
 
     constructor(props) {
         super(props);

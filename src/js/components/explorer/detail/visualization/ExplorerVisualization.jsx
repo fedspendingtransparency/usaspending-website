@@ -14,6 +14,7 @@ const propTypes = {
     isLoading: PropTypes.bool,
     root: PropTypes.string,
     active: PropTypes.object,
+    trail: PropTypes.array,
     data: PropTypes.object,
     total: PropTypes.number,
     goDeeper: PropTypes.func,
@@ -65,6 +66,7 @@ export default class ExplorerVisualization extends React.Component {
                     <BreakdownDropdown
                         root={this.props.root}
                         active={this.props.active}
+                        trail={this.props.trail}
                         isRoot={this.props.isRoot}
                         changeSubdivisionType={this.props.changeSubdivisionType} />
                 </div>
