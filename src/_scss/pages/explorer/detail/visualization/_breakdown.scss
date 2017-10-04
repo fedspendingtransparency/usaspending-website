@@ -1,0 +1,107 @@
+.breakdown-menu {
+    @include display(flex);
+    @include justify-content(flex-start);
+    @include align-items(center);
+    position: relative;
+
+    .breakdown-label {
+        @include flex(0 0 auto);
+        font-size: rem(24);
+        line-height: rem(31);
+        font-weight: $font-light;
+        margin-right: rem(30);
+    }
+
+    .breakdown-dropdown {
+        @include flex(1 1 auto);
+        position: relative;
+
+        .dropdown-selector {
+            @include button-unstyled;
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+            position: relative;
+
+            border-bottom: 1px solid $color-base;
+
+            padding: rem(10) rem(5);
+
+            .item-icon, .arrow {
+                @include flex(0 0 auto);
+                width: rem(20);
+                height: rem(20);
+
+                svg {
+                    width: rem(20);
+                    height: rem(20);
+                    fill: $color-base;
+                }
+            }
+
+            .item-label {
+                @include flex(1 1 auto);
+                color: $color-base;
+                font-size: rem(24);
+                line-height: rem(31);
+                font-weight: $font-light;
+
+                margin-left: rem(15);
+                margin-right: rem(20);
+            }
+        }
+    }
+
+    .dropdown-menu {
+        @include unstyled-list;
+        position: absolute;
+        top: rem(50);
+        left: 0;
+        border: 1px solid $color-gray-lighter;
+
+        z-index: $z-modal;
+
+        li {
+            border-bottom: 1px solid $color-gray-lighter;
+            background-color: $color-white;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .dropdown-option {
+            @include button-unstyled;
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+            position: relative;
+
+            padding: rem(15) rem(25);
+            width: 100%;
+
+            .icon {
+                @include flex(0 0 auto);
+                width: rem(15);
+                height: rem(15);
+
+                margin-right: rem(25);
+
+                svg {
+                    width: rem(15);
+                    height: rem(15);
+                    fill: $color-base;
+                }
+            }
+
+            .label {
+                @include flex(1 1 auto);
+                color: $color-base;
+
+                font-size: rem(16);
+                line-height: rem(20);
+            }
+        }
+
+    }
+}

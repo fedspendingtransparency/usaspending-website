@@ -17,16 +17,11 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import * as FilterFields from 'dataMapping/search/filterFields';
-
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
-import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    meta: PropTypes.object,
-    budgetFiltersSelected: PropTypes.bool,
-    awardFiltersSelected: PropTypes.bool
+    meta: PropTypes.object
 };
 
 export class SpendingByCFDAVisualizationContainer extends React.Component {
@@ -98,57 +93,19 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
             this.apiRequest.cancel();
         }
 
-        // Fetch data from the appropriate endpoint
-        if (this.props.awardFiltersSelected && this.props.budgetFiltersSelected) {
-            this.fetchComboRequest();
-        }
-        else if (this.props.budgetFiltersSelected) {
-            this.fetchBudgetRequest();
-        }
-        else if (this.props.awardFiltersSelected) {
-            this.fetchAwardRequest();
-        }
-        else {
-            this.fetchUnfilteredRequest();
-        }
+        // Fetch data from the Awards v2 endpoint
+        this.fetchAwards("CFDA Rank Visualization");
     }
 
-
-    fetchUnfilteredRequest() {
-        this.fetchTransactions('CFDA rank vis - unfiltered');
-    }
-
-    fetchBudgetRequest() {
-        this.fetchAccountAwards('CFDA rank vis - budget filters');
-    }
-
-    fetchAwardRequest() {
-        // only award filters have been selected
-        this.fetchTransactions('CFDA rank vis - award filters');
-    }
-
-    fetchComboRequest() {
-        // a combination of budget and award filters have been selected
-        this.fetchAccountAwards('CFDA rank vis - combination');
-    }
-
-    fetchTransactions(auditTrail = null) {
+    fetchAwards(auditTrail = null) {
         // Create Search Operation
-        const operation = new SearchTransactionOperation();
-
+        const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
-        const apiGroups = [
-            FilterFields.transactionFields.cfdaNumber,
-            FilterFields.transactionFields.cfdaTitle
-        ];
 
         // generate the API parameters
         const apiParams = {
-            field: 'federal_action_obligation',
-            group: apiGroups,
-            order: ['-aggregate'],
-            aggregate: 'sum',
+            category: 'cfda_programs',
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -158,10 +115,10 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
             apiParams.auditTrail = auditTrail;
         }
 
-        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
+        this.apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data, apiGroups);
+                this.parseData(res.data);
                 this.apiRequest = null;
             })
             .catch(() => {
@@ -169,59 +126,29 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
             });
     }
 
-    fetchAccountAwards(auditTrail = null) {
-        // Create Search Operation
-        const operation = new SearchAccountAwardsOperation();
-
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-        const apiGroups = [
-            FilterFields.accountAwardsFields.cfdaNumber,
-            FilterFields.accountAwardsFields.cfdaTitle
-        ];
-        // generate the API parameters
-        const apiParams = {
-            field: 'transaction_obligated_amount',
-            group: apiGroups,
-            order: ['-aggregate'],
-            aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
-        };
-
-        if (auditTrail) {
-            apiParams.auditTrail = auditTrail;
-        }
-
-        this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data, apiGroups);
-                this.apiRequest = null;
-            })
-            .catch(() => {
-                this.apiRequest = null;
-            });
-    }
-
-    parseData(data, groups) {
+    parseData(data) {
         const labelSeries = [];
         const dataSeries = [];
         const descriptions = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            let parsedValue = parseFloat(item.aggregate);
-            if (isNaN(parsedValue)) {
+            let aggregate = parseFloat(item.aggregated_amount);
+            if (isNaN(aggregate)) {
                 // the aggregate value is invalid (most likely null)
-                parsedValue = 0;
+                aggregate = 0;
             }
 
-            labelSeries.push(item[groups[1]]);
-            dataSeries.push(parsedValue);
-            const description = `Spending by ${item[groups[1]]}: \
-${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
+            const programNumber = item.cfda_program_number;
+            const programTitle = item.program_title;
+
+            const label = `${programNumber}: ${programTitle}`;
+
+            labelSeries.push(`${label}`);
+            dataSeries.push(aggregate);
+
+            const description = `Spending by ${label}: \
+${MoneyFormatter.formatMoney(parseFloat(aggregate))}`;
             descriptions.push(description);
         });
 
@@ -232,8 +159,8 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
             loading: false,
             next: data.page_metadata.next,
             previous: data.page_metadata.previous,
-            hasNextPage: data.page_metadata.has_next_page,
-            hasPreviousPage: data.page_metadata.has_previous_page
+            hasNextPage: data.page_metadata.hasNext,
+            hasPreviousPage: data.page_metadata.hasPrevious
         });
     }
 

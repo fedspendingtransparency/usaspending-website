@@ -15,7 +15,7 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 
-const startYear = FiscalYearHelper.earliestFiscalYear;
+export const startYear = FiscalYearHelper.earliestFiscalYear;
 
 const propTypes = {
     updateTimePeriod: PropTypes.func,
@@ -25,7 +25,7 @@ const propTypes = {
     filterTimePeriodEnd: PropTypes.string
 };
 
-class TimePeriodContainer extends React.Component {
+export class TimePeriodContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -46,7 +46,7 @@ class TimePeriodContainer extends React.Component {
         const timePeriods = [];
 
         // determine the current fiscal year
-        const currentFY = FiscalYearHelper.currentFiscalYear();
+        const currentFY = FiscalYearHelper.defaultFiscalYear();
 
         for (let i = currentFY; i >= startYear; i--) {
             timePeriods.push(i.toString());

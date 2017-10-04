@@ -4,8 +4,9 @@ import { mockObligatedAmounts }
 import { mockRecipient } from './visualizations/mocks/mockRecipient';
 
 import { mockAccount } from './visualizations/mocks/mockFederalAccount';
-
 import { mockMajorObjectClasses, mockMinorObjectClasses } from './visualizations/mocks/mockObjectClasses';
+
+import { mockCgacApi } from './mockAgency';
 
 // Fetch Agency Obligated Amounts
 export const fetchAgencyObligatedAmounts = () => (
@@ -66,6 +67,19 @@ export const fetchAgencyMinorObjectClasses = () => (
             process.nextTick(() => {
                 resolve({
                     data: mockMinorObjectClasses
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+export const fetchAgencyCgacCode = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockCgacApi
                 });
             });
         }),

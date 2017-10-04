@@ -3,16 +3,9 @@
  * Created by Kevin Li 1/17/17
  */
 
-import Immutable, { Record } from 'immutable';
+import Immutable from 'immutable';
 
-import searchOrderReducer from 'redux/reducers/search/searchOrderReducer';
-
-const initialState = {
-    field: 'total_obligation',
-    direction: 'desc'
-};
-
-const OrderRecord = Record(initialState);
+import searchOrderReducer, { OrderRecord, initialState } from 'redux/reducers/search/searchOrderReducer';
 
 // NOTE: In this test, we use Immutable's is() comparison function to check for equality between
 // Record objects due to internal Immutable Record key/values that cause the objects not to be
@@ -21,7 +14,7 @@ const OrderRecord = Record(initialState);
 describe('searchOrderReducer', () => {
     it('should validate that Immutable.is() is an appropriate comparator', () => {
         const firstValue = new OrderRecord({
-            field: 'total_obligation',
+            field: 'Award ID',
             direction: 'desc'
         });
 
@@ -31,7 +24,7 @@ describe('searchOrderReducer', () => {
         });
 
         const thirdValue = new OrderRecord({
-            field: 'total_obligation',
+            field: 'Award ID',
             direction: 'desc'
         });
 
@@ -87,11 +80,11 @@ describe('searchOrderReducer', () => {
 
             // modify the state
             let updatedState = searchOrderReducer(undefined, firstAction);
-            expect(Immutable.is(updatedState, new OrderRecord(firstExpected))).toBeTruthy();
+            expect(updatedState.toJS()).toEqual(firstExpected);
 
             // reset the state
             updatedState = searchOrderReducer(updatedState, secondAction);
-            expect(Immutable.is(updatedState, new OrderRecord())).toBeTruthy();
+            expect(updatedState.toJS()).toEqual(initialState);
         });
     });
 });

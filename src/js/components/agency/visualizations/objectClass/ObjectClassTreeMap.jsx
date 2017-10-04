@@ -18,6 +18,7 @@ const propTypes = {
     minorObjectClasses: PropTypes.object,
     totalObligation: PropTypes.number,
     totalMinorObligation: PropTypes.number,
+    displayedTotalObligation: PropTypes.number,
     showMinorObjectClasses: PropTypes.func,
     asOfDate: PropTypes.string,
     hasNegatives: PropTypes.bool,
@@ -108,7 +109,7 @@ export default class ObjectClassTreeMap extends React.Component {
     }
 
     render() {
-        const total = MoneyFormatter.formatTreemapValues(this.props.totalObligation);
+        const total = MoneyFormatter.formatTreemapValues(this.props.displayedTotalObligation);
 
         return (
             <div

@@ -19,7 +19,7 @@ const propTypes = {
 
 const ga = require('react-ga');
 
-class LocationSearchContainer extends React.Component {
+export class LocationSearchContainer extends React.Component {
 
     static logCountryFilterEvent(selection) {
         ga.event({
