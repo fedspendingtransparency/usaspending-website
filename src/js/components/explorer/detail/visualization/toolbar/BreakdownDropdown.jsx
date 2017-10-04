@@ -18,6 +18,7 @@ import DropdownItem from './DropdownItem';
 const propTypes = {
     isRoot: PropTypes.bool,
     active: PropTypes.object,
+    trail: PropTypes.array,
     root: PropTypes.string,
     changeSubdivisionType: PropTypes.func
 };
@@ -34,6 +35,8 @@ export default class BreakdownDropdown extends React.Component {
 
         this.toggleMenu = this.toggleMenu.bind(this);
         this.pickItem = this.pickItem.bind(this);
+        this.setWrapperRef = this.setWrapperRef.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentWillMount() {
@@ -52,6 +55,22 @@ export default class BreakdownDropdown extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+
+    setWrapperRef(node) {
+        this.wrapperRef = node;
+    }
+
+    handleClickOutside(event) {
+        if (this.state.expanded && this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+            this.setState({
+                expanded: false
+            });
+        }
+    }
+
     prepareOptions(props) {
         let options = [];
         let active = props.root;
@@ -63,7 +82,11 @@ export default class BreakdownDropdown extends React.Component {
             // we're not at the root, so we need to determine our current position in the tree using
             // the last filter that was applied
             const optionTree = dropdownScopes[props.root];
-            const currentIndex = Math.min(optionTree.indexOf(props.active.subdivision),
+
+            const lastTrailItem = this.props.trail[this.props.trail.length - 1];
+            const lastFilter = lastTrailItem.subdivision;
+
+            const currentIndex = Math.min(optionTree.indexOf(lastFilter),
                 optionTree.length - 1);
             const accountDepth = optionTree.indexOf('federal_account');
             const programActivityIndex = optionTree.indexOf('program_activity');
@@ -92,6 +115,13 @@ export default class BreakdownDropdown extends React.Component {
     toggleMenu() {
         this.setState({
             expanded: !this.state.expanded
+        }, () => {
+            if (this.state.expanded) {
+                document.addEventListener('mousedown', this.handleClickOutside);
+            }
+            else {
+                document.removeEventListener('mousedown', this.handleClickOutside);
+            }
         });
     }
 
@@ -131,7 +161,7 @@ export default class BreakdownDropdown extends React.Component {
         }
 
         return (
-            <div className="breakdown-menu">
+            <div className="breakdown-menu" ref={this.setWrapperRef}>
                 <div className="breakdown-label">
                     See the breakdown by:
                 </div>

@@ -11,6 +11,7 @@ import DetailHeader from './header/DetailHeader';
 
 import ExplorerVisualization from './visualization/ExplorerVisualization';
 import FakeScreens from './FakeScreens';
+import NoAwardsScreen from './NoAwardsScreen';
 
 const propTypes = {
     isRoot: PropTypes.bool,
@@ -27,7 +28,8 @@ const propTypes = {
     goDeeper: PropTypes.func,
     changeSubdivisionType: PropTypes.func,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    rewindToFilter: PropTypes.func
 };
 
 export default class DetailContent extends React.Component {
@@ -189,6 +191,30 @@ export default class DetailContent extends React.Component {
                 transitionSteps={this.props.transitionSteps} />);
         }
 
+        let visualizationSection = (
+            <ExplorerVisualization
+                isRoot={this.props.isRoot}
+                isLoading={this.props.isLoading}
+                lastFilter={lastFilter}
+                root={this.props.root}
+                fy={this.props.fy}
+                active={this.props.active}
+                trail={this.props.trail}
+                total={this.props.total}
+                data={this.props.data}
+                goDeeper={this.props.goDeeper}
+                changeSubdivisionType={this.props.changeSubdivisionType}
+                showTooltip={this.props.showTooltip}
+                hideTooltip={this.props.hideTooltip} />
+        );
+        if (this.props.total === 0 || this.props.total === null) {
+            const currentIndex = this.props.trail.length - 1;
+            visualizationSection = (
+                <NoAwardsScreen
+                    rewindToFilter={this.props.rewindToFilter}
+                    currentIndex={currentIndex} />);
+        }
+
         return (
             <div
                 className="explorer-detail-content"
@@ -199,20 +225,8 @@ export default class DetailContent extends React.Component {
                 {fakeScreenAbove}
 
                 {header}
-                <ExplorerVisualization
-                    isRoot={this.props.isRoot}
-                    isLoading={this.props.isLoading}
-                    lastFilter={lastFilter}
-                    root={this.props.root}
-                    fy={this.props.fy}
-                    active={this.props.active}
-                    trail={this.props.trail}
-                    total={this.props.total}
-                    data={this.props.data}
-                    goDeeper={this.props.goDeeper}
-                    changeSubdivisionType={this.props.changeSubdivisionType}
-                    showTooltip={this.props.showTooltip}
-                    hideTooltip={this.props.hideTooltip} />
+
+                {visualizationSection}
 
                 {fakeScreenBelow}
             </div>
