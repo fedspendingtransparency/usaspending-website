@@ -31,4 +31,23 @@
             }
         }
     }
+
+    &.info {
+        background: as-alpha($color-cool-blue-lightest, 0.95);
+        border-bottom: 1px solid $color-cool-blue-lighter;
+
+        .warning-banner {
+            .top-alert-icon {
+                .usa-da-icon {
+                    & svg {
+                        fill: $color-cool-blue;
+                    }
+                }
+            }
+
+            .good-news {
+                font-weight: $font-semibold;
+            }
+        }
+    }
 }
