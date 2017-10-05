@@ -13,7 +13,7 @@
         }
 
         .icon {
-            @include flex(0 0 auto)
+            @include flex(0 0 auto);
             width: rem(30);
             height: rem(30);
 
