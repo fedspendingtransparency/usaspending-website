@@ -129,7 +129,7 @@ export class AccountContainer extends React.Component {
                     {
                         field: ['reporting_period_start', 'reporting_period_end'],
                         operation: 'range_intersect',
-                        value: FiscalYearHelper.currentFiscalYear(),
+                        value: FiscalYearHelper.defaultFiscalYear(),
                         value_format: 'fy'
                     }
                 ],

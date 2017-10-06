@@ -269,8 +269,15 @@ export class ResultsTableContainer extends React.Component {
             searchParams.awardType = awardTypeGroups[tableType];
         }
         else {
-            searchParams.awardType = intersection(awardTypeGroups[tableType],
+            let intersectingTypes = intersection(awardTypeGroups[tableType],
                 this.state.searchParams.awardType);
+            if (!intersectingTypes || intersectingTypes.length === 0) {
+                // the filtered types and the table type do not align
+                // in this case, send an array of non-existant types because the endpoint requires
+                // an award type parameter
+                intersectingTypes = ['no intersection'];
+            }
+            searchParams.awardType = intersectingTypes;
         }
 
         // indicate the request is about to start
