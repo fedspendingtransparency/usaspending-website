@@ -28,3 +28,18 @@ export const requestDownloadStatus = () => (
         cancel: jest.fn()
     }
 );
+
+export const requestDownloadCount = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: {
+                        transaction_rows: 900000
+                    }
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
