@@ -54,3 +54,19 @@ export const requestDownloadStatus = (params) => {
         }
     };
 };
+
+export const requestDownloadCount = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/download/count/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

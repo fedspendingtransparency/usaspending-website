@@ -23,7 +23,8 @@ import SearchResults from './SearchResults';
 const propTypes = {
     clearAllFilters: PropTypes.func,
     filters: PropTypes.object,
-    lastUpdate: PropTypes.string
+    lastUpdate: PropTypes.string,
+    downloadAvailable: PropTypes.bool
 };
 
 export default class SearchPage extends React.Component {
@@ -131,6 +132,7 @@ export default class SearchPage extends React.Component {
                 <Header />
                 <main id="main-content">
                     <SearchHeader
+                        downloadAvailable={this.props.downloadAvailable}
                         showDownloadModal={this.showModal} />
                     <div className="search-contents">
                         <div className="full-search-sidebar">
