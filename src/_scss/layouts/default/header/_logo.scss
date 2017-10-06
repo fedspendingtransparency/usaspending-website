@@ -48,6 +48,7 @@
             position: absolute;
             text-align: center;
             top: rem(-2);
+            // Error caused by this line
             @include border-radius(2px);
             @include media(360px) {
                 left: rem(228);
