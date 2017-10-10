@@ -11,6 +11,8 @@ import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 
+require('pages/dbInfo/dbInfoPage.scss');
+
 export default class DBInfo extends React.Component {
     render() {
         return (

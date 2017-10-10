@@ -12,6 +12,8 @@ import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import Breadcrumb from './Breadcrumb';
 
+require('layouts/article/aboutArticle.scss');
+
 export default class AboutData extends React.Component {
     render() {
         return (

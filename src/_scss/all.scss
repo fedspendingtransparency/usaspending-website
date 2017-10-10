@@ -34,3 +34,8 @@
 @import 'components/header';
 @import 'components/search';
 @import 'components/skipnav';
+
+// Mixins ------------------ //
+@import 'mixins/background';
+@import 'mixins/error';
+@import 'pages/modals/all';
