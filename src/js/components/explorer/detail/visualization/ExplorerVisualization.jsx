@@ -28,10 +28,12 @@ export default class ExplorerVisualization extends React.Component {
         super(props);
 
         this.state = {
-            width: 0
+            width: 0,
+            viewType: 'treemap'
         };
 
         this.measureWidth = this.measureWidth.bind(this);
+        this.changeView = this.changeView.bind(this);
     }
 
     componentDidMount() {
@@ -51,12 +53,44 @@ export default class ExplorerVisualization extends React.Component {
         });
     }
 
+    changeView(viewType) {
+        this.setState({
+            viewType
+        });
+    }
+
     render() {
         let loadingClass = '';
         let loadingText = '';
         if (this.props.isLoading) {
             loadingClass = 'loading';
             loadingText = 'Loading data...';
+        }
+
+        let visualization = (
+            <div className={`treemap-loading-transition ${loadingClass}`}>
+                <ExplorerTreemap
+                    width={this.state.width}
+                    data={this.props.data}
+                    total={this.props.total}
+                    goDeeper={this.props.goDeeper}
+                    showTooltip={this.props.showTooltip}
+                    hideTooltip={this.props.hideTooltip} />
+            </div>
+        );
+        if (this.state.viewType === 'list') {
+            visualization = (
+                <div className={`list-loading-transition ${loadingClass}`}>
+                    List View
+                </div>
+            );
+        }
+        else if (this.state.viewType === 'table') {
+            visualization = (
+                <div className={`table-loading-transition ${loadingClass}`}>
+                    Table View
+                </div>
+            );
         }
 
         return (
@@ -68,7 +102,9 @@ export default class ExplorerVisualization extends React.Component {
                         active={this.props.active}
                         trail={this.props.trail}
                         isRoot={this.props.isRoot}
-                        changeSubdivisionType={this.props.changeSubdivisionType} />
+                        changeSubdivisionType={this.props.changeSubdivisionType}
+                        viewType={this.state.viewType}
+                        changeView={this.changeView} />
                 </div>
 
                 <div
@@ -77,15 +113,7 @@ export default class ExplorerVisualization extends React.Component {
                         this.widthRef = div;
                     }} />
 
-                <div className={`treemap-loading-transition ${loadingClass}`}>
-                    <ExplorerTreemap
-                        width={this.state.width}
-                        data={this.props.data}
-                        total={this.props.total}
-                        goDeeper={this.props.goDeeper}
-                        showTooltip={this.props.showTooltip}
-                        hideTooltip={this.props.hideTooltip} />
-                </div>
+                {visualization}
 
                 <div className="treemap-disclaimer">
                     All dollar amounts shown here represent obligated amounts
