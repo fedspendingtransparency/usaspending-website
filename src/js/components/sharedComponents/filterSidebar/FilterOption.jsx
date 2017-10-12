@@ -60,6 +60,7 @@ export default class FilterOption extends React.Component {
         if (nextProps.defaultExpand !== this.props.defaultExpand && !this.state.isDirty) {
             if (nextProps.defaultExpand) {
                 this.setState({
+                    isDirty: true,
                     showFilter: true,
                     arrowState: 'expanded'
                 });
