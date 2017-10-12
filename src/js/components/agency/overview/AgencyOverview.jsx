@@ -13,9 +13,6 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import HorizontalBarItem from '../visualizations/obligated/HorizontalBarItem';
 
-// Temporarily use a hardcoded total budget authority
-const federalBudget = 8361447130497.72;
-
 const propTypes = {
     agency: PropTypes.object
 };
@@ -85,7 +82,7 @@ export default class AgencyOverview extends React.PureComponent {
         // Move props to variables for readability
         const budgetAuthority = props.agency.budgetAuthority;
 
-        // const federalBudget = props.agency.federalBudget;
+        const federalBudget = props.agency.federalBudget;
 
         const fy = parseInt(props.agency.activeFY, 10);
         const quarter = parseInt(props.agency.activeFQ, 10);
@@ -132,17 +129,11 @@ export default class AgencyOverview extends React.PureComponent {
         // Generate visualization parameters
         let obligatedWidth = 0;
 
-        // Temporarily use hardcoded Federal Budget
-        if (props.agency.budgetAuthority !== 0) {
-            const percentageNumber = props.agency.budgetAuthority / federalBudget;
+        // Only check the percentage width if the data is available
+        if (props.agency.budgetAuthority !== 0 && props.agency.federalBudget !== 0) {
+            const percentageNumber = props.agency.budgetAuthority / props.agency.federalBudget;
             obligatedWidth = visualizationWidth * percentageNumber;
         }
-
-        // Only check the percentage width if the data is available
-        // if (props.agency.budgetAuthority !== 0 && props.agency.federalBudget !== 0) {
-        //     const percentageNumber = props.agency.budgetAuthority / props.agency.federalBudget;
-        //     obligatedWidth = visualizationWidth * percentageNumber;
-        // }
 
         // Account for 10 pixels of left padding
         const padding = 10;
