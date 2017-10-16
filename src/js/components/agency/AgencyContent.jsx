@@ -18,6 +18,7 @@ import AgencyFooterContainer from 'containers/agency/AgencyFooterContainer';
 
 import AgencySidebar from './sidebar/AgencySidebar';
 import AgencyOverview from './overview/AgencyOverview';
+import TreasuryDisclaimer from './TreasuryDisclaimer';
 
 const agencySections = [
     {
@@ -44,7 +45,8 @@ const agencySections = [
 
 const propTypes = {
     agency: PropTypes.object,
-    lastUpdate: PropTypes.string
+    lastUpdate: PropTypes.string,
+    isTreasury: PropTypes.bool
 };
 
 export default class AgencyContent extends React.Component {
@@ -220,6 +222,11 @@ export default class AgencyContent extends React.Component {
         const endOfQuarter = convertQuarterToDate(qtr, this.props.agency.overview.activeFY);
         const asOfDate = moment(endOfQuarter, "YYYY-MM-DD").format("MMMM D, YYYY");
 
+        let disclaimer = null;
+        if (this.props.isTreasury) {
+            disclaimer = (<TreasuryDisclaimer />);
+        }
+
         return (
             <div className="agency-content-wrapper">
                 <div className="agency-sidebar">
@@ -253,6 +260,7 @@ export default class AgencyContent extends React.Component {
                             id={this.props.agency.id}
                             activeFY={this.props.agency.overview.activeFY}
                             lastUpdate={this.props.lastUpdate} />
+                        {disclaimer}
                     </div>
                     <AgencyFooterContainer id={this.props.agency.id} />
                 </div>
