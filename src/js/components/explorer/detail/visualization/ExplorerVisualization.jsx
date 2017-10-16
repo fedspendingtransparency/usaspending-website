@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import BreakdownDropdown from './toolbar/BreakdownDropdown';
 import ExplorerTreemap from './treemap/ExplorerTreemap';
+import ExplorerTable from './table/ExplorerTable';
 
 const propTypes = {
     isRoot: PropTypes.bool,
@@ -78,17 +79,20 @@ export default class ExplorerVisualization extends React.Component {
                     hideTooltip={this.props.hideTooltip} />
             </div>
         );
-        if (this.state.viewType === 'list') {
+        if (this.state.viewType === 'chart') {
             visualization = (
-                <div className={`list-loading-transition ${loadingClass}`}>
-                    List View
+                <div className={`chart-loading-transition ${loadingClass}`}>
+                    Rank Chart View
                 </div>
             );
         }
         else if (this.state.viewType === 'table') {
             visualization = (
                 <div className={`table-loading-transition ${loadingClass}`}>
-                    Table View
+                    <ExplorerTable
+                        results={this.props.data}
+                        total={this.props.total}
+                        goDeeper={this.props.goDeeper} />
                 </div>
             );
         }

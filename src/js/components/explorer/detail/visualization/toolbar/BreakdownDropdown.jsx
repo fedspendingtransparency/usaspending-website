@@ -193,10 +193,10 @@ export default class BreakdownDropdown extends React.Component {
                         active={this.props.viewType === 'treemap'}
                         changeView={this.props.changeView} />
                     <ViewTypeButton
-                        value="list"
-                        label="List"
+                        value="chart"
+                        label="Chart"
                         icon={<Icons.Chart alt="Chart Icon" />}
-                        active={this.props.viewType === 'list'}
+                        active={this.props.viewType === 'chart'}
                         changeView={this.props.changeView} />
                     <ViewTypeButton
                         value="table"
