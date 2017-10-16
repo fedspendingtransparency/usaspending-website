@@ -20,7 +20,7 @@ const profiles = [
         url: '#/agency',
         code: 'agency',
         title: 'Agencies',
-        comingSoon: true
+        comingSoon: false
     },
     {
         url: '#/recipient',
