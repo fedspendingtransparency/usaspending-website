@@ -32,7 +32,7 @@ export default class TableRow extends React.PureComponent {
                             rowIndex={this.props.rowIndex}
                             name={this.props.item.name}
                             data={this.props.item}
-                            id={this.props.item.id}
+                            id={`${this.props.item.id}`}
                             column={column.columnName}
                             selectedRow={this.props.selectedRow} />
                     </td>

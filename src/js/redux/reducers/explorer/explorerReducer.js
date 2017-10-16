@@ -21,7 +21,8 @@ export const initialState = {
         order: {
             field: 'obligated_amount',
             direction: 'desc'
-        }
+        },
+        pageNumber: 1
     }
 };
 
@@ -54,7 +55,16 @@ const explorerReducer = (state = initialState, action) => {
         }
         case 'SET_EXPLORER_TABLE_ORDER': {
             const order = Object.assign({}, state.table.order, action.order);
-            const table = Object.assign({}, state.table, { order });
+
+            return Object.assign({}, state, {
+                table: {
+                    order,
+                    pageNumber: 1
+                }
+            });
+        }
+        case 'SET_EXPLORER_TABLE_PAGE': {
+            const table = Object.assign({}, state.table, { pageNumber: action.number });
 
             return Object.assign({}, state, {
                 table

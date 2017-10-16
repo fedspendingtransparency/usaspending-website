@@ -12,7 +12,7 @@ const propTypes = {
     data: PropTypes.object,
     rowIndex: PropTypes.number,
     column: PropTypes.string,
-    id: PropTypes.number,
+    id: PropTypes.string,
     selectedRow: PropTypes.func
 };
 

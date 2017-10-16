@@ -1,0 +1,15 @@
+.explorer-treemap {
+    position: relative;
+    @import "./_cell";
+}
+
+.treemap-loading-transition {
+    transition: opacity 0.25s;
+    &.loading {
+        opacity: 0.5;
+
+        .explorer-cell {
+            cursor: auto;
+        }
+    }
+}

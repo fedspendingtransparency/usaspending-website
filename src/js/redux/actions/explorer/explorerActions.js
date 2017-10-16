@@ -33,6 +33,11 @@ export const setExplorerTableOrder = (state) => ({
     order: state
 });
 
+export const setExplorerTablePage = (state) => ({
+    type: 'SET_EXPLORER_TABLE_PAGE',
+    number: state
+});
+
 export const resetExplorer = () => ({
     type: 'RESET_EXPLORER'
 });

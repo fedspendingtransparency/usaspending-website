@@ -6,13 +6,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Pagination from 'components/sharedComponents/Pagination';
 import HeaderRow from './HeaderRow';
 import TableRow from './TableRow';
 
 const propTypes = {
     results: PropTypes.array,
     goDeeper: PropTypes.func,
-    columns: PropTypes.array
+    columns: PropTypes.array,
+    onChangePage: PropTypes.func,
+    pager: PropTypes.object
 };
 
 export default class ExplorerTable extends React.Component {
@@ -43,18 +46,22 @@ export default class ExplorerTable extends React.Component {
 
 
         return (
-            <div className="explorer-list">
-                <div className={`explorer-table${noResultsClass}`}>
-                    <table>
-                        <thead>
-                            <HeaderRow
-                                columns={this.props.columns} />
-                        </thead>
-                        <tbody>
-                            {rows}
-                        </tbody>
-                    </table>
-                </div>
+            <div className={`explorer-table${noResultsClass}`}>
+                <Pagination
+                    onChangePage={this.props.onChangePage}
+                    pager={this.props.pager} />
+                <table>
+                    <thead>
+                        <HeaderRow
+                            columns={this.props.columns} />
+                    </thead>
+                    <tbody>
+                        {rows}
+                    </tbody>
+                </table>
+                <Pagination
+                    onChangePage={this.props.onChangePage}
+                    pager={this.props.pager} />
             </div>
         );
     }
