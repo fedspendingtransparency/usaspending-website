@@ -37,6 +37,7 @@ export default class FilterOption extends React.Component {
         super(props);
 
         this.state = {
+            isDirty: false,
             showFilter: true,
             arrowState: 'expanded'
         };
@@ -56,9 +57,10 @@ export default class FilterOption extends React.Component {
     }
 
     componentWillUpdate(nextProps) {
-        if (nextProps.defaultExpand !== this.props.defaultExpand) {
+        if (nextProps.defaultExpand !== this.props.defaultExpand && !this.state.isDirty) {
             if (nextProps.defaultExpand) {
                 this.setState({
+                    isDirty: true,
                     showFilter: true,
                     arrowState: 'expanded'
                 });
@@ -83,6 +85,7 @@ export default class FilterOption extends React.Component {
             FilterOption.logFilterEvent(filterName);
         }
         this.setState({
+            isDirty: true,
             showFilter: newShowState,
             arrowState: newArrowState
         });
