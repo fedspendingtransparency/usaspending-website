@@ -16,7 +16,13 @@ export const initialState = {
     root: 'object_class',
     fy: `${defaultFiscalYear()}`,
     active: new ActiveScreen(),
-    trail: new List([])
+    trail: new List([]),
+    table: {
+        order: {
+            field: 'obligated_amount',
+            direction: 'desc'
+        }
+    }
 };
 
 const explorerReducer = (state = initialState, action) => {
@@ -44,6 +50,14 @@ const explorerReducer = (state = initialState, action) => {
         case 'SET_EXPLORER_ACTIVE': {
             return Object.assign({}, state, {
                 active: new ActiveScreen(action.active)
+            });
+        }
+        case 'SET_EXPLORER_TABLE_ORDER': {
+            const order = Object.assign({}, state.table.order, action.order);
+            const table = Object.assign({}, state.table, { order });
+
+            return Object.assign({}, state, {
+                table
             });
         }
         case 'RESET_EXPLORER': {

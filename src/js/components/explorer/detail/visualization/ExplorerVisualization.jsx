@@ -6,9 +6,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ExplorerTableContainer from 'containers/explorer/detail/table/ExplorerTableContainer';
 import BreakdownDropdown from './toolbar/BreakdownDropdown';
 import ExplorerTreemap from './treemap/ExplorerTreemap';
-import ExplorerTable from './table/ExplorerTable';
 
 const propTypes = {
     isRoot: PropTypes.bool,
@@ -89,7 +89,7 @@ export default class ExplorerVisualization extends React.Component {
         else if (this.state.viewType === 'table') {
             visualization = (
                 <div className={`table-loading-transition ${loadingClass}`}>
-                    <ExplorerTable
+                    <ExplorerTableContainer
                         results={this.props.data}
                         total={this.props.total}
                         goDeeper={this.props.goDeeper} />

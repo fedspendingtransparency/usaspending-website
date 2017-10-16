@@ -12,11 +12,11 @@ const propTypes = {
     data: PropTypes.object,
     rowIndex: PropTypes.number,
     column: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.number,
     selectedRow: PropTypes.func
 };
 
-export default class AgencyLinkCell extends React.Component {
+export default class LinkCell extends React.Component {
     constructor(props) {
         super(props);
 
@@ -50,4 +50,4 @@ export default class AgencyLinkCell extends React.Component {
     }
 }
 
-AgencyLinkCell.propTypes = propTypes;
+LinkCell.propTypes = propTypes;
