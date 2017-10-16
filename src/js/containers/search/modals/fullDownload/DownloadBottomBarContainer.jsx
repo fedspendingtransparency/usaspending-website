@@ -34,7 +34,7 @@ export class DownloadBottomBarContainer extends React.Component {
             showError: false,
             showSuccess: false,
             title: 'Your file is being generated...',
-            description: 'Your file will automatically download when it is ready.'
+            description: 'Warning: In order to complete your download, please remain on this site.'
         };
 
         this.request = null;
