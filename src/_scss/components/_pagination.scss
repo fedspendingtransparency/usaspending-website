@@ -1,11 +1,14 @@
 .pagination {
     margin: rem(15);
     .results-text {
-        display: inline-flex;
+        @include display(flex);
+        @include flex-direction(row);
+        float: left;
     }
     .pager {
         list-style-type: none;
-        display: inline-flex;
+        @include display(flex);
+        @include flex-direction(row);
         float: right;
         margin: 0;
         li {
