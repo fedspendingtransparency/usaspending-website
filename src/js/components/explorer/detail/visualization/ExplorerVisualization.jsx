@@ -79,14 +79,7 @@ export default class ExplorerVisualization extends React.Component {
                     hideTooltip={this.props.hideTooltip} />
             </div>
         );
-        if (this.state.viewType === 'chart') {
-            visualization = (
-                <div className={`chart-loading-transition ${loadingClass}`}>
-                    Rank Chart View
-                </div>
-            );
-        }
-        else if (this.state.viewType === 'table') {
+        if (this.state.viewType === 'table') {
             visualization = (
                 <div className={`table-loading-transition ${loadingClass}`}>
                     <ExplorerTableContainer

@@ -397,10 +397,3 @@ Recipient.defaultProps = {
     alt: 'Icon Depicting a Person Representing Recipients'
 };
 
-export class Chart extends BaseIcon {}
-Chart.defaultProps = {
-    iconName: 'usa-da-chart',
-    iconClass: 'usa-da-chart',
-    alt: 'Icon Depicting a Horizontal Bar Chart'
-};
-

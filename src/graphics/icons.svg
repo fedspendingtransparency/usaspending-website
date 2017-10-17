@@ -212,12 +212,4 @@
         <circle class="cls-1" cx="30" cy="16" r="14"/>
         <path class="cls-1" d="M2,52.12V58H58V52.12A9.4,9.4,0,0,0,53.52,44,51,51,0,0,0,6.76,44,9.4,9.4,0,0,0,2,52.12Z"/>
     </symbol>
-    <symbol id="usa-da-chart" viewBox="0 0 45 28">
-		<g id="bars" transform="translate(22.500000, 14.000000) rotate(-270.000000) translate(-22.500000, -14.000000) translate(15.000000, 4.000000)">
-			<rect id="bar1" x="-7.54951657e-14" y="8.33333333" width="2.82783357" height="11.6666667"></rect>
-			<rect id="bar2" x="3.77044476" y="-8.8817842e-14" width="2.82783357" height="20"></rect>
-			<rect id="bar3" x="7.54088953" y="5" width="2.82783357" height="15"></rect>
-			<rect id="bar4" x="11.3113343" y="11.6666667" width="2.82783357" height="8.33333333"></rect>
-		</g>
-    </symbol>
 </svg>
