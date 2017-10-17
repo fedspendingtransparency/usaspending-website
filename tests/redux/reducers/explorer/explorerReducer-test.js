@@ -79,6 +79,40 @@ describe('explorerReducer', () => {
         });
     });
 
+    describe('SET_EXPLORER_TABLE_ORDER', () => {
+        it('should update set the table order to the provided field and direction' +
+            'and reset the page number to 1', () => {
+            const action = {
+                type: 'SET_EXPLORER_TABLE_ORDER',
+                order: {
+                    field: 'sort_field',
+                    direction: 'dir'
+                }
+            };
+
+            const state = explorerReducer(undefined, action);
+            expect(state.table).toEqual({
+                order: {
+                    field: 'sort_field',
+                    direction: 'dir'
+                },
+                pageNumber: 1
+            });
+        });
+    });
+
+    describe('SET_EXPLORER_TABLE_PAGE', () => {
+        it('should update set the table page number to the provided value', () => {
+            const action = {
+                type: 'SET_EXPLORER_TABLE_PAGE',
+                number: 3
+            };
+
+            const state = explorerReducer(undefined, action);
+            expect(state.table.pageNumber).toEqual(3);
+        });
+    });
+
     describe('RESET_EXPLORER', () => {
         it('should reset the explorer state to its initial state', () => {
             const state = {
@@ -89,7 +123,14 @@ describe('explorerReducer', () => {
                     total: 12345
                 }),
                 fy: '1984',
-                trail: new List(['a', 'b', 'c'])
+                trail: new List(['a', 'b', 'c']),
+                table: {
+                    order: {
+                        field: 'fake_field',
+                        direction: 'dir'
+                    },
+                    pageNumber: 4
+                }
             };
 
             const action = {
@@ -102,6 +143,8 @@ describe('explorerReducer', () => {
             expect(newState.root).toEqual('object_class');
             expect(newState.active).toEqual(new ActiveScreen());
             expect(newState.trail.count()).toEqual(0);
+            expect(newState.table.order.field).toEqual('obligated_amount');
+            expect(newState.table.pageNumber).toEqual(1);
         });
     });
 });

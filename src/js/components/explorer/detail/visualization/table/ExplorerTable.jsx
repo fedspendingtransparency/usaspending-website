@@ -44,7 +44,6 @@ export default class ExplorerTable extends React.Component {
                 selectedRow={this.selectedRow} />
         ));
 
-
         return (
             <div className={`explorer-table${noResultsClass}`}>
                 <Pagination

@@ -63,11 +63,12 @@
                         }
                     }
                 }
-                .link-cell, .generic-account-cell {
+                .explorer-link-cell {
                     .cell-content {
-                        span {
-                            text-decoration: underline;
-                            font-weight: 600;
+                        .go-deeper-link {
+                            @include button-unstyled;
+                            color: $color-primary;
+                            font-size: rem(16);
                         }
                     }
                 }
