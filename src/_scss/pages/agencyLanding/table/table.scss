@@ -46,11 +46,9 @@
 				.agency-link-cell {
 					.cell-content {
 						float: left;
-						a {
-							span {
-								text-decoration: underline;
-								font-weight: 600;
-							}
+						.matched {
+							text-decoration: underline;
+							font-weight: 600;
 						}
 					}
 				}

@@ -12,7 +12,8 @@ const propTypes = {
     rowIndex: PropTypes.number,
     column: PropTypes.string,
     id: PropTypes.number,
-    agencySearchString: PropTypes.string
+    agencySearchString: PropTypes.string,
+    disabled: PropTypes.bool
 };
 
 export default class AgencyLinkCell extends React.Component {
@@ -21,8 +22,21 @@ export default class AgencyLinkCell extends React.Component {
         // highlight the matched string if applicable
         if (this.props.agencySearchString !== '') {
             name = reactStringReplace(this.props.name, this.props.agencySearchString, (match, i) => (
-                <span key={match + i}>{match}</span>
+                <span
+                    className="matched"
+                    key={match + i}>
+                    {match}
+                </span>
             ));
+        }
+
+        // BODGE: Disable specific agencies in agency list
+        if (this.props.disabled) {
+            return (<div className={`agency-link-cell column-${this.props.column}`}>
+                <div className="cell-content">
+                    {name}
+                </div>
+            </div>);
         }
 
         return (
