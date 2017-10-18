@@ -74,7 +74,7 @@ export default class Footer extends React.Component {
                                     <li>
                                         <FooterExternalLink
                                             link="https://fedspendingtransparency.github.io/data-lab/"
-                                            title="Analytics" />
+                                            title="Data Lab" />
                                     </li>
                                 </ul>
                             </div>
