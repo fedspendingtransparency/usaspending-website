@@ -11,7 +11,7 @@
             margin-bottom: 0;
         }
         @include media(1100px) {
-            padding: 0 ($global-pad * 2) ($global-pad * 2);
+            padding: 0 rem(20) rem(20);
         }
     }
     @import "./_filterExpand";
