@@ -9,6 +9,8 @@ import { isCancel } from 'axios';
 import * as HomepageHelper from 'helpers/homepageHelper';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
+import GlossaryContainer from 'containers/glossary/GlossaryContainer';
+
 import HomepageStateModel from 'models/homepage/HomepageStateModel';
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 
@@ -21,6 +23,7 @@ import CategoryMap from './visualizations/categoryMap/CategoryMap';
 import SearchSection from './SearchSection';
 import Footer from '../sharedComponents/Footer';
 import WarningBanner from '../sharedComponents/header/WarningBanner';
+// import InfoBanner from '../sharedComponents/header/InfoBanner';
 
 export default class Homepage extends React.Component {
     constructor(props) {
@@ -177,6 +180,7 @@ export default class Homepage extends React.Component {
                     </a>
                 </div>
                 <MetaTags {...MetaTagHelper.homePageMetaTags} />
+                <GlossaryContainer />
                 <WarningBanner />
                 <Landing
                     total={this.state.total} />
