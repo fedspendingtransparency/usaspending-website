@@ -40,7 +40,6 @@
             }
             .award-result-header-cell {
                 @import "./cells/_explorerHeaderCell";
-                @include explorerHeaderCell();
             }
         }
         tbody {

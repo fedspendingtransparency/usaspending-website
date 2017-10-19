@@ -22,8 +22,7 @@ const setup = (props) => shallow(<ExplorerTableContainer {...props} />);
 const setupMount = (props) => mount(<ExplorerTableContainer {...props} />);
 
 // spy on specific functions inside the component
-const setPageOfItemsSpy = sinon.spy(ExplorerTableContainer.prototype, 'setPageOfItems');
-const getPagerSpy = sinon.spy(ExplorerTableContainer.prototype, 'getPager');
+const buildTableSpy = sinon.spy(ExplorerTableContainer.prototype, 'buildVirtualTable');
 
 describe('ExplorerTableContainer', () => {
     beforeAll(() => {
@@ -39,8 +38,8 @@ describe('ExplorerTableContainer', () => {
             total: mockApiResponse.total
         });
 
-        // setPageOfItems is called once on mount
-        expect(setPageOfItemsSpy.callCount).toEqual(1);
+        // buildVirtualTable is called once on mount
+        expect(buildTableSpy.callCount).toEqual(1);
 
         // change the sort order
         container.setProps({
@@ -50,8 +49,8 @@ describe('ExplorerTableContainer', () => {
             }
         });
 
-        expect(setPageOfItemsSpy.callCount).toEqual(2);
-        setPageOfItemsSpy.reset();
+        expect(buildTableSpy.callCount).toEqual(2);
+        buildTableSpy.reset();
     });
 
     it('should update the pagination when the page number changes', () => {
@@ -64,18 +63,18 @@ describe('ExplorerTableContainer', () => {
         });
 
         // setPageOfItems is called once on mount
-        expect(setPageOfItemsSpy.callCount).toEqual(1);
+        expect(buildTableSpy.callCount).toEqual(1);
 
         // change the page number
         container.setProps({
             pageNumber: 1
         });
 
-        expect(setPageOfItemsSpy.callCount).toEqual(2);
-        setPageOfItemsSpy.reset();
+        expect(buildTableSpy.callCount).toEqual(2);
+        buildTableSpy.reset();
     });
 
-    describe('showColumns', () => {
+    describe('buildVirtualTable', () => {
         it('should build the table', () => {
             // mount the container
             const container = setup({
@@ -85,7 +84,7 @@ describe('ExplorerTableContainer', () => {
                 total: mockApiResponse.total
             });
 
-            container.instance().showColumns();
+            container.instance().buildVirtualTable();
 
             // validate the state contains the correctly parsed values
             const expectedState = [
@@ -108,40 +107,29 @@ describe('ExplorerTableContainer', () => {
 
             expect(container.state().columns).toEqual(expectedState);
         });
-    });
-
-    describe('parseResults', () => {
-        it('should parse the results and update the container state', () => {
+        it('should parse the results and set a new page', () => {
             const container = setup({
                 order: mockTable.order,
-                pageNumber: mockTable.pageNumber,
+                pageNumber: 1,
                 results: mockApiResponse.results,
                 total: mockApiResponse.total
             });
 
-            // validate the state contains the correctly parsed values
-            container.instance().parseResults(mockApiResponse.results);
+            container.instance().buildVirtualTable();
 
-            expect(container.state().results).toEqual(mockParsedResults);
+            expect(container.state().pageOfItems).toEqual(mockParsedResults);
         });
-    });
-
-    describe('setPageOfItems', () => {
-        it('should get the pager and a new page from the results and update the container state', () => {
+        it('should set the number of total results', () => {
             const container = setup({
                 order: mockTable.order,
                 pageNumber: 1,
+                results: mockApiResponse.results,
                 total: mockApiResponse.total
             });
 
-            container.setState({
-               results: mockParsedResults
-            });
+            container.instance().buildVirtualTable();
 
-            container.instance().setPageOfItems();
-
-            expect(container.state().pageOfItems).toEqual(mockParsedResults);
-            expect(container.state().pager).toEqual(mockPager);
+            expect(container.state().totalItems).toEqual(3);
         });
     });
 

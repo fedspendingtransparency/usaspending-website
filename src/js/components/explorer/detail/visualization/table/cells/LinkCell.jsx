@@ -29,12 +29,6 @@ export default class LinkCell extends React.Component {
 
     render() {
         const name = this.props.name;
-        // highlight the matched string if applicable
-        // if (this.props.agencySearchString !== '') {
-        //    name = reactStringReplace(this.props.name, this.props.agencySearchString, (match, i) => (
-        //        <span key={match + i}>{match}</span>
-        //    ));
-        // }
 
         return (
             <div className={`explorer-link-cell column-${this.props.column}`}>

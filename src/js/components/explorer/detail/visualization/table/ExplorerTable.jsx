@@ -15,7 +15,9 @@ const propTypes = {
     goDeeper: PropTypes.func,
     columns: PropTypes.array,
     onChangePage: PropTypes.func,
-    pager: PropTypes.object
+    pageNumber: PropTypes.number,
+    totalItems: PropTypes.number,
+    pageSize: PropTypes.number
 };
 
 export default class ExplorerTable extends React.Component {
@@ -48,7 +50,9 @@ export default class ExplorerTable extends React.Component {
             <div className={`explorer-table${noResultsClass}`}>
                 <Pagination
                     onChangePage={this.props.onChangePage}
-                    pager={this.props.pager} />
+                    pageNumber={this.props.pageNumber}
+                    totalItems={this.props.totalItems}
+                    pageSize={this.props.pageSize} />
                 <table>
                     <thead>
                         <HeaderRow
@@ -60,7 +64,9 @@ export default class ExplorerTable extends React.Component {
                 </table>
                 <Pagination
                     onChangePage={this.props.onChangePage}
-                    pager={this.props.pager} />
+                    pageNumber={this.props.pageNumber}
+                    totalItems={this.props.totalItems}
+                    pageSize={this.props.pageSize} />
             </div>
         );
     }

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { orderBy, range } from 'lodash';
+import { orderBy } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as explorerActions from 'redux/actions/explorer/explorerActions';
@@ -34,131 +34,48 @@ export class ExplorerTableContainer extends React.Component {
             columns: [],
             results: [],
             pageOfItems: [],
-            pager: {}
+            totalItems: 0,
+            pageSize: 20
         };
 
         this.onChangePage = this.onChangePage.bind(this);
+        this.buildVirtualTable = this.buildVirtualTable.bind(this);
     }
 
     componentDidMount() {
-        this.showColumns();
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.results !== this.props.results) {
-            this.parseResults(nextProps.results);
-        }
+        this.buildVirtualTable();
     }
 
     componentDidUpdate(prevProps) {
+        if (prevProps.results !== this.props.results) {
+            this.buildVirtualTable();
+        }
         if (this.props.order !== prevProps.order) {
             // table sort changed
-            this.orderResults();
+            this.buildVirtualTable();
         }
         if (this.props.pageNumber !== prevProps.pageNumber) {
             // page number changed
-            this.setPageOfItems();
+            this.buildVirtualTable();
         }
     }
 
-    onChangePage(pageNumber, inRange) {
+    onChangePage(pageNumber) {
         // Change page number in Redux state
+        const totalPages = Math.ceil(this.state.totalItems / this.state.pageSize);
+        const inRange = (pageNumber > 0) && (pageNumber <= totalPages);
         if (inRange) {
             this.props.setExplorerTablePage(pageNumber);
         }
     }
 
-    getPager(totalItems, currentPage, pageSize) {
-        // calculate total pages
-        const totalPages = Math.ceil(totalItems / pageSize);
-
-        let startPage;
-        let endPage;
-        let prevEllipses = (<span className="pagination-ellipsis">...</span>);
-        let nextEllipses = (<span className="pagination-ellipsis">...</span>);
-        let firstButton = (
-            <li>
-                <button onClick={() => this.onChangePage(1, true)}>{1}</button>
-            </li>
-        );
-        let lastButton = (
-            <li>
-                <button onClick={() => this.onChangePage(totalPages, true)}>{totalPages}</button>
-            </li>
-        );
-        if (totalPages < 5) {
-            // less than 5 total pages so show all
-            startPage = 1;
-            endPage = totalPages;
-            prevEllipses = '';
-            nextEllipses = '';
-            firstButton = '';
-            lastButton = '';
-        }
-        else {
-            if (currentPage === 1) {
-                startPage = currentPage;
-                endPage = currentPage + 2;
-            }
-            else if (currentPage === totalPages) {
-                startPage = currentPage - 2;
-                endPage = currentPage;
-            }
-            else {
-                startPage = currentPage - 1;
-                endPage = currentPage + 1;
-            }
-
-            if (currentPage < 4) {
-                prevEllipses = '';
-                firstButton = '';
-            }
-            else if (currentPage > (totalPages - 3)) {
-                nextEllipses = '';
-                lastButton = '';
-            }
-        }
-
+    setPageOfItems(results) {
         // calculate start and end item indexes
-        const startIndex = (currentPage - 1) * pageSize;
-        const endIndex = Math.min(startIndex + (pageSize - 1), (totalItems - 1));
-
-        // create an array of pages to repeat in the pager control
-        const pages = range(startPage, endPage + 1);
-
-        // return object with all pager properties
-        return {
-            totalItems,
-            currentPage,
-            pageSize,
-            totalPages,
-            startPage,
-            endPage,
-            startIndex,
-            endIndex,
-            pages,
-            prevEllipses,
-            nextEllipses,
-            firstButton,
-            lastButton
-        };
-    }
-
-    setPageOfItems() {
-        const page = this.props.pageNumber;
-        const results = this.state.results;
-
-        // Get new pager object for specified page
-        const pager = this.getPager(results.length, page, 20);
+        const startIndex = (this.props.pageNumber - 1) * this.state.pageSize;
+        const endIndex = Math.min(startIndex + (this.state.pageSize - 1), (results.length - 1));
 
         // Get new page of items from results
-        const pageOfItems = results.slice(pager.startIndex, pager.endIndex + 1);
-
-        // update state
-        this.setState({
-            pager,
-            pageOfItems
-        });
+        return results.slice(startIndex, endIndex + 1);
     }
 
     parseResults(data) {
@@ -193,11 +110,8 @@ export class ExplorerTableContainer extends React.Component {
             results.push(result);
         });
 
-        this.setState({
-            results
-        }, () => {
-            this.setPageOfItems();
-        });
+        return orderBy(results,
+            [this.props.order.field], [this.props.order.direction]);
     }
 
     showColumns() {
@@ -215,10 +129,18 @@ export class ExplorerTableContainer extends React.Component {
             columns.push(column);
         });
 
+        return columns;
+    }
+
+    buildVirtualTable() {
+        const columns = this.showColumns();
+        const orderedResults = this.parseResults(this.props.results);
+        const pageOfItems = this.setPageOfItems(orderedResults);
+
         this.setState({
-            columns
-        }, () => {
-            this.parseResults(this.props.results);
+            columns,
+            pageOfItems,
+            totalItems: orderedResults.length
         });
     }
 
@@ -243,7 +165,9 @@ export class ExplorerTableContainer extends React.Component {
                 total={this.props.total}
                 goDeeper={this.props.goDeeper}
                 onChangePage={this.onChangePage}
-                pager={this.state.pager} />
+                pageNumber={this.props.pageNumber}
+                totalItems={this.state.totalItems}
+                pageSize={this.state.pageSize} />
         );
     }
 }
