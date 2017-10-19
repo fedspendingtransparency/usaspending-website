@@ -155,6 +155,7 @@ export class LocationListContainer extends React.Component {
         return (
             <Autocomplete
                 {...this.props}
+                label="Place of Performance"
                 values={this.state.autocompleteLocations}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectLocation}

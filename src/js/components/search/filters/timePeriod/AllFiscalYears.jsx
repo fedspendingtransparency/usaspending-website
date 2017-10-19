@@ -76,7 +76,12 @@ export default class AllFiscalYears extends React.Component {
     render() {
         let allFY = true;
 
-        const fiscalYears = this.props.timePeriods.map((year) => {
+        const leftCount = Math.ceil(this.props.timePeriods.length / 2);
+
+        const leftFY = [];
+        const rightFY = [];
+
+        this.props.timePeriods.forEach((year, i) => {
             // determine if the checkbox should be selected based on whether the filter is already
             // applied
             const checked = this.props.selectedFY.has(year);
@@ -85,11 +90,18 @@ export default class AllFiscalYears extends React.Component {
                 allFY = false;
             }
 
-            return (<FiscalYear
+            const fy = (<FiscalYear
                 checked={checked}
                 year={year}
                 key={`filter-fy-${year}`}
                 saveSelectedYear={this.saveSelectedYear} />);
+
+            if (i + 1 <= leftCount) {
+                leftFY.push(fy);
+            }
+            else {
+                rightFY.push(fy);
+            }
         });
 
         return (
@@ -99,7 +111,12 @@ export default class AllFiscalYears extends React.Component {
                     year="all"
                     key="filter-fy-all"
                     saveAllYears={this.saveAllYears} />
-                {fiscalYears}
+                <div className="left-fy">
+                    {leftFY}
+                </div>
+                <div className="right-fy">
+                    {rightFY}
+                </div>
             </ul>
         );
     }

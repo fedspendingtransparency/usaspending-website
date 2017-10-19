@@ -21,7 +21,8 @@
             @include usa-label;
             display: inline-block;
             @include setText(rem(14));
-            margin: 0 0 rem(10) 0;
+            line-height: rem(20);
+            margin: 0;
             width: 77%;
             padding-left: 0;
             &:before {

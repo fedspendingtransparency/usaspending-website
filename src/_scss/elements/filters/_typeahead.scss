@@ -11,6 +11,10 @@
         margin: 0 auto;
         padding: 11px 8px 11px 8px;
         width: 100%;
+
+        @include placeholder {
+            color: $color-gray-light;
+        }
     }
     .autocomplete ul {
         background-color: $color-white;

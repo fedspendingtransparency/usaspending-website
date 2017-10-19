@@ -82,7 +82,7 @@ export default class RecipientType extends React.Component {
 
         return (
             <div className="checkbox-type-filter">
-                <p className="sub-head">Recipient/Business Type</p>
+                <p>Recipient/Business Type</p>
                 <ul className="checkbox-types">
                     {checkboxTypes}
                 </ul>

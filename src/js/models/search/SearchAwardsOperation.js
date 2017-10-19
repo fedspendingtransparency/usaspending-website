@@ -48,7 +48,7 @@ class SearchAwardsOperation {
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
         this.timePeriodType = state.timePeriodType;
-        if (state.timePeriodType === 'dr' && state.timePeriodStart && state.timePeriodEnd) {
+        if (state.timePeriodType === 'dr' && (state.timePeriodStart || state.timePeriodEnd)) {
             this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
             this.timePeriodFY = [];
         }
@@ -100,7 +100,7 @@ class SearchAwardsOperation {
                     };
                 });
             }
-            else if (this.timePeriodType === 'dr' && this.timePeriodRange.length === 2) {
+            else if (this.timePeriodType === 'dr' && this.timePeriodRange.length > 0) {
                 filters[rootKeys.timePeriod] = [
                     {
                         [timePeriodKeys.startDate]: this.timePeriodRange[0],
