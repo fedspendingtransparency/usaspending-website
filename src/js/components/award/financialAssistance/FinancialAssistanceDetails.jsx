@@ -15,6 +15,19 @@ const propTypes = {
     seeAdditional: PropTypes.func
 };
 
+const isEmpty = (field, ignoreDefault) => {
+    if (!field) {
+        return true;
+    }
+    if (field === '') {
+        return true;
+    }
+    if (!ignoreDefault && field === ignoreDefault) {
+        return true;
+    }
+    return false;
+};
+
 export default class FinancialAssistanceDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -28,16 +41,60 @@ export default class FinancialAssistanceDetails extends React.Component {
             programDesc: "",
             cfdaOverflow: false
         };
-
-        // bind functions
-        this.setValues = this.setValues.bind(this);
     }
 
     componentWillReceiveProps() {
-        this.setValues(this.props.selectedAward);
+        this.prepareValues(this.props.selectedAward);
     }
 
-    setValues() {
+    parsePlaceOfPerformance(award) {
+        // Location
+        let popPlace = '';
+
+        let cityState = null;
+        const city = award.pop_city;
+        const stateProvince = award.pop_state_province;
+
+        if (!isEmpty(city) && !isEmpty(stateProvince)) {
+            cityState = `${city}, ${stateProvince}`;
+        }
+        else if (!isEmpty(city)) {
+            cityState = city;
+        }
+        else if (!isEmpty(stateProvince)) {
+            cityState = stateProvince;
+        }
+        if (award.pop_country_code === 'USA') {
+            if (!isEmpty(cityState)) {
+                popPlace = cityState;
+            }
+            if (!isEmpty(award.pop_zip)) {
+                if (popPlace !== '') {
+                    popPlace += ' ';
+                }
+                popPlace += award.pop_zip;
+            }
+
+            if (!isEmpty(award.pop_state_code) && !isEmpty(award.pop_congressional_district)) {
+                if (popPlace !== '') {
+                    popPlace += '\n';
+                }
+                popPlace +=
+            `Congressional District: ${award.pop_state_code}-${award.pop_congressional_district}`;
+            }
+        }
+        else if (award.pop_country_code !== 'USA') {
+            popPlace = `${award.pop_country}`;
+        }
+
+        if (popPlace === '') {
+            popPlace = 'Not available';
+        }
+
+        return popPlace;
+    }
+
+    prepareValues() {
         let yearRangeTotal = "";
         let description = null;
         const award = this.props.selectedAward;
@@ -60,30 +117,7 @@ export default class FinancialAssistanceDetails extends React.Component {
                ${award.period_of_performance_current_end_date} ${yearRangeTotal}`;
         }
 
-        // Location
-        let popPlace = "Not Available";
-        let cityState = null;
-        const city = award.pop_city;
-        const stateProvince = award.pop_state_province;
-        if (city && stateProvince) {
-            cityState = `${city}, ${stateProvince}`;
-        }
-        else if (city) {
-            cityState = city;
-        }
-        else if (stateProvince) {
-            cityState = stateProvince;
-        }
-        if (award.pop_country_code === 'USA') {
-            popPlace = `${cityState} ${award.pop_zip}`;
-            if (award.pop_state_code && award.pop_congressional_district) {
-                popPlace +=
-            `\nCongressional District: ${award.pop_state_code}-${award.pop_congressional_district}`;
-            }
-        }
-        else if (award.pop_country_code !== 'USA') {
-            popPlace = `${award.pop_country}`;
-        }
+        
         if (award.description) {
             description = award.description;
         }
@@ -127,7 +161,7 @@ ${latestTransaction.assistance_data.cfda.program_title}`;
             programName,
             cfdaOverflow,
             date: popDate,
-            place: popPlace,
+            place: this.parsePlaceOfPerformance(award),
             typeDesc: award.type_description,
             awardType,
             programDesc: programDescription
