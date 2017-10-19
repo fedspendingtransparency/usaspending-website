@@ -13,6 +13,10 @@
     ul.program-activities {
         @include unstyled-list;
 
+        li {
+            min-height: rem(28);
+        }
+
         .program-activity-set {
             @import "../../../search/filters/awardType/_sharedAwardStyle";
             @include sharedAwardStyle;
