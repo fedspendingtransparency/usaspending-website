@@ -31,8 +31,6 @@ const propTypes = {
     clearAllFilters: PropTypes.func
 };
 
-const maxDownloadRows = 500000;
-
 export class SearchContainer extends React.Component {
     constructor(props) {
         super(props);
