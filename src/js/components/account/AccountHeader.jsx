@@ -21,7 +21,7 @@ export default class AccountHeader extends React.Component {
             <div className="page-title-bar">
                 <div className="page-title-bar-wrap">
                     <h1 className="page-title">
-                        Federal Account Summary
+                        Federal Account Profile
                     </h1>
                     <div className="summary-status">
                         <ul className="summary-status-items">
