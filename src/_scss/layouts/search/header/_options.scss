@@ -3,7 +3,7 @@
         @include unstyled-list;
         text-align: center;
         display: none;
-        @include media($tablet-screen) {
+        @include media($medium-screen) {
             text-align: right;
             display: block;
         }
