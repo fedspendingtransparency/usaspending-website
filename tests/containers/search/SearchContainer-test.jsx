@@ -319,7 +319,7 @@ describe('SearchContainer', () => {
             await container.instance().downloadRequest.promise;
 
             expect(mockParse).toHaveBeenCalledWith({
-                transaction_rows: 900000
+                transaction_rows_gt_limit: false
             });
         });
     });
@@ -335,13 +335,13 @@ describe('SearchContainer', () => {
             });
 
             container.instance().parseDownloadAvailability({
-                transaction_rows: 900000
+                transaction_rows_gt_limit: true
             });
 
             expect(container.state().downloadAvailable).toBeFalsy();
         });
 
-        it('should set the downloadAvailable state to false if there are 0 rows', () => {
+        it('should set the downloadAvailable state to true if there are no more than 500,000 rows', () => {
             const container = shallow(<SearchContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -351,23 +351,7 @@ describe('SearchContainer', () => {
             });
 
             container.instance().parseDownloadAvailability({
-                transaction_rows: 0
-            });
-
-            expect(container.state().downloadAvailable).toBeFalsy();
-        });
-
-        it('should set the downloadAvailable state to true if there are more than 0 and no more than 500,000 rows', () => {
-            const container = shallow(<SearchContainer
-                {...mockActions}
-                {...mockRedux} />);
-
-            container.setState({
-                downloadAvailable: true
-            });
-
-            container.instance().parseDownloadAvailability({
-                transaction_rows: 40
+                transaction_rows_gt_limit: false
             });
 
             expect(container.state().downloadAvailable).toBeTruthy();

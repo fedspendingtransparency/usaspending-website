@@ -35,7 +35,7 @@ export const requestDownloadCount = () => (
             process.nextTick(() => {
                 resolve({
                     data: {
-                        transaction_rows: 900000
+                        transaction_rows_gt_limit: false
                     }
                 });
             });

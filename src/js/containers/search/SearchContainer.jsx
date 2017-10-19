@@ -353,12 +353,7 @@ export class SearchContainer extends React.Component {
     }
 
     parseDownloadAvailability(data) {
-        const count = data.transaction_rows;
-        let downloadAvailable = true;
-        if (count <= 0 || count > maxDownloadRows) {
-            // can't download if more than 500k rows or no results
-            downloadAvailable = false;
-        }
+        const downloadAvailable = !data.transaction_rows_gt_limit;
 
         this.setState({
             downloadAvailable
