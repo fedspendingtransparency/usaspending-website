@@ -5,12 +5,14 @@
     .static-title {
         float: left;
     }
+
     @import '../../elements/_titleSelector';
     .field-picker {
         float: none;
         .selected-button {
             color: #555;
             font-size: $h4-font-size;
+            line-height: rem(40);
         }
         .field-list {
             width: rem(250);
