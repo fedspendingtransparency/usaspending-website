@@ -21,6 +21,8 @@ import * as SearchHelper from 'helpers/searchHelper';
 
 import SearchPage from 'components/search/SearchPage';
 
+require('pages/search/searchPage.scss');
+
 const propTypes = {
     params: PropTypes.object,
     filters: PropTypes.object,
