@@ -199,13 +199,14 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     downloadFile(url) {
+        // stop monitoring for window close events
+        window.removeEventListener('beforeunload', this.windowWillClose);
+
+        // start the download
         window.open(url, '_self');
 
         // update redux
         this.props.resetDownload();
-
-        // stop monitoring for window close events
-        window.removeEventListener('beforeunload', this.windowWillClose);
 
         this.setState({
             showSuccess: true,
