@@ -38,6 +38,21 @@ export default class FullDownloadModal extends React.Component {
         this.hideModal = this.hideModal.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.pendingDownload && !nextProps.pendingDownload) {
+            // we went from there being a download to there not being a download
+            // this likely means the download finished (or failed), so the user can start a new
+            // download request
+            this.resetModal();
+        }
+    }
+
+    resetModal() {
+        this.setState({
+            downloadStep: 1
+        });
+    }
+
     hideModal() {
         // reset the state before closing, but only if we're not on the download screen
         if (this.state.downloadStep === 3 || this.props.pendingDownload) {
@@ -52,6 +67,7 @@ export default class FullDownloadModal extends React.Component {
             this.props.hideModal();
         });
     }
+
     goToStep(step, override = false) {
         // we can only go backwards
         if (step >= this.state.downloadStep && !override) {

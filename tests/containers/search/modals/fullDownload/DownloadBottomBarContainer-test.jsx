@@ -211,21 +211,16 @@ describe('DownloadBottomBarContainer', () => {
         });
 
         it('should tell Redux that the download has completed', () => {
-            const mockPending = jest.fn();
-            const mockCollapse = jest.fn();
+            const mockReset = jest.fn();
             const actions = Object.assign({}, mockActions, {
-                setDownloadPending: mockPending,
-                setDownloadCollapsed: mockCollapse
+                resetDownload: mockReset
             });
 
             const container = shallow(<DownloadBottomBarContainer
                 {...mockRedux}
                 {...actions} />);
             container.instance().downloadFile('http://www.google.com');
-            expect(mockPending).toHaveBeenCalledTimes(1);
-            expect(mockPending).toHaveBeenCalledWith(false);
-            expect(mockCollapse).toHaveBeenCalledTimes(1);
-            expect(mockCollapse).toHaveBeenCalledWith(false);
+            expect(mockReset).toHaveBeenCalledTimes(1);
         });
 
         it('should set the state to success and display such a message', () => {

@@ -22,6 +22,7 @@ const propTypes = {
     setDownloadPending: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
+    resetDownload: PropTypes.func,
     filters: PropTypes.object
 };
 
@@ -77,7 +78,9 @@ export class DownloadBottomBarContainer extends React.Component {
         this.setState({
             visible: true,
             showError: false,
-            showSuccess: false
+            showSuccess: false,
+            title: 'Your file is being generated...',
+            description: 'Warning: In order to complete your download, please remain on this site.'
         }, this.checkStatus);
     }
 
@@ -199,8 +202,7 @@ export class DownloadBottomBarContainer extends React.Component {
         window.open(url, '_self');
 
         // update redux
-        this.props.setDownloadPending(false);
-        this.props.setDownloadCollapsed(false);
+        this.props.resetDownload();
 
         // stop monitoring for window close events
         window.removeEventListener('beforeunload', this.windowWillClose);
