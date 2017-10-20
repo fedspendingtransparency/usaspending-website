@@ -27,7 +27,8 @@ const propTypes = {
     overwriteExplorerTrail: PropTypes.func,
     addExplorerTrail: PropTypes.func,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    setExplorerTablePage: PropTypes.func
 };
 
 export class DetailContentContainer extends React.Component {
@@ -301,6 +302,9 @@ export class DetailContentContainer extends React.Component {
             id: data.id
         };
 
+        // reset to page 1
+        this.props.setExplorerTablePage(1);
+
         this.setState({
             transitionSteps: 1,
             filters: Object.assign({}, this.state.filters, newFilter)
@@ -321,6 +325,9 @@ export class DetailContentContainer extends React.Component {
         const request = Object.assign({}, this.props.explorer.active.toJS(), {
             subdivision: type
         });
+
+        // reset to page 1
+        this.props.setExplorerTablePage(1);
 
         this.setState({
             transitionSteps: 0
@@ -377,6 +384,9 @@ export class DetailContentContainer extends React.Component {
         const selectedTrailItem = trail[index];
 
         this.props.overwriteExplorerTrail(newTrail);
+
+        // reset to page 1
+        this.props.setExplorerTablePage(1);
 
         this.setState({
             transitionSteps: steps,

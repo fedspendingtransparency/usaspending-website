@@ -12,7 +12,7 @@ import sinon from 'sinon';
 jest.mock('helpers/explorerHelper', () => require('./mockExplorerHelper'));
 
 import { DetailContentContainer } from 'containers/explorer/detail/DetailContentContainer';
-import { mockApiReponse, mockReducerRoot, mockReducerChild,
+import { mockApiResponse, mockReducerRoot, mockReducerChild,
     mockActions, mockLevelData, mockDeeperRoot, mockActiveScreen } from './mockData';
 
 // mock the child component by replacing it with a function that returns a null element
@@ -85,10 +85,10 @@ describe('DetailContentContainer', () => {
                 {...mockActions}
                 explorer={mockReducerRoot} />);
 
-            container.instance().parseRootData(mockApiReponse);
+            container.instance().parseRootData(mockApiResponse);
 
             expect(mockActions.overwriteExplorerTrail).toHaveBeenCalledWith(mockTrail);
-            expect(container.state().data).toEqual(new List(mockApiReponse.results));
+            expect(container.state().data).toEqual(new List(mockApiResponse.results));
         });
         it ('should trigger the exit animation if there is going to be a transition', () => {
             const container = shallow(<DetailContentContainer
@@ -99,7 +99,7 @@ describe('DetailContentContainer', () => {
                 transitionSteps: 1
             });
 
-            container.instance().parseRootData(mockApiReponse);
+            container.instance().parseRootData(mockApiResponse);
 
             expect(container.state().transition).toEqual('start');
         });
