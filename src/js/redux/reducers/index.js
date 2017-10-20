@@ -24,6 +24,7 @@ import agencyLandingReducer from './agencyLanding/agencyLandingReducer';
 import cfdaReducer from './search/cfdaReducer';
 import naicsReducer from './search/naicsReducer';
 import pscReducer from './search/pscReducer';
+import downloadReducer from './search/downloadReducer';
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
@@ -39,6 +40,7 @@ const appReducer = combineReducers({
     autocompleteAgencies: autocompleteAgencyReducer,
     autocompleteRecipients: recipientReducer,
     records: recordReducer,
+    download: downloadReducer,
     award: awardReducer,
     account: accountReducer,
     agency: agencyReducer,

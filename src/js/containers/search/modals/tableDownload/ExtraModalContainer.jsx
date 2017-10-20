@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 
-import ExtraModal from 'components/search/modals/ExtraModal';
+import ExtraModal from 'components/search/modals/tableDownload/ExtraModal';
 
 import * as DownloadHelper from 'helpers/downloadHelper';
 
