@@ -11,7 +11,8 @@ import * as Icons from './icons/Icons';
 
 const defaultProps = {
     type: 'startDate',
-    tabIndex: 1
+    tabIndex: 1,
+    allowClearing: false
 };
 
 const propTypes = {
@@ -22,7 +23,8 @@ const propTypes = {
     hideError: PropTypes.func,
     opposite: PropTypes.object,
     tabIndex: PropTypes.number,
-    title: PropTypes.string
+    title: PropTypes.string,
+    allowClearing: PropTypes.bool
 };
 
 export default class DatePicker extends React.Component {
@@ -125,6 +127,12 @@ export default class DatePicker extends React.Component {
         this.setState({
             inputValue: e.target.value
         }, () => {
+            if (this.state.inputValue === '') {
+                // if the input is an empty string, this indicates the user wants to clear the date
+                this.clearValue();
+                this.handleDatePick(null);
+                return;
+            }
             // check if this meets the MM/DD/YYYY format requirement
             let format = 'MM/DD/YYYY';
             const primaryFormat = /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/;

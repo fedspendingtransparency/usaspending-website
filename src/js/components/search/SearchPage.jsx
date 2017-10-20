@@ -63,12 +63,12 @@ export default class SearchPage extends React.Component {
         const windowWidth = window.innerWidth || document.documentElement.clientWidth
             || document.body.clientWidth;
 
-        if (windowWidth < 768 && !this.state.isMobile) {
+        if (windowWidth < 992 && !this.state.isMobile) {
             this.setState({
                 isMobile: true
             });
         }
-        else if (windowWidth >= 768 && this.state.isMobile) {
+        else if (windowWidth >= 992 && this.state.isMobile) {
             this.setState({
                 isMobile: false
             });

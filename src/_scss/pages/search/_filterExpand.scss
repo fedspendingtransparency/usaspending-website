@@ -3,7 +3,7 @@
     display: inline-block;
     padding: rem(15);
     @include media($tablet-screen) {
-        padding: rem(30) rem(15);
+        padding: rem(15);
     }
     vertical-align: middle;
     width: 100%;

@@ -22,6 +22,8 @@ import Account from 'components/account/Account';
 import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
 
+require('pages/account/accountPage.scss');
+
 const propTypes = {
     account: PropTypes.object,
     params: PropTypes.object,

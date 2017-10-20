@@ -24,6 +24,8 @@ import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 import SearchPage from 'components/search/SearchPage';
 
+require('pages/search/searchPage.scss');
+
 const propTypes = {
     params: PropTypes.object,
     filters: PropTypes.object,

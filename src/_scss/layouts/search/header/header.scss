@@ -9,7 +9,7 @@
 
     &.sticky {
         // don't be sticky on mobile
-        @include media($tablet-screen) {
+        @include media($medium-screen) {
             box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
             left: 0;
             position: fixed;

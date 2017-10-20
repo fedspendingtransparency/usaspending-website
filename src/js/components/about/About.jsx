@@ -16,6 +16,8 @@ import AboutData from './AboutData';
 import NextSteps from './NextSteps';
 import Introduction from './Introduction';
 
+require('pages/about/aboutPage.scss');
+
 export default class About extends React.Component {
     render() {
         return (

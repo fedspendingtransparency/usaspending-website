@@ -33,10 +33,18 @@ const ga = require('react-ga');
 
 export default class TimePeriod extends React.Component {
     static logDateRangeEvent(start, end) {
+        let label = `${start} to ${end}`;
+        if (!start) {
+            label = `Through ${end}`;
+        }
+        else if (!end) {
+            label = `On or after ${start}`;
+        }
+
         ga.event({
+            label,
             category: 'Search Page Filter Applied',
-            action: 'Applied Date Range Filter',
-            label: `${start} to ${end}`
+            action: 'Applied Date Range Filter'
         });
     }
 
@@ -60,6 +68,7 @@ export default class TimePeriod extends React.Component {
         this.showError = this.showError.bind(this);
         this.hideError = this.hideError.bind(this);
         this.toggleFilters = this.toggleFilters.bind(this);
+        this.validateDates = this.validateDates.bind(this);
     }
 
     componentDidMount() {
@@ -139,10 +148,12 @@ export default class TimePeriod extends React.Component {
         // this is because the start/end range will be incomplete during the time the user has only
         // picked one date, or if they have picked an invalid range
         // additional logic is required to keep these values in sync with Redux
+        let value = moment(date);
+        if (!date) {
+            value = null;
+        }
         this.setState({
-            [`${dateType}UI`]: moment(date)
-        }, () => {
-            this.validateDates();
+            [`${dateType}UI`]: value
         });
     }
 
@@ -176,9 +187,30 @@ export default class TimePeriod extends React.Component {
                 TimePeriod.logDateRangeEvent(startDate, endDate);
             }
         }
+        else if (start || end) {
+            // open-ended date range
+            let startValue = null;
+            let endValue = null;
+            if (start) {
+                startValue = start.format('YYYY-MM-DD');
+            }
+            else {
+                endValue = end.format('YYYY-MM-DD');
+            }
+
+            this.props.updateFilter({
+                dateType: 'dr',
+                startDate: startValue,
+                endDate: endValue
+            });
+        }
         else {
-            // not all dates exist yet
-            this.hideError();
+            // user has cleared the dates, which means we should clear the date range filter
+            this.props.updateFilter({
+                dateType: 'dr',
+                startDate: null,
+                endDate: null
+            });
         }
     }
 
@@ -236,7 +268,8 @@ export default class TimePeriod extends React.Component {
                 endDate={this.state.endDateUI}
                 onDateChange={this.handleDateChange}
                 showError={this.showError}
-                hideError={this.hideError} />);
+                hideError={this.hideError}
+                applyDateRange={this.validateDates} />);
             activeClassFY = 'inactive';
             activeClassDR = '';
         }

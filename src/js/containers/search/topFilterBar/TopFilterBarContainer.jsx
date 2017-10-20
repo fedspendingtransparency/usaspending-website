@@ -184,7 +184,7 @@ export class TopFilterBarContainer extends React.Component {
         }
         else if (props.timePeriodType === 'dr') {
             // check to see if any date ranges are selected
-            if (props.timePeriodStart && props.timePeriodEnd) {
+            if (props.timePeriodStart || props.timePeriodEnd) {
                 // start and end dates are provided
                 selected = true;
                 filter.code = 'timePeriodDR';
@@ -193,8 +193,16 @@ export class TopFilterBarContainer extends React.Component {
                 const startString = moment(props.timePeriodStart, 'YYYY-MM-DD')
                     .format('MM/DD/YYYY');
                 const endString = moment(props.timePeriodEnd, 'YYYY-MM-DD').format('MM/DD/YYYY');
-
                 filter.values = [`${startString} to ${endString}`];
+
+                if (!props.timePeriodStart) {
+                    // open-ended start date
+                    filter.values = [`... to ${endString}`];
+                }
+                else if (!props.timePeriodEnd) {
+                    // open-ended end date
+                    filter.values = [`${startString} to present`];
+                }
             }
         }
 

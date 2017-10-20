@@ -2,7 +2,7 @@
     @import "./_sidebarTransitions";
 
     z-index: $z-mobile-filter;
-    @include media($tablet-screen) {
+    @include media($medium-screen) {
         display: none;
     }
 

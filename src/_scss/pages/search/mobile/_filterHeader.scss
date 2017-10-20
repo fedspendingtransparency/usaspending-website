@@ -9,7 +9,7 @@
     padding: 0 rem(15);
 
 
-    @include media($tablet-screen) {
+    @include media($medium-screen) {
         display: none;
     }
 

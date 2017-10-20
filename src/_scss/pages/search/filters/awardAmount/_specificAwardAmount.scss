@@ -20,6 +20,12 @@
             padding-right: 0.5rem;
         }
 
+        input {
+            @include placeholder {
+                color: $color-gray-light;
+            }
+        }
+
         @media only screen and (min-width:1342px) {
             @include display(flex);
             @include justify-content(space-between);

@@ -10,6 +10,8 @@ import { defaultFiscalYear } from 'helpers/fiscalYearHelper';
 import ExplorerWrapperPage from '../ExplorerWrapperPage';
 import ExplorerLandingOption from './ExplorerLandingOption';
 
+require('pages/explorer/explorerPage.scss');
+
 const ExplorerLanding = () => (
     <ExplorerWrapperPage>
         <div className="explorer-landing-page">
