@@ -1,7 +1,7 @@
 import { List } from 'immutable';
 import { ActiveScreen } from 'redux/reducers/explorer/explorerReducer';
 
-export const mockApiReponse = {
+export const mockApiResponse = {
     total: 100,
     end_date: '1984-06-30',
     results: [
@@ -119,12 +119,72 @@ export const mockActiveScreen = new ActiveScreen (
     {"subdivision": "agency", "total": 100, "within": "root"}
 );
 
+export const mockTable = {
+    order: {
+        field: 'sort_field',
+        direction: 'desc'
+    },
+    pageNumber: 3
+};
+
+export const mockParsedResults = [
+    {
+        "display": {
+            "name": "First Agency",
+            "obligated_amount": "$75",
+            "percent_of_total": "75.00%"
+        },
+        "id": 1,
+        "name": "First Agency",
+        "obligated_amount": 75,
+        "percent_of_total": 0.75
+    }, {
+        "display": {
+            "name": "Second Agency",
+            "obligated_amount": "$15",
+            "percent_of_total": "15.00%"
+        },
+        "id": 2,
+        "name": "Second Agency",
+        "obligated_amount": 15,
+        "percent_of_total": 0.15
+    }, {
+        "display": {
+            "name": "Third Agency",
+            "obligated_amount": "$10",
+            "percent_of_total": "10.00%"
+        },
+        "id": 3,
+        "name": "Third Agency",
+        "obligated_amount": 10,
+        "percent_of_total": 0.1
+    }
+];
+
+export const mockPager = {
+    totalItems: 3,
+    currentPage: 1,
+    pageSize: 20,
+    totalPages: 1,
+    startPage: 1,
+    endPage: 1,
+    startIndex: 0,
+    endIndex: 2,
+    pages: [1],
+    prevEllipses: '',
+    nextEllipses: '',
+    firstButton: '',
+    lastButton: ''
+};
+
 export const mockActions = {
     setExplorerRoot: jest.fn(),
     setExplorerYear: jest.fn(),
     setExplorerActive: jest.fn(),
     addExplorerTrail: jest.fn(),
     overwriteExplorerTrail: jest.fn(),
+    setExplorerTableOrder: jest.fn(),
+    setExplorerTablePage: jest.fn(),
     resetExplorer: jest.fn()
 };
 

@@ -2,21 +2,12 @@
     margin-top: rem(40);
 
     @import "./_menu";
+    @import "./treemap/treemap";
+    @import "./table/table";
 
     .treemap-width-reference {
         width: 100%;
         height: 0;
-    }
-
-    .treemap-loading-transition {
-        transition: opacity 0.25s;
-        &.loading {
-            opacity: 0.5;
-
-            .explorer-cell {
-                cursor: auto;
-            }
-        }
     }
 
 	.loading-text {
@@ -30,11 +21,6 @@
 			margin-bottom: rem(30);
 		}
 	}
-
-    .explorer-treemap {
-        position: relative;
-        @import "./_cell";
-    }
 
     .treemap-disclaimer {
         font-style: italic;
