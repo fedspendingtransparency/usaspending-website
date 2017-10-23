@@ -1,34 +1,107 @@
 .download-wrap {
     position: relative;
 
+    .download-hover {
+        position: absolute;
+        top: rem(-23);
+        left: rem(-290);
+        z-index: $z-modal - 1;
+
+        width: rem(270);
+        height: rem(90);
+
+        .hover-content {
+            @include display(flex);
+            @include flex-direction(row);
+            @include justify-content(center);
+            @include align-items(center);
+            position: relative;
+
+            background-color: $color-gold-lightest;
+            border: 1px solid $color-gold-light;
+            box-shadow: $box-shadow;
+
+            padding: rem(10);
+
+            .icon {
+                @include flex(0 0 auto);
+                width: rem(25);
+                height: rem(25);
+                margin-right: rem(10);
+                svg {
+                    fill: $color-gold;
+                    width: rem(25);
+                    height: rem(25);
+                }
+            }
+
+            .message {
+                @include flex(1 1 auto);
+                text-align: left;
+                color: $color-base;
+                font-size: $smallest-font-size;
+            }
+        }
+
+        // inherit from the standard tooltip arrow style
+        $color-tooltip-border: $color-gold-light;
+        @import "components/visualizations/tooltip/_arrow";
+        .tooltip-pointer {
+            width: rem(10);
+            height: rem(15);
+            // override the coloring
+            &:after {
+                background: $color-gold-lightest;
+            }
+
+            &.right {
+                top: rem(32);
+                right: rem(9);
+            }
+        }
+    }
+
     .download-button {
         @include button-unstyled;
-        color: $color-white;
-        text-transform: uppercase;
-        font-size: 1em;
-        font-weight: $font-semibold;
-        letter-spacing: 0.075em;
         padding: rem(10) rem(20);
         border: 1px solid $color-white;
         cursor: pointer;
 
-        &:hover, &:active {
-            color: $color-white;
-            border: 1px solid $color-white;
-            background-color: $color-gray;
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+
+        @include transition(opacity 0.2s ease-in-out);
+
+        .icon {
+            @include flex(0 0 auto);
+            width: rem(20);
+            height: rem(20);
+            margin-right: rem(10);
+            svg {
+                fill: $color-white;
+                width: rem(20);
+                height: rem(20);
+            }
         }
 
-        &[disabled] {
-            border: 1px solid $color-gray-light;
-            pointer-events: none;
-            cursor: pointer;
-            background: repeating-linear-gradient(        
-                45deg,
-                rgba($color-gray, .2),
-                rgba($color-gray, .2) rem(2),
-                rgba(255,255,255,.2) rem(2),
-                rgba(255,255,255,.2) rem(4)
-            );
+        .label {
+            @include flex(1 1 auto);
+            color: $color-white;
+            text-transform: uppercase;
+            font-size: 1em;
+            font-weight: $font-semibold;
+            letter-spacing: 0.075em;
+        }
+
+        &:hover, &:active {
+            background-color: $color-gray;
+            opacity: 1;
+        }
+
+        &[disabled], &.disabled {
+            cursor: default;
+            opacity: 0.4;
         }
     }
 }
