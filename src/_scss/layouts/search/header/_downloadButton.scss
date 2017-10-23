@@ -91,6 +91,7 @@
 
         .label {
             @include flex(1 1 auto);
+            text-align: center;
             color: $color-white;
             text-transform: uppercase;
             font-size: 1em;
