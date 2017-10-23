@@ -117,7 +117,6 @@ export default class FinancialAssistanceDetails extends React.Component {
                ${award.period_of_performance_current_end_date} ${yearRangeTotal}`;
         }
 
-        
         if (award.description) {
             description = award.description;
         }
