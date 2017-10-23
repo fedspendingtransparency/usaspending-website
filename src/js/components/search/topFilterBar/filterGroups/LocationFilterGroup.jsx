@@ -13,7 +13,8 @@ import BaseTopFilterGroup from './BaseTopFilterGroup';
 const propTypes = {
     filter: PropTypes.object,
     redux: PropTypes.object,
-    toggle: PropTypes.string
+    toggle: PropTypes.string,
+    compressed: PropTypes.bool
 };
 
 const scopeLabels = {
@@ -90,7 +91,8 @@ export default class LocationFilterGroup extends React.Component {
         return (<BaseTopFilterGroup
             tags={tags}
             filter={this.props.filter}
-            clearFilterGroup={this.clearGroup} />);
+            clearFilterGroup={this.clearGroup}
+            compressed={this.props.compressed} />);
     }
 }
 

@@ -1,0 +1,35 @@
+.download-header {
+    background-color: $color-primary-darker;
+    .header-content {
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(flex-start);
+        position: relative;
+
+        padding: rem(12) rem(30);
+
+        h1 {
+            @include flex(1 1 auto);
+            color: $color-white;
+            font-size: $h2-font-size;
+            margin: 0;
+        }
+
+        .close-wrapper {
+            @include flex(0 0 auto);
+            height: rem(14);
+            width: rem(14);
+
+            button.close-button {
+                @include button-unstyled;
+
+                svg {
+                    fill: $color-white;
+                    height: rem(14);
+                    width: rem(14);
+                }
+            }
+        }
+
+    }
+}

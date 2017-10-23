@@ -9,8 +9,7 @@ import PropTypes from 'prop-types';
 import ResultsTableHeaderCellContainer from
     'containers/search/table/ResultsTableHeaderCellContainer';
 
-import ExtraModalContainer from 'containers/search/modals/ExtraModalContainer';
-import * as Icons from 'components/sharedComponents/icons/Icons';
+import ExtraModalContainer from 'containers/search/modals/tableDownload/ExtraModalContainer';
 
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
@@ -89,13 +88,6 @@ export default class ResultsTableSection extends React.Component {
             <div className="search-results-table-section" id="results-section-table">
                 <div className="table-section-header">
                     <h3>Spending by Award</h3>
-                    <button
-                        className="action-modal"
-                        aria-label="More options"
-                        title="More options"
-                        onClick={this.showModal}>
-                        <Icons.MoreOptions alt="More options" />
-                    </button>
                 </div>
                 <hr className="results-divider" />
                 <div className="results-dropdown-picker-wrapper">

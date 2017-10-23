@@ -1,0 +1,26 @@
+// slide in animation
+@keyframes download-slidein {
+    0% {
+        transform: translate(0, 200px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes download-slideout {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(0, 200px);
+    }
+}  
+
+.download-slide-enter, .download-slide-enter-active {
+    @include animation(download-slidein 0.5s ease-in forwards);
+}
+
+.download-slide-leave, .download-slide-leave-active {
+    @include animation(download-slideout 0.5s ease-in forwards);
+}

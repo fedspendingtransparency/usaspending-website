@@ -18,6 +18,9 @@ import { filterStoreVersion, requiredTypes, initialState } from
 import * as searchHashActions from 'redux/actions/search/searchHashActions';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
+import * as DownloadHelper from 'helpers/downloadHelper';
+
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 import SearchPage from 'components/search/SearchPage';
 
@@ -37,7 +40,8 @@ export class SearchContainer extends React.Component {
         this.state = {
             hash: '',
             hashState: 'ready',
-            lastUpdate: ''
+            lastUpdate: '',
+            downloadAvailable: false
         };
 
         this.request = null;
@@ -46,6 +50,7 @@ export class SearchContainer extends React.Component {
 
     componentWillMount() {
         this.handleInitialUrl(this.props.params.hash);
+        this.requestDownloadAvailability(this.props.filters);
         // this.loadUpdateDate();
     }
 
@@ -65,6 +70,7 @@ export class SearchContainer extends React.Component {
                 // the filters changed and it's not because of an inbound/outbound URL hash change
                 this.generateHash(nextProps.filters);
             }
+            this.requestDownloadAvailability(nextProps.filters);
         }
     }
 
@@ -320,13 +326,48 @@ export class SearchContainer extends React.Component {
         });
     }
 
+    requestDownloadAvailability(filters) {
+        const operation = new SearchAwardsOperation();
+        operation.fromState(filters);
+        const searchParams = operation.toParams();
+
+        // generate the API parameters
+        const apiParams = {
+            filters: searchParams,
+            auditTrail: 'Download Availability Count'
+        };
+
+        if (this.downloadRequest) {
+            this.downloadRequest.cancel();
+        }
+
+        this.downloadRequest = DownloadHelper.requestDownloadCount(apiParams);
+        this.downloadRequest.promise
+            .then((res) => {
+                this.parseDownloadAvailability(res.data);
+                this.downloadRequest = null;
+            })
+            .catch(() => {
+                this.downloadRequest = null;
+            });
+    }
+
+    parseDownloadAvailability(data) {
+        const downloadAvailable = !data.transaction_rows_gt_limit;
+
+        this.setState({
+            downloadAvailable
+        });
+    }
+
     render() {
         return (
             <SearchPage
                 hash={this.props.params.hash}
                 clearAllFilters={this.props.clearAllFilters}
                 filters={this.props.filters}
-                lastUpdate={this.state.lastUpdate} />
+                lastUpdate={this.state.lastUpdate}
+                downloadAvailable={this.state.downloadAvailable} />
         );
     }
 }

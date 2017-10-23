@@ -1,0 +1,15 @@
+.download-progress-screen {
+    .main-title {
+        h2 {
+            text-align: center;
+            font-size: $h4-font-size;
+            font-weight: $font-light;
+
+            margin: rem(20) 0;
+        }
+
+        .details {
+            text-align: center;
+        }
+    }
+}
