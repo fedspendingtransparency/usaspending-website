@@ -47,11 +47,11 @@ export const parentFields = [
     },
     {
         label: 'IDV Agency Identifier',
-        field: 'referenced_idv_agency_identifier'
+        field: 'referenced_idv_agency_iden'
     },
     {
         label: 'Mutliple or Single Award IDV',
-        field: 'multiple_or_single_award_idv_description'
+        field: 'multiple_or_single_aw_desc'
     }
 ];
 
@@ -63,7 +63,21 @@ export const competitionFields = [
     },
     {
         label: 'Solicitation Procedures',
-        field: 'solicitation_procedures'
+        field: '__special',
+        parse: (data) => {
+            let output = '';
+            if (data.solicitation_procedur_desc && data.solicitation_procedures) {
+                output = `${data.solicitation_procedures}: ${data.solicitation_procedur_desc}`;
+            }
+            else if (data.solicitation_procedur_desc) {
+                output = data.solicitation_procedur_desc;
+            }
+            else if (data.solicitation_procedures) {
+                output = data.solicitation_procedures;
+            }
+
+            return output;
+        }
     },
     {
         label: 'Number of Offers Received',
@@ -71,11 +85,25 @@ export const competitionFields = [
     },
     {
         label: 'Extent Competed',
-        field: 'extent_competed_description'
+        field: '__special',
+        parse: (data) => {
+            let output = '';
+            if (data.extent_compete_description && data.extent_competed) {
+                output = `${data.extent_competed}: ${data.extent_compete_description}`;
+            }
+            else if (data.extent_compete_description) {
+                output = data.extent_compete_description;
+            }
+            else if (data.extent_competed) {
+                output = data.extent_competed;
+            }
+
+            return output;
+        }
     },
     {
         label: 'Not Competed Reason',
-        field: 'other_than_full_and_open_competition'
+        field: 'other_than_full_and_open_c'
     },
     {
         label: 'Set-Aside Type',
@@ -83,15 +111,29 @@ export const competitionFields = [
     },
     {
         label: 'Commercial Item Acquisition Procedures',
-        field: 'commercial_item_acquisition_procedures_description'
+        field: '__special',
+        parse: (data) => {
+            let output = '';
+            if (data.commercial_item_acqui_desc && data.commercial_item_acquisitio) {
+                output = `${data.commercial_item_acquisitio}: ${data.commercial_item_acqui_desc}`;
+            }
+            else if (data.commercial_item_acqui_desc) {
+                output = data.commercial_item_acqui_desc;
+            }
+            else if (data.commercial_item_acquisitio) {
+                output = data.commercial_item_acquisitio;
+            }
+
+            return output;
+        }
     },
     {
         label: 'Commercial Item Test Program',
-        field: 'commercial_item_test_program'
+        field: 'commercial_item_test_progr'
     },
     {
         label: 'Evaluated Preference',
-        field: 'evaluated_preference_description'
+        field: 'evaluated_preference_desc'
     },
     {
         label: 'FedBizOpps',
@@ -99,14 +141,28 @@ export const competitionFields = [
     },
     {
         label: 'Small Business Competitiveness Demonstration Program',
-        field: 'small_business_competitiveness_demonstration_program'
+        field: 'small_business_competitive'
     }
 ];
 
 export const pscFields = [
     {
         label: 'Product Service Code (PSC)',
-        field: 'product_or_service_code'
+        field: '__special',
+        parse: (data) => {
+            let output = '';
+            if (data.product_or_service_co_desc && data.product_or_service_code) {
+                output = `${data.product_or_service_code}: ${data.product_or_service_co_desc}`;
+            }
+            else if (data.product_or_service_co_desc) {
+                output = data.product_or_service_co_desc;
+            }
+            else if (data.product_or_service_code) {
+                output = data.product_or_service_code;
+            }
+
+            return output;
+        }
     },
     {
         label: 'NAICS Code',
@@ -131,35 +187,35 @@ export const pscFields = [
         field: 'dod_claimant_program_code'
     },
     {
-        label: 'Program, System, or Equipment Code',
-        field: 'program_system_or_equipment_code'
+        label: 'DOD Acquisition Program',
+        field: 'program_system_or_equipmen'
     },
     {
         label: 'Information Technology Commercial Item Category',
-        field: 'information_technology_commercial_item_category_description'
+        field: 'information_technolog_desc'
     },
     {
         label: 'Sea Transportation',
-        field: 'sea_transportation_description'
+        field: 'sea_transportation_desc'
     }
 ];
 
 export const legislativeFields = [
     {
         label: 'Clinger-Cohen Act Compliant',
-        field: 'clinger_cohen_act_planning'
+        field: 'clinger_cohen_act_pla_desc'
     },
     {
         label: 'Subject to Davis Bacon Act',
-        field: 'davis_bacon_act_description'
+        field: 'davis_bacon_act_descrip'
     },
     {
         label: 'Subject to Service Contract Act',
-        field: 'service_contract_act_description'
+        field: 'service_contract_act_desc'
     },
     {
         label: 'Subject to Walsh Healey Act',
-        field: 'walsh_healey_act'
+        field: 'walsh_healey_act_descrip'
     }
 ];
 
@@ -239,23 +295,23 @@ export const compensationFields = [
 export const additionalFields = [
     {
         label: 'Cost or Pricing Data',
-        field: 'cost_or_pricing_data_description'
+        field: 'cost_or_pricing_data_desc'
     },
     {
         label: 'Domestic or Foreign Entity',
-        field: 'domestic_or_foreign_entity_description'
+        field: 'domestic_or_foreign_e_desc'
     },
     {
         label: 'Fair Opportunity Limited Sources',
-        field: 'fair_opportunity_limited_sources_description'
+        field: 'fair_opportunity_limi_desc'
     },
     {
         label: 'Foreign Funding',
-        field: 'foreign_funding_description'
+        field: 'foreign_funding_desc'
     },
     {
         label: 'Interagency Contracting Authority',
-        field: 'interagency_contracting_authority_description'
+        field: 'interagency_contract_desc'
     },
     {
         label: 'Major Program',
@@ -263,7 +319,7 @@ export const additionalFields = [
     },
     {
         label: 'Price Evaluation Adjustment Preference Percent Difference',
-        field: 'price_evaluation_adjustment_preference_percent_difference'
+        field: 'price_evaluation_adjustmen'
     },
     {
         label: 'Program Acronym',
@@ -271,18 +327,32 @@ export const additionalFields = [
     },
     {
         label: 'Subcontracting Plan',
-        field: 'subcontracting_plan_description'
+        field: '__special',
+        parse: (data) => {
+            let output = '';
+            if (data.subcontracting_plan_desc && data.subcontracting_plan) {
+                output = `${data.subcontracting_plan}: ${data.subcontracting_plan_desc}`;
+            }
+            else if (data.subcontracting_plan_desc) {
+                output = data.subcontracting_plan_desc;
+            }
+            else if (data.subcontracting_plan) {
+                output = data.subcontracting_plan;
+            }
+
+            return output;
+        }
     },
     {
         label: 'Multi Year Contract',
-        field: 'multi_year_contract'
+        field: 'multi_year_contract_desc'
     },
     {
         label: 'Purchase Card as Payment Method',
-        field: 'purchase_card_as_payment_method'
+        field: 'purchase_card_as_paym_desc'
     },
     {
         label: 'Consolidated Contract',
-        field: 'consolidated_contract'
+        field: 'consolidated_contract_desc'
     }
 ];
