@@ -70,6 +70,13 @@ const explorerReducer = (state = initialState, action) => {
                 table
             });
         }
+        case 'RESET_EXPLORER_TABLE': {
+            const table = Object.assign({}, initialState.table);
+
+            return Object.assign({}, state, {
+                table
+            });
+        }
         case 'RESET_EXPLORER': {
             return Object.assign({}, initialState);
         }

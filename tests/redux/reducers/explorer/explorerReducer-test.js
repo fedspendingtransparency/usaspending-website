@@ -113,6 +113,38 @@ describe('explorerReducer', () => {
         });
     });
 
+    describe('RESET_EXPLORER_TABLE', () => {
+        it('should reset the table to its initial state', () => {
+            const state = {
+                root: 'agency',
+                active: new ActiveScreen({
+                    within: 'agency',
+                    subdivision: 'federal_account',
+                    total: 12345
+                }),
+                fy: '1984',
+                trail: new List(['a', 'b', 'c']),
+                table: {
+                    order: {
+                        field: 'fake_field',
+                        direction: 'dir'
+                    },
+                    pageNumber: 4
+                }
+            };
+
+            const action = {
+                type: 'RESET_EXPLORER_TABLE'
+            };
+
+            const newState = explorerReducer(state, action);
+
+            expect(newState.table.order.field).toEqual('obligated_amount');
+            expect(newState.table.order.direction).toEqual('desc');
+            expect(newState.table.pageNumber).toEqual(1);
+        });
+    });
+
     describe('RESET_EXPLORER', () => {
         it('should reset the explorer state to its initial state', () => {
             const state = {
