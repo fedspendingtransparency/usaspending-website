@@ -9,6 +9,10 @@ import { BuildingMag, Explorer, AwardSearch } from
     'components/sharedComponents/icons/home/HomeIcons';
 import { AngleDown } from 'components/sharedComponents/icons/Icons';
 
+import { availableProfiles } from 'dataMapping/profiles/availableProfiles';
+
+import HomepageProfileItem from './HomepageProfileItem';
+
 export default class SearchSection extends React.Component {
     constructor(props) {
         super(props);
@@ -20,6 +24,7 @@ export default class SearchSection extends React.Component {
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.mouseEnter = this.mouseEnter.bind(this);
         this.mouseExit = this.mouseExit.bind(this);
+        this.navigateTo = this.navigateTo.bind(this);
     }
 
     navigateTo(url) {
@@ -49,6 +54,13 @@ export default class SearchSection extends React.Component {
         if (this.state.expanded) {
             showDropdown = '';
         }
+
+        const items = availableProfiles.map((profile) => (
+            <HomepageProfileItem
+                {...profile}
+                key={profile.code}
+                navigateTo={this.navigateTo} />
+        ));
 
         return (
             <div className="search-section-links-outer-wrap">
@@ -128,38 +140,8 @@ export default class SearchSection extends React.Component {
                                 </button>
 
                                 <ul className={`dropdown ${showDropdown}`}>
-                                    <li>
-                                        <button
-                                            className="dropdown-button"
-                                            disabled>
-                                            Agencies
-                                            <div className="coming-soon">
-                                                Coming Soon
-                                            </div>
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button
-                                            className="dropdown-button"
-                                            disabled>
-                                            Recipients
-                                            <div className="coming-soon">
-                                                Coming Soon
-                                            </div>
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button
-                                            className="dropdown-button"
-                                            disabled>
-                                            Federal Accounts
-                                            <div className="coming-soon">
-                                                Coming Soon
-                                            </div>
-                                        </button>
-                                    </li>
+                                    {items}
                                 </ul>
-
                             </div>
                         </div>
                     </div>

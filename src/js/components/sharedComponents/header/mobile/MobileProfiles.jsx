@@ -8,33 +8,14 @@ import PropTypes from 'prop-types';
 
 import { AngleUp, AngleDown } from 'components/sharedComponents/icons/Icons';
 
+import { availableProfiles } from 'dataMapping/profiles/availableProfiles';
+
 import MobileProfileItem from './MobileProfileItem';
 
 const propTypes = {
     hideMobileNav: PropTypes.func,
     active: PropTypes.string
 };
-
-const profiles = [
-    {
-        url: '#/agency',
-        code: 'agency',
-        title: 'Agencies',
-        comingSoon: true
-    },
-    {
-        url: '#/recipient',
-        code: 'recipient',
-        title: 'Recipients',
-        comingSoon: true
-    },
-    {
-        url: '#/federal_account',
-        code: 'federal_account',
-        title: 'Federal Accounts',
-        comingSoon: true
-    }
-];
 
 export default class MobileProfiles extends React.Component {
     constructor(props) {
@@ -72,10 +53,10 @@ export default class MobileProfiles extends React.Component {
         }
 
 
-        const items = profiles.map((profile) => (
+        const items = availableProfiles.map((profile) => (
             <MobileProfileItem
                 key={profile.code}
-                comingSoon={profile.comingSoon}
+                comingSoon={!profile.enabled}
                 title={profile.title}
                 url={profile.url}
                 active={profile.code === this.props.active}
