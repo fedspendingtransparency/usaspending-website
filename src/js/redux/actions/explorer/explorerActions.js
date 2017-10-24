@@ -38,6 +38,10 @@ export const setExplorerTablePage = (state) => ({
     number: state
 });
 
+export const resetExplorerTable = () => ({
+    type: 'RESET_EXPLORER_TABLE'
+});
+
 export const resetExplorer = () => ({
     type: 'RESET_EXPLORER'
 });

@@ -28,7 +28,7 @@ const propTypes = {
     addExplorerTrail: PropTypes.func,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    setExplorerTablePage: PropTypes.func
+    resetExplorerTable: PropTypes.func
 };
 
 export class DetailContentContainer extends React.Component {
@@ -142,6 +142,8 @@ export class DetailContentContainer extends React.Component {
         ];
 
         this.props.overwriteExplorerTrail(trail);
+
+        this.props.resetExplorerTable();
 
         if (this.state.transitionSteps !== 0) {
             // there is going to be a transition, so trigger the exit animation
@@ -302,8 +304,7 @@ export class DetailContentContainer extends React.Component {
             id: data.id
         };
 
-        // reset to page 1
-        this.props.setExplorerTablePage(1);
+        this.props.resetExplorerTable();
 
         this.setState({
             transitionSteps: 1,
@@ -326,8 +327,7 @@ export class DetailContentContainer extends React.Component {
             subdivision: type
         });
 
-        // reset to page 1
-        this.props.setExplorerTablePage(1);
+        this.props.resetExplorerTable();
 
         this.setState({
             transitionSteps: 0
@@ -385,8 +385,7 @@ export class DetailContentContainer extends React.Component {
 
         this.props.overwriteExplorerTrail(newTrail);
 
-        // reset to page 1
-        this.props.setExplorerTablePage(1);
+        this.props.resetExplorerTable();
 
         this.setState({
             transitionSteps: steps,

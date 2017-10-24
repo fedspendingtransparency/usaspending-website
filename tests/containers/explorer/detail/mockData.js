@@ -185,6 +185,7 @@ export const mockActions = {
     overwriteExplorerTrail: jest.fn(),
     setExplorerTableOrder: jest.fn(),
     setExplorerTablePage: jest.fn(),
+    resetExplorerTable: jest.fn(),
     resetExplorer: jest.fn()
 };
 
