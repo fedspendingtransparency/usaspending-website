@@ -24,7 +24,6 @@ import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedCon
 
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
-import MobileFilterHeader from 'components/search/mobile/MobileFilterHeader';
 import * as SidebarHelper from 'helpers/sidebarHelper';
 
 const filters = {
@@ -79,11 +78,6 @@ export default class SearchSidebar extends React.Component {
             expanded.push(SidebarHelper.filterHasSelections(this.props.filters, filter));
         });
 
-        let mobileHeader = null;
-        if (this.props.mobile) {
-            mobileHeader = (<MobileFilterHeader {...this.props} />);
-        }
-
         return (
             <div className="search-sidebar">
                 <div className="sidebar-header">
@@ -92,7 +86,6 @@ export default class SearchSidebar extends React.Component {
                     </span>
                     <h6>Filter by:</h6>
                 </div>
-                {mobileHeader}
                 <FilterSidebar {...filters} expanded={expanded} />
             </div>
         );

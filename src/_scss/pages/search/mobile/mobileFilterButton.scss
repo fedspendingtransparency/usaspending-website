@@ -1,5 +1,5 @@
 .mobile-filter-button-wrapper {
-    @include media($tablet-screen) {
+    @include media($medium-screen) {
         // hide in non-mobile view
         display: none;
     }

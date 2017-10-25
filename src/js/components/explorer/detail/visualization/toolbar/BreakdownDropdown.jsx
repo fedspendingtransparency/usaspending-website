@@ -8,19 +8,22 @@ import PropTypes from 'prop-types';
 
 import Router from 'containers/router/Router';
 
-import { AngleDown } from 'components/sharedComponents/icons/Icons';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import { dropdownScopes, rootScopes, icons } from 'dataMapping/explorer/dropdownScopes';
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 
 import DropdownItem from './DropdownItem';
+import ViewTypeButton from './ViewTypeButton';
 
 const propTypes = {
     isRoot: PropTypes.bool,
     active: PropTypes.object,
     trail: PropTypes.array,
     root: PropTypes.string,
-    changeSubdivisionType: PropTypes.func
+    changeSubdivisionType: PropTypes.func,
+    changeView: PropTypes.func,
+    viewType: PropTypes.string
 };
 
 export default class BreakdownDropdown extends React.Component {
@@ -176,11 +179,25 @@ export default class BreakdownDropdown extends React.Component {
                             {sidebarTypes[this.state.active]}
                         </div>
                         <div className="arrow">
-                            <AngleDown />
+                            <Icons.AngleDown />
                         </div>
                     </button>
 
                     {dropdown}
+                </div>
+                <div className="view-buttons">
+                    <ViewTypeButton
+                        value="treemap"
+                        label="Treemap"
+                        icon={<Icons.Tree alt="Treemap Icon" />}
+                        active={this.props.viewType === 'treemap'}
+                        changeView={this.props.changeView} />
+                    <ViewTypeButton
+                        value="table"
+                        label="Table"
+                        icon={<Icons.Table alt="Table Icon" />}
+                        active={this.props.viewType === 'table'}
+                        changeView={this.props.changeView} />
                 </div>
             </div>
         );

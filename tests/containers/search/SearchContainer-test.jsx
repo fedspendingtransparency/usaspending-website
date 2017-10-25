@@ -28,6 +28,7 @@ jest.mock('components/search/SearchPage', () =>
 
 jest.mock('helpers/searchHelper', () => require('./filters/searchHelper'));
 jest.mock('helpers/fiscalYearHelper', () => require('./filters/fiscalYearHelper'));
+jest.mock('helpers/downloadHelper', () => require('./modals/fullDownload/downloadHelper'));
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
@@ -79,11 +80,11 @@ describe('SearchContainer', () => {
         const receiveHash = jest.fn();
         container.instance().receiveHash = receiveHash;
 
-        container.instance().componentWillReceiveProps({
+        container.instance().componentWillReceiveProps(Object.assign({}, container.props(), {
             params: {
                 hash: '11111'
             }
-        });
+        }));
 
         expect(receiveHash).toHaveBeenCalledTimes(0);
     });
@@ -302,6 +303,58 @@ describe('SearchContainer', () => {
 
             container.instance().parseUpdateDate('01/01/1984');
             expect(container.state().lastUpdate).toEqual('January 1, 1984');
+        });
+    });
+
+    describe('requestDownloadAvailability', () => {
+        it('should make an API request for how many transaction rows will be returned', async () => {
+            const container = shallow(<SearchContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            const mockParse = jest.fn();
+            container.instance().parseDownloadAvailability = mockParse;
+
+            container.instance().requestDownloadAvailability(mockRedux.filters);
+            await container.instance().downloadRequest.promise;
+
+            expect(mockParse).toHaveBeenCalledWith({
+                transaction_rows_gt_limit: false
+            });
+        });
+    });
+
+    describe('parseDownloadAvailability', () => {
+        it('should set the downloadAvailable state to false if there are more than 500,000 rows', () => {
+            const container = shallow(<SearchContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            container.setState({
+                downloadAvailable: true
+            });
+
+            container.instance().parseDownloadAvailability({
+                transaction_rows_gt_limit: true
+            });
+
+            expect(container.state().downloadAvailable).toBeFalsy();
+        });
+
+        it('should set the downloadAvailable state to true if there are no more than 500,000 rows', () => {
+            const container = shallow(<SearchContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            container.setState({
+                downloadAvailable: true
+            });
+
+            container.instance().parseDownloadAvailability({
+                transaction_rows_gt_limit: false
+            });
+
+            expect(container.state().downloadAvailable).toBeTruthy();
         });
     });
 });

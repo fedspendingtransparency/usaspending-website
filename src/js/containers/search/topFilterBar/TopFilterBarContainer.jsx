@@ -19,7 +19,12 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    updateFilterCount: PropTypes.func
+    updateFilterCount: PropTypes.func,
+    compressed: PropTypes.bool
+};
+
+const defaultProps = {
+    compressed: false
 };
 
 export class TopFilterBarContainer extends React.Component {
@@ -152,7 +157,9 @@ export class TopFilterBarContainer extends React.Component {
             filters,
             filterCount: this.determineFilterCount(filters)
         }, () => {
-            this.props.updateFilterCount(this.state.filterCount);
+            if (!this.props.compressed) {
+                this.props.updateFilterCount(this.state.filterCount);
+            }
         });
     }
 
@@ -177,7 +184,7 @@ export class TopFilterBarContainer extends React.Component {
         }
         else if (props.timePeriodType === 'dr') {
             // check to see if any date ranges are selected
-            if (props.timePeriodStart && props.timePeriodEnd) {
+            if (props.timePeriodStart || props.timePeriodEnd) {
                 // start and end dates are provided
                 selected = true;
                 filter.code = 'timePeriodDR';
@@ -186,8 +193,16 @@ export class TopFilterBarContainer extends React.Component {
                 const startString = moment(props.timePeriodStart, 'YYYY-MM-DD')
                     .format('MM/DD/YYYY');
                 const endString = moment(props.timePeriodEnd, 'YYYY-MM-DD').format('MM/DD/YYYY');
-
                 filter.values = [`${startString} to ${endString}`];
+
+                if (!props.timePeriodStart) {
+                    // open-ended start date
+                    filter.values = [`... to ${endString}`];
+                }
+                else if (!props.timePeriodEnd) {
+                    // open-ended end date
+                    filter.values = [`${startString} to present`];
+                }
             }
         }
 
@@ -621,6 +636,7 @@ export class TopFilterBarContainer extends React.Component {
 }
 
 TopFilterBarContainer.propTypes = propTypes;
+TopFilterBarContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({ reduxFilters: state.filters }),

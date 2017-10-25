@@ -10,11 +10,13 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 const propTypes = {
     title: PropTypes.string.isRequired,
     value: PropTypes.any,
-    removeFilter: PropTypes.func
+    removeFilter: PropTypes.func,
+    compressed: PropTypes.bool
 };
 
 const defaultProps = {
-    title: 'Filter'
+    title: 'Filter',
+    compressed: false
 };
 
 export default class TopFilterItem extends React.Component {
@@ -25,11 +27,19 @@ export default class TopFilterItem extends React.Component {
     }
 
     clickedButton() {
+        if (this.props.compressed) {
+            return;
+        }
         this.props.removeFilter(this.props.value);
     }
 
     render() {
         const accessibleLabel = `Remove filter for ${this.props.title}`;
+
+        let hideCompressed = '';
+        if (this.props.compressed) {
+            hideCompressed = 'hide';
+        }
 
         return (
             <div className="filter-item-container">
@@ -37,11 +47,12 @@ export default class TopFilterItem extends React.Component {
                     className="filter-item"
                     aria-label={accessibleLabel}
                     title={accessibleLabel}
-                    onClick={this.clickedButton}>
+                    onClick={this.clickedButton}
+                    disabled={this.props.compressed}>
                     <div className="filter-item-title">
                         {this.props.title}
                     </div>
-                    <div className="filter-item-remove-container">
+                    <div className={`filter-item-remove-container ${hideCompressed}`}>
                         <div className="filter-remove">
                             <span className="sr-only">
                                 {accessibleLabel}

@@ -31,6 +31,13 @@ const propTypes = {
 };
 
 export default class SearchResults extends React.Component {
+    pluralizeFilterLabel(count) {
+        if (count === 1) {
+            return 'Filter';
+        }
+        return 'Filters';
+    }
+
     render() {
         let mobileFilters = '';
         if (this.props.showMobileFilters && this.props.isMobile) {
@@ -43,7 +50,7 @@ export default class SearchResults extends React.Component {
         }
 
         let showCountBadge = '';
-        if (this.props.filterCount === 0 || this.props.showMobileFilters) {
+        if (this.props.filterCount === 0) {
             showCountBadge = 'hide';
         }
 
@@ -70,7 +77,7 @@ export default class SearchResults extends React.Component {
                                 <AddFilter alt="Toggle filters" />
                             </div>
                             <div className="mobile-filter-button-label">
-                                Filters
+                                {this.pluralizeFilterLabel(this.props.filterCount)}
                             </div>
                         </div>
                     </button>

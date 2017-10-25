@@ -65,6 +65,7 @@ export default class ProfileButton extends React.Component {
 
         return (
             <div
+                className="nav-profile-outer-wrap"
                 onMouseEnter={this.expandMenu}
                 onMouseLeave={this.collapseMenu}>
                 <button

@@ -27,7 +27,8 @@ const propTypes = {
     overwriteExplorerTrail: PropTypes.func,
     addExplorerTrail: PropTypes.func,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    resetExplorerTable: PropTypes.func
 };
 
 export class DetailContentContainer extends React.Component {
@@ -141,6 +142,8 @@ export class DetailContentContainer extends React.Component {
         ];
 
         this.props.overwriteExplorerTrail(trail);
+
+        this.props.resetExplorerTable();
 
         if (this.state.transitionSteps !== 0) {
             // there is going to be a transition, so trigger the exit animation
@@ -301,6 +304,8 @@ export class DetailContentContainer extends React.Component {
             id: data.id
         };
 
+        this.props.resetExplorerTable();
+
         this.setState({
             transitionSteps: 1,
             filters: Object.assign({}, this.state.filters, newFilter)
@@ -321,6 +326,8 @@ export class DetailContentContainer extends React.Component {
         const request = Object.assign({}, this.props.explorer.active.toJS(), {
             subdivision: type
         });
+
+        this.props.resetExplorerTable();
 
         this.setState({
             transitionSteps: 0
@@ -377,6 +384,8 @@ export class DetailContentContainer extends React.Component {
         const selectedTrailItem = trail[index];
 
         this.props.overwriteExplorerTrail(newTrail);
+
+        this.props.resetExplorerTable();
 
         this.setState({
             transitionSteps: steps,

@@ -17,6 +17,8 @@ import * as Icons from '../sharedComponents/icons/Icons';
 import IconsExample from './IconsExample';
 import ButtonsExample from './ButtonsExample';
 
+require('pages/testStyle/testStyle.scss');
+
 export default class TestStylePage extends React.Component {
     render() {
         const icons = [];

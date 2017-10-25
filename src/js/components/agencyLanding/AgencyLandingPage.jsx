@@ -13,6 +13,8 @@ import Footer from 'components/sharedComponents/Footer';
 import AgencyLandingContainer from 'containers/agencyLanding/AgencyLandingContainer';
 import AgencyLandingHeader from './header/AgencyLandingHeader';
 
+require('pages/agencyLanding/agencyLandingPage.scss');
+
 export default class AgencyLandingPage extends React.Component {
     render() {
         return (

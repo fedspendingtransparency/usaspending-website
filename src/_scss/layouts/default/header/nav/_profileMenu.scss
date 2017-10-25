@@ -1,7 +1,13 @@
+.nav-profile-outer-wrap {
+    @include flex(1 1 auto);
+    height: rem(25);
+}
+
 .usa-nav-profile-button {
     @include button-unstyled;
-    height: rem(48);
-    padding: rem(10) rem(15);
+    display: block;
+    height: rem(25);
+    padding: rem(0) rem(15);
     color: $color-base;
     font-size: rem(20);
     line-height: rem(25);
@@ -21,6 +27,7 @@
         .profile-button-icon {
             @include flex(0 0 auto);
             margin-left: rem(10);
+
             svg {
                 width: rem(10);
                 height: rem(10);

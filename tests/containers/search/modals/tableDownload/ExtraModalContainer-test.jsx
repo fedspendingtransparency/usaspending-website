@@ -7,7 +7,7 @@ import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import * as DownloadHelper from 'helpers/downloadHelper';
-import { ExtraModalContainer } from 'containers/search/modals/ExtraModalContainer';
+import { ExtraModalContainer } from 'containers/search/modals/tableDownload/ExtraModalContainer';
 
 import { mockRequest, mockReady, mockParams } from './mockDownload';
 
@@ -19,7 +19,7 @@ global.Promise = require.requireActual('promise');
 const downloadSpy = sinon.spy(ExtraModalContainer.prototype, 'requestDownload');
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/search/modals/ExtraModal', () =>
+jest.mock('components/search/modals/tableDownload/ExtraModal', () =>
     jest.fn(() => null));
 
 const mockDownloadHelper = (functionName, event, expectedResponse) => {
