@@ -105,6 +105,25 @@
                 height: rem(20);
                 width: 100%;
             }
+
+            h4 {
+                position: relative;
+
+                a {
+                    height: rem(14);
+                    width: rem(14);
+                    margin: 0 rem(4);
+                    display: inline-block;
+
+                    svg {
+                        position: absolute;
+                        top: rem(6);
+                        height: rem(14);
+                        width: rem(14);
+                        fill: $color-gray;
+                    }
+                }
+            }
         }
 
 
