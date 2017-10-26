@@ -192,7 +192,7 @@ export default class AgencyOverview extends React.PureComponent {
                             this.containerDiv = div;
                         }}>
                         <h4>Budgetary Resources
-                            <a href={`#/agency/${this.props.agency.id}?glossary=other-budgetary-resources`}>
+                            <a href={`#/agency/${this.props.agency.id}?glossary=budgetary-resources`}>
                                 <Glossary />
                             </a>
                             for FY {this.props.agency.activeFY}</h4>
