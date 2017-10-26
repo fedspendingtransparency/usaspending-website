@@ -31,7 +31,7 @@ describe('AccountTimePeriodContainer', () => {
             container.instance().generateTimePeriods();
 
             // override the moment's library's internal time to a known mocked date
-            const expectedYears = ['2015', '2014', '2013', '2012', '2011', '2010', '2009'];
+            const expectedYears = ['2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008'];
 
             expect(container.state().timePeriods).toEqual(expectedYears);
         });
