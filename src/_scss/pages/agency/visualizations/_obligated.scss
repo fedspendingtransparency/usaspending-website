@@ -16,8 +16,8 @@
 
         .horizontal-bar {
             width: 100%;
-            height: rem(70);
-	        padding-top: rem(15);
+            height: rem(40);
+	        margin: rem(15) 0 rem(10);
 
             .legend-container {
                 color: $color-gray-medium;
