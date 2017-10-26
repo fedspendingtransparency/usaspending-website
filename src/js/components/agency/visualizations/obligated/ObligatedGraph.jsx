@@ -6,9 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import BarChartLegend from 'components/search/visualizations/time/chart/BarChartLegend';
 import HorizontalBarItem from './HorizontalBarItem';
-import OutlayLine from './OutlayLine';
 
 const propTypes = {
     obligatedAmount: PropTypes.number,
