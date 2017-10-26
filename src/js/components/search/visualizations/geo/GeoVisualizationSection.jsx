@@ -21,6 +21,8 @@ const propTypes = {
     total: PropTypes.number
 };
 
+const availableLayers = ['state', 'county', 'congressionalDistrict'];
+
 export default class GeoVisualizationSection extends React.Component {
     constructor(props) {
         super(props);
@@ -108,7 +110,8 @@ export default class GeoVisualizationSection extends React.Component {
                     selectedItem={this.state.selectedItem}
                     showTooltip={this.showTooltip}
                     hideTooltip={this.hideTooltip}
-                    tooltip={GeoVisualizationTooltip} />
+                    tooltip={GeoVisualizationTooltip}
+                    availableLayers={availableLayers} />
 
             </div>
         );

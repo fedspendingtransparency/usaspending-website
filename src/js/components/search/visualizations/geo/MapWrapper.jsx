@@ -11,6 +11,7 @@ import * as MapHelper from 'helpers/mapHelper';
 
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
+import MapLayerToggle from './MapLayerToggle';
 
 const propTypes = {
     data: PropTypes.object,
@@ -21,7 +22,8 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     tooltip: PropTypes.func,
-    receiveVisible: PropTypes.func
+    receiveVisible: PropTypes.func,
+    availableLayers: PropTypes.array
 };
 
 const defaultProps = {
@@ -29,7 +31,8 @@ const defaultProps = {
         locations: [],
         values: []
     },
-    scope: 'state'
+    scope: 'state',
+    availableLayers: ['state']
 };
 
 const mapboxSources = {
@@ -46,7 +49,7 @@ const mapboxSources = {
         filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
     },
     congressionalDistrict: {
-        label: 'Congressional district',
+        label: 'congressional district',
         url: 'mapbox://usaspending.2z200y6q',
         layer: 'cb_2016_us_cd115_500k-c8mr5m',
         filterKey: 'GEOID' // the GEOID is state FIPS + district
@@ -385,6 +388,10 @@ export default class MapWrapper extends React.Component {
                 <div className="map-instructions">
                     Hover over a {mapboxSources[this.props.scope].label} for more detailed information.
                 </div>
+                <MapLayerToggle
+                    active={this.props.scope}
+                    available={this.props.availableLayers}
+                    sources={mapboxSources} />
                 <MapLegend
                     segments={this.state.spendingScale.segments}
                     units={this.state.spendingScale.units} />
