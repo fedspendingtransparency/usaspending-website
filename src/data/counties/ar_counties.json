@@ -367,12 +367,6 @@
             "name": "Randolph County"
         },
         {
-            "code": "05123",
-            "fips": "123",
-            "state": "AR",
-            "name": "St. Francis County"
-        },
-        {
             "code": "05125",
             "fips": "125",
             "state": "AR",
@@ -407,6 +401,12 @@
             "fips": "135",
             "state": "AR",
             "name": "Sharp County"
+        },
+        {
+            "code": "05123",
+            "fips": "123",
+            "state": "AR",
+            "name": "Saint Francis County"
         },
         {
             "code": "05137",

@@ -19,6 +19,12 @@
             "name": "Baltimore County"
         },
         {
+            "code": "24510",
+            "fips": "510",
+            "state": "MD",
+            "name": "City of Baltimore"
+        },
+        {
             "code": "24009",
             "fips": "009",
             "state": "MD",
@@ -103,16 +109,16 @@
             "name": "Queen Anne's County"
         },
         {
-            "code": "24037",
-            "fips": "037",
-            "state": "MD",
-            "name": "St. Mary's County"
-        },
-        {
             "code": "24039",
             "fips": "039",
             "state": "MD",
             "name": "Somerset County"
+        },
+        {
+            "code": "24037",
+            "fips": "037",
+            "state": "MD",
+            "name": "Saint Mary's County"
         },
         {
             "code": "24041",
@@ -137,12 +143,6 @@
             "fips": "047",
             "state": "MD",
             "name": "Worcester County"
-        },
-        {
-            "code": "24510",
-            "fips": "510",
-            "state": "MD",
-            "name": "Baltimore city"
         }
     ]
 }

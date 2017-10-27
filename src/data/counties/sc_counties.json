@@ -193,12 +193,6 @@
             "name": "Lexington County"
         },
         {
-            "code": "45065",
-            "fips": "065",
-            "state": "SC",
-            "name": "McCormick County"
-        },
-        {
             "code": "45067",
             "fips": "067",
             "state": "SC",
@@ -209,6 +203,12 @@
             "fips": "069",
             "state": "SC",
             "name": "Marlboro County"
+        },
+        {
+            "code": "45065",
+            "fips": "065",
+            "state": "SC",
+            "name": "McCormick County"
         },
         {
             "code": "45071",

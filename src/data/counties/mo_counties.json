@@ -355,12 +355,6 @@
             "name": "Livingston County"
         },
         {
-            "code": "29119",
-            "fips": "119",
-            "state": "MO",
-            "name": "McDonald County"
-        },
-        {
             "code": "29121",
             "fips": "121",
             "state": "MO",
@@ -383,6 +377,12 @@
             "fips": "127",
             "state": "MO",
             "name": "Marion County"
+        },
+        {
+            "code": "29119",
+            "fips": "119",
+            "state": "MO",
+            "name": "McDonald County"
         },
         {
             "code": "29129",
@@ -547,36 +547,6 @@
             "name": "Ripley County"
         },
         {
-            "code": "29183",
-            "fips": "183",
-            "state": "MO",
-            "name": "St. Charles County"
-        },
-        {
-            "code": "29185",
-            "fips": "185",
-            "state": "MO",
-            "name": "St. Clair County"
-        },
-        {
-            "code": "29186",
-            "fips": "186",
-            "state": "MO",
-            "name": "Ste. Genevieve County"
-        },
-        {
-            "code": "29187",
-            "fips": "187",
-            "state": "MO",
-            "name": "St. Francois County"
-        },
-        {
-            "code": "29189",
-            "fips": "189",
-            "state": "MO",
-            "name": "St. Louis County"
-        },
-        {
             "code": "29195",
             "fips": "195",
             "state": "MO",
@@ -611,6 +581,42 @@
             "fips": "205",
             "state": "MO",
             "name": "Shelby County"
+        },
+        {
+            "code": "29183",
+            "fips": "183",
+            "state": "MO",
+            "name": "Saint Charles County"
+        },
+        {
+            "code": "29185",
+            "fips": "185",
+            "state": "MO",
+            "name": "Saint Clair County"
+        },
+        {
+            "code": "29187",
+            "fips": "187",
+            "state": "MO",
+            "name": "Saint Francois County"
+        },
+        {
+            "code": "29189",
+            "fips": "189",
+            "state": "MO",
+            "name": "Saint Louis County"
+        },
+        {
+            "code": "29510",
+            "fips": "510",
+            "state": "MO",
+            "name": "City of Saint Louis"
+        },
+        {
+            "code": "29186",
+            "fips": "186",
+            "state": "MO",
+            "name": "Sainte Genevieve County"
         },
         {
             "code": "29207",
@@ -683,12 +689,6 @@
             "fips": "229",
             "state": "MO",
             "name": "Wright County"
-        },
-        {
-            "code": "29510",
-            "fips": "510",
-            "state": "MO",
-            "name": "St. Louis city"
         }
     ]
 }

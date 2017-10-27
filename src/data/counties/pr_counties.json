@@ -31,12 +31,6 @@
             "name": "Aibonito Municipio"
         },
         {
-            "code": "72011",
-            "fips": "011",
-            "state": "PR",
-            "name": "Anasco Municipio"
-        },
-        {
             "code": "72013",
             "fips": "013",
             "state": "PR",
@@ -47,6 +41,12 @@
             "fips": "015",
             "state": "PR",
             "name": "Arroyo Municipio"
+        },
+        {
+            "code": "72011",
+            "fips": "011",
+            "state": "PR",
+            "name": "Añasco Municipio"
         },
         {
             "code": "72017",
@@ -64,7 +64,7 @@
             "code": "72021",
             "fips": "021",
             "state": "PR",
-            "name": "Bayamon Municipio"
+            "name": "Bayamón Municipio"
         },
         {
             "code": "72023",
@@ -88,7 +88,7 @@
             "code": "72029",
             "fips": "029",
             "state": "PR",
-            "name": "Canovanas Municipio"
+            "name": "Canóvanas Municipio"
         },
         {
             "code": "72031",
@@ -100,7 +100,7 @@
             "code": "72033",
             "fips": "033",
             "state": "PR",
-            "name": "Catano Municipio"
+            "name": "Cataño Municipio"
         },
         {
             "code": "72035",
@@ -136,7 +136,7 @@
             "code": "72045",
             "fips": "045",
             "state": "PR",
-            "name": "Comerio Municipio"
+            "name": "Comerío Municipio"
         },
         {
             "code": "72047",
@@ -169,12 +169,6 @@
             "name": "Florida Municipio"
         },
         {
-            "code": "72055",
-            "fips": "055",
-            "state": "PR",
-            "name": "Guanica Municipio"
-        },
-        {
             "code": "72057",
             "fips": "057",
             "state": "PR",
@@ -197,6 +191,12 @@
             "fips": "063",
             "state": "PR",
             "name": "Gurabo Municipio"
+        },
+        {
+            "code": "72055",
+            "fips": "055",
+            "state": "PR",
+            "name": "Guánica Municipio"
         },
         {
             "code": "72065",
@@ -232,7 +232,7 @@
             "code": "72075",
             "fips": "075",
             "state": "PR",
-            "name": "Juana Diaz Municipio"
+            "name": "Juana Díaz Municipio"
         },
         {
             "code": "72077",
@@ -256,7 +256,7 @@
             "code": "72083",
             "fips": "083",
             "state": "PR",
-            "name": "Las Marias Municipio"
+            "name": "Las Marías Municipio"
         },
         {
             "code": "72085",
@@ -268,7 +268,7 @@
             "code": "72087",
             "fips": "087",
             "state": "PR",
-            "name": "Loiza Municipio"
+            "name": "Loíza Municipio"
         },
         {
             "code": "72089",
@@ -280,7 +280,7 @@
             "code": "72091",
             "fips": "091",
             "state": "PR",
-            "name": "Manati Municipio"
+            "name": "Manatí Municipio"
         },
         {
             "code": "72093",
@@ -298,7 +298,7 @@
             "code": "72097",
             "fips": "097",
             "state": "PR",
-            "name": "Mayaguez Municipio"
+            "name": "Mayagüez Municipio"
         },
         {
             "code": "72099",
@@ -340,7 +340,7 @@
             "code": "72111",
             "fips": "111",
             "state": "PR",
-            "name": "Penuelas Municipio"
+            "name": "Peñuelas Municipio"
         },
         {
             "code": "72113",
@@ -358,13 +358,13 @@
             "code": "72117",
             "fips": "117",
             "state": "PR",
-            "name": "Rincon Municipio"
+            "name": "Rincón Municipio"
         },
         {
             "code": "72119",
             "fips": "119",
             "state": "PR",
-            "name": "Rio Grande Municipio"
+            "name": "Río Grande Municipio"
         },
         {
             "code": "72121",
@@ -382,7 +382,7 @@
             "code": "72125",
             "fips": "125",
             "state": "PR",
-            "name": "San German Municipio"
+            "name": "San Germán Municipio"
         },
         {
             "code": "72127",
@@ -400,7 +400,7 @@
             "code": "72131",
             "fips": "131",
             "state": "PR",
-            "name": "San Sebastian Municipio"
+            "name": "San Sebastián Municipio"
         },
         {
             "code": "72133",

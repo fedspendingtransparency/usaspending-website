@@ -46,7 +46,7 @@
             "code": "35013",
             "fips": "013",
             "state": "NM",
-            "name": "Dona Ana County"
+            "name": "Doña Ana County"
         },
         {
             "code": "35015",
@@ -139,12 +139,6 @@
             "name": "Roosevelt County"
         },
         {
-            "code": "35043",
-            "fips": "043",
-            "state": "NM",
-            "name": "Sandoval County"
-        },
-        {
             "code": "35045",
             "fips": "045",
             "state": "NM",
@@ -155,6 +149,12 @@
             "fips": "047",
             "state": "NM",
             "name": "San Miguel County"
+        },
+        {
+            "code": "35043",
+            "fips": "043",
+            "state": "NM",
+            "name": "Sandoval County"
         },
         {
             "code": "35049",

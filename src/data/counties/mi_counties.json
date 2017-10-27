@@ -439,18 +439,6 @@
             "name": "Saginaw County"
         },
         {
-            "code": "26147",
-            "fips": "147",
-            "state": "MI",
-            "name": "St. Clair County"
-        },
-        {
-            "code": "26149",
-            "fips": "149",
-            "state": "MI",
-            "name": "St. Joseph County"
-        },
-        {
             "code": "26151",
             "fips": "151",
             "state": "MI",
@@ -467,6 +455,18 @@
             "fips": "155",
             "state": "MI",
             "name": "Shiawassee County"
+        },
+        {
+            "code": "26147",
+            "fips": "147",
+            "state": "MI",
+            "name": "Saint Clair County"
+        },
+        {
+            "code": "26149",
+            "fips": "149",
+            "state": "MI",
+            "name": "Saint Joseph County"
         },
         {
             "code": "26157",

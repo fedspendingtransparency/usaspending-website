@@ -121,16 +121,16 @@
             "name": "Eagle County"
         },
         {
-            "code": "08039",
-            "fips": "039",
-            "state": "CO",
-            "name": "Elbert County"
-        },
-        {
             "code": "08041",
             "fips": "041",
             "state": "CO",
             "name": "El Paso County"
+        },
+        {
+            "code": "08039",
+            "fips": "039",
+            "state": "CO",
+            "name": "Elbert County"
         },
         {
             "code": "08043",
@@ -199,16 +199,16 @@
             "name": "Kit Carson County"
         },
         {
-            "code": "08065",
-            "fips": "065",
-            "state": "CO",
-            "name": "Lake County"
-        },
-        {
             "code": "08067",
             "fips": "067",
             "state": "CO",
             "name": "La Plata County"
+        },
+        {
+            "code": "08065",
+            "fips": "065",
+            "state": "CO",
+            "name": "Lake County"
         },
         {
             "code": "08069",

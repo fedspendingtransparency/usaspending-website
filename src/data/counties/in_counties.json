@@ -85,6 +85,12 @@
             "name": "Daviess County"
         },
         {
+            "code": "18033",
+            "fips": "033",
+            "state": "IN",
+            "name": "DeKalb County"
+        },
+        {
             "code": "18029",
             "fips": "029",
             "state": "IN",
@@ -95,12 +101,6 @@
             "fips": "031",
             "state": "IN",
             "name": "Decatur County"
-        },
-        {
-            "code": "18033",
-            "fips": "033",
-            "state": "IN",
-            "name": "DeKalb County"
         },
         {
             "code": "18035",
@@ -265,16 +265,16 @@
             "name": "LaGrange County"
         },
         {
-            "code": "18089",
-            "fips": "089",
-            "state": "IN",
-            "name": "Lake County"
-        },
-        {
             "code": "18091",
             "fips": "091",
             "state": "IN",
             "name": "LaPorte County"
+        },
+        {
+            "code": "18089",
+            "fips": "089",
+            "state": "IN",
+            "name": "Lake County"
         },
         {
             "code": "18093",
@@ -421,12 +421,6 @@
             "name": "Rush County"
         },
         {
-            "code": "18141",
-            "fips": "141",
-            "state": "IN",
-            "name": "St. Joseph County"
-        },
-        {
             "code": "18143",
             "fips": "143",
             "state": "IN",
@@ -443,6 +437,12 @@
             "fips": "147",
             "state": "IN",
             "name": "Spencer County"
+        },
+        {
+            "code": "18141",
+            "fips": "141",
+            "state": "IN",
+            "name": "Saint Joseph County"
         },
         {
             "code": "18149",

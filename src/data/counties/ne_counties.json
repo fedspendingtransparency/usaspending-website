@@ -349,16 +349,16 @@
             "name": "Loup County"
         },
         {
-            "code": "31117",
-            "fips": "117",
-            "state": "NE",
-            "name": "McPherson County"
-        },
-        {
             "code": "31119",
             "fips": "119",
             "state": "NE",
             "name": "Madison County"
+        },
+        {
+            "code": "31117",
+            "fips": "117",
+            "state": "NE",
+            "name": "McPherson County"
         },
         {
             "code": "31121",

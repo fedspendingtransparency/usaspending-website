@@ -433,24 +433,6 @@
             "name": "Lyon County"
         },
         {
-            "code": "21145",
-            "fips": "145",
-            "state": "KY",
-            "name": "McCracken County"
-        },
-        {
-            "code": "21147",
-            "fips": "147",
-            "state": "KY",
-            "name": "McCreary County"
-        },
-        {
-            "code": "21149",
-            "fips": "149",
-            "state": "KY",
-            "name": "McLean County"
-        },
-        {
             "code": "21151",
             "fips": "151",
             "state": "KY",
@@ -485,6 +467,24 @@
             "fips": "161",
             "state": "KY",
             "name": "Mason County"
+        },
+        {
+            "code": "21145",
+            "fips": "145",
+            "state": "KY",
+            "name": "McCracken County"
+        },
+        {
+            "code": "21147",
+            "fips": "147",
+            "state": "KY",
+            "name": "McCreary County"
+        },
+        {
+            "code": "21149",
+            "fips": "149",
+            "state": "KY",
+            "name": "McLean County"
         },
         {
             "code": "21163",

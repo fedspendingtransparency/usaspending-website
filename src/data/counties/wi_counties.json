@@ -331,12 +331,6 @@
             "name": "Rusk County"
         },
         {
-            "code": "55109",
-            "fips": "109",
-            "state": "WI",
-            "name": "St. Croix County"
-        },
-        {
             "code": "55111",
             "fips": "111",
             "state": "WI",
@@ -359,6 +353,12 @@
             "fips": "117",
             "state": "WI",
             "name": "Sheboygan County"
+        },
+        {
+            "code": "55109",
+            "fips": "109",
+            "state": "WI",
+            "name": "Saint Croix County"
         },
         {
             "code": "55119",

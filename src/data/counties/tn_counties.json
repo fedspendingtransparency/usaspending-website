@@ -115,16 +115,16 @@
             "name": "Davidson County"
         },
         {
-            "code": "47039",
-            "fips": "039",
-            "state": "TN",
-            "name": "Decatur County"
-        },
-        {
             "code": "47041",
             "fips": "041",
             "state": "TN",
             "name": "DeKalb County"
+        },
+        {
+            "code": "47039",
+            "fips": "039",
+            "state": "TN",
+            "name": "Decatur County"
         },
         {
             "code": "47043",
@@ -319,18 +319,6 @@
             "name": "Loudon County"
         },
         {
-            "code": "47107",
-            "fips": "107",
-            "state": "TN",
-            "name": "McMinn County"
-        },
-        {
-            "code": "47109",
-            "fips": "109",
-            "state": "TN",
-            "name": "McNairy County"
-        },
-        {
             "code": "47111",
             "fips": "111",
             "state": "TN",
@@ -359,6 +347,18 @@
             "fips": "119",
             "state": "TN",
             "name": "Maury County"
+        },
+        {
+            "code": "47107",
+            "fips": "107",
+            "state": "TN",
+            "name": "McMinn County"
+        },
+        {
+            "code": "47109",
+            "fips": "109",
+            "state": "TN",
+            "name": "McNairy County"
         },
         {
             "code": "47121",

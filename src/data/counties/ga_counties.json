@@ -253,16 +253,16 @@
             "name": "Dawson County"
         },
         {
-            "code": "13087",
-            "fips": "087",
-            "state": "GA",
-            "name": "Decatur County"
-        },
-        {
             "code": "13089",
             "fips": "089",
             "state": "GA",
             "name": "DeKalb County"
+        },
+        {
+            "code": "13087",
+            "fips": "087",
+            "state": "GA",
+            "name": "Decatur County"
         },
         {
             "code": "13091",
@@ -559,18 +559,6 @@
             "name": "Lumpkin County"
         },
         {
-            "code": "13189",
-            "fips": "189",
-            "state": "GA",
-            "name": "McDuffie County"
-        },
-        {
-            "code": "13191",
-            "fips": "191",
-            "state": "GA",
-            "name": "McIntosh County"
-        },
-        {
             "code": "13193",
             "fips": "193",
             "state": "GA",
@@ -587,6 +575,18 @@
             "fips": "197",
             "state": "GA",
             "name": "Marion County"
+        },
+        {
+            "code": "13189",
+            "fips": "189",
+            "state": "GA",
+            "name": "McDuffie County"
+        },
+        {
+            "code": "13191",
+            "fips": "191",
+            "state": "GA",
+            "name": "McIntosh County"
         },
         {
             "code": "13199",

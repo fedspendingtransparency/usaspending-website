@@ -253,12 +253,6 @@
             "name": "Lyon County"
         },
         {
-            "code": "27085",
-            "fips": "085",
-            "state": "MN",
-            "name": "McLeod County"
-        },
-        {
             "code": "27087",
             "fips": "087",
             "state": "MN",
@@ -275,6 +269,12 @@
             "fips": "091",
             "state": "MN",
             "name": "Martin County"
+        },
+        {
+            "code": "27085",
+            "fips": "085",
+            "state": "MN",
+            "name": "McLeod County"
         },
         {
             "code": "27093",
@@ -409,12 +409,6 @@
             "name": "Roseau County"
         },
         {
-            "code": "27137",
-            "fips": "137",
-            "state": "MN",
-            "name": "St. Louis County"
-        },
-        {
             "code": "27139",
             "fips": "139",
             "state": "MN",
@@ -431,6 +425,12 @@
             "fips": "143",
             "state": "MN",
             "name": "Sibley County"
+        },
+        {
+            "code": "27137",
+            "fips": "137",
+            "state": "MN",
+            "name": "Saint Louis County"
         },
         {
             "code": "27145",

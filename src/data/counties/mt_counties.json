@@ -163,16 +163,16 @@
             "name": "Lincoln County"
         },
         {
-            "code": "30055",
-            "fips": "055",
-            "state": "MT",
-            "name": "McCone County"
-        },
-        {
             "code": "30057",
             "fips": "057",
             "state": "MT",
             "name": "Madison County"
+        },
+        {
+            "code": "30055",
+            "fips": "055",
+            "state": "MT",
+            "name": "McCone County"
         },
         {
             "code": "30059",

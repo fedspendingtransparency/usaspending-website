@@ -1,6 +1,12 @@
 {
     "counties": [
         {
+            "code": "32510",
+            "fips": "510",
+            "state": "NV",
+            "name": "Carson City"
+        },
+        {
             "code": "32001",
             "fips": "001",
             "state": "NV",
@@ -95,12 +101,6 @@
             "fips": "033",
             "state": "NV",
             "name": "White Pine County"
-        },
-        {
-            "code": "32510",
-            "fips": "510",
-            "state": "NV",
-            "name": "Carson City"
         }
     ]
 }

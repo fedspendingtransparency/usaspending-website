@@ -343,16 +343,16 @@
             "name": "Russell County"
         },
         {
-            "code": "01115",
-            "fips": "115",
-            "state": "AL",
-            "name": "St. Clair County"
-        },
-        {
             "code": "01117",
             "fips": "117",
             "state": "AL",
             "name": "Shelby County"
+        },
+        {
+            "code": "01115",
+            "fips": "115",
+            "state": "AL",
+            "name": "Saint Clair County"
         },
         {
             "code": "01119",

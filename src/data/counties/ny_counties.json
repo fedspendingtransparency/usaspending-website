@@ -265,12 +265,6 @@
             "name": "Rockland County"
         },
         {
-            "code": "36089",
-            "fips": "089",
-            "state": "NY",
-            "name": "St. Lawrence County"
-        },
-        {
             "code": "36091",
             "fips": "091",
             "state": "NY",
@@ -299,6 +293,12 @@
             "fips": "099",
             "state": "NY",
             "name": "Seneca County"
+        },
+        {
+            "code": "36089",
+            "fips": "089",
+            "state": "NY",
+            "name": "Saint Lawrence County"
         },
         {
             "code": "36101",

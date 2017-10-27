@@ -253,6 +253,12 @@
             "name": "Lyman County"
         },
         {
+            "code": "46091",
+            "fips": "091",
+            "state": "SD",
+            "name": "Marshall County"
+        },
+        {
             "code": "46087",
             "fips": "087",
             "state": "SD",
@@ -263,12 +269,6 @@
             "fips": "089",
             "state": "SD",
             "name": "McPherson County"
-        },
-        {
-            "code": "46091",
-            "fips": "091",
-            "state": "SD",
-            "name": "Marshall County"
         },
         {
             "code": "46093",
@@ -301,6 +301,12 @@
             "name": "Moody County"
         },
         {
+            "code": "46102",
+            "fips": "102",
+            "state": "SD",
+            "name": "Oglala Lakota County"
+        },
+        {
             "code": "46103",
             "fips": "103",
             "state": "SD",
@@ -329,12 +335,6 @@
             "fips": "111",
             "state": "SD",
             "name": "Sanborn County"
-        },
-        {
-            "code": "46113",
-            "fips": "113",
-            "state": "SD",
-            "name": "Shannon County"
         },
         {
             "code": "46115",

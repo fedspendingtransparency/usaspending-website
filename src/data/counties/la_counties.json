@@ -163,6 +163,12 @@
             "name": "Jefferson Davis Parish"
         },
         {
+            "code": "22059",
+            "fips": "059",
+            "state": "LA",
+            "name": "LaSalle Parish"
+        },
+        {
             "code": "22055",
             "fips": "055",
             "state": "LA",
@@ -173,12 +179,6 @@
             "fips": "057",
             "state": "LA",
             "name": "Lafourche Parish"
-        },
-        {
-            "code": "22059",
-            "fips": "059",
-            "state": "LA",
-            "name": "La Salle Parish"
         },
         {
             "code": "22061",
@@ -262,55 +262,55 @@
             "code": "22087",
             "fips": "087",
             "state": "LA",
-            "name": "St. Bernard Parish"
+            "name": "Saint Bernard Parish"
         },
         {
             "code": "22089",
             "fips": "089",
             "state": "LA",
-            "name": "St. Charles Parish"
+            "name": "Saint Charles Parish"
         },
         {
             "code": "22091",
             "fips": "091",
             "state": "LA",
-            "name": "St. Helena Parish"
+            "name": "Saint Helena Parish"
         },
         {
             "code": "22093",
             "fips": "093",
             "state": "LA",
-            "name": "St. James Parish"
+            "name": "Saint James Parish"
         },
         {
             "code": "22095",
             "fips": "095",
             "state": "LA",
-            "name": "St. John the Baptist Parish"
+            "name": "Saint John the Baptist Parish"
         },
         {
             "code": "22097",
             "fips": "097",
             "state": "LA",
-            "name": "St. Landry Parish"
+            "name": "Saint Landry Parish"
         },
         {
             "code": "22099",
             "fips": "099",
             "state": "LA",
-            "name": "St. Martin Parish"
+            "name": "Saint Martin Parish"
         },
         {
             "code": "22101",
             "fips": "101",
             "state": "LA",
-            "name": "St. Mary Parish"
+            "name": "Saint Mary Parish"
         },
         {
             "code": "22103",
             "fips": "103",
             "state": "LA",
-            "name": "St. Tammany Parish"
+            "name": "Saint Tammany Parish"
         },
         {
             "code": "22105",

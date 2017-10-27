@@ -109,16 +109,16 @@
             "name": "Cumberland County"
         },
         {
-            "code": "17037",
-            "fips": "037",
-            "state": "IL",
-            "name": "DeKalb County"
-        },
-        {
             "code": "17039",
             "fips": "039",
             "state": "IL",
             "name": "De Witt County"
+        },
+        {
+            "code": "17037",
+            "fips": "037",
+            "state": "IL",
+            "name": "DeKalb County"
         },
         {
             "code": "17041",
@@ -289,16 +289,16 @@
             "name": "Knox County"
         },
         {
-            "code": "17097",
-            "fips": "097",
-            "state": "IL",
-            "name": "Lake County"
-        },
-        {
             "code": "17099",
             "fips": "099",
             "state": "IL",
             "name": "LaSalle County"
+        },
+        {
+            "code": "17097",
+            "fips": "097",
+            "state": "IL",
+            "name": "Lake County"
         },
         {
             "code": "17101",
@@ -323,24 +323,6 @@
             "fips": "107",
             "state": "IL",
             "name": "Logan County"
-        },
-        {
-            "code": "17109",
-            "fips": "109",
-            "state": "IL",
-            "name": "McDonough County"
-        },
-        {
-            "code": "17111",
-            "fips": "111",
-            "state": "IL",
-            "name": "McHenry County"
-        },
-        {
-            "code": "17113",
-            "fips": "113",
-            "state": "IL",
-            "name": "McLean County"
         },
         {
             "code": "17115",
@@ -383,6 +365,24 @@
             "fips": "127",
             "state": "IL",
             "name": "Massac County"
+        },
+        {
+            "code": "17109",
+            "fips": "109",
+            "state": "IL",
+            "name": "McDonough County"
+        },
+        {
+            "code": "17111",
+            "fips": "111",
+            "state": "IL",
+            "name": "McHenry County"
+        },
+        {
+            "code": "17113",
+            "fips": "113",
+            "state": "IL",
+            "name": "McLean County"
         },
         {
             "code": "17129",
@@ -487,12 +487,6 @@
             "name": "Rock Island County"
         },
         {
-            "code": "17163",
-            "fips": "163",
-            "state": "IL",
-            "name": "St. Clair County"
-        },
-        {
             "code": "17165",
             "fips": "165",
             "state": "IL",
@@ -521,6 +515,12 @@
             "fips": "173",
             "state": "IL",
             "name": "Shelby County"
+        },
+        {
+            "code": "17163",
+            "fips": "163",
+            "state": "IL",
+            "name": "Saint Clair County"
         },
         {
             "code": "17175",

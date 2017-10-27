@@ -139,12 +139,6 @@
             "name": "Logan County"
         },
         {
-            "code": "54047",
-            "fips": "047",
-            "state": "WV",
-            "name": "McDowell County"
-        },
-        {
             "code": "54049",
             "fips": "049",
             "state": "WV",
@@ -161,6 +155,12 @@
             "fips": "053",
             "state": "WV",
             "name": "Mason County"
+        },
+        {
+            "code": "54047",
+            "fips": "047",
+            "state": "WV",
+            "name": "McDowell County"
         },
         {
             "code": "54055",

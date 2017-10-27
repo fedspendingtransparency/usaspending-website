@@ -337,12 +337,6 @@
             "name": "Lyon County"
         },
         {
-            "code": "20113",
-            "fips": "113",
-            "state": "KS",
-            "name": "McPherson County"
-        },
-        {
             "code": "20115",
             "fips": "115",
             "state": "KS",
@@ -353,6 +347,12 @@
             "fips": "117",
             "state": "KS",
             "name": "Marshall County"
+        },
+        {
+            "code": "20113",
+            "fips": "113",
+            "state": "KS",
+            "name": "McPherson County"
         },
         {
             "code": "20119",

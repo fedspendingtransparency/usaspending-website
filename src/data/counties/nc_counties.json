@@ -331,12 +331,6 @@
             "name": "Lincoln County"
         },
         {
-            "code": "37111",
-            "fips": "111",
-            "state": "NC",
-            "name": "McDowell County"
-        },
-        {
             "code": "37113",
             "fips": "113",
             "state": "NC",
@@ -353,6 +347,12 @@
             "fips": "117",
             "state": "NC",
             "name": "Martin County"
+        },
+        {
+            "code": "37111",
+            "fips": "111",
+            "state": "NC",
+            "name": "McDowell County"
         },
         {
             "code": "37119",

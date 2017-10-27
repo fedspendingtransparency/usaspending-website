@@ -325,18 +325,6 @@
             "name": "Putnam County"
         },
         {
-            "code": "12109",
-            "fips": "109",
-            "state": "FL",
-            "name": "St. Johns County"
-        },
-        {
-            "code": "12111",
-            "fips": "111",
-            "state": "FL",
-            "name": "St. Lucie County"
-        },
-        {
             "code": "12113",
             "fips": "113",
             "state": "FL",
@@ -353,6 +341,18 @@
             "fips": "117",
             "state": "FL",
             "name": "Seminole County"
+        },
+        {
+            "code": "12109",
+            "fips": "109",
+            "state": "FL",
+            "name": "Saint Johns County"
+        },
+        {
+            "code": "12111",
+            "fips": "111",
+            "state": "FL",
+            "name": "Saint Lucie County"
         },
         {
             "code": "12119",

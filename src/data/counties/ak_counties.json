@@ -85,6 +85,12 @@
             "name": "Kodiak Island Borough"
         },
         {
+            "code": "02158",
+            "fips": "158",
+            "state": "AK",
+            "name": "Kusilvak Census Area"
+        },
+        {
             "code": "02164",
             "fips": "164",
             "state": "AK",
@@ -118,7 +124,7 @@
             "code": "02195",
             "fips": "195",
             "state": "AK",
-            "name": "Petersburg Census Area"
+            "name": "Petersburg Borough"
         },
         {
             "code": "02198",
@@ -149,12 +155,6 @@
             "fips": "261",
             "state": "AK",
             "name": "Valdez-Cordova Census Area"
-        },
-        {
-            "code": "02270",
-            "fips": "270",
-            "state": "AK",
-            "name": "Wade Hampton Census Area"
         },
         {
             "code": "02275",

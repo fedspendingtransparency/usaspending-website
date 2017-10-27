@@ -349,6 +349,12 @@
             "name": "Dawson County"
         },
         {
+            "code": "48123",
+            "fips": "123",
+            "state": "TX",
+            "name": "DeWitt County"
+        },
+        {
             "code": "48117",
             "fips": "117",
             "state": "TX",
@@ -365,12 +371,6 @@
             "fips": "121",
             "state": "TX",
             "name": "Denton County"
-        },
-        {
-            "code": "48123",
-            "fips": "123",
-            "state": "TX",
-            "name": "DeWitt County"
         },
         {
             "code": "48125",
@@ -415,16 +415,16 @@
             "name": "Edwards County"
         },
         {
-            "code": "48139",
-            "fips": "139",
-            "state": "TX",
-            "name": "Ellis County"
-        },
-        {
             "code": "48141",
             "fips": "141",
             "state": "TX",
             "name": "El Paso County"
+        },
+        {
+            "code": "48139",
+            "fips": "139",
+            "state": "TX",
+            "name": "Ellis County"
         },
         {
             "code": "48143",
@@ -829,6 +829,12 @@
             "name": "Knox County"
         },
         {
+            "code": "48283",
+            "fips": "283",
+            "state": "TX",
+            "name": "La Salle County"
+        },
+        {
             "code": "48277",
             "fips": "277",
             "state": "TX",
@@ -845,12 +851,6 @@
             "fips": "281",
             "state": "TX",
             "name": "Lampasas County"
-        },
-        {
-            "code": "48283",
-            "fips": "283",
-            "state": "TX",
-            "name": "La Salle County"
         },
         {
             "code": "48285",
@@ -919,24 +919,6 @@
             "name": "Lynn County"
         },
         {
-            "code": "48307",
-            "fips": "307",
-            "state": "TX",
-            "name": "McCulloch County"
-        },
-        {
-            "code": "48309",
-            "fips": "309",
-            "state": "TX",
-            "name": "McLennan County"
-        },
-        {
-            "code": "48311",
-            "fips": "311",
-            "state": "TX",
-            "name": "McMullen County"
-        },
-        {
             "code": "48313",
             "fips": "313",
             "state": "TX",
@@ -971,6 +953,24 @@
             "fips": "323",
             "state": "TX",
             "name": "Maverick County"
+        },
+        {
+            "code": "48307",
+            "fips": "307",
+            "state": "TX",
+            "name": "McCulloch County"
+        },
+        {
+            "code": "48309",
+            "fips": "309",
+            "state": "TX",
+            "name": "McLennan County"
+        },
+        {
+            "code": "48311",
+            "fips": "311",
+            "state": "TX",
+            "name": "McMullen County"
         },
         {
             "code": "48325",

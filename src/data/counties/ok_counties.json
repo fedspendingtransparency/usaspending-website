@@ -259,24 +259,6 @@
             "name": "Love County"
         },
         {
-            "code": "40087",
-            "fips": "087",
-            "state": "OK",
-            "name": "McClain County"
-        },
-        {
-            "code": "40089",
-            "fips": "089",
-            "state": "OK",
-            "name": "McCurtain County"
-        },
-        {
-            "code": "40091",
-            "fips": "091",
-            "state": "OK",
-            "name": "McIntosh County"
-        },
-        {
             "code": "40093",
             "fips": "093",
             "state": "OK",
@@ -293,6 +275,24 @@
             "fips": "097",
             "state": "OK",
             "name": "Mayes County"
+        },
+        {
+            "code": "40087",
+            "fips": "087",
+            "state": "OK",
+            "name": "McClain County"
+        },
+        {
+            "code": "40089",
+            "fips": "089",
+            "state": "OK",
+            "name": "McCurtain County"
+        },
+        {
+            "code": "40091",
+            "fips": "091",
+            "state": "OK",
+            "name": "McIntosh County"
         },
         {
             "code": "40099",
