@@ -1,3 +1,9 @@
 {
-    "districts": []
+    "districts": [
+        {
+            "code": "6698",
+            "district": "98",
+            "name": "GU-98"
+        }
+    ]
 }

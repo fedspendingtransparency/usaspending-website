@@ -208,9 +208,17 @@
         "code": "AS",
         "name": "American Samoa"
     }, {
+        "fips": "64",
+        "code": "FM",
+        "name": "Federated States of Micronesia"
+    }, {
         "fips": "66",
         "code": "GU",
         "name": "Guam"
+    }, {
+        "fips": "68",
+        "code": "MH",
+        "name": "Marshall Islands"
     }, {
         "fips": "69",
         "code": "MP",
@@ -220,6 +228,10 @@
         "code": "PR",
         "name": "Puerto Rico"
     }, {
+        "fips": "70",
+        "code": "PW",
+        "name": "Republic of Palau"
+    },{
         "fips": "74",
         "code": "UM",
         "name": "U.S. Minor Outlying Islands"
