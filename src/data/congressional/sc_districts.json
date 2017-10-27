@@ -1,0 +1,39 @@
+{
+    "districts": [
+        {
+            "code": "4501",
+            "district": "01",
+            "name": "SC-01"
+        },
+        {
+            "code": "4502",
+            "district": "02",
+            "name": "SC-02"
+        },
+        {
+            "code": "4503",
+            "district": "03",
+            "name": "SC-03"
+        },
+        {
+            "code": "4504",
+            "district": "04",
+            "name": "SC-04"
+        },
+        {
+            "code": "4505",
+            "district": "05",
+            "name": "SC-05"
+        },
+        {
+            "code": "4506",
+            "district": "06",
+            "name": "SC-06"
+        },
+        {
+            "code": "4507",
+            "district": "07",
+            "name": "SC-07"
+        }
+    ]
+}

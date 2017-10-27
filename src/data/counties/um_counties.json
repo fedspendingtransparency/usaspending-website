@@ -1,0 +1,10 @@
+{
+    "counties": [
+        {
+            "code": "74300",
+            "fips": "300",
+            "state": "UM",
+            "name": "Midway Islands"
+        }
+    ]
+}

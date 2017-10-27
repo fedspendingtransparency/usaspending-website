@@ -1,0 +1,74 @@
+{
+    "districts": [
+        {
+            "code": "1301",
+            "district": "01",
+            "name": "GA-01"
+        },
+        {
+            "code": "1302",
+            "district": "02",
+            "name": "GA-02"
+        },
+        {
+            "code": "1303",
+            "district": "03",
+            "name": "GA-03"
+        },
+        {
+            "code": "1304",
+            "district": "04",
+            "name": "GA-04"
+        },
+        {
+            "code": "1305",
+            "district": "05",
+            "name": "GA-05"
+        },
+        {
+            "code": "1306",
+            "district": "06",
+            "name": "GA-06"
+        },
+        {
+            "code": "1307",
+            "district": "07",
+            "name": "GA-07"
+        },
+        {
+            "code": "1308",
+            "district": "08",
+            "name": "GA-08"
+        },
+        {
+            "code": "1309",
+            "district": "09",
+            "name": "GA-09"
+        },
+        {
+            "code": "1310",
+            "district": "10",
+            "name": "GA-10"
+        },
+        {
+            "code": "1311",
+            "district": "11",
+            "name": "GA-11"
+        },
+        {
+            "code": "1312",
+            "district": "12",
+            "name": "GA-12"
+        },
+        {
+            "code": "1313",
+            "district": "13",
+            "name": "GA-13"
+        },
+        {
+            "code": "1314",
+            "district": "14",
+            "name": "GA-14"
+        }
+    ]
+}

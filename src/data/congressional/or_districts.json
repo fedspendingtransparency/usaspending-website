@@ -1,0 +1,29 @@
+{
+    "districts": [
+        {
+            "code": "4101",
+            "district": "01",
+            "name": "OR-01"
+        },
+        {
+            "code": "4102",
+            "district": "02",
+            "name": "OR-02"
+        },
+        {
+            "code": "4103",
+            "district": "03",
+            "name": "OR-03"
+        },
+        {
+            "code": "4104",
+            "district": "04",
+            "name": "OR-04"
+        },
+        {
+            "code": "4105",
+            "district": "05",
+            "name": "OR-05"
+        }
+    ]
+}
