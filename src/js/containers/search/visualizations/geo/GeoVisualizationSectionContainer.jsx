@@ -41,6 +41,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.apiRequest = null;
 
         this.changeScope = this.changeScope.bind(this);
+        this.changeMapLayer = this.changeMapLayer.bind(this);
     }
 
     componentDidMount() {
@@ -121,12 +122,20 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
+    changeMapLayer(layer) {
+        this.setState({
+            mapScope: layer,
+            renderHash: `geo-${uniqueId()}`
+        });
+    }
+
     render() {
         return (
             <GeoVisualizationSection
                 {...this.state}
                 total={this.props.resultsMeta.visualization.transaction_sum}
-                changeScope={this.changeScope} />
+                changeScope={this.changeScope}
+                changeMapLayer={this.changeMapLayer} />
         );
     }
 }

@@ -23,7 +23,8 @@ const propTypes = {
     hideTooltip: PropTypes.func,
     tooltip: PropTypes.func,
     receiveVisible: PropTypes.func,
-    availableLayers: PropTypes.array
+    availableLayers: PropTypes.array,
+    changeMapLayer: PropTypes.func
 };
 
 const defaultProps = {
@@ -44,14 +45,16 @@ const mapboxSources = {
     },
     county: {
         label: 'county',
-        url: 'mapbox://usaspending.67dl1i5b',
-        layer: 'cb_2016_us_county_500k-dqqug4',
+        maxZoom: 4,
+        url: 'mapbox://usaspending.83g94wbo',
+        layer: 'tl_2017_us_county-7dgoe0',
         filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
     },
     congressionalDistrict: {
         label: 'congressional district',
-        url: 'mapbox://usaspending.2z200y6q',
-        layer: 'cb_2016_us_cd115_500k-c8mr5m',
+        maxZoom: 4,
+        url: 'mapbox://usaspending.51fn3vaz',
+        layer: 'tl_2017_us_cd115-4w4nmz',
         filterKey: 'GEOID' // the GEOID is state FIPS + district
     },
     zip: {
@@ -242,6 +245,16 @@ export default class MapWrapper extends React.Component {
             });
 
             this.showSource(this.props.scope);
+
+            // check if we need to zoom in to show the layer
+            if (source.maxZoom) {
+                const currentZoom = this.mapRef.map.getZoom();
+                if (currentZoom < source.maxZoom) {
+                    // we are zoomed too far out and won't be able to see the new map layer, zoom in
+                    this.mapRef.map.zoomTo(source.maxZoom);
+                }
+            }
+
             const resolver = (e) => {
                 // Mapbox insists on emitting sourcedata events for many different source
                 // loading stages, so we need to wait for the source to be loaded AND for
@@ -391,7 +404,8 @@ export default class MapWrapper extends React.Component {
                 <MapLayerToggle
                     active={this.props.scope}
                     available={this.props.availableLayers}
-                    sources={mapboxSources} />
+                    sources={mapboxSources}
+                    changeMapLayer={this.props.changeMapLayer} />
                 <MapLegend
                     segments={this.state.spendingScale.segments}
                     units={this.state.spendingScale.units} />

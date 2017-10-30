@@ -7,8 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
+    active: PropTypes.string,
     available: PropTypes.array,
-    selectLayer: PropTypes.func
+    changeMapLayer: PropTypes.func
 };
 
 const capitalizeLabel = (original) => {
@@ -17,16 +18,28 @@ const capitalizeLabel = (original) => {
 };
 
 const MapLayerToggle = (props) => {
+    const clickedLayer = (e) => {
+        const scope = e.target.value;
+        props.changeMapLayer(scope);
+    };
+
     const items = props.available.map((layer) => {
         const title = capitalizeLabel(props.sources[layer].label);
+        let active = '';
+        if (props.active === layer) {
+            active = 'active';
+        }
+
         return (
             <li
                 key={layer}>
                 <button
-                    className="map-layer-option"
-                    onClick={props.selectLayer}
+                    className={`map-layer-option ${active}`}
+                    onClick={clickedLayer}
                     title={`Display by ${title}`}
-                    aria-label={`Display by ${title}`}>
+                    aria-label={`Display by ${title}`}
+                    data-content={title}
+                    value={layer}>
                     {title}
                 </button>
             </li>

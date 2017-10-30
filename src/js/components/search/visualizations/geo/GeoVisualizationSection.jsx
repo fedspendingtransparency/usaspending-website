@@ -16,6 +16,7 @@ const propTypes = {
     scope: PropTypes.string,
     mapScope: PropTypes.string,
     changeScope: PropTypes.func,
+    changeMapLayer: PropTypes.func,
     renderHash: PropTypes.string,
     data: PropTypes.object,
     total: PropTypes.number
@@ -106,6 +107,7 @@ export default class GeoVisualizationSection extends React.Component {
                     data={this.props.data}
                     renderHash={this.props.renderHash}
                     scope={this.props.mapScope}
+                    changeMapLayer={this.props.changeMapLayer}
                     showHover={this.state.showHover}
                     selectedItem={this.state.selectedItem}
                     showTooltip={this.showTooltip}
