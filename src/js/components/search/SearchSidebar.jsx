@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
-import LocationSearchContainer from 'containers/search/filters/location/LocationSearchContainer';
+import LocationSection from 'components/search/filters/location/LocationSection';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
 import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
@@ -33,7 +33,7 @@ const filters = {
         'Award Type',
         'Agencies',
         'Recipients',
-        'Place of Performance',
+        'Location',
         'Award Amount',
         'Award ID',
         'CFDA Programs',
@@ -49,7 +49,7 @@ const filters = {
         AwardTypeContainer,
         AgencyContainer,
         RecipientSearchContainer,
-        LocationSearchContainer,
+        LocationSection,
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
         CFDASearchContainer,

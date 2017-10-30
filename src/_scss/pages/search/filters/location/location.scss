@@ -1,28 +1,11 @@
 .location-filter {
     @import "elements/filters/_errorMessage";
-    @import "elements/filters/_typeahead";
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
-    .location-radio {
-        p {
-            color: $color-gray;
-            font-size: $small-font-size;
-            margin-top: 0;
-            margin-bottom: 0.5rem;
-        }
-        span {
-            label {
-                color: $color-gray;
-                font-weight: normal;
-                margin-left: 0.75rem;
-            }
-            &:not(:last-child) {
-                border-right: 1px solid rgba(0, 0, 0, 0.3);
-                padding-right: 1rem;
-                margin-right: 1rem;
-            }
-        }
-    }
+    @import "./_tabs";
+
+    padding: 0 $global-pad rem(20);
+
     .shown {
         min-height: rem(18);
     }
@@ -32,4 +15,6 @@
     .selected-filters {
         @include selected-filter-wrap;
     }
+
+
 }
