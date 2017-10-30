@@ -10,18 +10,12 @@ import { awardRanges } from 'dataMapping/search/awardAmount';
 
 import { mockRecipient, mockAgency } from './mock/mockFilters';
 
-const initialAction = {
-    type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
-    dateType: 'fy',
-    fy: ['2017'],
-    start: null,
-    end: null
-};
+jest.mock('helpers/fiscalYearHelper', () => require('./mockFiscalYearHelper'));
 
 describe('searchFiltersReducer', () => {
     it('should return the initial state by default', () => {
         expect(
-            searchFiltersReducer(undefined, initialAction)
+            searchFiltersReducer(undefined, {})
         ).toEqual(initialState);
     });
 
@@ -101,9 +95,9 @@ describe('searchFiltersReducer', () => {
                 type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                 dateType: 'fy',
                 fy: [
-                    '2017',
-                    '2015',
-                    '2013'
+                    '1778',
+                    '1777',
+                    '1775'
                 ],
                 start: null,
                 end: null
@@ -112,9 +106,9 @@ describe('searchFiltersReducer', () => {
             const expected = {
                 timePeriodType: 'fy',
                 timePeriodFY: new Set([
-                    '2017',
-                    '2015',
-                    '2013'
+                    '1778',
+                    '1777',
+                    '1775'
                 ]),
                 timePeriodStart: null,
                 timePeriodEnd: null
@@ -727,9 +721,9 @@ describe('searchFiltersReducer', () => {
                 type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                 dateType: 'fy',
                 fy: [
-                    '2016',
-                    '2015',
-                    '2013'
+                    '1778',
+                    '1777',
+                    '1775'
                 ],
                 start: null,
                 end: null
@@ -742,9 +736,9 @@ describe('searchFiltersReducer', () => {
             const expectedFirst = {
                 timePeriodType: 'fy',
                 timePeriodFY: new Set([
-                    '2016',
-                    '2015',
-                    '2013'
+                    '1778',
+                    '1777',
+                    '1775'
                 ]),
                 timePeriodStart: null,
                 timePeriodEnd: null
@@ -752,7 +746,7 @@ describe('searchFiltersReducer', () => {
 
             const expectedSecond = {
                 timePeriodType: 'fy',
-                timePeriodFY: new Set(['2017']),
+                timePeriodFY: new Set(['1991']),
                 timePeriodStart: null,
                 timePeriodEnd: null
             };
@@ -779,8 +773,8 @@ describe('searchFiltersReducer', () => {
                 type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                 dateType: 'dr',
                 fy: [],
-                start: '2016-01-01',
-                end: '2016-12-31'
+                start: '1776-01-01',
+                end: '1776-12-31'
             };
 
             const resetAction = {
@@ -790,13 +784,13 @@ describe('searchFiltersReducer', () => {
             const expectedFirst = {
                 timePeriodType: 'dr',
                 timePeriodFY: new Set(),
-                timePeriodStart: '2016-01-01',
-                timePeriodEnd: '2016-12-31'
+                timePeriodStart: '1776-01-01',
+                timePeriodEnd: '1776-12-31'
             };
 
             const expectedSecond = {
                 timePeriodType: 'fy',
-                timePeriodFY: new Set(['2017']),
+                timePeriodFY: new Set(['1991']),
                 timePeriodStart: null,
                 timePeriodEnd: null
             };
@@ -856,9 +850,9 @@ describe('searchFiltersReducer', () => {
                 type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                 dateType: 'fy',
                 fy: [
-                    '2017',
-                    '2015',
-                    '2013'
+                    '1778',
+                    '1777',
+                    '1775'
                 ],
                 start: null,
                 end: null
@@ -868,9 +862,9 @@ describe('searchFiltersReducer', () => {
             const secondExpected = {
                 timePeriodType: 'fy',
                 timePeriodFY: new Set([
-                    '2017',
-                    '2015',
-                    '2013'
+                    '1778',
+                    '1777',
+                    '1775'
                 ]),
                 timePeriodStart: null,
                 timePeriodEnd: null
