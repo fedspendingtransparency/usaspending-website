@@ -41,7 +41,7 @@ export default class LocationSection extends React.Component {
                     <li>
                         <button
                             className={`date-toggle ${activePop}`}
-                            value="fy"
+                            value="pop"
                             onClick={this.toggleTab}>
                             Place of Performance
                         </button>
@@ -49,7 +49,7 @@ export default class LocationSection extends React.Component {
                     <li>
                         <button
                             className={`date-toggle ${activeRecipient}`}
-                            value="dr"
+                            value="recipient"
                             onClick={this.toggleTab}>
                             Recipient Location
                         </button>
