@@ -163,6 +163,15 @@ const routes = {
                     cb(require('components/agencyLanding/AgencyLandingPage').default);
                 });
             }
+        },
+        {
+            path: '/download',
+            parent: '/download',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/download/DownloadPage').default);
+                });
+            }
         }
     ],
     notFound: {
