@@ -16,10 +16,6 @@
             "name": "ALGERIA"
         },
         {
-            "code": "ASM",
-            "name": "AMERICAN SAMOA"
-        },
-        {
             "code": "AND",
             "name": "ANDORRA"
         },
@@ -300,30 +296,6 @@
             "name": "EL SALVADOR"
         },
         {
-            "code": "XAZ",
-            "name": "ENTITY 1"
-        },
-        {
-            "code": "XCR",
-            "name": "ENTITY 2"
-        },
-        {
-            "code": "XCY",
-            "name": "ENTITY 3"
-        },
-        {
-            "code": "XKM",
-            "name": "ENTITY 4"
-        },
-        {
-            "code": "XKN",
-            "name": "ENTITY 5"
-        },
-        {
-            "code": "AX3",
-            "name": "ENTITY 6"
-        },
-        {
             "code": "GNQ",
             "name": "EQUATORIAL GUINEA"
         },
@@ -422,10 +394,6 @@
         {
             "code": "GLP",
             "name": "GUADELOUPE"
-        },
-        {
-            "code": "GUM",
-            "name": "GUAM"
         },
         {
             "code": "AX2",
@@ -748,10 +716,6 @@
             "name": "NORFOLK ISLAND"
         },
         {
-            "code": "MNP",
-            "name": "NORTHERN MARIANA ISLANDS"
-        },
-        {
             "code": "NOR",
             "name": "NORWAY"
         },
@@ -806,10 +770,6 @@
         {
             "code": "PRT",
             "name": "PORTUGAL"
-        },
-        {
-            "code": "PRI",
-            "name": "PUERTO RICO"
         },
         {
             "code": "QAT",
@@ -1074,10 +1034,6 @@
         {
             "code": "VGB",
             "name": "VIRGIN ISLANDS, BRITISH"
-        },
-        {
-            "code": "VIR",
-            "name": "VIRGIN ISLANDS, U.S."
         },
         {
             "code": "XWK",

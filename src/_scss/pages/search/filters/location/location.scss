@@ -3,8 +3,34 @@
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
     @import "./_tabs";
+    @import "./_dropdown";
 
     padding: 0 $global-pad rem(20);
+
+    .location-filter-form {
+        .location-item {
+            margin-top: rem(15);
+
+            &:first-child {
+                margin-top: rem(10);
+            }
+        }
+
+        .location-label {
+            padding: rem(5) 0;
+            font-size: $smallest-font-size;
+            text-transform: uppercase;
+
+            &.disabled {
+                opacity: 0.4;
+            }
+        }
+
+        .add-location {
+            margin-top: rem(15);
+            width: 100%;
+        }
+    }
 
     .shown {
         min-height: rem(18);

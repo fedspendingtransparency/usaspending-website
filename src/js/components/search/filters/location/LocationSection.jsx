@@ -5,6 +5,8 @@
 
 import React from 'react';
 
+import POPFilterContainer from 'containers/search/filters/location/POPFilterContainer';
+
 export default class LocationSection extends React.Component {
     constructor(props) {
         super(props);
@@ -35,6 +37,8 @@ export default class LocationSection extends React.Component {
             activeRecipient = 'inactive';
         }
 
+        let filter = <POPFilterContainer />;
+
         return (
             <div className="location-filter search-filter">
                 <ul className="toggle-buttons">
@@ -56,6 +60,7 @@ export default class LocationSection extends React.Component {
                     </li>
                 </ul>
                 <div className="toggle-border" />
+                {filter}
             </div>
         );
     }
