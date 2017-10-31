@@ -1,0 +1,17 @@
+.download-form {
+    .filter-section {
+        h5.filter-section-title {
+            font-weight: 400;
+            span {
+                color: $color-primary;
+                font-weight: 600;
+            }
+        }
+        .download-checkbox {
+            padding: rem(10) 0;
+            input {
+               margin-right: rem(5);
+            }
+        }
+    }
+}

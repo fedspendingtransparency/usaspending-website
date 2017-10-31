@@ -11,6 +11,7 @@
                 font-weight: 400;
             }
         }
+        @import "downloadForm";
     }
 
     .download-info {
@@ -18,7 +19,6 @@
         @include media($medium-screen) {
             @include span-columns(7);
         }
-
         padding: rem(15) rem(30);
         border-left: solid 1px $color-gray-light;
 
