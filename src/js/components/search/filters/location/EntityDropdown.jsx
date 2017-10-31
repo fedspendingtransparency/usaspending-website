@@ -25,6 +25,8 @@ const defaultProps = {
     enabled: true
 };
 
+const alphabetRegex = /[a-z]/;
+
 export default class EntityDropdown extends React.Component {
     constructor(props) {
         super(props);
@@ -39,6 +41,7 @@ export default class EntityDropdown extends React.Component {
         this.closeDropdown = this.closeDropdown.bind(this);
         this.focusNext = this.focusNext.bind(this);
         this.focusPrev = this.focusPrev.bind(this);
+        this.pressedLetter = this.pressedLetter.bind(this);
         this.clickedItem = this.clickedItem.bind(this);
         this.handleDeselection = this.handleDeselection.bind(this);
     }
@@ -82,6 +85,7 @@ export default class EntityDropdown extends React.Component {
 
     bindAccessibility() {
         document.addEventListener('mousedown', this.handleDeselection);
+        document.addEventListener('keyup', this.pressedLetter);
         Mousetrap.bind('esc', this.closeDropdown);
         Mousetrap.bind('down', this.focusNext);
         Mousetrap.bind('up', this.focusPrev);
@@ -98,6 +102,7 @@ export default class EntityDropdown extends React.Component {
 
     unbindAccessibility() {
         document.removeEventListener('mousedown', this.handleDeselection);
+        document.removeEventListener('keyup', this.pressedLetter);
         Mousetrap.unbind('esc', this.closeDropdown);
         Mousetrap.unbind('down', this.focusNext);
         Mousetrap.unbind('up', this.focusPrev);
@@ -135,6 +140,19 @@ export default class EntityDropdown extends React.Component {
                 if (prevItem) {
                     prevItem.focus();
                 }
+            }
+        }
+    }
+
+    pressedLetter(e) {
+        // check if the key press is a letter
+        if (alphabetRegex.test(e.key)) {
+            // it is a letter
+            e.preventDefault();
+            // jump to the first entry
+            const firstLetter = document.querySelector(`.geo-entity-list .letter-${e.key}`);
+            if (firstLetter) {
+                firstLetter.focus();
             }
         }
     }

@@ -13,17 +13,28 @@ const propTypes = {
     clickedItem: PropTypes.func
 };
 
+const alphabetRegex = /[a-z]/;
+
 const EntityDropdownList = (props) => {
     const options = props.options.map((item, i) => {
         let active = '';
         if (item.code === props.value.code && item.code !== '') {
             active = 'active';
         }
+
+        let letterClass = '';
+        if (item.name !== '') {
+            const firstLetter = item.name.substring(0, 1).toLowerCase();
+            if (alphabetRegex.test(firstLetter)) {
+                letterClass = firstLetter;
+            }
+        }
+
         return (
             <li
                 key={item.code}>
                 <button
-                    className={`list-item ${active}`}
+                    className={`list-item ${active} letter-${letterClass}`}
                     title={item.name}
                     aria-label={item.name}
                     role="listitem"
