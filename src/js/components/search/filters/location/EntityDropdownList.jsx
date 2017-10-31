@@ -8,12 +8,13 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     scope: PropTypes.string,
+    matchKey: PropTypes.string,
     options: PropTypes.array,
     value: PropTypes.object,
     clickedItem: PropTypes.func
 };
 
-const alphabetRegex = /[a-z]/;
+const alphabetRegex = /([a-z]|[0-9])/;
 
 const EntityDropdownList = (props) => {
     const options = props.options.map((item, i) => {
@@ -23,8 +24,10 @@ const EntityDropdownList = (props) => {
         }
 
         let letterClass = '';
-        if (item.name !== '') {
-            const firstLetter = item.name.substring(0, 1).toLowerCase();
+        // variable matchKeys allow us to match by numeric codes for congressional district
+        // instead of display name
+        if (item[props.matchKey] !== '') {
+            const firstLetter = item[props.matchKey].substring(0, 1).toLowerCase();
             if (alphabetRegex.test(firstLetter)) {
                 letterClass = firstLetter;
             }

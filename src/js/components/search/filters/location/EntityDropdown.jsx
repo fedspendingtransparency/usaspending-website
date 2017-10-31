@@ -18,14 +18,16 @@ const propTypes = {
     options: PropTypes.array,
     selectEntity: PropTypes.func,
     scope: PropTypes.string,
-    enabled: PropTypes.bool
+    enabled: PropTypes.bool,
+    matchKey: PropTypes.string
 };
 
 const defaultProps = {
-    enabled: true
+    enabled: true,
+    matchKey: 'name'
 };
 
-const alphabetRegex = /[a-z]/;
+const alphabetRegex = /([a-z]|[0-9])/;
 
 export default class EntityDropdown extends React.Component {
     constructor(props) {
@@ -173,6 +175,7 @@ export default class EntityDropdown extends React.Component {
         let dropdown = null;
         if (this.state.expanded) {
             dropdown = (<EntityDropdownList
+                matchKey={this.props.matchKey}
                 scope={this.props.scope}
                 value={this.props.value}
                 options={this.props.options}

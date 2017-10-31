@@ -1,5 +1,5 @@
 /**
- * LocationFilter.jsx
+ * LocationPicker.jsx
  * Created by Kevin Li 10/30/17
  */
 
@@ -22,10 +22,11 @@ const propTypes = {
     loadDistricts: PropTypes.func,
     clearStates: PropTypes.func,
     clearCounties: PropTypes.func,
-    clearDistricts: PropTypes.func
+    clearDistricts: PropTypes.func,
+    addLocation: PropTypes.func
 };
 
-export default class LocationFilter extends React.Component {
+export default class LocationPicker extends React.Component {
     constructor(props) {
         super(props);
 
@@ -105,6 +106,7 @@ export default class LocationFilter extends React.Component {
                 <div className="location-item">
                     <EntityDropdown
                         scope="district"
+                        matchKey="district"
                         placeholder={districtPlaceholder}
                         title="Congressional District"
                         value={this.props.district}
@@ -113,7 +115,8 @@ export default class LocationFilter extends React.Component {
                         enabled={this.props.state.code !== ''} />
                 </div>
                 <button
-                    className="add-location">
+                    className="add-location"
+                    onClick={this.props.addLocation}>
                     Add Filter
                 </button>
             </form>
@@ -121,4 +124,4 @@ export default class LocationFilter extends React.Component {
     }
 }
 
-LocationFilter.propTypes = propTypes;
+LocationPicker.propTypes = propTypes;
