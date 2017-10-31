@@ -20,7 +20,7 @@ export default class SelectedPSC extends React.Component {
         this.props.selectedPSC.entrySeq().forEach((entry) => {
             const psc = entry[1].product_or_service_code;
             const value = (<ShownValue
-                label={psc}
+                label={_.toString(psc)}
                 key={psc}
                 removeValue={this.props.removePSC.bind(null, entry[1])} />);
             shownPSC.push(value);
