@@ -31,6 +31,7 @@ export default class LocationPicker extends React.Component {
         super(props);
 
         this.submitForm = this.submitForm.bind(this);
+        this.generateWarning = this.generateWarning.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -64,12 +65,52 @@ export default class LocationPicker extends React.Component {
         e.preventDefault();
     }
 
+    generateWarning(field) {
+        if (this.props.country.code === '') {
+            // no country provided
+            return (
+                <span>
+                    Please select a&nbsp;
+                    <span className="field">country</span> before selecting a&nbsp;
+                    <span className="field">{field}</span>.
+                </span>
+            );
+        }
+        else if (this.props.country.code === 'USA') {
+            if (this.props.state.code === '') {
+                // no state
+                return (
+                    <span>
+                        Please select a&nbsp;
+                        <span className="field">state</span> before selecting a&nbsp;
+                        <span className="field">{field}</span>.
+                    </span>
+                );
+            }
+            else if (this.props.county.code !== '' || this.props.district.district !== '') {
+                // county selected
+                return (
+                    <span>
+                        You cannot select both a <span className="field">county</span> and a <span className="field">congressional district</span>.
+                    </span>
+                );
+            }
+            return null;
+        }
+        return (
+            <span>
+                Filtering by <span className="field">{field}</span> is only available for locations within the United States.
+            </span>
+        );
+    }
+
     render() {
-        let districtPlaceholder = 'Select a district';
+        let districtPlaceholder = 'Select a congressional district';
         if (this.props.state.code !== '' && this.props.availableDistricts.length === 0) {
             // no districts in this state
             districtPlaceholder = 'No congressional districts in territory';
         }
+
         return (
             <form
                 className="location-filter-form"
@@ -81,7 +122,8 @@ export default class LocationPicker extends React.Component {
                         title="Country"
                         value={this.props.country}
                         selectEntity={this.props.selectEntity}
-                        options={this.props.availableCountries} />
+                        options={this.props.availableCountries}
+                        generateWarning={this.generateWarning} />
                 </div>
                 <div className="location-item">
                     <EntityDropdown
@@ -91,7 +133,8 @@ export default class LocationPicker extends React.Component {
                         value={this.props.state}
                         selectEntity={this.props.selectEntity}
                         options={this.props.availableStates}
-                        enabled={this.props.country.code === 'USA'} />
+                        enabled={this.props.country.code === 'USA'}
+                        generateWarning={this.generateWarning} />
                 </div>
                 <div className="location-item">
                     <EntityDropdown
@@ -101,7 +144,8 @@ export default class LocationPicker extends React.Component {
                         value={this.props.county}
                         selectEntity={this.props.selectEntity}
                         options={this.props.availableCounties}
-                        enabled={this.props.state.code !== ''} />
+                        enabled={this.props.state.code !== '' && this.props.district.district === ''}
+                        generateWarning={this.generateWarning} />
                 </div>
                 <div className="location-item">
                     <EntityDropdown
@@ -112,7 +156,8 @@ export default class LocationPicker extends React.Component {
                         value={this.props.district}
                         selectEntity={this.props.selectEntity}
                         options={this.props.availableDistricts}
-                        enabled={this.props.state.code !== ''} />
+                        enabled={this.props.state.code !== '' && this.props.county.code === ''}
+                        generateWarning={this.generateWarning} />
                 </div>
                 <button
                     className="add-location"

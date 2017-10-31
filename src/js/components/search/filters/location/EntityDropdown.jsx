@@ -10,6 +10,7 @@ import Mousetrap from 'mousetrap';
 import { AngleDown, AngleUp } from 'components/sharedComponents/icons/Icons';
 
 import EntityDropdownList from './EntityDropdownList';
+import EntityWarning from './EntityWarning';
 
 const propTypes = {
     value: PropTypes.object,
@@ -17,6 +18,7 @@ const propTypes = {
     title: PropTypes.string,
     options: PropTypes.array,
     selectEntity: PropTypes.func,
+    generateWarning: PropTypes.func,
     scope: PropTypes.string,
     enabled: PropTypes.bool,
     matchKey: PropTypes.string
@@ -34,7 +36,8 @@ export default class EntityDropdown extends React.Component {
         super(props);
 
         this.state = {
-            expanded: false
+            expanded: false,
+            showWarning: false
         };
 
         this.dropdownRef = null;
@@ -46,6 +49,9 @@ export default class EntityDropdown extends React.Component {
         this.pressedLetter = this.pressedLetter.bind(this);
         this.clickedItem = this.clickedItem.bind(this);
         this.handleDeselection = this.handleDeselection.bind(this);
+
+        this.mouseEnter = this.mouseEnter.bind(this);
+        this.mouseLeave = this.mouseLeave.bind(this);
     }
 
     handleDeselection(e) {
@@ -159,6 +165,25 @@ export default class EntityDropdown extends React.Component {
         }
     }
 
+    mouseEnter() {
+        if (this.props.enabled) {
+            // active filter, do nothing
+            return;
+        }
+
+        this.setState({
+            showWarning: true
+        });
+    }
+
+    mouseLeave() {
+        if (this.state.showWarning) {
+            this.setState({
+                showWarning: false
+            });
+        }
+    }
+
     render() {
         let icon = <AngleDown alt="Open dropdown" />;
         if (this.state.expanded) {
@@ -187,8 +212,14 @@ export default class EntityDropdown extends React.Component {
             disabled = 'disabled';
         }
 
+        let hideWarning = 'hide';
+        if (!this.props.enabled && this.state.showWarning) {
+            hideWarning = '';
+        }
+
         return (
-            <div>
+            <div
+                className="geo-entity-item">
                 <label
                     className={`location-label ${disabled}`}
                     htmlFor={`${this.props.scope}-button`}>
@@ -196,6 +227,8 @@ export default class EntityDropdown extends React.Component {
                 </label>
                 <div
                     className={`geo-entity-dropdown ${disabled}`}
+                    onMouseOver={this.mouseEnter}
+                    onMouseOut={this.mouseLeave}
                     ref={(div) => {
                         this.wrapperDiv = div;
                     }}>
@@ -217,6 +250,10 @@ export default class EntityDropdown extends React.Component {
                         </div>
                     </button>
                     {dropdown}
+                </div>
+                <div className={`geo-warning ${hideWarning}`}>
+                    <EntityWarning
+                        message={this.props.generateWarning(this.props.title)} />
                 </div>
             </div>
         );
