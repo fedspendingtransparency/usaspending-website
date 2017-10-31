@@ -11,24 +11,38 @@ export const agencyFields = [
         field: 'awarding_agency_name'
     },
     {
-        label: 'Awarding Sub-Tier Agency',
+        label: 'Awarding Sub-Agency',
         field: 'awarding_subtier_name'
     },
     {
         label: 'Awarding Office',
-        field: 'awarding_office_name'
+        field: '__special',
+        parse: (data) => {
+            let output = '';
+            if (data.latest_transaction.contract_data.awarding_office_name) {
+                output = data.latest_transaction.contract_data.awarding_office_name;
+            }
+            return output;
+        }
     },
     {
         label: 'Funding Agency',
         field: 'funding_agency_name'
     },
     {
-        label: 'Funding Sub-Tier Agency',
+        label: 'Funding Sub-Agency',
         field: 'funding_subtier_name'
     },
     {
         label: 'Funding Office',
-        field: 'funding_office_name'
+        field: '__special',
+        parse: (data) => {
+            let output = '';
+            if (data.latest_transaction.contract_data.funding_office_name) {
+                output = data.latest_transaction.contract_data.funding_office_name;
+            }
+            return output;
+        }
     }
 ];
 
@@ -66,10 +80,7 @@ export const competitionFields = [
         field: '__special',
         parse: (data) => {
             let output = '';
-            if (data.solicitation_procedur_desc && data.solicitation_procedures) {
-                output = `${data.solicitation_procedures}: ${data.solicitation_procedur_desc}`;
-            }
-            else if (data.solicitation_procedur_desc) {
+            if (data.solicitation_procedur_desc) {
                 output = data.solicitation_procedur_desc;
             }
             else if (data.solicitation_procedures) {
@@ -88,10 +99,7 @@ export const competitionFields = [
         field: '__special',
         parse: (data) => {
             let output = '';
-            if (data.extent_compete_description && data.extent_competed) {
-                output = `${data.extent_competed}: ${data.extent_compete_description}`;
-            }
-            else if (data.extent_compete_description) {
+            if (data.extent_compete_description) {
                 output = data.extent_compete_description;
             }
             else if (data.extent_competed) {
@@ -107,17 +115,14 @@ export const competitionFields = [
     },
     {
         label: 'Set-Aside Type',
-        field: 'type_set_aside'
+        field: 'type_set_aside_description'
     },
     {
         label: 'Commercial Item Acquisition Procedures',
         field: '__special',
         parse: (data) => {
             let output = '';
-            if (data.commercial_item_acqui_desc && data.commercial_item_acquisitio) {
-                output = `${data.commercial_item_acquisitio}: ${data.commercial_item_acqui_desc}`;
-            }
-            else if (data.commercial_item_acqui_desc) {
+            if (data.commercial_item_acqui_desc) {
                 output = data.commercial_item_acqui_desc;
             }
             else if (data.commercial_item_acquisitio) {
@@ -129,7 +134,7 @@ export const competitionFields = [
     },
     {
         label: 'Commercial Item Test Program',
-        field: 'commercial_item_test_progr'
+        field: 'commercial_item_test_desc'
     },
     {
         label: 'Evaluated Preference',
@@ -329,11 +334,8 @@ export const additionalFields = [
         label: 'Subcontracting Plan',
         field: '__special',
         parse: (data) => {
-            let output = '';
-            if (data.subcontracting_plan_desc && data.subcontracting_plan) {
-                output = `${data.subcontracting_plan}: ${data.subcontracting_plan_desc}`;
-            }
-            else if (data.subcontracting_plan_desc) {
+            let output = 'Not Available';
+            if (data.subcontracting_plan_desc) {
                 output = data.subcontracting_plan_desc;
             }
             else if (data.subcontracting_plan) {
