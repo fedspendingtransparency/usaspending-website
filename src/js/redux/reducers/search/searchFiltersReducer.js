@@ -18,7 +18,7 @@ import * as ContractFilterFunctions from './filters/contractFilterFunctions';
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
-export const filterStoreVersion = 2;
+export const filterStoreVersion = '2017-10-31';
 
 export const requiredTypes = {
     timePeriodFY: Set,

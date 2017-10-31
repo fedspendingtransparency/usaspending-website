@@ -237,6 +237,7 @@ export default class LocationPickerContainer extends React.Component {
         // create a location object
         const location = {};
         let title = '';
+        let standalone = '';
         let entity = '';
         let parent = '';
         let identifier = '';
@@ -246,12 +247,14 @@ export default class LocationPickerContainer extends React.Component {
         }
         location.country = this.state.country.code;
         title = this.state.country.name;
+        standalone = this.state.country.name;
         entity = 'Country';
         identifier += this.state.country.code;
 
         if (this.state.state.code !== '') {
             location.state = this.state.state.code;
             title = this.state.state.name;
+            standalone = this.state.state.name;
             parent = this.state.country.name;
             entity = 'State';
             identifier += `_${this.state.state.code}`;
@@ -259,15 +262,17 @@ export default class LocationPickerContainer extends React.Component {
             if (this.state.county.code !== '') {
                 location.county = this.state.county.fips;
                 title = this.state.county.name;
+                standalone = `${this.state.county.name}, ${this.state.state.code}`;
                 parent = this.state.state.name;
-                entity = 'county';
+                entity = 'County';
                 identifier += `_${this.state.county.fips}`;
             }
             else if (this.state.district.code !== '') {
                 location.district = this.state.district.district;
                 title = this.state.district.name;
+                standalone = this.state.district.name;
                 parent = this.state.state.name;
-                entity = 'congressional district';
+                entity = 'Congressional district';
                 identifier += `_${this.state.district.district}`;
             }
         }
@@ -280,7 +285,9 @@ export default class LocationPickerContainer extends React.Component {
         // generate a display tag
         const display = {
             title,
-            description
+            description,
+            entity,
+            standalone
         };
 
         this.props.addLocation({

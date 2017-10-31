@@ -54,27 +54,10 @@ export default class LocationFilterGroup extends React.Component {
     generateTags() {
         const tags = [];
 
-        // check to see if a location is provided
-        let remainingValues = this.props.filter.values;
-        if (this.props.filter.scope !== 'all') {
-            // there is a scope and it will always be the last filter item
-            remainingValues = dropRight(this.props.filter.values, 1);
-
-            // add a tag for the scope filter
-            const tag = {
-                value: this.props.filter.scope,
-                title: scopeLabels[this.props.filter.scope],
-                isSpecial: true,
-                removeFilter: this.removeScope
-            };
-
-            tags.push(tag);
-        }
-
-        remainingValues.forEach((value) => {
+        this.props.filter.values.forEach((value) => {
             const tag = {
                 value: value.identifier,
-                title: LocationFormatter.formatLocation(value),
+                title: `${value.display.entity} | ${value.display.standalone}`,
                 isSpecial: false,
                 removeFilter: this.removeFilter
             };
