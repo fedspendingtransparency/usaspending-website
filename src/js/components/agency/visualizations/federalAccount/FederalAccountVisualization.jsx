@@ -12,6 +12,7 @@ import ChartMessage from 'components/search/visualizations/rank/RankVisualizatio
 import FederalAccountChart from './FederalAccountChart';
 
 const propTypes = {
+    activeFY: PropTypes.string,
     obligatedAmount: PropTypes.number,
     loading: PropTypes.bool,
     error: PropTypes.bool,
@@ -96,19 +97,19 @@ export default class FederalAccountVisualization extends React.Component {
             <div
                 className="agency-section-wrapper"
                 id="agency-federal-accounts">
-                <div className="agency-callout-description">
-                    <p>
-                        This {formattedObligation} in obligations is broken out in multiple <strong>federal accounts</strong> that are helpful in understanding what the agency broadly spends its money on. You can drill-down further into a federal account to view its program activities, which are at a more granular level.
-                    </p>
-                </div>
                 <div className="agency-section-title">
                     <h4>Federal Accounts</h4>
-                    <em>Data as of {this.props.asOfDate}</em>
                     <hr
                         className="results-divider"
                         ref={(hr) => {
                             this.sectionHr = hr;
                         }} />
+                    <em>FY {this.props.activeFY} data reported through {this.props.asOfDate}</em>
+                </div>
+                <div className="agency-callout-description">
+                    <p>
+                        This {formattedObligation} in obligations is broken out in multiple <strong>federal accounts</strong> that are helpful in understanding what the agency broadly spends its money on. You can drill-down further into a federal account to view its program activities, which are at a more granular level.
+                    </p>
                 </div>
                 <div className="agency-section-content">
                     <div className="chart-wrapper">

@@ -6,7 +6,7 @@
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import moment from 'moment';
 
-const expectedStartYear = 2009;
+const expectedStartYear = 2008;
 
 describe('Fiscal Year helper functions', () => {
     it(`should use ${expectedStartYear} as its earliest available fiscal year`, () => {
