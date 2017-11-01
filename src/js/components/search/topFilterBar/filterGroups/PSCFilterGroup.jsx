@@ -44,7 +44,7 @@ export default class PSCFilterGroup extends React.Component {
         PSC.forEach((value) => {
             const tag = {
                 value: `${value.identifier}`,
-                title: `${value.product_or_service_code}`,
+                title: `${value.product_or_service_code} - ${value.psc_description}`,
                 isSpecial: false,
                 removeFilter: this.removeFilter
             };
