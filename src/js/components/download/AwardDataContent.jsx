@@ -10,7 +10,10 @@ import DownloadCheckbox from './DownloadCheckbox';
 
 const propTypes = {
     awardLevels: PropTypes.array,
-    awardTypes: PropTypes.array
+    awardTypes: PropTypes.array,
+    updateDownloadFilters: PropTypes.func,
+    agencies: PropTypes.array,
+    subAgencies: PropTypes.array
 };
 
 export default class AwardDataContent extends React.Component {
@@ -41,9 +44,8 @@ export default class AwardDataContent extends React.Component {
     }
 
     handleSubmit(event) {
-        // TODO: Lizzie - use container function from props
-        console.log(`Submitted ${JSON.stringify(this.state)}`);
         event.preventDefault();
+        this.props.updateDownloadFilters('awardData', this.state);
     }
 
     render() {

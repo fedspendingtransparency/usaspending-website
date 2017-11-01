@@ -18,38 +18,33 @@ export const initialState = {
         },
         columns: [],
         file_format: ''
-    }
+    },
+    agencies: [],
+    subAgencies: []
 };
 
 const bulkDownloadReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'UPDATE_AWARD_DATA_GENERIC': {
-            const awardData = Object.assign({}, state.awardData, {
-                [action.propertyType]: action.propertyValue
-            });
-
+        case 'UPDATE_DOWNLOAD_FILTERS': {
             return Object.assign({}, state, {
-                awardData
+                [action.dataType]: action.filterObject
             });
         }
-        case 'UPDATE_AWARD_FILTER_GENERIC': {
-            const filters = Object.assign({}, state.awardData.filters, {
-                [action.filterType]: action.filterValue
-            });
-
-            const awardData = Object.assign({}, state.awardData, {
-                filters
-            });
+        case 'CLEAR_DOWNLOAD_FILTERS': {
+            const reset = Object.assign({}, initialState[action.dataType]);
 
             return Object.assign({}, state, {
-                awardData
+                [action.dataType]: reset
             });
         }
-        case 'CLEAR_AWARD_FILTERS': {
-            const awardData = Object.assign({}, initialState.awardData);
-
+        case 'SET_AGENCY_LIST': {
             return Object.assign({}, state, {
-                awardData
+                agencies: action.agencies
+            });
+        }
+        case 'SET_SUB_AGENCY_LIST': {
+            return Object.assign({}, state, {
+                subAgencies: action.subAgencies
             });
         }
         default:
