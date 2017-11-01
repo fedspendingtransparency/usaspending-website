@@ -155,6 +155,8 @@ ${latestTransaction.assistance_data.cfda.program_title}`;
             cfdaOverflow = true;
         }
 
+        // Todo - Mike Bray - update typeDesc when available from Broker data
+        // Probably "assistance_type"
         this.setState({
             description,
             programName,

@@ -137,6 +137,12 @@ export default class ContractDetails extends React.Component {
             description = "Not Available";
         }
 
+        // Award Type
+        let awardType = "Not Available";
+        if (award.latest_transaction.contract_data.contract_award_type_desc) {
+            awardType = award.latest_transaction.contract_data.contract_award_type_desc;
+        }
+
         // Pricing
         let pricing = "Not Available";
         if (award.type_of_contract_pricing_description) {
@@ -154,7 +160,7 @@ export default class ContractDetails extends React.Component {
             overflow: seeMore,
             date: popDate,
             place: this.parsePlaceOfPerformance(award),
-            typeDesc: award.type_description,
+            typeDesc: awardType,
             price: pricing
         });
     }
