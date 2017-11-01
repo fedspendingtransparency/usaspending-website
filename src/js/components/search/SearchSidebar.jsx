@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
-import LocationSection from 'components/search/filters/location/LocationSection';
+import LocationSectionContainer from 'containers/search/filters/location/LocationSectionContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
 import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
@@ -49,7 +49,7 @@ const filters = {
         AwardTypeContainer,
         AgencyContainer,
         RecipientSearchContainer,
-        LocationSection,
+        LocationSectionContainer,
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
         CFDASearchContainer,

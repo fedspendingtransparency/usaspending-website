@@ -30,17 +30,13 @@ export const filterHasSelections = (reduxFilters, filter) => {
             return false;
         case 'Recipients':
             if (reduxFilters.selectedRecipients.toArray().length > 0
-                || (reduxFilters.recipientDomesticForeign !== ''
-                && reduxFilters.recipientDomesticForeign !== 'all')
-                || reduxFilters.selectedRecipientLocations.toArray().length > 0
                 || reduxFilters.recipientType.toArray().length > 0) {
                 return true;
             }
             return false;
-        case 'Place of Performance':
+        case 'Location':
             if (reduxFilters.selectedLocations.toArray().length > 0
-                || (reduxFilters.locationDomesticForeign !== ''
-                && reduxFilters.locationDomesticForeign !== 'all')) {
+                || reduxFilters.selectedRecipientLocations.toArray().length > 0) {
                 return true;
             }
             return false;

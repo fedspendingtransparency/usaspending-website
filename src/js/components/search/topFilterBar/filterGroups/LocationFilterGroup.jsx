@@ -5,9 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { dropRight } from 'lodash';
 
-import * as LocationFormatter from 'helpers/locationFormatter';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
@@ -15,11 +13,6 @@ const propTypes = {
     redux: PropTypes.object,
     toggle: PropTypes.string,
     compressed: PropTypes.bool
-};
-
-const scopeLabels = {
-    domestic: 'Only U.S. Locations',
-    foreign: 'Only Foreign Locations'
 };
 
 export default class LocationFilterGroup extends React.Component {

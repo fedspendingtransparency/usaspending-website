@@ -103,6 +103,12 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
+        case 'ADD_RECIPIENT_LOCATION_OBJECT': {
+            return Object.assign({}, state, {
+                selectedRecipientLocations: state.selectedRecipientLocations.set(action.location.identifier, action.location)
+            });
+        }
+
         // Agency Filter
         case 'UPDATE_SELECTED_AWARDING_AGENCIES': {
             return Object.assign({}, state, {

@@ -294,6 +294,13 @@ export default class LocationPickerContainer extends React.Component {
         const locationObject = this.createLocationObject();
         if (locationObject) {
             this.props.addLocation(locationObject);
+            // reset the dropdowns
+            this.setState({
+                country: Object.assign({}, defaultSelections.country),
+                state: Object.assign({}, defaultSelections.state),
+                county: Object.assign({}, defaultSelections.county),
+                district: Object.assign({}, defaultSelections.district)
+            });
         }
     }
 

@@ -4,10 +4,18 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import POPFilterContainer from 'containers/search/filters/location/POPFilterContainer';
+import RecipientFilterContainer from 'containers/search/filters/location/RecipientFilterContainer';
 
-export default class LocationSection extends React.Component {
+const propTypes = {
+    selectedLocations: PropTypes.object,
+    selectedRecipientLocations: PropTypes.object
+};
+
+export class LocationSectionContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -16,6 +24,21 @@ export default class LocationSection extends React.Component {
         };
 
         this.toggleTab = this.toggleTab.bind(this);
+    }
+
+    componentDidMount() {
+        this.openDefaultTab();
+    }
+
+    openDefaultTab() {
+        // check if the recipient or place of performance (default) tab should be enabled based
+        // on the currently selected filters
+        if (this.props.selectedRecipientLocations.count() > 0 && this.props.selectedLocations.count() === 0) {
+            // there are recipient locations and no place of performance locations
+            this.setState({
+                activeTab: 'recipient'
+            });
+        }
     }
 
     toggleTab(e) {
@@ -38,6 +61,9 @@ export default class LocationSection extends React.Component {
         }
 
         let filter = <POPFilterContainer />;
+        if (this.state.activeTab === 'recipient') {
+            filter = <RecipientFilterContainer />;
+        }
 
         return (
             <div className="location-filter search-filter">
@@ -65,3 +91,12 @@ export default class LocationSection extends React.Component {
         );
     }
 }
+
+LocationSectionContainer.propTypes = propTypes;
+
+export default connect(
+    (state) => ({
+        selectedLocations: state.filters.selectedLocations,
+        selectedRecipientLocations: state.filters.selectedRecipientLocations
+    })
+)(LocationSectionContainer);

@@ -54,6 +54,11 @@ export const addPOPLocationObject = (state) => ({
     location: state
 });
 
+export const addRecipientLocationObject = (state) => ({
+    type: 'ADD_RECIPIENT_LOCATION_OBJECT',
+    location: state
+});
+
 // Agency Filter
 
 export const updateSelectedAwardingAgencies = (state) => ({
