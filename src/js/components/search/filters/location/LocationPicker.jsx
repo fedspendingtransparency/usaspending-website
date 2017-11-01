@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import EntityDropdown from './EntityDropdown';
 
 const propTypes = {
+    selectedLocations: PropTypes.object,
     country: PropTypes.object,
     state: PropTypes.object,
     county: PropTypes.object,
@@ -23,6 +24,7 @@ const propTypes = {
     clearStates: PropTypes.func,
     clearCounties: PropTypes.func,
     clearDistricts: PropTypes.func,
+    createLocationObject: PropTypes.func,
     addLocation: PropTypes.func
 };
 
@@ -111,6 +113,19 @@ export default class LocationPicker extends React.Component {
             districtPlaceholder = 'No congressional districts in territory';
         }
 
+        let disabled = true;
+        if (this.props.country.code !== '') {
+            // enable the button if at least some filters are selected
+            disabled = false;
+
+            // check to see if the location is already selected
+            const location = this.props.createLocationObject();
+            if (location && this.props.selectedLocations.has(location.identifier)) {
+                // it is already selected
+                disabled = true;
+            }
+        }
+
         return (
             <form
                 className="location-filter-form"
@@ -161,7 +176,8 @@ export default class LocationPicker extends React.Component {
                 </div>
                 <button
                     className="add-location"
-                    onClick={this.props.addLocation}>
+                    onClick={this.props.addLocation}
+                    disabled={disabled}>
                     Add Filter
                 </button>
             </form>

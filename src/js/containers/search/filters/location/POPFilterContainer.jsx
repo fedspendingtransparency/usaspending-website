@@ -10,33 +10,13 @@ import { connect } from 'react-redux';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
+import SelectedLocations from 'components/search/filters/location/SelectedLocations';
 import LocationPickerContainer from './LocationPickerContainer';
 
 const propTypes = {
-
-};
-
-const defaultSelections = {
-    country: {
-        code: '',
-        name: ''
-    },
-    state: {
-        code: '',
-        fips: '',
-        name: ''
-    },
-    county: {
-        code: '',
-        fips: '',
-        state: '',
-        name: ''
-    },
-    district: {
-        code: '',
-        district: '',
-        name: ''
-    }
+    addPOPLocationObject: PropTypes.func,
+    updateGenericFilter: PropTypes.func,
+    selectedLocations: PropTypes.object
 };
 
 class POPFilterContainer extends React.Component {
@@ -44,16 +24,31 @@ class POPFilterContainer extends React.Component {
         super(props);
 
         this.addLocation = this.addLocation.bind(this);
+        this.removeLocation = this.removeLocation.bind(this);
     }
 
     addLocation(location) {
         this.props.addPOPLocationObject(location);
     }
 
+    removeLocation(locationId) {
+        const newValue = this.props.selectedLocations.delete(locationId);
+        this.props.updateGenericFilter({
+            type: 'selectedLocations',
+            value: newValue
+        });
+    }
+
     render() {
         return (
-            <LocationPickerContainer
-                addLocation={this.addLocation} />
+            <div>
+                <LocationPickerContainer
+                    selectedLocations={this.props.selectedLocations}
+                    addLocation={this.addLocation} />
+                <SelectedLocations
+                    selectedLocations={this.props.selectedLocations}
+                    removeLocation={this.removeLocation} />
+            </div>
         );
     }
 }

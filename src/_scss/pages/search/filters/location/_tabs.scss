@@ -1,9 +1,23 @@
 @import 'pages/search/filters/timePeriod/_toggleButtons';
 ul.toggle-buttons {
+    padding-left: rem(15);
+    @include media($large-screen) {
+        padding-left: rem(30);
+    }
+
     li {
+        margin-left: rem(-2);
+        @include media($large-screen) {
+            margin-left: 0;
+        }
+
         button.date-toggle {
-            padding: 0 rem(8);
-            font-size: rem(13);
+            padding: 0 rem(2);
+            font-size: rem(11);            
+            @include media(1370px) {
+                padding: 0 rem(8);
+                font-size: rem(13);
+            }
         }
     }
 }

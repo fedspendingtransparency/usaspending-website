@@ -9,6 +9,8 @@
     padding: 0 $global-pad rem(20);
 
     .location-filter-form {
+        padding: 0 rem(5);
+
         .location-item {
             margin-top: rem(15);
 
@@ -30,6 +32,14 @@
         .add-location {
             margin-top: rem(15);
             width: 100%;
+            cursor: pointer;
+
+            &:disabled {
+                background-color: $color-gray-lightest;
+                border: 1px solid $color-gray-lighter;
+                color: $color-base;
+                cursor: not-allowed;
+            }
         }
     }
 

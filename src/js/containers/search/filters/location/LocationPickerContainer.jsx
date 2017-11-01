@@ -13,6 +13,7 @@ import { fetchLocationList } from 'helpers/mapHelper';
 import LocationPicker from 'components/search/filters/location/LocationPicker';
 
 const propTypes = {
+    selectedLocations: PropTypes.object,
     addLocation: PropTypes.func
 };
 
@@ -68,6 +69,7 @@ export default class LocationPickerContainer extends React.Component {
 
         this.selectEntity = this.selectEntity.bind(this);
 
+        this.createLocationObject = this.createLocationObject.bind(this);
         this.addLocation = this.addLocation.bind(this);
     }
 
@@ -233,17 +235,16 @@ export default class LocationPickerContainer extends React.Component {
         });
     }
 
-    addLocation() {
+    createLocationObject() {
         // create a location object
         const location = {};
         let title = '';
         let standalone = '';
         let entity = '';
-        let parent = '';
         let identifier = '';
         if (this.state.country.code === '') {
             // do nothing, it's an empty filter
-            return;
+            return null;
         }
         location.country = this.state.country.code;
         title = this.state.country.name;
@@ -255,7 +256,6 @@ export default class LocationPickerContainer extends React.Component {
             location.state = this.state.state.code;
             title = this.state.state.name;
             standalone = this.state.state.name;
-            parent = this.state.country.name;
             entity = 'State';
             identifier += `_${this.state.state.code}`;
 
@@ -263,7 +263,6 @@ export default class LocationPickerContainer extends React.Component {
                 location.county = this.state.county.fips;
                 title = this.state.county.name;
                 standalone = `${this.state.county.name}, ${this.state.state.code}`;
-                parent = this.state.state.name;
                 entity = 'County';
                 identifier += `_${this.state.county.fips}`;
             }
@@ -271,36 +270,38 @@ export default class LocationPickerContainer extends React.Component {
                 location.district = this.state.district.district;
                 title = this.state.district.name;
                 standalone = this.state.district.name;
-                parent = this.state.state.name;
                 entity = 'Congressional district';
                 identifier += `_${this.state.district.district}`;
             }
         }
 
-        let description = `${entity.toUpperCase()} in ${parent}`;
-        if (parent === '') {
-            description = entity.toUpperCase();
-        }
-
         // generate a display tag
         const display = {
             title,
-            description,
             entity,
             standalone
         };
 
-        this.props.addLocation({
+
+        return {
             identifier,
             display,
             filter: location
-        });
+        };
+    }
+
+    addLocation() {
+        const locationObject = this.createLocationObject();
+        if (locationObject) {
+            this.props.addLocation(locationObject);
+        }
     }
 
     render() {
         return (
             <LocationPicker
                 {...this.state}
+                selectedLocations={this.props.selectedLocations}
                 loadStates={this.loadStates}
                 loadCounties={this.loadCounties}
                 loadDistricts={this.loadDistricts}
@@ -308,6 +309,7 @@ export default class LocationPickerContainer extends React.Component {
                 clearCounties={this.clearCounties}
                 clearDistricts={this.clearDistricts}
                 selectEntity={this.selectEntity}
+                createLocationObject={this.createLocationObject}
                 addLocation={this.addLocation} />
         );
     }

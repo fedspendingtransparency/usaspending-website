@@ -73,6 +73,7 @@ export default class EntityDropdown extends React.Component {
         this.setState({
             expanded: false
         }, () => {
+            this.dropdownButton.focus();
             this.unbindAccessibility();
         });
     }
@@ -241,7 +242,10 @@ export default class EntityDropdown extends React.Component {
                         aria-haspopup={"true"}
                         aria-expanded={this.state.expanded}
                         aria-owns={`geo-dropdown-${this.props.scope}`}
-                        disabled={!this.props.enabled || this.props.options.length === 0}>
+                        disabled={!this.props.enabled || this.props.options.length === 0}
+                        ref={(button) => {
+                            this.dropdownButton = button;
+                        }}>
                         <div className="label">
                             {label}
                         </div>
