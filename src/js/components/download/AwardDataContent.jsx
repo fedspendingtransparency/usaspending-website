@@ -6,11 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { awardDownloadOptions } from 'dataMapping/download/downloadOptions';
+
 import DownloadCheckbox from './DownloadCheckbox';
 
 const propTypes = {
-    awardLevels: PropTypes.array,
-    awardTypes: PropTypes.array,
     updateDownloadFilters: PropTypes.func,
     agencies: PropTypes.array,
     subAgencies: PropTypes.array,
@@ -54,6 +54,11 @@ export default class AwardDataContent extends React.Component {
     handleAgencySelect(event) {
         const target = event.target;
         this.handleInputChange(target.value, target.name);
+        if (target.value === '') {
+            this.setState({
+                subAgency: ''
+            })
+        }
         this.props.setSubAgencyList(target.value);
     }
 
@@ -63,7 +68,7 @@ export default class AwardDataContent extends React.Component {
     }
 
     render() {
-        const awardLevels = this.props.awardLevels.map((level) => (
+        const awardLevels = awardDownloadOptions.awardLevels.map((level) => (
             <DownloadCheckbox
                 key={level.name}
                 name={level.name}
@@ -72,7 +77,7 @@ export default class AwardDataContent extends React.Component {
                 onChange={this.handleInputChange} />
         ));
 
-        const awardTypes = this.props.awardTypes.map((type) => (
+        const awardTypes = awardDownloadOptions.awardTypes.map((type) => (
             <DownloadCheckbox
                 key={type.name}
                 name={type.name}
@@ -95,6 +100,19 @@ export default class AwardDataContent extends React.Component {
                 value={subAgency.subtier_agency_id}>
                 {subAgency.subtier_agency_name}
             </option>
+        ));
+
+        const dateTypes = awardDownloadOptions.dateTypes.map((dateType) => (
+            <div className="radio">
+                <input type="radio" value={dateType.name}
+                       name="dateType"
+                       checked={this.state.dateType === dateType.name}
+                       onChange={this.handleChange} />
+                <label className="radio-label">{dateType.label}</label>
+                <div className="radio-description">
+                    {dateType.description}
+                </div>
+            </div>
         ));
 
         return (
@@ -124,16 +142,22 @@ export default class AwardDataContent extends React.Component {
                                 Agency
                             </label>
                             <select id="agency-select" name="agency" value={this.state.agency} onChange={this.handleAgencySelect}>
-                                <option disabled>Select</option>
+                                <option value="">Select an Agency</option>
                                 {agencies}
                             </select>
                             <label className="select-label" htmlFor="sub-agency-select">
                                 Sub-Agency
                             </label>
                             <select id="sub-agency-select" name="subAgency" value={this.state.subAgency} onChange={this.handleChange}>
-                                <option disabled>Select</option>
+                                <option value="">Select a Sub-Agency</option>
                                 {subAgencies}
                             </select>
+                        </div>
+                        <div className="filter-section">
+                            <h5 className="filter-section-title">
+                                Select a <span>date type</span> for the date range below.
+                            </h5>
+                            {dateTypes}
                         </div>
                         <input type="submit" value="Download" />
                     </form>

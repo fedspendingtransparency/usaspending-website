@@ -14,40 +14,6 @@ import * as downloadActions from 'redux/actions/download/bulkDownloadActions';
 
 import AwardDataContent from 'components/download/AwardDataContent';
 
-const awardLevelOptions = [
-    {
-        name: 'prime_awards',
-        label: 'Prime Awards'
-    },
-    {
-        name: 'sub_awards',
-        label: 'Sub Awards'
-    }
-];
-
-const awardTypeOptions = [
-    {
-        name: 'contracts',
-        label: 'Contracts'
-    },
-    {
-        name: 'grants',
-        label: 'Grants'
-    },
-    {
-        name: 'direct_payments',
-        label: 'Direct Payments'
-    },
-    {
-        name: 'loans',
-        label: 'Loans'
-    },
-    {
-        name: 'other_financial_assistance',
-        label: 'Other Financial Assistance'
-    }
-];
-
 const propTypes = {
     updateDownloadFilters: PropTypes.func,
     clearDownloadFilters: PropTypes.func,
@@ -120,55 +86,60 @@ export class AwardDataContainer extends React.Component {
     }
 
     setSubAgencyList(id) {
-        // TODO - Lizzie: uncomment when endpoint is ready
-        // this.setState({
-        //    inFlight: true
-        // });
-        //
-        // if (this.agencyListRequeset) {
-        //    this.agencyListRequeset.cancel();
-        // }
-        //
-        // // perform the API request
-        // this.agencyListRequeset = BulkDownloadHelper.requestAgenciesList({
-        //    agency: id
-        // });
-        //
-        // this.agencyListRequeset.promise
-        //    .then((res) => {
-        //        const subAgencies = res.data.agencies;
-        //        this.props.setSubAgencyList(subAgencies);
-        //    })
-        //    .catch((err) => {
-        //        console.log(err);
-        //        this.agencyListRequeset = null;
-        //    });
+        if (id !== '') {
+            // TODO - Lizzie: uncomment when endpoint is ready
+            // this.setState({
+            //    inFlight: true
+            // });
+            //
+            // if (this.agencyListRequeset) {
+            //    this.agencyListRequeset.cancel();
+            // }
+            //
+            // // perform the API request
+            // this.agencyListRequeset = BulkDownloadHelper.requestAgenciesList({
+            //    agency: id
+            // });
+            //
+            // this.agencyListRequeset.promise
+            //    .then((res) => {
+            //        const subAgencies = res.data.agencies;
+            //        this.props.setSubAgencyList(subAgencies);
+            //    })
+            //    .catch((err) => {
+            //        console.log(err);
+            //        this.agencyListRequeset = null;
+            //    });
 
-        let mockSubAgencies = [
-            {
-                subtier_agency_name: "Subtier Agency 1",
-                subtier_agency_id: 5
-            },
-            {
-                subtier_agency_name: "Subtier Agency 2",
-                subtier_agency_id: 6
-            }
-        ];
-
-        if (id === '435') {
-            mockSubAgencies = [
+            let mockSubAgencies = [
                 {
-                    subtier_agency_name: "Subtier Agency 3",
-                    subtier_agency_id: 7
+                    subtier_agency_name: "Subtier Agency 1",
+                    subtier_agency_id: 5
                 },
                 {
-                    subtier_agency_name: "Subtier Agency 4",
-                    subtier_agency_id: 8
+                    subtier_agency_name: "Subtier Agency 2",
+                    subtier_agency_id: 6
                 }
             ];
-        }
 
-        this.props.setSubAgencyList(mockSubAgencies);
+            if (id === '435') {
+                mockSubAgencies = [
+                    {
+                        subtier_agency_name: "Subtier Agency 3",
+                        subtier_agency_id: 7
+                    },
+                    {
+                        subtier_agency_name: "Subtier Agency 4",
+                        subtier_agency_id: 8
+                    }
+                ];
+            }
+
+            this.props.setSubAgencyList(mockSubAgencies);
+        }
+        else {
+            this.props.setSubAgencyList([]);
+        }
     }
 
     clearAwardFilters() {
@@ -199,7 +170,7 @@ export class AwardDataContainer extends React.Component {
                 award_types: awardTypes,
                 agency: filterSelections.agency,
                 sub_agency: filterSelections.subAgency,
-                date_type: '',
+                date_type: filterSelections.dateType,
                 date_range: {
                     start_date: '',
                     end_date: ''
@@ -219,8 +190,6 @@ export class AwardDataContainer extends React.Component {
     render() {
         return (
             <AwardDataContent
-                awardLevels={awardLevelOptions}
-                awardTypes={awardTypeOptions}
                 updateDownloadFilters={this.parseFilterSelections}
                 clearAwardFilters={this.clearAwardFilters}
                 agencies={this.props.bulkDownload.agencies}
