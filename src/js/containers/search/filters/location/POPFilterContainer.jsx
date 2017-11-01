@@ -19,7 +19,7 @@ const propTypes = {
     selectedLocations: PropTypes.object
 };
 
-class POPFilterContainer extends React.Component {
+export class POPFilterContainer extends React.Component {
     constructor(props) {
         super(props);
 

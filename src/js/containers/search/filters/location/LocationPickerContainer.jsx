@@ -212,7 +212,7 @@ export default class LocationPickerContainer extends React.Component {
         let districts = [];
         if (data.districts.length > 0) {
             districts = concat([Object.assign({}, defaultSelections.district, {
-                name: 'All districts'
+                name: 'All congressional districts'
             })], data.districts);
         }
 
