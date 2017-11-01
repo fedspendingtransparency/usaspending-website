@@ -119,7 +119,7 @@ export class AwardDataContainer extends React.Component {
         this.props.setAgencyList(mockAgencies);
     }
 
-    setSubAgencyList() {
+    setSubAgencyList(id) {
         // TODO - Lizzie: uncomment when endpoint is ready
         // this.setState({
         //    inFlight: true
@@ -144,7 +144,7 @@ export class AwardDataContainer extends React.Component {
         //        this.agencyListRequeset = null;
         //    });
 
-        const mockSubAgencies = [
+        let mockSubAgencies = [
             {
                 subtier_agency_name: "Subtier Agency 1",
                 subtier_agency_id: 5
@@ -154,6 +154,19 @@ export class AwardDataContainer extends React.Component {
                 subtier_agency_id: 6
             }
         ];
+
+        if (id === '435') {
+            mockSubAgencies = [
+                {
+                    subtier_agency_name: "Subtier Agency 3",
+                    subtier_agency_id: 7
+                },
+                {
+                    subtier_agency_name: "Subtier Agency 4",
+                    subtier_agency_id: 8
+                }
+            ];
+        }
 
         this.props.setSubAgencyList(mockSubAgencies);
     }
@@ -184,8 +197,8 @@ export class AwardDataContainer extends React.Component {
             award_levels: awardLevels,
             filters: {
                 award_types: awardTypes,
-                agency: '',
-                sub_agency: '',
+                agency: filterSelections.agency,
+                sub_agency: filterSelections.subAgency,
                 date_type: '',
                 date_range: {
                     start_date: '',
@@ -211,7 +224,8 @@ export class AwardDataContainer extends React.Component {
                 updateDownloadFilters={this.parseFilterSelections}
                 clearAwardFilters={this.clearAwardFilters}
                 agencies={this.props.bulkDownload.agencies}
-                subAgencies={this.props.bulkDownload.subAgencies} />
+                subAgencies={this.props.bulkDownload.subAgencies}
+                setSubAgencyList={this.setSubAgencyList} />
         );
     }
 }

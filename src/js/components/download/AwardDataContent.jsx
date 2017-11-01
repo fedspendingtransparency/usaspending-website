@@ -13,7 +13,8 @@ const propTypes = {
     awardTypes: PropTypes.array,
     updateDownloadFilters: PropTypes.func,
     agencies: PropTypes.array,
-    subAgencies: PropTypes.array
+    subAgencies: PropTypes.array,
+    setSubAgencyList: PropTypes.func
 };
 
 export default class AwardDataContent extends React.Component {
@@ -34,6 +35,8 @@ export default class AwardDataContent extends React.Component {
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleAgencySelect = this.handleAgencySelect.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -41,6 +44,17 @@ export default class AwardDataContent extends React.Component {
         this.setState({
             [name]: value
         });
+    }
+
+    handleChange(event) {
+        const target = event.target;
+        this.handleInputChange(target.value, target.name);
+    }
+
+    handleAgencySelect(event) {
+        const target = event.target;
+        this.handleInputChange(target.value, target.name);
+        this.props.setSubAgencyList(target.value);
     }
 
     handleSubmit(event) {
@@ -67,6 +81,22 @@ export default class AwardDataContent extends React.Component {
                 onChange={this.handleInputChange} />
         ));
 
+        const agencies = this.props.agencies.map((agency) => (
+            <option
+                key={agency.toptier_agency_id}
+                value={agency.toptier_agency_id}>
+                {agency.name}
+            </option>
+        ));
+
+        const subAgencies = this.props.subAgencies.map((subAgency) => (
+            <option
+                key={subAgency.subtier_agency_id}
+                value={subAgency.subtier_agency_id}>
+                {subAgency.subtier_agency_name}
+            </option>
+        ));
+
         return (
             <div className="download-data-content">
                 <div className="download-filters">
@@ -85,6 +115,25 @@ export default class AwardDataContent extends React.Component {
                                 Select the <span>award types</span> to include.
                             </h5>
                             {awardTypes}
+                        </div>
+                        <div className="filter-section">
+                            <h5 className="filter-section-title">
+                                Select an <span>agency</span> and <span>sub-agency</span>.
+                            </h5>
+                            <label className="select-label" htmlFor="agency-select">
+                                Agency
+                            </label>
+                            <select id="agency-select" name="agency" value={this.state.agency} onChange={this.handleAgencySelect}>
+                                <option disabled>Select</option>
+                                {agencies}
+                            </select>
+                            <label className="select-label" htmlFor="sub-agency-select">
+                                Sub-Agency
+                            </label>
+                            <select id="sub-agency-select" name="subAgency" value={this.state.subAgency} onChange={this.handleChange}>
+                                <option disabled>Select</option>
+                                {subAgencies}
+                            </select>
                         </div>
                         <input type="submit" value="Download" />
                     </form>
