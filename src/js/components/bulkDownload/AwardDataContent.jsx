@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { awardDownloadOptions } from 'dataMapping/download/downloadOptions';
+import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 
 import DownloadCheckbox from './DownloadCheckbox';
 
@@ -103,7 +103,8 @@ export default class AwardDataContent extends React.Component {
         ));
 
         const dateTypes = awardDownloadOptions.dateTypes.map((dateType) => (
-            <div className="radio">
+            <div className="radio"
+                key={dateType.name}>
                 <input type="radio" value={dateType.name}
                        name="dateType"
                        checked={this.state.dateType === dateType.name}

@@ -1,5 +1,5 @@
 /**
- * DownloadSidebar.jsx
+ * BulkDownloadSidebar.jsx
  * Created by Lizzie Salita 10/30/17
  */
 

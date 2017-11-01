@@ -25,7 +25,7 @@ import cfdaReducer from './search/cfdaReducer';
 import naicsReducer from './search/naicsReducer';
 import pscReducer from './search/pscReducer';
 import downloadReducer from './search/downloadReducer';
-import bulkDownloadReducer from './download/bulkDownloadReducer';
+import bulkDownloadReducer from './bulkDownload/bulkDownloadReducer';
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,

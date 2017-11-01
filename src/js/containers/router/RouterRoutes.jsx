@@ -165,11 +165,11 @@ const routes = {
             }
         },
         {
-            path: '/download',
-            parent: '/download',
+            path: '/bulk_download',
+            parent: '/bulk_download',
             component: (cb) => {
                 require.ensure([], (require) => {
-                    cb(require('components/download/DownloadPage').default);
+                    cb(require('components/bulkDownload/BulkDownloadPage').default);
                 });
             }
         }

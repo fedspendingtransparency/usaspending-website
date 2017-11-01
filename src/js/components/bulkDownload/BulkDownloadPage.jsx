@@ -1,5 +1,5 @@
 /**
- * DownloadPage.jsx
+ * BulkDownloadPage.jsx
  * Created by Lizzie Salita 10/30/17
  */
 
@@ -11,10 +11,10 @@ import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import Footer from 'components/sharedComponents/Footer';
 
-import AwardDataContainer from 'containers/download/AwardDataContainer';
-import DownloadSidebar from './sidebar/DownloadSidebar';
+import AwardDataContainer from 'containers/bulkDownload/AwardDataContainer';
+import DownloadSidebar from './sidebar/BulkDownloadSidebar';
 
-require('pages/download/downloadPage.scss');
+require('pages/bulkDownload/bulkDownloadPage.scss');
 
 const dataTypes = [
     {
@@ -61,7 +61,7 @@ export default class DownloadPage extends React.Component {
             <AwardDataContainer />
         );
         return (
-            <div className="usa-da-download-page">
+            <div className="usa-da-bulk-download-page">
                 <MetaTags {...downloadPageMetaTags} />
                 <Header />
                 <div className="page-title-bar">

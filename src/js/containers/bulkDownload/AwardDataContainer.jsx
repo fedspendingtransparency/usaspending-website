@@ -10,9 +10,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 // import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
-import * as downloadActions from 'redux/actions/download/bulkDownloadActions';
+import * as downloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 
-import AwardDataContent from 'components/download/AwardDataContent';
+import AwardDataContent from 'components/bulkDownload/AwardDataContent';
 
 const propTypes = {
     updateDownloadFilters: PropTypes.func,

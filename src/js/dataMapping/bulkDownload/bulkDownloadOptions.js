@@ -1,5 +1,5 @@
 /**
- * downloadOptions.js
+ * bulkDownloadOptions.js
  * Created by Lizzie Salita 11/1/17
  */
 
