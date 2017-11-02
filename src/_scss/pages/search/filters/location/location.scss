@@ -37,7 +37,7 @@
             &:disabled {
                 background-color: $color-gray-lightest;
                 border: 1px solid $color-gray-lighter;
-                color: $color-base;
+                color: $color-gray-light;
                 cursor: not-allowed;
             }
         }

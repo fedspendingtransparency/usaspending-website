@@ -459,36 +459,5 @@ describe('LocationPickerContainer', () => {
                 }
             });
         });
-        it('should reset the dropdown selections after adding to Redux', () => {
-            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.setState({
-                country: {
-                    code: 'ABC',
-                    name: 'A Big Country'
-                }
-            });
-
-            container.instance().addLocation();
-            expect(container.state().country).toEqual({
-                code: '',
-                name: ''
-            });
-            expect(container.state().state).toEqual({
-                code: '',
-                fips: '',
-                name: ''
-            });
-            expect(container.state().county).toEqual({
-                code: '',
-                fips: '',
-                state: '',
-                name: ''
-            });
-            expect(container.state().district).toEqual({
-                code: '',
-                district: '',
-                name: ''
-            });
-        });
     });
 });

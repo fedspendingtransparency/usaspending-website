@@ -29,16 +29,16 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 
 const filters = {
     options: [
-        'Search',
+        'Keyword',
         'Time Period',
         'Award Type',
-        'Agencies',
-        'Locations',
-        'Recipients',
-        'Recipient Types',
+        'Agency',
+        'Location',
+        'Recipient',
+        'Recipient Type',
         'Award Amount',
         'Award ID',
-        'CFDA Programs',
+        'CFDA Program',
         'NAICS Code',
         'Product/Service Code (PSC)',
         'Type of Contract Pricing',
