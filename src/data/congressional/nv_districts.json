@@ -1,0 +1,24 @@
+{
+    "districts": [
+        {
+            "code": "3201",
+            "district": "01",
+            "name": "NV-01"
+        },
+        {
+            "code": "3202",
+            "district": "02",
+            "name": "NV-02"
+        },
+        {
+            "code": "3203",
+            "district": "03",
+            "name": "NV-03"
+        },
+        {
+            "code": "3204",
+            "district": "04",
+            "name": "NV-04"
+        }
+    ]
+}

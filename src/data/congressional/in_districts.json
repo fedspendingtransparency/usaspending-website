@@ -1,0 +1,49 @@
+{
+    "districts": [
+        {
+            "code": "1801",
+            "district": "01",
+            "name": "IN-01"
+        },
+        {
+            "code": "1802",
+            "district": "02",
+            "name": "IN-02"
+        },
+        {
+            "code": "1803",
+            "district": "03",
+            "name": "IN-03"
+        },
+        {
+            "code": "1804",
+            "district": "04",
+            "name": "IN-04"
+        },
+        {
+            "code": "1805",
+            "district": "05",
+            "name": "IN-05"
+        },
+        {
+            "code": "1806",
+            "district": "06",
+            "name": "IN-06"
+        },
+        {
+            "code": "1807",
+            "district": "07",
+            "name": "IN-07"
+        },
+        {
+            "code": "1808",
+            "district": "08",
+            "name": "IN-08"
+        },
+        {
+            "code": "1809",
+            "district": "09",
+            "name": "IN-09"
+        }
+    ]
+}

@@ -183,12 +183,18 @@ describe('TopFilterBarContainer', () => {
 
             const locationFilter = Object.assign({}, stateWithoutDefault, {
                 selectedLocations: new OrderedMap({
-                    '1,2_LOS ANGELES_CITY': {
-                        matched_ids: [1, 2],
-                        parent: 'CALIFORNIA',
-                        place_type: 'CITY',
-                        place: 'LOS ANGELES',
-                        identifier: '1,2_LOS ANGELES_CITY'
+                    USA_NY_001: {
+                        filter: {
+                            country: 'USA',
+                            state: 'NY',
+                            county: '001'
+                        },
+                        display: {
+                            entity: 'County',
+                            title: 'New Donk County',
+                            standalone: 'New Donk County, NY'
+                        },
+                        identifier: 'USA_NY_001'
                     }
                 })
             });
@@ -205,40 +211,17 @@ describe('TopFilterBarContainer', () => {
                 name: 'Place of Performance Location',
                 scope: 'all',
                 values: [{
-                    matched_ids: [1, 2],
-                    parent: 'CALIFORNIA',
-                    place_type: 'CITY',
-                    place: 'LOS ANGELES',
-                    identifier: '1,2_LOS ANGELES_CITY'
-                }]
-            };
-
-            expect(filterItem).toEqual(expectedFilterState);
-        });
-
-        it('should update component state with Redux location scope when it is not "all"', () => {
-            // mount the container with default props
-            const topBarContainer = setup(defaultProps);
-
-            expect(topBarContainer.state().filters).toHaveLength(0);
-
-            const locationFilter = Object.assign({}, stateWithoutDefault, {
-                locationDomesticForeign: 'foreign'
-            });
-
-            topBarContainer.setProps({
-                reduxFilters: locationFilter
-            });
-
-            expect(topBarContainer.state().filters).toHaveLength(1);
-
-            const filterItem = topBarContainer.state().filters[0];
-            const expectedFilterState = {
-                code: 'selectedLocations',
-                name: 'Place of Performance Location',
-                scope: 'foreign',
-                values: [{
-                    isScope: true
+                    filter: {
+                        country: 'USA',
+                        state: 'NY',
+                        county: '001'
+                    },
+                    display: {
+                        entity: 'County',
+                        title: 'New Donk County',
+                        standalone: 'New Donk County, NY'
+                    },
+                    identifier: 'USA_NY_001'
                 }]
             };
 
@@ -337,7 +320,7 @@ describe('TopFilterBarContainer', () => {
 
             const recipientLocationFilter = Object.assign({}, stateWithoutDefault, {
                 selectedRecipientLocations: new OrderedMap({
-                    '22796_McLean_COUNTY': mockLocation
+                    USA_NY_001: mockLocation
                 })
             });
 

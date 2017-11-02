@@ -77,7 +77,7 @@ module.exports = {
                 })
             },
             {
-                include: /src(\/|\\)(fonts|graphics|img)/,
+                include: /src(\/|\\)(fonts|graphics|img|data)/,
                 loader: 'file-loader',
                 query: {
                     name: '[path][name].[ext]'

@@ -1,0 +1,334 @@
+{
+    "counties": [
+        {
+            "code": "54001",
+            "fips": "001",
+            "state": "WV",
+            "name": "Barbour County"
+        },
+        {
+            "code": "54003",
+            "fips": "003",
+            "state": "WV",
+            "name": "Berkeley County"
+        },
+        {
+            "code": "54005",
+            "fips": "005",
+            "state": "WV",
+            "name": "Boone County"
+        },
+        {
+            "code": "54007",
+            "fips": "007",
+            "state": "WV",
+            "name": "Braxton County"
+        },
+        {
+            "code": "54009",
+            "fips": "009",
+            "state": "WV",
+            "name": "Brooke County"
+        },
+        {
+            "code": "54011",
+            "fips": "011",
+            "state": "WV",
+            "name": "Cabell County"
+        },
+        {
+            "code": "54013",
+            "fips": "013",
+            "state": "WV",
+            "name": "Calhoun County"
+        },
+        {
+            "code": "54015",
+            "fips": "015",
+            "state": "WV",
+            "name": "Clay County"
+        },
+        {
+            "code": "54017",
+            "fips": "017",
+            "state": "WV",
+            "name": "Doddridge County"
+        },
+        {
+            "code": "54019",
+            "fips": "019",
+            "state": "WV",
+            "name": "Fayette County"
+        },
+        {
+            "code": "54021",
+            "fips": "021",
+            "state": "WV",
+            "name": "Gilmer County"
+        },
+        {
+            "code": "54023",
+            "fips": "023",
+            "state": "WV",
+            "name": "Grant County"
+        },
+        {
+            "code": "54025",
+            "fips": "025",
+            "state": "WV",
+            "name": "Greenbrier County"
+        },
+        {
+            "code": "54027",
+            "fips": "027",
+            "state": "WV",
+            "name": "Hampshire County"
+        },
+        {
+            "code": "54029",
+            "fips": "029",
+            "state": "WV",
+            "name": "Hancock County"
+        },
+        {
+            "code": "54031",
+            "fips": "031",
+            "state": "WV",
+            "name": "Hardy County"
+        },
+        {
+            "code": "54033",
+            "fips": "033",
+            "state": "WV",
+            "name": "Harrison County"
+        },
+        {
+            "code": "54035",
+            "fips": "035",
+            "state": "WV",
+            "name": "Jackson County"
+        },
+        {
+            "code": "54037",
+            "fips": "037",
+            "state": "WV",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "54039",
+            "fips": "039",
+            "state": "WV",
+            "name": "Kanawha County"
+        },
+        {
+            "code": "54041",
+            "fips": "041",
+            "state": "WV",
+            "name": "Lewis County"
+        },
+        {
+            "code": "54043",
+            "fips": "043",
+            "state": "WV",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "54045",
+            "fips": "045",
+            "state": "WV",
+            "name": "Logan County"
+        },
+        {
+            "code": "54049",
+            "fips": "049",
+            "state": "WV",
+            "name": "Marion County"
+        },
+        {
+            "code": "54051",
+            "fips": "051",
+            "state": "WV",
+            "name": "Marshall County"
+        },
+        {
+            "code": "54053",
+            "fips": "053",
+            "state": "WV",
+            "name": "Mason County"
+        },
+        {
+            "code": "54047",
+            "fips": "047",
+            "state": "WV",
+            "name": "McDowell County"
+        },
+        {
+            "code": "54055",
+            "fips": "055",
+            "state": "WV",
+            "name": "Mercer County"
+        },
+        {
+            "code": "54057",
+            "fips": "057",
+            "state": "WV",
+            "name": "Mineral County"
+        },
+        {
+            "code": "54059",
+            "fips": "059",
+            "state": "WV",
+            "name": "Mingo County"
+        },
+        {
+            "code": "54061",
+            "fips": "061",
+            "state": "WV",
+            "name": "Monongalia County"
+        },
+        {
+            "code": "54063",
+            "fips": "063",
+            "state": "WV",
+            "name": "Monroe County"
+        },
+        {
+            "code": "54065",
+            "fips": "065",
+            "state": "WV",
+            "name": "Morgan County"
+        },
+        {
+            "code": "54067",
+            "fips": "067",
+            "state": "WV",
+            "name": "Nicholas County"
+        },
+        {
+            "code": "54069",
+            "fips": "069",
+            "state": "WV",
+            "name": "Ohio County"
+        },
+        {
+            "code": "54071",
+            "fips": "071",
+            "state": "WV",
+            "name": "Pendleton County"
+        },
+        {
+            "code": "54073",
+            "fips": "073",
+            "state": "WV",
+            "name": "Pleasants County"
+        },
+        {
+            "code": "54075",
+            "fips": "075",
+            "state": "WV",
+            "name": "Pocahontas County"
+        },
+        {
+            "code": "54077",
+            "fips": "077",
+            "state": "WV",
+            "name": "Preston County"
+        },
+        {
+            "code": "54079",
+            "fips": "079",
+            "state": "WV",
+            "name": "Putnam County"
+        },
+        {
+            "code": "54081",
+            "fips": "081",
+            "state": "WV",
+            "name": "Raleigh County"
+        },
+        {
+            "code": "54083",
+            "fips": "083",
+            "state": "WV",
+            "name": "Randolph County"
+        },
+        {
+            "code": "54085",
+            "fips": "085",
+            "state": "WV",
+            "name": "Ritchie County"
+        },
+        {
+            "code": "54087",
+            "fips": "087",
+            "state": "WV",
+            "name": "Roane County"
+        },
+        {
+            "code": "54089",
+            "fips": "089",
+            "state": "WV",
+            "name": "Summers County"
+        },
+        {
+            "code": "54091",
+            "fips": "091",
+            "state": "WV",
+            "name": "Taylor County"
+        },
+        {
+            "code": "54093",
+            "fips": "093",
+            "state": "WV",
+            "name": "Tucker County"
+        },
+        {
+            "code": "54095",
+            "fips": "095",
+            "state": "WV",
+            "name": "Tyler County"
+        },
+        {
+            "code": "54097",
+            "fips": "097",
+            "state": "WV",
+            "name": "Upshur County"
+        },
+        {
+            "code": "54099",
+            "fips": "099",
+            "state": "WV",
+            "name": "Wayne County"
+        },
+        {
+            "code": "54101",
+            "fips": "101",
+            "state": "WV",
+            "name": "Webster County"
+        },
+        {
+            "code": "54103",
+            "fips": "103",
+            "state": "WV",
+            "name": "Wetzel County"
+        },
+        {
+            "code": "54105",
+            "fips": "105",
+            "state": "WV",
+            "name": "Wirt County"
+        },
+        {
+            "code": "54107",
+            "fips": "107",
+            "state": "WV",
+            "name": "Wood County"
+        },
+        {
+            "code": "54109",
+            "fips": "109",
+            "state": "WV",
+            "name": "Wyoming County"
+        }
+    ]
+}

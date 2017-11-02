@@ -1,0 +1,49 @@
+{
+    "districts": [
+        {
+            "code": "0401",
+            "district": "01",
+            "name": "AZ-01"
+        },
+        {
+            "code": "0402",
+            "district": "02",
+            "name": "AZ-02"
+        },
+        {
+            "code": "0403",
+            "district": "03",
+            "name": "AZ-03"
+        },
+        {
+            "code": "0404",
+            "district": "04",
+            "name": "AZ-04"
+        },
+        {
+            "code": "0405",
+            "district": "05",
+            "name": "AZ-05"
+        },
+        {
+            "code": "0406",
+            "district": "06",
+            "name": "AZ-06"
+        },
+        {
+            "code": "0407",
+            "district": "07",
+            "name": "AZ-07"
+        },
+        {
+            "code": "0408",
+            "district": "08",
+            "name": "AZ-08"
+        },
+        {
+            "code": "0409",
+            "district": "09",
+            "name": "AZ-09"
+        }
+    ]
+}

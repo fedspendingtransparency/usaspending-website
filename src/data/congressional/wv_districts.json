@@ -1,0 +1,19 @@
+{
+    "districts": [
+        {
+            "code": "5401",
+            "district": "01",
+            "name": "WV-01"
+        },
+        {
+            "code": "5402",
+            "district": "02",
+            "name": "WV-02"
+        },
+        {
+            "code": "5403",
+            "district": "03",
+            "name": "WV-03"
+        }
+    ]
+}

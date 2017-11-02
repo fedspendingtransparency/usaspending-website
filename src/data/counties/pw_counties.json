@@ -1,0 +1,100 @@
+{
+    "counties": [
+        {
+            "code": "70002",
+            "fips": "002",
+            "state": "PW",
+            "name": "State of Aimeliik"
+        },
+        {
+            "code": "70004",
+            "fips": "004",
+            "state": "PW",
+            "name": "State of Airai"
+        },
+        {
+            "code": "70010",
+            "fips": "010",
+            "state": "PW",
+            "name": "State of Angaur"
+        },
+        {
+            "code": "70050",
+            "fips": "050",
+            "state": "PW",
+            "name": "State of Hatobohei"
+        },
+        {
+            "code": "70100",
+            "fips": "100",
+            "state": "PW",
+            "name": "State of Kayangel"
+        },
+        {
+            "code": "70150",
+            "fips": "150",
+            "state": "PW",
+            "name": "State of Koror"
+        },
+        {
+            "code": "70212",
+            "fips": "212",
+            "state": "PW",
+            "name": "State of Melekeok"
+        },
+        {
+            "code": "70214",
+            "fips": "214",
+            "state": "PW",
+            "name": "State of Ngaraard"
+        },
+        {
+            "code": "70218",
+            "fips": "218",
+            "state": "PW",
+            "name": "State of Ngarchelong"
+        },
+        {
+            "code": "70222",
+            "fips": "222",
+            "state": "PW",
+            "name": "State of Ngardmau"
+        },
+        {
+            "code": "70224",
+            "fips": "224",
+            "state": "PW",
+            "name": "State of Ngatpang"
+        },
+        {
+            "code": "70226",
+            "fips": "226",
+            "state": "PW",
+            "name": "State of Ngchesar"
+        },
+        {
+            "code": "70227",
+            "fips": "227",
+            "state": "PW",
+            "name": "State of Ngeremlengui"
+        },
+        {
+            "code": "70228",
+            "fips": "228",
+            "state": "PW",
+            "name": "State of Ngiwal"
+        },
+        {
+            "code": "70350",
+            "fips": "350",
+            "state": "PW",
+            "name": "State of Peleliu"
+        },
+        {
+            "code": "70370",
+            "fips": "370",
+            "state": "PW",
+            "name": "State of Sonsorol"
+        }
+    ]
+}

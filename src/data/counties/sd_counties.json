@@ -1,0 +1,400 @@
+{
+    "counties": [
+        {
+            "code": "46003",
+            "fips": "003",
+            "state": "SD",
+            "name": "Aurora County"
+        },
+        {
+            "code": "46005",
+            "fips": "005",
+            "state": "SD",
+            "name": "Beadle County"
+        },
+        {
+            "code": "46007",
+            "fips": "007",
+            "state": "SD",
+            "name": "Bennett County"
+        },
+        {
+            "code": "46009",
+            "fips": "009",
+            "state": "SD",
+            "name": "Bon Homme County"
+        },
+        {
+            "code": "46011",
+            "fips": "011",
+            "state": "SD",
+            "name": "Brookings County"
+        },
+        {
+            "code": "46013",
+            "fips": "013",
+            "state": "SD",
+            "name": "Brown County"
+        },
+        {
+            "code": "46015",
+            "fips": "015",
+            "state": "SD",
+            "name": "Brule County"
+        },
+        {
+            "code": "46017",
+            "fips": "017",
+            "state": "SD",
+            "name": "Buffalo County"
+        },
+        {
+            "code": "46019",
+            "fips": "019",
+            "state": "SD",
+            "name": "Butte County"
+        },
+        {
+            "code": "46021",
+            "fips": "021",
+            "state": "SD",
+            "name": "Campbell County"
+        },
+        {
+            "code": "46023",
+            "fips": "023",
+            "state": "SD",
+            "name": "Charles Mix County"
+        },
+        {
+            "code": "46025",
+            "fips": "025",
+            "state": "SD",
+            "name": "Clark County"
+        },
+        {
+            "code": "46027",
+            "fips": "027",
+            "state": "SD",
+            "name": "Clay County"
+        },
+        {
+            "code": "46029",
+            "fips": "029",
+            "state": "SD",
+            "name": "Codington County"
+        },
+        {
+            "code": "46031",
+            "fips": "031",
+            "state": "SD",
+            "name": "Corson County"
+        },
+        {
+            "code": "46033",
+            "fips": "033",
+            "state": "SD",
+            "name": "Custer County"
+        },
+        {
+            "code": "46035",
+            "fips": "035",
+            "state": "SD",
+            "name": "Davison County"
+        },
+        {
+            "code": "46037",
+            "fips": "037",
+            "state": "SD",
+            "name": "Day County"
+        },
+        {
+            "code": "46039",
+            "fips": "039",
+            "state": "SD",
+            "name": "Deuel County"
+        },
+        {
+            "code": "46041",
+            "fips": "041",
+            "state": "SD",
+            "name": "Dewey County"
+        },
+        {
+            "code": "46043",
+            "fips": "043",
+            "state": "SD",
+            "name": "Douglas County"
+        },
+        {
+            "code": "46045",
+            "fips": "045",
+            "state": "SD",
+            "name": "Edmunds County"
+        },
+        {
+            "code": "46047",
+            "fips": "047",
+            "state": "SD",
+            "name": "Fall River County"
+        },
+        {
+            "code": "46049",
+            "fips": "049",
+            "state": "SD",
+            "name": "Faulk County"
+        },
+        {
+            "code": "46051",
+            "fips": "051",
+            "state": "SD",
+            "name": "Grant County"
+        },
+        {
+            "code": "46053",
+            "fips": "053",
+            "state": "SD",
+            "name": "Gregory County"
+        },
+        {
+            "code": "46055",
+            "fips": "055",
+            "state": "SD",
+            "name": "Haakon County"
+        },
+        {
+            "code": "46057",
+            "fips": "057",
+            "state": "SD",
+            "name": "Hamlin County"
+        },
+        {
+            "code": "46059",
+            "fips": "059",
+            "state": "SD",
+            "name": "Hand County"
+        },
+        {
+            "code": "46061",
+            "fips": "061",
+            "state": "SD",
+            "name": "Hanson County"
+        },
+        {
+            "code": "46063",
+            "fips": "063",
+            "state": "SD",
+            "name": "Harding County"
+        },
+        {
+            "code": "46065",
+            "fips": "065",
+            "state": "SD",
+            "name": "Hughes County"
+        },
+        {
+            "code": "46067",
+            "fips": "067",
+            "state": "SD",
+            "name": "Hutchinson County"
+        },
+        {
+            "code": "46069",
+            "fips": "069",
+            "state": "SD",
+            "name": "Hyde County"
+        },
+        {
+            "code": "46071",
+            "fips": "071",
+            "state": "SD",
+            "name": "Jackson County"
+        },
+        {
+            "code": "46073",
+            "fips": "073",
+            "state": "SD",
+            "name": "Jerauld County"
+        },
+        {
+            "code": "46075",
+            "fips": "075",
+            "state": "SD",
+            "name": "Jones County"
+        },
+        {
+            "code": "46077",
+            "fips": "077",
+            "state": "SD",
+            "name": "Kingsbury County"
+        },
+        {
+            "code": "46079",
+            "fips": "079",
+            "state": "SD",
+            "name": "Lake County"
+        },
+        {
+            "code": "46081",
+            "fips": "081",
+            "state": "SD",
+            "name": "Lawrence County"
+        },
+        {
+            "code": "46083",
+            "fips": "083",
+            "state": "SD",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "46085",
+            "fips": "085",
+            "state": "SD",
+            "name": "Lyman County"
+        },
+        {
+            "code": "46091",
+            "fips": "091",
+            "state": "SD",
+            "name": "Marshall County"
+        },
+        {
+            "code": "46087",
+            "fips": "087",
+            "state": "SD",
+            "name": "McCook County"
+        },
+        {
+            "code": "46089",
+            "fips": "089",
+            "state": "SD",
+            "name": "McPherson County"
+        },
+        {
+            "code": "46093",
+            "fips": "093",
+            "state": "SD",
+            "name": "Meade County"
+        },
+        {
+            "code": "46095",
+            "fips": "095",
+            "state": "SD",
+            "name": "Mellette County"
+        },
+        {
+            "code": "46097",
+            "fips": "097",
+            "state": "SD",
+            "name": "Miner County"
+        },
+        {
+            "code": "46099",
+            "fips": "099",
+            "state": "SD",
+            "name": "Minnehaha County"
+        },
+        {
+            "code": "46101",
+            "fips": "101",
+            "state": "SD",
+            "name": "Moody County"
+        },
+        {
+            "code": "46102",
+            "fips": "102",
+            "state": "SD",
+            "name": "Oglala Lakota County"
+        },
+        {
+            "code": "46103",
+            "fips": "103",
+            "state": "SD",
+            "name": "Pennington County"
+        },
+        {
+            "code": "46105",
+            "fips": "105",
+            "state": "SD",
+            "name": "Perkins County"
+        },
+        {
+            "code": "46107",
+            "fips": "107",
+            "state": "SD",
+            "name": "Potter County"
+        },
+        {
+            "code": "46109",
+            "fips": "109",
+            "state": "SD",
+            "name": "Roberts County"
+        },
+        {
+            "code": "46111",
+            "fips": "111",
+            "state": "SD",
+            "name": "Sanborn County"
+        },
+        {
+            "code": "46115",
+            "fips": "115",
+            "state": "SD",
+            "name": "Spink County"
+        },
+        {
+            "code": "46117",
+            "fips": "117",
+            "state": "SD",
+            "name": "Stanley County"
+        },
+        {
+            "code": "46119",
+            "fips": "119",
+            "state": "SD",
+            "name": "Sully County"
+        },
+        {
+            "code": "46121",
+            "fips": "121",
+            "state": "SD",
+            "name": "Todd County"
+        },
+        {
+            "code": "46123",
+            "fips": "123",
+            "state": "SD",
+            "name": "Tripp County"
+        },
+        {
+            "code": "46125",
+            "fips": "125",
+            "state": "SD",
+            "name": "Turner County"
+        },
+        {
+            "code": "46127",
+            "fips": "127",
+            "state": "SD",
+            "name": "Union County"
+        },
+        {
+            "code": "46129",
+            "fips": "129",
+            "state": "SD",
+            "name": "Walworth County"
+        },
+        {
+            "code": "46135",
+            "fips": "135",
+            "state": "SD",
+            "name": "Yankton County"
+        },
+        {
+            "code": "46137",
+            "fips": "137",
+            "state": "SD",
+            "name": "Ziebach County"
+        }
+    ]
+}

@@ -10,8 +10,8 @@ import SelectedAgencies from './SelectedAgencies';
 
 const defaultProps = {
     agencyTypes: [
-        "Funding",
-        "Awarding"
+        "Awarding",
+        "Funding"
     ]
 };
 

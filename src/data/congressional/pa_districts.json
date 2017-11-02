@@ -1,0 +1,94 @@
+{
+    "districts": [
+        {
+            "code": "4201",
+            "district": "01",
+            "name": "PA-01"
+        },
+        {
+            "code": "4202",
+            "district": "02",
+            "name": "PA-02"
+        },
+        {
+            "code": "4203",
+            "district": "03",
+            "name": "PA-03"
+        },
+        {
+            "code": "4204",
+            "district": "04",
+            "name": "PA-04"
+        },
+        {
+            "code": "4205",
+            "district": "05",
+            "name": "PA-05"
+        },
+        {
+            "code": "4206",
+            "district": "06",
+            "name": "PA-06"
+        },
+        {
+            "code": "4207",
+            "district": "07",
+            "name": "PA-07"
+        },
+        {
+            "code": "4208",
+            "district": "08",
+            "name": "PA-08"
+        },
+        {
+            "code": "4209",
+            "district": "09",
+            "name": "PA-09"
+        },
+        {
+            "code": "4210",
+            "district": "10",
+            "name": "PA-10"
+        },
+        {
+            "code": "4211",
+            "district": "11",
+            "name": "PA-11"
+        },
+        {
+            "code": "4212",
+            "district": "12",
+            "name": "PA-12"
+        },
+        {
+            "code": "4213",
+            "district": "13",
+            "name": "PA-13"
+        },
+        {
+            "code": "4214",
+            "district": "14",
+            "name": "PA-14"
+        },
+        {
+            "code": "4215",
+            "district": "15",
+            "name": "PA-15"
+        },
+        {
+            "code": "4216",
+            "district": "16",
+            "name": "PA-16"
+        },
+        {
+            "code": "4217",
+            "district": "17",
+            "name": "PA-17"
+        },
+        {
+            "code": "4218",
+            "district": "18",
+            "name": "PA-18"
+        }
+    ]
+}

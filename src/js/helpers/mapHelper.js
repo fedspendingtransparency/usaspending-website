@@ -202,3 +202,17 @@ export const fetchFile = (file) => {
         }
     };
 };
+
+export const fetchLocationList = (fileName) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `data/${fileName}.json`,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
