@@ -51,8 +51,7 @@ export default class AgencyFilterGroup extends React.Component {
             else if (value.agencyType === 'toptier' && value.toptier_agency.abbreviation !== '') {
                 agencyTitle += ` (${value.toptier_agency.abbreviation})`;
             }
-            if (value.agencyType === 'subtier' &&
-                value.toptier_agency.name === value.subtier_agency.name) {
+            if (value.agencyType === 'subtier' && value.toptier_flag === false) {
                 agencyTitle += ' | Sub-Agency';
             }
 

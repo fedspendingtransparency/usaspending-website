@@ -155,6 +155,7 @@ ${account}`;
     render() {
         return (
             <FederalAccountVisualization
+                activeFY={this.props.activeFY}
                 obligatedAmount={this.props.obligatedAmount}
                 linkSeries={this.state.linkSeries}
                 dataSeries={this.state.dataSeries}
