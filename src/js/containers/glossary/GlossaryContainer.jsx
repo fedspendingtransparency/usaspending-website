@@ -17,6 +17,8 @@ import AnimatedGlossaryWrapper from 'components/glossary/AnimatedGlossaryWrapper
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import { Definition } from 'redux/reducers/glossary/glossaryReducer';
 
+require('pages/glossary/glossaryPage.scss');
+
 const propTypes = {
     glossary: PropTypes.object,
     setGlossaryResults: PropTypes.func,

@@ -6,7 +6,6 @@
     }
 
     ul.nav-menu {
-        @include clearfix;
         @include unstyled-list;
         @include display(flex);
         @include flex-direction(row);

@@ -14,7 +14,7 @@
     "settings": {
         "import/resolver": {
             "node": {
-                "moduleDirectory": ["node_modules", "src/js"]
+                "moduleDirectory": ["node_modules", "src/js", "src/_scss"]
             }
         }
     },

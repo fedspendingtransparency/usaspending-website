@@ -3,6 +3,12 @@
     @import "elements/filters/_typeahead";
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
+
+    .filter-item-wrap {
+        // reduce the bottom padding because the checkbox items have their own bottom padding
+        padding-bottom: rem(5);
+    }
+
     .recipient-radio,
     .checkbox-type-filter {
         p {
@@ -10,13 +16,6 @@
             font-size: $small-font-size;
             margin-top: 0;
             margin-bottom: rem(5);
-        }
-        p.sub-head {
-            border-bottom: rem(1) solid #E1E2E3;
-            font-size: $small-font-size;
-            font-weight: $font-semibold;
-            margin: 0 0 $global-mrg 0;
-            padding: 0 0 rem(6);
         }
         span {
             label {

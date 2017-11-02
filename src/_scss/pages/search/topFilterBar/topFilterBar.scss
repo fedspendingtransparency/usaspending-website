@@ -1,6 +1,6 @@
 .search-top-filter-bar {
     display: none;
-    @include media($tablet-screen) {
+    @include media($medium-screen) {
         display: block;
     }
 

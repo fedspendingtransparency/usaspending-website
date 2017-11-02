@@ -13,6 +13,8 @@ import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 
+require('pages/errorPage/errorPage.scss');
+
 const ErrorPage = () => (
     <div className="usa-da-error-page">
         <MetaTags {...MetaTagHelper.errorPageMetaTags} />

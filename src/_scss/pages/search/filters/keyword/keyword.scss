@@ -5,7 +5,10 @@
         height: rem(40);
         margin: 0 auto;
         padding: rem(11) rem(8);
-        width: 70%
+        width: 70%;
+        @include placeholder {
+            color: $color-gray-light;
+        }
     }
     .keyword-submit {
         display: inline-block;

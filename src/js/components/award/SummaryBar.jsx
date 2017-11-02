@@ -82,8 +82,9 @@ export default class SummaryBar extends React.Component {
         return (
             <div className="page-title-bar">
                 <div className="page-title-bar-wrap">
-                    <h1 className="page-title">{this.state.type}
-                        &nbsp;Summary</h1>
+                    <h1 className="page-title">
+                        {this.state.type}&nbsp;Profile
+                    </h1>
                     <div className="summary-status">
                         <ul className="summary-status-items">
                             <InfoSnippet

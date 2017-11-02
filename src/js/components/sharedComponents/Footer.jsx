@@ -3,10 +3,17 @@
  * Created by Destin Frasier 02/24/2017
  **/
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
+import DownloadBottomBarContainer from
+    'containers/search/modals/fullDownload/DownloadBottomBarContainer';
 import FloatingGlossaryButton from './FloatingGlossaryButton';
 import FooterExternalLink from './FooterExternalLink';
+
+const propTypes = {
+    filters: PropTypes.object
+};
 
 export default class Footer extends React.Component {
     render() {
@@ -14,6 +21,8 @@ export default class Footer extends React.Component {
         return (
             <div>
                 <GlossaryButtonWrapperContainer child={FloatingGlossaryButton} />
+                <DownloadBottomBarContainer
+                    filters={this.props.filters} />
                 <footer className="footer-outer-wrap" role="contentinfo">
                     <div className="footer-container">
                         <div className="footer-logo">
@@ -112,3 +121,4 @@ export default class Footer extends React.Component {
         );
     }
 }
+Footer.propTypes = propTypes;

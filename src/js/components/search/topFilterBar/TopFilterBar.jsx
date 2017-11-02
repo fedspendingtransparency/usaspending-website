@@ -17,7 +17,8 @@ const propTypes = {
     filters: PropTypes.array,
     filterCount: PropTypes.number,
     clearAllFilters: PropTypes.func,
-    groupGenerator: PropTypes.func
+    groupGenerator: PropTypes.func,
+    compressed: PropTypes.bool
 };
 
 export default class TopFilterBar extends React.Component {
@@ -36,7 +37,8 @@ export default class TopFilterBar extends React.Component {
         const filters = this.props.filters.map((filter) =>
             this.props.groupGenerator({
                 filter,
-                redux: this.props
+                redux: this.props,
+                compressed: this.props.compressed
             }));
 
         let filterBarHeader = `${this.props.filterCount} Current Filter`;
@@ -45,6 +47,11 @@ export default class TopFilterBar extends React.Component {
         }
         filterBarHeader += ':';
 
+        let hideCompressed = '';
+        if (this.props.compressed) {
+            hideCompressed = 'hide';
+        }
+
         return (
             <div>
                 <div className="search-top-filter-bar">
@@ -52,7 +59,7 @@ export default class TopFilterBar extends React.Component {
                         <div className="header-title">
                             {filterBarHeader}
                         </div>
-                        <div className="search-clear-wrapper">
+                        <div className={`search-clear-wrapper ${hideCompressed}`}>
                             <button
                                 className="search-clear-button"
                                 aria-label="Clear all filters"

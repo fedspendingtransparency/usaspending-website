@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DatePicker from 'components/sharedComponents/DatePicker';
+import { AngleRight } from 'components/sharedComponents/icons/Icons';
 
 const defaultProps = {
     startDate: '01/01/2016',
@@ -19,7 +20,8 @@ const propTypes = {
     startDate: PropTypes.object,
     endDate: PropTypes.object,
     showError: PropTypes.func,
-    hideError: PropTypes.func
+    hideError: PropTypes.func,
+    applyDateRange: PropTypes.func
 };
 
 export default class DateRange extends React.Component {
@@ -31,6 +33,8 @@ export default class DateRange extends React.Component {
             header: '',
             errorMessage: ''
         };
+
+        this.submitRange = this.submitRange.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -44,10 +48,18 @@ export default class DateRange extends React.Component {
         }
     }
 
+    submitRange(e) {
+        // allow the user to change date ranges by keyboard and pressing enter
+        e.preventDefault();
+        this.props.applyDateRange();
+    }
+
     render() {
         return (
             <div className="date-range-option">
-                <div className="date-range-wrapper">
+                <form
+                    className="date-range-wrapper"
+                    onSubmit={this.submitRange}>
                     <DatePicker
                         type="startDate"
                         title="Start Date"
@@ -59,7 +71,8 @@ export default class DateRange extends React.Component {
                         hideError={this.props.hideError}
                         ref={(component) => {
                             this.startPicker = component;
-                        }} />
+                        }}
+                        allowClearing />
                     <DatePicker
                         type="endDate"
                         title="End Date"
@@ -71,8 +84,17 @@ export default class DateRange extends React.Component {
                         hideError={this.props.hideError}
                         ref={(component) => {
                             this.endPicker = component;
-                        }} />
-                </div>
+                        }}
+                        allowClearing />
+                    <button
+                        className="set-date-button"
+                        title="Apply date range"
+                        aria-label="Apply date range"
+                        tabIndex={this.props.startingTab + 8}
+                        onClick={this.props.applyDateRange}>
+                        <AngleRight alt="Apply date range" />
+                    </button>
+                </form>
             </div>
         );
     }

@@ -151,7 +151,7 @@ export default class FinancialSystemTable extends React.Component {
         return (
             <div className="financial-system-content">
                 <div className="disclaimer">
-                    NOTE: This is part of new data reported under the DATA act starting in
+                    NOTE: This is part of new data reported under the DATA Act starting in
                     Q2 of FY 2017.  &nbsp;It comes directly from the audited financial systems of
                     federal agencies.
                 </div>

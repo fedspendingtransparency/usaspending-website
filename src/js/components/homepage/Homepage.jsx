@@ -25,6 +25,8 @@ import Footer from '../sharedComponents/Footer';
 import WarningBanner from '../sharedComponents/header/WarningBanner';
 // import InfoBanner from '../sharedComponents/header/InfoBanner';
 
+require('pages/homepage/homePage.scss');
+
 export default class Homepage extends React.Component {
     constructor(props) {
         super(props);

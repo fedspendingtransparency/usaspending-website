@@ -6,17 +6,24 @@
         @import 'components/_alerts';
         @import 'components/datePicker/_datePicker';
         @import './_toggleButtons';
-        padding: 0 $global-pad ($global-pad * 2);
+        padding: 0 $global-pad rem(20);
         ul.fiscal-years {
             @include clearfix;
             list-style-type: none;
             padding: $global-pad $global-pad 0;
             margin: -1px 0 0;
+
+            .left-fy {
+                @include span-columns(7);
+            }
+            .right-fy {
+                @include span-columns(7);
+            }
+
             li {
                 line-height: rem(20);
                 margin: 0;
                 height: auto;
-                @include span-columns(7);
                 input {
                     @include usa-input-checkbox;
                     margin-right: rem(-19);
@@ -48,7 +55,7 @@
         .fiscal-years,
         .date-range-option {
             border-top: 1px solid $color-gray-lighter;
-            padding: 0 $global-pad;
+            padding: 0;
             margin-top: -1px;
             z-index: 1;
         }

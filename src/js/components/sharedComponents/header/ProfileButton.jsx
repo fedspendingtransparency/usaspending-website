@@ -7,7 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AngleDown } from 'components/sharedComponents/icons/Icons';
 
-import ProfileComingSoon from './ProfileComingSoon';
+import { availableProfiles } from 'dataMapping/profiles/availableProfiles';
+
+import ProfileItem from './ProfileItem';
 
 const propTypes = {
     homepage: PropTypes.bool
@@ -55,8 +57,15 @@ export default class ProfileButton extends React.Component {
             homepage = 'homepage';
         }
 
+        const items = availableProfiles.map((profile) => (
+            <ProfileItem
+                {...profile}
+                key={profile.code} />
+        ));
+
         return (
             <div
+                className="nav-profile-outer-wrap"
                 onMouseEnter={this.expandMenu}
                 onMouseLeave={this.collapseMenu}>
                 <button
@@ -75,30 +84,7 @@ export default class ProfileButton extends React.Component {
                 <div className={`usa-nav-profile-list ${active} ${homepage}`}>
                     <div className="profile-list-wrapper">
                         <ul className="profile-list">
-                            <li>
-                                <a
-                                    className="disabled"
-                                    href="#/agency">
-                                    Agencies
-                                    <ProfileComingSoon />
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    className="disabled"
-                                    href="#/recipient">
-                                    Recipients
-                                    <ProfileComingSoon />
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    className="disabled"
-                                    href="#/federal_account">
-                                    Federal Accounts
-                                    <ProfileComingSoon />
-                                </a>
-                            </li>
+                            {items}
                         </ul>
                     </div>
                 </div>

@@ -28,6 +28,20 @@ export const overwriteExplorerTrail = (state) => ({
     trail: state
 });
 
+export const setExplorerTableOrder = (state) => ({
+    type: 'SET_EXPLORER_TABLE_ORDER',
+    order: state
+});
+
+export const setExplorerTablePage = (state) => ({
+    type: 'SET_EXPLORER_TABLE_PAGE',
+    number: state
+});
+
+export const resetExplorerTable = () => ({
+    type: 'RESET_EXPLORER_TABLE'
+});
+
 export const resetExplorer = () => ({
     type: 'RESET_EXPLORER'
 });

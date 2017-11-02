@@ -17,6 +17,8 @@ import * as agencyActions from 'redux/actions/agency/agencyActions';
 
 import AgencyPage from 'components/agency/AgencyPage';
 
+require('pages/agency/agencyPage.scss');
+
 const propTypes = {
     params: PropTypes.object,
     agency: PropTypes.object,
