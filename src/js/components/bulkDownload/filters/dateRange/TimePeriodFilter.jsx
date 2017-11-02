@@ -1,21 +1,25 @@
 /**
- * DownloadTimePeriod.jsx
+ * TimePeriodFilter.jsx
  * Created by Lizzie Salita 11/1/17
  **/
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { CheckCircle, ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
+
 import DateRangeError from 'components/search/filters/timePeriod/DateRangeError';
 import DownloadDateRange from './DownloadDateRange';
 
 const propTypes = {
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
-    handleInputChange: PropTypes.func
+    handleInputChange: PropTypes.func,
+    valid: PropTypes.bool,
+    setValidDates: PropTypes.func
 };
 
-export default class DownloadTimePeriod extends React.Component {
+export default class TimePeriodFilter extends React.Component {
     constructor(props) {
         super(props);
 
@@ -133,6 +137,7 @@ export default class DownloadTimePeriod extends React.Component {
                 // update the filter parameters
                 this.props.handleInputChange(start.format('MM-DD-YYYY'), 'startDate');
                 this.props.handleInputChange(end.format('MM-DD-YYYY'), 'endDate');
+                this.props.setValidDates(true);
             }
         }
         else if (start || end) {
@@ -142,16 +147,19 @@ export default class DownloadTimePeriod extends React.Component {
             if (start) {
                 startValue = start.format('MM-DD-YYYY');
                 this.props.handleInputChange(startValue, 'startDate');
+                this.props.setValidDates(true);
             }
             else {
                 endValue = end.format('MM-DD-YYYY');
                 this.props.handleInputChange(endValue, 'endDate');
+                this.props.setValidDates(true);
             }
         }
         else {
             // user has cleared the dates, which means we should clear the date range filter
             this.props.handleInputChange('', 'startDate');
             this.props.handleInputChange('', 'endDate');
+            this.props.setValidDates(false);
         }
     }
 
@@ -178,6 +186,19 @@ export default class DownloadTimePeriod extends React.Component {
                 header={this.state.header} message={this.state.errorMessage} />);
         }
 
+        let icon = (
+            <div className="icon valid">
+                <CheckCircle />
+            </div>
+        );
+        if (!this.props.valid || this.state.showError) {
+            icon = (
+                <div className="icon invalid">
+                    <ExclamationTriangle />
+                </div>
+            );
+        }
+
         const showFilter = (
             <DownloadDateRange
                 datePlaceholder=""
@@ -189,9 +210,9 @@ export default class DownloadTimePeriod extends React.Component {
         return (
             <div className="filter-section">
                 <h5 className="filter-section-title">
-                    Select a <span>date range</span>.
+                    {icon} Select a <span>date range</span>.
                 </h5>
-                <div className="date-range-wrapper">
+                <div className="filter-section-content date-range-wrapper">
                     { showFilter }
                     { errorDetails }
                 </div>
@@ -200,4 +221,4 @@ export default class DownloadTimePeriod extends React.Component {
     }
 }
 
-DownloadTimePeriod.propTypes = propTypes;
+TimePeriodFilter.propTypes = propTypes;

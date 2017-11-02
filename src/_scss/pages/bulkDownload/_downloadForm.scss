@@ -6,6 +6,26 @@
                 color: $color-primary;
                 font-weight: 600;
             }
+            .icon {
+                float: left;
+                margin-right: rem(15);
+                width: rem(20);
+                height: rem(20);
+
+                svg {
+                    width: rem(25);
+                    height: rem(25);
+                    fill: $color-green;
+                }
+                &.invalid {
+                    svg {
+                        fill: $color-gold;
+                    }
+                }
+            }
+        }
+        .filter-section-content {
+            padding-left: rem(40);
         }
         .download-checkbox {
             padding: rem(10) 0;
@@ -46,6 +66,21 @@
         }
         .date-range-wrapper {
             @import "datePicker";
+        }
+    }
+    .submit-button {
+        margin: rem(30);
+        button, input {
+            width: 100%;
+            font-size: rem(24);
+            font-weight: 600;
+        }
+        &.disabled {
+            button {
+                background-color: $color-white;
+                color: $color-gray-light;
+                border: solid rem(1) $color-gray-light;
+            }
         }
     }
 }

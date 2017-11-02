@@ -8,8 +8,11 @@ import PropTypes from 'prop-types';
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 
-import DownloadCheckbox from './DownloadCheckbox';
-import DownloadTimePeriod from './filters/dateRange/DownloadTimePeriod';
+import AwardLevelFilter from './filters/AwardLevelFilter';
+import AwardTypeFilter from './filters/AwardTypeFilter';
+import AgencyFilter from './filters/AgencyFilter';
+import DateTypeFilter from './filters/DateTypeFilter';
+import TimePeriodFilter from './filters/dateRange/TimePeriodFilter';
 
 const propTypes = {
     updateDownloadFilters: PropTypes.func,
@@ -31,26 +34,34 @@ export default class AwardDataContent extends React.Component {
             other_financial_assistance: false,
             agency: '',
             subAgency: '',
-            dateType: '',
+            dateType: 'action_date',
             startDate: '',
-            endDate: ''
+            endDate: '',
+            validDates: false
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleAgencySelect = this.handleAgencySelect.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.setValidDates = this.setValidDates.bind(this);
     }
 
-    handleInputChange(value, name) {
+    setValidDates(validDates) {
         this.setState({
-            [name]: value
+            validDates
         });
     }
 
     handleChange(event) {
         const target = event.target;
         this.handleInputChange(target.value, target.name);
+    }
+
+    handleInputChange(value, name) {
+        this.setState({
+            [name]: value
+        });
     }
 
     handleAgencySelect(event) {
@@ -70,56 +81,45 @@ export default class AwardDataContent extends React.Component {
     }
 
     render() {
-        const awardLevels = awardDownloadOptions.awardLevels.map((level) => (
-            <DownloadCheckbox
-                key={level.name}
-                name={level.name}
-                label={level.label}
-                checked={this.state[level.name]}
-                onChange={this.handleInputChange} />
-        ));
+        const currentAwardLevels = {
+            prime_awards: this.state.prime_awards,
+            sub_awards: this.state.sub_awards
+        };
 
-        const awardTypes = awardDownloadOptions.awardTypes.map((type) => (
-            <DownloadCheckbox
-                key={type.name}
-                name={type.name}
-                label={type.label}
-                checked={this.state[type.name]}
-                onChange={this.handleInputChange} />
-        ));
+        const currentAwardTypes = {
+            contracts: this.state.contracts,
+            grants: this.state.grants,
+            direct_payments: this.state.direct_payments,
+            loans: this.state.loans,
+            other_financial_assistance: this.state.other_financial_assistance
+        };
 
-        const agencies = this.props.agencies.map((agency) => (
-            <option
-                key={agency.toptier_agency_id}
-                value={agency.toptier_agency_id}>
-                {agency.name}
-            </option>
-        ));
+        const awardTypesValid = (this.state.contracts || this.state.grants ||
+            this.state.direct_payments || this.state.loans || this.state.other_financial_assistance);
 
-        const subAgencies = this.props.subAgencies.map((subAgency) => (
-            <option
-                key={subAgency.subtier_agency_id}
-                value={subAgency.subtier_agency_id}>
-                {subAgency.subtier_agency_name}
-            </option>
-        ));
+        const currentAgencies = {
+            agency: this.state.agency,
+            subAgency: this.state.subAgency
+        };
 
-        const dateTypes = awardDownloadOptions.dateTypes.map((dateType) => (
-            <div
-                className="radio"
-                key={dateType.name}>
-                <input
-                    type="radio"
-                    value={dateType.name}
-                    name="dateType"
-                    checked={this.state.dateType === dateType.name}
-                    onChange={this.handleChange} />
-                <label className="radio-label" htmlFor="dateType">{dateType.label}</label>
-                <div className="radio-description">
-                    {dateType.description}
-                </div>
+        const formValidation = (
+            (this.state.prime_awards || this.state.sub_awards)
+            && awardTypesValid && this.state.agency && this.state.validDates
+        );
+
+        let submitButton = (
+            <div className="submit-button disabled">
+                <button disabled>Download</button>
             </div>
-        ));
+        );
+
+        if (formValidation) {
+            submitButton = (
+                <div className="submit-button">
+                    <input type="submit" value="Download" />
+                </div>
+            );
+        }
 
         return (
             <div className="download-data-content">
@@ -128,46 +128,33 @@ export default class AwardDataContent extends React.Component {
                     <form
                         className="download-form"
                         onSubmit={this.handleSubmit}>
-                        <div className="filter-section">
-                            <h5 className="filter-section-title">
-                                Select the <span>award level</span> to include.
-                            </h5>
-                            {awardLevels}
-                        </div>
-                        <div className="filter-section">
-                            <h5 className="filter-section-title">
-                                Select the <span>award types</span> to include.
-                            </h5>
-                            {awardTypes}
-                        </div>
-                        <div className="filter-section">
-                            <h5 className="filter-section-title">
-                                Select an <span>agency</span> and <span>sub-agency</span>.
-                            </h5>
-                            <label className="select-label" htmlFor="agency-select">
-                                Agency
-                            </label>
-                            <select id="agency-select" name="agency" value={this.state.agency} onChange={this.handleAgencySelect}>
-                                <option value="">Select an Agency</option>
-                                {agencies}
-                            </select>
-                            <label className="select-label" htmlFor="sub-agency-select">
-                                Sub-Agency
-                            </label>
-                            <select id="sub-agency-select" name="subAgency" value={this.state.subAgency} onChange={this.handleChange}>
-                                <option value="">Select a Sub-Agency</option>
-                                {subAgencies}
-                            </select>
-                        </div>
-                        <div className="filter-section">
-                            <h5 className="filter-section-title">
-                                Select a <span>date type</span> for the date range below.
-                            </h5>
-                            {dateTypes}
-                        </div>
-                        <DownloadTimePeriod
-                            handleInputChange={this.handleInputChange} />
-                        <input type="submit" value="Download" />
+                        <AwardLevelFilter
+                            awardLevels={awardDownloadOptions.awardLevels}
+                            currentAwardLevels={currentAwardLevels}
+                            onChange={this.handleInputChange}
+                            valid={this.state.prime_awards || this.state.sub_awards} />
+                        <AwardTypeFilter
+                            awardTypes={awardDownloadOptions.awardTypes}
+                            currentAwardTypes={currentAwardTypes}
+                            onChange={this.handleInputChange}
+                            valid={awardTypesValid} />
+                        <AgencyFilter
+                            agencies={this.props.agencies}
+                            subAgencies={this.props.subAgencies}
+                            currentAgencies={currentAgencies}
+                            onChange={this.handleChange}
+                            handleAgencySelect={this.handleAgencySelect}
+                            valid={this.state.agency !== ''} />
+                        <DateTypeFilter
+                            dateTypes={awardDownloadOptions.dateTypes}
+                            currentDateType={this.state.dateType}
+                            onChange={this.handleChange}
+                            valid={this.state.dateType !== ''} />
+                        <TimePeriodFilter
+                            handleInputChange={this.handleInputChange}
+                            valid={this.state.startDate !== '' || this.state.endDate !== ''}
+                            setValidDates={this.setValidDates} />
+                        {submitButton}
                     </form>
                 </div>
                 <div className="download-info">
