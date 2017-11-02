@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 
 // import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import * as downloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
+import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 
 import AwardDataContent from 'components/bulkDownload/AwardDataContent';
 
@@ -149,6 +150,7 @@ export class AwardDataContainer extends React.Component {
     parseFilterSelections(dataType, filterSelections) {
         // Parse selections from the form into filter object
         const awardLevels = [];
+        const awardLevelOptions = awardDownloadOptions.awardLevels;
         for (let i = 0; i < awardLevelOptions.length; i++) {
             const level = awardLevelOptions[i].name;
             if (filterSelections[level]) {
@@ -157,6 +159,7 @@ export class AwardDataContainer extends React.Component {
         }
 
         const awardTypes = [];
+        const awardTypeOptions = awardDownloadOptions.awardTypes;
         for (let i = 0; i < awardTypeOptions.length; i++) {
             const type = awardTypeOptions[i].name;
             if (filterSelections[type]) {
@@ -172,8 +175,8 @@ export class AwardDataContainer extends React.Component {
                 sub_agency: filterSelections.subAgency,
                 date_type: filterSelections.dateType,
                 date_range: {
-                    start_date: '',
-                    end_date: ''
+                    start_date: filterSelections.startDate,
+                    end_date: filterSelections.endDate
                 }
             },
             columns: [],

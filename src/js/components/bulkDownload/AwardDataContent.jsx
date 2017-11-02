@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 
 import DownloadCheckbox from './DownloadCheckbox';
+import DownloadTimePeriod from './filters/dateRange/DownloadTimePeriod';
 
 const propTypes = {
     updateDownloadFilters: PropTypes.func,
@@ -31,7 +32,8 @@ export default class AwardDataContent extends React.Component {
             agency: '',
             subAgency: '',
             dateType: '',
-            dateRange: ''
+            startDate: '',
+            endDate: ''
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -57,7 +59,7 @@ export default class AwardDataContent extends React.Component {
         if (target.value === '') {
             this.setState({
                 subAgency: ''
-            })
+            });
         }
         this.props.setSubAgencyList(target.value);
     }
@@ -103,13 +105,16 @@ export default class AwardDataContent extends React.Component {
         ));
 
         const dateTypes = awardDownloadOptions.dateTypes.map((dateType) => (
-            <div className="radio"
+            <div
+                className="radio"
                 key={dateType.name}>
-                <input type="radio" value={dateType.name}
-                       name="dateType"
-                       checked={this.state.dateType === dateType.name}
-                       onChange={this.handleChange} />
-                <label className="radio-label">{dateType.label}</label>
+                <input
+                    type="radio"
+                    value={dateType.name}
+                    name="dateType"
+                    checked={this.state.dateType === dateType.name}
+                    onChange={this.handleChange} />
+                <label className="radio-label" htmlFor="dateType">{dateType.label}</label>
                 <div className="radio-description">
                     {dateType.description}
                 </div>
@@ -160,6 +165,8 @@ export default class AwardDataContent extends React.Component {
                             </h5>
                             {dateTypes}
                         </div>
+                        <DownloadTimePeriod
+                            handleInputChange={this.handleInputChange} />
                         <input type="submit" value="Download" />
                     </form>
                 </div>
