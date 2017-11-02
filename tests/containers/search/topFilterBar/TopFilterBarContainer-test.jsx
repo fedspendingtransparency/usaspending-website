@@ -194,7 +194,7 @@ describe('TopFilterBarContainer', () => {
                             title: 'New Donk County',
                             standalone: 'New Donk County, NY'
                         },
-                        identifier: 'USA_NI_001'
+                        identifier: 'USA_NY_001'
                     }
                 })
             });
@@ -221,7 +221,7 @@ describe('TopFilterBarContainer', () => {
                         title: 'New Donk County',
                         standalone: 'New Donk County, NY'
                     },
-                    identifier: 'USA_NI_001'
+                    identifier: 'USA_NY_001'
                 }]
             };
 
