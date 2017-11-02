@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { uniq } from 'lodash';
 
 import * as MapHelper from 'helpers/mapHelper';
+import MapBroadcaster from 'helpers/mapBroadcaster';
 
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
@@ -22,7 +23,6 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     tooltip: PropTypes.func,
-    receiveVisible: PropTypes.func,
     availableLayers: PropTypes.array,
     changeMapLayer: PropTypes.func
 };
@@ -81,15 +81,17 @@ export default class MapWrapper extends React.Component {
         this.mapRef = null;
         this.mapOperationQueue = {};
         this.loadedLayers = {};
+        this.broadcastReceivers = [];
 
         this.mapReady = this.mapReady.bind(this);
         this.mapRemoved = this.mapRemoved.bind(this);
 
-        this.determineVisibleEntities = this.determineVisibleEntities.bind(this);
+        this.measureMap = this.measureMap.bind(this);
     }
 
     componentDidMount() {
         this.displayData();
+        this.prepareBroadcastReceivers();
     }
 
     componentDidUpdate(prevProps) {
@@ -104,6 +106,13 @@ export default class MapWrapper extends React.Component {
                 this.displayData();
             }
         }
+    }
+
+    componentWillUnmount() {
+        // remove any broadcast listeners
+        this.broadcastReceivers.forEach((listenerRef) => {
+            MapBroadcaster.off(listenerRef.event, listenerRef.id);
+        });
     }
 
     mapReady() {
@@ -128,12 +137,16 @@ export default class MapWrapper extends React.Component {
                 // we depend on the state shapes to process the state fills, so the operation
                 // queue must wait for the state shapes to load first
                 this.runMapOperationQueue();
+                this.prepareChangeListeners();
 
-                // set up listeners to determine visible entities, if applicable
-                if (this.props.receiveVisible) {
-                    this.prepareChangeListeners();
-                }
+                // notify any listeners that the map is ready
+                MapBroadcaster.emit('mapReady');
             });
+    }
+
+    prepareBroadcastReceivers() {
+        const listenerRef = MapBroadcaster.on('measureMap', this.measureMap);
+        this.broadcastReceivers.push(listenerRef);
     }
 
     showSource(type) {
@@ -271,37 +284,33 @@ export default class MapWrapper extends React.Component {
         });
     }
 
-    determineVisibleEntities() {
-        // check if the parent component wants to query the map for only the visible features
-        if (!this.props.receiveVisible) {
-            // no receiver function was passed down, so don't do anything
-            return;
-        }
-
-        // determine which entities (state, counties, etc based on current scope) are in view
+    measureMap() {
+         // determine which entities (state, counties, etc based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
         const entities = this.mapRef.map.queryRenderedFeatures({
             layers: [`base_${this.props.scope}`]
         });
 
         const source = mapboxSources[this.props.scope];
-
         const visibleEntities = entities.map((entity) => (
             entity.properties[source.filterKey]
         ));
 
         // remove the duplicates values and pass them to the parent
-        this.props.receiveVisible(uniq(visibleEntities));
+        const uniqueEntities = uniq(visibleEntities);
+
+        MapBroadcaster.emit('mapMeasureDone', uniqueEntities);
     }
 
     prepareChangeListeners() {
         // detect visible entities whenever the map moves
-        this.mapRef.map.on('moveend', this.determineVisibleEntities);
+        this.mapRef.map.on('moveend', () => {
+            MapBroadcaster.emit('mapMoved');
+        });
         // but also do it when the map resizes, since the view will be different
-        this.mapRef.map.on('resize', this.determineVisibleEntities);
-
-        // now run the detector immediately so we can get the current state
-        this.determineVisibleEntities();
+        this.mapRef.map.on('resize', () => {
+            MapBroadcaster.emit('mapMoved');
+        });
     }
 
     mouseOverLayer(e) {

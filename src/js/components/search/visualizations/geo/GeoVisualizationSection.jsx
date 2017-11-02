@@ -6,8 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { indexOf } from 'lodash';
-
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
@@ -17,6 +15,7 @@ const propTypes = {
     mapScope: PropTypes.string,
     changeScope: PropTypes.func,
     changeMapLayer: PropTypes.func,
+    mapMoved: PropTypes.func,
     renderHash: PropTypes.string,
     data: PropTypes.object,
     total: PropTypes.number
@@ -37,15 +36,15 @@ export default class GeoVisualizationSection extends React.Component {
         this.hideTooltip = this.hideTooltip.bind(this);
     }
 
-    showTooltip(stateCode, position) {
+    showTooltip(geoId, position) {
         // convert state code to full string name
-        const index = indexOf(this.props.data.locations, stateCode);
+        const label = this.props.data.labels[geoId];
         this.setState({
             showHover: true,
             selectedItem: {
-                state: stateCode,
+                label: label.label,
                 total: this.props.total,
-                value: this.props.data.values[index],
+                value: label.value,
                 x: position.x,
                 y: position.y
             }
@@ -74,10 +73,7 @@ export default class GeoVisualizationSection extends React.Component {
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            Explore the map to see a breakdown of spending by state, city, and
-                            county. Filter your results more (at left) and watch this graph update
-                            automatically. View your results by place of performance or recipient
-                            location.
+                            Explore the map to see a breakdown of spending by state, county, and congressional district. Filter your results more (at left) and watch this graph update automatically. View your results by place of performance or recipient location.
                         </div>
                     </div>
 
