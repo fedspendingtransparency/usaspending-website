@@ -11,6 +11,7 @@ import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
 import LocationSectionContainer from 'containers/search/filters/location/LocationSectionContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
+import RecipientTypeContainer from 'containers/search/filters/recipient/RecipientTypeContainer';
 import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
 import AwardAmountSearchContainer from
@@ -32,8 +33,9 @@ const filters = {
         'Time Period',
         'Award Type',
         'Agencies',
-        'Recipients',
         'Location',
+        'Recipients',
+        'Recipient Types',
         'Award Amount',
         'Award ID',
         'CFDA Programs',
@@ -48,8 +50,9 @@ const filters = {
         TimePeriodContainer,
         AwardTypeContainer,
         AgencyContainer,
-        RecipientSearchContainer,
         LocationSectionContainer,
+        RecipientSearchContainer,
+        RecipientTypeContainer,
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
         CFDASearchContainer,

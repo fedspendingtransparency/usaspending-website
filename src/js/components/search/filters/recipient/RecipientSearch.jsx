@@ -7,12 +7,10 @@ import PropTypes from 'prop-types';
 
 import RecipientNameDUNSContainer from
     'containers/search/filters/recipient/RecipientNameDUNSContainer';
-import RecipientType from 'components/search/filters/recipient/RecipientType';
 import SelectedRecipients from './SelectedRecipients';
 
 const propTypes = {
     toggleRecipient: PropTypes.func,
-    toggleRecipientType: PropTypes.func,
     selectedRecipients: PropTypes.object
 };
 
@@ -33,11 +31,6 @@ export default class RecipientSearch extends React.Component {
                         {...this.props}
                         toggleRecipient={this.props.toggleRecipient} />
                     {selectedRecipients}
-                </div>
-                <div className="filter-item-wrap">
-                    <RecipientType
-                        {...this.props}
-                        toggleCheckboxType={this.props.toggleRecipientType} />
                 </div>
             </div>
         );

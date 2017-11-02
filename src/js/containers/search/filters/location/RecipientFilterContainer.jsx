@@ -13,6 +13,8 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import SelectedLocations from 'components/search/filters/location/SelectedLocations';
 import LocationPickerContainer from './LocationPickerContainer';
 
+const ga = require('react-ga');
+
 const propTypes = {
     addRecipientLocationObject: PropTypes.func,
     updateGenericFilter: PropTypes.func,
@@ -20,6 +22,14 @@ const propTypes = {
 };
 
 export class RecipientFilterContainer extends React.Component {
+    static logLocationFilterEvent(label, event) {
+        ga.event({
+            label,
+            category: 'Search Page Filter Applied',
+            action: `${event} Recipient Location Filter`
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -29,6 +39,7 @@ export class RecipientFilterContainer extends React.Component {
 
     addLocation(location) {
         this.props.addRecipientLocationObject(location);
+        RecipientFilterContainer.logLocationFilterEvent(location.identifier, 'Applied');
     }
 
     removeLocation(locationId) {
@@ -37,6 +48,8 @@ export class RecipientFilterContainer extends React.Component {
             type: 'selectedRecipientLocations',
             value: newValue
         });
+
+        RecipientFilterContainer.logLocationFilterEvent(locationId, 'Removed');
     }
 
     render() {

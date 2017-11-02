@@ -29,8 +29,12 @@ export const filterHasSelections = (reduxFilters, filter) => {
             }
             return false;
         case 'Recipients':
-            if (reduxFilters.selectedRecipients.toArray().length > 0
-                || reduxFilters.recipientType.toArray().length > 0) {
+            if (reduxFilters.selectedRecipients.toArray().length > 0) {
+                return true;
+            }
+            return false;
+        case 'Recipient Types':
+            if (reduxFilters.recipientType.toArray().length > 0) {
                 return true;
             }
             return false;
