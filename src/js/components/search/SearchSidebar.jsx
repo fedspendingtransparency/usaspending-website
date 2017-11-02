@@ -33,7 +33,7 @@ const filters = {
         'Time Period',
         'Award Type',
         'Agencies',
-        'Location',
+        'Locations',
         'Recipients',
         'Recipient Types',
         'Award Amount',

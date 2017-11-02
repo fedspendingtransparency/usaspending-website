@@ -38,7 +38,7 @@ export const filterHasSelections = (reduxFilters, filter) => {
                 return true;
             }
             return false;
-        case 'Location':
+        case 'Locations':
             if (reduxFilters.selectedLocations.toArray().length > 0
                 || reduxFilters.selectedRecipientLocations.toArray().length > 0) {
                 return true;
