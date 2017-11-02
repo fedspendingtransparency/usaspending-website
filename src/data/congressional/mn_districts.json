@@ -1,0 +1,44 @@
+{
+    "districts": [
+        {
+            "code": "2701",
+            "district": "01",
+            "name": "MN-01"
+        },
+        {
+            "code": "2702",
+            "district": "02",
+            "name": "MN-02"
+        },
+        {
+            "code": "2703",
+            "district": "03",
+            "name": "MN-03"
+        },
+        {
+            "code": "2704",
+            "district": "04",
+            "name": "MN-04"
+        },
+        {
+            "code": "2705",
+            "district": "05",
+            "name": "MN-05"
+        },
+        {
+            "code": "2706",
+            "district": "06",
+            "name": "MN-06"
+        },
+        {
+            "code": "2707",
+            "district": "07",
+            "name": "MN-07"
+        },
+        {
+            "code": "2708",
+            "district": "08",
+            "name": "MN-08"
+        }
+    ]
+}

@@ -1,28 +1,48 @@
 .location-filter {
     @import "elements/filters/_errorMessage";
-    @import "elements/filters/_typeahead";
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
-    .location-radio {
-        p {
-            color: $color-gray;
-            font-size: $small-font-size;
-            margin-top: 0;
-            margin-bottom: 0.5rem;
-        }
-        span {
-            label {
-                color: $color-gray;
-                font-weight: normal;
-                margin-left: 0.75rem;
+    @import "./_tabs";
+    @import "./_dropdown";
+    @import "./_warning";
+
+    padding: 0 $global-pad rem(20);
+
+    .location-filter-form {
+        padding: 0 rem(5);
+
+        .location-item {
+            margin-top: rem(15);
+
+            &:first-child {
+                margin-top: rem(10);
             }
-            &:not(:last-child) {
-                border-right: 1px solid rgba(0, 0, 0, 0.3);
-                padding-right: 1rem;
-                margin-right: 1rem;
+        }
+
+        .location-label {
+            padding: rem(5) 0;
+            font-size: $smallest-font-size;
+            text-transform: uppercase;
+
+            &.disabled {
+                opacity: 0.4;
+            }
+        }
+
+        .add-location {
+            margin-top: rem(15);
+            width: 100%;
+            cursor: pointer;
+
+            &:disabled {
+                background-color: $color-gray-lightest;
+                border: 1px solid $color-gray-lighter;
+                color: $color-gray-light;
+                cursor: not-allowed;
             }
         }
     }
+
     .shown {
         min-height: rem(18);
     }
@@ -32,4 +52,6 @@
     .selected-filters {
         @include selected-filter-wrap;
     }
+
+
 }

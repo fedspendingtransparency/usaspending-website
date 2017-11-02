@@ -1,0 +1,34 @@
+{
+    "districts": [
+        {
+            "code": "2201",
+            "district": "01",
+            "name": "LA-01"
+        },
+        {
+            "code": "2202",
+            "district": "02",
+            "name": "LA-02"
+        },
+        {
+            "code": "2203",
+            "district": "03",
+            "name": "LA-03"
+        },
+        {
+            "code": "2204",
+            "district": "04",
+            "name": "LA-04"
+        },
+        {
+            "code": "2205",
+            "district": "05",
+            "name": "LA-05"
+        },
+        {
+            "code": "2206",
+            "district": "06",
+            "name": "LA-06"
+        }
+    ]
+}

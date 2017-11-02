@@ -1,0 +1,24 @@
+{
+    "districts": [
+        {
+            "code": "2001",
+            "district": "01",
+            "name": "KS-01"
+        },
+        {
+            "code": "2002",
+            "district": "02",
+            "name": "KS-02"
+        },
+        {
+            "code": "2003",
+            "district": "03",
+            "name": "KS-03"
+        },
+        {
+            "code": "2004",
+            "district": "04",
+            "name": "KS-04"
+        }
+    ]
+}

@@ -1,0 +1,406 @@
+{
+    "counties": [
+        {
+            "code": "01001",
+            "fips": "001",
+            "state": "AL",
+            "name": "Autauga County"
+        },
+        {
+            "code": "01003",
+            "fips": "003",
+            "state": "AL",
+            "name": "Baldwin County"
+        },
+        {
+            "code": "01005",
+            "fips": "005",
+            "state": "AL",
+            "name": "Barbour County"
+        },
+        {
+            "code": "01007",
+            "fips": "007",
+            "state": "AL",
+            "name": "Bibb County"
+        },
+        {
+            "code": "01009",
+            "fips": "009",
+            "state": "AL",
+            "name": "Blount County"
+        },
+        {
+            "code": "01011",
+            "fips": "011",
+            "state": "AL",
+            "name": "Bullock County"
+        },
+        {
+            "code": "01013",
+            "fips": "013",
+            "state": "AL",
+            "name": "Butler County"
+        },
+        {
+            "code": "01015",
+            "fips": "015",
+            "state": "AL",
+            "name": "Calhoun County"
+        },
+        {
+            "code": "01017",
+            "fips": "017",
+            "state": "AL",
+            "name": "Chambers County"
+        },
+        {
+            "code": "01019",
+            "fips": "019",
+            "state": "AL",
+            "name": "Cherokee County"
+        },
+        {
+            "code": "01021",
+            "fips": "021",
+            "state": "AL",
+            "name": "Chilton County"
+        },
+        {
+            "code": "01023",
+            "fips": "023",
+            "state": "AL",
+            "name": "Choctaw County"
+        },
+        {
+            "code": "01025",
+            "fips": "025",
+            "state": "AL",
+            "name": "Clarke County"
+        },
+        {
+            "code": "01027",
+            "fips": "027",
+            "state": "AL",
+            "name": "Clay County"
+        },
+        {
+            "code": "01029",
+            "fips": "029",
+            "state": "AL",
+            "name": "Cleburne County"
+        },
+        {
+            "code": "01031",
+            "fips": "031",
+            "state": "AL",
+            "name": "Coffee County"
+        },
+        {
+            "code": "01033",
+            "fips": "033",
+            "state": "AL",
+            "name": "Colbert County"
+        },
+        {
+            "code": "01035",
+            "fips": "035",
+            "state": "AL",
+            "name": "Conecuh County"
+        },
+        {
+            "code": "01037",
+            "fips": "037",
+            "state": "AL",
+            "name": "Coosa County"
+        },
+        {
+            "code": "01039",
+            "fips": "039",
+            "state": "AL",
+            "name": "Covington County"
+        },
+        {
+            "code": "01041",
+            "fips": "041",
+            "state": "AL",
+            "name": "Crenshaw County"
+        },
+        {
+            "code": "01043",
+            "fips": "043",
+            "state": "AL",
+            "name": "Cullman County"
+        },
+        {
+            "code": "01045",
+            "fips": "045",
+            "state": "AL",
+            "name": "Dale County"
+        },
+        {
+            "code": "01047",
+            "fips": "047",
+            "state": "AL",
+            "name": "Dallas County"
+        },
+        {
+            "code": "01049",
+            "fips": "049",
+            "state": "AL",
+            "name": "DeKalb County"
+        },
+        {
+            "code": "01051",
+            "fips": "051",
+            "state": "AL",
+            "name": "Elmore County"
+        },
+        {
+            "code": "01053",
+            "fips": "053",
+            "state": "AL",
+            "name": "Escambia County"
+        },
+        {
+            "code": "01055",
+            "fips": "055",
+            "state": "AL",
+            "name": "Etowah County"
+        },
+        {
+            "code": "01057",
+            "fips": "057",
+            "state": "AL",
+            "name": "Fayette County"
+        },
+        {
+            "code": "01059",
+            "fips": "059",
+            "state": "AL",
+            "name": "Franklin County"
+        },
+        {
+            "code": "01061",
+            "fips": "061",
+            "state": "AL",
+            "name": "Geneva County"
+        },
+        {
+            "code": "01063",
+            "fips": "063",
+            "state": "AL",
+            "name": "Greene County"
+        },
+        {
+            "code": "01065",
+            "fips": "065",
+            "state": "AL",
+            "name": "Hale County"
+        },
+        {
+            "code": "01067",
+            "fips": "067",
+            "state": "AL",
+            "name": "Henry County"
+        },
+        {
+            "code": "01069",
+            "fips": "069",
+            "state": "AL",
+            "name": "Houston County"
+        },
+        {
+            "code": "01071",
+            "fips": "071",
+            "state": "AL",
+            "name": "Jackson County"
+        },
+        {
+            "code": "01073",
+            "fips": "073",
+            "state": "AL",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "01075",
+            "fips": "075",
+            "state": "AL",
+            "name": "Lamar County"
+        },
+        {
+            "code": "01077",
+            "fips": "077",
+            "state": "AL",
+            "name": "Lauderdale County"
+        },
+        {
+            "code": "01079",
+            "fips": "079",
+            "state": "AL",
+            "name": "Lawrence County"
+        },
+        {
+            "code": "01081",
+            "fips": "081",
+            "state": "AL",
+            "name": "Lee County"
+        },
+        {
+            "code": "01083",
+            "fips": "083",
+            "state": "AL",
+            "name": "Limestone County"
+        },
+        {
+            "code": "01085",
+            "fips": "085",
+            "state": "AL",
+            "name": "Lowndes County"
+        },
+        {
+            "code": "01087",
+            "fips": "087",
+            "state": "AL",
+            "name": "Macon County"
+        },
+        {
+            "code": "01089",
+            "fips": "089",
+            "state": "AL",
+            "name": "Madison County"
+        },
+        {
+            "code": "01091",
+            "fips": "091",
+            "state": "AL",
+            "name": "Marengo County"
+        },
+        {
+            "code": "01093",
+            "fips": "093",
+            "state": "AL",
+            "name": "Marion County"
+        },
+        {
+            "code": "01095",
+            "fips": "095",
+            "state": "AL",
+            "name": "Marshall County"
+        },
+        {
+            "code": "01097",
+            "fips": "097",
+            "state": "AL",
+            "name": "Mobile County"
+        },
+        {
+            "code": "01099",
+            "fips": "099",
+            "state": "AL",
+            "name": "Monroe County"
+        },
+        {
+            "code": "01101",
+            "fips": "101",
+            "state": "AL",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "01103",
+            "fips": "103",
+            "state": "AL",
+            "name": "Morgan County"
+        },
+        {
+            "code": "01105",
+            "fips": "105",
+            "state": "AL",
+            "name": "Perry County"
+        },
+        {
+            "code": "01107",
+            "fips": "107",
+            "state": "AL",
+            "name": "Pickens County"
+        },
+        {
+            "code": "01109",
+            "fips": "109",
+            "state": "AL",
+            "name": "Pike County"
+        },
+        {
+            "code": "01111",
+            "fips": "111",
+            "state": "AL",
+            "name": "Randolph County"
+        },
+        {
+            "code": "01113",
+            "fips": "113",
+            "state": "AL",
+            "name": "Russell County"
+        },
+        {
+            "code": "01117",
+            "fips": "117",
+            "state": "AL",
+            "name": "Shelby County"
+        },
+        {
+            "code": "01115",
+            "fips": "115",
+            "state": "AL",
+            "name": "Saint Clair County"
+        },
+        {
+            "code": "01119",
+            "fips": "119",
+            "state": "AL",
+            "name": "Sumter County"
+        },
+        {
+            "code": "01121",
+            "fips": "121",
+            "state": "AL",
+            "name": "Talladega County"
+        },
+        {
+            "code": "01123",
+            "fips": "123",
+            "state": "AL",
+            "name": "Tallapoosa County"
+        },
+        {
+            "code": "01125",
+            "fips": "125",
+            "state": "AL",
+            "name": "Tuscaloosa County"
+        },
+        {
+            "code": "01127",
+            "fips": "127",
+            "state": "AL",
+            "name": "Walker County"
+        },
+        {
+            "code": "01129",
+            "fips": "129",
+            "state": "AL",
+            "name": "Washington County"
+        },
+        {
+            "code": "01131",
+            "fips": "131",
+            "state": "AL",
+            "name": "Wilcox County"
+        },
+        {
+            "code": "01133",
+            "fips": "133",
+            "state": "AL",
+            "name": "Winston County"
+        }
+    ]
+}

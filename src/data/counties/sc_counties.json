@@ -1,0 +1,280 @@
+{
+    "counties": [
+        {
+            "code": "45001",
+            "fips": "001",
+            "state": "SC",
+            "name": "Abbeville County"
+        },
+        {
+            "code": "45003",
+            "fips": "003",
+            "state": "SC",
+            "name": "Aiken County"
+        },
+        {
+            "code": "45005",
+            "fips": "005",
+            "state": "SC",
+            "name": "Allendale County"
+        },
+        {
+            "code": "45007",
+            "fips": "007",
+            "state": "SC",
+            "name": "Anderson County"
+        },
+        {
+            "code": "45009",
+            "fips": "009",
+            "state": "SC",
+            "name": "Bamberg County"
+        },
+        {
+            "code": "45011",
+            "fips": "011",
+            "state": "SC",
+            "name": "Barnwell County"
+        },
+        {
+            "code": "45013",
+            "fips": "013",
+            "state": "SC",
+            "name": "Beaufort County"
+        },
+        {
+            "code": "45015",
+            "fips": "015",
+            "state": "SC",
+            "name": "Berkeley County"
+        },
+        {
+            "code": "45017",
+            "fips": "017",
+            "state": "SC",
+            "name": "Calhoun County"
+        },
+        {
+            "code": "45019",
+            "fips": "019",
+            "state": "SC",
+            "name": "Charleston County"
+        },
+        {
+            "code": "45021",
+            "fips": "021",
+            "state": "SC",
+            "name": "Cherokee County"
+        },
+        {
+            "code": "45023",
+            "fips": "023",
+            "state": "SC",
+            "name": "Chester County"
+        },
+        {
+            "code": "45025",
+            "fips": "025",
+            "state": "SC",
+            "name": "Chesterfield County"
+        },
+        {
+            "code": "45027",
+            "fips": "027",
+            "state": "SC",
+            "name": "Clarendon County"
+        },
+        {
+            "code": "45029",
+            "fips": "029",
+            "state": "SC",
+            "name": "Colleton County"
+        },
+        {
+            "code": "45031",
+            "fips": "031",
+            "state": "SC",
+            "name": "Darlington County"
+        },
+        {
+            "code": "45033",
+            "fips": "033",
+            "state": "SC",
+            "name": "Dillon County"
+        },
+        {
+            "code": "45035",
+            "fips": "035",
+            "state": "SC",
+            "name": "Dorchester County"
+        },
+        {
+            "code": "45037",
+            "fips": "037",
+            "state": "SC",
+            "name": "Edgefield County"
+        },
+        {
+            "code": "45039",
+            "fips": "039",
+            "state": "SC",
+            "name": "Fairfield County"
+        },
+        {
+            "code": "45041",
+            "fips": "041",
+            "state": "SC",
+            "name": "Florence County"
+        },
+        {
+            "code": "45043",
+            "fips": "043",
+            "state": "SC",
+            "name": "Georgetown County"
+        },
+        {
+            "code": "45045",
+            "fips": "045",
+            "state": "SC",
+            "name": "Greenville County"
+        },
+        {
+            "code": "45047",
+            "fips": "047",
+            "state": "SC",
+            "name": "Greenwood County"
+        },
+        {
+            "code": "45049",
+            "fips": "049",
+            "state": "SC",
+            "name": "Hampton County"
+        },
+        {
+            "code": "45051",
+            "fips": "051",
+            "state": "SC",
+            "name": "Horry County"
+        },
+        {
+            "code": "45053",
+            "fips": "053",
+            "state": "SC",
+            "name": "Jasper County"
+        },
+        {
+            "code": "45055",
+            "fips": "055",
+            "state": "SC",
+            "name": "Kershaw County"
+        },
+        {
+            "code": "45057",
+            "fips": "057",
+            "state": "SC",
+            "name": "Lancaster County"
+        },
+        {
+            "code": "45059",
+            "fips": "059",
+            "state": "SC",
+            "name": "Laurens County"
+        },
+        {
+            "code": "45061",
+            "fips": "061",
+            "state": "SC",
+            "name": "Lee County"
+        },
+        {
+            "code": "45063",
+            "fips": "063",
+            "state": "SC",
+            "name": "Lexington County"
+        },
+        {
+            "code": "45067",
+            "fips": "067",
+            "state": "SC",
+            "name": "Marion County"
+        },
+        {
+            "code": "45069",
+            "fips": "069",
+            "state": "SC",
+            "name": "Marlboro County"
+        },
+        {
+            "code": "45065",
+            "fips": "065",
+            "state": "SC",
+            "name": "McCormick County"
+        },
+        {
+            "code": "45071",
+            "fips": "071",
+            "state": "SC",
+            "name": "Newberry County"
+        },
+        {
+            "code": "45073",
+            "fips": "073",
+            "state": "SC",
+            "name": "Oconee County"
+        },
+        {
+            "code": "45075",
+            "fips": "075",
+            "state": "SC",
+            "name": "Orangeburg County"
+        },
+        {
+            "code": "45077",
+            "fips": "077",
+            "state": "SC",
+            "name": "Pickens County"
+        },
+        {
+            "code": "45079",
+            "fips": "079",
+            "state": "SC",
+            "name": "Richland County"
+        },
+        {
+            "code": "45081",
+            "fips": "081",
+            "state": "SC",
+            "name": "Saluda County"
+        },
+        {
+            "code": "45083",
+            "fips": "083",
+            "state": "SC",
+            "name": "Spartanburg County"
+        },
+        {
+            "code": "45085",
+            "fips": "085",
+            "state": "SC",
+            "name": "Sumter County"
+        },
+        {
+            "code": "45087",
+            "fips": "087",
+            "state": "SC",
+            "name": "Union County"
+        },
+        {
+            "code": "45089",
+            "fips": "089",
+            "state": "SC",
+            "name": "Williamsburg County"
+        },
+        {
+            "code": "45091",
+            "fips": "091",
+            "state": "SC",
+            "name": "York County"
+        }
+    ]
+}

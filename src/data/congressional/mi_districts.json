@@ -1,0 +1,79 @@
+{
+    "districts": [
+        {
+            "code": "2601",
+            "district": "01",
+            "name": "MI-01"
+        },
+        {
+            "code": "2602",
+            "district": "02",
+            "name": "MI-02"
+        },
+        {
+            "code": "2603",
+            "district": "03",
+            "name": "MI-03"
+        },
+        {
+            "code": "2604",
+            "district": "04",
+            "name": "MI-04"
+        },
+        {
+            "code": "2605",
+            "district": "05",
+            "name": "MI-05"
+        },
+        {
+            "code": "2606",
+            "district": "06",
+            "name": "MI-06"
+        },
+        {
+            "code": "2607",
+            "district": "07",
+            "name": "MI-07"
+        },
+        {
+            "code": "2608",
+            "district": "08",
+            "name": "MI-08"
+        },
+        {
+            "code": "2609",
+            "district": "09",
+            "name": "MI-09"
+        },
+        {
+            "code": "2610",
+            "district": "10",
+            "name": "MI-10"
+        },
+        {
+            "code": "2611",
+            "district": "11",
+            "name": "MI-11"
+        },
+        {
+            "code": "2612",
+            "district": "12",
+            "name": "MI-12"
+        },
+        {
+            "code": "2613",
+            "district": "13",
+            "name": "MI-13"
+        },
+        {
+            "code": "2614",
+            "district": "14",
+            "name": "MI-14"
+        },
+        {
+            "code": "26ZZ",
+            "district": "ZZ",
+            "name": "MI-ZZ"
+        }
+    ]
+}

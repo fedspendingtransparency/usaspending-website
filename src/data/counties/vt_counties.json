@@ -1,0 +1,88 @@
+{
+    "counties": [
+        {
+            "code": "50001",
+            "fips": "001",
+            "state": "VT",
+            "name": "Addison County"
+        },
+        {
+            "code": "50003",
+            "fips": "003",
+            "state": "VT",
+            "name": "Bennington County"
+        },
+        {
+            "code": "50005",
+            "fips": "005",
+            "state": "VT",
+            "name": "Caledonia County"
+        },
+        {
+            "code": "50007",
+            "fips": "007",
+            "state": "VT",
+            "name": "Chittenden County"
+        },
+        {
+            "code": "50009",
+            "fips": "009",
+            "state": "VT",
+            "name": "Essex County"
+        },
+        {
+            "code": "50011",
+            "fips": "011",
+            "state": "VT",
+            "name": "Franklin County"
+        },
+        {
+            "code": "50013",
+            "fips": "013",
+            "state": "VT",
+            "name": "Grand Isle County"
+        },
+        {
+            "code": "50015",
+            "fips": "015",
+            "state": "VT",
+            "name": "Lamoille County"
+        },
+        {
+            "code": "50017",
+            "fips": "017",
+            "state": "VT",
+            "name": "Orange County"
+        },
+        {
+            "code": "50019",
+            "fips": "019",
+            "state": "VT",
+            "name": "Orleans County"
+        },
+        {
+            "code": "50021",
+            "fips": "021",
+            "state": "VT",
+            "name": "Rutland County"
+        },
+        {
+            "code": "50023",
+            "fips": "023",
+            "state": "VT",
+            "name": "Washington County"
+        },
+        {
+            "code": "50025",
+            "fips": "025",
+            "state": "VT",
+            "name": "Windham County"
+        },
+        {
+            "code": "50027",
+            "fips": "027",
+            "state": "VT",
+            "name": "Windsor County"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "districts": [
+        {
+            "code": "4901",
+            "district": "01",
+            "name": "UT-01"
+        },
+        {
+            "code": "4902",
+            "district": "02",
+            "name": "UT-02"
+        },
+        {
+            "code": "4903",
+            "district": "03",
+            "name": "UT-03"
+        },
+        {
+            "code": "4904",
+            "district": "04",
+            "name": "UT-04"
+        }
+    ]
+}

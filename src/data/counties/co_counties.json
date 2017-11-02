@@ -1,0 +1,388 @@
+{
+    "counties": [
+        {
+            "code": "08001",
+            "fips": "001",
+            "state": "CO",
+            "name": "Adams County"
+        },
+        {
+            "code": "08003",
+            "fips": "003",
+            "state": "CO",
+            "name": "Alamosa County"
+        },
+        {
+            "code": "08005",
+            "fips": "005",
+            "state": "CO",
+            "name": "Arapahoe County"
+        },
+        {
+            "code": "08007",
+            "fips": "007",
+            "state": "CO",
+            "name": "Archuleta County"
+        },
+        {
+            "code": "08009",
+            "fips": "009",
+            "state": "CO",
+            "name": "Baca County"
+        },
+        {
+            "code": "08011",
+            "fips": "011",
+            "state": "CO",
+            "name": "Bent County"
+        },
+        {
+            "code": "08013",
+            "fips": "013",
+            "state": "CO",
+            "name": "Boulder County"
+        },
+        {
+            "code": "08014",
+            "fips": "014",
+            "state": "CO",
+            "name": "Broomfield County"
+        },
+        {
+            "code": "08015",
+            "fips": "015",
+            "state": "CO",
+            "name": "Chaffee County"
+        },
+        {
+            "code": "08017",
+            "fips": "017",
+            "state": "CO",
+            "name": "Cheyenne County"
+        },
+        {
+            "code": "08019",
+            "fips": "019",
+            "state": "CO",
+            "name": "Clear Creek County"
+        },
+        {
+            "code": "08021",
+            "fips": "021",
+            "state": "CO",
+            "name": "Conejos County"
+        },
+        {
+            "code": "08023",
+            "fips": "023",
+            "state": "CO",
+            "name": "Costilla County"
+        },
+        {
+            "code": "08025",
+            "fips": "025",
+            "state": "CO",
+            "name": "Crowley County"
+        },
+        {
+            "code": "08027",
+            "fips": "027",
+            "state": "CO",
+            "name": "Custer County"
+        },
+        {
+            "code": "08029",
+            "fips": "029",
+            "state": "CO",
+            "name": "Delta County"
+        },
+        {
+            "code": "08031",
+            "fips": "031",
+            "state": "CO",
+            "name": "Denver County"
+        },
+        {
+            "code": "08033",
+            "fips": "033",
+            "state": "CO",
+            "name": "Dolores County"
+        },
+        {
+            "code": "08035",
+            "fips": "035",
+            "state": "CO",
+            "name": "Douglas County"
+        },
+        {
+            "code": "08037",
+            "fips": "037",
+            "state": "CO",
+            "name": "Eagle County"
+        },
+        {
+            "code": "08041",
+            "fips": "041",
+            "state": "CO",
+            "name": "El Paso County"
+        },
+        {
+            "code": "08039",
+            "fips": "039",
+            "state": "CO",
+            "name": "Elbert County"
+        },
+        {
+            "code": "08043",
+            "fips": "043",
+            "state": "CO",
+            "name": "Fremont County"
+        },
+        {
+            "code": "08045",
+            "fips": "045",
+            "state": "CO",
+            "name": "Garfield County"
+        },
+        {
+            "code": "08047",
+            "fips": "047",
+            "state": "CO",
+            "name": "Gilpin County"
+        },
+        {
+            "code": "08049",
+            "fips": "049",
+            "state": "CO",
+            "name": "Grand County"
+        },
+        {
+            "code": "08051",
+            "fips": "051",
+            "state": "CO",
+            "name": "Gunnison County"
+        },
+        {
+            "code": "08053",
+            "fips": "053",
+            "state": "CO",
+            "name": "Hinsdale County"
+        },
+        {
+            "code": "08055",
+            "fips": "055",
+            "state": "CO",
+            "name": "Huerfano County"
+        },
+        {
+            "code": "08057",
+            "fips": "057",
+            "state": "CO",
+            "name": "Jackson County"
+        },
+        {
+            "code": "08059",
+            "fips": "059",
+            "state": "CO",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "08061",
+            "fips": "061",
+            "state": "CO",
+            "name": "Kiowa County"
+        },
+        {
+            "code": "08063",
+            "fips": "063",
+            "state": "CO",
+            "name": "Kit Carson County"
+        },
+        {
+            "code": "08067",
+            "fips": "067",
+            "state": "CO",
+            "name": "La Plata County"
+        },
+        {
+            "code": "08065",
+            "fips": "065",
+            "state": "CO",
+            "name": "Lake County"
+        },
+        {
+            "code": "08069",
+            "fips": "069",
+            "state": "CO",
+            "name": "Larimer County"
+        },
+        {
+            "code": "08071",
+            "fips": "071",
+            "state": "CO",
+            "name": "Las Animas County"
+        },
+        {
+            "code": "08073",
+            "fips": "073",
+            "state": "CO",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "08075",
+            "fips": "075",
+            "state": "CO",
+            "name": "Logan County"
+        },
+        {
+            "code": "08077",
+            "fips": "077",
+            "state": "CO",
+            "name": "Mesa County"
+        },
+        {
+            "code": "08079",
+            "fips": "079",
+            "state": "CO",
+            "name": "Mineral County"
+        },
+        {
+            "code": "08081",
+            "fips": "081",
+            "state": "CO",
+            "name": "Moffat County"
+        },
+        {
+            "code": "08083",
+            "fips": "083",
+            "state": "CO",
+            "name": "Montezuma County"
+        },
+        {
+            "code": "08085",
+            "fips": "085",
+            "state": "CO",
+            "name": "Montrose County"
+        },
+        {
+            "code": "08087",
+            "fips": "087",
+            "state": "CO",
+            "name": "Morgan County"
+        },
+        {
+            "code": "08089",
+            "fips": "089",
+            "state": "CO",
+            "name": "Otero County"
+        },
+        {
+            "code": "08091",
+            "fips": "091",
+            "state": "CO",
+            "name": "Ouray County"
+        },
+        {
+            "code": "08093",
+            "fips": "093",
+            "state": "CO",
+            "name": "Park County"
+        },
+        {
+            "code": "08095",
+            "fips": "095",
+            "state": "CO",
+            "name": "Phillips County"
+        },
+        {
+            "code": "08097",
+            "fips": "097",
+            "state": "CO",
+            "name": "Pitkin County"
+        },
+        {
+            "code": "08099",
+            "fips": "099",
+            "state": "CO",
+            "name": "Prowers County"
+        },
+        {
+            "code": "08101",
+            "fips": "101",
+            "state": "CO",
+            "name": "Pueblo County"
+        },
+        {
+            "code": "08103",
+            "fips": "103",
+            "state": "CO",
+            "name": "Rio Blanco County"
+        },
+        {
+            "code": "08105",
+            "fips": "105",
+            "state": "CO",
+            "name": "Rio Grande County"
+        },
+        {
+            "code": "08107",
+            "fips": "107",
+            "state": "CO",
+            "name": "Routt County"
+        },
+        {
+            "code": "08109",
+            "fips": "109",
+            "state": "CO",
+            "name": "Saguache County"
+        },
+        {
+            "code": "08111",
+            "fips": "111",
+            "state": "CO",
+            "name": "San Juan County"
+        },
+        {
+            "code": "08113",
+            "fips": "113",
+            "state": "CO",
+            "name": "San Miguel County"
+        },
+        {
+            "code": "08115",
+            "fips": "115",
+            "state": "CO",
+            "name": "Sedgwick County"
+        },
+        {
+            "code": "08117",
+            "fips": "117",
+            "state": "CO",
+            "name": "Summit County"
+        },
+        {
+            "code": "08119",
+            "fips": "119",
+            "state": "CO",
+            "name": "Teller County"
+        },
+        {
+            "code": "08121",
+            "fips": "121",
+            "state": "CO",
+            "name": "Washington County"
+        },
+        {
+            "code": "08123",
+            "fips": "123",
+            "state": "CO",
+            "name": "Weld County"
+        },
+        {
+            "code": "08125",
+            "fips": "125",
+            "state": "CO",
+            "name": "Yuma County"
+        }
+    ]
+}

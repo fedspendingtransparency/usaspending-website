@@ -9,6 +9,7 @@
 require.context('./fonts', true);
 require.context('./graphics', true);
 require.context('./img', true);
+require.context('./data', true);
 
 // require the CSS
 require('./css/main.scss');
