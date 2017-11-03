@@ -47,5 +47,22 @@ export const awardDownloadOptions = {
             label: 'Last Modified Date',
             description: 'When the details of a reported award action were last updated'
         }
+    ],
+    fileFormats: [
+        {
+            name: 'csv',
+            label: 'CSV',
+            disabled: false
+        },
+        {
+            name: 'tsv',
+            label: 'TSV',
+            disabled: true
+        },
+        {
+            name: 'xml',
+            label: 'XML',
+            disabled: true
+        }
     ]
 };

@@ -180,7 +180,7 @@ export class AwardDataContainer extends React.Component {
                 }
             },
             columns: [],
-            file_format: 'csv'
+            file_format: filterSelections.fileFormat
         };
 
         console.log(filters);

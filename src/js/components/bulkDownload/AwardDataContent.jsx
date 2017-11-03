@@ -13,6 +13,7 @@ import AwardTypeFilter from './filters/AwardTypeFilter';
 import AgencyFilter from './filters/AgencyFilter';
 import DateTypeFilter from './filters/DateTypeFilter';
 import TimePeriodFilter from './filters/dateRange/TimePeriodFilter';
+import FileFormatFilter from './filters/FileFormatFilter';
 
 const propTypes = {
     updateDownloadFilters: PropTypes.func,
@@ -37,6 +38,7 @@ export default class AwardDataContent extends React.Component {
             dateType: 'action_date',
             startDate: '',
             endDate: '',
+            fileFormat: 'csv',
             validDates: false
         };
 
@@ -154,6 +156,11 @@ export default class AwardDataContent extends React.Component {
                             handleInputChange={this.handleInputChange}
                             valid={this.state.startDate !== '' || this.state.endDate !== ''}
                             setValidDates={this.setValidDates} />
+                        <FileFormatFilter
+                            fileFormats={awardDownloadOptions.fileFormats}
+                            currentFileFormat={this.state.fileFormat}
+                            onChange={this.handleChange}
+                            valid={this.state.fileFormat !== ''} />
                         {submitButton}
                     </form>
                 </div>

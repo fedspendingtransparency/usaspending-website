@@ -53,6 +53,9 @@
                 color: #4A4A4A;
                 font-size: rem(18);
                 line-height: rem(23);
+                &.disabled {
+                    color: $color-gray-light;
+                }
             }
             .radio-description {
                 color: #5B616B;
