@@ -24,7 +24,8 @@ const propTypes = {
     hideTooltip: PropTypes.func,
     tooltip: PropTypes.func,
     availableLayers: PropTypes.array,
-    changeMapLayer: PropTypes.func
+    changeMapLayer: PropTypes.func,
+    showLayerToggle: PropTypes.bool
 };
 
 const defaultProps = {
@@ -33,7 +34,8 @@ const defaultProps = {
         values: []
     },
     scope: 'state',
-    availableLayers: ['state']
+    availableLayers: ['state'],
+    showLayerToggle: false
 };
 
 const mapboxSources = {
@@ -45,14 +47,14 @@ const mapboxSources = {
     },
     county: {
         label: 'county',
-        maxZoom: 4,
+        minZoom: 4,
         url: 'mapbox://usaspending.83g94wbo',
         layer: 'tl_2017_us_county-7dgoe0',
         filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
     },
     congressionalDistrict: {
         label: 'congressional district',
-        maxZoom: 4,
+        minZoom: 4,
         url: 'mapbox://usaspending.51fn3vaz',
         layer: 'tl_2017_us_cd115-4w4nmz',
         filterKey: 'GEOID' // the GEOID is state FIPS + district
@@ -140,6 +142,7 @@ export default class MapWrapper extends React.Component {
                 this.prepareChangeListeners();
 
                 // notify any listeners that the map is ready
+                console.log("broadcast done");
                 MapBroadcaster.emit('mapReady');
             });
     }
@@ -260,36 +263,61 @@ export default class MapWrapper extends React.Component {
             this.showSource(this.props.scope);
 
             // check if we need to zoom in to show the layer
-            if (source.maxZoom) {
+            if (source.minZoom) {
                 const currentZoom = this.mapRef.map.getZoom();
-                if (currentZoom < source.maxZoom) {
+                if (currentZoom < source.minZoom) {
                     // we are zoomed too far out and won't be able to see the new map layer, zoom in
-                    this.mapRef.map.zoomTo(source.maxZoom);
+                    // don't allow users to zoom further out than the min zoom
+                    this.mapRef.map.setMinZoom(source.minZoom);
                 }
             }
+            else {
+                this.mapRef.map.setMinZoom(0);
+            }
 
-            const resolver = (e) => {
+
+            const parentMap = this.mapRef.map;
+            const parentScope = this.props.scope;
+            function renderResolver() {
+                console.log("rendered");
+                parentMap.off('render', renderResolver);
+                resolve();
+            }
+            function loadResolver(e) {
                 // Mapbox insists on emitting sourcedata events for many different source
                 // loading stages, so we need to wait for the source to be loaded AND for
                 // it to be affecting tiles (aka, it has moved onto the render stage)
                 if (e.isSourceLoaded && e.tile) {
                     // source has finished loading and is rendered (so we can start filtering
                     // and querying)
-                    this.mapRef.map.off('sourcedata', resolver);
-                    resolve();
+                    console.log('source loaded');
+                    parentMap.off('sourcedata', loadResolver);
+                    parentMap.on('render', renderResolver);
                 }
-            };
+            }
+
             // if we're loading new data, we need to wait for the data to be ready
-            this.mapRef.map.on('sourcedata', resolver);
+            this.mapRef.map.on('sourcedata', loadResolver);
         });
     }
 
     measureMap() {
+        console.log(`measuring map with scope ${this.props.scope}`);
          // determine which entities (state, counties, etc based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
+        const mapLoaded = this.mapRef.map.loaded();
+        // wait for the map to load before continuing
+        if (!mapLoaded) {
+            window.requestAnimationFrame(() => {
+                this.measureMap();
+            });
+            return;
+        }
+
         const entities = this.mapRef.map.queryRenderedFeatures({
             layers: [`base_${this.props.scope}`]
         });
+        console.log(entities.length);
 
         const source = mapboxSources[this.props.scope];
         const visibleEntities = entities.map((entity) => (
@@ -304,12 +332,20 @@ export default class MapWrapper extends React.Component {
 
     prepareChangeListeners() {
         // detect visible entities whenever the map moves
+        const parentMap = this.mapRef.map;
+        function renderCallback() {
+            if (parentMap.loaded()) {
+                parentMap.off('render', renderCallback);
+                MapBroadcaster.emit('mapMoved');
+            }
+        }
+
         this.mapRef.map.on('moveend', () => {
-            MapBroadcaster.emit('mapMoved');
+            this.mapRef.map.on('render', renderCallback);
         });
         // but also do it when the map resizes, since the view will be different
         this.mapRef.map.on('resize', () => {
-            MapBroadcaster.emit('mapMoved');
+            this.mapRef.map.on('render', renderCallback);
         });
     }
 
@@ -395,6 +431,15 @@ export default class MapWrapper extends React.Component {
                 {...this.props.selectedItem} />);
         }
 
+        let toggle = null;
+        if (this.props.showLayerToggle && this.props.availableLayers.length > 1) {
+            toggle = (<MapLayerToggle
+                active={this.props.scope}
+                available={this.props.availableLayers}
+                sources={mapboxSources}
+                changeMapLayer={this.props.changeMapLayer} />);
+        }
+
         return (
             <div
                 className="map-container"
@@ -407,14 +452,7 @@ export default class MapWrapper extends React.Component {
                     ref={(component) => {
                         this.mapRef = component;
                     }} />
-                <div className="map-instructions">
-                    Hover over a {mapboxSources[this.props.scope].label} for more detailed information.
-                </div>
-                <MapLayerToggle
-                    active={this.props.scope}
-                    available={this.props.availableLayers}
-                    sources={mapboxSources}
-                    changeMapLayer={this.props.changeMapLayer} />
+                {toggle}
                 <MapLegend
                     segments={this.state.spendingScale.segments}
                     units={this.state.spendingScale.units} />

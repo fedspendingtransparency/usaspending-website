@@ -49,6 +49,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.apiRequest = null;
 
+        this.loadingTiles = true;
+
         this.mapListeners = [];
 
         this.changeScope = this.changeScope.bind(this);
@@ -82,30 +84,41 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     changeScope(scope) {
         this.setState({
-            scope
+            scope,
         }, () => {
             this.prepareFetch();
         });
     }
 
     mapLoaded() {
+        console.log("received done");
         this.setState({
             loadingTiles: false
         }, () => {
-            this.prepareFetch();
+            window.setTimeout(() => {
+                // SUPER BODGE: wait 500ms before measuring the map
+                // Mapbox source and render events appear to be firing the tiles are actually ready
+                // when served from cache
+                this.prepareFetch();
+            }, 500);
         });
+        // this.loadingTiles = false;
+        // this.prepareFetch();
     }
 
     prepareFetch() {
         if (this.state.loadingTiles) {
+            console.log("loading tiles");
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
             return;
         }
 
+        console.log("request measure map");
         MapBroadcaster.emit('measureMap');
     }
 
     receivedEntities(entities) {
+        console.log(`map measurement done, found ${entities.length}`);
         this.setState({
             visibleEntities: entities
         }, () => {
@@ -162,7 +175,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             // state must not be null or empty string
             if (item.shape_code && item.shape_code !== '') {
                 spendingShapes.push(item.shape_code);
-                spendingShapes.push(parseFloat(item.aggregated_amount));
+                spendingValues.push(parseFloat(item.aggregated_amount));
                 spendingLabels[item.shape_code] = {
                     label: item.display_name,
                     value: parseFloat(item.aggregated_amount)
@@ -187,6 +200,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
             renderHash: `geo-${uniqueId()}`,
             loadingTiles: true
         }, () => {
+            console.log("change layer");
+            // this.loadingTiles = true;
             this.prepareFetch();
         });
     }

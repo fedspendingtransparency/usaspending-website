@@ -4,11 +4,30 @@
         display: block;
         height: 100%;
         width: 100%;
+
+        .mapboxgl-ctrl-group {
+            button {
+                // button element is overridden by the site base styles, so we need to manually
+                // re-override the button element to the original mapbox style
+                width: 30px;
+                height: 30px;
+                display: block;
+                padding: 0;
+                outline: none;
+                border: none;
+                border-bottom: 1px solid #ddd;
+                box-sizing: border-box;
+                background-color: rgba(0,0,0,0);
+                cursor: pointer;
+                margin: 0;
+            }
+        }
+
         .map-buttons {
             position: absolute;
             float: right;
-            right: rem(10);
-            bottom: rem(30);
+            right: rem(5);
+            bottom: rem(80);
             z-index: 3;
             .first-row,
             .second-row {
@@ -33,23 +52,4 @@
     }
     @import "./_legend";
     @import "./_toggle";
-    .map-instructions {
-        display: none;
-        @include media($tablet-screen) {
-            background-color: $color-white;
-            display: block;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-            color: $color-gray;
-            font-size: rem(14);
-            font-weight: $font-semibold;
-            left: rem(15);
-            line-height: rem(18);
-            max-width: rem(230);
-            padding: rem(12) rem(15);
-            position: absolute;
-            text-align: center;
-            top: rem(15);
-            z-index: 2;
-        }
-    }
 }

@@ -109,7 +109,8 @@ export default class GeoVisualizationSection extends React.Component {
                     showTooltip={this.showTooltip}
                     hideTooltip={this.hideTooltip}
                     tooltip={GeoVisualizationTooltip}
-                    availableLayers={availableLayers} />
+                    availableLayers={availableLayers}
+                    showLayerToggle />
 
             </div>
         );
