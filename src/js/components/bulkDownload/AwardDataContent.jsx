@@ -14,6 +14,7 @@ import AgencyFilter from './filters/AgencyFilter';
 import DateTypeFilter from './filters/DateTypeFilter';
 import TimePeriodFilter from './filters/dateRange/TimePeriodFilter';
 import FileFormatFilter from './filters/FileFormatFilter';
+import UserSelections from './UserSelections';
 
 const propTypes = {
     updateDownloadFilters: PropTypes.func,
@@ -161,6 +162,10 @@ export default class AwardDataContent extends React.Component {
                             currentFileFormat={this.state.fileFormat}
                             onChange={this.handleChange}
                             valid={this.state.fileFormat !== ''} />
+                        <UserSelections
+                            formState={this.state}
+                            agencies={this.props.agencies}
+                            subAgencies={this.props.subAgencies} />
                         {submitButton}
                     </form>
                 </div>

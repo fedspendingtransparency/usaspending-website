@@ -71,6 +71,39 @@
             @import "datePicker";
         }
     }
+    .your-selections {
+        margin: rem(20);
+        background-color: $color-gray-lightest;
+        padding: rem(20);
+        @import "../../mixins/fullSectionWrap";
+        @include fullSectionWrap((rem(40)), (rem(30)));
+        .left-col {
+            @include span-columns(16);
+            @include media($medium-screen) {
+                @include span-columns(8);
+            }
+        }
+        .right-col {
+            @include span-columns(16);
+            @include media($medium-screen) {
+                @include span-columns(8);
+            }
+        }
+        h5 {
+            margin: 0;
+        }
+        h6 {
+            color: #5B616B;
+            font-size: rem(12);
+            font-weight: 600;
+            line-height: rem(15);
+        }
+        .required {
+            color: $color-gold;
+            font-size: rem(18);
+            line-height: rem(23);
+        }
+    }
     .submit-button {
         margin: rem(30);
         button, input {
