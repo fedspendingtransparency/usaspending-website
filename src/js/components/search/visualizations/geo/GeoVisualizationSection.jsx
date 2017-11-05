@@ -12,7 +12,7 @@ import GeoVisualizationTooltip from './GeoVisualizationTooltip';
 
 const propTypes = {
     scope: PropTypes.string,
-    mapScope: PropTypes.string,
+    mapLayer: PropTypes.string,
     changeScope: PropTypes.func,
     changeMapLayer: PropTypes.func,
     mapMoved: PropTypes.func,
@@ -102,7 +102,7 @@ export default class GeoVisualizationSection extends React.Component {
                 <MapWrapper
                     data={this.props.data}
                     renderHash={this.props.renderHash}
-                    scope={this.props.mapScope}
+                    scope={this.props.mapLayer}
                     changeMapLayer={this.props.changeMapLayer}
                     showHover={this.state.showHover}
                     selectedItem={this.state.selectedItem}

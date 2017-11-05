@@ -47,7 +47,7 @@ const mapboxSources = {
     },
     county: {
         label: 'county',
-        minZoom: 4,
+        minZoom: 5,
         url: 'mapbox://usaspending.83g94wbo',
         layer: 'tl_2017_us_county-7dgoe0',
         filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS

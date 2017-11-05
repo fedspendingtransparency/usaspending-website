@@ -36,12 +36,12 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.state = {
             scope: 'place_of_performance',
-            mapScope: 'state',
+            mapLayer: 'state',
             data: {
                 values: [],
                 locations: []
             },
-            visibleEntities: null,
+            visibleEntities: [],
             renderHash: `geo-${uniqueId()}`,
             loading: true,
             loadingTiles: true
@@ -49,15 +49,13 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.apiRequest = null;
 
-        this.loadingTiles = true;
-
         this.mapListeners = [];
 
         this.changeScope = this.changeScope.bind(this);
         this.changeMapLayer = this.changeMapLayer.bind(this);
-        this.prepareFetch = this.prepareFetch.bind(this);
         this.receivedEntities = this.receivedEntities.bind(this);
         this.mapLoaded = this.mapLoaded.bind(this);
+        this.prepareFetch = this.prepareFetch.bind(this);
     }
 
     componentDidMount() {
@@ -83,8 +81,13 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     changeScope(scope) {
+        if (scope === this.state.scope) {
+            // scope has not changed
+            return;
+        }
+
         this.setState({
-            scope,
+            scope
         }, () => {
             this.prepareFetch();
         });
@@ -96,14 +99,12 @@ export class GeoVisualizationSectionContainer extends React.Component {
             loadingTiles: false
         }, () => {
             window.setTimeout(() => {
-                // SUPER BODGE: wait 500ms before measuring the map
+                // SUPER BODGE: wait 300ms before measuring the map
                 // Mapbox source and render events appear to be firing the tiles are actually ready
                 // when served from cache
                 this.prepareFetch();
-            }, 500);
+            }, 300);
         });
-        // this.loadingTiles = false;
-        // this.prepareFetch();
     }
 
     prepareFetch() {
@@ -119,6 +120,13 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     receivedEntities(entities) {
         console.log(`map measurement done, found ${entities.length}`);
+        // don't do anything if the visible entities hasn't changed, the map hasn't moved enough
+        // to show new shapes
+        if (isEqual(entities, this.state.visibleEntities)) {
+            // don't do anything, nothing changed
+            return;
+        }
+
         this.setState({
             visibleEntities: entities
         }, () => {
@@ -137,15 +145,11 @@ export class GeoVisualizationSectionContainer extends React.Component {
         // generate the API parameters
         const apiParams = {
             scope: this.state.scope,
-            geo_layer: apiScopes[this.state.mapScope],
+            geo_layer: apiScopes[this.state.mapLayer],
+            geo_layer_filters: this.state.visibleEntities,
             filters: searchParams,
-            limit: 500,
             auditTrail: 'Map Visualization'
         };
-
-        if (this.state.visibleEntities) {
-            apiParams.geo_layer_filters = this.state.visibleEntities;
-        }
 
         if (this.apiRequest) {
             this.apiRequest.cancel();
@@ -196,12 +200,11 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     changeMapLayer(layer) {
         this.setState({
-            mapScope: layer,
+            mapLayer: layer,
             renderHash: `geo-${uniqueId()}`,
             loadingTiles: true
         }, () => {
             console.log("change layer");
-            // this.loadingTiles = true;
             this.prepareFetch();
         });
     }

@@ -1,22 +1,16 @@
 export const geo = {
     results: [
         {
-            state_code: 'AK',
+            shape_code: 'AK',
+            display_name: 'Alaska',
             aggregated_amount: '123.12'
         },
         {
-            state_code: 'AL',
+            shape_code: 'AL',
+            display_name: 'Alabama',
             aggregated_amount: '345.56'
         }
-    ],
-    total_metadata: {
-        count: 2
-    },
-    page_metadata: {
-        page_number: 1,
-        count: 2,
-        num_pages: 1
-    }
+    ]
 };
 
 export const awardingAgency = {

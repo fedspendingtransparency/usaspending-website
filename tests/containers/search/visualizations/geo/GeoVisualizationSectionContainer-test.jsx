@@ -11,6 +11,7 @@ import { Set } from 'immutable';
 
 import { GeoVisualizationSectionContainer } from
     'containers/search/visualizations/geo/GeoVisualizationSectionContainer';
+import MapBroadcaster from 'helpers/mapBroadcaster';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
 
@@ -23,6 +24,7 @@ jest.mock('components/search/visualizations/geo/GeoVisualizationSection', () =>
 
 // spy on specific functions inside the component
 const fetchDataSpy = sinon.spy(GeoVisualizationSectionContainer.prototype, 'fetchData');
+const prepareFetchSpy = sinon.spy(GeoVisualizationSectionContainer.prototype, 'prepareFetch');
 
 const mockedReduxMeta = {
     visualization: {
@@ -31,22 +33,28 @@ const mockedReduxMeta = {
 };
 
 describe('GeoVisualizationSectionContainer', () => {
-    it('should make an API request on mount', async () => {
+    it('should wait for the map to be loaded before making any API requests', () => {
+        jest.useFakeTimers();
+
         // mount the container
         const container = mount(<GeoVisualizationSectionContainer
             reduxFilters={defaultFilters}
             resultsMeta={mockedReduxMeta} />);
+        expect(fetchDataSpy.callCount).toEqual(0);
+        expect(prepareFetchSpy.callCount).toEqual(0);
+        expect(container.state().loadingTiles).toBeTruthy();
 
-        await container.instance().apiRequest.promise;
-
-        // everything should be updated now
-        expect(fetchDataSpy.callCount).toEqual(1);
+        MapBroadcaster.emit('mapReady');
+        // there is a 300ms delay before the prepareFetch function is called
+        jest.runAllTimers();
+        expect(prepareFetchSpy.callCount).toEqual(1);
+        expect(container.state().loadingTiles).toBeFalsy();
 
         // reset the spy
-        fetchDataSpy.reset();
+        prepareFetchSpy.reset();
     });
 
-    it('should make an API request when the Redux filters change', async () => {
+    it('should remeasure the map in preparation of an API change whenever the Redux filters change', () => {
         const initialFilters = Object.assign({}, defaultFilters);
         const secondFilters = Object.assign({}, defaultFilters, {
             timePeriodType: 'fy',
@@ -59,10 +67,8 @@ describe('GeoVisualizationSectionContainer', () => {
                 reduxFilters={initialFilters}
                 resultsMeta={mockedReduxMeta} />);
 
-        await container.instance().apiRequest.promise;
-
         // the first API call should have been called
-        expect(fetchDataSpy.callCount).toEqual(1);
+        expect(prepareFetchSpy.callCount).toEqual(0);
 
         // now update the props
         container.setProps({
@@ -70,40 +76,10 @@ describe('GeoVisualizationSectionContainer', () => {
         });
 
         // the first API call should have been called
-        expect(fetchDataSpy.callCount).toEqual(2);
+        expect(prepareFetchSpy.callCount).toEqual(1);
 
         // reset the spy
-        fetchDataSpy.reset();
-    });
-
-    describe('parseData', () => {
-        it('should properly resture the API response for the map visualization', async () => {
-            // mount the container
-            const container = mount(<GeoVisualizationSectionContainer
-                reduxFilters={defaultFilters}
-                resultsMeta={mockedReduxMeta} />);
-
-            await container.instance().apiRequest.promise;
-
-            const expectedState = {
-                data: {
-                    values: [123.12, 345.56],
-                    locations: ['AK', 'AL']
-                },
-                loading: false,
-                mapScope: 'state'
-            };
-
-            const actualState = container.state();
-            // remove some keys (especially since renderHash is not known)
-            delete actualState.scope;
-            delete actualState.renderHash;
-
-            expect(actualState).toEqual(expectedState);
-
-            // reset the spy
-            fetchDataSpy.reset();
-        });
+        prepareFetchSpy.reset();
     });
 
     describe('changeScope', () => {
@@ -115,8 +91,8 @@ describe('GeoVisualizationSectionContainer', () => {
 
             // toggle it back and forth from recipient to pop
             container.instance().changeScope('recipient');
-            container.instance().changeScope('pop');
-            expect(container.state().scope).toEqual('pop');
+            container.instance().changeScope('place_of_performance');
+            expect(container.state().scope).toEqual('place_of_performance');
         });
 
         it('should set the scope to recipient when requested', () => {
@@ -126,9 +102,225 @@ describe('GeoVisualizationSectionContainer', () => {
                 resultsMeta={mockedReduxMeta} />);
 
             // toggle it back and forth from recipient to pop
-            container.instance().changeScope('pop');
+            container.instance().changeScope('place_of_performance');
             container.instance().changeScope('recipient');
             expect(container.state().scope).toEqual('recipient');
+        });
+
+        it('should request a map measurement operation if the scope has changed', () => {
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+            const mockPrepare = jest.fn();
+            container.instance().prepareFetch = mockPrepare;
+
+            container.setState({
+                scope: 'place_of_performance'
+            });
+            container.instance().changeScope('recipient');
+            expect(mockPrepare).toHaveBeenCalledTimes(1);
+        });
+
+        it('should not request a map measurement operation if the scope has not changed', () => {
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+            const mockPrepare = jest.fn();
+            container.instance().prepareFetch = mockPrepare;
+
+            container.setState({
+                scope: 'place_of_performance'
+            });
+            container.instance().changeScope('place_of_performance');
+            expect(mockPrepare).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('mapLoaded', () => {
+        it('should set the loadingTiles state to false', () => {
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+            container.instance().mapLoaded();
+
+            expect(container.state().loadingTiles).toBeFalsy();
+        });
+        it('should call the prepareFetch method', () => {
+            jest.useFakeTimers();
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+            const mockPrepare = jest.fn();
+            container.instance().prepareFetch = mockPrepare;
+
+            container.instance().mapLoaded();
+            jest.runAllTimers();
+            expect(mockPrepare).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('prepareFetch', () => {
+        it('should stop if the tiles are still loading', () => {
+            const mockListener = jest.fn();
+            // attach the mock listener to the MapBroadcaster
+            const attached = MapBroadcaster.on('measureMap', mockListener);
+
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+            container.setState({
+                loadingTiles: true
+            });
+
+            container.instance().prepareFetch();
+
+            expect(mockListener).toHaveBeenCalledTimes(0);
+
+            // unattach the mock listener
+            MapBroadcaster.off(attached.event, attached.id);
+        });
+
+        it('should emit a request to measure the current map entities if the tiles have loaded', () => {
+            const mockListener = jest.fn();
+            // attach the mock listener to the MapBroadcaster
+            const attached = MapBroadcaster.on('measureMap', mockListener);
+
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+            container.setState({
+                loadingTiles: false
+            });
+
+            container.instance().prepareFetch();
+            expect(mockListener).toHaveBeenCalledTimes(1);
+
+            // unattach the mock listener
+            MapBroadcaster.off(attached.event, attached.id);
+        });
+    });
+
+    describe('receivedEntities', () => {
+        it('should do nothing if the returned entities is equal to the current state', () => {
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+            const mockFetch = jest.fn();
+            container.instance().fetchData = mockFetch;
+
+            container.setState({
+                visibleEntities: ['A', 'B', 'C']
+            });
+
+            container.instance().receivedEntities(['A', 'B', 'C']);
+
+            expect(mockFetch).toHaveBeenCalledTimes(0);
+        });
+
+        it('should set the state to the returned entities are different from the previous state', () => {
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+            container.setState({
+                visibleEntities: []
+            });
+
+            container.instance().receivedEntities(['A', 'B', 'C']);
+
+            expect(container.state().visibleEntities).toEqual(['A', 'B', 'C']);
+        });
+
+        it('should make an API call if the returned entities are different from the previous state', () => {
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+            const mockFetch = jest.fn();
+            container.instance().fetchData = mockFetch;
+
+            container.setState({
+                visibleEntities: []
+            });
+
+            container.instance().receivedEntities(['A', 'B', 'C']);
+
+            expect(mockFetch).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('parseData', () => {
+        it('should properly resture the API response for the map visualization', async () => {
+            // mount the container
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+
+            container.instance().fetchData();
+            await container.instance().apiRequest.promise;
+
+            const expectedState = {
+                values: [123.12, 345.56],
+                locations: ['AK', 'AL'],
+                labels: {
+                    AK: {
+                        label: 'Alaska',
+                        value: 123.12
+                    },
+                    AL: {
+                        label: 'Alabama',
+                        value: 345.56
+                    }
+                }
+            };
+            expect(container.state().data).toEqual(expectedState);
+
+            // reset the spy
+            fetchDataSpy.reset();
+        });
+    });
+
+    describe('changeMapLayer', () => {
+        it('should update the mapLayer state when a new map tileset is requested', () => {
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+            expect(container.state().mapLayer).toEqual('state');
+
+            container.instance().changeMapLayer('county');
+            expect(container.state().mapLayer).toEqual('county');
+        });
+        it('should make a new renderHash when a new map tileset is requested', () => {
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+            const originalHash = `${container.state().renderHash}`;
+
+            container.instance().changeMapLayer('county');
+            expect(container.state().renderHash).not.toEqual(originalHash);
+        });
+        it('should update the mapLayer state when a new map tileset is requested', () => {
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+            container.setState({
+                loadingTiles: false
+            });
+
+            expect(container.state().loadingTiles).toBeFalsy();
+
+            container.instance().changeMapLayer('county');
+            expect(container.state().loadingTiles).toBeTruthy();
+        });
+        it('should request a map measurement operation', () => {
+            const container = mount(<GeoVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta} />);
+            const mockPrepare = jest.fn();
+            container.instance().prepareFetch = mockPrepare;
+
+            expect(mockPrepare).toHaveBeenCalledTimes(0);
+
+            container.instance().changeMapLayer('county');
+            expect(mockPrepare).toHaveBeenCalledTimes(1);
         });
     });
 });
