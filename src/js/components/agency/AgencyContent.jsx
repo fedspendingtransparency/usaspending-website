@@ -263,7 +263,7 @@ export default class AgencyContent extends React.Component {
                         <RecipientContainer
                             id={this.props.agency.id}
                             activeFY={this.props.agency.overview.activeFY}
-                            asOfDate={asOfDate} />
+                            lastUpdate={this.props.lastUpdate} />
                         {disclaimer}
                     </div>
                     <AgencyFooterContainer id={this.props.agency.id} />
