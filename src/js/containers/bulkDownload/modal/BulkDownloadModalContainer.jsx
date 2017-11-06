@@ -16,7 +16,7 @@ const propTypes = {
     mounted: PropTypes.bool,
     hideModal: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
-    pendingDownload: PropTypes.bool
+    bulkDownload: PropTypes.object
 };
 
 export class BulkDownloadModalContainer extends React.Component {
@@ -25,7 +25,8 @@ export class BulkDownloadModalContainer extends React.Component {
         return (
             <BulkDownloadModal
                 setDownloadCollapsed={this.props.setDownloadCollapsed}
-                pendingDownload={this.props.pendingDownload}
+                pendingDownload={this.props.bulkDownload.pendingDownload}
+                expectedFile={this.props.bulkDownload.expectedFile}
                 mounted={this.props.mounted}
                 hideModal={this.props.hideModal} />
         );
@@ -35,6 +36,6 @@ export class BulkDownloadModalContainer extends React.Component {
 BulkDownloadModalContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ pendingDownload: state.bulkDownload.pendingDownload }),
+    (state) => ({ bulkDownload: state.bulkDownload }),
     (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
 )(BulkDownloadModalContainer);

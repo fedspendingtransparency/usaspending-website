@@ -42,7 +42,8 @@ const dataTypes = [
 
 const propTypes = {
     setDataType: PropTypes.func,
-    dataType: PropTypes.string
+    dataType: PropTypes.string,
+    bulkDownload: PropTypes.object
 };
 
 export default class BulkDownloadPage extends React.Component {
@@ -112,7 +113,8 @@ export default class BulkDownloadPage extends React.Component {
                         mounted={this.state.showModal}
                         hideModal={this.hideModal} />
                 </main>
-                <Footer />
+                <Footer
+                    bulkDownload={this.props.bulkDownload} />
             </div>
         );
     }

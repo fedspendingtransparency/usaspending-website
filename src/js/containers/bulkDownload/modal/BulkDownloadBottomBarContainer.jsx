@@ -7,14 +7,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isCancel } from 'axios';
+// import { isCancel } from 'axios';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 
-import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
+// import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 
 const propTypes = {
     bulkDownload: PropTypes.object,
@@ -49,7 +49,8 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     componentDidMount() {
         if (this.props.bulkDownload.pendingDownload && this.props.bulkDownload.showCollapsedProgress &&
             !this.state.visible) {
-            this.requestDownload(this.props.bulkDownload.awards, this.props.bulkDownload.dataType);
+            // this.requestDownload(this.props.bulkDownload.awards, this.props.bulkDownload.dataType);
+            this.requestDownload();
             this.displayBar();
         }
     }
@@ -57,8 +58,9 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.bulkDownload.pendingDownload && nextProps.bulkDownload.showCollapsedProgress &&
             !this.state.visible) {
-            this.requestDownload(nextProps.bulkDownload.awards,
-                nextProps.bulkDownload.columns, nextProps.bulkDownload.type);
+            // this.requestDownload(nextProps.bulkDownload.awards,
+            //    nextProps.bulkDownload.columns, nextProps.bulkDownload.type);
+            this.requestDownload();
             this.displayBar();
         }
     }
@@ -81,61 +83,80 @@ export class BulkDownloadBottomBarContainer extends React.Component {
         }, this.checkStatus);
     }
 
-    requestDownload(params, type) {
-        if (this.request) {
-            this.request.cancel();
-        }
+    requestDownload() {
+    // requestDownload(params, type) {
+        // TODO - Lizzie: update when endpoint is ready
+        // if (this.request) {
+        //    this.request.cancel();
+        // }
+        //
+        // this.statusCount = 0;
+        //
+        // this.request = BulkDownloadHelper.requestBulkDownload(params, type);
+        //
+        // this.request.promise
+        //    .then((res) => {
+        //        this.props.setDownloadExpectedFile(res.data.file_name);
+        //        this.checkStatus();
+        //    })
+        //    .catch((err) => {
+        //        if (!isCancel(err)) {
+        //            // something went wrong
+        //            console.log(err);
+        //
+        //            if (err.response) {
+        //                this.displayError(err.response.data.message);
+        //            }
+        //            else {
+        //                this.displayError(err.message);
+        //            }
+        //        }
+        //    });
 
-        this.statusCount = 0;
-
-        this.request = BulkDownloadHelper.requestBulkDownload(params, type);
-
-        this.request.promise
-            .then((res) => {
-                this.props.setDownloadExpectedFile(res.data.file_name);
-                this.checkStatus();
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    // something went wrong
-                    console.log(err);
-
-                    if (err.response) {
-                        this.displayError(err.response.data.message);
-                    }
-                    else {
-                        this.displayError(err.message);
-                    }
-                }
-            });
+        this.props.setDownloadExpectedFile('mockFileName.zip');
+        this.checkStatus();
     }
 
     checkStatus() {
         if (this.props.bulkDownload.expectedFile !== '') {
-            if (this.statusRequest) {
-                this.statusRequest.cancel();
-            }
-            this.statusRequest = BulkDownloadHelper.requestBulkDownloadStatus({
-                file_name: this.props.bulkDownload.expectedFile
-            });
+            // TODO - Lizzie: update when endpoint is ready
+        //    if (this.statusRequest) {
+        //        this.statusRequest.cancel();
+        //    }
+        //    this.statusRequest = BulkDownloadHelper.requestBulkDownloadStatus({
+        //        file_name: this.props.bulkDownload.expectedFile
+        //    });
+        //
+        //    this.statusRequest.promise
+        //        .then((res) => {
+        //            this.parseStatus(res.data);
+        //        })
+        //        .catch((err) => {
+        //            if (!isCancel(err)) {
+        //                // something went wrong
+        //                console.log(err);
+        //
+        //                if (err.response) {
+        //                    this.displayError(err.response.data.message);
+        //                }
+        //                else {
+        //                    this.displayError(err.message);
+        //                }
+        //            }
+        //        });
 
-            this.statusRequest.promise
-                .then((res) => {
-                    this.parseStatus(res.data);
-                })
-                .catch((err) => {
-                    if (!isCancel(err)) {
-                        // something went wrong
-                        console.log(err);
+            const mockResponse = {
+                status: "running",
+                total_rows: 3317,
+                file_name: "mockFileName.zip",
+                total_size: 3334.475,
+                total_columns: 214,
+                message: null,
+                url: "/mockUrl/usaspending-api/downloads/mockFileName.zip",
+                seconds_elapsed: "0.438393"
+            };
 
-                        if (err.response) {
-                            this.displayError(err.response.data.message);
-                        }
-                        else {
-                            this.displayError(err.message);
-                        }
-                    }
-                });
+            this.parseStatus(mockResponse);
         }
     }
 

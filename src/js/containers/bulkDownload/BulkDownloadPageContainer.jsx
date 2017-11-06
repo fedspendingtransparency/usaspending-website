@@ -16,15 +16,16 @@ require('pages/bulkDownload/bulkDownloadPage.scss');
 
 const propTypes = {
     setDataType: PropTypes.func,
-    dataType: PropTypes.string
+    bulkDownload: PropTypes.object
 };
 
 export class AwardDataContainer extends React.Component {
     render() {
         return (
             <BulkDownloadPage
+                bulkDownload={this.props.bulkDownload}
                 setDataType={this.props.setDataType}
-                dataType={this.props.dataType} />
+                dataType={this.props.bulkDownload.dataType} />
         );
     }
 }
@@ -32,7 +33,7 @@ export class AwardDataContainer extends React.Component {
 AwardDataContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ dataType: state.bulkDownload.dataType }),
+    (state) => ({ bulkDownload: state.bulkDownload }),
     (dispatch) => bindActionCreators(downloadActions, dispatch)
 )(AwardDataContainer);
 

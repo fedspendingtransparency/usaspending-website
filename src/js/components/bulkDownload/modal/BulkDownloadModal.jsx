@@ -15,14 +15,16 @@ const propTypes = {
     mounted: PropTypes.bool,
     hideModal: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
-    pendingDownload: PropTypes.bool
+    pendingDownload: PropTypes.bool,
+    expectedFile: PropTypes.string
 };
 
 export default class BulkDownloadModal extends React.Component {
     render() {
         const content = (<ModalContent
             hideModal={this.props.hideModal}
-            setDownloadCollapsed={this.props.setDownloadCollapsed} />);
+            setDownloadCollapsed={this.props.setDownloadCollapsed}
+            expectedFile={this.props.expectedFile} />);
 
         return (
             <Modal

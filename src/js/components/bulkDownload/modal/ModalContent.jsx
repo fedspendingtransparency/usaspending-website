@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     hideModal: PropTypes.func,
-    setDownloadCollapsed: PropTypes.func
+    setDownloadCollapsed: PropTypes.func,
+    expectedFile: PropTypes.string
 };
 
 export default class ModalContent extends React.Component {
@@ -26,7 +27,7 @@ export default class ModalContent extends React.Component {
                     </div>
                     <div className="link-box">
                         <p>Use this link to download your file anytime once it&#8217;s ready.</p>
-                        <div className="link">link here</div>
+                        <div className="link">{this.props.expectedFile}</div>
                     </div>
                     <button onClick={this.props.hideModal}>Finish</button>
                 </div>
