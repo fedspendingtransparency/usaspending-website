@@ -201,23 +201,7 @@ describe('GeoVisualizationSectionContainer', () => {
     });
 
     describe('receivedEntities', () => {
-        it('should do nothing if the returned entities is equal to the current state', () => {
-            const container = mount(<GeoVisualizationSectionContainer
-                reduxFilters={defaultFilters}
-                resultsMeta={mockedReduxMeta} />);
-            const mockFetch = jest.fn();
-            container.instance().fetchData = mockFetch;
-
-            container.setState({
-                visibleEntities: ['A', 'B', 'C']
-            });
-
-            container.instance().receivedEntities(['A', 'B', 'C']);
-
-            expect(mockFetch).toHaveBeenCalledTimes(0);
-        });
-
-        it('should set the state to the returned entities are different from the previous state', () => {
+        it('should set the state to the returned entities', () => {
             const container = mount(<GeoVisualizationSectionContainer
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
@@ -230,7 +214,7 @@ describe('GeoVisualizationSectionContainer', () => {
             expect(container.state().visibleEntities).toEqual(['A', 'B', 'C']);
         });
 
-        it('should make an API call if the returned entities are different from the previous state', () => {
+        it('should make an API call using the returned entities', () => {
             const container = mount(<GeoVisualizationSectionContainer
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);

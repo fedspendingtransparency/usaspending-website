@@ -47,8 +47,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
             loadingTiles: true
         };
 
-        this.scopeChanged = false;
-
         this.apiRequest = null;
 
         this.mapListeners = [];
@@ -88,8 +86,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
             return;
         }
 
-        this.scopeChanged = true;
-
         this.setState({
             scope
         }, () => {
@@ -120,14 +116,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     receivedEntities(entities) {
-        // don't do anything if the visible entities hasn't changed, the map hasn't moved enough
-        // to show new shapes
-        if (isEqual(entities, this.state.visibleEntities) && !this.scopeChanged) {
-            // don't do anything, nothing changed
-            return;
-        }
-
-        this.scopeChanged = false;
 
         this.setState({
             visibleEntities: entities
