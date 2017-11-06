@@ -47,6 +47,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
             loadingTiles: true
         };
 
+        this.scopeChanged = false;
+
         this.apiRequest = null;
 
         this.mapListeners = [];
@@ -86,6 +88,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
             return;
         }
 
+        this.scopeChanged = true;
+
         this.setState({
             scope
         }, () => {
@@ -94,7 +98,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     mapLoaded() {
-        console.log("received done");
         this.setState({
             loadingTiles: false
         }, () => {
@@ -109,23 +112,22 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     prepareFetch() {
         if (this.state.loadingTiles) {
-            console.log("loading tiles");
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
             return;
         }
 
-        console.log("request measure map");
         MapBroadcaster.emit('measureMap');
     }
 
     receivedEntities(entities) {
-        console.log(`map measurement done, found ${entities.length}`);
         // don't do anything if the visible entities hasn't changed, the map hasn't moved enough
         // to show new shapes
-        if (isEqual(entities, this.state.visibleEntities)) {
+        if (isEqual(entities, this.state.visibleEntities) && !this.scopeChanged) {
             // don't do anything, nothing changed
             return;
         }
+
+        this.scopeChanged = false;
 
         this.setState({
             visibleEntities: entities
@@ -204,7 +206,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
             renderHash: `geo-${uniqueId()}`,
             loadingTiles: true
         }, () => {
-            console.log("change layer");
             this.prepareFetch();
         });
     }

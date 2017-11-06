@@ -142,7 +142,6 @@ export default class MapWrapper extends React.Component {
                 this.prepareChangeListeners();
 
                 // notify any listeners that the map is ready
-                console.log("broadcast done");
                 MapBroadcaster.emit('mapReady');
             });
     }
@@ -277,9 +276,7 @@ export default class MapWrapper extends React.Component {
 
 
             const parentMap = this.mapRef.map;
-            const parentScope = this.props.scope;
             function renderResolver() {
-                console.log("rendered");
                 parentMap.off('render', renderResolver);
                 resolve();
             }
@@ -290,7 +287,6 @@ export default class MapWrapper extends React.Component {
                 if (e.isSourceLoaded && e.tile) {
                     // source has finished loading and is rendered (so we can start filtering
                     // and querying)
-                    console.log('source loaded');
                     parentMap.off('sourcedata', loadResolver);
                     parentMap.on('render', renderResolver);
                 }
@@ -302,7 +298,6 @@ export default class MapWrapper extends React.Component {
     }
 
     measureMap() {
-        console.log(`measuring map with scope ${this.props.scope}`);
          // determine which entities (state, counties, etc based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
         const mapLoaded = this.mapRef.map.loaded();
@@ -317,7 +312,6 @@ export default class MapWrapper extends React.Component {
         const entities = this.mapRef.map.queryRenderedFeatures({
             layers: [`base_${this.props.scope}`]
         });
-        console.log(entities.length);
 
         const source = mapboxSources[this.props.scope];
         const visibleEntities = entities.map((entity) => (
