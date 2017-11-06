@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isCancel } from 'axios';
 import { uniqueId, isEqual } from 'lodash';
 
 import GeoVisualizationSection from
@@ -116,7 +117,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     receivedEntities(entities) {
-
         this.setState({
             visibleEntities: entities
         }, () => {
@@ -155,8 +155,11 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 this.parseData(res.data);
                 this.apiRequest = null;
             })
-            .catch(() => {
-                this.apiRequest = null;
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.apiRequest = null;
+                }
             });
     }
 
