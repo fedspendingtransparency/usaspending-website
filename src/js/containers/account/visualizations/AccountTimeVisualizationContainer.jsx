@@ -164,10 +164,11 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
                     filters = categoryFilters;
                     const request = AccountHelper.fetchTasCategoryTotals({
                         filters,
-                        group: ['submission__reporting_fiscal_year'],
+                        group: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
                         field: balanceFieldsFiltered[balanceType],
-                        aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year'],
+                        aggregate: '',
+                        order: ['-submission__reporting_fiscal_quarter'],
+                        limit: 1,
                         auditTrail: `Spending over Time (years) - obligated filter - ${balanceType}`
                     });
                     request.type = balanceType;
@@ -179,10 +180,11 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
                     filters = balanceFilters;
                     const request = AccountHelper.fetchTasBalanceTotals({
                         filters,
-                        group: ['submission__reporting_fiscal_year'],
+                        group: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
                         field: balanceFieldsNonfiltered[balanceType],
-                        aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year'],
+                        aggregate: '',
+                        order: ['-submission__reporting_fiscal_quarter'],
+                        limit: 1,
                         auditTrail: `Spending over Time (years) - obligated filter - ${balanceType}`
                     });
                     request.type = balanceType;
@@ -195,10 +197,11 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
                     // generate API call
                     const request = AccountHelper.fetchTasBalanceTotals({
                         filters,
-                        group: ['submission__reporting_fiscal_year'],
+                        group: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
                         field: balanceFields[balanceType],
-                        aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year'],
+                        aggregate: '',
+                        order: ['-submission__reporting_fiscal_quarter'],
+                        limit: 1,
                         auditTrail: `Spending over Time (years) - non-obligated filter - ${balanceType}`
                     });
 
