@@ -11,11 +11,22 @@ import { CheckCircle, ExclamationTriangle } from 'components/sharedComponents/ic
 const propTypes = {
     dateTypes: PropTypes.array,
     currentDateType: PropTypes.string,
-    onChange: PropTypes.func,
+    updateFilter: PropTypes.func,
     valid: PropTypes.bool
 };
 
 export default class DateTypeFilter extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(e) {
+        const target = e.target;
+        this.props.updateFilter('date_type', target.value);
+    }
+
     render() {
         let icon = (
             <div className="icon valid">
@@ -38,7 +49,7 @@ export default class DateTypeFilter extends React.Component {
                     value={dateType.name}
                     name="dateType"
                     checked={this.props.currentDateType === dateType.name}
-                    onChange={this.props.onChange} />
+                    onChange={this.onChange} />
                 <label className="radio-label" htmlFor="dateType">{dateType.label}</label>
                 <div className="radio-description">
                     {dateType.description}

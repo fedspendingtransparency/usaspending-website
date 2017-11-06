@@ -169,7 +169,7 @@ const routes = {
             parent: '/bulk_download',
             component: (cb) => {
                 require.ensure([], (require) => {
-                    cb(require('components/bulkDownload/BulkDownloadPage').default);
+                    cb(require('containers/bulkDownload/BulkDownloadPageContainer').default);
                 });
             }
         }

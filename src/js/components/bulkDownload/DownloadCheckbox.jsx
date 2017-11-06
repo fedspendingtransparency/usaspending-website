@@ -25,7 +25,7 @@ export default class DownloadCheckbox extends React.Component {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
-        this.props.onChange(value, name);
+        this.props.onChange(name, value);
     }
 
     render() {

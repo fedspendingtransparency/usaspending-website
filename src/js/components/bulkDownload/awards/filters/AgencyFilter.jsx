@@ -11,19 +11,38 @@ import { CheckCircle, ExclamationTriangle } from 'components/sharedComponents/ic
 const propTypes = {
     agencies: PropTypes.array,
     subAgencies: PropTypes.array,
+    setSubAgencyList: PropTypes.func,
     currentAgencies: PropTypes.object,
-    onChange: PropTypes.func,
-    handleAgencySelect: PropTypes.func,
+    updateFilter: PropTypes.func,
     valid: PropTypes.bool
 };
 
 export default class AgencyFilter extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleAgencySelect = this.handleAgencySelect.bind(this);
+        this.handleSubAgencySelect = this.handleSubAgencySelect.bind(this);
+    }
+
+    handleAgencySelect(e) {
+        const target = e.target;
+        this.props.updateFilter('agency', target.value);
+        this.props.setSubAgencyList(target.value);
+    }
+
+    handleSubAgencySelect(e) {
+        const target = e.target;
+        this.props.updateFilter('sub_agency', target.value);
+    }
+
     render() {
         let icon = (
             <div className="icon valid">
                 <CheckCircle />
             </div>
         );
+
         if (!this.props.valid) {
             icon = (
                 <div className="icon invalid">
@@ -31,6 +50,7 @@ export default class AgencyFilter extends React.Component {
                 </div>
             );
         }
+
         const agencies = this.props.agencies.map((agency) => (
             <option
                 key={agency.toptier_agency_id}
@@ -55,14 +75,14 @@ export default class AgencyFilter extends React.Component {
                     <label className="select-label" htmlFor="agency-select">
                         Agency
                     </label>
-                    <select id="agency-select" name="agency" value={this.props.currentAgencies.agency} onChange={this.props.handleAgencySelect}>
+                    <select id="agency-select" name="agency" value={this.props.currentAgencies.agency} onChange={this.handleAgencySelect}>
                         <option value="">Select an Agency</option>
                         {agencies}
                     </select>
                     <label className="select-label" htmlFor="sub-agency-select">
                         Sub-Agency
                     </label>
-                    <select id="sub-agency-select" name="subAgency" value={this.props.currentAgencies.subAgency} onChange={this.props.onChange}>
+                    <select id="sub-agency-select" name="subAgency" value={this.props.currentAgencies.subAgency} onChange={this.handleSubAgencySelect}>
                         <option value="">Select a Sub-Agency</option>
                         {subAgencies}
                     </select>

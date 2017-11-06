@@ -11,17 +11,29 @@ import { CheckCircle, ExclamationTriangle } from 'components/sharedComponents/ic
 const propTypes = {
     fileFormats: PropTypes.array,
     currentFileFormat: PropTypes.string,
-    onChange: PropTypes.func,
+    updateParam: PropTypes.func,
     valid: PropTypes.bool
 };
 
 export default class FileFormatFilter extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(e) {
+        const target = e.target;
+        this.props.updateParam('file_format', target.value);
+    }
+
     render() {
         let icon = (
             <div className="icon valid">
                 <CheckCircle />
             </div>
         );
+
         if (!this.props.valid) {
             icon = (
                 <div className="icon invalid">
@@ -29,6 +41,7 @@ export default class FileFormatFilter extends React.Component {
                 </div>
             );
         }
+
         const fileFormats = this.props.fileFormats.map((fileFormat) => (
             <div
                 className="radio"
@@ -38,7 +51,7 @@ export default class FileFormatFilter extends React.Component {
                     value={fileFormat.name}
                     name="fileFormat"
                     checked={this.props.currentFileFormat === fileFormat.name}
-                    onChange={this.props.onChange}
+                    onChange={this.onChange}
                     disabled={fileFormat.disabled} />
                 <label
                     className={`radio-label ${fileFormat.disabled ? 'disabled' : ''}`}
@@ -47,6 +60,7 @@ export default class FileFormatFilter extends React.Component {
                 </label>
             </div>
         ));
+
         return (
             <div className="filter-section">
                 <h5 className="filter-section-title">

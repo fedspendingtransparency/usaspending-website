@@ -10,17 +10,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 // import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
-import * as downloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
-import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 
-import AwardDataContent from 'components/bulkDownload/AwardDataContent';
+import AwardDataContent from 'components/bulkDownload/awards/AwardDataContent';
 
 const propTypes = {
-    updateDownloadFilters: PropTypes.func,
+    updateDownloadFilter: PropTypes.func,
+    updateDownloadParam: PropTypes.func,
     clearDownloadFilters: PropTypes.func,
+    updateAwardDateRange: PropTypes.func,
     bulkDownload: PropTypes.object,
     setAgencyList: PropTypes.func,
-    setSubAgencyList: PropTypes.func
+    setSubAgencyList: PropTypes.func,
+    showModal: PropTypes.func
 };
 
 export class AwardDataContainer extends React.Component {
@@ -35,7 +37,10 @@ export class AwardDataContainer extends React.Component {
         // this.agencyListRequeset = null;
         // this.downloadStatusRequest = null;
 
-        this.parseFilterSelections = this.parseFilterSelections.bind(this);
+        this.updateFilter = this.updateFilter.bind(this);
+        this.updateParam = this.updateParam.bind(this);
+        this.updateStartDate = this.updateStartDate.bind(this);
+        this.updateEndDate = this.updateEndDate.bind(this);
         this.clearAwardFilters = this.clearAwardFilters.bind(this);
         this.setAgencyList = this.setAgencyList.bind(this);
         this.setSubAgencyList = this.setSubAgencyList.bind(this);
@@ -143,61 +148,53 @@ export class AwardDataContainer extends React.Component {
         }
     }
 
-    clearAwardFilters() {
-        this.props.clearDownloadFilters('awardData');
+    updateParam(name, value) {
+        this.props.updateDownloadParam({
+            dataType: 'awards',
+            name,
+            value
+        });
     }
 
-    parseFilterSelections(dataType, filterSelections) {
-        // Parse selections from the form into filter object
-        const awardLevels = [];
-        const awardLevelOptions = awardDownloadOptions.awardLevels;
-        for (let i = 0; i < awardLevelOptions.length; i++) {
-            const level = awardLevelOptions[i].name;
-            if (filterSelections[level]) {
-                awardLevels.push(level);
-            }
-        }
-
-        const awardTypes = [];
-        const awardTypeOptions = awardDownloadOptions.awardTypes;
-        for (let i = 0; i < awardTypeOptions.length; i++) {
-            const type = awardTypeOptions[i].name;
-            if (filterSelections[type]) {
-                awardTypes.push(type);
-            }
-        }
-
-        const filters = {
-            award_levels: awardLevels,
-            filters: {
-                award_types: awardTypes,
-                agency: filterSelections.agency,
-                sub_agency: filterSelections.subAgency,
-                date_type: filterSelections.dateType,
-                date_range: {
-                    start_date: filterSelections.startDate,
-                    end_date: filterSelections.endDate
-                }
-            },
-            columns: [],
-            file_format: filterSelections.fileFormat
-        };
-
-        console.log(filters);
-        this.props.updateDownloadFilters({
-            dataType,
-            filters
+    updateFilter(name, value) {
+        this.props.updateDownloadFilter({
+            dataType: 'awards',
+            name,
+            value
         });
+    }
+
+    updateStartDate(date) {
+        this.props.updateAwardDateRange({
+            date,
+            dateType: 'start_date'
+        });
+    }
+
+    updateEndDate(date) {
+        this.props.updateAwardDateRange({
+            date,
+            dateType: 'end_date'
+        });
+    }
+
+    clearAwardFilters() {
+        this.props.clearDownloadFilters('awards');
     }
 
     render() {
         return (
             <AwardDataContent
-                updateDownloadFilters={this.parseFilterSelections}
+                awards={this.props.bulkDownload.awards}
+                updateParam={this.updateParam}
+                updateFilter={this.updateFilter}
+                updateStartDate={this.updateStartDate}
+                updateEndDate={this.updateEndDate}
                 clearAwardFilters={this.clearAwardFilters}
                 agencies={this.props.bulkDownload.agencies}
                 subAgencies={this.props.bulkDownload.subAgencies}
-                setSubAgencyList={this.setSubAgencyList} />
+                setSubAgencyList={this.setSubAgencyList}
+                showModal={this.props.showModal} />
         );
     }
 }
@@ -206,6 +203,6 @@ AwardDataContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ bulkDownload: state.bulkDownload }),
-    (dispatch) => bindActionCreators(downloadActions, dispatch)
+    (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
 )(AwardDataContainer);
 

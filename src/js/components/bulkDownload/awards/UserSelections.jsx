@@ -7,9 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import { indexOf } from 'lodash';
 
 const propTypes = {
-    formState: PropTypes.object,
+    awards: PropTypes.object,
     agencies: PropTypes.array,
     subAgencies: PropTypes.array
 };
@@ -18,22 +19,27 @@ export default class UserSelections extends React.Component {
     constructor(props) {
         super(props);
 
-        this.generateCheckboxesString = this.generateCheckboxesString.bind(this);
+        this.generateAwardLevelString = this.generateAwardLevelString.bind(this);
+        this.generateAwardTypeString = this.generateAwardTypeString.bind(this);
         this.generateAgencyString = this.generateAgencyString.bind(this);
         this.generateSubAgencyString = this.generateSubAgencyString.bind(this);
-        this.generateRadioButtonsString = this.generateRadioButtonsString.bind(this);
+        this.generateDateTypeString = this.generateDateTypeString.bind(this);
+        this.generateFileFormatString = this.generateFileFormatString.bind(this);
         this.generateDateRangeString = this.generateDateRangeString.bind(this);
     }
 
-    generateCheckboxesString(filterType) {
-        let selectionsString = '';
+    generateAwardLevelString() {
+        // Build an array of labels for the current selections
         const selectionsArray = [];
-        const options = awardDownloadOptions[filterType];
+        const options = awardDownloadOptions.awardLevels;
+        const currentAwardLevels = this.props.awards.award_levels;
         for (let i = 0; i < options.length; i++) {
-            if (this.props.formState[options[i].name]) {
+            if (indexOf(currentAwardLevels, options[i].name) !== -1) {
                 selectionsArray.push(options[i].label);
             }
         }
+        // Build the string for display
+        let selectionsString = '';
         if (selectionsArray.length !== 0) {
             for (let i = 0; i < selectionsArray.length; i++) {
                 if (i === 0) {
@@ -52,11 +58,56 @@ export default class UserSelections extends React.Component {
         );
     }
 
-    generateRadioButtonsString(filterType) {
-        if (this.props.formState[filterType] !== '') {
-            const options = awardDownloadOptions[`${filterType}s`];
+    generateAwardTypeString() {
+        // Build an array of labels for the current selections
+        const selectionsArray = [];
+        const options = awardDownloadOptions.awardTypes;
+        const currentAwardTypes = this.props.awards.filters.award_types;
+        for (let i = 0; i < options.length; i++) {
+            if (indexOf(currentAwardTypes, options[i].name) !== -1) {
+                selectionsArray.push(options[i].label);
+            }
+        }
+        // Build the string for display
+        let selectionsString = '';
+        if (selectionsArray.length !== 0) {
+            for (let i = 0; i < selectionsArray.length; i++) {
+                if (i === 0) {
+                    selectionsString = `${selectionsArray[i]}`;
+                }
+                else {
+                    selectionsString = `${selectionsString}, ${selectionsArray[i]}`;
+                }
+            }
+            return (
+                <div>{selectionsString}</div>
+            );
+        }
+        return (
+            <div className="required">required</div>
+        );
+    }
+
+    generateDateTypeString() {
+        if (this.props.awards.filters.date_type !== '') {
+            const options = awardDownloadOptions.dateTypes;
             const selectedOption = options.find((option) =>
-                option.name === this.props.formState[filterType]
+                option.name === this.props.awards.filters.date_type
+            );
+            return (
+                <div>{selectedOption.label}</div>
+            );
+        }
+        return (
+            <div className="required">required</div>
+        );
+    }
+
+    generateFileFormatString() {
+        if (this.props.awards.file_format !== '') {
+            const options = awardDownloadOptions.fileFormats;
+            const selectedOption = options.find((option) =>
+                option.name === this.props.awards.file_format
             );
             return (
                 <div>{selectedOption.label}</div>
@@ -68,7 +119,7 @@ export default class UserSelections extends React.Component {
     }
 
     generateAgencyString() {
-        const id = parseFloat(this.props.formState.agency);
+        const id = parseFloat(this.props.awards.filters.agency);
         if (!isNaN(id)) {
             const agencies = this.props.agencies;
             const selectedAgency = agencies.find((agency) =>
@@ -84,7 +135,7 @@ export default class UserSelections extends React.Component {
     }
 
     generateSubAgencyString() {
-        const id = parseFloat(this.props.formState.subAgency);
+        const id = parseFloat(this.props.awards.filters.sub_agency);
         if (!isNaN(id)) {
             const subAgencies = this.props.subAgencies;
             const selectedSubAgency = subAgencies.find((subAgency) =>
@@ -100,8 +151,8 @@ export default class UserSelections extends React.Component {
     }
 
     generateDateRangeString() {
-        const startDate = this.props.formState.startDate;
-        const endDate = this.props.formState.endDate;
+        const startDate = this.props.awards.filters.date_range.start_date;
+        const endDate = this.props.awards.filters.date_range.end_date;
 
         if (startDate || endDate) {
             return (
@@ -120,7 +171,7 @@ export default class UserSelections extends React.Component {
                 <div className="left-col">
                     <div className="option">
                         <h6>Award Levels</h6>
-                        {this.generateCheckboxesString('awardLevels')}
+                        {this.generateAwardLevelString()}
                     </div>
                     <div className="option">
                         <h6>Agency</h6>
@@ -128,17 +179,17 @@ export default class UserSelections extends React.Component {
                     </div>
                     <div className="option">
                         <h6>Date Type</h6>
-                        {this.generateRadioButtonsString('dateType')}
+                        {this.generateDateTypeString()}
                     </div>
                     <div className="option">
                         <h6>File Format</h6>
-                        {this.generateRadioButtonsString('fileFormat')}
+                        {this.generateFileFormatString()}
                     </div>
                 </div>
                 <div className="right-col">
                     <div className="option">
                         <h6>Award Types</h6>
-                        {this.generateCheckboxesString('awardTypes')}
+                        {this.generateAwardTypeString()}
                     </div>
                     <div className="option">
                         <h6>Sub Agency</h6>

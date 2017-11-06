@@ -12,6 +12,13 @@
             }
         }
         @import "downloadForm";
+        .reset-button {
+            @include button-unstyled;
+            display: block;
+            margin: auto;
+            color: $color-primary;
+            text-decoration: underline;
+        }
     }
 
     .download-info {

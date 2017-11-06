@@ -17,35 +17,25 @@ import FileFormatFilter from './filters/FileFormatFilter';
 import UserSelections from './UserSelections';
 
 const propTypes = {
-    updateDownloadFilters: PropTypes.func,
+    awards: PropTypes.object,
+    updateParam: PropTypes.func,
+    updateFilter: PropTypes.func,
+    updateStartDate: PropTypes.func,
+    updateEndDate: PropTypes.func,
+    clearAwardFilters: PropTypes.func,
     agencies: PropTypes.array,
     subAgencies: PropTypes.array,
-    setSubAgencyList: PropTypes.func
+    setSubAgencyList: PropTypes.func,
+    showModal: PropTypes.func
 };
 
 export default class AwardDataContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            prime_awards: false,
-            sub_awards: false,
-            contracts: false,
-            grants: false,
-            direct_payments: false,
-            loans: false,
-            other_financial_assistance: false,
-            agency: '',
-            subAgency: '',
-            dateType: 'action_date',
-            startDate: '',
-            endDate: '',
-            fileFormat: 'csv',
             validDates: false
         };
 
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleAgencySelect = this.handleAgencySelect.bind(this);
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setValidDates = this.setValidDates.bind(this);
     }
@@ -56,58 +46,24 @@ export default class AwardDataContent extends React.Component {
         });
     }
 
-    handleChange(event) {
-        const target = event.target;
-        this.handleInputChange(target.value, target.name);
-    }
-
-    handleInputChange(value, name) {
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleAgencySelect(event) {
-        const target = event.target;
-        this.handleInputChange(target.value, target.name);
-        if (target.value === '') {
-            this.setState({
-                subAgency: ''
-            });
-        }
-        this.props.setSubAgencyList(target.value);
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        this.props.updateDownloadFilters('awardData', this.state);
+    handleSubmit() {
+        this.props.showModal();
     }
 
     render() {
-        const currentAwardLevels = {
-            prime_awards: this.state.prime_awards,
-            sub_awards: this.state.sub_awards
-        };
-
-        const currentAwardTypes = {
-            contracts: this.state.contracts,
-            grants: this.state.grants,
-            direct_payments: this.state.direct_payments,
-            loans: this.state.loans,
-            other_financial_assistance: this.state.other_financial_assistance
-        };
-
-        const awardTypesValid = (this.state.contracts || this.state.grants ||
-            this.state.direct_payments || this.state.loans || this.state.other_financial_assistance);
+        const awards = this.props.awards;
 
         const currentAgencies = {
-            agency: this.state.agency,
-            subAgency: this.state.subAgency
+            agency: awards.filters.agency,
+            subAgency: awards.filters.subAgency
         };
 
         const formValidation = (
-            (this.state.prime_awards || this.state.sub_awards)
-            && awardTypesValid && this.state.agency && this.state.validDates
+            (awards.award_levels.length > 0)
+                && (awards.filters.award_types.length > 0)
+                && this.state.validDates && (awards.filters.dateType !== '')
+                && (awards.filters.agency !== '')
+                && (awards.file_format !== '')
         );
 
         let submitButton = (
@@ -133,41 +89,43 @@ export default class AwardDataContent extends React.Component {
                         onSubmit={this.handleSubmit}>
                         <AwardLevelFilter
                             awardLevels={awardDownloadOptions.awardLevels}
-                            currentAwardLevels={currentAwardLevels}
-                            onChange={this.handleInputChange}
-                            valid={this.state.prime_awards || this.state.sub_awards} />
+                            currentAwardLevels={awards.award_levels}
+                            updateParam={this.props.updateParam} />
                         <AwardTypeFilter
                             awardTypes={awardDownloadOptions.awardTypes}
-                            currentAwardTypes={currentAwardTypes}
-                            onChange={this.handleInputChange}
-                            valid={awardTypesValid} />
+                            currentAwardTypes={awards.filters.award_types}
+                            updateFilter={this.props.updateFilter} />
                         <AgencyFilter
                             agencies={this.props.agencies}
                             subAgencies={this.props.subAgencies}
                             currentAgencies={currentAgencies}
-                            onChange={this.handleChange}
-                            handleAgencySelect={this.handleAgencySelect}
-                            valid={this.state.agency !== ''} />
+                            updateFilter={this.props.updateFilter}
+                            setSubAgencyList={this.props.setSubAgencyList}
+                            valid={awards.filters.agency !== ''} />
                         <DateTypeFilter
                             dateTypes={awardDownloadOptions.dateTypes}
-                            currentDateType={this.state.dateType}
-                            onChange={this.handleChange}
-                            valid={this.state.dateType !== ''} />
+                            currentDateType={awards.filters.date_type}
+                            updateFilter={this.props.updateFilter}
+                            valid={awards.filters.dateType !== ''} />
                         <TimePeriodFilter
-                            handleInputChange={this.handleInputChange}
-                            valid={this.state.startDate !== '' || this.state.endDate !== ''}
+                            updateStartDate={this.props.updateStartDate}
+                            updateEndDate={this.props.updateEndDate}
+                            valid={awards.filters.date_range.start_date !== '' || awards.filters.date_range.end_date !== ''}
                             setValidDates={this.setValidDates} />
                         <FileFormatFilter
                             fileFormats={awardDownloadOptions.fileFormats}
-                            currentFileFormat={this.state.fileFormat}
-                            onChange={this.handleChange}
-                            valid={this.state.fileFormat !== ''} />
+                            currentFileFormat={awards.file_format}
+                            updateParam={this.props.updateParam}
+                            valid={awards.file_format !== ''} />
                         <UserSelections
-                            formState={this.state}
+                            awards={awards}
                             agencies={this.props.agencies}
                             subAgencies={this.props.subAgencies} />
                         {submitButton}
                     </form>
+                    <button className="reset-button" onClick={this.props.clearAwardFilters}>
+                        Reset form and start over
+                    </button>
                 </div>
                 <div className="download-info">
                     <h6>About Award Data</h6>

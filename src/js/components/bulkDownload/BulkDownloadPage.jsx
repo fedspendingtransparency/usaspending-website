@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { downloadPageMetaTags } from 'helpers/metaTagHelper';
 
@@ -11,10 +12,10 @@ import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import Footer from 'components/sharedComponents/Footer';
 
-import AwardDataContainer from 'containers/bulkDownload/AwardDataContainer';
+import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
+import BulkDownloadModalContainer from
+    'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import DownloadSidebar from './sidebar/BulkDownloadSidebar';
-
-require('pages/bulkDownload/bulkDownloadPage.scss');
 
 const dataTypes = [
     {
@@ -39,26 +40,44 @@ const dataTypes = [
     }
 ];
 
-export default class DownloadPage extends React.Component {
+const propTypes = {
+    setDataType: PropTypes.func,
+    dataType: PropTypes.string
+};
+
+export default class BulkDownloadPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            dataType: 'awards'
+            showModal: false
         };
 
         this.changeDataType = this.changeDataType.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+        this.showModal = this.showModal.bind(this);
     }
 
     changeDataType(dataType) {
+        this.props.setDataType(dataType);
+    }
+
+    hideModal() {
         this.setState({
-            dataType
+            showModal: false
+        });
+    }
+
+    showModal() {
+        this.setState({
+            showModal: true
         });
     }
 
     render() {
         const downloadDataContent = (
-            <AwardDataContainer />
+            <AwardDataContainer
+                showModal={this.showModal} />
         );
         return (
             <div className="usa-da-bulk-download-page">
@@ -78,7 +97,7 @@ export default class DownloadPage extends React.Component {
                         <DownloadSidebar
                             dataTypes={dataTypes}
                             changeDataType={this.changeDataType}
-                            active={this.state.dataType} />
+                            active={this.props.dataType} />
                         <div className="api-info">
                             <h5>Interested in our API?</h5>
                             <p>
@@ -89,10 +108,15 @@ export default class DownloadPage extends React.Component {
                     <div className="download-data-wrapper">
                         {downloadDataContent}
                     </div>
+                    <BulkDownloadModalContainer
+                        mounted={this.state.showModal}
+                        hideModal={this.hideModal} />
                 </main>
                 <Footer />
             </div>
         );
     }
 }
+
+BulkDownloadPage.propTypes = propTypes;
 

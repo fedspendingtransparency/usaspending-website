@@ -8,6 +8,8 @@ import React from 'react';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 import DownloadBottomBarContainer from
     'containers/search/modals/fullDownload/DownloadBottomBarContainer';
+import BulkDownloadBottomBarContainer from
+    'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
 import FloatingGlossaryButton from './FloatingGlossaryButton';
 import FooterExternalLink from './FooterExternalLink';
 
@@ -23,6 +25,7 @@ export default class Footer extends React.Component {
                 <GlossaryButtonWrapperContainer child={FloatingGlossaryButton} />
                 <DownloadBottomBarContainer
                     filters={this.props.filters} />
+                <BulkDownloadBottomBarContainer />
                 <footer className="footer-outer-wrap" role="contentinfo">
                     <div className="footer-container">
                         <div className="footer-logo">

@@ -14,7 +14,8 @@ import DownloadDateRange from './DownloadDateRange';
 const propTypes = {
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
-    handleInputChange: PropTypes.func,
+    updateStartDate: PropTypes.func,
+    updateEndDate: PropTypes.func,
     valid: PropTypes.bool,
     setValidDates: PropTypes.func
 };
@@ -135,8 +136,8 @@ export default class TimePeriodFilter extends React.Component {
                 // valid!
                 this.hideError();
                 // update the filter parameters
-                this.props.handleInputChange(start.format('MM-DD-YYYY'), 'startDate');
-                this.props.handleInputChange(end.format('MM-DD-YYYY'), 'endDate');
+                this.props.updateStartDate(start.format('MM-DD-YYYY'));
+                this.props.updateEndDate(end.format('MM-DD-YYYY'));
                 this.props.setValidDates(true);
             }
         }
@@ -146,19 +147,19 @@ export default class TimePeriodFilter extends React.Component {
             let endValue = null;
             if (start) {
                 startValue = start.format('MM-DD-YYYY');
-                this.props.handleInputChange(startValue, 'startDate');
+                this.props.updateStartDate(startValue);
                 this.props.setValidDates(true);
             }
             else {
                 endValue = end.format('MM-DD-YYYY');
-                this.props.handleInputChange(endValue, 'endDate');
+                this.props.updateEndDate(endValue);
                 this.props.setValidDates(true);
             }
         }
         else {
             // user has cleared the dates, which means we should clear the date range filter
-            this.props.handleInputChange('', 'startDate');
-            this.props.handleInputChange('', 'endDate');
+            this.props.updateStartDate('');
+            this.props.updateEndDate('');
             this.props.setValidDates(false);
         }
     }
