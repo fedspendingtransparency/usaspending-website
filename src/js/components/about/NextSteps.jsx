@@ -20,7 +20,7 @@ export default class NextSteps extends React.Component {
                     linkText="View FAQ"
                     ariaLabel="FAQ"
                     title="Frequently Asked Questions"
-                    linkUrl="#/FAQ" />
+                    linkUrl="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-" />
                 <NextStepsBox
                     icon="contact"
                     sectionTitle="Contact Us"
