@@ -5,10 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Cookies from 'js-cookie';
 
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
+import MapDisclaimer from './MapDisclaimer';
 
 const propTypes = {
     scope: PropTypes.string,
@@ -29,11 +31,23 @@ export default class GeoVisualizationSection extends React.Component {
 
         this.state = {
             showHover: false,
+            showDisclaimer: false,
             selectedItem: {}
         };
 
         this.showTooltip = this.showTooltip.bind(this);
         this.hideTooltip = this.hideTooltip.bind(this);
+        this.closeDisclaimer = this.closeDisclaimer.bind(this);
+    }
+
+    componentWillMount() {
+        // check if the disclaimer cookie exists
+        if (!Cookies.get('usaspending_search_map_disclaimer')) {
+            // cookie does not exist, show the disclaimer
+            this.setState({
+                showDisclaimer: true
+            });
+        }
     }
 
     showTooltip(geoId, position) {
@@ -58,7 +72,21 @@ export default class GeoVisualizationSection extends React.Component {
         });
     }
 
+    closeDisclaimer() {
+        // set a cookie to hide the disclaimer in the future
+        Cookies.set('usaspending_search_map_disclaimer', 'hide', { expires: 730 });
+        this.setState({
+            showDisclaimer: false
+        });
+    }
+
     render() {
+        let disclaimer = null;
+        if (this.state.showDisclaimer) {
+            disclaimer = (<MapDisclaimer
+                closeDisclaimer={this.closeDisclaimer} />);
+        }
+
         return (
             <div
                 className="results-visualization-geo-section"
@@ -110,7 +138,9 @@ export default class GeoVisualizationSection extends React.Component {
                     hideTooltip={this.hideTooltip}
                     tooltip={GeoVisualizationTooltip}
                     availableLayers={availableLayers}
-                    showLayerToggle />
+                    showLayerToggle>
+                    {disclaimer}
+                </MapWrapper>
 
             </div>
         );

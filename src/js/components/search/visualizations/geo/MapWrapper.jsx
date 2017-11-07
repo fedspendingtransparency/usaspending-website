@@ -25,7 +25,8 @@ const propTypes = {
     tooltip: PropTypes.func,
     availableLayers: PropTypes.array,
     changeMapLayer: PropTypes.func,
-    showLayerToggle: PropTypes.bool
+    showLayerToggle: PropTypes.bool,
+    children: PropTypes.node
 };
 
 const defaultProps = {
@@ -35,7 +36,8 @@ const defaultProps = {
     },
     scope: 'state',
     availableLayers: ['state'],
-    showLayerToggle: false
+    showLayerToggle: false,
+    children: null
 };
 
 const mapboxSources = {
@@ -452,6 +454,7 @@ export default class MapWrapper extends React.Component {
                     units={this.state.spendingScale.units} />
 
                 {tooltip}
+                {this.props.children}
             </div>
         );
     }
