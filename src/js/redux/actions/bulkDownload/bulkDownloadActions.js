@@ -57,3 +57,7 @@ export const setDownloadCollapsed = (state) => ({
     type: 'SET_DOWNLOAD_COLLAPSED',
     collapsed: state
 });
+
+export const resetDownload = () => ({
+    type: 'RESET_DOWNLOAD'
+});

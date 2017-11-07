@@ -21,7 +21,7 @@ const propTypes = {
     bulkDownload: PropTypes.object,
     setAgencyList: PropTypes.func,
     setSubAgencyList: PropTypes.func,
-    showModal: PropTypes.func
+    clickedDownload: PropTypes.func
 };
 
 export class AwardDataContainer extends React.Component {
@@ -149,7 +149,7 @@ export class AwardDataContainer extends React.Component {
                 agencies={this.props.bulkDownload.agencies}
                 subAgencies={this.props.bulkDownload.subAgencies}
                 setSubAgencyList={this.setSubAgencyList}
-                showModal={this.props.showModal} />
+                clickedDownload={this.props.clickedDownload} />
         );
     }
 }

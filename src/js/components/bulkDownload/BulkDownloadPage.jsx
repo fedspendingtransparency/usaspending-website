@@ -43,7 +43,8 @@ const dataTypes = [
 const propTypes = {
     setDataType: PropTypes.func,
     dataType: PropTypes.string,
-    bulkDownload: PropTypes.object
+    bulkDownload: PropTypes.object,
+    startDownload: PropTypes.func
 };
 
 export default class BulkDownloadPage extends React.Component {
@@ -57,6 +58,7 @@ export default class BulkDownloadPage extends React.Component {
         this.changeDataType = this.changeDataType.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.showModal = this.showModal.bind(this);
+        this.clickedDownload = this.clickedDownload.bind(this);
     }
 
     changeDataType(dataType) {
@@ -75,10 +77,15 @@ export default class BulkDownloadPage extends React.Component {
         });
     }
 
+    clickedDownload() {
+        this.props.startDownload();
+        this.showModal();
+    }
+
     render() {
         const downloadDataContent = (
             <AwardDataContainer
-                showModal={this.showModal} />
+                clickedDownload={this.clickedDownload} />
         );
         return (
             <div className="usa-da-bulk-download-page">

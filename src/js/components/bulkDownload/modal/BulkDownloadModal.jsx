@@ -20,6 +20,21 @@ const propTypes = {
 };
 
 export default class BulkDownloadModal extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.hideModal = this.hideModal.bind(this);
+    }
+
+    hideModal() {
+        if (this.props.pendingDownload) {
+            this.props.setDownloadCollapsed(true);
+            this.props.hideModal();
+            return;
+        }
+        this.props.hideModal();
+    }
+
     render() {
         const content = (<ModalContent
             hideModal={this.props.hideModal}
@@ -34,7 +49,7 @@ export default class BulkDownloadModal extends React.Component {
                 dialogClass="bulk-download-modal"
                 verticallyCenter
                 escapeExits>
-                <div className="full-download-modal">
+                <div className="bulk-download-modal">
                     <div className="download-header">
                         <div className="header-content">
                             <h1>Download Data</h1>

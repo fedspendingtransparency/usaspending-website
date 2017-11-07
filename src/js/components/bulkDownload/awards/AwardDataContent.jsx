@@ -26,7 +26,7 @@ const propTypes = {
     agencies: PropTypes.array,
     subAgencies: PropTypes.array,
     setSubAgencyList: PropTypes.func,
-    showModal: PropTypes.func
+    clickedDownload: PropTypes.func
 };
 
 export default class AwardDataContent extends React.Component {
@@ -47,7 +47,7 @@ export default class AwardDataContent extends React.Component {
     }
 
     handleSubmit() {
-        this.props.showModal();
+        this.props.clickedDownload();
     }
 
     render() {

@@ -105,6 +105,9 @@ const bulkDownloadReducer = (state = initialState, action) => {
                 showCollapsedProgress: action.collapsed
             });
         }
+        case 'RESET_DOWNLOAD': {
+            return Object.assign({}, initialState);
+        }
         default:
             return state;
     }

@@ -136,8 +136,8 @@ export default class TimePeriodFilter extends React.Component {
                 // valid!
                 this.hideError();
                 // update the filter parameters
-                this.props.updateStartDate(start.format('MM-DD-YYYY'));
-                this.props.updateEndDate(end.format('MM-DD-YYYY'));
+                this.props.updateStartDate(start.format('YYYY-MM-DD'));
+                this.props.updateEndDate(end.format('YYYY-MM-DD'));
                 this.props.setValidDates(true);
             }
         }
@@ -146,12 +146,12 @@ export default class TimePeriodFilter extends React.Component {
             let startValue = null;
             let endValue = null;
             if (start) {
-                startValue = start.format('MM-DD-YYYY');
+                startValue = start.format('YYYY-MM-DD');
                 this.props.updateStartDate(startValue);
                 this.props.setValidDates(true);
             }
             else {
-                endValue = end.format('MM-DD-YYYY');
+                endValue = end.format('YYYY-MM-DD');
                 this.props.updateEndDate(endValue);
                 this.props.setValidDates(true);
             }
