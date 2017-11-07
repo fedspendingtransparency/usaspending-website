@@ -22,9 +22,11 @@ export const initialState = {
     },
     agencies: [],
     subAgencies: [],
-    expectedFile: '',
-    pendingDownload: false,
-    showCollapsedProgress: false
+    download: {
+        expectedFile: '',
+        pendingDownload: false,
+        showCollapsedProgress: false
+    }
 };
 
 const bulkDownloadReducer = (state = initialState, action) => {
@@ -90,23 +92,36 @@ const bulkDownloadReducer = (state = initialState, action) => {
                 subAgencies: action.subAgencies
             });
         }
-        case 'SET_DOWNLOAD_EXPECTED_FILE': {
-            return Object.assign({}, state, {
+        case 'SET_BULK_DOWNLOAD_EXPECTED_FILE': {
+            const download = Object.assign({}, state.download, {
                 expectedFile: action.file
             });
-        }
-        case 'SET_DOWNLOAD_PENDING': {
             return Object.assign({}, state, {
+                download
+            });
+        }
+        case 'SET_BULK_DOWNLOAD_PENDING': {
+            const download = Object.assign({}, state.download, {
                 pendingDownload: action.state
             });
-        }
-        case 'SET_DOWNLOAD_COLLAPSED': {
             return Object.assign({}, state, {
-                showCollapsedProgress: action.collapsed
+                download
             });
         }
-        case 'RESET_DOWNLOAD': {
-            return Object.assign({}, initialState);
+        case 'SET_BULK_DOWNLOAD_COLLAPSED': {
+            const download = Object.assign({}, state.download, {
+                showCollapsedProgress: action.collapsed
+            });
+            return Object.assign({}, state, {
+                download
+            });
+        }
+        case 'RESET_BULK_DOWNLOAD': {
+            const download = Object.assign({}, initialState.download);
+
+            return Object.assign({}, state, {
+                download
+            });
         }
         default:
             return state;

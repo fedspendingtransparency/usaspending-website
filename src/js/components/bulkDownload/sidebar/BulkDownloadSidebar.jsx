@@ -14,7 +14,7 @@ const propTypes = {
     dataTypes: PropTypes.array
 };
 
-export default class AgencySidebar extends React.Component {
+export default class BulkDownloadSidebar extends React.Component {
     render() {
         const items = this.props.dataTypes.map((type) => (
             <SidebarButton
@@ -37,4 +37,4 @@ export default class AgencySidebar extends React.Component {
     }
 }
 
-AgencySidebar.propTypes = propTypes;
+BulkDownloadSidebar.propTypes = propTypes;

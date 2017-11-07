@@ -19,12 +19,10 @@ const propTypes = {
     bulkDownload: PropTypes.object,
     setDataType: PropTypes.func,
     setDownloadPending: PropTypes.func,
-    setDownloadCollapsed: PropTypes.func,
-    setDownloadExpectedFile: PropTypes.func,
-    resetDownload: PropTypes.func
+    setDownloadExpectedFile: PropTypes.func
 };
 
-export class AwardDataContainer extends React.Component {
+export class BulkDownloadPageContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -34,9 +32,9 @@ export class AwardDataContainer extends React.Component {
     }
 
     startDownload() {
-        this.props.setDownloadPending(true);
         const dataType = this.props.bulkDownload.dataType;
         this.requestDownload(this.props.bulkDownload[dataType], dataType);
+        this.props.setDownloadPending(true);
     }
 
     requestDownload(params, type) {
@@ -48,7 +46,7 @@ export class AwardDataContainer extends React.Component {
 
         this.request.promise
             .then((res) => {
-                this.props.setDownloadExpectedFile(res.data.file_name);
+                this.props.setDownloadExpectedFile(res.data.url);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -76,10 +74,10 @@ export class AwardDataContainer extends React.Component {
     }
 }
 
-AwardDataContainer.propTypes = propTypes;
+BulkDownloadPageContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ bulkDownload: state.bulkDownload }),
     (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
-)(AwardDataContainer);
+)(BulkDownloadPageContainer);
 

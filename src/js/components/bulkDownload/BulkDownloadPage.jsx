@@ -15,7 +15,7 @@ import Footer from 'components/sharedComponents/Footer';
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
 import BulkDownloadModalContainer from
     'containers/bulkDownload/modal/BulkDownloadModalContainer';
-import DownloadSidebar from './sidebar/BulkDownloadSidebar';
+import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
 
 const dataTypes = [
     {
@@ -102,7 +102,7 @@ export default class BulkDownloadPage extends React.Component {
                     id="main-content"
                     className="main-content">
                     <div className="download-sidebar">
-                        <DownloadSidebar
+                        <BulkDownloadSidebar
                             dataTypes={dataTypes}
                             changeDataType={this.changeDataType}
                             active={this.props.dataType} />
@@ -120,8 +120,7 @@ export default class BulkDownloadPage extends React.Component {
                         mounted={this.state.showModal}
                         hideModal={this.hideModal} />
                 </main>
-                <Footer
-                    bulkDownload={this.props.bulkDownload} />
+                <Footer />
             </div>
         );
     }

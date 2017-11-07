@@ -27,7 +27,7 @@ export default class ModalContent extends React.Component {
     }
     componentDidMount() {
         this.props.setDownloadCollapsed(true);
-        window.setTimeout(this.props.hideModal, 6000); // close the modal after 6 seconds
+        window.setTimeout(this.props.hideModal, 8000); // close the modal after 8 seconds
     }
 
     onCopy() {

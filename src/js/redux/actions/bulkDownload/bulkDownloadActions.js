@@ -44,20 +44,20 @@ export const setSubAgencyList = (state) => ({
 });
 
 export const setDownloadExpectedFile = (state) => ({
-    type: 'SET_DOWNLOAD_EXPECTED_FILE',
+    type: 'SET_BULK_DOWNLOAD_EXPECTED_FILE',
     file: state
 });
 
 export const setDownloadPending = (state) => ({
     state,
-    type: 'SET_DOWNLOAD_PENDING'
+    type: 'SET_BULK_DOWNLOAD_PENDING'
 });
 
 export const setDownloadCollapsed = (state) => ({
-    type: 'SET_DOWNLOAD_COLLAPSED',
+    type: 'SET_BULK_DOWNLOAD_COLLAPSED',
     collapsed: state
 });
 
 export const resetDownload = () => ({
-    type: 'RESET_DOWNLOAD'
+    type: 'RESET_BULK_DOWNLOAD'
 });

@@ -14,8 +14,7 @@ import FloatingGlossaryButton from './FloatingGlossaryButton';
 import FooterExternalLink from './FooterExternalLink';
 
 const propTypes = {
-    filters: PropTypes.object,
-    bulkDownload: PropTypes.object
+    filters: PropTypes.object
 };
 
 export default class Footer extends React.Component {
@@ -26,8 +25,7 @@ export default class Footer extends React.Component {
                 <GlossaryButtonWrapperContainer child={FloatingGlossaryButton} />
                 <DownloadBottomBarContainer
                     filters={this.props.filters} />
-                <BulkDownloadBottomBarContainer
-                    bulkDownload={this.props.bulkDownload} />
+                <BulkDownloadBottomBarContainer />
                 <footer className="footer-outer-wrap" role="contentinfo">
                     <div className="footer-container">
                         <div className="footer-logo">

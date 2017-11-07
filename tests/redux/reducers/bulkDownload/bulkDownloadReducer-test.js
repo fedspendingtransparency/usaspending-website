@@ -140,7 +140,7 @@ describe('bulkDownloadReducer', () => {
             };
 
             const state = bulkDownloadReducer(undefined, action);
-            expect(state.expectedFile).toEqual('mockFileName.zip');
+            expect(state.download.expectedFile).toEqual('mockFileName.zip');
         });
     });
     describe('SET_DOWNLOAD_PENDING', () => {
@@ -151,7 +151,7 @@ describe('bulkDownloadReducer', () => {
             };
 
             const state = bulkDownloadReducer(undefined, action);
-            expect(state.pendingDownload).toEqual(true);
+            expect(state.download.pendingDownload).toEqual(true);
         });
     });
     describe('SET_DOWNLOAD_COLLAPSED', () => {
@@ -164,7 +164,7 @@ describe('bulkDownloadReducer', () => {
             const state = bulkDownloadReducer(undefined, action);
 
             // the value should be equal
-            expect(state.showCollapsedProgress).toEqual(true);
+            expect(state.download.showCollapsedProgress).toEqual(true);
         });
     });
 });

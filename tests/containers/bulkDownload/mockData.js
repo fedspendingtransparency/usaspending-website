@@ -9,7 +9,8 @@ export const mockActions = {
     setSubAgencyList: jest.fn(),
     setDownloadExpectedFile: jest.fn(),
     setDownloadPending: jest.fn(),
-    setDownloadCollapsed: jest.fn()
+    setDownloadCollapsed: jest.fn(),
+    resetDownload: jest.fn()
 };
 
 export const mockAgencies = [
@@ -55,9 +56,11 @@ export const mockRedux = {
     },
     agencies: [],
     subAgencies: [],
-    expectedFile: '',
-    pendingDownload: false,
-    showCollapsedProgress: false
+    download: {
+        expectedFile: '',
+        pendingDownload: false,
+        showCollapsedProgress: false
+    }
 };
 
 export const mockStatusResponse = {
@@ -67,6 +70,17 @@ export const mockStatusResponse = {
     total_size: 1000,
     total_columns: 200,
     message: null,
-    url: "/usaspending-api/downloads/mock_file.zip",
+    url: "mockurl/mock_file.zip",
+    seconds_elapsed: "0.5001"
+};
+
+export const mockAwardDownloadResponse = {
+    status: "ready",
+    total_rows: 1000,
+    file_name: "mock_file.zip",
+    total_size: 1000,
+    total_columns: 200,
+    message: null,
+    url: "mockurl/mock_file.zip",
     seconds_elapsed: "0.5001"
 };
