@@ -6,10 +6,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-// import { isCancel } from 'axios';
 import { connect } from 'react-redux';
 
-// import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
+import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 
 import AwardDataContent from 'components/bulkDownload/awards/AwardDataContent';
@@ -33,9 +32,7 @@ export class AwardDataContainer extends React.Component {
             inFlight: true
         };
 
-        // this.bulkDownloadRequest = null;
-        // this.agencyListRequeset = null;
-        // this.downloadStatusRequest = null;
+        this.agencyListRequest = null;
 
         this.updateFilter = this.updateFilter.bind(this);
         this.updateParam = this.updateParam.bind(this);
@@ -51,98 +48,56 @@ export class AwardDataContainer extends React.Component {
     }
 
     setAgencyList() {
-        // TODO - Lizzie: uncomment when endpoint is ready
-        // this.setState({
-        //    inFlight: true
-        // });
-        //
-        // if (this.agencyListRequeset) {
-        //    this.agencyListRequeset.cancel();
-        // }
-        //
-        // // perform the API request
-        // this.agencyListRequeset = BulkDownloadHelper.requestAgenciesList({
-        //    agency: 0
-        // });
-        //
-        // this.agencyListRequeset.promise
-        //    .then((res) => {
-        //        const agencies = res.data.agencies;
-        //        this.props.setAgencyList(agencies);
-        //    })
-        //    .catch((err) => {
-        //        console.log(err);
-        //        this.agencyListRequeset = null;
-        //    });
+        this.setState({
+            inFlight: true
+        });
 
-        const mockAgencies = [
-            {
-                name: "Agency 1",
-                toptier_agency_id: 212,
-                cgac_code: "292"
-            },
-            {
-                name: "Agency 2",
-                toptier_agency_id: 435,
-                cgac_code: "123"
-            }
-        ];
+        if (this.agencyListRequest) {
+            this.agencyListRequest.cancel();
+        }
 
-        this.props.setAgencyList(mockAgencies);
+        // perform the API request
+        this.agencyListRequest = BulkDownloadHelper.requestAgenciesList({
+            agency: 0
+        });
+
+        this.agencyListRequest.promise
+            .then((res) => {
+                const agencies = res.data.agencies;
+                this.props.setAgencyList(agencies);
+            })
+            .catch((err) => {
+                console.log(err);
+                this.agencyListRequest = null;
+            });
     }
 
     setSubAgencyList(id) {
         if (id !== '') {
-            // TODO - Lizzie: uncomment when endpoint is ready
-            // this.setState({
-            //    inFlight: true
-            // });
-            //
-            // if (this.agencyListRequeset) {
-            //    this.agencyListRequeset.cancel();
-            // }
-            //
-            // // perform the API request
-            // this.agencyListRequeset = BulkDownloadHelper.requestAgenciesList({
-            //    agency: id
-            // });
-            //
-            // this.agencyListRequeset.promise
-            //    .then((res) => {
-            //        const subAgencies = res.data.agencies;
-            //        this.props.setSubAgencyList(subAgencies);
-            //    })
-            //    .catch((err) => {
-            //        console.log(err);
-            //        this.agencyListRequeset = null;
-            //    });
+            this.setState({
+                inFlight: true
+            });
 
-            let mockSubAgencies = [
-                {
-                    subtier_agency_name: "Subtier Agency 1",
-                    subtier_agency_id: 5
-                },
-                {
-                    subtier_agency_name: "Subtier Agency 2",
-                    subtier_agency_id: 6
-                }
-            ];
-
-            if (id === '435') {
-                mockSubAgencies = [
-                    {
-                        subtier_agency_name: "Subtier Agency 3",
-                        subtier_agency_id: 7
-                    },
-                    {
-                        subtier_agency_name: "Subtier Agency 4",
-                        subtier_agency_id: 8
-                    }
-                ];
+            if (this.agencyListRequest) {
+                this.agencyListRequest.cancel();
             }
 
-            this.props.setSubAgencyList(mockSubAgencies);
+            // perform the API request
+            this.agencyListRequest = BulkDownloadHelper.requestAgenciesList({
+                agency: parseFloat(id)
+            });
+
+            this.agencyListRequest.promise
+                .then((res) => {
+                    const subAgencies = res.data.sub_agencies;
+                    this.props.setSubAgencyList(subAgencies);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.agencyListRequest = null;
+                });
         }
+
         else {
             this.props.setSubAgencyList([]);
         }

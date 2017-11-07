@@ -1,5 +1,5 @@
 /**
- * AwardDataContainer.jsx
+ * BulkDownloadPageContainer.jsx
  * Created by Lizzie Salita 10/30/17
  */
 
