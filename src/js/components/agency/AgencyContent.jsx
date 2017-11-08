@@ -13,7 +13,6 @@ import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
-import RecipientContainer from 'containers/agency/visualizations/RecipientContainer';
 import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
 import FederalAccountContainer from 'containers/agency/visualizations/FederalAccountContainer';
 import AgencyFooterContainer from 'containers/agency/AgencyFooterContainer';
@@ -259,10 +258,6 @@ export default class AgencyContent extends React.Component {
                             id={this.props.agency.id}
                             activeFY={this.props.agency.overview.activeFY}
                             obligatedAmount={this.props.agency.overview.obligatedAmount}
-                            asOfDate={asOfDate} />
-                        <RecipientContainer
-                            id={this.props.agency.id}
-                            activeFY={this.props.agency.overview.activeFY}
                             asOfDate={asOfDate} />
                         {disclaimer}
                     </div>
