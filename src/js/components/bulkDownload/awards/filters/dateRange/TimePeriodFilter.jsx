@@ -10,6 +10,7 @@ import { CheckCircle, ExclamationTriangle } from 'components/sharedComponents/ic
 
 import DateRangeError from 'components/search/filters/timePeriod/DateRangeError';
 import DownloadDateRange from './DownloadDateRange';
+import TimePeriodButtons from './TimePeriodButtons';
 
 const propTypes = {
     filterTimePeriodStart: PropTypes.string,
@@ -208,6 +209,17 @@ export default class TimePeriodFilter extends React.Component {
                 onDateChange={this.handleDateChange}
                 showError={this.showError}
                 hideError={this.hideError} />);
+
+        let start = '';
+        if (this.state.startDateUI !== null) {
+            start = this.state.startDateUI.format('YYYY-MM-DD');
+        }
+        let end = '';
+        if (this.state.endDateUI !== null) {
+            end = this.state.endDateUI.format('YYYY-MM-DD');
+        }
+
+
         return (
             <div className="filter-section">
                 <h5 className="filter-section-title">
@@ -216,6 +228,10 @@ export default class TimePeriodFilter extends React.Component {
                 <div className="filter-section-content date-range-wrapper">
                     { showFilter }
                     { errorDetails }
+                    <TimePeriodButtons
+                        currentStartDate={start}
+                        currentEndDate={end}
+                        handleDateChange={this.handleDateChange} />
                 </div>
             </div>
         );

@@ -1,0 +1,66 @@
+.download-form {
+    .filter-section {
+        h5.filter-section-title {
+            font-weight: 400;
+            span {
+                color: $color-primary;
+                font-weight: 600;
+            }
+            .icon {
+                float: left;
+                margin-right: rem(15);
+                width: rem(20);
+                height: rem(20);
+
+                svg {
+                    width: rem(25);
+                    height: rem(25);
+                    fill: $color-green;
+                }
+                &.invalid {
+                    svg {
+                        fill: $color-gold;
+                    }
+                }
+            }
+        }
+        .filter-section-content {
+            padding-left: rem(40);
+        }
+        .download-checkbox {
+            padding: rem(10) 0;
+            input {
+               margin-right: rem(5);
+            }
+        }
+        .select-label {
+            display: block;
+            text-transform: uppercase;
+            font-size: rem(13);
+            line-height: rem(17);
+            margin: rem(15) 0 rem(5) 0;
+        }
+        .agency-select {
+            display: block;
+            margin-bottom: rem(15);
+        }
+        @import "radioButtons";
+        @import "dateRange";
+    }
+    @import "userSelections";
+    .submit-button {
+        margin: rem(30);
+        button, input {
+            width: 100%;
+            font-size: rem(24);
+            font-weight: 600;
+        }
+        &.disabled {
+            button {
+                background-color: $color-white;
+                color: $color-gray-light;
+                border: solid rem(1) $color-gray-light;
+            }
+        }
+    }
+}

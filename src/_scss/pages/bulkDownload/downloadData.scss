@@ -11,7 +11,7 @@
                 font-weight: 400;
             }
         }
-        @import "downloadForm";
+        @import "./form/downloadForm";
         .reset-button {
             @include button-unstyled;
             display: block;

@@ -3,6 +3,8 @@
  * Created by Lizzie Salita 11/1/17
  */
 
+import moment from 'moment';
+
 export const awardDownloadOptions = {
     awardLevels: [
         {
@@ -64,5 +66,61 @@ export const awardDownloadOptions = {
             label: 'XML',
             disabled: true
         }
-    ]
+    ],
+    dateRangeButtons: {
+        column3: [
+            {
+                label: 'today',
+                startDate: moment().format('YYYY-MM-DD'),
+                endDate: moment().format('YYYY-MM-DD')
+            },
+            {
+                label: 'yesterday',
+                startDate: moment().subtract(1, 'day').format('YYYY-MM-DD'),
+                endDate: moment().subtract(1, 'day').format('YYYY-MM-DD')
+            },
+            {
+                label: 'last 7 days',
+                startDate: moment().subtract(1, 'week').format('YYYY-MM-DD'),
+                endDate: moment().format('YYYY-MM-DD')
+            },
+            {
+                label: 'last 30 days',
+                startDate: moment().subtract(30, 'day').format('YYYY-MM-DD'),
+                endDate: moment().format('YYYY-MM-DD')
+            },
+            {
+                label: 'this month',
+                startDate: moment().startOf('month').format('YYYY-MM-DD'),
+                endDate: moment().format('YYYY-MM-DD')
+            }
+        ],
+        column4: [
+            {
+                label: 'last 3 months',
+                startDate: moment().subtract(3, 'month').format('YYYY-MM-DD'),
+                endDate: moment().format('YYYY-MM-DD')
+            },
+            {
+                label: 'last 6 months',
+                startDate: moment().subtract(6, 'month').format('YYYY-MM-DD'),
+                endDate: moment().format('YYYY-MM-DD')
+            },
+            {
+                label: 'this year',
+                startDate: moment().startOf('year').format('YYYY-MM-DD'),
+                endDate: moment().format('YYYY-MM-DD')
+            },
+            {
+                label: 'last year',
+                startDate: moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
+                endDate: moment().subtract(1, 'year').endOf('year').format('YYYY-MM-DD')
+            },
+            {
+                label: 'all time',
+                startDate: '',
+                endDate: moment().format('YYYY-MM-DD')
+            }
+        ]
+    }
 };
