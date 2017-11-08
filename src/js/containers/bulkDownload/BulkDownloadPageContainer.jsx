@@ -34,33 +34,35 @@ export class BulkDownloadPageContainer extends React.Component {
     startDownload() {
         const dataType = this.props.bulkDownload.dataType;
         this.requestDownload(this.props.bulkDownload[dataType], dataType);
-        this.props.setDownloadPending(true);
     }
 
     requestDownload(params, type) {
-        if (this.request) {
-            this.request.cancel();
-        }
-
-        this.request = BulkDownloadHelper.requestBulkDownload(params, type);
-
-        this.request.promise
-            .then((res) => {
-                this.props.setDownloadExpectedFile(res.data.url);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    // something went wrong
-                    console.log(err);
-
-                    if (err.response) {
-                        console.log(err.response.data.message);
-                    }
-                    else {
-                        console.log(err.message);
-                    }
-                }
-            });
+        //if (this.request) {
+        //    this.request.cancel();
+        //}
+        //
+        //this.request = BulkDownloadHelper.requestBulkDownload(params, type);
+        //
+        //this.request.promise
+        //    .then((res) => {
+        //        this.props.setDownloadExpectedFile(res.data.url);
+        //        this.props.setDownloadPending(true);
+        //    })
+        //    .catch((err) => {
+        //        if (!isCancel(err)) {
+        //            // something went wrong
+        //            console.log(err);
+        //
+        //            if (err.response) {
+        //                console.log(err.response.data.message);
+        //            }
+        //            else {
+        //                console.log(err.message);
+        //            }
+        //        }
+        //    });
+        this.props.setDownloadExpectedFile('http://www.google.com');
+        this.props.setDownloadPending(true);
     }
 
     render() {

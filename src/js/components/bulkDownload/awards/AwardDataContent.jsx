@@ -129,12 +129,28 @@ export default class AwardDataContent extends React.Component {
                 </div>
                 <div className="download-info">
                     <h6>About Award Data</h6>
-                    <p>
-                        Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo,
-                        tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper
-                        nulla non metus auctor fringilla. Morbi leo risus, porta ac consectetur ac, vestibulum
-                        at eros. Maecenas sed diam eget risus varius blandit sit amet non magna.
-                    </p>
+                    <div className="info-section">
+                        <div className="info-section-heading">What is award data?</div>
+                        <p>
+                            Award data contains all the details of our prime award and sub-award records.
+                        </p>
+                    </div>
+                    <div className="info-section">
+                        <div className="info-section-heading">Why would I be interested in this data?</div>
+                        <p>
+                            Downloading this data gives you access to every attribute of any particular award, including
+                            data that may not be surfaced on this site.
+                        </p>
+                    </div>
+                    <div className="info-section">
+                        <div className="info-section-heading">How do I use this form?</div>
+                        <p>
+                            This form allows you to select specific awards by type, agency and sub-agency, and date range.
+                            Select an option in each section and click the "Download" button at the bottom.
+                            Heads up: all fields are required. You'll only be able to start the download when all sections
+                            are properly filled.
+                        </p>
+                    </div>
                 </div>
             </div>
         );

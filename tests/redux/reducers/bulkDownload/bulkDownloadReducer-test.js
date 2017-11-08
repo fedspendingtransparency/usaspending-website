@@ -135,7 +135,7 @@ describe('bulkDownloadReducer', () => {
     describe('SET_DOWNLOAD_EXPECTED_FILE', () => {
         it('should return a new string of the expected filename', () => {
             const action = {
-                type: 'SET_DOWNLOAD_EXPECTED_FILE',
+                type: 'SET_BULK_DOWNLOAD_EXPECTED_FILE',
                 file: 'mockFileName.zip'
             };
 
@@ -146,7 +146,7 @@ describe('bulkDownloadReducer', () => {
     describe('SET_DOWNLOAD_PENDING', () => {
         it('should return a boolean value for a pending download', () => {
             const action = {
-                type: 'SET_DOWNLOAD_PENDING',
+                type: 'SET_BULK_DOWNLOAD_PENDING',
                 state: true
             };
 
@@ -157,7 +157,7 @@ describe('bulkDownloadReducer', () => {
     describe('SET_DOWNLOAD_COLLAPSED', () => {
         it('should return a boolean value for collapsed modal state', () => {
             const action = {
-                type: 'SET_DOWNLOAD_COLLAPSED',
+                type: 'SET_BULK_DOWNLOAD_COLLAPSED',
                 collapsed: true
             };
 

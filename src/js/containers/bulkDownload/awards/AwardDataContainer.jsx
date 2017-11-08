@@ -48,54 +48,76 @@ export class AwardDataContainer extends React.Component {
     }
 
     setAgencyList() {
-        this.setState({
-            inFlight: true
-        });
-
-        if (this.agencyListRequest) {
-            this.agencyListRequest.cancel();
-        }
-
-        // perform the API request
-        this.agencyListRequest = BulkDownloadHelper.requestAgenciesList({
-            agency: 0
-        });
-
-        this.agencyListRequest.promise
-            .then((res) => {
-                const agencies = res.data.agencies;
-                this.props.setAgencyList(agencies);
-            })
-            .catch((err) => {
-                console.log(err);
-                this.agencyListRequest = null;
-            });
+        //this.setState({
+        //    inFlight: true
+        //});
+        //
+        //if (this.agencyListRequest) {
+        //    this.agencyListRequest.cancel();
+        //}
+        //
+        //// perform the API request
+        //this.agencyListRequest = BulkDownloadHelper.requestAgenciesList({
+        //    agency: 0
+        //});
+        //
+        //this.agencyListRequest.promise
+        //    .then((res) => {
+        //        const agencies = res.data.agencies;
+        //        this.props.setAgencyList(agencies);
+        //    })
+        //    .catch((err) => {
+        //        console.log(err);
+        //        this.agencyListRequest = null;
+        //    });
+        this.props.setAgencyList([
+            {
+                name: "Agency 1",
+                toptier_agency_id: 123,
+                cgac_code: "292"
+            },
+            {
+                name: "Agency 2",
+                toptier_agency_id: 456,
+                cgac_code: "123"
+            }
+        ]);
     }
 
     setSubAgencyList(id) {
         if (id !== '') {
-            this.setState({
-                inFlight: true
-            });
-
-            if (this.agencyListRequest) {
-                this.agencyListRequest.cancel();
-            }
-
-            // perform the API request
-            this.agencyListRequest = BulkDownloadHelper.requestAgenciesList({
-                agency: parseFloat(id)
-            });
-
-            this.agencyListRequest.promise
-                .then((res) => {
-                    const subAgencies = res.data.sub_agencies;
-                    this.props.setSubAgencyList(subAgencies);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    this.agencyListRequest = null;
-                });
+            //this.setState({
+            //    inFlight: true
+            //});
+            //
+            //if (this.agencyListRequest) {
+            //    this.agencyListRequest.cancel();
+            //}
+            //
+            //// perform the API request
+            //this.agencyListRequest = BulkDownloadHelper.requestAgenciesList({
+            //    agency: parseFloat(id)
+            //});
+            //
+            //this.agencyListRequest.promise
+            //    .then((res) => {
+            //        const subAgencies = res.data.sub_agencies;
+            //        this.props.setSubAgencyList(subAgencies);
+            //    })
+            //    .catch((err) => {
+            //        console.log(err);
+            //        this.agencyListRequest = null;
+            //    });
+            this.props.setSubAgencyList([
+                {
+                    subtier_agency_name: "Subtier Agency 1",
+                    subtier_agency_id: 5
+                },
+                {
+                    subtier_agency_name: "Subtier Agency 2",
+                    subtier_agency_id: 6
+                }
+            ]);
         }
 
         else {

@@ -26,11 +26,18 @@
         @include media($medium-screen) {
             @include span-columns(7);
         }
-        padding: rem(15) rem(30);
+        padding: rem(15) rem(30) 0 rem(30);
         border-left: solid 1px $color-gray-light;
 
         h6 {
-            margin: 0;
+            margin-top: 0;
+            margin-bottom: rem(30);
+        }
+        .info-section {
+            margin-bottom: rem(30);
+            .info-section-heading {
+                font-weight: 600;
+            }
         }
     }
 }

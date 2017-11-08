@@ -109,7 +109,7 @@ export default class BulkDownloadPage extends React.Component {
                         <div className="api-info">
                             <h5>Interested in our API?</h5>
                             <p>
-                                Take a look at our <a href="https://api.usaspending.gov/">API documentation</a>.
+                                Take a look at our <a target="_blank" href="https://api.usaspending.gov/">API documentation</a>.
                             </p>
                         </div>
                     </div>
