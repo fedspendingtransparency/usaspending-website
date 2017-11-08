@@ -43,6 +43,11 @@ export const setSubAgencyList = (state) => ({
     subAgencies: state
 });
 
+export const setDownloadExpectedUrl = (state) => ({
+    type: 'SET_BULK_DOWNLOAD_EXPECTED_URL',
+    url: state
+});
+
 export const setDownloadExpectedFile = (state) => ({
     type: 'SET_BULK_DOWNLOAD_EXPECTED_FILE',
     file: state

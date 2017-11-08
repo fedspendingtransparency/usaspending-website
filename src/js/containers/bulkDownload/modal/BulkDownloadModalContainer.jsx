@@ -26,7 +26,7 @@ export class BulkDownloadModalContainer extends React.Component {
             <BulkDownloadModal
                 setDownloadCollapsed={this.props.setDownloadCollapsed}
                 pendingDownload={this.props.bulkDownload.download.pendingDownload}
-                expectedFile={this.props.bulkDownload.download.expectedFile}
+                expectedFile={this.props.bulkDownload.download.expectedUrl}
                 mounted={this.props.mounted}
                 hideModal={this.props.hideModal} />
         );

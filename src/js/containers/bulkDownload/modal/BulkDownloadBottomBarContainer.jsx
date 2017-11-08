@@ -55,7 +55,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.bulkDownload.pendingDownload && nextProps.bulkDownload.showCollapsedProgress &&
+        if (nextProps.bulkDownload.download.pendingDownload && nextProps.bulkDownload.download.showCollapsedProgress &&
             !this.state.visible) {
             this.checkStatus();
             this.displayBar();
@@ -82,40 +82,30 @@ export class BulkDownloadBottomBarContainer extends React.Component {
 
     checkStatus() {
         if (this.props.bulkDownload.download.expectedFile !== '') {
-            //if (this.statusRequest) {
-            //    this.statusRequest.cancel();
-            //}
-            //this.statusRequest = BulkDownloadHelper.requestBulkDownloadStatus({
-            //    file_name: this.props.bulkDownload.download.expectedFile
-            //});
-            //
-            //this.statusRequest.promise
-            //    .then((res) => {
-            //        this.parseStatus(res.data);
-            //    })
-            //    .catch((err) => {
-            //        if (!isCancel(err)) {
-            //            // something went wrong
-            //            console.log(err);
-            //
-            //            if (err.response) {
-            //                this.displayError(err.response.data.message);
-            //            }
-            //            else {
-            //                this.displayError(err.message);
-            //            }
-            //        }
-            //    });
-            this.parseStatus({
-                status: "processing",
-                total_rows: 1000,
-                file_name: "mock_file.zip",
-                total_size: 1000,
-                total_columns: 200,
-                message: null,
-                url: "http://www.google.com",
-                seconds_elapsed: "0.5001"
+            if (this.statusRequest) {
+                this.statusRequest.cancel();
+            }
+            this.statusRequest = BulkDownloadHelper.requestBulkDownloadStatus({
+                file_name: this.props.bulkDownload.download.expectedFile
             });
+
+            this.statusRequest.promise
+                .then((res) => {
+                    this.parseStatus(res.data);
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        // something went wrong
+                        console.log(err);
+
+                        if (err.response) {
+                            this.displayError(err.response.data.message);
+                        }
+                        else {
+                            this.displayError(err.message);
+                        }
+                    }
+                });
         }
     }
 

@@ -19,7 +19,7 @@ export const requestBulkDownload = () => ({
     promise: new Promise((resolve) => {
         process.nextTick(() => {
             resolve({
-                data: mockStatusResponse
+                data: mockAwardDownloadResponse
             });
         });
     }),
@@ -30,7 +30,7 @@ export const requestBulkDownloadStatus = () => ({
     promise: new Promise((resolve) => {
         process.nextTick(() => {
             resolve({
-                data: mockAwardDownloadResponse
+                data: mockStatusResponse
             });
         });
     }),

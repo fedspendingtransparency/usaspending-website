@@ -46,7 +46,9 @@ export default class AwardDataContent extends React.Component {
         });
     }
 
-    handleSubmit() {
+    handleSubmit(e) {
+        e.preventDefault();
+
         this.props.clickedDownload();
     }
 
@@ -146,8 +148,8 @@ export default class AwardDataContent extends React.Component {
                         <div className="info-section-heading">How do I use this form?</div>
                         <p>
                             This form allows you to select specific awards by type, agency and sub-agency, and date range.
-                            Select an option in each section and click the "Download" button at the bottom.
-                            Heads up: all fields are required. You'll only be able to start the download when all sections
+                            Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.
+                            Heads up: all fields are required. You&#39;ll only be able to start the download when all sections
                             are properly filled.
                         </p>
                     </div>

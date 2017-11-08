@@ -38,28 +38,31 @@ export const mockSubAgencies = [
 ];
 
 export const mockRedux = {
-    dataType: 'awards',
-    awards: {
-        award_levels: ['prime_awards'],
-        filters: {
-            award_types: ['contracts'],
-            agency: '',
-            sub_agency: '',
-            date_type: 'action_date',
-            date_range: {
-                start_date: '11-01-2016',
-                end_date: '11-01-2017'
-            }
+    bulkDownload: {
+        dataType: 'awards',
+        awards: {
+            award_levels: ['prime_awards'],
+            filters: {
+                award_types: ['contracts'],
+                agency: '',
+                sub_agency: '',
+                date_type: 'action_date',
+                date_range: {
+                    start_date: '11-01-2016',
+                    end_date: '11-01-2017'
+                }
+            },
+            columns: [],
+            file_format: 'csv'
         },
-        columns: [],
-        file_format: 'csv'
-    },
-    agencies: [],
-    subAgencies: [],
-    download: {
-        expectedFile: '',
-        pendingDownload: false,
-        showCollapsedProgress: false
+        agencies: [],
+        subAgencies: [],
+        download: {
+            expectedFile: '',
+            expectedUrl: '',
+            pendingDownload: false,
+            showCollapsedProgress: false
+        }
     }
 };
 

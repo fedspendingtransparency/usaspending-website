@@ -19,7 +19,8 @@ const propTypes = {
     bulkDownload: PropTypes.object,
     setDataType: PropTypes.func,
     setDownloadPending: PropTypes.func,
-    setDownloadExpectedFile: PropTypes.func
+    setDownloadExpectedFile: PropTypes.func,
+    setDownloadExpectedUrl: PropTypes.func
 };
 
 export class BulkDownloadPageContainer extends React.Component {
@@ -37,32 +38,31 @@ export class BulkDownloadPageContainer extends React.Component {
     }
 
     requestDownload(params, type) {
-        //if (this.request) {
-        //    this.request.cancel();
-        //}
-        //
-        //this.request = BulkDownloadHelper.requestBulkDownload(params, type);
-        //
-        //this.request.promise
-        //    .then((res) => {
-        //        this.props.setDownloadExpectedFile(res.data.url);
-        //        this.props.setDownloadPending(true);
-        //    })
-        //    .catch((err) => {
-        //        if (!isCancel(err)) {
-        //            // something went wrong
-        //            console.log(err);
-        //
-        //            if (err.response) {
-        //                console.log(err.response.data.message);
-        //            }
-        //            else {
-        //                console.log(err.message);
-        //            }
-        //        }
-        //    });
-        this.props.setDownloadExpectedFile('http://www.google.com');
-        this.props.setDownloadPending(true);
+        if (this.request) {
+            this.request.cancel();
+        }
+
+        this.request = BulkDownloadHelper.requestBulkDownload(params, type);
+
+        this.request.promise
+            .then((res) => {
+                this.props.setDownloadExpectedUrl(res.data.url);
+                this.props.setDownloadExpectedFile(res.data.file_name);
+                this.props.setDownloadPending(true);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    // something went wrong
+                    console.log(err);
+
+                    if (err.response) {
+                        console.log(err.response.data.message);
+                    }
+                    else {
+                        console.log(err.message);
+                    }
+                }
+            });
     }
 
     render() {

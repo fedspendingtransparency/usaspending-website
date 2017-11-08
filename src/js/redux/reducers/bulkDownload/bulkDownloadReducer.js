@@ -24,6 +24,7 @@ export const initialState = {
     subAgencies: [],
     download: {
         expectedFile: '',
+        expectedUrl: '',
         pendingDownload: false,
         showCollapsedProgress: false
     }
@@ -90,6 +91,14 @@ const bulkDownloadReducer = (state = initialState, action) => {
         case 'SET_SUB_AGENCY_LIST': {
             return Object.assign({}, state, {
                 subAgencies: action.subAgencies
+            });
+        }
+        case 'SET_BULK_DOWNLOAD_EXPECTED_URL': {
+            const download = Object.assign({}, state.download, {
+                expectedUrl: action.url
+            });
+            return Object.assign({}, state, {
+                download
             });
         }
         case 'SET_BULK_DOWNLOAD_EXPECTED_FILE': {
