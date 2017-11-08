@@ -37,10 +37,6 @@ const agencySections = [
     {
         section: 'federal-accounts',
         label: 'Federal Accounts'
-    },
-    {
-        section: 'recipients',
-        label: 'Recipients'
     }
 ];
 
