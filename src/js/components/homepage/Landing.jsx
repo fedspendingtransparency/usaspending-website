@@ -34,10 +34,10 @@ export default class Landing extends React.Component {
                 <div className="landing-parent-wrap">
                     <div className="landing-section-wrap">
                         <div className="content-wrap">
-                            <h2 tabIndex={-1} id="main-content">
+                            <h1 tabIndex={-1} id="main-content">
                                 In 2016, the U.S. government spent <span className="stronger">$3.85 trillion dollars</span>
-                            </h2>
-                            <h5>How was that money used? We&apos;ll help you find the answers.</h5>
+                            </h1>
+                            <h2>How was that money used? We&apos;ll help you find the answers.</h2>
                             <div className="buttons-wrap">
                                 <button
                                     className="getting-started"

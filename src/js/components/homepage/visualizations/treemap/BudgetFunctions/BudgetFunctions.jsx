@@ -260,6 +260,8 @@ export default class BudgetFunctions extends React.Component {
                         width={this.state.visualizationWidth}
                         height={this.state.visualizationHeight}
                         className="treemap-svg overlay">
+                        <title>All budget functions</title>
+                        <desc>Treemap showing relative spending by budget function</desc>
                         { this.state.finalNodes }
                     </svg>
                     {hoverOverlay}
