@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { indexOf } from 'lodash';
@@ -151,8 +152,18 @@ export default class UserSelections extends React.Component {
     }
 
     generateDateRangeString() {
-        const startDate = this.props.awards.filters.date_range.start_date;
-        const endDate = this.props.awards.filters.date_range.end_date;
+        let startDate = this.props.awards.filters.date_range.start_date;
+        let endDate = this.props.awards.filters.date_range.end_date;
+
+        if (startDate !== '') {
+            const start = moment(this.props.awards.filters.date_range.start_date);
+            startDate = start.format("MM/DD/YYYY");
+        }
+
+        if (endDate !== '') {
+            const end = moment(this.props.awards.filters.date_range.end_date);
+            endDate = end.format("MM/DD/YYYY");
+        }
 
         if (startDate || endDate) {
             return (
