@@ -10,6 +10,8 @@ import { scrollToY } from 'helpers/scrollToHelper';
 import moment from 'moment';
 import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
 
+import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
+
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
 import RecipientContainer from 'containers/agency/visualizations/RecipientContainer';
 import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
@@ -237,7 +239,9 @@ export default class AgencyContent extends React.Component {
                 </div>
                 <div className="agency-content">
                     <div className="agency-padded-content overview">
-                        <AgencyOverview agency={this.props.agency.overview} />
+                        <GlossaryButtonWrapperContainer
+                            child={AgencyOverview}
+                            agency={this.props.agency.overview} />
                     </div>
                     <div className="agency-padded-content data">
                         <ObligatedContainer
@@ -259,7 +263,7 @@ export default class AgencyContent extends React.Component {
                         <RecipientContainer
                             id={this.props.agency.id}
                             activeFY={this.props.agency.overview.activeFY}
-                            lastUpdate={this.props.lastUpdate} />
+                            asOfDate={asOfDate} />
                         {disclaimer}
                     </div>
                     <AgencyFooterContainer id={this.props.agency.id} />

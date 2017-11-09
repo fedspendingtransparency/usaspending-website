@@ -12,6 +12,7 @@ import ScopeList from './ScopeList';
 import RecipientChart from './RecipientChart';
 
 const propTypes = {
+    activeFY: PropTypes.string,
     loading: PropTypes.bool,
     isInitialLoad: PropTypes.bool,
     error: PropTypes.bool,
@@ -23,7 +24,7 @@ const propTypes = {
     page: PropTypes.number,
     isLastPage: PropTypes.bool,
     changePage: PropTypes.func,
-    lastUpdate: PropTypes.string
+    asOfDate: PropTypes.string
 };
 
 
@@ -93,19 +94,19 @@ export default class RecipientVisualization extends React.Component {
             <div
                 className="agency-section-wrapper"
                 id="agency-recipients">
-                <div className="agency-callout-description">
-                    {`A primary way agencies implement their programs is by awarding money to \
-companies, organizations, individuals, or government entities (i.e. state, local, tribal, federal, \
-or foreign). Here is a look at who these recipients are and how they rank by award type.`}
-                </div>
                 <div className="agency-section-title">
                     <h4>Recipients</h4>
-                    <em>Data as of {this.props.lastUpdate}</em>
                     <hr
                         className="results-divider"
                         ref={(hr) => {
                             this.sectionHr = hr;
                         }} />
+                    <em>FY {this.props.activeFY} data reported through {this.props.asOfDate}</em>
+                </div>
+                <div className="agency-callout-description">
+                    {`A primary way agencies implement their programs is by awarding money to \
+companies, organizations, individuals, or government entities (i.e. state, local, tribal, federal, \
+or foreign). Here is a look at who these recipients are and how they rank by award type.`}
                 </div>
                 <div className="agency-section-content">
                     <ScopeList

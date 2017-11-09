@@ -21,6 +21,7 @@ const fields = [
     'period_of_performance_current_end_date',
     'award_type',
     'internal_general_type',
+    'category',
     'type',
     'type_description',
     'awarding_agency_name',
@@ -115,6 +116,7 @@ const remapData = (data, idField) => {
     let parentId = 0;
     let awardType = '';
     let internalGeneralType = 'unknown';
+    let category = '';
     let actionDate = '';
     let awardTypeDescription = '';
     let awardDescription = '';
@@ -207,6 +209,10 @@ const remapData = (data, idField) => {
     if (data.type) {
         awardType = data.type;
         internalGeneralType = SummaryPageHelper.awardType(data.type);
+    }
+
+    if (data.category) {
+        category = data.category;
     }
 
     if (data.type_description) {
@@ -443,6 +449,7 @@ const remapData = (data, idField) => {
     remappedData.parent_id = parentId;
     remappedData.award_type = awardType;
     remappedData.internal_general_type = internalGeneralType;
+    remappedData.category = category;
     remappedData.type_description = awardTypeDescription;
     remappedData.description = awardDescription;
     remappedData.awarding_agency_name = awardingAgencyName;

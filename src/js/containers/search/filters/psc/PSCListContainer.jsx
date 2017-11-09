@@ -52,7 +52,7 @@ export class PSCListContainer extends React.Component {
         if (psc && psc.length > 0) {
             psc.forEach((item) => {
                 values.push({
-                    title: item.product_or_service_code,
+                    title: `${item.product_or_service_code} - ${item.psc_description}`,
                     subtitle: '',
                     data: item
                 });

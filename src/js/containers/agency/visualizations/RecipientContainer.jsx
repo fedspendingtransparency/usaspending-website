@@ -17,7 +17,7 @@ import RecipientVisualization from
 const propTypes = {
     id: PropTypes.string,
     activeFY: PropTypes.string,
-    lastUpdate: PropTypes.string
+    asOfDate: PropTypes.string
 };
 
 export default class RecipientContainer extends React.PureComponent {
@@ -165,6 +165,7 @@ ${recipient}`;
     render() {
         return (
             <RecipientVisualization
+                activeFY={this.props.activeFY}
                 page={this.state.page}
                 isLastPage={this.state.isLastPage}
                 dataSeries={this.state.dataSeries}
@@ -176,7 +177,7 @@ ${recipient}`;
                 scope={this.state.scope}
                 changeScope={this.changeScope}
                 changePage={this.changePage}
-                lastUpdate={this.props.lastUpdate} />
+                asOfDate={this.props.asOfDate} />
         );
     }
 }

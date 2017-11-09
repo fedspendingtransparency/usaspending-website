@@ -221,6 +221,7 @@ export default class ObjectClassContainer extends React.PureComponent {
     render() {
         return (
             <ObjectClassTreeMap
+                activeFY={this.props.activeFY}
                 displayedTotalObligation={this.props.displayedTotalObligation}
                 majorObjectClasses={this.state.majorObjectClasses}
                 minorObjectClasses={this.state.minorObjectClasses}

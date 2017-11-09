@@ -8,7 +8,7 @@
 
     .main-content {
         @import "../../mixins/fullSectionWrap";
-        @include fullSectionWrap(($global-mrg * 4), ($global-mrg * 4));
+        @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
         padding:  0;
 
         @import "./_positioning";

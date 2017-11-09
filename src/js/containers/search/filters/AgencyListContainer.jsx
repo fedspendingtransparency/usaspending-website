@@ -78,9 +78,9 @@ export class AgencyListContainer extends React.Component {
                 if (item.toptier_agency.abbreviation !== '') {
                     topAbbreviation = `(${item.toptier_agency.abbreviation})`;
                 }
-                // Push two items to the autocomplete entries if subtier = toptier
+
                 // Only push items if they are not in selectedAgencies
-                if (item.toptier_agency.name === item.subtier_agency.name) {
+                if (item.toptier_flag) {
                     if (this.props.selectedAgencies.size === 0
                         || !this.props.selectedAgencies.has(`${item.id}_toptier`)) {
                         agencies.push({
@@ -91,8 +91,7 @@ export class AgencyListContainer extends React.Component {
                         });
                     }
                 }
-
-                if (this.props.selectedAgencies.size === 0
+                else if (this.props.selectedAgencies.size === 0
                     || !this.props.selectedAgencies.has(`${item.id}_subtier`)) {
                     agencies.push({
                         title: `${item.subtier_agency.name} ${subAbbreviation}`,
@@ -117,21 +116,7 @@ export class AgencyListContainer extends React.Component {
         toptierAgencies = sortBy(toptierAgencies, 'title');
         subtierAgencies = sortBy(subtierAgencies, 'title');
 
-        if (this.props.agencyType === 'Funding') {
-            // Show an error message if the API results contain exclusively subtier Funding Agencies
-            if (agencies.length > 0 && toptierAgencies.length === 0) {
-                noResults = true;
-            }
-
-            // We don't allow users to filter by subtier Funding Agencies, so we return just
-            // the toptier agencies
-            agencies = toptierAgencies;
-        }
-        else {
-            // Otherwise, for filtering by Awarding Agency, we combine the toptier and subtier
-            // groups, with toptier first, and then return the top 10
-            agencies = slice(concat(toptierAgencies, subtierAgencies), 0, 10);
-        }
+        agencies = slice(concat(toptierAgencies, subtierAgencies), 0, 10);
 
         this.setState({
             autocompleteAgencies: agencies,
@@ -190,9 +175,7 @@ export class AgencyListContainer extends React.Component {
         // create a search index with the API response records
         const search = new Search('id');
         search.addIndex(['toptier_agency', 'name']);
-        if (this.props.agencyType === 'Awarding') {
-            search.addIndex(['subtier_agency', 'name']);
-        }
+        search.addIndex(['subtier_agency', 'name']);
 
         // add the API response as the data source to search within
         search.addDocuments(data);
