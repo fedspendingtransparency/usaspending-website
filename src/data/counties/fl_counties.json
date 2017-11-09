@@ -1,0 +1,406 @@
+{
+    "counties": [
+        {
+            "code": "12001",
+            "fips": "001",
+            "state": "FL",
+            "name": "Alachua County"
+        },
+        {
+            "code": "12003",
+            "fips": "003",
+            "state": "FL",
+            "name": "Baker County"
+        },
+        {
+            "code": "12005",
+            "fips": "005",
+            "state": "FL",
+            "name": "Bay County"
+        },
+        {
+            "code": "12007",
+            "fips": "007",
+            "state": "FL",
+            "name": "Bradford County"
+        },
+        {
+            "code": "12009",
+            "fips": "009",
+            "state": "FL",
+            "name": "Brevard County"
+        },
+        {
+            "code": "12011",
+            "fips": "011",
+            "state": "FL",
+            "name": "Broward County"
+        },
+        {
+            "code": "12013",
+            "fips": "013",
+            "state": "FL",
+            "name": "Calhoun County"
+        },
+        {
+            "code": "12015",
+            "fips": "015",
+            "state": "FL",
+            "name": "Charlotte County"
+        },
+        {
+            "code": "12017",
+            "fips": "017",
+            "state": "FL",
+            "name": "Citrus County"
+        },
+        {
+            "code": "12019",
+            "fips": "019",
+            "state": "FL",
+            "name": "Clay County"
+        },
+        {
+            "code": "12021",
+            "fips": "021",
+            "state": "FL",
+            "name": "Collier County"
+        },
+        {
+            "code": "12023",
+            "fips": "023",
+            "state": "FL",
+            "name": "Columbia County"
+        },
+        {
+            "code": "12027",
+            "fips": "027",
+            "state": "FL",
+            "name": "DeSoto County"
+        },
+        {
+            "code": "12029",
+            "fips": "029",
+            "state": "FL",
+            "name": "Dixie County"
+        },
+        {
+            "code": "12031",
+            "fips": "031",
+            "state": "FL",
+            "name": "Duval County"
+        },
+        {
+            "code": "12033",
+            "fips": "033",
+            "state": "FL",
+            "name": "Escambia County"
+        },
+        {
+            "code": "12035",
+            "fips": "035",
+            "state": "FL",
+            "name": "Flagler County"
+        },
+        {
+            "code": "12037",
+            "fips": "037",
+            "state": "FL",
+            "name": "Franklin County"
+        },
+        {
+            "code": "12039",
+            "fips": "039",
+            "state": "FL",
+            "name": "Gadsden County"
+        },
+        {
+            "code": "12041",
+            "fips": "041",
+            "state": "FL",
+            "name": "Gilchrist County"
+        },
+        {
+            "code": "12043",
+            "fips": "043",
+            "state": "FL",
+            "name": "Glades County"
+        },
+        {
+            "code": "12045",
+            "fips": "045",
+            "state": "FL",
+            "name": "Gulf County"
+        },
+        {
+            "code": "12047",
+            "fips": "047",
+            "state": "FL",
+            "name": "Hamilton County"
+        },
+        {
+            "code": "12049",
+            "fips": "049",
+            "state": "FL",
+            "name": "Hardee County"
+        },
+        {
+            "code": "12051",
+            "fips": "051",
+            "state": "FL",
+            "name": "Hendry County"
+        },
+        {
+            "code": "12053",
+            "fips": "053",
+            "state": "FL",
+            "name": "Hernando County"
+        },
+        {
+            "code": "12055",
+            "fips": "055",
+            "state": "FL",
+            "name": "Highlands County"
+        },
+        {
+            "code": "12057",
+            "fips": "057",
+            "state": "FL",
+            "name": "Hillsborough County"
+        },
+        {
+            "code": "12059",
+            "fips": "059",
+            "state": "FL",
+            "name": "Holmes County"
+        },
+        {
+            "code": "12061",
+            "fips": "061",
+            "state": "FL",
+            "name": "Indian River County"
+        },
+        {
+            "code": "12063",
+            "fips": "063",
+            "state": "FL",
+            "name": "Jackson County"
+        },
+        {
+            "code": "12065",
+            "fips": "065",
+            "state": "FL",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "12067",
+            "fips": "067",
+            "state": "FL",
+            "name": "Lafayette County"
+        },
+        {
+            "code": "12069",
+            "fips": "069",
+            "state": "FL",
+            "name": "Lake County"
+        },
+        {
+            "code": "12071",
+            "fips": "071",
+            "state": "FL",
+            "name": "Lee County"
+        },
+        {
+            "code": "12073",
+            "fips": "073",
+            "state": "FL",
+            "name": "Leon County"
+        },
+        {
+            "code": "12075",
+            "fips": "075",
+            "state": "FL",
+            "name": "Levy County"
+        },
+        {
+            "code": "12077",
+            "fips": "077",
+            "state": "FL",
+            "name": "Liberty County"
+        },
+        {
+            "code": "12079",
+            "fips": "079",
+            "state": "FL",
+            "name": "Madison County"
+        },
+        {
+            "code": "12081",
+            "fips": "081",
+            "state": "FL",
+            "name": "Manatee County"
+        },
+        {
+            "code": "12083",
+            "fips": "083",
+            "state": "FL",
+            "name": "Marion County"
+        },
+        {
+            "code": "12085",
+            "fips": "085",
+            "state": "FL",
+            "name": "Martin County"
+        },
+        {
+            "code": "12086",
+            "fips": "086",
+            "state": "FL",
+            "name": "Miami-Dade County"
+        },
+        {
+            "code": "12087",
+            "fips": "087",
+            "state": "FL",
+            "name": "Monroe County"
+        },
+        {
+            "code": "12089",
+            "fips": "089",
+            "state": "FL",
+            "name": "Nassau County"
+        },
+        {
+            "code": "12091",
+            "fips": "091",
+            "state": "FL",
+            "name": "Okaloosa County"
+        },
+        {
+            "code": "12093",
+            "fips": "093",
+            "state": "FL",
+            "name": "Okeechobee County"
+        },
+        {
+            "code": "12095",
+            "fips": "095",
+            "state": "FL",
+            "name": "Orange County"
+        },
+        {
+            "code": "12097",
+            "fips": "097",
+            "state": "FL",
+            "name": "Osceola County"
+        },
+        {
+            "code": "12099",
+            "fips": "099",
+            "state": "FL",
+            "name": "Palm Beach County"
+        },
+        {
+            "code": "12101",
+            "fips": "101",
+            "state": "FL",
+            "name": "Pasco County"
+        },
+        {
+            "code": "12103",
+            "fips": "103",
+            "state": "FL",
+            "name": "Pinellas County"
+        },
+        {
+            "code": "12105",
+            "fips": "105",
+            "state": "FL",
+            "name": "Polk County"
+        },
+        {
+            "code": "12107",
+            "fips": "107",
+            "state": "FL",
+            "name": "Putnam County"
+        },
+        {
+            "code": "12113",
+            "fips": "113",
+            "state": "FL",
+            "name": "Santa Rosa County"
+        },
+        {
+            "code": "12115",
+            "fips": "115",
+            "state": "FL",
+            "name": "Sarasota County"
+        },
+        {
+            "code": "12117",
+            "fips": "117",
+            "state": "FL",
+            "name": "Seminole County"
+        },
+        {
+            "code": "12109",
+            "fips": "109",
+            "state": "FL",
+            "name": "Saint Johns County"
+        },
+        {
+            "code": "12111",
+            "fips": "111",
+            "state": "FL",
+            "name": "Saint Lucie County"
+        },
+        {
+            "code": "12119",
+            "fips": "119",
+            "state": "FL",
+            "name": "Sumter County"
+        },
+        {
+            "code": "12121",
+            "fips": "121",
+            "state": "FL",
+            "name": "Suwannee County"
+        },
+        {
+            "code": "12123",
+            "fips": "123",
+            "state": "FL",
+            "name": "Taylor County"
+        },
+        {
+            "code": "12125",
+            "fips": "125",
+            "state": "FL",
+            "name": "Union County"
+        },
+        {
+            "code": "12127",
+            "fips": "127",
+            "state": "FL",
+            "name": "Volusia County"
+        },
+        {
+            "code": "12129",
+            "fips": "129",
+            "state": "FL",
+            "name": "Wakulla County"
+        },
+        {
+            "code": "12131",
+            "fips": "131",
+            "state": "FL",
+            "name": "Walton County"
+        },
+        {
+            "code": "12133",
+            "fips": "133",
+            "state": "FL",
+            "name": "Washington County"
+        }
+    ]
+}

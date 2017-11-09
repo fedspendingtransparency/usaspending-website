@@ -1,0 +1,24 @@
+{
+    "districts": [
+        {
+            "code": "0501",
+            "district": "01",
+            "name": "AR-01"
+        },
+        {
+            "code": "0502",
+            "district": "02",
+            "name": "AR-02"
+        },
+        {
+            "code": "0503",
+            "district": "03",
+            "name": "AR-03"
+        },
+        {
+            "code": "0504",
+            "district": "04",
+            "name": "AR-04"
+        }
+    ]
+}

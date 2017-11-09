@@ -1,0 +1,340 @@
+{
+    "counties": [
+        {
+            "code": "30001",
+            "fips": "001",
+            "state": "MT",
+            "name": "Beaverhead County"
+        },
+        {
+            "code": "30003",
+            "fips": "003",
+            "state": "MT",
+            "name": "Big Horn County"
+        },
+        {
+            "code": "30005",
+            "fips": "005",
+            "state": "MT",
+            "name": "Blaine County"
+        },
+        {
+            "code": "30007",
+            "fips": "007",
+            "state": "MT",
+            "name": "Broadwater County"
+        },
+        {
+            "code": "30009",
+            "fips": "009",
+            "state": "MT",
+            "name": "Carbon County"
+        },
+        {
+            "code": "30011",
+            "fips": "011",
+            "state": "MT",
+            "name": "Carter County"
+        },
+        {
+            "code": "30013",
+            "fips": "013",
+            "state": "MT",
+            "name": "Cascade County"
+        },
+        {
+            "code": "30015",
+            "fips": "015",
+            "state": "MT",
+            "name": "Chouteau County"
+        },
+        {
+            "code": "30017",
+            "fips": "017",
+            "state": "MT",
+            "name": "Custer County"
+        },
+        {
+            "code": "30019",
+            "fips": "019",
+            "state": "MT",
+            "name": "Daniels County"
+        },
+        {
+            "code": "30021",
+            "fips": "021",
+            "state": "MT",
+            "name": "Dawson County"
+        },
+        {
+            "code": "30023",
+            "fips": "023",
+            "state": "MT",
+            "name": "Deer Lodge County"
+        },
+        {
+            "code": "30025",
+            "fips": "025",
+            "state": "MT",
+            "name": "Fallon County"
+        },
+        {
+            "code": "30027",
+            "fips": "027",
+            "state": "MT",
+            "name": "Fergus County"
+        },
+        {
+            "code": "30029",
+            "fips": "029",
+            "state": "MT",
+            "name": "Flathead County"
+        },
+        {
+            "code": "30031",
+            "fips": "031",
+            "state": "MT",
+            "name": "Gallatin County"
+        },
+        {
+            "code": "30033",
+            "fips": "033",
+            "state": "MT",
+            "name": "Garfield County"
+        },
+        {
+            "code": "30035",
+            "fips": "035",
+            "state": "MT",
+            "name": "Glacier County"
+        },
+        {
+            "code": "30037",
+            "fips": "037",
+            "state": "MT",
+            "name": "Golden Valley County"
+        },
+        {
+            "code": "30039",
+            "fips": "039",
+            "state": "MT",
+            "name": "Granite County"
+        },
+        {
+            "code": "30041",
+            "fips": "041",
+            "state": "MT",
+            "name": "Hill County"
+        },
+        {
+            "code": "30043",
+            "fips": "043",
+            "state": "MT",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "30045",
+            "fips": "045",
+            "state": "MT",
+            "name": "Judith Basin County"
+        },
+        {
+            "code": "30047",
+            "fips": "047",
+            "state": "MT",
+            "name": "Lake County"
+        },
+        {
+            "code": "30049",
+            "fips": "049",
+            "state": "MT",
+            "name": "Lewis and Clark County"
+        },
+        {
+            "code": "30051",
+            "fips": "051",
+            "state": "MT",
+            "name": "Liberty County"
+        },
+        {
+            "code": "30053",
+            "fips": "053",
+            "state": "MT",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "30057",
+            "fips": "057",
+            "state": "MT",
+            "name": "Madison County"
+        },
+        {
+            "code": "30055",
+            "fips": "055",
+            "state": "MT",
+            "name": "McCone County"
+        },
+        {
+            "code": "30059",
+            "fips": "059",
+            "state": "MT",
+            "name": "Meagher County"
+        },
+        {
+            "code": "30061",
+            "fips": "061",
+            "state": "MT",
+            "name": "Mineral County"
+        },
+        {
+            "code": "30063",
+            "fips": "063",
+            "state": "MT",
+            "name": "Missoula County"
+        },
+        {
+            "code": "30065",
+            "fips": "065",
+            "state": "MT",
+            "name": "Musselshell County"
+        },
+        {
+            "code": "30067",
+            "fips": "067",
+            "state": "MT",
+            "name": "Park County"
+        },
+        {
+            "code": "30069",
+            "fips": "069",
+            "state": "MT",
+            "name": "Petroleum County"
+        },
+        {
+            "code": "30071",
+            "fips": "071",
+            "state": "MT",
+            "name": "Phillips County"
+        },
+        {
+            "code": "30073",
+            "fips": "073",
+            "state": "MT",
+            "name": "Pondera County"
+        },
+        {
+            "code": "30075",
+            "fips": "075",
+            "state": "MT",
+            "name": "Powder River County"
+        },
+        {
+            "code": "30077",
+            "fips": "077",
+            "state": "MT",
+            "name": "Powell County"
+        },
+        {
+            "code": "30079",
+            "fips": "079",
+            "state": "MT",
+            "name": "Prairie County"
+        },
+        {
+            "code": "30081",
+            "fips": "081",
+            "state": "MT",
+            "name": "Ravalli County"
+        },
+        {
+            "code": "30083",
+            "fips": "083",
+            "state": "MT",
+            "name": "Richland County"
+        },
+        {
+            "code": "30085",
+            "fips": "085",
+            "state": "MT",
+            "name": "Roosevelt County"
+        },
+        {
+            "code": "30087",
+            "fips": "087",
+            "state": "MT",
+            "name": "Rosebud County"
+        },
+        {
+            "code": "30089",
+            "fips": "089",
+            "state": "MT",
+            "name": "Sanders County"
+        },
+        {
+            "code": "30091",
+            "fips": "091",
+            "state": "MT",
+            "name": "Sheridan County"
+        },
+        {
+            "code": "30093",
+            "fips": "093",
+            "state": "MT",
+            "name": "Silver Bow County"
+        },
+        {
+            "code": "30095",
+            "fips": "095",
+            "state": "MT",
+            "name": "Stillwater County"
+        },
+        {
+            "code": "30097",
+            "fips": "097",
+            "state": "MT",
+            "name": "Sweet Grass County"
+        },
+        {
+            "code": "30099",
+            "fips": "099",
+            "state": "MT",
+            "name": "Teton County"
+        },
+        {
+            "code": "30101",
+            "fips": "101",
+            "state": "MT",
+            "name": "Toole County"
+        },
+        {
+            "code": "30103",
+            "fips": "103",
+            "state": "MT",
+            "name": "Treasure County"
+        },
+        {
+            "code": "30105",
+            "fips": "105",
+            "state": "MT",
+            "name": "Valley County"
+        },
+        {
+            "code": "30107",
+            "fips": "107",
+            "state": "MT",
+            "name": "Wheatland County"
+        },
+        {
+            "code": "30109",
+            "fips": "109",
+            "state": "MT",
+            "name": "Wibaux County"
+        },
+        {
+            "code": "30111",
+            "fips": "111",
+            "state": "MT",
+            "name": "Yellowstone County"
+        }
+    ]
+}

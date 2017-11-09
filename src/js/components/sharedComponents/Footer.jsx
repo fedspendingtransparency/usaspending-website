@@ -52,9 +52,9 @@ export default class Footer extends React.Component {
                                 </div>
                                 <ul className="links">
                                     <li>
-                                        <a href="#/faq">
-                                            FAQs
-                                        </a>
+                                        <FooterExternalLink
+                                            link="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-"
+                                            title="FAQs" />
                                     </li>
                                     <li>
                                         <a href="mailto:usaspending.help-submitonly@fiscal.treasury.gov?subject=Contact%20Us">
@@ -63,7 +63,7 @@ export default class Footer extends React.Component {
                                     </li>
                                     <li>
                                         <FooterExternalLink
-                                            link="https://usaspending-help.zendesk.com/hc/en-us"
+                                            link="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
                                             title="Community" />
                                     </li>
                                 </ul>

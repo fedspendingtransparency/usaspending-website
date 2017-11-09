@@ -1,0 +1,19 @@
+{
+    "districts": [
+        {
+            "code": "3501",
+            "district": "01",
+            "name": "NM-01"
+        },
+        {
+            "code": "3502",
+            "district": "02",
+            "name": "NM-02"
+        },
+        {
+            "code": "3503",
+            "district": "03",
+            "name": "NM-03"
+        }
+    ]
+}

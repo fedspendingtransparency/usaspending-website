@@ -1,0 +1,28 @@
+{
+    "counties": [
+        {
+            "code": "64002",
+            "fips": "002",
+            "state": "FM",
+            "name": "State of Chuuk"
+        },
+        {
+            "code": "64005",
+            "fips": "005",
+            "state": "FM",
+            "name": "State of Kosrae"
+        },
+        {
+            "code": "64040",
+            "fips": "040",
+            "state": "FM",
+            "name": "State of Pohnpei"
+        },
+        {
+            "code": "64060",
+            "fips": "060",
+            "state": "FM",
+            "name": "State of Yap"
+        }
+    ]
+}

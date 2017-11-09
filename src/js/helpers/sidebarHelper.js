@@ -5,7 +5,7 @@
 /* eslint-disable default-export */
 export const filterHasSelections = (reduxFilters, filter) => {
     switch (filter) {
-        case 'Search':
+        case 'Keyword':
             if (reduxFilters.keyword !== '') {
                 return true;
             }
@@ -22,25 +22,25 @@ export const filterHasSelections = (reduxFilters, filter) => {
                 return true;
             }
             return false;
-        case 'Agencies':
+        case 'Agency':
             if (reduxFilters.selectedFundingAgencies.toArray().length > 0
                 || reduxFilters.selectedAwardingAgencies.toArray().length > 0) {
                 return true;
             }
             return false;
-        case 'Recipients':
-            if (reduxFilters.selectedRecipients.toArray().length > 0
-                || (reduxFilters.recipientDomesticForeign !== ''
-                && reduxFilters.recipientDomesticForeign !== 'all')
-                || reduxFilters.selectedRecipientLocations.toArray().length > 0
-                || reduxFilters.recipientType.toArray().length > 0) {
+        case 'Recipient':
+            if (reduxFilters.selectedRecipients.toArray().length > 0) {
                 return true;
             }
             return false;
-        case 'Place of Performance':
+        case 'Recipient Type':
+            if (reduxFilters.recipientType.toArray().length > 0) {
+                return true;
+            }
+            return false;
+        case 'Location':
             if (reduxFilters.selectedLocations.toArray().length > 0
-                || (reduxFilters.locationDomesticForeign !== ''
-                && reduxFilters.locationDomesticForeign !== 'all')) {
+                || reduxFilters.selectedRecipientLocations.toArray().length > 0) {
                 return true;
             }
             return false;

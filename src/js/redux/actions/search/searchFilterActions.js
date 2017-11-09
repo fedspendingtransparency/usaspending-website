@@ -49,6 +49,16 @@ export const updateDomesticForeignSelection = (state) => ({
     selection: state
 });
 
+export const addPOPLocationObject = (state) => ({
+    type: 'ADD_POP_LOCATION_OBJECT',
+    location: state
+});
+
+export const addRecipientLocationObject = (state) => ({
+    type: 'ADD_RECIPIENT_LOCATION_OBJECT',
+    location: state
+});
+
 // Agency Filter
 
 export const updateSelectedAwardingAgencies = (state) => ({

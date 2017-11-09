@@ -30,7 +30,6 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx?$/,
-                include: /src(\/|\\)js/,
                 exclude: /node_modules/,
                 loader: 'babel-loader', // the babel loader tells webpack to compile JS/JSX files using Babel
                 query: {
@@ -77,7 +76,7 @@ module.exports = {
                 })
             },
             {
-                include: /src(\/|\\)(fonts|graphics|img)/,
+                include: /src(\/|\\)(fonts|graphics|img|data)/,
                 loader: 'file-loader',
                 query: {
                     name: '[path][name].[ext]'

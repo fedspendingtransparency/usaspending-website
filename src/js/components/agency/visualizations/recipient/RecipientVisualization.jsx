@@ -24,7 +24,7 @@ const propTypes = {
     page: PropTypes.number,
     isLastPage: PropTypes.bool,
     changePage: PropTypes.func,
-    asOfDate: PropTypes.string
+    lastUpdate: PropTypes.string
 };
 
 
@@ -101,7 +101,7 @@ export default class RecipientVisualization extends React.Component {
                         ref={(hr) => {
                             this.sectionHr = hr;
                         }} />
-                    <em>FY {this.props.activeFY} data reported through {this.props.asOfDate}</em>
+                    <em>FY {this.props.activeFY} data reported through {this.props.lastUpdate}</em>
                 </div>
                 <div className="agency-callout-description">
                     {`A primary way agencies implement their programs is by awarding money to \

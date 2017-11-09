@@ -1,0 +1,28 @@
+{
+    "counties": [
+        {
+            "code": "69085",
+            "fips": "085",
+            "state": "MP",
+            "name": "Municipality of Northern Islands"
+        },
+        {
+            "code": "69100",
+            "fips": "100",
+            "state": "MP",
+            "name": "Municipality of Rota"
+        },
+        {
+            "code": "69110",
+            "fips": "110",
+            "state": "MP",
+            "name": "Municipality of Saipan"
+        },
+        {
+            "code": "69120",
+            "fips": "120",
+            "state": "MP",
+            "name": "Municipality of Tinian"
+        }
+    ]
+}

@@ -3,7 +3,6 @@
  * Created by michaelbray on 8/7/17.
  */
 
-import { concat } from 'lodash';
 import { rootKeys, timePeriodKeys, agencyKeys, awardAmountKeys }
     from 'dataMapping/search/awardsOperationKeys';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
@@ -155,9 +154,9 @@ class SearchAwardsOperation {
         }
 
         if (this.selectedRecipientLocations.length > 0) {
-            let locationSet = [];
+            const locationSet = [];
             this.selectedRecipientLocations.forEach((location) => {
-                locationSet = concat(locationSet, location.matched_ids);
+                locationSet.push(location.filter);
             });
 
             filters[rootKeys.recipientLocation] = locationSet;
@@ -169,9 +168,9 @@ class SearchAwardsOperation {
 
         // Add Locations
         if (this.selectedLocations.length > 0) {
-            let locationSet = [];
+            const locationSet = [];
             this.selectedLocations.forEach((location) => {
-                locationSet = concat(locationSet, location.matched_ids);
+                locationSet.push(location.filter);
             });
 
             filters[rootKeys.placeOfPerformance] = locationSet;
