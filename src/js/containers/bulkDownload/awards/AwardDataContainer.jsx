@@ -63,8 +63,9 @@ export class AwardDataContainer extends React.Component {
 
         this.agencyListRequest.promise
             .then((res) => {
-                const agencies = res.data.agencies;
-                this.props.setAgencyList(agencies);
+                const cfoAgencies = res.data.agencies.cfo_agencies;
+                const otherAgencies = res.data.agencies.other_agencies;
+                this.props.setAgencyList(cfoAgencies.concat(otherAgencies));
             })
             .catch((err) => {
                 console.log(err);

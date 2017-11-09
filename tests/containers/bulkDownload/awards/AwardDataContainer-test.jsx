@@ -41,7 +41,8 @@ describe('AwardDataContainer', () => {
 
             container.instance().setAgencyList();
 
-            expect(mockActions.setAgencyList).toHaveBeenCalledWith(mockAgencies);
+            expect(mockActions.setAgencyList).toHaveBeenCalledWith(
+                mockAgencies.cfo_agencies.concat(mockAgencies.other_agencies));
         });
     });
 });
