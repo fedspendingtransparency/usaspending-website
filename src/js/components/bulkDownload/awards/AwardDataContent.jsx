@@ -57,7 +57,7 @@ export default class AwardDataContent extends React.Component {
 
         const currentAgencies = {
             agency: awards.filters.agency,
-            subAgency: awards.filters.subAgency
+            subAgency: awards.filters.sub_agency
         };
 
         const formValidation = (

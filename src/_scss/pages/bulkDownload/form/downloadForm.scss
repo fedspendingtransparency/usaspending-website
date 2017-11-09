@@ -1,5 +1,6 @@
 .download-form {
     .filter-section {
+        padding-bottom: rem(30);
         h5.filter-section-title {
             font-weight: 400;
             span {
@@ -33,17 +34,7 @@
                margin-right: rem(5);
             }
         }
-        .select-label {
-            display: block;
-            text-transform: uppercase;
-            font-size: rem(13);
-            line-height: rem(17);
-            margin: rem(15) 0 rem(5) 0;
-        }
-        .agency-select {
-            display: block;
-            margin-bottom: rem(15);
-        }
+        @import "agencyPicker";
         @import "radioButtons";
         @import "dateRange";
     }

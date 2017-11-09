@@ -1,0 +1,29 @@
+.agency-picker, .sub-agency-picker {
+    @import 'elements/_titleSelector';
+    .select-label {
+        display: block;
+        clear: both;
+        text-transform: uppercase;
+        font-size: rem(13);
+        line-height: rem(17);
+        margin-top: rem(15);
+    }
+    .agency-select, .sub-agency-select {
+        display: block;
+        clear: both;
+        float: none;
+        margin-bottom: rem(30);
+        .selected-button {
+            color: $color-gray;
+            font-size: rem(21);
+            &.disabled {
+                color: $color-gray-light;
+                .arrow-icon {
+                    svg {
+                        fill: $color-gray-light;
+                    }
+                }
+            }
+        }
+    }
+}
