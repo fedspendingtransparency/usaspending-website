@@ -17,22 +17,29 @@
         }
 
         .sidebar-link {
-            @include button-unstyled;
-            display: block;
-            color: #323A45;
-            font-size: rem(19);
-            font-weight: 600;
             padding: rem(10);
             margin: rem(5);
             border-left: solid rem(3) transparent;
             @include transition(all 0.15s ease-in-out);
-
+            button {
+                @include button-unstyled;
+                display: block;
+                color: #323A45;
+                font-size: rem(19);
+                font-weight: 400;
+            }
+            
             &.active {
-                border-left: solid rem(3) $color-primary;
+                border-left: solid rem(4) $color-primary;
+                border-bottom: solid rem(1) $color-gray-light;
+                button {
+                    font-weight: 600;
+                }
             }
 
             &.disabled {
                 color: $color-gray-light;
+                font-size: rem(19);
             }
         }
     }

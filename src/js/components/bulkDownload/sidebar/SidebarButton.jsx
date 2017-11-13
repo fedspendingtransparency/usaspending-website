@@ -31,24 +31,28 @@ export default class SidebarButton extends React.Component {
             active = 'active';
         }
 
+        let disabled = '';
+        if (this.props.disabled) {
+            disabled = 'disabled';
+        }
+
         let button = (
             <button
-                className={`sidebar-link ${active}`}
                 onClick={this.clickedButton}>
                 {this.props.label}
             </button>
         );
         if (this.props.disabled) {
             button = (
-                <div
-                    className="sidebar-link disabled">
+                <div>
                     {this.props.label}
                 </div>
             );
         }
 
         return (
-            <div>
+            <div
+                className={`sidebar-link ${active} ${disabled}`}>
                 {button}
             </div>
         );

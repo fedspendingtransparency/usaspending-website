@@ -9,13 +9,13 @@
             }
             .icon {
                 float: left;
-                margin-right: rem(15);
-                width: rem(20);
-                height: rem(20);
+                margin-right: rem(10);
+                width: rem(18);
+                height: rem(18);
 
                 svg {
-                    width: rem(25);
-                    height: rem(25);
+                    width: rem(18);
+                    height: rem(18);
                     fill: $color-green;
                 }
                 &.invalid {
