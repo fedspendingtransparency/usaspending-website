@@ -6,6 +6,7 @@
 import { rootKeys, timePeriodKeys, agencyKeys, awardAmountKeys }
     from 'dataMapping/search/awardsOperationKeys';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import { concat } from 'lodash';
 
 class SearchAwardsOperation {
     constructor() {
@@ -145,8 +146,15 @@ class SearchAwardsOperation {
 
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
         if (this.selectedRecipients.length > 0) {
-            filters[rootKeys.recipients] = this.selectedRecipients.map(
-                (recipient) => recipient.legal_entity_id);
+            let recipients = [];
+
+            this.selectedRecipients.forEach((recipient) => {
+                const tempRecipients = recipients;
+
+                recipients = concat(tempRecipients, recipient.recipient_id_list);
+            });
+
+            filters[rootKeys.recipients] = recipients;
         }
 
         if (this.recipientDomesticForeign !== '' && this.recipientDomesticForeign !== 'all') {
