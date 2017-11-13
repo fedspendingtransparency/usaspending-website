@@ -35,6 +35,7 @@
 
             .icon {
                 @include flex(0 0 auto);
+                @include align-self(flex-start);
                 width: rem(25);
                 height: rem(25);
                 margin-right: rem(10);
@@ -53,7 +54,7 @@
 
                 a {
                     text-decoration: underline;
-                    color: $color-primary-alt-dark;
+                    color: $color-primary;
                     font-weight: $font-semibold;
 
                     &:hover, &:active {
