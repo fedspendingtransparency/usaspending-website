@@ -232,6 +232,12 @@ export default class TimePeriodFilter extends React.Component {
                         currentStartDate={start}
                         currentEndDate={end}
                         handleDateChange={this.handleDateChange} />
+                    <div className="archive-link-box">
+                        <div className="archive-link-header">
+                            Looking for data before 2008?
+                        </div>
+                        Visit our <a href="/#/bulk_download/archive"> award data archive</a>.
+                    </div>
                 </div>
             </div>
         );
