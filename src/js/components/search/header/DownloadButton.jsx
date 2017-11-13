@@ -67,15 +67,16 @@ export default class DownloadButton extends React.Component {
         }
 
         return (
-            <div className="download-wrap">
+            <div
+                className="download-wrap"
+                onMouseEnter={this.onMouseEnter}
+                onMouseLeave={this.onMouseLeave}>
                 {hover}
                 <button
                     className={`download-button ${disabled}`}
                     title="Download your data"
                     aria-label="Download your data"
-                    onClick={this.onClick}
-                    onMouseEnter={this.onMouseEnter}
-                    onMouseLeave={this.onMouseLeave}>
+                    onClick={this.onClick}>
                     {downloadIcon}
                     <div className="label">
                         Download

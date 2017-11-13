@@ -71,6 +71,11 @@ export default class Footer extends React.Component {
                                 </div>
                                 <ul className="links">
                                     <li>
+                                        <a href="#/bulk_download">
+                                            Bulk Download
+                                        </a>
+                                    </li>
+                                    <li>
                                         <FooterExternalLink
                                             link="http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/"
                                             title="Raw Agency Files" />
