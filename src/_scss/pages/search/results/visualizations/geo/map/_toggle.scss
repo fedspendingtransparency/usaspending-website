@@ -54,7 +54,7 @@
 
             &.active, &:hover, &:active {
                 font-weight: $font-bold;
-                border-bottom: rem(4px) solid $color-primary-darker;
+                border-bottom: rem(4) solid $color-primary-darker;
             }
 
             &:before {
