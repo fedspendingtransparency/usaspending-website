@@ -86,7 +86,7 @@ export class AwardDataContainer extends React.Component {
 
             // perform the API request
             this.agencyListRequest = BulkDownloadHelper.requestAgenciesList({
-                agency: parseInt(id)
+                agency: parseInt(id, 10)
             });
 
             this.agencyListRequest.promise
