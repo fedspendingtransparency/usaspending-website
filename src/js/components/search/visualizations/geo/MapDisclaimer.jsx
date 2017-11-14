@@ -31,7 +31,7 @@ const MapDisclaimer = (props) => (
                 </button>
             </div>
             <div className="description">
-                We&apos;re currently geocoding all of our international data and will implementing it soon.
+                We&apos;re currently geocoding all of our international data and will be implementing it soon.
             </div>
         </div>
     </div>
