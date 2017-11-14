@@ -125,6 +125,8 @@ export default class MapBox extends React.Component {
         this.map = new MapboxGL.Map({
             container: this.mapDiv,
             style: mapStyle,
+            logoPosition: 'bottom-right',
+            attributionControl: false,
             center: [-98.5795122, 39.2282172],
             zoom: 3.2,
             dragRotate: false // disable 3D view
@@ -132,6 +134,9 @@ export default class MapBox extends React.Component {
 
         // add navigation controls
         this.map.addControl(new MapboxGL.NavigationControl());
+        this.map.addControl(new MapboxGL.AttributionControl({
+            compact: true
+        }));
 
         // disable the compass controls
         this.map.dragRotate.disable();

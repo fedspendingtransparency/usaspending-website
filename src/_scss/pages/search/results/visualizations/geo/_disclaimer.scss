@@ -1,0 +1,76 @@
+.map-disclaimer {
+    position: absolute;
+    bottom: rem(15);
+    right: rem(15);
+
+    width: 80%;
+    @include media($tablet-screen) {
+        width: rem(350);
+    }
+
+    @include display(flex);
+    @include flex-direction(row);
+    @include align-items(center);
+    @include justify-content(center);
+
+    background-color: $color-gold-lightest;
+    border: 1px solid $color-gold-light;
+    box-shadow: $box-shadow;
+    z-index: $z-header - 1;
+
+    padding: rem(10);
+
+    .icon {
+        @include flex(0 0 auto);
+        width: rem(30);
+        height: rem(30);
+        margin-right: rem(10);
+
+        svg {
+            fill: $color-gold;
+            width: rem(30);
+            height: rem(30);                
+        }
+    }
+
+    .content {
+        @include flex(1 1 auto);
+        text-align: left;
+        color: $color-base;
+        font-size: $small-font-size;
+        position: relative;
+
+        .header {
+            @include display(flex);
+            @include flex-direction(row);
+            @include align-items(center);
+            @include justify-content(center);
+
+            margin-bottom: rem(5);
+            @include media($tablet-screen) {
+                height: rem(20);
+                margin-bottom: 0;
+            }
+
+
+            .title {
+                @include flex(1 1 auto);
+                font-weight: $font-semibold;
+            }
+
+            .close {
+                @include flex(0 0 auto);
+                @include button-unstyled;
+
+                width: rem(15);
+                height: rem(15);
+
+                svg {
+                    fill: $color-secondary;
+                    width: rem(10);
+                    height: rem(10);                        
+                }
+            }
+        }
+    }
+}
