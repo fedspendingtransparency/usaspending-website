@@ -33,16 +33,25 @@ export default class AwardDataContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            validDates: false
+            validDates: false,
+            validForm: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setValidDates = this.setValidDates.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.awards !== this.props.awards) {
+            this.validateForm();
+        }
+    }
+
     setValidDates(validDates) {
         this.setState({
             validDates
+        }, () => {
+            this.validateForm();
         });
     }
 
@@ -50,6 +59,21 @@ export default class AwardDataContent extends React.Component {
         e.preventDefault();
 
         this.props.clickedDownload();
+    }
+
+    validateForm() {
+        const awards = this.props.awards;
+
+        const validForm = ((awards.awardLevels.primeAwards || awards.awardLevels.subAwards)
+        && (awards.awardTypes.contracts || awards.awardTypes.grants || awards.awardTypes.directPayments
+        || awards.awardTypes.loans || awards.awardTypes.otherFinancialAssistance)
+        && this.state.validDates && (awards.dateType !== '')
+        && (awards.agency.id !== '')
+        && (awards.fileFormat !== ''));
+
+        this.setState({
+            validForm
+        });
     }
 
     render() {
@@ -60,22 +84,14 @@ export default class AwardDataContent extends React.Component {
             subAgency: awards.subAgency
         };
 
-        const formValidation = (
-            (awards.awardLevels.primeAwards || awards.awardLevels.subAwards)
-                && (awards.awardTypes.contracts || awards.awardTypes.grants || awards.awardTypes.directPayments
-                    || awards.awardTypes.loans || awards.awardTypes.otherFinancialAssistance)
-                && this.state.validDates && (awards.dateType !== '')
-                && (awards.agency.id !== '')
-                && (awards.fileFormat !== '')
-        );
-
         let submitButton = (
             <div className="submit-button disabled">
                 <button disabled>Download</button>
             </div>
         );
 
-        if (formValidation) {
+        console.log(this.state.validForm);
+        if (this.state.validForm) {
             submitButton = (
                 <div className="submit-button">
                     <input type="submit" value="Download" />
