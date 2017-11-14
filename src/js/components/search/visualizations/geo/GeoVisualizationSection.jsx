@@ -23,7 +23,8 @@ const propTypes = {
     total: PropTypes.number
 };
 
-const availableLayers = ['state', 'county', 'congressionalDistrict'];
+// const availableLayers = ['state', 'county', 'congressionalDistrict'];
+const availableLayers = ['state'];
 
 export default class GeoVisualizationSection extends React.Component {
     constructor(props) {
