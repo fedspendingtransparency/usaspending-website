@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as LocationFormatter from 'helpers/locationFormatter';
 import ShownLocation from './ShownLocation';
 
 const propTypes = {
@@ -22,9 +21,9 @@ export default class SelectedLocations extends React.Component {
             const location = entry[1];
             const value = (<ShownLocation
                 location={location}
-                label={LocationFormatter.formatLocation(location)}
+                label={`${location.display.entity.toUpperCase()} | ${location.display.standalone}`}
                 key={key}
-                removeLocation={this.props.removeLocation.bind(null, location)} />);
+                removeLocation={this.props.removeLocation.bind(null, key)} />);
             shownLocations.push(value);
         });
 

@@ -1,0 +1,57 @@
+.download-form {
+    .filter-section {
+        padding-bottom: rem(30);
+        h5.filter-section-title {
+            font-weight: 400;
+            span {
+                color: $color-primary;
+                font-weight: 600;
+            }
+            .icon {
+                float: left;
+                margin-right: rem(10);
+                width: rem(18);
+                height: rem(18);
+
+                svg {
+                    width: rem(18);
+                    height: rem(18);
+                    fill: $color-green;
+                }
+                &.invalid {
+                    svg {
+                        fill: $color-gold;
+                    }
+                }
+            }
+        }
+        .filter-section-content {
+            padding-left: rem(40);
+        }
+        .download-checkbox {
+            padding: rem(10) 0;
+            input {
+               margin-right: rem(5);
+            }
+        }
+        @import "agencyPicker";
+        @import "radioButtons";
+        @import "dateRange";
+    }
+    @import "userSelections";
+    .submit-button {
+        margin: rem(30);
+        button, input {
+            width: 100%;
+            font-size: rem(24);
+            font-weight: 600;
+        }
+        &.disabled {
+            button {
+                background-color: $color-white;
+                color: $color-gray-light;
+                border: solid rem(1) $color-gray-light;
+            }
+        }
+    }
+}

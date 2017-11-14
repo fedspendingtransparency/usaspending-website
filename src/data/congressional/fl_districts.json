@@ -1,0 +1,139 @@
+{
+    "districts": [
+        {
+            "code": "1201",
+            "district": "01",
+            "name": "FL-01"
+        },
+        {
+            "code": "1202",
+            "district": "02",
+            "name": "FL-02"
+        },
+        {
+            "code": "1203",
+            "district": "03",
+            "name": "FL-03"
+        },
+        {
+            "code": "1204",
+            "district": "04",
+            "name": "FL-04"
+        },
+        {
+            "code": "1205",
+            "district": "05",
+            "name": "FL-05"
+        },
+        {
+            "code": "1206",
+            "district": "06",
+            "name": "FL-06"
+        },
+        {
+            "code": "1207",
+            "district": "07",
+            "name": "FL-07"
+        },
+        {
+            "code": "1208",
+            "district": "08",
+            "name": "FL-08"
+        },
+        {
+            "code": "1209",
+            "district": "09",
+            "name": "FL-09"
+        },
+        {
+            "code": "1210",
+            "district": "10",
+            "name": "FL-10"
+        },
+        {
+            "code": "1211",
+            "district": "11",
+            "name": "FL-11"
+        },
+        {
+            "code": "1212",
+            "district": "12",
+            "name": "FL-12"
+        },
+        {
+            "code": "1213",
+            "district": "13",
+            "name": "FL-13"
+        },
+        {
+            "code": "1214",
+            "district": "14",
+            "name": "FL-14"
+        },
+        {
+            "code": "1215",
+            "district": "15",
+            "name": "FL-15"
+        },
+        {
+            "code": "1216",
+            "district": "16",
+            "name": "FL-16"
+        },
+        {
+            "code": "1217",
+            "district": "17",
+            "name": "FL-17"
+        },
+        {
+            "code": "1218",
+            "district": "18",
+            "name": "FL-18"
+        },
+        {
+            "code": "1219",
+            "district": "19",
+            "name": "FL-19"
+        },
+        {
+            "code": "1220",
+            "district": "20",
+            "name": "FL-20"
+        },
+        {
+            "code": "1221",
+            "district": "21",
+            "name": "FL-21"
+        },
+        {
+            "code": "1222",
+            "district": "22",
+            "name": "FL-22"
+        },
+        {
+            "code": "1223",
+            "district": "23",
+            "name": "FL-23"
+        },
+        {
+            "code": "1224",
+            "district": "24",
+            "name": "FL-24"
+        },
+        {
+            "code": "1225",
+            "district": "25",
+            "name": "FL-25"
+        },
+        {
+            "code": "1226",
+            "district": "26",
+            "name": "FL-26"
+        },
+        {
+            "code": "1227",
+            "district": "27",
+            "name": "FL-27"
+        }
+    ]
+}

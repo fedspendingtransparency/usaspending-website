@@ -1,0 +1,106 @@
+{
+    "counties": [
+        {
+            "code": "32510",
+            "fips": "510",
+            "state": "NV",
+            "name": "Carson City"
+        },
+        {
+            "code": "32001",
+            "fips": "001",
+            "state": "NV",
+            "name": "Churchill County"
+        },
+        {
+            "code": "32003",
+            "fips": "003",
+            "state": "NV",
+            "name": "Clark County"
+        },
+        {
+            "code": "32005",
+            "fips": "005",
+            "state": "NV",
+            "name": "Douglas County"
+        },
+        {
+            "code": "32007",
+            "fips": "007",
+            "state": "NV",
+            "name": "Elko County"
+        },
+        {
+            "code": "32009",
+            "fips": "009",
+            "state": "NV",
+            "name": "Esmeralda County"
+        },
+        {
+            "code": "32011",
+            "fips": "011",
+            "state": "NV",
+            "name": "Eureka County"
+        },
+        {
+            "code": "32013",
+            "fips": "013",
+            "state": "NV",
+            "name": "Humboldt County"
+        },
+        {
+            "code": "32015",
+            "fips": "015",
+            "state": "NV",
+            "name": "Lander County"
+        },
+        {
+            "code": "32017",
+            "fips": "017",
+            "state": "NV",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "32019",
+            "fips": "019",
+            "state": "NV",
+            "name": "Lyon County"
+        },
+        {
+            "code": "32021",
+            "fips": "021",
+            "state": "NV",
+            "name": "Mineral County"
+        },
+        {
+            "code": "32023",
+            "fips": "023",
+            "state": "NV",
+            "name": "Nye County"
+        },
+        {
+            "code": "32027",
+            "fips": "027",
+            "state": "NV",
+            "name": "Pershing County"
+        },
+        {
+            "code": "32029",
+            "fips": "029",
+            "state": "NV",
+            "name": "Storey County"
+        },
+        {
+            "code": "32031",
+            "fips": "031",
+            "state": "NV",
+            "name": "Washoe County"
+        },
+        {
+            "code": "32033",
+            "fips": "033",
+            "state": "NV",
+            "name": "White Pine County"
+        }
+    ]
+}

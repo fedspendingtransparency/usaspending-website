@@ -1,0 +1,322 @@
+{
+    "counties": [
+        {
+            "code": "38001",
+            "fips": "001",
+            "state": "ND",
+            "name": "Adams County"
+        },
+        {
+            "code": "38003",
+            "fips": "003",
+            "state": "ND",
+            "name": "Barnes County"
+        },
+        {
+            "code": "38005",
+            "fips": "005",
+            "state": "ND",
+            "name": "Benson County"
+        },
+        {
+            "code": "38007",
+            "fips": "007",
+            "state": "ND",
+            "name": "Billings County"
+        },
+        {
+            "code": "38009",
+            "fips": "009",
+            "state": "ND",
+            "name": "Bottineau County"
+        },
+        {
+            "code": "38011",
+            "fips": "011",
+            "state": "ND",
+            "name": "Bowman County"
+        },
+        {
+            "code": "38013",
+            "fips": "013",
+            "state": "ND",
+            "name": "Burke County"
+        },
+        {
+            "code": "38015",
+            "fips": "015",
+            "state": "ND",
+            "name": "Burleigh County"
+        },
+        {
+            "code": "38017",
+            "fips": "017",
+            "state": "ND",
+            "name": "Cass County"
+        },
+        {
+            "code": "38019",
+            "fips": "019",
+            "state": "ND",
+            "name": "Cavalier County"
+        },
+        {
+            "code": "38021",
+            "fips": "021",
+            "state": "ND",
+            "name": "Dickey County"
+        },
+        {
+            "code": "38023",
+            "fips": "023",
+            "state": "ND",
+            "name": "Divide County"
+        },
+        {
+            "code": "38025",
+            "fips": "025",
+            "state": "ND",
+            "name": "Dunn County"
+        },
+        {
+            "code": "38027",
+            "fips": "027",
+            "state": "ND",
+            "name": "Eddy County"
+        },
+        {
+            "code": "38029",
+            "fips": "029",
+            "state": "ND",
+            "name": "Emmons County"
+        },
+        {
+            "code": "38031",
+            "fips": "031",
+            "state": "ND",
+            "name": "Foster County"
+        },
+        {
+            "code": "38033",
+            "fips": "033",
+            "state": "ND",
+            "name": "Golden Valley County"
+        },
+        {
+            "code": "38035",
+            "fips": "035",
+            "state": "ND",
+            "name": "Grand Forks County"
+        },
+        {
+            "code": "38037",
+            "fips": "037",
+            "state": "ND",
+            "name": "Grant County"
+        },
+        {
+            "code": "38039",
+            "fips": "039",
+            "state": "ND",
+            "name": "Griggs County"
+        },
+        {
+            "code": "38041",
+            "fips": "041",
+            "state": "ND",
+            "name": "Hettinger County"
+        },
+        {
+            "code": "38043",
+            "fips": "043",
+            "state": "ND",
+            "name": "Kidder County"
+        },
+        {
+            "code": "38045",
+            "fips": "045",
+            "state": "ND",
+            "name": "LaMoure County"
+        },
+        {
+            "code": "38047",
+            "fips": "047",
+            "state": "ND",
+            "name": "Logan County"
+        },
+        {
+            "code": "38049",
+            "fips": "049",
+            "state": "ND",
+            "name": "McHenry County"
+        },
+        {
+            "code": "38051",
+            "fips": "051",
+            "state": "ND",
+            "name": "McIntosh County"
+        },
+        {
+            "code": "38053",
+            "fips": "053",
+            "state": "ND",
+            "name": "McKenzie County"
+        },
+        {
+            "code": "38055",
+            "fips": "055",
+            "state": "ND",
+            "name": "McLean County"
+        },
+        {
+            "code": "38057",
+            "fips": "057",
+            "state": "ND",
+            "name": "Mercer County"
+        },
+        {
+            "code": "38059",
+            "fips": "059",
+            "state": "ND",
+            "name": "Morton County"
+        },
+        {
+            "code": "38061",
+            "fips": "061",
+            "state": "ND",
+            "name": "Mountrail County"
+        },
+        {
+            "code": "38063",
+            "fips": "063",
+            "state": "ND",
+            "name": "Nelson County"
+        },
+        {
+            "code": "38065",
+            "fips": "065",
+            "state": "ND",
+            "name": "Oliver County"
+        },
+        {
+            "code": "38067",
+            "fips": "067",
+            "state": "ND",
+            "name": "Pembina County"
+        },
+        {
+            "code": "38069",
+            "fips": "069",
+            "state": "ND",
+            "name": "Pierce County"
+        },
+        {
+            "code": "38071",
+            "fips": "071",
+            "state": "ND",
+            "name": "Ramsey County"
+        },
+        {
+            "code": "38073",
+            "fips": "073",
+            "state": "ND",
+            "name": "Ransom County"
+        },
+        {
+            "code": "38075",
+            "fips": "075",
+            "state": "ND",
+            "name": "Renville County"
+        },
+        {
+            "code": "38077",
+            "fips": "077",
+            "state": "ND",
+            "name": "Richland County"
+        },
+        {
+            "code": "38079",
+            "fips": "079",
+            "state": "ND",
+            "name": "Rolette County"
+        },
+        {
+            "code": "38081",
+            "fips": "081",
+            "state": "ND",
+            "name": "Sargent County"
+        },
+        {
+            "code": "38083",
+            "fips": "083",
+            "state": "ND",
+            "name": "Sheridan County"
+        },
+        {
+            "code": "38085",
+            "fips": "085",
+            "state": "ND",
+            "name": "Sioux County"
+        },
+        {
+            "code": "38087",
+            "fips": "087",
+            "state": "ND",
+            "name": "Slope County"
+        },
+        {
+            "code": "38089",
+            "fips": "089",
+            "state": "ND",
+            "name": "Stark County"
+        },
+        {
+            "code": "38091",
+            "fips": "091",
+            "state": "ND",
+            "name": "Steele County"
+        },
+        {
+            "code": "38093",
+            "fips": "093",
+            "state": "ND",
+            "name": "Stutsman County"
+        },
+        {
+            "code": "38095",
+            "fips": "095",
+            "state": "ND",
+            "name": "Towner County"
+        },
+        {
+            "code": "38097",
+            "fips": "097",
+            "state": "ND",
+            "name": "Traill County"
+        },
+        {
+            "code": "38099",
+            "fips": "099",
+            "state": "ND",
+            "name": "Walsh County"
+        },
+        {
+            "code": "38101",
+            "fips": "101",
+            "state": "ND",
+            "name": "Ward County"
+        },
+        {
+            "code": "38103",
+            "fips": "103",
+            "state": "ND",
+            "name": "Wells County"
+        },
+        {
+            "code": "38105",
+            "fips": "105",
+            "state": "ND",
+            "name": "Williams County"
+        }
+    ]
+}

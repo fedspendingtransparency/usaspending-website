@@ -165,6 +165,7 @@ ${recipient}`;
     render() {
         return (
             <RecipientVisualization
+                activeFY={this.props.activeFY}
                 page={this.state.page}
                 isLastPage={this.state.isLastPage}
                 dataSeries={this.state.dataSeries}

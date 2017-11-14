@@ -1,0 +1,472 @@
+{
+    "counties": [
+        {
+            "code": "72001",
+            "fips": "001",
+            "state": "PR",
+            "name": "Adjuntas Municipio"
+        },
+        {
+            "code": "72003",
+            "fips": "003",
+            "state": "PR",
+            "name": "Aguada Municipio"
+        },
+        {
+            "code": "72005",
+            "fips": "005",
+            "state": "PR",
+            "name": "Aguadilla Municipio"
+        },
+        {
+            "code": "72007",
+            "fips": "007",
+            "state": "PR",
+            "name": "Aguas Buenas Municipio"
+        },
+        {
+            "code": "72009",
+            "fips": "009",
+            "state": "PR",
+            "name": "Aibonito Municipio"
+        },
+        {
+            "code": "72013",
+            "fips": "013",
+            "state": "PR",
+            "name": "Arecibo Municipio"
+        },
+        {
+            "code": "72015",
+            "fips": "015",
+            "state": "PR",
+            "name": "Arroyo Municipio"
+        },
+        {
+            "code": "72011",
+            "fips": "011",
+            "state": "PR",
+            "name": "Añasco Municipio"
+        },
+        {
+            "code": "72017",
+            "fips": "017",
+            "state": "PR",
+            "name": "Barceloneta Municipio"
+        },
+        {
+            "code": "72019",
+            "fips": "019",
+            "state": "PR",
+            "name": "Barranquitas Municipio"
+        },
+        {
+            "code": "72021",
+            "fips": "021",
+            "state": "PR",
+            "name": "Bayamón Municipio"
+        },
+        {
+            "code": "72023",
+            "fips": "023",
+            "state": "PR",
+            "name": "Cabo Rojo Municipio"
+        },
+        {
+            "code": "72025",
+            "fips": "025",
+            "state": "PR",
+            "name": "Caguas Municipio"
+        },
+        {
+            "code": "72027",
+            "fips": "027",
+            "state": "PR",
+            "name": "Camuy Municipio"
+        },
+        {
+            "code": "72029",
+            "fips": "029",
+            "state": "PR",
+            "name": "Canóvanas Municipio"
+        },
+        {
+            "code": "72031",
+            "fips": "031",
+            "state": "PR",
+            "name": "Carolina Municipio"
+        },
+        {
+            "code": "72033",
+            "fips": "033",
+            "state": "PR",
+            "name": "Cataño Municipio"
+        },
+        {
+            "code": "72035",
+            "fips": "035",
+            "state": "PR",
+            "name": "Cayey Municipio"
+        },
+        {
+            "code": "72037",
+            "fips": "037",
+            "state": "PR",
+            "name": "Ceiba Municipio"
+        },
+        {
+            "code": "72039",
+            "fips": "039",
+            "state": "PR",
+            "name": "Ciales Municipio"
+        },
+        {
+            "code": "72041",
+            "fips": "041",
+            "state": "PR",
+            "name": "Cidra Municipio"
+        },
+        {
+            "code": "72043",
+            "fips": "043",
+            "state": "PR",
+            "name": "Coamo Municipio"
+        },
+        {
+            "code": "72045",
+            "fips": "045",
+            "state": "PR",
+            "name": "Comerío Municipio"
+        },
+        {
+            "code": "72047",
+            "fips": "047",
+            "state": "PR",
+            "name": "Corozal Municipio"
+        },
+        {
+            "code": "72049",
+            "fips": "049",
+            "state": "PR",
+            "name": "Culebra Municipio"
+        },
+        {
+            "code": "72051",
+            "fips": "051",
+            "state": "PR",
+            "name": "Dorado Municipio"
+        },
+        {
+            "code": "72053",
+            "fips": "053",
+            "state": "PR",
+            "name": "Fajardo Municipio"
+        },
+        {
+            "code": "72054",
+            "fips": "054",
+            "state": "PR",
+            "name": "Florida Municipio"
+        },
+        {
+            "code": "72057",
+            "fips": "057",
+            "state": "PR",
+            "name": "Guayama Municipio"
+        },
+        {
+            "code": "72059",
+            "fips": "059",
+            "state": "PR",
+            "name": "Guayanilla Municipio"
+        },
+        {
+            "code": "72061",
+            "fips": "061",
+            "state": "PR",
+            "name": "Guaynabo Municipio"
+        },
+        {
+            "code": "72063",
+            "fips": "063",
+            "state": "PR",
+            "name": "Gurabo Municipio"
+        },
+        {
+            "code": "72055",
+            "fips": "055",
+            "state": "PR",
+            "name": "Guánica Municipio"
+        },
+        {
+            "code": "72065",
+            "fips": "065",
+            "state": "PR",
+            "name": "Hatillo Municipio"
+        },
+        {
+            "code": "72067",
+            "fips": "067",
+            "state": "PR",
+            "name": "Hormigueros Municipio"
+        },
+        {
+            "code": "72069",
+            "fips": "069",
+            "state": "PR",
+            "name": "Humacao Municipio"
+        },
+        {
+            "code": "72071",
+            "fips": "071",
+            "state": "PR",
+            "name": "Isabela Municipio"
+        },
+        {
+            "code": "72073",
+            "fips": "073",
+            "state": "PR",
+            "name": "Jayuya Municipio"
+        },
+        {
+            "code": "72075",
+            "fips": "075",
+            "state": "PR",
+            "name": "Juana Díaz Municipio"
+        },
+        {
+            "code": "72077",
+            "fips": "077",
+            "state": "PR",
+            "name": "Juncos Municipio"
+        },
+        {
+            "code": "72079",
+            "fips": "079",
+            "state": "PR",
+            "name": "Lajas Municipio"
+        },
+        {
+            "code": "72081",
+            "fips": "081",
+            "state": "PR",
+            "name": "Lares Municipio"
+        },
+        {
+            "code": "72083",
+            "fips": "083",
+            "state": "PR",
+            "name": "Las Marías Municipio"
+        },
+        {
+            "code": "72085",
+            "fips": "085",
+            "state": "PR",
+            "name": "Las Piedras Municipio"
+        },
+        {
+            "code": "72087",
+            "fips": "087",
+            "state": "PR",
+            "name": "Loíza Municipio"
+        },
+        {
+            "code": "72089",
+            "fips": "089",
+            "state": "PR",
+            "name": "Luquillo Municipio"
+        },
+        {
+            "code": "72091",
+            "fips": "091",
+            "state": "PR",
+            "name": "Manatí Municipio"
+        },
+        {
+            "code": "72093",
+            "fips": "093",
+            "state": "PR",
+            "name": "Maricao Municipio"
+        },
+        {
+            "code": "72095",
+            "fips": "095",
+            "state": "PR",
+            "name": "Maunabo Municipio"
+        },
+        {
+            "code": "72097",
+            "fips": "097",
+            "state": "PR",
+            "name": "Mayagüez Municipio"
+        },
+        {
+            "code": "72099",
+            "fips": "099",
+            "state": "PR",
+            "name": "Moca Municipio"
+        },
+        {
+            "code": "72101",
+            "fips": "101",
+            "state": "PR",
+            "name": "Morovis Municipio"
+        },
+        {
+            "code": "72103",
+            "fips": "103",
+            "state": "PR",
+            "name": "Naguabo Municipio"
+        },
+        {
+            "code": "72105",
+            "fips": "105",
+            "state": "PR",
+            "name": "Naranjito Municipio"
+        },
+        {
+            "code": "72107",
+            "fips": "107",
+            "state": "PR",
+            "name": "Orocovis Municipio"
+        },
+        {
+            "code": "72109",
+            "fips": "109",
+            "state": "PR",
+            "name": "Patillas Municipio"
+        },
+        {
+            "code": "72111",
+            "fips": "111",
+            "state": "PR",
+            "name": "Peñuelas Municipio"
+        },
+        {
+            "code": "72113",
+            "fips": "113",
+            "state": "PR",
+            "name": "Ponce Municipio"
+        },
+        {
+            "code": "72115",
+            "fips": "115",
+            "state": "PR",
+            "name": "Quebradillas Municipio"
+        },
+        {
+            "code": "72117",
+            "fips": "117",
+            "state": "PR",
+            "name": "Rincón Municipio"
+        },
+        {
+            "code": "72119",
+            "fips": "119",
+            "state": "PR",
+            "name": "Río Grande Municipio"
+        },
+        {
+            "code": "72121",
+            "fips": "121",
+            "state": "PR",
+            "name": "Sabana Grande Municipio"
+        },
+        {
+            "code": "72123",
+            "fips": "123",
+            "state": "PR",
+            "name": "Salinas Municipio"
+        },
+        {
+            "code": "72125",
+            "fips": "125",
+            "state": "PR",
+            "name": "San Germán Municipio"
+        },
+        {
+            "code": "72127",
+            "fips": "127",
+            "state": "PR",
+            "name": "San Juan Municipio"
+        },
+        {
+            "code": "72129",
+            "fips": "129",
+            "state": "PR",
+            "name": "San Lorenzo Municipio"
+        },
+        {
+            "code": "72131",
+            "fips": "131",
+            "state": "PR",
+            "name": "San Sebastián Municipio"
+        },
+        {
+            "code": "72133",
+            "fips": "133",
+            "state": "PR",
+            "name": "Santa Isabel Municipio"
+        },
+        {
+            "code": "72135",
+            "fips": "135",
+            "state": "PR",
+            "name": "Toa Alta Municipio"
+        },
+        {
+            "code": "72137",
+            "fips": "137",
+            "state": "PR",
+            "name": "Toa Baja Municipio"
+        },
+        {
+            "code": "72139",
+            "fips": "139",
+            "state": "PR",
+            "name": "Trujillo Alto Municipio"
+        },
+        {
+            "code": "72141",
+            "fips": "141",
+            "state": "PR",
+            "name": "Utuado Municipio"
+        },
+        {
+            "code": "72143",
+            "fips": "143",
+            "state": "PR",
+            "name": "Vega Alta Municipio"
+        },
+        {
+            "code": "72145",
+            "fips": "145",
+            "state": "PR",
+            "name": "Vega Baja Municipio"
+        },
+        {
+            "code": "72147",
+            "fips": "147",
+            "state": "PR",
+            "name": "Vieques Municipio"
+        },
+        {
+            "code": "72149",
+            "fips": "149",
+            "state": "PR",
+            "name": "Villalba Municipio"
+        },
+        {
+            "code": "72151",
+            "fips": "151",
+            "state": "PR",
+            "name": "Yabucoa Municipio"
+        },
+        {
+            "code": "72153",
+            "fips": "153",
+            "state": "PR",
+            "name": "Yauco Municipio"
+        }
+    ]
+}

@@ -1,0 +1,268 @@
+{
+    "counties": [
+        {
+            "code": "16001",
+            "fips": "001",
+            "state": "ID",
+            "name": "Ada County"
+        },
+        {
+            "code": "16003",
+            "fips": "003",
+            "state": "ID",
+            "name": "Adams County"
+        },
+        {
+            "code": "16005",
+            "fips": "005",
+            "state": "ID",
+            "name": "Bannock County"
+        },
+        {
+            "code": "16007",
+            "fips": "007",
+            "state": "ID",
+            "name": "Bear Lake County"
+        },
+        {
+            "code": "16009",
+            "fips": "009",
+            "state": "ID",
+            "name": "Benewah County"
+        },
+        {
+            "code": "16011",
+            "fips": "011",
+            "state": "ID",
+            "name": "Bingham County"
+        },
+        {
+            "code": "16013",
+            "fips": "013",
+            "state": "ID",
+            "name": "Blaine County"
+        },
+        {
+            "code": "16015",
+            "fips": "015",
+            "state": "ID",
+            "name": "Boise County"
+        },
+        {
+            "code": "16017",
+            "fips": "017",
+            "state": "ID",
+            "name": "Bonner County"
+        },
+        {
+            "code": "16019",
+            "fips": "019",
+            "state": "ID",
+            "name": "Bonneville County"
+        },
+        {
+            "code": "16021",
+            "fips": "021",
+            "state": "ID",
+            "name": "Boundary County"
+        },
+        {
+            "code": "16023",
+            "fips": "023",
+            "state": "ID",
+            "name": "Butte County"
+        },
+        {
+            "code": "16025",
+            "fips": "025",
+            "state": "ID",
+            "name": "Camas County"
+        },
+        {
+            "code": "16027",
+            "fips": "027",
+            "state": "ID",
+            "name": "Canyon County"
+        },
+        {
+            "code": "16029",
+            "fips": "029",
+            "state": "ID",
+            "name": "Caribou County"
+        },
+        {
+            "code": "16031",
+            "fips": "031",
+            "state": "ID",
+            "name": "Cassia County"
+        },
+        {
+            "code": "16033",
+            "fips": "033",
+            "state": "ID",
+            "name": "Clark County"
+        },
+        {
+            "code": "16035",
+            "fips": "035",
+            "state": "ID",
+            "name": "Clearwater County"
+        },
+        {
+            "code": "16037",
+            "fips": "037",
+            "state": "ID",
+            "name": "Custer County"
+        },
+        {
+            "code": "16039",
+            "fips": "039",
+            "state": "ID",
+            "name": "Elmore County"
+        },
+        {
+            "code": "16041",
+            "fips": "041",
+            "state": "ID",
+            "name": "Franklin County"
+        },
+        {
+            "code": "16043",
+            "fips": "043",
+            "state": "ID",
+            "name": "Fremont County"
+        },
+        {
+            "code": "16045",
+            "fips": "045",
+            "state": "ID",
+            "name": "Gem County"
+        },
+        {
+            "code": "16047",
+            "fips": "047",
+            "state": "ID",
+            "name": "Gooding County"
+        },
+        {
+            "code": "16049",
+            "fips": "049",
+            "state": "ID",
+            "name": "Idaho County"
+        },
+        {
+            "code": "16051",
+            "fips": "051",
+            "state": "ID",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "16053",
+            "fips": "053",
+            "state": "ID",
+            "name": "Jerome County"
+        },
+        {
+            "code": "16055",
+            "fips": "055",
+            "state": "ID",
+            "name": "Kootenai County"
+        },
+        {
+            "code": "16057",
+            "fips": "057",
+            "state": "ID",
+            "name": "Latah County"
+        },
+        {
+            "code": "16059",
+            "fips": "059",
+            "state": "ID",
+            "name": "Lemhi County"
+        },
+        {
+            "code": "16061",
+            "fips": "061",
+            "state": "ID",
+            "name": "Lewis County"
+        },
+        {
+            "code": "16063",
+            "fips": "063",
+            "state": "ID",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "16065",
+            "fips": "065",
+            "state": "ID",
+            "name": "Madison County"
+        },
+        {
+            "code": "16067",
+            "fips": "067",
+            "state": "ID",
+            "name": "Minidoka County"
+        },
+        {
+            "code": "16069",
+            "fips": "069",
+            "state": "ID",
+            "name": "Nez Perce County"
+        },
+        {
+            "code": "16071",
+            "fips": "071",
+            "state": "ID",
+            "name": "Oneida County"
+        },
+        {
+            "code": "16073",
+            "fips": "073",
+            "state": "ID",
+            "name": "Owyhee County"
+        },
+        {
+            "code": "16075",
+            "fips": "075",
+            "state": "ID",
+            "name": "Payette County"
+        },
+        {
+            "code": "16077",
+            "fips": "077",
+            "state": "ID",
+            "name": "Power County"
+        },
+        {
+            "code": "16079",
+            "fips": "079",
+            "state": "ID",
+            "name": "Shoshone County"
+        },
+        {
+            "code": "16081",
+            "fips": "081",
+            "state": "ID",
+            "name": "Teton County"
+        },
+        {
+            "code": "16083",
+            "fips": "083",
+            "state": "ID",
+            "name": "Twin Falls County"
+        },
+        {
+            "code": "16085",
+            "fips": "085",
+            "state": "ID",
+            "name": "Valley County"
+        },
+        {
+            "code": "16087",
+            "fips": "087",
+            "state": "ID",
+            "name": "Washington County"
+        }
+    ]
+}

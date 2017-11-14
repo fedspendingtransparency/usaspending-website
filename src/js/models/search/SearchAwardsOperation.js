@@ -3,10 +3,10 @@
  * Created by michaelbray on 8/7/17.
  */
 
-import { concat } from 'lodash';
 import { rootKeys, timePeriodKeys, agencyKeys, awardAmountKeys }
     from 'dataMapping/search/awardsOperationKeys';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import { concat } from 'lodash';
 
 class SearchAwardsOperation {
     constructor() {
@@ -121,21 +121,23 @@ class SearchAwardsOperation {
 
             // Funding Agencies are toptier-only
             this.fundingAgencies.forEach((agencyArray) => {
+                const fundingAgencyName = agencyArray[`${agencyArray.agencyType}_agency`].name;
+
                 agencies.push({
                     [agencyKeys.type]: 'funding',
-                    [agencyKeys.tier]: 'toptier',
-                    [agencyKeys.name]: agencyArray.toptier_agency.name
+                    [agencyKeys.tier]: agencyArray.agencyType,
+                    [agencyKeys.name]: fundingAgencyName
                 });
             });
 
             // Awarding Agencies can be both toptier and subtier
             this.awardingAgencies.forEach((agencyArray) => {
-                const agencyName = agencyArray[`${agencyArray.agencyType}_agency`].name;
+                const awardingAgencyName = agencyArray[`${agencyArray.agencyType}_agency`].name;
 
                 agencies.push({
                     [agencyKeys.type]: 'awarding',
                     [agencyKeys.tier]: agencyArray.agencyType,
-                    [agencyKeys.name]: agencyName
+                    [agencyKeys.name]: awardingAgencyName
                 });
             });
 
@@ -144,8 +146,13 @@ class SearchAwardsOperation {
 
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
         if (this.selectedRecipients.length > 0) {
-            filters[rootKeys.recipients] = this.selectedRecipients.map(
-                (recipient) => recipient.legal_entity_id);
+            let recipients = [];
+
+            this.selectedRecipients.forEach((recipient) => {
+                recipients = concat(recipients, recipient.recipient_id_list);
+            });
+
+            filters[rootKeys.recipients] = recipients;
         }
 
         if (this.recipientDomesticForeign !== '' && this.recipientDomesticForeign !== 'all') {
@@ -153,9 +160,9 @@ class SearchAwardsOperation {
         }
 
         if (this.selectedRecipientLocations.length > 0) {
-            let locationSet = [];
+            const locationSet = [];
             this.selectedRecipientLocations.forEach((location) => {
-                locationSet = concat(locationSet, location.matched_ids);
+                locationSet.push(location.filter);
             });
 
             filters[rootKeys.recipientLocation] = locationSet;
@@ -167,9 +174,9 @@ class SearchAwardsOperation {
 
         // Add Locations
         if (this.selectedLocations.length > 0) {
-            let locationSet = [];
+            const locationSet = [];
             this.selectedLocations.forEach((location) => {
-                locationSet = concat(locationSet, location.matched_ids);
+                locationSet.push(location.filter);
             });
 
             filters[rootKeys.placeOfPerformance] = locationSet;

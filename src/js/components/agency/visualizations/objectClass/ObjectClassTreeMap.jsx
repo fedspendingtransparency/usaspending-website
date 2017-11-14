@@ -14,6 +14,7 @@ import MajorObjectClasses from './MajorObjectClasses';
 import MinorObjectClasses from './MinorObjectClasses';
 
 const propTypes = {
+    activeFY: PropTypes.string,
     majorObjectClasses: PropTypes.object,
     minorObjectClasses: PropTypes.object,
     totalObligation: PropTypes.number,
@@ -115,15 +116,15 @@ export default class ObjectClassTreeMap extends React.Component {
             <div
                 className="agency-section-wrapper"
                 id="agency-object-classes">
-                <div className="agency-callout-description">
-                    <p>This {total} in obligations is divided among categories,
-                    called <strong>object classes</strong>. These groupings can be helpful
-                        for analysis and cross-agency comparison.</p>
-                </div>
                 <div className="agency-section-title">
                     <h4>Object Classes</h4>
-                    <em>Data as of {this.props.asOfDate}</em>
                     <hr className="results-divider" />
+                    <em>FY {this.props.activeFY} data reported through {this.props.asOfDate}</em>
+                </div>
+                <div className="agency-callout-description">
+                    <p>This {total} in obligations is divided among categories,
+                        called <strong>object classes</strong>. These groupings can be helpful
+                        for analysis and cross-agency comparison.</p>
                 </div>
                 <div className="agency-section-content">
                     <div

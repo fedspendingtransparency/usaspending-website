@@ -6,7 +6,7 @@ import { mockCFDA } from './cfda/mockCFDA';
 import { mockNAICS } from './naics/mockNAICS';
 import { mockPSC } from './psc/mockPSC';
 
-import { mockHash, mockFilters, mockRedux, mockActions } from '../mockSearchHashes';
+import { mockHash, mockFilters } from '../mockSearchHashes';
 
 // Fetch Locations for Autocomplete
 export const fetchLocations = () => (

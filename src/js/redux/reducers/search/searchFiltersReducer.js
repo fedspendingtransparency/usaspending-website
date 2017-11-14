@@ -18,7 +18,7 @@ import * as ContractFilterFunctions from './filters/contractFilterFunctions';
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
-export const filterStoreVersion = 1;
+export const filterStoreVersion = '2017-10-31';
 
 export const requiredTypes = {
     timePeriodFY: Set,
@@ -94,6 +94,18 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'UPDATE_DOMESTIC_FOREIGN': {
             return Object.assign({}, state, {
                 locationDomesticForeign: action.selection
+            });
+        }
+
+        case 'ADD_POP_LOCATION_OBJECT': {
+            return Object.assign({}, state, {
+                selectedLocations: state.selectedLocations.set(action.location.identifier, action.location)
+            });
+        }
+
+        case 'ADD_RECIPIENT_LOCATION_OBJECT': {
+            return Object.assign({}, state, {
+                selectedRecipientLocations: state.selectedRecipientLocations.set(action.location.identifier, action.location)
             });
         }
 

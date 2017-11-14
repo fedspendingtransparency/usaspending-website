@@ -1,0 +1,39 @@
+{
+    "districts": [
+        {
+            "code": "0801",
+            "district": "01",
+            "name": "CO-01"
+        },
+        {
+            "code": "0802",
+            "district": "02",
+            "name": "CO-02"
+        },
+        {
+            "code": "0803",
+            "district": "03",
+            "name": "CO-03"
+        },
+        {
+            "code": "0804",
+            "district": "04",
+            "name": "CO-04"
+        },
+        {
+            "code": "0805",
+            "district": "05",
+            "name": "CO-05"
+        },
+        {
+            "code": "0806",
+            "district": "06",
+            "name": "CO-06"
+        },
+        {
+            "code": "0807",
+            "district": "07",
+            "name": "CO-07"
+        }
+    ]
+}

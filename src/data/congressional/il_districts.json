@@ -1,0 +1,99 @@
+{
+    "districts": [
+        {
+            "code": "1701",
+            "district": "01",
+            "name": "IL-01"
+        },
+        {
+            "code": "1702",
+            "district": "02",
+            "name": "IL-02"
+        },
+        {
+            "code": "1703",
+            "district": "03",
+            "name": "IL-03"
+        },
+        {
+            "code": "1704",
+            "district": "04",
+            "name": "IL-04"
+        },
+        {
+            "code": "1705",
+            "district": "05",
+            "name": "IL-05"
+        },
+        {
+            "code": "1706",
+            "district": "06",
+            "name": "IL-06"
+        },
+        {
+            "code": "1707",
+            "district": "07",
+            "name": "IL-07"
+        },
+        {
+            "code": "1708",
+            "district": "08",
+            "name": "IL-08"
+        },
+        {
+            "code": "1709",
+            "district": "09",
+            "name": "IL-09"
+        },
+        {
+            "code": "1710",
+            "district": "10",
+            "name": "IL-10"
+        },
+        {
+            "code": "1711",
+            "district": "11",
+            "name": "IL-11"
+        },
+        {
+            "code": "1712",
+            "district": "12",
+            "name": "IL-12"
+        },
+        {
+            "code": "1713",
+            "district": "13",
+            "name": "IL-13"
+        },
+        {
+            "code": "1714",
+            "district": "14",
+            "name": "IL-14"
+        },
+        {
+            "code": "1715",
+            "district": "15",
+            "name": "IL-15"
+        },
+        {
+            "code": "1716",
+            "district": "16",
+            "name": "IL-16"
+        },
+        {
+            "code": "1717",
+            "district": "17",
+            "name": "IL-17"
+        },
+        {
+            "code": "1718",
+            "district": "18",
+            "name": "IL-18"
+        },
+        {
+            "code": "17ZZ",
+            "district": "ZZ",
+            "name": "IL-ZZ"
+        }
+    ]
+}

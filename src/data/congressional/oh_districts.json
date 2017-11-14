@@ -1,0 +1,84 @@
+{
+    "districts": [
+        {
+            "code": "3901",
+            "district": "01",
+            "name": "OH-01"
+        },
+        {
+            "code": "3902",
+            "district": "02",
+            "name": "OH-02"
+        },
+        {
+            "code": "3903",
+            "district": "03",
+            "name": "OH-03"
+        },
+        {
+            "code": "3904",
+            "district": "04",
+            "name": "OH-04"
+        },
+        {
+            "code": "3905",
+            "district": "05",
+            "name": "OH-05"
+        },
+        {
+            "code": "3906",
+            "district": "06",
+            "name": "OH-06"
+        },
+        {
+            "code": "3907",
+            "district": "07",
+            "name": "OH-07"
+        },
+        {
+            "code": "3908",
+            "district": "08",
+            "name": "OH-08"
+        },
+        {
+            "code": "3909",
+            "district": "09",
+            "name": "OH-09"
+        },
+        {
+            "code": "3910",
+            "district": "10",
+            "name": "OH-10"
+        },
+        {
+            "code": "3911",
+            "district": "11",
+            "name": "OH-11"
+        },
+        {
+            "code": "3912",
+            "district": "12",
+            "name": "OH-12"
+        },
+        {
+            "code": "3913",
+            "district": "13",
+            "name": "OH-13"
+        },
+        {
+            "code": "3914",
+            "district": "14",
+            "name": "OH-14"
+        },
+        {
+            "code": "3915",
+            "district": "15",
+            "name": "OH-15"
+        },
+        {
+            "code": "3916",
+            "district": "16",
+            "name": "OH-16"
+        }
+    ]
+}

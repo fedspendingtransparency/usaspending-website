@@ -1,0 +1,184 @@
+{
+    "districts": [
+        {
+            "code": "4801",
+            "district": "01",
+            "name": "TX-01"
+        },
+        {
+            "code": "4802",
+            "district": "02",
+            "name": "TX-02"
+        },
+        {
+            "code": "4803",
+            "district": "03",
+            "name": "TX-03"
+        },
+        {
+            "code": "4804",
+            "district": "04",
+            "name": "TX-04"
+        },
+        {
+            "code": "4805",
+            "district": "05",
+            "name": "TX-05"
+        },
+        {
+            "code": "4806",
+            "district": "06",
+            "name": "TX-06"
+        },
+        {
+            "code": "4807",
+            "district": "07",
+            "name": "TX-07"
+        },
+        {
+            "code": "4808",
+            "district": "08",
+            "name": "TX-08"
+        },
+        {
+            "code": "4809",
+            "district": "09",
+            "name": "TX-09"
+        },
+        {
+            "code": "4810",
+            "district": "10",
+            "name": "TX-10"
+        },
+        {
+            "code": "4811",
+            "district": "11",
+            "name": "TX-11"
+        },
+        {
+            "code": "4812",
+            "district": "12",
+            "name": "TX-12"
+        },
+        {
+            "code": "4813",
+            "district": "13",
+            "name": "TX-13"
+        },
+        {
+            "code": "4814",
+            "district": "14",
+            "name": "TX-14"
+        },
+        {
+            "code": "4815",
+            "district": "15",
+            "name": "TX-15"
+        },
+        {
+            "code": "4816",
+            "district": "16",
+            "name": "TX-16"
+        },
+        {
+            "code": "4817",
+            "district": "17",
+            "name": "TX-17"
+        },
+        {
+            "code": "4818",
+            "district": "18",
+            "name": "TX-18"
+        },
+        {
+            "code": "4819",
+            "district": "19",
+            "name": "TX-19"
+        },
+        {
+            "code": "4820",
+            "district": "20",
+            "name": "TX-20"
+        },
+        {
+            "code": "4821",
+            "district": "21",
+            "name": "TX-21"
+        },
+        {
+            "code": "4822",
+            "district": "22",
+            "name": "TX-22"
+        },
+        {
+            "code": "4823",
+            "district": "23",
+            "name": "TX-23"
+        },
+        {
+            "code": "4824",
+            "district": "24",
+            "name": "TX-24"
+        },
+        {
+            "code": "4825",
+            "district": "25",
+            "name": "TX-25"
+        },
+        {
+            "code": "4826",
+            "district": "26",
+            "name": "TX-26"
+        },
+        {
+            "code": "4827",
+            "district": "27",
+            "name": "TX-27"
+        },
+        {
+            "code": "4828",
+            "district": "28",
+            "name": "TX-28"
+        },
+        {
+            "code": "4829",
+            "district": "29",
+            "name": "TX-29"
+        },
+        {
+            "code": "4830",
+            "district": "30",
+            "name": "TX-30"
+        },
+        {
+            "code": "4831",
+            "district": "31",
+            "name": "TX-31"
+        },
+        {
+            "code": "4832",
+            "district": "32",
+            "name": "TX-32"
+        },
+        {
+            "code": "4833",
+            "district": "33",
+            "name": "TX-33"
+        },
+        {
+            "code": "4834",
+            "district": "34",
+            "name": "TX-34"
+        },
+        {
+            "code": "4835",
+            "district": "35",
+            "name": "TX-35"
+        },
+        {
+            "code": "4836",
+            "district": "36",
+            "name": "TX-36"
+        }
+    ]
+}

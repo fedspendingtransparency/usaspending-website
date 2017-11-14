@@ -1,21 +1,13 @@
 import { OrderedMap } from 'immutable';
 
-export const mockActions = {
-    selectLocation: jest.fn(),
-    setAutocompleteLocations: jest.fn()
-};
-
 export const mockRedux = {
-    selectedLocations: new OrderedMap(),
-    locationDomesticForeign: 'all',
-    autocompleteLocations: []
+    addPOPLocationObject: jest.fn(),
+    addRecipientLocationObject: jest.fn(),
+    updateGenericFilter: jest.fn(),
+    selectedLocations: new OrderedMap()
 };
 
-export const mockApi = [
-    {
-        place_type: 'CITY',
-        place: 'PAWNEE',
-        parent: 'INDIANA',
-        matched_ids: [1, 2, 3]
-    }
-];
+export const mockPickerRedux = {
+    selectedLocations: new OrderedMap(),
+    addLocation: jest.fn()
+};
