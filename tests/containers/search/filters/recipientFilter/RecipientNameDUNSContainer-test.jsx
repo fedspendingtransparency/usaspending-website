@@ -18,195 +18,123 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 describe('RecipientNameDUNSContainer', () => {
     describe('Handling text input', () => {
-        it('should handle text input after 300ms', () => {
-            // Set up the Container and call the function to type a single letter
-            const recipientNameDUNSContainer = setup({
-                setAutocompleteRecipients: jest.fn(),
-                toggleRecipient: jest.fn(),
-                selectedRecipients: new OrderedMap(),
-                autocompleteRecipients: []
-            });
-
-            const searchQuery = {
-                target: {
-                    value: 'B'
-                }
-            };
-
-            const handleTextInputSpy = sinon.spy(recipientNameDUNSContainer.instance(),
-                'handleTextInput');
-
-            // Call handleTextInput function
-            recipientNameDUNSContainer.instance().handleTextInput(searchQuery);
-
-            // Run fake timer for input delay
-            jest.useFakeTimers().runTimersToTime(1000);
-
-            // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
-            jest.runAllTicks();
-
-            // everything should be updated now
-            expect(handleTextInputSpy.callCount).toEqual(1);
-
-            // reset the spies
-            handleTextInputSpy.reset();
-        });
-
-        it('should call the queryAutocompleteRecipients method 300ms ' +
-            'after text input', () => {
-            // Set up the Container and call the function to type a single letter
-            const recipientNameDUNSContainer = setup({
-                setAutocompleteRecipients: jest.fn(),
-                toggleRecipient: jest.fn(),
-                selectedRecipients: new OrderedMap(),
-                autocompleteRecipients: []
-            });
-            const searchQuery = {
-                target: {
-                    value: 'B'
-                }
-            };
-
-            const handleTextInputSpy = sinon.spy(recipientNameDUNSContainer.instance(),
-                'handleTextInput');
-            const queryAutocompleteRecipientsSpy = sinon.spy(recipientNameDUNSContainer.instance(),
-                'queryAutocompleteRecipients');
-
-            // Call handleTextInput function
-            recipientNameDUNSContainer.instance().handleTextInput(searchQuery);
-
-            // Run fake timer for input delay
-            jest.useFakeTimers().runTimersToTime(1000);
-
-            // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
-            jest.runAllTicks();
-
-            // everything should be updated now
-            expect(handleTextInputSpy.callCount).toEqual(1);
-            expect(queryAutocompleteRecipientsSpy.callCount).toEqual(1);
-
-            // reset the spies
-            handleTextInputSpy.reset();
-            queryAutocompleteRecipientsSpy.reset();
-        });
-
-        it('should not search when only two characters have been input', () => {
-            const mockParseApi = jest.fn();
+        it('should not search when two or fewer characters have been input', () => {
+            const mockReduxAction = jest.fn();
 
             // Set up the Container and call the function to type a single letter
             const recipientNameDUNSContainer = setup({
-                setAutocompleteRecipients: jest.fn(),
-                toggleRecipient: jest.fn(),
-                selectedRecipients: new OrderedMap(),
-                autocompleteRecipients: []
+                toggleRecipient: mockReduxAction, selectedRecipients: new OrderedMap()
             });
 
-            const queryAutocompleteRecipientsSpy = sinon.spy(recipientNameDUNSContainer.instance(),
-                'queryAutocompleteRecipients');
+            const queryRecipientsSpy = sinon.spy(recipientNameDUNSContainer.instance(),
+                'queryRecipients');
             const handleTextInputSpy = sinon.spy(recipientNameDUNSContainer.instance(),
                 'handleTextInput');
 
-            const searchQuery = {
+            recipientNameDUNSContainer.instance().handleTextInput({
                 target: {
                     value: 'Bo'
                 }
-            };
-
-            recipientNameDUNSContainer.instance().parseApiResponse = mockParseApi;
-
-            recipientNameDUNSContainer.instance().handleTextInput(searchQuery);
+            });
 
             // Run fake timer for input delay
-            jest.useFakeTimers().runTimersToTime(1000);
+            jest.runAllTicks();
+
+            recipientNameDUNSContainer.instance().queryRecipients();
 
             // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
-            expect(queryAutocompleteRecipientsSpy.callCount).toEqual(1);
-            expect(mockParseApi).toHaveBeenCalledTimes(0);
+            expect(queryRecipientsSpy.callCount).toEqual(1);
+            expect(mockReduxAction).toHaveBeenCalledTimes(0);
             expect(recipientNameDUNSContainer.instance().recipientSearchRequest).toBeFalsy();
 
             // reset the mocks and spies
             handleTextInputSpy.reset();
-            queryAutocompleteRecipientsSpy.reset();
+            queryRecipientsSpy.reset();
         });
 
         it('should search when three or more characters have been input ' +
-            'into the Recipient Name/DUNS field', () => {
+            'into the Recipient Name/DUNS field', async () => {
             // setup mock redux actions for handling search results
             const mockReduxAction = jest.fn();
 
             // Set up the Container and call the function to type a single letter
             const recipientNameDUNSContainer = setup({
-                setAutocompleteRecipients: mockReduxAction,
-                toggleRecipient: jest.fn(),
-                selectedRecipients: new OrderedMap(),
-                autocompleteRecipients: []
+                toggleRecipient: mockReduxAction, selectedRecipients: new OrderedMap()
             });
 
             // set up spies
             const handleTextInputSpy = sinon.spy(recipientNameDUNSContainer.instance(),
                 'handleTextInput');
-            const queryAutocompleteRecipientsSpy = sinon.spy(recipientNameDUNSContainer.instance(),
-                'queryAutocompleteRecipients');
+            const queryRecipientsSpy = sinon.spy(recipientNameDUNSContainer.instance(),
+                'queryRecipients');
 
             const searchQuery = {
                 target: {
-                    value: 'Boo'
+                    value: 'Booz Allen'
                 }
             };
-            recipientNameDUNSContainer.instance().handleTextInput(searchQuery);
 
-            // Run fake timer for input delay
-            jest.useFakeTimers().runTimersToTime(300);
+            recipientNameDUNSContainer.instance().handleTextInput(searchQuery);
 
             // Run fake timer for input delay
             jest.runAllTicks();
 
+            recipientNameDUNSContainer.instance().queryRecipients();
+            await recipientNameDUNSContainer.instance().recipientSearchRequest.promise;
+
             // everything should be updated now
             expect(handleTextInputSpy.callCount).toEqual(1);
-            expect(queryAutocompleteRecipientsSpy.calledWith(handleTextInputSpy));
+            expect(queryRecipientsSpy.callCount).toEqual(1);
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
 
             // Reset spies
             handleTextInputSpy.reset();
-            queryAutocompleteRecipientsSpy.reset();
+            queryRecipientsSpy.reset();
         });
+    });
 
-        it('should populate Recipients after performing the search', async () => {
+    describe('Adding a Recipient to Redux', () => {
+        it('should automatically add a Recipient to Redux after parsing a valid response', async () => {
             // setup mock redux actions for handling search results
             const mockReduxAction = jest.fn();
 
             // Set up the Container and call the function to type a single letter
             const recipientNameDUNSContainer = setup({
-                setAutocompleteRecipients: mockReduxAction,
-                toggleRecipient: jest.fn(),
-                autocompleteRecipients: [],
+                toggleRecipient: mockReduxAction,
                 selectedRecipients: new OrderedMap()
             });
 
             // Set up spies
-            const queryAutocompleteRecipientsSpy = sinon.spy(recipientNameDUNSContainer.instance(),
-                'queryAutocompleteRecipients');
+            const queryRecipientsSpy = sinon.spy(recipientNameDUNSContainer.instance(),
+                'queryRecipients');
 
-            recipientNameDUNSContainer.instance().queryAutocompleteRecipients('Booz Allen');
+            recipientNameDUNSContainer.instance().handleTextInput({
+                target: {
+                    value: 'Booz Allen'
+                }
+            });
+
+            // Run fake timer for input delay
+            jest.runAllTicks();
+
+            recipientNameDUNSContainer.instance().queryRecipients();
             await recipientNameDUNSContainer.instance().recipientSearchRequest.promise;
 
-            expect(queryAutocompleteRecipientsSpy.callCount).toEqual(1);
+            expect(queryRecipientsSpy.callCount).toEqual(1);
             expect(mockReduxAction).toHaveBeenCalledTimes(1);
 
             // Reset spies
-            queryAutocompleteRecipientsSpy.reset();
+            queryRecipientsSpy.reset();
         });
 
-        it('should not populate Recipients when searching a Recipient that has already been ' +
-            'searched and selected', async () => {
+        it('should not add a duplicate Recipient to Redux', async () => {
             // setup mock redux actions for handling search results
             const mockReduxAction = jest.fn();
 
             // Set up the Container and call the function to type a single letter
             const recipientNameDUNSContainer = setup({
-                setAutocompleteRecipients: mockReduxAction,
-                toggleRecipient: jest.fn(),
-                autocompleteRecipients: [],
+                toggleRecipient: mockReduxAction,
                 selectedRecipients: new OrderedMap({
                     "Booz Allen": {
                         search_text: "Booz Allen",
@@ -218,18 +146,27 @@ describe('RecipientNameDUNSContainer', () => {
                 })
             });
 
-            // Set up spies
-            const queryAutocompleteRecipientsSpy = sinon.spy(recipientNameDUNSContainer.instance(),
-                'queryAutocompleteRecipients');
+            // Set up spy
+            const queryRecipientsSpy = sinon.spy(recipientNameDUNSContainer.instance(),
+                'queryRecipients');
 
-            recipientNameDUNSContainer.instance().queryAutocompleteRecipients('Booz Allen');
+            recipientNameDUNSContainer.instance().handleTextInput({
+                target: {
+                    value: 'Booz Allen'
+                }
+            });
+
+            // Run fake timer for input delay
+            jest.runAllTicks();
+
+            recipientNameDUNSContainer.instance().queryRecipients();
             await recipientNameDUNSContainer.instance().recipientSearchRequest.promise;
 
-            expect(queryAutocompleteRecipientsSpy.callCount).toEqual(1);
+            expect(queryRecipientsSpy.callCount).toEqual(1);
             expect(mockReduxAction).toHaveBeenCalledTimes(0);
 
-            // Reset spies
-            queryAutocompleteRecipientsSpy.reset();
+            // Reset spy
+            queryRecipientsSpy.reset();
         });
     });
 });
