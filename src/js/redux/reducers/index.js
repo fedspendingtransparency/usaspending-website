@@ -25,6 +25,7 @@ import cfdaReducer from './search/cfdaReducer';
 import naicsReducer from './search/naicsReducer';
 import pscReducer from './search/pscReducer';
 import downloadReducer from './search/downloadReducer';
+import bulkDownloadReducer from './bulkDownload/bulkDownloadReducer';
 
 const appReducer = combineReducers({
     resultsMeta: resultsMetaReducer,
@@ -46,7 +47,8 @@ const appReducer = combineReducers({
     agency: agencyReducer,
     glossary: glossaryReducer,
     agencyLanding: agencyLandingReducer,
-    explorer: explorerReducer
+    explorer: explorerReducer,
+    bulkDownload: bulkDownloadReducer
 });
 
 export default appReducer;

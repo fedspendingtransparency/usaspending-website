@@ -1,0 +1,61 @@
+.download-sidebar-content {
+    background-color: $color-white;
+    box-shadow: $container-shadow;
+    border-top: 1px solid $color-gray-border;
+    border-right: 1px solid $color-gray-border;
+    border-bottom: 1px solid $color-gray-border;
+    padding: rem(30);
+    ul {
+        @include unstyled-list;
+
+        li {
+            margin-bottom: rem(20);
+
+            &:last-child {
+                margin-bottom: rem(0);
+            }
+        }
+
+        .sidebar-link {
+            padding: rem(10);
+            margin: rem(5);
+            border-left: solid rem(3) transparent;
+            border-bottom: solid rem(1) transparent;
+            @include transition(all 0.15s ease-in-out);
+            button, a {
+                @include button-unstyled;
+                display: block;
+                color: #323A45;
+                font-size: rem(19);
+                font-weight: 400;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+
+            &:hover {
+                background-color: $color-gray-lightest;
+                button, a {
+                    color: $color-primary;
+                }
+            }
+            
+            &.active {
+                border-left: solid rem(4) $color-primary;
+                border-bottom: solid rem(1) $color-gray-light;
+                button {
+                    font-weight: 600;
+                }
+            }
+
+            &.disabled {
+                color: $color-gray-light;
+                font-size: rem(19);
+                &:hover {
+                    background-color: $color-white;
+                    color: $color-gray-light;
+                }
+            }
+        }
+    }
+}
