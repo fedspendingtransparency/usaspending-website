@@ -54,7 +54,10 @@ export default class AgencyFilter extends React.Component {
         e.preventDefault();
         const target = e.target;
         this.props.updateFilter('agency', target.value);
-        this.props.setSubAgencyList(target.value);
+
+        if (target.value !== 'all') {
+            this.props.setSubAgencyList(target.value);
+        }
 
         this.setState({
             showAgencyPicker: false
@@ -120,11 +123,16 @@ export default class AgencyFilter extends React.Component {
 
         // Determine the name of the current agency
         let currentAgencyName = 'Select an Agency';
-        const currentAgencyId = parseFloat(this.props.currentAgencies.agency);
-        if (currentAgencyId) {
-            const currentAgency = find(this.props.agencies, { toptier_agency_id: currentAgencyId });
-            if (currentAgency) {
-                currentAgencyName = currentAgency.name;
+        if (this.props.currentAgencies.agency === 'all') {
+            currentAgencyName = 'All';
+        }
+        else {
+            const currentAgencyId = parseFloat(this.props.currentAgencies.agency);
+            if (currentAgencyId) {
+                const currentAgency = find(this.props.agencies, { toptier_agency_id: currentAgencyId });
+                if (currentAgency) {
+                    currentAgencyName = currentAgency.name;
+                }
             }
         }
 
@@ -186,9 +194,21 @@ export default class AgencyFilter extends React.Component {
                             <div
                                 className={`field-list ${showAgencyPicker}`}
                                 style={{
-                                    height: (this.props.agencies.length * 30) + 1
+                                    height: ((this.props.agencies.length + 1) * 54) + 1
                                 }}>
                                 <ul>
+                                    <li
+                                        className="field-item"
+                                        key={`field-all`}>
+                                        <button
+                                            className="item-button"
+                                            title="All"
+                                            aria-label="all"
+                                            value="all"
+                                            onClick={this.handleAgencySelect}>
+                                            All
+                                        </button>
+                                    </li>
                                     {agencies}
                                 </ul>
                             </div>
@@ -215,7 +235,7 @@ export default class AgencyFilter extends React.Component {
                             <div
                                 className={`field-list ${showSubAgencyPicker}`}
                                 style={{
-                                    height: (this.props.subAgencies.length * 30) + 1
+                                    height: (this.props.subAgencies.length * 54) + 1
                                 }}>
                                 <ul>
                                     {subAgencies}

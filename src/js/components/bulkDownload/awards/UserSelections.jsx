@@ -120,6 +120,12 @@ export default class UserSelections extends React.Component {
     }
 
     generateAgencyString() {
+        if (this.props.awards.filters.agency === 'all') {
+            return (
+                <div>all</div>
+            );
+        }
+
         const id = parseFloat(this.props.awards.filters.agency);
         if (!isNaN(id)) {
             const agencies = this.props.agencies;
@@ -130,6 +136,7 @@ export default class UserSelections extends React.Component {
                 <div>{selectedAgency.name}</div>
             );
         }
+
         return (
             <div className="required">required</div>
         );
