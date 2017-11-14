@@ -19,7 +19,6 @@ jest.mock('components/bulkDownload/awards/AwardDataContent', () => jest.fn(() =>
 
 // spy on specific functions inside the component
 const setAgencyListSpy = sinon.spy(AwardDataContainer.prototype, 'setAgencyList');
-const setSubAgencyListSpy = sinon.spy(AwardDataContainer.prototype, 'setSubAgencyList');
 
 describe('AwardDataContainer', () => {
     it('should make an API call for the agencies on mount', async () => {
@@ -32,17 +31,5 @@ describe('AwardDataContainer', () => {
         expect(setAgencyListSpy.callCount).toEqual(1);
 
         setAgencyListSpy.reset();
-    });
-    describe('setAgencyList', () => {
-        it('should set the agencies in Redux', () => {
-            const container = shallow(<AwardDataContainer
-                {...mockActions}
-                bulkDownload={mockRedux} />);
-
-            container.instance().setAgencyList();
-
-            expect(mockActions.setAgencyList).toHaveBeenCalledWith(
-                mockAgencies.cfo_agencies.concat(mockAgencies.other_agencies));
-        });
     });
 });

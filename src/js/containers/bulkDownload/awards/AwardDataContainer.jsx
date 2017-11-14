@@ -19,8 +19,6 @@ const propTypes = {
     clearDownloadFilters: PropTypes.func,
     updateAwardDateRange: PropTypes.func,
     bulkDownload: PropTypes.object,
-    setAgencyList: PropTypes.func,
-    setSubAgencyList: PropTypes.func,
     clickedDownload: PropTypes.func
 };
 
@@ -29,7 +27,9 @@ export class AwardDataContainer extends React.Component {
         super(props);
 
         this.state = {
-            inFlight: true
+            inFlight: true,
+            agencies: [],
+            subAgencies: []
         };
 
         this.agencyListRequest = null;
@@ -65,7 +65,9 @@ export class AwardDataContainer extends React.Component {
             .then((res) => {
                 const cfoAgencies = res.data.agencies.cfo_agencies;
                 const otherAgencies = res.data.agencies.other_agencies;
-                this.props.setAgencyList(cfoAgencies.concat(otherAgencies));
+                this.setState({
+                    agencies: cfoAgencies.concat(otherAgencies)
+                });
             })
             .catch((err) => {
                 console.log(err);
@@ -91,7 +93,9 @@ export class AwardDataContainer extends React.Component {
             this.agencyListRequest.promise
                 .then((res) => {
                     const subAgencies = res.data.sub_agencies;
-                    this.props.setSubAgencyList(subAgencies);
+                    this.setState({
+                        subAgencies
+                    });
                 })
                 .catch((err) => {
                     console.log(err);
@@ -100,7 +104,9 @@ export class AwardDataContainer extends React.Component {
         }
 
         else {
-            this.props.setSubAgencyList([]);
+            this.setState({
+                subAgencies: []
+            });
         }
     }
 
@@ -147,8 +153,8 @@ export class AwardDataContainer extends React.Component {
                 updateStartDate={this.updateStartDate}
                 updateEndDate={this.updateEndDate}
                 clearAwardFilters={this.clearAwardFilters}
-                agencies={this.props.bulkDownload.agencies}
-                subAgencies={this.props.bulkDownload.subAgencies}
+                agencies={this.state.agencies}
+                subAgencies={this.state.subAgencies}
                 setSubAgencyList={this.setSubAgencyList}
                 clickedDownload={this.props.clickedDownload} />
         );

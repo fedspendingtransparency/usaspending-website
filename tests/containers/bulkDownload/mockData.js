@@ -5,8 +5,6 @@ export const mockActions = {
     setDataType: jest.fn(),
     updateAwardDateRange: jest.fn(),
     clearDownloadFilters: jest.fn(),
-    setAgencyList: jest.fn(),
-    setSubAgencyList: jest.fn(),
     setDownloadExpectedFile: jest.fn(),
     setDownloadPending: jest.fn(),
     setDownloadCollapsed: jest.fn(),
@@ -69,8 +67,6 @@ export const mockRedux = {
             columns: [],
             file_format: 'csv'
         },
-        agencies: [],
-        subAgencies: [],
         download: {
             expectedFile: '',
             expectedUrl: '',

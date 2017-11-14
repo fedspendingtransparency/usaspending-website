@@ -20,8 +20,6 @@ export const initialState = {
         columns: [],
         file_format: 'csv'
     },
-    agencies: [],
-    subAgencies: [],
     download: {
         expectedFile: '',
         expectedUrl: '',
@@ -81,16 +79,6 @@ const bulkDownloadReducer = (state = initialState, action) => {
 
             return Object.assign({}, state, {
                 [action.dataType]: reset
-            });
-        }
-        case 'SET_AGENCY_LIST': {
-            return Object.assign({}, state, {
-                agencies: action.agencies
-            });
-        }
-        case 'SET_SUB_AGENCY_LIST': {
-            return Object.assign({}, state, {
-                subAgencies: action.subAgencies
             });
         }
         case 'SET_BULK_DOWNLOAD_EXPECTED_URL': {

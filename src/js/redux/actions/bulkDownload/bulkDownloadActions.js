@@ -33,16 +33,6 @@ export const clearDownloadFilters = (state) => ({
     dataType: state
 });
 
-export const setAgencyList = (state) => ({
-    type: 'SET_AGENCY_LIST',
-    agencies: state
-});
-
-export const setSubAgencyList = (state) => ({
-    type: 'SET_SUB_AGENCY_LIST',
-    subAgencies: state
-});
-
 export const setDownloadExpectedUrl = (state) => ({
     type: 'SET_BULK_DOWNLOAD_EXPECTED_URL',
     url: state

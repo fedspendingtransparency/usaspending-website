@@ -99,39 +99,6 @@ describe('bulkDownloadReducer', () => {
             expect(newState.awards).toEqual(initialState.awards);
         });
     });
-    describe('SET_AGENCY_LIST', () => {
-        it('should update the array of agencies', () => {
-            const action = {
-                type: 'SET_AGENCY_LIST',
-                agencies: [
-                    {
-                        name: "Mock Agency",
-                        toptier_agency_id: 123,
-                        cgac_code: "456"
-                    }
-                ]
-            };
-
-            const state = bulkDownloadReducer(undefined, action);
-            expect(state.agencies).toEqual(action.agencies);
-        });
-    });
-    describe('SET_SUB_AGENCY_LIST', () => {
-        it('should update the array of sub-agencies', () => {
-            const action = {
-                type: 'SET_SUB_AGENCY_LIST',
-                subAgencies: [
-                    {
-                        subtier_agency_name: "Mock Sub-Agency",
-                        subtier_agency_id: 789
-                    }
-                ]
-            };
-
-            const state = bulkDownloadReducer(undefined, action);
-            expect(state.subAgencies).toEqual(action.subAgencies);
-        });
-    });
     describe('SET_DOWNLOAD_EXPECTED_FILE', () => {
         it('should return a new string of the expected filename', () => {
             const action = {
