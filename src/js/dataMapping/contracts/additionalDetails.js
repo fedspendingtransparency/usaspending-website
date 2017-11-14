@@ -230,9 +230,15 @@ export const compensationFields = [
         field: '__special',
         parse: (data) => {
             const name = data.officer_1_name;
-            const amount = MoneyFormatter.formatMoney(data.officer_1_amount);
+            let amount = MoneyFormatter.formatMoney(data.officer_1_amount);
+            if (!data.officer_1_amount) {
+                amount = '--';
+            }
 
             if (name && name !== '') {
+                if (!data.officer_1_amount) {
+                    return name;
+                }
                 return `${name} - ${amount}`;
             }
 
@@ -244,9 +250,15 @@ export const compensationFields = [
         field: '__special',
         parse: (data) => {
             const name = data.officer_2_name;
-            const amount = MoneyFormatter.formatMoney(data.officer_2_amount);
+            let amount = MoneyFormatter.formatMoney(data.officer_2_amount);
+            if (!data.officer_2_amount) {
+                amount = '--';
+            }
 
             if (name && name !== '') {
+                if (!data.officer_2_amount) {
+                    return name;
+                }
                 return `${name} - ${amount}`;
             }
 
@@ -258,9 +270,15 @@ export const compensationFields = [
         field: '__special',
         parse: (data) => {
             const name = data.officer_3_name;
-            const amount = MoneyFormatter.formatMoney(data.officer_3_amount);
+            let amount = MoneyFormatter.formatMoney(data.officer_3_amount);
+            if (!data.officer_3_amount) {
+                amount = '--';
+            }
 
             if (name && name !== '') {
+                if (!data.officer_3_amount) {
+                    return name;
+                }
                 return `${name} - ${amount}`;
             }
 
@@ -272,9 +290,15 @@ export const compensationFields = [
         field: '__special',
         parse: (data) => {
             const name = data.officer_4_name;
-            const amount = MoneyFormatter.formatMoney(data.officer_4_amount);
+            let amount = MoneyFormatter.formatMoney(data.officer_4_amount);
+            if (!data.officer_4_amount) {
+                amount = '--';
+            }
 
             if (name && name !== '') {
+                if (!data.officer_4_amount) {
+                    return name;
+                }
                 return `${name} - ${amount}`;
             }
 
@@ -286,9 +310,15 @@ export const compensationFields = [
         field: '__special',
         parse: (data) => {
             const name = data.officer_5_name;
-            const amount = MoneyFormatter.formatMoney(data.officer_5_amount);
+            let amount = MoneyFormatter.formatMoney(data.officer_5_amount);
+            if (!data.officer_5_amount) {
+                amount = '--';
+            }
 
             if (name && name !== '') {
+                if (!data.officer_5_amount) {
+                    return name;
+                }
                 return `${name} - ${amount}`;
             }
 
