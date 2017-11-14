@@ -149,9 +149,7 @@ class SearchAwardsOperation {
             let recipients = [];
 
             this.selectedRecipients.forEach((recipient) => {
-                const tempRecipients = recipients;
-
-                recipients = concat(tempRecipients, recipient.recipient_id_list);
+                recipients = concat(recipients, recipient.recipient_id_list);
             });
 
             filters[rootKeys.recipients] = recipients;
