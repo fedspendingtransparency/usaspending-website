@@ -25,7 +25,6 @@ export const requestAgenciesList = (params) => {
 };
 
 export const requestBulkDownload = (params, type) => {
-    console.log(params);
     const source = CancelToken.source();
     return {
         promise: Axios.request({

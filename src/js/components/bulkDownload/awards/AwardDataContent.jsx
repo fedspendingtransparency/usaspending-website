@@ -90,7 +90,6 @@ export default class AwardDataContent extends React.Component {
             </div>
         );
 
-        console.log(this.state.validForm);
         if (this.state.validForm) {
             submitButton = (
                 <div className="submit-button">
