@@ -25,5 +25,9 @@
                 }
             }
         }
+        .field-list {
+            max-height: rem(400);
+            overflow-y: scroll;
+        }
     }
 }

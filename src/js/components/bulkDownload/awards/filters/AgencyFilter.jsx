@@ -175,11 +175,7 @@ export default class AgencyFilter extends React.Component {
                                 </span>
                             </button>
 
-                            <div
-                                className={`field-list ${showAgencyPicker}`}
-                                style={{
-                                    height: ((this.props.agencies.length + 1) * 54) + 1
-                                }}>
+                            <div className={`field-list ${showAgencyPicker}`}>
                                 <ul>
                                     <li
                                         className="field-item"
@@ -218,10 +214,7 @@ export default class AgencyFilter extends React.Component {
                             </button>
 
                             <div
-                                className={`field-list ${showSubAgencyPicker}`}
-                                style={{
-                                    height: (this.props.subAgencies.length * 54) + 1
-                                }}>
+                                className={`field-list ${showSubAgencyPicker}`}>
                                 <ul>
                                     {subAgencies}
                                 </ul>
