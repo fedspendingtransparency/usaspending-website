@@ -50,7 +50,7 @@
             line-height: rem(18);
 
             padding: 0 rem(5);
-            border-bottom: rem(4px) solid $color-white;
+            border-bottom: rem(4) solid $color-white;
 
             &.active, &:hover, &:active {
                 font-weight: $font-bold;
