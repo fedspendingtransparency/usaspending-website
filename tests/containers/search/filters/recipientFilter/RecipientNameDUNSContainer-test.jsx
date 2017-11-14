@@ -128,7 +128,7 @@ describe('RecipientNameDUNSContainer', () => {
             queryRecipientsSpy.reset();
         });
 
-        it('should not add a duplicate Recipient to Redux', async () => {
+        it('should not search for a Recipient that already exists in Redux', () => {
             // setup mock redux actions for handling search results
             const mockReduxAction = jest.fn();
 
@@ -160,10 +160,10 @@ describe('RecipientNameDUNSContainer', () => {
             jest.runAllTicks();
 
             recipientNameDUNSContainer.instance().queryRecipients();
-            await recipientNameDUNSContainer.instance().recipientSearchRequest.promise;
 
             expect(queryRecipientsSpy.callCount).toEqual(1);
             expect(mockReduxAction).toHaveBeenCalledTimes(0);
+            expect(recipientNameDUNSContainer.instance().recipientSearchRequest).toBeFalsy();
 
             // Reset spy
             queryRecipientsSpy.reset();

@@ -39,10 +39,11 @@ export class RecipientNameDUNSContainer extends React.Component {
             inFlight: true
         });
 
-        // Only search if input is 3 or more characters
         const searchString = this.state.recipientSearchString;
 
-        if (searchString.length >= 3) {
+        // Only search if input is 3 or more characters and is not already
+        // in the list of results
+        if (searchString.length >= 3 && !this.props.selectedRecipients.has(searchString)) {
             if (this.recipientSearchRequest) {
                 // A request is currently in-flight, cancel it
                 this.recipientSearchRequest.cancel();
@@ -68,8 +69,7 @@ export class RecipientNameDUNSContainer extends React.Component {
                             showWarning: true
                         });
                     }
-                    // Prevent duplicate results
-                    else if (!this.props.selectedRecipients.has(autocompleteData.search_text)) {
+                    else {
                         // Add search results to Redux
                         this.props.toggleRecipient(autocompleteData);
 
@@ -83,12 +83,19 @@ export class RecipientNameDUNSContainer extends React.Component {
                 .catch((err) => {
                     if (!isCancel(err)) {
                         this.setState({
-                            showWarning: true
+                            showWarning: true,
+                            inFlight: false
                         });
                     }
                 });
         }
         else if (searchString.length < 3) {
+            this.setState({
+                showWarning: true,
+                inFlight: false
+            });
+        }
+        else if (this.props.selectedRecipients.has(searchString)) {
             this.setState({
                 showWarning: true,
                 inFlight: false
@@ -119,7 +126,8 @@ export class RecipientNameDUNSContainer extends React.Component {
                 changedInput={this.handleTextInput}
                 value={this.state.recipientSearchString}
                 disableButton={this.state.inFlight}
-                showWarning={this.state.showWarning} />
+                showWarning={this.state.showWarning}
+                selectedRecipients={this.props.selectedRecipients} />
         );
     }
 

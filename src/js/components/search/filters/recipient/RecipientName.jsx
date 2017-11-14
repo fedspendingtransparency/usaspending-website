@@ -13,7 +13,8 @@ const propTypes = {
     changedInput: PropTypes.func,
     value: PropTypes.string,
     disableButton: PropTypes.any,
-    showWarning: PropTypes.bool
+    showWarning: PropTypes.bool,
+    selectedRecipients: PropTypes.object
 };
 
 export default class RecipientName extends React.Component {
@@ -38,10 +39,16 @@ export default class RecipientName extends React.Component {
                     description: 'Please enter more than two characters.'
                 };
             }
+            else if (this.props.selectedRecipients.has(this.props.value)) {
+                errorProps = {
+                    header: 'Duplicate Recipient',
+                    description: 'You have already selected that recipient.'
+                };
+            }
             else {
                 errorProps = {
                     header: 'Unknown Recipient',
-                    description: 'We were unable to find that recipient'
+                    description: 'We were unable to find that recipient.'
                 };
             }
 
