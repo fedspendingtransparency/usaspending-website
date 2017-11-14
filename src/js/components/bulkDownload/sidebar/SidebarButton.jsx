@@ -10,6 +10,7 @@ const propTypes = {
     type: PropTypes.string,
     label: PropTypes.string,
     active: PropTypes.string,
+    url: PropTypes.string,
     changeDataType: PropTypes.func,
     disabled: PropTypes.bool
 };
@@ -47,6 +48,16 @@ export default class SidebarButton extends React.Component {
                 <div>
                     {this.props.label}
                 </div>
+            );
+        }
+        else if (this.props.url !== '') {
+            button = (
+                <a
+                    href={this.props.url}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    {this.props.label}
+                </a>
             );
         }
 

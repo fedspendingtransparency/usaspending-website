@@ -21,22 +21,26 @@ export const dataTypes = [
     {
         type: 'awards',
         label: 'Award Data',
-        disabled: false
+        disabled: false,
+        url: ''
     },
     {
         type: 'accounts',
         label: 'Account Data',
-        disabled: true
+        disabled: true,
+        url: ''
     },
     {
-        type: 'files',
+        type: '',
         label: 'Agency Submission Files',
-        disabled: true
+        disabled: false,
+        url: 'http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/'
     },
     {
         type: 'snapshots',
         label: 'Database Snapshots',
-        disabled: true
+        disabled: true,
+        url: ''
     }
 ];
 

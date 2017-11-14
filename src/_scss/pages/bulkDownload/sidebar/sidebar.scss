@@ -20,13 +20,24 @@
             padding: rem(10);
             margin: rem(5);
             border-left: solid rem(3) transparent;
+            border-bottom: solid rem(1) transparent;
             @include transition(all 0.15s ease-in-out);
-            button {
+            button, a {
                 @include button-unstyled;
                 display: block;
                 color: #323A45;
                 font-size: rem(19);
                 font-weight: 400;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+
+            &:hover {
+                background-color: $color-gray-lightest;
+                button, a {
+                    color: $color-primary;
+                }
             }
             
             &.active {
@@ -40,6 +51,10 @@
             &.disabled {
                 color: $color-gray-light;
                 font-size: rem(19);
+                &:hover {
+                    background-color: $color-white;
+                    color: $color-gray-light;
+                }
             }
         }
     }
