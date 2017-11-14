@@ -71,7 +71,7 @@ const bulkDownloadReducer = (state = initialState, action) => {
             });
         }
         case 'UPDATE_AWARD_DATE_RANGE': {
-            const dateRange = Object.assign({}, state.awards.date_range, {
+            const dateRange = Object.assign({}, state.awards.dateRange, {
                 [action.dateType]: action.date
             });
 
