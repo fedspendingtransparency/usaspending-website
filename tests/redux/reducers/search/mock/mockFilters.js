@@ -1,7 +1,9 @@
 export const mockRecipient = {
-    legal_entity_id: 2222,
-    recipient_name: "MEGA CONGLOMERATE CORP PIZZA DIVISION",
-    recipient_unique_id: "001122335"
+    search_text: "Booz Allen",
+    recipient_id_list: [
+        2232,
+        2260
+    ]
 };
 
 export const mockAgency = {
