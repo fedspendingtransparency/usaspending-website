@@ -17,7 +17,7 @@ import BulkDownloadModalContainer from
     'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
 
-const dataTypes = [
+export const dataTypes = [
     {
         type: 'awards',
         label: 'Award Data',
