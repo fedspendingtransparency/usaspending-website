@@ -36,11 +36,6 @@ export default class BulkDownloadModal extends React.Component {
     }
 
     render() {
-        const content = (<ModalContent
-            hideModal={this.props.hideModal}
-            setDownloadCollapsed={this.props.setDownloadCollapsed}
-            expectedFile={this.props.expectedFile} />);
-
         return (
             <Modal
                 mounted={this.props.mounted}
@@ -65,7 +60,10 @@ export default class BulkDownloadModal extends React.Component {
                         </div>
                     </div>
                     <div className="download-body">
-                        {content}
+                        <ModalContent
+                            hideModal={this.props.hideModal}
+                            setDownloadCollapsed={this.props.setDownloadCollapsed}
+                            expectedFile={this.props.expectedFile} />
                     </div>
                 </div>
             </Modal>

@@ -201,15 +201,6 @@ export default class TimePeriodFilter extends React.Component {
             );
         }
 
-        const showFilter = (
-            <DownloadDateRange
-                datePlaceholder=""
-                startDate={this.state.startDateUI}
-                endDate={this.state.endDateUI}
-                onDateChange={this.handleDateChange}
-                showError={this.showError}
-                hideError={this.hideError} />);
-
         let start = '';
         if (this.state.startDateUI !== null) {
             start = this.state.startDateUI.format('YYYY-MM-DD');
@@ -226,7 +217,13 @@ export default class TimePeriodFilter extends React.Component {
                     {icon} Select a <span>date range</span>.
                 </h5>
                 <div className="filter-section-content date-range-wrapper">
-                    { showFilter }
+                    <DownloadDateRange
+                        datePlaceholder=""
+                        startDate={this.state.startDateUI}
+                        endDate={this.state.endDateUI}
+                        onDateChange={this.handleDateChange}
+                        showError={this.showError}
+                        hideError={this.hideError} />
                     { errorDetails }
                     <TimePeriodButtons
                         currentStartDate={start}
