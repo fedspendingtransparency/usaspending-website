@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
-import { indexOf } from 'lodash';
 
 const propTypes = {
     awards: PropTypes.object,
@@ -33,9 +32,9 @@ export default class UserSelections extends React.Component {
         // Build an array of labels for the current selections
         const selectionsArray = [];
         const options = awardDownloadOptions.awardLevels;
-        const currentAwardLevels = this.props.awards.award_levels;
+        const currentAwardLevels = this.props.awards.awardLevels;
         for (let i = 0; i < options.length; i++) {
-            if (indexOf(currentAwardLevels, options[i].name) !== -1) {
+            if (currentAwardLevels[options[i].name]) {
                 selectionsArray.push(options[i].label);
             }
         }
@@ -63,9 +62,9 @@ export default class UserSelections extends React.Component {
         // Build an array of labels for the current selections
         const selectionsArray = [];
         const options = awardDownloadOptions.awardTypes;
-        const currentAwardTypes = this.props.awards.filters.award_types;
+        const currentAwardTypes = this.props.awards.awardTypes;
         for (let i = 0; i < options.length; i++) {
-            if (indexOf(currentAwardTypes, options[i].name) !== -1) {
+            if (currentAwardTypes[options[i].name]) {
                 selectionsArray.push(options[i].label);
             }
         }
@@ -90,10 +89,10 @@ export default class UserSelections extends React.Component {
     }
 
     generateDateTypeString() {
-        if (this.props.awards.filters.date_type !== '') {
+        if (this.props.awards.dateType !== '') {
             const options = awardDownloadOptions.dateTypes;
             const selectedOption = options.find((option) =>
-                option.name === this.props.awards.filters.date_type
+                option.name === this.props.awards.dateType
             );
             return (
                 <div>{selectedOption.label}</div>
@@ -105,10 +104,10 @@ export default class UserSelections extends React.Component {
     }
 
     generateFileFormatString() {
-        if (this.props.awards.file_format !== '') {
+        if (this.props.awards.fileFormat !== '') {
             const options = awardDownloadOptions.fileFormats;
             const selectedOption = options.find((option) =>
-                option.name === this.props.awards.file_format
+                option.name === this.props.awards.fileFormat
             );
             return (
                 <div>{selectedOption.label}</div>
@@ -120,20 +119,9 @@ export default class UserSelections extends React.Component {
     }
 
     generateAgencyString() {
-        if (this.props.awards.filters.agency === 'all') {
+        if (this.props.awards.agency.name !== 'Select an Agency') {
             return (
-                <div>all</div>
-            );
-        }
-
-        const id = parseFloat(this.props.awards.filters.agency);
-        if (!isNaN(id)) {
-            const agencies = this.props.agencies;
-            const selectedAgency = agencies.find((agency) =>
-                agency.toptier_agency_id === id
-            );
-            return (
-                <div>{selectedAgency.name}</div>
+                <div>{this.props.awards.agency.name}</div>
             );
         }
 
@@ -143,14 +131,9 @@ export default class UserSelections extends React.Component {
     }
 
     generateSubAgencyString() {
-        const id = parseFloat(this.props.awards.filters.sub_agency);
-        if (!isNaN(id)) {
-            const subAgencies = this.props.subAgencies;
-            const selectedSubAgency = subAgencies.find((subAgency) =>
-                subAgency.subtier_agency_id === id
-            );
+        if (this.props.awards.subAgency.name !== 'Select a Sub-Agency') {
             return (
-                <div>{selectedSubAgency.subtier_agency_name}</div>
+                <div>{this.props.awards.subAgency.name}</div>
             );
         }
         return (
@@ -159,16 +142,16 @@ export default class UserSelections extends React.Component {
     }
 
     generateDateRangeString() {
-        let startDate = this.props.awards.filters.date_range.start_date;
-        let endDate = this.props.awards.filters.date_range.end_date;
+        let startDate = this.props.awards.dateRange.startDate;
+        let endDate = this.props.awards.dateRange.endDate;
 
         if (startDate !== '') {
-            const start = moment(this.props.awards.filters.date_range.start_date);
+            const start = moment(this.props.awards.dateRange.startDate);
             startDate = start.format("MM/DD/YYYY");
         }
 
         if (endDate !== '') {
-            const end = moment(this.props.awards.filters.date_range.end_date);
+            const end = moment(this.props.awards.dateRange.endDate);
             endDate = end.format("MM/DD/YYYY");
         }
 

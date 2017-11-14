@@ -8,34 +8,41 @@ import moment from 'moment';
 export const awardDownloadOptions = {
     awardLevels: [
         {
-            name: 'prime_awards',
-            label: 'Prime Awards'
+            name: 'primeAwards',
+            label: 'Prime Awards',
+            apiName: 'prime_awards'
         },
         {
-            name: 'sub_awards',
-            label: 'Sub Awards'
+            name: 'subAwards',
+            label: 'Sub Awards',
+            apiName: 'sub_awards'
         }
     ],
     awardTypes: [
         {
             name: 'contracts',
-            label: 'Contracts'
+            label: 'Contracts',
+            apiName: 'contracts'
         },
         {
             name: 'grants',
-            label: 'Grants'
+            label: 'Grants',
+            apiName: 'grants'
         },
         {
-            name: 'direct_payments',
-            label: 'Direct Payments'
+            name: 'directPayments',
+            label: 'Direct Payments',
+            apiName: 'direct_payments'
         },
         {
             name: 'loans',
-            label: 'Loans'
+            label: 'Loans',
+            apiName: 'loans'
         },
         {
-            name: 'other_financial_assistance',
-            label: 'Other Financial Assistance'
+            name: 'otherFinancialAssistance',
+            label: 'Other Financial Assistance',
+            apiName: 'other_financial_assistance'
         }
     ],
     dateTypes: [

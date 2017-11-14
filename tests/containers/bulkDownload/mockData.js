@@ -53,19 +53,32 @@ export const mockRedux = {
     bulkDownload: {
         dataType: 'awards',
         awards: {
-            award_levels: ['prime_awards'],
-            filters: {
-                award_types: ['contracts'],
-                agency: '',
-                sub_agency: '',
-                date_type: 'action_date',
-                date_range: {
-                    start_date: '11-01-2016',
-                    end_date: '11-01-2017'
-                }
+            awardLevels: {
+                primeAwards: true,
+                subAwards: false
+            },
+            awardTypes: {
+                contracts: false,
+                grants: true,
+                directPayments: false,
+                loans: true,
+                otherFinancialAssistance: false
+            },
+            agency: {
+                id: '123',
+                name: 'Mock Agency'
+            },
+            subAgency: {
+                id: '456',
+                name: 'Mock Sub-Agency'
+            },
+            dateType: 'action_date',
+            dateRange: {
+                startDate: '11-01-2016',
+                endDate: '11-01-2017'
             },
             columns: [],
-            file_format: 'csv'
+            fileFormat: 'csv'
         },
         download: {
             expectedFile: '',

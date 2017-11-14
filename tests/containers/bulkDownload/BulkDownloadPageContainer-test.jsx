@@ -24,9 +24,9 @@ describe('BulkDownloadPageContainer', () => {
     it('should make an API call when startDownload() is called', () => {
         const container = mount(<BulkDownloadPageContainer
             {...mockActions}
-            bulkDownload={mockRedux} />);
+            bulkDownload={mockRedux.bulkDownload} />);
 
-        container.instance().startDownload();
+        container.instance().startAwardDownload();
 
         expect(requestDownloadSpy.callCount).toEqual(1);
 

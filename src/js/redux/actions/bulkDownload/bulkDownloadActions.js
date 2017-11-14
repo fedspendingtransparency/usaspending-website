@@ -10,9 +10,9 @@ export const updateDownloadFilter = (state) => ({
     value: state.value
 });
 
-export const updateDownloadParam = (state) => ({
-    type: 'UPDATE_DOWNLOAD_PARAM',
-    dataType: state.dataType,
+export const updateAwardCheckbox = (state) => ({
+    type: 'UPDATE_AWARD_CHECKBOX',
+    filter: state.filter,
     name: state.name,
     value: state.value
 });

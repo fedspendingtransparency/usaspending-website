@@ -24,7 +24,7 @@ export default class DateTypeFilter extends React.Component {
 
     onChange(e) {
         const target = e.target;
-        this.props.updateFilter('date_type', target.value);
+        this.props.updateFilter('dateType', target.value);
     }
 
     render() {

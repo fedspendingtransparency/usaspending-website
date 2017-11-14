@@ -5,16 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { CheckCircle, ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
-import { indexOf, remove, concat } from 'lodash';
-
 import DownloadCheckbox from '../../DownloadCheckbox';
 
 const propTypes = {
     awardTypes: PropTypes.array,
-    currentAwardTypes: PropTypes.array,
-    updateFilter: PropTypes.func
+    currentAwardTypes: PropTypes.object,
+    updateAwardCheckbox: PropTypes.func
 };
 
 export default class AwardTypeFilter extends React.Component {
@@ -25,33 +22,20 @@ export default class AwardTypeFilter extends React.Component {
     }
 
     onChange(name, value) {
-        if (value) {
-            const updatedAwardTypes = concat(this.props.currentAwardTypes, [name]);
-            this.props.updateFilter('award_types', updatedAwardTypes);
-        }
-        else {
-            const updatedAwardTypes = remove(this.props.currentAwardTypes, (item) => item !== name);
-            this.props.updateFilter('award_types', updatedAwardTypes);
-        }
+        this.props.updateAwardCheckbox({
+            filter: 'awardTypes',
+            name,
+            value
+        });
     }
 
     render() {
-        const awardTypesArray = this.props.currentAwardTypes;
-
-        const currentAwardTypes = {
-            contracts: (indexOf(awardTypesArray, 'contracts') !== -1),
-            grants: (indexOf(awardTypesArray, 'grants') !== -1),
-            direct_payments: (indexOf(awardTypesArray, 'direct_payments') !== -1),
-            loans: (indexOf(awardTypesArray, 'loans') !== -1),
-            other_financial_assistance: (indexOf(awardTypesArray, 'other_financial_assistance') !== -1)
-        };
-
         const isValid = (
-            currentAwardTypes.contracts ||
-                currentAwardTypes.grants ||
-                currentAwardTypes.direct_payments ||
-                currentAwardTypes.loans ||
-                currentAwardTypes.other_financial_assistance
+            this.props.currentAwardTypes.contracts ||
+            this.props.currentAwardTypes.grants ||
+            this.props.currentAwardTypes.directPayments ||
+            this.props.currentAwardTypes.loans ||
+            this.props.currentAwardTypes.otherFinancialAssistance
         );
 
         let icon = (
@@ -73,7 +57,7 @@ export default class AwardTypeFilter extends React.Component {
                 key={type.name}
                 name={type.name}
                 label={type.label}
-                checked={currentAwardTypes[type.name]}
+                checked={this.props.currentAwardTypes[type.name]}
                 onChange={this.onChange} />
         ));
 

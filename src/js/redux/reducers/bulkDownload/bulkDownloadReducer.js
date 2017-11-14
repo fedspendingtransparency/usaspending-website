@@ -6,19 +6,32 @@
 export const initialState = {
     dataType: 'awards',
     awards: {
-        award_levels: [],
-        filters: {
-            award_types: [],
-            agency: '',
-            sub_agency: '',
-            date_type: 'action_date',
-            date_range: {
-                start_date: '',
-                end_date: ''
-            }
+        awardLevels: {
+            primeAwards: false,
+            subAwards: false
+        },
+        awardTypes: {
+            contracts: false,
+            grants: false,
+            directPayments: false,
+            loans: false,
+            otherFinancialAssistance: false
+        },
+        agency: {
+            id: '',
+            name: 'Select an Agency'
+        },
+        subAgency: {
+            id: '',
+            name: 'Select a Sub-Agency'
+        },
+        dateType: 'action_date',
+        dateRange: {
+            startDate: '',
+            endDate: ''
         },
         columns: [],
-        file_format: 'csv'
+        fileFormat: 'csv'
     },
     download: {
         expectedFile: '',
@@ -35,22 +48,22 @@ const bulkDownloadReducer = (state = initialState, action) => {
                 dataType: action.dataType
             });
         }
-        case 'UPDATE_DOWNLOAD_PARAM': {
-            const dataType = Object.assign({}, state[action.dataType], {
+        case 'UPDATE_AWARD_CHECKBOX': {
+            const filter = Object.assign({}, state.awards[action.filter], {
                 [action.name]: action.value
+            });
+
+            const awards = Object.assign({}, state.awards, {
+                [action.filter]: filter
             });
 
             return Object.assign({}, state, {
-                [action.dataType]: dataType
+                awards
             });
         }
         case 'UPDATE_DOWNLOAD_FILTER': {
-            const filters = Object.assign({}, state[action.dataType].filters, {
-                [action.name]: action.value
-            });
-
             const dataType = Object.assign({}, state[action.dataType], {
-                filters
+                [action.name]: action.value
             });
 
             return Object.assign({}, state, {
@@ -58,16 +71,12 @@ const bulkDownloadReducer = (state = initialState, action) => {
             });
         }
         case 'UPDATE_AWARD_DATE_RANGE': {
-            const dateRange = Object.assign({}, state.awards.filters.date_range, {
+            const dateRange = Object.assign({}, state.awards.date_range, {
                 [action.dateType]: action.date
             });
 
-            const filters = Object.assign({}, state.awards.filters, {
-                date_range: dateRange
-            });
-
             const awards = Object.assign({}, state.awards, {
-                filters
+                dateRange
             });
 
             return Object.assign({}, state, {

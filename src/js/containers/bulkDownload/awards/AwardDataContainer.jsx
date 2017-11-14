@@ -15,7 +15,7 @@ import AwardDataContent from 'components/bulkDownload/awards/AwardDataContent';
 
 const propTypes = {
     updateDownloadFilter: PropTypes.func,
-    updateDownloadParam: PropTypes.func,
+    updateAwardCheckbox: PropTypes.func,
     clearDownloadFilters: PropTypes.func,
     updateAwardDateRange: PropTypes.func,
     bulkDownload: PropTypes.object,
@@ -35,7 +35,6 @@ export class AwardDataContainer extends React.Component {
         this.agencyListRequest = null;
 
         this.updateFilter = this.updateFilter.bind(this);
-        this.updateParam = this.updateParam.bind(this);
         this.updateStartDate = this.updateStartDate.bind(this);
         this.updateEndDate = this.updateEndDate.bind(this);
         this.clearAwardFilters = this.clearAwardFilters.bind(this);
@@ -110,14 +109,6 @@ export class AwardDataContainer extends React.Component {
         }
     }
 
-    updateParam(name, value) {
-        this.props.updateDownloadParam({
-            dataType: 'awards',
-            name,
-            value
-        });
-    }
-
     updateFilter(name, value) {
         this.props.updateDownloadFilter({
             dataType: 'awards',
@@ -129,14 +120,14 @@ export class AwardDataContainer extends React.Component {
     updateStartDate(date) {
         this.props.updateAwardDateRange({
             date,
-            dateType: 'start_date'
+            dateType: 'startDate'
         });
     }
 
     updateEndDate(date) {
         this.props.updateAwardDateRange({
             date,
-            dateType: 'end_date'
+            dateType: 'endDate'
         });
     }
 
@@ -148,7 +139,7 @@ export class AwardDataContainer extends React.Component {
         return (
             <AwardDataContent
                 awards={this.props.bulkDownload.awards}
-                updateParam={this.updateParam}
+                updateAwardCheckbox={this.props.updateAwardCheckbox}
                 updateFilter={this.updateFilter}
                 updateStartDate={this.updateStartDate}
                 updateEndDate={this.updateEndDate}

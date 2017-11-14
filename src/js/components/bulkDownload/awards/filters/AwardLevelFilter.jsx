@@ -5,16 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { CheckCircle, ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
-import { indexOf, remove, concat } from 'lodash';
-
 import DownloadCheckbox from '../../DownloadCheckbox';
 
 const propTypes = {
     awardLevels: PropTypes.array,
-    currentAwardLevels: PropTypes.array,
-    updateParam: PropTypes.func
+    currentAwardLevels: PropTypes.object,
+    updateAwardCheckbox: PropTypes.func
 };
 
 export default class AwardLevelFilter extends React.Component {
@@ -25,26 +22,17 @@ export default class AwardLevelFilter extends React.Component {
     }
 
     onChange(name, value) {
-        if (value) {
-            const updatedAwardLevels = concat(this.props.currentAwardLevels, [name]);
-            this.props.updateParam('award_levels', updatedAwardLevels);
-        }
-        else {
-            const updatedAwardLevels = remove(this.props.currentAwardLevels, (item) => item !== name);
-            this.props.updateParam('award_levels', updatedAwardLevels);
-        }
+        this.props.updateAwardCheckbox({
+            filter: 'awardLevels',
+            name,
+            value
+        });
     }
 
     render() {
-        const awardLevelsArray = this.props.currentAwardLevels;
-        const currentAwardLevels = {
-            prime_awards: (indexOf(awardLevelsArray, 'prime_awards') !== -1),
-            sub_awards: (indexOf(awardLevelsArray, 'sub_awards') !== -1)
-        };
-
         const isValid = (
-            currentAwardLevels.prime_awards ||
-            currentAwardLevels.sub_awards
+            this.props.currentAwardLevels.primeAwards ||
+            this.props.currentAwardLevels.subAwards
         );
 
         let icon = (
@@ -66,7 +54,7 @@ export default class AwardLevelFilter extends React.Component {
                 key={level.name}
                 name={level.name}
                 label={level.label}
-                checked={currentAwardLevels[level.name]}
+                checked={this.props.currentAwardLevels[level.name]}
                 onChange={this.onChange} />
         ));
 

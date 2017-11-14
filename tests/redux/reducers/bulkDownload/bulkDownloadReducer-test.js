@@ -17,26 +17,26 @@ describe('bulkDownloadReducer', () => {
             const action = {
                 type: 'UPDATE_DOWNLOAD_FILTER',
                 dataType: 'awards',
-                name: 'award_types',
-                value: ['mock_type1', 'mock_type2']
+                name: 'fileFormat',
+                value: 'mockFormat'
             };
 
             const state = bulkDownloadReducer(undefined, action);
-            expect(state.awards.filters.award_types).toEqual(['mock_type1', 'mock_type2']);
+            expect(state.awards.fileFormat).toEqual('mockFormat');
         });
     });
 
-    describe('UPDATE_DOWNLOAD_PARAM', () => {
-        it('should update the specified parameter for the given data type', () => {
+    describe('UPDATE_AWARD_CHECKBOX', () => {
+        it('should update the specified checkbox value', () => {
             const action = {
-                type: 'UPDATE_DOWNLOAD_PARAM',
-                dataType: 'awards',
-                name: 'award_levels',
-                value: ['mock_level']
+                type: 'UPDATE_AWARD_CHECKBOX',
+                filter: 'awardLevels',
+                name: 'primeAwards',
+                value: true
             };
 
             const state = bulkDownloadReducer(undefined, action);
-            expect(state.awards.award_levels).toEqual(['mock_level']);
+            expect(state.awards.awardLevels.primeAwards).toEqual(true);
         });
     });
 
@@ -45,21 +45,21 @@ describe('bulkDownloadReducer', () => {
             const action = {
                 type: 'UPDATE_AWARD_DATE_RANGE',
                 date: '01-01-1987',
-                dateType: 'start_date'
+                dateType: 'startDate'
             };
 
             const state = bulkDownloadReducer(undefined, action);
-            expect(state.awards.filters.date_range.start_date).toEqual('01-01-1987');
+            expect(state.awards.dateRange.startDate).toEqual('01-01-1987');
         });
         it('should update the end date value for awards', () => {
             const action = {
                 type: 'UPDATE_AWARD_DATE_RANGE',
                 date: '12-31-1987',
-                dateType: 'end_date'
+                dateType: 'endDate'
             };
 
             const state = bulkDownloadReducer(undefined, action);
-            expect(state.awards.filters.date_range.end_date).toEqual('12-31-1987');
+            expect(state.awards.dateRange.endDate).toEqual('12-31-1987');
         });
     });
 
@@ -68,22 +68,33 @@ describe('bulkDownloadReducer', () => {
             const state = {
                 dataType: 'awards',
                 awards: {
-                    award_levels: ['mock_level'],
-                    filters: {
-                        award_types: ['mock_type1', 'mock_type2'],
-                        agency: 'mock_agency',
-                        sub_agency: 'mock_subagency',
-                        date_type: 'mock_date_type',
-                        date_range: {
-                            start_date: '01-01-1987',
-                            end_date: '12-31-1987'
-                        }
+                    awardLevels: {
+                        primeAwards: true,
+                        subAwards: true
+                    },
+                    awardTypes: {
+                        contracts: false,
+                        grants: true,
+                        directPayments: true,
+                        loans: false,
+                        otherFinancialAssistance: false
+                    },
+                    agency: {
+                        id: '123',
+                        name: 'Mock Agency'
+                    },
+                    subAgency: {
+                        id: '456',
+                        name: 'Mock Sub-Agency'
+                    },
+                    dateType: 'mock_date_type',
+                    dateRange: {
+                        startDate: '01-01-1987',
+                        endDate: '12-31-1987'
                     },
                     columns: [],
-                    file_format: 'mock_format'
+                    fileFormat: 'mock_format'
                 },
-                agencies: [],
-                subAgencies: [],
                 expectedFile: '',
                 pendingDownload: false,
                 showCollapsedProgress: false

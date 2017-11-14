@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { find } from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
@@ -53,7 +52,10 @@ export default class AgencyFilter extends React.Component {
     handleAgencySelect(e) {
         e.preventDefault();
         const target = e.target;
-        this.props.updateFilter('agency', target.value);
+        this.props.updateFilter('agency', {
+            id: target.value,
+            name: target.name
+        });
 
         if (target.value !== 'all') {
             this.props.setSubAgencyList(target.value);
@@ -67,7 +69,10 @@ export default class AgencyFilter extends React.Component {
     handleSubAgencySelect(e) {
         e.preventDefault();
         const target = e.target;
-        this.props.updateFilter('sub_agency', target.value);
+        this.props.updateFilter('subAgency', {
+            id: target.value,
+            name: target.name
+        });
 
         this.setState({
             showSubAgencyPicker: false
@@ -99,6 +104,7 @@ export default class AgencyFilter extends React.Component {
                     title={agency.name}
                     aria-label={agency.name}
                     value={agency.toptier_agency_id}
+                    name={agency.name}
                     onClick={this.handleAgencySelect}>
                     {agency.name}
                 </button>
@@ -115,37 +121,15 @@ export default class AgencyFilter extends React.Component {
                     title={subAgency.subtier_agency_name}
                     aria-label={subAgency.subtier_agency_name}
                     value={subAgency.subtier_agency_id}
+                    name={subAgency.subtier_agency_name}
                     onClick={this.handleSubAgencySelect}>
                     {subAgency.subtier_agency_name}
                 </button>
             </li>
         ));
 
-        // Determine the name of the current agency
-        let currentAgencyName = 'Select an Agency';
-        if (this.props.currentAgencies.agency === 'all') {
-            currentAgencyName = 'All';
-        }
-        else {
-            const currentAgencyId = parseFloat(this.props.currentAgencies.agency);
-            if (currentAgencyId) {
-                const currentAgency = find(this.props.agencies, { toptier_agency_id: currentAgencyId });
-                if (currentAgency) {
-                    currentAgencyName = currentAgency.name;
-                }
-            }
-        }
-
-        // Determine the name of the current sub-agency
-        let currentSubAgencyName = 'Select a Sub-Agency';
-        const currentSubAgencyId = parseFloat(this.props.currentAgencies.subAgency);
-        if (currentSubAgencyId) {
-            const currentSubAgency = find(this.props.subAgencies,
-                { subtier_agency_id: currentSubAgencyId });
-            if (currentSubAgency) {
-                currentSubAgencyName = currentSubAgency.subtier_agency_name;
-            }
-        }
+        const currentAgencyName = this.props.currentAgencies.agency.name;
+        const currentSubAgencyName = this.props.currentAgencies.subAgency.name;
 
         let showAgencyPicker = 'hide';
         let agencyIcon = <Icons.AngleDown alt="Pick an agency" />;
@@ -204,6 +188,7 @@ export default class AgencyFilter extends React.Component {
                                             className="item-button"
                                             title="All"
                                             aria-label="all"
+                                            name="All"
                                             value="all"
                                             onClick={this.handleAgencySelect}>
                                             All

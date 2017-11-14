@@ -18,7 +18,7 @@ import UserSelections from './UserSelections';
 
 const propTypes = {
     awards: PropTypes.object,
-    updateParam: PropTypes.func,
+    updateAwardCheckbox: PropTypes.func,
     updateFilter: PropTypes.func,
     updateStartDate: PropTypes.func,
     updateEndDate: PropTypes.func,
@@ -56,16 +56,17 @@ export default class AwardDataContent extends React.Component {
         const awards = this.props.awards;
 
         const currentAgencies = {
-            agency: awards.filters.agency,
-            subAgency: awards.filters.sub_agency
+            agency: awards.agency,
+            subAgency: awards.subAgency
         };
 
         const formValidation = (
-            (awards.award_levels.length > 0)
-                && (awards.filters.award_types.length > 0)
-                && this.state.validDates && (awards.filters.dateType !== '')
-                && (awards.filters.agency !== '')
-                && (awards.file_format !== '')
+            (awards.awardLevels.primeAwards || awards.awardLevels.subAwards)
+                && (awards.awardTypes.contracts || awards.awardTypes.grants || awards.awardTypes.directPayments
+                    || awards.awardTypes.loans || awards.awardTypes.otherFinancialAssistance)
+                && this.state.validDates && (awards.dateType !== '')
+                && (awards.agency.id !== '')
+                && (awards.fileFormat !== '')
         );
 
         let submitButton = (
@@ -91,34 +92,34 @@ export default class AwardDataContent extends React.Component {
                         onSubmit={this.handleSubmit}>
                         <AwardLevelFilter
                             awardLevels={awardDownloadOptions.awardLevels}
-                            currentAwardLevels={awards.award_levels}
-                            updateParam={this.props.updateParam} />
+                            currentAwardLevels={awards.awardLevels}
+                            updateAwardCheckbox={this.props.updateAwardCheckbox} />
                         <AwardTypeFilter
                             awardTypes={awardDownloadOptions.awardTypes}
-                            currentAwardTypes={awards.filters.award_types}
-                            updateFilter={this.props.updateFilter} />
+                            currentAwardTypes={awards.awardTypes}
+                            updateAwardCheckbox={this.props.updateAwardCheckbox} />
                         <AgencyFilter
                             agencies={this.props.agencies}
                             subAgencies={this.props.subAgencies}
                             currentAgencies={currentAgencies}
                             updateFilter={this.props.updateFilter}
                             setSubAgencyList={this.props.setSubAgencyList}
-                            valid={awards.filters.agency !== ''} />
+                            valid={awards.agency.id !== ''} />
                         <DateTypeFilter
                             dateTypes={awardDownloadOptions.dateTypes}
-                            currentDateType={awards.filters.date_type}
+                            currentDateType={awards.dateType}
                             updateFilter={this.props.updateFilter}
-                            valid={awards.filters.dateType !== ''} />
+                            valid={awards.dateType !== ''} />
                         <TimePeriodFilter
                             updateStartDate={this.props.updateStartDate}
                             updateEndDate={this.props.updateEndDate}
-                            valid={awards.filters.date_range.start_date !== '' || awards.filters.date_range.end_date !== ''}
+                            valid={awards.dateRange.startDate !== '' || awards.dateRange.endDate !== ''}
                             setValidDates={this.setValidDates} />
                         <FileFormatFilter
                             fileFormats={awardDownloadOptions.fileFormats}
-                            currentFileFormat={awards.file_format}
-                            updateParam={this.props.updateParam}
-                            valid={awards.file_format !== ''} />
+                            currentFileFormat={awards.fileFormat}
+                            updateFilter={this.props.updateFilter}
+                            valid={awards.fileFormat !== ''} />
                         <UserSelections
                             awards={awards}
                             agencies={this.props.agencies}

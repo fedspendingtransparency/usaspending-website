@@ -11,7 +11,7 @@ import { CheckCircle, ExclamationTriangle } from 'components/sharedComponents/ic
 const propTypes = {
     fileFormats: PropTypes.array,
     currentFileFormat: PropTypes.string,
-    updateParam: PropTypes.func,
+    updateFilter: PropTypes.func,
     valid: PropTypes.bool
 };
 
@@ -24,7 +24,7 @@ export default class FileFormatFilter extends React.Component {
 
     onChange(e) {
         const target = e.target;
-        this.props.updateParam('file_format', target.value);
+        this.props.updateFilter('file_format', target.value);
     }
 
     render() {

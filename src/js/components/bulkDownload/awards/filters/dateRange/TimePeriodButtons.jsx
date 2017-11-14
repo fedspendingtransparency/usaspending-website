@@ -28,7 +28,7 @@ export default class TimePeriodButtons extends React.Component {
 
     generateFYButtons(col) {
         const currentFY = fiscalYearHelper.currentFiscalYear();
-        const earliestFY = fiscalYearHelper.earliestFiscalYear;
+        const earliestFY = currentFY - 9;
         const fiscalYears = [];
         for (let year = currentFY; year >= earliestFY; year--) {
             fiscalYears.push(year);
