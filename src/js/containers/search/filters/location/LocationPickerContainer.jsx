@@ -339,20 +339,20 @@ export default class LocationPickerContainer extends React.Component {
             return;
         }
 
-        this.validZip(zip);
+        // this.validZip(zip);
 
-        // this.zipRequest = performZIPGeocode(zip);
+        this.zipRequest = performZIPGeocode(zip);
 
-        // this.zipRequest.promise
-        //     .then((res) => {
-        //         this.parseZip(res.data, zip);
-        //     })
-        //     .catch((err) => {
-        //         if (!isCancel(err)) {
-        //             console.log(err);
-        //             this.zipRequest = null;
-        //         }
-        //     });
+        this.zipRequest.promise
+            .then((res) => {
+                this.parseZip(res.data, zip);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.zipRequest = null;
+                }
+            });
     }
 
     parseZip(data, zip) {
