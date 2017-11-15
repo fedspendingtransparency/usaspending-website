@@ -63,7 +63,7 @@ module.exports = {
                         {
                             loader: 'sass-loader',
                             options: {
-                                includePaths: ['./src/_scss'],
+                                includePaths: ['./src/_scss', './node_modules'],
                                 sourceMap: () => {
                                     if (process.env.NODE_ENV === 'production') {
                                         return false;

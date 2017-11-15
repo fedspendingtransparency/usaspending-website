@@ -1,0 +1,70 @@
+.map-layer-toggle {
+    z-index: 2;
+    background-color: $color-white;
+    display: block;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    line-height: rem(18);
+
+    position: absolute;
+    top: rem(15);
+    left: rem(15);
+    padding: rem(10) rem(15);
+
+    .map-layer-list {
+        @include unstyled-list;
+
+
+        @include display(flex);
+        @include flex-direction(column);
+        @include media($tablet-screen) {
+            @include flex-direction(row);
+        }
+        @include justify-content(center);
+        @include align-items(center);
+        position: relative;
+
+        li {
+            @include flex(1 1 auto);
+            margin-left: 0;
+            margin-top: rem(5);
+            @include media($tablet-screen) {
+                margin-left: rem(10);
+                margin-top: 0;
+            }
+            @include media($large-screen) {
+                margin-left: rem(40);
+            }
+
+            &:first-child {
+                margin-top: 0;
+                margin-left: 0;
+            }
+        }
+
+        .map-layer-option {
+            @include button-unstyled;
+            color: $color-base;
+            text-align: center;
+            font-size: $small-font-size;
+            font-weight: $font-normal;
+            line-height: rem(18);
+
+            padding: 0 rem(5);
+            border-bottom: rem(4) solid $color-white;
+
+            &.active, &:hover, &:active {
+                font-weight: $font-bold;
+                border-bottom: rem(4) solid $color-primary-darker;
+            }
+
+            &:before {
+                // CSS trick to prevent container from resizing when text becomes bold
+                content: attr(data-content);
+                font-weight: $font-bold;
+                visibility: hidden;
+                display: block;
+                height: 0;
+            }
+        }
+    }
+}

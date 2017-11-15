@@ -7,10 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import * as MapHelper from 'helpers/mapHelper';
 
 const propTypes = {
-    state: PropTypes.string,
+    label: PropTypes.string,
     value: PropTypes.number,
     y: PropTypes.number,
     x: PropTypes.number,
@@ -53,8 +52,6 @@ export default class GeoVisualizationTooltip extends React.Component {
     }
 
     render() {
-        const stateName = MapHelper.stateNameFromCode(this.props.state);
-
         return (
             <div
                 className="visualization-tooltip"
@@ -72,7 +69,7 @@ export default class GeoVisualizationTooltip extends React.Component {
                             this.pointerDiv = div;
                         }} />
                     <div className="tooltip-title">
-                        {stateName}
+                        {this.props.label}
                     </div>
                     <div className="tooltip-body">
                         <div className="tooltip-left">
