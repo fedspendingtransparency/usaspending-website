@@ -8,7 +8,7 @@ export const availableProfiles = [
         title: 'Agencies',
         url: '#/agency',
         code: 'agency',
-        enabled: false
+        enabled: true
     },
     {
         title: 'Recipients',
