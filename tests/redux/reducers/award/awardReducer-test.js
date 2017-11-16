@@ -97,7 +97,7 @@ describe('SET_SELECTED_AWARD', () => {
                 pop_state_province: "TN",
                 pop_zip: "37830",
                 total_obligation: "$524,325,656",
-                potential_total_value_of_award: "$1,537,201",
+                base_and_all_options_value: "$1,537,201",
                 recipient_duns: "099114287",
                 recipient_parent_duns: "099114287",
                 recipient_business_type: "Unknown Business Type",

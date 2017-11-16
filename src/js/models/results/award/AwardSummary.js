@@ -50,7 +50,7 @@ const fields = [
     'pop_country',
     'pop_country_code',
     'total_obligation',
-    'potential_total_value_of_award',
+    'base_and_all_options_value',
     'recipient_duns',
     'recipient_parent_duns',
     'recipient_business_type',
@@ -106,7 +106,8 @@ const fields = [
     'contract_price_evaluation_adjustment_preference',
     'contract_program_acronym',
     'contract_purchase_card_as_payment_method',
-    'contract_subcontracting_plan'
+    'contract_subcontracting_plan',
+    'executive_compensation'
 ];
 
 const remapData = (data, idField) => {
@@ -197,6 +198,18 @@ const remapData = (data, idField) => {
     let contractProgramAcronym = '';
     let contractPurchaseCardAsPaymentMethod = '';
     let contractSubcontractingPlan = '';
+    const executiveCompensation = {
+        officer_1_amount: null,
+        officer_1_name: '',
+        officer_2_amount: null,
+        officer_2_name: '',
+        officer_3_amount: null,
+        officer_3_name: '',
+        officer_4_amount: null,
+        officer_4_name: '',
+        officer_5_amount: null,
+        officer_5_name: ''
+    };
 
     if (data.id) {
         id = data.id;
@@ -443,6 +456,20 @@ const remapData = (data, idField) => {
         if (data.latest_transaction.action_date) {
             actionDate = data.latest_transaction.action_date;
         }
+
+        if (data.latest_transaction.recipient && data.latest_transaction.recipient.officers) {
+            const officerList = data.latest_transaction.recipient.officers;
+            for (let i = 1; i < 6; i++) {
+                const originalName = officerList[`officer_${i}_name`];
+                const originalAmount = officerList[`officer_${i}_amount`];
+                if (originalName && originalName !== '') {
+                    executiveCompensation[`officer_${i}_name`] = originalName;
+                }
+                if (originalAmount && originalAmount !== '') {
+                    executiveCompensation[`officer_${i}_amount`] = originalAmount;
+                }
+            }
+        }
     }
 
     remappedData.id = id;
@@ -512,6 +539,7 @@ const remapData = (data, idField) => {
     remappedData.face_value_loan_guarantee = loanFaceValue;
     remappedData.original_loan_subsidy_cost = loanSubsidy;
     remappedData.action_date = actionDate;
+    remappedData.executive_compensation = executiveCompensation;
 
     // set the awardID (fain or piid) to the relevant field
     let awardId = data.fain;
@@ -633,7 +661,7 @@ const remapData = (data, idField) => {
     }
     remappedData.type = serverType;
 
-    const moneyCells = ['total_obligation', 'potential_total_value_of_award'];
+    const moneyCells = ['total_obligation', 'base_and_all_options_value'];
     moneyCells.forEach((cell) => {
         remappedData[cell] = MoneyFormatter.formatMoney(data[cell]);
     });

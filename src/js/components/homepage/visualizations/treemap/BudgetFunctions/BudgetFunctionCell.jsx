@@ -125,12 +125,15 @@ export default class BudgetFunctionCell extends React.Component {
     }
 
     render() {
+        const percentage = MoneyFormatter.calculateTreemapPercentage(this.props.value, this.props.total);
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
                 onMouseEnter={this.toggleTooltipIn}
                 onMouseLeave={this.toggleTooltipOut}
-                onClick={this.toggleSubfunction}>
+                onClick={this.toggleSubfunction}
+                aria-label={`${this.state.label} - ${percentage}`}
+                tabIndex="0">
                 <rect
                     className="tile"
                     width={this.props.width}
@@ -169,7 +172,7 @@ export default class BudgetFunctionCell extends React.Component {
                         fill: this.props.textColor,
                         opacity: this.props.opacity
                     }}>
-                    {MoneyFormatter.calculateTreemapPercentage(this.props.value, this.props.total)}
+                    {percentage}
                 </text>
             </g>
         );

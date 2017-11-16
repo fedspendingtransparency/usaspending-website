@@ -1,0 +1,38 @@
+.usa-da-bulk-download-page {
+    @import "all";
+    @import "layouts/search/search";
+    @import "./header/header";
+
+    .main-content {
+        @import "../../mixins/fullSectionWrap";
+        @include fullSectionWrap(($global-mrg * 4), ($global-mrg * 4));
+        padding:  0;
+        .download-sidebar {
+            @import "./sidebar/sidebar";
+            @include span-columns(16);
+            @include media($medium-screen) {
+                @include span-columns(4);
+            }
+            .api-info {
+                padding: rem(30);
+                h5 {
+                    margin: 0;
+                }
+            }
+        }
+
+        .download-data-wrapper {
+            @import "downloadData";
+            @include span-columns(16);
+            @include media($medium-screen) {
+                @include span-columns(12);
+            }
+            background-color: $color-white;
+            box-shadow: $container-shadow;
+            border-top: 1px solid $color-gray-border;
+            border-right: 1px solid $color-gray-border;
+            border-bottom: 1px solid $color-gray-border;
+            padding: rem(30) rem(20);
+        }
+    }
+}

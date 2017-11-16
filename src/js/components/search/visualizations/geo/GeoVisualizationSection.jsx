@@ -5,21 +5,26 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { indexOf } from 'lodash';
+import Cookies from 'js-cookie';
 
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
+import MapDisclaimer from './MapDisclaimer';
 
 const propTypes = {
     scope: PropTypes.string,
-    mapScope: PropTypes.string,
+    mapLayer: PropTypes.string,
     changeScope: PropTypes.func,
+    changeMapLayer: PropTypes.func,
+    mapMoved: PropTypes.func,
     renderHash: PropTypes.string,
     data: PropTypes.object,
     total: PropTypes.number
 };
+
+// const availableLayers = ['state', 'county', 'congressionalDistrict'];
+const availableLayers = ['state'];
 
 export default class GeoVisualizationSection extends React.Component {
     constructor(props) {
@@ -27,22 +32,34 @@ export default class GeoVisualizationSection extends React.Component {
 
         this.state = {
             showHover: false,
+            showDisclaimer: false,
             selectedItem: {}
         };
 
         this.showTooltip = this.showTooltip.bind(this);
         this.hideTooltip = this.hideTooltip.bind(this);
+        this.closeDisclaimer = this.closeDisclaimer.bind(this);
     }
 
-    showTooltip(stateCode, position) {
+    componentWillMount() {
+        // check if the disclaimer cookie exists
+        if (!Cookies.get('usaspending_search_map_disclaimer')) {
+            // cookie does not exist, show the disclaimer
+            this.setState({
+                showDisclaimer: true
+            });
+        }
+    }
+
+    showTooltip(geoId, position) {
         // convert state code to full string name
-        const index = indexOf(this.props.data.locations, stateCode);
+        const label = this.props.data.labels[geoId];
         this.setState({
             showHover: true,
             selectedItem: {
-                state: stateCode,
+                label: label.label,
                 total: this.props.total,
-                value: this.props.data.values[index],
+                value: label.value,
                 x: position.x,
                 y: position.y
             }
@@ -56,7 +73,21 @@ export default class GeoVisualizationSection extends React.Component {
         });
     }
 
+    closeDisclaimer() {
+        // set a cookie to hide the disclaimer in the future
+        Cookies.set('usaspending_search_map_disclaimer', 'hide', { expires: 730 });
+        this.setState({
+            showDisclaimer: false
+        });
+    }
+
     render() {
+        let disclaimer = null;
+        if (this.state.showDisclaimer) {
+            disclaimer = (<MapDisclaimer
+                closeDisclaimer={this.closeDisclaimer} />);
+        }
+
         return (
             <div
                 className="results-visualization-geo-section"
@@ -71,10 +102,7 @@ export default class GeoVisualizationSection extends React.Component {
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            Explore the map to see a breakdown of spending by state, city, and
-                            county. Filter your results more (at left) and watch this graph update
-                            automatically. View your results by place of performance or recipient
-                            location.
+                            Explore the map to see a breakdown of spending by state, county, and congressional district. Filter your results more (at left) and watch this graph update automatically. View your results by place of performance or recipient location.
                         </div>
                     </div>
 
@@ -103,12 +131,17 @@ export default class GeoVisualizationSection extends React.Component {
                 <MapWrapper
                     data={this.props.data}
                     renderHash={this.props.renderHash}
-                    scope={this.props.mapScope}
+                    scope={this.props.mapLayer}
+                    changeMapLayer={this.props.changeMapLayer}
                     showHover={this.state.showHover}
                     selectedItem={this.state.selectedItem}
                     showTooltip={this.showTooltip}
                     hideTooltip={this.hideTooltip}
-                    tooltip={GeoVisualizationTooltip} />
+                    tooltip={GeoVisualizationTooltip}
+                    availableLayers={availableLayers}
+                    showLayerToggle>
+                    {disclaimer}
+                </MapWrapper>
 
             </div>
         );
