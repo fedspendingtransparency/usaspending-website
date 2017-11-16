@@ -509,7 +509,7 @@ export const mockReduxAwards = {
         pop_zip: '',
         pop_country: '',
         total_obligation: '$88,074,906',
-        potential_total_value_of_award: '$0',
+        base_and_all_options_value: '$0',
         recipient_duns: '',
         recipient_parent_duns: '',
         recipient_business_type: 'Unknown Types',
