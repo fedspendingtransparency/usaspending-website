@@ -51,10 +51,10 @@ export default class AwardAmounts extends React.Component {
     generateNarrative() {
         const recipient = this.props.selectedAward.recipient_name.toLowerCase();
 
-        const ceiling = this.props.selectedAward.potential_total_value_of_award;
+        const ceiling = this.props.selectedAward.base_and_all_options_value;
         const current = this.props.selectedAward.total_obligation;
         const unformattedCeiling =
-        accounting.unformat(this.props.selectedAward.potential_total_value_of_award);
+        accounting.unformat(this.props.selectedAward.base_and_all_options_value);
         const unformattedCurrent = accounting.unformat(this.props.selectedAward.total_obligation);
 
         // calculate the percentage spent
@@ -93,7 +93,7 @@ export default class AwardAmounts extends React.Component {
         // Math
         const current = accounting.unformat(this.props.selectedAward.total_obligation);
         const potential =
-            accounting.unformat(this.props.selectedAward.potential_total_value_of_award);
+            accounting.unformat(this.props.selectedAward.base_and_all_options_value);
 
         let amountsDisplay = (<AmountsChart
             awardId={this.props.selectedAward.id}
