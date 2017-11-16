@@ -12,7 +12,7 @@ export const awardTableColumnTypes = {
     'Contract Award Type': 'string',
     'Contract Description': 'string',
     'Signed Date': 'date',
-    'Potential Award Amount': 'string',
+    'Potential Award Amount': 'currency',
     'Awarding Agency': 'string',
     'Awarding Sub Agency': 'string',
     'Awarding Office': 'string',
