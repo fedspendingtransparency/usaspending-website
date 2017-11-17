@@ -52,6 +52,9 @@ export default class Glossary extends React.Component {
     }
 
     componentWillUnmount() {
+        // move focus back to the main content
+        const mainContent = document.querySelector('#main-content');
+        mainContent.focus();
         window.removeEventListener('resize', this.measureAvailableHeight);
         Mousetrap.unbind('esc');
     }
@@ -120,6 +123,8 @@ export default class Glossary extends React.Component {
         return (
             <div className="usa-da-glossary-wrapper">
                 <div
+                    role="dialog"
+                    aria-labelledby="glossary-title"
                     className="glossary-sidebar"
                     ref={(div) => {
                         this.sidebar = div;

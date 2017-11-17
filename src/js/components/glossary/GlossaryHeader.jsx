@@ -14,17 +14,31 @@ const propTypes = {
 };
 
 export default class GlossaryHeader extends React.Component {
+    componentDidMount() {
+        if (this.closeButton) {
+            this.closeButton.focus();
+        }
+    }
     render() {
         return (
             <div className="glossary-header">
-                <button
-                    className="close-button"
-                    aria-label="Close Glossary"
-                    title="Close Glossary"
-                    onClick={this.props.hideGlossary}>
-                    <Icons.Close alt="Close Glossary" />
-                </button>
-                <h1 className="glossary-title">
+                <div
+                    role="navigation"
+                    aria-label="Glossary navigation">
+                    <button
+                        className="close-button"
+                        aria-label="Close Glossary"
+                        title="Close Glossary"
+                        onClick={this.props.hideGlossary}
+                        ref={(button) => {
+                            this.closeButton = button;
+                        }}>
+                        <Icons.Close alt="Close Glossary" />
+                    </button>
+                </div>
+                <h1
+                    id="glossary-title"
+                    className="glossary-title">
                     Glossary
                 </h1>
 
