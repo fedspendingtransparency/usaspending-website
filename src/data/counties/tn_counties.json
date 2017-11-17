@@ -1,0 +1,574 @@
+{
+    "counties": [
+        {
+            "code": "47001",
+            "fips": "001",
+            "state": "TN",
+            "name": "Anderson County"
+        },
+        {
+            "code": "47003",
+            "fips": "003",
+            "state": "TN",
+            "name": "Bedford County"
+        },
+        {
+            "code": "47005",
+            "fips": "005",
+            "state": "TN",
+            "name": "Benton County"
+        },
+        {
+            "code": "47007",
+            "fips": "007",
+            "state": "TN",
+            "name": "Bledsoe County"
+        },
+        {
+            "code": "47009",
+            "fips": "009",
+            "state": "TN",
+            "name": "Blount County"
+        },
+        {
+            "code": "47011",
+            "fips": "011",
+            "state": "TN",
+            "name": "Bradley County"
+        },
+        {
+            "code": "47013",
+            "fips": "013",
+            "state": "TN",
+            "name": "Campbell County"
+        },
+        {
+            "code": "47015",
+            "fips": "015",
+            "state": "TN",
+            "name": "Cannon County"
+        },
+        {
+            "code": "47017",
+            "fips": "017",
+            "state": "TN",
+            "name": "Carroll County"
+        },
+        {
+            "code": "47019",
+            "fips": "019",
+            "state": "TN",
+            "name": "Carter County"
+        },
+        {
+            "code": "47021",
+            "fips": "021",
+            "state": "TN",
+            "name": "Cheatham County"
+        },
+        {
+            "code": "47023",
+            "fips": "023",
+            "state": "TN",
+            "name": "Chester County"
+        },
+        {
+            "code": "47025",
+            "fips": "025",
+            "state": "TN",
+            "name": "Claiborne County"
+        },
+        {
+            "code": "47027",
+            "fips": "027",
+            "state": "TN",
+            "name": "Clay County"
+        },
+        {
+            "code": "47029",
+            "fips": "029",
+            "state": "TN",
+            "name": "Cocke County"
+        },
+        {
+            "code": "47031",
+            "fips": "031",
+            "state": "TN",
+            "name": "Coffee County"
+        },
+        {
+            "code": "47033",
+            "fips": "033",
+            "state": "TN",
+            "name": "Crockett County"
+        },
+        {
+            "code": "47035",
+            "fips": "035",
+            "state": "TN",
+            "name": "Cumberland County"
+        },
+        {
+            "code": "47037",
+            "fips": "037",
+            "state": "TN",
+            "name": "Davidson County"
+        },
+        {
+            "code": "47041",
+            "fips": "041",
+            "state": "TN",
+            "name": "DeKalb County"
+        },
+        {
+            "code": "47039",
+            "fips": "039",
+            "state": "TN",
+            "name": "Decatur County"
+        },
+        {
+            "code": "47043",
+            "fips": "043",
+            "state": "TN",
+            "name": "Dickson County"
+        },
+        {
+            "code": "47045",
+            "fips": "045",
+            "state": "TN",
+            "name": "Dyer County"
+        },
+        {
+            "code": "47047",
+            "fips": "047",
+            "state": "TN",
+            "name": "Fayette County"
+        },
+        {
+            "code": "47049",
+            "fips": "049",
+            "state": "TN",
+            "name": "Fentress County"
+        },
+        {
+            "code": "47051",
+            "fips": "051",
+            "state": "TN",
+            "name": "Franklin County"
+        },
+        {
+            "code": "47053",
+            "fips": "053",
+            "state": "TN",
+            "name": "Gibson County"
+        },
+        {
+            "code": "47055",
+            "fips": "055",
+            "state": "TN",
+            "name": "Giles County"
+        },
+        {
+            "code": "47057",
+            "fips": "057",
+            "state": "TN",
+            "name": "Grainger County"
+        },
+        {
+            "code": "47059",
+            "fips": "059",
+            "state": "TN",
+            "name": "Greene County"
+        },
+        {
+            "code": "47061",
+            "fips": "061",
+            "state": "TN",
+            "name": "Grundy County"
+        },
+        {
+            "code": "47063",
+            "fips": "063",
+            "state": "TN",
+            "name": "Hamblen County"
+        },
+        {
+            "code": "47065",
+            "fips": "065",
+            "state": "TN",
+            "name": "Hamilton County"
+        },
+        {
+            "code": "47067",
+            "fips": "067",
+            "state": "TN",
+            "name": "Hancock County"
+        },
+        {
+            "code": "47069",
+            "fips": "069",
+            "state": "TN",
+            "name": "Hardeman County"
+        },
+        {
+            "code": "47071",
+            "fips": "071",
+            "state": "TN",
+            "name": "Hardin County"
+        },
+        {
+            "code": "47073",
+            "fips": "073",
+            "state": "TN",
+            "name": "Hawkins County"
+        },
+        {
+            "code": "47075",
+            "fips": "075",
+            "state": "TN",
+            "name": "Haywood County"
+        },
+        {
+            "code": "47077",
+            "fips": "077",
+            "state": "TN",
+            "name": "Henderson County"
+        },
+        {
+            "code": "47079",
+            "fips": "079",
+            "state": "TN",
+            "name": "Henry County"
+        },
+        {
+            "code": "47081",
+            "fips": "081",
+            "state": "TN",
+            "name": "Hickman County"
+        },
+        {
+            "code": "47083",
+            "fips": "083",
+            "state": "TN",
+            "name": "Houston County"
+        },
+        {
+            "code": "47085",
+            "fips": "085",
+            "state": "TN",
+            "name": "Humphreys County"
+        },
+        {
+            "code": "47087",
+            "fips": "087",
+            "state": "TN",
+            "name": "Jackson County"
+        },
+        {
+            "code": "47089",
+            "fips": "089",
+            "state": "TN",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "47091",
+            "fips": "091",
+            "state": "TN",
+            "name": "Johnson County"
+        },
+        {
+            "code": "47093",
+            "fips": "093",
+            "state": "TN",
+            "name": "Knox County"
+        },
+        {
+            "code": "47095",
+            "fips": "095",
+            "state": "TN",
+            "name": "Lake County"
+        },
+        {
+            "code": "47097",
+            "fips": "097",
+            "state": "TN",
+            "name": "Lauderdale County"
+        },
+        {
+            "code": "47099",
+            "fips": "099",
+            "state": "TN",
+            "name": "Lawrence County"
+        },
+        {
+            "code": "47101",
+            "fips": "101",
+            "state": "TN",
+            "name": "Lewis County"
+        },
+        {
+            "code": "47103",
+            "fips": "103",
+            "state": "TN",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "47105",
+            "fips": "105",
+            "state": "TN",
+            "name": "Loudon County"
+        },
+        {
+            "code": "47111",
+            "fips": "111",
+            "state": "TN",
+            "name": "Macon County"
+        },
+        {
+            "code": "47113",
+            "fips": "113",
+            "state": "TN",
+            "name": "Madison County"
+        },
+        {
+            "code": "47115",
+            "fips": "115",
+            "state": "TN",
+            "name": "Marion County"
+        },
+        {
+            "code": "47117",
+            "fips": "117",
+            "state": "TN",
+            "name": "Marshall County"
+        },
+        {
+            "code": "47119",
+            "fips": "119",
+            "state": "TN",
+            "name": "Maury County"
+        },
+        {
+            "code": "47107",
+            "fips": "107",
+            "state": "TN",
+            "name": "McMinn County"
+        },
+        {
+            "code": "47109",
+            "fips": "109",
+            "state": "TN",
+            "name": "McNairy County"
+        },
+        {
+            "code": "47121",
+            "fips": "121",
+            "state": "TN",
+            "name": "Meigs County"
+        },
+        {
+            "code": "47123",
+            "fips": "123",
+            "state": "TN",
+            "name": "Monroe County"
+        },
+        {
+            "code": "47125",
+            "fips": "125",
+            "state": "TN",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "47127",
+            "fips": "127",
+            "state": "TN",
+            "name": "Moore County"
+        },
+        {
+            "code": "47129",
+            "fips": "129",
+            "state": "TN",
+            "name": "Morgan County"
+        },
+        {
+            "code": "47131",
+            "fips": "131",
+            "state": "TN",
+            "name": "Obion County"
+        },
+        {
+            "code": "47133",
+            "fips": "133",
+            "state": "TN",
+            "name": "Overton County"
+        },
+        {
+            "code": "47135",
+            "fips": "135",
+            "state": "TN",
+            "name": "Perry County"
+        },
+        {
+            "code": "47137",
+            "fips": "137",
+            "state": "TN",
+            "name": "Pickett County"
+        },
+        {
+            "code": "47139",
+            "fips": "139",
+            "state": "TN",
+            "name": "Polk County"
+        },
+        {
+            "code": "47141",
+            "fips": "141",
+            "state": "TN",
+            "name": "Putnam County"
+        },
+        {
+            "code": "47143",
+            "fips": "143",
+            "state": "TN",
+            "name": "Rhea County"
+        },
+        {
+            "code": "47145",
+            "fips": "145",
+            "state": "TN",
+            "name": "Roane County"
+        },
+        {
+            "code": "47147",
+            "fips": "147",
+            "state": "TN",
+            "name": "Robertson County"
+        },
+        {
+            "code": "47149",
+            "fips": "149",
+            "state": "TN",
+            "name": "Rutherford County"
+        },
+        {
+            "code": "47151",
+            "fips": "151",
+            "state": "TN",
+            "name": "Scott County"
+        },
+        {
+            "code": "47153",
+            "fips": "153",
+            "state": "TN",
+            "name": "Sequatchie County"
+        },
+        {
+            "code": "47155",
+            "fips": "155",
+            "state": "TN",
+            "name": "Sevier County"
+        },
+        {
+            "code": "47157",
+            "fips": "157",
+            "state": "TN",
+            "name": "Shelby County"
+        },
+        {
+            "code": "47159",
+            "fips": "159",
+            "state": "TN",
+            "name": "Smith County"
+        },
+        {
+            "code": "47161",
+            "fips": "161",
+            "state": "TN",
+            "name": "Stewart County"
+        },
+        {
+            "code": "47163",
+            "fips": "163",
+            "state": "TN",
+            "name": "Sullivan County"
+        },
+        {
+            "code": "47165",
+            "fips": "165",
+            "state": "TN",
+            "name": "Sumner County"
+        },
+        {
+            "code": "47167",
+            "fips": "167",
+            "state": "TN",
+            "name": "Tipton County"
+        },
+        {
+            "code": "47169",
+            "fips": "169",
+            "state": "TN",
+            "name": "Trousdale County"
+        },
+        {
+            "code": "47171",
+            "fips": "171",
+            "state": "TN",
+            "name": "Unicoi County"
+        },
+        {
+            "code": "47173",
+            "fips": "173",
+            "state": "TN",
+            "name": "Union County"
+        },
+        {
+            "code": "47175",
+            "fips": "175",
+            "state": "TN",
+            "name": "Van Buren County"
+        },
+        {
+            "code": "47177",
+            "fips": "177",
+            "state": "TN",
+            "name": "Warren County"
+        },
+        {
+            "code": "47179",
+            "fips": "179",
+            "state": "TN",
+            "name": "Washington County"
+        },
+        {
+            "code": "47181",
+            "fips": "181",
+            "state": "TN",
+            "name": "Wayne County"
+        },
+        {
+            "code": "47183",
+            "fips": "183",
+            "state": "TN",
+            "name": "Weakley County"
+        },
+        {
+            "code": "47185",
+            "fips": "185",
+            "state": "TN",
+            "name": "White County"
+        },
+        {
+            "code": "47187",
+            "fips": "187",
+            "state": "TN",
+            "name": "Williamson County"
+        },
+        {
+            "code": "47189",
+            "fips": "189",
+            "state": "TN",
+            "name": "Wilson County"
+        }
+    ]
+}

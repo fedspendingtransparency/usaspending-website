@@ -9,8 +9,9 @@ import PropTypes from 'prop-types';
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
-import LocationSearchContainer from 'containers/search/filters/location/LocationSearchContainer';
+import LocationSectionContainer from 'containers/search/filters/location/LocationSectionContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
+import RecipientTypeContainer from 'containers/search/filters/recipient/RecipientTypeContainer';
 import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
 import AwardAmountSearchContainer from
@@ -28,15 +29,16 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 
 const filters = {
     options: [
-        'Search',
+        'Keyword',
         'Time Period',
         'Award Type',
-        'Agencies',
-        'Recipients',
-        'Place of Performance',
+        'Agency',
+        'Location',
+        'Recipient',
+        'Recipient Type',
         'Award Amount',
         'Award ID',
-        'CFDA Programs',
+        'CFDA Program',
         'NAICS Code',
         'Product/Service Code (PSC)',
         'Type of Contract Pricing',
@@ -48,8 +50,9 @@ const filters = {
         TimePeriodContainer,
         AwardTypeContainer,
         AgencyContainer,
+        LocationSectionContainer,
         RecipientSearchContainer,
-        LocationSearchContainer,
+        RecipientTypeContainer,
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
         CFDASearchContainer,

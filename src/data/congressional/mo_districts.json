@@ -1,0 +1,44 @@
+{
+    "districts": [
+        {
+            "code": "2901",
+            "district": "01",
+            "name": "MO-01"
+        },
+        {
+            "code": "2902",
+            "district": "02",
+            "name": "MO-02"
+        },
+        {
+            "code": "2903",
+            "district": "03",
+            "name": "MO-03"
+        },
+        {
+            "code": "2904",
+            "district": "04",
+            "name": "MO-04"
+        },
+        {
+            "code": "2905",
+            "district": "05",
+            "name": "MO-05"
+        },
+        {
+            "code": "2906",
+            "district": "06",
+            "name": "MO-06"
+        },
+        {
+            "code": "2907",
+            "district": "07",
+            "name": "MO-07"
+        },
+        {
+            "code": "2908",
+            "district": "08",
+            "name": "MO-08"
+        }
+    ]
+}

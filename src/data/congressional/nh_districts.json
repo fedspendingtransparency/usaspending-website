@@ -1,0 +1,14 @@
+{
+    "districts": [
+        {
+            "code": "3301",
+            "district": "01",
+            "name": "NH-01"
+        },
+        {
+            "code": "3302",
+            "district": "02",
+            "name": "NH-02"
+        }
+    ]
+}

@@ -10,8 +10,9 @@ import { scrollToY } from 'helpers/scrollToHelper';
 import moment from 'moment';
 import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
 
+import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
+
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
-import RecipientContainer from 'containers/agency/visualizations/RecipientContainer';
 import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
 import FederalAccountContainer from 'containers/agency/visualizations/FederalAccountContainer';
 import AgencyFooterContainer from 'containers/agency/AgencyFooterContainer';
@@ -36,10 +37,6 @@ const agencySections = [
     {
         section: 'federal-accounts',
         label: 'Federal Accounts'
-    },
-    {
-        section: 'recipients',
-        label: 'Recipients'
     }
 ];
 
@@ -237,7 +234,9 @@ export default class AgencyContent extends React.Component {
                 </div>
                 <div className="agency-content">
                     <div className="agency-padded-content overview">
-                        <AgencyOverview agency={this.props.agency.overview} />
+                        <GlossaryButtonWrapperContainer
+                            child={AgencyOverview}
+                            agency={this.props.agency.overview} />
                     </div>
                     <div className="agency-padded-content data">
                         <ObligatedContainer
@@ -256,10 +255,6 @@ export default class AgencyContent extends React.Component {
                             activeFY={this.props.agency.overview.activeFY}
                             obligatedAmount={this.props.agency.overview.obligatedAmount}
                             asOfDate={asOfDate} />
-                        <RecipientContainer
-                            id={this.props.agency.id}
-                            activeFY={this.props.agency.overview.activeFY}
-                            lastUpdate={this.props.lastUpdate} />
                         {disclaimer}
                     </div>
                     <AgencyFooterContainer id={this.props.agency.id} />

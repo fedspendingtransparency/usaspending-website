@@ -1,0 +1,39 @@
+{
+    "districts": [
+        {
+            "code": "0101",
+            "district": "01",
+            "name": "AL-01"
+        },
+        {
+            "code": "0102",
+            "district": "02",
+            "name": "AL-02"
+        },
+        {
+            "code": "0103",
+            "district": "03",
+            "name": "AL-03"
+        },
+        {
+            "code": "0104",
+            "district": "04",
+            "name": "AL-04"
+        },
+        {
+            "code": "0105",
+            "district": "05",
+            "name": "AL-05"
+        },
+        {
+            "code": "0106",
+            "district": "06",
+            "name": "AL-06"
+        },
+        {
+            "code": "0107",
+            "district": "07",
+            "name": "AL-07"
+        }
+    ]
+}

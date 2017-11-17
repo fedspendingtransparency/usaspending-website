@@ -1,0 +1,43 @@
+.download-data-content {
+    .download-filters {
+        @include span-columns(16);
+        @include media($medium-screen) {
+            @include span-columns(9);
+        }
+        margin-bottom: rem(30);
+        h2 {
+            margin: 0 rem(30);
+            span {
+                font-weight: 400;
+            }
+        }
+        @import "./form/downloadForm";
+        .reset-button {
+            @include button-unstyled;
+            display: block;
+            margin: auto;
+            color: $color-primary;
+            text-decoration: underline;
+        }
+    }
+
+    .download-info {
+        @include span-columns(16);
+        @include media($medium-screen) {
+            @include span-columns(7);
+        }
+        padding: rem(15) rem(30) 0 rem(30);
+        border-left: solid 1px $color-gray-light;
+
+        h6 {
+            margin-top: 0;
+            margin-bottom: rem(30);
+        }
+        .info-section {
+            margin-bottom: rem(30);
+            .info-section-heading {
+                font-weight: 600;
+            }
+        }
+    }
+}

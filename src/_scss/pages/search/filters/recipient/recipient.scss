@@ -6,7 +6,31 @@
 
     .filter-item-wrap {
         // reduce the bottom padding because the checkbox items have their own bottom padding
-        padding-bottom: rem(5);
+        padding-bottom: rem(20);
+    }
+
+    .recipient-filter-item-wrap {
+        padding: 0 0 rem(20);
+
+        .recipient-input {
+            display: inline-block;
+            font-size: $small-font-size;
+            height: rem(40);
+            margin: 0 auto;
+            padding: rem(11) rem(8);
+            width: 70%;
+            @include placeholder {
+                color: $color-gray-light;
+            }
+        }
+
+        .recipient-submit {
+            display: inline-block;
+            height: rem(40);
+            margin: 0;
+            padding: 0;
+            width: 30%;
+        }
     }
 
     .recipient-radio,
@@ -30,6 +54,7 @@
             }
         }
     }
+
     .recipient-radio {}
     .checkbox-type-filter {
         .checkbox-set,
@@ -37,22 +62,27 @@
             margin: 0.5rem 0;
         }
     }
+
     .shown {
         min-height: rem(180);
     }
+
     .visually-hidden {
         display: none;
     }
+
     .pop-typeahead {
         .usa-da-typeahead {
             margin-top: 0;
         }
+
         .funding {
             .usa-da-typeahead {
                 margin: 0rem 0 rem(10);
             }
         }
     }
+
     .selected-filters {
         @include selected-filter-wrap;
     }

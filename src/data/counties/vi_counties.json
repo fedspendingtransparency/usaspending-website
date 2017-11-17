@@ -1,0 +1,22 @@
+{
+    "counties": [
+        {
+            "code": "78010",
+            "fips": "010",
+            "state": "VI",
+            "name": "Saint Croix Island"
+        },
+        {
+            "code": "78020",
+            "fips": "020",
+            "state": "VI",
+            "name": "Saint John Island"
+        },
+        {
+            "code": "78030",
+            "fips": "030",
+            "state": "VI",
+            "name": "Saint Thomas Island"
+        }
+    ]
+}

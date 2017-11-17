@@ -6,9 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import BarChartLegend from 'components/search/visualizations/time/chart/BarChartLegend';
 import HorizontalBarItem from './HorizontalBarItem';
-import OutlayLine from './OutlayLine';
 
 const propTypes = {
     obligatedAmount: PropTypes.number,
@@ -68,18 +66,14 @@ export default class AgencyObligatedGraph extends React.Component {
                         y={0}
                         width={remainderWidth}
                         color={this.props.legend[2].color} />
-                    <OutlayLine
+                </g>
+                <g>
+                    <HorizontalBarItem
                         description="Outlay Amount"
-                        value={this.props.outlay}
-                        x={outlayWidth}
-                        y={0}
-                        height={20}
+                        x={0}
+                        y={20}
+                        width={outlayWidth}
                         color={this.props.legend[1].color} />
-                    <g
-                        className="legend-container"
-                        transform={`translate(0,52)`}>
-                        <BarChartLegend legend={this.props.legend} />
-                    </g>
                 </g>
             </svg>
         );

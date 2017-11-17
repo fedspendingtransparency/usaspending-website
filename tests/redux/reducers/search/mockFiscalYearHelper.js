@@ -1,4 +1,4 @@
-export const earliestFiscalYear = 2009;
+export const earliestFiscalYear = 2008;
 export const earliestExplorerYear = 2017;
 
 export const currentFiscalYear = () => 1991;

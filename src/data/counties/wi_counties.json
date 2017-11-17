@@ -1,0 +1,436 @@
+{
+    "counties": [
+        {
+            "code": "55001",
+            "fips": "001",
+            "state": "WI",
+            "name": "Adams County"
+        },
+        {
+            "code": "55003",
+            "fips": "003",
+            "state": "WI",
+            "name": "Ashland County"
+        },
+        {
+            "code": "55005",
+            "fips": "005",
+            "state": "WI",
+            "name": "Barron County"
+        },
+        {
+            "code": "55007",
+            "fips": "007",
+            "state": "WI",
+            "name": "Bayfield County"
+        },
+        {
+            "code": "55009",
+            "fips": "009",
+            "state": "WI",
+            "name": "Brown County"
+        },
+        {
+            "code": "55011",
+            "fips": "011",
+            "state": "WI",
+            "name": "Buffalo County"
+        },
+        {
+            "code": "55013",
+            "fips": "013",
+            "state": "WI",
+            "name": "Burnett County"
+        },
+        {
+            "code": "55015",
+            "fips": "015",
+            "state": "WI",
+            "name": "Calumet County"
+        },
+        {
+            "code": "55017",
+            "fips": "017",
+            "state": "WI",
+            "name": "Chippewa County"
+        },
+        {
+            "code": "55019",
+            "fips": "019",
+            "state": "WI",
+            "name": "Clark County"
+        },
+        {
+            "code": "55021",
+            "fips": "021",
+            "state": "WI",
+            "name": "Columbia County"
+        },
+        {
+            "code": "55023",
+            "fips": "023",
+            "state": "WI",
+            "name": "Crawford County"
+        },
+        {
+            "code": "55025",
+            "fips": "025",
+            "state": "WI",
+            "name": "Dane County"
+        },
+        {
+            "code": "55027",
+            "fips": "027",
+            "state": "WI",
+            "name": "Dodge County"
+        },
+        {
+            "code": "55029",
+            "fips": "029",
+            "state": "WI",
+            "name": "Door County"
+        },
+        {
+            "code": "55031",
+            "fips": "031",
+            "state": "WI",
+            "name": "Douglas County"
+        },
+        {
+            "code": "55033",
+            "fips": "033",
+            "state": "WI",
+            "name": "Dunn County"
+        },
+        {
+            "code": "55035",
+            "fips": "035",
+            "state": "WI",
+            "name": "Eau Claire County"
+        },
+        {
+            "code": "55037",
+            "fips": "037",
+            "state": "WI",
+            "name": "Florence County"
+        },
+        {
+            "code": "55039",
+            "fips": "039",
+            "state": "WI",
+            "name": "Fond du Lac County"
+        },
+        {
+            "code": "55041",
+            "fips": "041",
+            "state": "WI",
+            "name": "Forest County"
+        },
+        {
+            "code": "55043",
+            "fips": "043",
+            "state": "WI",
+            "name": "Grant County"
+        },
+        {
+            "code": "55045",
+            "fips": "045",
+            "state": "WI",
+            "name": "Green County"
+        },
+        {
+            "code": "55047",
+            "fips": "047",
+            "state": "WI",
+            "name": "Green Lake County"
+        },
+        {
+            "code": "55049",
+            "fips": "049",
+            "state": "WI",
+            "name": "Iowa County"
+        },
+        {
+            "code": "55051",
+            "fips": "051",
+            "state": "WI",
+            "name": "Iron County"
+        },
+        {
+            "code": "55053",
+            "fips": "053",
+            "state": "WI",
+            "name": "Jackson County"
+        },
+        {
+            "code": "55055",
+            "fips": "055",
+            "state": "WI",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "55057",
+            "fips": "057",
+            "state": "WI",
+            "name": "Juneau County"
+        },
+        {
+            "code": "55059",
+            "fips": "059",
+            "state": "WI",
+            "name": "Kenosha County"
+        },
+        {
+            "code": "55061",
+            "fips": "061",
+            "state": "WI",
+            "name": "Kewaunee County"
+        },
+        {
+            "code": "55063",
+            "fips": "063",
+            "state": "WI",
+            "name": "La Crosse County"
+        },
+        {
+            "code": "55065",
+            "fips": "065",
+            "state": "WI",
+            "name": "Lafayette County"
+        },
+        {
+            "code": "55067",
+            "fips": "067",
+            "state": "WI",
+            "name": "Langlade County"
+        },
+        {
+            "code": "55069",
+            "fips": "069",
+            "state": "WI",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "55071",
+            "fips": "071",
+            "state": "WI",
+            "name": "Manitowoc County"
+        },
+        {
+            "code": "55073",
+            "fips": "073",
+            "state": "WI",
+            "name": "Marathon County"
+        },
+        {
+            "code": "55075",
+            "fips": "075",
+            "state": "WI",
+            "name": "Marinette County"
+        },
+        {
+            "code": "55077",
+            "fips": "077",
+            "state": "WI",
+            "name": "Marquette County"
+        },
+        {
+            "code": "55078",
+            "fips": "078",
+            "state": "WI",
+            "name": "Menominee County"
+        },
+        {
+            "code": "55079",
+            "fips": "079",
+            "state": "WI",
+            "name": "Milwaukee County"
+        },
+        {
+            "code": "55081",
+            "fips": "081",
+            "state": "WI",
+            "name": "Monroe County"
+        },
+        {
+            "code": "55083",
+            "fips": "083",
+            "state": "WI",
+            "name": "Oconto County"
+        },
+        {
+            "code": "55085",
+            "fips": "085",
+            "state": "WI",
+            "name": "Oneida County"
+        },
+        {
+            "code": "55087",
+            "fips": "087",
+            "state": "WI",
+            "name": "Outagamie County"
+        },
+        {
+            "code": "55089",
+            "fips": "089",
+            "state": "WI",
+            "name": "Ozaukee County"
+        },
+        {
+            "code": "55091",
+            "fips": "091",
+            "state": "WI",
+            "name": "Pepin County"
+        },
+        {
+            "code": "55093",
+            "fips": "093",
+            "state": "WI",
+            "name": "Pierce County"
+        },
+        {
+            "code": "55095",
+            "fips": "095",
+            "state": "WI",
+            "name": "Polk County"
+        },
+        {
+            "code": "55097",
+            "fips": "097",
+            "state": "WI",
+            "name": "Portage County"
+        },
+        {
+            "code": "55099",
+            "fips": "099",
+            "state": "WI",
+            "name": "Price County"
+        },
+        {
+            "code": "55101",
+            "fips": "101",
+            "state": "WI",
+            "name": "Racine County"
+        },
+        {
+            "code": "55103",
+            "fips": "103",
+            "state": "WI",
+            "name": "Richland County"
+        },
+        {
+            "code": "55105",
+            "fips": "105",
+            "state": "WI",
+            "name": "Rock County"
+        },
+        {
+            "code": "55107",
+            "fips": "107",
+            "state": "WI",
+            "name": "Rusk County"
+        },
+        {
+            "code": "55111",
+            "fips": "111",
+            "state": "WI",
+            "name": "Sauk County"
+        },
+        {
+            "code": "55113",
+            "fips": "113",
+            "state": "WI",
+            "name": "Sawyer County"
+        },
+        {
+            "code": "55115",
+            "fips": "115",
+            "state": "WI",
+            "name": "Shawano County"
+        },
+        {
+            "code": "55117",
+            "fips": "117",
+            "state": "WI",
+            "name": "Sheboygan County"
+        },
+        {
+            "code": "55109",
+            "fips": "109",
+            "state": "WI",
+            "name": "Saint Croix County"
+        },
+        {
+            "code": "55119",
+            "fips": "119",
+            "state": "WI",
+            "name": "Taylor County"
+        },
+        {
+            "code": "55121",
+            "fips": "121",
+            "state": "WI",
+            "name": "Trempealeau County"
+        },
+        {
+            "code": "55123",
+            "fips": "123",
+            "state": "WI",
+            "name": "Vernon County"
+        },
+        {
+            "code": "55125",
+            "fips": "125",
+            "state": "WI",
+            "name": "Vilas County"
+        },
+        {
+            "code": "55127",
+            "fips": "127",
+            "state": "WI",
+            "name": "Walworth County"
+        },
+        {
+            "code": "55129",
+            "fips": "129",
+            "state": "WI",
+            "name": "Washburn County"
+        },
+        {
+            "code": "55131",
+            "fips": "131",
+            "state": "WI",
+            "name": "Washington County"
+        },
+        {
+            "code": "55133",
+            "fips": "133",
+            "state": "WI",
+            "name": "Waukesha County"
+        },
+        {
+            "code": "55135",
+            "fips": "135",
+            "state": "WI",
+            "name": "Waupaca County"
+        },
+        {
+            "code": "55137",
+            "fips": "137",
+            "state": "WI",
+            "name": "Waushara County"
+        },
+        {
+            "code": "55139",
+            "fips": "139",
+            "state": "WI",
+            "name": "Winnebago County"
+        },
+        {
+            "code": "55141",
+            "fips": "141",
+            "state": "WI",
+            "name": "Wood County"
+        }
+    ]
+}

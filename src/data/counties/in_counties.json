@@ -1,0 +1,556 @@
+{
+    "counties": [
+        {
+            "code": "18001",
+            "fips": "001",
+            "state": "IN",
+            "name": "Adams County"
+        },
+        {
+            "code": "18003",
+            "fips": "003",
+            "state": "IN",
+            "name": "Allen County"
+        },
+        {
+            "code": "18005",
+            "fips": "005",
+            "state": "IN",
+            "name": "Bartholomew County"
+        },
+        {
+            "code": "18007",
+            "fips": "007",
+            "state": "IN",
+            "name": "Benton County"
+        },
+        {
+            "code": "18009",
+            "fips": "009",
+            "state": "IN",
+            "name": "Blackford County"
+        },
+        {
+            "code": "18011",
+            "fips": "011",
+            "state": "IN",
+            "name": "Boone County"
+        },
+        {
+            "code": "18013",
+            "fips": "013",
+            "state": "IN",
+            "name": "Brown County"
+        },
+        {
+            "code": "18015",
+            "fips": "015",
+            "state": "IN",
+            "name": "Carroll County"
+        },
+        {
+            "code": "18017",
+            "fips": "017",
+            "state": "IN",
+            "name": "Cass County"
+        },
+        {
+            "code": "18019",
+            "fips": "019",
+            "state": "IN",
+            "name": "Clark County"
+        },
+        {
+            "code": "18021",
+            "fips": "021",
+            "state": "IN",
+            "name": "Clay County"
+        },
+        {
+            "code": "18023",
+            "fips": "023",
+            "state": "IN",
+            "name": "Clinton County"
+        },
+        {
+            "code": "18025",
+            "fips": "025",
+            "state": "IN",
+            "name": "Crawford County"
+        },
+        {
+            "code": "18027",
+            "fips": "027",
+            "state": "IN",
+            "name": "Daviess County"
+        },
+        {
+            "code": "18033",
+            "fips": "033",
+            "state": "IN",
+            "name": "DeKalb County"
+        },
+        {
+            "code": "18029",
+            "fips": "029",
+            "state": "IN",
+            "name": "Dearborn County"
+        },
+        {
+            "code": "18031",
+            "fips": "031",
+            "state": "IN",
+            "name": "Decatur County"
+        },
+        {
+            "code": "18035",
+            "fips": "035",
+            "state": "IN",
+            "name": "Delaware County"
+        },
+        {
+            "code": "18037",
+            "fips": "037",
+            "state": "IN",
+            "name": "Dubois County"
+        },
+        {
+            "code": "18039",
+            "fips": "039",
+            "state": "IN",
+            "name": "Elkhart County"
+        },
+        {
+            "code": "18041",
+            "fips": "041",
+            "state": "IN",
+            "name": "Fayette County"
+        },
+        {
+            "code": "18043",
+            "fips": "043",
+            "state": "IN",
+            "name": "Floyd County"
+        },
+        {
+            "code": "18045",
+            "fips": "045",
+            "state": "IN",
+            "name": "Fountain County"
+        },
+        {
+            "code": "18047",
+            "fips": "047",
+            "state": "IN",
+            "name": "Franklin County"
+        },
+        {
+            "code": "18049",
+            "fips": "049",
+            "state": "IN",
+            "name": "Fulton County"
+        },
+        {
+            "code": "18051",
+            "fips": "051",
+            "state": "IN",
+            "name": "Gibson County"
+        },
+        {
+            "code": "18053",
+            "fips": "053",
+            "state": "IN",
+            "name": "Grant County"
+        },
+        {
+            "code": "18055",
+            "fips": "055",
+            "state": "IN",
+            "name": "Greene County"
+        },
+        {
+            "code": "18057",
+            "fips": "057",
+            "state": "IN",
+            "name": "Hamilton County"
+        },
+        {
+            "code": "18059",
+            "fips": "059",
+            "state": "IN",
+            "name": "Hancock County"
+        },
+        {
+            "code": "18061",
+            "fips": "061",
+            "state": "IN",
+            "name": "Harrison County"
+        },
+        {
+            "code": "18063",
+            "fips": "063",
+            "state": "IN",
+            "name": "Hendricks County"
+        },
+        {
+            "code": "18065",
+            "fips": "065",
+            "state": "IN",
+            "name": "Henry County"
+        },
+        {
+            "code": "18067",
+            "fips": "067",
+            "state": "IN",
+            "name": "Howard County"
+        },
+        {
+            "code": "18069",
+            "fips": "069",
+            "state": "IN",
+            "name": "Huntington County"
+        },
+        {
+            "code": "18071",
+            "fips": "071",
+            "state": "IN",
+            "name": "Jackson County"
+        },
+        {
+            "code": "18073",
+            "fips": "073",
+            "state": "IN",
+            "name": "Jasper County"
+        },
+        {
+            "code": "18075",
+            "fips": "075",
+            "state": "IN",
+            "name": "Jay County"
+        },
+        {
+            "code": "18077",
+            "fips": "077",
+            "state": "IN",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "18079",
+            "fips": "079",
+            "state": "IN",
+            "name": "Jennings County"
+        },
+        {
+            "code": "18081",
+            "fips": "081",
+            "state": "IN",
+            "name": "Johnson County"
+        },
+        {
+            "code": "18083",
+            "fips": "083",
+            "state": "IN",
+            "name": "Knox County"
+        },
+        {
+            "code": "18085",
+            "fips": "085",
+            "state": "IN",
+            "name": "Kosciusko County"
+        },
+        {
+            "code": "18087",
+            "fips": "087",
+            "state": "IN",
+            "name": "LaGrange County"
+        },
+        {
+            "code": "18091",
+            "fips": "091",
+            "state": "IN",
+            "name": "LaPorte County"
+        },
+        {
+            "code": "18089",
+            "fips": "089",
+            "state": "IN",
+            "name": "Lake County"
+        },
+        {
+            "code": "18093",
+            "fips": "093",
+            "state": "IN",
+            "name": "Lawrence County"
+        },
+        {
+            "code": "18095",
+            "fips": "095",
+            "state": "IN",
+            "name": "Madison County"
+        },
+        {
+            "code": "18097",
+            "fips": "097",
+            "state": "IN",
+            "name": "Marion County"
+        },
+        {
+            "code": "18099",
+            "fips": "099",
+            "state": "IN",
+            "name": "Marshall County"
+        },
+        {
+            "code": "18101",
+            "fips": "101",
+            "state": "IN",
+            "name": "Martin County"
+        },
+        {
+            "code": "18103",
+            "fips": "103",
+            "state": "IN",
+            "name": "Miami County"
+        },
+        {
+            "code": "18105",
+            "fips": "105",
+            "state": "IN",
+            "name": "Monroe County"
+        },
+        {
+            "code": "18107",
+            "fips": "107",
+            "state": "IN",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "18109",
+            "fips": "109",
+            "state": "IN",
+            "name": "Morgan County"
+        },
+        {
+            "code": "18111",
+            "fips": "111",
+            "state": "IN",
+            "name": "Newton County"
+        },
+        {
+            "code": "18113",
+            "fips": "113",
+            "state": "IN",
+            "name": "Noble County"
+        },
+        {
+            "code": "18115",
+            "fips": "115",
+            "state": "IN",
+            "name": "Ohio County"
+        },
+        {
+            "code": "18117",
+            "fips": "117",
+            "state": "IN",
+            "name": "Orange County"
+        },
+        {
+            "code": "18119",
+            "fips": "119",
+            "state": "IN",
+            "name": "Owen County"
+        },
+        {
+            "code": "18121",
+            "fips": "121",
+            "state": "IN",
+            "name": "Parke County"
+        },
+        {
+            "code": "18123",
+            "fips": "123",
+            "state": "IN",
+            "name": "Perry County"
+        },
+        {
+            "code": "18125",
+            "fips": "125",
+            "state": "IN",
+            "name": "Pike County"
+        },
+        {
+            "code": "18127",
+            "fips": "127",
+            "state": "IN",
+            "name": "Porter County"
+        },
+        {
+            "code": "18129",
+            "fips": "129",
+            "state": "IN",
+            "name": "Posey County"
+        },
+        {
+            "code": "18131",
+            "fips": "131",
+            "state": "IN",
+            "name": "Pulaski County"
+        },
+        {
+            "code": "18133",
+            "fips": "133",
+            "state": "IN",
+            "name": "Putnam County"
+        },
+        {
+            "code": "18135",
+            "fips": "135",
+            "state": "IN",
+            "name": "Randolph County"
+        },
+        {
+            "code": "18137",
+            "fips": "137",
+            "state": "IN",
+            "name": "Ripley County"
+        },
+        {
+            "code": "18139",
+            "fips": "139",
+            "state": "IN",
+            "name": "Rush County"
+        },
+        {
+            "code": "18143",
+            "fips": "143",
+            "state": "IN",
+            "name": "Scott County"
+        },
+        {
+            "code": "18145",
+            "fips": "145",
+            "state": "IN",
+            "name": "Shelby County"
+        },
+        {
+            "code": "18147",
+            "fips": "147",
+            "state": "IN",
+            "name": "Spencer County"
+        },
+        {
+            "code": "18141",
+            "fips": "141",
+            "state": "IN",
+            "name": "Saint Joseph County"
+        },
+        {
+            "code": "18149",
+            "fips": "149",
+            "state": "IN",
+            "name": "Starke County"
+        },
+        {
+            "code": "18151",
+            "fips": "151",
+            "state": "IN",
+            "name": "Steuben County"
+        },
+        {
+            "code": "18153",
+            "fips": "153",
+            "state": "IN",
+            "name": "Sullivan County"
+        },
+        {
+            "code": "18155",
+            "fips": "155",
+            "state": "IN",
+            "name": "Switzerland County"
+        },
+        {
+            "code": "18157",
+            "fips": "157",
+            "state": "IN",
+            "name": "Tippecanoe County"
+        },
+        {
+            "code": "18159",
+            "fips": "159",
+            "state": "IN",
+            "name": "Tipton County"
+        },
+        {
+            "code": "18161",
+            "fips": "161",
+            "state": "IN",
+            "name": "Union County"
+        },
+        {
+            "code": "18163",
+            "fips": "163",
+            "state": "IN",
+            "name": "Vanderburgh County"
+        },
+        {
+            "code": "18165",
+            "fips": "165",
+            "state": "IN",
+            "name": "Vermillion County"
+        },
+        {
+            "code": "18167",
+            "fips": "167",
+            "state": "IN",
+            "name": "Vigo County"
+        },
+        {
+            "code": "18169",
+            "fips": "169",
+            "state": "IN",
+            "name": "Wabash County"
+        },
+        {
+            "code": "18171",
+            "fips": "171",
+            "state": "IN",
+            "name": "Warren County"
+        },
+        {
+            "code": "18173",
+            "fips": "173",
+            "state": "IN",
+            "name": "Warrick County"
+        },
+        {
+            "code": "18175",
+            "fips": "175",
+            "state": "IN",
+            "name": "Washington County"
+        },
+        {
+            "code": "18177",
+            "fips": "177",
+            "state": "IN",
+            "name": "Wayne County"
+        },
+        {
+            "code": "18179",
+            "fips": "179",
+            "state": "IN",
+            "name": "Wells County"
+        },
+        {
+            "code": "18181",
+            "fips": "181",
+            "state": "IN",
+            "name": "White County"
+        },
+        {
+            "code": "18183",
+            "fips": "183",
+            "state": "IN",
+            "name": "Whitley County"
+        }
+    ]
+}

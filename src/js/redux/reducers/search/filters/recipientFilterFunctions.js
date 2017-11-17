@@ -8,13 +8,13 @@ import { Set } from 'immutable';
 export const updateSelectedRecipients = (state, value) => {
     let updatedSet = state;
 
-    const agencyIdentifier = `${value.legal_entity_id}`; // force it to a string
+    const recipientIdentifier = `${value.search_text}`; // force it to a string
 
-    if (updatedSet.has(agencyIdentifier)) {
-        updatedSet = updatedSet.delete(agencyIdentifier);
+    if (updatedSet.has(recipientIdentifier)) {
+        updatedSet = updatedSet.delete(recipientIdentifier);
     }
     else {
-        updatedSet = updatedSet.set(agencyIdentifier, value);
+        updatedSet = updatedSet.set(recipientIdentifier, value);
     }
 
     return updatedSet;

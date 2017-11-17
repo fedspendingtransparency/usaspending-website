@@ -7,7 +7,7 @@ export const mockHash = {
 
 export const mockFilters = {
     filter: {
-        version: 1,
+        version: '2017-10-31',
         filters: {
             locationDomesticForeign: "all",
             selectedAwardIDs: {},

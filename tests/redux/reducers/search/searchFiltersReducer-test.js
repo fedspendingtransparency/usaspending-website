@@ -186,6 +186,74 @@ describe('searchFiltersReducer', () => {
         });
     });
 
+    describe('ADD_POP_LOCATION_OBJECT', () => {
+        it('should add the given location object to the place of performance filter', () => {
+            const action = {
+                type: 'ADD_POP_LOCATION_OBJECT',
+                location: {
+                    identifier: 'ABC',
+                    display: {
+                        title: 'A Big Country',
+                        standalone: 'A Big Country',
+                        entity: 'Country'
+                    },
+                    filter: {
+                        country: 'ABC'
+                    }
+                }
+            };
+
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.selectedLocations.toJS()).toEqual({
+                ABC: {
+                    identifier: 'ABC',
+                    display: {
+                        title: 'A Big Country',
+                        standalone: 'A Big Country',
+                        entity: 'Country'
+                    },
+                    filter: {
+                        country: 'ABC'
+                    }
+                }
+            });
+        });
+    });
+
+    describe('ADD_RECIPIENT_LOCATION_OBJECT', () => {
+        it('should add the given location object to the recipient location filter', () => {
+            const action = {
+                type: 'ADD_RECIPIENT_LOCATION_OBJECT',
+                location: {
+                    identifier: 'ABC',
+                    display: {
+                        title: 'A Big Country',
+                        standalone: 'A Big Country',
+                        entity: 'Country'
+                    },
+                    filter: {
+                        country: 'ABC'
+                    }
+                }
+            };
+
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.selectedRecipientLocations.toJS()).toEqual({
+                ABC: {
+                    identifier: 'ABC',
+                    display: {
+                        title: 'A Big Country',
+                        standalone: 'A Big Country',
+                        entity: 'Country'
+                    },
+                    filter: {
+                        country: 'ABC'
+                    }
+                }
+            });
+        });
+    });
+
     describe('UPDATE_SELECTED_AWARDING_AGENCIES', () => {
         const action = {
             type: 'UPDATE_SELECTED_AWARDING_AGENCIES',
@@ -248,7 +316,7 @@ describe('searchFiltersReducer', () => {
             recipient: mockRecipient
         };
 
-        const recipient = '2222';
+        const recipient = 'Booz Allen';
 
         const expectedRecipient = mockRecipient;
 
