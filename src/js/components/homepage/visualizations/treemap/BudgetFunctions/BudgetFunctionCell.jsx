@@ -133,9 +133,6 @@ export default class BudgetFunctionCell extends React.Component {
             if (this.props.clickable) {
                 this.toggleSubfunction();
             }
-            else {
-                this.toggleTooltipIn();
-            }
         }
     }
 
@@ -149,9 +146,10 @@ export default class BudgetFunctionCell extends React.Component {
                 onClick={this.toggleSubfunction}
                 onKeyPress={this.focusedKeyPress}
                 onFocus={this.toggleTooltipIn}
+                onBlur={this.toggleTooltipOut}
                 aria-label={`${this.state.fullLabel} - ${percentage}`}
                 aria-describedby={this.props.tooltipId}
-                tabIndex="0">
+                tabIndex={0}>
                 <rect
                     className="tile"
                     width={this.props.width}

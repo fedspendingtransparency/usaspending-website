@@ -30,6 +30,7 @@ export default class Glossary extends React.Component {
 
         this.measureAvailableHeight = this.measureAvailableHeight.bind(this);
         this.pressedEsc = this.pressedEsc.bind(this);
+        this.trapFocus = this.trapFocus.bind(this);
 
         this.renderTrack = this.renderTrack.bind(this);
         this.renderThumb = this.renderThumb.bind(this);
@@ -38,6 +39,7 @@ export default class Glossary extends React.Component {
     componentDidMount() {
         this.measureAvailableHeight();
         window.addEventListener('resize', this.measureAvailableHeight);
+        document.addEventListener('focus', this.trapFocus, true);
         Mousetrap.bind('esc', this.pressedEsc);
     }
 
@@ -56,6 +58,7 @@ export default class Glossary extends React.Component {
         const mainContent = document.querySelector('#main-content');
         mainContent.focus();
         window.removeEventListener('resize', this.measureAvailableHeight);
+        document.removeEventListener('focus', this.trapFocus, true);
         Mousetrap.unbind('esc');
     }
 
@@ -74,6 +77,15 @@ export default class Glossary extends React.Component {
         // close the glossary when the escape key is pressed for accessibility and general
         // non-annoyance
         this.props.hideGlossary();
+    }
+
+    trapFocus(e) {
+        if (!this.sidebar.contains(e.target)) {
+            // the user is trying to focus on something outside the glossary
+            // trap the focus in the glossary sidebar until the user closes it
+            e.stopPropagation();
+            document.querySelector('#glossary-close-button').focus();
+        }
     }
 
     renderThumb() {
@@ -122,7 +134,7 @@ export default class Glossary extends React.Component {
 
         return (
             <div className="usa-da-glossary-wrapper">
-                <div
+                <aside
                     role="dialog"
                     aria-labelledby="glossary-title"
                     className="glossary-sidebar"
@@ -146,7 +158,7 @@ export default class Glossary extends React.Component {
                         }}>
                         {content}
                     </Scrollbars>
-                </div>
+                </aside>
             </div>
         );
     }

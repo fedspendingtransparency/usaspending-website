@@ -27,9 +27,9 @@ export default class ResultGroup extends React.Component {
 
         return (
             <div className="glossary-result-group">
-                <h3 className="group-title">
+                <h2 className="group-title">
                     {this.props.title}
-                </h3>
+                </h2>
                 <hr className="group-divider" />
                 <ul className="group-items">
                     {items}

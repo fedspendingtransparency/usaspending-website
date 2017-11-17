@@ -17,7 +17,12 @@ export default class TreeMapIntro extends React.Component {
                             To track and manage the spending, <br />the United States government breaks
                             down the<br /> budget into <strong>19 categories</strong> called
                         </div>
-                        <div className="treemap-intro-bottom">Budget Functions</div>
+                        <h3
+                            className="treemap-intro-bottom"
+                            id="budget-function-section-title"
+                            tabIndex={-1}>
+                            Budget Functions
+                        </h3>
                     </div>
                 </div>
             </div>

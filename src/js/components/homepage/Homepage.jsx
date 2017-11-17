@@ -186,23 +186,29 @@ export default class Homepage extends React.Component {
                 <WarningBanner />
                 <Landing
                     total={this.state.total} />
-                <TreeMapIntro />
-                <TreeMap
-                    categories={this.state.categories}
-                    colors={this.state.colors}
-                    descriptions={this.state.descriptions}
-                    subfunctions={this.state.subfunctions}
-                    alternateColors={this.state.alternateColors}
-                    total={this.state.total}
-                    totalNumber={this.state.totalNumber}
-                    tooltipStyles={this.state.tooltipStyles} />
-                <CategoryMap
-                    breakdown={this.state.breakdown}
-                    colors={this.state.breakdownColors}
-                    tooltipStyles={this.state.tooltipStyles} />
-                <MapTopBar />
-                <MapVisualizationWrapper
-                    data={this.state.mapData} />
+                <section
+                    aria-labelledby="budget-function-section-title">
+                    <TreeMapIntro />
+                    <TreeMap
+                        categories={this.state.categories}
+                        colors={this.state.colors}
+                        descriptions={this.state.descriptions}
+                        subfunctions={this.state.subfunctions}
+                        alternateColors={this.state.alternateColors}
+                        total={this.state.total}
+                        totalNumber={this.state.totalNumber}
+                        tooltipStyles={this.state.tooltipStyles} />
+                </section>
+                <section
+                    aria-labelledby="category-section-title">
+                    <CategoryMap
+                        breakdown={this.state.breakdown}
+                        colors={this.state.breakdownColors}
+                        tooltipStyles={this.state.tooltipStyles} />
+                    <MapTopBar />
+                    <MapVisualizationWrapper
+                        data={this.state.mapData} />
+                </section>
                 <SearchSection />
                 <Footer />
             </div>

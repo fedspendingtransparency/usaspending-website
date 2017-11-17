@@ -27,6 +27,7 @@ export default class GlossaryHeader extends React.Component {
                     aria-label="Glossary navigation">
                     <button
                         className="close-button"
+                        id="glossary-close-button"
                         aria-label="Close Glossary"
                         title="Close Glossary"
                         onClick={this.props.hideGlossary}
@@ -38,7 +39,8 @@ export default class GlossaryHeader extends React.Component {
                 </div>
                 <h1
                     id="glossary-title"
-                    className="glossary-title">
+                    className="glossary-title"
+                    tabIndex={-1}>
                     Glossary
                 </h1>
 

@@ -60,6 +60,11 @@ export default class TreeMap extends React.Component {
         this.setState({
             showSubfunctions: !this.state.showSubfunctions,
             selected
+        }, () => {
+            // if (!this.state.showSubfunctions) {
+            //     // send focus back to the figure
+            //     this.figureWrapper.focus();
+            // }
         });
     }
 

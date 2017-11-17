@@ -244,9 +244,9 @@ export default class BudgetFunctions extends React.Component {
     render() {
         let hoverOverlay = null;
         if (this.state.showOverlay && window.innerWidth >= 768) {
-            hoverOverlay = (<div className="treemap-hover-instructions">
+            hoverOverlay = (<figcaption className="treemap-hover-instructions">
                 Hover over a block to learn more about Spending by Budget Function in 2016.
-            </div>);
+            </figcaption>);
         }
 
         const tooltip = this.createTooltip();
@@ -255,7 +255,6 @@ export default class BudgetFunctions extends React.Component {
             <div className="treemap-inner-wrap">
                 <div
                     role="tooltip"
-                    aria-hidden={!tooltip}
                     id="budget-functions-tooltip-wrapper">
                     {tooltip}
                 </div>
@@ -264,14 +263,18 @@ export default class BudgetFunctions extends React.Component {
                     ref={(sr) => {
                         this.sectionWrapper = sr;
                     }}>
-                    <svg
-                        width={this.state.visualizationWidth}
-                        height={this.state.visualizationHeight}
-                        className="treemap-svg overlay">
-                        <title>All budget functions</title>
-                        <desc>Treemap showing relative spending by budget function</desc>
-                        { this.state.finalNodes }
-                    </svg>
+                    <figure
+                        aria-label="Budget function treemap"
+                        role="group">
+                        <svg
+                            width={this.state.visualizationWidth}
+                            height={this.state.visualizationHeight}
+                            className="treemap-svg overlay">
+                            <title>All budget functions</title>
+                            <desc>Treemap showing relative spending by budget function</desc>
+                            { this.state.finalNodes }
+                        </svg>
+                    </figure>
                     {hoverOverlay}
                 </div>
             </div>

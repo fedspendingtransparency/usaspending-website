@@ -117,7 +117,8 @@ export default class CategoryMap extends React.Component {
                     color={colors[i]}
                     tooltipStyles={tooltipStyles}
                     toggleTooltipIn={this.toggleTooltipIn}
-                    toggleTooltipOut={this.toggleTooltipOut} />);
+                    toggleTooltipOut={this.toggleTooltipOut}
+                    tooltipId="category-vis-tooltip" />);
             }
             return cell;
         });
@@ -177,41 +178,60 @@ export default class CategoryMap extends React.Component {
             gTransform={`translate(${this.state.visualizationWidth / 2.75},0)rotate(0)`}
             rectTransform="translate(0,0)rotate(0)"
             textTransform="translate(77,15)rotate(0)"
-            label="3.06 trillion" />);
+            label="3.06 trillion"
+            accessibilityLabel="Five categories of spending totalled $3.06 trillion" />);
         if (this.state.windowWidth < 768) {
             line = (<BudgetLine
                 size="small"
                 gTransform="translate(15,300)rotate(180)"
                 rectTransform="translate(20, -78)rotate(90)"
                 textTransform="translate(0, 0)rotate(90)"
-                label="3.06 trillion" />);
+                label="3.06 trillion"
+                accessibilityLabel="Five categories of spending totalled $3.06 trillion" />);
         }
-        return (<div className="by-category-section-wrap">
-            <div className="inner-wrap">
-                <h3>Almost <strong>80%</strong> of total spending in 2016 was awarded to individuals,
-                private contractors, and local governments.</h3>
-                { line }
-                <div className="by-category-vis">
-                    { this.createTooltip() }
-                    <div
-                        className="tree-wrapper"
-                        ref={(sr) => {
-                            this.sectionWrapper = sr;
-                        }}>
-                        <svg
-                            width={this.state.visualizationWidth}>
-                            { this.state.finalNodes }
-                        </svg>
+
+        const tooltip = this.createTooltip();
+
+        return (
+            <div className="by-category-section-wrap">
+                <div className="inner-wrap">
+                    <h3
+                        id="category-section-title"
+                        tabIndex={-1}>
+                        Almost <strong>80%</strong> of total spending in 2016 was awarded to individuals, private contractors, and local governments.
+                    </h3>
+                    { line }
+                    <div className="by-category-vis">
+                        <div
+                            role="tooltip"
+                            id="category-vis-tooltip">
+                            {tooltip}
+                        </div>
+                        <figure
+                            className="tree-wrapper"
+                            aria-label="Spending category treemap"
+                            role="group"
+                            ref={(sr) => {
+                                this.sectionWrapper = sr;
+                            }}>
+                            <svg
+                                width={this.state.visualizationWidth}>
+                                { this.state.finalNodes }
+                            </svg>
+                        </figure>
                     </div>
-                </div>
-                <div className="map-segue">
-                    <h4>The geographic breakdown of this portion of the budget is shown below</h4>
-                    <div className="icon-wrap">
-                        <HandDrawnArrow />
+                    <div className="map-segue">
+                        <h4 tabIndex={-1}>
+                            The geographic breakdown of this portion of the budget is shown below
+                        </h4>
+                        <figure
+                            className="icon-wrap"
+                            aria-label="The following map will only depict spending in the first five categories on the previous treemap.">
+                            <HandDrawnArrow />
+                        </figure>
                     </div>
                 </div>
             </div>
-        </div>
         );
     }
 

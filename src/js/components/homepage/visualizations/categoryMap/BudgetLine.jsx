@@ -12,7 +12,8 @@ const propTypes = {
     gTransform: PropTypes.string,
     rectTransform: PropTypes.string,
     textTransform: PropTypes.string,
-    label: PropTypes.string
+    label: PropTypes.string,
+    accessibilityLabel: PropTypes.string
 };
 
 export default class BudgetLine extends React.Component {
@@ -34,8 +35,10 @@ export default class BudgetLine extends React.Component {
                 graphWidth={this.gClass.offsetWidth * 0.79}
                 size="large" />);
         }
-        return (<div
+        return (<figure
             className="line-wrap"
+            tabIndex={-1}
+            aria-label={this.props.accessibilityLabel}
             ref={(g) => {
                 this.gClass = g;
             }}>
@@ -69,7 +72,7 @@ export default class BudgetLine extends React.Component {
                     </g>
                 </g>
             </svg>
-        </div>);
+        </figure>);
     }
 }
 
