@@ -168,6 +168,7 @@ export default class BudgetFunctions extends React.Component {
                     width={width}
                     height={height}
                     percentView={percentView}
+                    tooltipId="budget-functions-tooltip-wrapper"
                     clickable />);
             }
 
@@ -248,9 +249,16 @@ export default class BudgetFunctions extends React.Component {
             </div>);
         }
 
+        const tooltip = this.createTooltip();
+
         return (
             <div className="treemap-inner-wrap">
-                { this.createTooltip() }
+                <div
+                    role="tooltip"
+                    aria-hidden={!tooltip}
+                    id="budget-functions-tooltip-wrapper">
+                    {tooltip}
+                </div>
                 <div
                     className="tree-wrapper"
                     ref={(sr) => {

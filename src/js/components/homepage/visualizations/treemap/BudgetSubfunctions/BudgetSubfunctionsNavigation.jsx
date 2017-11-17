@@ -172,7 +172,10 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
         }
 
         return (
-            <div className="treemap-navigation-holder">
+            <div
+                className="treemap-navigation-holder"
+                role="navigation"
+                aria-label="Budget function navigation">
                 { tooltip }
                 <div>
                     <button
@@ -180,6 +183,8 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
                         onClick={this.clickedBack}
                         onMouseEnter={this.showBackArrowTooltip}
                         onMouseLeave={this.hideArrowTooltip}
+                        aria-label="Return to all budget functions"
+                        tabIndex={0}
                         ref={(button) => {
                             this.allButton = button;
                         }}>
@@ -192,6 +197,7 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
                         onClick={this.clickedLeft}
                         onMouseEnter={this.showLeftArrowTooltip}
                         onMouseLeave={this.hideArrowTooltip}
+                        aria-label="Go to previous budget function"
                         ref={(button) => {
                             this.previousButton = button;
                         }}>
@@ -203,6 +209,7 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
                         onClick={this.clickedRight}
                         onMouseEnter={this.showRightArrowTooltip}
                         onMouseLeave={this.hideArrowTooltip}
+                        aria-label="Go to next budget function"
                         ref={(button) => {
                             this.nextButton = button;
                         }}>
