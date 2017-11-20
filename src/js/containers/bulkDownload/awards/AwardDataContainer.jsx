@@ -28,7 +28,10 @@ export class AwardDataContainer extends React.Component {
 
         this.state = {
             inFlight: true,
-            agencies: [],
+            agencies: {
+                cfoAgencies: [],
+                otherAgencies: []
+            },
             subAgencies: []
         };
 
@@ -65,7 +68,10 @@ export class AwardDataContainer extends React.Component {
                 const cfoAgencies = res.data.agencies.cfo_agencies;
                 const otherAgencies = res.data.agencies.other_agencies;
                 this.setState({
-                    agencies: cfoAgencies.concat(otherAgencies)
+                    agencies: {
+                        cfoAgencies,
+                        otherAgencies
+                    }
                 });
             })
             .catch((err) => {

@@ -26,8 +26,42 @@
             }
         }
         .field-list {
-            max-height: rem(400);
-            overflow-y: scroll;
+            ul {
+                background-color: $color-white;
+                border: 1px solid $color-gray-lighter;
+                max-height: rem(400);
+                overflow-y: scroll;
+
+                li.field-item {
+                    border: 0;
+                    .item-button {
+                        @include button-unstyled;
+                        color: $color-gray;
+                        font-size: $small-font-size;
+                        padding: rem(10) rem(10) rem(10) rem(15);
+
+                        width: 100%;
+
+                        &:hover, &:active, &.active {
+                            background-color: $color-gray-lightest;
+                            color: $color-primary;
+                        }
+                        &.group-label {
+                            padding: rem(10);
+                            &:hover, &:active, &.active {
+                                background-color: $color-white;
+                                color: $color-gray;
+                            }
+                        }
+                    }
+                    &:first-child {
+                        // Prevent the "all" option from being indented
+                        .item-button {
+                            padding: rem(10);
+                        }
+                    }
+                }
+            }
         }
     }
 }

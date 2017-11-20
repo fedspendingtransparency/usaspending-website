@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    agencies: PropTypes.array,
+    agencies: PropTypes.object,
     subAgencies: PropTypes.array,
     setSubAgencyList: PropTypes.func,
     currentAgencies: PropTypes.object,
@@ -94,8 +94,25 @@ export default class AgencyFilter extends React.Component {
             );
         }
 
-        // Create the agency options
-        const agencies = this.props.agencies.map((agency) => (
+        // Create the CFO agencies options
+        const cfoAgencies = this.props.agencies.cfoAgencies.map((agency) => (
+            <li
+                className="field-item"
+                key={`field-${agency.toptier_agency_id}`}>
+                <button
+                    className="item-button"
+                    title={agency.name}
+                    aria-label={agency.name}
+                    value={agency.toptier_agency_id}
+                    name={agency.name}
+                    onClick={this.handleAgencySelect}>
+                    {agency.name}
+                </button>
+            </li>
+        ));
+
+        // Create the other agencies options
+        const otherAgencies = this.props.agencies.otherAgencies.map((agency) => (
             <li
                 className="field-item"
                 key={`field-${agency.toptier_agency_id}`}>
@@ -177,9 +194,7 @@ export default class AgencyFilter extends React.Component {
 
                             <div className={`field-list ${showAgencyPicker}`}>
                                 <ul>
-                                    <li
-                                        className="field-item"
-                                        key={`field-all`}>
+                                    <li className="field-item">
                                         <button
                                             className="item-button"
                                             title="All"
@@ -190,7 +205,26 @@ export default class AgencyFilter extends React.Component {
                                             All
                                         </button>
                                     </li>
-                                    {agencies}
+                                    <li className="field-item">
+                                        <button
+                                            className="item-button group-label"
+                                            title="CFO Agencies"
+                                            aria-label="CFO Agencies"
+                                            disabled >
+                                            CFO Agencies
+                                        </button>
+                                    </li>
+                                    {cfoAgencies}
+                                    <li className="field-item">
+                                        <button
+                                            className="item-button group-label"
+                                            title="Other Agencies"
+                                            aria-label="Other Agencies"
+                                            disabled >
+                                            Other Agencies
+                                        </button>
+                                    </li>
+                                    {otherAgencies}
                                 </ul>
                             </div>
                         </div>
