@@ -58,8 +58,7 @@ const heading = (type, title, id) => {
             </h2>
         );
     }
-    else if (type === 'Agency' && title !== 'Department of Transportation') {
-        // BODGE: Disable link to Department of Transportation
+    else if (type === 'Agency') {
         return (
             <h2>
                 <a href={`/#/agency/${id}`}>{title}</a>

@@ -50,7 +50,7 @@ const fields = [
     'pop_country',
     'pop_country_code',
     'total_obligation',
-    'potential_total_value_of_award',
+    'base_and_all_options_value',
     'recipient_duns',
     'recipient_parent_duns',
     'recipient_business_type',
@@ -661,7 +661,7 @@ const remapData = (data, idField) => {
     }
     remappedData.type = serverType;
 
-    const moneyCells = ['total_obligation', 'potential_total_value_of_award'];
+    const moneyCells = ['total_obligation', 'base_and_all_options_value'];
     moneyCells.forEach((cell) => {
         remappedData[cell] = MoneyFormatter.formatMoney(data[cell]);
     });

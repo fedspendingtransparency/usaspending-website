@@ -22,7 +22,6 @@ export default class TableRow extends React.PureComponent {
             rowClass = 'row-odd';
         }
         const cells = this.props.columns.map((column) => {
-            // BODGE: Disable Department of Transportation in agency list
             if (column.columnName === 'agency_name') {
                 // show the agency link cell
                 return (
@@ -34,7 +33,6 @@ export default class TableRow extends React.PureComponent {
                             name={this.props.agency.agency_name}
                             id={this.props.agency.agency_id}
                             agencySearchString={this.props.agencySearchString}
-                            disabled={this.props.agency.agency_name === 'Department of Transportation (DOT)'}
                             column={column.columnName} />
                     </td>
                 );
