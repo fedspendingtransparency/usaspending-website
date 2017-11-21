@@ -52,7 +52,7 @@ export default class Sidebar extends React.Component {
 
         const width = targetElement.offsetWidth;
         // also measure the Y position at which to float the sidebar
-        const floatPoint = targetElement.offsetTop - 60;
+        const floatPoint = targetElement.offsetTop - 30;
 
         this.setState({
             floatPoint,

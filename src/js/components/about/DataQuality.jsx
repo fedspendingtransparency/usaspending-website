@@ -74,13 +74,17 @@ export default class DataQuality extends React.Component {
                     <p>In updating our system, the names of some of our data elements
                         may have changed. For a mapping of the updated element’s new names and
                         legacy names, please refer to the link below.</p>
-                    <button
-                        className="usa-button-outline"
-                        aria-label="Download Data Element Mapping"
-                        title="Download Data Element Mapping"
-                        onClick={this.downloadDataElementMapping}>
-                        Download Data Element Mapping
-                    </button>
+                    <div className="about-section-content-inline-buttons">
+                        <div className="button-holder">
+                            <button
+                                className="usa-button-outline"
+                                aria-label="Download Data Element Mapping"
+                                title="Download Data Element Mapping"
+                                onClick={this.downloadDataElementMapping}>
+                                Download Data Element Mapping
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
