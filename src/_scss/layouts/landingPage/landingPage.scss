@@ -2,29 +2,29 @@
 @import "../summary/summary";
 
 .landing-page-content {
-	padding: $global-pad;
-	.landing-page-overview {
-		@include span-columns(16);
-		@include shift(0);
+    padding: $global-pad;
+    .landing-page-overview {
+        @include span-columns(16);
+        @include shift(0);
 
-		text-align: center;
-		h3 {
-			margin-top: 0;
-		}
-		p {
-			color: $color-gray-medium;
-			margin-bottom: rem(30);
-		}
-	}
-	.landing-page-section {
-		@include span-columns(16);
-	}
-	@include media($medium-screen) {
-		padding: ($global-pad * 2);
-		.landing-page-overview {
+        text-align: center;
+        h3 {
+            margin-top: 0;
+        }
+        p {
+            color: $color-gray-medium;
+            margin-bottom: rem(30);
+        }
+    }
+    .landing-page-section {
+        @include span-columns(16);
+    }
+    @include media($medium-screen) {
+        padding: ($global-pad * 2);
+        .landing-page-overview {
             width: 75%;
             margin: auto;
             float: none;
-		}
-	}
+        }
+    }
 }
