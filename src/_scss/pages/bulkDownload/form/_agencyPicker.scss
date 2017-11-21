@@ -16,6 +16,8 @@
         .selected-button {
             color: $color-gray;
             font-size: rem(21);
+            line-height: rem(24);
+            padding: rem(4) rem(10);
             &.disabled {
                 color: $color-gray-light;
                 .arrow-icon {
