@@ -1,19 +1,22 @@
 .usa-da-about-page {
     @import "all";
-    @import "mixins/fullSectionWrap";
     @import "layouts/default/default";
-    @import "./mastHead";
-    @import "./introduction";
-    @import "./overview";
-    @import "./aboutData";
-    @import "./nextSteps";
-    @import "./aboutTopicsPreviews";
-    
-    & .usa-da-about-inner {
-        @include clearfix;
-        background: $color-white;
-        margin: 0 auto;
-        padding: rem(50) 0;
-        @include row();
+    $color-gray-border: #D8D8D8;
+    $color-blue-background: #F5FBFC;
+
+    @import "./header/header";
+
+    .main-content {
+        @import "../../mixins/fullSectionWrap";
+        @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
+        padding:  0;
+
+        @import "./_positioning";
+        @import "./_contentWrap";
+        @import "elements/_divider";
+
+        @import "./_sidebar";
+
+        @import "./_section";
     }
 }
