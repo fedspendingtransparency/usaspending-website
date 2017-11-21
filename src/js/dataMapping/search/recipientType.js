@@ -89,7 +89,7 @@ export const recipientTypeGroups = {
         'joint_venture_economically_disadvantaged_women_owned_small_business'
     ],
     veteran_owned_business: [
-        'service_disabled_veteran_owned_business'
+        'veteran_owned_business'
     ],
     special_designations: [
         '8a_program_participant',
