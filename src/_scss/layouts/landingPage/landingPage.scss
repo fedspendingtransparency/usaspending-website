@@ -1,6 +1,5 @@
 @import "../default/default";
 @import "../summary/summary";
-@import "mixins/fullSectionWrap";
 
 .landing-page-content {
 	padding: $global-pad;
@@ -23,8 +22,9 @@
 	@include media($medium-screen) {
 		padding: ($global-pad * 2);
 		.landing-page-overview {
-			@include span-columns(12);
-			@include shift(2);
+            width: 75%;
+            margin: auto;
+            float: none;
 		}
 	}
 }
