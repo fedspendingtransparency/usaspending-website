@@ -339,8 +339,6 @@ export default class LocationPickerContainer extends React.Component {
             return;
         }
 
-        // this.validZip(zip);
-
         this.zipRequest = performZIPGeocode(zip);
 
         this.zipRequest.promise
