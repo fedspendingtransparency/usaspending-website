@@ -1,8 +1,10 @@
 import React from 'react';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
+import kGlobalConstants from 'GlobalConstants';
 
 import WarningBanner from './WarningBanner';
+import InfoBanner from './InfoBanner';
 import NavBar from './NavBar';
 
 export default class Header extends React.Component {
@@ -19,6 +21,10 @@ export default class Header extends React.Component {
         window.scrollTo(0, yPos);
     }
     render() {
+        let banner = (<InfoBanner />)
+        if (kGlobalConstants.IN_BETA) {
+            banner = (<WarningBanner />);
+        }
         return (
             <div className="site-header">
                 <a
@@ -28,7 +34,7 @@ export default class Header extends React.Component {
                         Skip to main content
                 </a>
                 <header>
-                    <WarningBanner />
+                    {banner}
                     <NavBar />
                 </header>
                 <GlossaryContainer />

@@ -11,6 +11,8 @@ import * as MetaTagHelper from 'helpers/metaTagHelper';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 
+import kGlobalConstants from 'GlobalConstants';
+
 import HomepageStateModel from 'models/homepage/HomepageStateModel';
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 
@@ -23,7 +25,7 @@ import CategoryMap from './visualizations/categoryMap/CategoryMap';
 import SearchSection from './SearchSection';
 import Footer from '../sharedComponents/Footer';
 import WarningBanner from '../sharedComponents/header/WarningBanner';
-// import InfoBanner from '../sharedComponents/header/InfoBanner';
+import InfoBanner from '../sharedComponents/header/InfoBanner';
 
 require('pages/homepage/homePage.scss');
 
@@ -171,6 +173,11 @@ export default class Homepage extends React.Component {
     }
 
     render() {
+        let banner = (<InfoBanner />);
+        if (kGlobalConstants.IN_BETA) {
+            banner = (<WarningBanner />);
+        }
+
         return (
             <div className="usa-da-home-page">
                 <div className="site-header">
@@ -183,7 +190,7 @@ export default class Homepage extends React.Component {
                 </div>
                 <MetaTags {...MetaTagHelper.homePageMetaTags} />
                 <GlossaryContainer />
-                <WarningBanner />
+                {banner}
                 <Landing
                     total={this.state.total} />
                 <TreeMapIntro />
