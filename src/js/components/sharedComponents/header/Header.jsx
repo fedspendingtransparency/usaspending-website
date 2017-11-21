@@ -21,7 +21,7 @@ export default class Header extends React.Component {
         window.scrollTo(0, yPos);
     }
     render() {
-        let banner = (<InfoBanner />)
+        let banner = (<InfoBanner />);
         if (kGlobalConstants.IN_BETA) {
             banner = (<WarningBanner />);
         }
