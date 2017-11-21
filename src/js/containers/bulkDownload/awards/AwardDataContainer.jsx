@@ -100,6 +100,8 @@ export class AwardDataContainer extends React.Component {
                     const subAgencies = res.data.sub_agencies;
                     this.setState({
                         subAgencies
+                    }, () => {
+                        this.resetSubAgency();
                     });
                 })
                 .catch((err) => {
@@ -111,8 +113,17 @@ export class AwardDataContainer extends React.Component {
         else {
             this.setState({
                 subAgencies: []
+            }, () => {
+                this.resetSubAgency();
             });
         }
+    }
+
+    resetSubAgency() {
+        this.updateFilter('subAgency', {
+            id: '',
+            name: 'Select a Sub-Agency'
+        });
     }
 
     updateFilter(name, value) {

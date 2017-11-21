@@ -38,7 +38,7 @@
                         @include button-unstyled;
                         color: $color-gray;
                         font-size: $small-font-size;
-                        padding: rem(10) rem(10) rem(10) rem(15);
+                        padding: rem(10);
 
                         width: 100%;
 
@@ -47,17 +47,15 @@
                             color: $color-primary;
                         }
                         &.group-label {
-                            padding: rem(10);
                             &:hover, &:active, &.active {
                                 background-color: $color-white;
                                 color: $color-gray;
                             }
                         }
                     }
-                    &:first-child {
-                        // Prevent the "all" option from being indented
+                    &.indent {
                         .item-button {
-                            padding: rem(10);
+                            padding: rem(10) rem(10) rem(10) rem(15);
                         }
                     }
                 }

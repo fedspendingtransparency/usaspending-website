@@ -97,7 +97,7 @@ export default class AgencyFilter extends React.Component {
         // Create the CFO agencies options
         const cfoAgencies = this.props.agencies.cfoAgencies.map((agency) => (
             <li
-                className="field-item"
+                className="field-item indent"
                 key={`field-${agency.toptier_agency_id}`}>
                 <button
                     className="item-button"
@@ -114,7 +114,7 @@ export default class AgencyFilter extends React.Component {
         // Create the other agencies options
         const otherAgencies = this.props.agencies.otherAgencies.map((agency) => (
             <li
-                className="field-item"
+                className="field-item indent"
                 key={`field-${agency.toptier_agency_id}`}>
                 <button
                     className="item-button"
