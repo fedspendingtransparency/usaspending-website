@@ -184,12 +184,12 @@ export default class AgencyFilter extends React.Component {
                                 title={currentAgencyName}
                                 aria-label={currentAgencyName}
                                 onClick={this.toggleAgencyPicker}>
-                                <span className="label">
+                                <div className="label">
                                     {currentAgencyName}
-                                </span>
-                                <span className="arrow-icon">
-                                    {agencyIcon}
-                                </span>
+                                    <span className="arrow-icon">
+                                        {agencyIcon}
+                                    </span>
+                                </div>
                             </button>
 
                             <div className={`field-list ${showAgencyPicker}`}>
@@ -239,12 +239,12 @@ export default class AgencyFilter extends React.Component {
                                 title={currentSubAgencyName}
                                 aria-label={currentSubAgencyName}
                                 onClick={this.toggleSubAgencyPicker}>
-                                <span className="label">
+                                <div className="label">
                                     {currentSubAgencyName}
-                                </span>
-                                <span className="arrow-icon">
-                                    {subAgencyIcon}
-                                </span>
+                                    <span className="arrow-icon">
+                                        {subAgencyIcon}
+                                    </span>
+                                </div>
                             </button>
 
                             <div
