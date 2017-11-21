@@ -17,7 +17,7 @@ import ObligatedContainer from 'containers/agency/visualizations/ObligatedContai
 import FederalAccountContainer from 'containers/agency/visualizations/FederalAccountContainer';
 import AgencyFooterContainer from 'containers/agency/AgencyFooterContainer';
 
-import AgencySidebar from './sidebar/AgencySidebar';
+import Sidebar from '../sharedComponents/sidebar/Sidebar';
 import AgencyOverview from './overview/AgencyOverview';
 import TreasuryDisclaimer from './TreasuryDisclaimer';
 
@@ -227,8 +227,9 @@ export default class AgencyContent extends React.Component {
         return (
             <div className="agency-content-wrapper">
                 <div className="agency-sidebar">
-                    <AgencySidebar
+                    <Sidebar
                         active={this.state.activeSection}
+                        pageName="agency"
                         sections={agencySections}
                         jumpToSection={this.jumpToSection} />
                 </div>

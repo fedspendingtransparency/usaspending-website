@@ -10,7 +10,7 @@
         padding: rem(35);
     }
 
-    @media(min-width: $large-screen) {
+    @include media($large-screen) {
         .about-padded-content {
             padding: rem(38) rem(288) rem(22) rem(88);
         }

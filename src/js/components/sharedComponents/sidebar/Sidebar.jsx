@@ -1,5 +1,5 @@
 /**
- * AgencySidebar.jsx
+ * Sidebar.jsx
  * Created by Kevin Li 6/8/17
  */
 
@@ -11,11 +11,12 @@ import SidebarLink from './SidebarLink';
 
 const propTypes = {
     active: PropTypes.string,
+    pageName: PropTypes.string,
     sections: PropTypes.array,
     jumpToSection: PropTypes.func
 };
 
-export default class AgencySidebar extends React.Component {
+export default class Sidebar extends React.Component {
     constructor(props) {
         super(props);
 
@@ -112,7 +113,7 @@ export default class AgencySidebar extends React.Component {
         return (
             <div>
                 <div
-                    className={`agency-sidebar-reference ${floatSidebar}`}
+                    className={`${this.props.pageName}-sidebar-reference ${floatSidebar}`}
                     ref={(div) => {
                         // this is an empty div that does not float with the page so we can track
                         // the inline/non-floating Y position of the sidebar
@@ -121,7 +122,7 @@ export default class AgencySidebar extends React.Component {
                     &nbsp;
                 </div>
                 <div
-                    className={`agency-sidebar-content ${floatSidebar}`}
+                    className={`${this.props.pageName}-sidebar-content ${floatSidebar}`}
                     ref={(div) => {
                         this.div = div;
                     }}>
@@ -134,4 +135,4 @@ export default class AgencySidebar extends React.Component {
     }
 }
 
-AgencySidebar.propTypes = propTypes;
+Sidebar.propTypes = propTypes;

@@ -7,7 +7,7 @@ import React from 'react';
 import { find, throttle } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
 
-import AboutSidebar from './AboutSidebar';
+import Sidebar from '../sharedComponents/sidebar/Sidebar';
 
 import Mission from './Mission';
 import Background from './Background';
@@ -210,8 +210,9 @@ export default class AboutContent extends React.Component {
         return (
             <div className="about-content-wrapper">
                 <div className="about-sidebar">
-                    <AboutSidebar
+                    <Sidebar
                         active={this.state.activeSection}
+                        pageName="about"
                         sections={aboutSections}
                         jumpToSection={this.jumpToSection} />
                 </div>
