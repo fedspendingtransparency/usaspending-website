@@ -61,10 +61,13 @@ export default class TreeMap extends React.Component {
             showSubfunctions: !this.state.showSubfunctions,
             selected
         }, () => {
-            // if (!this.state.showSubfunctions) {
-            //     // send focus back to the figure
-            //     this.figureWrapper.focus();
-            // }
+            if (!this.state.showSubfunctions) {
+                // send focus back to the figure
+                const budgetTreemapSvg = document.querySelector('#budget-function-svg');
+                if (budgetTreemapSvg) {
+                    budgetTreemapSvg.focus();
+                }
+            }
         });
     }
 

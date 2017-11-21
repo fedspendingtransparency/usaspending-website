@@ -244,9 +244,11 @@ export default class BudgetFunctions extends React.Component {
     render() {
         let hoverOverlay = null;
         if (this.state.showOverlay && window.innerWidth >= 768) {
-            hoverOverlay = (<figcaption className="treemap-hover-instructions">
+            hoverOverlay = (<div
+                className="treemap-hover-instructions"
+                id="treemap-hover-instructions">
                 Hover over a block to learn more about Spending by Budget Function in 2016.
-            </figcaption>);
+            </div>);
         }
 
         const tooltip = this.createTooltip();
@@ -263,18 +265,18 @@ export default class BudgetFunctions extends React.Component {
                     ref={(sr) => {
                         this.sectionWrapper = sr;
                     }}>
-                    <figure
+                    <svg
+                        id="budget-function-svg"
+                        width={this.state.visualizationWidth}
+                        height={this.state.visualizationHeight}
+                        className="treemap-svg overlay"
                         aria-label="Budget function treemap"
-                        role="group">
-                        <svg
-                            width={this.state.visualizationWidth}
-                            height={this.state.visualizationHeight}
-                            className="treemap-svg overlay">
-                            <title>All budget functions</title>
-                            <desc>Treemap showing relative spending by budget function</desc>
-                            { this.state.finalNodes }
-                        </svg>
-                    </figure>
+                        role="group"
+                        tabIndex={0}>
+                        <title>All budget functions</title>
+                        <desc>Treemap showing relative spending by budget function</desc>
+                        { this.state.finalNodes }
+                    </svg>
                     {hoverOverlay}
                 </div>
             </div>

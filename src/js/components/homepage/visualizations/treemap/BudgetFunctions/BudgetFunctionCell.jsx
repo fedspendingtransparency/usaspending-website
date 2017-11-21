@@ -149,6 +149,7 @@ export default class BudgetFunctionCell extends React.Component {
                 onBlur={this.toggleTooltipOut}
                 aria-label={`${this.state.fullLabel} - ${percentage}`}
                 aria-describedby={this.props.tooltipId}
+                role="listitem"
                 tabIndex={0}>
                 <rect
                     className="tile"
