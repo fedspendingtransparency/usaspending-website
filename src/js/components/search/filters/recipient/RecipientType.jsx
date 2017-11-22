@@ -24,7 +24,7 @@ const defaultProps = {
         {
             id: 'recipient-women-owned-business',
             name: 'Women Owned Business',
-            filters: recipientTypeGroups.women_owned_business
+            filters: recipientTypeGroups.woman_owned_business
         },
         {
             id: 'recipient-veteran-owned-business',
