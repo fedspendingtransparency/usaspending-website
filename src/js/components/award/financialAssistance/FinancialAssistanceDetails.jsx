@@ -96,25 +96,54 @@ export default class FinancialAssistanceDetails extends React.Component {
 
     prepareValues() {
         let yearRangeTotal = "";
+        let monthRangeTotal = "";
         let description = null;
         const award = this.props.selectedAward;
         const latestTransaction = award.latest_transaction;
 
         // Date Range
-        const startDate = moment(award.period_of_performance_start_date, 'M/D/YYYY');
-        const endDate = moment(award.period_of_performance_current_end_date, 'M/D/YYYY');
-        const yearRange = endDate.diff(startDate, 'year');
+        const formattedStartDate = award.period_of_performance_start_date;
+        const formattedEndDate = award.period_of_performance_current_end_date;
+
+        const startDate = moment(formattedStartDate, 'M/D/YYYY');
+        const endDate = moment(formattedEndDate, 'M/D/YYYY');
+
+        const duration = moment.duration(endDate.diff(startDate));
+        const years = duration.years();
+        const months = duration.months();
+
         let popDate = "Not Available";
-        if (!isNaN(yearRange) && yearRange !== 0) {
-            if (yearRange === 1) {
-                yearRangeTotal = `${yearRange} year)`;
-            }
-            else {
-                yearRangeTotal = `(${yearRange} years)`;
+        if (!isNaN(years)) {
+            if (months > 0) {
+                if (months === 1) {
+                    monthRangeTotal = `${months} month`;
+                }
+                else {
+                    monthRangeTotal = `${months} months`;
+                }
             }
 
-            popDate = `${award.period_of_performance_start_date} -
-               ${award.period_of_performance_current_end_date} ${yearRangeTotal}`;
+            if (years > 0) {
+                if (years === 1) {
+                    yearRangeTotal = `${years} year`;
+                }
+                else {
+                    yearRangeTotal = `${years} years`;
+                }
+            }
+
+            let timeRange = '';
+            if (monthRangeTotal && yearRangeTotal) {
+                timeRange = `(${yearRangeTotal}, ${monthRangeTotal})`;
+            }
+            else if (monthRangeTotal) {
+                timeRange = `(${monthRangeTotal})`;
+            }
+            else if (yearRangeTotal) {
+                timeRange = `(${yearRangeTotal})`;
+            }
+
+            popDate = `${formattedStartDate} - ${formattedEndDate} ${timeRange}`;
         }
 
         if (award.description) {
@@ -132,21 +161,21 @@ export default class FinancialAssistanceDetails extends React.Component {
         let programName = 'Not Available';
         let programDescription = 'Not Available';
 
-        if (latestTransaction.assistance_data.cfda) {
-            const cfda = latestTransaction.assistance_data.cfda;
-            if (cfda.program_number && cfda.program_title) {
-                programName = `${latestTransaction.assistance_data.cfda.program_number} - \
-${latestTransaction.assistance_data.cfda.program_title}`;
+        if (latestTransaction.assistance_data) {
+            const assistanceData = latestTransaction.assistance_data;
+
+            if (assistanceData.cfda_number && assistanceData.cfda_title) {
+                programName = `${assistanceData.cfda_number} - ${assistanceData.cfda_title}`;
             }
-            else if (cfda.program_number) {
-                programName = cfda.program_number;
+            else if (assistanceData.cfda_number) {
+                programName = assistanceData.cfda_title;
             }
-            else if (cfda.program_title) {
-                programName = cfda.program_title;
+            else if (assistanceData.program_title) {
+                programName = assistanceData.cfda_title;
             }
 
-            if (cfda.objectives) {
-                programDescription = cfda.objectives;
+            if (assistanceData.cfda_objectives) {
+                programDescription = assistanceData.cfda_objectives;
             }
         }
 
@@ -155,8 +184,6 @@ ${latestTransaction.assistance_data.cfda.program_title}`;
             cfdaOverflow = true;
         }
 
-        // Todo - Mike Bray - update typeDesc when available from Broker data
-        // Probably "assistance_type"
         this.setState({
             description,
             programName,
