@@ -132,21 +132,21 @@ export default class FinancialAssistanceDetails extends React.Component {
         let programName = 'Not Available';
         let programDescription = 'Not Available';
 
-        if (latestTransaction.assistance_data.cfda) {
-            const cfda = latestTransaction.assistance_data.cfda;
-            if (cfda.program_number && cfda.program_title) {
-                programName = `${latestTransaction.assistance_data.cfda.program_number} - \
-${latestTransaction.assistance_data.cfda.program_title}`;
+        if (latestTransaction.assistance_data) {
+            const assistanceData = latestTransaction.assistance_data;
+
+            if (assistanceData.cfda_number && assistanceData.cfda_title) {
+                programName = `${assistanceData.cfda_number} - ${assistanceData.cfda_title}`;
             }
-            else if (cfda.program_number) {
-                programName = cfda.program_number;
+            else if (assistanceData.cfda_number) {
+                programName = assistanceData.cfda_title;
             }
-            else if (cfda.program_title) {
-                programName = cfda.program_title;
+            else if (assistanceData.program_title) {
+                programName = assistanceData.cfda_title;
             }
 
-            if (cfda.objectives) {
-                programDescription = cfda.objectives;
+            if (assistanceData.cfda_objectives) {
+                programDescription = assistanceData.cfda_objectives;
             }
         }
 
@@ -155,8 +155,6 @@ ${latestTransaction.assistance_data.cfda.program_title}`;
             cfdaOverflow = true;
         }
 
-        // Todo - Mike Bray - update typeDesc when available from Broker data
-        // Probably "assistance_type"
         this.setState({
             description,
             programName,
