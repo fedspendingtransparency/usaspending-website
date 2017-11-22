@@ -1,0 +1,18 @@
+.about-content-wrapper {
+    @include span-columns(16);
+
+    .about-sidebar {
+        display: none;
+        margin-top: 0;
+        @include media($medium-screen) {
+            @include span-columns(4);
+        }
+    }
+
+    .about-content {
+        @include span-columns(16);
+        @include media($medium-screen) {
+            @include span-columns(12);
+        }
+    }
+}
