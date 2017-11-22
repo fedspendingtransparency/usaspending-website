@@ -243,9 +243,11 @@ export default class BudgetFunctions extends React.Component {
     render() {
         let hoverOverlay = null;
         if (this.state.showOverlay && window.innerWidth >= 768) {
-            hoverOverlay = (<div className="treemap-hover-instructions">
-                Hover over a block to learn more about Spending by Budget Function in 2016.
-            </div>);
+            hoverOverlay = (
+                <div className="treemap-hover-instructions">
+                    Hover over a block to learn more about Spending by Budget Function in 2016.
+                </div>
+            );
         }
 
         return (

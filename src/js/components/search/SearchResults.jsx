@@ -56,9 +56,11 @@ export default class SearchResults extends React.Component {
 
         let lastUpdate = null;
         if (this.props.lastUpdate !== '') {
-            lastUpdate = (<div className="last-update">
-                <strong>Note:</strong> All data shown is as of {this.props.lastUpdate}
-            </div>);
+            lastUpdate = (
+                <div className="last-update">
+                    <strong>Note:</strong> All data shown is as of {this.props.lastUpdate}
+                </div>
+            );
         }
 
 

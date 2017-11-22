@@ -78,6 +78,7 @@
         "no-restricted-globals": [0],
         // default prop types not required
         "react/require-default-props": [0],
+        "react/default-props-match-prop-types": [0],
         // allow object prop-type
         "react/forbid-prop-types": ["warning", {
             "forbid": ["any"]

@@ -42,7 +42,8 @@ const propTypes = {
     groups: PropTypes.array,
     xSeries: PropTypes.array,
     ySeries: PropTypes.array,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    legend: PropTypes.array
 };
 /* eslint-enable react/no-unused-prop-types */
 

@@ -185,33 +185,34 @@ export default class CategoryMap extends React.Component {
                 textTransform="translate(0, 0)rotate(90)"
                 label="3.06 trillion" />);
         }
-        return (<div className="by-category-section-wrap">
-            <div className="inner-wrap">
-                <h3>Almost <strong>80%</strong> of total spending in 2016 was awarded to individuals,
-                private contractors, and local governments.
-                </h3>
-                { line }
-                <div className="by-category-vis">
-                    { this.createTooltip() }
-                    <div
-                        className="tree-wrapper"
-                        ref={(sr) => {
-                            this.sectionWrapper = sr;
-                        }}>
-                        <svg
-                            width={this.state.visualizationWidth}>
-                            { this.state.finalNodes }
-                        </svg>
+        return (
+            <div className="by-category-section-wrap">
+                <div className="inner-wrap">
+                    <h3>Almost <strong>80%</strong> of total spending in 2016 was awarded to individuals,
+                    private contractors, and local governments.
+                    </h3>
+                    { line }
+                    <div className="by-category-vis">
+                        { this.createTooltip() }
+                        <div
+                            className="tree-wrapper"
+                            ref={(sr) => {
+                                this.sectionWrapper = sr;
+                            }}>
+                            <svg
+                                width={this.state.visualizationWidth}>
+                                { this.state.finalNodes }
+                            </svg>
+                        </div>
                     </div>
-                </div>
-                <div className="map-segue">
-                    <h4>The geographic breakdown of this portion of the budget is shown below</h4>
-                    <div className="icon-wrap">
-                        <HandDrawnArrow />
+                    <div className="map-segue">
+                        <h4>The geographic breakdown of this portion of the budget is shown below</h4>
+                        <div className="icon-wrap">
+                            <HandDrawnArrow />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         );
     }
 }

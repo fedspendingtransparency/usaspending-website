@@ -101,13 +101,15 @@ export default class ContractFilter extends React.Component {
                 arrow = (<Icons.AngleUp alt={`See ${shownStatement}`} />);
             }
 
-            toggleButton = (<button
-                className="see-more contract-filter-toggle-button"
-                onClick={this.toggleShownAmount}
-                title={`See ${shownStatement}`}>
-                See {shownStatement}
-                &nbsp; {arrow}
-            </button>);
+            toggleButton = (
+                <button
+                    className="see-more contract-filter-toggle-button"
+                    onClick={this.toggleShownAmount}
+                    title={`See ${shownStatement}`}>
+                    See {shownStatement}
+                    &nbsp; {arrow}
+                </button>
+            );
         }
 
         return toggleButton;
