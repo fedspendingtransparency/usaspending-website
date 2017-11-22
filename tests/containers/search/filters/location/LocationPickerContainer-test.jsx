@@ -9,7 +9,7 @@ import { shallow } from 'enzyme';
 import LocationPickerContainer from 'containers/search/filters/location/LocationPickerContainer';
 
 import { mockPickerRedux } from './mockLocations';
-import { _mockCountries, _mockStates, _mockCounties, _mockDistricts } from './mockMapHelper';
+import { mockCountries, mockStates, mockCounties, mockDistricts, mockValidZip, mockInvalidZip } from './mockMapHelper';
 
 global.Promise = require.requireActual('promise');
 
@@ -22,7 +22,7 @@ describe('LocationPickerContainer', () => {
     describe('parseCountries', () => {
         it('should be the API response prepended with USA, all foreign counries, and a divider', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.instance().parseCountries(_mockCountries);
+            container.instance().parseCountries(mockCountries);
 
             expect(container.state().availableCountries).toEqual([
                 {
@@ -44,7 +44,7 @@ describe('LocationPickerContainer', () => {
     describe('parseStates', () => {
         it('should be the API response prepended with an All states option', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.instance().parseStates(_mockStates);
+            container.instance().parseStates(mockStates);
 
             expect(container.state().availableStates).toEqual([
                 {
@@ -62,7 +62,7 @@ describe('LocationPickerContainer', () => {
     describe('parseCounties', () => {
         it('should be the API response prepended with an All counties option', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.instance().parseCounties(_mockCounties);
+            container.instance().parseCounties(mockCounties);
 
             expect(container.state().availableCounties).toEqual([
                 {
@@ -82,7 +82,7 @@ describe('LocationPickerContainer', () => {
     describe('parseDistricts', () => {
         it('should be the API response prepended with an All congressional districts option', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.instance().parseDistricts(_mockDistricts);
+            container.instance().parseDistricts(mockDistricts);
 
             expect(container.state().availableDistricts).toEqual([
                 {
@@ -102,8 +102,8 @@ describe('LocationPickerContainer', () => {
         it('should clear the available states and reset the selected state to a blank value', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
             container.setState({
-                availableStates: _mockStates.states,
-                state: _mockStates.states[0]
+                availableStates: mockStates.states,
+                state: mockStates.states[0]
             });
 
             container.instance().clearStates();
@@ -120,8 +120,8 @@ describe('LocationPickerContainer', () => {
         it('should clear the available counties and reset the selected county to a blank value', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
             container.setState({
-                availableCounties: _mockCounties.counties,
-                county: _mockCounties.counties[0]
+                availableCounties: mockCounties.counties,
+                county: mockCounties.counties[0]
             });
 
             container.instance().clearCounties();
@@ -139,8 +139,8 @@ describe('LocationPickerContainer', () => {
         it('should clear the available congressional districts and reset the selected congressional district to a blank value', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
             container.setState({
-                availableDistricts: _mockDistricts.districts,
-                district: _mockDistricts.districts[0]
+                availableDistricts: mockDistricts.districts,
+                district: mockDistricts.districts[0]
             });
 
             container.instance().clearDistricts();
@@ -458,6 +458,136 @@ describe('LocationPickerContainer', () => {
                     country: 'ABC'
                 }
             });
+        });
+    });
+
+    describe('validateZip', () => {
+        it('should make a Mapbox API request to validate the input', async () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.instance().parseZip = jest.fn();
+
+            container.instance().validateZip('46556');
+            expect(container.instance().zipRequest).not.toBeNull();
+            await container.instance().zipRequest.promise;
+
+            expect(container.instance().parseZip).toHaveBeenCalledTimes(1);
+            expect(container.instance().parseZip).toHaveBeenCalledWith(mockValidZip, '46556');
+        });
+        it('should not attempt to validate if the input is not five digits and all numeric', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.instance().parseZip = jest.fn();
+            container.instance().invalidZip = jest.fn();
+
+            container.instance().validateZip('W1A 1AA');
+            expect(container.instance().zipRequest).toBeNull();
+            expect(container.instance().parseZip).toHaveBeenCalledTimes(0);
+            expect(container.instance().invalidZip).toHaveBeenCalledTimes(1);
+            expect(container.instance().invalidZip).toHaveBeenCalledWith('W1A 1AA');
+        });
+    });
+
+    describe('parseZip', () => {
+        it('should consider a ZIP code to be valid if the Mapbox API responds with at least one Feature object', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.instance().validZip = jest.fn();
+            container.instance().invalidZip = jest.fn();
+
+            container.instance().parseZip(mockValidZip, '46556');
+            expect(container.instance().validZip).toHaveBeenCalledTimes(1);
+            expect(container.instance().validZip).toHaveBeenCalledWith('46556');
+            expect(container.instance().invalidZip).toHaveBeenCalledTimes(0);
+        });
+        it('should consider a ZIP code to be invalid if Mapbox does not return any features', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.instance().validZip = jest.fn();
+            container.instance().invalidZip = jest.fn();
+
+            container.instance().parseZip(mockInvalidZip, '00000');
+            expect(container.instance().invalidZip).toHaveBeenCalledTimes(1);
+            expect(container.instance().invalidZip).toHaveBeenCalledWith('00000');
+            expect(container.instance().validZip).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('invalidZip', () => {
+        it('should update the state with the invalid ZIP and clear any valid ZIP', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.setState({
+                zip: {
+                    valid: '46556',
+                    invalid: ''
+                }
+            });
+
+            expect(container.state().zip.valid).toEqual('46556');
+            expect(container.state().zip.invalid).toEqual('');
+
+            container.instance().invalidZip('W1A 1AA');
+            expect(container.state().zip.valid).toEqual('');
+            expect(container.state().zip.invalid).toEqual('W1A 1AA');
+        });
+    });
+
+    describe('validZip', () => {
+        it('should update the state with the valid ZIP and clear any invalid ZIP', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.setState({
+                zip: {
+                    valid: '',
+                    invalid: 'W1A 1AA'
+                }
+            });
+
+            expect(container.state().zip.valid).toEqual('');
+            expect(container.state().zip.invalid).toEqual('W1A 1AA');
+
+            container.instance().validZip('46556');
+            expect(container.state().zip.valid).toEqual('46556');
+            expect(container.state().zip.invalid).toEqual('');
+        });
+    });
+
+    describe('addZip', () => {
+        it('should create an object that contains only a valid ZIP code and US country code to be used as a location filter object', () => {
+            const mockAdd = jest.fn();
+            const mockRedux = Object.assign({}, mockPickerRedux, {
+                addLocation: mockAdd
+            });
+            const container = shallow(<LocationPickerContainer {...mockRedux} />);
+            container.setState({
+                zip: {
+                    valid: '46556',
+                    invalid: ''
+                }
+            });
+
+            const expectedLocation = {
+                identifier: 'USA_46556',
+                display: {
+                    title: '46556',
+                    entity: 'ZIP Code',
+                    standalone: '46556'
+                },
+                filter: {
+                    country: 'USA',
+                    zip: '46556'
+                }
+            };
+
+            container.instance().addZip();
+            expect(mockAdd).toHaveBeenCalledTimes(1);
+            expect(mockAdd).toHaveBeenCalledWith(expectedLocation);
+        });
+
+        it('should return early if there is no valid ZIP code in the state', () => {
+            const mockAdd = jest.fn();
+            const mockRedux = Object.assign({}, mockPickerRedux, {
+                addLocation: mockAdd
+            });
+            const container = shallow(<LocationPickerContainer {...mockRedux} />);
+
+            container.instance().addZip();
+            expect(mockAdd).toHaveBeenCalledTimes(0);
         });
     });
 });

@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EntityDropdown from './EntityDropdown';
+import ZIPField from './ZIPField';
 
 const propTypes = {
     selectedLocations: PropTypes.object,
@@ -13,6 +14,7 @@ const propTypes = {
     state: PropTypes.object,
     county: PropTypes.object,
     district: PropTypes.object,
+    zip: PropTypes.object,
     availableCountries: PropTypes.array,
     availableStates: PropTypes.array,
     availableCounties: PropTypes.array,
@@ -25,7 +27,8 @@ const propTypes = {
     clearCounties: PropTypes.func,
     clearDistricts: PropTypes.func,
     createLocationObject: PropTypes.func,
-    addLocation: PropTypes.func
+    addLocation: PropTypes.func,
+    validateZip: PropTypes.func
 };
 
 export default class LocationPicker extends React.Component {
@@ -127,60 +130,66 @@ export default class LocationPicker extends React.Component {
         }
 
         return (
-            <form
-                className="location-filter-form"
-                onSubmit={this.submitForm}>
-                <div className="location-item">
-                    <EntityDropdown
-                        scope="country"
-                        placeholder="Select a country"
-                        title="Country"
-                        value={this.props.country}
-                        selectEntity={this.props.selectEntity}
-                        options={this.props.availableCountries}
-                        generateWarning={this.generateWarning} />
-                </div>
-                <div className="location-item">
-                    <EntityDropdown
-                        scope="state"
-                        placeholder="Select a state"
-                        title="State"
-                        value={this.props.state}
-                        selectEntity={this.props.selectEntity}
-                        options={this.props.availableStates}
-                        enabled={this.props.country.code === 'USA'}
-                        generateWarning={this.generateWarning} />
-                </div>
-                <div className="location-item">
-                    <EntityDropdown
-                        scope="county"
-                        placeholder="Select a county"
-                        title="County"
-                        value={this.props.county}
-                        selectEntity={this.props.selectEntity}
-                        options={this.props.availableCounties}
-                        enabled={this.props.state.code !== '' && this.props.district.district === ''}
-                        generateWarning={this.generateWarning} />
-                </div>
-                <div className="location-item">
-                    <EntityDropdown
-                        scope="district"
-                        matchKey="district"
-                        placeholder={districtPlaceholder}
-                        title="Congressional District"
-                        value={this.props.district}
-                        selectEntity={this.props.selectEntity}
-                        options={this.props.availableDistricts}
-                        enabled={this.props.state.code !== '' && this.props.county.code === ''}
-                        generateWarning={this.generateWarning} />
-                </div>
-                <button
-                    className="add-location"
-                    onClick={this.props.addLocation}
-                    disabled={disabled}>
-                    Add Filter
-                </button>
-            </form>
+            <div>
+                <form
+                    className="location-filter-form"
+                    onSubmit={this.submitForm}>
+                    <div className="location-item">
+                        <EntityDropdown
+                            scope="country"
+                            placeholder="Select a country"
+                            title="Country"
+                            value={this.props.country}
+                            selectEntity={this.props.selectEntity}
+                            options={this.props.availableCountries}
+                            generateWarning={this.generateWarning} />
+                    </div>
+                    <div className="location-item">
+                        <EntityDropdown
+                            scope="state"
+                            placeholder="Select a state"
+                            title="State"
+                            value={this.props.state}
+                            selectEntity={this.props.selectEntity}
+                            options={this.props.availableStates}
+                            enabled={this.props.country.code === 'USA'}
+                            generateWarning={this.generateWarning} />
+                    </div>
+                    <div className="location-item">
+                        <EntityDropdown
+                            scope="county"
+                            placeholder="Select a county"
+                            title="County"
+                            value={this.props.county}
+                            selectEntity={this.props.selectEntity}
+                            options={this.props.availableCounties}
+                            enabled={this.props.state.code !== '' && this.props.district.district === ''}
+                            generateWarning={this.generateWarning} />
+                    </div>
+                    <div className="location-item">
+                        <EntityDropdown
+                            scope="district"
+                            matchKey="district"
+                            placeholder={districtPlaceholder}
+                            title="Congressional District"
+                            value={this.props.district}
+                            selectEntity={this.props.selectEntity}
+                            options={this.props.availableDistricts}
+                            enabled={this.props.state.code !== '' && this.props.county.code === ''}
+                            generateWarning={this.generateWarning} />
+                    </div>
+                    <button
+                        className="add-location"
+                        onClick={this.props.addLocation}
+                        disabled={disabled}>
+                        Add Filter
+                    </button>
+                </form>
+                <hr className="location-picker-divider" />
+                <ZIPField
+                    zip={this.props.zip}
+                    validateZip={this.props.validateZip} />
+            </div>
         );
     }
 }
