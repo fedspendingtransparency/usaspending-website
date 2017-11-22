@@ -130,7 +130,6 @@ export class RecipientNameDUNSContainer extends React.Component {
                 selectedRecipients={this.props.selectedRecipients} />
         );
     }
-
 }
 
 export default connect(

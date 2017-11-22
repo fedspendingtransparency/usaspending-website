@@ -119,6 +119,7 @@ export default connect(
         selectedRecipients: state.filters.selectedRecipients,
         recipientDomesticForeign: state.filters.recipientDomesticForeign,
         recipientType: state.filters.recipientType,
-        selectedRecipientLocations: state.filters.selectedRecipientLocations }),
+        selectedRecipientLocations: state.filters.selectedRecipientLocations
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(RecipientSearchContainer);

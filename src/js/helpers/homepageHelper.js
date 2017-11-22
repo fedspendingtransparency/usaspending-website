@@ -3,8 +3,8 @@
  * Created by Emily Gullo 03/28/2017
  */
 
- /* eslint-disable import/prefer-default-export */
- // We only have one export but want to maintain consistency with other helpers
+/* eslint-disable import/prefer-default-export */
+// We only have one export but want to maintain consistency with other helpers
 import Axios, { CancelToken } from 'axios';
 
 export const fetchFile = (file) => {

@@ -44,7 +44,7 @@ export class RecipientLocationContainer extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (!isEqual(nextProps.autocompleteRecipientLocations,
-                this.props.autocompleteRecipientLocations)) {
+            this.props.autocompleteRecipientLocations)) {
             this.parseAutocompleteRecipientLocations(nextProps.autocompleteRecipientLocations);
         }
     }
@@ -172,7 +172,6 @@ export class RecipientLocationContainer extends React.Component {
                 noResults={this.state.noResults} />
         );
     }
-
 }
 
 export default connect(
