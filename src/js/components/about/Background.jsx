@@ -19,46 +19,42 @@ export default class Background extends React.Component {
                 </div>
                 <div className="about-section-content">
                     <p>
-                        USAspending.gov was created by the Federal Funding Accountability and
-                        Transparency Act of 2006 (FFATA) and was launched in 2007.
+                        The Federal Funding Accountability and Transparency Act of 2006 (FFATA)
+                        was signed into law on September 26, 2006. The legislation required that
+                        federal contract, grant, loan, and other financial assistance awards of
+                        more than $25,000 be displayed on a publicly accessible and searchable
+                        website to give the American public access to information on how their
+                        tax dollars are being spent. In 2008, FFATA was amended by the Government
+                        Funding Transparency Act, which required prime recipients to report
+                        details on their first-tier sub-recipients for awards made as of
+                        October 1, 2010.
                     </p>
                     <p>
-                        The transparency efforts of FFATA were expanded with the enactment of the
-                        Digital Accountability and Transparency Act (DATA Act) Pub. L. 113-101 on
-                        May 9, 2014.  The DATA Act requires that:
+                        The transparency efforts of FFATA were expanded with the enactment of
+                        the Digital Accountability and Transparency Act (DATA Act) Pub. L.
+                        113-101 on May 9, 2014. The purpose of the DATA Act, as directed
+                        by Congress, is to:
                     </p>
-                </div>
-                <div className="about-subtitle">
-                    <h3>DATA Act Requirements:</h3>
-                </div>
-                <div className="about-section-content">
                     <ul>
                         <li>
-                            Agency spending by specific federal programs be linked to federal
-                            contract, grant, loan, and direct payment awards so it is easier to
-                            see what program funds each award.
+                            Expand FFATA by disclosing direct agency expenditures and linking
+                            federal contract, loan, and grant spending information to federal
+                            agency programs
                         </li>
                         <li>
-                            Government-wide data definitions be created to provide consistent
-                            and accurate data;
+                            Establish government-wide data standards for financial data and
+                            provide consistent, reliable, and searchable data that is displayed
+                            accurately
                         </li>
                         <li>
-                            Agency reporting be simplified to reduce the cost to agencies while
-                            improving transparency of the data;
+                            Simplify reporting, streamline reporting requirements, and reduce
+                            compliance costs, while improving transparency
                         </li>
                         <li>
-                            The quality of data submitted to USAspending.gov be improved;  and
-                        </li>
-                        <li>
-                            Federal agencies be held responsible for the data they report.
+                            Improve the quality of data submitted to USAspending.gov by holding
+                            agencies accountable.
                         </li>
                     </ul>
-                </div>
-                <div className="about-section-content">
-                    <p>
-                        The new DATA Act data was displayed for the first time on May 9, 2017
-                        and is updated quarterly.
-                    </p>
                 </div>
             </div>
         );

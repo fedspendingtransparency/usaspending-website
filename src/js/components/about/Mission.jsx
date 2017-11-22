@@ -19,10 +19,11 @@ export default class Mission extends React.Component {
                 </div>
                 <div className="about-section-content">
                     <p>USAspending.gov is the official source for spending data for the U.S.
-                        Government. Its mission is to show the American public how the federal
-                        government spends nearly $4 trillion a year.  You can follow the money from
-                        the Congressional appropriations to the federal agencies and down to local
-                        communities and businesses.</p>
+                        Government. Its mission is to show the American public what the federal
+                        government spends every year and how it spends the money. You can follow
+                        the money from the Congressional appropriations to the federal agencies
+                        and down to local communities and businesses.
+                    </p>
                 </div>
             </div>
         );
