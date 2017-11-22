@@ -90,6 +90,9 @@
         "jsx-a11y/label-has-for": [1],
         // downgrade array index as React key to warning (though it should be higher, this would
         // be an expensive refactor)
-        "react/no-array-index-key": [1]
+        "react/no-array-index-key": [1],
+        // TEMPORARILY make keyboard equivalents for mouse events a warning instead of error
+        "jsx-a11y/click-events-have-key-events": [1],
+        "jsx-a11y/mouse-events-have-key-events": [1]
     }
 }

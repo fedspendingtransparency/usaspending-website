@@ -64,10 +64,12 @@ export default class DetailRow extends React.Component {
         }
         let button = '';
         if (this.props.overflow === true) {
-            button = (<button
-                onClick={this.toggleButton}
-                className="see-more">{this.state.buttonValue} {this.state.arrowValue}
-            </button>);
+            button = (
+                <button
+                    onClick={this.toggleButton}
+                    className="see-more">{this.state.buttonValue} {this.state.arrowValue}
+                </button>
+            );
         }
         return (
             <tr>

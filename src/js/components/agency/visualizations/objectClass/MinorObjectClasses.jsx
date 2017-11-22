@@ -242,10 +242,13 @@ export default class MinorObjectClasses extends React.Component {
 
         let greatThanOneHundredDescription = null;
         if (this.props.hasNegatives) {
-            greatThanOneHundredDescription = (<p><em><strong>Note:</strong> The object classes below add up to more
-                than 100% due to negative values not shown here.
-            </em>
-            </p>);
+            greatThanOneHundredDescription = (
+                <p>
+                    <em><strong>Note:</strong> The object classes below add up to more
+                    than 100% due to negative values not shown here.
+                    </em>
+                </p>
+            );
         }
 
         return (

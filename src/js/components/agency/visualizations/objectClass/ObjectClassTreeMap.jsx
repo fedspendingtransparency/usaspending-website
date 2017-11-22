@@ -74,11 +74,13 @@ export default class ObjectClassTreeMap extends React.Component {
         let header = '';
 
         if (this.state.showMinorObjectClass === true) {
-            header = (<button
-                className="back"
-                onClick={this.toggleMinorObjectClass}>
-                <Icons.ArrowUp /> Back to Major Object Classes
-            </button>);
+            header = (
+                <button
+                    className="back"
+                    onClick={this.toggleMinorObjectClass}>
+                    <Icons.ArrowUp /> Back to Major Object Classes
+                </button>
+            );
         }
 
         return header;

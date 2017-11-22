@@ -122,15 +122,20 @@ export default class RecipientInfo extends React.Component {
                 value={businessType} />);
 
         if (overflow) {
-            let button = (<button
-                onClick={this.toggleButton}
-                className="see-more">{`See ${businessTypesArray.length - 2} more`}
-            </button>);
-            if (!this.state.moreTypesButton) {
-                button = (<button
+            let button = (
+                <button
                     onClick={this.toggleButton}
-                    className="see-more">See fewer
-                          </button>);
+                    className="see-more">{`See ${businessTypesArray.length - 2} more`}
+                </button>
+            );
+            if (!this.state.moreTypesButton) {
+                button = (
+                    <button
+                        onClick={this.toggleButton}
+                        className="see-more">
+                        See fewer
+                    </button>
+                );
             }
             businessTypesSnippet = (
                 <li>

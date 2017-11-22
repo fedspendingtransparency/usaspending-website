@@ -72,13 +72,15 @@ export default class AgencyOverview extends React.PureComponent {
 
         let website = 'Not available';
         if (props.agency.website !== '') {
-            website = (<a
-                className="agency-website"
-                href={props.agency.website}
-                target="_blank"
-                rel="noopener noreferrer">
-                {props.agency.website}
-            </a>);
+            website = (
+                <a
+                    className="agency-website"
+                    href={props.agency.website}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    {props.agency.website}
+                </a>
+            );
         }
 
         // Move props to variables for readability
