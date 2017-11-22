@@ -18,10 +18,12 @@ export default class DataQuality extends React.Component {
                     <h3>A commitment to accuracy and completeness.</h3>
                 </div>
                 <div className="about-section-content">
-                    <p>The Department of the Treasury, along with the federal agencies, is
+                    <p>
+                        The Department of the Treasury, along with the federal agencies, is
                         committed to improving the accuracy and completeness of the data on
                         USAspending.gov. Our motto is Better Data, Better Government,
-                        Better Decision-making.</p>
+                        Better Decision-making.
+                    </p>
                 </div>
                 <div className="about-subtitle">
                     <h3>How we achieve this:</h3>
@@ -47,7 +49,8 @@ export default class DataQuality extends React.Component {
                             published on USAspending.gov.
                         </li>
                     </ul>
-                    <p>To ensure that contract data is accurate, the Office of Management and
+                    <p>
+                        To ensure that contract data is accurate, the Office of Management and
                         Budget issues the&nbsp;
                         <a
                             target="_blank"
@@ -56,8 +59,10 @@ export default class DataQuality extends React.Component {
                             Federal Government Procurement Data Quality Summary
                         </a>
                         &nbsp;about data submitted by the agencies to the Federal Procurement
-                        Data System (FPDS).</p>
-                    <p>Additionally, the Inspector General of each agency must issue reports to
+                        Data System (FPDS).
+                    </p>
+                    <p>
+                        Additionally, the Inspector General of each agency must issue reports to
                         Congress on the agency&apos;s compliance with DATA Act requirements.
                         Go to&nbsp;
                         <a
@@ -66,8 +71,10 @@ export default class DataQuality extends React.Component {
                             href="https://www.oversight.gov/">
                             oversight.gov
                         </a>
-                        &nbsp;to see these reports. </p>
-                    <p>For more information about the data, see the&nbsp;
+                        &nbsp;to see these reports.
+                    </p>
+                    <p>
+                        For more information about the data, see the&nbsp;
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
@@ -89,7 +96,8 @@ export default class DataQuality extends React.Component {
                             href="http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/">
                             here
                         </a>
-                        .</p>
+                        .
+                    </p>
                 </div>
             </div>
         );
