@@ -207,18 +207,19 @@ export default class CategoryMap extends React.Component {
                             id="category-vis-tooltip">
                             {tooltip}
                         </div>
-                        <figure
+                        <div
                             className="tree-wrapper"
-                            aria-label="Spending category treemap"
-                            role="group"
                             ref={(sr) => {
                                 this.sectionWrapper = sr;
                             }}>
                             <svg
+                                aria-label="Spending category treemap"
+                                role="group"
+                                tabIndex={0}
                                 width={this.state.visualizationWidth}>
                                 { this.state.finalNodes }
                             </svg>
-                        </figure>
+                        </div>
                     </div>
                     <div className="map-segue">
                         <h4 tabIndex={-1}>

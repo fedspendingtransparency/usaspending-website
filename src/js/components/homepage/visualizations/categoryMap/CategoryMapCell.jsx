@@ -133,7 +133,8 @@ export default class CategoryMapCell extends React.Component {
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
-                tabIndex={-1}
+                tabIndex={0}
+                role="listitem"
                 aria-label={`${this.state.fullLabel} - ${this.props.value}%`}
                 aria-describedby={this.props.tooltipId}
                 onMouseEnter={() => {

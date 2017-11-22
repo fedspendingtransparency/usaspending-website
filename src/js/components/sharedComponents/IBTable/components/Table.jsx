@@ -15,7 +15,8 @@ const defaultProps = {
 
 const propTypes = {
     resetHash: PropTypes.string,
-    maxWidth: PropTypes.number.isRequired
+    maxWidth: PropTypes.number.isRequired,
+    rowCount: PropTypes.number.isRequired
 };
 
 export default class Table extends React.Component {
@@ -49,7 +50,13 @@ export default class Table extends React.Component {
         };
 
         return (
-            <div className="ibt-table-container" style={style}>
+            <div
+                className="ibt-table-container"
+                style={style}
+                role="grid"
+                aria-live="polite"
+                aria-rowcount={this.props.rowCount}
+                aria-colcount={this.props.columns.length}>
                 <HeaderRow
                     {...this.props}
                     ref={(header) => {
