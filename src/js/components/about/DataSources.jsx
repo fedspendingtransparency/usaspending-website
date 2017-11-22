@@ -39,7 +39,11 @@ export default class DataSources extends React.Component {
                         to the award data quarterly. This quarterly data must be certified by
                         the agency&apos;s Senior Accountable Official before it is displayed on
                         USAspending.gov.</p>
-                    <p>Exhibit 1</p>
+                </div>
+                <div className="about-subtitle">
+                    <h3>Exhibit 1</h3>
+                </div>
+                <div className="about-section-content">
                     <img src="img/data-sources.png" alt="Data Sources" />
                 </div>
             </div>
