@@ -84,6 +84,11 @@
         }],
         // allow unused state because linter does not always know when a state is passed to child
         // components
-        "react/no-unused-state": [0]
+        "react/no-unused-state": [0],
+        // downgrade label has for to a warning due to some design considerations
+        "jsx-a11y/label-has-for": [1],
+        // downgrade array index as React key to warning (though it should be higher, this would
+        // be an expensive refactor)
+        "react/no-array-index-key": [1]
     }
 }

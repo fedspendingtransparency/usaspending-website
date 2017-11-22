@@ -116,9 +116,11 @@ export default class Pagination extends React.Component {
 
     generatePageButtons(pages, totalPages) {
         return (pages.map((page, index) =>
-            (<li key={index} className={this.props.pageNumber === page ? 'active' : ''}>
-                <button onClick={() => this.setPage(page, totalPages)}>{page}</button>
-             </li>)
+            (
+                <li key={index} className={this.props.pageNumber === page ? 'active' : ''}>
+                    <button onClick={() => this.setPage(page, totalPages)}>{page}</button>
+                </li>
+            )
         ));
     }
 

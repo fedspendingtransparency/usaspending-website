@@ -15,7 +15,7 @@ const propTypes = {
     rowIndex: PropTypes.number.isRequired
 };
 
-export default class TableRow extends React.PureComponent {
+export default class TableRow extends React.Component {
     shouldComponentUpdate(nextProps) {
         if (nextProps.visibleCoords !== this.props.visibleCoords) {
             // only update if the visible columns have changed
