@@ -20,7 +20,6 @@ const propTypes = {
 };
 
 export default class CategoryMap extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -79,8 +78,8 @@ export default class CategoryMap extends React.Component {
     buildTree(cats, colors, tooltipStyles) {
         // put the data through d3's hierarchy system to sum and sort it
         const root = hierarchy(cats)
-        .sum((d) => (d.value))
-        .sort((d) => (d.id));
+            .sum((d) => (d.value))
+            .sort((d) => (d.id));
 
         // set up a treemap object and pass in the root
         let tileStyle = treemapDice;
@@ -235,6 +234,5 @@ export default class CategoryMap extends React.Component {
             </div>
         );
     }
-
 }
 CategoryMap.propTypes = propTypes;

@@ -185,7 +185,8 @@ export default class TimePeriodFilter extends React.Component {
 
         if (this.state.showError) {
             errorDetails = (<DateRangeError
-                header={this.state.header} message={this.state.errorMessage} />);
+                header={this.state.header}
+                message={this.state.errorMessage} />);
         }
 
         let icon = (
@@ -225,16 +226,13 @@ export default class TimePeriodFilter extends React.Component {
                         showError={this.showError}
                         hideError={this.hideError} />
                     { errorDetails }
+                    <p className="data-note">
+                        Note: data is available for download from 2001 - present
+                    </p>
                     <TimePeriodButtons
                         currentStartDate={start}
                         currentEndDate={end}
                         handleDateChange={this.handleDateChange} />
-                    <div className="archive-link-box">
-                        <div className="archive-link-header">
-                            Looking for data before 2008?
-                        </div>
-                        Visit our <a href="/#/bulk_download/archive"> award data archive</a>.
-                    </div>
                 </div>
             </div>
         );

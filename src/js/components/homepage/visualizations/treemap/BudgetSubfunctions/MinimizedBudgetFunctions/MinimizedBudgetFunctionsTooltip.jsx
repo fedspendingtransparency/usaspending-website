@@ -54,7 +54,7 @@ export default class MinimizedBudgetFunctionsTooltip extends React.Component {
                     this.containerDiv = div;
                 }}>
                 <div
-                    className={`tooltip small`}
+                    className="tooltip small"
                     ref={(div) => {
                         this.div = div;
                     }}>

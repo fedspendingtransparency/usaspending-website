@@ -1,0 +1,18 @@
+.about-content {
+    background-color: $color-white;
+    box-shadow: $container-shadow;
+    color: $color-base;
+    border-top: 1px solid $color-gray-border;
+    border-right: 1px solid $color-gray-border;
+    border-bottom: 1px solid $color-gray-border;
+
+    .about-padded-content {
+        padding: rem(35);
+    }
+
+    @include media($large-screen) {
+        .about-padded-content {
+            padding: rem(38) rem(288) rem(22) rem(88);
+        }
+    }
+}

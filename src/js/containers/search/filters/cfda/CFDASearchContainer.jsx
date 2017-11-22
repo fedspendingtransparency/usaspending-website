@@ -19,7 +19,6 @@ const propTypes = {
 const ga = require('react-ga');
 
 export class CFDASearchContainer extends React.Component {
-
     static logCFDAFilterEvent(place) {
         ga.event({
             category: 'Search Page Filter Applied',
@@ -67,7 +66,6 @@ export class CFDASearchContainer extends React.Component {
 CFDASearchContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({
-        selectedCFDA: state.filters.selectedCFDA }),
+    (state) => ({ selectedCFDA: state.filters.selectedCFDA }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(CFDASearchContainer);

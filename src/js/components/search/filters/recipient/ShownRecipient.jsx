@@ -12,7 +12,6 @@ const propTypes = {
 };
 
 export default class ShownRecipient extends React.Component {
-
     render() {
         return (
             <button

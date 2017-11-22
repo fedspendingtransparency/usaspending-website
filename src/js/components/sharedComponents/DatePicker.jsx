@@ -28,7 +28,6 @@ const propTypes = {
 };
 
 export default class DatePicker extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -244,9 +243,11 @@ export default class DatePicker extends React.Component {
                         onChange={this.handleTypedDate}
                         onBlur={this.handleInputBlur} />
                     <a
-                        href="#null" onClick={this.toggleDatePicker}
+                        href="#null"
+                        onClick={this.toggleDatePicker}
                         tabIndex={this.props.tabIndex + 1}
-                        className="usa-da-icon picker-icon date" aria-haspopup="true">
+                        className="usa-da-icon picker-icon date"
+                        aria-haspopup="true">
                         <Icons.Calendar alt="Date picker" />
                     </a>
                 </div>

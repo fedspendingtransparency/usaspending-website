@@ -72,7 +72,6 @@ export default class NavBar extends React.Component {
         return (
             <nav
                 className="nav-container"
-                role="navigation"
                 aria-label="Site navigation">
                 <div className="logo">
                     <div className={`usa-logo ${homepageClass}`} id="logo">

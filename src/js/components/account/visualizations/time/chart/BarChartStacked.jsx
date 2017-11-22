@@ -205,7 +205,7 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
         // go through each X axis item and add a label
         const barWidth = values.xScale.bandwidth();
         values.xSeries.forEach((x) => {
-             // we need to center the label within the bar width
+            // we need to center the label within the bar width
             const xPos = values.xScale(x) + (barWidth / 2);
 
             const item = {

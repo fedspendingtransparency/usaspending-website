@@ -45,7 +45,6 @@ class MapBroadcaster {
             listener.apply(null, [args]);
         });
     }
-
 }
 
 const singleton = new MapBroadcaster();

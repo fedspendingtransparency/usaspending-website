@@ -3,7 +3,7 @@
  * Created by Emily Gullo on 6/22/17
  */
 
- /* eslint-disable quote-props */
+/* eslint-disable quote-props */
 export const pricingTypeDefinitions = {
     '2': 'Combination',
     'S': 'Cost No Fee',

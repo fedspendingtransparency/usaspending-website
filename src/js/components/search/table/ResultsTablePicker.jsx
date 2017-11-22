@@ -15,7 +15,6 @@ const propTypes = {
 };
 
 export default class ResultsTablePicker extends React.Component {
-
     constructor(props) {
         super(props);
 

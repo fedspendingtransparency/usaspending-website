@@ -117,9 +117,11 @@ export default class TreeMapTooltip extends React.Component {
 
         let footer = null;
         if (!this.props.showSubfunctions) {
-            footer = (<div className="tooltip-footer">
-                Click on the block to see sub-functions for {this.props.name}.
-            </div>);
+            footer = (
+                <div className="tooltip-footer">
+                    Click on the block to see sub-functions for {this.props.name}.
+                </div>
+            );
         }
 
         return (

@@ -149,7 +149,7 @@ export default class MajorObjectClasses extends React.Component {
                     key={n.data.major_object_class_code}
                     objectClassID={n.data.major_object_class_code}
                     color={cellColor}
-                    strokeColor={'white'}
+                    strokeColor="white"
                     strokeOpacity={0.5}
                     tooltipStyles={TreemapHelper.tooltipStyles}
                     toggleTooltipIn={this.toggleTooltipIn}
@@ -233,9 +233,13 @@ export default class MajorObjectClasses extends React.Component {
     render() {
         let greatThanOneHundredDescription = null;
         if (this.props.hasNegatives) {
-            greatThanOneHundredDescription = (<p><em><strong>Note:</strong> The object classes below add up to more
-                than 100% due to negative values not shown here. </em>
-            </p>);
+            greatThanOneHundredDescription = (
+                <p>
+                    <em><strong>Note:</strong> The object classes below add up to more
+                    than 100% due to negative values not shown here.
+                    </em>
+                </p>
+            );
         }
         return (
             <div className="treemap-inner-wrap">
@@ -256,7 +260,6 @@ export default class MajorObjectClasses extends React.Component {
             </div>
         );
     }
-
 }
 
 MajorObjectClasses.propTypes = propTypes;

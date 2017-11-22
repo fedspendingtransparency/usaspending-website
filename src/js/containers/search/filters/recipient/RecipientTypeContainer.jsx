@@ -23,7 +23,6 @@ const propTypes = {
 const ga = require('react-ga');
 
 export class RecipientTypeContainer extends React.Component {
-
     static logLocationFilterEvent(placeType, place, event) {
         ga.event({
             category: 'Search Page Filter Applied',
@@ -67,6 +66,7 @@ export default connect(
         selectedRecipients: state.filters.selectedRecipients,
         recipientDomesticForeign: state.filters.recipientDomesticForeign,
         recipientType: state.filters.recipientType,
-        selectedRecipientLocations: state.filters.selectedRecipientLocations }),
+        selectedRecipientLocations: state.filters.selectedRecipientLocations
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(RecipientTypeContainer);

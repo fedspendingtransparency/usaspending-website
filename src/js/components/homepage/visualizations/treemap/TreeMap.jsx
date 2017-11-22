@@ -145,6 +145,5 @@ export default class TreeMap extends React.Component {
             </div>
         );
     }
-
 }
 TreeMap.propTypes = propTypes;

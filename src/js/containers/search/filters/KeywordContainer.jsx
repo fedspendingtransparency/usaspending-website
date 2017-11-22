@@ -20,7 +20,6 @@ const propTypes = {
 const ga = require('react-ga');
 
 export class KeywordContainer extends React.Component {
-
     static logSelectedKeywordEvent(keyword) {
         ga.event({
             category: 'Search Page Filter Applied',
@@ -88,6 +87,7 @@ KeywordContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        keyword: state.filters.keyword }),
+        keyword: state.filters.keyword
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(KeywordContainer);

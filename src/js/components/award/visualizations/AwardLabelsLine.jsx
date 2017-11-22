@@ -11,7 +11,6 @@ const propTypes = {
 };
 
 export default class AwardLabelsLine extends React.Component {
-
     render() {
         return (<line
             fill="none"

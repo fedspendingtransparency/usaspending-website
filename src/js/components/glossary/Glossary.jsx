@@ -120,15 +120,19 @@ export default class Glossary extends React.Component {
 
         let loading = null;
         if (this.props.loading) {
-            loading = (<div className="glossary-loading-content">
-                Loading Glossary...
-            </div>);
+            loading = (
+                <div className="glossary-loading-content">
+                    Loading Glossary...
+                </div>
+            );
             content = null;
         }
         else if (this.props.error) {
-            loading = (<div className="glossary-loading-content">
-                Error: Could not load Glossary.
-            </div>);
+            loading = (
+                <div className="glossary-loading-content">
+                    Error: Could not load Glossary.
+                </div>
+            );
             content = null;
         }
 

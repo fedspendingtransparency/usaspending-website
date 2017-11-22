@@ -28,7 +28,6 @@ const isEmpty = (field, ignoreDefault) => {
 };
 
 export default class ContractDetails extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -95,40 +94,53 @@ export default class ContractDetails extends React.Component {
 
     prepareValues(award) {
         let yearRangeTotal = "";
+        let monthRangeTotal = "";
         let description = null;
 
         // Date Range
-        const startDate = moment(award.period_of_performance_start_date, 'M/D/YYYY');
-        const endDate = moment(award.period_of_performance_current_end_date, 'M/D/YYYY');
-        const yearRange = endDate.diff(startDate, 'year');
-        const monthRange = (endDate.diff(startDate, 'month') - (yearRange * 12));
-        if (yearRange !== 0 && !Number.isNaN(yearRange)) {
-            if (yearRange === 1) {
-                yearRangeTotal = `${yearRange} year`;
+        const formattedStartDate = award.period_of_performance_start_date;
+        const formattedEndDate = award.period_of_performance_current_end_date;
+
+        const startDate = moment(formattedStartDate, 'M/D/YYYY');
+        const endDate = moment(formattedEndDate, 'M/D/YYYY');
+
+        const duration = moment.duration(endDate.diff(startDate));
+        const years = duration.years();
+        const months = duration.months();
+
+        let popDate = "Not Available";
+        if (!isNaN(years)) {
+            if (months > 0) {
+                if (months === 1) {
+                    monthRangeTotal = `${months} month`;
+                }
+                else {
+                    monthRangeTotal = `${months} months`;
+                }
             }
-            else {
-                yearRangeTotal = `${yearRange} years`;
+
+            if (years > 0) {
+                if (years === 1) {
+                    yearRangeTotal = `${years} year`;
+                }
+                else {
+                    yearRangeTotal = `${years} years`;
+                }
             }
-            if (monthRange > 0) {
-                yearRangeTotal += ' ';
+
+            let timeRange = '';
+            if (monthRangeTotal && yearRangeTotal) {
+                timeRange = `(${yearRangeTotal}, ${monthRangeTotal})`;
             }
+            else if (monthRangeTotal) {
+                timeRange = `(${monthRangeTotal})`;
+            }
+            else if (yearRangeTotal) {
+                timeRange = `(${yearRangeTotal})`;
+            }
+
+            popDate = `${formattedStartDate} - ${formattedEndDate} ${timeRange}`;
         }
-        if (monthRange >= 1) {
-            if (yearRange < 1 && monthRange > 1) {
-                yearRangeTotal = `${monthRange} months`;
-            }
-            else if (monthRange === 1) {
-                yearRangeTotal += `${monthRange} month`;
-            }
-            else {
-                yearRangeTotal += `${monthRange} months`;
-            }
-        }
-        if (yearRangeTotal) {
-            yearRangeTotal = `(${yearRangeTotal})`;
-        }
-        const popDate = `${award.period_of_performance_start_date} -
-            ${award.period_of_performance_current_end_date} ${yearRangeTotal}`;
 
         if (award.description) {
             description = award.description;
@@ -199,7 +211,8 @@ export default class ContractDetails extends React.Component {
                 </div>
                 <button
                     className="see-more"
-                    onClick={this.props.seeAdditional}>See Additional Details</button>
+                    onClick={this.props.seeAdditional}>See Additional Details
+                </button>
             </div>
         );
     }

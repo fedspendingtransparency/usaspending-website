@@ -66,18 +66,17 @@ const propTypes = {
 };
 
 export default class RecipientType extends React.Component {
-
     render() {
         const checkboxTypes = (
             this.props.recipientTypeMapping.map((type, index) =>
-                <PrimaryCheckboxType
+                (<PrimaryCheckboxType
                     {...type}
                     {...this.props}
                     key={index}
                     types={recipientTypes}
                     filterType="Recipient"
                     selectedCheckboxes={this.props.recipientType}
-                    enableAnalytics />
+                    enableAnalytics />)
             ));
 
         return (

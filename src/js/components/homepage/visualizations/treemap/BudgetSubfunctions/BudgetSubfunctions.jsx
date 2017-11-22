@@ -101,7 +101,6 @@ export default class BudgetSubfunctions extends React.Component {
             </div>
         );
     }
-
 }
 
 BudgetSubfunctions.propTypes = propTypes;

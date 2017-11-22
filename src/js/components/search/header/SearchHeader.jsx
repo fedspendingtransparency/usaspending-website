@@ -65,7 +65,7 @@ export default class SearchHeader extends React.Component {
         measurements.windowWidth = window.innerWidth || document.documentElement.clientWidth
             || document.body.clientWidth;
 
-         // page and header height
+        // page and header height
         measurements.pageHeight = document.getElementById('main-content').offsetHeight;
         measurements.headerHeight = this.headerDiv.offsetHeight;
 
