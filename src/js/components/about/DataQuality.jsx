@@ -6,16 +6,6 @@
 import React from 'react';
 
 export default class DataQuality extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.downloadDataElementMapping = this.downloadDataElementMapping.bind(this);
-    }
-
-    downloadDataElementMapping() {
-        window.open('./data/Data Element Mapping.xlsx', '_self');
-    }
-
     render() {
         return (
             <div
@@ -100,25 +90,6 @@ export default class DataQuality extends React.Component {
                             here
                         </a>
                         .</p>
-                </div>
-                <div className="about-subtitle">
-                    <h3>Data Element Mapping</h3>
-                </div>
-                <div className="about-section-content">
-                    <p>In updating our system, the names of some of our data elements
-                        may have changed. For a mapping of the updated element&apos;s new names and
-                        legacy names, please refer to the link below.</p>
-                    <div className="about-section-content-inline-buttons">
-                        <div className="button-holder">
-                            <button
-                                className="usa-button-outline"
-                                aria-label="Download Data Element Mapping"
-                                title="Download Data Element Mapping"
-                                onClick={this.downloadDataElementMapping}>
-                                Download Data Element Mapping
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         );
