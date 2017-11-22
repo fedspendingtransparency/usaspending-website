@@ -239,7 +239,7 @@ export default class EntityDropdown extends React.Component {
                         onClick={this.toggleDropdown}
                         title={label}
                         aria-label={label}
-                        aria-haspopup={"true"}
+                        aria-haspopup="true"
                         aria-expanded={this.state.expanded}
                         aria-owns={`geo-dropdown-${this.props.scope}`}
                         disabled={!this.props.enabled || this.props.options.length === 0}

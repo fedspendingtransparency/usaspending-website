@@ -27,7 +27,6 @@ const defaultProps = {
 };
 
 export default class AgencyInfo extends React.Component {
-
     constructor(props) {
         super(props);
 

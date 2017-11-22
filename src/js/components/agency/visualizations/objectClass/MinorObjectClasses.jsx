@@ -157,7 +157,7 @@ export default class MinorObjectClasses extends React.Component {
                     key={n.data.object_class_code}
                     objectClassID={n.data.object_class_code}
                     color={cellColor}
-                    strokeColor={'white'}
+                    strokeColor="white"
                     strokeOpacity={0.5}
                     tooltipStyles={TreemapHelper.tooltipStyles}
                     toggleTooltipIn={this.toggleTooltipIn}
@@ -243,7 +243,8 @@ export default class MinorObjectClasses extends React.Component {
         let greatThanOneHundredDescription = null;
         if (this.props.hasNegatives) {
             greatThanOneHundredDescription = (<p><em><strong>Note:</strong> The object classes below add up to more
-                than 100% due to negative values not shown here. </em>
+                than 100% due to negative values not shown here.
+            </em>
             </p>);
         }
 
@@ -271,7 +272,6 @@ export default class MinorObjectClasses extends React.Component {
             </div>
         );
     }
-
 }
 
 MinorObjectClasses.propTypes = propTypes;

@@ -24,7 +24,6 @@ const defaultProps = {
 const ga = require('react-ga');
 
 export default class FilterOption extends React.Component {
-
     static logFilterEvent(name) {
         ga.event({
             category: 'Search Filters',

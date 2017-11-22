@@ -124,7 +124,8 @@ export default class ObjectClassTreeMap extends React.Component {
                 <div className="agency-callout-description">
                     <p>This {total} in obligations is divided among categories,
                         called <strong>object classes</strong>. These groupings can be helpful
-                        for analysis and cross-agency comparison.</p>
+                        for analysis and cross-agency comparison.
+                    </p>
                 </div>
                 <div className="agency-section-content">
                     <div
@@ -142,7 +143,6 @@ export default class ObjectClassTreeMap extends React.Component {
             </div>
         );
     }
-
 }
 
 ObjectClassTreeMap.propTypes = propTypes;

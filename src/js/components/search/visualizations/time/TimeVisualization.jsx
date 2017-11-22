@@ -34,8 +34,8 @@ const defaultProps = {
  * ySeries - an array of values that describe the Y-axis values for each data point in the group
  *
  */
- /* eslint-disable react/no-unused-prop-types */
- // allow unused prop types. they are passed to child components, but documented here
+/* eslint-disable react/no-unused-prop-types */
+// allow unused prop types. they are passed to child components, but documented here
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,

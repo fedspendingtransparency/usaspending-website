@@ -7,7 +7,6 @@ import React from 'react';
 
 
 export default class AboutData extends React.Component {
-
     render() {
         return (
             <div className="aboutdata-outer-wrap">

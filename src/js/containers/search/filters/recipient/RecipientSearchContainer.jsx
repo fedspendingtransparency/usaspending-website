@@ -23,7 +23,6 @@ const propTypes = {
 const ga = require('react-ga');
 
 export class RecipientSearchContainer extends React.Component {
-
     static logRecipientFilterEvent(name) {
         ga.event({
             category: 'Search Page Filter Applied',

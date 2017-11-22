@@ -20,8 +20,6 @@ const propTypes = {
 };
 
 export default class NextStepsBox extends React.Component {
-
-
     switchIcon() {
         let icon = this.props.icon;
         switch (icon) {

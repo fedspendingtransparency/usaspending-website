@@ -21,7 +21,6 @@ const propTypes = {
 };
 
 export default class Award extends React.Component {
-
     render() {
         let awardInfo = null;
         if (this.props.award.selectedAward) {
@@ -35,7 +34,8 @@ export default class Award extends React.Component {
                 <Error
                     title="Invalid Award ID"
                     message="The award ID provided is invalid.
-                    Please check the ID and try again." /></div>);
+                    Please check the ID and try again." />
+            </div>);
         }
         return (
             <div className="usa-da-award-page">

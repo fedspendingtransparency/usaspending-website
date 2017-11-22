@@ -8,7 +8,6 @@ import React from 'react';
 import NextStepsBox from './NextStepsBox';
 
 export default class NextSteps extends React.Component {
-
     render() {
         return (
             <div className="wrapper">

@@ -195,10 +195,12 @@ export default class AgencyOverview extends React.PureComponent {
                             <a href={`#/agency/${this.props.agency.id}?glossary=budgetary-resources`}>
                                 <Glossary />
                             </a>
-                            for FY {this.props.agency.activeFY}</h4>
+                            for FY {this.props.agency.activeFY}
+                        </h4>
                         <div className="budget-authority-date">
                             <em>FY {this.props.agency.activeFY} data reported
-                                through {this.state.asOfDate}</em>
+                                through {this.state.asOfDate}
+                            </em>
                         </div>
                         <div className="authority-amount">
                             {this.state.formattedBudgetAuthority}

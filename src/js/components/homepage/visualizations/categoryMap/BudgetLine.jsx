@@ -16,7 +16,6 @@ const propTypes = {
 };
 
 export default class BudgetLine extends React.Component {
-
     render() {
         let budgetLabel = (<BudgetLabel
             labelWidth={20}

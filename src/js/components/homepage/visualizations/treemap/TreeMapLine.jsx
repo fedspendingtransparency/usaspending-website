@@ -55,7 +55,7 @@ export default class TreeMapLine extends React.Component {
                 this.gClass = g;
             }}>
             <svg
-                className={`budget-line large`}>
+                className="budget-line large">
                 <g
                     className="budget-label-group"
                     transform="translate(0, 0)">

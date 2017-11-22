@@ -93,8 +93,8 @@ export default class BudgetSubfunctionsMap extends React.Component {
 
         // put the data through d3's hierarchy system to sum and sort it
         const root = hierarchy(positiveSubfunctions)
-        .sum((d) => (d.value))
-        .sort((a, b) => b.height - a.height || b.value - a.value);
+            .sum((d) => (d.value))
+            .sort((a, b) => b.height - a.height || b.value - a.value);
 
         // set up a treemap object and pass in the root
         let tileStyle = treemapBinary;
@@ -153,7 +153,7 @@ export default class BudgetSubfunctionsMap extends React.Component {
                     key={i}
                     functionID={n.data.id}
                     color={cellColor}
-                    strokeColor={'white'}
+                    strokeColor="white"
                     strokeOpacity={0.5}
                     toggleTooltipIn={this.toggleTooltipIn}
                     toggleTooltipOut={this.toggleTooltipOut}

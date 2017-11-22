@@ -26,7 +26,6 @@ const defaultState = {
 };
 
 export default class ContractFilter extends React.Component {
-
     constructor(props) {
         super(props);
 

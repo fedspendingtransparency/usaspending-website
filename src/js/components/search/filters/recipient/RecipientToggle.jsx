@@ -23,7 +23,7 @@ export default class RecipientToggle extends React.Component {
     render() {
         const countries = (
             this.props.countries.map((name) =>
-                <span key={`recipient-${name.value}`}>
+                (<span key={`recipient-${name.value}`}>
                     <input
                         type="radio"
                         id={`recipient-${name.value}`}
@@ -32,7 +32,7 @@ export default class RecipientToggle extends React.Component {
                         checked={this.props.recipientDomesticForeign === name.value}
                         onChange={this.props.toggleDomesticForeign} />
                     <label htmlFor={`recipient-${name.value}`}>{name.label}</label>
-                </span>
+                 </span>)
             ));
 
         return (

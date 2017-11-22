@@ -108,7 +108,7 @@ export default class AssistanceAdditionalDetails extends React.Component {
                 <AdditionalGroup
                     data={this.state.items}
                     fields={DataFields.budgetFields}
-                    title={"Budget Information"}
+                    title="Budget Information"
                     inFlight={this.state.inFlight} />
             </div>
         );

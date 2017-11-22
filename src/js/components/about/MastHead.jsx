@@ -6,7 +6,6 @@
 import React from 'react';
 
 export default class MastHead extends React.Component {
-
     render() {
         return (
             <div className="masthead-wrap">

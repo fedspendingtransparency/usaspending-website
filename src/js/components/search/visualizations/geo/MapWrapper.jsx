@@ -300,7 +300,7 @@ export default class MapWrapper extends React.Component {
     }
 
     measureMap() {
-         // determine which entities (state, counties, etc based on current scope) are in view
+        // determine which entities (state, counties, etc based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
         const mapLoaded = this.mapRef.map.loaded();
         // wait for the map to load before continuing

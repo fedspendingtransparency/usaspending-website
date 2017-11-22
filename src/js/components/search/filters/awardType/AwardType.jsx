@@ -46,11 +46,10 @@ const propTypes = {
 };
 
 export default class AwardType extends React.Component {
-
     render() {
         const awardTypes = (
             this.props.awardTypes.map((type, index) =>
-                <PrimaryCheckboxType
+                (<PrimaryCheckboxType
                     {...type}
                     {...this.props}
                     key={index}
@@ -58,7 +57,7 @@ export default class AwardType extends React.Component {
                     filterType="Award"
                     selectedCheckboxes={this.props.awardType}
                     bulkTypeChange={this.props.bulkTypeChange}
-                    enableAnalytics />
+                    enableAnalytics />)
             ));
 
         return (

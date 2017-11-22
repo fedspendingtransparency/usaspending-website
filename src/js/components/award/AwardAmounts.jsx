@@ -19,7 +19,6 @@ const propTypes = {
 };
 
 export default class AwardAmounts extends React.Component {
-
     formatFriendlyString(value) {
         // format the ceiling and current values to be friendly strings
         const units = MoneyFormatter.calculateUnitForSingleValue(value);
@@ -63,16 +62,18 @@ export default class AwardAmounts extends React.Component {
             percentage = Math.floor((unformattedCurrent / unformattedCeiling) * 1000) / 10;
         }
         let awardNarrative = (<p>This {this.props.typeString} was awarded to&nbsp;
-        <b className="recipient-name">{recipient}</b> with a ceiling of
+            <b className="recipient-name">{recipient}</b> with a ceiling of
             &nbsp;<b>{ceiling}</b>.&nbsp;
             Of this amount, <b>{percentage}%</b> (<b>{current}</b>)
-            has been obligated.</p>);
+            has been obligated.
+        </p>);
 
         if (this.props.typeString === 'grant' || this.props.typeString === 'direct payment' ||
         this.props.typeString === 'other') {
             awardNarrative = (<p>This {this.props.typeString} was awarded to&nbsp;
-            <b className="recipient-name">{recipient}</b>
-            &nbsp;for <b>{current}</b>.</p>);
+                <b className="recipient-name">{recipient}</b>
+            &nbsp;for <b>{current}</b>.
+            </p>);
         }
         else if (this.props.typeString === 'loan') {
             const loanCeiling = this.formatFriendlyString(
@@ -83,8 +84,9 @@ export default class AwardAmounts extends React.Component {
             awardNarrative = (<p>A {this.props.typeString} with a face value of&nbsp;
                 <b>{loanCeiling}</b> was awarded to <b>{recipient}</b>.  The agency&#8217;s
                     estimated non-administrative cost to the government for this&nbsp;
-                    {this.props.typeString} is <b>{loanSubsidy}</b>.  This cost is also known as
-                    original subsidy cost.</p>);
+                {this.props.typeString} is <b>{loanSubsidy}</b>.  This cost is also known as
+                    original subsidy cost.
+            </p>);
         }
         return awardNarrative;
     }

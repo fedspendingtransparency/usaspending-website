@@ -17,7 +17,6 @@ const propTypes = {
 };
 
 export default class RecipientInfo extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -125,11 +124,13 @@ export default class RecipientInfo extends React.Component {
         if (overflow) {
             let button = (<button
                 onClick={this.toggleButton}
-                className="see-more">{`See ${businessTypesArray.length - 2} more`}</button>);
+                className="see-more">{`See ${businessTypesArray.length - 2} more`}
+            </button>);
             if (!this.state.moreTypesButton) {
                 button = (<button
                     onClick={this.toggleButton}
-                    className="see-more">{`See fewer`}</button>);
+                    className="see-more">See fewer
+                          </button>);
             }
             businessTypesSnippet = (
                 <li>
