@@ -15,7 +15,8 @@ const NoDownloadHover = () => (
                         <ExclamationTriangle alt="Download is not available" />
                     </div>
                     <div className="message">
-                        Download functionality is not available when there are more than 500,000 records. Please limit your results with additional filters.
+                        Please visit the <a href="#/bulk_download">Bulk Download</a> page to export
+                        more than 500,000 records or limit your results with additional filters.
                     </div>
                 </div>
                 <div className="tooltip-pointer right" />
