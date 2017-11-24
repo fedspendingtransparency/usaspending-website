@@ -23,17 +23,7 @@
             }
         }
     }
-    .archive-link-box {
-        display: none;
-        margin-top: rem(20);
-        background-color: $color-gray-lightest;
-        padding: rem(20) rem(15);
-        .archive-link-header {
-            font-weight: 600;
-            margin-bottom: rem(8);
-        }
-        a {
-            text-decoration: underline;
-        }
+    .data-note {
+        font-style: italic;
     }
 }

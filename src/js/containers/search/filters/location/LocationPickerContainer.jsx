@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { concat } from 'lodash';
 
-import { fetchLocationList } from 'helpers/mapHelper';
+import { fetchLocationList, performZIPGeocode } from 'helpers/mapHelper';
 
 import LocationPicker from 'components/search/filters/location/LocationPicker';
 
@@ -37,6 +37,10 @@ const defaultSelections = {
         code: '',
         district: '',
         name: ''
+    },
+    zip: {
+        valid: '',
+        invalid: ''
     }
 };
 
@@ -52,12 +56,14 @@ export default class LocationPickerContainer extends React.Component {
             country: Object.assign({}, defaultSelections.country),
             state: Object.assign({}, defaultSelections.state),
             county: Object.assign({}, defaultSelections.county),
-            district: Object.assign({}, defaultSelections.district)
+            district: Object.assign({}, defaultSelections.district),
+            zip: Object.assign({}, defaultSelections.zip)
         };
 
         this.listRequest = null;
         // keep the CD request seperate bc they may be parallel with county
         this.districtRequest = null;
+        this.zipRequest = null;
 
         this.loadStates = this.loadStates.bind(this);
         this.loadCounties = this.loadCounties.bind(this);
@@ -71,6 +77,7 @@ export default class LocationPickerContainer extends React.Component {
 
         this.createLocationObject = this.createLocationObject.bind(this);
         this.addLocation = this.addLocation.bind(this);
+        this.validateZip = this.validateZip.bind(this);
     }
 
     componentDidMount() {
@@ -297,6 +304,85 @@ export default class LocationPickerContainer extends React.Component {
         }
     }
 
+    addZip() {
+        if (this.state.zip.valid === '') {
+            // no zip
+            return;
+        }
+
+        // make a ZIP location object
+        const location = {
+            identifier: `USA_${this.state.zip.valid}`,
+            display: {
+                title: this.state.zip.valid,
+                entity: 'ZIP Code',
+                standalone: this.state.zip.valid
+            },
+            filter: {
+                country: 'USA',
+                zip: this.state.zip.valid
+            }
+        };
+
+        this.props.addLocation(location);
+    }
+
+    validateZip(zip) {
+        if (this.zipRequest) {
+            this.zipRequest.cancel();
+        }
+
+        // zip must be 5 characters and all numeric
+        const zipRegex = /^[0-9]{5}$/;
+        if (zip.length !== 5 || !zipRegex.test(zip)) {
+            this.invalidZip(zip);
+            return;
+        }
+
+        this.zipRequest = performZIPGeocode(zip);
+
+        this.zipRequest.promise
+            .then((res) => {
+                this.parseZip(res.data, zip);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.zipRequest = null;
+                }
+            });
+    }
+
+    parseZip(data, zip) {
+        if (data.features && data.features.length > 0) {
+            // this is a valid zip code
+            this.validZip(zip);
+        }
+        else {
+            this.invalidZip(zip);
+        }
+    }
+
+    invalidZip(zip) {
+        this.setState({
+            zip: {
+                valid: '',
+                invalid: zip
+            }
+        });
+    }
+
+    validZip(zip) {
+        this.setState({
+            zip: {
+                valid: zip,
+                invalid: ''
+            }
+        }, () => {
+            this.addZip(zip);
+        });
+    }
+
     render() {
         return (
             <LocationPicker
@@ -310,7 +396,8 @@ export default class LocationPickerContainer extends React.Component {
                 clearDistricts={this.clearDistricts}
                 selectEntity={this.selectEntity}
                 createLocationObject={this.createLocationObject}
-                addLocation={this.addLocation} />
+                addLocation={this.addLocation}
+                validateZip={this.validateZip} />
         );
     }
 }

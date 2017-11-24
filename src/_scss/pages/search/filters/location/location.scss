@@ -8,6 +8,13 @@
 
     padding: 0 $global-pad rem(20);
 
+    .location-picker-divider {
+        border: none;
+        border-bottom: 1px solid $color-gray-lighter;
+        margin-left: rem(5);
+        margin-right: rem(5);
+    }
+
     .location-filter-form {
         padding: 0 rem(5);
 
@@ -39,6 +46,67 @@
                 border: 1px solid $color-gray-lighter;
                 color: $color-gray-light;
                 cursor: not-allowed;
+            }
+        }
+
+        .zip-field {
+            .zip-content {
+                @include display(flex);
+                @include justify-content(center);
+                @include align-items(center);
+
+                .zip-input {
+                    @include flex(1 1 auto);
+                    margin-right: rem(4);
+                    font-size: $small-font-size;
+                    color: $color-base;
+                    line-height: rem(36);
+                    height: rem(40);
+
+                    @include placeholder {
+                        color: $color-gray-light;
+                    }
+                }
+
+                .zip-submit {
+                    @include flex(0 0 auto);
+
+                    @include display(flex);
+                    @include justify-content(center);
+                    @include align-items(center);
+                    @include button-unstyled;
+
+                    background-color: $color-gray-lighter;
+                    border: 1px solid $color-gray-light;
+                    cursor: pointer;
+
+                    height: rem(40);
+                    width: rem(50);
+
+                    .icon {
+                        @include flex(0 0 auto);
+                        width: rem(20);
+                        height: rem(20);
+
+                        svg {
+                            fill: $color-gray;
+                            width: rem(20);
+                            height: rem(20);                            
+                        }
+                    }
+
+                    &:disabled {
+                        background-color: $color-gray-lightest;
+                        border: 1px solid $color-gray-lighter;
+                        cursor: not-allowed;
+
+                        .icon {
+                            svg {
+                                fill: $color-gray-light;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

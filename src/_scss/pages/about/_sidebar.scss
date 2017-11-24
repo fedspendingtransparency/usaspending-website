@@ -1,11 +1,11 @@
-.agency-sidebar-reference {
+.about-sidebar-reference {
     display: none;
 
     &.float-sidebar {
         display: block;
     }
 }
-.agency-sidebar-content {
+.about-sidebar-content {
     &.float-sidebar {
         position: fixed;
         top: rem(30);

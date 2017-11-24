@@ -6,6 +6,9 @@
 import Axios, { CancelToken } from 'axios';
 import { min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
+
+import kGlobalConstants from 'GlobalConstants';
+
 import * as MoneyFormatter from './moneyFormatter';
 
 /* eslint-disable quote-props */
@@ -208,6 +211,27 @@ export const fetchLocationList = (fileName) => {
     return {
         promise: Axios.request({
             url: `data/${fileName}.json`,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const performZIPGeocode = (zip) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            baseURL: 'https://api.mapbox.com/',
+            url: `geocoding/v5/mapbox.places/${zip}.json`,
+            params: {
+                access_token: kGlobalConstants.MAPBOX_TOKEN,
+                country: 'us',
+                types: 'postcode',
+                autocomplete: 'false'
+            },
             method: 'get',
             cancelToken: source.token
         }),
