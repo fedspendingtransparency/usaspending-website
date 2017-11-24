@@ -14,8 +14,6 @@ import ExtraModalContainer from 'containers/search/modals/tableDownload/ExtraMod
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
 import ResultsTableMessage from './ResultsTableMessage';
-import ResultsTablePicker from './ResultsTablePicker';
-import ResultsSelectColumns from './ResultsSelectColumns';
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -90,16 +88,6 @@ export default class ResultsTableSection extends React.Component {
                     <h3>Spending by Award</h3>
                 </div>
                 <hr className="results-divider" />
-                <div className="results-dropdown-picker-wrapper">
-                    <ResultsTablePicker
-                        types={this.props.tableTypes}
-                        active={this.props.currentType}
-                        switchTab={this.props.switchTab} />
-                    <ResultsSelectColumns
-                        columns={this.props.columns}
-                        toggleColumnVisibility={this.props.toggleColumnVisibility}
-                        reorderColumns={this.props.reorderColumns} />
-                </div>
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}
