@@ -289,7 +289,7 @@ export class ResultsTableContainer extends React.Component {
             // the page number
             pageNumber = 1;
         }
-        const resultLimit = 60;
+        const resultLimit = 30;
 
         const requestFields = ['Award ID'];
 
