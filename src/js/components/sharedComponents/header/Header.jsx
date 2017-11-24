@@ -10,8 +10,13 @@ import NavBar from './NavBar';
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            showBanner: true
+        };
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
+        this.closeBanner = this.closeBanner.bind(this);
     }
     skippedNav(e) {
         // don't update the URL due to potential React Router conflicts
@@ -20,10 +25,23 @@ export default class Header extends React.Component {
         const yPos = document.querySelector('#main-content').getBoundingClientRect().top;
         window.scrollTo(0, yPos);
     }
+    closeBanner() {
+        this.setState({
+            showBanner: false
+        });
+    }
     render() {
-        let banner = (<InfoBanner />);
-        if (kGlobalConstants.IN_BETA) {
-            banner = (<WarningBanner />);
+        let banner = (
+            <InfoBanner
+                closeBanner={this.closeBanner} />
+        );
+        if (!this.state.showBanner) {
+            banner = null;
+        }
+        else if (kGlobalConstants.IN_BETA) {
+            banner = (
+                <WarningBanner />
+            );
         }
         return (
             <div className="site-header">

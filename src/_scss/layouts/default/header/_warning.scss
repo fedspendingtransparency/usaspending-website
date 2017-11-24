@@ -33,20 +33,38 @@
     }
 
     &.info {
-        background: as-alpha($color-cool-blue-lightest, 0.95);
-        border-bottom: 1px solid $color-cool-blue-lighter;
+        background: $color-primary-alt-lightest;
+        border-bottom: 3px solid #BCE8EB;
 
         .warning-banner {
+            margin: auto;
+            width: fit-content;
             .top-alert-icon {
                 .usa-da-icon {
                     & svg {
-                        fill: $color-cool-blue;
+                        margin-top: rem(4);
+                        height: rem(21);
+                        width: rem(21);
+                        fill: #5BC0DE;
                     }
                 }
             }
 
             .good-news {
                 font-weight: $font-semibold;
+            }
+        }
+        .close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            @include button-unstyled;
+            margin: rem(15) rem(30);
+
+            svg {
+                fill: $color-gray;
+                width: rem(20);
+                height: rem(20);
             }
         }
     }
