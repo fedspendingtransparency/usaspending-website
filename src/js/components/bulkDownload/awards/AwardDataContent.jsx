@@ -23,7 +23,7 @@ const propTypes = {
     updateStartDate: PropTypes.func,
     updateEndDate: PropTypes.func,
     clearAwardFilters: PropTypes.func,
-    agencies: PropTypes.array,
+    agencies: PropTypes.object,
     subAgencies: PropTypes.array,
     setSubAgencyList: PropTypes.func,
     clickedDownload: PropTypes.func
