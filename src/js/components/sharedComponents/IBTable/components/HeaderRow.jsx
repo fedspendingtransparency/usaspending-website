@@ -43,10 +43,11 @@ export default class HeaderRow extends React.Component {
         ));
 
         return (
-            <div className="ibt-header" style={style}>
+            <div className="ibt-header" style={style} role="rowgroup">
                 <div
                     className="ibt-header-row"
                     style={rowStyle}
+                    role="row"
                     ref={(div) => {
                         this.rowDiv = div;
                     }}>

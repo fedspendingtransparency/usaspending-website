@@ -277,10 +277,11 @@ export default class TableBody extends React.Component {
                 className="ibt-table-body-container"
                 style={style}
                 onScroll={this.handleScroll}
+                role="presentation"
                 ref={(div) => {
                     this.containerDiv = div;
                 }}>
-                <div className="ibt-table-body" style={internalStyle}>
+                <div className="ibt-table-body" style={internalStyle} role="rowgroup">
                     {this.state.visibleRows}
                 </div>
             </div>

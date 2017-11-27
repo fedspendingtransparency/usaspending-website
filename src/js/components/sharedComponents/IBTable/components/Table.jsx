@@ -53,10 +53,7 @@ export default class Table extends React.Component {
             <div
                 className="ibt-table-container"
                 style={style}
-                role="grid"
-                aria-live="polite"
-                aria-rowcount={this.props.rowCount}
-                aria-colcount={this.props.columns.length}>
+                role="grid">
                 <HeaderRow
                     {...this.props}
                     ref={(header) => {

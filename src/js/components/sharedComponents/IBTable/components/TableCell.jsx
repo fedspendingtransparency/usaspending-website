@@ -30,7 +30,11 @@ export default class TableCell extends React.Component {
         };
 
         return (
-            <div className="ibt-table-cell" style={style}>
+            <div
+                className="ibt-table-cell"
+                style={style}
+                role="gridcell"
+                tabIndex={-1}>
                 {this.props.column.cell(this.props.rowIndex)}
             </div>
         );

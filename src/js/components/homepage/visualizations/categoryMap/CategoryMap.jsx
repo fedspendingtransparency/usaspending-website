@@ -213,7 +213,7 @@ export default class CategoryMap extends React.Component {
                             }}>
                             <svg
                                 aria-label="Spending category treemap"
-                                role="group"
+                                role="figure"
                                 tabIndex={0}
                                 width={this.state.visualizationWidth}>
                                 { this.state.finalNodes }

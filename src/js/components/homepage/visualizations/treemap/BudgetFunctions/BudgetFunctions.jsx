@@ -273,7 +273,7 @@ export default class BudgetFunctions extends React.Component {
                         height={this.state.visualizationHeight}
                         className="treemap-svg overlay"
                         aria-label="Budget function treemap"
-                        role="group"
+                        role="figure"
                         tabIndex={0}>
                         <title>All budget functions</title>
                         <desc>Treemap showing relative spending by budget function</desc>

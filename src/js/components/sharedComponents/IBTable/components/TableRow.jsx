@@ -46,7 +46,10 @@ export default class TableRow extends React.Component {
         };
 
         return (
-            <div className="ibt-table-row" style={style}>
+            <div
+                className="ibt-table-row"
+                style={style}
+                role="row">
                 {cells}
             </div>
         );
