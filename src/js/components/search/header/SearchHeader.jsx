@@ -17,7 +17,7 @@ const propTypes = {
     downloadAvailable: PropTypes.bool
 };
 
-const sectionList = ['time', 'rank', 'geo', 'table'];
+const sectionList = ['time', 'geo', 'table'];
 
 export default class SearchHeader extends React.Component {
     constructor(props) {
@@ -176,14 +176,6 @@ export default class SearchHeader extends React.Component {
                                         currentSection={this.state.activeSection}
                                         accessibleLabel="Organize spending by time periods"
                                         icon={<Icons.Calendar alt="Time" />} />
-                                </li>
-                                <li>
-                                    <FormatItem
-                                        code="rank"
-                                        label="Rank"
-                                        currentSection={this.state.activeSection}
-                                        accessibleLabel="Rank spending by category"
-                                        icon={<Icons.Bar alt="Rank" />} />
                                 </li>
                                 <li>
                                     <FormatItem
