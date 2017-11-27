@@ -91,9 +91,6 @@ export default class SummaryBar extends React.Component {
                                 label="Award ID"
                                 value={this.props.selectedAward.award_id} />
                             { parentAwardId }
-                            <InfoSnippet
-                                label="Status"
-                                value={this.state.status} />
                         </ul>
                         <MoreHeaderOptions />
                     </div>
