@@ -110,6 +110,20 @@ class SearchAwardsOperation {
             }
         }
 
+        if ((this.timePeriodType === 'fy' && this.timePeriodFY.length === 0) ||
+        (this.timePeriodType === 'dr' && this.timePeriodRange.length === 0)) {
+            // the user selected fiscal years but did not specify any years OR
+            // the user has selected the date range type but has not entered any dates yet
+            // this should default to a period of time from FY 2008 to present
+            const initialYear = 2008;
+            const currentYear = FiscalYearHelper.currentFiscalYear();
+
+            filters[rootKeys.timePeriod] = [{
+                [timePeriodKeys.startDate]: FiscalYearHelper.convertFYToDateRange(initialYear)[0],
+                [timePeriodKeys.endDate]: FiscalYearHelper.convertFYToDateRange(currentYear)[1]
+            }];
+        }
+
         // Add award types
         if (this.awardType.length > 0) {
             filters[rootKeys.awardType] = this.awardType;
