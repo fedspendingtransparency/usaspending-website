@@ -101,10 +101,25 @@ class SearchAwardsOperation {
                 });
             }
             else if (this.timePeriodType === 'dr' && this.timePeriodRange.length > 0) {
+                let start = this.timePeriodRange[0];
+                let end = this.timePeriodRange[1];
+
+                // if no start or end date is provided, use the 2008-present date range to fill out
+                // the missing dates
+                const initialYear = FiscalYearHelper.earliestFiscalYear;
+                const currentYear = FiscalYearHelper.currentFiscalYear();
+
+                if (!start) {
+                    start = FiscalYearHelper.convertFYToDateRange(initialYear)[0];
+                }
+                if (!end) {
+                    end = FiscalYearHelper.convertFYToDateRange(currentYear)[1];
+                }
+
                 filters[rootKeys.timePeriod] = [
                     {
-                        [timePeriodKeys.startDate]: this.timePeriodRange[0],
-                        [timePeriodKeys.endDate]: this.timePeriodRange[1]
+                        [timePeriodKeys.startDate]: start,
+                        [timePeriodKeys.endDate]: end
                     }
                 ];
             }
@@ -115,7 +130,7 @@ class SearchAwardsOperation {
             // the user selected fiscal years but did not specify any years OR
             // the user has selected the date range type but has not entered any dates yet
             // this should default to a period of time from FY 2008 to present
-            const initialYear = 2008;
+            const initialYear = FiscalYearHelper.earliestFiscalYear;
             const currentYear = FiscalYearHelper.currentFiscalYear();
 
             filters[rootKeys.timePeriod] = [{

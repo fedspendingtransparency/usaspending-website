@@ -5,8 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import DatePicker from 'components/sharedComponents/DatePicker';
 import { AngleRight } from 'components/sharedComponents/icons/Icons';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 const defaultProps = {
     startDate: '01/01/2016',
@@ -55,6 +57,9 @@ export default class DateRange extends React.Component {
     }
 
     render() {
+        const earliestDateString =
+            FiscalYearHelper.convertFYToDateRange(FiscalYearHelper.earliestFiscalYear)[0];
+        const earliestDate = moment(earliestDateString, 'YYYY-MM-DD').toDate();
         return (
             <div className="date-range-option">
                 <form
@@ -69,6 +74,9 @@ export default class DateRange extends React.Component {
                         opposite={this.props.endDate}
                         showError={this.props.showError}
                         hideError={this.props.hideError}
+                        disabledDays={[{
+                            before: earliestDate
+                        }]}
                         ref={(component) => {
                             this.startPicker = component;
                         }}
@@ -82,6 +90,9 @@ export default class DateRange extends React.Component {
                         opposite={this.props.startDate}
                         showError={this.props.showError}
                         hideError={this.props.hideError}
+                        disabledDays={[{
+                            before: earliestDate
+                        }]}
                         ref={(component) => {
                             this.endPicker = component;
                         }}
