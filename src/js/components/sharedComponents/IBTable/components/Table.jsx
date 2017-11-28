@@ -50,10 +50,7 @@ export default class Table extends React.Component {
         };
 
         return (
-            <div
-                className="ibt-table-container"
-                style={style}
-                role="grid">
+            <div className="ibt-table-container" style={style} role="presentation">
                 <HeaderRow
                     {...this.props}
                     ref={(header) => {

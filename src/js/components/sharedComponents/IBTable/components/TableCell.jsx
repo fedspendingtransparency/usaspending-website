@@ -34,6 +34,8 @@ export default class TableCell extends React.Component {
                 className="ibt-table-cell"
                 style={style}
                 role="gridcell"
+                aria-colindex={this.props.column.index + 1}
+                aria-rowindex={this.props.rowIndex + 1}
                 tabIndex={-1}>
                 {this.props.column.cell(this.props.rowIndex)}
             </div>

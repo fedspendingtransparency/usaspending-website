@@ -11,6 +11,7 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 const propTypes = {
     label: PropTypes.string,
     column: PropTypes.string,
+    columnIndex: PropTypes.number,
     defaultDirection: PropTypes.string,
     order: PropTypes.object,
     changeSearchOrder: PropTypes.func,
@@ -22,6 +23,7 @@ export default class MapListHeaderCell extends React.Component {
         super(props);
 
         this.clickedHeader = this.clickedHeader.bind(this);
+        this.pressedKey = this.pressedKey.bind(this);
         this.forceDirection = this.forceDirection.bind(this);
     }
 
@@ -42,6 +44,12 @@ export default class MapListHeaderCell extends React.Component {
         }
     }
 
+    pressedKey(e) {
+        if (e.key === '' || e.key === 'Enter') {
+            this.clickedHeader();
+        }
+    }
+
     forceDirection(e) {
         // don't bubble down to the wrapper click event (which performs similar action)
         e.stopPropagation();
@@ -54,13 +62,16 @@ export default class MapListHeaderCell extends React.Component {
         // highlight the active arrows
         let activeAsc = '';
         let activeDesc = '';
+        let sortDescription = false;
         if (this.props.column === this.props.order.field) {
             // this is the column that the table is sorted by
             if (this.props.order.direction === 'asc') {
                 activeAsc = ' active';
+                sortDescription = 'ascending';
             }
             else {
                 activeDesc = ' active';
+                sortDescription = 'descending';
             }
         }
 
@@ -76,8 +87,19 @@ export default class MapListHeaderCell extends React.Component {
         // convenience, screen-reader users are expected to use the button elements instead as
         // they are presented as interactive clickable targets
         return (
-            <div className={`map-list-header-cell column-${this.props.column}${lastClass}`}>
-                <div className="cell-content" onClick={this.clickedHeader}>
+            <div
+                className={`map-list-header-cell column-${this.props.column}${lastClass}`}
+                role="group"
+                onKeyPress={this.pressedKey}
+                tabIndex={-1}>
+                <div
+                    className="cell-content"
+                    onClick={this.clickedHeader}
+                    role="columnheader"
+                    aria-sort={sortDescription}
+                    aria-label={this.props.label}
+                    aria-colindex={this.props.columnIndex}
+                    tabIndex={-1}>
                     <div className="header-sort">
                         <div className="header-label">
                             {this.props.label}

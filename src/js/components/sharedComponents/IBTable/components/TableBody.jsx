@@ -207,13 +207,14 @@ export default class TableBody extends React.Component {
         let firstCol;
         let lastCol;
 
-        this.props.columns.forEach((col) => {
+        this.props.columns.forEach((col, i) => {
             const column = col;
             const columnRightEdge = tableXPos + column.width;
             if (this.isColumnVisible(tableXPos, columnRightEdge, this.scrollPosition.x,
                 this.scrollPosition.x + this.props.maxWidth)) {
                 // the column is in view
                 column.left = tableXPos;
+                column.index = i;
                 columns.push(column);
 
                 if (!firstCol) {

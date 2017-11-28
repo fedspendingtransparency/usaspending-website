@@ -24,8 +24,7 @@ export default class HeaderCell extends React.Component {
         return (
             <div
                 className="ibt-header-cell"
-                style={style}
-                role="columnheader">
+                style={style}>
                 {this.props.header}
             </div>
         );

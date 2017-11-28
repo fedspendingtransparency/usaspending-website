@@ -126,6 +126,7 @@ export default class MapList extends React.Component {
                     <MapListHeaderCell
                         label={tableColumns.labels[column]}
                         column={column}
+                        columnIndex={index + 1}
                         defaultDirection={tableColumns.defaultDirection[column]}
                         isLastColumn={isLast}
                         order={this.state.sort}
@@ -191,6 +192,9 @@ export default class MapList extends React.Component {
                     }} />
                 <div
                     className={`map-table ${inFlightClass}`}
+                    role="grid"
+                    aria-colcount={this.state.columns.length}
+                    aria-label="Spending by U.S. state and territory"
                     style={{
                         marginLeft: this.state.tableLeft,
                         marginRight: this.state.tableRight
