@@ -30,10 +30,18 @@ class ResultsTableHeaderCellContainer extends React.Component {
         this.setSearchOrder = this.setSearchOrder.bind(this);
     }
 
-    setSearchOrder(field, direction) {
+    // setSearchOrder(field, direction) {
+    //     this.props.setSearchOrder({
+    //         field,
+    //         direction
+    //     });
+    // }
+
+    // BODGE: Temporarily only allow descending sort
+    setSearchOrder(field) {
         this.props.setSearchOrder({
             field,
-            direction
+            direction: 'desc'
         });
     }
 
