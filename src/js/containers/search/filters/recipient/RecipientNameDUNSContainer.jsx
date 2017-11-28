@@ -37,6 +37,11 @@ export class RecipientNameDUNSContainer extends React.Component {
         // in the list of results
         if (searchString.length >= 3 && !this.props.selectedRecipients.has(searchString)) {
             this.props.toggleRecipient(searchString);
+
+            // Reset input
+            this.setState({
+                recipientSearchString: ''
+            });
         }
         else {
             this.setState({
