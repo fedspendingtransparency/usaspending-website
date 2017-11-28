@@ -13,8 +13,6 @@ import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarCo
 
 import TimeVisualizationSectionContainer from
     'containers/search/visualizations/time/TimeVisualizationSectionContainer';
-import RankVisualizationWrapperContainer from
-    'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
 import GeoVisualizationSectionContainer from
     'containers/search/visualizations/geo/GeoVisualizationSectionContainer';
 
@@ -106,7 +104,6 @@ export default class SearchResults extends React.Component {
                 {lastUpdate}
                 <div className={`search-results ${mobileFilters}`}>
                     <TimeVisualizationSectionContainer />
-                    <RankVisualizationWrapperContainer />
                     <GeoVisualizationSectionContainer />
                     <ResultsTableContainer />
                 </div>
