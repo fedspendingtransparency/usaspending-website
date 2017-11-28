@@ -13,7 +13,6 @@ import autocompleteReducer from './search/autocompleteReducer';
 import columnVisibilityReducer from './search/columnVisibilityReducer';
 import recordReducer from './records/recordReducer';
 import autocompleteAgencyReducer from './search/agencyReducer';
-import recipientReducer from './search/recipientReducer';
 import awardIDReducer from './search/awardIDReducer';
 import awardReducer from './award/awardReducer';
 import accountReducer from './account/accountReducer';
@@ -39,7 +38,6 @@ const appReducer = combineReducers({
     columnVisibility: columnVisibilityReducer,
     autocompleteAwardIDs: awardIDReducer,
     autocompleteAgencies: autocompleteAgencyReducer,
-    autocompleteRecipients: recipientReducer,
     records: recordReducer,
     download: downloadReducer,
     award: awardReducer,

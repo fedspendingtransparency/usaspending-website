@@ -52,6 +52,10 @@ export default class RecipientName extends React.Component {
     }
 
     render() {
+        let disableButton = false;
+        if (this.props.selectedRecipients.size !== 0) {
+            disableButton = true;
+        }
         return (
             <div className="recipient-filter search-filter">
                 <form onSubmit={this.searchRecipient}>
@@ -62,10 +66,12 @@ export default class RecipientName extends React.Component {
                             className="recipient-input"
                             placeholder="Recipient Name or DUNS"
                             value={this.props.value}
+                            disabled={disableButton}
                             onChange={this.props.changedInput} />
                         <input
                             type="submit"
                             className="recipient-submit"
+                            disabled={disableButton}
                             value="Submit" />
                     </div>
                 </form>
