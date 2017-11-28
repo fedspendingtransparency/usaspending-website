@@ -318,23 +318,21 @@ describe('searchFiltersReducer', () => {
 
         const recipient = 'Booz Allen';
 
-        const expectedRecipient = mockRecipient;
-
         it('should add the Recipient if it does not currently exist in the filter', () => {
             const updatedState = searchFiltersReducer(undefined, action);
 
             expect(updatedState.selectedRecipients).toEqual(
-                new OrderedMap([[recipient, expectedRecipient]])
+                new Set([recipient])
             );
         });
 
         it('should remove the Recipient if already exists in the filter', () => {
             const startingState = Object.assign({}, initialState, {
-                selectedRecipients: new OrderedMap([[recipient, expectedRecipient]])
+                selectedRecipients: new Set([recipient])
             });
 
             const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.selectedRecipients).toEqual(new OrderedMap());
+            expect(updatedState.selectedRecipients).toEqual(new Set());
         });
     });
 

@@ -11,19 +11,13 @@ import { RecipientSearchContainer } from
     'containers/search/filters/recipient/RecipientSearchContainer';
 
 const initialFilters = {
-    selectedRecipients: {},
+    selectedRecipients: [],
     recipientDomesticForeign: 'all',
     selectedRecipientLocations: {},
     recipientType: {}
 };
 
-const recipient = {
-    search_text: "Booz Allen",
-    recipient_id_list: [
-        2232,
-        2260
-    ]
-};
+const recipient = "Booz Allen";
 
 const location = {
     place_type: "CITY",
@@ -36,13 +30,7 @@ describe('RecipientSearchContainer', () => {
     describe('Handling adding and removing recipients', () => {
         it('should add a Recipient that has been selected to Redux', () => {
             const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual({
-                    search_text: "Booz Allen",
-                    recipient_id_list: [
-                        2232,
-                        2260
-                    ]
-                });
+                expect(args).toEqual("Booz Allen");
             });
 
             // Set up container with mocked action
@@ -67,13 +55,7 @@ describe('RecipientSearchContainer', () => {
 
         it('should remove a Recipient that has been deselected from Redux', () => {
             const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual({
-                    search_text: "Booz Allen",
-                    recipient_id_list: [
-                        2232,
-                        2260
-                    ]
-                });
+                expect(args).toEqual("Booz Allen");
             });
 
             // Set up container with mocked action
