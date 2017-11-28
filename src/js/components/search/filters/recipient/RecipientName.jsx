@@ -12,7 +12,6 @@ const propTypes = {
     searchRecipient: PropTypes.func,
     changedInput: PropTypes.func,
     value: PropTypes.string,
-    disableButton: PropTypes.any,
     showWarning: PropTypes.bool,
     selectedRecipients: PropTypes.object
 };
@@ -39,16 +38,10 @@ export default class RecipientName extends React.Component {
                     description: 'Please enter more than two characters.'
                 };
             }
-            else if (this.props.selectedRecipients.has(this.props.value)) {
+            else {
                 errorProps = {
                     header: 'Duplicate Recipient',
                     description: 'You have already selected that recipient.'
-                };
-            }
-            else {
-                errorProps = {
-                    header: 'Unknown Recipient',
-                    description: 'We were unable to find that recipient.'
                 };
             }
 
@@ -59,11 +52,6 @@ export default class RecipientName extends React.Component {
     }
 
     render() {
-        let disableButton = false;
-        if (this.props.disableButton) {
-            disableButton = true;
-        }
-
         return (
             <div className="recipient-filter search-filter">
                 <form onSubmit={this.searchRecipient}>
@@ -74,13 +62,11 @@ export default class RecipientName extends React.Component {
                             className="recipient-input"
                             placeholder="Recipient Name or DUNS"
                             value={this.props.value}
-                            onChange={this.props.changedInput}
-                            disabled={disableButton} />
+                            onChange={this.props.changedInput} />
                         <input
                             type="submit"
                             className="recipient-submit"
-                            value="Submit"
-                            disabled={disableButton} />
+                            value="Submit" />
                     </div>
                 </form>
                 {this.generateWarning()}
