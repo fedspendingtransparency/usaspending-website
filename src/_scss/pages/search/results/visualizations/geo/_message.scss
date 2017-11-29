@@ -1,0 +1,18 @@
+.map-message {
+    z-index: 2;
+    background-color: $color-white;
+    display: block;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    line-height: rem(18);
+
+    position: absolute;
+    top: rem(75);
+    left: rem(15);
+    padding: rem(10) rem(15);
+
+    color: $color-base;
+    text-align: center;
+    font-size: $small-font-size;
+    font-weight: $font-normal;
+    line-height: rem(18);
+}
