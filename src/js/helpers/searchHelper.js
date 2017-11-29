@@ -314,23 +314,6 @@ export const performSpendingByAwardSearch = (params) => {
     };
 };
 
-// Fetch Recipients
-export const fetchRecipients = (req) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/autocomplete/recipient/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: req,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
 // Fetch Award IDs
 export const fetchAwardIDs = (params) => {
     const source = CancelToken.source();
