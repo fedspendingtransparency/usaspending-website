@@ -1,0 +1,25 @@
+.search-contents {
+    @include flex(1 1 auto);
+    @include display(flex);
+    @include flex-direction(row);
+    @include justify-content(flex-start);
+    @include align-items(stretch);
+
+
+    .full-search-sidebar {
+        @include flex(0 0 auto);
+        display: none;
+        @include media($medium-screen) {
+            display: block;
+            padding-right: rem(30);
+            width: rem(350);
+        }
+
+        background-color: red;
+    }
+
+    .search-results-wrapper {
+        @include flex(1 1 auto);
+        background-color: blue;
+    }
+}

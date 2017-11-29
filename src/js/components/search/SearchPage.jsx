@@ -116,6 +116,16 @@ export default class SearchPage extends React.Component {
         });
     }
 
+    // <SearchResults
+    //                         filters={this.props.filters}
+    //                         isMobile={this.state.isMobile}
+    //                         filterCount={this.state.filterCount}
+    //                         showMobileFilters={this.state.showMobileFilters}
+    //                         updateFilterCount={this.updateFilterCount}
+    //                         toggleMobileFilters={this.toggleMobileFilters}
+    //                         clearAllFilters={this.props.clearAllFilters}
+    //                         lastUpdate={this.props.lastUpdate} />
+
     render() {
         let fullSidebar = (<SearchSidebar filters={this.props.filters} />);
         if (this.state.isMobile) {
@@ -138,15 +148,9 @@ export default class SearchPage extends React.Component {
                         <div className="full-search-sidebar">
                             { fullSidebar }
                         </div>
-                        <SearchResults
-                            filters={this.props.filters}
-                            isMobile={this.state.isMobile}
-                            filterCount={this.state.filterCount}
-                            showMobileFilters={this.state.showMobileFilters}
-                            updateFilterCount={this.updateFilterCount}
-                            toggleMobileFilters={this.toggleMobileFilters}
-                            clearAllFilters={this.props.clearAllFilters}
-                            lastUpdate={this.props.lastUpdate} />
+                        <div className="search-results-wrapper">
+                            Hello
+                        </div>
                     </div>
                     <FullDownloadModalContainer
                         mounted={this.state.showFullDownload}

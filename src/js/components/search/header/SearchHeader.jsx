@@ -43,19 +43,19 @@ export default class SearchHeader extends React.Component {
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll, {
-            passive: true
-        });
-        window.addEventListener('resize', this.measurePage, {
-            passive: true
-        });
+        // window.addEventListener('scroll', this.handleScroll, {
+        //     passive: true
+        // });
+        // window.addEventListener('resize', this.measurePage, {
+        //     passive: true
+        // });
 
-        this.measurePage();
+        // this.measurePage();
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
-        window.removeEventListener('resize', this.measurePage);
+        // window.removeEventListener('scroll', this.handleScroll);
+        // window.removeEventListener('resize', this.measurePage);
     }
 
     measurePage() {
