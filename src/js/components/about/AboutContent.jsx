@@ -1,57 +1,49 @@
 /**
- * AgencyContent.jsx
- * Created by Kevin Li 6/8/17
- */
+ * AboutContent.jsx
+ * Created by Mike Bray 11/20/2017
+ **/
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { find, throttle } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
-import moment from 'moment';
-import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
-
-import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
-
-import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
-import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
-import FederalAccountContainer from 'containers/agency/visualizations/FederalAccountContainer';
-import AgencyFooterContainer from 'containers/agency/AgencyFooterContainer';
 
 import Sidebar from '../sharedComponents/sidebar/Sidebar';
-import AgencyOverview from './overview/AgencyOverview';
-import TreasuryDisclaimer from './TreasuryDisclaimer';
 
-const agencySections = [
+import Mission from './Mission';
+import Background from './Background';
+import DataSources from './DataSources';
+import DataQuality from './DataQuality';
+import Contact from './Contact';
+
+const aboutSections = [
     {
-        section: 'overview',
-        label: 'Overview'
+        section: 'mission',
+        label: 'Mission'
     },
     {
-        section: 'obligated-amount',
-        label: 'Obligated Amount'
+        section: 'background',
+        label: 'Background'
     },
     {
-        section: 'object-classes',
-        label: 'Object Classes'
+        section: 'data-sources',
+        label: 'Data Sources'
     },
     {
-        section: 'federal-accounts',
-        label: 'Federal Accounts'
+        section: 'data-quality',
+        label: 'Data Quality'
+    },
+    {
+        section: 'contact',
+        label: 'Contact'
     }
 ];
 
-const propTypes = {
-    agency: PropTypes.object,
-    lastUpdate: PropTypes.string,
-    isTreasury: PropTypes.bool
-};
-
-export default class AgencyContent extends React.Component {
+export default class AboutContent extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            activeSection: 'overview',
+            activeSection: 'mission',
             sectionPositions: [],
             window: {
                 height: 0
@@ -79,9 +71,9 @@ export default class AgencyContent extends React.Component {
         // (and when the window resizes) and cache the values
         const sectionPositions = [];
 
-        for (let i = 0; i < agencySections.length; i++) {
-            const sectionCode = agencySections[i].section;
-            const domElement = document.getElementById(`agency-${sectionCode}`);
+        for (let i = 0; i < aboutSections.length; i++) {
+            const sectionCode = aboutSections[i].section;
+            const domElement = document.getElementById(`about-${sectionCode}`);
             if (!domElement) {
                 // couldn't find the element
                 continue;
@@ -111,7 +103,7 @@ export default class AgencyContent extends React.Component {
     jumpToSection(section = '') {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const matchedSection = find(agencySections, {
+        const matchedSection = find(aboutSections, {
             section
         });
 
@@ -125,7 +117,7 @@ export default class AgencyContent extends React.Component {
             activeSection: section
         }, () => {
             // scroll to the correct section
-            const sectionDom = document.querySelector(`#agency-${section}`);
+            const sectionDom = document.querySelector(`#about-${section}`);
             if (!sectionDom) {
                 return;
             }
@@ -140,7 +132,7 @@ export default class AgencyContent extends React.Component {
         const windowBottom = windowTop + this.state.window.height;
 
         // determine the section to highlight
-        let activeSection = agencySections[0].section;
+        let activeSection = aboutSections[0].section;
         let bottomSectionVisible = false;
         const visibleSections = [];
 
@@ -215,54 +207,25 @@ export default class AgencyContent extends React.Component {
     }
 
     render() {
-        const qtr = parseFloat(this.props.agency.overview.activeFQ);
-        const endOfQuarter = convertQuarterToDate(qtr, this.props.agency.overview.activeFY);
-        const asOfDate = moment(endOfQuarter, "YYYY-MM-DD").format("MMMM D, YYYY");
-
-        let disclaimer = null;
-        if (this.props.isTreasury) {
-            disclaimer = (<TreasuryDisclaimer />);
-        }
-
         return (
-            <div className="agency-content-wrapper">
-                <div className="agency-sidebar">
+            <div className="about-content-wrapper">
+                <div className="about-sidebar">
                     <Sidebar
                         active={this.state.activeSection}
-                        pageName="agency"
-                        sections={agencySections}
+                        pageName="about"
+                        sections={aboutSections}
                         jumpToSection={this.jumpToSection} />
                 </div>
-                <div className="agency-content">
-                    <div className="agency-padded-content overview">
-                        <GlossaryButtonWrapperContainer
-                            child={AgencyOverview}
-                            agency={this.props.agency.overview} />
+                <div className="about-content">
+                    <div className="about-padded-content">
+                        <Mission />
+                        <Background />
+                        <DataSources />
+                        <DataQuality />
+                        <Contact />
                     </div>
-                    <div className="agency-padded-content data">
-                        <ObligatedContainer
-                            agencyName={this.props.agency.overview.name}
-                            activeFY={this.props.agency.overview.activeFY}
-                            activeQuarter={this.props.agency.overview.activeFQ}
-                            id={this.props.agency.id}
-                            asOfDate={asOfDate} />
-                        <ObjectClassContainer
-                            id={this.props.agency.id}
-                            activeFY={this.props.agency.overview.activeFY}
-                            displayedTotalObligation={this.props.agency.overview.obligatedAmount}
-                            asOfDate={asOfDate} />
-                        <FederalAccountContainer
-                            id={this.props.agency.id}
-                            activeFY={this.props.agency.overview.activeFY}
-                            obligatedAmount={this.props.agency.overview.obligatedAmount}
-                            asOfDate={asOfDate} />
-                        {disclaimer}
-                    </div>
-                    <AgencyFooterContainer id={this.props.agency.id} />
                 </div>
             </div>
         );
     }
 }
-
-AgencyContent.propTypes = propTypes;

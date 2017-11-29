@@ -1,10 +1,4 @@
-export const mockRecipient = {
-    search_text: "Booz Allen",
-    recipient_id_list: [
-        2232,
-        2260
-    ]
-};
+export const mockRecipient = "Booz Allen";
 
 export const mockAgency = {
     id: 1788,

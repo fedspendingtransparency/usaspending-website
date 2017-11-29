@@ -15,8 +15,8 @@ const initialState = {
     renderHash: null,
     groupHash: null,
     transactionSort: {
-        field: "modification_number",
-        direction: "asc"
+        field: "action_date",
+        direction: "desc"
     },
     finSysData: [],
     finSysMeta: {

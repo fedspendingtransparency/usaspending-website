@@ -24,7 +24,7 @@ const defaultProps = {
         {
             id: 'recipient-women-owned-business',
             name: 'Women Owned Business',
-            filters: recipientTypeGroups.women_owned_business
+            filters: recipientTypeGroups.woman_owned_business
         },
         {
             id: 'recipient-veteran-owned-business',
@@ -62,11 +62,10 @@ const defaultProps = {
 
 const propTypes = {
     recipientTypeMapping: PropTypes.arrayOf(PropTypes.object),
-    recipientType: PropTypes.object
+    selectedTypes: PropTypes.object
 };
 
 export default class RecipientType extends React.Component {
-
     render() {
         const checkboxTypes = (
             this.props.recipientTypeMapping.map((type, index) =>
@@ -76,7 +75,7 @@ export default class RecipientType extends React.Component {
                     key={index}
                     types={recipientTypes}
                     filterType="Recipient"
-                    selectedCheckboxes={this.props.recipientType}
+                    selectedCheckboxes={this.props.selectedTypes}
                     enableAnalytics />
             ));
 

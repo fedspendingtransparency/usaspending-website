@@ -10,9 +10,7 @@ import moment from 'moment';
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 
 const propTypes = {
-    awards: PropTypes.object,
-    agencies: PropTypes.array,
-    subAgencies: PropTypes.array
+    awards: PropTypes.object
 };
 
 export default class UserSelections extends React.Component {

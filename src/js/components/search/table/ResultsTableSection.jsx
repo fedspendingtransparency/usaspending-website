@@ -9,13 +9,9 @@ import PropTypes from 'prop-types';
 import ResultsTableHeaderCellContainer from
     'containers/search/table/ResultsTableHeaderCellContainer';
 
-import ExtraModalContainer from 'containers/search/modals/tableDownload/ExtraModalContainer';
-
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
 import ResultsTableMessage from './ResultsTableMessage';
-import ResultsTablePicker from './ResultsTablePicker';
-import ResultsSelectColumns from './ResultsSelectColumns';
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -26,8 +22,7 @@ const propTypes = {
     columns: PropTypes.object,
     counts: PropTypes.object,
     toggleColumnVisibility: PropTypes.func,
-    reorderColumns: PropTypes.func,
-    downloadParams: PropTypes.object
+    reorderColumns: PropTypes.func
 };
 
 export default class ResultsTableSection extends React.Component {
@@ -35,13 +30,10 @@ export default class ResultsTableSection extends React.Component {
         super(props);
 
         this.state = {
-            tableWidth: 0,
-            showModal: false
+            tableWidth: 0
         };
 
         this.setTableWidth = this.setTableWidth.bind(this);
-        this.showModal = this.showModal.bind(this);
-        this.hideModal = this.hideModal.bind(this);
     }
     componentDidMount() {
         // set the initial table width
@@ -58,18 +50,6 @@ export default class ResultsTableSection extends React.Component {
     setTableWidth() {
         const tableWidth = this.tableWidthController.clientWidth - 2;
         this.setState({ tableWidth });
-    }
-
-    showModal() {
-        this.setState({
-            showModal: true
-        });
-    }
-
-    hideModal() {
-        this.setState({
-            showModal: false
-        });
     }
 
     render() {
@@ -90,16 +70,6 @@ export default class ResultsTableSection extends React.Component {
                     <h3>Spending by Award</h3>
                 </div>
                 <hr className="results-divider" />
-                <div className="results-dropdown-picker-wrapper">
-                    <ResultsTablePicker
-                        types={this.props.tableTypes}
-                        active={this.props.currentType}
-                        switchTab={this.props.switchTab} />
-                    <ResultsSelectColumns
-                        columns={this.props.columns}
-                        toggleColumnVisibility={this.props.toggleColumnVisibility}
-                        reorderColumns={this.props.reorderColumns} />
-                </div>
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}
@@ -119,10 +89,6 @@ export default class ResultsTableSection extends React.Component {
                         headerCellClass={ResultsTableHeaderCellContainer} />
                 </div>
                 {message}
-                <ExtraModalContainer
-                    downloadParams={this.props.downloadParams}
-                    mounted={this.state.showModal}
-                    hideModal={this.hideModal} />
             </div>
         );
     }
