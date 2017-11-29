@@ -12,7 +12,7 @@
         @include media($medium-screen) {
             display: block;
             padding-right: rem(30);
-            width: rem(350);
+            width: 25%;
         }
 
         background-color: red;
@@ -20,6 +20,6 @@
 
     .search-results-wrapper {
         @include flex(1 1 auto);
-        background-color: blue;
+        // background-color: blue;
     }
 }

@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import FormatItem from './FormatItem';
 import DownloadButton from './DownloadButton';
@@ -169,30 +168,6 @@ export default class SearchHeader extends React.Component {
                         </div>
                         <div className="search-options">
                             <ul className="search-formats">
-                                <li>
-                                    <FormatItem
-                                        code="time"
-                                        label="Time"
-                                        currentSection={this.state.activeSection}
-                                        accessibleLabel="Organize spending by time periods"
-                                        icon={<Icons.Calendar alt="Time" />} />
-                                </li>
-                                <li>
-                                    <FormatItem
-                                        code="geo"
-                                        label="Map"
-                                        currentSection={this.state.activeSection}
-                                        accessibleLabel="View spending on a map"
-                                        icon={<Icons.MapMarker alt="Map Marker" />} />
-                                </li>
-                                <li>
-                                    <FormatItem
-                                        code="table"
-                                        label="Table"
-                                        currentSection={this.state.activeSection}
-                                        accessibleLabel="View spending by award in a table"
-                                        icon={<Icons.Table alt="Table Icon" />} />
-                                </li>
                                 <li>
                                     <DownloadButton
                                         downloadAvailable={this.props.downloadAvailable}

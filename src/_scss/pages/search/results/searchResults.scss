@@ -2,6 +2,8 @@
     background-color: $color-white;
     box-shadow: $container-shadow;
 
+    @import "./_tabs";
+
     @import "./_typography";
     @import "../../../elements/_divider";
 

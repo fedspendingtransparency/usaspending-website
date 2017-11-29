@@ -16,6 +16,7 @@ import TimeVisualizationSectionContainer from
 import GeoVisualizationSectionContainer from
     'containers/search/visualizations/geo/GeoVisualizationSectionContainer';
 
+import VisualizationWrapper from './visualizations/VisualizationWrapper';
 import MobileFilters from './mobile/MobileFilters';
 
 const propTypes = {
@@ -60,6 +61,10 @@ export default class SearchResults extends React.Component {
         }
 
 
+        // <TimeVisualizationSectionContainer />
+        //             <GeoVisualizationSectionContainer />
+        //             <ResultsTableContainer />
+
         return (
             <div className="search-results-wrapper">
                 <TopFilterBarContainer {...this.props} />
@@ -101,9 +106,7 @@ export default class SearchResults extends React.Component {
                 </div>
                 {lastUpdate}
                 <div className={`search-results ${mobileFilters}`}>
-                    <TimeVisualizationSectionContainer />
-                    <GeoVisualizationSectionContainer />
-                    <ResultsTableContainer />
+                    <VisualizationWrapper />
                 </div>
             </div>
         );

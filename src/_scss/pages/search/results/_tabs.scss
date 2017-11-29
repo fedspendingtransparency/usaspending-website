@@ -1,0 +1,113 @@
+.visualization-tabs {
+    @include unstyled-list;
+
+    @include display(flex);
+    @include justify-content(flex-start);
+    @include align-items(center);
+    position: relative;
+
+    background-color: $color-gray-lightest;
+
+    &:after {
+        z-index: 1;
+        content: "";
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-bottom: 1px solid $color-gray-lighter;
+
+    }
+
+    .visualization-type-tab {
+        @include button-unstyled;
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+        position: relative;
+        z-index: 2;
+
+        padding: rem(20);
+
+        opacity: 0.5;
+        background-color: $color-gray-lightest;
+        transition: opacity 0.15s;
+
+        border: none;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+
+        margin-left: rem(5);
+
+        &.active {
+            opacity: 1;
+            background-color: $color-white;
+            border: 1px solid $color-gray-lighter;
+            border-bottom: 1px solid $color-white;
+
+            &:before, &:after {
+                position: absolute;
+                bottom: rem(-1);
+                width: rem(5);
+                height: rem(5);
+                content: " ";
+            }
+
+            &:before {
+                left: rem(-5);
+                border-bottom-right-radius: rem(5);
+                border-right: 1px solid $color-gray-lighter;
+                border-bottom: 1px solid $color-gray-lighter;
+                box-shadow: 2px 2px 0 $color-white;
+            }
+
+            &:after {
+                right: rem(-5);
+                border-bottom-left-radius: rem(5);
+                border-left: 1px solid $color-gray-lighter;
+                border-bottom: 1px solid $color-gray-lighter;
+                box-shadow: -2px 2px 0 $color-white;
+            }
+
+            &:first-child {
+                &:before {
+                    width: rem(0);
+                    height: rem(0);
+                    border: none;
+                    box-shadow: none;
+                }
+            }
+        }
+
+        &:active, &:hover {
+            opacity: 1;
+        }
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        .icon {
+            @include flex(0 0 auto)
+            width: rem(25);
+            height: rem(25);
+
+            margin-right: rem(15);
+
+            svg {
+                fill: $color-gray;
+                width: rem(25);
+                height: rem(25);                
+            }
+        }
+
+        .label {
+            @include flex(1 1 auto);
+            color: $color-gray;
+            font-weight: $font-semibold;
+            text-transform: uppercase;
+            line-height: rem(18);
+            letter-spacing: rem(2);
+        }
+    }
+}
