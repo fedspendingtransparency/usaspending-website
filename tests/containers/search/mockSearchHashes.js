@@ -11,7 +11,7 @@ export const mockFilters = {
         filters: {
             locationDomesticForeign: "all",
             selectedAwardIDs: {},
-            selectedRecipients: {},
+            selectedRecipients: [],
             selectedFundingAgencies: {},
             selectedLocations: {},
             recipientType: [],

@@ -12,7 +12,8 @@ import * as Icons from './icons/Icons';
 const defaultProps = {
     type: 'startDate',
     tabIndex: 1,
-    allowClearing: false
+    allowClearing: false,
+    disabledDays: []
 };
 
 const propTypes = {
@@ -24,7 +25,8 @@ const propTypes = {
     opposite: PropTypes.object,
     tabIndex: PropTypes.number,
     title: PropTypes.string,
-    allowClearing: PropTypes.bool
+    allowClearing: PropTypes.bool,
+    disabledDays: PropTypes.array
 };
 
 export default class DatePicker extends React.Component {
@@ -214,18 +216,18 @@ export default class DatePicker extends React.Component {
 
         // handle the cutoff dates (preventing end dates from coming before
         // start dates or vice versa)
-        let cutoffFunc = null;
+        const disabledDays = this.props.disabledDays;
         if (this.props.type === 'startDate' && this.props.opposite) {
             // the cutoff date represents the latest possible date
-            cutoffFunc = (day) => (
-                moment(day).isAfter(this.props.opposite)
-            );
+            disabledDays.push({
+                after: this.props.opposite.toDate()
+            });
         }
         else if (this.props.type === 'endDate' && this.props.opposite) {
             // cutoff date represents the earliest possible date
-            cutoffFunc = (day) => (
-                moment(day).isBefore(this.props.opposite)
-            );
+            disabledDays.push({
+                before: this.props.opposite.toDate()
+            });
         }
 
         return (
@@ -256,7 +258,7 @@ export default class DatePicker extends React.Component {
                             this.datepicker = daypicker;
                         }}
                         initialMonth={pickedDay}
-                        disabledDays={cutoffFunc}
+                        disabledDays={disabledDays}
                         selectedDays={(day) => DateUtils.isSameDay(pickedDay, day)}
                         onDayClick={this.handleDatePick}
                         onFocus={this.handleDateFocus}

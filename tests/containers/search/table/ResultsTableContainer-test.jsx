@@ -490,7 +490,7 @@ describe('ResultsTableContainer', () => {
                 columnName: 'Award ID',
                 displayName: 'Award ID',
                 width: 220,
-                defaultDirection: 'asc'
+                defaultDirection: 'desc'
             });
         });
     });
