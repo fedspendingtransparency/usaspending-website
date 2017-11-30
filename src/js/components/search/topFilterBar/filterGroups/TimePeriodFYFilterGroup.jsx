@@ -53,7 +53,7 @@ export default class TimePeriodFYFilterGroup extends React.Component {
 
         // determine how many fiscal years there are available to select
         // add an extra year at the end to include the current year in the count
-        const allFY = (FiscalYearHelper.defaultFiscalYear() - FiscalYearHelper.earliestFiscalYear)
+        const allFY = (FiscalYearHelper.currentFiscalYear() - FiscalYearHelper.earliestFiscalYear)
             + 1;
 
         // check if all fiscal years were selected
