@@ -4,10 +4,23 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
+const propTypes = {
+    clickedTab: PropTypes.func,
+    code: PropTypes.string,
+    label: PropTypes.string,
+    icon: PropTypes.string,
+    active: PropTypes.bool
+};
 
 const VisualizationTabItem = (props) => {
+    const clickedTab = () => {
+        props.clickedTab(props.code);
+    };
+
     const Icon = Icons[props.icon];
     let active = '';
     if (props.active) {
@@ -19,7 +32,7 @@ const VisualizationTabItem = (props) => {
             <button
                 className={`visualization-type-tab ${active}`}
                 value={props.code}
-                onClick={props.clickedTab}>
+                onClick={clickedTab}>
                 <div className="icon">
                     <Icon alt={props.label} />
                 </div>
@@ -30,5 +43,7 @@ const VisualizationTabItem = (props) => {
         </li>
     );
 };
+
+VisualizationTabItem.propTypes = propTypes;
 
 export default VisualizationTabItem;

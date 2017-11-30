@@ -54,7 +54,7 @@ export default class ResultsTableSection extends React.Component {
     }
 
     setTableWidth() {
-        const tableWidth = this.tableWidthController.clientWidth - 2;
+        const tableWidth = this.tableWidthController.clientWidth - 1;
         this.setState({ tableWidth });
     }
 

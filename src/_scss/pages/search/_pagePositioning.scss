@@ -14,12 +14,9 @@
             padding-right: rem(30);
             width: 25%;
         }
-
-        background-color: red;
     }
 
     .search-results-wrapper {
         @include flex(1 1 auto);
-        // background-color: blue;
     }
 }

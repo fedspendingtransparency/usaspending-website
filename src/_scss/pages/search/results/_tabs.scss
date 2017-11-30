@@ -1,3 +1,18 @@
+.search-visualizations {
+    position: relative;
+
+    .visualization-tab-wrapper {
+        position: absolute;
+        top: 1px;
+        height: rem(68);
+    }
+
+    .visualization-content-wrapper {
+        position: absolute;
+        top: rem(68);
+        width: 100%;
+    }
+}
 .visualization-tabs {
     @include unstyled-list;
 
@@ -5,19 +20,7 @@
     @include justify-content(flex-start);
     @include align-items(center);
     position: relative;
-
     background-color: $color-gray-lightest;
-
-    &:after {
-        z-index: 1;
-        content: "";
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        border-bottom: 1px solid $color-gray-lighter;
-
-    }
 
     .visualization-type-tab {
         @include button-unstyled;
@@ -27,11 +30,12 @@
         position: relative;
         z-index: 2;
 
-        padding: rem(20);
+        height: rem(68);
 
-        opacity: 0.5;
-        background-color: $color-gray-lightest;
-        transition: opacity 0.15s;
+        padding: rem(20) rem(30);
+
+        
+        background-color: transparent;
 
         border: none;
         border-top-left-radius: 5px;
@@ -39,11 +43,18 @@
 
         margin-left: rem(5);
 
+        transition: opacity 0.15s;
+        opacity: 0.5;
+
         &.active {
             opacity: 1;
             background-color: $color-white;
             border: 1px solid $color-gray-lighter;
             border-bottom: 1px solid $color-white;
+
+            // special boxshadow to not cast shadow below (since the tab is supposed to be
+            // visually the same object as the rest of the visualization box)
+            box-shadow: -2px 0 2px -2px $color-shadow, 2px 0 2px -3px $color-shadow;
 
             &:before, &:after {
                 position: absolute;
@@ -58,7 +69,7 @@
                 border-bottom-right-radius: rem(5);
                 border-right: 1px solid $color-gray-lighter;
                 border-bottom: 1px solid $color-gray-lighter;
-                box-shadow: 2px 2px 0 $color-white;
+                box-shadow: 1px 1px 0 1px $color-white;
             }
 
             &:after {
@@ -66,25 +77,12 @@
                 border-bottom-left-radius: rem(5);
                 border-left: 1px solid $color-gray-lighter;
                 border-bottom: 1px solid $color-gray-lighter;
-                box-shadow: -2px 2px 0 $color-white;
-            }
-
-            &:first-child {
-                &:before {
-                    width: rem(0);
-                    height: rem(0);
-                    border: none;
-                    box-shadow: none;
-                }
+                box-shadow: -1px 1px 0 1px $color-white;
             }
         }
 
         &:active, &:hover {
             opacity: 1;
-        }
-
-        &:first-child {
-            margin-left: 0;
         }
 
         .icon {
@@ -108,6 +106,29 @@
             text-transform: uppercase;
             line-height: rem(18);
             letter-spacing: rem(2);
+        }
+    }
+
+    li {
+        &:first-child {
+            .visualization-type-tab {
+                margin-left: 0;
+                &.active {
+                    &:before {
+                        // create a special box to cover the artifacts that result from where the
+                        // content border and the tab border meet
+                        width: rem(5);
+                        height: rem(5);
+                        border-radius: 0;
+                        left: rem(-1);
+                        bottom: rem(-5);
+                        background-color: $color-white;
+                        border: none;
+                        box-shadow: none;
+                        border-left: 1px solid $color-gray-lighter;
+                    }
+                }
+            }
         }
     }
 }
