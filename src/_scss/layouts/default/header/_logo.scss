@@ -50,11 +50,11 @@
             top: rem(-2);
             @include border-radius(2px);
             @include media(359px) {
-                left: rem(223);
+                left: rem(219);
             }
             @include media($large-screen) {
                 font-size: rem(10);
-                left: rem(274);
+                left: rem(268);
                 top: rem(-2);
             }
         }
