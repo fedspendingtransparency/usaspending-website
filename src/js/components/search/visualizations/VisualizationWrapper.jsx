@@ -85,7 +85,10 @@ export default class VisualizationWrapper extends React.Component {
         return (
             <div className="search-visualizations">
                 <div className="visualization-tab-wrapper">
-                    <ul className="visualization-tabs">
+                    <ul
+                        className="visualization-tabs"
+                        role="navigation"
+                        aria-label="Visualization types">
                         {tabs}
                     </ul>
                 </div>

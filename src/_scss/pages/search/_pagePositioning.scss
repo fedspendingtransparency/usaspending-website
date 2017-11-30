@@ -4,6 +4,7 @@
     @include flex-direction(row);
     @include justify-content(flex-start);
     @include align-items(stretch);
+    position: relative;
 
 
     .full-search-sidebar {
@@ -18,5 +19,6 @@
 
     .search-results-wrapper {
         @include flex(1 1 auto);
+        overflow-x: auto;
     }
 }

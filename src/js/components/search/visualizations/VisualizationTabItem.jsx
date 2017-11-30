@@ -31,7 +31,8 @@ const VisualizationTabItem = (props) => {
         <li>
             <button
                 className={`visualization-type-tab ${active}`}
-                value={props.code}
+                aria-label={props.label}
+                title={props.label}
                 onClick={clickedTab}>
                 <div className="icon">
                     <Icon alt={props.label} />

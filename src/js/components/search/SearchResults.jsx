@@ -8,13 +8,7 @@ import PropTypes from 'prop-types';
 
 import { AddFilter, CloseCircle } from 'components/sharedComponents/icons/Icons';
 
-import ResultsTableContainer from 'containers/search/table/ResultsTableContainer';
 import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarContainer';
-
-import TimeVisualizationSectionContainer from
-    'containers/search/visualizations/time/TimeVisualizationSectionContainer';
-import GeoVisualizationSectionContainer from
-    'containers/search/visualizations/geo/GeoVisualizationSectionContainer';
 
 import VisualizationWrapper from './visualizations/VisualizationWrapper';
 import MobileFilters from './mobile/MobileFilters';
@@ -59,11 +53,6 @@ export default class SearchResults extends React.Component {
                 <strong>Note:</strong> All data shown is as of {this.props.lastUpdate}
             </div>);
         }
-
-
-        // <TimeVisualizationSectionContainer />
-        //             <GeoVisualizationSectionContainer />
-        //             <ResultsTableContainer />
 
         return (
             <div className="search-results-wrapper">

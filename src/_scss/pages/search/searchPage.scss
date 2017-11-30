@@ -4,25 +4,12 @@
 
     @import "./searchSidebar";
     @import "./_pagePositioning";
-    // @include span-columns(16);
-    .full-search-sidebar {
-        display: none;
-        @include media($medium-screen) {
-            // @include span-columns(4);
-        }
-    }
 
     @import "./mobile/mobileFilterButton";
     @import "./mobile/mobileSidebar";
     @import "./mobile/mobileResults";
 
     .search-results-wrapper {
-        // @include span-columns(16);
-        @include media($medium-screen) {
-            // @include span-columns(12);
-        }
-        // margin-top: rem(32);
-        // margin-bottom: rem(60);
         @import "./results/searchResults";
         @import "./topFilterBar/topFilterBar";
 

@@ -1,7 +1,6 @@
 .award-results-table {
     // implement the library style
     @import 'lib/ibTable/ibTable';
-    // margin-top: rem(15);
     display: block;
     // placeholder background for when the user scrolls really fast
     background: repeating-linear-gradient( $color-white, $color-white 40px, $color-gray-lightest 40px, $color-gray-lightest 80px);
