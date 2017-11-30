@@ -24,11 +24,38 @@ const propTypes = {
 };
 
 export default class SearchResults extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.scrollPos = 0;
+
+        this.handleScrollUpdate = this.handleScrollUpdate.bind(this);
+    }
+
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScrollUpdate);
+    }
+
+    componentWillUnmount() {
+        // this.stopMonitoringScroll(false);
+        window.removeEventListener('scroll', this.handleScrollUpdate);
+    }
+
     pluralizeFilterLabel(count) {
         if (count === 1) {
             return 'Filter';
         }
         return 'Filters';
+    }
+
+    handleScrollUpdate() {
+        if (this.props.isMobile) {
+            // scroll events only apply for desktop view
+            return;
+        }
+
+        const scrollY = window.scrollY;
+        this.scrollPos = scrollY;
     }
 
     render() {
@@ -47,16 +74,10 @@ export default class SearchResults extends React.Component {
             showCountBadge = 'hide';
         }
 
-        let lastUpdate = null;
-        if (this.props.lastUpdate !== '') {
-            lastUpdate = (<div className="last-update">
-                <strong>Note:</strong> All data shown is as of {this.props.lastUpdate}
-            </div>);
-        }
+        console.log('RENDER');
 
         return (
             <div className="search-results-wrapper">
-                <TopFilterBarContainer {...this.props} />
                 <div className="mobile-filter-button-wrapper">
                     <button
                         className="mobile-filter-button"
@@ -93,9 +114,11 @@ export default class SearchResults extends React.Component {
                         showMobileFilters={this.props.showMobileFilters}
                         toggleMobileFilters={this.props.toggleMobileFilters} />
                 </div>
-                {lastUpdate}
-                <div className={`search-results ${mobileFilters}`}>
-                    <VisualizationWrapper />
+                <div className="full-search-results-wrapper">
+                    <TopFilterBarContainer {...this.props} />
+                    <div className={`search-results ${mobileFilters}`}>
+                        <VisualizationWrapper />
+                    </div>
                 </div>
             </div>
         );

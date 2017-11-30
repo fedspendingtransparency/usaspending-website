@@ -19,6 +19,10 @@
 
     .search-results-wrapper {
         @include flex(1 1 auto);
-        overflow-x: auto;
+        overflow-x: hidden;
+
+        @include media($medium-screen) {
+            margin-top: rem(32);
+        }
     }
 }
