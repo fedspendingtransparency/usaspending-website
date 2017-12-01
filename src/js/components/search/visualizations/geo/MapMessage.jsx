@@ -11,8 +11,10 @@ const propTypes = {
 };
 
 const MapMessage = (props) => (
-    <div className="map-message">
-        {props.message}
+    <div className="map-message-container">
+        <div className="map-message">
+            {props.message}
+        </div>
     </div>
 );
 
