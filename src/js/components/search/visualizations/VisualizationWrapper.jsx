@@ -31,11 +31,6 @@ const tabOptions = [
         code: 'map',
         label: 'Map',
         icon: 'MapMarker'
-    },
-    {
-        code: 'rank',
-        label: 'Categories',
-        icon: 'Bar'
     }
 ];
 
@@ -48,68 +43,16 @@ export default class VisualizationWrapper extends React.Component {
         super(props);
 
         this.state = {
-            active: 'table',
-            visualization: {
-                top: 0,
-                height: 0,
-                width: 0
-            },
-            windowHeight: 0
+            active: 'table'
         };
 
         this.clickedTab = this.clickedTab.bind(this);
-        this.handleScrollUpdate = this.handleScrollUpdate.bind(this);
-    }
-
-    componentDidMount() {
-        this.measureScreen();
-        window.addEventListener('scroll', this.handleScrollUpdate);
-    }
-
-    componentWillUnmount() {
-        // this.stopMonitoringScroll(false);
-        window.removeEventListener('scroll', this.handleScrollUpdate);
     }
 
     clickedTab(tab) {
         this.setState({
             active: tab
         });
-    }
-
-    measureScreen() {
-        const elementPos = this.visualizationWrapper.getBoundingClientRect();
-        const top = elementPos.top;
-        const height = this.visualizationWrapper.offsetHeight;
-        const width = this.visualizationWrapper.offsetWidth;
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight
-            || document.body.clientHeight;
-
-
-        this.setState({
-            windowHeight,
-            visualization: {
-                top,
-                height,
-                width
-            }
-        });
-    }
-
-    handleScrollUpdate() {
-        const scrollY = window.scrollY;
-
-        // const isSticky = this.visualizationWrapper.classList.contains('sticky');
-
-        if (scrollY >= this.state.visualization.top && this.state.windowHeight >= this.state.visualization.height) {
-                console.log(scrollY);
-                this.visualizationWrapper.style.transform = `translate(0px, ${((scrollY - this.state.visualization.height) + this.state.visualization.top) + 66 + 32}px)`;
-        }
-        // else if (isSticky) {
-        //     this.visualizationWrapper.classList.toggle('sticky');
-        //     delete this.visualizationWrapper.style.top;
-        //     delete this.visualizationWrapper.style.width;
-        // }
     }
 
     render() {
