@@ -17,6 +17,16 @@
         &.last-column {
             border-right: none;
         }
+
+        .cell-content {
+            .header-sort .header-icons {
+                .sort-icon{
+                    &:first-child {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
     // gray out even rows
     .row-even {

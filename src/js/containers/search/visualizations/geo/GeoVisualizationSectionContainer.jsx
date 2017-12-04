@@ -45,7 +45,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
             visibleEntities: [],
             renderHash: `geo-${uniqueId()}`,
             loading: true,
-            loadingTiles: true
+            loadingTiles: true,
+            message: ''
         };
 
         this.apiRequest = null;
@@ -146,7 +147,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
         }
 
         this.setState({
-            loading: true
+            loading: true,
+            message: 'Loading data...'
         });
 
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
@@ -159,6 +161,11 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 if (!isCancel(err)) {
                     console.log(err);
                     this.apiRequest = null;
+
+                    this.setState({
+                        loading: false,
+                        message: 'An error occurred while loading map data.'
+                    });
                 }
             });
     }
@@ -180,7 +187,13 @@ export class GeoVisualizationSectionContainer extends React.Component {
             }
         });
 
+        let message = '';
+        if (data.results.length === 0) {
+            message = 'No results in the current map area.';
+        }
+
         this.setState({
+            message,
             data: {
                 values: spendingValues,
                 locations: spendingShapes,
