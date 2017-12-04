@@ -77,7 +77,9 @@ export default class RecipientType extends React.Component {
                     filterType="Recipient"
                     selectedCheckboxes={this.props.selectedTypes}
                     enableAnalytics />
-            ));
+                )
+            )
+        );
 
         return (
             <div className="filter-item-wrap">
