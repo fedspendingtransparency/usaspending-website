@@ -78,18 +78,19 @@ export default class FilterOption extends React.Component {
     toggleFilter(e) {
         e.preventDefault();
 
-        const newShowState = !this.state.showFilter;
-        let newArrowState = 'collapsed';
-        if (newShowState) {
-            newArrowState = 'expanded';
-            const filterName = this.props.name;
-            FilterOption.logFilterEvent(filterName);
+        // Don't open if the user has tapped on the information icon
+        if (e.target.tagName !== 'svg' && e.target.tagName !== 'path') {
+            const newShowState = !this.state.showFilter;
+            let newArrowState = 'collapsed';
+            if (newShowState) {
+                newArrowState = 'expanded';
+                const filterName = this.props.name;
+                FilterOption.logFilterEvent(filterName);
+            }
+            this.setState({
+                isDirty: true, showFilter: newShowState, arrowState: newArrowState
+            });
         }
-        this.setState({
-            isDirty: true,
-            showFilter: newShowState,
-            arrowState: newArrowState
-        });
     }
 
     render() {

@@ -1,13 +1,20 @@
 .keyword-hover-wrapper {
+    $hover-width: 300;
+
     position: absolute;
-    right: rem(25);
-    top: 0;
+    right: rem(10);
+    top: rem(45);
+
+    @include media($medium-screen) {
+        right: rem($hover-width * -1 + 10);
+        top: rem(10);
+    }
 
     @include display(flex);
     @include justify-content(center);
     @include align-items(flex-start);
 
-    width: rem(300);
+    width: rem($hover-width);
     padding: rem(20) rem(15);
 
     background-color: $color-primary-alt-lightest;

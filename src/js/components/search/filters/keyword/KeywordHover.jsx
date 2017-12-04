@@ -14,7 +14,8 @@ export default class KeywordHover extends React.Component {
                     <InfoCircle alt="Information" />
                 </div>
                 <div className="content">
-                    The <strong>Keyword</strong> field currently matches against the following attributes:
+                    The <strong>Keyword</strong> field currently matches against
+                    the following attributes:
                     <ul>
                         <li>Recipient Name</li>
                         <li>Recipient DUNS</li>
@@ -27,7 +28,8 @@ export default class KeywordHover extends React.Component {
                     <div className="note-header">
                         Note:
                     </div>
-                    <strong>Award Descriptions</strong> are not currently included in Keyword matching.
+                    <strong>Award Descriptions</strong> are not currently included
+                    in Keyword matching.
                 </div>
             </div>
         );

@@ -26,6 +26,7 @@ export default class FilterExpandButton extends React.Component {
 
         this.focusedElement = this.focusedElement.bind(this);
         this.blurredElement = this.blurredElement.bind(this);
+        this.toggleAccessory = this.toggleAccessory.bind(this);
         this.enteredAccessory = this.enteredAccessory.bind(this);
         this.exitedAccessory = this.exitedAccessory.bind(this);
     }
@@ -36,6 +37,12 @@ export default class FilterExpandButton extends React.Component {
                 showAccessory: true
             });
         }
+    }
+
+    toggleAccessory() {
+        this.setState({
+            showAccessory: !this.state.showAccessory
+        });
     }
 
     blurredElement() {
@@ -76,14 +83,19 @@ export default class FilterExpandButton extends React.Component {
         let accessoryIcon = null;
         let accessoryView = null;
         if (this.props.accessory) {
+            // We need to add this onClick for mobile tapping
+            /* eslint-disable jsx-a11y/no-static-element-interactions */
+
             accessoryIcon = (
                 <div
                     className="accessory-view"
                     onMouseEnter={this.enteredAccessory}
-                    onMouseLeave={this.exitedAccessory}>
+                    onMouseLeave={this.exitedAccessory}
+                    onClick={this.toggleAccessory}>
                     <InfoCircle alt="More information" />
                 </div>
             );
+            /* eslint-enable jsx-a11y/no-static-element-interactions */
 
             if (this.state.showAccessory) {
                 accessoryView = <this.props.accessory />;
@@ -95,7 +107,7 @@ export default class FilterExpandButton extends React.Component {
                 className={`filter-toggle ${hiddenClass}`}
                 onClick={this.props.toggleFilter}
                 disabled={this.props.disabled}
-                onFocus={this.focusedElement}
+                onKeyUp={this.focusedElement}
                 onBlur={this.blurredElement}>
                 {icon}
                 <h6 className="filter-header">{this.props.name}</h6>
