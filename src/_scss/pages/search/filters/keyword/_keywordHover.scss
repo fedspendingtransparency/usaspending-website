@@ -1,0 +1,48 @@
+.keyword-hover-wrapper {
+    position: absolute;
+    right: rem(25);
+    top: 0;
+
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(flex-start);
+
+    width: rem(300);
+    padding: rem(20) rem(15);
+
+    background-color: $color-primary-alt-lightest;
+    border: 1px solid $color-primary-alt;
+    box-shadow: $box-shadow;
+
+    color: $color-base;
+
+    z-index: $z-header - 1;
+    pointer-events: none;
+
+    .icon {
+        @include flex(0 0 auto);
+        width: rem(30);
+        height: rem(30);
+
+        margin-right: rem(20);
+
+        svg {
+            fill: $color-primary-alt;
+            width: rem(30);
+            height: rem(30);
+        }
+    }
+
+    .content {
+        @include flex(1 1 auto);
+
+        li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .note-header {
+            text-transform: uppercase;
+        }
+    }
+}

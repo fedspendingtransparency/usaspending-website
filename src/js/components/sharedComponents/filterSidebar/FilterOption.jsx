@@ -14,7 +14,8 @@ const propTypes = {
     name: PropTypes.string,
     component: PropTypes.func,
     disabled: PropTypes.bool,
-    defaultExpand: PropTypes.bool
+    defaultExpand: PropTypes.bool,
+    accessory: PropTypes.func
 };
 
 const defaultProps = {
@@ -115,6 +116,7 @@ export default class FilterOption extends React.Component {
         return (
             <div className={`search-option${statusClass}`}>
                 <FilterExpandButton
+                    accessory={this.props.accessory}
                     hidden={this.state.showFilter}
                     toggleFilter={this.toggleFilter}
                     arrowState={this.state.arrowState}
