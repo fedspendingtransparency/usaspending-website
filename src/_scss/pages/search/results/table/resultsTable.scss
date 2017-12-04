@@ -28,7 +28,9 @@
         @include flex-direction(row);
         @include align-items(center);
         @include justify-content(center);
-        h3 {
+        h2 {
+            @include h3;
+            margin: 0;
             @include flex(1 1 auto);
         }
         button.action-modal {

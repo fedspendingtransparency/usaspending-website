@@ -16,6 +16,7 @@
         // merge the tabs' bottom curves to the top of the visualization area
         top: rem(-5);
     }
+
 }
 .visualization-tabs {
     @include unstyled-list;

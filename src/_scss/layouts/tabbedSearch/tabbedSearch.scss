@@ -1,7 +1,7 @@
 @import "layouts/default/default";
 
 #main-content {
-    @import "layouts/search/header/header";
+    @import "./header/header";
 
     .search-contents {
         @include outer-container(100%);

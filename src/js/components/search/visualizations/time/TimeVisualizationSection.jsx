@@ -53,7 +53,9 @@ export default class TimeVisualizationSection extends React.Component {
             <div
                 className="results-visualization-time-section"
                 id="results-section-time">
-                <h3>Spending Over Time</h3>
+                <h2 className="visualization-title">
+                    Spending Over Time
+                </h2>
                 <hr
                     className="results-divider"
                     ref={(hr) => {
