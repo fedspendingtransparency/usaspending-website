@@ -67,7 +67,7 @@ const propTypes = {
 
 export default class RecipientType extends React.Component {
     render() {
-        const checkboxTypes = (
+        const checkboxTypes =
             this.props.recipientTypeMapping.map((type, index) =>
                 (<PrimaryCheckboxType
                     {...type}
@@ -78,8 +78,7 @@ export default class RecipientType extends React.Component {
                     selectedCheckboxes={this.props.selectedTypes}
                     enableAnalytics />
                 )
-            )
-        );
+            );
 
         return (
             <div className="filter-item-wrap">
