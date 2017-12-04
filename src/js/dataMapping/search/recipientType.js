@@ -82,7 +82,7 @@ export const recipientTypeGroups = {
         'tribally_owned_business',
         'other_minority_owned_business'
     ],
-    women_owned_business: [
+    woman_owned_business: [
         'women_owned_small_business',
         'economically_disadvantaged_women_owned_small_business',
         'joint_venture_women_owned_small_business',
@@ -135,7 +135,7 @@ export const recipientTypeGroups = {
 export const groupKeys = [
     'business',
     'minority_owned_business',
-    'women_owned_business',
+    'woman_owned_business',
     'veteran_owned_business',
     'special_designations',
     'nonprofit',
@@ -146,7 +146,7 @@ export const groupKeys = [
 export const groupLabels = {
     business: 'Business',
     minority_owned_business: 'Minority Owned Business',
-    women_owned_business: 'Women Owned Business',
+    woman_owned_business: 'Women Owned Business',
     veteran_owned_business: 'Veteran Owned Business',
     special_designations: 'Special Designations',
     nonprofit: 'Nonprofit',

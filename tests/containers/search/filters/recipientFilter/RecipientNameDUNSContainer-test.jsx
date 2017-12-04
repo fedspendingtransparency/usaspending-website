@@ -6,7 +6,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
-import { OrderedMap } from 'immutable';
+import { Set } from 'immutable';
 
 import { RecipientNameDUNSContainer } from
     'containers/search/filters/recipient/RecipientNameDUNSContainer';
@@ -17,19 +17,18 @@ jest.mock('helpers/searchHelper', () => require('../searchHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 describe('RecipientNameDUNSContainer', () => {
-    describe('Handling text input', () => {
-        it('should not search when two or fewer characters have been input', () => {
+    describe('Adding a Recipient to Redux', () => {
+        it('should not add a filter to Redux when two or fewer characters have been input', () => {
             const mockReduxAction = jest.fn();
 
-            // Set up the Container and call the function to type a single letter
+            // Set up the Container and call the function to type fewer than three characters
             const recipientNameDUNSContainer = setup({
-                toggleRecipient: mockReduxAction, selectedRecipients: new OrderedMap()
+                toggleRecipient: mockReduxAction, selectedRecipients: new Set()
             });
 
-            const queryRecipientsSpy = sinon.spy(recipientNameDUNSContainer.instance(),
-                'queryRecipients');
-            const handleTextInputSpy = sinon.spy(recipientNameDUNSContainer.instance(),
-                'handleTextInput');
+            // set up spy
+            const searchRecipientSpy = sinon.spy(recipientNameDUNSContainer.instance(),
+                'searchRecipient');
 
             recipientNameDUNSContainer.instance().handleTextInput({
                 target: {
@@ -40,34 +39,29 @@ describe('RecipientNameDUNSContainer', () => {
             // Run fake timer for input delay
             jest.runAllTicks();
 
-            recipientNameDUNSContainer.instance().queryRecipients();
+            recipientNameDUNSContainer.instance().searchRecipient();
 
             // everything should be updated now
-            expect(handleTextInputSpy.callCount).toEqual(1);
-            expect(queryRecipientsSpy.callCount).toEqual(1);
+            expect(searchRecipientSpy.callCount).toEqual(1);
             expect(mockReduxAction).toHaveBeenCalledTimes(0);
-            expect(recipientNameDUNSContainer.instance().recipientSearchRequest).toBeFalsy();
 
-            // reset the mocks and spies
-            handleTextInputSpy.reset();
-            queryRecipientsSpy.reset();
+            // reset the spy
+            searchRecipientSpy.reset();
         });
 
-        it('should search when three or more characters have been input ' +
-            'into the Recipient Name/DUNS field', async () => {
-            // setup mock redux actions for handling search results
+        it('should add a filter to Redux when three or more characters have been input ' +
+            'into the Recipient Name/DUNS field', () => {
+            // setup mock redux action
             const mockReduxAction = jest.fn();
 
-            // Set up the Container and call the function to type a single letter
+            // Set up the Container and call the function to type more than 2 characters
             const recipientNameDUNSContainer = setup({
-                toggleRecipient: mockReduxAction, selectedRecipients: new OrderedMap()
+                toggleRecipient: mockReduxAction, selectedRecipients: new Set()
             });
 
-            // set up spies
-            const handleTextInputSpy = sinon.spy(recipientNameDUNSContainer.instance(),
-                'handleTextInput');
-            const queryRecipientsSpy = sinon.spy(recipientNameDUNSContainer.instance(),
-                'queryRecipients');
+            // set up spy
+            const searchRecipientSpy = sinon.spy(recipientNameDUNSContainer.instance(),
+                'searchRecipient');
 
             const searchQuery = {
                 target: {
@@ -80,54 +74,15 @@ describe('RecipientNameDUNSContainer', () => {
             // Run fake timer for input delay
             jest.runAllTicks();
 
-            recipientNameDUNSContainer.instance().queryRecipients();
-            await recipientNameDUNSContainer.instance().recipientSearchRequest.promise;
+            recipientNameDUNSContainer.instance().searchRecipient();
 
             // everything should be updated now
-            expect(handleTextInputSpy.callCount).toEqual(1);
-            expect(queryRecipientsSpy.callCount).toEqual(1);
+            expect(searchRecipientSpy.callCount).toEqual(1);
             expect(mockReduxAction).toHaveBeenCalledTimes(1);
 
-            // Reset spies
-            handleTextInputSpy.reset();
-            queryRecipientsSpy.reset();
+            // Reset spy
+            searchRecipientSpy.reset();
         });
-    });
-
-    describe('Adding a Recipient to Redux', () => {
-        it('should automatically add a Recipient to Redux after parsing a valid response', async () => {
-            // setup mock redux actions for handling search results
-            const mockReduxAction = jest.fn();
-
-            // Set up the Container and call the function to type a single letter
-            const recipientNameDUNSContainer = setup({
-                toggleRecipient: mockReduxAction,
-                selectedRecipients: new OrderedMap()
-            });
-
-            // Set up spies
-            const queryRecipientsSpy = sinon.spy(recipientNameDUNSContainer.instance(),
-                'queryRecipients');
-
-            recipientNameDUNSContainer.instance().handleTextInput({
-                target: {
-                    value: 'Booz Allen'
-                }
-            });
-
-            // Run fake timer for input delay
-            jest.runAllTicks();
-
-            recipientNameDUNSContainer.instance().queryRecipients();
-            await recipientNameDUNSContainer.instance().recipientSearchRequest.promise;
-
-            expect(queryRecipientsSpy.callCount).toEqual(1);
-            expect(mockReduxAction).toHaveBeenCalledTimes(1);
-
-            // Reset spies
-            queryRecipientsSpy.reset();
-        });
-
         it('should not search for a Recipient that already exists in Redux', () => {
             // setup mock redux actions for handling search results
             const mockReduxAction = jest.fn();
@@ -135,20 +90,12 @@ describe('RecipientNameDUNSContainer', () => {
             // Set up the Container and call the function to type a single letter
             const recipientNameDUNSContainer = setup({
                 toggleRecipient: mockReduxAction,
-                selectedRecipients: new OrderedMap({
-                    "Booz Allen": {
-                        search_text: "Booz Allen",
-                        recipient_id_list: [
-                            2232,
-                            2260
-                        ]
-                    }
-                })
+                selectedRecipients: new Set(["Booz Allen"])
             });
 
-            // Set up spy
-            const queryRecipientsSpy = sinon.spy(recipientNameDUNSContainer.instance(),
-                'queryRecipients');
+            // set up spy
+            const searchRecipientSpy = sinon.spy(recipientNameDUNSContainer.instance(),
+                'searchRecipient');
 
             recipientNameDUNSContainer.instance().handleTextInput({
                 target: {
@@ -159,14 +106,13 @@ describe('RecipientNameDUNSContainer', () => {
             // Run fake timer for input delay
             jest.runAllTicks();
 
-            recipientNameDUNSContainer.instance().queryRecipients();
+            recipientNameDUNSContainer.instance().searchRecipient();
 
-            expect(queryRecipientsSpy.callCount).toEqual(1);
+            expect(searchRecipientSpy.callCount).toEqual(1);
             expect(mockReduxAction).toHaveBeenCalledTimes(0);
-            expect(recipientNameDUNSContainer.instance().recipientSearchRequest).toBeFalsy();
 
             // Reset spy
-            queryRecipientsSpy.reset();
+            searchRecipientSpy.reset();
         });
     });
 });

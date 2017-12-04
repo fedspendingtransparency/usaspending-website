@@ -22,7 +22,7 @@ export default class DataSources extends React.Component {
                         As you see in Exhibit 1 below, many sources of information support
                         USAspending.gov, linking data from a variety of government systems
                         to improve transparency on federal spending for the public.  Data is
-                        uploaded directly from hundreds of federal agencies&apos; financial systems.
+                        uploaded directly from more than a hundred federal agencies&apos; financial systems.
                         Data is also pulled or derived from other government systems.
                         For example, contract award data is pulled into USAspending.gov daily
                         from the Federal Procurement Data System Next Generation (FPDS-NG);

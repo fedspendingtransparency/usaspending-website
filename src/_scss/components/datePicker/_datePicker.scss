@@ -101,6 +101,10 @@
                 font-size: 1.3rem;
             }
         }
+        .DayPicker-Day--disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
     }
 }
 

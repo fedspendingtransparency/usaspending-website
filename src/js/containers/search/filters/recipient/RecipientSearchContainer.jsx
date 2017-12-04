@@ -62,7 +62,7 @@ export class RecipientSearchContainer extends React.Component {
         this.props.updateSelectedRecipients(recipient);
 
         // Analytics
-        RecipientSearchContainer.logRecipientFilterEvent(recipient.search_text);
+        RecipientSearchContainer.logRecipientFilterEvent(recipient);
     }
 
     toggleDomesticForeign(selection) {

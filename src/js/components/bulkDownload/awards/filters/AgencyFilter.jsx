@@ -170,7 +170,7 @@ export default class AgencyFilter extends React.Component {
         return (
             <div className="filter-section">
                 <h5 className="filter-section-title">
-                    {icon} Select an <span>agency</span> and <span>sub-agency</span>.
+                    {icon} Select an awarding <span>agency</span> and <span>sub-agency</span>.
                 </h5>
                 <div className="filter-section-content">
                     <div className="agency-picker">

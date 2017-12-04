@@ -1,4 +1,4 @@
-import { initialState } from 'redux/reducers/search/searchFiltersReducer';
+import { initialState, filterStoreVersion } from 'redux/reducers/search/searchFiltersReducer';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 export const mockHash = {
@@ -7,11 +7,11 @@ export const mockHash = {
 
 export const mockFilters = {
     filter: {
-        version: '2017-10-31',
+        version: filterStoreVersion,
         filters: {
             locationDomesticForeign: "all",
             selectedAwardIDs: {},
-            selectedRecipients: {},
+            selectedRecipients: [],
             selectedFundingAgencies: {},
             selectedLocations: {},
             recipientType: [],

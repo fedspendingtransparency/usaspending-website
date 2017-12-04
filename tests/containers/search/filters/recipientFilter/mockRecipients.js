@@ -1,3 +1,5 @@
+import { Set } from 'immutable';
+
 export const mockRecipientLocation = [{
     place_type: "CITY",
     matched_ids: [22516, 23056],
@@ -13,4 +15,10 @@ export const mockRecipientDUNS = {
             2260
         ]
     }
+};
+
+export const mockTypeRedux = {
+    toggleRecipientType: jest.fn(),
+    bulkRecipientTypeChange: jest.fn(),
+    recipientType: new Set()
 };

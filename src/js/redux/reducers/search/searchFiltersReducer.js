@@ -18,14 +18,14 @@ import * as ContractFilterFunctions from './filters/contractFilterFunctions';
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
-export const filterStoreVersion = '2017-10-31';
+export const filterStoreVersion = '2017-11-21';
 
 export const requiredTypes = {
     timePeriodFY: Set,
     selectedLocations: OrderedMap,
     selectedFundingAgencies: OrderedMap,
     selectedAwardingAgencies: OrderedMap,
-    selectedRecipients: OrderedMap,
+    selectedRecipients: Set,
     recipientType: Set,
     selectedRecipientLocations: OrderedMap,
     awardType: Set,
@@ -49,7 +49,7 @@ export const initialState = {
     locationDomesticForeign: 'all',
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),
-    selectedRecipients: new OrderedMap(),
+    selectedRecipients: new Set(),
     recipientDomesticForeign: 'all',
     recipientType: new Set(),
     selectedRecipientLocations: new OrderedMap(),

@@ -42,19 +42,19 @@
             color: $color-white;
             font-size: rem(8);
             font-weight: $font-semibold;
-            left: rem(195);
+            left: rem(189);
             letter-spacing: 0.14rem;
             padding: rem(2) rem(4);
             position: absolute;
             text-align: center;
             top: rem(-2);
             @include border-radius(2px);
-            @include media(360px) {
-                left: rem(228);
+            @include media(359px) {
+                left: rem(219);
             }
             @include media($large-screen) {
                 font-size: rem(10);
-                left: rem(280);
+                left: rem(268);
                 top: rem(-2);
             }
         }
