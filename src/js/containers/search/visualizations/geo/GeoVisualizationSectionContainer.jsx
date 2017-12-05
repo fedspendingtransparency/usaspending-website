@@ -71,7 +71,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
-            this.prepareFetch();
+            this.prepareFetch(true);
         }
     }
 
@@ -241,7 +241,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             renderHash: `geo-${uniqueId()}`,
             loadingTiles: true
         }, () => {
-            this.prepareFetch();
+            this.prepareFetch(true);
         });
     }
 
