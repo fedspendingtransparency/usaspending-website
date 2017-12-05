@@ -1,0 +1,79 @@
+.download-hover-spacer {
+    // BODGE: add a wrapper that goes from the button to the edges of the hover in order to make it clickable
+    position: absolute;
+    top: rem(-18);
+    left: rem(-290);
+    width: rem(290);
+    height: rem(90);
+    z-index: $z-modal - 2;
+}
+.download-hover {
+    margin-right: rem(20);
+    z-index: $z-modal - 1;
+
+    width: rem(270);
+    height: rem(90);
+
+    .download-hover-interior {
+        position: relative;
+    }
+
+    .hover-content {
+        @include display(flex);
+        @include flex-direction(row);
+        @include justify-content(center);
+        @include align-items(center);
+        position: relative;
+
+        background-color: $color-gold-lightest;
+        border: 1px solid $color-gold-light;
+        box-shadow: $box-shadow;
+
+        padding: rem(10);
+
+        .icon {
+            @include flex(0 0 auto);
+            @include align-self(flex-start);
+            width: rem(25);
+            height: rem(25);
+            margin-right: rem(10);
+            svg {
+                fill: $color-gold;
+                width: rem(25);
+                height: rem(25);
+            }
+        }
+
+        .message {
+            @include flex(1 1 auto);
+            text-align: left;
+            color: $color-base;
+            font-size: $smallest-font-size;
+
+            a {
+                text-decoration: underline;
+                color: $color-primary;
+                font-weight: $font-semibold;
+
+                &:hover, &:active {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    // inherit from the standard tooltip arrow style
+    $color-tooltip-border: $color-gold-light;
+    @import "components/visualizations/tooltip/_arrow";
+    .tooltip-pointer {
+        // override the coloring
+        &:after {
+            background: $color-gold-lightest;
+        }
+
+        &.right {
+            top: rem(32);
+            right: rem(9);
+        }
+    }
+}

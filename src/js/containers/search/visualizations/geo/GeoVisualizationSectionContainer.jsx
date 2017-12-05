@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, isEqual } from 'lodash';
+import { uniqueId, isEqual, keyBy } from 'lodash';
 
 import GeoVisualizationSection from
     'components/search/visualizations/geo/GeoVisualizationSection';
@@ -117,7 +117,35 @@ export class GeoVisualizationSectionContainer extends React.Component {
         MapBroadcaster.emit('measureMap');
     }
 
+    compareEntities(entities) {
+        // check if the inbound list of entities is different from the existing visible entities
+        const current = keyBy(this.state.visibleEntities);
+        const inbound = keyBy(entities);
+
+        for (const entity of entities) {
+            if (!current[entity]) {
+                // new entity entered view
+                return true;
+            }
+        }
+
+        for (const entity of this.state.visibleEntities) {
+            if (!inbound[entity]) {
+                // old entity exited view
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     receivedEntities(entities) {
+        const changed = this.compareEntities(entities);
+        if (!changed) {
+            // nothing changed
+            return;
+        }
+
         this.setState({
             visibleEntities: entities
         }, () => {
