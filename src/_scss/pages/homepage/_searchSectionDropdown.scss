@@ -1,3 +1,4 @@
+
 .dropdown {
     @include unstyled-list;
     z-index: $z-modal;
@@ -6,8 +7,10 @@
     
     @include media($medium-screen) {
         position: absolute;
-        top: rem(50);
+        top: 0;
         left: 0;
+
+        padding-top: rem(50);
     }
 
     @include display(flex);

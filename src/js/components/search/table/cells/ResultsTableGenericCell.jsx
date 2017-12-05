@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 const propTypes = {
     data: PropTypes.string,
     rowIndex: PropTypes.number,
+    columnIndex: PropTypes.number,
+    columnCount: PropTypes.number,
     column: PropTypes.string,
     isLastColumn: PropTypes.bool
 };

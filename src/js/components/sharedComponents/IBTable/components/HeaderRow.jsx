@@ -38,8 +38,12 @@ export default class HeaderRow extends React.Component {
             width: this.props.width
         };
 
-        const headers = this.props.columns.map((column) => (
-            <HeaderCell height={this.props.headerHeight} {...column} key={column.columnId} />
+        const headers = this.props.columns.map((column, index) => (
+            <HeaderCell
+                {...column}
+                height={this.props.headerHeight}
+                index={index}
+                key={column.columnId} />
         ));
 
         return (

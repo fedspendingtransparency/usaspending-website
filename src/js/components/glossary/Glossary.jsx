@@ -29,7 +29,7 @@ export default class Glossary extends React.Component {
         };
 
         this.measureAvailableHeight = this.measureAvailableHeight.bind(this);
-        this.pressedEsc = this.pressedEsc.bind(this);
+        this.closeGlossary = this.closeGlossary.bind(this);
         this.trapFocus = this.trapFocus.bind(this);
 
         this.renderTrack = this.renderTrack.bind(this);
@@ -40,7 +40,7 @@ export default class Glossary extends React.Component {
         this.measureAvailableHeight();
         window.addEventListener('resize', this.measureAvailableHeight);
         document.addEventListener('focus', this.trapFocus, true);
-        Mousetrap.bind('esc', this.pressedEsc);
+        Mousetrap.bind('esc', this.closeGlossary);
     }
 
     componentDidUpdate(prevProps) {
@@ -54,12 +54,23 @@ export default class Glossary extends React.Component {
     }
 
     componentWillUnmount() {
-        // move focus back to the main content
-        const mainContent = document.querySelector('#main-content');
-        mainContent.focus();
         window.removeEventListener('resize', this.measureAvailableHeight);
         document.removeEventListener('focus', this.trapFocus, true);
         Mousetrap.unbind('esc');
+    }
+
+    closeGlossary() {
+        // close the glossary when the escape key is pressed for accessibility and general
+        // non-annoyance
+        this.props.hideGlossary();
+        document.removeEventListener('focus', this.trapFocus, true);
+
+        // move focus back to the main content
+        const mainContent = document.querySelector('#main-content');
+        if (mainContent) {
+            mainContent.focus();
+            console.log(mainContent);
+        }
     }
 
     measureAvailableHeight() {
@@ -71,12 +82,6 @@ export default class Glossary extends React.Component {
         this.setState({
             contentHeight
         });
-    }
-
-    pressedEsc() {
-        // close the glossary when the escape key is pressed for accessibility and general
-        // non-annoyance
-        this.props.hideGlossary();
     }
 
     trapFocus(e) {
@@ -150,7 +155,9 @@ export default class Glossary extends React.Component {
                         ref={(div) => {
                             this.sidebarHeader = div;
                         }}>
-                        <GlossaryHeader {...this.props} />
+                        <GlossaryHeader
+                            {...this.props}
+                            closeGlossary={this.closeGlossary} />
                     </div>
                     {loading}
                     <Scrollbars

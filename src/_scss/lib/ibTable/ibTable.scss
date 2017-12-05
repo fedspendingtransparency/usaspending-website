@@ -35,6 +35,11 @@
                 .ibt-table-cell {
                     display: table-cell;
                     position: absolute;
+
+                    &:focus {
+                        outline: 2px solid $color-primary-alt;
+                        z-index: 2;
+                    }
                 }
             }
 

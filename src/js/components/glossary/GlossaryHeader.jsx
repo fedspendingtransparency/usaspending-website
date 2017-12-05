@@ -10,7 +10,7 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import GlossarySearchBar from './GlossarySearchBar';
 
 const propTypes = {
-    hideGlossary: PropTypes.func
+    closeGlossary: PropTypes.func
 };
 
 export default class GlossaryHeader extends React.Component {
@@ -30,7 +30,7 @@ export default class GlossaryHeader extends React.Component {
                         id="glossary-close-button"
                         aria-label="Close Glossary"
                         title="Close Glossary"
-                        onClick={this.props.hideGlossary}
+                        onClick={this.props.closeGlossary}
                         ref={(button) => {
                             this.closeButton = button;
                         }}>

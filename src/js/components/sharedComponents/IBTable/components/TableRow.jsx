@@ -12,7 +12,8 @@ const propTypes = {
     visibleCoords: PropTypes.string.isRequired,
     dataHash: PropTypes.string,
     rowHeight: PropTypes.number.isRequired,
-    rowIndex: PropTypes.number.isRequired
+    rowIndex: PropTypes.number.isRequired,
+    columnCount: PropTypes.number
 };
 
 export default class TableRow extends React.Component {
@@ -38,6 +39,7 @@ export default class TableRow extends React.Component {
                 width={column.width}
                 left={column.left}
                 rowIndex={this.props.rowIndex}
+                columnCount={this.props.columnCount}
                 key={`${column.columnId}-${this.props.rowIndex}-${this.props.dataHash}`} />
         ));
 

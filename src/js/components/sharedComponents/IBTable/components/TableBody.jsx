@@ -244,6 +244,7 @@ export default class TableBody extends React.Component {
             const row = (<TableRow
                 {...this.props}
                 rowIndex={i}
+                columnCount={this.props.columns.length}
                 visibleCoords={`${firstCol}-${lastCol}`}
                 visibleColumns={columns}
                 key={`row-${i}`} />);

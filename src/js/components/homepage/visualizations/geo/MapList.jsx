@@ -145,9 +145,11 @@ export default class MapList extends React.Component {
                     return (<ResultsTableGenericCell
                         key={`cell-${column}-${rowIndex}`}
                         rowIndex={rowIndex}
+                        columnIndex={index}
+                        columnCount={tableColumns.order.length}
                         data={formattedValue}
                         dataHash={renderHash}
-                        column={column.columnName}
+                        column={column}
                         isLastColumn={isLast} />);
                 }
             };
@@ -194,6 +196,7 @@ export default class MapList extends React.Component {
                     className={`map-table ${inFlightClass}`}
                     role="grid"
                     aria-colcount={this.state.columns.length}
+                    aria-rowcount={this.props.data.length}
                     aria-label="Spending by U.S. state and territory"
                     style={{
                         marginLeft: this.state.tableLeft,

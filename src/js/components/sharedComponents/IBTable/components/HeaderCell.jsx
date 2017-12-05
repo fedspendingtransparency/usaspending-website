@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 const propTypes = {
     height: PropTypes.number,
     width: PropTypes.number,
-    header: PropTypes.node
+    header: PropTypes.node,
+    index: PropTypes.number
 };
 
 export default class HeaderCell extends React.Component {
@@ -23,8 +24,10 @@ export default class HeaderCell extends React.Component {
 
         return (
             <div
+                id={`ibt-header-${this.props.index}`}
                 className="ibt-header-cell"
-                style={style}>
+                style={style}
+                role="presentation">
                 {this.props.header}
             </div>
         );

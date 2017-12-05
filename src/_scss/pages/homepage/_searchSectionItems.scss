@@ -71,7 +71,8 @@
 
             margin-top: rem(30);
 
-            h3 {
+            h5 {
+                @include h3;
                 font-weight: $font-semibold;
                 font-size: rem(28);
                 line-height: rem(36);
