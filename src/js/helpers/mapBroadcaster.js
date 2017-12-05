@@ -34,7 +34,7 @@ class MapBroadcaster {
         this._events[eventName].splice(index, 1);
     }
 
-    emit(eventName, ...args) {
+    emit(eventName, args) {
         if (!this._events[eventName]) {
             // no such event
             return;
@@ -42,9 +42,10 @@ class MapBroadcaster {
 
         const listeners = this._events[eventName];
         listeners.forEach((listener) => {
-            listener(...args);
+            listener.apply(null, [args]);
         });
     }
+
 }
 
 const singleton = new MapBroadcaster();

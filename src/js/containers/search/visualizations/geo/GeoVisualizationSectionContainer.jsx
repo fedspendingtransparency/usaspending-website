@@ -91,7 +91,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.setState({
             scope
         }, () => {
-            this.prepareFetch(true);
+            this.prepareFetch();
         });
     }
 
@@ -108,13 +108,13 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
-    prepareFetch(forced = false) {
+    prepareFetch() {
         if (this.state.loadingTiles) {
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
             return;
         }
 
-        MapBroadcaster.emit('measureMap', forced);
+        MapBroadcaster.emit('measureMap');
     }
 
     compareEntities(entities) {
@@ -139,14 +139,11 @@ export class GeoVisualizationSectionContainer extends React.Component {
         return false;
     }
 
-    receivedEntities(entities, forced) {
-        if (!forced) {
-            // only check if the returned entities list has changed if this is not a forced update
-            const changed = this.compareEntities(entities);
-            if (!changed) {
-                // nothing changed
-                return;
-            }
+    receivedEntities(entities) {
+        const changed = this.compareEntities(entities);
+        if (!changed) {
+            // nothing changed
+            return;
         }
 
         this.setState({
