@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, isEqual } from 'lodash';
+import { uniqueId, isEqual, keyBy } from 'lodash';
 
 import GeoVisualizationSection from
     'components/search/visualizations/geo/GeoVisualizationSection';
@@ -71,7 +71,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
-            this.prepareFetch();
+            this.prepareFetch(true);
         }
     }
 
@@ -91,7 +91,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.setState({
             scope
         }, () => {
-            this.prepareFetch();
+            this.prepareFetch(true);
         });
     }
 
@@ -108,16 +108,47 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
-    prepareFetch() {
+    prepareFetch(forced = false) {
         if (this.state.loadingTiles) {
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
             return;
         }
 
-        MapBroadcaster.emit('measureMap');
+        MapBroadcaster.emit('measureMap', forced);
     }
 
-    receivedEntities(entities) {
+    compareEntities(entities) {
+        // check if the inbound list of entities is different from the existing visible entities
+        const current = keyBy(this.state.visibleEntities);
+        const inbound = keyBy(entities);
+
+        for (const entity of entities) {
+            if (!current[entity]) {
+                // new entity entered view
+                return true;
+            }
+        }
+
+        for (const entity of this.state.visibleEntities) {
+            if (!inbound[entity]) {
+                // old entity exited view
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    receivedEntities(entities, forced) {
+        if (!forced) {
+            // only check if the returned entities list has changed if this is not a forced update
+            const changed = this.compareEntities(entities);
+            if (!changed) {
+                // nothing changed
+                return;
+            }
+        }
+
         this.setState({
             visibleEntities: entities
         }, () => {
@@ -210,7 +241,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             renderHash: `geo-${uniqueId()}`,
             loadingTiles: true
         }, () => {
-            this.prepareFetch();
+            this.prepareFetch(true);
         });
     }
 
