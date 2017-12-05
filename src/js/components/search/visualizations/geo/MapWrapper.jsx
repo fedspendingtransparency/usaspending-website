@@ -302,8 +302,8 @@ export default class MapWrapper extends React.Component {
         });
     }
 
-    measureMap() {
-         // determine which entities (state, counties, etc based on current scope) are in view
+    measureMap(forced = false) {
+        // determine which entities (state, counties, etc based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
         const mapLoaded = this.mapRef.map.loaded();
         // wait for the map to load before continuing
@@ -326,7 +326,7 @@ export default class MapWrapper extends React.Component {
         // remove the duplicates values and pass them to the parent
         const uniqueEntities = uniq(visibleEntities);
 
-        MapBroadcaster.emit('mapMeasureDone', uniqueEntities);
+        MapBroadcaster.emit('mapMeasureDone', uniqueEntities, forced);
     }
 
     prepareChangeListeners() {
