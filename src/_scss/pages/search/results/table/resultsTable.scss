@@ -7,7 +7,6 @@
     .loading-table {
         opacity: 0.5;
         @include transition(opacity 0.25s ease-in);
-        margin-top: rem(15);
     }
     .loaded-table {
         opacity: 1;
