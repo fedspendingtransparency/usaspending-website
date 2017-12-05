@@ -66,10 +66,9 @@ export default class Glossary extends React.Component {
         document.removeEventListener('focus', this.trapFocus, true);
 
         // move focus back to the main content
-        const mainContent = document.querySelector('#main-content');
+        const mainContent = document.getElementById('main-focus');
         if (mainContent) {
             mainContent.focus();
-            console.log(mainContent);
         }
     }
 

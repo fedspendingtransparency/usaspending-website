@@ -31,12 +31,12 @@ export default class Landing extends React.Component {
                         <NavBar homepage />
                     </header>
                 </div>
-                <div className="landing-parent-wrap">
+                <div className="landing-parent-wrap" id="main-content">
                     <section
                         className="landing-section-wrap"
-                        aria-labelledby="main-content">
+                        aria-labelledby="main-focus">
                         <div className="content-wrap">
-                            <h1 tabIndex={-1} id="main-content">
+                            <h1 tabIndex={-1} id="main-focus">
                                 In 2016, the U.S. government spent <span className="stronger">$3.85 trillion dollars</span>
                             </h1>
                             <h2>How was that money used? We&apos;ll help you find the answers.</h2>

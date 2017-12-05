@@ -130,7 +130,7 @@ export default class SearchPage extends React.Component {
                 }}>
                 <MetaTags {...MetaTagHelper.searchPageMetaTags} />
                 <Header />
-                <main>
+                <main id="main-content">
                     <SearchHeader
                         downloadAvailable={this.props.downloadAvailable}
                         showDownloadModal={this.showModal} />
