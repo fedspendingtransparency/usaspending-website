@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import IndividualSubmit from 'components/search/filters/IndividualSubmit';
+
 const propTypes = {
     submitText: PropTypes.func,
     changedInput: PropTypes.func,
@@ -36,10 +38,10 @@ export default class Keyword extends React.Component {
                             placeholder="Search by Keyword"
                             value={this.props.value}
                             onChange={this.props.changedInput} />
-                        <input
-                            type="submit"
+                        <IndividualSubmit
                             className="keyword-submit"
-                            value="Submit" />
+                            onClick={this.searchKeyword}
+                            label="Filter by keyword" />
                     </div>
                 </form>
             </div>
