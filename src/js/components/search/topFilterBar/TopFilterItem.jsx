@@ -42,7 +42,9 @@ export default class TopFilterItem extends React.Component {
         }
 
         return (
-            <div className="filter-item-container">
+            <div
+                className="filter-item-container"
+                role="listitem">
                 <button
                     className="filter-item"
                     aria-label={accessibleLabel}

@@ -56,7 +56,10 @@ export default class BaseTopFilterGroup extends React.Component {
 
         return (
             <div className="filter-group-container">
-                <div className="filter-group">
+                <div
+                    className="filter-group"
+                    role="listitem"
+                    aria-label={this.props.filter.name}>
                     <div className={`filter-group-top ${hideCompressed}`}>
                         <div className="filter-name">
                             {this.props.filter.name}:
@@ -74,7 +77,9 @@ export default class BaseTopFilterGroup extends React.Component {
                         </div>
                     </div>
                     <div className="filter-group-bottom">
-                        <div className="filter-values">
+                        <div
+                            className="filter-values"
+                            role="list">
                             {tags}
                         </div>
                     </div>

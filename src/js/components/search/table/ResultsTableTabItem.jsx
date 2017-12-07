@@ -49,21 +49,25 @@ export default class ResultsTableTabItem extends React.Component {
         }
 
         return (
-            <button
-                className={`table-type-toggle${activeClass}${status}`}
-                onClick={this.clickedTab}
-                title={`Show ${this.props.label}`}
-                disabled={disabledStatus}>
-                <div className="tab-content">
-                    <div className="tab-label">
-                        {this.props.label}
+            <span role="menuitem">
+                <button
+                    className={`table-type-toggle${activeClass}${status}`}
+                    onClick={this.clickedTab}
+                    title={`Show ${this.props.label}`}
+                    aria-label={`Show ${this.props.label}`}
+                    aria-current={this.props.active}
+                    disabled={disabledStatus}>
+                    <div className="tab-content">
+                        <div className="tab-label">
+                            {this.props.label}
+                        </div>
+                        <div className={`count-badge ${activeClass}`}>
+                            {formatNumber(this.props.count)}
+                        </div>
                     </div>
-                    <div className={`count-badge ${activeClass}`}>
-                        {formatNumber(this.props.count)}
-                    </div>
-                </div>
-                {comingSoon}
-            </button>
+                    {comingSoon}
+                </button>
+            </span>
         );
     }
 }

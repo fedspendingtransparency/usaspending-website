@@ -44,6 +44,7 @@ export default class TableBody extends React.Component {
         this.lastRender = '';
         this.scrollEndEvent = null;
         this.handleScroll = this.handleScroll.bind(this);
+        this.scrollToCell = this.scrollToCell.bind(this);
     }
 
     componentDidMount() {
@@ -127,6 +128,61 @@ export default class TableBody extends React.Component {
             this.containerDiv.scrollTop = 0;
             this.containerDiv.scrollLeft = 0;
         });
+    }
+
+    scrollToCell(col, row, direction) {
+        // calculate the raw X and Y positions based on the provided columns and rows
+        let x = 0;
+        for (let i = 0; i < col; i++) {
+            const width = this.props.columns[i].width;
+            x += width;
+        }
+
+        if (direction === 'right') {
+            x -= min([this.props.maxWidth, this.props.width]);
+        }
+
+        const y = row * this.props.rowHeight;
+
+        this.containerDiv.scrollTop = max([0, y]);
+        this.containerDiv.scrollLeft = max([0, x]);
+
+        const xScroll = max([0, x]);
+        const yScroll = max([0, y]);
+
+        let positionChanged = false;
+
+        if (xScroll !== this.scrollPosition.x) {
+            // we have scrolled left or right
+            // even though the vertical header won't be visible for during a horizontal scroll
+            // we need to keep its position in sync so when it reappears for vertical scrolls it is
+            // in the correct position
+            this.props.syncScrollPosition(xScroll, 0);
+            positionChanged = true;
+        }
+
+        if (yScroll !== this.scrollPosition.y) {
+            // we have scrolled up or down
+            positionChanged = true;
+            // this.syncHorizontalScrollPosition(yScroll);
+        }
+
+        this.scrollPosition = {
+            x: xScroll,
+            y: yScroll
+        };
+
+        if (positionChanged) {
+            this.prepareCellsForDisplay();
+        }
+
+        // cancel any previous scrollEnd timers
+        if (this.scrollEndEvent) {
+            window.clearTimeout(this.scrollEndEvent);
+            this.scrollEndEvent = null;
+        }
+        // trigger a scroll event in 300ms unless another scroll event is issued
+        this.scrollDidEnd();
     }
 
     isColumnVisible(columnLeft, columnRight, visibleLeft, visibleRight) {
@@ -243,6 +299,7 @@ export default class TableBody extends React.Component {
         for (let i = topRowIndex; i <= bottomRowIndex; i++) {
             const row = (<TableRow
                 {...this.props}
+                scrollToCell={this.scrollToCell}
                 rowIndex={i}
                 columnCount={this.props.columns.length}
                 visibleCoords={`${firstCol}-${lastCol}`}

@@ -95,9 +95,10 @@ export default class GeoVisualizationSection extends React.Component {
         }
 
         return (
-            <div
+            <section
                 className="results-visualization-geo-section"
-                id="results-section-geo">
+                id="results-section-geo"
+                aria-label="Spending by Geography">
                 <h2 className="visualization-title">
                     Spending by Geography
                 </h2>
@@ -151,8 +152,7 @@ export default class GeoVisualizationSection extends React.Component {
                     {disclaimer}
                     {loadingMessage}
                 </MapWrapper>
-
-            </div>
+            </section>
         );
     }
 }

@@ -65,7 +65,10 @@ export default class ResultsTableSection extends React.Component {
         }
 
         return (
-            <div className="search-results-table-section" id="results-section-table">
+            <section
+                className="search-results-table-section"
+                id="results-section-table"
+                aria-label="Spending by Award">
                 <div className="table-section-header">
                     <h2 className="visualization-title">
                         Spending by Award
@@ -91,7 +94,7 @@ export default class ResultsTableSection extends React.Component {
                         headerCellClass={ResultsTableHeaderCellContainer} />
                 </div>
                 {message}
-            </div>
+            </section>
         );
     }
 }

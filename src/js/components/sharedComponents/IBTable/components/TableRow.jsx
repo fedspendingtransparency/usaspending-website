@@ -40,6 +40,7 @@ export default class TableRow extends React.Component {
                 left={column.left}
                 rowIndex={this.props.rowIndex}
                 columnCount={this.props.columnCount}
+                scrollToCell={this.props.scrollToCell}
                 key={`${column.columnId}-${this.props.rowIndex}-${this.props.dataHash}`} />
         ));
 

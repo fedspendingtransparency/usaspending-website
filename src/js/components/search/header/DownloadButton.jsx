@@ -29,14 +29,12 @@ export default class DownloadButton extends React.Component {
     }
 
     onMouseEnter() {
-        console.log("yo");
         this.setState({
             showHover: true
         });
     }
 
     onMouseLeave() {
-        console.log("BB");
         this.setState({
             showHover: false
         });

@@ -189,8 +189,7 @@ export default class Homepage extends React.Component {
                 <WarningBanner />
                 <Landing
                     total={this.state.total} />
-                <section
-                    aria-labelledby="budget-function-section-title">
+                <main>
                     <TreeMapIntro />
                     <TreeMap
                         categories={this.state.categories}
@@ -201,9 +200,6 @@ export default class Homepage extends React.Component {
                         total={this.state.total}
                         totalNumber={this.state.totalNumber}
                         tooltipStyles={this.state.tooltipStyles} />
-                </section>
-                <section
-                    aria-labelledby="category-section-title">
                     <CategoryMap
                         breakdown={this.state.breakdown}
                         colors={this.state.breakdownColors}
@@ -211,8 +207,8 @@ export default class Homepage extends React.Component {
                     <MapTopBar />
                     <MapVisualizationWrapper
                         data={this.state.mapData} />
-                </section>
-                <SearchSection />
+                    <SearchSection />
+                </main>
                 <Footer />
             </div>
         );

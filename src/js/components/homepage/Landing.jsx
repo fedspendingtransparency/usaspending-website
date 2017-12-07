@@ -32,9 +32,8 @@ export default class Landing extends React.Component {
                     </header>
                 </div>
                 <div className="landing-parent-wrap" id="main-content">
-                    <section
-                        className="landing-section-wrap"
-                        aria-labelledby="main-focus">
+                    <div
+                        className="landing-section-wrap">
                         <div className="content-wrap">
                             <h1 tabIndex={-1} id="main-focus">
                                 In 2016, the U.S. government spent <span className="stronger">$3.85 trillion dollars</span>
@@ -58,7 +57,7 @@ export default class Landing extends React.Component {
                                 </button>
                             </div>
                         </div>
-                    </section>
+                    </div>
                 </div>
                 <div className="bottom-gradient" />
             </div>

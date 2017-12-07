@@ -54,9 +54,13 @@ export default class TopFilterBar extends React.Component {
 
         return (
             <div>
-                <div className="search-top-filter-bar">
+                <div
+                    className="search-top-filter-bar"
+                    role="complementary"
+                    aria-label={filterBarHeader}>
                     <div className="search-top-filter-header">
-                        <div className="header-title">
+                        <div
+                            className="header-title">
                             {filterBarHeader}
                         </div>
                         <div className={`search-clear-wrapper ${hideCompressed}`}>
@@ -75,7 +79,9 @@ export default class TopFilterBar extends React.Component {
                         </div>
                     </div>
                     <div className="search-top-filters">
-                        <div className="search-top-filters-content">
+                        <div
+                            className="search-top-filters-content"
+                            role="list">
                             {filters}
                         </div>
                     </div>

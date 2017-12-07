@@ -84,10 +84,12 @@ export default class RankVisualization extends React.Component {
         }
 
         return (
-            <div className="results-visualization-rank-container">
+            <section
+                className="results-visualization-rank-container"
+                aria-label="Spending by Category">
                 {chart}
                 {tooltip}
-            </div>
+            </section>
         );
     }
 }

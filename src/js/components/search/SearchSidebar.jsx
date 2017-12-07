@@ -101,12 +101,19 @@ export default class SearchSidebar extends React.Component {
         });
 
         return (
-            <div className="search-sidebar">
+            <div
+                className="search-sidebar"
+                role="search"
+                aria-labelledby="sidebar-title">
                 <div className="sidebar-header">
                     <span className="filter-icon">
                         <FilterIcon />
                     </span>
-                    <h6>Filter by:</h6>
+                    <h2
+                        className="sidebar-title"
+                        id="sidebar-title">
+                        Filter by:
+                    </h2>
                 </div>
                 <FilterSidebar {...filters} expanded={expanded} />
             </div>

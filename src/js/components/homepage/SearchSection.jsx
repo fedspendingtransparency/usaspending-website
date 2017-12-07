@@ -63,7 +63,8 @@ export default class SearchSection extends React.Component {
         ));
 
         return (
-            <section className="search-section-links-outer-wrap">
+            <div
+                className="search-section-links-outer-wrap">
                 <div className="search-section-links-wrap">
                     <h3 className="search-section-links-primary-text">
                         There&apos;s more to explore.
@@ -155,7 +156,7 @@ export default class SearchSection extends React.Component {
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
         );
     }
 }

@@ -32,6 +32,7 @@ const VisualizationTabItem = (props) => {
             <button
                 className={`visualization-type-tab ${active}`}
                 aria-label={props.label}
+                aria-current={props.active}
                 title={props.label}
                 onClick={clickedTab}>
                 <div className="icon">

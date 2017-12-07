@@ -27,7 +27,9 @@ export default class ResultsTableTabs extends React.Component {
         ));
 
         return (
-            <div className="table-types">
+            <div
+                className="table-types"
+                role="menu">
                 {tabs}
             </div>
         );

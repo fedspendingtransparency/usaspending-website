@@ -27,13 +27,13 @@ export default class TableCell extends React.Component {
         return false;
     }
 
-     focusNextCell() {
+    focusNextCell() {
         let nextCell = [this.props.column.index + 1, this.props.rowIndex];
         if (this.props.column.index + 1 >= this.props.columnCount) {
             // end of the row, go to the first cell of the next row
             nextCell = [0, this.props.rowIndex + 1];
         }
-        
+
         this.focusCell(...nextCell);
     }
 
@@ -46,7 +46,6 @@ export default class TableCell extends React.Component {
         if (this.props.rowIndex < 0) {
             return;
         }
-        
         this.focusCell(...prevCell);
     }
 
@@ -60,15 +59,17 @@ export default class TableCell extends React.Component {
         if (this.props.rowIndex === 0) {
             return;
         }
-
         this.focusCell(...prevCell);
     }
 
     focusCell(x, y) {
-        const cell = document.getElementById(`ibt-cell-${x}-${y}`);
-        if (cell) {
-            cell.focus();
-        }
+        this.props.scrollToCell(x, y, 'right');
+        window.setTimeout(() => {
+            const cell = document.getElementById(`ibt-cell-${x}-${y}`);
+            if (cell) {
+                cell.focus();
+            }
+        }, 300);
     }
 
     pressedKey(e) {

@@ -50,9 +50,10 @@ export default class TimeVisualizationSection extends React.Component {
 
     render() {
         return (
-            <div
+            <section
                 className="results-visualization-time-section"
-                id="results-section-time">
+                id="results-section-time"
+                aria-label="Spending Over Time">
                 <h2 className="visualization-title">
                     Spending Over Time
                 </h2>
@@ -101,7 +102,7 @@ export default class TimeVisualizationSection extends React.Component {
                 <TimeVisualization
                     {...this.props.data}
                     width={this.state.visualizationWidth} />
-            </div>
+            </section>
         );
     }
 }
