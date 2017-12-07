@@ -23,6 +23,8 @@ import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer
 import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
 import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedContainer';
 
+import KeywordHover from 'components/search/filters/keyword/KeywordHover';
+
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
@@ -61,6 +63,23 @@ const filters = {
         PricingTypeContainer,
         SetAsideContainer,
         ExtentCompetedContainer
+    ],
+    accessories: [
+        KeywordHover,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
     ]
 };
 

@@ -1,27 +1,19 @@
 .usa-da-search-page {
     @import "all";
-    @import "layouts/search/search";
+    @import "layouts/tabbedSearch/tabbedSearch";
 
-    @import './searchSidebar';
-    @include span-columns(16);
-    .full-search-sidebar {
-        display: none;
-        @include media($medium-screen) {
-            @include span-columns(4);
-        }
-    }
+    @import "./searchSidebar";
+    @import "./_pagePositioning";
 
     @import "./mobile/mobileFilterButton";
     @import "./mobile/mobileSidebar";
     @import "./mobile/mobileResults";
 
+    #main-content {
+        padding-bottom: rem(32);
+    }
+
     .search-results-wrapper {
-        @include span-columns(16);
-        @include media($medium-screen) {
-            @include span-columns(12);
-        }
-        margin-top: rem(32);
-        margin-bottom: rem(60);
         @import "./results/searchResults";
         @import "./topFilterBar/topFilterBar";
 

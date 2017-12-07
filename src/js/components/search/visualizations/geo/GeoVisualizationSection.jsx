@@ -11,6 +11,7 @@ import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
 import MapDisclaimer from './MapDisclaimer';
+import MapMessage from './MapMessage';
 
 const propTypes = {
     scope: PropTypes.string,
@@ -20,11 +21,11 @@ const propTypes = {
     mapMoved: PropTypes.func,
     renderHash: PropTypes.string,
     data: PropTypes.object,
-    total: PropTypes.number
+    total: PropTypes.number,
+    message: PropTypes.string
 };
 
-// const availableLayers = ['state', 'county', 'congressionalDistrict'];
-const availableLayers = ['state'];
+const availableLayers = ['state', 'county', 'congressionalDistrict'];
 
 export default class GeoVisualizationSection extends React.Component {
     constructor(props) {
@@ -88,11 +89,18 @@ export default class GeoVisualizationSection extends React.Component {
                 closeDisclaimer={this.closeDisclaimer} />);
         }
 
+        let loadingMessage = null;
+        if (this.props.message !== '') {
+            loadingMessage = (<MapMessage message={this.props.message} />);
+        }
+
         return (
             <div
                 className="results-visualization-geo-section"
                 id="results-section-geo">
-                <h3>Spending by Geography</h3>
+                <h2 className="visualization-title">
+                    Spending by Geography
+                </h2>
                 <hr
                     className="results-divider"
                     ref={(hr) => {
@@ -141,6 +149,7 @@ export default class GeoVisualizationSection extends React.Component {
                     availableLayers={availableLayers}
                     showLayerToggle>
                     {disclaimer}
+                    {loadingMessage}
                 </MapWrapper>
 
             </div>

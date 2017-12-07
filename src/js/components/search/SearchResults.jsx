@@ -8,14 +8,9 @@ import PropTypes from 'prop-types';
 
 import { AddFilter, CloseCircle } from 'components/sharedComponents/icons/Icons';
 
-import ResultsTableContainer from 'containers/search/table/ResultsTableContainer';
 import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarContainer';
 
-import TimeVisualizationSectionContainer from
-    'containers/search/visualizations/time/TimeVisualizationSectionContainer';
-import GeoVisualizationSectionContainer from
-    'containers/search/visualizations/geo/GeoVisualizationSectionContainer';
-
+import VisualizationWrapper from './visualizations/VisualizationWrapper';
 import MobileFilters from './mobile/MobileFilters';
 
 const propTypes = {
@@ -52,17 +47,8 @@ export default class SearchResults extends React.Component {
             showCountBadge = 'hide';
         }
 
-        let lastUpdate = null;
-        if (this.props.lastUpdate !== '') {
-            lastUpdate = (<div className="last-update">
-                <strong>Note:</strong> All data shown is as of {this.props.lastUpdate}
-            </div>);
-        }
-
-
         return (
             <div className="search-results-wrapper">
-                <TopFilterBarContainer {...this.props} />
                 <div className="mobile-filter-button-wrapper">
                     <button
                         className="mobile-filter-button"
@@ -99,11 +85,11 @@ export default class SearchResults extends React.Component {
                         showMobileFilters={this.props.showMobileFilters}
                         toggleMobileFilters={this.props.toggleMobileFilters} />
                 </div>
-                {lastUpdate}
-                <div className={`search-results ${mobileFilters}`}>
-                    <TimeVisualizationSectionContainer />
-                    <GeoVisualizationSectionContainer />
-                    <ResultsTableContainer />
+                <div className="full-search-results-wrapper">
+                    <TopFilterBarContainer {...this.props} />
+                    <div className={`search-results ${mobileFilters}`}>
+                        <VisualizationWrapper isMobile={this.props.isMobile} />
+                    </div>
                 </div>
             </div>
         );
