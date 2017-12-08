@@ -1,9 +1,7 @@
 .award-results-table {
     // implement the library style
     @import 'lib/ibTable/ibTable';
-    margin-top: rem(15);
     display: block;
-    border: 1px solid $color-gray-light;
     // placeholder background for when the user scrolls really fast
     background: repeating-linear-gradient( $color-white, $color-white 40px, $color-gray-lightest 40px, $color-gray-lightest 80px);
     &.no-results {
@@ -19,6 +17,16 @@
         &.last-column {
             border-right: none;
         }
+
+        .cell-content {
+            .header-sort .header-icons {
+                .sort-icon{
+                    &:first-child {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
     // gray out even rows
     .row-even {
@@ -27,8 +35,5 @@
     // override the header style for a bottom border
     .ibt-header {
         border-bottom: 1px solid #ADAFB4;
-    }
-    .ibt-table-body {
-        //border: 1px solid red;
     }
 }

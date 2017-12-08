@@ -1,4 +1,4 @@
-export const _mockCountries = {
+export const mockCountries = {
     countries: [
         {
             code: 'ABC',
@@ -7,7 +7,7 @@ export const _mockCountries = {
     ]
 };
 
-export const _mockStates = {
+export const mockStates = {
     states: [
         {
             fips: '00',
@@ -17,7 +17,7 @@ export const _mockStates = {
     ]
 };
 
-export const _mockCounties = {
+export const mockCounties = {
     counties: [
         {
             code: '0000X',
@@ -28,7 +28,7 @@ export const _mockCounties = {
     ]
 };
 
-export const _mockDistricts = {
+export const mockDistricts = {
     districts: [
         {
             code: '00XX',
@@ -36,6 +36,36 @@ export const _mockDistricts = {
             name: 'IN-XX'
         }
     ]
+};
+
+export const mockValidZip = {
+    attribution: 'Fake response',
+    features: [
+        {
+            bbox: [1, 1, 1, 1],
+            center: [1, 1],
+            context: [{
+                data: 'fake'
+            }],
+            geometry: {},
+            id: 'postcode.1',
+            place_name: '46556, Notre Dame, Indiana, United States',
+            place_type: ['postcode'],
+            properties: {},
+            relevance: 1,
+            text: '46556',
+            type: 'Feature'
+        }
+    ],
+    query: ['46556'],
+    type: 'FeatureCollection'
+};
+
+export const mockInvalidZip = {
+    attribution: 'Fake response',
+    features: [],
+    query: ['00000'],
+    type: 'FeatureCollection'
 };
 
 export const fetchLocationList = (file) => {
@@ -48,6 +78,24 @@ export const fetchLocationList = (file) => {
     }
     else {
         response = mockDistricts;
+    }
+
+    return {
+        promise: new Promise((resolve) => {
+            resolve({
+                data: response
+            });
+        }),
+        cancel() {
+            jest.fn();
+        }
+    };
+};
+
+export const performZIPGeocode = (zip) => {
+    let response = mockValidZip;
+    if (zip === '00000') {
+        response = mockInvalidZip;
     }
 
     return {

@@ -11,12 +11,12 @@
 }
 
 .search-title {
-    flex: 1 100%;
+    @include flex(1 1 auto);
     & h1 {
         text-align: center;
     }
     @include media($tablet-screen) {
-        flex: 1;
+        @include flex(1 1 auto);
         & h1 {
             margin: rem(20) 0;
             text-align: left;
@@ -25,10 +25,10 @@
 }
 
 .search-options {
-    flex: 1 100%;
+    @include flex(1 1 auto);
     margin: 0 0 20px;
     @include media($tablet-screen) {
-        flex: 1;
+        @include flex(1 1 auto);
         margin: 0;
         & ul.search-formats {
             text-align: right;

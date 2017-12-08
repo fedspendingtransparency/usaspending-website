@@ -25,9 +25,9 @@ const propTypes = {
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
 // indicates when there's more data
-const tableHeight = 12.5 * rowHeight;
+const tableHeight = 29.5 * rowHeight;
 
-export default class ResultsTable extends React.PureComponent {
+export default class ResultsTable extends React.Component {
     constructor(props) {
         super(props);
 

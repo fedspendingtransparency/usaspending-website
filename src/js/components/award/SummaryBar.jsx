@@ -11,7 +11,6 @@ import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 import InfoSnippet from './InfoSnippet';
-import MoreHeaderOptions from './MoreHeaderOptions';
 
 const propTypes = {
     selectedAward: PropTypes.object
@@ -91,11 +90,7 @@ export default class SummaryBar extends React.Component {
                                 label="Award ID"
                                 value={this.props.selectedAward.award_id} />
                             { parentAwardId }
-                            <InfoSnippet
-                                label="Status"
-                                value={this.state.status} />
                         </ul>
-                        <MoreHeaderOptions />
                     </div>
                 </div>
             </div>

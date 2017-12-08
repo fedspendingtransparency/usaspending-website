@@ -1,10 +1,20 @@
 .search-results {
-    background-color: $color-white;
-    box-shadow: $container-shadow;
+    @import "./_tabs";
 
-    @import "./_typography";
-    @import "../../../elements/_divider";
+    .visualization-content {
+        box-shadow: $container-shadow;
+        border: 1px solid $color-gray-lighter;
+        border-radius: rem(5);
+        z-index: 1;
 
-    @import "./table/resultsTable";
-    @import "./visualizations/visualizations";
+        background-color: $color-white;
+
+        padding: rem(30);
+
+        @import "./_typography";
+        @import "../../../elements/_divider";
+
+        @import "./table/resultsTable";
+        @import "./visualizations/visualizations";
+    }
 }
