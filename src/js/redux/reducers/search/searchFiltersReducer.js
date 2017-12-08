@@ -9,7 +9,6 @@ import * as AwardFilterFunctions from './filters/awardFilterFunctions';
 import * as LocationFilterFunctions from './filters/locationFilterFunctions';
 import * as AgencyFilterFunctions from './filters/agencyFilterFunctions';
 import * as RecipientFilterFunctions from './filters/recipientFilterFunctions';
-import * as AwardIDFilterFunctions from './filters/awardIDFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
 import * as OtherFilterFunctions from './filters/OtherFilterFunctions';
 import * as FiscalYearHelper from '../../../helpers/fiscalYearHelper';
@@ -170,14 +169,6 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 awardType: AwardFilterFunctions.bulkAwardTypeChange(
                     state.awardType, action.awardTypes, action.direction)
-            });
-        }
-
-        // Award ID Filter
-        case 'UPDATE_SELECTED_AWARD_IDS': {
-            return Object.assign({}, state, {
-                selectedAwardIDs: AwardIDFilterFunctions.updateSelectedAwardIDs(
-                    state.selectedAwardIDs, action.awardID)
             });
         }
 

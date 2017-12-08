@@ -60,7 +60,7 @@ export class AwardIDSearchContainer extends React.Component {
     removeAwardID(id) {
         this.props.updateGenericFilter({
             type: 'selectedAwardIDs',
-            value: new OrderedMap([])
+            value: new OrderedMap()
         });
 
         // Analytics

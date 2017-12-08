@@ -27,19 +27,6 @@ import SearchActions from 'redux/actions/searchActions';
 
 const propTypes = {
     filters: PropTypes.object,
-    rows: PropTypes.instanceOf(Immutable.List),
-    meta: PropTypes.object,
-    batch: PropTypes.instanceOf(Immutable.Record),
-    searchOrder: PropTypes.object,
-    setSearchTableType: PropTypes.func,
-    setSearchPageNumber: PropTypes.func,
-    setSearchOrder: PropTypes.func,
-    clearRecords: PropTypes.func,
-    bulkInsertRecordSet: PropTypes.func,
-    setSearchResultMeta: PropTypes.func,
-    setSearchInFlight: PropTypes.func,
-    triggerBatchSearchUpdate: PropTypes.func,
-    triggerBatchQueryUpdate: PropTypes.func,
     columnVisibility: PropTypes.object,
     toggleColumnVisibility: PropTypes.func,
     reorderColumns: PropTypes.func,
@@ -322,20 +309,20 @@ export class ResultsTableContainer extends React.Component {
 
                 // don't clear records if we're appending (not the first page)
                 if (pageNumber <= 1 || newSearch) {
-                    newState.records = [];
+                    newState.results = [];
                     newState.resetHash = uniqueId();
+                    newState.results = res.data.results;
+                }
+                else {
+                    newState.results = this.state.results.concat(res.data.results);
                 }
 
                 // request is done
                 this.searchRequest = null;
-                newState.page = res.data.page_metadata.page_number;
-                newState.lastPage = !res.data.page_metadata.has_next_page;
+                newState.page = res.data.page_metadata.page;
+                newState.lastPage = !res.data.page_metadata.hasNext;
 
-                this.setState(newState, () => {
-                    // parse the response
-                    const data = res.data;
-                    this.parseData(data.results);
-                });
+                this.setState(newState);
             })
             .catch((err) => {
                 if (isCancel(err)) {
@@ -352,13 +339,6 @@ export class ResultsTableContainer extends React.Component {
                     this.searchRequest = null;
                 }
             });
-    }
-
-    parseData(data) {
-        // write all records into Redux
-        this.setState({
-            results: this.state.results.concat(data)
-        });
     }
 
     switchTab(tab) {
@@ -385,7 +365,9 @@ export class ResultsTableContainer extends React.Component {
             };
         }
 
-        this.setState(newState);
+        this.setState(newState, () => {
+            this.performSearch(true);
+        });
     }
 
     loadNextPage() {
@@ -399,6 +381,8 @@ export class ResultsTableContainer extends React.Component {
             // more pages are available, load them
             this.setState({
                 page: this.state.page + 1
+            }, () => {
+                this.performSearch();
             });
         }
     }

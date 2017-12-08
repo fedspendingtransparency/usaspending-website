@@ -50,10 +50,13 @@ export default class ResultsTable extends React.Component {
         });
     }
 
-    shouldComponentUpdate(nextProps) {
+    shouldComponentUpdate(nextProps, nextState) {
         // to reduce the frequency of re-renders, this component will only monitor for
         // batch triggers
         if (nextProps.resetHash !== this.props.resetHash) {
+            return true;
+        }
+        else if (nextState.dataHash !== this.state.dataHash) {
             return true;
         }
         else if (nextProps.visibleWidth !== this.props.visibleWidth) {
@@ -62,6 +65,9 @@ export default class ResultsTable extends React.Component {
         }
         else if (nextProps.columns !== this.props.columns) {
             // re-render if column visibility changed
+            return true;
+        }
+        else if (nextProps.results.length !== this.props.results.length) {
             return true;
         }
         return false;
@@ -123,7 +129,8 @@ export default class ResultsTable extends React.Component {
                 );
             }
             else {
-                cellName = (index) => (
+                cellName = (index) => {
+                    return (
                     <ResultsTableFormattedCell
                         key={`cell-${column.columnName}-${index}`}
                         rowIndex={index}
@@ -131,7 +138,7 @@ export default class ResultsTable extends React.Component {
                         dataHash={this.state.dataHash}
                         column={column.columnName}
                         isLastColumn={isLast} />
-                );
+                );}
             }
             return {
                 width: column.width,
