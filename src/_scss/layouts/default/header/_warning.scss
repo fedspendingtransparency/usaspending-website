@@ -1,71 +1,47 @@
 .warning-banner-wrap {
     @import "mixins/fullSectionWrap";
-    background: as-alpha($color-gold-lightest, 0.95);
+    background: $color-primary-alt-lightest;
     min-height: rem(60);
     overflow: hidden;
     padding: rem(5) 0;
     width: 100%;
-    border-bottom: 1px solid $color-gold-lighter;
+    border: 3px solid #BCE8EB;
     .warning-banner {
-        @include fullSectionWrap(0, 0);
         @include display(flex);
-        & p {
+        margin: auto;
+        width: fit-content;
+        p {
             flex: 1;
-            font-size: $small-font-size;
             display: block;
         }
-        & .top-alert-icon {
+        .top-alert-icon {
             margin: rem(15) rem(10) 0 0;
-            @include media($large-screen) {
-                margin: rem(10) rem(10) 0 0;
-            }
-            & .usa-da-icon {
+            .usa-da-icon {
                 flex: 1;
-                height: rem(20);
-                width: rem(30);
                 & svg {
-                    fill: $color-gray-dark;
-                    height: rem(30);
-                    width: rem(30);
+                    margin-top: rem(4);
+                    height: rem(21);
+                    width: rem(21);
+                    fill: #5BC0DE;
                 }
             }
+        }
+
+        .good-news {
+            font-weight: $font-semibold;
         }
     }
+    .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        @include button-unstyled;
+        margin: rem(25) rem(30) rem(15) rem(30);
 
-    &.info {
-        background: $color-primary-alt-lightest;
-        border-bottom: 3px solid #BCE8EB;
-
-        .warning-banner {
-            margin: auto;
-            width: fit-content;
-            .top-alert-icon {
-                .usa-da-icon {
-                    & svg {
-                        margin-top: rem(4);
-                        height: rem(21);
-                        width: rem(21);
-                        fill: #5BC0DE;
-                    }
-                }
-            }
-
-            .good-news {
-                font-weight: $font-semibold;
-            }
-        }
-        .close {
-            position: absolute;
-            top: 0;
-            right: 0;
-            @include button-unstyled;
-            margin: rem(15) rem(30);
-
-            svg {
-                fill: $color-gray;
-                width: rem(20);
-                height: rem(20);
-            }
+        svg {
+            fill: $color-gray;
+            width: rem(20);
+            height: rem(20);
         }
     }
 }

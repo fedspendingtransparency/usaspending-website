@@ -4,6 +4,7 @@
   **/
 
 import React from 'react';
+import Cookies from 'js-cookie';
 import { isCancel } from 'axios';
 
 import * as HomepageHelper from 'helpers/homepageHelper';
@@ -55,22 +56,39 @@ export default class Homepage extends React.Component {
                     populations: []
                 },
                 table: []
-            }
+            },
+            showBanner: false
         };
 
         this.dataRequests = [];
         this.mounted = false;
 
         this.skippedNav = this.skippedNav.bind(this);
+        this.closeBanner = this.closeBanner.bind(this);
     }
 
     componentWillMount() {
         this.mounted = true;
         this.loadHomepageData();
+        // check if the info banner cookie exists
+        if (!Cookies.get('usaspending_info_banner')) {
+            // cookie does not exist, show the banner
+            this.setState({
+                showBanner: true
+            });
+        }
     }
 
     componentWillUnmount() {
         this.mounted = false;
+    }
+
+    closeBanner() {
+        // set a cookie to hide the banner in the future
+        Cookies.set('usaspending_info_banner', 'hide', { expires: 730 });
+        this.setState({
+            showBanner: false
+        });
     }
 
     loadHomepageData() {
@@ -173,9 +191,15 @@ export default class Homepage extends React.Component {
     }
 
     render() {
-        let banner = (<InfoBanner />);
+        let banner = (
+            <InfoBanner
+                closeBanner={this.closeBanner} />);
         if (kGlobalConstants.IN_BETA) {
-            banner = (<WarningBanner />);
+            banner = (<WarningBanner
+                closeBanner={this.closeBanner} />);
+        }
+        if (!this.state.showBanner) {
+            banner = null;
         }
 
         return (
