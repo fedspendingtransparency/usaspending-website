@@ -27,8 +27,6 @@ import downloadReducer from './search/downloadReducer';
 import bulkDownloadReducer from './bulkDownload/bulkDownloadReducer';
 
 const appReducer = combineReducers({
-    resultsMeta: resultsMetaReducer,
-    resultsBatch: resultsBatchReducer,
     filters: filtersReducer,
     searchOrder: orderReducer,
     autocompleteLocations: autocompleteReducer,
@@ -38,7 +36,6 @@ const appReducer = combineReducers({
     columnVisibility: columnVisibilityReducer,
     autocompleteAwardIDs: awardIDReducer,
     autocompleteAgencies: autocompleteAgencyReducer,
-    records: recordReducer,
     download: downloadReducer,
     award: awardReducer,
     account: accountReducer,

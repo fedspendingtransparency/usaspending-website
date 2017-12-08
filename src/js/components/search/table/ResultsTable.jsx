@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Immutable, { OrderedSet } from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
@@ -14,12 +14,12 @@ import ResultsTableAwardIdCell from './cells/ResultsTableAwardIdCell';
 
 const propTypes = {
     results: PropTypes.array,
-    batch: PropTypes.object,
     columns: PropTypes.object,
     headerCellClass: PropTypes.func.isRequired,
     visibleWidth: PropTypes.number,
     loadNextPage: PropTypes.func,
-    currentType: PropTypes.string
+    currentType: PropTypes.string,
+    resetHash: PropTypes.string
 };
 
 const rowHeight = 40;
@@ -53,7 +53,7 @@ export default class ResultsTable extends React.Component {
     shouldComponentUpdate(nextProps) {
         // to reduce the frequency of re-renders, this component will only monitor for
         // batch triggers
-        if (!Immutable.is(nextProps.batch, this.props.batch)) {
+        if (nextProps.resetHash !== this.props.resetHash) {
             return true;
         }
         else if (nextProps.visibleWidth !== this.props.visibleWidth) {
@@ -167,8 +167,8 @@ export default class ResultsTable extends React.Component {
         return (
             <div className={`award-results-table${noResultsClass}`}>
                 <IBTable
-                    dataHash={`${this.state.dataHash}-${this.props.batch.queryId}`}
-                    resetHash={this.props.batch.searchId}
+                    dataHash={`${this.state.dataHash}`}
+                    resetHash={this.props.resetHash}
                     rowHeight={rowHeight}
                     rowCount={this.props.results.length}
                     headerHeight={50}
