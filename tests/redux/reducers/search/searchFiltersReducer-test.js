@@ -463,45 +463,6 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('UPDATE_SELECTED_AWARD_IDS', () => {
-        const action = {
-            type: 'UPDATE_SELECTED_AWARD_IDS',
-            awardID: {
-                id: "601793",
-                piid: "AG3142B100012",
-                fain: null,
-                uri: null
-            }
-        };
-
-        const awardIDID = "601793";
-
-        const expectedAwardID = {
-            id: "601793",
-            piid: "AG3142B100012",
-            fain: null,
-            uri: null
-        };
-
-        it('should add the provided award ID if it does not currently exist in the filter', () => {
-            const updatedState = searchFiltersReducer(undefined, action);
-            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap({
-                [awardIDID]: expectedAwardID
-            }));
-        });
-
-        it('should remove the provided award ID if already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                selectedAwardIDs: new OrderedMap({
-                    [awardIDID]: expectedAwardID
-                })
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
-        });
-    });
-
     describe('UPDATE_AWARD_AMOUNTS', () => {
         const predefinedRangeAction = {
             type: 'UPDATE_AWARD_AMOUNTS',

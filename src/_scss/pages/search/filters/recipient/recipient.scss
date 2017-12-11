@@ -3,6 +3,7 @@
     @import "elements/filters/_typeahead";
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
+    @import "../_singleSubmit";
 
     .filter-item-wrap {
         // reduce the bottom padding because the checkbox items have their own bottom padding
@@ -10,26 +11,28 @@
     }
 
     .recipient-filter-item-wrap {
-        padding: 0 0 rem(20);
+        padding: 0;
+
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
 
         .recipient-input {
-            display: inline-block;
+            @include flex(1 1 auto);
+            margin-right: rem(4);
             font-size: $small-font-size;
+            color: $color-base;
+            line-height: rem(36);
             height: rem(40);
-            margin: 0 auto;
-            padding: rem(11) rem(8);
-            width: 70%;
+
             @include placeholder {
                 color: $color-gray-light;
             }
         }
 
         .recipient-submit {
-            display: inline-block;
-            height: rem(40);
-            margin: 0;
-            padding: 0;
-            width: 30%;
+            @include flex(0 0 auto);
+            @include singleSubmit();
         }
     }
 

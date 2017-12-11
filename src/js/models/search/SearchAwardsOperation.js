@@ -250,8 +250,7 @@ class SearchAwardsOperation {
 
         // Add Award IDs
         if (this.selectedAwardIDs.length > 0) {
-            filters[rootKeys.awardID] = this.selectedAwardIDs.map(
-                (awardID) => awardID.id);
+            filters[rootKeys.awardID] = this.selectedAwardIDs;
         }
 
         // Add CFDA

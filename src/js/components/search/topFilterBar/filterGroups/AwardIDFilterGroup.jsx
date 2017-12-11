@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as AwardIDFormatter from 'helpers/awardIDFormatter';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
@@ -44,9 +43,8 @@ export default class AwardIDFilterGroup extends React.Component {
 
         awardIDs.forEach((value) => {
             const tag = {
-                value: `${value.id}`,
-                title: `${AwardIDFormatter.formatAwardID(value, value.awardIDType)}
-                    | ${value.awardIDType}`,
+                value: `${value}`,
+                title: `${value} | Award ID`,
                 isSpecial: false,
                 removeFilter: this.removeFilter
             };
