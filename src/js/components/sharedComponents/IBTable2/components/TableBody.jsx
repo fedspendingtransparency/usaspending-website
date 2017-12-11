@@ -227,7 +227,6 @@ export default class TableBody extends React.PureComponent {
     }
 
     render() {
-        console.log('render');
         const cells = this.visibleCells.map((coord) => this.cellCache[coord]);
 
         const style = {
