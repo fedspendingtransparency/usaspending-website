@@ -23,8 +23,8 @@ const defaultFilters = {
 
 describe('AccountTimePeriodContainer', () => {
     describe('generateTimePeriods', () => {
-        it('generate the current available fiscal years', () => {
-            const mockedDate = moment('2017-10-01', 'YYYY-MM-DD').toDate();
+        it('generates the current available fiscal years', () => {
+            const mockedDate = moment('2018-02-01', 'YYYY-MM-DD').toDate();
             moment.now = () => (mockedDate);
 
             const container = shallow(<AccountTimePeriodContainer />);
@@ -32,6 +32,19 @@ describe('AccountTimePeriodContainer', () => {
 
             // override the moment's library's internal time to a known mocked date
             const expectedYears = ['2018', '2017'];
+
+            expect(container.state().timePeriods).toEqual(expectedYears);
+        });
+
+        it('waits on the current fiscal year until after January 31', () => {
+            const mockedDate = moment('2018-01-31', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const container = shallow(<AccountTimePeriodContainer />);
+            container.instance().generateTimePeriods();
+
+            // override the moment's library's internal time to a known mocked date
+            const expectedYears = ['2017'];
 
             expect(container.state().timePeriods).toEqual(expectedYears);
         });
