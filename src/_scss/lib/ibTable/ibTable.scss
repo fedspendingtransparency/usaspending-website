@@ -1,13 +1,26 @@
 
 .ibt-table-container {
     position: relative;
+    overflow: hidden;
+
+    .ibt-table-body-section {
+        position: relative;
+        overflow: auto;
+    }
+
+    .ibt-table-content {
+        position: relative;
+    }
 
     .ibt-header {
         display: block;
-        z-index: 1;
-        position: relative;
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        left: 0;
         overflow: hidden;
         white-space: nowrap;
+        will-change: transform;
         
         .ibt-header-row {
             display: table;
@@ -22,28 +35,19 @@
 
     .ibt-table-body-container {
         display: block;
-        overflow: auto;
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        overflow: hidden;
 
         .ibt-table-body {
-            display: block;
             position: relative;
+            display: table;
 
-            .ibt-table-row {
-                display: table;
+            .ibt-table-cell {
+                display: table-cell;
                 position: absolute;
-
-                .ibt-table-cell {
-                    display: table-cell;
-                    position: absolute;
-                }
             }
-
-            background: repeating-linear-gradient(
-          $color-white,
-          $color-white 40px,
-          $color-gray-lightest 40px,
-          $color-gray-lightest 80px
-        );
         }
     }
 }

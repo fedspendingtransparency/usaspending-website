@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Immutable from 'immutable';
 import { isCancel } from 'axios';
 import { uniqueId, difference, intersection } from 'lodash';
 
@@ -61,6 +60,7 @@ const tableTypes = [
     }
 ];
 
+
 export class ResultsTableContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -77,7 +77,7 @@ export class ResultsTableContainer extends React.Component {
             },
             inFlight: true,
             results: [],
-            resetHash: uniqueId()
+            tableInstance: `${uniqueId()}` // this will stay constant during pagination but will change when the filters or table type changes
         };
 
         this.tabCountRequest = null;
@@ -87,6 +87,7 @@ export class ResultsTableContainer extends React.Component {
         this.loadNextPage = this.loadNextPage.bind(this);
         this.toggleColumnVisibility = this.toggleColumnVisibility.bind(this);
         this.reorderColumns = this.reorderColumns.bind(this);
+        this.updateSort = this.updateSort.bind(this);
     }
 
     componentDidMount() {
@@ -122,7 +123,9 @@ export class ResultsTableContainer extends React.Component {
             this.tabCountRequest.cancel();
         }
 
-        this.props.setSearchInFlight(true);
+        this.setState({
+            inFlight: true
+        });
 
         const searchParams = new SearchAwardsOperation();
         searchParams.fromState(this.props.filters);
@@ -309,9 +312,9 @@ export class ResultsTableContainer extends React.Component {
 
                 // don't clear records if we're appending (not the first page)
                 if (pageNumber <= 1 || newSearch) {
-                    newState.results = [];
-                    newState.resetHash = uniqueId();
+                    newState.tableInstance = `${uniqueId()}`;
                     newState.results = res.data.results;
+                    // newState.results = res.data.results.concat(res.data.results, res.data.results, res.data.results);
                 }
                 else {
                     newState.results = this.state.results.concat(res.data.results);
@@ -404,6 +407,17 @@ export class ResultsTableContainer extends React.Component {
         });
     }
 
+    updateSort(field, direction) {
+        this.setState({
+            sort: {
+                field,
+                direction
+            }
+        }, () => {
+            this.performSearch(true);
+        });
+    }
+
     render() {
         const tableType = this.state.tableType;
         return (
@@ -414,10 +428,12 @@ export class ResultsTableContainer extends React.Component {
                 counts={this.state.counts}
                 toggleColumnVisibility={this.toggleColumnVisibility}
                 reorderColumns={this.reorderColumns}
-                resetHash={this.state.resetHash}
+                sort={this.state.sort}
                 tableTypes={tableTypes}
                 currentType={tableType}
+                tableInstance={this.state.tableInstance}
                 switchTab={this.switchTab}
+                updateSort={this.updateSort}
                 loadNextPage={this.loadNextPage} />
         );
     }
