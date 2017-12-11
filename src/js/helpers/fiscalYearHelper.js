@@ -7,6 +7,7 @@ import moment from 'moment';
 
 export const earliestFiscalYear = 2008;
 export const earliestExplorerYear = 2017;
+export const earliestFederalAccountYear = 2017;
 
 export const currentFiscalYear = () => {
     // determine the current fiscal year
