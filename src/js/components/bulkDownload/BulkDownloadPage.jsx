@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { downloadPageMetaTags } from 'helpers/metaTagHelper';
+import Router from 'containers/router/Router';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
@@ -67,6 +68,7 @@ export default class BulkDownloadPage extends React.Component {
 
     changeDataType(dataType) {
         this.props.setDataType(dataType);
+        Router.history.replace('/bulk_download');
     }
 
     hideModal() {
@@ -87,10 +89,17 @@ export default class BulkDownloadPage extends React.Component {
     }
 
     render() {
-        const downloadDataContent = (
+        let downloadDataContent = (
             <AwardDataContainer
                 clickedDownload={this.clickedDownload} />
         );
+        if (this.props.dataType === 'award_data_archive') {
+            downloadDataContent = (
+                <div>
+                    Archive page here
+                </div>
+            );
+        }
         return (
             <div className="usa-da-bulk-download-page">
                 <MetaTags {...downloadPageMetaTags} />

@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 import AwardLevelFilter from './filters/AwardLevelFilter';
 import AwardTypeFilter from './filters/AwardTypeFilter';
@@ -102,6 +103,20 @@ export default class AwardDataContent extends React.Component {
             <div className="download-data-content">
                 <div className="download-filters">
                     <h2><span>Award Data</span> Download</h2>
+                    <div className="archive-info-box">
+                        <div className="icon">
+                            <InfoCircle />
+                        </div>
+                        <div className="archive-info">
+                            <div className="archive-info-heading">A faster way to download yearly award data by agency.</div>
+                            <div>Award downloads for entire fiscal years are available for each major agency on our&nbsp;
+                                <a href="/#/bulk_download/award_data_archive">
+                                    Award Archive
+                                </a>
+                                &nbsp;page.
+                            </div>
+                        </div>
+                    </div>
                     <form
                         className="download-form"
                         onSubmit={this.handleSubmit}>

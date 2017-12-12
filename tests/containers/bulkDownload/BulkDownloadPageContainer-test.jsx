@@ -12,7 +12,7 @@ import sinon from 'sinon';
 jest.mock('helpers/bulkDownloadHelper', () => require('./mockBulkDownloadHelper'));
 
 import { BulkDownloadPageContainer } from 'containers/bulkDownload/BulkDownloadPageContainer';
-import { mockAgencies, mockSubAgencies, mockActions, mockRedux } from './mockData';
+import { mockAgencies, mockSubAgencies, mockActions, mockRedux, mockParams } from './mockData';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/bulkDownload/BulkDownloadPage', () => jest.fn(() => null));
@@ -24,6 +24,7 @@ describe('BulkDownloadPageContainer', () => {
     it('should make an API call when startDownload() is called', () => {
         const container = mount(<BulkDownloadPageContainer
             {...mockActions}
+            params={mockParams}
             bulkDownload={mockRedux.bulkDownload} />);
 
         container.instance().startAwardDownload();

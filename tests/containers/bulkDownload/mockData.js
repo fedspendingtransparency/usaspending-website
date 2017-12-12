@@ -110,3 +110,7 @@ export const mockAwardDownloadResponse = {
     url: "mockurl/mock_file.zip",
     seconds_elapsed: "0.5001"
 };
+
+export const mockParams = {
+    type: ''
+};

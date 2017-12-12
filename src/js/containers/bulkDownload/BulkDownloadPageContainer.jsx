@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
+import Router from 'containers/router/Router';
+
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
@@ -17,6 +19,7 @@ import BulkDownloadPage from 'components/bulkDownload/BulkDownloadPage';
 require('pages/bulkDownload/bulkDownloadPage.scss');
 
 const propTypes = {
+    params: PropTypes.object,
     bulkDownload: PropTypes.object,
     setDataType: PropTypes.func,
     setDownloadPending: PropTypes.func,
@@ -31,6 +34,30 @@ export class BulkDownloadPageContainer extends React.Component {
         this.request = null;
 
         this.startAwardDownload = this.startAwardDownload.bind(this);
+    }
+
+    componentWillMount() {
+        if (this.props.params.type) {
+            this.validateDataType(this.props.params.type);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.params.type !== this.props.params.type) {
+            this.validateDataType(nextProps.params.type);
+        }
+    }
+
+    validateDataType(dataType) {
+        if (!dataType || dataType !== 'award_data_archive') {
+            // not a valid type, go to to the default award page
+            this.props.setDataType('awards');
+            Router.history.replace('/bulk_download');
+        }
+        else {
+            // set the data type
+            this.props.setDataType(dataType);
+        }
     }
 
     startAwardDownload() {
