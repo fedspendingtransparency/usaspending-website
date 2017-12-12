@@ -5,15 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { OrderedSet } from 'immutable';
 
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 
-import IBTable from 'components/sharedComponents/IBTable2/IBTable';
+import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
-import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell2';
-import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell2';
-import ResultsTableAwardIdCell from './cells/ResultsTableAwardIdCell2';
+import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
+import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
+import ResultsTableAwardIdCell from './cells/ResultsTableAwardIdCell';
 
 const propTypes = {
     results: PropTypes.array,
@@ -64,8 +63,6 @@ export default class ResultsTable extends React.Component {
             return {
                 x: columnX,
                 width: column.width,
-                columnIndex: i,
-                identifier: `${this.props.currentType}-${column.columnName}`,
                 header: () => {
                     const isLast = (i + 1) === columnOrder.length;
                     const isActive = this.props.sort.field === column.columnName;

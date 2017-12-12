@@ -1,6 +1,6 @@
 /**
   * IBTable.jsx
-  * Created by Kevin Li 12/12/16
+  * Created by Kevin Li 12/8/16
   **/
 
 import Table from './components/Table';

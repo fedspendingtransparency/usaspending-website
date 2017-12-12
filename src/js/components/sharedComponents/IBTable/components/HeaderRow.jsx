@@ -1,56 +1,99 @@
 /**
-  * HeaderRow.jsx
-  * Created by Kevin Li 12/6/16
-  **/
+ * HeaderRow.jsx
+ * Created by Kevin Li 12/8/17
+ */
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { min } from 'lodash';
 
-import HeaderCell from './HeaderCell';
+import ScrollManager from '../managers/ScrollManager';
+import RenderQueue from '../managers/RenderQueue';
 
 const propTypes = {
+    contentWidth: PropTypes.number,
     headerHeight: PropTypes.number,
-    maxWidth: PropTypes.number,
-    width: PropTypes.number,
     columns: PropTypes.array
 };
 
 export default class HeaderRow extends React.Component {
-    updateScrollPosition(x, y) {
-        // by directly modifying the DOM, we can skip the render process
-        // this avoids having to iterate through the columns again
-        this.rowDiv.style.left = `${-1 * x}px`;
-        this.rowDiv.style.top = `${y}px`;
+    constructor(props) {
+        super(props);
+
+        this._scrollListener = null;
+        this._lastX = 0;
+        this._headerDiv = null;
+
+        this._tableScrolled = this._tableScrolled.bind(this);
+    }
+
+    componentDidMount() {
+        this._scrollListener = ScrollManager.subscribe(this._tableScrolled);
+    }
+
+    componentWillUnmount() {
+        if (this._scrollListener) {
+            ScrollManager.unsubscribe(this._scrollListener);
+        }
+    }
+
+    _tableScrolled(scroll) {
+        if (scroll.x !== this._lastX) {
+            const headerOperation = {
+                operation: () => {
+                    if (this._headerDiv) {
+                        this._headerDiv.style.transform = `translate(${-1 * scroll.x}px, 0px)`;
+                    }
+                },
+                type: 'header',
+                isSingle: true,
+                args: []
+            };
+
+            RenderQueue.addWrite(headerOperation);
+
+            this._lastX = scroll.x;
+        }
     }
 
     render() {
-        const visibleWidth = min([this.props.maxWidth, this.props.width]);
-
         const style = {
+            width: this.props.contentWidth,
             height: this.props.headerHeight,
-            minWidth: visibleWidth,
-            maxWidth: visibleWidth
+            top: 0
         };
 
-        const rowStyle = {
-            height: this.props.headerHeight,
-            width: this.props.width
-        };
+        const cells = this.props.columns.map((column, index) => {
+            const cellStyle = {
+                width: column.width,
+                height: this.props.headerHeight
+            };
 
-        const headers = this.props.columns.map((column) => (
-            <HeaderCell height={this.props.headerHeight} {...column} key={column.columnId} />
-        ));
+            const headerData = column.header();
+
+            const headerCell = React.createElement(
+                headerData.headerClass,
+                headerData.additionalProps
+            );
+            return (
+                <div
+                    key={index}
+                    className="ibt-header-cell"
+                    style={cellStyle}>
+                    {headerCell}
+                </div>
+            );
+        });
 
         return (
-            <div className="ibt-header" style={style}>
+            <div
+                className="ibt-header"
+                style={style}
+                ref={(div) => {
+                    this._headerDiv = div;
+                }}>
                 <div
-                    className="ibt-header-row"
-                    style={rowStyle}
-                    ref={(div) => {
-                        this.rowDiv = div;
-                    }}>
-                    {headers}
+                    className="ibt-header-row">
+                    {cells}
                 </div>
             </div>
         );
