@@ -75,6 +75,11 @@ export default class TableBody extends React.PureComponent {
 
     tableScrolled(scroll) {
         const visibleCells = this.calculateVisibleCells(scroll.x, scroll.y);
+        if (!visibleCells) {
+            // there is no data so there's nothing to show
+            return;
+        }
+
         const visibleCoords = `${visibleCells[0]}-${visibleCells[visibleCells.length - 1]}`;
 
         this.lastX = scroll.x;
@@ -95,6 +100,11 @@ export default class TableBody extends React.PureComponent {
     }
 
     calculateVisibleCells(x, y) {
+        if (this.props.rowCount === 0) {
+            // there's no data
+            return null;
+        }
+
         // allow a buffer of one out-of-view row above and below the visible area
         const mathematicalTopRow = Math.floor(y / this.props.rowHeight);
         const bottomY = y + this.props.bodyHeight;
