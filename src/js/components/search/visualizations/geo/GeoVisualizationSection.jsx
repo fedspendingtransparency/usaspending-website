@@ -98,7 +98,9 @@ export default class GeoVisualizationSection extends React.Component {
             <div
                 className="results-visualization-geo-section"
                 id="results-section-geo">
-                <h3>Spending by Geography</h3>
+                <h2 className="visualization-title">
+                    Spending by Geography
+                </h2>
                 <hr
                     className="results-divider"
                     ref={(hr) => {

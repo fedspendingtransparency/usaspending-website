@@ -6,7 +6,6 @@
     background-color: $color-white;
     box-shadow: $container-shadow;
     margin-top: rem(32);
-    margin-bottom: ($global-mrg * 4);
     .sidebar-header {
         display: none;
         @include media($tablet-screen) {

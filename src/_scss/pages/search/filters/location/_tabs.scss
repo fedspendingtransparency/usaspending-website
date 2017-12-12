@@ -14,7 +14,7 @@ ul.toggle-buttons {
         button.date-toggle {
             padding: 0 rem(2);
             font-size: rem(11);            
-            @include media(1370px) {
+            @include media(1430px) {
                 padding: 0 rem(8);
                 font-size: rem(13);
             }

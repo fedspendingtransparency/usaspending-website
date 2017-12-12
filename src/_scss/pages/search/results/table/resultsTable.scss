@@ -1,5 +1,4 @@
 .search-results-table-section {
-    padding: rem(30) rem(35);
     transition: opacity 0.25s ease;
     position: relative;
     @import "_tableTypes";
@@ -8,10 +7,13 @@
     .loading-table {
         opacity: 0.5;
         @include transition(opacity 0.25s ease-in);
+        margin-top: rem(15);
     }
     .loaded-table {
         opacity: 1;
         @include transition(opacity 0.25s ease-in);
+        margin-top: rem(15);
+        border: 1px solid $color-gray-light;
     }
     .results-table-width-master {
         width: 100%;
@@ -27,7 +29,9 @@
         @include flex-direction(row);
         @include align-items(center);
         @include justify-content(center);
-        h3 {
+        h2 {
+            @include h3;
+            margin: 0;
             @include flex(1 1 auto);
         }
         button.action-modal {
