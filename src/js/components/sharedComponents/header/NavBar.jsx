@@ -4,6 +4,8 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 
+import kGlobalConstants from 'GlobalConstants';
+
 import NavBarGlossaryLink from './NavBarGlossaryLink';
 import ProfileButton from './ProfileButton';
 import MobileNav from './mobile/MobileNav';
@@ -61,6 +63,11 @@ export default class NavBar extends React.Component {
             homepageClass = 'homepage';
         }
 
+        let betaClass = '';
+        if (kGlobalConstants.IN_BETA) {
+            betaClass = 'beta';
+        }
+
         let mobileNav = null;
         if (this.state.showMobileNav) {
             mobileNav = (
@@ -74,7 +81,7 @@ export default class NavBar extends React.Component {
                 className="nav-container"
                 role="navigation">
                 <div className="logo">
-                    <div className={`usa-logo ${homepageClass}`} id="logo">
+                    <div className={`usa-logo ${homepageClass} ${betaClass}`} id="logo">
                         <a href="#/" title="USAspending.gov Home" aria-label="USAspending.gov Home">
                             <span className="logo-sr">USAspending.gov</span>
                         </a>

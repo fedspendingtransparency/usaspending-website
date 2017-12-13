@@ -48,7 +48,7 @@ export default class ResultsTableSection extends React.Component {
     }
 
     setTableWidth() {
-        const tableWidth = this.tableWidthController.clientWidth - 2;
+        const tableWidth = this.tableWidthController.clientWidth - 1;
         this.setState({ tableWidth });
     }
 
@@ -67,7 +67,9 @@ export default class ResultsTableSection extends React.Component {
         return (
             <div className="search-results-table-section" id="results-section-table">
                 <div className="table-section-header">
-                    <h3>Spending by Award</h3>
+                    <h2 className="visualization-title">
+                        Spending by Award
+                    </h2>
                 </div>
                 <hr className="results-divider" />
                 <ResultsTableTabs

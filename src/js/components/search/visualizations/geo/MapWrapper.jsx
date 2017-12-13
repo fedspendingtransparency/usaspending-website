@@ -87,6 +87,8 @@ export default class MapWrapper extends React.Component {
         this.loadedLayers = {};
         this.broadcastReceivers = [];
 
+        this.renderCallback = null;
+
         this.mapReady = this.mapReady.bind(this);
         this.mapRemoved = this.mapRemoved.bind(this);
 
@@ -114,6 +116,7 @@ export default class MapWrapper extends React.Component {
 
     componentWillUnmount() {
         // remove any broadcast listeners
+        this.removeChangeListeners();
         this.broadcastReceivers.forEach((listenerRef) => {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
         });
@@ -299,8 +302,8 @@ export default class MapWrapper extends React.Component {
         });
     }
 
-    measureMap() {
-         // determine which entities (state, counties, etc based on current scope) are in view
+    measureMap(forced = false) {
+        // determine which entities (state, counties, etc based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
         const mapLoaded = this.mapRef.map.loaded();
         // wait for the map to load before continuing
@@ -323,7 +326,7 @@ export default class MapWrapper extends React.Component {
         // remove the duplicates values and pass them to the parent
         const uniqueEntities = uniq(visibleEntities);
 
-        MapBroadcaster.emit('mapMeasureDone', uniqueEntities);
+        MapBroadcaster.emit('mapMeasureDone', uniqueEntities, forced);
     }
 
     prepareChangeListeners() {
@@ -336,13 +339,20 @@ export default class MapWrapper extends React.Component {
             }
         }
 
-        this.mapRef.map.on('moveend', () => {
+        // we need to hold a reference to the callback in order to remove the listener when
+        // the component unmounts
+        this.renderCallback = () => {
             this.mapRef.map.on('render', renderCallback);
-        });
+        };
+        this.mapRef.map.on('moveend', this.renderCallback);
         // but also do it when the map resizes, since the view will be different
-        this.mapRef.map.on('resize', () => {
-            this.mapRef.map.on('render', renderCallback);
-        });
+        this.mapRef.map.on('resize', this.renderCallback);
+    }
+
+    removeChangeListeners() {
+        // remove the render callbacks
+        this.mapRef.map.off('moveend', this.renderCallback);
+        this.mapRef.map.off('resize', this.renderCallback);
     }
 
     mouseOverLayer(e) {
