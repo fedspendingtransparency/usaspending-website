@@ -1,9 +1,7 @@
 .warning-banner-wrap {
     @import "mixins/fullSectionWrap";
     background: $color-primary-alt-lightest;
-    min-height: rem(60);
     overflow: hidden;
-    padding: rem(5) 0;
     width: 100%;
     border: 3px solid #BCE8EB;
     .warning-banner {
@@ -13,10 +11,11 @@
         p {
             flex: 1;
             display: block;
-            margin-right: rem(32);
+            margin: rem(8) rem(30) rem(8) 0;
         }
         .top-alert-icon {
-            margin: rem(15) rem(10);
+            margin: rem(5) rem(10) 0 rem(10);
+            height: 21px;
             .usa-da-icon {
                 flex: 1;
                 & svg {
@@ -37,15 +36,15 @@
         top: 0;
         right: 0;
         @include button-unstyled;
-        margin: rem(25) rem(15) rem(15) rem(15);
+        margin: rem(15);
         @include media($large-screen) {
-            margin: rem(25) rem(30) rem(15) rem(30);
+            margin: rem(15) rem(30);
         }
 
         svg {
             fill: $color-gray;
-            width: rem(20);
-            height: rem(20);
+            width: rem(16);
+            height: rem(16);
         }
     }
 }
