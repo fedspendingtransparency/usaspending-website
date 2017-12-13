@@ -52,7 +52,8 @@ export default class Header extends React.Component {
         }
         else if (kGlobalConstants.IN_BETA) {
             banner = (
-                <WarningBanner />
+                <WarningBanner
+                    closeBanner={this.closeBanner} />
             );
         }
         return (
