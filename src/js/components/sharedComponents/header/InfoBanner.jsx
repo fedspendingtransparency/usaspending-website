@@ -1,5 +1,10 @@
 import React from 'react';
-import { InfoCircle } from '../icons/Icons';
+import PropTypes from 'prop-types';
+import { InfoCircle, Close } from 'components/sharedComponents/icons/Icons';
+
+const propTypes = {
+    closeBanner: PropTypes.func
+};
 
 export default class InfoBanner extends React.Component {
     render() {
@@ -22,7 +27,17 @@ export default class InfoBanner extends React.Component {
                         </p>
                     </div>
                 </div>
+                <button
+                    className="close"
+                    title="Dismiss message"
+                    aria-label="Dismiss message"
+                    onClick={this.props.closeBanner}>
+                    <Close alt="Dismiss message" />
+                </button>
             </div>
         );
     }
 }
+
+InfoBanner.propTypes = propTypes;
+
