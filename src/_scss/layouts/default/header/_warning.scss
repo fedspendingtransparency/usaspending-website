@@ -13,9 +13,10 @@
         p {
             flex: 1;
             display: block;
+            margin-right: rem(32);
         }
         .top-alert-icon {
-            margin: rem(15) rem(10) 0 0;
+            margin: rem(15) rem(10);
             .usa-da-icon {
                 flex: 1;
                 & svg {
@@ -36,7 +37,10 @@
         top: 0;
         right: 0;
         @include button-unstyled;
-        margin: rem(25) rem(30) rem(15) rem(30);
+        margin: rem(25) rem(15) rem(15) rem(15);
+        @include media($large-screen) {
+            margin: rem(25) rem(30) rem(15) rem(30);
+        }
 
         svg {
             fill: $color-gray;
