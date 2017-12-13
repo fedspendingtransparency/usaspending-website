@@ -89,7 +89,7 @@
         }
 
         .action {
-            @include flex(1 1 auto);
+            @include flex(0 0 auto);
             margin-top: rem(30);
             height: rem(40);
             position: relative;
