@@ -1,53 +1,50 @@
 .warning-banner-wrap {
     @import "mixins/fullSectionWrap";
-    background: as-alpha($color-gold-lightest, 0.95);
-    min-height: rem(60);
+    background: $color-primary-alt-lightest;
     overflow: hidden;
-    padding: rem(15) 0;
     width: 100%;
-    border-bottom: 1px solid $color-gold-lighter;
+    border: 3px solid #BCE8EB;
     .warning-banner {
-        @include fullSectionWrap(0, 0);
         @include display(flex);
-        & p {
+        margin: auto;
+        width: fit-content;
+        p {
             flex: 1;
-            font-size: $small-font-size;
             display: block;
+            margin: rem(8) rem(30) rem(8) 0;
         }
-        & .top-alert-icon {
-            margin: rem(15) rem(10) 0 0;
-            @include media($large-screen) {
-                margin: rem(10) rem(10) 0 0;
-            }
-            & .usa-da-icon {
+        .top-alert-icon {
+            margin: rem(5) rem(10) 0 rem(10);
+            height: 21px;
+            .usa-da-icon {
                 flex: 1;
-                height: rem(20);
-                width: rem(30);
                 & svg {
-                    fill: $color-gray-dark;
-                    height: rem(30);
-                    width: rem(30);
+                    margin-top: rem(4);
+                    height: rem(21);
+                    width: rem(21);
+                    fill: #5BC0DE;
                 }
             }
+        }
+
+        .good-news {
+            font-weight: $font-semibold;
         }
     }
+    .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        @include button-unstyled;
+        margin: rem(15);
+        @include media($large-screen) {
+            margin: rem(15) rem(30);
+        }
 
-    &.info {
-        background: as-alpha($color-cool-blue-lightest, 0.95);
-        border-bottom: 1px solid $color-cool-blue-lighter;
-
-        .warning-banner {
-            .top-alert-icon {
-                .usa-da-icon {
-                    & svg {
-                        fill: $color-cool-blue;
-                    }
-                }
-            }
-
-            .good-news {
-                font-weight: $font-semibold;
-            }
+        svg {
+            fill: $color-gray;
+            width: rem(16);
+            height: rem(16);
         }
     }
 }
