@@ -125,7 +125,7 @@ export class TransactionsTableContainer extends React.Component {
             if (this.props.type === 'contract') {
                 transaction = new ContractTransaction(item);
             }
-            else if (this.props.type === 'loans') {
+            else if (this.props.type === 'loan') {
                 transaction = new LoanTransaction(item);
             }
             transactions.push(transaction);

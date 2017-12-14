@@ -1,5 +1,5 @@
 /**
- * ContractTransactionsTable.jsx
+ * TransactionsTable.jsx
  * Created by Kevin Li 2/25/17
  */
 
@@ -34,7 +34,7 @@ const propTypes = {
     type: PropTypes.string
 };
 
-export default class ContractTransactionsTable extends React.Component {
+export default class TransactionsTable extends React.Component {
     constructor(props) {
         super(props);
 
@@ -55,7 +55,7 @@ export default class ContractTransactionsTable extends React.Component {
         if (this.props.type === 'contract') {
             tableMapping = contractMapping;
         }
-        else if (this.props.type === 'loans') {
+        else if (this.props.type === 'loan') {
             tableMapping = loanMapping;
         }
         return tableMapping;
@@ -161,4 +161,4 @@ export default class ContractTransactionsTable extends React.Component {
     }
 }
 
-ContractTransactionsTable.propTypes = propTypes;
+TransactionsTable.propTypes = propTypes;
