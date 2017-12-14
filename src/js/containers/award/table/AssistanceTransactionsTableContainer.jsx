@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { uniqueId } from 'lodash';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
@@ -31,12 +32,21 @@ export class AssistanceTransactionsTableContainer extends React.Component {
         super(props);
 
         this.state = {
-            inFlight: false
+            inFlight: false,
+            nextPage: false,
+            page: 1,
+            sort: {
+                field: 'action_date',
+                direction: 'desc'
+            },
+            tableInstance: `${uniqueId()}`,
+            transactions: []
         };
 
         this.transactionRequest = null;
 
         this.nextTransactionPage = this.nextTransactionPage.bind(this);
+        this.changeSort = this.changeSort.bind(this);
     }
 
     componentDidMount() {
@@ -125,36 +135,44 @@ export class AssistanceTransactionsTableContainer extends React.Component {
             transactions.push(transaction);
         });
 
-        if (reset) {
-            // override the existing transactions
-            this.props.setAwardTransactions(transactions);
-        }
-        else {
-            // append to the existing list
-            this.props.appendAwardTransactions(transactions);
-        }
-
         // update the metadata
         const meta = data.page_metadata;
-        this.props.setTransactionsMeta({
+        const newState = {
             page: meta.page,
-            nextPage: meta.has_next_page
-        });
+            nextPage: meta.has_next_page,
+            inFlight: false
+        };
 
-        // update the render hash
-        this.props.updateTransactionRenderHash();
         if (reset) {
-            this.props.updateTransactionGroupHash();
+            newState.tableInstance = `${uniqueId()}`;
+            newState.transactions = transactions;
         }
+        else {
+            // append to the current results
+            newState.transactions = this.state.transactions.concat(transactions);
+        }
+
+        this.setState(newState);
     }
 
     nextTransactionPage() {
-        if (!this.props.award.transactionMeta.nextPage) {
+        if (!this.state.nextPage || this.state.inFlight) {
             return;
         }
 
-        const nextPage = this.props.award.transactionMeta.page + 1;
+        const nextPage = this.state.page + 1;
+        this.setState({
+            page: nextPage
+        });
         this.fetchTransactions(nextPage, false);
+    }
+
+    changeSort(sort) {
+        this.setState({
+            sort
+        }, () => {
+            this.fetchTransactions(1, true);
+        });
     }
 
     render() {

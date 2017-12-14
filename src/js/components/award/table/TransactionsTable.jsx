@@ -6,7 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import tableMapping from 'dataMapping/contracts/transactionTable';
+import contractMapping from 'dataMapping/contracts/transactionTable';
+import assistanceMapping from
+    'dataMapping/financialAssistance/financialAssistanceTransactionTable';
+import loanMapping from 'dataMapping/financialAssistance/loanTransactionTable';
 
 import { measureTableHeader } from 'helpers/textMeasurement';
 
@@ -27,7 +30,8 @@ const propTypes = {
     inFlight: PropTypes.bool,
     sort: PropTypes.object,
     nextTransactionPage: PropTypes.func,
-    changeSort: PropTypes.func
+    changeSort: PropTypes.func,
+    type: PropTypes.string
 };
 
 export default class ContractTransactionsTable extends React.Component {
@@ -46,7 +50,19 @@ export default class ContractTransactionsTable extends React.Component {
         }
     }
 
+    tableMapping() {
+        let tableMapping = assistanceMapping;
+        if (this.props.type === 'contract') {
+            tableMapping = contractMapping;
+        }
+        else if (this.props.type === 'loans') {
+            tableMapping = loanMapping;
+        }
+        return tableMapping;
+    }
+
     headerCellRender(columnIndex) {
+        const tableMapping = this.tableMapping();
         const column = tableMapping.table._order[columnIndex];
         const displayName = tableMapping.table[column];
 
@@ -64,6 +80,7 @@ export default class ContractTransactionsTable extends React.Component {
     }
 
     bodyCellRender(columnIndex, rowIndex) {
+        const tableMapping = this.tableMapping();
         const column = tableMapping.table._order[columnIndex];
         const apiKey = tableMapping.table._mapping[column];
         const item = this.props.transactions[rowIndex];
@@ -80,6 +97,8 @@ export default class ContractTransactionsTable extends React.Component {
 
     buildTable() {
         let totalWidth = 0;
+
+        const tableMapping = this.tableMapping();
 
         const columns = tableMapping.table._order.map((column, i) => {
             const columnX = totalWidth;
