@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
 
 import HeaderRow from './HeaderRow';
 import TableBody from './TableBody';
@@ -16,7 +15,9 @@ const propTypes = {
     rowCount: PropTypes.number,
     rowHeight: PropTypes.number,
     columns: PropTypes.array,
-    onReachedBottom: PropTypes.func
+    onReachedBottom: PropTypes.func,
+    headerCellRender: PropTypes.func,
+    bodyCellRender: PropTypes.func
 };
 
 const defaultProps = {
@@ -49,27 +50,16 @@ export default class Table extends React.Component {
         this._scrolledTable = this._scrolledTable.bind(this);
     }
 
-    componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.columns, this.props.columns)) {
-            this.updateColumns(this.props.columns);
-        }
-    }
+    reloadTable() {
+        // force the scroll back to the top of the page
+        this._tableWrapper.scrollLeft = 0;
+        this._tableWrapper.scrollTop = 0;
 
-    updateRows() {
-        if (this._bodyComponent) {
-            this._bodyComponent.updateRows();
-        }
-    }
-
-    updateColumns(columns) {
-        const scrollbarHeight = this._measureHorizontalScrollbar();
-        this.setState({
-            scrollbarHeight
-        }, () => {
-            if (this._bodyComponent) {
-                this._bodyComponent.updateColumns(columns);
-            }
-        });
+        // wait for the scroll to complete before changing the row counts (to prevent false
+        // pagination)
+        window.setTimeout(() => {
+            this._bodyComponent.reloadTable();
+        }, 300);
     }
 
     scrollTo(x, y) {
@@ -81,10 +71,6 @@ export default class Table extends React.Component {
 
                 this._tableWrapper.scrollLeft = x;
                 this._tableWrapper.scrollTop = y;
-                ScrollManager.update({
-                    x,
-                    y
-                });
             },
             type: 'overrideScroll',
             isSingle: true,
@@ -188,6 +174,7 @@ export default class Table extends React.Component {
                         contentWidth={this.props.contentWidth}
                         headerHeight={this.props.headerHeight}
                         columns={this.props.columns}
+                        headerCellRender={this.props.headerCellRender}
                         ref={(component) => {
                             this._headerComponent = component;
                         }} />
@@ -206,11 +193,13 @@ export default class Table extends React.Component {
                             this._internalDiv = div;
                         }}>
                         <TableBody
+                            columns={this.props.columns}
                             contentWidth={this.props.contentWidth}
                             bodyWidth={visibleWidth}
                             bodyHeight={visibleHeight}
                             rowHeight={this.props.rowHeight}
                             rowCount={this.props.rowCount}
+                            bodyCellRender={this.props.bodyCellRender}
                             onReachedBottom={this.props.onReachedBottom}
                             ref={(component) => {
                                 this._bodyComponent = component;

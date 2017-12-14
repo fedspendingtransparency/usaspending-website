@@ -38,11 +38,15 @@ export default class MapList extends React.Component {
                 field: 'state',
                 direction: 'asc'
             },
-            sortedData: []
+            sortedData: [],
+            columns: [],
+            contentWidth: 0
         };
 
         this.setTableWidth = this.setTableWidth.bind(this);
         this.changeSearchOrder = this.changeSearchOrder.bind(this);
+        this.headerCellRender = this.headerCellRender.bind(this);
+        this.bodyCellRender = this.bodyCellRender.bind(this);
     }
 
     componentDidMount() {
@@ -96,51 +100,28 @@ export default class MapList extends React.Component {
         let contentWidth = 0;
         const columns = [];
 
-        tableColumns.order.forEach((column, index) => {
+        tableColumns.order.forEach((column) => {
             const columnX = contentWidth;
             contentWidth += tableColumns.widths[column];
 
             const tableCol = {
                 x: columnX,
-                width: tableColumns.widths[column],
-                header: () => {
-                    const isLast = index + 1 === tableColumns.order.length;
-                    return {
-                        headerClass: MapListHeaderCell,
-                        additionalProps: {
-                            isLast,
-                            field: column,
-                            title: tableColumns.labels[column],
-                            defaultDirection: tableColumns.defaultDirection[column],
-                            changeSearchOrder: this.changeSearchOrder,
-                            currentSort: this.state.sort
-                        }
-                    };
-                },
-                cell: (rowIndex) => {
-                    const isLast = index + 1 === tableColumns.order.length;
-                    let cellData = sortedData[rowIndex].get(column);
-                    if (index === 1 || index === 3) {
-                        cellData = MoneyFormatter.formatMoney(cellData);
-                    }
-                    return {
-                        cellClass: ResultsTableGenericCell,
-                        additionalProps: {
-                            isLast,
-                            rowIndex,
-                            data: `${cellData}`
-                        }
-                    };
-                }
+                width: tableColumns.widths[column]
             };
 
             columns.push(tableCol);
         });
 
-        return {
+        this.setState({
+            sortedData,
             columns,
             contentWidth
-        };
+        }, () => {
+            // update the table
+            if (this.tableComponent) {
+                this.tableComponent.reloadTable();
+            }
+        });
     }
 
     changeSearchOrder(field, direction) {
@@ -153,19 +134,49 @@ export default class MapList extends React.Component {
         }, () => {
             // update the table
             if (this.tableComponent) {
-                this.tableComponent.updateRows();
+                this.tableComponent.reloadTable();
             }
         });
     }
-    render() {
-        const calculatedValues = this.prepareTable(this.props.data);
 
+    headerCellRender(columnIndex) {
+        const column = tableColumns.order[columnIndex];
+        const isLast = columnIndex + 1 === tableColumns.order.length;
+
+        return (
+            <MapListHeaderCell
+                isLast={isLast}
+                field={column}
+                title={tableColumns.labels[column]}
+                defaultDirection={tableColumns.defaultDirection[column]}
+                changeSearchOrder={this.changeSearchOrder}
+                currentSort={this.state.sort} />
+        );
+    }
+
+    bodyCellRender(columnIndex, rowIndex) {
+        const column = tableColumns.order[columnIndex];
+        const isLast = columnIndex + 1 === tableColumns.order.length;
+        let cellData = this.state.sortedData[rowIndex].get(column);
+        if (columnIndex === 1 || columnIndex === 3) {
+            cellData = MoneyFormatter.formatMoney(cellData);
+        }
+
+        return (
+            <ResultsTableGenericCell
+                isLast={isLast}
+                rowIndex={rowIndex}
+                data={`${cellData}`} />
+        );
+    }
+
+    render() {
         let inFlightClass = 'loaded-table';
         if (this.props.loading) {
             inFlightClass = 'loading-table';
         }
 
-        const visibleWidth = Math.min(this.state.tableWidth, calculatedValues.contentWidth);
+        const visibleWidth = Math.min(this.state.tableWidth, this.state.contentWidth);
         const visibleHeight = Math.min(tableHeight, this.props.data.length * rowHeight);
 
         return (
@@ -184,13 +195,15 @@ export default class MapList extends React.Component {
                         marginRight: this.state.tableRight
                     }}>
                     <IBTable
-                        contentWidth={calculatedValues.contentWidth}
+                        contentWidth={this.state.contentWidth}
                         bodyWidth={visibleWidth}
                         bodyHeight={visibleHeight}
                         rowHeight={rowHeight}
                         rowCount={this.props.data.length}
                         headerHeight={50}
-                        columns={calculatedValues.columns}
+                        columns={this.state.columns}
+                        headerCellRender={this.headerCellRender}
+                        bodyCellRender={this.bodyCellRender}
                         ref={(table) => {
                             this.tableComponent = table;
                         }} />

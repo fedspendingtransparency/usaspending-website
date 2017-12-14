@@ -9,28 +9,28 @@ import PropTypes from 'prop-types';
 import ScrollManager from '../managers/ScrollManager';
 
 const propTypes = {
+    columns: PropTypes.array,
     rowCount: PropTypes.number,
     rowHeight: PropTypes.number,
     bodyHeight: PropTypes.number,
     bodyWidth: PropTypes.number,
     contentWidth: PropTypes.number,
-    onReachedBottom: PropTypes.func
+    onReachedBottom: PropTypes.func,
+    bodyCellRender: PropTypes.func
 };
 
-const watchedProps = ['rowCount', 'rowHeight', 'bodyHeight', 'contentWidth'];
+const watchedProps = ['rowCount', 'rowHeight', 'bodyHeight', 'contentWidth', 'bodyWidth'];
 
 export default class TableBody extends React.PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
-            visibleCoords: ''
+            visibleRange: ''
         };
 
         this._lastX = 0;
         this._lastY = 0;
-
-        this._columns = [];
 
         this._cellCache = {};
         this._visibleCells = [];
@@ -59,39 +59,35 @@ export default class TableBody extends React.PureComponent {
         }
     }
 
-    updateColumns(columns) {
-        this._columns = columns;
-        this._generateAllCells();
-    }
-
-    updateRows() {
+    reloadTable() {
         this.setState({
-            visibleCoords: ''
+            visibleRange: ''
         }, () => {
             this._generateAllCells();
         });
     }
 
     _tableScrolled(scroll) {
-        const visibleCells = this._calculateVisibleCells(scroll.x, scroll.y);
-        if (!visibleCells) {
+        const visibleCoords = this._calculateVisibleCells(scroll.x, scroll.y);
+        if (!visibleCoords || visibleCoords.length === 0) {
             // there is no data so there's nothing to show
             return;
         }
 
-        const visibleCoords = `${visibleCells[0]}-${visibleCells[visibleCells.length - 1]}`;
+        const visibleRange = visibleCoords.range;
 
         this._lastX = scroll.x;
         this._lastY = scroll.y;
 
-        if (visibleCoords !== this.state.visibleCoords) {
+        if (visibleRange !== this.state.visibleRange) {
             // cells changed
-            this._visibleCells = null;
-            this._visibleCells = visibleCells;
+            this._visibleCells = visibleCoords.cells.map((coord) => this._cellCache[coord]);
+
             this.setState({
-                visibleCoords
+                visibleRange
             }, () => {
-                if (this.props.onReachedBottom && this._isAtBottom() && this.props.rowCount > 0) {
+                if (this.props.onReachedBottom && this._isAtBottom()
+                    && this.props.rowCount > 0) {
                     this.props.onReachedBottom();
                 }
             });
@@ -99,7 +95,7 @@ export default class TableBody extends React.PureComponent {
     }
 
     _calculateVisibleCells(x, y) {
-        if (this.props.rowCount === 0) {
+        if (this.props.rowCount === 0 || this.props.columns.length === 0) {
             // there's no data
             return null;
         }
@@ -119,8 +115,8 @@ export default class TableBody extends React.PureComponent {
         let leadingColumn = null;
         let trailingColumn = null;
 
-        for (let i = 0; i < this._columns.length; i++) {
-            const column = this._columns[i];
+        for (let i = 0; i < this.props.columns.length; i++) {
+            const column = this.props.columns[i];
             const columnStartX = column.x;
             const columnEndX = column.x + column.width;
 
@@ -148,11 +144,12 @@ export default class TableBody extends React.PureComponent {
         }
 
         const visibleCells = [];
+
         for (let i = topRow; i <= bottomRow; i++) {
             if (i === topRow) {
                 // ensure the last column of the first row is included for accessibility purposes
-                if (visibleColumns[visibleColumns.length - 1] !== this._columns.length - 1) {
-                    visibleCells.push(`${this._columns.length - 1},${topRow}`);
+                if (visibleColumns[visibleColumns.length - 1] !== this.props.columns.length - 1) {
+                    visibleCells.push(`${this.props.columns.length - 1},${topRow}`);
                 }
             }
             else if (i === bottomRow) {
@@ -167,7 +164,10 @@ export default class TableBody extends React.PureComponent {
             });
         }
 
-        return visibleCells;
+        return {
+            cells: visibleCells,
+            range: `${visibleColumns[0]},${topRow}-${visibleColumns[visibleColumns.length - 1]},${bottomRow}`
+        };
     }
 
     _isAtBottom() {
@@ -175,7 +175,8 @@ export default class TableBody extends React.PureComponent {
         // allow a half row buffer at the bottom
         const contentBottom = (this.props.rowCount * this.props.rowHeight) -
             (this.props.rowHeight / 2);
-        if (visibleBottom >= contentBottom) {
+        const maxBottom = this.props.rowCount * this.props.rowHeight;
+        if (visibleBottom >= contentBottom && visibleBottom <= maxBottom) {
             return true;
         }
         return false;
@@ -185,36 +186,27 @@ export default class TableBody extends React.PureComponent {
         // pre-generate all the cells the table will have when the data is initially loaded in
         // we'll pull these from the cache on-the-fly as they come into view
         const cellCache = {};
-        for (let i = 0; i < this.props.rowCount; i++) {
-            this._columns.forEach((column, columnIndex) => {
-                const cellData = column.cell(i);
-
-                const virtualCell = {
+        for (let rowIndex = 0; rowIndex < this.props.rowCount; rowIndex++) {
+            this.props.columns.forEach((column, columnIndex) => {
+                const cellPositioning = {
                     x: column.x,
-                    y: i * this.props.rowHeight,
+                    y: rowIndex * this.props.rowHeight,
                     width: column.width,
-                    height: this.props.rowHeight,
-                    child: {
-                        cellClass: cellData.cellClass,
-                        props: Object.assign({}, cellData.additionalProps, {
-                            columnIndex
-                        })
-                    }
+                    height: this.props.rowHeight
                 };
-                const cellContent = React.createElement(
-                    virtualCell.child.cellClass,
-                    virtualCell.child.props
-                );
-                const coord = `${columnIndex},${i}`;
+
+                const cellContent = this.props.bodyCellRender(columnIndex, rowIndex);
+
+                const coord = `${columnIndex},${rowIndex}`;
                 const realCell = (
                     <div
                         key={coord}
                         className="ibt-table-cell"
                         style={{
-                            top: virtualCell.y,
-                            left: virtualCell.x,
-                            height: virtualCell.height,
-                            width: virtualCell.width
+                            top: cellPositioning.y,
+                            left: cellPositioning.x,
+                            height: cellPositioning.height,
+                            width: cellPositioning.width
                         }}>
                         {cellContent}
                     </div>
@@ -232,8 +224,6 @@ export default class TableBody extends React.PureComponent {
     }
 
     render() {
-        const cells = this._visibleCells.map((coord) => this._cellCache[coord]);
-
         const style = {
             width: this.props.contentWidth,
             height: this.props.rowCount * this.props.rowHeight
@@ -244,7 +234,7 @@ export default class TableBody extends React.PureComponent {
                 className="ibt-table-body-container"
                 style={style}>
                 <div className="ibt-table-body">
-                    {cells}
+                    {this._visibleCells}
                 </div>
             </div>
         );

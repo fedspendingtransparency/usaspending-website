@@ -11,8 +11,7 @@ import tableMapping from 'dataMapping/contracts/transactionTable';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
-import TransactionTableHeaderCellContainer from
-    'containers/award/table/cells/TransactionTableHeaderCellContainer';
+import TransactionTableHeaderCell from './cells/TransactionTableHeaderCell';
 
 import TransactionTableGenericCell from './cells/TransactionTableGenericCell';
 
@@ -22,61 +21,29 @@ const rowHeight = 40;
 const tableHeight = 12.5 * rowHeight;
 
 const propTypes = {
-    award: PropTypes.object,
+    transactions: PropTypes.array,
+    tableInstance: PropTypes.string,
     tableWidth: PropTypes.number,
     inFlight: PropTypes.bool,
-    nextTransactionPage: PropTypes.func
+    sort: PropTypes.object,
+    nextTransactionPage: PropTypes.func,
+    changeSort: PropTypes.func
 };
 
 export default class ContractTransactionsTable extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            width: 0,
-            xPos: 0,
-            yPos: 0
-        };
-
-        this.rowClassName = this.rowClassName.bind(this);
-        this.tableScrolled = this.tableScrolled.bind(this);
-    }
-
-    tableScrolled(xPos, yPos) {
-        // determine the table position
-        const rowNumber = this.rowAtYPosition(yPos);
-        if (rowNumber >= this.props.award.transactions.length) {
-            // we have reached the bottom of the table, load next page
-            this.props.nextTransactionPage();
+    componentDidUpdate(prevProps) {
+        if (prevProps.tableInstance !== this.props.tableInstance) {
+            if (this.tableComponent) {
+                this.tableComponent.scrollTo(0, 0);
+                this.tableComponent.updateRows();
+            }
         }
-
-        // save the scroll position
-        this.setState({ xPos, yPos });
     }
-
-    rowAtYPosition(yPos, returnTop = false) {
-        // determine the table position
-        let yPosition = yPos;
-        if (!returnTop) {
-            // return the bottom row
-            yPosition += tableHeight;
-        }
-        return Math.floor(yPosition / rowHeight);
-    }
-
-    rowClassName(index) {
-        let evenOdd = 'odd';
-        if ((index + 1) % 2 === 0) {
-            evenOdd = 'even';
-        }
-        return `transaction-row-${evenOdd}`;
-    }
-
-
     buildTable() {
         let totalWidth = 0;
 
         const columns = tableMapping.table._order.map((column, i) => {
+            const columnX = totalWidth;
             const isLast = i === tableMapping.table._order.length - 1;
 
             const displayName = tableMapping.table[column];
@@ -92,27 +59,33 @@ export default class ContractTransactionsTable extends React.Component {
             totalWidth += columnWidth;
 
             const apiKey = tableMapping.table._mapping[column];
-            const defaultSort = tableMapping.defaultSortDirection[column];
 
             return {
+                x: columnX,
                 width: columnWidth,
-                name: column,
-                columnId: column,
-                rowClassName: this.rowClassName,
-                header: (<TransactionTableHeaderCellContainer
-                    label={displayName}
-                    column={column}
-                    defaultDirection={defaultSort}
-                    isLastColumn={isLast} />),
-                cell: (index) => {
-                    const item = this.props.award.transactions[index];
-                    return (<TransactionTableGenericCell
-                        key={`cell-transaction-${column}-${index}`}
-                        rowIndex={index}
-                        id={item.id}
-                        data={item[apiKey]}
-                        column={column}
-                        isLastColumn={isLast} />);
+                header: () => (
+                    {
+                        headerClass: TransactionTableHeaderCell,
+                        additionalProps: {
+                            column,
+                            label: displayName,
+                            order: this.props.sort,
+                            defaultDirection: tableMapping.defaultSortDirection[column],
+                            setTransactionSort: this.props.changeSort,
+                            isLastColumn: isLast
+                        }
+                    }
+                ),
+                cell: (rowIndex) => {
+                    const item = this.props.transactions[rowIndex];
+                    return {
+                        cellClass: TransactionTableGenericCell,
+                        additionalProps: {
+                            rowIndex,
+                            data: item[apiKey],
+                            isLastColumn: isLast
+                        }
+                    };
                 }
             };
         });
@@ -138,16 +111,17 @@ export default class ContractTransactionsTable extends React.Component {
                     this.wrapperDiv = div;
                 }}>
                 <IBTable
-                    dataHash={`${this.props.award.renderHash}-${this.props.tableWidth}`}
-                    resetHash={this.props.award.groupHash}
                     rowHeight={rowHeight}
-                    rowCount={this.props.award.transactions.length}
+                    rowCount={this.props.transactions.length}
                     headerHeight={50}
-                    width={tableValues.width}
-                    maxWidth={this.props.tableWidth}
-                    maxHeight={tableHeight}
+                    contentWidth={tableValues.width}
+                    bodyWidth={this.props.tableWidth}
+                    bodyHeight={tableHeight}
                     columns={tableValues.columns}
-                    onScrollEnd={this.tableScrolled} />
+                    onReachedBottom={this.props.nextTransactionPage}
+                    ref={(table) => {
+                        this.tableComponent = table;
+                    }} />
             </div>
         );
     }

@@ -314,7 +314,6 @@ export class ResultsTableContainer extends React.Component {
                 if (pageNumber <= 1 || newSearch) {
                     newState.tableInstance = `${uniqueId()}`;
                     newState.results = res.data.results;
-                    // newState.results = res.data.results.concat(res.data.results, res.data.results, res.data.results);
                 }
                 else {
                     newState.results = this.state.results.concat(res.data.results);
@@ -379,6 +378,7 @@ export class ResultsTableContainer extends React.Component {
             // in-flight, ignore this request
             return;
         }
+
         // check if more pages are available
         if (!this.state.lastPage) {
             // more pages are available, load them

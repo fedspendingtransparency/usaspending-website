@@ -12,7 +12,8 @@ import RenderQueue from '../managers/RenderQueue';
 const propTypes = {
     contentWidth: PropTypes.number,
     headerHeight: PropTypes.number,
-    columns: PropTypes.array
+    columns: PropTypes.array,
+    headerCellRender: PropTypes.func
 };
 
 export default class HeaderRow extends React.Component {
@@ -68,12 +69,8 @@ export default class HeaderRow extends React.Component {
                 height: this.props.headerHeight
             };
 
-            const headerData = column.header();
+            const headerCell = this.props.headerCellRender(index);
 
-            const headerCell = React.createElement(
-                headerData.headerClass,
-                headerData.additionalProps
-            );
             return (
                 <div
                     key={index}

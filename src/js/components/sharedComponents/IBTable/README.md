@@ -24,8 +24,26 @@
 #### columns (array)
 **Required** An array of column objects (see Column Object section).
 
+#### headerCellRender (function)
+**Required** A function that returns a React element for a given column index.
+
+The function will be provided with one argument:
+
+* `columnIndex` - the zero-indexed column index of the current header cell.
+
+#### bodyCellRender (function)
+**Required** A function that returns a React element for a given column and row index.
+
+The function will be provided with two arguments in the following order:
+
+* `columnIndex` - the zero-indexed column index of the current body cell.
+* `rowIndex` - the zero-indexed row index of the current body cell.
+
 #### onReachedBottom (function)
 *Optional* A function that is called when the user has scrolled to the end of the table (this can be used for loading additional pages of data). This function is called when there is half a row or less remaining at the bottom of the table.
+
+### TIPS!
+Because `headerCellRender()` and `bodyCellRender()` are functions in your parent component (the component containing the IBTable instance), you should set up these functions to have closure over the React component class/function's state and props. Given the column index and the row index, you should be able to pass specific cell values to each individual cell.
 
 ### Public Methods
 
@@ -35,15 +53,8 @@ Scrolls the table to the given `x, y` pixel position.
 * `x` - the X scroll position, a number in pixels.
 * `y` - the Y scroll position, a number in pixels.
 
-#### updateColumns(columns)
-Force updates the table's columns and column ordering and regenerates the table's cell values based on the current props.
-
-* `columns` - an array of column objects (see Column Object section for documentation).
-
-#### updateRows()
-Force updates the table's cell values (but _not_ the columns or column ordering) based on the current props.
-
-* No arguments accepted.
+#### reloadTable()
+Force updates the table's contents using the current header props and resets the scroll position to (0, 0).
 
 #### Using Public Methods
 To call a public method on the IBTable component, create a ref to the table component and its function:
@@ -66,27 +77,6 @@ A number representing the number of pixels from the left edge of the table conte
 
 #### width (number)
 A number representing how many pixels wide the column will be.
-
-#### header (function)
-A function that will be called to create the header cell for the given column. It should *not* accept any arguments. It should return an object with the following keys (all are **required**):
-
-* `headerClass` - the React ES6 class or function reference for the header cell component.
-* `additionalProps` - an object of props to pass to the header cell component. 
-
-#### cell (function)
-A function that will be called to create the table body cells in the given column. It **must** accept a single argument - a zero-indexed value indicating the row in the table that the cell is displaying.
-
-It should return an object with the following keys (all are **required**):
-
-* `cellClass` - the React ES6 class or function reference for the body cell component.
-* `additionalProps` - an object of props to pass to the body cell component.
-
-*Note:* The follow props are reserved for use by the IBTable library. Do not provide values to `additionalProps` using these keys (but you can access these props from your body cell component):
-
-* `columnIndex` - the zero-indexed column number of the cell.
-
-#### TIPS!
-Because `header()` and `cell()` are functions in your parent component (the component containing the IBTable instance), you should set up these functions to have closure over the React component class/function's state and props. Given the column index and the row index, you should be able to pass specific cell values to each individual cell.
 
 ### Updating the Table
 

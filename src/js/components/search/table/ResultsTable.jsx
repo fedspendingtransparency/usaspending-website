@@ -34,68 +34,68 @@ export default class ResultsTable extends React.Component {
     constructor(props) {
         super(props);
 
-        this.loadNextPage = this.loadNextPage.bind(this);
+        this.headerCellRender = this.headerCellRender.bind(this);
+        this.bodyCellRender = this.bodyCellRender.bind(this);
     }
-
     componentDidUpdate(prevProps) {
         if (prevProps.tableInstance !== this.props.tableInstance) {
             // table type has changed, reset the scroll
             if (this.tableComponent) {
-                this.tableComponent.scrollTo(0, 0);
-                this.tableComponent.updateRows();
+                this.tableComponent.reloadTable();
             }
         }
     }
 
-    loadNextPage() {
-        this.props.loadNextPage();
+    headerCellRender(columnIndex) {
+        const columnId = this.props.columns.visibleOrder.get(columnIndex);
+        const column = this.props.columns.data.get(columnId);
+        const isLast = (columnIndex + 1) === this.props.columns.visibleOrder.count();
+        const isActive = this.props.sort.field === column.columnName;
+        return (
+            <ResultsTableHeaderCell
+                isLast={isLast}
+                isActive={isActive}
+                title={column.columnName}
+                defaultDirection={column.defaultDirection}
+                currentSort={this.props.sort}
+                updateSort={this.props.updateSort} />
+        );
+    }
+
+    bodyCellRender(columnIndex, rowIndex) {
+        const columnId = this.props.columns.visibleOrder.get(columnIndex);
+        const column = this.props.columns.data.get(columnId);
+        let cellClass = ResultsTableFormattedCell;
+        const props = {
+            rowIndex,
+            columnIndex,
+            value: this.props.results[rowIndex][columnId],
+            dataType: awardTableColumnTypes[columnId]
+        };
+
+        if (column.columnName === 'Award ID') {
+            cellClass = ResultsTableAwardIdCell;
+            props.id = this.props.results[rowIndex].internal_id;
+        }
+
+        return React.createElement(
+            cellClass,
+            props
+        );
     }
 
     prepareTable() {
         let totalWidth = 0;
 
         const columnOrder = this.props.columns.visibleOrder.toJS();
-        const columns = columnOrder.map((columnTitle, i) => {
+        const columns = columnOrder.map((columnTitle) => {
             const column = this.props.columns.data.get(columnTitle);
             const columnX = totalWidth;
             totalWidth += column.width;
 
             return {
                 x: columnX,
-                width: column.width,
-                header: () => {
-                    const isLast = (i + 1) === columnOrder.length;
-                    const isActive = this.props.sort.field === column.columnName;
-                    return {
-                        headerClass: ResultsTableHeaderCell,
-                        additionalProps: {
-                            isLast,
-                            isActive,
-                            title: column.columnName,
-                            defaultDirection: column.defaultDirection,
-                            currentSort: this.props.sort,
-                            updateSort: this.props.updateSort
-                        }
-                    };
-                },
-                cell: (rowIndex) => {
-                    let cellClass = ResultsTableFormattedCell;
-                    const additionalProps = {
-                        rowIndex,
-                        value: this.props.results[rowIndex][columnTitle],
-                        dataType: awardTableColumnTypes[columnTitle]
-                    };
-
-                    if (column.columnName === 'Award ID') {
-                        cellClass = ResultsTableAwardIdCell;
-                        additionalProps.id = this.props.results[rowIndex].internal_id;
-                    }
-
-                    return {
-                        cellClass,
-                        additionalProps
-                    };
-                }
+                width: column.width
             };
         });
 
@@ -126,7 +126,9 @@ export default class ResultsTable extends React.Component {
                     bodyWidth={this.props.visibleWidth}
                     bodyHeight={variableBodyHeight}
                     columns={calculatedValues.columns}
-                    onReachedBottom={this.loadNextPage}
+                    headerCellRender={this.headerCellRender}
+                    bodyCellRender={this.bodyCellRender}
+                    onReachedBottom={this.props.loadNextPage}
                     ref={(table) => {
                         this.tableComponent = table;
                     }} />
