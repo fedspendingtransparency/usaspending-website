@@ -31,14 +31,53 @@ const propTypes = {
 };
 
 export default class ContractTransactionsTable extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.headerCellRender = this.headerCellRender.bind(this);
+        this.bodyCellRender = this.bodyCellRender.bind(this);
+    }
+
     componentDidUpdate(prevProps) {
         if (prevProps.tableInstance !== this.props.tableInstance) {
             if (this.tableComponent) {
-                this.tableComponent.scrollTo(0, 0);
-                this.tableComponent.updateRows();
+                this.tableComponent.reloadTable();
             }
         }
     }
+
+    headerCellRender(columnIndex) {
+        const column = tableMapping.table._order[columnIndex];
+        const displayName = tableMapping.table[column];
+
+        const isLast = columnIndex === tableMapping.table._order.length - 1;
+
+        return (
+            <TransactionTableHeaderCell
+                column={column}
+                label={displayName}
+                order={this.props.sort}
+                defaultDirection={tableMapping.defaultSortDirection[column]}
+                setTransactionSort={this.props.changeSort}
+                isLastColumn={isLast} />
+        );
+    }
+
+    bodyCellRender(columnIndex, rowIndex) {
+        const column = tableMapping.table._order[columnIndex];
+        const apiKey = tableMapping.table._mapping[column];
+        const item = this.props.transactions[rowIndex];
+
+        const isLast = columnIndex === tableMapping.table._order.length - 1;
+
+        return (
+            <TransactionTableGenericCell
+                rowIndex={rowIndex}
+                data={item[apiKey]}
+                isLastColumn={isLast} />
+        );
+    }
+
     buildTable() {
         let totalWidth = 0;
 
@@ -58,35 +97,9 @@ export default class ContractTransactionsTable extends React.Component {
 
             totalWidth += columnWidth;
 
-            const apiKey = tableMapping.table._mapping[column];
-
             return {
                 x: columnX,
-                width: columnWidth,
-                header: () => (
-                    {
-                        headerClass: TransactionTableHeaderCell,
-                        additionalProps: {
-                            column,
-                            label: displayName,
-                            order: this.props.sort,
-                            defaultDirection: tableMapping.defaultSortDirection[column],
-                            setTransactionSort: this.props.changeSort,
-                            isLastColumn: isLast
-                        }
-                    }
-                ),
-                cell: (rowIndex) => {
-                    const item = this.props.transactions[rowIndex];
-                    return {
-                        cellClass: TransactionTableGenericCell,
-                        additionalProps: {
-                            rowIndex,
-                            data: item[apiKey],
-                            isLastColumn: isLast
-                        }
-                    };
-                }
+                width: columnWidth
             };
         });
 
@@ -119,6 +132,8 @@ export default class ContractTransactionsTable extends React.Component {
                     bodyHeight={tableHeight}
                     columns={tableValues.columns}
                     onReachedBottom={this.props.nextTransactionPage}
+                    headerCellRender={this.headerCellRender}
+                    bodyCellRender={this.bodyCellRender}
                     ref={(table) => {
                         this.tableComponent = table;
                     }} />

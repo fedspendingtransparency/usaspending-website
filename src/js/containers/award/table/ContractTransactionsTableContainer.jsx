@@ -20,7 +20,7 @@ const propTypes = {
     award: PropTypes.object
 };
 
-const pageLimit = 13;
+const pageLimit = 15;
 
 export class ContractTransactionsTableContainer extends React.Component {
     constructor(props) {
