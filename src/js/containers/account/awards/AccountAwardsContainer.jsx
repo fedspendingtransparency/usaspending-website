@@ -9,11 +9,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import Immutable from 'immutable';
+import { intersection, uniqueId } from 'lodash';
 
 import { measureTableHeader } from 'helpers/textMeasurement';
 
 import TableSearchFields from 'dataMapping/search/tableSearchFields';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
+import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import AccountAwardSearchOperation from 'models/account/queries/AccountAwardSearchOperation';
@@ -69,35 +71,39 @@ export class AccountAwardsContainer extends React.Component {
         super(props);
 
         this.state = {
-            columns: [],
+            page: 1,
+            hasNext: false,
             counts: {},
-            inFlight: true
+            tableType: 'contracts',
+            sort: {
+                field: 'Award Amount',
+                direction: 'desc'
+            },
+            inFlight: true,
+            results: [],
+            columns: {},
+            tableInstance: `${uniqueId()}` // this will stay constant during pagination but will change when the filters or table type changes
         };
+
+        this.tabCountRequest = null;
+        this.searchRequest = null;
 
         this.switchTab = this.switchTab.bind(this);
         this.loadNextPage = this.loadNextPage.bind(this);
+        this.updateSort = this.updateSort.bind(this);
     }
 
     componentDidMount() {
-        // prepare a default set of columns to show while the API call to determien the proper
-        // default tab is in flight
+        // set some default columns to look at while the initial tab-picker API calls are in flight
         // we can't hide the table entirely because the viewport is required to calculate the
         // row rendering
-        this.showColumns('contracts', true);
-        this.pickDefaultTab();
+        this.loadColumns();
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.filters !== prevProps.filters) {
+        if (prevProps.filters !== this.props.filters) {
+            // filters changed, update the search object
             this.pickDefaultTab();
-        }
-        else if (this.props.order !== prevProps.order) {
-            this.loadData();
-        }
-
-        if (prevProps.meta.type !== this.props.meta.type) {
-            // table type changed, update columns
-            this.showColumns(this.props.meta.type);
         }
     }
 
@@ -113,6 +119,7 @@ export class AccountAwardsContainer extends React.Component {
 
         const searchParams = new AccountAwardSearchOperation(this.props.account.id);
         searchParams.fromState(this.props.filters);
+
         this.tabCountRequest = SearchHelper.fetchAwardCounts({
             aggregate: 'count',
             group: 'type',
@@ -130,191 +137,242 @@ export class AccountAwardsContainer extends React.Component {
     }
 
     parseTabCounts(data) {
-        // determine which types have award results
-        const availableTypes = {};
-        data.results.forEach((type) => {
-            const count = parseFloat(type.aggregate);
-            if (count > 0) {
-                availableTypes[type.type] = count;
-            }
-        });
+        const awardCounts = data.results;
+        let firstAvailable = '';
+        let i = 0;
 
-        // sum the types up by group
-        const availableGroups = {};
-        Object.keys(awardTypeGroups).forEach((group) => {
-            availableGroups[group] = 0;
-            awardTypeGroups[group].forEach((type) => {
-                if ({}.hasOwnProperty.call(availableTypes, type)) {
-                    availableGroups[group] += availableTypes[type];
-                }
-            });
-        });
+        // Set the first available award type to the first non-zero entry in the
+        while (firstAvailable === '' && i < tableTypes.length) {
+            const tableType = tableTypes[i].internal;
 
-        let firstAvailable = 0;
-        for (let i = 0; i < tableTypes.length; i++) {
-            const type = tableTypes[i].internal;
-            if (availableGroups[type] > 0) {
-                firstAvailable = i;
-                i = tableTypes.length + 1;
+            if (awardCounts[tableType] > 0) {
+                firstAvailable = tableType;
             }
+
+            i += 1;
+        }
+
+        // If none of the award types are populated, set the first available tab to be the
+        // first tab in the table
+        if (firstAvailable === '') {
+            firstAvailable = tableTypes[0].internal;
         }
 
         this.setState({
-            counts: availableGroups
+            counts: awardCounts
         }, () => {
-            this.switchTab(tableTypes[firstAvailable].internal);
+            // select the first available tab
+            this.switchTab(firstAvailable);
+            this.updateFilters();
         });
     }
 
-    showColumns(tableType, doNotLoad = false) {
-         // calculate the column metadata to display in the table
-        const columns = [];
-        let sortOrder = TableSearchFields.defaultSortDirection;
-
-        if (tableType === 'loans') {
-            sortOrder = TableSearchFields.loans.sortDirection;
-        }
-
-        const tableSettings = TableSearchFields[tableType];
-
-        tableSettings._order.forEach((col) => {
-            const column = {
-                columnName: col,
-                displayName: tableSettings[col],
-                width: measureTableHeader(tableSettings[col]),
-                defaultDirection: sortOrder[col]
-            };
-            columns.push(column);
+    updateFilters() {
+        const newSearch = new AccountAwardSearchOperation();
+        newSearch.fromState(this.props.filters);
+        this.setState({
+            searchParams: newSearch,
+            page: 1
+        }, () => {
+            this.performSearch(true);
         });
+    }
+
+    loadColumns() {
+        const columns = {};
+        for (const table of tableTypes) {
+            // calculate the column metadata to display for each table type
+            const tableType = table.internal;
+            const typeColumns = [];
+            let sortOrder = TableSearchFields.defaultSortDirection;
+
+            if (tableType === 'loans') {
+                sortOrder = TableSearchFields.loans.sortDirection;
+            }
+
+            const tableSettings = TableSearchFields[tableType];
+
+            tableSettings._order.forEach((col) => {
+                const column = {
+                    columnName: col,
+                    displayName: tableSettings[col],
+                    width: measureTableHeader(tableSettings[col]),
+                    defaultDirection: sortOrder[col]
+                };
+                typeColumns.push(column);
+            });
+
+            columns[tableType] = typeColumns;
+        }
 
         this.setState({
             columns
         }, () => {
-            if (!doNotLoad) {
-                this.loadData();
-            }
+            this.pickDefaultTab();
         });
     }
 
-    switchTab(tab) {
-        this.props.setAccountAwardType(tab);
-        this.showColumns(tab);
-        const currentSortField = this.props.order.field;
-
-        // check if the current sort field is available in the table type
-        if (!Object.hasOwnProperty.call(TableSearchFields[tab], currentSortField)) {
-            // the sort field doesn't exist, use the table type's default field
-            const field = TableSearchFields[tab]._defaultSortField;
-            let direction = TableSearchFields.defaultSortDirection[field];
-            if (tab === 'loans') {
-                direction = TableSearchFields.loans.sortDirection[field];
-            }
-
-            this.props.setAccountAwardOrder({
-                field,
-                direction
-            });
+    performSearch(newSearch = false) {
+        if (this.searchRequest) {
+            // a request is currently in-flight, cancel it
+            this.searchRequest.cancel();
         }
-    }
 
-    loadData(page = 1) {
-        if (this.request) {
-            this.request.cancel();
-        }
+        const tableType = this.state.tableType;
 
         // create a search operation instance from the Redux filters using the account ID
         const searchOperation = new AccountAwardSearchOperation(this.props.account.id);
         searchOperation.fromState(this.props.filters);
-        searchOperation.awardType = awardTypeGroups[this.props.meta.type];
+        searchOperation.awardType = awardTypeGroups[this.state.tableType];
 
-        // parse the redux search order into the API-consumable format
-        const searchOrder = new SearchSortOrder();
-        searchOrder.parseReduxState(this.props.meta.type, this.props.order);
-
-        const params = {
-            page,
-            fields: TableSearchFields[this.props.meta.type]._requestFields,
-            filters: searchOperation.toParams(),
-            order: searchOrder.toParams(),
-            limit: 60,
-            auditTrail: 'Awards table'
-        };
-
-        this.request = SearchHelper.performSearch(params);
-
+        // indicate the request is about to start
         this.setState({
             inFlight: true
         });
 
-        this.request.promise
-            .then((res) => {
-                this.request = null;
+        let pageNumber = this.state.page;
+        if (newSearch) {
+            // a new search (vs just getting more pages of an existing search) requires resetting
+            // the page number
+            pageNumber = 1;
+        }
+        const resultLimit = 60;
 
-                this.parseData(res.data, page);
+        // Request fields for the current table type
+        const requestFields = this.state.columns[tableType].map((column) => column.columnName);
+
+        let sortModifier = '';
+        if (this.state.sort.direction === 'desc') {
+            sortModifier = '-';
+        }
+        const searchOrder = [`${sortModifier}${this.state.sort.field}`];
+
+        const params = {
+            filters: searchOperation.toParams(),
+            page: pageNumber,
+            limit: resultLimit,
+            order: searchOrder
+        };
+
+        // Set the params needed for download API call
+        this.searchRequest = SearchHelper.performSearch(params);
+        this.searchRequest.promise
+            .then((res) => {
+                const newState = {
+                    inFlight: false
+                };
+
+                // don't clear records if we're appending (not the first page)
+                if (pageNumber <= 1 || newSearch) {
+                    newState.tableInstance = `${uniqueId()}`;
+                    newState.results = res.data.results;
+                }
+                else {
+                    newState.results = this.state.results.concat(res.data.results);
+                }
+
+                // request is done
+                this.searchRequest = null;
+                newState.page = res.data.page_metadata.page;
+                newState.hasNext = !res.data.page_metadata.has_next_page;
+
+                this.setState(newState);
             })
             .catch((err) => {
-                if (!isCancel(err)) {
-                    this.request = null;
+                if (isCancel(err)) {
+                    // the request was cancelled
+                }
+                else if (err.response) {
+                    // server responded with something
                     console.log(err);
-                    this.setState({
-                        inFlight: false
-                    });
+                    this.searchRequest = null;
+                }
+                else {
+                    // request never made it out
+                    console.log(err);
+                    this.searchRequest = null;
                 }
             });
     }
 
-    parseData(data, page) {
-        const hasNext = data.page_metadata.has_next_page;
+    switchTab(tab) {
+        const newState = {
+            tableType: tab
+        };
 
-        const awards = [];
-        data.results.forEach((item) => {
-            const award = new AwardSummary(item);
-            awards.push(award);
-        });
+        const currentSortField = this.state.sort.field;
 
-        this.request = null;
+        // check if the current sort field is available in the table type
+        const availableFields = TableSearchFields[tab]._mapping;
+        if (!availableFields[currentSortField]) {
+            // the sort field doesn't exist, use the table type's default field
+            const field = TableSearchFields[tab]._defaultSortField;
+            const fieldType = awardTableColumnTypes[field];
+            let direction = 'desc';
+            if (fieldType === 'number') {
+                direction = 'asc';
+            }
 
-        this.setState({
-            inFlight: false
-        });
-
-        if (page > 1) {
-            this.props.appendAccountAwards({
-                awards,
-                hasNext,
-                page
-            });
+            newState.sort = {
+                field,
+                direction
+            };
         }
-        else {
-            this.props.setAccountAwards({
-                awards,
-                hasNext
-            });
-        }
+
+        this.setState(newState, () => {
+            this.performSearch(true);
+        });
     }
 
     loadNextPage() {
-        if (!this.props.meta.hasNext) {
+        // check if request is already in-flight
+        if (this.state.inFlight) {
+            // in-flight, ignore this request
             return;
         }
 
-        this.loadData(this.props.meta.page + 1);
+        // check if more pages are available
+        if (!this.state.lastPage) {
+            // more pages are available, load them
+            this.setState({
+                page: this.state.page + 1
+            }, () => {
+                this.performSearch();
+            });
+        }
+    }
+
+    updateSort(field, direction) {
+        this.setState({
+            sort: {
+                field,
+                direction
+            }
+        }, () => {
+            this.performSearch(true);
+        });
     }
 
     render() {
-        return (
+        if (Object.keys(this.state.columns).length === 0) {
+            return null;
+        }
+
+        return null;
+        /*
             <AccountAwardsSection
-                batch={this.props.meta.batch}
                 inFlight={this.state.inFlight}
-                results={this.props.awards.toArray()}
-                resultsMeta={this.props.meta}
+                results={this.state.results}
                 columns={this.state.columns}
                 counts={this.state.counts}
+                sort={this.state.sort}
                 tableTypes={tableTypes}
-                currentType={this.props.meta.type}
+                currentType={this.state.tableTypes}
+                tableInstance={this.state.tableInstance}
                 switchTab={this.switchTab}
+                updateSort={this.updateSort}
                 loadNextPage={this.loadNextPage} />
-        );
+        );*/
     }
 }
 
