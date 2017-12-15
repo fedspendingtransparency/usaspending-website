@@ -1,0 +1,47 @@
+.award-data-archive-form {
+    background-color: #F3FAFC;
+    padding: rem(15) rem(5);
+    .form-title {
+        padding-left: rem(15);
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 23px;
+    }
+    form {
+        @include display(flex);
+        @import "./form/agencyPicker";
+
+        .filter-picker {
+            padding: 0 rem(15);
+            .select-label {
+                font-size: rem(14);
+                text-transform: capitalize;
+            }
+            .field-picker {
+                margin: rem(5) 0 0 0;
+                .selected-button {
+                    height: rem(36);
+                    width: 100%;
+                    border: solid 1px $color-gray-light;
+                    &:hover, &:active {
+                        background-color: $color-white;
+                    }
+                    .label {
+                        font-weight: 400;
+                        font-size: 14px;
+                        width: 100%;
+                        .arrow-icon {
+                            float: right;
+                        }
+                    }
+                }
+                .field-list {
+                    width: auto;
+                }
+            }
+            &.agency-picker {
+                width: 30%;
+            }
+        }
+    }
+}

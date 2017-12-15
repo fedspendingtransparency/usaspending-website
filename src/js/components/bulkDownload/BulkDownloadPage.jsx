@@ -14,6 +14,7 @@ import Header from 'components/sharedComponents/header/Header';
 import Footer from 'components/sharedComponents/Footer';
 
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
+import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
 import BulkDownloadModalContainer from
     'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
@@ -95,9 +96,7 @@ export default class BulkDownloadPage extends React.Component {
         );
         if (this.props.dataType === 'award_data_archive') {
             downloadDataContent = (
-                <div>
-                    Archive page here
-                </div>
+                <AwardDataArchiveContainer />
             );
         }
         return (

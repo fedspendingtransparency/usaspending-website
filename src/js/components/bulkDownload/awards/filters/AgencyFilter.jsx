@@ -173,12 +173,12 @@ export default class AgencyFilter extends React.Component {
                     {icon} Select an awarding <span>agency</span> and <span>sub-agency</span>.
                 </h5>
                 <div className="filter-section-content">
-                    <div className="agency-picker">
+                    <div className="filter-picker">
                         <label className="select-label" htmlFor="agency-select">
                             Agency
                         </label>
 
-                        <div className="field-picker agency-select">
+                        <div className="field-picker">
                             <button
                                 className="selected-button"
                                 title={currentAgencyName}
@@ -229,11 +229,11 @@ export default class AgencyFilter extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="sub-agency-picker">
+                    <div className="filter-picker">
                         <label className="select-label" htmlFor="sub-agency-select">
                             Sub-Agency
                         </label>
-                        <div className="field-picker sub-agency-select">
+                        <div className="field-picker">
                             <button
                                 className={`selected-button ${subAgencyDisabledClass}`}
                                 title={currentSubAgencyName}
