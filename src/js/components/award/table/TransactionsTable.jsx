@@ -21,7 +21,7 @@ import TransactionTableGenericCell from './cells/TransactionTableGenericCell';
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
 // indicates when there's more data
-const tableHeight = 12.5 * rowHeight;
+const tableHeight = 10.5 * rowHeight;
 
 const propTypes = {
     transactions: PropTypes.array,
