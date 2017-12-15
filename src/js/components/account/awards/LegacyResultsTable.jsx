@@ -7,18 +7,18 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Immutable, { OrderedSet } from 'immutable';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableGenericCell';
 import ResultsTableAwardIdCell from 'components/search/table/cells/ResultsTableAwardIdCell';
 
+import LegacyTableHeaderCell from './LegacyTableHeaderCell';
+
 const propTypes = {
     results: PropTypes.array,
     batch: PropTypes.object,
     columns: PropTypes.array,
-    headerCellClass: PropTypes.func.isRequired,
     visibleWidth: PropTypes.number,
     loadNextPage: PropTypes.func,
     currentType: PropTypes.string
@@ -39,112 +39,67 @@ export default class LegacyResultsTable extends React.PureComponent {
             dataHash: null
         };
 
-        this.rowClassName = this.rowClassName.bind(this);
-        this.tableScrolled = this.tableScrolled.bind(this);
+        this.headerCellRender = this.headerCellRender.bind(this);
+        this.bodyCellRender = this.bodyCellRender.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        const currentType = nextProps.currentType;
-        const visibleColumnsSet = new OrderedSet(nextProps.columns);
-        // update the data hash
-        this.setState({
-            dataHash: `${currentType}-${visibleColumnsSet.hashCode()}`
-        });
+    componentDidUpdate(prevProps) {
+        if (prevProps.tableInstance !== this.props.tableInstance) {
+            if (this.tableComponent) {
+                this.tableComponent.reloadTable();
+            }
+        }
     }
 
-    shouldComponentUpdate(nextProps) {
-        // to reduce the frequency of re-renders, this component will only monitor for
-        // batch triggers
-        if (!Immutable.is(nextProps.batch, this.props.batch)) {
-            return true;
-        }
-        else if (nextProps.visibleWidth !== this.props.visibleWidth) {
-            // re-render if the window size changed
-            return true;
-        }
-        else if (nextProps.columns !== this.props.columns) {
-            // re-render if column visibility changed
-            return true;
-        }
-        return false;
+    headerCellRender(columnIndex) {
+        const column = this.props.columns[columnIndex];
+        const isLast = columnIndex === this.props.columns.length - 1;
+
+        return (
+            <LegacyTableHeaderCell
+                title={column.displayName}
+                field={column.columnName}
+                defaultDirection={column.defaultDirection}
+                currentSort={this.props.sort}
+                updateSort={this.props.updateSort}
+                isLastColumn={isLast} />
+        );
     }
 
-    tableScrolled(xPos, yPos) {
-        // determine the table position
-        const rowNumber = this.rowAtYPosition(yPos);
+    bodyCellRender(columnIndex, rowIndex) {
+        const column = this.props.columns[columnIndex];
+        const isLast = columnIndex === this.props.columns.length - 1;
 
-        if (rowNumber >= this.props.results.length) {
-            // we have reached the bottom of the table, load next page
-            this.props.loadNextPage();
+        if (column.columnName === 'award_id') {
+            return (
+                <ResultsTableAwardIdCell
+                    rowIndex={rowIndex}
+                    id={this.props.results[rowIndex].id}
+                    data={this.props.results[rowIndex][column.columnName]}
+                    column={column.columnName}
+                    isLastColumn={isLast} />
+            );
         }
 
-        // save the scroll position
-        this.setState({ xPos, yPos });
-    }
-
-    rowAtYPosition(yPos, returnTop = false) {
-        // determine the table position
-        let yPosition = yPos;
-        if (!returnTop) {
-            // return the bottom row
-            yPosition += tableHeight;
-        }
-        return Math.floor(yPosition / rowHeight);
-    }
-
-    rowClassName(index) {
-        let evenOdd = 'odd';
-        if ((index + 1) % 2 === 0) {
-            evenOdd = 'even';
-        }
-        return `award-results-row-${evenOdd}`;
+        return (
+            <ResultsTableGenericCell
+                rowIndex={rowIndex}
+                data={this.props.results[rowIndex][column.columnName]}
+                column={column.columnName}
+                isLastColumn={isLast} />
+        );
     }
 
     prepareTable() {
         let totalWidth = 0;
 
-        const HeaderCell = this.props.headerCellClass;
-
-        const columns = this.props.columns.map((column, i) => {
+        const columns = this.props.columns.map((column) => {
+            const columnX = totalWidth;
             totalWidth += column.width;
-            const isLast = i === this.props.columns.length - 1;
-            let cellName = null;
-            if (column.columnName === 'award_id') {
-                cellName = (index) => (
-                    <ResultsTableAwardIdCell
-                        key={`cell-${column.columnName}-${index}`}
-                        rowIndex={index}
-                        id={this.props.results[index].id}
-                        data={this.props.results[index][column.columnName]}
-                        dataHash={this.state.dataHash}
-                        column={column.columnName}
-                        isLastColumn={isLast} />
-                );
-            }
-            else {
-                cellName = (index) => (
-                    <ResultsTableGenericCell
-                        key={`cell-${column.columnName}-${index}`}
-                        rowIndex={index}
-                        data={this.props.results[index][column.columnName]}
-                        dataHash={this.state.dataHash}
-                        column={column.columnName}
-                        isLastColumn={isLast} />
-                );
-            }
+
             return {
-                width: column.width,
-                name: column.columnName,
-                columnId: `${column.columnName}`,
-                rowClassName: this.rowClassName,
-                header: (
-                    <HeaderCell
-                        label={column.displayName}
-                        column={column.columnName}
-                        defaultDirection={column.defaultDirection}
-                        isLastColumn={isLast} />
-                ),
-                cell: cellName
+                x: columnX,
+                width: column.width
             };
         });
 
@@ -164,18 +119,21 @@ export default class LegacyResultsTable extends React.PureComponent {
         }
 
         return (
-            <div className={`award-results-table${noResultsClass}`}>
+            <div className={`account-results-table${noResultsClass}`}>
                 <IBTable
-                    dataHash={`${this.state.dataHash}-${this.props.batch.queryId}`}
-                    resetHash={this.props.batch.searchId}
                     rowHeight={rowHeight}
                     rowCount={this.props.results.length}
                     headerHeight={50}
-                    width={calculatedValues.width}
-                    maxWidth={this.props.visibleWidth}
-                    maxHeight={tableHeight}
+                    contentWidth={calculatedValues.width}
+                    bodyWidth={this.props.tableWidth}
+                    bodyHeight={tableHeight}
                     columns={calculatedValues.columns}
-                    onScrollEnd={this.tableScrolled} />
+                    onReachedBottom={this.props.loadNextPage}
+                    headerCellRender={this.headerCellRender}
+                    bodyCellRender={this.bodyCellRender}
+                    ref={(table) => {
+                        this.tableComponent = table;
+                    }} />
             </div>
         );
     }

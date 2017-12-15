@@ -137,32 +137,41 @@ export class AccountAwardsContainer extends React.Component {
     }
 
     parseTabCounts(data) {
-        const awardCounts = data.results;
-        let firstAvailable = '';
-        let i = 0;
-
-        // Set the first available award type to the first non-zero entry in the
-        while (firstAvailable === '' && i < tableTypes.length) {
-            const tableType = tableTypes[i].internal;
-
-            if (awardCounts[tableType] > 0) {
-                firstAvailable = tableType;
+        const availableTypes = {};
+        data.results.forEach((type) => {
+            const count = parseFloat(type.aggregate);
+            if (count > 0) {
+                availableTypes[type.type] = count;
             }
+        });
 
-            i += 1;
+        // sum the types up by group
+        const availableGroups = {};
+        Object.keys(awardTypeGroups).forEach((group) => {
+            availableGroups[group] = 0;
+            awardTypeGroups[group].forEach((type) => {
+                if ({}.hasOwnProperty.call(availableTypes, type)) {
+                    availableGroups[group] += availableTypes[type];
+                }
+            });
+        });
+
+        let firstAvailable = 0;
+        for (let i = 0; i < tableTypes.length; i++) {
+            const type = tableTypes[i].internal;
+            if (availableGroups[type] > 0) {
+                firstAvailable = i;
+                i = tableTypes.length + 1;
+            }
         }
 
-        // If none of the award types are populated, set the first available tab to be the
-        // first tab in the table
-        if (firstAvailable === '') {
-            firstAvailable = tableTypes[0].internal;
-        }
+        const defaultTab = tableTypes[firstAvailable].internal;
 
         this.setState({
-            counts: awardCounts
+            counts: availableGroups
         }, () => {
             // select the first available tab
-            this.switchTab(firstAvailable);
+            this.switchTab(defaultTab);
             this.updateFilters();
         });
     }
@@ -218,8 +227,6 @@ export class AccountAwardsContainer extends React.Component {
             this.searchRequest.cancel();
         }
 
-        const tableType = this.state.tableType;
-
         // create a search operation instance from the Redux filters using the account ID
         const searchOperation = new AccountAwardSearchOperation(this.props.account.id);
         searchOperation.fromState(this.props.filters);
@@ -237,9 +244,6 @@ export class AccountAwardsContainer extends React.Component {
             pageNumber = 1;
         }
         const resultLimit = 60;
-
-        // Request fields for the current table type
-        const requestFields = this.state.columns[tableType].map((column) => column.columnName);
 
         let sortModifier = '';
         if (this.state.sort.direction === 'desc') {
@@ -357,9 +361,7 @@ export class AccountAwardsContainer extends React.Component {
         if (Object.keys(this.state.columns).length === 0) {
             return null;
         }
-
-        return null;
-        /*
+        return (
             <AccountAwardsSection
                 inFlight={this.state.inFlight}
                 results={this.state.results}
@@ -367,12 +369,12 @@ export class AccountAwardsContainer extends React.Component {
                 counts={this.state.counts}
                 sort={this.state.sort}
                 tableTypes={tableTypes}
-                currentType={this.state.tableTypes}
+                currentType={this.state.tableType}
                 tableInstance={this.state.tableInstance}
                 switchTab={this.switchTab}
                 updateSort={this.updateSort}
                 loadNextPage={this.loadNextPage} />
-        );*/
+        );
     }
 }
 
