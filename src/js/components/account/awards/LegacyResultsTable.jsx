@@ -62,7 +62,7 @@ export default class LegacyResultsTable extends React.Component {
         return (
             <LegacyTableHeaderCell
                 title={column.displayName}
-                field={column.columnName}
+                field={column.fieldName}
                 defaultDirection={column.defaultDirection}
                 currentSort={this.props.sort}
                 updateSort={this.props.updateSort}

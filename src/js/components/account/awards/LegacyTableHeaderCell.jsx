@@ -9,7 +9,6 @@ import { ArrowUp, ArrowDown } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     isLast: PropTypes.bool,
-    isActive: PropTypes.bool,
     field: PropTypes.string,
     title: PropTypes.string,
     defaultDirection: PropTypes.string,
@@ -60,8 +59,8 @@ const TableHeaderCell = (props) => {
         activeAsc = ' active';
     }
 
-    /* eslint-disable jsx-a11y/no-static-element-interactions */
-    // old linter version
+    /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+    // allow the sort cell to be selectable
     return (
         <div className={`award-result-header-cell ${lastClass}`}>
             <div

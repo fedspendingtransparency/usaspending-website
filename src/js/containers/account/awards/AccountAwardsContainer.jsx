@@ -5,11 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import Immutable from 'immutable';
-import { intersection, uniqueId } from 'lodash';
+import { uniqueId } from 'lodash';
 
 import { measureTableHeader } from 'helpers/textMeasurement';
 
@@ -22,18 +20,9 @@ import AccountAwardSearchOperation from 'models/account/queries/AccountAwardSear
 
 import AccountAwardsSection from 'components/account/awards/AccountAwardsSection';
 
-import * as accountActions from 'redux/actions/account/accountActions';
-
 const propTypes = {
     account: PropTypes.object,
-    awards: PropTypes.instanceOf(Immutable.OrderedSet),
-    meta: PropTypes.object,
-    filters: PropTypes.object,
-    order: PropTypes.object,
-    setAccountAwardType: PropTypes.func,
-    setAccountAwards: PropTypes.func,
-    appendAccountAwards: PropTypes.func,
-    setAccountAwardOrder: PropTypes.func
+    filters: PropTypes.object
 };
 
 const tableTypes = [
@@ -170,21 +159,10 @@ export class AccountAwardsContainer extends React.Component {
         }, () => {
             // select the first available tab
             this.switchTab(defaultTab);
-            this.updateFilters();
-        });
-    }
-
-    updateFilters() {
-        const newSearch = new AccountAwardSearchOperation();
-        newSearch.fromState(this.props.filters);
-
-        this.setState({
-            searchParams: newSearch,
-            page: 1
-        }, () => {
             this.performSearch(true);
         });
     }
+
 
     loadColumns() {
         const columns = {};
@@ -209,6 +187,7 @@ export class AccountAwardsContainer extends React.Component {
                 const column = {
                     dataType,
                     columnName: col,
+                    fieldName: TableSearchFields[tableType]._mapping[col],
                     displayName: tableSettings[col],
                     width: measureTableHeader(tableSettings[col]),
                     defaultDirection: sortOrder[col]
@@ -283,7 +262,7 @@ export class AccountAwardsContainer extends React.Component {
                 // request is done
                 this.searchRequest = null;
                 newState.page = res.data.page_metadata.page;
-                newState.hasNext = !res.data.page_metadata.has_next_page;
+                newState.hasNext = res.data.page_metadata.has_next_page;
 
                 this.setState(newState);
             })
@@ -337,7 +316,7 @@ export class AccountAwardsContainer extends React.Component {
         }
 
         // check if more pages are available
-        if (!this.state.lastPage) {
+        if (this.state.hasNext) {
             // more pages are available, load them
             this.setState({
                 page: this.state.page + 1
@@ -384,10 +363,6 @@ AccountAwardsContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         account: state.account.account,
-        filters: state.account.filters,
-        awards: state.account.awards,
-        meta: state.account.awardsMeta,
-        order: state.account.awardsOrder
-    }),
-    (dispatch) => bindActionCreators(accountActions, dispatch)
+        filters: state.account.filters
+    })
 )(AccountAwardsContainer);

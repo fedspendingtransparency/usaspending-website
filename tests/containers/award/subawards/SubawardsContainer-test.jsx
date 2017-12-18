@@ -15,7 +15,7 @@ import SubawardItem from 'models/results/award/SubawardItem';
 import { mockAward } from '../mockAward';
 import { mockSubawards } from '../mockSubawards';
 
-jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
+jest.mock('helpers/searchHelper', () => require('../mockSearchHelper'));
 
 // force Jest to use native Node promises
 // see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
