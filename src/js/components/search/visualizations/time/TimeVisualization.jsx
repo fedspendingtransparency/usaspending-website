@@ -69,8 +69,9 @@ export default class TimeVisualization extends React.Component {
 
     render() {
         let tooltip = null;
-        if (this.state.tooltipData) {
+        if (this.state.tooltipData && window.innerWidth > 720) {
             tooltip = (<Tooltip
+                chartWidth={this.props.width}
                 data={this.state.tooltipData}
                 x={this.state.tooltipX}
                 y={this.state.tooltipY} />);
@@ -85,7 +86,8 @@ export default class TimeVisualization extends React.Component {
             // only mount the chart component if there is data to display
             chart = (<BarChart
                 {...this.props}
-                showTooltip={this.showTooltip} />);
+                showTooltip={this.showTooltip}
+                activeLabel={this.state.tooltipData} />);
         }
 
         return (

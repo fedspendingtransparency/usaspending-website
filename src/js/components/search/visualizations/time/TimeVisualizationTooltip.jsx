@@ -22,12 +22,11 @@ export default class TimeVisualizationTooltip extends React.Component {
         // we need to wait for the tooltip to render before we can full position it due to its
         // dynamic width
         const tooltipWidth = this.div.offsetWidth;
-        const windowWidth = window.innerWidth;
 
         // determine the tooltip direction
         let direction = 'left';
         // allow 20px padding
-        if (tooltipWidth + this.props.x >= windowWidth - 20) {
+        if (tooltipWidth + this.props.x >= this.props.chartWidth - 20) {
             direction = 'right';
         }
 

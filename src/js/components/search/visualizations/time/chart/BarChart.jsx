@@ -26,7 +26,8 @@ const propTypes = {
     showTooltip: PropTypes.func,
     enableHighlight: PropTypes.bool,
     padding: PropTypes.object,
-    legend: PropTypes.array
+    legend: PropTypes.array,
+    activeLabel: PropTypes.object
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -163,14 +164,12 @@ export default class BarChart extends React.Component {
             const yData = props.ySeries[groupIndex];
             const xData = props.xSeries[groupIndex];
 
-            // put 20px padding on each side of the group
-            const groupWidth = xScale.bandwidth() - 40;
+            const groupWidth = xScale.bandwidth();
             // subdivide the group width based on the number of group items to determine the width
             // of each data point, with a max of 120px
-            const itemWidth = min([groupWidth / yData.length, 120]);
-            // calculate where on the X axis the group should start (offset this by 20px to account
-            // for the padding between groups)
-            let startingXPos = xScale(group) + 20;
+            const itemWidth = min([groupWidth / (xData.length * 3 + 1) * 3, 120]);
+            // calculate where on the X axis the group should start
+            let startingXPos = xScale(group) + (itemWidth / 6);
             if (itemWidth === 120) {
                 // the total width of the group is no longer guaranteed to equal the bandwidth
                 // since each bar now maxes out at 120px
@@ -334,11 +333,11 @@ export default class BarChart extends React.Component {
         // determine where the bar starting position is
         // this is the group's starting X position plus 20px padding between groups
         // plus the number of previous group members times the width of each group member
-        const groupWidth = this.state.xScale.bandwidth() - 40;
-        const itemWidth = groupWidth / this.props.xSeries[groupIndex].length;
-        let barXAnchor = this.state.xScale(groupLabel) + 20 + (subIndex * itemWidth);
+        const groupWidth = this.state.xScale.bandwidth();
+        const itemWidth = min([groupWidth / this.props.xSeries[groupIndex].length , 120]);
+        let barXAnchor = this.state.xScale(groupLabel) + (subIndex * itemWidth);
         // now adjust the anchor so it is halfway through the bar
-        barXAnchor += (itemWidth / 2);
+        barXAnchor += (itemWidth);
         // now place the tooltip halfway in the bar's width
         const xPos = chartLeft + barXAnchor + this.props.padding.left;
 
@@ -397,7 +396,8 @@ export default class BarChart extends React.Component {
                             padding={this.props.padding}
                             data={this.state.xValues}
                             scale={this.state.xScale}
-                            axisPos={this.state.xAxisPos} />
+                            axisPos={this.state.xAxisPos}
+                            activeLabel={this.props.activeLabel} />
 
                         <g
                             className="bar-data"
