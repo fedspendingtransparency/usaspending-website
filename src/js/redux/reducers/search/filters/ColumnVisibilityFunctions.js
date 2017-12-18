@@ -7,10 +7,10 @@ import { List, Map } from 'immutable';
 
 export const toggleItem = (selected, item) => {
     if (selected.includes(item)) {
-        return selected.delete(item);
+        return selected.delete(selected.indexOf(item));
     }
 
-    return selected.add(item);
+    return selected.push(item);
 };
 
 export const spliceColumnOrder = (currentSet, dragIndex, hoverIndex) => {
