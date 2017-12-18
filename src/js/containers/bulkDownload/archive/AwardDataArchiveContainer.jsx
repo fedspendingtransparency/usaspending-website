@@ -106,61 +106,38 @@ export default class AwardDataArchiveContainer extends React.Component {
     }
 
     requestResults() {
-        const mockResults = [
-            {
-                agency_name: this.state.filters.agency.name,
-                agency_acronym: "ABC",
-                file_name: `${this.state.filters.fy}_010_${this.state.filters.type}_Full_${this.state.filters.fy}1212.zip`,
-                fiscal_year: this.state.filters.fy,
-                updated_date: `${this.state.filters.fy}-12-12`,
-                url: "https://s3-us-gov-west-1.amazonaws.com:443/usaspending-monthly-downloads/2017_010_Contracts_Full_20171212.zip"
-            },
-            {
-                agency_name: this.state.filters.agency.name,
-                agency_acronym: "ABC",
-                file_name: `${this.state.filters.fy}_010_${this.state.filters.type}_Delta_${this.state.filters.fy}1212.zip`,
-                fiscal_year: this.state.filters.fy,
-                updated_date: `${this.state.filters.fy}-12-12`,
-                url: "https://s3-us-gov-west-1.amazonaws.com:443/usaspending-monthly-downloads/2017_010_Contracts_Full_20171212.zip"
-            }
-        ];
+        this.setState({
+            inFlight: true
+        });
 
+        if (this.resultsRequest) {
+            this.resultsRequest.cancel();
+        }
 
-        this.parseResults(mockResults);
+        //perform the API request
+        if (this.state.filters.id === 'all') {
+            // don't include the agency parameter to request all agencies
+            this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
+                fiscal_year: parseInt(this.state.filters.fy, 10),
+                type: this.state.filters.type
+            });
+        }
+        else {
+            this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
+                agency: parseInt(this.state.filters.agency.id, 10),
+                fiscal_year: parseInt(this.state.filters.fy, 10),
+                type: this.state.filters.type
+            });
+        }
 
-        // TODO - Lizzie: uncomment when API is ready
-        // this.setState({
-        //    inFlight: true
-        // });
-        //
-        // if (this.resultsRequest) {
-        //    this.resultsRequest.cancel();
-        // }
-        //
-        // //perform the API request
-        // if (this.state.filters.id === 'all') {
-        //    // don't include the agency parameter to request all agencies
-        //    this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
-        //        fiscal_year: parseInt(this.state.filters.fy, 10),
-        //        type: this.state.filters.type
-        //    });
-        // }
-        // else {
-        //    this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
-        //        agency: parseInt(this.state.filters.agency.id, 10),
-        //        fiscal_year: parseInt(this.state.filters.fy, 10),
-        //        type: this.state.filters.type
-        //    });
-        // }
-        //
-        // this.agencyListRequest.promise
-        //    .then((res) => {
-        //        this.parseResults(res.data.monthly_files);
-        //    })
-        //    .catch((err) => {
-        //        console.log(err);
-        //        this.resultsRequest = null;
-        //    });
+        this.agencyListRequest.promise
+            .then((res) => {
+                this.parseResults(res.data.monthly_files);
+            })
+            .catch((err) => {
+                console.log(err);
+                this.resultsRequest = null;
+            });
     }
 
     parseResults(data) {
