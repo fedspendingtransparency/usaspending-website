@@ -114,7 +114,7 @@ export default class AwardDataArchiveContainer extends React.Component {
             this.resultsRequest.cancel();
         }
 
-        //perform the API request
+        // perform the API request
         if (this.state.filters.id === 'all') {
             // don't include the agency parameter to request all agencies
             this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
