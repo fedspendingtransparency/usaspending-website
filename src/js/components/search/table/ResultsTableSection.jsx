@@ -6,9 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ResultsTableHeaderCellContainer from
-    'containers/search/table/ResultsTableHeaderCellContainer';
-
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
 import ResultsTableMessage from './ResultsTableMessage';
@@ -87,8 +84,7 @@ export default class ResultsTableSection extends React.Component {
                         }} />
                     <ResultsTable
                         {...this.props}
-                        visibleWidth={this.state.tableWidth}
-                        headerCellClass={ResultsTableHeaderCellContainer} />
+                        visibleWidth={this.state.tableWidth} />
                 </div>
                 {message}
             </div>

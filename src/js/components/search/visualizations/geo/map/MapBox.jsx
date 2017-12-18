@@ -135,7 +135,7 @@ export default class MapBox extends React.Component {
         // add navigation controls
         this.map.addControl(new MapboxGL.NavigationControl());
         this.map.addControl(new MapboxGL.AttributionControl({
-            compact: true
+            compact: false
         }));
 
         // disable the compass controls

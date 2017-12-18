@@ -249,7 +249,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
         return (
             <GeoVisualizationSection
                 {...this.state}
-                total={this.props.resultsMeta.visualization.transaction_sum}
                 changeScope={this.changeScope}
                 changeMapLayer={this.changeMapLayer} />
         );
@@ -259,6 +258,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
 GeoVisualizationSectionContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.filters, resultsMeta: state.resultsMeta.toJS() }),
+    (state) => ({ reduxFilters: state.filters }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(GeoVisualizationSectionContainer);
