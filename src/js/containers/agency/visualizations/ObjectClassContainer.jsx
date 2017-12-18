@@ -233,7 +233,6 @@ export default class ObjectClassContainer extends React.PureComponent {
                 minorHasNegatives={this.state.minorHasNegatives} />
         );
     }
-
 }
 
 ObjectClassContainer.propTypes = propTypes;

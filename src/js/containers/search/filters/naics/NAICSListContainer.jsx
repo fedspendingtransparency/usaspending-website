@@ -166,7 +166,6 @@ export class NAICSListContainer extends React.Component {
                 noResults={this.state.noResults} />
         );
     }
-
 }
 
 export default connect(

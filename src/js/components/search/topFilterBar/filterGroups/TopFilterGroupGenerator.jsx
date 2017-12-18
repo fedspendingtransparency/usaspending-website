@@ -41,7 +41,8 @@ export const topFilterGroupGenerator = (config = {
             return <AwardTypeFilterGroup key={groupKey} {...config} />;
         case 'selectedLocations':
             return (<LocationFilterGroup
-                key={groupKey} {...config}
+                key={groupKey}
+                {...config}
                 toggle="locationDomesticForeign" />);
         case 'selectedFundingAgencies':
             return <AgencyFilterGroup key={groupKey} {...config} />;
@@ -51,7 +52,8 @@ export const topFilterGroupGenerator = (config = {
             return <RecipientFilterGroup key={groupKey} {...config} />;
         case 'selectedRecipientLocations':
             return (<LocationFilterGroup
-                key={groupKey} {...config}
+                key={groupKey}
+                {...config}
                 toggle="recipientDomesticForeign" />);
         case 'recipientType':
             return <RecipientTypeFilterGroup key={groupKey} {...config} />;

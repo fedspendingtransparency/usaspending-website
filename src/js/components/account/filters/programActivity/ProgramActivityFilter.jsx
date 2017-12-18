@@ -107,13 +107,15 @@ export default class ProgramActivityFilter extends React.Component {
                 arrow = (<Icons.AngleUp alt={`See ${shownStatement}`} />);
             }
 
-            toggleButton = (<button
-                className="see-more account-program-activity-toggle-button"
-                onClick={this.toggleShownAmount}
-                title={`See ${shownStatement}`}>
-                See {shownStatement}
-                &nbsp; {arrow}
-            </button>);
+            toggleButton = (
+                <button
+                    className="see-more account-program-activity-toggle-button"
+                    onClick={this.toggleShownAmount}
+                    title={`See ${shownStatement}`}>
+                    See {shownStatement}
+                    &nbsp; {arrow}
+                </button>
+            );
         }
 
         return toggleButton;
@@ -124,9 +126,11 @@ export default class ProgramActivityFilter extends React.Component {
         const toggleButton = this.generateToggleButton();
 
         if (this.props.inFlight) {
-            items = (<div className="account-program-activity-loading">
-                Loading data...
-            </div>);
+            items = (
+                <div className="account-program-activity-loading">
+                    Loading data...
+                </div>
+            );
         }
 
         return (

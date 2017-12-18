@@ -17,7 +17,7 @@ export default class Breadcrumb extends React.Component {
             <div className="breadcrumbs">
                 <ul>
                     <li>
-                        <a href="#" role="button" title="Home" aria-label="Home">
+                        <a href="/#" role="button" title="Home" aria-label="Home">
                             Home
                         </a>
                     </li>

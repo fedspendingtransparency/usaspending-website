@@ -101,7 +101,7 @@ export default class TimePeriod extends React.Component {
 
     synchronizeDatePickers(nextProps) {
         // synchronize the date picker state to Redux controlled props
-         // convert start/end date strings to moment objects
+        // convert start/end date strings to moment objects
         let datesChanged = false;
         const newState = {};
 
@@ -170,7 +170,7 @@ export default class TimePeriod extends React.Component {
                 // end date comes before start date, invalid
                 // show an error message
                 this.showError('Invalid Dates',
-                'The end date cannot be earlier than the start date.');
+                    'The end date cannot be earlier than the start date.');
             }
             else {
                 // valid!
@@ -248,7 +248,8 @@ export default class TimePeriod extends React.Component {
 
         if (this.state.showError && this.props.activeTab === 'dr') {
             errorDetails = (<DateRangeError
-                header={this.state.header} message={this.state.errorMessage} />);
+                header={this.state.header}
+                message={this.state.errorMessage} />);
         }
 
         if (this.props.activeTab === 'fy') {
@@ -286,7 +287,8 @@ export default class TimePeriod extends React.Component {
                             <button
                                 className={`date-toggle ${activeClassFY}`}
                                 value="fy"
-                                onClick={this.toggleFilters}>Fiscal Year</button>
+                                onClick={this.toggleFilters}>Fiscal Year
+                            </button>
                         </li>
                         <li>
                             <button

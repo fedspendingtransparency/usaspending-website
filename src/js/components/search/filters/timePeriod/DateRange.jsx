@@ -27,7 +27,6 @@ const propTypes = {
 };
 
 export default class DateRange extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {

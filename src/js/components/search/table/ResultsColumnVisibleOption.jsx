@@ -94,7 +94,9 @@ class ResultsColumnVisibleOption extends React.Component {
 
     render() {
         const checked = this.props.checked;
-        const { label, isDragging, connectDragSource, connectDropTarget } = this.props;
+        const {
+            label, isDragging, connectDragSource, connectDropTarget
+        } = this.props;
         const opacity = isDragging ? 0 : 1;
         const icon = <Icons.Sort alt="Reorder Columns" />;
 

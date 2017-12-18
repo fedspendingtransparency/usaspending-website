@@ -26,7 +26,6 @@ const propTypes = {
 };
 
 export default class CollapsedCheckboxType extends React.Component {
-
     render() {
         return (
             <div className="primary-checkbox-type">
@@ -46,7 +45,6 @@ export default class CollapsedCheckboxType extends React.Component {
             </div>
         );
     }
-
 }
 
 CollapsedCheckboxType.propTypes = propTypes;

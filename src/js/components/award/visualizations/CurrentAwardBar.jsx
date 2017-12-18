@@ -15,7 +15,6 @@ const propTypes = {
 };
 
 export default class CurrentAwardBar extends React.Component {
-
     render() {
         return (
             <g aria-label={this.props.data} className="current">

@@ -37,7 +37,8 @@ export default class AwardAmountItem extends React.Component {
                         checked={checked}
                         onChange={this.props.toggleSelection.bind(this)} />
                     <label htmlFor={`award-amount-${this.props.rangeID}`}>
-                        {this.formatRange()}</label>
+                        {this.formatRange()}
+                    </label>
                 </div>
             </li>
         );

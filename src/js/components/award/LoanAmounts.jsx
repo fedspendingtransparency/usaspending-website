@@ -14,7 +14,6 @@ const propTypes = {
 };
 
 export default class LoanAmounts extends React.Component {
-
     render() {
         let percentage = ((this.props.subsidy / this.props.faceValue) * 100).toFixed(2);
         if (this.props.subsidy === 0) {

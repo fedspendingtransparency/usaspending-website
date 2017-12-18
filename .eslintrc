@@ -49,8 +49,6 @@
         "react/prefer-stateless-function": [0],
         // allow binding in React props because we don't have autobind in ES6
         "react/jsx-no-bind": [0],
-        // warn instead of erroring on hash links
-        "jsx-a11y/href-no-hash": [1],
         // downgrading export default preference to warning, since we may add additional exports
         // to files in the future
         "import/prefer-default-export": [1],
@@ -67,6 +65,34 @@
         "no-continue": [0],
         // allow named exports in files with default exports in order to expose containers
         // for testing
-        "import/no-named-as-default": [0]
+        "import/no-named-as-default": [0],
+        // don't require all function arguments be on new lines
+        "function-paren-newline": [0],
+        // ignore jsdoc
+        "spaced-comment": ["error", "always", {
+            "exceptions": ["*"]
+        }],
+        // for now, don't do destructuring
+        "prefer-destructuring": [0],
+        // allow some globals
+        "no-restricted-globals": [0],
+        // default prop types not required
+        "react/require-default-props": [0],
+        "react/default-props-match-prop-types": [0],
+        // allow object prop-type
+        "react/forbid-prop-types": ["warning", {
+            "forbid": ["any"]
+        }],
+        // allow unused state because linter does not always know when a state is passed to child
+        // components
+        "react/no-unused-state": [0],
+        // downgrade label has for to a warning due to some design considerations
+        "jsx-a11y/label-has-for": [1],
+        // downgrade array index as React key to warning (though it should be higher, this would
+        // be an expensive refactor)
+        "react/no-array-index-key": [1],
+        // TEMPORARILY make keyboard equivalents for mouse events a warning instead of error
+        "jsx-a11y/click-events-have-key-events": [1],
+        "jsx-a11y/mouse-events-have-key-events": [1]
     }
 }
