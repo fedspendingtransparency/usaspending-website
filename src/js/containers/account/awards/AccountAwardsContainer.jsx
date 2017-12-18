@@ -167,7 +167,7 @@ export class AccountAwardsContainer extends React.Component {
     }
 
     showColumns(tableType, doNotLoad = false) {
-         // calculate the column metadata to display in the table
+        // calculate the column metadata to display in the table
         const columns = [];
         let sortOrder = TableSearchFields.defaultSortDirection;
 

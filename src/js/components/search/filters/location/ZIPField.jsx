@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Search } from 'components/sharedComponents/icons/Icons';
+import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import Warning from 'components/sharedComponents/autocomplete/Warning';
 
 const propTypes = {
@@ -70,16 +70,11 @@ export default class ZIPField extends React.Component {
                             maxLength={5}
                             value={this.state.zip}
                             onChange={this.changedText} />
-                        <button
+                        <IndividualSubmit
                             className="zip-submit"
                             disabled={!this.state.enabled}
                             onClick={this.pressedButton}
-                            title="Filter by ZIP code"
-                            aria-label="Filter by ZIP code">
-                            <div className="icon">
-                                <Search alt="Filter by ZIP code" />
-                            </div>
-                        </button>
+                            label="Filter by ZIP code" />
                     </div>
                     {error}
                 </div>

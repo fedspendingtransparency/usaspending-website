@@ -16,7 +16,6 @@ const propTypes = {
 };
 
 export default class PotentialAwardBar extends React.Component {
-
     render() {
         const formattedValue = MoneyFormatter.formatMoney(this.props.dataY);
         return (

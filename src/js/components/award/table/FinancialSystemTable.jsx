@@ -30,7 +30,6 @@ const propTypes = {
 };
 
 export default class FinancialSystemTable extends React.Component {
-
     constructor(props) {
         super(props);
 

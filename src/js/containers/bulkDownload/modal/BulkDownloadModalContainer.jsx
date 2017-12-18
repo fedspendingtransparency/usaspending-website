@@ -20,7 +20,6 @@ const propTypes = {
 };
 
 export class BulkDownloadModalContainer extends React.Component {
-
     render() {
         return (
             <BulkDownloadModal

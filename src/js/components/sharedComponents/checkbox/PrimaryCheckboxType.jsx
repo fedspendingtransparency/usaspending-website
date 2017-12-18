@@ -161,12 +161,12 @@ export default class PrimaryCheckboxType extends React.Component {
 
         if (this.state.showSubItems) {
             secondaryTypes = this.props.filters.map((code) =>
-                <SecondaryCheckboxType
+                (<SecondaryCheckboxType
                     {...this.props}
                     code={code}
                     name={this.props.types[code]}
                     key={`${this.props.id} - ${code}`}
-                    id={`${this.props.id} - ${code}`} />);
+                    id={`${this.props.id} - ${code}`} />));
         }
 
         if (this.props.filters.length === 0) {

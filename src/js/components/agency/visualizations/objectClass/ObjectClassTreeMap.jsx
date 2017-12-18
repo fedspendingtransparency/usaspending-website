@@ -74,11 +74,13 @@ export default class ObjectClassTreeMap extends React.Component {
         let header = '';
 
         if (this.state.showMinorObjectClass === true) {
-            header = (<button
-                className="back"
-                onClick={this.toggleMinorObjectClass}>
-                <Icons.ArrowUp /> Back to Major Object Classes
-            </button>);
+            header = (
+                <button
+                    className="back"
+                    onClick={this.toggleMinorObjectClass}>
+                    <Icons.ArrowUp /> Back to Major Object Classes
+                </button>
+            );
         }
 
         return header;
@@ -124,7 +126,8 @@ export default class ObjectClassTreeMap extends React.Component {
                 <div className="agency-callout-description">
                     <p>This {total} in obligations is divided among categories,
                         called <strong>object classes</strong>. These groupings can be helpful
-                        for analysis and cross-agency comparison.</p>
+                        for analysis and cross-agency comparison.
+                    </p>
                 </div>
                 <div className="agency-section-content">
                     <div
@@ -142,7 +145,6 @@ export default class ObjectClassTreeMap extends React.Component {
             </div>
         );
     }
-
 }
 
 ObjectClassTreeMap.propTypes = propTypes;

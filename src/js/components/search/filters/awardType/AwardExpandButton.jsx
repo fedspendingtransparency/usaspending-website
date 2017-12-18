@@ -44,7 +44,7 @@ export default class AwardExpandButton extends React.Component {
             <button
                 className={`toggle ${hiddenClass}`}
                 onClick={this.clickedButton}
-                title={`child filters`}
+                title="child filters"
                 disabled={this.props.hidden}>
                 {icon}
             </button>
