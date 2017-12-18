@@ -7,11 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    data: PropTypes.string,
     rowIndex: PropTypes.number,
     column: PropTypes.string,
     isLastColumn: PropTypes.bool,
-    id: PropTypes.number
+    id: PropTypes.number,
+    value: PropTypes.string
 };
 
 const ResultsTableAwardIdCell = (props) => {

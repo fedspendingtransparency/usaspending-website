@@ -20,11 +20,12 @@ import LegacyTableHeaderCell from './LegacyTableHeaderCell';
 
 const propTypes = {
     results: PropTypes.array,
-    batch: PropTypes.object,
+    sort: PropTypes.object,
     columns: PropTypes.array,
-    visibleWidth: PropTypes.number,
+    tableWidth: PropTypes.number,
     loadNextPage: PropTypes.func,
-    currentType: PropTypes.string
+    updateSort: PropTypes.func,
+    tableInstance: PropTypes.string
 };
 
 const rowHeight = 40;
@@ -74,11 +75,20 @@ export default class LegacyResultsTable extends React.Component {
         const isLast = columnIndex === this.props.columns.length - 1;
 
         if (column.columnName === 'award_id') {
+            const award = this.props.results[rowIndex];
+            let formattedID = award.piid;
+            if (!formattedID) {
+                formattedID = award.fain;
+            }
+            if (!formattedID) {
+                formattedID = award.uri;
+            }
+
             return (
                 <ResultsTableAwardIdCell
                     rowIndex={rowIndex}
                     id={this.props.results[rowIndex].id}
-                    data={this.props.results[rowIndex][column.columnName]}
+                    value={formattedID}
                     column={column.columnName}
                     isLastColumn={isLast} />
             );

@@ -5,37 +5,20 @@
 
 import { combineReducers } from 'redux';
 
-import resultsMetaReducer from './resultsMeta/resultsMetaReducer';
-import resultsBatchReducer from './resultsMeta/resultsBatchReducer';
 import filtersReducer from './search/searchFiltersReducer';
-import orderReducer from './search/searchOrderReducer';
-import autocompleteReducer from './search/autocompleteReducer';
 import columnVisibilityReducer from './search/columnVisibilityReducer';
-import recordReducer from './records/recordReducer';
-import autocompleteAgencyReducer from './search/agencyReducer';
-import awardIDReducer from './search/awardIDReducer';
 import awardReducer from './award/awardReducer';
 import accountReducer from './account/accountReducer';
 import agencyReducer from './agency/agencyReducer';
 import explorerReducer from './explorer/explorerReducer';
 import glossaryReducer from './glossary/glossaryReducer';
 import agencyLandingReducer from './agencyLanding/agencyLandingReducer';
-import cfdaReducer from './search/cfdaReducer';
-import naicsReducer from './search/naicsReducer';
-import pscReducer from './search/pscReducer';
 import downloadReducer from './search/downloadReducer';
 import bulkDownloadReducer from './bulkDownload/bulkDownloadReducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
-    searchOrder: orderReducer,
-    autocompleteLocations: autocompleteReducer,
-    autocompleteCFDA: cfdaReducer,
-    autocompleteNAICS: naicsReducer,
-    autocompletePSC: pscReducer,
     columnVisibility: columnVisibilityReducer,
-    autocompleteAwardIDs: awardIDReducer,
-    autocompleteAgencies: autocompleteAgencyReducer,
     download: downloadReducer,
     award: awardReducer,
     account: accountReducer,

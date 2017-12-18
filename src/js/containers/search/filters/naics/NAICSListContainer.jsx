@@ -4,26 +4,21 @@
 **/
 
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { isEqual, omit, differenceWith, slice } from 'lodash';
 import { isCancel } from 'axios';
 import { Search, PrefixIndexStrategy } from 'js-search';
 import PropTypes from 'prop-types';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
     selectNAICS: PropTypes.func,
-    selectedNAICS: PropTypes.object,
-    setAutocompleteNAICS: PropTypes.func,
-    autocompleteNAICS: PropTypes.array
+    selectedNAICS: PropTypes.object
 };
 
-export class NAICSListContainer extends React.Component {
+export default class NAICSListContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -36,16 +31,6 @@ export class NAICSListContainer extends React.Component {
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
-    }
-
-    componentDidMount() {
-        this.parseAutocompleteNAICS(this.props.autocompleteNAICS);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (!isEqual(nextProps.autocompleteNAICS, this.props.autocompleteNAICS)) {
-            this.parseAutocompleteNAICS(nextProps.autocompleteNAICS);
-        }
     }
 
     parseAutocompleteNAICS(naics) {
@@ -115,7 +100,7 @@ export class NAICSListContainer extends React.Component {
                     });
 
                     // Add search results to Redux
-                    this.props.setAutocompleteNAICS(autocompleteData);
+                    this.parseAutocompleteNAICS(autocompleteData);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -132,12 +117,16 @@ export class NAICSListContainer extends React.Component {
     }
 
     clearAutocompleteSuggestions() {
-        this.props.setAutocompleteNAICS([]);
+        this.setState({
+            autocompletePSC: []
+        });
     }
 
     handleTextInput(naicsInput) {
         // Clear existing NAICS to ensure user can't select an old or existing one
-        this.props.setAutocompleteNAICS([]);
+        this.setState({
+            autocompleteNAICS: []
+        });
 
         // Grab input, clear any exiting timeout
         const input = naicsInput.target.value;
@@ -167,10 +156,5 @@ export class NAICSListContainer extends React.Component {
         );
     }
 }
-
-export default connect(
-    (state) => ({ autocompleteNAICS: state.autocompleteNAICS }),
-    (dispatch) => bindActionCreators(autocompleteActions, dispatch)
-)(NAICSListContainer);
 
 NAICSListContainer.propTypes = propTypes;
