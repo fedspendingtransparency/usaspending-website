@@ -51,7 +51,7 @@ export default class AwardDataArchiveContainer extends React.Component {
         };
 
         this.agencyListRequest = null;
-        // this.resultsRequest = null;
+        this.resultsRequest = null;
 
         this.updateFilter = this.updateFilter.bind(this);
         this.setAgencyList = this.setAgencyList.bind(this);
@@ -156,7 +156,6 @@ export default class AwardDataArchiveContainer extends React.Component {
         // this.agencyListRequest.promise
         //    .then((res) => {
         //        this.parseResults(res.data.monthly_files);
-        //        this.setState({results});
         //    })
         //    .catch((err) => {
         //        console.log(err);

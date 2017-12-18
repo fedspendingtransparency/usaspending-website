@@ -111,6 +111,27 @@ export const mockAwardDownloadResponse = {
     seconds_elapsed: "0.5001"
 };
 
+export const mockArchiveResponse = {
+    monthly_files: [
+        {
+            agency_name: "Mock Agency 1",
+            agency_acronym: "ABC",
+            file_name: "mockFile1.zip",
+            updated_date: "1987-12-12",
+            fiscal_year: "1988",
+            url: "http://mockFile_full.zip"
+        },
+        {
+            agency_name: "Mock Agency 2",
+            agency_acronym: "DEF",
+            file_name: "mockFile2.zip",
+            updated_date: "1987-12-18",
+            fiscal_year: "1988",
+            url: "http://mockFile_delta.zip"
+        }
+    ]
+};
+
 export const mockParams = {
     type: ''
 };
