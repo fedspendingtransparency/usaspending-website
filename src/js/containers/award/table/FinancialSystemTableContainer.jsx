@@ -14,9 +14,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 
 import FinancialSystemItem from 'models/results/other/FinancialSystemItem';
-
 import FinancialSystemTable from 'components/award/table/FinancialSystemTable';
-import SummaryPageTableMessage from 'components/award/table/SummaryPageTableMessage';
 
 import tableFields from 'dataMapping/contracts/financialSystem';
 

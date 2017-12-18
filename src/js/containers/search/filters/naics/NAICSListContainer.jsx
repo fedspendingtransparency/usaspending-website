@@ -118,7 +118,7 @@ export default class NAICSListContainer extends React.Component {
 
     clearAutocompleteSuggestions() {
         this.setState({
-            autocompletePSC: []
+            autocompleteNAICS: []
         });
     }
 
