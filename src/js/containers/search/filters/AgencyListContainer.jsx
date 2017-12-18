@@ -176,6 +176,8 @@ export class AgencyListContainer extends React.Component {
         const search = new Search('id');
         search.addIndex(['toptier_agency', 'name']);
         search.addIndex(['subtier_agency', 'name']);
+        search.addIndex(['toptier_agency', 'abbreviation']);
+        search.addIndex(['subtier_agency', 'abbreviation']);
 
         // add the API response as the data source to search within
         search.addDocuments(data);
