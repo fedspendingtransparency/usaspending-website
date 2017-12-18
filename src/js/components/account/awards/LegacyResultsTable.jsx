@@ -32,7 +32,7 @@ const rowHeight = 40;
 // indicates when there's more data
 const tableHeight = 12.5 * rowHeight;
 
-export default class LegacyResultsTable extends React.PureComponent {
+export default class LegacyResultsTable extends React.Component {
     constructor(props) {
         super(props);
 

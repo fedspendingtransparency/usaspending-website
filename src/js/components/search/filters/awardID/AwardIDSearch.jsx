@@ -35,6 +35,9 @@ export default class AwardIDSearch extends React.Component {
     applyAwardID(e) {
         e.preventDefault();
         this.props.toggleAwardID(this.state.awardID);
+        this.setState({
+            awardID: ''
+        });
     }
 
     render() {

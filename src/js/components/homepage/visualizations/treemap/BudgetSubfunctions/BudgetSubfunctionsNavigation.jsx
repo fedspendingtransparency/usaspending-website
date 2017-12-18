@@ -212,7 +212,6 @@ export default class BudgetSubfunctionsNavigation extends React.Component {
             </div>
         );
     }
-
 }
 
 BudgetSubfunctionsNavigation.propTypes = propTypes;

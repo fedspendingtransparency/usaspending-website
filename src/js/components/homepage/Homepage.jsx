@@ -4,12 +4,15 @@
   **/
 
 import React from 'react';
+import Cookies from 'js-cookie';
 import { isCancel } from 'axios';
 
 import * as HomepageHelper from 'helpers/homepageHelper';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
+
+import kGlobalConstants from 'GlobalConstants';
 
 import HomepageStateModel from 'models/homepage/HomepageStateModel';
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
@@ -23,7 +26,7 @@ import CategoryMap from './visualizations/categoryMap/CategoryMap';
 import SearchSection from './SearchSection';
 import Footer from '../sharedComponents/Footer';
 import WarningBanner from '../sharedComponents/header/WarningBanner';
-// import InfoBanner from '../sharedComponents/header/InfoBanner';
+import InfoBanner from '../sharedComponents/header/InfoBanner';
 
 require('pages/homepage/homePage.scss');
 
@@ -53,22 +56,39 @@ export default class Homepage extends React.Component {
                     populations: []
                 },
                 table: []
-            }
+            },
+            showBanner: false
         };
 
         this.dataRequests = [];
         this.mounted = false;
 
         this.skippedNav = this.skippedNav.bind(this);
+        this.closeBanner = this.closeBanner.bind(this);
     }
 
     componentWillMount() {
         this.mounted = true;
         this.loadHomepageData();
+        // check if the info banner cookie exists
+        if (!Cookies.get('usaspending_info_banner')) {
+            // cookie does not exist, show the banner
+            this.setState({
+                showBanner: true
+            });
+        }
     }
 
     componentWillUnmount() {
         this.mounted = false;
+    }
+
+    closeBanner() {
+        // set a cookie to hide the banner in the future
+        Cookies.set('usaspending_info_banner', 'hide', { expires: 730 });
+        this.setState({
+            showBanner: false
+        });
     }
 
     loadHomepageData() {
@@ -171,6 +191,17 @@ export default class Homepage extends React.Component {
     }
 
     render() {
+        let banner = (
+            <InfoBanner
+                closeBanner={this.closeBanner} />);
+        if (kGlobalConstants.IN_BETA) {
+            banner = (<WarningBanner
+                closeBanner={this.closeBanner} />);
+        }
+        if (!this.state.showBanner) {
+            banner = null;
+        }
+
         return (
             <div className="usa-da-home-page">
                 <div className="site-header">
@@ -183,7 +214,7 @@ export default class Homepage extends React.Component {
                 </div>
                 <MetaTags {...MetaTagHelper.homePageMetaTags} />
                 <GlossaryContainer />
-                <WarningBanner />
+                {banner}
                 <Landing
                     total={this.state.total} />
                 <TreeMapIntro />

@@ -177,6 +177,7 @@ export class AccountAwardsContainer extends React.Component {
     updateFilters() {
         const newSearch = new AccountAwardSearchOperation();
         newSearch.fromState(this.props.filters);
+
         this.setState({
             searchParams: newSearch,
             page: 1

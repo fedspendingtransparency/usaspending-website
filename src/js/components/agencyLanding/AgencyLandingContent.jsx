@@ -27,7 +27,8 @@ export default class AgencyLandingContent extends React.Component {
                     <h6>Understand the current spending of agencies in our agency profiles.</h6>
                     <p>These include the 15 executive departments whose leaders sit on the
                         President&#39;s Cabinet, as well as small independent boards and
-                        commissions. They range in size from $700 billion down to less than $200,000.</p>
+                        commissions. They range in size from $700 billion down to less than $200,000.
+                    </p>
                 </div>
                 <div className="landing-page-section">
                     <AgencyLandingSearchBar

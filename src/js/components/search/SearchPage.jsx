@@ -157,7 +157,6 @@ export default class SearchPage extends React.Component {
             </div>
         );
     }
-
 }
 
 SearchPage.propTypes = propTypes;

@@ -64,7 +64,8 @@ export default class FAQ extends React.Component {
                         continue to be updated.
                     </p>
                     <h6>What are the limitations of the data presented on the new site when trying
-                    to understand government spending? </h6>
+                    to understand government spending?
+                    </h6>
                     <p>
                         On May 9th, the public can search the newly linked financial and award level
                         data and download the raw file submissions for the first quarter of reported

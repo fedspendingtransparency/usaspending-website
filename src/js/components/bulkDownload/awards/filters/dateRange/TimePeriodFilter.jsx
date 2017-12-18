@@ -185,7 +185,8 @@ export default class TimePeriodFilter extends React.Component {
 
         if (this.state.showError) {
             errorDetails = (<DateRangeError
-                header={this.state.header} message={this.state.errorMessage} />);
+                header={this.state.header}
+                message={this.state.errorMessage} />);
         }
 
         let icon = (
