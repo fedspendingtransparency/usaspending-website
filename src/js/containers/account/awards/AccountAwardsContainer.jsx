@@ -19,8 +19,6 @@ import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes'
 import * as SearchHelper from 'helpers/searchHelper';
 
 import AccountAwardSearchOperation from 'models/account/queries/AccountAwardSearchOperation';
-import SearchSortOrder from 'models/search/SearchSortOrder';
-import AwardSummary from 'models/results/award/AwardSummary';
 
 import AccountAwardsSection from 'components/account/awards/AccountAwardsSection';
 
@@ -202,7 +200,13 @@ export class AccountAwardsContainer extends React.Component {
             const tableSettings = TableSearchFields[tableType];
 
             tableSettings._order.forEach((col) => {
+                let dataType = awardTableColumnTypes[tableSettings[col]];
+                if (!dataType) {
+                    dataType = 'string';
+                }
+
                 const column = {
+                    dataType,
                     columnName: col,
                     displayName: tableSettings[col],
                     width: measureTableHeader(tableSettings[col]),
@@ -311,11 +315,7 @@ export class AccountAwardsContainer extends React.Component {
         if (!availableFields[currentSortField]) {
             // the sort field doesn't exist, use the table type's default field
             const field = TableSearchFields[tab]._defaultSortField;
-            const fieldType = awardTableColumnTypes[field];
-            let direction = 'desc';
-            if (fieldType === 'number') {
-                direction = 'asc';
-            }
+            const direction = TableSearchFields.defaultSortDirection[field];
 
             newState.sort = {
                 field,

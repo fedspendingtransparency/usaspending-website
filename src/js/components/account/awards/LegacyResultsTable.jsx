@@ -8,6 +8,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import moment from 'moment';
+import { formatMoney } from 'helpers/moneyFormatter';
+
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableGenericCell';
@@ -81,10 +84,20 @@ export default class LegacyResultsTable extends React.PureComponent {
             );
         }
 
+        const originalData = this.props.results[rowIndex][column.columnName];
+        let displayedData = originalData;
+        if (column.dataType === 'currency') {
+            displayedData = formatMoney(originalData);
+        }
+        else if (column.dataType === 'date') {
+            // format the content as a date
+            displayedData = moment(originalData, 'YYYY-MM-DD').format('M/D/YYYY');
+        }
+
         return (
             <ResultsTableGenericCell
                 rowIndex={rowIndex}
-                data={this.props.results[rowIndex][column.columnName]}
+                data={displayedData}
                 column={column.columnName}
                 isLastColumn={isLast} />
         );

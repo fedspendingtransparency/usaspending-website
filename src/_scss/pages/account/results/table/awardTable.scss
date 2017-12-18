@@ -6,12 +6,10 @@
     @import "pages/search/results/table/_resultsTablePicker";
 
     // implement the library style
-    @import 'lib/ibTable/ibTable';
+    @import "lib/ibTable/ibTable";
     margin-top: 1.5em;
     display: block;
     opacity: 1.0;
-
-    @import "pages/award/table/_table";
 
     .loading-table {
         opacity: 0.5;
@@ -25,6 +23,25 @@
 
     .ibt-table-container {
         border: 1px solid $color-gray-light;
+    }
+
+     .award-result-generic-cell {
+        @import "pages/search/results/table/cells/_genericCell";
+        @include genericCell();
+    }
+
+    .award-result-header-cell {
+        @import "pages/search/results/table/cells/_genericHeader";
+        @include genericHeader();
+
+         &.last-column {
+            border-right: none;
+        }
+    }
+
+    // gray out even rows
+    .row-even {
+        background-color: #f7f7f7;
     }
 
     .account-awards-table-width-master {
