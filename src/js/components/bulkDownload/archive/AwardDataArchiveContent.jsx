@@ -7,13 +7,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import AwardDataArchiveForm from './AwardDataArchiveForm';
-import AwardDataArchiveTable from './AwardDataArchiveTable';
+import AwardDataArchiveTable from './table/AwardDataArchiveTable';
 
 const propTypes = {
     filters: PropTypes.object,
     updateFilter: PropTypes.func,
     agencies: PropTypes.object,
     results: PropTypes.array,
+    columns: PropTypes.array,
     requestResults: PropTypes.func
 };
 
@@ -42,6 +43,7 @@ export default class AwardDataArchiveContent extends React.Component {
                     agencies={this.props.agencies}
                     requestResults={this.props.requestResults} />
                 <AwardDataArchiveTable
+                    columns={this.props.columns}
                     results={this.props.results} />
             </div>
         );

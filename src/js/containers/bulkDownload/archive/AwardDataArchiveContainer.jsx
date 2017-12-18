@@ -4,10 +4,29 @@
  */
 
 import React from 'react';
-
+import moment from 'moment';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 
 import AwardDataArchiveContent from 'components/bulkDownload/archive/AwardDataArchiveContent';
+
+const columns = [
+    {
+        columnName: 'agency',
+        displayName: 'Agency'
+    },
+    {
+        columnName: 'url',
+        displayName: 'Archive File'
+    },
+    {
+        columnName: 'fy',
+        displayName: 'Fiscal Year'
+    },
+    {
+        columnName: 'date',
+        displayName: 'Date As Of'
+    }
+];
 
 export default class AwardDataArchiveContainer extends React.Component {
     constructor(props) {
@@ -42,6 +61,7 @@ export default class AwardDataArchiveContainer extends React.Component {
 
     componentDidMount() {
         this.setAgencyList();
+        this.requestResults();
     }
 
     setAgencyList() {
@@ -76,28 +96,37 @@ export default class AwardDataArchiveContainer extends React.Component {
     }
 
     updateFilter(name, value) {
-        this.setState({
+        const filters = Object.assign({}, this.state.filters, {
             [name]: value
+        });
+
+        this.setState({
+            filters
         });
     }
 
     requestResults() {
         const mockResults = [
             {
-                file_name: "2017_010_Contracts_Full_20171212.zip",
-                updated_date: "2017-12-12",
+                agency_name: this.state.filters.agency.name,
+                agency_acronym: "ABC",
+                file_name: `${this.state.filters.fy}_010_${this.state.filters.type}_Full_${this.state.filters.fy}1212.zip`,
+                fiscal_year: this.state.filters.fy,
+                updated_date: `${this.state.filters.fy}-12-12`,
                 url: "https://s3-us-gov-west-1.amazonaws.com:443/usaspending-monthly-downloads/2017_010_Contracts_Full_20171212.zip"
             },
             {
-                file_name: "2017_010_Contracts_Delta_20171212.zip",
-                updated_date: "2017-12-12",
+                agency_name: this.state.filters.agency.name,
+                agency_acronym: "ABC",
+                file_name: `${this.state.filters.fy}_010_${this.state.filters.type}_Delta_${this.state.filters.fy}1212.zip`,
+                fiscal_year: this.state.filters.fy,
+                updated_date: `${this.state.filters.fy}-12-12`,
                 url: "https://s3-us-gov-west-1.amazonaws.com:443/usaspending-monthly-downloads/2017_010_Contracts_Full_20171212.zip"
             }
         ];
 
-        this.setState({
-            results: mockResults
-        });
+
+        this.parseResults(mockResults);
 
         // TODO - Lizzie: uncomment when API is ready
         // this.setState({
@@ -108,16 +137,25 @@ export default class AwardDataArchiveContainer extends React.Component {
         //    this.resultsRequest.cancel();
         // }
         //
-        // // perform the API request
-        // this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
-        //    agency: this.state.filters.agency.id,
-        //    fiscal_year: parseInt(this.state.filters.fy, 10),
-        //    type: this.state.filters.type
-        // });
+        // //perform the API request
+        // if (this.state.filters.id === 'all') {
+        //    // don't include the agency parameter to request all agencies
+        //    this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
+        //        fiscal_year: parseInt(this.state.filters.fy, 10),
+        //        type: this.state.filters.type
+        //    });
+        // }
+        // else {
+        //    this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
+        //        agency: parseInt(this.state.filters.agency.id, 10),
+        //        fiscal_year: parseInt(this.state.filters.fy, 10),
+        //        type: this.state.filters.type
+        //    });
+        // }
         //
         // this.agencyListRequest.promise
         //    .then((res) => {
-        //        const results = res.data.monthly_files;
+        //        this.parseResults(res.data.monthly_files);
         //        this.setState({results});
         //    })
         //    .catch((err) => {
@@ -126,12 +164,44 @@ export default class AwardDataArchiveContainer extends React.Component {
         //    });
     }
 
+    parseResults(data) {
+        const results = [];
+
+        data.forEach((item) => {
+            // Format Agency String
+            let formattedAgency = item.agency_name;
+            if (item.agency_acronym) {
+                formattedAgency = `${item.agency_name} (${item.agency_acronym})`;
+            }
+
+            // Format Updated Date
+            const date = moment(item.updated_date);
+            const formattedDate = date.format("MM/DD/YYYY");
+
+            // Format the Fiscal Year
+            const formattedFY = `FY ${item.fiscal_year}`;
+
+            const file = {
+                agency: formattedAgency,
+                url: item.file_name,
+                fy: formattedFY,
+                date: formattedDate
+            };
+            results.push(file);
+        });
+
+        this.setState({
+            results
+        });
+    }
+
     render() {
         return (
             <AwardDataArchiveContent
                 filters={this.state.filters}
                 updateFilter={this.updateFilter}
                 agencies={this.state.agencies}
+                columns={columns}
                 results={this.state.results}
                 requestResults={this.requestResults} />
         );

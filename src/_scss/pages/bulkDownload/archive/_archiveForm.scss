@@ -20,7 +20,6 @@
             .field-picker {
                 margin: rem(5) 0 0 0;
                 .selected-button {
-                    height: rem(36);
                     width: 100%;
                     border: solid 1px $color-gray-light;
                     &:hover, &:active {
@@ -40,7 +39,22 @@
                 }
             }
             &.agency-picker {
-                width: 30%;
+                width: 50%;
+            }
+            &.type-picker {
+                width: 20%;
+            }
+            &.fy-picker {
+                width: 15%;
+            }
+        }
+        .submit-button {
+            padding: 0 rem(15);
+            width: 15%;
+            input {
+                width: 100%;
+                margin-top: rem(37);
+                height: rem(36);
             }
         }
     }
