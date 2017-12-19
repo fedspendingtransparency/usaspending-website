@@ -111,7 +111,7 @@ export default class AwardDataContent extends React.Component {
                             <div className="archive-info-heading">A faster way to download yearly award data by agency.</div>
                             <div>Award downloads for entire fiscal years are available for each major agency on our&nbsp;
                                 <a href="/#/bulk_download/award_data_archive">
-                                    Award Archive
+                                    Award Data Archive
                                 </a>
                                 &nbsp;page.
                             </div>

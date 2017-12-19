@@ -37,9 +37,7 @@ export class BulkDownloadPageContainer extends React.Component {
     }
 
     componentWillMount() {
-        if (this.props.params.type) {
-            this.validateDataType(this.props.params.type);
-        }
+        this.validateDataType(this.props.params.type);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -48,15 +46,18 @@ export class BulkDownloadPageContainer extends React.Component {
         }
     }
 
-    validateDataType(dataType) {
-        if (!dataType || dataType !== 'award_data_archive') {
-            // not a valid type, go to to the default award page
+    validateDataType(type) {
+        if (!type) {
+            // Show the default award content
             this.props.setDataType('awards');
-            Router.history.replace('/bulk_download');
+        }
+        else if (type === 'award_data_archive') {
+            // Show the award data archive content
+            this.props.setDataType(type);
         }
         else {
-            // set the data type
-            this.props.setDataType(dataType);
+            // Invalid url, go to the error page
+            Router.history.replace('/error');
         }
     }
 
