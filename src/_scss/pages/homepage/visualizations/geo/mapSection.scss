@@ -29,11 +29,8 @@
                 top: rem(30);
             }
             & .map-legend {
-                bottom: rem(30);
+                bottom: rem(80);
                 left: rem(30);
-                @include media($tablet-screen) {
-                    bottom: rem(80);
-                }
             }
             height: rem(760);
             & .mapbox-item.mapboxgl-map {
