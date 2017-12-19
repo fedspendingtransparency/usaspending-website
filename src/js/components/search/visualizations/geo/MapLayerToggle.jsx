@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 const propTypes = {
     active: PropTypes.string,
     available: PropTypes.array,
-    changeMapLayer: PropTypes.func
+    changeMapLayer: PropTypes.func,
+    sources: PropTypes.object
 };
 
 const capitalizeLabel = (original) => {

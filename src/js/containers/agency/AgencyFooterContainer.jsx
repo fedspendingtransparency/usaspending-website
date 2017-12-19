@@ -98,7 +98,6 @@ export class AgencyFooterContainer extends React.Component {
                 clickedSearch={this.clickedSearch} />
         );
     }
-
 }
 
 export default connect(

@@ -58,17 +58,22 @@ export default class ChartGroup extends React.Component {
             </text>
         );
 
+        /* eslint-disable jsx-a11y/anchor-is-valid */
+        // the link is actually valid since the URL root will provide an absolute URL
         if (this.props.linkID !== '') {
-            title = (<a xlinkHref={`${this.props.urlRoot}${this.props.linkID}`}>
-                <text
-                    className={`group-label ${linkClass}`}
-                    ref={(text) => {
-                        this.svgText = text;
-                    }}>
-                    {label}
-                </text>
-            </a>);
+            title = (
+                <a xlinkHref={`${this.props.urlRoot}${this.props.linkID}`}>
+                    <text
+                        className={`group-label ${linkClass}`}
+                        ref={(text) => {
+                            this.svgText = text;
+                        }}>
+                        {label}
+                    </text>
+                </a>
+            );
         }
+        /* eslint-enable jsx-a11y/anchor-is-valid */
 
         return title;
     }

@@ -40,7 +40,6 @@ const EntityDropdownList = (props) => {
                     className={`list-item ${active} letter-${letterClass}`}
                     title={item.name}
                     aria-label={item.name}
-                    role="listitem"
                     data-listindex={i}
                     onClick={props.clickedItem.bind(null, item)}>
                     {item.name}

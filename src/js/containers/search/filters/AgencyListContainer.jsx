@@ -176,6 +176,8 @@ export class AgencyListContainer extends React.Component {
         const search = new Search('id');
         search.addIndex(['toptier_agency', 'name']);
         search.addIndex(['subtier_agency', 'name']);
+        search.addIndex(['toptier_agency', 'abbreviation']);
+        search.addIndex(['subtier_agency', 'abbreviation']);
 
         // add the API response as the data source to search within
         search.addDocuments(data);
@@ -277,6 +279,7 @@ AgencyListContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         fundingAgencies: state.autocompleteAgencies.fundingAgencies,
-        awardingAgencies: state.autocompleteAgencies.awardingAgencies }),
+        awardingAgencies: state.autocompleteAgencies.awardingAgencies
+    }),
     (dispatch) => bindActionCreators(agencyActions, dispatch)
 )(AgencyListContainer);

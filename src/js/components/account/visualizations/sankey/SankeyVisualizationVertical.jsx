@@ -528,7 +528,7 @@ ${this.state.legend.unobligated.y})`}>
                         className="top-row"
                         transform={`translate(${this.state.top.x},${this.state.top.y})`}>
                         <SankeyBar
-                            color={"#135259"}
+                            color="#135259"
                             x={this.state.top.appropriations.x}
                             y={0}
                             width={this.state.top.appropriations.width}
@@ -536,7 +536,7 @@ ${this.state.legend.unobligated.y})`}>
                             description={this.state.top.appropriations.description} />
 
                         <SankeyBar
-                            color={"#136f69"}
+                            color="#136f69"
                             x={this.state.top.other.x}
                             y={0}
                             width={this.state.top.other.width}
@@ -544,7 +544,7 @@ ${this.state.legend.unobligated.y})`}>
                             description={this.state.top.other.description} />
 
                         <SankeyBar
-                            color={"#218e74"}
+                            color="#218e74"
                             x={this.state.top.bbf.x}
                             y={0}
                             width={this.state.top.bbf.width}
@@ -556,7 +556,7 @@ ${this.state.legend.unobligated.y})`}>
                         className="middle-row"
                         transform={`translate(${this.state.center.x},${this.state.center.y})`}>
                         <SankeyBar
-                            color={"#3d9851"}
+                            color="#3d9851"
                             x={0}
                             y={0}
                             width={this.state.center.width}
@@ -596,14 +596,14 @@ scale(0.7,0.7)`}>
                         className="bottom-row"
                         transform={`translate(${this.state.bottom.x},${this.state.bottom.y})`}>
                         <SankeyBar
-                            color={"#6d8996"}
+                            color="#6d8996"
                             x={this.state.bottom.obligated.x}
                             y={0}
                             width={this.state.bottom.obligated.width}
                             height={this.state.bottom.height}
                             description={this.state.bottom.obligated.description} />
                         <SankeyBar
-                            color={"#97b5be"}
+                            color="#97b5be"
                             x={this.state.bottom.unobligated.x}
                             y={0}
                             width={this.state.bottom.unobligated.width}

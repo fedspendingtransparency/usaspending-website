@@ -12,7 +12,6 @@ const propTypes = {
 };
 
 export default class RecipientAddress extends React.Component {
-
     render() {
         const recipient = this.props.recipient;
         const city = recipient.recipient_city;

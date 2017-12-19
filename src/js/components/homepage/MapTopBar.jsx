@@ -6,7 +6,6 @@
 import React from 'react';
 
 export default class MapTopBar extends React.Component {
-
     render() {
         return (
             <div className="map-top-bar-wrap ">

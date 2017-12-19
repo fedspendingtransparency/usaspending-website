@@ -189,7 +189,7 @@ export class AgencyLandingContainer extends React.Component {
 
         // now sort the results by the appropriate table column and direction
         const orderedResults = orderBy(results,
-                [this.props.agenciesOrder.field], [this.props.agenciesOrder.direction]);
+            [this.props.agenciesOrder.field], [this.props.agenciesOrder.direction]);
 
         this.setState({
             results: orderedResults

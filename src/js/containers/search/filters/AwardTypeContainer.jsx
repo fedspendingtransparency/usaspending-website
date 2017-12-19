@@ -18,7 +18,6 @@ const propTypes = {
 };
 
 export class AwardTypeContainer extends React.Component {
-
     constructor(props) {
         super(props);
 

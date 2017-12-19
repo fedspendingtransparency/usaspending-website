@@ -142,9 +142,9 @@ export default class BarChart extends React.Component {
         // remember, in D3 scales, domain is the data range (or data set for non-continuous data)
         // and range is the range of possible pixel positions along the axis
         const xScale = scaleBand()
-                    .domain(props.groups)
-                    .range([0, graphWidth])
-                    .round(true);
+            .domain(props.groups)
+            .range([0, graphWidth])
+            .round(true);
 
         const yScale = scaleLinear()
             .domain(yRange)

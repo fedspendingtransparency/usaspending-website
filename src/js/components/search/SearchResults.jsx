@@ -19,8 +19,7 @@ const propTypes = {
     filterCount: PropTypes.number,
     showMobileFilters: PropTypes.bool,
     toggleMobileFilters: PropTypes.func,
-    clearAllFilters: PropTypes.func,
-    lastUpdate: PropTypes.string
+    clearAllFilters: PropTypes.func
 };
 
 export default class SearchResults extends React.Component {

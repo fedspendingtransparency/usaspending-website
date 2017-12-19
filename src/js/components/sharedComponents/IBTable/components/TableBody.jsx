@@ -211,7 +211,7 @@ export default class TableBody extends React.Component {
             const column = col;
             const columnRightEdge = tableXPos + column.width;
             if (this.isColumnVisible(tableXPos, columnRightEdge, this.scrollPosition.x,
-                    this.scrollPosition.x + this.props.maxWidth)) {
+                this.scrollPosition.x + this.props.maxWidth)) {
                 // the column is in view
                 column.left = tableXPos;
                 columns.push(column);
