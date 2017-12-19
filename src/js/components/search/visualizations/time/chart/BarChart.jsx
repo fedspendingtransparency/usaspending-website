@@ -352,7 +352,7 @@ export default class BarChart extends React.Component {
             yValue: this.state.items[groupIndex].dataY,
             percentage,
             group: groupLabel
-        }, xPos, yPos);
+        }, xPos, yPos, this.state.items[groupIndex].width);
     }
 
     render() {

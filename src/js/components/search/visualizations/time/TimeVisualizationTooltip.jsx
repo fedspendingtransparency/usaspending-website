@@ -11,6 +11,7 @@ const propTypes = {
     y: PropTypes.number,
     x: PropTypes.number,
     data: PropTypes.object,
+    barWidth: PropTypes.number,
     chartWidth: PropTypes.number
 };
 
@@ -34,7 +35,7 @@ export default class TimeVisualizationTooltip extends React.Component {
         // offset the tooltip position to account for its arrow/pointer
         let offset = 9;
         if (direction === 'right') {
-            offset = -9 - tooltipWidth;
+            offset = -9 - tooltipWidth - this.props.barWidth;
         }
 
         this.div.style.top = `${this.props.y}px`;

@@ -54,17 +54,19 @@ export default class TimeVisualization extends React.Component {
         this.state = {
             tooltipData: null,
             tooltipX: 0,
-            tooltipY: 0
+            tooltipY: 0,
+            barWidth: 0
         };
 
         this.showTooltip = this.showTooltip.bind(this);
     }
 
-    showTooltip(data, x, y) {
+    showTooltip(data, x, y, width) {
         this.setState({
             tooltipData: data,
             tooltipX: x,
-            tooltipY: y
+            tooltipY: y,
+            barWidth: width
         });
     }
 
@@ -75,7 +77,8 @@ export default class TimeVisualization extends React.Component {
                 chartWidth={this.props.width}
                 data={this.state.tooltipData}
                 x={this.state.tooltipX}
-                y={this.state.tooltipY} />);
+                y={this.state.tooltipY}
+                barWidth={this.state.barWidth} />);
         }
 
         let chart = (<ChartMessage message="No data to display" />);
