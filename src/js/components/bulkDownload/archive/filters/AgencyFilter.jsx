@@ -11,7 +11,9 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 const propTypes = {
     agency: PropTypes.object,
     updateFilter: PropTypes.func,
-    agencies: PropTypes.object
+    agencies: PropTypes.object,
+    formWidth: PropTypes.number,
+    windowWidth: PropTypes.number
 };
 
 export default class ArchiveAgencyFilter extends React.Component {
@@ -90,6 +92,12 @@ export default class ArchiveAgencyFilter extends React.Component {
             showAgencyPicker = '';
             agencyIcon = <Icons.AngleUp alt="Pick an agency" />;
         }
+
+        let dropDownWidth = this.props.formWidth - 30;
+        if (this.props.windowWidth >= 992) {
+            dropDownWidth = (this.props.formWidth * 0.45) - 30;
+        }
+
         return (
             <div className="filter-picker agency-picker">
                 <label className="select-label" htmlFor="agency-select">
@@ -110,7 +118,9 @@ export default class ArchiveAgencyFilter extends React.Component {
                         </div>
                     </button>
 
-                    <div className={`field-list ${showAgencyPicker}`}>
+                    <div
+                        className={`field-list ${showAgencyPicker}`}
+                        style={{ width: dropDownWidth }}>
                         <ul>
                             <li className="field-item">
                                 <button

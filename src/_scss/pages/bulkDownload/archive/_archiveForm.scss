@@ -7,6 +7,9 @@
         font-weight: 600;
         line-height: 23px;
     }
+    .form-width-master {
+        width: 100%;
+    }
     form {
         @include media($medium-screen) {
             @include display(flex);

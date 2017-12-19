@@ -18,7 +18,9 @@ for (let year = currentFY; year >= earliestFY; year--) {
 
 const propTypes = {
     currentFY: PropTypes.string,
-    updateFilter: PropTypes.func
+    updateFilter: PropTypes.func,
+    formWidth: PropTypes.number,
+    windowWidth: PropTypes.number
 };
 
 export default class ArchiveFiscalYearFilter extends React.Component {
@@ -72,6 +74,12 @@ export default class ArchiveFiscalYearFilter extends React.Component {
             showFyPicker = '';
             fyIcon = <Icons.AngleUp alt="Pick a fiscal year" />;
         }
+
+        let dropDownWidth = this.props.formWidth - 30;
+        if (this.props.windowWidth >= 992) {
+            dropDownWidth = (this.props.formWidth * 0.15) - 30;
+        }
+
         return (
             <div className="filter-picker fy-picker">
                 <label className="select-label" htmlFor="fy-select">
@@ -90,7 +98,9 @@ export default class ArchiveFiscalYearFilter extends React.Component {
                             </span>
                         </div>
                     </button>
-                    <div className={`field-list ${showFyPicker}`}>
+                    <div
+                        className={`field-list ${showFyPicker}`}
+                        style={{ width: dropDownWidth }}>
                         <ul>
                             {FYs}
                         </ul>

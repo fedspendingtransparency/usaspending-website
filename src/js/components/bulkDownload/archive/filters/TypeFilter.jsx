@@ -21,7 +21,9 @@ const awardTypes = [
 
 const propTypes = {
     currentType: PropTypes.string,
-    updateFilter: PropTypes.func
+    updateFilter: PropTypes.func,
+    formWidth: PropTypes.number,
+    windowWidth: PropTypes.number
 };
 
 export default class ArchiveTypeFilter extends React.Component {
@@ -79,6 +81,12 @@ export default class ArchiveTypeFilter extends React.Component {
             showTypePicker = '';
             typeIcon = <Icons.AngleUp alt="Pick an award type" />;
         }
+
+        let dropDownWidth = this.props.formWidth - 30;
+        if (this.props.windowWidth >= 992) {
+            dropDownWidth = (this.props.formWidth * 0.25) - 30;
+        }
+
         return (
             <div className="filter-picker type-picker">
                 <label className="select-label" htmlFor="type-select">
@@ -97,7 +105,9 @@ export default class ArchiveTypeFilter extends React.Component {
                             </span>
                         </div>
                     </button>
-                    <div className={`field-list ${showTypePicker}`}>
+                    <div
+                        className={`field-list ${showTypePicker}`}
+                        style={{ width: dropDownWidth }}>
                         <ul>
                             {types}
                         </ul>
