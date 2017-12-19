@@ -212,24 +212,22 @@ export default class BarChart extends React.Component {
                 const barIdentifier = `${groupIndex}-${i}`;
                 const description = `Spending in ${xData[i]}: ${MoneyFormatter.formatMoney(item)}`;
 
-                const bar = (<BarItem
-                    key={`data-${barIdentifier}`}
-                    identifier={barIdentifier}
-                    dataY={item}
-                    dataX={xData[i]}
-                    graphHeight={graphHeight}
-                    height={barHeight}
-                    width={itemWidth}
-                    x={xPos}
-                    y={yPos}
-                    color={this.props.legend[0].color}
-                    description={description}
-                    selectBar={this.selectBar}
-                    deselectBar={this.deselectBar}
-                    deregisterBar={this.deregisterBar}
-                    ref={(component) => {
-                        this.dataPoints[barIdentifier] = component;
-                    }} />);
+                const bar = {
+                    key: `data-${barIdentifier}`,
+                    identifier: barIdentifier,
+                    dataY: item,
+                    dataX: xData[i],
+                    graphHeight: graphHeight,
+                    height: barHeight,
+                    width: itemWidth,
+                    x: xPos,
+                    y: yPos,
+                    color: this.props.legend[0].color,
+                    description: description,
+                    selectBar: this.selectBar,
+                    deselectBar: this.deselectBar,
+                    deregisterBar: this.deregisterBar
+                };
                 items.push(bar);
             });
         });
@@ -301,8 +299,6 @@ export default class BarChart extends React.Component {
         const groupIndex = barIdentifier.split('-')[0];
         const subIndex = barIdentifier.split('-')[1];
         const groupLabel = this.props.groups[groupIndex];
-        const xValue = this.props.xSeries[groupIndex][subIndex];
-        const yValue = this.props.ySeries[groupIndex][subIndex];
 
         // calculate the tooltip position
         // get the top of the chart on the HTML page
@@ -330,16 +326,11 @@ export default class BarChart extends React.Component {
             yPos += (barHeight / 2);
         }
 
-        // determine where the bar starting position is
-        // this is the group's starting X position plus 20px padding between groups
-        // plus the number of previous group members times the width of each group member
-        const groupWidth = this.state.xScale.bandwidth();
-        const itemWidth = min([groupWidth / this.props.xSeries[groupIndex].length , 120]);
-        let barXAnchor = this.state.xScale(groupLabel) + (subIndex * itemWidth);
-        // now adjust the anchor so it is halfway through the bar
-        barXAnchor += (itemWidth);
-        // now place the tooltip halfway in the bar's width
-        const xPos = chartLeft + barXAnchor + this.props.padding.left;
+        const xPos = (
+            chartLeft +
+            this.state.items[groupIndex].x +
+            this.state.items[groupIndex].width +
+            this.props.padding.left);
 
         // calculate the percentage of the total
         const rawPercent = (yValue / sum(this.state.yValues));
@@ -356,8 +347,8 @@ export default class BarChart extends React.Component {
 
         // show the tooltip
         this.props.showTooltip({
-            xValue,
-            yValue,
+            xValue: this.state.items[groupIndex].dataX,
+            yValue: this.state.items[groupIndex].dataY,
             percentage,
             group: groupLabel
         }, xPos, yPos);
@@ -367,6 +358,27 @@ export default class BarChart extends React.Component {
         // add 20px to the top of the chart to avoid cutting off label text
         // wrap the chart contents in a group and transform it down 20px to avoid impacting
         // positioning calculations
+        const bars = this.state.items.map((item) => (
+                <BarItem
+                    key={item.key}
+                    identifier={item.identifier}
+                    dataY={item.dataY}
+                    dataX={item.dataX}
+                    graphHeight={item.graphHeight}
+                    height={item.height}
+                    width={item.width}
+                    x={item.x}
+                    y={item.y}
+                    color={item.color}
+                    description={item.description}
+                    selectBar={item.selectBar}
+                    deselectBar={item.deselectBar}
+                    deregisterBar={item.deregisterBar}
+                    ref= {(component) => {
+                        this.dataPoints[item.identifier] = component;
+                    }}/>
+        ));
+
         return (
             <div
                 ref={(div) => {
@@ -402,7 +414,7 @@ export default class BarChart extends React.Component {
                         <g
                             className="bar-data"
                             transform={`translate(${this.props.padding.left},0)`}>
-                            {this.state.items}
+                            {bars}
                         </g>
 
                         <g
