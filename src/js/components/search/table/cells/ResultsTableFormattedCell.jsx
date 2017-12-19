@@ -9,10 +9,11 @@ import moment from 'moment';
 import { formatMoney } from 'helpers/moneyFormatter';
 
 const propTypes = {
-    data: PropTypes.any,
     rowIndex: PropTypes.number,
     column: PropTypes.string,
-    isLastColumn: PropTypes.bool
+    isLastColumn: PropTypes.bool,
+    value: PropTypes.any,
+    dataType: PropTypes.string
 };
 
 export default class ResultsTableFormattedCell extends React.Component {

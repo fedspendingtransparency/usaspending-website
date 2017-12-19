@@ -3,8 +3,6 @@
  * Created by Kevin Li 3/17/17
  */
 
-import { uniqueId, concat } from 'lodash';
-
 import { Set, OrderedSet } from 'immutable';
 
 import * as ObjectClassFuncs from './filters/accountObjectClassFunctions';

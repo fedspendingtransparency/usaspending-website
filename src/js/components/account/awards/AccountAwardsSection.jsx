@@ -18,7 +18,12 @@ const propTypes = {
     currentType: PropTypes.string,
     switchTab: PropTypes.func,
     results: PropTypes.array,
-    counts: PropTypes.object
+    counts: PropTypes.object,
+    sort: PropTypes.object,
+    columns: PropTypes.object,
+    tableInstance: PropTypes.string,
+    updateSort: PropTypes.func,
+    loadNextPage: PropTypes.func
 };
 
 export default class AccountAwardsSection extends React.Component {
@@ -91,7 +96,6 @@ export default class AccountAwardsSection extends React.Component {
                         tableInstance={this.props.tableInstance}
                         updateSort={this.props.updateSort}
                         loadNextPage={this.props.loadNextPage} />
-                        
                 </div>
                 {message}
             </div>

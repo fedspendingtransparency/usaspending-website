@@ -23,10 +23,13 @@ const rowHeight = 40;
 const tableHeight = 10.5 * rowHeight;
 
 const propTypes = {
-    award: PropTypes.object,
     tableWidth: PropTypes.number,
-    nextPage: PropTypes.func,
-    inFlight: PropTypes.bool
+    loadNextPage: PropTypes.func,
+    inFlight: PropTypes.bool,
+    tableInstance: PropTypes.string,
+    sort: PropTypes.object,
+    changeSort: PropTypes.func,
+    data: PropTypes.array
 };
 
 export default class FinancialSystemTable extends React.Component {

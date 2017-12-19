@@ -58,8 +58,8 @@ const TableHeaderCell = (props) => {
         activeDesc = ' active';
     }
 
-    /* eslint-disable jsx-a11y/no-static-element-interactions */
-    // old linter version
+    /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+    // allow keyboard selection of the header cell
     return (
         <div className={`award-result-header-cell ${lastClass}`}>
             <div
@@ -96,7 +96,7 @@ const TableHeaderCell = (props) => {
             </div>
         </div>
     );
-    /* eslint-enable jsx-a11y/no-static-element-interactions */
+    /* eslint-enable jsx-a11y/no-noninteractive-tabindex */
 };
 
 TableHeaderCell.propTypes = propTypes;

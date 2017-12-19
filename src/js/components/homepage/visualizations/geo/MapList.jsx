@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { orderBy, uniqueId } from 'lodash';
+import { orderBy } from 'lodash';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
