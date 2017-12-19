@@ -12,7 +12,7 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 const earliestFY = fiscalYearHelper.earliestFiscalYear;
 const currentFY = fiscalYearHelper.currentFiscalYear();
 const fiscalYears = [];
-for (let year = earliestFY; year <= currentFY; year++) {
+for (let year = currentFY; year >= earliestFY; year--) {
     fiscalYears.push(year);
 }
 

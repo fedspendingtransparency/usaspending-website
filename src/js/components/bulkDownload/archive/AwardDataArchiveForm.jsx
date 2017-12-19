@@ -44,7 +44,7 @@ export default class AwardDataArchiveForm extends React.Component {
                         updateFilter={this.props.updateFilter}
                         agencies={this.props.agencies} />
                     <ArchiveTypeFilter
-                        currentType={this.props.filters.type}
+                        currentType={this.props.filters.type.display}
                         updateFilter={this.props.updateFilter} />
                     <ArchiveFiscalYearFilter
                         currentFY={this.props.filters.fy}

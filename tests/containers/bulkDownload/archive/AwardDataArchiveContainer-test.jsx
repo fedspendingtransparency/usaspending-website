@@ -61,11 +61,17 @@ describe('AwardDataArchiveContainer', () => {
                     id: 'all',
                     name: 'All'
                 },
-                type: 'mockType',
+                type: {
+                    name: 'mockType',
+                    display: 'Mock Type'
+                },
                 fy: '2018'
             };
 
-            container.instance().updateFilter('type', 'mockType');
+            container.instance().updateFilter('type', {
+                name: 'mockType',
+                display: 'Mock Type'
+            });
 
             expect(container.state().filters).toEqual(expectedFilterState);
         });

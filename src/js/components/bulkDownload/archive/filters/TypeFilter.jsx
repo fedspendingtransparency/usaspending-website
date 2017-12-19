@@ -8,7 +8,16 @@ import PropTypes from 'prop-types';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
-const awardTypes = ['contracts', 'assistance'];
+const awardTypes = [
+    {
+        name: 'contracts',
+        display: 'Contracts'
+    },
+    {
+        name: 'assistance',
+        display: 'Financial Assistance'
+    }
+];
 
 const propTypes = {
     currentType: PropTypes.string,
@@ -37,7 +46,10 @@ export default class ArchiveTypeFilter extends React.Component {
     handleTypeSelect(e) {
         e.preventDefault();
         const target = e.target;
-        this.props.updateFilter('type', target.value);
+        this.props.updateFilter('type', {
+            name: target.value,
+            display: target.name
+        });
 
         this.setState({
             showTypePicker: false
@@ -49,14 +61,15 @@ export default class ArchiveTypeFilter extends React.Component {
         const types = awardTypes.map((type) => (
             <li
                 className="field-item"
-                key={`field-${type}`}>
+                key={`field-${type.name}`}>
                 <button
                     className="item-button"
-                    title={type}
-                    aria-label={type}
-                    value={type}
+                    title={type.display}
+                    aria-label={type.display}
+                    name={type.display}
+                    value={type.name}
                     onClick={this.handleTypeSelect}>
-                    {type}
+                    {type.display}
                 </button>
             </li>
         ));

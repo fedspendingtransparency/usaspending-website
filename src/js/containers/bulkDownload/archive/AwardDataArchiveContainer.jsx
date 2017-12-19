@@ -43,7 +43,10 @@ export default class AwardDataArchiveContainer extends React.Component {
                     id: 'all',
                     name: 'All'
                 },
-                type: 'contracts',
+                type: {
+                    name: 'contracts',
+                    display: 'Contracts'
+                },
                 fy: '2018'
             },
             results: []
@@ -119,14 +122,14 @@ export default class AwardDataArchiveContainer extends React.Component {
             // don't include the agency parameter to request all agencies
             this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
                 fiscal_year: parseInt(this.state.filters.fy, 10),
-                type: this.state.filters.type
+                type: this.state.filters.type.name
             });
         }
         else {
             this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
                 agency: parseInt(this.state.filters.agency.id, 10),
                 fiscal_year: parseInt(this.state.filters.fy, 10),
-                type: this.state.filters.type
+                type: this.state.filters.type.name
             });
         }
 

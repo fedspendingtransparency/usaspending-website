@@ -8,7 +8,9 @@
         line-height: 23px;
     }
     form {
-        @include display(flex);
+        @include media($medium-screen) {
+            @include display(flex);
+        }
         @import "./form/agencyPicker";
 
         .filter-picker {
@@ -38,19 +40,23 @@
                     width: auto;
                 }
             }
-            &.agency-picker {
-                width: 50%;
-            }
-            &.type-picker {
-                width: 20%;
-            }
-            &.fy-picker {
-                width: 15%;
+            @include media($medium-screen) {
+                &.agency-picker {
+                    width: 45%;
+                }
+                &.type-picker {
+                    width: 25%;
+                }
+                &.fy-picker {
+                    width: 15%;
+                }
             }
         }
         .submit-button {
             padding: 0 rem(15);
-            width: 15%;
+            @include media($medium-screen) {
+                width: 15%;
+            }
             input {
                 width: 100%;
                 margin-top: rem(37);
