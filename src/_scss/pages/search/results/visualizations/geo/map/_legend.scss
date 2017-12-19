@@ -1,6 +1,9 @@
 .map-legend {
     background-color: $color-white;
-    bottom: rem(15);
+    bottom: rem(80);
+    @include media($tablet-screen) {
+        bottom: rem(15);
+    }
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
     left: rem(15);
     padding: rem(12) $global-pad;
