@@ -167,7 +167,7 @@ export default class BarChart extends React.Component {
             const groupWidth = xScale.bandwidth();
             // subdivide the group width based on the number of group items to determine the width
             // of each data point, with a max of 120px
-            const itemWidth = min([groupWidth / (xData.length * 3 + 1) * 3, 120]);
+            const itemWidth = min([(groupWidth / ((xData.length * 3) + 1)) * 3, 120]);
             // calculate where on the X axis the group should start
             let startingXPos = xScale(group) + (itemWidth / 6);
             if (itemWidth === 120) {
@@ -217,13 +217,13 @@ export default class BarChart extends React.Component {
                     identifier: barIdentifier,
                     dataY: item,
                     dataX: xData[i],
-                    graphHeight: graphHeight,
+                    graphHeight,
                     height: barHeight,
                     width: itemWidth,
                     x: xPos,
                     y: yPos,
                     color: this.props.legend[0].color,
-                    description: description,
+                    description,
                     selectBar: this.selectBar,
                     deselectBar: this.deselectBar,
                     deregisterBar: this.deregisterBar
@@ -297,8 +297,9 @@ export default class BarChart extends React.Component {
     prepareTooltip(barIdentifier) {
         // fetch the original data
         const groupIndex = barIdentifier.split('-')[0];
-        const subIndex = barIdentifier.split('-')[1];
         const groupLabel = this.props.groups[groupIndex];
+        const subIndex = barIdentifier.split('-')[1];
+        const yValue = this.props.ySeries[groupIndex][subIndex];
 
         // calculate the tooltip position
         // get the top of the chart on the HTML page
@@ -359,24 +360,24 @@ export default class BarChart extends React.Component {
         // wrap the chart contents in a group and transform it down 20px to avoid impacting
         // positioning calculations
         const bars = this.state.items.map((item) => (
-                <BarItem
-                    key={item.key}
-                    identifier={item.identifier}
-                    dataY={item.dataY}
-                    dataX={item.dataX}
-                    graphHeight={item.graphHeight}
-                    height={item.height}
-                    width={item.width}
-                    x={item.x}
-                    y={item.y}
-                    color={item.color}
-                    description={item.description}
-                    selectBar={item.selectBar}
-                    deselectBar={item.deselectBar}
-                    deregisterBar={item.deregisterBar}
-                    ref= {(component) => {
-                        this.dataPoints[item.identifier] = component;
-                    }}/>
+            <BarItem
+                key={item.key}
+                identifier={item.identifier}
+                dataY={item.dataY}
+                dataX={item.dataX}
+                graphHeight={item.graphHeight}
+                height={item.height}
+                width={item.width}
+                x={item.x}
+                y={item.y}
+                color={item.color}
+                description={item.description}
+                selectBar={item.selectBar}
+                deselectBar={item.deselectBar}
+                deregisterBar={item.deregisterBar}
+                ref={(component) => {
+                    this.dataPoints[item.identifier] = component;
+                }} />
         ));
 
         return (
@@ -419,7 +420,9 @@ export default class BarChart extends React.Component {
 
                         <g
                             className="legend-container"
-                            transform={`translate(${this.props.padding.left},${this.props.height - 20})`}>
+                            transform={`translate(
+                                ${this.props.padding.left},
+                                ${this.props.height - 20})`}>
                             <BarChartLegend legend={this.props.legend} />
                         </g>
                     </g>

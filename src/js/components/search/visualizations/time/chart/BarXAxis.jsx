@@ -42,7 +42,7 @@ export default class BarXAxis extends React.Component {
         }
     }
 
-    parseLabels (props) {
+    parseLabels(props) {
         if (!props.data || props.data.length === 0) {
             return props.data;
         }
@@ -51,11 +51,12 @@ export default class BarXAxis extends React.Component {
 
         if (props.activeLabel) {
             return (
-                props.data.map((item, index) => {
-                    // offset the D3 calculated position by the left padding and put the label in the middle
+                props.data.map((item) => {
+                    // offset the D3 calculated position by the left padding
+                    // and put the label in the middle
                     // of the each tick's width to center the text
-                    if(item !== props.activeLabel.xValue) {
-                        return;
+                    if (item !== props.activeLabel.xValue) {
+                        return null;
                     }
                     const xPos = props.scale(item) + (props.scale.bandwidth() / 2);
                     return (<BarXAxisItem
@@ -66,10 +67,11 @@ export default class BarXAxis extends React.Component {
                 })
             );
         }
-        else if ( ref.length === 1 ) {
+        else if (ref.length === 1) {
             return (
-                props.data.map((item, index) => {
-                    // offset the D3 calculated position by the left padding and put the label in the middle
+                props.data.map((item) => {
+                    // offset the D3 calculated position by the left padding and put the label in
+                    // the middle
                     // of the each tick's width to center the text
                     const xPos = props.scale(item) + (props.scale.bandwidth() / 2);
                     return (<BarXAxisItem
@@ -86,21 +88,18 @@ export default class BarXAxis extends React.Component {
                 props.data.map((item, index) => {
                     // offset the D3 calculated position by the left padding and put the label in the middle
                     // of the each tick's width to center the text
-                    
-                    if(index % 4 !== 0) {
-                        return;
+                    if (index % 4 !== 0) {
+                        return null;
                     }
 
                     const endIndex = index + 3 > props.data.length ? props.data.length - 1 : index + 3;
 
-                    const xPos = (props.scale(item)+props.scale(props.data[endIndex]) + props.scale.bandwidth()) / 2;
-
-                    item = item.split(" ")[1];
+                    const xPos = (props.scale(item) + props.scale(props.data[endIndex]) + props.scale.bandwidth()) / 2;
 
                     return (<BarXAxisItem
                         x={xPos}
                         y={15}
-                        label={item}
+                        label={item.split(" ")[1]}
                         key={`label-x-${item}`} />);
                 })
             );
@@ -110,15 +109,16 @@ export default class BarXAxis extends React.Component {
             props.data.map((item, index) => {
                 // offset the D3 calculated position by the left padding and put the label in the middle
                 // of the each tick's width to center the text
-                if(index % 12 !== 0) {
-                    return;
+                if (index % 12 !== 0) {
+                    return null;
                 }
 
-                let endIndex = index + 11 > props.data.length ? props.data.length - 1 : index + 11;
+                const endIndex = index + 11 > props.data.length ? props.data.length - 1 : index + 11;
 
-                const xPos = (props.scale(item)+props.scale(props.data[endIndex]) + props.scale.bandwidth()) / 2;
+                const xPos = (props.scale(item) + props.scale(props.data[endIndex]) + props.scale.bandwidth()) / 2;
 
-                const label = (parseInt(item.split(" ")[1]) + 1).toString();
+                const label = (parseInt(item.split(" ")[1], 10) + 1).toString();
+
                 return (<BarXAxisItem
                     x={xPos}
                     y={15}

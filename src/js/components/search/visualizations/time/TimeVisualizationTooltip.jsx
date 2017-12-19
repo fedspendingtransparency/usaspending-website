@@ -10,7 +10,8 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 const propTypes = {
     y: PropTypes.number,
     x: PropTypes.number,
-    data: PropTypes.object
+    data: PropTypes.object,
+    chartWidth: PropTypes.number
 };
 
 export default class TimeVisualizationTooltip extends React.Component {
