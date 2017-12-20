@@ -29,6 +29,8 @@ import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
 
+import SearchSidebarSubmit from './SearchSidebarSubmit';
+
 const filters = {
     options: [
         'Keyword',
@@ -108,7 +110,13 @@ export default class SearchSidebar extends React.Component {
                     </span>
                     <h6>Filter by:</h6>
                 </div>
+                <div className="sidebar-top-submit">
+                    <SearchSidebarSubmit />
+                </div>
                 <FilterSidebar {...filters} expanded={expanded} />
+                <div className="sidebar-bottom-submit">
+                    <SearchSidebarSubmit />
+                </div>
             </div>
         );
     }

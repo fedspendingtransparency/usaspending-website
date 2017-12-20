@@ -1,0 +1,28 @@
+.sidebar-submit {
+    padding: rem(15) rem(25);
+    .submit-button {
+        display: block;
+        width: 100%;
+    }
+    .reset-button {
+        display: block;
+        @include button-unstyled;
+
+        text-align: center;
+
+        color: $color-primary;
+        font-size: $smallest-font-size;
+
+        margin-top: rem(8);
+        margin-left: auto;
+        margin-right: auto;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.sidebar-top-submit {
+    border-bottom: 1px solid #e4e2e0;
+}
