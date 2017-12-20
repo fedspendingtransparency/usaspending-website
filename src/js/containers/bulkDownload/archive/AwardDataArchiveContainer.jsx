@@ -120,20 +120,11 @@ export default class AwardDataArchiveContainer extends React.Component {
         }
 
         // perform the API request
-        if (this.state.filters.id === 'all') {
-            // don't include the agency parameter to request all agencies
-            this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
-                fiscal_year: parseInt(this.state.filters.fy, 10),
-                type: this.state.filters.type.name
-            });
-        }
-        else {
-            this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
-                agency: parseInt(this.state.filters.agency.id, 10),
-                fiscal_year: parseInt(this.state.filters.fy, 10),
-                type: this.state.filters.type.name
-            });
-        }
+        this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
+            agency: this.state.filters.agency.id,
+            fiscal_year: parseInt(this.state.filters.fy, 10),
+            type: this.state.filters.type.name
+        });
 
         this.resultsRequest.promise
             .then((res) => {
