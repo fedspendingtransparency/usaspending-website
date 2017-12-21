@@ -40,6 +40,10 @@
 
     background-color: rgba(255, 255, 255, 0.9);
 
+    &.full {
+        background-color: $color-white;        
+    }
+
     .results-table-loading {
         @include flex(0 0 auto);
         margin-top: rem(100px);
@@ -72,6 +76,38 @@
             background-image: url('#{$image-path}/no_results.png');
             background-size: contain;
             background-repeat: no-repeat;
+        }
+        .title {
+            font-size: rem(36);
+            line-height: rem(45);
+            color: $color-gray-light;
+            text-align: center;
+            font-weight: $font-semibold;
+        }
+        .description {
+            font-size: rem(36);
+            line-height: rem(45);
+            color: $color-gray-light;
+            text-align: center;
+        }
+    }
+
+    .results-table-error {
+        @include flex(0 0 auto);
+        margin-top: rem(20);
+
+        .icon {
+            width: rem(75);
+            height: rem(72);
+
+            margin-left: auto;
+            margin-right: auto;
+
+            svg {
+                width: rem(72);
+                height: rem(72);
+                fill: $color-gray-light;
+            }
         }
         .title {
             font-size: rem(36);

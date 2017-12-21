@@ -30,7 +30,8 @@ const propTypes = {
     columnVisibility: PropTypes.object,
     toggleColumnVisibility: PropTypes.func,
     reorderColumns: PropTypes.func,
-    populateAvailableColumns: PropTypes.func
+    populateAvailableColumns: PropTypes.func,
+    setAppliedFilterCompletion: PropTypes.func
 };
 
 const tableTypes = [
@@ -77,6 +78,7 @@ export class ResultsTableContainer extends React.Component {
                 direction: 'desc'
             },
             inFlight: true,
+            error: false,
             results: [],
             tableInstance: `${uniqueId()}` // this will stay constant during pagination but will change when the filters or table type changes
         };
@@ -127,7 +129,8 @@ export class ResultsTableContainer extends React.Component {
         this.props.setAppliedFilterCompletion(false);
 
         this.setState({
-            inFlight: true
+            inFlight: true,
+            error: false
         });
 
         const searchParams = new SearchAwardsOperation();
@@ -143,7 +146,20 @@ export class ResultsTableContainer extends React.Component {
                 this.parseTabCounts(res.data);
             })
             .catch((err) => {
-                console.log(err);
+                if (isCancel(err)) {
+                    return;
+                }
+                if (err.response) {
+                    this.setState({
+                        inFlight: false,
+                        error: true
+                    });
+                    this.props.setAppliedFilterCompletion(true);
+                }
+                else {
+                    console.log(err);
+                    this.props.setAppliedFilterCompletion(true);
+                }
             });
     }
 
@@ -268,7 +284,8 @@ export class ResultsTableContainer extends React.Component {
 
         // indicate the request is about to start
         this.setState({
-            inFlight: true
+            inFlight: true,
+            error: false
         });
 
         let pageNumber = this.state.page;
@@ -339,13 +356,18 @@ export class ResultsTableContainer extends React.Component {
                 }
                 else if (err.response) {
                     // server responded with something
-                    console.log(err);
+                    this.setState({
+                        inFlight: false,
+                        error: true
+                    });
                     this.searchRequest = null;
+                    this.props.setAppliedFilterCompletion(true);
                 }
                 else {
                     // request never made it out
                     console.log(err);
                     this.searchRequest = null;
+                    this.props.setAppliedFilterCompletion(true);
                 }
             });
     }
@@ -429,6 +451,7 @@ export class ResultsTableContainer extends React.Component {
         const tableType = this.state.tableType;
         return (
             <ResultsTableSection
+                error={this.state.error}
                 inFlight={this.state.inFlight}
                 results={this.state.results}
                 columns={this.props.columnVisibility[tableType]}

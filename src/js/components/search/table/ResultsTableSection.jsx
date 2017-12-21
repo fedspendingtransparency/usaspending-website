@@ -10,12 +10,13 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
-import ResultsTableMessage from './ResultsTableMessage';
 import ResultsTableLoadingMessage from './ResultsTableLoadingMessage';
 import ResultsTableNoResults from './ResultsTableNoResults';
+import ResultsTableErrorMessage from './ResultsTableErrorMessage';
 
 const propTypes = {
     inFlight: PropTypes.bool,
+    error: PropTypes.bool,
     tableTypes: PropTypes.array,
     currentType: PropTypes.string,
     switchTab: PropTypes.func,
@@ -63,11 +64,18 @@ export default class ResultsTableSection extends React.Component {
                 </div>
             );
         }
+        else if (this.props.error) {
+            message = (
+                <div className="results-table-message-container full">
+                    <ResultsTableErrorMessage />
+                </div>
+            );
+        }
         else if (this.props.results.length === 0) {
             // no results
             showTable = 'hide';
             message = (
-                <div className="results-table-message-container">
+                <div className="results-table-message-container full">
                     <ResultsTableNoResults />
                 </div>
             );

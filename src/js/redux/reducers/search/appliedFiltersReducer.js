@@ -17,7 +17,7 @@ const appliedFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 filters: action.filters
             });
-        case 'CLEAR_ALL_FILTERS':
+        case 'CLEAR_APPLIED_FILTERS':
             return Object.assign({}, initialState);
         case 'SET_APPLIED_FILTER_HASH':
             return Object.assign({}, state, {
