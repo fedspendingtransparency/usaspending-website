@@ -27,7 +27,8 @@ const propTypes = {
     enableHighlight: PropTypes.bool,
     padding: PropTypes.object,
     legend: PropTypes.array,
-    activeLabel: PropTypes.object
+    activeLabel: PropTypes.object,
+    visualizationPeriod: PropTypes.string
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -410,7 +411,8 @@ export default class BarChart extends React.Component {
                             data={this.state.xValues}
                             scale={this.state.xScale}
                             axisPos={this.state.xAxisPos}
-                            activeLabel={this.props.activeLabel} />
+                            activeLabel={this.props.activeLabel}
+                            visualizationPeriod={this.props.visualizationPeriod} />
 
                         <g
                             className="bar-data"

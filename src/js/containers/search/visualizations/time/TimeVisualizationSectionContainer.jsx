@@ -148,7 +148,8 @@ export class TimeVisualizationSectionContainer extends React.Component {
         return (
             <TimeVisualizationSection
                 data={this.state}
-                updateVisualizationPeriod={this.updateVisualizationPeriod} />
+                updateVisualizationPeriod={this.updateVisualizationPeriod}
+                visualizationPeriod={this.state.visualizationPeriod} />
         );
     }
 }

@@ -23,7 +23,8 @@ const propTypes = {
     top: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
     padding: PropTypes.object,
-    axisPos: PropTypes.number
+    axisPos: PropTypes.number,
+    visualizationPeriod: PropTypes.string
 };
 
 export default class BarXAxis extends React.Component {
@@ -47,8 +48,6 @@ export default class BarXAxis extends React.Component {
             return props.data;
         }
 
-        const ref = props.data[0].split(" ");
-
         if (props.activeLabel) {
             return (
                 props.data.map((item) => {
@@ -67,57 +66,35 @@ export default class BarXAxis extends React.Component {
                 })
             );
         }
-        else if (ref.length === 1) {
-            return (
-                props.data.map((item) => {
-                    // offset the D3 calculated position by the left padding and put the label in
-                    // the middle
-                    // of the each tick's width to center the text
-                    const xPos = props.scale(item) + (props.scale.bandwidth() / 2);
-                    return (<BarXAxisItem
-                        x={xPos}
-                        y={15}
-                        label={item}
-                        key={`label-x-${item}`} />);
-                })
-            );
+
+        // Figure out which labels to show depending on type
+        let labelIterator = 1;
+        let labelOffset = 0;
+        // Year has 4 quarters
+        if (props.visualizationPeriod === "quarter") {
+            labelIterator = 4;
         }
-        else if (ref[0][0] === 'Q') {
-            // Quarterly
-            return (
-                props.data.map((item, index) => {
-                    // offset the D3 calculated position by the left padding and put the label in the middle
-                    // of the each tick's width to center the text
-                    if (index % 4 !== 0) {
-                        return null;
-                    }
-
-                    const endIndex = index + 3 > props.data.length ? props.data.length - 1 : index + 3;
-
-                    const xPos = (props.scale(item) + props.scale(props.data[endIndex]) + props.scale.bandwidth()) / 2;
-
-                    return (<BarXAxisItem
-                        x={xPos}
-                        y={15}
-                        label={item.split(" ")[1]}
-                        key={`label-x-${item}`} />);
-                })
-            );
+        else if (props.visualizationPeriod === "month") {
+            labelIterator = 12;
         }
-        // Monthly View
+
+        // Get offset in case of first period
+        if (props.visualizationPeriod !== "fiscal_year" && props.data) {
+            labelOffset = this.calculateDateOffset(props.data[0], props.visualizationPeriod);
+        }
+
         return (
             props.data.map((item, index) => {
-                // offset the D3 calculated position by the left padding and put the label in the middle
+                // offset the D3 calculated position by the left padding and put the label in
+                // the middle
                 // of the each tick's width to center the text
-                if (index % 12 !== 0) {
+                if ((index - labelOffset) % labelIterator !== 0 && index !== 0) {
                     return null;
                 }
 
-                const endIndex = index + 11 > props.data.length ? props.data.length - 1 : index + 11;
-
-                const xPos = (props.scale(item) + props.scale(props.data[endIndex]) + props.scale.bandwidth()) / 2;
-
-                const label = (parseInt(item.split(" ")[1], 10) + 1).toString();
+                // Figure out what to call the label and where to place it
+                const label = this.calculateLabel(item, props);
+                const xPos = this.calculateXPos(item, index, labelOffset, props);
 
                 return (<BarXAxisItem
                     x={xPos}
@@ -126,6 +103,74 @@ export default class BarXAxis extends React.Component {
                     key={`label-x-${item}`} />);
             })
         );
+    }
+
+    // Finds the position of the label, under bar for years or
+    // average start and end for monthly/quartlery
+    calculateXPos(item, index, labelOffset, props) {
+        if (props.visualizationPeriod === 'fiscal_year') {
+            return props.scale(item) + (props.scale.bandwidth() / 2);
+        }
+        const endIndex = this.calculateEndIndex(
+            index,
+            props.data,
+            props.visualizationPeriod,
+            labelOffset);
+        return (props.scale(item) + props.scale(props.data[endIndex]) + props.scale.bandwidth()) / 2;
+    }
+
+    // Gets the content of the label, year, break apart the quarter, or
+    // Fiscal year increments if the date range started between oct-dec
+    calculateLabel(item, props) {
+        if (props.visualizationPeriod === 'fiscal_year') {
+            return item;
+        }
+        const year = item.split(" ")[1];
+        if (props.visualizationPeriod === 'quarter') {
+            return year;
+        }
+        const months = ['Oct', 'Nov', 'Dec'];
+        const increment = months.indexOf(item.split(" ")[0]) !== -1 ? 1 : 0;
+        return (parseInt(year, 10) + increment).toString();
+    }
+
+    // Adjusts the labels so that we know how many periods of a year there are in the beginning
+    calculateDateOffset(item, type) {
+        const period = item.split(" ")[0];
+        if (type === 'month') {
+            const months = ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May',
+                'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
+            return 11 - months.indexOf(period);
+        }
+        const quarters = ['Q2', 'Q3', 'Q4', 'Q1'];
+        return 3 - quarters.indexOf(period);
+    }
+
+    // Finds the end of the year for a range of dates
+    // Only matters for the first section and last since the date range can start
+    // in the middle or not be finished yet. Every other date should be a full range
+    calculateEndIndex(index, data, type, offset) {
+        // Blocks of 4 for quarters (0-3)
+        if (type === 'quarter') {
+            let endIndex = index + 3;
+            if (index < offset) {
+                endIndex = offset - 1;
+            }
+            if (endIndex >= data.length) {
+                endIndex = data.length - 1;
+            }
+            return endIndex;
+        }
+
+        // Blocks of 12 for monthly (0-11)
+        let endIndex = index + 11;
+        if (index < offset) {
+            endIndex = offset - 1;
+        }
+        if (endIndex >= data.length) {
+            endIndex = data.length - 1;
+        }
+        return endIndex;
     }
 
     drawAxis(props) {
