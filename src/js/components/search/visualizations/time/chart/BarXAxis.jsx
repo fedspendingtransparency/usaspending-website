@@ -49,22 +49,12 @@ export default class BarXAxis extends React.Component {
         }
 
         if (props.activeLabel) {
-            return (
-                props.data.map((item) => {
-                    // offset the D3 calculated position by the left padding
-                    // and put the label in the middle
-                    // of the each tick's width to center the text
-                    if (item !== props.activeLabel.xValue) {
-                        return null;
-                    }
-                    const xPos = props.scale(item) + (props.scale.bandwidth() / 2);
-                    return (<BarXAxisItem
-                        x={xPos}
-                        y={15}
-                        label={item}
-                        key={`label-x-${item}`} />);
-                })
-            );
+            const xPos = props.scale(props.activeLabel.xValue) + (props.scale.bandwidth() / 2);
+            return ([<BarXAxisItem
+                    x={xPos}
+                    y={15}
+                    label={props.activeLabel.xValue}
+                    key={`label-x-${props.activeLabel.xValue}`} />])
         }
 
         // Figure out which labels to show depending on type
