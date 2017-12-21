@@ -48,6 +48,7 @@ export default class Table extends React.Component {
         this._internalDiv = null;
 
         this._scrolledTable = this._scrolledTable.bind(this);
+        this._scrolledHeader = this._scrolledHeader.bind(this);
     }
 
     reloadTable() {
@@ -65,12 +66,13 @@ export default class Table extends React.Component {
     scrollTo(x, y) {
         const scrollOperation = {
             operation: () => {
-                if (!this._tableWrapper) {
+                if (!this._tableWrapper || !this._headerWrapper) {
                     return;
                 }
 
                 this._tableWrapper.scrollLeft = x;
                 this._tableWrapper.scrollTop = y;
+                this._headerWrapper.scrollLeft = 0;
             },
             type: 'overrideScroll',
             isSingle: true,
@@ -78,6 +80,38 @@ export default class Table extends React.Component {
         };
 
         RenderQueue.addWrite(scrollOperation);
+    }
+
+    _scrolledHeader() {
+        // The header can only scroll through the use of accessibility hooks.
+        // Because there are two scrolling elements (the transform offset + the scroll offset), we
+        // need to combine them into a single scroll offset.
+        const scrollOperation = {
+            operation: () => {
+                const realX = this._headerWrapper.scrollLeft + this._headerComponent.currentX;
+                const x = realX;
+                const y = this._tableWrapper.scrollTop;
+                ScrollManager.update({
+                    x,
+                    y
+                });
+
+                // Scroll events in the table body will be applied as transforms while native
+                // header scrolls via accessibility hooks, so we need to reset the header scrollLeft
+                // to 0 and apply the full horizontal offset via transforms.
+                // By calling the scrollTo function, we will apply the full horizontal offset to the
+                // table body while simultaneously resetting the header scrollLeft to 0. The table
+                // body's scrollLeft change will trigger the same scroll event that occurs from
+                // native mouse scrolls in the table body (_scrolledTable). _scrolledTable will
+                // synchronize the horizontal offset in the header entirely via transforms.
+                this.scrollTo(x, y);
+            },
+            type: 'scroll',
+            isSingle: true,
+            args: []
+        };
+
+        RenderQueue.addRead(scrollOperation);
     }
 
     _scrolledTable() {
@@ -169,7 +203,11 @@ export default class Table extends React.Component {
                 style={style}>
                 <div
                     className="ibt-table-header-container"
-                    style={headerStyle}>
+                    style={headerStyle}
+                    onScroll={this._scrolledHeader}
+                    ref={(div) => {
+                        this._headerWrapper = div;
+                    }}>
                     <HeaderRow
                         contentWidth={this.props.contentWidth}
                         headerHeight={this.props.headerHeight}

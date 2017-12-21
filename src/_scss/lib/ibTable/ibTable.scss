@@ -1,4 +1,3 @@
-
 .ibt-table-container {
     position: relative;
     overflow: hidden;
@@ -12,25 +11,29 @@
         position: relative;
     }
 
-    .ibt-header {
-        display: block;
-        z-index: 2;
-        position: absolute;
-        top: 0;
-        left: 0;
+    .ibt-table-header-container {
+        position: relative;
         overflow: hidden;
-        white-space: nowrap;
-        will-change: transform;
-        
-        .ibt-header-row {
-            display: table;
-            position: absolute;
 
-            .ibt-header-cell {
-                display: table-cell;
+        .ibt-header {
+            display: block;
+            z-index: 2;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            will-change: transform;
+            
+            .ibt-header-row {
+                display: table;
+                position: absolute;
+
+                .ibt-header-cell {
+                    display: table-cell;
+                }
             }
         }
-
     }
 
     .ibt-table-body-container {

@@ -37,6 +37,10 @@ export default class HeaderRow extends React.Component {
         }
     }
 
+    get currentX() {
+        return this._lastX;
+    }
+
     _tableScrolled(scroll) {
         if (scroll.x !== this._lastX) {
             const headerOperation = {
