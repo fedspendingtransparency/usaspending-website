@@ -1,5 +1,5 @@
 .archive-info-box {
-    @include display(flex);
+    display: none;
     background-color: $color-primary-alt-lightest;
     border: solid 1px $color-primary-alt-light;
     margin: rem(30) rem(20) rem(30) rem(30);
