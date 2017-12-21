@@ -5,10 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import * as recipientActions from 'redux/actions/search/recipientActions';
 
 import RecipientName from 'components/search/filters/recipient/RecipientName';
 
@@ -73,8 +70,7 @@ export class RecipientNameDUNSContainer extends React.Component {
 export default connect(
     (state) => ({
         selectedRecipients: state.filters.selectedRecipients
-    }),
-    (dispatch) => bindActionCreators(recipientActions, dispatch)
+    })
 )(RecipientNameDUNSContainer);
 
 RecipientNameDUNSContainer.propTypes = propTypes;

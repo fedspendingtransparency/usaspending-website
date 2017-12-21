@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import sinon from 'sinon';
 
 import { FinancialSystemTableContainer } from
     'containers/award/table/FinancialSystemTableContainer';
@@ -17,6 +16,9 @@ import FinancialSystemItem from 'models/results/other/FinancialSystemItem';
 import { mockAward } from '../mockAward';
 import mockFinancialSystemDetails from '../mockFinancialSystemDetails';
 
+// mock the search helper
+jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
+
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/award/table/FinancialSystemTable', () =>
     jest.fn(() => null));
@@ -27,174 +29,150 @@ global.Promise = require.requireActual('promise');
 
 const mockActions = {};
 
-// replace all the award actions with mocked functions
-Object.keys(awardActions).forEach((key) => {
-    mockActions[key] = jest.fn();
-});
-
-const mockSearchHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    SearchHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockSearchHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/searchHelper');
-};
-
-const loadDataSpy = sinon.spy(FinancialSystemTableContainer.prototype, 'loadFinancialSystemData');
-
 describe('FinancialSystemTableContainer', () => {
-    it('should perform an API request on mount', () => {
-        mockSearchHelper('performFinancialSystemLookup', 'resolve', mockFinancialSystemDetails);
-
-        mount(<FinancialSystemTableContainer
-            {...mockActions}
-            award={mockAward} />);
-
-        jest.runAllTicks();
-
-        expect(loadDataSpy.callCount).toBe(1);
-        unmockSearchHelper();
-        loadDataSpy.reset();
-    });
-
-    it('should perform an API request when the award ID changes', () => {
-        mockSearchHelper('performFinancialSystemLookup', 'resolve', mockFinancialSystemDetails);
-
+    it('should perform an API request when the award ID changes', async () => {
         const container = mount(<FinancialSystemTableContainer
             {...mockActions}
             award={mockAward} />);
 
-        jest.runAllTicks();
+        await container.instance().financialRequest.promise;
 
-        expect(loadDataSpy.callCount).toBe(1);
-
+        container.instance().loadFinancialSystemData = jest.fn();
         container.setProps({
-            award: Object.assign({}, mockAward, {
+            award: {
                 selectedAward: {
-                    id: 1
+                    id: 2
                 }
-            })
+            }
         });
 
-        jest.runAllTicks();
-
-        expect(loadDataSpy.callCount).toBe(2);
-        unmockSearchHelper();
-        loadDataSpy.reset();
+        expect(container.instance().loadFinancialSystemData).toHaveBeenCalledTimes(1);
+        expect(container.instance().loadFinancialSystemData).toHaveBeenCalledWith(1, true);
     });
 
     describe('loadFinancialSystemData', () => {
-        it('should correctly parse API data into FinancialSystemItem objects', (done) => {
-            const item = new FinancialSystemItem(mockFinancialSystemDetails.results[0]);
-            delete item._jsid;
-
-            mockSearchHelper('performFinancialSystemLookup', 'resolve', mockFinancialSystemDetails);
-
-            const setFinSysData = (args) => {
-                const output = args[0];
-                delete output._jsid;
-
-                expect([output]).toEqual([item]);
-
-                loadDataSpy.reset();
-                done();
-            };
-
-            const customActions = Object.assign({}, mockActions);
-            delete mockActions.setFinSysData;
-
-            mount(<FinancialSystemTableContainer
-                {...customActions}
-                setFinSysData={setFinSysData}
+        it('should correctly parse API data into FinancialSystemItem objects', async () => {
+            const container = shallow(<FinancialSystemTableContainer
+                {...mockActions}
                 award={mockAward} />);
 
-            jest.runAllTicks();
+            container.instance().loadFinancialSystemData(1, true);
+            await container.instance().financialRequest.promise;
+
+            const expectedResult = new FinancialSystemItem(mockFinancialSystemDetails.results[0]);
+            delete expectedResult._jsid;
+
+            const stateResult = container.state().data[0];
+            delete stateResult._jsid;
+
+            expect(container.state().data.length).toEqual(1);
+            expect(stateResult).toEqual(expectedResult);
         });
 
-        it('should append the API data to the Redux store when the reset flag is false', (done) => {
-            mockSearchHelper('performFinancialSystemLookup', 'resolve', mockFinancialSystemDetails);
-
-            const appendFinSysData = jest.fn(() => {
-                expect(appendFinSysData).toHaveBeenCalled();
-                done();
+        it('should append the API data to the Redux store when the reset flag is false', async () => {
+            const container = shallow(<FinancialSystemTableContainer
+                {...mockActions}
+                award={mockAward} />);
+            container.setState({
+                data: [
+                    "mock item"
+                ]
             });
 
-            const customActions = Object.assign({}, mockActions);
-            delete mockActions.appendFinSysData;
+            container.instance().loadFinancialSystemData(2, false);
+            await container.instance().financialRequest.promise;
 
-            const container = mount(<FinancialSystemTableContainer
-                {...customActions}
-                appendFinSysData={appendFinSysData}
-                award={mockAward} />);
-
-            container.instance().loadFinancialSystemData(1, false);
-
-            jest.runAllTicks();
+            expect(container.state().data.length).toEqual(2);
         });
     });
 
-    describe('nextPage', () => {
+    describe('loadNextPage', () => {
         it('should load the next page of data when available', () => {
-            loadDataSpy.reset();
-
-            mockSearchHelper('performFinancialSystemLookup', 'resolve', mockFinancialSystemDetails);
-
-            const modifiedProps = Object.assign({}, mockAward, {
-                finSysMeta: {
-                    page: 1,
-                    nextPage: true
-                }
-            });
-
             const container = shallow(<FinancialSystemTableContainer
                 {...mockActions}
-                award={modifiedProps} />);
+                award={mockAward} />);
 
-            container.instance().nextPage();
-            expect(loadDataSpy.callCount).toBe(1);
+            container.setState({
+                nextPage: true,
+                inFlight: false,
+                page: 1
+            });
+            container.instance().loadFinancialSystemData = jest.fn();
+
+            container.instance().loadNextPage();
+
+            expect(container.instance().loadFinancialSystemData).toHaveBeenCalledTimes(1);
+            expect(container.instance().loadFinancialSystemData).toHaveBeenCalledWith(2, false);
         });
-        it('should not do load more data when it is on the last page', () => {
-            loadDataSpy.reset();
 
-            mockSearchHelper('performFinancialSystemLookup', 'resolve', mockFinancialSystemDetails);
-
-            const modifiedProps = Object.assign({}, mockAward, {
-                finSysMeta: {
-                    page: 5,
-                    nextPage: false
-                }
-            });
-
+        it('should not load more data when it is on the last page', () => {
             const container = shallow(<FinancialSystemTableContainer
                 {...mockActions}
-                award={modifiedProps} />);
+                award={mockAward} />);
 
-            container.instance().nextPage();
-            expect(loadDataSpy.callCount).toBe(0);
+            container.setState({
+                nextPage: false,
+                inFlight: false,
+                page: 2
+            });
+            container.instance().loadFinancialSystemData = jest.fn();
+
+            container.instance().loadNextPage();
+
+            expect(container.instance().loadFinancialSystemData).toHaveBeenCalledTimes(0);
+        });
+
+        it('should not load more data when it there are existing requests in flight', () => {
+            const container = shallow(<FinancialSystemTableContainer
+                {...mockActions}
+                award={mockAward} />);
+
+            container.setState({
+                nextPage: true,
+                inFlight: true,
+                page: 2
+            });
+            container.instance().loadFinancialSystemData = jest.fn();
+
+            container.instance().loadNextPage();
+
+            expect(container.instance().loadFinancialSystemData).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('changeSort', () => {
+        it('should update the state to the new sort values', () => {
+            const container = shallow(<FinancialSystemTableContainer
+                {...mockActions}
+                award={mockAward} />);
+
+            container.instance().loadFinancialSystemData = jest.fn();
+
+            container.instance().changeSort({
+                field: 'test',
+                direction: 'asc'
+            });
+
+            expect(container.state().sort).toEqual({
+                field: 'test',
+                direction: 'asc'
+            });
+        });
+
+        it('it should make an API request for the first page, resetting existing data', () => {
+            const container = shallow(<FinancialSystemTableContainer
+                {...mockActions}
+                award={mockAward} />);
+
+            container.instance().loadFinancialSystemData = jest.fn();
+
+            container.instance().changeSort({
+                field: 'test',
+                direction: 'asc'
+            });
+
+            expect(container.instance().loadFinancialSystemData).toHaveBeenCalledTimes(1);
+            expect(container.instance().loadFinancialSystemData).toHaveBeenCalledWith(1, true);
         });
     });
 });

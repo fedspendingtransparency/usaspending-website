@@ -13,14 +13,13 @@ import TimeVisualizationSection from
     'components/search/visualizations/time/TimeVisualizationSection';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import * as resultsMetaActions from 'redux/actions/resultsMeta/resultsMetaActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MonthHelper from 'helpers/monthHelper';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
-const combinedActions = Object.assign({}, searchFilterActions, resultsMetaActions);
+const combinedActions = Object.assign({}, searchFilterActions);
 
 const propTypes = {
     reduxFilters: PropTypes.object,

@@ -1,8 +1,8 @@
-import { OrderedSet, Map } from 'immutable';
+import { List, Map } from 'immutable';
 
 const tableType = {
-    visibleOrder: new OrderedSet(['First Column', 'Second Column']),
-    hiddenOrder: new OrderedSet(['Third Column', 'Fourth Column']),
+    visibleOrder: new List(['First Column', 'Second Column']),
+    hiddenOrder: new List(['Third Column', 'Fourth Column']),
     data: new Map({
         'First Column': {
             columnName: 'First Column',

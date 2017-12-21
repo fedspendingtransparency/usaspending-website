@@ -4,26 +4,21 @@
 **/
 
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { isEqual, omit, differenceWith, slice } from 'lodash';
 import { isCancel } from 'axios';
 import { Search, PrefixIndexStrategy } from 'js-search';
 import PropTypes from 'prop-types';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
     selectCFDA: PropTypes.func,
-    selectedCFDA: PropTypes.object,
-    setAutocompleteCFDA: PropTypes.func,
-    autocompleteCFDA: PropTypes.array
+    selectedCFDA: PropTypes.object
 };
 
-export class CFDAListContainer extends React.Component {
+export default class CFDAListContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -36,16 +31,6 @@ export class CFDAListContainer extends React.Component {
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
-    }
-
-    componentDidMount() {
-        this.parseAutocompleteCFDA(this.props.autocompleteCFDA);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (!isEqual(nextProps.autocompleteCFDA, this.props.autocompleteCFDA)) {
-            this.parseAutocompleteCFDA(nextProps.autocompleteCFDA);
-        }
     }
 
     parseAutocompleteCFDA(cfda) {
@@ -118,7 +103,7 @@ export class CFDAListContainer extends React.Component {
                     });
 
                     // Add search results to Redux
-                    this.props.setAutocompleteCFDA(autocompleteData);
+                    this.parseAutocompleteCFDA(autocompleteData);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -135,12 +120,16 @@ export class CFDAListContainer extends React.Component {
     }
 
     clearAutocompleteSuggestions() {
-        this.props.setAutocompleteCFDA([]);
+        this.setState({
+            autocompleteCFDA: []
+        });
     }
 
     handleTextInput(cfdaInput) {
         // Clear existing cfdas to ensure user can't select an old or existing one
-        this.props.setAutocompleteCFDA([]);
+        this.setState({
+            autocompleteCFDA: []
+        });
 
         // Grab input, clear any exiting timeout
         const input = cfdaInput.target.value;
@@ -170,10 +159,5 @@ export class CFDAListContainer extends React.Component {
         );
     }
 }
-
-export default connect(
-    (state) => ({ autocompleteCFDA: state.autocompleteCFDA }),
-    (dispatch) => bindActionCreators(autocompleteActions, dispatch)
-)(CFDAListContainer);
 
 CFDAListContainer.propTypes = propTypes;
