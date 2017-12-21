@@ -100,7 +100,6 @@ export default class VisualizationWrapper extends React.Component {
                 </div>
                 <div className="visualization-content-wrapper">
                     <div className="visualization-content">
-                        <LoadingScreen />
                         {content}
                     </div>
                 </div>

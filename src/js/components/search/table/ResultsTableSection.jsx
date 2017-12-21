@@ -6,10 +6,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
 import ResultsTableMessage from './ResultsTableMessage';
 import ResultsTableLoadingMessage from './ResultsTableLoadingMessage';
+import ResultsTableNoResults from './ResultsTableNoResults';
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -51,16 +54,24 @@ export default class ResultsTableSection extends React.Component {
     }
 
     render() {
-        let loadingWrapper = 'loaded-table';
         let message = null;
-        // if (this.props.inFlight) {
-            loadingWrapper = 'loading-table';
-            message = <ResultsTableLoadingMessage />;
-        // }
-        // else if (this.props.results.length === 0) {
+        let showTable = '';
+        if (this.props.inFlight) {
+            message = (
+                <div className="results-table-message-container">
+                    <ResultsTableLoadingMessage />
+                </div>
+            );
+        }
+        else if (this.props.results.length === 0) {
             // no results
-            // message = <ResultsTableMessage message="No results matched your criteria." />;
-        // }
+            showTable = 'hide';
+            message = (
+                <div className="results-table-message-container">
+                    <ResultsTableNoResults />
+                </div>
+            );
+        }
 
         return (
             <div className="search-results-table-section" id="results-section-table">
@@ -75,18 +86,26 @@ export default class ResultsTableSection extends React.Component {
                     active={this.props.currentType}
                     counts={this.props.counts}
                     switchTab={this.props.switchTab} />
-                {message}
-                <div className={loadingWrapper}>
-                    <div
-                        className="results-table-width-master"
-                        ref={(div) => {
-                            // this is an empty div that scales via CSS
-                            // the results table width will follow this div's width
-                            this.tableWidthController = div;
-                        }} />
-                    <ResultsTable
-                        {...this.props}
-                        visibleWidth={this.state.tableWidth} />
+                <div className="results-table-content">
+                    <CSSTransitionGroup
+                        transitionName="table-message-fade"
+                        transitionLeaveTimeout={225}
+                        transitionEnterTimeout={195}
+                        transitionLeave>
+                        {message}
+                    </CSSTransitionGroup>
+                    <div className={showTable}>
+                        <div
+                            className="results-table-width-master"
+                            ref={(div) => {
+                                // this is an empty div that scales via CSS
+                                // the results table width will follow this div's width
+                                this.tableWidthController = div;
+                            }} />
+                        <ResultsTable
+                            {...this.props}
+                            visibleWidth={this.state.tableWidth} />
+                    </div>
                 </div>
             </div>
         );

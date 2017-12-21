@@ -1,33 +1,19 @@
 /**
-  * ResultsTableMessage.jsx
-  * Created by Kevin Li 12/12/16
+  * ResultsTableLoadingMessage.jsx
+  * Created by Kevin Li 12/21/17
   **/
 
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 
-const defaultProps = {
-    message: ''
-};
+const ResultsTableLoadingMessage = () => (
+    <div className="results-table-loading">
+        <LoadingSpinner />
+        <div className="loading-message">
+            Gathering your data...
+        </div>
+    </div>
+);
 
-const propTypes = {
-    message: PropTypes.string
-};
-
-export default class ResultsTableMessage extends React.Component {
-    render() {
-        return (
-            <div className="award-results-table-loading">
-                <LoadingSpinner />
-                <div className="loading-message">
-                    Gathering your data...
-                </div>
-            </div>
-        );
-    }
-}
-
-ResultsTableMessage.propTypes = propTypes;
-ResultsTableMessage.defaultProps = defaultProps;
+export default ResultsTableLoadingMessage;

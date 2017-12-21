@@ -23,7 +23,7 @@ svg.loading-bars {
     @include animation(loading-bars-loading 0.2s ease-in forwards);
 
     rect {
-        fill: #cdcfd2;
+        fill: $color-gray-light;
         @include animation(loading-bar-animation 1s infinite ease-in-out both);
 
         &.bar-two {
