@@ -67,17 +67,5 @@ describe('Homepage - MapList', () => {
             expect(component.state().sort.field).toEqual('amount');
             expect(component.state().sort.direction).toEqual('desc');
         });
-
-        it('should prepare the data table again', () => {
-            prepareTableSpy.reset();
-            const component = shallow(<MapList data={mockProps.mapData.table} />);
-            component.instance().tableWidthController = mockWidth;
-
-            expect(prepareTableSpy.callCount).toEqual(0);
-
-            component.instance().changeSearchOrder('amount', 'desc');
-            expect(prepareTableSpy.callCount).toEqual(1);
-            prepareTableSpy.reset();
-        });
     });
 });

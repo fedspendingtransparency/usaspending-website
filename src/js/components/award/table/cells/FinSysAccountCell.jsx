@@ -17,9 +17,11 @@ export default class FinSysAccountCell extends React.Component {
     render() {
         // cell needs to have some content or it will collapse
         // replace with a &nbsp; if there's no data
-        let content = (<a href={`#/federal_account/${this.props.data.id}`}>
-            {this.props.data.title}
-        </a>);
+        let content = (
+            <a href={`#/federal_account/${this.props.data.id}`}>
+                {this.props.data.title}
+            </a>
+        );
         if (!content) {
             content = "\u00A0";
         }

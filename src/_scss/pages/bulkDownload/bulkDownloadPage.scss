@@ -23,6 +23,7 @@
 
         .download-data-wrapper {
             @import "downloadData";
+            @import "archive/archive";
             @include span-columns(16);
             @include media($medium-screen) {
                 @include span-columns(12);

@@ -20,7 +20,6 @@ const propTypes = {
 };
 
 export class FullDownloadModalContainer extends React.Component {
-
     render() {
         return (
             <FullDownloadModal

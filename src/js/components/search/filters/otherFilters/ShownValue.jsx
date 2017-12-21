@@ -13,7 +13,6 @@ const propTypes = {
 };
 
 export default class ShownValue extends React.Component {
-
     render() {
         return (
             <button

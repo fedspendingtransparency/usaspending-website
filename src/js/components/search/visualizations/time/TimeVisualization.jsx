@@ -34,15 +34,16 @@ const defaultProps = {
  * ySeries - an array of values that describe the Y-axis values for each data point in the group
  *
  */
- /* eslint-disable react/no-unused-prop-types */
- // allow unused prop types. they are passed to child components, but documented here
+/* eslint-disable react/no-unused-prop-types */
+// allow unused prop types. they are passed to child components, but documented here
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     groups: PropTypes.array,
     xSeries: PropTypes.array,
     ySeries: PropTypes.array,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    legend: PropTypes.array
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -53,27 +54,31 @@ export default class TimeVisualization extends React.Component {
         this.state = {
             tooltipData: null,
             tooltipX: 0,
-            tooltipY: 0
+            tooltipY: 0,
+            barWidth: 0
         };
 
         this.showTooltip = this.showTooltip.bind(this);
     }
 
-    showTooltip(data, x, y) {
+    showTooltip(data, x, y, width) {
         this.setState({
             tooltipData: data,
             tooltipX: x,
-            tooltipY: y
+            tooltipY: y,
+            barWidth: width
         });
     }
 
     render() {
         let tooltip = null;
-        if (this.state.tooltipData) {
+        if (this.state.tooltipData && window.innerWidth > 720) {
             tooltip = (<Tooltip
+                chartWidth={this.props.width}
                 data={this.state.tooltipData}
                 x={this.state.tooltipX}
-                y={this.state.tooltipY} />);
+                y={this.state.tooltipY}
+                barWidth={this.state.barWidth} />);
         }
 
         let chart = (<ChartMessage message="No data to display" />);
@@ -85,7 +90,8 @@ export default class TimeVisualization extends React.Component {
             // only mount the chart component if there is data to display
             chart = (<BarChart
                 {...this.props}
-                showTooltip={this.showTooltip} />);
+                showTooltip={this.showTooltip}
+                activeLabel={this.state.tooltipData} />);
         }
 
         return (

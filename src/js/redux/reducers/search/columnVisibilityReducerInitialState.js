@@ -3,32 +3,32 @@
  * Created by Lizzie Salita 5/23/17
  **/
 
-import { OrderedSet, Map } from 'immutable';
+import { List, Map } from 'immutable';
 
 const initialState = {
     contracts: {
-        visibleOrder: new OrderedSet(),
-        hiddenOrder: new OrderedSet(),
+        visibleOrder: new List(),
+        hiddenOrder: new List(),
         data: new Map()
     },
     grants: {
-        visibleOrder: new OrderedSet(),
-        hiddenOrder: new OrderedSet(),
+        visibleOrder: new List(),
+        hiddenOrder: new List(),
         data: new Map()
     },
     direct_payments: {
-        visibleOrder: new OrderedSet(),
-        hiddenOrder: new OrderedSet(),
+        visibleOrder: new List(),
+        hiddenOrder: new List(),
         data: new Map()
     },
     loans: {
-        visibleOrder: new OrderedSet(),
-        hiddenOrder: new OrderedSet(),
+        visibleOrder: new List(),
+        hiddenOrder: new List(),
         data: new Map()
     },
     other: {
-        visibleOrder: new OrderedSet(),
-        hiddenOrder: new OrderedSet(),
+        visibleOrder: new List(),
+        hiddenOrder: new List(),
         data: new Map()
     }
 };

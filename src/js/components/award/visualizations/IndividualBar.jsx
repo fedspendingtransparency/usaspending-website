@@ -13,7 +13,6 @@ const propTypes = {
 };
 
 export default class IndividualBar extends React.Component {
-
     render() {
         return (
             <g

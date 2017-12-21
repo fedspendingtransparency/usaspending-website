@@ -88,7 +88,7 @@ export const getBusinessTypes = () => {
             },
             {
                 displayName: 'Community Developed Corporation Owned Firm',
-                fieldName: 'community_development_corporation'
+                fieldName: 'community_developed_corporation_owned_firm'
             },
             {
                 displayName: 'Labor Surplus Area Firm',

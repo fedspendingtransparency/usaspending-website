@@ -29,7 +29,7 @@ export default class BulkDownloadSidebar extends React.Component {
 
         return (
             <div
-                className={'download-sidebar-content'}>
+                className="download-sidebar-content">
                 <ul>
                     { items }
                 </ul>

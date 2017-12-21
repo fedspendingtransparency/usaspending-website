@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InfoSnippet from '../award/InfoSnippet';
-import MoreHeaderOptions from '../award/MoreHeaderOptions';
 
 const propTypes = {
     account: PropTypes.object
@@ -29,7 +28,6 @@ export default class AccountHeader extends React.Component {
                                 label="Federal Account Symbol"
                                 value={accountSymbol} />
                         </ul>
-                        <MoreHeaderOptions />
                     </div>
                 </div>
             </div>

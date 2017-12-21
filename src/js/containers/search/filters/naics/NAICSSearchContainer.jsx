@@ -19,7 +19,6 @@ const propTypes = {
 const ga = require('react-ga');
 
 export class NAICSSearchContainer extends React.Component {
-
     static logPlaceFilterEvent(naics) {
         ga.event({
             category: 'Search Page Filter Applied',
@@ -68,6 +67,7 @@ NAICSSearchContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        selectedNAICS: state.filters.selectedNAICS }),
+        selectedNAICS: state.filters.selectedNAICS
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(NAICSSearchContainer);

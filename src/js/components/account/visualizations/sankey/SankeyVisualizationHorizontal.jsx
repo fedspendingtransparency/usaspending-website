@@ -319,14 +319,14 @@ appropriations`}
 
                     <g
                         className="left-col"
-                        transform={`translate(0,40)`}>
+                        transform="translate(0,40)">
                         <ItemLabel
                             y={-25}
                             title="Balance Brought Forward"
                             value={this.state.left.bbf.label}
                             hide={this.state.left.bbf.height <= 0} />
                         <SankeyBar
-                            color={"#597785"}
+                            color="#597785"
                             x={0}
                             y={0}
                             width={this.state.left.width}
@@ -338,7 +338,7 @@ appropriations`}
                             value={this.state.left.other.label}
                             hide={this.state.left.other.height <= 0} />
                         <SankeyBar
-                            color={"#597785"}
+                            color="#597785"
                             x={0}
                             y={this.state.left.other.y}
                             width={this.state.left.width}
@@ -350,7 +350,7 @@ appropriations`}
                             value={this.state.left.appropriations.label}
                             hide={this.state.left.appropriations.height <= 0} />
                         <SankeyBar
-                            color={"#597785"}
+                            color="#597785"
                             x={0}
                             y={this.state.left.appropriations.y}
                             width={this.state.left.width}
@@ -404,7 +404,7 @@ unobligated balance`}
                             value={`\
 ${MoneyFormatter.formatMoney(this.props.amounts.budgetAuthority)} (100%)`} />
                         <SankeyBar
-                            color={"#597785"}
+                            color="#597785"
                             x={0}
                             y={this.state.center.y}
                             width={this.state.center.width}
@@ -429,7 +429,7 @@ ${MoneyFormatter.formatMoney(this.props.amounts.budgetAuthority)} (100%)`} />
                             value={this.state.right.obligated.label}
                             hide={this.state.right.obligated.height <= 0} />
                         <SankeyBar
-                            color={"#083546"}
+                            color="#083546"
                             x={0}
                             y={0}
                             width={this.state.right.width}
@@ -441,7 +441,7 @@ ${MoneyFormatter.formatMoney(this.props.amounts.budgetAuthority)} (100%)`} />
                             value={this.state.right.unobligated.label}
                             hide={this.state.right.unobligated.height <= 0} />
                         <SankeyBar
-                            color={"#083546"}
+                            color="#083546"
                             x={0}
                             y={this.state.right.unobligated.y}
                             width={this.state.right.width}

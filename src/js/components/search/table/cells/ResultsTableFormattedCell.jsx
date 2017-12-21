@@ -6,24 +6,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { formatMoney } from 'helpers/moneyFormatter';
 
 const propTypes = {
-    data: PropTypes.any,
     rowIndex: PropTypes.number,
     column: PropTypes.string,
-    isLastColumn: PropTypes.bool
+    isLastColumn: PropTypes.bool,
+    value: PropTypes.any,
+    dataType: PropTypes.string
 };
 
 export default class ResultsTableFormattedCell extends React.Component {
     formatContent(original, type) {
-        const dataType = awardTableColumnTypes[type];
-        if (dataType === 'date') {
+        if (type === 'date') {
             // format the content as a date
             return moment(original, 'YYYY-MM-DD').format('M/D/YYYY');
         }
-        else if (dataType === 'currency') {
+        else if (type === 'currency') {
             return formatMoney(original);
         }
         return original;
@@ -32,12 +31,12 @@ export default class ResultsTableFormattedCell extends React.Component {
     render() {
         // cell needs to have some content or it will collapse
         // replace with a &nbsp; if there's no data
-        let content = this.props.data;
+        let content = this.props.value;
         if (!content) {
             content = "\u00A0";
         }
         else {
-            content = this.formatContent(content, this.props.column);
+            content = this.formatContent(content, this.props.dataType);
         }
 
         // calculate even-odd class names
@@ -52,7 +51,7 @@ export default class ResultsTableFormattedCell extends React.Component {
         }
 
         return (
-            <div className={`award-result-generic-cell column-${this.props.column} ${rowClass}`}>
+            <div className={`award-result-generic-cell ${rowClass}`}>
                 <div className="cell-content">
                     {content}
                 </div>

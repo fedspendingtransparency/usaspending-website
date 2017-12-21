@@ -9,8 +9,7 @@ import PropTypes from 'prop-types';
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTableMessage from 'components/search/table/ResultsTableMessage';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
-import AccountAwardsHeaderCellContainer from
-    'containers/account/awards/AccountAwardsHeaderCellContainer';
+
 import LegacyResultsTable from './LegacyResultsTable';
 
 const propTypes = {
@@ -19,7 +18,12 @@ const propTypes = {
     currentType: PropTypes.string,
     switchTab: PropTypes.func,
     results: PropTypes.array,
-    counts: PropTypes.object
+    counts: PropTypes.object,
+    sort: PropTypes.object,
+    columns: PropTypes.object,
+    tableInstance: PropTypes.string,
+    updateSort: PropTypes.func,
+    loadNextPage: PropTypes.func
 };
 
 export default class AccountAwardsSection extends React.Component {
@@ -84,9 +88,14 @@ export default class AccountAwardsSection extends React.Component {
                             this.tableWidthController = div;
                         }} />
                     <LegacyResultsTable
-                        {...this.props}
-                        visibleWidth={this.state.tableWidth}
-                        headerCellClass={AccountAwardsHeaderCellContainer} />
+                        tableWidth={this.state.tableWidth}
+                        inFlight={this.props.inFlight}
+                        results={this.props.results}
+                        sort={this.props.sort}
+                        columns={this.props.columns[this.props.currentType]}
+                        tableInstance={this.props.tableInstance}
+                        updateSort={this.props.updateSort}
+                        loadNextPage={this.props.loadNextPage} />
                 </div>
                 {message}
             </div>

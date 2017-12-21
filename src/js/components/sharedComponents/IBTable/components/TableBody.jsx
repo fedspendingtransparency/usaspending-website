@@ -1,287 +1,240 @@
 /**
-  * TableBody.jsx
-  * Created by Kevin Li 12/6/16
-  **/
+ * TableBody.jsx
+ * Created by Kevin Li 12/8/17
+ */
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { max, min } from 'lodash';
-import TableRow from './TableRow';
+
+import ScrollManager from '../managers/ScrollManager';
 
 const propTypes = {
-    rowHeight: PropTypes.number.isRequired,
-    rowCount: PropTypes.number.isRequired,
-    maxWidth: PropTypes.number.isRequired,
-    maxHeight: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    columns: PropTypes.array.isRequired,
-    dataHash: PropTypes.string,
-    onScrollEnd: PropTypes.func,
-    syncScrollPosition: PropTypes.func
+    columns: PropTypes.array,
+    rowCount: PropTypes.number,
+    rowHeight: PropTypes.number,
+    bodyHeight: PropTypes.number,
+    bodyWidth: PropTypes.number,
+    contentWidth: PropTypes.number,
+    onReachedBottom: PropTypes.func,
+    bodyCellRender: PropTypes.func
 };
 
-export default class TableBody extends React.Component {
+const watchedProps = ['rowCount', 'rowHeight', 'bodyHeight', 'contentWidth', 'bodyWidth'];
+
+export default class TableBody extends React.PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
-            visibleRows: [],
-            horizontalScrollbar: 0
+            visibleRange: ''
         };
 
-        // scroll position is used for reference only
-        // setting it outside of state keeps it from triggering render cycles
-        this.scrollPosition = {
-            x: 0,
-            y: 0
-        };
+        this._lastX = 0;
+        this._lastY = 0;
 
-        this.scrollHolder = {
-            x: 0,
-            y: 0
-        };
+        this._cellCache = {};
+        this._visibleCells = [];
 
-        this.lastRender = '';
-        this.scrollEndEvent = null;
-        this.handleScroll = this.handleScroll.bind(this);
+        this._scrollListener = null;
+
+        this._tableScrolled = this._tableScrolled.bind(this);
     }
 
     componentDidMount() {
-        this.prepareCellsForDisplay();
+        this._scrollListener = ScrollManager.subscribe(this._tableScrolled);
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.rowCount !== this.props.rowCount) {
-            // the row count changed, indicating a new page of data was appended
-            this.prepareCellsForDisplay();
-        }
-        else if (prevProps.dataHash !== this.props.dataHash) {
-            // the data hash changed, indicating the table data needs to be updated
-            this.prepareCellsForDisplay();
-        }
-        else if (prevProps.maxWidth !== this.props.maxWidth) {
-            // the container width changed (likely due to window resize)
-            // this will require recalculation
-            this.prepareCellsForDisplay();
+        for (const prop of watchedProps) {
+            if (prevProps[prop] !== this.props[prop]) {
+                this._generateAllCells();
+                break;
+            }
         }
     }
 
-    handleScroll(e) {
-        const xScroll = e.target.scrollLeft;
-        const yScroll = e.target.scrollTop;
-
-        let positionChanged = false;
-
-        if (xScroll !== this.scrollPosition.x) {
-            // we have scrolled left or right
-            // even though the vertical header won't be visible for during a horizontal scroll
-            // we need to keep its position in sync so when it reappears for vertical scrolls it is
-            // in the correct position
-            this.props.syncScrollPosition(xScroll, 0);
-            positionChanged = true;
-        }
-
-        if (yScroll !== this.scrollPosition.y) {
-            // we have scrolled up or down
-            positionChanged = true;
-            // this.syncHorizontalScrollPosition(yScroll);
-        }
-
-        this.scrollPosition = {
-            x: xScroll,
-            y: yScroll
-        };
-
-        if (positionChanged) {
-            this.prepareCellsForDisplay();
-        }
-
-        // cancel any previous scrollEnd timers
-        if (this.scrollEndEvent) {
-            window.clearTimeout(this.scrollEndEvent);
-            this.scrollEndEvent = null;
-        }
-        // trigger a scroll event in 300ms unless another scroll event is issued
-        this.scrollEndEvent = window.setTimeout(() => {
-            this.scrollDidEnd();
-        }, 300);
-    }
-
-    scrollDidEnd() {
-        // execute the prop function associated with scroll end if it exists
-        if (this.props.onScrollEnd) {
-            this.props.onScrollEnd(this.scrollPosition.x, this.scrollPosition.y);
+    componentWillUnmount() {
+        if (this._scrollListener) {
+            ScrollManager.unsubscribe(this._scrollListener);
         }
     }
 
-    syncHorizontalScrollPosition(y) {
-        // directly modify the DOM CSS element rather than trigger re-renders via prop changes
-        this.headerRow.updateScrollPosition(0, y);
-    }
-
-    resetScroll() {
+    reloadTable() {
         this.setState({
-            x: 0,
-            y: 0
+            visibleRange: ''
         }, () => {
-            this.containerDiv.scrollTop = 0;
-            this.containerDiv.scrollLeft = 0;
+            this._generateAllCells();
         });
     }
 
-    isColumnVisible(columnLeft, columnRight, visibleLeft, visibleRight) {
-        // check if the left side is inside the bounds
-        if (columnLeft >= visibleLeft && columnLeft <= visibleRight) {
-            // if the left edge of the column is within the visible bounds, then the column is
-            // visible
-            return true;
-        }
-        else if (columnRight >= visibleLeft && columnRight <= visibleRight) {
-            // this is a partially obscured column, where the left side is out of bounds
-            // however, it is still in view if the right side is inside the bounds
-            return true;
-        }
-        else if (columnLeft <= visibleLeft && columnRight >= visibleRight) {
-            // a final edge case for a very wide column/narrow table, where the left side is
-            // left of the visible bounds but the right side is also right of the visible bounds
-            // aka, it extends beyond both edges (the middle is visible)
-            return true;
-        }
-        // otherwise, it's not in view
-        return false;
-    }
-
-    isHorizontalScrollbarVisible() {
-        if (!this.containerDiv) {
-            // nothing has been rendered to screen yet
-            return 0;
-        }
-
-        // measure how much vertical space is inside the container
-        const containerInternalHeight = this.containerDiv.clientHeight;
-        // measure how much vertical space the container takes up on the page
-        const containerExternalHeight = this.containerDiv.offsetHeight;
-
-        if (containerInternalHeight < containerExternalHeight) {
-            // the internal height is less than the external height, this means that some of the
-            // internal height height is being blocked by a horizontal scrollbar (which takes up
-            // vertical space)
-            return containerExternalHeight - containerInternalHeight;
-        }
-
-        // otherwise assume no scrollbar
-        return 0;
-    }
-
-
-    prepareCellsForDisplay() {
-        // only render the rows and columns that are visible within the current table bounds
-        const rows = [];
-        const columns = [];
-
-        if (this.props.rowCount < 1) {
-            // no rows to show
-            // set the state to show no rows
-            this.setState({
-                visibleRows: []
-            });
+    _tableScrolled(scroll) {
+        const visibleCoords = this._calculateVisibleCells(scroll.x, scroll.y);
+        if (!visibleCoords || visibleCoords.length === 0) {
+            // there is no data so there's nothing to show
             return;
         }
 
-        // determine the first visible row
-        // add one row as a bonus padding row unless we're at the top
-        const topRowIndex = max([0,
-            Math.floor(this.scrollPosition.y / this.props.rowHeight) - 1]);
+        const visibleRange = visibleCoords.range;
 
-        // determine the last possible row index for the given row count
-        const finalRowIndex = this.props.rowCount - 1;
-        // determine what the row index would be if the current view is vertically full
-        // add one row as a bonus padding row
-        const viewBottomIndex = topRowIndex +
-            Math.ceil(this.props.maxHeight / this.props.rowHeight) + 1;
-        // the bottom row of the current view is the lesser of the two
-        const bottomRowIndex = min([viewBottomIndex, finalRowIndex]);
+        this._lastX = scroll.x;
+        this._lastY = scroll.y;
 
-        // determine which columns are in view
-        let tableXPos = 0;
-        let firstCol;
-        let lastCol;
+        if (visibleRange !== this.state.visibleRange) {
+            // cells changed
+            this._visibleCells = visibleCoords.cells.map((coord) => this._cellCache[coord]);
 
-        this.props.columns.forEach((col) => {
-            const column = col;
-            const columnRightEdge = tableXPos + column.width;
-            if (this.isColumnVisible(tableXPos, columnRightEdge, this.scrollPosition.x,
-                    this.scrollPosition.x + this.props.maxWidth)) {
-                // the column is in view
-                column.left = tableXPos;
-                columns.push(column);
-
-                if (!firstCol) {
-                    firstCol = column.columnId;
+            this.setState({
+                visibleRange
+            }, () => {
+                if (this.props.onReachedBottom && this._isAtBottom()
+                    && this.props.rowCount > 0) {
+                    this.props.onReachedBottom();
                 }
-                else {
-                    lastCol = column.columnId;
+            });
+        }
+    }
+
+    _calculateVisibleCells(x, y) {
+        if (this.props.rowCount === 0 || this.props.columns.length === 0) {
+            // there's no data
+            return null;
+        }
+
+        // allow a buffer of one out-of-view row above and below the visible area
+        const mathematicalTopRow = Math.floor(y / this.props.rowHeight);
+        const bottomY = y + this.props.bodyHeight;
+        const mathematicalBottomRow = Math.ceil(bottomY / this.props.rowHeight);
+        const topRow = Math.max(0, mathematicalTopRow - 1);
+        const bottomRow = Math.min(this.props.rowCount - 1, mathematicalBottomRow + 1);
+
+        // calculate the visible X range
+        const leftX = x;
+        const rightX = x + this.props.bodyWidth;
+
+        const visibleColumns = [];
+        let leadingColumn = null;
+        let trailingColumn = null;
+
+        for (let i = 0; i < this.props.columns.length; i++) {
+            const column = this.props.columns[i];
+            const columnStartX = column.x;
+            const columnEndX = column.x + column.width;
+
+            if (columnEndX < leftX) {
+                // column is out of view and is to the left of the visible area
+                // use it as a potential leading cell
+                leadingColumn = i;
+                continue;
+            }
+            else if (columnStartX > rightX) {
+                // column is out of view and is to the right of the visible area
+                // use it as a potential trailing cell and stop looping
+                trailingColumn = i;
+                break;
+            }
+
+            visibleColumns.push(i);
+        }
+
+        if (leadingColumn) {
+            visibleColumns.unshift(leadingColumn);
+        }
+        if (trailingColumn) {
+            visibleColumns.push(trailingColumn);
+        }
+
+        const visibleCells = [];
+
+        for (let i = topRow; i <= bottomRow; i++) {
+            if (i === topRow) {
+                // ensure the last column of the first row is included for accessibility purposes
+                if (visibleColumns[visibleColumns.length - 1] !== this.props.columns.length - 1) {
+                    visibleCells.push(`${this.props.columns.length - 1},${topRow}`);
+                }
+            }
+            else if (i === bottomRow) {
+                // ensure the first column of the last row is included for accessibility purposes
+                if (visibleColumns[0] !== 0) {
+                    visibleCells.push(`0,${bottomRow}`);
                 }
             }
 
-            // move onto the next column
-            tableXPos += column.width;
-        });
-
-        // generate a string representation of the visible cell coordinates
-        const renderCoords =
-            `${topRowIndex}-${bottomRowIndex}_${firstCol}-${lastCol}-${this.props.dataHash}`;
-
-        // don't re-render if the render coords are the same and the underlying data hasn't changed
-        if (this.lastRender === renderCoords) {
-            return;
+            visibleColumns.forEach((col) => {
+                visibleCells.push(`${col},${i}`);
+            });
         }
 
-        this.lastRender = renderCoords;
+        return {
+            cells: visibleCells,
+            range: `${visibleColumns[0]},${topRow}-${visibleColumns[visibleColumns.length - 1]},${bottomRow}`
+        };
+    }
 
-        for (let i = topRowIndex; i <= bottomRowIndex; i++) {
-            const row = (<TableRow
-                {...this.props}
-                rowIndex={i}
-                visibleCoords={`${firstCol}-${lastCol}`}
-                visibleColumns={columns}
-                key={`row-${i}`} />);
-            rows.push(row);
+    _isAtBottom() {
+        const visibleBottom = this._lastY + this.props.bodyHeight;
+        // allow a half row buffer at the bottom
+        const contentBottom = (this.props.rowCount * this.props.rowHeight) -
+            (this.props.rowHeight / 2);
+        const maxBottom = this.props.rowCount * this.props.rowHeight;
+        if (visibleBottom >= contentBottom && visibleBottom <= maxBottom) {
+            return true;
+        }
+        return false;
+    }
+
+    _generateAllCells() {
+        // pre-generate all the cells the table will have when the data is initially loaded in
+        // we'll pull these from the cache on-the-fly as they come into view
+        const cellCache = {};
+        for (let rowIndex = 0; rowIndex < this.props.rowCount; rowIndex++) {
+            this.props.columns.forEach((column, columnIndex) => {
+                const cellPositioning = {
+                    x: column.x,
+                    y: rowIndex * this.props.rowHeight,
+                    width: column.width,
+                    height: this.props.rowHeight
+                };
+
+                const cellContent = this.props.bodyCellRender(columnIndex, rowIndex);
+
+                const coord = `${columnIndex},${rowIndex}`;
+                const realCell = (
+                    <div
+                        key={coord}
+                        className="ibt-table-cell"
+                        style={{
+                            top: cellPositioning.y,
+                            left: cellPositioning.x,
+                            height: cellPositioning.height,
+                            width: cellPositioning.width
+                        }}>
+                        {cellContent}
+                    </div>
+                );
+                cellCache[coord] = realCell;
+            });
         }
 
-        this.setState({
-            visibleRows: rows,
-            horizontalScrollbar: this.isHorizontalScrollbarVisible()
+        this._cellCache = cellCache;
+
+        this._tableScrolled({
+            x: this._lastX,
+            y: this._lastY
         });
     }
 
     render() {
-        const totalHeight = (this.props.rowCount * this.props.rowHeight);
-
-        const visibleHeight = min([this.props.maxHeight, totalHeight]);
-        const visibleWidth = min([this.props.maxWidth, this.props.width]);
-
         const style = {
-            minHeight: visibleHeight,
-            maxHeight: visibleHeight + this.state.horizontalScrollbar,
-            width: visibleWidth
-        };
-
-        const internalStyle = {
-            height: totalHeight,
-            width: this.props.width
+            width: this.props.contentWidth,
+            height: this.props.rowCount * this.props.rowHeight
         };
 
         return (
             <div
                 className="ibt-table-body-container"
-                style={style}
-                onScroll={this.handleScroll}
-                ref={(div) => {
-                    this.containerDiv = div;
-                }}>
-                <div className="ibt-table-body" style={internalStyle}>
-                    {this.state.visibleRows}
+                style={style}>
+                <div className="ibt-table-body">
+                    {this._visibleCells}
                 </div>
             </div>
         );

@@ -3,8 +3,13 @@
     margin-top: ($global-mrg * 4);
     
     @import "pages/search/results/table/_tableTypes";
-    @import "pages/search/results/table/_tableStyle";
     @import "pages/search/results/table/_resultsTablePicker";
+
+    // implement the library style
+    @import "lib/ibTable/ibTable";
+    margin-top: 1.5em;
+    display: block;
+    opacity: 1.0;
 
     .loading-table {
         opacity: 0.5;
@@ -14,6 +19,30 @@
     .loaded-table {
         opacity: 1;
         @include transition(opacity 0.25s ease-in);
+    }
+
+    .ibt-table-container {
+        margin-top: 1.5em;
+        border: 1px solid $color-gray-light;
+    }
+
+     .award-result-generic-cell {
+        @import "pages/search/results/table/cells/_genericCell";
+        @include genericCell();
+    }
+
+    .award-result-header-cell {
+        @import "pages/search/results/table/cells/_genericHeader";
+        @include genericHeader();
+
+         &.last-column {
+            border-right: none;
+        }
+    }
+
+    // gray out even rows
+    .row-even {
+        background-color: #f7f7f7;
     }
 
     .account-awards-table-width-master {

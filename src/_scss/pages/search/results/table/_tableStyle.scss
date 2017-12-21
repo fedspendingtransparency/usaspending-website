@@ -2,8 +2,6 @@
     // implement the library style
     @import 'lib/ibTable/ibTable';
     display: block;
-    // placeholder background for when the user scrolls really fast
-    background: repeating-linear-gradient( $color-white, $color-white 40px, $color-gray-lightest 40px, $color-gray-lightest 80px);
     &.no-results {
         border-bottom: none;
     }

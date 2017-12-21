@@ -1,21 +1,9 @@
 import { List } from 'immutable';
-import { OrderRecord } from 'redux/reducers/search/searchOrderReducer';
-import { MetaRecord } from 'redux/reducers/resultsMeta/resultsMetaReducer';
-import { BatchRecord } from 'redux/reducers/resultsMeta/resultsBatchReducer';
 import { VisibilityRecord } from 'redux/reducers/search/columnVisibilityReducer';
 
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 
 export const mockActions = {
-    setSearchTableType: jest.fn(),
-    setSearchPageNumber: jest.fn(),
-    setSearchOrder: jest.fn(),
-    clearRecords: jest.fn(),
-    bulkInsertRecordSet: jest.fn(),
-    setSearchResultMeta: jest.fn(),
-    setSearchInFlight: jest.fn(),
-    triggerBatchSearchUpdate: jest.fn(),
-    triggerBatchQueryUpdate: jest.fn(),
     toggleColumnVisibility: jest.fn(),
     reorderColumns: jest.fn(),
     populateAvailableColumns: jest.fn()
@@ -23,10 +11,6 @@ export const mockActions = {
 
 export const mockRedux = {
     filters: initialState,
-    rows: new List(),
-    meta: new MetaRecord(),
-    batch: new BatchRecord(),
-    searchOrder: new OrderRecord(),
     columnVisibility: new VisibilityRecord()
 };
 

@@ -74,8 +74,8 @@ export default class BudgetFunctionsMinimized extends React.Component {
     buildTree(treeProps) {
         // put the data through d3's hierarchy system to sum and sort it
         const root = hierarchy(treeProps.categories)
-        .sum((d) => (d.value))
-        .sort((a, b) => b.height - a.height || b.value - a.value);
+            .sum((d) => (d.value))
+            .sort((a, b) => b.height - a.height || b.value - a.value);
 
         // set up a treemap object and pass in the root
         const mapHeight = 25;
@@ -190,6 +190,5 @@ export default class BudgetFunctionsMinimized extends React.Component {
             </div>
         );
     }
-
 }
 BudgetFunctionsMinimized.propTypes = propTypes;

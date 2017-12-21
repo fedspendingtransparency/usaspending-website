@@ -60,7 +60,7 @@ class ResultsSelectColumns extends React.Component {
         const visibleColumns = visible.map((title, i) => (
             <ResultsColumnVisibleOption
                 key={title}
-                checked={'visible'}
+                checked="visible"
                 column={title}
                 label={title}
                 toggleColumnVisibility={this.props.toggleColumnVisibility}
@@ -71,7 +71,7 @@ class ResultsSelectColumns extends React.Component {
         const hiddenColumns = this.props.columns.hiddenOrder.map((title) => (
             <ResultsColumnOption
                 key={title}
-                checked={''}
+                checked=""
                 column={title}
                 label={title}
                 toggleColumnVisibility={this.props.toggleColumnVisibility} />

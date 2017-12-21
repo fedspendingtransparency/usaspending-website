@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Warning from 'components/sharedComponents/autocomplete/Warning';
+import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 
 const propTypes = {
     searchRecipient: PropTypes.func,
@@ -56,6 +57,7 @@ export default class RecipientName extends React.Component {
         if (this.props.selectedRecipients.size !== 0) {
             disableButton = true;
         }
+
         return (
             <div className="recipient-filter search-filter">
                 <form onSubmit={this.searchRecipient}>
@@ -68,11 +70,11 @@ export default class RecipientName extends React.Component {
                             value={this.props.value}
                             disabled={disableButton}
                             onChange={this.props.changedInput} />
-                        <input
-                            type="submit"
+                        <IndividualSubmit
                             className="recipient-submit"
                             disabled={disableButton}
-                            value="Submit" />
+                            onClick={this.searchRecipient}
+                            label="Filter by recipient name" />
                     </div>
                 </form>
                 {this.generateWarning()}
