@@ -51,10 +51,10 @@ export default class BarXAxis extends React.Component {
         if (props.activeLabel) {
             const xPos = props.scale(props.activeLabel.xValue) + (props.scale.bandwidth() / 2);
             return ([<BarXAxisItem
-                    x={xPos}
-                    y={15}
-                    label={props.activeLabel.xValue}
-                    key={`label-x-${props.activeLabel.xValue}`} />])
+                x={xPos}
+                y={15}
+                label={props.activeLabel.xValue}
+                key={`label-x-${props.activeLabel.xValue}`} />]);
         }
 
         // Figure out which labels to show depending on type
@@ -69,12 +69,12 @@ export default class BarXAxis extends React.Component {
         }
 
         // Get offset in case of first period
-        if (props.visualizationPeriod !== "fiscal_year" && props.data) {
-            labelOffset = this.calculateDateOffset(props.data[0], props.visualizationPeriod);
+        if (props.visualizationPeriod !== "fiscal_year" && props.rawLabels) {
+            labelOffset = this.calculateDateOffset(props.rawLabels[0], props.visualizationPeriod);
         }
 
         return (
-            props.data.map((item, index) => {
+            props.rawLabels.map((item, index) => {
                 // offset the D3 calculated position by the left padding and put the label in
                 // the middle
                 // of the each tick's width to center the text
@@ -90,7 +90,7 @@ export default class BarXAxis extends React.Component {
                     x={xPos}
                     y={15}
                     label={label}
-                    key={`label-x-${item}`} />);
+                    key={`label-x-${item}-${index}`} />);
             })
         );
     }
@@ -99,41 +99,49 @@ export default class BarXAxis extends React.Component {
     // average start and end for monthly/quartlery
     calculateXPos(item, index, labelOffset, props) {
         if (props.visualizationPeriod === 'fiscal_year') {
-            return props.scale(item) + (props.scale.bandwidth() / 2);
+            return props.scale(item.year) + (props.scale.bandwidth() / 2);
         }
         const endIndex = this.calculateEndIndex(
             index,
             props.data,
             props.visualizationPeriod,
             labelOffset);
-        return (props.scale(item) + props.scale(props.data[endIndex]) + props.scale.bandwidth()) / 2;
+
+        // Need to use props.data because you cant scale by objects
+        return (props.scale(props.data[index]) + props.scale(props.data[endIndex]) + props.scale.bandwidth()) / 2;
     }
 
     // Gets the content of the label, year, break apart the quarter, or
     // Fiscal year increments if the date range started between oct-dec
     calculateLabel(item, props) {
         if (props.visualizationPeriod === 'fiscal_year') {
-            return item;
+            return item.year;
         }
-        const year = item.split(" ")[1];
+        const year = item.year;
         if (props.visualizationPeriod === 'quarter') {
             return year;
         }
         const months = ['Oct', 'Nov', 'Dec'];
-        const increment = months.indexOf(item.split(" ")[0]) !== -1 ? 1 : 0;
+        const increment = months.indexOf(item.period) !== -1 ? 1 : 0;
         return (parseInt(year, 10) + increment).toString();
     }
 
-    // Adjusts the labels so that we know how many periods of a year there are in the beginning
+    // Calcuate how many periods until the end of the FY so that the year label
+    // is placed correctly
     calculateDateOffset(item, type) {
-        const period = item.split(" ")[0];
+        const period = item.period;
         if (type === 'month') {
-            const months = ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May',
-                'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
-            return 11 - months.indexOf(period);
+            // Fiscal year starts in October, so calculate how many months until the
+            // end of the year
+            // Mod 12 because 12 month offset == to 0 month offset
+            const months = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May',
+                'Jun', 'Jul', 'Aug', 'Sep'];
+            return (12 - months.indexOf(period)) % 12;
         }
-        const quarters = ['Q2', 'Q3', 'Q4', 'Q1'];
-        return 3 - quarters.indexOf(period);
+        // Calculate how many quarters left in the year
+        // Mod 4 because 4 quarter offset  == 0 quarter offset
+        const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
+        return (4 - quarters.indexOf(period)) % 4;
     }
 
     // Finds the end of the year for a range of dates

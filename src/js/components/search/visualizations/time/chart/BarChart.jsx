@@ -22,6 +22,7 @@ const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     xSeries: PropTypes.array,
+    rawLabels: PropTypes.array,
     ySeries: PropTypes.array,
     showTooltip: PropTypes.func,
     enableHighlight: PropTypes.bool,
@@ -242,6 +243,7 @@ export default class BarChart extends React.Component {
             graphHeight,
             yValues: allY,
             xValues: props.groups,
+            rawLabels: props.rawLabels,
             yAverage: mean(allY),
             yTicks: yScale.ticks(7)
         });
@@ -409,6 +411,7 @@ export default class BarChart extends React.Component {
                             width={this.props.width - this.props.padding.left}
                             padding={this.props.padding}
                             data={this.state.xValues}
+                            rawLabels={this.state.rawLabels}
                             scale={this.state.xScale}
                             axisPos={this.state.xAxisPos}
                             activeLabel={this.props.activeLabel}
