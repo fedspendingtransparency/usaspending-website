@@ -47,7 +47,7 @@ export default class ModalContent extends React.Component {
                 <div className="main-title">
                     <h3>Your download is being generated.</h3>
                     <div className="details">
-                        You will be notified when it&#8217;s ready.
+                        This may take a little while &mdash; wait times vary based on site traffic and file size.
                     </div>
                     <div className="link-box">
                         <p>Use this link to download your file anytime once it&#8217;s ready.</p>
