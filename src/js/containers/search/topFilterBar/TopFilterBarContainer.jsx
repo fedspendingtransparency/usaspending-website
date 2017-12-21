@@ -639,6 +639,6 @@ TopFilterBarContainer.propTypes = propTypes;
 TopFilterBarContainer.defaultProps = defaultProps;
 
 export default connect(
-    (state) => ({ reduxFilters: state.filters }),
+    (state) => ({ reduxFilters: state.appliedFilters.filters }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(TopFilterBarContainer);

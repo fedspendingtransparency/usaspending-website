@@ -29,6 +29,7 @@ require('pages/search/searchPage.scss');
 const propTypes = {
     params: PropTypes.object,
     filters: PropTypes.object,
+    appliedFilters: PropTypes.object,
     populateAllSearchFilters: PropTypes.func,
     clearAllFilters: PropTypes.func
 };
@@ -50,7 +51,7 @@ export class SearchContainer extends React.Component {
 
     componentWillMount() {
         this.handleInitialUrl(this.props.params.hash);
-        this.requestDownloadAvailability(this.props.appliedFilters);
+        this.requestDownloadAvailability(this.props.appliedFilters.filters);
         // this.loadUpdateDate();
     }
 
@@ -71,8 +72,8 @@ export class SearchContainer extends React.Component {
                 this.generateHash(nextProps.filters);
             }
         }
-        else if (nextProps.appliedFilters !== this.props.appliedFilters) {
-            this.requestDownloadAvailability(nextProps.appliedFilters);
+        else if (nextProps.appliedFilters.filters !== this.props.appliedFilters.filters) {
+            this.requestDownloadAvailability(nextProps.appliedFilters.filters);
         }
     }
 
@@ -369,7 +370,8 @@ export class SearchContainer extends React.Component {
                 clearAllFilters={this.props.clearAllFilters}
                 filters={this.props.filters}
                 lastUpdate={this.state.lastUpdate}
-                downloadAvailable={this.state.downloadAvailable} />
+                downloadAvailable={this.state.downloadAvailable}
+                requestsComplete={this.props.appliedFilters._complete} />
         );
     }
 }

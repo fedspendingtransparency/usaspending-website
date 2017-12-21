@@ -11,11 +11,15 @@ const SearchSidebarSubmit = (props) => {
             <button
                 className="submit-button"
                 title="Add or update a filter to submit."
-                aria-label="Add or update a filter to submit.">
+                aria-label="Add or update a filter to submit."
+                disabled={!props.requestsComplete}
+                onClick={props.applyStagedFilters}>
                 Submit Search
             </button>
             <button
-                className="reset-button">
+                className="reset-button"
+                disabled={!props.requestsComplete}
+                onClick={props.resetAllFilters}>
                 Reset filters
             </button>
         </div>

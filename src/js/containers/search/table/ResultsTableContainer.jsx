@@ -23,6 +23,7 @@ import { measureTableHeader } from 'helpers/textMeasurement';
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
 import SearchActions from 'redux/actions/searchActions';
+import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 
 const propTypes = {
     filters: PropTypes.object,
@@ -122,6 +123,8 @@ export class ResultsTableContainer extends React.Component {
         if (this.tabCountRequest) {
             this.tabCountRequest.cancel();
         }
+
+        this.props.setAppliedFilterCompletion(false);
 
         this.setState({
             inFlight: true
@@ -240,6 +243,8 @@ export class ResultsTableContainer extends React.Component {
             this.searchRequest.cancel();
         }
 
+        this.props.setAppliedFilterCompletion(false);
+
         const tableType = this.state.tableType;
 
         // Append the current tab's award types to the search params if the Award Type filter
@@ -325,6 +330,8 @@ export class ResultsTableContainer extends React.Component {
                 newState.lastPage = !res.data.page_metadata.hasNext;
 
                 this.setState(newState);
+
+                this.props.setAppliedFilterCompletion(true);
             })
             .catch((err) => {
                 if (isCancel(err)) {
@@ -443,8 +450,8 @@ ResultsTableContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        filters: state.appliedFilters,
+        filters: state.appliedFilters.filters,
         columnVisibility: state.columnVisibility
     }),
-    (dispatch) => bindActionCreators(SearchActions, dispatch)
+    (dispatch) => bindActionCreators(Object.assign({}, SearchActions, appliedFilterActions), dispatch)
 )(ResultsTableContainer);

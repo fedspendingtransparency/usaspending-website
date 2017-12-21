@@ -5,22 +5,25 @@
 
 import { initialState as defaultFilters } from './searchFiltersReducer';
 
-export const initialState = Object.assign({}, defaultFilters, {
+export const initialState = {
+    filters: defaultFilters,
     _hash: '',
     _complete: false
-});
+};
 
 const appliedFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'APPLY_STAGED_FILTERS':
-            return Object.assign({}, state, action.filters);
+            return Object.assign({}, state, {
+                filters: action.filters
+            });
         case 'CLEAR_ALL_FILTERS':
             return Object.assign({}, initialState);
         case 'SET_APPLIED_FILTER_HASH':
             return Object.assign({}, state, {
                 _hash: action.hash
             });
-        case 'SET_APPLIED_FILTER_STATE':
+        case 'SET_APPLIED_FILTER_COMPLETION':
             return Object.assign({}, state, {
                 _complete: action.complete
             });

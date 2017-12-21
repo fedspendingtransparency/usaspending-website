@@ -18,6 +18,7 @@ const propTypes = {
     isMobile: PropTypes.bool,
     filterCount: PropTypes.number,
     showMobileFilters: PropTypes.bool,
+    requestsComplete: PropTypes.bool,
     toggleMobileFilters: PropTypes.func,
     clearAllFilters: PropTypes.func
 };
@@ -87,7 +88,9 @@ export default class SearchResults extends React.Component {
                 <div className="full-search-results-wrapper">
                     <TopFilterBarContainer {...this.props} />
                     <div className={`search-results ${mobileFilters}`}>
-                        <VisualizationWrapper isMobile={this.props.isMobile} />
+                        <VisualizationWrapper
+                            isMobile={this.props.isMobile}
+                            requestsComplete={this.props.requestsComplete} />
                     </div>
                 </div>
             </div>

@@ -21,8 +21,8 @@
         position: relative;
         top: rem(1);
         @include media($large-screen) {
-        padding: rem(15);
-}
+            padding: rem(15);
+        }
         &:hover{
             @include transition(all 0.3s ease-in-out);
             background-color: darken($color-gray-lightest, 5%);
@@ -58,45 +58,9 @@
                 }
             }
         }
-    }
-}
 
-@import "components/_comingSoon";
-
-@include comingSoon;
-
-button.table-type-toggle.coming-soon {
-    background: repeating-linear-gradient(
-        45deg,
-        rgba($color-gray-lightest, .2),
-        rgba($color-gray-lightest, .2) rem(2px),
-        rgba($color-gray-lighter, .3) rem(2px),
-        rgba($color-gray-lighter, .3) rem(4px)
-    );
-    color: $color-gray-light;
-    .coming-soon-container {
-        width: 100%;
-        text-align: center;
-        height: 10px;
-        .coming-soon-icon {
-            bottom: rem(0px);
-            display: inline;
-            float: none;
+        &[disabled] {
+            cursor: not-allowed;
         }
-        .coming-soon-label {
-            bottom: rem(2px);
-            display: inline;
-            float: none;
-            left: rem(3px);
-        }
-    }
-    &:hover {
-        background: repeating-linear-gradient(
-            45deg,
-            rgba($color-gray-lightest, .2),
-            rgba($color-gray-lightest, .2) rem(2px),
-            rgba($color-gray-lighter, .3) rem(2px),
-            rgba($color-gray-lighter, .3) rem(4px)
-        );
     }
 }

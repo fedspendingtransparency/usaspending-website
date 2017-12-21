@@ -85,7 +85,8 @@ export default class ResultsTableSection extends React.Component {
                     types={this.props.tableTypes}
                     active={this.props.currentType}
                     counts={this.props.counts}
-                    switchTab={this.props.switchTab} />
+                    switchTab={this.props.switchTab}
+                    disabled={this.props.inFlight} />
                 <div className="results-table-content">
                     <CSSTransitionGroup
                         transitionName="table-message-fade"

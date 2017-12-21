@@ -3,10 +3,20 @@
     .submit-button {
         display: block;
         width: 100%;
+
+        transition: opacity 0.15s;
+        opacity: 1;
+
+        &[disabled] {
+            opacity: 0.5;
+        }
     }
     .reset-button {
         display: block;
         @include button-unstyled;
+
+        transition: opacity 0.15s;
+        opacity: 1;
 
         text-align: center;
 
@@ -19,6 +29,11 @@
 
         &:hover {
             text-decoration: underline;
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            opacity: 0.5;
         }
     }
 }

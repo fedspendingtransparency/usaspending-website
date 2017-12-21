@@ -37,7 +37,8 @@ const tabOptions = [
 ];
 
 const propTypes = {
-    isMobile: PropTypes.bool
+    isMobile: PropTypes.bool,
+    requestsComplete: PropTypes.bool
 };
 
 export default class VisualizationWrapper extends React.Component {
@@ -63,7 +64,8 @@ export default class VisualizationWrapper extends React.Component {
                 {...tab}
                 key={tab.code}
                 active={this.state.active === tab.code}
-                clickedTab={this.clickedTab} />
+                clickedTab={this.clickedTab}
+                disabled={!this.props.requestsComplete} />
         ));
 
         let content = null;

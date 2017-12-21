@@ -37,7 +37,7 @@
 
         background-color: transparent;
         transition: opacity 0.15s;
-        opacity: 0.5;
+        opacity: 1;
 
         border: none;
         border-top-left-radius: 5px;
@@ -47,11 +47,48 @@
 
         padding: rem(20);
         @include media($tablet-screen) {
-            padding: rem(20) rem(30);
+            padding: rem(15) rem(30);
         }
 
+        .icon {
+            @include flex(0 0 auto)
+            width: rem(20);
+            height: rem(20);
+
+            svg {
+                fill: $color-primary;
+                width: rem(20);
+                height: rem(20);                
+            }
+
+            @include media($tablet-screen) {
+                margin-right: rem(15);
+                width: rem(25);
+                height: rem(25);
+
+                svg {
+                    width: rem(25);
+                    height: rem(25);
+                }
+            }
+        }
+
+        .label {
+            @include flex(1 1 auto);
+            display: none;
+
+            @include media($tablet-screen) {
+                display: block;
+                color: $color-primary;
+                font-weight: $font-semibold;
+                text-transform: uppercase;
+                line-height: rem(18);
+                letter-spacing: rem(2);
+            }
+        }
+
+
         &.active {
-            opacity: 1;
             background-color: $color-white;
             border: 1px solid $color-gray-lighter;
             border-bottom: 1px solid $color-white;
@@ -84,46 +121,24 @@
                 border-bottom: 1px solid $color-gray-lighter;
                 box-shadow: -4px 4px 0 4px $color-white;
             }
-        }
 
-        &:active, &:hover {
-            opacity: 1;
-        }
-
-        .icon {
-            @include flex(0 0 auto)
-            width: rem(20);
-            height: rem(20);
-
-            svg {
-                fill: $color-gray;
-                width: rem(20);
-                height: rem(20);                
+            .label {
+                color: $color-gray;
             }
 
-            @include media($tablet-screen) {
-                margin-right: rem(15);
-                width: rem(25);
-                height: rem(25);
-
+            .icon {
                 svg {
-                    width: rem(25);
-                    height: rem(25);
+                    fill: $color-gray;
                 }
             }
         }
 
-        .label {
-            @include flex(1 1 auto);
-            display: none;
+        &[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
 
-            @include media($tablet-screen) {
-                display: block;
-                color: $color-gray;
-                font-weight: $font-semibold;
-                text-transform: uppercase;
-                line-height: rem(18);
-                letter-spacing: rem(2);
+            &.active {
+                opacity: 1;
             }
         }
     }

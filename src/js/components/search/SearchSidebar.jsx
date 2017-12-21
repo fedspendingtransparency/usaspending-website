@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
+
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
@@ -28,8 +30,6 @@ import KeywordHover from 'components/search/filters/keyword/KeywordHover';
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
-
-import SearchSidebarSubmit from './SearchSidebarSubmit';
 
 const filters = {
     options: [
@@ -87,7 +87,8 @@ const filters = {
 
 const propTypes = {
     mobile: PropTypes.bool,
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    requestsComplete: PropTypes.bool
 };
 
 const defaultProps = {
@@ -111,11 +112,11 @@ export default class SearchSidebar extends React.Component {
                     <h6>Filter by:</h6>
                 </div>
                 <div className="sidebar-top-submit">
-                    <SearchSidebarSubmit />
+                    <SearchSidebarSubmitContainer />
                 </div>
                 <FilterSidebar {...filters} expanded={expanded} />
                 <div className="sidebar-bottom-submit">
-                    <SearchSidebarSubmit />
+                    <SearchSidebarSubmitContainer />
                 </div>
             </div>
         );
