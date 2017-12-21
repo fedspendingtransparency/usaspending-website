@@ -7,9 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Immutable from 'immutable';
 import { isCancel } from 'axios';
-import { difference, intersection } from 'lodash';
+import { uniqueId, difference, intersection } from 'lodash';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -27,19 +26,6 @@ import SearchActions from 'redux/actions/searchActions';
 
 const propTypes = {
     filters: PropTypes.object,
-    rows: PropTypes.instanceOf(Immutable.List),
-    meta: PropTypes.object,
-    batch: PropTypes.instanceOf(Immutable.Record),
-    searchOrder: PropTypes.object,
-    setSearchTableType: PropTypes.func,
-    setSearchPageNumber: PropTypes.func,
-    setSearchOrder: PropTypes.func,
-    clearRecords: PropTypes.func,
-    bulkInsertRecordSet: PropTypes.func,
-    setSearchResultMeta: PropTypes.func,
-    setSearchInFlight: PropTypes.func,
-    triggerBatchSearchUpdate: PropTypes.func,
-    triggerBatchQueryUpdate: PropTypes.func,
     columnVisibility: PropTypes.object,
     toggleColumnVisibility: PropTypes.func,
     reorderColumns: PropTypes.func,
@@ -74,6 +60,7 @@ const tableTypes = [
     }
 ];
 
+
 export class ResultsTableContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -81,7 +68,16 @@ export class ResultsTableContainer extends React.Component {
         this.state = {
             searchParams: new SearchAwardsOperation(),
             page: 0,
-            counts: {}
+            lastPage: true,
+            counts: {},
+            tableType: 'contracts',
+            sort: {
+                field: 'Award Amount',
+                direction: 'desc'
+            },
+            inFlight: true,
+            results: [],
+            tableInstance: `${uniqueId()}` // this will stay constant during pagination but will change when the filters or table type changes
         };
 
         this.tabCountRequest = null;
@@ -91,6 +87,7 @@ export class ResultsTableContainer extends React.Component {
         this.loadNextPage = this.loadNextPage.bind(this);
         this.toggleColumnVisibility = this.toggleColumnVisibility.bind(this);
         this.reorderColumns = this.reorderColumns.bind(this);
+        this.updateSort = this.updateSort.bind(this);
     }
 
     componentDidMount() {
@@ -106,30 +103,12 @@ export class ResultsTableContainer extends React.Component {
             // filters changed, update the search object
             this.pickDefaultTab();
         }
-        else if (prevProps.meta.tableType !== this.props.meta.tableType) {
-            // table type has changed
-            this.updateFilters();
-        }
-        else if (prevProps.searchOrder !== this.props.searchOrder) {
-            // the sort order changed
-            this.updateFilters();
-        }
-        else if (prevProps.meta.page.page_number !==
-            this.props.meta.page.page_number && this.props.meta.page.page_number) {
-            // page number has changed
-            if (this.props.meta.page.page_number !== this.state.page) {
-                // this check prevents duplicated API calls that result from Redux updating the
-                // page number prop back to 1 after a filter/order/tab change (which already
-                // triggers a page 1 search)
-                this.performSearch();
-            }
-        }
-        else if (prevProps.columnVisibility[prevProps.meta.tableType].visibleOrder !==
-            this.props.columnVisibility[this.props.meta.tableType].visibleOrder) {
+        else if (prevProps.columnVisibility[this.state.tableType].visibleOrder !==
+            this.props.columnVisibility[this.state.tableType].visibleOrder) {
             // Visible columns have changed
             // we don't need to reload the table columns because the Redux store is the source
             // of truth for which columns are visible
-            if (prevProps.columnVisibility[prevProps.meta.tableType].visibleOrder.count() > 0) {
+            if (prevProps.columnVisibility[this.state.tableType].visibleOrder.count() > 0) {
                 // if the previous visible column count was 0, then that just meant the initial
                 // column set hadn't loaded yet, we don't need to do a new search in that case (bc
                 // it means we're still loading the page)
@@ -144,7 +123,9 @@ export class ResultsTableContainer extends React.Component {
             this.tabCountRequest.cancel();
         }
 
-        this.props.setSearchInFlight(true);
+        this.setState({
+            inFlight: true
+        });
 
         const searchParams = new SearchAwardsOperation();
         searchParams.fromState(this.props.filters);
@@ -259,7 +240,7 @@ export class ResultsTableContainer extends React.Component {
             this.searchRequest.cancel();
         }
 
-        const tableType = this.props.meta.tableType;
+        const tableType = this.state.tableType;
 
         // Append the current tab's award types to the search params if the Award Type filter
         // isn't populated. If it is, perform a search on the intersection of the current tab's
@@ -281,9 +262,11 @@ export class ResultsTableContainer extends React.Component {
         }
 
         // indicate the request is about to start
-        this.props.setSearchInFlight(true);
+        this.setState({
+            inFlight: true
+        });
 
-        let pageNumber = this.props.meta.page.page_number;
+        let pageNumber = this.state.page;
         if (newSearch) {
             // a new search (vs just getting more pages of an existing search) requires resetting
             // the page number
@@ -304,7 +287,7 @@ export class ResultsTableContainer extends React.Component {
         });
 
         // parse the redux search order into the API-consumable format
-        const searchOrder = this.props.searchOrder.toJS();
+        const searchOrder = this.state.sort;
         let sortDirection = searchOrder.direction;
         if (!sortDirection) {
             sortDirection = 'desc';
@@ -323,34 +306,25 @@ export class ResultsTableContainer extends React.Component {
         this.searchRequest = SearchHelper.performSpendingByAwardSearch(params);
         this.searchRequest.promise
             .then((res) => {
-                this.props.setSearchInFlight(false);
+                const newState = {
+                    inFlight: false
+                };
 
                 // don't clear records if we're appending (not the first page)
                 if (pageNumber <= 1 || newSearch) {
-                    this.props.clearRecords();
+                    newState.tableInstance = `${uniqueId()}`;
+                    newState.results = res.data.results;
                 }
-
-                // parse the response
-                const data = res.data;
-                this.parseData(data.results);
-
-                this.props.setSearchResultMeta({
-                    page: data.page_metadata,
-                    total: data.total_metadata
-                });
+                else {
+                    newState.results = this.state.results.concat(res.data.results);
+                }
 
                 // request is done
                 this.searchRequest = null;
-                // trigger a batch update
-                if (newSearch) {
-                    this.props.triggerBatchSearchUpdate();
-                }
-                else {
-                    this.props.triggerBatchQueryUpdate();
-                    this.setState({
-                        page: data.page_metadata.page_number
-                    });
-                }
+                newState.page = res.data.page_metadata.page;
+                newState.lastPage = !res.data.page_metadata.hasNext;
+
+                this.setState(newState);
             })
             .catch((err) => {
                 if (isCancel(err)) {
@@ -369,17 +343,12 @@ export class ResultsTableContainer extends React.Component {
             });
     }
 
-    parseData(data) {
-        // write all records into Redux
-        this.props.bulkInsertRecordSet({
-            data,
-            type: 'awards'
-        });
-    }
-
     switchTab(tab) {
-        this.props.setSearchTableType(tab);
-        const currentSortField = this.props.searchOrder.field;
+        const newState = {
+            tableType: tab
+        };
+
+        const currentSortField = this.state.sort.field;
 
         // check if the current sort field is available in the table type
         const availableFields = this.props.columnVisibility[tab].data;
@@ -392,28 +361,37 @@ export class ResultsTableContainer extends React.Component {
                 direction = 'asc';
             }
 
-            this.props.setSearchOrder({
+            newState.sort = {
                 field,
                 direction
-            });
+            };
         }
+
+        this.setState(newState, () => {
+            this.performSearch(true);
+        });
     }
 
     loadNextPage() {
         // check if request is already in-flight
-        if (this.props.meta.inFlight) {
+        if (this.state.inFlight) {
             // in-flight, ignore this request
             return;
         }
+
         // check if more pages are available
-        if (this.props.meta.page.hasNext) {
+        if (!this.state.lastPage) {
             // more pages are available, load them
-            this.props.setSearchPageNumber(this.props.meta.page.page + 1);
+            this.setState({
+                page: this.state.page + 1
+            }, () => {
+                this.performSearch();
+            });
         }
     }
 
     toggleColumnVisibility(column) {
-        const tableType = this.props.meta.tableType;
+        const tableType = this.state.tableType;
         this.props.toggleColumnVisibility({
             column,
             tableType
@@ -421,7 +399,7 @@ export class ResultsTableContainer extends React.Component {
     }
 
     reorderColumns(dragIndex, hoverIndex) {
-        const tableType = this.props.meta.tableType;
+        const tableType = this.state.tableType;
         this.props.reorderColumns({
             tableType,
             dragIndex,
@@ -429,21 +407,33 @@ export class ResultsTableContainer extends React.Component {
         });
     }
 
+    updateSort(field, direction) {
+        this.setState({
+            sort: {
+                field,
+                direction
+            }
+        }, () => {
+            this.performSearch(true);
+        });
+    }
+
     render() {
-        const tableType = this.props.meta.tableType;
+        const tableType = this.state.tableType;
         return (
             <ResultsTableSection
-                batch={this.props.batch}
-                inFlight={this.props.meta.inFlight}
-                results={this.props.rows.toArray()}
-                resultsMeta={this.props.meta}
+                inFlight={this.state.inFlight}
+                results={this.state.results}
                 columns={this.props.columnVisibility[tableType]}
                 counts={this.state.counts}
                 toggleColumnVisibility={this.toggleColumnVisibility}
                 reorderColumns={this.reorderColumns}
+                sort={this.state.sort}
                 tableTypes={tableTypes}
-                currentType={this.props.meta.tableType}
+                currentType={tableType}
+                tableInstance={this.state.tableInstance}
                 switchTab={this.switchTab}
+                updateSort={this.updateSort}
                 loadNextPage={this.loadNextPage} />
         );
     }
@@ -454,10 +444,6 @@ ResultsTableContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         filters: state.filters,
-        rows: state.records.awards,
-        meta: state.resultsMeta.toJS(),
-        batch: state.resultsBatch,
-        searchOrder: state.searchOrder,
         columnVisibility: state.columnVisibility
     }),
     (dispatch) => bindActionCreators(SearchActions, dispatch)

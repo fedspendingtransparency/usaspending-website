@@ -1,6 +1,6 @@
 /**
- * ResultsTableHeaderCell.jsx
- * Created by Kevin Li 12/8/17
+ * LegacyTableHeaderCell.jsx
+ * Created by Kevin Li 12/15/17
  */
 
 import React from 'react';
@@ -9,7 +9,7 @@ import { ArrowUp, ArrowDown } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     isLast: PropTypes.bool,
-    isActive: PropTypes.bool,
+    field: PropTypes.string,
     title: PropTypes.string,
     defaultDirection: PropTypes.string,
     currentSort: PropTypes.object,
@@ -18,23 +18,21 @@ const propTypes = {
 
 const TableHeaderCell = (props) => {
     const clickedSort = (e) => {
-        props.updateSort(props.title, e.target.value);
+        props.updateSort(props.field, e.target.value);
     };
 
     const clickedDefault = () => {
-        // if (props.isActive) {
-        //     // toggle the sort direction
-        //     let opposite = 'asc';
-        //     if (props.currentSort.direction === 'asc') {
-        //         opposite = 'desc';
-        //     }
-        //     props.updateSort(props.title, opposite);
-        // }
-        // else {
-        //     props.updateSort(props.title, props.defaultDirection);
-        // }
-        // BODGE: don't allow ascending
-        props.updateSort(props.title, 'desc');
+        if (props.currentSort.field === props.field) {
+            // toggle the sort direction
+            let opposite = 'asc';
+            if (props.currentSort.direction === 'asc') {
+                opposite = 'desc';
+            }
+            props.updateSort(props.field, opposite);
+        }
+        else {
+            props.updateSort(props.field, props.defaultDirection);
+        }
     };
 
     // keyboard accessible option
@@ -51,15 +49,18 @@ const TableHeaderCell = (props) => {
     }
 
     // highlight the active arrows
-    const activeAsc = '';
+    let activeAsc = '';
     let activeDesc = '';
 
-    if (props.isActive) {
+    if (props.currentSort.field === props.field && props.currentSort.direction === 'desc') {
         activeDesc = ' active';
+    }
+    else if (props.currentSort.field === props.field && props.currentSort.direction === 'asc') {
+        activeAsc = ' active';
     }
 
     /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-    // allow keyboard selection of the header cell
+    // allow the sort cell to be selectable
     return (
         <div className={`award-result-header-cell ${lastClass}`}>
             <div
@@ -96,7 +97,7 @@ const TableHeaderCell = (props) => {
             </div>
         </div>
     );
-    /* eslint-enable jsx-a11y/no-noninteractive-tabindex */
+    /* eslint-enable jsx-a11y/no-static-element-interactions */
 };
 
 TableHeaderCell.propTypes = propTypes;

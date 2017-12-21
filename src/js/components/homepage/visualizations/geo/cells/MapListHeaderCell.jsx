@@ -6,15 +6,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as Icons from 'components/sharedComponents/icons/Icons';
+import { ArrowUp, ArrowDown } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    label: PropTypes.string,
-    column: PropTypes.string,
+    title: PropTypes.string,
+    currentSort: PropTypes.object,
     defaultDirection: PropTypes.string,
-    order: PropTypes.object,
     changeSearchOrder: PropTypes.func,
-    isLastColumn: PropTypes.bool
+    isLast: PropTypes.bool,
+    field: PropTypes.string
 };
 
 export default class MapListHeaderCell extends React.Component {
@@ -27,18 +27,18 @@ export default class MapListHeaderCell extends React.Component {
 
     clickedHeader() {
         // check if this is the field that is currently being used to sort
-        if (this.props.column === this.props.order.field) {
+        if (this.props.field === this.props.currentSort.field) {
             // it's the same field, just toggle the direction
             let direction = 'asc';
-            if (this.props.order.direction === 'asc') {
+            if (this.props.currentSort.direction === 'asc') {
                 direction = 'desc';
             }
 
-            this.props.changeSearchOrder(this.props.column, direction);
+            this.props.changeSearchOrder(this.props.field, direction);
         }
         else {
             // this is a new sort field, use the default direction
-            this.props.changeSearchOrder(this.props.column, this.props.defaultDirection);
+            this.props.changeSearchOrder(this.props.field, this.props.defaultDirection);
         }
     }
 
@@ -47,16 +47,16 @@ export default class MapListHeaderCell extends React.Component {
         e.stopPropagation();
 
         const direction = e.currentTarget.value;
-        this.props.changeSearchOrder(this.props.column, direction);
+        this.props.changeSearchOrder(this.props.field, direction);
     }
 
     render() {
         // highlight the active arrows
         let activeAsc = '';
         let activeDesc = '';
-        if (this.props.column === this.props.order.field) {
+        if (this.props.field === this.props.currentSort.field) {
             // this is the column that the table is sorted by
-            if (this.props.order.direction === 'asc') {
+            if (this.props.currentSort.direction === 'asc') {
                 activeAsc = ' active';
             }
             else {
@@ -65,7 +65,7 @@ export default class MapListHeaderCell extends React.Component {
         }
 
         let lastClass = '';
-        if (this.props.isLastColumn) {
+        if (this.props.isLast) {
             lastClass = ' last-column';
         }
 
@@ -76,30 +76,30 @@ export default class MapListHeaderCell extends React.Component {
         // convenience, screen-reader users are expected to use the button elements instead as
         // they are presented as interactive clickable targets
         return (
-            <div className={`map-list-header-cell column-${this.props.column}${lastClass}`}>
+            <div className={`map-list-header-cell ${lastClass}`}>
                 <div className="cell-content" onClick={this.clickedHeader}>
                     <div className="header-sort">
                         <div className="header-label">
-                            {this.props.label}
+                            {this.props.title}
                         </div>
                         <div className="header-icons">
                             <button
                                 className={`sort-icon${activeAsc}`}
                                 value="asc"
-                                title={`Sort table by ascending ${this.props.label}`}
-                                aria-label={`Sort table by ascending ${this.props.label}`}
+                                title={`Sort table by ascending ${this.props.title}`}
+                                aria-label={`Sort table by ascending ${this.props.title}`}
                                 onClick={this.forceDirection}>
-                                <Icons.ArrowUp
-                                    alt={`Sort table by ascending ${this.props.label}`} />
+                                <ArrowUp
+                                    alt={`Sort table by ascending ${this.props.title}`} />
                             </button>
                             <button
                                 className={`sort-icon${activeDesc}`}
                                 value="desc"
-                                title={`Sort table by descending ${this.props.label}`}
-                                aria-label={`Sort table by descending ${this.props.label}`}
+                                title={`Sort table by descending ${this.props.title}`}
+                                aria-label={`Sort table by descending ${this.props.title}`}
                                 onClick={this.forceDirection}>
-                                <Icons.ArrowDown
-                                    alt={`Sort table by descending ${this.props.label}`} />
+                                <ArrowDown
+                                    alt={`Sort table by descending ${this.props.title}`} />
                             </button>
                         </div>
                     </div>

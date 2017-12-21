@@ -1,5 +1,5 @@
 /**
- * ContractTransactionsTableContainer.jsx
+ * TransactionsTableContainer.jsx
  * Created by Kevin Li 3/13/17
  */
 
@@ -8,35 +8,44 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { uniqueId } from 'lodash';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
-import ContractTransaction from 'models/results/transactions/ContractTransaction';
 
-import ContractTransactionsTable from 'components/award/table/ContractTransactionsTable';
+import ContractTransaction from 'models/results/transactions/ContractTransaction';
+import AssistanceTransaction from 'models/results/transactions/AssistanceTransaction';
+import LoanTransaction from 'models/results/transactions/LoanTransaction';
+
+import TransactionsTable from 'components/award/table/TransactionsTable';
 
 const propTypes = {
     award: PropTypes.object,
-    setAwardTransactions: PropTypes.func,
-    appendAwardTransactions: PropTypes.func,
-    setTransactionsMeta: PropTypes.func,
-    updateTransactionRenderHash: PropTypes.func,
-    updateTransactionGroupHash: PropTypes.func
+    type: PropTypes.string
 };
 
-const pageLimit = 13;
+const pageLimit = 15;
 
-export class ContractTransactionsTableContainer extends React.Component {
+export class TransactionsTableContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            inFlight: false
+            inFlight: false,
+            nextPage: false,
+            page: 1,
+            sort: {
+                field: 'action_date',
+                direction: 'desc'
+            },
+            tableInstance: `${uniqueId()}`,
+            transactions: []
         };
 
         this.transactionRequest = null;
 
         this.nextTransactionPage = this.nextTransactionPage.bind(this);
+        this.changeSort = this.changeSort.bind(this);
     }
 
     componentDidMount() {
@@ -45,10 +54,6 @@ export class ContractTransactionsTableContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.award.selectedAward.id !== prevProps.award.selectedAward.id) {
-            this.fetchTransactions(1, true);
-        }
-        else if (this.props.award.transactionSort !== prevProps.award.transactionSort) {
-            // table sort changed
             this.fetchTransactions(1, true);
         }
     }
@@ -61,11 +66,11 @@ export class ContractTransactionsTableContainer extends React.Component {
 
     formatSort() {
         let direction = '';
-        if (this.props.award.transactionSort.direction === 'desc') {
+        if (this.state.sort.direction === 'desc') {
             direction = '-';
         }
 
-        return `${direction}${this.props.award.transactionSort.field}`;
+        return `${direction}${this.state.sort.field}`;
     }
 
     fetchTransactions(page = 1, reset = false) {
@@ -100,10 +105,6 @@ export class ContractTransactionsTableContainer extends React.Component {
 
         this.transactionRequest.promise
             .then((res) => {
-                this.setState({
-                    inFlight: false
-                });
-
                 this.parseTransactions(res.data, reset);
             })
             .catch((err) => {
@@ -120,55 +121,70 @@ export class ContractTransactionsTableContainer extends React.Component {
     parseTransactions(data, reset) {
         const transactions = [];
         data.results.forEach((item) => {
-            const transaction = new ContractTransaction(item);
+            let transaction = new AssistanceTransaction(item);
+            if (this.props.type === 'contract') {
+                transaction = new ContractTransaction(item);
+            }
+            else if (this.props.type === 'loan') {
+                transaction = new LoanTransaction(item);
+            }
             transactions.push(transaction);
         });
 
-        if (reset) {
-            // override the existing transactions
-            this.props.setAwardTransactions(transactions);
-        }
-        else {
-            // append to the existing list
-            this.props.appendAwardTransactions(transactions);
-        }
-
         // update the metadata
         const meta = data.page_metadata;
-        this.props.setTransactionsMeta({
+        const newState = {
             page: meta.page,
-            nextPage: meta.has_next_page
-        });
+            nextPage: meta.has_next_page,
+            inFlight: false
+        };
 
-        // update the render hash
-        this.props.updateTransactionRenderHash();
         if (reset) {
-            this.props.updateTransactionGroupHash();
+            newState.tableInstance = `${uniqueId()}`;
+            newState.transactions = transactions;
         }
+        else {
+            // append to the current results
+            newState.transactions = this.state.transactions.concat(transactions);
+        }
+
+        this.setState(newState);
     }
 
     nextTransactionPage() {
-        if (!this.props.award.transactionMeta.nextPage) {
+        if (!this.state.nextPage || this.state.inFlight) {
             return;
         }
 
-        const nextPage = this.props.award.transactionMeta.page + 1;
+        const nextPage = this.state.page + 1;
+        this.setState({
+            page: nextPage
+        });
         this.fetchTransactions(nextPage, false);
+    }
+
+    changeSort(sort) {
+        this.setState({
+            sort
+        }, () => {
+            this.fetchTransactions(1, true);
+        });
     }
 
     render() {
         return (
-            <ContractTransactionsTable
+            <TransactionsTable
                 {...this.props}
-                inFlight={this.state.inFlight}
+                {...this.state}
+                changeSort={this.changeSort}
                 nextTransactionPage={this.nextTransactionPage} />
         );
     }
 }
 
-ContractTransactionsTableContainer.propTypes = propTypes;
+TransactionsTableContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ award: state.award }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
-)(ContractTransactionsTableContainer);
+)(TransactionsTableContainer);
