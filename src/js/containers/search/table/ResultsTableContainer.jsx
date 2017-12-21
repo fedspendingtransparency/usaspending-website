@@ -443,7 +443,7 @@ ResultsTableContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        filters: state.filters,
+        filters: state.appliedFilters,
         columnVisibility: state.columnVisibility
     }),
     (dispatch) => bindActionCreators(SearchActions, dispatch)

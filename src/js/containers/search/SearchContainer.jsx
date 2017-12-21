@@ -50,7 +50,7 @@ export class SearchContainer extends React.Component {
 
     componentWillMount() {
         this.handleInitialUrl(this.props.params.hash);
-        this.requestDownloadAvailability(this.props.filters);
+        this.requestDownloadAvailability(this.props.appliedFilters);
         // this.loadUpdateDate();
     }
 
@@ -70,7 +70,9 @@ export class SearchContainer extends React.Component {
                 // the filters changed and it's not because of an inbound/outbound URL hash change
                 this.generateHash(nextProps.filters);
             }
-            this.requestDownloadAvailability(nextProps.filters);
+        }
+        else if (nextProps.appliedFilters !== this.props.appliedFilters) {
+            this.requestDownloadAvailability(nextProps.appliedFilters);
         }
     }
 
@@ -374,7 +376,8 @@ export class SearchContainer extends React.Component {
 
 export default connect(
     (state) => ({
-        filters: state.filters
+        filters: state.filters,
+        appliedFilters: state.appliedFilters
     }),
     (dispatch) => bindActionCreators(Object.assign({}, searchHashActions, {
         clearAllFilters

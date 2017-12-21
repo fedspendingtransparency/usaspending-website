@@ -14,6 +14,8 @@ import GeoVisualizationSectionContainer from
 import RankVisualizationWrapperContainer from
     'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
 
+import LoadingScreen from './screens/LoadingScreen';
+
 import VisualizationTabItem from './VisualizationTabItem';
 
 const tabOptions = [
@@ -98,6 +100,7 @@ export default class VisualizationWrapper extends React.Component {
                 </div>
                 <div className="visualization-content-wrapper">
                     <div className="visualization-content">
+                        <LoadingScreen />
                         {content}
                     </div>
                 </div>

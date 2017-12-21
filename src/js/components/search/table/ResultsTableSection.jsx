@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
 import ResultsTableMessage from './ResultsTableMessage';
+import ResultsTableLoadingMessage from './ResultsTableLoadingMessage';
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -52,14 +53,14 @@ export default class ResultsTableSection extends React.Component {
     render() {
         let loadingWrapper = 'loaded-table';
         let message = null;
-        if (this.props.inFlight) {
+        // if (this.props.inFlight) {
             loadingWrapper = 'loading-table';
-            message = <ResultsTableMessage message="Loading data..." />;
-        }
-        else if (this.props.results.length === 0) {
+            message = <ResultsTableLoadingMessage />;
+        // }
+        // else if (this.props.results.length === 0) {
             // no results
-            message = <ResultsTableMessage message="No results matched your criteria." />;
-        }
+            // message = <ResultsTableMessage message="No results matched your criteria." />;
+        // }
 
         return (
             <div className="search-results-table-section" id="results-section-table">
@@ -74,6 +75,7 @@ export default class ResultsTableSection extends React.Component {
                     active={this.props.currentType}
                     counts={this.props.counts}
                     switchTab={this.props.switchTab} />
+                {message}
                 <div className={loadingWrapper}>
                     <div
                         className="results-table-width-master"
@@ -86,7 +88,6 @@ export default class ResultsTableSection extends React.Component {
                         {...this.props}
                         visibleWidth={this.state.tableWidth} />
                 </div>
-                {message}
             </div>
         );
     }
