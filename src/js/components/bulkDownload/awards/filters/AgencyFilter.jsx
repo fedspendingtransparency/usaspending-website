@@ -70,8 +70,7 @@ export default class AgencyFilter extends React.Component {
         e.preventDefault();
         const target = e.target;
         this.props.updateFilter('subAgency', {
-            id: target.value,
-            name: target.name
+            name: target.value
         });
 
         this.setState({
@@ -129,16 +128,15 @@ export default class AgencyFilter extends React.Component {
         ));
 
         // Create the sub-agency options
-        const subAgencies = this.props.subAgencies.map((subAgency) => (
+        const subAgencies = this.props.subAgencies.map((subAgency, index) => (
             <li
                 className="field-item"
-                key={`field-${subAgency.subtier_agency_id}`}>
+                key={`field-${index}`}>
                 <button
                     className="item-button"
                     title={subAgency.subtier_agency_name}
                     aria-label={subAgency.subtier_agency_name}
-                    value={subAgency.subtier_agency_id}
-                    name={subAgency.subtier_agency_name}
+                    value={subAgency.subtier_agency_name}
                     onClick={this.handleSubAgencySelect}>
                     {subAgency.subtier_agency_name}
                 </button>
