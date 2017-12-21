@@ -55,3 +55,19 @@ export const requestBulkDownloadStatus = (params) => {
         }
     };
 };
+
+export const requestArchiveFiles = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/bulk_download/list_monthly_files/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
