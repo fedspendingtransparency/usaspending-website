@@ -6,6 +6,10 @@
         @import 'components/_alerts';
         @import 'components/datePicker/_datePicker';
         @import './_toggleButtons';
+        @import "elements/filters/_selectedFilterBtn";
+        @import "mixins/selectedFilterWrap";
+        @import "../_singleSubmit";
+
         padding: 0 $global-pad rem(20);
         ul.fiscal-years {
             @include clearfix;
@@ -66,10 +70,24 @@
             }
             .date-range-wrapper {
                 margin-top: rem(25);
+
+                .set-date-submit {
+                    @include singleSubmit;
+                    @include media($large-screen) {
+                        @include flex(0 0 auto);
+                        @include align-self(flex-end);
+                        margin: 0;
+                        margin-bottom: rem(3);
+                    }
+                }
             }
         }
         .error-message {
             margin: $global-mrg
+        }
+
+        .selected-filters {
+            @include selected-filter-wrap;
         }
     }
 }

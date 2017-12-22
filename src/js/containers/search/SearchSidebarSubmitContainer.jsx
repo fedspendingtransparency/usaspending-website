@@ -43,7 +43,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
             this.stagingChanged();
         }
         else if (prevProps.appliedFilters !== this.props.appliedFilters) {
-            this.stagingChanged();   
+            this.stagingChanged();
         }
     }
 
