@@ -100,7 +100,13 @@ export default class SearchSidebar extends React.Component {
         const expanded = [];
         filters.options.forEach((filter) => {
             // Collapse all by default, unless the filter has a selection made
-            expanded.push(SidebarHelper.filterHasSelections(this.props.filters, filter));
+            if (filter === 'Time Period') {
+                // time period is always expanded
+                expanded.push(true);
+            }
+            else {
+                expanded.push(SidebarHelper.filterHasSelections(this.props.filters, filter));
+            }
         });
 
         return (
