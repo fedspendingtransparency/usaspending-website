@@ -14,6 +14,7 @@
     svg {
         @include flex(0 0 auto);
         cursor: pointer;
+        pointer-events: none;
         fill: $color-gray;
         height: rem(11);
         width: rem(11);
