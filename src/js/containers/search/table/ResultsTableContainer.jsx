@@ -146,19 +146,14 @@ export class ResultsTableContainer extends React.Component {
                 this.parseTabCounts(res.data);
             })
             .catch((err) => {
-                if (isCancel(err)) {
-                    return;
-                }
-                if (err.response) {
+                if (!isCancel(err)) {
                     this.setState({
                         inFlight: false,
                         error: true
                     });
                     this.props.setAppliedFilterCompletion(true);
-                }
-                else {
+
                     console.log(err);
-                    this.props.setAppliedFilterCompletion(true);
                 }
             });
     }
@@ -351,23 +346,14 @@ export class ResultsTableContainer extends React.Component {
                 this.props.setAppliedFilterCompletion(true);
             })
             .catch((err) => {
-                if (isCancel(err)) {
-                    // the request was cancelled
-                }
-                else if (err.response) {
-                    // server responded with something
+                if (!isCancel(err)) {
                     this.setState({
                         inFlight: false,
                         error: true
                     });
-                    this.searchRequest = null;
                     this.props.setAppliedFilterCompletion(true);
-                }
-                else {
-                    // request never made it out
+
                     console.log(err);
-                    this.searchRequest = null;
-                    this.props.setAppliedFilterCompletion(true);
                 }
             });
     }
