@@ -1,4 +1,4 @@
-.agency-picker, .sub-agency-picker {
+.filter-picker {
     @import 'elements/_titleSelector';
     .select-label {
         display: block;
@@ -8,12 +8,13 @@
         line-height: rem(17);
         margin-top: rem(15);
     }
-    .agency-select, .sub-agency-select {
+    .field-picker {
         display: block;
         clear: both;
         float: none;
         margin-bottom: rem(30);
         .selected-button {
+            background-color: $color-white;
             color: $color-gray;
             font-size: rem(21);
             line-height: rem(24);
@@ -41,7 +42,6 @@
                         color: $color-gray;
                         font-size: $small-font-size;
                         padding: rem(10);
-
                         width: 100%;
 
                         &:hover, &:active, &.active {

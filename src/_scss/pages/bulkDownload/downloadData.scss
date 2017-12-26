@@ -1,4 +1,5 @@
 .download-data-content {
+    @import "./archiveInfoBox";
     .download-filters {
         @include span-columns(16);
         @include media($medium-screen) {
