@@ -16,7 +16,10 @@ import Router from 'containers/router/Router';
 import { filterStoreVersion, requiredTypes, initialState } from
     'redux/reducers/search/searchFiltersReducer';
 import * as searchHashActions from 'redux/actions/search/searchHashActions';
-import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
+import {
+    applyStagedFilters,
+    setAppliedFilterEmptiness
+} from 'redux/actions/search/appliedFilterActions';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as DownloadHelper from 'helpers/downloadHelper';
@@ -113,6 +116,7 @@ export class SearchContainer extends React.Component {
         if (unfiltered) {
             // there is no initial hash because there are no filters
             Router.history.replace('/search');
+            this.props.setAppliedFilterEmptiness(true);
             return;
         }
 
@@ -150,6 +154,7 @@ export class SearchContainer extends React.Component {
         // re-parsed as an inbound/received hash), then replace the URL instead of pushing to
         // prevent hash changes from being added to the browser history. This keeps the back button
         // working as expected.
+        this.props.setAppliedFilterEmptiness(false);
         this.setState({
             hash,
             hashState: 'ready'
@@ -171,6 +176,7 @@ export class SearchContainer extends React.Component {
         this.request.promise
             .then((res) => {
                 this.request = null;
+                this.props.setAppliedFilterEmptiness(false);
                 this.applyFilters(res.data.filter);
             })
             .catch((err) => {
@@ -183,6 +189,7 @@ export class SearchContainer extends React.Component {
                         hash: '',
                         hashState: 'ready'
                     }, () => {
+                        this.props.setAppliedFilterEmptiness(true);
                         Router.history.replace('/search');
                     });
                 }
@@ -269,6 +276,7 @@ export class SearchContainer extends React.Component {
         const unfiltered = this.determineIfUnfiltered(filters);
         if (unfiltered) {
             // all the filters were cleared, reset to a blank hash
+            this.props.setAppliedFilterEmptiness(true);
             Router.history.replace('/search');
             return;
         }
@@ -377,7 +385,8 @@ export default connect(
     }),
     (dispatch) => bindActionCreators(Object.assign({}, searchHashActions, {
         clearAllFilters,
-        applyStagedFilters
+        applyStagedFilters,
+        setAppliedFilterEmptiness
     }), dispatch)
 )(SearchContainer);
 

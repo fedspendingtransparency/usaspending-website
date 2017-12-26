@@ -7,7 +7,7 @@ import { initialState as defaultFilters } from './searchFiltersReducer';
 
 export const initialState = {
     filters: defaultFilters,
-    _hash: '',
+    _empty: true,
     _complete: false
 };
 
@@ -19,9 +19,9 @@ const appliedFiltersReducer = (state = initialState, action) => {
             });
         case 'CLEAR_APPLIED_FILTERS':
             return Object.assign({}, initialState);
-        case 'SET_APPLIED_FILTER_HASH':
+        case 'SET_APPLIED_FILTER_EMPTINESS':
             return Object.assign({}, state, {
-                _hash: action.hash
+                _empty: action.empty
             });
         case 'SET_APPLIED_FILTER_COMPLETION':
             return Object.assign({}, state, {
