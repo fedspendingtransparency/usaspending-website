@@ -21,7 +21,6 @@ import SearchResults from './SearchResults';
 
 
 const propTypes = {
-    clearAllFilters: PropTypes.func,
     filters: PropTypes.object,
     lastUpdate: PropTypes.string,
     downloadAvailable: PropTypes.bool,
@@ -149,7 +148,6 @@ export default class SearchPage extends React.Component {
                             showMobileFilters={this.state.showMobileFilters}
                             updateFilterCount={this.updateFilterCount}
                             toggleMobileFilters={this.toggleMobileFilters}
-                            clearAllFilters={this.props.clearAllFilters}
                             lastUpdate={this.props.lastUpdate}
                             requestsComplete={this.props.requestsComplete} />
                     </div>

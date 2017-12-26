@@ -16,6 +16,7 @@ import Router from 'containers/router/Router';
 import { filterStoreVersion, requiredTypes, initialState } from
     'redux/reducers/search/searchFiltersReducer';
 import * as searchHashActions from 'redux/actions/search/searchHashActions';
+import { applyStagedFilters } from 'redux/actions/search/appliedFilterActions';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as DownloadHelper from 'helpers/downloadHelper';
@@ -31,7 +32,7 @@ const propTypes = {
     filters: PropTypes.object,
     appliedFilters: PropTypes.object,
     populateAllSearchFilters: PropTypes.func,
-    clearAllFilters: PropTypes.func
+    applyStagedFilters: PropTypes.func
 };
 
 export class SearchContainer extends React.Component {
@@ -52,7 +53,6 @@ export class SearchContainer extends React.Component {
     componentWillMount() {
         this.handleInitialUrl(this.props.params.hash);
         this.requestDownloadAvailability(this.props.appliedFilters.filters);
-        // this.loadUpdateDate();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -66,13 +66,11 @@ export class SearchContainer extends React.Component {
         if (nextHash !== this.state.hash) {
             this.receiveHash(nextHash);
         }
-        else if (nextProps.filters !== this.props.filters) {
+        else if (nextProps.appliedFilters.filters !== this.props.appliedFilters.filters) {
             if (this.state.hashState === 'ready') {
                 // the filters changed and it's not because of an inbound/outbound URL hash change
-                this.generateHash(nextProps.filters);
+                this.generateHash(nextProps.appliedFilters.filters);
             }
-        }
-        else if (nextProps.appliedFilters.filters !== this.props.appliedFilters.filters) {
             this.requestDownloadAvailability(nextProps.appliedFilters.filters);
         }
     }
@@ -111,7 +109,7 @@ export class SearchContainer extends React.Component {
         // in this case, we should regenerate the URL hash for the current filter set so that the
         // URL is immediately shareable
 
-        const unfiltered = this.determineIfUnfiltered(this.props.filters);
+        const unfiltered = this.determineIfUnfiltered(this.props.appliedFilters.filters);
         if (unfiltered) {
             // there is no initial hash because there are no filters
             Router.history.replace('/search');
@@ -119,7 +117,7 @@ export class SearchContainer extends React.Component {
         }
 
         // there should be an initial hash because filters are applied
-        this.generateHash(this.props.filters);
+        this.generateHash(this.props.appliedFilters.filters);
     }
 
     receiveHash(urlHash) {
@@ -133,6 +131,7 @@ export class SearchContainer extends React.Component {
             });
             return;
         }
+
         // this is a hash that has been provided to the search page via the URL. The filters have
         // not yet been applied, so update the container's state and then parse the hash into its
         // original filter set.
@@ -217,6 +216,8 @@ export class SearchContainer extends React.Component {
         });
 
         this.props.populateAllSearchFilters(reduxValues);
+        // also overwrite the staged filters with the same values
+        this.props.applyStagedFilters(reduxValues);
 
         this.setState({
             hashState: 'ready'
@@ -268,13 +269,7 @@ export class SearchContainer extends React.Component {
         const unfiltered = this.determineIfUnfiltered(filters);
         if (unfiltered) {
             // all the filters were cleared, reset to a blank hash
-            this.setState({
-                hash: '',
-                hashState: 'ready'
-            }, () => {
-                Router.history.replace('/search');
-            });
-
+            Router.history.replace('/search');
             return;
         }
 
@@ -367,7 +362,6 @@ export class SearchContainer extends React.Component {
         return (
             <SearchPage
                 hash={this.props.params.hash}
-                clearAllFilters={this.props.clearAllFilters}
                 filters={this.props.filters}
                 lastUpdate={this.state.lastUpdate}
                 downloadAvailable={this.state.downloadAvailable}
@@ -382,7 +376,8 @@ export default connect(
         appliedFilters: state.appliedFilters
     }),
     (dispatch) => bindActionCreators(Object.assign({}, searchHashActions, {
-        clearAllFilters
+        clearAllFilters,
+        applyStagedFilters
     }), dispatch)
 )(SearchContainer);
 
