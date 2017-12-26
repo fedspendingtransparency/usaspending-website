@@ -14,7 +14,7 @@ import GeoVisualizationSectionContainer from
 import RankVisualizationWrapperContainer from
     'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
 
-import LoadingScreen from './screens/LoadingScreen';
+import NoFiltersScreen from './screens/NoFiltersScreen';
 
 import VisualizationTabItem from './VisualizationTabItem';
 
@@ -38,7 +38,8 @@ const tabOptions = [
 
 const propTypes = {
     isMobile: PropTypes.bool,
-    requestsComplete: PropTypes.bool
+    requestsComplete: PropTypes.bool,
+    noFiltersApplied: PropTypes.bool
 };
 
 export default class VisualizationWrapper extends React.Component {
@@ -68,22 +69,24 @@ export default class VisualizationWrapper extends React.Component {
                 disabled={!this.props.requestsComplete} />
         ));
 
-        let content = null;
-        switch (this.state.active) {
-            case 'table':
-                content = <ResultsTableContainer />;
-                break;
-            case 'time':
-                content = <TimeVisualizationSectionContainer />;
-                break;
-            case 'map':
-                content = <GeoVisualizationSectionContainer />;
-                break;
-            case 'rank':
-                content = <RankVisualizationWrapperContainer />;
-                break;
-            default:
-                content = null;
+        let content = <NoFiltersScreen />;
+        if (!this.props.noFiltersApplied) {
+            switch (this.state.active) {
+                case 'table':
+                    content = <ResultsTableContainer />;
+                    break;
+                case 'time':
+                    content = <TimeVisualizationSectionContainer />;
+                    break;
+                case 'map':
+                    content = <GeoVisualizationSectionContainer />;
+                    break;
+                case 'rank':
+                    content = <RankVisualizationWrapperContainer />;
+                    break;
+                default:
+                    content = null;
+            }
         }
 
         return (

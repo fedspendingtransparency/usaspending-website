@@ -18,7 +18,8 @@ import { filterStoreVersion, requiredTypes, initialState } from
 import * as searchHashActions from 'redux/actions/search/searchHashActions';
 import {
     applyStagedFilters,
-    setAppliedFilterEmptiness
+    setAppliedFilterEmptiness,
+    setAppliedFilterCompletion
 } from 'redux/actions/search/appliedFilterActions';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -117,6 +118,7 @@ export class SearchContainer extends React.Component {
             // there is no initial hash because there are no filters
             Router.history.replace('/search');
             this.props.setAppliedFilterEmptiness(true);
+            this.props.setAppliedFilterCompletion(true);
             return;
         }
 
@@ -190,6 +192,7 @@ export class SearchContainer extends React.Component {
                         hashState: 'ready'
                     }, () => {
                         this.props.setAppliedFilterEmptiness(true);
+                        this.props.setAppliedFilterCompletion(true);
                         Router.history.replace('/search');
                     });
                 }
@@ -277,6 +280,7 @@ export class SearchContainer extends React.Component {
         if (unfiltered) {
             // all the filters were cleared, reset to a blank hash
             this.props.setAppliedFilterEmptiness(true);
+            this.props.setAppliedFilterCompletion(true);
             Router.history.replace('/search');
             return;
         }
@@ -371,6 +375,7 @@ export class SearchContainer extends React.Component {
             <SearchPage
                 hash={this.props.params.hash}
                 filters={this.props.filters}
+                noFiltersApplied={this.props.appliedFilters._empty}
                 lastUpdate={this.state.lastUpdate}
                 downloadAvailable={this.state.downloadAvailable}
                 requestsComplete={this.props.appliedFilters._complete} />
@@ -386,7 +391,8 @@ export default connect(
     (dispatch) => bindActionCreators(Object.assign({}, searchHashActions, {
         clearAllFilters,
         applyStagedFilters,
-        setAppliedFilterEmptiness
+        setAppliedFilterEmptiness,
+        setAppliedFilterCompletion
     }), dispatch)
 )(SearchContainer);
 

@@ -19,6 +19,7 @@ const propTypes = {
     filterCount: PropTypes.number,
     showMobileFilters: PropTypes.bool,
     requestsComplete: PropTypes.bool,
+    noFiltersApplied: PropTypes.bool,
     toggleMobileFilters: PropTypes.func,
     clearAllFilters: PropTypes.func
 };
@@ -90,7 +91,8 @@ export default class SearchResults extends React.Component {
                     <div className={`search-results ${mobileFilters}`}>
                         <VisualizationWrapper
                             isMobile={this.props.isMobile}
-                            requestsComplete={this.props.requestsComplete} />
+                            requestsComplete={this.props.requestsComplete}
+                            noFiltersApplied={this.props.noFiltersApplied} />
                     </div>
                 </div>
             </div>

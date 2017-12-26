@@ -24,7 +24,8 @@ const propTypes = {
     filters: PropTypes.object,
     lastUpdate: PropTypes.string,
     downloadAvailable: PropTypes.bool,
-    requestsComplete: PropTypes.bool
+    requestsComplete: PropTypes.bool,
+    noFiltersApplied: PropTypes.bool
 };
 
 export default class SearchPage extends React.Component {
@@ -149,7 +150,8 @@ export default class SearchPage extends React.Component {
                             updateFilterCount={this.updateFilterCount}
                             toggleMobileFilters={this.toggleMobileFilters}
                             lastUpdate={this.props.lastUpdate}
-                            requestsComplete={this.props.requestsComplete} />
+                            requestsComplete={this.props.requestsComplete}
+                            noFiltersApplied={this.props.noFiltersApplied} />
                     </div>
                     <FullDownloadModalContainer
                         mounted={this.state.showFullDownload}
