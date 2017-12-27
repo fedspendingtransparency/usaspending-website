@@ -121,16 +121,41 @@ export class TimeVisualizationSectionContainer extends React.Component {
         return `${month} ${year}`;
     }
 
+    generateTimeRaw(group, timePeriod) {
+        if (group === 'fiscal_year') {
+            return {
+                period: null,
+                year: timePeriod.fiscal_year
+            };
+        }
+        else if (group === 'quarter') {
+            return {
+                period: `Q${timePeriod.quarter}`,
+                year: `${timePeriod.fiscal_year}`
+            };
+        }
+
+        const month = MonthHelper.convertNumToShortMonth(timePeriod.month);
+        const year = MonthHelper.convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
+
+        return {
+            period: `${month}`,
+            year: `${year}`
+        };
+    }
+
     parseData(data, group) {
         const groups = [];
         const xSeries = [];
         const ySeries = [];
+        const rawLabels = [];
 
         let totalSpending = 0;
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
             groups.push(this.generateTimeLabel(group, item.time_period));
+            rawLabels.push(this.generateTimeRaw(group, item.time_period));
             xSeries.push([this.generateTimeLabel(group, item.time_period)]);
             ySeries.push([parseFloat(item.aggregated_amount)]);
 
@@ -141,6 +166,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
             groups,
             xSeries,
             ySeries,
+            rawLabels,
             loading: false
         }, () => {
             // save the total spending amount to Redux so all visualizations have access to this
@@ -154,7 +180,8 @@ export class TimeVisualizationSectionContainer extends React.Component {
         return (
             <TimeVisualizationSection
                 data={this.state}
-                updateVisualizationPeriod={this.updateVisualizationPeriod} />
+                updateVisualizationPeriod={this.updateVisualizationPeriod}
+                visualizationPeriod={this.state.visualizationPeriod} />
         );
     }
 }

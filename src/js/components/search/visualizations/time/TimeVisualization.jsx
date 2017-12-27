@@ -47,7 +47,8 @@ const propTypes = {
     xSeries: PropTypes.array,
     ySeries: PropTypes.array,
     loading: PropTypes.bool,
-    legend: PropTypes.array
+    legend: PropTypes.array,
+    visualizationPeriod: PropTypes.string
 };
 /* eslint-enable react/no-unused-prop-types */
 

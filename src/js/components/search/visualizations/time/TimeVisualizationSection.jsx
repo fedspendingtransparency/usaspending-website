@@ -12,7 +12,8 @@ import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 
 const propTypes = {
     data: PropTypes.object,
-    updateVisualizationPeriod: PropTypes.func
+    updateVisualizationPeriod: PropTypes.func,
+    visualizationPeriod: PropTypes.string
 };
 
 export default class TimeVisualizationSection extends React.Component {

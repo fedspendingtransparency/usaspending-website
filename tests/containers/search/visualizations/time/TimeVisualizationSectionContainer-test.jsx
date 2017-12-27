@@ -194,7 +194,8 @@ describe('TimeVisualizationSectionContainer', () => {
                 visualizationPeriod: "fiscal_year",
                 groups: ['2016', '2017'],
                 xSeries: [['2016'], ['2017']],
-                ySeries: [[1234], [5555]]
+                ySeries: [[1234], [5555]],
+                rawLabels:[{period: null, year:'2016'},{period: null, year:'2017'}]
             };
 
             expect(timeVisualizationContainer.state()).toEqual(expectedState);
@@ -252,7 +253,8 @@ describe('TimeVisualizationSectionContainer', () => {
                 visualizationPeriod: "quarter",
                 groups: ['Q1 2017', 'Q2 2017'],
                 xSeries: [['Q1 2017'], ['Q2 2017']],
-                ySeries: [[1234], [5555]]
+                ySeries: [[1234], [5555]],
+                rawLabels:[{period: 'Q1', year:'2017'},{period: 'Q2', year:'2017'}]
             };
 
             expect(timeVisualizationContainer.state()).toEqual(expectedState);
@@ -308,7 +310,8 @@ describe('TimeVisualizationSectionContainer', () => {
                 visualizationPeriod: "month",
                 groups: ['Oct 2016', 'Nov 2016'],
                 xSeries: [['Oct 2016'], ['Nov 2016']],
-                ySeries: [[1234], [5555]]
+                ySeries: [[1234], [5555]],
+                rawLabels:[{period: 'Oct', year:'2016'},{period: 'Nov', year:'2016'}]
             };
 
             expect(timeVisualizationContainer.state()).toEqual(expectedState);
