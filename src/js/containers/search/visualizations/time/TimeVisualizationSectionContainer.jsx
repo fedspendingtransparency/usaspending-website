@@ -13,17 +13,21 @@ import TimeVisualizationSection from
     'components/search/visualizations/time/TimeVisualizationSection';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MonthHelper from 'helpers/monthHelper';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
-const combinedActions = Object.assign({}, searchFilterActions);
+const combinedActions = Object.assign({}, searchFilterActions, {
+    setAppliedFilterCompletion
+});
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    setVizTxnSum: PropTypes.func
+    setVizTxnSum: PropTypes.func,
+    setAppliedFilterCompletion: PropTypes.func
 };
 
 export class TimeVisualizationSectionContainer extends React.Component {
@@ -61,6 +65,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
     }
 
     fetchData() {
+        this.props.setAppliedFilterCompletion(false);
         this.setState({
             loading: true
         });
@@ -97,6 +102,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
                 this.apiRequest = null;
             })
             .catch(() => {
+                this.props.setAppliedFilterCompletion(true);
                 this.apiRequest = null;
             });
     }
@@ -140,6 +146,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
             // save the total spending amount to Redux so all visualizations have access to this
             // data
             this.props.setVizTxnSum(totalSpending);
+            this.props.setAppliedFilterCompletion(true);
         });
     }
 
@@ -155,6 +162,6 @@ export class TimeVisualizationSectionContainer extends React.Component {
 TimeVisualizationSectionContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.filters }),
+    (state) => ({ reduxFilters: state.appliedFilters.filters }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(TimeVisualizationSectionContainer);

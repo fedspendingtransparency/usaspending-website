@@ -6,9 +6,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+
 import BarChart from './chart/BarChart';
 import Tooltip from './TimeVisualizationTooltip';
 import ChartMessage from './TimeVisualizationChartMessage';
+import ChartLoadingMessage from '../ChartLoadingMessage';
+
 
 const defaultProps = {
     groups: [],
@@ -84,7 +88,7 @@ export default class TimeVisualization extends React.Component {
         let chart = (<ChartMessage message="No data to display" />);
         if (this.props.loading) {
             // API request is still pending
-            chart = (<ChartMessage message="Loading data..." />);
+            chart = (<ChartLoadingMessage />);
         }
         else if (this.props.groups.length > 0) {
             // only mount the chart component if there is data to display
@@ -96,7 +100,13 @@ export default class TimeVisualization extends React.Component {
 
         return (
             <div className="results-visualization-time-container">
-                {chart}
+                <CSSTransitionGroup
+                    transitionName="visualization-content-fade"
+                    transitionLeaveTimeout={225}
+                    transitionEnterTimeout={195}
+                    transitionLeave>
+                    {chart}
+                </CSSTransitionGroup>
                 {tooltip}
             </div>
         );

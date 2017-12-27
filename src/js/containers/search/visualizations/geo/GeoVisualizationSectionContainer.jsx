@@ -14,6 +14,7 @@ import GeoVisualizationSection from
     'components/search/visualizations/geo/GeoVisualizationSection';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -22,7 +23,8 @@ import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    resultsMeta: PropTypes.object
+    resultsMeta: PropTypes.object,
+    setAppliedFilterCompletion: PropTypes.func
 };
 
 const apiScopes = {
@@ -46,7 +48,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             renderHash: `geo-${uniqueId()}`,
             loading: true,
             loadingTiles: true,
-            message: ''
+            error: false
         };
 
         this.apiRequest = null;
@@ -179,8 +181,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.setState({
             loading: true,
-            message: 'Loading data...'
+            error: false
         });
+
+        this.props.setAppliedFilterCompletion(false);
 
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
@@ -195,8 +199,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
                     this.setState({
                         loading: false,
-                        message: 'An error occurred while loading map data.'
+                        error: true
                     });
+
+                    this.props.setAppliedFilterCompletion(false);
                 }
             });
     }
@@ -218,20 +224,17 @@ export class GeoVisualizationSectionContainer extends React.Component {
             }
         });
 
-        let message = '';
-        if (data.results.length === 0) {
-            message = 'No results in the current map area.';
-        }
+        this.props.setAppliedFilterCompletion(true);
 
         this.setState({
-            message,
             data: {
                 values: spendingValues,
                 locations: spendingShapes,
                 labels: spendingLabels
             },
             renderHash: `geo-${uniqueId()}`,
-            loading: false
+            loading: false,
+            error: false
         });
     }
 
@@ -249,6 +252,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         return (
             <GeoVisualizationSection
                 {...this.state}
+                noResults={this.state.data.values.length === 0}
                 changeScope={this.changeScope}
                 changeMapLayer={this.changeMapLayer} />
         );
@@ -258,6 +262,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
 GeoVisualizationSectionContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.filters }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+    (state) => ({ reduxFilters: state.appliedFilters.filters }),
+    (dispatch) => bindActionCreators(Object.assign({}, searchFilterActions, {
+        setAppliedFilterCompletion
+    }), dispatch)
 )(GeoVisualizationSectionContainer);

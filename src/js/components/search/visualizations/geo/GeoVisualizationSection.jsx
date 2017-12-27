@@ -7,6 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 
+import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
+
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
@@ -22,7 +24,9 @@ const propTypes = {
     renderHash: PropTypes.string,
     data: PropTypes.object,
     total: PropTypes.number,
-    message: PropTypes.string
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+    noResults: PropTypes.bool
 };
 
 const availableLayers = ['state', 'county', 'congressionalDistrict'];
@@ -89,9 +93,18 @@ export default class GeoVisualizationSection extends React.Component {
                 closeDisclaimer={this.closeDisclaimer} />);
         }
 
-        let loadingMessage = null;
-        if (this.props.message !== '') {
-            loadingMessage = (<MapMessage message={this.props.message} />);
+        let message = null;
+        if (this.props.loading) {
+            message = (
+                <MapMessage>
+                    <div className="map-loading">
+                        <LoadingSpinner />
+                        <div className="loading-message">
+                            Gathering your data...
+                        </div>
+                    </div>
+                </MapMessage>
+            );
         }
 
         return (
@@ -149,7 +162,7 @@ export default class GeoVisualizationSection extends React.Component {
                     availableLayers={availableLayers}
                     showLayerToggle>
                     {disclaimer}
-                    {loadingMessage}
+                    {message}
                 </MapWrapper>
 
             </div>

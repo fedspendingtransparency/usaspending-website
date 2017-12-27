@@ -47,7 +47,7 @@ export default class VisualizationWrapper extends React.Component {
         super(props);
 
         this.state = {
-            active: 'table'
+            active: 'map'
         };
 
         this.clickedTab = this.clickedTab.bind(this);

@@ -28,3 +28,20 @@
         line-height: rem(18);
     }
 }
+
+.map-loading {
+    padding: rem(10);
+    .loading-animation {
+        width: rem(50);
+        height: rem(50);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .loading-message {
+        font-size: rem(36);
+        line-height: rem(45);
+        color: $color-gray-light;
+        text-align: center;
+    }
+}
