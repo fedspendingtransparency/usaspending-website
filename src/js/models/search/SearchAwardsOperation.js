@@ -177,17 +177,20 @@ class SearchAwardsOperation {
             filters[rootKeys.recipients] = this.selectedRecipients;
         }
 
-        if (this.recipientDomesticForeign !== '' && this.recipientDomesticForeign !== 'all') {
-            filters[rootKeys.recipientLocationScope] = this.recipientDomesticForeign;
-        }
-
         if (this.selectedRecipientLocations.length > 0) {
             const locationSet = [];
             this.selectedRecipientLocations.forEach((location) => {
-                locationSet.push(location.filter);
+                if (location.filter.country && location.filter.country === 'FOREIGN') {
+                    filters[rootKeys.recipientLocationScope] = 'foreign';
+                }
+                else {
+                    locationSet.push(location.filter);
+                }
             });
 
-            filters[rootKeys.recipientLocation] = locationSet;
+            if (locationSet.length > 0) {
+                filters[rootKeys.recipientLocation] = locationSet;
+            }
         }
 
         if (this.recipientType.length > 0) {
@@ -198,14 +201,17 @@ class SearchAwardsOperation {
         if (this.selectedLocations.length > 0) {
             const locationSet = [];
             this.selectedLocations.forEach((location) => {
-                locationSet.push(location.filter);
+                if (location.filter.country && location.filter.country === 'FOREIGN') {
+                    filters[rootKeys.placeOfPerformanceScope] = 'foreign';
+                }
+                else {
+                    locationSet.push(location.filter);
+                }
             });
 
-            filters[rootKeys.placeOfPerformance] = locationSet;
-        }
-
-        if (this.locationDomesticForeign !== '' && this.locationDomesticForeign !== 'all') {
-            filters[rootKeys.placeOfPerformanceScope] = this.locationDomesticForeign;
+            if (locationSet.length > 0) {
+                filters[rootKeys.placeOfPerformance] = locationSet;
+            }
         }
 
         // Add Award Amounts
