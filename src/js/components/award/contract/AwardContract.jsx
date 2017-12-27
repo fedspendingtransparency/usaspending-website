@@ -16,7 +16,6 @@ const propTypes = {
 };
 
 export default class AwardContract extends React.Component {
-
     render() {
         return (
             <div className="award-contract-wrapper">

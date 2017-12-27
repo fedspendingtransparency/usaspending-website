@@ -20,7 +20,6 @@ const propTypes = {
 const ga = require('react-ga');
 
 export class AgencyContainer extends React.Component {
-
     static logAgencyFilterEvent(agencyType, agency) {
         ga.event({
             category: 'Search Page Filter Applied',
@@ -74,6 +73,7 @@ AgencyContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         selectedFundingAgencies: state.filters.selectedFundingAgencies,
-        selectedAwardingAgencies: state.filters.selectedAwardingAgencies }),
+        selectedAwardingAgencies: state.filters.selectedAwardingAgencies
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(AgencyContainer);

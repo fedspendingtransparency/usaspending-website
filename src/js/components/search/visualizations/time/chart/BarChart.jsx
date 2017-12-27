@@ -26,7 +26,8 @@ const propTypes = {
     showTooltip: PropTypes.func,
     enableHighlight: PropTypes.bool,
     padding: PropTypes.object,
-    legend: PropTypes.array
+    legend: PropTypes.array,
+    activeLabel: PropTypes.object
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -141,9 +142,9 @@ export default class BarChart extends React.Component {
         // remember, in D3 scales, domain is the data range (or data set for non-continuous data)
         // and range is the range of possible pixel positions along the axis
         const xScale = scaleBand()
-                    .domain(props.groups)
-                    .range([0, graphWidth])
-                    .round(true);
+            .domain(props.groups)
+            .range([0, graphWidth])
+            .round(true);
 
         const yScale = scaleLinear()
             .domain(yRange)
@@ -163,14 +164,12 @@ export default class BarChart extends React.Component {
             const yData = props.ySeries[groupIndex];
             const xData = props.xSeries[groupIndex];
 
-            // put 20px padding on each side of the group
-            const groupWidth = xScale.bandwidth() - 40;
+            const groupWidth = xScale.bandwidth();
             // subdivide the group width based on the number of group items to determine the width
             // of each data point, with a max of 120px
-            const itemWidth = min([groupWidth / yData.length, 120]);
-            // calculate where on the X axis the group should start (offset this by 20px to account
-            // for the padding between groups)
-            let startingXPos = xScale(group) + 20;
+            const itemWidth = min([(groupWidth / ((xData.length * 3) + 1)) * 3, 120]);
+            // calculate where on the X axis the group should start
+            let startingXPos = xScale(group) + (itemWidth / 6);
             if (itemWidth === 120) {
                 // the total width of the group is no longer guaranteed to equal the bandwidth
                 // since each bar now maxes out at 120px
@@ -213,24 +212,22 @@ export default class BarChart extends React.Component {
                 const barIdentifier = `${groupIndex}-${i}`;
                 const description = `Spending in ${xData[i]}: ${MoneyFormatter.formatMoney(item)}`;
 
-                const bar = (<BarItem
-                    key={`data-${barIdentifier}`}
-                    identifier={barIdentifier}
-                    dataY={item}
-                    dataX={xData[i]}
-                    graphHeight={graphHeight}
-                    height={barHeight}
-                    width={itemWidth}
-                    x={xPos}
-                    y={yPos}
-                    color={this.props.legend[0].color}
-                    description={description}
-                    selectBar={this.selectBar}
-                    deselectBar={this.deselectBar}
-                    deregisterBar={this.deregisterBar}
-                    ref={(component) => {
-                        this.dataPoints[barIdentifier] = component;
-                    }} />);
+                const bar = {
+                    key: `data-${barIdentifier}`,
+                    identifier: barIdentifier,
+                    dataY: item,
+                    dataX: xData[i],
+                    graphHeight,
+                    height: barHeight,
+                    width: itemWidth,
+                    x: xPos,
+                    y: yPos,
+                    color: this.props.legend[0].color,
+                    description,
+                    selectBar: this.selectBar,
+                    deselectBar: this.deselectBar,
+                    deregisterBar: this.deregisterBar
+                };
                 items.push(bar);
             });
         });
@@ -300,9 +297,8 @@ export default class BarChart extends React.Component {
     prepareTooltip(barIdentifier) {
         // fetch the original data
         const groupIndex = barIdentifier.split('-')[0];
-        const subIndex = barIdentifier.split('-')[1];
         const groupLabel = this.props.groups[groupIndex];
-        const xValue = this.props.xSeries[groupIndex][subIndex];
+        const subIndex = barIdentifier.split('-')[1];
         const yValue = this.props.ySeries[groupIndex][subIndex];
 
         // calculate the tooltip position
@@ -331,16 +327,11 @@ export default class BarChart extends React.Component {
             yPos += (barHeight / 2);
         }
 
-        // determine where the bar starting position is
-        // this is the group's starting X position plus 20px padding between groups
-        // plus the number of previous group members times the width of each group member
-        const groupWidth = this.state.xScale.bandwidth() - 40;
-        const itemWidth = groupWidth / this.props.xSeries[groupIndex].length;
-        let barXAnchor = this.state.xScale(groupLabel) + 20 + (subIndex * itemWidth);
-        // now adjust the anchor so it is halfway through the bar
-        barXAnchor += (itemWidth / 2);
-        // now place the tooltip halfway in the bar's width
-        const xPos = chartLeft + barXAnchor + this.props.padding.left;
+        const xPos = (
+            chartLeft +
+            this.state.items[groupIndex].x +
+            this.state.items[groupIndex].width +
+            this.props.padding.left);
 
         // calculate the percentage of the total
         const rawPercent = (yValue / sum(this.state.yValues));
@@ -357,17 +348,38 @@ export default class BarChart extends React.Component {
 
         // show the tooltip
         this.props.showTooltip({
-            xValue,
-            yValue,
+            xValue: this.state.items[groupIndex].dataX,
+            yValue: this.state.items[groupIndex].dataY,
             percentage,
             group: groupLabel
-        }, xPos, yPos);
+        }, xPos, yPos, this.state.items[groupIndex].width);
     }
 
     render() {
         // add 20px to the top of the chart to avoid cutting off label text
         // wrap the chart contents in a group and transform it down 20px to avoid impacting
         // positioning calculations
+        const bars = this.state.items.map((item) => (
+            <BarItem
+                key={item.key}
+                identifier={item.identifier}
+                dataY={item.dataY}
+                dataX={item.dataX}
+                graphHeight={item.graphHeight}
+                height={item.height}
+                width={item.width}
+                x={item.x}
+                y={item.y}
+                color={item.color}
+                description={item.description}
+                selectBar={item.selectBar}
+                deselectBar={item.deselectBar}
+                deregisterBar={item.deregisterBar}
+                ref={(component) => {
+                    this.dataPoints[item.identifier] = component;
+                }} />
+        ));
+
         return (
             <div
                 ref={(div) => {
@@ -397,17 +409,20 @@ export default class BarChart extends React.Component {
                             padding={this.props.padding}
                             data={this.state.xValues}
                             scale={this.state.xScale}
-                            axisPos={this.state.xAxisPos} />
+                            axisPos={this.state.xAxisPos}
+                            activeLabel={this.props.activeLabel} />
 
                         <g
                             className="bar-data"
                             transform={`translate(${this.props.padding.left},0)`}>
-                            {this.state.items}
+                            {bars}
                         </g>
 
                         <g
                             className="legend-container"
-                            transform={`translate(${this.props.padding.left},${this.props.height - 20})`}>
+                            transform={`translate(
+                                ${this.props.padding.left},
+                                ${this.props.height - 20})`}>
                             <BarChartLegend legend={this.props.legend} />
                         </g>
                     </g>

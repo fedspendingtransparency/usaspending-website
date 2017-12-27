@@ -92,7 +92,6 @@ class AccountAwardSearchOperation {
 
         return concat(common, unique);
     }
-
 }
 
 export default AccountAwardSearchOperation;

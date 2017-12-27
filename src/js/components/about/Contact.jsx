@@ -18,8 +18,10 @@ export default class Contact extends React.Component {
                     <h3>How to reach us.</h3>
                 </div>
                 <div className="about-section-content">
-                    <p>We look forward to hearing from you and having the opportunity to answer
-                        your questions and comments.</p>
+                    <p>
+                        We look forward to hearing from you and having the opportunity to answer
+                        your questions and comments.
+                    </p>
                     <div className="about-section-content-inline-buttons">
                         <div className="button-holder">
                             <a

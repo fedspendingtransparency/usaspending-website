@@ -89,7 +89,7 @@ export default class SubawardsHeaderCell extends React.Component {
         // convenience, screen-reader users are expected to use the button elements instead as
         // they are presented as interactive clickable targets
         return (
-            <div className={`subaward-header-cell column-${this.props.column}${lastClass}`}>
+            <div className={`subaward-header-cell ${lastClass}`}>
                 <div className="cell-content" onClick={this.clickedHeader}>
                     <div className="header-sort">
                         <div className="header-label">

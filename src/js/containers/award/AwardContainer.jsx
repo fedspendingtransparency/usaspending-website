@@ -23,7 +23,6 @@ const propTypes = {
 };
 
 export class AwardContainer extends React.Component {
-
     constructor(props) {
         super(props);
 

@@ -12,7 +12,9 @@
     .loaded-table {
         opacity: 1;
         @include transition(opacity 0.25s ease-in);
-        margin-top: rem(15);
+        margin-top: rem(15);   
+    }
+    .ibt-table-container {
         border: 1px solid $color-gray-light;
     }
     .results-table-width-master {

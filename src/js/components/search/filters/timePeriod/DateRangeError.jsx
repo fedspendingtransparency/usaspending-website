@@ -18,7 +18,6 @@ const propTypes = {
 };
 
 export default class DateRangeError extends React.Component {
-
     render() {
         return (
             <div className="error-message">
@@ -30,7 +29,6 @@ export default class DateRangeError extends React.Component {
             </div>
         );
     }
-
 }
 DateRangeError.defaultProps = defaultProps;
 DateRangeError.propTypes = propTypes;

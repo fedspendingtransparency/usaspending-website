@@ -1,4 +1,4 @@
-import { mockStatusResponse, mockAwardDownloadResponse, mockAgencies } from './mockData';
+import { mockStatusResponse, mockAwardDownloadResponse, mockAgencies, mockArchiveResponse } from './mockData';
 
 export const requestAgenciesList = () => ({
     promise: new Promise((resolve) => {
@@ -31,6 +31,17 @@ export const requestBulkDownloadStatus = () => ({
         process.nextTick(() => {
             resolve({
                 data: mockStatusResponse
+            });
+        });
+    }),
+    cancel: jest.fn()
+});
+
+export const requestArchiveFiles = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({
+                data: mockArchiveResponse
             });
         });
     }),

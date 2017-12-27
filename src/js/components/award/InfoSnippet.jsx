@@ -12,7 +12,6 @@ const propTypes = {
 };
 
 export default class InfoSnippet extends React.Component {
-
     render() {
         return (
             <li>

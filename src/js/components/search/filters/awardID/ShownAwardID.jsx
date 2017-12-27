@@ -13,7 +13,6 @@ const propTypes = {
 };
 
 export default class ShownAwardID extends React.Component {
-
     render() {
         return (
             <button

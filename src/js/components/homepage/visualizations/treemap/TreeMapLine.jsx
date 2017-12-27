@@ -49,46 +49,48 @@ export default class TreeMapLine extends React.Component {
     }
 
     render() {
-        return (<div
-            className="line-wrap"
-            ref={(g) => {
-                this.gClass = g;
-            }}>
-            <svg
-                className={`budget-line large`}>
-                <g
-                    className="budget-label-group"
-                    transform="translate(0, 0)">
-                    <TreeMapLabel
-                        labelWidth={20}
-                        labelPadding={5}
-                        labelDistance={5}
-                        currentX={0}
-                        graphWidth={this.state.visualizationWidth}
-                        size="large" />
+        return (
+            <div
+                className="line-wrap"
+                ref={(g) => {
+                    this.gClass = g;
+                }}>
+                <svg
+                    className="budget-line large">
                     <g
-                        className="budget-label"
-                        transform={`translate(${this.state.visualizationWidth / 2},0)rotate(0)`}>
-                        <rect
-                            transform={this.props.rectTransform}
-                            fill="#ECECEC"
-                            width="92"
-                            height="30"
-                            x={-45}
-                            y={0} />
-                        <text
-                            transform={this.props.textTransform}
-                            fill="#555555"
-                            className="title"
-                            x={0}
-                            y={0}
-                            textAnchor="end">
-                            {this.props.label}
-                        </text>
+                        className="budget-label-group"
+                        transform="translate(0, 0)">
+                        <TreeMapLabel
+                            labelWidth={20}
+                            labelPadding={5}
+                            labelDistance={5}
+                            currentX={0}
+                            graphWidth={this.state.visualizationWidth}
+                            size="large" />
+                        <g
+                            className="budget-label"
+                            transform={`translate(${this.state.visualizationWidth / 2},0)rotate(0)`}>
+                            <rect
+                                transform={this.props.rectTransform}
+                                fill="#ECECEC"
+                                width="92"
+                                height="30"
+                                x={-45}
+                                y={0} />
+                            <text
+                                transform={this.props.textTransform}
+                                fill="#555555"
+                                className="title"
+                                x={0}
+                                y={0}
+                                textAnchor="end">
+                                {this.props.label}
+                            </text>
+                        </g>
                     </g>
-                </g>
-            </svg>
-        </div>);
+                </svg>
+            </div>
+        );
     }
 }
 

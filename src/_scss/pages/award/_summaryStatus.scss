@@ -28,10 +28,6 @@
             }
         }
     }
-    .more-options {
-        @include align-self(center);
-        @include moreOptionsBtn($color-white, $color-gray);
-    }
     @include media($tablet-screen) {
         width: 40%;
         padding-top: 0;
@@ -82,9 +78,6 @@
                     border-right: none;
                 }
             }
-        }
-        .more-options {
-            width: auto;
         }
     }
 }

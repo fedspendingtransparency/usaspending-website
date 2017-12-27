@@ -9,28 +9,29 @@ import PropTypes from 'prop-types';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
-import SubawardsHeaderCellContainer from
-    'containers/award/subawards/cells/SubawardsHeaderCellContainer';
 
 import subawardFields from 'dataMapping/contracts/subawardTable';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import TransactionTableGenericCell from 'components/award/table/cells/TransactionTableGenericCell';
+import SubawardsHeaderCell from 'components/award/subawards/cells/SubawardsHeaderCell';
 import SummaryPageTableMessage from 'components/award/table/SummaryPageTableMessage';
 
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
 // indicates when there's more data
-const tableHeight = 12.5 * rowHeight;
+const tableHeight = 10.5 * rowHeight;
 
 const propTypes = {
     inFlight: PropTypes.bool,
     tableWidth: PropTypes.number,
     award: PropTypes.object,
     subawards: PropTypes.array,
-    meta: PropTypes.object,
-    loadNextPage: PropTypes.func
+    sort: PropTypes.object,
+    loadNextPage: PropTypes.func,
+    changeSort: PropTypes.func,
+    tableInstance: PropTypes.string
 };
 
 export default class SubawardsTable extends React.Component {
@@ -43,40 +44,51 @@ export default class SubawardsTable extends React.Component {
             yPos: 0
         };
 
-        this.rowClassName = this.rowClassName.bind(this);
-        this.tableScrolled = this.tableScrolled.bind(this);
+        this.headerCellRender = this.headerCellRender.bind(this);
+        this.bodyCellRender = this.bodyCellRender.bind(this);
     }
 
-    tableScrolled(xPos, yPos) {
-        // determine the table position
-        const rowNumber = this.rowAtYPosition(yPos);
-        if (rowNumber >= this.props.subawards.length) {
-            // we have reached the bottom of the table, load next page
-            this.props.loadNextPage();
+    componentDidUpdate(prevProps) {
+        if (prevProps.tableInstance !== this.props.tableInstance) {
+            if (this.tableComponent) {
+                this.tableComponent.reloadTable();
+            }
         }
-
-        // save the scroll position
-        this.setState({ xPos, yPos });
     }
 
-    rowAtYPosition(yPos, returnTop = false) {
-        // determine the table position
-        let yPosition = yPos;
-        if (!returnTop) {
-            // return the bottom row
-            yPosition += tableHeight;
-        }
-        return Math.floor(yPosition / rowHeight);
+    headerCellRender(columnIndex) {
+        const column = subawardFields.table._order[columnIndex];
+        const isLast = columnIndex === subawardFields.table._order.length - 1;
+        const displayName = subawardFields.table[column];
+
+        const defaultSort = subawardFields.defaultSortDirection[column];
+
+        return (
+            <SubawardsHeaderCell
+                label={displayName}
+                column={column}
+                order={this.props.sort}
+                defaultDirection={defaultSort}
+                isLastColumn={isLast}
+                setSubawardSort={this.props.changeSort} />
+        );
     }
 
-    rowClassName(index) {
-        let evenOdd = 'odd';
-        if ((index + 1) % 2 === 0) {
-            evenOdd = 'even';
-        }
-        return `transaction-row-${evenOdd}`;
-    }
+    bodyCellRender(columnIndex, rowIndex) {
+        const column = subawardFields.table._order[columnIndex];
+        const isLast = columnIndex === subawardFields.table._order.length - 1;
+        const apiKey = subawardFields.table._mapping[column];
 
+        const item = this.props.subawards[rowIndex];
+
+        return (
+            <TransactionTableGenericCell
+                rowIndex={rowIndex}
+                data={`${item[apiKey]}`}
+                column={column}
+                isLastColumn={isLast} />
+        );
+    }
 
     buildTable() {
         let totalWidth = 0;
@@ -94,31 +106,14 @@ export default class SubawardsTable extends React.Component {
                 columnWidth = Math.max(remainingSpace, columnWidth);
             }
 
+            const columnX = totalWidth;
+
             totalWidth += columnWidth;
 
-            const apiKey = subawardFields.table._mapping[column];
-            const defaultSort = subawardFields.defaultSortDirection[column];
-
             return {
+                x: columnX,
                 width: columnWidth,
-                name: column,
-                columnId: column,
-                rowClassName: this.rowClassName,
-                header: (<SubawardsHeaderCellContainer
-                    label={displayName}
-                    column={column}
-                    defaultDirection={defaultSort}
-                    isLastColumn={isLast} />),
-                cell: (index) => {
-                    const item = this.props.subawards[index];
-                    return (<TransactionTableGenericCell
-                        key={`cell-subaward-${column}-${index}`}
-                        rowIndex={index}
-                        id={item.id}
-                        data={`${item[apiKey]}`}
-                        column={column}
-                        isLastColumn={isLast} />);
-                }
+                name: column
             };
         });
 
@@ -172,16 +167,19 @@ export default class SubawardsTable extends React.Component {
                         this.wrapperDiv = div;
                     }}>
                     <IBTable
-                        dataHash={`${this.props.meta.render}-${this.props.tableWidth}`}
-                        resetHash={this.props.meta.group}
                         rowHeight={rowHeight}
                         rowCount={this.props.subawards.length}
                         headerHeight={50}
-                        width={tableValues.width}
-                        maxWidth={this.props.tableWidth}
-                        maxHeight={tableHeight}
+                        contentWidth={tableValues.width}
+                        bodyWidth={this.props.tableWidth}
+                        bodyHeight={tableHeight}
                         columns={tableValues.columns}
-                        onScrollEnd={this.tableScrolled} />
+                        onReachedBottom={this.props.loadNextPage}
+                        headerCellRender={this.headerCellRender}
+                        bodyCellRender={this.bodyCellRender}
+                        ref={(table) => {
+                            this.tableComponent = table;
+                        }} />
                 </div>
                 {message}
             </div>

@@ -15,7 +15,7 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 
-const startYear = FiscalYearHelper.earliestFiscalYear;
+const startYear = FiscalYearHelper.earliestFederalAccountYear;
 
 const propTypes = {
     updateTimePeriod: PropTypes.func,

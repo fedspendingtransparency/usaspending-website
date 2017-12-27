@@ -16,14 +16,13 @@ const propTypes = {
 };
 
 export default class SubAwardBar extends React.Component {
-
     render() {
         const formattedValue = MoneyFormatter.formatMoney(this.props.dataY);
         return (
             <g aria-label={formattedValue} className="sub">
                 <desc>Sub Award Amounts</desc>
                 <rect
-                    className={`bar-item`}
+                    className="bar-item"
                     x={this.props.x}
                     y={this.props.y}
                     width={this.props.width}

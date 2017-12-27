@@ -2,6 +2,7 @@
     @import "elements/filters/_errorMessage";
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
+    @import "../_singleSubmit";
     @import "./_tabs";
     @import "./_dropdown";
     @import "./_warning";
@@ -70,42 +71,7 @@
 
                 .zip-submit {
                     @include flex(0 0 auto);
-
-                    @include display(flex);
-                    @include justify-content(center);
-                    @include align-items(center);
-                    @include button-unstyled;
-
-                    background-color: $color-gray-lighter;
-                    border: 1px solid $color-gray-light;
-                    cursor: pointer;
-
-                    height: rem(40);
-                    width: rem(50);
-
-                    .icon {
-                        @include flex(0 0 auto);
-                        width: rem(20);
-                        height: rem(20);
-
-                        svg {
-                            fill: $color-gray;
-                            width: rem(20);
-                            height: rem(20);                            
-                        }
-                    }
-
-                    &:disabled {
-                        background-color: $color-gray-lightest;
-                        border: 1px solid $color-gray-lighter;
-                        cursor: not-allowed;
-
-                        .icon {
-                            svg {
-                                fill: $color-gray-light;
-                            }
-                        }
-                    }
+                    @include singleSubmit();
                 }
             }
         }

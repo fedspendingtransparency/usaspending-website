@@ -13,7 +13,6 @@ const propTypes = {
 };
 
 export default class AwardInfoBar extends React.Component {
-
     render() {
         let agencies = null;
         if (this.props.selectedAward) {

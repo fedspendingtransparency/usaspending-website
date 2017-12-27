@@ -28,7 +28,6 @@ const isEmpty = (field, ignoreDefault) => {
 };
 
 export default class ContractDetails extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -42,8 +41,12 @@ export default class ContractDetails extends React.Component {
         };
     }
 
-    componentWillReceiveProps() {
+    componentDidMount() {
         this.prepareValues(this.props.selectedAward);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.prepareValues(nextProps.selectedAward);
     }
 
     parsePlaceOfPerformance(award) {
@@ -212,7 +215,8 @@ export default class ContractDetails extends React.Component {
                 </div>
                 <button
                     className="see-more"
-                    onClick={this.props.seeAdditional}>See Additional Details</button>
+                    onClick={this.props.seeAdditional}>See Additional Details
+                </button>
             </div>
         );
     }

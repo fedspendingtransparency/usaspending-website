@@ -5,8 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { filter, sortBy, slice, concat } from 'lodash';
 
@@ -16,19 +14,13 @@ import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete'
 
 import * as SearchHelper from 'helpers/searchHelper';
 
-import * as agencyActions from 'redux/actions/search/agencyActions';
-
 const propTypes = {
-    setAutocompleteAwardingAgencies: PropTypes.func,
-    setAutocompleteFundingAgencies: PropTypes.func,
-    fundingAgencies: PropTypes.array,
-    awardingAgencies: PropTypes.array,
     toggleAgency: PropTypes.func,
     selectedAgencies: PropTypes.object,
     agencyType: PropTypes.string
 };
 
-export class AgencyListContainer extends React.Component {
+export default class AgencyListContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -36,6 +28,7 @@ export class AgencyListContainer extends React.Component {
 
         this.state = {
             agencySearchString: '',
+            autocompleteType: '',
             autocompleteAgencies: [],
             noResults: false
         };
@@ -43,24 +36,6 @@ export class AgencyListContainer extends React.Component {
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
-    }
-
-    componentDidMount() {
-        if (this.props.agencyType === 'Funding') {
-            this.parseAutocompleteAgencies(this.props.fundingAgencies);
-        }
-        else {
-            this.parseAutocompleteAgencies(this.props.awardingAgencies);
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.agencyType === 'Funding') {
-            this.parseAutocompleteAgencies(nextProps.fundingAgencies);
-        }
-        else {
-            this.parseAutocompleteAgencies(nextProps.awardingAgencies);
-        }
     }
 
     parseAutocompleteAgencies(results) {
@@ -119,8 +94,8 @@ export class AgencyListContainer extends React.Component {
         agencies = slice(concat(toptierAgencies, subtierAgencies), 0, 10);
 
         this.setState({
-            autocompleteAgencies: agencies,
-            noResults
+            noResults,
+            autocompleteAgencies: agencies
         });
     }
 
@@ -176,6 +151,8 @@ export class AgencyListContainer extends React.Component {
         const search = new Search('id');
         search.addIndex(['toptier_agency', 'name']);
         search.addIndex(['subtier_agency', 'name']);
+        search.addIndex(['toptier_agency', 'abbreviation']);
+        search.addIndex(['subtier_agency', 'abbreviation']);
 
         // add the API response as the data source to search within
         search.addDocuments(data);
@@ -199,34 +176,21 @@ export class AgencyListContainer extends React.Component {
         const improvedResults = slice(concat(toptier, subtier), 0, 10);
 
         // Add search results to Redux
-        if (this.props.agencyType === 'Funding') {
-            this.props.setAutocompleteFundingAgencies(improvedResults);
-        }
-        else {
-            this.props.setAutocompleteAwardingAgencies(improvedResults);
-        }
-
-        this.setState({
-            noResults: improvedResults.length === 0
-        });
+        this.parseAutocompleteAgencies(improvedResults);
     }
 
     clearAutocompleteSuggestions() {
-        if (this.props.agencyType === 'Funding') {
-            this.props.setAutocompleteFundingAgencies([]);
-        }
-        else {
-            this.props.setAutocompleteAwardingAgencies([]);
-        }
+        this.setState({
+            autocompleteAgencies: []
+        });
     }
 
     handleTextInput(agencyInput) {
         // Clear existing agencies to ensure user can't select an old or existing one
-        if (this.props.agencyType === 'Funding' && this.props.fundingAgencies.length > 0) {
-            this.props.setAutocompleteFundingAgencies([]);
-        }
-        else if (this.props.agencyType === 'Awarding' && this.props.awardingAgencies.length > 0) {
-            this.props.setAutocompleteAwardingAgencies([]);
+        if (this.state.autocompleteAgencies.length > 0) {
+            this.setState({
+                autocompleteAgencies: []
+            });
         }
 
         // Grab input, clear any exiting timeout
@@ -244,12 +208,9 @@ export class AgencyListContainer extends React.Component {
         this.props.toggleAgency(agency, valid, this.props.agencyType);
 
         // Clear Autocomplete results
-        if (this.props.agencyType === 'Funding') {
-            this.props.setAutocompleteFundingAgencies([]);
-        }
-        else {
-            this.props.setAutocompleteAwardingAgencies([]);
-        }
+        this.setState({
+            autocompleteAgencies: []
+        });
     }
 
     render() {
@@ -273,10 +234,3 @@ export class AgencyListContainer extends React.Component {
 }
 
 AgencyListContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({
-        fundingAgencies: state.autocompleteAgencies.fundingAgencies,
-        awardingAgencies: state.autocompleteAgencies.awardingAgencies }),
-    (dispatch) => bindActionCreators(agencyActions, dispatch)
-)(AgencyListContainer);
