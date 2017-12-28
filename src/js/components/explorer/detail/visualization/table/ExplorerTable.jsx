@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Pagination from 'components/sharedComponents/Pagination';
-import HeaderRow from './HeaderRow';
+import LegacyTableHeaderCell from 'components/account/awards/LegacyTableHeaderCell';
 import TableRow from './TableRow';
 
 const propTypes = {
@@ -17,7 +17,9 @@ const propTypes = {
     onChangePage: PropTypes.func,
     pageNumber: PropTypes.number,
     totalItems: PropTypes.number,
-    pageSize: PropTypes.number
+    pageSize: PropTypes.number,
+    order: PropTypes.object,
+    updateSort: PropTypes.func
 };
 
 export default class ExplorerTable extends React.Component {
@@ -46,6 +48,18 @@ export default class ExplorerTable extends React.Component {
                 selectedRow={this.selectedRow} />
         ));
 
+        const headers = this.props.columns.map((column, index) => (
+            <td key={index}>
+                <LegacyTableHeaderCell
+                    isLast={index === this.props.columns.length - 1}
+                    field={column.columnName}
+                    title={column.displayName}
+                    defaultDirection={column.defaultDirection}
+                    currentSort={this.props.order}
+                    updateSort={this.props.updateSort} />
+            </td>
+        ));
+
         return (
             <div className={`explorer-table${noResultsClass}`}>
                 <Pagination
@@ -55,8 +69,9 @@ export default class ExplorerTable extends React.Component {
                     pageSize={this.props.pageSize} />
                 <table>
                     <thead>
-                        <HeaderRow
-                            columns={this.props.columns} />
+                        <tr>
+                            {headers}
+                        </tr>
                     </thead>
                     <tbody>
                         {rows}
