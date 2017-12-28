@@ -19,6 +19,7 @@ import ExplorerTable from 'components/explorer/detail/visualization/table/Explor
 
 const propTypes = {
     order: PropTypes.object,
+    setExplorerTableOrder: PropTypes.func,
     pageNumber: PropTypes.number,
     setExplorerTablePage: PropTypes.func,
     results: PropTypes.object,
@@ -40,6 +41,7 @@ export class ExplorerTableContainer extends React.Component {
 
         this.onChangePage = this.onChangePage.bind(this);
         this.buildVirtualTable = this.buildVirtualTable.bind(this);
+        this.updateSort = this.updateSort.bind(this);
     }
 
     componentDidMount() {
@@ -156,12 +158,20 @@ export class ExplorerTableContainer extends React.Component {
         });
     }
 
+    updateSort(field, direction) {
+        this.props.setExplorerTableOrder({
+            field,
+            direction
+        });
+    }
+
     render() {
         return (
             <ExplorerTable
                 results={this.state.pageOfItems}
                 columns={this.state.columns}
                 order={this.props.order}
+                updateSort={this.updateSort}
                 total={this.props.total}
                 goDeeper={this.props.goDeeper}
                 onChangePage={this.onChangePage}
