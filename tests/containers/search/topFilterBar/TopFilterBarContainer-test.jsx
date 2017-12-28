@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
 
 import { Set, OrderedMap } from 'immutable';
 
@@ -34,16 +33,14 @@ const defaultProps = {
 const setup = (props) =>
     mount(<TopFilterBarContainer {...props} />);
 
-const prepareFiltersSpy = sinon.spy(TopFilterBarContainer.prototype, 'prepareFilters');
-
 describe('TopFilterBarContainer', () => {
-    it('should return a TopFilterBar child component with FY17 selected on load', () => {
+    it('should return a TopFilterBar child component with no filters selected by default', () => {
         const topBarContainer = setup({
             reduxFilters: initialState,
             updateFilterCount: jest.fn()
         });
 
-        expect(topBarContainer.find(TopFilterBar)).toHaveLength(1);
+        expect(topBarContainer.find(TopFilterBar)).toHaveLength(0);
     });
 
     it('should return a TopFilterBar child component when there are active filters', () => {
@@ -85,12 +82,13 @@ describe('TopFilterBarContainer', () => {
 
             // mount the container
             const topBarContainer = setup(initialProps);
+            topBarContainer.instance().prepareFilters = jest.fn();
 
             // change the props
             topBarContainer.setProps(updatedProps);
 
             // the prepareFilters function should have been called
-            expect(prepareFiltersSpy.called).toBeTruthy();
+            expect(topBarContainer.instance().prepareFilters).toHaveBeenCalledTimes(1);
         });
 
         it('should update component state with Redux keyword filter when available', () => {

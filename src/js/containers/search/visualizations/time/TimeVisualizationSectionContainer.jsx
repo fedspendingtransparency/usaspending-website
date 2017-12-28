@@ -27,7 +27,6 @@ const combinedActions = Object.assign({}, searchFilterActions, {
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    setVizTxnSum: PropTypes.func,
     setAppliedFilterCompletion: PropTypes.func
 };
 

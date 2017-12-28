@@ -1,4 +1,5 @@
 import { initialState, filterStoreVersion } from 'redux/reducers/search/searchFiltersReducer';
+import { initialState as initialApplied } from 'redux/reducers/search/appliedFiltersReducer';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 export const mockHash = {
@@ -37,11 +38,15 @@ export const mockFilters = {
 
 export const mockRedux = {
     filters: initialState,
+    appliedFilters: initialApplied,
     params: {
         hash: ''
     }
 };
 
 export const mockActions = {
-    populateAllSearchFilters: jest.fn()
+    populateAllSearchFilters: jest.fn(),
+    applyStagedFilters: jest.fn(),
+    setAppliedFilterEmptiness: jest.fn(),
+    setAppliedFilterCompletion: jest.fn()
 };
