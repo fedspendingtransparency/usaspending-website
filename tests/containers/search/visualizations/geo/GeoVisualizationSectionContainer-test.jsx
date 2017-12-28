@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import { Set } from 'immutable';
@@ -14,6 +14,7 @@ import { GeoVisualizationSectionContainer } from
 import MapBroadcaster from 'helpers/mapBroadcaster';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
+import { geo as mockApi } from '../mockVisualizations';
 
 jest.mock('helpers/searchHelper', () => require('./mocks/geoHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -38,6 +39,7 @@ describe('GeoVisualizationSectionContainer', () => {
 
         // mount the container
         const container = mount(<GeoVisualizationSectionContainer
+            setAppliedFilterCompletion={jest.fn()}
             reduxFilters={defaultFilters}
             resultsMeta={mockedReduxMeta} />);
         expect(fetchDataSpy.callCount).toEqual(0);
@@ -64,6 +66,7 @@ describe('GeoVisualizationSectionContainer', () => {
         // mount the container
         const container =
             mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={initialFilters}
                 resultsMeta={mockedReduxMeta} />);
 
@@ -86,6 +89,7 @@ describe('GeoVisualizationSectionContainer', () => {
         it('should set the scope to place of performance when requested', () => {
              // mount the container
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
 
@@ -98,6 +102,7 @@ describe('GeoVisualizationSectionContainer', () => {
         it('should set the scope to recipient when requested', () => {
              // mount the container
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
 
@@ -109,6 +114,7 @@ describe('GeoVisualizationSectionContainer', () => {
 
         it('should request a map measurement operation if the scope has changed', () => {
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
             const mockPrepare = jest.fn();
@@ -123,6 +129,7 @@ describe('GeoVisualizationSectionContainer', () => {
 
         it('should not request a map measurement operation if the scope has not changed', () => {
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
             const mockPrepare = jest.fn();
@@ -139,6 +146,7 @@ describe('GeoVisualizationSectionContainer', () => {
     describe('mapLoaded', () => {
         it('should set the loadingTiles state to false', () => {
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
             container.instance().mapLoaded();
@@ -148,6 +156,7 @@ describe('GeoVisualizationSectionContainer', () => {
         it('should call the prepareFetch method', () => {
             jest.useFakeTimers();
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
             const mockPrepare = jest.fn();
@@ -166,6 +175,7 @@ describe('GeoVisualizationSectionContainer', () => {
             const attached = MapBroadcaster.on('measureMap', mockListener);
 
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
             container.setState({
@@ -186,6 +196,7 @@ describe('GeoVisualizationSectionContainer', () => {
             const attached = MapBroadcaster.on('measureMap', mockListener);
 
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
             container.setState({
@@ -203,6 +214,7 @@ describe('GeoVisualizationSectionContainer', () => {
     describe('receivedEntities', () => {
         it('should set the state to the returned entities', () => {
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
             container.setState({
@@ -216,6 +228,7 @@ describe('GeoVisualizationSectionContainer', () => {
 
         it('should make an API call using the returned entities', () => {
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
             const mockFetch = jest.fn();
@@ -232,14 +245,14 @@ describe('GeoVisualizationSectionContainer', () => {
     });
 
     describe('parseData', () => {
-        it('should properly resture the API response for the map visualization', async () => {
+        it('should properly parse the API response for the map visualization', () => {
             // mount the container
-            const container = mount(<GeoVisualizationSectionContainer
+            const container = shallow(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
 
-            container.instance().fetchData();
-            await container.instance().apiRequest.promise;
+            container.instance().parseData(mockApi);
 
             const expectedState = {
                 values: [123.12, 345.56],
@@ -265,6 +278,7 @@ describe('GeoVisualizationSectionContainer', () => {
     describe('changeMapLayer', () => {
         it('should update the mapLayer state when a new map tileset is requested', () => {
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
             expect(container.state().mapLayer).toEqual('state');
@@ -274,6 +288,7 @@ describe('GeoVisualizationSectionContainer', () => {
         });
         it('should make a new renderHash when a new map tileset is requested', () => {
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
             const originalHash = `${container.state().renderHash}`;
@@ -283,6 +298,7 @@ describe('GeoVisualizationSectionContainer', () => {
         });
         it('should update the mapLayer state when a new map tileset is requested', () => {
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
             container.setState({
@@ -296,6 +312,7 @@ describe('GeoVisualizationSectionContainer', () => {
         });
         it('should request a map measurement operation', () => {
             const container = mount(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
                 resultsMeta={mockedReduxMeta} />);
             const mockPrepare = jest.fn();

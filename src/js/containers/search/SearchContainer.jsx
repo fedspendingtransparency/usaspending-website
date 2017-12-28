@@ -36,7 +36,9 @@ const propTypes = {
     filters: PropTypes.object,
     appliedFilters: PropTypes.object,
     populateAllSearchFilters: PropTypes.func,
-    applyStagedFilters: PropTypes.func
+    applyStagedFilters: PropTypes.func,
+    setAppliedFilterEmptiness: PropTypes.func,
+    setAppliedFilterCompletion: PropTypes.func
 };
 
 export class SearchContainer extends React.Component {
@@ -112,7 +114,6 @@ export class SearchContainer extends React.Component {
         // come back to it (Redux is still holding the filters)
         // in this case, we should regenerate the URL hash for the current filter set so that the
         // URL is immediately shareable
-
         const unfiltered = this.determineIfUnfiltered(this.props.appliedFilters.filters);
         if (unfiltered) {
             // there is no initial hash because there are no filters
