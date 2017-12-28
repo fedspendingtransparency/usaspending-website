@@ -24,7 +24,8 @@ const propTypes = {
     appliedFilters: PropTypes.object,
     requestsComplete: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
-    clearStagedFilters: PropTypes.func
+    clearStagedFilters: PropTypes.func,
+    setAppliedFilterCompletion: PropTypes.func
 };
 
 export class SearchSidebarSubmitContainer extends React.Component {
@@ -85,6 +86,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
     }
 
     applyStagedFilters() {
+        this.props.setAppliedFilterCompletion(false);
         this.props.applyStagedFilters(this.props.stagedFilters);
         this.setState({
             filtersChanged: false

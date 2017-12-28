@@ -8,7 +8,7 @@ import { initialState as defaultFilters } from './searchFiltersReducer';
 export const initialState = {
     filters: defaultFilters,
     _empty: true,
-    _complete: false
+    _complete: true
 };
 
 const appliedFiltersReducer = (state = initialState, action) => {

@@ -164,6 +164,19 @@ export class GeoVisualizationSectionContainer extends React.Component {
         const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
 
+        // if no entities are visible, don't make an API rquest because nothing in the US is visible
+        if (this.state.visibleEntities.length === 0) {
+            this.setState({
+                loading: false,
+                error: false,
+                data: {
+                    values: [],
+                    locations: []
+                }
+            });
+            return;
+        }
+
         const searchParams = operation.toParams();
 
         // generate the API parameters
@@ -202,7 +215,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
                         error: true
                     });
 
-                    this.props.setAppliedFilterCompletion(false);
+                    this.props.setAppliedFilterCompletion(true);
                 }
             });
     }

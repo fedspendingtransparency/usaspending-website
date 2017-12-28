@@ -9,7 +9,7 @@ const ResultsTableNoResults = () => (
     <div className="results-table-no-results">
         <div className="no-results-icon" />
         <div className="title">
-            No awards found.
+            No results found.
         </div>
         <div className="description">
             Try again using different filters.

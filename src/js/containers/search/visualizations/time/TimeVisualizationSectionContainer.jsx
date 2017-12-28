@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
+import { isCancel } from 'axios';
 
 import TimeVisualizationSection from
     'components/search/visualizations/time/TimeVisualizationSection';
@@ -37,6 +38,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
         this.state = {
             visualizationPeriod: 'fiscal_year',
             loading: true,
+            error: false,
             groups: [],
             xSeries: [],
             ySeries: []
@@ -67,7 +69,8 @@ export class TimeVisualizationSectionContainer extends React.Component {
     fetchData() {
         this.props.setAppliedFilterCompletion(false);
         this.setState({
-            loading: true
+            loading: true,
+            error: false
         });
 
         // Cancel API request if it exists
@@ -101,9 +104,18 @@ export class TimeVisualizationSectionContainer extends React.Component {
                 this.parseData(res.data, this.state.visualizationPeriod);
                 this.apiRequest = null;
             })
-            .catch(() => {
+            .catch((err) => {
+                if (isCancel(err)) {
+                    return;
+                }
+
                 this.props.setAppliedFilterCompletion(true);
                 this.apiRequest = null;
+                console.log(err);
+                this.setState({
+                    loading: false,
+                    error: true
+                });
             });
     }
 
@@ -150,16 +162,12 @@ export class TimeVisualizationSectionContainer extends React.Component {
         const ySeries = [];
         const rawLabels = [];
 
-        let totalSpending = 0;
-
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
             groups.push(this.generateTimeLabel(group, item.time_period));
             rawLabels.push(this.generateTimeRaw(group, item.time_period));
             xSeries.push([this.generateTimeLabel(group, item.time_period)]);
             ySeries.push([parseFloat(item.aggregated_amount)]);
-
-            totalSpending += parseFloat(item.aggregated_amount);
         });
 
         this.setState({
@@ -167,11 +175,9 @@ export class TimeVisualizationSectionContainer extends React.Component {
             xSeries,
             ySeries,
             rawLabels,
-            loading: false
+            loading: false,
+            error: false
         }, () => {
-            // save the total spending amount to Redux so all visualizations have access to this
-            // data
-            this.props.setVizTxnSum(totalSpending);
             this.props.setAppliedFilterCompletion(true);
         });
     }

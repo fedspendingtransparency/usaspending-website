@@ -10,9 +10,9 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import BarChart from './chart/BarChart';
 import Tooltip from './TimeVisualizationTooltip';
-import ChartMessage from './TimeVisualizationChartMessage';
 import ChartLoadingMessage from '../ChartLoadingMessage';
-
+import ChartNoResults from '../ChartNoResults';
+import ChartError from '../ChartError';
 
 const defaultProps = {
     groups: [],
@@ -48,7 +48,8 @@ const propTypes = {
     ySeries: PropTypes.array,
     loading: PropTypes.bool,
     legend: PropTypes.array,
-    visualizationPeriod: PropTypes.string
+    visualizationPeriod: PropTypes.string,
+    error: PropTypes.bool
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -86,10 +87,13 @@ export default class TimeVisualization extends React.Component {
                 barWidth={this.state.barWidth} />);
         }
 
-        let chart = (<ChartMessage message="No data to display" />);
+        let chart = (<ChartNoResults />);
         if (this.props.loading) {
             // API request is still pending
             chart = (<ChartLoadingMessage />);
+        }
+        else if (this.props.error) {
+            chart = (<ChartError />);
         }
         else if (this.props.groups.length > 0) {
             // only mount the chart component if there is data to display

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
+import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
@@ -101,6 +102,35 @@ export default class GeoVisualizationSection extends React.Component {
                         <LoadingSpinner />
                         <div className="loading-message">
                             Gathering your data...
+                        </div>
+                    </div>
+                </MapMessage>
+            );
+        }
+        else if (this.props.error) {
+            message = (
+                <MapMessage>
+                    <div className="map-no-results">
+                        <div className="error-icon">
+                            <ExclamationTriangle alt="An error occurred" />
+                        </div>
+                        <div className="title">
+                            An error occurred.
+                        </div>
+                        <div className="description">
+                            Something went wrong while gathering your data.
+                        </div>
+                    </div>
+                </MapMessage>
+            );
+        }
+        else if (this.props.noResults) {
+            message = (
+                <MapMessage>
+                    <div className="map-no-results">
+                        <div className="no-results-icon" />
+                        <div className="title">
+                            No results found in the current map area.
                         </div>
                     </div>
                 </MapMessage>
