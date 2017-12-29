@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 
 import FilterExpandButton from './FilterExpandButton';
+import SubmitHint from './SubmitHint';
 
 const propTypes = {
     name: PropTypes.string,
@@ -127,6 +128,7 @@ export default class FilterOption extends React.Component {
                     name={this.props.name}
                     disabled={disabledStatus} />
                 {searchOption}
+                <SubmitHint />
                 {comingSoon}
             </div>
         );
