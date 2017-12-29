@@ -21,10 +21,12 @@ import SearchResults from './SearchResults';
 
 
 const propTypes = {
+    download: PropTypes.object,
     clearAllFilters: PropTypes.func,
     filters: PropTypes.object,
     lastUpdate: PropTypes.string,
-    downloadAvailable: PropTypes.bool
+    downloadAvailable: PropTypes.bool,
+    download: PropTypes.object
 };
 
 export default class SearchPage extends React.Component {
@@ -149,6 +151,7 @@ export default class SearchPage extends React.Component {
                             lastUpdate={this.props.lastUpdate} />
                     </div>
                     <FullDownloadModalContainer
+                        download={this.props.download}
                         mounted={this.state.showFullDownload}
                         hideModal={this.hideModal} />
                 </main>

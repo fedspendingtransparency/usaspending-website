@@ -22,6 +22,7 @@ const propTypes = {
     setDownloadPending: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
+    setDownloadExpectedUrl: PropTypes.func,
     resetDownload: PropTypes.func,
     filters: PropTypes.object
 };
@@ -108,6 +109,7 @@ export class DownloadBottomBarContainer extends React.Component {
         this.request.promise
             .then((res) => {
                 this.props.setDownloadExpectedFile(res.data.file_name);
+                this.props.setDownloadExpectedUrl(res.data.url);
                 this.checkStatus();
             })
             .catch((err) => {

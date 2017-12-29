@@ -30,19 +30,22 @@
                     font-weight: 600;
                     text-transform: uppercase;
                 }
+
                 .link {
                     background-color: $color-white;
                     border: solid 1px $color-gray-light;
                     padding: rem(5);
                 }
+
                 .icon {
-                    margin: auto;
+                    margin-right: rem(10);
                     width: rem(20);
                     height: rem(20);
+                    display: inline-block;
 
                     svg {
                         width: rem(25);
-                        height: rem(25);
+                        height: rem(10);
                         fill: $color-green;
                     }
                 }

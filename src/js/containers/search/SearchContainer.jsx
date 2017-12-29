@@ -367,14 +367,16 @@ export class SearchContainer extends React.Component {
                 clearAllFilters={this.props.clearAllFilters}
                 filters={this.props.filters}
                 lastUpdate={this.state.lastUpdate}
-                downloadAvailable={this.state.downloadAvailable} />
+                downloadAvailable={this.state.downloadAvailable}
+                download={this.props.download} />
         );
     }
 }
 
 export default connect(
     (state) => ({
-        filters: state.filters
+        filters: state.filters,
+        download: state.download
     }),
     (dispatch) => bindActionCreators(Object.assign({}, searchHashActions, {
         clearAllFilters

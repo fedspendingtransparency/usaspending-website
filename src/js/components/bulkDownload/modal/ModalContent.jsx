@@ -25,9 +25,9 @@ export default class ModalContent extends React.Component {
 
         this.onCopy = this.onCopy.bind(this);
     }
+
     componentDidMount() {
         this.props.setDownloadCollapsed(true);
-        window.setTimeout(this.props.hideModal, 8000); // close the modal after 8 seconds
     }
 
     onCopy() {
@@ -52,12 +52,15 @@ export default class ModalContent extends React.Component {
                     <div className="link-box">
                         <p>Use this link to download your file anytime once it&#8217;s ready.</p>
                         <div className="link">{this.props.expectedFile}</div>
+
                         <CopyToClipboard
                             text={this.props.expectedFile}
                             onCopy={this.onCopy}>
-                            <button>Copy Link</button>
+                            <button>
+                                {this.state.copied ? <span>{icon}</span> : null}
+                                {this.state.copied ? 'Copied' : 'Copy Link'}
+                            </button>
                         </CopyToClipboard>
-                        {this.state.copied ? <span>{icon}</span> : null}
                     </div>
                     <button className="finish-button" onClick={this.props.hideModal}>Finish</button>
                 </div>
