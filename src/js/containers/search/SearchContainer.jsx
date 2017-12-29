@@ -338,6 +338,14 @@ export class SearchContainer extends React.Component {
     }
 
     requestDownloadAvailability(filters) {
+        if (this.determineIfUnfiltered(filters)) {
+            // don't make an API call when it's a blank state
+            this.setState({
+                downloadAvailable: false
+            });
+            return;
+        }
+
         const operation = new SearchAwardsOperation();
         operation.fromState(filters);
         const searchParams = operation.toParams();
