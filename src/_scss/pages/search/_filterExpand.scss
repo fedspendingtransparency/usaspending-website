@@ -44,16 +44,16 @@
 
     .accessory-view {
         @include flex(0 0 auto);
-        width: rem(20);
-        height: rem(20);
+        width: rem(15);
+        height: rem(15);
         position: relative;
 
         color: $color-base;
 
         svg {
-            width: rem(20);
-            height: rem(20);
-            fill: $color-gray;
+            width: rem(15);
+            height: rem(15);
+            fill: $color-gray-light;
         }
     }
 
@@ -75,6 +75,12 @@
             cursor: pointer;
             fill: $color-black;
             @include transition(all 0.25s $ease-in-out-sine);
+        }
+
+        .accessory-view {
+            svg {
+                fill: $color-gray;
+            }
         }
     }
 
