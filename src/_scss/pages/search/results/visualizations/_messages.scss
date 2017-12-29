@@ -8,6 +8,10 @@
     margin-left: auto;
     margin-right: auto;
 
+    @include media($tablet-screen) {
+        max-width: rem(600);
+    }
+
     .loading-animation {
         width: rem(50);
         height: rem(50);

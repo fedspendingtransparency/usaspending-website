@@ -58,7 +58,7 @@
 
         @include media($tablet-screen) {
             @include flex(0 0 auto);
-            max-width: rem(450);
+            max-width: rem(600);
             margin-top: rem(100);
         }
 
@@ -85,6 +85,10 @@
         padding-right: rem(10);
         margin-left: auto;
         margin-right: auto;
+
+        @include media($tablet-screen) {
+            max-width: rem(600);
+        }
 
         .no-results-icon {
             width: rem(75);
@@ -121,6 +125,10 @@
         padding-right: rem(10);
         margin-left: auto;
         margin-right: auto;
+
+        @include media($tablet-screen) {
+            max-width: rem(600);
+        }
 
         .icon {
             width: rem(75);
