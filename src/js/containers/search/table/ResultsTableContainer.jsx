@@ -31,7 +31,8 @@ const propTypes = {
     toggleColumnVisibility: PropTypes.func,
     reorderColumns: PropTypes.func,
     populateAvailableColumns: PropTypes.func,
-    setAppliedFilterCompletion: PropTypes.func
+    setAppliedFilterCompletion: PropTypes.func,
+    noApplied: PropTypes.bool
 };
 
 const tableTypes = [
@@ -102,7 +103,7 @@ export class ResultsTableContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.filters !== this.props.filters) {
+        if (prevProps.filters !== this.props.filters && !this.props.noApplied) {
             // filters changed, update the search object
             this.pickDefaultTab();
         }
@@ -460,6 +461,7 @@ ResultsTableContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         filters: state.appliedFilters.filters,
+        noApplied: state.appliedFilters._empty,
         columnVisibility: state.columnVisibility
     }),
     (dispatch) => bindActionCreators(Object.assign({}, SearchActions, appliedFilterActions), dispatch)

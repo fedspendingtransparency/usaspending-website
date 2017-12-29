@@ -7,8 +7,18 @@
         transition: opacity 0.15s;
         opacity: 1;
 
+        background-color: $color-primary;
+
+        &:hover {
+            background-color: $color-primary-darker;            
+        }
+
         &[disabled] {
             opacity: 0.5;
+            cursor: not-allowed;
+            &:hover {
+                background-color: $color-primary;
+            }
         }
     }
     .reset-button {

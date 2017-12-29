@@ -12,6 +12,7 @@ export const mockActions = {
 
 export const mockRedux = {
     filters: initialState,
+    noApplied: false,
     columnVisibility: new VisibilityRecord()
 };
 

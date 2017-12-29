@@ -27,7 +27,8 @@ const combinedActions = Object.assign({}, searchFilterActions, {
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    setAppliedFilterCompletion: PropTypes.func
+    setAppliedFilterCompletion: PropTypes.func,
+    noApplied: PropTypes.bool
 };
 
 export class TimeVisualizationSectionContainer extends React.Component {
@@ -52,7 +53,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) && !this.props.noApplied) {
             this.fetchData();
         }
     }
@@ -194,6 +195,9 @@ export class TimeVisualizationSectionContainer extends React.Component {
 TimeVisualizationSectionContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.appliedFilters.filters }),
+    (state) => ({
+        reduxFilters: state.appliedFilters.filters,
+        noApplied: state.appliedFilters._empty
+    }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(TimeVisualizationSectionContainer);

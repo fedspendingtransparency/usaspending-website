@@ -290,7 +290,7 @@ export class TopFilterBarContainer extends React.Component {
 
         if (selected) {
             filter.code = 'selectedLocations';
-            filter.name = 'Place of Performance Location';
+            filter.name = 'Place of Performance';
             return filter;
         }
         return null;

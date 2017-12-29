@@ -29,24 +29,39 @@
     position: absolute;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 3;
-
-    width: 100%;
-    height: 100%;
 
     @include display(flex);
     @include justify-content(center);
     @include align-items(flex-start);
+    
+
 
     background-color: rgba(255, 255, 255, 0.9);
 
     &.full {
+        position: relative;
+        display: block;
         background-color: $color-white;        
     }
 
     .results-table-loading {
-        @include flex(0 0 auto);
-        margin-top: rem(100px);
+        @include flex(1 1 auto);
+
+        margin-top: rem(50);
+        max-width: rem(200);
+        padding-left: rem(10);
+        padding-right: rem(10);
+        margin-left: auto;
+        margin-right: auto;
+
+        @include media($tablet-screen) {
+            @include flex(0 0 auto);
+            max-width: rem(600);
+            margin-top: rem(100);
+        }
 
         .loading-animation {
             width: rem(50);
@@ -63,8 +78,18 @@
     }
 
     .results-table-no-results {
-        @include flex(0 0 auto);
-        margin-top: rem(20);
+        @include flex(1 1 auto);
+        margin-top: rem(100);
+        margin-bottom: rem(100);
+        max-width: rem(450);
+        padding-left: rem(10);
+        padding-right: rem(10);
+        margin-left: auto;
+        margin-right: auto;
+
+        @include media($tablet-screen) {
+            max-width: rem(600);
+        }
 
         .no-results-icon {
             width: rem(75);
@@ -93,8 +118,18 @@
     }
 
     .results-table-error {
-        @include flex(0 0 auto);
-        margin-top: rem(20);
+        @include flex(1 1 auto);
+        margin-top: rem(100);
+        margin-bottom: rem(100);
+        max-width: rem(450);
+        padding-left: rem(10);
+        padding-right: rem(10);
+        margin-left: auto;
+        margin-right: auto;
+
+        @include media($tablet-screen) {
+            max-width: rem(600);
+        }
 
         .icon {
             width: rem(75);

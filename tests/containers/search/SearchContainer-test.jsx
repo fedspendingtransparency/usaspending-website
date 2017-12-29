@@ -302,7 +302,8 @@ describe('SearchContainer', () => {
     });
 
     describe('requestDownloadAvailability', () => {
-        it('should make an API request for how many transaction rows will be returned', async () => {
+        it('should not make an API requets if the applied filter state equals the initial blank filter state', () => {
+            const blankFilters = Object.assign({}, initialState);
             const container = shallow(<SearchContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -310,7 +311,29 @@ describe('SearchContainer', () => {
             const mockParse = jest.fn();
             container.instance().parseDownloadAvailability = mockParse;
 
-            container.instance().requestDownloadAvailability(mockRedux.filters);
+            container.setState({
+                downloadAvailable: true
+            });
+
+            container.instance().requestDownloadAvailability(blankFilters);
+
+            expect(mockParse).toHaveBeenCalledTimes(0);
+            expect(container.state().downloadAvailable).toBeFalsy();
+
+        });
+        it('should make an API request for how many transaction rows will be returned', async () => {
+            const newFilters = Object.assign({}, initialState, {
+                timePeriodFY: new Set(['1990'])
+            });
+
+            const container = shallow(<SearchContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            const mockParse = jest.fn();
+            container.instance().parseDownloadAvailability = mockParse;
+
+            container.instance().requestDownloadAvailability(newFilters);
             await container.instance().downloadRequest.promise;
 
             expect(mockParse).toHaveBeenCalledWith({

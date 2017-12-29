@@ -107,6 +107,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
 export default connect(
     (state) => ({
         requestsComplete: state.appliedFilters._complete,
+        isEmpty: state.appliedFilters._empty,
         stagedFilters: state.filters,
         appliedFilters: state.appliedFilters.filters
     }),

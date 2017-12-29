@@ -24,7 +24,8 @@ import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 const propTypes = {
     reduxFilters: PropTypes.object,
     resultsMeta: PropTypes.object,
-    setAppliedFilterCompletion: PropTypes.func
+    setAppliedFilterCompletion: PropTypes.func,
+    noApplied: PropTypes.bool
 };
 
 const apiScopes = {
@@ -72,7 +73,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) && !this.props.noApplied) {
             this.prepareFetch(true);
         }
     }
@@ -275,7 +276,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
 GeoVisualizationSectionContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.appliedFilters.filters }),
+    (state) => ({
+        reduxFilters: state.appliedFilters.filters,
+        noApplied: state.appliedFilters._empty
+    }),
     (dispatch) => bindActionCreators(Object.assign({}, searchFilterActions, {
         setAppliedFilterCompletion
     }), dispatch)

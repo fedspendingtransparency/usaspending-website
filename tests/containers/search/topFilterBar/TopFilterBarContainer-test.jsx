@@ -206,7 +206,7 @@ describe('TopFilterBarContainer', () => {
             const filterItem = topBarContainer.state().filters[0];
             const expectedFilterState = {
                 code: 'selectedLocations',
-                name: 'Place of Performance Location',
+                name: 'Place of Performance',
                 scope: 'all',
                 values: [{
                     filter: {

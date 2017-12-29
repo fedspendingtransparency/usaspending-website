@@ -56,7 +56,12 @@ export default class ResultsTableSection extends React.Component {
 
     render() {
         let message = null;
-        let showTable = '';
+        let table = (
+            <ResultsTable
+                {...this.props}
+                visibleWidth={this.state.tableWidth} />
+        );
+
         if (this.props.inFlight) {
             message = (
                 <div className="results-table-message-container">
@@ -65,6 +70,7 @@ export default class ResultsTableSection extends React.Component {
             );
         }
         else if (this.props.error) {
+            table = null;
             message = (
                 <div className="results-table-message-container full">
                     <ResultsTableErrorMessage />
@@ -73,7 +79,7 @@ export default class ResultsTableSection extends React.Component {
         }
         else if (this.props.results.length === 0) {
             // no results
-            showTable = 'hide';
+            table = null;
             message = (
                 <div className="results-table-message-container full">
                     <ResultsTableNoResults />
@@ -103,18 +109,14 @@ export default class ResultsTableSection extends React.Component {
                         transitionLeave>
                         {message}
                     </CSSTransitionGroup>
-                    <div className={showTable}>
-                        <div
-                            className="results-table-width-master"
-                            ref={(div) => {
-                                // this is an empty div that scales via CSS
-                                // the results table width will follow this div's width
-                                this.tableWidthController = div;
-                            }} />
-                        <ResultsTable
-                            {...this.props}
-                            visibleWidth={this.state.tableWidth} />
-                    </div>
+                    <div
+                        className="results-table-width-master"
+                        ref={(div) => {
+                            // this is an empty div that scales via CSS
+                            // the results table width will follow this div's width
+                            this.tableWidthController = div;
+                        }} />
+                    {table}
                 </div>
             </div>
         );
