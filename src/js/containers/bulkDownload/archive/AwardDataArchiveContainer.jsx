@@ -17,7 +17,7 @@ const columns = [
         displayName: 'Agency'
     },
     {
-        columnName: 'url',
+        columnName: 'fileName',
         displayName: 'Archive File'
     },
     {
@@ -155,7 +155,8 @@ export default class AwardDataArchiveContainer extends React.Component {
 
             const file = {
                 agency: formattedAgency,
-                url: item.file_name,
+                fileName: item.file_name,
+                url: item.url,
                 fy: formattedFY,
                 date: formattedDate
             };
