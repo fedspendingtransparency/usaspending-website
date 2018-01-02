@@ -30,7 +30,8 @@ const propTypes = {
     params: PropTypes.object,
     filters: PropTypes.object,
     populateAllSearchFilters: PropTypes.func,
-    clearAllFilters: PropTypes.func
+    clearAllFilters: PropTypes.func,
+    download: PropTypes.object
 };
 
 export class SearchContainer extends React.Component {

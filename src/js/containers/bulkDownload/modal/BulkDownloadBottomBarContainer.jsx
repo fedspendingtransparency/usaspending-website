@@ -33,8 +33,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
             showError: false,
             showSuccess: false,
             title: 'We\'re preparing your download(s)...',
-            description: 'If you plan to leave the site, copy the download link before you go - you\'\
-ll need it to access your file.'
+            description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.'
         };
 
         this.request = null;
@@ -77,8 +76,7 @@ ll need it to access your file.'
             showError: false,
             showSuccess: false,
             title: 'We\'re preparing your download(s)...',
-            description: 'If you plan to leave the site, copy the download link before you go - you\'\
-ll need it to access your file.'
+            description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.'
         }, this.checkStatus);
     }
 
@@ -193,13 +191,13 @@ will no longer download to your computer. Are you sure you want to do this?`;
     render() {
         let content = null;
         if (this.state.visible) {
-            content = <DownloadBottomBar
+            content = (<DownloadBottomBar
                 {...this.props}
                 download={this.props.bulkDownload.download}
                 showError={this.state.showError}
                 showSuccess={this.state.showSuccess}
                 title={this.state.title}
-                description={this.state.description} />;
+                description={this.state.description} />);
         }
 
         return (

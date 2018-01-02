@@ -25,8 +25,7 @@ const propTypes = {
     clearAllFilters: PropTypes.func,
     filters: PropTypes.object,
     lastUpdate: PropTypes.string,
-    downloadAvailable: PropTypes.bool,
-    download: PropTypes.object
+    downloadAvailable: PropTypes.bool
 };
 
 export default class SearchPage extends React.Component {

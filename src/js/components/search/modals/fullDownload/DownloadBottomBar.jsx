@@ -13,7 +13,8 @@ const propTypes = {
     showError: PropTypes.bool,
     showSuccess: PropTypes.bool,
     title: PropTypes.string,
-    description: PropTypes.string
+    description: PropTypes.string,
+    download: PropTypes.object
 };
 
 const defaultProps = {
@@ -36,8 +37,7 @@ export default class DownloadBottomBar extends React.Component {
 
         this.state = {
             copied: false
-        }
-
+        };
     }
 
     onCopy() {
