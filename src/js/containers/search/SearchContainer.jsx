@@ -389,11 +389,8 @@ export class SearchContainer extends React.Component {
                 noFiltersApplied={this.props.appliedFilters._empty}
                 lastUpdate={this.state.lastUpdate}
                 downloadAvailable={this.state.downloadAvailable}
-<<<<<<< HEAD
-                download={this.props.download} />
-=======
+                download={this.props.download}
                 requestsComplete={this.props.appliedFilters._complete} />
->>>>>>> c13ee26b47c131462bce1634f0a687786dc79725
         );
     }
 }
@@ -401,11 +398,8 @@ export class SearchContainer extends React.Component {
 export default connect(
     (state) => ({
         filters: state.filters,
-<<<<<<< HEAD
-        download: state.download
-=======
+        download: state.download,
         appliedFilters: state.appliedFilters
->>>>>>> c13ee26b47c131462bce1634f0a687786dc79725
     }),
     (dispatch) => bindActionCreators(Object.assign({}, searchHashActions, {
         clearAllFilters,
