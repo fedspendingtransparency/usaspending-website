@@ -1,6 +1,6 @@
 .search-section-extra-modal {
     // override the modal widths
-    width: 85%;
+    width: 50%;
 }
 
 .bulk-download-modal {
@@ -10,7 +10,7 @@
         background-color: $color-primary;
     }
     .download-body {
-        padding: rem(20) rem(60);
+        padding: rem(20) rem(60) rem(40);
         .download-status-screen {
             text-align: center;
             .link-box {
@@ -21,6 +21,7 @@
                 p {
                     margin-top: 0;
                     font-size: rem(14);
+                    font-weight: bold;
                 }
                 button {
                     @include button-unstyled;
@@ -29,24 +30,37 @@
                     color: $color-primary;
                     font-weight: 600;
                     text-transform: uppercase;
+                    padding: rem(10) rem(10) rem(5) rem(5);
                 }
+
                 .link {
                     background-color: $color-white;
                     border: solid 1px $color-gray-light;
                     padding: rem(5);
                 }
+
                 .icon {
-                    margin: auto;
+                    margin-right: rem(2.5);
                     width: rem(20);
                     height: rem(20);
+                    display: inline-block;
 
                     svg {
                         width: rem(25);
-                        height: rem(25);
+                        height: rem(11);
                         fill: $color-green;
                     }
                 }
             }
+
+            h3 {
+                margin-top: rem(15);
+            }
+
+            .sub-details {
+                padding-bottom: rem(16);
+            }
+
             .finish-button {
                 display: block;
                 margin: auto;
