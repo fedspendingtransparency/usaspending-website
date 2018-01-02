@@ -25,6 +25,11 @@
         p {
             margin-top: 0;
             font-size: rem(14);
+            font-weight: bold;
+        }
+
+        h3 {
+            margin-top: rem(15);
         }
         button {
             @include button-unstyled;
@@ -33,6 +38,7 @@
             color: $color-primary;
             font-weight: 600;
             text-transform: uppercase;
+            padding: rem(10) rem(10) rem(10) rem(5);
         }
 
         .link {
@@ -42,14 +48,14 @@
         }
 
         .icon {
-            margin-right: rem(10);
+            margin-right: rem(2.5);
             width: rem(20);
             height: rem(20);
             display: inline-block;
 
             svg {
                 width: rem(25);
-                height: rem(10);
+                height: rem(11);
                 fill: $color-green;
             }
         }

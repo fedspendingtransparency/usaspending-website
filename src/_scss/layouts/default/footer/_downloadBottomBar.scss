@@ -35,11 +35,11 @@
 
             button {
                 @include button-unstyled;
+                padding-left: rem(5);
                 display: inline-block;
                 margin: rem(10) auto;
                 color: $color-primary;
                 font-weight: 600;
-                padding-left: rem(5);
             }
 
             .link {
@@ -49,13 +49,11 @@
             }
 
             .icon {
-                margin-right: rem(10);
-                width: rem(20);
                 height: rem(20);
                 display: inline-block;
-
+                width: rem(15);
                 svg {
-                    width: rem(35);
+                    width: rem(25);
                     height: rem(10);
                     fill: $color-green;
                 }
