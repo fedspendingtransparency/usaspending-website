@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Close } from 'components/sharedComponents/icons/Icons';
-
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 
 const propTypes = {
@@ -15,7 +15,8 @@ const propTypes = {
     submitText: PropTypes.func,
     changedInput: PropTypes.func,
     removeKeyword: PropTypes.func,
-    value: PropTypes.string
+    value: PropTypes.string,
+    dirtyFilter: PropTypes.bool
 };
 
 export default class Keyword extends React.Component {
@@ -34,6 +35,11 @@ export default class Keyword extends React.Component {
         let hideTags = 'hide';
         if (this.props.selectedKeyword !== '') {
             hideTags = '';
+        }
+
+        let hint = null;
+        if (this.props.dirtyFilter) {
+            hint = <SubmitHint />;
         }
 
         return (
@@ -63,6 +69,7 @@ export default class Keyword extends React.Component {
                                 {this.props.selectedKeyword}
                             </button>
                         </div>
+                        {hint}
                     </div>
                 </form>
             </div>

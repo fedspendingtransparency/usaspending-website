@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -14,6 +15,7 @@ import Keyword from 'components/search/filters/keyword/Keyword';
 
 const propTypes = {
     keyword: PropTypes.string,
+    appliedFilter: PropTypes.string,
     updateTextSearchInput: PropTypes.func
 };
 
@@ -85,6 +87,7 @@ export class KeywordContainer extends React.Component {
     render() {
         return (
             <Keyword
+                dirtyFilter={!is(this.props.appliedFilter, this.props.keyword)}
                 value={this.state.value}
                 selectedKeyword={this.props.keyword}
                 changedInput={this.changedInput}
@@ -98,7 +101,8 @@ KeywordContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        keyword: state.filters.keyword
+        keyword: state.filters.keyword,
+        appliedFilter: state.appliedFilters.filters.keyword
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(KeywordContainer);
