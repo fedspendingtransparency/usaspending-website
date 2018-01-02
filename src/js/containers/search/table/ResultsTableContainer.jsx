@@ -23,13 +23,16 @@ import { measureTableHeader } from 'helpers/textMeasurement';
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
 import SearchActions from 'redux/actions/searchActions';
+import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 
 const propTypes = {
     filters: PropTypes.object,
     columnVisibility: PropTypes.object,
     toggleColumnVisibility: PropTypes.func,
     reorderColumns: PropTypes.func,
-    populateAvailableColumns: PropTypes.func
+    populateAvailableColumns: PropTypes.func,
+    setAppliedFilterCompletion: PropTypes.func,
+    noApplied: PropTypes.bool
 };
 
 const tableTypes = [
@@ -76,6 +79,7 @@ export class ResultsTableContainer extends React.Component {
                 direction: 'desc'
             },
             inFlight: true,
+            error: false,
             results: [],
             tableInstance: `${uniqueId()}` // this will stay constant during pagination but will change when the filters or table type changes
         };
@@ -99,7 +103,7 @@ export class ResultsTableContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.filters !== this.props.filters) {
+        if (prevProps.filters !== this.props.filters && !this.props.noApplied) {
             // filters changed, update the search object
             this.pickDefaultTab();
         }
@@ -123,8 +127,11 @@ export class ResultsTableContainer extends React.Component {
             this.tabCountRequest.cancel();
         }
 
+        this.props.setAppliedFilterCompletion(false);
+
         this.setState({
-            inFlight: true
+            inFlight: true,
+            error: false
         });
 
         const searchParams = new SearchAwardsOperation();
@@ -140,7 +147,15 @@ export class ResultsTableContainer extends React.Component {
                 this.parseTabCounts(res.data);
             })
             .catch((err) => {
-                console.log(err);
+                if (!isCancel(err)) {
+                    this.setState({
+                        inFlight: false,
+                        error: true
+                    });
+                    this.props.setAppliedFilterCompletion(true);
+
+                    console.log(err);
+                }
             });
     }
 
@@ -240,6 +255,8 @@ export class ResultsTableContainer extends React.Component {
             this.searchRequest.cancel();
         }
 
+        this.props.setAppliedFilterCompletion(false);
+
         const tableType = this.state.tableType;
 
         // Append the current tab's award types to the search params if the Award Type filter
@@ -263,7 +280,8 @@ export class ResultsTableContainer extends React.Component {
 
         // indicate the request is about to start
         this.setState({
-            inFlight: true
+            inFlight: true,
+            error: false
         });
 
         let pageNumber = this.state.page;
@@ -325,20 +343,18 @@ export class ResultsTableContainer extends React.Component {
                 newState.lastPage = !res.data.page_metadata.hasNext;
 
                 this.setState(newState);
+
+                this.props.setAppliedFilterCompletion(true);
             })
             .catch((err) => {
-                if (isCancel(err)) {
-                    // the request was cancelled
-                }
-                else if (err.response) {
-                    // server responded with something
+                if (!isCancel(err)) {
+                    this.setState({
+                        inFlight: false,
+                        error: true
+                    });
+                    this.props.setAppliedFilterCompletion(true);
+
                     console.log(err);
-                    this.searchRequest = null;
-                }
-                else {
-                    // request never made it out
-                    console.log(err);
-                    this.searchRequest = null;
                 }
             });
     }
@@ -422,6 +438,7 @@ export class ResultsTableContainer extends React.Component {
         const tableType = this.state.tableType;
         return (
             <ResultsTableSection
+                error={this.state.error}
                 inFlight={this.state.inFlight}
                 results={this.state.results}
                 columns={this.props.columnVisibility[tableType]}
@@ -443,8 +460,9 @@ ResultsTableContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        filters: state.filters,
+        filters: state.appliedFilters.filters,
+        noApplied: state.appliedFilters._empty,
         columnVisibility: state.columnVisibility
     }),
-    (dispatch) => bindActionCreators(SearchActions, dispatch)
+    (dispatch) => bindActionCreators(Object.assign({}, SearchActions, appliedFilterActions), dispatch)
 )(ResultsTableContainer);

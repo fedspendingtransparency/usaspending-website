@@ -5,22 +5,19 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
 import { Set } from 'immutable';
 
 import { SearchContainer } from 'containers/search/SearchContainer';
 import * as SearchHelper from 'helpers/searchHelper';
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
-import Router from 'containers/router/Router';
+import { initialState as initialApplied } from 'redux/reducers/search/appliedFiltersReducer';
 
 import { mockHash, mockFilters, mockRedux, mockActions } from './mockSearchHashes';
+import Router from './mockRouter';
 
 // force Jest to use native Node promises
 // see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
 global.Promise = require.requireActual('promise');
-
-// spy on specific functions inside the component
-const routerReplaceSpy = sinon.spy(Router.history, 'replace');
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/search/SearchPage', () =>
@@ -29,9 +26,9 @@ jest.mock('components/search/SearchPage', () =>
 jest.mock('helpers/searchHelper', () => require('./filters/searchHelper'));
 jest.mock('helpers/fiscalYearHelper', () => require('./filters/fiscalYearHelper'));
 jest.mock('helpers/downloadHelper', () => require('./modals/fullDownload/downloadHelper'));
+jest.mock('containers/router/Router', () => require('./mockRouter'));
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
-
 
 describe('SearchContainer', () => {
     it('should try to resolve the current URL hash on mount', () => {
@@ -80,7 +77,7 @@ describe('SearchContainer', () => {
         const receiveHash = jest.fn();
         container.instance().receiveHash = receiveHash;
 
-        container.instance().componentWillReceiveProps(Object.assign({}, container.props(), {
+        container.instance().componentWillReceiveProps(Object.assign({}, mockActions, mockRedux, {
             params: {
                 hash: '11111'
             }
@@ -104,7 +101,9 @@ describe('SearchContainer', () => {
         });
 
         const nextProps = Object.assign({}, mockRedux, mockActions, {
-            filters: nextFilters
+            appliedFilters: Object.assign({}, initialApplied, {
+                filters: nextFilters
+            })
         });
 
         const generateHash = jest.fn();
@@ -151,11 +150,8 @@ describe('SearchContainer', () => {
             const generateHash = jest.fn();
             container.instance().generateHash = generateHash;
 
-            routerReplaceSpy.reset();
             container.instance().generateInitialHash();
-            expect(routerReplaceSpy.callCount).toEqual(1);
-            expect(routerReplaceSpy.calledWith('/search')).toBeTruthy();
-            routerReplaceSpy.reset();
+            expect(Router.history.replace).toHaveBeenLastCalledWith('/search');
 
             expect(generateHash).toHaveBeenCalledTimes(0);
         });
@@ -166,7 +162,9 @@ describe('SearchContainer', () => {
             });
 
             const redux = Object.assign({}, mockRedux, {
-                filters
+                appliedFilters: {
+                    filters
+                }
             });
 
             const container = shallow(<SearchContainer
@@ -216,11 +214,8 @@ describe('SearchContainer', () => {
                 {...mockActions}
                 {...mockRedux} />);
 
-            routerReplaceSpy.reset();
             container.instance().provideHash('12345');
-            expect(routerReplaceSpy.callCount).toEqual(1);
-            expect(routerReplaceSpy.calledWith('/search/12345')).toBeTruthy();
-            routerReplaceSpy.reset();
+            expect(Router.history.replace).toHaveBeenLastCalledWith('/search/12345');
 
             expect(container.state().hash).toEqual('12345');
         });
@@ -249,9 +244,9 @@ describe('SearchContainer', () => {
         it('should trigger a Redux action to apply the filters', () => {
             const populateAction = jest.fn();
 
-            const actions = {
+            const actions = Object.assign({}, mockActions, {
                 populateAllSearchFilters: populateAction
-            };
+            });
 
             const container = shallow(<SearchContainer
                 {...actions}
@@ -307,7 +302,8 @@ describe('SearchContainer', () => {
     });
 
     describe('requestDownloadAvailability', () => {
-        it('should make an API request for how many transaction rows will be returned', async () => {
+        it('should not make an API requets if the applied filter state equals the initial blank filter state', () => {
+            const blankFilters = Object.assign({}, initialState);
             const container = shallow(<SearchContainer
                 {...mockActions}
                 {...mockRedux} />);
@@ -315,7 +311,29 @@ describe('SearchContainer', () => {
             const mockParse = jest.fn();
             container.instance().parseDownloadAvailability = mockParse;
 
-            container.instance().requestDownloadAvailability(mockRedux.filters);
+            container.setState({
+                downloadAvailable: true
+            });
+
+            container.instance().requestDownloadAvailability(blankFilters);
+
+            expect(mockParse).toHaveBeenCalledTimes(0);
+            expect(container.state().downloadAvailable).toBeFalsy();
+
+        });
+        it('should make an API request for how many transaction rows will be returned', async () => {
+            const newFilters = Object.assign({}, initialState, {
+                timePeriodFY: new Set(['1990'])
+            });
+
+            const container = shallow(<SearchContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            const mockParse = jest.fn();
+            container.instance().parseDownloadAvailability = mockParse;
+
+            container.instance().requestDownloadAvailability(newFilters);
             await container.instance().downloadRequest.promise;
 
             expect(mockParse).toHaveBeenCalledWith({

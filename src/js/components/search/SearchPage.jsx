@@ -21,10 +21,11 @@ import SearchResults from './SearchResults';
 
 
 const propTypes = {
-    clearAllFilters: PropTypes.func,
     filters: PropTypes.object,
     lastUpdate: PropTypes.string,
-    downloadAvailable: PropTypes.bool
+    downloadAvailable: PropTypes.bool,
+    requestsComplete: PropTypes.bool,
+    noFiltersApplied: PropTypes.bool
 };
 
 export default class SearchPage extends React.Component {
@@ -117,7 +118,10 @@ export default class SearchPage extends React.Component {
     }
 
     render() {
-        let fullSidebar = (<SearchSidebar filters={this.props.filters} />);
+        let fullSidebar = (
+            <SearchSidebar
+                filters={this.props.filters} />
+        );
         if (this.state.isMobile) {
             fullSidebar = null;
         }
@@ -145,8 +149,9 @@ export default class SearchPage extends React.Component {
                             showMobileFilters={this.state.showMobileFilters}
                             updateFilterCount={this.updateFilterCount}
                             toggleMobileFilters={this.toggleMobileFilters}
-                            clearAllFilters={this.props.clearAllFilters}
-                            lastUpdate={this.props.lastUpdate} />
+                            lastUpdate={this.props.lastUpdate}
+                            requestsComplete={this.props.requestsComplete}
+                            noFiltersApplied={this.props.noFiltersApplied} />
                     </div>
                     <FullDownloadModalContainer
                         mounted={this.state.showFullDownload}

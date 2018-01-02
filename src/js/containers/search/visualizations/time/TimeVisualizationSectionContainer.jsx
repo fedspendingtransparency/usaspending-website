@@ -8,22 +8,27 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
+import { isCancel } from 'axios';
 
 import TimeVisualizationSection from
     'components/search/visualizations/time/TimeVisualizationSection';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MonthHelper from 'helpers/monthHelper';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
-const combinedActions = Object.assign({}, searchFilterActions);
+const combinedActions = Object.assign({}, searchFilterActions, {
+    setAppliedFilterCompletion
+});
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    setVizTxnSum: PropTypes.func
+    setAppliedFilterCompletion: PropTypes.func,
+    noApplied: PropTypes.bool
 };
 
 export class TimeVisualizationSectionContainer extends React.Component {
@@ -33,6 +38,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
         this.state = {
             visualizationPeriod: 'fiscal_year',
             loading: true,
+            error: false,
             groups: [],
             xSeries: [],
             ySeries: []
@@ -47,7 +53,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) && !this.props.noApplied) {
             this.fetchData();
         }
     }
@@ -61,8 +67,10 @@ export class TimeVisualizationSectionContainer extends React.Component {
     }
 
     fetchData() {
+        this.props.setAppliedFilterCompletion(false);
         this.setState({
-            loading: true
+            loading: true,
+            error: false
         });
 
         // Cancel API request if it exists
@@ -96,8 +104,18 @@ export class TimeVisualizationSectionContainer extends React.Component {
                 this.parseData(res.data, this.state.visualizationPeriod);
                 this.apiRequest = null;
             })
-            .catch(() => {
+            .catch((err) => {
+                if (isCancel(err)) {
+                    return;
+                }
+
+                this.props.setAppliedFilterCompletion(true);
                 this.apiRequest = null;
+                console.log(err);
+                this.setState({
+                    loading: false,
+                    error: true
+                });
             });
     }
 
@@ -144,16 +162,12 @@ export class TimeVisualizationSectionContainer extends React.Component {
         const ySeries = [];
         const rawLabels = [];
 
-        let totalSpending = 0;
-
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
             groups.push(this.generateTimeLabel(group, item.time_period));
             rawLabels.push(this.generateTimeRaw(group, item.time_period));
             xSeries.push([this.generateTimeLabel(group, item.time_period)]);
             ySeries.push([parseFloat(item.aggregated_amount)]);
-
-            totalSpending += parseFloat(item.aggregated_amount);
         });
 
         this.setState({
@@ -161,11 +175,10 @@ export class TimeVisualizationSectionContainer extends React.Component {
             xSeries,
             ySeries,
             rawLabels,
-            loading: false
+            loading: false,
+            error: false
         }, () => {
-            // save the total spending amount to Redux so all visualizations have access to this
-            // data
-            this.props.setVizTxnSum(totalSpending);
+            this.props.setAppliedFilterCompletion(true);
         });
     }
 
@@ -182,6 +195,9 @@ export class TimeVisualizationSectionContainer extends React.Component {
 TimeVisualizationSectionContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ reduxFilters: state.filters }),
+    (state) => ({
+        reduxFilters: state.appliedFilters.filters,
+        noApplied: state.appliedFilters._empty
+    }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(TimeVisualizationSectionContainer);
