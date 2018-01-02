@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { AddFilter, CloseCircle } from 'components/sharedComponents/icons/Icons';
+import { AddFilter } from 'components/sharedComponents/icons/Icons';
 
 import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarContainer';
 
@@ -38,11 +38,6 @@ export default class SearchResults extends React.Component {
             mobileFilters = 'behind-filters';
         }
 
-        let showClearButton = 'hide';
-        if (this.props.filterCount > 0) {
-            showClearButton = '';
-        }
-
         let showCountBadge = '';
         if (this.props.filterCount === 0) {
             showCountBadge = 'hide';
@@ -63,18 +58,6 @@ export default class SearchResults extends React.Component {
                             </div>
                             <div className="mobile-filter-button-label">
                                 {this.pluralizeFilterLabel(this.props.filterCount)}
-                            </div>
-                        </div>
-                    </button>
-                    <button
-                        className={`mobile-clear-all ${showClearButton}`}
-                        onClick={this.props.clearAllFilters}>
-                        <div className="mobile-clear-all-content">
-                            <div className="icon">
-                                <CloseCircle alt="Clear all filters" />
-                            </div>
-                            <div className="label">
-                                Clear all filters
                             </div>
                         </div>
                     </button>
