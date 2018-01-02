@@ -45,7 +45,7 @@ export default class ModalContent extends React.Component {
         return (
             <div className="download-status-screen">
                 <div className="main-title">
-                    <h3>We're preparing your download.</h3>
+                    <h3>We&#8217;re preparing your download.</h3>
                     <div className="details">
                         This may take a little while &mdash; wait times vary based on site traffic and file size.
                     </div>
