@@ -7,13 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    message: PropTypes.string
+    children: PropTypes.node
 };
 
 const MapMessage = (props) => (
     <div className="map-message-container">
         <div className="map-message">
-            {props.message}
+            {props.children}
         </div>
     </div>
 );

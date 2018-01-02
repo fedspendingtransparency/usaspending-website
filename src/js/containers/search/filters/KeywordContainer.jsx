@@ -37,6 +37,7 @@ export class KeywordContainer extends React.Component {
 
         this.submitText = this.submitText.bind(this);
         this.changedInput = this.changedInput.bind(this);
+        this.removeKeyword = this.removeKeyword.bind(this);
     }
 
     componentWillMount() {
@@ -73,12 +74,22 @@ export class KeywordContainer extends React.Component {
         }
     }
 
+    removeKeyword() {
+        this.setState({
+            value: ''
+        }, () => {
+            this.submitText();
+        });
+    }
+
     render() {
         return (
             <Keyword
                 value={this.state.value}
+                selectedKeyword={this.props.keyword}
                 changedInput={this.changedInput}
-                submitText={this.submitText} />
+                submitText={this.submitText}
+                removeKeyword={this.removeKeyword} />
         );
     }
 }

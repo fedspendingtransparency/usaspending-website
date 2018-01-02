@@ -95,7 +95,7 @@ export class BulkDownloadPageContainer extends React.Component {
             filters: {
                 award_types: awardTypes,
                 agency: formState.agency.id,
-                sub_agency: formState.subAgency.id,
+                sub_agency: formState.subAgency.name,
                 date_type: formState.dateType,
                 date_range: {
                     start_date: startDate,

@@ -290,7 +290,7 @@ export class TopFilterBarContainer extends React.Component {
 
         if (selected) {
             filter.code = 'selectedLocations';
-            filter.name = 'Place of Performance Location';
+            filter.name = 'Place of Performance';
             return filter;
         }
         return null;
@@ -639,6 +639,6 @@ TopFilterBarContainer.propTypes = propTypes;
 TopFilterBarContainer.defaultProps = defaultProps;
 
 export default connect(
-    (state) => ({ reduxFilters: state.filters }),
+    (state) => ({ reduxFilters: state.appliedFilters.filters }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(TopFilterBarContainer);

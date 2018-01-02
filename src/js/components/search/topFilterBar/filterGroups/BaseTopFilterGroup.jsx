@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as Icons from 'components/sharedComponents/icons/Icons';
 import TopFilterItem from '../TopFilterItem';
 
 const propTypes = {
@@ -22,16 +21,6 @@ const defaultProps = {
 };
 
 export default class BaseTopFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.clearFilterGroup = this.clearFilterGroup.bind(this);
-    }
-
-    clearFilterGroup() {
-        this.props.clearFilterGroup();
-    }
-
     render() {
         const tags = this.props.tags.map((tag) => (
             <TopFilterItem
@@ -44,33 +33,12 @@ export default class BaseTopFilterGroup extends React.Component {
                 compressed={this.props.compressed} />
         ));
 
-        let showClose = '';
-        if (tags.length < 2) {
-            showClose = ' hide';
-        }
-
-        let hideCompressed = '';
-        if (this.props.compressed) {
-            hideCompressed = 'hide';
-        }
-
         return (
             <div className="filter-group-container">
                 <div className="filter-group">
-                    <div className={`filter-group-top ${hideCompressed}`}>
+                    <div className="filter-group-top">
                         <div className="filter-name">
-                            {this.props.filter.name}:
-                        </div>
-                        <div className={`filter-group-close${showClose}`}>
-                            <button
-                                title={`Clear all ${this.props.filter.name} filters`}
-                                aria-label={`Clear all ${this.props.filter.name} filters`}
-                                onClick={this.clearFilterGroup}>
-                                <span className="close-icon">
-                                    <Icons.Close
-                                        alt={`Clear all ${this.props.filter.name} filters`} />
-                                </span>
-                            </button>
+                            {this.props.filter.name}
                         </div>
                     </div>
                     <div className="filter-group-bottom">

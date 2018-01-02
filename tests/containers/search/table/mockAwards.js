@@ -6,11 +6,13 @@ import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 export const mockActions = {
     toggleColumnVisibility: jest.fn(),
     reorderColumns: jest.fn(),
-    populateAvailableColumns: jest.fn()
+    populateAvailableColumns: jest.fn(),
+    setAppliedFilterCompletion: jest.fn()
 };
 
 export const mockRedux = {
     filters: initialState,
+    noApplied: false,
     columnVisibility: new VisibilityRecord()
 };
 

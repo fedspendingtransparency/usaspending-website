@@ -69,6 +69,7 @@ export default class TimePeriod extends React.Component {
         this.hideError = this.hideError.bind(this);
         this.toggleFilters = this.toggleFilters.bind(this);
         this.validateDates = this.validateDates.bind(this);
+        this.removeDateRange = this.removeDateRange.bind(this);
     }
 
     componentDidMount() {
@@ -214,6 +215,14 @@ export default class TimePeriod extends React.Component {
         }
     }
 
+    removeDateRange() {
+        this.props.updateFilter({
+            dateType: 'dr',
+            startDate: null,
+            endDate: null
+        });
+    }
+
     showError(error, message) {
         this.setState({
             showError: true,
@@ -267,10 +276,13 @@ export default class TimePeriod extends React.Component {
                 startingTab={1}
                 startDate={this.state.startDateUI}
                 endDate={this.state.endDateUI}
+                selectedStart={this.props.filterTimePeriodStart}
+                selectedEnd={this.props.filterTimePeriodEnd}
                 onDateChange={this.handleDateChange}
                 showError={this.showError}
                 hideError={this.hideError}
-                applyDateRange={this.validateDates} />);
+                applyDateRange={this.validateDates}
+                removeDateRange={this.removeDateRange} />);
             activeClassFY = 'inactive';
             activeClassDR = '';
         }

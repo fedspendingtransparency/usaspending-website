@@ -13,7 +13,8 @@ const propTypes = {
     code: PropTypes.string,
     label: PropTypes.string,
     icon: PropTypes.string,
-    active: PropTypes.bool
+    active: PropTypes.bool,
+    disabled: PropTypes.bool
 };
 
 const VisualizationTabItem = (props) => {
@@ -33,7 +34,8 @@ const VisualizationTabItem = (props) => {
                 className={`visualization-type-tab ${active}`}
                 aria-label={props.label}
                 title={props.label}
-                onClick={clickedTab}>
+                onClick={clickedTab}
+                disabled={props.disabled}>
                 <div className="icon">
                     <Icon alt={props.label} />
                 </div>
