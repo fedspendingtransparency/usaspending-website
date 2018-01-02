@@ -46,12 +46,12 @@ export default class DownloadProgress extends React.Component {
         return (
             <div className="download-progress-screen">
                 <div className="main-title">
-                    <h3>Your download is being generated.</h3>
+                    <h3>We're preparing your download.</h3>
                     <div className="details">
                         This may take a little while &mdash; wait times vary based on site traffic and file size.
                     </div>
                     <div className="link-box">
-                        <p>Use this link to download your file anytime once it&#8217;s ready.</p>
+                        <p>Once your download is ready, you can use this link to access it anytime.</p>
                         <div className="link">{this.props.expectedUrl}</div>
 
                         <CopyToClipboard
@@ -62,6 +62,9 @@ export default class DownloadProgress extends React.Component {
                                 {this.state.copied ? 'Copied' : 'Copy Link'}
                             </button>
                         </CopyToClipboard>
+                    </div>
+                    <div className="sub-details">
+                        To keep browsing, close this box; your download status will appear at the bottom of the screen.
                     </div>
                     <button className="finish-button" onClick={this.props.hideModal}>Finish</button>
                 </div>
