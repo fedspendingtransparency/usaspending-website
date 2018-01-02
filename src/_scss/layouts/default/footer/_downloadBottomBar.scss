@@ -35,11 +35,11 @@
 
             button {
                 @include button-unstyled;
-                padding-left: rem(5);
                 display: inline-block;
                 margin: rem(10) auto;
                 color: $color-primary;
                 font-weight: 600;
+                margin-left: rem(5);
             }
 
             .link {

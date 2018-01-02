@@ -66,7 +66,7 @@ export default class DownloadProgress extends React.Component {
                     <div className="sub-details">
                         To keep browsing, close this box; your download status will appear at the bottom of the screen.
                     </div>
-                    <button className="finish-button" onClick={this.props.hideModal}>Finish</button>
+                    <button className="finish-button" onClick={this.props.hideModal}>Close</button>
                 </div>
             </div>
         );
