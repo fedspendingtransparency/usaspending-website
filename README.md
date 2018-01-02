@@ -17,7 +17,12 @@ Assumptions:
 
 ### Install Prerequisites and Code
 
-1. If you're not already running Node.js, download and run the installer for your operating system. We build using **Node.js 6.11.x (LTS)**: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").
+1. Use nvm to install and use Node 6.11.0.
+1a. Install nvm by running this command in terminal `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash`
+1b. Confirm you have a bash_profile in your home directory  (In terminal run `ls -a` and make sure that the file `~/.bash_profile` is present. If not run `touch ~/.bash_profile`) then run `export NVM_DIR="$HOME/.nvm" [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"`
+1c. Run `nvm --version` to confirm successful installation
+1d. Install and use node 6.11.0 with `nvm install 6.11.0 && nvm use 6.11.0`
+1e. Run `node -v` and confirm that you are now using node 6.11.0
 
 2. You should also have *npm* (Node's package manager). This is typically included as part of the Node.js install. We use version 3.10.x. This is used to install the software dependencies the web site and the build system require.
 
