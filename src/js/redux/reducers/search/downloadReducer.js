@@ -9,6 +9,7 @@ export const initialState = {
     type: 'award',
     columns: new List(),
     expectedFile: '',
+    expectedUrl: '',
     pendingDownload: false,
     showCollapsedProgress: false
 };
@@ -28,6 +29,11 @@ const downloadReducer = (state = initialState, action) => {
         case 'SET_DOWNLOAD_EXPECTED_FILE': {
             return Object.assign({}, state, {
                 expectedFile: action.file
+            });
+        }
+        case 'SET_DOWNLOAD_EXPECTED_URL': {
+            return Object.assign({}, state, {
+                expectedUrl: action.url
             });
         }
         case 'SET_DOWNLOAD_PENDING': {

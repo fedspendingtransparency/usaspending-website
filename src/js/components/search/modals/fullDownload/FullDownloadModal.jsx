@@ -21,6 +21,7 @@ import DownloadProgress from './screens/DownloadProgress';
 
 const propTypes = {
     mounted: PropTypes.bool,
+    download: PropTypes.object,
     hideModal: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
     pendingDownload: PropTypes.bool
@@ -87,9 +88,10 @@ export default class FullDownloadModal extends React.Component {
         else if (this.state.downloadStep === 3) {
             content = (<DownloadProgress
                 hideModal={this.hideModal}
-                setDownloadCollapsed={this.props.setDownloadCollapsed} />);
+                download={this.props.download}
+                setDownloadCollapsed={this.props.setDownloadCollapsed}
+                expectedUrl={this.props.download.expectedUrl} />);
         }
-
 
         return (
             <Modal

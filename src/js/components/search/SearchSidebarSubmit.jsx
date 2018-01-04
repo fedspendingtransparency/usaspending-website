@@ -13,24 +13,34 @@ const propTypes = {
     resetStagedFilters: PropTypes.func
 };
 
-const SearchSidebarSubmit = (props) => (
-    <div className="sidebar-submit">
-        <button
-            className="submit-button"
-            title="Add or update a filter to submit."
-            aria-label="Add or update a filter to submit."
-            disabled={!props.requestsComplete || !props.filtersChanged}
-            onClick={props.applyStagedFilters}>
-            Submit Search
-        </button>
-        <button
-            className="reset-button"
-            disabled={!props.requestsComplete}
-            onClick={props.resetStagedFilters}>
-            Reset filters
-        </button>
-    </div>
-);
+const SearchSidebarSubmit = (props) => {
+    let disabled = false;
+    let title = 'Click to submit your search.';
+    if (!props.requestsComplete || !props.filtersChanged) {
+        title = 'Add or update a filter to submit.';
+        disabled = true;
+    }
+
+    return (
+        <div className="sidebar-submit">
+            <button
+                className="submit-button"
+                title={title}
+                aria-label={title}
+                disabled={disabled}
+                onClick={props.applyStagedFilters}>
+                Submit Search
+            </button>
+            <button
+                className="reset-button"
+                aria-label="Reset filters"
+                disabled={!props.requestsComplete}
+                onClick={props.resetStagedFilters}>
+                Reset filters
+            </button>
+        </div>
+    );
+};
 
 SearchSidebarSubmit.propTypes = propTypes;
 
