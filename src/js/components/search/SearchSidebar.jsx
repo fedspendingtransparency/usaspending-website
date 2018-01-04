@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
+
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
@@ -85,7 +87,8 @@ const filters = {
 
 const propTypes = {
     mobile: PropTypes.bool,
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    requestsComplete: PropTypes.bool
 };
 
 const defaultProps = {
@@ -97,7 +100,13 @@ export default class SearchSidebar extends React.Component {
         const expanded = [];
         filters.options.forEach((filter) => {
             // Collapse all by default, unless the filter has a selection made
-            expanded.push(SidebarHelper.filterHasSelections(this.props.filters, filter));
+            if (filter === 'Time Period') {
+                // time period is always expanded
+                expanded.push(true);
+            }
+            else {
+                expanded.push(SidebarHelper.filterHasSelections(this.props.filters, filter));
+            }
         });
 
         return (
@@ -106,9 +115,15 @@ export default class SearchSidebar extends React.Component {
                     <span className="filter-icon">
                         <FilterIcon />
                     </span>
-                    <h6>Filter by:</h6>
+                    <h6>Filters</h6>
+                </div>
+                <div className="sidebar-top-submit">
+                    <SearchSidebarSubmitContainer />
                 </div>
                 <FilterSidebar {...filters} expanded={expanded} />
+                <div className="sidebar-bottom-submit">
+                    <SearchSidebarSubmitContainer />
+                </div>
             </div>
         );
     }

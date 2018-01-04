@@ -4,16 +4,15 @@
     @import "_tableTypes";
     @import "_tableStyle";
     @import "_resultsDropdownPickerWrapper";
-    .loading-table {
-        opacity: 0.5;
-        @include transition(opacity 0.25s ease-in);
-        margin-top: rem(15);
-    }
-    .loaded-table {
-        opacity: 1;
-        @include transition(opacity 0.25s ease-in);
+    @import "./_tableMessages";
+
+    .results-table-content {
+        position: relative;
         margin-top: rem(15);   
+        min-height: rem(200);
+        @include transition(opacity 0.25s ease-in);
     }
+
     .ibt-table-container {
         border: 1px solid $color-gray-light;
     }

@@ -397,3 +397,9 @@ Recipient.defaultProps = {
     alt: 'Icon Depicting a Person Representing Recipients'
 };
 
+export class CircleArrowLeft extends BaseIcon {}
+CircleArrowLeft.defaultProps = {
+    iconName: 'usa-da-circle-arrow-left',
+    iconClass: 'usa-da-circle-arrow-left',
+    alt: 'Icon Depicting an Arrow in a Circle Pointing Left'
+};

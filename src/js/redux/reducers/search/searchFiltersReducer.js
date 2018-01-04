@@ -11,7 +11,6 @@ import * as AgencyFilterFunctions from './filters/agencyFilterFunctions';
 import * as RecipientFilterFunctions from './filters/recipientFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
 import * as OtherFilterFunctions from './filters/OtherFilterFunctions';
-import * as FiscalYearHelper from '../../../helpers/fiscalYearHelper';
 import * as ContractFilterFunctions from './filters/contractFilterFunctions';
 
 // update this version when changes to the reducer structure are made
@@ -41,7 +40,7 @@ export const requiredTypes = {
 export const initialState = {
     keyword: '',
     timePeriodType: 'fy',
-    timePeriodFY: new Set([`${FiscalYearHelper.currentFiscalYear()}`]),
+    timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
     selectedLocations: new OrderedMap(),

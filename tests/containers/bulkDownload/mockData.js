@@ -40,12 +40,10 @@ export const mockAgencies = {
 
 export const mockSubAgencies = [
     {
-        subtier_agency_name: "Subtier Agency 1",
-        subtier_agency_id: 5
+        subtier_agency_name: "Subtier Agency 1"
     },
     {
-        subtier_agency_name: "Subtier Agency 2",
-        subtier_agency_id: 6
+        subtier_agency_name: "Subtier Agency 2"
     }
 ];
 
@@ -69,7 +67,6 @@ export const mockRedux = {
                 name: 'Mock Agency'
             },
             subAgency: {
-                id: '456',
                 name: 'Mock Sub-Agency'
             },
             dateType: 'action_date',

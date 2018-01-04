@@ -19,7 +19,7 @@ export default class TableRow extends React.PureComponent {
             rowClass = 'row-odd';
         }
         const cells = this.props.columns.map((column) => {
-            if (column.columnName === 'url') {
+            if (column.columnName === 'fileName') {
                 // link to the file
                 return (
                     <td
@@ -29,7 +29,7 @@ export default class TableRow extends React.PureComponent {
                             href={this.props.file.url}
                             target="_blank"
                             rel="noopener noreferrer">
-                            {this.props.file.url}
+                            {this.props.file.fileName}
                         </a>
                     </td>
                 );

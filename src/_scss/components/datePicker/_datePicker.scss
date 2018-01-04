@@ -108,8 +108,8 @@
     }
 }
 
-.set-date-button {
-    @include flex(1 1 auto);
+.set-date-submit {
+    @include flex(0 0 auto);
     height: rem(42);
     width: 100%;
     margin-left: 0;
@@ -121,15 +121,5 @@
         margin: 0;
         margin-bottom: rem(3);
         width: rem(15);
-    }
-
-    @include display(flex);
-    @include align-items(center);
-    @include justify-content(center);
-    svg {
-        @include flex(0 0 auto);
-        width: rem(15);
-        height: rem(15);
-        fill: $color-white;
     }
 }

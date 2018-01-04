@@ -7,6 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 
+import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
+import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
+
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
@@ -22,7 +25,9 @@ const propTypes = {
     renderHash: PropTypes.string,
     data: PropTypes.object,
     total: PropTypes.number,
-    message: PropTypes.string
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+    noResults: PropTypes.bool
 };
 
 const availableLayers = ['state', 'county', 'congressionalDistrict'];
@@ -89,9 +94,47 @@ export default class GeoVisualizationSection extends React.Component {
                 closeDisclaimer={this.closeDisclaimer} />);
         }
 
-        let loadingMessage = null;
-        if (this.props.message !== '') {
-            loadingMessage = (<MapMessage message={this.props.message} />);
+        let message = null;
+        if (this.props.loading) {
+            message = (
+                <MapMessage>
+                    <div className="map-loading">
+                        <LoadingSpinner />
+                        <div className="loading-message">
+                            Gathering your data...
+                        </div>
+                    </div>
+                </MapMessage>
+            );
+        }
+        else if (this.props.error) {
+            message = (
+                <MapMessage>
+                    <div className="map-no-results">
+                        <div className="error-icon">
+                            <ExclamationTriangle alt="An error occurred" />
+                        </div>
+                        <div className="title">
+                            An error occurred.
+                        </div>
+                        <div className="description">
+                            Something went wrong while gathering your data.
+                        </div>
+                    </div>
+                </MapMessage>
+            );
+        }
+        else if (this.props.noResults) {
+            message = (
+                <MapMessage>
+                    <div className="map-no-results">
+                        <div className="no-results-icon" />
+                        <div className="title">
+                            No results found in the current map area.
+                        </div>
+                    </div>
+                </MapMessage>
+            );
         }
 
         return (
@@ -149,7 +192,7 @@ export default class GeoVisualizationSection extends React.Component {
                     availableLayers={availableLayers}
                     showLayerToggle>
                     {disclaimer}
-                    {loadingMessage}
+                    {message}
                 </MapWrapper>
 
             </div>

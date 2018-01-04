@@ -1,0 +1,72 @@
+.visualization-message-container {
+    background-color: $color-white;
+    margin-top: rem(100);
+
+    max-width: rem(450);
+    padding-left: rem(10);
+    padding-right: rem(10);
+    margin-left: auto;
+    margin-right: auto;
+
+    @include media($tablet-screen) {
+        max-width: rem(600);
+    }
+
+    .loading-animation {
+        width: rem(50);
+        height: rem(50);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .message {
+        font-size: rem(36);
+        line-height: rem(45);
+        color: $color-gray-light;
+        text-align: center;
+    }
+
+    .visualization-no-results {
+        margin-top: rem(100);
+
+        .no-results-icon {
+            width: rem(75);
+            height: rem(72);
+
+            margin-left: auto;
+            margin-right: auto;
+
+            background-image: url('#{$image-path}/no_results.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .error-icon {
+            width: rem(75);
+            height: rem(72);
+
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: rem(10);
+
+            svg {
+                width: rem(72);
+                height: rem(72);
+                fill: $color-gray-light;
+            }
+        }
+        .title {
+            font-size: rem(36);
+            line-height: rem(45);
+            color: $color-gray-light;
+            text-align: center;
+            font-weight: $font-semibold;
+        }
+        .description {
+            font-size: rem(36);
+            line-height: rem(45);
+            color: $color-gray-light;
+            text-align: center;
+        }
+    }
+
+}

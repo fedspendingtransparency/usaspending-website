@@ -16,12 +16,21 @@
         
         .filter-group-container {
             display: inline-block;
+            margin-right: rem(10);
+
+            .filter-name {
+                font-size: $smallest-font-size;
+                font-weight: $font-semibold;
+                text-transform: uppercase;
+
+                margin-bottom: rem(5);
+            }
 
             .filter-values {
                 white-space: nowrap;
                 .filter-item-container {
                     display: inline-block;
-                    margin-left: rem(10);
+                    margin-right: rem(5);
                 }
             }
         }

@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import sinon from 'sinon';
 
 import { Set } from 'immutable';
 
@@ -14,304 +13,127 @@ import { TimeVisualizationSectionContainer } from
 import * as SearchHelper from 'helpers/searchHelper';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
+import { mockActions, mockApi, mockQuarters, mockMonths } from './mockData';
 
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
+jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
 
-// spy on specific functions inside the component
-const fetchDataSpy = sinon.spy(TimeVisualizationSectionContainer.prototype, 'fetchData');
-
-// we don't want to actually hit the API because tests should be fully controlled, so we will mock
-// the SearchHelper functions
-const mockSearchHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    SearchHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockSearchHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/searchHelper');
-};
+jest.mock('components/search/visualizations/time/TimeVisualizationSection', () =>
+    jest.fn(() => null));
 
 describe('TimeVisualizationSectionContainer', () => {
     it('should make an API request on mount', () => {
-        // create a mock API response
-        const apiResponse = {
-            page_metadata: {
-                has_next_page: false,
-                has_previous_page: false,
-                next: null,
-                page: 1,
-                previous: null
-            },
-            results: [{
-                item: '2013',
-                aggregate: '1234'
-            }],
-            total_metadata: {
-                count: 1
-            }
-        };
-
-        // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performSpendingOverTimeSearch', 'resolve', apiResponse);
-
         // mount the container
-        mount(<TimeVisualizationSectionContainer reduxFilters={defaultFilters} />);
+        const container = shallow(<TimeVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                {...mockActions} />);
+        container.instance().fetchAwards = jest.fn();
 
-        // the mocked SearchHelper waits 1 tick to resolve the promise, so wait for the tick
-        jest.runAllTicks();
+        container.instance().componentDidMount();
 
         // everything should be updated now
-        expect(fetchDataSpy.callCount).toEqual(1);
-
-        // reset the mocks and spies
-        unmockSearchHelper();
-        fetchDataSpy.reset();
+        expect(container.instance().fetchAwards).toHaveBeenCalledTimes(1);
     });
 
     it('should make an API request when the Redux filters change', () => {
-        // create a mock API response
-        const apiResponse = {
-            page_metadata: {
-                has_next_page: false,
-                has_previous_page: false,
-                next: null,
-                page: 1,
-                previous: null
-            },
-            results: [{
-                item: '2013',
-                aggregate: '1234'
-            }],
-            total_metadata: {
-                count: 1
-            }
-        };
-
-        // mock the search helper to resolve with the mocked response
-        mockSearchHelper('performSpendingOverTimeSearch', 'resolve', apiResponse);
-
-        const initialFilters = Object.assign({}, defaultFilters);
-        const secondFilters = Object.assign({}, defaultFilters, {
+        const mockFilters = Object.assign({}, defaultFilters, {
             timePeriodType: 'fy',
             timePeriodFY: new Set(['2014', '2015'])
         });
 
         // mount the container
-        const timeVisualizationContainer =
-            mount(<TimeVisualizationSectionContainer reduxFilters={initialFilters} />);
+        const container =
+            mount(<TimeVisualizationSectionContainer
+                reduxFilters={defaultFilters}
+                {...mockActions} />);
+        container.instance().fetchAwards = jest.fn();
 
-        // wait for the first SearchHelper call to finish
-        jest.runAllTicks();
+        expect(container.instance().fetchAwards).toHaveBeenCalledTimes(0);
 
-        // the first API call should have been called
-        expect(fetchDataSpy.callCount).toEqual(1);
-
-        // now update the props
-        timeVisualizationContainer.setProps({
-            reduxFilters: secondFilters
+        container.setProps({
+            reduxFilters: mockFilters
         });
 
-        // wait for the second SearchHelper call to finish
-        jest.runAllTicks();
-        // the first API call should have been called
-        expect(fetchDataSpy.callCount).toEqual(2);
-
-        // reset the mocks and spies
-        unmockSearchHelper();
-        fetchDataSpy.reset();
+        expect(container.instance().fetchAwards).toHaveBeenCalledTimes(1);   
     });
 
     describe('parseData', () => {
         it('should properly restructure the API data for the spending over time chart for fiscal year series', () => {
-            // create a mock API response
-            const apiResponse = {
-                page_metadata: {
-                    has_next_page: false,
-                    has_previous_page: false,
-                    next: null,
-                    page: 1,
-                    previous: null
-                },
-                results: [{
-                    time_period: {
-                        fiscal_year: "2016"
-                    },
-                    aggregated_amount: "1234"
-                },
-                {
-                    time_period: {
-                        fiscal_year: "2017"
-                    },
-                    aggregated_amount: "5555"
-                }]
-            };
-
-            const mockReduxActions = {
-                setVizTxnSum: jest.fn()
-            };
-
-            // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performSpendingOverTimeSearch', 'resolve', apiResponse);
             // mount the container
-            const timeVisualizationContainer =
+            const container =
                 shallow(<TimeVisualizationSectionContainer
-                    {...mockReduxActions}
+                    {...mockActions}
                     reduxFilters={defaultFilters} />);
 
-            timeVisualizationContainer.instance().parseData(apiResponse, 'fiscal_year');
+            container.instance().parseData(mockApi, 'fiscal_year');
 
-            // wait for the SearchHelper promises to resolve
-            jest.runAllTicks();
 
             // validate the state contains the correctly parsed values
             const expectedState = {
                 loading: false,
+                error: false,
                 visualizationPeriod: "fiscal_year",
-                groups: ['2016', '2017'],
-                xSeries: [['2016'], ['2017']],
-                ySeries: [[1234], [5555]]
+                groups: ['1979', '1980'],
+                xSeries: [['1979'], ['1980']],
+                ySeries: [[123], [234]],
+                rawLabels:[{period: null, year:'1979'},{period: null, year:'1980'}]
             };
 
-            expect(timeVisualizationContainer.state()).toEqual(expectedState);
+            expect(container.state()).toEqual(expectedState);
         });
-
         it('should properly restructure the API data for the spending over time chart for quarterly series', () => {
-            // create a mock API response
-            const apiResponse = {
-                page_metadata: {
-                    has_next_page: false,
-                    has_previous_page: false,
-                    next: null,
-                    page: 1,
-                    previous: null
-                },
-                results: [{
-                    time_period: {
-                        fiscal_year: "2017",
-                        quarter: "1"
-                    },
-                    aggregated_amount: "1234"
-                },
-                {
-                    time_period: {
-                        fiscal_year: "2017",
-                        quarter: "2"
-                    },
-                    aggregated_amount: "5555"
-                }]
-            };
-
-            const mockReduxActions = {
-                setVizTxnSum: jest.fn()
-            };
-
-            // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performSpendingOverTimeSearch', 'resolve', apiResponse);
-
             // mount the container
-            const timeVisualizationContainer =
+            const container =
                 shallow(<TimeVisualizationSectionContainer
-                    {...mockReduxActions}
+                    {...mockActions}
                     reduxFilters={defaultFilters} />);
 
-            timeVisualizationContainer.instance().updateVisualizationPeriod('quarter');
+            container.setState({
+                visualizationPeriod: 'quarter'
+            });
 
-            timeVisualizationContainer.instance().parseData(apiResponse, 'quarter');
+            container.instance().parseData(mockQuarters, 'quarter');
 
-            // wait for the SearchHelper promises to resolve
-            jest.runAllTicks();
 
             // validate the state contains the correctly parsed values
-            const expectedState = {
+             const expectedState = {
                 loading: false,
+                error: false,
                 visualizationPeriod: "quarter",
-                groups: ['Q1 2017', 'Q2 2017'],
-                xSeries: [['Q1 2017'], ['Q2 2017']],
-                ySeries: [[1234], [5555]]
+                groups: ['Q1 1979', 'Q2 1979'],
+                xSeries: [['Q1 1979'], ['Q2 1979']],
+                ySeries: [[1234], [5555]],
+                rawLabels:[{period: 'Q1', year:'1979'},{period: 'Q2', year:'1979'}]
             };
 
-            expect(timeVisualizationContainer.state()).toEqual(expectedState);
+            expect(container.state()).toEqual(expectedState);
         });
 
         it('should properly restructure the API data for the spending over time chart for monthly series', () => {
-            // create a mock API response
-            const apiResponse = {
-                page_metadata: {
-                    has_next_page: false,
-                    has_previous_page: false,
-                    next: null,
-                    page: 1,
-                    previous: null
-                },
-                results: [{
-                    time_period: {
-                        fiscal_year: "2017",
-                        month: "1"
-                    },
-                    aggregated_amount: "1234"
-                },
-                {
-                    time_period: {
-                        fiscal_year: "2017",
-                        month: "2"
-                    },
-                    aggregated_amount: "5555"
-                }]
-            };
-
-            const mockReduxActions = {
-                setVizTxnSum: jest.fn()
-            };
-
-            // mock the search helper to resolve with the mocked response
-            mockSearchHelper('performSpendingOverTimeSearch', 'resolve', apiResponse);
-
             // mount the container
-            const timeVisualizationContainer =
+            const container =
                 shallow(<TimeVisualizationSectionContainer
-                    {...mockReduxActions}
+                    {...mockActions}
                     reduxFilters={defaultFilters} />);
 
-            timeVisualizationContainer.instance().updateVisualizationPeriod('month');
+            container.setState({
+                visualizationPeriod: 'month'
+            });
 
-            timeVisualizationContainer.instance().parseData(apiResponse, 'month');
-            // wait for the SearchHelper promises to resolve
-            jest.runAllTicks();
+            container.instance().parseData(mockMonths, 'month');
+
+
             // validate the state contains the correctly parsed values
-            const expectedState = {
+             const expectedState = {
                 loading: false,
+                error: false,
                 visualizationPeriod: "month",
-                groups: ['Oct 2016', 'Nov 2016'],
-                xSeries: [['Oct 2016'], ['Nov 2016']],
-                ySeries: [[1234], [5555]]
+                groups: ['Oct 1978', 'Nov 1978'],
+                xSeries: [['Oct 1978'], ['Nov 1978']],
+                ySeries: [[1234], [5555]],
+                rawLabels:[{period: 'Oct', year:'1978'},{period: 'Nov', year:'1978'}]
             };
 
-            expect(timeVisualizationContainer.state()).toEqual(expectedState);
+            expect(container.state()).toEqual(expectedState);
         });
     });
 });

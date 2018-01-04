@@ -6,8 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
-
 import NoDownloadHover from './NoDownloadHover';
 
 const propTypes = {
@@ -56,14 +54,8 @@ export default class DownloadButton extends React.Component {
         }
 
         let disabled = '';
-        let downloadIcon = null;
         if (!this.props.downloadAvailable) {
             disabled = 'disabled';
-            downloadIcon = (
-                <div className="icon">
-                    <ExclamationTriangle alt="Download not available" />
-                </div>
-            );
         }
 
         return (
@@ -77,7 +69,6 @@ export default class DownloadButton extends React.Component {
                     title="Download your data"
                     aria-label="Download your data"
                     onClick={this.onClick}>
-                    {downloadIcon}
                     <div className="label">
                         Download
                     </div>

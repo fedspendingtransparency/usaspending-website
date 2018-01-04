@@ -5,7 +5,8 @@ export const mockRedux = {
     download: Object.assign({}, initialState, {
         pendingDownload: false,
         showCollapsedProgress: false,
-        expectedFile: ''
+        expectedFile: '',
+        expectedUrl: ''
     }),
     filters: initialFilter
 };
@@ -14,6 +15,7 @@ export const mockActions = {
     setDownloadPending: jest.fn(),
     setDownloadCollapsed: jest.fn(),
     setDownloadExpectedFile: jest.fn(),
+    setDownloadExpectedUrl: jest.fn(),
     resetDownload: jest.fn()
 };
 
