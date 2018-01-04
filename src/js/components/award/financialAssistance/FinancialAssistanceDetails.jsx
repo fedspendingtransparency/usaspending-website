@@ -43,8 +43,12 @@ export default class FinancialAssistanceDetails extends React.Component {
         };
     }
 
-    componentWillReceiveProps() {
+    componentDidMount() {
         this.prepareValues(this.props.selectedAward);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.prepareValues(nextProps.selectedAward);
     }
 
     parsePlaceOfPerformance(award) {
