@@ -25,7 +25,8 @@ const propTypes = {
     requestsComplete: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
     clearStagedFilters: PropTypes.func,
-    setAppliedFilterCompletion: PropTypes.func
+    setAppliedFilterCompletion: PropTypes.func,
+    resetAppliedFilters: PropTypes.func
 };
 
 export class SearchSidebarSubmitContainer extends React.Component {
@@ -36,6 +37,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
             filtersChanged: false
         };
 
+        this.resetFilters = this.resetFilters.bind(this);
         this.applyStagedFilters = this.applyStagedFilters.bind(this);
     }
 
@@ -93,13 +95,18 @@ export class SearchSidebarSubmitContainer extends React.Component {
         });
     }
 
+    resetFilters() {
+        this.props.clearStagedFilters();
+        this.props.resetAppliedFilters();
+    }
+
     render() {
         return (
             <SearchSidebarSubmit
                 filtersChanged={this.state.filtersChanged}
                 requestsComplete={this.props.requestsComplete}
                 applyStagedFilters={this.applyStagedFilters}
-                resetStagedFilters={this.props.clearStagedFilters} />
+                resetFilters={this.resetFilters} />
         );
     }
 }
