@@ -46,7 +46,9 @@ export default class ContractDetails extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.prepareValues(nextProps.selectedAward);
+        if (nextProps.selectedAward !== this.props.selectedAward) {
+            this.prepareValues(nextProps.selectedAward);
+        }
     }
 
     parsePlaceOfPerformance(award) {
