@@ -84,10 +84,17 @@ export class KeywordContainer extends React.Component {
         });
     }
 
+    dirtyFilter() {
+        if (is(this.props.appliedFilter, this.props.keyword)) {
+            return '';
+        }
+        return this.props.keyword;
+    }
+
     render() {
         return (
             <Keyword
-                dirtyFilter={!is(this.props.appliedFilter, this.props.keyword)}
+                dirtyFilter={this.dirtyFilter()}
                 value={this.state.value}
                 selectedKeyword={this.props.keyword}
                 changedInput={this.changedInput}

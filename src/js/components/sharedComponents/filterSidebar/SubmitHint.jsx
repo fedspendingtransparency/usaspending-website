@@ -5,25 +5,21 @@
 
 import React from 'react';
 import { CheckCircle } from 'components/sharedComponents/icons/Icons';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 export default class SubmitHint extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            hideHint: false
+            hideHint: true
         };
 
         this.hideTimer = null;
     }
 
     componentDidMount() {
-        this.hideTimer = window.setTimeout(() => {
-            this.setState({
-                hideHint: true
-            });
-            this.hideTimer = null;
-        }, 2500);
+        this.hideHint();
     }
 
     componentWillUnmount() {
@@ -32,12 +28,31 @@ export default class SubmitHint extends React.Component {
         }
     }
 
-    render() {
-        if (this.state.hideHint) {
-            return null;
+    hideHint() {
+        this.hideTimer = window.setTimeout(() => {
+            this.setState({
+                hideHint: true
+            });
+            this.hideTimer = null;
+        }, 2000);
+    }
+
+    showHint() {
+        if (this.hideTimer) {
+            window.clearTimeout(this.hideTimer);
         }
 
-        return (
+        if (this.state.hideHint) {
+            this.setState({
+                hideHint: false
+            });
+        }
+
+        this.hideHint();
+    }
+
+    render() {
+        let content = (
             <div className="filter-submit-hint">
                 <div className="hint-icon">
                     <CheckCircle alt="Filter selected" />
@@ -51,6 +66,22 @@ export default class SubmitHint extends React.Component {
                     </div>
                 </div>
             </div>
+        );
+
+        if (this.state.hideHint) {
+            content = null;
+        }
+
+        return (
+            <CSSTransitionGroup
+                transitionName="hint-fade"
+                transitionLeaveTimeout={200}
+                transitionEnterTimeout={200}
+                transitionAppearTimeout={200}
+                transitionAppear
+                transitionLeave>
+                {content}
+            </CSSTransitionGroup>
         );
     }
 }

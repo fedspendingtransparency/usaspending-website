@@ -7,6 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Set } from 'immutable';
+
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
@@ -26,7 +29,8 @@ const propTypes = {
     activeTab: PropTypes.string,
     updateFilter: PropTypes.func,
     changeTab: PropTypes.func,
-    disableDateRange: PropTypes.bool
+    disableDateRange: PropTypes.bool,
+    dirtyFilters: PropTypes.string
 };
 
 const ga = require('react-ga');
@@ -78,6 +82,12 @@ export default class TimePeriod extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.synchronizeDatePickers(nextProps);
+
+        if (nextProps.dirtyFilters !== this.props.dirtyFilters && nextProps.dirtyFilters !== '') {
+            if (this.hint) {
+                this.hint.showHint();
+            }
+        }
     }
 
     prepopulateDatePickers() {
@@ -314,6 +324,10 @@ export default class TimePeriod extends React.Component {
                     </ul>
                     { showFilter }
                     { errorDetails }
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
                 </div>
             </div>
         );

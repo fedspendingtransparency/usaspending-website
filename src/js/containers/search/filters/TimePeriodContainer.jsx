@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Immutable from 'immutable';
+import { Set, is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -20,9 +20,10 @@ export const startYear = FiscalYearHelper.earliestFiscalYear;
 const propTypes = {
     updateTimePeriod: PropTypes.func,
     filterTimePeriodType: PropTypes.string,
-    filterTimePeriodFY: PropTypes.instanceOf(Immutable.Set),
+    filterTimePeriodFY: PropTypes.instanceOf(Set),
     filterTimePeriodStart: PropTypes.string,
-    filterTimePeriodEnd: PropTypes.string
+    filterTimePeriodEnd: PropTypes.string,
+    appliedFilters: PropTypes.object
 };
 
 export class TimePeriodContainer extends React.Component {
@@ -77,10 +78,49 @@ export class TimePeriodContainer extends React.Component {
         this.props.updateTimePeriod(newFilters);
     }
 
+    dirtyFilters() {
+        const appliedFields = [
+            'timePeriodType',
+            'timePeriodFY',
+            'timePeriodStart',
+            'timePeriodEnd'
+        ];
+        const activeFields = [
+            'filterTimePeriodType',
+            'filterTimePeriodFY',
+            'filterTimePeriodStart',
+            'filterTimePeriodEnd'
+        ];
+
+        const changedValues = appliedFields.reduce((changed, appliedField, index) => {
+            const activeField = activeFields[index];
+            const appliedValue = this.props.appliedFilters[appliedField];
+            const activeValue = this.props[activeField];
+
+            let output = changed;
+
+            if (!is(appliedValue, activeValue)) {
+                // field has changed
+                if (appliedField === 'timePeriodFY') {
+                    // this an array
+                    output += activeValue.join();
+                }
+                else {
+                    output += `${activeValue}`;
+                }
+            }
+
+            return output;
+        }, '');
+
+        return changedValues;
+    }
+
     render() {
         return (
             <TimePeriod
                 {...this.props}
+                dirtyFilters={this.dirtyFilters()}
                 activeTab={this.props.filterTimePeriodType}
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
@@ -96,7 +136,8 @@ export default connect(
         filterTimePeriodType: state.filters.timePeriodType,
         filterTimePeriodFY: state.filters.timePeriodFY,
         filterTimePeriodStart: state.filters.timePeriodStart,
-        filterTimePeriodEnd: state.filters.timePeriodEnd
+        filterTimePeriodEnd: state.filters.timePeriodEnd,
+        appliedFilters: state.appliedFilters.filters
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(TimePeriodContainer);

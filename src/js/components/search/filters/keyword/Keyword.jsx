@@ -16,7 +16,7 @@ const propTypes = {
     changedInput: PropTypes.func,
     removeKeyword: PropTypes.func,
     value: PropTypes.string,
-    dirtyFilter: PropTypes.bool
+    dirtyFilter: PropTypes.string
 };
 
 export default class Keyword extends React.Component {
@@ -24,6 +24,14 @@ export default class Keyword extends React.Component {
         super(props);
 
         this.searchKeyword = this.searchKeyword.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.dirtyFilter !== this.props.dirtyFilter && this.props.dirtyFilter !== '') {
+            if (this.hint) {
+                this.hint.showHint();
+            }
+        }
     }
 
     searchKeyword(e) {
@@ -35,11 +43,6 @@ export default class Keyword extends React.Component {
         let hideTags = 'hide';
         if (this.props.selectedKeyword !== '') {
             hideTags = '';
-        }
-
-        let hint = null;
-        if (this.props.dirtyFilter) {
-            hint = <SubmitHint />;
         }
 
         return (
@@ -69,7 +72,10 @@ export default class Keyword extends React.Component {
                                 {this.props.selectedKeyword}
                             </button>
                         </div>
-                        {hint}
+                        <SubmitHint
+                            ref={(component) => {
+                                this.hint = component;
+                            }} />
                     </div>
                 </form>
             </div>

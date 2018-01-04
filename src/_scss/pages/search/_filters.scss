@@ -44,29 +44,40 @@
 	    }
 	}
 
+
+    @keyframes submitFadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes submitFadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    .hint-fade-enter, .hint-fade-enter-active, .hint-fade-appear, .hint-fade-appear-active {
+        @include animation(submitFadeIn 0.2s linear forwards);
+    }
+
+    .hint-fade-leave, .hint-fade-leave-active {
+        @include animation(submitFadeOut 0.2s linear forwards);
+    }
+
+
     .filter-submit-hint {
         @include display(flex);
         @include justify-content(center);
         @include align-items(center);
 
-        margin-top: rem(20);
-
-        @keyframes submitFade {
-            0% {
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        @include animation(submitFade 2.4s linear forwards);
+        margin-top: rem(20);        
 
         .hint-icon {
             @include flex(0 0 auto);
