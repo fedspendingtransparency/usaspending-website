@@ -46,7 +46,7 @@ export default class ContractDetails extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.selectedAward !== this.props.selectedAward) {
+        if (!Object.is(nextProps.selectedAward, this.props.selectedAward)) {
             this.prepareValues(nextProps.selectedAward);
         }
     }
