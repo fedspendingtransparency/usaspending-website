@@ -37,19 +37,18 @@ describe('TimePeriodContainer', () => {
     });
 
     describe('changeTab', () => {
-        it('should call updateFilter', () => {
+        it('should change the active tab state', () => {
             const container = shallow(<TimePeriodContainer
                 {...mockRedux}
                 {...mockActions} />);
+
+            expect(container.state().activeTab).toEqual('fy');
 
             const mockUpdate = jest.fn();
             container.instance().updateFilter = mockUpdate;
 
             container.instance().changeTab('dr');
-            expect(mockUpdate).toHaveBeenCalledTimes(1);
-            expect(mockUpdate).toHaveBeenCalledWith({
-                dateType: 'dr'
-            });
+            expect(container.state().activeTab).toEqual('dr');
         });
     });
 
@@ -64,8 +63,11 @@ describe('TimePeriodContainer', () => {
                 {...mockRedux}
                 {...actions} />);
 
+            container.setState({
+                activeTab: 'dr'
+            });
+
             container.instance().updateFilter({
-                dateType: 'dr',
                 startDate: '1984-01-01',
                 endDate: '1984-01-30'
             });
@@ -73,7 +75,6 @@ describe('TimePeriodContainer', () => {
             expect(mockUpdate).toHaveBeenCalledTimes(1);
             expect(mockUpdate).toHaveBeenCalledWith({
                 dateType: 'dr',
-                fy: new Set(['1990']),
                 startDate: '1984-01-01',
                 endDate: '1984-01-30'
             });

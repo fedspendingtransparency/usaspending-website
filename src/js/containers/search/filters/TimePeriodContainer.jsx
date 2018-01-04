@@ -31,7 +31,11 @@ export class TimePeriodContainer extends React.Component {
         super(props);
 
         this.state = {
-            timePeriods: []
+            timePeriods: [],
+            activeTab: 'fy',
+            cachedTimePeriods: Set(),
+            cachedStart: null,
+            cachedEnd: null
         };
 
         // bind functions
@@ -41,6 +45,14 @@ export class TimePeriodContainer extends React.Component {
 
     componentDidMount() {
         this.generateTimePeriods();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.filterTimePeriodType !== this.props.filterTimePeriodType) {
+            this.setState({
+                activeTab: nextProps.filterTimePeriodType
+            });
+        }
     }
 
     generateTimePeriods() {
@@ -59,15 +71,15 @@ export class TimePeriodContainer extends React.Component {
     }
 
     changeTab(tab) {
-        this.updateFilter({
-            dateType: tab
+        this.setState({
+            activeTab: tab
         });
     }
 
     updateFilter(params) {
         // set the state to a clone of the filter subobject merged with the param object
         const currentFilters = {
-            dateType: this.props.filterTimePeriodType,
+            dateType: this.state.activeTab,
             fy: this.props.filterTimePeriodFY,
             startDate: this.props.filterTimePeriodStart,
             endDate: this.props.filterTimePeriodEnd
@@ -75,45 +87,52 @@ export class TimePeriodContainer extends React.Component {
 
         const newFilters = Object.assign({}, currentFilters, params);
 
+        if (this.state.activeTab === 'fy') {
+            // delete the date range
+            delete newFilters.startDate;
+            delete newFilters.endDate;
+        }
+        else {
+            // delete the fiscal year set
+            delete newFilters.fy;
+
+            if (!newFilters.startDate && !newFilters.endDate) {
+                newFilters.dateType = 'fy';
+            }
+        }
+
         this.props.updateTimePeriod(newFilters);
     }
 
     dirtyFilters() {
         const appliedFields = [
-            'timePeriodType',
             'timePeriodFY',
             'timePeriodStart',
             'timePeriodEnd'
         ];
         const activeFields = [
-            'filterTimePeriodType',
             'filterTimePeriodFY',
             'filterTimePeriodStart',
             'filterTimePeriodEnd'
         ];
 
-        const changedValues = appliedFields.reduce((changed, appliedField, index) => {
+        const noChanges = appliedFields.every((appliedField, index) => {
             const activeField = activeFields[index];
             const appliedValue = this.props.appliedFilters[appliedField];
             const activeValue = this.props[activeField];
 
-            let output = changed;
-
             if (!is(appliedValue, activeValue)) {
                 // field has changed
-                if (appliedField === 'timePeriodFY') {
-                    // this an array
-                    output += activeValue.join();
-                }
-                else {
-                    output += `${activeValue}`;
-                }
+                return false;
             }
 
-            return output;
-        }, '');
+            return true;
+        });
 
-        return changedValues;
+        if (!noChanges) {
+            return Symbol('dirty filter');
+        }
+        return null;
     }
 
     render() {
@@ -121,7 +140,7 @@ export class TimePeriodContainer extends React.Component {
             <TimePeriod
                 {...this.props}
                 dirtyFilters={this.dirtyFilters()}
-                activeTab={this.props.filterTimePeriodType}
+                activeTab={this.state.activeTab}
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
                 changeTab={this.changeTab} />

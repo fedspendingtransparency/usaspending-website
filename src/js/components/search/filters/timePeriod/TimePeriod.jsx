@@ -30,7 +30,7 @@ const propTypes = {
     updateFilter: PropTypes.func,
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
-    dirtyFilters: PropTypes.string
+    dirtyFilters: PropTypes.symbol
 };
 
 const ga = require('react-ga');
@@ -83,7 +83,7 @@ export default class TimePeriod extends React.Component {
     componentWillReceiveProps(nextProps) {
         this.synchronizeDatePickers(nextProps);
 
-        if (nextProps.dirtyFilters !== this.props.dirtyFilters && nextProps.dirtyFilters !== '') {
+        if (nextProps.dirtyFilters !== this.props.dirtyFilters && nextProps.dirtyFilters) {
             if (this.hint) {
                 this.hint.showHint();
             }
