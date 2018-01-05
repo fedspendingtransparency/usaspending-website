@@ -130,7 +130,7 @@ export class TimePeriodContainer extends React.Component {
         });
 
         if (!noChanges) {
-            return Symbol('dirty filter');
+            return Symbol('dirty time filter');
         }
         return null;
     }

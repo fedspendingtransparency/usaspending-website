@@ -919,7 +919,7 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('POPULATE_ALL_SEARCH_FILTERS', () => {
+    describe('RESTORE_HASHED_FILTERS', () => {
         it('should create a brand new state based on the initial state with the provided inputs', () => {
             const originalState = Object.assign({}, initialState);
             originalState.keyword = 'hello';
@@ -932,7 +932,7 @@ describe('searchFiltersReducer', () => {
             expect(state.awardType).toEqual(new Set(['A', 'B']));
 
             const action = {
-                type: 'POPULATE_ALL_SEARCH_FILTERS',
+                type: 'RESTORE_HASHED_FILTERS',
                 filters: {
                     keyword: 'bye',
                     recipientDomesticForeign: 'domestic'

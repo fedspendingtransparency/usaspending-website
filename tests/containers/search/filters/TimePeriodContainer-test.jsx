@@ -76,8 +76,64 @@ describe('TimePeriodContainer', () => {
             expect(mockUpdate).toHaveBeenCalledWith({
                 dateType: 'dr',
                 startDate: '1984-01-01',
-                endDate: '1984-01-30'
+                endDate: '1984-01-30',
+                fy: []
             });
+        });
+        it('should use null start and end date arguments when updating a fiscal year', () => {
+            const mockUpdate = jest.fn();
+            const actions = Object.assign({}, mockActions, {
+                updateTimePeriod: mockUpdate
+            });
+
+            const container = shallow(<TimePeriodContainer
+                {...mockRedux}
+                {...actions} />);
+
+            container.setState({
+                activeTab: 'fy'
+            });
+
+            container.instance().updateFilter({
+                fy: ['2017']
+            });
+
+            expect(mockUpdate).toHaveBeenCalledTimes(1);
+            expect(mockUpdate).toHaveBeenCalledWith({
+                dateType: 'fy',
+                startDate: null,
+                endDate: null,
+                fy: ['2017']
+            });
+        });
+    });
+    describe('dirtyFilters', () => {
+        it('should return an ES6 Symbol when the staged filters do not match with the applied filters', () => {
+            const container = shallow(<TimePeriodContainer
+                {...mockRedux}
+                {...mockActions} />);
+
+            const appliedFilters = Object.assign({}, mockRedux.appliedFilters, {
+                timePeriodFY: new Set(['2017'])
+            });
+
+            container.setProps({
+                appliedFilters,
+                filterTimePeriodFY: new Set([])
+            });
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeTruthy();
+            expect(typeof changed).toEqual('symbol');
+            expect(changed.toString()).toEqual('Symbol(dirty time filter)');
+        });
+        it('should return null when the staged filters match with the applied filters', () => {
+            const container = shallow(<TimePeriodContainer
+                {...mockRedux}
+                {...mockActions} />);
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeFalsy();
         });
     });
 });
