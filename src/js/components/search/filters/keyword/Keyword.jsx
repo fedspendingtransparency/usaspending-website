@@ -27,7 +27,7 @@ export default class Keyword extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.dirtyFilter !== this.props.dirtyFilter && this.props.dirtyFilter !== '') {
+        if (this.props.dirtyFilter && prevProps.dirtyFilter !== this.props.dirtyFilter) {
             if (this.hint) {
                 this.hint.showHint();
             }

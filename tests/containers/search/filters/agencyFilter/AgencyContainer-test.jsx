@@ -6,12 +6,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
+import { OrderedMap } from 'immutable';
 
 import { AgencyContainer } from 'containers/search/filters/AgencyContainer';
 
 const initialFilters = {
-    selectedAwardingAgencies: {},
-    selectedFundingAgencies: {}
+    selectedAwardingAgencies: new OrderedMap(),
+    selectedFundingAgencies: new OrderedMap(),
+    appliedAwardingAgencies: new OrderedMap(),
+    appliedFundingAgencies: new OrderedMap()
 };
 
 const agency = {
@@ -68,7 +71,7 @@ describe('AgencyContainer', () => {
             // Set up container with mocked agency action
             const agencyContainer = shallow(
                 <AgencyContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateSelectedFundingAgencies={mockReduxActionFunding} />);
 
             const toggleAgencySpy = sinon.spy(agencyContainer.instance(),
@@ -115,7 +118,7 @@ describe('AgencyContainer', () => {
             // Set up container with mocked agency action
             const agencyContainer = shallow(
                 <AgencyContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateSelectedFundingAgencies={mockReduxActionFunding} />);
 
             const toggleAgencySpy = sinon.spy(agencyContainer.instance(),
@@ -165,7 +168,7 @@ describe('AgencyContainer', () => {
             // Set up container with mocked agency action
             const agencyContainer = shallow(
                 <AgencyContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateSelectedAwardingAgencies={mockReduxActionAwarding} />);
 
             const toggleAgencySpy = sinon.spy(agencyContainer.instance(),
@@ -212,7 +215,7 @@ describe('AgencyContainer', () => {
             // Set up container with mocked agency action
             const agencyContainer = shallow(
                 <AgencyContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateSelectedAwardingAgencies={mockReduxActionAwarding} />);
 
             const toggleAgencySpy = sinon.spy(agencyContainer.instance(),
@@ -230,6 +233,44 @@ describe('AgencyContainer', () => {
 
             // reset the spy
             toggleAgencySpy.reset();
+        });
+    });
+    describe('dirtyFilters', () => {
+        it('should return an ES6 Symbol when the staged funding filters do not match with the applied filters', () => {
+            const container = shallow(
+                <AgencyContainer
+                    {...initialFilters} />);
+
+            container.setProps({
+                selectedFundingAgencies: new OrderedMap({'a': 'a'})
+            });
+
+            const changed = container.instance().dirtyFilters('Funding');
+            expect(changed).toBeTruthy();
+            expect(typeof changed).toEqual('symbol');
+            expect(changed.toString()).toEqual('Symbol(dirty Funding agency)');
+        });
+        it('should return an ES6 Symbol when the staged awarding filters do not match with the applied filters', () => {
+            const container = shallow(
+                <AgencyContainer
+                    {...initialFilters} />);
+
+            container.setProps({
+                selectedAwardingAgencies: new OrderedMap({'a': 'a'})
+            });
+
+            const changed = container.instance().dirtyFilters('Awarding');
+            expect(changed).toBeTruthy();
+            expect(typeof changed).toEqual('symbol');
+            expect(changed.toString()).toEqual('Symbol(dirty Awarding agency)');
+        });
+        it('should return null when the staged filters match with the applied filters', () => {
+            const container = shallow(
+                <AgencyContainer
+                    {...initialFilters} />);
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeFalsy();
         });
     });
 });

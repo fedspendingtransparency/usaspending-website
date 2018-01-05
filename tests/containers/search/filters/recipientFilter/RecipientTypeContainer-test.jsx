@@ -84,4 +84,30 @@ describe('RecipientTypeContainer', () => {
             });
         });
     });
+    describe('dirtyFilters', () => {
+        it('should return an ES6 Symbol when the staged filters do not match with the applied filters', () => {
+            const container = shallow(
+                <RecipientTypeContainer
+                    {...mockTypeRedux} />
+            );
+
+            container.setProps({
+                recipientType: new Set(['a'])
+            });
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeTruthy();
+            expect(typeof changed).toEqual('symbol');
+            expect(changed.toString()).toEqual('Symbol(dirty recipient type)');
+        });
+        it('should return null when the staged filters match with the applied filters', () => {
+            const container = shallow(
+                <RecipientTypeContainer
+                    {...mockTypeRedux} />
+            );
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeFalsy();
+        });
+    });
 });

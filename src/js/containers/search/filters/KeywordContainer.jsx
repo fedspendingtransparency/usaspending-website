@@ -86,7 +86,7 @@ export class KeywordContainer extends React.Component {
 
     dirtyFilter() {
         if (is(this.props.appliedFilter, this.props.keyword)) {
-            return '';
+            return null;
         }
         return this.props.keyword;
     }
