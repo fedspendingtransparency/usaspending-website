@@ -246,7 +246,7 @@ const searchFiltersReducer = (state = initialState, action) => {
                 [action.filterType]: initialState[action.filterType]
             });
         }
-        case 'POPULATE_ALL_SEARCH_FILTERS': {
+        case 'RESTORE_HASHED_FILTERS': {
             return Object.assign({}, initialState, action.filters);
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {

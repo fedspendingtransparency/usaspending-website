@@ -88,13 +88,13 @@ export class TimePeriodContainer extends React.Component {
         const newFilters = Object.assign({}, currentFilters, params);
 
         if (this.state.activeTab === 'fy') {
-            // delete the date range
-            delete newFilters.startDate;
-            delete newFilters.endDate;
+            // reset the date range values
+            newFilters.startDate = null;
+            newFilters.endDate = null;
         }
         else {
-            // delete the fiscal year set
-            delete newFilters.fy;
+            // reset the fiscal year set
+            newFilters.fy = [];
 
             if (!newFilters.startDate && !newFilters.endDate) {
                 newFilters.dateType = 'fy';

@@ -83,7 +83,7 @@ export default class TimePeriod extends React.Component {
     componentWillReceiveProps(nextProps) {
         this.synchronizeDatePickers(nextProps);
 
-        if (nextProps.dirtyFilters !== this.props.dirtyFilters && nextProps.dirtyFilters) {
+        if (nextProps.dirtyFilters && nextProps.dirtyFilters !== this.props.dirtyFilters) {
             if (this.hint) {
                 this.hint.showHint();
             }

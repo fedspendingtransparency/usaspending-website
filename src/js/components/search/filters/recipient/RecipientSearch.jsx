@@ -7,14 +7,24 @@ import PropTypes from 'prop-types';
 
 import RecipientNameDUNSContainer from
     'containers/search/filters/recipient/RecipientNameDUNSContainer';
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import SelectedRecipients from './SelectedRecipients';
 
 const propTypes = {
     toggleRecipient: PropTypes.func,
-    selectedRecipients: PropTypes.object
+    selectedRecipients: PropTypes.object,
+    dirtyFilters: PropTypes.symbol
 };
 
 export default class RecipientSearch extends React.Component {
+    componentDidUpdate(prevProps) {
+        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
+            if (this.hint) {
+                this.hint.showHint();
+            }
+        }
+    }
+
     render() {
         let selectedRecipients = null;
 
@@ -31,6 +41,10 @@ export default class RecipientSearch extends React.Component {
                         {...this.props}
                         toggleRecipient={this.props.toggleRecipient} />
                     {selectedRecipients}
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
                 </div>
             </div>
         );
