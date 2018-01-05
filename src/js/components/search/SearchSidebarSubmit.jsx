@@ -10,7 +10,7 @@ const propTypes = {
     requestsComplete: PropTypes.bool,
     filtersChanged: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
-    resetStagedFilters: PropTypes.func
+    resetFilters: PropTypes.func
 };
 
 const SearchSidebarSubmit = (props) => {
@@ -33,10 +33,10 @@ const SearchSidebarSubmit = (props) => {
             </button>
             <button
                 className="reset-button"
-                aria-label="Reset filters"
+                aria-label="Reset search"
                 disabled={!props.requestsComplete}
-                onClick={props.resetStagedFilters}>
-                Reset filters
+                onClick={props.resetFilters}>
+                Reset search
             </button>
         </div>
     );

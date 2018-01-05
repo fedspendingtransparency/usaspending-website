@@ -136,4 +136,34 @@ describe('SearchSidebarSubmitContainer', () => {
             expect(container.state().filtersChanged).toBeFalsy();
         });
     });
+    describe('resetFilters', () => {
+        it('should reset all the staged filters to their initial states', () => {
+            const actions = Object.assign({}, mockActions, {
+                clearStagedFilters: jest.fn()
+            });
+
+            const container = shallow(
+                <SearchSidebarSubmitContainer
+                    {...mockRedux}
+                    {...actions} />
+            );
+            
+            container.instance().resetFilters();
+            expect(actions.clearStagedFilters).toHaveBeenCalledTimes(1);
+        });
+        it('should reset all the applied filters to their initial states', () => {
+            const actions = Object.assign({}, mockActions, {
+                resetAppliedFilters: jest.fn()
+            });
+
+            const container = shallow(
+                <SearchSidebarSubmitContainer
+                    {...mockRedux}
+                    {...actions} />
+            );
+            
+            container.instance().resetFilters();
+            expect(actions.resetAppliedFilters).toHaveBeenCalledTimes(1);
+        });
+    });
 });

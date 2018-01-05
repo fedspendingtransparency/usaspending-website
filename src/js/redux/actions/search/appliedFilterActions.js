@@ -19,5 +19,5 @@ export const applyStagedFilters = (filters) => ({
 });
 
 export const resetAppliedFilters = () => ({
-    type: 'CLEAR_APPLIED_FILTER'
+    type: 'CLEAR_APPLIED_FILTERS'
 });
