@@ -7,12 +7,15 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
+import { OrderedMap } from 'immutable';
+
 import { AwardAmountSearchContainer }
     from 'containers/search/filters/awardAmount/AwardAmountSearchContainer';
 import { searchTypes } from 'dataMapping/search/awardAmount';
 
 const initialFilters = {
-    awardAmounts: {}
+    awardAmounts: new OrderedMap(),
+    appliedAmounts: new OrderedMap()
 };
 
 describe('AwardAmountSearchContainer', () => {
@@ -28,7 +31,7 @@ describe('AwardAmountSearchContainer', () => {
             // Set up container with mocked Award Amount action
             const awardAmountSearchContainer = shallow(
                 <AwardAmountSearchContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateAwardAmounts={mockReduxAction} />);
 
             const selectAwardRangeSpy = sinon.spy(awardAmountSearchContainer.instance(),
@@ -56,7 +59,7 @@ describe('AwardAmountSearchContainer', () => {
             // Set up container with mocked Award Amount action
             const awardAmountSearchContainer = shallow(
                 <AwardAmountSearchContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateAwardAmounts={mockReduxAction} />);
 
             const selectAwardRangeSpy = sinon.spy(awardAmountSearchContainer.instance(),
@@ -87,7 +90,7 @@ describe('AwardAmountSearchContainer', () => {
             // Set up container with mocked Award Amount action
             const awardAmountSearchContainer = shallow(
                 <AwardAmountSearchContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateAwardAmounts={mockReduxAction} />);
 
             const selectAwardRangeSpy = sinon.spy(awardAmountSearchContainer.instance(),
@@ -116,7 +119,7 @@ describe('AwardAmountSearchContainer', () => {
             // Set up container with mocked Award Amount action
             const awardAmountSearchContainer = shallow(
                 <AwardAmountSearchContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateAwardAmounts={mockReduxAction} />);
 
             const selectAwardRangeSpy = sinon.spy(awardAmountSearchContainer.instance(),
@@ -136,6 +139,35 @@ describe('AwardAmountSearchContainer', () => {
 
             // reset the spy
             selectAwardRangeSpy.reset();
+        });
+    });
+
+    describe('dirtyFilters', () => {
+        it('should return an ES6 Symbol when the staged filters do not match with the applied filters', () => {
+            const container = shallow(
+                <AwardAmountSearchContainer
+                    {...initialFilters}
+                    updateAwardAmounts={jest.fn()} />
+            );
+
+            container.setProps({
+                awardAmounts: new OrderedMap({ a: 'a' })
+            });
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeTruthy();
+            expect(typeof changed).toEqual('symbol');
+            expect(changed.toString()).toEqual('Symbol(dirty amount)');
+        });
+        it('should return null when the staged filters match with the applied filters', () => {
+            const container = shallow(
+                <AwardAmountSearchContainer
+                    {...initialFilters}
+                    updateAwardAmounts={jest.fn()} />
+            );
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeFalsy();
         });
     });
 });

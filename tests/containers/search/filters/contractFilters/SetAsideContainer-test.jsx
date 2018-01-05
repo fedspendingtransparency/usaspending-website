@@ -1,5 +1,5 @@
 /**
- * ExtentCompetedContainer-test.jsx
+ * SetAsideContainer-test.jsx
  * Created by Emily Gullo on 06/27/2017
  */
 
@@ -7,57 +7,57 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Set } from 'immutable';
 
-import { ExtentCompetedContainer }
-    from 'containers/search/filters/ExtentCompetedContainer';
+import { SetAsideContainer }
+    from 'containers/search/filters/SetAsideContainer';
 
 const initialFilters = {
-    extentCompeted: new Set(),
-    appliedEC: new Set()
+    setAside: new Set(),
+    appliedSetAside: new Set()
 };
 
-describe('ExtentCompetedContainer', () => {
-    describe('Handle adding and removing extent competed items', () => {
-        it('should add a predefined extent competed that has been selected to Redux', () => {
+describe('SetAsideContainer', () => {
+    describe('Handle adding and removing set aside items', () => {
+        it('should add a predefined set aside that has been selected to Redux', () => {
             const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual('F');
+                expect(args).toEqual('8AN');
             });
 
-            // Set up container with mocked Extent Competed action
-            const extentCompetedContainer = shallow(
-                <ExtentCompetedContainer
+            // Set up container with mocked Set Aside action
+            const setAsideContainer = shallow(
+                <SetAsideContainer
                     {...initialFilters}
-                    updateExtentCompeted={mockReduxAction} />);
+                    updateSetAside={mockReduxAction} />);
 
             // Add Select Pricing to redux
-            extentCompetedContainer.instance().selectExtentCompeted('F');
+            setAsideContainer.instance().selectSetAside('8AN');
 
             // everything should be updated now
             expect(mockReduxAction).toHaveBeenCalledTimes(1);
-            expect(mockReduxAction).toHaveBeenCalledWith('F');
+            expect(mockReduxAction).toHaveBeenCalledWith('8AN');
         });
     });
     describe('dirtyFilters', () => {
         it('should return an ES6 Symbol when the staged filters do not match with the applied filters', () => {
             const container = shallow(
-                <ExtentCompetedContainer
+                <SetAsideContainer
                     {...initialFilters}
-                    updateExtentCompeted={jest.fn()} />
+                    updateSetAside={jest.fn()} />
             );
 
             container.setProps({
-                extentCompeted: new Set(['a'])
+                setAside: new Set(['a'])
             });
 
             const changed = container.instance().dirtyFilters();
             expect(changed).toBeTruthy();
             expect(typeof changed).toEqual('symbol');
-            expect(changed.toString()).toEqual('Symbol(dirty extent competed)');
+            expect(changed.toString()).toEqual('Symbol(dirty set aside)');
         });
         it('should return null when the staged filters match with the applied filters', () => {
             const container = shallow(
-                <ExtentCompetedContainer
+                <SetAsideContainer
                     {...initialFilters}
-                    updateExtentCompeted={jest.fn()} />
+                    updateSetAside={jest.fn()} />
             );
 
             const changed = container.instance().dirtyFilters();

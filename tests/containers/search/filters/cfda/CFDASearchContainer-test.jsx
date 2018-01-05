@@ -6,11 +6,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
+import { OrderedMap } from 'immutable';
 
 import { CFDASearchContainer } from 'containers/search/filters/cfda/CFDASearchContainer';
 
 const initialFilters = {
-    selectedCFDA: {}
+    selectedCFDA: new OrderedMap(),
+    appliedCFDA: new OrderedMap()
 };
 
 const cfda = {
@@ -33,7 +35,7 @@ describe('CFDASearchContainer', () => {
             // Set up container with mocked cfda action
             const cfdaContainer = shallow(
                 <CFDASearchContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateSelectedCFDA={mockReduxActionCFDA} />);
 
             const selectCFDASpy = sinon.spy(cfdaContainer.instance(),
@@ -63,7 +65,7 @@ describe('CFDASearchContainer', () => {
             // Set up container with mocked cfda action
             const cfdaContainer = shallow(
                 <CFDASearchContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateSelectedCFDA={mockReduxActionCFDA} />);
 
             const selectCFDASpy = sinon.spy(cfdaContainer.instance(),
@@ -86,6 +88,34 @@ describe('CFDASearchContainer', () => {
             // reset the spy
             selectCFDASpy.reset();
             removeCFDASpy.reset();
+        });
+    });
+    describe('dirtyFilters', () => {
+        it('should return an ES6 Symbol when the staged filters do not match with the applied filters', () => {
+            const container = shallow(
+                <CFDASearchContainer
+                    {...initialFilters}
+                    updateSelectedCFDA={jest.fn()} />
+            );
+
+            container.setProps({
+                selectedCFDA: new OrderedMap({ a: 'a' })
+            });
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeTruthy();
+            expect(typeof changed).toEqual('symbol');
+            expect(changed.toString()).toEqual('Symbol(dirty CFDA)');
+        });
+        it('should return null when the staged filters match with the applied filters', () => {
+            const container = shallow(
+                <CFDASearchContainer
+                    {...initialFilters}
+                    updateSelectedCFDA={jest.fn()} />
+            );
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeFalsy();
         });
     });
 });
