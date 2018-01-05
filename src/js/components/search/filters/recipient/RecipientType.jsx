@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import { recipientTypes, recipientTypeGroups } from 'dataMapping/search/recipientType';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
 const defaultProps = {
     recipientTypeMapping: [
@@ -62,10 +63,19 @@ const defaultProps = {
 
 const propTypes = {
     recipientTypeMapping: PropTypes.arrayOf(PropTypes.object),
-    selectedTypes: PropTypes.object
+    selectedTypes: PropTypes.object,
+    dirtyFilters: PropTypes.symbol
 };
 
 export default class RecipientType extends React.Component {
+    componentDidUpdate(prevProps) {
+        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
+            if (this.hint) {
+                this.hint.showHint();
+            }
+        }
+    }
+
     render() {
         const checkboxTypes =
             this.props.recipientTypeMapping.map((type, index) =>
@@ -86,6 +96,10 @@ export default class RecipientType extends React.Component {
                     <ul className="checkbox-types">
                         {checkboxTypes}
                     </ul>
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
                 </div>
             </div>
         );

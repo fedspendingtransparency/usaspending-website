@@ -7,11 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import SelectedAwardIDs from './SelectedAwardIDs';
 
 const propTypes = {
     toggleAwardID: PropTypes.func,
-    selectedAwardIDs: PropTypes.object
+    selectedAwardIDs: PropTypes.object,
+    dirtyFilters: PropTypes.symbol
 };
 
 export default class AwardIDSearch extends React.Component {
@@ -24,6 +26,14 @@ export default class AwardIDSearch extends React.Component {
 
         this.changedInput = this.changedInput.bind(this);
         this.applyAwardID = this.applyAwardID.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
+            if (this.hint) {
+                this.hint.showHint();
+            }
+        }
     }
 
     changedInput(e) {
@@ -73,6 +83,10 @@ export default class AwardIDSearch extends React.Component {
                             label="Filter by award ID" />
                     </form>
                     {selectedAwardIDs}
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
                 </div>
             </div>
         );

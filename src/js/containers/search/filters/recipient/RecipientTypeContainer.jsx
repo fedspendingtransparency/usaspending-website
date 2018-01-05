@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Set } from 'immutable';
+import { Set, is } from 'immutable';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -18,12 +18,10 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import RecipientType from 'components/search/filters/recipient/RecipientType';
 
 const propTypes = {
-    updateSelectedRecipients: PropTypes.func,
-    updateRecipientDomesticForeignSelection: PropTypes.func,
     toggleRecipientType: PropTypes.func,
     bulkRecipientTypeChange: PropTypes.func,
-    updateRecipientLocations: PropTypes.func,
-    recipientType: PropTypes.object
+    recipientType: PropTypes.object,
+    appliedType: PropTypes.object
 };
 
 const ga = require('react-ga');
@@ -120,10 +118,17 @@ export class RecipientTypeContainer extends React.Component {
         // Analytics handled by checkbox component
     }
 
+    dirtyFilters() {
+        if (is(this.props.recipientType, this.props.appliedType)) {
+            return null;
+        }
+        return Symbol('dirty recipient type');
+    }
+
     render() {
         return (
             <RecipientType
-                {...this.props}
+                dirtyFilters={this.dirtyFilters()}
                 selectedTypes={this.state.selectedTypes}
                 toggleCheckboxType={this.toggleRecipientType}
                 bulkTypeChange={this.bulkRecipientTypeChange} />
@@ -135,7 +140,8 @@ RecipientTypeContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        recipientType: state.filters.recipientType
+        recipientType: state.filters.recipientType,
+        appliedType: state.appliedFilters.filters.recipientType
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(RecipientTypeContainer);
