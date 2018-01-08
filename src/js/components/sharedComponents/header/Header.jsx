@@ -32,8 +32,14 @@ export default class Header extends React.Component {
         // don't update the URL due to potential React Router conflicts
         e.preventDefault();
         // scroll to the main-content id
-        const yPos = document.querySelector('#main-content').getBoundingClientRect().top;
+        const mainContent = document.getElementById('main-content');
+        const mainFocus = document.getElementById('main-focus');
+        const yPos = mainContent.getBoundingClientRect().top;
         window.scrollTo(0, yPos);
+        // focus on the element
+        if (mainFocus) {
+            mainFocus.focus();
+        }
     }
     closeBanner() {
         // set a cookie to hide the banner in the future

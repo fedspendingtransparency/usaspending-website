@@ -44,8 +44,10 @@ export default class BudgetSubfunctionsDescription extends React.Component {
 
         return (
             <div className="function-desc">
-                <h1>{this.props.category.name}</h1>
-                <h6>{totalSpend} | {percentage} of total spending</h6>
+                <h4 className="function-title">{this.props.category.name}</h4>
+                <div className="function-detail">
+                    {totalSpend} | {percentage} of total spending
+                </div>
                 <p>{this.props.description.value}</p>
                 {greatThanOneHundredDescription}
             </div>

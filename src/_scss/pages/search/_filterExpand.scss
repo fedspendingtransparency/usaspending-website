@@ -28,6 +28,7 @@
         }
     }
     .filter-header {
+        @include h6;
         @include flex(1 1 auto);
         color: $color-gray;
         font-size: $small-font-size;

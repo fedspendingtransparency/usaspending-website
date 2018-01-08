@@ -18,7 +18,8 @@ const propTypes = {
     color: PropTypes.string,
     tooltipStyles: PropTypes.object,
     toggleTooltipIn: PropTypes.func,
-    toggleTooltipOut: PropTypes.func
+    toggleTooltipOut: PropTypes.func,
+    tooltipId: PropTypes.string
 };
 
 export default class CategoryMapCell extends React.Component {
@@ -27,6 +28,7 @@ export default class CategoryMapCell extends React.Component {
 
         this.state = {
             label: '',
+            fullLabel: '',
             didProcess: false,
             color: this.props.color,
             textColor: this.props.tooltipStyles.defaultStyle.textColor
@@ -55,6 +57,7 @@ export default class CategoryMapCell extends React.Component {
     initialRender(label) {
         this.setState({
             label,
+            fullLabel: label,
             didProcess: false
         }, () => {
             this.forceUpdate();
@@ -130,10 +133,20 @@ export default class CategoryMapCell extends React.Component {
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
+                tabIndex={0}
+                role="listitem"
+                aria-label={`${this.state.fullLabel} - ${this.props.value}%`}
+                aria-describedby={this.props.tooltipId}
                 onMouseEnter={() => {
                     this.mouseIn(height, width);
                 }}
                 onMouseLeave={() => {
+                    this.mouseOut(height, width);
+                }}
+                onFocus={() => {
+                    this.mouseIn(height, width);
+                }}
+                onBlur={() => {
                     this.mouseOut(height, width);
                 }}>
                 <rect

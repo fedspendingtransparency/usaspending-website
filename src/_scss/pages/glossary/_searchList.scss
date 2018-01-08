@@ -13,7 +13,8 @@
     .glossary-result-group {
         margin-top: 20px;
 
-        h3.group-title {
+        h2.group-title {
+            @include h3;
             font-size: 18px;
             line-height: 26px;
             font-weight: 600;

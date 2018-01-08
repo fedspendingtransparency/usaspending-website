@@ -71,7 +71,8 @@ export default class ProfileButton extends React.Component {
                 <button
                     className={`usa-nav-profile-button ${homepage} ${active}`}
                     title="Profiles: Learn more about organizations and accounts"
-                    onClick={this.clickedButton}>
+                    onClick={this.clickedButton}
+                    aria-expanded={this.state.expanded}>
                     <div className="profile-button-content">
                         <div className="profile-button-label">
                             Profiles
