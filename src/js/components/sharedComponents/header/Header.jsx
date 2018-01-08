@@ -70,7 +70,8 @@ export default class Header extends React.Component {
                     onClick={this.skippedNav}>
                         Skip to main content
                 </a>
-                <header>
+                <header
+                    aria-label="Site header">
                     {banner}
                     <NavBar />
                 </header>

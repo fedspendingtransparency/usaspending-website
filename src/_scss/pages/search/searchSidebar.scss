@@ -20,7 +20,7 @@
             height: rem(70);
             margin: 0;
             padding: 0 0 0 rem(15);
-            & h2.sidebar-title {
+            & .sidebar-title {
                 @include h6;
                 @include flex(1 1 auto);
                 color: $color-gray;

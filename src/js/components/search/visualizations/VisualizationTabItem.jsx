@@ -33,7 +33,8 @@ const VisualizationTabItem = (props) => {
             <button
                 className={`visualization-type-tab ${active}`}
                 aria-label={props.label}
-                aria-current={props.active}
+                role="menuitemradio"
+                aria-checked={props.active}
                 title={props.label}
                 onClick={clickedTab}
                 disabled={props.disabled}>

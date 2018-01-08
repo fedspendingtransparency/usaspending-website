@@ -22,7 +22,10 @@ const SearchSidebarSubmit = (props) => {
     }
 
     return (
-        <div className="sidebar-submit">
+        <div
+            className="sidebar-submit"
+            role="group"
+            aria-label="Submit search">
             <button
                 className="submit-button"
                 title={title}
