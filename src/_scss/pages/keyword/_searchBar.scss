@@ -1,0 +1,58 @@
+.search-bar-section {
+    @include span-columns(16);
+
+    .keyword-search-bar {
+        @include span-columns(16);
+        @include media($medium-screen) {
+            @include span-columns(8);
+        }
+        form {
+            border: 2px solid $color-primary;
+            margin-right: rem(15);
+            input.keyword-input {
+                margin-right: 0;
+                height: rem(66);
+                width: 85%;
+                border: 0;
+                padding: rem(15);
+                font-size: rem(28);
+                font-weight: 300;
+                line-height: rem(36);
+            }
+            button.keyword-submit {
+                @include button-unstyled;
+                height: rem(66);
+                float: right;
+                width: 15%;
+                background-color: #0074BE;
+                .icon {
+                    height: rem(26);
+                    width: rem(26);
+                    margin: auto;
+                    svg {
+                        fill: $color-white;
+                    }
+                }
+                &.disabled {
+                    background-color: rgba(#0074BE, 0.3);
+                    &:hover {
+                        background-color: rgba(#0074BE, 0.3);
+                        cursor: default;
+                    }
+                }
+                &:hover {
+                    background-color: $color-primary;
+                }
+            }
+        }
+    }
+
+    .info-text {
+        font-size: $small-font-size;
+        line-height: rem(26);
+        @include span-columns(16);
+        @include media($medium-screen) {
+            @include span-columns(8);
+        }
+    }
+}
