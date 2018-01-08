@@ -23,7 +23,9 @@ const propTypes = {
     results: PropTypes.array,
     columns: PropTypes.object,
     counts: PropTypes.object,
-    sort: PropTypes.object
+    sort: PropTypes.object,
+    updateSort: PropTypes.func,
+    tableInstance: PropTypes.string
 };
 
 export default class ResultsTableSection extends React.Component {

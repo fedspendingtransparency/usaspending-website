@@ -65,7 +65,9 @@ export class KeywordPage extends React.Component {
                             results={this.props.results}
                             columns={this.props.columns}
                             counts={this.props.counts}
-                            sort={this.props.sort} />
+                            sort={this.props.sort}
+                            updateSort={this.props.updateSort}
+                            tableInstance={this.props.tableInstance} />
                     </div>
                 </main>
                 <Footer />

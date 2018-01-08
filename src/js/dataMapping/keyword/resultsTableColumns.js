@@ -5,7 +5,7 @@
 
 const contractColumns = [
     'Award ID',
-    'Modification Number',
+    'Mod',
     'Recipient Name',
     'Action Date',
     'Transaction Amount',
@@ -16,7 +16,7 @@ const contractColumns = [
 
 const grantColumns = [
     'Award ID',
-    'Modification Number',
+    'Mod',
     'Recipient Name',
     'Action Date',
     'Transaction Amount',
@@ -27,7 +27,7 @@ const grantColumns = [
 
 const loanColumns = [
     'Award ID',
-    'Modification Number',
+    'Mod',
     'Recipient Name',
     'Action Date',
     'Loan Value',
@@ -39,7 +39,7 @@ const loanColumns = [
 
 const directPaymentColumns = [
     'Award ID',
-    'Modification Number',
+    'Mod',
     'Recipient Name',
     'Action Date',
     'Transaction Amount',
@@ -50,7 +50,7 @@ const directPaymentColumns = [
 
 const otherColumns = [
     'Award ID',
-    'Modification Number',
+    'Mod',
     'Recipient Name',
     'Action Date',
     'Transaction Amount',

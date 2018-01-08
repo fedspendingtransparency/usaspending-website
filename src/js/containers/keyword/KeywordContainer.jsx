@@ -230,38 +230,38 @@ export default class KeywordContainer extends React.Component {
             results: [
                 {
                     "Award ID": "ABC123",
-                    internal_id: "123456",
-                    Mod: 0,
+                    internal_id: 123456,
+                    Mod: 3,
                     "Action Date": "1987-8-31",
                     "Transaction Amount": 300000000,
                     "Award Type": "Definitive Contract",
                     "Recipient Name": "Mock Recipient",
                     "Awarding Agency": "Mock Agency",
-                    awarding_agency_internal_id: "1000",
+                    awarding_agency_internal_id: 1000,
                     "Awarding Sub Agency": "Mock Office"
                 },
                 {
                     "Award ID": "XYZ123",
-                    internal_id: "987654",
-                    Mod: 1,
+                    internal_id: 987654,
+                    Mod: 2,
                     "Action Date": "1987-9-31",
                     "Transaction Amount": 200000000,
                     "Award Type": "Definitive Contract",
                     "Recipient Name": "Mock Recipient 2",
                     "Awarding Agency": "Mock Agency 2",
-                    awarding_agency_internal_id: "2000",
+                    awarding_agency_internal_id: 2000,
                     "Awarding Sub Agency": "Mock Office 2"
                 },
                 {
                     "Award ID": "XYZ234",
-                    internal_id: "987654",
+                    internal_id: 987655,
                     Mod: 1,
                     "Action Date": "1987-10-31",
                     "Transaction Amount": 200000000,
                     "Award Type": "Definitive Contract",
                     "Recipient Name": "Mock Recipient 3",
                     "Awarding Agency": "Mock Agency 3",
-                    awarding_agency_internal_id: "2000",
+                    awarding_agency_internal_id: 3000,
                     "Awarding Sub Agency": "Mock Office 3"
                 }
             ]
