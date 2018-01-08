@@ -10,12 +10,14 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import * as ContractFieldDefinitions from 'dataMapping/search/contractFields';
 
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
 const propTypes = {
     toggleFilter: PropTypes.func,
     contractFilterType: PropTypes.string,
     contractFilterOptions: PropTypes.string,
-    contractFilterState: PropTypes.string
+    contractFilterState: PropTypes.string,
+    dirtyFilters: PropTypes.symbol
 };
 
 const defaultShown = 4;
@@ -34,6 +36,14 @@ export default class ContractFilter extends React.Component {
         // Bind functions
         this.toggleValue = this.toggleValue.bind(this);
         this.toggleShownAmount = this.toggleShownAmount.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
+            if (this.hint) {
+                this.hint.showHint();
+            }
+        }
     }
 
     toggleShownAmount() {
@@ -129,6 +139,10 @@ export default class ContractFilter extends React.Component {
                         {contractFilterItems}
                     </ul>
                     {toggleButton}
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
                 </div>
             </div>
         );

@@ -58,19 +58,12 @@ export class SearchSidebarSubmitContainer extends React.Component {
             return false;
         }
 
-        for (const key of storeKeys) {
-            if (!{}.hasOwnProperty.call(this.props.appliedFilters, key)) {
-                // no such key, immediately fail
-                return false;
-            }
-
-            if (!is(this.props.appliedFilters[key], this.props.stagedFilters[key])) {
-                // use immutable to check equality of nested objects
-                return false;
-            }
-        }
-
-        return true;
+        // check that the key exists in the appliedFilters object and also that it
+        // is equal (using Immutable's equality check utilty function) in both stores
+        return storeKeys.every((key) => (
+            {}.hasOwnProperty.call(this.props.appliedFilters, key) &&
+                is(this.props.appliedFilters[key], this.props.stagedFilters[key])
+        ));
     }
 
     stagingChanged() {

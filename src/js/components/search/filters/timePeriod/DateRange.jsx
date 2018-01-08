@@ -88,6 +88,11 @@ export default class DateRange extends React.Component {
             }
         }
 
+        let noDates = false;
+        if (!this.props.startDate && !this.props.endDate) {
+            noDates = true;
+        }
+
         return (
             <div className="date-range-option">
                 <form
@@ -128,7 +133,8 @@ export default class DateRange extends React.Component {
                     <IndividualSubmit
                         className="set-date-submit"
                         onClick={this.props.applyDateRange}
-                        label="Filter by date range" />
+                        label="Filter by date range"
+                        disabled={noDates} />
                 </form>
                 <div className={`selected-filters ${hideTags}`}>
                     <button

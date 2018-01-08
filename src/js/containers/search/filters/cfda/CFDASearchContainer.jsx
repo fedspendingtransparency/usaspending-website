@@ -7,12 +7,15 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import CFDASearch from 'components/search/filters/cfda/CFDASearch';
 
 const propTypes = {
+    selectedCFDA: PropTypes.object,
+    appliedCFDA: PropTypes.object,
     updateSelectedCFDA: PropTypes.func
 };
 
@@ -53,10 +56,18 @@ export class CFDASearchContainer extends React.Component {
         this.props.updateSelectedCFDA(updateParams);
     }
 
+    dirtyFilters() {
+        if (is(this.props.selectedCFDA, this.props.appliedCFDA)) {
+            return null;
+        }
+        return Symbol('dirty CFDA');
+    }
+
     render() {
         return (
             <CFDASearch
-                {...this.props}
+                selectedCFDA={this.props.selectedCFDA}
+                dirtyFilters={this.dirtyFilters()}
                 selectCFDA={this.selectCFDA}
                 removeCFDA={this.removeCFDA} />
         );
@@ -66,6 +77,9 @@ export class CFDASearchContainer extends React.Component {
 CFDASearchContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ selectedCFDA: state.filters.selectedCFDA }),
+    (state) => ({
+        selectedCFDA: state.filters.selectedCFDA,
+        appliedCFDA: state.appliedFilters.filters.selectedCFDA
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(CFDASearchContainer);

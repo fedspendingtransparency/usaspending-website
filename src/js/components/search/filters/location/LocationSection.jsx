@@ -9,9 +9,12 @@ import PropTypes from 'prop-types';
 import POPFilterContainer from 'containers/search/filters/location/POPFilterContainer';
 import RecipientFilterContainer from 'containers/search/filters/location/RecipientFilterContainer';
 
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+
 const propTypes = {
     selectedRecipientLocations: PropTypes.object,
-    selectedLocations: PropTypes.object
+    selectedLocations: PropTypes.object,
+    dirtyFilters: PropTypes.symbol
 };
 
 export default class LocationSection extends React.Component {
@@ -27,6 +30,14 @@ export default class LocationSection extends React.Component {
 
     componentDidMount() {
         this.openDefaultTab();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
+            if (this.hint) {
+                this.hint.showHint();
+            }
+        }
     }
 
     openDefaultTab() {
@@ -86,6 +97,10 @@ export default class LocationSection extends React.Component {
                 </ul>
                 <div className="toggle-border" />
                 {filter}
+                <SubmitHint
+                    ref={(component) => {
+                        this.hint = component;
+                    }} />
             </div>
         );
     }
