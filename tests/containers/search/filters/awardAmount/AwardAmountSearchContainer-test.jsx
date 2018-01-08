@@ -157,7 +157,6 @@ describe('AwardAmountSearchContainer', () => {
             const changed = container.instance().dirtyFilters();
             expect(changed).toBeTruthy();
             expect(typeof changed).toEqual('symbol');
-            expect(changed.toString()).toEqual('Symbol(dirty amount)');
         });
         it('should return null when the staged filters match with the applied filters', () => {
             const container = shallow(
