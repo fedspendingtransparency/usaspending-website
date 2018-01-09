@@ -20,5 +20,6 @@ export const mockRecipientDUNS = {
 export const mockTypeRedux = {
     toggleRecipientType: jest.fn(),
     bulkRecipientTypeChange: jest.fn(),
-    recipientType: new Set()
+    recipientType: new Set(),
+    appliedType: new Set()
 };

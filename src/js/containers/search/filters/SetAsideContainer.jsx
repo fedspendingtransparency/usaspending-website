@@ -7,13 +7,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import ContractFilter from 'components/search/filters/contractFilters/ContractFilter';
 
 const propTypes = {
-    updateSetAside: PropTypes.func
+    updateSetAside: PropTypes.func,
+    setAside: PropTypes.object,
+    appliedSetAside: PropTypes.object
 };
 
 export class SetAsideContainer extends React.Component {
@@ -28,10 +31,18 @@ export class SetAsideContainer extends React.Component {
         this.props.updateSetAside(value);
     }
 
+    dirtyFilters() {
+        if (is(this.props.setAside, this.props.appliedSetAside)) {
+            return null;
+        }
+        return Symbol('dirty set aside');
+    }
+
     render() {
         return (
             <ContractFilter
-                {...this.props}
+                setAside={this.props.setAside}
+                dirtyFilters={this.dirtyFilters()}
                 contractFilterType="set_aside"
                 contractFilterOptions="setAsideDefinitions"
                 contractFilterState="setAside"
@@ -43,6 +54,9 @@ export class SetAsideContainer extends React.Component {
 SetAsideContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ setAside: state.filters.setAside }),
+    (state) => ({
+        setAside: state.filters.setAside,
+        appliedSetAside: state.appliedFilters.filters.setAside
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(SetAsideContainer);

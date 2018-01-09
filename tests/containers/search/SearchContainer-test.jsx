@@ -245,7 +245,7 @@ describe('SearchContainer', () => {
             const populateAction = jest.fn();
 
             const actions = Object.assign({}, mockActions, {
-                populateAllSearchFilters: populateAction
+                restoreHashedFilters: populateAction
             });
 
             const container = shallow(<SearchContainer

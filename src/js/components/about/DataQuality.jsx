@@ -89,7 +89,7 @@ export default class DataQuality extends React.Component {
                             Data Dictionary
                         </a>
                         . The federal agencies&apos; raw quarterly submission files,
-                        including Qualification Statements about the data, are available&nbsp;
+                        including Quarterly Assistance Statements about the data, are available&nbsp;
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
