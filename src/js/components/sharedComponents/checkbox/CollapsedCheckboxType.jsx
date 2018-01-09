@@ -28,6 +28,7 @@ const propTypes = {
 
 export default class CollapsedCheckboxType extends React.Component {
     render() {
+        const elementId = `checkbox-${uniqueId()}`;
         return (
             <div className="primary-checkbox-type">
                 <div className="checkbox-type-item-wrapper">
@@ -37,10 +38,10 @@ export default class CollapsedCheckboxType extends React.Component {
                         arrowState={this.props.arrowState} />
                     <label
                         className="checkbox-item-wrapper"
-                        htmlFor={this.props.id}>
+                        htmlFor={elementId}>
                         <input
                             type="checkbox"
-                            id={this.props.id}
+                            id={elementId}
                             value={this.props.name}
                             checked={this.props.selected}
                             onChange={this.props.toggleChildren} />

@@ -18,7 +18,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    id: `checkbox-${uniqueId()}`,
+    id: '',
     filterType: '',
     enableAnalytics: false
 };
@@ -68,15 +68,16 @@ export default class SingleCheckboxType extends React.Component {
 
     render() {
         const checked = this.props.selectedCheckboxes.has(this.props.code);
+        const elementId = `checkbox-${uniqueId()}`;
         return (
             <div className="primary-checkbox-type single-item">
                 <div className="primary-checkbox-wrapper">
                     <label
                         className="checkbox-item-wrapper"
-                        htmlFor={this.props.id}>
+                        htmlFor={elementId}>
                         <input
                             type="checkbox"
-                            id={this.props.id}
+                            id={elementId}
                             value={this.props.code}
                             checked={checked}
                             onChange={this.toggleFilter} />
