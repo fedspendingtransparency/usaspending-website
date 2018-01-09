@@ -12,11 +12,13 @@ import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableBeginMessage from './ResultsTableBeginMessage';
 import ResultsTable from './ResultsTable';
 
 const propTypes = {
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
+    keywordApplied: PropTypes.bool,
     tableTypes: PropTypes.array,
     currentType: PropTypes.string,
     switchTab: PropTypes.func,
@@ -63,7 +65,15 @@ export default class ResultsTableSection extends React.Component {
                 visibleWidth={this.state.tableWidth} />
         );
 
-        if (this.props.inFlight) {
+        if (!this.props.keywordApplied) {
+            table = null;
+            message = (
+                <div className="results-table-message-container full">
+                    <ResultsTableBeginMessage />
+                </div>
+            );
+        }
+        else if (this.props.inFlight) {
             message = (
                 <div className="results-table-message-container">
                     <ResultsTableLoadingMessage />

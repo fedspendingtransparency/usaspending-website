@@ -18,6 +18,7 @@ const propTypes = {
     updateSearchString: PropTypes.func,
     searchString: PropTypes.string,
     updateKeyword: PropTypes.func,
+    keywordApplied: PropTypes.bool,
     summary: PropTypes.object,
     error: PropTypes.bool,
     inFlight: PropTypes.bool,
@@ -59,6 +60,7 @@ export class KeywordPage extends React.Component {
                         <ResultsTableSection
                             inFlight={this.props.inFlight}
                             error={this.props.error}
+                            keywordApplied={this.props.keywordApplied}
                             tableTypes={this.props.tableTypes}
                             currentType={this.props.currentType}
                             switchTab={this.props.switchTab}

@@ -421,6 +421,7 @@ export default class KeywordContainer extends React.Component {
                 updateSearchString={this.updateSearchString}
                 searchString={this.state.searchString}
                 updateKeyword={this.updateKeyword}
+                keywordApplied={this.state.filters.keyword !== ''}
                 summary={this.state.summary}
                 error={this.state.error}
                 inFlight={this.state.inFlight}
