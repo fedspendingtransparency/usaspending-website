@@ -12,7 +12,6 @@ import * as Icons from './icons/Icons';
 
 const defaultProps = {
     type: 'startDate',
-    tabIndex: 1,
     allowClearing: false,
     disabledDays: []
 };
@@ -24,7 +23,6 @@ const propTypes = {
     showError: PropTypes.func,
     hideError: PropTypes.func,
     opposite: PropTypes.object,
-    tabIndex: PropTypes.number,
     title: PropTypes.string,
     allowClearing: PropTypes.bool,
     disabledDays: PropTypes.array
@@ -241,8 +239,8 @@ export default class DatePicker extends React.Component {
                             id={inputId}
                             type="text"
                             placeholder="MM/DD/YYYY"
+                            aria-label={this.props.title}
                             value={this.state.inputValue}
-                            tabIndex={this.props.tabIndex}
                             ref={(input) => {
                                 this.text = input;
                             }}
@@ -252,7 +250,6 @@ export default class DatePicker extends React.Component {
                     <a
                         href="#null"
                         onClick={this.toggleDatePicker}
-                        tabIndex={this.props.tabIndex + 1}
                         className="usa-da-icon picker-icon date"
                         aria-haspopup="true">
                         <Icons.Calendar alt="Date picker" />

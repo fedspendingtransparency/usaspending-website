@@ -113,21 +113,25 @@ export default class FilterExpandButton extends React.Component {
         }
 
         return (
-            <button
-                className={`filter-toggle ${hiddenClass}`}
-                onClick={this.props.toggleFilter}
-                disabled={this.props.disabled}
-                onKeyUp={this.focusedElement}
-                onBlur={this.blurredElement}
-                title={this.props.name}
-                aria-label={this.props.name}
-                aria-expanded={this.props.arrowState === 'expanded'}
-                aria-describedby={ariaDescription}>
-                {icon}
-                <h3 className="filter-header">{this.props.name}</h3>
-                {accessoryIcon}
-                {accessoryView}
-            </button>
+            <h3 className="filter-toggle-wrap">
+                <button
+                    className={`filter-toggle ${hiddenClass}`}
+                    onClick={this.props.toggleFilter}
+                    disabled={this.props.disabled}
+                    onKeyUp={this.focusedElement}
+                    onBlur={this.blurredElement}
+                    title={this.props.name}
+                    aria-label={this.props.name}
+                    aria-expanded={this.props.arrowState === 'expanded'}
+                    aria-describedby={ariaDescription}>
+                    {icon}
+                    <div className="filter-header">
+                        {this.props.name}
+                    </div>
+                    {accessoryIcon}
+                    {accessoryView}
+                </button>
+            </h3>
         );
     }
 }

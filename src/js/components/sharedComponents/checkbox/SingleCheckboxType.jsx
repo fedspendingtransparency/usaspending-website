@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 
 const propTypes = {
     id: PropTypes.string,
@@ -17,6 +18,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    id: `checkbox-${uniqueId()}`,
     filterType: '',
     enableAnalytics: false
 };
@@ -68,14 +70,20 @@ export default class SingleCheckboxType extends React.Component {
         const checked = this.props.selectedCheckboxes.has(this.props.code);
         return (
             <div className="primary-checkbox-type single-item">
-                <div className="checkbox-type-item-wrapper">
-                    <input
-                        type="checkbox"
-                        id={this.props.id}
-                        value={this.props.code}
-                        checked={checked}
-                        onChange={this.toggleFilter} />
-                    <label htmlFor={this.props.id}>{this.props.name}</label>
+                <div className="primary-checkbox-wrapper">
+                    <label
+                        className="checkbox-item-wrapper"
+                        htmlFor={this.props.id}>
+                        <input
+                            type="checkbox"
+                            id={this.props.id}
+                            value={this.props.code}
+                            checked={checked}
+                            onChange={this.toggleFilter} />
+                        <span className="checkbox-item-label">
+                            {this.props.name}
+                        </span>
+                    </label>
                 </div>
             </div>
         );

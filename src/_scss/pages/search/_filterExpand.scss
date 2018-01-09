@@ -1,3 +1,7 @@
+.filter-toggle-wrap {
+    margin: 0;
+}
+
 .filter-toggle {
     @include button-unstyled;
     @include display(flex);
