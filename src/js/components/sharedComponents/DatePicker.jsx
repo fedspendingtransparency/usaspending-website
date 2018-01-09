@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import moment from 'moment';
+import { uniqueId } from 'lodash';
 import * as Icons from './icons/Icons';
 
 const defaultProps = {
@@ -229,21 +230,25 @@ export default class DatePicker extends React.Component {
             });
         }
 
+        const inputId = `picker-${uniqueId()}`;
+
         return (
             <div className="generate-datepicker-wrap">
                 <div className="generate-datepicker">
-                    <label htmlFor={this.props.type}>{this.props.title}</label>
-                    <input
-                        id={this.props.type}
-                        type="text"
-                        placeholder="MM/DD/YYYY"
-                        value={this.state.inputValue}
-                        tabIndex={this.props.tabIndex}
-                        ref={(input) => {
-                            this.text = input;
-                        }}
-                        onChange={this.handleTypedDate}
-                        onBlur={this.handleInputBlur} />
+                    <label htmlFor={inputId}>
+                        {this.props.title}
+                        <input
+                            id={inputId}
+                            type="text"
+                            placeholder="MM/DD/YYYY"
+                            value={this.state.inputValue}
+                            tabIndex={this.props.tabIndex}
+                            ref={(input) => {
+                                this.text = input;
+                            }}
+                            onChange={this.handleTypedDate}
+                            onBlur={this.handleInputBlur} />
+                    </label>
                     <a
                         href="#null"
                         onClick={this.toggleDatePicker}
