@@ -1,1 +1,46 @@
-@import "components/pageTitleBar/pageTitleBar";
+@import "layouts/tabbedSearch/header/header";
+
+.search-header-container {
+    .search-header {
+        .search-title {
+            @include span-columns(8);
+            @include media($medium-screen) {
+                @include span-columns(4);
+            }
+        }
+        .search-summary {
+            // Hide the search summary for small screens
+            display: none;
+            @include media($medium-screen) {
+                @include span-columns(8);
+                @include display(flex);
+            }
+            font-size: $small-font-size;
+            .summary-title {
+                font-weight: $font-semibold;
+                padding-right: rem(10);
+                margin-right: rem(10);
+                border-right: solid 1px $color-white;
+            }
+            .award-amounts, .award-counts {
+                margin-right: rem(20);
+                .number {
+                    font-weight: $font-semibold;
+                }
+            }
+        }
+        .search-options {
+            @include span-columns(8);
+            @include media($medium-screen) {
+                @include span-columns(4);
+            }
+            .download-wrap {
+                .download-button {
+                    // Hide the download button for now
+                    display: none;
+                    float: right;
+                }
+            }
+        }
+    }
+}

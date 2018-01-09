@@ -189,3 +189,11 @@ export const formatNumber = (number) => {
     });
     return Accounting.formatMoney(number, options);
 };
+
+export const formatNumberWithPrecision = (number, precision) => {
+    const options = Object.assign({}, accountingOptions, {
+        symbol: '',
+        precision
+    });
+    return Accounting.formatMoney(number, options);
+};

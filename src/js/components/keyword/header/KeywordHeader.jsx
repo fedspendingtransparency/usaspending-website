@@ -26,22 +26,34 @@ export class KeywordHeader extends React.Component {
         const primeCountUnits = MoneyFormatter.calculateUnitForSingleValue(primeCount);
         const primeAmountUnits = MoneyFormatter.calculateUnitForSingleValue(primeAmount);
 
-        // TODO - Lizzie: remove dollar sign from count & add decimal precision
-        const formattedPrimeCount = `${MoneyFormatter.formatMoney(primeCount / primeCountUnits.unit)}\
+        let primeCountPrecision = 0;
+        if (primeCountUnits.unit !== 1) {
+            primeCountPrecision = 1;
+        }
+        const formattedPrimeCount = `${MoneyFormatter.formatNumberWithPrecision(primeCount / primeCountUnits.unit, primeCountPrecision)}\
             ${primeCountUnits.unitLabel}`;
-        const formattedPrimeAmount = `${MoneyFormatter.formatMoney(primeAmount / primeAmountUnits.unit)}\
+
+        let primeAmountPrecision = 2;
+        if (primeAmountUnits.unit !== 1) {
+            primeAmountPrecision = 1;
+        }
+        const formattedPrimeAmount = `${MoneyFormatter.formatMoneyWithPrecision(primeAmount / primeAmountUnits.unit, primeAmountPrecision)}\
             ${primeAmountUnits.unitLabel}`;
 
         return (
-            <div className="search-summary-section">
+            <div className="search-summary">
                 <div className="summary-title">
                     Search Summary
                 </div>
                 <div className="award-amounts">
-                    Total Prime Award Amount: {formattedPrimeAmount}
+                    <div className="prime">
+                        Total Prime Award Amount: <span className="number">{formattedPrimeAmount}</span>
+                    </div>
                 </div>
                 <div className="award-counts">
-                    Prime Award Transaction Count: {formattedPrimeCount}
+                    <div className="prime">
+                        Prime Award Transaction Count: <span className="number">{formattedPrimeCount}</span>
+                    </div>
                 </div>
             </div>
         );
@@ -53,12 +65,26 @@ export class KeywordHeader extends React.Component {
             searchSummary = this.generateSummary();
         }
         return (
-            <div className="page-title-bar">
-                <div className="page-title-bar-wrap">
-                    <h1 className="page-title">
-                        Keyword Award Search
-                    </h1>
-                    {searchSummary}
+            <div className="search-header-wrapper">
+                <div className="search-header-container">
+                    <div className="search-header">
+                        <div className="search-title">
+                            <h1>Keyword Award Search</h1>
+                        </div>
+                        {searchSummary}
+                        <div className="search-options">
+                            <div className="download-wrap">
+                                <button
+                                    className="download-button disabled"
+                                    title="Download your data"
+                                    aria-label="Download your data">
+                                    <div className="label">
+                                        Download
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
