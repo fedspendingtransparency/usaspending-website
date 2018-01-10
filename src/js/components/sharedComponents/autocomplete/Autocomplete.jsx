@@ -17,7 +17,6 @@ const propTypes = {
     placeholder: PropTypes.string,
     errorHeader: PropTypes.string,
     errorMessage: PropTypes.string,
-    tabIndex: PropTypes.number,
     isRequired: PropTypes.bool,
     maxSuggestions: PropTypes.number,
     label: PropTypes.string,
@@ -30,7 +29,6 @@ const defaultProps = {
     isRequired: false,
     errorHeader: '',
     errorMessage: '',
-    tabIndex: null,
     maxSuggestions: 10,
     label: '',
     noResults: false
@@ -45,7 +43,7 @@ export default class Autocomplete extends React.Component {
         this.state = {
             value: '',
             shown: '',
-            selectedIndex: 0,
+            selectedIndex: -1,
             showWarning: false
         };
     }
@@ -130,7 +128,7 @@ export default class Autocomplete extends React.Component {
     previous() {
         if (this.state.selectedIndex > 0) {
             this.setState({
-                selectedIndex: this.state.selectedIndex -= 1
+                selectedIndex: this.state.selectedIndex - 1
             });
         }
     }
@@ -138,7 +136,7 @@ export default class Autocomplete extends React.Component {
     next() {
         if (this.state.selectedIndex < this.props.maxSuggestions - 1) {
             this.setState({
-                selectedIndex: this.state.selectedIndex += 1
+                selectedIndex: this.state.selectedIndex + 1
             });
         }
     }
@@ -233,8 +231,22 @@ export default class Autocomplete extends React.Component {
 
     render() {
         const autocompleteId = `autocomplete-${uniqueId()}`;
+        let activeDescendant = false;
+        let status = null;
+        if (this.state.shown && this.state.selectedIndex > -1) {
+            activeDescendant = `${autocompleteId}__option-${this.state.selectedIndex}`;
+            if (this.props.values.length > this.state.selectedIndex) {
+                status = this.props.values[this.state.selectedIndex].title;
+            }
+        }
+
         return (
-            <div className="pop-typeahead">
+            <div
+                className="usa-da-typeahead-wrapper"
+                role="combobox"
+                aria-controls={autocompleteId}
+                aria-expanded={this.state.shown}
+                aria-haspopup="true">
                 <div className="usa-da-typeahead">
                     <p>{this.props.label}</p>
                     <input
@@ -245,11 +257,15 @@ export default class Autocomplete extends React.Component {
                         type="text"
                         placeholder={this.props.placeholder}
                         onChange={this.onChange.bind(this)}
-                        tabIndex={this.props.tabIndex}
+                        tabIndex={0}
                         aria-required={this.props.isRequired}
                         aria-controls={autocompleteId}
-                        aria-expanded={this.state.shown}
-                        role="combobox" />
+                        aria-activedescendant={activeDescendant} />
+                    <div
+                        className="screen-reader-description"
+                        role="status">
+                        {status}
+                    </div>
                     <SuggestionHolder
                         suggestions={this.props.values}
                         shown={this.state.shown}

@@ -56,17 +56,17 @@ export default class SuggestionHolder extends React.Component {
                 data={this.props.suggestions[i]}
                 selected={i === this.props.selectedIndex}
                 select={this.props.select}
+                id={`${this.props.autocompleteId}__option_${i}`}
                 key={i} />);
         }
 
         return (
-            <div className={`autocomplete${this.state.hidden}`}>
-                <ul
-                    id={this.props.autocompleteId}
-                    role="listbox">
-                    {suggestions}
-                </ul>
-            </div>
+            <ul
+                id={this.props.autocompleteId}
+                className={`autocomplete${this.state.hidden}`}
+                role="listbox">
+                {suggestions}
+            </ul>
         );
     }
 }
