@@ -37,6 +37,7 @@ export default class Suggestion extends React.Component {
             /* eslint-disable jsx-a11y/role-supports-aria-props */
             <li
                 aria-selected={this.props.selected}
+                role="option"
                 ref={(s) => {
                     this.suggestion = s;
                 }}>

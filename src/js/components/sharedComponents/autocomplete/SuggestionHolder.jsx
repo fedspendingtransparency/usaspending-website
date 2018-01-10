@@ -11,7 +11,8 @@ const propTypes = {
     suggestions: PropTypes.array,
     selectedIndex: PropTypes.number,
     maxSuggestions: PropTypes.number,
-    shown: PropTypes.string
+    shown: PropTypes.string,
+    autocompleteId: PropTypes.string
 };
 
 const defaultProps = {
@@ -60,7 +61,9 @@ export default class SuggestionHolder extends React.Component {
 
         return (
             <div className={`autocomplete${this.state.hidden}`}>
-                <ul>
+                <ul
+                    id={this.props.autocompleteId}
+                    role="listbox">
                     {suggestions}
                 </ul>
             </div>

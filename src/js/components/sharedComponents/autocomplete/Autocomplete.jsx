@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, find } from 'lodash';
+import { isEqual, find, uniqueId } from 'lodash';
 
 import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
@@ -232,6 +232,7 @@ export default class Autocomplete extends React.Component {
     }
 
     render() {
+        const autocompleteId = `autocomplete-${uniqueId()}`;
         return (
             <div className="pop-typeahead">
                 <div className="usa-da-typeahead">
@@ -245,13 +246,17 @@ export default class Autocomplete extends React.Component {
                         placeholder={this.props.placeholder}
                         onChange={this.onChange.bind(this)}
                         tabIndex={this.props.tabIndex}
-                        aria-required={this.props.isRequired} />
+                        aria-required={this.props.isRequired}
+                        aria-controls={autocompleteId}
+                        aria-expanded={this.state.shown}
+                        role="combobox" />
                     <SuggestionHolder
                         suggestions={this.props.values}
                         shown={this.state.shown}
                         selectedIndex={this.state.selectedIndex}
                         select={this.select.bind(this)}
-                        maxSuggestions={this.props.maxSuggestions} />
+                        maxSuggestions={this.props.maxSuggestions}
+                        autocompleteId={autocompleteId} />
                 </div>
                 {this.generateWarning()}
             </div>
