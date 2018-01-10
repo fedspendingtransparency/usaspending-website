@@ -4,11 +4,12 @@
  */
 
 import React from 'react';
-// import { isCancel } from 'axios';
+import { isCancel } from 'axios';
 import { uniqueId } from 'lodash';
 
-// import * as KeywordHelper from 'helpers/keywordHelper';
+import * as KeywordHelper from 'helpers/keywordHelper';
 import { availableColumns } from 'dataMapping/keyword/resultsTableColumns';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
 import KeywordPage from 'components/keyword/KeywordPage';
@@ -63,7 +64,7 @@ export default class KeywordContainer extends React.Component {
             tableInstance: `${uniqueId()}` // this will stay constant during pagination but will change when the keyword or table type changes
         };
 
-        // this.summaryRequest = null;
+        this.summaryRequest = null;
         // this.searchRequest = null;
         // this.tabCountRequest = null;
 
@@ -360,39 +361,36 @@ export default class KeywordContainer extends React.Component {
     }
 
     fetchSummary() {
-        // TODO - Lizzie: uncomment when API is ready
-        // if (this.summaryRequest) {
-        //    this.summaryRequest.cancel();
-        // }
-        //
-        // this.summaryRequest = KeywordHelper.fetchSummary();
-        // this.summaryRequest.promise
-        //    .then((res) => {
-        //        this.setState({
-        //            summary: {
-        //                primeCount: res.results.prime_awards_count,
-        //                primeAmount: res.results.prime_awards_obligation_amount
-        //            }
-        //        });
-        //    })
-        //    .catch((err) => {
-        //        if (!isCancel(err)) {
-        //            console.log(err);
-        //            this.summaryRequest = null;
-        //        }
-        //    });
+        if (this.summaryRequest) {
+            this.summaryRequest.cancel();
+        }
 
-        const mockResults = {
-            prime_awards_count: 111111,
-            prime_awards_obligation_amount: 222222.22
+        const tableType = this.state.filters.tableType;
+
+        const params = {
+            filters: {
+                keyword: this.state.filters.keyword,
+                award_type_codes: awardTypeGroups[tableType]
+            }
         };
 
-        this.setState({
-            summary: {
-                primeCount: mockResults.prime_awards_count,
-                primeAmount: mockResults.prime_awards_obligation_amount
-            }
-        });
+        this.summaryRequest = KeywordHelper.fetchSummary(params);
+        this.summaryRequest.promise
+            .then((res) => {
+                const results = res.data.results;
+                this.setState({
+                    summary: {
+                        primeCount: results.prime_awards_count,
+                        primeAmount: results.prime_awards_obligation_amount
+                    }
+                });
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.summaryRequest = null;
+                }
+            });
     }
 
     updateKeyword() {
