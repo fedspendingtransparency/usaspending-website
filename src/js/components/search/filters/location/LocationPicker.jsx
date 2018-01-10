@@ -181,6 +181,7 @@ export default class LocationPicker extends React.Component {
                     <button
                         className="add-location"
                         onClick={this.props.addLocation}
+                        aria-controls="award-search-selected-locations"
                         disabled={disabled}>
                         Add Filter
                     </button>

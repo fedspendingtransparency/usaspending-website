@@ -1,5 +1,15 @@
 .sidebar-submit {
     padding: rem(15) rem(25);
+
+    .screen-reader-submit-header {
+        position:absolute;
+        left:-10000px;
+        top:auto;
+        width:1px;
+        height:1px;
+        overflow:hidden;
+    }
+
     .submit-button {
         display: block;
         width: 100%;

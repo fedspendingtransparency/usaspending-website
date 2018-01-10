@@ -24,7 +24,7 @@ const SearchSidebarSubmit = (props) => {
     return (
         <div
             className="sidebar-submit"
-            role="group"
+            role="region"
             aria-label="Submit search">
             <button
                 className="submit-button"
