@@ -17,7 +17,6 @@ const propTypes = {
     placeholder: PropTypes.string,
     errorHeader: PropTypes.string,
     errorMessage: PropTypes.string,
-    isRequired: PropTypes.bool,
     maxSuggestions: PropTypes.number,
     label: PropTypes.string,
     noResults: PropTypes.bool
@@ -26,7 +25,6 @@ const propTypes = {
 const defaultProps = {
     values: [],
     placeholder: '',
-    isRequired: false,
     errorHeader: '',
     errorMessage: '',
     maxSuggestions: 10,
@@ -42,9 +40,11 @@ export default class Autocomplete extends React.Component {
 
         this.state = {
             value: '',
-            shown: '',
+            shown: false,
             selectedIndex: -1,
-            showWarning: false
+            showWarning: false,
+            autocompleteId: `autocomplete-${uniqueId()}`,
+            statusId: `autocomplete-status-${uniqueId()}`
         };
     }
 
@@ -114,14 +114,14 @@ export default class Autocomplete extends React.Component {
 
     close() {
         this.setState({
-            shown: 'hidden',
+            shown: false,
             showWarning: false
         });
     }
 
     open() {
         this.setState({
-            shown: ''
+            shown: true
         });
     }
 
@@ -230,13 +230,14 @@ export default class Autocomplete extends React.Component {
     }
 
     render() {
-        const autocompleteId = `autocomplete-${uniqueId()}`;
         let activeDescendant = false;
-        let status = null;
+        let status = '';
         if (this.state.shown && this.state.selectedIndex > -1) {
-            activeDescendant = `${autocompleteId}__option-${this.state.selectedIndex}`;
+            activeDescendant = `${this.state.autocompleteId}__option-${this.state.selectedIndex}`;
             if (this.props.values.length > this.state.selectedIndex) {
-                status = this.props.values[this.state.selectedIndex].title;
+                const selectedString = this.props.values[this.state.selectedIndex].title;
+                const valueCount = Math.min(this.props.maxSuggestions, this.props.values.length);
+                status = `${selectedString} (${this.state.selectedIndex + 1} of ${valueCount})`;
             }
         }
 
@@ -244,13 +245,13 @@ export default class Autocomplete extends React.Component {
             <div
                 className="usa-da-typeahead-wrapper"
                 role="combobox"
-                aria-controls={autocompleteId}
+                aria-controls={this.state.autocompleteId}
                 aria-expanded={this.state.shown}
                 aria-haspopup="true">
                 <div className="usa-da-typeahead">
                     <p>{this.props.label}</p>
                     <input
-                        className="location-input autocomplete"
+                        className="autocomplete"
                         ref={(t) => {
                             this.autocompleteInput = t;
                         }}
@@ -258,12 +259,12 @@ export default class Autocomplete extends React.Component {
                         placeholder={this.props.placeholder}
                         onChange={this.onChange.bind(this)}
                         tabIndex={0}
-                        aria-required={this.props.isRequired}
-                        aria-controls={autocompleteId}
-                        aria-activedescendant={activeDescendant} />
+                        aria-controls={this.state.autocompleteId}
+                        aria-activedescendant={activeDescendant}
+                        aria-autocomplete="list" />
                     <div
                         className="screen-reader-description"
-                        role="status">
+                        role="alert">
                         {status}
                     </div>
                     <SuggestionHolder
@@ -272,7 +273,7 @@ export default class Autocomplete extends React.Component {
                         selectedIndex={this.state.selectedIndex}
                         select={this.select.bind(this)}
                         maxSuggestions={this.props.maxSuggestions}
-                        autocompleteId={autocompleteId} />
+                        autocompleteId={this.state.autocompleteId} />
                 </div>
                 {this.generateWarning()}
             </div>

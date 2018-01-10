@@ -11,39 +11,18 @@ const propTypes = {
     suggestions: PropTypes.array,
     selectedIndex: PropTypes.number,
     maxSuggestions: PropTypes.number,
-    shown: PropTypes.string,
+    shown: PropTypes.bool,
     autocompleteId: PropTypes.string
 };
 
 const defaultProps = {
     suggestions: [],
-    shown: '',
+    shown: false,
     selectedIndex: 0,
     maxSuggestions: 10
 };
 
 export default class SuggestionHolder extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            hidden: ' hide'
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.suggestions.length > 0 && nextProps.shown !== 'hidden') {
-            this.setState({
-                hidden: ''
-            });
-        }
-        else {
-            this.setState({
-                hidden: ' hide'
-            });
-        }
-    }
-
     render() {
         const suggestions = [];
 
@@ -60,10 +39,15 @@ export default class SuggestionHolder extends React.Component {
                 key={i} />);
         }
 
+        let hiddenClass = 'hide';
+        if (this.props.shown && this.props.suggestions.length > 0) {
+            hiddenClass = '';
+        }
+
         return (
             <ul
                 id={this.props.autocompleteId}
-                className={`autocomplete${this.state.hidden}`}
+                className={`autocomplete ${hiddenClass}`}
                 role="listbox">
                 {suggestions}
             </ul>
