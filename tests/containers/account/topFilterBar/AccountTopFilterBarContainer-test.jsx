@@ -16,7 +16,7 @@ import { defaultFilters } from '../defaultFilters';
 const prepareFiltersSpy = sinon.spy(AccountTopFilterBarContainer.prototype, 'prepareFilters');
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/search/topFilterBar/TopFilterBar', () =>
+jest.mock('components/account/topFilterBar/LegacyTopFilterBar', () =>
     jest.fn(() => null));
 
 describe('AccountTopFilterBarContainer', () => {

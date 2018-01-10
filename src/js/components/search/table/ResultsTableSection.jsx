@@ -6,12 +6,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+
 import ResultsTable from './ResultsTable';
 import ResultsTableTabs from './ResultsTableTabs';
-import ResultsTableMessage from './ResultsTableMessage';
+import ResultsTableLoadingMessage from './ResultsTableLoadingMessage';
+import ResultsTableNoResults from './ResultsTableNoResults';
+import ResultsTableErrorMessage from './ResultsTableErrorMessage';
 
 const propTypes = {
     inFlight: PropTypes.bool,
+    error: PropTypes.bool,
     tableTypes: PropTypes.array,
     currentType: PropTypes.string,
     switchTab: PropTypes.func,
@@ -50,15 +55,36 @@ export default class ResultsTableSection extends React.Component {
     }
 
     render() {
-        let loadingWrapper = 'loaded-table';
         let message = null;
+        let table = (
+            <ResultsTable
+                {...this.props}
+                visibleWidth={this.state.tableWidth} />
+        );
+
         if (this.props.inFlight) {
-            loadingWrapper = 'loading-table';
-            message = <ResultsTableMessage message="Loading data..." />;
+            message = (
+                <div className="results-table-message-container">
+                    <ResultsTableLoadingMessage />
+                </div>
+            );
+        }
+        else if (this.props.error) {
+            table = null;
+            message = (
+                <div className="results-table-message-container full">
+                    <ResultsTableErrorMessage />
+                </div>
+            );
         }
         else if (this.props.results.length === 0) {
             // no results
-            message = <ResultsTableMessage message="No results matched your criteria." />;
+            table = null;
+            message = (
+                <div className="results-table-message-container full">
+                    <ResultsTableNoResults />
+                </div>
+            );
         }
 
         return (
@@ -73,8 +99,16 @@ export default class ResultsTableSection extends React.Component {
                     types={this.props.tableTypes}
                     active={this.props.currentType}
                     counts={this.props.counts}
-                    switchTab={this.props.switchTab} />
-                <div className={loadingWrapper}>
+                    switchTab={this.props.switchTab}
+                    disabled={this.props.inFlight} />
+                <div className="results-table-content">
+                    <CSSTransitionGroup
+                        transitionName="table-message-fade"
+                        transitionLeaveTimeout={225}
+                        transitionEnterTimeout={195}
+                        transitionLeave>
+                        {message}
+                    </CSSTransitionGroup>
                     <div
                         className="results-table-width-master"
                         ref={(div) => {
@@ -82,11 +116,8 @@ export default class ResultsTableSection extends React.Component {
                             // the results table width will follow this div's width
                             this.tableWidthController = div;
                         }} />
-                    <ResultsTable
-                        {...this.props}
-                        visibleWidth={this.state.tableWidth} />
+                    {table}
                 </div>
-                {message}
             </div>
         );
     }

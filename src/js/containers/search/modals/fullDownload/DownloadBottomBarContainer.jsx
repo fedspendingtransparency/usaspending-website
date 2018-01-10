@@ -22,6 +22,7 @@ const propTypes = {
     setDownloadPending: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
+    setDownloadExpectedUrl: PropTypes.func,
     resetDownload: PropTypes.func,
     filters: PropTypes.object
 };
@@ -34,8 +35,8 @@ export class DownloadBottomBarContainer extends React.Component {
             visible: false,
             showError: false,
             showSuccess: false,
-            title: 'Your file is being generated...',
-            description: 'Warning: In order to complete your download, please remain on this site.'
+            title: 'We\'re preparing your download(s)...',
+            description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.'
         };
 
         this.request = null;
@@ -79,8 +80,8 @@ export class DownloadBottomBarContainer extends React.Component {
             visible: true,
             showError: false,
             showSuccess: false,
-            title: 'Your file is being generated...',
-            description: 'Warning: In order to complete your download, please remain on this site.'
+            title: 'We\'re preparing your download(s)...',
+            description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.'
         }, this.checkStatus);
     }
 
@@ -108,6 +109,7 @@ export class DownloadBottomBarContainer extends React.Component {
         this.request.promise
             .then((res) => {
                 this.props.setDownloadExpectedFile(res.data.file_name);
+                this.props.setDownloadExpectedUrl(res.data.url);
                 this.checkStatus();
             })
             .catch((err) => {

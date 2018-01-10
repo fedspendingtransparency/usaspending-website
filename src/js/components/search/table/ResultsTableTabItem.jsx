@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import { formatNumber } from 'helpers/moneyFormatter';
 
 const propTypes = {
@@ -30,27 +29,21 @@ export default class ResultsTableTabItem extends React.Component {
     }
 
     render() {
-        const comingSoonModule = (<ComingSoonLabel />);
         let activeClass = '';
-        let comingSoon = '';
         let disabledStatus = '';
-        let status = '';
         if (this.props.active) {
             activeClass = ' active';
         }
         if (this.props.enabled === false) {
-            comingSoon = comingSoonModule;
-            status = ' coming-soon';
             disabledStatus = true;
         }
         else {
-            status = '';
             disabledStatus = false;
         }
 
         return (
             <button
-                className={`table-type-toggle${activeClass}${status}`}
+                className={`table-type-toggle${activeClass}`}
                 onClick={this.clickedTab}
                 title={`Show ${this.props.label}`}
                 disabled={disabledStatus}>
@@ -62,7 +55,6 @@ export default class ResultsTableTabItem extends React.Component {
                         {formatNumber(this.props.count)}
                     </div>
                 </div>
-                {comingSoon}
             </button>
         );
     }

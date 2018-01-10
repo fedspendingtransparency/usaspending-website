@@ -1,0 +1,34 @@
+@import "./_loading";
+@import "./_noFilters";
+
+.visualization-status-screen {
+    padding-top: rem(180);
+    padding-bottom: rem(180);
+}
+
+// slide in animation
+@keyframes visualizationFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes visualizationFadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}  
+
+.visualization-message-fade-enter, .visualization-message-fade-enter-active {
+    @include animation(visualizationFadeIn 0.225s ease-in forwards);
+}
+
+.visualization-message-fade-leave, .visualization-message-fade-leave-active {
+    @include animation(visualizationFadeOut 0.195s ease-in forwards);
+}

@@ -7,8 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import DatePicker from 'components/sharedComponents/DatePicker';
-import { AngleRight } from 'components/sharedComponents/icons/Icons';
+import { Close } from 'components/sharedComponents/icons/Icons';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+
+import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 
 const defaultProps = {
     startDate: '01/01/2016',
@@ -21,9 +23,12 @@ const propTypes = {
     onDateChange: PropTypes.func,
     startDate: PropTypes.object,
     endDate: PropTypes.object,
+    selectedStart: PropTypes.string,
+    selectedEnd: PropTypes.string,
     showError: PropTypes.func,
     hideError: PropTypes.func,
-    applyDateRange: PropTypes.func
+    applyDateRange: PropTypes.func,
+    removeDateRange: PropTypes.func
 };
 
 export default class DateRange extends React.Component {
@@ -59,6 +64,30 @@ export default class DateRange extends React.Component {
         const earliestDateString =
             FiscalYearHelper.convertFYToDateRange(FiscalYearHelper.earliestFiscalYear)[0];
         const earliestDate = moment(earliestDateString, 'YYYY-MM-DD').toDate();
+
+        let dateLabel = '';
+        let hideTags = 'hide';
+        if (this.props.selectedStart || this.props.selectedEnd) {
+            hideTags = '';
+            let start = null;
+            let end = null;
+            if (this.props.selectedStart) {
+                start = moment(this.props.selectedStart, 'YYYY-MM-DD').format('MM/DD/YYYY');
+            }
+            if (this.props.selectedEnd) {
+                end = moment(this.props.selectedEnd, 'YYYY-MM-DD').format('MM/DD/YYYY');
+            }
+            if (start && end) {
+                dateLabel = `${start} to ${end}`;
+            }
+            else if (start) {
+                dateLabel = `${start} to present`;
+            }
+            else {
+                dateLabel = `... to ${end}`;
+            }
+        }
+
         return (
             <div className="date-range-option">
                 <form
@@ -96,15 +125,21 @@ export default class DateRange extends React.Component {
                             this.endPicker = component;
                         }}
                         allowClearing />
-                    <button
-                        className="set-date-button"
-                        title="Apply date range"
-                        aria-label="Apply date range"
-                        tabIndex={this.props.startingTab + 8}
-                        onClick={this.props.applyDateRange}>
-                        <AngleRight alt="Apply date range" />
-                    </button>
+                    <IndividualSubmit
+                        className="set-date-submit"
+                        onClick={this.props.applyDateRange}
+                        label="Filter by date range" />
                 </form>
+                <div className={`selected-filters ${hideTags}`}>
+                    <button
+                        className="shown-filter-button"
+                        onClick={this.props.removeDateRange}>
+                        <span className="close">
+                            <Close className="usa-da-icon-close" />
+                        </span>
+                        {dateLabel}
+                    </button>
+                </div>
             </div>
         );
     }

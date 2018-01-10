@@ -32,8 +32,8 @@ export class BulkDownloadBottomBarContainer extends React.Component {
             visible: false,
             showError: false,
             showSuccess: false,
-            title: 'Your file is being generated...',
-            description: 'Warning: In order to complete your download, please remain on this site.'
+            title: 'We\'re preparing your download(s)...',
+            description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.'
         };
 
         this.request = null;
@@ -75,8 +75,8 @@ export class BulkDownloadBottomBarContainer extends React.Component {
             visible: true,
             showError: false,
             showSuccess: false,
-            title: 'Your file is being generated...',
-            description: 'Warning: In order to complete your download, please remain on this site.'
+            title: 'We\'re preparing your download(s)...',
+            description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.'
         }, this.checkStatus);
     }
 
@@ -193,6 +193,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
         if (this.state.visible) {
             content = (<DownloadBottomBar
                 {...this.props}
+                download={this.props.bulkDownload.download}
                 showError={this.state.showError}
                 showSuccess={this.state.showSuccess}
                 title={this.state.title}

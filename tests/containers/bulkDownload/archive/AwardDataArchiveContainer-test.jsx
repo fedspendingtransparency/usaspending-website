@@ -83,13 +83,15 @@ describe('AwardDataArchiveContainer', () => {
             const formattedResults = [
                 {
                     agency: "Mock Agency 1 (ABC)",
-                    url: "mockFile1.zip",
+                    fileName: "mockFile1.zip",
+                    url: "http://mockFile_full.zip",
                     fy: "FY 1988",
                     date: "12/12/1987"
                 },
                 {
                     agency: "Mock Agency 2 (DEF)",
-                    url: "mockFile2.zip",
+                    fileName: "mockFile2.zip",
+                    url: "http://mockFile_delta.zip",
                     fy: "FY 1988",
                     date: "12/18/1987"
                 }

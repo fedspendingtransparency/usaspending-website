@@ -18,6 +18,11 @@ export const setDownloadExpectedFile = (state) => ({
     file: state
 });
 
+export const setDownloadExpectedUrl = (state) => ({
+    type: 'SET_DOWNLOAD_EXPECTED_URL',
+    url: state
+});
+
 export const setDownloadPending = (state) => ({
     state,
     type: 'SET_DOWNLOAD_PENDING'

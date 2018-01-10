@@ -1,0 +1,34 @@
+.visualization-no-filters-screen {
+    .icon {
+        height: rem(70);
+        width: rem(70);
+        margin-left: auto;
+        margin-right: auto;
+
+        svg {
+            fill: $color-gray-light;
+            height: rem(70);
+            width: rem(70);
+
+            transform: rotate(90deg);
+            @include media($medium-screen) {
+                transform: none;
+            }
+        }
+    }
+    .message {
+        font-size: rem(36);
+        line-height: rem(45);
+        color: $color-gray-light;
+        text-align: center;
+
+        margin-top: rem(10);
+
+        max-width: rem(450);
+        padding-left: rem(10);
+        padding-right: rem(10);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}

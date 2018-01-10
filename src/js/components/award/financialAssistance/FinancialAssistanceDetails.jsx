@@ -43,8 +43,14 @@ export default class FinancialAssistanceDetails extends React.Component {
         };
     }
 
-    componentWillReceiveProps() {
+    componentDidMount() {
         this.prepareValues(this.props.selectedAward);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!Object.is(nextProps.selectedAward, this.props.selectedAward)) {
+            this.prepareValues(nextProps.selectedAward);
+        }
     }
 
     parsePlaceOfPerformance(award) {
@@ -94,11 +100,10 @@ export default class FinancialAssistanceDetails extends React.Component {
         return popPlace;
     }
 
-    prepareValues() {
+    prepareValues(award) {
         let yearRangeTotal = "";
         let monthRangeTotal = "";
         let description = null;
-        const award = this.props.selectedAward;
         const latestTransaction = award.latest_transaction;
 
         // Date Range

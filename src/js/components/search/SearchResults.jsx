@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { AddFilter, CloseCircle } from 'components/sharedComponents/icons/Icons';
+import { AddFilter } from 'components/sharedComponents/icons/Icons';
 
 import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarContainer';
 
@@ -18,6 +18,8 @@ const propTypes = {
     isMobile: PropTypes.bool,
     filterCount: PropTypes.number,
     showMobileFilters: PropTypes.bool,
+    requestsComplete: PropTypes.bool,
+    noFiltersApplied: PropTypes.bool,
     toggleMobileFilters: PropTypes.func,
     clearAllFilters: PropTypes.func
 };
@@ -34,11 +36,6 @@ export default class SearchResults extends React.Component {
         let mobileFilters = '';
         if (this.props.showMobileFilters && this.props.isMobile) {
             mobileFilters = 'behind-filters';
-        }
-
-        let showClearButton = 'hide';
-        if (this.props.filterCount > 0) {
-            showClearButton = '';
         }
 
         let showCountBadge = '';
@@ -64,18 +61,6 @@ export default class SearchResults extends React.Component {
                             </div>
                         </div>
                     </button>
-                    <button
-                        className={`mobile-clear-all ${showClearButton}`}
-                        onClick={this.props.clearAllFilters}>
-                        <div className="mobile-clear-all-content">
-                            <div className="icon">
-                                <CloseCircle alt="Clear all filters" />
-                            </div>
-                            <div className="label">
-                                Clear all filters
-                            </div>
-                        </div>
-                    </button>
                 </div>
                 <div className="mobile-search-sidebar">
                     <MobileFilters
@@ -87,7 +72,10 @@ export default class SearchResults extends React.Component {
                 <div className="full-search-results-wrapper">
                     <TopFilterBarContainer {...this.props} />
                     <div className={`search-results ${mobileFilters}`}>
-                        <VisualizationWrapper isMobile={this.props.isMobile} />
+                        <VisualizationWrapper
+                            isMobile={this.props.isMobile}
+                            requestsComplete={this.props.requestsComplete}
+                            noFiltersApplied={this.props.noFiltersApplied} />
                     </div>
                 </div>
             </div>
