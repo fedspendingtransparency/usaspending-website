@@ -114,8 +114,11 @@ export default class ChartBar extends React.Component {
                     y={0}
                     width={this.props.maxWidth}
                     height={this.props.height}
+                    tabIndex={-1}
                     onMouseOver={this.mouseEntered}
                     onMouseOut={this.mouseExited}
+                    onFocus={this.mouseEntered}
+                    onBlur={this.mouseExited}
                     onTouchStart={this.touchedBar} />
             </g>
         );
