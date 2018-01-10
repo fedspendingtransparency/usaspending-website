@@ -160,7 +160,7 @@ export default class Table extends React.Component {
             // the internal height is less than the external height, this means that some of the
             // internal height height is being blocked by a horizontal scrollbar (which takes up
             // vertical space)
-            scrollbarHeight = containerExternalHeight - containerInternalHeight + 40;
+            scrollbarHeight = containerExternalHeight - containerInternalHeight;
         }
 
         return scrollbarHeight;
@@ -170,7 +170,7 @@ export default class Table extends React.Component {
         const visibleWidth = Math.min(this.props.bodyWidth, this.props.contentWidth);
         // On single row increate the row height so that windows horizontal scroll bar
         // does not block the data
-        const visibleHeight = this.props.rowCount != 1 ? Math.min(this.props.bodyHeight,
+        const visibleHeight = this.props.rowCount !== 1 ? Math.min(this.props.bodyHeight,
             this.props.rowCount * this.props.rowHeight) : this.props.rowHeight + 2;
         const style = {
             minWidth: visibleWidth,
