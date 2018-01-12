@@ -15,8 +15,6 @@ import KeywordHeader from './header/KeywordHeader';
 import KeywordSearchBar from './KeywordSearchBar';
 
 const propTypes = {
-    updateSearchString: PropTypes.func,
-    searchString: PropTypes.string,
     updateKeyword: PropTypes.func,
     keywordApplied: PropTypes.bool,
     summary: PropTypes.object,
@@ -46,9 +44,7 @@ export class KeywordPage extends React.Component {
                     <div className="keyword-content">
                         <div className="search-bar-section">
                             <KeywordSearchBar
-                                changedInput={this.props.updateSearchString}
-                                submitText={this.props.updateKeyword}
-                                value={this.props.searchString} />
+                                submitText={this.props.updateKeyword} />
                             <div className="info-text">
                                 Donec id elit non mi porta gravida at eget metus. Nullam quis risus eget urna mollis
                                 ornare vel eu leo. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.

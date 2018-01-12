@@ -9,28 +9,37 @@ import PropTypes from 'prop-types';
 import { Search } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    submitText: PropTypes.func,
-    changedInput: PropTypes.func,
-    value: PropTypes.string
+    submitText: PropTypes.func
 };
 
 export default class KeywordSearchBar extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            searchString: ''
+        };
+
+        this.changedInput = this.changedInput.bind(this);
         this.searchKeyword = this.searchKeyword.bind(this);
     }
 
     searchKeyword(e) {
         e.preventDefault();
-        if (this.props.value.length > 2) {
-            this.props.submitText();
+        if (this.state.searchString.length > 2) {
+            this.props.submitText(this.state.searchString);
         }
+    }
+
+    changedInput(e) {
+        this.setState({
+            searchString: e.target.value
+        });
     }
 
     render() {
         let disabledClass = 'disabled';
-        if (this.props.value.length > 2) {
+        if (this.state.searchString.length > 2) {
             disabledClass = '';
         }
         return (
@@ -40,8 +49,8 @@ export default class KeywordSearchBar extends React.Component {
                         id="search"
                         type="text"
                         className="keyword-input"
-                        value={this.props.value}
-                        onChange={this.props.changedInput}
+                        value={this.state.searchString}
+                        onChange={this.changedInput}
                         placeholder="Type keywords" />
                     <button
                         className={`keyword-submit ${disabledClass}`}

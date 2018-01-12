@@ -44,7 +44,6 @@ export default class KeywordContainer extends React.Component {
         super(props);
 
         this.state = {
-            searchString: '',
             filters: {
                 tableType: 'contracts',
                 keyword: ''
@@ -70,7 +69,6 @@ export default class KeywordContainer extends React.Component {
         this.loadNextPage = this.loadNextPage.bind(this);
         this.updateSort = this.updateSort.bind(this);
         this.updateKeyword = this.updateKeyword.bind(this);
-        this.updateSearchString = this.updateSearchString.bind(this);
     }
 
     performSearch(newSearch = false) {
@@ -325,18 +323,10 @@ export default class KeywordContainer extends React.Component {
         });
     }
 
-    updateSearchString(e) {
-        this.setState({
-            searchString: e.target.value
-        });
-    }
-
     render() {
         const tableType = this.state.filters.tableType;
         return (
             <KeywordPage
-                updateSearchString={this.updateSearchString}
-                searchString={this.state.searchString}
                 updateKeyword={this.updateKeyword}
                 keywordApplied={this.state.filters.keyword !== ''}
                 summary={this.state.summary}
