@@ -26,7 +26,8 @@ const propTypes = {
     columns: PropTypes.object,
     sort: PropTypes.object,
     updateSort: PropTypes.func,
-    tableInstance: PropTypes.string
+    tableInstance: PropTypes.string,
+    loadNextPage: PropTypes.func
 };
 
 export default class ResultsTableSection extends React.Component {

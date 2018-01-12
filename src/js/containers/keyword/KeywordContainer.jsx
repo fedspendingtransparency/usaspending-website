@@ -46,7 +46,7 @@ export default class KeywordContainer extends React.Component {
         this.state = {
             keyword: '',
             tableType: 'contracts',
-            page: 0,
+            page: 1,
             lastPage: true,
             sort: {
                 field: 'Award ID',
@@ -61,7 +61,7 @@ export default class KeywordContainer extends React.Component {
         };
 
         this.summaryRequest = null;
-        // this.searchRequest = null;
+        this.searchRequest = null;
 
         this.switchTab = this.switchTab.bind(this);
         this.loadNextPage = this.loadNextPage.bind(this);
@@ -70,11 +70,10 @@ export default class KeywordContainer extends React.Component {
     }
 
     performSearch(newSearch = false) {
-        // TODO - Lizzie: update when API is ready
-        // if (this.searchRequest) {
-        //    // a request is currently in-flight, cancel it
-        //    this.searchRequest.cancel();
-        // }
+        if (this.searchRequest) {
+            // a request is currently in-flight, cancel it
+            this.searchRequest.cancel();
+        }
 
         // indicate the request is about to start
         this.setState({
@@ -105,105 +104,41 @@ export default class KeywordContainer extends React.Component {
             order: this.state.sort.direction
         };
 
-        console.log(JSON.stringify(params));
+        this.searchRequest = KeywordHelper.performKeywordSearch(params);
+        this.searchRequest.promise
+            .then((res) => {
+                const newState = {
+                    inFlight: false
+                };
 
-        // this.searchRequest = KeywordHelper.performKeywordSearch(params);
-        // this.searchRequest.promise
-        //    .then((res) => {
-        //        const newState = {
-        //            inFlight: false
-        //        };
-        //
-        //        // don't clear records if we're appending (not the first page)
-        //        if (pageNumber <= 1 || newSearch) {
-        //            newState.tableInstance = `${uniqueId()}`;
-        //            newState.results = res.data.results;
-        //        }
-        //        else {
-        //            newState.results = this.state.results.concat(res.data.results);
-        //        }
-        //
-        //        // request is done
-        //        this.searchRequest = null;
-        //        newState.page = res.data.page_metadata.page;
-        //        newState.lastPage = !res.data.page_metadata.hasNext;
-        //
-        //        this.setState(newState);
-        //    })
-        //    .catch((err) => {
-        //        if (!isCancel(err)) {
-        //            this.setState({
-        //                inFlight: false,
-        //                error: true
-        //            });
-        //
-        //            console.log(err);
-        //        }
-        //    });
-
-        const mockResponse = {
-            limit: 30,
-            page_metadata: {
-                page: 1,
-                hasNext: true
-            },
-            results: [
-                {
-                    internal_id: 1,
-                    'Award ID': 'ABC123',
-                    'Recipient Name': 'Blerg',
-                    'Action Date': '2011-12-31',
-                    'Transaction Amount': '123.45',
-                    'Award Type': 'Definitive Contract',
-                    'Awarding Agency': 'Department of Sandwiches',
-                    'Awarding Sub Agency': 'Office of Subs',
-                    Mod: '2'
-                },
-                {
-                    internal_id: 4,
-                    'Award ID': 'XYZ123',
-                    'Recipient Name': 'Mock Recipient 2',
-                    'Action Date': '1987-9-31',
-                    'Transaction Amount': '200',
-                    'Award Type': 'Definitive Contract',
-                    'Awarding Agency': 'Mock Agency',
-                    'Awarding Sub Agency': 'Mock Office',
-                    Mod: '5'
-                },
-                {
-                    internal_id: 7,
-                    'Award ID': 'DEF123',
-                    'Recipient Name': 'Mock Recipient 3',
-                    'Action Date': '1987-10-31',
-                    'Transaction Amount': '300',
-                    'Award Type': 'Definitive Contract',
-                    'Awarding Agency': 'Mock Agency 3',
-                    'Awarding Sub Agency': 'Mock Office 3',
-                    Mod: '8'
+                // don't clear records if we're appending (not the first page)
+                if (pageNumber <= 1 || newSearch) {
+                    newState.tableInstance = `${uniqueId()}`;
+                    newState.results = res.data.results;
                 }
-            ]
-        };
+                else {
+                    newState.results = this.state.results.concat(res.data.results);
+                }
 
-        const newState = {
-            inFlight: false
-        };
+                // request is done
+                this.searchRequest = null;
+                newState.page = res.data.page_metadata.page;
+                newState.lastPage = !res.data.page_metadata.hasNext;
 
-        // don't clear records if we're appending (not the first page)
-        if (pageNumber <= 1 || newSearch) {
-            newState.tableInstance = `${uniqueId()}`;
-            newState.results = mockResponse.results;
-        }
-        else {
-            newState.results = this.state.results.concat(mockResponse.results);
-        }
+                this.setState(
+                    newState, () => {
+                        this.fetchSummary();
+                    });
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    this.setState({
+                        inFlight: false,
+                        error: true
+                    });
 
-        // request is done
-        newState.page = mockResponse.page_metadata.page;
-        newState.lastPage = !mockResponse.page_metadata.hasNext;
-
-        this.setState(
-            newState, () => {
-                this.fetchSummary();
+                    console.log(err);
+                }
             });
     }
 
