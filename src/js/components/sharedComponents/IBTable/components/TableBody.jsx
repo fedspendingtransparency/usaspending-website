@@ -91,7 +91,6 @@ export default class TableBody extends React.PureComponent {
             // cells changed
             this._visibleCells = visibleCoords.cells.map((coord) => this._cellCache[coord]);
 
-
             // handle pagination scroll events separately from state changes (which in turn renders
             // the visible cells to DOM)
             // this is because state changes are batched and this batching process causes delayed
