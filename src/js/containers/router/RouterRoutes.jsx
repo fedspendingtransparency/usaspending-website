@@ -183,8 +183,8 @@ const routes = {
             }
         },
         {
-            path: '/keyword',
-            parent: '/keyword',
+            path: '/keyword_search',
+            parent: '/keyword_search',
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('containers/keyword/KeywordContainer').default);

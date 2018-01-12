@@ -69,7 +69,7 @@ export class KeywordHeader extends React.Component {
                 <div className="search-header-container">
                     <div className="search-header">
                         <div className="search-title">
-                            <h1>Keyword Award Search</h1>
+                            <h1>Keyword Search</h1>
                         </div>
                         {searchSummary}
                         <div className="search-options">
