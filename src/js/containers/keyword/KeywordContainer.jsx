@@ -44,10 +44,8 @@ export default class KeywordContainer extends React.Component {
         super(props);
 
         this.state = {
-            filters: {
-                tableType: 'contracts',
-                keyword: ''
-            },
+            keyword: '',
+            tableType: 'contracts',
             page: 0,
             lastPage: true,
             sort: {
@@ -92,12 +90,13 @@ export default class KeywordContainer extends React.Component {
         }
         const resultLimit = 30;
 
-        const requestFields = availableColumns(this.state.filters.tableType);
+        const requestFields = availableColumns(this.state.tableType);
+        const tableType = this.state.tableType;
 
         const params = {
             filters: {
-                keyword: this.state.filters.keyword,
-                award_type: this.state.filters.tableType
+                keyword: this.state.keyword,
+                award_type_codes: awardTypeGroups[tableType]
             },
             fields: requestFields,
             page: pageNumber,
@@ -209,12 +208,8 @@ export default class KeywordContainer extends React.Component {
     }
 
     switchTab(tab) {
-        const filters = Object.assign({}, this.state.filters, {
-            tableType: tab
-        });
-
         this.setState({
-            filters
+            tableType: tab
         }, () => {
             this.performSearch(true);
         });
@@ -282,11 +277,11 @@ export default class KeywordContainer extends React.Component {
             this.summaryRequest.cancel();
         }
 
-        const tableType = this.state.filters.tableType;
+        const tableType = this.state.tableType;
 
         const params = {
             filters: {
-                keyword: this.state.filters.keyword,
+                keyword: this.state.keyword,
                 award_type_codes: awardTypeGroups[tableType]
             }
         };
@@ -311,12 +306,8 @@ export default class KeywordContainer extends React.Component {
     }
 
     updateKeyword() {
-        const filters = Object.assign({}, this.state.filters, {
-            keyword: this.state.searchString
-        });
-
         this.setState({
-            filters
+            keyword: this.state.searchString
         }, () => {
             this.loadColumns();
             this.performSearch(true);
@@ -324,11 +315,11 @@ export default class KeywordContainer extends React.Component {
     }
 
     render() {
-        const tableType = this.state.filters.tableType;
+        const tableType = this.state.tableType;
         return (
             <KeywordPage
                 updateKeyword={this.updateKeyword}
-                keywordApplied={this.state.filters.keyword !== ''}
+                keywordApplied={this.state.keyword !== ''}
                 summary={this.state.summary}
                 error={this.state.error}
                 inFlight={this.state.inFlight}
