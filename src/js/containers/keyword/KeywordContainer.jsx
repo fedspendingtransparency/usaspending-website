@@ -51,7 +51,6 @@ export default class KeywordContainer extends React.Component {
             },
             page: 0,
             lastPage: true,
-            counts: {},
             sort: {
                 field: 'Award ID',
                 direction: 'desc'
@@ -66,89 +65,12 @@ export default class KeywordContainer extends React.Component {
 
         this.summaryRequest = null;
         // this.searchRequest = null;
-        // this.tabCountRequest = null;
 
         this.switchTab = this.switchTab.bind(this);
         this.loadNextPage = this.loadNextPage.bind(this);
         this.updateSort = this.updateSort.bind(this);
         this.updateKeyword = this.updateKeyword.bind(this);
         this.updateSearchString = this.updateSearchString.bind(this);
-    }
-
-    pickDefaultTab() {
-        // get the award counts for the current filters
-        // TODO - Lizzie: uncomment when endpoint is ready
-        // if (this.tabCountRequest) {
-        //    this.tabCountRequest.cancel();
-        // }
-        //
-        // this.setState({
-        //    inFlight: true,
-        //    error: false
-        // });
-        //
-        // const filters = this.state.filters;
-        //
-        // this.tabCountRequest = KeywordHelper.performTabCountSearch({
-        //    filters
-        // });
-        //
-        // this.tabCountRequest.promise
-        //    .then((res) => {
-        //        this.parseTabCounts(res.data);
-        //    })
-        //    .catch((err) => {
-        //        if (!isCancel(err)) {
-        //            this.setState({
-        //                inFlight: false,
-        //                error: true
-        //            });
-        //
-        //            console.log(err);
-        //        }
-        //    });
-        const mockResults = {
-            results: {
-                contracts: 200,
-                grants: 74,
-                direct_payments: 28,
-                loans: 621,
-                other: 17
-            }
-        };
-
-        this.parseTabCounts(mockResults);
-    }
-
-    parseTabCounts(data) {
-        const awardCounts = data.results;
-        let firstAvailable = '';
-        let i = 0;
-
-        // Set the first available award type to the first non-zero entry in the
-        while (firstAvailable === '' && i < tableTypes.length) {
-            const tableType = tableTypes[i].internal;
-
-            if (awardCounts[tableType] > 0) {
-                firstAvailable = tableType;
-            }
-
-            i += 1;
-        }
-
-        // If none of the award types are populated, set the first available tab to be the
-        // first tab in the table
-        if (firstAvailable === '') {
-            firstAvailable = tableTypes[0].internal;
-        }
-
-        this.setState({
-            counts: awardCounts
-        }, () => {
-            // select the first available tab
-            this.switchTab(firstAvailable);
-            this.performSearch(true);
-        });
     }
 
     performSearch(newSearch = false) {
@@ -230,40 +152,37 @@ export default class KeywordContainer extends React.Component {
             },
             results: [
                 {
-                    "Award ID": "ABC123",
-                    internal_id: 123456,
-                    Mod: 3,
-                    "Action Date": "1987-8-31",
-                    "Transaction Amount": 300000000,
-                    "Award Type": "Definitive Contract",
-                    "Recipient Name": "Mock Recipient",
-                    "Awarding Agency": "Mock Agency",
-                    awarding_agency_internal_id: 1000,
-                    "Awarding Sub Agency": "Mock Office"
+                    internal_id: 1,
+                    'Award ID': 'ABC123',
+                    'Recipient Name': 'Blerg',
+                    'Action Date': '2011-12-31',
+                    'Transaction Amount': '123.45',
+                    'Award Type': 'Definitive Contract',
+                    'Awarding Agency': 'Department of Sandwiches',
+                    'Awarding Sub Agency': 'Office of Subs',
+                    Mod: '2'
                 },
                 {
-                    "Award ID": "XYZ123",
-                    internal_id: 987654,
-                    Mod: 2,
-                    "Action Date": "1987-9-31",
-                    "Transaction Amount": 200000000,
-                    "Award Type": "Definitive Contract",
-                    "Recipient Name": "Mock Recipient 2",
-                    "Awarding Agency": "Mock Agency 2",
-                    awarding_agency_internal_id: 2000,
-                    "Awarding Sub Agency": "Mock Office 2"
+                    internal_id: 4,
+                    'Award ID': 'XYZ123',
+                    'Recipient Name': 'Mock Recipient 2',
+                    'Action Date': '1987-9-31',
+                    'Transaction Amount': '200',
+                    'Award Type': 'Definitive Contract',
+                    'Awarding Agency': 'Mock Agency',
+                    'Awarding Sub Agency': 'Mock Office',
+                    Mod: '5'
                 },
                 {
-                    "Award ID": "XYZ234",
-                    internal_id: 987655,
-                    Mod: 1,
-                    "Action Date": "1987-10-31",
-                    "Transaction Amount": 200000000,
-                    "Award Type": "Definitive Contract",
-                    "Recipient Name": "Mock Recipient 3",
-                    "Awarding Agency": "Mock Agency 3",
-                    awarding_agency_internal_id: 3000,
-                    "Awarding Sub Agency": "Mock Office 3"
+                    internal_id: 7,
+                    'Award ID': 'DEF123',
+                    'Recipient Name': 'Mock Recipient 3',
+                    'Action Date': '1987-10-31',
+                    'Transaction Amount': '300',
+                    'Award Type': 'Definitive Contract',
+                    'Awarding Agency': 'Mock Agency 3',
+                    'Awarding Sub Agency': 'Mock Office 3',
+                    Mod: '8'
                 }
             ]
         };
@@ -402,7 +321,7 @@ export default class KeywordContainer extends React.Component {
             filters
         }, () => {
             this.loadColumns();
-            this.pickDefaultTab();
+            this.performSearch(true);
         });
     }
 
@@ -425,7 +344,6 @@ export default class KeywordContainer extends React.Component {
                 inFlight={this.state.inFlight}
                 results={this.state.results}
                 columns={this.state.columns[tableType]}
-                counts={this.state.counts}
                 sort={this.state.sort}
                 tableTypes={tableTypes}
                 currentType={tableType}

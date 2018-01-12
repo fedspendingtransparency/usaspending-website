@@ -35,6 +35,11 @@ export default class ResultsTable extends React.Component {
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
     }
+    componentDidMount() {
+        if (this.tableComponent) {
+            this.tableComponent.reloadTable();
+        }
+    }
     componentDidUpdate(prevProps) {
         if (prevProps.tableInstance !== this.props.tableInstance) {
             // table type has changed, reset the scroll
@@ -73,11 +78,6 @@ export default class ResultsTable extends React.Component {
         if (column.columnName === 'Award ID') {
             cellClass = ResultsTableAwardIdCell;
             props.id = this.props.results[rowIndex].internal_id;
-        }
-
-        if (column.columnName === 'Awarding Agency') {
-            cellClass = ResultsTableAwardIdCell;
-            props.id = this.props.results[rowIndex].awarding_agency_internal_id;
         }
 
         return React.createElement(
