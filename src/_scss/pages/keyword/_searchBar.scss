@@ -59,6 +59,7 @@
             margin: 0 rem(5);
             @import "keywordTooltip";
             .icon {
+                @include button-unstyled;
                 height: rem(15);
                 width: rem(15);
                 svg {
@@ -66,6 +67,9 @@
                 }
                 &:hover {
                     cursor: pointer;
+                    svg {
+                        fill: $color-gray-light;
+                    }
                 }
             }
         }

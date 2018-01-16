@@ -136,9 +136,12 @@ describe('KeywordContainer', () => {
 
             expect(container.state().tableType).toEqual('loans');
         });
-        it('should should call a reset performSearch operation', () => {
+        it('should should call a reset performSearch operation if a keyword has been entered', () => {
             const container = shallow(<KeywordContainer />);
             container.instance().performSearch = jest.fn();
+            container.setState({
+                keyword: 'test'
+            });
             container.instance().switchTab('loans');
 
             expect(container.instance().performSearch).toHaveBeenCalledTimes(1);

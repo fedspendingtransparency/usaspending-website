@@ -87,7 +87,7 @@ export default class KeywordContainer extends React.Component {
             // the page number
             pageNumber = 1;
         }
-        const resultLimit = 30;
+        const resultLimit = 35;
 
         const requestFields = availableColumns(this.state.tableType);
         const tableType = this.state.tableType;
@@ -126,9 +126,8 @@ export default class KeywordContainer extends React.Component {
                 newState.lastPage = !res.data.page_metadata.hasNext;
 
                 this.setState(
-                    newState, () => {
-                        this.fetchSummary();
-                    });
+                    newState
+                );
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -146,7 +145,10 @@ export default class KeywordContainer extends React.Component {
         this.setState({
             tableType: tab
         }, () => {
-            this.performSearch(true);
+            // Don't perform a search yet if user switches tabs before entering a keyword
+            if (this.state.keyword !== '') {
+                this.performSearch(true);
+            }
         });
     }
 
@@ -212,12 +214,9 @@ export default class KeywordContainer extends React.Component {
             this.summaryRequest.cancel();
         }
 
-        const tableType = this.state.tableType;
-
         const params = {
             filters: {
-                keyword: this.state.keyword,
-                award_type_codes: awardTypeGroups[tableType]
+                keyword: this.state.keyword
             }
         };
 
@@ -246,6 +245,7 @@ export default class KeywordContainer extends React.Component {
         }, () => {
             this.loadColumns();
             this.performSearch(true);
+            this.fetchSummary();
         });
     }
 

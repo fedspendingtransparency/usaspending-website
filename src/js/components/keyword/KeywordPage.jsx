@@ -41,20 +41,13 @@ export default class KeywordPage extends React.Component {
             showHover: false
         };
 
-        this.onMouseEnter = this.onMouseEnter.bind(this);
-        this.onMouseLeave = this.onMouseLeave.bind(this);
+        this.showTooltip = this.showTooltip.bind(this);
         this.closeTooltip = this.closeTooltip.bind(this);
     }
 
-    onMouseEnter() {
+    showTooltip() {
         this.setState({
             showHover: true
-        });
-    }
-
-    onMouseLeave() {
-        this.setState({
-            showHover: false
         });
     }
 
@@ -86,13 +79,13 @@ export default class KeywordPage extends React.Component {
                                 Use the Keyword Search to get a broad picture of award data on a given theme.
                                 You can search through only award descriptions, or award descriptions plus other
                                 attributes.
-                                <div
-                                    className="info-wrap"
-                                    onMouseEnter={this.onMouseEnter}>
+                                <div className="info-wrap">
                                     {hover}
-                                    <div className="icon">
+                                    <button
+                                        onClick={this.showTooltip}
+                                        className="icon">
                                         <InfoCircle />
-                                    </div>
+                                    </button>
                                 </div>
                                 For a more targeted search, use our <a href="/#/search">Advanced Search tool</a>,
                                 whose extensive filters let you find more precise data sets.

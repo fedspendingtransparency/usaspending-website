@@ -10,7 +10,6 @@ import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableHeaderCell from 'components/search/table/cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from 'components/search/table/cells/ResultsTableFormattedCell';
-import ResultsTableAwardIdCell from 'components/search/table/cells/ResultsTableAwardIdCell';
 
 const propTypes = {
     results: PropTypes.array,
@@ -67,8 +66,7 @@ export default class ResultsTable extends React.Component {
 
     bodyCellRender(columnIndex, rowIndex) {
         const columnId = this.props.columns.visibleOrder[columnIndex];
-        const column = this.props.columns.data[columnId];
-        let cellClass = ResultsTableFormattedCell;
+        const cellClass = ResultsTableFormattedCell;
         const props = {
             rowIndex,
             columnIndex,

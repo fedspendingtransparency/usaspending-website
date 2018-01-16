@@ -30,15 +30,15 @@ export class KeywordHeader extends React.Component {
         if (primeCountUnits.unit !== 1) {
             primeCountPrecision = 1;
         }
-        const formattedPrimeCount = `${MoneyFormatter.formatNumberWithPrecision(primeCount / primeCountUnits.unit, primeCountPrecision)}\
-            ${primeCountUnits.unitLabel}`;
+        const formattedPrimeCount =
+            `${MoneyFormatter.formatNumberWithPrecision(primeCount / primeCountUnits.unit, primeCountPrecision)}${primeCountUnits.unitLabel}`;
 
         let primeAmountPrecision = 2;
         if (primeAmountUnits.unit !== 1) {
             primeAmountPrecision = 1;
         }
-        const formattedPrimeAmount = `${MoneyFormatter.formatMoneyWithPrecision(primeAmount / primeAmountUnits.unit, primeAmountPrecision)}\
-            ${primeAmountUnits.unitLabel}`;
+        const formattedPrimeAmount =
+            `${MoneyFormatter.formatMoneyWithPrecision(primeAmount / primeAmountUnits.unit, primeAmountPrecision)}${primeAmountUnits.unitLabel}`;
 
         return (
             <div className="search-summary">
