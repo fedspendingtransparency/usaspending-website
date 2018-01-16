@@ -229,6 +229,10 @@ export default class DatePicker extends React.Component {
             });
         }
 
+        else if (!this.props.value) {
+            disabledDays.length = 0;
+        }
+
         return (
             <div className="generate-datepicker-wrap">
                 <div className="generate-datepicker">
