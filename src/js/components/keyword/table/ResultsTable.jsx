@@ -10,8 +10,8 @@ import { keywordTableColumnTypes } from 'dataMapping/keyword/keywordTableColumnT
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
-import ResultsTableHeaderCell from 'components/search/table/cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from 'components/search/table/cells/ResultsTableFormattedCell';
+import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 
 const propTypes = {
     results: PropTypes.array,
@@ -62,7 +62,8 @@ export default class ResultsTable extends React.Component {
                 title={column.columnName}
                 defaultDirection={column.defaultDirection}
                 currentSort={this.props.sort}
-                updateSort={this.props.updateSort} />
+                updateSort={this.props.updateSort}
+                sortDisabled={column.sortDisabled} />
         );
     }
 

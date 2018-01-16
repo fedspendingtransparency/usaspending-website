@@ -188,12 +188,14 @@ export default class KeywordContainer extends React.Component {
 
             const parsedColumns = {};
             allColumns.forEach((title) => {
+                const sortDisabled = (title === 'Mod' || title === 'Awarding Sub Agency');
                 parsedColumns[title] =
                 {
                     columnName: title,
                     displayName: title,
                     width: measureTableHeader(title),
-                    defaultDirection: 'desc'
+                    defaultDirection: 'desc',
+                    sortDisabled
                 };
             });
 
