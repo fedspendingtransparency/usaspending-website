@@ -49,7 +49,7 @@ export default class KeywordContainer extends React.Component {
             page: 1,
             lastPage: true,
             sort: {
-                field: 'Award ID',
+                field: 'Transaction Amount',
                 direction: 'desc'
             },
             columns: {},

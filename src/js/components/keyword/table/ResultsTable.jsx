@@ -75,11 +75,6 @@ export default class ResultsTable extends React.Component {
             value: this.props.results[rowIndex][columnId]
         };
 
-        if (column.columnName === 'Award ID') {
-            cellClass = ResultsTableAwardIdCell;
-            props.id = this.props.results[rowIndex].internal_id;
-        }
-
         return React.createElement(
             cellClass,
             props
