@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { keywordTableColumnTypes } from 'dataMapping/keyword/keywordTableColumnTypes';
+
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableHeaderCell from 'components/search/table/cells/ResultsTableHeaderCell';
@@ -70,7 +72,8 @@ export default class ResultsTable extends React.Component {
         const props = {
             rowIndex,
             columnIndex,
-            value: this.props.results[rowIndex][columnId]
+            value: this.props.results[rowIndex][columnId],
+            dataType: keywordTableColumnTypes[columnId]
         };
 
         return React.createElement(
