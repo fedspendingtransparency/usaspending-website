@@ -16,7 +16,17 @@
             color: $color-gray-light;
         }
     }
-    .autocomplete ul {
+
+    .screen-reader-description {
+        position:absolute;
+        left:-10000px;
+        top:auto;
+        width:1px;
+        height:1px;
+        overflow:hidden;
+    }
+
+    ul.autocomplete {
         background-color: $color-white;
         border: 1px solid $color-gray-lighter;
         cursor: default;

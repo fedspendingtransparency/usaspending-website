@@ -136,7 +136,7 @@ export default class SearchPage extends React.Component {
                 }}>
                 <MetaTags {...MetaTagHelper.searchPageMetaTags} />
                 <Header />
-                <main id="main-content">
+                <div id="main-content">
                     <SearchHeader
                         downloadAvailable={this.props.downloadAvailable}
                         showDownloadModal={this.showModal} />
@@ -159,7 +159,7 @@ export default class SearchPage extends React.Component {
                         download={this.props.download}
                         mounted={this.state.showFullDownload}
                         hideModal={this.hideModal} />
-                </main>
+                </div>
                 <Footer
                     filters={this.props.filters} />
             </div>

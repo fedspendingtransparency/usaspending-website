@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, find } from 'lodash';
+import { isEqual, find, uniqueId } from 'lodash';
 
 import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
@@ -17,8 +17,6 @@ const propTypes = {
     placeholder: PropTypes.string,
     errorHeader: PropTypes.string,
     errorMessage: PropTypes.string,
-    tabIndex: PropTypes.number,
-    isRequired: PropTypes.bool,
     maxSuggestions: PropTypes.number,
     label: PropTypes.string,
     noResults: PropTypes.bool
@@ -27,10 +25,8 @@ const propTypes = {
 const defaultProps = {
     values: [],
     placeholder: '',
-    isRequired: false,
     errorHeader: '',
     errorMessage: '',
-    tabIndex: null,
     maxSuggestions: 10,
     label: '',
     noResults: false
@@ -44,9 +40,11 @@ export default class Autocomplete extends React.Component {
 
         this.state = {
             value: '',
-            shown: '',
-            selectedIndex: 0,
-            showWarning: false
+            shown: false,
+            selectedIndex: -1,
+            showWarning: false,
+            autocompleteId: `autocomplete-${uniqueId()}`,
+            statusId: `autocomplete-status-${uniqueId()}`
         };
     }
 
@@ -116,21 +114,21 @@ export default class Autocomplete extends React.Component {
 
     close() {
         this.setState({
-            shown: 'hidden',
+            shown: false,
             showWarning: false
         });
     }
 
     open() {
         this.setState({
-            shown: ''
+            shown: true
         });
     }
 
     previous() {
         if (this.state.selectedIndex > 0) {
             this.setState({
-                selectedIndex: this.state.selectedIndex -= 1
+                selectedIndex: this.state.selectedIndex - 1
             });
         }
     }
@@ -138,7 +136,7 @@ export default class Autocomplete extends React.Component {
     next() {
         if (this.state.selectedIndex < this.props.maxSuggestions - 1) {
             this.setState({
-                selectedIndex: this.state.selectedIndex += 1
+                selectedIndex: this.state.selectedIndex + 1
             });
         }
     }
@@ -232,26 +230,50 @@ export default class Autocomplete extends React.Component {
     }
 
     render() {
+        let activeDescendant = false;
+        let status = '';
+        if (this.state.shown && this.state.selectedIndex > -1) {
+            activeDescendant = `${this.state.autocompleteId}__option-${this.state.selectedIndex}`;
+            if (this.props.values.length > this.state.selectedIndex) {
+                const selectedString = this.props.values[this.state.selectedIndex].title;
+                const valueCount = Math.min(this.props.maxSuggestions, this.props.values.length);
+                status = `${selectedString} (${this.state.selectedIndex + 1} of ${valueCount})`;
+            }
+        }
+
         return (
-            <div className="pop-typeahead">
+            <div
+                className="usa-da-typeahead-wrapper"
+                role="combobox"
+                aria-controls={this.state.autocompleteId}
+                aria-expanded={this.state.shown}
+                aria-haspopup="true">
                 <div className="usa-da-typeahead">
                     <p>{this.props.label}</p>
                     <input
-                        className="location-input autocomplete"
+                        className="autocomplete"
                         ref={(t) => {
                             this.autocompleteInput = t;
                         }}
                         type="text"
                         placeholder={this.props.placeholder}
                         onChange={this.onChange.bind(this)}
-                        tabIndex={this.props.tabIndex}
-                        aria-required={this.props.isRequired} />
+                        tabIndex={0}
+                        aria-controls={this.state.autocompleteId}
+                        aria-activedescendant={activeDescendant}
+                        aria-autocomplete="list" />
+                    <div
+                        className="screen-reader-description"
+                        role="alert">
+                        {status}
+                    </div>
                     <SuggestionHolder
                         suggestions={this.props.values}
                         shown={this.state.shown}
                         selectedIndex={this.state.selectedIndex}
                         select={this.select.bind(this)}
-                        maxSuggestions={this.props.maxSuggestions} />
+                        maxSuggestions={this.props.maxSuggestions}
+                        autocompleteId={this.state.autocompleteId} />
                 </div>
                 {this.generateWarning()}
             </div>

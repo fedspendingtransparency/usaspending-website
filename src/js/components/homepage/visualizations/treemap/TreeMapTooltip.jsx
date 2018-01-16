@@ -132,6 +132,7 @@ export default class TreeMapTooltip extends React.Component {
                 }}>
                 <div
                     className={`tooltip${smallValue}`}
+                    tabIndex={-1}
                     ref={(div) => {
                         this.div = div;
                     }}>
@@ -140,7 +141,8 @@ export default class TreeMapTooltip extends React.Component {
                         ref={(div) => {
                             this.pointerDiv = div;
                         }} />
-                    <div className="tooltip-title">
+                    <div
+                        className="tooltip-title">
                         {this.props.name}
                     </div>
                     <div className="tooltip-body center">

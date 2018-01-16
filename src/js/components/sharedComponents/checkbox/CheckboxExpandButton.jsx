@@ -47,7 +47,8 @@ export default class CheckboxExpandButton extends React.Component {
                 className={`toggle ${hiddenClass}`}
                 onClick={this.clickedButton}
                 title="child filters"
-                disabled={this.props.hidden}>
+                disabled={this.props.hidden}
+                aria-expanded={this.props.arrowState === 'expanded'}>
                 {icon}
             </button>
         );

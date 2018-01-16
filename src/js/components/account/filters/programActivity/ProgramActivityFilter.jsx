@@ -72,7 +72,6 @@ export default class ProgramActivityFilter extends React.Component {
                     // return new checkbox here
                     activities.push(
                         <PrimaryCheckboxType
-                            {...programActivity}
                             {...this.props}
                             name={label}
                             value={programActivity.id}

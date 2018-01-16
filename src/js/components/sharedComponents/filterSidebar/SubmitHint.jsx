@@ -53,7 +53,9 @@ export default class SubmitHint extends React.Component {
 
     render() {
         let content = (
-            <div className="filter-submit-hint">
+            <div
+                className="filter-submit-hint"
+                aria-hidden="true">
                 <div className="hint-icon">
                     <CheckCircle alt="Filter selected" />
                 </div>

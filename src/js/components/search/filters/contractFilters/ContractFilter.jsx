@@ -115,7 +115,9 @@ export default class ContractFilter extends React.Component {
                 <button
                     className="see-more contract-filter-toggle-button"
                     onClick={this.toggleShownAmount}
-                    title={`See ${shownStatement}`}>
+                    title={`See ${shownStatement}`}
+                    aria-label={`See ${shownStatement}`}
+                    aria-expanded={this.state.shownType !== 'more'}>
                     See {shownStatement}
                     &nbsp; {arrow}
                 </button>

@@ -35,7 +35,10 @@ export default class BaseTopFilterGroup extends React.Component {
 
         return (
             <div className="filter-group-container">
-                <div className="filter-group">
+                <div
+                    className="filter-group"
+                    role="group"
+                    aria-label={this.props.filter.name}>
                     <div className="filter-group-top">
                         <div className="filter-name">
                             {this.props.filter.name}

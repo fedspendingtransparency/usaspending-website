@@ -110,12 +110,15 @@ export default class SearchSidebar extends React.Component {
         });
 
         return (
-            <div className="search-sidebar">
+            <div
+                className="search-sidebar"
+                role="search"
+                aria-label="Filters">
                 <div className="sidebar-header">
                     <span className="filter-icon">
                         <FilterIcon />
                     </span>
-                    <h6>Filters</h6>
+                    <h2 className="sidebar-title">Filters</h2>
                 </div>
                 <div className="sidebar-top-submit">
                     <SearchSidebarSubmitContainer />

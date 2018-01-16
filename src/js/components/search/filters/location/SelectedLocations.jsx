@@ -28,7 +28,10 @@ export default class SelectedLocations extends React.Component {
         });
 
         return (
-            <div className="selected-filters">
+            <div
+                id="award-search-selected-locations"
+                className="selected-filters"
+                role="status">
                 {shownLocations}
             </div>
         );

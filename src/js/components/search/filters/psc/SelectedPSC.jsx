@@ -29,7 +29,9 @@ export default class SelectedPSC extends React.Component {
         });
 
         return (
-            <div className="selected-filters">
+            <div
+                className="selected-filters"
+                role="status">
                 {shownPSC}
             </div>
         );
