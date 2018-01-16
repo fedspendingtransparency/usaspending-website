@@ -97,6 +97,11 @@ export default class TimePeriodFilter extends React.Component {
                 newState.endDateUI = null;
             }
         }
+
+        if((nextProps.filterTimePeriodEnd === '' || nextProps.filterTimePeriodStart === '') && this.props.valid) {
+            this.props.setValidDates(false);
+        }
+
         if (datesChanged) {
             this.setState(newState);
         }
