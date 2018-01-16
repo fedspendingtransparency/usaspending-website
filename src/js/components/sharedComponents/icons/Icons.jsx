@@ -403,3 +403,10 @@ CircleArrowLeft.defaultProps = {
     iconClass: 'usa-da-circle-arrow-left',
     alt: 'Icon Depicting an Arrow in a Circle Pointing Left'
 };
+
+export class CircleArrowUp extends BaseIcon {}
+CircleArrowUp.defaultProps = {
+    iconName: 'usa-da-circle-arrow-up',
+    iconClass: 'usa-da-circle-arrow-up',
+    alt: 'Icon Depicting an Arrow in a Circle Pointing Up'
+};

@@ -181,6 +181,15 @@ const routes = {
                     cb(require('containers/bulkDownload/BulkDownloadPageContainer').default);
                 });
             }
+        },
+        {
+            path: '/keyword_search',
+            parent: '/keyword_search',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/keyword/KeywordContainer').default);
+                });
+            }
         }
     ],
     notFound: {
