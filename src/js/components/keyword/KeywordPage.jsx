@@ -7,12 +7,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
+import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import ResultsTableSection from './table/ResultsTableSection';
 import KeywordHeader from './header/KeywordHeader';
 import KeywordSearchBar from './KeywordSearchBar';
+import KeywordSearchHover from './KeywordSearchHover';
 
 const propTypes = {
     updateKeyword: PropTypes.func,
@@ -31,8 +33,43 @@ const propTypes = {
     loadNextPage: PropTypes.func
 };
 
-export class KeywordPage extends React.Component {
+export default class KeywordPage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showHover: false
+        };
+
+        this.onMouseEnter = this.onMouseEnter.bind(this);
+        this.onMouseLeave = this.onMouseLeave.bind(this);
+        this.closeTooltip = this.closeTooltip.bind(this);
+    }
+
+    onMouseEnter() {
+        this.setState({
+            showHover: true
+        });
+    }
+
+    onMouseLeave() {
+        this.setState({
+            showHover: false
+        });
+    }
+
+    closeTooltip() {
+        this.setState({
+            showHover: false
+        });
+    }
+
     render() {
+        let hover = null;
+        if (this.state.showHover) {
+            hover = (<KeywordSearchHover
+                closeTooltip={this.closeTooltip} />);
+        }
         return (
             <div
                 className="usa-da-keyword-page">
@@ -46,10 +83,19 @@ export class KeywordPage extends React.Component {
                             <KeywordSearchBar
                                 submitText={this.props.updateKeyword} />
                             <div className="info-text">
-                                Donec id elit non mi porta gravida at eget metus. Nullam quis risus eget urna mollis
-                                ornare vel eu leo. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
-                                Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
-                                massa justo sit amet risus.
+                                Use the Keyword Search to get a broad picture of award data on a given theme.
+                                You can search through only award descriptions, or award descriptions plus other
+                                attributes.
+                                <div
+                                    className="info-wrap"
+                                    onMouseEnter={this.onMouseEnter}>
+                                    {hover}
+                                    <div className="icon">
+                                        <InfoCircle />
+                                    </div>
+                                </div>
+                                For a more targeted search, use our <a href="/#/search">Advanced Search tool</a>,
+                                whose extensive filters let you find more precise data sets.
                             </div>
                         </div>
                         <ResultsTableSection
@@ -75,5 +121,3 @@ export class KeywordPage extends React.Component {
 
 
 KeywordPage.propTypes = propTypes;
-
-export default KeywordPage;

@@ -54,5 +54,20 @@
         @include media($medium-screen) {
             @include span-columns(8);
         }
+        .info-wrap {
+            display: inline-block;
+            margin: 0 rem(5);
+            @import "keywordTooltip";
+            .icon {
+                height: rem(15);
+                width: rem(15);
+                svg {
+                    fill: $color-gray-lighter;
+                }
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
     }
 }

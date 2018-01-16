@@ -240,9 +240,9 @@ export default class KeywordContainer extends React.Component {
             });
     }
 
-    updateKeyword() {
+    updateKeyword(keyword) {
         this.setState({
-            keyword: this.state.searchString
+            keyword
         }, () => {
             this.loadColumns();
             this.performSearch(true);
