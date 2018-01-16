@@ -11,7 +11,7 @@ import { uniqueId } from 'lodash';
 
 import { measureTableHeader } from 'helpers/textMeasurement';
 
-import TableSearchFields from 'dataMapping/search/tableSearchFields';
+import AccountTableSearchFields from 'dataMapping/search/accountTableSearchFields';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -170,13 +170,13 @@ export class AccountAwardsContainer extends React.Component {
             // calculate the column metadata to display for each table type
             const tableType = table.internal;
             const typeColumns = [];
-            let sortOrder = TableSearchFields.defaultSortDirection;
+            let sortOrder = AccountTableSearchFields.defaultSortDirection;
 
             if (tableType === 'loans') {
-                sortOrder = TableSearchFields.loans.sortDirection;
+                sortOrder = AccountTableSearchFields.loans.sortDirection;
             }
 
-            const tableSettings = TableSearchFields[tableType];
+            const tableSettings = AccountTableSearchFields[tableType];
 
             tableSettings._order.forEach((col) => {
                 let dataType = awardTableColumnTypes[tableSettings[col]];
@@ -187,7 +187,7 @@ export class AccountAwardsContainer extends React.Component {
                 const column = {
                     dataType,
                     columnName: col,
-                    fieldName: TableSearchFields[tableType]._mapping[col],
+                    fieldName: AccountTableSearchFields[tableType]._mapping[col],
                     displayName: tableSettings[col],
                     width: measureTableHeader(tableSettings[col]),
                     defaultDirection: sortOrder[col]
@@ -291,11 +291,11 @@ export class AccountAwardsContainer extends React.Component {
         const currentSortField = this.state.sort.field;
 
         // check if the current sort field is available in the table type
-        const availableFields = TableSearchFields[tab]._mapping;
+        const availableFields = AccountTableSearchFields[tab]._mapping;
         if (!availableFields[currentSortField]) {
             // the sort field doesn't exist, use the table type's default field
-            const field = TableSearchFields[tab]._defaultSortField;
-            const direction = TableSearchFields.defaultSortDirection[field];
+            const field = AccountTableSearchFields[tab]._defaultSortField;
+            const direction = AccountTableSearchFields.defaultSortDirection[field];
 
             newState.sort = {
                 field,
