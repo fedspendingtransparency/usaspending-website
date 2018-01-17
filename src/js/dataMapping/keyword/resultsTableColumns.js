@@ -73,11 +73,11 @@ export const availableColumns = (type) => {
 
 export const defaultSort = (type) => {
     const columns = {
-        contracts: 'Award ID',
-        grants: 'Award ID',
-        direct_payments: 'Award ID',
-        loans: 'Award ID',
-        other: 'Award ID'
+        contracts: 'Transaction Amount',
+        grants: 'Transaction Amount',
+        direct_payments: 'Transaction Amount',
+        loans: 'Loan Value',
+        other: 'Transaction Amount'
     };
 
     return columns[type];

@@ -8,7 +8,7 @@ import { isCancel } from 'axios';
 import { uniqueId } from 'lodash';
 
 import * as KeywordHelper from 'helpers/keywordHelper';
-import { availableColumns } from 'dataMapping/keyword/resultsTableColumns';
+import { availableColumns, defaultSort } from 'dataMapping/keyword/resultsTableColumns';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
@@ -144,9 +144,25 @@ export default class KeywordContainer extends React.Component {
     }
 
     switchTab(tab) {
-        this.setState({
+        const newState = {
             tableType: tab
-        }, () => {
+        };
+        const currentSortField = this.state.sort.field;
+
+        // check if the current sort field is available in the table type
+        const availableFields = availableColumns(tab);
+        if (availableFields.indexOf(currentSortField) === -1) {
+            // the sort field doesn't exist, use the table type's default field
+            const field = defaultSort(tab);
+            const direction = 'desc';
+
+            newState.sort = {
+                field,
+                direction
+            };
+        }
+
+        this.setState(newState, () => {
             // Don't perform a search yet if user switches tabs before entering a keyword
             if (this.state.keyword !== '') {
                 this.performSearch(true);
