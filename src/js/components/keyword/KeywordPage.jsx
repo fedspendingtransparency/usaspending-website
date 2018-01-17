@@ -20,6 +20,7 @@ const propTypes = {
     updateKeyword: PropTypes.func,
     keywordApplied: PropTypes.bool,
     summary: PropTypes.object,
+    summaryInFlight: PropTypes.bool,
     error: PropTypes.bool,
     inFlight: PropTypes.bool,
     results: PropTypes.array,
@@ -70,6 +71,7 @@ export default class KeywordPage extends React.Component {
                 <Header />
                 <main id="main-content">
                     <KeywordHeader
+                        inFlight={this.props.summaryInFlight}
                         summary={this.props.summary} />
                     <div className="keyword-content">
                         <div className="search-bar-section">

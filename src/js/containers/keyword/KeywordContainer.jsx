@@ -55,6 +55,7 @@ export default class KeywordContainer extends React.Component {
             columns: {},
             summary: null,
             inFlight: false,
+            summaryInFlight: false,
             error: false,
             results: [],
             tableInstance: `${uniqueId()}` // this will stay constant during pagination but will change when the keyword or table type changes
@@ -137,6 +138,7 @@ export default class KeywordContainer extends React.Component {
                     });
 
                     console.log(err);
+                    this.searchRequest = null;
                 }
             });
     }
@@ -216,6 +218,10 @@ export default class KeywordContainer extends React.Component {
             this.summaryRequest.cancel();
         }
 
+        this.setState({
+            summaryInFlight: true
+        });
+
         const params = {
             filters: {
                 keyword: this.state.keyword
@@ -227,6 +233,7 @@ export default class KeywordContainer extends React.Component {
             .then((res) => {
                 const results = res.data.results;
                 this.setState({
+                    summaryInFlight: false,
                     summary: {
                         primeCount: results.prime_awards_count,
                         primeAmount: results.prime_awards_obligation_amount
@@ -235,6 +242,9 @@ export default class KeywordContainer extends React.Component {
             })
             .catch((err) => {
                 if (!isCancel(err)) {
+                    this.setState({
+                        summaryInFlight: false
+                    });
                     console.log(err);
                     this.summaryRequest = null;
                 }
@@ -258,6 +268,7 @@ export default class KeywordContainer extends React.Component {
                 updateKeyword={this.updateKeyword}
                 keywordApplied={this.state.keyword !== ''}
                 summary={this.state.summary}
+                summaryInFlight={this.state.summaryInFlight}
                 error={this.state.error}
                 inFlight={this.state.inFlight}
                 results={this.state.results}
