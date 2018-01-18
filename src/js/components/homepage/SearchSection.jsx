@@ -63,22 +63,27 @@ export default class SearchSection extends React.Component {
         ));
 
         return (
-            <div className="search-section-links-outer-wrap">
+            <div
+                className="search-section-links-outer-wrap">
                 <div className="search-section-links-wrap">
-                    <h1 className="search-section-links-primary-text">
+                    <h3 className="search-section-links-primary-text">
                         There&apos;s more to explore.
-                    </h1>
-                    <h2 className="search-section-links-sub-text">
+                    </h3>
+                    <h4 className="search-section-links-sub-text">
                        Discover all the ways to explore U.S. government spending.
-                    </h2>
-                    <div className="search-section-ways">
-                        <div className="way-item">
+                    </h4>
+                    <div
+                        className="search-section-ways"
+                        role="list">
+                        <div
+                            className="way-item"
+                            role="listitem">
                             <div className="icon">
                                 <Explorer
                                     alt="Explorer" />
                             </div>
                             <div className="title">
-                                <h3>Spending Explorer</h3>
+                                <h5>Spending Explorer</h5>
                                 <div className="description">
                                     Navigate the levels of government spending from top to bottom
                                 </div>
@@ -91,13 +96,15 @@ export default class SearchSection extends React.Component {
                                 </button>
                             </div>
                         </div>
-                        <div className="way-item">
+                        <div
+                            className="way-item"
+                            role="listitem">
                             <div className="icon">
                                 <AwardSearch
                                     alt="Award Search" />
                             </div>
                             <div className="title">
-                                <h3>Award Search</h3>
+                                <h5>Award Search</h5>
                                 <div className="description">
                                     Search through awards and discover trends and connections
                                 </div>
@@ -110,25 +117,28 @@ export default class SearchSection extends React.Component {
                                 </button>
                             </div>
                         </div>
-                        <div className="way-item">
+                        <div
+                            className="way-item"
+                            role="listitem">
                             <div className="icon">
                                 <BuildingMag
                                     alt="Profiles" />
                             </div>
                             <div className="title">
-                                <h3>Profiles</h3>
+                                <h5>Profiles</h5>
                                 <div className="description">
                                     Learn more about organizations and accounts
                                 </div>
                             </div>
                             <div
-                                className="action"
+                                className="action dropdown-wrap"
                                 onMouseEnter={this.mouseEnter}
                                 onMouseLeave={this.mouseExit}>
                                 <button
                                     className="action-button"
                                     label="Select an Option"
-                                    onClick={this.toggleDropdown}>
+                                    onClick={this.toggleDropdown}
+                                    aria-expanded={this.state.expanded}>
                                     <div className="dropdown-content">
                                         <div className="label">
                                             Select an Option

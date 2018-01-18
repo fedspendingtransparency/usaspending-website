@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
+import { uniqueId } from 'lodash';
 
 import SecondaryCheckboxType from './SecondaryCheckboxType';
 import CollapsedCheckboxType from './CollapsedCheckboxType';
@@ -24,7 +25,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-    id: '',
     name: '',
     filters: [],
     value: '',
@@ -166,7 +166,7 @@ export default class PrimaryCheckboxType extends React.Component {
                     code={code}
                     name={this.props.types[code]}
                     key={`${this.props.id} - ${code}`}
-                    id={`${this.props.id} - ${code}`} />));
+                    id={`secondary-checkbox-${uniqueId()}`} />));
         }
 
         if (this.props.filters.length === 0) {
@@ -175,7 +175,7 @@ export default class PrimaryCheckboxType extends React.Component {
                 code={this.props.value}
                 name={this.props.name}
                 key={`${this.props.id} - ${this.props.value}`}
-                id={`${this.props.id} - ${this.props.value}`} />);
+                id={`primary-checkbox-${uniqueId()}`} />);
         }
 
         return (

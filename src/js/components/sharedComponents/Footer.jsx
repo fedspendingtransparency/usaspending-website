@@ -26,7 +26,10 @@ export default class Footer extends React.Component {
                 <DownloadBottomBarContainer
                     filters={this.props.filters} />
                 <BulkDownloadBottomBarContainer />
-                <footer className="footer-outer-wrap" role="contentinfo">
+                <footer
+                    className="footer-outer-wrap"
+                    role="contentinfo"
+                    aria-label="Footer">
                     <div className="footer-container">
                         <div className="footer-logo">
                             <a href="#/" title="USAspending.gov Home" aria-label="USAspending.gov Home">

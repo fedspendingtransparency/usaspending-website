@@ -77,11 +77,17 @@ export default class LocationSection extends React.Component {
 
         return (
             <div className="location-filter search-filter">
-                <ul className="toggle-buttons">
+                <ul
+                    className="toggle-buttons"
+                    role="menu">
                     <li>
                         <button
                             className={`date-toggle ${activePop}`}
                             value="pop"
+                            role="menuitemradio"
+                            aria-checked={this.state.activeTab === 'pop'}
+                            title="Place of Performance"
+                            aria-label="Place of Performance"
                             onClick={this.toggleTab}>
                             Place of Performance
                         </button>
@@ -90,6 +96,10 @@ export default class LocationSection extends React.Component {
                         <button
                             className={`date-toggle ${activeRecipient}`}
                             value="recipient"
+                            role="menuitemradio"
+                            aria-checked={this.state.activeTab === 'recipient'}
+                            title="Recipient Location"
+                            aria-label="Recipient Location"
                             onClick={this.toggleTab}>
                             Recipient Location
                         </button>

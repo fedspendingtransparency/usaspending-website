@@ -1,0 +1,37 @@
+.results-table-message-container {
+    .results-table-begin {
+        @include flex(1 1 auto);
+        margin-top: rem(100);
+        margin-bottom: rem(100);
+        max-width: rem(450);
+        padding-left: rem(10);
+        padding-right: rem(10);
+        margin-left: auto;
+        margin-right: auto;
+
+        @include media($tablet-screen) {
+            max-width: rem(600);
+        }
+
+        .icon {
+            width: rem(75);
+            height: rem(72);
+
+            margin-left: auto;
+            margin-right: auto;
+
+            svg {
+                width: rem(72);
+                height: rem(72);
+                fill: $color-gray-light;
+            }
+        }
+        .description {
+            margin-top: rem(15);
+            font-size: rem(36);
+            line-height: rem(45);
+            color: $color-gray-light;
+            text-align: center;
+        }
+    }
+}

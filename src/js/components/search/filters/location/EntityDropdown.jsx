@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
+import { uniqueId } from 'lodash';
 
 import { AngleDown, AngleUp } from 'components/sharedComponents/icons/Icons';
 
@@ -37,7 +38,8 @@ export default class EntityDropdown extends React.Component {
 
         this.state = {
             expanded: false,
-            showWarning: false
+            showWarning: false,
+            warningId: `location-field-warning-${uniqueId()}`
         };
 
         this.dropdownRef = null;
@@ -229,7 +231,10 @@ export default class EntityDropdown extends React.Component {
                 <div
                     className={`geo-entity-dropdown ${disabled}`}
                     onMouseOver={this.mouseEnter}
+                    onFocus={this.mouseEnter}
                     onMouseOut={this.mouseLeave}
+                    onBlur={this.mouseLeave}
+                    tabIndex={-1}
                     ref={(div) => {
                         this.wrapperDiv = div;
                     }}>
@@ -242,6 +247,7 @@ export default class EntityDropdown extends React.Component {
                         aria-haspopup="true"
                         aria-expanded={this.state.expanded}
                         aria-owns={`geo-dropdown-${this.props.scope}`}
+                        aria-describedby={this.state.warningId}
                         disabled={!this.props.enabled || this.props.options.length === 0}
                         ref={(button) => {
                             this.dropdownButton = button;
@@ -255,7 +261,10 @@ export default class EntityDropdown extends React.Component {
                     </button>
                     {dropdown}
                 </div>
-                <div className={`geo-warning ${hideWarning}`}>
+                <div
+                    className={`geo-warning ${hideWarning}`}
+                    id={this.state.warningId}
+                    aria-hidden={hideWarning === 'hide'}>
                     <EntityWarning
                         message={this.props.generateWarning(this.props.title)} />
                 </div>

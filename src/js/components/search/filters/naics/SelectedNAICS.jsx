@@ -28,7 +28,9 @@ export default class SelectedNAICS extends React.Component {
         });
 
         return (
-            <div className="selected-filters">
+            <div
+                className="selected-filters"
+                role="status">
                 {shownNAICS}
             </div>
         );

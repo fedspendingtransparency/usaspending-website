@@ -28,7 +28,9 @@ export default class SelectedCFDA extends React.Component {
         });
 
         return (
-            <div className="selected-filters">
+            <div
+                className="selected-filters"
+                role="status">
                 {shownCFDA}
             </div>
         );

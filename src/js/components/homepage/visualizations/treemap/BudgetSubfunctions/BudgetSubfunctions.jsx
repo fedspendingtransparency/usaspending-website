@@ -40,6 +40,12 @@ export default class BudgetSubfunctions extends React.Component {
         this.updateSubfunctionState(this.props);
     }
 
+    componentDidMount() {
+        if (this.navigation && this.navigation.allButton) {
+            this.navigation.allButton.focus();
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.selected !== this.props.selected) {
             this.updateSubfunctionState(nextProps);
@@ -80,7 +86,10 @@ export default class BudgetSubfunctions extends React.Component {
             <div className="treemap-inner-wrap">
                 <BudgetSubfunctionsNavigation
                     {...this.props}
-                    {...this.state} />
+                    {...this.state}
+                    ref={(nav) => {
+                        this.navigation = nav;
+                    }} />
                 <BudgetSubfunctionsDescription
                     {...this.props}
                     {...this.state}

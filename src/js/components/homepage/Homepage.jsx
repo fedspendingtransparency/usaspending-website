@@ -183,11 +183,14 @@ export default class Homepage extends React.Component {
         // don't update the URL due to potential React Router conflicts
         e.preventDefault();
         // scroll to the main-content id
-        const mainElement = document.querySelector('#main-content');
-        const yPos = mainElement.getBoundingClientRect().top;
+        const mainContent = document.getElementById('main-content');
+        const mainFocus = document.getElementById('main-focus');
+        const yPos = mainContent.getBoundingClientRect().top;
         window.scrollTo(0, yPos);
         // focus on the element
-        mainElement.focus();
+        if (mainFocus) {
+            mainFocus.focus();
+        }
     }
 
     render() {
@@ -217,24 +220,26 @@ export default class Homepage extends React.Component {
                 {banner}
                 <Landing
                     total={this.state.total} />
-                <TreeMapIntro />
-                <TreeMap
-                    categories={this.state.categories}
-                    colors={this.state.colors}
-                    descriptions={this.state.descriptions}
-                    subfunctions={this.state.subfunctions}
-                    alternateColors={this.state.alternateColors}
-                    total={this.state.total}
-                    totalNumber={this.state.totalNumber}
-                    tooltipStyles={this.state.tooltipStyles} />
-                <CategoryMap
-                    breakdown={this.state.breakdown}
-                    colors={this.state.breakdownColors}
-                    tooltipStyles={this.state.tooltipStyles} />
-                <MapTopBar />
-                <MapVisualizationWrapper
-                    data={this.state.mapData} />
-                <SearchSection />
+                <main>
+                    <TreeMapIntro />
+                    <TreeMap
+                        categories={this.state.categories}
+                        colors={this.state.colors}
+                        descriptions={this.state.descriptions}
+                        subfunctions={this.state.subfunctions}
+                        alternateColors={this.state.alternateColors}
+                        total={this.state.total}
+                        totalNumber={this.state.totalNumber}
+                        tooltipStyles={this.state.tooltipStyles} />
+                    <CategoryMap
+                        breakdown={this.state.breakdown}
+                        colors={this.state.breakdownColors}
+                        tooltipStyles={this.state.tooltipStyles} />
+                    <MapTopBar />
+                    <MapVisualizationWrapper
+                        data={this.state.mapData} />
+                    <SearchSection />
+                </main>
                 <Footer />
             </div>
         );

@@ -17,8 +17,10 @@ export default class ShownRecipient extends React.Component {
             <button
                 className="shown-filter-button"
                 value={this.props.label}
-                onClick={this.props.toggleRecipient}>
-                <span className="close">x</span> {this.props.label}
+                onClick={this.props.toggleRecipient}
+                title="Click to remove filter."
+                aria-label={`Applied filter: ${this.props.label}`}>
+                <span className="close" aria-hidden="true">x</span> {this.props.label}
             </button>
         );
     }

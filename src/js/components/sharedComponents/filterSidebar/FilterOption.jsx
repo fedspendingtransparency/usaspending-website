@@ -118,7 +118,10 @@ export default class FilterOption extends React.Component {
         }
 
         return (
-            <div className={`search-option${statusClass}`}>
+            <div
+                className={`search-option${statusClass}`}
+                role="group"
+                aria-label={this.props.name}>
                 <FilterExpandButton
                     accessory={this.props.accessory}
                     hidden={this.state.showFilter}

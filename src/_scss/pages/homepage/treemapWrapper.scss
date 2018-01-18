@@ -1,5 +1,6 @@
 .tree-wrapper {
     @include span-columns(16);
+    margin: 0;
     @import './visualizations/_treemapVisualization';
     position: relative;
 }
