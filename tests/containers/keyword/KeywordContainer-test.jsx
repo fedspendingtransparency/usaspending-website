@@ -9,7 +9,7 @@ import { mount, shallow } from 'enzyme';
 import { Set } from 'immutable';
 import KeywordContainer from 'containers/keyword/KeywordContainer';
 
-import { mockApi, mockSummary } from './mockResults';
+import { mockApi, mockSummary, mockTabCount } from './mockResults';
 
 jest.mock('helpers/keywordHelper', () => require('./keywordHelper'));
 
@@ -34,14 +34,88 @@ describe('KeywordContainer', () => {
 
             expect(container.state().page).toEqual(1);
         });
-        it('should trigger a reset search', () => {
+        it('should pick a default tab', async () => {
             const container = shallow(<KeywordContainer />);
-            container.instance().performSearch = jest.fn();
+            container.instance().parseTabCounts = jest.fn();
 
-            container.instance().updateKeyword();
+            container.instance().updateKeyword('blah blah');
 
-            expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
-            expect(container.instance().performSearch).toHaveBeenCalledWith(true);
+            await container.instance().tabCountRequest.promise;
+
+            expect(container.instance().parseTabCounts).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('pickDefaultTab', () => {
+        it('should call parseTabCounts() after the API responds', async () => {
+            const container = shallow(<KeywordContainer />);
+            container.instance().parseTabCounts = jest.fn();
+
+            container.instance().pickDefaultTab();
+
+            await container.instance().tabCountRequest.promise;
+
+            expect(container.instance().parseTabCounts).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('parseTabCounts', () => {
+        it('should save the counts to state', () => {
+            const container = shallow(<KeywordContainer />);
+            container.instance().parseTabCounts(mockTabCount);
+
+            expect(container.state().counts).toEqual(mockTabCount.results);
+        });
+        it('should pick the first table type it encounters with a count greater than zero', () => {
+            const container = shallow(<KeywordContainer />);
+            container.instance().switchTab = jest.fn();
+
+            container.instance().parseTabCounts({
+                results: {
+                    loans: 0,
+                    other: 0,
+                    direct_payments: 3,
+                    contracts: 0,
+                    grants: 0
+                }
+            });
+
+            expect(container.instance().switchTab).toHaveBeenCalledTimes(1);
+            expect(container.instance().switchTab).toHaveBeenCalledWith('direct_payments');
+        });
+        it('should default to contracts if all types return a count of zero', () => {
+            const container = shallow(<KeywordContainer />);
+            container.instance().switchTab = jest.fn();
+
+            container.instance().parseTabCounts({
+                results: {
+                    loans: 0,
+                    other: 0,
+                    direct_payments: 0,
+                    contracts: 0,
+                    grants: 0
+                }
+            });
+
+            expect(container.instance().switchTab).toHaveBeenCalledTimes(1);
+            expect(container.instance().switchTab).toHaveBeenCalledWith('contracts');
+        });
+        it('should default to contracts if all types return a count of zero', () => {
+            const container = shallow(<KeywordContainer />);
+            container.instance().switchTab = jest.fn();
+
+            container.instance().parseTabCounts({
+                results: {
+                    loans: 0,
+                    other: 0,
+                    direct_payments: 0,
+                    contracts: 0,
+                    grants: 0
+                }
+            });
+
+            expect(container.instance().switchTab).toHaveBeenCalledTimes(1);
+            expect(container.instance().switchTab).toHaveBeenCalledWith('contracts');
         });
     });
 

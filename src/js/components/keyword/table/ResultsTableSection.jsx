@@ -11,9 +11,9 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTableBeginMessage from './ResultsTableBeginMessage';
 import ResultsTable from './ResultsTable';
-import ResultsTableTabs from './ResultsTableTabs';
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -24,6 +24,7 @@ const propTypes = {
     switchTab: PropTypes.func,
     results: PropTypes.array,
     columns: PropTypes.object,
+    counts: PropTypes.object,
     sort: PropTypes.object,
     updateSort: PropTypes.func,
     tableInstance: PropTypes.string,
@@ -103,6 +104,7 @@ export default class ResultsTableSection extends React.Component {
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}
+                    counts={this.props.counts}
                     switchTab={this.props.switchTab}
                     disabled={this.props.inFlight} />
                 <div className="results-table-content">

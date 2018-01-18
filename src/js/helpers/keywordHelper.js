@@ -38,3 +38,25 @@ export const performKeywordSearch = (params) => {
         }
     };
 };
+
+const mockResponse = {
+    results: {
+        contracts: 200,
+        grants: 74,
+        direct_payments: 28,
+        loans: 621,
+        other: 17
+    }
+};
+
+export const performTabCountSearch = () => (
+    {
+        promise: new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    data: mockResponse
+                });
+            }, 1000);
+        })
+    }
+);

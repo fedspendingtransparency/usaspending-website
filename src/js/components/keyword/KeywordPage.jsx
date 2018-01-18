@@ -25,6 +25,7 @@ const propTypes = {
     inFlight: PropTypes.bool,
     results: PropTypes.array,
     columns: PropTypes.object,
+    counts: PropTypes.object,
     sort: PropTypes.object,
     tableTypes: PropTypes.array,
     currentType: PropTypes.string,
@@ -102,6 +103,7 @@ export default class KeywordPage extends React.Component {
                             switchTab={this.props.switchTab}
                             results={this.props.results}
                             columns={this.props.columns}
+                            counts={this.props.counts}
                             sort={this.props.sort}
                             updateSort={this.props.updateSort}
                             tableInstance={this.props.tableInstance}

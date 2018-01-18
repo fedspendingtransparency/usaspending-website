@@ -48,6 +48,7 @@ export default class KeywordContainer extends React.Component {
             tableType: 'contracts',
             page: 1,
             lastPage: true,
+            counts: {},
             sort: {
                 field: 'Transaction Amount',
                 direction: 'desc'
@@ -63,11 +64,78 @@ export default class KeywordContainer extends React.Component {
 
         this.summaryRequest = null;
         this.searchRequest = null;
+        this.tabCountRequest = null;
 
         this.switchTab = this.switchTab.bind(this);
         this.loadNextPage = this.loadNextPage.bind(this);
         this.updateSort = this.updateSort.bind(this);
         this.updateKeyword = this.updateKeyword.bind(this);
+    }
+
+    pickDefaultTab() {
+        // get the transaction counts for the current filters
+        if (this.tabCountRequest) {
+            this.tabCountRequest.cancel();
+        }
+
+        this.setState({
+            inFlight: true,
+            error: false
+        });
+
+        const filters = {
+            keyword: this.state.keyword
+        };
+
+        this.tabCountRequest = KeywordHelper.performTabCountSearch({
+            filters
+        });
+
+        this.tabCountRequest.promise
+            .then((res) => {
+                this.parseTabCounts(res.data);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    this.setState({
+                        inFlight: false,
+                        error: true
+                    });
+
+                    console.log(err);
+                }
+            });
+    }
+
+    parseTabCounts(data) {
+        const transactionCounts = data.results;
+        let firstAvailable = '';
+        let i = 0;
+
+        // Set the first available award type to the first non-zero entry in the
+        while (firstAvailable === '' && i < tableTypes.length) {
+            const tableType = tableTypes[i].internal;
+
+            if (transactionCounts[tableType] > 0) {
+                firstAvailable = tableType;
+            }
+
+            i += 1;
+        }
+
+        // If none of the award types are populated, set the first available tab to be the
+        // first tab in the table
+        if (firstAvailable === '') {
+            firstAvailable = tableTypes[0].internal;
+        }
+
+        this.setState({
+            counts: transactionCounts
+        }, () => {
+            // select the first available tab
+            this.switchTab(firstAvailable);
+            this.fetchSummary();
+        });
     }
 
     performSearch(newSearch = false) {
@@ -272,8 +340,7 @@ export default class KeywordContainer extends React.Component {
             keyword
         }, () => {
             this.loadColumns();
-            this.performSearch(true);
-            this.fetchSummary();
+            this.pickDefaultTab();
         });
     }
 
@@ -289,6 +356,7 @@ export default class KeywordContainer extends React.Component {
                 inFlight={this.state.inFlight}
                 results={this.state.results}
                 columns={this.state.columns[tableType]}
+                counts={this.state.counts}
                 sort={this.state.sort}
                 tableTypes={tableTypes}
                 currentType={tableType}
