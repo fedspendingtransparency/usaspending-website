@@ -78,7 +78,8 @@ export default class NavBar extends React.Component {
 
         return (
             <nav
-                className="nav-container">
+                className="nav-container"
+                aria-label="Site navigation">
                 <div className="logo">
                     <div className={`usa-logo ${homepageClass} ${betaClass}`} id="logo">
                         <a href="#/" title="USAspending.gov Home" aria-label="USAspending.gov Home">

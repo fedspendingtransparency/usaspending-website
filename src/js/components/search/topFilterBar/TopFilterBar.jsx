@@ -32,14 +32,21 @@ const TopFilterBar = (props) => {
 
     return (
         <div>
-            <div className="search-top-filter-bar">
+            <div
+                className="search-top-filter-bar"
+                role="complementary"
+                aria-label="Currently applied search filters">
                 <div className="search-top-filter-header">
-                    <div className="header-title">
+                    <h2
+                        className="header-title"
+                        id="top-filter-bar-title">
                         {filterBarHeader}
-                    </div>
+                    </h2>
                 </div>
                 <div className="search-top-filters">
-                    <div className="search-top-filters-content">
+                    <div
+                        className="search-top-filters-content"
+                        role="list">
                         {filters}
                     </div>
                 </div>

@@ -1,35 +1,53 @@
 @import "../../mixins/setText";
 @import './_treeMapIntroMQ';
 .treemap-intro-wrap {
-    @include clearfix;
-    background: url(#{$image-path}/treasury_building_small.png) no-repeat center bottom, linear-gradient(180deg, #ececec 0%, rgba(174,176,181,0.5) 100%);
+    position: relative;
+    background: linear-gradient(180deg, #ececec 0%, rgba(174,176,181,0.5) 100%);
     border-bottom: rem(1) solid #e1e1e1;
     padding: rem(80) 0 0;
     height: rem(450);
-    @include media($tablet-screen) {
-        background: url(#{$image-path}/treasury_building.png) no-repeat center bottom, linear-gradient(180deg, #ececec 0%, rgba(174,176,181,0.5) 100%);
-    }
-    & .treemap-intro-inner-wrap {
-        margin: 0 auto;
-        & h3 {
-            @include span-columns(16);
-            @include setText(rem(42));
-            color: $color-vis-green-dark;
-            margin: 0;
-            letter-spacing: rem(-1);
-            font-weight: $font-semibold;
-            text-align: center;
-            text-transform: uppercase;
+    // @include media($tablet-screen) {
+    //     background: url(#{$image-path}/treasury_building.png) center bottom no-repeat, linear-gradient(180deg, #ececec 0%, rgba(174,176,181,0.5) 100%);
+    // }
+
+    .treemap-intro-background {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        background: url(#{$image-path}/treasury_building_small.png) no-repeat center bottom;
+        @include media($tablet-screen) {
+            background: url(#{$image-path}/treasury_building.png) center bottom no-repeat;
         }
-        & h5 {
-            @include span-columns(16);
-            @include setText(rem(20));
-            color: $color-base;
-            font-weight: $font-light;
-            margin: 0;
-            text-align: center;
-            & strong {
+        z-index: 1;
+    }
+    .treemap-intro-inner-wrap {
+        margin: 0 auto;
+        z-index: 2;
+        width: 100%;
+        .treemap-intro-text {
+            .treemap-intro-bottom {
+                @include h3;
+                @include setText(rem(42));
+                color: $color-vis-green-dark;
+                margin: 0;
+                letter-spacing: rem(-1);
                 font-weight: $font-semibold;
+                text-align: center;
+                text-transform: uppercase;
+            }
+            .treemap-intro-top {
+                @include h5;
+                @include setText(rem(20));
+                color: $color-base;
+                font-weight: $font-light;
+                margin: 0;
+                text-align: center;
+                & strong {
+                    font-weight: $font-semibold;
+                }
             }
         }
         @include treeMapLangingMQ();

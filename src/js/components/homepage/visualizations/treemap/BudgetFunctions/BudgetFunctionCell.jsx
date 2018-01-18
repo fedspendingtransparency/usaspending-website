@@ -29,7 +29,8 @@ const propTypes = {
     width: PropTypes.number,
     labelView: PropTypes.string,
     percentView: PropTypes.string,
-    clickable: PropTypes.bool
+    clickable: PropTypes.bool,
+    tooltipId: PropTypes.string
 };
 
 const defaultProps = {
@@ -42,12 +43,14 @@ export default class BudgetFunctionCell extends React.Component {
 
         this.state = {
             label: '',
+            fullLabel: '',
             didProcess: false
         };
 
         this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
         this.toggleTooltipOut = this.props.toggleTooltipOut.bind(this);
         this.toggleSubfunction = this.toggleSubfunction.bind(this);
+        this.focusedKeyPress = this.focusedKeyPress.bind(this);
     }
 
     componentDidMount() {
@@ -67,6 +70,7 @@ export default class BudgetFunctionCell extends React.Component {
     initialRender(label) {
         this.setState({
             label,
+            fullLabel: label,
             didProcess: false
         });
     }
@@ -124,13 +128,29 @@ export default class BudgetFunctionCell extends React.Component {
         });
     }
 
+    focusedKeyPress(e) {
+        if (e.key === '' || e.key === 'Enter') {
+            if (this.props.clickable) {
+                this.toggleSubfunction();
+            }
+        }
+    }
+
     render() {
+        const percentage = MoneyFormatter.calculateTreemapPercentage(this.props.value, this.props.total);
         return (
             <g
                 transform={`translate(${this.props.x0},${this.props.y0})`}
                 onMouseEnter={this.toggleTooltipIn}
                 onMouseLeave={this.toggleTooltipOut}
-                onClick={this.toggleSubfunction}>
+                onClick={this.toggleSubfunction}
+                onKeyPress={this.focusedKeyPress}
+                onFocus={this.toggleTooltipIn}
+                onBlur={this.toggleTooltipOut}
+                aria-label={`${this.state.fullLabel} - ${percentage}`}
+                aria-describedby={this.props.tooltipId}
+                role="listitem"
+                tabIndex={0}>
                 <rect
                     className="tile"
                     width={this.props.width}
@@ -169,7 +189,7 @@ export default class BudgetFunctionCell extends React.Component {
                         fill: this.props.textColor,
                         opacity: this.props.opacity
                     }}>
-                    {MoneyFormatter.calculateTreemapPercentage(this.props.value, this.props.total)}
+                    {percentage}
                 </text>
             </g>
         );

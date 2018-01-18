@@ -26,6 +26,22 @@ describe('appliedFiltersReducer', () => {
         });
     });
 
+    describe('RESTORE_HASHED_FILTERS', () => {
+        it('should set the filter object to the provided object', () => {
+            const newFilters = Object.assign({}, initialState.filters, {
+                timePeriodFY: new Set(['1990'])
+            });
+
+            const action = {
+                type: 'RESTORE_HASHED_FILTERS',
+                filters: newFilters
+            };
+
+            const newState = appliedFiltersReducer(undefined, action);
+            expect(newState.filters.timePeriodFY).toEqual(new Set(['1990']));
+        });
+    });
+
     describe('CLEAR_APPLIED_FILTERS', () => {
         it('should should return the initial state', () => {
             const newFilters = Object.assign({}, initialState.filters, {

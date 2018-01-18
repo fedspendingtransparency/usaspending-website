@@ -7,13 +7,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import AwardAmountSearch from 'components/search/filters/awardAmount/AwardAmountSearch';
 
 const propTypes = {
-    updateAwardAmounts: PropTypes.func
+    updateAwardAmounts: PropTypes.func,
+    awardAmounts: PropTypes.object,
+    appliedAmounts: PropTypes.object
 };
 
 export class AwardAmountSearchContainer extends React.Component {
@@ -29,10 +32,18 @@ export class AwardAmountSearchContainer extends React.Component {
         this.props.updateAwardAmounts(updateParams);
     }
 
+    dirtyFilters() {
+        if (is(this.props.awardAmounts, this.props.appliedAmounts)) {
+            return null;
+        }
+        return Symbol('dirty amount');
+    }
+
     render() {
         return (
             <AwardAmountSearch
-                {...this.props}
+                dirtyFilters={this.dirtyFilters()}
+                awardAmounts={this.props.awardAmounts}
                 selectAwardRange={this.selectAwardRange} />
         );
     }
@@ -41,6 +52,9 @@ export class AwardAmountSearchContainer extends React.Component {
 AwardAmountSearchContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ awardAmounts: state.filters.awardAmounts }),
+    (state) => ({
+        awardAmounts: state.filters.awardAmounts,
+        appliedAmounts: state.appliedFilters.filters.awardAmounts
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(AwardAmountSearchContainer);

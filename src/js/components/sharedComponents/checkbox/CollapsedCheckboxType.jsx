@@ -5,10 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 import CheckboxExpandButton from './CheckboxExpandButton';
 
 const defaultProps = {
-    id: '',
+    id: `checkbox-${uniqueId()}`,
     name: '',
     selected: false,
     hideArrow: true,
@@ -27,6 +28,7 @@ const propTypes = {
 
 export default class CollapsedCheckboxType extends React.Component {
     render() {
+        const elementId = `checkbox-${uniqueId()}`;
         return (
             <div className="primary-checkbox-type">
                 <div className="checkbox-type-item-wrapper">
@@ -34,13 +36,19 @@ export default class CollapsedCheckboxType extends React.Component {
                         hidden={this.props.hideArrow}
                         toggleExpand={this.props.toggleExpand}
                         arrowState={this.props.arrowState} />
-                    <input
-                        type="checkbox"
-                        id={this.props.id}
-                        value={this.props.name}
-                        checked={this.props.selected}
-                        onChange={this.props.toggleChildren} />
-                    <label htmlFor={this.props.id}>{this.props.name}</label>
+                    <label
+                        className="checkbox-item-wrapper"
+                        htmlFor={elementId}>
+                        <input
+                            type="checkbox"
+                            id={elementId}
+                            value={this.props.name}
+                            checked={this.props.selected}
+                            onChange={this.props.toggleChildren} />
+                        <span className="checkbox-item-label">
+                            {this.props.name}
+                        </span>
+                    </label>
                 </div>
             </div>
         );

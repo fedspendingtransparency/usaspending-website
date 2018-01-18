@@ -23,6 +23,7 @@ export default class MapListHeaderCell extends React.Component {
 
         this.clickedHeader = this.clickedHeader.bind(this);
         this.forceDirection = this.forceDirection.bind(this);
+        this.pressedKey = this.pressedKey.bind(this);
     }
 
     clickedHeader() {
@@ -48,6 +49,13 @@ export default class MapListHeaderCell extends React.Component {
 
         const direction = e.currentTarget.value;
         this.props.changeSearchOrder(this.props.field, direction);
+    }
+
+    pressedKey(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.clickedHeader();
+        }
     }
 
     render() {
@@ -77,7 +85,10 @@ export default class MapListHeaderCell extends React.Component {
         // they are presented as interactive clickable targets
         return (
             <div className={`map-list-header-cell ${lastClass}`}>
-                <div className="cell-content" onClick={this.clickedHeader}>
+                <div
+                    className="cell-content"
+                    onClick={this.clickedHeader}
+                    onKeyDown={this.pressedKey}>
                     <div className="header-sort">
                         <div className="header-label">
                             {this.props.title}

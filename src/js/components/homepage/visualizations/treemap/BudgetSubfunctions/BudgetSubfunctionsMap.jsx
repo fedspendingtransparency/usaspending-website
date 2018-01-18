@@ -164,6 +164,7 @@ export default class BudgetSubfunctionsMap extends React.Component {
                     width={width}
                     height={height}
                     percentView={percentView}
+                    tooltipId="budget-subfunctions-tooltip-wrapper"
                     clickable={false} />);
 
                 return cell;
@@ -232,9 +233,15 @@ export default class BudgetSubfunctionsMap extends React.Component {
     }
 
     render() {
+        const tooltip = this.createTooltip();
         return (
             <div>
-                { this.createTooltip() }
+                <div
+                    role="tooltip"
+                    aria-hidden={!tooltip}
+                    id="budget-subfunctions-tooltip-wrapper">
+                    {tooltip}
+                </div>
                 <div
                     className="tree-wrapper"
                     ref={(sr) => {

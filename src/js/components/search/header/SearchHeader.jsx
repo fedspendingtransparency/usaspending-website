@@ -79,9 +79,13 @@ export default class SearchHeader extends React.Component {
                     ref={(div) => {
                         this.content = div;
                     }}>
-                    <div className="search-header">
+                    <div
+                        className="search-header"
+                        aria-labelledby="main-focus">
                         <div className="search-title">
-                            <h1>Award Search</h1>
+                            <h1 tabIndex={-1} id="main-focus">
+                                Award Search
+                            </h1>
                         </div>
                         <div className="search-options">
                             <DownloadButton

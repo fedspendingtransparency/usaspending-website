@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { OrderedMap } from 'immutable';
+import { OrderedMap, is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -15,6 +15,7 @@ import AwardIDSearch from 'components/search/filters/awardID/AwardIDSearch';
 
 const propTypes = {
     selectedAwardIDs: PropTypes.object,
+    appliedAwardIDs: PropTypes.object,
     updateGenericFilter: PropTypes.func
 };
 
@@ -67,10 +68,18 @@ export class AwardIDSearchContainer extends React.Component {
         AwardIDSearchContainer.logIdEvent(id, 'Remove Award ID');
     }
 
+    dirtyFilters() {
+        if (is(this.props.selectedAwardIDs, this.props.appliedAwardIDs)) {
+            return null;
+        }
+        return Symbol('dirty award ID');
+    }
+
     render() {
         return (
             <AwardIDSearch
-                {...this.props}
+                dirtyFilters={this.dirtyFilters()}
+                selectedAwardIDs={this.props.selectedAwardIDs}
                 toggleAwardID={this.toggleAwardID} />
         );
     }
@@ -79,7 +88,10 @@ export class AwardIDSearchContainer extends React.Component {
 AwardIDSearchContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ selectedAwardIDs: state.filters.selectedAwardIDs }),
+    (state) => ({
+        selectedAwardIDs: state.filters.selectedAwardIDs,
+        appliedAwardIDs: state.appliedFilters.filters.selectedAwardIDs
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(AwardIDSearchContainer);
 

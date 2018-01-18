@@ -50,7 +50,8 @@
         min-height: rem(325);
         text-align: center;
         z-index: 2;
-        & h2 {
+        & h1 {
+            @include h2;
             color: $color-white;
             font-size: rem(45);
             margin: 0;
@@ -60,7 +61,8 @@
                 font-weight: $font-normal;
             }
         }
-        h5 {
+        & h2 {
+            @include h5;
             color: $color-gold-lighter;
             font-size: rem(20);
             font-weight: $font-normal;

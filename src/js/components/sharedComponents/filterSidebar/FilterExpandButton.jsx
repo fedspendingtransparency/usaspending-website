@@ -82,6 +82,7 @@ export default class FilterExpandButton extends React.Component {
 
         let accessoryIcon = null;
         let accessoryView = null;
+        let ariaDescription = null;
         if (this.props.accessory) {
             // We need to add this onClick for mobile tapping
             /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -91,29 +92,46 @@ export default class FilterExpandButton extends React.Component {
                     className="accessory-view"
                     onMouseEnter={this.enteredAccessory}
                     onMouseLeave={this.exitedAccessory}
-                    onClick={this.toggleAccessory}>
+                    onClick={this.toggleAccessory}
+                    aria-hidden="true">
                     <InfoCircle alt="More information" />
                 </div>
             );
             /* eslint-enable jsx-a11y/no-static-element-interactions */
 
+            ariaDescription = 'accessory-view';
+
             if (this.state.showAccessory) {
-                accessoryView = <this.props.accessory />;
+                accessoryView = (
+                    <div
+                        id="accessory-view"
+                        role="toolbar">
+                        <this.props.accessory />
+                    </div>
+                );
             }
         }
 
         return (
-            <button
-                className={`filter-toggle ${hiddenClass}`}
-                onClick={this.props.toggleFilter}
-                disabled={this.props.disabled}
-                onKeyUp={this.focusedElement}
-                onBlur={this.blurredElement}>
-                {icon}
-                <h6 className="filter-header">{this.props.name}</h6>
-                {accessoryIcon}
-                {accessoryView}
-            </button>
+            <h3 className="filter-toggle-wrap">
+                <button
+                    className={`filter-toggle ${hiddenClass}`}
+                    onClick={this.props.toggleFilter}
+                    disabled={this.props.disabled}
+                    onKeyUp={this.focusedElement}
+                    onBlur={this.blurredElement}
+                    title={this.props.name}
+                    aria-label={this.props.name}
+                    aria-expanded={this.props.arrowState === 'expanded'}
+                    aria-describedby={ariaDescription}>
+                    {icon}
+                    <div className="filter-header">
+                        {this.props.name}
+                    </div>
+                    {accessoryIcon}
+                    {accessoryView}
+                </button>
+            </h3>
         );
     }
 }

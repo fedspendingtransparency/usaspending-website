@@ -30,9 +30,11 @@ export default class ShownAgency extends React.Component {
             <button
                 className="shown-filter-button"
                 value={this.props.label}
-                onClick={this.toggleAgency}>
+                onClick={this.toggleAgency}
+                title="Click to remove."
+                aria-label={`Applied filter: ${this.props.label}`}>
                 <span className="close">
-                    <Icons.Close className="usa-da-icon-close" />
+                    <Icons.Close className="usa-da-icon-close" alt="Close icon" />
                 </span> {this.props.label}
             </button>
         );

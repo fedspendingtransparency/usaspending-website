@@ -10,7 +10,8 @@ import { OrderedMap } from 'immutable';
 import { AwardIDSearchContainer } from 'containers/search/filters/awardID/AwardIDSearchContainer';
 
 const initialFilters = {
-    selectedAwardIDs: new OrderedMap()
+    selectedAwardIDs: new OrderedMap(),
+    appliedAwardIDs: new OrderedMap()
 };
 
 const awardID = '1234';
@@ -91,6 +92,33 @@ describe('AwardIDSearchContainer', () => {
                     '5555': '5555'
                 })
             });
+        });
+    });
+    describe('dirtyFilters', () => {
+        it('should return an ES6 Symbol when the staged filters do not match with the applied filters', () => {
+            const container = shallow(
+                <AwardIDSearchContainer
+                    {...initialFilters}
+                    updateGenericFilter={jest.fn()} />
+            );
+
+            container.setProps({
+                selectedAwardIDs: new OrderedMap({ a: 'a' })
+            });
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeTruthy();
+            expect(typeof changed).toEqual('symbol');
+        });
+        it('should return null when the staged filters match with the applied filters', () => {
+            const container = shallow(
+                <AwardIDSearchContainer
+                    {...initialFilters}
+                    updateGenericFilter={jest.fn()} />
+            );
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeFalsy();
         });
     });
 });

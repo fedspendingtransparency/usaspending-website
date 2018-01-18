@@ -31,6 +31,7 @@ export default class TableBody extends React.PureComponent {
 
         this._lastX = 0;
         this._lastY = 0;
+        this._blockPagination = false;
 
         this._cellCache = {};
         this._visibleCells = [];
@@ -45,8 +46,15 @@ export default class TableBody extends React.PureComponent {
     }
 
     componentDidUpdate(prevProps) {
+        if (prevProps.rowCount > this.props.rowCount) {
+            // the total number of rows has been reduced, do not allow pagination until
+            // regeneration is complete
+            this._blockPagination = true;
+        }
+
         for (const prop of watchedProps) {
             if (prevProps[prop] !== this.props[prop]) {
+                // if any of the watched props change values, regenerate all the cells
                 this._generateAllCells();
                 break;
             }
@@ -83,13 +91,21 @@ export default class TableBody extends React.PureComponent {
             // cells changed
             this._visibleCells = visibleCoords.cells.map((coord) => this._cellCache[coord]);
 
+            // handle pagination scroll events separately from state changes (which in turn renders
+            // the visible cells to DOM)
+            // this is because state changes are batched and this batching process causes delayed
+            // pagination checks
+            if (this.props.onReachedBottom && this._isAtBottom() && this.props.rowCount > 0) {
+                if (this._blockPagination) {
+                    this._blockPagination = false;
+                    return;
+                }
+
+                this.props.onReachedBottom();
+            }
+
             this.setState({
                 visibleRange
-            }, () => {
-                if (this.props.onReachedBottom && this._isAtBottom()
-                    && this.props.rowCount > 0) {
-                    this.props.onReachedBottom();
-                }
             });
         }
     }
@@ -175,8 +191,8 @@ export default class TableBody extends React.PureComponent {
         // allow a half row buffer at the bottom
         const contentBottom = (this.props.rowCount * this.props.rowHeight) -
             (this.props.rowHeight / 2);
-        const maxBottom = this.props.rowCount * this.props.rowHeight;
-        if (visibleBottom >= contentBottom && visibleBottom <= maxBottom) {
+
+        if (visibleBottom >= contentBottom) {
             return true;
         }
         return false;
@@ -215,6 +231,7 @@ export default class TableBody extends React.PureComponent {
             });
         }
 
+        this._cellCache = null; // try to explicitly release the previous cache from memory
         this._cellCache = cellCache;
 
         this._tableScrolled({

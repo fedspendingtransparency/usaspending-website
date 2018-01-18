@@ -35,7 +35,7 @@ const propTypes = {
     params: PropTypes.object,
     filters: PropTypes.object,
     appliedFilters: PropTypes.object,
-    populateAllSearchFilters: PropTypes.func,
+    restoreHashedFilters: PropTypes.func,
     clearAllFilters: PropTypes.func,
     download: PropTypes.object,
     applyStagedFilters: PropTypes.func,
@@ -228,9 +228,9 @@ export class SearchContainer extends React.Component {
             }
         });
 
-        this.props.populateAllSearchFilters(reduxValues);
-        // also overwrite the staged filters with the same values
-        this.props.applyStagedFilters(reduxValues);
+
+        // apply the filters to both the staged and applied stores
+        this.props.restoreHashedFilters(reduxValues);
 
         this.setState({
             hashState: 'ready'

@@ -7,6 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Set } from 'immutable';
+
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
@@ -26,7 +29,8 @@ const propTypes = {
     activeTab: PropTypes.string,
     updateFilter: PropTypes.func,
     changeTab: PropTypes.func,
-    disableDateRange: PropTypes.bool
+    disableDateRange: PropTypes.bool,
+    dirtyFilters: PropTypes.symbol
 };
 
 const ga = require('react-ga');
@@ -78,6 +82,12 @@ export default class TimePeriod extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.synchronizeDatePickers(nextProps);
+
+        if (nextProps.dirtyFilters && nextProps.dirtyFilters !== this.props.dirtyFilters) {
+            if (this.hint) {
+                this.hint.showHint();
+            }
+        }
     }
 
     prepopulateDatePickers() {
@@ -294,18 +304,30 @@ export default class TimePeriod extends React.Component {
         return (
             <div className="tab-filter-wrap">
                 <div className="filter-item-wrap">
-                    <ul className="toggle-buttons">
+                    <ul
+                        className="toggle-buttons"
+                        role="menu">
                         <li>
                             <button
                                 className={`date-toggle ${activeClassFY}`}
                                 value="fy"
-                                onClick={this.toggleFilters}>Fiscal Year
+                                role="menuitemradio"
+                                aria-checked={this.props.activeTab === 'fy'}
+                                aria-label="Fiscal Year"
+                                title="Fiscal Year"
+                                onClick={this.toggleFilters}>
+                                Fiscal Year
                             </button>
                         </li>
                         <li>
                             <button
                                 className={`date-toggle ${activeClassDR}`}
+                                id="filter-date-range-tab"
                                 value="dr"
+                                role="menuitemradio"
+                                aria-checked={this.props.activeTab === 'dr'}
+                                aria-label="Date Range"
+                                title="Date Range"
                                 onClick={this.toggleFilters}
                                 disabled={this.props.disableDateRange}>
                                 Date Range
@@ -314,6 +336,10 @@ export default class TimePeriod extends React.Component {
                     </ul>
                     { showFilter }
                     { errorDetails }
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
                 </div>
             </div>
         );

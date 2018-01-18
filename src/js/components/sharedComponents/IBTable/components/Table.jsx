@@ -168,9 +168,10 @@ export default class Table extends React.Component {
 
     render() {
         const visibleWidth = Math.min(this.props.bodyWidth, this.props.contentWidth);
-        const visibleHeight = Math.min(this.props.bodyHeight,
-            this.props.rowCount * this.props.rowHeight);
-
+        // On single row increate the row height so that windows horizontal scroll bar
+        // does not block the data
+        const visibleHeight = this.props.rowCount !== 1 ? Math.min(this.props.bodyHeight,
+            this.props.rowCount * this.props.rowHeight) : this.props.rowHeight + 2;
         const style = {
             minWidth: visibleWidth,
             maxWidth: visibleWidth,

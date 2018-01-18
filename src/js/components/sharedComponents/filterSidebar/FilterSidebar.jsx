@@ -29,7 +29,7 @@ export default class FilterSidebar extends React.Component {
             const accessory = this.props.accessories[i];
             return (<FilterOption
                 name={name}
-                key={i}
+                key={name}
                 component={component}
                 accessory={accessory}
                 defaultExpand={this.props.expanded[i]}

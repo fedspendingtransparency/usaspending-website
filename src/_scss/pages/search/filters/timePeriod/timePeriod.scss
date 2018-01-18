@@ -25,31 +25,29 @@
             }
 
             li {
-                line-height: rem(20);
+                line-height: rem(30);
                 margin: 0;
                 height: auto;
-                input {
-                    @include usa-input-checkbox;
-                    margin-right: rem(-19);
-                    margin-top: rem(13);
-                    vertical-align: top;
-                }
-                label {
-                    @include usa-label;
-                    font-weight: normal;
-                    margin: rem(10) 0 0 0;
-                    margin-left: rem(25);
-                    max-height: rem(24);
-                    padding: 0;
-                    font-size: rem(12);
-                    display: inline-block;
-                    @include media($large-screen) {
-                        font-size: $small-font-size;
-                        max-height: rem(28);
+
+                label.fy-option-wrapper {
+                    cursor: pointer;
+
+                    input.fy-option-checkbox {
+                        @include usa-input-checkbox;
+                        height: rem(14);
+                        width: rem(14);
+
+                        cursor: pointer;
                     }
-                }
-                input + label {
-                    margin-bottom: 0;
+                    .fy-option-label {
+                        margin-left: rem(6);
+                        font-size: rem(12);
+                        cursor: pointer;
+
+                        @include media($large-screen) {
+                            font-size: $small-font-size;
+                        }
+                    }
                 }
             }
             .fiscal-year-option-all {

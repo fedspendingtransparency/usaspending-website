@@ -7,13 +7,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import ContractFilter from 'components/search/filters/contractFilters/ContractFilter';
 
 const propTypes = {
-    updatePricingType: PropTypes.func
+    updatePricingType: PropTypes.func,
+    pricingType: PropTypes.object,
+    appliedPricing: PropTypes.object
 };
 
 export class PricingTypeContainer extends React.Component {
@@ -28,10 +31,18 @@ export class PricingTypeContainer extends React.Component {
         this.props.updatePricingType(value);
     }
 
+    dirtyFilters() {
+        if (is(this.props.pricingType, this.props.appliedPricing)) {
+            return null;
+        }
+        return Symbol('dirty pricing type');
+    }
+
     render() {
         return (
             <ContractFilter
-                {...this.props}
+                pricingType={this.props.pricingType}
+                dirtyFilters={this.dirtyFilters()}
                 contractFilterType="pricing_type"
                 contractFilterOptions="pricingTypeDefinitions"
                 contractFilterState="pricingType"
@@ -43,6 +54,9 @@ export class PricingTypeContainer extends React.Component {
 PricingTypeContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ pricingType: state.filters.pricingType }),
+    (state) => ({
+        pricingType: state.filters.pricingType,
+        appliedPricing: state.appliedFilters.filters.pricingType
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(PricingTypeContainer);
