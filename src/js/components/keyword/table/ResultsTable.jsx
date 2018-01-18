@@ -12,7 +12,7 @@ import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableFormattedCell from 'components/search/table/cells/ResultsTableFormattedCell';
 import ResultsTableAwardIdCell from 'components/search/table/cells/ResultsTableAwardIdCell';
-import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
+import ResultsTableHeaderCell from 'components/search/table/cells/ResultsTableHeaderCell';
 
 const propTypes = {
     results: PropTypes.array,
@@ -63,8 +63,7 @@ export default class ResultsTable extends React.Component {
                 title={column.columnName}
                 defaultDirection={column.defaultDirection}
                 currentSort={this.props.sort}
-                updateSort={this.props.updateSort}
-                sortDisabled={column.sortDisabled} />
+                updateSort={this.props.updateSort} />
         );
     }
 
