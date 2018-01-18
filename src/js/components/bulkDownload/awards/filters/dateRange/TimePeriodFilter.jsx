@@ -97,6 +97,7 @@ export default class TimePeriodFilter extends React.Component {
                 newState.endDateUI = null;
             }
         }
+
         if (datesChanged) {
             this.setState(newState);
         }

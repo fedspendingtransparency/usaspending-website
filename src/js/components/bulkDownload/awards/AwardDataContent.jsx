@@ -144,7 +144,9 @@ export default class AwardDataContent extends React.Component {
                             updateStartDate={this.props.updateStartDate}
                             updateEndDate={this.props.updateEndDate}
                             valid={awards.dateRange.startDate !== '' || awards.dateRange.endDate !== ''}
-                            setValidDates={this.setValidDates} />
+                            setValidDates={this.setValidDates}
+                            filterTimePeriodStart={awards.dateRange.startDate}
+                            filterTimePeriodEnd={awards.dateRange.endDate} />
                         <FileFormatFilter
                             fileFormats={awardDownloadOptions.fileFormats}
                             currentFileFormat={awards.fileFormat}

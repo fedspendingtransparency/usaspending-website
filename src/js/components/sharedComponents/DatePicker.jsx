@@ -214,7 +214,7 @@ export default class DatePicker extends React.Component {
 
         // handle the cutoff dates (preventing end dates from coming before
         // start dates or vice versa)
-        const disabledDays = this.props.disabledDays;
+        let disabledDays = this.props.disabledDays.slice(0);
         if (this.props.type === 'startDate' && this.props.opposite) {
             // the cutoff date represents the latest possible date
             disabledDays.push({
@@ -226,6 +226,9 @@ export default class DatePicker extends React.Component {
             disabledDays.push({
                 before: this.props.opposite.toDate()
             });
+        }
+        else if (!this.props.value) {
+            disabledDays = [];
         }
 
         const inputId = `picker-${uniqueId()}`;
