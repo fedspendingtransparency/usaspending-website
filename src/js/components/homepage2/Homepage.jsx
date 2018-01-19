@@ -5,11 +5,9 @@
 
 import React from 'react';
 import Cookies from 'js-cookie';
-import { isCancel } from 'axios';
 
 import kGlobalConstants from 'GlobalConstants';
 
-import * as HomepageHelper from 'helpers/homepageHelper';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';

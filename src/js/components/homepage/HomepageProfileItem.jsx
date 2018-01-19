@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    title: PropTypes.string,
+    label: PropTypes.string,
     url: PropTypes.string,
     enabled: PropTypes.bool,
     navigateTo: PropTypes.func
