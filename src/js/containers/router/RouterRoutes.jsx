@@ -19,6 +19,15 @@ const routes = {
             }
         },
         {
+            path: '/new',
+            parent: '/',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/homepage2/Homepage').default);
+                });
+            }
+        },
+        {
             path: '/search',
             parent: '/search',
             silentlyUpdate: true,
@@ -89,60 +98,6 @@ const routes = {
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/about/About').default);
-                });
-            }
-        },
-        {
-            path: '/db_info',
-            parent: '/db_info',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/article/DBInfo').default);
-                });
-            }
-        },
-        {
-            path: '/relevantlegislation',
-            parent: '/relevantlegislation',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/article/RelevantLegislation').default);
-                });
-            }
-        },
-        {
-            path: '/aboutdata',
-            parent: '/aboutdata',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/article/AboutData').default);
-                });
-            }
-        },
-        {
-            path: '/sourcesofdata',
-            parent: '/sourcesofdata',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/article/SourcesData').default);
-                });
-            }
-        },
-        {
-            path: '/faq',
-            parent: '/faq',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/article/FAQ').default);
-                });
-            }
-        },
-        {
-            path: '/whatsnew',
-            parent: '/whatsnew',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/article/WhatsNew').default);
                 });
             }
         },

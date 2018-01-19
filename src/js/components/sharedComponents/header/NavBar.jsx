@@ -1,18 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
-
 import kGlobalConstants from 'GlobalConstants';
+import { searchOptions, profileOptions, downloadOptions } from 'dataMapping/navigation/menuOptions';
 
 import NavBarGlossaryLink from './NavBarGlossaryLink';
-import ProfileButton from './ProfileButton';
+import Dropdown from './Dropdown';
 import MobileNav from './mobile/MobileNav';
 
-const propTypes = {
-    homepage: PropTypes.bool
-};
 
 export default class NavBar extends React.Component {
     constructor(props) {
@@ -58,11 +54,6 @@ export default class NavBar extends React.Component {
     }
 
     render() {
-        let homepageClass = '';
-        if (this.props.homepage) {
-            homepageClass = 'homepage';
-        }
-
         let betaClass = '';
         if (kGlobalConstants.IN_BETA) {
             betaClass = 'beta';
@@ -81,7 +72,7 @@ export default class NavBar extends React.Component {
                 className="nav-container"
                 aria-label="Site navigation">
                 <div className="logo">
-                    <div className={`usa-logo ${homepageClass} ${betaClass}`} id="logo">
+                    <div className={`usa-logo ${betaClass}`} id="logo">
                         <a href="#/" title="USAspending.gov Home" aria-label="USAspending.gov Home">
                             <span className="logo-sr">USAspending.gov</span>
                         </a>
@@ -90,7 +81,7 @@ export default class NavBar extends React.Component {
                 <div className="mobile-menu">
                     <div className="mobile-button-wrapper">
                         <button
-                            className={`usa-menu-btn ${homepageClass}`}
+                            className="usa-menu-btn"
                             onClick={this.toggleMobileNav}>
                             <span className="nav-lines" />
                         </button>
@@ -106,48 +97,46 @@ export default class NavBar extends React.Component {
                     </CSSTransitionGroup>
                 </div>
                 <div className="primary-menu">
-                    <ul className="nav-menu">
-                        <li className="menu-item">
+                    <ul
+                        className="nav-menu"
+                        role="menu">
+                        <li
+                            className="menu-item"
+                            role="menuitem">
                             <a
-                                className={`usa-nav-link ${homepageClass}`}
+                                className="usa-nav-link"
                                 href="#/explorer"
                                 title="Spending Explorer: Navigate the levels of government spending from top to bottom">
                                 <span>Spending Explorer</span>
                             </a>
                         </li>
-                        <li className="menu-item">
-                            <a
-                                className={`usa-nav-link ${homepageClass}`}
-                                href="#/search"
-                                title="Award Search: Search through awards and discover trends and connections">
-                                <span>Award Search</span>
-                            </a>
+                        <li
+                            className="menu-item"
+                            role="menuitem">
+                            <Dropdown
+                                title="Award Search: Search through awards and discover trends and connections"
+                                label="Award Search"
+                                items={searchOptions} />
                         </li>
-                        <li className="menu-item">
-                            <ProfileButton homepage={this.props.homepage} />
+                        <li
+                            className="menu-item"
+                            role="menuitem">
+                            <Dropdown
+                                title="Profiles: Learn more about organizations and accounts"
+                                label="Profiles"
+                                items={profileOptions} />
                         </li>
-                    </ul>
-                </div>
-                <div className="secondary-menu">
-                    <ul className={`small-menu ${homepageClass}`}>
-                        <li>
-                            <a
-                                href="/#/about"
-                                rel="noopener noreferrer"
-                                title="About">
-                                About
-                            </a>
+                        <li
+                            className="menu-item"
+                            role="menuitem">
+                            <Dropdown
+                                title="Bulk Download"
+                                label="Bulk Download"
+                                items={downloadOptions} />
                         </li>
-                        <li>
-                            <a
-                                href="https://usaspending-help.zendesk.com/hc/en-us"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                title="Help">
-                                Help
-                            </a>
-                        </li>
-                        <li>
+                        <li
+                            className="menu-item"
+                            role="menuitem">
                             <GlossaryButtonWrapperContainer child={NavBarGlossaryLink} />
                         </li>
                     </ul>
@@ -157,4 +146,3 @@ export default class NavBar extends React.Component {
     }
 }
 
-NavBar.propTypes = propTypes;

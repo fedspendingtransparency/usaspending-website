@@ -1,21 +1,21 @@
 /**
- * ProfileButton.jsx
- * Created by Kevin Li 7/12/17
+ * Dropdown.jsx
+ * Created by Kevin Li 1/18/18
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AngleDown } from 'components/sharedComponents/icons/Icons';
 
-import { availableProfiles } from 'dataMapping/profiles/availableProfiles';
-
-import ProfileItem from './ProfileItem';
+import DropdownItem from './DropdownItem';
 
 const propTypes = {
-    homepage: PropTypes.bool
+    label: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    items: PropTypes.array.isRequired
 };
 
-export default class ProfileButton extends React.Component {
+export default class Dropdown extends React.Component {
     constructor(props) {
         super(props);
 
@@ -48,43 +48,40 @@ export default class ProfileButton extends React.Component {
 
     render() {
         let active = '';
+        let iconAlt = 'Collapsed menu';
         if (this.state.expanded) {
             active = 'active';
+            iconAlt = 'Expanded menu';
         }
 
-        let homepage = '';
-        if (this.props.homepage) {
-            homepage = 'homepage';
-        }
-
-        const items = availableProfiles.map((profile) => (
-            <ProfileItem
-                {...profile}
-                key={profile.code} />
+        const items = this.props.items.map((item) => (
+            <DropdownItem
+                {...item}
+                key={item.url} />
         ));
 
         return (
             <div
-                className="nav-profile-outer-wrap"
+                className="nav-dropdown-outer-wrap"
                 onMouseEnter={this.expandMenu}
                 onMouseLeave={this.collapseMenu}>
                 <button
-                    className={`usa-nav-profile-button ${homepage} ${active}`}
-                    title="Profiles: Learn more about organizations and accounts"
+                    className={`usa-nav-dropdown-button ${active}`}
+                    title={this.props.title}
                     onClick={this.clickedButton}
                     aria-expanded={this.state.expanded}>
-                    <div className="profile-button-content">
-                        <div className="profile-button-label">
-                            Profiles
+                    <div className="dropdown-button-content">
+                        <div className="dropdown-button-label">
+                            {this.props.label}
                         </div>
-                        <div className="profile-button-icon">
-                            <AngleDown alt="Profile menu" />
+                        <div className="dropdown-button-icon">
+                            <AngleDown alt={iconAlt} />
                         </div>
                     </div>
                 </button>
-                <div className={`usa-nav-profile-list ${active} ${homepage}`}>
-                    <div className="profile-list-wrapper">
-                        <ul className="profile-list">
+                <div className={`usa-nav-dropdown-list ${active}`}>
+                    <div className="dropdown-list-wrapper">
+                        <ul className="dropdown-list">
                             {items}
                         </ul>
                     </div>
@@ -94,4 +91,4 @@ export default class ProfileButton extends React.Component {
     }
 }
 
-ProfileButton.propTypes = propTypes;
+Dropdown.propTypes = propTypes;

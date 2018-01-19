@@ -1,0 +1,22 @@
+.official-site-banner {
+    padding: rem(5) rem(15);
+    margin-bottom: rem(10);
+    @include display(flex);
+    @include justify-content(flex-end);
+    @include align-items(flex-end);
+
+    .official-text {
+        @include flex(0 0 auto);
+        margin-right: rem(10);
+
+        font-size: rem(10);
+        line-height: rem(13);
+        color: $color-base;
+    }
+
+    .official-flag {
+        @include flex(0 0 auto)
+        width: rem(16);
+        height: rem(11);
+    }
+}

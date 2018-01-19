@@ -24,6 +24,7 @@ import TreeMapIntro from './TreeMapIntro';
 import MapTopBar from './MapTopBar';
 import CategoryMap from './visualizations/categoryMap/CategoryMap';
 import SearchSection from './SearchSection';
+import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import WarningBanner from '../sharedComponents/header/WarningBanner';
 import InfoBanner from '../sharedComponents/header/InfoBanner';
@@ -216,6 +217,7 @@ export default class Homepage extends React.Component {
                     </a>
                 </div>
                 <MetaTags {...MetaTagHelper.homePageMetaTags} />
+                <Header />
                 <GlossaryContainer />
                 {banner}
                 <Landing

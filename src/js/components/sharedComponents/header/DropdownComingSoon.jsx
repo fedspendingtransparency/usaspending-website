@@ -1,5 +1,5 @@
 /**
- * ProfileComingSoon.jsx
+ * DropdownComingSoon.jsx
  * Created by Kevin Li 7/19/17
  */
 
@@ -7,8 +7,8 @@ import React from 'react';
 
 import { ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
-const ProfileComingSoon = () => (
-    <div className="profile-coming-soon">
+const DropdownComingSoon = () => (
+    <div className="dropdown-coming-soon">
         <div className="icon">
             <ExclamationCircle alt="Coming soon" />
         </div>
@@ -18,4 +18,4 @@ const ProfileComingSoon = () => (
     </div>
 );
 
-export default ProfileComingSoon;
+export default DropdownComingSoon;

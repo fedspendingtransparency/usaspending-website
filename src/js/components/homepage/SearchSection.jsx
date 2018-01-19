@@ -9,7 +9,7 @@ import { BuildingMag, Explorer, AwardSearch } from
     'components/sharedComponents/icons/home/HomeIcons';
 import { AngleDown } from 'components/sharedComponents/icons/Icons';
 
-import { availableProfiles } from 'dataMapping/profiles/availableProfiles';
+import { profileOptions as availableProfiles } from 'dataMapping/navigation/menuOptions';
 
 import HomepageProfileItem from './HomepageProfileItem';
 
@@ -58,7 +58,7 @@ export default class SearchSection extends React.Component {
         const items = availableProfiles.map((profile) => (
             <HomepageProfileItem
                 {...profile}
-                key={profile.code}
+                key={profile.url}
                 navigateTo={this.navigateTo} />
         ));
 
