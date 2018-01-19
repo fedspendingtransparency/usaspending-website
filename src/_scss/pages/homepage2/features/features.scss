@@ -1,0 +1,24 @@
+.homepage-features {
+
+    .homepage-feature-content {
+        @import "mixins/fullSectionWrap";
+        @include fullSectionWrap(0, 0);
+        padding: 0;
+    }
+
+    h2.feature-title {
+        margin: 0;
+
+        font-weight: $font-semibold;
+        color: $color-base;
+
+        font-size: rem(38);
+        line-height: rem(55);
+    }
+
+    .screenshot-caption {
+        @include sr-only;
+    }
+
+    @import "./_spendingExplorer";
+}

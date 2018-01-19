@@ -26,7 +26,9 @@ export default class Homepage extends React.Component {
                 <MetaTags {...MetaTagHelper.homePageMetaTags} />
                 <Header />
                 <GlossaryContainer />
-                <main id="main-content">
+                <main
+                    id="main-content"
+                    className="homepage-content">
                     <Hero />
                     <Features />
                 </main>

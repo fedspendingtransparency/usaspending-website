@@ -17,6 +17,11 @@ const HeroButton = () => {
 
         const sectionTop = featureContent.offsetTop - 10;
         scrollToY(sectionTop, 700);
+
+        const featureHeader = document.querySelector('#homepage-features h2');
+        if (featureHeader) {
+            featureHeader.focus();
+        }
     };
 
     return (
