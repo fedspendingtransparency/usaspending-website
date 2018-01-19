@@ -13,9 +13,9 @@ import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableGenericCell';
 import ResultsTableAwardIdCell from 'components/search/table/cells/ResultsTableAwardIdCell';
 
-import LegacyTableHeaderCell from './LegacyTableHeaderCell';
-
 import AccountTableSearchFields from 'dataMapping/search/accountTableSearchFields';
+
+import LegacyTableHeaderCell from './LegacyTableHeaderCell';
 
 const propTypes = {
     results: PropTypes.array,
