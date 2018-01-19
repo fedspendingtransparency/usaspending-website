@@ -36,7 +36,13 @@
                 opacity: 0.6;
             }
 
-            @import "./_profiles";
+            @import "./_dropdown";
+
+            &.no-phone {
+                @media screen and (max-width: 450px) {
+                    display: none;
+                }
+            }
         }
     }
 }

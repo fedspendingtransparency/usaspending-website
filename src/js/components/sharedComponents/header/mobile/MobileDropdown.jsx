@@ -14,6 +14,7 @@ import MobileDropdownItem from './MobileDropdownItem';
 const propTypes = {
     hideMobileNav: PropTypes.func,
     active: PropTypes.string,
+    title: PropTypes.string,
     label: PropTypes.string.isRequired,
     items: PropTypes.array.isRequired
 };
@@ -23,33 +24,33 @@ export default class MobileDropdown extends React.Component {
         super(props);
 
         this.state = {
-            expandedProfile: false
+            expandedDropdown: false
         };
 
-        this.toggleProfile = this.toggleProfile.bind(this);
-        this.closeProfile = this.closeProfile.bind(this);
+        this.toggleDropdown = this.toggleDropdown.bind(this);
+        this.closeDropdown = this.closeDropdown.bind(this);
     }
 
-    toggleProfile() {
+    toggleDropdown() {
         this.setState({
-            expandedProfile: !this.state.expandedProfile
+            expandedDropdown: !this.state.expandedDropdown
         });
     }
 
-    closeProfile() {
+    closeDropdown() {
         this.setState({
-            expandedProfile: false
+            expandedDropdown: false
         });
     }
 
     render() {
-        let icon = <AngleDown alt="Expand profile list" />;
-        if (this.state.expandedProfile) {
-            icon = <AngleUp alt="Collapse profile list" />;
+        let icon = <AngleDown alt="Expand dropdown list" />;
+        if (this.state.expandedDropdown) {
+            icon = <AngleUp alt="Collapse dropdown list" />;
         }
 
         let hideList = '';
-        if (!this.state.expandedProfile) {
+        if (!this.state.expandedDropdown) {
             hideList = 'hide';
         }
 
@@ -65,11 +66,11 @@ export default class MobileDropdown extends React.Component {
         ));
 
         return (
-            <div className="profiles">
+            <div className="dropdown">
                 <button
                     className="nav-button"
-                    title="Profiles"
-                    onClick={this.toggleProfile}>
+                    title={this.props.title || this.props.label}
+                    onClick={this.toggleDropdown}>
                     <span className="label">
                         {this.props.label}
                     </span>
@@ -78,8 +79,8 @@ export default class MobileDropdown extends React.Component {
                     </span>
                 </button>
 
-                <div className={`profile-list ${hideList}`}>
-                    <ul className="profile-items">
+                <div className={`dropdown-list ${hideList}`}>
+                    <ul className="dropdown-items">
                         {items}
                     </ul>
                 </div>

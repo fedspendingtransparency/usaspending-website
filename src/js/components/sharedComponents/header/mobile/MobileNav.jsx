@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 import Router from 'containers/router/Router';
 
-import { searchOptions, profileOptions } from 'dataMapping/navigation/menuOptions';
+import { searchOptions, profileOptions, downloadOptions } from 'dataMapping/navigation/menuOptions';
 
 import MobileTop from './MobileTop';
 import MobileGlossaryButton from './MobileGlossaryButton';
@@ -71,6 +71,14 @@ export default class MobileNav extends React.Component {
                                 {...this.props}
                                 label="Profiles"
                                 items={profileOptions}
+                                active={this.state.url} />
+                            <div className="nav-link-decorator" />
+                        </li>
+                        <li className="no-phone">
+                            <MobileDropdown
+                                {...this.props}
+                                label="Bulk Download"
+                                items={downloadOptions}
                                 active={this.state.url} />
                             <div className="nav-link-decorator" />
                         </li>

@@ -37,7 +37,7 @@ const MobileDropdownItem = (props) => {
         <li className={comingSoonClass}>
             <a
                 href={props.url}
-                className={`profile-item ${activeClass}`}
+                className={`dropdown-item ${activeClass}`}
                 onClick={props.hideMobileNav}>
                 {props.title}
             </a>
