@@ -15,6 +15,8 @@ import ResultsTableAwardIdCell from 'components/search/table/cells/ResultsTableA
 
 import LegacyTableHeaderCell from './LegacyTableHeaderCell';
 
+import AccountTableSearchFields from '../../../dataMapping/search/accountTableSearchFields';
+
 const propTypes = {
     results: PropTypes.array,
     sort: PropTypes.object,
@@ -55,11 +57,12 @@ export default class LegacyResultsTable extends React.Component {
     headerCellRender(columnIndex) {
         const column = this.props.columns[columnIndex];
         const isLast = columnIndex === this.props.columns.length - 1;
+        const field = AccountTableSearchFields.modelMapping[column.fieldName];
 
         return (
             <LegacyTableHeaderCell
                 title={column.displayName}
-                field={column.fieldName}
+                field={field}
                 defaultDirection={column.defaultDirection}
                 currentSort={this.props.sort}
                 updateSort={this.props.updateSort}

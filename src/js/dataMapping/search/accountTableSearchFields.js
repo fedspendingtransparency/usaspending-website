@@ -15,7 +15,22 @@ const accountTableSearchFields = {
         type: 'asc',
         awarding_agency_name: 'asc',
         awarding_subtier_name: 'asc',
-        face_value_loan_guarantee: 'desc'
+        latest_transaction__action_date: 'desc',
+        latest_transaction__assistance_data__face_value_loan_guarantee: 'desc',
+        latest_transaction__assistance_data__original_loan_subsidy_cost: 'desc'
+    },
+    modelMapping: {
+        awardId: 'id',
+        recipientName: 'recipient__recipient_name',
+        startDate: 'period_of_performance_start_date',
+        endDate: 'period_of_performance_current_end_date',
+        awardAmount: 'total_obligation',
+        awardType: 'type',
+        awardingToptierAgency: 'awarding_agency__toptier_agency__name',
+        awardingSubtierAgency: 'awarding_agency__subtier_agency__name',
+        issuedDate: 'latest_transaction__action_date',
+        loanValue: 'latest_transaction__assistance_data__face_value_loan_guarantee',
+        subsidyCost: 'latest_transaction__assistance_data__original_loan_subsidy_cost'
     },
     contracts: {
         _defaultSortField: 'total_obligation',
@@ -111,7 +126,7 @@ const accountTableSearchFields = {
         type: 'Award Type'
     },
     loans: {
-        _defaultSortField: 'face_value_loan_guarantee',
+        _defaultSortField: 'latest_transaction__assistance_data__face_value_loan_guarantee',
         sortDirection: {
             award_id: 'asc',
             recipient_name: 'asc',

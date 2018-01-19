@@ -64,7 +64,7 @@ export class AccountAwardsContainer extends React.Component {
             counts: {},
             tableType: 'contracts',
             sort: {
-                field: 'Award Amount',
+                field: 'awardAmount',
                 direction: 'desc'
             },
             inFlight: true,
