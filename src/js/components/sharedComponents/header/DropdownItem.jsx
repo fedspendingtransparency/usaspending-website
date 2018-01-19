@@ -11,7 +11,8 @@ import DropdownComingSoon from './DropdownComingSoon';
 const propTypes = {
     url: PropTypes.string,
     label: PropTypes.string,
-    enabled: PropTypes.bool
+    enabled: PropTypes.bool,
+    newTab: PropTypes.bool
 };
 
 const DropdownItem = (props) => {
@@ -22,11 +23,18 @@ const DropdownItem = (props) => {
         comingSoon = null;
     }
 
+    const newTabProps = {};
+    if (props.newTab) {
+        newTabProps.target = '_blank';
+        newTabProps.rel = 'noopener noreferrer';
+    }
+
     return (
         <li>
             <a
                 className={className}
-                href={props.url}>
+                href={props.url}
+                {...newTabProps}>
                 {props.label}
                 {comingSoon}
             </a>

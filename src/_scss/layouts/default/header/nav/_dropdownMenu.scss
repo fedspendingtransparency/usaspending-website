@@ -62,7 +62,7 @@
     ul.dropdown-list {
         position: relative;
         @include unstyled-list;
-        background-color: $color-gray-lightest;
+        background-color: $color-white;
         box-shadow: 0 2px 5px $color-shadow;
 
         width: 100%;
@@ -70,9 +70,9 @@
         li {
             white-space: nowrap;
             a {
-                font-size: rem(20);
-                line-height: rem(25);
-                font-weight: $font-light;
+                font-size: rem(18);
+                line-height: rem(24);
+                font-weight: $font-normal;
                 color: $color-base;
                 text-decoration: none;
                 text-align: left;

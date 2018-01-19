@@ -38,18 +38,35 @@ export const profileOptions = [
 
 export const downloadOptions = [
     {
-        label: 'Award Data',
+        label: 'Award Data Archive',
+        url: '#/bulk_download/award_data_archive',
+        enabled: true
+    },
+    {
+        label: 'Custom Award Data',
         url: '#/bulk_download',
         enabled: true
     },
     {
-        label: 'Account Data',
+        label: 'Custom Account Data',
         url: '#/bulk_download/account',
         enabled: false
     },
     {
-        label: 'Award Data Archive',
-        url: '#/bulk_download/award_data_archive',
+        label: 'Agency Submission Files',
+        url: 'http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/',
+        newTab: true,
         enabled: true
+    },
+    {
+        label: 'API',
+        url: 'https://api.usaspending.gov',
+        newTab: true,
+        enabled: true
+    },
+    {
+        label: 'Database Snapshots',
+        url: '#/bulk_download/database',
+        enabled: false
     }
 ];
