@@ -30,14 +30,14 @@ const accountTableSearchFields = {
             'awarding_subtier_name'
         ],
         _mapping: {
-            award_id: 'piid',
-            recipient_name: 'recipient__recipient_name',
-            period_of_performance_start_date: 'period_of_performance_start_date',
-            period_of_performance_current_end_date: 'period_of_performance_current_end_date',
-            total_obligation: 'total_obligation',
-            type: 'type_description',
-            awarding_agency_name: 'awarding_agency__toptier_agency__name',
-            awarding_subtier_name: 'awarding_agency__subtier_agency__name'
+            award_id: 'awardId',
+            recipient_name: 'recipientName',
+            period_of_performance_start_date: 'startDate',
+            period_of_performance_current_end_date: 'endDate',
+            total_obligation: 'awardAmount',
+            type: 'awardType',
+            awarding_agency_name: 'awardingToptierAgency',
+            awarding_subtier_name: 'awardingSubtierAgency'
         },
         award_id: 'Award ID',
         recipient_name: 'Recipient Name',
@@ -61,14 +61,14 @@ const accountTableSearchFields = {
             'type'
         ],
         _mapping: {
-            award_id: 'fain',
-            recipient_name: 'recipient__recipient_name',
-            period_of_performance_start_date: 'period_of_performance_start_date',
-            period_of_performance_current_end_date: 'period_of_performance_current_end_date',
-            total_obligation: 'total_obligation',
-            type: 'type',
-            awarding_agency_name: 'awarding_agency__toptier_agency__name',
-            awarding_subtier_name: 'awarding_agency__subtier_agency__name'
+            award_id: 'awardId',
+            recipient_name: 'recipientName',
+            period_of_performance_start_date: 'startDate',
+            period_of_performance_current_end_date: 'endDate',
+            total_obligation: 'awardAmount',
+            type: 'awardType',
+            awarding_agency_name: 'awardingToptierAgency',
+            awarding_subtier_name: 'awardingSubtierAgency'
         },
         award_id: 'Award ID',
         recipient_name: 'Recipient Name',
@@ -92,14 +92,14 @@ const accountTableSearchFields = {
             'type'
         ],
         _mapping: {
-            award_id: 'fain',
-            recipient_name: 'recipient__recipient_name',
-            period_of_performance_start_date: 'period_of_performance_start_date',
-            period_of_performance_current_end_date: 'period_of_performance_current_end_date',
-            total_obligation: 'total_obligation',
-            type: 'type',
-            awarding_agency_name: 'awarding_agency__toptier_agency__name',
-            awarding_subtier_name: 'awarding_agency__subtier_agency__name'
+            award_id: 'awardId',
+            recipient_name: 'recipientName',
+            period_of_performance_start_date: 'startDate',
+            period_of_performance_current_end_date: 'endDate',
+            total_obligation: 'awardAmount',
+            type: 'awardType',
+            awarding_agency_name: 'awardingToptierAgency',
+            awarding_subtier_name: 'awardingSubtierAgency'
         },
         award_id: 'Award ID',
         recipient_name: 'Recipient Name',
@@ -131,13 +131,13 @@ const accountTableSearchFields = {
             'awarding_subtier_name'
         ],
         _mapping: {
-            award_id: 'fain',
-            recipient_name: 'recipient__recipient_name',
-            action_date: 'latest_transaction__action_date',
-            face_value_loan_guarantee: 'latest_transaction__assistance_data__face_value_loan_guarantee',
-            original_loan_subsidy_cost: 'latest_transaction__assistance_data__original_loan_subsidy_cost',
-            awarding_agency_name: 'awarding_agency__toptier_agency__name',
-            awarding_subtier_name: 'awarding_agency__subtier_agency__name'
+            award_id: 'awardId',
+            recipient_name: 'recipientName',
+            action_date: 'issuedDate',
+            face_value_loan_guarantee: 'loanValue',
+            original_loan_subsidy_cost: 'subsidyCost',
+            awarding_agency_name: 'awardingToptierAgency',
+            awarding_subtier_name: 'awardingSubtierAgency'
         },
         award_id: 'Award ID',
         recipient_name: 'Recipient Name',
@@ -160,14 +160,14 @@ const accountTableSearchFields = {
             'type'
         ],
         _mapping: {
-            award_id: 'fain',
-            recipient_name: 'recipient__recipient_name',
-            period_of_performance_start_date: 'period_of_performance_start_date',
-            period_of_performance_current_end_date: 'period_of_performance_current_end_date',
-            total_obligation: 'total_obligation',
-            type: 'type',
-            awarding_agency_name: 'awarding_agency__toptier_agency__name',
-            awarding_subtier_name: 'awarding_agency__subtier_agency__name'
+            award_id: 'awardId',
+            recipient_name: 'recipientName',
+            period_of_performance_start_date: 'startDate',
+            period_of_performance_current_end_date: 'endDate',
+            total_obligation: 'awardAmount',
+            type: 'awardType',
+            awarding_agency_name: 'awardingToptierAgency',
+            awarding_subtier_name: 'awardingSubtierAgency'
         },
         award_id: 'Award ID',
         recipient_name: 'Recipient Name',

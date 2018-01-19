@@ -8,9 +8,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import moment from 'moment';
-import { formatMoney } from 'helpers/moneyFormatter';
-
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableGenericCell';
@@ -74,7 +71,8 @@ export default class LegacyResultsTable extends React.Component {
         const column = this.props.columns[columnIndex];
         const isLast = columnIndex === this.props.columns.length - 1;
 
-        if (column.columnName === 'award_id') {
+
+        if (column.columnName === 'awardId') {
             const award = this.props.results[rowIndex];
             let formattedID = award.piid;
             if (!formattedID) {
@@ -94,20 +92,12 @@ export default class LegacyResultsTable extends React.Component {
             );
         }
 
-        const originalData = this.props.results[rowIndex][column.columnName];
-        let displayedData = originalData;
-        if (column.dataType === 'currency') {
-            displayedData = formatMoney(originalData);
-        }
-        else if (column.dataType === 'date') {
-            // format the content as a date
-            displayedData = moment(originalData, 'YYYY-MM-DD').format('M/D/YYYY');
-        }
+        const originalData = this.props.results[rowIndex][column.fieldName];
 
         return (
             <ResultsTableGenericCell
                 rowIndex={rowIndex}
-                data={displayedData}
+                data={originalData}
                 column={column.columnName}
                 isLastColumn={isLast} />
         );

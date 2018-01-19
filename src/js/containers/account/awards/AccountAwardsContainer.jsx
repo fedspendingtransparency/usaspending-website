@@ -17,8 +17,9 @@ import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes'
 import * as SearchHelper from 'helpers/searchHelper';
 
 import AccountAwardSearchOperation from 'models/account/queries/AccountAwardSearchOperation';
-
 import AccountAwardsSection from 'components/account/awards/AccountAwardsSection';
+
+import BaseFederalAccountAwardRow from '../../../models/v2/BaseFederalAccountAwardRow';
 
 const propTypes = {
     account: PropTypes.object,
@@ -205,6 +206,18 @@ export class AccountAwardsContainer extends React.Component {
         });
     }
 
+    parseAccountAwards(data) {
+        const accountAwards = [];
+
+        data.forEach((accountAward) => {
+            const award = Object.create(BaseFederalAccountAwardRow);
+            award.parse(accountAward);
+            accountAwards.push(award);
+        });
+
+        return accountAwards;
+    }
+
     performSearch(newSearch = false) {
         if (this.searchRequest) {
             // a request is currently in-flight, cancel it
@@ -253,10 +266,10 @@ export class AccountAwardsContainer extends React.Component {
                 // don't clear records if we're appending (not the first page)
                 if (pageNumber <= 1 || newSearch) {
                     newState.tableInstance = `${uniqueId()}`;
-                    newState.results = res.data.results;
+                    newState.results = this.parseAccountAwards(res.data.results);
                 }
                 else {
-                    newState.results = this.state.results.concat(res.data.results);
+                    newState.results = this.state.results.concat(this.parseAccountAwards(res.data.results));
                 }
 
                 // request is done
@@ -341,6 +354,7 @@ export class AccountAwardsContainer extends React.Component {
         if (Object.keys(this.state.columns).length === 0) {
             return null;
         }
+
         return (
             <AccountAwardsSection
                 inFlight={this.state.inFlight}
