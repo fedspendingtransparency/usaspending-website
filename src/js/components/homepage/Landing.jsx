@@ -5,7 +5,6 @@
 
 import React from 'react';
 import * as Icons from 'components/sharedComponents/icons/Icons';
-import NavBar from 'components/sharedComponents/header/NavBar';
 import { scrollToY } from 'helpers/scrollToHelper';
 
 export default class Landing extends React.Component {
@@ -26,11 +25,6 @@ export default class Landing extends React.Component {
     render() {
         return (
             <div className="top-section">
-                <div className="site-header">
-                    <header>
-                        <NavBar homepage />
-                    </header>
-                </div>
                 <div className="landing-parent-wrap" id="main-content">
                     <div
                         className="landing-section-wrap">

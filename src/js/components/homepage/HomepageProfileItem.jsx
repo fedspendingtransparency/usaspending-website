@@ -38,7 +38,7 @@ const HomepageProfileItem = (props) => {
                 className="dropdown-button"
                 onClick={clickedButton}
                 disabled={!props.enabled}>
-                {props.title}
+                {props.label}
                 {decorator}
             </button>
         </li>
