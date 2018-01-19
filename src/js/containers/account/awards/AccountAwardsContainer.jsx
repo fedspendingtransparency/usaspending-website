@@ -19,7 +19,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import AccountAwardSearchOperation from 'models/account/queries/AccountAwardSearchOperation';
 import AccountAwardsSection from 'components/account/awards/AccountAwardsSection';
 
-import BaseFederalAccountAwardRow from '../../../models/v2/BaseFederalAccountAwardRow';
+import BaseFederalAccountAwardRow from 'models/v2/BaseFederalAccountAwardRow';
 
 const propTypes = {
     account: PropTypes.object,

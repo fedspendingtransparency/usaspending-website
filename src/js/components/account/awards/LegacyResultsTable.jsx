@@ -15,7 +15,7 @@ import ResultsTableAwardIdCell from 'components/search/table/cells/ResultsTableA
 
 import LegacyTableHeaderCell from './LegacyTableHeaderCell';
 
-import AccountTableSearchFields from '../../../dataMapping/search/accountTableSearchFields';
+import AccountTableSearchFields from 'dataMapping/search/accountTableSearchFields';
 
 const propTypes = {
     results: PropTypes.array,
