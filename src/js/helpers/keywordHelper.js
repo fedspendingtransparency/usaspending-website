@@ -39,24 +39,18 @@ export const performKeywordSearch = (params) => {
     };
 };
 
-const mockResponse = {
-    results: {
-        contracts: 200,
-        grants: 74,
-        direct_payments: 28,
-        loans: 621,
-        other: 17
-    }
+export const performTabCountSearch = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/search/spending_by_transaction_count/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
 };
-
-export const performTabCountSearch = () => (
-    {
-        promise: new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({
-                    data: mockResponse
-                });
-            }, 1000);
-        })
-    }
-);
