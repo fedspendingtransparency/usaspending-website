@@ -7,13 +7,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { orderBy } from 'lodash';
+import { orderBy, difference, concat, indexOf } from 'lodash';
 
 import moment from 'moment';
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
 import { topFilterGroupGenerator } from
     'components/search/topFilterBar/filterGroups/TopFilterGroupGenerator';
+
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import * as AwardType from 'dataMapping/search/awardType';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -601,13 +604,70 @@ export class TopFilterBarContainer extends React.Component {
         return null;
     }
 
+    determineFYCount(count) {
+        const allFY = (FiscalYearHelper.currentFiscalYear() - FiscalYearHelper.earliestFiscalYear)
+            + 1;
+
+        if (count === allFY) {
+            return 1;
+        }
+
+        return count;
+    }
+
+    determineAwardTypeCount(values) {
+        const fullGroups = [];
+        const groupKeys = ['contracts', 'grants', 'direct_payments', 'loans', 'other'];
+
+        groupKeys.forEach((key) => {
+            const fullMembership = AwardType.awardTypeGroups[key];
+
+            // quick way of checking for full group membership is to return an array of missing
+            // values; it'll be empty if all the values are selected
+            const missingValues = difference(fullMembership, values);
+
+            if (missingValues.length === 0) {
+                // this group is complete
+                fullGroups.push(key);
+            }
+        });
+
+        let awardTypeCount = 0;
+        let excludedValues = [];
+
+        // Add 1 to the count if there is a full group
+        // Add all values of full groups to the excludedValues array
+        fullGroups.forEach((group) => {
+            awardTypeCount += 1;
+
+            // exclude these values from the remaining tags
+            excludedValues = concat(excludedValues, AwardType.awardTypeGroups[group]);
+        });
+
+        // Loop through each value and add 1 to the count if the value hasn't been excluded,
+        // meaning it was not part of a full group of Award Types
+        values.forEach((value) => {
+            if (indexOf(excludedValues, value) < 0) {
+                awardTypeCount += 1;
+            }
+        });
+
+        return awardTypeCount;
+    }
+
     /**
      * Determine the current number of filters that have been applied
      */
     determineFilterCount(filters) {
         let filterCount = 0;
         filters.forEach((filter) => {
-            if (typeof filter.values === "string") {
+            if (filter.code === 'timePeriodFY') {
+                filterCount += this.determineFYCount(filter.values.length);
+            }
+            else if (filter.code === 'awardType') {
+                filterCount += this.determineAwardTypeCount(filter.values);
+            }
+            else if (typeof filter.values === "string") {
                 filterCount += 1;
             }
             else if (filter.values instanceof Array) {
