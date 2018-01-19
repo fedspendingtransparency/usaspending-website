@@ -14,15 +14,12 @@ import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 
-import Hero from './Hero';
+import Hero from './hero/Hero';
+import Features from './features/Features';
 
 require('pages/homepage2/homePage.scss');
 
 export default class Homepage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="usa-da-home-page-2">
@@ -31,6 +28,7 @@ export default class Homepage extends React.Component {
                 <GlossaryContainer />
                 <main id="main-content">
                     <Hero />
+                    <Features />
                 </main>
                 <Footer />
             </div>

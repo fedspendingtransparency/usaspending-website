@@ -2,13 +2,15 @@
     width: 100%;
     height: rem(448);
 
-    background-color: #097AC5;
-    background-image: url('#{$image-path}/homepage_hero.png');
+    position: relative;
+
+    background-color: $color-white;
+    background-image: url('#{$image-path}/homepage-hero.png');
     background-size: cover;
     background-position: bottom center;
 
     @include hidpi {
-        background-image: url('#{$image-path}/homepage_hero@2x.png');
+        background-image: url('#{$image-path}/homepage-hero@2x.png');
     }
 
     .hero-content {
@@ -37,7 +39,7 @@
                 line-height: rem(70);
             }
 
-            .headline-em {
+            strong {
                 font-weight: $font-semibold;
             }
         }
@@ -68,9 +70,11 @@
                 width: rem(800);
             }
 
-            .description-em {
+            strong {
                 font-weight: $font-semibold;
             }
         }
     }
+
+    @import "./_heroButton";
 }
