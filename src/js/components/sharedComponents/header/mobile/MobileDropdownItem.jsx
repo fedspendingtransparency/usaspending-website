@@ -1,12 +1,12 @@
 /**
- * MobileProfileItem.jsx
+ * MobileDropdownItem.jsx
  * Created by Kevin Li 10/4/17
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ProfileComingSoon from '../ProfileComingSoon';
+import DropdownComingSoon from '../DropdownComingSoon';
 
 const propTypes = {
     active: PropTypes.bool,
@@ -16,7 +16,7 @@ const propTypes = {
     hideMobileNav: PropTypes.func
 };
 
-const MobileProfileItem = (props) => {
+const MobileDropdownItem = (props) => {
     let activeClass = '';
     if (props.active) {
         activeClass = 'active';
@@ -28,7 +28,7 @@ const MobileProfileItem = (props) => {
         comingSoonClass = 'coming-soon';
         comingSoonDecorator = (
             <div className="coming-soon-wrapper">
-                <ProfileComingSoon />
+                <DropdownComingSoon />
             </div>
         );
     }
@@ -46,6 +46,6 @@ const MobileProfileItem = (props) => {
     );
 };
 
-MobileProfileItem.propTypes = propTypes;
+MobileDropdownItem.propTypes = propTypes;
 
-export default MobileProfileItem;
+export default MobileDropdownItem;

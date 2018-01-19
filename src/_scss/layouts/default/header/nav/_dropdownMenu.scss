@@ -1,30 +1,30 @@
-.nav-profile-outer-wrap {
+.nav-dropdown-outer-wrap {
     @include flex(1 1 auto);
     height: rem(25);
 }
 
-.usa-nav-profile-button {
+.usa-nav-dropdown-button {
     @include button-unstyled;
     display: block;
     height: rem(25);
-    padding: rem(0) rem(15);
+    padding: rem(0) rem(5);
     color: $color-base;
-    font-size: rem(20);
-    line-height: rem(25);
-    font-weight: $font-semibold;
+    font-size: rem(18);
+    line-height: rem(23);
+    font-weight: $font-normal;
     opacity: 0.6;
 
-    .profile-button-content {
+    .dropdown-button-content {
         @include display(flex);
         @include align-items(center);
         @include justify-content(center);
         position: relative;
 
-        .profile-button-label {
+        .dropdown-button-label {
             @include flex(1 1 auto);
         }
 
-        .profile-button-icon {
+        .dropdown-button-icon {
             @include flex(0 0 auto);
             margin-left: rem(10);
 
@@ -38,25 +38,15 @@
 
     &:hover, &:active, &.active {
         opacity: 1;
-        .profile-button-icon {
+        .dropdown-button-icon {
             svg {
                 fill: $color-base;
             }
         }
     }
-
-
-    &.homepage {
-        color: $color-white;
-        .profile-button-icon {
-            svg {
-                fill: $color-white;
-            }
-        }
-    }
 }
 
-.usa-nav-profile-list {
+.usa-nav-dropdown-list {
     display: none;
     z-index: $z-modal;
     &.active {
@@ -64,12 +54,12 @@
         position: relative;
     }
 
-    .profile-list-wrapper {
+    .dropdown-list-wrapper {
         position: absolute;
         padding-top: rem(13);
     }
 
-    ul.profile-list {
+    ul.dropdown-list {
         position: relative;
         @include unstyled-list;
         background-color: $color-gray-lightest;
@@ -104,7 +94,7 @@
                 }
             }
 
-            .profile-coming-soon {
+            .dropdown-coming-soon {
                 @include display(flex);
                 @include align-items(center);
                 @include justify-content(center);
@@ -129,35 +119,6 @@
                     color: $color-base;
                 }
 
-            }
-        }
-    }
-
-    &.homepage {
-        .profile-list-wrapper {
-            padding-top: 0;
-        }
-        ul.profile-list {
-            background-color: transparent;
-            box-shadow: none;
-
-            a {
-                color: $color-white;
-                &:hover {
-                    color: $color-white;
-                    background-color: transparent;                
-                }
-            }
-
-            .profile-coming-soon {
-                .icon {
-                    svg {
-                        fill: $color-white;
-                    }
-                }
-                .label {
-                    color: $color-white;
-                }
             }
         }
     }

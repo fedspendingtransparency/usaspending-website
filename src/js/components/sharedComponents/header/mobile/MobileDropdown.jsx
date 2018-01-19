@@ -1,5 +1,5 @@
 /**
- * MobileProfiles.jsx
+ * MobileDropdown.jsx
  * Created by Kevin Li 10/2/17
  */
 
@@ -8,16 +8,17 @@ import PropTypes from 'prop-types';
 
 import { AngleUp, AngleDown } from 'components/sharedComponents/icons/Icons';
 
-import { availableProfiles } from 'dataMapping/profiles/availableProfiles';
 
-import MobileProfileItem from './MobileProfileItem';
+import MobileDropdownItem from './MobileDropdownItem';
 
 const propTypes = {
     hideMobileNav: PropTypes.func,
-    active: PropTypes.string
+    active: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    items: PropTypes.array.isRequired
 };
 
-export default class MobileProfiles extends React.Component {
+export default class MobileDropdown extends React.Component {
     constructor(props) {
         super(props);
 
@@ -53,13 +54,13 @@ export default class MobileProfiles extends React.Component {
         }
 
 
-        const items = availableProfiles.map((profile) => (
-            <MobileProfileItem
-                key={profile.code}
-                comingSoon={!profile.enabled}
-                title={profile.title}
-                url={profile.url}
-                active={profile.code === this.props.active}
+        const items = this.props.items.map((item) => (
+            <MobileDropdownItem
+                key={item.url}
+                comingSoon={!item.enabled}
+                title={item.label}
+                url={item.url}
+                active={item.url === this.props.active}
                 hideMobileNav={this.props.hideMobileNav} />
         ));
 
@@ -70,7 +71,7 @@ export default class MobileProfiles extends React.Component {
                     title="Profiles"
                     onClick={this.toggleProfile}>
                     <span className="label">
-                        Profiles
+                        {this.props.label}
                     </span>
                     <span className="icon">
                         {icon}
@@ -87,4 +88,4 @@ export default class MobileProfiles extends React.Component {
     }
 }
 
-MobileProfiles.propTypes = propTypes;
+MobileDropdown.propTypes = propTypes;

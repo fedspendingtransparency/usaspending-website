@@ -1,0 +1,33 @@
+// style the glossary button
+button.header-glossary-button {
+    @include button-unstyled;
+    display: block;
+    height: rem(25);
+    padding: rem(0) rem(5);
+    color: $color-base;
+    font-size: rem(18);
+    line-height: rem(23);
+    font-weight: $font-normal;
+    opacity: 0.6;
+    &:hover, &:active {
+        opacity: 1;
+    }
+
+    .glossary-button-content {
+        margin: 0;
+        .glossary-button-icon {
+            display: inline-block;
+            position: relative;
+            width: rem(15);
+            height: rem(15);
+            margin-right: rem(10);
+            svg {
+                position: absolute;
+                top: rem(3);
+                height: rem(15);
+                width: rem(15);
+                fill: $color-gray-dark;
+            }
+        }
+    }
+}

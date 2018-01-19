@@ -41,7 +41,7 @@
                 margin-left: auto;
                 margin-right: auto;
             }
-            .profile-coming-soon {
+            .dropdown-coming-soon {
                 @include display(flex);
                 @include align-items(center);
                 @include justify-content(center);
