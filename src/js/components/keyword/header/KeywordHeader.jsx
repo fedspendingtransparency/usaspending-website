@@ -7,10 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import DownloadButton from 'components/search/header/DownloadButton';
 
 const propTypes = {
     summary: PropTypes.object,
-    inFlight: PropTypes.bool
+    inFlight: PropTypes.bool,
+    clickedDownload: PropTypes.func,
+    downloadAvailable: PropTypes.bool
 };
 
 export class KeywordHeader extends React.Component {
@@ -78,16 +81,9 @@ export class KeywordHeader extends React.Component {
                         </div>
                         {searchSummary}
                         <div className="search-options">
-                            <div className="download-wrap">
-                                <button
-                                    className="download-button disabled"
-                                    title="Download your data"
-                                    aria-label="Download your data">
-                                    <div className="label">
-                                        Download
-                                    </div>
-                                </button>
-                            </div>
+                            <DownloadButton
+                                downloadAvailable={this.props.downloadAvailable}
+                                onClick={this.props.clickedDownload} />
                         </div>
                     </div>
                 </div>

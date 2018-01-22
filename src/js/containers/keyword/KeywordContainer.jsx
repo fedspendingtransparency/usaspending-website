@@ -4,28 +4,83 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
+import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
+import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import * as KeywordHelper from 'helpers/keywordHelper';
 
 import KeywordPage from 'components/keyword/KeywordPage';
 
 require('pages/keyword/keywordPage.scss');
 
-export default class KeywordContainer extends React.Component {
+const propTypes = {
+    bulkDownload: PropTypes.object,
+    setDataType: PropTypes.func,
+    setDownloadPending: PropTypes.func,
+    setDownloadExpectedFile: PropTypes.func,
+    setDownloadExpectedUrl: PropTypes.func
+};
+
+export class KeywordContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             keyword: '',
             summary: null,
-            summaryInFlight: false
+            summaryInFlight: false,
+            downloadAvailable: false
         };
 
         this.summaryRequest = null;
+        this.downloadRequest = null;
 
         this.updateKeyword = this.updateKeyword.bind(this);
         this.fetchSummary = this.fetchSummary.bind(this);
+        this.startAwardDownload = this.startAwardDownload.bind(this);
+    }
+
+    startAwardDownload() {
+        const params = {
+            award_levels: ['prime_awards'],
+            filters: {
+                keyword: this.state.keyword
+            }
+        };
+
+        this.requestDownload(params, 'awards');
+    }
+
+    requestDownload(params, type) {
+        if (this.downloadRequest) {
+            this.downloadRequest.cancel();
+        }
+
+        this.downloadRequest = BulkDownloadHelper.requestBulkDownload(params, type);
+
+        this.downloadRequest.promise
+            .then((res) => {
+                this.props.setDownloadExpectedUrl(res.data.url);
+                this.props.setDownloadExpectedFile(res.data.file_name);
+                this.props.setDownloadPending(true);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    // something went wrong
+                    console.log(err);
+
+                    if (err.response) {
+                        console.log(err.response.data.message);
+                    }
+                    else {
+                        console.log(err.message);
+                    }
+                }
+            });
     }
 
     fetchSummary() {
@@ -62,12 +117,15 @@ export default class KeywordContainer extends React.Component {
         this.summaryRequest.promise
             .then((res) => {
                 const results = res.data.results;
+                const recordLimit = 500000;
+                const downloadAvailable = results.prime_awards_count < recordLimit;
                 this.setState({
                     summaryInFlight: false,
                     summary: {
                         primeCount: results.prime_awards_count,
                         primeAmount: results.prime_awards_obligation_amount
-                    }
+                    },
+                    downloadAvailable
                 });
             })
             .catch((err) => {
@@ -94,7 +152,16 @@ export default class KeywordContainer extends React.Component {
                 keyword={this.state.keyword}
                 summary={this.state.summary}
                 summaryInFlight={this.state.summaryInFlight}
-                fetchSummary={this.fetchSummary} />
+                fetchSummary={this.fetchSummary}
+                bulkDownload={this.props.bulkDownload}
+                downloadAvailable={this.state.downloadAvailable}
+                startDownload={this.startAwardDownload} />
         );
     }
 }
+
+KeywordContainer.propTypes = propTypes;
+export default connect(
+    (state) => ({ bulkDownload: state.bulkDownload }),
+    (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
+)(KeywordContainer);

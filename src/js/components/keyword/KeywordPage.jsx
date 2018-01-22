@@ -8,10 +8,15 @@ import PropTypes from 'prop-types';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+
 import ResultsTableContainer from 'containers/keyword/table/ResultsTableContainer';
+import BulkDownloadModalContainer from
+    'containers/bulkDownload/modal/BulkDownloadModalContainer';
+
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
+
 import KeywordHeader from './header/KeywordHeader';
 import KeywordSearchBar from './KeywordSearchBar';
 import KeywordSearchHover from './KeywordSearchHover';
@@ -21,7 +26,10 @@ const propTypes = {
     keyword: PropTypes.string,
     summary: PropTypes.object,
     summaryInFlight: PropTypes.bool,
-    fetchSummary: PropTypes.func
+    fetchSummary: PropTypes.func,
+    bulkDownload: PropTypes.object,
+    startDownload: PropTypes.func,
+    downloadAvailable: PropTypes.bool
 };
 
 export default class KeywordPage extends React.Component {
@@ -29,11 +37,40 @@ export default class KeywordPage extends React.Component {
         super(props);
 
         this.state = {
-            showHover: false
+            showHover: false,
+            showModal: false
         };
 
         this.showTooltip = this.showTooltip.bind(this);
         this.closeTooltip = this.closeTooltip.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+        this.showModal = this.showModal.bind(this);
+        this.clickedDownload = this.clickedDownload.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        // Need to close the modal once the download is completed
+        if (this.state.showModal && nextProps.bulkDownload.download.expectedUrl === ""
+            && !nextProps.bulkDownload.download.showCollapsedProgress) {
+            this.hideModal();
+        }
+    }
+
+    hideModal() {
+        this.setState({
+            showModal: false
+        });
+    }
+
+    showModal() {
+        this.setState({
+            showModal: true
+        });
+    }
+
+    clickedDownload() {
+        this.props.startDownload();
+        this.showModal();
     }
 
     showTooltip() {
@@ -62,7 +99,9 @@ export default class KeywordPage extends React.Component {
                 <main id="main-content">
                     <KeywordHeader
                         inFlight={this.props.summaryInFlight}
-                        summary={this.props.summary} />
+                        summary={this.props.summary}
+                        downloadAvailable={this.props.downloadAvailable}
+                        clickedDownload={this.clickedDownload} />
                     <div className="keyword-content">
                         <div className="search-bar-section">
                             <KeywordSearchBar
@@ -87,6 +126,9 @@ export default class KeywordPage extends React.Component {
                             keyword={this.props.keyword}
                             fetchSummary={this.props.fetchSummary} />
                     </div>
+                    <BulkDownloadModalContainer
+                        mounted={this.state.showModal}
+                        hideModal={this.hideModal} />
                 </main>
                 <Footer />
             </div>
