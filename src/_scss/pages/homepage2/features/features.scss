@@ -16,8 +16,15 @@
         line-height: rem(55);
     }
 
-    .screenshot-caption {
-        @include sr-only;
+    .feature-description {
+        p {
+            font-size: rem(18);
+            line-height: rem(30);
+
+            strong {
+                font-weight: $font-semibold;
+            }
+        }
     }
 
     @import "./_carousel";

@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { AngleLeft, AngleRight } from 'components/sharedComponents/icons/Icons';
+
 const propTypes = {
     images: PropTypes.array.isRequired
 };
@@ -15,50 +17,127 @@ export default class ImageCarousel extends React.Component {
         super(props);
 
         this.state = {
-            page: 1
+            page: 1,
+            isDragging: false
         };
 
         // these are not state because we don't need to trigger a new render
-        this._isDragging = false;
-        this._imageWidth = 0;
-
-        this.measureList = this.measureList.bind(this);
+        this._lastDragX = null;
+        this._currentX = 0;
 
         this.touchedCarousel = this.touchedCarousel.bind(this);
         this.untouchedCarousel = this.untouchedCarousel.bind(this);
-        this.draggedCarousel = this.draggedCarousel.bind(this);
+        this.touchDraggedCarousel = this.touchDraggedCarousel.bind(this);
+
+        this.startedMouseDrag = this.startedMouseDrag.bind(this);
+        this.stoppedMouseDrag = this.stoppedMouseDrag.bind(this);
+        this.performedMouseDrag = this.performedMouseDrag.bind(this);
+
 
         this.clickedDot = this.clickedDot.bind(this);
         this.previousItem = this.previousItem.bind(this);
         this.nextItem = this.nextItem.bind(this);
+
+        this.resizeCarousel = this.resizeCarousel.bind(this);
     }
 
     componentDidMount() {
-        this.measureList();
-        window.addEventListener('resize', this.measureList);
+        window.addEventListener('resize', this.resizeCarousel);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.measureList);
+        window.removeEventListener('resize', this.resizeCarousel);
     }
-
-    measureList() {
-        if (this.carouselContainer) {
-            this._imageWidth = this.carouselContainer.clientWidth;
-        }
-    }
-
 
     touchedCarousel() {
-
+        this.setState({
+            isDragging: true
+        });
     }
 
     untouchedCarousel() {
-
+        this.commonDragCompletion();
     }
 
-    draggedCarousel() {
+    touchDraggedCarousel(e) {
+        if (!this.state.isDragging || !e.touches || !e.touches.length || !this.carouselList) {
+            return;
+        }
+        // arbitrarily just go with the first touch
+        const firstTouch = e.touches[0];
+        if (this._lastDragX === null) {
+            // this is the first drag event
+            this._lastDragX = firstTouch.pageX;
+        }
+        else {
+            this.commonDragLogic(firstTouch.pageX);
+        }
+    }
 
+    startedMouseDrag(e) {
+        // stop the browser from trying to drag the image for saving
+        // or whatever native drag behavior
+        e.preventDefault();
+        this.setState({
+            isDragging: true
+        });
+    }
+
+    stoppedMouseDrag() {
+        if (!this.state.isDragging) {
+            return;
+        }
+
+        this.commonDragCompletion();
+    }
+
+    performedMouseDrag(e) {
+        if (!this.state.isDragging) {
+            return;
+        }
+
+        if (this._lastDragX === null) {
+            // this is the first drag event
+            this._lastDragX = e.pageX;
+        }
+        else {
+            this.commonDragLogic(e.pageX);
+        }
+    }
+
+    commonDragLogic(xPos) {
+        const change = xPos - this._lastDragX;
+        this._lastDragX = xPos;
+
+        this._currentX = this._currentX + change;
+        this.carouselList.style.transform = `translate(${this._currentX}px, 0px)`;
+    }
+
+    commonDragCompletion() {
+        this._lastDragX = null;
+        this.setState({
+            isDragging: false
+        }, () => {
+            // calculate the closest page
+            const page = this.determineClosestPage();
+            this.goToItem(page);
+        });
+    }
+
+    resizeCarousel() {
+        this.goToItem(this.state.page);
+    }
+
+    determineClosestPage() {
+        const imageWidth = this.carouselContainer.offsetWidth;
+        const page = Math.round((this._currentX * -1) / imageWidth) + 1;
+        if (page > this.props.images.length) {
+            return this.props.images.length;
+        }
+        else if (page < 1) {
+            return 1;
+        }
+        return page;
     }
 
     previousItem() {
@@ -83,16 +162,17 @@ export default class ImageCarousel extends React.Component {
         this.setState({
             page: i
         }, () => {
-            console.log(this._imageWidth);
-            const offset = (this.state.page - 1) * this._imageWidth * -1;
-            if (this.carouselList) {
+            if (this.carouselList && this.carouselContainer) {
+                const imageWidth = this.carouselContainer.offsetWidth;
+                const offset = (this.state.page - 1) * imageWidth * -1;
+                this._currentX = offset;
                 this.carouselList.style.transform = `translate(${offset}px, 0px)`;
             }
         });
     }
 
     clickedDot(e) {
-        const page = e.target.value;
+        const page = parseInt(e.target.value, 10);
         this.goToItem(page);
     }
 
@@ -131,6 +211,11 @@ export default class ImageCarousel extends React.Component {
             );
         });
 
+        let activeDrag = '';
+        if (this.state.isDragging) {
+            activeDrag = 'dragging';
+        }
+
         return (
             <div className="homepage-image-carousel">
                 <div className="carousel-top">
@@ -138,18 +223,23 @@ export default class ImageCarousel extends React.Component {
                         aria-label="Previous carousel item"
                         className="carousel-arrow left"
                         onClick={this.previousItem}>
-                        <img
-                            src="img/carousel-arrow-right.png"
-                            srcSet="img/carousel-arrow-right.png 1x, img/carousel-arrow-right@2x.png 2x"
-                            alt="Previous carousel item" />
+                        <AngleLeft alt="Previous carousel item" />
                     </button>
                     <div
                         className="carousel-container"
+                        onTouchStart={this.touchedCarousel}
+                        onTouchMove={this.touchDraggedCarousel}
+                        onTouchEnd={this.untouchedCarousel}
+                        onTouchCancel={this.untouchedCarousel}
+                        onMouseDown={this.startedMouseDrag}
+                        onMouseUp={this.stoppedMouseDrag}
+                        onMouseLeave={this.stoppedMouseDrag}
+                        onMouseMove={this.performedMouseDrag}
                         ref={(div) => {
                             this.carouselContainer = div;
                         }}>
                         <ul
-                            className="carousel-images"
+                            className={`carousel-images ${activeDrag}`}
                             ref={(ul) => {
                                 this.carouselList = ul;
                             }}>
@@ -160,10 +250,7 @@ export default class ImageCarousel extends React.Component {
                         aria-label="Next carousel item"
                         className="carousel-arrow right"
                         onClick={this.nextItem}>
-                        <img
-                            src="img/carousel-arrow-right.png"
-                            srcSet="img/carousel-arrow-right.png 1x, img/carousel-arrow-right@2x.png 2x"
-                            alt="Next carousel item" />
+                        <AngleRight alt="Next carousel item" />
                     </button>
                 </div>
                 <div className="carousel-bottom">

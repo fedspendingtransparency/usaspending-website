@@ -9,16 +9,24 @@
             @include flex(0 0 auto);
             @include button-unstyled;
 
-            &.left {
-                img {
-                    @include transform(rotate(180deg));
-                }
+            opacity: 0.5;
+            @include transition(opacity 150ms);
+
+            svg {
+                fill: $color-gray-light;
+                width: rem(50);
+            }
+
+            &:hover, &:active {
+                opacity: 1;
             }
         }
 
         .carousel-container {
             @include flex(1 1 auto);
             overflow-x: hidden;
+
+            margin: 0 rem(20);
         }
 
         ul.carousel-images {
@@ -30,13 +38,15 @@
 
             @include transition(transform 300ms);
 
+            &.dragging {
+                @include transition(none);
+            }
+
             li {
                 @include flex(0 0 auto);
                 width: 100%;
-                border: 1px solid red;
 
                 // within the box, we need to center the image
-
                 img {
                     display: block;
                     background-color: $color-white;
@@ -77,6 +87,7 @@
                 height: rem(14);
                 border-radius: rem(7);
                 background-color: $color-gray-light;
+                pointer-events: none;
             }
 
             &:hover, &:active, &.active {
