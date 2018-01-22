@@ -8,11 +8,10 @@ import React from 'react';
 const SpendingExplorerFeature = () => (
     <div className="feature-spending-explorer">
         <div className="spending-explorer-left">
-            <div className="spending-explorer-screenshot">
-                <div className="screenshot-caption">
-                    Screenshot of the Spending Explorer
-                </div>
-            </div>
+            <img
+                src="img/homepage-spending-explorer.png"
+                srcSet="img/homepage-spending-explorer.png 1x, img/homepage-spending-explorer@2x.png 2x"
+                alt="Screenshot of the Spending Explorer" />
         </div>
         <div className="spending-explorer-right">
             <h2
