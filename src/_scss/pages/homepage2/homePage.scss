@@ -3,4 +3,11 @@
     @import "layouts/default/default";
 
     @import "layouts/default/header/_warning";
+
+    .homepage-content {
+        background-color: $color-white;
+    }
+
+    @import "./hero/hero";
+    @import "./features/features";
 }

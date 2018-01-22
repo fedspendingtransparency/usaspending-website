@@ -33,7 +33,7 @@ export default class Header extends React.Component {
         e.preventDefault();
         // scroll to the main-content id
         const mainContent = document.getElementById('main-content');
-        const mainFocus = document.getElementById('main-focus');
+        const mainFocus = document.querySelector('#main-content h1');
         const yPos = mainContent.getBoundingClientRect().top;
         window.scrollTo(0, yPos);
         // focus on the element
