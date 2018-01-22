@@ -39,3 +39,8 @@ export const mockTabCount = {
         other: 17
     }
 };
+
+export const mockProps = {
+    keyword: '',
+    fetchSummary: jest.fn()
+};

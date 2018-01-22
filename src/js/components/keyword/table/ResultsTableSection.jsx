@@ -18,7 +18,7 @@ import ResultsTable from './ResultsTable';
 const propTypes = {
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
-    keywordApplied: PropTypes.bool,
+    keyword: PropTypes.string,
     tableTypes: PropTypes.array,
     currentType: PropTypes.string,
     switchTab: PropTypes.func,
@@ -66,7 +66,7 @@ export default class ResultsTableSection extends React.Component {
                 visibleWidth={this.state.tableWidth} />
         );
 
-        if (!this.props.keywordApplied) {
+        if (this.props.keyword === '') {
             table = null;
             message = (
                 <div className="results-table-message-container full">
