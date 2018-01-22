@@ -22,7 +22,7 @@ export default class TableRow extends React.PureComponent {
             rowClass = 'row-odd';
         }
         const cells = this.props.columns.map((column) => {
-            if (column.columnName === 'name') {
+            if (column.columnName === 'name' && this.props.item.id) {
                 // show the link cell
                 return (
                     <td
@@ -41,7 +41,7 @@ export default class TableRow extends React.PureComponent {
             return (
                 <td
                     className={rowClass}
-                    key={`${column.columnName}-${this.props.item.id}`}>
+                    key={`${column.columnName}-${this.props.item.name}`}>
                     <GenericCell
                         rowIndex={this.props.rowIndex}
                         data={this.props.item.display[column.columnName]}
