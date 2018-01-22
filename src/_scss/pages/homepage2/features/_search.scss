@@ -1,0 +1,46 @@
+
+.feature-award-search {
+    display: block;
+    margin: rem(60) 0;
+    position: relative;
+
+    @include media($medium-screen) {
+        @include display(flex);
+        @include justify-content(flex-start);
+        @include align-items(center);
+        margin-top: rem(120);
+    }
+
+    .award-search-background-flair {
+        position: absolute;
+        top: 0;
+        width: 100vw;
+        height: 150%;
+        margin-left: calc(50% - 50vw);
+        z-index: 0;
+
+        background-color: $color-gray-warm-light;
+        opacity: 0.5;
+
+        @include transform(skewY(5deg));
+    }
+
+    .award-search-left {
+        @include media($medium-screen) {
+            @include flex(1 1 auto);
+        }
+
+        z-index: 1;
+    }
+
+    .award-search-right {
+        @include media($medium-screen) {
+            @include flex(0 0 auto);
+            width: 60%;
+            margin: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    z-index: 1;
+}

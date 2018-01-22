@@ -6,6 +6,7 @@
 import React from 'react';
 
 import SpendingExplorerFeature from './SpendingExplorerFeature';
+import SearchFeature from './SearchFeature';
 
 const Features = () => (
     <section
@@ -14,6 +15,7 @@ const Features = () => (
         aria-label="Web site features">
         <div className="homepage-feature-content">
             <SpendingExplorerFeature />
+            <SearchFeature />
         </div>
     </section>
 );
