@@ -7,17 +7,15 @@
     @include media($medium-screen) {
         @include display(flex);
         @include justify-content(flex-start);
-        @include align-items(center);
+        @include align-items(flex-start);
         margin-top: rem(120);
     }
 
     .award-search-background-flair {
         position: absolute;
-        top: 0;
         width: 100vw;
-        height: 150%;
+        height: 100%;
         margin-left: calc(50% - 50vw);
-        z-index: 0;
 
         background-color: $color-gray-warm-light;
         opacity: 0.5;
@@ -26,14 +24,15 @@
     }
 
     .award-search-left {
+        position: relative;
         @include media($medium-screen) {
             @include flex(1 1 auto);
+            padding-right: rem(55);
         }
-
-        z-index: 1;
     }
 
     .award-search-right {
+        position: relative;
         @include media($medium-screen) {
             @include flex(0 0 auto);
             width: 60%;

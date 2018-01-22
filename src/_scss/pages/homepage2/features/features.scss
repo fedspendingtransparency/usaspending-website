@@ -20,6 +20,7 @@
         @include sr-only;
     }
 
+    @import "./_carousel";
     @import "./_spendingExplorer";
     @import "./_search";
 }
