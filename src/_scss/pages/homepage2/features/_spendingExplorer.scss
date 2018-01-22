@@ -5,7 +5,7 @@
     @include media($medium-screen) {
         @include display(flex);
         @include justify-content(flex-start);
-        @include align-items(center);
+        @include align-items(flex-start);
         margin-top: rem(120);
     }
 
