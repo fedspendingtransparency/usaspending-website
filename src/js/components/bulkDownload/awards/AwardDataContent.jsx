@@ -108,8 +108,11 @@ export default class AwardDataContent extends React.Component {
                             <InfoCircle />
                         </div>
                         <div className="archive-info">
-                            <div className="archive-info-heading">A faster way to download yearly award data by agency.</div>
-                            <div>Award downloads for entire fiscal years are available for each major agency on our&nbsp;
+                            <div className="archive-info-heading">
+                                A faster way to download yearly award data by agency.
+                            </div>
+                            <div>
+                                Award downloads for entire fiscal years are available for each major agency on our&nbsp;
                                 <a href="/#/bulk_download/award_data_archive">
                                     Award Data Archive
                                 </a>
