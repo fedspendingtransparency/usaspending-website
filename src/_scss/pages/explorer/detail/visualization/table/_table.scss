@@ -3,7 +3,7 @@
     background-color: $color-white;
     position: relative;
     display: block;
-    overflow: scroll;
+    overflow: auto;
 
     &.no-results {
         border: none;
