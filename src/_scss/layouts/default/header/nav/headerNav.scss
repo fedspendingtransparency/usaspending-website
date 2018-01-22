@@ -11,10 +11,6 @@ header {
     .nav-container {
         // style the primary menu
         @import "./_primaryMenu";
-        // style the search bar
-        @import "./_menuSearchBar";
-        // style the secondary menu
-        @import "./_secondaryMenu";
     }
     // style the mobile menu button
     @import "./_menuButton";

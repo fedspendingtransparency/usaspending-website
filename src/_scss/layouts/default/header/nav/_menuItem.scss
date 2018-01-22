@@ -8,23 +8,19 @@ li.menu-item {
     margin: 0;
     padding: 0 rem(5);
     @include media($large-screen) {
-        padding: 0 rem(15);
+        padding: 0 rem(5);
     }
     a {
         @include flex(1 1 auto);
-        color: $color-gray;
-        font-size: rem(20);
-        line-height: rem(25);
-        font-weight: $font-semibold;
+        color: $color-base;
+        font-size: rem(18);
+        line-height: rem(23);
+        font-weight: $font-normal;
         opacity: 0.60;
 
         &:hover, &:active {
             text-decoration: none;
             opacity: 1;
-        }
-
-        &.homepage {
-            color: $color-white;
         }
     }
     &.search-item {
