@@ -5,46 +5,60 @@
 
 import React from 'react';
 
+import { searchOptions } from 'dataMapping/navigation/menuOptions';
+
 import ImageCarousel from './ImageCarousel';
+import FeatureDropdown from './FeatureDropdown';
 
-const SearchFeature = () => {
-    const images = [
-        {
-            src: 'img/homepage-award-search.png',
-            srcSet: 'img/homepage-award-search.png 1x, img/homepage-award-search@2x.png 2x',
-            alt: 'Screenshot of the Award Search page, showing a map data visualization'
-        },
-        {
-            src: 'img/homepage-keyword-search.png',
-            srcSet: 'img/homepage-keyword-search.png 1x, img/homepage-keyword-search@2x.png 2x',
-            alt: 'Screenshot of the Keyword Search page'
-        }
-    ];
+const images = [
+    {
+        src: 'img/homepage-award-search.png',
+        srcSet: 'img/homepage-award-search.png 1x, img/homepage-award-search@2x.png 2x',
+        alt: 'Screenshot of the Award Search page, showing a map data visualization'
+    },
+    {
+        src: 'img/homepage-keyword-search.png',
+        srcSet: 'img/homepage-keyword-search.png 1x, img/homepage-keyword-search@2x.png 2x',
+        alt: 'Screenshot of the Keyword Search page'
+    }
+];
 
-    return (
-        <div className="feature-award-search">
-            <div className="award-search-background-flair" />
-            <div className="award-search-left">
-                <h2
-                    className="feature-title"
-                    tabIndex={-1}>
-                    A targeted approach to finding federal award data
-                </h2>
-                <div className="feature-description">
-                    <p>
-                        Whether you&apos;re a congressional staffer, agency employee, researcher, or data buff, the <strong>Award Search</strong> will help you answer your toughest questions about federal spending.
-                    </p>
-                    <p>
-                        Our Keyword Search lets you explore award data in broad strokes, while our Advanced Search offers filters that let you customize your data sets. Interactive visualizations &mdash; including a spending map &mdash; complement downloadable files.
-                    </p>
-                </div>
-            </div>
-            <div className="award-search-right">
+const SearchFeature = () => (
+    <div className="feature-award-search">
+        <div className="award-search-background-flair" />
+        <div className="award-search-left">
+            <h2
+                className="feature-title"
+                tabIndex={-1}>
+                A targeted approach to finding federal award data
+            </h2>
+
+            <div className="award-search-mobile-carousel">
                 <ImageCarousel
-                    images={images} />
+                    images={images}
+                    label="Image carousel of Award Search screenshots " />
             </div>
+
+            <div className="feature-description">
+                <p>
+                    Whether you&apos;re a congressional staffer, agency employee, researcher, or data buff, the <strong>Award Search</strong> will help you answer your toughest questions about federal spending.
+                </p>
+                <p>
+                    Our Keyword Search lets you explore award data in broad strokes, while our Advanced Search offers filters that let you customize your data sets. Interactive visualizations &mdash; including a spending map &mdash; complement downloadable files.
+                </p>
+            </div>
+
+            <FeatureDropdown
+                items={searchOptions}>
+                Select <strong>Search Type</strong>
+            </FeatureDropdown>
         </div>
-    );
-};
+        <div className="award-search-right">
+            <ImageCarousel
+                images={images}
+                label="Image carousel of Award Search screenshots " />
+        </div>
+    </div>
+);
 
 export default SearchFeature;

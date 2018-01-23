@@ -1,4 +1,7 @@
 .homepage-image-carousel {
+    .carousel-instructions {
+        @include sr-only;
+    }
 
     .carousel-top {
         @include display(flex);
@@ -9,16 +12,17 @@
             @include flex(0 0 auto);
             @include button-unstyled;
 
-            opacity: 0.5;
+            opacity: 1;
             @include transition(opacity 150ms);
 
             svg {
-                fill: $color-gray-light;
+                fill: $color-gray;
                 width: rem(50);
             }
 
-            &:hover, &:active {
-                opacity: 1;
+            &.hidden {
+                opacity: 0;
+                pointer-events: none;
             }
         }
 
@@ -79,14 +83,14 @@
             width: rem(14);
             height: rem(14);
 
-            opacity: 0.5;
+            opacity: 0.4;
             @include transition(opacity 150ms);
 
             .dot {
                 width: rem(14);
                 height: rem(14);
                 border-radius: rem(7);
-                background-color: $color-gray-light;
+                background-color: $color-gray;
                 pointer-events: none;
             }
 

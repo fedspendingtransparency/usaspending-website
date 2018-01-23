@@ -1,6 +1,9 @@
 .homepage-hero {
     width: 100%;
-    height: rem(448);
+
+    @include media($tablet-screen) {
+        height: rem(448);
+    }
 
     position: relative;
 
@@ -16,7 +19,7 @@
     .hero-content {
         width: 100%;
         height: 100%;
-        padding: rem(15);
+        padding: rem(15) rem(15) rem(42) rem(15);
         
         @include display(flex);
         @include flex-direction(column);
@@ -33,6 +36,8 @@
             font-size: rem(45);
             line-height: 1.2;
             text-align: center;
+
+            align-self: stretch; // for IE
 
             @include media($tablet-screen) {
                 font-size: rem(50);

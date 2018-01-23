@@ -5,11 +5,17 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 
 import { AngleLeft, AngleRight } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    images: PropTypes.array.isRequired
+    images: PropTypes.array.isRequired,
+    label: PropTypes.string
+};
+
+const defaultProps = {
+    label: 'Image carousel'
 };
 
 export default class ImageCarousel extends React.Component {
@@ -24,6 +30,7 @@ export default class ImageCarousel extends React.Component {
         // these are not state because we don't need to trigger a new render
         this._lastDragX = null;
         this._currentX = 0;
+        this.instanceId = uniqueId();
 
         this.touchedCarousel = this.touchedCarousel.bind(this);
         this.untouchedCarousel = this.untouchedCarousel.bind(this);
@@ -202,7 +209,10 @@ export default class ImageCarousel extends React.Component {
             dots.push(dot);
 
             return (
-                <li key={image.key || image.src}>
+                <li
+                    key={image.key || image.src}
+                    aria-hidden={this.state.page !== index + 1}
+                    tabIndex={-1}>
                     <img
                         src={image.src}
                         srcSet={image.srcSet}
@@ -216,12 +226,38 @@ export default class ImageCarousel extends React.Component {
             activeDrag = 'dragging';
         }
 
+        let hiddenLeft = '';
+        if (this.state.page === 1) {
+            hiddenLeft = 'hidden';
+        }
+
+        let hiddenRight = '';
+        if (this.state.page === this.props.images.length) {
+            hiddenRight = 'hidden';
+        }
+
+        let screenreaderDescription = `${this.props.images.length} item`;
+        if (this.props.images.length !== 1) {
+            screenreaderDescription += 's';
+        }
+
         return (
-            <div className="homepage-image-carousel">
+            <div
+                className="homepage-image-carousel"
+                tabIndex={-1}
+                aria-describedby={`${this.instanceId}-instructions`}>
+                <div
+                    id={`${this.instanceId}-instructions`}
+                    className="carousel-instructions"
+                    aria-live="polite">
+                    An image carousel containing {screenreaderDescription}, with item {this.state.page} shown.
+                </div>
                 <div className="carousel-top">
                     <button
                         aria-label="Previous carousel item"
-                        className="carousel-arrow left"
+                        className={`carousel-arrow ${hiddenLeft}`}
+                        aria-hidden={this.state.page === 1}
+                        disabled={this.state.page === 1}
                         onClick={this.previousItem}>
                         <AngleLeft alt="Previous carousel item" />
                     </button>
@@ -235,11 +271,13 @@ export default class ImageCarousel extends React.Component {
                         onMouseUp={this.stoppedMouseDrag}
                         onMouseLeave={this.stoppedMouseDrag}
                         onMouseMove={this.performedMouseDrag}
+                        role="presentation"
                         ref={(div) => {
                             this.carouselContainer = div;
                         }}>
                         <ul
                             className={`carousel-images ${activeDrag}`}
+                            aria-live="polite"
                             ref={(ul) => {
                                 this.carouselList = ul;
                             }}>
@@ -248,7 +286,9 @@ export default class ImageCarousel extends React.Component {
                     </div>
                     <button
                         aria-label="Next carousel item"
-                        className="carousel-arrow right"
+                        className={`carousel-arrow ${hiddenRight}`}
+                        aria-hidden={this.state.page === this.props.images.length}
+                        disabled={this.state.page === this.props.images.length}
                         onClick={this.nextItem}>
                         <AngleRight alt="Next carousel item" />
                     </button>
@@ -267,3 +307,4 @@ export default class ImageCarousel extends React.Component {
 }
 
 ImageCarousel.propTypes = propTypes;
+ImageCarousel.defaultProps = defaultProps;

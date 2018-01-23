@@ -13,14 +13,20 @@
 
     .award-search-background-flair {
         position: absolute;
+        top: rem(-30);
+        bottom: rem(-30);
         width: 100vw;
-        height: 100%;
         margin-left: calc(50% - 50vw);
 
         background-color: $color-gray-warm-light;
         opacity: 0.5;
 
         @include transform(skewY(5deg));
+
+        @include media($medium-screen) {
+            top: 0;
+            bottom: 0;
+        }
     }
 
     .award-search-left {
@@ -29,17 +35,26 @@
             @include flex(1 1 auto);
             padding-right: rem(55);
         }
+
+        .award-search-mobile-carousel {
+            display: block;
+            margin: rem(35) 0;
+
+            @include media($medium-screen) {
+                display: none;
+            }
+        }
     }
 
     .award-search-right {
         position: relative;
+        display: none;
         @include media($medium-screen) {
             @include flex(0 0 auto);
+            display: block;
             width: 60%;
             margin: 0;
             margin-bottom: 0;
         }
     }
-
-    z-index: 1;
 }
