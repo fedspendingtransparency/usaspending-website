@@ -47,8 +47,7 @@
 
             width: rem(273);
             height: rem(57);
-            margin-left: auto;
-            margin-right: auto;
+            margin-left: 0;
 
             @include media($medium-screen) {
                 margin-left: 0;
