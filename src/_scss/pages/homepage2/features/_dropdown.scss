@@ -44,12 +44,12 @@
 
             &:hover, &:active {
                 text-decoration: none;
-                background-color: $color-gray-light;
+                background-color: $color-gray-lighter;
             }
         }        
 
         &.item-coming-soon {
-            color: $color-base;
+            color: $color-gray-light;
             font-size: rem(21);
             line-height: rem(27);
             padding: rem(7) rem(24);

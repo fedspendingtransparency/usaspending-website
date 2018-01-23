@@ -25,13 +25,13 @@ export const profileOptions = [
         enabled: true
     },
     {
-        label: 'Recipients',
-        url: '#/recipient',
+        label: 'Federal Accounts',
+        url: '#/federal_account',
         enabled: false
     },
     {
-        label: 'Federal Accounts',
-        url: '#/federal_account',
+        label: 'Recipients',
+        url: '#/recipient',
         enabled: false
     }
 ];

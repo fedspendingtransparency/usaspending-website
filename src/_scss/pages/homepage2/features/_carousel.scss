@@ -15,6 +15,11 @@
             opacity: 1;
             @include transition(opacity 150ms);
 
+            display: none;
+            @include media($tablet-screen) {
+                display: block;
+            }
+
             svg {
                 fill: $color-gray;
                 width: rem(50);

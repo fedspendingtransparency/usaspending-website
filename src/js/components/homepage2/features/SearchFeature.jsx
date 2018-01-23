@@ -48,15 +48,16 @@ const SearchFeature = () => (
                 </p>
             </div>
 
-            <FeatureDropdown
-                items={searchOptions}>
-                Select <strong>Search Type</strong>
-            </FeatureDropdown>
+            <div className="award-search-dropdown">
+                <FeatureDropdown
+                    items={searchOptions}>
+                    Select <strong>Search Type</strong>
+                </FeatureDropdown>
+            </div>
         </div>
         <div className="award-search-right">
             <ImageCarousel
-                images={images}
-                label="Image carousel of Award Search screenshots " />
+                images={images} />
         </div>
     </div>
 );

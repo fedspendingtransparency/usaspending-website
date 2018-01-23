@@ -10,12 +10,7 @@ import { uniqueId } from 'lodash';
 import { AngleLeft, AngleRight } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    images: PropTypes.array.isRequired,
-    label: PropTypes.string
-};
-
-const defaultProps = {
-    label: 'Image carousel'
+    images: PropTypes.array.isRequired
 };
 
 export default class ImageCarousel extends React.Component {
@@ -307,4 +302,3 @@ export default class ImageCarousel extends React.Component {
 }
 
 ImageCarousel.propTypes = propTypes;
-ImageCarousel.defaultProps = defaultProps;
