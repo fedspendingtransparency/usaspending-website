@@ -25,7 +25,7 @@ export default class ImageCarousel extends React.Component {
         // these are not state because we don't need to trigger a new render
         this._lastDragX = null;
         this._currentX = 0;
-        this.instanceId = uniqueId();
+        this._instanceId = uniqueId();
 
         this.touchedCarousel = this.touchedCarousel.bind(this);
         this.untouchedCarousel = this.untouchedCarousel.bind(this);
@@ -108,9 +108,11 @@ export default class ImageCarousel extends React.Component {
     }
 
     commonDragLogic(xPos) {
+        // determine how much we have moved the cursor
         const change = xPos - this._lastDragX;
         this._lastDragX = xPos;
 
+        // change the carousel translation by the same amount
         this._currentX = this._currentX + change;
         this.carouselList.style.transform = `translate(${this._currentX}px, 0px)`;
     }
@@ -132,6 +134,9 @@ export default class ImageCarousel extends React.Component {
 
     determineClosestPage() {
         const imageWidth = this.carouselContainer.offsetWidth;
+        // don't allow page to be 0 based (min page is 1)
+        // also we need to use the negative of the X position because the translation that occurred
+        // was negative, but our pages are positive
         const page = Math.round((this._currentX * -1) / imageWidth) + 1;
         if (page > this.props.images.length) {
             return this.props.images.length;
@@ -186,7 +191,7 @@ export default class ImageCarousel extends React.Component {
             if (index + 1 === this.state.page) {
                 activeClass = 'active';
             }
-
+            // create the bottom pagination dots while we're iterating through the image array
             const dot = (
                 <li key={image.key || image.src}>
                     <button
@@ -203,6 +208,7 @@ export default class ImageCarousel extends React.Component {
 
             dots.push(dot);
 
+            // now also create the image items
             return (
                 <li
                     key={image.key || image.src}
@@ -240,9 +246,9 @@ export default class ImageCarousel extends React.Component {
             <div
                 className="homepage-image-carousel"
                 tabIndex={-1}
-                aria-describedby={`${this.instanceId}-instructions`}>
+                aria-describedby={`${this._instanceId}-instructions`}>
                 <div
-                    id={`${this.instanceId}-instructions`}
+                    id={`${this._instanceId}-instructions`}
                     className="carousel-instructions"
                     aria-live="polite">
                     An image carousel containing {screenreaderDescription}, with item {this.state.page} shown.
