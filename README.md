@@ -1,6 +1,7 @@
 # USAspending Website
 
 [![Build Status](https://travis-ci.org/fedspendingtransparency/usaspending-website.svg?branch=dev)](https://travis-ci.org/fedspendingtransparency/usaspending-website) [![Test Coverage](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/badges/coverage.svg)](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/coverage)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffedspendingtransparency%2Fusaspending-website.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffedspendingtransparency%2Fusaspending-website?ref=badge_shield)
 
 [The USAspending website](https://beta.usaspending.gov/) is the public-facing site offering information on Government spending for the United States.
 
@@ -91,3 +92,7 @@ Additional Webpack configurations are available for common tasks:
 * `npm run dev` builds the web application in development mode, but generates static files rather than creating a web server. This is useful if you are hosting a remote development environment.
 * `npm run sass` builds the web application in development mode with a local server (the same as `npm start`), but also includes sourcemapping for Sass files. However, this does result in slower builds.
 * `npm run travis` is reserved for the Travis CI system and runs the linter and Jest tests in a single thread with error reporting.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffedspendingtransparency%2Fusaspending-website.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffedspendingtransparency%2Fusaspending-website?ref=badge_large)
