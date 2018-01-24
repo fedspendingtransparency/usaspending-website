@@ -66,7 +66,7 @@ export default class ResultsTableSection extends React.Component {
                 visibleWidth={this.state.tableWidth} />
         );
 
-        if (this.props.keyword === '') {
+        if (!this.props.keyword) {
             table = null;
             message = (
                 <div className="results-table-message-container full">

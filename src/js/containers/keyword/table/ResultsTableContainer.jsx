@@ -116,17 +116,15 @@ export default class ResultsTableContainer extends React.Component {
     parseTabCounts(data) {
         const transactionCounts = data.results;
         let firstAvailable = '';
-        let i = 0;
 
         // Set the first available award type to the first non-zero entry in the
-        while (firstAvailable === '' && i < tableTypes.length) {
+        for (let i = 0; i < tableTypes.length; i++) {
             const tableType = tableTypes[i].internal;
 
             if (transactionCounts[tableType] > 0) {
                 firstAvailable = tableType;
+                break;
             }
-
-            i += 1;
         }
 
         // If none of the award types are populated, set the first available tab to be the
