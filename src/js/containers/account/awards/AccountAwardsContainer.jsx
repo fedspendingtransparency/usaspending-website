@@ -11,14 +11,15 @@ import { uniqueId } from 'lodash';
 
 import { measureTableHeader } from 'helpers/textMeasurement';
 
-import TableSearchFields from 'dataMapping/search/tableSearchFields';
+import AccountTableSearchFields from 'dataMapping/search/accountTableSearchFields';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import AccountAwardSearchOperation from 'models/account/queries/AccountAwardSearchOperation';
-
 import AccountAwardsSection from 'components/account/awards/AccountAwardsSection';
+
+import BaseFederalAccountAwardRow from 'models/v2/BaseFederalAccountAwardRow';
 
 const propTypes = {
     account: PropTypes.object,
@@ -63,7 +64,7 @@ export class AccountAwardsContainer extends React.Component {
             counts: {},
             tableType: 'contracts',
             sort: {
-                field: 'Award Amount',
+                field: 'awardAmount',
                 direction: 'desc'
             },
             inFlight: true,
@@ -170,13 +171,13 @@ export class AccountAwardsContainer extends React.Component {
             // calculate the column metadata to display for each table type
             const tableType = table.internal;
             const typeColumns = [];
-            let sortOrder = TableSearchFields.defaultSortDirection;
+            let sortOrder = AccountTableSearchFields.defaultSortDirection;
 
             if (tableType === 'loans') {
-                sortOrder = TableSearchFields.loans.sortDirection;
+                sortOrder = AccountTableSearchFields.loans.sortDirection;
             }
 
-            const tableSettings = TableSearchFields[tableType];
+            const tableSettings = AccountTableSearchFields[tableType];
 
             tableSettings._order.forEach((col) => {
                 let dataType = awardTableColumnTypes[tableSettings[col]];
@@ -187,7 +188,7 @@ export class AccountAwardsContainer extends React.Component {
                 const column = {
                     dataType,
                     columnName: col,
-                    fieldName: TableSearchFields[tableType]._mapping[col],
+                    fieldName: AccountTableSearchFields[tableType]._mapping[col],
                     displayName: tableSettings[col],
                     width: measureTableHeader(tableSettings[col]),
                     defaultDirection: sortOrder[col]
@@ -203,6 +204,18 @@ export class AccountAwardsContainer extends React.Component {
         }, () => {
             this.pickDefaultTab();
         });
+    }
+
+    parseAccountAwards(data) {
+        const accountAwards = [];
+
+        data.forEach((accountAward) => {
+            const award = Object.create(BaseFederalAccountAwardRow);
+            award.parse(accountAward);
+            accountAwards.push(award);
+        });
+
+        return accountAwards;
     }
 
     performSearch(newSearch = false) {
@@ -253,10 +266,10 @@ export class AccountAwardsContainer extends React.Component {
                 // don't clear records if we're appending (not the first page)
                 if (pageNumber <= 1 || newSearch) {
                     newState.tableInstance = `${uniqueId()}`;
-                    newState.results = res.data.results;
+                    newState.results = this.parseAccountAwards(res.data.results);
                 }
                 else {
-                    newState.results = this.state.results.concat(res.data.results);
+                    newState.results = this.state.results.concat(this.parseAccountAwards(res.data.results));
                 }
 
                 // request is done
@@ -291,11 +304,11 @@ export class AccountAwardsContainer extends React.Component {
         const currentSortField = this.state.sort.field;
 
         // check if the current sort field is available in the table type
-        const availableFields = TableSearchFields[tab]._mapping;
+        const availableFields = AccountTableSearchFields[tab]._mapping;
         if (!availableFields[currentSortField]) {
             // the sort field doesn't exist, use the table type's default field
-            const field = TableSearchFields[tab]._defaultSortField;
-            const direction = TableSearchFields.defaultSortDirection[field];
+            const field = AccountTableSearchFields[tab]._defaultSortField;
+            const direction = AccountTableSearchFields.defaultSortDirection[field];
 
             newState.sort = {
                 field,
@@ -341,6 +354,7 @@ export class AccountAwardsContainer extends React.Component {
         if (Object.keys(this.state.columns).length === 0) {
             return null;
         }
+
         return (
             <AccountAwardsSection
                 inFlight={this.state.inFlight}
