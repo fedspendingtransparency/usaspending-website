@@ -1,6 +1,18 @@
 .homepage-download {
     @import "./_downloadIcons";
 
+    .homepage-download__wrapper {
+        
+    }
+
+    .homepage-download__list {
+        @include unstyled-list;
+
+        &.homepage-download__list_left {
+
+        }
+    }
+
     a.desktop-navigation-link {
         display: block;
         color: $color-base;
