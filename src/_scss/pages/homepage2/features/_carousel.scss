@@ -38,7 +38,7 @@
             margin: 0;
         }
 
-        ul.carousel-images {
+        ul.feature-carousel-image__list {
             @include unstyled-list;
 
             @include display(flex);
@@ -47,16 +47,16 @@
 
             @include transition(transform 300ms);
 
-            &.dragging {
+            &.feature-carousel-image__list_dragging {
                 @include transition(none);
             }
 
-            li {
+            li.feature-carousel-image__list-item {
                 @include flex(0 0 auto);
                 width: 100%;
 
                 // within the box, we need to center the image
-                img {
+                img.feature-carousel-image__image {
                     display: block;
                     background-color: $color-white;
                     padding: rem(10);
@@ -77,14 +77,14 @@
             @include justify-content(center);
             @include align-items(center);
 
-            li {
+            li.feature-carousel-pager__list-item {
                 @include flex(0 0 auto);
                 &:not(:first-child) {
                     margin-left: rem(25);
                 }
             }
 
-            button.carousel-dot {
+            button.feature-carousel-pager__dot-button {
                 @include button-unstyled;
                 width: rem(14);
                 height: rem(14);
@@ -92,7 +92,7 @@
                 opacity: 0.4;
                 @include transition(opacity 150ms);
 
-                .dot {
+                .feature-carousel-pager__dot-decorator {
                     width: rem(14);
                     height: rem(14);
                     border-radius: rem(7);

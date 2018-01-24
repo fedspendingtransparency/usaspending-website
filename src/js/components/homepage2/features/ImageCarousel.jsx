@@ -193,15 +193,17 @@ export default class ImageCarousel extends React.Component {
             }
             // create the bottom pagination dots while we're iterating through the image array
             const dot = (
-                <li key={image.key || image.src}>
+                <li
+                    className="feature-carousel-pager__list-item"
+                    key={image.key || image.src}>
                     <button
-                        className={`carousel-dot ${activeClass}`}
+                        className={`feature-carousel-pager__dot-button ${activeClass}`}
                         value={index + 1}
                         onClick={this.clickedDot}
                         aria-label={`Skip to carousel item ${index + 1}`}
                         aria-checked={index + 1 === this.state.page}
                         role="menuitemradio">
-                        <div className="dot" />
+                        <div className="feature-carousel-pager__dot-decorator" />
                     </button>
                 </li>
             );
@@ -211,10 +213,12 @@ export default class ImageCarousel extends React.Component {
             // now also create the image items
             return (
                 <li
+                    className="feature-carousel-image__list-item"
                     key={image.key || image.src}
                     aria-hidden={this.state.page !== index + 1}
                     tabIndex={-1}>
                     <img
+                        className="feature-carousel-image__image"
                         src={image.src}
                         srcSet={image.srcSet}
                         alt={image.alt} />
@@ -224,7 +228,7 @@ export default class ImageCarousel extends React.Component {
 
         let activeDrag = '';
         if (this.state.isDragging) {
-            activeDrag = 'dragging';
+            activeDrag = 'feature-carousel-image__list_dragging';
         }
 
         let hiddenLeft = '';
@@ -276,7 +280,7 @@ export default class ImageCarousel extends React.Component {
                             this.carouselContainer = div;
                         }}>
                         <ul
-                            className={`carousel-images ${activeDrag}`}
+                            className={`feature-carousel-image__list ${activeDrag}`}
                             aria-live="polite"
                             ref={(ul) => {
                                 this.carouselList = ul;
