@@ -32,7 +32,7 @@ jest.mock('helpers/textMeasurement', () => (
 ));
 
 jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
-jest.mock('dataMapping/search/tableSearchFields', () => require('./mockSearchFields'));
+jest.mock('dataMapping/search/accountTableSearchFields', () => require('./mockSearchFields'));
 
 describe('AccountAwardsContainer', () => {
     it('should pick a default tab when the Redux filters change', () => {
@@ -82,6 +82,7 @@ describe('AccountAwardsContainer', () => {
                 account: mockReduxAccount,
                 filters: defaultFilters    
             };
+
             const container = shallow(<AccountAwardsContainer {...props} />);
             container.instance().loadColumns();
 
@@ -178,8 +179,11 @@ describe('AccountAwardsContainer', () => {
                 account: mockReduxAccount,
                 filters: defaultFilters    
             };
+
             const container = shallow(<AccountAwardsContainer {...props} />);
+
             container.instance().switchTab('loans');
+
             expect(container.state().sort).toEqual({
                 field: 'loanfield',
                 direction: 'desc'

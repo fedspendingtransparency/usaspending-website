@@ -42,7 +42,7 @@ export default class ExplorerTable extends React.Component {
         const rows = this.props.results.map((item, index) => (
             <TableRow
                 item={item}
-                key={item.id}
+                key={item.name}
                 rowIndex={index}
                 columns={this.props.columns}
                 selectedRow={this.selectedRow} />
