@@ -129,7 +129,7 @@ export default class ResultsTableContainer extends React.Component {
 
         // If none of the award types are populated, set the first available tab to be the
         // first tab in the table
-        if (firstAvailable === '') {
+        if (!firstAvailable) {
             firstAvailable = tableTypes[0].internal;
         }
 
@@ -236,7 +236,7 @@ export default class ResultsTableContainer extends React.Component {
 
         this.setState(newState, () => {
             // Don't perform a search yet if user switches tabs before entering a keyword
-            if (this.props.keyword !== '') {
+            if (this.props.keyword) {
                 this.performSearch(true);
             }
         });
