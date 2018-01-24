@@ -189,7 +189,7 @@ export default class ImageCarousel extends React.Component {
         const images = this.props.images.map((image, index) => {
             let activeClass = '';
             if (index + 1 === this.state.page) {
-                activeClass = 'active';
+                activeClass = 'feature-carousel-pager__dot-button_active';
             }
             // create the bottom pagination dots while we're iterating through the image array
             const dot = (

@@ -34,8 +34,6 @@
         .feature-carousel-image {
             @include flex(1 1 auto);
             overflow-x: hidden;
-
-            margin: 0;
         }
 
         ul.feature-carousel-image__list {
@@ -100,7 +98,7 @@
                     pointer-events: none;
                 }
 
-                &:hover, &:active, &.active {
+                &:hover, &:active, &.feature-carousel-pager__dot-button_active {
                     opacity: 1;
                 }
             }

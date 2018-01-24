@@ -1,17 +1,19 @@
 
 .feature-award-search {
-    display: block;
-    margin: rem(60) 0;
-    position: relative;
+    .feature-award-search__wrapper {
+        display: block;
+        margin: rem(60) 0;
+        position: relative;
 
-    @include media($medium-screen) {
-        @include display(flex);
-        @include justify-content(flex-start);
-        @include align-items(flex-start);
-        margin-top: rem(120);
+        @include media($medium-screen) {
+            @include display(flex);
+            @include justify-content(flex-start);
+            @include align-items(flex-start);
+            margin-top: rem(120);
+        }
     }
 
-    .award-search-background-flair {
+    .feature-award-search__background-flair {
         position: absolute;
         top: rem(-30);
         bottom: rem(-30);
@@ -29,14 +31,14 @@
         }
     }
 
-    .award-search-left {
+    .feature-award-search__content {
         position: relative;
         @include media($medium-screen) {
             @include flex(1 1 auto);
             padding-right: rem(55);
         }
 
-        .award-search-mobile-carousel {
+        .feature-award-search__mobile-carousel {
             display: block;
             margin: rem(35) 0;
 
@@ -45,12 +47,12 @@
             }
         }
 
-        .award-search-dropdown {
+        .feature-award-search__dropdown {
             margin-top: rem(60);
         }
     }
 
-    .award-search-right {
+    .feature-award-search__image-wrapper {
         position: relative;
         display: none;
         @include media($medium-screen) {
