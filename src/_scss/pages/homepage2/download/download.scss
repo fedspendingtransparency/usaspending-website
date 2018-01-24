@@ -1,0 +1,20 @@
+.homepage-download {
+    @import "./_downloadIcons";
+
+    a.desktop-navigation-link {
+        display: block;
+        color: $color-base;
+        text-decoration: none;
+
+        background-color: $color-gray-lighter;
+
+        &:hover, &:active {
+            text-decoration: none;
+            color: $color-white;
+            background-color: $color-primary;
+        }
+    }
+    div.desktop-navigation-placeholder {
+
+    }
+}
