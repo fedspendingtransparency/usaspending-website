@@ -35,7 +35,7 @@
             @include flex(1 1 auto);
             overflow-x: hidden;
 
-            margin: 0 rem(20);
+            margin: 0;
         }
 
         ul.carousel-images {
@@ -79,7 +79,7 @@
         li {
             @include flex(0 0 auto);
             &:not(:first-child) {
-                margin-left: rem(10);
+                margin-left: rem(25);
             }
         }
 

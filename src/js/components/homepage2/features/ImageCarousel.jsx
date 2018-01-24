@@ -245,7 +245,6 @@ export default class ImageCarousel extends React.Component {
         return (
             <div
                 className="homepage-image-carousel"
-                tabIndex={-1}
                 aria-describedby={`${this._instanceId}-instructions`}>
                 <div
                     id={`${this._instanceId}-instructions`}
