@@ -45,7 +45,7 @@ export const mockRedux = {
 };
 
 export const mockActions = {
-    populateAllSearchFilters: jest.fn(),
+    restoreHashedFilters: jest.fn(),
     applyStagedFilters: jest.fn(),
     setAppliedFilterEmptiness: jest.fn(),
     setAppliedFilterCompletion: jest.fn()

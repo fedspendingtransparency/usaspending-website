@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AgencyListContainer from 'containers/search/filters/AgencyListContainer';
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+
 import SelectedAgencies from './SelectedAgencies';
 
 const defaultProps = {
@@ -19,10 +21,26 @@ const propTypes = {
     toggleAgency: PropTypes.func,
     selectedAwardingAgencies: PropTypes.object,
     selectedFundingAgencies: PropTypes.object,
-    agencyTypes: PropTypes.array
+    agencyTypes: PropTypes.array,
+    dirtyFunding: PropTypes.symbol,
+    dirtyAwarding: PropTypes.symbol
 };
 
 export default class Agency extends React.Component {
+    componentDidUpdate(prevProps) {
+        let showHint = false;
+        if (this.props.dirtyFunding && prevProps.dirtyFunding !== this.props.dirtyFunding) {
+            showHint = true;
+        }
+        else if (this.props.dirtyAwarding && prevProps.dirtyAwarding !== this.props.dirtyAwarding) {
+            showHint = true;
+        }
+
+        if (showHint && this.hint) {
+            this.hint.showHint();
+        }
+    }
+
     render() {
         const agencies = this.props.agencyTypes.map((type) => {
             let selectedAgencies = {};
@@ -44,6 +62,10 @@ export default class Agency extends React.Component {
                         agencyType={type}
                         selectedAgencies={selectedAgencies}
                         toggleAgency={this.props.toggleAgency} />
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
                 </div>
             );
         });

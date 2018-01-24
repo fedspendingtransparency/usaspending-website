@@ -17,11 +17,6 @@
             min-height: rem(28);
         }
 
-        .program-activity-set {
-            @import "../../../search/filters/awardType/_sharedAwardStyle";
-            @include sharedAwardStyle;
-        }
-
         div.account-program-activity-loading {
             font-size: $small-font-size;
             line-height: $small-font-size;

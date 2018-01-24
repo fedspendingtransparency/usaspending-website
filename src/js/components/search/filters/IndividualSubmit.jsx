@@ -12,7 +12,8 @@ const propTypes = {
     className: PropTypes.string,
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
-    label: PropTypes.string
+    label: PropTypes.string,
+    accessibility: PropTypes.object
 };
 
 const IndividualSubmit = (props) => (
@@ -21,7 +22,8 @@ const IndividualSubmit = (props) => (
         disabled={props.disabled}
         onClick={props.onClick}
         title={props.label}
-        aria-label={props.label}>
+        aria-label={props.label}
+        {...props.accessibility}>
         <div className="icon">
             <Search alt={props.label} />
         </div>

@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 // just import the relevant action(s)
 import { setAgenciesOrder } from 'redux/actions/agencyLanding/agencyLandingActions';
 
-import ResultsTableHeaderCell from 'components/search/table/cells/ResultsTableHeaderCell';
+import LegacyTableHeaderCell from 'components/account/awards/LegacyTableHeaderCell';
 
 // combine the action functions into an object for the react-redux bindings
 const actions = {
@@ -43,13 +43,14 @@ export class AgencyLandingHeaderCellContainer extends React.Component {
 
     render() {
         return (
-            <ResultsTableHeaderCell
-                label={this.props.displayName}
+            <LegacyTableHeaderCell
+                title={this.props.displayName}
                 defaultDirection={this.props.defaultDirection}
                 column={this.props.columnName}
+                field={this.props.columnName}
                 isLast={this.props.isLast}
-                order={this.props.order}
-                setSearchOrder={this.setAgenciesOrder} />
+                currentSort={this.props.order}
+                updateSort={this.setAgenciesOrder} />
         );
     }
 }

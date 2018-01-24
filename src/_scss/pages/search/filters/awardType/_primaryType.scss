@@ -1,7 +1,4 @@
 .primary-award-type {
-    @import "./_sharedAwardStyle";
-    @include sharedAwardStyle;
-
     &.single-item {
         padding-left: 1.8rem;
     }

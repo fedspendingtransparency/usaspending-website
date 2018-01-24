@@ -8,7 +8,10 @@ import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
 const NoDownloadHover = () => (
     <div className="download-hover-spacer">
-        <div className="download-hover">
+        <div
+            className="download-hover"
+            id="no-download-hover"
+            role="tooltip">
             <div className="download-hover-interior">
                 <div className="hover-content">
                     <div className="icon">

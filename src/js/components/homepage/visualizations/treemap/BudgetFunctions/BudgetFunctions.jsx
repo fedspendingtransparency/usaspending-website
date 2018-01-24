@@ -168,6 +168,7 @@ export default class BudgetFunctions extends React.Component {
                     width={width}
                     height={height}
                     percentView={percentView}
+                    tooltipId="budget-functions-tooltip-wrapper"
                     clickable />);
             }
 
@@ -244,24 +245,38 @@ export default class BudgetFunctions extends React.Component {
         let hoverOverlay = null;
         if (this.state.showOverlay && window.innerWidth >= 768) {
             hoverOverlay = (
-                <div className="treemap-hover-instructions">
+                <div
+                    className="treemap-hover-instructions"
+                    id="treemap-hover-instructions">
                     Hover over a block to learn more about Spending by Budget Function in 2016.
                 </div>
             );
         }
 
+        const tooltip = this.createTooltip();
+
         return (
             <div className="treemap-inner-wrap">
-                { this.createTooltip() }
+                <div
+                    role="tooltip"
+                    id="budget-functions-tooltip-wrapper">
+                    {tooltip}
+                </div>
                 <div
                     className="tree-wrapper"
                     ref={(sr) => {
                         this.sectionWrapper = sr;
                     }}>
                     <svg
+                        id="budget-function-svg"
                         width={this.state.visualizationWidth}
                         height={this.state.visualizationHeight}
-                        className="treemap-svg overlay">
+                        className="treemap-svg overlay"
+                        aria-label="Budget function treemap"
+                        role="figure"
+                        tabIndex={0}>
+                        <title>All budget functions</title>
+                        <desc>Treemap showing relative spending by budget function</desc>
                         { this.state.finalNodes }
                     </svg>
                     {hoverOverlay}

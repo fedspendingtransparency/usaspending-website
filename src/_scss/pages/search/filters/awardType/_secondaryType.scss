@@ -1,8 +1,4 @@
 .secondary-award-type {
-    @import "./_sharedAwardStyle";
-    @include sharedAwardStyle;
-
-
     .award-type-item-wrapper {
         padding: 0 1rem 0 4rem;
 

@@ -17,6 +17,13 @@ const appliedFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 filters: action.filters
             });
+        case 'RESTORE_HASHED_FILTERS':
+            // this is identical to APPLY_STAGED_FILTERS, but the action type is actually
+            // shared with the staged filter store so that, when restoring from a hash URL,
+            // both stores can be updated simultaneously with a single Redux action
+            return Object.assign({}, state, {
+                filters: action.filters
+            });
         case 'CLEAR_APPLIED_FILTERS':
             return Object.assign({}, initialState);
         case 'SET_APPLIED_FILTER_EMPTINESS':

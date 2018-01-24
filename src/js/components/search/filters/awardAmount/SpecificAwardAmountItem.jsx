@@ -82,7 +82,9 @@ export default class SpecificAwardAmountItem extends React.Component {
         return (
             <div className="specific-award-amount">
                 <hr className="specific-award-amount-divider" />
-                <div className={`award-amount-item-wrapper${hide}`}>
+                <div
+                    className={`award-amount-item-wrapper${hide}`}
+                    role="status">
                     <AwardAmountItem
                         {...this.props}
                         values={[this.state.min, this.state.max]}

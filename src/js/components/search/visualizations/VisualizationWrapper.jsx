@@ -95,16 +95,21 @@ export default class VisualizationWrapper extends React.Component {
                 ref={(div) => {
                     this.visualizationWrapper = div;
                 }}>
-                <div className="visualization-tab-wrapper">
+                <div
+                    className="visualization-tab-wrapper"
+                    role="navigation"
+                    aria-label="Visualization types">
                     <ul
                         className="visualization-tabs"
-                        role="navigation"
-                        aria-label="Visualization types">
+                        role="menu">
                         {tabs}
                     </ul>
                 </div>
                 <div className="visualization-content-wrapper">
-                    <div className="visualization-content">
+                    <div
+                        className="visualization-content"
+                        role="main"
+                        aria-label="Search results">
                         {content}
                     </div>
                 </div>

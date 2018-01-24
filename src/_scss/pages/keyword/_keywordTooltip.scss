@@ -1,0 +1,66 @@
+.keyword-hover {
+    z-index: $z-modal - 1;
+    width: rem(350);
+    height: rem(90);
+    position: absolute;
+    right: rem(45);
+
+    .hover-content {
+        @include display(flex);
+        @include flex-direction(row);
+        @include justify-content(center);
+        @include align-items(center);
+        position: relative;
+
+        background-color: $color-primary-alt-lightest;
+        border: 1px solid $color-primary-alt-light;
+        box-shadow: $box-shadow;
+
+        padding: rem(5) rem(10);
+
+        .icon {
+            @include flex(0 0 auto);
+            @include align-self(flex-start);
+            width: rem(15);
+            height: rem(15);
+            margin-right: rem(10);
+            svg {
+                fill: $color-primary-alt;
+                width: rem(15);
+                height: rem(15);
+            }
+        }
+
+        button {
+            @include button-unstyled;
+            @include flex(0 0 auto);
+            @include align-self(flex-start);
+            width: rem(13);
+            height: rem(13);
+            margin-top: rem(3);
+            svg {
+                fill: $color-gray;
+                width: rem(13);
+                height: rem(13);
+            }
+        }
+
+        .message {
+            @include flex(1 1 auto);
+            text-align: left;
+            color: $color-base;
+            font-size: $smallest-font-size;
+            line-height: rem(22);
+
+            a {
+                text-decoration: underline;
+                color: $color-primary;
+                font-weight: $font-semibold;
+
+                &:hover, &:active {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

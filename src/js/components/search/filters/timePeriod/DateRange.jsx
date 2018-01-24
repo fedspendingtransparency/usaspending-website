@@ -41,6 +41,7 @@ export default class DateRange extends React.Component {
         };
 
         this.submitRange = this.submitRange.bind(this);
+        this.removeRange = this.removeRange.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -58,6 +59,14 @@ export default class DateRange extends React.Component {
         // allow the user to change date ranges by keyboard and pressing enter
         e.preventDefault();
         this.props.applyDateRange();
+    }
+
+    removeRange() {
+        const tabButton = document.getElementById('filter-date-range-tab');
+        if (tabButton) {
+            tabButton.focus();
+        }
+        this.props.removeDateRange();
     }
 
     render() {
@@ -88,6 +97,15 @@ export default class DateRange extends React.Component {
             }
         }
 
+        let noDates = false;
+        if (!this.props.startDate && !this.props.endDate) {
+            noDates = true;
+        }
+
+        const accessibility = {
+            'aria-controls': 'selected-date-range'
+        };
+
         return (
             <div className="date-range-option">
                 <form
@@ -96,7 +114,6 @@ export default class DateRange extends React.Component {
                     <DatePicker
                         type="startDate"
                         title="Start Date"
-                        tabIndex={this.props.startingTab}
                         onDateChange={this.props.onDateChange}
                         value={this.props.startDate}
                         opposite={this.props.endDate}
@@ -112,7 +129,6 @@ export default class DateRange extends React.Component {
                     <DatePicker
                         type="endDate"
                         title="End Date"
-                        tabIndex={this.props.startingTab + 4}
                         onDateChange={this.props.onDateChange}
                         value={this.props.endDate}
                         opposite={this.props.startDate}
@@ -127,15 +143,25 @@ export default class DateRange extends React.Component {
                         allowClearing />
                     <IndividualSubmit
                         className="set-date-submit"
-                        onClick={this.props.applyDateRange}
-                        label="Filter by date range" />
+                        onClick={this.submitRange}
+                        label="Filter by date range"
+                        disabled={noDates}
+                        accessibility={accessibility} />
                 </form>
-                <div className={`selected-filters ${hideTags}`}>
+                <div
+                    className={`selected-filters ${hideTags}`}
+                    id="selected-date-range"
+                    aria-hidden={noDates}
+                    role="status">
                     <button
                         className="shown-filter-button"
-                        onClick={this.props.removeDateRange}>
+                        title="Click to remove filter."
+                        aria-label={`Applied date range: ${dateLabel}`}
+                        onClick={this.removeRange}>
                         <span className="close">
-                            <Close className="usa-da-icon-close" />
+                            <Close
+                                className="usa-da-icon-close"
+                                alt="Close icon" />
                         </span>
                         {dateLabel}
                     </button>

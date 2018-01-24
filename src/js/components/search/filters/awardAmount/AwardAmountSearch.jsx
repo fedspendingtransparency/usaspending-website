@@ -9,12 +9,14 @@ import { awardRanges, searchTypes } from 'dataMapping/search/awardAmount';
 
 import * as AwardAmountHelper from 'helpers/awardAmountHelper';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import SpecificAwardAmountItem from './SpecificAwardAmountItem';
 
 const propTypes = {
     selectAwardRange: PropTypes.func,
     awardAmountRanges: PropTypes.object,
-    awardAmounts: PropTypes.object
+    awardAmounts: PropTypes.object,
+    dirtyFilters: PropTypes.symbol
 };
 
 const defaultProps = {
@@ -27,6 +29,14 @@ export default class AwardAmountSearch extends React.Component {
 
         this.toggleSelection = this.toggleSelection.bind(this);
         this.searchSpecificRange = this.searchSpecificRange.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
+            if (this.hint) {
+                this.hint.showHint();
+            }
+        }
     }
 
     toggleSelection(selection) {
@@ -68,6 +78,10 @@ export default class AwardAmountSearch extends React.Component {
                             {...this.props}
                             searchSpecificRange={this.searchSpecificRange} />
                     </ul>
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
                 </div>
             </div>
         );

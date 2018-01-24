@@ -37,19 +37,18 @@ describe('TimePeriodContainer', () => {
     });
 
     describe('changeTab', () => {
-        it('should call updateFilter', () => {
+        it('should change the active tab state', () => {
             const container = shallow(<TimePeriodContainer
                 {...mockRedux}
                 {...mockActions} />);
+
+            expect(container.state().activeTab).toEqual('fy');
 
             const mockUpdate = jest.fn();
             container.instance().updateFilter = mockUpdate;
 
             container.instance().changeTab('dr');
-            expect(mockUpdate).toHaveBeenCalledTimes(1);
-            expect(mockUpdate).toHaveBeenCalledWith({
-                dateType: 'dr'
-            });
+            expect(container.state().activeTab).toEqual('dr');
         });
     });
 
@@ -64,8 +63,11 @@ describe('TimePeriodContainer', () => {
                 {...mockRedux}
                 {...actions} />);
 
+            container.setState({
+                activeTab: 'dr'
+            });
+
             container.instance().updateFilter({
-                dateType: 'dr',
                 startDate: '1984-01-01',
                 endDate: '1984-01-30'
             });
@@ -73,10 +75,64 @@ describe('TimePeriodContainer', () => {
             expect(mockUpdate).toHaveBeenCalledTimes(1);
             expect(mockUpdate).toHaveBeenCalledWith({
                 dateType: 'dr',
-                fy: new Set(['1990']),
                 startDate: '1984-01-01',
-                endDate: '1984-01-30'
+                endDate: '1984-01-30',
+                fy: []
             });
+        });
+        it('should use null start and end date arguments when updating a fiscal year', () => {
+            const mockUpdate = jest.fn();
+            const actions = Object.assign({}, mockActions, {
+                updateTimePeriod: mockUpdate
+            });
+
+            const container = shallow(<TimePeriodContainer
+                {...mockRedux}
+                {...actions} />);
+
+            container.setState({
+                activeTab: 'fy'
+            });
+
+            container.instance().updateFilter({
+                fy: ['2017']
+            });
+
+            expect(mockUpdate).toHaveBeenCalledTimes(1);
+            expect(mockUpdate).toHaveBeenCalledWith({
+                dateType: 'fy',
+                startDate: null,
+                endDate: null,
+                fy: ['2017']
+            });
+        });
+    });
+    describe('dirtyFilters', () => {
+        it('should return an ES6 Symbol when the staged filters do not match with the applied filters', () => {
+            const container = shallow(<TimePeriodContainer
+                {...mockRedux}
+                {...mockActions} />);
+
+            const appliedFilters = Object.assign({}, mockRedux.appliedFilters, {
+                timePeriodFY: new Set(['2017'])
+            });
+
+            container.setProps({
+                appliedFilters,
+                filterTimePeriodFY: new Set([])
+            });
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeTruthy();
+            expect(typeof changed).toEqual('symbol');
+        });
+        it('should return null when the staged filters match with the applied filters', () => {
+            const container = shallow(<TimePeriodContainer
+                {...mockRedux}
+                {...mockActions} />);
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeFalsy();
         });
     });
 });

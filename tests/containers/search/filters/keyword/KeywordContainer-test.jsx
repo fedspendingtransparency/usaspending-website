@@ -10,7 +10,8 @@ import sinon from 'sinon';
 import { KeywordContainer } from 'containers/search/filters/KeywordContainer';
 
 const initialFilters = {
-    keyword: ''
+    keyword: '',
+    appliedFilter: ''
 };
 
 describe('KeywordContainer', () => {
@@ -21,7 +22,7 @@ describe('KeywordContainer', () => {
             });
             const keywordContainer = shallow(
                 <KeywordContainer
-                    keyword={initialFilters.keyword}
+                    {...initialFilters}
                     updateTextSearchInput={mockReduxActionKeyword} />);
 
             const submitTextSpy = sinon.spy(keywordContainer.instance(),
@@ -41,15 +42,15 @@ describe('KeywordContainer', () => {
             submitTextSpy.reset();
         });
         it('should overwrite a previous keyword with a new keyword', () => {
-            const existingFilters = {
+            const existingFilters = Object.assign({}, initialFilters, {
                 keyword: 'Education'
-            };
+            });
             const mockReduxActionKeyword = jest.fn((args) => {
                 expect(args).toEqual('Financial');
             });
             const keywordContainer = shallow(
                 <KeywordContainer
-                    keyword={existingFilters.keyword}
+                    {...existingFilters}
                     updateTextSearchInput={mockReduxActionKeyword} />);
 
             const submitTextSpy = sinon.spy(keywordContainer.instance(),
@@ -65,6 +66,30 @@ describe('KeywordContainer', () => {
 
             // reset the spies
             submitTextSpy.reset();
+        });
+    });
+    describe('dirtyFilter', () => {
+        it('should return the keyword string when the staged filters do not match with the applied filters', () => {
+            const container = shallow(
+                <KeywordContainer
+                    {...initialFilters}
+                    updateTextSearchInput={jest.fn()} />);
+
+            container.setProps({
+                keyword: 'blerg'
+            });
+
+            const changed = container.instance().dirtyFilter();
+            expect(changed).toEqual('blerg');
+        });
+        it('should return null when the staged filters match with the applied filters', () => {
+            const container = shallow(
+                <KeywordContainer
+                    {...initialFilters}
+                    updateTextSearchInput={jest.fn()} />);
+
+            const changed = container.instance().dirtyFilter();
+            expect(changed).toBeFalsy();
         });
     });
 });

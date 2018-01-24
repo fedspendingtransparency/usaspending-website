@@ -41,11 +41,19 @@ export default class ResultsTableTabItem extends React.Component {
             disabledStatus = false;
         }
 
+        let resultString = 'results';
+        if (this.props.count === 1) {
+            resultString = 'result';
+        }
+
         return (
             <button
                 className={`table-type-toggle${activeClass}`}
                 onClick={this.clickedTab}
+                role="menuitemradio"
+                aria-checked={this.props.active}
                 title={`Show ${this.props.label}`}
+                aria-label={`Show ${this.props.label} - ${this.props.count} ${resultString}`}
                 disabled={disabledStatus}>
                 <div className="tab-content">
                     <div className="tab-label">

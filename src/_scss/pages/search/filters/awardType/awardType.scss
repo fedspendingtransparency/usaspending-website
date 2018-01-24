@@ -4,60 +4,9 @@
         padding-bottom: rem(5);
     }
 
-    ul.award-types {
-        @include unstyled-list;
-    }
-
     @import "./_primaryType";
-    ul.secondary-award-set {
-        @include unstyled-list;
-        @import "./_secondaryType";
-    }
 
-    .recipient-radio,
-    .checkbox-type-filter {
-        padding-left: rem(30);
-        p {
-            color: $color-gray;
-            font-size: $small-font-size;
-            margin-top: 0;
-            margin-bottom: rem(5);
-        }
-        p.sub-head {
-            border-bottom: rem(1) solid #E1E2E3;
-            font-size: $small-font-size;
-            font-weight: $font-semibold;
-            margin: 0 ($global-mrg * 2) $global-mrg 0;
-            padding: 0 0 rem(6);
-        }
-        span {
-            label {
-                color: $color-gray;
-                font-weight: normal;
-                margin-left: 0.75rem;
-            }
-            &:not(:last-child) {
-                border-right: rem(1) solid rgba(0, 0, 0, 0.3);
-                padding-right: rem(10);
-                margin-right: rem(10);
-            }
-        }
-    }
-    .recipient-radio {
-        margin: ($global-mrg * 2) 0;
-    }
-    .checkbox-type-filter {
-        margin: ($global-mrg * 2) 0 0 0;
-        padding-bottom: 0;
-        .checkbox-set,
-        .secondary-checkbox-type {
-            margin: 0.5rem 0;
-        }
-    }
-    .shown {
-        min-height: rem(180);
-    }
-    .visually-hidden {
-        display: none;
+    .filter-submit-hint {
+        margin-bottom: rem(20);
     }
 }

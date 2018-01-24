@@ -6,11 +6,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
+import { OrderedMap } from 'immutable';
 
 import { PSCSearchContainer } from 'containers/search/filters/psc/PSCSearchContainer';
 
 const initialFilters = {
-    selectedPSC: {}
+    selectedPSC: new OrderedMap(),
+    appliedPSC: new OrderedMap()
 };
 
 const psc = {
@@ -31,7 +33,7 @@ describe('pscSearchContainer', () => {
             // Set up container with mocked psc action
             const pscContainer = shallow(
                 <PSCSearchContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateSelectedPSC={mockReduxActionPSC} />);
 
             const selectPSCSpy = sinon.spy(pscContainer.instance(),
@@ -60,7 +62,7 @@ describe('pscSearchContainer', () => {
             // Set up container with mocked psc action
             const pscContainer = shallow(
                 <PSCSearchContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateSelectedPSC={mockReduxActionPSC} />);
 
             const selectPSCSpy = sinon.spy(pscContainer.instance(),
@@ -83,6 +85,33 @@ describe('pscSearchContainer', () => {
             // reset the spy
             selectPSCSpy.reset();
             removePSCSpy.reset();
+        });
+    });
+    describe('dirtyFilters', () => {
+        it('should return an ES6 Symbol when the staged filters do not match with the applied filters', () => {
+            const container = shallow(
+                <PSCSearchContainer
+                    {...initialFilters}
+                    updateSelectedPSC={jest.fn()} />
+            );
+
+            container.setProps({
+                selectedPSC: new OrderedMap({ a: 'a' })
+            });
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeTruthy();
+            expect(typeof changed).toEqual('symbol');
+        });
+        it('should return null when the staged filters match with the applied filters', () => {
+            const container = shallow(
+                <PSCSearchContainer
+                    {...initialFilters}
+                    updateSelectedPSC={jest.fn()} />
+            );
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeFalsy();
         });
     });
 });
