@@ -22,21 +22,21 @@ export default class Download extends React.Component {
                     className="desktop-navigation left-navigation">
                     <li>
                         <a
-                            className="desktop-navigation-link archive"
+                            className="desktop-navigation-link download-icon archive"
                             href="#/bulk_download/award_data_archive">
                                 Award Data Archive
                         </a>
                     </li>
                     <li>
                         <a
-                            className="desktop-navigation-link award"
+                            className="desktop-navigation-link download-icon award"
                             href="#/bulk_download">
                                 Custom Award Data
                         </a>
                     </li>
                     <li>
                         <div
-                            className="desktop-navigation-placeholder account">
+                            className="desktop-navigation-placeholder download-icon account">
                                 Custom Account Data
                         </div>
                     </li>
