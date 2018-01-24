@@ -193,14 +193,16 @@ export default class AgencyOverview extends React.PureComponent {
                         ref={(div) => {
                             this.containerDiv = div;
                         }}>
-                        <h4>Budgetary Resources
+                        <h4>
+                            Budgetary Resources
                             <a href={`#/agency/${this.props.agency.id}?glossary=budgetary-resources`}>
                                 <Glossary />
                             </a>
                             for FY {this.props.agency.activeFY}
                         </h4>
                         <div className="budget-authority-date">
-                            <em>FY {this.props.agency.activeFY} data reported
+                            <em>
+                                FY {this.props.agency.activeFY} data reported
                                 through {this.state.asOfDate}
                             </em>
                         </div>

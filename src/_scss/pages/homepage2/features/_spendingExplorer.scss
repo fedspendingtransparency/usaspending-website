@@ -49,14 +49,9 @@
             height: rem(57);
             margin-left: 0;
 
-            @include media($medium-screen) {
-                margin-left: 0;
-                margin-right: 0;
-                width: auto;
-                height: auto;
-            }
-
             .spending-explorer-button {
+                display: block;
+
                 color: $color-white;
                 background-color: $color-primary;
                 padding: rem(15) rem(20);

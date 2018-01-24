@@ -3,7 +3,7 @@
     background-color: $color-white;
     position: relative;
     display: block;
-    overflow: scroll;
+    overflow: auto;
 
     &.no-results {
         border: none;
@@ -68,6 +68,7 @@
                             @include button-unstyled;
                             color: $color-primary;
                             font-size: rem(16);
+                            line-height: rem(20);
                         }
                     }
                 }
