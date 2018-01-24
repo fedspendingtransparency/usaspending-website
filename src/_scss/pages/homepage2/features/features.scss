@@ -1,6 +1,6 @@
 .homepage-features {
 
-    .homepage-feature-content {
+    .homepage-features__content {
         @import "mixins/fullSectionWrap";
         @include fullSectionWrap(0, 0);
         padding: 0;

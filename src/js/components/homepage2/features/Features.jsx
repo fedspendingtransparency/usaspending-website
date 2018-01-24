@@ -14,7 +14,7 @@ const Features = () => (
         id="homepage-features"
         className="homepage-features"
         aria-label="Web site features">
-        <div className="homepage-feature-content">
+        <div className="homepage-features__content">
             <SpendingExplorerFeature />
             <SearchFeature />
             <ProfileFeature />
