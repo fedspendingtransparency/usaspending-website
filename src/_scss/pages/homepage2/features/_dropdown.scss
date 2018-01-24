@@ -1,7 +1,10 @@
 .feature-dropdown {
-    position: relative;
-    display: inline-block;
-    .feature-dropdown-button {
+    .feature-dropdown__wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+    .feature-dropdown__button {
         margin: 0;
         font-size: rem(21);
         padding: rem(15) rem(20);
@@ -25,7 +28,7 @@
         }
     }
 
-    .feature-dropdown-list {
+    .feature-dropdown__list {
         position: absolute;
         left: 0;
         right: 0;
@@ -34,8 +37,8 @@
         border: 1px solid $color-gray;
     }
 
-    li {
-        a {
+    li.feature-dropdown-item {
+        a.feature-dropdown-item__link {
             display: block;
             color: $color-base;
             font-size: rem(21);
@@ -48,7 +51,7 @@
             }
         }        
 
-        &.item-coming-soon {
+        &.feature-dropdown-item_coming-soon {
             color: $color-gray-light;
             font-size: rem(21);
             line-height: rem(27);
@@ -58,7 +61,7 @@
         }
     }
 
-    .dropdown-coming-soon {
+    .feature-dropdown-item__decorator {
         text-transform: uppercase;
         color: $color-gray-light;
         font-size: rem(10);

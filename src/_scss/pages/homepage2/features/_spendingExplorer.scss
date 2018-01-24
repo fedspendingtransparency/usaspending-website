@@ -1,15 +1,17 @@
 .feature-spending-explorer {
-    display: block;
-    margin: rem(60) 0;
+    .feature-spending-explorer__wrapper {
+        display: block; 
+        margin: rem(60) 0;
 
-    @include media($medium-screen) {
-        @include display(flex);
-        @include justify-content(flex-start);
-        @include align-items(flex-start);
-        margin-top: rem(120);
+        @include media($medium-screen) {
+            @include display(flex);
+            @include justify-content(flex-start);
+            @include align-items(flex-start);
+            margin-top: rem(120);
+        }
     }
 
-    .spending-explorer-left {
+    .feature-spending-explorer__image-wrapper {
         margin-bottom: rem(30);
         width: 75vw;
         height: 62vw;
@@ -28,7 +30,7 @@
             margin: 0;
             margin-bottom: 0;
 
-            img {
+            img.feature-spending-explorer__image {
                 display: block;
                 margin-left: auto;
                 width: auto;
@@ -36,27 +38,22 @@
         }
     }
 
-    .spending-explorer-right {
+    .feature-spending-explorer__content {
         @include media($medium-screen) {
             @include flex(1 1 auto);
             padding-left: rem(55);
         }
 
-        .spending-explorer-button-wrap {
+        .feature-spending-explorer__button-wrap {
             margin-top: rem(55);
 
             width: rem(273);
             height: rem(57);
             margin-left: 0;
 
-            @include media($medium-screen) {
-                margin-left: 0;
-                margin-right: 0;
-                width: auto;
-                height: auto;
-            }
+            .feature-spending-explorer__button {
+                display: block;
 
-            .spending-explorer-button {
                 color: $color-white;
                 background-color: $color-primary;
                 padding: rem(15) rem(20);
@@ -71,10 +68,12 @@
                     text-decoration: none;
                     background-color: $color-primary-darker;
                 }
+            }
+        }
 
-                strong {
-                    font-weight: $font-semibold;
-                }
+        .feature-spending-explorer__button-text {
+            &.feature-spending-explorer__button-text_weight-bold {
+                font-weight: $font-semibold;
             }
         }
     }
