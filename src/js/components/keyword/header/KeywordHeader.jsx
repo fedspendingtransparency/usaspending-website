@@ -13,7 +13,8 @@ const propTypes = {
     summary: PropTypes.object,
     inFlight: PropTypes.bool,
     clickedDownload: PropTypes.func,
-    downloadAvailable: PropTypes.bool
+    downloadAvailable: PropTypes.bool,
+    keywordApplied: PropTypes.bool
 };
 
 export class KeywordHeader extends React.Component {
@@ -80,7 +81,7 @@ export class KeywordHeader extends React.Component {
                             <h1>Keyword Search</h1>
                         </div>
                         {searchSummary}
-                        <div className="search-options">
+                        <div className={`search-options ${this.props.keywordApplied ? 'no-hover' : ''}`}>
                             <DownloadButton
                                 downloadAvailable={this.props.downloadAvailable}
                                 onClick={this.props.clickedDownload} />

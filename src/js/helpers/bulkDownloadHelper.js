@@ -26,7 +26,7 @@ export const requestAgenciesList = (params) => {
 
 // TODO - Lizzie: update when API is ready
 
-//export const requestBulkDownload = (params, type) => {
+// export const requestBulkDownload = (params, type) => {
 //    const source = CancelToken.source();
 //    return {
 //        promise: Axios.request({
@@ -40,17 +40,17 @@ export const requestAgenciesList = (params) => {
 //            source.cancel();
 //        }
 //    };
-//};
+// };
 
 const mockResponse = {
-    "status":"ready",
-    "total_rows":null,
-    "file_name":"file_name.zip",
-    "total_size":null,
-    "total_columns":null,
-    "message":null,
-    "url":"https://api.usaspending.gov/downloads/file_name.zip",
-    "seconds_elapsed":null
+    status: "ready",
+    total_rows: null,
+    file_name: "file_name.zip",
+    total_size: null,
+    total_columns: null,
+    message: null,
+    url: "https://api.usaspending.gov/downloads/file_name.zip",
+    seconds_elapsed: null
 };
 
 export const requestBulkDownload = () => (
@@ -65,7 +65,7 @@ export const requestBulkDownload = () => (
     }
 );
 
-//export const requestBulkDownloadStatus = (params) => {
+// export const requestBulkDownloadStatus = (params) => {
 //    const source = CancelToken.source();
 //    return {
 //        promise: Axios.request({
@@ -79,17 +79,17 @@ export const requestBulkDownload = () => (
 //            source.cancel();
 //        }
 //    };
-//};
+// };
 
 const mockStatus = {
-    "status":"running",
-    "total_rows":300,
-    "file_name":"file_name.zip",
-    "total_size":3000.475,
-    "total_columns":10,
-    "message":null,
-    "url":"https://api.usaspending.gov/downloads/file_name.zip",
-    "seconds_elapsed":"0.438393"
+    status: "running",
+    total_rows: 300,
+    file_name: "file_name.zip",
+    total_size: 3000.475,
+    total_columns: 10,
+    message: null,
+    url: "https://api.usaspending.gov/downloads/file_name.zip",
+    seconds_elapsed: "0.438393"
 };
 
 export const requestBulkDownloadStatus = () => (

@@ -101,7 +101,8 @@ export default class KeywordPage extends React.Component {
                         inFlight={this.props.summaryInFlight}
                         summary={this.props.summary}
                         downloadAvailable={this.props.downloadAvailable}
-                        clickedDownload={this.clickedDownload} />
+                        clickedDownload={this.clickedDownload}
+                        keywordApplied={this.props.keyword === ''} />
                     <div className="keyword-content">
                         <div className="search-bar-section">
                             <KeywordSearchBar
