@@ -1,0 +1,34 @@
+.download-placeholder {
+    .download-placeholder__wrapper {
+        background-color: $color-gray-lightest;
+
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+        @include flex-direction(column);
+
+        padding: rem(145) 0;
+
+        img.download-placeholder__icon {
+            @include flex(0 0 auto);
+        }
+
+        h2.download-placeholder__title {
+            @include flex(1 1 auto);
+            margin: rem(20) rem(30) 0 rem(30);
+
+            font-weight: $font-semibold;
+            font-size: rem(48);
+            line-height: rem(72);
+            text-align: center;
+        }
+
+        .download-placeholder__detail {
+            margin: 0 rem(30);
+
+            font-size: rem(18);
+            line-height: rem(28);
+            text-align: center;
+        }
+    }
+}
