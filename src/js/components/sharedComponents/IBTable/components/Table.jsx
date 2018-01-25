@@ -59,7 +59,9 @@ export default class Table extends React.Component {
         // wait for the scroll to complete before changing the row counts (to prevent false
         // pagination)
         window.setTimeout(() => {
-            this._bodyComponent.reloadTable();
+            if (this._bodyComponent) {
+                this._bodyComponent.reloadTable();
+            }
         }, 300);
     }
 
