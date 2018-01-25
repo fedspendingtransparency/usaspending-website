@@ -2,18 +2,22 @@
     .download-placeholder__wrapper {
         background-color: #EBEBEB;
 
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        padding: rem(40);
+
+        @include media($medium-screen) {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            padding: 0 rem(40);
+        }
 
         @include display(flex);
         @include flex-direction(column);
         @include justify-content(center);
         @include align-items(center);
-
-        padding: 0 rem(40);
 
         img.download-placeholder__icon {
             @include flex(0 0 auto);
@@ -25,12 +29,13 @@
 
             font-weight: $font-semibold;
             font-size: rem(48);
-            line-height: rem(72);
             text-align: center;
         }
 
         .download-placeholder__detail {
-            margin: 0 rem(30);
+            margin: rem(30);
+
+            @include flex(0 1 auto);
 
             font-size: rem(18);
             line-height: rem(28);

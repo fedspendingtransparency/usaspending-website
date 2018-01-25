@@ -81,14 +81,14 @@ export default class DesktopButton extends React.Component {
         return (
             <button
                 className={`homepage-download__button desktop-download ${buttonActive}`}
-                // disabled={!this.props.enabled}
+                disabled={!this.props.enabled}
                 onMouseOver={this.onHover}
                 onMouseLeave={this.endHover}
                 onFocus={this.onFocus}
                 onBlur={this.endFocus}
                 onKeyDown={this.pressedEsc}>
                 <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}${iconActive}`} />
-                <div className="label">
+                <div className="homepage-download__button-label">
                     {this.props.label}
                 </div>
             </button>

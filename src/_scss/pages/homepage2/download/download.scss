@@ -2,14 +2,23 @@
     @import "./_desktopButton";
     @import "./_downloadIcons";
 
+    display: none;
+    @include media($tablet-screen) {
+        display: block;
+    }
+
     .homepage-download__wrapper {
         @import "mixins/fullSectionWrap";
         @include fullSectionWrap(0, 0);
-        padding: 0;
 
-        @include display(flex);
-        @include justify-content(center);
-        @include align-items(center);
+        display: block;
+        @include media($medium-screen) {
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+
+            padding: 0 rem(40);
+        }
     }
 
     .homepage-download__list {
@@ -17,12 +26,21 @@
         @include flex(0 0 auto);
         @include align-self(stretch);
 
-        width: rem(330);
+        width: rem(200);
+        @include media($large-screen) {
+            width: rem(250);
+        }
+        @include media($x-large-screen) {
+            width: rem(330);
+        }
 
-        @include display(flex);
-        @include flex-direction(column);
-        @include justify-content(center);
-        @include align-items(stretch);
+        display: none;
+        @include media($medium-screen) {
+            @include display(flex);
+            @include flex-direction(column);
+            @include justify-content(center);
+            @include align-items(stretch);display: block;
+        }
     }
 
     .homepage-download__list-item {
@@ -32,6 +50,10 @@
 
     .homepage-download__button {
         width: 100%;
+    }
+
+    .homepage-download__button-label {
+        margin-top: rem(15);
     }
 
     .homepage-download__detail {
