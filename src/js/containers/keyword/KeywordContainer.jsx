@@ -19,7 +19,6 @@ require('pages/keyword/keywordPage.scss');
 
 const propTypes = {
     bulkDownload: PropTypes.object,
-    setDataType: PropTypes.func,
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
     setDownloadExpectedUrl: PropTypes.func
@@ -41,10 +40,10 @@ export class KeywordContainer extends React.Component {
 
         this.updateKeyword = this.updateKeyword.bind(this);
         this.fetchSummary = this.fetchSummary.bind(this);
-        this.startAwardDownload = this.startAwardDownload.bind(this);
+        this.startDownload = this.startDownload.bind(this);
     }
 
-    startAwardDownload() {
+    startDownload() {
         const params = {
             award_levels: ['prime_awards'],
             filters: {
@@ -153,9 +152,9 @@ export class KeywordContainer extends React.Component {
                 summary={this.state.summary}
                 summaryInFlight={this.state.summaryInFlight}
                 fetchSummary={this.fetchSummary}
-                bulkDownload={this.props.bulkDownload}
+                download={this.props.bulkDownload.download}
                 downloadAvailable={this.state.downloadAvailable}
-                startDownload={this.startAwardDownload} />
+                startDownload={this.startDownload} />
         );
     }
 }

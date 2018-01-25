@@ -27,7 +27,7 @@ const propTypes = {
     summary: PropTypes.object,
     summaryInFlight: PropTypes.bool,
     fetchSummary: PropTypes.func,
-    bulkDownload: PropTypes.object,
+    download: PropTypes.object,
     startDownload: PropTypes.func,
     downloadAvailable: PropTypes.bool
 };
@@ -50,8 +50,8 @@ export default class KeywordPage extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         // Need to close the modal once the download is completed
-        if (this.state.showModal && nextProps.bulkDownload.download.expectedUrl === ""
-            && !nextProps.bulkDownload.download.showCollapsedProgress) {
+        if (this.state.showModal && nextProps.download.expectedUrl === ""
+            && !nextProps.download.showCollapsedProgress) {
             this.hideModal();
         }
     }
@@ -102,7 +102,7 @@ export default class KeywordPage extends React.Component {
                         summary={this.props.summary}
                         downloadAvailable={this.props.downloadAvailable}
                         clickedDownload={this.clickedDownload}
-                        keywordApplied={this.props.keyword === ''} />
+                        keyword={this.props.keyword} />
                     <div className="keyword-content">
                         <div className="search-bar-section">
                             <KeywordSearchBar
