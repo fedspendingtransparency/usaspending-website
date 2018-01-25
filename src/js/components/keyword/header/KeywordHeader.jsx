@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    summary: PropTypes.object
+    summary: PropTypes.object,
+    inFlight: PropTypes.bool
 };
 
 export class KeywordHeader extends React.Component {
@@ -20,25 +21,35 @@ export class KeywordHeader extends React.Component {
     }
 
     generateSummary() {
-        const primeCount = this.props.summary.primeCount;
-        const primeAmount = this.props.summary.primeAmount;
+        let formattedPrimeCount = (<span>&nbsp;&mdash;&nbsp;</span>);
+        let formattedPrimeAmount = (<span>&nbsp;&mdash;&nbsp;</span>);
+        if (!this.props.inFlight) {
+            const primeCount = this.props.summary.primeCount;
+            const primeAmount = this.props.summary.primeAmount;
 
-        const primeCountUnits = MoneyFormatter.calculateUnitForSingleValue(primeCount);
-        const primeAmountUnits = MoneyFormatter.calculateUnitForSingleValue(primeAmount);
+            const primeCountUnits = MoneyFormatter.calculateUnitForSingleValue(primeCount);
+            const primeAmountUnits = MoneyFormatter.calculateUnitForSingleValue(primeAmount);
 
-        let primeCountPrecision = 0;
-        if (primeCountUnits.unit !== 1) {
-            primeCountPrecision = 1;
+            if (primeCountUnits.unit >= MoneyFormatter.unitValues.MILLION) {
+                // Abbreviate numbers greater than or equal to 1M
+                formattedPrimeCount =
+                    `${MoneyFormatter.formatNumberWithPrecision(primeCount / primeCountUnits.unit, 1)}${primeCountUnits.unitLabel}`;
+            }
+            else {
+                formattedPrimeCount =
+                    `${MoneyFormatter.formatNumberWithPrecision(primeCount, 0)}`;
+            }
+
+            if (primeAmountUnits.unit >= MoneyFormatter.unitValues.MILLION) {
+                // Abbreviate amounts greater than or equal to $1M
+                formattedPrimeAmount =
+                    `${MoneyFormatter.formatMoneyWithPrecision(primeAmount / primeAmountUnits.unit, 1)}${primeAmountUnits.unitLabel}`;
+            }
+            else {
+                formattedPrimeAmount =
+                    `${MoneyFormatter.formatMoneyWithPrecision(primeAmount, 0)}`;
+            }
         }
-        const formattedPrimeCount =
-            `${MoneyFormatter.formatNumberWithPrecision(primeCount / primeCountUnits.unit, primeCountPrecision)}${primeCountUnits.unitLabel}`;
-
-        let primeAmountPrecision = 2;
-        if (primeAmountUnits.unit !== 1) {
-            primeAmountPrecision = 1;
-        }
-        const formattedPrimeAmount =
-            `${MoneyFormatter.formatMoneyWithPrecision(primeAmount / primeAmountUnits.unit, primeAmountPrecision)}${primeAmountUnits.unitLabel}`;
 
         return (
             <div className="search-summary">
@@ -61,7 +72,7 @@ export class KeywordHeader extends React.Component {
 
     render() {
         let searchSummary = null;
-        if (this.props.summary) {
+        if (this.props.summary || this.props.inFlight) {
             searchSummary = this.generateSummary();
         }
         return (

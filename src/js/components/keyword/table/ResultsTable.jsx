@@ -11,7 +11,8 @@ import { keywordTableColumnTypes } from 'dataMapping/keyword/keywordTableColumnT
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableFormattedCell from 'components/search/table/cells/ResultsTableFormattedCell';
-import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
+import ResultsTableAwardIdCell from 'components/search/table/cells/ResultsTableAwardIdCell';
+import ResultsTableHeaderCell from 'components/search/table/cells/ResultsTableHeaderCell';
 
 const propTypes = {
     results: PropTypes.array,
@@ -62,20 +63,26 @@ export default class ResultsTable extends React.Component {
                 title={column.columnName}
                 defaultDirection={column.defaultDirection}
                 currentSort={this.props.sort}
-                updateSort={this.props.updateSort}
-                sortDisabled={column.sortDisabled} />
+                updateSort={this.props.updateSort} />
         );
     }
 
     bodyCellRender(columnIndex, rowIndex) {
         const columnId = this.props.columns.visibleOrder[columnIndex];
-        const cellClass = ResultsTableFormattedCell;
+        const column = this.props.columns.data[columnId];
+        let cellClass = ResultsTableFormattedCell;
+
         const props = {
             rowIndex,
             columnIndex,
             value: this.props.results[rowIndex][columnId],
             dataType: keywordTableColumnTypes[columnId]
         };
+
+        if (column.columnName === 'Award ID') {
+            cellClass = ResultsTableAwardIdCell;
+            props.id = parseInt(this.props.results[rowIndex].internal_id, 10);
+        }
 
         return React.createElement(
             cellClass,
