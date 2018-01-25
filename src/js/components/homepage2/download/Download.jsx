@@ -8,6 +8,7 @@ import React from 'react';
 import { downloadOptions } from 'dataMapping/navigation/menuOptions';
 
 import DownloadPlaceholder from './DownloadPlaceholder';
+import DownloadDetail from './DownloadDetail';
 import DesktopButton from './DesktopButton';
 
 export default class Download extends React.Component {
@@ -21,18 +22,18 @@ export default class Download extends React.Component {
 
         this.changeActiveItem = this.changeActiveItem.bind(this);
         this.exitedSection = this.exitedSection.bind(this);
-        this.exitedCenter = this.exitedCenter.bind(this);
-        this.enteredCenter = this.enteredCenter.bind(this);
     }
 
-    changeActiveItem(type) {
+    changeActiveItem(index) {
         this.setState({
-            type
+            type: downloadOptions[index]
         });
     }
 
     exitedSection(e) {
-        e.stopPropagation();
+        if (e) {
+            e.stopPropagation();
+        }
 
         this.setState({
             type: null,
@@ -41,7 +42,10 @@ export default class Download extends React.Component {
     }
 
     exitedCenter(e) {
-        e.stopPropagation();
+        if (e) {
+            e.stopPropagation();
+        }
+
         this.setState({
             hoveringInCenter: false
         });
@@ -54,18 +58,40 @@ export default class Download extends React.Component {
     }
 
     render() {
-        const leftItems = downloadOptions.slice(0, 3).map((item) => (
+        const leftItems = downloadOptions.slice(0, 3).map((item, index) => (
             <li
+                className="homepage-download__list-item"
                 key={item.code}>
-                <DesktopButton {...item} />
+                <DesktopButton
+                    {...item}
+                    index={index}
+                    active={this.state.type && this.state.type.code === item.code}
+                    changeActiveItem={this.changeActiveItem}
+                    forceClear={this.exitedSection} />
             </li>
         ));
-        const rightItems = downloadOptions.slice(3).map((item) => (
+        const rightItems = downloadOptions.slice(3).map((item, index) => (
             <li
+                className="homepage-download__list-item"
                 key={item.code}>
-                <DesktopButton {...item} />
+                <DesktopButton
+                    {...item}
+                    index={index + 3}
+                    active={this.state.type && this.state.type.code === item.code}
+                    changeActiveItem={this.changeActiveItem}
+                    forceClear={this.exitedSection} />
             </li>
         ));
+
+        let center = (
+            <DownloadPlaceholder />
+        );
+        if (this.state.type) {
+            center = (
+                <DownloadDetail
+                    {...this.state.type} />
+            );
+        }
 
         return (
             <section
@@ -79,10 +105,8 @@ export default class Download extends React.Component {
                     </ul>
 
                     <div
-                        className="homepage-download__detail"
-                        onMouseEnter={this.enteredCenter}
-                        onMouseLeave={this.exitedCenter}>
-                        <DownloadPlaceholder />
+                        className="homepage-download__detail">
+                        {center}
                     </div>
 
                     <ul

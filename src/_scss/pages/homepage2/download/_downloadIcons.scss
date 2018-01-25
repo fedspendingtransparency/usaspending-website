@@ -1,3 +1,63 @@
-.download-icon {
-        
+$homepage-download-icon-width: 208 / 2;
+$homepage-download-icon-height: 148 / 2;
+
+@mixin downloadSpritePos($x-index, $y-index) {
+    background-position: rem(-1 * $x-index * $homepage-download-icon-width) rem(-1 * $y-index * $homepage-download-icon-height);
+}
+
+.homepage-download__icon {
+    background-image: url(#{$image-path}/homepage-download-icons.png);
+    background-size: rem(416) rem(222);
+    background-repeat: no-repeat;
+    width: rem($homepage-download-icon-width);
+    height: rem($homepage-download-icon-height);
+    margin: 0 auto;
+
+    @include hidpi {
+        background-image: url(#{$image-path}/homepage-download-icons@2x.png);
+    }
+
+    &.homepage-download__icon_type_api {
+        @include downloadSpritePos(0, 0);
+    }
+    &.homepage-download__icon_type_api-active {
+        @include downloadSpritePos(1, 0);
+    }
+
+    &.homepage-download__icon_type_submission {
+        @include downloadSpritePos(2, 0);
+    }
+    &.homepage-download__icon_type_submission-active {
+        @include downloadSpritePos(3, 0);
+    }
+
+    &.homepage-download__icon_type_archive {
+        @include downloadSpritePos(0, 1);
+    }
+    &.homepage-download__icon_type_archive-active {
+        @include downloadSpritePos(1, 1);
+    }
+
+    &.homepage-download__icon_type_account {
+        @include downloadSpritePos(2, 1);
+    }
+    &.homepage-download__icon_type_account-active {
+        @include downloadSpritePos(3, 1);
+    }
+
+    &.homepage-download__icon_type_award {
+        @include downloadSpritePos(0, 2);
+    }
+    &.homepage-download__icon_type_award-active {
+        @include downloadSpritePos(1, 2);
+    }
+
+    &.homepage-download__icon_type_database {
+        @include downloadSpritePos(2, 2);
+    }
+    &.homepage-download__icon_type_database-active {
+        @include downloadSpritePos(3, 2);
+    }
+
+
 }
