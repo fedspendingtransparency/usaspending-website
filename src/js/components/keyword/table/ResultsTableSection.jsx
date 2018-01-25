@@ -66,7 +66,7 @@ export default class ResultsTableSection extends React.Component {
                 visibleWidth={this.state.tableWidth} />
         );
 
-        if (this.props.keyword === '') {
+        if (!this.props.keyword) {
             table = null;
             message = (
                 <div className="results-table-message-container full">
@@ -100,7 +100,7 @@ export default class ResultsTableSection extends React.Component {
         }
 
         return (
-            <div className="search-results-table-section" id="results-section-table">
+            <div className={`search-results-table-section ${this.props.keyword ? '' : 'hide-counts'}`} id="results-section-table">
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}

@@ -34,19 +34,25 @@ export class KeywordHeader extends React.Component {
             const primeCountUnits = MoneyFormatter.calculateUnitForSingleValue(primeCount);
             const primeAmountUnits = MoneyFormatter.calculateUnitForSingleValue(primeAmount);
 
-            let primeCountPrecision = 0;
-            if (primeCountUnits.unit !== 1) {
-                primeCountPrecision = 1;
+            if (primeCountUnits.unit >= 1000000) {
+                // Abbreviate numbers greater than or equal to 1M
+                formattedPrimeCount =
+                    `${MoneyFormatter.formatNumberWithPrecision(primeCount / primeCountUnits.unit, 1)}${primeCountUnits.unitLabel}`;
             }
-            formattedPrimeCount =
-                `${MoneyFormatter.formatNumberWithPrecision(primeCount / primeCountUnits.unit, primeCountPrecision)}${primeCountUnits.unitLabel}`;
+            else {
+                formattedPrimeCount =
+                    `${MoneyFormatter.formatNumberWithPrecision(primeCount, 0)}`;
+            }
 
-            let primeAmountPrecision = 2;
-            if (primeAmountUnits.unit !== 1) {
-                primeAmountPrecision = 1;
+            if (primeAmountUnits.unit >= 1000000) {
+                // Abbreviate amounts greater than or equal to $1M
+                formattedPrimeAmount =
+                    `${MoneyFormatter.formatMoneyWithPrecision(primeAmount / primeAmountUnits.unit, 1)}${primeAmountUnits.unitLabel}`;
             }
-            formattedPrimeAmount =
-                `${MoneyFormatter.formatMoneyWithPrecision(primeAmount / primeAmountUnits.unit, primeAmountPrecision)}${primeAmountUnits.unitLabel}`;
+            else {
+                formattedPrimeAmount =
+                    `${MoneyFormatter.formatMoneyWithPrecision(primeAmount, 0)}`;
+            }
         }
 
         return (
