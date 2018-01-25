@@ -30,7 +30,7 @@ export class KeywordHeader extends React.Component {
             const primeCountUnits = MoneyFormatter.calculateUnitForSingleValue(primeCount);
             const primeAmountUnits = MoneyFormatter.calculateUnitForSingleValue(primeAmount);
 
-            if (primeCountUnits.unit >= 1000000) {
+            if (primeCountUnits.unit >= MoneyFormatter.unitValues.MILLION) {
                 // Abbreviate numbers greater than or equal to 1M
                 formattedPrimeCount =
                     `${MoneyFormatter.formatNumberWithPrecision(primeCount / primeCountUnits.unit, 1)}${primeCountUnits.unitLabel}`;
@@ -40,7 +40,7 @@ export class KeywordHeader extends React.Component {
                     `${MoneyFormatter.formatNumberWithPrecision(primeCount, 0)}`;
             }
 
-            if (primeAmountUnits.unit >= 1000000) {
+            if (primeAmountUnits.unit >= MoneyFormatter.unitValues.MILLION) {
                 // Abbreviate amounts greater than or equal to $1M
                 formattedPrimeAmount =
                     `${MoneyFormatter.formatMoneyWithPrecision(primeAmount / primeAmountUnits.unit, 1)}${primeAmountUnits.unitLabel}`;
