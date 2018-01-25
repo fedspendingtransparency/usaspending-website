@@ -14,7 +14,7 @@ const propTypes = {
     inFlight: PropTypes.bool,
     clickedDownload: PropTypes.func,
     downloadAvailable: PropTypes.bool,
-    keyword: PropTypes.bool
+    keyword: PropTypes.string
 };
 
 export class KeywordHeader extends React.Component {
