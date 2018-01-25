@@ -42,7 +42,7 @@ const SearchFeature = () => (
 
                 <div className="homepage-feature-description">
                     <p>
-                        Whether you&apos;re a congressional staffer, agency employee, researcher, or data buff, the <strong className="homepage-feature-description_weight-bold">Award Search</strong> will help you answer your toughest questions about federal spending.
+                        Whether you&apos;re a congressional staffer, agency employee, researcher, or data buff, the <strong className="homepage-feature-description_weight_bold">Award Search</strong> will help you answer your toughest questions about federal spending.
                     </p>
                     <p>
                         Our Keyword Search lets you explore award data in broad strokes, while our Advanced Search offers filters that let you customize your data sets. Interactive visualizations &mdash; including a spending map &mdash; complement downloadable files.
