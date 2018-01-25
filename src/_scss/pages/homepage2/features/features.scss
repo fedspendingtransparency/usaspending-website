@@ -1,12 +1,11 @@
 .homepage-features {
-
-    .homepage-feature-content {
+    .homepage-features__content {
         @import "mixins/fullSectionWrap";
         @include fullSectionWrap(0, 0);
         padding: 0;
     }
 
-    h2.feature-title {
+    h2.homepage-feature-title {
         margin: 0;
 
         font-weight: $font-semibold;
@@ -16,12 +15,12 @@
         line-height: rem(55);
     }
 
-    .feature-description {
+    .homepage-feature-description {
         p {
             font-size: rem(18);
             line-height: rem(30);
 
-            strong {
+            strong.homepage-feature-description_weight_bold {
                 font-weight: $font-semibold;
             }
         }

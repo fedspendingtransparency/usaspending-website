@@ -189,19 +189,21 @@ export default class ImageCarousel extends React.Component {
         const images = this.props.images.map((image, index) => {
             let activeClass = '';
             if (index + 1 === this.state.page) {
-                activeClass = 'active';
+                activeClass = 'feature-carousel-pager__dot-button_active';
             }
             // create the bottom pagination dots while we're iterating through the image array
             const dot = (
-                <li key={image.key || image.src}>
+                <li
+                    className="feature-carousel-pager__list-item"
+                    key={image.key || image.src}>
                     <button
-                        className={`carousel-dot ${activeClass}`}
+                        className={`feature-carousel-pager__dot-button ${activeClass}`}
                         value={index + 1}
                         onClick={this.clickedDot}
                         aria-label={`Skip to carousel item ${index + 1}`}
                         aria-checked={index + 1 === this.state.page}
                         role="menuitemradio">
-                        <div className="dot" />
+                        <div className="feature-carousel-pager__dot-decorator" />
                     </button>
                 </li>
             );
@@ -211,10 +213,12 @@ export default class ImageCarousel extends React.Component {
             // now also create the image items
             return (
                 <li
+                    className="feature-carousel-image__list-item"
                     key={image.key || image.src}
                     aria-hidden={this.state.page !== index + 1}
                     tabIndex={-1}>
                     <img
+                        className="feature-carousel-image__image"
                         src={image.src}
                         srcSet={image.srcSet}
                         alt={image.alt} />
@@ -224,17 +228,17 @@ export default class ImageCarousel extends React.Component {
 
         let activeDrag = '';
         if (this.state.isDragging) {
-            activeDrag = 'dragging';
+            activeDrag = 'feature-carousel-image__list_dragging';
         }
 
         let hiddenLeft = '';
         if (this.state.page === 1) {
-            hiddenLeft = 'hidden';
+            hiddenLeft = 'feature-carousel-content__arrow_hidden';
         }
 
         let hiddenRight = '';
         if (this.state.page === this.props.images.length) {
-            hiddenRight = 'hidden';
+            hiddenRight = 'feature-carousel-content__arrow_hidden';
         }
 
         let screenreaderDescription = `${this.props.images.length} item`;
@@ -244,25 +248,25 @@ export default class ImageCarousel extends React.Component {
 
         return (
             <div
-                className="homepage-image-carousel"
+                className="feature-carousel"
                 aria-describedby={`${this._instanceId}-instructions`}>
                 <div
                     id={`${this._instanceId}-instructions`}
-                    className="carousel-instructions"
+                    className="feature-carousel__instructions"
                     aria-live="polite">
                     An image carousel containing {screenreaderDescription}, with item {this.state.page} shown.
                 </div>
-                <div className="carousel-top">
+                <div className="feature-carousel-content">
                     <button
                         aria-label="Previous carousel item"
-                        className={`carousel-arrow ${hiddenLeft}`}
+                        className={`feature-carousel-content__arrow ${hiddenLeft}`}
                         aria-hidden={this.state.page === 1}
                         disabled={this.state.page === 1}
                         onClick={this.previousItem}>
                         <AngleLeft alt="Previous carousel item" />
                     </button>
                     <div
-                        className="carousel-container"
+                        className="feature-carousel-image"
                         onTouchStart={this.touchedCarousel}
                         onTouchMove={this.touchDraggedCarousel}
                         onTouchEnd={this.untouchedCarousel}
@@ -276,7 +280,7 @@ export default class ImageCarousel extends React.Component {
                             this.carouselContainer = div;
                         }}>
                         <ul
-                            className={`carousel-images ${activeDrag}`}
+                            className={`feature-carousel-image__list ${activeDrag}`}
                             aria-live="polite"
                             ref={(ul) => {
                                 this.carouselList = ul;
@@ -286,16 +290,16 @@ export default class ImageCarousel extends React.Component {
                     </div>
                     <button
                         aria-label="Next carousel item"
-                        className={`carousel-arrow ${hiddenRight}`}
+                        className={`feature-carousel-content__arrow ${hiddenRight}`}
                         aria-hidden={this.state.page === this.props.images.length}
                         disabled={this.state.page === this.props.images.length}
                         onClick={this.nextItem}>
                         <AngleRight alt="Next carousel item" />
                     </button>
                 </div>
-                <div className="carousel-bottom">
+                <div className="feature-carousel-pager">
                     <ul
-                        className="carousel-dots"
+                        className="feature-carousel-pager__list"
                         role="menu"
                         aria-label="Pagination controls for carousel items">
                         {dots}

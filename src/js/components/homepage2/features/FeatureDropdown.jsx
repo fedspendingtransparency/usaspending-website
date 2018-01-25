@@ -49,10 +49,11 @@ export default class FeatureDropdown extends React.Component {
                 return (
                     <li
                         key={item.url}
-                        tabIndex={-1}>
+                        tabIndex={-1}
+                        className="feature-dropdown-item">
                         <a
                             href={item.url}
-                            className="feature-dropdown-item">
+                            className="feature-dropdown-item__link">
                             {item.label}
                         </a>
                     </li>
@@ -62,9 +63,9 @@ export default class FeatureDropdown extends React.Component {
                 <li
                     key={item.url}
                     tabIndex={-1}
-                    className="item-coming-soon">
+                    className="feature-dropdown-item feature-dropdown-item_coming-soon">
                     {item.label}
-                    <div className="dropdown-coming-soon">
+                    <div className="feature-dropdown-item__decorator">
                         Coming soon
                     </div>
                 </li>
@@ -82,18 +83,20 @@ export default class FeatureDropdown extends React.Component {
                 className="feature-dropdown"
                 onMouseEnter={this.expandDropdown}
                 onMouseLeave={this.collapseDropdown}>
-                <button
-                    className="feature-dropdown-button"
-                    aria-expanded={this.state.expanded}
-                    onClick={this.toggleDropdown}>
-                    {this.props.children}
-                    <AngleDown alt="Arrow indicating a dropdown is available" />
-                </button>
-                <ul
-                    className={`feature-dropdown-list ${hideList}`}
-                    aria-hidden={!this.state.expanded}>
-                    {items}
-                </ul>
+                <div className="feature-dropdown__wrapper">
+                    <button
+                        className="feature-dropdown__button"
+                        aria-expanded={this.state.expanded}
+                        onClick={this.toggleDropdown}>
+                        {this.props.children}
+                        <AngleDown alt="Arrow indicating a dropdown is available" />
+                    </button>
+                    <ul
+                        className={`feature-dropdown__list ${hideList}`}
+                        aria-hidden={!this.state.expanded}>
+                        {items}
+                    </ul>
+                </div>
             </div>
         );
     }

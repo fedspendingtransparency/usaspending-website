@@ -1,9 +1,11 @@
-.hero-button-wrapper {
-    position: absolute;
-    bottom: rem(-27);
-    left: 50%;
+.hero-button {
+    .hero-button__wrapper {
+        position: absolute;
+        bottom: rem(-27);
+        left: 50%;
+    }
 
-    .hero-button {
+    .hero-button__button {
         @include button-unstyled;
         background-color: $color-black;
         border: 3px solid $color-white;
