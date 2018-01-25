@@ -23,7 +23,7 @@ const SpendingExplorerFeature = () => (
                 </h2>
                 <div className="homepage-feature-description">
                     <p>
-                        The <strong className="homepage-feature-description_weight-bold">Spending Explorer</strong> lets you explore the entire federal budget in increasing granularity, illustrating how awards derive from federal accounts.
+                        The <strong className="homepage-feature-description_weight_bold">Spending Explorer</strong> lets you explore the entire federal budget in increasing granularity, illustrating how awards derive from federal accounts.
                     </p>
                     <p>
                         Interactive visualizations provide help building context, and multiple breakdowns clarify the relationships between federal-spending components.
@@ -33,7 +33,7 @@ const SpendingExplorerFeature = () => (
                     <a
                         className="feature-spending-explorer__button"
                         href="#/explorer">
-                        Try our <strong className="feature-spending-explorer__button-text feature-spending-explorer__button-text_weight-bold">Spending Explorer</strong>
+                        Try our <strong className="feature-spending-explorer__button-text feature-spending-explorer__button-text_weight_bold">Spending Explorer</strong>
                     </a>
                 </div>
             </div>
