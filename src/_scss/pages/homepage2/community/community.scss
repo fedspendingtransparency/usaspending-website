@@ -1,0 +1,44 @@
+.homepage-community {
+    .homepage-community__wrapper {
+        @import "mixins/fullSectionWrap";
+        @include fullSectionWrap(0, 0);
+
+        @include media($large-screen) {
+            padding: 0 rem(75);
+        }
+        @include media($x-large-screen) {
+            padding: 0 rem(150);
+        }
+    }
+
+    h2.homepage-community__title {
+        font-weight: $font-semibold;
+        color: $color-base;
+        font-size: rem(38);
+        line-height: rem(55);
+    }
+
+    p.homepage-community__description {
+        font-size: rem(18);
+        line-height: rem(30);
+    }
+
+    a.homepage-community__link {
+        display: block;
+        color: $color-white;
+        background-color: $color-primary;
+
+        font-weight: $font-semibold;
+        font-size: rem(24);
+
+        padding: rem(15) rem(20);
+        width: rem(320);
+
+        text-align: center;
+
+        &:hover, &:active {
+            background-color: $color-primary-darker;
+            text-decoration: none;
+        }
+    }
+}

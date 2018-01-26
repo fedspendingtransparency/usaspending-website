@@ -17,6 +17,7 @@ import Footer from '../sharedComponents/Footer';
 import Hero from './hero/Hero';
 import Features from './features/Features';
 import Download from './download/Download';
+import Community from './community/Community';
 
 require('pages/homepage2/homePage.scss');
 
@@ -33,6 +34,7 @@ export default class Homepage extends React.Component {
                     <Hero />
                     <Features />
                     <Download />
+                    <Community />
                 </main>
                 <Footer />
             </div>
