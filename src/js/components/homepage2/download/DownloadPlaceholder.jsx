@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import MobileLinks from './MobileLinks';
 
 const DownloadPlaceholder = () => (
     <div className="download-placeholder">
@@ -22,6 +23,7 @@ const DownloadPlaceholder = () => (
                 className="download-placeholder__detail">
                 Need comprehensive federal spending data quickly? Our bulk download tools offer a straightforward path to customizable, downloadable data sets.
             </p>
+            <MobileLinks />
         </div>
     </div>
 );

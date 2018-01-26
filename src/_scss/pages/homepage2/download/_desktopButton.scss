@@ -14,7 +14,7 @@
         color: $color-white;
     }
 
-    &.desktop-download__disabled {
+    &[disabled] {
         background-color: $color-gray-lightest;
         color: $color-base;
         cursor: not-allowed;

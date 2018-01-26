@@ -96,19 +96,18 @@ export default class Download extends React.Component {
         return (
             <section
                 className="homepage-download"
-                aria-label="Download options"
-                onMouseLeave={this.exitedSection}>
-                <div className="homepage-download__wrapper">
+                aria-label="Download options">
+                <div
+                    className="homepage-download__wrapper"
+                    onMouseLeave={this.exitedSection}>
                     <ul
                         className="homepage-download__list homepage-download__list_desktop homepage-download__list_left">
                         {leftItems}
                     </ul>
-
                     <div
                         className="homepage-download__detail">
                         {center}
                     </div>
-
                     <ul
                         className="homepage-download__list homepage-download__list_desktop homepage-download__list_right">
                         {rightItems}
