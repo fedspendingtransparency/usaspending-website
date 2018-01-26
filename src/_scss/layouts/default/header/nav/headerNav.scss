@@ -1,4 +1,4 @@
-header {
+header.site-header__wrapper {
     background-color: $color-white;
 
     .menu-container {
@@ -8,9 +8,19 @@ header {
         position: relative;
     }
 
-    .nav-container {
-        // style the primary menu
-        @import "./_primaryMenu";
+    .site-navigation {
+        .site-navigation__wrapper {
+            @import "mixins/fullSectionWrap";
+            @include fullSectionWrap(0, 0);
+            @include display(flex);
+            @include justify-content(space-between);
+            @include flex-direction(row);
+            @include align-items(center);
+            height: rem(60);
+            padding-bottom: rem(25);
+            // style the primary menu
+            @import "./_primaryMenu";
+        }
     }
     // style the mobile menu button
     @import "./_menuButton";

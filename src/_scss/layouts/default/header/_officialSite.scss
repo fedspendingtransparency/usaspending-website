@@ -1,11 +1,15 @@
-.official-site-banner {
-    padding: rem(5) rem(15);
-    margin-bottom: rem(10);
-    @include display(flex);
-    @include justify-content(flex-end);
-    @include align-items(flex-end);
+.official-banner {
+    .official-banner__wrapper {
+        padding: rem(5) rem(15);
+        margin-bottom: rem(10);
+        background-color: #F9F9F9;
 
-    .official-text {
+        @include display(flex);
+        @include justify-content(flex-end);
+        @include align-items(flex-end);
+    }
+
+    .official-banner__text {
         @include flex(0 0 auto);
         margin-right: rem(10);
 
@@ -14,7 +18,7 @@
         color: $color-base;
     }
 
-    .official-flag {
+    .official-banner__flag {
         @include flex(0 0 auto)
         width: rem(16);
         height: rem(11);

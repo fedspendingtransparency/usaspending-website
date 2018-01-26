@@ -1,3 +1,13 @@
+.mobile-menu {
+    @include flex(1 0 auto);
+    position: relative;
+    height: rem(45);
+    width: rem(45);
+    @include media($medium-screen) {
+        display: none;
+    }
+}
+
 .mobile-nav {
     position: fixed;
     top: 0;
