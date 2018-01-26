@@ -79,12 +79,12 @@ export default class NavBar extends React.Component {
                             </a>
                         </div>
                     </div>
-                    <div className="mobile-menu">
-                        <div className="mobile-button-wrapper">
+                    <div className="site-navigation__mobile mobile-hamburger">
+                        <div className="mobile-hamburger__wrapper">
                             <button
-                                className="usa-menu-btn"
+                                className="mobile-hamburger__button"
                                 onClick={this.toggleMobileNav}>
-                                <span className="nav-lines" />
+                                <span className="mobile-hamburger__meat-buns" />
                             </button>
                         </div>
                     </div>
