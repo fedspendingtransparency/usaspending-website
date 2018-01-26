@@ -23,6 +23,7 @@
             font-weight: $font-semibold;
             font-size: rem(48);
             text-align: center;
+            align-self: stretch;
         }
 
         p.download-detail__description {
@@ -33,6 +34,7 @@
             font-size: rem(18);
             line-height: rem(28);
             text-align: center;
+            align-self: stretch;
         }
 
         a.download-detail__link {

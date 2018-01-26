@@ -30,6 +30,7 @@
             font-weight: $font-semibold;
             font-size: rem(48);
             text-align: center;
+            align-self: stretch;
         }
 
         .download-placeholder__detail {
@@ -40,6 +41,7 @@
             font-size: rem(18);
             line-height: rem(28);
             text-align: center;
+            align-self: stretch;
         }
 
         @import "./_mobileLinks";
