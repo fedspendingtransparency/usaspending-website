@@ -48,7 +48,8 @@ export class KeywordContainer extends React.Component {
             award_levels: ['prime_awards'],
             filters: {
                 keyword: this.state.keyword
-            }
+            },
+            file_format: 'csv'
         };
 
         this.requestDownload(params, 'awards');
