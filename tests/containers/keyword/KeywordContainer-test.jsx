@@ -67,8 +67,7 @@ describe('KeywordContainer', () => {
                 award_levels: ['prime_awards'],
                 filters: {
                     keyword: 'test'
-                },
-                file_format: 'csv'
+                }
             };
 
             container.instance().startDownload();
