@@ -1,4 +1,4 @@
-import { mockApi, mockSummary } from './mockResults';
+import { mockApi, mockSummary, mockTabCount } from './mockResults';
 
 export const fetchSummary = () => (
     {
@@ -19,6 +19,19 @@ export const performKeywordSearch = () => (
             process.nextTick(() => {
                 resolve({
                     data: mockApi
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+export const performTabCountSearch = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockTabCount
                 });
             });
         }),

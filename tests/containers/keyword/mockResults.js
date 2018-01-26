@@ -29,3 +29,18 @@ export const mockApi = {
         hasPrevious: false
     }
 };
+
+export const mockTabCount = {
+    results: {
+        contracts: 200,
+        grants: 74,
+        direct_payments: 28,
+        loans: 621,
+        other: 17
+    }
+};
+
+export const mockProps = {
+    keyword: '',
+    fetchSummary: jest.fn()
+};

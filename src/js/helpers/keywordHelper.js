@@ -38,3 +38,19 @@ export const performKeywordSearch = (params) => {
         }
     };
 };
+
+export const performTabCountSearch = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/search/spending_by_transaction_count/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Search } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    submitText: PropTypes.func
+    updateKeyword: PropTypes.func
 };
 
 export default class KeywordSearchBar extends React.Component {
@@ -27,7 +27,7 @@ export default class KeywordSearchBar extends React.Component {
     searchKeyword(e) {
         e.preventDefault();
         if (this.state.searchString.length > 2) {
-            this.props.submitText(this.state.searchString);
+            this.props.updateKeyword(this.state.searchString);
         }
     }
 
