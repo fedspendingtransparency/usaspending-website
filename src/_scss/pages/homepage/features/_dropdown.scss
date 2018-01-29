@@ -10,7 +10,7 @@
         padding: rem(15) rem(20);
         font-weight: $font-normal;
 
-        &:hover, &:active {
+        &:hover, &:active, &.feature-dropdown__button_active {
             background-color: $color-primary-darker;
         }
 

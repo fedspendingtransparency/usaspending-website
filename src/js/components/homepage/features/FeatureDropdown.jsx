@@ -74,8 +74,10 @@ export default class FeatureDropdown extends React.Component {
 
 
         let hideList = 'hide';
+        let activeButton = '';
         if (this.state.expanded) {
             hideList = '';
+            activeButton = 'feature-dropdown__button_active';
         }
 
         return (
@@ -85,7 +87,7 @@ export default class FeatureDropdown extends React.Component {
                 onMouseLeave={this.collapseDropdown}>
                 <div className="feature-dropdown__wrapper">
                     <button
-                        className="feature-dropdown__button"
+                        className={`feature-dropdown__button ${activeButton}`}
                         aria-expanded={this.state.expanded}
                         onClick={this.toggleDropdown}>
                         {this.props.children}
