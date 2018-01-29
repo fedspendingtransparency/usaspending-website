@@ -29,8 +29,8 @@ const propTypes = {
     tableWidth: PropTypes.number,
     inFlight: PropTypes.bool,
     sort: PropTypes.object,
-    nextTransactionPage: PropTypes.func,
-    changeSort: PropTypes.func,
+    nextTransactionPage: PropTypes.func.isRequired,
+    changeSort: PropTypes.func.isRequired,
     type: PropTypes.string
 };
 
