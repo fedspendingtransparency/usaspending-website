@@ -91,9 +91,6 @@ describe('KeywordContainer', () => {
 
             expect(mockActions.setDownloadExpectedFile).toHaveBeenCalledWith('mock_file.zip');
             expect(mockActions.setDownloadExpectedUrl).toHaveBeenCalledWith('mockurl/mock_file.zip');
-
-            //expect(container.props().expectedUrl).toEqual('mockurl/mock_file.zip');
-            //expect(container.props().expectedFile).toEqual('mock_file.zip');
         });
     });
 });
