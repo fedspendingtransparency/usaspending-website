@@ -43,6 +43,7 @@ const fields = [
     'recipient_country_code',
     'pop_city',
     'parent_id',
+    'parent_award_id',
     'pop_state_province',
     'pop_state',
     'pop_province',
@@ -70,7 +71,6 @@ const fields = [
     'pop_congressional_district',
     'pop_county',
     'pop_state_code',
-    'contract_parent_id',
     'contract_idv_type',
     'contract_idc_type',
     'contract_idv_agency_id',
@@ -115,6 +115,7 @@ const remapData = (data, idField) => {
     const remappedData = data;
     let id = 0;
     let parentId = 0;
+    let parentAwardId = '';
     let awardType = '';
     let internalGeneralType = 'unknown';
     let category = '';
@@ -161,7 +162,6 @@ const remapData = (data, idField) => {
     let recipientCongressionalDistrict = '';
     let recipientPhone = '';
     let recipientFax = '';
-    let contractParentId = '';
     let contractIdvType = '';
     let contractIdcType = '';
     let contractIdvAgencyId = '';
@@ -217,6 +217,10 @@ const remapData = (data, idField) => {
 
     if (data.parent_award) {
         parentId = data.parent_award;
+    }
+
+    if (data.parent_award_piid) {
+        parentAwardId = data.parent_award_piid;
     }
 
     if (data.type) {
@@ -327,9 +331,6 @@ const remapData = (data, idField) => {
             if (data.latest_transaction.contract_data.type_of_contract_pric_desc) {
                 contractPricing =
                 data.latest_transaction.contract_data.type_of_contract_pric_desc;
-            }
-            if (data.latest_transaction.contract_data.parent_award_id) {
-                contractParentId = data.latest_transaction.contract_data.parent_award_id;
             }
             if (data.latest_transaction.contract_data.idv_type) {
                 contractIdvType = data.latest_transaction.contract_data.idv_type;
@@ -474,6 +475,7 @@ const remapData = (data, idField) => {
 
     remappedData.id = id;
     remappedData.parent_id = parentId;
+    remappedData.parent_award_id = parentAwardId;
     remappedData.award_type = awardType;
     remappedData.internal_general_type = internalGeneralType;
     remappedData.category = category;
@@ -498,7 +500,6 @@ const remapData = (data, idField) => {
     remappedData.latest_transaction = latestTransaction;
     remappedData.type_of_contract_pricing = contractPricingCode;
     remappedData.type_of_contract_pricing_description = contractPricing;
-    remappedData.contract_parent_id = contractParentId;
     remappedData.contract_idv_type = contractIdvType;
     remappedData.contract_idc_type = contractIdcType;
     remappedData.contract_idv_agency_id = contractIdvAgencyId;
