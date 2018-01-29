@@ -11,13 +11,6 @@ const Community = () => (
         aria-label="Community">
         <div className="homepage-community__wrapper">
             <div className="homepage-community__content">
-                <div className="homepage-community__image-wrapper hompage-community__image-wrapper_mobile">
-                    <img
-                        className="homepage-community__image homepage-community__image_center"
-                        src="img/homepage-community.png"
-                        srcSet="img/homepage-community.png 1x, img/homepage-community@2x.png 2x"
-                        alt="Speech bubbles" />
-                </div>
                 <h2
                     className="homepage-community__title"
                     tabIndex={-1}>
