@@ -36,6 +36,21 @@
                 width: auto;
             }
         }
+
+        &.feature-spending-explorer__image-wrapper_desktop {
+            display: none;
+            @include media($medium-screen) {
+                display: block;
+            }
+        }
+
+        &.feature-spending-explorer__image-wrapper_mobile {
+            display: block;
+            margin-top: rem(30);
+            @include media($medium-screen) {
+                display: none;
+            }
+        }
     }
 
     .feature-spending-explorer__content {
