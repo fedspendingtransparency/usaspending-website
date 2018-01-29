@@ -24,11 +24,11 @@ const tableHeight = 10.5 * rowHeight;
 
 const propTypes = {
     tableWidth: PropTypes.number,
-    loadNextPage: PropTypes.func,
+    loadNextPage: PropTypes.func.isRequired,
     inFlight: PropTypes.bool,
     tableInstance: PropTypes.string,
     sort: PropTypes.object,
-    changeSort: PropTypes.func,
+    changeSort: PropTypes.func.isRequired,
     data: PropTypes.array
 };
 
