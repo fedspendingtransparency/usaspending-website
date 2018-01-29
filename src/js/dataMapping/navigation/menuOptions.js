@@ -71,6 +71,15 @@ export const downloadOptions = [
         enabled: true
     },
     {
+        label: 'Database Snapshots',
+        url: 'https://aws.amazon.com/public-datasets/usaspending/',
+        code: 'database',
+        description: 'Our entire database as a PostgreSQL snapshot \u2014 the most complete download option available for advanced users.',
+        callToAction: 'Explore Database Snapshot',
+        newTab: true,
+        enabled: true
+    },
+    {
         label: 'API',
         url: 'https://api.usaspending.gov',
         code: 'api',
@@ -78,13 +87,5 @@ export const downloadOptions = [
         callToAction: 'Explore our API',
         newTab: true,
         enabled: true
-    },
-    {
-        label: 'Database Snapshots',
-        url: '#/bulk_download/database',
-        code: 'database',
-        description: 'Our entire database as a PostgreSQL snapshot \u2014 the most complete download option available for advanced users.',
-        callToAction: 'Explore Database Snapshot',
-        enabled: false
     }
 ];
