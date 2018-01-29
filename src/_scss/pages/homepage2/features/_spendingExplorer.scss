@@ -1,13 +1,13 @@
 .feature-spending-explorer {
     .feature-spending-explorer__wrapper {
         display: block; 
-        margin: rem(60) 0;
+        margin: rem(60) 0 rem(100);
 
         @include media($medium-screen) {
             @include display(flex);
             @include justify-content(flex-start);
             @include align-items(flex-start);
-            margin-top: rem(120);
+            margin: rem(120) 0 rem(60);
         }
     }
 

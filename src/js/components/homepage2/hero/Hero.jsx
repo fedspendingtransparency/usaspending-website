@@ -16,7 +16,7 @@ const Hero = () => (
                 <h1
                     className="homepage-hero__headline"
                     tabIndex={-1}>
-                    In 2016, the government spent <strong className="homepage-hero__headline homepage-hero__headline_weight_bold">$3.85 trillion.</strong>
+                    In 2017, the government spent <strong className="homepage-hero__headline homepage-hero__headline_weight_bold">$3.98 trillion.</strong>
                 </h1>
                 <hr className="homepage-hero__divider" />
                 <div className="homepage-hero__description">
