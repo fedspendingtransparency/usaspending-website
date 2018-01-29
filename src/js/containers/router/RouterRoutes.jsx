@@ -19,15 +19,6 @@ const routes = {
             }
         },
         {
-            path: '/new',
-            parent: '/',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/homepage2/Homepage').default);
-                });
-            }
-        },
-        {
             path: '/search',
             parent: '/search',
             silentlyUpdate: true,
