@@ -4,6 +4,7 @@
         @include display(flex);
         @include justify-content(center);
         @include align-items(center);
+        width: 100%;
     }
     @include media($medium-screen) {
         display: none;
@@ -11,7 +12,8 @@
 
     ul.mobile-download__list {
         @include unstyled-list;
-        @include flex(1 1 auto);
+        @include flex(0 0 auto);
+        width: 50%;
 
         &.mobile-download__list_align_left {
             padding-right: rem(5);

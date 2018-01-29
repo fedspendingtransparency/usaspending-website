@@ -1,10 +1,10 @@
 .homepage-download__icon {
-    $icon-width: 208 / 2;
+    $icon-width: 292 / 2;
     $icon-height: 148 / 2;
     $mobile-scale: 0.3;
 
     background-image: url(#{$image-path}/homepage-download-icons-mobile.png);
-    background-size: rem(416 * $mobile-scale) rem(222 * $mobile-scale);
+    background-size: rem(584 * $mobile-scale) rem(222 * $mobile-scale);
     background-repeat: no-repeat;
     width: rem($icon-width * $mobile-scale);
     height: rem($icon-height * $mobile-scale);
@@ -16,7 +16,7 @@
 
     @include media($medium-screen) {
         background-image: url(#{$image-path}/homepage-download-icons.png);
-        background-size: rem(416) rem(222);
+        background-size: rem(584) rem(222);
         width: rem($icon-width);
         height: rem($icon-height);
         @include hidpi {
