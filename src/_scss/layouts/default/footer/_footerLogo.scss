@@ -12,7 +12,7 @@
     }
 
     img {
-        height: rem(20);
+        height: rem(30);
         margin-bottom: rem(10);
         @include media($tablet-screen) {
             height: auto;

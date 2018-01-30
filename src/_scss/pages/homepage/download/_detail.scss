@@ -35,6 +35,8 @@
             line-height: rem(28);
             text-align: center;
             align-self: stretch;
+
+            font-weight: $font-light;
         }
 
         a.download-detail__link {
@@ -43,7 +45,7 @@
             border: 1px solid $color-white;
 
             font-weight: $font-semibold;
-            font-size: rem(18);
+            font-size: rem(24);
             color: $color-white;
 
             padding: rem(10) rem(20);            

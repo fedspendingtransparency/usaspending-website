@@ -29,7 +29,7 @@ export default class MobileGlossaryButton extends React.Component {
     render() {
         return (
             <button
-                className="nav-button"
+                className="mobile-nav-content__glossary"
                 title="Glossary"
                 onClick={this.openGlossary}>
                 Glossary

@@ -45,48 +45,51 @@ export default class MobileNav extends React.Component {
     render() {
         return (
             <div className="mobile-nav">
-                <MobileTop {...this.props} />
-                <div className="nav-content">
-                    <ul>
-                        <li>
+                <div className="mobile-nav__top">
+                    <MobileTop {...this.props} />
+                </div>
+                <div className="mobile-nav-content">
+                    <ul
+                        className="mobile-nav-content__list">
+                        <li className="mobile-nav-content__list-item">
                             <a
-                                className="nav-link"
+                                className="mobile-nav-content__link"
                                 href="#/explorer"
                                 title="Spending Explorer"
                                 onClick={this.props.hideMobileNav}>
                                 Spending Explorer
                             </a>
-                            <div className="nav-link-decorator" />
+                            <hr className="mobile-nav-content__divider" />
                         </li>
-                        <li>
+                        <li className="mobile-nav-content__list-item">
                             <MobileDropdown
                                 {...this.props}
                                 label="Award Search"
                                 items={searchOptions}
                                 active={this.state.url} />
-                            <div className="nav-link-decorator" />
+                            <hr className="mobile-nav-content__divider" />
                         </li>
-                        <li>
+                        <li className="mobile-nav-content__list-item">
                             <MobileDropdown
                                 {...this.props}
                                 label="Profiles"
                                 items={profileOptions}
                                 active={this.state.url} />
-                            <div className="nav-link-decorator" />
+                            <hr className="mobile-nav-content__divider" />
                         </li>
-                        <li className="no-phone">
+                        <li className="mobile-nav-content__list-item mobile-nav-content__list-item_no-phone">
                             <MobileDropdown
                                 {...this.props}
                                 label="Bulk Download"
                                 items={downloadOptions}
                                 active={this.state.url} />
-                            <div className="nav-link-decorator" />
+                            <hr className="mobile-nav-content__divider" />
                         </li>
-                        <li>
+                        <li className="mobile-nav-content__list-item">
                             <GlossaryButtonWrapperContainer
                                 child={MobileGlossaryButton}
                                 hideMobileNav={this.props.hideMobileNav} />
-                            <div className="nav-link-decorator" />
+                            <hr className="mobile-nav-content__divider" />
                         </li>
                     </ul>
                 </div>

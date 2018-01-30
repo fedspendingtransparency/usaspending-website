@@ -5,21 +5,21 @@
     background-color: #333;
     color: $color-white;
     font-size: $base-font-size;
-    padding-top: 1.5rem;
+    padding-top: rem(65);
+
+    @include media($tablet-screen) {
+        padding-top: rem(40);
+    }
+
     width: 100%;
     .footer-container {
         @include outer-container;
-        @include pad(1rem 2rem);
+        @include pad(0 0 rem(30));
         max-width: $site-max-width;
         @include media($tablet-screen) {
-            @include pad(1rem 2rem 3rem 2rem);
+            @include pad(0 rem(60) rem(60));
             @include display(flex);
             @include align-items(flex-start);
-        }
-        @include media($x-large-screen) {
-            margin: 0 auto;
-            max-width: $site-max-width;
-            padding: 1rem 0;
         }
 
         @import "./_footerLogo";

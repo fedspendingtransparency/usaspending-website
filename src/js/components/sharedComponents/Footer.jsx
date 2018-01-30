@@ -44,7 +44,7 @@ export default class Footer extends React.Component {
                                 <ul className="links">
                                     <li>
                                         <a href="#/about">
-                                            About The Data
+                                            About
                                         </a>
                                     </li>
                                 </ul>
@@ -76,16 +76,6 @@ export default class Footer extends React.Component {
                                     Resources
                                 </div>
                                 <ul className="links">
-                                    <li>
-                                        <a href="#/bulk_download">
-                                            Bulk Download
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <FooterExternalLink
-                                            link="http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/"
-                                            title="Raw Agency Files" />
-                                    </li>
                                     <li>
                                         <FooterExternalLink
                                             link="http://fedspendingtransparency.github.io/DAIMS-v1.1/"

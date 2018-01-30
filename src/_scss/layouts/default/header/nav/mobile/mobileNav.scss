@@ -10,6 +10,11 @@
 
     background-color: $color-gray-lightest;
 
+    .mobile-nav__top {
+        position: relative;
+        margin: rem(0) rem(20);
+    }
+
     @import "./_top";
     @import "./_nav";
 }

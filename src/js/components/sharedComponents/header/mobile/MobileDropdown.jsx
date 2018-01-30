@@ -51,7 +51,7 @@ export default class MobileDropdown extends React.Component {
 
         let hideList = '';
         if (!this.state.expandedDropdown) {
-            hideList = 'hide';
+            hideList = 'mobile-dropdown__list_hide';
         }
 
 
@@ -66,24 +66,22 @@ export default class MobileDropdown extends React.Component {
         ));
 
         return (
-            <div className="dropdown">
+            <div className="mobile-dropdown">
                 <button
-                    className="nav-button"
+                    className="mobile-dropdown__parent"
                     title={this.props.title || this.props.label}
                     onClick={this.toggleDropdown}>
-                    <span className="label">
+                    <span className="mobile-dropdown__parent-label">
                         {this.props.label}
                     </span>
-                    <span className="icon">
+                    <span className="mobile-dropdown__parent-icon">
                         {icon}
                     </span>
                 </button>
 
-                <div className={`dropdown-list ${hideList}`}>
-                    <ul className="dropdown-items">
-                        {items}
-                    </ul>
-                </div>
+                <ul className={`mobile-dropdown__list ${hideList}`}>
+                    {items}
+                </ul>
             </div>
         );
     }

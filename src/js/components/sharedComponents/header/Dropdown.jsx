@@ -47,44 +47,43 @@ export default class Dropdown extends React.Component {
     }
 
     render() {
-        let active = '';
+        let activeChildren = '';
+        let activeParent = '';
         let iconAlt = 'Collapsed menu';
         if (this.state.expanded) {
-            active = 'active';
+            activeChildren = 'nav-children_active';
+            activeParent = 'nav-dropdown__parent_active';
             iconAlt = 'Expanded menu';
         }
 
-        const items = this.props.items.map((item) => (
+        const items = this.props.items.map((item, index) => (
             <DropdownItem
                 {...item}
-                key={item.url} />
+                key={item.url}
+                isFirst={index === 0} />
         ));
 
         return (
             <div
-                className="nav-dropdown-outer-wrap"
+                className="nav-dropdown"
                 onMouseEnter={this.expandMenu}
                 onMouseLeave={this.collapseMenu}>
                 <button
-                    className={`usa-nav-dropdown-button ${active}`}
+                    className={`nav-dropdown__parent ${activeParent}`}
                     title={this.props.title}
                     onClick={this.clickedButton}
                     aria-expanded={this.state.expanded}>
-                    <div className="dropdown-button-content">
-                        <div className="dropdown-button-label">
-                            {this.props.label}
-                        </div>
-                        <div className="dropdown-button-icon">
-                            <AngleDown alt={iconAlt} />
-                        </div>
+                    <div className="nav-dropdown__parent-label">
+                        {this.props.label}
+                    </div>
+                    <div className="nav-dropdown__parent-icon">
+                        <AngleDown alt={iconAlt} />
                     </div>
                 </button>
-                <div className={`usa-nav-dropdown-list ${active}`}>
-                    <div className="dropdown-list-wrapper">
-                        <ul className="dropdown-list">
-                            {items}
-                        </ul>
-                    </div>
+                <div className={`nav-children ${activeChildren}`}>
+                    <ul className="nav-children__list">
+                        {items}
+                    </ul>
                 </div>
             </div>
         );

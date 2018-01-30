@@ -8,7 +8,7 @@ import React from 'react';
 const SpendingExplorerFeature = () => (
     <div className="feature-spending-explorer">
         <div className="feature-spending-explorer__wrapper">
-            <div className="feature-spending-explorer__image-wrapper">
+            <div className="feature-spending-explorer__image-wrapper feature-spending-explorer__image-wrapper_desktop">
                 <img
                     className="feature-spending-explorer__image"
                     src="img/homepage-spending-explorer.png"
@@ -21,6 +21,13 @@ const SpendingExplorerFeature = () => (
                     tabIndex={-1}>
                     A big-picture view of the federal spending landscape
                 </h2>
+                <div className="feature-spending-explorer__image-wrapper feature-spending-explorer__image-wrapper_mobile">
+                    <img
+                        className="feature-spending-explorer__image"
+                        src="img/homepage-spending-explorer.png"
+                        srcSet="img/homepage-spending-explorer.png 1x, img/homepage-spending-explorer@2x.png 2x"
+                        alt="Screenshot of the Spending Explorer" />
+                </div>
                 <div className="homepage-feature-description">
                     <p>
                         The <strong className="homepage-feature-description_weight_bold">Spending Explorer</strong> lets you explore the entire federal budget in increasing granularity, illustrating how awards derive from federal accounts.

@@ -1,24 +1,23 @@
-.nav-top {
+.mobile-nav-header {
     @include display(flex);
     @include justify-content(space-between);
     @include flex-direction(row);
     @include align-items(center);
-    position: relative;
-    padding: rem(20) rem(0);
-    margin: rem(0) rem(20);
 
-    .logo {
+    padding: rem(20) rem(0);
+
+    .mobile-nav-header__logo {
         @include flex(0 1 auto);
         position: relative;
     }
 
-    .close {
+    .mobile-nav-header__close {
         @include flex(0 0 auto);
         position: relative;
         height: rem(26);
         width: rem(26);
 
-        .close-button {
+        .mobile-nav-header__close-button {
             @include button-unstyled;
             height: rem(26);
             width: rem(26);
