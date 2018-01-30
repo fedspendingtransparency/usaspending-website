@@ -19,7 +19,9 @@ const propTypes = {
     onChangePage: PropTypes.func,
     pageNumber: PropTypes.number,
     totalItems: PropTypes.number,
-    pageSize: PropTypes.number
+    pageSize: PropTypes.number,
+    order: PropTypes.object,
+    updateSort: PropTypes.func
 };
 
 export default class AccountLandingContent extends React.Component {
@@ -51,7 +53,9 @@ export default class AccountLandingContent extends React.Component {
                         columns={this.props.columns}
                         results={this.props.results}
                         inFlight={this.props.inFlight}
-                        accountSearchString={this.props.accountSearchString} />
+                        accountSearchString={this.props.accountSearchString}
+                        order={this.props.order}
+                        updateSort={this.props.updateSort} />
                     <Pagination
                         onChangePage={this.props.onChangePage}
                         pageNumber={this.props.pageNumber}

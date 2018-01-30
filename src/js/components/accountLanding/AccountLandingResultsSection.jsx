@@ -13,7 +13,9 @@ const propTypes = {
     inFlight: PropTypes.bool,
     results: PropTypes.array,
     columns: PropTypes.array,
-    accountSearchString: PropTypes.string
+    accountSearchString: PropTypes.string,
+    order: PropTypes.object,
+    updateSort: PropTypes.func
 };
 
 export default class AccountLandingResultsSection extends React.Component {

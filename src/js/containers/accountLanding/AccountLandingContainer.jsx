@@ -4,10 +4,7 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 // import { isCancel } from 'axios';
-import { bindActionCreators } from 'redux';
 
 import { Search } from 'js-search';
 import { orderBy } from 'lodash';
@@ -15,23 +12,21 @@ import { orderBy } from 'lodash';
 import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
 // import * as AccountLandingHelper from 'helpers/accountLandingHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import * as accountLandingActions from 'redux/actions/accountLanding/accountLandingActions';
 
 import AccountLandingContent from 'components/accountLanding/AccountLandingContent';
 
 require('pages/accountLanding/accountLandingPage.scss');
 
-const propTypes = {
-    accountsOrder: PropTypes.object,
-    pageNumber: PropTypes.number,
-    setPageNumber: PropTypes.func
-};
-
-export class AccountLandingContainer extends React.Component {
+export default class AccountLandingContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            pageNumber: 1,
+            order: {
+                field: 'budget_authority_amount',
+                direction: 'desc'
+            },
             columns: [],
             inFlight: false,
             currentFY: '',
@@ -46,21 +41,11 @@ export class AccountLandingContainer extends React.Component {
         this.accountsRequest = null;
         this.setAccountSearchString = this.setAccountSearchString.bind(this);
         this.onChangePage = this.onChangePage.bind(this);
+        this.updateSort = this.updateSort.bind(this);
     }
 
     componentDidMount() {
         this.showColumns();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.accountsOrder !== prevProps.accountsOrder) {
-            // table sort changed
-            this.performSearch();
-        }
-        if (this.props.pageNumber !== prevProps.pageNumber) {
-            // page number changed
-            this.setPageOfItems();
-        }
     }
 
     componentWillUnmount() {
@@ -70,13 +55,15 @@ export class AccountLandingContainer extends React.Component {
     }
 
     onChangePage(pageNumber) {
-        console.log(pageNumber);
         // Change page number in Redux state
         const totalPages = Math.ceil(this.state.fullData.length / this.state.pageSize);
         const inRange = (pageNumber > 0) && (pageNumber <= totalPages);
         if (inRange) {
-            console.log('inRange');
-            this.props.setPageNumber(pageNumber);
+            this.setState({
+                pageNumber
+            }, () => {
+                this.setPageOfItems();
+            });
         }
     }
 
@@ -96,13 +83,24 @@ export class AccountLandingContainer extends React.Component {
     setPageOfItems() {
         const results = this.state.fullData;
         // calculate start and end item indexes
-        const startIndex = (this.props.pageNumber - 1) * this.state.pageSize;
+        const startIndex = (this.state.pageNumber - 1) * this.state.pageSize;
         const endIndex = Math.min(startIndex + (this.state.pageSize - 1), (results.length - 1));
 
         // Get new page of items from results
         const pageOfItems = results.slice(startIndex, endIndex + 1);
         this.setState({
             pageOfItems
+        });
+    }
+
+    updateSort(field, direction) {
+        this.setState({
+            order: {
+                field,
+                direction
+            }
+        }, () => {
+            this.performSearch();
         });
     }
 
@@ -313,8 +311,8 @@ export class AccountLandingContainer extends React.Component {
         //
         // // generate the params
         // const params = {
-        //    sort: this.props.accountsOrder.field,
-        //    order: this.props.accountsOrder.direction
+        //    sort: this.state.order.field,
+        //    order: this.state.order.direction
         // };
         //
         // this.accountsRequest = AccountLandingHelper.fetchAllAccounts(params);
@@ -393,10 +391,12 @@ export class AccountLandingContainer extends React.Component {
 
         // now sort the results by the appropriate table column and direction
         const orderedResults = orderBy(results,
-            [this.props.accountsOrder.field], [this.props.accountsOrder.direction]);
+            [this.state.order.field], [this.state.order.direction]);
 
         // Reset to page 1
-        this.props.setPageNumber(1);
+        this.setState({
+            pageNumber: 1
+        });
 
         this.setState({
             results: orderedResults
@@ -412,22 +412,13 @@ export class AccountLandingContainer extends React.Component {
                 accountSearchString={this.state.accountSearchString}
                 inFlight={this.state.inFlight}
                 columns={this.state.columns}
-                sort={this.props.accountsOrder}
+                order={this.state.order}
+                updateSort={this.updateSort}
                 setAccountSearchString={this.setAccountSearchString}
                 onChangePage={this.onChangePage}
-                pageNumber={this.props.pageNumber}
+                pageNumber={this.state.pageNumber}
                 totalItems={this.state.fullData.length}
                 pageSize={this.state.pageSize} />
         );
     }
 }
-
-AccountLandingContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({
-        accountsOrder: state.accountLanding.accountsOrder,
-        pageNumber: state.accountLanding.pageNumber
-    }),
-    (dispatch) => bindActionCreators(accountLandingActions, dispatch)
-)(AccountLandingContainer);

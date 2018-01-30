@@ -6,13 +6,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import HeaderRow from './HeaderRow';
+import LegacyTableHeaderCell from 'components/account/awards/LegacyTableHeaderCell';
 import TableRow from './TableRow';
 
 const propTypes = {
     results: PropTypes.array,
     columns: PropTypes.array,
-    accountSearchString: PropTypes.string
+    accountSearchString: PropTypes.string,
+    order: PropTypes.object,
+    updateSort: PropTypes.func
 };
 
 export default class AccountLandingTable extends React.PureComponent {
@@ -33,12 +35,25 @@ export default class AccountLandingTable extends React.PureComponent {
                 accountSearchString={this.props.accountSearchString} />
         ));
 
+        const headers = this.props.columns.map((column, index) => (
+            <td key={index}>
+                <LegacyTableHeaderCell
+                    isLast={index === this.props.columns.length - 1}
+                    field={column.columnName}
+                    title={column.displayName}
+                    defaultDirection={column.defaultDirection}
+                    currentSort={this.props.order}
+                    updateSort={this.props.updateSort} />
+            </td>
+        ));
+
         return (
             <div className={`account-landing-results-table${noResultsClass}`}>
                 <table>
                     <thead>
-                        <HeaderRow
-                            columns={this.props.columns} />
+                        <tr>
+                            {headers}
+                        </tr>
                     </thead>
                     <tbody>
                         {rows}
