@@ -1,4 +1,5 @@
 .mobile-dropdown {
+    @import "../_comingSoon";
     button.mobile-dropdown__parent {
         @include button-unstyled;
         @include display(flex);
