@@ -15,6 +15,19 @@ const propTypes = {
     seeAdditional: PropTypes.func
 };
 
+const isEmpty = (field, ignoreDefault) => {
+    if (!field) {
+        return true;
+    }
+    if (field === '') {
+        return true;
+    }
+    if (!ignoreDefault && field === ignoreDefault) {
+        return true;
+    }
+    return false;
+};
+
 export default class FinancialAssistanceDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -28,62 +41,116 @@ export default class FinancialAssistanceDetails extends React.Component {
             programDesc: "",
             cfdaOverflow: false
         };
-
-        // bind functions
-        this.setValues = this.setValues.bind(this);
     }
 
-    componentWillReceiveProps() {
-        this.setValues(this.props.selectedAward);
+    componentDidMount() {
+        this.prepareValues(this.props.selectedAward);
     }
 
-    setValues() {
-        let yearRangeTotal = "";
-        let description = null;
-        const award = this.props.selectedAward;
-        const latestTransaction = award.latest_transaction;
-
-        // Date Range
-        const startDate = moment(award.period_of_performance_start_date, 'M/D/YYYY');
-        const endDate = moment(award.period_of_performance_current_end_date, 'M/D/YYYY');
-        const yearRange = endDate.diff(startDate, 'year');
-        let popDate = "Not Available";
-        if (!isNaN(yearRange) && yearRange !== 0) {
-            if (yearRange === 1) {
-                yearRangeTotal = `${yearRange} year)`;
-            }
-            else {
-                yearRangeTotal = `(${yearRange} years)`;
-            }
-
-            popDate = `${award.period_of_performance_start_date} -
-               ${award.period_of_performance_current_end_date} ${yearRangeTotal}`;
+    componentWillReceiveProps(nextProps) {
+        if (!Object.is(nextProps.selectedAward, this.props.selectedAward)) {
+            this.prepareValues(nextProps.selectedAward);
         }
+    }
 
+    parsePlaceOfPerformance(award) {
         // Location
-        let popPlace = "Not Available";
+        let popPlace = '';
+
         let cityState = null;
         const city = award.pop_city;
         const stateProvince = award.pop_state_province;
-        if (city && stateProvince) {
+
+        if (!isEmpty(city) && !isEmpty(stateProvince)) {
             cityState = `${city}, ${stateProvince}`;
         }
-        else if (city) {
+        else if (!isEmpty(city)) {
             cityState = city;
         }
-        else if (stateProvince) {
+        else if (!isEmpty(stateProvince)) {
             cityState = stateProvince;
         }
         if (award.pop_country_code === 'USA') {
-            popPlace = `${cityState} ${award.pop_zip}`;
-            if (award.pop_state_code && award.pop_congressional_district) {
+            if (!isEmpty(cityState)) {
+                popPlace = cityState;
+            }
+            if (!isEmpty(award.pop_zip)) {
+                if (popPlace !== '') {
+                    popPlace += ' ';
+                }
+                popPlace += award.pop_zip;
+            }
+
+            if (!isEmpty(award.pop_state_code) && !isEmpty(award.pop_congressional_district)) {
+                if (popPlace !== '') {
+                    popPlace += '\n';
+                }
                 popPlace +=
-            `\nCongressional District: ${award.pop_state_code}-${award.pop_congressional_district}`;
+            `Congressional District: ${award.pop_state_code}-${award.pop_congressional_district}`;
             }
         }
         else if (award.pop_country_code !== 'USA') {
             popPlace = `${award.pop_country}`;
         }
+
+        if (popPlace === '') {
+            popPlace = 'Not available';
+        }
+
+        return popPlace;
+    }
+
+    prepareValues(award) {
+        let yearRangeTotal = "";
+        let monthRangeTotal = "";
+        let description = null;
+        const latestTransaction = award.latest_transaction;
+
+        // Date Range
+        const formattedStartDate = award.period_of_performance_start_date;
+        const formattedEndDate = award.period_of_performance_current_end_date;
+
+        const startDate = moment(formattedStartDate, 'M/D/YYYY');
+        const endDate = moment(formattedEndDate, 'M/D/YYYY');
+
+        const duration = moment.duration(endDate.diff(startDate));
+        const years = duration.years();
+        const months = duration.months();
+
+        let popDate = "Not Available";
+        if (!isNaN(years)) {
+            if (months > 0) {
+                if (months === 1) {
+                    monthRangeTotal = `${months} month`;
+                }
+                else {
+                    monthRangeTotal = `${months} months`;
+                }
+            }
+
+            if (years > 0) {
+                if (years === 1) {
+                    yearRangeTotal = `${years} year`;
+                }
+                else {
+                    yearRangeTotal = `${years} years`;
+                }
+            }
+
+            let timeRange = '';
+            if (monthRangeTotal && yearRangeTotal) {
+                timeRange = `(${yearRangeTotal}, ${monthRangeTotal})`;
+            }
+            else if (monthRangeTotal) {
+                timeRange = `(${monthRangeTotal})`;
+            }
+            else if (yearRangeTotal) {
+                timeRange = `(${yearRangeTotal})`;
+            }
+
+            popDate = `${formattedStartDate} - ${formattedEndDate} ${timeRange}`;
+        }
+
         if (award.description) {
             description = award.description;
         }
@@ -99,21 +166,21 @@ export default class FinancialAssistanceDetails extends React.Component {
         let programName = 'Not Available';
         let programDescription = 'Not Available';
 
-        if (latestTransaction.assistance_data.cfda) {
-            const cfda = latestTransaction.assistance_data.cfda;
-            if (cfda.program_number && cfda.program_title) {
-                programName = `${latestTransaction.assistance_data.cfda.program_number} - \
-${latestTransaction.assistance_data.cfda.program_title}`;
+        if (latestTransaction.assistance_data) {
+            const assistanceData = latestTransaction.assistance_data;
+
+            if (assistanceData.cfda_number && assistanceData.cfda_title) {
+                programName = `${assistanceData.cfda_number} - ${assistanceData.cfda_title}`;
             }
-            else if (cfda.program_number) {
-                programName = cfda.program_number;
+            else if (assistanceData.cfda_number) {
+                programName = assistanceData.cfda_title;
             }
-            else if (cfda.program_title) {
-                programName = cfda.program_title;
+            else if (assistanceData.program_title) {
+                programName = assistanceData.cfda_title;
             }
 
-            if (cfda.objectives) {
-                programDescription = cfda.objectives;
+            if (assistanceData.cfda_objectives) {
+                programDescription = assistanceData.cfda_objectives;
             }
         }
 
@@ -127,7 +194,7 @@ ${latestTransaction.assistance_data.cfda.program_title}`;
             programName,
             cfdaOverflow,
             date: popDate,
-            place: popPlace,
+            place: this.parsePlaceOfPerformance(award),
             typeDesc: award.type_description,
             awardType,
             programDesc: programDescription

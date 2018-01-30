@@ -1,0 +1,64 @@
+.usa-da-error-page {
+    @import "all";
+    @import "mixins/fullSectionWrap";
+    @import "layouts/default/default";
+
+    .error-content {
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+        position: relative;
+
+        padding: rem(25);
+
+        @include media($tablet-screen) {
+            height: calc(100vh - 300px);
+        }
+
+        .error-box {
+            @include flex(1 1 auto);
+            box-shadow: $box-shadow;
+            background-color: $color-white;
+            padding: rem(25);
+            
+            height: 100%;
+
+            .error-header {
+                @include display(flex);
+                @include justify-content(center);
+                @include align-items(center);
+                position: relative;
+
+                .error-icon {
+                    @include flex(0 0 auto);
+                    width: rem(35);
+                    height: rem(35);
+
+                    svg {
+                        width: rem(35);
+                        height: rem(35);
+                        fill: $color-primary-darker;
+                    }
+                }
+
+                .error-title {
+                    @include flex(1 1 auto);
+                    margin-left: rem(15);
+                    h1 {
+                        margin: 0;
+                        padding: 0;
+                        font-size: $h3-font-size;
+                    }
+                }
+            }
+
+            .error-body {
+                a {
+                    color: $color-link;
+                }
+            }
+
+
+        }
+    }
+}

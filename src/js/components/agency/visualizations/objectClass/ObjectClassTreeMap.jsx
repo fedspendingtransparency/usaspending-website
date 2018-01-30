@@ -14,11 +14,16 @@ import MajorObjectClasses from './MajorObjectClasses';
 import MinorObjectClasses from './MinorObjectClasses';
 
 const propTypes = {
+    activeFY: PropTypes.string,
     majorObjectClasses: PropTypes.object,
     minorObjectClasses: PropTypes.object,
     totalObligation: PropTypes.number,
     totalMinorObligation: PropTypes.number,
-    showMinorObjectClasses: PropTypes.func
+    displayedTotalObligation: PropTypes.number,
+    showMinorObjectClasses: PropTypes.func,
+    asOfDate: PropTypes.string,
+    hasNegatives: PropTypes.bool,
+    minorHasNegatives: PropTypes.bool
 };
 
 export default class ObjectClassTreeMap extends React.Component {
@@ -66,14 +71,16 @@ export default class ObjectClassTreeMap extends React.Component {
     }
 
     generateHeader() {
-        let header = "Hover over a segment for more information";
+        let header = '';
 
         if (this.state.showMinorObjectClass === true) {
-            header = (<button
-                className="back"
-                onClick={this.toggleMinorObjectClass}>
-                <Icons.ArrowUp /> Back to Major Object Classes
-            </button>);
+            header = (
+                <button
+                    className="back"
+                    onClick={this.toggleMinorObjectClass}>
+                    <Icons.ArrowUp /> Back to Major Object Classes
+                </button>
+            );
         }
 
         return header;
@@ -84,7 +91,8 @@ export default class ObjectClassTreeMap extends React.Component {
             {...this.state}
             majorObjectClasses={this.props.majorObjectClasses}
             totalObligation={this.props.totalObligation}
-            toggleMinorObjectClass={this.toggleMinorObjectClass} />);
+            toggleMinorObjectClass={this.toggleMinorObjectClass}
+            hasNegatives={this.props.hasNegatives} />);
 
         if (this.state.showMinorObjectClass === true) {
             const selectedMajorObjectClass = find(this.props.majorObjectClasses.children,
@@ -96,27 +104,30 @@ export default class ObjectClassTreeMap extends React.Component {
                 minorObjectClasses={this.props.minorObjectClasses}
                 totalObligation={this.props.totalObligation}
                 totalMinorObligation={this.props.totalMinorObligation}
-                toggleMinorObjectClass={this.toggleMinorObjectClass} />);
+                toggleMinorObjectClass={this.toggleMinorObjectClass}
+                hasNegatives={this.props.minorHasNegatives} />);
         }
 
         return objectClasses;
     }
 
     render() {
-        const total = MoneyFormatter.formatTreemapValues(this.props.totalObligation);
+        const total = MoneyFormatter.formatTreemapValues(this.props.displayedTotalObligation);
 
         return (
             <div
                 className="agency-section-wrapper"
                 id="agency-object-classes">
-                <div className="agency-callout-description">
-                    <p>This {total} in obligations is divided among categories,
-                    called <strong>object classes</strong>. These groupings can be helpful
-                        for analysis and cross-agency comparison.</p>
-                </div>
                 <div className="agency-section-title">
                     <h4>Object Classes</h4>
                     <hr className="results-divider" />
+                    <em>FY {this.props.activeFY} data reported through {this.props.asOfDate}</em>
+                </div>
+                <div className="agency-callout-description">
+                    <p>This {total} in obligations is divided among categories,
+                        called <strong>object classes</strong>. These groupings can be helpful
+                        for analysis and cross-agency comparison.
+                    </p>
                 </div>
                 <div className="agency-section-content">
                     <div
@@ -129,11 +140,11 @@ export default class ObjectClassTreeMap extends React.Component {
                         </div>
                         {this.generateObjectClasses()}
                     </div>
+                    <div className="agency-viz-description">This visualization represents obligated amount.</div>
                 </div>
             </div>
         );
     }
-
 }
 
 ObjectClassTreeMap.propTypes = propTypes;

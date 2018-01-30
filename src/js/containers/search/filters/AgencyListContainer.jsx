@@ -5,8 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { filter, sortBy, slice, concat } from 'lodash';
 
@@ -16,19 +14,13 @@ import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete'
 
 import * as SearchHelper from 'helpers/searchHelper';
 
-import * as agencyActions from 'redux/actions/search/agencyActions';
-
 const propTypes = {
-    setAutocompleteAwardingAgencies: PropTypes.func,
-    setAutocompleteFundingAgencies: PropTypes.func,
-    fundingAgencies: PropTypes.array,
-    awardingAgencies: PropTypes.array,
     toggleAgency: PropTypes.func,
     selectedAgencies: PropTypes.object,
     agencyType: PropTypes.string
 };
 
-export class AgencyListContainer extends React.Component {
+export default class AgencyListContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -36,6 +28,7 @@ export class AgencyListContainer extends React.Component {
 
         this.state = {
             agencySearchString: '',
+            autocompleteType: '',
             autocompleteAgencies: [],
             noResults: false
         };
@@ -45,24 +38,6 @@ export class AgencyListContainer extends React.Component {
         this.timeout = null;
     }
 
-    componentDidMount() {
-        if (this.props.agencyType === 'Funding') {
-            this.parseAutocompleteAgencies(this.props.fundingAgencies);
-        }
-        else {
-            this.parseAutocompleteAgencies(this.props.awardingAgencies);
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.agencyType === 'Funding') {
-            this.parseAutocompleteAgencies(nextProps.fundingAgencies);
-        }
-        else {
-            this.parseAutocompleteAgencies(nextProps.awardingAgencies);
-        }
-    }
-
     parseAutocompleteAgencies(results) {
         let agencies = [];
         let noResults = false;
@@ -70,25 +45,32 @@ export class AgencyListContainer extends React.Component {
         // Format results of search for use in Autocomplete component
         if (results && results.length > 0) {
             results.forEach((item) => {
-                // Push two items to the autocomplete entries if subtier = toptier
+                let subAbbreviation = '';
+                let topAbbreviation = '';
+                if (item.subtier_agency.abbreviation !== '') {
+                    subAbbreviation = `(${item.subtier_agency.abbreviation})`;
+                }
+                if (item.toptier_agency.abbreviation !== '') {
+                    topAbbreviation = `(${item.toptier_agency.abbreviation})`;
+                }
+
                 // Only push items if they are not in selectedAgencies
-                if (item.toptier_agency.name === item.subtier_agency.name) {
+                if (item.toptier_flag) {
                     if (this.props.selectedAgencies.size === 0
                         || !this.props.selectedAgencies.has(`${item.id}_toptier`)) {
                         agencies.push({
-                            title: item.subtier_agency.name,
+                            title: `${item.subtier_agency.name} ${topAbbreviation}`,
                             data: Object.assign({}, item, {
                                 agencyType: 'toptier'
                             })
                         });
                     }
                 }
-
-                if (this.props.selectedAgencies.size === 0
+                else if (this.props.selectedAgencies.size === 0
                     || !this.props.selectedAgencies.has(`${item.id}_subtier`)) {
                     agencies.push({
-                        title: item.subtier_agency.name,
-                        subtitle: `Sub-Agency of ${item.toptier_agency.name}`,
+                        title: `${item.subtier_agency.name} ${subAbbreviation}`,
+                        subtitle: `Sub-Agency of ${item.toptier_agency.name} ${topAbbreviation}`,
                         data: Object.assign({}, item, {
                             agencyType: 'subtier'
                         })
@@ -109,25 +91,11 @@ export class AgencyListContainer extends React.Component {
         toptierAgencies = sortBy(toptierAgencies, 'title');
         subtierAgencies = sortBy(subtierAgencies, 'title');
 
-        if (this.props.agencyType === 'Funding') {
-            // Show an error message if the API results contain exclusively subtier Funding Agencies
-            if (agencies.length > 0 && toptierAgencies.length === 0) {
-                noResults = true;
-            }
-
-            // We don't allow users to filter by subtier Funding Agencies, so we return just
-            // the toptier agencies
-            agencies = toptierAgencies;
-        }
-        else {
-            // Otherwise, for filtering by Awarding Agency, we combine the toptier and subtier
-            // groups, with toptier first, and then return the top 10
-            agencies = slice(concat(toptierAgencies, subtierAgencies), 0, 10);
-        }
+        agencies = slice(concat(toptierAgencies, subtierAgencies), 0, 10);
 
         this.setState({
-            autocompleteAgencies: agencies,
-            noResults
+            noResults,
+            autocompleteAgencies: agencies
         });
     }
 
@@ -182,9 +150,9 @@ export class AgencyListContainer extends React.Component {
         // create a search index with the API response records
         const search = new Search('id');
         search.addIndex(['toptier_agency', 'name']);
-        if (this.props.agencyType === 'Awarding') {
-            search.addIndex(['subtier_agency', 'name']);
-        }
+        search.addIndex(['subtier_agency', 'name']);
+        search.addIndex(['toptier_agency', 'abbreviation']);
+        search.addIndex(['subtier_agency', 'abbreviation']);
 
         // add the API response as the data source to search within
         search.addDocuments(data);
@@ -208,34 +176,21 @@ export class AgencyListContainer extends React.Component {
         const improvedResults = slice(concat(toptier, subtier), 0, 10);
 
         // Add search results to Redux
-        if (this.props.agencyType === 'Funding') {
-            this.props.setAutocompleteFundingAgencies(improvedResults);
-        }
-        else {
-            this.props.setAutocompleteAwardingAgencies(improvedResults);
-        }
-
-        this.setState({
-            noResults: improvedResults.length === 0
-        });
+        this.parseAutocompleteAgencies(improvedResults);
     }
 
     clearAutocompleteSuggestions() {
-        if (this.props.agencyType === 'Funding') {
-            this.props.setAutocompleteFundingAgencies([]);
-        }
-        else {
-            this.props.setAutocompleteAwardingAgencies([]);
-        }
+        this.setState({
+            autocompleteAgencies: []
+        });
     }
 
     handleTextInput(agencyInput) {
         // Clear existing agencies to ensure user can't select an old or existing one
-        if (this.props.agencyType === 'Funding' && this.props.fundingAgencies.length > 0) {
-            this.props.setAutocompleteFundingAgencies([]);
-        }
-        else if (this.props.agencyType === 'Awarding' && this.props.awardingAgencies.length > 0) {
-            this.props.setAutocompleteAwardingAgencies([]);
+        if (this.state.autocompleteAgencies.length > 0) {
+            this.setState({
+                autocompleteAgencies: []
+            });
         }
 
         // Grab input, clear any exiting timeout
@@ -253,12 +208,9 @@ export class AgencyListContainer extends React.Component {
         this.props.toggleAgency(agency, valid, this.props.agencyType);
 
         // Clear Autocomplete results
-        if (this.props.agencyType === 'Funding') {
-            this.props.setAutocompleteFundingAgencies([]);
-        }
-        else {
-            this.props.setAutocompleteAwardingAgencies([]);
-        }
+        this.setState({
+            autocompleteAgencies: []
+        });
     }
 
     render() {
@@ -282,10 +234,3 @@ export class AgencyListContainer extends React.Component {
 }
 
 AgencyListContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({
-        fundingAgencies: state.autocompleteAgencies.fundingAgencies,
-        awardingAgencies: state.autocompleteAgencies.awardingAgencies }),
-    (dispatch) => bindActionCreators(agencyActions, dispatch)
-)(AgencyListContainer);

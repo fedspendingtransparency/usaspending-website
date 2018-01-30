@@ -3,18 +3,22 @@
 
     .agency-callout-description {
         @include display(flex);
-        @include align-items(center);
-        @include justify-content(center);
+        @include align-items(left);
+        @include justify-content(left);
         width: 100%;
         position: relative;
-        margin: rem(100) 0 rem(60);
-        padding: 0 rem(63);
+        margin: rem(24) 0 rem(32);
+        padding: 0;
         color: $color-base;
         font-family: $font-sans;
         font-size: $lead-font-size;
         font-weight: 300;
         line-height: 35px;
-        text-align: center;
+        text-align: left;
+
+        p {
+            margin: 0;
+        }
     }
 
     .agency-section-title {
@@ -23,14 +27,28 @@
             line-height: rem(47);
             margin: rem(5) 0;
         }
+
+        hr {
+            width: 100%;
+            margin: 0 0 rem(4);
+        }
+
+	    em {
+		    font-size: rem(12);
+	    }
     }
 
     .agency-section-content {
-        @import "pages/homepage/treemapSection";
+        @import "./treemaps/treemapSection";
+
+	    .agency-viz-description {
+		    margin: rem(10) 0 rem(85);
+		    font-size: rem(12);
+	    }
 
         .usa-da-treemap-section {
             background: white;
-            padding-top: rem(50);
+            padding-top: rem(40);
             padding-bottom: rem(0);
 
             .treemap-inner-wrap {
@@ -68,6 +86,20 @@
             color: $color-gray;
             font-size: rem(12);
             line-height: $base-line-height;
+
+	        .info-icon-circle {
+		        @include align-self(center);
+		        display: inline-block;
+		        fill: $color-gray;
+		        height: rem(17);
+		        left: rem(5);
+		        position: relative;
+		        top: rem(3);
+		        width: rem(15);
+	        }
+	        span {
+		        margin-left: rem(10);
+	        }
 
             .back {
                 color: $color-gray;

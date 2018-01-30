@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Immutable from 'immutable';
+import { Set, is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -15,22 +15,27 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 
-const startYear = FiscalYearHelper.earliestFiscalYear;
+export const startYear = FiscalYearHelper.earliestFiscalYear;
 
 const propTypes = {
     updateTimePeriod: PropTypes.func,
     filterTimePeriodType: PropTypes.string,
-    filterTimePeriodFY: PropTypes.instanceOf(Immutable.Set),
+    filterTimePeriodFY: PropTypes.instanceOf(Set),
     filterTimePeriodStart: PropTypes.string,
-    filterTimePeriodEnd: PropTypes.string
+    filterTimePeriodEnd: PropTypes.string,
+    appliedFilters: PropTypes.object
 };
 
-class TimePeriodContainer extends React.Component {
+export class TimePeriodContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            timePeriods: []
+            timePeriods: [],
+            activeTab: 'fy',
+            cachedTimePeriods: Set(),
+            cachedStart: null,
+            cachedEnd: null
         };
 
         // bind functions
@@ -40,6 +45,14 @@ class TimePeriodContainer extends React.Component {
 
     componentDidMount() {
         this.generateTimePeriods();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.filterTimePeriodType !== this.props.filterTimePeriodType) {
+            this.setState({
+                activeTab: nextProps.filterTimePeriodType
+            });
+        }
     }
 
     generateTimePeriods() {
@@ -58,15 +71,15 @@ class TimePeriodContainer extends React.Component {
     }
 
     changeTab(tab) {
-        this.updateFilter({
-            dateType: tab
+        this.setState({
+            activeTab: tab
         });
     }
 
     updateFilter(params) {
         // set the state to a clone of the filter subobject merged with the param object
         const currentFilters = {
-            dateType: this.props.filterTimePeriodType,
+            dateType: this.state.activeTab,
             fy: this.props.filterTimePeriodFY,
             startDate: this.props.filterTimePeriodStart,
             endDate: this.props.filterTimePeriodEnd
@@ -74,14 +87,60 @@ class TimePeriodContainer extends React.Component {
 
         const newFilters = Object.assign({}, currentFilters, params);
 
+        if (this.state.activeTab === 'fy') {
+            // reset the date range values
+            newFilters.startDate = null;
+            newFilters.endDate = null;
+        }
+        else {
+            // reset the fiscal year set
+            newFilters.fy = [];
+
+            if (!newFilters.startDate && !newFilters.endDate) {
+                newFilters.dateType = 'fy';
+            }
+        }
+
         this.props.updateTimePeriod(newFilters);
+    }
+
+    dirtyFilters() {
+        const appliedFields = [
+            'timePeriodFY',
+            'timePeriodStart',
+            'timePeriodEnd'
+        ];
+        const activeFields = [
+            'filterTimePeriodFY',
+            'filterTimePeriodStart',
+            'filterTimePeriodEnd'
+        ];
+
+        const noChanges = appliedFields.every((appliedField, index) => {
+            const activeField = activeFields[index];
+            const appliedValue = this.props.appliedFilters[appliedField];
+            const activeValue = this.props[activeField];
+
+            if (!is(appliedValue, activeValue)) {
+                // field has changed
+                return false;
+            }
+
+            return true;
+        });
+
+        if (!noChanges) {
+            return Symbol('dirty time filter');
+        }
+        return null;
     }
 
     render() {
         return (
             <TimePeriod
                 {...this.props}
-                activeTab={this.props.filterTimePeriodType}
+                dirtyFilters={this.dirtyFilters()}
+                activeTab={this.state.activeTab}
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
                 changeTab={this.changeTab} />
@@ -96,7 +155,8 @@ export default connect(
         filterTimePeriodType: state.filters.timePeriodType,
         filterTimePeriodFY: state.filters.timePeriodFY,
         filterTimePeriodStart: state.filters.timePeriodStart,
-        filterTimePeriodEnd: state.filters.timePeriodEnd
+        filterTimePeriodEnd: state.filters.timePeriodEnd,
+        appliedFilters: state.appliedFilters.filters
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(TimePeriodContainer);

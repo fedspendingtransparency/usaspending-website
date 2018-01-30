@@ -7,15 +7,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { find, throttle } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
+import moment from 'moment';
+import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
+
+import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
-import RecipientContainer from 'containers/agency/visualizations/RecipientContainer';
 import ObligatedContainer from 'containers/agency/visualizations/ObligatedContainer';
 import FederalAccountContainer from 'containers/agency/visualizations/FederalAccountContainer';
 import AgencyFooterContainer from 'containers/agency/AgencyFooterContainer';
 
-import AgencySidebar from './sidebar/AgencySidebar';
+import Sidebar from '../sharedComponents/sidebar/Sidebar';
 import AgencyOverview from './overview/AgencyOverview';
+import TreasuryDisclaimer from './TreasuryDisclaimer';
 
 const agencySections = [
     {
@@ -33,15 +37,13 @@ const agencySections = [
     {
         section: 'federal-accounts',
         label: 'Federal Accounts'
-    },
-    {
-        section: 'recipients',
-        label: 'Recipients'
     }
 ];
 
 const propTypes = {
-    agency: PropTypes.object
+    agency: PropTypes.object,
+    lastUpdate: PropTypes.string,
+    isTreasury: PropTypes.bool
 };
 
 export default class AgencyContent extends React.Component {
@@ -213,33 +215,48 @@ export default class AgencyContent extends React.Component {
     }
 
     render() {
+        const qtr = parseFloat(this.props.agency.overview.activeFQ);
+        const endOfQuarter = convertQuarterToDate(qtr, this.props.agency.overview.activeFY);
+        const asOfDate = moment(endOfQuarter, "YYYY-MM-DD").format("MMMM D, YYYY");
+
+        let disclaimer = null;
+        if (this.props.isTreasury) {
+            disclaimer = (<TreasuryDisclaimer />);
+        }
+
         return (
             <div className="agency-content-wrapper">
                 <div className="agency-sidebar">
-                    <AgencySidebar
+                    <Sidebar
                         active={this.state.activeSection}
+                        pageName="agency"
                         sections={agencySections}
                         jumpToSection={this.jumpToSection} />
                 </div>
                 <div className="agency-content">
                     <div className="agency-padded-content overview">
-                        <AgencyOverview agency={this.props.agency.overview} />
+                        <GlossaryButtonWrapperContainer
+                            child={AgencyOverview}
+                            agency={this.props.agency.overview} />
                     </div>
                     <div className="agency-padded-content data">
                         <ObligatedContainer
                             agencyName={this.props.agency.overview.name}
                             activeFY={this.props.agency.overview.activeFY}
-                            id={this.props.agency.id} />
+                            activeQuarter={this.props.agency.overview.activeFQ}
+                            id={this.props.agency.id}
+                            asOfDate={asOfDate} />
                         <ObjectClassContainer
                             id={this.props.agency.id}
-                            activeFY={this.props.agency.overview.activeFY} />
+                            activeFY={this.props.agency.overview.activeFY}
+                            displayedTotalObligation={this.props.agency.overview.obligatedAmount}
+                            asOfDate={asOfDate} />
                         <FederalAccountContainer
                             id={this.props.agency.id}
                             activeFY={this.props.agency.overview.activeFY}
-                            obligatedAmount={this.props.agency.overview.obligatedAmount} />
-                        <RecipientContainer
-                            id={this.props.agency.id}
-                            activeFY={this.props.agency.overview.activeFY} />
+                            obligatedAmount={this.props.agency.overview.obligatedAmount}
+                            asOfDate={asOfDate} />
+                        {disclaimer}
                     </div>
                     <AgencyFooterContainer id={this.props.agency.id} />
                 </div>

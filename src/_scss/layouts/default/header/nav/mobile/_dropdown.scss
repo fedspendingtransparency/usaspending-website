@@ -1,0 +1,83 @@
+.dropdown {
+    button.nav-button {
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+
+        .label {
+            @include flex(0 0 auto);
+            margin-right: rem(10);
+        }
+
+        .icon {
+            @include flex(0 0 auto);
+            width: rem(30);
+            height: rem(30);
+
+            svg {
+                width: rem(30);
+                height: rem(30);
+                fill: $color-gray;                            
+            }
+        }
+    }
+
+    ul.dropdown-items {
+        li {
+            margin-top: rem(10);
+            margin-bottom: rem(10);
+
+            &.coming-soon {
+                opacity: 0.4;
+                pointer-events: none;
+            }
+
+            .coming-soon-wrapper {
+                display: block;
+                width: rem(80);
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .dropdown-coming-soon {
+                @include display(flex);
+                @include align-items(center);
+                @include justify-content(center);
+                position: relative;
+                line-height: rem(10);
+
+                .icon {
+                    @include flex(0 0 auto);
+                    svg {
+                        height: rem(10);
+                        width: rem(10);
+                        color: $color-gray;
+                        fill-opacity: 0.4;
+                    }
+                }
+
+                .label {
+                    @include flex(1 1 auto);
+                    margin-left: rem(5);
+                    margin-top: rem(5);
+                    font-size: rem(10);
+                    color: $color-base;
+                }
+            }
+        }
+    }
+
+    a.dropdown-item {
+        font-size: rem(24);
+        line-height: rem(28);
+        color: $color-base;
+        text-decoration: none;
+
+        &:hover, &:active, &.active {
+            color: #0C99CD;
+            text-decoration: none;
+        }
+    }
+}

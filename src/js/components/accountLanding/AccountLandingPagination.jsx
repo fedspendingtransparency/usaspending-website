@@ -31,11 +31,11 @@ export default class AccountLandingPagination extends React.Component {
                 </li>
                 {pager.firstButton}
                 {pager.prevEllipses}
-                {pager.pages.map((page, index) =>
+                {pager.pages.map((page, index) => (
                     <li key={index} className={pager.currentPage === page ? 'active' : ''}>
                         <button onClick={() => this.setPage(page)}>{page}</button>
                     </li>
-                )}
+                ))}
                 {pager.nextEllipses}
                 {pager.lastButton}
                 <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>

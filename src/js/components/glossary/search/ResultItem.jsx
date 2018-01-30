@@ -54,18 +54,22 @@ export default class ResultItem extends React.Component {
                 if (part.length > 0) {
                     // add the unmatched parts of the label
                     const unmatched = props.item.term.substring(position, unmatchedPos);
-                    output.push(<span key={`unmatched-${index}`}>
-                        {unmatched}
-                    </span>);
+                    output.push(
+                        <span key={`unmatched-${index}`}>
+                            {unmatched}
+                        </span>
+                    );
                 }
 
                 if (index < parts.length - 1) {
                     // add the matched parts of the label
                     const matchedPos = unmatchedPos + search.length;
                     const matchedValue = props.item.term.substring(unmatchedPos, matchedPos);
-                    const matched = (<span className="matched-highlight" key={`match-${index}`}>
-                        {matchedValue}
-                    </span>);
+                    const matched = (
+                        <span className="matched-highlight" key={`match-${index}`}>
+                            {matchedValue}
+                        </span>
+                    );
                     output.push(matched);
                 }
 

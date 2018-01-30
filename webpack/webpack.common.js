@@ -21,7 +21,8 @@ module.exports = {
         extensions: ['.js', '.jsx'],
         modules: [
             path.resolve(__dirname, '../src/js'),
-            path.resolve(__dirname, '../node_modules')
+            path.resolve(__dirname, '../node_modules'),
+            path.resolve(__dirname, '../src/_scss')
         ]
     },
     module: {
@@ -29,7 +30,6 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx?$/,
-                include: /src(\/|\\)js/,
                 exclude: /node_modules/,
                 loader: 'babel-loader', // the babel loader tells webpack to compile JS/JSX files using Babel
                 query: {
@@ -63,7 +63,7 @@ module.exports = {
                         {
                             loader: 'sass-loader',
                             options: {
-                                includePaths: ['./src/_scss'],
+                                includePaths: ['./src/_scss', './node_modules'],
                                 sourceMap: () => {
                                     if (process.env.NODE_ENV === 'production') {
                                         return false;
@@ -76,7 +76,7 @@ module.exports = {
                 })
             },
             {
-                include: /src(\/|\\)(fonts|graphics|img)/,
+                include: /src(\/|\\)(fonts|graphics|img|data)/,
                 loader: 'file-loader',
                 query: {
                     name: '[path][name].[ext]'

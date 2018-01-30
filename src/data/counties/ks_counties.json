@@ -1,0 +1,634 @@
+{
+    "counties": [
+        {
+            "code": "20001",
+            "fips": "001",
+            "state": "KS",
+            "name": "Allen County"
+        },
+        {
+            "code": "20003",
+            "fips": "003",
+            "state": "KS",
+            "name": "Anderson County"
+        },
+        {
+            "code": "20005",
+            "fips": "005",
+            "state": "KS",
+            "name": "Atchison County"
+        },
+        {
+            "code": "20007",
+            "fips": "007",
+            "state": "KS",
+            "name": "Barber County"
+        },
+        {
+            "code": "20009",
+            "fips": "009",
+            "state": "KS",
+            "name": "Barton County"
+        },
+        {
+            "code": "20011",
+            "fips": "011",
+            "state": "KS",
+            "name": "Bourbon County"
+        },
+        {
+            "code": "20013",
+            "fips": "013",
+            "state": "KS",
+            "name": "Brown County"
+        },
+        {
+            "code": "20015",
+            "fips": "015",
+            "state": "KS",
+            "name": "Butler County"
+        },
+        {
+            "code": "20017",
+            "fips": "017",
+            "state": "KS",
+            "name": "Chase County"
+        },
+        {
+            "code": "20019",
+            "fips": "019",
+            "state": "KS",
+            "name": "Chautauqua County"
+        },
+        {
+            "code": "20021",
+            "fips": "021",
+            "state": "KS",
+            "name": "Cherokee County"
+        },
+        {
+            "code": "20023",
+            "fips": "023",
+            "state": "KS",
+            "name": "Cheyenne County"
+        },
+        {
+            "code": "20025",
+            "fips": "025",
+            "state": "KS",
+            "name": "Clark County"
+        },
+        {
+            "code": "20027",
+            "fips": "027",
+            "state": "KS",
+            "name": "Clay County"
+        },
+        {
+            "code": "20029",
+            "fips": "029",
+            "state": "KS",
+            "name": "Cloud County"
+        },
+        {
+            "code": "20031",
+            "fips": "031",
+            "state": "KS",
+            "name": "Coffey County"
+        },
+        {
+            "code": "20033",
+            "fips": "033",
+            "state": "KS",
+            "name": "Comanche County"
+        },
+        {
+            "code": "20035",
+            "fips": "035",
+            "state": "KS",
+            "name": "Cowley County"
+        },
+        {
+            "code": "20037",
+            "fips": "037",
+            "state": "KS",
+            "name": "Crawford County"
+        },
+        {
+            "code": "20039",
+            "fips": "039",
+            "state": "KS",
+            "name": "Decatur County"
+        },
+        {
+            "code": "20041",
+            "fips": "041",
+            "state": "KS",
+            "name": "Dickinson County"
+        },
+        {
+            "code": "20043",
+            "fips": "043",
+            "state": "KS",
+            "name": "Doniphan County"
+        },
+        {
+            "code": "20045",
+            "fips": "045",
+            "state": "KS",
+            "name": "Douglas County"
+        },
+        {
+            "code": "20047",
+            "fips": "047",
+            "state": "KS",
+            "name": "Edwards County"
+        },
+        {
+            "code": "20049",
+            "fips": "049",
+            "state": "KS",
+            "name": "Elk County"
+        },
+        {
+            "code": "20051",
+            "fips": "051",
+            "state": "KS",
+            "name": "Ellis County"
+        },
+        {
+            "code": "20053",
+            "fips": "053",
+            "state": "KS",
+            "name": "Ellsworth County"
+        },
+        {
+            "code": "20055",
+            "fips": "055",
+            "state": "KS",
+            "name": "Finney County"
+        },
+        {
+            "code": "20057",
+            "fips": "057",
+            "state": "KS",
+            "name": "Ford County"
+        },
+        {
+            "code": "20059",
+            "fips": "059",
+            "state": "KS",
+            "name": "Franklin County"
+        },
+        {
+            "code": "20061",
+            "fips": "061",
+            "state": "KS",
+            "name": "Geary County"
+        },
+        {
+            "code": "20063",
+            "fips": "063",
+            "state": "KS",
+            "name": "Gove County"
+        },
+        {
+            "code": "20065",
+            "fips": "065",
+            "state": "KS",
+            "name": "Graham County"
+        },
+        {
+            "code": "20067",
+            "fips": "067",
+            "state": "KS",
+            "name": "Grant County"
+        },
+        {
+            "code": "20069",
+            "fips": "069",
+            "state": "KS",
+            "name": "Gray County"
+        },
+        {
+            "code": "20071",
+            "fips": "071",
+            "state": "KS",
+            "name": "Greeley County"
+        },
+        {
+            "code": "20073",
+            "fips": "073",
+            "state": "KS",
+            "name": "Greenwood County"
+        },
+        {
+            "code": "20075",
+            "fips": "075",
+            "state": "KS",
+            "name": "Hamilton County"
+        },
+        {
+            "code": "20077",
+            "fips": "077",
+            "state": "KS",
+            "name": "Harper County"
+        },
+        {
+            "code": "20079",
+            "fips": "079",
+            "state": "KS",
+            "name": "Harvey County"
+        },
+        {
+            "code": "20081",
+            "fips": "081",
+            "state": "KS",
+            "name": "Haskell County"
+        },
+        {
+            "code": "20083",
+            "fips": "083",
+            "state": "KS",
+            "name": "Hodgeman County"
+        },
+        {
+            "code": "20085",
+            "fips": "085",
+            "state": "KS",
+            "name": "Jackson County"
+        },
+        {
+            "code": "20087",
+            "fips": "087",
+            "state": "KS",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "20089",
+            "fips": "089",
+            "state": "KS",
+            "name": "Jewell County"
+        },
+        {
+            "code": "20091",
+            "fips": "091",
+            "state": "KS",
+            "name": "Johnson County"
+        },
+        {
+            "code": "20093",
+            "fips": "093",
+            "state": "KS",
+            "name": "Kearny County"
+        },
+        {
+            "code": "20095",
+            "fips": "095",
+            "state": "KS",
+            "name": "Kingman County"
+        },
+        {
+            "code": "20097",
+            "fips": "097",
+            "state": "KS",
+            "name": "Kiowa County"
+        },
+        {
+            "code": "20099",
+            "fips": "099",
+            "state": "KS",
+            "name": "Labette County"
+        },
+        {
+            "code": "20101",
+            "fips": "101",
+            "state": "KS",
+            "name": "Lane County"
+        },
+        {
+            "code": "20103",
+            "fips": "103",
+            "state": "KS",
+            "name": "Leavenworth County"
+        },
+        {
+            "code": "20105",
+            "fips": "105",
+            "state": "KS",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "20107",
+            "fips": "107",
+            "state": "KS",
+            "name": "Linn County"
+        },
+        {
+            "code": "20109",
+            "fips": "109",
+            "state": "KS",
+            "name": "Logan County"
+        },
+        {
+            "code": "20111",
+            "fips": "111",
+            "state": "KS",
+            "name": "Lyon County"
+        },
+        {
+            "code": "20115",
+            "fips": "115",
+            "state": "KS",
+            "name": "Marion County"
+        },
+        {
+            "code": "20117",
+            "fips": "117",
+            "state": "KS",
+            "name": "Marshall County"
+        },
+        {
+            "code": "20113",
+            "fips": "113",
+            "state": "KS",
+            "name": "McPherson County"
+        },
+        {
+            "code": "20119",
+            "fips": "119",
+            "state": "KS",
+            "name": "Meade County"
+        },
+        {
+            "code": "20121",
+            "fips": "121",
+            "state": "KS",
+            "name": "Miami County"
+        },
+        {
+            "code": "20123",
+            "fips": "123",
+            "state": "KS",
+            "name": "Mitchell County"
+        },
+        {
+            "code": "20125",
+            "fips": "125",
+            "state": "KS",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "20127",
+            "fips": "127",
+            "state": "KS",
+            "name": "Morris County"
+        },
+        {
+            "code": "20129",
+            "fips": "129",
+            "state": "KS",
+            "name": "Morton County"
+        },
+        {
+            "code": "20131",
+            "fips": "131",
+            "state": "KS",
+            "name": "Nemaha County"
+        },
+        {
+            "code": "20133",
+            "fips": "133",
+            "state": "KS",
+            "name": "Neosho County"
+        },
+        {
+            "code": "20135",
+            "fips": "135",
+            "state": "KS",
+            "name": "Ness County"
+        },
+        {
+            "code": "20137",
+            "fips": "137",
+            "state": "KS",
+            "name": "Norton County"
+        },
+        {
+            "code": "20139",
+            "fips": "139",
+            "state": "KS",
+            "name": "Osage County"
+        },
+        {
+            "code": "20141",
+            "fips": "141",
+            "state": "KS",
+            "name": "Osborne County"
+        },
+        {
+            "code": "20143",
+            "fips": "143",
+            "state": "KS",
+            "name": "Ottawa County"
+        },
+        {
+            "code": "20145",
+            "fips": "145",
+            "state": "KS",
+            "name": "Pawnee County"
+        },
+        {
+            "code": "20147",
+            "fips": "147",
+            "state": "KS",
+            "name": "Phillips County"
+        },
+        {
+            "code": "20149",
+            "fips": "149",
+            "state": "KS",
+            "name": "Pottawatomie County"
+        },
+        {
+            "code": "20151",
+            "fips": "151",
+            "state": "KS",
+            "name": "Pratt County"
+        },
+        {
+            "code": "20153",
+            "fips": "153",
+            "state": "KS",
+            "name": "Rawlins County"
+        },
+        {
+            "code": "20155",
+            "fips": "155",
+            "state": "KS",
+            "name": "Reno County"
+        },
+        {
+            "code": "20157",
+            "fips": "157",
+            "state": "KS",
+            "name": "Republic County"
+        },
+        {
+            "code": "20159",
+            "fips": "159",
+            "state": "KS",
+            "name": "Rice County"
+        },
+        {
+            "code": "20161",
+            "fips": "161",
+            "state": "KS",
+            "name": "Riley County"
+        },
+        {
+            "code": "20163",
+            "fips": "163",
+            "state": "KS",
+            "name": "Rooks County"
+        },
+        {
+            "code": "20165",
+            "fips": "165",
+            "state": "KS",
+            "name": "Rush County"
+        },
+        {
+            "code": "20167",
+            "fips": "167",
+            "state": "KS",
+            "name": "Russell County"
+        },
+        {
+            "code": "20169",
+            "fips": "169",
+            "state": "KS",
+            "name": "Saline County"
+        },
+        {
+            "code": "20171",
+            "fips": "171",
+            "state": "KS",
+            "name": "Scott County"
+        },
+        {
+            "code": "20173",
+            "fips": "173",
+            "state": "KS",
+            "name": "Sedgwick County"
+        },
+        {
+            "code": "20175",
+            "fips": "175",
+            "state": "KS",
+            "name": "Seward County"
+        },
+        {
+            "code": "20177",
+            "fips": "177",
+            "state": "KS",
+            "name": "Shawnee County"
+        },
+        {
+            "code": "20179",
+            "fips": "179",
+            "state": "KS",
+            "name": "Sheridan County"
+        },
+        {
+            "code": "20181",
+            "fips": "181",
+            "state": "KS",
+            "name": "Sherman County"
+        },
+        {
+            "code": "20183",
+            "fips": "183",
+            "state": "KS",
+            "name": "Smith County"
+        },
+        {
+            "code": "20185",
+            "fips": "185",
+            "state": "KS",
+            "name": "Stafford County"
+        },
+        {
+            "code": "20187",
+            "fips": "187",
+            "state": "KS",
+            "name": "Stanton County"
+        },
+        {
+            "code": "20189",
+            "fips": "189",
+            "state": "KS",
+            "name": "Stevens County"
+        },
+        {
+            "code": "20191",
+            "fips": "191",
+            "state": "KS",
+            "name": "Sumner County"
+        },
+        {
+            "code": "20193",
+            "fips": "193",
+            "state": "KS",
+            "name": "Thomas County"
+        },
+        {
+            "code": "20195",
+            "fips": "195",
+            "state": "KS",
+            "name": "Trego County"
+        },
+        {
+            "code": "20197",
+            "fips": "197",
+            "state": "KS",
+            "name": "Wabaunsee County"
+        },
+        {
+            "code": "20199",
+            "fips": "199",
+            "state": "KS",
+            "name": "Wallace County"
+        },
+        {
+            "code": "20201",
+            "fips": "201",
+            "state": "KS",
+            "name": "Washington County"
+        },
+        {
+            "code": "20203",
+            "fips": "203",
+            "state": "KS",
+            "name": "Wichita County"
+        },
+        {
+            "code": "20205",
+            "fips": "205",
+            "state": "KS",
+            "name": "Wilson County"
+        },
+        {
+            "code": "20207",
+            "fips": "207",
+            "state": "KS",
+            "name": "Woodson County"
+        },
+        {
+            "code": "20209",
+            "fips": "209",
+            "state": "KS",
+            "name": "Wyandotte County"
+        }
+    ]
+}

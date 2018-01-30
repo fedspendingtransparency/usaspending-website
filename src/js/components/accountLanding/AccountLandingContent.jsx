@@ -6,19 +6,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Pagination from 'components/sharedComponents/Pagination';
 import AccountLandingSearchBar from './AccountLandingSearchBar';
 import AccountLandingResultsSection from './AccountLandingResultsSection';
-import AccountLandingPagination from './AccountLandingPagination';
 
 const propTypes = {
-    resultsText: PropTypes.string,
     results: PropTypes.array,
     accountSearchString: PropTypes.string,
     inFlight: PropTypes.bool,
     columns: PropTypes.array,
     setAccountSearchString: PropTypes.func,
     onChangePage: PropTypes.func,
-    pager: PropTypes.object
+    pageNumber: PropTypes.number,
+    totalItems: PropTypes.number,
+    pageSize: PropTypes.number
 };
 
 export default class AccountLandingContent extends React.Component {
@@ -39,10 +40,11 @@ export default class AccountLandingContent extends React.Component {
                         setAccountSearchString={this.props.setAccountSearchString} />
                 </div>
                 <div className="landing-page-section results-count">
-                    {this.props.resultsText}
-                    <AccountLandingPagination
+                    <Pagination
                         onChangePage={this.props.onChangePage}
-                        pager={this.props.pager} />
+                        pageNumber={this.props.pageNumber}
+                        totalItems={this.props.totalItems}
+                        pageSize={this.props.pageSize} />
                 </div>
                 <div className="landing-page-section">
                     <AccountLandingResultsSection
@@ -50,9 +52,11 @@ export default class AccountLandingContent extends React.Component {
                         results={this.props.results}
                         inFlight={this.props.inFlight}
                         accountSearchString={this.props.accountSearchString} />
-                    <AccountLandingPagination
+                    <Pagination
                         onChangePage={this.props.onChangePage}
-                        pager={this.props.pager} />
+                        pageNumber={this.props.pageNumber}
+                        totalItems={this.props.totalItems}
+                        pageSize={this.props.pageSize} />
                 </div>
             </div>
         );

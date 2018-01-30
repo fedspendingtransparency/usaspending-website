@@ -15,13 +15,14 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 import AwardSummary from 'models/results/award/AwardSummary';
 
+require('pages/award/awardPage.scss');
+
 const propTypes = {
     setSelectedAward: PropTypes.func,
     params: PropTypes.object
 };
 
 export class AwardContainer extends React.Component {
-
     constructor(props) {
         super(props);
 

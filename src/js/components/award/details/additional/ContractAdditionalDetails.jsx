@@ -22,37 +22,37 @@ export default class ContractAdditionalDetails extends React.Component {
                 <AdditionalGroup
                     data={award.latest_transaction.contract_data}
                     fields={DataFields.parentFields}
-                    title={"Parent Award Details"} />
+                    title="Parent Award Details" />
                 <hr className="additional-group-divider" />
                 <AdditionalGroup
                     data={award}
                     fields={DataFields.agencyFields}
-                    title={"Agency Details"} />
+                    title="Agency Details" />
                 <hr className="additional-group-divider" />
                 <AdditionalGroup
                     data={award.latest_transaction.contract_data}
                     fields={DataFields.competitionFields}
-                    title={"Competition Details"} />
+                    title="Competition Details" />
                 <hr className="additional-group-divider" />
                 <AdditionalGroup
                     data={award.latest_transaction.contract_data}
                     fields={DataFields.pscFields}
-                    title={"Product or Service Details"} />
+                    title="Product or Service Details" />
                 <hr className="additional-group-divider" />
                 <AdditionalGroup
                     data={award.latest_transaction.contract_data}
                     fields={DataFields.legislativeFields}
-                    title={"Legislative Mandates"} />
+                    title="Legislative Mandates" />
                 <hr className="additional-group-divider" />
                 <AdditionalGroup
                     data={award.latest_transaction.contract_data}
                     fields={DataFields.additionalFields}
-                    title={"Additional Details"} />
+                    title="Additional Details" />
                 <hr className="additional-group-divider" />
                 <AdditionalGroup
-                    data={award.latest_transaction.recipient.officers}
+                    data={award.executive_compensation}
                     fields={DataFields.compensationFields}
-                    title={"Executive Compensation"} />
+                    title="Executive Compensation" />
             </div>
         );
     }

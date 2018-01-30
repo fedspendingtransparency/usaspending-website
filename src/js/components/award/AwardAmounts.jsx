@@ -19,7 +19,6 @@ const propTypes = {
 };
 
 export default class AwardAmounts extends React.Component {
-
     formatFriendlyString(value) {
         // format the ceiling and current values to be friendly strings
         const units = MoneyFormatter.calculateUnitForSingleValue(value);
@@ -51,10 +50,10 @@ export default class AwardAmounts extends React.Component {
     generateNarrative() {
         const recipient = this.props.selectedAward.recipient_name.toLowerCase();
 
-        const ceiling = this.props.selectedAward.potential_total_value_of_award;
+        const ceiling = this.props.selectedAward.base_and_all_options_value;
         const current = this.props.selectedAward.total_obligation;
         const unformattedCeiling =
-        accounting.unformat(this.props.selectedAward.potential_total_value_of_award);
+        accounting.unformat(this.props.selectedAward.base_and_all_options_value);
         const unformattedCurrent = accounting.unformat(this.props.selectedAward.total_obligation);
 
         // calculate the percentage spent
@@ -62,17 +61,25 @@ export default class AwardAmounts extends React.Component {
         if (unformattedCeiling && unformattedCeiling !== 0) {
             percentage = Math.floor((unformattedCurrent / unformattedCeiling) * 1000) / 10;
         }
-        let awardNarrative = (<p>This {this.props.typeString} was awarded to&nbsp;
-        <b className="recipient-name">{recipient}</b> with a ceiling of
-            &nbsp;<b>{ceiling}</b>.&nbsp;
-            Of this amount, <b>{percentage}%</b> (<b>{current}</b>)
-            has been obligated.</p>);
+        let awardNarrative = (
+            <p>
+                This {this.props.typeString} was awarded to&nbsp;
+                <b className="recipient-name">{recipient}</b> with a ceiling of
+                &nbsp;<b>{ceiling}</b>.&nbsp;
+                Of this amount, <b>{percentage}%</b> (<b>{current}</b>)
+                has been obligated.
+            </p>
+        );
 
         if (this.props.typeString === 'grant' || this.props.typeString === 'direct payment' ||
         this.props.typeString === 'other') {
-            awardNarrative = (<p>This {this.props.typeString} was awarded to&nbsp;
-            <b className="recipient-name">{recipient}</b>
-            &nbsp;for <b>{current}</b>.</p>);
+            awardNarrative = (
+                <p>
+                    This {this.props.typeString} was awarded to&nbsp;
+                    <b className="recipient-name">{recipient}</b>
+                    &nbsp;for <b>{current}</b>.
+                </p>
+            );
         }
         else if (this.props.typeString === 'loan') {
             const loanCeiling = this.formatFriendlyString(
@@ -80,11 +87,15 @@ export default class AwardAmounts extends React.Component {
             const loanSubsidy = this.formatFriendlyString(
                 this.props.selectedAward.assistance_data.original_loan_subsidy_cost);
 
-            awardNarrative = (<p>A {this.props.typeString} with a face value of&nbsp;
-                <b>{loanCeiling}</b> was awarded to <b>{recipient}</b>.  The agency&#8217;s
-                    estimated non-administrative cost to the government for this&nbsp;
-                    {this.props.typeString} is <b>{loanSubsidy}</b>.  This cost is also known as
-                    original subsidy cost.</p>);
+            awardNarrative = (
+                <p>
+                    A {this.props.typeString} with a face value of&nbsp;
+                    <b>{loanCeiling}</b> was awarded to <b>{recipient}</b>. The agency&#8217;s
+                        estimated non-administrative cost to the government for this&nbsp;
+                    {this.props.typeString} is <b>{loanSubsidy}</b>. This cost is also known as
+                        original subsidy cost.
+                </p>
+            );
         }
         return awardNarrative;
     }
@@ -93,7 +104,7 @@ export default class AwardAmounts extends React.Component {
         // Math
         const current = accounting.unformat(this.props.selectedAward.total_obligation);
         const potential =
-            accounting.unformat(this.props.selectedAward.potential_total_value_of_award);
+            accounting.unformat(this.props.selectedAward.base_and_all_options_value);
 
         let amountsDisplay = (<AmountsChart
             awardId={this.props.selectedAward.id}

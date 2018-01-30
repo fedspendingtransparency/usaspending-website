@@ -1,4 +1,5 @@
 .usa-da-agency-page {
+    @import "all";
     @import "layouts/default/default";
     $color-gray-border: #D8D8D8;
     $color-blue-background: #F5FBFC;
@@ -7,7 +8,7 @@
 
     .main-content {
         @import "../../mixins/fullSectionWrap";
-        @include fullSectionWrap(($global-mrg * 4), ($global-mrg * 4));
+        @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
         padding:  0;
 
         @import "./_positioning";
@@ -22,5 +23,15 @@
         @import "./visualizations/visualizations";
 
         @import "./footer/footer";
+
+        .treasury-disclaimer {
+            margin-top: rem(30);
+            font-size: $small-font-size;
+            color: $color-base;
+            .disclaimer {
+                font-weight: $font-semibold;
+                text-transform: uppercase;
+            }
+        }
     }
 }

@@ -1,4 +1,7 @@
 .usa-da-account-landing {
+    @import "all";
+    @import "layouts/search/search";
+    @import "./header/header";
 	@import "layouts/landingPage/landingPage";
 	@import "components/pagination";
     @import "./header/header";
@@ -14,9 +17,6 @@
 		        margin: 0;
 	        }
         }
-	    .pagination {
-		    float: right;
-	    }
     }
     @include accountLandingSearch;
     @include resultsSection;

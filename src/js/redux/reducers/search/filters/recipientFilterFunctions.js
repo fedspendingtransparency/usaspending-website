@@ -5,16 +5,17 @@
 import { sortBy } from 'lodash';
 import { Set } from 'immutable';
 
-export const updateSelectedRecipients = (state, value) => {
+export const updateSelectedRecipients = (state, searchText) => {
     let updatedSet = state;
 
-    const agencyIdentifier = `${value.legal_entity_id}`; // force it to a string
+    const recipientIdentifier = `${searchText}`; // force it to a string
 
-    if (updatedSet.has(agencyIdentifier)) {
-        updatedSet = updatedSet.delete(agencyIdentifier);
+    if (updatedSet.has(recipientIdentifier)) {
+        updatedSet = updatedSet.delete(recipientIdentifier);
     }
     else {
-        updatedSet = updatedSet.set(agencyIdentifier, value);
+        // Replace with the new search text because we are limiting the search to one recipient filter
+        updatedSet = new Set([searchText]);
     }
 
     return updatedSet;

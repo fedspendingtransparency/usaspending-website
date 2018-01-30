@@ -16,7 +16,8 @@ import RecipientVisualization from
 
 const propTypes = {
     id: PropTypes.string,
-    activeFY: PropTypes.string
+    activeFY: PropTypes.string,
+    lastUpdate: PropTypes.string
 };
 
 export default class RecipientContainer extends React.PureComponent {
@@ -110,8 +111,8 @@ export default class RecipientContainer extends React.PureComponent {
     }
 
     changePage(pageNumber) {
-        if (this.state.isLastPage || pageNumber < 1) {
-            // last page, don't do anything
+        if (pageNumber < 1 || (this.state.isLastPage && pageNumber > this.state.page)) {
+            // Requested page number is out of range; don't do anything
             return;
         }
 
@@ -164,6 +165,7 @@ ${recipient}`;
     render() {
         return (
             <RecipientVisualization
+                activeFY={this.props.activeFY}
                 page={this.state.page}
                 isLastPage={this.state.isLastPage}
                 dataSeries={this.state.dataSeries}
@@ -174,7 +176,8 @@ ${recipient}`;
                 error={this.state.error}
                 scope={this.state.scope}
                 changeScope={this.changeScope}
-                changePage={this.changePage} />
+                changePage={this.changePage}
+                lastUpdate={this.props.lastUpdate} />
         );
     }
 }

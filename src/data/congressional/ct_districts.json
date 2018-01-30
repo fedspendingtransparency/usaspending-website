@@ -1,0 +1,34 @@
+{
+    "districts": [
+        {
+            "code": "0901",
+            "district": "01",
+            "name": "CT-01"
+        },
+        {
+            "code": "0902",
+            "district": "02",
+            "name": "CT-02"
+        },
+        {
+            "code": "0903",
+            "district": "03",
+            "name": "CT-03"
+        },
+        {
+            "code": "0904",
+            "district": "04",
+            "name": "CT-04"
+        },
+        {
+            "code": "0905",
+            "district": "05",
+            "name": "CT-05"
+        },
+        {
+            "code": "09ZZ",
+            "district": "ZZ",
+            "name": "CT-ZZ"
+        }
+    ]
+}

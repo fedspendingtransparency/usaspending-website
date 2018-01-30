@@ -65,9 +65,9 @@ export default class RankVisualization extends React.Component {
     }
 
     render() {
-        let chart = (<ChartMessage message={"No data to display"} />);
+        let chart = (<ChartMessage message="No data to display" />);
         if (this.props.loading) {
-            chart = (<ChartMessage message={"Loading data..."} />);
+            chart = (<ChartMessage message="Loading data..." />);
         }
         else if (this.props.dataSeries.length > 0) {
             chart = (<HorizontalChart
@@ -84,10 +84,12 @@ export default class RankVisualization extends React.Component {
         }
 
         return (
-            <div className="results-visualization-rank-container">
+            <section
+                className="results-visualization-rank-container"
+                aria-label="Spending by Category">
                 {chart}
                 {tooltip}
-            </div>
+            </section>
         );
     }
 }

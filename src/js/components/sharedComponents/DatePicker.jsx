@@ -7,11 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import moment from 'moment';
+import { uniqueId } from 'lodash';
 import * as Icons from './icons/Icons';
 
 const defaultProps = {
     type: 'startDate',
-    tabIndex: 1
+    allowClearing: false,
+    disabledDays: []
 };
 
 const propTypes = {
@@ -21,12 +23,12 @@ const propTypes = {
     showError: PropTypes.func,
     hideError: PropTypes.func,
     opposite: PropTypes.object,
-    tabIndex: PropTypes.number,
-    title: PropTypes.string
+    title: PropTypes.string,
+    allowClearing: PropTypes.bool,
+    disabledDays: PropTypes.array
 };
 
 export default class DatePicker extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -125,6 +127,12 @@ export default class DatePicker extends React.Component {
         this.setState({
             inputValue: e.target.value
         }, () => {
+            if (this.state.inputValue === '') {
+                // if the input is an empty string, this indicates the user wants to clear the date
+                this.clearValue();
+                this.handleDatePick(null);
+                return;
+            }
             // check if this meets the MM/DD/YYYY format requirement
             let format = 'MM/DD/YYYY';
             const primaryFormat = /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/;
@@ -206,39 +214,47 @@ export default class DatePicker extends React.Component {
 
         // handle the cutoff dates (preventing end dates from coming before
         // start dates or vice versa)
-        let cutoffFunc = null;
+        let disabledDays = this.props.disabledDays.slice(0);
         if (this.props.type === 'startDate' && this.props.opposite) {
             // the cutoff date represents the latest possible date
-            cutoffFunc = (day) => (
-                moment(day).isAfter(this.props.opposite)
-            );
+            disabledDays.push({
+                after: this.props.opposite.toDate()
+            });
         }
         else if (this.props.type === 'endDate' && this.props.opposite) {
             // cutoff date represents the earliest possible date
-            cutoffFunc = (day) => (
-                moment(day).isBefore(this.props.opposite)
-            );
+            disabledDays.push({
+                before: this.props.opposite.toDate()
+            });
         }
+        else if (!this.props.value) {
+            disabledDays = [];
+        }
+
+        const inputId = `picker-${uniqueId()}`;
 
         return (
             <div className="generate-datepicker-wrap">
                 <div className="generate-datepicker">
-                    <label htmlFor={this.props.type}>{this.props.title}</label>
-                    <input
-                        id={this.props.type}
-                        type="text"
-                        placeholder="MM/DD/YYYY"
-                        value={this.state.inputValue}
-                        tabIndex={this.props.tabIndex}
-                        ref={(input) => {
-                            this.text = input;
-                        }}
-                        onChange={this.handleTypedDate}
-                        onBlur={this.handleInputBlur} />
+                    <label htmlFor={inputId}>
+                        {this.props.title}
+                        <input
+                            id={inputId}
+                            type="text"
+                            placeholder="MM/DD/YYYY"
+                            aria-label={this.props.title}
+                            value={this.state.inputValue}
+                            ref={(input) => {
+                                this.text = input;
+                            }}
+                            onChange={this.handleTypedDate}
+                            onBlur={this.handleInputBlur} />
+                    </label>
                     <a
-                        href="#null" onClick={this.toggleDatePicker}
-                        tabIndex={this.props.tabIndex + 1}
-                        className="usa-da-icon picker-icon date" aria-haspopup="true">
+                        href="#null"
+                        onClick={this.toggleDatePicker}
+                        className="usa-da-icon picker-icon date"
+                        aria-haspopup="true">
                         <Icons.Calendar alt="Date picker" />
                     </a>
                 </div>
@@ -248,7 +264,7 @@ export default class DatePicker extends React.Component {
                             this.datepicker = daypicker;
                         }}
                         initialMonth={pickedDay}
-                        disabledDays={cutoffFunc}
+                        disabledDays={disabledDays}
                         selectedDays={(day) => DateUtils.isSameDay(pickedDay, day)}
                         onDayClick={this.handleDatePick}
                         onFocus={this.handleDateFocus}

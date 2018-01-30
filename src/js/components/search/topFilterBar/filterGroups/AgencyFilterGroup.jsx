@@ -10,7 +10,8 @@ import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
     filter: PropTypes.object,
-    redux: PropTypes.object
+    redux: PropTypes.object,
+    compressed: PropTypes.bool
 };
 
 export default class AgencyFilterGroup extends React.Component {
@@ -43,8 +44,14 @@ export default class AgencyFilterGroup extends React.Component {
 
         agencies.forEach((value) => {
             let agencyTitle = value.subtier_agency.name;
-            if (value.agencyType === 'subtier' &&
-                value.toptier_agency.name === value.subtier_agency.name) {
+
+            if (value.agencyType === 'subtier' && value.subtier_agency.abbreviation !== '') {
+                agencyTitle += ` (${value.subtier_agency.abbreviation})`;
+            }
+            else if (value.agencyType === 'toptier' && value.toptier_agency.abbreviation !== '') {
+                agencyTitle += ` (${value.toptier_agency.abbreviation})`;
+            }
+            if (value.agencyType === 'subtier' && value.toptier_flag === false) {
                 agencyTitle += ' | Sub-Agency';
             }
 
@@ -67,7 +74,8 @@ export default class AgencyFilterGroup extends React.Component {
         return (<BaseTopFilterGroup
             tags={tags}
             filter={this.props.filter}
-            clearFilterGroup={this.clearGroup} />);
+            clearFilterGroup={this.clearGroup}
+            compressed={this.props.compressed} />);
     }
 }
 

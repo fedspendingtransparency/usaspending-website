@@ -7,19 +7,21 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import PSCSearch from 'components/search/filters/psc/PSCSearch';
 
 const propTypes = {
-    updateSelectedPSC: PropTypes.func
+    updateSelectedPSC: PropTypes.func,
+    selectedPSC: PropTypes.object,
+    appliedPSC: PropTypes.object
 };
 
 const ga = require('react-ga');
 
 export class PSCSearchContainer extends React.Component {
-
     static logPSCFilterEvent(psc) {
         ga.event({
             category: 'Search Page Filter Applied',
@@ -54,10 +56,18 @@ export class PSCSearchContainer extends React.Component {
         this.props.updateSelectedPSC(updateParams);
     }
 
+    dirtyFilters() {
+        if (is(this.props.selectedPSC, this.props.appliedPSC)) {
+            return null;
+        }
+        return Symbol('dirty PSC');
+    }
+
     render() {
         return (
             <PSCSearch
-                {...this.props}
+                selectedPSC={this.props.selectedPSC}
+                dirtyFilters={this.dirtyFilters()}
                 selectPSC={this.selectPSC}
                 removePSC={this.removePSC} />
         );
@@ -68,6 +78,8 @@ PSCSearchContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        selectedPSC: state.filters.selectedPSC }),
+        selectedPSC: state.filters.selectedPSC,
+        appliedPSC: state.appliedFilters.filters.selectedPSC
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(PSCSearchContainer);

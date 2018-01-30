@@ -17,11 +17,16 @@ const propTypes = {
 
 export default class TableRow extends React.PureComponent {
     render() {
+        let rowClass = 'row-even';
+        if (this.props.rowIndex % 2 === 0) {
+            rowClass = 'row-odd';
+        }
         const cells = this.props.columns.map((column) => {
             if (column.columnName === 'agency_name') {
                 // show the agency link cell
                 return (
                     <td
+                        className={rowClass}
                         key={`${column.columnName}-${this.props.agency.agency_id}`}>
                         <AgencyLinkCell
                             rowIndex={this.props.rowIndex}
@@ -34,6 +39,7 @@ export default class TableRow extends React.PureComponent {
             }
             return (
                 <td
+                    className={rowClass}
                     key={`${column.columnName}-${this.props.agency.agency_id}`}>
                     <GenericCell
                         rowIndex={this.props.rowIndex}

@@ -6,39 +6,48 @@
         @import 'components/_alerts';
         @import 'components/datePicker/_datePicker';
         @import './_toggleButtons';
-        padding: 0 $global-pad ($global-pad * 2);
+        @import "elements/filters/_selectedFilterBtn";
+        @import "mixins/selectedFilterWrap";
+        @import "../_singleSubmit";
+
+        padding: 0 $global-pad rem(20);
         ul.fiscal-years {
             @include clearfix;
             list-style-type: none;
             padding: $global-pad $global-pad 0;
             margin: -1px 0 0;
+
+            .left-fy {
+                @include span-columns(7);
+            }
+            .right-fy {
+                @include span-columns(7);
+            }
+
             li {
-                line-height: rem(20);
+                line-height: rem(30);
                 margin: 0;
                 height: auto;
-                @include span-columns(7);
-                input {
-                    @include usa-input-checkbox;
-                    margin-right: rem(-19);
-                    margin-top: rem(13);
-                    vertical-align: top;
-                }
-                label {
-                    @include usa-label;
-                    font-weight: normal;
-                    margin: rem(10) 0 0 0;
-                    margin-left: rem(25);
-                    max-height: rem(24);
-                    padding: 0;
-                    font-size: rem(12);
-                    display: inline-block;
-                    @include media($large-screen) {
-                        font-size: $small-font-size;
-                        max-height: rem(28);
+
+                label.fy-option-wrapper {
+                    cursor: pointer;
+
+                    input.fy-option-checkbox {
+                        @include usa-input-checkbox;
+                        height: rem(14);
+                        width: rem(14);
+
+                        cursor: pointer;
                     }
-                }
-                input + label {
-                    margin-bottom: 0;
+                    .fy-option-label {
+                        margin-left: rem(6);
+                        font-size: rem(12);
+                        cursor: pointer;
+
+                        @include media($large-screen) {
+                            font-size: $small-font-size;
+                        }
+                    }
                 }
             }
             .fiscal-year-option-all {
@@ -48,7 +57,7 @@
         .fiscal-years,
         .date-range-option {
             border-top: 1px solid $color-gray-lighter;
-            padding: 0 $global-pad;
+            padding: 0;
             margin-top: -1px;
             z-index: 1;
         }
@@ -59,10 +68,24 @@
             }
             .date-range-wrapper {
                 margin-top: rem(25);
+
+                .set-date-submit {
+                    @include singleSubmit;
+                    @include media($large-screen) {
+                        @include flex(0 0 auto);
+                        @include align-self(flex-end);
+                        margin: 0;
+                        margin-bottom: rem(3);
+                    }
+                }
             }
         }
         .error-message {
             margin: $global-mrg
+        }
+
+        .selected-filters {
+            @include selected-filter-wrap;
         }
     }
 }

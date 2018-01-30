@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import { uniqueId } from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -14,21 +14,13 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 
 import FinancialSystemItem from 'models/results/other/FinancialSystemItem';
-
 import FinancialSystemTable from 'components/award/table/FinancialSystemTable';
-import SummaryPageTableMessage from 'components/award/table/SummaryPageTableMessage';
 
 import tableFields from 'dataMapping/contracts/financialSystem';
 
 const propTypes = {
     award: PropTypes.object,
-    tableWidth: PropTypes.number,
-    resetFinSys: PropTypes.func,
-    setFinSysData: PropTypes.func,
-    appendFinSysData: PropTypes.func,
-    setFinSysMeta: PropTypes.func,
-    updateTransactionRenderHash: PropTypes.func,
-    updateTransactionGroupHash: PropTypes.func
+    tableWidth: PropTypes.number
 };
 
 export class FinancialSystemTableContainer extends React.Component {
@@ -36,25 +28,28 @@ export class FinancialSystemTableContainer extends React.Component {
         super(props);
 
         this.state = {
-            hasLoaded: false,
-            inFlight: false
+            inFlight: false,
+            nextPage: false,
+            page: 1,
+            sort: {
+                field: 'certified_date',
+                direction: 'desc'
+            },
+            tableInstance: `${uniqueId()}`,
+            data: []
         };
 
         this.financialRequest = null;
-        this.nextPage = this.nextPage.bind(this);
+        this.loadNextPage = this.loadNextPage.bind(this);
+        this.changeSort = this.changeSort.bind(this);
     }
 
     componentDidMount() {
-        this.props.resetFinSys();
         this.loadFinancialSystemData(1, true);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.award.selectedAward.id !== prevProps.award.selectedAward.id) {
-            this.props.resetFinSys();
-            this.loadFinancialSystemData(1, true);
-        }
-        else if (!isEqual(this.props.award.finSysSort, prevProps.award.finSysSort)) {
             this.loadFinancialSystemData(1, true);
         }
     }
@@ -80,7 +75,7 @@ export class FinancialSystemTableContainer extends React.Component {
         }
 
         let sortDirection = '-';
-        if (this.props.award.finSysSort.direction === 'asc') {
+        if (this.state.sort.direction === 'asc') {
             sortDirection = '';
         }
 
@@ -93,9 +88,9 @@ export class FinancialSystemTableContainer extends React.Component {
                     value: awardId
                 }
             ],
-            order: [`${sortDirection}${this.props.award.finSysSort.field}`],
+            order: [`${sortDirection}${this.state.sort.field}`],
             fields: tableFields.table._fields,
-            limit: 13
+            limit: 15
         });
 
         this.financialRequest.promise
@@ -107,30 +102,23 @@ export class FinancialSystemTableContainer extends React.Component {
                     detailItems.push(finItem);
                 });
 
-                if (reset) {
-                    this.props.setFinSysData(detailItems);
-                }
-                else {
-                    this.props.appendFinSysData(detailItems);
-                }
-
                 // update the meta values
                 const meta = res.data.page_metadata;
-                this.props.setFinSysMeta({
+                const newState = {
+                    inFlight: false,
                     page: meta.page,
                     nextPage: meta.has_next_page
-                });
+                };
 
-                // update the render hash
-                this.props.updateTransactionRenderHash();
                 if (reset) {
-                    this.props.updateTransactionGroupHash();
+                    newState.tableInstance = `${uniqueId()}`;
+                    newState.data = detailItems;
+                }
+                else {
+                    newState.data = this.state.data.concat(detailItems);
                 }
 
-                this.setState({
-                    hasLoaded: true,
-                    inFlight: false
-                });
+                this.setState(newState);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -142,26 +130,30 @@ export class FinancialSystemTableContainer extends React.Component {
             });
     }
 
-    nextPage() {
-        if (!this.props.award.finSysMeta.nextPage) {
+    loadNextPage() {
+        if (!this.state.nextPage || this.state.inFlight) {
             return;
         }
-        const nextPage = this.props.award.finSysMeta.page + 1;
+        const nextPage = this.state.page + 1;
         this.loadFinancialSystemData(nextPage, false);
     }
 
-    render() {
-        let output = (<SummaryPageTableMessage
-            message="Loading data..." />);
+    changeSort(sort) {
+        this.setState({
+            sort
+        }, () => {
+            this.loadFinancialSystemData(1, true);
+        });
+    }
 
-        if (this.state.hasLoaded) {
-            output = (<FinancialSystemTable
-                inFlight={this.state.inFlight}
-                award={this.props.award}
+    render() {
+        return (
+            <FinancialSystemTable
+                {...this.state}
                 tableWidth={this.props.tableWidth}
-                nextPage={this.nextPage} />);
-        }
-        return output;
+                loadNextPage={this.loadNextPage}
+                changeSort={this.changeSort} />
+        );
     }
 }
 

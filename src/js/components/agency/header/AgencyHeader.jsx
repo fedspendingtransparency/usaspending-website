@@ -16,7 +16,7 @@ export default class AgencyHeader extends React.Component {
             <div className="page-title-bar">
                 <div className="page-title-bar-wrap">
                     <h1 className="page-title">
-                        Agency Summary
+                        Agency Profile
                     </h1>
                 </div>
             </div>

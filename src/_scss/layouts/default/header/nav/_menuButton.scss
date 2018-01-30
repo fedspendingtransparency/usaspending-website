@@ -1,19 +1,21 @@
+.mobile-button-wrapper {
+    position: absolute;
+    right: 0;
+}
 .usa-menu-btn {
     @include button-unstyled;
     @include transition(all 0.75s $ease-in-out-sine);
-    border: 1px solid $color-primary;
     cursor: pointer;
     display: block;
     height: rem(45);
     position: relative;
     width: rem(48);
-    @include media($tablet-screen) {
-        display: none;
-    }
+
     &:hover {
         @include transition(all 0.25s $ease-in-out-sine);
         background: $color-primary;
     }
+
     .nav-lines {
         @include transition(all 0.75s $ease-in-out-sine);
         background: $color-primary;
@@ -52,6 +54,29 @@
             }
             &::after {
                 @include transition(all 1s $ease-in-out-sine);
+            }
+        }
+    }
+
+     &.homepage {
+
+        .nav-lines {
+            background: $color-white;
+            &::before,
+            &::after {
+                background: $color-white;
+            }
+        }
+
+        &:hover {
+            background: $color-white;
+
+            .nav-lines {
+                background: $color-primary-darkest;
+                &::before,
+                &::after {
+                    background: $color-primary-darkest;
+                }
             }
         }
     }

@@ -11,3 +11,7 @@ img {
 .media-link {
     @include media-link();
 }
+
+figure {
+    margin: 0;
+}

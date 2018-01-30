@@ -21,7 +21,7 @@ export const mockData = {
             obligated_amount: 234.0,
             percentage_of_total_budget_authority: 0.345,
             outlay_amount: 234.0,
-            budget_authority_amount: 234.0,
+            budget_authority_amount: 23400000000.0,
             abbreviation: "XYZ"
         },
         {
@@ -60,10 +60,10 @@ export const mockPopulated = [
         agency_id: 2,
         agency_name: "Agency 2 (XYZ)",
         percentage_of_total_budget_authority: 0.345,
-        budget_authority_amount: 234.0,
+        budget_authority_amount: 23400000000.0,
         display: {
             agency_name: "Agency 2 (XYZ)",
-            budget_authority_amount: "$234",
+            budget_authority_amount: "$23,400,000,000",
             percentage_of_total_budget_authority: "34.50%"
         }
     },

@@ -5,23 +5,19 @@
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import sinon from 'sinon';
 import { OrderedSet } from 'immutable';
 
 import { AccountAwardsContainer } from 'containers/account/awards/AccountAwardsContainer';
 import * as SearchHelper from 'helpers/searchHelper';
 import FederalAccount from 'models/account/FederalAccount';
 
-import { mockReduxAccount, mockAwards, mockReduxAwards, mockTabCount } from '../mockAccount';
+import { mockReduxAccount } from '../mockAccount';
 import { defaultFilters } from '../defaultFilters';
+import { mockCount, mockAward } from './mockResponses';
 
 // force Jest to use native Node promises
 // see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
 global.Promise = require.requireActual('promise');
-
-// spy on specific functions inside the component
-const autoTabSpy = sinon.spy(AccountAwardsContainer.prototype, 'pickDefaultTab');
-const loadDataSpy = sinon.spy(AccountAwardsContainer.prototype, 'loadData');
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/account/awards/AccountAwardsSection', () =>
@@ -35,274 +31,257 @@ jest.mock('helpers/textMeasurement', () => (
     }
 ));
 
-const mockSearchHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    SearchHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockAccountHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/accountHelper');
-};
+jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
+jest.mock('dataMapping/search/accountTableSearchFields', () => require('./mockSearchFields'));
 
 describe('AccountAwardsContainer', () => {
-    it('should pick a default tab for awards on mount', () => {
-        mockSearchHelper('performSearch', 'resolve', mockAwards);
-        mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-
-        const props = {
-            account: mockReduxAccount,
-            filters: defaultFilters,
-            awards: new OrderedSet([]),
-            meta: mockReduxAwards.awardsMeta,
-            order: mockReduxAwards.awardsOrder,
-            setAccountAwards: jest.fn(),
-            setAccountAwardType: jest.fn()
-        };
-
-        mount(<AccountAwardsContainer {...props} />);
-
-        jest.runAllTicks();
-
-        expect(autoTabSpy.callCount).toEqual(1);
-        autoTabSpy.reset();
-    });
-
     it('should pick a default tab when the Redux filters change', () => {
-        mockSearchHelper('performSearch', 'resolve', mockAwards);
-        mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-
         const props = {
             account: mockReduxAccount,
-            filters: defaultFilters,
-            awards: new OrderedSet([]),
-            meta: mockReduxAwards.awardsMeta,
-            order: mockReduxAwards.awardsOrder,
-            setAccountAwards: jest.fn(),
-            setAccountAwardType: jest.fn()
+            filters: defaultFilters    
         };
 
-        autoTabSpy.reset();
         const container = mount(<AccountAwardsContainer {...props} />);
-
-        jest.runAllTicks();
-        expect(autoTabSpy.callCount).toEqual(1);
+        container.instance().pickDefaultTab = jest.fn();
 
         // change the filters
         const newFilters = Object.assign({}, defaultFilters, {
-            obectClass: new OrderedSet(['10'])
+            objectClass: new OrderedSet(['10'])
         });
+
         container.setProps({
             filters: newFilters
         });
 
-        jest.runAllTicks();
-        expect(autoTabSpy.callCount).toEqual(2);
-        autoTabSpy.reset();
-    });
-
-    it('should make an API call for new awards whenever the Redux table type changes', () => {
-        mockSearchHelper('performSearch', 'resolve', mockAwards);
-        mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-
-        const props = {
-            account: mockReduxAccount,
-            filters: defaultFilters,
-            awards: new OrderedSet([]),
-            meta: mockReduxAwards.awardsMeta,
-            order: mockReduxAwards.awardsOrder,
-            setAccountAwards: jest.fn(),
-            setAccountAwardType: jest.fn()
-        };
-
-        const container = mount(<AccountAwardsContainer {...props} />);
-
-        jest.runAllTicks();
-        loadDataSpy.reset();
-        autoTabSpy.reset();
-        expect(loadDataSpy.callCount).toEqual(0);
-
-        // change the table type
-        const newMeta = Object.assign({}, mockReduxAwards.awardsMeta, {
-            type: 'loans'
-        });
-        container.setProps({
-            meta: newMeta
-        });
-
-        jest.runAllTicks();
-        expect(loadDataSpy.callCount).toEqual(1);
-        expect(autoTabSpy.callCount).toEqual(0);
-        loadDataSpy.reset();
+        expect(container.instance().pickDefaultTab).toHaveBeenCalledTimes(1);
     });
 
     describe('parseTabCounts', () => {
-        it('should select the first tab (left to right) with a non-zero aggregate value', () => {
-            mockSearchHelper('performSearch', 'resolve', mockAwards);
-            mockSearchHelper('fetchAwardCounts', 'resolve', mockTabCount);
-
+        it('should aggregate the award type counts into higher level categories', () => {
             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters,
-                awards: new OrderedSet([]),
-                meta: mockReduxAwards.awardsMeta,
-                order: mockReduxAwards.awardsOrder,
-                setAccountAwards: jest.fn(),
-                setAccountAwardType: jest.fn()
+                filters: defaultFilters    
             };
-
             const container = shallow(<AccountAwardsContainer {...props} />);
 
-            const mockSwitchTab = jest.fn();
-            container.instance().switchTab = mockSwitchTab;
+            container.instance().parseTabCounts(mockCount);
 
-            container.instance().parseTabCounts(mockTabCount);
-            expect(mockSwitchTab).toHaveBeenLastCalledWith('contracts');
-
-
-            const secondTabResponse = Object.assign({}, mockTabCount, {
-                results: [
-                    {
-                        type: 'A',
-                        aggregate: '0.0'
-                    },
-                    {
-                        type: '02',
-                        aggregate: '500.0'
-                    }
-                ]
+            expect(container.state().counts).toEqual({
+                contracts: 2,
+                direct_payments: 0,
+                grants: 0,
+                loans: 0,
+                other: 0
             });
-
-            container.instance().parseTabCounts(secondTabResponse);
-            expect(mockSwitchTab).toHaveBeenLastCalledWith('grants');
         });
     });
 
-    describe('parseData', () => {
-        it('should parse the API response and overwrite the Redux account awards on the first page', () => {
-            const apiResponse = mockAwards;
-            apiResponse.page_metadata.has_next_page = true;
-
-            const mockReduxAction = jest.fn();
-
-            const props = {
+    describe('loadColumns', () => {
+        it('should prepare an object of columns for all award types', () => {
+             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters,
-                awards: new OrderedSet([]),
-                meta: mockReduxAwards.awardsMeta,
-                order: mockReduxAwards.awardsOrder,
-                setAccountAwards: mockReduxAction
+                filters: defaultFilters    
             };
 
             const container = shallow(<AccountAwardsContainer {...props} />);
-            container.instance().parseData(apiResponse, 1);
+            container.instance().loadColumns();
 
-            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+            const nonLoan = {
+                dataType: 'string',
+                fieldName: 'f1',
+                columnName: 'field1',
+                displayName: 'Field 1',
+                width: 220,
+                defaultDirection: 'asc'
+            };
 
-            // extract the arguments passed to Redux
-            const args = mockReduxAction.mock.calls[0];
-            const reduxArg = args[0];
-            expect(reduxArg.hasNext).toBeTruthy();
-            expect(reduxArg.awards).toHaveLength(1);
+            const loan = {
+                dataType: 'string',
+                fieldName: 'lf',
+                columnName: 'loanfield',
+                displayName: 'Loan Field',
+                width: 220,
+                defaultDirection: 'desc'
+            };
+
+            expect(container.state().columns.contracts).toEqual([nonLoan]);
+            expect(container.state().columns.grants).toEqual([nonLoan]);
+            expect(container.state().columns.direct_payments).toEqual([nonLoan]);
+            expect(container.state().columns.loans).toEqual([loan]);
+            expect(container.state().columns.other).toEqual([nonLoan]);
         });
-        it('should parse the API response and append the Redux account awards on subsequent pages', () => {
-            const apiResponse = mockAwards;
-            apiResponse.page_metadata.page = 2;
-            apiResponse.page_metadata.has_next_page = false;
-
-            const mockReduxAction = jest.fn();
-
+        it('should trigger a tab count operation', () => {
             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters,
-                awards: new OrderedSet([]),
-                meta: mockReduxAwards.awardsMeta,
-                order: mockReduxAwards.awardsOrder,
-                appendAccountAwards: mockReduxAction
+                filters: defaultFilters    
+            };
+            const container = shallow(<AccountAwardsContainer {...props} />);
+            container.instance().pickDefaultTab = jest.fn();
+            container.instance().loadColumns();
+
+            expect(container.instance().pickDefaultTab).toHaveBeenCalledTimes(1);
+        });
+    });
+    
+    describe('performSearch', () => {
+        it('should overwrite any existing results if newSearch is true', async () => {
+            const props = {
+                account: mockReduxAccount,
+                filters: defaultFilters    
+            };
+            const container = shallow(<AccountAwardsContainer {...props} />);
+            container.setState({
+                results: [{}, {}, {}]
+            });
+
+            expect(container.state().results.length).toEqual(3);
+
+            container.instance().performSearch(true);
+
+            await container.instance().searchRequest.promise;
+
+            expect(container.state().results.length).toEqual(1);
+        });
+        it('should append to any existing results if newSearch is false', async () => {
+            const props = {
+                account: mockReduxAccount,
+                filters: defaultFilters    
+            };
+            const container = shallow(<AccountAwardsContainer {...props} />);
+            container.setState({
+                results: [{}, {}, {}],
+                page: 2
+            });
+
+            expect(container.state().results.length).toEqual(3);
+
+            container.instance().performSearch(false);
+
+            await container.instance().searchRequest.promise;
+
+            expect(container.state().results.length).toEqual(4);
+        });
+    });
+
+    describe('switchTab', () => {
+        it('should update the state to the new tab', () => {
+            const props = {
+                account: mockReduxAccount,
+                filters: defaultFilters    
+            };
+            const container = shallow(<AccountAwardsContainer {...props} />);
+            container.instance().switchTab('grants');
+            expect(container.state().tableType).toEqual('grants');
+        });
+
+        it('should update the sort to the default sort of the new tab if the existing sort field doesn\'t exist in that tab', () => {
+            const props = {
+                account: mockReduxAccount,
+                filters: defaultFilters    
             };
 
             const container = shallow(<AccountAwardsContainer {...props} />);
-            container.instance().parseData(apiResponse, 2);
 
-            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+            container.instance().switchTab('loans');
 
-            // extract the arguments passed to Redux
-            const args = mockReduxAction.mock.calls[0];
-            const reduxArg = args[0];
-            expect(reduxArg.hasNext).toBeFalsy();
-            expect(reduxArg.page).toEqual(2);
-            expect(reduxArg.awards).toHaveLength(1);
+            expect(container.state().sort).toEqual({
+                field: 'loanfield',
+                direction: 'desc'
+            });
+        });
+
+        it('should trigger a new reset search', () => {
+            const props = {
+                account: mockReduxAccount,
+                filters: defaultFilters    
+            };
+            const container = shallow(<AccountAwardsContainer {...props} />);
+            container.instance().performSearch = jest.fn();
+
+            container.instance().switchTab('loans');
+
+            expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
+            expect(container.instance().performSearch).toHaveBeenCalledWith(true);
         });
     });
 
     describe('loadNextPage', () => {
         it('should load the next page when there are more pages available', () => {
-            const meta = Object.assign({}, mockReduxAwards.awardsMeta, {
-                page: 1,
-                hasNext: true
+            const props = {
+                account: mockReduxAccount,
+                filters: defaultFilters    
+            };
+            const container = shallow(<AccountAwardsContainer {...props} />);
+            container.instance().performSearch = jest.fn();
+            container.setState({
+                hasNext: true,
+                inFlight: false
             });
 
-            const props = {
-                meta,
-                account: mockReduxAccount,
-                filters: defaultFilters,
-                awards: new OrderedSet([]),
-                order: mockReduxAwards.awardsOrder,
-                setAccountAwards: jest.fn()
-            };
-
-            const container = shallow(<AccountAwardsContainer {...props} />);
-
-            const mockedLoadData = jest.fn();
-            container.instance().loadData = mockedLoadData;
-
             container.instance().loadNextPage();
-            expect(mockedLoadData).toHaveBeenCalledTimes(1);
+            expect(container.state().page).toEqual(2);
+            expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
+            expect(container.instance().performSearch).toHaveBeenCalledWith();
         });
-        it('should not load the next page when there are no more pages available', () => {
-            const meta = Object.assign({}, mockReduxAwards.awardsMeta, {
-                page: 1,
-                hasNext: false
+        it('should not load any pages if there are no more pages available', () => {
+            const props = {
+                account: mockReduxAccount,
+                filters: defaultFilters    
+            };
+            const container = shallow(<AccountAwardsContainer {...props} />);
+            container.instance().performSearch = jest.fn();
+            container.setState({
+                hasNext: false,
+                inFlight: false
             });
 
+            container.instance().loadNextPage();
+            expect(container.state().page).toEqual(1);
+            expect(container.instance().performSearch).toHaveBeenCalledTimes(0);
+        });
+        it('should not load any pages if there are requests already in-flight', () => {
             const props = {
-                meta,
                 account: mockReduxAccount,
-                filters: defaultFilters,
-                awards: new OrderedSet([]),
-                order: mockReduxAwards.awardsOrder,
-                setAccountAwards: jest.fn()
+                filters: defaultFilters    
             };
-
             const container = shallow(<AccountAwardsContainer {...props} />);
-
-            const mockedLoadData = jest.fn();
-            container.instance().loadData = mockedLoadData;
+            container.instance().performSearch = jest.fn();
+            container.setState({
+                hasNext: true,
+                inFlight: true
+            });
 
             container.instance().loadNextPage();
-            expect(mockedLoadData).not.toHaveBeenCalled();
+            expect(container.state().page).toEqual(1);
+            expect(container.instance().performSearch).toHaveBeenCalledTimes(0);
+        });
+    });
+    describe('updateSort', () => {
+        it('should change the state to the provided values', () => {
+            const props = {
+                account: mockReduxAccount,
+                filters: defaultFilters    
+            };
+            const container = shallow(<AccountAwardsContainer {...props} />);
+            container.instance().updateSort('field', 'asc');
+
+            expect(container.state().sort).toEqual({
+                field: 'field',
+                direction: 'asc'
+            });
+        });
+        it('should trigger a new reset search', () => {
+            const props = {
+                account: mockReduxAccount,
+                filters: defaultFilters    
+            };
+            const container = shallow(<AccountAwardsContainer {...props} />);
+            container.instance().performSearch = jest.fn();
+
+            container.instance().updateSort('field', 'asc');
+
+            expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
+            expect(container.instance().performSearch).toHaveBeenCalledWith(true);
         });
     });
 });

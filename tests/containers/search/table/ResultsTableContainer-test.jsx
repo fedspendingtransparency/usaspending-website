@@ -5,21 +5,16 @@
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import sinon from 'sinon';
 
+import { Set } from 'immutable';
 import { ResultsTableContainer } from 'containers/search/table/ResultsTableContainer';
+import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 
-import { MetaRecord } from 'redux/reducers/resultsMeta/resultsMetaReducer';
-import { OrderRecord } from 'redux/reducers/search/searchOrderReducer';
-import { VisibilityRecord } from 'redux/reducers/search/columnVisibilityReducer';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
+
 import { mockActions, mockRedux, mockApi, mockTabCount } from './mockAwards';
 
 jest.mock('helpers/searchHelper', () => require('../filters/searchHelper'));
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
-
-// spy on specific functions inside the component
-const autoTabSpy = sinon.spy(ResultsTableContainer.prototype, 'pickDefaultTab');
-const searchSpy = sinon.spy(ResultsTableContainer.prototype, 'performSearch');
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/search/table/ResultsTableSection', () =>
@@ -34,20 +29,6 @@ jest.mock('helpers/textMeasurement', () => (
 ));
 
 describe('ResultsTableContainer', () => {
-    it('should pick a default tab for awards on mount', async () => {
-        const container = mount(<ResultsTableContainer
-            {...mockActions}
-            {...mockRedux} />);
-
-        container.instance().parseTabCounts = jest.fn();
-
-        await container.instance().tabCountRequest.promise;
-
-        expect(autoTabSpy.callCount).toEqual(1);
-
-        autoTabSpy.reset();
-    });
-
     it('should pick a default tab whenever the Redux filters change', async () => {
         const container = mount(<ResultsTableContainer
             {...mockActions}
@@ -55,421 +36,322 @@ describe('ResultsTableContainer', () => {
 
         container.instance().parseTabCounts = jest.fn();
 
-        await container.instance().tabCountRequest.promise;
-
-        expect(autoTabSpy.callCount).toEqual(1);
-
         // update the filters
         const newFilters = Object.assign({}, mockRedux.filters, {
             keyword: 'blah blah'
         });
-
         container.setProps({
             filters: newFilters
         });
 
         await container.instance().tabCountRequest.promise;
 
-        // this should trigger a new API call
-        expect(autoTabSpy.callCount).toEqual(2);
-
-        autoTabSpy.reset();
+        expect(container.instance().parseTabCounts).toHaveBeenCalledTimes(2);
     });
 
-    it('should trigger an API call whenever the Redux table type value changes', async () => {
-        const container = mount(<ResultsTableContainer
-            {...mockActions}
-            {...mockRedux} />);
-        await container.instance().tabCountRequest.promise;
-        await container.instance().searchRequest.promise;
+    describe('pickDefaultTab', () => {
+        it('should call parseTabCounts() after the API responds', async () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+            container.instance().parseTabCounts = jest.fn();
 
-        expect(searchSpy.callCount).toEqual(1);
+            container.instance().pickDefaultTab();
 
-        // update the table type
-        const metaData = Object.assign({}, mockRedux.meta.toJS(), {
-            tableType: 'loans'
+            await container.instance().tabCountRequest.promise;
+
+            expect(container.instance().parseTabCounts).toHaveBeenCalledTimes(1);
         });
-
-        container.setProps({
-            meta: new MetaRecord(metaData)
-        });
-
-        await container.instance().searchRequest.promise;
-        expect(searchSpy.callCount).toEqual(2);
-        autoTabSpy.reset();
-        searchSpy.reset();
     });
 
-    it('should make an API call when the Redux sort order changes', async () => {
-        const container = mount(<ResultsTableContainer
-            {...mockActions}
-            {...mockRedux} />);
+    describe('parseTabCounts', () => {
+        it('should save the counts to state', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+            container.instance().parseTabCounts(mockTabCount);
 
-        await container.instance().tabCountRequest.promise;
-        await container.instance().searchRequest.promise;
-
-        expect(searchSpy.callCount).toEqual(1);
-
-        // update the sort order
-        const orderData = Object.assign({}, mockRedux.searchOrder.toJS(), {
-            direction: 'asc'
+            expect(container.state().counts).toEqual(mockTabCount.results);
         });
+        it('should pick the first table type it encounters with a count greater than zero', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+            container.instance().switchTab = jest.fn();
 
-        container.setProps({
-            searchOrder: new OrderRecord(orderData)
+            container.instance().parseTabCounts({
+                results: {
+                    loans: 0,
+                    other: 0,
+                    direct_payments: 3,
+                    contracts: 0,
+                    grants: 0
+                }
+            });
+
+            expect(container.instance().switchTab).toHaveBeenCalledTimes(1);
+            expect(container.instance().switchTab).toHaveBeenCalledWith('direct_payments');
         });
+        it('should default to contracts if all types return a count of zero', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+            container.instance().switchTab = jest.fn();
 
-        await container.instance().tabCountRequest.promise;
-        await container.instance().searchRequest.promise;
+            container.instance().parseTabCounts({
+                results: {
+                    loans: 0,
+                    other: 0,
+                    direct_payments: 0,
+                    contracts: 0,
+                    grants: 0
+                }
+            });
 
-        // this should trigger a new API call
-        expect(searchSpy.callCount).toEqual(2);
-
-        autoTabSpy.reset();
-        searchSpy.reset();
-    });
-
-    it('should make an API call when the Redux page number changes', async () => {
-        const container = mount(<ResultsTableContainer
-            {...mockActions}
-            {...mockRedux} />);
-
-        await container.instance().tabCountRequest.promise;
-        await container.instance().searchRequest.promise;
-
-        expect(searchSpy.callCount).toEqual(1);
-
-        // update the page number
-        const metaData = Object.assign({}, mockRedux.meta.toJS(), {
-            page: {
-                page_number: 5
-            }
+            expect(container.instance().switchTab).toHaveBeenCalledTimes(1);
+            expect(container.instance().switchTab).toHaveBeenCalledWith('contracts');
         });
+        it('should default to contracts if all types return a count of zero', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+            container.instance().switchTab = jest.fn();
 
-        container.setProps({
-            meta: new MetaRecord(metaData)
+            container.instance().parseTabCounts({
+                results: {
+                    loans: 0,
+                    other: 0,
+                    direct_payments: 0,
+                    contracts: 0,
+                    grants: 0
+                }
+            });
+
+            expect(container.instance().switchTab).toHaveBeenCalledTimes(1);
+            expect(container.instance().switchTab).toHaveBeenCalledWith('contracts');
         });
-
-        await container.instance().tabCountRequest.promise;
-        await container.instance().searchRequest.promise;
-
-        // this should trigger a new API call
-        expect(searchSpy.callCount).toEqual(2);
-
-        autoTabSpy.reset();
-        searchSpy.reset();
-    });
-
-    it('should make an API call when columns are added or removed', async () => {
-        const container = mount(<ResultsTableContainer
-            {...mockActions}
-            {...mockRedux} />);
-
-        await container.instance().tabCountRequest.promise;
-        await container.instance().searchRequest.promise;
-
-        expect(searchSpy.callCount).toEqual(1);
-
-        // update the column visibility
-        const columnVisibilityData = Object.assign({}, mockRedux.columnVisibility.toJS(), {
-            column: 'total_obligation',
-            tableType: 'contracts'
-        });
-
-        container.setProps({
-            searchOrder: new VisibilityRecord(columnVisibilityData)
-        });
-
-        await container.instance().tabCountRequest.promise;
-        await container.instance().searchRequest.promise;
-
-        // this should trigger a new API call
-        expect(searchSpy.callCount).toEqual(2);
-
-        autoTabSpy.reset();
-        searchSpy.reset();
     });
 
     describe('updateFilters', () => {
-        it('should reset the page number to 1', async () => {
+        it('should retain a version of the search parameters into state', () => {
+            const filters = Object.assign({}, initialState, {
+                timePeriodFY: new Set(['1778', '1779'])
+            });
+            const redux = Object.assign({}, mockRedux, {
+                filters
+            });
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...redux} />);
+
+            container.instance().updateFilters();
+
+            const expectedParams = new SearchAwardsOperation();
+            expectedParams.fromState(filters);
+
+            expect(container.state().searchParams).toEqual(expectedParams);
+        });
+        it('should reset the page to 1', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            container.instance().updateFilters();
+
+            expect(container.state().page).toEqual(1);
+        });
+        it('should trigger a reset search', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+            container.instance().performSearch = jest.fn();
+
+            container.instance().updateFilters();
+
+            expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
+            expect(container.instance().performSearch).toHaveBeenCalledWith(true);
+        });
+    });
+
+    describe('createColumn', () => {
+        it('should return a column object', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            const output = container.instance().createColumn('Test Column');
+            expect(output).toEqual({
+                columnName: 'Test Column',
+                displayName: 'Test Column',
+                width: 220,
+                defaultDirection: 'desc'
+            });
+        });
+    });
+
+    describe('performSearch', () => {
+        it('should overwrite the existing result state if the page number is 1 or it is a new search', async () => {
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...mockRedux} />);
 
             container.setState({
-                page: 5
+                results: [{}, {}, {}]
             });
-            container.instance().updateFilters();
+            expect(container.state().results.length).toEqual(3);
 
+            container.instance().performSearch(true);
             await container.instance().searchRequest.promise;
 
-            expect(container.state().page).toEqual(1);
-
-            autoTabSpy.reset();
-            searchSpy.reset();
+            expect(container.state().results.length).toEqual(1);
         });
-
-        it('should save a SearchObject object to state', async () => {
-            const customFilters = Object.assign({}, mockRedux.filters, {
-                keyword: 'blah blah'
-            });
-
-            const redux = Object.assign({}, mockRedux, {
-                filters: customFilters
-            });
-
-            const container = shallow(<ResultsTableContainer
-                {...mockActions}
-                {...redux} />);
-
-            container.instance().updateFilters();
-
-            await container.instance().searchRequest.promise;
-
-            expect(container.state().searchParams.keyword).toEqual('blah blah');
-
-            autoTabSpy.reset();
-            searchSpy.reset();
-        });
-
-        it('will trigger an API call', async () => {
+        it('should append the results to the existing result state if the page number is greater than 1', async () => {
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...mockRedux} />);
 
-            container.instance().updateFilters();
+            container.setState({
+                results: [{}, {}, {}],
+                page: 2
+            });
+            expect(container.state().results.length).toEqual(3);
 
+            container.instance().performSearch(false);
             await container.instance().searchRequest.promise;
 
-            expect(searchSpy.callCount).toEqual(1);
-
-            autoTabSpy.reset();
-            searchSpy.reset();
-        });
-    });
-
-    describe('parseData', () => {
-        it('should parse the API response into an array of award objects', () => {
-            const insertAction = jest.fn();
-
-            const actions = Object.assign({}, mockActions, {
-                bulkInsertRecordSet: insertAction
-            });
-
-            const container = shallow(<ResultsTableContainer
-                {...actions}
-                {...mockRedux} />);
-
-            container.instance().parseData(mockApi.results);
-
-            expect(insertAction).toHaveBeenCalledTimes(1);
-            expect(insertAction.mock.calls[0][0].type).toEqual('awards');
-            expect(insertAction.mock.calls[0][0].data).toHaveLength(1);
-
-            autoTabSpy.reset();
-            searchSpy.reset();
-        });
-    });
-
-    describe('switchTab', () => {
-        it('should change the Redux table type', () => {
-            const tableTypeAction = jest.fn();
-
-            const actions = Object.assign({}, mockActions, {
-                setSearchTableType: tableTypeAction
-            });
-
-            const container = shallow(<ResultsTableContainer
-                {...actions}
-                {...mockRedux} />);
-
-            container.instance().switchTab('loans');
-
-            expect(tableTypeAction).toHaveBeenCalledTimes(1);
-            expect(tableTypeAction.mock.calls[0][0]).toEqual('loans');
-
-            autoTabSpy.reset();
-            searchSpy.reset();
+            expect(container.state().results.length).toEqual(4);
         });
     });
 
     describe('loadNextPage', () => {
-        it('should load the next page if available', () => {
-            const pageNumber = jest.fn();
-
-            const actions = Object.assign({}, mockActions, {
-                setSearchPageNumber: pageNumber
-            });
-
-            const page = Object.assign({}, mockRedux.meta.page, {
-                has_next_page: true,
-                page: 5
-            });
-
-            const redux = Object.assign({}, mockRedux, {
-                meta: new MetaRecord({
-                    page
-                })
-            });
-
-            const container = shallow(<ResultsTableContainer
-                {...actions}
-                {...redux} />);
-
-            container.instance().loadNextPage();
-
-            expect(pageNumber).toHaveBeenCalledTimes(1);
-            expect(pageNumber.mock.calls[0][0]).toEqual(6);
-
-            autoTabSpy.reset();
-            searchSpy.reset();
-        });
-        it('should do nothing if there are no more pages', () => {
-            const pageNumber = jest.fn();
-
-            const actions = Object.assign({}, mockActions, {
-                setSearchPageNumber: pageNumber
-            });
-
-            const page = Object.assign({}, mockRedux.meta.page, {
-                has_next_page: false,
-                page: 5
-            });
-
-            const redux = Object.assign({}, mockRedux, {
-                meta: new MetaRecord({
-                    page
-                })
-            });
-
-            const container = shallow(<ResultsTableContainer
-                {...actions}
-                {...redux} />);
-
-            container.instance().loadNextPage();
-
-            expect(pageNumber).toHaveBeenCalledTimes(0);
-
-            autoTabSpy.reset();
-            searchSpy.reset();
-        });
-    });
-
-    describe('parseTabCounts', () => {
-        it('should select the first tab (left to right) with a non-zero aggregate value', async () => {
+        it('should increment the page number', () => {
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...mockRedux} />);
-
-            const mockSwitchTab = jest.fn();
-            container.instance().switchTab = mockSwitchTab;
-
-            container.instance().parseTabCounts(mockTabCount);
-
-            await container.instance().searchRequest.promise;
-
-            expect(mockSwitchTab).toHaveBeenLastCalledWith('contracts');
-
-            // now check a second response
-            const secondMock = Object.assign({}, mockTabCount, {
-                results: [
-                    {
-                        type: 'A',
-                        aggregate: '0'
-                    },
-                    {
-                        type: 'B',
-                        aggregate: '0'
-                    },
-                    {
-                        type: 'C',
-                        aggregate: '0'
-                    },
-                    {
-                        type: 'D',
-                        aggregate: '0'
-                    },
-                    {
-                        type: '02',
-                        aggregate: '1'
-                    },
-                    {
-                        type: '03',
-                        aggregate: '1'
-                    }
-                ]
+            container.setState({
+                page: 1,
+                lastPage: false,
+                inFlight: false
             });
+            expect(container.state().page).toEqual(1);
 
-            container.instance().parseTabCounts(secondMock);
-            expect(mockSwitchTab).toHaveBeenLastCalledWith('grants');
-
-            autoTabSpy.reset();
-            searchSpy.reset();
+            container.instance().loadNextPage();
+            expect(container.state().page).toEqual(2);
         });
-
-        it('should trigger an API call for awards', async () => {
+        it('should call an appended performSearch', () => {
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...mockRedux} />);
+            container.instance().performSearch = jest.fn();
+            container.setState({
+                page: 1,
+                lastPage: false,
+                inFlight: false
+            });
 
-            searchSpy.reset();
-            expect(searchSpy.callCount).toEqual(0);
-            container.instance().parseTabCounts(mockTabCount);
+            container.instance().loadNextPage();
+            expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
+            expect(container.instance().performSearch).toHaveBeenCalledWith();
+        });
+        it('should do nothing if it is the last page', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+            container.instance().performSearch = jest.fn();
 
-            await container.instance().searchRequest.promise;
+            container.setState({
+                lastPage: true,
+                page: 1,
+                inFlight: false
+            });
 
-            expect(searchSpy.callCount).toEqual(1);
+            container.instance().loadNextPage();
+            expect(container.instance().performSearch).toHaveBeenCalledTimes(0);
+        });
+        it('should do nothing if there are existing requests in flight', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+            container.instance().performSearch = jest.fn();
 
-            autoTabSpy.reset();
-            searchSpy.reset();
+            container.setState({
+                lastPage: false,
+                page: 1,
+                inFlight: true
+            });
+
+            container.instance().loadNextPage();
+            expect(container.instance().performSearch).toHaveBeenCalledTimes(0);
         });
     });
 
-    describe('toggleColumnVisibility', () => {
-        it('should change the Redux column visibility', () => {
-            const columnVisibilityAction = jest.fn();
-
-            const actions = Object.assign({}, mockActions, {
-                toggleColumnVisibility: columnVisibilityAction
-            });
-
+    describe('switchTab', () => {
+        it('should change the state to the new tab type', () => {
             const container = shallow(<ResultsTableContainer
-                {...actions}
+                {...mockActions}
                 {...mockRedux} />);
+            container.instance().switchTab('loans');
 
-            container.instance().toggleColumnVisibility('recipient_name');
+            expect(container.state().tableType).toEqual('loans');
+        });
+        it('should should call a reset performSearch operation', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+            container.instance().performSearch = jest.fn();
+            container.instance().switchTab('loans');
 
-            expect(columnVisibilityAction).toHaveBeenCalledTimes(1);
-            expect(columnVisibilityAction.mock.calls[0][0]).toEqual({
-                column: "recipient_name", tableType: "contracts"
+            expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
+            expect(container.instance().performSearch).toHaveBeenCalledWith(true);
+        });
+
+        it('should use the default sort field and sort direction if the new table type doesn\'t have current sort column', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+            container.setState({
+                sort: {
+                    field: 'Clinger-Cohen Act Compliant',
+                    direction: 'asc'
+                }
             });
 
-            autoTabSpy.reset();
-            searchSpy.reset();
+            container.instance().switchTab('loans');
+            expect(container.state().sort).toEqual({
+                field: 'Loan Value',
+                direction: 'desc'
+            });
+
         });
     });
-
-    describe('reorderColumns', () => {
-        it('should change the order of the visible columns', () => {
-            const columnVisibilityAction = jest.fn();
-
-            const actions = Object.assign({}, mockActions, {
-                reorderColumns: columnVisibilityAction
-            });
-
+    
+    describe('updateSort', () => {
+        it('should set the sort state to the given values', () => {
             const container = shallow(<ResultsTableContainer
-                {...actions}
+                {...mockActions}
                 {...mockRedux} />);
-
-            container.instance().reorderColumns(5, 2);
-
-            expect(columnVisibilityAction).toHaveBeenCalledTimes(1);
-            expect(columnVisibilityAction.mock.calls[0][0]).toEqual({
-                tableType: "contracts", dragIndex: 5, hoverIndex: 2
+            container.setState({
+                sort: {
+                    field: 'Clinger-Cohen Act Compliant',
+                    direction: 'asc'
+                }
             });
 
-            autoTabSpy.reset();
-            searchSpy.reset();
+            container.instance().updateSort('test', 'desc');
+            expect(container.state().sort).toEqual({
+                field: 'test',
+                direction: 'desc'
+            });
+        });
+        it('should call a reset performSearch operation', () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+            container.instance().performSearch = jest.fn();
+
+            container.instance().updateSort('test', 'desc');
+            expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
+            expect(container.instance().performSearch).toHaveBeenCalledWith(true);
         });
     });
 });

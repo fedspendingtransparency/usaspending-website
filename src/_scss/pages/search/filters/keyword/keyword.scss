@@ -1,17 +1,35 @@
 .keyword-filter {
+    @import "elements/filters/_selectedFilterBtn";
+    @import "mixins/selectedFilterWrap";
+    @import "../_singleSubmit";
+
+    form {
+        width: 100%;
+    }
+
+    .keyword-input-wrapper {
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+    }
+
     .keyword-input {
-        display: inline-block;
+        @include flex(1 1 auto);
+        margin-right: rem(4);
         font-size: $small-font-size;
+        color: $color-base;
+        line-height: rem(36);
         height: rem(40);
-        margin: 0 auto;
-        padding: rem(11) rem(8);
-        width: 70%
+        @include placeholder {
+            color: $color-gray-light;
+        }
     }
     .keyword-submit {
-        display: inline-block;
-        height: rem(40);
-        margin: 0;
-        padding: 0;
-        width: 30%;
+        @include flex(0 0 auto);
+        @include singleSubmit();
+    }
+
+    .selected-filters {
+        @include selected-filter-wrap;
     }
 }

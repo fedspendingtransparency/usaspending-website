@@ -1,0 +1,89 @@
+.explorer-table {
+    @import "components/pagination";
+    background-color: $color-white;
+    position: relative;
+    display: block;
+    overflow: auto;
+
+    &.no-results {
+        border: none;
+    }
+    table {
+        margin-top: 0;
+        width: rem(500);
+
+        @include media($tablet-screen) {
+            width: auto;
+        }
+
+        thead {
+            tr {
+                border-bottom: solid 1px $color-gray-lighter;
+                td {
+                    border: 0;
+                    &:first-child {
+                        width: 55%;
+                    }
+                    &:nth-child(2) {
+                        width: 25%;
+                        .cell-content {
+                            float: right;
+                        }
+                    }
+                    &:last-child {
+                        width: 20%;
+                        .cell-content {
+                            float: right;
+                        }
+                    }
+                }
+            }
+            .award-result-header-cell {
+                @import "./cells/_explorerHeaderCell";
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    border: 0;
+                    &:first-child {
+                        width: 55%;
+                    }
+                    &:nth-child(2) {
+                        width: 25%;
+                        .cell-content {
+                            float: right;
+                        }
+                    }
+                    &:last-child {
+                        width: 20%;
+                        .cell-content {
+                            float: right;
+                        }
+                    }
+                }
+                .explorer-link-cell {
+                    .cell-content {
+                        .go-deeper-link {
+                            @include button-unstyled;
+                            color: $color-primary;
+                            font-size: rem(16);
+                            line-height: rem(20);
+                        }
+                    }
+                }
+                // gray out even rows
+                .row-even {
+                    background-color: #f7f7f7;
+                }
+            }
+        }
+    }
+}
+
+.table-loading-transition {
+    transition: opacity 0.25s;
+    &.loading {
+        opacity: 0.5;
+    }
+}

@@ -5,7 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import DatePicker from 'components/sharedComponents/DatePicker';
+import { Close } from 'components/sharedComponents/icons/Icons';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+
+import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 
 const defaultProps = {
     startDate: '01/01/2016',
@@ -18,12 +23,15 @@ const propTypes = {
     onDateChange: PropTypes.func,
     startDate: PropTypes.object,
     endDate: PropTypes.object,
+    selectedStart: PropTypes.string,
+    selectedEnd: PropTypes.string,
     showError: PropTypes.func,
-    hideError: PropTypes.func
+    hideError: PropTypes.func,
+    applyDateRange: PropTypes.func,
+    removeDateRange: PropTypes.func
 };
 
 export default class DateRange extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -31,6 +39,9 @@ export default class DateRange extends React.Component {
             header: '',
             errorMessage: ''
         };
+
+        this.submitRange = this.submitRange.bind(this);
+        this.removeRange = this.removeRange.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -44,34 +55,116 @@ export default class DateRange extends React.Component {
         }
     }
 
+    submitRange(e) {
+        // allow the user to change date ranges by keyboard and pressing enter
+        e.preventDefault();
+        this.props.applyDateRange();
+    }
+
+    removeRange() {
+        const tabButton = document.getElementById('filter-date-range-tab');
+        if (tabButton) {
+            tabButton.focus();
+        }
+        this.props.removeDateRange();
+    }
+
     render() {
+        const earliestDateString =
+            FiscalYearHelper.convertFYToDateRange(FiscalYearHelper.earliestFiscalYear)[0];
+        const earliestDate = moment(earliestDateString, 'YYYY-MM-DD').toDate();
+
+        let dateLabel = '';
+        let hideTags = 'hide';
+        if (this.props.selectedStart || this.props.selectedEnd) {
+            hideTags = '';
+            let start = null;
+            let end = null;
+            if (this.props.selectedStart) {
+                start = moment(this.props.selectedStart, 'YYYY-MM-DD').format('MM/DD/YYYY');
+            }
+            if (this.props.selectedEnd) {
+                end = moment(this.props.selectedEnd, 'YYYY-MM-DD').format('MM/DD/YYYY');
+            }
+            if (start && end) {
+                dateLabel = `${start} to ${end}`;
+            }
+            else if (start) {
+                dateLabel = `${start} to present`;
+            }
+            else {
+                dateLabel = `... to ${end}`;
+            }
+        }
+
+        let noDates = false;
+        if (!this.props.startDate && !this.props.endDate) {
+            noDates = true;
+        }
+
+        const accessibility = {
+            'aria-controls': 'selected-date-range'
+        };
+
         return (
             <div className="date-range-option">
-                <div className="date-range-wrapper">
+                <form
+                    className="date-range-wrapper"
+                    onSubmit={this.submitRange}>
                     <DatePicker
                         type="startDate"
                         title="Start Date"
-                        tabIndex={this.props.startingTab}
                         onDateChange={this.props.onDateChange}
                         value={this.props.startDate}
                         opposite={this.props.endDate}
                         showError={this.props.showError}
                         hideError={this.props.hideError}
+                        disabledDays={[{
+                            before: earliestDate
+                        }]}
                         ref={(component) => {
                             this.startPicker = component;
-                        }} />
+                        }}
+                        allowClearing />
                     <DatePicker
                         type="endDate"
                         title="End Date"
-                        tabIndex={this.props.startingTab + 4}
                         onDateChange={this.props.onDateChange}
                         value={this.props.endDate}
                         opposite={this.props.startDate}
                         showError={this.props.showError}
                         hideError={this.props.hideError}
+                        disabledDays={[{
+                            before: earliestDate
+                        }]}
                         ref={(component) => {
                             this.endPicker = component;
-                        }} />
+                        }}
+                        allowClearing />
+                    <IndividualSubmit
+                        className="set-date-submit"
+                        onClick={this.submitRange}
+                        label="Filter by date range"
+                        disabled={noDates}
+                        accessibility={accessibility} />
+                </form>
+                <div
+                    className={`selected-filters ${hideTags}`}
+                    id="selected-date-range"
+                    aria-hidden={noDates}
+                    role="status">
+                    <button
+                        className="shown-filter-button"
+                        title="Click to remove filter."
+                        aria-label={`Applied date range: ${dateLabel}`}
+                        onClick={this.removeRange}>
+                        <span className="close">
+                            <Close
+                                className="usa-da-icon-close"
+                                alt="Close icon" />
+                        </span>
+                        {dateLabel}
+                    </button>
                 </div>
             </div>
         );

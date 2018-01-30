@@ -1,17 +1,25 @@
 .results-visualization-geo-section {
-    padding: ($global-pad * 2) rem(35);
     position: relative;
     @import "./_topSection";
+
+    h2.visualization-title {
+        @include h3;
+        margin: 0;
+    }
+
     .map-container {
         height: rem(475);
         width: 100%;
     }
     @import "./map/map";
     .visualization-tooltip {
-        @import "./components/visualizations/tooltip/_tooltip";
+        @import "components/visualizations/tooltip/_tooltip";
     }
     //HIDE THE MAPBOX COMPASS CONTROLS
     & .mapboxgl-ctrl-compass {
         display: none !important;
     }
+
+    @import "./_disclaimer";
+    @import "./_message";
 }

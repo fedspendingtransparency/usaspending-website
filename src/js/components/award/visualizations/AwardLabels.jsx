@@ -29,7 +29,6 @@ const propTypes = {
 };
 
 export default class AwardLabels extends React.Component {
-
     render() {
         let line = null;
         let anchor = "start";

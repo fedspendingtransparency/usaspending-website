@@ -3,14 +3,14 @@
  * Created by Lizzie Salita on 5/5/17.
  */
 
-import { OrderedSet } from 'immutable';
+import { List, Map } from 'immutable';
 
 export const toggleItem = (selected, item) => {
     if (selected.includes(item)) {
-        return selected.delete(item);
+        return selected.delete(selected.indexOf(item));
     }
 
-    return selected.add(item);
+    return selected.push(item);
 };
 
 export const spliceColumnOrder = (currentSet, dragIndex, hoverIndex) => {
@@ -25,5 +25,19 @@ export const spliceColumnOrder = (currentSet, dragIndex, hoverIndex) => {
     visibleArray.splice(hoverIndex, 0, col);
 
     // Convert the Array back to an Ordered Set
-    return new OrderedSet(visibleArray);
+    return new List(visibleArray);
+};
+
+export const convertDataSetToImmutable = (inbound) => {
+    const immutableSet = {};
+    const data = inbound;
+    Object.keys(data).forEach((key) => {
+        immutableSet[key] = {
+            visibleOrder: new List(data[key].visibleOrder),
+            hiddenOrder: new List(data[key].hiddenOrder),
+            data: new Map(data[key].data)
+        };
+    });
+
+    return immutableSet;
 };

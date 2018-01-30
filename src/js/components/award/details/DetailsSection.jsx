@@ -7,12 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { concat } from 'lodash';
 
-import ContractTransactionsTableContainer from
-    'containers/award/table/ContractTransactionsTableContainer';
-import AssistanceTransactionsTableContainer from
-    'containers/award/table/AssistanceTransactionsTableContainer';
+import TransactionsTableContainer from 'containers/award/table/TransactionsTableContainer';
 import FinancialSystemTableContainer from 'containers/award/table/FinancialSystemTableContainer';
-import LoanTransactionsTableContainer from 'containers/award/table/LoanTransactionsTableContainer';
 
 import SubawardsContainer from 'containers/award/subawards/SubawardsContainer';
 
@@ -31,6 +27,11 @@ const commonTabs = [
     {
         label: 'Transaction History',
         internal: 'transaction',
+        enabled: true
+    },
+    {
+        label: 'Sub-Awards',
+        internal: 'subaward',
         enabled: true
     },
     {
@@ -79,15 +80,8 @@ export default class DetailsSection extends React.Component {
         const type = this.props.award.selectedAward.internal_general_type;
         switch (this.props.activeTab) {
             case 'transaction':
-                if (type === 'contract') {
-                    return (<ContractTransactionsTableContainer
-                        tableWidth={this.state.tableWidth} />);
-                }
-                if (type === 'loan') {
-                    return (<LoanTransactionsTableContainer
-                        tableWidth={this.state.tableWidth} />);
-                }
-                return (<AssistanceTransactionsTableContainer
+                return (<TransactionsTableContainer
+                    type={type}
                     tableWidth={this.state.tableWidth} />);
 
             case 'subaward':

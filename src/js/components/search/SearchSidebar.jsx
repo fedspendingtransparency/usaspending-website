@@ -6,52 +6,89 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
+
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
-import LocationSearchContainer from 'containers/search/filters/location/LocationSearchContainer';
-import BudgetCategorySearchContainer
-    from 'containers/search/filters/budgetCategory/BudgetCategorySearchContainer';
+import LocationSectionContainer from 'containers/search/filters/location/LocationSectionContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
+import RecipientTypeContainer from 'containers/search/filters/recipient/RecipientTypeContainer';
 import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
 import AwardAmountSearchContainer from
     'containers/search/filters/awardAmount/AwardAmountSearchContainer';
-import OtherFilters from 'components/search/filters/otherFilters/OtherFilters';
+import CFDASearchContainer from 'containers/search/filters/cfda/CFDASearchContainer';
+import NAICSSearchContainer from 'containers/search/filters/naics/NAICSSearchContainer';
+import PSCSearchContainer from 'containers/search/filters/psc/PSCSearchContainer';
+import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer';
+import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
+import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedContainer';
+
+import KeywordHover from 'components/search/filters/keyword/KeywordHover';
 
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
-import MobileFilterHeader from 'components/search/mobile/MobileFilterHeader';
+import * as SidebarHelper from 'helpers/sidebarHelper';
 
 const filters = {
     options: [
-        'Search',
+        'Keyword',
         'Time Period',
-        'Place of Performance',
-        'Budget Categories',
-        'Agencies',
-        'Recipients',
         'Award Type',
-        'Award ID',
+        'Agency',
+        'Location',
+        'Recipient',
+        'Recipient Type',
         'Award Amount',
-        'Other Award Items'
+        'Award ID',
+        'CFDA Program',
+        'NAICS Code',
+        'Product/Service Code (PSC)',
+        'Type of Contract Pricing',
+        'Type of Set Aside',
+        'Extent Competed'
     ],
     components: [
         KeywordContainer,
         TimePeriodContainer,
-        LocationSearchContainer,
-        BudgetCategorySearchContainer,
-        AgencyContainer,
-        RecipientSearchContainer,
         AwardTypeContainer,
-        AwardIDSearchContainer,
+        AgencyContainer,
+        LocationSectionContainer,
+        RecipientSearchContainer,
+        RecipientTypeContainer,
         AwardAmountSearchContainer,
-        OtherFilters
+        AwardIDSearchContainer,
+        CFDASearchContainer,
+        NAICSSearchContainer,
+        PSCSearchContainer,
+        PricingTypeContainer,
+        SetAsideContainer,
+        ExtentCompetedContainer
+    ],
+    accessories: [
+        KeywordHover,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
     ]
 };
 
 const propTypes = {
-    mobile: PropTypes.bool
+    mobile: PropTypes.bool,
+    filters: PropTypes.object,
+    requestsComplete: PropTypes.bool
 };
 
 const defaultProps = {
@@ -61,31 +98,35 @@ const defaultProps = {
 export default class SearchSidebar extends React.Component {
     render() {
         const expanded = [];
-        filters.options.forEach(() => {
-            // collapse if mobile, otherwise expand
-            if (this.props.mobile) {
-                expanded.push(false);
+        filters.options.forEach((filter) => {
+            // Collapse all by default, unless the filter has a selection made
+            if (filter === 'Time Period') {
+                // time period is always expanded
+                expanded.push(true);
             }
             else {
-                expanded.push(true);
+                expanded.push(SidebarHelper.filterHasSelections(this.props.filters, filter));
             }
         });
 
-        let mobileHeader = null;
-        if (this.props.mobile) {
-            mobileHeader = (<MobileFilterHeader {...this.props} />);
-        }
-
         return (
-            <div className="search-sidebar">
+            <div
+                className="search-sidebar"
+                role="search"
+                aria-label="Filters">
                 <div className="sidebar-header">
                     <span className="filter-icon">
                         <FilterIcon />
                     </span>
-                    <h6>Filter by:</h6>
+                    <h2 className="sidebar-title">Filters</h2>
                 </div>
-                {mobileHeader}
+                <div className="sidebar-top-submit">
+                    <SearchSidebarSubmitContainer />
+                </div>
                 <FilterSidebar {...filters} expanded={expanded} />
+                <div className="sidebar-bottom-submit">
+                    <SearchSidebarSubmitContainer />
+                </div>
             </div>
         );
     }

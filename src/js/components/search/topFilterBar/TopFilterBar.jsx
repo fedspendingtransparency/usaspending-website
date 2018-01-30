@@ -11,71 +11,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as Icons from 'components/sharedComponents/icons/Icons';
-
 const propTypes = {
     filters: PropTypes.array,
     filterCount: PropTypes.number,
-    clearAllFilters: PropTypes.func,
     groupGenerator: PropTypes.func
 };
 
-export default class TopFilterBar extends React.Component {
-    constructor(props) {
-        super(props);
+const TopFilterBar = (props) => {
+    const filters = props.filters.map((filter) =>
+        props.groupGenerator({
+            filter,
+            redux: props
+        }));
 
-        this.pressedClearAll = this.pressedClearAll.bind(this);
+    let filterBarHeader = `${props.filterCount} Active Filter`;
+    if (props.filterCount !== 1) {
+        filterBarHeader += 's';
     }
+    filterBarHeader += ':';
 
-
-    pressedClearAll() {
-        this.props.clearAllFilters();
-    }
-
-    render() {
-        const filters = this.props.filters.map((filter) =>
-            this.props.groupGenerator({
-                filter,
-                redux: this.props
-            }));
-
-        let filterBarHeader = `${this.props.filterCount} Current Filter`;
-        if (this.props.filterCount !== 1) {
-            filterBarHeader += 's';
-        }
-        filterBarHeader += ':';
-
-        return (
-            <div>
-                <div className="search-top-filter-bar">
-                    <div className="search-top-filter-header">
-                        <div className="header-title">
-                            {filterBarHeader}
-                        </div>
-                        <div className="search-clear-wrapper">
-                            <button
-                                className="search-clear-button"
-                                aria-label="Clear all filters"
-                                title="Clear all filters"
-                                onClick={this.pressedClearAll}>
-                                <span className="button-label">
-                                    Clear all filters
-                                </span>
-                                <span className="close-icon">
-                                    <Icons.Close alt="Clear all filters" />
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div className="search-top-filters">
-                        <div className="search-top-filters-content">
-                            {filters}
-                        </div>
+    return (
+        <div>
+            <div
+                className="search-top-filter-bar"
+                role="complementary"
+                aria-label="Currently applied search filters">
+                <div className="search-top-filter-header">
+                    <h2
+                        className="header-title"
+                        id="top-filter-bar-title">
+                        {filterBarHeader}
+                    </h2>
+                </div>
+                <div className="search-top-filters">
+                    <div
+                        className="search-top-filters-content"
+                        role="list">
+                        {filters}
                     </div>
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 TopFilterBar.propTypes = propTypes;
+
+export default TopFilterBar;

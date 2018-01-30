@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { orderBy } from 'lodash';
+import { orderBy, difference, concat, indexOf } from 'lodash';
 
 import moment from 'moment';
 
@@ -15,11 +15,19 @@ import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
 import { topFilterGroupGenerator } from
     'components/search/topFilterBar/filterGroups/TopFilterGroupGenerator';
 
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import * as AwardType from 'dataMapping/search/awardType';
+
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    updateFilterCount: PropTypes.func
+    updateFilterCount: PropTypes.func,
+    compressed: PropTypes.bool
+};
+
+const defaultProps = {
+    compressed: false
 };
 
 export class TopFilterBarContainer extends React.Component {
@@ -71,22 +79,6 @@ export class TopFilterBarContainer extends React.Component {
         const selectedLocationFilters = this.prepareSelectedLocations(props);
         if (selectedLocationFilters) {
             filters.push(selectedLocationFilters);
-        }
-
-        // prepare the budget categories filters
-        const budgetFunctions = this.prepareBudgetFunctions(props);
-        if (budgetFunctions) {
-            filters.push(budgetFunctions);
-        }
-
-        const federalAccounts = this.prepareFederalAccounts(props);
-        if (federalAccounts) {
-            filters.push(federalAccounts);
-        }
-
-        const objectClasses = this.prepareObjectClasses(props);
-        if (objectClasses) {
-            filters.push(objectClasses);
         }
 
         // prepare the agency filters
@@ -146,11 +138,31 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(selectedPSC);
         }
 
+        // prepare Pricing Type filters
+        const pricingTypes = this.preparePricingType(props);
+        if (pricingTypes) {
+            filters.push(pricingTypes);
+        }
+
+        // prepare Set Aside filters
+        const setAside = this.prepareSetAside(props);
+        if (setAside) {
+            filters.push(setAside);
+        }
+
+        // prepare Extent Competed filters
+        const extentCompeted = this.preparedExtentCompeted(props);
+        if (extentCompeted) {
+            filters.push(extentCompeted);
+        }
+
         this.setState({
             filters,
             filterCount: this.determineFilterCount(filters)
         }, () => {
-            this.props.updateFilterCount(this.state.filterCount);
+            if (!this.props.compressed) {
+                this.props.updateFilterCount(this.state.filterCount);
+            }
         });
     }
 
@@ -175,7 +187,7 @@ export class TopFilterBarContainer extends React.Component {
         }
         else if (props.timePeriodType === 'dr') {
             // check to see if any date ranges are selected
-            if (props.timePeriodStart && props.timePeriodEnd) {
+            if (props.timePeriodStart || props.timePeriodEnd) {
                 // start and end dates are provided
                 selected = true;
                 filter.code = 'timePeriodDR';
@@ -184,8 +196,16 @@ export class TopFilterBarContainer extends React.Component {
                 const startString = moment(props.timePeriodStart, 'YYYY-MM-DD')
                     .format('MM/DD/YYYY');
                 const endString = moment(props.timePeriodEnd, 'YYYY-MM-DD').format('MM/DD/YYYY');
-
                 filter.values = [`${startString} to ${endString}`];
+
+                if (!props.timePeriodStart) {
+                    // open-ended start date
+                    filter.values = [`... to ${endString}`];
+                }
+                else if (!props.timePeriodEnd) {
+                    // open-ended end date
+                    filter.values = [`${startString} to present`];
+                }
             }
         }
 
@@ -273,84 +293,9 @@ export class TopFilterBarContainer extends React.Component {
 
         if (selected) {
             filter.code = 'selectedLocations';
-            filter.name = 'Place of Performance Location';
+            filter.name = 'Place of Performance';
             return filter;
         }
-        return null;
-    }
-
-    /**
-     * Logic for parsing the current Redux budget functions into a JS object
-     * that can be parsed by the top filter bar
-     */
-    prepareBudgetFunctions(props) {
-        let selected = false;
-        const filter = {
-            values: []
-        };
-
-        if (props.budgetFunctions.count() > 0) {
-            // budgetFunctions have been selected
-            selected = true;
-            filter.values = props.budgetFunctions.toArray();
-        }
-
-        if (selected) {
-            filter.code = 'budgetFunctions';
-            filter.name = 'Budget Functions';
-            return filter;
-        }
-
-        return null;
-    }
-
-    /**
-     * Logic for parsing the current Redux federal accounts into a JS object
-     * that can be parsed by the top filter bar
-     */
-    prepareFederalAccounts(props) {
-        let selected = false;
-        const filter = {
-            values: []
-        };
-
-        if (props.federalAccounts.count() > 0) {
-            // federalAccounts have been selected
-            selected = true;
-            filter.values = props.federalAccounts.toArray();
-        }
-
-        if (selected) {
-            filter.code = 'federalAccounts';
-            filter.name = 'Federal Accounts';
-            return filter;
-        }
-
-        return null;
-    }
-
-    /**
-     * Logic for parsing the current Redux object classes into a JS object
-     * that can be parsed by the top filter bar
-     */
-    prepareObjectClasses(props) {
-        let selected = false;
-        const filter = {
-            values: []
-        };
-
-        if (props.objectClasses.count() > 0) {
-            // objectClasses have been selected
-            selected = true;
-            filter.values = props.objectClasses.toObject();
-        }
-
-        if (selected) {
-            filter.code = 'objectClasses';
-            filter.name = 'Object Classes';
-            return filter;
-        }
-
         return null;
     }
 
@@ -525,6 +470,65 @@ export class TopFilterBarContainer extends React.Component {
         return null;
     }
 
+    preparePricingType(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.pricingType.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.pricingType.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'pricingType';
+            filter.name = 'Type of Contract Pricing';
+            return filter;
+        }
+        return null;
+    }
+
+    prepareSetAside(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.setAside.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.setAside.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'setAside';
+            filter.name = 'Type of Set Aside';
+            return filter;
+        }
+        return null;
+    }
+
+    preparedExtentCompeted(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.extentCompeted.count() > 0) {
+            // Award Amounts have been selected
+            selected = true;
+            filter.values = props.extentCompeted.toObject();
+        }
+
+        if (selected) {
+            filter.code = 'extentCompeted';
+            filter.name = 'Extent Competed';
+            return filter;
+        }
+        return null;
+    }
     /**
      * Logic for parsing the current Redux selected CFDA into a JS object
      * that can be parsed by the top filter bar
@@ -600,13 +604,70 @@ export class TopFilterBarContainer extends React.Component {
         return null;
     }
 
+    determineFYCount(count) {
+        const allFY = (FiscalYearHelper.currentFiscalYear() - FiscalYearHelper.earliestFiscalYear)
+            + 1;
+
+        if (count === allFY) {
+            return 1;
+        }
+
+        return count;
+    }
+
+    determineAwardTypeCount(values) {
+        const fullGroups = [];
+        const groupKeys = ['contracts', 'grants', 'direct_payments', 'loans', 'other'];
+
+        groupKeys.forEach((key) => {
+            const fullMembership = AwardType.awardTypeGroups[key];
+
+            // quick way of checking for full group membership is to return an array of missing
+            // values; it'll be empty if all the values are selected
+            const missingValues = difference(fullMembership, values);
+
+            if (missingValues.length === 0) {
+                // this group is complete
+                fullGroups.push(key);
+            }
+        });
+
+        let awardTypeCount = 0;
+        let excludedValues = [];
+
+        // Add 1 to the count if there is a full group
+        // Add all values of full groups to the excludedValues array
+        fullGroups.forEach((group) => {
+            awardTypeCount += 1;
+
+            // exclude these values from the remaining tags
+            excludedValues = concat(excludedValues, AwardType.awardTypeGroups[group]);
+        });
+
+        // Loop through each value and add 1 to the count if the value hasn't been excluded,
+        // meaning it was not part of a full group of Award Types
+        values.forEach((value) => {
+            if (indexOf(excludedValues, value) < 0) {
+                awardTypeCount += 1;
+            }
+        });
+
+        return awardTypeCount;
+    }
+
     /**
      * Determine the current number of filters that have been applied
      */
     determineFilterCount(filters) {
         let filterCount = 0;
         filters.forEach((filter) => {
-            if (typeof filter.values === "string") {
+            if (filter.code === 'timePeriodFY') {
+                filterCount += this.determineFYCount(filter.values.length);
+            }
+            else if (filter.code === 'awardType') {
+                filterCount += this.determineAwardTypeCount(filter.values);
+            }
+            else if (typeof filter.values === "string") {
                 filterCount += 1;
             }
             else if (filter.values instanceof Array) {
@@ -635,8 +696,9 @@ export class TopFilterBarContainer extends React.Component {
 }
 
 TopFilterBarContainer.propTypes = propTypes;
+TopFilterBarContainer.defaultProps = defaultProps;
 
 export default connect(
-    (state) => ({ reduxFilters: state.filters }),
+    (state) => ({ reduxFilters: state.appliedFilters.filters }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(TopFilterBarContainer);

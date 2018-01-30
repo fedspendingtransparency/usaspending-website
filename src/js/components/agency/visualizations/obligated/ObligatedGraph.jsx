@@ -6,14 +6,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import BarChartLegend from 'components/search/visualizations/time/chart/BarChartLegend';
 import HorizontalBarItem from './HorizontalBarItem';
 
 const propTypes = {
-    activeFY: PropTypes.string,
-    reportingFiscalQuarter: PropTypes.number,
     obligatedAmount: PropTypes.number,
     budgetAuthority: PropTypes.number,
+    outlay: PropTypes.number,
     width: PropTypes.number,
     obligatedText: PropTypes.string,
     legend: PropTypes.array
@@ -24,14 +22,27 @@ export default class AgencyObligatedGraph extends React.Component {
         const obligatedValue = this.props.obligatedAmount;
         const authorityValue = this.props.budgetAuthority;
         const remainderValue = authorityValue - obligatedValue;
+        const outlayValue = this.props.outlay;
 
         let obligatedPercent = 0;
+        let outlayPercent = 0;
+        let remainderPercent = 0;
 
-        if (obligatedValue !== 0 && authorityValue !== 0) {
-            obligatedPercent = (obligatedValue / authorityValue);
+        const max = Math.max(obligatedValue, authorityValue, outlayValue);
+
+        if (obligatedValue > 0) {
+            obligatedPercent = obligatedValue / max;
+            if (remainderValue > 0) {
+                remainderPercent = (remainderValue) / max;
+            }
         }
+        if (outlayValue > 0) {
+            outlayPercent = outlayValue / max;
+        }
+
         const obligatedWidth = this.props.width * obligatedPercent;
-        const remainderWidth = this.props.width - obligatedWidth;
+        const remainderWidth = this.props.width * remainderPercent;
+        const outlayWidth = this.props.width * outlayPercent;
 
         const remainderUnits = MoneyFormatter.calculateUnitForSingleValue(remainderValue);
         const remainder = `${MoneyFormatter.formatMoney(remainderValue / remainderUnits.unit)}
@@ -54,12 +65,15 @@ export default class AgencyObligatedGraph extends React.Component {
                         x={obligatedWidth}
                         y={0}
                         width={remainderWidth}
+                        color={this.props.legend[2].color} />
+                </g>
+                <g>
+                    <HorizontalBarItem
+                        description="Outlay Amount"
+                        x={0}
+                        y={20}
+                        width={outlayWidth}
                         color={this.props.legend[1].color} />
-                    <g
-                        className="legend-container"
-                        transform={`translate(0,52)`}>
-                        <BarChartLegend legend={this.props.legend} />
-                    </g>
                 </g>
             </svg>
         );

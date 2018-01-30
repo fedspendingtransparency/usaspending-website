@@ -9,7 +9,7 @@ import queryString from 'query-string';
 
 import Routes from './RouterRoutes';
 
-class RouterSingleton {
+export class RouterSingleton {
     constructor() {
         // we need a reference to our React container that will be responsible for rendering
         this.reactContainer = null;
@@ -42,7 +42,8 @@ class RouterSingleton {
 
     parseRoute(location) {
         // parse the route
-        let componentReference = null;
+        // default to the 404 page, it'll be overwritten if we match with a route later
+        let componentReference = Routes.notFound.component;
         for (const route of Routes.routes) {
             const path = route.path;
             const pathData = this.matchRoute(location, path);
@@ -66,36 +67,33 @@ class RouterSingleton {
             }
         }
 
-        if (componentReference) {
-            // we matched a route
-            // load the component asynchronously
-            // but because of network conditions, it could take a long time to load the module
-            if (this.loaderTime) {
-                // cancel any previous timers
-                window.clearTimeout(this.loaderTime);
-            }
-
-            // trigger a slow load event after 1.5 seconds
-            this.loaderTime = window.setTimeout(() => {
-                // have the React router container show a loading spinner
-                this.reactContainer.showSpinner();
-            }, 1500);
-
-            this.loadComponent(componentReference)
-                .then((component) => {
-                    if (this.reactContainer) {
-                        // the JS module has loaded
-                        // have the react container mount the target component and pass down any
-                        // matched params
-                        this.reactContainer.navigateToComponent(component, this.state);
-                    }
-
-                    if (this.loaderTime) {
-                        // the module loaded, cancel the spinner timer
-                        window.clearTimeout(this.loaderTime);
-                    }
-                });
+        // load the component asynchronously
+        // but because of network conditions, it could take a long time to load the module
+        if (this.loaderTime) {
+            // cancel any previous timers
+            window.clearTimeout(this.loaderTime);
         }
+
+        // trigger a slow load event after 1.5 seconds
+        this.loaderTime = window.setTimeout(() => {
+            // have the React router container show a loading spinner
+            this.reactContainer.showSpinner();
+        }, 1500);
+
+        this.loadComponent(componentReference)
+            .then((component) => {
+                if (this.reactContainer) {
+                    // the JS module has loaded
+                    // have the react container mount the target component and pass down any
+                    // matched params
+                    this.reactContainer.navigateToComponent(component, this.state);
+                }
+
+                if (this.loaderTime) {
+                    // the module loaded, cancel the spinner timer
+                    window.clearTimeout(this.loaderTime);
+                }
+            });
     }
 
     matchRoute(location, path) {

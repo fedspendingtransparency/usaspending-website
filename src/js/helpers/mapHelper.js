@@ -6,6 +6,9 @@
 import Axios, { CancelToken } from 'axios';
 import { min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
+
+import kGlobalConstants from 'GlobalConstants';
+
 import * as MoneyFormatter from './moneyFormatter';
 
 /* eslint-disable quote-props */
@@ -44,6 +47,7 @@ const stateCodes = {
     'New York': 'NY',
     'North Carolina': 'NC',
     'North Dakota': 'ND',
+    'Northern Mariana Islands': 'MP',
     'Ohio': 'OH',
     'Oklahoma': 'OK',
     'Oregon': 'OR',
@@ -93,6 +97,7 @@ const stateNames = {
     'MI': 'Michigan',
     'MN': 'Minnesota',
     'MS': 'Mississippi',
+    'MP': 'Northern Mariana Islands',
     'MO': 'Missouri',
     'MT': 'Montana',
     'NE': 'Nebraska',
@@ -192,6 +197,41 @@ export const fetchFile = (file) => {
     return {
         promise: Axios.request({
             url: file,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const fetchLocationList = (fileName) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `data/${fileName}.json`,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const performZIPGeocode = (zip) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            baseURL: 'https://api.mapbox.com/',
+            url: `geocoding/v5/mapbox.places/${zip}.json`,
+            params: {
+                access_token: kGlobalConstants.MAPBOX_TOKEN,
+                country: 'us',
+                types: 'postcode',
+                autocomplete: 'false'
+            },
             method: 'get',
             cancelToken: source.token
         }),

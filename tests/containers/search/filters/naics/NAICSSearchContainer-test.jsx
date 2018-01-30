@@ -6,11 +6,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
+import { OrderedMap } from 'immutable';
 
 import { NAICSSearchContainer } from 'containers/search/filters/naics/NAICSSearchContainer';
 
 const initialFilters = {
-    selectedNAICS: {}
+    selectedNAICS: new OrderedMap(),
+    appliedNAICS: new OrderedMap()
 };
 
 const naics = {
@@ -33,7 +35,7 @@ describe('naicsSearchContainer', () => {
             // Set up container with mocked naics action
             const naicsContainer = shallow(
                 <NAICSSearchContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateSelectedNAICS={mockReduxActionNAICS} />);
 
             const selectNAICSSpy = sinon.spy(naicsContainer.instance(),
@@ -63,7 +65,7 @@ describe('naicsSearchContainer', () => {
             // Set up container with mocked naics action
             const naicsContainer = shallow(
                 <NAICSSearchContainer
-                    reduxFilters={initialFilters}
+                    {...initialFilters}
                     updateSelectedNAICS={mockReduxActionNAICS} />);
 
             const selectNAICSSpy = sinon.spy(naicsContainer.instance(),
@@ -86,6 +88,33 @@ describe('naicsSearchContainer', () => {
             // reset the spy
             selectNAICSSpy.reset();
             removeNAICSSpy.reset();
+        });
+    });
+    describe('dirtyFilters', () => {
+        it('should return an ES6 Symbol when the staged filters do not match with the applied filters', () => {
+            const container = shallow(
+                <NAICSSearchContainer
+                    {...initialFilters}
+                    updateSelectedNAICS={jest.fn()} />
+            );
+
+            container.setProps({
+                selectedNAICS: new OrderedMap({ a: 'a' })
+            });
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeTruthy();
+            expect(typeof changed).toEqual('symbol');
+        });
+        it('should return null when the staged filters match with the applied filters', () => {
+            const container = shallow(
+                <NAICSSearchContainer
+                    {...initialFilters}
+                    updateSelectedNAICS={jest.fn()} />
+            );
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeFalsy();
         });
     });
 });

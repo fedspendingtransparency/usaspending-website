@@ -17,23 +17,20 @@ const propTypes = {
 
 export default class AgencyLinkCell extends React.Component {
     render() {
-        // calculate even-odd class names
-        let rowClass = 'row-even';
-        if (this.props.rowIndex % 2 === 0) {
-            // row index is zero-based
-            rowClass = 'row-odd';
-        }
-
         let name = this.props.name;
         // highlight the matched string if applicable
         if (this.props.agencySearchString !== '') {
             name = reactStringReplace(this.props.name, this.props.agencySearchString, (match, i) => (
-                <span key={match + i}>{match}</span>
+                <span
+                    className="matched"
+                    key={match + i}>
+                    {match}
+                </span>
             ));
         }
 
         return (
-            <div className={`agency-link-cell column-${this.props.column} ${rowClass}`}>
+            <div className={`agency-link-cell column-${this.props.column}`}>
                 <div className="cell-content">
                     <a href={`/#/agency/${this.props.id}`}>
                         {name}

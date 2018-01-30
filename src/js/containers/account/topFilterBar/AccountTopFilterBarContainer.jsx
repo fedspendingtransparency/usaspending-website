@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { orderBy } from 'lodash';
 import moment from 'moment';
 
-import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
+import LegacyTopFilterBar from 'components/account/topFilterBar/LegacyTopFilterBar';
 import { topFilterGroupGenerator } from
     'components/account/topFilterBar/filterGroups/AccountTopFilterGroupGenerator';
 
@@ -156,8 +156,14 @@ export class AccountTopFilterBarContainer extends React.Component {
     render() {
         let output = null;
         if (this.state.filters.length > 0) {
-            output = (<TopFilterBar
+            let count = 0;
+            this.state.filters.forEach((filter) => {
+                count += filter.values.length;
+            });
+
+            output = (<LegacyTopFilterBar
                 {...this.props}
+                filterCount={count}
                 clearAllFilters={this.clearAllFilters}
                 filters={this.state.filters}
                 groupGenerator={topFilterGroupGenerator} />);

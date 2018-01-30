@@ -22,3 +22,51 @@ export const requestAwardTable = (params) => {
         }
     };
 };
+
+export const requestFullDownload = (params, type) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/download/${type}/`,
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const requestDownloadStatus = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/download/status/',
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const requestDownloadCount = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/download/count/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

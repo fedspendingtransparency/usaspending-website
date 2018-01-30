@@ -1,16 +1,18 @@
 .agency-info {
     @include span-columns(16);
     background-color: $color-blue-background;
-    padding: 2.4rem 1rem 4rem 3rem;
+    padding: 2.4rem 1rem 2.4rem 3rem;
     .static-title {
         float: left;
     }
+
     @import '../../elements/_titleSelector';
     .field-picker {
         float: none;
         .selected-button {
             color: #555;
             font-size: $h4-font-size;
+            line-height: rem(40);
         }
         .field-list {
             width: rem(250);
@@ -19,7 +21,7 @@
     .agency-name {
         font-size: $h6-font-size;
         font-weight: $font-semibold;
-        color: $color-primary-alt-darkest;
+        color: $color-primary;
         margin: 1rem 0 1rem 0;
     }
     ul.agency-subtiers {
@@ -27,14 +29,14 @@
         text-align: left;
         padding-left: rem(1);
         li {
-            display: inline-block;
+            display: block;
             font-size: $small-font-size;
-            &:last-child {
-                margin-left: rem(50);
+            margin-top: rem(10);
+
+            &:first-child {
+                margin-top: 0;
             }
-            &:only-child {
-                margin-left: 0;
-            }
+
             .title {
                 font-weight: bold;
             }

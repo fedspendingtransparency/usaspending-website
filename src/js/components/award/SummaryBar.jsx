@@ -11,7 +11,6 @@ import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 import InfoSnippet from './InfoSnippet';
-import MoreHeaderOptions from './MoreHeaderOptions';
 
 const propTypes = {
     selectedAward: PropTypes.object
@@ -82,19 +81,16 @@ export default class SummaryBar extends React.Component {
         return (
             <div className="page-title-bar">
                 <div className="page-title-bar-wrap">
-                    <h1 className="page-title">{this.state.type}
-                        &nbsp;Summary</h1>
+                    <h1 className="page-title">
+                        {this.state.type}&nbsp;Profile
+                    </h1>
                     <div className="summary-status">
                         <ul className="summary-status-items">
                             <InfoSnippet
                                 label="Award ID"
                                 value={this.props.selectedAward.award_id} />
                             { parentAwardId }
-                            <InfoSnippet
-                                label="Status"
-                                value={this.state.status} />
                         </ul>
-                        <MoreHeaderOptions />
                     </div>
                 </div>
             </div>

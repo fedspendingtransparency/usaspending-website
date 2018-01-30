@@ -11,6 +11,8 @@ import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
+import { Glossary } from 'components/sharedComponents/icons/Icons';
+
 import HorizontalBarItem from '../visualizations/obligated/HorizontalBarItem';
 
 const propTypes = {
@@ -70,18 +72,22 @@ export default class AgencyOverview extends React.PureComponent {
 
         let website = 'Not available';
         if (props.agency.website !== '') {
-            website = (<a
-                className="agency-website"
-                href={props.agency.website}
-                target="_blank"
-                rel="noopener noreferrer">
-                {props.agency.website}
-            </a>);
+            website = (
+                <a
+                    className="agency-website"
+                    href={props.agency.website}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    {props.agency.website}
+                </a>
+            );
         }
 
         // Move props to variables for readability
         const budgetAuthority = props.agency.budgetAuthority;
+
         const federalBudget = props.agency.federalBudget;
+
         const fy = parseInt(props.agency.activeFY, 10);
         const quarter = parseInt(props.agency.activeFQ, 10);
 
@@ -187,9 +193,18 @@ export default class AgencyOverview extends React.PureComponent {
                         ref={(div) => {
                             this.containerDiv = div;
                         }}>
-                        <h4>Budgetary Resources for FY {this.props.agency.activeFY}</h4>
+                        <h4>
+                            Budgetary Resources
+                            <a href={`#/agency/${this.props.agency.id}?glossary=budgetary-resources`}>
+                                <Glossary />
+                            </a>
+                            for FY {this.props.agency.activeFY}
+                        </h4>
                         <div className="budget-authority-date">
-                            <em>Data as of {this.state.asOfDate}</em>
+                            <em>
+                                FY {this.props.agency.activeFY} data reported
+                                through {this.state.asOfDate}
+                            </em>
                         </div>
                         <div className="authority-amount">
                             {this.state.formattedBudgetAuthority}

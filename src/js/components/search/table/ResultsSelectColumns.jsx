@@ -13,8 +13,7 @@ import ResultsColumnOption from './ResultsColumnOption';
 import ResultsColumnVisibleOption from './ResultsColumnVisibleOption';
 
 const propTypes = {
-    columns: PropTypes.array,
-    hiddenColumns: PropTypes.array,
+    columns: PropTypes.object,
     toggleColumnVisibility: PropTypes.func,
     reorderColumns: PropTypes.func
 };
@@ -42,7 +41,9 @@ class ResultsSelectColumns extends React.Component {
     }
 
     render() {
-        const numHiddenColumns = this.props.hiddenColumns.length.toString();
+        const hidden = this.props.columns.hiddenOrder.toJS();
+        const visible = this.props.columns.visibleOrder.toJS();
+        const numHiddenColumns = hidden.length.toString();
         let hiddenColumnsText = `Hidden Columns`;
         if (numHiddenColumns === "1") {
             hiddenColumnsText = `Hidden Column`;
@@ -55,25 +56,27 @@ class ResultsSelectColumns extends React.Component {
             buttonClass = 'blue';
             icon = <Icons.TableClosed alt="Select Columns" />;
         }
-        const visibleColumns = this.props.columns.map((col, i) => (
+
+        const visibleColumns = visible.map((title, i) => (
             <ResultsColumnVisibleOption
-                key={col.columnName}
-                checked={'visible'}
-                column={col.columnName}
-                label={col.displayName}
+                key={title}
+                checked="visible"
+                column={title}
+                label={title}
                 toggleColumnVisibility={this.props.toggleColumnVisibility}
                 index={i}
-                id={col.columnName}
+                id={title}
                 moveColumn={this.moveColumn} />
         ));
-        const hiddenColumns = this.props.hiddenColumns.map((col) => (
+        const hiddenColumns = this.props.columns.hiddenOrder.map((title) => (
             <ResultsColumnOption
-                key={col.columnName}
-                checked={''}
-                column={col.columnName}
-                label={col.displayName}
+                key={title}
+                checked=""
+                column={title}
+                label={title}
                 toggleColumnVisibility={this.props.toggleColumnVisibility} />
         ));
+
         return (
             <div className="results-select-columns">
                 <button

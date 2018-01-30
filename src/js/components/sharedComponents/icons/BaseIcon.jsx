@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import svg4everybody from 'svg4everybody';
 
 import IconSingleton from './iconSingleton';
 
@@ -37,12 +36,8 @@ export default class BaseIcon extends React.Component {
     componentDidMount() {
         // download icons if necessary, otherwise populate the correct state
         this.prepareIcons();
-
-        // necessary for IE support
-        svg4everybody({
-            polyfill: true
-        });
     }
+
     componentWillUnmount() {
         // unsubscribe to reduce memory overhead, if we have a subscription active
         if (this.subscription) {

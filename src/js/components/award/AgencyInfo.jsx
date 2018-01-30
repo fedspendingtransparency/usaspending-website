@@ -27,7 +27,6 @@ const defaultProps = {
 };
 
 export default class AgencyInfo extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -68,10 +67,16 @@ export default class AgencyInfo extends React.Component {
         const award = this.props.selectedAward;
         const toptierAgency = `${this.state.agencyType}_agency_name`;
         const subtierAgency = `${this.state.agencyType}_subtier_name`;
-        const officeAgency = `${this.state.agencyType}_office_name`;
         let office = "";
         let subtier = "";
         let toptier = "Not Available";
+
+        let officeKey = `${this.state.agencyType}_office_code`;
+        let transactionData = award.latest_transaction.assistance_data;
+        if (award.category === 'contract') {
+            transactionData = award.latest_transaction.contract_data;
+            officeKey = `${this.state.agencyType}_office_name`;
+        }
 
         const options = this.props.awardTypes.map((label, index) => (
             <li
@@ -128,11 +133,12 @@ export default class AgencyInfo extends React.Component {
                     value={award[subtierAgency]} />
             );
         }
-        if (award[officeAgency]) {
+
+        if (transactionData && transactionData[officeKey]) {
             office = (
                 <InfoSnippet
                     label="Office"
-                    value={award[officeAgency]} />
+                    value={transactionData[officeKey]} />
             );
         }
         return (

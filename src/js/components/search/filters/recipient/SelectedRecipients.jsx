@@ -15,19 +15,21 @@ const propTypes = {
 export default class SelectedRecipients extends React.Component {
     render() {
         const shownRecipients = [];
-        this.props.selectedRecipients.entrySeq().forEach((entry) => {
-            const key = entry[0];
-            const recipient = entry[1];
-            const value = (<ShownRecipient
-                recipient={recipient}
-                label={`${recipient.recipient_name} | ${recipient.duns}`}
-                key={key}
-                toggleRecipient={this.props.toggleRecipient.bind(null, recipient)} />);
+        this.props.selectedRecipients.forEach((recipient) => {
+            const value = (
+                <ShownRecipient
+                    recipient={recipient}
+                    label={`RECIPIENT | ${recipient}`}
+                    key={recipient}
+                    toggleRecipient={this.props.toggleRecipient.bind(null, recipient)} />
+            );
             shownRecipients.push(value);
         });
 
         return (
-            <div className="selected-filters">
+            <div
+                className="selected-filters"
+                role="status">
                 {shownRecipients}
             </div>
         );

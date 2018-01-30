@@ -1,8 +1,10 @@
 .usa-da-glossary-animations {
+    @import "all";
     @import "./_animations";
 }
 
 .usa-da-glossary-wrapper {
+    @import "all";
     position: fixed;
     right: 0;
     top: 0;

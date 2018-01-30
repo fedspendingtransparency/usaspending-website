@@ -3,10 +3,19 @@
  * Created by Destin Frasier 02/24/2017
  **/
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
+import DownloadBottomBarContainer from
+    'containers/search/modals/fullDownload/DownloadBottomBarContainer';
+import BulkDownloadBottomBarContainer from
+    'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
 import FloatingGlossaryButton from './FloatingGlossaryButton';
 import FooterExternalLink from './FooterExternalLink';
+
+const propTypes = {
+    filters: PropTypes.object
+};
 
 export default class Footer extends React.Component {
     render() {
@@ -14,7 +23,13 @@ export default class Footer extends React.Component {
         return (
             <div>
                 <GlossaryButtonWrapperContainer child={FloatingGlossaryButton} />
-                <footer className="footer-outer-wrap" role="contentinfo">
+                <DownloadBottomBarContainer
+                    filters={this.props.filters} />
+                <BulkDownloadBottomBarContainer />
+                <footer
+                    className="footer-outer-wrap"
+                    role="contentinfo"
+                    aria-label="Footer">
                     <div className="footer-container">
                         <div className="footer-logo">
                             <a href="#/" title="USAspending.gov Home" aria-label="USAspending.gov Home">
@@ -29,30 +44,30 @@ export default class Footer extends React.Component {
                                 <ul className="links">
                                     <li>
                                         <a href="#/about">
-                                            About The Data
+                                            About
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                             <div className="link-group">
                                 <div className="group-title">
-                                    Support
+                                    Help
                                 </div>
                                 <ul className="links">
                                     <li>
-                                        <a href="#/faq">
-                                            FAQs
-                                        </a>
+                                        <FooterExternalLink
+                                            link="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-"
+                                            title="FAQs" />
+                                    </li>
+                                    <li>
+                                        <FooterExternalLink
+                                            link="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
+                                            title="Community" />
                                     </li>
                                     <li>
                                         <a href="mailto:usaspending.help-submitonly@fiscal.treasury.gov?subject=Contact%20Us">
                                             Contact Us
                                         </a>
-                                    </li>
-                                    <li>
-                                        <FooterExternalLink
-                                            link="https://usaspending-help.zendesk.com/hc/en-us"
-                                            title="Community" />
                                     </li>
                                 </ul>
                             </div>
@@ -63,13 +78,13 @@ export default class Footer extends React.Component {
                                 <ul className="links">
                                     <li>
                                         <FooterExternalLink
-                                            link="http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/"
-                                            title="Raw Agency Files" />
+                                            link="http://fedspendingtransparency.github.io/DAIMS-v1.1/"
+                                            title="Data Model" />
                                     </li>
                                     <li>
                                         <FooterExternalLink
-                                            link="http://fedspendingtransparency.github.io/DAIMS-v1.1/"
-                                            title="Data Model" />
+                                            link="https://fedspendingtransparency.github.io/data-lab/"
+                                            title="Data Lab" />
                                     </li>
                                 </ul>
                             </div>
@@ -107,3 +122,4 @@ export default class Footer extends React.Component {
         );
     }
 }
+Footer.propTypes = propTypes;

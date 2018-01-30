@@ -6,6 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
+    id: PropTypes.string,
     title: PropTypes.string,
     subtitle: PropTypes.string,
     data: PropTypes.object,
@@ -36,7 +37,10 @@ export default class Suggestion extends React.Component {
             // We need to set aria-selected to use the arrow keys to select elements
             /* eslint-disable jsx-a11y/role-supports-aria-props */
             <li
+                id={this.props.id}
+                tabIndex={-1}
                 aria-selected={this.props.selected}
+                role="option"
                 ref={(s) => {
                     this.suggestion = s;
                 }}>

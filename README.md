@@ -14,6 +14,7 @@ Assumptions:
 * You have git installed on your machine and are able to clone code repositories from GitHub. If this isn't the case, the easiest way to get started is to install [GitHub Desktop](https://desktop.github.com/ "GitHub desktop"), available for Windows or Mac.
 * You're familiar with opening a terminal on your machine and using the command line as needed.
 
+
 ### Install Prerequisites and Code
 
 1. If you're not already running Node.js, download and run the installer for your operating system. We build using **Node.js 6.11.x (LTS)**: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").

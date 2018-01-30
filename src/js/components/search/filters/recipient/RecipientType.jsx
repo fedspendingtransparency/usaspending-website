@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import { recipientTypes, recipientTypeGroups } from 'dataMapping/search/recipientType';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
 const defaultProps = {
     recipientTypeMapping: [
@@ -24,7 +25,7 @@ const defaultProps = {
         {
             id: 'recipient-women-owned-business',
             name: 'Women Owned Business',
-            filters: recipientTypeGroups.women_owned_business
+            filters: recipientTypeGroups.woman_owned_business
         },
         {
             id: 'recipient-veteran-owned-business',
@@ -62,30 +63,44 @@ const defaultProps = {
 
 const propTypes = {
     recipientTypeMapping: PropTypes.arrayOf(PropTypes.object),
-    recipientType: PropTypes.object
+    selectedTypes: PropTypes.object,
+    dirtyFilters: PropTypes.symbol
 };
 
 export default class RecipientType extends React.Component {
+    componentDidUpdate(prevProps) {
+        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
+            if (this.hint) {
+                this.hint.showHint();
+            }
+        }
+    }
 
     render() {
-        const checkboxTypes = (
+        const checkboxTypes =
             this.props.recipientTypeMapping.map((type, index) =>
-                <PrimaryCheckboxType
+                (<PrimaryCheckboxType
                     {...type}
                     {...this.props}
                     key={index}
                     types={recipientTypes}
                     filterType="Recipient"
-                    selectedCheckboxes={this.props.recipientType}
+                    selectedCheckboxes={this.props.selectedTypes}
                     enableAnalytics />
-            ));
+                )
+            );
 
         return (
-            <div className="checkbox-type-filter">
-                <p className="sub-head">Recipient/Business Type</p>
-                <ul className="checkbox-types">
-                    {checkboxTypes}
-                </ul>
+            <div className="filter-item-wrap">
+                <div className="checkbox-type-filter">
+                    <ul className="checkbox-types">
+                        {checkboxTypes}
+                    </ul>
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
+                </div>
             </div>
         );
     }

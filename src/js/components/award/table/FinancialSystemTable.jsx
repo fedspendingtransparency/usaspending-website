@@ -12,24 +12,27 @@ import { measureTableHeader } from 'helpers/textMeasurement';
 
 import tableMapping from 'dataMapping/contracts/financialSystem';
 
-import FinSysHeaderCellContainer from 'containers/award/table/cells/FinSysHeaderCellContainer';
+import FinSysHeaderCell from './cells/FinSysHeaderCell';
 import FinSysGenericCell from './cells/FinSysGenericCell';
+import FinSysAccountCell from './cells/FinSysAccountCell';
 import SummaryPageTableMessage from './SummaryPageTableMessage';
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
 // indicates when there's more data
-const tableHeight = 12.5 * rowHeight;
+const tableHeight = 10.5 * rowHeight;
 
 const propTypes = {
-    award: PropTypes.object,
     tableWidth: PropTypes.number,
-    nextPage: PropTypes.func,
-    inFlight: PropTypes.bool
+    loadNextPage: PropTypes.func.isRequired,
+    inFlight: PropTypes.bool,
+    tableInstance: PropTypes.string,
+    sort: PropTypes.object,
+    changeSort: PropTypes.func.isRequired,
+    data: PropTypes.array
 };
 
 export default class FinancialSystemTable extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -39,49 +42,68 @@ export default class FinancialSystemTable extends React.Component {
             yPos: 0
         };
 
-        this.rowClassName = this.rowClassName.bind(this);
-        this.tableScrolled = this.tableScrolled.bind(this);
+        this.headerCellRender = this.headerCellRender.bind(this);
+        this.bodyCellRender = this.bodyCellRender.bind(this);
     }
 
-    tableScrolled(xPos, yPos) {
-        // determine the table position
-        const rowNumber = this.rowAtYPosition(yPos);
-        if (rowNumber >= this.props.award.finSysData.length) {
-            // we have reached the bottom of the table, load next page
-            this.props.nextPage();
+    componentDidUpdate(prevProps) {
+        if (prevProps.tableInstance !== this.props.tableInstance) {
+            if (this.tableComponent) {
+                this.tableComponent.reloadTable();
+            }
         }
-
-        // save the scroll position
-        this.setState({ xPos, yPos });
     }
 
-    rowAtYPosition(yPos, returnTop = false) {
-        // determine the table position
-        let yPosition = yPos;
-        if (!returnTop) {
-            // return the bottom row
-            yPosition += tableHeight;
-        }
-        return Math.floor(yPosition / rowHeight);
+    headerCellRender(columnIndex) {
+        const column = tableMapping.table._order[columnIndex];
+        const displayName = tableMapping.table[column];
+
+        const isLast = columnIndex === tableMapping.table._order.length - 1;
+
+        return (
+            <FinSysHeaderCell
+                column={column}
+                label={displayName}
+                order={this.props.sort}
+                defaultDirection={tableMapping.defaultSortDirection[column]}
+                setFinSysSort={this.props.changeSort}
+                isLastColumn={isLast} />
+        );
     }
 
-    rowClassName(index) {
-        let evenOdd = 'odd';
-        if ((index + 1) % 2 === 0) {
-            evenOdd = 'even';
+    bodyCellRender(columnIndex, rowIndex) {
+        const column = tableMapping.table._order[columnIndex];
+        const apiKey = tableMapping.table._mapping[column];
+        const item = this.props.data[rowIndex];
+
+        const isLast = columnIndex === tableMapping.table._order.length - 1;
+
+        let component = FinSysGenericCell;
+        if (column === 'fedAccount') {
+            component = FinSysAccountCell;
         }
-        return `financial-system-row-${evenOdd}`;
+
+        return React.createElement(
+            component,
+            {
+                rowIndex,
+                column,
+                data: item[apiKey],
+                isLastColumn: isLast
+            }
+        );
     }
 
     buildTable() {
         let totalWidth = 0;
 
         const columns = tableMapping.table._order.map((column, i) => {
+            const columnX = totalWidth;
             const isLast = i === tableMapping.table._order.length - 1;
 
             const displayName = tableMapping.table[column];
-            const calculatedWidth = measureTableHeader(displayName);
-            let columnWidth = Math.max(calculatedWidth, tableMapping.columnWidths[column]);
+            let columnWidth = Math.max(measureTableHeader(displayName),
+                tableMapping.columnWidths[column]);
             if (isLast) {
                 // make it fill out the remainder of the width necessary
                 const remainingSpace = this.props.tableWidth - totalWidth;
@@ -91,29 +113,9 @@ export default class FinancialSystemTable extends React.Component {
 
             totalWidth += columnWidth;
 
-            const apiKey = tableMapping.table._mapping[column];
-            const defaultSort = tableMapping.defaultSortDirection[column];
-
             return {
-                width: columnWidth,
-                name: column,
-                columnId: column,
-                rowClassName: this.rowClassName,
-                header: (<FinSysHeaderCellContainer
-                    label={displayName}
-                    column={column}
-                    defaultDirection={defaultSort}
-                    isLastColumn={isLast} />),
-                cell: (index) => {
-                    const item = this.props.award.finSysData[index];
-                    return (<FinSysGenericCell
-                        key={`cell-transaction-${column}-${index}`}
-                        rowIndex={index}
-                        id={item.id}
-                        data={item[apiKey]}
-                        column={column}
-                        isLastColumn={isLast} />);
-                }
+                x: columnX,
+                width: columnWidth
             };
         });
 
@@ -122,6 +124,7 @@ export default class FinancialSystemTable extends React.Component {
             width: totalWidth
         };
     }
+
 
     render() {
         const tableValues = this.buildTable();
@@ -136,7 +139,7 @@ export default class FinancialSystemTable extends React.Component {
             message = (<SummaryPageTableMessage
                 message="Loading data..." />);
         }
-        if (this.props.award.finSysData.length === 0) {
+        if (this.props.data.length === 0) {
             // no results
             message = (<SummaryPageTableMessage
                 message="No financial system details are available" />);
@@ -145,22 +148,25 @@ export default class FinancialSystemTable extends React.Component {
         return (
             <div className="financial-system-content">
                 <div className="disclaimer">
-                    NOTE: This is part of new data reported under the DATA act starting in
+                    NOTE: This is part of new data reported under the DATA Act starting in
                     Q2 of FY 2017.  &nbsp;It comes directly from the audited financial systems of
                     federal agencies.
                 </div>
                 <div className={`financial-system-table ${inFlightClass}`}>
                     <IBTable
-                        dataHash={`${this.props.award.renderHash}-${this.props.tableWidth}`}
-                        resetHash={this.props.award.groupHash}
                         rowHeight={rowHeight}
-                        rowCount={this.props.award.finSysData.length}
+                        rowCount={this.props.data.length}
                         headerHeight={50}
-                        width={tableValues.width}
-                        maxWidth={this.props.tableWidth}
-                        maxHeight={tableHeight}
+                        contentWidth={tableValues.width}
+                        bodyWidth={this.props.tableWidth}
+                        bodyHeight={tableHeight}
                         columns={tableValues.columns}
-                        onScrollEnd={this.tableScrolled} />
+                        onReachedBottom={this.props.loadNextPage}
+                        headerCellRender={this.headerCellRender}
+                        bodyCellRender={this.bodyCellRender}
+                        ref={(table) => {
+                            this.tableComponent = table;
+                        }} />
                 </div>
                 {message}
             </div>

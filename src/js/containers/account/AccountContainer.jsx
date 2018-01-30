@@ -22,6 +22,8 @@ import Account from 'components/account/Account';
 import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
 
+require('pages/account/accountPage.scss');
+
 const propTypes = {
     account: PropTypes.object,
     params: PropTypes.object,
@@ -129,7 +131,7 @@ export class AccountContainer extends React.Component {
                     {
                         field: ['reporting_period_start', 'reporting_period_end'],
                         operation: 'range_intersect',
-                        value: FiscalYearHelper.currentFiscalYear(),
+                        value: FiscalYearHelper.defaultFiscalYear(),
                         value_format: 'fy'
                     }
                 ],

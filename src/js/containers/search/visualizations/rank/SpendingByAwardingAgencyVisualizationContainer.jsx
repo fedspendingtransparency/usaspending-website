@@ -17,14 +17,11 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import SearchTransactionOperation from 'models/search/SearchTransactionOperation';
-import SearchAccountAwardsOperation from 'models/search/SearchAccountAwardsOperation';
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    meta: PropTypes.object,
-    budgetFiltersSelected: PropTypes.bool,
-    awardFiltersSelected: PropTypes.bool
+    meta: PropTypes.object
 };
 
 export class SpendingByAwardingAgencyVisualizationContainer extends React.Component {
@@ -37,7 +34,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
             dataSeries: [],
             descriptions: [],
             page: 1,
-            agencyScope: 'toptier',
+            agencyScope: 'agency',
             next: '',
             previous: '',
             hasNextPage: false,
@@ -108,53 +105,20 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
             this.apiRequest.cancel();
         }
 
-        // Fetch data from the appropriate endpoint
-        if (this.props.awardFiltersSelected && this.props.budgetFiltersSelected) {
-            this.fetchComboRequest();
-        }
-        else if (this.props.budgetFiltersSelected) {
-            this.fetchBudgetRequest();
-        }
-        else if (this.props.awardFiltersSelected) {
-            this.fetchAwardRequest();
-        }
-        else {
-            this.fetchUnfilteredRequest();
-        }
+        // Fetch data from the Awards v2 endpoint
+        this.fetchAwards("Awarding Agency Rank Visualization");
     }
 
-
-    fetchUnfilteredRequest() {
-        this.fetchTransactions('Awarding agency vis - unfiltered');
-    }
-
-    fetchBudgetRequest() {
-        this.fetchAccountAwards('Awarding agency vis - budget filters');
-    }
-
-    fetchAwardRequest() {
-        // only award filters have been selected
-        this.fetchTransactions('Awarding agency vis - award filters');
-    }
-
-    fetchComboRequest() {
-        // a combination of budget and award filters have been selected
-        this.fetchAccountAwards('Awarding agency vis - combination');
-    }
-
-    fetchTransactions(auditTrail = null) {
+    fetchAwards(auditTrail = null) {
         // Create Search Operation
-        const operation = new SearchTransactionOperation();
-
+        const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
         const searchParams = operation.toParams();
 
         // generate the API parameters
         const apiParams = {
-            field: 'federal_action_obligation',
-            group: `awarding_agency__${this.state.agencyScope}_agency__name`,
-            order: ['-aggregate'],
-            aggregate: 'sum',
+            category: 'awarding_agency',
+            scope: this.state.agencyScope,
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -164,39 +128,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
             apiParams.auditTrail = auditTrail;
         }
 
-        this.apiRequest = SearchHelper.performTransactionsTotalSearch(apiParams);
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data);
-                this.apiRequest = null;
-            })
-            .catch(() => {
-                this.apiRequest = null;
-            });
-    }
-
-    fetchAccountAwards(auditTrail = null) {
-         // Create Search Operation
-        const operation = new SearchAccountAwardsOperation();
-
-        operation.fromState(this.props.reduxFilters);
-        const searchParams = operation.toParams();
-        // generate the API parameters
-        const apiParams = {
-            field: 'transaction_obligated_amount',
-            group: `award__awarding_agency__${this.state.agencyScope}_agency__name`,
-            order: ['-aggregate'],
-            aggregate: 'sum',
-            filters: searchParams,
-            limit: 5,
-            page: this.state.page
-        };
-
-        if (auditTrail) {
-            apiParams.auditTrail = auditTrail;
-        }
-
-        this.apiRequest = SearchHelper.performFinancialAccountAggregation(apiParams);
+        this.apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);
@@ -214,11 +146,26 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            labelSeries.push(item.item);
-            dataSeries.push(parseFloat(item.aggregate));
+            let aggregate = parseFloat(item.aggregated_amount);
+            if (isNaN(aggregate)) {
+                // the aggregate value is invalid (most likely null)
+                aggregate = 0;
+            }
 
-            const description = `Spending by ${item.item}: \
-${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
+            const agencyName = item.agency_name;
+            let agencyAbbreviation = '';
+
+            if (item.agency_abbreviation !== null && item.agency_abbreviation !== '') {
+                agencyAbbreviation = ` (${item.agency_abbreviation})`;
+            }
+
+            const label = `${agencyName}${agencyAbbreviation}`;
+
+            labelSeries.push(`${label}`);
+            dataSeries.push(aggregate);
+
+            const description = `Spending by ${label}: \
+${MoneyFormatter.formatMoney(aggregate)}`;
             descriptions.push(description);
         });
 
@@ -229,8 +176,8 @@ ${MoneyFormatter.formatMoney(parseFloat(item.aggregate))}`;
             loading: false,
             next: data.page_metadata.next,
             previous: data.page_metadata.previous,
-            hasNextPage: data.page_metadata.has_next_page,
-            hasPreviousPage: data.page_metadata.has_previous_page
+            hasNextPage: data.page_metadata.hasNext,
+            hasPreviousPage: data.page_metadata.hasPrevious
         });
     }
 

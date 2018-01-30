@@ -14,7 +14,8 @@ const propTypes = {
     name: PropTypes.string,
     component: PropTypes.func,
     disabled: PropTypes.bool,
-    defaultExpand: PropTypes.bool
+    defaultExpand: PropTypes.bool,
+    accessory: PropTypes.func
 };
 
 const defaultProps = {
@@ -24,7 +25,6 @@ const defaultProps = {
 const ga = require('react-ga');
 
 export default class FilterOption extends React.Component {
-
     static logFilterEvent(name) {
         ga.event({
             category: 'Search Filters',
@@ -37,6 +37,7 @@ export default class FilterOption extends React.Component {
         super(props);
 
         this.state = {
+            isDirty: false,
             showFilter: true,
             arrowState: 'expanded'
         };
@@ -55,20 +56,44 @@ export default class FilterOption extends React.Component {
         }
     }
 
+    componentWillUpdate(nextProps) {
+        if (nextProps.defaultExpand !== this.props.defaultExpand && !this.state.isDirty) {
+            this.checkIfAutoExpanded(nextProps);
+        }
+    }
+
+    checkIfAutoExpanded(nextProps) {
+        if (nextProps.defaultExpand) {
+            this.setState({
+                isDirty: true,
+                showFilter: true,
+                arrowState: 'expanded'
+            });
+        }
+        else {
+            this.setState({
+                showFilter: false,
+                arrowState: 'collapsed'
+            });
+        }
+    }
+
     toggleFilter(e) {
         e.preventDefault();
 
-        const newShowState = !this.state.showFilter;
-        let newArrowState = 'collapsed';
-        if (newShowState) {
-            newArrowState = 'expanded';
-            const filterName = this.props.name;
-            FilterOption.logFilterEvent(filterName);
+        // Don't open if the user has tapped on the information icon
+        if (e.target.tagName !== 'svg' && e.target.tagName !== 'path') {
+            const newShowState = !this.state.showFilter;
+            let newArrowState = 'collapsed';
+            if (newShowState) {
+                newArrowState = 'expanded';
+                const filterName = this.props.name;
+                FilterOption.logFilterEvent(filterName);
+            }
+            this.setState({
+                isDirty: true, showFilter: newShowState, arrowState: newArrowState
+            });
         }
-        this.setState({
-            showFilter: newShowState,
-            arrowState: newArrowState
-        });
     }
 
     render() {
@@ -93,8 +118,12 @@ export default class FilterOption extends React.Component {
         }
 
         return (
-            <div className={`search-option${statusClass}`}>
+            <div
+                className={`search-option${statusClass}`}
+                role="group"
+                aria-label={this.props.name}>
                 <FilterExpandButton
+                    accessory={this.props.accessory}
                     hidden={this.state.showFilter}
                     toggleFilter={this.toggleFilter}
                     arrowState={this.state.arrowState}

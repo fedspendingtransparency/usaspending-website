@@ -1,12 +1,13 @@
 .search-sidebar {
     @import "./_searchOption";
+    @import "./_searchSubmit";
     @import "./_filters";
     @import '../../elements/_inputs';
     @import '../../elements/_labels';
     background-color: $color-white;
     box-shadow: $container-shadow;
+    border-radius: rem(5);
     margin-top: rem(32);
-    margin-bottom: ($global-mrg * 4);
     .sidebar-header {
         display: none;
         @include media($tablet-screen) {
@@ -16,10 +17,11 @@
             @include justify-content(flex-start);
             position: relative;
             border-bottom: rem(1) solid $color-gray-lighter;
-            height: rem(80);
+            height: rem(70);
             margin: 0;
             padding: 0 0 0 rem(15);
-            & h6 {
+            & .sidebar-title {
+                @include h6;
                 @include flex(1 1 auto);
                 color: $color-gray;
                 font-size: rem(19);

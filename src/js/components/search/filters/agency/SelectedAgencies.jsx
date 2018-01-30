@@ -22,9 +22,18 @@ export default class SelectedAgencies extends React.Component {
             const agency = entry[1];
             let label = agency.subtier_agency.name;
 
-            if (agency.agencyType === 'subtier' &&
-                agency.toptier_agency.name === agency.subtier_agency.name) {
-                label += ' | Sub-Agency';
+            if (agency.agencyType !== '' && agency.agencyType !== null) {
+                if (agency.agencyType === 'subtier' && agency.subtier_agency.abbreviation !== '') {
+                    label += ` (${agency.subtier_agency.abbreviation})`;
+                }
+                else if (agency.agencyType === 'toptier' &&
+                agency.toptier_agency.abbreviation !== '') {
+                    label += ` (${agency.toptier_agency.abbreviation})`;
+                }
+
+                if (agency.agencyType === 'subtier' && agency.toptier_flag === false) {
+                    label += ' | Sub-Agency';
+                }
             }
 
             const value = (<ShownAgency
@@ -37,7 +46,9 @@ export default class SelectedAgencies extends React.Component {
         });
 
         return (
-            <div className={`selected-filters ${toLower(this.props.agencyType)}`}>
+            <div
+                className={`selected-filters ${toLower(this.props.agencyType)}`}
+                role="status">
                 {shownAgencies}
             </div>
         );

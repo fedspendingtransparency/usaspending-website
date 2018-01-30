@@ -1,0 +1,50 @@
+.download-placeholder {
+    .download-placeholder__wrapper {
+        background-color: #EBEBEB;
+
+        padding: rem(40);
+
+        @include media($medium-screen) {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            padding: 0 rem(40);
+        }
+
+        @include display(flex);
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include align-items(center);
+
+        img.download-placeholder__icon {
+            @include flex(0 0 auto);
+        }
+
+        h2.download-placeholder__title {
+            @include flex(0 1 auto);
+            margin: rem(20) rem(30) 0 rem(30);
+
+            font-weight: $font-semibold;
+            font-size: rem(48);
+            text-align: center;
+            align-self: stretch;
+        }
+
+        .download-placeholder__detail {
+            margin: rem(30);
+
+            @include flex(0 1 auto);
+
+            font-size: rem(18);
+            line-height: rem(28);
+            font-weight: $font-light;
+            text-align: center;
+            align-self: stretch;
+        }
+
+        @import "./_mobileLinks";
+    }
+}

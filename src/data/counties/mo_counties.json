@@ -1,0 +1,694 @@
+{
+    "counties": [
+        {
+            "code": "29001",
+            "fips": "001",
+            "state": "MO",
+            "name": "Adair County"
+        },
+        {
+            "code": "29003",
+            "fips": "003",
+            "state": "MO",
+            "name": "Andrew County"
+        },
+        {
+            "code": "29005",
+            "fips": "005",
+            "state": "MO",
+            "name": "Atchison County"
+        },
+        {
+            "code": "29007",
+            "fips": "007",
+            "state": "MO",
+            "name": "Audrain County"
+        },
+        {
+            "code": "29009",
+            "fips": "009",
+            "state": "MO",
+            "name": "Barry County"
+        },
+        {
+            "code": "29011",
+            "fips": "011",
+            "state": "MO",
+            "name": "Barton County"
+        },
+        {
+            "code": "29013",
+            "fips": "013",
+            "state": "MO",
+            "name": "Bates County"
+        },
+        {
+            "code": "29015",
+            "fips": "015",
+            "state": "MO",
+            "name": "Benton County"
+        },
+        {
+            "code": "29017",
+            "fips": "017",
+            "state": "MO",
+            "name": "Bollinger County"
+        },
+        {
+            "code": "29019",
+            "fips": "019",
+            "state": "MO",
+            "name": "Boone County"
+        },
+        {
+            "code": "29021",
+            "fips": "021",
+            "state": "MO",
+            "name": "Buchanan County"
+        },
+        {
+            "code": "29023",
+            "fips": "023",
+            "state": "MO",
+            "name": "Butler County"
+        },
+        {
+            "code": "29025",
+            "fips": "025",
+            "state": "MO",
+            "name": "Caldwell County"
+        },
+        {
+            "code": "29027",
+            "fips": "027",
+            "state": "MO",
+            "name": "Callaway County"
+        },
+        {
+            "code": "29029",
+            "fips": "029",
+            "state": "MO",
+            "name": "Camden County"
+        },
+        {
+            "code": "29031",
+            "fips": "031",
+            "state": "MO",
+            "name": "Cape Girardeau County"
+        },
+        {
+            "code": "29033",
+            "fips": "033",
+            "state": "MO",
+            "name": "Carroll County"
+        },
+        {
+            "code": "29035",
+            "fips": "035",
+            "state": "MO",
+            "name": "Carter County"
+        },
+        {
+            "code": "29037",
+            "fips": "037",
+            "state": "MO",
+            "name": "Cass County"
+        },
+        {
+            "code": "29039",
+            "fips": "039",
+            "state": "MO",
+            "name": "Cedar County"
+        },
+        {
+            "code": "29041",
+            "fips": "041",
+            "state": "MO",
+            "name": "Chariton County"
+        },
+        {
+            "code": "29043",
+            "fips": "043",
+            "state": "MO",
+            "name": "Christian County"
+        },
+        {
+            "code": "29045",
+            "fips": "045",
+            "state": "MO",
+            "name": "Clark County"
+        },
+        {
+            "code": "29047",
+            "fips": "047",
+            "state": "MO",
+            "name": "Clay County"
+        },
+        {
+            "code": "29049",
+            "fips": "049",
+            "state": "MO",
+            "name": "Clinton County"
+        },
+        {
+            "code": "29051",
+            "fips": "051",
+            "state": "MO",
+            "name": "Cole County"
+        },
+        {
+            "code": "29053",
+            "fips": "053",
+            "state": "MO",
+            "name": "Cooper County"
+        },
+        {
+            "code": "29055",
+            "fips": "055",
+            "state": "MO",
+            "name": "Crawford County"
+        },
+        {
+            "code": "29057",
+            "fips": "057",
+            "state": "MO",
+            "name": "Dade County"
+        },
+        {
+            "code": "29059",
+            "fips": "059",
+            "state": "MO",
+            "name": "Dallas County"
+        },
+        {
+            "code": "29061",
+            "fips": "061",
+            "state": "MO",
+            "name": "Daviess County"
+        },
+        {
+            "code": "29063",
+            "fips": "063",
+            "state": "MO",
+            "name": "DeKalb County"
+        },
+        {
+            "code": "29065",
+            "fips": "065",
+            "state": "MO",
+            "name": "Dent County"
+        },
+        {
+            "code": "29067",
+            "fips": "067",
+            "state": "MO",
+            "name": "Douglas County"
+        },
+        {
+            "code": "29069",
+            "fips": "069",
+            "state": "MO",
+            "name": "Dunklin County"
+        },
+        {
+            "code": "29071",
+            "fips": "071",
+            "state": "MO",
+            "name": "Franklin County"
+        },
+        {
+            "code": "29073",
+            "fips": "073",
+            "state": "MO",
+            "name": "Gasconade County"
+        },
+        {
+            "code": "29075",
+            "fips": "075",
+            "state": "MO",
+            "name": "Gentry County"
+        },
+        {
+            "code": "29077",
+            "fips": "077",
+            "state": "MO",
+            "name": "Greene County"
+        },
+        {
+            "code": "29079",
+            "fips": "079",
+            "state": "MO",
+            "name": "Grundy County"
+        },
+        {
+            "code": "29081",
+            "fips": "081",
+            "state": "MO",
+            "name": "Harrison County"
+        },
+        {
+            "code": "29083",
+            "fips": "083",
+            "state": "MO",
+            "name": "Henry County"
+        },
+        {
+            "code": "29085",
+            "fips": "085",
+            "state": "MO",
+            "name": "Hickory County"
+        },
+        {
+            "code": "29087",
+            "fips": "087",
+            "state": "MO",
+            "name": "Holt County"
+        },
+        {
+            "code": "29089",
+            "fips": "089",
+            "state": "MO",
+            "name": "Howard County"
+        },
+        {
+            "code": "29091",
+            "fips": "091",
+            "state": "MO",
+            "name": "Howell County"
+        },
+        {
+            "code": "29093",
+            "fips": "093",
+            "state": "MO",
+            "name": "Iron County"
+        },
+        {
+            "code": "29095",
+            "fips": "095",
+            "state": "MO",
+            "name": "Jackson County"
+        },
+        {
+            "code": "29097",
+            "fips": "097",
+            "state": "MO",
+            "name": "Jasper County"
+        },
+        {
+            "code": "29099",
+            "fips": "099",
+            "state": "MO",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "29101",
+            "fips": "101",
+            "state": "MO",
+            "name": "Johnson County"
+        },
+        {
+            "code": "29103",
+            "fips": "103",
+            "state": "MO",
+            "name": "Knox County"
+        },
+        {
+            "code": "29105",
+            "fips": "105",
+            "state": "MO",
+            "name": "Laclede County"
+        },
+        {
+            "code": "29107",
+            "fips": "107",
+            "state": "MO",
+            "name": "Lafayette County"
+        },
+        {
+            "code": "29109",
+            "fips": "109",
+            "state": "MO",
+            "name": "Lawrence County"
+        },
+        {
+            "code": "29111",
+            "fips": "111",
+            "state": "MO",
+            "name": "Lewis County"
+        },
+        {
+            "code": "29113",
+            "fips": "113",
+            "state": "MO",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "29115",
+            "fips": "115",
+            "state": "MO",
+            "name": "Linn County"
+        },
+        {
+            "code": "29117",
+            "fips": "117",
+            "state": "MO",
+            "name": "Livingston County"
+        },
+        {
+            "code": "29121",
+            "fips": "121",
+            "state": "MO",
+            "name": "Macon County"
+        },
+        {
+            "code": "29123",
+            "fips": "123",
+            "state": "MO",
+            "name": "Madison County"
+        },
+        {
+            "code": "29125",
+            "fips": "125",
+            "state": "MO",
+            "name": "Maries County"
+        },
+        {
+            "code": "29127",
+            "fips": "127",
+            "state": "MO",
+            "name": "Marion County"
+        },
+        {
+            "code": "29119",
+            "fips": "119",
+            "state": "MO",
+            "name": "McDonald County"
+        },
+        {
+            "code": "29129",
+            "fips": "129",
+            "state": "MO",
+            "name": "Mercer County"
+        },
+        {
+            "code": "29131",
+            "fips": "131",
+            "state": "MO",
+            "name": "Miller County"
+        },
+        {
+            "code": "29133",
+            "fips": "133",
+            "state": "MO",
+            "name": "Mississippi County"
+        },
+        {
+            "code": "29135",
+            "fips": "135",
+            "state": "MO",
+            "name": "Moniteau County"
+        },
+        {
+            "code": "29137",
+            "fips": "137",
+            "state": "MO",
+            "name": "Monroe County"
+        },
+        {
+            "code": "29139",
+            "fips": "139",
+            "state": "MO",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "29141",
+            "fips": "141",
+            "state": "MO",
+            "name": "Morgan County"
+        },
+        {
+            "code": "29143",
+            "fips": "143",
+            "state": "MO",
+            "name": "New Madrid County"
+        },
+        {
+            "code": "29145",
+            "fips": "145",
+            "state": "MO",
+            "name": "Newton County"
+        },
+        {
+            "code": "29147",
+            "fips": "147",
+            "state": "MO",
+            "name": "Nodaway County"
+        },
+        {
+            "code": "29149",
+            "fips": "149",
+            "state": "MO",
+            "name": "Oregon County"
+        },
+        {
+            "code": "29151",
+            "fips": "151",
+            "state": "MO",
+            "name": "Osage County"
+        },
+        {
+            "code": "29153",
+            "fips": "153",
+            "state": "MO",
+            "name": "Ozark County"
+        },
+        {
+            "code": "29155",
+            "fips": "155",
+            "state": "MO",
+            "name": "Pemiscot County"
+        },
+        {
+            "code": "29157",
+            "fips": "157",
+            "state": "MO",
+            "name": "Perry County"
+        },
+        {
+            "code": "29159",
+            "fips": "159",
+            "state": "MO",
+            "name": "Pettis County"
+        },
+        {
+            "code": "29161",
+            "fips": "161",
+            "state": "MO",
+            "name": "Phelps County"
+        },
+        {
+            "code": "29163",
+            "fips": "163",
+            "state": "MO",
+            "name": "Pike County"
+        },
+        {
+            "code": "29165",
+            "fips": "165",
+            "state": "MO",
+            "name": "Platte County"
+        },
+        {
+            "code": "29167",
+            "fips": "167",
+            "state": "MO",
+            "name": "Polk County"
+        },
+        {
+            "code": "29169",
+            "fips": "169",
+            "state": "MO",
+            "name": "Pulaski County"
+        },
+        {
+            "code": "29171",
+            "fips": "171",
+            "state": "MO",
+            "name": "Putnam County"
+        },
+        {
+            "code": "29173",
+            "fips": "173",
+            "state": "MO",
+            "name": "Ralls County"
+        },
+        {
+            "code": "29175",
+            "fips": "175",
+            "state": "MO",
+            "name": "Randolph County"
+        },
+        {
+            "code": "29177",
+            "fips": "177",
+            "state": "MO",
+            "name": "Ray County"
+        },
+        {
+            "code": "29179",
+            "fips": "179",
+            "state": "MO",
+            "name": "Reynolds County"
+        },
+        {
+            "code": "29181",
+            "fips": "181",
+            "state": "MO",
+            "name": "Ripley County"
+        },
+        {
+            "code": "29195",
+            "fips": "195",
+            "state": "MO",
+            "name": "Saline County"
+        },
+        {
+            "code": "29197",
+            "fips": "197",
+            "state": "MO",
+            "name": "Schuyler County"
+        },
+        {
+            "code": "29199",
+            "fips": "199",
+            "state": "MO",
+            "name": "Scotland County"
+        },
+        {
+            "code": "29201",
+            "fips": "201",
+            "state": "MO",
+            "name": "Scott County"
+        },
+        {
+            "code": "29203",
+            "fips": "203",
+            "state": "MO",
+            "name": "Shannon County"
+        },
+        {
+            "code": "29205",
+            "fips": "205",
+            "state": "MO",
+            "name": "Shelby County"
+        },
+        {
+            "code": "29183",
+            "fips": "183",
+            "state": "MO",
+            "name": "Saint Charles County"
+        },
+        {
+            "code": "29185",
+            "fips": "185",
+            "state": "MO",
+            "name": "Saint Clair County"
+        },
+        {
+            "code": "29187",
+            "fips": "187",
+            "state": "MO",
+            "name": "Saint Francois County"
+        },
+        {
+            "code": "29189",
+            "fips": "189",
+            "state": "MO",
+            "name": "Saint Louis County"
+        },
+        {
+            "code": "29510",
+            "fips": "510",
+            "state": "MO",
+            "name": "City of Saint Louis"
+        },
+        {
+            "code": "29186",
+            "fips": "186",
+            "state": "MO",
+            "name": "Sainte Genevieve County"
+        },
+        {
+            "code": "29207",
+            "fips": "207",
+            "state": "MO",
+            "name": "Stoddard County"
+        },
+        {
+            "code": "29209",
+            "fips": "209",
+            "state": "MO",
+            "name": "Stone County"
+        },
+        {
+            "code": "29211",
+            "fips": "211",
+            "state": "MO",
+            "name": "Sullivan County"
+        },
+        {
+            "code": "29213",
+            "fips": "213",
+            "state": "MO",
+            "name": "Taney County"
+        },
+        {
+            "code": "29215",
+            "fips": "215",
+            "state": "MO",
+            "name": "Texas County"
+        },
+        {
+            "code": "29217",
+            "fips": "217",
+            "state": "MO",
+            "name": "Vernon County"
+        },
+        {
+            "code": "29219",
+            "fips": "219",
+            "state": "MO",
+            "name": "Warren County"
+        },
+        {
+            "code": "29221",
+            "fips": "221",
+            "state": "MO",
+            "name": "Washington County"
+        },
+        {
+            "code": "29223",
+            "fips": "223",
+            "state": "MO",
+            "name": "Wayne County"
+        },
+        {
+            "code": "29225",
+            "fips": "225",
+            "state": "MO",
+            "name": "Webster County"
+        },
+        {
+            "code": "29227",
+            "fips": "227",
+            "state": "MO",
+            "name": "Worth County"
+        },
+        {
+            "code": "29229",
+            "fips": "229",
+            "state": "MO",
+            "name": "Wright County"
+        }
+    ]
+}

@@ -1,4 +1,6 @@
 .specific-award-amount {
+    @import "../_singleSubmit";
+
     hr.specific-award-amount-divider {
         border: none;
         border-bottom: 1px solid $color-gray-lighter;
@@ -18,6 +20,16 @@
         padding: 0;
         span {
             padding-right: 0.5rem;
+        }
+
+        input {
+            @include placeholder {
+                color: $color-gray-light;
+            }
+        }
+
+        .award-amount-submit {
+            @include singleSubmit;
         }
 
         @media only screen and (min-width:1342px) {
@@ -49,8 +61,9 @@
                 margin-right: 0;
             }
             .award-amount-submit {
-                display: block;
-                width: 100%;
+                margin-top: rem(5);
+                margin-right: auto;
+                margin-left: auto;
             }
         }
     }

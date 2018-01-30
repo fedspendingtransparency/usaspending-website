@@ -12,7 +12,8 @@ const propTypes = {
     types: PropTypes.array,
     counts: PropTypes.object,
     active: PropTypes.string,
-    switchTab: PropTypes.func
+    switchTab: PropTypes.func,
+    disabled: PropTypes.bool
 };
 
 export default class ResultsTableTabs extends React.Component {
@@ -23,11 +24,14 @@ export default class ResultsTableTabs extends React.Component {
                 count={this.props.counts[type.internal]}
                 active={this.props.active === type.internal}
                 switchTab={this.props.switchTab}
-                key={`table-type-item-${type.internal}`} />
+                key={`table-type-item-${type.internal}`}
+                enabled={!this.props.disabled} />
         ));
 
         return (
-            <div className="table-types">
+            <div
+                className="table-types"
+                role="menu">
                 {tabs}
             </div>
         );

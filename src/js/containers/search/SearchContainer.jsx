@@ -9,22 +9,38 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { is } from 'immutable';
+import moment from 'moment';
 
 import Router from 'containers/router/Router';
 
 import { filterStoreVersion, requiredTypes, initialState } from
     'redux/reducers/search/searchFiltersReducer';
 import * as searchHashActions from 'redux/actions/search/searchHashActions';
+import {
+    applyStagedFilters,
+    setAppliedFilterEmptiness,
+    setAppliedFilterCompletion
+} from 'redux/actions/search/appliedFilterActions';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
+import * as DownloadHelper from 'helpers/downloadHelper';
+
+import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 import SearchPage from 'components/search/SearchPage';
+
+require('pages/search/searchPage.scss');
 
 const propTypes = {
     params: PropTypes.object,
     filters: PropTypes.object,
-    populateAllSearchFilters: PropTypes.func,
-    clearAllFilters: PropTypes.func
+    appliedFilters: PropTypes.object,
+    restoreHashedFilters: PropTypes.func,
+    clearAllFilters: PropTypes.func,
+    download: PropTypes.object,
+    applyStagedFilters: PropTypes.func,
+    setAppliedFilterEmptiness: PropTypes.func,
+    setAppliedFilterCompletion: PropTypes.func
 };
 
 export class SearchContainer extends React.Component {
@@ -33,15 +49,18 @@ export class SearchContainer extends React.Component {
 
         this.state = {
             hash: '',
-            hashState: 'ready'
+            hashState: 'ready',
+            lastUpdate: '',
+            downloadAvailable: false
         };
 
         this.request = null;
+        this.updateRequest = null;
     }
 
     componentWillMount() {
-        // this.receiveHash(this.props.params.hash);
         this.handleInitialUrl(this.props.params.hash);
+        this.requestDownloadAvailability(this.props.appliedFilters.filters);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -55,11 +74,12 @@ export class SearchContainer extends React.Component {
         if (nextHash !== this.state.hash) {
             this.receiveHash(nextHash);
         }
-        else if (nextProps.filters !== this.props.filters) {
+        else if (nextProps.appliedFilters.filters !== this.props.appliedFilters.filters) {
             if (this.state.hashState === 'ready') {
                 // the filters changed and it's not because of an inbound/outbound URL hash change
-                this.generateHash(nextProps.filters);
+                this.generateHash(nextProps.appliedFilters.filters);
             }
+            this.requestDownloadAvailability(nextProps.appliedFilters.filters);
         }
     }
 
@@ -96,16 +116,17 @@ export class SearchContainer extends React.Component {
         // come back to it (Redux is still holding the filters)
         // in this case, we should regenerate the URL hash for the current filter set so that the
         // URL is immediately shareable
-
-        const unfiltered = this.determineIfUnfiltered(this.props.filters);
+        const unfiltered = this.determineIfUnfiltered(this.props.appliedFilters.filters);
         if (unfiltered) {
             // there is no initial hash because there are no filters
             Router.history.replace('/search');
+            this.props.setAppliedFilterEmptiness(true);
+            this.props.setAppliedFilterCompletion(true);
             return;
         }
 
         // there should be an initial hash because filters are applied
-        this.generateHash(this.props.filters);
+        this.generateHash(this.props.appliedFilters.filters);
     }
 
     receiveHash(urlHash) {
@@ -119,6 +140,7 @@ export class SearchContainer extends React.Component {
             });
             return;
         }
+
         // this is a hash that has been provided to the search page via the URL. The filters have
         // not yet been applied, so update the container's state and then parse the hash into its
         // original filter set.
@@ -137,6 +159,7 @@ export class SearchContainer extends React.Component {
         // re-parsed as an inbound/received hash), then replace the URL instead of pushing to
         // prevent hash changes from being added to the browser history. This keeps the back button
         // working as expected.
+        this.props.setAppliedFilterEmptiness(false);
         this.setState({
             hash,
             hashState: 'ready'
@@ -158,6 +181,7 @@ export class SearchContainer extends React.Component {
         this.request.promise
             .then((res) => {
                 this.request = null;
+                this.props.setAppliedFilterEmptiness(false);
                 this.applyFilters(res.data.filter);
             })
             .catch((err) => {
@@ -170,6 +194,8 @@ export class SearchContainer extends React.Component {
                         hash: '',
                         hashState: 'ready'
                     }, () => {
+                        this.props.setAppliedFilterEmptiness(true);
+                        this.props.setAppliedFilterCompletion(true);
                         Router.history.replace('/search');
                     });
                 }
@@ -202,7 +228,9 @@ export class SearchContainer extends React.Component {
             }
         });
 
-        this.props.populateAllSearchFilters(reduxValues);
+
+        // apply the filters to both the staged and applied stores
+        this.props.restoreHashedFilters(reduxValues);
 
         this.setState({
             hashState: 'ready'
@@ -254,13 +282,9 @@ export class SearchContainer extends React.Component {
         const unfiltered = this.determineIfUnfiltered(filters);
         if (unfiltered) {
             // all the filters were cleared, reset to a blank hash
-            this.setState({
-                hash: '',
-                hashState: 'ready'
-            }, () => {
-                Router.history.replace('/search');
-            });
-
+            this.props.setAppliedFilterEmptiness(true);
+            this.props.setAppliedFilterCompletion(true);
+            Router.history.replace('/search');
             return;
         }
 
@@ -290,21 +314,98 @@ export class SearchContainer extends React.Component {
             });
     }
 
+    loadUpdateDate() {
+        if (this.updateRequest) {
+            this.updateRequest.cancel();
+        }
+
+        this.updateRequest = SearchHelper.fetchLastUpdate();
+        this.updateRequest.promise
+            .then((res) => {
+                this.parseUpdateDate(res.data.last_updated);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.updateRequest = null;
+                }
+            });
+    }
+
+    parseUpdateDate(value) {
+        const date = moment(value, 'MM/DD/YYYY');
+        this.setState({
+            lastUpdate: date.format('MMMM D, YYYY')
+        });
+    }
+
+    requestDownloadAvailability(filters) {
+        if (this.determineIfUnfiltered(filters)) {
+            // don't make an API call when it's a blank state
+            this.setState({
+                downloadAvailable: false
+            });
+            return;
+        }
+
+        const operation = new SearchAwardsOperation();
+        operation.fromState(filters);
+        const searchParams = operation.toParams();
+
+        // generate the API parameters
+        const apiParams = {
+            filters: searchParams,
+            auditTrail: 'Download Availability Count'
+        };
+
+        if (this.downloadRequest) {
+            this.downloadRequest.cancel();
+        }
+
+        this.downloadRequest = DownloadHelper.requestDownloadCount(apiParams);
+        this.downloadRequest.promise
+            .then((res) => {
+                this.parseDownloadAvailability(res.data);
+                this.downloadRequest = null;
+            })
+            .catch(() => {
+                this.downloadRequest = null;
+            });
+    }
+
+    parseDownloadAvailability(data) {
+        const downloadAvailable = !data.transaction_rows_gt_limit;
+
+        this.setState({
+            downloadAvailable
+        });
+    }
+
     render() {
         return (
             <SearchPage
                 hash={this.props.params.hash}
-                clearAllFilters={this.props.clearAllFilters} />
+                filters={this.props.filters}
+                noFiltersApplied={this.props.appliedFilters._empty}
+                lastUpdate={this.state.lastUpdate}
+                downloadAvailable={this.state.downloadAvailable}
+                download={this.props.download}
+                requestsComplete={this.props.appliedFilters._complete} />
         );
     }
 }
 
 export default connect(
     (state) => ({
-        filters: state.filters
+        filters: state.filters,
+        download: state.download,
+        appliedFilters: state.appliedFilters
     }),
     (dispatch) => bindActionCreators(Object.assign({}, searchHashActions, {
-        clearAllFilters
+        clearAllFilters,
+        applyStagedFilters,
+        setAppliedFilterEmptiness,
+        setAppliedFilterCompletion
     }), dispatch)
 )(SearchContainer);
 

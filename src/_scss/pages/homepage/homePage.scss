@@ -1,20 +1,15 @@
 .usa-da-home-page {
+    @import "all";
     @import "layouts/default/default";
 
-    @import "./landingSection";
-    @import "./treeMapIntro";
+    @import "layouts/default/header/_warning";
 
-    @import "./treemapSection";
+    .homepage-content {
+        background-color: $color-white;
+    }
 
-    @import "./byCategorySection";
-
-    @import "../search/results/visualizations/visualizations";
-    @import "visualizations/geo/mapTopBar";
-    @import "visualizations/geo/mapSection";
-
-    @import "./_searchSection";
-    @include searchSection;
-
-    @import "./_linksSection";
-    @include linksSection;
+    @import "./hero/hero";
+    @import "./features/features";
+    @import "./download/download";
+    @import "./community/community";
 }

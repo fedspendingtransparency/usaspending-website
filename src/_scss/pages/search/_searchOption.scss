@@ -5,13 +5,13 @@
         padding: 0.1rem 0;
     }
     .filter-item-wrap {
-        padding: 0 $global-pad ($global-pad * 2);
+        padding: 0 $global-pad rem(20);
         @include clearfix;
         &:last-child {
             margin-bottom: 0;
         }
         @include media(1100px) {
-            padding: 0 ($global-pad * 2) ($global-pad * 2);
+            padding: 0 rem(20) rem(20);
         }
     }
     @import "./_filterExpand";

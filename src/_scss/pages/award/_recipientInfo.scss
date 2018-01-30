@@ -7,11 +7,13 @@
     padding: 4.4rem 1rem 1rem 3rem;
     h4 {
         margin-top: 0;
+        line-height: rem(40);
+        margin-bottom: 0;
     }
     .recipient-name {
         font-size: $h6-font-size;
         font-weight: $font-semibold;
-        color: $color-primary-alt-darkest;
+        color: $color-primary;
         margin: 1rem 0 1rem 0;
     }
     ul.recipient-information {
@@ -26,9 +28,9 @@
                 @include span-columns(16);
             }
             @include media($medium-screen) {
-                @include span-columns(3.7);
+                @include span-columns(5.1);
                 &:first-child {
-                    @include span-columns(6);
+                    @include span-columns(4.6);
                 }
                 &:nth-of-type(2),
                 &:nth-of-type(3) {
@@ -42,6 +44,17 @@
             }
             .item-value {
                 @include setText($small-font-size);
+	            ul {
+		            display: initial;
+		            list-style-type: none;
+		            padding: 0;
+		            li {
+			            display: list-item;
+			            width: 100%;
+			            margin: 0 0 rem(5) 0;
+			            line-height: rem(18);
+		            }
+	            }
             }
         }
         &.single {
@@ -49,6 +62,11 @@
                 @include span-columns(16);
             }
         }
+	    @import './_moreButton';
+	    button.see-more {
+		    display: block;
+		    margin-left: 0;
+	    }
     }
     @include media($tablet-screen) {
         @include span-columns(9);

@@ -10,21 +10,37 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import GlossarySearchBar from './GlossarySearchBar';
 
 const propTypes = {
-    hideGlossary: PropTypes.func
+    closeGlossary: PropTypes.func
 };
 
 export default class GlossaryHeader extends React.Component {
+    componentDidMount() {
+        if (this.closeButton) {
+            this.closeButton.focus();
+        }
+    }
     render() {
         return (
             <div className="glossary-header">
-                <button
-                    className="close-button"
-                    aria-label="Close Glossary"
-                    title="Close Glossary"
-                    onClick={this.props.hideGlossary}>
-                    <Icons.Close alt="Close Glossary" />
-                </button>
-                <h1 className="glossary-title">
+                <div
+                    role="navigation"
+                    aria-label="Glossary navigation">
+                    <button
+                        className="close-button"
+                        id="glossary-close-button"
+                        aria-label="Close Glossary"
+                        title="Close Glossary"
+                        onClick={this.props.closeGlossary}
+                        ref={(button) => {
+                            this.closeButton = button;
+                        }}>
+                        <Icons.Close alt="Close Glossary" />
+                    </button>
+                </div>
+                <h1
+                    id="glossary-title"
+                    className="glossary-title"
+                    tabIndex={-1}>
                     Glossary
                 </h1>
 

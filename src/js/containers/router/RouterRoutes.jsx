@@ -39,6 +39,24 @@ const routes = {
             }
         },
         {
+            path: '/explorer',
+            parent: '/explorer',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/explorer/landing/ExplorerLanding').default);
+                });
+            }
+        },
+        {
+            path: '/explorer/:root',
+            parent: '/explorer',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/explorer/detail/ExplorerDetailPageContainer').default);
+                });
+            }
+        },
+        {
             path: '/award/:awardId',
             parent: '/award',
             component: (cb) => {
@@ -75,60 +93,6 @@ const routes = {
             }
         },
         {
-            path: '/db_info',
-            parent: '/db_info',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/article/DBInfo').default);
-                });
-            }
-        },
-        {
-            path: '/relevantlegislation',
-            parent: '/relevantlegislation',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/article/RelevantLegislation').default);
-                });
-            }
-        },
-        {
-            path: '/aboutdata',
-            parent: '/aboutdata',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/article/AboutData').default);
-                });
-            }
-        },
-        {
-            path: '/sourcesofdata',
-            parent: '/sourcesofdata',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/article/SourcesData').default);
-                });
-            }
-        },
-        {
-            path: '/faq',
-            parent: '/faq',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/article/FAQ').default);
-                });
-            }
-        },
-        {
-            path: '/whatsnew',
-            parent: '/whatsnew',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('components/article/WhatsNew').default);
-                });
-            }
-        },
-        {
             path: '/style',
             parent: '/style',
             component: (cb) => {
@@ -147,6 +111,33 @@ const routes = {
             }
         },
         {
+            path: '/bulk_download',
+            parent: '/bulk_download',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/bulkDownload/BulkDownloadPageContainer').default);
+                });
+            }
+        },
+        {
+            path: '/bulk_download/:type',
+            parent: '/bulk_download',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/bulkDownload/BulkDownloadPageContainer').default);
+                });
+            }
+        },
+        {
+            path: '/keyword_search',
+            parent: '/keyword_search',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/keyword/KeywordContainer').default);
+                });
+            }
+        },
+        {
             path: '/federal_account',
             parent: '/federal_account',
             component: (cb) => {
@@ -156,8 +147,12 @@ const routes = {
             }
         }
     ],
-    notfound: {
-        // TODO: Kevin Li - add 404 page handling
+    notFound: {
+        component: (cb) => {
+            require.ensure([], (require) => {
+                cb(require('components/errorPage/ErrorPage').default);
+            });
+        }
     }
 };
 

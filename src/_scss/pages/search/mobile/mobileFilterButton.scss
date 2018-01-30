@@ -1,5 +1,5 @@
 .mobile-filter-button-wrapper {
-    @include media($tablet-screen) {
+    @include media($medium-screen) {
         // hide in non-mobile view
         display: none;
     }
@@ -7,7 +7,7 @@
     button.mobile-filter-button {
         @include button-unstyled;
         width: rem(175);
-        margin-left: rem(10);
+        margin-top: rem(20);
 
         color: $color-white;
         background-color: $color-primary;

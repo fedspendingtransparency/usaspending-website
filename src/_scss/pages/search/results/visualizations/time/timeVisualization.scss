@@ -1,7 +1,11 @@
 .results-visualization-time-section {
-    padding: ($global-pad * 2) rem(35);
     @import "./chart/barChart";
     @import "./_topSection";
+
+    h2.visualization-title {
+        @include h3;
+        margin: 0;
+    }
     .visualization-tooltip {
         @import "components/visualizations/tooltip/_tooltip";
     }

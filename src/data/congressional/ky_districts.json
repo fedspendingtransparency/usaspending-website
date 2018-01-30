@@ -1,0 +1,34 @@
+{
+    "districts": [
+        {
+            "code": "2101",
+            "district": "01",
+            "name": "KY-01"
+        },
+        {
+            "code": "2102",
+            "district": "02",
+            "name": "KY-02"
+        },
+        {
+            "code": "2103",
+            "district": "03",
+            "name": "KY-03"
+        },
+        {
+            "code": "2104",
+            "district": "04",
+            "name": "KY-04"
+        },
+        {
+            "code": "2105",
+            "district": "05",
+            "name": "KY-05"
+        },
+        {
+            "code": "2106",
+            "district": "06",
+            "name": "KY-06"
+        }
+    ]
+}

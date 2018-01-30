@@ -6,7 +6,7 @@
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import moment from 'moment';
 
-const expectedStartYear = 2009;
+const expectedStartYear = 2008;
 
 describe('Fiscal Year helper functions', () => {
     it(`should use ${expectedStartYear} as its earliest available fiscal year`, () => {
@@ -35,6 +35,44 @@ describe('Fiscal Year helper functions', () => {
 
             const currentFY = FiscalYearHelper.currentFiscalYear();
             expect(currentFY).toEqual(2016);
+
+            // reset moment's date to the current time
+            moment.now = () => (new Date());
+        });
+    });
+
+    describe('defaultFiscalYear', () => {
+        it('should use the current calendar year as the fiscal year for every month before October but after January', () => {
+            // override the moment's library's internal time to a known mocked date
+            const mockedDate = moment('2015-04-01', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const currentFY = FiscalYearHelper.defaultFiscalYear();
+            expect(currentFY).toEqual(2015);
+
+            // reset moment's date to the current time
+            moment.now = () => (new Date());
+        });
+
+        it('should use the previous calendar year as the fiscal year for every month before February', () => {
+            // override the moment's library's internal time to a known mocked date
+            const mockedDate = moment('2015-01-20', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const currentFY = FiscalYearHelper.defaultFiscalYear();
+            expect(currentFY).toEqual(2014);
+
+            // reset moment's date to the current time
+            moment.now = () => (new Date());
+        });
+
+        it('should use the current calendar year as the fiscal year for months on or after October', () => {
+            // override the moment's library's internal time to a known mocked date
+            const mockedDate = moment('2015-11-01', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const currentFY = FiscalYearHelper.defaultFiscalYear();
+            expect(currentFY).toEqual(2015);
 
             // reset moment's date to the current time
             moment.now = () => (new Date());
