@@ -22,6 +22,21 @@ export const fetchFederalAccount = (id) => {
     };
 };
 
+export const fetchFederalAccountFYSnapshot = (id) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/federal_accounts/${id}/fiscal_year_snapshot`,
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 export const fetchTasCategoryTotals = (data) => {
     const source = CancelToken.source();
     return {

@@ -29,3 +29,13 @@ export const balanceFieldsNonfiltered = {
     budgetAuthority: 'budget_authority_available_amount_total_cpe',
     unobligated: 'unobligated_balance_cpe'
 };
+
+export const fiscalYearSnapshotFields = {
+    outlay: 'outlay',
+    budget_authority: 'budgetAuthority',
+    obligated: 'obligated',
+    unobligated: 'unobligated',
+    balance_brought_forward: 'balanceBroughtForward',
+    other_budgetary_resources: 'otherBudgetaryResources',
+    appropriations: 'appropriations'
+};

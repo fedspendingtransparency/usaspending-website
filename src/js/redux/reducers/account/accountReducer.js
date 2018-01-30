@@ -36,8 +36,7 @@ export const initialState = {
             unobligated: {},
             budgetAuthority: {},
             outlay: {},
-            balanceBroughtForward1: {},
-            balanceBroughtForward2: {},
+            balanceBroughtForward: {},
             otherBudgetaryResources: {},
             appropriations: {}
         }

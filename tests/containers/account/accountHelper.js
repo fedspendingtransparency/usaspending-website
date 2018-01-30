@@ -1,6 +1,6 @@
 import { mockAccountProgramActivities } from './filters/mockAccountProgramActivities';
 import { mockAvailableOC } from './filters/mockObjectClass';
-import { mockAccount, mockBalances } from './mockAccount';
+import { mockAccount, mockBalances, mockSnapshot } from './mockAccount';
 
 // Fetch Program Activities
 export const fetchProgramActivities = () => (
@@ -23,6 +23,20 @@ export const fetchFederalAccount = () => (
             process.nextTick(() => {
                 resolve({
                     data: mockAccount
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+// Fetch Federal Account Fiscal Year Snapshot
+export const fetchFederalAccountFYSnapshot = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockSnapshot
                 });
             });
         }),
