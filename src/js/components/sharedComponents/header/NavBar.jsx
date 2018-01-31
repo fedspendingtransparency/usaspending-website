@@ -139,8 +139,8 @@ export default class NavBar extends React.Component {
                                 className="full-menu__item"
                                 role="menuitem">
                                 <Dropdown
-                                    title="Bulk Download"
-                                    label="Bulk Download"
+                                    title="Download Center"
+                                    label="Download Center"
                                     items={downloadOptions} />
                             </li>
                             <li

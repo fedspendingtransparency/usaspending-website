@@ -80,7 +80,7 @@ export default class MobileNav extends React.Component {
                         <li className="mobile-nav-content__list-item mobile-nav-content__list-item_no-phone">
                             <MobileDropdown
                                 {...this.props}
-                                label="Bulk Download"
+                                label="Download Center"
                                 items={downloadOptions}
                                 active={this.state.url} />
                             <hr className="mobile-nav-content__divider" />
