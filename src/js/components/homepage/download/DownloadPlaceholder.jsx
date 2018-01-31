@@ -21,7 +21,7 @@ const DownloadPlaceholder = () => (
             </h2>
             <p
                 className="download-placeholder__detail">
-                Need comprehensive federal spending data quickly? Our bulk download tools offer a straightforward path to customizable, downloadable data sets.
+                Need comprehensive federal spending data quickly? Our download tools offer a straightforward path to customizable, downloadable data sets.
             </p>
             <MobileLinks />
         </div>
