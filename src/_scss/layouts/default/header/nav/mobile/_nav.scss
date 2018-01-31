@@ -37,14 +37,6 @@
             }
         }
 
-        button.nav-button {
-            @include button-unstyled;
-            color: $color-gray;
-            font-size: rem(30);
-            line-height: rem(36);
-            opacity: 0.6;
-        }
-
         hr.mobile-nav-content__divider {
             border: none;
             border-bottom: 2px solid $color-gray;
