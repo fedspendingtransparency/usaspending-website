@@ -1,14 +1,20 @@
 .search-bar-section {
-    @include span-columns(16);
     background-color: $color-primary-alt-lightest;
     padding: rem(15);
     border: 1px solid $color-vis-lightest;
+    @include media($medium-screen) {
+        @include display(flex);
+        @include flex-direction(row);
+        @include align-items(center);
+        @include justify-content(space-evenly);
+    }
     .keyword-search-bar {
-        @include span-columns(16);
+        padding-right: rem(10);
         @include media($medium-screen) {
-            @include span-columns(8);
+            width: 50%;
         }
         form {
+            width: 100%;
             border: 1px solid $color-gray-light;
             margin-right: rem(15);
             background-color: $color-white;
@@ -52,9 +58,11 @@
     .info-text {
         font-size: $small-font-size;
         line-height: rem(26);
-        @include span-columns(16);
+        padding-left: rem(10);
+        padding-top: rem(10);
         @include media($medium-screen) {
-            @include span-columns(8);
+            width: 50%;
+            padding-top: 0;
         }
         .info-wrap {
             display: inline-block;
