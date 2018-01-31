@@ -10,7 +10,7 @@ import sinon from 'sinon';
 import { AccountContainer } from 'containers/account/AccountContainer';
 import FederalAccount from 'models/account/FederalAccount';
 
-import { mockAccount, mockBalances, mockReduxAccount, mockSnapshot } from './mockAccount';
+import { mockAccount, mockReduxAccount, mockSnapshot } from './mockAccount';
 
 jest.mock('helpers/accountHelper', () => require('./accountHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -117,10 +117,13 @@ describe('AccountContainer', () => {
             const initialModel = new FederalAccount(mockAccount);
             delete initialModel._jsid;
             initialModel.totals = {
-                outlay: {},
-                obligated: {},
-                unobligated: {},
-                budgetAuthority: {}
+                obligated: 0,
+                unobligated: 0,
+                budgetAuthority: 0,
+                outlay: 0,
+                balanceBroughtForward: 0,
+                otherBudgetaryResources: 0,
+                appropriations: 0
             };
 
             const reduxAction = jest.fn((args) => {

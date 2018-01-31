@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
 import * as AccountHelper from 'helpers/accountHelper';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import * as accountActions from 'redux/actions/account/accountActions';
 import * as filterActions from 'redux/actions/account/accountFilterActions';
 
@@ -107,7 +108,12 @@ export class AccountContainer extends React.Component {
             this.fiscalYearSnapshotRequest.cancel();
         }
 
-        this.fiscalYearSnapshotRequest = AccountHelper.fetchFederalAccountFYSnapshot(id);
+        const currentFiscalYear = FiscalYearHelper.defaultFiscalYear();
+
+        this.fiscalYearSnapshotRequest = AccountHelper.fetchFederalAccountFYSnapshot(
+            id,
+            currentFiscalYear
+        );
 
         this.fiscalYearSnapshotRequest.promise
             .then((res) => {

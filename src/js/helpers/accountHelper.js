@@ -22,11 +22,11 @@ export const fetchFederalAccount = (id) => {
     };
 };
 
-export const fetchFederalAccountFYSnapshot = (id) => {
+export const fetchFederalAccountFYSnapshot = (id, fy) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/federal_accounts/${id}/fiscal_year_snapshot`,
+            url: `v2/federal_accounts/${id}/fiscal_year_snapshot/${fy}`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
