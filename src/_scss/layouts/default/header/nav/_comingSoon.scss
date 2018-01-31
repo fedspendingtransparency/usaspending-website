@@ -4,14 +4,12 @@
     @include justify-content(center);
     position: relative;
 
-    fill-opacity: 0.4;
-
     .nav-coming-soon__icon {
         @include flex(0 0 auto);
         svg {
             height: rem(16);
             width: rem(16);
-            color: $nav-color;
+            fill: $nav-coming-soon;
 
             @include media($medium-screen) {
                 height: rem(10);
@@ -26,7 +24,7 @@
         font-size: rem(16);
         line-height: 1.2;
         font-weight: $font-light;
-        color: $nav-color;
+        color: $nav-coming-soon;
 
         @include media($medium-screen) {
             font-size: rem(11);
