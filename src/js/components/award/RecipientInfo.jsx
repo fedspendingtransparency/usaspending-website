@@ -58,6 +58,88 @@ export default class RecipientInfo extends React.Component {
         );
     }
 
+    buildParentDuns(isContract) {
+        if (!isContract) {
+            return null;
+        }
+        return (
+            <InfoSnippet
+                label="Parent DUNS"
+                value={this.props.award.recipient_parent_duns || 'Not Available'} />
+        );
+    }
+
+    buildBusinessTypes(isContract) {
+        if (!isContract) {
+            return (
+                <InfoSnippet
+                    label="Business Type"
+                    value={this.props.award.recipient_business_type || 'Not Available'} />
+            );
+        }
+
+        const listItems = [];
+        BusinessTypesHelper.getBusinessTypes().forEach((type) => {
+            // loop through all available business types
+            if (this.props.award.latest_transaction.recipient[type.fieldName]) {
+                // the business type item exists in the API response
+                let displayClass = '';
+                if (this.state.moreTypesButton && listItems.length >= 2) {
+                    // we should hide the item until the class is expanded
+                    displayClass = 'hide';
+                }
+
+                listItems.push(
+                    <li
+                        key={type.fieldName}
+                        className={displayClass}>
+                        {type.displayName}
+                    </li>
+                );
+            }
+        });
+
+        let expandButton = null;
+
+        if (listItems.length > 2) {
+            let label = `See ${listItems.length - 2} more`;
+            if (!this.state.moreTypesButton) {
+                label = 'See fewer';
+            }
+            expandButton = (
+                <button
+                    onClick={this.toggleButton}
+                    className="see-more">
+                    {label}
+                </button>
+            );
+        }
+        else if (listItems.length === 0) {
+            listItems.push(
+                <li
+                    key="not-available">
+                    Not Available
+                </li>
+            );
+        }
+
+        return (
+            <li>
+                <div className="format-item">
+                    <div className="item-label">
+                        Business Types
+                    </div>
+                    <div className="item-value">
+                        <ul className="business-types-list">
+                            {listItems}
+                        </ul>
+                        {expandButton}
+                    </div>
+                </div>
+            </li>
+        );
+    }
+
     buildSnippets() {
         if (toLower(this.props.award.recipient_name) === 'multiple recipients') {
             // there are multiple recipients
@@ -66,80 +148,6 @@ export default class RecipientInfo extends React.Component {
 
         const isContract = includes(awardTypeGroups.contracts, this.props.award.award_type);
 
-        let businessTypesSnippet = (
-            <InfoSnippet
-                label="Business Type"
-                value={this.props.award.recipient_business_type || 'Not Available'} />
-        );
-
-        if (isContract) {
-            const listItems = [];
-
-            BusinessTypesHelper.getBusinessTypes().forEach((type) => {
-                // loop through all available business types
-                if (this.props.award.latest_transaction.recipient[type.fieldName]) {
-                    // the business type item exists in the API response
-                    let displayClass = '';
-                    if (this.state.moreTypesButton && listItems.length >= 2) {
-                        // we should hide the item until the class is expanded
-                        displayClass = 'hide';
-                    }
-
-                    listItems.push(
-                        <li
-                            key={type.fieldName}
-                            className={displayClass}>
-                            {type.displayName}
-                        </li>
-                    );
-                }
-            });
-
-            let expandButton = null;
-
-            if (listItems.length > 2) {
-                expandButton = (
-                    <button
-                        onClick={this.toggleButton}
-                        className="see-more">{`See ${listItems.length - 2} more`}
-                    </button>
-                );
-                if (!this.state.moreTypesButton) {
-                    expandButton = (
-                        <button
-                            onClick={this.toggleButton}
-                            className="see-more">
-                            See fewer
-                        </button>
-                    );
-                }
-            }
-            businessTypesSnippet = (
-                <li>
-                    <div className="format-item">
-                        <div className="item-label">
-                            Business Types
-                        </div>
-                        <div className="item-value">
-                            <ul className="business-types-list">
-                                {listItems}
-                            </ul>
-                            {expandButton}
-                        </div>
-                    </div>
-                </li>
-            );
-        }
-
-        let parentDunsSnippet = null;
-        if (isContract) {
-            parentDunsSnippet = (
-                <InfoSnippet
-                    label="Parent DUNS"
-                    value={this.props.award.recipient_parent_duns || 'Not Available'} />
-            );
-        }
-
         return (
             <ul className="recipient-information">
                 <RecipientAddress
@@ -147,8 +155,8 @@ export default class RecipientInfo extends React.Component {
                 <InfoSnippet
                     label="DUNS"
                     value={this.props.award.recipient_duns || 'Not Available'} />
-                {parentDunsSnippet}
-                {businessTypesSnippet}
+                {this.buildParentDuns(isContract)}
+                {this.buildBusinessTypes(isContract)}
             </ul>
         );
     }
