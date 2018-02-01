@@ -8,11 +8,11 @@ import React from 'react';
 import { ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
 const DropdownComingSoon = () => (
-    <div className="dropdown-coming-soon">
-        <div className="icon">
+    <div className="nav-coming-soon">
+        <div className="nav-coming-soon__icon">
             <ExclamationCircle alt="Coming soon" />
         </div>
-        <div className="label">
+        <div className="nav-coming-soon__label">
             Coming Soon
         </div>
     </div>

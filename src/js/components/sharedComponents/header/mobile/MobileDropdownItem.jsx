@@ -19,25 +19,25 @@ const propTypes = {
 const MobileDropdownItem = (props) => {
     let activeClass = '';
     if (props.active) {
-        activeClass = 'active';
+        activeClass = 'mobile-dropdown__link_active';
     }
 
     let comingSoonClass = '';
     let comingSoonDecorator = null;
     if (props.comingSoon) {
-        comingSoonClass = 'coming-soon';
+        comingSoonClass = 'mobile-dropdown__item_coming-soon';
         comingSoonDecorator = (
-            <div className="coming-soon-wrapper">
+            <div className="mobile-dropdown__coming-soon">
                 <DropdownComingSoon />
             </div>
         );
     }
 
     return (
-        <li className={comingSoonClass}>
+        <li className={`mobile-dropdown__item ${comingSoonClass}`}>
             <a
                 href={props.url}
-                className={`dropdown-item ${activeClass}`}
+                className={`mobile-dropdown__link ${activeClass}`}
                 onClick={props.hideMobileNav}>
                 {props.title}
             </a>

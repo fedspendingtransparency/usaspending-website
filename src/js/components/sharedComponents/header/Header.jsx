@@ -71,18 +71,21 @@ export default class Header extends React.Component {
                         Skip to main content
                 </a>
                 <header
+                    className="site-header__wrapper"
                     aria-label="Site header">
                     {banner}
                     <div
-                        className="official-site-banner"
+                        className="official-banner"
                         role="note">
-                        <div className="official-text">
-                            An official website of the U.S. government
+                        <div className="official-banner__wrapper">
+                            <div className="official-banner__text">
+                                An official website of the U.S. government
+                            </div>
+                            <img
+                                className="official-banner__flag"
+                                src="img/us_flag_small.png"
+                                alt="U.S. flag" />
                         </div>
-                        <img
-                            className="official-flag"
-                            src="img/us_flag_small.png"
-                            alt="U.S. flag" />
                     </div>
                     <NavBar />
                 </header>
