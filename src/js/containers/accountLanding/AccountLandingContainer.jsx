@@ -4,14 +4,12 @@
  */
 
 import React from 'react';
-// import { isCancel } from 'axios';
-
-import { Search } from 'js-search';
-import { orderBy } from 'lodash';
+import { isCancel } from 'axios';
 
 import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
-// import * as AccountLandingHelper from 'helpers/accountLandingHelper';
+import * as AccountLandingHelper from 'helpers/accountLandingHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import AccountLandingContent from 'components/accountLanding/AccountLandingContent';
 
@@ -24,18 +22,16 @@ export default class AccountLandingContainer extends React.Component {
         this.state = {
             pageNumber: 1,
             order: {
-                field: 'budget_authority_amount',
+                field: 'budgetary_resources',
                 direction: 'desc'
             },
             columns: [],
             inFlight: false,
-            currentFY: '',
-            accountSearchString: '',
-            fullData: [],
+            searchString: '',
             results: [],
-            pageOfItems: [],
-            // TODO - Lizzie: update page size
-            pageSize: 3
+            totalItems: 0,
+            // TODO - Lizzie: update to 50
+            pageSize: 10
         };
 
         this.accountsRequest = null;
@@ -55,52 +51,34 @@ export default class AccountLandingContainer extends React.Component {
     }
 
     onChangePage(pageNumber) {
-        // Change page number in Redux state
-        const totalPages = Math.ceil(this.state.fullData.length / this.state.pageSize);
-        const inRange = (pageNumber > 0) && (pageNumber <= totalPages);
-        if (inRange) {
+        // Change page number in the state and make a new request
+        this.setState({
+            pageNumber
+        }, () => {
+            this.fetchAccounts();
+        });
+    }
+
+    setAccountSearchString(searchString) {
+        // Change search string in the state and make a new request
+        if (searchString.length > 2) {
             this.setState({
-                pageNumber
+                searchString
             }, () => {
-                this.setPageOfItems();
+                this.fetchAccounts();
             });
         }
     }
 
-    setAccountSearchString(accountSearchString) {
-        let searchValue = '';
-        if (accountSearchString.length > 2) {
-            searchValue = accountSearchString;
-        }
-
-        this.setState({
-            accountSearchString: searchValue
-        }, () => {
-            this.performSearch();
-        });
-    }
-
-    setPageOfItems() {
-        const results = this.state.fullData;
-        // calculate start and end item indexes
-        const startIndex = (this.state.pageNumber - 1) * this.state.pageSize;
-        const endIndex = Math.min(startIndex + (this.state.pageSize - 1), (results.length - 1));
-
-        // Get new page of items from results
-        const pageOfItems = results.slice(startIndex, endIndex + 1);
-        this.setState({
-            pageOfItems
-        });
-    }
-
     updateSort(field, direction) {
+        // Change sort in the state and make a new request
         this.setState({
             order: {
                 field,
                 direction
             }
         }, () => {
-            this.performSearch();
+            this.fetchAccounts();
         });
     }
 
@@ -110,12 +88,10 @@ export default class AccountLandingContainer extends React.Component {
 
         AccountsTableFields.order.forEach((col) => {
             let displayName = AccountsTableFields[col];
-            if ((col === 'budget_authority_amount') ||
-                (col === 'percentage_of_total_budget_authority')) {
-                // Add (FY YYYY) to Budget Authority and Percent of Total U.S. Budget column headers
-                if (this.state.fy) {
-                    displayName = `${displayName} (FY ${this.state.currentFY})`;
-                }
+            if (col === 'budgetary_resources') {
+                // Add default fiscal year to Budgetary Resources column header
+                const fy = FiscalYearHelper.defaultFiscalYear();
+                displayName = `${fy} ${displayName}`;
             }
             const column = {
                 columnName: col,
@@ -133,283 +109,78 @@ export default class AccountLandingContainer extends React.Component {
     }
 
     fetchAccounts() {
-        const mockData = {
-            results: [
-                {
-                    account_id: 1,
-                    account_number: '123-4567',
-                    account_name: 'Mock Account',
-                    managing_agency: 'Mock Agency',
-                    managing_agency_acronym: 'XYZ',
-                    budget_authority_amount: 5000000
-                },
-                {
-                    account_id: 2,
-                    account_number: '098-7654',
-                    account_name: 'Mock Account 2',
-                    managing_agency: 'Mock Agency 2',
-                    managing_agency_acronym: 'ABC',
-                    budget_authority_amount: 6500000
-                },
-                {
-                    account_id: 3,
-                    account_number: '234-5678',
-                    account_name: 'Test Account',
-                    managing_agency: 'Mock Agency 3',
-                    managing_agency_acronym: 'DEF',
-                    budget_authority_amount: 4500000
-                },
-                {
-                    account_id: 4,
-                    account_number: '123-4567',
-                    account_name: 'Mock Account 4',
-                    managing_agency: 'Mock Agency 4',
-                    managing_agency_acronym: 'XYZ',
-                    budget_authority_amount: 5500000
-                },
-                {
-                    account_id: 5,
-                    account_number: '098-7654',
-                    account_name: 'Mock Account 5',
-                    managing_agency: 'Mock Agency 5',
-                    managing_agency_acronym: 'ABC',
-                    budget_authority_amount: 6000000
-                },
-                {
-                    account_id: 6,
-                    account_number: '234-5678',
-                    account_name: 'Test Account 2',
-                    managing_agency: 'Mock Agency 6',
-                    managing_agency_acronym: 'DEF',
-                    budget_authority_amount: 4000000
-                },
-                {
-                    account_id: 7,
-                    account_number: '123-4567',
-                    account_name: 'Mock Account 7',
-                    managing_agency: 'Mock Agency 7',
-                    managing_agency_acronym: 'XYZ',
-                    budget_authority_amount: 5000000
-                },
-                {
-                    account_id: 8,
-                    account_number: '098-7654',
-                    account_name: 'Mock Account 8',
-                    managing_agency: 'Mock Agency 8',
-                    managing_agency_acronym: 'ABC',
-                    budget_authority_amount: 6500000
-                },
-                {
-                    account_id: 9,
-                    account_number: '234-5678',
-                    account_name: 'Test Account 3',
-                    managing_agency: 'Mock Agency 9',
-                    managing_agency_acronym: 'DEF',
-                    budget_authority_amount: 4500000
-                },
-                {
-                    account_id: 10,
-                    account_number: '123-4567',
-                    account_name: 'Mock Account 10',
-                    managing_agency: 'Mock Agency 6',
-                    managing_agency_acronym: 'XYZ',
-                    budget_authority_amount: 5500000
-                },
-                {
-                    account_id: 11,
-                    account_number: '098-7654',
-                    account_name: 'Mock Account 11',
-                    managing_agency: 'Mock Agency',
-                    managing_agency_acronym: 'XYZ',
-                    budget_authority_amount: 6000000
-                },
-                {
-                    account_id: 12,
-                    account_number: '234-5678',
-                    account_name: 'Test Account 4',
-                    managing_agency: 'Mock Agency 12',
-                    managing_agency_acronym: 'DEF',
-                    budget_authority_amount: 4000000
-                },
-                {
-                    account_id: 13,
-                    account_number: '123-4567',
-                    account_name: 'Mock Account 13',
-                    managing_agency: 'Mock Agency',
-                    managing_agency_acronym: 'XYZ',
-                    budget_authority_amount: 5000000
-                },
-                {
-                    account_id: 14,
-                    account_number: '098-7654',
-                    account_name: 'Mock Account 14',
-                    managing_agency: 'Mock Agency 3',
-                    managing_agency_acronym: 'ABC',
-                    budget_authority_amount: 6500000
-                },
-                {
-                    account_id: 15,
-                    account_number: '234-5678',
-                    account_name: 'Test Account 5',
-                    managing_agency: 'Mock Agency 15',
-                    managing_agency_acronym: 'DEF',
-                    budget_authority_amount: 4500000
-                },
-                {
-                    account_id: 16,
-                    account_number: '123-4567',
-                    account_name: 'Mock Account 16',
-                    managing_agency: 'Mock Agency 2',
-                    managing_agency_acronym: 'XYZ',
-                    budget_authority_amount: 5500000
-                },
-                {
-                    account_id: 17,
-                    account_number: '098-7654',
-                    account_name: 'Mock Account 17',
-                    managing_agency: 'Mock Agency 17',
-                    managing_agency_acronym: 'ABC',
-                    budget_authority_amount: 6000000
-                },
-                {
-                    account_id: 18,
-                    account_number: '234-5678',
-                    account_name: 'Test Account 6',
-                    managing_agency: 'Mock Agency 2',
-                    managing_agency_acronym: 'DEF',
-                    budget_authority_amount: 4000000
-                },
-                {
-                    account_id: 19,
-                    account_number: '098-7654',
-                    account_name: 'Mock Account 19',
-                    managing_agency: 'Mock Agency 5',
-                    managing_agency_acronym: 'ABC',
-                    budget_authority_amount: 3000000
-                },
-                {
-                    account_id: 20,
-                    account_number: '234-5678',
-                    account_name: 'Test Account 7',
-                    managing_agency: 'Mock Agency 6',
-                    managing_agency_acronym: 'DEF',
-                    budget_authority_amount: 2000000
-                }
-            ]
-        };
-        this.parseAccounts(mockData);
+        if (this.accountsRequest) {
+            // a request is in-flight, cancel it
+            this.accountsRequest.cancel();
+        }
 
-        // TODO - Lizzie: add API call when endpoint is ready
-        // if (this.accountsRequest) {
-        //    // a request is in-flight, cancel it
-        //    this.accountsRequest.cancel();
-        // }
-        //
-        // this.setState({
-        //    inFlight: true
-        // });
-        //
-        // // generate the params
-        // const params = {
-        //    sort: this.state.order.field,
-        //    order: this.state.order.direction
-        // };
-        //
-        // this.accountsRequest = AccountLandingHelper.fetchAllAccounts(params);
-        //
-        // this.accountsRequest.promise
-        //    .then((res) => {
-        //        this.setState({
-        //            inFlight: false
-        //        });
-        //
-        //        this.parseAccounts(res.data);
-        //    })
-        //    .catch((err) => {
-        //        this.accountsRequest = null;
-        //        if (!isCancel(err)) {
-        //            this.setState({
-        //                inFlight: false
-        //            });
-        //            console.log(err);
-        //        }
-        //    });
+        this.setState({
+            inFlight: true
+        });
+
+        // generate the params
+        const pageSize = 50;
+        const params = {
+            sort: this.state.order,
+            page: this.state.pageNumber,
+            limit: pageSize
+        };
+
+        this.accountsRequest = AccountLandingHelper.fetchAllAccounts(params);
+
+        this.accountsRequest.promise
+            .then((res) => {
+                this.setState({
+                    inFlight: false
+                });
+
+                this.parseAccounts(res.data);
+            })
+            .catch((err) => {
+                this.accountsRequest = null;
+                if (!isCancel(err)) {
+                    this.setState({
+                        inFlight: false
+                    });
+                    console.log(err);
+                }
+            });
     }
 
     parseAccounts(data) {
         const accounts = [];
 
         data.results.forEach((item) => {
-            // Format budget authority amount
+            // Format budgetary resources
             const formattedCurrency =
-                MoneyFormatter.formatMoneyWithPrecision(item.budget_authority_amount, 0);
-
-            // Convert from decimal value to percentage and round to 2 decimal places
-            const percentage = (item.percentage_of_total_budget_authority * 100).toFixed(2);
-
-            let percent = `${percentage}%`;
-            if (percent === '0.00%') {
-                percent = 'Less than 0.01%';
-            }
+                MoneyFormatter.formatMoneyWithPrecision(item.budgetary_resources, 0);
 
             const account = {
                 account_id: item.account_id,
                 account_number: item.account_number,
                 managing_agency: `${item.managing_agency} (${item.managing_agency_acronym})`,
                 account_name: item.account_name,
-                budget_authority_amount: item.budget_authority_amount,
+                budgetary_resources: item.budgetary_resources,
                 display: {
                     account_number: `${item.account_number}`,
                     account_name: `${item.account_name}`,
                     managing_agency: `${item.managing_agency} (${item.managing_agency_acronym})`,
-                    budget_authority_amount: formattedCurrency
+                    budgetary_resources: formattedCurrency
                 }
             };
             accounts.push(account);
         });
 
         this.setState({
-            fullData: accounts
-        }, () => {
-            this.performSearch();
-        });
-    }
-
-    performSearch() {
-        // perform a local search
-        const search = new Search('account_id');
-        search.addIndex('account_name');
-        search.addIndex('account_number');
-        search.addIndex('managing_agency');
-        search.addDocuments(this.state.fullData);
-
-        // return the full data set if no search string is provided
-        let results = this.state.fullData;
-        if (this.state.accountSearchString !== '') {
-            results = search.search(this.state.accountSearchString);
-        }
-
-        // now sort the results by the appropriate table column and direction
-        const orderedResults = orderBy(results,
-            [this.state.order.field], [this.state.order.direction]);
-
-        // Reset to page 1
-        this.setState({
-            pageNumber: 1
-        });
-
-        this.setState({
-            results: orderedResults
-        }, () => {
-            this.setPageOfItems();
+            totalItems: data.count,
+            results: accounts
         });
     }
 
     render() {
         return (
             <AccountLandingContent
-                results={this.state.pageOfItems}
-                accountSearchString={this.state.accountSearchString}
+                results={this.state.results}
                 inFlight={this.state.inFlight}
                 columns={this.state.columns}
                 order={this.state.order}
@@ -417,7 +188,7 @@ export default class AccountLandingContainer extends React.Component {
                 setAccountSearchString={this.setAccountSearchString}
                 onChangePage={this.onChangePage}
                 pageNumber={this.state.pageNumber}
-                totalItems={this.state.fullData.length}
+                totalItems={this.state.totalItems}
                 pageSize={this.state.pageSize} />
         );
     }

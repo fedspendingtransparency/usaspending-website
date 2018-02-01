@@ -3,18 +3,18 @@ const agenciesTableFields = {
         account_number: 'desc',
         account_name: 'asc',
         managing_agency: 'asc',
-        budget_authority_amount: 'desc'
+        budgetary_resources: 'desc'
     },
     order: [
         'account_number',
         'account_name',
         'managing_agency',
-        'budget_authority_amount'
+        'budgetary_resources'
     ],
     account_number: 'Account Number',
     account_name: 'Account Name',
     managing_agency: 'Managing Agency',
-    budget_authority_amount: 'Budgetary Resources'
+    budgetary_resources: 'Budgetary Resources'
 };
 
 export default agenciesTableFields;
