@@ -36,7 +36,7 @@ describe('AccountTimePeriodContainer', () => {
             expect(container.state().timePeriods).toEqual(expectedYears);
         });
 
-        it('waits on the current fiscal year until after January 31', () => {
+        it('waits on the current fiscal year until February 15', () => {
             const mockedDate = moment('2018-02-14', 'YYYY-MM-DD').toDate();
             moment.now = () => (mockedDate);
 
