@@ -2,17 +2,13 @@
     @import "all";
 	@import "layouts/landingPage/landingPage";
     @import "./header/header";
-    @import './agencyLandingSearch';
+    @import "pages/accountLanding/searchSection";
     @import './table/resultsSection';
 
-    .landing-page-section {
-        &.results-count {
-            font-style: italic;
-            padding: rem(20) 0;
-            font-size: rem(16);
-        }
-    }
-    @include agencyLandingSearch;
     @include resultsSection;
-
+    .results-count {
+        font-style: italic;
+        padding: rem(20) 0;
+        font-size: rem(16);
+    }
 }
