@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ResultsTableMessage from 'components/search/table/ResultsTableMessage';
 import AccountLandingTable from './table/AccountLandingTable';
 
 const propTypes = {
@@ -20,28 +19,39 @@ const propTypes = {
 
 export default class AccountLandingResultsSection extends React.Component {
     render() {
-        let loadingWrapper = '';
+        let loadingWrapper = 'results-table-section__loading-wrapper';
         let message = null;
         if (this.props.inFlight) {
-            loadingWrapper = 'loading-table';
-            message = <ResultsTableMessage message="Loading data..." />;
+            loadingWrapper = 'results-table-section__loading-wrapper results-table-section__loading-wrapper_loading';
+            message = (
+                <div className="results-table-section__message">
+                    Loading data...
+                </div>
+            );
         }
         else if (this.props.results.length === 0) {
             // no results
             if (this.props.accountSearchString) {
                 message = (
-                    <div className="results-table-message">
-                        No results found for &ldquo; <span>{this.props.accountSearchString}</span> &rdquo;.
+                    <div className="results-table-section__message">
+                        No results found for &ldquo;
+                        <span className="results-table-section__search-string">
+                            {this.props.accountSearchString}
+                        </span> &rdquo;.
                     </div>
                 );
             }
             else {
-                message = <ResultsTableMessage message="No results found." />;
+                message = (
+                    <div className="results-table-section__message">
+                        No results found.
+                    </div>
+                );
             }
         }
 
         return (
-            <div className="account-landing-results" id="account-landing-results">
+            <div className="results-table-section" id="account-landing-results">
                 <div className={loadingWrapper}>
                     <AccountLandingTable
                         {...this.props} />

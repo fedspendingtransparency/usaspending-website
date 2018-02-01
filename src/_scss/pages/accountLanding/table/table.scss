@@ -1,72 +1,62 @@
-.account-landing-results-table {
+.results-table {
     display: block;
-    overflow: scroll;   
+    overflow: scroll;
+    margin-top: rem(15);
 
-    &.no-results {
-        border: none;
-    }
-	table {
-		margin-top: rem(15);
-        width: rem(500);
-
-        @include media($tablet-screen) {
-            width: auto;
+    .results-table__head {
+        .results-table__row {
+            border-bottom: solid 1px $color-gray-lighter;
+            .results-table__data {
+                border: 0;
+                &:first-child {
+                    width: 18%;
+                }
+                &:nth-child(2), &:nth-child(3) {
+                    width: 31%;
+                }
+                &:last-child {
+                    width: 20%;
+                    .cell-content {
+                        float: right;
+                    }
+                }
+            }
         }
+        .award-result-header-cell {
+            @import "./cells/_accountLandingHeaderCell";
+            @include accountLandingHeader();
+        }
+    }
+    .results-table__body {
+        .results-table__row {
+            .results-table__data {
+                border: 0;
+                &:first-child {
+                    width: 18%;
+                }
+                &:nth-child(2), &:nth-child(3) {
+                    width: 31%;
+                }
+                &:last-child {
+                    width: 20%;
+                    .results-table-cell__content, .cell-content {
+                        float: right;
+                    }
+                }
+            }
+            .results-table-cell {
+                .results-table-cell__content {
+                    .results-table-cell__highlight {
+                        text-decoration: underline;
+                        font-weight: 600;
+                    }
+                }
+            }
+            // gray out even rows
+            .results-table__data_even {
+                background-color: #f7f7f7;
+            }
+        }
+    }
 
-		thead {
-			tr {
-				border-bottom: solid 1px $color-gray-lighter;
-				td {
-					border: 0;
-					&:first-child {
-						width: 18%;
-					}
-					&:nth-child(2), &:nth-child(3) {
-						width: 31%;
-					}
-					&:last-child {
-						width: 20%;
-						.cell-content {
-							float: right;
-						}
-					}
-				}
-			}
-			.award-result-header-cell {
-				@import "./cells/_accountLandingHeaderCell";
-				@include accountLandingHeader();
-			}
-		}
-		tbody {
-			tr {
-				td {
-					border: 0;
-					&:first-child {
-						width: 18%;
-					}
-					&:nth-child(2), &:nth-child(3) {
-						width: 31%;
-					}
-					&:last-child {
-						width: 20%;
-						.cell-content {
-							float: right;
-						}
-					}
-				}
-				.account-link-cell, .generic-account-cell {
-					.cell-content {
-						span {
-							text-decoration: underline;
-							font-weight: 600;
-						}
-					}
-				}
-				// gray out even rows
-				.row-even {
-					background-color: #f7f7f7;
-				}
-			}
-		}
-	}
 }

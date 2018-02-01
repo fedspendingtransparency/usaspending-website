@@ -185,6 +185,7 @@ export default class AccountLandingContainer extends React.Component {
                 columns={this.state.columns}
                 order={this.state.order}
                 updateSort={this.updateSort}
+                accountSearchString={this.state.searchString}
                 setAccountSearchString={this.setAccountSearchString}
                 onChangePage={this.onChangePage}
                 pageNumber={this.state.pageNumber}

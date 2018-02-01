@@ -19,13 +19,6 @@ const propTypes = {
 
 export default class AccountLandingTable extends React.PureComponent {
     render() {
-        let noResultsClass = '';
-        if (this.props.results.length === 0) {
-            // remove duplicated bottom border
-            noResultsClass = ' no-results';
-        }
-
-
         const rows = this.props.results.map((account, index) => (
             <TableRow
                 account={account}
@@ -36,7 +29,7 @@ export default class AccountLandingTable extends React.PureComponent {
         ));
 
         const headers = this.props.columns.map((column, index) => (
-            <td key={index}>
+            <td key={index} className="results-table__data">
                 <LegacyTableHeaderCell
                     isLast={index === this.props.columns.length - 1}
                     field={column.columnName}
@@ -48,18 +41,16 @@ export default class AccountLandingTable extends React.PureComponent {
         ));
 
         return (
-            <div className={`account-landing-results-table${noResultsClass}`}>
-                <table>
-                    <thead>
-                        <tr>
-                            {headers}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rows}
-                    </tbody>
-                </table>
-            </div>
+            <table className="results-table">
+                <thead className="results-table__head">
+                    <tr className="results-table__row">
+                        {headers}
+                    </tr>
+                </thead>
+                <tbody className="results-table__body">
+                    {rows}
+                </tbody>
+            </table>
         );
     }
 }
