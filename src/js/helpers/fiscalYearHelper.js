@@ -4,11 +4,16 @@
  */
 
 import moment from 'moment';
+import kGlobalConstants from 'GlobalConstants';
 
 export const earliestFiscalYear = 2008;
 export const earliestExplorerYear = 2017;
 export const earliestFederalAccountYear = 2017;
 
+// How many days after the close of Q1 we want to wait before updating the default Fiscal Year
+export const newFiscalYearSwitchoverDelayDays = 45;
+
+// The current fiscal year is used on the Advanced Search and Download Center pages
 export const currentFiscalYear = () => {
     // determine the current fiscal year
     const currentMonth = moment().month();
@@ -22,15 +27,25 @@ export const currentFiscalYear = () => {
     return currentFY;
 };
 
+// The default fiscal year is used on the Spending Explorer and Federal Account pages
 export const defaultFiscalYear = () => {
-    // wait until after the 1/31 of the new year
-    const currentMonth = moment().month();
-    if (currentMonth >= 1 && currentMonth < 9) {
-        // months are zero-indexed, so 1 is February, 9 is October (start of the next fiscal year)
-        // show the current fiscal year if the month is February or later but before October
+    // Building in emergency override for the current fiscal year into the config
+    if (kGlobalConstants.OVERRIDE_FISCAL_YEAR && kGlobalConstants.FISCAL_YEAR) {
+        return kGlobalConstants.FISCAL_YEAR;
+    }
+
+    // Calculate the configurable delay for Q1 close so that we aren't requesting data
+    // for a new FY when no data exists in it yet
+    const today = moment();
+    const newFiscalYearStartDate = moment()
+        .startOf('year')
+        .add(newFiscalYearSwitchoverDelayDays, 'days');
+    const newFiscalYearEndDate = moment([moment().year(), '9', '30']);
+
+    if (today.isSameOrAfter(newFiscalYearStartDate) && today.isSameOrBefore(newFiscalYearEndDate)) {
         return currentFiscalYear();
     }
-    // go to the previous fiscal year
+
     return currentFiscalYear() - 1;
 };
 
