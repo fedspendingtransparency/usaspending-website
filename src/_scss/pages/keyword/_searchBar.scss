@@ -9,8 +9,8 @@
         @include justify-content(space-evenly);
     }
     .keyword-search-bar {
-        padding-right: rem(10);
         @include media($medium-screen) {
+            padding-right: rem(10);
             width: 50%;
         }
         form {
