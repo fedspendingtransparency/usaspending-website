@@ -1,5 +1,7 @@
-.dropdown {
-    button.nav-button {
+.mobile-dropdown {
+    @import "../_comingSoon";
+    button.mobile-dropdown__parent {
+        @include button-unstyled;
         @include display(flex);
         @include align-items(center);
         @include justify-content(center);
@@ -7,12 +9,20 @@
         margin-left: auto;
         margin-right: auto;
 
-        .label {
+        color: $color-gray;
+        font-size: rem(30);
+        line-height: rem(36);
+        opacity: 0.6;
+        &:active, &:hover {
+            opacity: 1;
+        }
+
+        .mobile-dropdown__parent-label {
             @include flex(0 0 auto);
             margin-right: rem(10);
         }
 
-        .icon {
+        .mobile-dropdown__parent-icon {
             @include flex(0 0 auto);
             width: rem(30);
             height: rem(30);
@@ -25,58 +35,38 @@
         }
     }
 
-    ul.dropdown-items {
-        li {
+    ul.mobile-dropdown__list {
+        @include unstyled-list;
+
+        &.mobile-dropdown__list_hide {
+            display: none;
+        }
+
+        li.mobile-dropdown__item {
             margin-top: rem(10);
             margin-bottom: rem(10);
 
-            &.coming-soon {
+            &.mobile-dropdown__item_coming-soon {
                 opacity: 0.4;
                 pointer-events: none;
-            }
-
-            .coming-soon-wrapper {
-                display: block;
-                width: rem(80);
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .dropdown-coming-soon {
-                @include display(flex);
-                @include align-items(center);
-                @include justify-content(center);
-                position: relative;
-                line-height: rem(10);
-
-                .icon {
-                    @include flex(0 0 auto);
-                    svg {
-                        height: rem(10);
-                        width: rem(10);
-                        color: $color-gray;
-                        fill-opacity: 0.4;
-                    }
-                }
-
-                .label {
-                    @include flex(1 1 auto);
-                    margin-left: rem(5);
-                    margin-top: rem(5);
-                    font-size: rem(10);
-                    color: $color-base;
-                }
             }
         }
     }
 
-    a.dropdown-item {
+    .mobile-dropdown__coming-soon {
+        display: block;
+        width: rem(150);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    a.mobile-dropdown__link {
         font-size: rem(24);
         line-height: rem(28);
         color: $color-base;
         text-decoration: none;
 
-        &:hover, &:active, &.active {
-            color: #0C99CD;
+        &:hover, &:active, &.mobile-dropdown__link_active {
             text-decoration: none;
         }
     }

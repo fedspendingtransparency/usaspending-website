@@ -3,7 +3,6 @@
 @import "./tableBeginMessage";
 
 .search-results-table-section {
-    margin-top: rem(150);
     &.hide-counts {
         // Hide the tab counts until a search is performed
         .count-badge {

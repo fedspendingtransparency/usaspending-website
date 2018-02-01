@@ -12,12 +12,17 @@ const propTypes = {
     url: PropTypes.string,
     label: PropTypes.string,
     enabled: PropTypes.bool,
-    newTab: PropTypes.bool
+    newTab: PropTypes.bool,
+    isFirst: PropTypes.bool
 };
 
 const DropdownItem = (props) => {
-    let className = 'disabled';
-    let comingSoon = (<DropdownComingSoon />);
+    let className = 'nav-children__link_disabled';
+    let comingSoon = (
+        <div className="nav-children__coming-soon">
+            <DropdownComingSoon />
+        </div>
+    );
     if (props.enabled) {
         className = '';
         comingSoon = null;
@@ -29,10 +34,16 @@ const DropdownItem = (props) => {
         newTabProps.rel = 'noopener noreferrer';
     }
 
+    let firstClass = '';
+    if (props.isFirst) {
+        firstClass = 'nav-children__list-separator_hidden';
+    }
+
     return (
-        <li>
+        <li className="nav-children__list-item">
+            <hr className={`nav-children__list-separator ${firstClass}`} />
             <a
-                className={className}
+                className={`nav-children__link ${className}`}
                 href={props.url}
                 {...newTabProps}>
                 {props.label}
