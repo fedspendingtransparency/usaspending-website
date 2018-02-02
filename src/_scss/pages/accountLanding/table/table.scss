@@ -24,7 +24,6 @@
         }
         .award-result-header-cell {
             @import "./cells/_accountLandingHeaderCell";
-            @include accountLandingHeader();
         }
     }
     .results-table__body {
