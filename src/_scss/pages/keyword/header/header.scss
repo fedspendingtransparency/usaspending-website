@@ -35,12 +35,24 @@
                 @include span-columns(4);
             }
             .download-wrap {
+                .download-hover-spacer {
+                    left: rem(-140);
+                    width: rem(290);
+                }
                 .download-button {
-                    // Hide the download button for now
-                    display: none;
                     float: right;
                 }
             }
+            &.no-hover {
+                .download-wrap {
+                    .download-hover-spacer {
+                        display: none;
+                    }
+                }
+            }
+        }
+        &:after {
+            display: block;
         }
     }
 }

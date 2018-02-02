@@ -42,37 +42,25 @@ describe('Fiscal Year helper functions', () => {
     });
 
     describe('defaultFiscalYear', () => {
-        it('should use the current calendar year as the fiscal year for every month before October but after January', () => {
+        it('should use the previous fiscal year as the fiscal year on February 14', () => {
             // override the moment's library's internal time to a known mocked date
-            const mockedDate = moment('2015-04-01', 'YYYY-MM-DD').toDate();
+            const mockedDate = moment('2018-02-14', 'YYYY-MM-DD').toDate();
             moment.now = () => (mockedDate);
 
             const currentFY = FiscalYearHelper.defaultFiscalYear();
-            expect(currentFY).toEqual(2015);
+            expect(currentFY).toEqual(2017);
 
             // reset moment's date to the current time
             moment.now = () => (new Date());
         });
 
-        it('should use the previous calendar year as the fiscal year for every month before February', () => {
+        it('should use the current fiscal year as the fiscal year on February 15', () => {
             // override the moment's library's internal time to a known mocked date
-            const mockedDate = moment('2015-01-20', 'YYYY-MM-DD').toDate();
+            const mockedDate = moment('2018-02-15', 'YYYY-MM-DD').toDate();
             moment.now = () => (mockedDate);
 
             const currentFY = FiscalYearHelper.defaultFiscalYear();
-            expect(currentFY).toEqual(2014);
-
-            // reset moment's date to the current time
-            moment.now = () => (new Date());
-        });
-
-        it('should use the current calendar year as the fiscal year for months on or after October', () => {
-            // override the moment's library's internal time to a known mocked date
-            const mockedDate = moment('2015-11-01', 'YYYY-MM-DD').toDate();
-            moment.now = () => (mockedDate);
-
-            const currentFY = FiscalYearHelper.defaultFiscalYear();
-            expect(currentFY).toEqual(2015);
+            expect(currentFY).toEqual(2018);
 
             // reset moment's date to the current time
             moment.now = () => (new Date());

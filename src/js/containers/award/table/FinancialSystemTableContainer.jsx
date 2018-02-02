@@ -151,7 +151,7 @@ export class FinancialSystemTableContainer extends React.Component {
             <FinancialSystemTable
                 {...this.state}
                 tableWidth={this.props.tableWidth}
-                nextPage={this.loadNextPage}
+                loadNextPage={this.loadNextPage}
                 changeSort={this.changeSort} />
         );
     }

@@ -1,14 +1,23 @@
 .search-bar-section {
-    @include span-columns(16);
-
+    background-color: $color-primary-alt-lightest;
+    padding: rem(15);
+    border: 1px solid $color-vis-lightest;
+    @include media($medium-screen) {
+        @include display(flex);
+        @include flex-direction(row);
+        @include align-items(center);
+        @include justify-content(space-evenly);
+    }
     .keyword-search-bar {
-        @include span-columns(16);
         @include media($medium-screen) {
-            @include span-columns(8);
+            padding-right: rem(10);
+            width: 50%;
         }
         form {
-            border: 2px solid $color-primary;
+            width: 100%;
+            border: 1px solid $color-gray-light;
             margin-right: rem(15);
+            background-color: $color-white;
             input.keyword-input {
                 margin-right: 0;
                 height: rem(66);
@@ -24,24 +33,23 @@
                 height: rem(66);
                 float: right;
                 width: 15%;
-                background-color: #0074BE;
                 .icon {
                     height: rem(30);
                     width: rem(30);
                     margin: auto;
                     svg {
-                        fill: $color-white;
+                        fill: $color-gray;
                     }
                 }
                 &.disabled {
-                    background-color: rgba(#0074BE, 0.3);
-                    &:hover {
-                        background-color: rgba(#0074BE, 0.3);
-                        cursor: default;
+                    .icon {
+                        svg {
+                            fill: $color-gray-lighter;
+                        }
                     }
-                }
-                &:hover {
-                    background-color: $color-primary;
+                    &:hover {
+                        cursor: not-allowed;
+                    }
                 }
             }
         }
@@ -50,9 +58,11 @@
     .info-text {
         font-size: $small-font-size;
         line-height: rem(26);
-        @include span-columns(16);
+        padding-left: rem(10);
+        padding-top: rem(10);
         @include media($medium-screen) {
-            @include span-columns(8);
+            width: 50%;
+            padding-top: 0;
         }
         .info-wrap {
             display: inline-block;
@@ -63,12 +73,12 @@
                 height: rem(15);
                 width: rem(15);
                 svg {
-                    fill: $color-gray-lighter;
+                    fill: $color-primary;
                 }
                 &:hover {
                     cursor: pointer;
                     svg {
-                        fill: $color-gray-light;
+                        fill: $color-primary-darker;
                     }
                 }
             }

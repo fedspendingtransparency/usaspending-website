@@ -51,8 +51,10 @@ export default class TreemapCell extends React.Component {
     }
 
     clickedCell() {
-        this.exitedCell();
-        this.props.selectedCell(this.props.data.id, this.props.data);
+        if (this.props.data.id) {
+            this.exitedCell();
+            this.props.selectedCell(this.props.data.id, this.props.data);
+        }
     }
 
     enteredCell() {
@@ -101,14 +103,21 @@ export default class TreemapCell extends React.Component {
                 {this.props.subtitle.text}
             </text>
         );
+
+        let disabledClass = '';
+        if (this.props.data.id === null) {
+            disabledClass = 'link-disabled';
+        }
+
         if (this.props.width < 75 || this.props.height < 38) {
             cellTitle = '';
             cellValue = '';
         }
         const position = `translate(${this.props.x}, ${this.props.y})`;
+
         return (
             <g
-                className="explorer-cell"
+                className={`explorer-cell ${disabledClass}`}
                 transform={position}
                 onClick={this.clickedCell}
                 onMouseMove={this.enteredCell}

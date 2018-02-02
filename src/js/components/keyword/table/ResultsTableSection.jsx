@@ -11,19 +11,20 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTableBeginMessage from './ResultsTableBeginMessage';
 import ResultsTable from './ResultsTable';
-import ResultsTableTabs from './ResultsTableTabs';
 
 const propTypes = {
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
-    keywordApplied: PropTypes.bool,
+    keyword: PropTypes.string,
     tableTypes: PropTypes.array,
     currentType: PropTypes.string,
     switchTab: PropTypes.func,
     results: PropTypes.array,
     columns: PropTypes.object,
+    counts: PropTypes.object,
     sort: PropTypes.object,
     updateSort: PropTypes.func,
     tableInstance: PropTypes.string,
@@ -65,7 +66,7 @@ export default class ResultsTableSection extends React.Component {
                 visibleWidth={this.state.tableWidth} />
         );
 
-        if (!this.props.keywordApplied) {
+        if (!this.props.keyword) {
             table = null;
             message = (
                 <div className="results-table-message-container full">
@@ -99,10 +100,11 @@ export default class ResultsTableSection extends React.Component {
         }
 
         return (
-            <div className="search-results-table-section" id="results-section-table">
+            <div className={`search-results-table-section ${this.props.keyword ? '' : 'hide-counts'}`} id="results-section-table">
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}
+                    counts={this.props.counts}
                     switchTab={this.props.switchTab}
                     disabled={this.props.inFlight} />
                 <div className="results-table-content">

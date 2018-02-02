@@ -4,180 +4,37 @@
  */
 
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 
-import { Set } from 'immutable';
-import KeywordContainer from 'containers/keyword/KeywordContainer';
+import { KeywordContainer } from 'containers/keyword/KeywordContainer';
 
-import { mockApi, mockSummary } from './mockResults';
+import { mockRedux, mockSummary, mockActions } from './mockResults';
 
 jest.mock('helpers/keywordHelper', () => require('./keywordHelper'));
+jest.mock('helpers/bulkDownloadHelper', () => require('../bulkDownload/mockBulkDownloadHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/keyword/KeywordPage', () =>
     jest.fn(() => null));
 
-// canvas elements are not available in Jest, so mock the text measurement helper
-jest.mock('helpers/textMeasurement', () => (
-{
-    measureText: jest.fn(() => 100),
-    measureTableHeader: jest.fn(() => 220)
-}
-));
-
 describe('KeywordContainer', () => {
     describe('updateKeyword', () => {
-        it('should reset the page to 1', () => {
-            const container = shallow(<KeywordContainer />);
+        it('should set the keyword state', () => {
+            const container = shallow(<KeywordContainer
+                {...mockRedux}
+                {...mockActions} />);
 
-            container.instance().updateKeyword();
+            container.instance().updateKeyword('blah blah');
 
-            expect(container.state().page).toEqual(1);
-        });
-        it('should trigger a reset search', () => {
-            const container = shallow(<KeywordContainer />);
-            container.instance().performSearch = jest.fn();
-
-            container.instance().updateKeyword();
-
-            expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
-            expect(container.instance().performSearch).toHaveBeenCalledWith(true);
-        });
-    });
-
-    describe('performSearch', () => {
-        it('should overwrite the existing result state if the page number is 1 or it is a new search', async () => {
-            const container = shallow(<KeywordContainer />);
-
-            container.setState({
-                results: [{}, {}, {}]
-            });
-            expect(container.state().results.length).toEqual(3);
-
-            container.instance().performSearch(true);
-            await container.instance().searchRequest.promise;
-
-            expect(container.state().results.length).toEqual(1);
-        });
-        it('should append the results to the existing result state if the page number is greater than 1', async () => {
-            const container = shallow(<KeywordContainer />);
-
-            container.setState({
-                results: [{}, {}, {}],
-                page: 2
-            });
-            expect(container.state().results.length).toEqual(3);
-
-            container.instance().performSearch(false);
-            await container.instance().searchRequest.promise;
-
-            expect(container.state().results.length).toEqual(4);
-        });
-    });
-
-    describe('loadNextPage', () => {
-        it('should increment the page number', () => {
-            const container = shallow(<KeywordContainer />);
-            container.setState({
-                page: 1,
-                lastPage: false,
-                inFlight: false
-            });
-            expect(container.state().page).toEqual(1);
-
-            container.instance().loadNextPage();
-            expect(container.state().page).toEqual(2);
-        });
-        it('should call an appended performSearch', () => {
-            const container = shallow(<KeywordContainer />);
-            container.instance().performSearch = jest.fn();
-            container.setState({
-                page: 1,
-                lastPage: false,
-                inFlight: false
-            });
-
-            container.instance().loadNextPage();
-            expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
-            expect(container.instance().performSearch).toHaveBeenCalledWith();
-        });
-        it('should do nothing if it is the last page', () => {
-            const container = shallow(<KeywordContainer />);
-            container.instance().performSearch = jest.fn();
-
-            container.setState({
-                lastPage: true,
-                page: 1,
-                inFlight: false
-            });
-
-            container.instance().loadNextPage();
-            expect(container.instance().performSearch).toHaveBeenCalledTimes(0);
-        });
-        it('should do nothing if there are existing requests in flight', () => {
-            const container = shallow(<KeywordContainer />);
-            container.instance().performSearch = jest.fn();
-
-            container.setState({
-                lastPage: false,
-                page: 1,
-                inFlight: true
-            });
-
-            container.instance().loadNextPage();
-            expect(container.instance().performSearch).toHaveBeenCalledTimes(0);
-        });
-    });
-
-    describe('switchTab', () => {
-        it('should change the state to the new tab type', () => {
-            const container = shallow(<KeywordContainer />);
-            container.instance().switchTab('loans');
-
-            expect(container.state().tableType).toEqual('loans');
-        });
-        it('should should call a reset performSearch operation if a keyword has been entered', () => {
-            const container = shallow(<KeywordContainer />);
-            container.instance().performSearch = jest.fn();
-            container.setState({
-                keyword: 'test'
-            });
-            container.instance().switchTab('loans');
-
-            expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
-            expect(container.instance().performSearch).toHaveBeenCalledWith(true);
-        });
-    });
-
-    describe('updateSort', () => {
-        it('should set the sort state to the given values', () => {
-            const container = shallow(<KeywordContainer />);
-            container.setState({
-                sort: {
-                    field: 'Clinger-Cohen Act Compliant',
-                    direction: 'asc'
-                }
-            });
-
-            container.instance().updateSort('test', 'desc');
-            expect(container.state().sort).toEqual({
-                field: 'test',
-                direction: 'desc'
-            });
-        });
-        it('should call a reset performSearch operation', () => {
-            const container = shallow(<KeywordContainer />);
-            container.instance().performSearch = jest.fn();
-
-            container.instance().updateSort('test', 'desc');
-            expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
-            expect(container.instance().performSearch).toHaveBeenCalledWith(true);
+            expect(container.state().keyword).toEqual('blah blah');
         });
     });
 
     describe('fetchSummary', () => {
-        it('set the summary state', async () => {
-            const container = shallow(<KeywordContainer />);
+        it('should set the summary state', async () => {
+            const container = shallow(<KeywordContainer
+                {...mockRedux}
+                {...mockActions} />);
 
             const expectedState = {
                 primeCount: 111111,
@@ -190,6 +47,50 @@ describe('KeywordContainer', () => {
             await container.instance().summaryRequest.promise;
 
             expect(container.state().summary).toEqual(expectedState);
+        });
+    });
+
+    describe('startDownload', () => {
+        it('should make an API call with the given keyword filter', () => {
+            const container = shallow(<KeywordContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            container.setState({
+                keyword: 'test'
+            });
+
+            const requestDownload = jest.fn();
+            container.instance().requestDownload = requestDownload;
+
+            const expectedParams = {
+                award_levels: ['prime_awards'],
+                filters: {
+                    keyword: 'test'
+                }
+            };
+
+            container.instance().startDownload();
+
+            expect(requestDownload).toHaveBeenCalledWith(expectedParams, "awards");
+        });
+    });
+
+    describe('requestDownload', () => {
+        it('should set the expected file and url', async () => {
+            const container = shallow(<KeywordContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            container.setState({
+                keyword: 'test'
+            });
+
+            container.instance().requestDownload();
+            await container.instance().downloadRequest.promise;
+
+            expect(mockActions.setDownloadExpectedFile).toHaveBeenCalledWith('mock_file.zip');
+            expect(mockActions.setDownloadExpectedUrl).toHaveBeenCalledWith('mockurl/mock_file.zip');
         });
     });
 });

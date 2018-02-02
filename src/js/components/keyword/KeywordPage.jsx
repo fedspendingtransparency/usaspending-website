@@ -8,29 +8,28 @@ import PropTypes from 'prop-types';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+
+import ResultsTableContainer from 'containers/keyword/table/ResultsTableContainer';
+import BulkDownloadModalContainer from
+    'containers/bulkDownload/modal/BulkDownloadModalContainer';
+
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
-import ResultsTableSection from './table/ResultsTableSection';
+
 import KeywordHeader from './header/KeywordHeader';
 import KeywordSearchBar from './KeywordSearchBar';
 import KeywordSearchHover from './KeywordSearchHover';
 
 const propTypes = {
     updateKeyword: PropTypes.func,
-    keywordApplied: PropTypes.bool,
+    keyword: PropTypes.string,
     summary: PropTypes.object,
-    error: PropTypes.bool,
-    inFlight: PropTypes.bool,
-    results: PropTypes.array,
-    columns: PropTypes.object,
-    sort: PropTypes.object,
-    tableTypes: PropTypes.array,
-    currentType: PropTypes.string,
-    tableInstance: PropTypes.string,
-    switchTab: PropTypes.func,
-    updateSort: PropTypes.func,
-    loadNextPage: PropTypes.func
+    summaryInFlight: PropTypes.bool,
+    fetchSummary: PropTypes.func,
+    download: PropTypes.object,
+    startDownload: PropTypes.func,
+    downloadAvailable: PropTypes.bool
 };
 
 export default class KeywordPage extends React.Component {
@@ -38,11 +37,40 @@ export default class KeywordPage extends React.Component {
         super(props);
 
         this.state = {
-            showHover: false
+            showHover: false,
+            showModal: false
         };
 
         this.showTooltip = this.showTooltip.bind(this);
         this.closeTooltip = this.closeTooltip.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+        this.showModal = this.showModal.bind(this);
+        this.clickedDownload = this.clickedDownload.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        // Need to close the modal once the download is completed
+        if (this.state.showModal && nextProps.download.expectedUrl === ""
+            && !nextProps.download.showCollapsedProgress) {
+            this.hideModal();
+        }
+    }
+
+    hideModal() {
+        this.setState({
+            showModal: false
+        });
+    }
+
+    showModal() {
+        this.setState({
+            showModal: true
+        });
+    }
+
+    clickedDownload() {
+        this.props.startDownload();
+        this.showModal();
     }
 
     showTooltip() {
@@ -70,11 +98,15 @@ export default class KeywordPage extends React.Component {
                 <Header />
                 <main id="main-content">
                     <KeywordHeader
-                        summary={this.props.summary} />
+                        inFlight={this.props.summaryInFlight}
+                        summary={this.props.summary}
+                        downloadAvailable={this.props.downloadAvailable}
+                        clickedDownload={this.clickedDownload}
+                        keyword={this.props.keyword} />
                     <div className="keyword-content">
                         <div className="search-bar-section">
                             <KeywordSearchBar
-                                submitText={this.props.updateKeyword} />
+                                updateKeyword={this.props.updateKeyword} />
                             <div className="info-text">
                                 Use the Keyword Search to get a broad picture of award data on a given theme.
                                 You can search through only award descriptions, or award descriptions plus other
@@ -91,20 +123,13 @@ export default class KeywordPage extends React.Component {
                                 whose extensive filters let you find more precise data sets.
                             </div>
                         </div>
-                        <ResultsTableSection
-                            inFlight={this.props.inFlight}
-                            error={this.props.error}
-                            keywordApplied={this.props.keywordApplied}
-                            tableTypes={this.props.tableTypes}
-                            currentType={this.props.currentType}
-                            switchTab={this.props.switchTab}
-                            results={this.props.results}
-                            columns={this.props.columns}
-                            sort={this.props.sort}
-                            updateSort={this.props.updateSort}
-                            tableInstance={this.props.tableInstance}
-                            loadNextPage={this.props.loadNextPage} />
+                        <ResultsTableContainer
+                            keyword={this.props.keyword}
+                            fetchSummary={this.props.fetchSummary} />
                     </div>
+                    <BulkDownloadModalContainer
+                        mounted={this.state.showModal}
+                        hideModal={this.hideModal} />
                 </main>
                 <Footer />
             </div>

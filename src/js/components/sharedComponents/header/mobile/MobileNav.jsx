@@ -9,22 +9,22 @@ import PropTypes from 'prop-types';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 import Router from 'containers/router/Router';
 
+import { searchOptions, profileOptions, downloadOptions } from 'dataMapping/navigation/menuOptions';
+
 import MobileTop from './MobileTop';
 import MobileGlossaryButton from './MobileGlossaryButton';
-import MobileProfiles from './MobileProfiles';
+import MobileDropdown from './MobileDropdown';
 
 const propTypes = {
     hideMobileNav: PropTypes.func
 };
-
-const profiles = ['/agency', '/recipient', '/federal_account'];
 
 export default class MobileNav extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            profile: ''
+            url: ''
         };
     }
     componentDidMount() {
@@ -32,21 +32,12 @@ export default class MobileNav extends React.Component {
     }
 
     checkCurrentProfile() {
-        // determine if we're on a profile page
+        // determine if we need to highlight a dropdown menu option
         const currentUrl = Router.history.location.pathname;
-        if (profiles.indexOf(currentUrl) > -1) {
-            // the user is currently on a profile page
-            const profileName = currentUrl.substring(1);
-            if (this.state.profile !== profileName) {
-                this.setState({
-                    profile: profileName
-                });
-            }
-        }
-        else if (this.state.profile !== '') {
-            // not on a profile page
+        const formattedUrl = `#${currentUrl}`;
+        if (this.state.url !== formattedUrl) {
             this.setState({
-                profile: ''
+                url: formattedUrl
             });
         }
     }
@@ -54,62 +45,51 @@ export default class MobileNav extends React.Component {
     render() {
         return (
             <div className="mobile-nav">
-                <MobileTop {...this.props} />
-                <div className="nav-content">
-                    <ul>
-                        <li>
-                            <MobileProfiles
-                                {...this.props}
-                                active={this.state.profile} />
-                            <div className="nav-link-decorator" />
-                        </li>
-                        <li>
+                <div className="mobile-nav__top">
+                    <MobileTop {...this.props} />
+                </div>
+                <div className="mobile-nav-content">
+                    <ul
+                        className="mobile-nav-content__list">
+                        <li className="mobile-nav-content__list-item">
                             <a
-                                className="nav-link"
+                                className="mobile-nav-content__link"
                                 href="#/explorer"
                                 title="Spending Explorer"
                                 onClick={this.props.hideMobileNav}>
                                 Spending Explorer
                             </a>
-                            <div className="nav-link-decorator" />
+                            <hr className="mobile-nav-content__divider" />
                         </li>
-                        <li>
-                            <a
-                                className="nav-link"
-                                href="#/search"
-                                title="Award Search"
-                                onClick={this.props.hideMobileNav}>
-                                Award Search
-                            </a>
-                            <div className="nav-link-decorator" />
+                        <li className="mobile-nav-content__list-item">
+                            <MobileDropdown
+                                {...this.props}
+                                label="Award Search"
+                                items={searchOptions}
+                                active={this.state.url} />
+                            <hr className="mobile-nav-content__divider" />
                         </li>
-                        <li>
-                            <a
-                                className="nav-link"
-                                href="#/about"
-                                title="About"
-                                onClick={this.props.hideMobileNav}>
-                                About
-                            </a>
-                            <div className="nav-link-decorator" />
+                        <li className="mobile-nav-content__list-item">
+                            <MobileDropdown
+                                {...this.props}
+                                label="Profiles"
+                                items={profileOptions}
+                                active={this.state.url} />
+                            <hr className="mobile-nav-content__divider" />
                         </li>
-                        <li>
-                            <a
-                                className="nav-link"
-                                href="https://usaspending-help.zendesk.com/hc/en-us"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                title="Help"
-                                onClick={this.props.hideMobileNav}>
-                                Help
-                            </a>
-                            <div className="nav-link-decorator" />
+                        <li className="mobile-nav-content__list-item mobile-nav-content__list-item_no-phone">
+                            <MobileDropdown
+                                {...this.props}
+                                label="Download Center"
+                                items={downloadOptions}
+                                active={this.state.url} />
+                            <hr className="mobile-nav-content__divider" />
                         </li>
-                        <li>
+                        <li className="mobile-nav-content__list-item">
                             <GlossaryButtonWrapperContainer
                                 child={MobileGlossaryButton}
                                 hideMobileNav={this.props.hideMobileNav} />
-                            <div className="nav-link-decorator" />
+                            <hr className="mobile-nav-content__divider" />
                         </li>
                     </ul>
                 </div>

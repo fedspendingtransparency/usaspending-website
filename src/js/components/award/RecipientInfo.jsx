@@ -74,12 +74,12 @@ export default class RecipientInfo extends React.Component {
         const businessTypesArray = [];
         let typesList = '';
 
-        if (isContract && this.props.recipient.recipient_business_type === 'Unknown Types') {
+        if (isContract) {
             businessTypeLabel = "Business Types";
             // Build an array of applicable business type fields
             const allBusinessTypes = BusinessTypesHelper.getBusinessTypes();
             allBusinessTypes.forEach((type) => {
-                if (recipient.latest_transaction.recipient[type.fieldName] === '1') {
+                if (recipient.latest_transaction.recipient[type.fieldName]) {
                     businessTypesArray.push(type);
                 }
             });

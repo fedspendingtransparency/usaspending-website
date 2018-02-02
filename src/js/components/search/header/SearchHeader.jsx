@@ -84,7 +84,7 @@ export default class SearchHeader extends React.Component {
                         aria-labelledby="main-focus">
                         <div className="search-title">
                             <h1 tabIndex={-1} id="main-focus">
-                                Award Search
+                                Advanced Search
                             </h1>
                         </div>
                         <div className="search-options">

@@ -1,0 +1,107 @@
+.feature-carousel {
+    .feature-carousel__instructions {
+        @include sr-only;
+    }
+
+    .feature-carousel-content {
+        @include display(flex);
+        @include justify-content(flex-start);
+        @include align-items(center);
+
+        button.feature-carousel-content__arrow {
+            @include flex(0 0 auto);
+            @include button-unstyled;
+
+            opacity: 1;
+            @include transition(opacity 150ms);
+
+            display: none;
+            @include media($tablet-screen) {
+                display: block;
+            }
+
+            svg {
+                fill: $color-gray;
+                width: rem(50);
+            }
+
+            &.feature-carousel-content__arrow_hidden {
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+
+        .feature-carousel-image {
+            @include flex(1 1 auto);
+            overflow-x: hidden;
+        }
+
+        ul.feature-carousel-image__list {
+            @include unstyled-list;
+
+            @include display(flex);
+            @include justify-content(flex-start);
+            @include align-items(center);
+
+            @include transition(transform 300ms);
+
+            &.feature-carousel-image__list_dragging {
+                @include transition(none);
+            }
+
+            li.feature-carousel-image__list-item {
+                @include flex(0 0 auto);
+                width: 100%;
+
+                // within the box, we need to center the image
+                img.feature-carousel-image__image {
+                    display: block;
+                    background-color: $color-white;
+                    padding: rem(10);
+                    border: 1px solid $color-gray-lighter;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+        }
+    }
+
+    .feature-carousel-pager {
+        ul.feature-carousel-pager__list {
+            @include unstyled-list;
+            margin-top: rem(25);
+            
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+
+            li.feature-carousel-pager__list-item {
+                @include flex(0 0 auto);
+                &:not(:first-child) {
+                    margin-left: rem(25);
+                }
+            }
+
+            button.feature-carousel-pager__dot-button {
+                @include button-unstyled;
+                width: rem(14);
+                height: rem(14);
+
+                opacity: 0.4;
+                @include transition(opacity 150ms);
+
+                .feature-carousel-pager__dot-decorator {
+                    width: rem(14);
+                    height: rem(14);
+                    border-radius: rem(7);
+                    background-color: $color-gray;
+                    pointer-events: none;
+                }
+
+                &:hover, &:active, &.feature-carousel-pager__dot-button_active {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
