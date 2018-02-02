@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { is } from 'immutable';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import RecipientSearch from 'components/search/filters/recipient/RecipientSearch';
@@ -19,11 +21,9 @@ const propTypes = {
     appliedRecipients: PropTypes.object
 };
 
-const ga = require('react-ga');
-
 export class RecipientSearchContainer extends React.Component {
     static logRecipientFilterEvent(name) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: 'Applied Recipient Name/DUNS Filter',
             label: name.toLowerCase()

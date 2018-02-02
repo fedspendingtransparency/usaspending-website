@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import NAICSSearch from 'components/search/filters/naics/NAICSSearch';
@@ -19,11 +21,9 @@ const propTypes = {
     appliedNAICS: PropTypes.object
 };
 
-const ga = require('react-ga');
-
 export class NAICSSearchContainer extends React.Component {
     static logPlaceFilterEvent(naics) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: `Applied NAICS Filter`,
             label: naics.toLowerCase()

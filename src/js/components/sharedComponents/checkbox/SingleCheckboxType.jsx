@@ -7,6 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 const propTypes = {
     id: PropTypes.string,
     code: PropTypes.string,
@@ -23,11 +25,9 @@ const defaultProps = {
     enableAnalytics: false
 };
 
-const ga = require('react-ga');
-
 export default class SingleCheckboxType extends React.Component {
     static logSingleTypeFilterEvent(type, filter) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: `Selected ${filter} Type`,
             label: type
@@ -35,7 +35,7 @@ export default class SingleCheckboxType extends React.Component {
     }
 
     static logDeselectSingleTypeFilterEvent(type, filter) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: `Deselected ${filter} Type`,
             label: type

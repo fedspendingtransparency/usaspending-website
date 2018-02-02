@@ -12,6 +12,7 @@ import { uniqueId, difference, intersection } from 'lodash';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import * as SearchHelper from 'helpers/searchHelper';
+import Analytics from 'helpers/analytics/Analytics';
 
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
@@ -63,8 +64,6 @@ const tableTypes = [
     }
 ];
 
-const ga = require('react-ga');
-
 export class ResultsTableContainer extends React.Component {
     static logLoadNextPageEvent(page, tableType) {
         // Get the display name for the current table type
@@ -73,7 +72,7 @@ export class ResultsTableContainer extends React.Component {
         );
         const typeLabel = currentType[0].label;
 
-        ga.event({
+        Analytics.event({
             category: 'Search Page Spending By Award',
             action: `Scrolled to next page of ${typeLabel}`,
             label: page

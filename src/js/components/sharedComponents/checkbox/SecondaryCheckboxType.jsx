@@ -7,6 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 const propTypes = {
     id: PropTypes.string,
     code: PropTypes.string,
@@ -24,11 +26,9 @@ const defaultProps = {
     enableAnalytics: false
 };
 
-const ga = require('react-ga');
-
 export default class SecondaryCheckboxType extends React.Component {
     static logSecondaryTypeFilterEvent(type, filter) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: `Selected Secondary ${filter} Type`,
             label: type
@@ -36,7 +36,7 @@ export default class SecondaryCheckboxType extends React.Component {
     }
 
     static logDeselectFilterEvent(type, filter) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: `Deselected Secondary ${filter} Type`,
             label: type

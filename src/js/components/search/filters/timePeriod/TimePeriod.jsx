@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Set } from 'immutable';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
 import DateRange from './DateRange';
@@ -33,8 +35,6 @@ const propTypes = {
     dirtyFilters: PropTypes.symbol
 };
 
-const ga = require('react-ga');
-
 export default class TimePeriod extends React.Component {
     static logDateRangeEvent(start, end) {
         let label = `${start} to ${end}`;
@@ -45,7 +45,7 @@ export default class TimePeriod extends React.Component {
             label = `On or after ${start}`;
         }
 
-        ga.event({
+        Analytics.event({
             label,
             category: 'Search Page Filter Applied',
             action: 'Applied Date Range Filter'

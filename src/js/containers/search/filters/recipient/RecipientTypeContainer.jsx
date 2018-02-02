@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { keyBy } from 'lodash';
 
 import { recipientTypeGroups } from 'dataMapping/search/recipientType';
+import Analytics from 'helpers/analytics/Analytics';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -24,11 +25,9 @@ const propTypes = {
     appliedType: PropTypes.object
 };
 
-const ga = require('react-ga');
-
 export class RecipientTypeContainer extends React.Component {
     static logLocationFilterEvent(placeType, place, event) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: `${event} Recipient ${placeType.toLowerCase()} Filter`,
             label: place.toLowerCase()

@@ -8,12 +8,12 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import SelectedLocations from 'components/search/filters/location/SelectedLocations';
 import LocationPickerContainer from './LocationPickerContainer';
-
-const ga = require('react-ga');
 
 const propTypes = {
     addRecipientLocationObject: PropTypes.func,
@@ -23,7 +23,7 @@ const propTypes = {
 
 export class RecipientFilterContainer extends React.Component {
     static logLocationFilterEvent(label, event) {
-        ga.event({
+        Analytics.event({
             label,
             category: 'Search Page Filter Applied',
             action: `${event} Recipient Location Filter`

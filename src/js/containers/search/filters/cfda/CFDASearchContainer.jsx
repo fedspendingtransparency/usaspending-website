@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import CFDASearch from 'components/search/filters/cfda/CFDASearch';
@@ -19,11 +21,9 @@ const propTypes = {
     updateSelectedCFDA: PropTypes.func
 };
 
-const ga = require('react-ga');
-
 export class CFDASearchContainer extends React.Component {
     static logCFDAFilterEvent(place) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: `Applied CFDA Filter`,
             label: place.toLowerCase()

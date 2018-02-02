@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { OrderedMap, is } from 'immutable';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import AwardIDSearch from 'components/search/filters/awardID/AwardIDSearch';
@@ -19,11 +21,9 @@ const propTypes = {
     updateGenericFilter: PropTypes.func
 };
 
-const ga = require('react-ga');
-
 export class AwardIDSearchContainer extends React.Component {
     static logIdEvent(id, type) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: `Toggled Award ${type} Filter`,
             label: id

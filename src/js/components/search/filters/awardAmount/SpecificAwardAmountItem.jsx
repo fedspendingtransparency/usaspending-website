@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Analytics from 'helpers/analytics/Analytics';
 
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 
@@ -15,11 +16,9 @@ const propTypes = {
     searchSpecificRange: PropTypes.func
 };
 
-const ga = require('react-ga');
-
 export default class SpecificAwardAmountItem extends React.Component {
     static logAmountRangeEvent(range) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: 'Applied Award Amount Range Filter',
             label: range

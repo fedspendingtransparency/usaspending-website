@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import PSCSearch from 'components/search/filters/psc/PSCSearch';
@@ -19,11 +21,9 @@ const propTypes = {
     appliedPSC: PropTypes.object
 };
 
-const ga = require('react-ga');
-
 export class PSCSearchContainer extends React.Component {
     static logPSCFilterEvent(psc) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: `Applied PSC Filter`,
             label: psc

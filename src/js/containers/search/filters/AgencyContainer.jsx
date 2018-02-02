@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { is } from 'immutable';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import Agency from 'components/search/filters/agency/Agency';
@@ -22,11 +24,9 @@ const propTypes = {
     appliedAwardingAgencies: PropTypes.object
 };
 
-const ga = require('react-ga');
-
 export class AgencyContainer extends React.Component {
     static logAgencyFilterEvent(agencyType, agency) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: `Applied ${agencyType} Agency Filter`,
             label: agency.toLowerCase()

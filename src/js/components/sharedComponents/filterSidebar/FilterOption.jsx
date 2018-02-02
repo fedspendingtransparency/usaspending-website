@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Analytics from 'helpers/analytics/Analytics';
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 
 import FilterExpandButton from './FilterExpandButton';
@@ -22,11 +23,9 @@ const defaultProps = {
     defaultExpand: true
 };
 
-const ga = require('react-ga');
-
 export default class FilterOption extends React.Component {
     static logFilterEvent(name) {
-        ga.event({
+        Analytics.event({
             category: 'Search Filters',
             action: 'Expanded Filter',
             label: name

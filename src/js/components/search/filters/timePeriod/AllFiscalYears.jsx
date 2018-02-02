@@ -7,6 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import FiscalYear from './FiscalYear';
 
 const propTypes = {
@@ -15,11 +17,9 @@ const propTypes = {
     updateFilter: PropTypes.func
 };
 
-const ga = require('react-ga');
-
 export default class AllFiscalYears extends React.Component {
     static logFYEvent(year) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: 'Applied Fiscal Year Filter',
             label: year

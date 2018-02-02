@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { is } from 'immutable';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import Keyword from 'components/search/filters/keyword/Keyword';
@@ -19,11 +21,9 @@ const propTypes = {
     updateTextSearchInput: PropTypes.func
 };
 
-const ga = require('react-ga');
-
 export class KeywordContainer extends React.Component {
     static logSelectedKeywordEvent(keyword) {
-        ga.event({
+        Analytics.event({
             category: 'Search Page Filter Applied',
             action: 'Applied Keyword Filter',
             label: keyword
