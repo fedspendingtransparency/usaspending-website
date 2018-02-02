@@ -122,11 +122,6 @@ export const awardDownloadOptions = {
                 label: 'last year',
                 startDate: moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
                 endDate: moment().subtract(1, 'year').endOf('year').format('YYYY-MM-DD')
-            },
-            {
-                label: 'all time',
-                startDate: '',
-                endDate: moment().format('YYYY-MM-DD')
             }
         ]
     }

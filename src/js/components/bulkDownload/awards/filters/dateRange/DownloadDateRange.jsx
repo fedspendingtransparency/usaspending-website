@@ -46,7 +46,7 @@ export default class DownloadDateRange extends React.Component {
         return (
             <div className="date-pickers">
                 <DatePicker
-                    type="startDate"
+                    type="startDateBulk"
                     title="Start Date"
                     tabIndex={this.props.startingTab}
                     onDateChange={this.props.onDateChange}
@@ -59,7 +59,7 @@ export default class DownloadDateRange extends React.Component {
                     }}
                     allowClearing />
                 <DatePicker
-                    type="endDate"
+                    type="endDateBulk"
                     title="End Date"
                     tabIndex={this.props.startingTab + 4}
                     onDateChange={this.props.onDateChange}

@@ -1,18 +1,18 @@
 $search-header-height: rem(66);
 
-.search-header-wrapper {
+.sticky-header__wrapper {
     position: relative;
     height: $search-header-height;
 }
 
-.search-header-container {
+.sticky-header__container {
     width: 100%;
     background-color: #4A4A4A;
     color: $color-white;
     // bottom shadow cast on the content
     box-shadow: 0 2px 2px rgba(0,0,0,.3);
 
-    &.sticky {
+    &.sticky-header__container_sticky {
         @include media($medium-screen) {
             position: fixed;
             top: 0;
@@ -20,7 +20,7 @@ $search-header-height: rem(66);
         }
     }
 
-    .search-header {
+    .sticky-header {
         @import "mixins/fullSectionWrap";
         @include fullSectionWrap(0, 0);
         @include display(flex);
@@ -33,7 +33,7 @@ $search-header-height: rem(66);
 
         height: $search-header-height;
 
-        .search-title {
+        .sticky-header__title {
             @include flex(1 1 auto);
             h1 {
                 font-size: rem(24);
@@ -43,9 +43,9 @@ $search-header-height: rem(66);
             }
         }
 
-        .search-options {
+        .sticky-header__options {
             @include flex(0 0 auto);
-            @import "./_downloadButton";
+            @import "../../tabbedSearch/header/downloadButton";
         }
     }
 }

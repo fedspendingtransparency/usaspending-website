@@ -26,8 +26,8 @@ export default class TimePeriodFilter extends React.Component {
         super(props);
 
         this.state = {
-            startDateUI: null,
-            endDateUI: null,
+            startDateBulkUI: null,
+            endDateBulkUI: null,
             showError: false,
             header: '',
             description: '',
@@ -56,8 +56,8 @@ export default class TimePeriodFilter extends React.Component {
 
         if (startDate.isValid() && endDate.isValid()) {
             this.setState({
-                startDateUI: startDate,
-                endDateUI: endDate
+                startDateBulkUI: startDate,
+                endDateBulkUI: endDate
             });
         }
     }
@@ -74,12 +74,12 @@ export default class TimePeriodFilter extends React.Component {
             // start date did change and it is a valid date (not null)
             if (startDate.isValid()) {
                 datesChanged = true;
-                newState.startDateUI = startDate;
+                newState.startDateBulkUI = startDate;
             }
             else {
                 // value became null
                 datesChanged = true;
-                newState.startDateUI = null;
+                newState.startDateBulkUI = null;
             }
         }
 
@@ -89,12 +89,12 @@ export default class TimePeriodFilter extends React.Component {
             if (endDate.isValid()) {
                 // end date did change and it is a valid date (not null)
                 datesChanged = true;
-                newState.endDateUI = endDate;
+                newState.endDateBulkUI = endDate;
             }
             else if (this.props.filterTimePeriodEnd) {
                 // value became null
                 datesChanged = true;
-                newState.endDateUI = null;
+                newState.endDateBulkUI = null;
             }
         }
 
@@ -124,8 +124,8 @@ export default class TimePeriodFilter extends React.Component {
         // don't come before the start dates
 
         // validate the date ranges
-        const start = this.state.startDateUI;
-        const end = this.state.endDateUI;
+        const start = this.state.startDateBulkUI;
+        const end = this.state.endDateBulkUI;
         if (start && end) {
             // both sets of dates exist
             if (!end.isSameOrAfter(start)) {
@@ -204,14 +204,13 @@ export default class TimePeriodFilter extends React.Component {
         }
 
         let start = '';
-        if (this.state.startDateUI !== null) {
-            start = this.state.startDateUI.format('YYYY-MM-DD');
+        if (this.state.startDateBulkUI !== null) {
+            start = this.state.startDateBulkUI.format('YYYY-MM-DD');
         }
         let end = '';
-        if (this.state.endDateUI !== null) {
-            end = this.state.endDateUI.format('YYYY-MM-DD');
+        if (this.state.endDateBulkUI !== null) {
+            end = this.state.endDateBulkUI.format('YYYY-MM-DD');
         }
-
 
         return (
             <div className="filter-section">
@@ -221,8 +220,8 @@ export default class TimePeriodFilter extends React.Component {
                 <div className="filter-section-content date-range-wrapper">
                     <DownloadDateRange
                         datePlaceholder=""
-                        startDate={this.state.startDateUI}
-                        endDate={this.state.endDateUI}
+                        startDate={this.state.startDateBulkUI}
+                        endDate={this.state.endDateBulkUI}
                         onDateChange={this.handleDateChange}
                         showError={this.showError}
                         hideError={this.hideError} />

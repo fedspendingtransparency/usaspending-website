@@ -227,6 +227,26 @@ export default class DatePicker extends React.Component {
                 before: this.props.opposite.toDate()
             });
         }
+        else if (this.props.type === 'startDateBulk' && this.props.opposite) {
+            // Cutoff date represents the latest possible date
+            // We only want users to be able to download 1 year's worth of data at a time,
+            // So we set the start date a year before the end date
+            // This requires adding a day after subtracting a year
+            disabledDays.push({
+                after: this.props.opposite.toDate(),
+                before: moment(this.props.opposite).subtract(1, 'y').add(1, 'd').toDate()
+            });
+        }
+        else if (this.props.type === 'endDateBulk' && this.props.opposite) {
+            // Cutoff date represents the earliest possible date, based on the start date
+            // We only want users to be able to download 1 year's worth of data at a time,
+            // So we set the end date a year after the start date
+            // This requires subtracting a day after adding a year
+            disabledDays.push({
+                before: this.props.opposite.toDate(),
+                after: moment(this.props.opposite).add(1, 'y').subtract(1, 'd').toDate()
+            });
+        }
         else if (!this.props.value) {
             disabledDays = [];
         }
@@ -263,7 +283,7 @@ export default class DatePicker extends React.Component {
                         ref={(daypicker) => {
                             this.datepicker = daypicker;
                         }}
-                        initialMonth={pickedDay}
+                        month={pickedDay}
                         disabledDays={disabledDays}
                         selectedDays={(day) => DateUtils.isSameDay(pickedDay, day)}
                         onDayClick={this.handleDatePick}
