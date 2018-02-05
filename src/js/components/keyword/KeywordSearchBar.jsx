@@ -54,7 +54,7 @@ export default class KeywordSearchBar extends React.Component {
                     className="keyword-search-bar__input"
                     value={this.state.searchString}
                     onChange={this.changedInput}
-                    placeholder="Type keywords" />
+                    placeholder="Type keywords..." />
                 <button
                     className={`keyword-search-bar__button ${disabledClass}`}
                     onClick={this.searchKeyword}

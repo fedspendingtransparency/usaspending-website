@@ -15,7 +15,6 @@
         margin-right: rem(15);
         background-color: $color-white;
         @include media($medium-screen) {
-            padding-right: rem(10);
             width: 50%;
         }
         .keyword-search-bar__input {
@@ -24,15 +23,23 @@
             width: 85%;
             border: 0;
             padding: rem(15);
-            font-size: rem(28);
+            font-size: rem(20);
             font-weight: 300;
-            line-height: rem(36);
+            @include media($tablet-screen) {
+                width: 90%;
+                font-size: rem(28);
+                line-height: rem(36);
+            }
         }
         .keyword-search-bar__button {
             @include button-unstyled;
             height: rem(66);
             float: right;
             width: 15%;
+            padding-right: rem(15);
+            @include media($tablet-screen) {
+                width: 10%;
+            }
             .keyword-search-bar__button-icon {
                 height: rem(30);
                 width: rem(30);
