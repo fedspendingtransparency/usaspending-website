@@ -27,7 +27,7 @@ const propTypes = {
 export class AgencyContainer extends React.Component {
     static logAgencyFilterEvent(agencyType, agency) {
         Analytics.event({
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: `Applied ${agencyType} Agency Filter`,
             label: agency.toLowerCase()
         });

@@ -24,7 +24,7 @@ const propTypes = {
 export class PSCSearchContainer extends React.Component {
     static logPSCFilterEvent(psc) {
         Analytics.event({
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: `Applied PSC Filter`,
             label: psc
         });

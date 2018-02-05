@@ -19,7 +19,7 @@ const propTypes = {
 export default class SpecificAwardAmountItem extends React.Component {
     static logAmountRangeEvent(range) {
         Analytics.event({
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: 'Applied Award Amount Range Filter',
             label: range
         });

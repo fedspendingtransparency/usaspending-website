@@ -25,7 +25,7 @@ export class RecipientFilterContainer extends React.Component {
     static logLocationFilterEvent(label, event) {
         Analytics.event({
             label,
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: `${event} Recipient Location Filter`
         });
     }

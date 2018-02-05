@@ -28,7 +28,7 @@ const propTypes = {
 export class RecipientTypeContainer extends React.Component {
     static logLocationFilterEvent(placeType, place, event) {
         Analytics.event({
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: `${event} Recipient ${placeType.toLowerCase()} Filter`,
             label: place.toLowerCase()
         });

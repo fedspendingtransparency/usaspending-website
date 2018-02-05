@@ -7,13 +7,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
 import { is } from 'immutable';
 
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
 
 import SearchSidebarSubmit from 'components/search/SearchSidebarSubmit';
+
+import { convertFiltersToAnalyticEvents, sendAnalyticEvents } from './helpers/searchAnalytics';
 
 const combinedActions = Object.assign({}, appliedFilterActions, {
     clearStagedFilters
@@ -86,6 +87,9 @@ export class SearchSidebarSubmitContainer extends React.Component {
         this.setState({
             filtersChanged: false
         });
+
+        const events = convertFiltersToAnalyticEvents(this.props.stagedFilters);
+        sendAnalyticEvents(events);
     }
 
     resetFilters() {

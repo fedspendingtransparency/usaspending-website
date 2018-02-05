@@ -39,7 +39,7 @@ const defaultProps = {
 export default class PrimaryCheckboxType extends React.Component {
     static logPrimaryTypeFilterEvent(type, filter) {
         Analytics.event({
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: `Selected ${filter} Type`,
             label: type
         });
@@ -47,7 +47,7 @@ export default class PrimaryCheckboxType extends React.Component {
 
     static logDeselectFilterEvent(type, filter) {
         Analytics.event({
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: `Deselected ${filter} Type Children`,
             label: type
         });

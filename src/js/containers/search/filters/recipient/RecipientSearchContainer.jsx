@@ -24,7 +24,7 @@ const propTypes = {
 export class RecipientSearchContainer extends React.Component {
     static logRecipientFilterEvent(name) {
         Analytics.event({
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: 'Applied Recipient Name/DUNS Filter',
             label: name.toLowerCase()
         });

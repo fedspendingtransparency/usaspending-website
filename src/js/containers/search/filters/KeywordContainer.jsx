@@ -24,7 +24,7 @@ const propTypes = {
 export class KeywordContainer extends React.Component {
     static logSelectedKeywordEvent(keyword) {
         Analytics.event({
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: 'Applied Keyword Filter',
             label: keyword
         });

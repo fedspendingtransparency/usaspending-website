@@ -47,7 +47,7 @@ export default class TimePeriod extends React.Component {
 
         Analytics.event({
             label,
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: 'Applied Date Range Filter'
         });
     }

@@ -20,7 +20,7 @@ const propTypes = {
 export default class AllFiscalYears extends React.Component {
     static logFYEvent(year) {
         Analytics.event({
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: 'Applied Fiscal Year Filter',
             label: year
         });

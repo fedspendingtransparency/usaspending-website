@@ -24,7 +24,7 @@ const propTypes = {
 export class NAICSSearchContainer extends React.Component {
     static logPlaceFilterEvent(naics) {
         Analytics.event({
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: `Applied NAICS Filter`,
             label: naics.toLowerCase()
         });

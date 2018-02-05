@@ -24,7 +24,7 @@ const propTypes = {
 export class CFDASearchContainer extends React.Component {
     static logCFDAFilterEvent(place) {
         Analytics.event({
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: `Applied CFDA Filter`,
             label: place.toLowerCase()
         });

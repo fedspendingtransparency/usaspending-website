@@ -24,7 +24,7 @@ const propTypes = {
 export class AwardIDSearchContainer extends React.Component {
     static logIdEvent(id, type) {
         Analytics.event({
-            category: 'Search Page Filter Applied',
+            category: 'Search Filter Interaction',
             action: `Toggled Award ${type} Filter`,
             label: id
         });
