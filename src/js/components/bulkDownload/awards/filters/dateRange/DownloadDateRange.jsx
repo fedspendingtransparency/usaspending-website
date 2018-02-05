@@ -44,7 +44,7 @@ export default class DownloadDateRange extends React.Component {
     }
 
     generateStartDateDisabledDays() {
-        let disabledDays = [];
+        const disabledDays = [];
 
         if (this.props.endDate) {
             // Cutoff date represents the latest possible date
@@ -61,7 +61,7 @@ export default class DownloadDateRange extends React.Component {
     }
 
     generateEndDateDisabledDays() {
-        let disabledDays = [];
+        const disabledDays = [];
 
         if (this.props.startDate) {
             // Cutoff date represents the earliest possible date, based on the start date

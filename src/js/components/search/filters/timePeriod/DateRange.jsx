@@ -72,8 +72,7 @@ export default class DateRange extends React.Component {
     generateStartDateDisabledDays(earliestDate) {
         // handle the cutoff dates (preventing end dates from coming before
         // start dates or vice versa)
-        console.log(earliestDate);
-        let disabledDays = [earliestDate];
+        const disabledDays = [earliestDate];
 
         if (this.props.endDate) {
             // the cutoff date represents the latest possible date
@@ -86,7 +85,7 @@ export default class DateRange extends React.Component {
     }
 
     generateEndDateDisabledDays(earliestDate) {
-        let disabledDays = [earliestDate];
+        const disabledDays = [earliestDate];
 
         if (this.props.startDate) {
             // cutoff date represents the earliest possible date
