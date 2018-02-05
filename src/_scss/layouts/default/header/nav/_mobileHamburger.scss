@@ -1,0 +1,69 @@
+.mobile-hamburger {
+    height: rem(45);
+    width: rem(45);
+
+    .mobile-hamburger__wrapper {
+        position: absolute;
+        right: 0;
+    }
+
+    .mobile-hamburger__button {
+        @include button-unstyled;
+        @include transition(all 0.75s $ease-in-out-sine);
+        cursor: pointer;
+        display: block;
+        height: rem(45);
+        position: relative;
+        width: rem(48);
+
+        &:hover {
+            @include transition(all 0.25s $ease-in-out-sine);
+            background: $color-primary;
+        }
+    }
+
+    .mobile-hamburger__meat-buns {
+        @include transition(all 0.75s $ease-in-out-sine);
+        background: $color-primary;
+        display: inline-block;
+        height: rem(3);
+        left: rem(10);
+        position: absolute;
+        top: rem(20);
+        width: rem(28);
+        &::before,
+        &::after {
+            content: "";
+            background: $color-primary;
+            display: block;
+            height: rem(3);
+            position: absolute;
+            width: rem(28);
+        }
+        &::before {
+            top: -7px;
+            @include transition(all 1s $ease-in-out-sine);
+        }
+        &::after {
+            top: 7px;
+            @include transition(all 0.50s $ease-in-out-sine);
+        }
+    }
+
+    .mobile-hamburger__button {
+        &:hover {
+            .mobile-hamburger__meat-buns {
+                @include transition(all 0.75s $ease-in-out-sine);
+                background: white;
+                &::before,
+                &::after {
+                    @include transition(all 0.50s $ease-in-out-sine);
+                    background: white;
+                }
+                &::after {
+                    @include transition(all 1s $ease-in-out-sine);
+                }
+            }
+        }
+    }
+}

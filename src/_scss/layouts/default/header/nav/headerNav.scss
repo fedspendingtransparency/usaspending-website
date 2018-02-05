@@ -1,18 +1,43 @@
-header {
+header.site-header__wrapper {
     background-color: $color-white;
 
-    .menu-container {
-        @include display(flex);
-        @include justify-content(flex-end);
-        @include align-items(center);
-        position: relative;
-    }
+    $nav-color: #595959;
+    $nav-coming-soon: #757575;
 
-    .nav-container {
-        // style the primary menu
-        @import "./_primaryMenu";
+    .site-navigation {
+        .site-navigation__wrapper {
+            @import "mixins/fullSectionWrap";
+            @include fullSectionWrap(0, 0);
+            @include display(flex);
+            @include justify-content(space-between);
+            @include flex-direction(row);
+            @include align-items(center);
+            // style the primary menu
+            @import "./_fullMenu";
+        }
+
+        .site-navigation__logo {
+            @include flex(0 1 auto);
+        }
+
+        .site-navigation__mobile {
+            @include flex(1 0 auto);
+            position: relative;
+            @include media($medium-screen) {
+                display: none;
+            }
+        }
+
+        .site-navigation__menu {
+            display: none;
+            @include media($medium-screen) {
+                display: block;
+                @include flex(1 0 auto);
+            }
+        }
     }
     // style the mobile menu button
-    @import "./_menuButton";
+    @import "./_mobileHamburger";
     @import "./mobile/mobileNav";
+    @import "./_logo";
 }

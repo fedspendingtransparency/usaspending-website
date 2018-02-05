@@ -39,8 +39,10 @@ export default class KeywordSearchBar extends React.Component {
 
     render() {
         let disabledClass = 'disabled';
+        let submitButtonText = 'Enter at least three characters to search';
         if (this.state.searchString.length > 2) {
             disabledClass = '';
+            submitButtonText = 'Search by Keyword';
         }
         return (
             <div className="keyword-search-bar">
@@ -55,8 +57,8 @@ export default class KeywordSearchBar extends React.Component {
                     <button
                         className={`keyword-submit ${disabledClass}`}
                         onClick={this.searchKeyword}
-                        title="Search by Keyword"
-                        aria-label="Search by Keyword">
+                        title={submitButtonText}
+                        aria-label={submitButtonText}>
                         <div className="icon">
                             <Search alt="Search by Keyword" />
                         </div>

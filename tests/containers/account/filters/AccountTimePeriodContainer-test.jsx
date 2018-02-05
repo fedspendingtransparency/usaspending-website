@@ -24,7 +24,7 @@ const defaultFilters = {
 describe('AccountTimePeriodContainer', () => {
     describe('generateTimePeriods', () => {
         it('generates the current available fiscal years', () => {
-            const mockedDate = moment('2018-02-01', 'YYYY-MM-DD').toDate();
+            const mockedDate = moment('2018-02-15', 'YYYY-MM-DD').toDate();
             moment.now = () => (mockedDate);
 
             const container = shallow(<AccountTimePeriodContainer />);
@@ -36,8 +36,8 @@ describe('AccountTimePeriodContainer', () => {
             expect(container.state().timePeriods).toEqual(expectedYears);
         });
 
-        it('waits on the current fiscal year until after January 31', () => {
-            const mockedDate = moment('2018-01-31', 'YYYY-MM-DD').toDate();
+        it('waits on the current fiscal year until February 15', () => {
+            const mockedDate = moment('2018-02-14', 'YYYY-MM-DD').toDate();
             moment.now = () => (mockedDate);
 
             const container = shallow(<AccountTimePeriodContainer />);

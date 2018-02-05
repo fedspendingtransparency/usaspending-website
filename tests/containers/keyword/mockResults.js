@@ -40,7 +40,25 @@ export const mockTabCount = {
     }
 };
 
-export const mockProps = {
+export const mockTableProps = {
     keyword: '',
     fetchSummary: jest.fn()
+};
+
+export const mockRedux = {
+    bulkDownload: {
+        download: {
+            expectedFile: '',
+            expectedUrl: '',
+            pendingDownload: false,
+            showCollapsedProgress: false
+        }
+    }
+};
+
+
+export const mockActions = {
+    setDownloadExpectedFile: jest.fn(),
+    setDownloadPending: jest.fn(),
+    setDownloadExpectedUrl: jest.fn()
 };

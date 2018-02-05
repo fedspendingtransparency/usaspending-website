@@ -1,124 +1,89 @@
-.nav-dropdown-outer-wrap {
-    @include flex(1 1 auto);
-    height: rem(25);
-}
+.nav-dropdown {
+    $dropdown-hover: #EEEEEE;
+    $dropdown-border: #DCDCDC;
+    @import "./_comingSoon";
 
-.usa-nav-dropdown-button {
-    @include button-unstyled;
-    display: block;
-    height: rem(25);
-    padding: rem(0) rem(5);
-    color: $color-base;
-    font-size: rem(18);
-    line-height: rem(23);
-    font-weight: $font-normal;
-    opacity: 0.6;
-
-    .dropdown-button-content {
+    .nav-dropdown__parent {
+        @include button-unstyled;
         @include display(flex);
         @include align-items(center);
         @include justify-content(center);
         position: relative;
+        padding: rem(18) rem(20);
 
-        .dropdown-button-label {
-            @include flex(1 1 auto);
+        &:hover, &:active, &.nav-dropdown__parent_active {
+            box-shadow: 0 2px 6px 0 rgba(78,78,78,0.5);
+        }
+    }
+    .nav-dropdown__parent-label {
+        @include flex(1 1 auto);
+        color: $nav-color;
+        font-weight: $font-semibold;
+        font-size: rem(15);
+        line-height: rem(19);
+    }
+    .nav-dropdown__parent-icon {
+        @include flex(0 0 auto);
+        margin-left: rem(10);
+
+        svg {
+            width: rem(10);
+            height: rem(10);
+            fill: $nav-color;
+            margin-top: rem(3);
+        }
+    }
+
+    .nav-children {
+        display: none;
+        position: relative;
+        z-index: $z-header + 1;
+
+        &.nav-children_active {
+            display: block;
         }
 
-        .dropdown-button-icon {
-            @include flex(0 0 auto);
-            margin-left: rem(10);
+        ul.nav-children__list {
+            @include unstyled-list;
+            position: absolute;
+            left: 0;
+            width: rem(200);
+            background-color: $color-white;
+            box-shadow: 0 4px 5px 0 rgba(0,0,0,0.5);
 
-            svg {
-                width: rem(10);
-                height: rem(10);
-                fill: $color-base;
+            border-top: 1px solid $dropdown-border;
+        }
+
+        hr.nav-children__list-separator {
+            border: none;
+            border-bottom: 1px solid $dropdown-border;
+            margin: 0 rem(13);
+
+            &.nav-children__list-separator_hidden {
+                display: none;
             }
         }
-    }
 
-    &:hover, &:active, &.active {
-        opacity: 1;
-        .dropdown-button-icon {
-            svg {
-                fill: $color-base;
-            }
-        }
-    }
-}
+        a.nav-children__link {
+            display: block;
 
-.usa-nav-dropdown-list {
-    display: none;
-    z-index: $z-modal;
-    &.active {
-        display: block;
-        position: relative;
-    }
+            font-size: rem(15);
+            line-height: rem(19);
+            color: $nav-color;
+            font-weight: $font-semibold;
 
-    .dropdown-list-wrapper {
-        position: absolute;
-        padding-top: rem(13);
-    }
+            padding: rem(15) rem(20);
 
-    ul.dropdown-list {
-        position: relative;
-        @include unstyled-list;
-        background-color: $color-white;
-        box-shadow: 0 2px 5px $color-shadow;
-
-        width: 100%;
-
-        li {
-            white-space: nowrap;
-            a {
-                font-size: rem(18);
-                line-height: rem(24);
-                font-weight: $font-normal;
-                color: $color-base;
+            &:hover, &:active {
                 text-decoration: none;
-                text-align: left;
-                opacity: 0.6;
-
-                display: block;
-                padding: rem(5) rem(15);
-
-                &:hover, &:active {
-                    background-color: $color-gray-lighter;
-                    opacity: 1;
-                    text-decoration: none;
-                }
-
-                &.disabled {
-                    opacity: 0.4;
-                    pointer-events: none;
-                    padding-bottom: rem(10);
-                }
+                background-color: $dropdown-hover;
             }
 
-            .dropdown-coming-soon {
-                @include display(flex);
-                @include align-items(center);
-                @include justify-content(center);
-                position: relative;
-                line-height: rem(10);
-
-                .icon {
-                    @include flex(0 0 auto);
-                    svg {
-                        height: rem(10);
-                        width: rem(10);
-                        color: $color-gray;
-                        fill-opacity: 0.4;
-                    }
-                }
-
-                .label {
-                    @include flex(1 1 auto);
-                    margin-left: rem(5);
-                    margin-top: rem(5);
-                    font-size: rem(10);
-                    color: $color-base;
-                }
-
+            &.nav-children__link_disabled {
+                pointer-events: none;
+                cursor: not-allowed;
+                font-weight: $font-normal;
+                color: $nav-coming-soon;
             }
         }
     }

@@ -13,7 +13,7 @@ import RecipientAddress from './RecipientAddress';
 
 
 const propTypes = {
-    recipient: PropTypes.object
+    award: PropTypes.object
 };
 
 export default class RecipientInfo extends React.Component {
@@ -24,20 +24,17 @@ export default class RecipientInfo extends React.Component {
             moreTypesButton: true
         };
 
-        this.buildSnippets = this.buildSnippets.bind(this);
-        this.buildName = this.buildName.bind(this);
         this.toggleButton = this.toggleButton.bind(this);
     }
 
     buildName() {
-        const recipient = this.props.recipient;
-        const isMultiple = toLower(this.props.recipient.recipient_name) === 'multiple recipients';
-        let recipientName = this.props.recipient.recipient_name;
+        const isMultiple = toLower(this.props.award.recipient_name) === 'multiple recipients';
+        let recipientName = this.props.award.recipient_name;
         let address = null;
         if (isMultiple) {
-            if (recipient.recipient_county && recipient.recipient_state_province) {
-                address = ` in ${recipient.recipient_county},
-                ${recipient.recipient_state_province}`;
+            if (this.props.award.recipient_county && this.props.award.recipient_state_province) {
+                address = ` in ${this.props.award.recipient_county},
+                ${this.props.award.recipient_state_province}`;
             }
             recipientName = `Multiple Recipients${address}`;
         }
@@ -50,129 +47,118 @@ export default class RecipientInfo extends React.Component {
         });
     }
 
-    buildSnippets() {
-        const recipient = this.props.recipient;
-        const isMultiple = toLower(this.props.recipient.recipient_name) === 'multiple recipients';
-        const multiDescription = `An award with multiple recipients indicates an aggregate award.
-        Aggregate awards exist to protect recipient Personally Identifiable Information (PII).
-        Agencies are currently required to aggregate these awards on a county level.`;
+    buildMultipleRecipients() {
+        const description = 'An award with multiple recipients indicates an aggregate award. Aggregate awards exist to protect recipient Personally Identifiable Information (PII). Agencies are currently required to aggregate these awards on a county level.';
+        return (
+            <ul className="recipient-information single">
+                <InfoSnippet
+                    label=""
+                    value={description} />
+            </ul>
+        );
+    }
 
-        let duns = "Not Available";
-        let parentDuns = "Not Available";
-        const isContract = includes(awardTypeGroups.contracts, this.props.recipient.award_type);
-
-        if (this.props.recipient.recipient_parent_duns) {
-            parentDuns = this.props.recipient.recipient_parent_duns;
+    buildParentDuns(isContract) {
+        if (!isContract) {
+            return null;
         }
-        if (this.props.recipient.recipient_duns) {
-            duns = this.props.recipient.recipient_duns;
-        }
-
-        let businessType = "Not Available";
-        let businessTypeLabel = "Business Type";
-        let overflow = false;
-        const businessTypesArray = [];
-        let typesList = '';
-
-        if (isContract && this.props.recipient.recipient_business_type === 'Unknown Types') {
-            businessTypeLabel = "Business Types";
-            // Build an array of applicable business type fields
-            const allBusinessTypes = BusinessTypesHelper.getBusinessTypes();
-            allBusinessTypes.forEach((type) => {
-                if (recipient.latest_transaction.recipient[type.fieldName] === '1') {
-                    businessTypesArray.push(type);
-                }
-            });
-
-            if ((businessTypesArray.length > 0) && (businessTypesArray.length <= 2)) {
-                // Show all the business types
-                typesList = businessTypesArray.map((type) => <li key={type.fieldName}>{type.displayName}</li>);
-            }
-            else if (businessTypesArray.length > 2) {
-                // Show just the first two types until a user clicks the 'See More' button
-                overflow = true;
-                if (this.state.moreTypesButton) {
-                    typesList = [businessTypesArray[0], businessTypesArray[1]].map((type) =>
-                        <li key={type.fieldName}>{type.displayName}</li>
-                    );
-                }
-                else {
-                    typesList = businessTypesArray.map((type) =>
-                        <li key={type.fieldName}>{type.displayName}</li>
-                    );
-                }
-            }
-        }
-        else {
-            businessType = this.props.recipient.recipient_business_type;
-        }
-
-        let parentDunsSnippet = (
+        return (
             <InfoSnippet
                 label="Parent DUNS"
-                value={parentDuns} />);
+                value={this.props.award.recipient_parent_duns || 'Not Available'} />
+        );
+    }
+
+    buildBusinessTypes(isContract) {
         if (!isContract) {
-            // There is no parent DUNS
-            parentDunsSnippet = '';
+            return (
+                <InfoSnippet
+                    label="Business Type"
+                    value={this.props.award.recipient_business_type || 'Not Available'} />
+            );
         }
 
-        let businessTypesSnippet = (
-            <InfoSnippet
-                label={businessTypeLabel}
-                value={businessType} />);
+        const listItems = [];
+        BusinessTypesHelper.getBusinessTypes().forEach((type) => {
+            // loop through all available business types
+            if (this.props.award.latest_transaction.recipient[type.fieldName]) {
+                // the business type item exists in the API response
+                let displayClass = '';
+                if (this.state.moreTypesButton && listItems.length >= 2) {
+                    // we should hide the item until the class is expanded
+                    displayClass = 'hide';
+                }
 
-        if (overflow) {
-            let button = (
-                <button
-                    onClick={this.toggleButton}
-                    className="see-more">{`See ${businessTypesArray.length - 2} more`}
-                </button>
-            );
-            if (!this.state.moreTypesButton) {
-                button = (
-                    <button
-                        onClick={this.toggleButton}
-                        className="see-more">
-                        See fewer
-                    </button>
+                listItems.push(
+                    <li
+                        key={type.fieldName}
+                        className={displayClass}>
+                        {type.displayName}
+                    </li>
                 );
             }
-            businessTypesSnippet = (
-                <li>
-                    <div className="format-item">
-                        <div className="item-label">
-                            Business Types
-                        </div>
-                        <div className="item-value">
-                            <ul className="business-types-list">
-                                {typesList}
-                            </ul>
-                            {button}
-                        </div>
-                    </div>
-                </li>);
+        });
+
+        let expandButton = null;
+
+        if (listItems.length > 2) {
+            let label = `See ${listItems.length - 2} more`;
+            if (!this.state.moreTypesButton) {
+                label = 'See fewer';
+            }
+            expandButton = (
+                <button
+                    onClick={this.toggleButton}
+                    className="see-more">
+                    {label}
+                </button>
+            );
+        }
+        else if (listItems.length === 0) {
+            listItems.push(
+                <li
+                    key="not-available">
+                    Not Available
+                </li>
+            );
         }
 
-        let infoSnippets = (
+        return (
+            <li>
+                <div className="format-item">
+                    <div className="item-label">
+                        Business Types
+                    </div>
+                    <div className="item-value">
+                        <ul className="business-types-list">
+                            {listItems}
+                        </ul>
+                        {expandButton}
+                    </div>
+                </div>
+            </li>
+        );
+    }
+
+    buildSnippets() {
+        if (toLower(this.props.award.recipient_name) === 'multiple recipients') {
+            // there are multiple recipients
+            return this.buildMultipleRecipients();
+        }
+
+        const isContract = includes(awardTypeGroups.contracts, this.props.award.award_type);
+
+        return (
             <ul className="recipient-information">
                 <RecipientAddress
-                    recipient={recipient} />
+                    recipient={this.props.award} />
                 <InfoSnippet
                     label="DUNS"
-                    value={duns} />
-                {parentDunsSnippet}
-                {businessTypesSnippet}
-            </ul>);
-
-        if (isMultiple) {
-            infoSnippets = (
-                <ul className="recipient-information single">
-                    <InfoSnippet
-                        label=""
-                        value={multiDescription} />
-                </ul>);
-        }
-        return infoSnippets;
+                    value={this.props.award.recipient_duns || 'Not Available'} />
+                {this.buildParentDuns(isContract)}
+                {this.buildBusinessTypes(isContract)}
+            </ul>
+        );
     }
 
     render() {
