@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Set } from 'immutable';
 
-import Analytics from 'helpers/analytics/Analytics';
-
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
 import DateRange from './DateRange';
@@ -36,22 +34,6 @@ const propTypes = {
 };
 
 export default class TimePeriod extends React.Component {
-    static logDateRangeEvent(start, end) {
-        let label = `${start} to ${end}`;
-        if (!start) {
-            label = `Through ${end}`;
-        }
-        else if (!end) {
-            label = `On or after ${start}`;
-        }
-
-        Analytics.event({
-            label,
-            category: 'Search Filter Interaction',
-            action: 'Applied Date Range Filter'
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -192,10 +174,6 @@ export default class TimePeriod extends React.Component {
                     startDate: start.format('YYYY-MM-DD'),
                     endDate: end.format('YYYY-MM-DD')
                 });
-                // Analytics
-                const startDate = start.format('YYYY-MM-DD');
-                const endDate = end.format('YYYY-MM-DD');
-                TimePeriod.logDateRangeEvent(startDate, endDate);
             }
         }
         else if (start || end) {

@@ -9,8 +9,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
 
-import Analytics from 'helpers/analytics/Analytics';
-
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import PSCSearch from 'components/search/filters/psc/PSCSearch';
@@ -22,14 +20,6 @@ const propTypes = {
 };
 
 export class PSCSearchContainer extends React.Component {
-    static logPSCFilterEvent(psc) {
-        Analytics.event({
-            category: 'Search Filter Interaction',
-            action: `Applied PSC Filter`,
-            label: psc
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -44,9 +34,6 @@ export class PSCSearchContainer extends React.Component {
             const updateParams = {};
             updateParams.psc = psc;
             this.props.updateSelectedPSC(updateParams);
-
-            // Analytics
-            PSCSearchContainer.logPSCFilterEvent(psc);
         }
     }
 

@@ -9,8 +9,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { is } from 'immutable';
 
-import Analytics from 'helpers/analytics/Analytics';
-
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import Agency from 'components/search/filters/agency/Agency';
@@ -25,14 +23,6 @@ const propTypes = {
 };
 
 export class AgencyContainer extends React.Component {
-    static logAgencyFilterEvent(agencyType, agency) {
-        Analytics.event({
-            category: 'Search Filter Interaction',
-            action: `Applied ${agencyType} Agency Filter`,
-            label: agency.toLowerCase()
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -51,15 +41,6 @@ export class AgencyContainer extends React.Component {
             }
             else {
                 this.props.updateSelectedAwardingAgencies(updateParams);
-            }
-
-            // Analytics
-
-            if (agency.agencyType === 'subtier') {
-                AgencyContainer.logAgencyFilterEvent(agencyType, agency.subtier_agency.name);
-            }
-            else {
-                AgencyContainer.logAgencyFilterEvent(agencyType, agency.toptier_agency.name);
             }
         }
     }

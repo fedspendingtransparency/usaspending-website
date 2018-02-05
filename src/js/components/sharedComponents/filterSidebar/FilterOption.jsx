@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Analytics from 'helpers/analytics/Analytics';
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 
 import FilterExpandButton from './FilterExpandButton';
@@ -24,14 +23,6 @@ const defaultProps = {
 };
 
 export default class FilterOption extends React.Component {
-    static logFilterEvent(name) {
-        Analytics.event({
-            category: 'Search Filters',
-            action: 'Expanded Filter',
-            label: name
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -86,8 +77,6 @@ export default class FilterOption extends React.Component {
             let newArrowState = 'collapsed';
             if (newShowState) {
                 newArrowState = 'expanded';
-                const filterName = this.props.name;
-                FilterOption.logFilterEvent(filterName);
             }
             this.setState({
                 isDirty: true, showFilter: newShowState, arrowState: newArrowState

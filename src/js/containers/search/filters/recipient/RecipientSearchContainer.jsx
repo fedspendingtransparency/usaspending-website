@@ -9,8 +9,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { is } from 'immutable';
 
-import Analytics from 'helpers/analytics/Analytics';
-
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import RecipientSearch from 'components/search/filters/recipient/RecipientSearch';
@@ -22,14 +20,6 @@ const propTypes = {
 };
 
 export class RecipientSearchContainer extends React.Component {
-    static logRecipientFilterEvent(name) {
-        Analytics.event({
-            category: 'Search Filter Interaction',
-            action: 'Applied Recipient Name/DUNS Filter',
-            label: name.toLowerCase()
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -39,9 +29,6 @@ export class RecipientSearchContainer extends React.Component {
 
     toggleRecipient(recipient) {
         this.props.updateSelectedRecipients(recipient);
-
-        // Analytics
-        RecipientSearchContainer.logRecipientFilterEvent(recipient);
     }
 
     dirtyFilters() {

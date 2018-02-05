@@ -9,8 +9,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { is } from 'immutable';
 
-import Analytics from 'helpers/analytics/Analytics';
-
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import Keyword from 'components/search/filters/keyword/Keyword';
@@ -22,14 +20,6 @@ const propTypes = {
 };
 
 export class KeywordContainer extends React.Component {
-    static logSelectedKeywordEvent(keyword) {
-        Analytics.event({
-            category: 'Search Filter Interaction',
-            action: 'Applied Keyword Filter',
-            label: keyword
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -69,11 +59,6 @@ export class KeywordContainer extends React.Component {
     submitText() {
         // take in keywords and pass to redux
         this.props.updateTextSearchInput(this.state.value);
-
-        // Analytics
-        if (this.state.value) {
-            KeywordContainer.logSelectedKeywordEvent(this.state.value);
-        }
     }
 
     removeKeyword() {

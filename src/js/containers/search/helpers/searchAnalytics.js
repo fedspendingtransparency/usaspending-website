@@ -4,6 +4,7 @@
  */
 
 import { Set } from 'immutable';
+import { uniq } from 'lodash';
 import { awardTypeCodes } from 'dataMapping/search/awardType';
 import { recipientTypes, groupLabels } from 'dataMapping/search/recipientType';
 import {
@@ -199,12 +200,25 @@ export const convertFiltersToAnalyticEvents = (redux) => {
 };
 
 export const sendAnalyticEvents = (events) => {
-    console.time('analytic');
     events.forEach((event) => {
         Analytics.event(Object.assign({}, event, {
             category: eventCategory
         }));
     });
-    console.timeEnd('analytic');
 };
 
+export const sendFieldCombinations = (events) => {
+    // record the filter field combinations that were selected
+    // extract the action label from each event and then eliminate duplicates
+    const fields = uniq(events.reduce((parsed, event) => {
+        if (event.action) {
+            parsed.push(event.action);
+        }
+        return parsed;
+    }, []));
+
+    Analytics.event({
+        category: 'Applied Search Fields',
+        action: fields.sort().join('-')
+    });
+};

@@ -9,8 +9,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
 
-import Analytics from 'helpers/analytics/Analytics';
-
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import CFDASearch from 'components/search/filters/cfda/CFDASearch';
@@ -22,14 +20,6 @@ const propTypes = {
 };
 
 export class CFDASearchContainer extends React.Component {
-    static logCFDAFilterEvent(place) {
-        Analytics.event({
-            category: 'Search Filter Interaction',
-            action: `Applied CFDA Filter`,
-            label: place.toLowerCase()
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -44,9 +34,6 @@ export class CFDASearchContainer extends React.Component {
             const updateParams = {};
             updateParams.cfda = cfda;
             this.props.updateSelectedCFDA(updateParams);
-
-            // Analytics
-            CFDASearchContainer.logCFDAFilterEvent(cfda.program_number);
         }
     }
 

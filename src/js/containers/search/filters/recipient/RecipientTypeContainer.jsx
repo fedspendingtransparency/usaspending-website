@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import { keyBy } from 'lodash';
 
 import { recipientTypeGroups } from 'dataMapping/search/recipientType';
-import Analytics from 'helpers/analytics/Analytics';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -26,14 +25,6 @@ const propTypes = {
 };
 
 export class RecipientTypeContainer extends React.Component {
-    static logLocationFilterEvent(placeType, place, event) {
-        Analytics.event({
-            category: 'Search Filter Interaction',
-            action: `${event} Recipient ${placeType.toLowerCase()} Filter`,
-            label: place.toLowerCase()
-        });
-    }
-
     constructor(props) {
         super(props);
 

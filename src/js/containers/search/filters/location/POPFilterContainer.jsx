@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Analytics from 'helpers/analytics/Analytics';
-
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import SelectedLocations from 'components/search/filters/location/SelectedLocations';
@@ -22,14 +20,6 @@ const propTypes = {
 };
 
 export class POPFilterContainer extends React.Component {
-    static logLocationFilterEvent(label, event) {
-        Analytics.event({
-            label,
-            category: 'Search Filter Interaction',
-            action: `${event} Place of Performance Location Filter`
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -39,7 +29,6 @@ export class POPFilterContainer extends React.Component {
 
     addLocation(location) {
         this.props.addPOPLocationObject(location);
-        POPFilterContainer.logLocationFilterEvent(location.identifier, 'Applied');
     }
 
     removeLocation(locationId) {
@@ -48,8 +37,6 @@ export class POPFilterContainer extends React.Component {
             type: 'selectedLocations',
             value: newValue
         });
-
-        POPFilterContainer.logLocationFilterEvent(locationId, 'Removed');
     }
 
     render() {

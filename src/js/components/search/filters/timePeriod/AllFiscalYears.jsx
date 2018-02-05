@@ -7,8 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
-import Analytics from 'helpers/analytics/Analytics';
-
 import FiscalYear from './FiscalYear';
 
 const propTypes = {
@@ -18,14 +16,6 @@ const propTypes = {
 };
 
 export default class AllFiscalYears extends React.Component {
-    static logFYEvent(year) {
-        Analytics.event({
-            category: 'Search Filter Interaction',
-            action: 'Applied Fiscal Year Filter',
-            label: year
-        });
-    }
-
     constructor(props) {
         super(props);
         // bind functions
@@ -43,8 +33,6 @@ export default class AllFiscalYears extends React.Component {
         else {
             // the year does not yet exist in the set so we are adding
             newYears = this.props.selectedFY.add(year);
-            // Analytics
-            AllFiscalYears.logFYEvent(year);
         }
 
         this.props.updateFilter({
@@ -64,8 +52,6 @@ export default class AllFiscalYears extends React.Component {
         else {
             // we need to select all the years
             newYears = new Set(this.props.timePeriods);
-            // Analytics
-            AllFiscalYears.logFYEvent('all');
         }
 
         this.props.updateFilter({

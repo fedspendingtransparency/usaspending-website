@@ -65,8 +65,7 @@ export default class AwardType extends React.Component {
                     types={awardTypeCodes}
                     filterType="Award"
                     selectedCheckboxes={this.props.awardType}
-                    bulkTypeChange={this.props.bulkTypeChange}
-                    enableAnalytics />)
+                    bulkTypeChange={this.props.bulkTypeChange} />)
             ));
 
         return (

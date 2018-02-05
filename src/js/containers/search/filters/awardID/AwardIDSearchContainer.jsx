@@ -9,8 +9,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { OrderedMap, is } from 'immutable';
 
-import Analytics from 'helpers/analytics/Analytics';
-
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import AwardIDSearch from 'components/search/filters/awardID/AwardIDSearch';
@@ -22,14 +20,6 @@ const propTypes = {
 };
 
 export class AwardIDSearchContainer extends React.Component {
-    static logIdEvent(id, type) {
-        Analytics.event({
-            category: 'Search Filter Interaction',
-            action: `Toggled Award ${type} Filter`,
-            label: id
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -53,19 +43,13 @@ export class AwardIDSearchContainer extends React.Component {
                 [id]: id
             })
         });
-
-        // Analytics
-        AwardIDSearchContainer.logIdEvent(id, 'Apply Award ID');
     }
 
-    removeAwardID(id) {
+    removeAwardID() {
         this.props.updateGenericFilter({
             type: 'selectedAwardIDs',
             value: new OrderedMap()
         });
-
-        // Analytics
-        AwardIDSearchContainer.logIdEvent(id, 'Remove Award ID');
     }
 
     dirtyFilters() {

@@ -9,8 +9,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
 
-import Analytics from 'helpers/analytics/Analytics';
-
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import NAICSSearch from 'components/search/filters/naics/NAICSSearch';
@@ -22,14 +20,6 @@ const propTypes = {
 };
 
 export class NAICSSearchContainer extends React.Component {
-    static logPlaceFilterEvent(naics) {
-        Analytics.event({
-            category: 'Search Filter Interaction',
-            action: `Applied NAICS Filter`,
-            label: naics.toLowerCase()
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -44,9 +34,6 @@ export class NAICSSearchContainer extends React.Component {
             const updateParams = {};
             updateParams.naics = naics;
             this.props.updateSelectedNAICS(updateParams);
-
-            // Analytics
-            NAICSSearchContainer.logPlaceFilterEvent(naics.naics_description);
         }
     }
 

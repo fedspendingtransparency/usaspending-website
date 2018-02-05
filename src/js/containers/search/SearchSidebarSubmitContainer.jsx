@@ -14,7 +14,7 @@ import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/sear
 
 import SearchSidebarSubmit from 'components/search/SearchSidebarSubmit';
 
-import { convertFiltersToAnalyticEvents, sendAnalyticEvents } from './helpers/searchAnalytics';
+import { convertFiltersToAnalyticEvents, sendAnalyticEvents, sendFieldCombinations } from './helpers/searchAnalytics';
 
 const combinedActions = Object.assign({}, appliedFilterActions, {
     clearStagedFilters
@@ -90,6 +90,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
 
         const events = convertFiltersToAnalyticEvents(this.props.stagedFilters);
         sendAnalyticEvents(events);
+        sendFieldCombinations(events);
     }
 
     resetFilters() {

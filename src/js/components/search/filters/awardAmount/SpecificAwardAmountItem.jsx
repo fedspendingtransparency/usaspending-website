@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Analytics from 'helpers/analytics/Analytics';
 
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 
@@ -17,14 +16,6 @@ const propTypes = {
 };
 
 export default class SpecificAwardAmountItem extends React.Component {
-    static logAmountRangeEvent(range) {
-        Analytics.event({
-            category: 'Search Filter Interaction',
-            action: 'Applied Award Amount Range Filter',
-            label: range
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -69,10 +60,6 @@ export default class SpecificAwardAmountItem extends React.Component {
         });
 
         this.props.searchSpecificRange([min, max]);
-
-        // Analytics
-        const formattedRange = AwardAmountHelper.formatAwardAmountRange([min, max]);
-        SpecificAwardAmountItem.logAmountRangeEvent(formattedRange);
     }
 
     render() {
