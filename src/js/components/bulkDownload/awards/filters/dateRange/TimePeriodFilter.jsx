@@ -28,7 +28,7 @@ const errorTypes = {
     },
     range: {
         title: 'Invalid Date Range',
-        message: 'The date range entered must be 1 year or less.'
+        message: 'Choose one of the ranges below or set your own range of one year or less.'
     }
 };
 
@@ -138,7 +138,7 @@ export default class TimePeriodFilter extends React.Component {
         const start = this.state.startDateBulkUI;
         const end = this.state.endDateBulkUI;
 
-        const yearBeforeEnd = moment(this.state.endDateBulkUI).subtract(1, 'y').add(1, 'd');
+        const yearBeforeEnd = moment(this.state.endDateBulkUI).subtract(1, 'y');
 
         if (start && end) {
             // both sets of dates exist

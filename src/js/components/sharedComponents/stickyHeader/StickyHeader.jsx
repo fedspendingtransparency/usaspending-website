@@ -69,7 +69,7 @@ export default class StickyHeader extends React.Component {
 
         return (
             <div
-                className="sticky-header__wrapper"
+                className="sticky-header"
                 ref={(div) => {
                     this.wrapper = div;
                 }}>
@@ -79,7 +79,7 @@ export default class StickyHeader extends React.Component {
                         this.content = div;
                     }}>
                     <div
-                        className="sticky-header"
+                        className="sticky-header__header"
                         aria-labelledby="main-focus">
                         {this.props.children}
                     </div>

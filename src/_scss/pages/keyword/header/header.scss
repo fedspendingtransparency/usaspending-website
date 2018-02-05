@@ -1,66 +1,71 @@
 @import "layouts/default/stickyHeader/header";
 
-.sticky-header__container {
-    .sticky-header {
-        .sticky-header__title {
-            @include span-columns(8);
-            @include media($medium-screen) {
-                @include span-columns(4);
-            }
+.keyword-header__title {
+    @include flex(1 1 auto);
+    @include span-columns(8);
+    @include media($medium-screen) {
+        @include span-columns(4);
+    }
+
+    h1 {
+        font-size: rem(24);
+        line-height: rem(31);
+        font-weight: $font-semibold;
+        margin: 0;
+    }
+}
+
+.keyword-header__summary {
+    // Hide the search summary for small screens
+    display: none;
+    font-size: $small-font-size;
+
+    @include media($medium-screen) {
+        @include span-columns(8);
+        @include display(flex);
+    }
+
+    .keyword-header__summary-title {
+        font-weight: $font-semibold;
+        padding-right: rem(10);
+        margin-right: rem(10);
+        border-right: solid 1px $color-white;
+    }
+
+    .keyword-header__summary-award-amounts,
+    .keyword-header__summary-award-counts {
+        margin-right: rem(20);
+
+        .keyword-header__summary-number_bold {
+            font-weight: $font-semibold;
         }
+    }
+}
 
-        .sticky-header__summary {
-            // Hide the search summary for small screens
-            display: none;
-            font-size: $small-font-size;
+.keyword-header__options {
+    @include flex(0 0 auto);
+    @import "../../../layouts/tabbedSearch/header/downloadButton";
 
-            @include media($medium-screen) {
-                @include span-columns(8);
-                @include display(flex);
-            }
+    @include span-columns(8);
+    @include media($medium-screen) {
+        @include span-columns(4);
+    }
 
-            .sticky-header__summary_title {
-                font-weight: $font-semibold;
-                padding-right: rem(10);
-                margin-right: rem(10);
-                border-right: solid 1px $color-white;
-            }
-
-            .sticky-header__summary_award-amounts,
-            .sticky-header__summary_award-counts {
-                margin-right: rem(20);
-                .number {
-                    font-weight: $font-semibold;
-                }
-            }
+    .download-wrap {
+        .download-hover-spacer {
+            left: rem(-140);
+            width: rem(290);
         }
-
-        .sticky-header__options {
-            @include span-columns(8);
-            @include media($medium-screen) {
-                @include span-columns(4);
-            }
-
-            .download-wrap {
-                .download-hover-spacer {
-                    left: rem(-140);
-                    width: rem(290);
-                }
-                .download-button {
-                    float: right;
-                }
-            }
-
-            &.no-hover {
-                .download-wrap {
-                    .download-hover-spacer {
-                        display: none;
-                    }
-                }
-            }
+        .download-button {
+            float: right;
         }
-        &:after {
-            display: block;
+    }
+
+    &.no-hover {
+        .download-wrap {
+            .download-hover-spacer {
+                display: none;
+            }
         }
     }
 }

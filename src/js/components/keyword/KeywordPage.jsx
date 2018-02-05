@@ -119,18 +119,18 @@ export default class KeywordPage extends React.Component {
         }
 
         return (
-            <div className="sticky-header__summary">
-                <div className="sticky-header__summary_title">
+            <div className="keyword-header__summary">
+                <div className="keyword-header__summary-title">
                     Search Summary
                 </div>
-                <div className="sticky-header__summary_award-amounts">
-                    <div className="prime">
-                        Total Prime Award Amount: <span className="number">{formattedPrimeAmount}</span>
+                <div className="keyword-header__summary-award-amounts">
+                    <div>
+                        Total Prime Award Amount: <span className="keyword-header__summary-number_bold">{formattedPrimeAmount}</span>
                     </div>
                 </div>
-                <div className="sticky-header__summary_award-counts">
-                    <div className="prime">
-                        Prime Award Transaction Count: <span className="number">{formattedPrimeCount}</span>
+                <div className="keyword-header__summary-award-counts">
+                    <div>
+                        Prime Award Transaction Count: <span className="keyword-header__summary-number_bold">{formattedPrimeCount}</span>
                     </div>
                 </div>
             </div>
@@ -156,11 +156,11 @@ export default class KeywordPage extends React.Component {
                 <Header />
                 <main id="main-content">
                     <StickyHeader>
-                        <div className="sticky-header__title">
+                        <div className="keyword-header__title">
                             <h1>Keyword Search</h1>
                         </div>
                         {searchSummary}
-                        <div className={`sticky-header__options ${this.props.keyword ? '' : 'no-hover'}`}>
+                        <div className={`keyword-header__options ${this.props.keyword ? '' : 'no-hover'}`}>
                             <DownloadButton
                                 downloadAvailable={this.props.downloadAvailable}
                                 onClick={this.clickedDownload} />
