@@ -21,6 +21,17 @@ const propTypes = {
     setValidDates: PropTypes.func
 };
 
+const errorTypes = {
+    order: {
+        title: 'Invalid Dates',
+        message: 'The end date cannot be earlier than the start date.'
+    },
+    range: {
+        title: 'Invalid Date Range',
+        message: 'The date range entered must be 1 year or less.'
+    }
+};
+
 export default class TimePeriodFilter extends React.Component {
     constructor(props) {
         super(props);
@@ -121,18 +132,27 @@ export default class TimePeriodFilter extends React.Component {
 
     validateDates() {
         // validate that dates are provided for both fields and the end dates
-        // don't come before the start dates
+        // don't come before the start dates, and that the range is less than one year
 
         // validate the date ranges
         const start = this.state.startDateBulkUI;
         const end = this.state.endDateBulkUI;
+
+        const yearBeforeEnd = moment(this.state.endDateBulkUI).subtract(1, 'y').add(1, 'd');
+
         if (start && end) {
             // both sets of dates exist
             if (!end.isSameOrAfter(start)) {
                 // end date comes before start date, invalid
                 // show an error message
-                this.showError('Invalid Dates',
-                    'The end date cannot be earlier than the start date.');
+                const error = errorTypes.order;
+                this.showError(error.title, error.message);
+            }
+            else if (!start.isSameOrAfter(yearBeforeEnd)) {
+                // Start date is more than one year before the end date
+                // show an error message
+                const error = errorTypes.range;
+                this.showError(error.title, error.message);
             }
             else {
                 // valid!

@@ -22,14 +22,20 @@ import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
 
 export const dataTypes = [
     {
+        type: 'award_data_archive',
+        label: 'Award Data Archive',
+        disabled: false,
+        url: ''
+    },
+    {
         type: 'awards',
-        label: 'Award Data',
+        label: 'Custom Award Data',
         disabled: false,
         url: ''
     },
     {
         type: 'accounts',
-        label: 'Account Data',
+        label: 'Custom Account Data',
         disabled: true,
         url: ''
     },
