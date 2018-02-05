@@ -1,4 +1,4 @@
-.search-bar-section {
+.keyword-search-bar {
     background-color: $color-primary-alt-lightest;
     padding: rem(15);
     border: 1px solid $color-vis-lightest;
@@ -8,54 +8,53 @@
         @include align-items(center);
         @include justify-content(space-evenly);
     }
-    .keyword-search-bar {
+
+    .keyword-search-bar__form {
+        width: 100%;
+        border: 1px solid $color-gray-light;
+        margin-right: rem(15);
+        background-color: $color-white;
         @include media($medium-screen) {
             padding-right: rem(10);
             width: 50%;
         }
-        form {
-            width: 100%;
-            border: 1px solid $color-gray-light;
-            margin-right: rem(15);
-            background-color: $color-white;
-            input.keyword-input {
-                margin-right: 0;
-                height: rem(66);
-                width: 85%;
-                border: 0;
-                padding: rem(15);
-                font-size: rem(28);
-                font-weight: 300;
-                line-height: rem(36);
+        .keyword-search-bar__input {
+            margin-right: 0;
+            height: rem(66);
+            width: 85%;
+            border: 0;
+            padding: rem(15);
+            font-size: rem(28);
+            font-weight: 300;
+            line-height: rem(36);
+        }
+        .keyword-search-bar__button {
+            @include button-unstyled;
+            height: rem(66);
+            float: right;
+            width: 15%;
+            .keyword-search-bar__button-icon {
+                height: rem(30);
+                width: rem(30);
+                margin: auto;
+                svg {
+                    fill: $color-gray;
+                }
             }
-            button.keyword-submit {
-                @include button-unstyled;
-                height: rem(66);
-                float: right;
-                width: 15%;
-                .icon {
-                    height: rem(30);
-                    width: rem(30);
-                    margin: auto;
+            &.keyword-search-bar__button_disabled {
+                .keyword-search-bar__button-icon {
                     svg {
-                        fill: $color-gray;
+                        fill: $color-gray-lighter;
                     }
                 }
-                &.disabled {
-                    .icon {
-                        svg {
-                            fill: $color-gray-lighter;
-                        }
-                    }
-                    &:hover {
-                        cursor: not-allowed;
-                    }
+                &:hover {
+                    cursor: not-allowed;
                 }
             }
         }
     }
 
-    .info-text {
+    .keyword-search-bar__info {
         font-size: $small-font-size;
         line-height: rem(26);
         padding-left: rem(10);
@@ -64,11 +63,11 @@
             width: 50%;
             padding-top: 0;
         }
-        .info-wrap {
+        .keyword-search-bar__icon-wrapper {
             display: inline-block;
             margin: 0 rem(5);
             @import "keywordTooltip";
-            .icon {
+            .keyword-search-bar__icon {
                 @include button-unstyled;
                 height: rem(15);
                 width: rem(15);

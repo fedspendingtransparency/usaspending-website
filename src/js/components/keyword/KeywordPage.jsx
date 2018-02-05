@@ -104,18 +104,18 @@ export default class KeywordPage extends React.Component {
                         clickedDownload={this.clickedDownload}
                         keyword={this.props.keyword} />
                     <div className="keyword-content">
-                        <div className="search-bar-section">
+                        <div className="keyword-search-bar">
                             <KeywordSearchBar
                                 updateKeyword={this.props.updateKeyword} />
-                            <div className="info-text">
+                            <div className="keyword-search-bar__info">
                                 Use the Keyword Search to get a broad picture of award data on a given theme.
                                 You can search through only award descriptions, or award descriptions plus other
                                 attributes.
-                                <div className="info-wrap">
+                                <div className="keyword-search-bar__icon-wrapper">
                                     {hover}
                                     <button
                                         onClick={this.showTooltip}
-                                        className="icon">
+                                        className="keyword-search-bar__icon">
                                         <InfoCircle />
                                     </button>
                                 </div>
