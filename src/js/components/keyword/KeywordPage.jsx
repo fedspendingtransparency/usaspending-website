@@ -124,13 +124,13 @@ export default class KeywordPage extends React.Component {
                     Search Summary
                 </div>
                 <div className="keyword-header__summary-award-amounts">
-                    <div>
-                        Total Prime Award Amount: <span className="keyword-header__summary-number_bold">{formattedPrimeAmount}</span>
+                    <div className="keyword-header__summary-amount">
+                        Total Prime Award Amount: <span className="keyword-header__summary-amount_bold">{formattedPrimeAmount}</span>
                     </div>
                 </div>
                 <div className="keyword-header__summary-award-counts">
-                    <div>
-                        Prime Award Transaction Count: <span className="keyword-header__summary-number_bold">{formattedPrimeCount}</span>
+                    <div className="keyword-header__summary-amount">
+                        Prime Award Transaction Count: <span className="keyword-header__summary-amount_bold">{formattedPrimeCount}</span>
                     </div>
                 </div>
             </div>
@@ -156,14 +156,16 @@ export default class KeywordPage extends React.Component {
                 <Header />
                 <main id="main-content">
                     <StickyHeader>
-                        <div className="keyword-header__title">
-                            <h1>Keyword Search</h1>
-                        </div>
-                        {searchSummary}
-                        <div className={`keyword-header__options ${this.props.keyword ? '' : 'no-hover'}`}>
-                            <DownloadButton
-                                downloadAvailable={this.props.downloadAvailable}
-                                onClick={this.clickedDownload} />
+                        <div className="keyword-header">
+                            <div className="keyword-header__title">
+                                <h1>Keyword Search</h1>
+                            </div>
+                            {searchSummary}
+                            <div className={`keyword-header__options ${this.props.keyword ? '' : 'no-hover'}`}>
+                                <DownloadButton
+                                    downloadAvailable={this.props.downloadAvailable}
+                                    onClick={this.clickedDownload} />
+                            </div>
                         </div>
                     </StickyHeader>
                     <div className="keyword-content">

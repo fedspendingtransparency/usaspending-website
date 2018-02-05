@@ -1,8 +1,8 @@
-$search-header-height: rem(66);
-
 .sticky-header {
+    $sticky-header-height: rem(66);
+
     position: relative;
-    height: $search-header-height;
+    height: $sticky-header-height;
 
     .sticky-header__container {
         width: 100%;
@@ -29,8 +29,7 @@ $search-header-height: rem(66);
             @include align-self(stretch);
             @include flex-flow(row wrap);
             position: relative;
-
-            height: $search-header-height;
+            height: $sticky-header-height;
 
             .sticky-header__title {
                 @include flex(1 1 auto);
