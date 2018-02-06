@@ -69,10 +69,41 @@ export default class DateRange extends React.Component {
         this.props.removeDateRange();
     }
 
+    generateStartDateDisabledDays(earliestDate) {
+        // handle the cutoff dates (preventing end dates from coming before
+        // start dates or vice versa)
+        const disabledDays = [earliestDate];
+
+        if (this.props.endDate) {
+            // the cutoff date represents the latest possible date
+            disabledDays.push({
+                after: this.props.endDate.toDate()
+            });
+        }
+
+        return disabledDays;
+    }
+
+    generateEndDateDisabledDays(earliestDate) {
+        const disabledDays = [earliestDate];
+
+        if (this.props.startDate) {
+            // cutoff date represents the earliest possible date
+            disabledDays.push({
+                before: this.props.startDate.toDate()
+            });
+        }
+
+        return disabledDays;
+    }
+
     render() {
         const earliestDateString =
             FiscalYearHelper.convertFYToDateRange(FiscalYearHelper.earliestFiscalYear)[0];
         const earliestDate = moment(earliestDateString, 'YYYY-MM-DD').toDate();
+
+        const startDateDisabledDays = this.generateStartDateDisabledDays(earliestDate);
+        const endDateDisabledDays = this.generateEndDateDisabledDays(earliestDate);
 
         let dateLabel = '';
         let hideTags = 'hide';
@@ -119,9 +150,7 @@ export default class DateRange extends React.Component {
                         opposite={this.props.endDate}
                         showError={this.props.showError}
                         hideError={this.props.hideError}
-                        disabledDays={[{
-                            before: earliestDate
-                        }]}
+                        disabledDays={startDateDisabledDays}
                         ref={(component) => {
                             this.startPicker = component;
                         }}
@@ -134,9 +163,7 @@ export default class DateRange extends React.Component {
                         opposite={this.props.startDate}
                         showError={this.props.showError}
                         hideError={this.props.hideError}
-                        disabledDays={[{
-                            before: earliestDate
-                        }]}
+                        disabledDays={endDateDisabledDays}
                         ref={(component) => {
                             this.endPicker = component;
                         }}

@@ -40,7 +40,7 @@ export default class BulkDownloadModal extends React.Component {
             <Modal
                 mounted={this.props.mounted}
                 onExit={this.props.hideModal}
-                titleText="Bulk Download"
+                titleText="Download Center"
                 dialogClass="bulk-download-modal"
                 verticallyCenter
                 escapeExits>

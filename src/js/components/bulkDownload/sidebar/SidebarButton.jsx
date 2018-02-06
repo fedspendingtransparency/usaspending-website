@@ -12,6 +12,7 @@ const propTypes = {
     active: PropTypes.string,
     url: PropTypes.string,
     changeDataType: PropTypes.func,
+    newTab: PropTypes.bool,
     disabled: PropTypes.bool
 };
 
@@ -50,7 +51,7 @@ export default class SidebarButton extends React.Component {
                 </div>
             );
         }
-        else if (this.props.url !== '') {
+        else if (this.props.url !== '' && this.props.newTab) {
             button = (
                 <a
                     href={this.props.url}
