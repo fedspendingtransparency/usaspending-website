@@ -14,6 +14,8 @@
         border: 1px solid $color-gray-light;
         margin-right: rem(15);
         background-color: $color-white;
+        display: flex;
+        align-items: center;
         @include media($medium-screen) {
             width: 50%;
         }
@@ -35,9 +37,11 @@
         .keyword-search-bar__button {
             @include button-unstyled;
             height: rem(66);
-            float: right;
             width: 20%;
             padding-right: rem(10);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
             @include media($tablet-screen) {
                 padding-right: rem(15);
                 width: 15%;
@@ -45,7 +49,6 @@
             .keyword-search-bar__button-icon {
                 height: rem(30);
                 width: rem(30);
-                float: right;
                 svg {
                     fill: $color-gray;
                 }
