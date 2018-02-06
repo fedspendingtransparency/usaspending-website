@@ -34,16 +34,24 @@ export default class Pagination extends React.Component {
 
         let startPage;
         let endPage;
-        let prevEllipses = (<span className="pagination-ellipsis">...</span>);
-        let nextEllipses = (<span className="pagination-ellipsis">...</span>);
+        let prevEllipses = (<span className="pager__ellipsis">...</span>);
+        let nextEllipses = (<span className="pager__ellipsis">...</span>);
         let firstButton = (
-            <li>
-                <button onClick={() => this.setPage(1)}>{1}</button>
+            <li className="pager__item">
+                <button
+                    className="pager__button"
+                    onClick={() => this.setPage(1)}>
+                    {1}
+                </button>
             </li>
         );
         let lastButton = (
-            <li>
-                <button onClick={() => this.setPage(totalPages)}>{totalPages}</button>
+            <li className="pager__item">
+                <button
+                    className="pager__button"
+                    onClick={() => this.setPage(totalPages)}>
+                    {totalPages}
+                </button>
             </li>
         );
         if (totalPages < 5) {
@@ -117,8 +125,14 @@ export default class Pagination extends React.Component {
     generatePageButtons(pages, totalPages) {
         return (pages.map((page, index) =>
             (
-                <li key={index} className={this.props.pageNumber === page ? 'active' : ''}>
-                    <button onClick={() => this.setPage(page, totalPages)}>{page}</button>
+                <li
+                    key={index}
+                    className={`pager__item ${this.props.pageNumber === page ? 'pager__item_active' : ''}`}>
+                    <button
+                        className="pager__button"
+                        onClick={() => this.setPage(page, totalPages)}>
+                        {page}
+                    </button>
                 </li>
             )
         ));
@@ -142,20 +156,26 @@ export default class Pagination extends React.Component {
 
         return (
             <div className="pagination">
-                <div className="results-text">
+                <div className="pagination__totals">
                     {resultsText}
                 </div>
                 <ul className="pager">
-                    <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-                        <button onClick={() => this.setPage(pager.currentPage - 1)}>{`<`}</button>
+                    <li className={`pager__item ${pager.currentPage === 1 ? 'pager__item_disabled' : ''}`}>
+                        <button
+                            className="pager__button"
+                            onClick={() => this.setPage(pager.currentPage - 1)}>{`<`}
+                        </button>
                     </li>
                     {pager.firstButton}
                     {pager.prevEllipses}
                     {pageButtons}
                     {pager.nextEllipses}
                     {pager.lastButton}
-                    <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                        <button onClick={() => this.setPage(pager.currentPage + 1)}>{`>`}</button>
+                    <li className={`pager__item ${pager.currentPage === pager.totalPages ? 'pager__item_disabled' : ''}`}>
+                        <button
+                            className="pager__button"
+                            onClick={() => this.setPage(pager.currentPage + 1)}>{`>`}
+                        </button>
                     </li>
                 </ul>
             </div>
