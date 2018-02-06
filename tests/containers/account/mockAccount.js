@@ -17,18 +17,13 @@ export const mockReduxAccount = {
     main_account_code: '0208',
     description: 'Not available',
     totals: {
-        outlay: {
-            2016: '-5505246.42'
-        },
-        budgetAuthority: {
-            2016: '201404661.47'
-        },
-        obligated: {
-            2016: '2696684.86'
-        },
-        unobligated: {
-            2016: '198707976.61'
-        }
+        appropriations: 0,
+        balanceBroughtForward: 49394224538.76,
+        budgetAuthority: 84734289679.5,
+        obligated: 39762255686.2,
+        otherBudgetaryResources: 35340065140.74,
+        outlay: 48474446887.76,
+        unobligated: 44972033993.3
     }
 };
 
@@ -751,3 +746,17 @@ export const parsedQuarterYSeriesFiltered = [
         }
     }
 ];
+
+export const mockSnapshot = {
+    results: {
+        outlay: 48474446887.76,
+        name: "Federal-Aid Highways, Liquidation of Contract Authorization, " +
+            "Federal Highway Administration, Transportation",
+        unobligated: 44972033993.3,
+        appropriations: 0.0,
+        balance_brought_forward: 49394224538.76,
+        budget_authority: 84734289679.5,
+        obligated: 39762255686.2,
+        other_budgetary_resources: 35340065140.74
+    }
+};

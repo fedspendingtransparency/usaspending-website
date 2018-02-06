@@ -212,25 +212,6 @@ export default class DatePicker extends React.Component {
             pickedDay = moment().toDate();
         }
 
-        // handle the cutoff dates (preventing end dates from coming before
-        // start dates or vice versa)
-        let disabledDays = this.props.disabledDays.slice(0);
-        if (this.props.type === 'startDate' && this.props.opposite) {
-            // the cutoff date represents the latest possible date
-            disabledDays.push({
-                after: this.props.opposite.toDate()
-            });
-        }
-        else if (this.props.type === 'endDate' && this.props.opposite) {
-            // cutoff date represents the earliest possible date
-            disabledDays.push({
-                before: this.props.opposite.toDate()
-            });
-        }
-        else if (!this.props.value) {
-            disabledDays = [];
-        }
-
         const inputId = `picker-${uniqueId()}`;
 
         return (
@@ -263,8 +244,8 @@ export default class DatePicker extends React.Component {
                         ref={(daypicker) => {
                             this.datepicker = daypicker;
                         }}
-                        initialMonth={pickedDay}
-                        disabledDays={disabledDays}
+                        month={pickedDay}
+                        disabledDays={this.props.disabledDays}
                         selectedDays={(day) => DateUtils.isSameDay(pickedDay, day)}
                         onDayClick={this.handleDatePick}
                         onFocus={this.handleDateFocus}

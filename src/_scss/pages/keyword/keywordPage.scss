@@ -1,6 +1,7 @@
 .usa-da-keyword-page {
     @import "all";
     @import "layouts/default/default";
+    @import "layouts/default/stickyHeader/header";
     @import "./header/header";
 
     .keyword-content {

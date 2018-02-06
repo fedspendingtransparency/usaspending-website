@@ -10,14 +10,14 @@ import sinon from 'sinon';
 import { AccountContainer } from 'containers/account/AccountContainer';
 import FederalAccount from 'models/account/FederalAccount';
 
-import { mockAccount, mockBalances, mockReduxAccount } from './mockAccount';
+import { mockAccount, mockReduxAccount, mockSnapshot } from './mockAccount';
 
 jest.mock('helpers/accountHelper', () => require('./accountHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // spy on specific functions inside the component
 const loadAccountSpy = sinon.spy(AccountContainer.prototype, 'loadData');
-const loadBalancesSpy = sinon.spy(AccountContainer.prototype, 'loadBalances');
+const loadFiscalYearSnapshotSpy = sinon.spy(AccountContainer.prototype, 'loadFiscalYearSnapshot');
 
 const parameters = {
     accountId: 2507
@@ -53,13 +53,13 @@ describe('AccountContainer', () => {
             account={mockRedux} />);
 
         await container.instance().accountRequest.promise;
-        await container.instance().balanceRequests.promise;
+        await container.instance().fiscalYearSnapshotRequest.promise;
 
         expect(loadAccountSpy.callCount).toEqual(1);
-        expect(loadBalancesSpy.callCount).toEqual(1);
+        expect(loadFiscalYearSnapshotSpy.callCount).toEqual(1);
 
         loadAccountSpy.reset();
-        loadBalancesSpy.reset();
+        loadFiscalYearSnapshotSpy.reset();
     });
 
     it('should make an API call when the award ID parameter changes', async () => {
@@ -73,10 +73,10 @@ describe('AccountContainer', () => {
             account={mockRedux} />);
 
         await container.instance().accountRequest.promise;
-        await container.instance().balanceRequests.promise;
+        await container.instance().fiscalYearSnapshotRequest.promise;
 
         expect(loadAccountSpy.callCount).toEqual(1);
-        expect(loadBalancesSpy.callCount).toEqual(1);
+        expect(loadFiscalYearSnapshotSpy.callCount).toEqual(1);
 
         container.setProps({
             params: {
@@ -85,13 +85,13 @@ describe('AccountContainer', () => {
         });
 
         await container.instance().accountRequest.promise;
-        await container.instance().balanceRequests.promise;
+        await container.instance().fiscalYearSnapshotRequest.promise;
 
         expect(loadAccountSpy.callCount).toEqual(2);
-        expect(loadBalancesSpy.callCount).toEqual(2);
+        expect(loadFiscalYearSnapshotSpy.callCount).toEqual(2);
 
         loadAccountSpy.reset();
-        loadBalancesSpy.reset();
+        loadFiscalYearSnapshotSpy.reset();
     });
 
     describe('parseAccount', () => {
@@ -112,15 +112,18 @@ describe('AccountContainer', () => {
         });
     });
 
-    describe('parseBalances', () => {
-        it('should parse the returned balances and add them to the Redux account object', (done) => {
+    describe('parseFYSnapshot', () => {
+        it('should parse the returned fiscal year snapshot and add the data to the Redux account object', (done) => {
             const initialModel = new FederalAccount(mockAccount);
             delete initialModel._jsid;
             initialModel.totals = {
-                outlay: {},
-                obligated: {},
-                unobligated: {},
-                budgetAuthority: {}
+                obligated: 0,
+                unobligated: 0,
+                budgetAuthority: 0,
+                outlay: 0,
+                balanceBroughtForward: 0,
+                otherBudgetaryResources: 0,
+                appropriations: 0
             };
 
             const reduxAction = jest.fn((args) => {
@@ -135,35 +138,7 @@ describe('AccountContainer', () => {
                 setSelectedAccount={reduxAction}
                 account={initialModel} />);
 
-            container.instance().balanceRequests = [
-                {
-                    type: 'outlay'
-                },
-                {
-                    type: 'budgetAuthority'
-                },
-                {
-                    type: 'obligated'
-                },
-                {
-                    type: 'unobligated'
-                }
-            ];
-
-            container.instance().parseBalances([
-                {
-                    data: mockBalances.outlay
-                },
-                {
-                    data: mockBalances.budgetAuthority
-                },
-                {
-                    data: mockBalances.obligated
-                },
-                {
-                    data: mockBalances.unobligated
-                }
-            ]);
+            container.instance().parseFYSnapshot(mockSnapshot);
         });
     });
 });

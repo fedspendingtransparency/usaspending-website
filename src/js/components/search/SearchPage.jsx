@@ -11,11 +11,12 @@ import * as MetaTagHelper from 'helpers/metaTagHelper';
 
 import FullDownloadModalContainer from
     'containers/search/modals/fullDownload/FullDownloadModalContainer';
+import DownloadButton from 'components/search/header/DownloadButton';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
+import StickyHeader from '../sharedComponents/stickyHeader/StickyHeader';
 import Footer from '../sharedComponents/Footer';
-import SearchHeader from './header/SearchHeader';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 
@@ -137,9 +138,18 @@ export default class SearchPage extends React.Component {
                 <MetaTags {...MetaTagHelper.searchPageMetaTags} />
                 <Header />
                 <div id="main-content">
-                    <SearchHeader
-                        downloadAvailable={this.props.downloadAvailable}
-                        showDownloadModal={this.showModal} />
+                    <StickyHeader>
+                        <div className="sticky-header__title">
+                            <h1 tabIndex={-1} id="main-focus">
+                                Advanced Search
+                            </h1>
+                        </div>
+                        <div className="sticky-header__options">
+                            <DownloadButton
+                                downloadAvailable={this.props.downloadAvailable}
+                                onClick={this.showModal} />
+                        </div>
+                    </StickyHeader>
                     <div className="search-contents">
                         <div className="full-search-sidebar">
                             { fullSidebar }

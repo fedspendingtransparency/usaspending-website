@@ -18,7 +18,7 @@ const NoDownloadHover = () => (
                         <ExclamationTriangle alt="Download is not available" />
                     </div>
                     <div className="message">
-                        Please visit the <a href="#/bulk_download">Bulk Download</a> page to export
+                        Please visit the <a href="#/bulk_download">Download Center</a> page to export
                         more than 500,000 records or limit your results with additional filters.
                     </div>
                 </div>
