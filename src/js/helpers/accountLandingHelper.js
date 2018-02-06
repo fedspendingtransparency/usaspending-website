@@ -14,7 +14,7 @@
 //        promise: Axios.request({
 //            url: 'v2/references/federal_account/',
 //            baseURL: kGlobalConstants.API,
-//            method: 'get',
+//            method: 'post',
 //            params,
 //            cancelToken: source.token
 //        }),

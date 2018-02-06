@@ -120,10 +120,14 @@ export default class AccountLandingContainer extends React.Component {
 
         // generate the params
         const pageSize = 50;
+        const fy = `${FiscalYearHelper.defaultFiscalYear()}`;
         const params = {
             sort: this.state.order,
             page: this.state.pageNumber,
-            limit: pageSize
+            limit: pageSize,
+            filters: {
+                fy
+            }
         };
 
         this.accountsRequest = AccountLandingHelper.fetchAllAccounts(params);
