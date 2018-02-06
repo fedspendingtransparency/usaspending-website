@@ -17,7 +17,7 @@ import Analytics from 'helpers/analytics/Analytics';
 
 const eventCategory = 'Applied Search Filter';
 
-const convertDateRange = (range) => {
+export const convertDateRange = (range) => {
     if (range.length !== 2) {
         // this must be an array of length 2
         return null;
@@ -36,7 +36,7 @@ const convertDateRange = (range) => {
     }];
 };
 
-const parseAgency = (agency) => {
+export const parseAgency = (agency) => {
     const toptier = agency.toptier_agency;
     const subtier = agency.subtier_agency;
     const office = agency.office_agency;
@@ -59,7 +59,7 @@ const parseAgency = (agency) => {
 };
 
 
-const convertReducibleValue = (value, type, parser) => (
+export const convertReducibleValue = (value, type, parser) => (
     value.reduce((events, item) => {
         events.push({
             action: type,
@@ -69,7 +69,7 @@ const convertReducibleValue = (value, type, parser) => (
     }, [])
 );
 
-const convertTimePeriod = (value) => {
+export const convertTimePeriod = (value) => {
     if (Set.isSet(value)) {
         return convertReducibleValue(
             value,
@@ -82,7 +82,7 @@ const convertTimePeriod = (value) => {
     return null;
 };
 
-const convertAgency = (agencies, type) => (
+export const convertAgency = (agencies, type) => (
     convertReducibleValue(
         agencies,
         type,
@@ -91,7 +91,7 @@ const convertAgency = (agencies, type) => (
 );
 
 
-const convertLocation = (locations, type) => (
+export const convertLocation = (locations, type) => (
     convertReducibleValue(
         locations,
         type,
@@ -99,7 +99,7 @@ const convertLocation = (locations, type) => (
     )
 );
 
-const convertFilter = (type, value) => {
+export const convertFilter = (type, value) => {
     switch (type) {
         case 'timePeriod':
             return convertTimePeriod(value);
@@ -174,7 +174,7 @@ const convertFilter = (type, value) => {
     }
 };
 
-const unifyDateFields = (redux) => {
+export const unifyDateFields = (redux) => {
     // clone the filter reducer so we don't accidentally modify it
     const clonedRedux = Object.assign({}, redux);
     // unify the data fields into a single field
