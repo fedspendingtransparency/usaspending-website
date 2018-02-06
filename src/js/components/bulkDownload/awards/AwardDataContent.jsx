@@ -102,7 +102,7 @@ export default class AwardDataContent extends React.Component {
         return (
             <div className="download-data-content">
                 <div className="download-filters">
-                    <h2><span>Custom Award Data</span></h2>
+                    <h2>Custom Award Data</h2>
                     <div className="archive-info-box">
                         <div className="icon">
                             <InfoCircle />
