@@ -14,6 +14,7 @@ const item = {
         federal_action_obligation: "227269217.17",
         modification_number: "0",
         description: "EXPRESS REPORT PHARMACY PRIME VENDOR VA760PPVFY2015OCT",
+        parent_award_piid: "VA797P12D0001",
         awarding_agency: {
             id: 1305,
             toptier_agency: {
@@ -82,7 +83,6 @@ const item = {
         assistance_data: null,
         contract_data: {
             piid: "VA760PPVFY2015OCT",
-            parent_award_id: "VA797P12D0001",
             cost_or_pricing_data: "N",
             type_of_contract_pricing: "J",
             type_of_contract_pricing_description: "Firm Fixed Price",

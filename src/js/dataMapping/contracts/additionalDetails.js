@@ -53,19 +53,47 @@ export const parentFields = [
     },
     {
         label: 'IDV Type',
-        field: 'idv_type_description'
+        field: '__special',
+        parse: (data) => {
+            let output = 'Not Available';
+            if (data.latest_transaction.contract_data.idv_type_description) {
+                output = data.latest_transaction.contract_data.idv_type_description;
+            }
+            return output;
+        }
     },
     {
         label: 'IDC Type',
-        field: 'type_of_idc_description'
+        field: '__special',
+        parse: (data) => {
+            let output = 'Not Available';
+            if (data.latest_transaction.contract_data.type_of_idc_description) {
+                output = data.latest_transaction.contract_data.type_of_idc_description;
+            }
+            return output;
+        }
     },
     {
         label: 'IDV Agency Identifier',
-        field: 'referenced_idv_agency_iden'
+        field: '__special',
+        parse: (data) => {
+            let output = 'Not Available';
+            if (data.latest_transaction.contract_data.referenced_idv_agency_iden) {
+                output = data.latest_transaction.contract_data.referenced_idv_agency_iden;
+            }
+            return output;
+        }
     },
     {
         label: 'Mutliple or Single Award IDV',
-        field: 'multiple_or_single_aw_desc'
+        field: '__special',
+        parse: (data) => {
+            let output = 'Not Available';
+            if (data.latest_transaction.contract_data.multiple_or_single_aw_desc) {
+                output = data.latest_transaction.contract_data.multiple_or_single_aw_desc;
+            }
+            return output;
+        }
     }
 ];
 

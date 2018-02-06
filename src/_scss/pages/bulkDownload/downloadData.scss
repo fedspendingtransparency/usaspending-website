@@ -8,9 +8,7 @@
         margin-bottom: rem(30);
         h2 {
             margin: 0 rem(30);
-            span {
-                font-weight: 400;
-            }
+            font-weight: 400;
         }
         @import "./form/downloadForm";
         .reset-button {

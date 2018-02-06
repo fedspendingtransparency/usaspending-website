@@ -20,7 +20,7 @@ export default class ContractAdditionalDetails extends React.Component {
         return (
             <div className="additional-details-wrapper">
                 <AdditionalGroup
-                    data={award.latest_transaction.contract_data}
+                    data={award}
                     fields={DataFields.parentFields}
                     title="Parent Award Details" />
                 <hr className="additional-group-divider" />

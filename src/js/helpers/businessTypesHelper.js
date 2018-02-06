@@ -211,10 +211,6 @@ export const getBusinessTypes = () => {
                 fieldName: 'hispanic_servicing_institution'
             },
             {
-                displayName: 'Receives Contracts and Grants',
-                fieldName: 'receives_contracts_and_grants'
-            },
-            {
                 displayName: 'Airport Authority',
                 fieldName: 'airport_authority'
             },
