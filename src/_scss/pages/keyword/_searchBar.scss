@@ -64,11 +64,11 @@
     .keyword-search-bar__info {
         font-size: $small-font-size;
         line-height: rem(26);
-        padding-left: rem(10);
         padding-top: rem(10);
         @include media($medium-screen) {
             width: 50%;
             padding-top: 0;
+            padding-left: rem(10);
         }
         .keyword-search-bar__icon-wrapper {
             display: inline-block;
