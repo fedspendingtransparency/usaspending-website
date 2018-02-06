@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { downloadPageMetaTags } from 'helpers/metaTagHelper';
-import { downloadCenterOptions } from 'dataMapping/navigation/menuOptions';
+import { downloadOptions } from 'dataMapping/navigation/menuOptions';
 import Router from 'containers/router/Router';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -98,7 +98,7 @@ export default class BulkDownloadPage extends React.Component {
                     <div className="bulk-download-content">
                         <div className="download-sidebar">
                             <BulkDownloadSidebar
-                                dataTypes={downloadCenterOptions}
+                                dataTypes={downloadOptions}
                                 changeDataType={this.changeDataType}
                                 active={this.props.dataType} />
                             <div className="api-info">
