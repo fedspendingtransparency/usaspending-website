@@ -12,6 +12,11 @@ import { is } from 'immutable';
 import moment from 'moment';
 
 import Router from 'containers/router/Router';
+import {
+    convertFiltersToAnalyticEvents,
+    sendAnalyticEvents,
+    sendFieldCombinations
+} from './helpers/searchAnalytics';
 
 import { filterStoreVersion, requiredTypes, initialState } from
     'redux/reducers/search/searchFiltersReducer';
@@ -231,6 +236,11 @@ export class SearchContainer extends React.Component {
 
         // apply the filters to both the staged and applied stores
         this.props.restoreHashedFilters(reduxValues);
+
+        // send the prepopulated filters (received from the hash) to Google Analytics
+        const events = convertFiltersToAnalyticEvents(reduxValues);
+        sendAnalyticEvents(events);
+        sendFieldCombinations(events);
 
         this.setState({
             hashState: 'ready'

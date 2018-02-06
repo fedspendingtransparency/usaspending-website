@@ -14,7 +14,11 @@ import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/sear
 
 import SearchSidebarSubmit from 'components/search/SearchSidebarSubmit';
 
-import { convertFiltersToAnalyticEvents, sendAnalyticEvents, sendFieldCombinations } from './helpers/searchAnalytics';
+import {
+    convertFiltersToAnalyticEvents,
+    sendAnalyticEvents,
+    sendFieldCombinations
+} from './helpers/searchAnalytics';
 
 const combinedActions = Object.assign({}, appliedFilterActions, {
     clearStagedFilters

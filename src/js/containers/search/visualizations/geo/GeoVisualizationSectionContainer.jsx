@@ -18,6 +18,7 @@ import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterAc
 
 import * as SearchHelper from 'helpers/searchHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
+import Analytics from 'helpers/analytics/Analytics';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
@@ -32,6 +33,20 @@ const apiScopes = {
     state: 'state',
     county: 'county',
     congressionalDistrict: 'district'
+};
+
+const logMapLayerEvent = (layer) => {
+    Analytics.event({
+        category: 'Advanced Search - Map - Map Layer',
+        action: layer
+    });
+};
+
+const logMapScopeEvent = (scope) => {
+    Analytics.event({
+        category: 'Advanced Search - Map - Location Type',
+        action: scope
+    });
 };
 
 export class GeoVisualizationSectionContainer extends React.Component {
@@ -70,6 +85,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.mapListeners.push(measureListener);
         const movedListener = MapBroadcaster.on('mapMoved', this.prepareFetch);
         this.mapListeners.push(movedListener);
+
+        // log the initial event
+        logMapScopeEvent(this.state.scope);
+        logMapLayerEvent(this.state.mapLayer);
     }
 
     componentDidUpdate(prevProps) {
@@ -95,6 +114,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             scope
         }, () => {
             this.prepareFetch(true);
+            logMapScopeEvent(scope);
         });
     }
 
@@ -259,6 +279,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             loadingTiles: true
         }, () => {
             this.prepareFetch(true);
+            logMapLayerEvent(layer);
         });
     }
 

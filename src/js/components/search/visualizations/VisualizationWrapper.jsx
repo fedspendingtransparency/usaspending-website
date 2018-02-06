@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import ResultsTableContainer from 'containers/search/table/ResultsTableContainer';
 import TimeVisualizationSectionContainer from
     'containers/search/visualizations/time/TimeVisualizationSectionContainer';
@@ -56,6 +58,12 @@ export default class VisualizationWrapper extends React.Component {
     clickedTab(tab) {
         this.setState({
             active: tab
+        }, () => {
+            const activeLabel = tabOptions.find((el) => el.code === tab).label;
+            Analytics.event({
+                category: 'Advanced Search - Visualization Type',
+                action: activeLabel
+            });
         });
     }
 

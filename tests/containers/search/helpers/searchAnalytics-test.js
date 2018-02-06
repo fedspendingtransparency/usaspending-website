@@ -238,7 +238,7 @@ describe('searchAnalytics', () => {
             searchAnalytics.sendAnalyticEvents(events);
             expect(Analytics.event).toHaveBeenCalledTimes(1);
             expect(Analytics.event).toHaveBeenCalledWith({
-                category: 'Applied Search Filter',
+                category: 'Advanced Search - Search Filter',
                 action: 'action',
                 label: 'label'
             });
@@ -265,7 +265,7 @@ describe('searchAnalytics', () => {
             searchAnalytics.sendFieldCombinations(events);
             expect(Analytics.event).toHaveBeenCalledTimes(1);
             expect(Analytics.event).toHaveBeenCalledWith({
-                category: 'Applied Search Fields',
+                category: 'Advanced Search - Search Fields',
                 action: 'action-z'
             });
         });

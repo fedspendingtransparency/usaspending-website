@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import * as KeywordHelper from 'helpers/keywordHelper';
@@ -141,6 +143,11 @@ export class KeywordContainer extends React.Component {
     updateKeyword(keyword) {
         this.setState({
             keyword
+        }, () => {
+            Analytics.event({
+                category: 'Keyword Search - Keyword',
+                action: keyword
+            });
         });
     }
 

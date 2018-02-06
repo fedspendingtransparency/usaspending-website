@@ -15,7 +15,7 @@ import {
 
 import Analytics from 'helpers/analytics/Analytics';
 
-const eventCategory = 'Applied Search Filter';
+const eventCategory = 'Advanced Search - Search Filter';
 
 export const convertDateRange = (range) => {
     if (range.length !== 2) {
@@ -218,7 +218,7 @@ export const sendFieldCombinations = (events) => {
     }, []));
 
     Analytics.event({
-        category: 'Applied Search Fields',
+        category: 'Advanced Search - Search Fields',
         action: fields.sort().join('-')
     });
 };
