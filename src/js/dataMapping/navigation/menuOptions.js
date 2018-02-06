@@ -89,3 +89,36 @@ export const downloadOptions = [
         enabled: true
     }
 ];
+
+export const downloadCenterOptions = [
+    {
+        type: 'award_data_archive',
+        label: 'Award Data Archive',
+        disabled: false,
+        url: ''
+    },
+    {
+        type: 'awards',
+        label: 'Custom Award Data',
+        disabled: false,
+        url: ''
+    },
+    {
+        type: 'accounts',
+        label: 'Custom Account Data',
+        disabled: true,
+        url: ''
+    },
+    {
+        type: '',
+        label: 'Agency Submission Files',
+        disabled: false,
+        url: 'http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/'
+    },
+    {
+        type: 'snapshots',
+        label: 'Database Snapshots',
+        disabled: true,
+        url: ''
+    }
+];

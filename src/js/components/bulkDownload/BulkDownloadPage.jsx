@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { downloadPageMetaTags } from 'helpers/metaTagHelper';
+import { downloadCenterOptions } from 'dataMapping/navigation/menuOptions';
 import Router from 'containers/router/Router';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -19,39 +20,6 @@ import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardData
 import BulkDownloadModalContainer from
     'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
-
-export const dataTypes = [
-    {
-        type: 'award_data_archive',
-        label: 'Award Data Archive',
-        disabled: false,
-        url: ''
-    },
-    {
-        type: 'awards',
-        label: 'Custom Award Data',
-        disabled: false,
-        url: ''
-    },
-    {
-        type: 'accounts',
-        label: 'Custom Account Data',
-        disabled: true,
-        url: ''
-    },
-    {
-        type: '',
-        label: 'Agency Submission Files',
-        disabled: false,
-        url: 'http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/'
-    },
-    {
-        type: 'snapshots',
-        label: 'Database Snapshots',
-        disabled: true,
-        url: ''
-    }
-];
 
 const propTypes = {
     setDataType: PropTypes.func,
@@ -130,7 +98,7 @@ export default class BulkDownloadPage extends React.Component {
                     <div className="bulk-download-content">
                         <div className="download-sidebar">
                             <BulkDownloadSidebar
-                                dataTypes={dataTypes}
+                                dataTypes={downloadCenterOptions}
                                 changeDataType={this.changeDataType}
                                 active={this.props.dataType} />
                             <div className="api-info">

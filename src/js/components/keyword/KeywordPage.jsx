@@ -125,12 +125,12 @@ export default class KeywordPage extends React.Component {
                 </div>
                 <div className="keyword-header__summary-award-amounts">
                     <div className="keyword-header__summary-amount">
-                        Total Prime Award Amount: <span className="keyword-header__summary-amount_bold">{formattedPrimeAmount}</span>
+                        Total Prime Award Amount: <span className="keyword-header__summary-amount keyword-header__summary-amount_bold">{formattedPrimeAmount}</span>
                     </div>
                 </div>
                 <div className="keyword-header__summary-award-counts">
                     <div className="keyword-header__summary-amount">
-                        Prime Award Transaction Count: <span className="keyword-header__summary-amount_bold">{formattedPrimeCount}</span>
+                        Prime Award Transaction Count: <span className="keyword-header__summary-amount keyword-header__summary-amount_bold">{formattedPrimeCount}</span>
                     </div>
                 </div>
             </div>
