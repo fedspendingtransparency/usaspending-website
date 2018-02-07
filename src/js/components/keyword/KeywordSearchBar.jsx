@@ -38,33 +38,33 @@ export default class KeywordSearchBar extends React.Component {
     }
 
     render() {
-        let disabledClass = 'disabled';
+        let disabledClass = 'keyword-search-bar__button_disabled';
         let submitButtonText = 'Enter at least three characters to search';
         if (this.state.searchString.length > 2) {
             disabledClass = '';
             submitButtonText = 'Search by Keyword';
         }
         return (
-            <div className="keyword-search-bar">
-                <form onSubmit={this.searchKeyword}>
-                    <input
-                        id="search"
-                        type="text"
-                        className="keyword-input"
-                        value={this.state.searchString}
-                        onChange={this.changedInput}
-                        placeholder="Type keywords" />
-                    <button
-                        className={`keyword-submit ${disabledClass}`}
-                        onClick={this.searchKeyword}
-                        title={submitButtonText}
-                        aria-label={submitButtonText}>
-                        <div className="icon">
-                            <Search alt="Search by Keyword" />
-                        </div>
-                    </button>
-                </form>
-            </div>
+            <form
+                className="keyword-search-bar__form"
+                onSubmit={this.searchKeyword}>
+                <input
+                    id="search"
+                    type="text"
+                    className="keyword-search-bar__input"
+                    value={this.state.searchString}
+                    onChange={this.changedInput}
+                    placeholder="Type keywords..." />
+                <button
+                    className={`keyword-search-bar__button ${disabledClass}`}
+                    onClick={this.searchKeyword}
+                    title={submitButtonText}
+                    aria-label={submitButtonText}>
+                    <div className="keyword-search-bar__button-icon">
+                        <Search alt="Search by Keyword" />
+                    </div>
+                </button>
+            </form>
         );
     }
 }
