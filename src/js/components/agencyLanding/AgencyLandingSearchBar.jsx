@@ -30,7 +30,9 @@ export default class AgencyLandingSearchBar extends React.Component {
                     <button
                         aria-label="Search"
                         className="search-section__button">
-                        <Search alt="Search" />
+                        <div className="search-section__button-icon">
+                            <Search alt="Search Agencies" />
+                        </div>
                     </button>
                 </form>
             </div>

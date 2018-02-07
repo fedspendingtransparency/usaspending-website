@@ -30,7 +30,9 @@ export default class AccountLandingSearchBar extends React.Component {
                     <button
                         aria-label="Search"
                         className="search-section__button">
-                        <Search alt="Search" />
+                        <div className="search-section__button-icon">
+                            <Search alt="Search Federal Accounts" />
+                        </div>
                     </button>
                 </form>
             </div>

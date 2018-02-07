@@ -8,10 +8,10 @@ import React from 'react';
 import { accountLandingPageMetaTags } from 'helpers/metaTagHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Header from 'components/sharedComponents/header/Header';
 import Footer from 'components/sharedComponents/Footer';
 import AccountLandingContainer from 'containers/accountLanding/AccountLandingContainer';
-import AccountLandingHeader from './header/AccountLandingHeader';
 
 export default class AccountLandingPage extends React.Component {
     render() {
@@ -19,7 +19,13 @@ export default class AccountLandingPage extends React.Component {
             <div className="usa-da-account-landing">
                 <MetaTags {...accountLandingPageMetaTags} />
                 <Header />
-                <AccountLandingHeader />
+                <StickyHeader>
+                    <div className="sticky-header__title">
+                        <h1 tabIndex={-1} id="main-focus">
+                            Federal Account Profiles
+                        </h1>
+                    </div>
+                </StickyHeader>
                 <main
                     id="main-content"
                     className="main-content">
