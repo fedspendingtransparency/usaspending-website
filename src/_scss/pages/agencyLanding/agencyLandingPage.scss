@@ -1,7 +1,7 @@
 .usa-da-agency-landing {
     @import "all";
 	@import "layouts/landingPage/landingPage";
-    @import "./header/header";
+    @import "layouts/default/stickyHeader/header";
     @import './agencyLandingSearch';
     @import './table/resultsSection';
 

@@ -8,11 +8,10 @@ import PropTypes from 'prop-types';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 
-import MetaTags from '../sharedComponents/metaTags/MetaTags';
-import Header from '../sharedComponents/header/Header';
-import Footer from '../sharedComponents/Footer';
-
-import AgencyHeader from './header/AgencyHeader';
+import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import Header from 'components/sharedComponents/header/Header';
+import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import Footer from 'components/sharedComponents/Footer';
 
 import AgencyLoading from './AgencyLoading';
 import AgencyError from './AgencyError';
@@ -41,7 +40,13 @@ export default class AgencyPage extends React.Component {
             <div className="usa-da-agency-page">
                 <MetaTags {...agencyPageMetaTags} />
                 <Header />
-                <AgencyHeader />
+                <StickyHeader>
+                    <div className="sticky-header__title">
+                        <h1 tabIndex={-1} id="main-focus">
+                            Agency Profile
+                        </h1>
+                    </div>
+                </StickyHeader>
                 <main
                     id="main-content"
                     className="main-content">

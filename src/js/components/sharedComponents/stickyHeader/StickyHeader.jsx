@@ -12,6 +12,8 @@ const propTypes = {
     children: PropTypes.node
 };
 
+export const stickyHeaderHeight = 66;
+
 export default class StickyHeader extends React.Component {
     constructor(props) {
         super(props);

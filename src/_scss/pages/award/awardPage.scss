@@ -1,11 +1,11 @@
 .usa-da-award-page {
     @import "all";
     @import "layouts/summary/summary";
+    @import "layouts/default/stickyHeader/header";
+    @import "./summaryStatus";
 
     $color-gray-border: #D8D8D8;
     $color-blue-background: #F5FBFC;
-
-    @import "./summaryBar";
 
     .main-content {
         @import "./infoBar";

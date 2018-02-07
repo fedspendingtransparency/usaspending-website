@@ -6,6 +6,7 @@
 import React from 'react';
 import { find, throttle } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
+import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 
 import Sidebar from '../sharedComponents/sidebar/Sidebar';
 
@@ -122,7 +123,7 @@ export default class AboutContent extends React.Component {
                 return;
             }
 
-            const sectionTop = sectionDom.offsetTop - 10;
+            const sectionTop = sectionDom.offsetTop - 10 - StickyHeader.stickyHeaderHeight;
             scrollToY(sectionTop, 700);
         });
     }
@@ -214,7 +215,8 @@ export default class AboutContent extends React.Component {
                         active={this.state.activeSection}
                         pageName="about"
                         sections={aboutSections}
-                        jumpToSection={this.jumpToSection} />
+                        jumpToSection={this.jumpToSection}
+                        stickyHeaderHeight={StickyHeader.stickyHeaderHeight} />
                 </div>
                 <div className="about-content">
                     <div className="about-padded-content">
