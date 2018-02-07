@@ -93,6 +93,15 @@ const routes = {
             }
         },
         {
+            path: '/db_info',
+            parent: '/db_info',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/about/DBInfo').default);
+                });
+            }
+        },
+        {
             path: '/style',
             parent: '/style',
             component: (cb) => {
