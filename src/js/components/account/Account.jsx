@@ -31,9 +31,7 @@ export default class Account extends React.Component {
                 <main
                     id="main-content"
                     className="main-content">
-
                     <AccountOverview account={this.props.account} />
-
                     <div className="filter-results">
                         <SearchSidebar />
                         <SearchResults />
