@@ -1,4 +1,4 @@
-const agenciesTableFields = {
+const accountsTableFields = {
     defaultSortDirection: {
         account_number: 'desc',
         account_name: 'asc',
@@ -17,4 +17,4 @@ const agenciesTableFields = {
     budgetary_resources: 'Budgetary Resources'
 };
 
-export default agenciesTableFields;
+export default accountsTableFields;
