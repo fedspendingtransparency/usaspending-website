@@ -154,20 +154,20 @@ export default class KeywordPage extends React.Component {
                 className="usa-da-keyword-page">
                 <MetaTags {...MetaTagHelper.keywordPageMetaTags} />
                 <Header />
-                <main id="main-content">
-                    <StickyHeader>
-                        <div className="keyword-header">
-                            <div className="keyword-header__title">
-                                <h1>Keyword Search</h1>
-                            </div>
-                            {searchSummary}
-                            <div className={`keyword-header__options ${this.props.keyword ? '' : 'no-hover'}`}>
-                                <DownloadButton
-                                    downloadAvailable={this.props.downloadAvailable}
-                                    onClick={this.clickedDownload} />
-                            </div>
+                <StickyHeader>
+                    <div className="keyword-header">
+                        <div className="keyword-header__title">
+                            <h1>Keyword Search</h1>
                         </div>
-                    </StickyHeader>
+                        {searchSummary}
+                        <div className={`keyword-header__options ${this.props.keyword ? '' : 'no-hover'}`}>
+                            <DownloadButton
+                                downloadAvailable={this.props.downloadAvailable}
+                                onClick={this.clickedDownload} />
+                        </div>
+                    </div>
+                </StickyHeader>
+                <main id="main-content">
                     <div className="keyword-content">
                         <div className="keyword-search-bar">
                             <KeywordSearchBar

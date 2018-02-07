@@ -10,6 +10,7 @@ import { explorerPageMetaTags } from 'helpers/metaTagHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
+import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Footer from 'components/sharedComponents/Footer';
 
 const propTypes = {
@@ -20,13 +21,13 @@ const ExplorerWrapperPage = (props) => (
     <div className="usa-da-explorer-page">
         <MetaTags {...explorerPageMetaTags} />
         <Header />
-        <div className="page-title-bar">
-            <div className="page-title-bar-wrap">
-                <h1 className="page-title">
+        <StickyHeader>
+            <div className="sticky-header__title">
+                <h1 tabIndex={-1} id="main-focus">
                     Spending Explorer
                 </h1>
             </div>
-        </div>
+        </StickyHeader>
         <main
             id="main-content"
             className="main-content">

@@ -86,15 +86,15 @@ export default class BulkDownloadPage extends React.Component {
             <div className="usa-da-bulk-download-page">
                 <MetaTags {...downloadPageMetaTags} />
                 <Header />
+                <StickyHeader>
+                    <div className="sticky-header__title">
+                        <h1 tabIndex={-1} id="main-focus">
+                            Download Center
+                        </h1>
+                    </div>
+                </StickyHeader>
                 <main
                     id="main-content">
-                    <StickyHeader>
-                        <div className="sticky-header__title">
-                            <h1 tabIndex={-1} id="main-focus">
-                                Download Center
-                            </h1>
-                        </div>
-                    </StickyHeader>
                     <div className="bulk-download-content">
                         <div className="download-sidebar">
                             <BulkDownloadSidebar

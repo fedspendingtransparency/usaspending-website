@@ -7,6 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { startCase, toLower, includes } from 'lodash';
+
+import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
@@ -78,12 +80,15 @@ export default class SummaryBar extends React.Component {
                     label="Parent Award ID"
                     value={this.state.parent} />);
         }
+
         return (
-            <div className="page-title-bar">
-                <div className="page-title-bar-wrap">
-                    <h1 className="page-title">
-                        {this.state.type}&nbsp;Profile
+            <StickyHeader>
+                <div className="sticky-header__title">
+                    <h1 tabIndex={-1} id="main-focus">
+                        {this.state.type}&nbsp;Summary
                     </h1>
+                </div>
+                <div className="sticky-header__options">
                     <div className="summary-status">
                         <ul className="summary-status-items">
                             <InfoSnippet
@@ -93,7 +98,7 @@ export default class SummaryBar extends React.Component {
                         </ul>
                     </div>
                 </div>
-            </div>
+            </StickyHeader>
         );
     }
 }

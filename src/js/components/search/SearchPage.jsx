@@ -137,19 +137,19 @@ export default class SearchPage extends React.Component {
                 }}>
                 <MetaTags {...MetaTagHelper.searchPageMetaTags} />
                 <Header />
+                <StickyHeader>
+                    <div className="sticky-header__title">
+                        <h1 tabIndex={-1} id="main-focus">
+                            Advanced Search
+                        </h1>
+                    </div>
+                    <div className="sticky-header__options">
+                        <DownloadButton
+                            downloadAvailable={this.props.downloadAvailable}
+                            onClick={this.showModal} />
+                    </div>
+                </StickyHeader>
                 <div id="main-content">
-                    <StickyHeader>
-                        <div className="sticky-header__title">
-                            <h1 tabIndex={-1} id="main-focus">
-                                Advanced Search
-                            </h1>
-                        </div>
-                        <div className="sticky-header__options">
-                            <DownloadButton
-                                downloadAvailable={this.props.downloadAvailable}
-                                onClick={this.showModal} />
-                        </div>
-                    </StickyHeader>
                     <div className="search-contents">
                         <div className="full-search-sidebar">
                             { fullSidebar }
