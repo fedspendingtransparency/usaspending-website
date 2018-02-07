@@ -10,42 +10,35 @@
     }
 
     .keyword-search-bar__form {
-        width: 100%;
         border: 1px solid $color-gray-light;
         margin-right: rem(15);
         background-color: $color-white;
-        display: flex;
-        align-items: center;
+        @include display(flex);
+        @include flex-direction(row);
+        @include align-items(center);
+        @include justify-content(flex-start);
         @include media($medium-screen) {
+            @include flex(1 1 auto);
             width: 50%;
         }
         .keyword-search-bar__input {
+            @include flex(1 1 auto);
             margin-right: 0;
             height: rem(66);
-            width: 80%;
             border: 0;
-            padding: rem(10);
+            padding: rem(15);
             font-size: rem(20);
             font-weight: 300;
             @include media($tablet-screen) {
-                width: 85%;
                 font-size: rem(28);
                 line-height: rem(36);
-                padding: rem(15);
             }
         }
         .keyword-search-bar__button {
+            @include flex(0 0 auto);
             @include button-unstyled;
             height: rem(66);
-            width: 20%;
-            padding-right: rem(10);
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            @include media($tablet-screen) {
-                padding-right: rem(15);
-                width: 15%;
-            }
+            padding: 0 rem(15);
             .keyword-search-bar__button-icon {
                 height: rem(30);
                 width: rem(30);
@@ -72,6 +65,7 @@
         padding-top: rem(10);
         @include media($medium-screen) {
             width: 50%;
+            @include flex(1 1 auto);
             padding-top: 0;
             padding-left: rem(10);
         }
