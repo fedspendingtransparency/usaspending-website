@@ -100,7 +100,9 @@ export default class ResultsTableSection extends React.Component {
         }
 
         return (
-            <div className={`search-results-table-section ${this.props.keyword ? '' : 'hide-counts'}`} id="results-section-table">
+            <div
+                className={`search-results-table-section ${this.props.keyword ? '' : 'hide-counts'}`}
+                id="results-section-table">
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}

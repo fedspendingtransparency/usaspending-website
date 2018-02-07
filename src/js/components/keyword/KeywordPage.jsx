@@ -154,33 +154,33 @@ export default class KeywordPage extends React.Component {
                 className="usa-da-keyword-page">
                 <MetaTags {...MetaTagHelper.keywordPageMetaTags} />
                 <Header />
-                <main id="main-content">
-                    <StickyHeader>
-                        <div className="keyword-header">
-                            <div className="keyword-header__title">
-                                <h1>Keyword Search</h1>
-                            </div>
-                            {searchSummary}
-                            <div className={`keyword-header__options ${this.props.keyword ? '' : 'no-hover'}`}>
-                                <DownloadButton
-                                    downloadAvailable={this.props.downloadAvailable}
-                                    onClick={this.clickedDownload} />
-                            </div>
+                <StickyHeader>
+                    <div className="keyword-header">
+                        <div className="keyword-header__title">
+                            <h1>Keyword Search</h1>
                         </div>
-                    </StickyHeader>
+                        {searchSummary}
+                        <div className={`keyword-header__options ${this.props.keyword ? '' : 'no-hover'}`}>
+                            <DownloadButton
+                                downloadAvailable={this.props.downloadAvailable}
+                                onClick={this.clickedDownload} />
+                        </div>
+                    </div>
+                </StickyHeader>
+                <main id="main-content">
                     <div className="keyword-content">
-                        <div className="search-bar-section">
+                        <div className="keyword-search-bar">
                             <KeywordSearchBar
                                 updateKeyword={this.props.updateKeyword} />
-                            <div className="info-text">
+                            <div className="keyword-search-bar__info">
                                 Use the Keyword Search to get a broad picture of award data on a given theme.
                                 You can search through only award descriptions, or award descriptions plus other
                                 attributes.
-                                <div className="info-wrap">
+                                <div className="keyword-search-bar__icon-wrapper">
                                     {hover}
                                     <button
                                         onClick={this.showTooltip}
-                                        className="icon">
+                                        className="keyword-search-bar__icon">
                                         <InfoCircle />
                                     </button>
                                 </div>
