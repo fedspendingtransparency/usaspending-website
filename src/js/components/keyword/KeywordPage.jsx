@@ -100,7 +100,7 @@ export default class KeywordPage extends React.Component {
                     <KeywordHeader
                         inFlight={this.props.summaryInFlight}
                         summary={this.props.summary}
-                        downloadAvailable={false}
+                        downloadAvailable={this.props.downloadAvailable}
                         clickedDownload={this.clickedDownload}
                         keyword={this.props.keyword} />
                     <div className="keyword-content">
