@@ -87,9 +87,9 @@ export class KeywordHeader extends React.Component {
                             <h1>Keyword Search</h1>
                         </div>
                         {searchSummary}
-                        <div className={`search-options ${this.props.keyword ? '' : 'no-hover'}`}>
+                        <div className={`search-options no-hover ${this.props.keyword ? '' : 'no-hover'}`}>
                             <DownloadButton
-                                downloadAvailable={this.props.downloadAvailable}
+                                downloadAvailable={false}
                                 onClick={this.props.clickedDownload} />
                         </div>
                     </div>
