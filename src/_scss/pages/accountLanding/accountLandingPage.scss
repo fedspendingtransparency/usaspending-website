@@ -1,12 +1,12 @@
 .usa-da-account-landing {
-     @import "all";
-     @import "layouts/landingPage/landingPage";
-     @import "components/pagination";
-     @import "./header/header";
-     @import './searchSection';
-     @import './table/resultsSection';
+    @import "all";
+    @import "layouts/landingPage/landingPage";
+    @import "components/pagination";
+    @import "layouts/default/stickyHeader/header";
+    @import './searchSection';
+    @import './table/resultsSection';
 
-     .search-section {
-         display: none;
-     }
+    .search-section {
+        display: none;
+    }
 }
