@@ -52,18 +52,49 @@ export default class VisualizationWrapper extends React.Component {
             active: 'table'
         };
 
+        this._queuedAnalyticEvent = null;
+
         this.clickedTab = this.clickedTab.bind(this);
+        this.logVisualizationTab = this.logVisualizationTab.bind(this);
+    }
+
+    componentDidMount() {
+        this._mounted = true;
+        this.logVisualizationTab(this.state.active);
+    }
+
+    componentWillUnmount() {
+        this._mounted = false;
+    }
+
+    logVisualizationTab(tab) {
+        if (this.props.noFiltersApplied) {
+            // no filters are applied yet, don't log an analytic event
+            return;
+        }
+
+        // discard any previously scheduled tab analytic events that haven't run yet
+        if (this._queuedAnalyticEvent) {
+            window.clearTimeout(this._queuedAnalyticEvent);
+        }
+
+        // only log analytic event after 15 seconds
+        this._queuedAnalyticEvent = window.setTimeout(() => {
+            if (this._mounted) {
+                const activeLabel = tabOptions.find((el) => el.code === tab).label;
+                Analytics.event({
+                    category: 'Advanced Search - Visualization Type',
+                    action: activeLabel
+                });
+            }
+        }, 15 * 1000);
     }
 
     clickedTab(tab) {
         this.setState({
             active: tab
         }, () => {
-            const activeLabel = tabOptions.find((el) => el.code === tab).label;
-            Analytics.event({
-                category: 'Advanced Search - Visualization Type',
-                action: activeLabel
-            });
+            this.logVisualizationTab(tab);
         });
     }
 
