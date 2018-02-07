@@ -222,3 +222,14 @@ export const sendFieldCombinations = (events) => {
         action: fields.sort().join('-')
     });
 };
+
+export const uniqueFilterFields = (redux) => {
+    const events = convertFiltersToAnalyticEvents(redux);
+    const fields = uniq(events.reduce((parsed, event) => {
+        if (event.action) {
+            parsed.push(event.action);
+        }
+        return parsed;
+    }, []));
+    return fields.sort().join('-');
+};
