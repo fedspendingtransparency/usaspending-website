@@ -26,8 +26,8 @@ export default class FiscalYearButton extends React.Component {
         e.preventDefault();
 
         const dates = fiscalYearHelper.convertFYToDateRange(this.props.year);
-        this.props.handleDateChange(dates[0], 'startDate');
-        this.props.handleDateChange(dates[1], 'endDate');
+        this.props.handleDateChange(dates[0], 'startDateBulk');
+        this.props.handleDateChange(dates[1], 'endDateBulk');
     }
 
     render() {

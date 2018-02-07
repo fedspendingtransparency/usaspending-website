@@ -7,10 +7,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { downloadPageMetaTags } from 'helpers/metaTagHelper';
+import { downloadOptions } from 'dataMapping/navigation/menuOptions';
 import Router from 'containers/router/Router';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
+import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Footer from 'components/sharedComponents/Footer';
 
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
@@ -18,33 +20,6 @@ import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardData
 import BulkDownloadModalContainer from
     'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
-
-export const dataTypes = [
-    {
-        type: 'awards',
-        label: 'Award Data',
-        disabled: false,
-        url: ''
-    },
-    {
-        type: 'accounts',
-        label: 'Account Data',
-        disabled: true,
-        url: ''
-    },
-    {
-        type: '',
-        label: 'Agency Submission Files',
-        disabled: false,
-        url: 'http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/'
-    },
-    {
-        type: 'snapshots',
-        label: 'Database Snapshots',
-        disabled: true,
-        url: ''
-    }
-];
 
 const propTypes = {
     setDataType: PropTypes.func,
@@ -111,34 +86,35 @@ export default class BulkDownloadPage extends React.Component {
             <div className="usa-da-bulk-download-page">
                 <MetaTags {...downloadPageMetaTags} />
                 <Header />
-                <div className="page-title-bar">
-                    <div className="page-title-bar-wrap">
-                        <h1 className="page-title">
-                            Bulk Download
+                <StickyHeader>
+                    <div className="sticky-header__title">
+                        <h1 tabIndex={-1} id="main-focus">
+                            Download Center
                         </h1>
                     </div>
-                </div>
+                </StickyHeader>
                 <main
-                    id="main-content"
-                    className="main-content">
-                    <div className="download-sidebar">
-                        <BulkDownloadSidebar
-                            dataTypes={dataTypes}
-                            changeDataType={this.changeDataType}
-                            active={this.props.dataType} />
-                        <div className="api-info">
-                            <h5>Interested in our API?</h5>
-                            <p>
-                                Take a look at our <a target="_blank" rel="noopener noreferrer" href="https://api.usaspending.gov/">API documentation</a>.
-                            </p>
+                    id="main-content">
+                    <div className="bulk-download-content">
+                        <div className="download-sidebar">
+                            <BulkDownloadSidebar
+                                dataTypes={downloadOptions}
+                                changeDataType={this.changeDataType}
+                                active={this.props.dataType} />
+                            <div className="api-info">
+                                <h5>Interested in our API?</h5>
+                                <p>
+                                    Take a look at our <a target="_blank" rel="noopener noreferrer" href="https://api.usaspending.gov/">API documentation</a>.
+                                </p>
+                            </div>
                         </div>
+                        <div className="download-data-wrapper">
+                            {downloadDataContent}
+                        </div>
+                        <BulkDownloadModalContainer
+                            mounted={this.state.showModal}
+                            hideModal={this.hideModal} />
                     </div>
-                    <div className="download-data-wrapper">
-                        {downloadDataContent}
-                    </div>
-                    <BulkDownloadModalContainer
-                        mounted={this.state.showModal}
-                        hideModal={this.hideModal} />
                 </main>
                 <Footer />
             </div>

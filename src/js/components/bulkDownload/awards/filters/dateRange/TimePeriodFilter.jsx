@@ -21,13 +21,24 @@ const propTypes = {
     setValidDates: PropTypes.func
 };
 
+const errorTypes = {
+    order: {
+        title: 'Invalid Dates',
+        message: 'The end date cannot be earlier than the start date.'
+    },
+    range: {
+        title: 'Invalid Date Range',
+        message: 'Choose one of the ranges below or set your own range of one year or less.'
+    }
+};
+
 export default class TimePeriodFilter extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            startDateUI: null,
-            endDateUI: null,
+            startDateBulkUI: null,
+            endDateBulkUI: null,
             showError: false,
             header: '',
             description: '',
@@ -56,8 +67,8 @@ export default class TimePeriodFilter extends React.Component {
 
         if (startDate.isValid() && endDate.isValid()) {
             this.setState({
-                startDateUI: startDate,
-                endDateUI: endDate
+                startDateBulkUI: startDate,
+                endDateBulkUI: endDate
             });
         }
     }
@@ -74,12 +85,12 @@ export default class TimePeriodFilter extends React.Component {
             // start date did change and it is a valid date (not null)
             if (startDate.isValid()) {
                 datesChanged = true;
-                newState.startDateUI = startDate;
+                newState.startDateBulkUI = startDate;
             }
             else {
                 // value became null
                 datesChanged = true;
-                newState.startDateUI = null;
+                newState.startDateBulkUI = null;
             }
         }
 
@@ -89,12 +100,12 @@ export default class TimePeriodFilter extends React.Component {
             if (endDate.isValid()) {
                 // end date did change and it is a valid date (not null)
                 datesChanged = true;
-                newState.endDateUI = endDate;
+                newState.endDateBulkUI = endDate;
             }
             else if (this.props.filterTimePeriodEnd) {
                 // value became null
                 datesChanged = true;
-                newState.endDateUI = null;
+                newState.endDateBulkUI = null;
             }
         }
 
@@ -121,18 +132,27 @@ export default class TimePeriodFilter extends React.Component {
 
     validateDates() {
         // validate that dates are provided for both fields and the end dates
-        // don't come before the start dates
+        // don't come before the start dates, and that the range is less than one year
 
         // validate the date ranges
-        const start = this.state.startDateUI;
-        const end = this.state.endDateUI;
+        const start = this.state.startDateBulkUI;
+        const end = this.state.endDateBulkUI;
+
+        const yearBeforeEnd = moment(this.state.endDateBulkUI).subtract(1, 'y');
+
         if (start && end) {
             // both sets of dates exist
             if (!end.isSameOrAfter(start)) {
                 // end date comes before start date, invalid
                 // show an error message
-                this.showError('Invalid Dates',
-                    'The end date cannot be earlier than the start date.');
+                const error = errorTypes.order;
+                this.showError(error.title, error.message);
+            }
+            else if (!start.isSameOrAfter(yearBeforeEnd)) {
+                // Start date is more than one year before the end date
+                // show an error message
+                const error = errorTypes.range;
+                this.showError(error.title, error.message);
             }
             else {
                 // valid!
@@ -204,14 +224,13 @@ export default class TimePeriodFilter extends React.Component {
         }
 
         let start = '';
-        if (this.state.startDateUI !== null) {
-            start = this.state.startDateUI.format('YYYY-MM-DD');
+        if (this.state.startDateBulkUI !== null) {
+            start = this.state.startDateBulkUI.format('YYYY-MM-DD');
         }
         let end = '';
-        if (this.state.endDateUI !== null) {
-            end = this.state.endDateUI.format('YYYY-MM-DD');
+        if (this.state.endDateBulkUI !== null) {
+            end = this.state.endDateBulkUI.format('YYYY-MM-DD');
         }
-
 
         return (
             <div className="filter-section">
@@ -221,8 +240,8 @@ export default class TimePeriodFilter extends React.Component {
                 <div className="filter-section-content date-range-wrapper">
                     <DownloadDateRange
                         datePlaceholder=""
-                        startDate={this.state.startDateUI}
-                        endDate={this.state.endDateUI}
+                        startDate={this.state.startDateBulkUI}
+                        endDate={this.state.endDateBulkUI}
                         onDateChange={this.handleDateChange}
                         showError={this.showError}
                         hideError={this.hideError} />

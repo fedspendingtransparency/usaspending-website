@@ -1,6 +1,7 @@
 .usa-da-search-page {
     @import "all";
     @import "layouts/tabbedSearch/tabbedSearch";
+    @import "layouts/default/stickyHeader/header";
 
     @import "./searchSidebar";
     @import "./_pagePositioning";

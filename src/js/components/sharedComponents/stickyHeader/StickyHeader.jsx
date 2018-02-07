@@ -1,19 +1,20 @@
 /**
-  * SearchHeader.jsx
-  * Created by Kevin Li 11/10/16
-  **/
+ * StickyHeader.jsx
+ * Created by Mike Bray 02/02/2018
+ **/
 
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DownloadButton from './DownloadButton';
-
 const propTypes = {
     showDownloadModal: PropTypes.func,
-    downloadAvailable: PropTypes.bool
+    downloadAvailable: PropTypes.bool,
+    children: PropTypes.node
 };
 
-export default class SearchHeader extends React.Component {
+export const stickyHeaderHeight = 66;
+
+export default class StickyHeader extends React.Component {
     constructor(props) {
         super(props);
 
@@ -65,33 +66,24 @@ export default class SearchHeader extends React.Component {
     render() {
         let stickyClass = '';
         if (this.state.isSticky) {
-            stickyClass = 'sticky';
+            stickyClass = 'sticky-header__container_sticky';
         }
 
         return (
             <div
-                className="search-header-wrapper"
+                className="sticky-header"
                 ref={(div) => {
                     this.wrapper = div;
                 }}>
                 <div
-                    className={`search-header-container ${stickyClass}`}
+                    className={`sticky-header__container ${stickyClass}`}
                     ref={(div) => {
                         this.content = div;
                     }}>
                     <div
-                        className="search-header"
+                        className="sticky-header__header"
                         aria-labelledby="main-focus">
-                        <div className="search-title">
-                            <h1 tabIndex={-1} id="main-focus">
-                                Advanced Search
-                            </h1>
-                        </div>
-                        <div className="search-options">
-                            <DownloadButton
-                                downloadAvailable={this.props.downloadAvailable}
-                                onClick={this.props.showDownloadModal} />
-                        </div>
+                        {this.props.children}
                     </div>
                 </div>
             </div>
@@ -99,4 +91,4 @@ export default class SearchHeader extends React.Component {
     }
 }
 
-SearchHeader.propTypes = propTypes;
+StickyHeader.propTypes = propTypes;
