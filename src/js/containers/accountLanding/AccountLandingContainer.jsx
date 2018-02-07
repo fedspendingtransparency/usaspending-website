@@ -30,8 +30,7 @@ export default class AccountLandingContainer extends React.Component {
             searchString: '',
             results: [],
             totalItems: 0,
-            // TODO - Lizzie: update to 50
-            pageSize: 10
+            pageSize: 50
         };
 
         this.accountsRequest = null;
