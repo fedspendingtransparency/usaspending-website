@@ -39,7 +39,7 @@
     }
 
     .agency-section-content {
-        @import "pages/homepage/treemapSection";
+        @import "./treemaps/treemapSection";
 
 	    .agency-viz-description {
 		    margin: rem(10) 0 rem(85);

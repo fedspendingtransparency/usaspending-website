@@ -33,7 +33,7 @@ export default class Header extends React.Component {
         e.preventDefault();
         // scroll to the main-content id
         const mainContent = document.getElementById('main-content');
-        const mainFocus = document.getElementById('main-focus');
+        const mainFocus = document.querySelector('#main-content h1');
         const yPos = mainContent.getBoundingClientRect().top;
         window.scrollTo(0, yPos);
         // focus on the element
@@ -71,8 +71,22 @@ export default class Header extends React.Component {
                         Skip to main content
                 </a>
                 <header
+                    className="site-header__wrapper"
                     aria-label="Site header">
                     {banner}
+                    <div
+                        className="official-banner"
+                        role="note">
+                        <div className="official-banner__wrapper">
+                            <div className="official-banner__text">
+                                An official website of the U.S. government
+                            </div>
+                            <img
+                                className="official-banner__flag"
+                                src="img/us_flag_small.png"
+                                alt="U.S. flag" />
+                        </div>
+                    </div>
                     <NavBar />
                 </header>
                 <GlossaryContainer />

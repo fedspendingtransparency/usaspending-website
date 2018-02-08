@@ -1,0 +1,95 @@
+.feature-spending-explorer {
+    .feature-spending-explorer__wrapper {
+        display: block; 
+        margin: rem(60) 0 rem(100);
+
+        @include media($medium-screen) {
+            @include display(flex);
+            @include justify-content(flex-start);
+            @include align-items(flex-start);
+            margin: rem(120) 0 rem(60);
+        }
+    }
+
+    .feature-spending-explorer__image-wrapper {
+        margin-bottom: rem(30);
+        width: 75vw;
+        height: 62vw;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        @include media($tablet-screen) {
+            height: auto;
+            width: rem(522);
+        }
+
+        @include media($medium-screen) {
+            @include flex(0 0 auto);
+            width: 50%;
+            margin: 0;
+            margin-bottom: 0;
+
+            img.feature-spending-explorer__image {
+                display: block;
+                margin-left: auto;
+                width: auto;
+            }
+        }
+
+        &.feature-spending-explorer__image-wrapper_desktop {
+            display: none;
+            @include media($medium-screen) {
+                display: block;
+            }
+        }
+
+        &.feature-spending-explorer__image-wrapper_mobile {
+            display: block;
+            margin-top: rem(30);
+            @include media($medium-screen) {
+                display: none;
+            }
+        }
+    }
+
+    .feature-spending-explorer__content {
+        @include media($medium-screen) {
+            @include flex(1 1 auto);
+            padding-left: rem(55);
+        }
+
+        .feature-spending-explorer__button-wrap {
+            margin-top: rem(55);
+
+            width: rem(273);
+            height: rem(57);
+            margin-left: 0;
+
+            .feature-spending-explorer__button {
+                display: block;
+
+                color: $color-white;
+                background-color: $color-primary;
+                padding: rem(15) rem(20);
+
+                font-size: rem(21);
+
+                &:visited {
+                    color: $color-white;                    
+                }
+
+                &:hover, &:active {
+                    text-decoration: none;
+                    background-color: $color-primary-darker;
+                }
+            }
+        }
+
+        .feature-spending-explorer__button-text {
+            &.feature-spending-explorer__button-text_weight_bold {
+                font-weight: $font-semibold;
+            }
+        }
+    }
+}
