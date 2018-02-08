@@ -8,8 +8,9 @@ import { parseDate } from './utils';
 
 /* eslint-disable object-shorthand */
 const BaseFederalAccountAwardRow = {
-    parse: function (data) {
-        this.awardId = data.id.toString() || null;
+    parse(data) {
+        this.internalId = data.id || null;
+        this.awardId = data.piid || data.fain || data.uri || '';
         this.recipientName = data.recipient.recipient_name || '';
         this._startDate = parseDate(data.period_of_performance_start_date || null);
         this._endDate = parseDate(data.period_of_performance_current_end_date || null);
