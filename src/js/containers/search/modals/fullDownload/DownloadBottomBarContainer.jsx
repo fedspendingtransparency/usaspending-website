@@ -129,8 +129,8 @@ export class DownloadBottomBarContainer extends React.Component {
                 }
             });
 
-        // get the selected filters as a single string
-
+        // send an analytic event of action download type and label value with all the filter
+        // field names
         Analytics.event({
             category: 'Advanced Search - Download',
             action: this.props.download.type,

@@ -248,7 +248,7 @@ describe('searchAnalytics', () => {
     });
 
     describe('sendFieldCombinations', () => {
-        it('should send an Analytic event with a non-repeating - separated string of filter names', () => {
+        it('should send an Analytic event with a non-repeating `-` separated string of filter names', () => {
             const events = [{
                 action: 'action',
                 label: 'label'
@@ -268,6 +268,21 @@ describe('searchAnalytics', () => {
                 category: 'Advanced Search - Search Fields',
                 action: 'action-z'
             });
+        });
+    });
+
+    describe('uniqueFilterFields', () => {
+        it('should return a string of non-repeating `-` separated string of filter names', () => {
+            const filters = {
+                timePeriodType: 'fy',
+                timePeriodFY: new Set(['1900']),
+                selectedAwardIDs: new OrderedMap({
+                    abc: 'abc'
+                })
+            };
+
+            const fields = searchAnalytics.uniqueFilterFields(filters);
+            expect(fields).toEqual('Award ID-Time Period - Fiscal Year');
         });
     });
 });
