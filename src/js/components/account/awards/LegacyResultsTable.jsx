@@ -75,28 +75,18 @@ export default class LegacyResultsTable extends React.Component {
         const isLast = columnIndex === this.props.columns.length - 1;
 
 
-        if (column.columnName === 'awardId') {
-            const award = this.props.results[rowIndex];
-            let formattedID = award.piid;
-            if (!formattedID) {
-                formattedID = award.fain;
-            }
-            if (!formattedID) {
-                formattedID = award.uri;
-            }
-
+        if (column.columnName === 'award_id') {
             return (
                 <ResultsTableAwardIdCell
                     rowIndex={rowIndex}
-                    id={this.props.results[rowIndex].id}
-                    value={formattedID}
+                    id={this.props.results[rowIndex].internalId}
+                    value={this.props.results[rowIndex].awardId}
                     column={column.columnName}
                     isLastColumn={isLast} />
             );
         }
 
         const originalData = this.props.results[rowIndex][column.fieldName];
-
         return (
             <ResultsTableGenericCell
                 rowIndex={rowIndex}
