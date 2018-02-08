@@ -268,6 +268,8 @@ describe('searchAnalytics', () => {
                 category: 'Advanced Search - Search Fields',
                 action: 'action-z'
             });
+
+            Analytics.event.mockClear();
         });
     });
 

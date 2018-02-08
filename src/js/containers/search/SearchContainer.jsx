@@ -12,11 +12,6 @@ import { is } from 'immutable';
 import moment from 'moment';
 
 import Router from 'containers/router/Router';
-import {
-    convertFiltersToAnalyticEvents,
-    sendAnalyticEvents,
-    sendFieldCombinations
-} from './helpers/searchAnalytics';
 
 import { filterStoreVersion, requiredTypes, initialState } from
     'redux/reducers/search/searchFiltersReducer';
@@ -33,6 +28,13 @@ import * as DownloadHelper from 'helpers/downloadHelper';
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 import SearchPage from 'components/search/SearchPage';
+
+import {
+    convertFiltersToAnalyticEvents,
+    sendAnalyticEvents,
+    sendFieldCombinations
+} from './helpers/searchAnalytics';
+
 
 require('pages/search/searchPage.scss');
 

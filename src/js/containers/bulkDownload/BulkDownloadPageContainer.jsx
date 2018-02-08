@@ -16,6 +16,8 @@ import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import BulkDownloadPage from 'components/bulkDownload/BulkDownloadPage';
 
+import { logAwardDownload } from './helpers/downloadAnalytics';
+
 require('pages/bulkDownload/bulkDownloadPage.scss');
 
 const propTypes = {
@@ -107,6 +109,8 @@ export class BulkDownloadPageContainer extends React.Component {
         };
 
         this.requestDownload(params, 'awards');
+
+        logAwardDownload(this.props.bulkDownload.awards);
     }
 
     requestDownload(params, type) {
