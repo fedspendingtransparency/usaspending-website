@@ -6,6 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+
+import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import AccountLandingTable from './table/AccountLandingTable';
 
 const propTypes = {
@@ -19,44 +23,38 @@ const propTypes = {
 
 export default class AccountLandingResultsSection extends React.Component {
     render() {
-        let loadingWrapper = 'results-table-section__loading-wrapper';
         let message = null;
+        let table = (
+            <AccountLandingTable
+                {...this.props} />
+        );
         if (this.props.inFlight) {
-            loadingWrapper = 'results-table-section__loading-wrapper results-table-section__loading-wrapper_loading';
             message = (
-                <div className="results-table-section__message">
-                    Loading data...
+                <div className="results-table-message-container">
+                    <ResultsTableLoadingMessage />
                 </div>
             );
         }
         else if (this.props.results.length === 0) {
             // no results
-            if (this.props.accountSearchString) {
-                message = (
-                    <div className="results-table-section__message">
-                        No results found for &ldquo;
-                        <span className="results-table-section__search-string">
-                            {this.props.accountSearchString}
-                        </span> &rdquo;.
-                    </div>
-                );
-            }
-            else {
-                message = (
-                    <div className="results-table-section__message">
-                        No results found.
-                    </div>
-                );
-            }
+            table = null;
+            message = (
+                <div className="results-table-message-container full">
+                    <ResultsTableErrorMessage />
+                </div>
+            );
         }
 
         return (
             <div className="results-table-section" id="account-landing-results">
-                <div className={loadingWrapper}>
-                    <AccountLandingTable
-                        {...this.props} />
-                </div>
-                {message}
+                <CSSTransitionGroup
+                    transitionName="table-message-fade"
+                    transitionLeaveTimeout={225}
+                    transitionEnterTimeout={195}
+                    transitionLeave>
+                    {message}
+                </CSSTransitionGroup>
+                {table}
             </div>
         );
     }

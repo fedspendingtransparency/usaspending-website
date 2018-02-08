@@ -1,22 +1,8 @@
+@import "pages/search/results/table/_tableMessages";
+@import "pages/search/results/screens/screens";
 .results-table-section {
-    transition: opacity 0.25s ease;
-
+    position: relative;
+    min-height: rem(200);
+    @include transition(opacity 0.25s ease-in);
     @import './table';
-
-    .results-table-section__loading-wrapper_loading {
-        opacity: 0.5;
-        @include transition(opacity 0.25s ease-in);
-    }
-
-    .results-table-section__message {
-        margin: rem(90) auto;
-        font-size: rem(36);
-        font-weight: 300;
-        color: $color-base;
-        text-align: center;
-        .results-table-section__search-string {
-            color: $color-active;
-            font-weight: normal;
-        }
-    }
 }

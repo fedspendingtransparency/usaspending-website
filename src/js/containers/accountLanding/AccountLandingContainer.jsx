@@ -158,16 +158,21 @@ export default class AccountLandingContainer extends React.Component {
             const formattedCurrency =
                 MoneyFormatter.formatMoneyWithPrecision(item.budgetary_resources, 0);
 
+            let formattedAgency = item.managing_agency;
+            if (item.managing_agency_acronym) {
+                formattedAgency = `${item.managing_agency} (${item.managing_agency_acronym})`;
+            }
+
             const account = {
                 account_id: item.account_id,
                 account_number: item.account_number,
-                managing_agency: `${item.managing_agency} (${item.managing_agency_acronym})`,
+                managing_agency: formattedAgency,
                 account_name: item.account_name,
                 budgetary_resources: item.budgetary_resources,
                 display: {
                     account_number: `${item.account_number}`,
                     account_name: `${item.account_name}`,
-                    managing_agency: `${item.managing_agency} (${item.managing_agency_acronym})`,
+                    managing_agency: formattedAgency,
                     budgetary_resources: formattedCurrency
                 }
             };
