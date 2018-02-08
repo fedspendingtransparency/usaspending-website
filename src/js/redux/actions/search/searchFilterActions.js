@@ -3,12 +3,6 @@
   * Created by Kevin Li 11/1/16
   **/
 
-// Keyword Filter
-export const updateTextSearchInput = (state) => ({
-    type: 'UPDATE_TEXT_SEARCH',
-    textInput: state
-});
-
 // Time Period Filter
 export const updateTimePeriod = (state) => ({
     type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',

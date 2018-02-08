@@ -17,7 +17,6 @@ export const mockFilters = {
             selectedLocations: {},
             recipientType: [],
             timePeriodFY: [`${FiscalYearHelper.currentFiscalYear()}`],
-            keyword: "",
             timePeriodType: "fy",
             timePeriodStart: null,
             selectedAwardingAgencies: {},
