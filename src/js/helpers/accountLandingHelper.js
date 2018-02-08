@@ -10,7 +10,7 @@ export const fetchAllAccounts = (data) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/references/federal_account/',
+            url: 'v2/federal_accounts/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data,
