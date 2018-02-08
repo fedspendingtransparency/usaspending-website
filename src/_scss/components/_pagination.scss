@@ -1,17 +1,19 @@
 .pagination {
-    margin: rem(15);
+    @include display(flex);
+    @include flex-direction(row);
+    @include align-items(center);
     .pagination__totals {
-        @include display(flex);
-        @include flex-direction(row);
-        float: left;
+        @include flex(0 0 auto);
     }
     .pager {
-        list-style-type: none;
         @include display(flex);
         @include flex-direction(row);
-        float: right;
+        @include justify-content(flex-end);
+        @include flex(1 1 auto);
+        list-style-type: none;
         margin: 0;
         .pager__item {
+            @include flex(0 0 auto);
             .pager__button {
                 padding: rem(7) rem(10);
                 background-color: $color-white;
@@ -23,22 +25,18 @@
                 &:hover {
                     background-color: $color-primary-alt-lightest;
                 }
-            }
-            &.pager__item_active {
-                .pager__button {
-                    background-color: $color-primary-alt-dark;
-                    color: $color-white;
-                    border-color: $color-primary-alt-dark;
-                }
-            }
-            &.pager__item_disabled {
-                .pager__button {
+                &.pager__button_disabled {
                     border-color: $color-gray-lighter;
                     color: $color-gray-light;
                     &:hover {
                         background-color: $color-white;
                         cursor: auto;
                     }
+                }
+                &.pager__button_active {
+                    background-color: $color-primary-alt-dark;
+                    color: $color-white;
+                    border-color: $color-primary-alt-dark;
                 }
             }
         }

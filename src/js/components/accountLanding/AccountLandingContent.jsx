@@ -14,6 +14,7 @@ const propTypes = {
     results: PropTypes.array,
     accountSearchString: PropTypes.string,
     inFlight: PropTypes.bool,
+    error: PropTypes.bool,
     columns: PropTypes.array,
     setAccountSearchString: PropTypes.func,
     onChangePage: PropTypes.func,
@@ -48,6 +49,7 @@ export default class AccountLandingContent extends React.Component {
                     columns={this.props.columns}
                     results={this.props.results}
                     inFlight={this.props.inFlight}
+                    error={this.props.error}
                     accountSearchString={this.props.accountSearchString}
                     order={this.props.order}
                     updateSort={this.props.updateSort} />

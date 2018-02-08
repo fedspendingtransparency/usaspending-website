@@ -14,6 +14,7 @@ import AccountLandingTable from './table/AccountLandingTable';
 
 const propTypes = {
     inFlight: PropTypes.bool,
+    error: PropTypes.bool,
     results: PropTypes.array,
     columns: PropTypes.array,
     accountSearchString: PropTypes.string,
@@ -35,8 +36,7 @@ export default class AccountLandingResultsSection extends React.Component {
                 </div>
             );
         }
-        else if (this.props.results.length === 0) {
-            // no results
+        else if (this.props.error) {
             table = null;
             message = (
                 <div className="results-table-message-container full">

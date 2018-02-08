@@ -76,7 +76,7 @@ export default class Pagination extends React.Component {
                 }
                 else if (currentPage === 3) {
                     startPage = 1;
-                    endPage = currentPage;
+                    endPage = 4;
                 }
             }
             else if (currentPage > (totalPages - 3)) {
@@ -87,7 +87,7 @@ export default class Pagination extends React.Component {
                     endPage = currentPage;
                 }
                 else if (currentPage === (totalPages - 2)) {
-                    startPage = currentPage;
+                    startPage = currentPage - 1;
                     endPage = totalPages;
                 }
             }
@@ -127,9 +127,9 @@ export default class Pagination extends React.Component {
             (
                 <li
                     key={index}
-                    className={`pager__item ${this.props.pageNumber === page ? 'pager__item_active' : ''}`}>
+                    className="pager__item">
                     <button
-                        className="pager__button"
+                        className={`pager__button ${this.props.pageNumber === page ? 'pager__button_active' : ''}`}
                         onClick={() => this.setPage(page, totalPages)}>
                         {page}
                     </button>
@@ -160,9 +160,10 @@ export default class Pagination extends React.Component {
                     {resultsText}
                 </div>
                 <ul className="pager">
-                    <li className={`pager__item ${pager.currentPage === 1 ? 'pager__item_disabled' : ''}`}>
+                    <li className="pager__item">
                         <button
-                            className="pager__button"
+                            className={`pager__button ${pager.currentPage === 1 ? 'pager__button_disabled' : ''}`}
+                            disabled={pager.currentPage === 1}
                             onClick={() => this.setPage(pager.currentPage - 1)}>{`<`}
                         </button>
                     </li>
@@ -171,9 +172,10 @@ export default class Pagination extends React.Component {
                     {pageButtons}
                     {pager.nextEllipses}
                     {pager.lastButton}
-                    <li className={`pager__item ${pager.currentPage === pager.totalPages ? 'pager__item_disabled' : ''}`}>
+                    <li className="pager__item">
                         <button
-                            className="pager__button"
+                            className={`pager__button ${pager.currentPage === pager.totalPages ? 'pager__button_disabled' : ''}`}
+                            disabled={pager.currentPage === pager.totalPages}
                             onClick={() => this.setPage(pager.currentPage + 1)}>{`>`}
                         </button>
                     </li>

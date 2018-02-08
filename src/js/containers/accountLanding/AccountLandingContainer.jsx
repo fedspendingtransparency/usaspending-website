@@ -27,6 +27,7 @@ export default class AccountLandingContainer extends React.Component {
             },
             columns: [],
             inFlight: false,
+            error: false,
             searchString: '',
             results: [],
             totalItems: 0,
@@ -114,7 +115,8 @@ export default class AccountLandingContainer extends React.Component {
         }
 
         this.setState({
-            inFlight: true
+            inFlight: true,
+            error: false
         });
 
         // generate the params
@@ -143,7 +145,8 @@ export default class AccountLandingContainer extends React.Component {
                 this.accountsRequest = null;
                 if (!isCancel(err)) {
                     this.setState({
-                        inFlight: false
+                        inFlight: false,
+                        error: true
                     });
                     console.log(err);
                 }
@@ -190,6 +193,7 @@ export default class AccountLandingContainer extends React.Component {
             <AccountLandingContent
                 results={this.state.results}
                 inFlight={this.state.inFlight}
+                error={this.state.error}
                 columns={this.state.columns}
                 order={this.state.order}
                 updateSort={this.updateSort}
