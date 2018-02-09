@@ -12,7 +12,7 @@ const accountTableSearchFields = {
         period_of_performance_start_date: 'desc',
         period_of_performance_current_end_date: 'desc',
         total_obligation: 'desc',
-        type: 'asc',
+        type_description: 'asc',
         awarding_agency_name: 'asc',
         awarding_subtier_name: 'asc',
         latest_transaction__action_date: 'desc',
@@ -25,7 +25,7 @@ const accountTableSearchFields = {
         startDate: 'period_of_performance_start_date',
         endDate: 'period_of_performance_current_end_date',
         awardAmount: 'total_obligation',
-        awardType: 'type',
+        awardType: 'type_description',
         awardingToptierAgency: 'awarding_agency__toptier_agency__name',
         awardingSubtierAgency: 'awarding_agency__subtier_agency__name',
         issuedDate: 'latest_transaction__action_date',
@@ -40,9 +40,9 @@ const accountTableSearchFields = {
             'period_of_performance_start_date',
             'period_of_performance_current_end_date',
             'total_obligation',
-            'type',
             'awarding_agency_name',
-            'awarding_subtier_name'
+            'awarding_subtier_name',
+            'type_description'
         ],
         _mapping: {
             award_id: 'awardId',
@@ -50,7 +50,7 @@ const accountTableSearchFields = {
             period_of_performance_start_date: 'startDate',
             period_of_performance_current_end_date: 'endDate',
             total_obligation: 'awardAmount',
-            type: 'awardType',
+            type_description: 'awardType',
             awarding_agency_name: 'awardingToptierAgency',
             awarding_subtier_name: 'awardingSubtierAgency'
         },
@@ -59,7 +59,7 @@ const accountTableSearchFields = {
         period_of_performance_start_date: 'Start Date',
         period_of_performance_current_end_date: 'End Date',
         total_obligation: 'Award Amount',
-        type: 'Contract Award Type',
+        type_description: 'Contract Award Type',
         awarding_agency_name: 'Awarding Agency',
         awarding_subtier_name: 'Awarding Sub Agency'
     },
@@ -73,7 +73,7 @@ const accountTableSearchFields = {
             'total_obligation',
             'awarding_agency_name',
             'awarding_subtier_name',
-            'type'
+            'type_description'
         ],
         _mapping: {
             award_id: 'awardId',
@@ -81,7 +81,7 @@ const accountTableSearchFields = {
             period_of_performance_start_date: 'startDate',
             period_of_performance_current_end_date: 'endDate',
             total_obligation: 'awardAmount',
-            type: 'awardType',
+            type_description: 'awardType',
             awarding_agency_name: 'awardingToptierAgency',
             awarding_subtier_name: 'awardingSubtierAgency'
         },
@@ -92,7 +92,7 @@ const accountTableSearchFields = {
         total_obligation: 'Award Amount',
         awarding_agency_name: 'Awarding Agency',
         awarding_subtier_name: 'Awarding Sub Agency',
-        type: 'Award Type'
+        type_description: 'Award Type'
     },
     direct_payments: {
         _defaultSortField: 'total_obligation',
@@ -104,7 +104,7 @@ const accountTableSearchFields = {
             'total_obligation',
             'awarding_agency_name',
             'awarding_subtier_name',
-            'type'
+            'type_description'
         ],
         _mapping: {
             award_id: 'awardId',
@@ -112,7 +112,7 @@ const accountTableSearchFields = {
             period_of_performance_start_date: 'startDate',
             period_of_performance_current_end_date: 'endDate',
             total_obligation: 'awardAmount',
-            type: 'awardType',
+            type_description: 'awardType',
             awarding_agency_name: 'awardingToptierAgency',
             awarding_subtier_name: 'awardingSubtierAgency'
         },
@@ -123,7 +123,7 @@ const accountTableSearchFields = {
         total_obligation: 'Award Amount',
         awarding_agency_name: 'Awarding Agency',
         awarding_subtier_name: 'Awarding Sub Agency',
-        type: 'Award Type'
+        type_description: 'Award Type'
     },
     loans: {
         _defaultSortField: 'latest_transaction__assistance_data__face_value_loan_guarantee',
@@ -172,7 +172,7 @@ const accountTableSearchFields = {
             'total_obligation',
             'awarding_agency_name',
             'awarding_subtier_name',
-            'type'
+            'type_description'
         ],
         _mapping: {
             award_id: 'awardId',
@@ -180,7 +180,7 @@ const accountTableSearchFields = {
             period_of_performance_start_date: 'startDate',
             period_of_performance_current_end_date: 'endDate',
             total_obligation: 'awardAmount',
-            type: 'awardType',
+            type_description: 'awardType',
             awarding_agency_name: 'awardingToptierAgency',
             awarding_subtier_name: 'awardingSubtierAgency'
         },
@@ -191,7 +191,7 @@ const accountTableSearchFields = {
         total_obligation: 'Award Amount',
         awarding_agency_name: 'Awarding Agency',
         awarding_subtier_name: 'Awarding Sub Agency',
-        type: 'Award Type'
+        type_description: 'Award Type'
     }
 };
 /* eslint-enable max-len */
