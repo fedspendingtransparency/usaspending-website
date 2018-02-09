@@ -1,20 +1,26 @@
 const accountsTableFields = {
     defaultSortDirection: {
-        account_number: 'desc',
-        account_name: 'asc',
-        managing_agency: 'asc',
-        budgetary_resources: 'desc'
+        accountNumber: 'desc',
+        accountName: 'asc',
+        managingAgency: 'asc',
+        budgetaryResources: 'desc'
+    },
+    modelMapping: {
+        accountNumber: 'account_number',
+        accountName: 'account_name',
+        managingAgency: 'managing_agency',
+        budgetaryResources: 'budgetary_resources'
     },
     order: [
-        'account_number',
-        'account_name',
-        'managing_agency',
-        'budgetary_resources'
+        'accountNumber',
+        'accountName',
+        'managingAgency',
+        'budgetaryResources'
     ],
-    account_number: 'Account Number',
-    account_name: 'Account Name',
-    managing_agency: 'Managing Agency',
-    budgetary_resources: 'Budgetary Resources'
+    accountNumber: 'Account Number',
+    accountName: 'Account Name',
+    managingAgency: 'Managing Agency',
+    budgetaryResources: 'Budgetary Resources'
 };
 
 export default accountsTableFields;

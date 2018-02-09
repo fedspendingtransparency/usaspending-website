@@ -8,10 +8,11 @@ import { isCancel } from 'axios';
 
 import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
 import * as AccountLandingHelper from 'helpers/accountLandingHelper';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import AccountLandingContent from 'components/accountLanding/AccountLandingContent';
+
+import BaseFederalAccountLandingRow from 'models/accountLanding/BaseFederalAccountLandingRow';
 
 require('pages/accountLanding/accountLandingPage.scss');
 
@@ -88,7 +89,7 @@ export default class AccountLandingContainer extends React.Component {
 
         AccountsTableFields.order.forEach((col) => {
             let displayName = AccountsTableFields[col];
-            if (col === 'budgetary_resources') {
+            if (col === 'budgetaryResources') {
                 // Add default fiscal year to Budgetary Resources column header
                 const fy = FiscalYearHelper.defaultFiscalYear();
                 displayName = `${fy} ${displayName}`;
@@ -157,28 +158,8 @@ export default class AccountLandingContainer extends React.Component {
         const accounts = [];
 
         data.results.forEach((item) => {
-            // Format budgetary resources
-            const formattedCurrency =
-                MoneyFormatter.formatMoneyWithPrecision(item.budgetary_resources, 0);
-
-            let formattedAgency = item.managing_agency;
-            if (item.managing_agency_acronym) {
-                formattedAgency = `${item.managing_agency} (${item.managing_agency_acronym})`;
-            }
-
-            const account = {
-                account_id: item.account_id,
-                account_number: item.account_number,
-                managing_agency: formattedAgency,
-                account_name: item.account_name,
-                budgetary_resources: item.budgetary_resources,
-                display: {
-                    account_number: `${item.account_number}`,
-                    account_name: `${item.account_name}`,
-                    managing_agency: formattedAgency,
-                    budgetary_resources: formattedCurrency
-                }
-            };
+            const account = Object.create(BaseFederalAccountLandingRow);
+            account.parse(item);
             accounts.push(account);
         });
 

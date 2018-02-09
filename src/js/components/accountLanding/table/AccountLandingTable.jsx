@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
 import LegacyTableHeaderCell from 'components/account/awards/LegacyTableHeaderCell';
 import TableRow from './TableRow';
 
@@ -22,7 +23,7 @@ export default class AccountLandingTable extends React.PureComponent {
         const rows = this.props.results.map((account, index) => (
             <TableRow
                 account={account}
-                key={account.account_id}
+                key={account.accountId}
                 rowIndex={index}
                 columns={this.props.columns}
                 accountSearchString={this.props.accountSearchString} />
@@ -32,7 +33,7 @@ export default class AccountLandingTable extends React.PureComponent {
             <td key={index} className="results-table__data">
                 <LegacyTableHeaderCell
                     isLast={index === this.props.columns.length - 1}
-                    field={column.columnName}
+                    field={AccountsTableFields.modelMapping[column.columnName]}
                     title={column.displayName}
                     defaultDirection={column.defaultDirection}
                     currentSort={this.props.order}

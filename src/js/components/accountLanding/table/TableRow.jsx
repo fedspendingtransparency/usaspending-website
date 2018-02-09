@@ -23,29 +23,29 @@ export default class TableRow extends React.PureComponent {
             rowClass = 'results-table__data_even';
         }
         const cells = this.props.columns.map((column) => {
-            if (column.columnName === 'account_name') {
+            if (column.columnName === 'accountName') {
                 // show the account link cell
                 return (
                     <td
                         className={`results-table__data ${rowClass}`}
-                        key={`${column.columnName}-${this.props.account.account_id}`}>
+                        key={`${column.columnName}-${this.props.account.accountId}`}>
                         <AccountLinkCell
                             rowIndex={this.props.rowIndex}
-                            name={this.props.account.account_name}
-                            id={this.props.account.account_id}
+                            name={this.props.account.accountName}
+                            id={this.props.account.accountId}
                             accountSearchString={this.props.accountSearchString}
                             column={column.columnName} />
                     </td>
                 );
             }
-            else if (column.columnName === 'budget_authority_amount') {
+            else if (column.columnName === 'budgetaryResources') {
                 return (
                     <td
                         className={`results-table__data ${rowClass}`}
-                        key={`${column.columnName}-${this.props.account.account_id}`}>
+                        key={`${column.columnName}-${this.props.account.accountId}`}>
                         <GenericCell
                             rowIndex={this.props.rowIndex}
-                            data={this.props.account.display[column.columnName]}
+                            data={this.props.account[column.columnName]}
                             column={column.columnName} />
                     </td>
                 );
@@ -53,10 +53,10 @@ export default class TableRow extends React.PureComponent {
             return (
                 <td
                     className={`results-table__data ${rowClass}`}
-                    key={`${column.columnName}-${this.props.account.account_id}`}>
+                    key={`${column.columnName}-${this.props.account.accountId}`}>
                     <HighlightedCell
                         rowIndex={this.props.rowIndex}
-                        data={this.props.account.display[column.columnName]}
+                        data={this.props.account[column.columnName]}
                         column={column.columnName}
                         searchString={this.props.accountSearchString} />
                 </td>

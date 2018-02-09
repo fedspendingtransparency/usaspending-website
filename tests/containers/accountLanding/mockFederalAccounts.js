@@ -35,40 +35,25 @@ export const mockData = {
 
 export const mockParsed = [
     {
-        "account_id": 1,
-        "account_name": "Mock Account",
-        "account_number": "123-4567",
-        "budgetary_resources": 5000000,
-        "display": {
-            "account_name": "Mock Account",
-            "account_number": "123-4567",
-            "budgetary_resources": "$5,000,000",
-            "managing_agency": "Mock Agency (XYZ)"
-        },
-        "managing_agency": "Mock Agency (XYZ)"
+        _budgetaryResources: 5000000,
+        _managingAgency: "Mock Agency",
+        _managingAgencyAcronym: "XYZ",
+        accountId: 1,
+        accountName: "Mock Account",
+        accountNumber: "123-4567"
     }, {
-        "account_id": 2,
-        "account_name": "Mock Account 2",
-        "account_number": "098-7654",
-        "budgetary_resources": 6500000,
-        "display": {
-            "account_name": "Mock Account 2",
-            "account_number": "098-7654",
-            "budgetary_resources": "$6,500,000",
-            "managing_agency": "Mock Agency 2 (ABC)"
-        },
-        "managing_agency": "Mock Agency 2 (ABC)"
+        _budgetaryResources: 6500000,
+        _managingAgency: "Mock Agency 2",
+        _managingAgencyAcronym: "ABC",
+        accountId: 2,
+        accountName: "Mock Account 2",
+        accountNumber: "098-7654"
     }, {
-        "account_id": 3,
-        "account_name": "Test Account",
-        "account_number": "234-5678",
-        "budgetary_resources": 4500000,
-        "display": {
-            "account_name": "Test Account",
-            "account_number": "234-5678",
-            "budgetary_resources": "$4,500,000",
-            "managing_agency": "Mock Agency 3 (DEF)"
-        },
-        "managing_agency": "Mock Agency 3 (DEF)"
+        _budgetaryResources: 4500000,
+        _managingAgency: "Mock Agency 3",
+        _managingAgencyAcronym: "DEF",
+        accountId: 3,
+        accountName: "Test Account",
+        accountNumber: "234-5678"
     }
 ];

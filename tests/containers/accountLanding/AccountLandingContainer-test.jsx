@@ -40,22 +40,22 @@ describe('AccountLandingContainer', () => {
             const fy = FiscalYearHelper.defaultFiscalYear();
             const expectedState = [
                 {
-                    columnName: "account_number",
+                    columnName: "accountNumber",
                     defaultDirection: "desc",
                     displayName: "Account Number"
                 },
                 {
-                    columnName: "account_name",
+                    columnName: "accountName",
                     defaultDirection: "asc",
                     displayName: "Account Name"
                 },
                 {
-                    columnName: "managing_agency",
+                    columnName: "managingAgency",
                     defaultDirection: "asc",
                     displayName: "Managing Agency"
                 },
                 {
-                    columnName: "budgetary_resources",
+                    columnName: "budgetaryResources",
                     defaultDirection: "desc",
                     displayName: `${fy} Budgetary Resources`
                 }
