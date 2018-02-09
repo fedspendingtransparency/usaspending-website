@@ -14,6 +14,10 @@ const propTypes = {
     filterCount: PropTypes.number
 };
 
+const defaultProps = {
+    filterCount: 0
+};
+
 export default class DownloadButton extends React.Component {
     constructor(props) {
         super(props);
@@ -84,3 +88,4 @@ export default class DownloadButton extends React.Component {
 }
 
 DownloadButton.propTypes = propTypes;
+DownloadButton.defaultProps = defaultProps;
