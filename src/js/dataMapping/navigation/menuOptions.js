@@ -27,7 +27,7 @@ export const profileOptions = [
     {
         label: 'Federal Accounts',
         url: '#/federal_account',
-        enabled: false
+        enabled: true
     },
     {
         label: 'Recipients',

@@ -1,12 +1,8 @@
-@import "../default/default";
 @import "../summary/summary";
 
-.landing-page-content {
+.landing-page {
     padding: $global-pad;
-    .landing-page-overview {
-        @include span-columns(16);
-        @include shift(0);
-
+    .landing-page__overview {
         text-align: center;
         h3 {
             margin-top: 0;
@@ -16,12 +12,9 @@
             margin-bottom: rem(30);
         }
     }
-    .landing-page-section {
-        @include span-columns(16);
-    }
     @include media($medium-screen) {
         padding: ($global-pad * 2);
-        .landing-page-overview {
+        .landing-page__overview {
             width: 75%;
             margin: auto;
             float: none;

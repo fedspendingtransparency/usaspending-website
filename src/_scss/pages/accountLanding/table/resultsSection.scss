@@ -1,0 +1,8 @@
+@import "pages/search/results/table/_tableMessages";
+@import "pages/search/results/screens/screens";
+.results-table-section {
+    position: relative;
+    min-height: rem(200);
+    @include transition(opacity 0.25s ease-in);
+    @import './table';
+}

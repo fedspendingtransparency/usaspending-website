@@ -1,37 +1,35 @@
 /**
- * AgencyLandingPage.jsx
- * Created by Lizzie Salita 7/7/17
+ * AccountLandingPage.jsx
+ * Created by Lizzie Salita 8/4/17
  */
 
 import React from 'react';
 
-import { agencyLandingPageMetaTags } from 'helpers/metaTagHelper';
+import { accountLandingPageMetaTags } from 'helpers/metaTagHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import Header from 'components/sharedComponents/header/Header';
 import Footer from 'components/sharedComponents/Footer';
-import AgencyLandingContainer from 'containers/agencyLanding/AgencyLandingContainer';
+import AccountLandingContainer from 'containers/accountLanding/AccountLandingContainer';
 
-require('pages/agencyLanding/agencyLandingPage.scss');
-
-export default class AgencyLandingPage extends React.Component {
+export default class AccountLandingPage extends React.Component {
     render() {
         return (
-            <div className="usa-da-agency-landing">
-                <MetaTags {...agencyLandingPageMetaTags} />
+            <div className="usa-da-account-landing">
+                <MetaTags {...accountLandingPageMetaTags} />
                 <Header />
                 <StickyHeader>
                     <div className="sticky-header__title">
                         <h1 tabIndex={-1} id="main-focus">
-                            Agency Profiles
+                            Federal Account Profiles
                         </h1>
                     </div>
                 </StickyHeader>
                 <main
                     id="main-content"
                     className="main-content">
-                    <AgencyLandingContainer />
+                    <AccountLandingContainer />
                 </main>
                 <Footer />
             </div>

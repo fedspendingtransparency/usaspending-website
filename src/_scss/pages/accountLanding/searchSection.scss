@@ -1,0 +1,39 @@
+.search-section {
+    background-color: $color-primary-alt-lightest;
+    padding: rem(10);
+    border: 1px solid $color-vis-lightest;
+    text-align: center;
+    @include media($medium-screen) {
+        padding: rem(38);
+    }
+    .search-section__form {
+        @include display(flex);
+        @include flex-direction(row);
+        @include align-items(center);
+        @include justify-content(flex-start);
+        background-color: $color-white;
+        .search-section__input {
+            @include flex(1 1 auto);
+            color: $color-gray-light;
+            font-weight: 300;
+            line-height: rem(28);
+            padding: rem(10) rem(15);
+            border: 0;
+            @include media($medium-screen) {
+                font-size: rem(22);
+            }
+        }
+        .search-section__button {
+            @include flex(0 0 auto);
+            @include button-unstyled;
+            padding: 0 rem(15);
+            .search-section__button-icon {
+                height: rem(24);
+                width: rem(24);
+                svg {
+                    fill: $color-gray-light;
+                }
+            }
+        }
+    }
+}

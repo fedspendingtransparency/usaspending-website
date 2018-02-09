@@ -5,6 +5,10 @@
     display: block;
     overflow: auto;
 
+    .pagination {
+        margin: rem(15);
+    }
+
     &.no-results {
         border: none;
     }
