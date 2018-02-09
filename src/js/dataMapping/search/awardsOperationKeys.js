@@ -4,7 +4,6 @@
  */
 
 export const rootKeys = {
-    keyword: 'keyword',
     timePeriod: 'time_period',
     awardType: 'award_type_codes',
     agencies: 'agencies',

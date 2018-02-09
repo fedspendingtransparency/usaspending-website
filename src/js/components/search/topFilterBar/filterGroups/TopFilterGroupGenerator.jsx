@@ -12,7 +12,6 @@ import LocationFilterGroup from './LocationFilterGroup';
 import AgencyFilterGroup from './AgencyFilterGroup';
 import RecipientFilterGroup from './RecipientFilterGroup';
 import RecipientTypeFilterGroup from './RecipientTypeFilterGroup';
-import KeywordFilterGroup from './KeywordFilterGroup';
 import AwardIDFilterGroup from './AwardIDFilterGroup';
 import AwardAmountFilterGroup from './AwardAmountFilterGroup';
 import CFDAFilterGroup from './CFDAFilterGroup';
@@ -31,8 +30,6 @@ export const topFilterGroupGenerator = (config = {
     const groupKey = `top-filter-group-${config.filter.code}`;
 
     switch (config.filter.code) {
-        case 'keyword':
-            return <KeywordFilterGroup key={groupKey} {...config} />;
         case 'timePeriodFY':
             return <TimePeriodFYFilterGroup key={groupKey} {...config} />;
         case 'timePeriodDR':
