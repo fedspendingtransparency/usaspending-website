@@ -21,7 +21,11 @@ export default class AccountLinkCell extends React.Component {
         // highlight the matched string if applicable
         if (this.props.accountSearchString) {
             name = reactStringReplace(this.props.name, this.props.accountSearchString, (match, i) => (
-                <span className="results-table-cell__highlight" key={match + i}>{match}</span>
+                <span
+                    className="results-table-cell__matched results-table-cell__matched_highlight"
+                    key={match + i}>
+                    {match}
+                </span>
             ));
         }
 
