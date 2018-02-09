@@ -10,7 +10,8 @@ import NoDownloadHover from './NoDownloadHover';
 
 const propTypes = {
     onClick: PropTypes.func,
-    downloadAvailable: PropTypes.bool
+    downloadAvailable: PropTypes.bool,
+    filterCount: PropTypes.number
 };
 
 export default class DownloadButton extends React.Component {
@@ -49,7 +50,7 @@ export default class DownloadButton extends React.Component {
 
     render() {
         let hover = null;
-        if (this.state.showHover && !this.props.downloadAvailable) {
+        if (this.state.showHover && !this.props.downloadAvailable && this.props.filterCount > 0) {
             hover = (<NoDownloadHover />);
         }
 
