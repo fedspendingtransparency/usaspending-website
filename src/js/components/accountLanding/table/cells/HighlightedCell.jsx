@@ -20,7 +20,11 @@ export default class HighlightedCell extends React.Component {
         // highlight the matched string if applicable
         if (this.props.searchString) {
             data = reactStringReplace(this.props.data, this.props.searchString, (match, i) => (
-                <span className="results-table-cell__highlight" key={match + i}>{match}</span>
+                <span
+                    className="results-table-cell__matched results-table-cell__matched_highlight"
+                    key={match + i}>
+                    {match}
+                </span>
             ));
         }
         return (

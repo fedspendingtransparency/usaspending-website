@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import AccountLandingContainer from 'containers/accountLanding/AccountLandingContainer';
@@ -30,11 +30,10 @@ describe('AccountLandingContainer', () => {
     });
 
     describe('showColumns', () => {
-        it('should build the table', async () => {
-            // mount the container
-            const container = mount(<AccountLandingContainer />);
+        it('should build the table', () => {
+            const container = shallow(<AccountLandingContainer />);
 
-            await container.instance().accountsRequest.promise;
+            container.instance().showColumns();
 
             // validate the state contains the correctly parsed values
             const fy = FiscalYearHelper.defaultFiscalYear();
@@ -67,7 +66,7 @@ describe('AccountLandingContainer', () => {
 
     describe('parseAccounts', () => {
         it('should parse the API response and update the container state', () => {
-            const container = mount(<AccountLandingContainer />);
+            const container = shallow(<AccountLandingContainer />);
 
             container.instance().parseAccounts(mockData.data);
             expect(container.state().results).toEqual(mockParsed);
@@ -75,43 +74,41 @@ describe('AccountLandingContainer', () => {
     });
 
     describe('updateSort', () => {
-        it('should update the state and make an API request', async () => {
-            // mount the container
-            const container = mount(<AccountLandingContainer />);
-            const parseAccounts = jest.fn();
-            container.instance().parseAccounts = parseAccounts;
-
-            await container.instance().accountsRequest.promise;
-            expect(parseAccounts).toHaveBeenCalledTimes(1);
+        it('should update the container state', () => {
+            const container = shallow(<AccountLandingContainer />);
 
             // change the sort order
             container.instance().updateSort('managing_agency', 'asc');
 
-            await container.instance().accountsRequest.promise;
             expect(container.state().order).toEqual({
                 field: 'managing_agency',
                 direction: 'asc'
             });
-            expect(parseAccounts).toHaveBeenCalledTimes(2);
-        })
+        });
     });
 
     describe('onChangePage', () => {
-        it('should update the state and make an API request', async () => {
-            // mount the container
-            const container = mount(<AccountLandingContainer />);
-            const parseAccounts = jest.fn();
-            container.instance().parseAccounts = parseAccounts;
-
-            await container.instance().accountsRequest.promise;
-            expect(parseAccounts).toHaveBeenCalledTimes(1);
-
+        it('should update the page number when in range', () => {
+            const container = shallow(<AccountLandingContainer />);
+            // Give the container enough items for two pages
+            container.setState({
+                totalItems: 75
+            });
             // change the page number
             container.instance().onChangePage(2);
 
-            await container.instance().accountsRequest.promise;
             expect(container.state().pageNumber).toEqual(2);
-            expect(parseAccounts).toHaveBeenCalledTimes(2);
+        });
+        it('should not update the page number when out of range', () => {
+            const container = shallow(<AccountLandingContainer />);
+            // Give the container enough items for two pages
+            container.setState({
+                totalItems: 75
+            });
+            // try to change the page number
+            container.instance().onChangePage(3);
+
+            expect(container.state().pageNumber).toEqual(1);
         });
     });
 });

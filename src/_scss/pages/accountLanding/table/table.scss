@@ -1,8 +1,6 @@
 .results-table {
     display: block;
     overflow: scroll;
-    margin-top: rem(15);
-
     .results-table__head {
         .results-table__row {
             border-bottom: solid 1px $color-gray-lighter;
@@ -39,15 +37,17 @@
                 &:last-child {
                     width: 20%;
                     .results-table-cell__content, .cell-content {
-                        float: right;
+                        text-align: right;
                     }
                 }
             }
             .results-table-cell {
                 .results-table-cell__content {
-                    .results-table-cell__highlight {
-                        text-decoration: underline;
-                        font-weight: 600;
+                    .results-table-cell__matched {
+                        &.results-table-cell__matched_highlight {
+                            text-decoration: underline;
+                            font-weight: 600;
+                        }
                     }
                 }
             }

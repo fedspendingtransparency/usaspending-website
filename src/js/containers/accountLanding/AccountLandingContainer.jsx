@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { isCancel } from 'axios';
+import { inRange } from 'lodash';
 
 import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
 import * as AccountLandingHelper from 'helpers/accountLandingHelper';
@@ -52,12 +53,15 @@ export default class AccountLandingContainer extends React.Component {
     }
 
     onChangePage(pageNumber) {
-        // Change page number in the state and make a new request
-        this.setState({
-            pageNumber
-        }, () => {
-            this.fetchAccounts();
-        });
+        const totalPages = Math.ceil(this.state.totalItems / this.state.pageSize);
+        if (inRange(pageNumber, 1, totalPages + 1)) {
+            // Change page number in the state and make a new request
+            this.setState({
+                pageNumber
+            }, () => {
+                this.fetchAccounts();
+            });
+        }
     }
 
     setAccountSearchString(searchString) {
