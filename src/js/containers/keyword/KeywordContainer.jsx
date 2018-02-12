@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
+import Router from 'containers/router/Router';
+
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import * as KeywordHelper from 'helpers/keywordHelper';
@@ -18,6 +20,7 @@ import KeywordPage from 'components/keyword/KeywordPage';
 require('pages/keyword/keywordPage.scss');
 
 const propTypes = {
+    params: PropTypes.object,
     bulkDownload: PropTypes.object,
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
@@ -41,6 +44,43 @@ export class KeywordContainer extends React.Component {
         this.updateKeyword = this.updateKeyword.bind(this);
         this.fetchSummary = this.fetchSummary.bind(this);
         this.startDownload = this.startDownload.bind(this);
+    }
+
+    componentWillMount() {
+        this.handleInitialUrl(this.props.params.keyword);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const nextKeywordUrl = nextProps.params.keyword;
+        if (nextKeywordUrl) {
+            // Convert the url to a keyword
+            const nextKeyword = KeywordHelper.stringFromSlug(nextKeywordUrl);
+            // Update the keyword only if it has changed and is more than two characters
+            if (nextKeyword !== this.state.keyword && nextKeyword.length > 2) {
+                this.setState({
+                    keyword: nextKeyword
+                });
+            }
+        }
+        else {
+            // The keyword param was removed from the url, reset the keyword
+            this.setState({
+                keyword: ''
+            });
+        }
+    }
+
+    handleInitialUrl(urlKeyword) {
+        if (urlKeyword) {
+            // Convert the url to a keyword
+            const keyword = KeywordHelper.stringFromSlug(urlKeyword);
+            // Update the keyword only if it has more than two characters
+            if (keyword.length > 2) {
+                this.setState({
+                    keyword
+                });
+            }
+        }
     }
 
     startDownload() {
@@ -139,8 +179,13 @@ export class KeywordContainer extends React.Component {
     }
 
     updateKeyword(keyword) {
+        // Convert the keyword to a url slug
+        const slug = KeywordHelper.slugFromString(keyword);
         this.setState({
             keyword
+        }, () => {
+            // update the url
+            Router.history.replace(`/keyword_search/${slug}`);
         });
     }
 

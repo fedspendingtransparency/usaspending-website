@@ -145,6 +145,15 @@ const routes = {
                     cb(require('containers/keyword/KeywordContainer').default);
                 });
             }
+        },
+        {
+            path: '/keyword_search/:keyword',
+            parent: '/keyword_search',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/keyword/KeywordContainer').default);
+                });
+            }
         }
     ],
     notFound: {
