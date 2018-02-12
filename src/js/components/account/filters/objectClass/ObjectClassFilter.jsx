@@ -48,8 +48,7 @@ export default class ObjectClassFilter extends React.Component {
                 filterType="Major Object Class"
                 selectedCheckboxes={this.props.selectedCodes}
                 toggleCheckboxType={this.toggleValue}
-                bulkTypeChange={this.props.updateMajorFilter}
-                enableAnalytics />);
+                bulkTypeChange={this.props.updateMajorFilter} />);
         });
 
         return (

@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
@@ -73,6 +75,10 @@ export default class KeywordPage extends React.Component {
     clickedDownload() {
         this.props.startDownload();
         this.showModal();
+        Analytics.event({
+            category: 'Keyword Search - Download',
+            action: this.props.keyword
+        });
     }
 
     showTooltip() {

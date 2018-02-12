@@ -5,15 +5,16 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 import { CheckCircle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     hideModal: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
     expectedFile: PropTypes.string,
-    expectedUrl: PropTypes.string
+    expectedUrl: PropTypes.string,
+    download: PropTypes.object
 };
 
 export default class DownloadProgress extends React.Component {

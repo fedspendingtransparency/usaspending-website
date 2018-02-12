@@ -33,25 +33,7 @@ const propTypes = {
     dirtyFilters: PropTypes.symbol
 };
 
-const ga = require('react-ga');
-
 export default class TimePeriod extends React.Component {
-    static logDateRangeEvent(start, end) {
-        let label = `${start} to ${end}`;
-        if (!start) {
-            label = `Through ${end}`;
-        }
-        else if (!end) {
-            label = `On or after ${start}`;
-        }
-
-        ga.event({
-            label,
-            category: 'Search Page Filter Applied',
-            action: 'Applied Date Range Filter'
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -192,10 +174,6 @@ export default class TimePeriod extends React.Component {
                     startDate: start.format('YYYY-MM-DD'),
                     endDate: end.format('YYYY-MM-DD')
                 });
-                // Analytics
-                const startDate = start.format('YYYY-MM-DD');
-                const endDate = end.format('YYYY-MM-DD');
-                TimePeriod.logDateRangeEvent(startDate, endDate);
             }
         }
         else if (start || end) {

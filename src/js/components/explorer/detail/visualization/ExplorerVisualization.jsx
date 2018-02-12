@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import ExplorerTableContainer from 'containers/explorer/detail/table/ExplorerTableContainer';
 import BreakdownDropdown from './toolbar/BreakdownDropdown';
 import ExplorerTreemap from './treemap/ExplorerTreemap';
@@ -40,6 +42,11 @@ export default class ExplorerVisualization extends React.Component {
     componentDidMount() {
         this.measureWidth();
         window.addEventListener('resize', this.measureWidth);
+
+        Analytics.event({
+            category: 'Spending Explorer - Visualization Type',
+            action: this.state.viewType
+        });
     }
 
     componentWillUnmount() {
@@ -57,6 +64,11 @@ export default class ExplorerVisualization extends React.Component {
     changeView(viewType) {
         this.setState({
             viewType
+        });
+
+        Analytics.event({
+            category: 'Spending Explorer - Visualization Type',
+            action: viewType
         });
     }
 

@@ -22,17 +22,7 @@ const defaultProps = {
     defaultExpand: true
 };
 
-const ga = require('react-ga');
-
 export default class FilterOption extends React.Component {
-    static logFilterEvent(name) {
-        ga.event({
-            category: 'Search Filters',
-            action: 'Expanded Filter',
-            label: name
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -87,8 +77,6 @@ export default class FilterOption extends React.Component {
             let newArrowState = 'collapsed';
             if (newShowState) {
                 newArrowState = 'expanded';
-                const filterName = this.props.name;
-                FilterOption.logFilterEvent(filterName);
             }
             this.setState({
                 isDirty: true, showFilter: newShowState, arrowState: newArrowState

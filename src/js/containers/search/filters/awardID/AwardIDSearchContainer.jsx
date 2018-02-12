@@ -19,17 +19,7 @@ const propTypes = {
     updateGenericFilter: PropTypes.func
 };
 
-const ga = require('react-ga');
-
 export class AwardIDSearchContainer extends React.Component {
-    static logIdEvent(id, type) {
-        ga.event({
-            category: 'Search Page Filter Applied',
-            action: `Toggled Award ${type} Filter`,
-            label: id
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -53,19 +43,13 @@ export class AwardIDSearchContainer extends React.Component {
                 [id]: id
             })
         });
-
-        // Analytics
-        AwardIDSearchContainer.logIdEvent(id, 'Apply Award ID');
     }
 
-    removeAwardID(id) {
+    removeAwardID() {
         this.props.updateGenericFilter({
             type: 'selectedAwardIDs',
             value: new OrderedMap()
         });
-
-        // Analytics
-        AwardIDSearchContainer.logIdEvent(id, 'Remove Award ID');
     }
 
     dirtyFilters() {
