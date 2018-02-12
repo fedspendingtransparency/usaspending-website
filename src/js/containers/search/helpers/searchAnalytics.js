@@ -5,7 +5,11 @@
 
 import { Set } from 'immutable';
 import { uniq } from 'lodash';
-import { awardTypeCodes } from 'dataMapping/search/awardType';
+import {
+    awardTypeCodes,
+    awardTypeGroups,
+    awardTypeGroupLabels
+} from 'dataMapping/search/awardType';
 import { recipientTypes, groupLabels } from 'dataMapping/search/recipientType';
 import {
     pricingTypeDefinitions,
@@ -99,13 +103,39 @@ export const convertLocation = (locations, type) => (
     )
 );
 
+export const combineAwardTypeGroups = (filters) => {
+    // look in each award type group and check if the full award type group is satisfied
+    // if so, this indicates that the user clicked "All [type]"
+    let groupedFilters = [];
+    const fullTypes = Object.keys(awardTypeGroups).reduce((groups, key) => {
+        const groupValues = awardTypeGroups[key];
+        const fullMembership = groupValues.every((value) => filters.includes(value));
+        if (fullMembership) {
+            groups.push(`All ${awardTypeGroupLabels[key]}`);
+            groupedFilters = groupedFilters.concat(groupValues);
+        }
+        return groups;
+    }, []);
+
+    // add the remaining filters
+    const remainingFilters = filters.reduce((parsed, value) => {
+        if (groupedFilters.indexOf(value) === -1) {
+            // this filter isn't already included in a group
+            parsed.push(value);
+        }
+        return parsed;
+    }, []);
+
+    return fullTypes.concat(remainingFilters);
+};
+
 export const convertFilter = (type, value) => {
     switch (type) {
         case 'timePeriod':
             return convertTimePeriod(value);
         case 'awardType':
             return convertReducibleValue(
-                value,
+                combineAwardTypeGroups(value),
                 'Award Type',
                 (item) => awardTypeCodes[item] || item
             );

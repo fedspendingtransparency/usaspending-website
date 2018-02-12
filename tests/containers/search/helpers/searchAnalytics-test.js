@@ -185,6 +185,24 @@ describe('searchAnalytics', () => {
         });
     });
 
+    describe('combineAwardTypeGroups', () => {
+        it('should combine award types into a single `All` item when an entire group is selected', () => {
+            const data = new Set(['A', 'B', 'C', 'D'])
+            const combined = searchAnalytics.combineAwardTypeGroups(data);
+            expect(combined).toEqual(['All Contracts']);
+        });
+        it('should not combine award types into a single `All` item when some members of the group are not selected', () => {
+            const data = new Set(['A', 'B', 'C'])
+            const combined = searchAnalytics.combineAwardTypeGroups(data);
+            expect(combined).toEqual(['A', 'B', 'C']);
+        });
+        it('when some full groups are selected and some incomplete groups are selected, the incomplete items should be reported individually', () => {
+            const data = new Set(['A', 'B', 'C', 'D', '01'])
+            const combined = searchAnalytics.combineAwardTypeGroups(data);
+            expect(combined).toEqual(['All Contracts', '01']);
+        });
+    });
+
     describe('unifyDateFields', () => {
         it('should set the `timePeriod` field to the `timePeriodFY` redux filter when fiscal years are selected', () => {
             const filters = {
@@ -248,7 +266,7 @@ describe('searchAnalytics', () => {
     });
 
     describe('sendFieldCombinations', () => {
-        it('should send an Analytic event with a non-repeating `-` separated string of filter names', () => {
+        it('should send an Analytic event with a non-repeating `|` separated string of filter names', () => {
             const events = [{
                 action: 'action',
                 label: 'label'
@@ -266,7 +284,7 @@ describe('searchAnalytics', () => {
             expect(Analytics.event).toHaveBeenCalledTimes(1);
             expect(Analytics.event).toHaveBeenCalledWith({
                 category: 'Advanced Search - Search Fields',
-                action: 'action-z'
+                action: 'action|z'
             });
 
             Analytics.event.mockClear();
@@ -274,7 +292,7 @@ describe('searchAnalytics', () => {
     });
 
     describe('uniqueFilterFields', () => {
-        it('should return a string of non-repeating `-` separated string of filter names', () => {
+        it('should return a string of non-repeating `|` separated string of filter names', () => {
             const filters = {
                 timePeriodType: 'fy',
                 timePeriodFY: new Set(['1900']),
@@ -284,7 +302,7 @@ describe('searchAnalytics', () => {
             };
 
             const fields = searchAnalytics.uniqueFilterFields(filters);
-            expect(fields).toEqual('Award ID-Time Period - Fiscal Year');
+            expect(fields).toEqual('Award ID|Time Period - Fiscal Year');
         });
     });
 });
