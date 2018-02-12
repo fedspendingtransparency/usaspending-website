@@ -146,7 +146,8 @@ export default class SearchPage extends React.Component {
                     <div className="sticky-header__options">
                         <DownloadButton
                             downloadAvailable={this.props.downloadAvailable}
-                            onClick={this.showModal} />
+                            onClick={this.showModal}
+                            filterCount={this.state.filterCount} />
                     </div>
                 </StickyHeader>
                 <div id="main-content">
