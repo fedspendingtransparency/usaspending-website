@@ -219,7 +219,7 @@ export const sendFieldCombinations = (events) => {
 
     Analytics.event({
         category: 'Advanced Search - Search Fields',
-        action: fields.sort().join('-')
+        action: fields.sort().join('|')
     });
 };
 
@@ -231,5 +231,5 @@ export const uniqueFilterFields = (redux) => {
         }
         return parsed;
     }, []));
-    return fields.sort().join('-');
+    return fields.sort().join('|');
 };
