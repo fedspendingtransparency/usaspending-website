@@ -1,30 +1,63 @@
-.explorer-fy-picker {
-    position: absolute;
-    top: rem(90);
-    left: rem(300);
-    z-index: $z-modal;
+.fy-picker {
+    .fy-picker__header {
+        @include display(flex);
+        @include justify-content(flex-start);
+        @include align-items(center);
 
-    ul.fy-list {
+        position: relative;
+
+        .fy-picker__icon {
+            @include flex(0 0 rem(30));
+            margin-right: rem(25);
+
+            svg {
+                width: rem(30);
+                height: rem(30);
+                fill: $color-white;
+            }
+        }
+
+        .fy-picker__button {
+            @include flex(1 1 auto);
+            @include button-unstyled;
+
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+            position: relative;
+        }
+
+        .fy-picker__button-text {
+            @include flex(1 1 auto);
+            margin-right: rem(15);
+            color: $color-white;
+            font-weight: $font-semibold;
+            font-size: rem(20);
+            line-height: rem(25);
+        }
+
+        .fy-picker__button-icon {
+            @include flex(0 0 rem(20));
+            svg {
+                width: rem(20);
+                height: rem(20);
+                fill: $color-primary-alt;
+            }
+        }
+    }
+
+    .fy-picker__list {
         @include unstyled-list;
-        border: 1px solid $color-gray-dark;
 
-        li {
-            width: rem(140);
-            border-top: 1px solid $color-gray;
-            background-color: #272F38;
+        position: absolute;
 
-            &:first-child {
-                border-top: none;
-            }
+        &.fy-picker__list_hidden {
+            display: none;
+        }
 
-            button.fy-item {
-                @include button-unstyled;
-                width: 100%;
-                padding: rem(10) rem(20);
-                color: $color-white;
-                font-size: $small-font-size;
-                text-align: center;
-            }
+        .fy-picker__item {
+            @include button-unstyled;
+            // color
         }
     }
 }

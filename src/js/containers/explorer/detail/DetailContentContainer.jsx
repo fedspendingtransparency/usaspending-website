@@ -21,6 +21,8 @@ import * as ExplorerHelper from 'helpers/explorerHelper';
 import DetailContent from 'components/explorer/detail/DetailContent';
 import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
 
+import { currentQuarter } from './helpers/explorerQuarters';
+
 const propTypes = {
     explorer: PropTypes.object,
     setExplorerActive: PropTypes.func,
@@ -54,6 +56,7 @@ export class DetailContentContainer extends React.Component {
 
     componentDidMount() {
         this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy);
+        currentQuarter();
     }
 
     componentDidUpdate(prevProps) {

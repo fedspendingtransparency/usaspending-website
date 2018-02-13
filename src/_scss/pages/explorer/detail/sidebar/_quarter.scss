@@ -1,0 +1,114 @@
+.quarter-picker {
+    padding: rem(20) rem(40);
+    width: 100%;
+
+    border-top: 1px solid $color-gray;
+    border-bottom: 1px solid $color-gray;
+
+    background-color: #272F38;
+
+    ul.quarter-picker__list {
+        @include unstyled-list;
+
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+    }
+
+    li.quarter-picker__list-item {
+        margin-right: rem(1);
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    button.quarter-picker__quarter {
+        @include button-unstyled;
+        color: $color-white;
+        text-align: center;
+        line-height: rem(22);
+        font-size: rem(12);
+        font-weight: $font-bold;
+
+        background-color: #646A70;
+
+        padding: 0 rem(20);
+
+        &.quarter-picker__quarter_first {
+            border-radius: rem(11) 0 0 rem(11);
+        }
+        &.quarter-picker__quarter_last {
+            border-radius: 0 rem(11) rem(11) 0;
+        }
+
+        &:hover, &:active, &.quarter-picker__quarter_active {
+            background-color: $color-primary-alt;
+        }
+
+        &[disabled] {
+            background-color: #272F38;
+            pointer-events: none;
+            cursor: not-allowed;
+            color: $color-white;
+            background-image: repeating-linear-gradient(
+                90deg,
+                transparent 2px,
+                rgba(255, 255, 255, .2) 2px,
+                rgba(255, 255, 255, .2) 3px,
+                transparent 3px,
+                transparent 6px
+            );
+        }
+    }
+
+    // .fy-button {
+    //     @include button-unstyled;
+    //     padding: rem(20) rem(40);
+    //     width: 100%;
+
+    //     border-top: 1px solid $color-gray;
+    //     border-bottom: 1px solid $color-gray;
+
+    //     background-color: #272F38;
+
+    //     .content {
+    //         @include display(flex);
+    //         @include justify-content(center);
+    //         @include align-items(center);
+    //         position: relative;
+
+    //         .icon {
+    //             @include flex(0 0 auto);
+    //             width: rem(30);
+    //             height: rem(30);
+    //             margin-right: rem(25);
+
+    //             svg {
+    //                 fill: $color-white;
+    //                 width: rem(30);
+    //                 height: rem(30);
+    //             }
+
+    //             &.arrow {
+    //                 width: rem(20);
+    //                 height: rem(20);
+    //                 margin-right: 0;
+    //                 svg {
+    //                     fill: $color-primary-alt;
+    //                     width: rem(20);
+    //                     height: rem(20);
+    //                 }
+    //             }
+    //         }
+
+    //         .label {
+    //             @include flex(1 1 auto);
+    //             color: $color-white;
+    //             font-weight: $font-semibold;
+    //             font-size: rem(20);
+    //             line-height: rem(25);
+    //         }
+    //     }
+    // }
+}

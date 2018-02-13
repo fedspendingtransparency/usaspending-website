@@ -10,8 +10,8 @@ export const earliestFiscalYear = 2008;
 export const earliestExplorerYear = 2017;
 export const earliestFederalAccountYear = 2017;
 
-// How many days after the close of Q1 we want to wait before updating the default Fiscal Year
-export const newFiscalYearSwitchoverDelayDays = 45;
+// number of days to wait after the close of each quarter before enabling it
+export const quarterCloseWindow = 45;
 
 // The current fiscal year is used on the Advanced Search and Download Center pages
 export const currentFiscalYear = () => {
@@ -39,7 +39,7 @@ export const defaultFiscalYear = () => {
     const today = moment();
     const newFiscalYearStartDate = moment()
         .startOf('year')
-        .add(newFiscalYearSwitchoverDelayDays, 'days');
+        .add(quarterCloseWindow, 'days');
     const newFiscalYearEndDate = moment([moment().year(), '9', '30']);
 
     if (today.isSameOrAfter(newFiscalYearStartDate) && today.isSameOrBefore(newFiscalYearEndDate)) {
