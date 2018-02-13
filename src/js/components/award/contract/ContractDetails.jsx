@@ -158,7 +158,7 @@ export default class ContractDetails extends React.Component {
         }
 
         // Award Type
-        let awardType = this.props.awardType;
+        const awardType = this.props.awardType;
 
         // Pricing
         let pricing = "Not Available";

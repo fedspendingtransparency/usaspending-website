@@ -34,8 +34,7 @@ export default class AwardContract extends React.Component {
                     seeAdditional={this.props.seeAdditional}
                     maxChars={SummaryPageHelper.maxDescriptionCharacters}
                     awardType={awardType}
-                    endDate={endDate}
-                />
+                    endDate={endDate} />
             </div>
         );
     }
