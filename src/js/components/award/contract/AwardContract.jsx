@@ -17,6 +17,13 @@ const propTypes = {
 
 export default class AwardContract extends React.Component {
     render() {
+        let awardType = "Not Available";
+        if (this.props.selectedAward.latest_transaction.contract_data.contract_award_type_desc) {
+            awardType = this.props.selectedAward.latest_transaction.contract_data.contract_award_type_desc;
+        }
+
+        const endDate = this.props.selectedAward.period_of_performance_current_end_date;
+
         return (
             <div className="award-contract-wrapper">
                 <AwardAmounts
@@ -25,7 +32,10 @@ export default class AwardContract extends React.Component {
                 <ContractDetails
                     selectedAward={this.props.selectedAward}
                     seeAdditional={this.props.seeAdditional}
-                    maxChars={SummaryPageHelper.maxDescriptionCharacters} />
+                    maxChars={SummaryPageHelper.maxDescriptionCharacters}
+                    awardType={awardType}
+                    endDate={endDate}
+                />
             </div>
         );
     }
