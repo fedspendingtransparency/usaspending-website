@@ -11,7 +11,6 @@ import { scrollToY } from 'helpers/scrollToHelper';
 import SummaryBar from './SummaryBar';
 import AwardInfoBar from './AwardInfoBar';
 import AwardContract from './contract/AwardContract';
-import AwardIDV from './contract/AwardIDV';
 import AwardFinancialAssistance from './financialAssistance/AwardFinancialAssistance';
 import DetailsSection from './details/DetailsSection';
 
@@ -57,15 +56,17 @@ export default class AwardInfo extends React.Component {
                 <AwardContract
                     {...this.props}
                     selectedAward={this.props.selectedAward}
-                    seeAdditional={this.seeAdditional} />
+                    seeAdditional={this.seeAdditional}
+                    type="contract" />
             );
         }
         else if (type === 'unknown') {
             amountsDetailsSection = (
-                <AwardIDV
+                <AwardContract
                     {...this.props}
                     selectedAward={this.props.selectedAward}
-                    seeAdditional={this.seeAdditional} />
+                    seeAdditional={this.seeAdditional}
+                    type="idv" />
             );
         }
         else {
