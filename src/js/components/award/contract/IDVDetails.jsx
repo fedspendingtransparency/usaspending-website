@@ -106,8 +106,13 @@ export default class IDVDetails extends React.Component {
 
         // Date Range
         const formattedStartDate = award.period_of_performance_start_date;
-        // Convert this datetime into a moment date
-        const formattedEndDate = moment(award.latest_transaction.contract_data.ordering_period_end_date);
+
+        // Convert this datetime into a moment date if it exists
+        let formattedEndDate = null;
+        if (award.latest_transaction.contract_data.ordering_period_end_date !== null) {
+            formattedEndDate = moment(
+                award.latest_transaction.contract_data.ordering_period_end_date);
+        }
 
         const startDate = moment(formattedStartDate, 'M/D/YYYY');
         const endDate = moment(formattedEndDate, 'M/D/YYYY');

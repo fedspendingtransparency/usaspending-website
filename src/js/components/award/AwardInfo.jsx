@@ -52,6 +52,8 @@ export default class AwardInfo extends React.Component {
 
         let amountsDetailsSection = null;
 
+        console.log(this.props.selectedAward);
+
         if (type === 'contract') {
             amountsDetailsSection = (
                 <AwardContract
