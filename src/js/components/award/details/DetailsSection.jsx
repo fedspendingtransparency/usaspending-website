@@ -94,7 +94,7 @@ export default class DetailsSection extends React.Component {
                     tableWidth={this.state.tableWidth} />);
 
             case 'additional':
-                if (type === 'contract') {
+                if (type === 'contract' || type === 'unknown') {
                     return (<ContractAdditionalDetails {...this.props} />);
                 }
                 return (<AssistanceAdditionalDetails {...this.props} />);
@@ -109,7 +109,8 @@ export default class DetailsSection extends React.Component {
 
         const tabs = concat([], commonTabs);
 
-        if (this.props.award.selectedAward.internal_general_type === 'contract') {
+        if (this.props.award.selectedAward.internal_general_type === 'contract'
+            || this.props.award.selectedAward.internal_general_type === 'unknown') {
             tabs.push({
                 label: 'Additional Details',
                 internal: 'additional',

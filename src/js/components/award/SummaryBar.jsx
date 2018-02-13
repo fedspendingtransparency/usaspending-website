@@ -44,7 +44,15 @@ export default class SummaryBar extends React.Component {
         const awardEnd = moment(award.period_of_performance_current_end_date, 'MM-DD-YYYY');
         const current = moment();
         let progress = "";
-        const awardType = startCase(toLower(SummaryPageHelper.awardType(award.award_type)));
+
+        let awardType = startCase(toLower(SummaryPageHelper.awardType(award.award_type)));
+        let isIDV = false;
+        if (award.award_type === "" && award.latest_transaction.contract_data.idv_type !== null) {
+            // Award is an IDV - use "Contract"
+            awardType = "Contract";
+            isIDV = true;
+        }
+
         let parentId = null;
 
         if (current.isSameOrBefore(awardStart, 'day')) {
@@ -56,7 +64,7 @@ export default class SummaryBar extends React.Component {
         else {
             progress = "In Progress";
         }
-        if (includes(awardTypeGroups.contracts, award.award_type)) {
+        if (includes(awardTypeGroups.contracts, award.award_type) || isIDV) {
             if (award.parent_award_id) {
                 parentId = award.parent_award_id;
             }
