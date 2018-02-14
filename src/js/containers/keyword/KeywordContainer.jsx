@@ -53,7 +53,9 @@ export class KeywordContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.handleUrl(nextProps.params.keyword);
+        if (this.props.params.keyword !== nextProps.params.keyword) {
+            this.handleUrl(nextProps.params.keyword);
+        }
     }
 
     handleUrl(urlKeyword) {
