@@ -77,11 +77,13 @@ export default class AccountLandingContainer extends React.Component {
 
     updateSort(field, direction) {
         // Change sort in the state and make a new request
+        // Reset the page number to 1
         this.setState({
             order: {
                 field,
                 direction
-            }
+            },
+            pageNumber: 1
         }, () => {
             this.fetchAccounts();
         });
