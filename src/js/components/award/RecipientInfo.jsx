@@ -70,13 +70,13 @@ export default class RecipientInfo extends React.Component {
     }
 
     buildBusinessTypes(isContract) {
-        if (!isContract) {
-            return (
-                <InfoSnippet
-                    label="Business Type"
-                    value={this.props.award.recipient_business_type || 'Not Available'} />
-            );
-        }
+        // if (!isContract) {
+        //     return (
+        //         <InfoSnippet
+        //             label="Business Type"
+        //             value={this.props.award.recipient_business_type || 'Not Available'} />
+        //     );
+        // }
 
         const listItems = [];
         BusinessTypesHelper.getBusinessTypes().forEach((type) => {

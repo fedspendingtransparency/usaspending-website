@@ -40,7 +40,7 @@ export default class FYPicker extends React.Component {
                 <li key={year}>
                     <button
                         className="fy-picker__item">
-                        {year}
+                        FY {year}
                     </button>
                 </li>
             );
@@ -63,7 +63,7 @@ export default class FYPicker extends React.Component {
                         className="fy-picker__button"
                         onClick={this.toggleList}>
                         <div className="fy-picker__button-text">
-                            {this.props.fy}
+                            FY {this.props.fy}
                         </div>
                         <div className="fy-picker__button-icon">
                             <AngleDown alt="Toggle menu" />

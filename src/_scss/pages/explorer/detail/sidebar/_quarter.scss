@@ -13,6 +13,8 @@
         @include display(flex);
         @include justify-content(center);
         @include align-items(center);
+
+        margin-top: rem(15);
     }
 
     li.quarter-picker__list-item {

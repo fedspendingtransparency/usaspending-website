@@ -97,18 +97,18 @@ export const convertDateToQuarter = (date) => {
     let quarter = 0;
     const month = moment(date).month();
 
-    if (month >= 10 && month <= 12) {
+    if (month >= 9 && month <= 11) {
         quarter = 1;
     }
 
-    else if (month >= 1 && month <= 3) {
+    else if (month >= 0 && month <= 2) {
         quarter = 2;
     }
 
-    else if (month >= 4 && month <= 6) {
+    else if (month >= 3 && month <= 5) {
         quarter = 3;
     }
-    else if (month >= 7 && month <= 9) {
+    else if (month >= 6 && month <= 8) {
         quarter = 4;
     }
 

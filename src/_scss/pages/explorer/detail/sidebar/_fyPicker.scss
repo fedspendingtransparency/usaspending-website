@@ -1,10 +1,10 @@
 .fy-picker {
+    position: relative;
+
     .fy-picker__header {
         @include display(flex);
         @include justify-content(flex-start);
         @include align-items(center);
-
-        position: relative;
 
         .fy-picker__icon {
             @include flex(0 0 rem(30));
@@ -19,12 +19,15 @@
 
         .fy-picker__button {
             @include flex(1 1 auto);
+            @include align-self(stretch);
             @include button-unstyled;
 
             @include display(flex);
             @include justify-content(center);
             @include align-items(center);
             position: relative;
+
+            border-bottom: 1px solid $color-white;
         }
 
         .fy-picker__button-text {
@@ -50,6 +53,11 @@
         @include unstyled-list;
 
         position: absolute;
+        left: rem(55);
+        right: 0;
+
+        background-color: #272F38;
+        border: 1px solid #616669;
 
         &.fy-picker__list_hidden {
             display: none;
@@ -57,7 +65,12 @@
 
         .fy-picker__item {
             @include button-unstyled;
-            // color
+            color: $color-white;
+            font-size: rem(16);
+
+            padding: rem(10) rem(15);
+
+            width: 100%;
         }
     }
 }
