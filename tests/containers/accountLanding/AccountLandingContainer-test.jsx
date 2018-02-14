@@ -74,7 +74,7 @@ describe('AccountLandingContainer', () => {
     });
 
     describe('updateSort', () => {
-        it('should update the container state', () => {
+        it('should update the container state and reset the page number to 1', () => {
             const container = shallow(<AccountLandingContainer />);
 
             // change the sort order
@@ -84,6 +84,8 @@ describe('AccountLandingContainer', () => {
                 field: 'managing_agency',
                 direction: 'asc'
             });
+
+            expect(container.state().pageNumber).toEqual(1);
         });
     });
 

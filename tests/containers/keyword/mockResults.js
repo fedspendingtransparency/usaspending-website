@@ -46,6 +46,9 @@ export const mockTableProps = {
 };
 
 export const mockRedux = {
+    params: {
+        keyword: ''
+    },
     bulkDownload: {
         download: {
             expectedFile: '',
@@ -55,7 +58,6 @@ export const mockRedux = {
         }
     }
 };
-
 
 export const mockActions = {
     setDownloadExpectedFile: jest.fn(),

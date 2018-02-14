@@ -72,6 +72,14 @@ export default class ResultsTableContainer extends React.Component {
         this.updateSort = this.updateSort.bind(this);
     }
 
+    componentDidMount() {
+        // Perform a search for a keyword derived from the url
+        if (this.props.keyword) {
+            this.loadColumns();
+            this.pickDefaultTab();
+        }
+    }
+
     componentDidUpdate(prevProps) {
         if (prevProps.keyword !== this.props.keyword) {
             // filters changed, update the search object
