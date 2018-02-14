@@ -49,30 +49,14 @@ export class KeywordContainer extends React.Component {
     }
 
     componentWillMount() {
-        this.handleInitialUrl(this.props.params.keyword);
+        this.handleUrl(this.props.params.keyword);
     }
 
     componentWillReceiveProps(nextProps) {
-        const nextKeywordUrl = nextProps.params.keyword;
-        if (nextKeywordUrl) {
-            // Convert the url to a keyword
-            const nextKeyword = decodeURIComponent(nextKeywordUrl);
-            // Update the keyword only if it has changed and is more than two characters
-            if (nextKeyword !== this.state.keyword && nextKeyword.length > 2) {
-                this.setState({
-                    keyword: nextKeyword
-                });
-            }
-        }
-        else {
-            // The keyword param was removed from the url, reset the keyword
-            this.setState({
-                keyword: ''
-            });
-        }
+        this.handleUrl(nextProps.params.keyword);
     }
 
-    handleInitialUrl(urlKeyword) {
+    handleUrl(urlKeyword) {
         if (urlKeyword) {
             // Convert the url to a keyword
             const keyword = decodeURIComponent(urlKeyword);
@@ -82,6 +66,12 @@ export class KeywordContainer extends React.Component {
                     keyword
                 });
             }
+        }
+        else if (this.state.keyword) {
+            // The keyword param was removed from the url, reset the keyword
+            this.setState({
+                keyword: ''
+            });
         }
     }
 
