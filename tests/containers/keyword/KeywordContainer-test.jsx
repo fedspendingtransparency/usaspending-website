@@ -36,7 +36,7 @@ describe('KeywordContainer', () => {
 
             container.instance().updateKeyword('blah blah');
 
-            expect(Router.history.replace).toHaveBeenLastCalledWith('/keyword_search/blah-blah');
+            expect(Router.history.replace).toHaveBeenLastCalledWith('/keyword_search/blah%20blah');
         });
     });
 

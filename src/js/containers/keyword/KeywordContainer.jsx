@@ -54,7 +54,7 @@ export class KeywordContainer extends React.Component {
         const nextKeywordUrl = nextProps.params.keyword;
         if (nextKeywordUrl) {
             // Convert the url to a keyword
-            const nextKeyword = KeywordHelper.stringFromSlug(nextKeywordUrl);
+            const nextKeyword = decodeURIComponent(nextKeywordUrl);
             // Update the keyword only if it has changed and is more than two characters
             if (nextKeyword !== this.state.keyword && nextKeyword.length > 2) {
                 this.setState({
@@ -73,7 +73,7 @@ export class KeywordContainer extends React.Component {
     handleInitialUrl(urlKeyword) {
         if (urlKeyword) {
             // Convert the url to a keyword
-            const keyword = KeywordHelper.stringFromSlug(urlKeyword);
+            const keyword = decodeURIComponent(urlKeyword);
             // Update the keyword only if it has more than two characters
             if (keyword.length > 2) {
                 this.setState({
@@ -180,7 +180,7 @@ export class KeywordContainer extends React.Component {
 
     updateKeyword(keyword) {
         // Convert the keyword to a url slug
-        const slug = KeywordHelper.slugFromString(keyword);
+        const slug = encodeURIComponent(keyword);
         this.setState({
             keyword
         }, () => {
