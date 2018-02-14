@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { Search } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
+    keyword: PropTypes.string,
     updateKeyword: PropTypes.func
 };
 
@@ -22,6 +23,26 @@ export default class KeywordSearchBar extends React.Component {
 
         this.changedInput = this.changedInput.bind(this);
         this.searchKeyword = this.searchKeyword.bind(this);
+    }
+
+    componentDidMount() {
+        if (this.props.keyword) {
+            // Show the keyword derived from the url
+            this.updateSearchString(this.props.keyword);
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        // Show the keyword derived from a new url
+        if (prevProps.keyword !== this.props.keyword) {
+            this.updateSearchString(this.props.keyword);
+        }
+    }
+
+    updateSearchString(searchString) {
+        this.setState({
+            searchString
+        });
     }
 
     searchKeyword(e) {

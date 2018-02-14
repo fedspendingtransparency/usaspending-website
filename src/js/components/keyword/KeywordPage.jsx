@@ -177,6 +177,7 @@ export default class KeywordPage extends React.Component {
                     <div className="keyword-content">
                         <div className="keyword-search-bar">
                             <KeywordSearchBar
+                                keyword={this.props.keyword}
                                 updateKeyword={this.props.updateKeyword} />
                             <div className="keyword-search-bar__info">
                                 Use the Keyword Search to get a broad picture of award data on a given theme.

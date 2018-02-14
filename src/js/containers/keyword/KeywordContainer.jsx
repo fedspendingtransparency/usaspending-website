@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
+import Router from 'containers/router/Router';
+
 import Analytics from 'helpers/analytics/Analytics';
 
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
@@ -20,6 +22,7 @@ import KeywordPage from 'components/keyword/KeywordPage';
 require('pages/keyword/keywordPage.scss');
 
 const propTypes = {
+    params: PropTypes.object,
     bulkDownload: PropTypes.object,
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
@@ -43,6 +46,35 @@ export class KeywordContainer extends React.Component {
         this.updateKeyword = this.updateKeyword.bind(this);
         this.fetchSummary = this.fetchSummary.bind(this);
         this.startDownload = this.startDownload.bind(this);
+    }
+
+    componentWillMount() {
+        this.handleUrl(this.props.params.keyword);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.params.keyword !== nextProps.params.keyword) {
+            this.handleUrl(nextProps.params.keyword);
+        }
+    }
+
+    handleUrl(urlKeyword) {
+        if (urlKeyword) {
+            // Convert the url to a keyword
+            const keyword = decodeURIComponent(urlKeyword);
+            // Update the keyword only if it has more than two characters
+            if (keyword.length > 2) {
+                this.setState({
+                    keyword
+                });
+            }
+        }
+        else if (this.state.keyword) {
+            // The keyword param was removed from the url, reset the keyword
+            this.setState({
+                keyword: ''
+            });
+        }
     }
 
     startDownload() {
@@ -141,9 +173,13 @@ export class KeywordContainer extends React.Component {
     }
 
     updateKeyword(keyword) {
+        // Convert the keyword to a url slug
+        const slug = encodeURIComponent(keyword);
         this.setState({
             keyword
         }, () => {
+            // update the url
+            Router.history.replace(`/keyword_search/${slug}`);
             Analytics.event({
                 category: 'Keyword Search - Keyword',
                 action: keyword
