@@ -11,6 +11,8 @@ import { isCancel } from 'axios';
 
 import Router from 'containers/router/Router';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import * as KeywordHelper from 'helpers/keywordHelper';
@@ -186,6 +188,10 @@ export class KeywordContainer extends React.Component {
         }, () => {
             // update the url
             Router.history.replace(`/keyword_search/${slug}`);
+            Analytics.event({
+                category: 'Keyword Search - Keyword',
+                action: keyword
+            });
         });
     }
 

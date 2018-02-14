@@ -156,6 +156,15 @@ const routes = {
                     cb(require('containers/keyword/KeywordContainer').default);
                 });
             }
+        },
+        {
+            path: '/federal_account',
+            parent: '/federal_account',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/accountLanding/AccountLandingPage').default);
+                });
+            }
         }
     ],
     notFound: {

@@ -4,18 +4,16 @@
 **/
 
 import React from 'react';
-import kGlobalConstants from 'GlobalConstants';
+
+import Analytics from 'helpers/analytics/Analytics';
 
 import GlossaryListenerSingleton from './GlossaryListenerSingleton';
 import Router from './Router';
 
-const ga = require('react-ga');
-
-const GA_OPTIONS = { debug: false };
 
 export default class RouterContainer extends React.Component {
     static logPageView(path) {
-        ga.pageview(path);
+        Analytics.pageview(path);
     }
 
     constructor(props) {
@@ -41,13 +39,6 @@ export default class RouterContainer extends React.Component {
         Router.startRouter();
     }
 
-    componentDidMount() {
-        // don't initialize Google Analytics if no tracking ID is provided
-        if (kGlobalConstants.GA_TRACKING_ID !== '') {
-            ga.initialize(kGlobalConstants.GA_TRACKING_ID, GA_OPTIONS);
-        }
-    }
-
     componentWillUnmount() {
         Router.reactContainer = null;
     }
@@ -60,7 +51,6 @@ export default class RouterContainer extends React.Component {
         if (this.state.lastPath !== path) {
             // log with Google Analytics
             RouterContainer.logPageView(path);
-            ga.pageview(window.location.hash);
 
             if (this.state.lastParent !== parent || !Router.state.silentlyUpdate) {
                 // scroll to top of page, but only if the parent has changed (ignore in-page URL changes)

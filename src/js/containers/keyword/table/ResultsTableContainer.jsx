@@ -12,6 +12,8 @@ import { availableColumns, defaultSort } from 'dataMapping/keyword/resultsTableC
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import ResultsTableSection from 'components/keyword/table/ResultsTableSection';
 
 const propTypes = {
@@ -246,6 +248,10 @@ export default class ResultsTableContainer extends React.Component {
             // Don't perform a search yet if user switches tabs before entering a keyword
             if (this.props.keyword) {
                 this.performSearch(true);
+                Analytics.event({
+                    category: 'Keyword Search - Table Tab',
+                    action: tab
+                });
             }
         });
     }

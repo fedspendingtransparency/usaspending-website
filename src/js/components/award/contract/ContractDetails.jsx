@@ -11,7 +11,9 @@ import DetailRow from '../DetailRow';
 const propTypes = {
     selectedAward: PropTypes.object,
     seeAdditional: PropTypes.func,
-    maxChars: PropTypes.number
+    maxChars: PropTypes.number,
+    awardType: PropTypes.string,
+    endDate: PropTypes.string
 };
 
 const isEmpty = (field, ignoreDefault) => {
@@ -105,7 +107,7 @@ export default class ContractDetails extends React.Component {
 
         // Date Range
         const formattedStartDate = award.period_of_performance_start_date;
-        const formattedEndDate = award.period_of_performance_current_end_date;
+        const formattedEndDate = this.props.endDate;
 
         const startDate = moment(formattedStartDate, 'M/D/YYYY');
         const endDate = moment(formattedEndDate, 'M/D/YYYY');
@@ -156,10 +158,7 @@ export default class ContractDetails extends React.Component {
         }
 
         // Award Type
-        let awardType = "Not Available";
-        if (award.latest_transaction.contract_data.contract_award_type_desc) {
-            awardType = award.latest_transaction.contract_data.contract_award_type_desc;
-        }
+        const awardType = this.props.awardType;
 
         // Pricing
         let pricing = "Not Available";

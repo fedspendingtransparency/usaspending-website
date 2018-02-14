@@ -24,7 +24,7 @@ export default class AgencyLandingPage extends React.Component {
                 <StickyHeader>
                     <div className="sticky-header__title">
                         <h1 tabIndex={-1} id="main-focus">
-                            Agency Profile
+                            Agency Profiles
                         </h1>
                     </div>
                 </StickyHeader>

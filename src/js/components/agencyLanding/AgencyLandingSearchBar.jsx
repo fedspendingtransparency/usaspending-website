@@ -20,17 +20,19 @@ export default class AgencyLandingSearchBar extends React.Component {
 
     render() {
         return (
-            <div className="agency-landing-search">
-                <form>
+            <div className="search-section">
+                <form className="search-section__form">
                     <input
-                        className="search-field"
+                        className="search-section__input"
                         type="text"
                         onChange={this.onChange.bind(this)}
                         placeholder="Start typing to find an agency..." />
                     <button
                         aria-label="Search"
-                        className="search-button">
-                        <Search alt="Search" />
+                        className="search-section__button">
+                        <div className="search-section__button-icon">
+                            <Search alt="Search Agencies" />
+                        </div>
                     </button>
                 </form>
             </div>
