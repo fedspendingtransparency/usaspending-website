@@ -23,11 +23,19 @@ export default class FYPicker extends React.Component {
         };
 
         this.toggleList = this.toggleList.bind(this);
+        this.clickedYear = this.clickedYear.bind(this);
     }
 
     toggleList() {
         this.setState({
             expanded: !this.state.expanded
+        });
+    }
+
+    clickedYear(e) {
+        this.props.pickedYear(e.target.value);
+        this.setState({
+            expanded: false
         });
     }
 
@@ -37,9 +45,13 @@ export default class FYPicker extends React.Component {
         const earliestFY = FiscalYearHelper.earliestExplorerYear;
         for (let year = currentFY; year >= earliestFY; year--) {
             const item = (
-                <li key={year}>
+                <li
+                    key={year}
+                    className="fy-picker__list-item">
                     <button
-                        className="fy-picker__item">
+                        className="fy-picker__item"
+                        value={year}
+                        onClick={this.clickedYear}>
                         FY {year}
                     </button>
                 </li>

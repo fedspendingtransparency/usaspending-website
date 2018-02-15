@@ -6,9 +6,16 @@
 import moment from 'moment';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
+export const handlePotentialStrings = (input) => {
+    if (typeof input === 'string') {
+        return parseInt(input, 10);
+    }
+    return input;
+};
+
 export const mostRecentQuarter = () => {
     // go back 45 days prior to today
-    const todayAdjusted = moment('02/15/2018', 'MM/DD/YYYY').subtract(FiscalYearHelper.quarterCloseWindow, 'days');
+    const todayAdjusted = moment().subtract(FiscalYearHelper.quarterCloseWindow, 'days');
     // determine the quarter that date was in
     let quarter = FiscalYearHelper.convertDateToQuarter(todayAdjusted);
     // use currentFiscalYear because we will perform the same logic (but in a more quarter-specific
@@ -29,23 +36,43 @@ export const mostRecentQuarter = () => {
     };
 };
 
-export const availableQuarters = () => {
+export const lastCompletedQuarterInFY = (fy) => {
+    // get the most recent available quarter and year
     const current = mostRecentQuarter();
-    console.log('current', current);
+    const sanitizedFY = handlePotentialStrings(fy);
+
+    if (sanitizedFY < current.year) {
+        // user wants a previous year's quarters
+        // since we are no longer on that year, it must be completed
+        return 4;
+    }
+    // otherwise, return the current year's quarter
+    return current.quarter;
+};
+
+export const availableQuartersInFY = (fy) => {
+    const sanitizedFY = handlePotentialStrings(fy);
+    // get the most recent available quarter and year
+    const lastQuarter = lastCompletedQuarterInFY(sanitizedFY);
+
     const available = [];
     let firstQuarter = 1;
-    if (current.year === FiscalYearHelper.earliestExplorerYear) {
+    if (sanitizedFY === FiscalYearHelper.earliestExplorerYear) {
         // in the first spending explorer year, the first quarter is not available
         firstQuarter = 2;
     }
 
-    for (let i = firstQuarter; i <= current.quarter; i++) {
+    for (let i = firstQuarter; i <= lastQuarter; i++) {
         available.push(i);
     }
 
     return {
         quarters: available,
-        year: current.year
+        year: sanitizedFY
     };
 };
 
+export const defaultQuarters = () => {
+    const current = mostRecentQuarter();
+    return availableQuartersInFY(current.year);
+};

@@ -12,7 +12,9 @@ const propTypes = {
     disabled: PropTypes.bool,
     active: PropTypes.bool,
     quarter: PropTypes.number,
-    hoveredQuarter: PropTypes.func
+    hoveredQuarter: PropTypes.func,
+    endHover: PropTypes.func,
+    pickedQuarter: PropTypes.func
 };
 
 const QuarterButton = (props) => {
@@ -21,7 +23,7 @@ const QuarterButton = (props) => {
     };
 
     const clickedQuarter = () => {
-
+        props.pickedQuarter(props.quarter);
     };
 
     let additionalClasses = '';
@@ -42,6 +44,8 @@ const QuarterButton = (props) => {
             disabled={props.disabled}
             onMouseOver={hoveredQuarter}
             onFocus={hoveredQuarter}
+            onMouseLeave={props.endHover}
+            onBlur={props.endHover}
             onClick={clickedQuarter}>
             Q{props.quarter}
         </button>

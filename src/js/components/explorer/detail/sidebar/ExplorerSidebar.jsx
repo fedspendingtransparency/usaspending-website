@@ -7,14 +7,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Home } from 'components/sharedComponents/icons/Icons';
+import { lastCompletedQuarterInFY } from 'containers/explorer/detail/helpers/explorerQuarters';
 
 import VerticalTrail from './VerticalTrail';
 import QuarterPicker from './QuarterPicker';
 
 const propTypes = {
     fy: PropTypes.string,
+    quarter: PropTypes.string,
     trail: PropTypes.object,
-    setExplorerYear: PropTypes.func,
+    setExplorerPeriod: PropTypes.func,
     rewindToFilter: PropTypes.func
 };
 
@@ -28,6 +30,7 @@ export default class ExplorerSidebar extends React.Component {
 
         this.toggleFYMenu = this.toggleFYMenu.bind(this);
         this.pickedYear = this.pickedYear.bind(this);
+        this.pickedQuarter = this.pickedQuarter.bind(this);
     }
 
     toggleFYMenu() {
@@ -36,10 +39,31 @@ export default class ExplorerSidebar extends React.Component {
         });
     }
 
-    pickedYear(year) {
-        this.props.setExplorerYear(year);
+    pickedYear(input) {
+        let year = input;
+        if (typeof year !== 'string') {
+            year = `${input}`;
+        }
+
+        const lastQuarter = lastCompletedQuarterInFY(parseInt(year, 10));
+
+        this.props.setExplorerPeriod({
+            fy: year,
+            quarter: `${lastQuarter}`
+        });
         this.setState({
             showFYMenu: false
+        });
+    }
+
+    pickedQuarter(input) {
+        let quarter = input;
+        if (typeof input !== 'string') {
+            quarter = `${input}`;
+        }
+        this.props.setExplorerPeriod({
+            quarter,
+            fy: this.props.fy
         });
     }
 
@@ -63,7 +87,9 @@ export default class ExplorerSidebar extends React.Component {
 
                 <QuarterPicker
                     fy={this.props.fy}
-                    quarter={1} />
+                    quarter={this.props.quarter}
+                    pickedQuarter={this.pickedQuarter}
+                    pickedYear={this.pickedYear} />
 
                 <VerticalTrail
                     trail={this.props.trail.toArray()}

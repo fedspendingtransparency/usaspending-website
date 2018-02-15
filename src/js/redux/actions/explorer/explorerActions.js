@@ -8,9 +8,10 @@ export const setExplorerRoot = (state) => ({
     root: state
 });
 
-export const setExplorerYear = (state) => ({
-    type: 'SET_EXPLORER_FY',
-    fy: state
+export const setExplorerPeriod = (state) => ({
+    type: 'SET_EXPLORER_PERIOD',
+    fy: state.fy,
+    quarter: state.quarter
 });
 
 export const setExplorerActive = (state) => ({

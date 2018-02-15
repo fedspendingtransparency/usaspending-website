@@ -55,22 +55,33 @@
         position: absolute;
         left: rem(55);
         right: 0;
-
-        background-color: #272F38;
         border: 1px solid #616669;
+        background-color: $color-gray-dark;
 
         &.fy-picker__list_hidden {
             display: none;
         }
 
+        .fy-picker__list-item {
+            border-top: 1px solid #616669;
+
+            &:first-child {
+                border-top: none;
+            }
+        }
+
         .fy-picker__item {
             @include button-unstyled;
             color: $color-white;
-            font-size: rem(16);
+            font-size: rem(18);
+            text-align: center;
 
             padding: rem(10) rem(15);
-
             width: 100%;
+
+            &:hover, &:active {
+                background-color: #272F38;
+            }
         }
     }
 }
