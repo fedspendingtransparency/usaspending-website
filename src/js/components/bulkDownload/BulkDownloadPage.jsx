@@ -7,8 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { downloadPageMetaTags } from 'helpers/metaTagHelper';
-import { downloadOptions } from 'dataMapping/navigation/menuOptions';
-import Router from 'containers/router/Router';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
@@ -22,10 +20,10 @@ import BulkDownloadModalContainer from
 import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
 
 const propTypes = {
-    setDataType: PropTypes.func,
     dataType: PropTypes.string,
     bulkDownload: PropTypes.object,
-    startDownload: PropTypes.func
+    startDownload: PropTypes.func,
+    dataTypes: PropTypes.array
 };
 
 export default class BulkDownloadPage extends React.Component {
@@ -36,7 +34,6 @@ export default class BulkDownloadPage extends React.Component {
             showModal: false
         };
 
-        this.changeDataType = this.changeDataType.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.showModal = this.showModal.bind(this);
         this.clickedDownload = this.clickedDownload.bind(this);
@@ -48,11 +45,6 @@ export default class BulkDownloadPage extends React.Component {
             && !nextProps.bulkDownload.download.showCollapsedProgress) {
             this.hideModal();
         }
-    }
-
-    changeDataType(dataType) {
-        this.props.setDataType(dataType);
-        Router.history.replace('/bulk_download');
     }
 
     hideModal() {
@@ -98,8 +90,7 @@ export default class BulkDownloadPage extends React.Component {
                     <div className="bulk-download-content">
                         <div className="download-sidebar">
                             <BulkDownloadSidebar
-                                dataTypes={downloadOptions}
-                                changeDataType={this.changeDataType}
+                                dataTypes={this.props.dataTypes}
                                 active={this.props.dataType} />
                             <div className="api-info">
                                 <h5>Interested in our API?</h5>

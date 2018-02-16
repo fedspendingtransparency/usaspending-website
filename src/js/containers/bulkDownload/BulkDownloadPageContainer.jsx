@@ -13,6 +13,7 @@ import Router from 'containers/router/Router';
 
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
+import { downloadOptions } from 'dataMapping/navigation/menuOptions';
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import BulkDownloadPage from 'components/bulkDownload/BulkDownloadPage';
 
@@ -48,18 +49,22 @@ export class BulkDownloadPageContainer extends React.Component {
         }
     }
 
-    validateDataType(type) {
-        if (!type) {
-            // Show the default award content
-            this.props.setDataType('awards');
-        }
-        else if (type === 'award_data_archive') {
-            // Show the award data archive content
-            this.props.setDataType(type);
+    validateDataType(typeUrl) {
+        if (typeUrl) {
+            const dataType = downloadOptions.find((type) => type.url === `#/download_center/${typeUrl}`);
+
+            if (dataType) {
+                this.props.setDataType(dataType.type);
+            }
+
+            else {
+                // Invalid url, go to the error page
+                Router.history.replace('/error');
+            }
         }
         else {
-            // Invalid url, go to the error page
-            Router.history.replace('/error');
+            // If no type param is specified, default to award data
+            Router.history.replace('download_center/custom_award_data');
         }
     }
 
@@ -151,9 +156,9 @@ export class BulkDownloadPageContainer extends React.Component {
         return (
             <BulkDownloadPage
                 bulkDownload={this.props.bulkDownload}
-                setDataType={this.props.setDataType}
                 dataType={this.props.bulkDownload.dataType}
-                startDownload={this.startAwardDownload} />
+                startDownload={this.startAwardDownload}
+                dataTypes={downloadOptions} />
         );
     }
 }
