@@ -64,7 +64,7 @@ export class BulkDownloadPageContainer extends React.Component {
         }
         else {
             // If no type param is specified, default to award data
-            Router.history.replace('download_center/custom_award_data');
+            Router.history.replace('/download_center/custom_award_data');
         }
     }
 
