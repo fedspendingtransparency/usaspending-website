@@ -40,7 +40,7 @@ export const downloadOptions = [
     {
         label: 'Award Data Archive',
         type: 'award_data_archive',
-        url: '#/bulk_download/award_data_archive',
+        url: '#/download_center/award_data_archive',
         code: 'archive',
         description: 'The quickest way to grab award data. Pre-generated award files for each major agency (by fiscal year) save on download time.',
         callToAction: 'Grab Award Files',
@@ -50,7 +50,7 @@ export const downloadOptions = [
     {
         label: 'Custom Award Data',
         type: 'awards',
-        url: '#/bulk_download',
+        url: '#/download_center/custom_award_data',
         code: 'award',
         description: 'The best way to grab detailed slices of award data. Specify the agency, timeframe, award type, award level, and more.',
         callToAction: 'Download Award Data',
@@ -60,7 +60,7 @@ export const downloadOptions = [
     {
         label: 'Custom Account Data',
         type: 'accounts',
-        url: '#/bulk_download/account',
+        url: '#/download_center/custom_account_data',
         code: 'account',
         description: 'The best way to grab detailed subsets of account data, which offer a broad view of how the government allocates funding from top to bottom.',
         callToAction: 'Download Account Data',
