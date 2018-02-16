@@ -24,11 +24,40 @@ export default class FYPicker extends React.Component {
 
         this.toggleList = this.toggleList.bind(this);
         this.clickedYear = this.clickedYear.bind(this);
+        this.closeMenu = this.closeMenu.bind(this);
+    }
+
+    componentWillUnmount() {
+        // remove the event listener
+        document.removeEventListener('click', this.closeMenu);
+    }
+
+    closeMenu(e) {
+        if (this.pickerRef && this.pickerRef.contains(e.target)) {
+            // user clicked inside the dropdown, don't auto-close because it is the user interacting
+            // with the dropdown
+            return;
+        }
+        this.setState({
+            expanded: false
+        }, () => {
+            // remove the event listener
+            document.removeEventListener('click', this.closeMenu);
+        });
     }
 
     toggleList() {
         this.setState({
             expanded: !this.state.expanded
+        }, () => {
+            if (this.state.expanded) {
+                // subscribe to click events on the page to auto-close the menu
+                document.addEventListener('click', this.closeMenu);
+            }
+            else {
+                // remove the event listener
+                document.removeEventListener('click', this.closeMenu);
+            }
         });
     }
 
@@ -66,7 +95,11 @@ export default class FYPicker extends React.Component {
         }
 
         return (
-            <div className="fy-picker">
+            <div
+                className="fy-picker"
+                ref={(div) => {
+                    this.pickerRef = div;
+                }}>
                 <div className="fy-picker__header">
                     <div className="fy-picker__icon">
                         <Calendar alt="Fiscal Year" />
