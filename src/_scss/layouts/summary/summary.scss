@@ -1,5 +1,6 @@
 @import "../default/default";
-#main-content {
+
+.main-content {
     @include outer-container(100%);
     padding: 0;
     background-color: $color-white;

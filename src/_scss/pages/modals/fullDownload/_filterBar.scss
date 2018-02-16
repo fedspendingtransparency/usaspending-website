@@ -5,6 +5,15 @@
 
     .search-top-filter-header {
         margin-bottom: rem(10);
+        @include clearfix;
+        .header-title {
+            float: left;
+            font-weight: 600;
+            font-size: rem(14);
+            line-height: rem(18);
+            color: #525252;
+            margin: 0;
+        }
     }
 
     .search-top-filters-content {

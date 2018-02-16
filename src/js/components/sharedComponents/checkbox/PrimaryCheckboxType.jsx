@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 import { uniqueId } from 'lodash';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import SecondaryCheckboxType from './SecondaryCheckboxType';
 import CollapsedCheckboxType from './CollapsedCheckboxType';
 import SingleCheckboxType from './SingleCheckboxType';
@@ -34,20 +36,18 @@ const defaultProps = {
     enableAnalytics: false
 };
 
-const ga = require('react-ga');
-
 export default class PrimaryCheckboxType extends React.Component {
     static logPrimaryTypeFilterEvent(type, filter) {
-        ga.event({
-            category: 'Search Page Filter Applied',
+        Analytics.event({
+            category: 'Search Filter Interaction',
             action: `Selected ${filter} Type`,
             label: type
         });
     }
 
     static logDeselectFilterEvent(type, filter) {
-        ga.event({
-            category: 'Search Page Filter Applied',
+        Analytics.event({
+            category: 'Search Filter Interaction',
             action: `Deselected ${filter} Type Children`,
             label: type
         });

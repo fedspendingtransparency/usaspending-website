@@ -91,35 +91,6 @@ describe('TopFilterBarContainer', () => {
             expect(topBarContainer.instance().prepareFilters).toHaveBeenCalledTimes(1);
         });
 
-        it('should update component state with Redux keyword filter when available', () => {
-            // mount the container with default props
-            const topBarContainer = setup({
-                reduxFilters: Object.assign({}, stateWithoutDefault),
-                updateFilterCount: jest.fn()
-            });
-
-            expect(topBarContainer.state().filters).toHaveLength(0);
-
-            const keywordFilter = Object.assign({}, stateWithoutDefault, {
-                keyword: 'Education'
-            });
-
-            topBarContainer.setProps({
-                reduxFilters: keywordFilter
-            });
-
-            expect(topBarContainer.state().filters).toHaveLength(1);
-
-            const filterItem = topBarContainer.state().filters[0];
-            const expectedFilterState = {
-                code: 'keyword',
-                name: 'Keyword',
-                values: 'Education'
-            };
-
-            expect(filterItem).toEqual(expectedFilterState);
-        });
-
         it('should update component state with Redux time filters when available', () => {
             // mount the container with default props
             const topBarContainer = setup(defaultProps);

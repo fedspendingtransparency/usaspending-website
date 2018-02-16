@@ -38,7 +38,7 @@ describe('ResultsTableContainer', () => {
 
         // update the filters
         const newFilters = Object.assign({}, mockRedux.filters, {
-            keyword: 'blah blah'
+            timePeriodFY: new Set(['1987'])
         });
         container.setProps({
             filters: newFilters

@@ -92,17 +92,22 @@ export const awardDownloadOptions = {
                 endDate: moment().format('YYYY-MM-DD')
             },
             {
-                label: 'last 30 days',
-                startDate: moment().subtract(30, 'day').format('YYYY-MM-DD'),
+                label: 'last 15 days',
+                startDate: moment().subtract(15, 'day').format('YYYY-MM-DD'),
                 endDate: moment().format('YYYY-MM-DD')
             },
             {
-                label: 'this month',
-                startDate: moment().startOf('month').format('YYYY-MM-DD'),
+                label: 'last 30 days',
+                startDate: moment().subtract(30, 'day').format('YYYY-MM-DD'),
                 endDate: moment().format('YYYY-MM-DD')
             }
         ],
         column4: [
+            {
+                label: 'this month',
+                startDate: moment().startOf('month').format('YYYY-MM-DD'),
+                endDate: moment().format('YYYY-MM-DD')
+            },
             {
                 label: 'last 3 months',
                 startDate: moment().subtract(3, 'month').format('YYYY-MM-DD'),
@@ -122,11 +127,6 @@ export const awardDownloadOptions = {
                 label: 'last year',
                 startDate: moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
                 endDate: moment().subtract(1, 'year').endOf('year').format('YYYY-MM-DD')
-            },
-            {
-                label: 'all time',
-                startDate: '',
-                endDate: moment().format('YYYY-MM-DD')
             }
         ]
     }

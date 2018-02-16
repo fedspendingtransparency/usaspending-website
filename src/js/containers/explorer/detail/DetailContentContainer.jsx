@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { List } from 'immutable';
 
+import Analytics from 'helpers/analytics/Analytics';
 import Router from 'containers/router/Router';
 
 import { dropdownScopes } from 'dataMapping/explorer/dropdownScopes';
@@ -84,6 +85,12 @@ export class DetailContentContainer extends React.Component {
             filters: resetFilters
         }, () => {
             this.loadData(request, true);
+        });
+
+        // log the analytics event for a Spending Explorer starting point
+        Analytics.event({
+            category: 'Spending Explorer - Starting Point',
+            action: rootType
         });
     }
 
@@ -239,6 +246,11 @@ export class DetailContentContainer extends React.Component {
                 transition: ''
             });
         }
+
+        Analytics.event({
+            category: 'Spending Explorer - Data Type',
+            action: request.subdivision
+        });
     }
 
     goDeeper(id, data) {
@@ -254,6 +266,11 @@ export class DetailContentContainer extends React.Component {
         if (filterBy === 'award') {
             // we are at the bottom of the path, go to the award page
             Router.history.push(`/award/${id}`);
+
+            Analytics.event({
+                category: 'Spending Explorer - Exit',
+                action: `/award/${id}`
+            });
             return;
         }
 
@@ -311,6 +328,12 @@ export class DetailContentContainer extends React.Component {
             filters: Object.assign({}, this.state.filters, newFilter)
         }, () => {
             this.loadData(request, false);
+        });
+
+        Analytics.event({
+            category: 'Spending Explorer - Drilldown',
+            action: filterBy,
+            label: `${data.name} - ${data.id}`
         });
     }
 

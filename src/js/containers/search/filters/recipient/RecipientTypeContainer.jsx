@@ -24,17 +24,7 @@ const propTypes = {
     appliedType: PropTypes.object
 };
 
-const ga = require('react-ga');
-
 export class RecipientTypeContainer extends React.Component {
-    static logLocationFilterEvent(placeType, place, event) {
-        ga.event({
-            category: 'Search Page Filter Applied',
-            action: `${event} Recipient ${placeType.toLowerCase()} Filter`,
-            label: place.toLowerCase()
-        });
-    }
-
     constructor(props) {
         super(props);
 

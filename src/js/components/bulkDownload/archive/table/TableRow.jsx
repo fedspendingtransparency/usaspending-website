@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
     columns: PropTypes.array.isRequired,
@@ -13,6 +14,19 @@ const propTypes = {
 };
 
 export default class TableRow extends React.PureComponent {
+    constructor(props) {
+        super(props);
+
+        this.logArchiveDownload = this.logArchiveDownload.bind(this);
+    }
+
+    logArchiveDownload() {
+        Analytics.event({
+            category: 'Download Center - Archive Download',
+            action: this.props.file.fileName
+        });
+    }
+
     render() {
         let rowClass = 'row-even';
         if (this.props.rowIndex % 2 === 0) {
@@ -28,7 +42,8 @@ export default class TableRow extends React.PureComponent {
                         <a
                             href={this.props.file.url}
                             target="_blank"
-                            rel="noopener noreferrer">
+                            rel="noopener noreferrer"
+                            onClick={this.logArchiveDownload}>
                             {this.props.file.fileName}
                         </a>
                     </td>

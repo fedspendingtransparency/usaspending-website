@@ -1,7 +1,6 @@
 export const awardFields = {
     startDate: 'period_of_performance_start_date',
     endDate: 'period_of_performance_current_end_date',
-    keyword: 'description',
     locationScope: 'place_of_performance__location_country_code',
     location: 'place_of_performance__location_id',
     awardType: 'type',
@@ -48,7 +47,6 @@ export const tasCategoriesFields = {
 
 export const transactionFields = {
     date: 'action_date',
-    keyword: 'description',
     locationScope: 'place_of_performance__location_country_code',
     location: 'place_of_performance__location_id',
     fundingAgencyCGAC: 'award__financial_set__treasury_account__agency_id',
@@ -83,7 +81,6 @@ export const transactionFields = {
 export const accountAwardsFields = {
     startDate: 'award__period_of_performance_start_date',
     endDate: 'award__period_of_performance_current_end_date',
-    keyword: 'award__description',
     locationScope: 'award__place_of_performance__location_country_code',
     location: 'award__place_of_performance__location_id',
     awardType: 'award__type',

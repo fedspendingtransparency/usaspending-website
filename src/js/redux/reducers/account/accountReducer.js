@@ -32,14 +32,13 @@ export const initialState = {
         title: '',
         description: '',
         totals: {
-            obligated: {},
-            unobligated: {},
-            budgetAuthority: {},
-            outlay: {},
-            balanceBroughtForward1: {},
-            balanceBroughtForward2: {},
-            otherBudgetaryResources: {},
-            appropriations: {}
+            obligated: 0,
+            unobligated: 0,
+            budgetAuthority: 0,
+            outlay: 0,
+            balanceBroughtForward: 0,
+            otherBudgetaryResources: 0,
+            appropriations: 0
         }
     },
     totalSpending: 0

@@ -13,7 +13,8 @@ const propTypes = {
     active: PropTypes.string,
     pageName: PropTypes.string,
     sections: PropTypes.array,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    stickyHeaderHeight: PropTypes.number
 };
 
 export default class Sidebar extends React.Component {
@@ -52,7 +53,8 @@ export default class Sidebar extends React.Component {
 
         const width = targetElement.offsetWidth;
         // also measure the Y position at which to float the sidebar
-        const floatPoint = targetElement.offsetTop - 30;
+        // Subtract the height of the absolutely-positioned sticky header
+        const floatPoint = targetElement.offsetTop - 30 - this.props.stickyHeaderHeight;
 
         this.setState({
             floatPoint,
@@ -72,7 +74,6 @@ export default class Sidebar extends React.Component {
             // the DOM element is missing!
             return;
         }
-
 
         let shouldFloat = false;
         const yPos = window.scrollY || window.pageYOffset;

@@ -19,17 +19,7 @@ const propTypes = {
     updateSelectedCFDA: PropTypes.func
 };
 
-const ga = require('react-ga');
-
 export class CFDASearchContainer extends React.Component {
-    static logCFDAFilterEvent(place) {
-        ga.event({
-            category: 'Search Page Filter Applied',
-            action: `Applied CFDA Filter`,
-            label: place.toLowerCase()
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -44,9 +34,6 @@ export class CFDASearchContainer extends React.Component {
             const updateParams = {};
             updateParams.cfda = cfda;
             this.props.updateSelectedCFDA(updateParams);
-
-            // Analytics
-            CFDASearchContainer.logCFDAFilterEvent(cfda.program_number);
         }
     }
 

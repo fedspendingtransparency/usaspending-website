@@ -10,6 +10,9 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
+import Analytics from 'helpers/analytics/Analytics';
+import { uniqueFilterFields } from 'containers/search/helpers/searchAnalytics';
+
 import * as downloadActions from 'redux/actions/search/downloadActions';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
@@ -125,6 +128,14 @@ export class DownloadBottomBarContainer extends React.Component {
                     }
                 }
             });
+
+        // send an analytic event of action download type and label value with all the filter
+        // field names
+        Analytics.event({
+            category: 'Advanced Search - Download',
+            action: this.props.download.type,
+            label: uniqueFilterFields(filters)
+        });
     }
 
     checkStatus() {

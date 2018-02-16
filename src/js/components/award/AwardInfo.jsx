@@ -56,7 +56,17 @@ export default class AwardInfo extends React.Component {
                 <AwardContract
                     {...this.props}
                     selectedAward={this.props.selectedAward}
-                    seeAdditional={this.seeAdditional} />
+                    seeAdditional={this.seeAdditional}
+                    type="contract" />
+            );
+        }
+        else if (type === 'unknown') {
+            amountsDetailsSection = (
+                <AwardContract
+                    {...this.props}
+                    selectedAward={this.props.selectedAward}
+                    seeAdditional={this.seeAdditional}
+                    type="idv" />
             );
         }
         else {
@@ -73,7 +83,9 @@ export default class AwardInfo extends React.Component {
                 <SummaryBar
                     {...this.props}
                     selectedAward={this.props.selectedAward} />
-                <main id="main-content" className="main-content">
+                <main
+                    id="main-content"
+                    className="main-content">
                     <AwardInfoBar
                         {...this.props}
                         selectedAward={this.props.selectedAward} />

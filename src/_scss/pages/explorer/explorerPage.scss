@@ -1,7 +1,7 @@
 .usa-da-explorer-page {
     @import "all";
     @import "layouts/default/default";
-    @import "components/pageTitleBar/pageTitleBar";
+    @import "layouts/default/stickyHeader/header";
 
     .main-content {
         @import "./landing/explorerLanding";

@@ -19,17 +19,7 @@ const propTypes = {
     appliedRecipients: PropTypes.object
 };
 
-const ga = require('react-ga');
-
 export class RecipientSearchContainer extends React.Component {
-    static logRecipientFilterEvent(name) {
-        ga.event({
-            category: 'Search Page Filter Applied',
-            action: 'Applied Recipient Name/DUNS Filter',
-            label: name.toLowerCase()
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -39,9 +29,6 @@ export class RecipientSearchContainer extends React.Component {
 
     toggleRecipient(recipient) {
         this.props.updateSelectedRecipients(recipient);
-
-        // Analytics
-        RecipientSearchContainer.logRecipientFilterEvent(recipient);
     }
 
     dirtyFilters() {

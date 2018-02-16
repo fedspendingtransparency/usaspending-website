@@ -7,6 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { startCase, toLower, includes } from 'lodash';
+
+import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
@@ -42,7 +44,15 @@ export default class SummaryBar extends React.Component {
         const awardEnd = moment(award.period_of_performance_current_end_date, 'MM-DD-YYYY');
         const current = moment();
         let progress = "";
-        const awardType = startCase(toLower(SummaryPageHelper.awardType(award.award_type)));
+
+        let awardType = startCase(toLower(SummaryPageHelper.awardType(award.award_type)));
+        let isIDV = false;
+        if (award.award_type === "" && award.latest_transaction.contract_data.idv_type !== null) {
+            // Award is an IDV - use "Contract"
+            awardType = "Contract";
+            isIDV = true;
+        }
+
         let parentId = null;
 
         if (current.isSameOrBefore(awardStart, 'day')) {
@@ -54,7 +64,7 @@ export default class SummaryBar extends React.Component {
         else {
             progress = "In Progress";
         }
-        if (includes(awardTypeGroups.contracts, award.award_type)) {
+        if (includes(awardTypeGroups.contracts, award.award_type) || isIDV) {
             if (award.parent_award_id) {
                 parentId = award.parent_award_id;
             }
@@ -78,12 +88,15 @@ export default class SummaryBar extends React.Component {
                     label="Parent Award ID"
                     value={this.state.parent} />);
         }
+
         return (
-            <div className="page-title-bar">
-                <div className="page-title-bar-wrap">
-                    <h1 className="page-title">
-                        {this.state.type}&nbsp;Profile
+            <StickyHeader>
+                <div className="sticky-header__title">
+                    <h1 tabIndex={-1} id="main-focus">
+                        {this.state.type}&nbsp;Summary
                     </h1>
+                </div>
+                <div className="sticky-header__options">
                     <div className="summary-status">
                         <ul className="summary-status-items">
                             <InfoSnippet
@@ -93,7 +106,7 @@ export default class SummaryBar extends React.Component {
                         </ul>
                     </div>
                 </div>
-            </div>
+            </StickyHeader>
         );
     }
 }

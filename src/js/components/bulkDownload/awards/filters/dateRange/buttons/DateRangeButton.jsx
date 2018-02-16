@@ -24,8 +24,8 @@ export default class DateRangeButton extends React.Component {
     onClick(e) {
         e.preventDefault();
 
-        this.props.handleDateChange(this.props.startDate, 'startDate');
-        this.props.handleDateChange(this.props.endDate, 'endDate');
+        this.props.handleDateChange(this.props.startDate, 'startDateBulk');
+        this.props.handleDateChange(this.props.endDate, 'endDateBulk');
     }
 
     render() {

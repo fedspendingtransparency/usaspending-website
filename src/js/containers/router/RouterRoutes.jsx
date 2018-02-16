@@ -93,6 +93,15 @@ const routes = {
             }
         },
         {
+            path: '/db_info',
+            parent: '/db_info',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/about/DBInfo').default);
+                });
+            }
+        },
+        {
             path: '/style',
             parent: '/style',
             component: (cb) => {
@@ -131,9 +140,29 @@ const routes = {
         {
             path: '/keyword_search',
             parent: '/keyword_search',
+            silentlyUpdate: true,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('containers/keyword/KeywordContainer').default);
+                });
+            }
+        },
+        {
+            path: '/keyword_search/:keyword',
+            parent: '/keyword_search',
+            silentlyUpdate: true,
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/keyword/KeywordContainer').default);
+                });
+            }
+        },
+        {
+            path: '/federal_account',
+            parent: '/federal_account',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/accountLanding/AccountLandingPage').default);
                 });
             }
         }

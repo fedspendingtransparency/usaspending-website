@@ -21,8 +21,8 @@ const propTypes = {
 export default class AgencyLandingContent extends React.Component {
     render() {
         return (
-            <div className="landing-page-content">
-                <div className="landing-page-overview">
+            <div className="landing-page">
+                <div className="landing-page__overview">
                     <h3>Find an Agency Profile.</h3>
                     <h6>Understand the current spending of agencies in our agency profiles.</h6>
                     <p>These include the 15 executive departments whose leaders sit on the
@@ -30,20 +30,16 @@ export default class AgencyLandingContent extends React.Component {
                         commissions. They range in size from $700 billion down to less than $200,000.
                     </p>
                 </div>
-                <div className="landing-page-section">
-                    <AgencyLandingSearchBar
-                        setAgencySearchString={this.props.setAgencySearchString} />
-                </div>
-                <div className="landing-page-section results-count">
+                <AgencyLandingSearchBar
+                    setAgencySearchString={this.props.setAgencySearchString} />
+                <div className="results-count">
                     {this.props.resultsText}
                 </div>
-                <div className="landing-page-section">
-                    <AgencyLandingResultsSection
-                        columns={this.props.columns}
-                        results={this.props.results}
-                        inFlight={this.props.inFlight}
-                        agencySearchString={this.props.agencySearchString} />
-                </div>
+                <AgencyLandingResultsSection
+                    columns={this.props.columns}
+                    results={this.props.results}
+                    inFlight={this.props.inFlight}
+                    agencySearchString={this.props.agencySearchString} />
             </div>
         );
     }
