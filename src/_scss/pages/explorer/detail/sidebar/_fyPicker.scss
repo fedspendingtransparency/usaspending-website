@@ -55,15 +55,15 @@
         position: absolute;
         left: rem(55);
         right: 0;
-        border: 1px solid #616669;
-        background-color: $color-gray-dark;
+        border: 1px solid #464B53;
+        background-color: #272F38;
 
         &.fy-picker__list_hidden {
             display: none;
         }
 
         .fy-picker__list-item {
-            border-top: 1px solid #616669;
+            border-top: 1px solid #464B53;
 
             &:first-child {
                 border-top: none;
@@ -80,7 +80,7 @@
             width: 100%;
 
             &:hover, &:active {
-                background-color: #272F38;
+                background-color: #222629;
             }
         }
     }
