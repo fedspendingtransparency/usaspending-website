@@ -48,6 +48,9 @@ export const mockSubAgencies = [
 ];
 
 export const mockRedux = {
+    params: {
+        type: ''
+    },
     bulkDownload: {
         dataType: 'awards',
         awards: {

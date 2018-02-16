@@ -12,7 +12,6 @@ const propTypes = {
     label: PropTypes.string,
     active: PropTypes.string,
     url: PropTypes.string,
-    changeDataType: PropTypes.func,
     newTab: PropTypes.bool,
     disabled: PropTypes.bool
 };
@@ -21,12 +20,7 @@ export default class SidebarButton extends React.Component {
     constructor(props) {
         super(props);
 
-        this.clickedButton = this.clickedButton.bind(this);
         this.logExternalLink = this.logExternalLink.bind(this);
-    }
-
-    clickedButton() {
-        this.props.changeDataType(this.props.type);
     }
 
     logExternalLink() {
@@ -48,10 +42,10 @@ export default class SidebarButton extends React.Component {
         }
 
         let button = (
-            <button
-                onClick={this.clickedButton}>
+            <a
+                href={this.props.url}>
                 {this.props.label}
-            </button>
+            </a>
         );
         if (this.props.disabled) {
             button = (
