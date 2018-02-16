@@ -39,17 +39,12 @@ export default class ExplorerSidebar extends React.Component {
         });
     }
 
-    pickedYear(input) {
-        let year = input;
-        if (typeof year !== 'string') {
-            year = `${input}`;
-        }
-
-        const lastQuarter = lastCompletedQuarterInFY(parseInt(year, 10));
+    pickedYear(year) {
+        const lastQuarter = lastCompletedQuarterInFY(year);
 
         this.props.setExplorerPeriod({
-            fy: year,
-            quarter: `${lastQuarter}`
+            fy: `${lastQuarter.year}`,
+            quarter: `${lastQuarter.quarter}`
         });
         this.setState({
             showFYMenu: false

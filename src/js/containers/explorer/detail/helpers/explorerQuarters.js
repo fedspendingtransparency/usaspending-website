@@ -44,16 +44,27 @@ export const lastCompletedQuarterInFY = (fy) => {
     if (sanitizedFY < current.year) {
         // user wants a previous year's quarters
         // since we are no longer on that year, it must be completed
-        return 4;
+        return {
+            quarter: 4,
+            year: sanitizedFY
+        };
     }
+
     // otherwise, return the current year's quarter
-    return current.quarter;
+    return current;
 };
 
 export const availableQuartersInFY = (fy) => {
     const sanitizedFY = handlePotentialStrings(fy);
     // get the most recent available quarter and year
     const lastQuarter = lastCompletedQuarterInFY(sanitizedFY);
+    if (lastQuarter.year > sanitizedFY) {
+        // FY is in the future
+        return {
+            quarters: [],
+            year: sanitizedFY
+        };
+    }
 
     const available = [];
     let firstQuarter = 1;
@@ -62,13 +73,15 @@ export const availableQuartersInFY = (fy) => {
         firstQuarter = 2;
     }
 
-    for (let i = firstQuarter; i <= lastQuarter; i++) {
-        available.push(i);
+    for (let i = firstQuarter; i <= lastQuarter.quarter; i++) {
+        if (sanitizedFY >= FiscalYearHelper.earliestExplorerYear) {
+            available.push(i);
+        }
     }
 
     return {
         quarters: available,
-        year: sanitizedFY
+        year: lastQuarter.year
     };
 };
 
