@@ -8,12 +8,12 @@ import { mount, shallow } from 'enzyme';
 import { List } from 'immutable';
 import sinon from 'sinon';
 
-// mock the explorer helper
-jest.mock('helpers/explorerHelper', () => require('./mockExplorerHelper'));
-
 import { DetailContentContainer } from 'containers/explorer/detail/DetailContentContainer';
 import { mockApiResponse, mockReducerRoot, mockReducerChild,
     mockActions, mockLevelData, mockDeeperRoot, mockActiveScreen } from './mockData';
+
+// mock the explorer helper
+jest.mock('helpers/explorerHelper', () => require('./mockExplorerHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/explorer/detail/DetailContent', () => jest.fn(() => null));
@@ -23,7 +23,7 @@ jest.mock('components/explorer/detail/sidebar/ExplorerSidebar', () => jest.fn(()
 const loadDataSpy = sinon.spy(DetailContentContainer.prototype, 'loadData');
 
 describe('DetailContentContainer', () => {
-    describe('validateRoot', () => {
+    describe('componentDidUpdate', () => {
         it('should reload from root when the root prop changes', () => {
             const mockPrepareRoot = jest.fn();
 
@@ -33,13 +33,13 @@ describe('DetailContentContainer', () => {
             container.instance().prepareRootRequest = mockPrepareRoot;
 
             container.instance().componentDidUpdate({
-                explorer: {
+                explorer: Object.assign({}, mockReducerRoot, {
                     root: 'object_class'
-                }
+                })
             });
 
             expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
-            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984');
+            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '4');
         });
         it('should reload from root when the fy prop changes', () => {
             const mockPrepareRoot = jest.fn();
@@ -50,13 +50,30 @@ describe('DetailContentContainer', () => {
             container.instance().prepareRootRequest = mockPrepareRoot;
 
             container.instance().componentDidUpdate({
-                explorer: {
+                explorer: Object.assign({}, mockReducerRoot, {
                     fy: '1985'
-                }
+                })
             });
 
             expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
-            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984');
+            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '4');
+        });
+        it('should reload from root when the quarter prop changes', () => {
+            const mockPrepareRoot = jest.fn();
+
+            const container = shallow(<DetailContentContainer
+                {...mockActions}
+                explorer={mockReducerRoot} />);
+            container.instance().prepareRootRequest = mockPrepareRoot;
+
+            container.instance().componentDidUpdate({
+                explorer: Object.assign({}, mockReducerRoot, {
+                    quarter: '5'
+                })
+            });
+
+            expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
+            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '4');
         });
     });
     it('should make an API call on mount', async () => {
@@ -69,6 +86,37 @@ describe('DetailContentContainer', () => {
         expect(loadDataSpy.callCount).toEqual(1);
 
         loadDataSpy.reset();
+    });
+    describe('prepareRootRequest', () => {
+        it('should create a filterset that consists of the provided fiscal year and quarter', () => {
+            const container = shallow(
+                <DetailContentContainer
+                    {...mockActions}
+                    explorer={mockReducerRoot} />
+            );
+
+            container.instance().loadData = jest.fn();
+
+            container.instance().prepareRootRequest('agency', '1984', '4');
+            expect(container.state().filters.fy).toEqual('1984');
+            expect(container.state().filters.quarter).toEqual('4');
+        });
+        it('should make a root-level API call with the provided subdivision type', () => {
+            const container = shallow(
+                <DetailContentContainer
+                    {...mockActions}
+                    explorer={mockReducerRoot} />
+            );
+
+            container.instance().loadData = jest.fn();
+
+            container.instance().prepareRootRequest('agency', '1984', '4');
+            expect(container.instance().loadData).toHaveBeenCalledTimes(1);
+            expect(container.instance().loadData).toHaveBeenCalledWith({
+                within: 'root',
+                subdivision: 'agency'
+            }, true);
+        });
     });
     describe('parseRootData', () => {
         it('should build the root object and update the trail', () => {
@@ -130,29 +178,27 @@ describe('DetailContentContainer', () => {
             const container = shallow(<DetailContentContainer
                 {...mockActions}
                 explorer={mockDeeperRoot} />);
+            container.instance().loadData = jest.fn();
 
             container.setState({
                 inFlight: false
             });
             container.instance().goDeeper('2', mockLevelData);
 
-            expect(loadDataSpy.callCount).toEqual(0);
-            loadDataSpy.reset();
+            expect(container.instance().loadData).toHaveBeenCalledTimes(0);
         });
         it('should not call loadData when in flight', () => {
-            const mockLoadData = jest.fn();
             const container = shallow(<DetailContentContainer
                 {...mockActions}
                 explorer={mockDeeperRoot} />);
-            container.instance().loadData = mockLoadData;
+            container.instance().loadData = jest.fn();
 
             container.setState({
                 inFlight: true
             });
             container.instance().goDeeper('2', mockLevelData);
 
-            expect(loadDataSpy.callCount).toEqual(0);
-            loadDataSpy.reset();
+            expect(container.instance().loadData).toHaveBeenCalledTimes(0)
         });
     });
     describe('changeSubdivisionType', () => {

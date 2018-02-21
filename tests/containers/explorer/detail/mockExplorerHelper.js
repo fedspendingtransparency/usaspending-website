@@ -1,10 +1,10 @@
-import { mockApiReponse } from './mockData';
+import { mockApiResponse } from './mockData';
 
 export const fetchBreakdown = () => ({
     promise: new Promise((resolve) => {
         process.nextTick(() => {
             resolve({
-                data: mockApiReponse
+                data: mockApiResponse
             });
         });
     }),
