@@ -17,15 +17,18 @@
             }
         }
 
-        .fy-picker__button {
-            @include flex(1 1 auto);
+        .fy-picker__dropdown-container {
+            @include flex(0 1 auto);
             @include align-self(stretch);
+            position: relative;
+        }
+
+        .fy-picker__button {
             @include button-unstyled;
 
             @include display(flex);
             @include justify-content(center);
             @include align-items(center);
-            position: relative;
 
             border-bottom: 1px solid $color-white;
         }
@@ -53,7 +56,7 @@
         @include unstyled-list;
 
         position: absolute;
-        left: rem(55);
+        left: 0;
         right: 0;
         border: 1px solid #464B53;
         background-color: #272F38;

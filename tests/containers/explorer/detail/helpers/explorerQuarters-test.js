@@ -14,7 +14,7 @@ const mockDate = (date) => {
     const day = parseInt(date.substring(8));
     const mock = new Date(date.substring(0, 4), month, day);
     Date.now = () => mock;
-}
+};
 
 afterAll(() => {
     // restore the original, native date function

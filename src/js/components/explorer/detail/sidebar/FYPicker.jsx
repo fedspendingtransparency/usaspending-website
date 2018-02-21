@@ -104,20 +104,22 @@ export default class FYPicker extends React.Component {
                     <div className="fy-picker__icon">
                         <Calendar alt="Fiscal Year" />
                     </div>
-                    <button
-                        className="fy-picker__button"
-                        onClick={this.toggleList}>
-                        <div className="fy-picker__button-text">
-                            FY {this.props.fy}
-                        </div>
-                        <div className="fy-picker__button-icon">
-                            <AngleDown alt="Toggle menu" />
-                        </div>
-                    </button>
+                    <div className="fy-picker__dropdown-container">
+                        <button
+                            className="fy-picker__button"
+                            onClick={this.toggleList}>
+                            <div className="fy-picker__button-text">
+                                FY {this.props.fy}
+                            </div>
+                            <div className="fy-picker__button-icon">
+                                <AngleDown alt="Toggle menu" />
+                            </div>
+                        </button>
+                        <ul className={`fy-picker__list ${visibleClass}`}>
+                            {fy}
+                        </ul>
+                    </div>
                 </div>
-                <ul className={`fy-picker__list ${visibleClass}`}>
-                    {fy}
-                </ul>
             </div>
         );
     }
