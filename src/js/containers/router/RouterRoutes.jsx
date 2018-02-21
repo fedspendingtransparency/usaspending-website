@@ -93,6 +93,15 @@ const routes = {
             }
         },
         {
+            path: '/about/accessibility',
+            parent: '/about',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/about/legal/AccessibilityPage').default);
+                });
+            }
+        },
+        {
             path: '/db_info',
             parent: '/db_info',
             component: (cb) => {
