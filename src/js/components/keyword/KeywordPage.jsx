@@ -168,7 +168,7 @@ export default class KeywordPage extends React.Component {
                         {searchSummary}
                         <div className={`keyword-header__options no-hover ${this.props.keyword ? '' : 'no-hover'}`}>
                             <DownloadButton
-                                downloadAvailable={false}
+                                downloadAvailable={this.props.downloadAvailable}
                                 onClick={this.clickedDownload} />
                         </div>
                     </div>
