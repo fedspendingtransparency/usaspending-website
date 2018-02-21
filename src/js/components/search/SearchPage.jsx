@@ -147,7 +147,7 @@ export default class SearchPage extends React.Component {
                         <DownloadButton
                             downloadAvailable={this.props.downloadAvailable}
                             onClick={this.showModal}
-                            filterCount={this.state.filterCount} />
+                            disableHover={this.state.filterCount === 0} />
                     </div>
                 </StickyHeader>
                 <div id="main-content">
